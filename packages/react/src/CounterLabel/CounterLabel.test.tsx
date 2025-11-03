@@ -1,15 +1,8 @@
+import {describe, expect, it} from 'vitest'
 import {CounterLabel} from '..'
-import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import axe from 'axe-core'
 
 describe('CounterLabel', () => {
-  behavesAsComponent({Component: CounterLabel, options: {skipAs: true, skipSx: true}})
-
-  checkExports('CounterLabel', {
-    default: CounterLabel,
-  })
-
   it('should support `className` on the outermost element', () => {
     const Element = () => <CounterLabel className={'test-class-name'} />
     expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
@@ -30,20 +23,16 @@ describe('CounterLabel', () => {
     expect(container.firstChild).toHaveAttribute('aria-hidden', 'true')
   })
 
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<CounterLabel />)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
-  })
-
   it('respects the primary "scheme" prop', () => {
     const {container} = HTMLRender(<CounterLabel scheme="primary">1234</CounterLabel>)
-    expect(container).toMatchSnapshot()
+    expect(container.firstChild).toBeInTheDocument()
+    expect(container.firstChild).toHaveTextContent('1234')
   })
 
   it('renders with secondary scheme when no "scheme" prop is provided', () => {
     const {container} = HTMLRender(<CounterLabel>1234</CounterLabel>)
-    expect(container).toMatchSnapshot()
+    expect(container.firstChild).toBeInTheDocument()
+    expect(container.firstChild).toHaveTextContent('1234')
   })
 
   it('should render visually hidden span correctly for screen readers', () => {

@@ -1,37 +1,32 @@
 import React from 'react'
 import {useId} from '../hooks/useId'
-import type {SxProp} from '../sx'
 import {ListContext, type ActionListProps} from './shared'
-import type {AriaRole} from '../utils/types'
 import type {ActionListHeadingProps} from './Heading'
 import {useSlots} from '../hooks/useSlots'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import {invariant} from '../utils/invariant'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
 import groupClasses from './Group.module.css'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
+import type {FCWithSlotMarker} from '../utils/types/Slots'
 
 type HeadingProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
   className?: string
   children: React.ReactNode
   id?: string
-} & SxProp
+}
 
 const Heading: React.FC<HeadingProps & React.HTMLAttributes<HTMLHeadingElement>> = ({
   as: Component = 'h3',
   className,
   children,
-  sx = defaultSxProp,
   id,
   ...rest
 }) => {
   return (
-    // Box is temporary to support lingering sx usage
-    <BoxWithFallback as={Component} className={className} sx={sx} id={id} {...rest}>
+    <Component className={className} id={id} {...rest}>
       {children}
-    </BoxWithFallback>
+    </Component>
   )
 }
 
@@ -45,7 +40,7 @@ const HeadingWrap: React.FC<HeadingWrapProps> = ({as = 'div', children, classNam
   return React.createElement(as, {...rest, className}, children)
 }
 
-export type ActionListGroupProps = {
+export type ActionListGroupProps = React.HTMLAttributes<HTMLLIElement> & {
   /**
    * Style variations. Usage is discretionary.
    *
@@ -62,23 +57,10 @@ export type ActionListGroupProps = {
    */
   auxiliaryText?: string
   /**
-   * The ARIA role describing the function of the list inside `Group` component. `listbox` or `menu` are a common values.
+   * Whether multiple Items or a single Item can be selected in the Group. Overrides value on ActionList root.
    */
-  role?: AriaRole
-  /**
-   * Custom class name to apply to the `Group`.
-   */
-  className?: string
-  /**
-   * `aria-label` to set directly on the `role="group"` element. This is used to label the group.
-   */
-  'aria-label'?: string
-} & SxProp & {
-    /**
-     * Whether multiple Items or a single Item can be selected in the Group. Overrides value on ActionList root.
-     */
-    selectionVariant?: ActionListProps['selectionVariant'] | false
-  }
+  selectionVariant?: ActionListProps['selectionVariant'] | false
+}
 
 type ContextProps = Pick<ActionListGroupProps, 'selectionVariant'> & {groupHeadingId: string | undefined}
 export const GroupContext = React.createContext<ContextProps>({
@@ -86,7 +68,7 @@ export const GroupContext = React.createContext<ContextProps>({
   selectionVariant: undefined,
 })
 
-export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
+export const Group: FCWithSlotMarker<React.PropsWithChildren<ActionListGroupProps>> = ({
   title,
   variant = 'subtle',
   auxiliaryText,
@@ -94,7 +76,6 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   role,
   className,
   'aria-label': ariaLabel,
-  sx = defaultSxProp,
   ...props
 }) => {
   const id = useId()
@@ -117,13 +98,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   }
 
   return (
-    <BoxWithFallback
-      as="li"
-      className={clsx(className, groupClasses.Group)}
-      role={listRole ? 'none' : undefined}
-      sx={sx}
-      {...props}
-    >
+    <li className={clsx(className, groupClasses.Group)} role={listRole ? 'none' : undefined} {...props}>
       <GroupContext.Provider value={{selectionVariant, groupHeadingId}}>
         {title && !slots.groupHeading ? (
           // Escape hatch: supports old API <ActionList.Group title="group title"> in a non breaking way
@@ -143,13 +118,12 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
           {slots.groupHeading ? childrenWithoutSlots : props.children}
         </ul>
       </GroupContext.Provider>
-    </BoxWithFallback>
+    </li>
   )
 }
 
 export type ActionListGroupHeadingProps = Pick<ActionListGroupProps, 'variant' | 'auxiliaryText'> &
   Omit<ActionListHeadingProps, 'as'> &
-  SxProp &
   React.HTMLAttributes<HTMLElement> & {
     as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
     headingWrapElement?: 'div' | 'li'
@@ -165,7 +139,7 @@ export type ActionListGroupHeadingProps = Pick<ActionListGroupProps, 'variant' |
  * hidden from the accessibility tree due to the limitation of listbox children. https://w3c.github.io/aria/#listbox
  * groups under menu or listbox are labelled by `aria-label`
  */
-export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadingProps>> = ({
+export const GroupHeading: FCWithSlotMarker<React.PropsWithChildren<ActionListGroupHeadingProps>> = ({
   as,
   variant = 'subtle',
   // We are not recommending this prop to be used, it should only be used internally for incremental rollout.
@@ -173,7 +147,6 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
   auxiliaryText,
   children,
   className,
-  sx = defaultSxProp,
   headingWrapElement = 'div',
   ...props
 }) => {
@@ -225,7 +198,6 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
             className={clsx(className, groupClasses.GroupHeading)}
             as={as || 'h3'}
             id={groupHeadingId}
-            sx={sx}
             {...props}
           >
             {_internalBackwardCompatibleTitle ?? children}
@@ -239,3 +211,6 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
 
 GroupHeading.displayName = 'ActionList.GroupHeading'
 Group.displayName = 'ActionList.Group'
+
+Group.__SLOT__ = Symbol('ActionList.Group')
+GroupHeading.__SLOT__ = Symbol('ActionList.GroupHeading')

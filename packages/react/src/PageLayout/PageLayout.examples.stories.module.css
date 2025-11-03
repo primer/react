@@ -1,0 +1,31 @@
+.ResponsiveFlash {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .ResponsiveFlash {
+    display: block;
+  }
+}
+
+.BreadcrumbHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--base-size-16, 16px);
+}
+
+.HeaderRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ResponsiveBox {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .ResponsiveBox {
+    display: block;
+  }
+}

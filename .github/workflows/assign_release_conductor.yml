@@ -14,16 +14,16 @@ jobs:
     if: github.head_ref == 'changeset-release/main'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
         with:
-          node-version: 22
+          node-version-file: '.nvmrc'
       - run: npm ci
       - uses: ./.github/actions/pagerduty
         id: pagerduty
         with:
           schedule-id: 'P3IIVC4'
-          token: ${{ secrets.PAGERDUTY_API_KEY_SID }}
+          token: ${{ secrets.PAGERDUTY_TOKEN_SHARED }}
       - run: echo ${{ steps.pagerduty.outputs.user }} is release conductor
       - name: Add user as assignee and reviewer
         uses: actions/github-script@5c56fde4671bc2d3592fb0f2c5b5bab9ddae03b1

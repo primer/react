@@ -1,5 +1,5 @@
 import RelativeTime from './RelativeTime'
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 
 const meta: Meta = {
   title: 'Components/RelativeTime',
@@ -9,7 +9,7 @@ const meta: Meta = {
     controls: {
       // StoryBook infers from type info of the component which includes CE Lifecycle,
       // SX props, and methods we want to otherwise ignore
-      exclude: /^(getFormatted.*|datetime|sx|as|theme|forwardedAs|.*Callback|update)$/g,
+      exclude: /^(getFormatted.*|datetime|as|theme|forwardedAs|.*Callback|update)$/g,
     },
   },
 }

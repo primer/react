@@ -184,25 +184,7 @@ const components = new Map([
       ],
     },
   ],
-  [
-    'AvatarPair',
-    {
-      stories: [
-        {
-          id: 'components-avatarpair--default',
-          name: 'Default',
-        },
-        {
-          id: 'components-avatarpair-features--parent-circle',
-          name: 'Parent Circle',
-        },
-        {
-          id: 'components-avatarpair-features--parent-square',
-          name: 'Parent Square',
-        },
-      ],
-    },
-  ],
+
   [
     'BranchName',
     {
@@ -353,21 +335,6 @@ const components = new Map([
         {
           id: 'components-checkboxgroup-features--visually-hidden-label',
           name: 'Visually Hidden Label',
-        },
-      ],
-    },
-  ],
-  [
-    'CircleOcticon',
-    {
-      stories: [
-        {
-          id: 'components-circleocticon--default',
-          name: 'Default',
-        },
-        {
-          id: 'components-circleocticon--playground',
-          name: 'Playground',
         },
       ],
     },

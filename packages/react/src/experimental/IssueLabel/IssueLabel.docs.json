@@ -1,11 +1,21 @@
 {
   "id": "issue_label",
   "name": "IssueLabel",
-  "status": "draft",
-  "a11yReviewed": false,
+  "status": "alpha",
+  "a11yReviewed": "2025-01-08",
   "stories": [],
   "importPath": "@primer/react/experimental",
   "props": [
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "description": "The HTML element or React component to render as the root element"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Class name for custom styling"
+    },
     {
       "name": "fillColor",
       "type": "string",
@@ -16,31 +26,18 @@
       "type": "'pink'\n| 'plum'\n| 'purple'\n| 'indigo'\n| 'blue'\n| 'cyan'\n| 'teal'\n| 'pine'\n| 'green'\n| 'lime'\n| 'olive'\n| 'lemon'\n| 'yellow'\n| 'orange'\n| 'red'\n| 'coral'\n| 'gray'\n| 'brown'\n| 'auburn'",
       "defaultValue": "'gray'",
       "description": "Color variant for the background and text color"
-    },
-    {
-      "name": "className",
-      "type": "string",
-      "description": "Class name for custom styling."
-    },
-    {
-      "name": "href",
-      "type": "string"
-    },
-    {
-      "name": "as",
-      "type": "React.ElementType",
-      "defaultValue": "'span'"
-    },
-    {
-      "name": "text",
-      "type": "string",
-      "description": "Label text."
-    },
-    {
-      "name": "id",
-      "type": "string",
-      "description": "A unique identifier that can be associated with the label."
     }
   ],
-  "subcomponents": []
+  "subcomponents": [],
+  "stories": [
+    {
+      "id": "experimental-components-issuelabel--default"
+    },
+    {
+      "id": "experimental-components-issuelabel-features--group-of-labels"
+    },
+    {
+      "id": "experimental-components-issuelabel-features--hex-color"
+    }
+  ]
 }

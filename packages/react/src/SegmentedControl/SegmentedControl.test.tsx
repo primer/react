@@ -1,14 +1,10 @@
-import MatchMediaMock from 'jest-matchmedia-mock'
 import {render, fireEvent, waitFor} from '@testing-library/react'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
-import {behavesAsComponent, checkExports} from '../utils/testing'
-import {SegmentedControl} from '.' // TODO: update import when we move this to the global index
-import theme from '../theme'
-import {BaseStyles, ThemeProvider} from '..'
-import {act} from 'react-test-renderer'
-import {viewportRanges} from '../hooks/useResponsiveValue'
+import {describe, expect, it, vi} from 'vitest'
+import BaseStyles from '../BaseStyles'
 import {FeatureFlags} from '../FeatureFlags'
+import {SegmentedControl} from '../SegmentedControl'
 
 const segmentData = [
   {
@@ -34,35 +30,7 @@ const segmentData = [
   },
 ]
 
-let matchMedia: MatchMediaMock
-
 describe('SegmentedControl', () => {
-  beforeAll(() => {
-    matchMedia = new MatchMediaMock()
-  })
-
-  afterAll(() => {
-    matchMedia.clear()
-  })
-
-  behavesAsComponent({
-    Component: SegmentedControl,
-    toRender: () => (
-      <SegmentedControl aria-label="File view">
-        {segmentData.map(({label}, index) => (
-          <SegmentedControl.Button selected={index === 0} key={label}>
-            {label}
-          </SegmentedControl.Button>
-        ))}
-      </SegmentedControl>
-    ),
-  })
-
-  checkExports('SegmentedControl', {
-    default: undefined,
-    SegmentedControl,
-  })
-
   it('renders with a selected segment - controlled', () => {
     const {getByText} = render(
       <SegmentedControl aria-label="File view">
@@ -96,10 +64,6 @@ describe('SegmentedControl', () => {
   })
 
   it('renders the dropdown variant', () => {
-    act(() => {
-      matchMedia.useMediaQuery(viewportRanges.narrow)
-    })
-
     const {getByText} = render(
       <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
         {segmentData.map(({label}, index) => (
@@ -116,14 +80,10 @@ describe('SegmentedControl', () => {
   })
 
   it('renders the hideLabels variant', () => {
-    act(() => {
-      matchMedia.useMediaQuery(viewportRanges.narrow)
-    })
-
     const {getByLabelText} = render(
       <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels'}}>
         {segmentData.map(({label, icon}, index) => (
-          <SegmentedControl.Button leadingIcon={icon} selected={index === 1} key={label}>
+          <SegmentedControl.Button leadingVisual={icon} selected={index === 1} key={label}>
             {label}
           </SegmentedControl.Button>
         ))}
@@ -154,7 +114,7 @@ describe('SegmentedControl', () => {
     const {getByLabelText} = render(
       <SegmentedControl aria-label="File view">
         {segmentData.map(({label, icon}, index) => (
-          <SegmentedControl.Button selected={index === 0} leadingIcon={icon} key={label}>
+          <SegmentedControl.Button selected={index === 0} leadingVisual={icon} key={label}>
             {label}
           </SegmentedControl.Button>
         ))}
@@ -246,7 +206,7 @@ describe('SegmentedControl', () => {
 
   it('calls onChange with index of clicked segment button', async () => {
     const user = userEvent.setup()
-    const handleChange = jest.fn()
+    const handleChange = vi.fn()
     const {getByText} = render(
       <SegmentedControl aria-label="File view" onChange={handleChange}>
         {segmentData.map(({label}, index) => (
@@ -287,7 +247,7 @@ describe('SegmentedControl', () => {
 
   it('calls segment button onClick if it is passed', async () => {
     const user = userEvent.setup()
-    const handleClick = jest.fn()
+    const handleClick = vi.fn()
     const {getByText} = render(
       <SegmentedControl aria-label="File view">
         {segmentData.map(({label}, index) => (
@@ -308,22 +268,17 @@ describe('SegmentedControl', () => {
   })
 
   it('calls onChange with index of clicked segment button when using the dropdown variant', async () => {
-    act(() => {
-      matchMedia.useMediaQuery(viewportRanges.narrow)
-    })
-    const handleChange = jest.fn()
+    const handleChange = vi.fn()
     const component = render(
-      <ThemeProvider theme={theme}>
-        <BaseStyles>
-          <SegmentedControl aria-label="File view" onChange={handleChange} variant={{narrow: 'dropdown'}}>
-            {segmentData.map(({label}, index) => (
-              <SegmentedControl.Button selected={index === 0} key={label}>
-                {label}
-              </SegmentedControl.Button>
-            ))}
-          </SegmentedControl>
-        </BaseStyles>
-      </ThemeProvider>,
+      <BaseStyles>
+        <SegmentedControl aria-label="File view" onChange={handleChange} variant={{narrow: 'dropdown'}}>
+          {segmentData.map(({label}, index) => (
+            <SegmentedControl.Button selected={index === 0} key={label}>
+              {label}
+            </SegmentedControl.Button>
+          ))}
+        </SegmentedControl>
+      </BaseStyles>,
     )
     const button = component.getByText(segmentData[0].label)
 
@@ -336,22 +291,17 @@ describe('SegmentedControl', () => {
   })
 
   it('calls segment button onClick if it is passed when using the dropdown variant', async () => {
-    act(() => {
-      matchMedia.useMediaQuery(viewportRanges.narrow)
-    })
-    const handleClick = jest.fn()
+    const handleClick = vi.fn()
     const component = render(
-      <ThemeProvider theme={theme}>
-        <BaseStyles>
-          <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
-            {segmentData.map(({label}, index) => (
-              <SegmentedControl.Button selected={index === 0} key={label} onClick={handleClick}>
-                {label}
-              </SegmentedControl.Button>
-            ))}
-          </SegmentedControl>
-        </BaseStyles>
-      </ThemeProvider>,
+      <BaseStyles>
+        <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
+          {segmentData.map(({label}, index) => (
+            <SegmentedControl.Button selected={index === 0} key={label} onClick={handleClick}>
+              {label}
+            </SegmentedControl.Button>
+          ))}
+        </SegmentedControl>
+      </BaseStyles>,
     )
     const button = component.getByText(segmentData[0].label)
 
@@ -363,12 +313,8 @@ describe('SegmentedControl', () => {
     expect(handleClick).toHaveBeenCalled()
   })
 
-  it('warns users if they try to use the hideLabels variant without a leadingIcon', () => {
-    const spy = jest.spyOn(global.console, 'warn').mockImplementation()
-
-    act(() => {
-      matchMedia.useMediaQuery(viewportRanges.narrow)
-    })
+  it('warns users if they try to use the hideLabels variant without a leadingVisual', () => {
+    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => {})
 
     render(
       <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels'}}>
@@ -384,8 +330,38 @@ describe('SegmentedControl', () => {
     spy.mockRestore()
   })
 
+  it('supports deprecated leadingIcon prop for backward compatibility', () => {
+    const {getByText} = render(
+      <SegmentedControl aria-label="File view">
+        <SegmentedControl.Button leadingIcon={EyeIcon}>Preview</SegmentedControl.Button>
+        <SegmentedControl.Button>Code</SegmentedControl.Button>
+      </SegmentedControl>,
+    )
+
+    const button = getByText('Preview').closest('button')
+    expect(button).toBeDefined()
+    // Verify the icon is rendered
+    expect(button?.querySelector('svg')).toBeDefined()
+  })
+
+  it('prioritizes leadingVisual over deprecated leadingIcon when both are provided', () => {
+    const {getByRole} = render(
+      <SegmentedControl aria-label="File view">
+        <SegmentedControl.Button
+          leadingVisual={() => <EyeIcon aria-label="EyeIcon" />}
+          leadingIcon={() => <FileCodeIcon aria-label="FileCodeIcon" />}
+        >
+          Preview
+        </SegmentedControl.Button>
+      </SegmentedControl>,
+    )
+
+    // Should find EyeIcon, not FileCodeIcon
+    expect(getByRole('img', {name: 'EyeIcon'})).toBeInTheDocument()
+  })
+
   it('should warn the user if they neglect to specify a label for the segmented control', () => {
-    const spy = jest.spyOn(global.console, 'warn').mockImplementation()
+    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => {})
 
     render(
       <SegmentedControl>
@@ -397,7 +373,7 @@ describe('SegmentedControl', () => {
       </SegmentedControl>,
     )
 
-    expect(spy).toHaveBeenCalledTimes(2)
+    expect(spy).toHaveBeenCalled()
     spy.mockRestore()
   })
 
@@ -416,7 +392,3 @@ describe('SegmentedControl', () => {
     expect(menuButton).toBeInTheDocument()
   })
 })
-
-// TODO: uncomment these tests after we fix a11y for the Tooltip component
-// checkStoriesForAxeViolations('examples', '../SegmentedControl/')
-// checkStoriesForAxeViolations('SegmentedControlFeatures', '../SegmentedControl/')

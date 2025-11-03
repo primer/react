@@ -1,6 +1,7 @@
+import {describe, expect, it, beforeEach, afterEach} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import {Announce} from '../Announce'
-import {getLiveRegion} from '../../utils/testing'
+import {getLiveRegion} from './test-helpers'
 
 describe('Announce', () => {
   beforeEach(() => {
@@ -34,15 +35,6 @@ describe('Announce', () => {
     const {container} = render(<Announce data-testid="container">test</Announce>)
 
     expect(container.firstChild).toHaveAttribute('data-testid', 'container')
-  })
-
-  it('should support styling via the `sx` prop', () => {
-    render(
-      <Announce data-testid="container" sx={{color: 'blue'}}>
-        test
-      </Announce>,
-    )
-    expect(screen.getByTestId('container')).toHaveStyle('color: blue')
   })
 
   it('should support customizing the container element with `as`', () => {

@@ -1,9 +1,7 @@
 import React, {useState} from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {
   Autocomplete,
-  BaseStyles,
-  Box,
   Button,
   Checkbox,
   CheckboxGroup,
@@ -16,26 +14,14 @@ import {
   TextInput,
   TextInputWithTokens,
   Textarea,
-  ThemeProvider,
-  theme,
 } from '..'
 import {MarkGithubIcon, TriangleDownIcon} from '@primer/octicons-react'
-import type {ItemInput} from '../deprecated/ActionList/List'
+import type {ItemInput} from '../SelectPanel'
 import {Stack} from '../Stack'
+import classes from './FormControl.features.stories.module.css'
 
 export default {
   title: 'Components/FormControl/Features',
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider theme={theme}>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    },
-  ],
   argTypes: {
     disabled: {
       type: 'boolean',
@@ -78,7 +64,7 @@ export const WithComplexInputs = () => {
   }
 
   return (
-    <Box display="grid">
+    <div className={classes.GridContainer}>
       <FormControl>
         <FormControl.Label id="form-label">TextInputWithTokens</FormControl.Label>
         <TextInputWithTokens onTokenRemove={onTokenRemove} tokens={tokens} />
@@ -117,7 +103,7 @@ export const WithComplexInputs = () => {
         <FormControl.Label>Textarea</FormControl.Label>
         <Textarea />
       </FormControl>
-    </Box>
+    </div>
   )
 }
 
@@ -149,7 +135,7 @@ export const FormControlWithCustomInput = () => {
   }, [value])
 
   return (
-    <Box display="grid">
+    <div className={classes.GridContainer}>
       <FormControl>
         <FormControl.Label htmlFor="custom-input">GitHub handle</FormControl.Label>
         <CustomTextInput
@@ -194,13 +180,13 @@ export const FormControlWithCustomInput = () => {
           <FormControl.Caption id="custom-checkbox-two-caption">Hint text for checkbox two</FormControl.Caption>
         </FormControl>
       </CheckboxGroup>
-    </Box>
+    </div>
   )
 }
 
 export const WithCheckboxAndRadioInputs = () => {
   return (
-    <Box display="grid" sx={{gap: 3}}>
+    <div className={classes.GapContainer}>
       <CheckboxGroup>
         <CheckboxGroup.Label>Checkboxes</CheckboxGroup.Label>
         <FormControl>
@@ -232,7 +218,7 @@ export const WithCheckboxAndRadioInputs = () => {
           <FormControl.Label>Radio three</FormControl.Label>
         </FormControl>
       </RadioGroup>
-    </Box>
+    </div>
   )
 }
 
@@ -280,16 +266,11 @@ export const ValidationExample = () => {
 function getColorCircle(color: string) {
   return function () {
     return (
-      <Box
-        sx={{
+      <span
+        className={classes.ColorCircle}
+        style={{
           backgroundColor: color,
           borderColor: color,
-          width: 14,
-          height: 14,
-          borderRadius: 10,
-          margin: 'auto',
-          borderWidth: '1px',
-          borderStyle: 'solid',
         }}
       />
     )
@@ -379,7 +360,7 @@ export const WithLeadingVisual = () => (
 )
 
 export const DisabledInputs = () => (
-  <Box sx={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
+  <div className={classes.FlexColumnGapContainer}>
     <FormControl disabled>
       <FormControl.Label>Disabled checkbox</FormControl.Label>
       <Checkbox />
@@ -397,18 +378,18 @@ export const DisabledInputs = () => (
         <Select.Option value="pvc">Primer ViewComponents</Select.Option>
       </Select>
     </FormControl>
-  </Box>
+  </div>
 )
 
 export const CustomRequired = () => (
-  <Box sx={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
+  <div className={classes.FlexColumnGapContainer}>
     <FormControl required={true}>
       <FormControl.Label requiredText="(required)">Form Input Label</FormControl.Label>
       <FormControl.Caption>This is a form field with a custom required indicator</FormControl.Caption>
       <TextInput />
     </FormControl>
 
-    <Text sx={{fontSize: 1}}>Required fields are marked with an asterisk (*)</Text>
+    <Text className={classes.RequiredFieldsNote}>Required fields are marked with an asterisk (*)</Text>
     <FormControl required={true}>
       <FormControl.Label requiredIndicator={false}>Form Input Label</FormControl.Label>
       <FormControl.Caption>
@@ -424,7 +405,7 @@ export const CustomRequired = () => (
       <FormControl.Caption>This is a form field that is marked as optional, it is not required</FormControl.Caption>
       <TextInput />
     </FormControl>
-  </Box>
+  </div>
 )
 
 export const WithCaption = () => (

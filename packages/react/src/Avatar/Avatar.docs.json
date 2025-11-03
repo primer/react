@@ -2,16 +2,13 @@
   "id": "avatar",
   "name": "Avatar",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-avatar--default"
     },
     {
       "id": "components-avatar-features--square"
-    },
-    {
-      "id": "components-avatar-features--square-sx-prop"
     },
     {
       "id": "components-avatar-features--size"
@@ -46,10 +43,6 @@
       "required": false,
       "description": "URL of the avatar image.",
       "defaultValue": ""
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject"
     }
   ],
   "subcomponents": []

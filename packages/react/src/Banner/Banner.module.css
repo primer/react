@@ -9,8 +9,46 @@
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: start;
 
-  @supports (container-type: inline-size) {
-    container: banner / inline-size;
+  &[data-actions-layout='default'] {
+    @supports (container-type: inline-size) {
+      container: banner / inline-size;
+    }
+  }
+
+  &[data-actions-layout='stacked'] {
+    & .BannerContainer {
+      flex-direction: column;
+    }
+
+    & .BannerActions :where([data-primary-action='trailing']) {
+      display: none;
+    }
+
+    & .BannerActions :where([data-primary-action='leading']) {
+      display: flex;
+    }
+  }
+
+  &[data-actions-layout='inline'] {
+    & .BannerContainer {
+      flex-wrap: nowrap;
+    }
+
+    & .BannerActions {
+      flex: 0 0 auto;
+    }
+
+    & .BannerActions :where([data-primary-action='trailing']) {
+      display: flex;
+    }
+
+    & .BannerActions :where([data-primary-action='leading']) {
+      display: none;
+    }
+  }
+
+  &[data-layout='compact'] {
+    padding: var(--base-size-4);
   }
 
   &[data-variant='critical'] {
@@ -60,7 +98,7 @@
   justify-content: space-between;
 }
 
-.Banner[data-dismissible]:not([data-title-hidden='']) .BannerContainer {
+.Banner[data-dismissible]:not([data-title-hidden], [data-actions-layout='inline']) .BannerContainer {
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: auto;
@@ -75,7 +113,7 @@
   margin-block: var(--base-size-8);
 }
 
-.Banner[data-title-hidden] .BannerContent {
+.Banner[data-title-hidden]:not(:has(.BannerActions)) .BannerContent {
   margin-block: var(--base-size-6);
 }
 
@@ -108,7 +146,8 @@
   fill: var(--banner-icon-fgColor);
 }
 
-.Banner[data-title-hidden] .BannerIcon svg {
+/* stylelint-disable-next-line selector-max-specificity */
+.Banner[data-title-hidden]:not(:has(.BannerActions)) .BannerIcon svg {
   height: var(--base-size-16);
 }
 
@@ -119,6 +158,10 @@
   place-items: center;
   padding: var(--base-size-8);
   margin-inline-start: var(--base-size-4);
+}
+
+:where(.Banner):has(.BannerActions) .BannerDismiss {
+  margin-block: var(--base-size-2);
 }
 
 .BannerDismiss svg {
@@ -132,33 +175,26 @@
   display: flex;
   column-gap: var(--base-size-12);
   align-items: center;
+  margin-block: var(--base-size-2);
 }
 
 .BannerActions :where([data-primary-action='trailing']) {
   display: none;
 }
 
-@media screen and (--viewportRange-regular) {
-  .BannerActions :where([data-primary-action='trailing']) {
-    display: flex;
-  }
-
-  .BannerActions :where([data-primary-action='leading']) {
-    display: none;
-  }
-}
-
-.Banner[data-dismissible]:not([data-title-hidden]) .BannerActions {
+.Banner[data-dismissible]:not([data-title-hidden], [data-actions-layout='inline']) .BannerActions {
   margin-block-end: var(--base-size-6);
 }
 
 /* stylelint-disable-next-line selector-max-specificity */
-.Banner[data-dismissible]:not([data-title-hidden]) .BannerActionsContainer[data-primary-action='trailing'] {
+.Banner[data-dismissible]:not([data-title-hidden], [data-actions-layout='inline'])
+  .BannerActionsContainer[data-primary-action='trailing'] {
   display: none;
 }
 
 /* stylelint-disable-next-line selector-max-specificity */
-.Banner[data-dismissible]:not([data-title-hidden]) .BannerActionsContainer[data-primary-action='leading'] {
+.Banner[data-dismissible]:not([data-title-hidden], [data-actions-layout='inline'])
+  .BannerActionsContainer[data-primary-action='leading'] {
   display: flex;
 }
 
@@ -167,6 +203,9 @@
 @container banner (max-width: 500px) {
   .BannerContainer {
     display: grid;
+  }
+
+  .BannerContainer:has(.BannerActionsContainer) {
     grid-template-rows: auto auto;
   }
 
@@ -187,6 +226,12 @@
   .BannerContainer {
     display: grid;
     grid-template-columns: auto auto;
+  }
+
+  :where(.Banner):not([data-dismissible])
+    :where(.BannerActionsContainer[data-primary-action='trailing'])
+    :where([data-variant='link']:only-child) {
+    padding-inline: 0 var(--base-size-12);
   }
 
   .BannerActions [data-primary-action='trailing'] {

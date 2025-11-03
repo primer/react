@@ -78,6 +78,7 @@
 }
 
 .Visual {
+  color: var(--fgColor-muted);
   /* This display property exists so that the container matches the size of the inner svg element */
   display: inline-flex;
   margin-block-end: var(--base-size-8);

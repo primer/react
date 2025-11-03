@@ -2,7 +2,7 @@
   "id": "underline_nav",
   "name": "UnderlineNav",
   "status": "beta",
-  "a11yReviewed": true,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-underlinenav--default"
@@ -24,6 +24,9 @@
     },
     {
       "id": "components-underlinenav-features--counters-loading-state"
+    },
+    {
+      "id": "components-underlinenav-features--variant-flush"
     }
   ],
   "importPath": "@primer/react",
@@ -48,8 +51,10 @@
       "description": "Whether the navigation items are in loading state. Component waits for all the counters to finish loading to prevent multiple layout shifts."
     },
     {
-      "name": "sx",
-      "type": "SystemStyleObject"
+      "name": "variant",
+      "type": "'inset' | 'flush'",
+      "defaultValue": "'inset'",
+      "description": "`inset` children are offset horizontally from container edges. `flush` children are flush horizontally with container edges"
     }
   ],
   "subcomponents": [
@@ -90,10 +95,6 @@
           "name": "as",
           "type": "React.ElementType",
           "defaultValue": "\"a\""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ],
       "passthrough": {

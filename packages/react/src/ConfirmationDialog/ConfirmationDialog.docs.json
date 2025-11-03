@@ -1,0 +1,62 @@
+{
+  "id": "confirmationdialog",
+  "docsId": "confirmationdialog",
+  "name": "ConfirmationDialog",
+  "status": "alpha",
+  "a11yReviewed": "2025-01-08",
+  "importPath": "@primer/react",
+  "stories": [],
+  "props": [
+    {
+      "name": "onClose",
+      "type": "(gesture: 'confirm' | 'close-button' | 'cancel' | 'escape') => void",
+      "required": true,
+      "description": "This callback is invoked when a gesture to close the dialog is performed. The first argument indicates the gesture."
+    },
+    {
+      "name": "title",
+      "type": "React.ReactNode",
+      "required": true,
+      "description": "The title of the ConfirmationDialog. This is usually a brief question."
+    },
+    {
+      "name": "cancelButtonContent",
+      "type": "React.ReactNode",
+      "defaultValue": "Cancel",
+      "description": "The text to use for the cancel button."
+    },
+    {
+      "name": "confirmButtonContent",
+      "type": "React.ReactNode",
+      "defaultValue": "OK",
+      "description": "The text to use for the confirm button."
+    },
+    {
+      "name": "confirmButtonType",
+      "type": "'normal' | 'primary' | 'danger'",
+      "defaultValue": "normal",
+      "description": "The type of button to use for the confirm button."
+    },
+    {
+      "name": "overrideButtonFocus",
+      "type": "'confirm' | 'cancel'",
+      "description": "The button that should be initially focused when the dialog is opened. By default, the initial button focus is the confirm button, unless the confirm button is dangerous, in which case the cancel button is focused. This prop should be used rarely, as it can allow dangerous actions to be taken accidentally."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Additional class names to apply to the dialog."
+    },
+    {
+      "name": "width",
+      "type": "'small' | 'medium' | 'large' | 'xlarge'",
+      "defaultValue": "medium",
+      "description": "The width of the dialog.\nsmall: 296px\nmedium: 320px\nlarge: 480px\nxlarge: 640px"
+    },
+    {
+      "name": "height",
+      "type": "'small' | 'large' | 'auto'",
+      "description": "The height of the dialog.\nsmall: 480px\nlarge: 640px\nauto: variable based on contents"
+    }
+  ]
+}

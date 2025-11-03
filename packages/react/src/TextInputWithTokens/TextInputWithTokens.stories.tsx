@@ -1,7 +1,7 @@
 import type React from 'react'
 import {useCallback, useState} from 'react'
-import type {Meta} from '@storybook/react'
-import {Box, FormControl} from '..'
+import type {Meta} from '@storybook/react-vite'
+import {FormControl} from '..'
 import type {TextInputWithTokensProps} from '../TextInputWithTokens'
 import TextInputWithTokens from '../TextInputWithTokens'
 import type {FormControlArgs} from '../utils/story-helpers'
@@ -13,11 +13,12 @@ import {
   textInputExcludedControlKeys,
   textInputWithTokensArgTypes,
 } from '../utils/story-helpers'
+import classes from './TextInputWithTokens.stories.module.css'
 
 const excludedControls = ['tokens', 'onTokenRemove', 'tokenComponent', ...textInputExcludedControlKeys]
 
 export default {
-  title: 'Components/TextInputWithTokens',
+  title: 'Deprecated/Components/TextInputWithTokens',
   component: TextInputWithTokens,
   parameters: {controls: {exclude: excludedControls}},
 } as Meta
@@ -71,14 +72,12 @@ Playground.decorators = [
     }, [])
 
     return (
-      <Box onKeyDownCapture={reportKey}>
-        <Box position="absolute" right={5} top={2}>
-          Last key pressed: {lastKey}
-        </Box>
-        <Box paddingTop={5}>
+      <div onKeyDownCapture={reportKey}>
+        <div className={classes.LastKeyIndicator}>Last key pressed: {lastKey}</div>
+        <div className={classes.StoryContainer}>
           <Story />
-        </Box>
-      </Box>
+        </div>
+      </div>
     )
   },
 ]

@@ -3,8 +3,8 @@ import {describe, expect, it, vi} from 'vitest'
 import type {TooltipProps} from '../Tooltip'
 import {Tooltip} from '../Tooltip'
 import {render as HTMLRender} from '@testing-library/react'
-import theme from '../../theme'
-import {Button, IconButton, ActionMenu, ActionList, ThemeProvider, BaseStyles, ButtonGroup} from '../..'
+import BaseStyles from '../../BaseStyles'
+import {Button, IconButton, ActionMenu, ActionList, ButtonGroup} from '../..'
 import {XIcon} from '@primer/octicons-react'
 
 const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
@@ -13,20 +13,27 @@ const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) =
   </Tooltip>
 )
 
+const TooltipComponentWithExistingDescription = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
+  <>
+    <span id="external-description">External description</span>
+    <Tooltip text="Tooltip text" {...props}>
+      <Button aria-describedby="external-description">Button Text</Button>
+    </Tooltip>
+  </>
+)
+
 function ExampleWithActionMenu(actionMenuTrigger: React.ReactElement): JSX.Element {
   return (
-    <ThemeProvider theme={theme}>
-      <BaseStyles>
-        <ActionMenu>
-          {actionMenuTrigger}
-          <ActionMenu.Overlay>
-            <ActionList>
-              <ActionList.Item>New file</ActionList.Item>
-            </ActionList>
-          </ActionMenu.Overlay>
-        </ActionMenu>
-      </BaseStyles>
-    </ThemeProvider>
+    <BaseStyles>
+      <ActionMenu>
+        {actionMenuTrigger}
+        <ActionMenu.Overlay>
+          <ActionList>
+            <ActionList.Item>New file</ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </BaseStyles>
   )
 }
 
@@ -161,5 +168,17 @@ describe('Tooltip', () => {
       <TooltipComponent type="label" keybindingHint="Control+K" aria-label="Overridden label" />,
     )
     expect(getByRole('button', {name: 'Overridden label'})).toBeInTheDocument()
+  })
+
+  it('should append tooltip id to existing aria-describedby value on the trigger element', () => {
+    const {getByRole, getByText} = HTMLRender(<TooltipComponentWithExistingDescription />)
+    const triggerEL = getByRole('button')
+    const tooltipEl = getByText('Tooltip text')
+    const externalDescription = getByText('External description')
+
+    // Check that aria-describedby contains both the external description ID and the tooltip ID
+    const describedBy = triggerEL.getAttribute('aria-describedby')
+    expect(describedBy).toContain(externalDescription.id)
+    expect(describedBy).toContain(tooltipEl.id)
   })
 })

@@ -1,6 +1,6 @@
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import type {TextareaProps} from '..'
-import {Box, FormControl, Textarea} from '..'
+import {FormControl, Textarea} from '..'
 import {DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE, DEFAULT_TEXTAREA_ROWS} from '../Textarea'
 import type {FormControlArgs} from '../utils/story-helpers'
 import {formControlArgTypes, formControlArgs, getFormControlArgsByChildComponent} from '../utils/story-helpers'
@@ -13,7 +13,7 @@ export default {
 export const Playground = (args: FormControlArgs<TextareaProps>) => {
   const {parentArgs, labelArgs, captionArgs, validationArgs} = getFormControlArgsByChildComponent(args)
   return (
-    <Box as="form">
+    <form>
       <FormControl {...parentArgs}>
         <FormControl.Label {...labelArgs} />
         <Textarea {...args} />
@@ -22,7 +22,7 @@ export const Playground = (args: FormControlArgs<TextareaProps>) => {
           <FormControl.Validation {...validationArgs} variant={validationArgs.variant} />
         )}
       </FormControl>
-    </Box>
+    </form>
   )
 }
 Playground.args = {
@@ -55,11 +55,6 @@ Playground.argTypes = {
   rows: {
     control: {type: 'number'},
   },
-  sx: {
-    table: {
-      disable: true,
-    },
-  },
   validationStatus: {
     options: ['error', 'success'],
     control: {type: 'radio'},
@@ -68,10 +63,10 @@ Playground.argTypes = {
 }
 
 export const Default = () => (
-  <Box as="form">
+  <form>
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
       <Textarea />
     </FormControl>
-  </Box>
+  </form>
 )

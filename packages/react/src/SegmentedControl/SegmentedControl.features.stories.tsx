@@ -1,8 +1,9 @@
 import {useState} from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {SegmentedControl} from '.'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
-import {Box, Text} from '..'
+import {Text} from '..'
+import classes from './SegmentedControl.features.stories.module.css'
 
 export default {
   title: 'Components/SegmentedControl/Features',
@@ -11,14 +12,28 @@ export default {
 
 export const WithIcons = () => (
   <SegmentedControl aria-label="File view">
-    <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingIcon={EyeIcon}>
+    <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingVisual={EyeIcon}>
       Preview
     </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
+    <SegmentedControl.Button aria-label={'Raw'} leadingVisual={FileCodeIcon}>
       Raw
     </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon}>
+    <SegmentedControl.Button aria-label={'Blame'} leadingVisual={PeopleIcon}>
       Blame
+    </SegmentedControl.Button>
+  </SegmentedControl>
+)
+
+export const WithCounterLabels = () => (
+  <SegmentedControl aria-label="Issues by label">
+    <SegmentedControl.Button defaultSelected aria-label="Feature" count={5}>
+      Feature
+    </SegmentedControl.Button>
+    <SegmentedControl.Button aria-label="Bug" count={3}>
+      Bug
+    </SegmentedControl.Button>
+    <SegmentedControl.Button aria-label="Good first issue" count={10}>
+      Good first issue
     </SegmentedControl.Button>
   </SegmentedControl>
 )
@@ -39,13 +54,13 @@ export const Controlled = () => {
 
 export const VariantNarrowHideLabels = () => (
   <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels', regular: 'default', wide: 'default'}}>
-    <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingIcon={EyeIcon}>
+    <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingVisual={EyeIcon}>
       Preview
     </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
+    <SegmentedControl.Button aria-label={'Raw'} leadingVisual={FileCodeIcon}>
       Raw
     </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon}>
+    <SegmentedControl.Button aria-label={'Blame'} leadingVisual={PeopleIcon}>
       Blame
     </SegmentedControl.Button>
   </SegmentedControl>
@@ -54,13 +69,13 @@ VariantNarrowHideLabels.storyName = '[variant: narrow] Hide labels'
 
 export const VariantNarrowActionMenu = () => (
   <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown', regular: 'default', wide: 'default'}}>
-    <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingIcon={EyeIcon}>
+    <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingVisual={EyeIcon}>
       Preview
     </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
+    <SegmentedControl.Button aria-label={'Raw'} leadingVisual={FileCodeIcon}>
       Raw
     </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon}>
+    <SegmentedControl.Button aria-label={'Blame'} leadingVisual={PeopleIcon}>
       Blame
     </SegmentedControl.Button>
   </SegmentedControl>
@@ -69,13 +84,13 @@ VariantNarrowActionMenu.storyName = '[variant: narrow] Action menu'
 
 export const FullwidthNarrow = () => (
   <SegmentedControl aria-label="File view" fullWidth={{narrow: true, regular: false, wide: false}}>
-    <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingIcon={EyeIcon}>
+    <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingVisual={EyeIcon}>
       Preview
     </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
+    <SegmentedControl.Button aria-label={'Raw'} leadingVisual={FileCodeIcon}>
       Raw
     </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon}>
+    <SegmentedControl.Button aria-label={'Blame'} leadingVisual={PeopleIcon}>
       Blame
     </SegmentedControl.Button>
   </SegmentedControl>
@@ -84,13 +99,13 @@ FullwidthNarrow.storyName = '[fullWidth: narrow]'
 
 export const FullwidthRegular = () => (
   <SegmentedControl aria-label="File view" fullWidth={{narrow: false, regular: true, wide: false}}>
-    <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingIcon={EyeIcon}>
+    <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingVisual={EyeIcon}>
       Preview
     </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
+    <SegmentedControl.Button aria-label={'Raw'} leadingVisual={FileCodeIcon}>
       Raw
     </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon}>
+    <SegmentedControl.Button aria-label={'Blame'} leadingVisual={PeopleIcon}>
       Blame
     </SegmentedControl.Button>
   </SegmentedControl>
@@ -99,13 +114,13 @@ FullwidthRegular.storyName = '[fullWidth: regular]'
 
 export const FullwidthAll = () => (
   <SegmentedControl aria-label="File view" fullWidth>
-    <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingIcon={EyeIcon}>
+    <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingVisual={EyeIcon}>
       Preview
     </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
+    <SegmentedControl.Button aria-label={'Raw'} leadingVisual={FileCodeIcon}>
       Raw
     </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon}>
+    <SegmentedControl.Button aria-label={'Blame'} leadingVisual={PeopleIcon}>
       Blame
     </SegmentedControl.Button>
   </SegmentedControl>
@@ -122,29 +137,20 @@ export const IconOnly = () => (
 IconOnly.storyName = 'Icon only'
 
 export const AssociatedWithALabelAndCaption = () => (
-  <Box
-    display="flex"
-    sx={theme => ({
-      flexDirection: 'column',
-      gap: theme.space[1],
-      [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
-        flexDirection: 'row',
-      },
-    })}
-  >
-    <Box flexGrow={1}>
-      <Text fontSize={2} fontWeight="bold" id="scLabel-vert" display="block">
+  <div className={classes.LabelAndCaptionContainer}>
+    <div className={classes.LabelAndCaption}>
+      <Text className={classes.TextLargeBold} id="scLabel-vert" style={{display: 'block'}}>
         File view
       </Text>
-      <Text color="fg.subtle" fontSize={1} id="scCaption-vert" display="block">
+      <Text className={classes.TextMediumSubtle} id="scCaption-vert" style={{display: 'block'}}>
         Change the way the file is viewed
       </Text>
-    </Box>
+    </div>
     <SegmentedControl aria-labelledby="scLabel-vert" aria-describedby="scCaption-vert">
       <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
       <SegmentedControl.Button>Raw</SegmentedControl.Button>
       <SegmentedControl.Button>Blame</SegmentedControl.Button>
     </SegmentedControl>
-  </Box>
+  </div>
 )
 AssociatedWithALabelAndCaption.storyName = '[Example] Associated with a label and caption'

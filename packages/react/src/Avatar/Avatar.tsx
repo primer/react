@@ -1,10 +1,7 @@
 import {clsx} from 'clsx'
 import React from 'react'
-import type {SxProp} from '../sx'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isResponsiveValue} from '../hooks/useResponsiveValue'
-import {defaultSxProp} from '../utils/defaultSxProp'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 import classes from './Avatar.module.css'
 
 export const DEFAULT_AVATAR_SIZE = 20
@@ -20,11 +17,10 @@ export type AvatarProps = {
   alt?: string
   /** Additional class name. */
   className?: string
-} & SxProp &
-  React.ComponentPropsWithoutRef<'img'>
+} & React.ComponentPropsWithoutRef<'img'>
 
 const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
-  {alt = '', size = DEFAULT_AVATAR_SIZE, square = false, sx: sxProp = defaultSxProp, className, style, ...rest},
+  {alt = '', size = DEFAULT_AVATAR_SIZE, square = false, className, style, ...rest},
   ref,
 ) {
   const isResponsive = isResponsiveValue(size)
@@ -39,8 +35,7 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
   }
 
   return (
-    <BoxWithFallback
-      as="img"
+    <img
       data-component="Avatar"
       className={clsx(className, classes.Avatar)}
       ref={ref}
@@ -57,7 +52,6 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
             }
           : (cssSizeVars as React.CSSProperties)
       }
-      sx={sxProp}
       {...rest}
     />
   )

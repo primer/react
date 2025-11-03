@@ -1,5 +1,5 @@
 import React, {useState, useRef, useCallback} from 'react'
-import type {Args, Meta} from '@storybook/react'
+import type {Args, Meta} from '@storybook/react-vite'
 import {TriangleDownIcon, PlusIcon, IssueDraftIcon, XIcon} from '@primer/octicons-react'
 import {
   Overlay,
@@ -7,7 +7,6 @@ import {
   Button,
   IconButton,
   Text,
-  Box,
   Checkbox,
   CheckboxGroup,
   FormControl,
@@ -17,8 +16,10 @@ import {
   ActionList,
   ActionMenu,
   useFocusTrap,
+  Textarea,
 } from '..'
 import {Tooltip} from '../TooltipV2'
+import classes from './Overlay.features.stories.module.css'
 
 export default {
   title: 'Private/Components/Overlay/Features',
@@ -61,7 +62,7 @@ export const DropdownOverlay = ({anchorSide, open}: Args) => {
 
   return (
     <>
-      <Button ref={buttonRef} sx={{position: 'relative'}} onClick={() => setIsOpen(!isOpen)}>
+      <Button ref={buttonRef} style={{position: 'relative'}} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
       {isOpen || open ? (
@@ -101,7 +102,7 @@ export const DialogOverlay = ({anchorSide, role, open}: Args) => {
   useFocusTrap({containerRef, disabled: !isOpen, initialFocusRef: confirmButtonRef, returnFocusRef: buttonRef})
 
   return (
-    <Box ref={anchorRef}>
+    <div ref={anchorRef}>
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
@@ -119,7 +120,7 @@ export const DialogOverlay = ({anchorSide, role, open}: Args) => {
           aria-label={role === 'dialog' ? 'Confirmation screen' : undefined}
           ref={containerRef}
         >
-          <Box display="flex" flexDirection="column" p={2}>
+          <div className={classes.DialogContent}>
             <Text>Are you sure?</Text>
             <Button variant="danger" onClick={closeOverlay}>
               Cancel
@@ -127,10 +128,10 @@ export const DialogOverlay = ({anchorSide, role, open}: Args) => {
             <Button onClick={closeOverlay} ref={confirmButtonRef}>
               Confirm
             </Button>
-          </Box>
+          </div>
         </Overlay>
       ) : null}
-    </Box>
+    </div>
   )
 }
 
@@ -155,7 +156,7 @@ export const OverlayOnTopOfOverlay = ({anchorSide, role, open}: Args) => {
   })
 
   return (
-    <Box position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
+    <div className={classes.FullscreenAnchor} ref={anchorRef}>
       <input placeholder="Input for focus testing" />
       <br />
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
@@ -185,7 +186,7 @@ export const OverlayOnTopOfOverlay = ({anchorSide, role, open}: Args) => {
               onEscape={closeSecondaryOverlay}
               onClickOutside={closeSecondaryOverlay}
               width="small"
-              sx={{top: '40px'}}
+              style={{top: '40px'}}
               anchorSide={anchorSide}
               role={role}
               aria-modal={role === 'dialog' ? 'true' : undefined}
@@ -193,7 +194,7 @@ export const OverlayOnTopOfOverlay = ({anchorSide, role, open}: Args) => {
               ref={secondaryContainer}
               preventOverflow={false}
             >
-              <Box display="flex" flexDirection="column" p={2}>
+              <div className={classes.SelectOptionsContent}>
                 <Text>Select an option!</Text>
                 <ActionMenu>
                   <ActionMenu.Button>{selectedItem}</ActionMenu.Button>
@@ -211,12 +212,12 @@ export const OverlayOnTopOfOverlay = ({anchorSide, role, open}: Args) => {
                     </ActionList>
                   </ActionMenu.Overlay>
                 </ActionMenu>
-              </Box>
+              </div>
             </Overlay>
           ) : null}
         </Overlay>
       ) : null}
-    </Box>
+    </div>
   )
 }
 
@@ -255,19 +256,12 @@ export const MemexNestedOverlays = ({role, open}: Args) => {
           ref={containerRef}
           preventOverflow={false}
         >
-          <Box
-            as="form"
-            onSubmit={() => setOverlayOpen(false)}
-            sx={{display: 'flex', flexDirection: 'column', py: 2}}
-            aria-label="Set Duration Form"
-          >
-            <Box sx={{paddingX: 3, display: 'flex', alignItems: 'center', gap: 1}}>
-              <Text color="fg.muted" sx={{fontSize: 1}}>
-                Duration:
-              </Text>
+          <form onSubmit={() => setOverlayOpen(false)} className={classes.FormContainer} aria-label="Set Duration Form">
+            <div className={classes.FormRow}>
+              <Text className={classes.MediumTextMuted}>Duration:</Text>
               <TextInput defaultValue={2} aria-label="Duration" />
               <ActionMenu>
-                <ActionMenu.Button sx={{width: 200}} aria-label="Change duration unit">
+                <ActionMenu.Button style={{width: 200}} aria-label="Change duration unit">
                   {duration}
                 </ActionMenu.Button>
                 <ActionMenu.Overlay>
@@ -280,13 +274,13 @@ export const MemexNestedOverlays = ({role, open}: Args) => {
                   </ActionList>
                 </ActionMenu.Overlay>
               </ActionMenu>
-            </Box>
+            </div>
             <ActionList.Divider />
-            <Box sx={{display: 'flex', justifyContent: 'flex-end', px: 2, gap: 1}}>
+            <div className={classes.FormActions}>
               <Button>Cancel</Button>
               <Button variant="primary">Add</Button>
-            </Box>
-          </Box>
+            </div>
+          </form>
         </Overlay>
       )}
     </div>
@@ -344,8 +338,8 @@ export const NestedOverlays = ({role, open}: Args) => {
           aria-modal={role === 'dialog' ? 'true' : undefined}
           aria-label={role === 'dialog' ? 'Sample list' : undefined}
         >
-          <Box sx={{display: 'flex', flexDirection: 'column', py: 2}}>
-            <Box sx={{paddingX: 3, paddingY: 2}}>
+          <div className={classes.NestedOverlayContent}>
+            <div className={classes.CheckboxContainer}>
               <CheckboxGroup>
                 <CheckboxGroup.Label>Add to list</CheckboxGroup.Label>
                 <FormControl>
@@ -359,20 +353,26 @@ export const NestedOverlays = ({role, open}: Args) => {
                   <Checkbox value="wanna-try" />
                 </FormControl>
               </CheckboxGroup>
-            </Box>
+            </div>
             <ActionList.Divider />
             <Tooltip text="Allows you to add more lists">
               <Button
                 variant="invisible"
                 ref={secondaryButtonRef}
-                sx={{px: 2, mx: 2, display: 'flex'}}
+                style={{
+                  paddingLeft: '8px',
+                  paddingRight: '8px',
+                  marginLeft: '8px',
+                  marginRight: '8px',
+                  display: 'flex',
+                }}
                 leadingVisual={PlusIcon}
                 onClick={() => setCreateListOverlayOpen(!createListOverlayOpen)}
               >
                 Create list
               </Button>
             </Tooltip>
-          </Box>
+          </div>
           {createListOverlayOpen && (
             <Overlay
               width="medium"
@@ -387,17 +387,17 @@ export const NestedOverlays = ({role, open}: Args) => {
               aria-label={role === 'dialog' ? 'Create a list' : undefined}
               ref={secondaryContainer}
             >
-              <Box as="form" sx={{display: 'flex', flexDirection: 'column', p: 3}} aria-label="Set Duration Form">
-                <Text color="fg.muted" sx={{fontSize: 1, mb: 3}}>
+              <form className={classes.CreateFormContent} aria-label="Set Duration Form">
+                <Text className={classes.MediumTextWithMargin}>
                   Create a list to organize your starred repositories.
                 </Text>
-                <TextInput placeholder="Name this list" sx={{mb: 2}} />
-                <TextInput as="textarea" placeholder="Write a description" rows={3} sx={{mb: 2, textarea: {p: 2}}} />
+                <TextInput placeholder="Name this list" className={classes.TextInputWithMargin} />
+                <Textarea placeholder="Write a description" rows={3} className={classes.TextInputWithMargin} />
 
                 <Button variant="primary" onClick={() => setCreateListOverlayOpen(!createListOverlayOpen)}>
                   Create
                 </Button>
-              </Box>
+              </form>
             </Overlay>
           )}
         </Overlay>
@@ -433,15 +433,7 @@ export const MemexIssueOverlay = ({role, open}: Args) => {
           event.preventDefault()
           setOverlayOpen(true)
         }}
-        sx={{
-          display: 'block',
-          border: '1px solid',
-          borderColor: 'border.default',
-          p: 2,
-          ':hover': {
-            backgroundColor: 'canvas.subtle',
-          },
-        }}
+        className={classes.IssueLink}
       >
         <IssueDraftIcon /> {title}
       </Link>
@@ -459,14 +451,14 @@ export const MemexIssueOverlay = ({role, open}: Args) => {
           aria-label={role === 'dialog' ? 'Draft issue editor' : undefined}
           ref={containerRef}
         >
-          <Box sx={{p: 4, height: '100vh', width: '350px'}}>
-            <Box sx={{display: 'flex', alignItems: 'center', gap: 1, mb: 2}}>
+          <div className={classes.IssueEditorContainer}>
+            <div className={classes.IssueHeader}>
               <Label size="large">
                 <IssueDraftIcon /> Draft
               </Label>
-              <Text sx={{fontSize: 1}}>opened 2 days ago,</Text>
-              <Text sx={{fontSize: 1}}>showing {editing ? 'input' : 'button'}</Text>
-            </Box>
+              <Text className={classes.MediumText}>opened 2 days ago,</Text>
+              <Text className={classes.MediumText}>showing {editing ? 'input' : 'button'}</Text>
+            </div>
             {editing ? (
               <TextInput
                 defaultValue={title}
@@ -486,14 +478,7 @@ export const MemexIssueOverlay = ({role, open}: Args) => {
                   }
                 }}
                 ref={inputRef}
-                sx={{
-                  width: '100%',
-                  py: '2px',
-                  px: '7px',
-                  textAlign: 'left',
-                  color: 'fg.default',
-                  input: {fontWeight: 'bold', fontSize: 4, px: 0},
-                }}
+                className={classes.IssueTitleInput}
               />
             ) : (
               <Button
@@ -501,19 +486,19 @@ export const MemexIssueOverlay = ({role, open}: Args) => {
                 ref={buttonRef}
                 onClick={() => setEditing(true)}
                 aria-label="Change issue title"
-                sx={{
+                style={{
                   width: '100%',
-                  fontSize: 3,
-                  color: 'fg.default',
-                  p: 2,
+                  fontSize: 'var(--text-title-size-medium)',
+                  color: 'var(--fgColor-default)',
+                  padding: '8px',
                   textAlign: 'left',
-                  borderRadius: '2',
+                  borderRadius: 'var(--borderRadius-medium)',
                 }}
               >
                 {title}
               </Button>
             )}
-          </Box>
+          </div>
         </Overlay>
       )}
     </>
@@ -536,7 +521,7 @@ export const PositionedOverlays = ({right, role, open}: Args) => {
   })
 
   return (
-    <Box ref={anchorRef}>
+    <div ref={anchorRef}>
       <Button
         ref={buttonRef}
         onClick={() => {
@@ -552,8 +537,8 @@ export const PositionedOverlays = ({right, role, open}: Args) => {
           setIsOpen(!isOpen)
           setDirection('right')
         }}
-        sx={{
-          mt: 2,
+        style={{
+          marginTop: '8px',
         }}
       >
         Open right overlay
@@ -573,34 +558,18 @@ export const PositionedOverlays = ({right, role, open}: Args) => {
             aria-label={role === 'dialog' ? 'Left aligned overlay' : undefined}
             ref={containerRef}
           >
-            <Box
-              sx={{
-                width: ['350px', '500px'],
-              }}
-            >
-              <Box
-                sx={{
-                  height: '100vh',
-                  maxWidth: 'calc(-1rem + 100vw)',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
+            <div className={classes.ResponsiveWidthContainer}>
+              <div className={classes.OverlayFullHeight}>
                 <IconButton
                   aria-label="Close"
                   onClick={closeOverlay}
                   icon={XIcon}
                   variant="invisible"
-                  sx={{
-                    position: 'absolute',
-                    left: '5px',
-                    top: '5px',
-                  }}
+                  className={classes.CloseButtonLeft}
                 />
                 <Text>Look! left aligned</Text>
-              </Box>
-            </Box>
+              </div>
+            </div>
           </Overlay>
         ) : (
           <Overlay
@@ -618,37 +587,21 @@ export const PositionedOverlays = ({right, role, open}: Args) => {
             aria-label={role === 'dialog' ? 'Right aligned overlay' : undefined}
             ref={containerRef}
           >
-            <Box
-              sx={{
-                width: ['350px', '500px'],
-              }}
-            >
-              <Box
-                sx={{
-                  height: '100vh',
-                  maxWidth: 'calc(-1rem + 100vw)',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
+            <div className={classes.ResponsiveWidthContainer}>
+              <div className={classes.OverlayFullHeight}>
                 <IconButton
                   aria-label="Close"
                   onClick={closeOverlay}
                   icon={XIcon}
                   variant="invisible"
-                  sx={{
-                    position: 'absolute',
-                    right: '5px',
-                    top: '5px',
-                  }}
+                  className={classes.CloseButtonRight}
                 />
                 <Text>Look! right aligned</Text>
-              </Box>
-            </Box>
+              </div>
+            </div>
           </Overlay>
         )
       ) : null}
-    </Box>
+    </div>
   )
 }

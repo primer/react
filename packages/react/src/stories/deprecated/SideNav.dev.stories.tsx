@@ -1,8 +1,10 @@
-import {Avatar, Box, CounterLabel, Heading, Label, SideNav, Text} from '../..'
-import type {Meta} from '@storybook/react'
+import {Avatar, CounterLabel, Heading, Label, SideNav, Text} from '../..'
+import type {Meta} from '@storybook/react-vite'
 import type {ComponentProps} from '../../utils/types'
 import Octicon from '../../Octicon'
 import {DotIcon, MailIcon, PersonIcon, SmileyIcon, ZapIcon} from '@primer/octicons-react'
+
+import classes from './SideNav.dev.stories.module.css'
 
 export default {
   title: 'Deprecated/Components/SideNav/Dev',
@@ -41,7 +43,7 @@ export const FullVariant = () => (
     </SideNav.Link>
     <SideNav.Link href="#url" variant="full" selected>
       <Text>With a status icon</Text>
-      <Octicon size={16} icon={DotIcon} color="success.fg" />
+      <Octicon size={16} icon={DotIcon} className={classes.SuccessIcon} />
     </SideNav.Link>
     <SideNav.Link href="#url" variant="full">
       <Text>With a label</Text>
@@ -59,28 +61,32 @@ export const FullVariant = () => (
 )
 
 export const LightweightVariant = () => (
-  <Box
-    borderWidth="1px"
-    borderStyle="solid"
-    borderColor="border.default"
-    borderRadius={2}
-    p={3}
-    backgroundColor="canvas.subtle"
-    maxWidth={360}
+  <div
+    style={{
+      borderWidth: 'var(--borderWidth-thin)',
+      borderStyle: 'solid',
+      borderColor: 'var(--borderColor-default)',
+      borderRadius: 'var(--borderRadius-medium)',
+      padding: 'var(--base-size-16)',
+      backgroundColor: 'var(--bgColor-muted)',
+      maxWidth: '360px',
+    }}
   >
-    <Box
-      borderStyle="solid"
-      borderColor="border.default"
-      borderWidth={0}
-      borderBottomWidth={1}
-      borderRadius={0}
-      mb={2}
-      pb={1}
+    <div
+      style={{
+        borderStyle: 'solid',
+        borderColor: 'var(--borderColor-default)',
+        borderWidth: '0',
+        borderBottomWidth: 'var(--borderWidth-thin)',
+        borderRadius: '0',
+        marginBottom: 'var(--base-size-8)',
+        paddingBottom: 'var(--base-size-4)',
+      }}
     >
       <Heading as="h2" color="fg.muted">
         Menu
       </Heading>
-    </Box>
+    </div>
     <SideNav variant="lightweight">
       <SideNav.Link href="#url">
         <Text>Account</Text>
@@ -95,7 +101,7 @@ export const LightweightVariant = () => (
         <Text>Notifications</Text>
       </SideNav.Link>
     </SideNav>
-  </Box>
+  </div>
 )
 
 export const LightweightNestedVariant = () => (

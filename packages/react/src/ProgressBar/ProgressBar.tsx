@@ -1,9 +1,6 @@
 import React, {forwardRef} from 'react'
-import type {WidthProps} from 'styled-system'
-import type {SxProp} from '../sx'
 import {clsx} from 'clsx'
 import classes from './ProgressBar.module.css'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 type ProgressProp = {
   className?: string
@@ -15,16 +12,14 @@ type StyledProgressContainerProps = {
   inline?: boolean
   barSize?: 'small' | 'default' | 'large'
   animated?: boolean
-} & WidthProps &
-  SxProp
+}
 
-export type ProgressBarItems = React.HTMLAttributes<HTMLSpanElement> & {
+export type ProgressBarItemProps = React.HTMLAttributes<HTMLSpanElement> & {
   'aria-label'?: string
   className?: string
-} & ProgressProp &
-  SxProp
+} & ProgressProp
 
-export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
+export const Item = forwardRef<HTMLSpanElement, ProgressBarItemProps>(
   (
     {
       progress,
@@ -32,6 +27,8 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
       'aria-valuenow': ariaValueNow,
       'aria-valuetext': ariaValueText,
       className,
+      style,
+      bg,
       ...rest
     },
     forwardRef,
@@ -50,20 +47,19 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
     const progressBarBg = '--progress-bg'
     const styles: {[key: string]: string} = {}
 
-    const bgType = rest.bg && rest.bg.split('.')
+    const bgType = bg && bg.split('.')
     styles[progressBarWidth] = progress ? `${progress}%` : '0%'
-    styles[progressBarBg] = (bgType && `var(--bgColor-${bgType[0]}-${bgType[1]})`) || 'var(--bgColor-success-emphasis)'
+    styles[progressBarBg] =
+      (bgType && `var(--bgColor-${bgType[0]}-${bgType[1] || 'emphasis'})`) || 'var(--bgColor-success-emphasis)'
 
     return (
-      <BoxWithFallback
-        as="span"
+      <span
         className={clsx(className, classes.ProgressBarItem)}
         {...rest}
         role="progressbar"
         aria-label={ariaLabel}
         ref={forwardRef}
-        progress={progress}
-        style={styles}
+        style={{...styles, ...style}}
         {...ariaAttributes}
       />
     )
@@ -104,8 +100,7 @@ export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
     const validChildren = React.Children.toArray(children).length
 
     return (
-      <BoxWithFallback
-        as="span"
+      <span
         ref={forwardRef}
         className={clsx(className, classes.ProgressBarContainer)}
         data-progress-display={inline ? 'inline' : 'block'}
@@ -124,7 +119,7 @@ export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
             bg={bg}
           />
         )}
-      </BoxWithFallback>
+      </span>
     )
   },
 )

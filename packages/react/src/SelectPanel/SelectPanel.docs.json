@@ -3,7 +3,7 @@
   "docsId": "select_panel",
   "name": "SelectPanel",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-selectpanel--default"
@@ -56,7 +56,7 @@
     },
     {
       "name": "onOpenChange",
-      "type": "( open: boolean, gesture: | 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection' ) => void",
+      "type": "( open: boolean, gesture: | 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection' | 'cancel' ) => void",
       "defaultValue": "",
       "required": true,
       "description": ""
@@ -163,8 +163,8 @@
     },
     {
       "name": "message",
-      "type": "{title: string | React.ReactElement; variant: 'empty' | 'error' | 'warning';  body: React.ReactNode;}",
-      "defaultValue": "A default empty message is provided by default if this option is not supplied",
+      "type": "{title: string | React.ReactElement; variant: 'empty' | 'error' | 'warning';  body: React.ReactNode; icon?:React.ComponentType<IconProps>;action?: React.ReactElement;}",
+      "defaultValue": "A default empty message is provided if this option is not configured. Supply a custom empty message to override the default.",
       "description": "Message to display in the panel in case of error or empty results"
     },
     {
@@ -183,6 +183,30 @@
       "type": "boolean",
       "description": "Whether to display the selected items at the top of the list",
       "default": "true"
+    },
+    {
+      "name": "showSelectAll",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "When `true` and on a multi-select SelectPanel, displays a 'Select all' checkbox that allows users to select or deselect all visible items at once. The checkbox label automatically toggles between 'Select all' and 'Deselect all' based on the current selection state, and shows an indeterminate state when some items are selected."
+    },
+    {
+      "name": "disableFullscreenOnNarrow",
+      "type": "boolean",
+      "description": "Whether to disable fullscreen behavior on narrow viewports. When `true`, the panel will maintain its anchored position regardless of viewport size. When `false`, the panel will go fullscreen on narrow viewports (if feature flag is enabled).",
+      "defaultValue": "undefined (uses feature flag default)"
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Whether the panel is in a loading state. When `true`, the panel will display a loading spinner. If `loading` is not provided, the panel will infer the loading state based on the contents of `items` available."
+    },
+    {
+      "name": "align",
+      "type": "'start' | 'end' | 'center'",
+      "defaultValue": "'start'",
+      "description": "Determines the alignment of the panel relative to the anchor. Defaults to 'start' which aligns the left edge of the panel with the left edge of the anchor."
     }
   ],
   "subcomponents": []

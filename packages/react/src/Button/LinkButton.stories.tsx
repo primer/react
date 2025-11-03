@@ -1,5 +1,5 @@
 import {EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon, ChevronRightIcon} from '@primer/octicons-react'
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import {LinkButton} from '.'
 import {OcticonArgType} from '../utils/story-helpers'
 
@@ -19,7 +19,7 @@ Playground.argTypes = {
     control: {
       type: 'radio',
     },
-    options: ['default', 'primary', 'danger', 'invisible', 'outline'],
+    options: ['default', 'primary', 'danger', 'invisible', 'outline', 'link'],
   },
   alignContent: {
     control: {

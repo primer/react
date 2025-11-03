@@ -2,7 +2,7 @@
   "id": "tree_view",
   "name": "TreeView",
   "status": "beta",
-  "a11yReviewed": true,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-treeview-features--files"
@@ -108,6 +108,11 @@
           "name": "expanded",
           "type": "boolean",
           "description": "The controlled expanded state of item. Must be used in conjunction with onExpandedChange."
+        },
+        {
+          "name": "secondaryActions",
+          "type": "TreeViewSecondaryActions[]",
+          "description": "An array of secondary actions to render in as a trailing action. Each action should have a 'label', 'icon', and 'onClick' handler."
         },
         {
           "name": "containIntrinsicSize",

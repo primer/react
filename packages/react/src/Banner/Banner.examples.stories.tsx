@@ -1,7 +1,7 @@
 import {Banner} from '../Banner'
-import {action} from '@storybook/addon-actions'
+import {action} from 'storybook/actions'
 import Link from '../Link'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {AriaAlert, AriaStatus} from '../live-region'
 import FormControl from '../FormControl'
 import RadioGroup from '../RadioGroup'
@@ -10,9 +10,10 @@ import {Button} from '../Button'
 import React from 'react'
 import {useFocus} from '../internal/hooks/useFocus'
 import {PageLayout} from '../PageLayout'
+import classes from './Banner.examples.stories.module.css'
 
 const meta = {
-  title: 'Experimental/Components/Banner/Examples',
+  title: 'Components/Banner/Examples',
   component: Banner,
 } satisfies Meta<typeof Banner>
 
@@ -65,11 +66,11 @@ export const WithAnnouncement = () => {
         secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
       />
       <RadioGroup
-        sx={{marginTop: 4}}
         name="options"
         onChange={selected => {
           setSelected(selected as Choice)
         }}
+        className={classes.RadioGroupWithTopMargin}
       >
         <RadioGroup.Label>Choices</RadioGroup.Label>
         <FormControl>

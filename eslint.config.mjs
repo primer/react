@@ -3,11 +3,13 @@ import {fileURLToPath} from 'node:url'
 import {fixupConfigRules, fixupPluginRules} from '@eslint/compat'
 import {FlatCompat} from '@eslint/eslintrc'
 import js from '@eslint/js'
+import eslintReact from '@eslint-react/eslint-plugin'
+import vitest from '@vitest/eslint-plugin'
 import {defineConfig, globalIgnores} from 'eslint/config'
 import githubPlugin from 'eslint-plugin-github'
-import jest from 'eslint-plugin-jest'
 import storybook from 'eslint-plugin-storybook'
 import react from 'eslint-plugin-react'
+import reactCompiler from 'eslint-plugin-react-compiler'
 import reactHooks from 'eslint-plugin-react-hooks'
 import playwright from 'eslint-plugin-playwright'
 import prettierRecommended from 'eslint-plugin-prettier/recommended'
@@ -40,6 +42,7 @@ const config = defineConfig([
     'contributor-docs/adrs/*',
     'examples/codesandbox/**/*',
     'packages/react/src/utils/polymorphic.ts',
+    'packages/styled-react/src/polymorphic.ts',
     '**/storybook-static',
     '**/CHANGELOG.md',
     '**/node_modules/**/*',
@@ -58,6 +61,7 @@ const config = defineConfig([
 
   react.configs.flat.recommended,
   react.configs.flat['jsx-runtime'],
+  reactCompiler.configs.recommended,
   reactHooks.configs['recommended-latest'],
 
   github.browser,
@@ -67,6 +71,31 @@ const config = defineConfig([
   prettierRecommended,
 
   tseslint.configs.recommended,
+  // @eslint-react/eslint-plugin
+  eslintReact.configs['recommended-typescript'],
+  {
+    rules: {
+      '@eslint-react/dom/no-dangerously-set-innerhtml': 'off',
+      '@eslint-react/dom/no-flush-sync': 'off',
+      '@eslint-react/dom/no-missing-button-type': 'off',
+      '@eslint-react/hooks-extra/no-direct-set-state-in-use-effect': 'off',
+      '@eslint-react/hooks-extra/no-unnecessary-use-prefix': 'off',
+      '@eslint-react/jsx-key-before-spread': 'off',
+      '@eslint-react/no-array-index-key': 'off',
+      '@eslint-react/no-children-count': 'off',
+      '@eslint-react/no-children-for-each': 'off',
+      '@eslint-react/no-children-map': 'off',
+      '@eslint-react/no-children-only': 'off',
+      '@eslint-react/no-children-to-array': 'off',
+      '@eslint-react/no-clone-element': 'off',
+      '@eslint-react/no-create-ref': 'off',
+      '@eslint-react/no-nested-component-definitions': 'off',
+      '@eslint-react/no-prop-types': 'error',
+      '@eslint-react/no-unstable-context-value': 'off',
+      '@eslint-react/no-unstable-default-props': 'error',
+      '@eslint-react/no-useless-forward-ref': 'error',
+    },
+  },
 
   {
     extends: fixupConfigRules(compat.extends('plugin:clsx/recommended', 'plugin:ssr-friendly/recommended')),
@@ -103,7 +132,6 @@ const config = defineConfig([
       globals: {
         ...globals.browser,
         ...globals.commonjs,
-        ...globals.jest,
         ...globals.node,
         __DEV__: 'readonly',
       },
@@ -230,23 +258,33 @@ const config = defineConfig([
   },
 
   // Tests
-  // eslint-plugin-jest
+  {
+    files: ['**/*.test.{ts,tsx}'],
+    rules: {
+      '@eslint-react/no-unstable-default-props': 'off',
+      '@eslint-react/no-useless-forward-ref': 'off',
+    },
+  },
+
+  // eslint-plugin-vitest
   {
     files: ['**/*.test.{ts,tsx}'],
     ignores: ['**/e2e/**'],
     plugins: {
-      jest,
-      ['testing-library']: testingLibrary,
+      vitest,
+    },
+    rules: {
+      ...vitest.configs.recommended.rules,
+    },
+    settings: {
+      vitest: {
+        typecheck: true,
+      },
     },
     languageOptions: {
-      globals: jest.environments.globals.globals,
-    },
-    ...jest.configs['flat/recommended'],
-    rules: {
-      ...jest.configs['flat/recommended'].rules,
-      'jest/expect-expect': 'off',
-      'jest/no-conditional-expect': 'off',
-      'jest/no-disabled-tests': 'off',
+      globals: {
+        ...vitest.environments.env.globals,
+      },
     },
   },
 
@@ -272,6 +310,7 @@ const config = defineConfig([
   {
     files: ['**/*.types.test.{ts,tsx}'],
     rules: {
+      '@eslint-react/no-useless-forward-ref': 'off',
       // We often use assertions that are not used in type tests
       '@typescript-eslint/no-unused-vars': 'off',
     },
@@ -320,6 +359,40 @@ const config = defineConfig([
 
   // Storybook stories
   ...storybook.configs['flat/recommended'],
+
+  // packages/mcp
+  {
+    files: ['packages/mcp/src/**/*.{ts,tsx}'],
+    rules: {
+      // We emit structured XML in the MCP server which is incorrectly being
+      // flagged as HTML
+      'github/unescaped-html-literal': 'off',
+    },
+  },
+
+  // next-env.d.ts files
+  {
+    files: ['**/next-env.d.ts'],
+    rules: {
+      '@typescript-eslint/triple-slash-reference': 'off',
+    },
+  },
+
+  // packages/styled-react overrides
+  {
+    files: ['packages/styled-react/**/*.{ts,tsx}'],
+    rules: {
+      'primer-react/no-unnecessary-components': 'off',
+    },
+  },
+  {
+    files: ['packages/styled-react/**/*.test.{ts,tsx}'],
+    rules: {
+      'github/a11y-aria-label-is-well-formatted': 'off',
+      'github/a11y-svg-has-accessible-name': 'off',
+      'primer-react/direct-slot-children': 'off',
+    },
+  },
 ])
 
 export default tseslint.config(config)

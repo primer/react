@@ -1,38 +1,26 @@
-import type {Meta} from '@storybook/react'
-import {BaseStyles, ThemeProvider, Button} from '..'
-import Box from '../Box'
+import type {Meta} from '@storybook/react-vite'
+import {Button} from '..'
 import Link from '../Link'
 import {Banner} from '../Banner'
 import Tooltip from './Tooltip'
+import classes from './Tooltip.stories.module.css'
 
 /* Tooltip v1 */
 
 export default {
   title: 'Deprecated/Components/Tooltip',
   component: Tooltip,
-
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    },
-  ],
 } as Meta
 
 export const Default = () => (
   <>
-    <Box sx={{mb: 3}}>
+    <div className={classes.BannerContainer}>
       <Banner
         title="Planned for deprecation"
         description={
           <div data-a11y-link-underlines="true">
             There are plans to deprecate this component in a future release. We recommend using{' '}
-            <Link inline={true} href="/?path=/story/components-tooltipv2--default">
+            <Link inline={true} href="/react/storybook/?path=/story/components-tooltipv2--default">
               Tooltip
             </Link>{' '}
             instead.
@@ -40,11 +28,11 @@ export const Default = () => (
         }
         variant="warning"
       />
-    </Box>
-    <Box sx={{p: 5}}>
+    </div>
+    <div className={classes.PaddedContainer}>
       <Tooltip aria-label="Hello, Tooltip!">
         <Button>Hover me</Button>
       </Tooltip>
-    </Box>
+    </div>
   </>
 )

@@ -1,10 +1,7 @@
-import type {SxProp} from '../sx'
 import {clsx} from 'clsx'
 import type React from 'react'
 import {type HTMLAttributes} from 'react'
 import classes from './VisuallyHidden.module.css'
-import {defaultSxProp} from '../utils/defaultSxProp'
-import Box from '../Box'
 
 /**
  * Provides a component that implements the "visually hidden" technique. This is
@@ -16,15 +13,7 @@ import Box from '../Box'
  *
  * @see https://www.scottohara.me/blog/2023/03/21/visually-hidden-hack.html
  */
-export const VisuallyHidden = ({className, children, sx: sxProp = defaultSxProp, ...rest}: VisuallyHiddenProps) => {
-  if (sxProp !== defaultSxProp) {
-    return (
-      <Box sx={sxProp} className={clsx(className, classes.VisuallyHidden)} {...rest}>
-        {children}
-      </Box>
-    )
-  }
-
+export const VisuallyHidden = ({className, children, ...rest}: VisuallyHiddenProps) => {
   return (
     <span className={clsx(className, classes.VisuallyHidden)} {...rest}>
       {children}
@@ -35,5 +24,5 @@ export const VisuallyHidden = ({className, children, sx: sxProp = defaultSxProp,
 export type VisuallyHiddenProps = React.PropsWithChildren<
   HTMLAttributes<HTMLSpanElement> & {
     className?: string
-  } & SxProp
+  }
 >

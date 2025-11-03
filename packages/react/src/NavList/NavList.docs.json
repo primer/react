@@ -2,8 +2,26 @@
   "id": "nav_list",
   "name": "NavList",
   "status": "alpha",
-  "a11yReviewed": false,
-  "stories": [],
+  "a11yReviewed": "2025-01-08",
+  "stories": [
+    {"id": "components-navlist--default"},
+    {"id": "components-navlist-features--expand-with-custom-items"},
+    {"id": "components-navlist-features--expand-with-pages"},
+    {"id": "components-navlist-features--group-with-expand-and-custom-items"},
+    {"id": "components-navlist-features--with-expand"},
+    {"id": "components-navlist-features--with-expand-and-icons"},
+    {"id": "components-navlist-features--with-group"},
+    {"id": "components-navlist-features--with-group-expand"},
+    {"id": "components-navlist-features--with-group-heading-links"},
+    {"id": "components-navlist-features--with-inactive-items"},
+    {"id": "components-navlist-features--with-nested-sub-items"},
+    {"id": "components-navlist-features--with-next-js-link"},
+    {"id": "components-navlist-features--with-react-router-link"},
+    {"id": "components-navlist-features--with-reloads"},
+    {"id": "components-navlist-features--with-sub-items"},
+    {"id": "components-navlist-features--with-trailing-action"},
+    {"id": "components-navlist-features--with-trailing-action-in-sub-item"}
+  ],
   "importPath": "@primer/react",
   "props": [
     {
@@ -26,10 +44,6 @@
       "name": "as",
       "type": "React.ElementType",
       "defaultValue": "\"nav\""
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject"
     }
   ],
   "subcomponents": [
@@ -67,10 +81,6 @@
           "name": "as",
           "type": "React.ElementType",
           "defaultValue": "\"a\""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ],
       "passthrough": {
@@ -82,10 +92,6 @@
       "name": "NavList.LeadingVisual",
       "props": [
         {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        },
-        {
           "name": "ref",
           "type": "React.RefObject<HTMLElement>"
         }
@@ -95,10 +101,6 @@
       "name": "NavList.TrailingVisual",
       "props": [
         {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        },
-        {
           "name": "ref",
           "type": "React.RefObject<HTMLElement>"
         }
@@ -107,10 +109,6 @@
     {
       "name": "NavList.SubNav",
       "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        },
         {
           "name": "ref",
           "type": "React.RefObject<HTMLElement>"
@@ -130,11 +128,7 @@
         {
           "name": "title",
           "type": "string",
-          "description": "The text that gets rendered as the group's heading. Alternatively, you can pass the `NavList.GroupHeading` component as a child of `NavList.Group`.\n If both `title` and `NavList.GroupHeading` are passed, `NavList.GroupHeading` will be rendered as the heading."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
+          "description": "The text that gets rendered as the group's heading. Alternatively, you can pass the `NavList.GroupHeading` component as a child of `NavList.Group`.\nIf both `title` and `NavList.GroupHeading` are passed, `NavList.GroupHeading` will be rendered as the heading."
         },
         {
           "name": "ref",
@@ -167,10 +161,6 @@
           "defaultValue": ""
         },
         {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        },
-        {
           "name": "ref",
           "type": "React.RefObject<HTMLElement>"
         }
@@ -179,10 +169,6 @@
     {
       "name": "NavList.Divider",
       "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        },
         {
           "name": "ref",
           "type": "React.RefObject<HTMLElement>"

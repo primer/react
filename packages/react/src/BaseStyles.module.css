@@ -73,4 +73,14 @@ details-dialog:focus:not(:focus-visible):not(:global(.focus-visible)) {
       color-scheme: dark;
     }
   }
+
+  /* Low-specificity default link styling */
+  :where(a:not([class*='prc-']):not([class*='PRC-']):not([class*='Primer_Brand__'])) {
+    color: var(--fgColor-accent, var(--color-accent-fg));
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }

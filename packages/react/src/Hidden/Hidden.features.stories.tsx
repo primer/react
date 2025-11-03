@@ -1,6 +1,6 @@
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {Hidden} from './Hidden'
-import {Box, Button} from '..'
+import {Button} from '..'
 
 export default {
   title: 'Experimental/Components/Hidden/Features',
@@ -8,15 +8,15 @@ export default {
 } as Meta<typeof Hidden>
 
 export const HideContent = () => (
-  <Box>
+  <div>
     <Hidden when="narrow"> This value is shown in regular and wide viewports</Hidden>
     <Hidden when="regular"> This value is shown in narrow and wide viewports</Hidden>
     <Hidden when="wide"> This value is shown in narrow and regular viewports</Hidden>
-  </Box>
+  </div>
 )
 
 export const RenderContentResponsively = () => (
-  <Box>
+  <div>
     <Hidden when="narrow">
       <Button variant="primary">I am visible when the viewport is regular or wide viewport</Button>
     </Hidden>
@@ -24,5 +24,5 @@ export const RenderContentResponsively = () => (
     <Hidden when={['regular', 'wide']}>
       <Button variant="primary">I am visible when the viewport is narrow</Button>
     </Hidden>
-  </Box>
+  </div>
 )

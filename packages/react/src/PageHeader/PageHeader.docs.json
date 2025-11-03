@@ -2,7 +2,7 @@
   "id": "page_header",
   "name": "PageHeader",
   "status": "beta",
-  "a11yReviewed": true,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-pageheader--default"
@@ -62,16 +62,12 @@
       "name": "hidden",
       "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
       "defaultValue": "false",
-      "description": "Whether the content is hidden.\n The component can be hidden for all viewport widths, or specified viewport widths.\n Some children have a default value for this prop:\n - `PageHeader.ContextArea`, `PageHeader.ContextAreaActions`, `PageHeader.ContextBar`, and `PageHeader.ParentLink` are hidden on regular and wide viewports by default.\n - - `PageHeader.LeadingAction`, and `PageHeader.TrailingAction` are hidden on narrow viewports by default."
+      "description": "Whether the content is hidden.\nThe component can be hidden for all viewport widths, or specified viewport widths.\nSome children have a default value for this prop:\n\n- `PageHeader.ContextArea`, `PageHeader.ContextAreaActions`, `PageHeader.ContextBar`, and `PageHeader.ParentLink` are hidden on regular and wide viewports by default.\n- - `PageHeader.LeadingAction`, and `PageHeader.TrailingAction` are hidden on narrow viewports by default."
     },
     {
       "name": "role",
       "type": "AriaRole",
       "description": "The ARIA role to assign to the top-level node of this component."
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject"
     },
     {
       "name": "as",
@@ -99,10 +95,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     },
@@ -132,10 +124,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "`{ narrow: false regular: true wide: true }`",
           "description": "Whether the parent link is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     },
@@ -153,10 +141,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     },
@@ -174,10 +158,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     },
@@ -200,11 +180,7 @@
           "name": "variant",
           "type": "| 'subtitle' | 'medium' | 'large' | { narrow?: | 'subtitle' | 'medium' | 'large' regular?: | 'subtitle' | 'medium' | 'large' wide?: | 'subtitle' | 'medium' | 'large' }",
           "defaultValue": "medium",
-          "description": "Default title (medium) is the most common page title size. Use for static titles in most situations. \nLarge variant should be used for user-generated content such as issues, pull requests, or discussions. \nSubtitle variant can be used when a PageHeader.Title is already present in the page, such as in a SplitPageLayout."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
+          "description": "Default title (medium) is the most common page title size. Use for static titles in most situations.\nLarge variant should be used for user-generated content such as issues, pull requests, or discussions.\nSubtitle variant can be used when a PageHeader.Title is already present in the page, such as in a SplitPageLayout."
         }
       ]
     },
@@ -222,10 +198,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     },
@@ -243,10 +215,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     },
@@ -264,10 +232,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         },
         {
           "name": "as",
@@ -290,10 +254,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     },
@@ -311,10 +271,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     },
@@ -332,10 +288,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     },
@@ -353,10 +305,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     },
@@ -374,10 +322,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     },
@@ -411,12 +355,9 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     }
   ]
 }
+

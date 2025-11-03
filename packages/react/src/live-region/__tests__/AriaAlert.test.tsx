@@ -1,8 +1,9 @@
+import {describe, expect, it, beforeEach, afterEach} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import React from 'react'
 import {AriaAlert} from '../AriaAlert'
 import {userEvent} from '@testing-library/user-event'
-import {getLiveRegion} from '../../utils/testing'
+import {getLiveRegion} from './test-helpers'
 
 describe('AriaAlert', () => {
   beforeEach(() => {
@@ -28,15 +29,6 @@ describe('AriaAlert', () => {
     const {container} = render(<AriaAlert data-testid="container">test</AriaAlert>)
 
     expect(container.firstChild).toHaveAttribute('data-testid', 'container')
-  })
-
-  it('should support styling via the `sx` prop', () => {
-    render(
-      <AriaAlert data-testid="container" sx={{color: 'blue'}}>
-        test
-      </AriaAlert>,
-    )
-    expect(screen.getByTestId('container')).toHaveStyle('color: blue')
   })
 
   it('should support customizing the container element with `as`', () => {

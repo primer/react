@@ -1,4 +1,4 @@
-import {page} from '@vitest/browser/context'
+import {page} from 'vitest/browser'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Pagination} from '../Pagination'
 import {render, screen} from '@testing-library/react'
@@ -30,13 +30,13 @@ describe('Table.Pagination', () => {
 
   it('should select the correct page with `defaultPageIndex`', () => {
     render(<Pagination aria-label="Pagination" defaultPageIndex={4} pageSize={10} totalCount={100} />)
-    const expectedPage = getPages().filter(p => p.textContent?.includes('5'))[0]
+    const expectedPage = getPages().filter(p => p.textContent.includes('5'))[0]
     expect(getCurrentPage()).toEqual(expectedPage)
   })
 
   it('should show the expected steps when `defaultPageIndex` is provided', () => {
     render(<Pagination aria-label="Pagination" defaultPageIndex={6} pageSize={10} totalCount={100} />)
-    const pages = getPages().map(p => p.textContent?.replace(/[a-z]|\s+/gi, ''))
+    const pages = getPages().map(p => p.textContent.replace(/[a-z]|\s+/gi, ''))
     expect(pages).toEqual(['1…', '4', '5', '6', '7', '8', '9', '10'])
   })
 
@@ -400,14 +400,14 @@ describe('Table.Pagination', () => {
     expect(getCurrentPage()).toEqual(getPage(3))
 
     // Verify all pages are displayed (no truncation needed with only 7 pages)
-    const pageNumbers = getPages().map(p => p.textContent?.replace(/\D/g, ''))
+    const pageNumbers = getPages().map(p => p.textContent.replace(/\D/g, ''))
     expect(pageNumbers).toEqual(['1', '2', '3', '4', '5', '6', '7'])
   })
 })
 
 function getPages() {
   return screen.getAllByRole('button').filter(button => {
-    return button.textContent?.includes('Page')
+    return button.textContent.includes('Page')
   })
 }
 
@@ -450,7 +450,7 @@ function getLastPage() {
 }
 
 function getInvalidPages() {
-  return getPages().filter(p => p.textContent?.match(/Page\s-/g) || p.textContent?.match(/Page\s0$/g))
+  return getPages().filter(p => p.textContent.match(/Page\s-/g) || p.textContent.match(/Page\s0$/g))
 }
 
 function getPageRange() {

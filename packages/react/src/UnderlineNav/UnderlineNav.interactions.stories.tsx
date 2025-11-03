@@ -1,5 +1,5 @@
-import type {Meta} from '@storybook/react'
-import {within, userEvent, expect} from '@storybook/test'
+import type {Meta} from '@storybook/react-vite'
+import {within, userEvent, expect} from 'storybook/test'
 import {OverflowTemplate} from './UnderlineNav.features.stories'
 
 export default {

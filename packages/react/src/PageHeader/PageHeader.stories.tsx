@@ -1,5 +1,5 @@
-import type {Meta, StoryFn} from '@storybook/react'
-import {Button, IconButton, Breadcrumbs, Link, Text, StateLabel, BranchName, Box} from '..'
+import type {Meta, StoryFn} from '@storybook/react-vite'
+import {Button, IconButton, Breadcrumbs, Link, Text, StateLabel, BranchName} from '..'
 import {UnderlineNav} from '../UnderlineNav'
 import Label from '../Label'
 import {
@@ -20,6 +20,7 @@ import {OcticonArgType} from '../utils/story-helpers'
 
 import {PageHeader} from './PageHeader'
 import Hidden from '../Hidden'
+import classes from './PageHeader.stories.module.css'
 
 const meta: Meta<typeof PageHeader> = {
   title: 'Components/PageHeader',
@@ -190,7 +191,7 @@ const meta: Meta<typeof PageHeader> = {
 export default meta
 
 export const Playground: StoryFn = args => (
-  <Box sx={{padding: 3}}>
+  <div className={classes.PaddingContainer}>
     <PageHeader aria-label={args.Title} role="banner" hasBorder={args.hasBorder}>
       <PageHeader.TitleArea
         variant={{
@@ -251,8 +252,8 @@ export const Playground: StoryFn = args => (
       <PageHeader.Description hidden={!args.hasDescription}>
         <StateLabel status="pullOpened">Open</StateLabel>
         <Hidden when={['narrow']}>
-          <Text sx={{fontSize: 1, color: 'fg.muted'}}>
-            <Link href="https://github.com/broccolinisoup" sx={{fontWeight: 'bold'}}>
+          <Text className={classes.DescriptionText}>
+            <Link href="https://github.com/broccolinisoup" className={classes.BoldLink}>
               broccolinisoup
             </Link>{' '}
             wants to merge 3 commits into <BranchName href="https://github.com/primer/react">main</BranchName> from{' '}
@@ -260,7 +261,7 @@ export const Playground: StoryFn = args => (
           </Text>
         </Hidden>
         <Hidden when={['regular', 'wide']}>
-          <Text sx={{fontSize: 1, color: 'fg.muted'}}>
+          <Text className={classes.DescriptionText}>
             <BranchName href="https://github.com/primer/react">main</BranchName>
             <ArrowRightIcon />
             <BranchName href="https://github.com/primer/react">page-header-initial</BranchName>
@@ -284,15 +285,15 @@ export const Playground: StoryFn = args => (
         </UnderlineNav>
       </PageHeader.Navigation>
     </PageHeader>
-  </Box>
+  </div>
 )
 
 export const Default = () => (
-  <Box sx={{padding: 3}}>
+  <div className={classes.PaddingContainer}>
     <PageHeader role="banner" aria-label="Title">
       <PageHeader.TitleArea>
         <PageHeader.Title>Title</PageHeader.Title>
       </PageHeader.TitleArea>
     </PageHeader>
-  </Box>
+  </div>
 )

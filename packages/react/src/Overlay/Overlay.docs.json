@@ -2,11 +2,17 @@
   "id": "overlay",
   "name": "Overlay",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
-    {"id": "private-components-overlay--default"},
-    {"id": "private-components-overlay-features--dialog-overlay"},
-    {"id": "private-components-overlay-features--positioned-overlays"}
+    {
+      "id": "private-components-overlay--default"
+    },
+    {
+      "id": "private-components-overlay-features--dialog-overlay"
+    },
+    {
+      "id": "private-components-overlay-features--positioned-overlays"
+    }
   ],
   "importPath": "@primer/react",
   "props": [
@@ -58,7 +64,7 @@
     {
       "name": "maxHeight",
       "type": "| 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'",
-      "defaultValue": "",
+      "defaultValue": "100vh",
       "description": "Sets the maximum height of the `Overlay`, pick from our set list of heights. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`."
     },
     {
@@ -118,13 +124,13 @@
       "type": "'hidden' | 'scroll' | 'auto' | 'visible'",
       "required": false,
       "description": "",
-      "defaultValue": ""
+      "defaultValue": "hidden"
     },
     {
       "name": "preventOverflow",
       "type": "boolean",
       "defaultValue": "true",
-      "description": "Determines if the Overlay width should be adjusted responsively if `width` is set to either `auto`, `medium` or lower and there is not enough space to display the Overlay. \nIf `preventOverflow` is set to `false`, the Overlay will be displayed at the maximum width that fits within the viewport."
+      "description": "Determines if the Overlay width should be adjusted responsively if `width` is set to either `auto`, `medium` or lower and there is not enough space to display the Overlay.\nIf `preventOverflow` is set to `false`, the Overlay will be displayed at the maximum width that fits within the viewport."
     },
     {
       "name": "role",
@@ -139,10 +145,6 @@
       "required": false,
       "description": "",
       "defaultValue": ""
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject"
     },
     {
       "name": "responsiveVariant",

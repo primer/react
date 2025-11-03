@@ -1,9 +1,10 @@
-import type {Meta} from '@storybook/react'
-import {Button, Link, Text, StateLabel, BranchName, Box} from '..'
+import type {Meta} from '@storybook/react-vite'
+import {Button, Link, Text, StateLabel, BranchName} from '..'
 import {ArrowRightIcon} from '@primer/octicons-react'
 
 import {PageHeader} from '../PageHeader'
 import {Hidden} from '.'
+import classes from './Hidden.examples.stories.module.css'
 
 export default {
   title: 'Experimental/Components/Hidden/Examples',
@@ -20,7 +21,7 @@ const setViewportParamToNarrow = {
   },
 }
 export const Webhooks = () => (
-  <Box sx={{padding: 3}}>
+  <div style={{padding: 'var(--base-size-12)'}}>
     <PageHeader role="banner" aria-label="Webhooks">
       <PageHeader.ContextArea>
         <PageHeader.ParentLink href="http://github.com">Repository settings</PageHeader.ParentLink>
@@ -39,7 +40,7 @@ export const Webhooks = () => (
         </PageHeader.Actions>
       </PageHeader.TitleArea>
     </PageHeader>
-  </Box>
+  </div>
 )
 
 export const WebhooksOnNarrowViewport = () => {
@@ -49,7 +50,7 @@ export const WebhooksOnNarrowViewport = () => {
 WebhooksOnNarrowViewport.parameters = setViewportParamToNarrow
 
 export const PullRequestPage = () => (
-  <Box sx={{padding: 3}}>
+  <div style={{padding: 'var(--base-size-12)'}}>
     <PageHeader role="banner" aria-label="Add Hidden utility component">
       <PageHeader.ContextArea>
         <PageHeader.ParentLink href="http://github.com">Pull requests</PageHeader.ParentLink>
@@ -60,16 +61,22 @@ export const PullRequestPage = () => (
       <PageHeader.Description>
         <StateLabel status="pullOpened">Open</StateLabel>
         <Hidden when={['narrow']}>
-          <Text sx={{fontSize: 1, color: 'fg.muted'}}>
-            <Link href="#" muted sx={{fontWeight: 'bold'}}>
+          <Text className={classes.SmallMutedText}>
+            <Link href="#" muted style={{fontWeight: 'var(--base-text-weight-semibold)'}}>
               broccolinisoup
             </Link>{' '}
-            wants to merge 3 commits into <BranchName href="#">main</BranchName> from{' '}
-            <BranchName href="#">broccolinisoup/add-hidden-component</BranchName>
+            wants to merge 3 commits into
+            <BranchName href="#" style={{textDecoration: 'underline'}}>
+              main
+            </BranchName>
+            from
+            <BranchName href="#" style={{textDecoration: 'underline'}}>
+              broccolinisoup/add-hidden-component
+            </BranchName>
           </Text>
         </Hidden>
         <Hidden when={['regular', 'wide']}>
-          <Text sx={{fontSize: 1, color: 'fg.muted'}}>
+          <Text className={classes.SmallMutedText}>
             <BranchName href="#">main</BranchName>
             <ArrowRightIcon />
             <BranchName href="#">page-header-initial</BranchName>
@@ -77,7 +84,7 @@ export const PullRequestPage = () => (
         </Hidden>
       </PageHeader.Description>
     </PageHeader>
-  </Box>
+  </div>
 )
 
 export const PullRequestPageOnNarrowViewport = () => {

@@ -1,4 +1,4 @@
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import {Placeholder} from '../Placeholder'
 import {PageLayout} from './PageLayout'
 
@@ -349,7 +349,6 @@ export const Default: StoryFn = args => (
     padding={args.padding}
     rowGap={args.rowGap}
     columnGap={args.columnGap}
-    sx={args.sx}
   >
     {args['Render header?'] ? (
       <PageLayout.Header

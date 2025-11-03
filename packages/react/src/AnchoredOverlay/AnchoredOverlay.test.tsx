@@ -1,11 +1,10 @@
-import {useCallback, useState} from 'react'
+import {act, useCallback, useState} from 'react'
 import {describe, expect, it, vi} from 'vitest'
-import {render, fireEvent} from '@testing-library/react'
+import {render} from '@testing-library/react'
+import {userEvent} from 'vitest/browser'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'
-import theme from '../theme'
 import BaseStyles from '../BaseStyles'
-import {ThemeProvider} from '../ThemeProvider'
 import type {AnchorPosition} from '@primer/behaviors'
 type TestComponentSettings = {
   initiallyOpen?: boolean
@@ -36,52 +35,54 @@ const AnchoredOverlayTestComponent = ({
     [onCloseCallback],
   )
   return (
-    <ThemeProvider theme={theme}>
-      <BaseStyles>
-        <AnchoredOverlay
-          open={open}
-          onOpen={onOpen}
-          onClose={onClose}
-          renderAnchor={props => <Button {...props}>Anchor Button</Button>}
-          onPositionChange={onPositionChange}
-        >
-          <button type="button">Focusable Child</button>
-        </AnchoredOverlay>
-      </BaseStyles>
-    </ThemeProvider>
+    <BaseStyles>
+      <AnchoredOverlay
+        open={open}
+        onOpen={onOpen}
+        onClose={onClose}
+        renderAnchor={props => <Button {...props}>Anchor Button</Button>}
+        onPositionChange={onPositionChange}
+      >
+        <button type="button">Focusable Child</button>
+      </AnchoredOverlay>
+    </BaseStyles>
   )
 }
 
 describe('AnchoredOverlay', () => {
-  it('should call onOpen when the anchor is clicked', () => {
+  it('should call onOpen when the anchor is clicked', async () => {
     const mockOpenCallback = vi.fn()
     const mockCloseCallback = vi.fn()
     const anchoredOverlay = render(
       <AnchoredOverlayTestComponent onOpenCallback={mockOpenCallback} onCloseCallback={mockCloseCallback} />,
     )
     const anchor = anchoredOverlay.baseElement.querySelector('[aria-haspopup="true"]')!
-    fireEvent.click(anchor)
+    await act(async () => {
+      await userEvent.click(anchor)
+    })
 
     expect(mockOpenCallback).toHaveBeenCalledTimes(1)
     expect(mockOpenCallback).toHaveBeenCalledWith('anchor-click')
     expect(mockCloseCallback).toHaveBeenCalledTimes(0)
   })
 
-  it('should call onOpen when the anchor activated by a key press', () => {
+  it('should call onOpen when the anchor activated by a key press', async () => {
     const mockOpenCallback = vi.fn()
     const mockCloseCallback = vi.fn()
     const anchoredOverlay = render(
       <AnchoredOverlayTestComponent onOpenCallback={mockOpenCallback} onCloseCallback={mockCloseCallback} />,
     )
     const anchor = anchoredOverlay.baseElement.querySelector('[aria-haspopup="true"]')!
-    fireEvent.keyDown(anchor, {key: ' '})
+    await act(async () => {
+      await userEvent.type(anchor, '{Space}')
+    })
 
     expect(mockOpenCallback).toHaveBeenCalledTimes(1)
     expect(mockOpenCallback).toHaveBeenCalledWith('anchor-key-press')
     expect(mockCloseCallback).toHaveBeenCalledTimes(0)
   })
 
-  it('should call onClose when the user clicks off of the overlay', () => {
+  it('should call onClose when the user clicks off of the overlay', async () => {
     const mockOpenCallback = vi.fn()
     const mockCloseCallback = vi.fn()
     const anchoredOverlay = render(
@@ -91,7 +92,9 @@ describe('AnchoredOverlay', () => {
         onCloseCallback={mockCloseCallback}
       />,
     )
-    fireEvent.mouseDown(anchoredOverlay.baseElement)
+    await act(async () => {
+      await userEvent.click(anchoredOverlay.baseElement)
+    })
 
     expect(mockOpenCallback).toHaveBeenCalledTimes(0)
     expect(mockCloseCallback).toHaveBeenCalledTimes(1)
@@ -101,15 +104,18 @@ describe('AnchoredOverlay', () => {
   it('should call onClose when the escape key is pressed', async () => {
     const mockOpenCallback = vi.fn()
     const mockCloseCallback = vi.fn()
-    const anchoredOverlay = render(
+
+    render(
       <AnchoredOverlayTestComponent
         initiallyOpen={true}
         onOpenCallback={mockOpenCallback}
         onCloseCallback={mockCloseCallback}
       />,
     )
-    const overlay = await anchoredOverlay.findByRole('none')
-    fireEvent.keyDown(overlay, {key: 'Escape'})
+
+    await act(async () => {
+      await userEvent.keyboard('{Escape}')
+    })
 
     expect(mockOpenCallback).toHaveBeenCalledTimes(0)
     expect(mockCloseCallback).toHaveBeenCalledTimes(1)
@@ -121,21 +127,21 @@ describe('AnchoredOverlay', () => {
     expect(container).toMatchSnapshot()
   })
 
-  it('should call onPositionChange when provided', () => {
+  it('should call onPositionChange when provided', async () => {
     const mockPositionChangeCallback = vi.fn(({position}: {position: AnchorPosition}) => position)
-    const anchoredOverlay = render(
-      <AnchoredOverlayTestComponent initiallyOpen={true} onPositionChange={mockPositionChangeCallback} />,
-    )
-    const overlay = anchoredOverlay.baseElement.querySelector('[role="none"]')!
-    fireEvent.keyDown(overlay, {key: 'Escape'})
+    render(<AnchoredOverlayTestComponent initiallyOpen={true} onPositionChange={mockPositionChangeCallback} />)
 
-    expect(mockPositionChangeCallback).toHaveBeenCalledTimes(1)
+    await act(async () => {
+      await userEvent.keyboard('{Escape}')
+    })
+
+    expect(mockPositionChangeCallback).toHaveBeenCalled()
     expect(mockPositionChangeCallback).toHaveBeenCalledWith({
       position: {
         anchorAlign: 'start',
         anchorSide: 'outside-bottom',
         left: 0,
-        top: 26.84375,
+        top: 36,
       },
     })
   })

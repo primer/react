@@ -1,10 +1,10 @@
-import styled from 'styled-components'
-import {get} from '../constants'
 import Octicon from '../Octicon'
-import type {SxProp} from '../sx'
-import sx from '../sx'
 import isNumeric from '../utils/isNumeric'
 import type {ComponentProps} from '../utils/types'
+
+import styles from './CircleBadge.module.css'
+import type {OcticonProps} from '../Octicon'
+import {clsx} from 'clsx'
 
 const variantSizes = {
   small: 56,
@@ -12,13 +12,15 @@ const variantSizes = {
   large: 128,
 }
 
-type StyledCircleBadgeProps = {
+export type CircleBadgeProps<As extends React.ElementType> = {
   inline?: boolean
   variant?: keyof typeof variantSizes
   size?: number
-} & SxProp
+  as?: As
+  className?: string
+} & React.ComponentPropsWithRef<React.ElementType extends As ? 'a' : As>
 
-const sizeStyles = ({size, variant = 'medium'}: StyledCircleBadgeProps) => {
+const sizeStyles = ({size, variant = 'medium'}: CircleBadgeProps<React.ElementType>) => {
   const calc = isNumeric(size) ? size : variantSizes[variant]
   return {
     width: calc,
@@ -26,25 +28,23 @@ const sizeStyles = ({size, variant = 'medium'}: StyledCircleBadgeProps) => {
   }
 }
 
-const CircleBadge = styled.div<StyledCircleBadgeProps>`
-  display: ${({inline = false}) => (inline ? 'inline-flex' : 'flex')};
-  align-items: center;
-  justify-content: center;
-  background-color: ${get('colors.canvas.default')};
-  border-radius: 50%;
-  box-shadow: ${get('shadows.shadow.medium')};
-  ${sizeStyles};
-  ${sx};
-`
+const CircleBadge = <As extends React.ElementType>({as: Component = 'div', ...props}: CircleBadgeProps<As>) => (
+  <Component
+    {...props}
+    className={clsx(styles.CircleBadge, props.className)}
+    data-inline={props.inline ? '' : undefined}
+    style={sizeStyles(props)}
+  />
+)
 
-const CircleBadgeIcon = styled(Octicon)`
-  height: auto;
-  max-width: 60%;
-  max-height: 55%;
-`
+const CircleBadgeIcon = (props: OcticonProps) => <Octicon className={styles.CircleBadgeIcon} {...props} />
 
 CircleBadgeIcon.displayName = 'CircleBadge.Icon'
 
-export type CircleBadgeProps = ComponentProps<typeof CircleBadge>
 export type CircleBadgeIconProps = ComponentProps<typeof CircleBadgeIcon>
+
+/**
+ * @deprecated This component is deprecated.
+ * Replace component with specific icon imports from `@primer/octicons-react` and customized styling.
+ */
 export default Object.assign(CircleBadge, {Icon: CircleBadgeIcon})

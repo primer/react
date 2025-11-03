@@ -1,20 +1,16 @@
 import type {ComponentPropsWithRef, ReactElement} from 'react'
 import React, {useEffect, useRef} from 'react'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
-import {get} from '../constants'
 import type {AriaRole, Merge} from '../utils/types'
 import type {TouchOrMouseEvent} from '../hooks'
 import {useOverlay} from '../hooks'
 import Portal from '../Portal'
-import type {SxProp} from '../sx'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import type {AnchorSide} from '@primer/behaviors'
-import {useTheme} from '../ThemeProvider'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './Overlay.module.css'
 import {clsx} from 'clsx'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
@@ -24,7 +20,7 @@ type StyledOverlayProps = {
   visibility?: 'visible' | 'hidden'
   overflow?: 'auto' | 'hidden' | 'scroll' | 'visible'
   style?: React.CSSProperties
-} & SxProp
+}
 
 export const heightMap = {
   xsmall: '192px',
@@ -91,7 +87,7 @@ type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
  * @param bottom Optional. Vertical bottom position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
  * @param position Optional. Sets how an element is positioned in a document. Defaults to `absolute` positioning.
  */
-export const BaseOverlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
+export const BaseOverlay = React.forwardRef(
   (
     {
       visibility,
@@ -102,17 +98,17 @@ export const BaseOverlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
       right,
       bottom,
       position,
-      style: styleFromProps = {},
+      style: styleFromProps,
       className,
       maxHeight,
       maxWidth,
+      as: Component = 'div',
       ...rest
     },
     forwardedRef,
   ): ReactElement => {
     return (
-      <BoxWithFallback
-        as="div"
+      <Component
         {...rest}
         ref={forwardedRef}
         style={
@@ -131,6 +127,7 @@ export const BaseOverlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
           [`data-height-${height}`]: '',
           [`data-max-height-${maxHeight}`]: maxHeight ? '' : undefined,
           [`data-visibility-${visibility}`]: '',
+          [`data-overflow-${rest.overflow}`]: rest.overflow ? '' : undefined,
         }}
         className={clsx(className, classes.Overlay)}
       />
@@ -193,9 +190,8 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
   ): ReactElement => {
     const overlayRef = useRef<HTMLDivElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, overlayRef)
-    const {theme} = useTheme()
-    const slideAnimationDistance = parseInt(get('space.2')(theme).replace('px', ''))
-    const slideAnimationEasing = get('animation.easeOutCubic')(theme)
+    const slideAnimationDistance = 8 // var(--base-size-8), hardcoded to do some math
+    const slideAnimationEasing = 'cubic-bezier(0.33, 1, 0.68, 1)'
 
     useOverlay({
       overlayRef,

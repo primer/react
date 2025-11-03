@@ -1,42 +1,8 @@
+import {describe, expect, it, vi} from 'vitest'
 import {render} from '@testing-library/react'
 import {PageHeader} from '.'
-import MatchMediaMock from 'jest-matchmedia-mock'
-import {behavesAsComponent, checkExports} from '../utils/testing'
 
-let matchmedia: MatchMediaMock
 describe('PageHeader', () => {
-  beforeAll(() => {
-    matchmedia = new MatchMediaMock()
-    const observe = jest.fn()
-    window.IntersectionObserver = jest.fn(() => ({
-      observe,
-      unobserve: jest.fn(),
-      takeRecords: jest.fn(),
-      disconnect: jest.fn(),
-      root: null,
-      rootMargin: '',
-      thresholds: [],
-    })) as jest.Mock<IntersectionObserver>
-  })
-  afterAll(() => {
-    matchmedia.clear()
-  })
-  behavesAsComponent({
-    Component: PageHeader,
-    options: {skipAs: true, skipSx: true},
-    toRender: () => (
-      <PageHeader role="banner" aria-label="Banner">
-        <PageHeader.TitleArea></PageHeader.TitleArea>
-        <PageHeader.ContextArea></PageHeader.ContextArea>
-        <PageHeader.Description></PageHeader.Description>
-        <PageHeader.Navigation></PageHeader.Navigation>
-      </PageHeader>
-    ),
-  })
-  checkExports('PageHeader', {
-    default: undefined,
-    PageHeader,
-  })
   it('respects the title variant prop', () => {
     const {getByText} = render(
       <PageHeader role="banner" aria-label="Title">
@@ -46,7 +12,7 @@ describe('PageHeader', () => {
         <PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>
       </PageHeader>,
     )
-    expect(getByText('Title')).toHaveStyle('font-size: 1.5em')
+    expect(getByText('Title')).toHaveStyle('font-size: 32px')
   })
   it('renders "aria-label" prop when Navigation is rendered as "nav" landmark', () => {
     const {getByLabelText, getByText} = render(
@@ -73,8 +39,9 @@ describe('PageHeader', () => {
     )
     expect(getByText('Navigation')).not.toHaveAttribute('aria-label')
   })
+
   it('logs a warning when the Navigation component is rendered as "nav" but no "aria-label" or "aria-labelledby" prop is provided', () => {
-    const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation()
+    const consoleSpy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => {})
     render(
       <PageHeader role="banner" aria-label="Title">
         <PageHeader.TitleArea>

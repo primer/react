@@ -1,5 +1,4 @@
-import React, {Children, useEffect, useRef, useState, useMemo} from 'react'
-import type {SxProp} from '../sx'
+import React, {Children, useEffect, useRef, useState, useMemo, type ForwardRefExoticComponent} from 'react'
 import {useId, useProvidedRefOrCreate, useOnEscapePress, useIsMacOS} from '../hooks'
 import {invariant} from '../utils/invariant'
 import {warning} from '../utils/warning'
@@ -11,17 +10,22 @@ import classes from './Tooltip.module.css'
 import {getAccessibleKeybindingHintString, KeybindingHint, type KeybindingHintProps} from '../KeybindingHint'
 import VisuallyHidden from '../_VisuallyHidden'
 import useSafeTimeout from '../hooks/useSafeTimeout'
-import {toggleSxComponent} from '../internal/utils/toggleSxComponent'
+import type {SlotMarker} from '../utils/types'
 
 export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
-export type TooltipProps = React.PropsWithChildren<
-  {
-    direction?: TooltipDirection
-    text: string
-    type?: 'label' | 'description'
-    keybindingHint?: KeybindingHintProps['keys']
-  } & SxProp
-> &
+export type TooltipProps = React.PropsWithChildren<{
+  direction?: TooltipDirection
+  text: string
+  type?: 'label' | 'description'
+  keybindingHint?: KeybindingHintProps['keys']
+  /**
+   * Delay in milliseconds before showing the tooltip
+   * @default short (50ms)
+   * medium (400ms)
+   * long (1200ms)
+   */
+  delay?: 'short' | 'medium' | 'long'
+}> &
   React.HTMLAttributes<HTMLElement>
 
 type TriggerPropsType = Pick<
@@ -73,6 +77,14 @@ const interactiveElements = [
   'textarea',
 ]
 
+// Map delay prop to actual time in ms
+// For context on delay times, see https://github.com/github/primer/issues/3313#issuecomment-3336696699
+const delayTimeMap = {
+  short: 50,
+  medium: 400,
+  long: 1200,
+}
+
 const isInteractive = (element: HTMLElement) => {
   return (
     interactiveElements.some(selector => element.matches(selector)) ||
@@ -81,13 +93,22 @@ const isInteractive = (element: HTMLElement) => {
 }
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})
 
-const BaseComponent = toggleSxComponent('span') as React.ComponentType<
-  SxProp & React.HTMLAttributes<HTMLElement> & React.RefAttributes<HTMLSpanElement>
->
-
-export const Tooltip = React.forwardRef(
+export const Tooltip: ForwardRefExoticComponent<
+  React.PropsWithoutRef<TooltipProps> & React.RefAttributes<HTMLElement>
+> &
+  SlotMarker = React.forwardRef<HTMLElement, TooltipProps>(
   (
-    {direction = 's', text, type = 'description', children, id, className, keybindingHint, ...rest}: TooltipProps,
+    {
+      direction = 's',
+      text,
+      type = 'description',
+      children,
+      id,
+      className,
+      keybindingHint,
+      delay = 'short',
+      ...rest
+    }: TooltipProps,
     forwardedRef,
   ) => {
     const tooltipId = useId(id)
@@ -247,7 +268,21 @@ export const Tooltip = React.forwardRef(
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
               ref: triggerRef,
               // If it is a type description, we use tooltip to describe the trigger
-              'aria-describedby': type === 'description' ? tooltipId : child.props['aria-describedby'],
+              'aria-describedby': (() => {
+                // If tooltip is not a description type, keep the original aria-describedby
+                if (type !== 'description') {
+                  return child.props['aria-describedby']
+                }
+
+                // If tooltip is a description type, append our tooltipId
+                const existingDescribedBy = child.props['aria-describedby']
+                if (existingDescribedBy) {
+                  return `${existingDescribedBy} ${tooltipId}`
+                }
+
+                // If no existing aria-describedby, use our tooltipId
+                return tooltipId
+              })(),
               // If it is a label type, we use tooltip to label the trigger
               'aria-labelledby': type === 'label' ? tooltipId : child.props['aria-labelledby'],
               onBlur: (event: React.FocusEvent) => {
@@ -274,21 +309,24 @@ export const Tooltip = React.forwardRef(
                 child.props.onFocus?.(event)
               },
               onMouseOverCapture: (event: React.MouseEvent) => {
+                const delayTime = delayTimeMap[delay] || 50
                 // We use a `capture` event to ensure this is called first before
                 // events that might cancel the opening timeout (like `onTouchEnd`)
-                // show tooltip after mouse has been hovering for at least 50ms
+                // show tooltip after mouse has been hovering for the specified delay time
                 // (prevent showing tooltip when mouse is just passing through)
                 openTimeoutRef.current = safeSetTimeout(() => {
+                  // if the mouse is already moved out, do not show the tooltip
+                  if (!openTimeoutRef.current) return
                   openTooltip()
                   child.props.onMouseEnter?.(event)
-                }, 50)
+                }, delayTime)
               },
               onMouseLeave: (event: React.MouseEvent) => {
                 closeTooltip()
                 child.props.onMouseLeave?.(event)
               },
             })}
-          <BaseComponent
+          <span
             className={clsx(className, classes.Tooltip)}
             ref={tooltipElRef}
             data-direction={calculatedDirection}
@@ -321,9 +359,11 @@ export const Tooltip = React.forwardRef(
             ) : (
               text
             )}
-          </BaseComponent>
+          </span>
         </>
       </TooltipContext.Provider>
     )
   },
 )
+
+Tooltip.__SLOT__ = Symbol('Tooltip')

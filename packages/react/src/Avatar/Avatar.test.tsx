@@ -1,55 +1,36 @@
-import {Avatar} from '..'
-import theme from '../theme'
-import {px, render, behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender, screen} from '@testing-library/react'
-import axe from 'axe-core'
+import {describe, expect, it} from 'vitest'
+import {render, screen} from '@testing-library/react'
+import Avatar from '../Avatar'
 
 describe('Avatar', () => {
-  behavesAsComponent({
-    Component: Avatar,
-    options: {
-      skipAs: true,
-    },
-  })
-
-  checkExports('Avatar', {
-    default: Avatar,
-  })
-
   it('should support `className` on the outermost element', () => {
     const Element = () => <Avatar src="primer.png" className={'test-class-name'} />
-    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<Avatar src="primer.png" />)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('renders small by default', () => {
     const size = 20
-    const result = render(<Avatar src="primer.png" />)
-    expect(result.props.width).toEqual(size)
-    expect(result.props.height).toEqual(size)
+    render(<Avatar src="primer.png" data-testid="avatar" />)
+    const avatar = screen.getByTestId('avatar')
+    expect(avatar).toHaveAttribute('width', size.toString())
+    expect(avatar).toHaveAttribute('height', size.toString())
   })
 
   it('respects the size prop', () => {
-    const result = render(<Avatar size={40} src="primer.png" alt="github" />)
-    expect(result.props.width).toEqual(40)
-    expect(result.props.height).toEqual(40)
+    render(<Avatar size={40} src="primer.png" alt="github" data-testid="avatar" />)
+    const avatar = screen.getByTestId('avatar')
+    expect(avatar).toHaveAttribute('width', '40')
+    expect(avatar).toHaveAttribute('height', '40')
   })
 
   it('passes through the src prop', () => {
-    expect(render(<Avatar src="primer.png" alt="" />).props.src).toEqual('primer.png')
-  })
-
-  it('respects margin props', () => {
-    expect(render(<Avatar src="primer.png" alt="" sx={{m: 2}} />)).toHaveStyleRule('margin', px(theme.space[2]))
+    render(<Avatar src="primer.png" alt="" data-testid="avatar" />)
+    const avatar = screen.getByTestId('avatar')
+    expect(avatar).toHaveAttribute('src', 'primer.png')
   })
 
   it('should support the `style` prop without overriding internal styles', () => {
-    HTMLRender(
+    render(
       <Avatar
         data-testid="avatar"
         src="primer.png"
@@ -59,9 +40,14 @@ describe('Avatar', () => {
       />,
     )
 
-    expect(screen.getByTestId('avatar')).toHaveStyle({
-      background: 'black',
-      ['--avatarSize-regular']: '20px',
-    })
+    const avatar = screen.getByTestId('avatar')
+
+    // Test that both the custom CSS property and the style prop are applied
+    expect(avatar).toHaveStyle('--avatarSize-regular: 20px')
+
+    // Check that style attribute contains both the custom property and the background
+    const styleAttr = avatar.getAttribute('style') || ''
+    expect(styleAttr).toContain('--avatarSize-regular: 20px')
+    expect(styleAttr).toContain('background: black')
   })
 })

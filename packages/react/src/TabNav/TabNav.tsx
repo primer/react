@@ -1,37 +1,15 @@
-import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {clsx} from 'clsx'
 import type {To} from 'history'
 import React, {useRef, useState} from 'react'
-import styled from 'styled-components'
-import {get} from '../constants'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
-import type {SxProp} from '../sx'
-import sx from '../sx'
-import type {ComponentProps} from '../utils/types'
-import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
-const ITEM_CLASS = 'TabNav-item'
-const SELECTED_CLASS = 'selected'
-
-const TabNavBase = styled.div<SxProp>`
-  ${sx}
-`
-
-const TabNavTabList = styled.div`
-  display: flex;
-  margin-bottom: -1px;
-  overflow: auto;
-`
-
-const TabNavNav = styled.nav`
-  margin-top: 0;
-  border-bottom: 1px solid ${get('colors.border.default')};
-`
+import styles from './TabNav.module.css'
 
 /**
  * @deprecated
  */
-export type TabNavProps = ComponentProps<typeof TabNavBase>
+export type TabNavProps = React.HTMLProps<HTMLDivElement>
 
 /**
  * @deprecated
@@ -73,11 +51,13 @@ function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
   )
 
   return (
-    <TabNavBase {...rest} ref={navRef as React.RefObject<HTMLDivElement>}>
-      <TabNavNav aria-label={ariaLabel}>
-        <TabNavTabList role="tablist">{children}</TabNavTabList>
-      </TabNavNav>
-    </TabNavBase>
+    <div {...rest} ref={navRef as React.RefObject<HTMLDivElement>}>
+      <nav aria-label={ariaLabel} className={styles.TabNavNav}>
+        <div role="tablist" className={styles.TabNavTabList}>
+          {children}
+        </div>
+      </nav>
+    </div>
   )
 }
 
@@ -88,44 +68,29 @@ export type TabNavLinkProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLA
   to?: To
   selected?: boolean
   href?: string
-} & SxProp
+  className?: string
+  as?: React.ElementType | 'a' | 'button' | 'div'
+  disabled?: boolean
+}
 
 /**
  * @deprecated
  */
-const TabNavLink = styled.a.attrs<TabNavLinkProps>(props => ({
-  className: clsx(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
-  role: 'tab',
-  'aria-selected': !!props.selected,
-  tabIndex: -1,
-}))<TabNavLinkProps>`
-  padding: 8px 12px;
-  font-size: ${get('fontSizes.1')};
-  line-height: 20px;
-  color: ${get('colors.fg.default')};
-  text-decoration: none;
-  background-color: transparent;
-  border: 1px solid transparent;
-  border-bottom: 0;
-
-  ${getGlobalFocusStyles('-6px')};
-
-  &:hover,
-  &:focus {
-    color: ${get('colors.fg.default')};
-    text-decoration: none;
-  }
-
-  &.selected {
-    color: ${get('colors.fg.default')};
-    border-color: ${get('colors.border.default')};
-    border-top-right-radius: ${get('radii.2')};
-    border-top-left-radius: ${get('radii.2')};
-    background-color: ${get('colors.canvas.default')};
-  }
-
-  ${sx};
-` as PolymorphicForwardRefComponent<'a', TabNavLinkProps>
+const TabNavLink = React.forwardRef(function TabNavLink(
+  {selected, className, as: Component = 'a', ...rest}: TabNavLinkProps,
+  ref,
+) {
+  return (
+    <Component
+      ref={ref}
+      role="tab"
+      tabIndex={-1}
+      aria-selected={selected ? true : undefined}
+      className={clsx('TabNav-item', styles.TabNavLink, selected && 'selected', selected && styles.Selected, className)}
+      {...rest}
+    />
+  )
+}) as PolymorphicForwardRefComponent<'a', TabNavLinkProps>
 
 TabNavLink.displayName = 'TabNav.Link'
 

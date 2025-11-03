@@ -2,7 +2,7 @@
   "id": "breadcrumbs",
   "name": "Breadcrumbs",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-breadcrumbs--default"
@@ -14,18 +14,21 @@
       "name": "className",
       "type": "string",
       "required": false,
-      "description": "",
+      "description": "Additional CSS class names to apply to the breadcrumbs container",
       "defaultValue": ""
     },
     {
       "name": "children",
       "type": "Breadcrumbs.Item[]",
       "defaultValue": "",
-      "description": ""
+      "description": "Breadcrumb items to render. Each item should be a Breadcrumbs.Item component."
     },
     {
-      "name": "sx",
-      "type": "SystemStyleObject"
+      "name": "overflow",
+      "type": "'wrap' | 'menu' | 'menu-with-root'",
+      "required": false,
+      "description": "How to handle overflow when breadcrumbs don't fit in the container. 'wrap' allows items to wrap to new lines. 'menu' collapses items into an overflow menu. 'menu-with-root' also collapses items into an overflow menu but includes the root (first) breadcrumb in the menu so only the last items remain visible.",
+      "defaultValue": "'wrap'"
     }
   ],
   "subcomponents": [
@@ -36,7 +39,7 @@
           "name": "selected",
           "type": "boolean",
           "defaultValue": "false",
-          "description": "Whether this item represents the current page"
+          "description": "Whether this item represents the current page. Sets aria-current='page' for accessibility."
         },
         {
           "name": "to",
@@ -46,6 +49,18 @@
           "defaultValue": ""
         },
         {
+          "name": "href",
+          "type": "string",
+          "required": false,
+          "description": "The URL that the breadcrumb item links to. Used with regular anchor elements."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "The content to display inside the breadcrumb item, typically text."
+        },
+        {
           "name": "ref",
           "type": "React.RefObject<HTMLAnchorElement>"
         },
@@ -53,10 +68,6 @@
           "name": "as",
           "type": "React.ElementType",
           "defaultValue": "\"a\""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ],
       "passthrough": {

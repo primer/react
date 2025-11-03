@@ -1,7 +1,6 @@
 import React from 'react'
-import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {fixedForwardRef} from '../utils/modern-polymorphic'
 import {ActionListContainerContext} from './ActionListContainerContext'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import {useSlots} from '../hooks/useSlots'
 import {Heading} from './Heading'
 import {useId} from '../hooks/useId'
@@ -10,69 +9,80 @@ import {useProvidedRefOrCreate} from '../hooks'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
-export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
-  (
-    {variant = 'inset', selectionVariant, showDividers = false, role, sx: sxProp = defaultSxProp, className, ...props},
-    forwardedRef,
-  ): JSX.Element => {
-    const [slots, childrenWithoutSlots] = useSlots(props.children, {
-      heading: Heading,
-    })
+const UnwrappedList = <As extends React.ElementType = 'ul'>(
+  props: ActionListProps<As>,
+  forwardedRef: React.Ref<unknown>,
+): JSX.Element => {
+  const {
+    as: Component = 'ul',
+    variant = 'inset',
+    selectionVariant,
+    showDividers = false,
+    role,
+    disableFocusZone = false,
+    className,
+    ...restProps
+  } = props
+  const [slots, childrenWithoutSlots] = useSlots(restProps.children, {
+    heading: Heading,
+  })
 
-    const headingId = useId()
+  const headingId = useId()
 
-    /** if list is inside a Menu, it will get a role from the Menu */
-    const {
-      listRole: listRoleFromContainer,
-      listLabelledBy,
-      selectionVariant: containerSelectionVariant, // TODO: Remove after DropdownMenu2 deprecation
-      enableFocusZone: enableFocusZoneFromContainer,
-    } = React.useContext(ActionListContainerContext)
+  /** if list is inside a Menu, it will get a role from the Menu */
+  const {
+    listRole: listRoleFromContainer,
+    listLabelledBy,
+    selectionVariant: containerSelectionVariant, // TODO: Remove after DropdownMenu2 deprecation
+    enableFocusZone: enableFocusZoneFromContainer,
+    container,
+  } = React.useContext(ActionListContainerContext)
 
-    const ariaLabelledBy = slots.heading ? (slots.heading.props.id ?? headingId) : listLabelledBy
-    const listRole = role || listRoleFromContainer
-    const listRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLUListElement>)
+  const ariaLabelledBy = slots.heading ? (slots.heading.props.id ?? headingId) : listLabelledBy
+  const listRole = role || listRoleFromContainer
+  const listRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLUListElement>)
 
-    let enableFocusZone = false
-    if (enableFocusZoneFromContainer !== undefined) enableFocusZone = enableFocusZoneFromContainer
-    else if (listRole) enableFocusZone = ['menu', 'menubar', 'listbox'].includes(listRole)
+  let enableFocusZone = false
+  if (enableFocusZoneFromContainer !== undefined) enableFocusZone = enableFocusZoneFromContainer
+  else if (listRole && !disableFocusZone) enableFocusZone = ['menu', 'menubar', 'listbox'].includes(listRole)
 
-    useFocusZone({
-      disabled: !enableFocusZone,
-      containerRef: listRef,
-      bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown,
-      focusOutBehavior: listRole === 'menu' ? 'wrap' : undefined,
-    })
+  useFocusZone({
+    disabled: !enableFocusZone,
+    containerRef: listRef,
+    bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown,
+    focusOutBehavior:
+      listRole === 'menu' || container === 'SelectPanel' || container === 'FilteredActionList' ? 'wrap' : undefined,
+  })
 
-    return (
-      <ListContext.Provider
-        value={{
-          variant,
-          selectionVariant: selectionVariant || containerSelectionVariant,
-          showDividers,
-          role: listRole,
-          headingId,
-        }}
+  return (
+    <ListContext.Provider
+      value={{
+        variant,
+        selectionVariant: selectionVariant || containerSelectionVariant,
+        showDividers,
+        role: listRole,
+        headingId,
+      }}
+    >
+      {slots.heading}
+      <Component
+        className={clsx(classes.ActionList, className)}
+        role={listRole}
+        aria-labelledby={ariaLabelledBy}
+        ref={listRef}
+        data-dividers={showDividers}
+        data-variant={variant}
+        {...restProps}
       >
-        {slots.heading}
-        <BoxWithFallback
-          as="ul"
-          sx={sxProp}
-          className={clsx(classes.ActionList, className)}
-          role={listRole}
-          aria-labelledby={ariaLabelledBy}
-          ref={listRef}
-          data-dividers={showDividers}
-          data-variant={variant}
-          {...props}
-        >
-          {childrenWithoutSlots}
-        </BoxWithFallback>
-      </ListContext.Provider>
-    )
-  },
-) as PolymorphicForwardRefComponent<'ul', ActionListProps>
+        {childrenWithoutSlots}
+      </Component>
+    </ListContext.Provider>
+  )
+}
 
-List.displayName = 'ActionList'
+const List = fixedForwardRef(UnwrappedList)
+
+Object.assign(List, {displayName: 'ActionList'})
+
+export {List}

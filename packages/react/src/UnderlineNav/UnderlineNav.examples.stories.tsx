@@ -20,10 +20,11 @@ import {
   ThreeBarsIcon,
   PeopleIcon,
 } from '@primer/octicons-react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {UnderlineNav} from './index'
-import {Avatar, Button, Box, Heading, Link, Text, StateLabel, BranchName} from '..'
+import {Avatar, Button, Heading, Link, Text, StateLabel, BranchName} from '..'
 import Octicon from '../Octicon'
+import classes from './UnderlineNav.examples.stories.module.css'
 
 export default {
   title: 'Components/UnderlineNav/Examples',
@@ -31,22 +32,22 @@ export default {
 
 export const PullRequestPage = () => {
   return (
-    <Box sx={{display: 'flex', flexDirection: 'column', gap: 3}}>
-      <Box>
-        <Heading as="h1" sx={{fontWeight: 'normal'}}>
-          Switch to new UnderlineNav <Text sx={{color: 'fg.muted', fontWeight: 'light'}}>#1111</Text>
+    <div className={classes.PullRequestNavContainer}>
+      <div>
+        <Heading as="h1" className={classes.PullRequestTitle}>
+          Switch to new UnderlineNav <span className={classes.PullRequestNumber}>#1111</span>
         </Heading>
-        <Box sx={{display: 'flex', gap: 2, alignItems: 'center'}}>
+        <div className={classes.PullRequestInfoRow}>
           <StateLabel status="pullOpened">Open</StateLabel>
-          <Text sx={{fontSize: 1, color: 'fg.muted'}}>
-            <Link href="#" muted sx={{fontWeight: 'bold'}}>
+          <span className={classes.PullRequestInfoText}>
+            <Link href="#" muted className={classes.PullRequestInfoUser}>
               broccolinisoup
             </Link>{' '}
             wants to merge 3 commits into <BranchName href="#">main</BranchName> from{' '}
             <BranchName href="#">broccolinisoup/switch-to-new-underlineNav</BranchName>
-          </Text>
-        </Box>
-      </Box>
+          </span>
+        </div>
+      </div>
       <UnderlineNav aria-label="Pull Request">
         <UnderlineNav.Item icon={CommentDiscussionIcon} counter="0" aria-current="page">
           Conversation
@@ -61,7 +62,7 @@ export const PullRequestPage = () => {
           Files Changes
         </UnderlineNav.Item>
       </UnderlineNav>
-    </Box>
+    </div>
   )
 }
 
@@ -113,38 +114,8 @@ const profileItems: {navigation: string; icon: React.FC<IconProps>; counter?: nu
 export const ProfilePage = () => {
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
   return (
-    <Box sx={{display: 'flex', flexDirection: 'row', gap: 3, alignItems: 'flex-start'}}>
-      <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', height: '100%'}}>
-        <Avatar size={256} src="https://avatars.githubusercontent.com/u/7143434?v=4" alt="mona user avatar" />
-        <Box>
-          {/* Initial bio info */}
-          <Box sx={{paddingY: 3}}>
-            <Heading as="h1" sx={{fontSize: 24}}>
-              Monalisa Octocat
-            </Heading>
-            <Heading as="h1" sx={{fontSize: 20, fontWeight: 300}}>
-              mona
-            </Heading>
-          </Box>
-
-          {/* Edit Profile / Profile details */}
-          <Box sx={{display: 'flex', flexDirection: 'column', color: 'fg.onEmphasis'}}>
-            <Button block>Edit Profile</Button>
-
-            <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: 3}}>
-              <Octicon icon={PeopleIcon} size={16} sx={{marginRight: 1}} />
-              <Link href="https://github.com" muted sx={{marginRight: 2}}>
-                47 Followers
-              </Link>
-              <span> · </span>
-              <Link href="https://github.com" muted sx={{marginLeft: 2}}>
-                54 Following
-              </Link>
-            </Box>
-          </Box>
-        </Box>
-      </Box>
-      <Box sx={{flexGrow: 1}}>
+    <div>
+      <div className={classes.ProfileNav}>
         <UnderlineNav aria-label="Repository">
           {profileItems.map((item, index) => (
             <UnderlineNav.Item
@@ -162,20 +133,40 @@ export const ProfilePage = () => {
             </UnderlineNav.Item>
           ))}
         </UnderlineNav>
-        <Box
-          sx={{
-            border: '1px solid',
-            marginTop: 2,
-            borderColor: 'border.default',
-            borderRadius: '12px',
-            height: '300px',
-            width: '80%',
-            padding: 4,
-          }}
-        >
+      </div>
+      <div className={classes.ProfileContainer}>
+        <div className={classes.ProfileSidebar}>
+          <Avatar size={256} src="https://avatars.githubusercontent.com/u/7143434?v=4" alt="mona user avatar" />
+          <div>
+            {/* Initial bio info */}
+            <div className={classes.ProfileBioInfo}>
+              <Heading as="h1" className={classes.ProfileBioName}>
+                Monalisa Octocat
+              </Heading>
+              <Heading as="h1" className={classes.ProfileBioUsername}>
+                mona
+              </Heading>
+            </div>
+            {/* Edit Profile / Profile details */}
+            <div className={classes.ProfileEditSection}>
+              <Button block>Edit Profile</Button>
+              <div className={classes.ProfileFollowRow}>
+                <Octicon icon={PeopleIcon} size={16} className={classes.ProfileFollowerIcon} />
+                <Link href="https://github.com" muted className={classes.ProfileFollowerCount}>
+                  47 Followers
+                </Link>
+                <span> · </span>
+                <Link href="https://github.com" muted className={classes.ProfileFollowingCount}>
+                  54 Following
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className={classes.ProfileReadme}>
           <Text> mona/README.md</Text>
-        </Box>
-      </Box>
-    </Box>
+        </div>
+      </div>
+    </div>
   )
 }

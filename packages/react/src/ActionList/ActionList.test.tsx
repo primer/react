@@ -1,75 +1,27 @@
+import {describe, it, expect, vi} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import axe from 'axe-core'
-import theme from '../theme'
 import {ActionList} from '.'
-import {behavesAsComponent, checkExports} from '../utils/testing'
-import {BaseStyles, ThemeProvider} from '..'
-
-function SimpleActionList(): JSX.Element {
-  return (
-    <ThemeProvider theme={theme}>
-      <BaseStyles>
-        <ActionList>
-          <ActionList.Item>New file</ActionList.Item>
-          <ActionList.Divider />
-          <ActionList.Item>Copy link</ActionList.Item>
-          <ActionList.Item>Edit file</ActionList.Item>
-          <ActionList.Item variant="danger">Delete file</ActionList.Item>
-          <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="d">
-            Link Item
-          </ActionList.LinkItem>
-        </ActionList>
-      </BaseStyles>
-    </ThemeProvider>
-  )
-}
 
 describe('ActionList', () => {
-  behavesAsComponent({
-    Component: ActionList,
-    options: {skipAs: true, skipSx: true},
-    toRender: () => <ActionList />,
-  })
+  it('should warn when selected is provided without a selectionVariant on parent', async () => {
+    // we expect console.warn to be called, so we spy on that in the test
+    const spy = vi.spyOn(console, 'warn').mockImplementation(() => vi.fn())
 
-  behavesAsComponent({
-    Component: ActionList.Divider,
-    options: {skipAs: true, skipSx: true},
-    toRender: () => <ActionList.Divider />,
-  })
+    HTMLRender(
+      <ActionList showDividers role="listbox" aria-label="Select a project">
+        <ActionList.Item role="option" selected={true}>
+          Primer React
+        </ActionList.Item>
+      </ActionList>,
+    )
 
-  behavesAsComponent({
-    Component: ActionList.TrailingAction,
-    options: {skipAs: true, skipSx: true},
-    toRender: () => <ActionList.TrailingAction label="Action">Action</ActionList.TrailingAction>,
-  })
+    expect(spy).toHaveBeenCalledWith(
+      'Warning:',
+      'For Item to be selected, ActionList or ActionList.Group should have a selectionVariant defined.',
+    )
 
-  checkExports('ActionList', {
-    default: undefined,
-    ActionList,
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<SimpleActionList />)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
-  })
-
-  it('should throw when selected is provided without a selectionVariant on parent', async () => {
-    // we expect console.error to be called, so we suppress that in the test
-    const mockError = jest.spyOn(console, 'error').mockImplementation(() => jest.fn())
-
-    expect(() => {
-      HTMLRender(
-        <ActionList showDividers role="listbox" aria-label="Select a project">
-          <ActionList.Item role="option" selected={true}>
-            Primer React
-          </ActionList.Item>
-        </ActionList>,
-      )
-    }).toThrow('For Item to be selected, ActionList or ActionList.Group needs to have a selectionVariant defined')
-
-    mockError.mockRestore()
+    spy.mockRestore()
   })
 
   it('should be navigatable with arrow keys for certain roles', async () => {
@@ -170,5 +122,77 @@ describe('ActionList', () => {
     expect(container.querySelector('.trailing')).toBeInTheDocument()
     expect(container.querySelector('.leading')).toBeInTheDocument()
     expect(container.querySelector('.description')).toBeInTheDocument()
+  })
+
+  it('should not be navigatable with arrow keys if `disableFocusZone` is true', async () => {
+    const {container} = HTMLRender(
+      <ActionList role="listbox" aria-label="Select a project" disableFocusZone={true}>
+        <ActionList.Item role="option">Option 1</ActionList.Item>
+        <ActionList.Item role="option">Option 2</ActionList.Item>
+        <ActionList.Item role="option" disabled>
+          Option 3
+        </ActionList.Item>
+        <ActionList.Item role="option">Option 4</ActionList.Item>
+        <ActionList.Item role="option" inactiveText="Unavailable due to an outage">
+          Option 5
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    await userEvent.tab() // tab into the story, this should focus on the first button
+    expect(document.activeElement).toHaveTextContent('Option 1')
+
+    await userEvent.keyboard('{ArrowDown}')
+    expect(document.activeElement).toHaveTextContent('Option 1')
+
+    expect(container.querySelector('li[aria-disabled="true"]')?.nextElementSibling).toHaveTextContent('Option 4')
+    expect(container.querySelector('li[aria-disabled="true"]')?.nextElementSibling).toHaveAttribute('tabindex', '0')
+  })
+
+  it('sets title correctly for Description component', () => {
+    const {container} = HTMLRender(
+      <ActionList>
+        <ActionList.Item>
+          Option 1<ActionList.Description truncate>Simple string description</ActionList.Description>
+        </ActionList.Item>
+        <ActionList.Item>
+          Option 2
+          <ActionList.Description truncate>
+            <span>Complex</span> content
+          </ActionList.Description>
+        </ActionList.Item>
+        <ActionList.Item>
+          Option 3
+          <ActionList.Description>
+            <span>Non-truncated</span> content
+          </ActionList.Description>
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const descriptions = container.querySelectorAll('[data-component="ActionList.Description"]')
+
+    expect(descriptions[0]).toHaveAttribute('title', 'Simple string description')
+    expect(descriptions[1]).toHaveAttribute('title', 'Complex content')
+    expect(descriptions[2]).not.toHaveAttribute('title')
+  })
+
+  it('should support size prop on LinkItem', () => {
+    const {container} = HTMLRender(
+      <ActionList>
+        <ActionList.LinkItem href="//github.com" size="large">
+          Large Link Item
+        </ActionList.LinkItem>
+        <ActionList.LinkItem href="//github.com" size="medium">
+          Medium Link Item
+        </ActionList.LinkItem>
+        <ActionList.LinkItem href="//github.com">Default Link Item</ActionList.LinkItem>
+      </ActionList>,
+    )
+
+    const linkElements = container.querySelectorAll('a')
+    expect(linkElements[0]).toHaveAttribute('data-size', 'large')
+    expect(linkElements[1]).toHaveAttribute('data-size', 'medium')
+    expect(linkElements[2]).toHaveAttribute('data-size', 'medium') // default should be medium
   })
 })

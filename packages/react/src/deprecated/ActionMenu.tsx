@@ -46,9 +46,11 @@ const ActionMenuItem = (props: ItemProps) => <Item role="menuitem" {...props} />
 
 ActionMenuItem.displayName = 'ActionMenu.Item'
 
+const defaultRenderAnchor = <T extends ButtonProps>(props: T) => <Button {...props} />
+
 const ActionMenuBase = ({
   anchorContent,
-  renderAnchor = <T extends ButtonProps>(props: T) => <Button {...props} />,
+  renderAnchor = defaultRenderAnchor,
   anchorRef: externalAnchorRef,
   onAction,
   open,

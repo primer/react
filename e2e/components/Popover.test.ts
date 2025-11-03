@@ -12,8 +12,8 @@ const stories = [
     id: 'components-popover--playground',
   },
   {
-    title: 'SX Props',
-    id: 'components-popover-dev--sx-props',
+    title: 'Close On Click Outside',
+    id: 'components-popover-features--close-on-click-outside',
   },
 ] as const
 
@@ -31,7 +31,7 @@ test.describe('Popover', () => {
             })
 
             // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`Popover.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Popover.${story.title}.${theme}.png`)
           })
         })
       }

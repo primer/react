@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import type {ComponentProps} from '../utils/types'
 import Pagination from './Pagination'
 
@@ -73,12 +73,6 @@ Playground.argTypes = {
     },
   },
   onPageChange: {
-    control: false,
-    table: {
-      disable: true,
-    },
-  },
-  theme: {
     control: false,
     table: {
       disable: true,

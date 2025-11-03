@@ -1,14 +1,13 @@
 import type React from 'react'
 import {useCallback} from 'react'
 import {createRoot} from 'react-dom/client'
-import type {ThemeProviderProps} from '../ThemeProvider'
-import {ThemeProvider, useTheme} from '../ThemeProvider'
 import {FocusKeys} from '@primer/behaviors'
 import type {DialogProps, DialogHeaderProps, DialogButtonProps, DialogWidth, DialogHeight} from '../Dialog/Dialog'
 import {Dialog} from '../Dialog/Dialog'
 import {useFocusZone} from '../hooks/useFocusZone'
 import BaseStyles from '../BaseStyles'
 import classes from './ConfirmationDialog.module.css'
+import Heading from '../Heading'
 
 /**
  * Props to customize the ConfirmationDialog.
@@ -42,6 +41,23 @@ export interface ConfirmationDialogProps {
   confirmButtonType?: 'normal' | 'primary' | 'danger'
 
   /**
+   * Whether the cancel button is in a loading state. Default: false.
+   */
+  cancelButtonLoading?: boolean
+
+  /**
+   * Whether the confirm button is in a loading state. Default: false.
+   */
+  confirmButtonLoading?: boolean
+
+  /**
+   * Overrides the button that should be initially focused when the dialog is opened. By default, the confirm button
+   * is focused initially unless it is a dangerous action, in which case the cancel button is focused. This should
+   * rarely be overridden, in order to ensure that the user does not accidentally confirm a dangerous action.
+   */
+  overrideButtonFocus?: 'cancel' | 'confirm'
+
+  /**
    * Additional class names to apply to the dialog
    */
   className?: string
@@ -72,7 +88,9 @@ const ConfirmationHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> =
 
   return (
     <div className={classes.ConfirmationHeader}>
-      <h1 id={dialogLabelId}>{title}</h1>
+      <Heading id={dialogLabelId} as="h1" variant="small">
+        {title}
+      </Heading>
       <Dialog.CloseButton onClose={onCloseClick} />
     </div>
   )
@@ -109,10 +127,13 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
     cancelButtonContent = 'Cancel',
     confirmButtonContent = 'OK',
     confirmButtonType = 'normal',
+    cancelButtonLoading = false,
+    confirmButtonLoading = false,
     children,
     className,
     width = 'medium',
     height,
+    overrideButtonFocus,
   } = props
 
   const onCancelButtonClick = useCallback(() => {
@@ -122,16 +143,20 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
     onClose('confirm')
   }, [onClose])
   const isConfirmationDangerous = confirmButtonType === 'danger'
+  const buttonToFocus =
+    overrideButtonFocus !== undefined ? overrideButtonFocus : isConfirmationDangerous ? 'cancel' : 'confirm'
   const cancelButton: DialogButtonProps = {
     content: cancelButtonContent,
     onClick: onCancelButtonClick,
-    autoFocus: isConfirmationDangerous,
+    autoFocus: buttonToFocus === 'cancel',
+    loading: cancelButtonLoading,
   }
   const confirmButton: DialogButtonProps = {
     content: confirmButtonContent,
     buttonType: confirmButtonType,
     onClick: onConfirmButtonClick,
-    autoFocus: !isConfirmationDangerous,
+    autoFocus: buttonToFocus === 'confirm',
+    loading: confirmButtonLoading,
   }
   const footerButtons = [cancelButton, confirmButton]
   return (
@@ -154,7 +179,7 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
 
 let hostElement: Element | null = null
 export type ConfirmOptions = Omit<ConfirmationDialogProps, 'onClose'> & {content: React.ReactNode}
-async function confirm(themeProps: ThemeProviderProps, options: ConfirmOptions): Promise<boolean> {
+async function confirm(options: ConfirmOptions): Promise<boolean> {
   const {content, ...confirmationDialogProps} = options
   return new Promise(resolve => {
     hostElement ||= document.createElement('div')
@@ -169,13 +194,11 @@ async function confirm(themeProps: ThemeProviderProps, options: ConfirmOptions):
       }
     }
     root.render(
-      <ThemeProvider {...themeProps}>
-        <BaseStyles>
-          <ConfirmationDialog {...confirmationDialogProps} onClose={onClose}>
-            {content}
-          </ConfirmationDialog>
-        </BaseStyles>
-      </ThemeProvider>,
+      <BaseStyles>
+        <ConfirmationDialog {...confirmationDialogProps} onClose={onClose}>
+          {content}
+        </ConfirmationDialog>
+      </BaseStyles>,
     )
   })
 }
@@ -186,13 +209,8 @@ async function confirm(themeProps: ThemeProviderProps, options: ConfirmOptions):
  * resolved with `true` or `false` depending on whether or not the confirm button was used.
  */
 export function useConfirm() {
-  const {theme, colorMode, dayScheme, nightScheme} = useTheme()
-  const result = useCallback(
-    (options: ConfirmOptions) => {
-      const themeProps: ThemeProviderProps = {theme, colorMode, dayScheme, nightScheme}
-      return confirm(themeProps, options)
-    },
-    [theme, colorMode, dayScheme, nightScheme],
-  )
+  const result = useCallback((options: ConfirmOptions) => {
+    return confirm(options)
+  }, [])
   return result
 }

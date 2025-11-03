@@ -1,13 +1,14 @@
 import {useState} from 'react'
-import type {Args, Meta} from '@storybook/react'
+import type {Args, Meta} from '@storybook/react-vite'
 import {LocationIcon, RepoIcon} from '@primer/octicons-react'
 
 import {Avatar, Link, Text} from '..'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'
 import Octicon from '../Octicon'
-import {action} from '@storybook/addon-actions'
+import {action} from 'storybook/actions'
 import {Stack} from '../Stack/Stack'
+import classes from './AnchoredOverlay.stories.module.css'
 
 export default {
   title: 'Components/AnchoredOverlay',
@@ -22,7 +23,7 @@ const hoverCard = (
     </Stack>
     <Stack direction="horizontal" gap="none">
       <Text weight="medium">monalisa</Text>
-      <Text color={'var(--fgColor-muted)'} ml={1}>
+      <Text className={classes.TextMutedWithMargin}>
         <Link inline muted href="#">
           Monalisa Octocat
         </Link>
@@ -30,16 +31,12 @@ const hoverCard = (
     </Stack>
     <Text size="medium">Former beach cat and champion swimmer. Now your friendly octapus with a normal face.</Text>
     <Stack direction="horizontal" gap="none">
-      <Octicon color={'var(--fgColor-muted)'} icon={LocationIcon} />
-      <Text size="small" color={'var(--fgColor-muted)'} ml={1}>
-        Interwebs
-      </Text>
+      <Octicon className={classes.Icon} icon={LocationIcon} />
+      <Text className={classes.TextSmallMutedWithMargin}>Interwebs</Text>
     </Stack>
     <Stack direction="horizontal" gap="none">
-      <Octicon color={'var(--fgColor-muted)'} icon={RepoIcon} />
-      <Text size="small" color={'var(--fgColor-muted)'} ml={1}>
-        Owns this repository
-      </Text>
+      <Octicon className={classes.Icon} icon={RepoIcon} />
+      <Text className={classes.TextSmallMutedWithMargin}>Owns this repository</Text>
     </Stack>
   </Stack>
 )
@@ -53,7 +50,7 @@ export const Default = () => {
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}
       renderAnchor={props => <Button {...props}>Button</Button>}
-      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay', sx: {minWidth: '320px'}}}
+      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay', style: {minWidth: '320px'}}}
       focusZoneSettings={{disabled: true}}
       preventOverflow={false}
     >
@@ -84,7 +81,7 @@ export const Playground = (args: Args) => {
         role: 'dialog',
         'aria-modal': true,
         'aria-label': 'User Card Overlay',
-        sx: {minWidth: '320px'},
+        style: {minWidth: '320px'},
       }}
       side={args.side}
       focusZoneSettings={{disabled: true}}

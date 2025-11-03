@@ -1,16 +1,10 @@
+import {describe, it, expect, vi} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
-import theme from '../theme'
+import BaseStyles from '../BaseStyles'
 import {ActionList} from '.'
-import {BaseStyles, ThemeProvider, ActionMenu} from '..'
-import {behavesAsComponent} from '../utils/testing'
+import {ActionMenu} from '..'
 
 describe('ActionList.Heading', () => {
-  behavesAsComponent({
-    Component: ActionList.Heading,
-    options: {skipAs: true, skipSx: true},
-    toRender: () => <ActionList.Heading as="h1" />,
-  })
-
   it('should render the ActionList.Heading component as a heading with the given heading level', async () => {
     const container = HTMLRender(
       <ActionList>
@@ -35,22 +29,20 @@ describe('ActionList.Heading', () => {
   })
 
   it('should throw an error when ActionList.Heading is used within ActionMenu context', async () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation(() => jest.fn())
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => vi.fn())
     expect(() =>
       HTMLRender(
-        <ThemeProvider theme={theme}>
-          <BaseStyles>
-            <ActionMenu open={true}>
-              <ActionMenu.Button>Trigger</ActionMenu.Button>
-              <ActionMenu.Overlay>
-                <ActionList>
-                  <ActionList.Heading as="h1">Heading</ActionList.Heading>
-                  <ActionList.Item>Item</ActionList.Item>
-                </ActionList>
-              </ActionMenu.Overlay>
-            </ActionMenu>
-          </BaseStyles>
-        </ThemeProvider>,
+        <BaseStyles>
+          <ActionMenu open={true}>
+            <ActionMenu.Button>Trigger</ActionMenu.Button>
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Heading as="h1">Heading</ActionList.Heading>
+                <ActionList.Item>Item</ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </BaseStyles>,
       ),
     ).toThrow(
       "ActionList.Heading shouldn't be used within an ActionMenu container. Menus are labelled by the menu button's name.",

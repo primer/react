@@ -1,44 +1,25 @@
 import type React from 'react'
-import {get} from '../constants'
-import type {SxProp} from '../sx'
 import {useFormControlContext} from './_FormControlContext'
-import styled from 'styled-components'
-import sx from '../sx'
+import classes from './FormControlLeadingVisual.module.css'
+import type {FCWithSlotMarker} from '../utils/types'
 
-const FormControlLeadingVisual: React.FC<React.PropsWithChildren<SxProp>> = ({children, sx}) => {
+const FormControlLeadingVisual: FCWithSlotMarker<React.PropsWithChildren<{style?: React.CSSProperties}>> = ({
+  children,
+  style,
+}) => {
   const {disabled, captionId} = useFormControlContext()
   return (
-    <StyledLeadingVisual
+    <div
+      className={classes.LeadingVisual}
       data-control-disabled={disabled ? '' : undefined}
+      style={style}
       data-has-caption={captionId ? '' : undefined}
-      sx={sx}
     >
       {children}
-    </StyledLeadingVisual>
+    </div>
   )
 }
 
-const StyledLeadingVisual = styled.div`
-  --leadingVisual-size: ${get('fontSizes.2')};
-
-  color: var(--fgColor-default);
-  margin-inline-start: ${get('space.2')};
-
-  &:where([data-control-disabled]) {
-    color: var(--fgColor-muted);
-  }
-
-  & > * {
-    min-width: var(--leadingVisual-size);
-    min-height: var(--leadingVisual-size);
-    fill: currentColor;
-  }
-
-  &:where([data-has-caption]) {
-    --leadingVisual-size: ${get('fontSizes.4')};
-  }
-
-  ${sx}
-`
+FormControlLeadingVisual.__SLOT__ = Symbol('FormControl.LeadingVisual')
 
 export default FormControlLeadingVisual

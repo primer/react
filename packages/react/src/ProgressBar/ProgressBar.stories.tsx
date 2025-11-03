@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {ProgressBar, type ProgressBarProps} from '..'
 
 const sectionColorsDefault = [
@@ -28,7 +28,7 @@ export const Playground = ({sections, ...args}: ProgressBarProps & {sections: nu
   }, [args.bg])
 
   if (sections === 1) {
-    return <ProgressBar {...args} sx={args.inline ? {width: '100px'} : {}} aria-label="Upload test.png" />
+    return <ProgressBar {...args} style={{...(args.inline ? {width: '100px'} : {})}} aria-label="Upload test.png" />
   } else {
     return (
       <ProgressBar aria-label="Upload test.png">

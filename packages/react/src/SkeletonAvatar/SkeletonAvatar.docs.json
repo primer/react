@@ -1,0 +1,44 @@
+{
+  "id": "skeleton_avatar",
+  "name": "SkeletonAvatar",
+  "status": "alpha",
+  "a11yReviewed": "2025-01-08",
+  "stories": [
+    {
+      "id": "components-skeleton-skeletonavatar--default"
+    },
+    {
+      "id": "components-skeleton-skeletonavatar-features--square"
+    },
+    {
+      "id": "components-skeleton-skeletonavatar-features--size"
+    },
+    {
+      "id": "components-skeleton-skeletonavatar-features--size-responsive"
+    },
+    {
+      "id": "components-skeleton-skeletonavatar-features--in-a-stack"
+    }
+  ],
+  "importPath": "@primer/react/experimental",
+  "props": [
+    {
+      "name": "size",
+      "type": "number | { narrow?: number; regular?: number; wide?: number; }",
+      "defaultValue": "20",
+      "description": "The size of the avatar in pixels."
+    },
+    {
+      "name": "square",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "If true, the avatar will be square instead of circular."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Class name for custom styling."
+    }
+  ],
+  "subcomponents": []
+}

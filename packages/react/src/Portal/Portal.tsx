@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {createPortal} from 'react-dom'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
@@ -30,6 +30,7 @@ function ensureDefaultPortal() {
       defaultPortalContainer.style.position = 'absolute'
       defaultPortalContainer.style.top = '0'
       defaultPortalContainer.style.left = '0'
+      defaultPortalContainer.style.width = '100%'
       const suitablePortalRoot = document.querySelector('[data-portal-root]')
       if (suitablePortalRoot) {
         suitablePortalRoot.appendChild(defaultPortalContainer)
@@ -41,6 +42,14 @@ function ensureDefaultPortal() {
     registerPortalRoot(defaultPortalContainer)
   }
 }
+
+/**
+ * Provides the ability for component trees to override the portal root container for a sub-set of the experience.
+ * The portal will prioritize the context value unless overridden by their own `containerName` prop, and fallback to the default root if neither are specified
+ */
+export const PortalContext = React.createContext<{
+  portalContainerName?: string
+}>({})
 
 export interface PortalProps {
   /**
@@ -65,6 +74,7 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
   onMount,
   containerName: _containerName,
 }) => {
+  const {portalContainerName} = useContext(PortalContext)
   const elementRef = React.useRef<HTMLDivElement | null>(null)
   if (!elementRef.current) {
     const div = document.createElement('div')
@@ -79,7 +89,7 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
   const element = elementRef.current
 
   useLayoutEffect(() => {
-    let containerName = _containerName
+    let containerName = _containerName ?? portalContainerName
     if (containerName === undefined) {
       containerName = DEFAULT_PORTAL_CONTAINER_NAME
       ensureDefaultPortal()
@@ -88,7 +98,7 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
 
     if (!parentElement) {
       throw new Error(
-        `Portal container '${_containerName}' is not yet registered. Container must be registered with registerPortal before use.`,
+        `Portal container '${containerName}' is not yet registered. Container must be registered with registerPortalRoot before use.`,
       )
     }
     parentElement.appendChild(element)
@@ -97,8 +107,9 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
     return () => {
       parentElement.removeChild(element)
     }
+    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [element])
+  }, [element, _containerName, portalContainerName])
 
   return createPortal(children, element)
 }

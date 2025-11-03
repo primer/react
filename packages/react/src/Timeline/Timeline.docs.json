@@ -2,7 +2,7 @@
   "id": "timeline",
   "name": "Timeline",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-timeline--default"
@@ -26,10 +26,6 @@
       "name": "clipSidebar",
       "type": "boolean",
       "description": "Hides the sidebar above the first Timeline.Item and below the last Timeline.Item."
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject"
     }
   ],
   "subcomponents": [
@@ -40,39 +36,20 @@
           "name": "condensed",
           "type": "boolean",
           "description": "Reduces vertical padding and removes background from an item's badge."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     },
     {
       "name": "Timeline.Badge",
-      "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ]
+      "props": []
     },
     {
       "name": "Timeline.Body",
-      "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ]
+      "props": []
     },
     {
       "name": "Timeline.Break",
-      "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ]
+      "props": []
     }
   ]
 }

@@ -1,3 +1,4 @@
+import {describe, expect, it} from 'vitest'
 import {isColorValue, isShadowValue, filterObject} from '../utils/theme'
 
 describe('filterObject', () => {

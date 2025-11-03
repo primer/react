@@ -65,6 +65,12 @@
     /* stylelint-disable-next-line primer/spacing */
     margin-right: -1px;
   }
+
+  .Counter {
+    margin-inline-start: var(--base-size-8);
+    display: flex;
+    align-items: center;
+  }
 }
 
 .Button {
@@ -90,6 +96,7 @@
 
   & svg {
     fill: var(--fgColor-muted);
+    color: var(--fgColor-muted);
   }
 
   /* fallback :focus state */
@@ -146,7 +153,6 @@
   padding-right: calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset));
   /* stylelint-disable-next-line primer/spacing */
   padding-left: calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset));
-  background-color: transparent;
   border-color: transparent;
   border-style: solid;
   border-width: var(--borderWidth-thin);

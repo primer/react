@@ -1,4 +1,4 @@
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import Truncate from './Truncate'
 import {ArrowLeftIcon, ArrowRightIcon} from '@primer/octicons-react'
 

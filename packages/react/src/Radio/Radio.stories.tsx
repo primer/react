@@ -1,6 +1,6 @@
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import type {RadioProps} from '..'
-import {Box, FormControl, Radio} from '..'
+import {FormControl, Radio} from '..'
 import type {FormControlArgs} from '../utils/form-story-helpers'
 import {
   formControlArgs,
@@ -8,7 +8,7 @@ import {
   getFormControlArgsByChildComponent,
 } from '../utils/form-story-helpers'
 
-const excludedControlKeys = ['required', 'value', 'name', 'validationStatus', 'sx']
+const excludedControlKeys = ['required', 'value', 'name', 'validationStatus']
 
 export default {
   title: 'Components/Radio',
@@ -20,13 +20,13 @@ export const Playground = ({value: _value, ...args}: FormControlArgs<RadioProps>
   const {parentArgs, labelArgs, captionArgs} = getFormControlArgsByChildComponent(args)
 
   return (
-    <Box as="form">
+    <form>
       <FormControl {...parentArgs}>
         <Radio name="default-radio-name" value="default" {...args} />
         <FormControl.Label {...labelArgs} />
         {captionArgs.children && <FormControl.Caption {...captionArgs} />}
       </FormControl>
-    </Box>
+    </form>
   )
 }
 Playground.argTypes = {
@@ -43,10 +43,10 @@ Playground.args = {
 }
 
 export const Default = () => (
-  <Box as="form">
+  <form>
     <FormControl>
       <Radio name="default-radio-name" value="default" />
       <FormControl.Label>Label</FormControl.Label>
     </FormControl>
-  </Box>
+  </form>
 )

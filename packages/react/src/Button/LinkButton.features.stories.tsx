@@ -1,6 +1,6 @@
 import {EyeIcon, ChevronRightIcon, HeartIcon, DownloadIcon} from '@primer/octicons-react'
 import {LinkButton} from '.'
-import {ReactRouterLikeLink} from '../__tests__/mocks/ReactRouterLink'
+import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
 
 export default {
   title: 'Components/LinkButton/Features',
@@ -21,6 +21,12 @@ export const Danger = () => (
 export const Invisible = () => (
   <LinkButton href="#" variant="invisible">
     Invisible
+  </LinkButton>
+)
+
+export const Link = () => (
+  <LinkButton href="#" variant="link">
+    Button that looks like a link
   </LinkButton>
 )
 

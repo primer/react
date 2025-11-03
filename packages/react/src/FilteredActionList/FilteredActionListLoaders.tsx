@@ -1,7 +1,6 @@
-import Box from '../Box'
 import Spinner from '../Spinner'
 import {Stack} from '../Stack/Stack'
-import {SkeletonBox} from '../experimental/Skeleton'
+import {SkeletonBox} from '../Skeleton/SkeletonBox'
 import classes from './FilteredActionListLoaders.module.css'
 
 export class FilteredActionListLoadingType {
@@ -44,15 +43,15 @@ export function FilteredActionListBodyLoader({
 
 function LoadingSpinner({...props}): JSX.Element {
   return (
-    <Box p={3} flexGrow={1} sx={{alignContent: 'center', textAlign: 'center', height: '100%'}}>
+    <div className={classes.LoadingSpinner}>
       <Spinner {...props} />
-    </Box>
+    </div>
   )
 }
 
 function LoadingSkeleton({rows = 10, ...props}: {rows: number}): JSX.Element {
   return (
-    <Box p={2} display="flex" flexGrow={1} flexDirection="column">
+    <div className={classes.LoadingSkeletonContainer}>
       <Stack direction="vertical" justify="center" gap="condensed" {...props}>
         {Array.from({length: rows}, (_, i) => (
           <Stack key={i} direction="horizontal" gap="condensed" align="center">
@@ -61,6 +60,6 @@ function LoadingSkeleton({rows = 10, ...props}: {rows: number}): JSX.Element {
           </Stack>
         ))}
       </Stack>
-    </Box>
+    </div>
   )
 }

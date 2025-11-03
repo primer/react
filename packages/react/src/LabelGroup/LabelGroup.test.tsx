@@ -1,72 +1,33 @@
 import type React from 'react'
-import {render as HTMLRender, waitFor} from '@testing-library/react'
-import axe from 'axe-core'
-import {LabelGroup, Label, ThemeProvider, BaseStyles} from '..'
-import {behavesAsComponent, checkExports} from '../utils/testing'
-import theme from '../theme'
+import {render, waitFor} from '@testing-library/react'
+import {describe, it, expect, vi} from 'vitest'
+import BaseStyles from '../BaseStyles'
+import {LabelGroup, Label} from '..'
 import userEvent from '@testing-library/user-event'
-import {setupMatchMedia} from '../utils/test-helpers'
 
-setupMatchMedia()
-
-const ThemeAndStyleContainer: React.FC<React.PropsWithChildren> = ({children}) => (
-  <ThemeProvider theme={theme}>
-    <BaseStyles>{children}</BaseStyles>
-  </ThemeProvider>
-)
+const ThemeAndStyleContainer: React.FC<React.PropsWithChildren> = ({children}) => <BaseStyles>{children}</BaseStyles>
 
 const AutoTruncateContainer: React.FC<React.PropsWithChildren & {width?: number}> = ({children, width}) => (
   <div style={{width}}>{children}</div>
 )
 
-const observe = jest.fn()
+const observe = vi.fn()
 
 describe('LabelGroup', () => {
-  window.IntersectionObserver = jest.fn(() => ({
-    observe,
-    unobserve: jest.fn(),
-    takeRecords: jest.fn(),
-    disconnect: jest.fn(),
-    root: null,
-    rootMargin: '',
-    thresholds: [],
-  })) as jest.Mock<IntersectionObserver>
-
-  behavesAsComponent({Component: LabelGroup, options: {skipAs: true, skipClassName: true}})
-
-  checkExports('LabelGroup', {
-    default: LabelGroup,
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(
-      <ThemeAndStyleContainer>
-        <LabelGroup>
-          <Label>One</Label>
-          <Label>Two</Label>
-          <Label>Three</Label>
-          <Label>Four</Label>
-          <Label>Five</Label>
-          <Label>Six</Label>
-          <Label>Seven</Label>
-          <Label>Eight</Label>
-          <Label>Nine</Label>
-          <Label>Ten</Label>
-          <Label>Eleven</Label>
-          <Label>Twelve</Label>
-          <Label>Thirteen</Label>
-          <Label>Fourteen</Label>
-          <Label>Fifteen</Label>
-          <Label>Sixteen</Label>
-        </LabelGroup>
-      </ThemeAndStyleContainer>,
-    )
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
-  })
+  window.IntersectionObserver = vi.fn(function () {
+    return {
+      observe,
+      unobserve: vi.fn(),
+      takeRecords: vi.fn(),
+      disconnect: vi.fn(),
+      root: null,
+      rootMargin: '',
+      thresholds: [],
+    }
+  }) as unknown as typeof IntersectionObserver
 
   it('observers intersections on each child', async () => {
-    HTMLRender(
+    render(
       <ThemeAndStyleContainer>
         <AutoTruncateContainer width={600}>
           <LabelGroup visibleChildCount="auto">
@@ -95,7 +56,7 @@ describe('LabelGroup', () => {
   })
 
   it('should truncate labels to a specified number', () => {
-    const {getByText} = HTMLRender(
+    const {getByText} = render(
       <ThemeAndStyleContainer>
         <LabelGroup visibleChildCount={3}>
           <Label>One</Label>
@@ -113,7 +74,7 @@ describe('LabelGroup', () => {
 
   it('should expand all tokens into an overlay when overflowStyle="overlay"', async () => {
     const user = userEvent.setup()
-    const {getByLabelText, getByText} = HTMLRender(
+    const {getByLabelText, getByText} = render(
       <ThemeAndStyleContainer>
         <LabelGroup visibleChildCount={3} overflowStyle="overlay">
           <Label>One</Label>
@@ -133,7 +94,7 @@ describe('LabelGroup', () => {
 
   it('should expand all tokens in place when overflowStyle="inline"', async () => {
     const user = userEvent.setup()
-    const {getByText} = HTMLRender(
+    const {getByText} = render(
       <ThemeAndStyleContainer>
         <LabelGroup visibleChildCount={3} overflowStyle="inline">
           <Label>One</Label>
@@ -156,7 +117,7 @@ describe('LabelGroup', () => {
 
   it('should focus the collapse button when expanded, and the expand button when collapsed', async () => {
     const user = userEvent.setup()
-    const {getByText} = HTMLRender(
+    const {getByText} = render(
       <ThemeAndStyleContainer>
         <LabelGroup visibleChildCount={3} overflowStyle="inline">
           <Label>One</Label>
@@ -183,7 +144,7 @@ describe('LabelGroup', () => {
 
   describe('should render as ul by default', () => {
     it('without truncation', () => {
-      const {getByRole} = HTMLRender(
+      const {getByRole} = render(
         <ThemeAndStyleContainer>
           <LabelGroup>
             <Label>One</Label>
@@ -202,7 +163,7 @@ describe('LabelGroup', () => {
     })
 
     it('with truncation', () => {
-      const {getByRole} = HTMLRender(
+      const {getByRole} = render(
         <ThemeAndStyleContainer>
           <LabelGroup visibleChildCount={3}>
             <Label>One</Label>
@@ -224,7 +185,7 @@ describe('LabelGroup', () => {
 
   describe('should render as custom element when `as` is provided', () => {
     it('without truncation', () => {
-      const {queryByRole, container} = HTMLRender(
+      const {queryByRole, container} = render(
         <ThemeAndStyleContainer>
           <LabelGroup as="div">
             <Label>One</Label>
@@ -244,7 +205,7 @@ describe('LabelGroup', () => {
     })
 
     it('with truncation', () => {
-      const {queryByRole, container} = HTMLRender(
+      const {queryByRole, container} = render(
         <ThemeAndStyleContainer>
           <LabelGroup as="div" visibleChildCount={2}>
             <Label>One</Label>
@@ -266,7 +227,7 @@ describe('LabelGroup', () => {
 
   describe('should render children as list items when rendered as ol', () => {
     it('without truncation', () => {
-      const {getByRole} = HTMLRender(
+      const {getByRole} = render(
         <ThemeAndStyleContainer>
           <LabelGroup as={'ol'}>
             <Label>One</Label>
@@ -284,7 +245,7 @@ describe('LabelGroup', () => {
       expect(list.querySelectorAll('li')).toHaveLength(5)
     })
     it('with truncation', () => {
-      const {getByRole} = HTMLRender(
+      const {getByRole} = render(
         <ThemeAndStyleContainer>
           <LabelGroup as={'ol'} visibleChildCount={1}>
             <Label>One</Label>

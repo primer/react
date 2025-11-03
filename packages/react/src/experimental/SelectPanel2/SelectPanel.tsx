@@ -27,6 +27,8 @@ import {clsx} from 'clsx'
 
 import classes from './SelectPanel.module.css'
 import type {PositionSettings} from '@primer/behaviors'
+import type {FCWithSlotMarker, WithSlotMarker} from '../../utils/types'
+import {isSlot} from '../../utils/is-slot'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -123,7 +125,8 @@ const Panel: React.FC<SelectPanelProps> = ({
   }
 
   const contents = React.Children.map(props.children, child => {
-    if (React.isValidElement(child) && child.type === SelectPanelButton) {
+    if (React.isValidElement(child) && (child.type === SelectPanelButton || isSlot(child, SelectPanelButton))) {
+      // eslint-disable-next-line react-compiler/react-compiler
       Anchor = React.cloneElement(child, {
         // @ts-ignore TODO
         ref: anchorRef,
@@ -337,9 +340,11 @@ const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((prop
   } else {
     return <Button ref={anchorRef} {...props} />
   }
-})
+}) as WithSlotMarker<React.ForwardRefExoticComponent<ButtonProps & React.RefAttributes<HTMLButtonElement>>>
 
-const SelectPanelHeader: React.FC<React.ComponentPropsWithoutRef<'div'> & {onBack?: () => void}> = ({
+SelectPanelButton.__SLOT__ = Symbol('SelectPanel.Button')
+
+const SelectPanelHeader: FCWithSlotMarker<React.ComponentPropsWithoutRef<'div'> & {onBack?: () => void}> = ({
   children,
   onBack,
   className,
@@ -408,7 +413,9 @@ const SelectPanelHeader: React.FC<React.ComponentPropsWithoutRef<'div'> & {onBac
   )
 }
 
-const SelectPanelSearchInput: React.FC<TextInputProps> = ({
+SelectPanelHeader.__SLOT__ = Symbol('SelectPanel.Header')
+
+const SelectPanelSearchInput: FCWithSlotMarker<TextInputProps> = ({
   onChange: propsOnChange,
   onKeyDown: propsOnKeyDown,
   className,
@@ -464,6 +471,8 @@ const SelectPanelSearchInput: React.FC<TextInputProps> = ({
   )
 }
 
+SelectPanelSearchInput.__SLOT__ = Symbol('SelectPanel.SearchInput')
+
 const FooterContext = React.createContext<boolean>(false)
 const SelectPanelFooter = ({...props}) => {
   const {onCancel, selectionVariant} = React.useContext(SelectPanelContext)
@@ -498,6 +507,8 @@ const SelectPanelFooter = ({...props}) => {
     </FooterContext.Provider>
   )
 }
+
+SelectPanelFooter.__SLOT__ = Symbol('SelectPanel.Footer')
 
 const SecondaryButton: React.FC<ButtonProps> = props => {
   const size = useResponsiveValue(responsiveButtonSizes, 'small')

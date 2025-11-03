@@ -28,16 +28,8 @@ const stories = [
     id: 'components-dialog-features--side-sheet',
   },
   {
-    title: 'Dev: With Css',
-    id: 'components-dialog-dev--with-css',
-  },
-  {
-    title: 'Dev: With Sx',
-    id: 'components-dialog-dev--with-sx',
-  },
-  {
-    title: 'Dev: With Sx And Css',
-    id: 'components-dialog-dev--with-sx-and-css',
+    title: 'With Direct Subcomponents',
+    id: 'components-dialog-features--with-direct-subcomponents',
   },
 ] as const
 

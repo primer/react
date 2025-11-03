@@ -50,6 +50,25 @@ describe('Banner', () => {
     expect(screen.getByRole('region')).toHaveAttribute('aria-label', 'Test')
   })
 
+  it('should prefer aria-labelledby over aria-label and not set both', () => {
+    render(
+      <Banner aria-label="Override" aria-labelledby="my-banner-title">
+        <Banner.Title id="my-banner-title">Explicit Banner Title</Banner.Title>
+      </Banner>,
+    )
+
+    const region = screen.getByRole('region', {name: 'Explicit Banner Title'})
+    expect(region).toHaveAttribute('aria-labelledby', 'my-banner-title')
+    expect(region).not.toHaveAttribute('aria-label')
+  })
+
+  it('should only set aria-label when aria-labelledby is not provided', () => {
+    render(<Banner aria-label="Custom Label" title="test" />)
+    const region = screen.getByRole('region')
+    expect(region).toHaveAttribute('aria-label', 'Custom Label')
+    expect(region).not.toHaveAttribute('aria-labelledby')
+  })
+
   it('should default the title to a h2', () => {
     render(<Banner title="test" />)
     expect(screen.getByRole('heading', {level: 2})).toBeInTheDocument()
@@ -167,6 +186,21 @@ describe('Banner', () => {
 
     rerender(<Banner title="test" description="test-description" variant="warning" icon={<CustomIcon />} />)
     expect(screen.queryByTestId('icon')).toBe(null)
+  })
+
+  it('should render data-actions-layout attribute with inline value', () => {
+    const {container} = render(<Banner title="test" actionsLayout="inline" />)
+    expect(container.firstChild).toHaveAttribute('data-actions-layout', 'inline')
+  })
+
+  it('should render data-actions-layout attribute with stacked value', () => {
+    const {container} = render(<Banner title="test" actionsLayout="stacked" />)
+    expect(container.firstChild).toHaveAttribute('data-actions-layout', 'stacked')
+  })
+
+  it('should render data-actions-layout attribute with default value when not specified', () => {
+    const {container} = render(<Banner title="test" />)
+    expect(container.firstChild).toHaveAttribute('data-actions-layout', 'default')
   })
 
   describe('Banner.Title', () => {

@@ -1,21 +1,20 @@
-import styled from 'styled-components'
+import type React from 'react'
 import type {LabelGroupProps} from './LabelGroup'
 import LabelGroup from './LabelGroup'
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import Label from '../Label/Label'
+import classes from './LabelGroupStories.module.css'
 
 const meta: Meta = {
   title: 'Components/LabelGroup',
   component: LabelGroup,
 }
 
-const ResizableContainer = styled.div`
-  outline: 1px solid black;
-  overflow: auto;
-  padding: 0.25rem;
-  resize: horizontal;
-  width: 600px;
-`
+const ResizableContainer = ({children, ...props}: {children: React.ReactNode}) => (
+  <div className={classes.ResizableContainer} {...props}>
+    {children}
+  </div>
+)
 
 export const Default: StoryFn = () => (
   <LabelGroup>

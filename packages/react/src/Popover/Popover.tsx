@@ -1,9 +1,11 @@
 import {clsx} from 'clsx'
-import type {SxProp} from '../sx'
 import classes from './Popover.module.css'
 import type {HTMLProps} from 'react'
-import React from 'react'
-import {toggleSxComponent} from '../internal/utils/toggleSxComponent'
+import React, {useRef} from 'react'
+import {useOnOutsideClick} from '../hooks'
+
+// Stable empty array reference to avoid unnecessary re-renders
+const EMPTY_IGNORE_CLICK_REFS: React.RefObject<HTMLElement>[] = []
 
 type CaretPosition =
   | 'top'
@@ -20,13 +22,10 @@ type CaretPosition =
   | 'right-top'
 
 type StyledPopoverProps = {
-  /**
-   * @deprecated `caret` is deprecated and will be removed in v38.
-   */
   caret?: CaretPosition
   relative?: boolean
   open?: boolean
-} & SxProp
+}
 
 export type PopoverProps = {
   /** Class name for custom styling */
@@ -34,15 +33,12 @@ export type PopoverProps = {
 } & StyledPopoverProps &
   HTMLProps<HTMLDivElement>
 
-const PopoverBaseComponent = toggleSxComponent('div') as React.ComponentType<
-  PopoverProps & React.RefAttributes<HTMLDivElement>
->
 const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(function Popover(
   {className, caret = 'top', open, relative, ...props},
   forwardRef,
 ) {
   return (
-    <PopoverBaseComponent
+    <div
       {...props}
       ref={forwardRef}
       data-open={open ? '' : undefined}
@@ -54,11 +50,48 @@ const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(function Popover(
 })
 Popover.displayName = 'Popover'
 
-export type PopoverContentProps = {className?: string} & StyledPopoverProps & HTMLProps<HTMLDivElement>
+export type PopoverContentProps = {
+  className?: string
+  width?: 'xsmall' | 'small' | 'large' | 'medium' | 'auto' | 'xlarge'
+  height?: 'small' | 'large' | 'medium' | 'auto' | 'xlarge' | 'fit-content'
+  overflow?: 'auto' | 'hidden' | 'scroll' | 'visible'
+  /*
+   * Callback fired when a click is detected outside the popover content
+   */
+  onClickOutside?: (event: MouseEvent | TouchEvent) => void
+  /*
+   * Refs to elements that should be ignored when detecting outside clicks
+   */
+  ignoreClickRefs?: React.RefObject<HTMLElement>[]
+} & HTMLProps<HTMLDivElement>
 
-const PopoverContentBaseComponent = toggleSxComponent('div') as React.ComponentType<PopoverContentProps>
-const PopoverContent: React.FC<React.PropsWithChildren<PopoverContentProps>> = ({className, ...props}) => {
-  return <PopoverContentBaseComponent {...props} className={clsx(className, classes.PopoverContent)} />
+const PopoverContent: React.FC<React.PropsWithChildren<PopoverContentProps>> = ({
+  className,
+  width = 'small',
+  height = 'fit-content',
+  onClickOutside,
+  ignoreClickRefs,
+  ...props
+}) => {
+  const divRef = useRef(null)
+
+  const outsideClickHandler = onClickOutside ?? (() => {})
+
+  useOnOutsideClick({
+    onClickOutside: outsideClickHandler,
+    containerRef: divRef,
+    ignoreClickRefs: ignoreClickRefs ?? EMPTY_IGNORE_CLICK_REFS,
+  })
+
+  return (
+    <div
+      ref={divRef}
+      data-width={width}
+      data-height={height}
+      className={clsx(className, classes.PopoverContent)}
+      {...props}
+    />
+  )
 }
 
 PopoverContent.displayName = 'Popover.Content'

@@ -1,19 +1,8 @@
 import {render} from '@testing-library/react'
-import MatchMediaMock from 'jest-matchmedia-mock'
-import 'jest-styled-components'
-import {BaseStyles} from '..'
-
-let matchMedia: MatchMediaMock
+import {describe, expect, it} from 'vitest'
+import BaseStyles from '../BaseStyles'
 
 describe('BaseStyles', () => {
-  beforeAll(() => {
-    matchMedia = new MatchMediaMock()
-  })
-
-  afterEach(() => {
-    matchMedia.clear()
-  })
-
   it('has default styles', () => {
     const {container} = render(<BaseStyles>Hello</BaseStyles>)
     expect(container).toMatchSnapshot()
@@ -27,24 +16,14 @@ describe('BaseStyles', () => {
     }
 
     const {container} = render(<BaseStyles {...styles}>Hello</BaseStyles>)
-    expect(container.children[0]).toHaveStyle({color: '#f00', 'font-family': 'Arial', 'line-height': '3.5'})
-  })
-
-  it.skip('respects system props', () => {
-    const {container} = render(
-      <BaseStyles display="contents" whiteSpace="pre-wrap" mr="2">
-        Hello
-      </BaseStyles>,
-    )
-
     expect(container.children[0]).toHaveStyle({
-      display: 'contents',
-      'white-space': 'pre-wrap',
-      'margin-right': '8px',
-    })
+      color: '#f00',
+      'font-family': 'Arial',
+      'line-height': '3.5',
+    } as Partial<CSSStyleDeclaration>)
   })
 
-  it.skip('accepts className and style props', () => {
+  it('accepts className and style props', () => {
     const styles = {
       style: {margin: '10px'},
       className: 'test-classname',

@@ -27,7 +27,7 @@ test.describe('Octicon', () => {
             })
 
             // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`Octicon.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Octicon.${story.title}.${theme}.png`)
           })
         })
       }

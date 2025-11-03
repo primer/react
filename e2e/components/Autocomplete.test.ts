@@ -2,7 +2,7 @@ import {test, expect, type Page} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
-const stories: Array<{title: string; id: string; setup: (page: Page) => void}> = [
+const stories: Array<{title: string; id: string; setup: (page: Page) => Promise<void>}> = [
   {
     title: 'Default',
     id: 'components-autocomplete--default',
@@ -58,6 +58,7 @@ const stories: Array<{title: string; id: string; setup: (page: Page) => void}> =
       await page.keyboard.press('Tab')
       await page.keyboard.press('Enter')
       await expect(page.getByRole('dialog')).toBeVisible()
+      await page.getByText('Default label').waitFor()
       await page.keyboard.press('Tab')
       await page.keyboard.press('D')
     },
@@ -95,14 +96,6 @@ const stories: Array<{title: string; id: string; setup: (page: Page) => void}> =
       await page.keyboard.press('D')
     },
   },
-  {
-    title: 'Sx Prop',
-    id: 'components-autocomplete-dev--sx-prop',
-    setup: async page => {
-      await page.keyboard.press('Tab')
-      await page.keyboard.press('D')
-    },
-  },
 ]
 
 test.describe('Autocomplete', () => {
@@ -118,7 +111,7 @@ test.describe('Autocomplete', () => {
               },
             })
 
-            story.setup(page)
+            await story.setup(page)
 
             await expect(page).toHaveScreenshot(`Autocomplete.${story.title}.${theme}.png`, {animations: 'disabled'})
           })
@@ -131,7 +124,7 @@ test.describe('Autocomplete', () => {
               },
             })
 
-            story.setup(page)
+            await story.setup(page)
 
             await expect(page).toHaveNoViolations({
               rules: {

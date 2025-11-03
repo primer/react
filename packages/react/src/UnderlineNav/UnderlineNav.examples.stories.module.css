@@ -1,0 +1,95 @@
+.PullRequestNavContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-size-16);
+}
+
+.PullRequestTitle {
+  font-weight: var(--base-text-weight-normal);
+}
+
+.PullRequestNumber {
+  color: var(--fgColor-muted);
+  font-weight: var(--base-text-weight-light);
+}
+
+.PullRequestInfoRow {
+  display: flex;
+  gap: var(--base-size-8);
+  align-items: center;
+}
+
+.PullRequestInfoText {
+  font-size: var(--text-body-size-medium);
+  color: var(--fgColor-muted);
+}
+
+.PullRequestInfoUser {
+  font-weight: var(--base-text-weight-semibold);
+}
+
+.ProfileContainer {
+  display: flex;
+  flex-direction: row;
+  gap: var(--base-size-16);
+  align-items: flex-start;
+}
+
+.ProfileSidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100%;
+}
+
+.ProfileBioInfo {
+  padding-block: var(--base-size-16);
+}
+
+.ProfileBioName {
+  /* stylelint-disable-next-line primer/typography */
+  font-size: var(--base-size-24);
+}
+
+.ProfileBioUsername {
+  font-size: var(--text-title-size-medium);
+  font-weight: var(--base-text-weight-light);
+}
+
+.ProfileEditSection {
+  display: flex;
+  flex-direction: column;
+  color: var(--fgColor-onEmphasis);
+}
+
+.ProfileFollowRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: var(--base-size-16);
+}
+
+.ProfileFollowerIcon {
+  margin-right: var(--base-size-4);
+}
+
+.ProfileFollowerCount {
+  margin-right: var(--base-size-8);
+}
+
+.ProfileFollowingCount {
+  margin-left: var(--base-size-8);
+}
+
+.ProfileNav {
+  margin-bottom: var(--base-size-16);
+}
+
+.ProfileReadme {
+  border: var(--borderWidth-default) solid var(--borderColor-default);
+  margin-top: var(--base-size-8);
+  border-radius: var(--borderRadius-large);
+  height: 300px;
+  width: 80%;
+  padding: var(--base-size-24);
+}

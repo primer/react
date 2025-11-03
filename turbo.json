@@ -1,0 +1,21 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "dist/**", "lib/**", "lib-esm/**", "generated/**"]
+    },
+    "build:storybook": {
+      "dependsOn": [],
+      "outputs": ["storybook-static/**"]
+    },
+    "lint:npm": {
+      "dependsOn": ["^build", "build"],
+      "outputs": []
+    },
+    "type-check": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    }
+  }
+}

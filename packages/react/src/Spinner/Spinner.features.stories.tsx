@@ -1,7 +1,8 @@
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
+import {Stack} from '../Stack/Stack'
 import Spinner from './Spinner'
-import {Box} from '..'
 import {AriaStatus} from '../live-region'
+import classes from './Spinner.features.stories.module.css'
 
 export default {
   title: 'Components/Spinner/Features',
@@ -13,8 +14,8 @@ export const Small = () => <Spinner size="small" />
 export const Large = () => <Spinner size="large" />
 
 export const SuppressScreenReaderText = () => (
-  <Box sx={{alignItems: 'center', display: 'flex', gap: '0.25rem'}}>
+  <Stack direction="horizontal" className={classes.SuppressScreenReaderText}>
     <Spinner size="small" srText={null} />
     <AriaStatus>Loading...</AriaStatus>
-  </Box>
+  </Stack>
 )

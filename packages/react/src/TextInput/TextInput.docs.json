@@ -2,7 +2,7 @@
   "id": "text_input",
   "name": "TextInput",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-textinput--default"
@@ -95,7 +95,7 @@
       "name": "loaderPosition",
       "type": "'auto' | 'leading' | 'trailing'",
       "defaultValue": "",
-      "description": "<div>Which position to render the loading indicator</div> <ul> <li> 'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the beginning </li> <li>'leading': at the beginning of the input</li> <li>'trailing': at the end of the input</li> </ul>"
+      "description": "Which position to render the loading indicator\n\n- 'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the beginning\n- 'leading': at the beginning of the input\n- 'trailing': at the end of the input"
     },
     {
       "name": "loaderText",
@@ -142,24 +142,24 @@
     },
     {
       "name": "width",
-      "type": "string | number | Array<string | number>",
+      "type": "string | number",
       "defaultValue": "",
       "deprecated": true,
-      "description": "(Use sx prop) Set the width of the input"
+      "description": "(Use css modules) Set the width of the input"
     },
     {
       "name": "maxWidth",
-      "type": "string | number | Array<string | number>",
+      "type": "string | number",
       "defaultValue": "",
       "deprecated": true,
-      "description": "(Use sx prop) Set the maximum width of the input"
+      "description": "(Use css modules) Set the maximum width of the input"
     },
     {
       "name": "minWidth",
-      "type": "string | number | Array<string | number>",
+      "type": "string | number",
       "defaultValue": "",
       "deprecated": true,
-      "description": "(Use sx prop) Set the minimum width of the input"
+      "description": "(Use css modules) Set the minimum width of the input"
     },
     {
       "name": "icon",
@@ -167,10 +167,6 @@
       "defaultValue": "",
       "deprecated": true,
       "description": "(Use leadingVisual or trailingVisual) An Octicon React component. To be used inside of input. Positioned on the left edge."
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject"
     },
     {
       "name": "ref",
@@ -214,10 +210,6 @@
           "name": "as",
           "type": "React.ElementType",
           "defaultValue": "\"button\""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ],
       "passthrough": {

@@ -1,10 +1,9 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`BaseStyles has default styles 1`] = `
+exports[`BaseStyles > has default styles 1`] = `
 <div>
   <div
-    class="BaseStyles"
-    data-color-mode="light"
+    class="prc-src-BaseStyles-9LBd2"
     data-portal-root="true"
   >
     Hello

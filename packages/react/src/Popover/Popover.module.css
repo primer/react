@@ -14,7 +14,6 @@
 
 .PopoverContent {
   position: relative;
-  width: 232px;
   padding: var(--base-size-24);
   margin-right: auto;
   margin-left: auto;
@@ -204,5 +203,53 @@
       /* stylelint-disable-next-line primer/spacing */
       bottom: calc(var(--base-size-16) + 1px);
     }
+  }
+
+  &:where([data-width='xsmall']) {
+    width: var(--overlay-width-xsmall);
+  }
+
+  &:where([data-width='small']) {
+    width: var(--overlay-width-small);
+  }
+
+  &:where([data-width='medium']) {
+    width: var(--overlay-width-medium);
+  }
+
+  &:where([data-width='large']) {
+    width: var(--overlay-width-large);
+  }
+
+  &:where([data-width='xlarge']) {
+    width: var(--overlay-width-xlarge);
+  }
+
+  &:where([data-width='auto']) {
+    width: auto;
+  }
+
+  &:where([data-height='small']) {
+    height: var(--overlay-height-small);
+  }
+
+  &:where([data-height='medium']) {
+    height: var(--overlay-height-medium);
+  }
+
+  &:where([data-height='large']) {
+    height: var(--overlay-height-large);
+  }
+
+  &:where([data-height='xlarge']) {
+    height: var(--overlay-height-xlarge);
+  }
+
+  &:where([data-height='fit-content']) {
+    height: fit-content;
+  }
+
+  &:where([data-height='auto']) {
+    height: auto;
   }
 }

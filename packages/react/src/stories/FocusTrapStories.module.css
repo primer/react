@@ -1,0 +1,50 @@
+.MarginButton {
+  margin: var(--base-size-8) 0;
+}
+
+/* Helper styles for focus trap visual aids */
+
+.TrapZone {
+  border-color: var(--borderColor-muted);
+  margin: var(--base-size-16);
+  padding: var(--base-size-16);
+  border-width: var(--borderWidth-thin);
+  border-style: solid;
+  border-radius: var(--borderRadius-medium);
+}
+
+.TrapZoneSmall {
+  border-color: var(--borderColor-muted);
+  margin: var(--base-size-8);
+  padding: var(--base-size-8);
+  border-width: var(--borderWidth-thin);
+  border-style: solid;
+  border-radius: var(--borderRadius-medium);
+}
+
+.Legend {
+  padding: var(--base-size-8);
+  margin-bottom: var(--base-size-12);
+  border-width: var(--borderWidth-thin);
+  border-style: solid;
+  border-color: var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+}
+
+.LegendItem {
+  width: 40px;
+  height: 22px;
+  margin-right: var(--base-size-8);
+  border-color: var(--borderColor-muted);
+  border-width: var(--borderWidth-thin);
+  border-style: solid;
+  border-radius: var(--borderRadius-medium);
+}
+
+.LegendItemSuspended {
+  background-color: var(--bgColor-attention-muted);
+}
+
+.LegendItemActive {
+  background-color: var(--bgColor-success-muted);
+}

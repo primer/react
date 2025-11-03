@@ -85,6 +85,13 @@
   & .Divider:first-child {
     display: none;
   }
+
+  /* if a list has a mix of items with and without descriptions, reset the label font-weight to normal */
+  &:has([data-has-description='true']):has([data-has-description='false']) {
+    & .ItemLabel {
+      font-weight: var(--base-text-weight-normal);
+    }
+  }
 }
 
 /* ActionListItem is a li that handles visual state, while ActionListItemContent controls actual state via button or link */
@@ -103,7 +110,18 @@
 
   /* state */
 
-  &:not(:has([aria-disabled], [disabled]), [aria-disabled='true'], [data-has-subitem='true']) {
+  @media (forced-colors: active) {
+    :focus,
+    &:focus-visible,
+    /* stylelint-disable-next-line selector-no-qualifying-type */
+    >a.focus-visible,
+    &[data-is-active-descendant] {
+      /* Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips */
+      outline: solid 1px transparent !important;
+    }
+  }
+
+  &:not(:has([aria-disabled], [disabled]), [data-has-subitem='true']) {
     @media (hover: hover) {
       &:hover,
       &:active {
@@ -331,6 +349,18 @@
     }
   }
 
+  /* When TrailingAction is in loading state, keep labels and descriptions accessible */
+  &:has(.TrailingAction [data-loading='true']):not([aria-disabled='true']) {
+    /* Ensure labels and descriptions maintain accessibility contrast */
+    & .ItemLabel {
+      color: var(--fgColor-default);
+    }
+
+    & .Description {
+      color: var(--fgColor-default);
+    }
+  }
+
   /* Make sure that the first visible item isn't a divider */
   &[aria-hidden] + .Divider {
     display: none;
@@ -353,7 +383,8 @@
     border-radius: var(--borderRadius-small);
     transition:
       background-color,
-      border-color 80ms cubic-bezier(0.33, 1, 0.68, 1); /* checked -> unchecked - add 120ms delay to fully see animation-out */
+      border-color 80ms cubic-bezier(0.33, 1, 0.68, 1);
+    /* checked -> unchecked - add 120ms delay to fully see animation-out */
 
     place-content: center;
 
@@ -371,7 +402,15 @@
       mask-size: 75%;
       mask-repeat: no-repeat;
       mask-position: center;
-      animation: checkmarkOut 80ms cubic-bezier(0.65, 0, 0.35, 1); /*  forwards;  slightly snappier animation out */
+      animation: checkmarkOut 80ms cubic-bezier(0.65, 0, 0.35, 1);
+      /*  forwards;  slightly snappier animation out */
+    }
+
+    @media (forced-colors: active) {
+      /* Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips */
+
+      /* background-color will be overriden but border-width is a workaround */
+      border-width: var(--borderWidth-thin);
     }
   }
 
@@ -382,12 +421,20 @@
       border-color: var(--control-checked-borderColor-rest);
       transition:
         background-color,
-        border-color 80ms cubic-bezier(0.32, 0, 0.67, 0) 0ms; /* unchecked -> checked */
+        border-color 80ms cubic-bezier(0.32, 0, 0.67, 0) 0ms;
+      /* unchecked -> checked */
 
       &::before {
         visibility: visible;
         transition: visibility 0s linear 0s;
         animation: checkmarkIn 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards 80ms;
+      }
+
+      @media (forced-colors: active) {
+        /* Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips
+        background-color will be overriden but border-width is a workaround */
+        /* stylelint-disable-next-line primer/borders */
+        border-width: 8px;
       }
     }
 
@@ -453,6 +500,13 @@
     cursor: pointer;
   }
 
+  /* large */
+
+  &[data-size='large'] {
+    /* stylelint-disable-next-line primer/spacing */
+    padding-block: var(--control-large-paddingBlock);
+  }
+
   /* collapsible item [aria-expanded] */
 
   &[aria-expanded='true'] {
@@ -501,6 +555,12 @@
   grid-template-areas: 'label trailingVisual trailingAction';
   grid-template-columns: minmax(0, auto) min-content min-content;
   align-items: start;
+
+  /* column-gap persists with empty grid-areas, margin applies only when children exist */
+  & > :not(:last-child) {
+    /* stylelint-disable-next-line primer/spacing */
+    margin-right: var(--control-medium-gap);
+  }
 }
 
 /* place children on grid */
@@ -540,6 +600,7 @@ default block */
 
   & .ItemLabel {
     font-weight: var(--base-text-weight-semibold);
+    /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated */
     word-break: break-word;
   }
 
@@ -591,7 +652,8 @@ span wrapping svg or text */
   min-width: max-content;
   min-height: var(--control-medium-lineBoxHeight);
   /* stylelint-disable-next-line primer/typography */
-  line-height: 20px; /* temporary until we fix line-height rounding in primitives */
+  line-height: 20px;
+  /* temporary until we fix line-height rounding in primitives */
   color: var(--fgColor-muted);
   pointer-events: none;
   fill: var(--fgColor-muted);
@@ -604,9 +666,11 @@ span wrapping svg or text */
   font-size: var(--text-body-size-medium);
   font-weight: var(--base-text-weight-normal);
   /* stylelint-disable-next-line primer/typography */
-  line-height: 20px; /* temporary until we fix line-height rounding in primitives */
+  line-height: 20px;
+  /* temporary until we fix line-height rounding in primitives */
   color: var(--fgColor-default);
   grid-area: label;
+  /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated */
   word-break: break-word;
 }
 
@@ -625,6 +689,24 @@ span wrapping svg or text */
 .TrailingActionButton {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+
+  /* Preserve width consistency when loading state is active for text buttons only */
+  &[data-loading='true']:has([data-component='buttonContent']) {
+    /* Double the left padding to compensate for missing right padding */
+    padding: 0 0 0 calc(var(--base-size-12) * 2);
+
+    /* Position spinner at the end to align with IconButton */
+    & [data-component='loadingSpinner'] {
+      place-self: end;
+      /* Match the IconButton spinner size */
+      width: var(--control-medium-size, 2rem);
+      height: var(--control-medium-size, 2rem);
+      /* Ensure spinner is properly centered */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
 }
 
 .InactiveButtonWrap {

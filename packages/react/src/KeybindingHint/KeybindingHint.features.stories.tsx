@@ -1,6 +1,6 @@
-import type {Meta, StoryObj} from '@storybook/react'
+import type {Meta, StoryObj} from '@storybook/react-vite'
 import {KeybindingHint, type KeybindingHintProps} from '.'
-import Box from '../Box'
+import classes from './KeybindingHint.features.stories.module.css'
 
 export default {
   title: 'Experimental/Components/KeybindingHint/Features',
@@ -21,18 +21,18 @@ export const SequenceFull = {args: {keys: sequence, format: 'full'}}
 
 export const OnEmphasis: StoryObj<KeybindingHintProps> = {
   render: args => (
-    <Box sx={{backgroundColor: 'var(--bgColor-black)', p: 3}}>
+    <div className={classes.EmphasisBackground}>
       <KeybindingHint {...args} />
-    </Box>
+    </div>
   ),
   args: {keys: chord, variant: 'onEmphasis'},
 }
 
 export const OnPrimary: StoryObj<KeybindingHintProps> = {
   render: args => (
-    <Box sx={{backgroundColor: 'var(--button-primary-bgColor-rest)', p: 3}}>
+    <div className={classes.PrimaryBackground}>
       <KeybindingHint {...args} />
-    </Box>
+    </div>
   ),
   args: {keys: chord, variant: 'onPrimary'},
 }

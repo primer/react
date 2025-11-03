@@ -1,8 +1,9 @@
 import {useState, useRef, type ComponentProps} from 'react'
-import type {Args, Meta} from '@storybook/react'
+import type {Args, Meta} from '@storybook/react-vite'
 import {XIcon} from '@primer/octicons-react'
-import {Button, Text, useFocusTrap, Box, IconButton} from '..'
+import {Button, Text, useFocusTrap, IconButton} from '..'
 import Overlay from '../Overlay'
+import classes from './Overlay.stories.module.css'
 
 export default {
   title: 'Private/Components/Overlay',
@@ -226,7 +227,7 @@ export const Default = (args: Args) => {
     disabled: !isOpen,
   })
   return (
-    <Box ref={anchorRef}>
+    <div ref={anchorRef}>
       <Button
         ref={buttonRef}
         onClick={() => {
@@ -249,31 +250,19 @@ export const Default = (args: Args) => {
           aria-label="Sample overlay"
           ref={containerRef}
         >
-          <Box
-            sx={{
-              height: '100vh',
-              maxWidth: 'calc(-1rem + 100vw)',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
+          <div className={classes.FullHeightContent}>
             <IconButton
               aria-label="Close"
               onClick={closeOverlay}
               icon={XIcon}
               variant="invisible"
-              sx={{
-                position: 'absolute',
-                left: '5px',
-                top: '5px',
-              }}
+              className={classes.CloseButtonOverlay}
             />
             <Text>Look! an overlay</Text>
-          </Box>
+          </div>
         </Overlay>
       ) : null}
-    </Box>
+    </div>
   )
 }
 Default.args = {
@@ -297,7 +286,7 @@ export const Playground = (args: Args) => {
     disabled: !isOpen,
   })
   return (
-    <Box ref={anchorRef}>
+    <div ref={anchorRef}>
       <Button
         ref={buttonRef}
         onClick={() => {
@@ -320,37 +309,21 @@ export const Playground = (args: Args) => {
           ref={containerRef}
           {...args}
         >
-          <Box
-            sx={{
-              width: ['350px', '500px'],
-            }}
-          >
-            <Box
-              sx={{
-                height: '100vh',
-                maxWidth: 'calc(-1rem + 100vw)',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
+          <div className={classes.ResponsiveWidth}>
+            <div className={classes.FullHeightContent}>
               <IconButton
                 aria-label="Close"
                 onClick={closeOverlay}
                 icon={XIcon}
                 variant="invisible"
-                sx={{
-                  position: 'absolute',
-                  left: '5px',
-                  top: '5px',
-                }}
+                className={classes.CloseButtonOverlay}
               />
               <Text>Look! an overlay</Text>
-            </Box>
-          </Box>
+            </div>
+          </div>
         </Overlay>
       ) : null}
-    </Box>
+    </div>
   )
 }
 Playground.args = {

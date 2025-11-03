@@ -1,18 +1,19 @@
+import {render} from '@testing-library/react'
+import {describe, expect, it} from 'vitest'
 import Pagehead from '../Pagehead'
-import {behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender} from '@testing-library/react'
-import axe from 'axe-core'
 
 describe('Pagehead', () => {
-  behavesAsComponent({Component: Pagehead})
-
-  checkExports('Pagehead', {
-    default: Pagehead,
+  it('should support `className` on the outermost element', () => {
+    const {container} = render(<Pagehead className="test-class-name">Pagehead</Pagehead>)
+    expect(container.firstChild).toHaveClass('test-class-name')
   })
 
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<Pagehead>Pagehead</Pagehead>)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
+  it('should support attributes on the outermost element', () => {
+    const {container} = render(
+      <Pagehead data-testid="pagehead" className="test-class-name">
+        Pagehead
+      </Pagehead>,
+    )
+    expect(container.firstChild).toHaveAttribute('data-testid', 'pagehead')
   })
 })

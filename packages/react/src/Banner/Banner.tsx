@@ -64,6 +64,16 @@ export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
    * Specify the type of the Banner
    */
   variant?: BannerVariant
+
+  /**
+   * Specify the layout of the Banner. Compact layout will reduce the padding.
+   */
+  layout?: 'default' | 'compact'
+
+  /**
+   * Override the default actions layout behavior
+   */
+  actionsLayout?: 'inline' | 'stacked' | 'default'
 }
 
 const iconForVariant: Record<BannerVariant, React.ReactNode> = {
@@ -85,6 +95,7 @@ const labels: Record<BannerVariant, string> = {
 export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner(
   {
     'aria-label': label,
+    'aria-labelledby': labelledBy,
     children,
     className,
     description,
@@ -95,6 +106,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
     secondaryAction,
     title,
     variant = 'info',
+    actionsLayout = 'default',
     ...rest
   },
   forwardRef,
@@ -107,6 +119,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
 
   if (__DEV__) {
     // This hook is called consistently depending on the environment
+    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
       if (title) {
@@ -130,13 +143,16 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
   return (
     <section
       {...rest}
-      aria-label={label ?? labels[variant]}
+      aria-labelledby={labelledBy}
+      aria-label={labelledBy ? undefined : (label ?? labels[variant])}
       className={clsx(className, classes.Banner)}
       data-dismissible={onDismiss ? '' : undefined}
       data-title-hidden={hideTitle ? '' : undefined}
       data-variant={variant}
+      data-actions-layout={actionsLayout}
       tabIndex={-1}
       ref={ref}
+      data-layout={rest.layout || 'default'}
     >
       <div className={classes.BannerIcon}>{icon && supportsCustomIcon ? icon : iconForVariant[variant]}</div>
       <div className={classes.BannerContainer}>

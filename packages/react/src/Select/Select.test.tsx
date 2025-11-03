@@ -8,7 +8,7 @@ describe('Select', () => {
     const Element = () => (
       <>
         <label htmlFor="default">Choice</label>
-        <Select id="default" data-testid="select-default" className={'test-class-name'}>
+        <Select id="default" data-testid="select-default" className="test-class-name">
           <Select.Option value="one">Choice one</Select.Option>
           <Select.Option value="two">Choice two</Select.Option>
           <Select.Option value="three">Choice three</Select.Option>
@@ -18,7 +18,11 @@ describe('Select', () => {
         </Select>
       </>
     )
-    expect(render(<Element />).getAllByTestId('select-default')[0]).toHaveClass('test-class-name')
+    const {container} = render(<Element />)
+    const select = container.querySelector('select')
+    const wrapper = container.querySelector('span.test-class-name')
+    expect(wrapper).toContainElement(select)
+    expect(wrapper).toHaveClass('test-class-name')
   })
 
   it('renders a select input', () => {

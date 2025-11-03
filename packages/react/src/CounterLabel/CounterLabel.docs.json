@@ -2,7 +2,7 @@
   "id": "counter_label",
   "name": "CounterLabel",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-counterlabel--default"
@@ -27,10 +27,6 @@
       "type": "string",
       "description": "Class name(s) for custom styling.",
       "defaultValue": ""
-    },
-    {
-      "name": "sx",
-      "type": "BetterSystemStyleObject"
     }
   ],
   "subcomponents": []

@@ -3,11 +3,10 @@ import TabNav from '..'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {Button} from '../../Button'
-import Box from '../../Box'
 
 describe('TabNav', () => {
   const tabNavMarkup = (
-    <Box>
+    <div>
       <TabNav>
         <TabNav.Link id="first" href="#" as="div">
           First
@@ -21,7 +20,7 @@ describe('TabNav', () => {
         </TabNav.Link>
       </TabNav>
       <Button id="my-button">My Button</Button>
-    </Box>
+    </div>
   )
 
   describe('TabNav.Link', () => {

@@ -39,19 +39,20 @@ export type TextInputNonPassthroughProps = {
    * A visual that renders inside the input after the typing area
    */
   trailingAction?: React.ReactElement<React.HTMLProps<HTMLButtonElement>>
-} & Pick<
-  StyledWrapperProps,
-  | 'block'
-  | 'contrast'
-  | 'disabled'
-  | 'monospace'
-  | 'sx'
-  | 'width'
-  | 'maxWidth'
-  | 'minWidth'
-  | 'variant'
-  | 'size'
-  | 'validationStatus'
+} & Partial<
+  Pick<
+    StyledWrapperProps,
+    | 'block'
+    | 'contrast'
+    | 'disabled'
+    | 'monospace'
+    | 'width'
+    | 'maxWidth'
+    | 'minWidth'
+    | 'variant'
+    | 'size'
+    | 'validationStatus'
+  >
 >
 
 export type TextInputProps = Merge<React.ComponentPropsWithoutRef<'input'>, TextInputNonPassthroughProps>
@@ -73,15 +74,14 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       loaderText = 'Loading',
       monospace,
       validationStatus,
-      sx: sxProp,
       size: sizeProp,
       onFocus,
       onBlur,
       // start deprecated props
+      variant: variantProp,
       width: widthProp,
       minWidth: minWidthProp,
       maxWidth: maxWidthProp,
-      variant: variantProp,
       // end deprecated props
       type = 'text',
       required,
@@ -135,7 +135,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         contrast={contrast}
         disabled={disabled}
         monospace={monospace}
-        sx={sxProp}
         size={sizeProp}
         width={widthProp}
         minWidth={minWidthProp}
@@ -192,5 +191,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
 TextInput.displayName = 'TextInput'
 
 export default Object.assign(TextInput, {
+  __SLOT__: Symbol('TextInput'),
   Action: TextInputAction,
 })

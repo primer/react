@@ -29,7 +29,7 @@
     'description description description description description'
     'navigation navigation navigation navigation navigation';
 
-  /* 
+  /*
     line-height is calculated with calc(height/font-size) and the below numbers are from @primer/primitives.
     --custom-font-size, --custom-line-height, --custom-font-weight are custom properties that can be used to override the below values.
     We don't want these values to be overridden but still want to allow consumers to override them if needed.
@@ -120,7 +120,7 @@
   display: flex;
   padding-bottom: var(--base-size-8);
   font-size: var(--text-body-size-medium, 0.875rem);
-  font-weight: var(--base-text-weight-light);
+  font-weight: var(--base-text-weight-normal);
   line-height: var(--text-body-lineHeight-medium, 1.4285);
   flex-direction: row;
   grid-row: var(--grid-row-order-context-area);
@@ -172,7 +172,7 @@
   display: flex;
   padding-right: var(--base-size-8);
   font-size: var(--text-body-size-medium, 0.875rem);
-  font-weight: var(--base-text-weight-light);
+  font-weight: var(--base-text-weight-normal);
   line-height: var(--text-body-lineHeight-medium, 1.4285);
   grid-row: var(--grid-row-order-breadcrumbs);
   grid-area: breadcrumbs;
@@ -242,7 +242,7 @@
   display: block;
   padding-top: var(--base-size-8);
   font-size: var(--text-body-size-medium, 0.875rem);
-  font-weight: var(--base-text-weight-light);
+  font-weight: var(--base-text-weight-normal);
   line-height: var(--text-body-lineHeight-medium, 1.4285);
   grid-row: var(--grid-row-order-navigation);
   grid-area: navigation;

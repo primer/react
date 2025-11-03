@@ -1,8 +1,6 @@
 import {ChevronLeftIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type React from 'react'
 import {useCallback, useMemo, useState} from 'react'
-import styled from 'styled-components'
-import {get} from '../constants'
 import {Button} from '../internal/components/ButtonReset'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
 import {VisuallyHidden} from '../VisuallyHidden'
@@ -10,123 +8,8 @@ import {warning} from '../utils/warning'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {viewportRanges} from '../hooks/useResponsiveValue'
 import {buildPaginationModel} from '../Pagination/model'
-
-const StyledPagination = styled.nav`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  column-gap: 1rem;
-  width: 100%;
-  grid-area: footer;
-  padding: 0.5rem 1rem;
-  border: 1px solid ${get('colors.border.default')};
-  border-top-width: 0;
-  border-end-start-radius: 6px;
-  border-end-end-radius: 6px;
-
-  .TablePaginationRange {
-    color: ${get('colors.fg.muted')};
-    font-size: 0.75rem;
-    margin: 0;
-  }
-
-  .TablePaginationSteps {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    list-style: none;
-    color: ${get('colors.fg.default')};
-    font-size: 0.875rem;
-    margin: 0;
-    padding: 0;
-  }
-
-  .TablePaginationStep:first-of-type {
-    margin-right: 1rem;
-  }
-
-  .TablePaginationStep:last-of-type {
-    margin-left: 1rem;
-  }
-
-  .TablePaginationAction {
-    display: flex;
-    align-items: center;
-    color: ${get('colors.fg.muted')};
-    font-size: 0.875rem;
-    line-height: calc(20 / 14);
-    user-select: none;
-    padding: 0.5rem;
-    border-radius: 6px;
-  }
-
-  .TablePaginationAction[data-has-page] {
-    color: ${get('colors.accent.fg')};
-  }
-
-  .TablePaginationPage {
-    min-width: 2rem;
-    min-height: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.875rem;
-    line-height: calc(20 / 14);
-    user-select: none;
-    border-radius: 6px;
-    padding: 0.5rem calc((2rem - 1.25rem) / 2); /* primer.control.medium.paddingInline.condensed primer.control.medium.paddingBlock */
-  }
-
-  .TablePaginationAction[data-has-page]:hover,
-  .TablePaginationAction[data-has-page]:focus,
-  .TablePaginationPage:hover,
-  .TablePaginationPage:focus {
-    background-color: ${get('colors.actionListItem.default.hoverBg')};
-  }
-
-  .TablePaginationPage[data-active='true'] {
-    background-color: ${get('colors.accent.emphasis')};
-    color: ${get('colors.fg.onEmphasis')};
-  }
-
-  .TablePaginationPage[data-active='true']:focus-visible {
-    outline: 2px solid var(--bgColor-accent-emphasis);
-    outline-offset: -2px;
-    box-shadow: inset 0 0 0 3px var(--fgColor-onEmphasis);
-  }
-
-  .TablePaginationTruncationStep {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 2rem;
-    min-height: 2rem;
-    user-select: none;
-  }
-
-  ${
-    // Hides pages based on the viewport range passed to `showPages`
-    Object.keys(viewportRanges)
-      .map(viewportRangeKey => {
-        return `
-      @media (${viewportRanges[viewportRangeKey as keyof typeof viewportRanges]}) {
-        .TablePaginationSteps[data-hidden-viewport-ranges*='${viewportRangeKey}'] > *:not(:first-child):not(:last-child) {
-          display: none;
-        }
-
-        .TablePaginationSteps[data-hidden-viewport-ranges*='${viewportRangeKey}'] > *:first-child {
-          margin-inline-end: 0;
-        }
-
-        .TablePaginationSteps[data-hidden-viewport-ranges*='${viewportRangeKey}'] > *:last-child {
-          margin-inline-start: 0;
-        }
-      }
-    `
-      })
-      .join('')
-  }
-`
+import classes from './Pagination.module.css'
+import {clsx} from 'clsx'
 
 export type PaginationProps = Omit<React.ComponentPropsWithoutRef<'nav'>, 'onChange'> & {
   /**
@@ -167,13 +50,17 @@ export type PaginationProps = Omit<React.ComponentPropsWithoutRef<'nav'>, 'onCha
   totalCount: number
 }
 
+const defaultShowPages = {
+  narrow: false,
+}
+
 export function Pagination({
   'aria-label': label,
   defaultPageIndex,
   id,
   onChange,
   pageSize = 25,
-  showPages = {narrow: false},
+  showPages = defaultShowPages,
   totalCount,
 }: PaginationProps) {
   const {
@@ -214,12 +101,15 @@ export function Pagination({
   return (
     <LiveRegion>
       <LiveRegionOutlet />
-      <StyledPagination aria-label={label} className="TablePagination" id={id}>
+      <nav aria-label={label} className={clsx('TablePagination', classes.TablePagination)} id={id}>
         <Range pageStart={pageStart} pageEnd={pageEnd} totalCount={totalCount} />
-        <ol className="TablePaginationSteps" data-hidden-viewport-ranges={getViewportRangesToHidePages().join(' ')}>
+        <ol
+          className={clsx('TablePaginationSteps', classes.TablePaginationSteps)}
+          data-hidden-viewport-ranges={getViewportRangesToHidePages().join(' ')}
+        >
           <Step>
             <Button
-              className="TablePaginationAction"
+              className={clsx('TablePaginationAction', classes.TablePaginationAction)}
               type="button"
               data-has-page={hasPreviousPage ? true : undefined}
               aria-disabled={!hasPreviousPage ? true : undefined}
@@ -231,7 +121,7 @@ export function Pagination({
               }}
             >
               {hasPreviousPage ? <ChevronLeftIcon /> : null}
-              <span className="TablePaginationActionLabel">Previous</span>
+              <span>Previous</span>
               <VisuallyHidden>&nbsp;page</VisuallyHidden>
             </Button>
           </Step>
@@ -256,7 +146,7 @@ export function Pagination({
           })}
           <Step>
             <Button
-              className="TablePaginationAction"
+              className={clsx('TablePaginationAction', classes.TablePaginationAction)}
               type="button"
               data-has-page={hasNextPage ? true : undefined}
               aria-disabled={!hasNextPage ? true : undefined}
@@ -267,13 +157,13 @@ export function Pagination({
                 selectNextPage()
               }}
             >
-              <span className="TablePaginationActionLabel">Next</span>
+              <span>Next</span>
               <VisuallyHidden>&nbsp;page</VisuallyHidden>
               {hasNextPage ? <ChevronRightIcon /> : null}
             </Button>
           </Step>
         </ol>
-      </StyledPagination>
+      </nav>
     </LiveRegion>
   )
 }
@@ -290,7 +180,7 @@ function Range({pageStart, pageEnd, totalCount}: RangeProps) {
   return (
     <>
       <Message value={`Showing ${start} through ${end} of ${totalCount}`} />
-      <p className="TablePaginationRange">
+      <p className={clsx('TablePaginationRange', classes.TablePaginationRange)}>
         {start}
         <VisuallyHidden>&nbsp;through&nbsp;</VisuallyHidden>
         <span aria-hidden="true">‒</span>
@@ -302,14 +192,14 @@ function Range({pageStart, pageEnd, totalCount}: RangeProps) {
 
 function TruncationStep() {
   return (
-    <li aria-hidden="true" className="TablePaginationTruncationStep">
+    <li aria-hidden="true" className={clsx('TablePaginationTruncationStep', classes.TablePaginationTruncationStep)}>
       …
     </li>
   )
 }
 
 function Step({children}: React.PropsWithChildren) {
-  return <li className="TablePaginationStep">{children}</li>
+  return <li className={clsx('TablePaginationStep', classes.TablePaginationStep)}>{children}</li>
 }
 
 type PageProps = React.PropsWithChildren<{
@@ -320,7 +210,7 @@ type PageProps = React.PropsWithChildren<{
 function Page({active, children, onClick}: PageProps) {
   return (
     <Button
-      className="TablePaginationPage"
+      className={clsx('TablePaginationPage', classes.TablePaginationPage)}
       type="button"
       data-active={active ? true : undefined}
       aria-current={active ? true : undefined}

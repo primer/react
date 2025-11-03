@@ -2,7 +2,7 @@
   "id": "inline_message",
   "name": "InlineMessage",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "importPath": "@primer/react/experimental",
   "stories": [
     {

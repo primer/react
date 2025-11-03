@@ -1,43 +1,36 @@
 import React, {useCallback, useEffect} from 'react'
-import type {Meta} from '@storybook/react'
-import styled, {createGlobalStyle} from 'styled-components'
+import type {Meta} from '@storybook/react-vite'
 
-import {BaseStyles, Box, Button, Flash, Text, ThemeProvider} from '..'
+import {Button, Flash, Stack, Text} from '..'
 import {useFocusTrap} from '../hooks/useFocusTrap'
-import {themeGet} from '@styled-system/theme-get'
+import classes from './FocusTrapStories.module.css'
 
 export default {
   title: 'Hooks/useFocusTrap',
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    },
-  ],
 } as Meta
 
-// NOTE: the below styles are solely intended as a visual aid for
-// this Storybook story, but they're not recommended for a real site!
-const HelperGlobalStyling = createGlobalStyle`
-  *:focus {
-    outline: 2px solid ${themeGet('colors.auto.blue.3')} !important;
-  }
-  [data-focus-trap='active'] {
-    background-color: ${themeGet('colors.auto.green.2')}
-  }
-  [data-focus-trap='suspended'] {
-    background-color: ${themeGet('colors.auto.yellow.2')}
-  }
-`
+// Helper styles for visual aid in this story
+const HelperGlobalStyling = () => (
+  <style>
+    {`
+      *:focus {
+        outline: 2px solid var(--bgColor-accent-emphasis) !important;
+      }
+      [data-focus-trap='active'] {
+        background-color: var(--bgColor-success-muted);
+      }
+      [data-focus-trap='suspended'] {
+        background-color: var(--bgColor-attention-muted);
+      }
+    `}
+  </style>
+)
 
-const MarginButton = styled(Button)`
-  margin: ${themeGet('space.1')} 0;
-`
+const MarginButton = ({children, ...props}: React.ComponentProps<typeof Button>) => (
+  <Button className={classes.MarginButton} {...props}>
+    {children}
+  </Button>
+)
 
 export const FocusTrap = () => {
   const [trapEnabled, setTrapEnabled] = React.useState(false)
@@ -62,30 +55,22 @@ export const FocusTrap = () => {
   return (
     <>
       <HelperGlobalStyling />
-      <Box display="flex" flexDirection="column" alignItems="flex-start">
+      <Stack direction="vertical" gap="normal">
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
-        <Box
-          borderColor="gray.5"
-          ref={containerRef as React.RefObject<HTMLDivElement>}
-          m={4}
-          p={4}
-          borderWidth="1px"
-          borderStyle="solid"
-          borderRadius={2}
-        >
+        <div className={classes.TrapZone} ref={containerRef as React.RefObject<HTMLDivElement>}>
           <strong>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</strong>
-          <Box display="flex" flexDirection="column" alignItems="flex-start">
+          <Stack direction="vertical" gap="normal">
             <MarginButton>Durian</MarginButton>
             <MarginButton>Elderberry</MarginButton>
             <MarginButton>Fig</MarginButton>
-          </Box>
-        </Box>
+          </Stack>
+        </div>
         <MarginButton>Grapefruit</MarginButton>
         <MarginButton>Honeydew</MarginButton>
         <MarginButton>Jackfruit</MarginButton>
-      </Box>
+      </Stack>
     </>
   )
 }
@@ -113,30 +98,22 @@ export const RestoreFocus = () => {
   return (
     <>
       <HelperGlobalStyling />
-      <Box display="flex" flexDirection="column" alignItems="flex-start">
+      <Stack direction="vertical" gap="normal">
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
-        <Box
-          borderColor="gray.5"
-          ref={containerRef as React.RefObject<HTMLDivElement>}
-          m={4}
-          p={4}
-          borderWidth="1px"
-          borderStyle="solid"
-          borderRadius={2}
-        >
+        <div className={classes.TrapZone} ref={containerRef as React.RefObject<HTMLDivElement>}>
           <strong>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</strong>
-          <Box display="flex" flexDirection="column" alignItems="flex-start">
+          <Stack direction="vertical" gap="normal">
             <MarginButton>Durian</MarginButton>
             <MarginButton>Elderberry</MarginButton>
             <MarginButton>Fig</MarginButton>
-          </Box>
-        </Box>
+          </Stack>
+        </div>
         <MarginButton>Grapefruit</MarginButton>
         <MarginButton>Honeydew</MarginButton>
         <MarginButton>Jackfruit</MarginButton>
-      </Box>
+      </Stack>
     </>
   )
 }
@@ -164,8 +141,8 @@ export const CustomInitialFocus = () => {
   return (
     <>
       <HelperGlobalStyling />
-      <Box display="flex" flexDirection="column" alignItems="flex-start">
-        <Flash sx={{mb: 3}}>
+      <Stack direction="vertical" gap="normal">
+        <Flash style={{marginBottom: 'var(--base-size-12)'}}>
           This story is the same as the `Focus Trap` story, except, when the trap zone is activated, the
           &ldquo;Elderberry&rdquo; button will receive the initial focus (if the trap zone container does not already
           have focus).
@@ -173,26 +150,18 @@ export const CustomInitialFocus = () => {
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
-        <Box
-          borderColor="gray.5"
-          ref={containerRef as React.RefObject<HTMLDivElement>}
-          m={4}
-          p={4}
-          borderWidth="1px"
-          borderStyle="solid"
-          borderRadius={2}
-        >
+        <div className={classes.TrapZone} ref={containerRef as React.RefObject<HTMLDivElement>}>
           <strong>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</strong>
-          <Box display="flex" flexDirection="column" alignItems="flex-start">
+          <Stack direction="vertical" gap="normal">
             <MarginButton>Durian</MarginButton>
             <MarginButton ref={initialFocusRef as React.RefObject<HTMLButtonElement>}>Elderberry</MarginButton>
             <MarginButton>Fig</MarginButton>
-          </Box>
-        </Box>
+          </Stack>
+        </div>
         <MarginButton>Grapefruit</MarginButton>
         <MarginButton>Honeydew</MarginButton>
         <MarginButton>Jackfruit</MarginButton>
-      </Box>
+      </Stack>
     </>
   )
 }
@@ -244,30 +213,22 @@ export const DynamicFocusTrapContents = () => {
   return (
     <>
       <HelperGlobalStyling />
-      <Box display="flex" flexDirection="column" alignItems="flex-start">
+      <Stack direction="vertical" gap="normal">
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
-        <Box
-          borderColor="gray.5"
-          ref={containerRef as React.RefObject<HTMLDivElement>}
-          m={4}
-          p={4}
-          borderWidth="1px"
-          borderStyle="solid"
-          borderRadius={2}
-        >
+        <div className={classes.TrapZone} ref={containerRef as React.RefObject<HTMLDivElement>}>
           <strong>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</strong>
-          <Box display="flex" flexDirection="column" alignItems="flex-start">
+          <Stack direction="vertical" gap="normal">
             <ToggleableButton name="Durian"></ToggleableButton>
             <ToggleableButton name="Elderberry"></ToggleableButton>
             <ToggleableButton name="Fig"></ToggleableButton>
-          </Box>
-        </Box>
+          </Stack>
+        </div>
         <MarginButton>Grapefruit</MarginButton>
         <MarginButton>Honeydew</MarginButton>
         <MarginButton>Jackfruit</MarginButton>
-      </Box>
+      </Stack>
     </>
   )
 }
@@ -301,100 +262,58 @@ export const MultipleFocusTraps = () => {
   return (
     <>
       <HelperGlobalStyling />
-      <Box display="flex" flexDirection="column" alignItems="flex-start">
-        <Flash sx={{mb: 3}}>
+      <Stack direction="vertical" gap="normal">
+        <Flash style={{marginBottom: 'var(--base-size-12)'}}>
           This story demonstrates the global nature of focus traps. When a focus trap is enabled, if there is already an
           active focus trap, it becomes suspended and pushed onto a stack. Once the newly-active focus trap is disabled,
           the most recently-suspended trap will reactivate. Suspended focus traps can be disabled, causing them to be
           removed from the stack of suspended traps.
         </Flash>
-        <Box p={2} mb={3} borderWidth="1px" borderStyle="solid" borderColor="border.default" borderRadius={2}>
+        <div className={classes.Legend}>
           Legend
-          <Box display="flex" flexDirection="row">
-            <Box
-              width={40}
-              height={22}
-              mr={2}
-              borderColor="gray.5"
-              borderWidth="1px"
-              borderStyle="solid"
-              borderRadius={2}
-            ></Box>
+          <Stack direction="horizontal" gap="condensed" align="center">
+            <div className={classes.LegendItem}></div>
             <Text> - Inactive</Text>
-          </Box>
-          <Box display="flex" flexDirection="row">
-            <Box
-              width={40}
-              height={22}
-              mr={2}
-              borderColor="gray.5"
-              backgroundColor="yellow.2"
-              borderWidth="1px"
-              borderStyle="solid"
-              borderRadius={2}
-            ></Box>
+          </Stack>
+          <Stack direction="horizontal" gap="condensed" align="center">
+            <div className={`${classes.LegendItem} ${classes.LegendItemSuspended}`}></div>
             <Text> - Suspended</Text>
-          </Box>
-          <Box display="flex" flexDirection="row">
-            <Box
-              width={40}
-              height={22}
-              mr={2}
-              borderColor="gray.5"
-              backgroundColor="green.2"
-              borderWidth="1px"
-              borderStyle="solid"
-              borderRadius={2}
-            ></Box>
+          </Stack>
+          <Stack direction="horizontal" gap="condensed" align="center">
+            <div className={`${classes.LegendItem} ${classes.LegendItemActive}`}></div>
             <Text> - Active</Text>
-          </Box>
-        </Box>
+          </Stack>
+        </div>
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
-        <Box
-          borderColor="gray.5"
-          ref={containerRef1 as React.RefObject<HTMLDivElement>}
-          m={2}
-          p={2}
-          borderWidth="1px"
-          borderStyle="solid"
-          borderRadius={2}
-        >
+        <div className={classes.TrapZoneSmall} ref={containerRef1 as React.RefObject<HTMLDivElement>}>
           <strong>
             Trap zone ({trapEnabled1 ? 'enabled' : 'disabled'})! Press <code>1</code> to toggle.
           </strong>
-          <Box display="flex" flexDirection="column" alignItems="flex-start">
+          <Stack direction="vertical" gap="normal">
             <MarginButton>Durian</MarginButton>
             <MarginButton>Elderberry</MarginButton>
             <MarginButton>Fig</MarginButton>
-          </Box>
-        </Box>
+          </Stack>
+        </div>
         <MarginButton>Grapefruit</MarginButton>
         <MarginButton>Honeydew</MarginButton>
         <MarginButton>Jackfruit</MarginButton>
-        <Box
-          borderColor="gray.5"
-          ref={containerRef2 as React.RefObject<HTMLDivElement>}
-          m={2}
-          p={2}
-          borderWidth="1px"
-          borderStyle="solid"
-          borderRadius={2}
-        >
+        <div className={classes.TrapZoneSmall} ref={containerRef2 as React.RefObject<HTMLDivElement>}>
           <strong>
             Trap zone ({trapEnabled2 ? 'enabled' : 'disabled'})! Press <code>2</code> to toggle.
           </strong>
-          <Box display="flex" flexDirection="column" alignItems="flex-start">
+          <Stack direction="vertical" gap="normal">
             <MarginButton>Kiwi</MarginButton>
             <MarginButton>Lemon</MarginButton>
             <MarginButton>Mango</MarginButton>
-          </Box>
-        </Box>
+          </Stack>
+        </div>
         <MarginButton>Nectarine</MarginButton>
         <MarginButton>Orange</MarginButton>
         <MarginButton>Peach</MarginButton>
-      </Box>
+      </Stack>
     </>
   )
 }

@@ -1,9 +1,11 @@
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import type {ComponentProps} from '../utils/types'
 import {StressTest} from '../utils/StressTest'
 import {TreeView} from './TreeView'
 import {FileIcon, DiffAddedIcon} from '@primer/octicons-react'
 import Octicon from '../Octicon'
+
+import classes from './Treeview.stress.dev.stories.module.css'
 
 export default {
   title: 'StressTests/Components/TreeView',
@@ -38,7 +40,7 @@ export const CurrentUpdate = () => {
                   </TreeView.LeadingVisual>
                   {file.name}
                   <TreeView.TrailingVisual label="Added">
-                    <Octicon icon={DiffAddedIcon} color="success.fg" />
+                    <Octicon icon={DiffAddedIcon} className={classes.SuccessIcon} />
                   </TreeView.TrailingVisual>
                 </TreeView.Item>
               ))}

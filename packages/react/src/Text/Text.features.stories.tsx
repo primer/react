@@ -1,6 +1,6 @@
-import type {Meta} from '@storybook/react'
-import Box from '../Box'
+import type {Meta} from '@storybook/react-vite'
 import Text from '.'
+import classes from './Text.features.stories.module.css'
 
 export default {
   title: 'Components/Text/Features',
@@ -8,17 +8,17 @@ export default {
 } as Meta<typeof Text>
 
 export const Polymorphism = () => (
-  <Box sx={{display: 'flex', flexDirection: 'column'}}>
+  <div className={classes.PolymorphismContainer}>
     <Text as="em">Emphasized text</Text>
     <Text as="i">Italicized text</Text>
     <Text as="strong">Strong text</Text>
     <Text as="small">Small text</Text>
     <Text as="u">Text with underline</Text>
-  </Box>
+  </div>
 )
 
 export const StyledText = () => (
-  <Text as="p" sx={{color: 'fg.onEmphasis', bg: 'neutral.emphasis', p: 2}} size="small">
+  <Text as="p" className={classes.StyledText} size="small">
     Stylized text
   </Text>
 )

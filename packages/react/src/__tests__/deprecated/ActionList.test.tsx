@@ -1,49 +1,17 @@
-import {render as HTMLRender} from '@testing-library/react'
-import axe from 'axe-core'
-import theme from '../../theme'
+import {describe, expect, it} from 'vitest'
+import {render} from '@testing-library/react'
 import {ActionList} from '../../deprecated/ActionList'
-import {behavesAsComponent, checkExports} from '../../utils/testing'
-import {BaseStyles, ThemeProvider} from '../..'
-
-function SimpleActionList(): JSX.Element {
-  return (
-    <ThemeProvider theme={theme}>
-      <BaseStyles>
-        <ActionList
-          items={[
-            {text: 'New file'},
-            ActionList.Divider,
-            {text: 'Copy link'},
-            {text: 'Edit file'},
-            {text: 'Delete file', variant: 'danger'},
-          ]}
-        />
-      </BaseStyles>
-    </ThemeProvider>
-  )
-}
 
 describe('ActionList', () => {
-  behavesAsComponent({
-    Component: ActionList,
-    options: {skipAs: true, skipSx: true},
-    toRender: () => <ActionList items={[]} />,
-  })
-
-  checkExports('deprecated/ActionList', {
-    default: undefined,
-    ActionList,
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<SimpleActionList />)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
+  it('should render ActionList with items', () => {
+    const {getByText} = render(<ActionList items={[{text: 'New file'}]} />)
+    expect(getByText('New file')).toBeInTheDocument()
   })
 })
 
 describe('ActionList.Item', () => {
-  behavesAsComponent({
-    Component: ActionList.Item,
+  it('should render ActionList.Item', () => {
+    const {getByText} = render(<ActionList.Item>Test Item</ActionList.Item>)
+    expect(getByText('Test Item')).toBeInTheDocument()
   })
 })

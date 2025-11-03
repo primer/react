@@ -1,20 +1,16 @@
 import type React from 'react'
 import {XIcon} from '@primer/octicons-react'
 import {clsx} from 'clsx'
-import {type SxProp} from '../sx'
 import type {TokenSizeKeys} from './TokenBase'
-import {tokenSizes, defaultTokenSize} from './TokenBase'
+import {defaultTokenSize} from './TokenBase'
 
 import classes from './_RemoveTokenButton.module.css'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
-interface TokenButtonProps extends SxProp {
+interface TokenButtonProps {
   borderOffset?: number
   size?: TokenSizeKeys
   isParentInteractive?: boolean
 }
-
-const getTokenButtonIconSize = (size?: TokenSizeKeys) => parseInt(tokenSizes[size || defaultTokenSize], 10) * 0.75
 
 type RemoveTokenButtonProps = TokenButtonProps & Omit<React.HTMLProps<HTMLSpanElement | HTMLButtonElement>, 'size'>
 
@@ -27,21 +23,39 @@ const RemoveTokenButton = ({
   as: _as,
   ...rest
 }: React.PropsWithChildren<RemoveTokenButtonProps & {as?: React.ElementType}>) => {
+  // eslint-disable-next-line react-compiler/react-compiler
   delete rest.children
+  if (isParentInteractive) {
+    return (
+      <span
+        {...rest}
+        tabIndex={-1}
+        aria-label={ariaLabel}
+        data-size={size}
+        className={clsx(classes.TokenButton, className)}
+        style={{
+          transform: `translate(${borderOffset}px, -${borderOffset}px)`,
+        }}
+      >
+        <XIcon size={size === 'small' || size === 'medium' || size === 'large' ? 12 : 16} />
+      </span>
+    )
+  }
+
   return (
-    <BoxWithFallback
-      as={isParentInteractive ? 'span' : 'button'}
-      tabIndex={isParentInteractive ? -1 : undefined}
-      aria-label={!isParentInteractive ? 'Remove token' : ariaLabel}
+    <button
+      {...rest}
+      aria-label={'Remove token'}
       data-size={size}
       className={clsx(classes.TokenButton, className)}
       style={{
         transform: `translate(${borderOffset}px, -${borderOffset}px)`,
       }}
-      {...rest}
+      ref={rest.ref as React.Ref<HTMLButtonElement>}
+      type="button"
     >
-      <XIcon size={getTokenButtonIconSize(size)} />
-    </BoxWithFallback>
+      <XIcon size={size === 'small' || size === 'medium' || size === 'large' ? 12 : 16} />
+    </button>
   )
 }
 

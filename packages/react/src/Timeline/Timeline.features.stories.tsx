@@ -1,9 +1,10 @@
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import type {ComponentProps} from '../utils/types'
 import Timeline from './Timeline'
 import Octicon from '../Octicon'
 import {GitBranchIcon, GitCommitIcon, GitMergeIcon} from '@primer/octicons-react'
 import Link from '../Link'
+import classes from './Timeline.features.stories.module.css'
 
 export default {
   title: 'Components/Timeline/Features',
@@ -53,8 +54,8 @@ export const CondensedItems = () => (
 export const TimelineBreak = () => (
   <Timeline>
     <Timeline.Item>
-      <Timeline.Badge sx={{bg: 'done.emphasis'}}>
-        <Octicon icon={GitMergeIcon} color="fg.onEmphasis" aria-label="Merged" />
+      <Timeline.Badge className={classes.BadgeWithDoneBackground}>
+        <Octicon icon={GitMergeIcon} className={classes.GitMergeIcon} aria-label="Merged" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
@@ -75,11 +76,7 @@ export const WithInlineLinks = () => (
         <Octicon icon={GitCommitIcon} aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>
-        <Link
-          href="#"
-          sx={{fontWeight: 'bold', color: 'fg.default', mr: 1, '&:hover': {color: 'var(--fgColor-accent)'}}}
-          muted
-        >
+        <Link href="#" className={classes.LinkWithBoldStyle} muted>
           Monalisa
         </Link>
         enabled auto-merge (squash)

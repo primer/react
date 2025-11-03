@@ -1,35 +1,59 @@
 import {render} from '@testing-library/react'
-import axe from 'axe-core'
-import {
-  Autocomplete,
-  Checkbox,
-  CheckboxGroup,
-  FormControl,
-  Radio,
-  Select,
-  Textarea,
-  TextInput,
-  TextInputWithTokens,
-} from '../..'
-import {behavesAsComponent} from '../../utils/testing'
+import {describe, expect, it, vi} from 'vitest'
+import Autocomplete from '../../Autocomplete'
+import Checkbox from '../../Checkbox'
+import CheckboxGroup from '../../CheckboxGroup'
+import FormControl from '../../FormControl'
+import Radio from '../../Radio'
+import Select from '../../Select'
+import Textarea from '../../Textarea'
+import TextInput from '../../TextInput'
+import TextInputWithTokens from '../../TextInputWithTokens'
 import {MarkGithubIcon} from '@primer/octicons-react'
+import type {FCWithSlotMarker} from '../../utils/types'
 
 const LABEL_TEXT = 'Form control'
 const CAPTION_TEXT = 'Hint text'
 const ERROR_TEXT = 'This field is invalid'
 
-describe('FormControl', () => {
-  behavesAsComponent({
-    Component: FormControl,
-    options: {skipAs: true, skipDisplayName: true},
-    toRender: () => (
-      <FormControl>
-        <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-        <TextInput />
-      </FormControl>
-    ),
-  })
+const WrappedLabelComponent: FCWithSlotMarker<object> = () => (
+  <div>
+    {/* eslint-disable-next-line primer-react/direct-slot-children */}
+    <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+  </div>
+)
 
+WrappedLabelComponent.__SLOT__ = FormControl.Label.__SLOT__
+
+const WrappedCaptionComponent: FCWithSlotMarker<object> = () => (
+  <div>
+    {/* eslint-disable-next-line primer-react/direct-slot-children */}
+    <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
+  </div>
+)
+
+WrappedCaptionComponent.__SLOT__ = FormControl.Caption.__SLOT__
+
+const WrappedLeadingVisualComponent = () => (
+  <div>
+    {/* eslint-disable-next-line primer-react/direct-slot-children */}
+    <FormControl.LeadingVisual>
+      <MarkGithubIcon aria-label="Icon label" />
+    </FormControl.LeadingVisual>
+  </div>
+)
+
+WrappedLeadingVisualComponent.__SLOT__ = FormControl.LeadingVisual.__SLOT__
+
+const WrappedValidationComponent: FCWithSlotMarker<object> = () => (
+  <div>
+    <FormControl.Validation variant="error">{ERROR_TEXT}</FormControl.Validation>
+  </div>
+)
+
+WrappedValidationComponent.__SLOT__ = FormControl.Validation.__SLOT__
+
+describe('FormControl', () => {
   describe('vertically stacked layout (default)', () => {
     describe('rendering', () => {
       it('renders with a hidden label', () => {
@@ -129,7 +153,7 @@ describe('FormControl', () => {
       })
 
       it('renders with the input as a TextInputWithTokens', () => {
-        const onRemoveMock = jest.fn()
+        const onRemoveMock = vi.fn()
         const {getByLabelText} = render(
           <FormControl>
             <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
@@ -265,7 +289,7 @@ describe('FormControl', () => {
 
     describe('warnings', () => {
       it('should log an error if a user does not pass a label', () => {
-        const spy = jest.spyOn(console, 'error').mockImplementationOnce(() => {})
+        const spy = vi.spyOn(console, 'error').mockImplementationOnce(() => {})
 
         render(
           <FormControl>
@@ -279,7 +303,7 @@ describe('FormControl', () => {
       })
 
       it('should warn users if they try to render a leading visual when using variant="stack"', async () => {
-        const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
+        const spy = vi.spyOn(console, 'warn').mockImplementationOnce(() => {})
 
         render(
           <FormControl>
@@ -296,7 +320,7 @@ describe('FormControl', () => {
       })
 
       it('should warn users if they pass an id directly to the input', async () => {
-        const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
+        const spy = vi.spyOn(console, 'warn').mockImplementationOnce(() => {})
 
         render(
           <FormControl>
@@ -311,7 +335,7 @@ describe('FormControl', () => {
       })
 
       it('should warn users if they pass a `disabled` prop directly to the input', async () => {
-        const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
+        const spy = vi.spyOn(console, 'warn').mockImplementationOnce(() => {})
 
         render(
           <FormControl>
@@ -326,7 +350,7 @@ describe('FormControl', () => {
       })
 
       it('should warn users if they pass a `required` prop directly to the input', async () => {
-        const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
+        const spy = vi.spyOn(console, 'warn').mockImplementationOnce(() => {})
 
         render(
           <FormControl>
@@ -341,16 +365,105 @@ describe('FormControl', () => {
       })
     })
 
-    it('should have no axe violations', async () => {
-      const {container} = render(
-        <FormControl>
-          <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-          <TextInput />
-          <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
-        </FormControl>,
-      )
-      const results = await axe.run(container)
-      expect(results).toHaveNoViolations()
+    describe('slot identification', () => {
+      it('should correctly identify a label wrapped in a div using __SLOT__ property', () => {
+        const spy = vi.spyOn(console, 'error').mockImplementationOnce(() => {})
+
+        const {container, getByLabelText} = render(
+          <FormControl>
+            <WrappedLabelComponent />
+            <TextInput />
+          </FormControl>,
+        )
+
+        // The label should be found as a slot because of the __SLOT__ property
+        // This should NOT trigger the error about missing FormControl.Label
+        expect(spy).toHaveBeenCalledTimes(0)
+
+        // The label should function properly - input should be labeled correctly
+        const input = getByLabelText(LABEL_TEXT)
+        expect(input).toBeDefined()
+        expect(container.textContent).toContain(LABEL_TEXT)
+
+        spy.mockRestore()
+      })
+
+      it('should correctly identify a caption wrapped in a div using __SLOT__ property', () => {
+        const {container} = render(
+          <FormControl id="test-caption">
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <TextInput />
+            <WrappedCaptionComponent />
+          </FormControl>,
+        )
+
+        // The caption should be found as a slot because of the __SLOT__ property
+        // We can verify this by checking that aria-describedby includes the caption ID
+        const input = container.querySelector('input')
+        const ariaDescribedBy = input?.getAttribute('aria-describedby') || ''
+        expect(ariaDescribedBy).toContain('test-caption-caption')
+
+        // The caption text should be rendered and functional
+        expect(container.textContent).toContain(CAPTION_TEXT)
+      })
+
+      it('should correctly identify a validation wrapped in a div using __SLOT__ property', () => {
+        const {container} = render(
+          <FormControl id="test-validation">
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <TextInput />
+            <WrappedValidationComponent />
+          </FormControl>,
+        )
+
+        // The validation should be found as a slot because of the __SLOT__ property
+        // We can verify this by checking that aria-describedby includes the validation ID
+        const input = container.querySelector('input')
+        const ariaDescribedBy = input?.getAttribute('aria-describedby') || ''
+        expect(ariaDescribedBy).toContain('test-validation-validationMessage')
+
+        // The validation text should be rendered and functional
+        expect(container.textContent).toContain(ERROR_TEXT)
+      })
+
+      it('should correctly identify a leading visual wrapped in a div using __SLOT__ property for non-choice inputs', () => {
+        const spy = vi.spyOn(console, 'warn').mockImplementationOnce(() => {})
+
+        const {container} = render(
+          <FormControl>
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <TextInput />
+            <WrappedLeadingVisualComponent />
+          </FormControl>,
+        )
+
+        // The leading visual should be found as a slot because of the __SLOT__ property
+        // This should trigger a warning since leading visuals are only for choice inputs
+        expect(spy).toHaveBeenCalledTimes(1)
+
+        // The icon should be rendered in the DOM
+        expect(container.querySelector('svg')).toBeDefined()
+
+        spy.mockRestore()
+      })
+      it('should correctly identify a leading visual wrapped in a div using __SLOT__ property for choice inputs', () => {
+        const {container, getByLabelText} = render(
+          <FormControl>
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <Checkbox />
+            <WrappedLeadingVisualComponent />
+          </FormControl>,
+        )
+
+        // The leading visual should be found as a slot because of the __SLOT__ property
+        // We can verify this by checking that the leading visual container is present
+        const leadingVisualContainer = container.querySelector('[data-has-leading-visual]')
+        expect(leadingVisualContainer).toBeDefined()
+
+        // The icon should be rendered and functional
+        expect(getByLabelText('Icon label')).toBeDefined()
+        expect(container.querySelector('svg')).toBeDefined()
+      })
     })
   })
 
@@ -373,7 +486,7 @@ describe('FormControl', () => {
 
     describe('warnings', () => {
       it('should warn users if they try to render a validation message when using a checkbox or radio', async () => {
-        const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation()
+        const consoleSpy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => {})
         render(
           <FormControl>
             <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
@@ -388,7 +501,7 @@ describe('FormControl', () => {
       })
 
       it('should warn users if they pass `required` to a radio', async () => {
-        const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation()
+        const consoleSpy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => {})
 
         render(
           <FormControl required>
@@ -448,18 +561,6 @@ describe('FormControl', () => {
         expect(getByTestId('checkbox-1')).toBeRequired()
         expect(getByTestId('checkbox-2')).not.toBeRequired()
       })
-    })
-
-    it('should have no axe violations', async () => {
-      const {container} = render(
-        <FormControl>
-          <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-          <Checkbox />
-          <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
-        </FormControl>,
-      )
-      const results = await axe.run(container)
-      expect(results).toHaveNoViolations()
     })
   })
 })

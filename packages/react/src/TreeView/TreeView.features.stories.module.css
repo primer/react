@@ -1,0 +1,30 @@
+.StorybookDecorator {
+  max-width: 400px;
+}
+
+.ControlledContainer {
+  display: grid;
+  gap: var(--base-size-16);
+}
+
+.ButtonContainer {
+  display: flex;
+  gap: var(--base-size-8);
+}
+
+.ScrollContainer {
+  max-height: 50vh;
+  overflow: auto;
+}
+
+.SuccessIcon {
+  color: var(--fgColor-success);
+}
+
+.AttentionIcon {
+  color: var(--fgColor-attention);
+}
+
+.DangerIcon {
+  color: var(--fgColor-danger);
+}

@@ -47,7 +47,7 @@ test.describe('Text', () => {
         })
 
         // Default state
-        expect(await page.screenshot()).toMatchSnapshot(`Text.${story.title}.png`)
+        await expect(page).toHaveScreenshot(`Text.${story.title}.png`)
       })
     })
   }

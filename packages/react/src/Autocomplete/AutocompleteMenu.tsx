@@ -6,7 +6,7 @@ import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import type {ActionListItemProps} from '../ActionList'
 import {ActionList} from '../ActionList'
 import {useFocusZone} from '../hooks/useFocusZone'
-import type {ComponentProps, MandateProps} from '../utils/types'
+import type {ComponentProps, MandateProps, AriaRole} from '../utils/types'
 import Spinner from '../Spinner'
 import {useId} from '../hooks/useId'
 import {AutocompleteContext} from './AutocompleteContext'
@@ -288,6 +288,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
       },
       activeDescendantFocus: inputRef,
       onActiveDescendantChanged: (current, _previous, directlyActivated) => {
+        // eslint-disable-next-line react-compiler/react-compiler
         activeDescendantRef.current = current || null
         if (current) {
           const selectedItem = allItemsToRenderRef.current.find(item => {
@@ -364,19 +365,25 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
                   text,
                   leadingVisual: LeadingVisual,
                   trailingVisual: TrailingVisual,
-                  // @ts-expect-error this is defined in the items above but is
-                  // missing in TS
                   key,
+                  role,
                   ...itemProps
                 } = item
                 return (
-                  <ActionList.Item key={key ?? id} onSelect={() => onAction(item)} {...itemProps} id={id} data-id={id}>
+                  <ActionList.Item
+                    key={(key ?? id) as string | number}
+                    onSelect={() => onAction(item)}
+                    {...itemProps}
+                    id={id}
+                    data-id={id}
+                    role={role as AriaRole}
+                  >
                     {LeadingVisual && (
                       <ActionList.LeadingVisual>
                         {isElement(LeadingVisual) ? LeadingVisual : <LeadingVisual />}
                       </ActionList.LeadingVisual>
                     )}
-                    {children ?? text}
+                    {(children ?? text) as React.ReactNode}
                     {TrailingVisual && (
                       <ActionList.TrailingVisual>
                         {isElement(TrailingVisual) ? TrailingVisual : <TrailingVisual />}
@@ -399,3 +406,5 @@ AutocompleteMenu.displayName = 'AutocompleteMenu'
 
 export type AutocompleteMenuProps = ComponentProps<typeof AutocompleteMenu>
 export default AutocompleteMenu
+
+AutocompleteMenu.__SLOT__ = Symbol('Autocomplete.Menu')

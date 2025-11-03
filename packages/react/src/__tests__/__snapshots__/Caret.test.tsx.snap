@@ -1,433 +1,2737 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Caret renders cardinal directions 1`] = `
-<svg
-  height={16}
-  role="presentation"
-  style={
-    {
-      "bottom": "100%",
-      "left": "50%",
-      "marginLeft": -8,
-      "pointerEvents": "none",
-      "position": "absolute",
-    }
-  }
-  width={16}
->
-  <g
-    transform="translate(8,16) rotate(180)"
-  >
-    <path
-      d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-    />
-    <path
-      d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-    />
-    <path
-      d="M-8,0L0,8L8,0"
-      fill="none"
-      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-      strokeWidth="1px"
-    />
-  </g>
-</svg>
+exports[`Caret > renders cardinal directions 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    
+  
+
+
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; left: 50%; margin-left: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+  </body>,
+  "container": <div>
+    <svg
+      class="prc-components-Caret-9H5L6"
+      height="16"
+      role="presentation"
+      style="bottom: 100%; left: 50%; margin-left: -8px;"
+      width="16"
+    >
+      <g
+        transform="translate(8,16) rotate(180)"
+      >
+        <path
+          class="prc-components-CaretTriangle-HAwX3"
+          d="M-8,0L0,8L8,0L-8,0Z"
+        />
+        <path
+          class="prc-components-CaretBorder-UWaaK"
+          d="M-8,0L0,8L8,0"
+        />
+      </g>
+    </svg>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
 `;
 
-exports[`Caret renders cardinal directions 2`] = `
-<svg
-  height={16}
-  role="presentation"
-  style={
-    {
-      "left": "100%",
-      "marginTop": -8,
-      "pointerEvents": "none",
-      "position": "absolute",
-      "top": "50%",
-    }
-  }
-  width={16}
->
-  <g
-    transform="translate(0,8) rotate(-90)"
-  >
-    <path
-      d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-    />
-    <path
-      d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-    />
-    <path
-      d="M-8,0L0,8L8,0"
-      fill="none"
-      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-      strokeWidth="1px"
-    />
-  </g>
-</svg>
+exports[`Caret > renders cardinal directions 2`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    
+  
+
+
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; left: 50%; margin-left: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="left: 100%; top: 50%; margin-top: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(0,8) rotate(-90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+  </body>,
+  "container": <div>
+    <svg
+      class="prc-components-Caret-9H5L6"
+      height="16"
+      role="presentation"
+      style="left: 100%; top: 50%; margin-top: -8px;"
+      width="16"
+    >
+      <g
+        transform="translate(0,8) rotate(-90)"
+      >
+        <path
+          class="prc-components-CaretTriangle-HAwX3"
+          d="M-8,0L0,8L8,0L-8,0Z"
+        />
+        <path
+          class="prc-components-CaretBorder-UWaaK"
+          d="M-8,0L0,8L8,0"
+        />
+      </g>
+    </svg>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
 `;
 
-exports[`Caret renders cardinal directions 3`] = `
-<svg
-  height={16}
-  role="presentation"
-  style={
-    {
-      "left": "50%",
-      "marginLeft": -8,
-      "pointerEvents": "none",
-      "position": "absolute",
-      "top": "100%",
-    }
-  }
-  width={16}
->
-  <g
-    transform="translate(8,0)"
-  >
-    <path
-      d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-    />
-    <path
-      d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-    />
-    <path
-      d="M-8,0L0,8L8,0"
-      fill="none"
-      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-      strokeWidth="1px"
-    />
-  </g>
-</svg>
+exports[`Caret > renders cardinal directions 3`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    
+  
+
+
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; left: 50%; margin-left: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="left: 100%; top: 50%; margin-top: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(0,8) rotate(-90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="top: 100%; left: 50%; margin-left: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,0)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+  </body>,
+  "container": <div>
+    <svg
+      class="prc-components-Caret-9H5L6"
+      height="16"
+      role="presentation"
+      style="top: 100%; left: 50%; margin-left: -8px;"
+      width="16"
+    >
+      <g
+        transform="translate(8,0)"
+      >
+        <path
+          class="prc-components-CaretTriangle-HAwX3"
+          d="M-8,0L0,8L8,0L-8,0Z"
+        />
+        <path
+          class="prc-components-CaretBorder-UWaaK"
+          d="M-8,0L0,8L8,0"
+        />
+      </g>
+    </svg>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
 `;
 
-exports[`Caret renders cardinal directions 4`] = `
-<svg
-  height={16}
-  role="presentation"
-  style={
-    {
-      "marginTop": -8,
-      "pointerEvents": "none",
-      "position": "absolute",
-      "right": "100%",
-      "top": "50%",
-    }
-  }
-  width={16}
->
-  <g
-    transform="translate(16,8) rotate(90)"
-  >
-    <path
-      d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-    />
-    <path
-      d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-    />
-    <path
-      d="M-8,0L0,8L8,0"
-      fill="none"
-      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-      strokeWidth="1px"
-    />
-  </g>
-</svg>
+exports[`Caret > renders cardinal directions 4`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    
+  
+
+
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; left: 50%; margin-left: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="left: 100%; top: 50%; margin-top: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(0,8) rotate(-90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="top: 100%; left: 50%; margin-left: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,0)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="right: 100%; top: 50%; margin-top: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(16,8) rotate(90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+  </body>,
+  "container": <div>
+    <svg
+      class="prc-components-Caret-9H5L6"
+      height="16"
+      role="presentation"
+      style="right: 100%; top: 50%; margin-top: -8px;"
+      width="16"
+    >
+      <g
+        transform="translate(16,8) rotate(90)"
+      >
+        <path
+          class="prc-components-CaretTriangle-HAwX3"
+          d="M-8,0L0,8L8,0L-8,0Z"
+        />
+        <path
+          class="prc-components-CaretBorder-UWaaK"
+          d="M-8,0L0,8L8,0"
+        />
+      </g>
+    </svg>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
 `;
 
-exports[`Caret renders cardinal directions 5`] = `
-<svg
-  height={16}
-  role="presentation"
-  style={
-    {
-      "bottom": "100%",
-      "left": 8,
-      "marginLeft": null,
-      "pointerEvents": "none",
-      "position": "absolute",
-    }
-  }
-  width={16}
->
-  <g
-    transform="translate(8,16) rotate(180)"
-  >
-    <path
-      d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-    />
-    <path
-      d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-    />
-    <path
-      d="M-8,0L0,8L8,0"
-      fill="none"
-      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-      strokeWidth="1px"
-    />
-  </g>
-</svg>
+exports[`Caret > renders cardinal directions 5`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    
+  
+
+
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; left: 50%; margin-left: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="left: 100%; top: 50%; margin-top: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(0,8) rotate(-90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="top: 100%; left: 50%; margin-left: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,0)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="right: 100%; top: 50%; margin-top: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(16,8) rotate(90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; left: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+  </body>,
+  "container": <div>
+    <svg
+      class="prc-components-Caret-9H5L6"
+      height="16"
+      role="presentation"
+      style="bottom: 100%; left: 8px;"
+      width="16"
+    >
+      <g
+        transform="translate(8,16) rotate(180)"
+      >
+        <path
+          class="prc-components-CaretTriangle-HAwX3"
+          d="M-8,0L0,8L8,0L-8,0Z"
+        />
+        <path
+          class="prc-components-CaretBorder-UWaaK"
+          d="M-8,0L0,8L8,0"
+        />
+      </g>
+    </svg>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
 `;
 
-exports[`Caret renders cardinal directions 6`] = `
-<svg
-  height={16}
-  role="presentation"
-  style={
-    {
-      "bottom": "100%",
-      "marginLeft": null,
-      "pointerEvents": "none",
-      "position": "absolute",
-      "right": 8,
-    }
-  }
-  width={16}
->
-  <g
-    transform="translate(8,16) rotate(180)"
-  >
-    <path
-      d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-    />
-    <path
-      d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-    />
-    <path
-      d="M-8,0L0,8L8,0"
-      fill="none"
-      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-      strokeWidth="1px"
-    />
-  </g>
-</svg>
+exports[`Caret > renders cardinal directions 6`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    
+  
+
+
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; left: 50%; margin-left: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="left: 100%; top: 50%; margin-top: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(0,8) rotate(-90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="top: 100%; left: 50%; margin-left: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,0)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="right: 100%; top: 50%; margin-top: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(16,8) rotate(90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; left: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; right: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+  </body>,
+  "container": <div>
+    <svg
+      class="prc-components-Caret-9H5L6"
+      height="16"
+      role="presentation"
+      style="bottom: 100%; right: 8px;"
+      width="16"
+    >
+      <g
+        transform="translate(8,16) rotate(180)"
+      >
+        <path
+          class="prc-components-CaretTriangle-HAwX3"
+          d="M-8,0L0,8L8,0L-8,0Z"
+        />
+        <path
+          class="prc-components-CaretBorder-UWaaK"
+          d="M-8,0L0,8L8,0"
+        />
+      </g>
+    </svg>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
 `;
 
-exports[`Caret renders cardinal directions 7`] = `
-<svg
-  height={16}
-  role="presentation"
-  style={
-    {
-      "left": 8,
-      "marginLeft": null,
-      "pointerEvents": "none",
-      "position": "absolute",
-      "top": "100%",
-    }
-  }
-  width={16}
->
-  <g
-    transform="translate(8,0)"
-  >
-    <path
-      d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-    />
-    <path
-      d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-    />
-    <path
-      d="M-8,0L0,8L8,0"
-      fill="none"
-      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-      strokeWidth="1px"
-    />
-  </g>
-</svg>
+exports[`Caret > renders cardinal directions 7`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    
+  
+
+
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; left: 50%; margin-left: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="left: 100%; top: 50%; margin-top: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(0,8) rotate(-90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="top: 100%; left: 50%; margin-left: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,0)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="right: 100%; top: 50%; margin-top: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(16,8) rotate(90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; left: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; right: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="top: 100%; left: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,0)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+  </body>,
+  "container": <div>
+    <svg
+      class="prc-components-Caret-9H5L6"
+      height="16"
+      role="presentation"
+      style="top: 100%; left: 8px;"
+      width="16"
+    >
+      <g
+        transform="translate(8,0)"
+      >
+        <path
+          class="prc-components-CaretTriangle-HAwX3"
+          d="M-8,0L0,8L8,0L-8,0Z"
+        />
+        <path
+          class="prc-components-CaretBorder-UWaaK"
+          d="M-8,0L0,8L8,0"
+        />
+      </g>
+    </svg>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
 `;
 
-exports[`Caret renders cardinal directions 8`] = `
-<svg
-  height={16}
-  role="presentation"
-  style={
-    {
-      "marginLeft": null,
-      "pointerEvents": "none",
-      "position": "absolute",
-      "right": 8,
-      "top": "100%",
-    }
-  }
-  width={16}
->
-  <g
-    transform="translate(8,0)"
-  >
-    <path
-      d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-    />
-    <path
-      d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-    />
-    <path
-      d="M-8,0L0,8L8,0"
-      fill="none"
-      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-      strokeWidth="1px"
-    />
-  </g>
-</svg>
+exports[`Caret > renders cardinal directions 8`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    
+  
+
+
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; left: 50%; margin-left: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="left: 100%; top: 50%; margin-top: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(0,8) rotate(-90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="top: 100%; left: 50%; margin-left: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,0)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="right: 100%; top: 50%; margin-top: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(16,8) rotate(90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; left: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; right: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="top: 100%; left: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,0)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="top: 100%; right: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,0)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+  </body>,
+  "container": <div>
+    <svg
+      class="prc-components-Caret-9H5L6"
+      height="16"
+      role="presentation"
+      style="top: 100%; right: 8px;"
+      width="16"
+    >
+      <g
+        transform="translate(8,0)"
+      >
+        <path
+          class="prc-components-CaretTriangle-HAwX3"
+          d="M-8,0L0,8L8,0L-8,0Z"
+        />
+        <path
+          class="prc-components-CaretBorder-UWaaK"
+          d="M-8,0L0,8L8,0"
+        />
+      </g>
+    </svg>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
 `;
 
-exports[`Caret renders cardinal directions 9`] = `
-<svg
-  height={16}
-  role="presentation"
-  style={
-    {
-      "marginTop": null,
-      "pointerEvents": "none",
-      "position": "absolute",
-      "right": "100%",
-      "top": 8,
-    }
-  }
-  width={16}
->
-  <g
-    transform="translate(16,8) rotate(90)"
-  >
-    <path
-      d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-    />
-    <path
-      d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-    />
-    <path
-      d="M-8,0L0,8L8,0"
-      fill="none"
-      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-      strokeWidth="1px"
-    />
-  </g>
-</svg>
+exports[`Caret > renders cardinal directions 9`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    
+  
+
+
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; left: 50%; margin-left: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="left: 100%; top: 50%; margin-top: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(0,8) rotate(-90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="top: 100%; left: 50%; margin-left: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,0)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="right: 100%; top: 50%; margin-top: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(16,8) rotate(90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; left: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; right: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="top: 100%; left: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,0)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="top: 100%; right: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,0)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="right: 100%; top: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(16,8) rotate(90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+  </body>,
+  "container": <div>
+    <svg
+      class="prc-components-Caret-9H5L6"
+      height="16"
+      role="presentation"
+      style="right: 100%; top: 8px;"
+      width="16"
+    >
+      <g
+        transform="translate(16,8) rotate(90)"
+      >
+        <path
+          class="prc-components-CaretTriangle-HAwX3"
+          d="M-8,0L0,8L8,0L-8,0Z"
+        />
+        <path
+          class="prc-components-CaretBorder-UWaaK"
+          d="M-8,0L0,8L8,0"
+        />
+      </g>
+    </svg>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
 `;
 
-exports[`Caret renders cardinal directions 10`] = `
-<svg
-  height={16}
-  role="presentation"
-  style={
-    {
-      "bottom": 8,
-      "marginTop": null,
-      "pointerEvents": "none",
-      "position": "absolute",
-      "right": "100%",
-    }
-  }
-  width={16}
->
-  <g
-    transform="translate(16,8) rotate(90)"
-  >
-    <path
-      d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-    />
-    <path
-      d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-    />
-    <path
-      d="M-8,0L0,8L8,0"
-      fill="none"
-      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-      strokeWidth="1px"
-    />
-  </g>
-</svg>
+exports[`Caret > renders cardinal directions 10`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    
+  
+
+
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; left: 50%; margin-left: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="left: 100%; top: 50%; margin-top: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(0,8) rotate(-90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="top: 100%; left: 50%; margin-left: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,0)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="right: 100%; top: 50%; margin-top: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(16,8) rotate(90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; left: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; right: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="top: 100%; left: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,0)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="top: 100%; right: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,0)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="right: 100%; top: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(16,8) rotate(90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="right: 100%; bottom: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(16,8) rotate(90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+  </body>,
+  "container": <div>
+    <svg
+      class="prc-components-Caret-9H5L6"
+      height="16"
+      role="presentation"
+      style="right: 100%; bottom: 8px;"
+      width="16"
+    >
+      <g
+        transform="translate(16,8) rotate(90)"
+      >
+        <path
+          class="prc-components-CaretTriangle-HAwX3"
+          d="M-8,0L0,8L8,0L-8,0Z"
+        />
+        <path
+          class="prc-components-CaretBorder-UWaaK"
+          d="M-8,0L0,8L8,0"
+        />
+      </g>
+    </svg>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
 `;
 
-exports[`Caret renders cardinal directions 11`] = `
-<svg
-  height={16}
-  role="presentation"
-  style={
-    {
-      "left": "100%",
-      "marginTop": null,
-      "pointerEvents": "none",
-      "position": "absolute",
-      "top": 8,
-    }
-  }
-  width={16}
->
-  <g
-    transform="translate(0,8) rotate(-90)"
-  >
-    <path
-      d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-    />
-    <path
-      d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-    />
-    <path
-      d="M-8,0L0,8L8,0"
-      fill="none"
-      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-      strokeWidth="1px"
-    />
-  </g>
-</svg>
+exports[`Caret > renders cardinal directions 11`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    
+  
+
+
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; left: 50%; margin-left: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="left: 100%; top: 50%; margin-top: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(0,8) rotate(-90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="top: 100%; left: 50%; margin-left: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,0)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="right: 100%; top: 50%; margin-top: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(16,8) rotate(90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; left: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; right: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="top: 100%; left: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,0)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="top: 100%; right: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,0)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="right: 100%; top: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(16,8) rotate(90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="right: 100%; bottom: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(16,8) rotate(90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="left: 100%; top: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(0,8) rotate(-90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+  </body>,
+  "container": <div>
+    <svg
+      class="prc-components-Caret-9H5L6"
+      height="16"
+      role="presentation"
+      style="left: 100%; top: 8px;"
+      width="16"
+    >
+      <g
+        transform="translate(0,8) rotate(-90)"
+      >
+        <path
+          class="prc-components-CaretTriangle-HAwX3"
+          d="M-8,0L0,8L8,0L-8,0Z"
+        />
+        <path
+          class="prc-components-CaretBorder-UWaaK"
+          d="M-8,0L0,8L8,0"
+        />
+      </g>
+    </svg>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
 `;
 
-exports[`Caret renders cardinal directions 12`] = `
-<svg
-  height={16}
-  role="presentation"
-  style={
-    {
-      "bottom": 8,
-      "left": "100%",
-      "marginTop": null,
-      "pointerEvents": "none",
-      "position": "absolute",
-    }
-  }
-  width={16}
->
-  <g
-    transform="translate(0,8) rotate(-90)"
-  >
-    <path
-      d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-    />
-    <path
-      d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-    />
-    <path
-      d="M-8,0L0,8L8,0"
-      fill="none"
-      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-      strokeWidth="1px"
-    />
-  </g>
-</svg>
+exports[`Caret > renders cardinal directions 12`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    
+  
+
+
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; left: 50%; margin-left: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="left: 100%; top: 50%; margin-top: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(0,8) rotate(-90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="top: 100%; left: 50%; margin-left: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,0)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="right: 100%; top: 50%; margin-top: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(16,8) rotate(90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; left: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="bottom: 100%; right: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,16) rotate(180)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="top: 100%; left: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,0)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="top: 100%; right: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,0)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="right: 100%; top: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(16,8) rotate(90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="right: 100%; bottom: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(16,8) rotate(90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="left: 100%; top: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(0,8) rotate(-90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+    <div>
+      <svg
+        class="prc-components-Caret-9H5L6"
+        height="16"
+        role="presentation"
+        style="left: 100%; bottom: 8px;"
+        width="16"
+      >
+        <g
+          transform="translate(0,8) rotate(-90)"
+        >
+          <path
+            class="prc-components-CaretTriangle-HAwX3"
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            class="prc-components-CaretBorder-UWaaK"
+            d="M-8,0L0,8L8,0"
+          />
+        </g>
+      </svg>
+    </div>
+  </body>,
+  "container": <div>
+    <svg
+      class="prc-components-Caret-9H5L6"
+      height="16"
+      role="presentation"
+      style="left: 100%; bottom: 8px;"
+      width="16"
+    >
+      <g
+        transform="translate(0,8) rotate(-90)"
+      >
+        <path
+          class="prc-components-CaretTriangle-HAwX3"
+          d="M-8,0L0,8L8,0L-8,0Z"
+        />
+        <path
+          class="prc-components-CaretBorder-UWaaK"
+          d="M-8,0L0,8L8,0"
+        />
+      </g>
+    </svg>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
 `;

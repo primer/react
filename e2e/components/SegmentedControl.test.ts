@@ -49,6 +49,10 @@ const stories = [
     id: 'components-segmentedcontrol-features--with-icons',
   },
   {
+    title: 'With Counter Labels',
+    id: 'components-segmentedcontrol-features--with-counter-labels',
+  },
+  {
     title: 'SegmentedControlButton Playground',
     id: 'components-segmentedcontrol-segmentedcontrol-button--playground',
   },
@@ -59,14 +63,6 @@ const stories = [
   {
     title: 'Dev: With Css',
     id: 'components-segmentedcontrol-dev--with-css',
-  },
-  {
-    title: 'Dev: With Sx',
-    id: 'components-segmentedcontrol-dev--with-sx',
-  },
-  {
-    title: 'Dev: With Sx And Css',
-    id: 'components-segmentedcontrol-dev--with-sx-and-css',
   },
 ] as const
 
@@ -89,20 +85,18 @@ test.describe('SegmentedControl', () => {
             }
 
             // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`SegmentedControl.${story.title}.${theme}.png`)
 
             if (story.title === 'Default') {
               // Focus state
               await page.keyboard.press('Tab')
-              expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.${story.title}.${theme}.focus.png`)
+              await expect(page).toHaveScreenshot(`SegmentedControl.${story.title}.${theme}.focus.png`)
 
               // Middle Button Focus state
               await page.keyboard.press('Tab')
               await page.keyboard.press('Enter')
               await page.keyboard.press('Shift+Tab')
-              expect(await page.screenshot()).toMatchSnapshot(
-                `SegmentedControl.${story.title}.${theme}.middle.selected.focus.png`,
-              )
+              await expect(page).toHaveScreenshot(`SegmentedControl.${story.title}.${theme}.middle.selected.focus.png`)
             }
           })
         })

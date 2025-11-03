@@ -1,6 +1,4 @@
 import type React from 'react'
-import styled from 'styled-components'
-import sx, {type SxProp} from '../sx'
 import {VisuallyHidden} from '../VisuallyHidden'
 import type {HTMLDataAttributes} from '../internal/internal-types'
 import {useId} from '../hooks'
@@ -22,8 +20,7 @@ export type SpinnerProps = {
   'aria-label'?: string
   className?: string
   style?: React.CSSProperties
-} & HTMLDataAttributes &
-  SxProp
+} & HTMLDataAttributes
 
 function Spinner({
   size: sizeKey = 'medium',
@@ -48,7 +45,7 @@ function Spinner({
         aria-hidden
         aria-label={ariaLabel ?? undefined}
         aria-labelledby={hasHiddenLabel ? labelId : undefined}
-        className={className}
+        className={clsx(className, classes.SpinnerAnimation)}
         style={style}
         {...props}
       >
@@ -74,18 +71,6 @@ function Spinner({
   )
 }
 
-const StyledBaseSpinner = styled.div`
-  ${sx}
-`
+Spinner.displayName = 'Spinner'
 
-function StyledSpinner({sx, className, ...props}: SpinnerProps) {
-  if (sx) {
-    return <StyledBaseSpinner sx={sx} as={Spinner} className={clsx(className, classes.SpinnerAnimation)} {...props} />
-  }
-
-  return <Spinner className={clsx(className, classes.SpinnerAnimation)} {...props} />
-}
-
-StyledSpinner.displayName = 'Spinner'
-
-export default StyledSpinner
+export default Spinner

@@ -2,7 +2,7 @@
   "id": "form_control",
   "name": "FormControl",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-formcontrol--default"
@@ -99,10 +99,6 @@
       "defaultValue": ""
     },
     {
-      "name": "sx",
-      "type": "SystemStyleObject"
-    },
-    {
       "name": "ref",
       "type": "React.RefObject<HTMLDivElement>"
     }
@@ -144,17 +140,13 @@
         {
           "name": "id",
           "type": "string",
-          "description": "When `as` prop is 'label', it may be used to override the `htmlFor` given to the `<label>` element by FormControl's React Context. \n When 'as' prop is 'legend' or 'span', it is used as the `id` for the element."
+          "description": "When `as` prop is 'label', it may be used to override the `htmlFor` given to the `<label>` element by FormControl's React Context.\nWhen 'as' prop is 'legend' or 'span', it is used as the `id` for the element."
         },
         {
           "name": "className",
           "type": "string",
           "description": "Class name(s) for custom styling.",
           "defaultValue": ""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     },
@@ -172,10 +164,6 @@
           "type": "React.ReactNode",
           "defaultValue": "",
           "description": "The content (usually just text) that is rendered to give contextual info about the field"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     },
@@ -200,10 +188,6 @@
           "type": "string",
           "description": "May be used to override the ID assigned by FormControl's React Context",
           "defaultValue": ""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     },
@@ -215,10 +199,6 @@
           "type": "React.ReactNode",
           "defaultValue": "",
           "description": "The visual to render before the choice input's label"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     }

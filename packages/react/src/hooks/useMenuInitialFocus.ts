@@ -71,6 +71,7 @@ export const useMenuInitialFocus = (
     },
     // we don't want containerRef in dependencies
     // because re-renders to containerRef while it's open should not fire initialMenuFocus
+    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [open, openingGesture, anchorRef],
   )

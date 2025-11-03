@@ -14,9 +14,6 @@ export type {BlankslateProps} from '../Blankslate'
 export {ButtonBase} from '../Button'
 export type {ButtonBaseProps} from '../Button'
 
-export {Banner} from '../Banner'
-export type {BannerProps} from '../Banner'
-
 export {DataTable, Table, createColumnHelper} from '../DataTable'
 export type {
   DataTableProps,
@@ -42,7 +39,13 @@ export * from '../Dialog/Dialog'
 export {InlineMessage} from '../InlineMessage'
 export type {InlineMessageProps} from '../InlineMessage'
 
-export * from '../PageHeader'
+export {PageHeader} from '../PageHeader'
+export type {
+  PageHeaderProps,
+  TitleProps,
+  TitleProps as PageHeaderTitleProps,
+  ActionsProps as PageHeaderActionsProps,
+} from '../PageHeader'
 
 export * from '../Hidden'
 
@@ -75,7 +78,12 @@ export type {AnnounceProps, AriaStatusProps, AriaAlertProps} from '../live-regio
 export {UnderlinePanels} from './UnderlinePanels'
 export type {UnderlinePanelsProps, UnderlinePanelsTabProps, UnderlinePanelsPanelProps} from './UnderlinePanels'
 
-export {SkeletonBox, SkeletonText, SkeletonAvatar} from './Skeleton'
+export {SkeletonBox} from '../Skeleton'
+export type {SkeletonBoxProps} from '../Skeleton'
+export {SkeletonText} from '../SkeletonText'
+export type {SkeletonTextProps} from '../SkeletonText'
+export {SkeletonAvatar} from '../SkeletonAvatar'
+export type {SkeletonAvatarProps} from '../SkeletonAvatar'
 export {FeatureFlags, DefaultFeatureFlags, useFeatureFlag} from '../FeatureFlags'
 export type {FeatureFlagsProps} from '../FeatureFlags'
 

@@ -18,15 +18,15 @@
     "postcss-modules": "^6.0.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^28.0.3",
-    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-commonjs": "^28.0.9",
+    "@rollup/plugin-node-resolve": "^16.0.3",
     "esbuild": "^0.25.0",
     "postcss": "^8.4.38",
     "postcss-modules": "^6.0.0",
     "rimraf": "^5.0.7",
     "rollup-plugin-esbuild": "^6.2.1",
     "rollup-plugin-typescript2": "^0.36.0",
-    "typescript": "^5.8.2"
+    "typescript": "^5.9.2"
   },
   "sideEffects": false
 }

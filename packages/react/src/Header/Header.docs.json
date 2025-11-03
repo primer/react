@@ -2,15 +2,10 @@
   "id": "header",
   "name": "Header",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [],
   "importPath": "@primer/react",
-  "props": [
-    {
-      "name": "sx",
-      "type": "SystemStyleObject"
-    }
-  ],
+  "props": [],
   "subcomponents": [
     {
       "name": "Header.Item",
@@ -20,10 +15,6 @@
           "type": "string",
           "defaultValue": "",
           "description": "Stretches item to fill the available space"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     },
@@ -40,10 +31,6 @@
           "name": "as",
           "type": "React.ElementType",
           "defaultValue": "\"a\""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ],
       "passthrough": {

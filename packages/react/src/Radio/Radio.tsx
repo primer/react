@@ -1,12 +1,10 @@
 import type {ChangeEventHandler, InputHTMLAttributes, ReactElement} from 'react'
 import React, {useContext} from 'react'
-import type {SxProp} from '../sx'
 import {RadioGroupContext} from '../RadioGroup/RadioGroup'
 import {clsx} from 'clsx'
 import sharedClasses from '../Checkbox/shared.module.css'
 import classes from './Radio.module.css'
-import {defaultSxProp} from '../utils/defaultSxProp'
-import Box from '../Box'
+import type {WithSlotMarker} from '../utils/types'
 
 export type RadioProps = {
   /**
@@ -34,8 +32,7 @@ export type RadioProps = {
    * Indicates whether the radio button must be checked before the form can be submitted
    */
   required?: boolean
-} & InputHTMLAttributes<HTMLInputElement> &
-  SxProp
+} & InputHTMLAttributes<HTMLInputElement>
 
 /**
  * An accessible, native radio component for selecting one option from a list.
@@ -47,7 +44,6 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
       disabled,
       name: nameProp,
       onChange,
-      sx: sxProp = defaultSxProp,
       required,
       value,
       className,
@@ -70,27 +66,6 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
       )
     }
 
-    if (sxProp !== defaultSxProp) {
-      return (
-        <Box
-          as="input"
-          sx={sxProp}
-          type="radio"
-          value={value}
-          name={name}
-          ref={ref}
-          disabled={disabled}
-          checked={checked}
-          aria-checked={checked ? 'true' : 'false'}
-          required={required}
-          onChange={handleOnChange}
-          className={clsx(className, sharedClasses.Input, classes.Radio)}
-          aria-hidden={ariaHidden}
-          {...rest}
-        />
-      )
-    }
-
     return (
       <input
         type="radio"
@@ -110,5 +85,6 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
 )
 
 Radio.displayName = 'Radio'
+;(Radio as WithSlotMarker<typeof Radio>).__SLOT__ = Symbol('Radio')
 
-export default Radio
+export default Radio as WithSlotMarker<typeof Radio>
