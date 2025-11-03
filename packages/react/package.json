@@ -51,7 +51,10 @@
     "type-check": "tsc --noEmit",
     "type-css-modules": "tcm -p src/**/*.module.css"
   },
-  "repository": "primer/react",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/primer/react.git"
+  },
   "keywords": [
     "react",
     "components",
@@ -129,7 +132,6 @@
     "@types/react": "18.3.11",
     "@types/react-dom": "18.3.1",
     "@types/react-is": "18.3.1",
-    "@types/react-test-renderer": "18.3.1",
     "@vitejs/plugin-react": "^4.3.3",
     "afterframe": "^1.0.2",
     "ajv": "8.16.0",
@@ -162,11 +164,10 @@
     "micromark-extension-frontmatter": "2.0.0",
     "micromark-extension-mdxjs": "3.0.0",
     "postcss-preset-primer": "^0.0.0",
-    "publint": "^0.3.12",
+    "publint": "^0.3.15",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-is": "18.3.1",
-    "react-test-renderer": "18.3.1",
     "recast": "0.23.7",
     "rimraf": "5.0.5",
     "rollup": "4.52.5",
