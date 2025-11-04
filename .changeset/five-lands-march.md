@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-Fixed Timeline.Brwak when followed by a condensed item
+Fixed Timeline.Break when followed by a condensed item and clip sidebar for condensed items.
