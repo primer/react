@@ -6,7 +6,7 @@ on:
 
 permissions:
   pull-requests: write
-  status: write
+  statuses: write
 
 jobs:
   github-ui:
