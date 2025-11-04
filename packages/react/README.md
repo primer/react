@@ -79,12 +79,8 @@ function RootLayout() {
 In addition, you will need to add the following attributes to your `html` element:
 
 ```html
-<html
-  data-light-theme="light"
-  data-dark-theme="dark"
-  data-color-mode="auto"
->
-<!-- ... -->
+<html data-light-theme="light" data-dark-theme="dark" data-color-mode="auto">
+  <!-- ... -->
 </html>
 ```
 
