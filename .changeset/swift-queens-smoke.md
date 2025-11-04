@@ -1,5 +1,5 @@
 ---
-'@primer/react': major
+'@primer/react': patch
 ---
 
-Remove deprecated underline prop from Link component.
+Link: Remove deprecated underline prop. (Not used in github-ui)
