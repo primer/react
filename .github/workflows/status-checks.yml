@@ -9,14 +9,12 @@ permissions:
   checks: write
 
 jobs:
-  override:
+  github-ui:
     runs-on: ubuntu-latest
     if: ${{ contains(github.event.pull_request.labels.*.name, 'skip github ci') }}
     steps:
       - name: Override status checks
         run: |
-          SHA="${{ github.event.pull_request.head.sha }}"
-
           gh api -X POST "/repos/primer/react/statuses/$SHA" \
             -f state='success' \
             -f context='github-ui / ci' \
@@ -28,3 +26,4 @@ jobs:
             -f description='Skipped'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SHA: ${{ github.event.pull_request.head.sha }}
