@@ -1,41 +1,30 @@
 name: status-checks
 
 on:
-  issue_comment:
-    types: [created]
+  pull_request:
+    types: [labeled, opened, reopened, synchronize]
 
 permissions:
   pull-requests: write
-  issues: write
-  checks: read
+  checks: write
 
 jobs:
   override:
     runs-on: ubuntu-latest
+    if: ${{ contains(github.event.pull_request.labels.*.name, 'skip github ci') }}
     steps:
-      - name: command
-        id: command
-        uses: github/command@4002f2aad7964e6d776c2f91bd3f1f87bf6af793 # v2.0.2
-        with:
-          command: .skip-github-ci
-          allowed_contexts: pull_request
-          permissions: write
-      - if: ${{ steps.command.outputs.continue == 'true' }}
+      - name: Override status checks
         run: |
-          SHA=$(gh pr view $NUMBER --json headRefOid --jq '.headRefOid')
+          SHA="${{ github.event.pull_request.head.sha }}"
 
           gh api -X POST "/repos/primer/react/statuses/$SHA" \
             -f state='success' \
             -f context='github-ui / ci' \
-            -f description='Skipped' \
-            -f target_url="$COMMENT_URL"
+            -f description='Skipped'
 
           gh api -X POST "/repos/primer/react/statuses/$SHA" \
             -f state='success' \
             -f context='github-ui / projects' \
-            -f description='Skipped' \
-            -f target_url="$COMMENT_URL"
+            -f description='Skipped'
         env:
-          COMMENT_URL: ${{ github.event.comment.html_url }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NUMBER: ${{ github.event.issue.number }}
