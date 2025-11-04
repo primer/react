@@ -1,5 +1,5 @@
 import type {Meta} from '@storybook/react-vite'
-import React, {forwardRef} from 'react'
+import React, {forwardRef, type JSX} from 'react'
 import {
   TypographyIcon,
   StarIcon,
@@ -39,6 +39,7 @@ const NextJSLikeLink = forwardRef(
       ref,
       href,
     }
+    // eslint-disable-next-line react-hooks/refs
     return <>{React.isValidElement(child) ? React.cloneElement(child, childProps) : null}</>
   },
 )

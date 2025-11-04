@@ -15,6 +15,7 @@ const useFirstRender = () => {
   useEffect(() => {
     firstRender.current = false
   }, [])
+  // eslint-disable-next-line react-hooks/refs
   return firstRender.current
 }
 

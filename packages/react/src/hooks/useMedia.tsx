@@ -3,22 +3,19 @@ import {canUseDOM} from '../utils/environment'
 import {warning} from '../utils/warning'
 
 /**
- * `useMediaUnsafeSSR` will use the given `mediaQueryString` with `matchMedia` to
+ * `useMedia` will use the given `mediaQueryString` with `matchMedia` to
  * determine if the document matches the media query string.
  *
- * If `MatchMedia` is used as an ancestor, `useMediaUnsafeSSR` will instead use the
+ * If `MatchMedia` is used as an ancestor, `useMedia` will instead use the
  * value of the media query string, if available
- *
- * Warning: If rendering on the server, and no `defaultState` is provided,
- * this could cause a hydration mismatch between server and client.
  *
  * @example
  * function Example() {
- *   const coarsePointer = useMediaUnsafeSSR('(pointer: coarse)');
+ *   const coarsePointer = useMedia('(pointer: coarse)');
  *   // ...
  * }
  */
-export function useMediaUnsafeSSR(mediaQueryString: string, defaultState?: boolean) {
+export function useMedia(mediaQueryString: string, defaultState?: boolean) {
   const features = useContext(MatchMediaContext)
   const [matches, setMatches] = React.useState(() => {
     if (features[mediaQueryString] !== undefined) {
@@ -37,17 +34,15 @@ export function useMediaUnsafeSSR(mediaQueryString: string, defaultState?: boole
     // A default value has not been provided, and you are rendering on the server, warn of a possible hydration mismatch when defaulting to false.
     warning(
       true,
-      '`useMediaUnsafeSSR` When server side rendering, defaultState should be defined to prevent a hydration mismatch.',
+      '`useMedia` When server side rendering, defaultState should be defined to prevent a hydration mismatches.',
     )
 
     return false
   })
 
-  useEffect(() => {
-    if (features[mediaQueryString] !== undefined) {
-      setMatches(features[mediaQueryString] as boolean)
-    }
-  }, [features, mediaQueryString])
+  if (features[mediaQueryString] !== undefined && matches !== features[mediaQueryString]) {
+    setMatches(features[mediaQueryString] as boolean)
+  }
 
   useEffect(() => {
     // If `mediaQueryString` is present in features through `context` defer to
@@ -72,6 +67,7 @@ export function useMediaUnsafeSSR(mediaQueryString: string, defaultState?: boole
     }
 
     // Make sure the media query list is in sync with the matches state
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMatches(mediaQueryList.matches)
 
     return () => {
@@ -106,7 +102,7 @@ const defaultFeatures = {}
 
 /**
  * Use `MatchMedia` to emulate media conditions by passing in feature
- * queries to the `features` prop. If a component uses `useMediaUnsafeSSR` with the
+ * queries to the `features` prop. If a component uses `useMedia` with the
  * feature passed in to `MatchMedia` it will force its value to match what is
  * provided to `MatchMedia`
  *
