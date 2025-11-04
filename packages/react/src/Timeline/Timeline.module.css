@@ -5,10 +5,16 @@
   &:where([data-clip-sidebar]) {
     .TimelineItem:first-child {
       padding-top: 0;
+      &:where([data-condensed])::before {
+        top: 12px;
+      }
     }
 
     .TimelineItem:last-child {
       padding-bottom: 0;
+      &:where([data-condensed])::before {
+        height: 12px;
+      }
     }
   }
 }
