@@ -86,8 +86,6 @@ jobs:
         with:
           args: npm test
         continue-on-error: ${{ matrix.react-version == 'react-19' }}
-      - if: ${{ matrix.react-version == 'react-19' && always() }}
-        run: exit 0
 
   type-check:
     runs-on: ubuntu-latest
@@ -120,8 +118,6 @@ jobs:
       - name: Type check
         run: npm run type-check
         continue-on-error: ${{ matrix.react-version == 'react-19' }}
-      - if: ${{ matrix.react-version == 'react-19' && always() }}
-        run: exit 0
 
   examples:
     runs-on: ubuntu-latest
@@ -151,8 +147,6 @@ jobs:
       - name: Build
         run: npx turbo build
         continue-on-error: ${{ matrix.react-version == 'react-19' }}
-      - if: ${{ matrix.react-version == 'react-19' && always() }}
-        run: exit 0
 
   build-components-json:
     runs-on: ubuntu-latest
