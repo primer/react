@@ -15,7 +15,6 @@ Playground.args = {
   text: 'Link',
   href: '#',
   muted: false,
-  underline: false,
   inline: false,
 }
 

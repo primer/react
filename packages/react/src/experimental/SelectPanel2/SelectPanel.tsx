@@ -126,7 +126,7 @@ const Panel: React.FC<SelectPanelProps> = ({
 
   const contents = React.Children.map(props.children, child => {
     if (React.isValidElement(child) && (child.type === SelectPanelButton || isSlot(child, SelectPanelButton))) {
-      // eslint-disable-next-line react-compiler/react-compiler
+      // eslint-disable-next-line react-hooks/immutability
       Anchor = React.cloneElement(child, {
         // @ts-ignore TODO
         ref: anchorRef,
@@ -333,6 +333,7 @@ const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((prop
     return (
       <Button
         ref={anchorRef}
+        // eslint-disable-next-line react-hooks/refs
         aria-label={`${(anchorRef as MutableRefObject<HTMLButtonElement>).current.textContent}, ${labelText}`}
         {...inputProps}
       />
