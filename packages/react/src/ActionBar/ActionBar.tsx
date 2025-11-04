@@ -106,19 +106,25 @@ export type ActionBarProps = {
 
 export type ActionBarIconButtonProps = {disabled?: boolean} & IconButtonProps
 
-export type ActionBarMenuItem = {
-  disabled?: boolean
-  icon?: ActionBarIconButtonProps['icon']
-  label: string
-  onClick?: ActionListItemProps['onSelect']
-} & Pick<ActionListItemProps, 'variant'>
+export type ActionBarMenuItem =
+  | ({
+      type?: 'action'
+      disabled?: boolean
+      icon?: ActionBarIconButtonProps['icon']
+      label: string
+      onClick?: ActionListItemProps['onSelect']
+      items?: ActionBarMenuItem[]
+    } & Pick<ActionListItemProps, 'variant'>)
+  | {
+      type: 'divider'
+    }
 
 export type ActionBarMenuProps = {
   /** Accessible label for the menu button */
   'aria-label': string
   /** Icon for the menu button */
   icon: ActionBarIconButtonProps['icon']
-  items?: ActionBarMenuItem[]
+  items: ActionBarMenuItem[]
 } & IconButtonProps
 
 const MORE_BTN_WIDTH = 32
@@ -142,6 +148,45 @@ const calculatePossibleItems = (
     }
   }
   return breakpoint
+}
+
+const renderMenuItem = (item: ActionBarMenuItem, index: number): React.ReactNode => {
+  if (item.type === 'divider') {
+    return <ActionList.Divider key={index} />
+  }
+
+  const {label, onClick, disabled, icon: Icon, items, variant} = item
+
+  if (items && items.length > 0) {
+    return (
+      <ActionMenu key={label}>
+        <ActionMenu.Anchor>
+          <ActionList.Item disabled={disabled} variant={variant}>
+            {Icon ? (
+              <ActionList.LeadingVisual>
+                <Icon />
+              </ActionList.LeadingVisual>
+            ) : null}
+            {label}
+          </ActionList.Item>
+        </ActionMenu.Anchor>
+        <ActionMenu.Overlay>
+          <ActionList>{items.map((subItem, subIndex) => renderMenuItem(subItem, subIndex))}</ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    )
+  }
+
+  return (
+    <ActionList.Item key={label} onSelect={onClick} disabled={disabled} variant={variant}>
+      {Icon ? (
+        <ActionList.LeadingVisual>
+          <Icon />
+        </ActionList.LeadingVisual>
+      ) : null}
+      {label}
+    </ActionList.Item>
+  )
 }
 
 const getMenuItems = (
@@ -341,7 +386,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                       )
                     }
 
-                    if (menuItem.type === 'menu' && menuItem.items) {
+                    if (menuItem.type === 'menu') {
                       const menuItems = menuItem.items
                       const {icon: Icon, label} = menuItem
 
@@ -356,13 +401,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                             </ActionList.Item>
                           </ActionMenu.Anchor>
                           <ActionMenu.Overlay>
-                            <ActionList>
-                              {menuItems.map(({label, onClick, disabled, variant}) => (
-                                <ActionList.Item key={label} onSelect={onClick} disabled={disabled} variant={variant}>
-                                  {label}
-                                </ActionList.Item>
-                              ))}
-                            </ActionList>
+                            <ActionList>{menuItems.map((item, index) => renderMenuItem(item, index))}</ActionList>
                           </ActionMenu.Overlay>
                         </ActionMenu>
                       )
@@ -537,14 +576,7 @@ export const ActionBarMenu = forwardRef(
           <IconButton variant="invisible" aria-label={ariaLabel} icon={icon} {...props} />
         </ActionMenu.Anchor>
         <ActionMenu.Overlay>
-          <ActionList className={styles.Menu}>
-            {items?.map(({label, onClick, disabled, icon: MenuIcon, variant}) => (
-              <ActionList.Item key={label} onSelect={onClick} disabled={disabled} variant={variant}>
-                {MenuIcon && <ActionList.LeadingVisual>{<MenuIcon />}</ActionList.LeadingVisual>}
-                {label}
-              </ActionList.Item>
-            ))}
-          </ActionList>
+          <ActionList>{items.map((item, index) => renderMenuItem(item, index))}</ActionList>
         </ActionMenu.Overlay>
       </ActionMenu>
     )

@@ -326,6 +326,7 @@ const ActionMenuExample = () => {
         {label: 'Find in file', onClick: () => alert('Find in file clicked')},
         {label: 'Copy path', onClick: () => alert('Copy path clicked')},
         {label: 'Copy permalink', onClick: () => alert('Copy permalink clicked')},
+        {type: 'divider'},
         {label: 'Delete file', onClick: () => alert('Delete file clicked'), icon: TrashIcon, variant: 'danger'},
       ]}
     />
@@ -346,6 +347,18 @@ export const WithMenus = () => (
       items={[
         {label: 'Bold', onClick: () => alert('Bold clicked')},
         {label: 'Underline', onClick: () => alert('Underline clicked')},
+        {
+          label: 'Headings',
+          items: [
+            {label: 'Heading 1', onClick: () => alert('Heading 1 clicked')},
+            {label: 'Heading 2', onClick: () => alert('Heading 2 clicked')},
+            {label: 'Heading 3', onClick: () => alert('Heading 3 clicked')},
+            {type: 'divider'},
+            {label: 'Heading 4', onClick: () => alert('Heading 4 clicked')},
+            {label: 'Heading 5', onClick: () => alert('Heading 5 clicked')},
+            {label: 'Heading 6', onClick: () => alert('Heading 6 clicked')},
+          ],
+        },
       ]}
     />
     <ActionBar.IconButton disabled icon={FileAddedIcon} aria-label="File Added"></ActionBar.IconButton>
