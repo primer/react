@@ -588,6 +588,11 @@
 
 .TrailingAction {
   grid-area: trailingAction;
+
+  /* if child is loading button */
+  & > *[data-loading-wrapper] {
+    height: 100%;
+  }
 }
 
 /* wrapper span
