@@ -1,6 +1,7 @@
 import {isMacOS as ssrUnsafeIsMacOS} from '@primer/behaviors/utils'
 import {useEffect, useState} from 'react'
 import {canUseDOM} from '../utils/environment'
+
 /**
  * SSR-safe hook for determining if the current platform is MacOS. When rendering
  * server-side, will default to non-MacOS and then re-render in an effect if the
@@ -9,7 +10,10 @@ import {canUseDOM} from '../utils/environment'
 export function useIsMacOS() {
   const [isMacOS, setIsMacOS] = useState(() => (canUseDOM ? ssrUnsafeIsMacOS() : false))
 
-  useEffect(() => setIsMacOS(ssrUnsafeIsMacOS()), [])
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsMacOS(ssrUnsafeIsMacOS())
+  }, [])
 
   return isMacOS
 }
