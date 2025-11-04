@@ -19,12 +19,14 @@ import {
   ThreeBarsIcon,
   TrashIcon,
   KebabHorizontalIcon,
+  NoteIcon,
 } from '@primer/octicons-react'
 import {Button, Avatar, ActionMenu, IconButton, ActionList, Textarea} from '..'
 import {Dialog} from '../deprecated/DialogV1'
 import {Divider} from '../deprecated/ActionList/Divider'
 import mockData from '../experimental/SelectPanel2/mock-story-data'
 import classes from './ActionBar.examples.stories.module.css'
+import type {ActionBarMenuItem} from './ActionBar'
 
 export default {
   title: 'Experimental/Components/ActionBar/Examples',
@@ -318,8 +320,8 @@ export const MultipleActionBars = () => {
 const ActionMenuExample = () => {
   return (
     <ActionBar.Menu
-      aria-label="Open menu"
-      icon={KebabHorizontalIcon}
+      aria-label="File options"
+      icon={NoteIcon}
       items={[
         {label: 'Download', onClick: () => alert('Download clicked')},
         {label: 'Jump to line', onClick: () => alert('Jump to line clicked')},
@@ -327,10 +329,29 @@ const ActionMenuExample = () => {
         {label: 'Copy path', onClick: () => alert('Copy path clicked')},
         {label: 'Copy permalink', onClick: () => alert('Copy permalink clicked')},
         {type: 'divider'},
-        {label: 'Delete file', onClick: () => alert('Delete file clicked'), icon: TrashIcon, variant: 'danger'},
+        {
+          label: 'Delete file',
+          onClick: () => alert('Delete file clicked'),
+          leadingVisual: TrashIcon,
+          variant: 'danger',
+        },
       ]}
     />
   )
+}
+
+const menuHeadings: ActionBarMenuItem = {
+  label: 'Headings',
+  items: [
+    {label: 'Heading 1', onClick: () => alert('Heading 1 clicked'), trailingVisual: '⌘ 1'},
+    {label: 'Heading 2', onClick: () => alert('Heading 2 clicked'), trailingVisual: '⌘ 2'},
+    {label: 'Heading 3', onClick: () => alert('Heading 3 clicked'), trailingVisual: '⌘ 3'},
+    {label: 'Heading 4', onClick: () => alert('Heading 4 clicked'), trailingVisual: '⌘ 4'},
+    {label: 'Heading 5', onClick: () => alert('Heading 5 clicked'), trailingVisual: '⌘ 5'},
+    {label: 'Heading 6', onClick: () => alert('Heading 6 clicked'), trailingVisual: '⌘ 6'},
+    {type: 'divider'},
+    {label: 'Remove heading', onClick: () => alert('Remove heading clicked'), disabled: true},
+  ],
 }
 
 export const WithMenus = () => (
@@ -341,26 +362,7 @@ export const WithMenus = () => (
     <ActionBar.Divider />
     <ActionBar.IconButton icon={FileAddedIcon} aria-label="File Added"></ActionBar.IconButton>
     <ActionBar.IconButton icon={SearchIcon} aria-label="Search"></ActionBar.IconButton>
-    <ActionBar.Menu
-      aria-label="More Actions"
-      icon={ThreeBarsIcon}
-      items={[
-        {label: 'Bold', onClick: () => alert('Bold clicked')},
-        {label: 'Underline', onClick: () => alert('Underline clicked')},
-        {
-          label: 'Headings',
-          items: [
-            {label: 'Heading 1', onClick: () => alert('Heading 1 clicked')},
-            {label: 'Heading 2', onClick: () => alert('Heading 2 clicked')},
-            {label: 'Heading 3', onClick: () => alert('Heading 3 clicked')},
-            {type: 'divider'},
-            {label: 'Heading 4', onClick: () => alert('Heading 4 clicked')},
-            {label: 'Heading 5', onClick: () => alert('Heading 5 clicked')},
-            {label: 'Heading 6', onClick: () => alert('Heading 6 clicked')},
-          ],
-        },
-      ]}
-    />
+
     <ActionBar.IconButton disabled icon={FileAddedIcon} aria-label="File Added"></ActionBar.IconButton>
     <ActionBar.IconButton disabled icon={SearchIcon} aria-label="Search"></ActionBar.IconButton>
     <ActionBar.IconButton disabled icon={QuoteIcon} aria-label="Insert Quote"></ActionBar.IconButton>
@@ -368,5 +370,15 @@ export const WithMenus = () => (
     <ActionBar.IconButton icon={ListOrderedIcon} aria-label="Ordered List"></ActionBar.IconButton>
     <ActionMenuExample />
     <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
+    <ActionBar.Menu
+      aria-label="Formatting"
+      icon={KebabHorizontalIcon}
+      overflowIcon="none"
+      items={[
+        {label: 'Bold', onClick: () => alert('Bold clicked')},
+        {label: 'Underline', onClick: () => alert('Underline clicked')},
+        menuHeadings,
+      ]}
+    />
   </ActionBar>
 )

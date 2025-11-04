@@ -33,7 +33,7 @@ type ChildProps =
       type: 'menu'
       width: number
       label: string
-      icon: ActionBarIconButtonProps['icon']
+      icon: ActionBarIconButtonProps['icon'] | 'none'
       items: ActionBarMenuProps['items']
     }
 
@@ -108,11 +108,36 @@ export type ActionBarIconButtonProps = {disabled?: boolean} & IconButtonProps
 
 export type ActionBarMenuItem =
   | ({
+      /**
+       * Type of menu item to be rendered in the menu (action | group).
+       * Defaults to 'action' if not specified.
+       */
       type?: 'action'
+      /**
+       * Whether the menu item is disabled.
+       * All interactions will be prevented if true.
+       */
       disabled?: boolean
-      icon?: ActionBarIconButtonProps['icon']
+      /**
+       * Leading visual rendered for the menu item.
+       */
+      leadingVisual?: ActionBarIconButtonProps['icon']
+      /**
+       * Trailing visual rendered for the menu item.
+       */
+      trailingVisual?: ActionBarIconButtonProps['icon'] | string
+      /**
+       * Label for the menu item.
+       */
       label: string
+      /**
+       * Callback fired when the menu item is selected.
+       */
       onClick?: ActionListItemProps['onSelect']
+      /**
+       * Nested menu items to render within a submenu.
+       * If provided, the menu item will render a submenu.
+       */
       items?: ActionBarMenuItem[]
     } & Pick<ActionListItemProps, 'variant'>)
   | {
@@ -125,6 +150,11 @@ export type ActionBarMenuProps = {
   /** Icon for the menu button */
   icon: ActionBarIconButtonProps['icon']
   items: ActionBarMenuItem[]
+  /**
+   * Icon displayed when the menu item is overflowing.
+   * If 'none' is provided, no icon will be shown in the overflow menu.
+   */
+  overflowIcon?: ActionBarIconButtonProps['icon'] | 'none'
 } & IconButtonProps
 
 const MORE_BTN_WIDTH = 32
@@ -155,19 +185,24 @@ const renderMenuItem = (item: ActionBarMenuItem, index: number): React.ReactNode
     return <ActionList.Divider key={index} />
   }
 
-  const {label, onClick, disabled, icon: Icon, items, variant} = item
+  const {label, onClick, disabled, trailingVisual: TrailingIcon, leadingVisual: LeadingIcon, items, variant} = item
 
   if (items && items.length > 0) {
     return (
       <ActionMenu key={label}>
         <ActionMenu.Anchor>
           <ActionList.Item disabled={disabled} variant={variant}>
-            {Icon ? (
+            {LeadingIcon ? (
               <ActionList.LeadingVisual>
-                <Icon />
+                <LeadingIcon />
               </ActionList.LeadingVisual>
             ) : null}
             {label}
+            {TrailingIcon ? (
+              <ActionList.TrailingVisual>
+                {typeof TrailingIcon === 'string' ? <span>{TrailingIcon}</span> : <TrailingIcon />}
+              </ActionList.TrailingVisual>
+            ) : null}
           </ActionList.Item>
         </ActionMenu.Anchor>
         <ActionMenu.Overlay>
@@ -179,12 +214,17 @@ const renderMenuItem = (item: ActionBarMenuItem, index: number): React.ReactNode
 
   return (
     <ActionList.Item key={label} onSelect={onClick} disabled={disabled} variant={variant}>
-      {Icon ? (
+      {LeadingIcon ? (
         <ActionList.LeadingVisual>
-          <Icon />
+          <LeadingIcon />
         </ActionList.LeadingVisual>
       ) : null}
       {label}
+      {TrailingIcon ? (
+        <ActionList.TrailingVisual>
+          {typeof TrailingIcon === 'string' ? <span>{TrailingIcon}</span> : <TrailingIcon />}
+        </ActionList.TrailingVisual>
+      ) : null}
     </ActionList.Item>
   )
 }
@@ -394,9 +434,11 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                         <ActionMenu key={id}>
                           <ActionMenu.Anchor>
                             <ActionList.Item>
-                              <ActionList.LeadingVisual>
-                                <Icon />
-                              </ActionList.LeadingVisual>
+                              {Icon !== 'none' ? (
+                                <ActionList.LeadingVisual>
+                                  <Icon />
+                                </ActionList.LeadingVisual>
+                              ) : null}
                               {label}
                             </ActionList.Item>
                           </ActionMenu.Anchor>
@@ -543,7 +585,7 @@ export const ActionBarGroup = forwardRef(({children}: React.PropsWithChildren, f
 })
 
 export const ActionBarMenu = forwardRef(
-  ({'aria-label': ariaLabel, icon, items, ...props}: ActionBarMenuProps, forwardedRef) => {
+  ({'aria-label': ariaLabel, icon, overflowIcon, items, ...props}: ActionBarMenuProps, forwardedRef) => {
     const backupRef = useRef<HTMLButtonElement>(null)
     const ref = (forwardedRef ?? backupRef) as RefObject<HTMLButtonElement>
     const id = useId()
@@ -561,7 +603,13 @@ export const ActionBarMenu = forwardRef(
 
       if (!widthRef.current) return
 
-      registerChild(id, {type: 'menu', width: widthRef.current, label: ariaLabel, icon, items})
+      registerChild(id, {
+        type: 'menu',
+        width: widthRef.current,
+        label: ariaLabel,
+        icon: overflowIcon ? overflowIcon : icon,
+        items,
+      })
 
       return () => {
         unregisterChild(id)
