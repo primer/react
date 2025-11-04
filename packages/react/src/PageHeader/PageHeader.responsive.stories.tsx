@@ -32,26 +32,3 @@ TitleAreaSizeResponsive.parameters = {
     },
   },
 }
-
-/**
- * Test SSR-safe responsive behavior.
- * This story ensures no layout shift occurs during hydration.
- */
-export const SSRSafeResponsive: StoryFn = () => (
-  <PageHeader>
-    <PageHeader.TitleArea variant={{narrow: 'subtitle', regular: 'medium'}}>
-      <PageHeader.Title>
-        SSR-safe: subtitle (narrow) → medium (regular + wide) - No layout shift during hydration
-      </PageHeader.Title>
-    </PageHeader.TitleArea>
-  </PageHeader>
-)
-
-SSRSafeResponsive.parameters = {
-  docs: {
-    description: {
-      story:
-        'Demonstrates SSR-safe responsive behavior. The title variant is **subtitle** on narrow viewports and **medium** on regular and wide viewports. All responsive values are handled through CSS data attributes and media queries, preventing layout shift during hydration. This follows ADR-018 for responsive values.',
-    },
-  },
-}
