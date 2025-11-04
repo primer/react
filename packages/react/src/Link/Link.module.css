@@ -20,11 +20,8 @@
     text-decoration: underline;
   }
 
-  /* Deprecated: but need to support backwards compatibility */
-  &:where([data-underline='true']),
   /*
-    Inline links (inside a text block), however, should have underline based on accessibility setting set in data-attribute
-    Note: setting underline={false} does not override this
+    Inline links (inside a text block) should have underline based on accessibility setting set in data-attribute
   */
   [data-a11y-link-underlines='true'] &:where([data-inline='true']) {
     text-decoration: underline;
