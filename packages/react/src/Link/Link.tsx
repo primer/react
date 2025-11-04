@@ -10,8 +10,6 @@ type StyledLinkProps<As extends React.ElementType = 'a'> = {
   /** @deprecated use CSS modules to style hover color */
   hoverColor?: string
   muted?: boolean
-  /** @deprecated use `inline` to specify the type of link instead */
-  underline?: boolean
   // Link inside a text block
   inline?: boolean
 }
@@ -20,7 +18,7 @@ export const UnwrappedLink = <As extends React.ElementType = 'a'>(
   props: PolymorphicProps<As, 'a', StyledLinkProps>,
   ref: ForwardedRef<unknown>,
 ) => {
-  const {as: Component = 'a', className, inline, underline, hoverColor, ...restProps} = props
+  const {as: Component = 'a', className, inline, hoverColor, ...restProps} = props
   const innerRef = React.useRef<ElementRef<As>>(null)
   useRefObjectAsForwardedRef(ref, innerRef)
 
@@ -53,7 +51,6 @@ export const UnwrappedLink = <As extends React.ElementType = 'a'>(
       className={clsx(className, classes.Link)}
       data-muted={restProps.muted}
       data-inline={inline}
-      data-underline={underline}
       data-hover-color={hoverColor}
       {...restProps}
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
