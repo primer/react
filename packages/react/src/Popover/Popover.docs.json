@@ -62,6 +62,16 @@
           "type": "| 'auto' | 'hidden' | 'scroll' | 'visible'",
           "defaultValue": "'auto'",
           "description": "Sets the overflow behavior of the popover content."
+        },
+        {
+          "name": "onClickOutside",
+          "type": "(event: MouseEvent | TouchEvent) => void",
+          "description": "Callback fired when a click is detected outside the popover content"
+        },
+        {
+          "name": "ignoreClickRefs",
+          "type": "React.RefObject<HTMLElement>[]",
+          "description": "Refs to elements that should be ignored when detecting outside clicks"
         }
       ]
     }

@@ -21,7 +21,7 @@ type UnderlineWrapperProps<As extends React.ElementType> = {
 }
 
 export const UnderlineWrapper = forwardRef((props, ref) => {
-  const {children, className, as: Component = 'nav', ...rest} = props
+  const {children, className, as: Component = 'div', ...rest} = props
   return (
     <Component
       className={clsx(classes.UnderlineWrapper, className)}

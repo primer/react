@@ -2,7 +2,7 @@ import {act, render} from '@testing-library/react'
 import {expect, it} from 'vitest'
 import type {ResponsiveValue} from '../../hooks/useResponsiveValue'
 import {useResponsiveValue} from '../../hooks/useResponsiveValue'
-import {page} from '@vitest/browser/context'
+import {page} from 'vitest/browser'
 
 it('accepts non-responsive values', () => {
   const Component = () => {
