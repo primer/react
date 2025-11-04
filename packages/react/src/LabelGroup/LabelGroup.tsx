@@ -151,6 +151,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
         }
 
         // @ts-ignore you can set `.current` on ref objects or ref callbacks in React
+        // eslint-disable-next-line react-hooks/immutability
         expandButtonRef.current = node
       }
     },
