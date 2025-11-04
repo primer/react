@@ -96,4 +96,7 @@
   background-color: var(--bgColor-default);
   border: 0;
   border-top: var(--borderWidth-thicker) solid var(--borderColor-default);
+  &:has(+ [data-condensed]) {
+    margin-bottom: calc(-1 * var(--base-size-12));
+  }
 }
