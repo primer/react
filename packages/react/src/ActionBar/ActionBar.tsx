@@ -1,7 +1,7 @@
 import type {RefObject, MouseEventHandler} from 'react'
 import React, {useState, useCallback, useRef, forwardRef, useId} from 'react'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
-import {ActionList} from '../ActionList'
+import {ActionList, type ActionListItemProps} from '../ActionList'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
@@ -28,8 +28,14 @@ type ChildProps =
       width: number
       groupId?: string
     }
-  | {type: 'divider'; width: number}
-  | {type: 'group'; width: number}
+  | {type: 'divider' | 'group'; width: number}
+  | {
+      type: 'menu'
+      width: number
+      label: string
+      icon: ActionBarIconButtonProps['icon'] | 'none'
+      items: ActionBarMenuProps['items']
+    }
 
 /**
  * Registry of descendants to render in the list or menu. To preserve insertion order across updates, children are
@@ -100,6 +106,57 @@ export type ActionBarProps = {
 
 export type ActionBarIconButtonProps = {disabled?: boolean} & IconButtonProps
 
+export type ActionBarMenuItemProps =
+  | ({
+      /**
+       * Type of menu item to be rendered in the menu (action | group).
+       * Defaults to 'action' if not specified.
+       */
+      type?: 'action'
+      /**
+       * Whether the menu item is disabled.
+       * All interactions will be prevented if true.
+       */
+      disabled?: boolean
+      /**
+       * Leading visual rendered for the menu item.
+       */
+      leadingVisual?: ActionBarIconButtonProps['icon']
+      /**
+       * Trailing visual rendered for the menu item.
+       */
+      trailingVisual?: ActionBarIconButtonProps['icon'] | string
+      /**
+       * Label for the menu item.
+       */
+      label: string
+      /**
+       * Callback fired when the menu item is selected.
+       */
+      onClick?: ActionListItemProps['onSelect']
+      /**
+       * Nested menu items to render within a submenu.
+       * If provided, the menu item will render a submenu.
+       */
+      items?: ActionBarMenuItemProps[]
+    } & Pick<ActionListItemProps, 'variant'>)
+  | {
+      type: 'divider'
+    }
+
+export type ActionBarMenuProps = {
+  /** Accessible label for the menu button */
+  'aria-label': string
+  /** Icon for the menu button */
+  icon: ActionBarIconButtonProps['icon']
+  items: ActionBarMenuItemProps[]
+  /**
+   * Icon displayed when the menu item is overflowing.
+   * If 'none' is provided, no icon will be shown in the overflow menu.
+   */
+  overflowIcon?: ActionBarIconButtonProps['icon'] | 'none'
+} & IconButtonProps
+
 const MORE_BTN_WIDTH = 32
 
 const calculatePossibleItems = (
@@ -121,6 +178,55 @@ const calculatePossibleItems = (
     }
   }
   return breakpoint
+}
+
+const renderMenuItem = (item: ActionBarMenuItemProps, index: number): React.ReactNode => {
+  if (item.type === 'divider') {
+    return <ActionList.Divider key={index} />
+  }
+
+  const {label, onClick, disabled, trailingVisual: TrailingIcon, leadingVisual: LeadingIcon, items, variant} = item
+
+  if (items && items.length > 0) {
+    return (
+      <ActionMenu key={label}>
+        <ActionMenu.Anchor>
+          <ActionList.Item disabled={disabled} variant={variant}>
+            {LeadingIcon ? (
+              <ActionList.LeadingVisual>
+                <LeadingIcon />
+              </ActionList.LeadingVisual>
+            ) : null}
+            {label}
+            {TrailingIcon ? (
+              <ActionList.TrailingVisual>
+                {typeof TrailingIcon === 'string' ? <span>{TrailingIcon}</span> : <TrailingIcon />}
+              </ActionList.TrailingVisual>
+            ) : null}
+          </ActionList.Item>
+        </ActionMenu.Anchor>
+        <ActionMenu.Overlay>
+          <ActionList>{items.map((subItem, subIndex) => renderMenuItem(subItem, subIndex))}</ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    )
+  }
+
+  return (
+    <ActionList.Item key={label} onSelect={onClick} disabled={disabled} variant={variant}>
+      {LeadingIcon ? (
+        <ActionList.LeadingVisual>
+          <LeadingIcon />
+        </ActionList.LeadingVisual>
+      ) : null}
+      {label}
+      {TrailingIcon ? (
+        <ActionList.TrailingVisual>
+          {typeof TrailingIcon === 'string' ? <span>{TrailingIcon}</span> : <TrailingIcon />}
+        </ActionList.TrailingVisual>
+      ) : null}
+    </ActionList.Item>
+  )
 }
 
 const getMenuItems = (
@@ -320,6 +426,29 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                       )
                     }
 
+                    if (menuItem.type === 'menu') {
+                      const menuItems = menuItem.items
+                      const {icon: Icon, label} = menuItem
+
+                      return (
+                        <ActionMenu key={id}>
+                          <ActionMenu.Anchor>
+                            <ActionList.Item>
+                              {Icon !== 'none' ? (
+                                <ActionList.LeadingVisual>
+                                  <Icon />
+                                </ActionList.LeadingVisual>
+                              ) : null}
+                              {label}
+                            </ActionList.Item>
+                          </ActionMenu.Anchor>
+                          <ActionMenu.Overlay>
+                            <ActionList>{menuItems.map((item, index) => renderMenuItem(item, index))}</ActionList>
+                          </ActionMenu.Overlay>
+                        </ActionMenu>
+                      )
+                    }
+
                     // Use the memoized map instead of filtering each time
                     const groupedMenuItems = groupedItems.get(id) || []
 
@@ -430,7 +559,7 @@ export const ActionBarGroup = forwardRef(({children}: React.PropsWithChildren, f
   const id = useId()
   const {registerChild, unregisterChild} = React.useContext(ActionBarContext)
 
-  // Like IconButton, we store the width in a ref ensures we don't forget about it when not visible
+  // Like IconButton, we store the width in a ref to ensure that we don't forget about it when not visible
   // If a child has a groupId, it won't be visible if the group isn't visible, so we don't need to check isVisibleChild here
   const widthRef = useRef<number>()
 
@@ -454,6 +583,52 @@ export const ActionBarGroup = forwardRef(({children}: React.PropsWithChildren, f
     </ActionBarGroupContext.Provider>
   )
 })
+
+export const ActionBarMenu = forwardRef(
+  ({'aria-label': ariaLabel, icon, overflowIcon, items, ...props}: ActionBarMenuProps, forwardedRef) => {
+    const backupRef = useRef<HTMLButtonElement>(null)
+    const ref = (forwardedRef ?? backupRef) as RefObject<HTMLButtonElement>
+    const id = useId()
+    const {registerChild, unregisterChild, isVisibleChild} = React.useContext(ActionBarContext)
+
+    const [menuOpen, setMenuOpen] = useState(false)
+
+    // Like IconButton, we store the width in a ref to ensure that we don't forget about it when not visible
+    const widthRef = useRef<number>()
+
+    useIsomorphicLayoutEffect(() => {
+      const width = ref.current?.getBoundingClientRect().width
+      if (width) widthRef.current = width
+
+      if (!widthRef.current) return
+
+      registerChild(id, {
+        type: 'menu',
+        width: widthRef.current,
+        label: ariaLabel,
+        icon: overflowIcon ? overflowIcon : icon,
+        items,
+      })
+
+      return () => {
+        unregisterChild(id)
+      }
+    }, [registerChild, unregisterChild, ariaLabel, overflowIcon, icon, items])
+
+    if (!isVisibleChild(id)) return null
+
+    return (
+      <ActionMenu anchorRef={ref} open={menuOpen} onOpenChange={setMenuOpen}>
+        <ActionMenu.Anchor>
+          <IconButton variant="invisible" aria-label={ariaLabel} icon={icon} {...props} />
+        </ActionMenu.Anchor>
+        <ActionMenu.Overlay>
+          <ActionList>{items.map((item, index) => renderMenuItem(item, index))}</ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    )
+  },
+)
 
 export const VerticalDivider = () => {
   const ref = useRef<HTMLDivElement>(null)
