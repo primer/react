@@ -143,8 +143,8 @@ export const RestoreFocusMinimal = () => {
       <HelperGlobalStyling />
       <Stack direction="vertical" gap="normal">
         <Flash style={{marginBottom: 'var(--base-size-12)'}}>
-          Minimal focus trap example. Click "{enabled ? 'Disable' : 'Enable'} focus trap" to toggle. While enabled,
-          focus stays inside the green zone. Disabling restores focus to the toggle button.
+          Minimal focus trap example. Click to toggle. While enabled, focus stays inside the green zone. Disabling
+          restores focus to the toggle button.
         </Flash>
         <Button ref={toggleButtonRef} onClick={() => setEnabled(e => !e)}>
           {enabled ? 'Disable' : 'Enable'} focus trap
