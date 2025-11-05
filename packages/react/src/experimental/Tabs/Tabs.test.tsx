@@ -533,7 +533,7 @@ describe('Tabs', () => {
     const tabA = screen.getByRole('tab', {name: 'Tab A'})
     const tabB = screen.getByRole('tab', {name: 'Tab B'})
 
-    // Verify the disabled tab has disabled
+    // Verify the disabled tab has aria-disabled attribute
     expect(tabB).toHaveAttribute('aria-disabled', 'true')
 
     await act(() => {

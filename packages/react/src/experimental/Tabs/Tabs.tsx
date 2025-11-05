@@ -104,7 +104,7 @@ type TabListProps = Labelled & React.HTMLAttributes<HTMLElement>
 
 function useTabList<T extends HTMLElement>(
   props: TabListProps & {
-    /** Optional ref to use for the tablist. If none if provided, one will be generated automatically */
+    /** Optional ref to use for the tablist. If none is provided, one will be generated automatically */
     ref?: React.RefObject<T>
   },
 ): {
@@ -199,7 +199,7 @@ type TabProps = React.ComponentPropsWithoutRef<'button'> & {
   disabled?: boolean
 
   /**
-   * Provide a value that uniquely identities the tab. This should mirror the
+   * Provide a value that uniquely identifies the tab. This should mirror the
    * value provided to the corresponding TabPanel
    */
   value: string
@@ -282,7 +282,7 @@ const Tab = React.forwardRef<ElementRef<'button'>, TabProps>(function Tab(props,
 
 type TabPanelProps = {
   /**
-   * Provide a value that uniquely identities the tab panel. This should mirror
+   * Provide a value that uniquely identifies the tab panel. This should mirror
    * the value set for the corresponding tab
    */
   value: string
@@ -295,7 +295,7 @@ function useTabPanel<T extends HTMLElement>(
   /** Props to be spread onto the tabpanel component */
   tabPanelProps: Pick<React.HTMLProps<T>, 'aria-labelledby' | 'id' | 'hidden'> & {
     /**
-     * An identifier to aide in styling when this panel is selected & active
+     * An identifier to aid in styling when this panel is selected & active
      */
     'data-selected': string | undefined
     role: 'tabpanel'
