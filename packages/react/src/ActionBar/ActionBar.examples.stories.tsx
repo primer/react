@@ -26,7 +26,7 @@ import {Dialog} from '../deprecated/DialogV1'
 import {Divider} from '../deprecated/ActionList/Divider'
 import mockData from '../experimental/SelectPanel2/mock-story-data'
 import classes from './ActionBar.examples.stories.module.css'
-import type {ActionBarMenuItem} from './ActionBar'
+import type {ActionBarMenuItemProps} from './ActionBar'
 
 export default {
   title: 'Experimental/Components/ActionBar/Examples',
@@ -340,7 +340,7 @@ const ActionMenuExample = () => {
   )
 }
 
-const menuHeadings: ActionBarMenuItem = {
+const menuHeadings: ActionBarMenuItemProps = {
   label: 'Headings',
   items: [
     {label: 'Heading 1', onClick: () => alert('Heading 1 clicked'), trailingVisual: '⌘ 1'},

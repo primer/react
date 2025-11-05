@@ -106,7 +106,7 @@ export type ActionBarProps = {
 
 export type ActionBarIconButtonProps = {disabled?: boolean} & IconButtonProps
 
-export type ActionBarMenuItem =
+export type ActionBarMenuItemProps =
   | ({
       /**
        * Type of menu item to be rendered in the menu (action | group).
@@ -138,7 +138,7 @@ export type ActionBarMenuItem =
        * Nested menu items to render within a submenu.
        * If provided, the menu item will render a submenu.
        */
-      items?: ActionBarMenuItem[]
+      items?: ActionBarMenuItemProps[]
     } & Pick<ActionListItemProps, 'variant'>)
   | {
       type: 'divider'
@@ -149,7 +149,7 @@ export type ActionBarMenuProps = {
   'aria-label': string
   /** Icon for the menu button */
   icon: ActionBarIconButtonProps['icon']
-  items: ActionBarMenuItem[]
+  items: ActionBarMenuItemProps[]
   /**
    * Icon displayed when the menu item is overflowing.
    * If 'none' is provided, no icon will be shown in the overflow menu.
@@ -180,7 +180,7 @@ const calculatePossibleItems = (
   return breakpoint
 }
 
-const renderMenuItem = (item: ActionBarMenuItem, index: number): React.ReactNode => {
+const renderMenuItem = (item: ActionBarMenuItemProps, index: number): React.ReactNode => {
   if (item.type === 'divider') {
     return <ActionList.Divider key={index} />
   }
@@ -594,7 +594,6 @@ export const ActionBarMenu = forwardRef(
     const [menuOpen, setMenuOpen] = useState(false)
 
     // Like IconButton, we store the width in a ref to ensure that we don't forget about it when not visible
-    // If a child has a groupId, it won't be visible if the group isn't visible, so we don't need to check isVisibleChild here
     const widthRef = useRef<number>()
 
     useIsomorphicLayoutEffect(() => {
@@ -614,7 +613,7 @@ export const ActionBarMenu = forwardRef(
       return () => {
         unregisterChild(id)
       }
-    }, [registerChild, unregisterChild])
+    }, [registerChild, unregisterChild, ariaLabel, overflowIcon, icon, items])
 
     if (!isVisibleChild(id)) return null
 
