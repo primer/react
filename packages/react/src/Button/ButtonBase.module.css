@@ -417,6 +417,7 @@
         background: var(--buttonKeybindingHint-danger-bgColor-hover);
         color: var(--buttonKeybindingHint-danger-fgColor-hover);
         border-color: var(--buttonKeybindingHint-danger-borderColor-hover);
+        transition: 80ms ease-out;
       }
 
       & .Visual {
@@ -439,6 +440,7 @@
         background: var(--buttonKeybindingHint-danger-bgColor-active);
         color: var(--buttonKeybindingHint-danger-fgColor-active);
         border-color: var(--buttonKeybindingHint-danger-borderColor-active);
+        transition: 80ms ease-out;
       }
 
       & .Visual {
@@ -485,7 +487,7 @@
 
   &:where([data-variant='invisible']) {
     color: var(--button-default-fgColor-rest);
-    border-color: transparent;
+    border-color: var(--button-invisible-borderColor-rest);
     box-shadow: none;
 
     &[aria-expanded='true'] {
@@ -494,6 +496,7 @@
 
     &:hover {
       background-color: var(--button-invisible-bgColor-hover);
+      border-color: var(--button-invisible-borderColor-hover);
 
       & .Visual {
         color: var(--button-invisible-iconColor-hover);
@@ -501,6 +504,7 @@
 
       .KeybindingHint {
         background: var(--buttonKeybindingHint-invisible-bgColor-hover);
+        transition: 80ms ease-out;
       }
     }
 
@@ -513,6 +517,7 @@
 
       .KeybindingHint {
         background: var(--buttonKeybindingHint-invisible-bgColor-active);
+        transition: 80ms ease-out;
       }
     }
 
@@ -635,6 +640,11 @@
 
 .ConditionalWrapper {
   display: block;
+}
+
+.KeybindingHint {
+  transition: 80ms ease-in;
+  transition-property: color, background-color, border-color;
 }
 
 /* KeybindingHint loading state - visually hide but keep in DOM */
