@@ -1,41 +1,75 @@
 import React, {
   createContext,
-  useCallback,
   useContext,
   useId,
   useMemo,
-  useRef,
+  type AriaAttributes,
   type ElementRef,
   type PropsWithChildren,
 } from 'react'
-import useIsomorphicLayoutEffect from '../../../utils/useIsomorphicLayoutEffect'
-import {useControllableState} from '../../../hooks/useControllableState'
-import {useProvidedRefOrCreate} from '../../../hooks'
+import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
+import {useControllableState} from '../../hooks/useControllableState'
+import {useProvidedRefOrCreate} from '../../hooks'
 
-type TabsProps = PropsWithChildren<{
+/**
+ * Props to be used when the Tabs component's state is controlled by the parent
+ */
+type ControlledTabsProps = {
   /**
    * Specify the selected tab
    */
-  value?: string
+  value: string
 
+  /**
+   * `defaultValue` can only be used in the uncontrolled variant of the component
+   * If you need to use `defaultValue`, please switch to the uncontrolled variant by removing the `value` prop.
+   */
+  defaultValue?: never
+
+  /**
+   * Provide an optional callback that is called when the selected tab changes
+   */
+  onValueChange: ({value}: {value: string}) => void
+}
+
+/**
+ * Props to be used when the Tabs component is managing its own state
+ */
+type UncontrolledTabsProps = {
   /**
    * Specify the default selected tab
    */
   defaultValue: string
 
   /**
+   * `value` can only be used in the controlled variant of the component
+   * If you need to use `value`, please switch to the controlled variant by removing the `defaultValue` prop.
+   */
+  value?: never
+
+  /**
    * Provide an optional callback that is called when the selected tab changes
    */
   onValueChange?: ({value}: {value: string}) => void
-}>
+}
 
-function Tabs({children, defaultValue, onValueChange, value}: TabsProps) {
+type TabsProps = PropsWithChildren<ControlledTabsProps | UncontrolledTabsProps>
+
+/**
+ * The Tabs component provides the base structure for a tabbed interface, without providing any formal requirement on DOM structure or styling.
+ * It manages the state of the selected tab, handles tab ordering/selection and provides context to its child components to ensure an accessible experience.
+ *
+ * This is intended to be used in conjunction with the `useTab`, `useTabList`, and `useTabPanel` hooks to build a fully accessible tabs component.
+ * The `Tab`, `TabList`, and `TabPanel` components are provided for convenience to showcase the API & implementation.
+ */
+function Tabs(props: TabsProps) {
+  const {children, onValueChange} = props
   const groupId = useId()
 
-  const [selectedValue, setSelectedValue] = useControllableState({
+  const [selectedValue, setSelectedValue] = useControllableState<string>({
     name: 'tab-selection',
-    defaultValue,
-    value,
+    defaultValue: props.defaultValue ?? props.value,
+    value: props.value,
   })
 
   const savedOnValueChange = React.useRef(onValueChange)
@@ -68,17 +102,21 @@ type LabelledBy = {
 type Labelled = Label | LabelledBy
 type TabListProps = Labelled & React.HTMLAttributes<HTMLElement>
 
-export function useTabList<T extends HTMLElement>(
+function useTabList<T extends HTMLElement>(
   props: TabListProps & {
     /** Optional ref to use for the tablist. If none if provided, one will be generated automatically */
     ref?: React.RefObject<T>
   },
 ): {
-  tabListProps: Pick<React.HTMLProps<HTMLElement>, 'aria-label' | 'aria-labelledby'> &
-    Required<Pick<React.HTMLProps<HTMLElement>, 'aria-orientation' | 'onKeyDown'>> & {
-      ref: React.RefObject<T>
-      role: 'tablist'
-    }
+  /** Props to be spread onto the tablist element */
+  tabListProps: {
+    onKeyDown: React.KeyboardEventHandler<T>
+    'aria-orientation': AriaAttributes['aria-orientation']
+    'aria-label': AriaAttributes['aria-label']
+    'aria-labelledby': AriaAttributes['aria-labelledby']
+    ref: React.RefObject<T>
+    role: 'tablist'
+  }
 } {
   const {'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, 'aria-orientation': ariaOrientation} = props
 
@@ -170,12 +208,13 @@ type TabProps = React.ComponentPropsWithoutRef<'button'> & {
 /**
  * A custom hook that provides the props needed for a tab component.
  * The props returned should be spread onto the component (typically a button) with the `role=tab`, under a `tablist`.
- * @param props The props for the tab component.
- * @returns The props needed for the tab component.
  */
-export function useTab(props: Pick<TabProps, 'disabled' | 'value'>): {
+function useTab<T extends HTMLElement>(
+  props: Pick<TabProps, 'disabled' | 'value'>,
+): {
+  /** Props to be spread onto the tab component */
   tabProps: Pick<
-    React.HTMLProps<HTMLElement>,
+    React.HTMLProps<T>,
     'aria-controls' | 'aria-disabled' | 'aria-selected' | 'id' | 'tabIndex' | 'onKeyDown' | 'onMouseDown' | 'onFocus'
   > & {
     role: 'tab'
@@ -187,13 +226,13 @@ export function useTab(props: Pick<TabProps, 'disabled' | 'value'>): {
   const id = `${tabs.groupId}-tab-${value}`
   const panelId = `${tabs.groupId}-panel-${value}`
 
-  function onKeyDown(event: React.KeyboardEvent) {
+  function onKeyDown(event: React.KeyboardEvent<T>) {
     if (event.key === ' ' || event.key === 'Enter') {
       tabs.selectTab(value)
     }
   }
 
-  function onMouseDown(event: React.MouseEvent) {
+  function onMouseDown(event: React.MouseEvent<T>) {
     if (!disabled && event.button === 0 && event.ctrlKey === false) {
       tabs.selectTab(value)
     } else {
@@ -241,7 +280,7 @@ const Tab = React.forwardRef<ElementRef<'button'>, TabProps>(function Tab(props,
   )
 })
 
-type TabPanelProps = React.HTMLAttributes<HTMLElement> & {
+type TabPanelProps = {
   /**
    * Provide a value that uniquely identities the tab panel. This should mirror
    * the value set for the corresponding tab
@@ -249,7 +288,19 @@ type TabPanelProps = React.HTMLAttributes<HTMLElement> & {
   value: string
 }
 
-export function useTabPanel(props: Pick<TabPanelProps, 'value'>) {
+/** Utility hook for tab panels */
+function useTabPanel<T extends HTMLElement>(
+  props: TabPanelProps,
+): {
+  /** Props to be spread onto the tabpanel component */
+  tabPanelProps: Pick<React.HTMLProps<T>, 'aria-labelledby' | 'id' | 'hidden'> & {
+    /**
+     * An identifier to aide in styling when this panel is selected & active
+     */
+    'data-selected': string | undefined
+    role: 'tabpanel'
+  }
+} {
   const {value} = props
   const tabs = useTabs()
   const id = `${tabs.groupId}-panel-${value}`
@@ -266,7 +317,7 @@ export function useTabPanel(props: Pick<TabPanelProps, 'value'>) {
   }
 }
 
-function TabPanel({children, value, ...rest}: TabPanelProps) {
+function TabPanel({children, value, ...rest}: React.HTMLAttributes<HTMLDivElement> & TabPanelProps) {
   const {tabPanelProps} = useTabPanel({value})
 
   return (
@@ -305,5 +356,5 @@ function composeEventHandlers<E>(...handlers: Array<Handler<E> | null | undefine
   }
 }
 
-export {Tabs, TabList, Tab, TabPanel}
+export {Tabs, TabList, Tab, TabPanel, useTab, useTabList, useTabPanel}
 export type {TabsProps, TabListProps, TabProps, TabPanelProps}

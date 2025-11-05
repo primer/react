@@ -1,11 +1,12 @@
 import type {Meta} from '@storybook/react-vite'
 import {action} from 'storybook/actions'
 import React from 'react'
-import {Tabs, TabPanel, useTabList, useTab} from '.'
-import {ActionList} from '../../../ActionList'
+import {Tabs, TabPanel, useTabList, useTab} from './Tabs'
+import {ActionList} from '../../ActionList'
+import Flash from '../../Flash'
 
 const meta = {
-  title: 'Private/Components/Tabs/Examples',
+  title: 'Experimental/Components/Tabs/Examples',
   component: Tabs,
 } satisfies Meta<typeof Tabs>
 
@@ -35,14 +36,14 @@ export const WithCustomComponents = () => {
   const [value, setValue] = React.useState('one')
   return (
     <>
-      <p>
+      <Flash style={{marginBottom: '16px'}}>
         This example shows how to use the `Tabs` component with custom Components for the TabList and Tabs. Here we are
         using `ActionList` and `ActionList.Item`
-      </p>
-      <p>
+        <br />
         The direction is also set to `vertical` to demonstrate the `aria-orientation` prop handling. Which also changes
         the keyboard navigation to Up/Down arrows.
-      </p>
+      </Flash>
+
       <div
         style={{
           display: 'grid',
@@ -50,7 +51,6 @@ export const WithCustomComponents = () => {
         }}
       >
         <Tabs
-          defaultValue="one"
           value={value}
           onValueChange={({value}) => {
             action('onValueChange')({value})

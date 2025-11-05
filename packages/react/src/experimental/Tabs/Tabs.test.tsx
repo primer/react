@@ -2,7 +2,7 @@ import {render, screen, fireEvent, act} from '@testing-library/react'
 import {userEvent} from 'vitest/browser'
 import React from 'react'
 import {describe, test, expect, vi} from 'vitest'
-import {Tabs, TabList, Tab, TabPanel} from '.'
+import {Tabs, TabList, Tab, TabPanel} from './Tabs'
 
 describe('Tabs', () => {
   test('`defaultValue` sets the default selected tab', () => {
@@ -32,7 +32,7 @@ describe('Tabs', () => {
     function Wrapper() {
       const [value, setValue] = React.useState('a')
       return (
-        <Tabs defaultValue="a" value={value} onValueChange={({value}) => setValue(value)}>
+        <Tabs value={value} onValueChange={({value}) => setValue(value)}>
           <TabList aria-label="Tablist">
             <Tab value="a">Tab A</Tab>
             <Tab value="b">Tab B</Tab>

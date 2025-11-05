@@ -1,9 +1,9 @@
 import type {Meta} from '@storybook/react-vite'
 import React from 'react'
-import {Tabs, TabList, Tab, TabPanel} from '.'
+import {Tabs, TabList, Tab, TabPanel} from './Tabs'
 
 const meta = {
-  title: 'Private/Components/Tabs',
+  title: 'Experimental/Components/Tabs',
   component: Tabs,
 } satisfies Meta<typeof Tabs>
 
