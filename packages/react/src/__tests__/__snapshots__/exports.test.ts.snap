@@ -346,6 +346,11 @@ exports[`@primer/react/experimental > should not update exports without a semver
   "type TableRowProps",
   "type TableSubtitleProps",
   "type TableTitleProps",
+  "type TabListProps",
+  "type TabPanelProps",
+  "type TabProps",
+  "Tabs",
+  "type TabsProps",
   "type TitleProps",
   "Tooltip",
   "type TooltipProps",
@@ -357,5 +362,8 @@ exports[`@primer/react/experimental > should not update exports without a semver
   "useFeatureFlag",
   "useOverflow",
   "useSlots",
+  "useTab",
+  "useTabList",
+  "useTabPanel",
 ]
 `;
