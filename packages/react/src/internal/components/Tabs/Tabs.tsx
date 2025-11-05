@@ -2,7 +2,6 @@ import React, {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useId,
   useMemo,
   useRef,
@@ -10,6 +9,8 @@ import React, {
   type PropsWithChildren,
 } from 'react'
 import useIsomorphicLayoutEffect from '../../../utils/useIsomorphicLayoutEffect'
+import {useControllableState} from '../../../hooks/useControllableState'
+import {useProvidedRefOrCreate} from '../../../hooks'
 
 type TabsProps = PropsWithChildren<{
   /**
@@ -30,7 +31,13 @@ type TabsProps = PropsWithChildren<{
 
 function Tabs({children, defaultValue, onValueChange, value}: TabsProps) {
   const groupId = useId()
-  const [selectedValue, setSelectedValue] = React.useState(defaultValue)
+
+  const [selectedValue, setSelectedValue] = useControllableState({
+    name: 'tab-selection',
+    defaultValue,
+    value,
+  })
+
   const savedOnValueChange = React.useRef(onValueChange)
   const contextValue: TabsContextValue = useMemo(() => {
     return {
@@ -41,17 +48,11 @@ function Tabs({children, defaultValue, onValueChange, value}: TabsProps) {
         savedOnValueChange.current?.({value})
       },
     }
-  }, [groupId, selectedValue])
+  }, [groupId, selectedValue, setSelectedValue])
 
   useIsomorphicLayoutEffect(() => {
     savedOnValueChange.current = onValueChange
   }, [onValueChange])
-
-  useEffect(() => {
-    if (value !== undefined) {
-      setSelectedValue(value)
-    }
-  }, [value])
 
   return <TabsContext.Provider value={contextValue}>{children}</TabsContext.Provider>
 }
@@ -68,80 +69,79 @@ type Labelled = Label | LabelledBy
 type TabListProps = Labelled & React.HTMLAttributes<HTMLElement>
 
 export function useTabList<T extends HTMLElement>(
-  props: TabListProps,
-): Pick<React.HTMLProps<HTMLElement>, 'aria-label' | 'aria-labelledby'> &
-  Required<Pick<React.HTMLProps<HTMLElement>, 'aria-orientation' | 'onKeyDown'>> & {
-    ref: React.RefObject<T>
-    role: 'tablist'
-  } {
+  props: TabListProps & {
+    /** Optional ref to use for the tablist. If none if provided, one will be generated automatically */
+    ref?: React.RefObject<T>
+  },
+): {
+  tabListProps: Pick<React.HTMLProps<HTMLElement>, 'aria-label' | 'aria-labelledby'> &
+    Required<Pick<React.HTMLProps<HTMLElement>, 'aria-orientation' | 'onKeyDown'>> & {
+      ref: React.RefObject<T>
+      role: 'tablist'
+    }
+} {
   const {'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, 'aria-orientation': ariaOrientation} = props
 
-  const ref = useRef<T>(null)
+  const ref = useProvidedRefOrCreate(props.ref)
 
-  const onKeyDown = useCallback(
-    (event: React.KeyboardEvent) => {
-      const {current: tablist} = ref
-      if (tablist === null) {
+  const onKeyDown = (event: React.KeyboardEvent) => {
+    const {current: tablist} = ref
+    if (tablist === null) {
+      return
+    }
+
+    event.preventDefault()
+    const tabs = getFocusableTabs(tablist)
+
+    const isVertical = ariaOrientation === 'vertical'
+    const nextKey = isVertical ? 'ArrowDown' : 'ArrowRight'
+    const prevKey = isVertical ? 'ArrowUp' : 'ArrowLeft'
+
+    if (event.key === nextKey) {
+      const selectedTabIndex = tabs.findIndex(tab => {
+        return tab.getAttribute('aria-selected') === 'true'
+      })
+      if (selectedTabIndex === -1) {
         return
       }
 
-      const isVertical = ariaOrientation === 'vertical'
-
-      if ((!isVertical && event.key === 'ArrowRight') || (isVertical && event.key === 'ArrowDown')) {
-        event.preventDefault()
-
-        const tabs = getFocusableTabs(tablist)
-        const selectedTabIndex = tabs.findIndex(tab => {
-          return tab.getAttribute('aria-selected') === 'true'
-        })
-        if (selectedTabIndex === -1) {
-          return
-        }
-
-        const nextTabIndex = (selectedTabIndex + 1) % tabs.length
-        tabs[nextTabIndex].focus()
-      } else if ((!isVertical && event.key === 'ArrowLeft') || (isVertical && event.key === 'ArrowUp')) {
-        event.preventDefault()
-
-        const tabs = getFocusableTabs(tablist)
-        const selectedTabIndex = tabs.findIndex(tab => {
-          return tab.getAttribute('aria-selected') === 'true'
-        })
-        if (selectedTabIndex === -1) {
-          return
-        }
-
-        const nextTabIndex = (tabs.length + selectedTabIndex - 1) % tabs.length
-        tabs[nextTabIndex].focus()
-      } else if (event.key === 'Home') {
-        event.preventDefault()
-        const tabs = getFocusableTabs(tablist)
-        if (tabs[0]) {
-          tabs[0].focus()
-        }
-      } else if (event.key === 'End') {
-        event.preventDefault()
-        const tabs = getFocusableTabs(tablist)
-        if (tabs.length > 0) {
-          tabs[tabs.length - 1].focus()
-        }
+      const nextTabIndex = (selectedTabIndex + 1) % tabs.length
+      tabs[nextTabIndex].focus()
+    } else if (event.key === prevKey) {
+      const selectedTabIndex = tabs.findIndex(tab => {
+        return tab.getAttribute('aria-selected') === 'true'
+      })
+      if (selectedTabIndex === -1) {
+        return
       }
-    },
-    [ref, ariaOrientation],
-  )
+
+      const nextTabIndex = (tabs.length + selectedTabIndex - 1) % tabs.length
+      tabs[nextTabIndex].focus()
+    } else if (event.key === 'Home') {
+      if (tabs[0]) {
+        tabs[0].focus()
+      }
+    } else if (event.key === 'End') {
+      if (tabs.length > 0) {
+        tabs[tabs.length - 1].focus()
+      }
+    }
+  }
 
   return {
-    ref,
-    'aria-label': ariaLabel,
-    'aria-labelledby': ariaLabelledby,
-    'aria-orientation': ariaOrientation ?? 'horizontal',
-    role: 'tablist',
-    onKeyDown,
+    tabListProps: {
+      ref,
+      'aria-label': ariaLabel,
+      'aria-labelledby': ariaLabelledby,
+      'aria-orientation': ariaOrientation ?? 'horizontal',
+      role: 'tablist',
+      onKeyDown,
+    },
   }
 }
 
 function TabList({children, ...rest}: TabListProps) {
-  const tabListProps = useTabList<HTMLDivElement>(rest)
+  const {tabListProps} = useTabList<HTMLDivElement>(rest)
 
   return (
     <div {...rest} {...tabListProps}>
@@ -173,11 +173,13 @@ type TabProps = React.ComponentPropsWithoutRef<'button'> & {
  * @param props The props for the tab component.
  * @returns The props needed for the tab component.
  */
-export function useTab(props: Pick<TabProps, 'disabled' | 'value'>): Pick<
-  React.HTMLProps<HTMLElement>,
-  'aria-controls' | 'aria-disabled' | 'aria-selected' | 'id' | 'tabIndex' | 'onKeyDown' | 'onMouseDown' | 'onFocus'
-> & {
-  role: 'tab'
+export function useTab(props: Pick<TabProps, 'disabled' | 'value'>): {
+  tabProps: Pick<
+    React.HTMLProps<HTMLElement>,
+    'aria-controls' | 'aria-disabled' | 'aria-selected' | 'id' | 'tabIndex' | 'onKeyDown' | 'onMouseDown' | 'onFocus'
+  > & {
+    role: 'tab'
+  }
 } {
   const {disabled, value} = props
   const tabs = useTabs()
@@ -206,21 +208,23 @@ export function useTab(props: Pick<TabProps, 'disabled' | 'value'>): Pick<
   }
 
   return {
-    'aria-controls': panelId,
-    'aria-disabled': disabled,
-    'aria-selected': selected,
-    onKeyDown,
-    onMouseDown,
-    onFocus,
-    id,
-    role: 'tab',
-    tabIndex: selected ? 0 : -1,
+    tabProps: {
+      'aria-controls': panelId,
+      'aria-disabled': disabled,
+      'aria-selected': selected,
+      onKeyDown,
+      onMouseDown,
+      onFocus,
+      id,
+      role: 'tab',
+      tabIndex: selected ? 0 : -1,
+    },
   }
 }
 
 const Tab = React.forwardRef<ElementRef<'button'>, TabProps>(function Tab(props, forwardRef) {
   const {children, disabled, value, ...rest} = props
-  const tabProps = useTab({disabled, value})
+  const {tabProps} = useTab({disabled, value})
 
   return (
     <button
@@ -252,16 +256,18 @@ export function useTabPanel(props: Pick<TabPanelProps, 'value'>) {
   const tabId = `${tabs.groupId}-tab-${value}`
 
   return {
-    'aria-labelledby': tabId,
-    'data-selected': tabs.selectedValue === value ? '' : undefined,
-    id,
-    hidden: tabs.selectedValue !== value,
-    role: 'tabpanel',
+    tabPanelProps: {
+      'aria-labelledby': tabId,
+      'data-selected': tabs.selectedValue === value ? '' : undefined,
+      id,
+      hidden: tabs.selectedValue !== value,
+      role: 'tabpanel',
+    },
   }
 }
 
 function TabPanel({children, value, ...rest}: TabPanelProps) {
-  const tabPanelProps = useTabPanel({value})
+  const {tabPanelProps} = useTabPanel({value})
 
   return (
     <div {...rest} {...tabPanelProps}>

@@ -12,7 +12,7 @@ const meta = {
 export default meta
 
 const CustomTabList = (props: React.PropsWithChildren) => {
-  const tabListProps = useTabList<HTMLUListElement>({'aria-label': 'Tabs', 'aria-orientation': 'vertical'})
+  const {tabListProps} = useTabList<HTMLUListElement>({'aria-label': 'Tabs', 'aria-orientation': 'vertical'})
 
   return (
     <div style={{width: '200px'}}>
@@ -22,7 +22,7 @@ const CustomTabList = (props: React.PropsWithChildren) => {
 }
 
 const CustomTab = (props: React.PropsWithChildren<{value: string; disabled?: boolean}>) => {
-  const tabProps = useTab({value: props.value, disabled: props.disabled})
+  const {tabProps} = useTab({value: props.value, disabled: props.disabled})
 
   return (
     <ActionList.Item {...tabProps} active={String(tabProps['aria-selected']) === 'true'}>
