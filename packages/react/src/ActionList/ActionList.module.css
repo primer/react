@@ -588,6 +588,11 @@
 
 .TrailingAction {
   grid-area: trailingAction;
+
+  /* if child is loading button */
+  & > *[data-loading-wrapper] {
+    height: 100%;
+  }
 }
 
 /* wrapper span
@@ -689,6 +694,7 @@ span wrapping svg or text */
 .TrailingActionButton {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+  height: 100%;
 
   /* Preserve width consistency when loading state is active for text buttons only */
   &[data-loading='true']:has([data-component='buttonContent']) {
