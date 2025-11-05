@@ -2,6 +2,7 @@ import type React from 'react'
 import {type CSSProperties} from 'react'
 import {clsx} from 'clsx'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
+import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes'
 import classes from './Hidden.module.css'
 
 type Viewport = 'narrow' | 'regular' | 'wide'
@@ -35,19 +36,13 @@ function normalize(hiddenViewports: Array<Viewport> | Viewport): ResponsiveValue
 }
 
 export const Hidden = ({when, className, style, children}: HiddenProps) => {
-  const normalizedStyles = normalize(when)
+  const normalizedHidden = normalize(when)
 
   return (
     <div
       className={clsx(className, classes.Hidden)}
-      style={
-        {
-          '--hiddenDisplay-narrow': normalizedStyles.narrow ? 'none' : undefined,
-          '--hiddenDisplay-regular': normalizedStyles.regular ? 'none' : undefined,
-          '--hiddenDisplay-wide': normalizedStyles.wide ? 'none' : undefined,
-          ...style,
-        } as CSSProperties
-      }
+      {...getResponsiveAttributes('hidden', normalizedHidden)}
+      style={style}
     >
       {children}
     </div>

@@ -1,13 +1,19 @@
 .Hidden {
-  @media screen and (--viewportRange-narrow) {
-    display: var(--hiddenDisplay-narrow, block);
+  &[data-hidden-narrow] {
+    @media (--viewportRange-narrow) {
+      display: none;
+    }
   }
 
-  @media screen and (--viewportRange-regular) {
-    display: var(--hiddenDisplay-regular, block);
+  &[data-hidden-regular] {
+    @media (--viewportRange-regular) {
+      display: none;
+    }
   }
 
-  @media screen and (--viewportRange-wide) {
-    display: var(--hiddenDisplay-wide, block);
+  &[data-hidden-wide] {
+    @media (--viewportRange-wide) {
+      display: none;
+    }
   }
 }
