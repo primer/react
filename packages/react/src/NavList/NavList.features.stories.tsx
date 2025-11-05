@@ -124,6 +124,7 @@ const NextJSLikeLink = React.forwardRef<HTMLAnchorElement, NextJSLinkProps>(
       ref,
       href,
     }
+    // eslint-disable-next-line react-hooks/refs
     return <>{React.isValidElement(child) ? React.cloneElement(child, childProps) : null}</>
   },
 )
