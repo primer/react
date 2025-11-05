@@ -11,7 +11,7 @@ permissions:
 jobs:
   github-ui:
     runs-on: ubuntu-latest
-    if: ${{ contains(github.event.pull_request.labels.*.name, 'integration-tests: skipped manually') }}
+    if: "${{ contains(github.event.pull_request.labels.*.name, 'integration-tests: skipped manually') }}"
     steps:
       - name: Override status checks
         run: |
