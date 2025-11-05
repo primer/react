@@ -128,12 +128,16 @@ function useTabList<T extends HTMLElement>(
       return
     }
 
-    event.preventDefault()
     const tabs = getFocusableTabs(tablist)
 
     const isVertical = ariaOrientation === 'vertical'
     const nextKey = isVertical ? 'ArrowDown' : 'ArrowRight'
     const prevKey = isVertical ? 'ArrowUp' : 'ArrowLeft'
+
+    if (event.key === nextKey || event.key === prevKey || event.key === 'Home' || event.key === 'End') {
+      event.preventDefault()
+      event.stopPropagation()
+    }
 
     if (event.key === nextKey) {
       const selectedTabIndex = tabs.findIndex(tab => {
