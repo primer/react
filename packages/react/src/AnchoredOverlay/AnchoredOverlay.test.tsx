@@ -145,4 +145,66 @@ describe('AnchoredOverlay', () => {
       },
     })
   })
+
+  it('should not overwrite ref from overlayProps', () => {
+    const overlayRef = {current: null as HTMLDivElement | null}
+
+    const TestComponentWithOverlayRef = () => {
+      const [open, setOpen] = useState(true)
+
+      return (
+        <BaseStyles>
+          <AnchoredOverlay
+            open={open}
+            onOpen={() => setOpen(true)}
+            onClose={() => setOpen(false)}
+            renderAnchor={props => <Button {...props}>Anchor Button</Button>}
+            overlayProps={{ref: overlayRef}}
+          >
+            <div data-testid="overlay-content">Overlay Content</div>
+          </AnchoredOverlay>
+        </BaseStyles>
+      )
+    }
+
+    const {baseElement} = render(<TestComponentWithOverlayRef />)
+    const overlayContent = baseElement.querySelector('[data-testid="overlay-content"]')
+
+    // The overlay should be rendered
+    expect(overlayContent).toBeTruthy()
+    expect(overlayContent?.textContent).toBe('Overlay Content')
+
+    // The ref should be assigned to the overlay element
+    expect(overlayRef.current).toBeTruthy()
+    expect(overlayRef.current?.getAttribute('role')).toBe('none')
+  })
+
+  it('should handle callback ref from overlayProps', () => {
+    const mockRefCallback = vi.fn()
+
+    const TestComponentWithCallbackRef = () => {
+      const [open, setOpen] = useState(true)
+
+      return (
+        <BaseStyles>
+          <AnchoredOverlay
+            open={open}
+            onOpen={() => setOpen(true)}
+            onClose={() => setOpen(false)}
+            renderAnchor={props => <Button {...props}>Anchor Button</Button>}
+            overlayProps={{ref: mockRefCallback}}
+          >
+            <div data-testid="overlay-content">Overlay Content</div>
+          </AnchoredOverlay>
+        </BaseStyles>
+      )
+    }
+
+    render(<TestComponentWithCallbackRef />)
+
+    // The callback ref should have been called with the overlay element
+    expect(mockRefCallback).toHaveBeenCalled()
+    expect(mockRefCallback.mock.calls[0][0]).toBeTruthy()
+    expect(mockRefCallback.mock.calls[0][0]?.getAttribute('role')).toBe('none')
+  })
 })
