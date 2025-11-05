@@ -61,6 +61,7 @@
     {
       "name": "delay",
       "type": "'short' | 'medium' | 'long'",
+      "defaultValue": "short",
       "description": "Sets the delay before showing the tooltip. `short` is 50ms (default), `medium` is 400ms, and `long` is 1200ms."
     }
   ],
