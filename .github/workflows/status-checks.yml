@@ -11,13 +11,13 @@ permissions:
 jobs:
   github-ui:
     runs-on: ubuntu-latest
-    if: ${{ contains(github.event.pull_request.labels.*.name, 'skip github ci') }}
+    if: ${{ contains(github.event.pull_request.labels.*.name, 'integration-tests: skipped manually') }}
     steps:
       - name: Override status checks
         run: |
           # Get the timeline event ID for the label being added and construct HTML URL
           EVENT_ID=$(gh api "/repos/primer/react/issues/$PR_NUMBER/timeline" \
-            --jq '.[] | select(.event == "labeled" and .label.name == "skip github ci") | .id' \
+            --jq '.[] | select(.event == "labeled" and .label.name == "integration-tests: skipped manually") | .id' \
             | tail -n 1)
 
           # Construct the HTML URL from the event ID
