@@ -151,7 +151,7 @@ function TabList({children, ...rest}: TabListProps) {
 }
 
 function getFocusableTabs(tablist: HTMLElement): Array<HTMLElement> {
-  return Array.from(tablist.querySelectorAll('[role="tab"]:not([disabled])'))
+  return Array.from(tablist.querySelectorAll('[role="tab"]:not([aria-disabled])'))
 }
 
 type TabProps = React.ComponentPropsWithoutRef<'button'> & {
@@ -209,8 +209,8 @@ export function useTab(props: Pick<TabProps, 'disabled' | 'value'>): {
 
   return {
     tabProps: {
+      'aria-disabled': disabled ? true : undefined,
       'aria-controls': panelId,
-      'aria-disabled': disabled,
       'aria-selected': selected,
       onKeyDown,
       onMouseDown,
