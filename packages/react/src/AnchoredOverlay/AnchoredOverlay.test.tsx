@@ -1,6 +1,6 @@
 import {act, createRef, useCallback, useRef, useState} from 'react'
 import {describe, expect, it, vi} from 'vitest'
-import {render, screen} from '@testing-library/react'
+import {render} from '@testing-library/react'
 import {userEvent} from 'vitest/browser'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'
@@ -160,7 +160,7 @@ describe('AnchoredOverlay', () => {
           open
           renderAnchor={props => {
             return (
-              <button {...props} ref={anchorRef}>
+              <button {...props} ref={anchorRef} type="button">
                 anchor
               </button>
             )
