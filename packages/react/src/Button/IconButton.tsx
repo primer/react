@@ -28,9 +28,21 @@ const IconButton = forwardRef(
     const {tooltipId} = React.useContext(TooltipContext) // Tooltip v2
     const {tooltipId: tooltipIdV1} = React.useContext(TooltipContextV1) // Tooltip v1
 
+    const {'aria-expanded': isExpanded, 'aria-haspopup': hasPopup} = props
+
     const hasExternalTooltip = tooltipId || tooltipIdV1
+
+    // If the button has an active "popup" (like a menu), we don't want to show the tooltip.
+    // This is mostly for `ActionMenu`, but could be applicable elsewhere.
+    const hasActivePopup = isExpanded && hasPopup
+
     const withoutTooltip =
-      unsafeDisableTooltip || disabled || ariaLabel === undefined || ariaLabel === '' || hasExternalTooltip
+      unsafeDisableTooltip ||
+      disabled ||
+      ariaLabel === undefined ||
+      ariaLabel === '' ||
+      hasExternalTooltip ||
+      hasActivePopup
 
     if (withoutTooltip) {
       return (
