@@ -267,6 +267,8 @@ exports[`@primer/react/deprecated > should not update exports without a semver c
 exports[`@primer/react/experimental > should not update exports without a semver change 1`] = `
 [
   "ActionBar",
+  "type ActionBarMenuItemProps",
+  "type ActionBarMenuProps",
   "type ActionBarProps",
   "Announce",
   "type AnnounceProps",
