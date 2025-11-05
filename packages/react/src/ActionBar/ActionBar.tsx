@@ -543,7 +543,6 @@ export const ActionBarIconButton = forwardRef(
         onClick={clickHandler}
         {...props}
         variant="invisible"
-        data-testid={id}
       />
     )
   },
