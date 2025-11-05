@@ -30,7 +30,7 @@ SubItem.displayName = 'ActionList.SubItem'
 const ButtonItemContainerNoBox = React.forwardRef<HTMLButtonElement, React.HTMLAttributes<HTMLButtonElement>>(
   ({children, style, ...props}, forwardedRef) => {
     return (
-      <button type="button" ref={forwardedRef as React.Ref<HTMLButtonElement>} style={style} {...props}>
+      <button type="button" style={style} {...props} ref={forwardedRef as React.Ref<HTMLButtonElement>}>
         {children}
       </button>
     )
@@ -40,7 +40,7 @@ const ButtonItemContainerNoBox = React.forwardRef<HTMLButtonElement, React.HTMLA
 const DivItemContainerNoBox = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({children, ...props}, forwardedRef) => {
     return (
-      <div ref={forwardedRef as React.Ref<HTMLDivElement>} {...props}>
+      <div {...props} ref={forwardedRef as React.Ref<HTMLDivElement>}>
         {children}
       </div>
     )

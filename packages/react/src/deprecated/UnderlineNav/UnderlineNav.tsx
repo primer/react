@@ -37,7 +37,7 @@ const UnderlineNavLink = React.forwardRef<HTMLAnchorElement, UnderlineNavLinkPro
   forwardRef,
 ) {
   const linkClasses = clsx(classes.UnderlineNavItem, className, classes.UnderlineNavLink)
-  return <a ref={forwardRef} data-selected={selected ? '' : undefined} className={linkClasses} {...props} />
+  return <a {...props} data-selected={selected ? '' : undefined} className={linkClasses} ref={forwardRef} />
 })
 
 UnderlineNavLink.displayName = 'UnderlineNav.Link'

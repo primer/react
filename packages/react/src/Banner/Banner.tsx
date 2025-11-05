@@ -233,7 +233,7 @@ export type BannerPrimaryActionProps = Omit<ButtonProps, 'variant'>
 
 const BannerPrimaryAction = forwardRef(({children, className, ...rest}, forwardedRef) => {
   return (
-    <Button ref={forwardedRef} className={clsx('BannerPrimaryAction', className)} variant="default" {...rest}>
+    <Button {...rest} className={clsx('BannerPrimaryAction', className)} variant="default" ref={forwardedRef}>
       {children}
     </Button>
   )
@@ -245,7 +245,7 @@ export type BannerSecondaryActionProps = Omit<ButtonProps, 'variant'>
 
 const BannerSecondaryAction = forwardRef(({children, className, ...rest}, forwardedRef) => {
   return (
-    <Button ref={forwardedRef} className={clsx('BannerPrimaryAction', className)} variant="link" {...rest}>
+    <Button {...rest} className={clsx('BannerPrimaryAction', className)} variant="link" ref={forwardedRef}>
       {children}
     </Button>
   )

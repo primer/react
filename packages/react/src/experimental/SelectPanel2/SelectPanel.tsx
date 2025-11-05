@@ -339,7 +339,7 @@ const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((prop
       />
     )
   } else {
-    return <Button ref={anchorRef} {...props} />
+    return <Button {...props} ref={anchorRef} />
   }
 }) as WithSlotMarker<React.ForwardRefExoticComponent<ButtonProps & React.RefAttributes<HTMLButtonElement>>>
 

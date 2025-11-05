@@ -7,7 +7,7 @@ export type LinkButtonProps = BaseLinkButtonProps & ButtonProps
 
 const LinkButton = forwardRef(({children, as: Component = 'a', ...props}, forwardedRef): JSX.Element => {
   return (
-    <ButtonBase as={Component} ref={forwardedRef} {...props}>
+    <ButtonBase as={Component} {...props} ref={forwardedRef}>
       {children}
     </ButtonBase>
   )

@@ -5,7 +5,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 
 const ButtonComponent = forwardRef(({children, ...props}, forwardedRef): JSX.Element => {
   return (
-    <ButtonBase ref={forwardedRef} as="button" type="button" {...props}>
+    <ButtonBase as="button" type="button" {...props} ref={forwardedRef}>
       {children}
     </ButtonBase>
   )

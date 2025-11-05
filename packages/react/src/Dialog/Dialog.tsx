@@ -349,14 +349,14 @@ _Dialog.displayName = 'Dialog'
 type StyledHeaderProps = React.ComponentProps<'div'>
 
 const Header = React.forwardRef<HTMLDivElement, StyledHeaderProps>(function Header({className, ...rest}, forwardRef) {
-  return <div ref={forwardRef} className={clsx(className, classes.Header)} {...rest} />
+  return <div {...rest} className={clsx(className, classes.Header)} ref={forwardRef} />
 }) as PolymorphicForwardRefComponent<'div', StyledHeaderProps>
 Header.displayName = 'Dialog.Header'
 
 type StyledTitleProps = React.ComponentProps<'h1'>
 
 const Title = React.forwardRef<HTMLHeadingElement, StyledTitleProps>(function Title({className, ...rest}, forwardRef) {
-  return <h1 ref={forwardRef} className={clsx(className, classes.Title)} {...rest} />
+  return <h1 {...rest} className={clsx(className, classes.Title)} ref={forwardRef} />
 })
 Title.displayName = 'Dialog.Title'
 
@@ -366,14 +366,14 @@ const Subtitle = React.forwardRef<HTMLHeadingElement, StyledSubtitleProps>(funct
   {className, ...rest},
   forwardRef,
 ) {
-  return <h2 ref={forwardRef} className={clsx(className, classes.Subtitle)} {...rest} />
+  return <h2 {...rest} className={clsx(className, classes.Subtitle)} ref={forwardRef} />
 })
 Subtitle.displayName = 'Dialog.Subtitle'
 
 type StyledBodyProps = React.ComponentProps<'div'>
 
 const Body = React.forwardRef<HTMLDivElement, StyledBodyProps>(function Body({className, ...rest}, forwardRef) {
-  return <div ref={forwardRef} className={clsx(className, classes.Body)} {...rest} />
+  return <div {...rest} className={clsx(className, classes.Body)} ref={forwardRef} />
 }) as PolymorphicForwardRefComponent<'div', StyledBodyProps>
 
 Body.displayName = 'Dialog.Body'
@@ -381,7 +381,7 @@ Body.displayName = 'Dialog.Body'
 type StyledFooterProps = React.ComponentProps<'div'>
 
 const Footer = React.forwardRef<HTMLDivElement, StyledFooterProps>(function Footer({className, ...rest}, forwardRef) {
-  return <div ref={forwardRef} className={clsx(className, classes.Footer)} {...rest} />
+  return <div {...rest} className={clsx(className, classes.Footer)} ref={forwardRef} />
 }) as PolymorphicForwardRefComponent<'div', StyledFooterProps>
 Footer.displayName = 'Dialog.Footer'
 
