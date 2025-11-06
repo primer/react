@@ -56,7 +56,7 @@ jobs:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Upload versions json file
-        uses: primer/.github/.github/actions/upload-versions@main
+        uses: primer/.github/.github/actions/upload-versions@v2.4.0
 
   release-candidate:
     if: github.ref_name == 'changeset-release/main'
@@ -97,10 +97,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Report versions
-        uses: primer/.github/.github/actions/report-versions@report_versions_action
+        uses: primer/.github/.github/actions/report-versions@v2.4.0
 
       - name: Upload versions json file
-        uses: primer/.github/.github/actions/upload-versions@main
+        uses: primer/.github/.github/actions/upload-versions@v2.4.0
 
   release-canary:
     name: Canary
@@ -134,7 +134,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Report versions
-        uses: primer/.github/.github/actions/report-versions@report_versions_action
+        uses: primer/.github/.github/actions/report-versions@v2.4.0
 
       - name: Upload versions json file
-        uses: primer/.github/.github/actions/upload-versions@main
+        uses: primer/.github/.github/actions/upload-versions@v2.4.0
