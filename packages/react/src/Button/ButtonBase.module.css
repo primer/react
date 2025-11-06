@@ -137,23 +137,6 @@
 
   & :where([data-component='trailingVisual']) {
     grid-area: trailingVisual;
-
-    /* If spinner renders with kbd, visually hide kbd while maintaining horizontal space with overlapping grid columns */
-    &:has(kbd) {
-      display: grid;
-
-      /* Spinner classname is not on the direct child :( */
-      & > span {
-        grid-column: 1/-1;
-        grid-row: 1/-1;
-        place-self: center end;
-      }
-
-      kbd {
-        grid-column: 1/-1;
-        grid-row: 1/-1;
-      }
-    }
   }
 
   & :where([data-component='trailingAction']) {
@@ -645,9 +628,4 @@
 [data-kbd-chord] {
   transition: 80ms ease-in;
   transition-property: color, background-color, border-color;
-}
-
-/* KeybindingHint loading state - visually hide but keep in DOM */
-.KeybindingHintLoading {
-  visibility: hidden;
 }
