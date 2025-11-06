@@ -67,11 +67,6 @@ Playground.argTypes = {
       type: 'number',
     },
   },
-  keybindingHint: {
-    control: {
-      type: 'text',
-    },
-  },
   leadingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
   trailingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
   trailingAction: OcticonArgType([TriangleDownIcon]),

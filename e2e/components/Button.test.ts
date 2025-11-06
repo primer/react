@@ -89,7 +89,7 @@ const stories = [
   },
   {
     title: 'Keybinding Hint',
-    id: 'components-button-features--keybinding-hint',
+    id: 'components-button-features--keybinding-hint-basic',
   },
   {
     title: 'Keybinding Hint All Variants',
@@ -102,10 +102,6 @@ const stories = [
   {
     title: 'Keybinding Hint With Leading Visual',
     id: 'components-button-features--keybinding-hint-with-leading-visual',
-  },
-  {
-    title: 'Dev Keybinding Hint As Trailing Visual',
-    id: 'components-button-dev--keybinding-hint-as-trailing-visual',
   },
 ] as const
 

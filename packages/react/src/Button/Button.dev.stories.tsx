@@ -86,22 +86,3 @@ export const DisabledButtonVariants = () => {
     </Stack>
   )
 }
-
-export const KeybindingHintAsTrailingVisual = () => {
-  return (
-    <Stack direction="horizontal">
-      <Button variant="default" trailingVisual={() => <KeybindingHint keys="Mod+S" />}>
-        Save
-      </Button>
-      <Button variant="primary" trailingVisual={() => <KeybindingHint keys="Mod+Enter" variant="onPrimary" />}>
-        Submit
-      </Button>
-      <Button variant="danger" trailingVisual={() => <KeybindingHint keys="Mod+D" />}>
-        Delete
-      </Button>
-      <Button variant="invisible" trailingVisual={() => <KeybindingHint keys="Mod+K" />}>
-        Search
-      </Button>
-    </Stack>
-  )
-}
