@@ -54,7 +54,9 @@ jobs:
           publish: npm run release
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-      - uses: ./.github/actions/upload-versions
+
+      - name: Upload versions json file
+        uses: primer/.github/.github/actions/upload-versions@main
 
   release-candidate:
     if: github.ref_name == 'changeset-release/main'
@@ -108,7 +110,9 @@ jobs:
               description: package.version,
               target_url: `https://unpkg.com/${package.name}@${package.version}/`
             })
-      - uses: ./.github/actions/upload-versions
+
+      - name: Upload versions json file
+        uses: primer/.github/.github/actions/upload-versions@main
 
   release-canary:
     name: Canary
@@ -156,4 +160,4 @@ jobs:
             })
 
       - name: Upload versions json file
-        uses: primer/.github/.github/actions/upload-versions@upload_versions_package_paths
+        uses: primer/.github/.github/actions/upload-versions@main
