@@ -1,5 +1,11 @@
 # @primer/styled-react
 
+## 0.3.0
+
+### Minor Changes
+
+- [#7060](https://github.com/primer/react/pull/7060) [`3468793`](https://github.com/primer/react/commit/3468793e15269d6d9f226ee7844921e44bfc4622) Thanks [@francinelucca](https://github.com/francinelucca)! - chore(Dialog): add slots
+
 ## 1.0.0
 
 ### Major Changes
