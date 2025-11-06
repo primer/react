@@ -1,7 +1,6 @@
 import {SearchIcon, TriangleDownIcon, EyeIcon, HeartFillIcon} from '@primer/octicons-react'
 import {Button, IconButton} from '.'
 import {Stack} from '../Stack'
-import {KeybindingHint} from '../KeybindingHint'
 
 export default {
   title: 'Components/Button/Dev',

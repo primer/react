@@ -1,7 +1,6 @@
 import type React from 'react'
 import type {TooltipDirection} from '../TooltipV2'
 import type {IconProps} from '@primer/octicons-react'
-import type {KeybindingHintProps} from '../KeybindingHint'
 
 export type VariantType = 'default' | 'primary' | 'invisible' | 'danger' | 'link'
 
