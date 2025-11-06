@@ -5,7 +5,7 @@ import {accessibleChordString, Chord} from './Chord'
 
 const splitSequence = (sequence: string) => sequence.split(' ')
 
-export const Sequence = ({keys, className, ...chordProps}: KeybindingHintProps) =>
+export const Sequence = ({keys, ...chordProps}: KeybindingHintProps) =>
   splitSequence(keys).map((c, i) => (
     <Fragment key={i}>
       {
@@ -16,7 +16,7 @@ export const Sequence = ({keys, className, ...chordProps}: KeybindingHintProps) 
           </>
         )
       }
-      <Chord keys={c} className={className} {...chordProps} />
+      <Chord keys={c} {...chordProps} />
     </Fragment>
   ))
 

@@ -1,6 +1,7 @@
 import {SearchIcon, TriangleDownIcon, EyeIcon, HeartFillIcon} from '@primer/octicons-react'
 import {Button, IconButton} from '.'
 import {Stack} from '../Stack'
+import {KeybindingHint} from '../KeybindingHint'
 
 export default {
   title: 'Components/Button/Dev',
@@ -82,6 +83,25 @@ export const DisabledButtonVariants = () => {
         <IconButton icon={HeartFillIcon} variant="primary" aria-label="Primary" disabled />
         <IconButton icon={HeartFillIcon} variant="danger" aria-label="Danger" disabled />
       </Stack>
+    </Stack>
+  )
+}
+
+export const KeybindingHintAsTrailingVisual = () => {
+  return (
+    <Stack direction="horizontal">
+      <Button variant="default" trailingVisual={() => <KeybindingHint keys="Mod+S" />}>
+        Save
+      </Button>
+      <Button variant="primary" trailingVisual={() => <KeybindingHint keys="Mod+Enter" variant="onPrimary" />}>
+        Submit
+      </Button>
+      <Button variant="danger" trailingVisual={() => <KeybindingHint keys="Mod+D" />}>
+        Delete
+      </Button>
+      <Button variant="invisible" trailingVisual={() => <KeybindingHint keys="Mod+K" />}>
+        Search
+      </Button>
     </Stack>
   )
 }

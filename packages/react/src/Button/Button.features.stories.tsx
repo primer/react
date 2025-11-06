@@ -296,41 +296,10 @@ export const KeybindingHintWithLeadingVisual = () => (
   </Button>
 )
 
-export const KeybindingHintPriority = () => (
-  <Stack gap="normal" wrap="wrap" direction="horizontal" align="start">
-    <Stack gap="condensed">
-      <Button keybindingHint="Mod+S">Only keybindingHint</Button>
-      <p style={{margin: 0, fontSize: '12px', color: 'var(--fgColor-muted)'}}>Shows keybinding hint</p>
-    </Stack>
-    <Stack gap="condensed">
-      <Button count={3} keybindingHint="Mod+S">
-        Count priority
-      </Button>
-      <p style={{margin: 0, fontSize: '12px', color: 'var(--fgColor-muted)'}}>Count takes priority</p>
-    </Stack>
-    <Stack gap="condensed">
-      <Button trailingVisual={EyeIcon} keybindingHint="Mod+S">
-        TrailingVisual priority
-      </Button>
-      <p style={{margin: 0, fontSize: '12px', color: 'var(--fgColor-muted)'}}>TrailingVisual takes priority</p>
-    </Stack>
-  </Stack>
-)
-
 export const KeybindingHintSequence = () => (
   <Button variant="primary" keybindingHint="G N">
     Go to notifications
   </Button>
-)
-
-export const KeybindingHintComplexChords = () => (
-  <Stack gap="normal" wrap="wrap" direction="horizontal">
-    <Button keybindingHint="Control+Shift+P">Command palette</Button>
-    <Button variant="primary" keybindingHint="Mod+K">
-      Search
-    </Button>
-    <Button keybindingHint="Alt+ArrowUp">Move up</Button>
-  </Stack>
 )
 
 export const KeybindingHintWithLoading = () => {

@@ -1,6 +1,6 @@
 import React, {forwardRef} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import type {ButtonProps, VariantType} from './types'
+import type {ButtonProps} from './types'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {VisuallyHidden} from '../VisuallyHidden'
 import Spinner from '../Spinner'

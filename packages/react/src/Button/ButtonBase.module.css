@@ -24,7 +24,7 @@
   justify-content: space-between;
   gap: var(--base-size-8);
 
-  &:has(.KeybindingHint) {
+  &:has([data-kbd-chord]) {
     padding-inline-end: var(--base-size-6);
   }
 
@@ -190,7 +190,7 @@
       margin-right: var(--control-large-gap);
     }
 
-    &:has(.KeybindingHint) {
+    &:has([data-kbd-chord]) {
       padding-inline-end: var(--base-size-8);
     }
   }
@@ -304,7 +304,7 @@
       border-color: var(--button-default-borderColor-disabled);
       box-shadow: none;
 
-      & .KeybindingHint {
+      & [data-kbd-chord] {
         background: var(--buttonKeybindingHint-default-bgColor-disabled);
         color: var(--buttonKeybindingHint-default-fgColor-disabled);
         border-color: var(--buttonKeybindingHint-default-borderColor-disabled);
@@ -315,7 +315,7 @@
       background-color: var(--buttonCounter-default-bgColor-rest) !important; /* temporarily override our own sx prop */
     }
 
-    & .KeybindingHint {
+    & [data-kbd-chord] {
       background: var(--buttonKeybindingHint-default-bgColor-rest);
       color: var(--buttonKeybindingHint-default-fgColor-rest);
       border-color: var(--buttonKeybindingHint-default-borderColor-rest);
@@ -360,7 +360,7 @@
       border-color: var(--button-primary-borderColor-disabled);
       box-shadow: none;
 
-      & .KeybindingHint {
+      & [data-kbd-chord] {
         background: var(--buttonKeybindingHint-primary-bgColor-disabled);
         color: var(--buttonKeybindingHint-primary-fgColor-disabled);
         border-color: var(--buttonKeybindingHint-primary-borderColor-disabled);
@@ -372,7 +372,7 @@
       background-color: var(--buttonCounter-primary-bgColor-rest) !important; /* temporarily override our own sx prop */
     }
 
-    & .KeybindingHint {
+    & [data-kbd-chord] {
       background: var(--buttonKeybindingHint-primary-bgColor-rest);
       color: var(--buttonKeybindingHint-primary-fgColor-rest);
       border-color: var(--buttonKeybindingHint-primary-borderColor-rest);
@@ -413,7 +413,7 @@
         background-color: var(--buttonCounter-danger-bgColor-hover) !important;
       }
 
-      & .KeybindingHint {
+      & [data-kbd-chord] {
         background: var(--buttonKeybindingHint-danger-bgColor-hover);
         color: var(--buttonKeybindingHint-danger-fgColor-hover);
         border-color: var(--buttonKeybindingHint-danger-borderColor-hover);
@@ -436,7 +436,7 @@
         background-color: var(--buttonCounter-danger-bgColor-hover) !important;
       }
 
-      & .KeybindingHint {
+      & [data-kbd-chord] {
         background: var(--buttonKeybindingHint-danger-bgColor-active);
         color: var(--buttonKeybindingHint-danger-fgColor-active);
         border-color: var(--buttonKeybindingHint-danger-borderColor-active);
@@ -460,7 +460,7 @@
         background-color: var(--buttonCounter-danger-bgColor-disabled) !important;
       }
 
-      & .KeybindingHint {
+      & [data-kbd-chord] {
         background: var(--buttonKeybindingHint-danger-bgColor-disabled);
         color: var(--buttonKeybindingHint-danger-fgColor-disabled);
         border-color: var(--buttonKeybindingHint-danger-borderColor-disabled);
@@ -472,7 +472,7 @@
       background-color: var(--buttonCounter-danger-bgColor-rest) !important;
     }
 
-    & .KeybindingHint {
+    & [data-kbd-chord] {
       background: var(--buttonKeybindingHint-danger-bgColor-rest);
       color: var(--buttonKeybindingHint-danger-fgColor-rest);
       border-color: var(--buttonKeybindingHint-danger-borderColor-rest);
@@ -502,7 +502,7 @@
         color: var(--button-invisible-iconColor-hover);
       }
 
-      .KeybindingHint {
+      & [data-kbd-chord] {
         background: var(--buttonKeybindingHint-invisible-bgColor-hover);
         transition: 80ms ease-out;
       }
@@ -515,7 +515,7 @@
         color: var(--button-invisible-iconColor-hover);
       }
 
-      .KeybindingHint {
+      & [data-kbd-chord] {
         background: var(--buttonKeybindingHint-invisible-bgColor-active);
         transition: 80ms ease-out;
       }
@@ -528,7 +528,7 @@
       border-color: var(--button-invisible-borderColor-disabled);
       box-shadow: none;
 
-      .KeybindingHint {
+      & [data-kbd-chord] {
         background: var(--buttonKeybindingHint-invisible-bgColor-disabled);
         color: var(--buttonKeybindingHint-invisible-fgColor-disabled);
         border-color: var(--buttonKeybindingHint-invisible-borderColor-disabled);
@@ -543,7 +543,7 @@
       background-color: var(--buttonCounter-invisible-bgColor-rest) !important;
     }
 
-    .KeybindingHint {
+    & [data-kbd-chord] {
       background: var(--buttonKeybindingHint-invisible-bgColor-rest);
       color: var(--buttonKeybindingHint-invisible-fgColor-rest);
       border-color: var(--buttonKeybindingHint-invisible-borderColor-rest);
@@ -613,7 +613,7 @@
       color: inherit !important;
     }
 
-    & .KeybindingHint {
+    & [data-kbd-chord] {
       background: var(--buttonKeybindingHint-inactive-bgColor);
       color: var(--buttonKeybindingHint-inactive-fgColor);
       border-color: var(--buttonKeybindingHint-inactive-borderColor);
@@ -642,7 +642,7 @@
   display: block;
 }
 
-.KeybindingHint {
+[data-kbd-chord] {
   transition: 80ms ease-in;
   transition-property: color, background-color, border-color;
 }
