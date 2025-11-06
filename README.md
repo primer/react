@@ -48,6 +48,3 @@ We love collaborating with folks inside and outside of GitHub and welcome contri
 
 > 👉 See [the contributing docs](contributor-docs/CONTRIBUTING.md) for more info on code style, testing, coverage, and troubleshooting.
 
-## New Component Proposals
-
-We welcome and encourage new component proposals from internal GitHub teams! Our best work comes from collaborating directly with the teams using Primer React Components in their projects. If you'd like to kick off a new component proposal, please submit an issue using the [component proposal issue template](https://github.com/primer/react/issues/new?template=new-component-proposal.md) and we will get in touch!
