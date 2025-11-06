@@ -63,6 +63,7 @@
   ],
   "files": [
     "dist",
+    "!dist/legacy-theme/ts/colors",
     "generated",
     "CHANGELOG.md"
   ],
