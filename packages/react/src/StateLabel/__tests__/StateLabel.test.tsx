@@ -11,9 +11,9 @@ describe('StateLabel', () => {
     expect(HTMLRender(<StateLabel status="pullQueued" />).container).toMatchSnapshot()
   })
 
-  it('respects the variant prop', () => {
-    expect(HTMLRender(<StateLabel variant="small" status="issueOpened" />).container).toMatchSnapshot()
-    expect(HTMLRender(<StateLabel variant="normal" status="issueOpened" />).container).toMatchSnapshot()
+  it('respects the size prop', () => {
+    expect(HTMLRender(<StateLabel size="small" status="issueOpened" />).container).toMatchSnapshot()
+    expect(HTMLRender(<StateLabel size="medium" status="issueOpened" />).container).toMatchSnapshot()
   })
 
   it('renders children', () => {
