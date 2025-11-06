@@ -34,7 +34,7 @@ const IconButton = forwardRef(
 
     // If the button has an active "popup" (like a menu), we don't want to show the tooltip.
     // This is mostly for `ActionMenu`, but could be applicable elsewhere.
-    const hasActivePopup = isExpanded && hasPopup
+    const hasActivePopup = isExpanded && hasPopup === 'menu'
 
     const withoutTooltip =
       unsafeDisableTooltip ||
