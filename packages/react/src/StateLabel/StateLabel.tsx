@@ -47,12 +47,12 @@ const labelMap: Record<keyof typeof octiconMap, 'Issue' | 'Issue, not planned' |
 }
 
 export type StateLabelProps = React.HTMLAttributes<HTMLSpanElement> & {
-  variant?: 'small' | 'normal'
+  size?: 'small' | 'medium'
   status: keyof typeof octiconMap
 }
 
 const StateLabel = forwardRef<HTMLSpanElement, StateLabelProps>(
-  ({children, status, variant: variantProp = 'normal', className, ...rest}, ref) => {
+  ({children, status, size: sizeProp = 'medium', className, ...rest}, ref) => {
     // Open and closed statuses, we don't want to show an icon
     const noIconStatus = status === 'open' || status === 'closed'
 
@@ -61,12 +61,12 @@ const StateLabel = forwardRef<HTMLSpanElement, StateLabelProps>(
         {...rest}
         ref={ref}
         className={clsx(classes.StateLabel, className)}
-        data-variant={variantProp}
+        data-size={sizeProp}
         data-status={status}
       >
         {!noIconStatus && (
           <Octicon
-            data-variant-small={variantProp === 'small' ? '' : undefined}
+            data-size-small={sizeProp === 'small' ? '' : undefined}
             icon={octiconMap[status]}
             aria-label={labelMap[status]}
             className={classes.Icon}
