@@ -135,8 +135,6 @@ jobs:
 
       - name: Report versions
         uses: primer/.github/.github/actions/report-versions@report_versions_action
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload versions json file
         uses: primer/.github/.github/actions/upload-versions@main
