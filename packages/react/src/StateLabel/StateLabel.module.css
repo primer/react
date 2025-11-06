@@ -101,6 +101,6 @@
   margin-right: var(--base-size-4);
 }
 
-.Icon:where([data-variant-small]) {
+.Icon:where([data-size-small]) {
   width: 1em;
 }
