@@ -4,6 +4,7 @@ import type {HTMLDataAttributes} from '../internal/internal-types'
 import {useId} from '../hooks'
 import classes from './Spinner.module.css'
 import {clsx} from 'clsx'
+import {useCallback, useRef} from 'react'
 
 const sizeMap = {
   small: '16px',
@@ -30,6 +31,7 @@ function Spinner({
   style,
   ...props
 }: SpinnerProps) {
+  const animation = useSpinnerAnimation()
   const size = sizeMap[sizeKey]
   const hasHiddenLabel = srText !== null && ariaLabel === undefined
   const labelId = useId()
@@ -38,6 +40,7 @@ function Spinner({
     /* inline-flex removes the extra line height */
     <span className={classes.Box}>
       <svg
+        ref={animation}
         height={size}
         width={size}
         viewBox="0 0 16 16"
@@ -45,7 +48,7 @@ function Spinner({
         aria-hidden
         aria-label={ariaLabel ?? undefined}
         aria-labelledby={hasHiddenLabel ? labelId : undefined}
-        className={clsx(className, classes.SpinnerAnimation)}
+        className={className}
         style={style}
         {...props}
       >
@@ -72,5 +75,35 @@ function Spinner({
 }
 
 Spinner.displayName = 'Spinner'
+
+function useSpinnerAnimation() {
+  let ref = useRef<Animation | null>(null)
+  return useCallback((element: HTMLElement | SVGSVGElement | null) => {
+    if (!element) {
+      return
+    }
+
+    if (ref.current !== null) {
+      return
+    }
+
+    ref.current = element.animate(
+      [
+        {
+          transform: 'rotate(0deg)',
+        },
+        {
+          transform: 'rotate(360deg)',
+        },
+      ],
+      {
+        duration: 1000,
+        iterations: Infinity,
+        easing: 'cubic-bezier(0,0,1,1)',
+      },
+    )
+    ref.current.startTime = 0
+  }, [])
+}
 
 export default Spinner

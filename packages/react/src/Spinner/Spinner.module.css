@@ -1,13 +1,3 @@
 .Box {
   display: inline-flex;
 }
-
-@keyframes rotate-keyframes {
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.SpinnerAnimation {
-  animation: rotate-keyframes var(--base-duration-1000) var(--base-easing-linear) infinite;
-}
