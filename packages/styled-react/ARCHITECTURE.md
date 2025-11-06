@@ -9,14 +9,14 @@ that have downstream `sx` usage across GitHub are included in this package.
 The `@primer/react` peer dependency uses an explicit semver range to support:
 
 1. All stable versions >= 38.0.0
-2. Pre-release versions (e.g., `38.1.0-rc.x`, `39.0.0-rc.x`)
+2. Pre-release versions for currently published minor versions (38.0.x-rc, 38.1.x-rc)
 3. Development versions (e.g., `0.0.0-<hash>`)
 
-The pattern is verbose due to semver semantics: pre-release versions like
-`38.1.0-rc.1` are considered less than `38.1.0`, so they require explicit ranges
-(e.g., `>=38.1.0-0 <38.1.0`) to be matched. The pattern explicitly lists common
-minor versions (38.0-38.10) and future major versions (39-42) to provide
-comprehensive coverage while remaining maintainable.
+The pattern explicitly lists pre-release ranges due to semver semantics: pre-release
+versions like `38.1.0-rc.1` are considered less than `38.1.0`, so they require
+explicit ranges (e.g., `>=38.1.0-0 <38.1.0`) to be matched. The pattern covers
+currently published minor versions and can be extended when new minor versions are
+released.
 
 ## Overview
 
