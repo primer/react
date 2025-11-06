@@ -3,11 +3,12 @@ import {clsx} from 'clsx'
 import {useId} from '../hooks/useId'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
-import {isResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
+import {isResponsiveValue} from '../hooks/useResponsiveValue'
 import {useSlots} from '../hooks/useSlots'
 import {canUseDOM} from '../utils/environment'
 import {useOverflow} from '../hooks/useOverflow'
 import {warning} from '../utils/warning'
+import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes'
 
 import classes from './PageLayout.module.css'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types'
@@ -118,7 +119,7 @@ type DividerProps = {
   variant?: 'none' | 'line' | 'filled' | ResponsiveValue<'none' | 'line' | 'filled'>
   className?: string
   style?: React.CSSProperties
-  position?: keyof typeof panePositions
+  position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
 }
 
 const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
@@ -128,13 +129,12 @@ const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
   style,
 }) => {
   const {padding} = React.useContext(PageLayoutContext)
-  const responsiveVariant = useResponsiveValue(variant, 'none')
 
   return (
     <div
       className={clsx(classes.HorizontalDivider, className)}
-      data-variant={responsiveVariant}
-      data-position={position}
+      {...getResponsiveAttributes('variant', variant)}
+      {...getResponsiveAttributes('position', position)}
       style={
         {
           '--spacing-divider': `var(--spacing-${padding})`,
@@ -166,7 +166,6 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
 }) => {
   const [isDragging, setIsDragging] = React.useState(false)
   const [isKeyboardDrag, setIsKeyboardDrag] = React.useState(false)
-  const responsiveVariant = useResponsiveValue(variant, 'none')
 
   const stableOnDrag = React.useRef(onDrag)
   const stableOnDragEnd = React.useRef(onDragEnd)
@@ -263,8 +262,8 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   return (
     <div
       className={clsx(classes.VerticalDivider, className)}
-      data-variant={responsiveVariant}
-      data-position={position}
+      {...getResponsiveAttributes('variant', variant)}
+      {...getResponsiveAttributes('position', position)}
       style={style}
     >
       {draggable ? (
@@ -356,15 +355,13 @@ const Header: FCWithSlotMarker<React.PropsWithChildren<PageLayoutHeaderProps>> =
       ? {regular: divider, narrow: dividerWhenNarrow}
       : divider
 
-  const dividerVariant = useResponsiveValue(dividerProp, 'none')
-  const isHidden = useResponsiveValue(hidden, false)
   const {rowGap} = React.useContext(PageLayoutContext)
 
   return (
     <header
       aria-label={label}
       aria-labelledby={labelledBy}
-      hidden={isHidden}
+      {...getResponsiveAttributes('hidden', hidden)}
       className={clsx(classes.Header, className)}
       style={
         {
@@ -384,7 +381,7 @@ const Header: FCWithSlotMarker<React.PropsWithChildren<PageLayoutHeaderProps>> =
         {children}
       </div>
       <HorizontalDivider
-        variant={dividerVariant}
+        variant={dividerProp}
         className={classes.HeaderHorizontalDivider}
         style={
           {
@@ -444,7 +441,6 @@ const Content: FCWithSlotMarker<React.PropsWithChildren<PageLayoutContentProps>>
   className,
   style,
 }) => {
-  const isHidden = useResponsiveValue(hidden, false)
   const Component = as
 
   return (
@@ -453,7 +449,7 @@ const Content: FCWithSlotMarker<React.PropsWithChildren<PageLayoutContentProps>>
       aria-labelledby={labelledBy}
       style={style}
       className={clsx(classes.ContentWrapper, className)}
-      data-is-hidden={isHidden}
+      {...getResponsiveAttributes('is-hidden', hidden)}
     >
       <div
         className={classes.Content}
@@ -589,17 +585,16 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         ? {regular: responsivePosition, narrow: positionWhenNarrow}
         : responsivePosition
 
-    const position = useResponsiveValue(positionProp, 'end')
-
     // Combine divider and dividerWhenNarrow for backwards compatibility
     const dividerProp =
       !isResponsiveValue(responsiveDivider) && dividerWhenNarrow !== 'inherit'
         ? {regular: responsiveDivider, narrow: dividerWhenNarrow}
         : responsiveDivider
 
-    const dividerVariant = useResponsiveValue(dividerProp, 'none')
-
-    const isHidden = useResponsiveValue(responsiveHidden, false)
+    // For components that need responsive values in JavaScript logic, we'll use a fallback value
+    // The actual responsive behavior will be handled by CSS through data attributes
+    const position = isResponsiveValue(positionProp) ? 'end' : positionProp
+    const dividerVariant = isResponsiveValue(dividerProp) ? 'none' : dividerProp
 
     const {rowGap, columnGap, paneRef} = React.useContext(PageLayoutContext)
 
@@ -671,20 +666,20 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             ...style,
           } as React.CSSProperties
         }
-        data-is-hidden={isHidden}
-        data-position={position}
+        {...getResponsiveAttributes('is-hidden', responsiveHidden)}
+        {...getResponsiveAttributes('position', positionProp)}
         data-sticky={sticky || undefined}
       >
         {/* Show a horizontal divider when viewport is narrow. Otherwise, show a vertical divider. */}
         <HorizontalDivider
-          variant={{narrow: dividerVariant, regular: 'none'}}
+          variant={isResponsiveValue(dividerProp) ? dividerProp : {narrow: dividerVariant, regular: 'none'}}
           className={classes.PaneHorizontalDivider}
           style={
             {
               '--spacing': `var(--spacing-${rowGap})`,
             } as React.CSSProperties
           }
-          position={position}
+          position={positionProp}
         />
         <div
           ref={paneRef}
@@ -707,11 +702,19 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           {children}
         </div>
         <VerticalDivider
-          variant={{
-            narrow: 'none',
-            // If pane is resizable, always show a vertical divider on regular viewports
-            regular: resizable ? 'line' : dividerVariant,
-          }}
+          variant={
+            isResponsiveValue(dividerProp)
+              ? {
+                  narrow: 'none',
+                  regular: resizable ? 'line' : dividerProp.regular || 'none',
+                  wide: resizable ? 'line' : dividerProp.wide || dividerProp.regular || 'none',
+                }
+              : {
+                  narrow: 'none',
+                  // If pane is resizable, always show a vertical divider on regular viewports
+                  regular: resizable ? 'line' : dividerVariant,
+                }
+          }
           // If pane is resizable, the divider should be draggable
           draggable={resizable}
           onDrag={(delta, isKeyboard = false) => {
@@ -730,7 +733,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             if (!paneRect) return
             updatePaneWidth(paneRect.width)
           }}
-          position={position}
+          position={positionProp}
           // Reset pane width on double click
           onDoubleClick={() => updatePaneWidth(getDefaultPaneWidth(width))}
           className={classes.PaneVerticalDivider}
@@ -799,15 +802,13 @@ const Footer: FCWithSlotMarker<React.PropsWithChildren<PageLayoutFooterProps>> =
       ? {regular: divider, narrow: dividerWhenNarrow}
       : divider
 
-  const dividerVariant = useResponsiveValue(dividerProp, 'none')
-  const isHidden = useResponsiveValue(hidden, false)
   const {rowGap} = React.useContext(PageLayoutContext)
 
   return (
     <footer
       aria-label={label}
       aria-labelledby={labelledBy}
-      hidden={isHidden}
+      {...getResponsiveAttributes('hidden', hidden)}
       className={clsx(classes.FooterWrapper, className)}
       style={
         {
@@ -823,7 +824,7 @@ const Footer: FCWithSlotMarker<React.PropsWithChildren<PageLayoutFooterProps>> =
             '--spacing': `var(--spacing-${rowGap})`,
           } as React.CSSProperties
         }
-        variant={dividerVariant}
+        variant={dividerProp}
       />
       <div
         className={classes.FooterContent}

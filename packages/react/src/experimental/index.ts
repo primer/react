@@ -93,3 +93,4 @@ export {IssueLabel} from './IssueLabel'
 export type {IssueLabelProps} from './IssueLabel'
 
 export * from '../KeybindingHint'
+export * from './Tabs'

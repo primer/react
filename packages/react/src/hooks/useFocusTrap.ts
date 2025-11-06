@@ -82,7 +82,6 @@ export function useFocusTrap(
         }
       }
     },
-    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [containerRef, initialFocusRef, disabled, ...dependencies],
   )

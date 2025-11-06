@@ -55,7 +55,7 @@ const preview = {
               [
                 '*',
                 // Within a set of stories, set the order to the following
-                ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
+                ['README', '*', 'Playground', /Playground$/, 'Features', 'Examples'],
               ],
             ],
           ],
@@ -72,7 +72,7 @@ const preview = {
                   [
                     '*',
                     // Within a set of stories, set the order to the following
-                    ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
+                    ['README', '*', 'Playground', /Playground$/, 'Features', 'Examples'],
                   ],
                 ],
               ],
@@ -92,7 +92,7 @@ const preview = {
                   [
                     '*',
                     // Within a set of stories, set the order to the following
-                    ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
+                    ['README', '*', 'Playground', /Playground$/, 'Features', 'Examples'],
                   ],
                 ],
               ],
@@ -110,7 +110,7 @@ const preview = {
                   [
                     '*',
                     // Within a set of stories, set the order to the following
-                    ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
+                    ['README', '*', 'Playground', /Playground$/, 'Features', 'Examples'],
                   ],
                 ],
               ],
