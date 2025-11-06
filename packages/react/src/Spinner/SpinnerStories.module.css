@@ -14,3 +14,36 @@
 .LoadButton {
   margin-bottom: var(--base-size-16);
 }
+
+.ChecksList {
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+  padding: var(--base-size-8);
+  background-color: var(--bgColor-default);
+}
+
+.CheckItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--base-size-8);
+  padding: var(--base-size-8);
+}
+
+.CheckIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+}
+
+.CheckContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-size-4);
+  flex: 1;
+}
+
+.CheckDescription {
+  color: var(--fgColor-muted);
+}
