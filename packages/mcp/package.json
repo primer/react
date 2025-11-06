@@ -23,6 +23,10 @@
     "src",
     "README.md"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/primer/react.git"
+  },
   "scripts": {
     "clean": "rimraf dist",
     "build": "rollup -c",
@@ -40,18 +44,18 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@babel/core": "^7.28.4",
-    "@babel/plugin-transform-runtime": "^7.28.3",
-    "@babel/preset-env": "^7.28.3",
-    "@babel/preset-typescript": "^7.27.1",
+    "@babel/core": "^7.28.5",
+    "@babel/plugin-transform-runtime": "^7.28.5",
+    "@babel/preset-env": "^7.28.5",
+    "@babel/preset-typescript": "^7.28.5",
     "@modelcontextprotocol/inspector": "^0.16.6",
-    "@rollup/plugin-babel": "^6.0.4",
-    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-babel": "^6.1.0",
+    "@rollup/plugin-commonjs": "^28.0.9",
     "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-node-resolve": "^16.0.3",
     "@types/turndown": "^5.0.5",
     "rimraf": "^6.0.1",
-    "rollup": "^4.50.1",
+    "rollup": "^4.52.5",
     "rollup-plugin-typescript2": "^0.36.0",
     "typescript": "^5.9.2"
   }

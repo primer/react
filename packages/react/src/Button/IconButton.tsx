@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react'
+import React, {forwardRef, type JSX} from 'react'
 import type {IconButtonProps} from './types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {ButtonBase} from './ButtonBase'

@@ -1,5 +1,5 @@
 import {fireEvent, render, act, screen} from '@testing-library/react'
-import {userEvent} from '@vitest/browser/context'
+import {userEvent} from 'vitest/browser'
 import {beforeEach, afterEach, describe, it, expect, vi} from 'vitest'
 import React from 'react'
 import type {SubTreeState} from './TreeView'
