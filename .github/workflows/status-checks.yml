@@ -1,0 +1,44 @@
+name: status-checks
+
+on:
+  pull_request:
+    types: [labeled, opened, reopened, synchronize]
+
+permissions:
+  pull-requests: write
+  statuses: write
+
+jobs:
+  github-ui:
+    runs-on: ubuntu-latest
+    if: "${{ contains(github.event.pull_request.labels.*.name, 'integration-tests: skipped manually') }}"
+    steps:
+      - name: Override status checks
+        run: |
+          # Get the timeline event ID for the label being added
+          EVENT_ID=$(gh api "/repos/primer/react/issues/$PR_NUMBER/timeline" \
+            --jq '.[] | select(.event == "labeled" and .label.name == "integration-tests: skipped manually") | .id' \
+            | tail -n 1)
+
+          # Construct the HTML URL from the event ID
+          if [ -n "$EVENT_ID" ]; then
+            TARGET_URL="${{ github.event.pull_request.html_url }}#event-$EVENT_ID"
+          else
+            TARGET_URL="${{ github.event.pull_request.html_url }}"
+          fi
+
+          gh api -X POST "/repos/primer/react/statuses/$SHA" \
+            -f state='success' \
+            -f context='github-ui / ci' \
+            -f description='Skipped' \
+            -f target_url="$TARGET_URL"
+
+          gh api -X POST "/repos/primer/react/statuses/$SHA" \
+            -f state='success' \
+            -f context='github-ui / projects' \
+            -f description='Skipped' \
+            -f target_url="$TARGET_URL"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SHA: ${{ github.event.pull_request.head.sha }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}

@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react'
+import React, {forwardRef, type JSX} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import type {ButtonProps} from './types'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
@@ -81,7 +81,6 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
      * this is safe, and ensures the entire effect is kept out of prod builds
      * shaving precious bytes from the output, and avoiding mounting a noop effect
      */
-    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/rules-of-hooks
     React.useEffect(() => {
       if (

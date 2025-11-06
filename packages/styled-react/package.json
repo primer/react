@@ -41,8 +41,8 @@
     "styled-system": "^5.1.5"
   },
   "devDependencies": {
-    "@babel/preset-react": "^7.27.1",
-    "@babel/preset-typescript": "^7.27.1",
+    "@babel/preset-react": "^7.28.5",
+    "@babel/preset-typescript": "^7.28.5",
     "@primer/react": "^38.0.0",
     "@rollup/plugin-babel": "^6.1.0",
     "@types/react": "18.3.11",
@@ -50,7 +50,7 @@
     "@types/styled-components": "^5.1.26",
     "@vitejs/plugin-react": "^4.3.3",
     "babel-plugin-styled-components": "2.1.4",
-    "publint": "^0.3.12",
+    "publint": "^0.3.15",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "rimraf": "^6.0.1",

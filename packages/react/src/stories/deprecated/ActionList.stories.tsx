@@ -12,7 +12,7 @@ import {
   ArrowLeftIcon,
 } from '@primer/octicons-react'
 import type {Meta} from '@storybook/react-vite'
-import React, {forwardRef} from 'react'
+import React, {forwardRef, type JSX} from 'react'
 import {Label} from '../..'
 import {ActionList as _ActionList} from '../../deprecated/ActionList'
 import {Header} from '../../deprecated/ActionList/Header'
@@ -354,6 +354,7 @@ const NextJSLikeLink = forwardRef(
       ref,
       href,
     }
+    // eslint-disable-next-line react-hooks/refs
     return <>{React.isValidElement(child) ? React.cloneElement(child, childProps) : null}</>
   },
 )

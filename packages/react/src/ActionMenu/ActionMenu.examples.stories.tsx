@@ -195,6 +195,9 @@ export const ControlledMenu = () => {
 }
 
 export const ShortcutMenu = () => {
+  const [open, setOpen] = React.useState(false)
+  const triggerRef = React.useRef<HTMLButtonElement>(null)
+
   React.useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.shiftKey && (event.key === 'c' || event.key === 'C')) {
@@ -204,9 +207,6 @@ export const ShortcutMenu = () => {
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [])
-
-  const [open, setOpen] = React.useState(false)
-  const triggerRef = React.useRef<HTMLButtonElement>(null)
 
   return (
     <>
@@ -270,9 +270,7 @@ export const ContextMenu = () => {
       setOpen(true)
     }
 
-    // eslint-disable-next-line react-compiler/react-compiler
     const [open, setOpen] = React.useState(false)
-    // eslint-disable-next-line react-compiler/react-compiler
     const triggerRef = React.useRef<HTMLButtonElement>(null)
 
     return (
