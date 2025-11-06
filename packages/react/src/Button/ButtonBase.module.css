@@ -548,6 +548,7 @@
     color: var(--fgColor-link);
     text-align: left;
     border: unset;
+    border-radius: 0;
 
     &:hover:not(:disabled, [data-inactive]) {
       text-decoration: underline;
@@ -576,6 +577,34 @@
 
     & .Visual {
       color: var(--fgColor-link);
+    }
+  }
+
+  [data-a11y-link-underlines='true'] &:where([data-variant='link']) {
+    &:not(:has(.Visual)) {
+      text-decoration: underline;
+    }
+
+    &:has(.Visual) {
+      background-image: linear-gradient(to right, currentColor, currentColor);
+      background-size: 100% 1.5px;
+      background-position: 0 calc(100% - 2px);
+      background-repeat: no-repeat;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  [data-a11y-link-underlines='false'] &:where([data-variant='link']) {
+    &:not(:has(.Visual)) {
+      text-decoration: none;
+      background-image: none;
+    }
+
+    &:has(.Visual) {
+      background-image: none;
     }
   }
 

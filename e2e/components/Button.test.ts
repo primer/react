@@ -103,6 +103,10 @@ const stories = [
     title: 'Keybinding Hint With Leading Visual',
     id: 'components-button-features--keybinding-hint-with-leading-visual',
   },
+  {
+    title: 'Dev Link Variant With Underline Preference',
+    id: 'components-button-dev--link-variant-with-underline-preference',
+  },
 ] as const
 
 test.describe('Button', () => {
