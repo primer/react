@@ -18,13 +18,14 @@ const SKIPPED_TESTS = [
 
 type Component = {
   name: string
+  type: 'story' | 'docs'
 }
 
 const {entries} = componentsConfig
 
 test.describe('Axe tests', () => {
   for (const [id, entry] of Object.entries(entries as Record<string, Component>)) {
-    if (SKIPPED_TESTS.includes(id)) {
+    if (SKIPPED_TESTS.includes(id) || entry.type !== 'story') {
       continue
     }
 
