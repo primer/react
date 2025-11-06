@@ -686,4 +686,83 @@ server.tool(
   },
 )
 
+/**
+ * The `describe_image` tool is experimental and may be removed in future versions.
+ *
+ * The intent of this tool is to assist products like Copilot Code Review and Copilot Coding Agent
+ * in generating accessible alt text descriptions for images based on context and accessibility guidelines.
+ * This tool should be used to create initial alt text suggestions, which should then be reviewed and
+ * refined by humans to ensure accuracy and appropriateness. It is not intended to replace human judgment
+ * in creating meaningful, context-appropriate image descriptions.
+ *
+ **/
+server.tool(
+  'describe_image',
+  'Generates descriptive alt text for an image based on accessibility best practices and surrounding context.',
+  {
+    image: z
+      .union([
+        z.instanceof(File).describe('The image src file to describe'),
+        z.string().url().describe('The URL of the image src to describe'),
+        z.string().describe('The file path of the image src to describe'),
+      ])
+      .describe('The image file, file path, or URL to describe'),
+    surroundingText: z
+      .string()
+      .optional()
+      .describe('Optional text surrounding the image that provides context for generating more relevant alt text.'),
+  },
+  async ({image, surroundingText}) => {
+    // Build the prompt for generating alt text
+    let prompt = `Generate accessible alt text for this image: ${image}
+
+Please follow these accessibility guidelines:
+- Be concise and descriptive (aim for 125 characters or less)
+- Describe the content and function of the image
+- Avoid phrases like "image of" or "picture of"
+- Focus on the most important information
+- Consider the context in which the image appears
+- If the image is decorative, indicate that alt="" should be used
+- If the image contains text, include that text in the description
+`
+
+    if (surroundingText) {
+      prompt += `\nContext: The image appears in the following context: "${surroundingText}"\nConsider this context when generating the alt text to ensure it's relevant and non-redundant.`
+    }
+
+    // Call the LLM through MCP sampling
+    const response = await server.server.createMessage({
+      messages: [
+        {
+          role: 'user',
+          content: {
+            type: 'text',
+            text: prompt,
+          },
+        },
+      ],
+      sampling: {temperature: 0.7},
+      maxTokens: 300,
+    })
+
+    const generatedText = response.content.type === 'text' ? response.content.text : 'Unable to generate description'
+
+    return {
+      content: [
+        {
+          type: 'text',
+          text: generatedText,
+        },
+      ],
+      generatedAltText: generatedText,
+      nextSteps: `Review the generated alt text for accuracy and appropriateness. Consider:
+- Does it accurately describe the image content?
+- Is it concise (ideally under 125 characters)?
+- Does it avoid redundancy with surrounding text?
+- Is it appropriate for the context?
+You may use the 'review_alt_text' tool to evaluate the generated alt text if needed.`,
+    }
+  },
+)
+
 export {server}
