@@ -4,6 +4,20 @@ This package mirrors components from `@primer/react` but optionally provides
 support for `sx` and `styled-system` props to a component. Only components
 that have downstream `sx` usage across GitHub are included in this package.
 
+## Peer Dependency Version Range
+
+The `@primer/react` peer dependency uses an explicit semver range to support:
+
+1. All stable versions >= 38.0.0
+2. Pre-release versions (e.g., `38.1.0-rc.x`, `39.0.0-rc.x`)
+3. Development versions (e.g., `0.0.0-<hash>`)
+
+The pattern is verbose due to semver semantics: pre-release versions like
+`38.1.0-rc.1` are considered less than `38.1.0`, so they require explicit ranges
+(e.g., `>=38.1.0-0 <38.1.0`) to be matched. The pattern explicitly lists common
+minor versions (38.0-38.10) and future major versions (39-42) to provide
+comprehensive coverage while remaining maintainable.
+
 ## Overview
 
 There are several ways a component is added to this package:
