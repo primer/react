@@ -11,34 +11,42 @@
   border-radius: var(--borderRadius-medium);
 
   /* Responsive full-width */
-  &[data-full-width] {
+  &[data-full-width='true'] {
     display: flex;
     width: 100%;
   }
 
-  &[data-full-width-narrow] {
+  &[data-full-width-narrow='true'] {
     @media (--viewportRange-narrow) {
       display: flex;
       width: 100%;
     }
   }
 
-  &[data-full-width-regular] {
+  &[data-full-width-regular='true'] {
     @media (--viewportRange-regular) {
       display: flex;
       width: 100%;
     }
   }
 
-  &[data-full-width-wide] {
+  &[data-full-width-wide='true'] {
     @media (--viewportRange-wide) {
       display: flex;
       width: 100%;
     }
   }
 
+  /* Reset when full-width disabled on wider breakpoints */
+  &[data-full-width-regular='true'][data-full-width-wide='false'] {
+    @media (--viewportRange-wide) {
+      display: inline-flex;
+      width: auto;
+    }
+  }
+
   /* Hide when dropdown variant is active */
-  &[data-variant-dropdown] {
+  &[data-variant='dropdown'] {
     display: none;
   }
 
@@ -61,7 +69,7 @@
   }
 
   /* Handle hideLabels variant - hide button text */
-  &[data-variant-hideLabels] .Text {
+  &[data-variant='hideLabels'] .Text {
     display: none;
   }
 
@@ -242,8 +250,30 @@
   /* TODO: use primitive `control.medium.size` when it is available instead of '32px' */
   width: 32px;
 
-  .SegmentedControl:where([data-full-width]) & {
+  .SegmentedControl[data-full-width='true'] & {
     width: 100%;
+  }
+
+  @media (--viewportRange-narrow) {
+    .SegmentedControl[data-full-width-narrow='true'] & {
+      width: 100%;
+    }
+  }
+
+  @media (--viewportRange-regular) {
+    .SegmentedControl[data-full-width-regular='true'] & {
+      width: 100%;
+    }
+  }
+
+  @media (--viewportRange-wide) {
+    .SegmentedControl[data-full-width-wide='true'] & {
+      width: 100%;
+    }
+
+    .SegmentedControl[data-full-width-regular='true'][data-full-width-wide='false'] & {
+      width: 32px;
+    }
   }
 }
 
