@@ -13,9 +13,9 @@ permissions:
   statuses: write
 
 jobs:
-  github-ui:
+  github-ui-pull-request:
     runs-on: ubuntu-latest
-    if: "${{ (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'integration-tests: skipped manually')) || github.event_name == 'merge_group' }}"
+    if: "${{ github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'integration-tests: skipped manually') }}"
     steps:
       - name: Generate token for primer
         id: generate_primer_token
@@ -26,61 +26,74 @@ jobs:
           private-key: ${{ secrets.PRIMER_INTEGRATION_APP_PRIVATE_KEY }}
       - name: Override status checks
         run: |
-          # Determine SHA and PR number based on event type
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            SHA="${{ github.event.pull_request.head.sha }}"
-            PR_NUMBER="${{ github.event.pull_request.number }}"
-            HTML_URL="${{ github.event.pull_request.html_url }}"
+          # Get the timeline event ID for the label being added
+          EVENT_ID=$(gh api "/repos/primer/react/issues/${{ github.event.pull_request.number }}/timeline" \
+            --jq '.[] | select(.event == "labeled" and .label.name == "integration-tests: skipped manually") | .id' \
+            | tail -n 1)
+
+          # Construct the HTML URL from the event ID
+          if [ -n "$EVENT_ID" ]; then
+            TARGET_URL="${{ github.event.pull_request.html_url }}#event-$EVENT_ID"
           else
-            # For merge_group, extract PR number from head_ref
-            # Format: refs/heads/gh-readonly-queue/main/pr-123-abc123
-            SHA="${{ github.event.merge_group.head_sha }}"
-            PR_NUMBER=$(echo "${{ github.event.merge_group.head_ref }}" | sed -n 's/^refs\/heads\/gh-readonly-queue\/[^\/]*\/pr-\([0-9]*\)-.*/\1/p')
-            
-            # Validate PR_NUMBER extraction
-            if [ -z "$PR_NUMBER" ]; then
-              echo "Error: Failed to extract PR number from head_ref: ${{ github.event.merge_group.head_ref }}"
-              exit 1
-            fi
-            
-            HTML_URL="https://github.com/${{ github.repository }}/pull/$PR_NUMBER"
+            TARGET_URL="${{ github.event.pull_request.html_url }}"
           fi
 
-          # For merge_group events, check if the PR has the required label
-          if [ "${{ github.event_name }}" = "merge_group" ]; then
-            HAS_LABEL=$(gh api "/repos/primer/react/issues/$PR_NUMBER" \
-              --jq '[.labels[].name] | contains(["integration-tests: skipped manually"])')
-            
-            if [ "$HAS_LABEL" != "true" ]; then
-              echo "PR #$PR_NUMBER does not have the required label. Skipping status override."
-              exit 0
-            fi
-          fi
-
-          # Get the timeline event ID for the label being added (only for pull_request events)
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            EVENT_ID=$(gh api "/repos/primer/react/issues/$PR_NUMBER/timeline" \
-              --jq '.[] | select(.event == "labeled" and .label.name == "integration-tests: skipped manually") | .id' \
-              | tail -n 1)
-
-            # Construct the HTML URL from the event ID
-            if [ -n "$EVENT_ID" ]; then
-              TARGET_URL="${HTML_URL}#event-$EVENT_ID"
-            else
-              TARGET_URL="${HTML_URL}"
-            fi
-          else
-            # For merge_group, just use the PR URL
-            TARGET_URL="${HTML_URL}"
-          fi
-
-          gh api -X POST "/repos/primer/react/statuses/$SHA" \
+          gh api -X POST "/repos/primer/react/statuses/${{ github.event.pull_request.head.sha }}" \
             -f state='success' \
             -f context='github-ui / ci' \
             -f description='Skipped' \
             -f target_url="$TARGET_URL"
 
-          gh api -X POST "/repos/primer/react/statuses/$SHA" \
+          gh api -X POST "/repos/primer/react/statuses/${{ github.event.pull_request.head.sha }}" \
+            -f state='success' \
+            -f context='github-ui / projects' \
+            -f description='Skipped' \
+            -f target_url="$TARGET_URL"
+        env:
+          GH_TOKEN: ${{ steps.generate_primer_token.outputs.token }}
+
+  github-ui-merge-queue:
+    runs-on: ubuntu-latest
+    if: "${{ github.event_name == 'merge_group' }}"
+    steps:
+      - name: Generate token for primer
+        id: generate_primer_token
+        uses: actions/create-github-app-token@67018539274d69449ef7c02e8e71183d1719ab42 # v2.1.4
+        with:
+          app-id: 902635
+          owner: 'primer'
+          private-key: ${{ secrets.PRIMER_INTEGRATION_APP_PRIVATE_KEY }}
+      - name: Override status checks
+        run: |
+          # Extract PR number from head_ref
+          # Format: refs/heads/gh-readonly-queue/main/pr-123-abc123
+          PR_NUMBER=$(echo "${{ github.event.merge_group.head_ref }}" | sed -n 's/^refs\/heads\/gh-readonly-queue\/[^\/]*\/pr-\([0-9]*\)-.*/\1/p')
+          
+          # Validate PR_NUMBER extraction
+          if [ -z "$PR_NUMBER" ]; then
+            echo "Error: Failed to extract PR number from head_ref: ${{ github.event.merge_group.head_ref }}"
+            exit 1
+          fi
+
+          # Check if the PR has the required label
+          HAS_LABEL=$(gh api "/repos/primer/react/issues/$PR_NUMBER" \
+            --jq '[.labels[].name] | contains(["integration-tests: skipped manually"])')
+          
+          if [ "$HAS_LABEL" != "true" ]; then
+            echo "PR #$PR_NUMBER does not have the required label. Skipping status override."
+            exit 0
+          fi
+
+          # Use the PR URL as the target URL
+          TARGET_URL="https://github.com/${{ github.repository }}/pull/$PR_NUMBER"
+
+          gh api -X POST "/repos/primer/react/statuses/${{ github.event.merge_group.head_sha }}" \
+            -f state='success' \
+            -f context='github-ui / ci' \
+            -f description='Skipped' \
+            -f target_url="$TARGET_URL"
+
+          gh api -X POST "/repos/primer/react/statuses/${{ github.event.merge_group.head_sha }}" \
             -f state='success' \
             -f context='github-ui / projects' \
             -f description='Skipped' \
