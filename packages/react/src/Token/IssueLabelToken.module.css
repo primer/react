@@ -6,7 +6,7 @@
 
   background: rgb(var(--label-r), var(--label-g), var(--label-b));
   color: hsl(0deg, 0%, calc(var(--lightness-switch) * 100%));
-  border-color: hsla(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 25) * 1%), var(--border-alpha));
+  border-color: hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 25) * 1%), var(--border-alpha));
 
   /* Selected state */
   &:where([data-selected='true']) {
@@ -20,7 +20,7 @@
 
   /* Interactive hover states */
   &:where([data-cursor-is-interactive='true']:hover) {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
+    background-image: linear-gradient(rgb(0, 0, 0, 0.15), rgb(0, 0, 0, 0.15)),
       linear-gradient(
         rgb(var(--label-r), var(--label-g), var(--label-b)),
         rgb(var(--label-r), var(--label-g), var(--label-b))
@@ -35,9 +35,9 @@
   --border-alpha: 0.3;
   --lighten-by: calc(((var(--lightness-threshold) - var(--perceived-lightness)) * 100) * var(--lightness-switch));
 
-  background: rgba(var(--label-r), var(--label-g), var(--label-b), var(--background-alpha));
+  background: rgb(var(--label-r), var(--label-g), var(--label-b), var(--background-alpha));
   color: hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) + var(--lighten-by)) * 1%));
-  border-color: hsla(
+  border-color: hsl(
     var(--label-h),
     calc(var(--label-s) * 1%),
     calc((var(--label-l) + var(--lighten-by)) * 1%),
@@ -53,7 +53,7 @@
 
   /* Interactive hover states */
   &:where([data-cursor-is-interactive='true']:hover) {
-    background: hsla(var(--label-h), calc(var(--label-s) * 1%), calc(calc(var(--label-l) + 10) * 1%), 0.3);
+    background: hsl(var(--label-h), calc(var(--label-s) * 1%), calc(calc(var(--label-l) + 10) * 1%), 0.3);
     box-shadow: var(--shadow-resting-medium);
   }
 }
