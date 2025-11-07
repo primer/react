@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-IconButton: Hide tooltip when popup is open via `aria-expanded="true"` and `aria-haspopup="true"`
+IconButton: Hide tooltip when popup is open via new `closeTooltip` prop in `Tooltip`.
