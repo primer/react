@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-TooltipV2: Hide tooltip when menu (`ActionMenu`) is open
+IconButton: Hide tooltip when popup is open via `aria-expanded="true"` and `aria-haspopup="true"`
