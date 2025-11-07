@@ -61,7 +61,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   )
     ? React.Children.toArray(children)[selectedIndex]
     : undefined
-  const getChildIcon = (childArg: React.ReactNode): React.ReactElement | null => {
+  const getChildIcon = (childArg: React.ReactNode): React.ReactElement<any> | null => {
     if (
       React.isValidElement<SegmentedControlButtonProps>(childArg) &&
       (childArg.type === Button || isSlot(childArg, Button))
@@ -112,7 +112,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
 
   return responsiveVariant === 'dropdown' ? (
     // Render the 'dropdown' variant of the SegmentedControlButton or SegmentedControlIconButton
-    <>
+    (<>
       <ActionMenu>
         {/*
           The aria-label is only provided as a backup when the designer or engineer neglects to show a label for the SegmentedControl.
@@ -150,10 +150,10 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
           </ActionList>
         </ActionMenu.Overlay>
       </ActionMenu>
-    </>
+    </>)
   ) : (
     // Render a segmented control
-    <ul
+    (<ul
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledby}
       ref={segmentedControlContainerRef}
@@ -221,8 +221,8 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
         // Render the children as-is and add the shared child props
         return React.cloneElement(child, sharedChildProps)
       })}
-    </ul>
-  )
+    </ul>)
+  );
 }
 
 Root.displayName = 'SegmentedControl'

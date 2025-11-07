@@ -36,7 +36,7 @@ export type UnderlineNavItemProps = {
   /**
    *  Icon before the text
    */
-  icon?: React.FunctionComponent<IconProps> | React.ReactElement
+  icon?: React.FunctionComponent<IconProps> | React.ReactElement<any>
   /**
    * Renders `UnderlineNav.Item` as given component i.e. react-router's Link
    **/

@@ -31,9 +31,9 @@ figma.connect(
     },
     example: ({selected, label, leadingIcon}) => (
       // @ts-expect-error: leadingIcon is optional
-      <SegmentedControl.Button selected={selected} leadingVisual={leadingIcon.fn}>
+      (<SegmentedControl.Button selected={selected} leadingVisual={leadingIcon.fn}>
         {label}
-      </SegmentedControl.Button>
+      </SegmentedControl.Button>)
     ),
   },
 )
@@ -44,7 +44,7 @@ figma.connect(
   {
     props: {
       selected: figma.enum('state', {selected: true}),
-      icon: figma.instance('icon').getProps<{name: string; fn: React.ReactElement}>(),
+      icon: figma.instance('icon').getProps<{name: string; fn: React.ReactElement<any>}>(),
     },
     example: ({selected, icon}) => (
       <SegmentedControl.IconButton aria-label="Describe action" selected={selected} icon={icon.fn} />

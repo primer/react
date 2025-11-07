@@ -43,7 +43,7 @@ const NoResultsMessage = (filter: string): {variant: 'empty'; title: string; bod
   }
 }
 
-const EmptyMessage: {variant: 'empty'; title: string; body: React.ReactElement} = {
+const EmptyMessage: {variant: 'empty'; title: string; body: React.ReactElement<any>} = {
   variant: 'empty',
   title: `You haven't created any projects yet`,
   body: (
@@ -340,7 +340,7 @@ export const WithNotice = () => {
   const [open, setOpen] = useState(false)
   const [noticeVariant, setNoticeVariant] = useState(0)
 
-  const noticeVariants: Array<{text: string | React.ReactElement; variant: 'info' | 'warning' | 'error'}> = [
+  const noticeVariants: Array<{text: string | React.ReactElement<any>; variant: 'info' | 'warning' | 'error'}> = [
     {
       variant: 'info',
       text: 'Try a different search term.',
@@ -637,7 +637,7 @@ export const CustomisedNoInitialItems = () => {
     setIsError(!isError)
   }, [setIsError, isError])
 
-  function getMessage(): {variant: 'empty' | 'error'; title: string; body: string | React.ReactElement} {
+  function getMessage(): {variant: 'empty' | 'error'; title: string; body: string | React.ReactElement<any>} {
     if (isError) return ErrorMessage
     else if (filter) return NoResultsMessage(filter)
     else return EmptyMessage
@@ -901,10 +901,10 @@ export const WithMessage = () => {
     | undefined
     | {
         title: string
-        body: string | React.ReactElement
+        body: string | React.ReactElement<any>
         variant: 'empty' | 'error' | 'warning'
         icon?: React.ComponentType<IconProps>
-        action?: React.ReactElement
+        action?: React.ReactElement<any>
       }
   > = [
     undefined, // Default message

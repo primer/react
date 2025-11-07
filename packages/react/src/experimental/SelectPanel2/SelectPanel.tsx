@@ -116,7 +116,7 @@ const Panel: React.FC<SelectPanelProps> = ({
   // 🚨 Hack for good API!
   // we strip out Anchor from children and wire it up to Dialog
   // with additional props for accessibility
-  let Anchor: React.ReactElement | undefined
+  let Anchor: React.ReactElement<any> | undefined
   const anchorRef = useProvidedRefOrCreate(providedAnchorRef)
 
   const onAnchorClick = () => {
@@ -521,10 +521,10 @@ const SecondaryLink: React.FC<LinkProps> = ({className, ...props}) => {
 
   return (
     // @ts-ignore TODO: is as prop is not recognised by button?
-    <Button as={Link} size={size} variant="invisible" block {...props} className={clsx(classes.SmallText, className)}>
+    (<Button as={Link} size={size} variant="invisible" block {...props} className={clsx(classes.SmallText, className)}>
       {props.children}
-    </Button>
-  )
+    </Button>)
+  );
 }
 
 const SecondaryCheckbox: React.FC<CheckboxProps> = ({id, children, className, ...props}) => {

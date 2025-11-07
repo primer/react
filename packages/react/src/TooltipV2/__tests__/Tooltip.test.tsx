@@ -24,7 +24,7 @@ const TooltipComponentWithExistingDescription = (props: Omit<TooltipProps, 'text
   </>
 )
 
-function ExampleWithActionMenu(actionMenuTrigger: React.ReactElement): JSX.Element {
+function ExampleWithActionMenu(actionMenuTrigger: React.ReactElement<any>): JSX.Element {
   return (
     <BaseStyles>
       <ActionMenu>

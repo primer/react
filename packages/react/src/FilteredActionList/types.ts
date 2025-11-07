@@ -4,7 +4,7 @@ import type {Group} from '../ActionList/Group'
 import type {ActionListGroupProps} from '../deprecated'
 import type {AriaRole} from '../utils/types'
 
-export type RenderItemFn = (props: FilteredActionListItemProps) => React.ReactElement
+export type RenderItemFn = (props: FilteredActionListItemProps) => React.ReactElement<any>
 
 export type ItemInput =
   | Merge<React.ComponentPropsWithoutRef<'div'>, FilteredActionListItemProps>
