@@ -2,7 +2,7 @@
 .ErsatzOverlay {
   border-radius: var(--borderRadius-large);
   box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.12),
-    0 8px 24px rgba(149, 157, 165, 0.2);
+    0 1px 3px rgb(0, 0, 0, 0.12),
+    0 8px 24px rgb(149, 157, 165, 0.2);
   padding: var(--base-size-8);
 }
