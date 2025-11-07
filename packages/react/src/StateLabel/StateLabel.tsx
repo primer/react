@@ -48,13 +48,23 @@ const labelMap: Record<keyof typeof octiconMap, 'Issue' | 'Issue, not planned' |
 
 export type StateLabelProps = React.HTMLAttributes<HTMLSpanElement> & {
   size?: 'small' | 'medium'
+  /** @deprecated use size property with value 'small' or 'medium' instead */
+  variant?: 'normal' | 'small' // kept for backwards compatibility
   status: keyof typeof octiconMap
 }
 
 const StateLabel = forwardRef<HTMLSpanElement, StateLabelProps>(
-  ({children, status, size: sizeProp = 'medium', className, ...rest}, ref) => {
+  ({children, status, size: sizeProp = 'medium', variant: variantProp, className, ...rest}, ref) => {
     // Open and closed statuses, we don't want to show an icon
     const noIconStatus = status === 'open' || status === 'closed'
+
+    // For backwards compatibility, we map variant to size
+    if (variantProp === 'small') {
+      sizeProp = 'small'
+    }
+    if (variantProp === 'normal') {
+      sizeProp = 'medium'
+    }
 
     return (
       <span
