@@ -37,12 +37,7 @@ const IconButton = forwardRef(
     const hasActivePopup = (isExpanded === true || isExpanded === 'true') && hasPopup === 'true'
 
     const withoutTooltip =
-      unsafeDisableTooltip ||
-      disabled ||
-      ariaLabel === undefined ||
-      ariaLabel === '' ||
-      hasExternalTooltip ||
-      hasActivePopup
+      unsafeDisableTooltip || disabled || ariaLabel === undefined || ariaLabel === '' || hasExternalTooltip
 
     if (withoutTooltip) {
       return (
@@ -67,6 +62,7 @@ const IconButton = forwardRef(
           type={description ? undefined : 'label'}
           direction={tooltipDirection}
           keybindingHint={keybindingHint ?? keyshortcuts}
+          closeTooltip={hasActivePopup}
         >
           <ButtonBase
             icon={Icon}

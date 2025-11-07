@@ -721,7 +721,7 @@ describe('ActionMenu', () => {
       await user.click(menuItems[0])
       expect(component.queryByRole('menu')).toBeNull()
 
-      expect(component.getByRole('button')).toEqual(document.activeElement)
+      expect(button).toEqual(document.activeElement)
       await user.keyboard('{Enter}')
       expect(component.queryByRole('menu')).toBeInTheDocument()
       expect(mockOnKeyDown).toHaveBeenCalledTimes(1)
