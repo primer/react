@@ -10,15 +10,116 @@
   border: var(--borderWidth-thin) solid var(--controlTrack-borderColor-rest, transparent);
   border-radius: var(--borderRadius-medium);
 
-  &:where([data-full-width]) {
+  /* Responsive full-width */
+  &[data-full-width] {
     display: flex;
     width: 100%;
+  }
+
+  &[data-full-width-narrow] {
+    @media (--viewportRange-narrow) {
+      display: flex;
+      width: 100%;
+    }
+  }
+
+  &[data-full-width-regular] {
+    @media (--viewportRange-regular) {
+      display: flex;
+      width: 100%;
+    }
+  }
+
+  &[data-full-width-wide] {
+    @media (--viewportRange-wide) {
+      display: flex;
+      width: 100%;
+    }
+  }
+
+  /* Hide when dropdown variant is active */
+  &[data-variant-dropdown] {
+    display: none;
+  }
+
+  &[data-variant-narrow='dropdown'] {
+    @media (--viewportRange-narrow) {
+      display: none;
+    }
+  }
+
+  &[data-variant-regular='dropdown'] {
+    @media (--viewportRange-regular) {
+      display: none;
+    }
+  }
+
+  &[data-variant-wide='dropdown'] {
+    @media (--viewportRange-wide) {
+      display: none;
+    }
+  }
+
+  /* Handle hideLabels variant - hide button text */
+  &[data-variant-hideLabels] .Text {
+    display: none;
+  }
+
+  &[data-variant-narrow='hideLabels'] {
+    @media (--viewportRange-narrow) {
+      .Text {
+        display: none;
+      }
+    }
+  }
+
+  &[data-variant-regular='hideLabels'] {
+    @media (--viewportRange-regular) {
+      .Text {
+        display: none;
+      }
+    }
+  }
+
+  &[data-variant-wide='hideLabels'] {
+    @media (--viewportRange-wide) {
+      .Text {
+        display: none;
+      }
+    }
   }
 
   &:where([data-size='small']) {
     /* TODO: use primitive `control.{small|medium}.size` when it is available */
     height: 28px;
     font-size: var(--text-body-size-small);
+  }
+}
+
+.DropdownContainer {
+  display: none;
+
+  /* Show when dropdown variant is active */
+  &[data-variant='dropdown'] {
+    display: block;
+  }
+
+  &[data-variant-narrow='dropdown'] {
+    @media (--viewportRange-narrow) {
+      display: block;
+    }
+  }
+
+  &[data-variant-regular='dropdown'] {
+    @media (--viewportRange-regular) {
+      display: block;
+    }
+  }
+
+  &[data-variant-wide='dropdown'] {
+    @media (--viewportRange-wide) {
+      display: block;
+    }
   }
 }
 
