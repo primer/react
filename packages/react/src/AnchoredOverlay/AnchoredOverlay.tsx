@@ -117,11 +117,6 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
    * Props to be spread on the close button in the overlay.
    */
   closeButtonProps?: Partial<IconButtonProps>
-
-  /**
-   * ARIA property indicating the availability and type of interactive popup element
-   */
-  'aria-haspopup'?: boolean | 'dialog' | 'menu' | 'grid' | 'listbox' | 'tree' | 'true' | 'false'
 }
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
@@ -156,7 +151,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   align = 'start',
   alignmentOffset,
   anchorOffset,
-  'aria-haspopup': _ariaHaspopup,
   className,
   pinPosition,
   variant = defaultVariant,
@@ -243,7 +237,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
         renderAnchor({
           ref: anchorRef,
           id: anchorId,
-          'aria-haspopup': _ariaHaspopup || 'true',
+          'aria-haspopup': 'true',
           'aria-expanded': open,
           tabIndex: 0,
           onClick: onAnchorClick,
