@@ -57,6 +57,12 @@
       "name": "keybindingHint",
       "type": "string",
       "description": "Optional keybinding hint to indicate the availability of a keyboard shortcut. Supported syntax is described in the docs for the `KeybindingHint` component."
+    },
+    {
+      "name": "delay",
+      "type": "'short' | 'medium' | 'long'",
+      "defaultValue": "short",
+      "description": "Sets the delay before showing the tooltip. `short` is 50ms (default), `medium` is 400ms, and `long` is 1200ms."
     }
   ],
   "subcomponents": []
