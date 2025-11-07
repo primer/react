@@ -36,6 +36,13 @@ jobs:
             # Format: refs/heads/gh-readonly-queue/main/pr-123-abc123
             SHA="${{ github.event.merge_group.head_sha }}"
             PR_NUMBER=$(echo "${{ github.event.merge_group.head_ref }}" | sed -n 's/.*\/pr-\([0-9]*\)-.*/\1/p')
+            
+            # Validate PR_NUMBER extraction
+            if [ -z "$PR_NUMBER" ]; then
+              echo "Error: Failed to extract PR number from head_ref: ${{ github.event.merge_group.head_ref }}"
+              exit 1
+            fi
+            
             HTML_URL="https://github.com/primer/react/pull/$PR_NUMBER"
           fi
 
