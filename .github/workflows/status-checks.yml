@@ -28,7 +28,7 @@ jobs:
         if: "${{ github.event_name == 'pull_request' }}"
         run: |
           # Get the timeline event ID for the label being added
-          EVENT_ID=$(gh api "/repos/primer/react/issues/${{ github.event.pull_request.number }}/timeline" \
+          EVENT_ID=$(gh api "/repos/primer/react/issues/$PR_NUMBER/timeline" \
             --jq '.[] | select(.event == "labeled" and .label.name == "integration-tests: skipped manually") | .id' \
             | tail -n 1)
 
@@ -39,19 +39,21 @@ jobs:
             TARGET_URL="${{ github.event.pull_request.html_url }}"
           fi
 
-          gh api -X POST "/repos/primer/react/statuses/${{ github.event.pull_request.head.sha }}" \
+          gh api -X POST "/repos/primer/react/statuses/$SHA" \
             -f state='success' \
             -f context='github-ui / ci' \
             -f description='Skipped' \
             -f target_url="$TARGET_URL"
 
-          gh api -X POST "/repos/primer/react/statuses/${{ github.event.pull_request.head.sha }}" \
+          gh api -X POST "/repos/primer/react/statuses/$SHA" \
             -f state='success' \
             -f context='github-ui / projects' \
             -f description='Skipped' \
             -f target_url="$TARGET_URL"
         env:
           GH_TOKEN: ${{ steps.generate_primer_token.outputs.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          SHA: ${{ github.event.pull_request.head.sha }}
       - name: Override status checks for merge queue
         if: "${{ github.event_name == 'merge_group' }}"
         run: |
@@ -63,15 +65,6 @@ jobs:
           if [ -z "$PR_NUMBER" ]; then
             echo "Error: Failed to extract PR number from head_ref: ${{ github.event.merge_group.head_ref }}"
             exit 1
-          fi
-
-          # Check if the PR has the required label
-          HAS_LABEL=$(gh api "/repos/primer/react/issues/$PR_NUMBER" \
-            --jq '[.labels[].name] | contains(["integration-tests: skipped manually"])')
-          
-          if [ "$HAS_LABEL" != "true" ]; then
-            echo "PR #$PR_NUMBER does not have the required label. Skipping status override."
-            exit 0
           fi
 
           # Use the PR URL as the target URL
