@@ -8,6 +8,20 @@ updates:
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
+      interval: "cron"
+      cronjob: "0 * * * *"
+    versioning-strategy: increase
+    labels:
+      - 'dependencies'
+      - 'skip changeset'
+    groups:
+      primer:
+        patterns:
+          - '@primer/*'
+
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
       interval: 'weekly'
     versioning-strategy: increase
     labels:
