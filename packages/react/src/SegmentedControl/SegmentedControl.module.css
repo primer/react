@@ -1,4 +1,7 @@
 .SegmentedControl {
+  /* TODO: use primitive `control.medium.size` when it is available instead of '32px' */
+  --segmented-control-icon-width: 32px;
+
   display: inline-flex;
 
   /* TODO: use primitive `control.{small|medium}.size` when it is available */
@@ -14,34 +17,60 @@
   &[data-full-width='true'] {
     display: flex;
     width: 100%;
+    --segmented-control-icon-width: 100%;
   }
 
-  &[data-full-width-narrow='true'] {
-    @media (--viewportRange-narrow) {
+  &[data-full-width='false'] {
+    display: inline-flex;
+    width: auto;
+    --segmented-control-icon-width: 32px;
+  }
+
+  @media (--viewportRange-narrow) {
+    &[data-full-width-narrow='true'] {
       display: flex;
       width: 100%;
+      --segmented-control-icon-width: 100%;
     }
-  }
 
-  &[data-full-width-regular='true'] {
-    @media (--viewportRange-regular) {
-      display: flex;
-      width: 100%;
-    }
-  }
-
-  &[data-full-width-wide='true'] {
-    @media (--viewportRange-wide) {
-      display: flex;
-      width: 100%;
-    }
-  }
-
-  /* Reset when full-width disabled on wider breakpoints */
-  &[data-full-width-regular='true'][data-full-width-wide='false'] {
-    @media (--viewportRange-wide) {
+    &[data-full-width-narrow='false'] {
       display: inline-flex;
       width: auto;
+      --segmented-control-icon-width: 32px;
+    }
+  }
+
+  @media (--viewportRange-regular) {
+    &[data-full-width-regular='true'] {
+      display: flex;
+      width: 100%;
+      --segmented-control-icon-width: 100%;
+    }
+
+    &[data-full-width-regular='false'] {
+      display: inline-flex;
+      width: auto;
+      --segmented-control-icon-width: 32px;
+    }
+  }
+
+  @media (--viewportRange-wide) {
+    &[data-full-width-wide='true'] {
+      display: flex;
+      width: 100%;
+      --segmented-control-icon-width: 100%;
+    }
+
+    &[data-full-width-wide='false'] {
+      display: inline-flex;
+      width: auto;
+      --segmented-control-icon-width: 32px;
+    }
+
+    &[data-full-width-regular='true']:not([data-full-width-wide='true']) {
+      display: inline-flex;
+      width: auto;
+      --segmented-control-icon-width: 32px;
     }
   }
 
@@ -50,50 +79,38 @@
     display: none;
   }
 
-  &[data-variant-narrow='dropdown'] {
-    @media (--viewportRange-narrow) {
-      display: none;
-    }
-  }
-
-  &[data-variant-regular='dropdown'] {
-    @media (--viewportRange-regular) {
-      display: none;
-    }
-  }
-
-  &[data-variant-wide='dropdown'] {
-    @media (--viewportRange-wide) {
-      display: none;
-    }
-  }
-
   /* Handle hideLabels variant - hide button text */
   &[data-variant='hideLabels'] .Text {
     display: none;
   }
 
-  &[data-variant-narrow='hideLabels'] {
-    @media (--viewportRange-narrow) {
-      .Text {
-        display: none;
-      }
+  @media (--viewportRange-narrow) {
+    &[data-variant-narrow='dropdown'] {
+      display: none;
+    }
+
+    &[data-variant-narrow='hideLabels'] .Text {
+      display: none;
     }
   }
 
-  &[data-variant-regular='hideLabels'] {
-    @media (--viewportRange-regular) {
-      .Text {
-        display: none;
-      }
+  @media (--viewportRange-regular) {
+    &[data-variant-regular='dropdown'] {
+      display: none;
+    }
+
+    &[data-variant-regular='hideLabels'] .Text {
+      display: none;
     }
   }
 
-  &[data-variant-wide='hideLabels'] {
-    @media (--viewportRange-wide) {
-      .Text {
-        display: none;
-      }
+  @media (--viewportRange-wide) {
+    &[data-variant-wide='dropdown'] {
+      display: none;
+    }
+
+    &[data-variant-wide='hideLabels'] .Text {
+      display: none;
     }
   }
 
@@ -112,20 +129,20 @@
     display: block;
   }
 
-  &[data-variant-narrow='dropdown'] {
-    @media (--viewportRange-narrow) {
+  @media (--viewportRange-narrow) {
+    &[data-variant-narrow='dropdown'] {
       display: block;
     }
   }
 
-  &[data-variant-regular='dropdown'] {
-    @media (--viewportRange-regular) {
+  @media (--viewportRange-regular) {
+    &[data-variant-regular='dropdown'] {
       display: block;
     }
   }
 
-  &[data-variant-wide='dropdown'] {
-    @media (--viewportRange-wide) {
+  @media (--viewportRange-wide) {
+    &[data-variant-wide='dropdown'] {
       display: block;
     }
   }
@@ -247,34 +264,7 @@
 }
 
 .IconButton {
-  /* TODO: use primitive `control.medium.size` when it is available instead of '32px' */
-  width: 32px;
-
-  .SegmentedControl[data-full-width='true'] & {
-    width: 100%;
-  }
-
-  @media (--viewportRange-narrow) {
-    .SegmentedControl[data-full-width-narrow='true'] & {
-      width: 100%;
-    }
-  }
-
-  @media (--viewportRange-regular) {
-    .SegmentedControl[data-full-width-regular='true'] & {
-      width: 100%;
-    }
-  }
-
-  @media (--viewportRange-wide) {
-    .SegmentedControl[data-full-width-wide='true'] & {
-      width: 100%;
-    }
-
-    .SegmentedControl[data-full-width-regular='true'][data-full-width-wide='false'] & {
-      width: 32px;
-    }
-  }
+  width: var(--segmented-control-icon-width, 32px);
 }
 
 .Content {
