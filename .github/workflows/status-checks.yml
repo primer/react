@@ -15,7 +15,7 @@ permissions:
 jobs:
   github-ui:
     runs-on: ubuntu-latest
-    if: "${{ github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'integration-tests: skipped manually') || github.event_name == 'merge_group' }}"
+    if: "${{ (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'integration-tests: skipped manually')) || github.event_name == 'merge_group' }}"
     steps:
       - name: Generate token for primer
         id: generate_primer_token
@@ -35,7 +35,7 @@ jobs:
             # For merge_group, extract PR number from head_ref
             # Format: refs/heads/gh-readonly-queue/main/pr-123-abc123
             SHA="${{ github.event.merge_group.head_sha }}"
-            PR_NUMBER=$(echo "${{ github.event.merge_group.head_ref }}" | sed -n 's/.*\/pr-\([0-9]*\)-.*/\1/p')
+            PR_NUMBER=$(echo "${{ github.event.merge_group.head_ref }}" | sed -n 's/^refs\/heads\/gh-readonly-queue\/[^\/]*\/pr-\([0-9]*\)-.*/\1/p')
             
             # Validate PR_NUMBER extraction
             if [ -z "$PR_NUMBER" ]; then
@@ -43,7 +43,7 @@ jobs:
               exit 1
             fi
             
-            HTML_URL="https://github.com/primer/react/pull/$PR_NUMBER"
+            HTML_URL="https://github.com/${{ github.repository }}/pull/$PR_NUMBER"
           fi
 
           # For merge_group events, check if the PR has the required label
