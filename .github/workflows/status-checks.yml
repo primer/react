@@ -4,6 +4,8 @@ on:
   pull_request:
     types: [labeled, opened, reopened, synchronize]
   merge_group:
+    branches:
+      - main
     types: [checks_requested]
 
 permissions:
