@@ -18,13 +18,16 @@ export default meta
  * Resize the viewport to see the control change width at different breakpoints.
  */
 export const FullWidthResponsive: StoryFn = () => (
-  <SegmentedControl aria-label="File view" fullWidth={{narrow: true, regular: false, wide: false}}>
-    <SegmentedControl.Button defaultSelected leadingVisual={EyeIcon}>
-      Preview
-    </SegmentedControl.Button>
-    <SegmentedControl.Button leadingVisual={FileCodeIcon}>Raw</SegmentedControl.Button>
-    <SegmentedControl.Button leadingVisual={PeopleIcon}>Blame</SegmentedControl.Button>
-  </SegmentedControl>
+  <div>
+    <p style={{marginBottom: '16px'}}>Full width: yes (narrow) → no (regular + wide)</p>
+    <SegmentedControl aria-label="File view" fullWidth={{narrow: true, regular: false, wide: false}}>
+      <SegmentedControl.Button defaultSelected leadingVisual={EyeIcon}>
+        Preview
+      </SegmentedControl.Button>
+      <SegmentedControl.Button leadingVisual={FileCodeIcon}>Raw</SegmentedControl.Button>
+      <SegmentedControl.Button leadingVisual={PeopleIcon}>Blame</SegmentedControl.Button>
+    </SegmentedControl>
+  </div>
 )
 
 FullWidthResponsive.parameters = {
@@ -41,13 +44,16 @@ FullWidthResponsive.parameters = {
  * Resize the viewport to see labels hide/show at different breakpoints.
  */
 export const VariantHideLabelsResponsive: StoryFn = () => (
-  <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels', regular: 'default', wide: 'default'}}>
-    <SegmentedControl.Button defaultSelected leadingVisual={EyeIcon}>
-      Preview
-    </SegmentedControl.Button>
-    <SegmentedControl.Button leadingVisual={FileCodeIcon}>Raw</SegmentedControl.Button>
-    <SegmentedControl.Button leadingVisual={PeopleIcon}>Blame</SegmentedControl.Button>
-  </SegmentedControl>
+  <div>
+    <p style={{marginBottom: '16px'}}>Labels: hidden (narrow) → visible (regular + wide)</p>
+    <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels', regular: 'default', wide: 'default'}}>
+      <SegmentedControl.Button defaultSelected leadingVisual={EyeIcon}>
+        Preview
+      </SegmentedControl.Button>
+      <SegmentedControl.Button leadingVisual={FileCodeIcon}>Raw</SegmentedControl.Button>
+      <SegmentedControl.Button leadingVisual={PeopleIcon}>Blame</SegmentedControl.Button>
+    </SegmentedControl>
+  </div>
 )
 
 VariantHideLabelsResponsive.parameters = {
@@ -64,13 +70,16 @@ VariantHideLabelsResponsive.parameters = {
  * Resize the viewport to see the control switch between dropdown and buttons.
  */
 export const VariantDropdownResponsive: StoryFn = () => (
-  <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown', regular: 'default', wide: 'default'}}>
-    <SegmentedControl.Button defaultSelected leadingVisual={EyeIcon}>
-      Preview
-    </SegmentedControl.Button>
-    <SegmentedControl.Button leadingVisual={FileCodeIcon}>Raw</SegmentedControl.Button>
-    <SegmentedControl.Button leadingVisual={PeopleIcon}>Blame</SegmentedControl.Button>
-  </SegmentedControl>
+  <div>
+    <p style={{marginBottom: '16px'}}>Variant: dropdown (narrow) → buttons (regular + wide)</p>
+    <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown', regular: 'default', wide: 'default'}}>
+      <SegmentedControl.Button defaultSelected leadingVisual={EyeIcon}>
+        Preview
+      </SegmentedControl.Button>
+      <SegmentedControl.Button leadingVisual={FileCodeIcon}>Raw</SegmentedControl.Button>
+      <SegmentedControl.Button leadingVisual={PeopleIcon}>Blame</SegmentedControl.Button>
+    </SegmentedControl>
+  </div>
 )
 
 VariantDropdownResponsive.parameters = {
@@ -86,17 +95,22 @@ VariantDropdownResponsive.parameters = {
  * Test complex responsive behavior combining fullWidth and variant.
  */
 export const ComplexResponsive: StoryFn = () => (
-  <SegmentedControl
-    aria-label="File view"
-    fullWidth={{narrow: true, regular: true, wide: false}}
-    variant={{narrow: 'hideLabels', regular: 'default', wide: 'default'}}
-  >
-    <SegmentedControl.Button defaultSelected leadingVisual={EyeIcon}>
-      Preview
-    </SegmentedControl.Button>
-    <SegmentedControl.Button leadingVisual={FileCodeIcon}>Raw</SegmentedControl.Button>
-    <SegmentedControl.Button leadingVisual={PeopleIcon}>Blame</SegmentedControl.Button>
-  </SegmentedControl>
+  <div>
+    <p style={{marginBottom: '16px'}}>
+      Complex: full-width + icon-only (narrow) → full-width + labels (regular) → inline + labels (wide)
+    </p>
+    <SegmentedControl
+      aria-label="File view"
+      fullWidth={{narrow: true, regular: true, wide: false}}
+      variant={{narrow: 'hideLabels', regular: 'default', wide: 'default'}}
+    >
+      <SegmentedControl.Button defaultSelected leadingVisual={EyeIcon}>
+        Preview
+      </SegmentedControl.Button>
+      <SegmentedControl.Button leadingVisual={FileCodeIcon}>Raw</SegmentedControl.Button>
+      <SegmentedControl.Button leadingVisual={PeopleIcon}>Blame</SegmentedControl.Button>
+    </SegmentedControl>
+  </div>
 )
 
 ComplexResponsive.parameters = {
