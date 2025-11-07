@@ -31,7 +31,6 @@
 .ProgressBarContainer {
   display: flex;
   overflow: hidden;
-  /* stylelint-disable-next-line primer/colors */
   background-color: var(--progressBar-track-bgColor);
   border-radius: var(--borderRadius-small);
   gap: 2px;
