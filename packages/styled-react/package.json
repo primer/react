@@ -43,7 +43,7 @@
   "devDependencies": {
     "@babel/preset-react": "^7.28.5",
     "@babel/preset-typescript": "^7.28.5",
-    "@primer/react": "^38.1.0",
+    "@primer/react": "*",
     "@rollup/plugin-babel": "^6.1.0",
     "@types/react": "18.3.11",
     "@types/react-dom": "18.3.1",
