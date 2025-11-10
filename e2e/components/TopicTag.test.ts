@@ -29,6 +29,11 @@ test.describe('TopicTag', () => {
             // Hover state
             await page.getByText('React').hover()
             await expect(page).toHaveScreenshot(`TopicTag.${story.title}.${theme}.hover.png`)
+
+            // Focus state
+            await page.getByText('React').blur()
+            await page.getByText('React').focus()
+            await expect(page).toHaveScreenshot(`TopicTag.${story.title}.${theme}.focus.png`)
           })
         })
       }
