@@ -24,11 +24,11 @@ test.describe('TopicTag', () => {
             await page.setViewportSize({width: 400, height: 200})
 
             // Default state
-            await expect(page.getByText('React')).toHaveScreenshot(`TopicTag.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`TopicTag.${story.title}.${theme}.png`)
 
             // Hover state
             await page.getByText('React').hover()
-            await expect(page.getByText('React')).toHaveScreenshot(`TopicTag.${story.title}.${theme}.hover.png`)
+            await expect(page).toHaveScreenshot(`TopicTag.${story.title}.${theme}.hover.png`)
           })
         })
       }
