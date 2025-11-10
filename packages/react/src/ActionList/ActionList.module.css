@@ -361,6 +361,19 @@
     }
   }
 
+  &:has(.TrailingAction[data-show-on-hover='true']),
+  &[data-is-active-descendant] {
+    .TrailingAction {
+      display: none;
+    }
+
+    &:hover .TrailingAction,
+    &:focus-within .TrailingAction,
+    &[data-is-active-descendant] .TrailingAction {
+      display: inherit;
+    }
+  }
+
   /* Make sure that the first visible item isn't a divider */
   &[aria-hidden] + .Divider {
     display: none;
@@ -759,6 +772,8 @@ span wrapping svg or text */
   color: var(--fgColor-attention);
   grid-row: 2/2;
 }
+
+
 
 @keyframes checkmarkIn {
   from {

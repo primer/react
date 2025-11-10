@@ -53,6 +53,9 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
     bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown,
     focusOutBehavior:
       listRole === 'menu' || container === 'SelectPanel' || container === 'FilteredActionList' ? 'wrap' : undefined,
+    focusableElementFilter: element => {
+      return !(element.parentElement?.getAttribute('data-component') === 'TrailingAction')
+    },
   })
 
   return (

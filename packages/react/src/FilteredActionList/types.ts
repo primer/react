@@ -52,6 +52,37 @@ export interface FilteredActionListItemProps {
   trailingVisual?: React.ElementType | React.ReactNode
 
   /**
+   * An action positioned after the `Item` text. This is a button or link that appears at the end of the item.
+   * Only available for items in SelectPanel (not available in ActionMenu or other contexts with menu/listbox roles).
+   */
+  trailingAction?: {
+    /**
+     * The label for the action button. Used as aria-label if icon is provided, or as button text if no icon.
+     */
+    label: string
+    /**
+     * Optional icon to display in the action button.
+     */
+    icon?: React.ElementType
+    /**
+     * The element type to render. Defaults to 'button'.
+     */
+    as?: 'button' | 'a'
+    /**
+     * The href for the action when rendered as a link (as='a').
+     */
+    href?: string
+    /**
+     * Whether the action is in a loading state. Only available for button elements.
+     */
+    loading?: boolean
+    /**
+     * onClick handler for the action.
+     */
+    onClick?: (event: React.MouseEvent<HTMLElement>) => void
+  }
+
+  /**
    * Style variations associated with various `Item` types.
    *
    * - `"default"` - An action `Item`.

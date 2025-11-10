@@ -2,7 +2,7 @@ import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {scrollIntoView, FocusKeys} from '@primer/behaviors'
 import type {KeyboardEventHandler, JSX} from 'react'
 import type React from 'react'
-import {useCallback, useEffect, useRef, useState} from 'react'
+import {act, useCallback, useEffect, useRef, useState} from 'react'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {ActionList} from '../ActionList'
@@ -23,6 +23,7 @@ import {isValidElementType} from 'react-is'
 import {useAnnouncements} from './useAnnouncements'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
+import {useIsMacOS} from '../hooks'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -93,6 +94,8 @@ export function FilteredActionList({
   const inputDescriptionTextId = useId()
   const [isInputFocused, setIsInputFocused] = useState(false)
 
+  const isMacOS = useIsMacOS()
+
   const selectAllChecked = items.length > 0 && items.every(item => item.selected)
   const selectAllIndeterminate = !selectAllChecked && items.some(item => item.selected)
 
@@ -152,6 +155,16 @@ export function FilteredActionList({
 
   const onInputKeyPress: KeyboardEventHandler = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === 'U' || event.key === 'u') {
+        if (event.shiftKey && (isMacOS ? event.metaKey : event.ctrlKey)) {
+          if (!activeDescendantRef.current?.hasAttribute('data-has-trailing-action')) return
+
+          event.preventDefault()
+          alert('Activated Trailing Action')
+          // do some action ...
+        }
+      }
+
       if (event.key === 'Enter' && activeDescendantRef.current) {
         event.preventDefault()
         event.nativeEvent.stopImmediatePropagation()
@@ -161,7 +174,7 @@ export function FilteredActionList({
         activeDescendantRef.current.dispatchEvent(activeDescendantEvent)
       }
     },
-    [activeDescendantRef],
+    [activeDescendantRef, isMacOS],
   )
 
   // BEGIN: Todo remove when we remove usingRemoveActiveDescendant
@@ -184,7 +197,10 @@ export function FilteredActionList({
           bindKeys: FocusKeys.ArrowVertical | FocusKeys.PageUpDown,
           focusOutBehavior: 'wrap',
           focusableElementFilter: element => {
-            return !(element instanceof HTMLInputElement)
+            return (
+              !(element instanceof HTMLInputElement) &&
+              !(element.parentElement?.getAttribute('data-component') === 'TrailingAction')
+            )
           },
           activeDescendantFocus: inputRef,
           onActiveDescendantChanged: (current, previous, directlyActivated) => {
@@ -347,8 +363,8 @@ export function FilteredActionList({
           color="fg.default"
           value={filterValue}
           onChange={onInputChange}
-          onKeyPress={onInputKeyPress}
-          onKeyDown={usingRemoveActiveDescendant ? onInputKeyDown : () => {}}
+          // onKeyPress={onInputKeyPress}
+          onKeyDown={usingRemoveActiveDescendant ? onInputKeyDown : onInputKeyPress}
           placeholder={placeholderText}
           role="combobox"
           aria-expanded="true"
@@ -398,6 +414,7 @@ function MappedActionListItem(item: ItemInput & {renderItem?: RenderItemFn}) {
     leadingVisual: LeadingVisual,
     trailingText,
     trailingIcon: TrailingIcon,
+    trailingAction,
     onAction,
     children,
     ...rest
@@ -435,6 +452,16 @@ function MappedActionListItem(item: ItemInput & {renderItem?: RenderItemFn}) {
           {trailingText}
           {TrailingIcon && <TrailingIcon />}
         </ActionList.TrailingVisual>
+      ) : null}
+      {trailingAction ? (
+        <ActionList.TrailingAction
+          label={trailingAction.label}
+          icon={trailingAction.icon}
+          {...(trailingAction.as === 'a' && trailingAction.href
+            ? {as: 'a' as const, href: trailingAction.href}
+            : {as: 'button' as const, loading: trailingAction.loading})}
+          onClick={trailingAction.onClick}
+        />
       ) : null}
     </ActionList.Item>
   )

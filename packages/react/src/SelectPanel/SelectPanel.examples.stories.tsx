@@ -4,7 +4,7 @@ import {Button} from '../Button'
 import type {ItemInput} from '../FilteredActionList'
 import {SelectPanel} from './SelectPanel'
 import type {OverlayProps} from '../Overlay'
-import {TriangleDownIcon} from '@primer/octicons-react'
+import {TriangleDownIcon, PencilIcon, TrashIcon} from '@primer/octicons-react'
 import {ActionList} from '../ActionList'
 import FormControl from '../FormControl'
 import {Stack} from '../Stack'
@@ -581,5 +581,85 @@ export const RenderMoreOnScroll = () => {
         />
       </FormControl>
     </form>
+  )
+}
+
+export const WithTrailingActions = () => {
+  const itemsWithTrailingActions = [
+    {
+      leadingVisual: getColorCircle('#a2eeef'),
+      text: 'enhancement',
+      id: 1,
+      trailingAction: {
+        label: 'Edit enhancement',
+        icon: PencilIcon,
+        onClick: (e: React.MouseEvent<HTMLElement>) => {
+          e.stopPropagation()
+          alert('Edit enhancement clicked!')
+        },
+      },
+    },
+    {
+      leadingVisual: getColorCircle('#d73a4a'),
+      text: 'bug',
+      id: 2,
+    },
+    {
+      leadingVisual: getColorCircle('#0cf478'),
+      text: 'good first issue',
+      id: 3,
+      trailingAction: {
+        label: 'Remove label',
+        icon: TrashIcon,
+        onClick: (e: React.MouseEvent<HTMLElement>) => {
+          e.stopPropagation()
+          alert('Remove label clicked!')
+        },
+      },
+    },
+    {
+      leadingVisual: getColorCircle('#ffd78e'),
+      text: 'design',
+      id: 4,
+      trailingAction: {
+        label: 'More info',
+        as: 'button' as const,
+        onClick: (e: React.MouseEvent<HTMLElement>) => {
+          e.stopPropagation()
+          alert('More info clicked!')
+        },
+      },
+    },
+  ]
+
+  const [selected, setSelected] = useState<ItemInput[]>([itemsWithTrailingActions[0]])
+  const [filter, setFilter] = useState('')
+  const filteredItems = itemsWithTrailingActions.filter(item =>
+    item.text.toLowerCase().startsWith(filter.toLowerCase()),
+  )
+
+  const [open, setOpen] = useState(false)
+
+  return (
+    <FormControl>
+      <FormControl.Label>Labels with trailing actions</FormControl.Label>
+      <SelectPanel
+        title="Select labels"
+        placeholder="Select labels"
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+            {children}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        overlayProps={{width: 'medium'}}
+        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+      />
+    </FormControl>
   )
 }
