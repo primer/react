@@ -1,5 +1,5 @@
 ---
-'@primer/react': major
+'@primer/react': minor
 ---
 
 Replaced StateLabel variant prop with size prop.
