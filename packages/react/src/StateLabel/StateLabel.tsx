@@ -58,13 +58,8 @@ const StateLabel = forwardRef<HTMLSpanElement, StateLabelProps>(
     // Open and closed statuses, we don't want to show an icon
     const noIconStatus = status === 'open' || status === 'closed'
 
-    // For backwards compatibility, we map variant to size
-    if (variantProp === 'small') {
-      sizeProp = 'small'
-    }
-    if (variantProp === 'normal') {
-      sizeProp = 'medium'
-    }
+    // Prefer size, but maintain backwards compatibility for variant
+    const inferredSize = size || variant === 'normal'  ? 'medium': 'small'
 
     return (
       <span
