@@ -8,8 +8,7 @@ updates:
   - package-ecosystem: 'npm'
     directory: '/packages/react/'
     schedule:
-      interval: 'cron'
-      cronjob: '0 * * * *'
+      interval: 'daily'
     versioning-strategy: increase
     labels:
       - 'dependencies'
