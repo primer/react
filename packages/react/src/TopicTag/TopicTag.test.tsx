@@ -1,9 +1,29 @@
-import {render} from '@testing-library/react'
-import {describe, test, expect} from 'vitest'
+import {render, screen} from '@testing-library/react'
+import {describe, test, expect, vi} from 'vitest'
+import {userEvent} from 'vitest/browser'
 import {TopicTag} from '../TopicTag'
-import {page} from 'vitest/browser'
 
 describe('TopicTag', () => {
+  test('defaults to <button> semantics', async () => {
+    const onClick = vi.fn()
+    render(<TopicTag onClick={onClick}>test</TopicTag>)
+
+    await userEvent.click(screen.getByRole('button', {name: 'test'}))
+    expect(onClick).toHaveBeenCalled()
+  })
+
+  test('support <a> semantics through `href` prop', async () => {
+    const onClick = vi.fn()
+    render(
+      <TopicTag as="a" href="#test" onClick={onClick}>
+        test
+      </TopicTag>,
+    )
+
+    await userEvent.click(screen.getByRole('link', {name: 'test'}))
+    expect(onClick).toHaveBeenCalled()
+  })
+
   test('supports `className` merging', () => {
     const {container} = render(<TopicTag className="custom-class">test</TopicTag>)
     expect(container.firstChild).toHaveClass('custom-class')
@@ -15,7 +35,7 @@ describe('TopicTag', () => {
         test
       </TopicTag>,
     )
-    expect(container).toHaveAttribute('data-testid', 'test')
-    expect(container).toHaveAttribute('id', 'test-id')
+    expect(container.firstChild).toHaveAttribute('data-testid', 'test')
+    expect(container.firstChild).toHaveAttribute('id', 'test-id')
   })
 })

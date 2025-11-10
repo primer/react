@@ -3,10 +3,10 @@
   color: var(--fgColor-accent);
   font-size: var(--text-body-size-small);
   font-weight: var(--base-text-weight-semibold);
-  /* line-height: var(--text-body-lineHeight-small); */
+  /* --text-body-lineHeight-small */
   line-height: 1.6667;
   border-radius: var(--borderRadius-full);
-  padding: 0.1875rem var(--base-size-12);
+  padding: var(--base-size-2) var(--base-size-12);
   border: var(--borderWidth-thin) solid var(--topicTag-borderColor, transparent);
   display: inline-flex;
   white-space: nowrap;

@@ -1,16 +1,24 @@
 import {clsx} from 'clsx'
-import {Button} from '../internal/components/ButtonReset'
+import type {ElementType} from 'react'
+import buttonResetClasses from '../internal/components/ButtonReset.module.css'
 import classes from './TopicTag.module.css'
 
-type TopicTagProps = React.HTMLAttributes<HTMLElement> & {
+type TopicTagProps<As extends ElementType> = {
+  as?: As
   className?: string
-}
+} & Omit<React.ComponentPropsWithoutRef<As>, 'as' | 'className'>
 
-function TopicTag({children, className, ...rest}: TopicTagProps) {
+function TopicTag<As extends ElementType = 'button'>({as, children, className, ...rest}: TopicTagProps<As>) {
+  const BaseComponent = as ?? 'button'
   return (
-    <Button {...rest} className={clsx(className, classes.TopicTag)}>
+    <BaseComponent
+      {...rest}
+      className={clsx(className, classes.TopicTag, {
+        [buttonResetClasses.ButtonReset]: BaseComponent === 'button',
+      })}
+    >
       {children}
-    </Button>
+    </BaseComponent>
   )
 }
 
