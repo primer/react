@@ -5,7 +5,7 @@ import {Button, Text, Stack} from '..'
 import {VisuallyHidden} from '../VisuallyHidden'
 import {AriaStatus} from '../live-region'
 import {CheckCircleFillIcon, XCircleFillIcon} from '@primer/octicons-react'
-import classes from './SpinnerStories.module.css'
+import classes from './Spinner.examples.stories.module.css'
 
 export default {
   title: 'Components/Spinner/Examples',
