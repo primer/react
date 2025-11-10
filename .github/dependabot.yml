@@ -14,10 +14,16 @@ updates:
     labels:
       - 'dependencies'
       - 'skip changeset'
+    allow:
+      - dependency-name: '@primer/*'
+      - dependency-name: '@github/*'
     groups:
       primer:
         patterns:
           - '@primer/*'
+      github:
+        patterns:
+          - '@github/*'
 
   - package-ecosystem: 'npm'
     directory: '/'
