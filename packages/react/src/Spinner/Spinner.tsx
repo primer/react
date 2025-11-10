@@ -79,40 +79,43 @@ Spinner.displayName = 'Spinner'
 function useSpinnerAnimation() {
   const ref = useRef<Animation | null>(null)
   const noMotionPreference = useMedia('(prefers-reduced-motion: no-preference)', true)
-  return useCallback((element: HTMLElement | SVGSVGElement | null) => {
-    if (!element) {
-      return
-    }
+  return useCallback(
+    (element: HTMLElement | SVGSVGElement | null) => {
+      if (!element) {
+        return
+      }
 
-    if (ref.current !== null) {
-      return
-    }
+      if (ref.current !== null) {
+        return
+      }
 
-    if (noMotionPreference) {
-      ref.current = element.animate(
-        [
+      if (noMotionPreference) {
+        ref.current = element.animate(
+          [
+            {
+              transform: 'rotate(0deg)',
+            },
+            {
+              transform: 'rotate(360deg)',
+            },
+          ],
           {
-            transform: 'rotate(0deg)',
+            // var(--base-duration-1000)
+            duration: 1000,
+            iterations: Infinity,
+            // var(--base-easing-linear)
+            easing: 'cubic-bezier(0,0,1,1)',
           },
-          {
-            transform: 'rotate(360deg)',
-          },
-        ],
-        {
-          // var(--base-duration-1000)
-          duration: 1000,
-          iterations: Infinity,
-          // var(--base-easing-linear)
-          easing: 'cubic-bezier(0,0,1,1)',
-        },
-      )
+        )
 
-      // Used to sync different animations. When all animations have the same
-      // startTime they will be in sync.
-      // @see https://developer.mozilla.org/en-US/docs/Web/API/Animation/startTime#syncing_different_animations
-      ref.current.startTime = 0
-    }
-  }, [])
+        // Used to sync different animations. When all animations have the same
+        // startTime they will be in sync.
+        // @see https://developer.mozilla.org/en-US/docs/Web/API/Animation/startTime#syncing_different_animations
+        ref.current.startTime = 0
+      }
+    },
+    [noMotionPreference],
+  )
 }
 
 export default Spinner
