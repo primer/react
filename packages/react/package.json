@@ -81,7 +81,7 @@
     "@primer/behaviors": "^1.8.2",
     "@primer/live-region-element": "^0.7.1",
     "@primer/octicons-react": "^19.13.0",
-    "@primer/primitives": "10.x || 11.x",
+    "@primer/primitives": "0.0.0-20251110192703",
     "clsx": "^2.1.1",
     "color2k": "^2.0.3",
     "deepmerge": "^4.3.1",
