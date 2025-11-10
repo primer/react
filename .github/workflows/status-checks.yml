@@ -57,29 +57,14 @@ jobs:
       - name: Override status checks for merge queue
         if: "${{ github.event_name == 'merge_group' }}"
         run: |
-          # Extract PR number from head_ref
-          # Format: refs/heads/gh-readonly-queue/main/pr-123-abc123
-          PR_NUMBER=$(echo "${{ github.event.merge_group.head_ref }}" | sed -n 's/^refs\/heads\/gh-readonly-queue\/[^\/]*\/pr-\([0-9]*\)-.*/\1/p')
-          
-          # Validate PR_NUMBER extraction
-          if [ -z "$PR_NUMBER" ]; then
-            echo "Error: Failed to extract PR number from head_ref: ${{ github.event.merge_group.head_ref }}"
-            exit 1
-          fi
-
-          # Use the PR URL as the target URL
-          TARGET_URL="https://github.com/${{ github.repository }}/pull/$PR_NUMBER"
-
           gh api -X POST "/repos/primer/react/statuses/${{ github.event.merge_group.head_sha }}" \
             -f state='success' \
             -f context='github-ui / ci' \
-            -f description='Skipped' \
-            -f target_url="$TARGET_URL"
+            -f description='Skipped'
 
           gh api -X POST "/repos/primer/react/statuses/${{ github.event.merge_group.head_sha }}" \
             -f state='success' \
             -f context='github-ui / projects' \
-            -f description='Skipped' \
-            -f target_url="$TARGET_URL"
+            -f description='Skipped'
         env:
           GH_TOKEN: ${{ steps.generate_primer_token.outputs.token }}
