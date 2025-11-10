@@ -8,8 +8,8 @@ updates:
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
-      interval: "cron"
-      cronjob: "0 * * * *"
+      interval: 'cron'
+      cronjob: '0 * * * *'
     versioning-strategy: increase
     labels:
       - 'dependencies'
