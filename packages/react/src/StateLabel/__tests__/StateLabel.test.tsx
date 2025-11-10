@@ -21,6 +21,10 @@ describe('StateLabel', () => {
     expect(HTMLRender(<StateLabel size="medium" status="issueOpened" />).container).toMatchSnapshot()
   })
 
+  it('prefers the size prop over deprecated variant prop', () => {
+    expect(HTMLRender(<StateLabel size="small" variant="medium"status="issueOpened" />).container).toMatchSnapshot()
+  })
+
   it('renders children', () => {
     expect(HTMLRender(<StateLabel status="issueOpened">hi</StateLabel>).container).toMatchSnapshot()
   })
