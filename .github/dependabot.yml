@@ -6,7 +6,7 @@
 version: 2
 updates:
   - package-ecosystem: 'npm'
-    directory: '/'
+    directory: '/packages/react/'
     schedule:
       interval: 'cron'
       cronjob: '0 * * * *'
