@@ -1,0 +1,17 @@
+.TopicTag {
+  background-color: var(--bgColor-accent-muted);
+  color: var(--fgColor-accent);
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-semibold);
+  line-height: var(--text-body-lineHeight-small);
+  border-radius: var(--borderRadius-full);
+  padding: 0.1875rem var(--base-size-12);
+  border: var(--borderWidth-thin) solid var(--topicTag-borderColor, transparent);
+  display: inline-flex;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: var(--bgColor-accent-emphasis);
+    color: var(--fgColor-onEmphasis);
+  }
+}
