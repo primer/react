@@ -4,7 +4,7 @@
   font-size: var(--text-body-size-small);
   font-weight: var(--base-text-weight-semibold);
   /* --text-body-lineHeight-small */
-  line-height: 1.6667;
+  line-height: 1.66667;
   border-radius: var(--borderRadius-full);
   padding: var(--base-size-2) var(--base-size-12);
   border: var(--borderWidth-thin) solid var(--topicTag-borderColor, transparent);
@@ -15,4 +15,8 @@
     background-color: var(--bgColor-accent-emphasis);
     color: var(--fgColor-onEmphasis);
   }
+}
+
+:where(a.TopicTag) {
+  text-decoration: none;
 }
