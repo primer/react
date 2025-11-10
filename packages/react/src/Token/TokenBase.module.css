@@ -30,8 +30,8 @@
 .TokenBase:where([data-size='medium']) {
   width: auto;
   height: var(--base-size-20);
-  padding-right: var(--base-size-4);
-  padding-left: var(--base-size-4);
+  padding-right: var(--base-size-6);
+  padding-left: var(--base-size-6);
   font-size: var(--text-body-size-small);
 }
 
