@@ -4,6 +4,7 @@ import type {Meta} from '@storybook/react-vite'
 import {Button, Flash, Stack, Text} from '..'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
+import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
 import classes from './FocusTrapStories.module.css'
 
 export default {
@@ -121,22 +122,43 @@ export const RestoreFocus = () => {
 
 export const RestoreFocusMinimal = () => {
   const [enabled, setEnabled] = React.useState(false)
+  // We manage focus restoration manually so we can skip restoring when outside click disables the trap.
   const toggleButtonRef = React.useRef<HTMLButtonElement>(null)
   const {containerRef} = useFocusTrap({
     disabled: !enabled,
-    returnFocusRef: toggleButtonRef,
   })
+
+  const disableTrap = React.useCallback(
+    (restoreFocus: boolean) => {
+      setEnabled(false)
+      if (restoreFocus) {
+        // Wait a frame to allow trap cleanup to finish before moving focus.
+        requestAnimationFrame(() => {
+          toggleButtonRef.current?.focus()
+        })
+      }
+    },
+    [],
+  )
   useOnEscapePress(
     React.useCallback(
       e => {
         if (!enabled) return
         e.preventDefault()
-        setEnabled(false)
+        disableTrap(true)
       },
-      [enabled],
+      [enabled, disableTrap],
     ),
-    [enabled],
+    [enabled, disableTrap],
   )
+
+  useOnOutsideClick({
+    containerRef: containerRef as React.RefObject<HTMLDivElement>,
+    ignoreClickRefs: [toggleButtonRef],
+    onClickOutside: () => {
+      if (enabled) disableTrap(false) // explicitly skip focus restoration on outside click
+    },
+  })
 
   return (
     <>
@@ -146,7 +168,17 @@ export const RestoreFocusMinimal = () => {
           Minimal focus trap example. Click to toggle. While enabled, focus stays inside the green zone. Disabling
           restores focus to the toggle button.
         </Flash>
-        <Button ref={toggleButtonRef} onClick={() => setEnabled(e => !e)}>
+        <Button
+          ref={toggleButtonRef}
+          onClick={() => {
+            if (enabled) {
+              disableTrap(true)
+            } else {
+              setEnabled(true)
+              // Button already has focus when enabling; no action needed.
+            }
+          }}
+        >
           {enabled ? 'Disable' : 'Enable'} focus trap
         </Button>
         <div
@@ -182,16 +214,14 @@ export const RestoreFocusMinimal = () => {
             (Content intentionally verbose to create vertical space.)
           </Text>
         </div>
-        {enabled && (
-          <div className={classes.TrapZone} ref={containerRef as React.RefObject<HTMLDivElement>}>
-            <Stack direction="vertical" gap="normal">
-              <MarginButton>First</MarginButton>
-              <MarginButton>Second</MarginButton>
-              <MarginButton>Third</MarginButton>
-              <Button onClick={() => setEnabled(false)}>Close trap</Button>
-            </Stack>
-          </div>
-        )}
+        <div className={classes.TrapZone} ref={containerRef as React.RefObject<HTMLDivElement>}>
+          <Stack direction="vertical" gap="normal">
+            <MarginButton>First</MarginButton>
+            <MarginButton>Second</MarginButton>
+            <MarginButton>Third</MarginButton>
+            <Button onClick={() => disableTrap(true)}>Close trap</Button>
+          </Stack>
+        </div>
         <Button>Outside button</Button>
       </Stack>
     </>
