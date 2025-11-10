@@ -10,12 +10,12 @@
 }
 
 /* Size variants */
-.StateLabel:where([data-variant='small']) {
+.StateLabel:where([data-size='small']) {
   padding: var(--base-size-4) var(--base-size-8);
   font-size: var(--text-body-size-small);
 }
 
-.StateLabel:where([data-variant='normal']) {
+.StateLabel:where([data-size='medium']) {
   padding: var(--base-size-8) var(--base-size-12);
   font-size: var(--text-body-size-medium);
 }
@@ -101,6 +101,6 @@
   margin-right: var(--base-size-4);
 }
 
-.Icon:where([data-variant-small]) {
+.Icon:where([data-size-small]) {
   width: 1em;
 }
