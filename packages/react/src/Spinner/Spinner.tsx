@@ -3,8 +3,8 @@ import {VisuallyHidden} from '../VisuallyHidden'
 import type {HTMLDataAttributes} from '../internal/internal-types'
 import {useId} from '../hooks'
 import classes from './Spinner.module.css'
-import {clsx} from 'clsx'
 import {useCallback, useRef} from 'react'
+import {useMedia} from '../hooks/useMedia'
 
 const sizeMap = {
   small: '16px',
@@ -77,7 +77,8 @@ function Spinner({
 Spinner.displayName = 'Spinner'
 
 function useSpinnerAnimation() {
-  let ref = useRef<Animation | null>(null)
+  const ref = useRef<Animation | null>(null)
+  const noMotionPreference = useMedia('(prefers-reduced-motion: no-preference)', true)
   return useCallback((element: HTMLElement | SVGSVGElement | null) => {
     if (!element) {
       return
@@ -87,22 +88,30 @@ function useSpinnerAnimation() {
       return
     }
 
-    ref.current = element.animate(
-      [
+    if (noMotionPreference) {
+      ref.current = element.animate(
+        [
+          {
+            transform: 'rotate(0deg)',
+          },
+          {
+            transform: 'rotate(360deg)',
+          },
+        ],
         {
-          transform: 'rotate(0deg)',
+          // var(--base-duration-1000)
+          duration: 1000,
+          iterations: Infinity,
+          // var(--base-easing-linear)
+          easing: 'cubic-bezier(0,0,1,1)',
         },
-        {
-          transform: 'rotate(360deg)',
-        },
-      ],
-      {
-        duration: 1000,
-        iterations: Infinity,
-        easing: 'cubic-bezier(0,0,1,1)',
-      },
-    )
-    ref.current.startTime = 0
+      )
+
+      // Used to sync different animations. When all animations have the same
+      // startTime they will be in sync.
+      // @see https://developer.mozilla.org/en-US/docs/Web/API/Animation/startTime#syncing_different_animations
+      ref.current.startTime = 0
+    }
   }, [])
 }
 
