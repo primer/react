@@ -1,5 +1,37 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`StateLabel > prefers the size prop over deprecated variant prop 1`] = `
+<div>
+  <span
+    class="prc-StateLabel-StateLabel-eEUJr"
+    data-size="small"
+    data-status="issueOpened"
+  >
+    <svg
+      aria-label="Issue"
+      class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
+      data-size-small=""
+      display="inline-block"
+      fill="currentColor"
+      focusable="false"
+      height="16"
+      overflow="visible"
+      role="img"
+      style="vertical-align: text-bottom;"
+      viewBox="0 0 16 16"
+      width="16"
+    >
+      <path
+        d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"
+      />
+      <path
+        d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"
+      />
+    </svg>
+  </span>
+</div>
+`;
+
 exports[`StateLabel > renders children 1`] = `
 <div>
   <span
@@ -128,69 +160,6 @@ exports[`StateLabel > respects the size prop 1`] = `
 `;
 
 exports[`StateLabel > respects the size prop 2`] = `
-<div>
-  <span
-    class="prc-StateLabel-StateLabel-eEUJr"
-    data-size="medium"
-    data-status="issueOpened"
-  >
-    <svg
-      aria-label="Issue"
-      class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
-      display="inline-block"
-      fill="currentColor"
-      focusable="false"
-      height="16"
-      overflow="visible"
-      role="img"
-      style="vertical-align: text-bottom;"
-      viewBox="0 0 16 16"
-      width="16"
-    >
-      <path
-        d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"
-      />
-      <path
-        d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"
-      />
-    </svg>
-  </span>
-</div>
-`;
-
-exports[`StateLabel > respects the deprecated variant prop 1`] = `
-<div>
-  <span
-    class="prc-StateLabel-StateLabel-eEUJr"
-    data-size="small"
-    data-status="issueOpened"
-  >
-    <svg
-      aria-label="Issue"
-      class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
-      data-size-small=""
-      display="inline-block"
-      fill="currentColor"
-      focusable="false"
-      height="16"
-      overflow="visible"
-      role="img"
-      style="vertical-align: text-bottom;"
-      viewBox="0 0 16 16"
-      width="16"
-    >
-      <path
-        d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"
-      />
-      <path
-        d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"
-      />
-    </svg>
-  </span>
-</div>
-`;
-
-exports[`StateLabel > respects the deprecated variant prop 2`] = `
 <div>
   <span
     class="prc-StateLabel-StateLabel-eEUJr"

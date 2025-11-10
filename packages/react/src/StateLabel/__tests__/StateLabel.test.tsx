@@ -22,7 +22,7 @@ describe('StateLabel', () => {
   })
 
   it('prefers the size prop over deprecated variant prop', () => {
-    expect(HTMLRender(<StateLabel size="small" variant="medium"status="issueOpened" />).container).toMatchSnapshot()
+    expect(HTMLRender(<StateLabel size="small" variant="normal" status="issueOpened" />).container).toMatchSnapshot()
   })
 
   it('renders children', () => {
