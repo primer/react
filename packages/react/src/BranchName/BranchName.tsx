@@ -15,7 +15,6 @@ export type BranchNameProps<As extends React.ElementType> = PolymorphicProps<
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function BranchName<As extends React.ElementType>(props: BranchNameProps<As>, ref: ForwardedRef<any>) {
   const {as: Component = 'a', className, children, ...rest} = props
-
   return (
     <Component {...rest} ref={ref} className={clsx(className, classes.BranchName)}>
       {children}
