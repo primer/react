@@ -20,4 +20,11 @@ export const WithBranchIcon = () => (
 
 export const NotALink = () => <BranchName as="span">branch_name_as_span</BranchName>
 
+export const LinkWithoutHref = () => (
+  <div style={{display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'flex-start'}}>
+    <BranchName as="a">branch_name_as_a</BranchName>
+    <BranchName>branch_name_no_as</BranchName>
+  </div>
+)
+
 export const NoProps = () => <BranchName>branch_name_no_props</BranchName>

@@ -14,18 +14,12 @@ export type BranchNameProps<As extends React.ElementType> = PolymorphicProps<
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function BranchName<As extends React.ElementType>(props: BranchNameProps<As>, ref: ForwardedRef<any>) {
-  const {as: Component, className, children, ...rest} = props
-
-  let InferredComponent = (Component || 'span') as As
-
-  if (!Component && 'href' in props) {
-    InferredComponent = 'a' as As
-  }
+  const {as: Component = 'a', className, children, ...rest} = props
 
   return (
-    <InferredComponent {...rest} ref={ref} className={clsx(className, classes.BranchName)}>
+    <Component {...rest} ref={ref} className={clsx(className, classes.BranchName)}>
       {children}
-    </InferredComponent>
+    </Component>
   )
 }
 
