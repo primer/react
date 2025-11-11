@@ -17,12 +17,14 @@
   &[data-full-width='true'] {
     display: flex;
     width: 100%;
+
     --segmented-control-icon-width: 100%;
   }
 
   &[data-full-width='false'] {
     display: inline-flex;
     width: auto;
+
     --segmented-control-icon-width: 32px;
   }
 
@@ -30,12 +32,14 @@
     &[data-full-width-narrow='true'] {
       display: flex;
       width: 100%;
+
       --segmented-control-icon-width: 100%;
     }
 
     &[data-full-width-narrow='false'] {
       display: inline-flex;
       width: auto;
+
       --segmented-control-icon-width: 32px;
     }
   }
@@ -44,12 +48,14 @@
     &[data-full-width-regular='true'] {
       display: flex;
       width: 100%;
+
       --segmented-control-icon-width: 100%;
     }
 
     &[data-full-width-regular='false'] {
       display: inline-flex;
       width: auto;
+
       --segmented-control-icon-width: 32px;
     }
   }
@@ -58,18 +64,21 @@
     &[data-full-width-wide='true'] {
       display: flex;
       width: 100%;
+
       --segmented-control-icon-width: 100%;
     }
 
     &[data-full-width-wide='false'] {
       display: inline-flex;
       width: auto;
+
       --segmented-control-icon-width: 32px;
     }
 
     &[data-full-width-regular='true']:not([data-full-width-wide='true']) {
       display: inline-flex;
       width: auto;
+
       --segmented-control-icon-width: 32px;
     }
   }
