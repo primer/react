@@ -10,8 +10,7 @@ export type BranchNameProps<As extends React.ElementType> = PolymorphicProps<
   {
     className?: string
   }
-> &
-  (As extends 'a' ? {href: string} : {href?: never})
+>
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function BranchName<As extends React.ElementType>(props: BranchNameProps<As>, ref: ForwardedRef<any>) {

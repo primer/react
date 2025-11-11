@@ -9,7 +9,7 @@ describe('BranchName', () => {
   })
 
   it('should support `className` on the outermost element', () => {
-    const Element = () => <BranchName as="span" className={'test-class-name'} />
+    const Element = () => <BranchName className={'test-class-name'} />
     expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
   })
 
