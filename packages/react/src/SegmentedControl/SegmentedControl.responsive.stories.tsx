@@ -92,6 +92,31 @@ VariantDropdownResponsive.parameters = {
 }
 
 /**
+ * Test responsive variant behavior when only the narrow breakpoint is specified.
+ */
+export const VariantDropdownNarrowOnly: StoryFn = () => (
+  <div>
+    <p style={{marginBottom: '16px'}}>Variant: dropdown (narrow) → buttons (others inherit default)</p>
+    <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
+      <SegmentedControl.Button defaultSelected leadingVisual={EyeIcon}>
+        Preview
+      </SegmentedControl.Button>
+      <SegmentedControl.Button leadingVisual={FileCodeIcon}>Raw</SegmentedControl.Button>
+      <SegmentedControl.Button leadingVisual={PeopleIcon}>Blame</SegmentedControl.Button>
+    </SegmentedControl>
+  </div>
+)
+
+VariantDropdownNarrowOnly.parameters = {
+  docs: {
+    description: {
+      story:
+        'Only the **narrow** breakpoint sets the dropdown variant; wider breakpoints fall back to the default segmented buttons.',
+    },
+  },
+}
+
+/**
  * Test complex responsive behavior combining fullWidth and variant.
  */
 export const ComplexResponsive: StoryFn = () => (
