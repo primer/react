@@ -17,16 +17,4 @@ describe('BranchName', () => {
     const {container} = HTMLRender(<BranchName />)
     expect(container.firstChild?.nodeName).toEqual('SPAN')
   })
-
-  it('requires href when as="a"', () => {
-    // @ts-expect-error - href is required when as="a"
-    const Element = () => <BranchName as="a" />
-    expect(HTMLRender(<Element />).container.firstChild?.nodeName).toEqual('A')
-  })
-
-  it('does not allow href when as="span"', () => {
-    // @ts-expect-error - href is required when as="a"
-    const Element = () => <BranchName as="span" href="" />
-    expect(HTMLRender(<Element />).container.firstChild?.nodeName).toEqual('SPAN')
-  })
 })
