@@ -122,24 +122,17 @@ export const RestoreFocus = () => {
 
 export const RestoreFocusMinimal = () => {
   const [enabled, setEnabled] = React.useState(false)
-  // We manage focus restoration manually so we can skip restoring when outside click disables the trap.
   const toggleButtonRef = React.useRef<HTMLButtonElement>(null)
   const {containerRef} = useFocusTrap({
     disabled: !enabled,
+    restoreFocusOnCleanUp: true,
+    returnFocusRef: toggleButtonRef,
+    allowOutsideClick: true,
   })
 
-  const disableTrap = React.useCallback(
-    (restoreFocus: boolean) => {
-      setEnabled(false)
-      if (restoreFocus) {
-        // Wait a frame to allow trap cleanup to finish before moving focus.
-        requestAnimationFrame(() => {
-          toggleButtonRef.current?.focus()
-        })
-      }
-    },
-    [],
-  )
+  const disableTrap = React.useCallback((restoreFocus: boolean) => {
+    setEnabled(false)
+  }, [])
   useOnEscapePress(
     React.useCallback(
       e => {
@@ -151,14 +144,6 @@ export const RestoreFocusMinimal = () => {
     ),
     [enabled, disableTrap],
   )
-
-  useOnOutsideClick({
-    containerRef: containerRef as React.RefObject<HTMLDivElement>,
-    ignoreClickRefs: [toggleButtonRef],
-    onClickOutside: () => {
-      if (enabled) disableTrap(false) // explicitly skip focus restoration on outside click
-    },
-  })
 
   return (
     <>
@@ -175,7 +160,6 @@ export const RestoreFocusMinimal = () => {
               disableTrap(true)
             } else {
               setEnabled(true)
-              // Button already has focus when enabling; no action needed.
             }
           }}
         >
@@ -222,7 +206,7 @@ export const RestoreFocusMinimal = () => {
             <Button onClick={() => disableTrap(true)}>Close trap</Button>
           </Stack>
         </div>
-        <Button>Outside button</Button>
+        <Button>Click here to escape trap</Button>
       </Stack>
     </>
   )
