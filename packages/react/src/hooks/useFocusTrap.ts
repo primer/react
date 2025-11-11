@@ -101,7 +101,7 @@ export function useFocusTrap(
     onClickOutside: () => {
       setOutsideClicked(true)
       if (settings?.allowOutsideClick) {
-        if (settings?.returnFocusRef) settings.returnFocusRef = undefined
+        if (settings.returnFocusRef) settings.returnFocusRef = undefined
         settings.restoreFocusOnCleanUp = false
         abortController.current?.abort()
       }

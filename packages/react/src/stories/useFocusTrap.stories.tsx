@@ -4,7 +4,6 @@ import type {Meta} from '@storybook/react-vite'
 import {Button, Flash, Stack, Text} from '..'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
-import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
 import classes from './FocusTrapStories.module.css'
 
 export default {
@@ -130,19 +129,16 @@ export const RestoreFocusMinimal = () => {
     allowOutsideClick: true,
   })
 
-  const disableTrap = React.useCallback((restoreFocus: boolean) => {
-    setEnabled(false)
-  }, [])
   useOnEscapePress(
     React.useCallback(
       e => {
         if (!enabled) return
         e.preventDefault()
-        disableTrap(true)
+        setEnabled(false)
       },
-      [enabled, disableTrap],
+      [enabled, setEnabled],
     ),
-    [enabled, disableTrap],
+    [enabled, setEnabled],
   )
 
   return (
@@ -157,7 +153,7 @@ export const RestoreFocusMinimal = () => {
           ref={toggleButtonRef}
           onClick={() => {
             if (enabled) {
-              disableTrap(true)
+              setEnabled(false)
             } else {
               setEnabled(true)
             }
@@ -203,7 +199,7 @@ export const RestoreFocusMinimal = () => {
             <MarginButton>First</MarginButton>
             <MarginButton>Second</MarginButton>
             <MarginButton>Third</MarginButton>
-            <Button onClick={() => disableTrap(true)}>Close trap</Button>
+            <Button onClick={() => setEnabled(false)}>Close trap</Button>
           </Stack>
         </div>
         <Button>Click here to escape trap</Button>
