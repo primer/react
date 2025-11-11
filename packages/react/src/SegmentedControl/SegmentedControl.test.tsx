@@ -64,7 +64,7 @@ describe('SegmentedControl', () => {
   })
 
   it('renders the dropdown variant', () => {
-    const {getByText} = render(
+    const {getByRole} = render(
       <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
         {segmentData.map(({label}, index) => (
           <SegmentedControl.Button selected={index === 1} key={label}>
@@ -73,7 +73,7 @@ describe('SegmentedControl', () => {
         ))}
       </SegmentedControl>,
     )
-    const button = getByText(segmentData[1].label)
+    const button = getByRole('button', {name: `${segmentData[1].label}, File view`})
 
     expect(button).toBeInTheDocument()
     expect(button.closest('button')?.getAttribute('aria-haspopup')).toBe('true')
@@ -280,7 +280,7 @@ describe('SegmentedControl', () => {
         </SegmentedControl>
       </BaseStyles>,
     )
-    const button = component.getByText(segmentData[0].label)
+    const button = component.getByRole('button', {name: `${segmentData[0].label}, File view`})
 
     fireEvent.click(button)
     expect(handleChange).not.toHaveBeenCalled()
@@ -303,7 +303,7 @@ describe('SegmentedControl', () => {
         </SegmentedControl>
       </BaseStyles>,
     )
-    const button = component.getByText(segmentData[0].label)
+    const button = component.getByRole('button', {name: `${segmentData[0].label}, File view`})
 
     fireEvent.click(button)
     expect(handleClick).not.toHaveBeenCalled()
