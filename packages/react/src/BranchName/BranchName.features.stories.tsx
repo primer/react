@@ -19,3 +19,5 @@ export const WithBranchIcon = () => (
 )
 
 export const NotALink = () => <BranchName as="span">branch_name_as_span</BranchName>
+
+export const NoProps = () => <BranchName>branch_name_no_props</BranchName>

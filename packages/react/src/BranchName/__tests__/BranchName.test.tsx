@@ -13,10 +13,9 @@ describe('BranchName', () => {
     expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
   })
 
-  it('requires href when no as property is provided', () => {
-    // @ts-expect-error - href is required when as property is not provided
-    const Element = () => <BranchName />
-    expect(HTMLRender(<Element />).container.firstChild?.nodeName).toEqual('A')
+  it('renders an <span> by default', () => {
+    const {container} = HTMLRender(<BranchName />)
+    expect(container.firstChild?.nodeName).toEqual('SPAN')
   })
 
   it('requires href when as="a"', () => {
