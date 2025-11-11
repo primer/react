@@ -110,8 +110,8 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   }
 
   // Check if dropdown variant is used at any breakpoint
-  const hasDropdownVariant =
-    typeof variant === 'object' && variant !== null && Object.values(variant).includes('dropdown')
+  const responsiveVariant = typeof variant === 'object' ? variant : undefined
+  const hasDropdownVariant = responsiveVariant ? Object.values(responsiveVariant).includes('dropdown') : false
 
   // Render dropdown variant if needed
   const dropdownContent = hasDropdownVariant && (
