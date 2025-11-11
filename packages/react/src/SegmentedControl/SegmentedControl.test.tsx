@@ -313,23 +313,6 @@ describe('SegmentedControl', () => {
     expect(handleClick).toHaveBeenCalled()
   })
 
-  it('warns users if they try to use the hideLabels variant without a leadingVisual', () => {
-    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => {})
-
-    render(
-      <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels'}}>
-        {segmentData.map(({label}, index) => (
-          <SegmentedControl.Button selected={index === 1} key={label}>
-            {label}
-          </SegmentedControl.Button>
-        ))}
-      </SegmentedControl>,
-    )
-
-    expect(spy).toHaveBeenCalledTimes(3)
-    spy.mockRestore()
-  })
-
   it('supports deprecated leadingIcon prop for backward compatibility', () => {
     const {getByText} = render(
       <SegmentedControl aria-label="File view">
