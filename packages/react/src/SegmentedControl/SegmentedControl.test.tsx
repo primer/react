@@ -80,7 +80,7 @@ describe('SegmentedControl', () => {
   })
 
   it('renders the hideLabels variant', () => {
-    const {getByLabelText} = render(
+    const {getByRole} = render(
       <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels'}}>
         {segmentData.map(({label, icon}, index) => (
           <SegmentedControl.Button leadingVisual={icon} selected={index === 1} key={label}>
@@ -91,8 +91,8 @@ describe('SegmentedControl', () => {
     )
 
     for (const datum of segmentData) {
-      const labelledButton = getByLabelText(datum.label)
-      expect(labelledButton).toBeDefined()
+      const labelledButton = getByRole('button', {name: datum.iconLabel})
+      expect(labelledButton).toBeInTheDocument()
     }
   })
 
