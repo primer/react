@@ -7,18 +7,23 @@ import classes from './CounterLabel.module.css'
 
 export type CounterLabelProps = React.PropsWithChildren<
   HTMLAttributes<HTMLSpanElement> & {
+    /** @deprecated use variant instead */
     scheme?: 'primary' | 'secondary'
+    variant?: 'primary' | 'secondary'
     className?: string
   }
 >
 
 const CounterLabel = forwardRef<HTMLSpanElement, CounterLabelProps>(
-  ({scheme = 'secondary', className, children, ...rest}, forwardedRef) => {
+  ({variant, scheme, className, children, ...rest}, forwardedRef) => {
     const label = <VisuallyHidden>&nbsp;({children})</VisuallyHidden>
+
+    const inferredVariant = variant ? variant : scheme ? scheme : 'secondary'
+
     const counterProps = {
       ref: forwardedRef,
       ['aria-hidden']: 'true' as const,
-      ['data-scheme']: scheme,
+      ['data-variant']: inferredVariant,
       ...rest,
     }
 

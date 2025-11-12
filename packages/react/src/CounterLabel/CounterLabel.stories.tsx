@@ -11,7 +11,7 @@ export const Default: StoryFn<typeof CounterLabel> = () => <CounterLabel>12</Cou
 export const Playground: StoryObj<typeof CounterLabel> = {
   render: args => <CounterLabel {...args}>12</CounterLabel>,
   args: {
-    scheme: 'primary',
+    variant: 'primary',
   },
   argTypes: {
     scheme: {
