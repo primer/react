@@ -78,7 +78,7 @@ Spinner.displayName = 'Spinner'
 
 function useSpinnerAnimation() {
   const ref = useRef<Animation | null>(null)
-  const noMotionPreference = useMedia('(prefers-reduced-motion: no-preference)', true)
+  const noMotionPreference = useMedia('(prefers-reduced-motion: no-preference)', false)
   return useCallback(
     (element: HTMLElement | SVGSVGElement | null) => {
       if (!element) {
@@ -112,6 +112,13 @@ function useSpinnerAnimation() {
         // startTime they will be in sync.
         // @see https://developer.mozilla.org/en-US/docs/Web/API/Animation/startTime#syncing_different_animations
         ref.current.startTime = 0
+      }
+
+      return () => {
+        if (ref.current !== null) {
+          ref.current.cancel()
+          ref.current = null
+        }
       }
     },
     [noMotionPreference],
