@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e
+
+PLAYWRIGHT_VERSION=$(npm --json list @playwright/test | jq --raw-output '.dependencies["@playwright/test"].version')
+
+if [ -z "$PLAYWRIGHT_VERSION" ]; then
+  echo "Unable to find Playwright version. Make sure @playwright/test is installed."
+  exit 1
+fi
+
+echo "Using Playwright version $PLAYWRIGHT_VERSION"
+
+docker run --rm \
+  --network host \
+  -v $(pwd):/workspace \
+  -w /workspace \
+  -it "mcr.microsoft.com/playwright:v$PLAYWRIGHT_VERSION-jammy" \
+  /bin/bash -c "npm install && npx vitest --project '@primer/styled-react (vrt)' --run $@"
+

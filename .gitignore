@@ -49,7 +49,7 @@ results.json
 *.module.css.d.ts
 
 # Vitest
-**/__screenshots__/**
+**/__screenshots__/**/*.png
 !**/__screenshots__/**/*-linux.png
 **/.vitest-attachments/**
 
