@@ -8,4 +8,4 @@ export default {
 
 export const PrimaryTheme: StoryFn<typeof CounterLabel> = () => <CounterLabel variant="primary">12</CounterLabel>
 
-export const SecondaryTheme: StoryFn<typeof CounterLabel> = () => <CounterLabel scheme="secondary">12</CounterLabel>
+export const SecondaryTheme: StoryFn<typeof CounterLabel> = () => <CounterLabel variant="secondary">12</CounterLabel>

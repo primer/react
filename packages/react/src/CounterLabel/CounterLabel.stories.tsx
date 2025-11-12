@@ -14,8 +14,8 @@ export const Playground: StoryObj<typeof CounterLabel> = {
     variant: 'primary',
   },
   argTypes: {
-    scheme: {
-      control: 'select',
+    variant: {
+      control: 'radio',
       options: ['primary', 'secondary'],
     },
   },
