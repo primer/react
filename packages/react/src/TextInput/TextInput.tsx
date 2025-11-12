@@ -97,10 +97,13 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       loading && (loaderPosition === 'leading' || Boolean(LeadingVisual && loaderPosition !== 'trailing'))
     const showTrailingLoadingIndicator =
       loading && (loaderPosition === 'trailing' || Boolean(loaderPosition === 'auto' && !LeadingVisual))
+
+    // Date/time input types that have segment-based focus
+    const isSegmentedInputType = type === 'date' || type === 'time' || type === 'datetime-local'
+
     const focusInput: MouseEventHandler = e => {
-      // Don't call focus() if the input itself was clicked, as this can
-      // disrupt browser-native behavior like segment focus in date/time inputs
-      if (e.target !== inputRef.current) {
+      // Don't call focus() if the input itself was clicked on date/time inputs,
+      if (e.target !== inputRef.current || !isSegmentedInputType) {
         inputRef.current?.focus()
       }
     }
