@@ -1,0 +1,88 @@
+/* stylelint-disable selector-pseudo-class-no-unknown */
+
+@import '@primer/primitives/dist/css/base/motion/motion.css';
+@import '@primer/primitives/dist/css/base/size/size.css';
+@import '@primer/primitives/dist/css/base/typography/typography.css';
+@import '@primer/primitives/dist/css/functional/size/border.css';
+@import '@primer/primitives/dist/css/functional/size/breakpoints.css';
+@import '@primer/primitives/dist/css/functional/size/size-coarse.css';
+@import '@primer/primitives/dist/css/functional/size/size-fine.css';
+@import '@primer/primitives/dist/css/functional/size/size.css';
+@import '@primer/primitives/dist/css/functional/size/viewport.css';
+@import '@primer/primitives/dist/css/functional/themes/dark-colorblind.css';
+@import '@primer/primitives/dist/css/functional/themes/dark-dimmed.css';
+@import '@primer/primitives/dist/css/functional/themes/dark-high-contrast.css';
+@import '@primer/primitives/dist/css/functional/themes/dark-tritanopia.css';
+@import '@primer/primitives/dist/css/functional/themes/dark.css';
+@import '@primer/primitives/dist/css/functional/themes/light-colorblind.css';
+@import '@primer/primitives/dist/css/functional/themes/light-high-contrast.css';
+@import '@primer/primitives/dist/css/functional/themes/light-tritanopia.css';
+@import '@primer/primitives/dist/css/functional/themes/light.css';
+@import '@primer/primitives/dist/css/functional/typography/typography.css';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: var(--fgColor-default);
+  background-color: var(--bgColor-default);
+  font-family: var(--fontStack-system);
+  line-height: var(--text-body-lineHeight-large);
+  margin: 0;
+}
+
+table {
+  /* stylelint-disable-next-line primer/borders */
+  border-collapse: collapse;
+}
+
+[data-color-mode='light'] input {
+  color-scheme: light;
+}
+
+[data-color-mode='dark'] input {
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: light) {
+  [data-color-mode='auto'][data-light-theme*='light'] {
+    color-scheme: light;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-color-mode='auto'][data-dark-theme*='dark'] {
+    color-scheme: dark;
+  }
+}
+
+[role='button']:focus:not(:focus-visible):not(:global(.focus-visible)),
+/* stylelint-disable-next-line selector-max-specificity */
+[role='tabpanel'][tabindex='0']:focus:not(:focus-visible):not(:global(.focus-visible)),
+button:focus:not(:focus-visible):not(:global(.focus-visible)),
+summary:focus:not(:focus-visible):not(:global(.focus-visible)),
+a:focus:not(:focus-visible):not(:global(.focus-visible)) {
+  outline: none;
+  box-shadow: none;
+}
+
+[tabindex='0']:focus:not(:focus-visible):not(:global(.focus-visible)),
+details-dialog:focus:not(:focus-visible):not(:global(.focus-visible)) {
+  outline: none;
+}
+
+/* https://vitest.dev/guide/browser/visual-regression-testing.html#disable-animations */
+*,
+*::before,
+*::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+}
+
+[data-testid='screenshot'] {
+  display: inline-flex;
+  padding: 1rem;
+}
