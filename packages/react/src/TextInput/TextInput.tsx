@@ -97,8 +97,12 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       loading && (loaderPosition === 'leading' || Boolean(LeadingVisual && loaderPosition !== 'trailing'))
     const showTrailingLoadingIndicator =
       loading && (loaderPosition === 'trailing' || Boolean(loaderPosition === 'auto' && !LeadingVisual))
-    const focusInput: MouseEventHandler = () => {
-      inputRef.current?.focus()
+    const focusInput: MouseEventHandler = e => {
+      // Don't call focus() if the input itself was clicked, as this can
+      // disrupt browser-native behavior like segment focus in date/time inputs
+      if (e.target !== inputRef.current) {
+        inputRef.current?.focus()
+      }
     }
     const leadingVisualId = useId()
     const trailingVisualId = useId()
