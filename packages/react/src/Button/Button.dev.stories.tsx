@@ -85,3 +85,32 @@ export const DisabledButtonVariants = () => {
     </Stack>
   )
 }
+
+export const LinkVariantWithUnderlinePreference = () => {
+  return (
+    <Stack gap="spacious">
+      <Stack gap="condensed" align="start" data-a11y-link-underlines="true">
+        <Button variant="link">Underline pref on</Button>
+        <Button
+          variant="link"
+          leadingVisual={SearchIcon}
+          trailingAction={TriangleDownIcon}
+          trailingVisual={HeartFillIcon}
+        >
+          Underline pref on
+        </Button>
+      </Stack>
+      <Stack gap="condensed" align="start" data-a11y-link-underlines="false">
+        <Button variant="link">Underline pref off</Button>
+        <Button
+          variant="link"
+          leadingVisual={SearchIcon}
+          trailingAction={TriangleDownIcon}
+          trailingVisual={HeartFillIcon}
+        >
+          Underline pref off
+        </Button>
+      </Stack>
+    </Stack>
+  )
+}

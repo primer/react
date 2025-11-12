@@ -87,6 +87,26 @@ const stories = [
     title: 'Trailing Counter No Text',
     id: 'components-button-features--trailing-counter-with-no-text',
   },
+  {
+    title: 'Keybinding Hint',
+    id: 'components-button-features--keybinding-hint-basic',
+  },
+  {
+    title: 'Keybinding Hint All Variants',
+    id: 'components-button-features--keybinding-hint-all-variants',
+  },
+  {
+    title: 'Keybinding Hint All Sizes',
+    id: 'components-button-features--keybinding-hint-all-sizes',
+  },
+  {
+    title: 'Keybinding Hint With Leading Visual',
+    id: 'components-button-features--keybinding-hint-with-leading-visual',
+  },
+  {
+    title: 'Dev Link Variant With Underline Preference',
+    id: 'components-button-dev--link-variant-with-underline-preference',
+  },
 ] as const
 
 test.describe('Button', () => {

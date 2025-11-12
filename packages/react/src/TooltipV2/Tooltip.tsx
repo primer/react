@@ -25,6 +25,16 @@ export type TooltipProps = React.PropsWithChildren<{
    * long (1200ms)
    */
   delay?: 'short' | 'medium' | 'long'
+  /**
+   * Private API for use internally only. Prevents the tooltip from opening if `true`.
+   *
+   * Accessibility note: This prop should be used with caution. Only use when needing to
+   * programmatically close the tooltip in response to a specific user action, such as
+   * opening a menu, or content where the tooltip could overlap with interactive content.
+   *
+   * @default false
+   */
+  _privateDisableTooltip?: boolean
 }> &
   React.HTMLAttributes<HTMLElement>
 
@@ -107,6 +117,7 @@ export const Tooltip: ForwardRefExoticComponent<
       className,
       keybindingHint,
       delay = 'short',
+      _privateDisableTooltip = false,
       ...rest
     }: TooltipProps,
     forwardedRef,
@@ -130,7 +141,8 @@ export const Tooltip: ForwardRefExoticComponent<
           tooltipElRef.current &&
           triggerRef.current &&
           tooltipElRef.current.hasAttribute('popover') &&
-          !tooltipElRef.current.matches(':popover-open')
+          !tooltipElRef.current.matches(':popover-open') &&
+          !_privateDisableTooltip
         ) {
           const tooltip = tooltipElRef.current
           const trigger = triggerRef.current
@@ -265,6 +277,7 @@ export const Tooltip: ForwardRefExoticComponent<
       <TooltipContext.Provider value={value}>
         <>
           {React.isValidElement(child) &&
+            // eslint-disable-next-line react-hooks/refs
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
               ref: triggerRef,
               // If it is a type description, we use tooltip to describe the trigger

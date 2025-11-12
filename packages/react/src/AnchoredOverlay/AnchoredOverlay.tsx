@@ -1,5 +1,5 @@
 import type React from 'react'
-import {useCallback, useEffect} from 'react'
+import {useCallback, useEffect, type JSX} from 'react'
 import type {OverlayProps} from '../Overlay'
 import Overlay from '../Overlay'
 import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'
@@ -247,7 +247,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           onClickOutside={onClickOutside}
           ignoreClickRefs={[anchorRef]}
           onEscape={onEscape}
-          ref={updateOverlayRef}
           role="none"
           visibility={position ? 'visible' : 'hidden'}
           height={height}
@@ -260,6 +259,12 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           preventOverflow={preventOverflow}
           data-component="AnchoredOverlay"
           {...overlayProps}
+          ref={node => {
+            if (overlayProps?.ref) {
+              assignRef(overlayProps.ref, node)
+            }
+            updateOverlayRef(node)
+          }}
         >
           {showXIcon ? (
             <div className={classes.ResponsiveCloseButtonContainer}>
@@ -284,6 +289,17 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       ) : null}
     </>
   )
+}
+
+function assignRef<T>(
+  ref: React.MutableRefObject<T | null> | ((instance: T | null) => void) | null | undefined,
+  value: T | null,
+) {
+  if (typeof ref === 'function') {
+    ref(value)
+  } else if (ref) {
+    ref.current = value
+  }
 }
 
 AnchoredOverlay.displayName = 'AnchoredOverlay'

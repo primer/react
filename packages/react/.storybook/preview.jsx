@@ -55,7 +55,7 @@ const preview = {
               [
                 '*',
                 // Within a set of stories, set the order to the following
-                ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
+                ['README', '*', 'Playground', /Playground$/, 'Features', 'Examples'],
               ],
             ],
           ],
@@ -72,7 +72,7 @@ const preview = {
                   [
                     '*',
                     // Within a set of stories, set the order to the following
-                    ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
+                    ['README', '*', 'Playground', /Playground$/, 'Features', 'Examples'],
                   ],
                 ],
               ],
@@ -92,7 +92,7 @@ const preview = {
                   [
                     '*',
                     // Within a set of stories, set the order to the following
-                    ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
+                    ['README', '*', 'Playground', /Playground$/, 'Features', 'Examples'],
                   ],
                 ],
               ],
@@ -110,7 +110,7 @@ const preview = {
                   [
                     '*',
                     // Within a set of stories, set the order to the following
-                    ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
+                    ['README', '*', 'Playground', /Playground$/, 'Features', 'Examples'],
                   ],
                 ],
               ],
@@ -286,9 +286,10 @@ export const decorators = [
 
     // Set data-a11y-link-underlines=true to enable underlines in all stories except the Link dev Inline Story.
     let wrapperProps =
-      context.id !== 'components-link-dev--inline'
+      context.id !== 'components-link-dev--inline' ||
+      context.id !== 'components-button-dev--link-variant-with-underline-preference'
         ? {
-            'data-a11y-link-underlines': context.id !== 'components-link-dev--inline',
+            'data-a11y-link-underlines': true,
             className: clsx('story-wrap'),
           }
         : {className: clsx('story-wrap')}

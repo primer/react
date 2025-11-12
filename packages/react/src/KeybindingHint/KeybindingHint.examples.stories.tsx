@@ -23,15 +23,6 @@ export const PrimaryButton: StoryObj<KeybindingHintProps> = {
   args: {keys: 'Mod+Enter', variant: 'onPrimary'},
 }
 
-export const DangerButton: StoryObj<KeybindingHintProps> = {
-  render: args => (
-    <Button variant="danger" trailingVisual={() => <KeybindingHint {...args} />}>
-      Delete
-    </Button>
-  ),
-  args: {keys: 'Mod+Delete', variant: 'normal'},
-}
-
 export const ActionListExample: StoryObj<KeybindingHintProps> = {
   render: args => (
     <ActionList className={classes.ActionListExample}>
