@@ -1,5 +1,5 @@
 import {render, screen} from '@testing-library/react'
-import ButtonGroup from './ButtonGroup'
+import ButtonGroup, {calculateVisibleCount} from './ButtonGroup'
 import {describe, expect, it} from 'vitest'
 
 describe('ButtonGroup', () => {
@@ -16,5 +16,37 @@ describe('ButtonGroup', () => {
   it('should respect role prop', () => {
     render(<ButtonGroup role="toolbar" />)
     expect(screen.getByRole('toolbar')).toBeInTheDocument()
+  })
+})
+
+describe('calculateVisibleCount', () => {
+  it('returns total items when container is wide enough', () => {
+    const result = calculateVisibleCount({
+      itemWidths: [80, 80, 80],
+      containerWidth: 240,
+      overflowWidth: 32,
+    })
+
+    expect(result).toBe(3)
+  })
+
+  it('returns zero when nothing fits', () => {
+    const result = calculateVisibleCount({
+      itemWidths: [120, 80],
+      containerWidth: 60,
+      overflowWidth: 32,
+    })
+
+    expect(result).toBe(0)
+  })
+
+  it('avoids leaving a single item in overflow', () => {
+    const result = calculateVisibleCount({
+      itemWidths: [120, 100, 100],
+      containerWidth: 230,
+      overflowWidth: 40,
+    })
+
+    expect(result).toBe(1)
   })
 })

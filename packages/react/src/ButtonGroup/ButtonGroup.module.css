@@ -3,7 +3,12 @@
   vertical-align: middle;
   isolation: isolate;
 
-  & > *:not([data-loading-wrapper]) {
+  &[data-phase='measuring'] {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  & > [data-button-group-slot]:not([data-loading-wrapper]) {
     /* stylelint-disable-next-line primer/spacing */
     margin-inline-end: -1px;
     position: relative;
@@ -46,7 +51,7 @@
   }
 
   /* if child is loading button */
-  & > *[data-loading-wrapper] {
+  & > [data-button-group-slot][data-loading-wrapper] {
     /* stylelint-disable-next-line primer/spacing */
     margin-inline-end: -1px;
     position: relative;
@@ -79,4 +84,19 @@
       }
     }
   }
+}
+
+.MeasurementItem {
+  display: inline-flex;
+}
+
+.OverflowOverlay {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-size-8);
+  padding: var(--base-size-8);
+}
+
+.OverflowItem {
+  display: flex;
 }
