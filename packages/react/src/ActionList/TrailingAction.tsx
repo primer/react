@@ -26,12 +26,21 @@ export type ActionListTrailingActionProps = ElementProps & {
   label: string
   className?: string
   style?: React.CSSProperties
+  showOnHover?: boolean
 }
 
 export const TrailingAction = forwardRef(
-  ({as = 'button', icon, label, href = null, className, style, loading, ...props}, forwardedRef) => {
+  (
+    {as = 'button', icon, label, href = null, className, style, loading, showOnHover = true, ...props},
+    forwardedRef,
+  ) => {
     return (
-      <span className={clsx(className, classes.TrailingAction)} style={style}>
+      <span
+        className={clsx(className, classes.TrailingAction)}
+        style={style}
+        data-show-on-hover={showOnHover}
+        data-component="TrailingAction"
+      >
         {icon ? (
           <IconButton
             as={as}

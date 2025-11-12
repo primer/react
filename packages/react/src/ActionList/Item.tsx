@@ -16,6 +16,8 @@ import VisuallyHidden from '../_VisuallyHidden'
 import classes from './ActionList.module.css'
 import {clsx} from 'clsx'
 import {fixedForwardRef} from '../utils/modern-polymorphic'
+import {useIsMacOS} from '../hooks'
+import {getAccessibleKeybindingHintString} from '../KeybindingHint'
 
 type ActionListSubItemProps = {
   children?: React.ReactNode
@@ -88,13 +90,14 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
     <TrailingVisual>{defaultTrailingVisual}</TrailingVisual>
   ) : null
   const trailingVisual = slots.trailingVisual ?? wrappedDefaultTrailingVisual
+  const isMacOS = useIsMacOS()
 
   const {role: listRole, selectionVariant: listSelectionVariant} = React.useContext(ListContext)
   const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
   const inactive = Boolean(inactiveText)
   // TODO change `menuContext` check to ```listRole !== undefined && ['menu', 'listbox'].includes(listRole)```
   // once we have a better way to handle existing usage in dotcom that incorrectly use ActionList.TrailingAction
-  const menuContext = container === 'ActionMenu' || container === 'SelectPanel' || container === 'FilteredActionList'
+  const menuContext = container === 'ActionMenu'
   // TODO: when we change `menuContext` to check `listRole` instead of `container`
   const showInactiveIndicator = inactive && !(listRole !== undefined && ['menu', 'listbox'].includes(listRole))
 
@@ -165,6 +168,16 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
   const keyPressHandler = React.useCallback(
     (event: React.KeyboardEvent<HTMLElement>) => {
       if (disabled || inactive || loading) return
+
+      // TODO: Move this logic to `filteredActionList`
+      if (event.key === 'U' || event.key === 'u') {
+        if (event.shiftKey && (isMacOS ? event.metaKey : event.ctrlKey)) {
+          event.preventDefault()
+          alert('Activated Trailing Action')
+          // do some action ...
+        }
+      }
+
       if ([' ', 'Enter'].includes(event.key)) {
         if (event.key === ' ') {
           event.preventDefault() // prevent scrolling on Space
@@ -175,7 +188,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
         onSelect(event, afterSelect)
       }
     },
-    [onSelect, disabled, loading, inactive, afterSelect],
+    [onSelect, disabled, loading, inactive, afterSelect, isMacOS],
   )
 
   const itemId = useId(id)
@@ -202,9 +215,12 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
   // Extract the variant prop value from the description slot component
   const descriptionVariant = slots.description?.props.variant ?? 'inline'
 
+  const shortcut = `Shift+${isMacOS ? 'Meta' : 'Control'}+U`
+  const trailingActionShortcutText = `(press ${getAccessibleKeybindingHintString(shortcut, isMacOS)} for more actions)`
+
   const menuItemProps = {
     onClick: clickHandler,
-    onKeyPress: !buttonSemantics ? keyPressHandler : undefined,
+    onKeyDown: !buttonSemantics ? keyPressHandler : undefined,
     'aria-disabled': disabled ? true : undefined,
     'data-inactive': inactive ? true : undefined,
     'data-loading': loading && !inactive ? true : undefined,
@@ -258,6 +274,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
         data-inactive={inactiveText ? true : undefined}
         data-has-subitem={slots.subItem ? true : undefined}
         data-has-description={slots.description ? true : false}
+        data-has-trailing-action={slots.trailingAction ? true : undefined}
         className={clsx(classes.ActionListItem, className)}
       >
         <ItemWrapper
@@ -289,6 +306,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
                 {/* Loading message needs to be in here so it is read with the label */}
                 {/* If the item is inactive, we do not simultaneously announce that it is loading */}
                 {loading === true && !inactive && <VisuallyHidden>Loading</VisuallyHidden>}
+                {slots.trailingAction && <VisuallyHidden>{trailingActionShortcutText}</VisuallyHidden>}
               </span>
               {slots.description}
             </ConditionalWrapper>
