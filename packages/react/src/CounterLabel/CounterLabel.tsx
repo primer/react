@@ -18,7 +18,7 @@ const CounterLabel = forwardRef<HTMLSpanElement, CounterLabelProps>(
   ({variant, scheme, className, children, ...rest}, forwardedRef) => {
     const label = <VisuallyHidden>&nbsp;({children})</VisuallyHidden>
 
-    const inferredVariant = variant ? variant : scheme ? scheme : 'secondary'
+    const inferredVariant = variant || scheme || 'secondary'
 
     const counterProps = {
       ref: forwardedRef,
