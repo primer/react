@@ -33,7 +33,7 @@ const stories = [
   },
   {
     title: 'With Description',
-    id: 'components-navlist-dev--with-description',
+    id: 'components-navlist-features--with-description',
   },
 ]
 
