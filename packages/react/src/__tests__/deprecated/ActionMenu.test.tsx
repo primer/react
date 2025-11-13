@@ -1,8 +1,10 @@
 import {describe, expect, it, vi, afterEach} from 'vitest'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
+import BaseStyles from '../../BaseStyles'
 import {ActionMenu} from '../../deprecated'
-import {BaseStyles} from '../..'
 import type {ItemProps} from '../../deprecated/ActionList/Item'
+
+import type {JSX} from 'react'
 
 const items = [
   {text: 'New file'},
