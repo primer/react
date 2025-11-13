@@ -2,4 +2,4 @@
 "@primer/react": minor
 ---
 
-feat(Spinner): Add a delay prop to set how long to wait before rendering the Spinner
+feat(Spinner): Adds a delay prop to the Spinner component that delays rendering by 1000ms.
