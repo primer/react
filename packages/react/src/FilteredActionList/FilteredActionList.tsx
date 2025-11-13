@@ -261,6 +261,7 @@ export function FilteredActionList({
     announcementsEnabled,
     loading,
     messageText,
+    _PrivateFocusManagement,
   )
   useScrollFlash(scrollContainerRef)
 
