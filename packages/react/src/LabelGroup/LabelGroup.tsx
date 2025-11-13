@@ -19,12 +19,12 @@ export type LabelGroupProps = {
 // Calculates the width of the overlay to cover the labels/tokens and the expand button.
 const getOverlayWidth = (
   buttonClientRect: DOMRect,
-  containerRef: React.RefObject<HTMLElement>,
+  containerRef: React.RefObject<HTMLElement | null>,
   overlayPaddingPx: number,
 ) => overlayPaddingPx + buttonClientRect.right - (containerRef.current?.getBoundingClientRect().left || 0)
 
 const InlineToggle: React.FC<{
-  collapseButtonRef: React.RefObject<HTMLButtonElement>
+  collapseButtonRef: React.RefObject<HTMLButtonElement | null>
   collapseInlineExpandedChildren: () => void
   expandButtonRef: React.RefCallback<HTMLButtonElement>
   hiddenItemIds: string[]
@@ -81,7 +81,7 @@ const OverlayToggle: React.FC<
       align="start"
       side="inside-right"
       // expandButtonRef satisfies React.RefObject<HTMLButtonElement> because we manually set `.current` in the `useCallback` above
-      anchorRef={expandButtonRef as unknown as React.RefObject<HTMLButtonElement>}
+      anchorRef={expandButtonRef as unknown as React.RefObject<HTMLButtonElement | null>}
       anchorOffset={overlayPaddingPx * -1}
       alignmentOffset={overlayPaddingPx * -1}
       renderAnchor={props => (

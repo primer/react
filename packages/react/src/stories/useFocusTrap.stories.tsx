@@ -52,27 +52,25 @@ export const FocusTrap = () => {
     }
   }, [spaceListener])
 
-  return (
-    <>
-      <HelperGlobalStyling />
-      <Stack direction="vertical" gap="normal">
-        <MarginButton>Apple</MarginButton>
-        <MarginButton>Banana</MarginButton>
-        <MarginButton>Cantaloupe</MarginButton>
-        <div className={classes.TrapZone} ref={containerRef as React.RefObject<HTMLDivElement>}>
-          <strong>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</strong>
-          <Stack direction="vertical" gap="normal">
-            <MarginButton>Durian</MarginButton>
-            <MarginButton>Elderberry</MarginButton>
-            <MarginButton>Fig</MarginButton>
-          </Stack>
-        </div>
-        <MarginButton>Grapefruit</MarginButton>
-        <MarginButton>Honeydew</MarginButton>
-        <MarginButton>Jackfruit</MarginButton>
-      </Stack>
-    </>
-  )
+  return (<>
+    <HelperGlobalStyling />
+    <Stack direction="vertical" gap="normal">
+      <MarginButton>Apple</MarginButton>
+      <MarginButton>Banana</MarginButton>
+      <MarginButton>Cantaloupe</MarginButton>
+      <div className={classes.TrapZone} ref={containerRef as React.RefObject<HTMLDivElement | null>}>
+        <strong>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</strong>
+        <Stack direction="vertical" gap="normal">
+          <MarginButton>Durian</MarginButton>
+          <MarginButton>Elderberry</MarginButton>
+          <MarginButton>Fig</MarginButton>
+        </Stack>
+      </div>
+      <MarginButton>Grapefruit</MarginButton>
+      <MarginButton>Honeydew</MarginButton>
+      <MarginButton>Jackfruit</MarginButton>
+    </Stack>
+  </>);
 }
 
 export const RestoreFocus = () => {
@@ -95,27 +93,25 @@ export const RestoreFocus = () => {
     }
   }, [spaceListener])
 
-  return (
-    <>
-      <HelperGlobalStyling />
-      <Stack direction="vertical" gap="normal">
-        <MarginButton>Apple</MarginButton>
-        <MarginButton>Banana</MarginButton>
-        <MarginButton>Cantaloupe</MarginButton>
-        <div className={classes.TrapZone} ref={containerRef as React.RefObject<HTMLDivElement>}>
-          <strong>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</strong>
-          <Stack direction="vertical" gap="normal">
-            <MarginButton>Durian</MarginButton>
-            <MarginButton>Elderberry</MarginButton>
-            <MarginButton>Fig</MarginButton>
-          </Stack>
-        </div>
-        <MarginButton>Grapefruit</MarginButton>
-        <MarginButton>Honeydew</MarginButton>
-        <MarginButton>Jackfruit</MarginButton>
-      </Stack>
-    </>
-  )
+  return (<>
+    <HelperGlobalStyling />
+    <Stack direction="vertical" gap="normal">
+      <MarginButton>Apple</MarginButton>
+      <MarginButton>Banana</MarginButton>
+      <MarginButton>Cantaloupe</MarginButton>
+      <div className={classes.TrapZone} ref={containerRef as React.RefObject<HTMLDivElement | null>}>
+        <strong>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</strong>
+        <Stack direction="vertical" gap="normal">
+          <MarginButton>Durian</MarginButton>
+          <MarginButton>Elderberry</MarginButton>
+          <MarginButton>Fig</MarginButton>
+        </Stack>
+      </div>
+      <MarginButton>Grapefruit</MarginButton>
+      <MarginButton>Honeydew</MarginButton>
+      <MarginButton>Jackfruit</MarginButton>
+    </Stack>
+  </>);
 }
 
 export const CustomInitialFocus = () => {
@@ -138,32 +134,30 @@ export const CustomInitialFocus = () => {
     }
   }, [spaceListener])
 
-  return (
-    <>
-      <HelperGlobalStyling />
-      <Stack direction="vertical" gap="normal">
-        <Flash style={{marginBottom: 'var(--base-size-12)'}}>
-          This story is the same as the `Focus Trap` story, except, when the trap zone is activated, the
-          &ldquo;Elderberry&rdquo; button will receive the initial focus (if the trap zone container does not already
-          have focus).
-        </Flash>
-        <MarginButton>Apple</MarginButton>
-        <MarginButton>Banana</MarginButton>
-        <MarginButton>Cantaloupe</MarginButton>
-        <div className={classes.TrapZone} ref={containerRef as React.RefObject<HTMLDivElement>}>
-          <strong>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</strong>
-          <Stack direction="vertical" gap="normal">
-            <MarginButton>Durian</MarginButton>
-            <MarginButton ref={initialFocusRef as React.RefObject<HTMLButtonElement>}>Elderberry</MarginButton>
-            <MarginButton>Fig</MarginButton>
-          </Stack>
-        </div>
-        <MarginButton>Grapefruit</MarginButton>
-        <MarginButton>Honeydew</MarginButton>
-        <MarginButton>Jackfruit</MarginButton>
-      </Stack>
-    </>
-  )
+  return (<>
+    <HelperGlobalStyling />
+    <Stack direction="vertical" gap="normal">
+      <Flash style={{marginBottom: 'var(--base-size-12)'}}>
+        This story is the same as the `Focus Trap` story, except, when the trap zone is activated, the
+        &ldquo;Elderberry&rdquo; button will receive the initial focus (if the trap zone container does not already
+        have focus).
+      </Flash>
+      <MarginButton>Apple</MarginButton>
+      <MarginButton>Banana</MarginButton>
+      <MarginButton>Cantaloupe</MarginButton>
+      <div className={classes.TrapZone} ref={containerRef as React.RefObject<HTMLDivElement | null>}>
+        <strong>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</strong>
+        <Stack direction="vertical" gap="normal">
+          <MarginButton>Durian</MarginButton>
+          <MarginButton ref={initialFocusRef as React.RefObject<HTMLButtonElement | null>}>Elderberry</MarginButton>
+          <MarginButton>Fig</MarginButton>
+        </Stack>
+      </div>
+      <MarginButton>Grapefruit</MarginButton>
+      <MarginButton>Honeydew</MarginButton>
+      <MarginButton>Jackfruit</MarginButton>
+    </Stack>
+  </>);
 }
 
 function useKeyPressListener(key: string, handler: () => void, capture = false) {
@@ -210,27 +204,25 @@ export const DynamicFocusTrapContents = () => {
     useCallback(() => setTrapEnabled(!trapEnabled), [trapEnabled]),
   )
 
-  return (
-    <>
-      <HelperGlobalStyling />
-      <Stack direction="vertical" gap="normal">
-        <MarginButton>Apple</MarginButton>
-        <MarginButton>Banana</MarginButton>
-        <MarginButton>Cantaloupe</MarginButton>
-        <div className={classes.TrapZone} ref={containerRef as React.RefObject<HTMLDivElement>}>
-          <strong>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</strong>
-          <Stack direction="vertical" gap="normal">
-            <ToggleableButton name="Durian"></ToggleableButton>
-            <ToggleableButton name="Elderberry"></ToggleableButton>
-            <ToggleableButton name="Fig"></ToggleableButton>
-          </Stack>
-        </div>
-        <MarginButton>Grapefruit</MarginButton>
-        <MarginButton>Honeydew</MarginButton>
-        <MarginButton>Jackfruit</MarginButton>
-      </Stack>
-    </>
-  )
+  return (<>
+    <HelperGlobalStyling />
+    <Stack direction="vertical" gap="normal">
+      <MarginButton>Apple</MarginButton>
+      <MarginButton>Banana</MarginButton>
+      <MarginButton>Cantaloupe</MarginButton>
+      <div className={classes.TrapZone} ref={containerRef as React.RefObject<HTMLDivElement | null>}>
+        <strong>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</strong>
+        <Stack direction="vertical" gap="normal">
+          <ToggleableButton name="Durian"></ToggleableButton>
+          <ToggleableButton name="Elderberry"></ToggleableButton>
+          <ToggleableButton name="Fig"></ToggleableButton>
+        </Stack>
+      </div>
+      <MarginButton>Grapefruit</MarginButton>
+      <MarginButton>Honeydew</MarginButton>
+      <MarginButton>Jackfruit</MarginButton>
+    </Stack>
+  </>);
 }
 
 export const MultipleFocusTraps = () => {
@@ -259,61 +251,59 @@ export const MultipleFocusTraps = () => {
     }
   }, [keyListener])
 
-  return (
-    <>
-      <HelperGlobalStyling />
-      <Stack direction="vertical" gap="normal">
-        <Flash style={{marginBottom: 'var(--base-size-12)'}}>
-          This story demonstrates the global nature of focus traps. When a focus trap is enabled, if there is already an
-          active focus trap, it becomes suspended and pushed onto a stack. Once the newly-active focus trap is disabled,
-          the most recently-suspended trap will reactivate. Suspended focus traps can be disabled, causing them to be
-          removed from the stack of suspended traps.
-        </Flash>
-        <div className={classes.Legend}>
-          Legend
-          <Stack direction="horizontal" gap="condensed" align="center">
-            <div className={classes.LegendItem}></div>
-            <Text> - Inactive</Text>
-          </Stack>
-          <Stack direction="horizontal" gap="condensed" align="center">
-            <div className={`${classes.LegendItem} ${classes.LegendItemSuspended}`}></div>
-            <Text> - Suspended</Text>
-          </Stack>
-          <Stack direction="horizontal" gap="condensed" align="center">
-            <div className={`${classes.LegendItem} ${classes.LegendItemActive}`}></div>
-            <Text> - Active</Text>
-          </Stack>
-        </div>
-        <MarginButton>Apple</MarginButton>
-        <MarginButton>Banana</MarginButton>
-        <MarginButton>Cantaloupe</MarginButton>
-        <div className={classes.TrapZoneSmall} ref={containerRef1 as React.RefObject<HTMLDivElement>}>
-          <strong>
-            Trap zone ({trapEnabled1 ? 'enabled' : 'disabled'})! Press <code>1</code> to toggle.
-          </strong>
-          <Stack direction="vertical" gap="normal">
-            <MarginButton>Durian</MarginButton>
-            <MarginButton>Elderberry</MarginButton>
-            <MarginButton>Fig</MarginButton>
-          </Stack>
-        </div>
-        <MarginButton>Grapefruit</MarginButton>
-        <MarginButton>Honeydew</MarginButton>
-        <MarginButton>Jackfruit</MarginButton>
-        <div className={classes.TrapZoneSmall} ref={containerRef2 as React.RefObject<HTMLDivElement>}>
-          <strong>
-            Trap zone ({trapEnabled2 ? 'enabled' : 'disabled'})! Press <code>2</code> to toggle.
-          </strong>
-          <Stack direction="vertical" gap="normal">
-            <MarginButton>Kiwi</MarginButton>
-            <MarginButton>Lemon</MarginButton>
-            <MarginButton>Mango</MarginButton>
-          </Stack>
-        </div>
-        <MarginButton>Nectarine</MarginButton>
-        <MarginButton>Orange</MarginButton>
-        <MarginButton>Peach</MarginButton>
-      </Stack>
-    </>
-  )
+  return (<>
+    <HelperGlobalStyling />
+    <Stack direction="vertical" gap="normal">
+      <Flash style={{marginBottom: 'var(--base-size-12)'}}>
+        This story demonstrates the global nature of focus traps. When a focus trap is enabled, if there is already an
+        active focus trap, it becomes suspended and pushed onto a stack. Once the newly-active focus trap is disabled,
+        the most recently-suspended trap will reactivate. Suspended focus traps can be disabled, causing them to be
+        removed from the stack of suspended traps.
+      </Flash>
+      <div className={classes.Legend}>
+        Legend
+        <Stack direction="horizontal" gap="condensed" align="center">
+          <div className={classes.LegendItem}></div>
+          <Text> - Inactive</Text>
+        </Stack>
+        <Stack direction="horizontal" gap="condensed" align="center">
+          <div className={`${classes.LegendItem} ${classes.LegendItemSuspended}`}></div>
+          <Text> - Suspended</Text>
+        </Stack>
+        <Stack direction="horizontal" gap="condensed" align="center">
+          <div className={`${classes.LegendItem} ${classes.LegendItemActive}`}></div>
+          <Text> - Active</Text>
+        </Stack>
+      </div>
+      <MarginButton>Apple</MarginButton>
+      <MarginButton>Banana</MarginButton>
+      <MarginButton>Cantaloupe</MarginButton>
+      <div className={classes.TrapZoneSmall} ref={containerRef1 as React.RefObject<HTMLDivElement | null>}>
+        <strong>
+          Trap zone ({trapEnabled1 ? 'enabled' : 'disabled'})! Press <code>1</code> to toggle.
+        </strong>
+        <Stack direction="vertical" gap="normal">
+          <MarginButton>Durian</MarginButton>
+          <MarginButton>Elderberry</MarginButton>
+          <MarginButton>Fig</MarginButton>
+        </Stack>
+      </div>
+      <MarginButton>Grapefruit</MarginButton>
+      <MarginButton>Honeydew</MarginButton>
+      <MarginButton>Jackfruit</MarginButton>
+      <div className={classes.TrapZoneSmall} ref={containerRef2 as React.RefObject<HTMLDivElement | null>}>
+        <strong>
+          Trap zone ({trapEnabled2 ? 'enabled' : 'disabled'})! Press <code>2</code> to toggle.
+        </strong>
+        <Stack direction="vertical" gap="normal">
+          <MarginButton>Kiwi</MarginButton>
+          <MarginButton>Lemon</MarginButton>
+          <MarginButton>Mango</MarginButton>
+        </Stack>
+      </div>
+      <MarginButton>Nectarine</MarginButton>
+      <MarginButton>Orange</MarginButton>
+      <MarginButton>Peach</MarginButton>
+    </Stack>
+  </>);
 }

@@ -14,7 +14,7 @@ type AutocompleteOverlayInternalProps = {
   /**
    * The ref of the element that the position of the menu is based on. By default, the menu is positioned based on the text input
    */
-  menuAnchorRef?: React.RefObject<HTMLElement>
+  menuAnchorRef?: React.RefObject<HTMLElement | null>
   /**
    * Props to be spread on the internal `Overlay` component.
    */
@@ -60,7 +60,7 @@ function AutocompleteOverlay({
       preventFocusOnOpen={true}
       onClickOutside={closeOptionList}
       onEscape={closeOptionList}
-      ref={floatingElementRef as React.RefObject<HTMLDivElement>}
+      ref={floatingElementRef as React.RefObject<HTMLDivElement | null>}
       top={position?.top}
       left={position?.left}
       className={classes.Overlay}
@@ -71,8 +71,8 @@ function AutocompleteOverlay({
   ) : (
     // HACK: This ensures AutocompleteMenu is still mounted when closing the menu and all of the hooks inside of it are still called.
     // A better way to do this would be to move the hooks to AutocompleteOverlay or somewhere that won't get unmounted.
-    <VisuallyHidden aria-hidden="true">{children}</VisuallyHidden>
-  )
+    (<VisuallyHidden aria-hidden="true">{children}</VisuallyHidden>)
+  );
 }
 
 AutocompleteOverlay.displayName = 'AutocompleteOverlay'

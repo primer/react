@@ -53,7 +53,7 @@ export const UnderlineNavItem = forwardRef(
     forwardedRef,
   ) => {
     const backupRef = useRef<HTMLElement>(null)
-    const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
+    const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement | null>
     const {setChildrenWidth, setNoIconChildrenWidth, loadingCounters, iconsVisible} = useContext(UnderlineNavContext)
 
     useLayoutEffect(() => {

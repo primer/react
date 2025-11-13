@@ -17,7 +17,7 @@ type UnderlineWrapperProps<As extends React.ElementType> = {
   slot?: string
   as?: As
   className?: string
-  ref?: React.Ref<HTMLElement>
+  ref?: React.Ref<HTMLElement | null>
 }
 
 export const UnderlineWrapper = forwardRef((props, ref) => {
