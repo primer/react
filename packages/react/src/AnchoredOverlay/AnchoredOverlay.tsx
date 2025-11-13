@@ -9,7 +9,7 @@ import {useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
 import {useId} from '../hooks/useId'
 import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
-import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveValue'
+import {type ResponsiveValue} from '../hooks/useResponsiveValue'
 import {IconButton, type IconButtonProps} from '../Button'
 import {XIcon} from '@primer/octicons-react'
 import classes from './AnchoredOverlay.module.css'
@@ -225,8 +225,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   })
   useFocusTrap({containerRef: overlayRef, disabled: !open || !position, ...focusTrapSettings})
 
-  const currentResponsiveVariant = useResponsiveValue(variant, 'anchored')
-
   const showXIcon = onClose && variant.narrow === 'fullscreen' && displayCloseButton
   const XButtonAriaLabelledBy = closeButtonProps['aria-labelledby']
   const XButtonAriaLabel = closeButtonProps['aria-label']
@@ -253,13 +251,13 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           visibility={position ? 'visible' : 'hidden'}
           height={height}
           width={width}
-          top={currentResponsiveVariant === 'anchored' ? position?.top || 0 : undefined}
-          left={currentResponsiveVariant === 'anchored' ? position?.left || 0 : undefined}
+          top={position?.top || 0}
+          left={position?.left || 0}
           responsiveVariant={variant.narrow === 'fullscreen' ? 'fullscreen' : undefined}
-          data-variant={currentResponsiveVariant}
           anchorSide={position?.anchorSide}
           className={className}
           preventOverflow={preventOverflow}
+          data-component="AnchoredOverlay"
           {...overlayProps}
           ref={node => {
             if (overlayProps?.ref) {
