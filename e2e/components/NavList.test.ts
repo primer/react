@@ -31,6 +31,10 @@ const stories = [
     title: 'With group expand',
     id: 'components-navlist-features--with-group-expand',
   },
+  {
+    title: 'With Description',
+    id: 'components-navlist-dev--with-description',
+  },
 ]
 
 test.describe('NavList', () => {
