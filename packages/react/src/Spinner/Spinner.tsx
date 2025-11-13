@@ -38,7 +38,7 @@ function Spinner({
   const hasHiddenLabel = srText !== null && ariaLabel === undefined
   const labelId = useId()
 
-  const [isVisible, setIsVisible] = useState(delay === 0)
+  const [isVisible, setIsVisible] = useState(!delay)
 
   useEffect(() => {
     if (delay) {
