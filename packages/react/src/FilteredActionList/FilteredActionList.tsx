@@ -23,6 +23,7 @@ import {isValidElementType} from 'react-is'
 import {useAnnouncements} from './useAnnouncements'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
+import {useResponsiveValue} from '../hooks/useResponsiveValue'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -85,7 +86,13 @@ export function FilteredActionList({
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
 
-  const usingRemoveActiveDescendant = useFeatureFlag('primer_react_select_panel_remove_active_descendant')
+  const currentResponsiveVariant = useResponsiveValue(
+    fullScreenOnNarrow ? {regular: 'anchored', narrow: 'fullscreen'} : undefined,
+    'anchored',
+  )
+
+  const usingRemoveActiveDescendant = currentResponsiveVariant === 'fullscreen'
+
   const [listContainerElement, setListContainerElement] = useState<HTMLUListElement | null>(null)
   const activeDescendantRef = useRef<HTMLElement>()
 
