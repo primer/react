@@ -6,6 +6,7 @@
   "include": [
     "@types/**/*.ts",
     "script/**/*.ts",
+    "script/**/*.mts",
     "e2e/**/*.ts",
     "playwright.config.ts"
   ]

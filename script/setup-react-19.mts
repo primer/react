@@ -44,3 +44,16 @@ for (const packageJsonPath of packageJsonPaths) {
 }
 
 execSync('npm install', {stdio: 'inherit'})
+
+// Strip files of ts-expect-error comments that are no longer needed
+const comment = `// @ts-expect-error [react-19] [TS2322]`
+
+const files = glob.sync('packages/react/src/**/*.tsx', {
+  ignore: ['**/node_modules/**', '**/dist/**', '**/lib/**', '**/lib-esm/**', '**/.next/**', '**/storybook-static/**'],
+})
+
+for (const filepath of files) {
+  const contents = fs.readFileSync(filepath, 'utf8')
+  const updated = contents.replaceAll(comment, '')
+  fs.writeFileSync(filepath, updated, 'utf8')
+}
