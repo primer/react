@@ -21,8 +21,8 @@ export type SpinnerProps = {
   'aria-label'?: string
   className?: string
   style?: React.CSSProperties
-  /** Number of milliseconds to delay the spinner before rendering. */
-  delay?: number
+  /** Whether to delay the spinner before rendering by the defined 1000ms. */
+  delay?: boolean
 } & HTMLDataAttributes
 
 function Spinner({
@@ -31,7 +31,7 @@ function Spinner({
   'aria-label': ariaLabel,
   className,
   style,
-  delay = 0,
+  delay = false,
   ...props
 }: SpinnerProps) {
   const size = sizeMap[sizeKey]
@@ -41,10 +41,10 @@ function Spinner({
   const [isVisible, setIsVisible] = useState(delay === 0)
 
   useEffect(() => {
-    if (delay > 0) {
+    if (delay) {
       const timeoutId = setTimeout(() => {
         setIsVisible(true)
-      }, delay)
+      }, 1000)
 
       return () => clearTimeout(timeoutId)
     }
