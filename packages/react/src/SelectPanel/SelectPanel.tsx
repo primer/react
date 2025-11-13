@@ -794,7 +794,7 @@ function Panel({
                 }
               : {}),
           } as React.CSSProperties,
-          onKeyDown: usingRemoveActiveDescendant ? preventBubbling(overlayProps?.onKeyDown) : overlayProps?.onKeyDown,
+          onKeyDown: preventBubbling(overlayProps?.onKeyDown),
         }}
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}
