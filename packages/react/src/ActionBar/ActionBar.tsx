@@ -320,16 +320,19 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
   const containerRef = React.useRef<HTMLUListElement>(null)
 
-  useResizeObserver((resizeObserverEntries: ResizeObserverEntry[]) => {
-    const navWidth = resizeObserverEntries[0].contentRect.width
-    const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
-    const hasActiveMenu = menuItemIds.size > 0
+  useResizeObserver(
+    (resizeObserverEntries: ResizeObserverEntry[]) => {
+      const navWidth = resizeObserverEntries[0].contentRect.width
+      const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
+      const hasActiveMenu = menuItemIds.size > 0
 
-    if (navWidth > 0) {
-      const newMenuItemIds = getMenuItems(navWidth, moreMenuWidth, childRegistry, hasActiveMenu, computedGap)
-      if (newMenuItemIds) setMenuItemIds(newMenuItemIds)
-    }
-  }, navRef as RefObject<HTMLElement | null>)
+      if (navWidth > 0) {
+        const newMenuItemIds = getMenuItems(navWidth, moreMenuWidth, childRegistry, hasActiveMenu, computedGap)
+        if (newMenuItemIds) setMenuItemIds(newMenuItemIds)
+      }
+    },
+    navRef as RefObject<HTMLElement | null>,
+  )
 
   const isVisibleChild = useCallback(
     (id: string) => {
@@ -576,7 +579,11 @@ export const ActionBarGroup = forwardRef(({children}: React.PropsWithChildren, f
 
   return (
     <ActionBarGroupContext.Provider value={{groupId: id}}>
-      <div className={styles.Group} ref={ref}>
+      <div
+        className={styles.Group}
+        // @ts-expect-error [react-19] [TS2322]
+        ref={ref}
+      >
         {children}
       </div>
     </ActionBarGroupContext.Provider>

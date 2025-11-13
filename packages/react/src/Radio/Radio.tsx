@@ -71,6 +71,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
         type="radio"
         value={value}
         name={name}
+        // @ts-expect-error [react-19] [TS2322]
         ref={ref}
         disabled={disabled}
         checked={checked}

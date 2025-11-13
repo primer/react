@@ -209,6 +209,7 @@ const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Title
     return (
       <div
         className={clsx(classes.TitleArea, className)}
+        // @ts-expect-error [react-19] [TS2322]
         ref={titleAreaRef}
         data-component="TitleArea"
         {...getResponsiveAttributes('size-variant', variant)}

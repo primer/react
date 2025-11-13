@@ -539,7 +539,13 @@ const SecondaryCheckbox: React.FC<CheckboxProps> = ({id, children, className, ..
 
   return (
     <div className={classes.SecondaryCheckbox}>
-      <Checkbox id={checkboxId} className={clsx(classes.Checkbox, className)} {...props} />
+      <Checkbox
+        id={checkboxId}
+        className={clsx(classes.Checkbox, className)}
+        {...props}
+        // @ts-expect-error [react-19] [TS2322]
+        ref={props.ref}
+      />
       <InputLabel htmlFor={checkboxId} className={classes.SmallText}>
         {children}
       </InputLabel>

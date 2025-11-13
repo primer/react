@@ -84,7 +84,14 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       }
     })
 
-    return <input {...inputProps} className={clsx(className, sharedClasses.Input, classes.Checkbox)} />
+    return (
+      <input
+        {...inputProps}
+        // @ts-expect-error [react-19] [TS2322]
+        ref={inputProps.ref}
+        className={clsx(className, sharedClasses.Input, classes.Checkbox)}
+      />
+    )
   },
 )
 

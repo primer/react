@@ -40,7 +40,13 @@ const InlineToggle: React.FC<{
   showAllTokensInline,
 }) =>
   isOverflowShown ? (
-    <Button ref={collapseButtonRef} onClick={collapseInlineExpandedChildren} size="small" variant="invisible">
+    <Button
+      // @ts-expect-error [react-19] [TS2322]
+      ref={collapseButtonRef}
+      onClick={collapseInlineExpandedChildren}
+      size="small"
+      variant="invisible"
+    >
       Show less
     </Button>
   ) : hiddenItemIds.length ? (

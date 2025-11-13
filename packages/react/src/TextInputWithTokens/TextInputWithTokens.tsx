@@ -281,6 +281,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
         {typeof LeadingVisual !== 'string' && isValidElementType(LeadingVisual) ? <LeadingVisual /> : LeadingVisual}
       </TextInputInnerVisualSlot>
       <div
+        // @ts-expect-error [react-19] [TS2322]
         ref={containerRef as RefObject<HTMLDivElement | null>}
         className={styles.Container}
         data-prevent-token-wrapping={preventTokenWrapping}

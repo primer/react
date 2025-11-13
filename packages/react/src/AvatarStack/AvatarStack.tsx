@@ -51,6 +51,7 @@ const AvatarStackBody = ({
         classes.AvatarStackBody,
       )}
       tabIndex={!hasInteractiveChildren && !disableExpand ? 0 : undefined}
+      // @ts-expect-error [react-19] [TS2322]
       ref={stackContainer}
     >
       {children}

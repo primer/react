@@ -8,8 +8,14 @@ describe('Details', () => {
   it('Toggles when you click outside', async () => {
     const Component = () => {
       const {getDetailsProps} = useDetails({closeOnOutsideClick: true})
+      const {ref, ...detailsProps} = getDetailsProps()
       return (
-        <Details data-testid="details" {...getDetailsProps()}>
+        <Details
+          data-testid="details"
+          {...detailsProps}
+          // @ts-expect-error [react-19] [TS2322]
+          ref={ref}
+        >
           <Details.Summary>hi</Details.Summary>
         </Details>
       )
@@ -25,8 +31,14 @@ describe('Details', () => {
   it('Accurately passes down open state', async () => {
     const Component = () => {
       const {getDetailsProps, open} = useDetails({closeOnOutsideClick: true})
+      const {ref, ...detailsProps} = getDetailsProps()
       return (
-        <Details {...getDetailsProps()} data-testid="details">
+        <Details
+          {...detailsProps}
+          data-testid="details"
+          // @ts-expect-error [react-19] [TS2322]
+          ref={ref}
+        >
           <summary data-testid="summary">{open ? 'Open' : 'Closed'}</summary>
         </Details>
       )
@@ -45,8 +57,14 @@ describe('Details', () => {
     const CloseButton = (props: ButtonProps) => <Button {...props} />
     const Component = () => {
       const {getDetailsProps, setOpen, open} = useDetails({closeOnOutsideClick: true, defaultOpen: true})
+      const {ref, ...detailsProps} = getDetailsProps()
       return (
-        <Details {...getDetailsProps()} data-testid="details">
+        <Details
+          {...detailsProps}
+          data-testid="details"
+          // @ts-expect-error [react-19] [TS2322]
+          ref={ref}
+        >
           <summary data-testid="summary">{open ? 'Open' : 'Closed'}</summary>
           <CloseButton onClick={() => setOpen(false)}>Close</CloseButton>
         </Details>
@@ -65,8 +83,13 @@ describe('Details', () => {
     const user = userEvent.setup()
     const Component = () => {
       const {getDetailsProps, open} = useDetails({closeOnOutsideClick: true, defaultOpen: true})
+      const {ref, ...detailsProps} = getDetailsProps()
       return (
-        <Details {...getDetailsProps()}>
+        <Details
+          {...detailsProps}
+          // @ts-expect-error [react-19] [TS2322]
+          ref={ref}
+        >
           <summary data-testid="summary">{open ? 'Open' : 'Closed'}</summary>
           <div>
             <Button variant="primary">test</Button>

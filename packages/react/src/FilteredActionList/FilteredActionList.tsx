@@ -341,6 +341,7 @@ export function FilteredActionList({
     <div ref={inputAndListContainerRef} className={clsx(className, classes.Root)} data-testid="filtered-action-list">
       <div className={classes.Header}>
         <TextInput
+          // @ts-expect-error [react-19] [TS2322]
           ref={inputRef}
           block
           width="auto"

@@ -260,7 +260,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   }, [isDragging, isKeyboardDrag, currentWidth, minWidth, maxWidth])
 
   return (
-    (<div
+    <div
       className={clsx(classes.VerticalDivider, className)}
       {...getResponsiveAttributes('variant', variant)}
       {...getResponsiveAttributes('position', position)}
@@ -268,7 +268,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     >
       {draggable ? (
         // Drag handle
-        (<div
+        <div
           className={classes.DraggableHandle}
           data-dragging={isDragging || isKeyboardDrag}
           role="slider"
@@ -296,10 +296,10 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
             }
           }}
           onDoubleClick={onDoubleClick}
-        />)
+        />
       ) : null}
-    </div>)
-  );
+    </div>
+  )
 }
 
 // ----------------------------------------------------------------------------
@@ -682,6 +682,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           position={positionProp}
         />
         <div
+          // @ts-expect-error [react-19] [TS2322]
           ref={paneRef}
           {...(hasOverflow ? overflowProps : {})}
           {...labelProp}

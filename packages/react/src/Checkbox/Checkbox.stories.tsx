@@ -19,7 +19,13 @@ export const Playground = ({value: _value, checked, ...args}: FormControlArgs<Ch
   return (
     <form>
       <FormControl {...parentArgs}>
-        <Checkbox value="default" checked={checked} {...args} />
+        <Checkbox
+          value="default"
+          checked={checked}
+          {...args}
+          // @ts-expect-error [react-19] [TS2322]
+          ref={args.ref}
+        />
         <FormControl.Label {...labelArgs} />
         {captionArgs.children && <FormControl.Caption {...captionArgs} />}
       </FormControl>

@@ -286,19 +286,22 @@ export const UnderlineNav = forwardRef(
 
     useOnOutsideClick({onClickOutside: closeOverlay, containerRef, ignoreClickRefs: [moreMenuBtnRef]})
 
-    useResizeObserver((resizeObserverEntries: ResizeObserverEntry[]) => {
-      const navWidth = resizeObserverEntries[0].contentRect.width
-      const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
-      navWidth !== 0 &&
-        overflowEffect(
-          navWidth,
-          moreMenuWidth,
-          validChildren,
-          childWidthArray,
-          noIconChildWidthArray,
-          updateListAndMenu,
-        )
-    }, navRef as RefObject<HTMLElement | null>)
+    useResizeObserver(
+      (resizeObserverEntries: ResizeObserverEntry[]) => {
+        const navWidth = resizeObserverEntries[0].contentRect.width
+        const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
+        navWidth !== 0 &&
+          overflowEffect(
+            navWidth,
+            moreMenuWidth,
+            validChildren,
+            childWidthArray,
+            noIconChildWidthArray,
+            updateListAndMenu,
+          )
+      },
+      navRef as RefObject<HTMLElement | null>,
+    )
 
     // Compute menuInlineStyles if needed
     let menuInlineStyles: React.CSSProperties = {...baseMenuInlineStyles}

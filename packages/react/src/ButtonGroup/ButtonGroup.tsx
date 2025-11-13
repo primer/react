@@ -27,7 +27,13 @@ const ButtonGroup = React.forwardRef(function ButtonGroup(
   })
 
   return (
-    <BaseComponent ref={buttonRef} className={clsx(className, classes.ButtonGroup)} role={role} {...rest}>
+    <BaseComponent
+      // @ts-expect-error [react-19] [TS2322]
+      ref={buttonRef}
+      className={clsx(className, classes.ButtonGroup)}
+      role={role}
+      {...rest}
+    >
       {buttons}
     </BaseComponent>
   )

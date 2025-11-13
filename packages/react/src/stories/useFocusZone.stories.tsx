@@ -32,28 +32,34 @@ export const BasicFocusZone = () => {
     setFzEnabled(!fzEnabled)
   }, [fzEnabled])
 
-  return (<>
-    <div className={classes.FlexColumnContainer} onKeyDownCapture={reportKey}>
-      <div className={classes.AbsoluteTopRight}>Last key pressed: {lastKey}</div>
-      <Button variant={fzEnabled ? 'danger' : 'primary'} onClick={toggleFz} className={classes.MarginBottom3}>
-        {fzEnabled ? 'Disable' : 'Enable'} Focus Zone
-      </Button>
-      <MarginButton>Apple</MarginButton>
-      <MarginButton>Banana</MarginButton>
-      <MarginButton>Cantaloupe</MarginButton>
-      <div className={classes.BorderedContainer} ref={containerRef as React.RefObject<HTMLDivElement | null>}>
-        <strong>Use Up Arrow, Down Arrow, Home, and End to move focus within this box.</strong>
-        <div className={classes.FlexColumnContainer}>
-          <MarginButton>Durian</MarginButton>
-          <MarginButton>Elderberry</MarginButton>
-          <MarginButton>Fig</MarginButton>
+  return (
+    <>
+      <div className={classes.FlexColumnContainer} onKeyDownCapture={reportKey}>
+        <div className={classes.AbsoluteTopRight}>Last key pressed: {lastKey}</div>
+        <Button variant={fzEnabled ? 'danger' : 'primary'} onClick={toggleFz} className={classes.MarginBottom3}>
+          {fzEnabled ? 'Disable' : 'Enable'} Focus Zone
+        </Button>
+        <MarginButton>Apple</MarginButton>
+        <MarginButton>Banana</MarginButton>
+        <MarginButton>Cantaloupe</MarginButton>
+        <div
+          className={classes.BorderedContainer}
+          // @ts-expect-error [react-19] [TS2322]
+          ref={containerRef as React.RefObject<HTMLDivElement | null>}
+        >
+          <strong>Use Up Arrow, Down Arrow, Home, and End to move focus within this box.</strong>
+          <div className={classes.FlexColumnContainer}>
+            <MarginButton>Durian</MarginButton>
+            <MarginButton>Elderberry</MarginButton>
+            <MarginButton>Fig</MarginButton>
+          </div>
         </div>
+        <MarginButton>Kiwi</MarginButton>
+        <MarginButton>Lemon</MarginButton>
+        <MarginButton>Mango</MarginButton>
       </div>
-      <MarginButton>Kiwi</MarginButton>
-      <MarginButton>Lemon</MarginButton>
-      <MarginButton>Mango</MarginButton>
-    </div>
-  </>);
+    </>
+  )
 }
 
 export const FocusOutBehavior = () => {
@@ -72,37 +78,47 @@ export const FocusOutBehavior = () => {
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
   })
 
-  return (<>
-    <div className={classes.FlexColumnContainer} onKeyDownCapture={reportKey}>
-      <div className={classes.AbsoluteTopRight}>Last key pressed: {lastKey}</div>
-      <MarginButton>Apple</MarginButton>
-      <MarginButton>Banana</MarginButton>
-      <MarginButton>Cantaloupe</MarginButton>
-      <div className={classes.BorderedContainer} ref={containerRef1 as React.RefObject<HTMLDivElement | null>}>
-        <strong>
-          Use Left Arrow, Right Arrow, Home, and End to move focus within this box. Focus stops at the ends.
-        </strong>
+  return (
+    <>
+      <div className={classes.FlexColumnContainer} onKeyDownCapture={reportKey}>
+        <div className={classes.AbsoluteTopRight}>Last key pressed: {lastKey}</div>
+        <MarginButton>Apple</MarginButton>
+        <MarginButton>Banana</MarginButton>
+        <MarginButton>Cantaloupe</MarginButton>
+        <div
+          className={classes.BorderedContainer}
+          // @ts-expect-error [react-19] [TS2322]
+          ref={containerRef1 as React.RefObject<HTMLDivElement | null>}
+        >
+          <strong>
+            Use Left Arrow, Right Arrow, Home, and End to move focus within this box. Focus stops at the ends.
+          </strong>
 
-        <div className={classes.FlexRowContainer}>
-          <MarginButton>Durian</MarginButton>
-          <MarginButton>Elderberry</MarginButton>
-          <MarginButton>Fig</MarginButton>
+          <div className={classes.FlexRowContainer}>
+            <MarginButton>Durian</MarginButton>
+            <MarginButton>Elderberry</MarginButton>
+            <MarginButton>Fig</MarginButton>
+          </div>
         </div>
-      </div>
-      <div className={classes.BorderedContainer} ref={containerRef2 as React.RefObject<HTMLDivElement | null>}>
-        <strong>Use Left Arrow, Right Arrow, Home, and End to move focus within this box. Focus is circular.</strong>
+        <div
+          className={classes.BorderedContainer}
+          // @ts-expect-error [react-19] [TS2322]
+          ref={containerRef2 as React.RefObject<HTMLDivElement | null>}
+        >
+          <strong>Use Left Arrow, Right Arrow, Home, and End to move focus within this box. Focus is circular.</strong>
 
-        <div className={classes.FlexRowContainer}>
-          <MarginButton>Grapefruit</MarginButton>
-          <MarginButton>Honeydew</MarginButton>
-          <MarginButton>Jackfruit</MarginButton>
+          <div className={classes.FlexRowContainer}>
+            <MarginButton>Grapefruit</MarginButton>
+            <MarginButton>Honeydew</MarginButton>
+            <MarginButton>Jackfruit</MarginButton>
+          </div>
         </div>
+        <MarginButton>Kiwi</MarginButton>
+        <MarginButton>Lemon</MarginButton>
+        <MarginButton>Mango</MarginButton>
       </div>
-      <MarginButton>Kiwi</MarginButton>
-      <MarginButton>Lemon</MarginButton>
-      <MarginButton>Mango</MarginButton>
-    </div>
-  </>);
+    </>
+  )
 }
 
 function getSiblingIndex(element: Element) {
@@ -169,29 +185,35 @@ export const CustomFocusMovement = () => {
 
   useFocusZone({containerRef, getNextFocusable})
 
-  return (<>
-    <div className={classes.FlexColumnContainer} onKeyDownCapture={reportKey}>
-      <div className={classes.AbsoluteTopRight}>Last key pressed: {lastKey}</div>
-      <MarginButton>Apple</MarginButton>
+  return (
+    <>
+      <div className={classes.FlexColumnContainer} onKeyDownCapture={reportKey}>
+        <div className={classes.AbsoluteTopRight}>Last key pressed: {lastKey}</div>
+        <MarginButton>Apple</MarginButton>
 
-      <div className={classes.BorderedContainer}>
-        <strong>Use arrow keys to move focus within this box.</strong>
-        <div className={classes.GridContainer} ref={containerRef as React.RefObject<HTMLDivElement | null>}>
-          <MarginButton>Banana</MarginButton>
-          <MarginButton>Cantaloupe</MarginButton>
-          <MarginButton>Durian</MarginButton>
-          <MarginButton>Elderberry</MarginButton>
-          <MarginButton>Fig</MarginButton>
-          <MarginButton>Grapefruit</MarginButton>
-          <MarginButton>Honeydew</MarginButton>
-          <MarginButton>Jackfruit</MarginButton>
-          <MarginButton>Kiwi</MarginButton>
+        <div className={classes.BorderedContainer}>
+          <strong>Use arrow keys to move focus within this box.</strong>
+          <div
+            className={classes.GridContainer}
+            // @ts-expect-error [react-19] [TS2322]
+            ref={containerRef as React.RefObject<HTMLDivElement | null>}
+          >
+            <MarginButton>Banana</MarginButton>
+            <MarginButton>Cantaloupe</MarginButton>
+            <MarginButton>Durian</MarginButton>
+            <MarginButton>Elderberry</MarginButton>
+            <MarginButton>Fig</MarginButton>
+            <MarginButton>Grapefruit</MarginButton>
+            <MarginButton>Honeydew</MarginButton>
+            <MarginButton>Jackfruit</MarginButton>
+            <MarginButton>Kiwi</MarginButton>
+          </div>
         </div>
+        <MarginButton>Lemon</MarginButton>
+        <MarginButton>Mango</MarginButton>
       </div>
-      <MarginButton>Lemon</MarginButton>
-      <MarginButton>Mango</MarginButton>
-    </div>
-  </>);
+    </>
+  )
 }
 
 export const FocusInStrategy = () => {
@@ -230,48 +252,66 @@ export const FocusInStrategy = () => {
     focusInStrategy: customStrategy,
   })
 
-  return (<>
-    <div className={classes.FlexColumnContainer} onKeyDownCapture={reportKey}>
-      <div className={classes.AbsoluteTopRight}>Last key pressed: {lastKey}</div>
-      <MarginButton>Apple</MarginButton>
-      <MarginButton>Banana</MarginButton>
-      <MarginButton>Cantaloupe</MarginButton>
-      <div className={classes.BorderedContainer} ref={firstContainerRef as React.RefObject<HTMLDivElement | null>}>
-        <strong>&ldquo;First&rdquo; strategy (focus first focusable element)</strong>
-        <div className={classes.FlexRowContainer}>
-          <MarginButton>Banana</MarginButton>
-          <MarginButton>Cantaloupe</MarginButton>
-          <MarginButton>Durian</MarginButton>
+  return (
+    <>
+      <div className={classes.FlexColumnContainer} onKeyDownCapture={reportKey}>
+        <div className={classes.AbsoluteTopRight}>Last key pressed: {lastKey}</div>
+        <MarginButton>Apple</MarginButton>
+        <MarginButton>Banana</MarginButton>
+        <MarginButton>Cantaloupe</MarginButton>
+        <div
+          className={classes.BorderedContainer}
+          // @ts-expect-error [react-19] [TS2322]
+          ref={firstContainerRef as React.RefObject<HTMLDivElement | null>}
+        >
+          <strong>&ldquo;First&rdquo; strategy (focus first focusable element)</strong>
+          <div className={classes.FlexRowContainer}>
+            <MarginButton>Banana</MarginButton>
+            <MarginButton>Cantaloupe</MarginButton>
+            <MarginButton>Durian</MarginButton>
+          </div>
         </div>
-      </div>
-      <div className={classes.BorderedContainer} ref={closestContainerRef as React.RefObject<HTMLDivElement | null>}>
-        <strong>&ldquo;Closest&rdquo; strategy (focus first or last depending on focus direction)</strong>
-        <div className={classes.FlexRowContainer}>
-          <MarginButton>Elderberry</MarginButton>
-          <MarginButton>Fig</MarginButton>
-          <MarginButton>Grapefruit</MarginButton>
+        <div
+          className={classes.BorderedContainer}
+          // @ts-expect-error [react-19] [TS2322]
+          ref={closestContainerRef as React.RefObject<HTMLDivElement | null>}
+        >
+          <strong>&ldquo;Closest&rdquo; strategy (focus first or last depending on focus direction)</strong>
+          <div className={classes.FlexRowContainer}>
+            <MarginButton>Elderberry</MarginButton>
+            <MarginButton>Fig</MarginButton>
+            <MarginButton>Grapefruit</MarginButton>
+          </div>
         </div>
-      </div>
-      <div className={classes.BorderedContainer} ref={prevContainerRef as React.RefObject<HTMLDivElement | null>}>
-        <strong>&ldquo;Previous&rdquo; strategy (most recently focused element)</strong>
-        <div className={classes.FlexRowContainer}>
-          <MarginButton>Honeydew</MarginButton>
-          <MarginButton>Jackfruit</MarginButton>
-          <MarginButton>Kiwi</MarginButton>
+        <div
+          className={classes.BorderedContainer}
+          // @ts-expect-error [react-19] [TS2322]
+          ref={prevContainerRef as React.RefObject<HTMLDivElement | null>}
+        >
+          <strong>&ldquo;Previous&rdquo; strategy (most recently focused element)</strong>
+          <div className={classes.FlexRowContainer}>
+            <MarginButton>Honeydew</MarginButton>
+            <MarginButton>Jackfruit</MarginButton>
+            <MarginButton>Kiwi</MarginButton>
+          </div>
         </div>
-      </div>
-      <div className={classes.BorderedContainer} ref={customContainerRef as React.RefObject<HTMLDivElement | null>}>
-        <strong>&ldquo;Custom&rdquo; strategy (choose randomly for this example)</strong>
-        <div className={classes.FlexRowContainer}>
-          <MarginButton>Lemon</MarginButton>
-          <MarginButton>Mango</MarginButton>
-          <MarginButton>Nectarine</MarginButton>
+        <div
+          className={classes.BorderedContainer}
+          // @ts-expect-error [react-19] [TS2322]
+          ref={customContainerRef as React.RefObject<HTMLDivElement | null>}
+        >
+          <strong>&ldquo;Custom&rdquo; strategy (choose randomly for this example)</strong>
+          <div className={classes.FlexRowContainer}>
+            <MarginButton>Lemon</MarginButton>
+            <MarginButton>Mango</MarginButton>
+            <MarginButton>Nectarine</MarginButton>
+          </div>
         </div>
+        <MarginButton>Orange</MarginButton>
+        <MarginButton>Papaya</MarginButton>
       </div>
-      <MarginButton>Orange</MarginButton>
-      <MarginButton>Papaya</MarginButton>
-    </div>
-  </>);
+    </>
+  )
 }
 
 export const SpecialSituations = () => {
@@ -292,65 +332,75 @@ export const SpecialSituations = () => {
   })
   const {containerRef: hContainerRef} = useFocusZone({focusOutBehavior: 'wrap', bindKeys: FocusKeys.ArrowHorizontal})
 
-  return (<>
-    <div className={classes.FlexColumnContainer} onKeyDownCapture={reportKey}>
-      <Flash className={classes.MarginBottom3}>
-        This story is very esoteric! It only exists to show some of the nuance of the arrow key focus behavior in
-        different situations. Focus treatment within your component should be evaluated for your particular UX using
-        the{' '}
-        <Link href="https://www.w3.org/TR/wai-aria-practices-1.1/#keyboard" inline>
-          ARIA guidelines
-        </Link>
-        .
-      </Flash>
-      <div className={classes.AbsoluteTopRight}>Last key pressed: {lastKey}</div>
-      <MarginButton>Apple</MarginButton>
-      <MarginButton>Banana</MarginButton>
-      <MarginButton>Cantaloupe</MarginButton>
-      <div className={classes.BorderedContainer} ref={vContainerRef as React.RefObject<HTMLDivElement | null>}>
-        <strong id="focus-label">Bound keys: Up, Down, PageUp, PageDown, W, S, J, K, Home, End, Tab</strong>
-        <div className={classes.FlexColumnContainer}>
-          <input
-            style={{width: '250px'}}
-            type="text"
-            defaultValue="Printable characters won't move focus"
-            aria-labelledby="focus-label"
-          />
+  return (
+    <>
+      <div className={classes.FlexColumnContainer} onKeyDownCapture={reportKey}>
+        <Flash className={classes.MarginBottom3}>
+          This story is very esoteric! It only exists to show some of the nuance of the arrow key focus behavior in
+          different situations. Focus treatment within your component should be evaluated for your particular UX using
+          the{' '}
+          <Link href="https://www.w3.org/TR/wai-aria-practices-1.1/#keyboard" inline>
+            ARIA guidelines
+          </Link>
+          .
+        </Flash>
+        <div className={classes.AbsoluteTopRight}>Last key pressed: {lastKey}</div>
+        <MarginButton>Apple</MarginButton>
+        <MarginButton>Banana</MarginButton>
+        <MarginButton>Cantaloupe</MarginButton>
+        <div
+          className={classes.BorderedContainer}
+          // @ts-expect-error [react-19] [TS2322]
+          ref={vContainerRef as React.RefObject<HTMLDivElement | null>}
+        >
+          <strong id="focus-label">Bound keys: Up, Down, PageUp, PageDown, W, S, J, K, Home, End, Tab</strong>
+          <div className={classes.FlexColumnContainer}>
+            <input
+              style={{width: '250px'}}
+              type="text"
+              defaultValue="Printable characters won't move focus"
+              aria-labelledby="focus-label"
+            />
 
-          <MarginButton>Regular button</MarginButton>
-          <select aria-labelledby="focus-label">
-            <option>Down arrow invokes dropdown</option>
-            <option>Unless Cmd (mac)/Ctrl (Windows)</option>
-            <option>Is held</option>
-          </select>
-          <textarea
-            aria-labelledby="focus-label"
-            style={{width: '250px', height: '95px'}}
-            defaultValue="Up/Down only works when at beginning/end. PageUp and PageDown completely disabled. Printable characters will never move focus."
-          ></textarea>
+            <MarginButton>Regular button</MarginButton>
+            <select aria-labelledby="focus-label">
+              <option>Down arrow invokes dropdown</option>
+              <option>Unless Cmd (mac)/Ctrl (Windows)</option>
+              <option>Is held</option>
+            </select>
+            <textarea
+              aria-labelledby="focus-label"
+              style={{width: '250px', height: '95px'}}
+              defaultValue="Up/Down only works when at beginning/end. PageUp and PageDown completely disabled. Printable characters will never move focus."
+            ></textarea>
+          </div>
         </div>
-      </div>
-      <div className={classes.BorderedContainer} ref={hContainerRef as React.RefObject<HTMLDivElement | null>}>
-        <label htmlFor="focus-input">
-          <strong>Use Left Arrow and Right Arrow to move focus within this box. Focus is circular.</strong>
-        </label>
+        <div
+          className={classes.BorderedContainer}
+          // @ts-expect-error [react-19] [TS2322]
+          ref={hContainerRef as React.RefObject<HTMLDivElement | null>}
+        >
+          <label htmlFor="focus-input">
+            <strong>Use Left Arrow and Right Arrow to move focus within this box. Focus is circular.</strong>
+          </label>
 
-        <div className={classes.FlexRowCenterContainer}>
-          <MarginButton>Grapefruit</MarginButton>
-          <input
-            id="focus-input"
-            style={{width: '300px'}}
-            type="text"
-            defaultValue="Left/Right only work at beginning/end of input."
-          />
-          <MarginButton>Jackfruit</MarginButton>
+          <div className={classes.FlexRowCenterContainer}>
+            <MarginButton>Grapefruit</MarginButton>
+            <input
+              id="focus-input"
+              style={{width: '300px'}}
+              type="text"
+              defaultValue="Left/Right only work at beginning/end of input."
+            />
+            <MarginButton>Jackfruit</MarginButton>
+          </div>
         </div>
+        <MarginButton>Kiwi</MarginButton>
+        <MarginButton>Lemon</MarginButton>
+        <MarginButton>Mango</MarginButton>
       </div>
-      <MarginButton>Kiwi</MarginButton>
-      <MarginButton>Lemon</MarginButton>
-      <MarginButton>Mango</MarginButton>
-    </div>
-  </>);
+    </>
+  )
 }
 
 export const ChangingSubtree = () => {
@@ -380,25 +430,31 @@ export const ChangingSubtree = () => {
     )
   }
 
-  return (<>
-    <div className={classes.FlexColumnContainer} onKeyDownCapture={reportKey}>
-      <Flash className={classes.MarginBottom3}>
-        This story demonstrates that focusZone is consistent even when the container&rsquo;s subtree changes.
-      </Flash>
-      <div className={classes.AbsoluteTopRight}>Last key pressed: {lastKey}</div>
-      <MarginButton>Apple</MarginButton>
-      <MarginButton>Banana</MarginButton>
-      <MarginButton>Cantaloupe</MarginButton>
-      <div className={classes.BorderedContainer} ref={containerRef as React.RefObject<HTMLDivElement | null>}>
-        <strong>Bound keys: Arrow Up and Arrow Down</strong>
-        <div className={classes.FlexColumnContainer}>{buttons}</div>
+  return (
+    <>
+      <div className={classes.FlexColumnContainer} onKeyDownCapture={reportKey}>
+        <Flash className={classes.MarginBottom3}>
+          This story demonstrates that focusZone is consistent even when the container&rsquo;s subtree changes.
+        </Flash>
+        <div className={classes.AbsoluteTopRight}>Last key pressed: {lastKey}</div>
+        <MarginButton>Apple</MarginButton>
+        <MarginButton>Banana</MarginButton>
+        <MarginButton>Cantaloupe</MarginButton>
+        <div
+          className={classes.BorderedContainer}
+          // @ts-expect-error [react-19] [TS2322]
+          ref={containerRef as React.RefObject<HTMLDivElement | null>}
+        >
+          <strong>Bound keys: Arrow Up and Arrow Down</strong>
+          <div className={classes.FlexColumnContainer}>{buttons}</div>
+        </div>
+        <div className={classes.FlexRowContainer}>
+          <MarginButton onClick={removeButton}>Remove Button</MarginButton>
+          <MarginButton onClick={addButton}>Add Button</MarginButton>
+        </div>
       </div>
-      <div className={classes.FlexRowContainer}>
-        <MarginButton onClick={removeButton}>Remove Button</MarginButton>
-        <MarginButton onClick={addButton}>Add Button</MarginButton>
-      </div>
-    </div>
-  </>);
+    </>
+  )
 }
 
 export const NestedZones = () => {
@@ -421,30 +477,40 @@ export const NestedZones = () => {
     bindKeys: FocusKeys.ArrowHorizontal,
   })
 
-  return (<>
-    <div className={classes.FlexColumnContainer} onKeyDownCapture={reportKey}>
-      <div className={classes.AbsoluteTopRight}>Last key pressed: {lastKey}</div>
-      <MarginButton>Apple</MarginButton>
-      <MarginButton>Banana</MarginButton>
-      <div className={classes.BorderedContainer} ref={outerContainerRef as React.RefObject<HTMLDivElement | null>}>
-        <strong>Bound keys: Arrow Up and Arrow Down</strong>
-        <br />
-        <MarginButton>Cantaloupe</MarginButton>
-        <div className={classes.BorderedContainer} ref={innerContainerRef as React.RefObject<HTMLDivElement | null>}>
-          <strong>Additional Bound keys: Arrow Left and Arrow Right</strong>
-          <div className={classes.FlexColumnContainer} id="list">
-            <MarginButton>Durian</MarginButton>
-            <MarginButton>Elderberry</MarginButton>
-            <MarginButton>Fig</MarginButton>
-            <MarginButton>Grapefruit</MarginButton>
+  return (
+    <>
+      <div className={classes.FlexColumnContainer} onKeyDownCapture={reportKey}>
+        <div className={classes.AbsoluteTopRight}>Last key pressed: {lastKey}</div>
+        <MarginButton>Apple</MarginButton>
+        <MarginButton>Banana</MarginButton>
+        <div
+          className={classes.BorderedContainer}
+          // @ts-expect-error [react-19] [TS2322]
+          ref={outerContainerRef as React.RefObject<HTMLDivElement | null>}
+        >
+          <strong>Bound keys: Arrow Up and Arrow Down</strong>
+          <br />
+          <MarginButton>Cantaloupe</MarginButton>
+          <div
+            className={classes.BorderedContainer}
+            // @ts-expect-error [react-19] [TS2322]
+            ref={innerContainerRef as React.RefObject<HTMLDivElement | null>}
+          >
+            <strong>Additional Bound keys: Arrow Left and Arrow Right</strong>
+            <div className={classes.FlexColumnContainer} id="list">
+              <MarginButton>Durian</MarginButton>
+              <MarginButton>Elderberry</MarginButton>
+              <MarginButton>Fig</MarginButton>
+              <MarginButton>Grapefruit</MarginButton>
+            </div>
           </div>
+          <MarginButton>Honeydew</MarginButton>
         </div>
-        <MarginButton>Honeydew</MarginButton>
+        <MarginButton>Jackfruit</MarginButton>
+        <MarginButton>Kiwi</MarginButton>
       </div>
-      <MarginButton>Jackfruit</MarginButton>
-      <MarginButton>Kiwi</MarginButton>
-    </div>
-  </>);
+    </>
+  )
 }
 
 export const ActiveDescendant = () => {
@@ -472,44 +538,48 @@ export const ActiveDescendant = () => {
     focusableElementFilter: elem => elem instanceof HTMLButtonElement,
   })
 
-  return (<>
-    <div className={classes.FlexColumnContainer} onKeyDownCapture={reportKey}>
-      <Flash className={classes.MarginBottom3}>
-        This story demonstrates using the `aria-activedescendant` pattern for managing both a focused element and an
-        active element. Below, you can focus the input box then use the up/down arrow keys to change the active
-        descendant (dark blue outline).
-      </Flash>
-      <div className={classes.AbsoluteTopRight}>Last key pressed: {lastKey}</div>
-      <MarginButton>Apple</MarginButton>
-      <MarginButton>Banana</MarginButton>
-      <MarginButton>Cantaloupe</MarginButton>
-      <div className={classes.BorderedContainer}>
-        <label htmlFor="focus-input">
-          <strong>Bound keys: Arrow Up and Arrow Down</strong>
-        </label>
-        <div className={classes.FlexColumnContainer}>
-          <input
-            ref={controllingElementRef as React.RefObject<HTMLInputElement | null>}
-            type="text"
-            defaultValue="Focus remains here."
-            aria-controls="list"
-            id="focus-input"
-          />
-          <div
-            className={classes.FlexColumnContainer}
-            id="list"
-            ref={containerRef as React.RefObject<HTMLDivElement | null>}
-          >
-            <MarginButton>Durian</MarginButton>
-            <MarginButton>Elderberry</MarginButton>
-            <MarginButton>Fig</MarginButton>
-            <MarginButton>Grapefruit</MarginButton>
+  return (
+    <>
+      <div className={classes.FlexColumnContainer} onKeyDownCapture={reportKey}>
+        <Flash className={classes.MarginBottom3}>
+          This story demonstrates using the `aria-activedescendant` pattern for managing both a focused element and an
+          active element. Below, you can focus the input box then use the up/down arrow keys to change the active
+          descendant (dark blue outline).
+        </Flash>
+        <div className={classes.AbsoluteTopRight}>Last key pressed: {lastKey}</div>
+        <MarginButton>Apple</MarginButton>
+        <MarginButton>Banana</MarginButton>
+        <MarginButton>Cantaloupe</MarginButton>
+        <div className={classes.BorderedContainer}>
+          <label htmlFor="focus-input">
+            <strong>Bound keys: Arrow Up and Arrow Down</strong>
+          </label>
+          <div className={classes.FlexColumnContainer}>
+            <input
+              // @ts-expect-error [react-19] [TS2322]
+              ref={controllingElementRef as React.RefObject<HTMLInputElement | null>}
+              type="text"
+              defaultValue="Focus remains here."
+              aria-controls="list"
+              id="focus-input"
+            />
+            <div
+              className={classes.FlexColumnContainer}
+              id="list"
+              // @ts-expect-error [react-19] [TS2322]
+              ref={containerRef as React.RefObject<HTMLDivElement | null>}
+            >
+              <MarginButton>Durian</MarginButton>
+              <MarginButton>Elderberry</MarginButton>
+              <MarginButton>Fig</MarginButton>
+              <MarginButton>Grapefruit</MarginButton>
+            </div>
           </div>
         </div>
+        <MarginButton>Honeydew</MarginButton>
+        <MarginButton>Jackfruit</MarginButton>
+        <MarginButton>Kiwi</MarginButton>
       </div>
-      <MarginButton>Honeydew</MarginButton>
-      <MarginButton>Jackfruit</MarginButton>
-      <MarginButton>Kiwi</MarginButton>
-    </div>
-  </>);
+    </>
+  )
 }

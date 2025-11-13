@@ -157,6 +157,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           {typeof LeadingVisual !== 'string' && isValidElementType(LeadingVisual) ? <LeadingVisual /> : LeadingVisual}
         </TextInputInnerVisualSlot>
         <UnstyledTextInput
+          // @ts-expect-error [react-19] [TS2322]
           ref={inputRef}
           disabled={disabled}
           onFocus={handleInputFocus}

@@ -186,7 +186,12 @@ function TabList({children, ...rest}: TabListProps) {
   const {tabListProps} = useTabList<HTMLDivElement>(rest)
 
   return (
-    <div {...rest} {...tabListProps}>
+    <div
+      {...rest}
+      {...tabListProps}
+      // @ts-expect-error [react-19] [TS2322]
+      ref={tabListProps.ref}
+    >
       {children}
     </div>
   )

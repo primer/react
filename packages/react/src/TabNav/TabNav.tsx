@@ -51,14 +51,18 @@ function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
   )
 
   return (
-    (<div {...rest} ref={navRef as React.RefObject<HTMLDivElement | null>}>
+    <div
+      {...rest}
+      // @ts-expect-error [react-19] [TS2322]
+      ref={navRef as React.RefObject<HTMLDivElement | null>}
+    >
       <nav aria-label={ariaLabel} className={styles.TabNavNav}>
         <div role="tablist" className={styles.TabNavTabList}>
           {children}
         </div>
       </nav>
-    </div>)
-  );
+    </div>
+  )
 }
 
 /**

@@ -17,11 +17,12 @@ export const SkeletonBox = React.forwardRef<HTMLElement, SkeletonBoxProps>(funct
   ref,
 ) {
   return (
-    (<div
+    <div
+      // @ts-expect-error [react-19] [TS2322]
       ref={ref as React.RefObject<HTMLDivElement | null>}
       className={clsx(className, classes.SkeletonBox)}
       style={{height, width, ...(style || {})}}
       {...props}
-    />)
-  );
+    />
+  )
 })

@@ -16,13 +16,19 @@ export default {
   parameters: {controls: {exclude: excludedControlKeys}},
 } as Meta
 
-export const Playground = ({value: _value, ...args}: FormControlArgs<RadioProps>) => {
+export const Playground = ({value: _value, ref, ...args}: FormControlArgs<RadioProps>) => {
   const {parentArgs, labelArgs, captionArgs} = getFormControlArgsByChildComponent(args)
 
   return (
     <form>
       <FormControl {...parentArgs}>
-        <Radio name="default-radio-name" value="default" {...args} />
+        <Radio
+          name="default-radio-name"
+          value="default"
+          // @ts-expect-error [react-19] [TS2322]
+          ref={ref}
+          {...args}
+        />
         <FormControl.Label {...labelArgs} />
         {captionArgs.children && <FormControl.Caption {...captionArgs} />}
       </FormControl>

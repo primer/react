@@ -215,10 +215,13 @@ const DefaultFooter: React.FC<React.PropsWithChildren<DialogProps>> = ({footerBu
     focusInStrategy: 'closest',
   })
   return footerButtons ? (
-    <Dialog.Footer ref={footerRef as React.RefObject<HTMLDivElement | null>}>
+    <Dialog.Footer
+      // @ts-expect-error [react-19] [TS2322]
+      ref={footerRef as React.RefObject<HTMLDivElement | null>}
+    >
       <Dialog.Buttons buttons={footerButtons} />
     </Dialog.Footer>
-  ) : null;
+  ) : null
 }
 
 const defaultPosition = {
@@ -408,6 +411,7 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
             {...buttonProps}
             // 'normal' value is equivalent to 'default', this is used for backwards compatibility
             variant={buttonType === 'normal' ? 'default' : buttonType}
+            // @ts-expect-error [react-19] [TS2322]
             ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
           >
             {content}

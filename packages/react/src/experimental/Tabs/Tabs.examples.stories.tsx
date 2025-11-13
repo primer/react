@@ -17,7 +17,13 @@ const CustomTabList = (props: React.PropsWithChildren) => {
 
   return (
     <div style={{width: '200px'}}>
-      <ActionList {...tabListProps}>{props.children}</ActionList>
+      <ActionList
+        {...tabListProps}
+        // @ts-expect-error [react-19] [TS2322]
+        ref={tabListProps.ref}
+      >
+        {props.children}
+      </ActionList>
     </div>
   )
 }
