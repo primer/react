@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-CounterLabel: Deprecated scheme prop in favor of variant prop
+CounterLabel: Add variant prop and deprecate scheme prop
