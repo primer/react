@@ -102,7 +102,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     const isSegmentedInputType = type === 'date' || type === 'time' || type === 'datetime-local'
 
     const focusInput: MouseEventHandler = e => {
-      // Don't call focus() if the input itself was clicked on date/time inputs,
+      // Don't call focus() if the input itself was clicked on date/time inputs.
       if (e.target !== inputRef.current || !isSegmentedInputType) {
         inputRef.current?.focus()
       }
