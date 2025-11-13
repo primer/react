@@ -37,7 +37,6 @@ const getItemWithActiveDescendant = (
 
   return {index, text, selected}
 }
-//TODO remove this when we remove usingRovingTabindex
 
 export const useAnnouncements = (
   items: FilteredActionListProps['items'],
