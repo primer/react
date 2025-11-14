@@ -59,7 +59,28 @@ export const Playground: StoryObj<Args> = {
   },
 }
 
-export const Default: StoryObj = {}
+export const Default: StoryObj = {
+  parameters: {
+    controls: {expanded: true},
+  },
+  argTypes: {
+    size: {
+      control: false,
+    },
+    square: {
+      control: false,
+    },
+    src: {
+      control: false,
+    },
+    alt: {
+      control: false,
+    },
+    className: {
+      control: false,
+    },
+  },
+}
 
 makeLiveEditStory(Default, {
   availableImports: {'@primer/react': PrimerReactLibrary},
