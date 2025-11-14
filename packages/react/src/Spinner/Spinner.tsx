@@ -76,6 +76,10 @@ function Spinner({
 
 Spinner.displayName = 'Spinner'
 
+/**
+ * Uses a technique from Spectrum to coordinate animations:
+ * @see https://github.com/adobe/react-spectrum/blob/ab5e6f3dba4235dafab9f81f8b5c506ce5f11230/packages/%40react-spectrum/s2/src/Skeleton.tsx#L21
+ */
 function useSpinnerAnimation() {
   const ref = useRef<Animation | null>(null)
   const noMotionPreference = useMedia('(prefers-reduced-motion: no-preference)', false)
