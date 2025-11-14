@@ -1,22 +1,70 @@
 import * as PrimerReactLibrary from '../index'
+import * as storyHelpers from './storyHelpers'
 import {makeLiveEditStory} from 'storybook-addon-code-editor'
 import type {Meta, StoryObj} from '@storybook/react'
 import storyCode from './Avatar.source.tsx?raw'
+import {Avatar} from '../index'
 
-const meta = {
+const meta: Meta<typeof PrimerReactLibrary.Avatar> = {
   // Story defaults
   title: 'Components/Avatar',
-} satisfies Meta<typeof PrimerReactLibrary.Avatar>
+  component: PrimerReactLibrary.Avatar,
+} as Meta<typeof PrimerReactLibrary.Avatar>
+
+export const Default = () => <Avatar alt="mona" src="https://avatars.githubusercontent.com/u/7143434?v=4" />
 
 export default meta
 
-type Story = StoryObj<typeof meta>
+const DEFAULT_AVATAR_SIZE = 20
 
-export const Default: Story = {
+type Args = {
+  size?: number
+  sizeAtNarrow?: number
+  sizeAtRegular?: number
+  sizeAtWide?: number
+} & Omit<PrimerReactLibrary.AvatarProps, 'size'>
+
+type Story = StoryObj<Args>
+
+export const Playground: Story = {
   // Story config
+  args: {
+    size: DEFAULT_AVATAR_SIZE,
+  },
+  argTypes: {
+    size: {
+      control: {
+        type: 'number',
+      },
+    },
+    sizeAtNarrow: {
+      name: 'size.narrow',
+      control: {
+        type: 'number',
+      },
+    },
+    sizeAtRegular: {
+      name: 'size.regular',
+      control: {
+        type: 'number',
+      },
+    },
+    sizeAtWide: {
+      name: 'size.wide',
+      control: {
+        type: 'number',
+      },
+    },
+    alt: {
+      controls: false,
+      table: {
+        disable: true,
+      },
+    },
+  },
 }
 
-makeLiveEditStory(Default, {
-  availableImports: {'@primer/react': PrimerReactLibrary},
+makeLiveEditStory(Playground, {
+  availableImports: {'@primer/react': PrimerReactLibrary, storyHelpers},
   code: storyCode,
 })
