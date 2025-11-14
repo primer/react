@@ -113,13 +113,6 @@ function useSpinnerAnimation() {
         // @see https://developer.mozilla.org/en-US/docs/Web/API/Animation/startTime#syncing_different_animations
         ref.current.startTime = 0
       }
-
-      return () => {
-        if (ref.current !== null) {
-          ref.current.cancel()
-          ref.current = null
-        }
-      }
     },
     [noMotionPreference],
   )
