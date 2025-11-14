@@ -114,35 +114,7 @@ const profileItems: {navigation: string; icon: React.FC<IconProps>; counter?: nu
 export const ProfilePage = () => {
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
   return (
-    <div className={classes.ProfileContainer}>
-      <div className={classes.ProfileSidebar}>
-        <Avatar size={256} src="https://avatars.githubusercontent.com/u/7143434?v=4" alt="mona user avatar" />
-        <div>
-          {/* Initial bio info */}
-          <div className={classes.ProfileBioInfo}>
-            <Heading as="h1" className={classes.ProfileBioName}>
-              Monalisa Octocat
-            </Heading>
-            <Heading as="h1" className={classes.ProfileBioUsername}>
-              mona
-            </Heading>
-          </div>
-          {/* Edit Profile / Profile details */}
-          <div className={classes.ProfileEditSection}>
-            <Button block>Edit Profile</Button>
-            <div className={classes.ProfileFollowRow}>
-              <Octicon icon={PeopleIcon} size={16} className={classes.ProfileFollowerIcon} />
-              <Link href="https://github.com" muted className={classes.ProfileFollowerCount}>
-                47 Followers
-              </Link>
-              <span> · </span>
-              <Link href="https://github.com" muted className={classes.ProfileFollowingCount}>
-                54 Following
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div>
       <div className={classes.ProfileNav}>
         <UnderlineNav aria-label="Repository">
           {profileItems.map((item, index) => (
@@ -161,6 +133,36 @@ export const ProfilePage = () => {
             </UnderlineNav.Item>
           ))}
         </UnderlineNav>
+      </div>
+      <div className={classes.ProfileContainer}>
+        <div className={classes.ProfileSidebar}>
+          <Avatar size={256} src="https://avatars.githubusercontent.com/u/7143434?v=4" alt="mona user avatar" />
+          <div>
+            {/* Initial bio info */}
+            <div className={classes.ProfileBioInfo}>
+              <Heading as="h1" className={classes.ProfileBioName}>
+                Monalisa Octocat
+              </Heading>
+              <Heading as="h1" className={classes.ProfileBioUsername}>
+                mona
+              </Heading>
+            </div>
+            {/* Edit Profile / Profile details */}
+            <div className={classes.ProfileEditSection}>
+              <Button block>Edit Profile</Button>
+              <div className={classes.ProfileFollowRow}>
+                <Octicon icon={PeopleIcon} size={16} className={classes.ProfileFollowerIcon} />
+                <Link href="https://github.com" muted className={classes.ProfileFollowerCount}>
+                  47 Followers
+                </Link>
+                <span> · </span>
+                <Link href="https://github.com" muted className={classes.ProfileFollowingCount}>
+                  54 Following
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className={classes.ProfileReadme}>
           <Text> mona/README.md</Text>
         </div>

@@ -82,7 +82,7 @@
 }
 
 .ProfileNav {
-  flex-grow: 1;
+  margin-bottom: var(--base-size-16);
 }
 
 .ProfileReadme {

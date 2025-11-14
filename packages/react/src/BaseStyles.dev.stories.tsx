@@ -1,4 +1,4 @@
-import {BaseStyles} from '.'
+import BaseStyles from './BaseStyles'
 import type {Meta} from '@storybook/react-vite'
 import type {ComponentProps} from './utils/types'
 

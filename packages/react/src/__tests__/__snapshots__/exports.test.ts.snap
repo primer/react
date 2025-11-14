@@ -19,6 +19,7 @@ exports[`@primer/react > should not update exports without a semver change 1`] =
   "type ActionMenuProps",
   "AnchoredOverlay",
   "type AnchoredOverlayProps",
+  "AnchoredPositionHookSettings",
   "Autocomplete",
   "type AutocompleteInputProps",
   "type AutocompleteMenuProps",
@@ -180,7 +181,6 @@ exports[`@primer/react > should not update exports without a semver change 1`] =
   "type TextProps",
   "theme",
   "ThemeColorPaths",
-  "themeGet",
   "ThemeProvider",
   "type ThemeProviderProps",
   "ThemeShadowPaths",
@@ -209,6 +209,7 @@ exports[`@primer/react > should not update exports without a semver change 1`] =
   "UnderlineNav",
   "type UnderlineNavItemProps",
   "type UnderlineNavProps",
+  "useAnchoredPosition",
   "useColorSchemeVar",
   "useConfirm",
   "useDetails",
@@ -266,6 +267,8 @@ exports[`@primer/react/deprecated > should not update exports without a semver c
 exports[`@primer/react/experimental > should not update exports without a semver change 1`] = `
 [
   "ActionBar",
+  "type ActionBarMenuItemProps",
+  "type ActionBarMenuProps",
   "type ActionBarProps",
   "Announce",
   "type AnnounceProps",
@@ -345,6 +348,11 @@ exports[`@primer/react/experimental > should not update exports without a semver
   "type TableRowProps",
   "type TableSubtitleProps",
   "type TableTitleProps",
+  "type TabListProps",
+  "type TabPanelProps",
+  "type TabProps",
+  "Tabs",
+  "type TabsProps",
   "type TitleProps",
   "Tooltip",
   "type TooltipProps",
@@ -356,5 +364,8 @@ exports[`@primer/react/experimental > should not update exports without a semver
   "useFeatureFlag",
   "useOverflow",
   "useSlots",
+  "useTab",
+  "useTabList",
+  "useTabPanel",
 ]
 `;

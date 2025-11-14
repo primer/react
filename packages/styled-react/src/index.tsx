@@ -5,16 +5,11 @@ export {Details} from '@primer/react'
 export {ProgressBar} from '@primer/react'
 
 // theming depends on styled-components
-export {
-  ThemeProvider,
-  useTheme,
-  useColorSchemeVar,
-  BaseStyles,
-  type ThemeProviderProps,
-  type BaseStylesProps,
-} from './components/FeatureFlaggedTheming'
+export {ThemeProvider, useTheme, useColorSchemeVar, type ThemeProviderProps} from './components/ThemeProvider'
+export {BaseStyles, type BaseStylesProps} from './components/BaseStyles'
 export {theme} from '@primer/react'
-export {themeGet} from '@primer/react'
+
+export {get as themeGet} from './theme-get'
 
 export {
   ActionList,
@@ -47,7 +42,6 @@ export {Link, type LinkProps} from './components/Link'
 export {LinkButton, type LinkButtonProps} from './components/LinkButton'
 export {NavList, type NavListProps} from './components/NavList'
 export {Overlay} from './components/Overlay'
-export {PageLayout, type PageLayoutProps} from './components/PageLayout'
 export {
   PageHeader,
   type PageHeaderProps,

@@ -89,10 +89,17 @@
       "name": "SegmentedControl.Button",
       "props": [
         {
-          "name": "leadingIcon",
+          "name": "leadingVisual",
           "type": "Component",
           "defaultValue": "",
-          "description": "The leading icon comes before item label"
+          "description": "The leading visual comes before item label"
+        },
+        {
+          "name": "leadingIcon",
+          "deprecated": true,
+          "type": "Component",
+          "defaultValue": "",
+          "description": "Deprecated: use `leadingVisual` instead. The leading icon comes before item label."
         },
         {
           "name": "selected",
