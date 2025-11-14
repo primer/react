@@ -3,7 +3,7 @@ import * as storyHelpers from './storyHelpers'
 import {makeLiveEditStory} from 'storybook-addon-code-editor'
 import type {Meta, StoryObj} from '@storybook/react'
 import storyCode from './Avatar.source.tsx?raw'
-import {Avatar, type AvatarProps} from '../index'
+import Avatar, {type AvatarProps, DEFAULT_AVATAR_SIZE} from './Avatar'
 
 export default {
   title: 'Components/Avatar',
@@ -11,8 +11,6 @@ export default {
 } as Meta<typeof Avatar>
 
 export const Default = () => <Avatar alt="mona" src="https://avatars.githubusercontent.com/u/7143434?v=4" />
-
-const DEFAULT_AVATAR_SIZE = 20
 
 type Args = {
   size?: number
