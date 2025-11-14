@@ -216,7 +216,6 @@ function Panel({
   const usingFullScreenOnNarrow = disableFullscreenOnNarrow ? false : featureFlagFullScreenOnNarrow
   const shouldOrderSelectedFirst =
     useFeatureFlag('primer_react_select_panel_order_selected_at_top') && showSelectedOptionsFirst
-  const usingRemoveActiveDescendant = useFeatureFlag('primer_react_select_panel_remove_active_descendant')
 
   // Single select modals work differently, they have an intermediate state where the user has selected an item but
   // has not yet confirmed the selection. This is the only time the user can cancel the selection.
