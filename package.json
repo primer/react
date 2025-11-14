@@ -85,7 +85,6 @@
     "rimraf": "5.0.5",
     "size-limit": "11.2.0",
     "storybook": "^9.1.10",
-    "storybook-addon-code-editor": "^5.0.0",
     "stylelint": "16.20.0",
     "turbo": "^2.5.5",
     "typescript": "^5.9.2",
