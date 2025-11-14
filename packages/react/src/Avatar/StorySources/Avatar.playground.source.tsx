@@ -1,5 +1,5 @@
-import {Avatar, type AvatarProps} from '@primer/react'
-import {parseSizeFromArgs} from './storyHelpers'
+import {Avatar, type AvatarProps} from '../../index'
+import {parseSizeFromArgs} from '../storyHelpers'
 
 type Args = {
   size?: number
