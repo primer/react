@@ -88,6 +88,6 @@ makeLiveEditStory(Default, {
 })
 
 makeLiveEditStory(Playground, {
-  availableImports: {'../index/../': PrimerReactLibrary, '../storyHelpers': {parseSizeFromArgs}},
+  availableImports: {'../../index': PrimerReactLibrary, '../storyHelpers': {parseSizeFromArgs}},
   code: playgroundStoryCode,
 })
