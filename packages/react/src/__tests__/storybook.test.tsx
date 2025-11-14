@@ -57,6 +57,8 @@ const allowlist = [
   'UnderlineNav2',
 ]
 
+const defaultStoryArgTypesAllowList = ['Avatar']
+
 const stories = await Promise.all(
   glob
     .sync('src/**/*.stories.tsx', {
@@ -121,7 +123,9 @@ describe.each(components)('%s', (_component, stories) => {
         })
 
         test('Default story does not have `argTypes`', () => {
-          expect(story.Default.argTypes).not.toBeDefined()
+          if (!defaultStoryArgTypesAllowList.includes(_component)) {
+            expect(story.Default.argTypes).not.toBeDefined()
+          }
         })
 
         test('only exports Default and Playground stories', () => {

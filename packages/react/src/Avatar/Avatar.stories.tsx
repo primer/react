@@ -1,5 +1,4 @@
 import {parseSizeFromArgs} from './storyHelpers'
-import {makeLiveEditStory} from 'storybook-addon-code-editor'
 // @ts-expect-error -- this is fine
 import playgroundStoryCode from './StorySources/Avatar.playground.source.tsx?raw'
 // @ts-expect-error -- this is fine
@@ -8,6 +7,16 @@ import Avatar, {type AvatarProps, DEFAULT_AVATAR_SIZE} from './Avatar'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 // eslint-disable-next-line import/no-namespace
 import * as PrimerReactLibrary from '../index'
+
+// Conditionally import live editor with error handling
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let makeLiveEditStory: any = null
+try {
+  const liveEditor = await import('storybook-addon-code-editor')
+  makeLiveEditStory = liveEditor.makeLiveEditStory
+} catch {
+  // Live editor not available or broken - continue without it
+}
 
 export default {
   title: 'Components/Avatar',
@@ -82,12 +91,15 @@ export const Default: StoryObj = {
   },
 }
 
-makeLiveEditStory(Default, {
-  availableImports: {'../../index': PrimerReactLibrary},
-  code: defaultStoryCode,
-})
+// Enable live editor if available
+if (makeLiveEditStory) {
+  makeLiveEditStory(Default, {
+    availableImports: {'../../index': PrimerReactLibrary},
+    code: defaultStoryCode,
+  })
 
-makeLiveEditStory(Playground, {
-  availableImports: {'../../index': PrimerReactLibrary, '../storyHelpers': {parseSizeFromArgs}},
-  code: playgroundStoryCode,
-})
+  makeLiveEditStory(Playground, {
+    availableImports: {'../../index': PrimerReactLibrary, '../storyHelpers': {parseSizeFromArgs}},
+    code: playgroundStoryCode,
+  })
+}
