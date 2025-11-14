@@ -1,12 +1,13 @@
-import * as PrimerReactLibrary from '../index'
-import * as storyHelpers from './storyHelpers'
+import {parseSizeFromArgs} from './storyHelpers'
 import {makeLiveEditStory} from 'storybook-addon-code-editor'
-import type {Meta, StoryObj} from '@storybook/react'
-// @ts-expect-error
+// @ts-expect-error -- this is fine
 import playgroundStoryCode from './Avatar.playground.source.tsx?raw'
-// @ts-expect-error
+// @ts-expect-error -- this is fine
 import defaultStoryCode from './Avatar.default.source.tsx?raw'
 import Avatar, {type AvatarProps, DEFAULT_AVATAR_SIZE} from './Avatar'
+import type {Meta, StoryObj} from '@storybook/react-vite'
+// eslint-disable-next-line import/no-namespace
+import * as PrimerReactLibrary from '../index'
 
 export default {
   title: 'Components/Avatar',
@@ -66,6 +67,6 @@ makeLiveEditStory(Default, {
 })
 
 makeLiveEditStory(Playground, {
-  availableImports: {'@primer/react': PrimerReactLibrary, './storyHelpers': storyHelpers},
+  availableImports: {'@primer/react': PrimerReactLibrary, './storyHelpers': {parseSizeFromArgs}},
   code: playgroundStoryCode,
 })
