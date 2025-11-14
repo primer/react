@@ -20,6 +20,7 @@
   background-color: var(--overlay-bgColor);
   border: var(--borderWidth-thin) solid var(--borderColor-default);
   border-radius: var(--borderRadius-medium);
+  box-shadow: var(--shadow-floating-small);
 
   /* Carets */
   &::before,
