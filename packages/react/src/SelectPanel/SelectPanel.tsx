@@ -754,7 +754,7 @@ function Panel({
       const hasModifier = event.ctrlKey || event.altKey || event.metaKey
       if (hasModifier) return
 
-      // skip if it's not a alphabet key
+      // skip if it's not the forward slash or an alphabet key
       if (event.key !== '/' && !isAlphabetKey(event.nativeEvent as KeyboardEvent)) {
         return
       }
