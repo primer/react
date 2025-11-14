@@ -384,6 +384,7 @@ const GroupHeading: React.FC<NavListGroupHeadingProps> = ({as = 'h3', className,
 // Export
 
 export const NavList = Object.assign(Root, {
+  Description: ActionList.Description,
   Item,
   SubNav,
   LeadingVisual,

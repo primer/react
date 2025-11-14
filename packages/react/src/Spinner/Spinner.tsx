@@ -1,4 +1,5 @@
 import type React from 'react'
+import {useState, useEffect} from 'react'
 import {VisuallyHidden} from '../VisuallyHidden'
 import type {HTMLDataAttributes} from '../internal/internal-types'
 import {useId} from '../hooks'
@@ -20,6 +21,8 @@ export type SpinnerProps = {
   'aria-label'?: string
   className?: string
   style?: React.CSSProperties
+  /** Whether to delay the spinner before rendering by the defined 1000ms. */
+  delay?: boolean
 } & HTMLDataAttributes
 
 function Spinner({
@@ -28,11 +31,28 @@ function Spinner({
   'aria-label': ariaLabel,
   className,
   style,
+  delay = false,
   ...props
 }: SpinnerProps) {
   const size = sizeMap[sizeKey]
   const hasHiddenLabel = srText !== null && ariaLabel === undefined
   const labelId = useId()
+
+  const [isVisible, setIsVisible] = useState(!delay)
+
+  useEffect(() => {
+    if (delay) {
+      const timeoutId = setTimeout(() => {
+        setIsVisible(true)
+      }, 1000)
+
+      return () => clearTimeout(timeoutId)
+    }
+  }, [delay])
+
+  if (!isVisible) {
+    return null
+  }
 
   return (
     /* inline-flex removes the extra line height */
