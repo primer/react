@@ -18,7 +18,7 @@ permissions:
 jobs:
   github-ui:
     runs-on: ubuntu-latest
-    if: "${{ (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'integration-tests: skipped manually')) || github.event_name == 'merge_group' || github.event_name == 'issue_comment' }}"
+    if: "${{ (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'integration-tests: skipped manually')) || github.event_name == 'merge_group' || (github.event_name == 'issue_comment' && github.event.issue.pull_request != null) }}"
     steps:
       - name: Generate token for primer
         id: generate_primer_token
