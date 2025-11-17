@@ -41,6 +41,7 @@ const BreadcrumbsList = ({children}: React.PropsWithChildren) => {
 }
 
 type BreadcrumbsMenuItemProps = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   items: React.ReactElement<any>[]
   'aria-label'?: string
 }
@@ -141,6 +142,7 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
 BreadcrumbsMenuItem.displayName = 'Breadcrumbs.MenuItem'
 
 const getValidChildren = (children: React.ReactNode) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement<any>[]
 }
 
@@ -166,9 +168,11 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
 
   const rootItem = childArray[0]
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [visibleItems, setVisibleItems] = useState<React.ReactElement<any>[]>(() => childArray)
   const [childArrayWidths, setChildArrayWidths] = useState<number[]>(() => [])
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [menuItems, setMenuItems] = useState<React.ReactElement<any>[]>([])
   const [rootItemWidth, setRootItemWidth] = useState<number>(0)
 
@@ -203,6 +207,7 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
 
       let currentVisibleItems = [...childArray]
       let currentVisibleItemWidths = [...childArrayWidths]
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let currentMenuItems: React.ReactElement<any>[] = []
       let currentMenuItemsWidths: number[] = []
 

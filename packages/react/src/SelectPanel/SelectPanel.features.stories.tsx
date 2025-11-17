@@ -43,6 +43,7 @@ const NoResultsMessage = (filter: string): {variant: 'empty'; title: string; bod
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const EmptyMessage: {variant: 'empty'; title: string; body: React.ReactElement<any>} = {
   variant: 'empty',
   title: `You haven't created any projects yet`,
@@ -340,6 +341,7 @@ export const WithNotice = () => {
   const [open, setOpen] = useState(false)
   const [noticeVariant, setNoticeVariant] = useState(0)
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const noticeVariants: Array<{text: string | React.ReactElement<any>; variant: 'info' | 'warning' | 'error'}> = [
     {
       variant: 'info',
@@ -637,6 +639,7 @@ export const CustomisedNoInitialItems = () => {
     setIsError(!isError)
   }, [setIsError, isError])
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function getMessage(): {variant: 'empty' | 'error'; title: string; body: string | React.ReactElement<any>} {
     if (isError) return ErrorMessage
     else if (filter) return NoResultsMessage(filter)
@@ -901,9 +904,11 @@ export const WithMessage = () => {
     | undefined
     | {
         title: string
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         body: string | React.ReactElement<any>
         variant: 'empty' | 'error' | 'warning'
         icon?: React.ComponentType<IconProps>
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         action?: React.ReactElement<any>
       }
   > = [

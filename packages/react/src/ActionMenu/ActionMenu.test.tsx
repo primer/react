@@ -53,6 +53,7 @@ function ExampleWithTooltip(): JSX.Element {
   )
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function ExampleWithTooltipV2(actionMenuTrigger: React.ReactElement<any>): JSX.Element {
   return (
     <BaseStyles>

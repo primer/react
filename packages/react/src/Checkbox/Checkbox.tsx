@@ -43,6 +43,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (
     {checked, className, defaultChecked, indeterminate, disabled, onChange, required, validationStatus, value, ...rest},
     ref,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
     const checkboxRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
     const checkboxGroupContext = useContext(CheckboxGroupContext)

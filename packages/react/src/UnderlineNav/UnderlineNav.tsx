@@ -43,6 +43,7 @@ const MORE_BTN_HEIGHT = 45
 const overflowEffect = (
   navWidth: number,
   moreMenuWidth: number,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   childArray: Array<React.ReactElement<any>>,
   childWidthArray: ChildWidthArray,
   noIconChildWidthArray: ChildWidthArray,
@@ -60,7 +61,9 @@ const overflowEffect = (
     navWidth,
     moreMenuWidth || MORE_BTN_WIDTH,
   )
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const items: Array<React.ReactElement<any>> = []
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const menuItems: Array<React.ReactElement<any>> = []
 
   // First, we check if we can fit all the items with their icons
@@ -105,6 +108,7 @@ const overflowEffect = (
 }
 
 export const getValidChildren = (children: React.ReactNode) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement<any>[]
 }
 
@@ -201,6 +205,7 @@ export const UnderlineNav = forwardRef(
     }
 
     const swapMenuItemWithListItem = (
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       prospectiveListItem: React.ReactElement<any>,
       indexOfProspectiveListItem: number,
       event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,

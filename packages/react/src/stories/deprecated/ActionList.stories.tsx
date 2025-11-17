@@ -348,6 +348,7 @@ export function SizeStressTestingStory(): JSX.Element {
 SizeStressTestingStory.storyName = 'Size Stress Testing'
 
 const NextJSLikeLink = forwardRef(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ({href, children}: {href: string; children: React.ReactNode}, ref): React.ReactElement<any> => {
     const child = React.Children.only(children)
     const childProps = {

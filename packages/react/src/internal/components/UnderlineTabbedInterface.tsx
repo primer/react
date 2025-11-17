@@ -51,6 +51,7 @@ export type UnderlineItemProps<As extends React.ElementType> = {
   iconsVisible?: boolean
   loadingCounters?: boolean
   counter?: number | string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   icon?: FC<IconProps> | React.ReactElement<any>
   id?: string
   ref?: React.Ref<unknown>

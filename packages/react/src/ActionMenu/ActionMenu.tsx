@@ -35,6 +35,7 @@ export type ActionMenuProps = {
   /**
    * Recommended: `ActionMenu.Button` or `ActionMenu.Anchor` with `ActionMenu.Overlay`
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   children: React.ReactElement<any>[] | React.ReactElement<any>
 
   /**
@@ -179,10 +180,12 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
   )
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ActionMenuAnchorProps = {children: React.ReactElement<any>; id?: string} & React.HTMLAttributes<HTMLElement>
 const Anchor: WithSlotMarker<
   React.ForwardRefExoticComponent<
     {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       children: React.ReactElement<any>
       id?: string
     } & React.HTMLAttributes<HTMLElement> &

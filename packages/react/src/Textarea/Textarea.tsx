@@ -71,6 +71,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       ...rest
     }: TextareaProps,
     ref,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
     return (
       <TextInputBaseWrapper

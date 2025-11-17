@@ -61,6 +61,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   )
     ? React.Children.toArray(children)[selectedIndex]
     : undefined
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const getChildIcon = (childArg: React.ReactNode): React.ReactElement<any> | null => {
     if (
       React.isValidElement<SegmentedControlButtonProps>(childArg) &&

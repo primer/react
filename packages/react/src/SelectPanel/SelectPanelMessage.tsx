@@ -21,6 +21,7 @@ export type SelectPanelMessageProps = {
    * Ensure the action element is accessible by providing appropriate ARIA attributes
    * and making it keyboard-navigable.
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   action?: React.ReactElement<any>
 }
 

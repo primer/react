@@ -8,6 +8,7 @@ import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
 type NextJSLinkProps = {href: string; children: React.ReactNode}
 
 const NextJSLikeLink = React.forwardRef<HTMLAnchorElement, NextJSLinkProps>(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ({href, children}, ref): React.ReactElement<any> => {
     const child = React.Children.only(children)
     const childProps = {

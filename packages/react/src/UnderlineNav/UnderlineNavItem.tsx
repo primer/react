@@ -36,6 +36,7 @@ export type UnderlineNavItemProps = {
   /**
    *  Icon before the text
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   icon?: React.FunctionComponent<IconProps> | React.ReactElement<any>
   /**
    * Renders `UnderlineNav.Item` as given component i.e. react-router's Link

@@ -158,6 +158,7 @@ function ItemWithSubNav({children, subNav, depth: _depth, defaultOpen, style}: I
         <ActionList.TrailingVisual>
           <ChevronDownIcon className={classes.ExpandIcon} />
         </ActionList.TrailingVisual>
+        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
         <SubItem>{React.cloneElement(subNav as React.ReactElement<any>, {ref: subNavRef})}</SubItem>
       </ActionList.Item>
     </ItemWithSubNavContext.Provider>

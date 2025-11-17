@@ -4,6 +4,7 @@ import type {Group} from '../ActionList/Group'
 import type {ActionListGroupProps} from '../deprecated'
 import type {AriaRole} from '../utils/types'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type RenderItemFn = (props: FilteredActionListItemProps) => React.ReactElement<any>
 
 export type ItemInput =

@@ -44,6 +44,7 @@ figma.connect(
   {
     props: {
       selected: figma.enum('state', {selected: true}),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       icon: figma.instance('icon').getProps<{name: string; fn: React.ReactElement<any>}>(),
     },
     example: ({selected, icon}) => (

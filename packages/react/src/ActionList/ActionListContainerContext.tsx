@@ -14,6 +14,7 @@ type ContextProps = {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   afterSelect?: Function
   enableFocusZone?: boolean
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   defaultTrailingVisual?: React.ReactElement<any>
 }
 

@@ -75,7 +75,9 @@ export type SelectPanelSecondaryAction =
 
 interface SelectPanelBaseProps {
   // TODO: Make `title` required in the next major version
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   title?: string | React.ReactElement<any>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   subtitle?: string | React.ReactElement<any>
   onOpenChange: (
     open: boolean,
@@ -89,19 +91,23 @@ interface SelectPanelBaseProps {
   initialLoadingType?: InitialLoadingType
   className?: string
   notice?: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     text: string | React.ReactElement<any>
     variant: 'info' | 'warning' | 'error'
   }
   message?: {
     title: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     body: string | React.ReactElement<any>
     variant: 'empty' | 'error' | 'warning'
     icon?: React.ComponentType<IconProps>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     action?: React.ReactElement<any>
   }
   /**
    * @deprecated Use `secondaryAction` instead.
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   footer?: string | React.ReactElement<any>
   showSelectedOptionsFirst?: boolean
   /**

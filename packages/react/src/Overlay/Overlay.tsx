@@ -106,6 +106,7 @@ export const BaseOverlay = React.forwardRef(
       ...rest
     },
     forwardedRef,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
     return (
       <Component
@@ -187,6 +188,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
       ...props
     },
     forwardedRef,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
     const overlayRef = useRef<HTMLDivElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, overlayRef)

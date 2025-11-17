@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event'
 import {FeatureFlags} from '../../FeatureFlags'
 
 // Helper function to render with theme and feature flags
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const renderWithTheme = (component: React.ReactElement<any>, flags?: Record<string, boolean>) => {
   const wrappedComponent = flags ? <FeatureFlags flags={flags}>{component}</FeatureFlags> : <>{component}</>
   return HTMLRender(wrappedComponent)
