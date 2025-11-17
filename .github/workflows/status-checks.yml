@@ -3,6 +3,10 @@ name: status-checks
 on:
   pull_request:
     types: [labeled, opened, reopened, synchronize]
+  merge_group:
+    branches:
+      - main
+    types: [checks_requested]
 
 permissions:
   pull-requests: write
@@ -11,7 +15,7 @@ permissions:
 jobs:
   github-ui:
     runs-on: ubuntu-latest
-    if: "${{ contains(github.event.pull_request.labels.*.name, 'integration-tests: skipped manually') }}"
+    if: "${{ (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'integration-tests: skipped manually')) || github.event_name == 'merge_group' }}"
     steps:
       - name: Generate token for primer
         id: generate_primer_token
@@ -20,7 +24,8 @@ jobs:
           app-id: 902635
           owner: 'primer'
           private-key: ${{ secrets.PRIMER_INTEGRATION_APP_PRIVATE_KEY }}
-      - name: Override status checks
+      - name: Override status checks for pull request
+        if: "${{ github.event_name == 'pull_request' }}"
         run: |
           # Get the timeline event ID for the label being added
           EVENT_ID=$(gh api "/repos/primer/react/issues/$PR_NUMBER/timeline" \
@@ -47,5 +52,19 @@ jobs:
             -f target_url="$TARGET_URL"
         env:
           GH_TOKEN: ${{ steps.generate_primer_token.outputs.token }}
-          SHA: ${{ github.event.pull_request.head.sha }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
+          SHA: ${{ github.event.pull_request.head.sha }}
+      - name: Override status checks for merge queue
+        if: "${{ github.event_name == 'merge_group' }}"
+        run: |
+          gh api -X POST "/repos/primer/react/statuses/${{ github.event.merge_group.head_sha }}" \
+            -f state='success' \
+            -f context='github-ui / ci' \
+            -f description='Skipped'
+
+          gh api -X POST "/repos/primer/react/statuses/${{ github.event.merge_group.head_sha }}" \
+            -f state='success' \
+            -f context='github-ui / projects' \
+            -f description='Skipped'
+        env:
+          GH_TOKEN: ${{ steps.generate_primer_token.outputs.token }}
