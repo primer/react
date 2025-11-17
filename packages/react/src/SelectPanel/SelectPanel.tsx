@@ -198,7 +198,7 @@ function Panel({
   const loadingDelayTimeoutId = useRef<number | null>(null)
   const loadingManagedInternally = loading === undefined
   const loadingManagedExternally = !loadingManagedInternally
-  const [inputRef, setInputRef] = React.useState<React.RefObject<HTMLInputElement> | null>(null)
+  const [inputRef, setInputRef] = React.useState<React.RefObject<HTMLInputElement | null> | null>(null)
   const [listContainerElement, setListContainerElement] = useState<HTMLElement | null>(null)
   const [needsNoItemsAnnouncement, setNeedsNoItemsAnnouncement] = useState<boolean>(false)
   const isNarrowScreenSize = useResponsiveValue({narrow: true, regular: false, wide: false}, false)
@@ -240,7 +240,7 @@ function Panel({
   )
 
   const onInputRefChanged = useCallback(
-    (ref: React.RefObject<HTMLInputElement>) => {
+    (ref: React.RefObject<HTMLInputElement | null>) => {
       setInputRef(ref)
     },
     [setInputRef],

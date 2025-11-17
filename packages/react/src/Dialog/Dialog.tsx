@@ -44,7 +44,7 @@ export type DialogButtonProps = Omit<ButtonProps, 'content'> & {
    * A reference to the rendered Button’s DOM node, used together with
    * `autoFocus` for `focusTrap`’s `initialFocus`.
    */
-  ref?: React.RefObject<HTMLButtonElement>
+  ref?: React.RefObject<HTMLButtonElement | null>
 }
 
 /**
@@ -136,12 +136,12 @@ export interface DialogProps {
    * Return focus to this element when the Dialog closes,
    * instead of the element that had focus immediately before the Dialog opened
    */
-  returnFocusRef?: React.RefObject<HTMLElement>
+  returnFocusRef?: React.RefObject<HTMLElement | null>
 
   /**
    * The element to focus when the Dialog opens
    */
-  initialFocusRef?: React.RefObject<HTMLElement>
+  initialFocusRef?: React.RefObject<HTMLElement | null>
 
   /**
    * Additional class names to apply to the dialog
@@ -215,10 +215,10 @@ const DefaultFooter: React.FC<React.PropsWithChildren<DialogProps>> = ({footerBu
     focusInStrategy: 'closest',
   })
   return footerButtons ? (
-    <Dialog.Footer ref={footerRef as React.RefObject<HTMLDivElement>}>
+    <Dialog.Footer ref={footerRef as React.RefObject<HTMLDivElement | null>}>
       <Dialog.Buttons buttons={footerButtons} />
     </Dialog.Footer>
-  ) : null
+  ) : null;
 }
 
 const defaultPosition = {

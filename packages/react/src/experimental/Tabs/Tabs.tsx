@@ -105,7 +105,7 @@ type TabListProps = Labelled & React.HTMLAttributes<HTMLElement>
 function useTabList<T extends HTMLElement>(
   props: TabListProps & {
     /** Optional ref to use for the tablist. If none is provided, one will be generated automatically */
-    ref?: React.RefObject<T>
+    ref?: React.RefObject<T | null>
   },
 ): {
   /** Props to be spread onto the tablist element */
@@ -114,7 +114,7 @@ function useTabList<T extends HTMLElement>(
     'aria-orientation': AriaAttributes['aria-orientation']
     'aria-label': AriaAttributes['aria-label']
     'aria-labelledby': AriaAttributes['aria-labelledby']
-    ref: React.RefObject<T>
+    ref: React.RefObject<T | null>
     role: 'tablist'
   }
 } {
