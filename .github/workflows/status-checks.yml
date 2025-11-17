@@ -13,7 +13,6 @@ on:
 permissions:
   issues: write
   pull-requests: write
-  statuses: write
 
 jobs:
   github-ui:
@@ -26,7 +25,9 @@ jobs:
         with:
           app-id: 902635
           owner: 'primer'
+          repositories: 'primer/react'
           private-key: ${{ secrets.PRIMER_INTEGRATION_APP_PRIVATE_KEY }}
+          permission-statuses: 'write'
 
       # Support for reporting on required github-ui status checks on pull requests
       - name: Override status checks for pull request
