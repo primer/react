@@ -4,6 +4,7 @@ import {Button} from '.'
 import {Stack} from '../Stack/Stack'
 import {announce} from '@primer/live-region-element'
 import {Tooltip} from '../TooltipV2/Tooltip'
+import {KeybindingHint} from '../KeybindingHint'
 export default {
   title: 'Components/Button/Features',
 }
@@ -226,3 +227,100 @@ export const ExpandedButton = () => (
     </Button>
   </Stack>
 )
+
+export const KeybindingHintBasic = () => <Button trailingVisual={() => <KeybindingHint keys="Mod+S" />}>Save</Button>
+
+export const KeybindingHintAllVariants = () => (
+  <Stack>
+    <Stack gap="normal" wrap="wrap" direction="horizontal">
+      <Button trailingVisual={() => <KeybindingHint keys="Mod+S" />}>Default</Button>
+      <Button disabled trailingVisual={() => <KeybindingHint keys="Mod+S" />}>
+        Default disabled
+      </Button>
+      <Button inactive trailingVisual={() => <KeybindingHint keys="Mod+S" />}>
+        Default inactive
+      </Button>
+    </Stack>
+    <Stack gap="normal" wrap="wrap" direction="horizontal">
+      <Button variant="primary" trailingVisual={() => <KeybindingHint keys="Mod+S" variant="onEmphasis" />}>
+        Primary
+      </Button>
+      <Button variant="primary" disabled trailingVisual={() => <KeybindingHint keys="Mod+S" variant="onEmphasis" />}>
+        Primary disabled
+      </Button>
+      <Button variant="primary" inactive trailingVisual={() => <KeybindingHint keys="Mod+S" variant="onEmphasis" />}>
+        Primary inactive
+      </Button>
+    </Stack>
+    <Stack gap="normal" wrap="wrap" direction="horizontal">
+      <Button variant="danger" trailingVisual={() => <KeybindingHint keys="Mod+S" variant="onEmphasis" />}>
+        Danger
+      </Button>
+      <Button variant="danger" disabled trailingVisual={() => <KeybindingHint keys="Mod+S" variant="onEmphasis" />}>
+        Danger disabled
+      </Button>
+      <Button variant="danger" inactive trailingVisual={() => <KeybindingHint keys="Mod+S" variant="onEmphasis" />}>
+        Danger inactive
+      </Button>
+    </Stack>
+    <Stack gap="normal" wrap="wrap" direction="horizontal">
+      <Button variant="invisible" trailingVisual={() => <KeybindingHint keys="Mod+S" />}>
+        Invisible
+      </Button>
+      <Button variant="invisible" disabled trailingVisual={() => <KeybindingHint keys="Mod+S" />}>
+        Invisible disabled
+      </Button>
+      <Button variant="invisible" inactive trailingVisual={() => <KeybindingHint keys="Mod+S" />}>
+        Invisible inactive
+      </Button>
+    </Stack>
+  </Stack>
+)
+
+export const KeybindingHintAllSizes = () => (
+  <Stack gap="normal" wrap="wrap" direction="horizontal">
+    <Button size="small" trailingVisual={() => <KeybindingHint keys="Mod+S" size="small" />}>
+      Save
+    </Button>
+    <Button size="medium" trailingVisual={() => <KeybindingHint keys="Mod+S" />}>
+      Save
+    </Button>
+    <Button size="large" trailingVisual={() => <KeybindingHint keys="Mod+S" />}>
+      Save
+    </Button>
+  </Stack>
+)
+
+export const KeybindingHintWithLeadingVisual = () => (
+  <Button leadingVisual={DownloadIcon} trailingVisual={() => <KeybindingHint keys="Mod+D" />}>
+    Download
+  </Button>
+)
+
+export const KeybindingHintSequence = () => (
+  <Button variant="primary" trailingVisual={() => <KeybindingHint keys="G N" variant="onEmphasis" />}>
+    Go to notifications
+  </Button>
+)
+
+export const KeybindingHintWithLoading = () => {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleClick = () => {
+    setIsLoading(true)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000000)
+  }
+
+  return (
+    <Button
+      variant="primary"
+      trailingVisual={() => <KeybindingHint keys="Mod+Enter" variant="onEmphasis" />}
+      loading={isLoading}
+      onClick={handleClick}
+    >
+      Submit
+    </Button>
+  )
+}

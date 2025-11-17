@@ -63,6 +63,7 @@
   ],
   "files": [
     "dist",
+    "!dist/legacy-theme/ts/colors",
     "generated",
     "CHANGELOG.md"
   ],
@@ -74,7 +75,7 @@
   },
   "dependencies": {
     "@github/mini-throttle": "^2.1.1",
-    "@github/relative-time-element": "^4.4.5",
+    "@github/relative-time-element": "^4.5.0",
     "@github/tab-container-element": "^4.8.2",
     "@lit-labs/react": "1.2.1",
     "@oddbird/popover-polyfill": "^0.5.2",
@@ -107,10 +108,10 @@
     "@primer/css": "^21.5.1",
     "@primer/doc-gen": "^0.0.1",
     "@rollup/plugin-babel": "6.1.0",
-    "@rollup/plugin-commonjs": "28.0.9",
+    "@rollup/plugin-commonjs": "29.0.0",
     "@rollup/plugin-json": "6.1.0",
     "@rollup/plugin-node-resolve": "16.0.3",
-    "@rollup/plugin-replace": "6.0.2",
+    "@rollup/plugin-replace": "6.0.3",
     "@rollup/plugin-terser": "0.4.4",
     "@rollup/plugin-typescript": "12.3.0",
     "@rollup/plugin-virtual": "3.0.2",
@@ -170,7 +171,7 @@
     "react-is": "18.3.1",
     "recast": "0.23.7",
     "rimraf": "5.0.5",
-    "rollup": "4.52.5",
+    "rollup": "4.53.1",
     "rollup-plugin-import-css": "^0.0.0",
     "rollup-plugin-postcss": "4.0.2",
     "rollup-plugin-visualizer": "6.0.5",

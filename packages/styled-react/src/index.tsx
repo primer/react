@@ -42,7 +42,6 @@ export {Link, type LinkProps} from './components/Link'
 export {LinkButton, type LinkButtonProps} from './components/LinkButton'
 export {NavList, type NavListProps} from './components/NavList'
 export {Overlay} from './components/Overlay'
-export {PageLayout, type PageLayoutProps} from './components/PageLayout'
 export {
   PageHeader,
   type PageHeaderProps,
