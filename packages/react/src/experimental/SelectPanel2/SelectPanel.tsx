@@ -521,10 +521,10 @@ const SecondaryLink: React.FC<LinkProps> = ({className, ...props}) => {
 
   return (
     // @ts-ignore TODO: is as prop is not recognised by button?
-    (<Button as={Link} size={size} variant="invisible" block {...props} className={clsx(classes.SmallText, className)}>
+    <Button as={Link} size={size} variant="invisible" block {...props} className={clsx(classes.SmallText, className)}>
       {props.children}
-    </Button>)
-  );
+    </Button>
+  )
 }
 
 const SecondaryCheckbox: React.FC<CheckboxProps> = ({id, children, className, ...props}) => {

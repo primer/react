@@ -28,7 +28,10 @@ export interface FocusZoneHookSettings extends Omit<FocusZoneSettings, 'activeDe
 export function useFocusZone(
   settings: FocusZoneHookSettings = {},
   dependencies: React.DependencyList = [],
-): {containerRef: React.RefObject<HTMLElement | null>; activeDescendantControlRef: React.RefObject<HTMLElement | null>} {
+): {
+  containerRef: React.RefObject<HTMLElement | null>
+  activeDescendantControlRef: React.RefObject<HTMLElement | null>
+} {
   const containerRef = useProvidedRefOrCreate(settings.containerRef)
   const useActiveDescendant = !!settings.activeDescendantFocus
   const passedActiveDescendantRef =

@@ -218,7 +218,7 @@ const DefaultFooter: React.FC<React.PropsWithChildren<DialogProps>> = ({footerBu
     <Dialog.Footer ref={footerRef as React.RefObject<HTMLDivElement | null>}>
       <Dialog.Buttons buttons={footerButtons} />
     </Dialog.Footer>
-  ) : null;
+  ) : null
 }
 
 const defaultPosition = {

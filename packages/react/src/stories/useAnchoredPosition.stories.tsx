@@ -131,7 +131,7 @@ export const UseAnchoredPosition = (args: any) => {
   )
 
   return (
-    (<div className={classes.Container}>
+    <div className={classes.Container}>
       <Anchor
         top={args.anchorY ?? 0}
         left={args.anchorX ?? 0}
@@ -150,8 +150,8 @@ export const UseAnchoredPosition = (args: any) => {
       >
         Floating element
       </Float>
-    </div>)
-  );
+    </div>
+  )
 }
 export const CenteredOnScreen = () => {
   const {floatingElementRef, anchorElementRef, position} = useAnchoredPosition({
@@ -160,7 +160,7 @@ export const CenteredOnScreen = () => {
   })
   // The outer Position element simply fills all available space
   return (
-    (<div className={classes.FullSizeAnchor} ref={anchorElementRef as React.RefObject<HTMLDivElement | null>}>
+    <div className={classes.FullSizeAnchor} ref={anchorElementRef as React.RefObject<HTMLDivElement | null>}>
       <Float
         ref={floatingElementRef as React.RefObject<HTMLDivElement | null>}
         top={position?.top ?? 0}
@@ -173,8 +173,8 @@ export const CenteredOnScreen = () => {
           </small>
         </p>
       </Float>
-    </div>)
-  );
+    </div>
+  )
 }
 
 export const ComplexAncestry = () => {
@@ -191,35 +191,37 @@ export const ComplexAncestry = () => {
   }, [recalculateSignal])
 
   // The outer Position element simply fills all available space
-  return (<>
-    <div className={classes.ClippingContainer} tabIndex={0}>
-      Clipping container - this element has <code>overflow</code> set to something other than <code>visible</code>
-      <div className={classes.RelativeParent}>
-        Relatively positioned parent, but fluid height, so not the clipping parent.
-        <div className={classes.StaticContainer}>
-          Floating element container. Position=static and overflow=hidden to show that overflow-hidden on a
-          statically-positioned element will not have any effect.
-          <Float
-            top={position?.top ?? 0}
-            left={position?.left ?? 0}
-            width={150}
-            height={220}
-            ref={floatingElementRef as React.RefObject<HTMLDivElement | null>}
-          >
-            Floating element
-          </Float>
+  return (
+    <>
+      <div className={classes.ClippingContainer} tabIndex={0}>
+        Clipping container - this element has <code>overflow</code> set to something other than <code>visible</code>
+        <div className={classes.RelativeParent}>
+          Relatively positioned parent, but fluid height, so not the clipping parent.
+          <div className={classes.StaticContainer}>
+            Floating element container. Position=static and overflow=hidden to show that overflow-hidden on a
+            statically-positioned element will not have any effect.
+            <Float
+              top={position?.top ?? 0}
+              left={position?.left ?? 0}
+              width={150}
+              height={220}
+              ref={floatingElementRef as React.RefObject<HTMLDivElement | null>}
+            >
+              Floating element
+            </Float>
+          </div>
+        </div>
+        <div className={classes.TallContainer}>
+          Anchor element container. This element is really tall to demonstrate behavior within a scrollable clipping
+          container.
+          <div className={classes.AnchorElement} ref={anchorElementRef as React.RefObject<HTMLDivElement | null>}>
+            Anchor Element
+          </div>
         </div>
       </div>
-      <div className={classes.TallContainer}>
-        Anchor element container. This element is really tall to demonstrate behavior within a scrollable clipping
-        container.
-        <div className={classes.AnchorElement} ref={anchorElementRef as React.RefObject<HTMLDivElement | null>}>
-          Anchor Element
-        </div>
-      </div>
-    </div>
-    <Button onClick={onRecalculateClick}>Click to recalculate floating position</Button>
-  </>);
+      <Button onClick={onRecalculateClick}>Click to recalculate floating position</Button>
+    </>
+  )
 }
 
 const Nav = ({children, ...props}: React.ComponentPropsWithoutRef<'nav'>) => (
@@ -277,7 +279,7 @@ export const WithPortal = () => {
   }, [showMenu])
 
   return (
-    (<Main ref={mainRef}>
+    <Main ref={mainRef}>
       <Nav>
         <h2>The nav bar!</h2>
         <p>
@@ -286,7 +288,11 @@ export const WithPortal = () => {
           with <code>useAnchoredPosition</code>, we can break out of this constraint.
         </p>
         <div className={classes.ButtonContainer}>
-          <Button variant="primary" onClick={toggleMenu} ref={anchorElementRef as React.RefObject<HTMLButtonElement | null>}>
+          <Button
+            variant="primary"
+            onClick={toggleMenu}
+            ref={anchorElementRef as React.RefObject<HTMLButtonElement | null>}
+          >
             Show the overlay!
           </Button>
           {showMenu ? (
@@ -310,6 +316,6 @@ export const WithPortal = () => {
           <em>Note: The controls below have no effect in this story.</em>
         </p>
       </div>
-    </Main>)
-  );
+    </Main>
+  )
 }

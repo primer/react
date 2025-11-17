@@ -71,8 +71,8 @@ function AutocompleteOverlay({
   ) : (
     // HACK: This ensures AutocompleteMenu is still mounted when closing the menu and all of the hooks inside of it are still called.
     // A better way to do this would be to move the hooks to AutocompleteOverlay or somewhere that won't get unmounted.
-    (<VisuallyHidden aria-hidden="true">{children}</VisuallyHidden>)
-  );
+    <VisuallyHidden aria-hidden="true">{children}</VisuallyHidden>
+  )
 }
 
 AutocompleteOverlay.displayName = 'AutocompleteOverlay'

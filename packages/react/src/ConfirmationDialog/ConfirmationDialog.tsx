@@ -108,10 +108,10 @@ const ConfirmationFooter: React.FC<React.PropsWithChildren<DialogProps>> = ({foo
 
   // Must have exactly 2 buttons!
   return (
-    (<div ref={footerRef as React.RefObject<HTMLDivElement | null>} className={classes.ConfirmationFooter}>
+    <div ref={footerRef as React.RefObject<HTMLDivElement | null>} className={classes.ConfirmationFooter}>
       <Dialog.Buttons buttons={footerButtons ?? []} />
-    </div>)
-  );
+    </div>
+  )
 }
 
 /**

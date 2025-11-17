@@ -255,7 +255,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     loading && (loaderPosition === 'trailing' || (loaderPosition === 'auto' && !LeadingVisual))
 
   return (
-    (<TextInputWrapper
+    <TextInputWrapper
       block={block}
       contrast={contrast}
       disabled={disabled}
@@ -327,8 +327,8 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       >
         {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? <TrailingVisual /> : TrailingVisual}
       </TextInputInnerVisualSlot>
-    </TextInputWrapper>)
-  );
+    </TextInputWrapper>
+  )
 }
 
 const TextInputWithTokens = React.forwardRef(TextInputWithTokensInnerComponent)

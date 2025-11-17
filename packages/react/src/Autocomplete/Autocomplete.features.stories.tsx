@@ -457,7 +457,7 @@ export const CustomOverlayMenuAnchor = () => {
   const menuAnchorRef = useRef<HTMLElement>(null)
 
   return (
-    (<form className={classes.FormPadding}>
+    <form className={classes.FormPadding}>
       <FormControl>
         <FormControl.Label htmlFor="autocompleteInput" id="autocompleteLabel">
           Default label
@@ -478,8 +478,8 @@ export const CustomOverlayMenuAnchor = () => {
           The overlay menu position is anchored to the div with the black border instead of to the text input
         </FormControl.Caption>
       </FormControl>
-    </form>)
-  );
+    </form>
+  )
 }
 
 export const InOverlayWithCustomScrollContainerRef = () => {
@@ -504,7 +504,8 @@ export const InOverlayWithCustomScrollContainerRef = () => {
   }
 
   return (
-    (<form className={classes.FormPadding}>Selected item: {selectedItem ? selectedItem.text : 'none'}
+    <form className={classes.FormPadding}>
+      Selected item: {selectedItem ? selectedItem.text : 'none'}
       <AnchoredOverlay
         open={isOpen}
         onOpen={handleOpen}
@@ -533,8 +534,8 @@ export const InOverlayWithCustomScrollContainerRef = () => {
           </div>
         </Autocomplete>
       </AnchoredOverlay>
-    </form>)
-  );
+    </form>
+  )
 }
 
 export const InADialog = () => {
