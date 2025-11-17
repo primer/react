@@ -141,7 +141,7 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
 BreadcrumbsMenuItem.displayName = 'Breadcrumbs.MenuItem'
 
 const getValidChildren = (children: React.ReactNode) => {
-  return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement<any>[];
+  return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement<any>[]
 }
 
 function Breadcrumbs({className, children, style, overflow = 'wrap', variant = 'normal'}: BreadcrumbsProps) {
