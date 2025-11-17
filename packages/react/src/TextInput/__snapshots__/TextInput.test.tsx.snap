@@ -1,38 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`TextInput > renders 1`] = `
-<div>
-  <span
-    aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
-  >
-    <input
-      class="prc-components-Input-sKHcw"
-      data-component="input"
-      name="zipcode"
-      type="text"
-    />
-  </span>
-</div>
-`;
-
-exports[`TextInput > renders block 1`] = `
-<div>
-  <span
-    aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
-    data-block="true"
-  >
-    <input
-      class="prc-components-Input-sKHcw"
-      data-component="input"
-      name="zipcode"
-      type="text"
-    />
-  </span>
-</div>
-`;
-
 exports[`TextInput > renders contrast 1`] = `
 <div>
   <span
@@ -68,23 +35,6 @@ exports[`TextInput > renders error 1`] = `
 </div>
 `;
 
-exports[`TextInput > renders large 1`] = `
-<div>
-  <span
-    aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
-    data-size="large"
-  >
-    <input
-      class="prc-components-Input-sKHcw"
-      data-component="input"
-      name="zipcode"
-      type="text"
-    />
-  </span>
-</div>
-`;
-
 exports[`TextInput > renders leadingVisual 1`] = `
 <div>
   <span
@@ -95,7 +45,7 @@ exports[`TextInput > renders leadingVisual 1`] = `
     <span
       aria-hidden="true"
       class="TextInput-icon"
-      id=":ru:"
+      id="_r_u_"
     >
       <svg
         aria-hidden="true"
@@ -115,7 +65,7 @@ exports[`TextInput > renders leadingVisual 1`] = `
       </svg>
     </span>
     <input
-      aria-describedby=":ru:"
+      aria-describedby="_r_u_"
       class="prc-components-Input-sKHcw"
       data-component="input"
       name="search"
@@ -136,7 +86,7 @@ exports[`TextInput > renders leadingVisual 2`] = `
     <span
       aria-hidden="true"
       class="TextInput-icon"
-      id=":r11:"
+      id="_r_11_"
     >
       <svg
         aria-hidden="true"
@@ -156,7 +106,7 @@ exports[`TextInput > renders leadingVisual 2`] = `
       </svg>
     </span>
     <input
-      aria-describedby=":r11:"
+      aria-describedby="_r_11_"
       class="prc-components-Input-sKHcw"
       data-component="input"
       name="search"
@@ -177,14 +127,14 @@ exports[`TextInput > renders leadingVisual 3`] = `
     <span
       aria-hidden="true"
       class="TextInput-icon"
-      id=":r14:"
+      id="_r_14_"
     >
       <div>
         Trailing
       </div>
     </span>
     <input
-      aria-describedby=":r14:"
+      aria-describedby="_r_14_"
       class="prc-components-Input-sKHcw"
       data-component="input"
       name="search"
@@ -205,14 +155,14 @@ exports[`TextInput > renders leadingVisual 4`] = `
     <span
       aria-hidden="true"
       class="TextInput-icon"
-      id=":r17:"
+      id="_r_17_"
     >
       <div>
         Trailing
       </div>
     </span>
     <input
-      aria-describedby=":r17:"
+      aria-describedby="_r_17_"
       class="prc-components-Input-sKHcw"
       data-component="input"
       name="search"
@@ -257,23 +207,6 @@ exports[`TextInput > renders placeholder 1`] = `
 </div>
 `;
 
-exports[`TextInput > renders small 1`] = `
-<div>
-  <span
-    aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
-    data-size="small"
-  >
-    <input
-      class="prc-components-Input-sKHcw"
-      data-component="input"
-      name="zipcode"
-      type="text"
-    />
-  </span>
-</div>
-`;
-
 exports[`TextInput > renders trailingAction icon button 1`] = `
 <div>
   <span
@@ -292,8 +225,8 @@ exports[`TextInput > renders trailingAction icon button 1`] = `
       class="TextInput-action prc-components-TextInputAction-tmsle"
     >
       <button
-        aria-describedby=":r23:-loading-announcement"
-        aria-labelledby=":r22:"
+        aria-describedby="_r_23_-loading-announcement"
+        aria-labelledby="_r_22_"
         class="prc-Button-ButtonBase-Eb8-K prc-components-Invisible-6q42n prc-Button-IconButton-GE6m6"
         data-component="IconButton"
         data-loading="false"
@@ -323,7 +256,7 @@ exports[`TextInput > renders trailingAction icon button 1`] = `
         aria-hidden="true"
         class="prc-TooltipV2-Tooltip-jugyt"
         data-direction="s"
-        id=":r22:"
+        id="_r_22_"
         popover="auto"
       >
         Icon label
@@ -351,7 +284,7 @@ exports[`TextInput > renders trailingAction text button 1`] = `
       class="TextInput-action prc-components-TextInputAction-tmsle"
     >
       <button
-        aria-describedby=":r1p:-loading-announcement"
+        aria-describedby="_r_1p_-loading-announcement"
         class="prc-Button-ButtonBase-Eb8-K prc-components-Invisible-6q42n"
         data-loading="false"
         data-no-visuals="true"
@@ -395,7 +328,7 @@ exports[`TextInput > renders trailingAction text button with a tooltip 1`] = `
       class="TextInput-action prc-components-TextInputAction-tmsle"
     >
       <button
-        aria-describedby=":r1u:-loading-announcement :r1t:"
+        aria-describedby="_r_1u_-loading-announcement _r_1t_"
         class="prc-Button-ButtonBase-Eb8-K prc-components-Invisible-6q42n"
         data-loading="false"
         data-no-visuals="true"
@@ -420,7 +353,7 @@ exports[`TextInput > renders trailingAction text button with a tooltip 1`] = `
         aria-hidden="true"
         class="prc-components-ConditionalTooltip-QBYW3 prc-TooltipV2-Tooltip-jugyt"
         data-direction="s"
-        id=":r1t:"
+        id="_r_1t_"
         popover="auto"
         role="tooltip"
       >
@@ -446,7 +379,7 @@ exports[`TextInput > renders trailingVisual 1`] = `
         data-trailing-visual="true"
       >
         <input
-          aria-describedby=":r1b:"
+          aria-describedby="_r_1b_"
           class="prc-components-Input-sKHcw"
           data-component="input"
           name="search"
@@ -456,7 +389,7 @@ exports[`TextInput > renders trailingVisual 1`] = `
         <span
           aria-hidden="true"
           class="TextInput-icon"
-          id=":r1b:"
+          id="_r_1b_"
         >
           <svg
             aria-hidden="true"
@@ -485,7 +418,7 @@ exports[`TextInput > renders trailingVisual 1`] = `
       data-trailing-visual="true"
     >
       <input
-        aria-describedby=":r1b:"
+        aria-describedby="_r_1b_"
         class="prc-components-Input-sKHcw"
         data-component="input"
         name="search"
@@ -495,7 +428,7 @@ exports[`TextInput > renders trailingVisual 1`] = `
       <span
         aria-hidden="true"
         class="TextInput-icon"
-        id=":r1b:"
+        id="_r_1b_"
       >
         <svg
           aria-hidden="true"
@@ -585,7 +518,7 @@ exports[`TextInput > renders trailingVisual 2`] = `
         data-trailing-visual="true"
       >
         <input
-          aria-describedby=":r1b:"
+          aria-describedby="_r_1b_"
           class="prc-components-Input-sKHcw"
           data-component="input"
           name="search"
@@ -595,7 +528,7 @@ exports[`TextInput > renders trailingVisual 2`] = `
         <span
           aria-hidden="true"
           class="TextInput-icon"
-          id=":r1b:"
+          id="_r_1b_"
         >
           <svg
             aria-hidden="true"
@@ -623,7 +556,7 @@ exports[`TextInput > renders trailingVisual 2`] = `
         data-trailing-visual="true"
       >
         <input
-          aria-describedby=":r1e:"
+          aria-describedby="_r_1e_"
           class="prc-components-Input-sKHcw"
           data-component="input"
           name="search"
@@ -633,7 +566,7 @@ exports[`TextInput > renders trailingVisual 2`] = `
         <span
           aria-hidden="true"
           class="TextInput-icon"
-          id=":r1e:"
+          id="_r_1e_"
         >
           <svg
             aria-hidden="true"
@@ -662,7 +595,7 @@ exports[`TextInput > renders trailingVisual 2`] = `
       data-trailing-visual="true"
     >
       <input
-        aria-describedby=":r1e:"
+        aria-describedby="_r_1e_"
         class="prc-components-Input-sKHcw"
         data-component="input"
         name="search"
@@ -672,7 +605,7 @@ exports[`TextInput > renders trailingVisual 2`] = `
       <span
         aria-hidden="true"
         class="TextInput-icon"
-        id=":r1e:"
+        id="_r_1e_"
       >
         <svg
           aria-hidden="true"
@@ -755,7 +688,7 @@ exports[`TextInput > renders trailingVisual 3`] = `
     data-trailing-visual="true"
   >
     <input
-      aria-describedby=":r1h:"
+      aria-describedby="_r_1h_"
       class="prc-components-Input-sKHcw"
       data-component="input"
       name="search"
@@ -765,7 +698,7 @@ exports[`TextInput > renders trailingVisual 3`] = `
     <span
       aria-hidden="true"
       class="TextInput-icon"
-      id=":r1h:"
+      id="_r_1h_"
     >
       <div>
         Trailing
@@ -783,7 +716,7 @@ exports[`TextInput > renders trailingVisual 4`] = `
     data-trailing-visual="true"
   >
     <input
-      aria-describedby=":r1k:"
+      aria-describedby="_r_1k_"
       class="prc-components-Input-sKHcw"
       data-component="input"
       name="search"
@@ -793,7 +726,7 @@ exports[`TextInput > renders trailingVisual 4`] = `
     <span
       aria-hidden="true"
       class="TextInput-icon"
-      id=":r1k:"
+      id="_r_1k_"
     >
       <div>
         Trailing
@@ -811,14 +744,14 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     data-trailing-visual="true"
   >
     <input
-      aria-describedby=":r29:"
+      aria-describedby="_r_29_"
       class="prc-components-Input-sKHcw"
       data-component="input"
       type="text"
     />
     <span
       class="prc-src-InternalVisuallyHidden-4enpf"
-      id=":r29:"
+      id="_r_29_"
     >
       Loading
     </span>
@@ -827,7 +760,7 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     >
       <div
         class="prc-components-Box-kkr8W"
-        id=":r28:"
+        id="_r_28_"
       >
         <span
           class="prc-Spinner-Box-yUhAo"
@@ -871,7 +804,7 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     >
       <div
         class="prc-components-Box-kkr8W"
-        id=":r2b:"
+        id="_r_2b_"
       >
         <span
           class="prc-Spinner-Box-yUhAo"
@@ -905,14 +838,14 @@ exports[`TextInput > renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
-      aria-describedby=":r2d:"
+      aria-describedby="_r_2d_"
       class="prc-components-Input-sKHcw"
       data-component="input"
       type="text"
     />
     <span
       class="prc-src-InternalVisuallyHidden-4enpf"
-      id=":r2d:"
+      id="_r_2d_"
     >
       Loading
     </span>
@@ -921,7 +854,7 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     >
       <div
         class="prc-components-Box-kkr8W"
-        id=":r2c:"
+        id="_r_2c_"
       >
         <span
           class="prc-Spinner-Box-yUhAo"
@@ -961,14 +894,14 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     data-trailing-visual="true"
   >
     <input
-      aria-describedby=":r2i:"
+      aria-describedby="_r_2i_"
       class="prc-components-Input-sKHcw"
       data-component="input"
       type="text"
     />
     <span
       class="prc-src-InternalVisuallyHidden-4enpf"
-      id=":r2i:"
+      id="_r_2i_"
     >
       Loading
     </span>
@@ -977,7 +910,7 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     >
       <div
         class="prc-components-Box-kkr8W"
-        id=":r2h:"
+        id="_r_2h_"
       >
         <span
           class="prc-Spinner-Box-yUhAo"
@@ -1021,7 +954,7 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     >
       <div
         class="prc-components-Box-kkr8W"
-        id=":r2k:"
+        id="_r_2k_"
       >
         <div
           class="prc-components-SpinnerHidden-c-Wb6"
@@ -1075,14 +1008,14 @@ exports[`TextInput > renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
-      aria-describedby=":r2k: :r2m:"
+      aria-describedby="_r_2k_ _r_2m_"
       class="prc-components-Input-sKHcw"
       data-component="input"
       type="text"
     />
     <span
       class="prc-src-InternalVisuallyHidden-4enpf"
-      id=":r2m:"
+      id="_r_2m_"
     >
       Loading
     </span>
@@ -1091,7 +1024,7 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     >
       <div
         class="prc-components-Box-kkr8W"
-        id=":r2l:"
+        id="_r_2l_"
       >
         <span
           class="prc-Spinner-Box-yUhAo"
@@ -1135,7 +1068,7 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     >
       <div
         class="prc-components-Box-kkr8W"
-        id=":r2p:"
+        id="_r_2p_"
       >
         <div
           class="prc-components-SpinnerHidden-c-Wb6"
@@ -1189,14 +1122,14 @@ exports[`TextInput > renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
-      aria-describedby=":r2p: :r2r:"
+      aria-describedby="_r_2p_ _r_2r_"
       class="prc-components-Input-sKHcw"
       data-component="input"
       type="text"
     />
     <span
       class="prc-src-InternalVisuallyHidden-4enpf"
-      id=":r2r:"
+      id="_r_2r_"
     >
       Loading
     </span>
@@ -1205,7 +1138,7 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     >
       <div
         class="prc-components-Box-kkr8W"
-        id=":r2q:"
+        id="_r_2q_"
       >
         <span
           class="prc-Spinner-Box-yUhAo"
@@ -1250,7 +1183,7 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     >
       <div
         class="prc-components-Box-kkr8W"
-        id=":r2u:"
+        id="_r_2u_"
       >
         <div
           class="prc-components-SpinnerVisible-FH5pT"
@@ -1304,14 +1237,14 @@ exports[`TextInput > renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
-      aria-describedby=":r2u: :r30:"
+      aria-describedby="_r_2u_ _r_30_"
       class="prc-components-Input-sKHcw"
       data-component="input"
       type="text"
     />
     <span
       class="prc-src-InternalVisuallyHidden-4enpf"
-      id=":r30:"
+      id="_r_30_"
     >
       Loading
     </span>
@@ -1320,7 +1253,7 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     >
       <div
         class="prc-components-Box-kkr8W"
-        id=":r2v:"
+        id="_r_2v_"
       >
         <span
           class="prc-Spinner-Box-yUhAo"
@@ -1360,14 +1293,14 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     data-trailing-visual="true"
   >
     <input
-      aria-describedby=":r34: :r35:"
+      aria-describedby="_r_34_ _r_35_"
       class="prc-components-Input-sKHcw"
       data-component="input"
       type="text"
     />
     <span
       class="prc-src-InternalVisuallyHidden-4enpf"
-      id=":r35:"
+      id="_r_35_"
     >
       Loading
     </span>
@@ -1376,7 +1309,7 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     >
       <div
         class="prc-components-Box-kkr8W"
-        id=":r34:"
+        id="_r_34_"
       >
         <div
           class="prc-components-SpinnerHidden-c-Wb6"
@@ -1441,7 +1374,7 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     >
       <div
         class="prc-components-Box-kkr8W"
-        id=":r37:"
+        id="_r_37_"
       >
         <span
           class="prc-Spinner-Box-yUhAo"
@@ -1475,14 +1408,14 @@ exports[`TextInput > renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
-      aria-describedby=":r38: :r39:"
+      aria-describedby="_r_38_ _r_39_"
       class="prc-components-Input-sKHcw"
       data-component="input"
       type="text"
     />
     <span
       class="prc-src-InternalVisuallyHidden-4enpf"
-      id=":r39:"
+      id="_r_39_"
     >
       Loading
     </span>
@@ -1491,7 +1424,7 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     >
       <div
         class="prc-components-Box-kkr8W"
-        id=":r38:"
+        id="_r_38_"
       >
         <div
           class="prc-components-SpinnerVisible-FH5pT"
@@ -1551,14 +1484,14 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     data-trailing-visual="true"
   >
     <input
-      aria-describedby=":r3d: :r3e:"
+      aria-describedby="_r_3d_ _r_3e_"
       class="prc-components-Input-sKHcw"
       data-component="input"
       type="text"
     />
     <span
       class="prc-src-InternalVisuallyHidden-4enpf"
-      id=":r3e:"
+      id="_r_3e_"
     >
       Loading
     </span>
@@ -1567,7 +1500,7 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     >
       <div
         class="prc-components-Box-kkr8W"
-        id=":r3d:"
+        id="_r_3d_"
       >
         <div
           class="prc-components-SpinnerHidden-c-Wb6"
@@ -1633,7 +1566,7 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     >
       <div
         class="prc-components-Box-kkr8W"
-        id=":r3g:"
+        id="_r_3g_"
       >
         <div
           class="prc-components-SpinnerHidden-c-Wb6"
@@ -1687,14 +1620,14 @@ exports[`TextInput > renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
-      aria-describedby=":r3g: :r3h: :r3i:"
+      aria-describedby="_r_3g_ _r_3h_ _r_3i_"
       class="prc-components-Input-sKHcw"
       data-component="input"
       type="text"
     />
     <span
       class="prc-src-InternalVisuallyHidden-4enpf"
-      id=":r3i:"
+      id="_r_3i_"
     >
       Loading
     </span>
@@ -1703,7 +1636,7 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     >
       <div
         class="prc-components-Box-kkr8W"
-        id=":r3h:"
+        id="_r_3h_"
       >
         <div
           class="prc-components-SpinnerVisible-FH5pT"
@@ -1768,7 +1701,7 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     >
       <div
         class="prc-components-Box-kkr8W"
-        id=":r3l:"
+        id="_r_3l_"
       >
         <div
           class="prc-components-SpinnerHidden-c-Wb6"
@@ -1822,14 +1755,14 @@ exports[`TextInput > renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
-      aria-describedby=":r3l: :r3m: :r3n:"
+      aria-describedby="_r_3l_ _r_3m_ _r_3n_"
       class="prc-components-Input-sKHcw"
       data-component="input"
       type="text"
     />
     <span
       class="prc-src-InternalVisuallyHidden-4enpf"
-      id=":r3n:"
+      id="_r_3n_"
     >
       Loading
     </span>
@@ -1838,7 +1771,7 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     >
       <div
         class="prc-components-Box-kkr8W"
-        id=":r3m:"
+        id="_r_3m_"
       >
         <div
           class="prc-components-SpinnerVisible-FH5pT"
@@ -1904,7 +1837,7 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     >
       <div
         class="prc-components-Box-kkr8W"
-        id=":r3q:"
+        id="_r_3q_"
       >
         <div
           class="prc-components-SpinnerVisible-FH5pT"
@@ -1958,14 +1891,14 @@ exports[`TextInput > renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
-      aria-describedby=":r3q: :r3r: :r3s:"
+      aria-describedby="_r_3q_ _r_3r_ _r_3s_"
       class="prc-components-Input-sKHcw"
       data-component="input"
       type="text"
     />
     <span
       class="prc-src-InternalVisuallyHidden-4enpf"
-      id=":r3s:"
+      id="_r_3s_"
     >
       Loading
     </span>
@@ -1974,7 +1907,7 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     >
       <div
         class="prc-components-Box-kkr8W"
-        id=":r3r:"
+        id="_r_3r_"
       >
         <div
           class="prc-components-SpinnerHidden-c-Wb6"

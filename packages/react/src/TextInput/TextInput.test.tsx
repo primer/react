@@ -13,19 +13,24 @@ describe('TextInput', () => {
   })
 
   it('renders', () => {
-    expect(render(<TextInput name="zipcode" />).container).toMatchSnapshot()
+    render(<TextInput name="zipcode" />)
+    expect(screen.getByRole('textbox')).toHaveAttribute('type', 'text')
+    expect(screen.getByRole('textbox')).toHaveAttribute('name', 'zipcode')
   })
 
   it('renders small', () => {
-    expect(render(<TextInput name="zipcode" size="small" />).container).toMatchSnapshot()
+    const {container} = render(<TextInput name="zipcode" size="small" />)
+    expect(container.firstElementChild).toHaveAttribute('data-size', 'small')
   })
 
   it('renders large', () => {
-    expect(render(<TextInput name="zipcode" size="large" />).container).toMatchSnapshot()
+    const {container} = render(<TextInput name="zipcode" size="large" />)
+    expect(container.firstElementChild).toHaveAttribute('data-size', 'large')
   })
 
   it('renders block', () => {
-    expect(render(<TextInput name="zipcode" block />).container).toMatchSnapshot()
+    const {container} = render(<TextInput name="zipcode" block />)
+    expect(container.firstElementChild).toHaveAttribute('data-block')
   })
 
   it('renders error', () => {
