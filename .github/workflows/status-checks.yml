@@ -84,11 +84,16 @@ jobs:
         with:
           command: '.skip-integration-checks'
           allowed_contexts: pull_request
+          # Note: this permission step is _critical_ to make sure only maintainers can run the command
           permissions: write
       - name: Override status checks for issue comment
         if: ${{ github.event_name == 'issue_comment' && steps.command.outputs.continue == 'true' }}
         run: |
           SHA=$(gh pr view $NUMBER --json headRefOid --jq '.headRefOid')
+          if [ -z "$SHA" ]; then
+            echo "No pull request found for issue #$NUMBER, or gh pr view failed."
+            exit 1
+          fi
 
           gh api -X POST "/repos/primer/react/statuses/$SHA" \
             -f state='success' \
