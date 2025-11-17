@@ -1,6 +1,8 @@
 name: status-checks
 
 on:
+  issue_comment:
+    types: [created]
   pull_request:
     types: [labeled, opened, reopened, synchronize]
   merge_group:
@@ -9,13 +11,14 @@ on:
     types: [checks_requested]
 
 permissions:
+  issues: write
   pull-requests: write
   statuses: write
 
 jobs:
   github-ui:
     runs-on: ubuntu-latest
-    if: "${{ (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'integration-tests: skipped manually')) || github.event_name == 'merge_group' }}"
+    if: "${{ (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'integration-tests: skipped manually')) || github.event_name == 'merge_group' || github.event_name == 'issue_comment' }}"
     steps:
       - name: Generate token for primer
         id: generate_primer_token
@@ -24,6 +27,8 @@ jobs:
           app-id: 902635
           owner: 'primer'
           private-key: ${{ secrets.PRIMER_INTEGRATION_APP_PRIVATE_KEY }}
+
+      # Support for reporting on required github-ui status checks on pull requests
       - name: Override status checks for pull request
         if: "${{ github.event_name == 'pull_request' }}"
         run: |
@@ -54,6 +59,8 @@ jobs:
           GH_TOKEN: ${{ steps.generate_primer_token.outputs.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           SHA: ${{ github.event.pull_request.head.sha }}
+
+      # Support for reporting on required github-ui status checks in merge queues
       - name: Override status checks for merge queue
         if: "${{ github.event_name == 'merge_group' }}"
         run: |
@@ -68,3 +75,33 @@ jobs:
             -f description='Skipped'
         env:
           GH_TOKEN: ${{ steps.generate_primer_token.outputs.token }}
+
+      # Support for reporting on required github-ui status checks via issue comment, useful for Pull Requests from forks
+      - name: Issue comment command
+        if: ${{ github.event_name == 'issue_comment' }}
+        id: command
+        uses: github/command@4002f2aad7964e6d776c2f91bd3f1f87bf6af793 # v2.0.2
+        with:
+          command: .skip-github-ui
+          allowed_contexts: pull_request
+          permissions: write
+      - name: Override status checks for issue comment
+        if: ${{ github.event_name == 'issue_comment && steps.command.outputs.continue == 'true' }}
+        run: |
+          SHA=$(gh pr view $NUMBER --json headRefOid --jq '.headRefOid')
+
+          gh api -X POST "/repos/primer/react/statuses/$SHA" \
+            -f state='success' \
+            -f context='github-ui / ci' \
+            -f description='Manual override' \
+            -f target_url="$COMMENT_URL"
+
+          gh api -X POST "/repos/primer/react/statuses/$SHA" \
+            -f state='success' \
+            -f context='github-ui / projects' \
+            -f description='Manual override' \
+            -f target_url="$COMMENT_URL"
+        env:
+          COMMENT_URL: ${{ github.event.comment.html_url }}
+          GH_TOKEN: ${{ steps.generate_primer_token.outputs.token }}
+          NUMBER: ${{ github.event.issue.number }}
