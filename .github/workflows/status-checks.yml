@@ -82,7 +82,7 @@ jobs:
         id: command
         uses: github/command@4002f2aad7964e6d776c2f91bd3f1f87bf6af793 # v2.0.2
         with:
-          command: .skip-github-ui
+          command: '.skip-integration-checks'
           allowed_contexts: pull_request
           permissions: write
       - name: Override status checks for issue comment
