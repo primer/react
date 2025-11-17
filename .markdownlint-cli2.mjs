@@ -22,6 +22,8 @@ const rulesToNotEnforce = {
   'first-line-heading': false,
   'no-space-in-emphasis': false,
   'blanks-around-fences': false,
+  'descriptive-link-text': false,
+  'table-column-style': false,
 }
 
 const defaultOverrides = {

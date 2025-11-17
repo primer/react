@@ -29,7 +29,7 @@ export const Open = () => (
 export const Closed = () => <StateLabel status="closed">Closed</StateLabel>
 
 export const Small = () => (
-  <StateLabel status="issueOpened" variant="small">
+  <StateLabel status="issueOpened" size="small">
     Open
   </StateLabel>
 )

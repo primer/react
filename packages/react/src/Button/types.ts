@@ -93,7 +93,6 @@ export type IconButtonProps = ButtonA11yProps & {
 
 // adopted from React.AnchorHTMLAttributes
 export type LinkButtonProps = {
-  underline?: boolean
   download?: string
   href?: string
   hrefLang?: string
