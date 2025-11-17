@@ -2,9 +2,9 @@
 
 ## Status
 
-| Stage          | State                                                                            |
-| -------------- | -------------------------------------------------------------------------------- |
-| Status         | Superseded by [CSS ADR](https://github.com/primer/react/blob/main/contributor-docs/adrs/adr-016-css.md) ⚠️ |
+| Stage  | State                                                                                                      |
+| ------ | ---------------------------------------------------------------------------------------------------------- |
+| Status | Superseded by [CSS ADR](https://github.com/primer/react/blob/main/contributor-docs/adrs/adr-016-css.md) ⚠️ |
 
 ## Context
 
