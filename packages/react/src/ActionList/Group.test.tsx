@@ -1,4 +1,4 @@
-import {describe, it, expect, vi} from 'vitest'
+import {describe, it, expect} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
 import BaseStyles from '../BaseStyles'
 import {ActionList} from '.'
