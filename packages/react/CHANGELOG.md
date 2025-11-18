@@ -36,7 +36,7 @@
 
 - [#7101](https://github.com/primer/react/pull/7101) [`9382e52`](https://github.com/primer/react/commit/9382e529a8a4a0204ce0c412a0c8840cfbfe9f2c) Thanks [@hectahertz](https://github.com/hectahertz)! - Remove use of useResponsiveValue hook - PageLayout
 
-- [#7128](https://github.com/primer/react/pull/7128) [`4d0f08a`](https://github.com/primer/react/commit/4d0f08a24750704374655c3dc0450012f905bca0) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Link: Remove deprecated underline prop. (Not used in github-ui)
+- [#7128](https://github.com/primer/react/pull/7128) [`4d0f08a`](https://github.com/primer/react/commit/4d0f08a24750704374655c3dc0450012f905bca0) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Link: Remove deprecated underline prop. (Not used in github-ui)
 
 ## 38.0.0
 
