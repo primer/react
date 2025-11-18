@@ -71,8 +71,8 @@ export function Virtualized() {
         placeholderText="Filter Labels"
         onFilterChange={setFilter}
         items={items}
-        isVirtualized
-        className={classes.FilteredActionListContainer}
+        isVirtualized={true}
+        className={classes.FilteredActionListVirtualizedContainer}
       />
     </>
   )

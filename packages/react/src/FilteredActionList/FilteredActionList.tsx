@@ -2,7 +2,7 @@ import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {scrollIntoView, FocusKeys} from '@primer/behaviors'
 import type {KeyboardEventHandler, JSX} from 'react'
 import type React from 'react'
-import {useCallback, useEffect, useMemo, useRef, useState} from 'react'
+import {act, useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {ActionList} from '../ActionList'
@@ -224,14 +224,13 @@ export function FilteredActionList({
       ? {
           containerRef: {current: listContainerElement},
           bindKeys: FocusKeys.ArrowVertical | FocusKeys.PageUpDown,
-          focusOutBehavior: 'wrap',
+          focusOutBehavior: isVirtualized ? 'stop' : 'wrap',
           focusableElementFilter: element => {
             return !(element instanceof HTMLInputElement)
           },
           activeDescendantFocus: inputRef,
           onActiveDescendantChanged: (current, previous, directlyActivated) => {
             activeDescendantRef.current = current
-
             if (current && scrollContainerRef.current && directlyActivated) {
               scrollIntoView(current, scrollContainerRef.current, menuScrollMargins)
             }
@@ -408,7 +407,6 @@ export function FilteredActionList({
   }
 
   const {className: textInputClassName, ...restTextInputProps} = textInputProps || {}
-
   return (
     <div ref={inputAndListContainerRef} className={clsx(className, classes.Root)} data-testid="filtered-action-list">
       <div className={classes.Header}>
