@@ -119,16 +119,15 @@ describe('TextInput', () => {
   })
 
   it('renders trailingAction text button', () => {
-    // const handleAction = vi.fn()
-    // expect(
-    // render(
-    // <TextInput
-    // name="search"
-    // placeholder={'Search'}
-    // trailingAction={<TextInput.Action onClick={handleAction}>Clear</TextInput.Action>}
-    // />,
-    // ).container,
-    // ).toMatchSnapshot()
+    const handleAction = vi.fn()
+    render(
+      <TextInput
+        name="search"
+        placeholder={'Search'}
+        trailingAction={<TextInput.Action onClick={handleAction}>Clear</TextInput.Action>}
+      />,
+    )
+    expect(screen.getByRole('button', {name: 'Clear'})).toBeInTheDocument()
   })
 
   it('renders trailingAction text button with a tooltip', () => {
