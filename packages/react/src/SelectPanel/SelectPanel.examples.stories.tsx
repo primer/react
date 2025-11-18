@@ -472,7 +472,7 @@ export const WithDefaultMessage = () => {
   )
 }
 
-const NUMBER_OF_ITEMS = 500
+const NUMBER_OF_ITEMS = 1800
 const lotsOfItems = Array.from({length: NUMBER_OF_ITEMS}, (_, index) => {
   return {
     id: index,
@@ -575,6 +575,84 @@ export const RenderMoreOnScroll = () => {
           width="medium"
           height="large"
           message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+          overlayProps={{
+            id: 'select-labels-panel-dialog',
+          }}
+        />
+      </FormControl>
+    </form>
+  )
+}
+
+export const Virtualized = () => {
+  const [selected, setSelected] = useState<ItemInput[]>([])
+  const [open, setOpen] = useState(false)
+  const [renderSubset, setRenderSubset] = React.useState(true)
+
+  const [filter, setFilter] = useState('')
+  const filteredItems = lotsOfItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+
+  /* perf measurement logic start */
+  const timeBeforeOpen = useRef<number>()
+  const timeAfterOpen = useRef<number>()
+  const [timeTakenToOpen, setTimeTakenToOpen] = useState<number>()
+
+  const onOpenChange = () => {
+    if (!open) timeBeforeOpen.current = performance.now()
+    setOpen(!open)
+  }
+
+  useEffect(
+    function measureTimeAfterOpen() {
+      if (open) {
+        timeAfterOpen.current = performance.now()
+        if (timeBeforeOpen.current) setTimeTakenToOpen(timeAfterOpen.current - timeBeforeOpen.current)
+      }
+    },
+    [open],
+  )
+  /* end */
+
+  return (
+    <form>
+      <FormControl>
+        <FormControl.Label>Render subset of items on initial open</FormControl.Label>
+        <FormControl.Caption>
+          {renderSubset ? 'Loads more items on scroll' : `Loads all ${NUMBER_OF_ITEMS} items at once`}
+        </FormControl.Caption>
+        <Checkbox
+          checked={renderSubset}
+          onChange={() => {
+            setRenderSubset(!renderSubset)
+            setTimeTakenToOpen(undefined)
+          }}
+        />
+      </FormControl>
+      <p>
+        Time taken (ms) to render initial {renderSubset ? 50 : NUMBER_OF_ITEMS} items:{' '}
+        {timeTakenToOpen ? <Label>{timeTakenToOpen.toFixed(2)} ms</Label> : '(click "Select Labels" to open)'}
+      </p>
+      <FormControl>
+        <FormControl.Label>Labels</FormControl.Label>
+        <SelectPanel
+          title="Select labels"
+          placeholder="Select labels"
+          subtitle="Use labels to organize issues and pull requests"
+          renderAnchor={({children, ...anchorProps}) => (
+            <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+              {children}
+            </Button>
+          )}
+          open={open}
+          onOpenChange={onOpenChange}
+          items={lotsOfItems}
+          selected={selected}
+          onSelectedChange={setSelected}
+          onFilterChange={setFilter}
+          width="medium"
+          height="large"
+          message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+          isVirtualized={renderSubset}
           overlayProps={{
             id: 'select-labels-panel-dialog',
           }}

@@ -12,12 +12,12 @@ import {useId} from '../hooks/useId'
 import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
+import {useVirtualizer} from '@tanstack/react-virtual'
 import {VisuallyHidden} from '../VisuallyHidden'
 import type {FilteredActionListLoadingType} from './FilteredActionListLoaders'
 import {FilteredActionListLoadingTypes, FilteredActionListBodyLoader} from './FilteredActionListLoaders'
 import classes from './FilteredActionList.module.css'
 import Checkbox from '../Checkbox'
-
 import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
 import {isValidElementType} from 'react-is'
 import {useAnnouncements} from './useAnnouncements'
@@ -44,6 +44,7 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
   announcementsEnabled?: boolean
   fullScreenOnNarrow?: boolean
   onSelectAllChange?: (checked: boolean) => void
+  isVirtualized?: boolean
   /**
    * Private API for use internally only. Adds the ability to switch between
    * `active-descendant` and roving tabindex.
@@ -86,6 +87,7 @@ export function FilteredActionList({
   announcementsEnabled = true,
   fullScreenOnNarrow,
   onSelectAllChange,
+  isVirtualized = false,
   _PrivateFocusManagement = 'active-descendant',
   ...listProps
 }: FilteredActionListProps): JSX.Element {
@@ -108,6 +110,13 @@ export function FilteredActionList({
   const usingRovingTabindex = _PrivateFocusManagement === 'roving-tabindex'
   const [listContainerElement, setListContainerElement] = useState<HTMLUListElement | null>(null)
   const activeDescendantRef = useRef<HTMLElement>()
+
+  const virtualizer = useVirtualizer({
+    count: items.length,
+    getScrollElement: () => scrollContainerRef.current,
+    estimateSize: () => 35,
+    overscan: 10,
+  })
 
   const listId = useId()
   const inputDescriptionTextId = useId()
@@ -284,6 +293,7 @@ export function FilteredActionList({
     let firstGroupIndex = 0
     const actionListContent = (
       <ActionList
+        style={isVirtualized ? {height: virtualizer.getTotalSize(), width: '100%', position: 'relative'} : undefined}
         ref={usingRovingTabindex ? listRef : listContainerRefCallback}
         showDividers={showItemDividers}
         selectionVariant={selectionVariant}
@@ -318,19 +328,35 @@ export function FilteredActionList({
                 </ActionList.Group>
               )
             })
-          : items.map(({key: itemKey, ...item}, index) => {
-              const key = itemKey ?? item.id?.toString() ?? index.toString()
-              return (
-                <MappedActionListItem
-                  key={key}
-                  className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
-                  data-input-focused={isInputFocused ? '' : undefined}
-                  data-first-child={index === 0 ? '' : undefined}
-                  {...item}
-                  renderItem={listProps.renderItem}
-                />
-              )
-            })}
+          : isVirtualized
+            ? virtualizer.getVirtualItems().map((virtualRow, index) => {
+                const item = items[index]
+                const key = item.key ?? item.id?.toString() ?? index.toString()
+                return (
+                  <MappedActionListItem
+                    key={key}
+                    className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
+                    data-input-focused={isInputFocused ? '' : undefined}
+                    data-first-child={index === 0 ? '' : undefined}
+                    {...item}
+                    renderItem={listProps.renderItem}
+                    virtualRow={virtualRow}
+                  />
+                )
+              })
+            : items.map(({key: itemKey, ...item}, index) => {
+                const key = itemKey ?? item.id?.toString() ?? index.toString()
+                return (
+                  <MappedActionListItem
+                    key={key}
+                    className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
+                    data-input-focused={isInputFocused ? '' : undefined}
+                    data-first-child={index === 0 ? '' : undefined}
+                    {...item}
+                    renderItem={listProps.renderItem}
+                  />
+                )
+              })}
       </ActionList>
     )
 
@@ -419,6 +445,7 @@ function MappedActionListItem(item: ItemInput & {renderItem?: RenderItemFn}) {
     trailingIcon: TrailingIcon,
     onAction,
     children,
+    virtualRow,
     ...rest
   } = item
 
@@ -430,6 +457,18 @@ function MappedActionListItem(item: ItemInput & {renderItem?: RenderItemFn}) {
         if (typeof onAction === 'function')
           onAction(item, e as React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>)
       }}
+      style={
+        virtualRow
+          ? {
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: `${virtualRow.size}px`,
+              transform: `translateY(${virtualRow.start}px)`,
+            }
+          : undefined
+      }
       data-id={id}
       {...rest}
     >

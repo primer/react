@@ -3,6 +3,7 @@ import type {Merge} from '../utils/polymorphic'
 import type {Group} from '../ActionList/Group'
 import type {ActionListGroupProps} from '../deprecated'
 import type {AriaRole} from '../utils/types'
+import type {VirtualItem} from '@tanstack/react-virtual'
 
 export type RenderItemFn = (props: FilteredActionListItemProps) => React.ReactElement
 
@@ -105,6 +106,10 @@ export interface FilteredActionListItemProps {
    * className to apply to the list item
    */
   className?: string
+  /**
+   * Virtual item provided by react-virtual
+   */
+  virtualRow?: VirtualItem
 }
 
 /**

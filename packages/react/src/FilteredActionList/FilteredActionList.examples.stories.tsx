@@ -51,3 +51,29 @@ export function WithLongItems() {
     </>
   )
 }
+
+export function Virtualized() {
+  const [filter, setFilter] = React.useState('')
+
+  const items = useMemo(() => {
+    const allItems = Array.from({length: 1800}, (_, index) => ({
+      text: `Item ${index + 1}`,
+      id: index + 1,
+    }))
+    return allItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  }, [filter])
+
+  return (
+    <>
+      <h1>Filtered Action List with Long Items</h1>
+      <div>Please select labels that describe your issue:</div>
+      <FilteredActionList
+        placeholderText="Filter Labels"
+        onFilterChange={setFilter}
+        items={items}
+        isVirtualized
+        className={classes.FilteredActionListContainer}
+      />
+    </>
+  )
+}
