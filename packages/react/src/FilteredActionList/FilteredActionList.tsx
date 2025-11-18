@@ -44,6 +44,7 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
   announcementsEnabled?: boolean
   fullScreenOnNarrow?: boolean
   onSelectAllChange?: (checked: boolean) => void
+  /** Virtualization is only provided for non-grouped ActionLists */
   isVirtualized?: boolean
   /**
    * Private API for use internally only. Adds the ability to switch between
