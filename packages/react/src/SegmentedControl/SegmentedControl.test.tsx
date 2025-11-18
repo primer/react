@@ -3,7 +3,6 @@ import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
 import {describe, expect, it, vi} from 'vitest'
 import BaseStyles from '../BaseStyles'
-import {FeatureFlags} from '../FeatureFlags'
 import {SegmentedControl} from '../SegmentedControl'
 
 const segmentData = [
@@ -142,19 +141,13 @@ describe('SegmentedControl', () => {
     }
   })
 
-  it('renders icon button with tooltip as label when feature flag is enabled', () => {
+  it('renders icon button with tooltip as label', () => {
     const {getByRole, getByText} = render(
-      <FeatureFlags
-        flags={{
-          primer_react_segmented_control_tooltip: true,
-        }}
-      >
-        <SegmentedControl aria-label="File view">
-          {segmentData.map(({label, icon}) => (
-            <SegmentedControl.IconButton icon={icon} aria-label={label} key={label} />
-          ))}
-        </SegmentedControl>
-      </FeatureFlags>,
+      <SegmentedControl aria-label="File view">
+        {segmentData.map(({label, icon}) => (
+          <SegmentedControl.IconButton icon={icon} aria-label={label} key={label} />
+        ))}
+      </SegmentedControl>,
     )
 
     for (const datum of segmentData) {
@@ -165,19 +158,13 @@ describe('SegmentedControl', () => {
     }
   })
 
-  it('renders icon button with tooltip description when feature flag is enabled', () => {
+  it('renders icon button with tooltip description', () => {
     const {getByRole, getByText} = render(
-      <FeatureFlags
-        flags={{
-          primer_react_segmented_control_tooltip: true,
-        }}
-      >
-        <SegmentedControl aria-label="File view">
-          {segmentData.map(({label, icon, description}) => (
-            <SegmentedControl.IconButton icon={icon} aria-label={label} description={description} key={label} />
-          ))}
-        </SegmentedControl>
-      </FeatureFlags>,
+      <SegmentedControl aria-label="File view">
+        {segmentData.map(({label, icon, description}) => (
+          <SegmentedControl.IconButton icon={icon} aria-label={label} description={description} key={label} />
+        ))}
+      </SegmentedControl>,
     )
 
     for (const datum of segmentData) {
@@ -185,21 +172,6 @@ describe('SegmentedControl', () => {
       const tooltipElement = getByText(datum.description)
       expect(labelledButton).toHaveAttribute('aria-describedby', tooltipElement.id)
       expect(labelledButton).toHaveAccessibleName(datum.label)
-      expect(labelledButton).toHaveAttribute('aria-label', datum.label)
-    }
-  })
-
-  it('renders icon button with aria-label and no tooltip', () => {
-    const {getByRole} = render(
-      <SegmentedControl aria-label="File view">
-        {segmentData.map(({label, icon}) => (
-          <SegmentedControl.IconButton icon={icon} aria-label={label} key={label} />
-        ))}
-      </SegmentedControl>,
-    )
-
-    for (const datum of segmentData) {
-      const labelledButton = getByRole('button', {name: datum.label})
       expect(labelledButton).toHaveAttribute('aria-label', datum.label)
     }
   })
