@@ -1518,6 +1518,53 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         expect(selectAllCheckbox).not.toBeChecked()
         expect(selectAllCheckbox).toHaveProperty('indeterminate', true)
       })
+
+      it('should render a subset of listItems when isVirtualized is true', async () => {
+        const user = userEvent.setup()
+
+        // Create a large list of items
+        const largeItemList = Array.from({length: 1000}, (_, index) => ({
+          id: `${index + 1}`,
+          text: `item ${index + 1}`,
+        }))
+
+        function VirtualizedSelectAllPanel() {
+          const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+          const [open, setOpen] = React.useState(false)
+
+          const onSelectedChange = (selected: SelectPanelProps['items']) => {
+            setSelected(selected)
+          }
+
+          return (
+            <SelectPanel
+              title="test title"
+              subtitle="test subtitle"
+              items={largeItemList}
+              placeholder="Select items"
+              selected={selected}
+              onSelectedChange={onSelectedChange}
+              open={open}
+              onOpenChange={isOpen => {
+                setOpen(isOpen)
+              }}
+              onFilterChange={() => {}}
+              showSelectAll={true}
+              isVirtualized={true}
+            />
+          )
+        }
+
+        renderWithProp(<VirtualizedSelectAllPanel />)
+
+        await user.click(screen.getByText('Select items'))
+
+        // Only a subset of items should be rendered due to virtualization
+        const options = screen.getAllByRole('option')
+        expect(options.length).toBeLessThan(50)
+        expect(options[0]).toHaveTextContent('item 1')
+        expect(options[options.length - 1]).toHaveTextContent(`item ${options.length}`)
+      })
     })
   })
 }
