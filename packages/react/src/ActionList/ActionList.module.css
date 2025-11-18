@@ -162,7 +162,10 @@
 
     /* danger */
     &:where([data-variant='danger']) {
-      & * :not([popover], .TrailingVisual) {
+      & .LeadingAction,
+      .LeadingVisual,
+      .TrailingVisual,
+      .ItemLabel {
         color: var(--control-danger-fgColor-rest);
       }
 
@@ -170,7 +173,10 @@
         &:hover {
           background: var(--control-danger-bgColor-hover);
 
-          & * :not([popover]) {
+          & .LeadingAction,
+          .LeadingVisual,
+          .TrailingVisual,
+          .ItemLabel {
             color: var(--control-danger-fgColor-hover);
           }
         }
@@ -179,7 +185,10 @@
       &:active {
         background: var(--control-danger-bgColor-active);
 
-        & * :not([popover]) {
+        & .LeadingAction,
+        .LeadingVisual,
+        .TrailingVisual,
+        .ItemLabel {
           color: var(--control-danger-fgColor-hover);
         }
       }
