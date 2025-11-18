@@ -13,7 +13,6 @@
   box-sizing: border-box;
 }
 
-
 .FilteredActionListVirtualizedContainer {
   border: var(--borderWidth-thin) solid;
   padding: var(--base-size-8);
