@@ -194,10 +194,10 @@
         },
         {
           "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "\"h3\"",
           "description": "Heading level for the group heading. Sets the semantic heading tag (h1-h6).",
-          "required": false
+          "required": false,
+          "type": "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'",
+          "defaultValue": "\"h3\""
         }
       ]
     },
