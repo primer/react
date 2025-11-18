@@ -7,6 +7,7 @@ export type ResizeObserverCallback = (entries: ResizeObserverEntry[]) => void
 
 export interface ResizeObserverEntry {
   contentRect: DOMRectReadOnly
+  target?: Element
 }
 
 export function useResizeObserver<T extends HTMLElement>(

@@ -292,6 +292,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     flush = false,
     className,
     gap = 'condensed',
+    ...restProps
   } = props
 
   // We derive the numeric gap from computed style so layout math stays in sync with CSS
@@ -324,6 +325,11 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     const navWidth = resizeObserverEntries[0].contentRect.width
     const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
     const hasActiveMenu = menuItemIds.size > 0
+
+    if (__DEV__) {
+      const disableObserver = resizeObserverEntries[0].target?.hasAttribute('data-disable-overflow')
+      if (disableObserver) return
+    }
 
     if (navWidth > 0) {
       const newMenuItemIds = getMenuItems(navWidth, moreMenuWidth, childRegistry, hasActiveMenu, computedGap)
@@ -390,6 +396,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledBy}
           data-gap={gap}
+          {...restProps}
         >
           {children}
           {menuItemIds.size > 0 && (
