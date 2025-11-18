@@ -2,7 +2,7 @@ import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {scrollIntoView, FocusKeys} from '@primer/behaviors'
 import type {KeyboardEventHandler, JSX} from 'react'
 import type React from 'react'
-import {useCallback, useEffect, useRef, useState} from 'react'
+import {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {ActionList} from '../ActionList'
@@ -24,6 +24,8 @@ import {useAnnouncements} from './useAnnouncements'
 import {clsx} from 'clsx'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
+// Default estimated height in pixels for virtualized list items
+const DEFAULT_VIRTUAL_ITEM_HEIGHT = 35
 
 export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   loading?: boolean
@@ -44,7 +46,18 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
   announcementsEnabled?: boolean
   fullScreenOnNarrow?: boolean
   onSelectAllChange?: (checked: boolean) => void
-  /** Virtualization is only provided for non-grouped ActionLists */
+  /**
+   * Enable virtualization for large lists to improve rendering performance.
+   * Only renders visible items plus a small overscan buffer, reducing DOM node count and improving scroll performance.
+   *
+   * When to use: Enable this option when rendering lists with many items to avoid performance bottlenecks.
+   *
+   * Limitations:
+   * - Virtualization is only supported for non-grouped ActionLists.
+   * - For best results, items should have consistent heights.
+   *
+   * @default false
+   */
   isVirtualized?: boolean
   /**
    * Private API for use internally only. Adds the ability to switch between
@@ -115,8 +128,9 @@ export function FilteredActionList({
   const virtualizer = useVirtualizer({
     count: items.length,
     getScrollElement: () => scrollContainerRef.current,
-    estimateSize: () => 35,
+    estimateSize: () => DEFAULT_VIRTUAL_ITEM_HEIGHT,
     overscan: 10,
+    enabled: isVirtualized,
   })
 
   const listId = useId()
@@ -284,6 +298,18 @@ export function FilteredActionList({
     [onSelectAllChange],
   )
 
+  const virtualizedContainerStyle = useMemo(
+    () =>
+      isVirtualized
+        ? {
+            height: virtualizer.getTotalSize(),
+            width: '100%',
+            position: 'relative' as const,
+          }
+        : undefined,
+    [isVirtualized, virtualizer],
+  )
+
   function getBodyContent() {
     if (loading && scrollContainerRef.current && loadingType.appearsInBody) {
       return <FilteredActionListBodyLoader loadingType={loadingType} height={scrollContainerRef.current.clientHeight} />
@@ -294,7 +320,7 @@ export function FilteredActionList({
     let firstGroupIndex = 0
     const actionListContent = (
       <ActionList
-        style={isVirtualized ? {height: virtualizer.getTotalSize(), width: '100%', position: 'relative'} : undefined}
+        style={virtualizedContainerStyle}
         ref={usingRovingTabindex ? listRef : listContainerRefCallback}
         showDividers={showItemDividers}
         selectionVariant={selectionVariant}
@@ -331,8 +357,8 @@ export function FilteredActionList({
             })
           : isVirtualized
             ? virtualizer.getVirtualItems().map((virtualRow, index) => {
-                const item = items[index]
-                const key = item.key ?? item.id?.toString() ?? index.toString()
+                const item = items[virtualRow.index]
+                const key = item.key ?? item.id?.toString() ?? virtualRow.index.toString()
                 return (
                   <MappedActionListItem
                     key={key}

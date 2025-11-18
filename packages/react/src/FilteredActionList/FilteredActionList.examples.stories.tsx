@@ -65,7 +65,7 @@ export function Virtualized() {
 
   return (
     <>
-      <h1>Filtered Action List with Long Items</h1>
+      <h1>Filtered Action ListVirtualized</h1>
       <div>Please select labels that describe your issue:</div>
       <FilteredActionList
         placeholderText="Filter Labels"

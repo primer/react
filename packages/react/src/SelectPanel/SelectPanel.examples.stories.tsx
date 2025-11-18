@@ -618,7 +618,9 @@ export const Virtualized = () => {
       <FormControl>
         <FormControl.Label>Render subset of items on initial open</FormControl.Label>
         <FormControl.Caption>
-          {renderSubset ? 'Loads more items on scroll' : `Loads all ${NUMBER_OF_ITEMS} items at once`}
+          {renderSubset
+            ? 'Uses virtualization to render visible items efficiently'
+            : `Loads all ${NUMBER_OF_ITEMS} items at once without virtualization`}
         </FormControl.Caption>
         <Checkbox
           checked={renderSubset}
