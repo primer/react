@@ -2,9 +2,22 @@ name: Release
 
 on:
   push:
-    branches:
-      - main
-      - next-major
+    # Ignore merge queue branches and all tags
+    branches-ignore:
+      - 'gh-readonly-queue/**'
+    tags-ignore:
+      - '**'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  id-token: write # Required for OIDC
+  contents: read
+  checks: write
+  statuses: write
 
 jobs:
   release-main:
@@ -20,7 +33,7 @@ jobs:
           persist-credentials: false
 
       - name: Set up Node
-        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -46,19 +59,87 @@ jobs:
           publish: npm run release
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
-      - uses: ./.github/actions/upload-versions
 
-  release-next-major:
-    if: github.ref_name == 'next-major'
-    name: Next major
-    uses: primer/.github/.github/workflows/release_with_app.yml@v2.0.0
-    with:
-      title: Release tracking (next major)
-    secrets:
-      npm_token: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
-      app-id: ${{ vars.PRIMER_APP_ID_SHARED }}
-      private-key: ${{ secrets.PRIMER_APP_PRIVATE_KEY_SHARED }}
-      client-id: ${{ vars.PRIMER_APP_CLIENT_ID_SHARED }}
-      client-secret: ${{ secrets.PRIMER_APP_CLIENT_SECRET_SHARED }}
-      installation-id: ${{ vars.PRIMER_APP_INSTALLATION_ID_SHARED }}
+      - name: Upload versions json file
+        uses: primer/.github/.github/actions/upload-versions@v2.4.0
+
+  release-candidate:
+    if: github.ref_name == 'changeset-release/main'
+    name: Candidate (@next)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+        with:
+          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Publish release candidate
+        run: |
+          if [[ -f '.changeset/pre.json' ]]; then
+            npx changeset pre exit
+            npx changeset version --snapshot
+          else
+            pkg_json_path=packages/react/package.json
+            version=$(jq -r .version $pkg_json_path)
+            echo "$( jq ".version = \"$(echo $version)-rc.$(git rev-parse --short HEAD)\"" $pkg_json_path )" > $pkg_json_path
+          fi
+
+          npx changeset publish --tag next
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Report versions
+        uses: primer/.github/.github/actions/report-versions@v2.4.0
+
+      - name: Upload versions json file
+        uses: primer/.github/.github/actions/upload-versions@v2.4.0
+
+  release-canary:
+    name: Canary
+    if: github.ref_name != 'main' && github.ref_name != 'changeset-release/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+        with:
+          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
+          fetch-depth: 0
+      - name: Set up Node
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build --if-present
+      - name: Publish canary release
+        run: |
+          if [[ -f '.changeset/pre.json' ]]; then
+            npx changeset pre exit
+          fi
+
+          echo -e "---\n$( jq .name packages/react/package.json ): patch\n---\n\nFake entry to force publishing" > .changeset/force-snapshot-release.md
+          npx changeset version --snapshot
+          npx changeset publish --tag canary
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Report versions
+        uses: primer/.github/.github/actions/report-versions@v2.4.0
+
+      - name: Upload versions json file
+        uses: primer/.github/.github/actions/upload-versions@v2.4.0

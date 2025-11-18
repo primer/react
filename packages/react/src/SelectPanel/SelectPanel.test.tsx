@@ -3,7 +3,6 @@ import {describe, expect, it, beforeEach, vi} from 'vitest'
 import React from 'react'
 import {SelectPanel, type SelectPanelProps, type ItemInput, type GroupedListProps} from '../SelectPanel'
 import {userEvent} from '@testing-library/user-event'
-import ThemeProvider from '../ThemeProvider'
 import {FeatureFlags} from '../FeatureFlags'
 import type {InitialLoadingType} from './SelectPanel'
 import type {LiveRegionElement} from '@primer/live-region-element'
@@ -20,16 +19,11 @@ export function getLiveRegion(): LiveRegionElement {
   throw new Error('No live-region found')
 }
 
-const renderWithFlag = (children: React.ReactNode, flag: boolean) => {
-  return render(
-    <FeatureFlags
-      flags={{
-        primer_react_select_panel_remove_active_descendant: flag,
-      }}
-    >
-      {children}
-    </FeatureFlags>,
-  )
+const renderWithProp = (element: React.ReactElement, flag?: boolean) => {
+  // true = 'use roving tabindex'
+  // false = 'use aria-activedescendant'
+  const focusManagement = flag ? 'roving-tabindex' : 'active-descendant'
+  return render(React.cloneElement(element, {_PrivateFocusManagement: focusManagement}))
 }
 
 const items: SelectPanelProps['items'] = [
@@ -54,26 +48,24 @@ function BasicSelectPanel(passthroughProps: Record<string, unknown>) {
   }
 
   return (
-    <ThemeProvider>
-      <SelectPanel
-        title="test title"
-        subtitle="test subtitle"
-        items={items}
-        placeholder="Select items"
-        placeholderText="Filter items"
-        selected={selected}
-        onSelectedChange={onSelectedChange}
-        filterValue={filter}
-        onFilterChange={value => {
-          setFilter(value)
-        }}
-        open={open}
-        onOpenChange={isOpen => {
-          setOpen(isOpen)
-        }}
-        {...passthroughProps}
-      />
-    </ThemeProvider>
+    <SelectPanel
+      title="test title"
+      subtitle="test subtitle"
+      items={items}
+      placeholder="Select items"
+      placeholderText="Filter items"
+      selected={selected}
+      onSelectedChange={onSelectedChange}
+      filterValue={filter}
+      onFilterChange={value => {
+        setFilter(value)
+      }}
+      open={open}
+      onOpenChange={isOpen => {
+        setOpen(isOpen)
+      }}
+      {...passthroughProps}
+    />
   )
 }
 
@@ -82,7 +74,7 @@ globalThis.Element.prototype.scrollTo = vi.fn()
 for (const usingRemoveActiveDescendant of [false, true]) {
   describe('SelectPanel', () => {
     it('should render an anchor to open the select panel using `placeholder`', () => {
-      renderWithFlag(<BasicSelectPanel />, usingRemoveActiveDescendant)
+      renderWithProp(<BasicSelectPanel />)
 
       expect(screen.getByText('Select items')).toBeInTheDocument()
 
@@ -96,7 +88,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
     it('should open the select panel when activating the trigger', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(<BasicSelectPanel />, usingRemoveActiveDescendant)
+      renderWithProp(<BasicSelectPanel />, usingRemoveActiveDescendant)
 
       await user.click(screen.getByText('Select items'))
 
@@ -117,7 +109,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
     it('should close the select panel when pressing Escape', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(<BasicSelectPanel />, usingRemoveActiveDescendant)
+      renderWithProp(<BasicSelectPanel />, usingRemoveActiveDescendant)
 
       await user.click(screen.getByText('Select items'))
       await user.keyboard('{Escape}')
@@ -129,7 +121,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
     it('should close the select panel when clicking outside of the select panel', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(
+      renderWithProp(
         <>
           <button type="button">outer button</button>
           <BasicSelectPanel />
@@ -146,7 +138,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
     it('should open a dialog that is labelled by `title` and described by `subtitle`', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(<BasicSelectPanel />, usingRemoveActiveDescendant)
+      renderWithProp(<BasicSelectPanel />, usingRemoveActiveDescendant)
 
       await user.click(screen.getByText('Select items'))
 
@@ -171,7 +163,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         }
 
         return (
-          <ThemeProvider>
+          <>
             <button type="button">Outside of select panel</button>
             <SelectPanel
               title="test title"
@@ -191,13 +183,13 @@ for (const usingRemoveActiveDescendant of [false, true]) {
                 setOpen(args[0])
               }}
             />
-          </ThemeProvider>
+          </>
         )
       }
 
       const user = userEvent.setup()
 
-      renderWithFlag(<SelectPanelOpenChange />, usingRemoveActiveDescendant)
+      renderWithProp(<SelectPanelOpenChange />, usingRemoveActiveDescendant)
 
       // Open by click
       await user.click(screen.getByText('Select items'))
@@ -224,7 +216,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
     it('should label the list by title unless a aria-label is explicitly passed', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(<BasicSelectPanel />, usingRemoveActiveDescendant)
+      renderWithProp(<BasicSelectPanel />, usingRemoveActiveDescendant)
       await user.click(screen.getByText('Select items'))
       expect(screen.getByRole('listbox', {name: 'test title'})).toBeInTheDocument()
     })
@@ -232,7 +224,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
     it('should label the list by aria-label when explicitly passed', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(<BasicSelectPanel aria-label="Custom label" />, usingRemoveActiveDescendant)
+      renderWithProp(<BasicSelectPanel aria-label="Custom label" />, usingRemoveActiveDescendant)
       await user.click(screen.getByText('Select items'))
       expect(screen.getByRole('listbox', {name: 'Custom label'})).toBeInTheDocument()
     })
@@ -242,25 +234,23 @@ for (const usingRemoveActiveDescendant of [false, true]) {
 
       // This panel contains another focusable thing (the IconButton) that should not receive focus
       // when the panel opens.
-      renderWithFlag(
-        <ThemeProvider>
-          <SelectPanel
-            onOpenChange={() => {}}
-            onFilterChange={() => {}}
-            onSelectedChange={() => {}}
-            open={true}
-            items={items}
-            selected={[]}
-            placeholder="Select items"
-            placeholderText="Filter items"
-            title={
-              <div className={classes.Title}>
-                <IconButton icon={ArrowLeftIcon} aria-label="Back" />
-                <span>Title</span>
-              </div>
-            }
-          />
-        </ThemeProvider>,
+      renderWithProp(
+        <SelectPanel
+          onOpenChange={() => {}}
+          onFilterChange={() => {}}
+          onSelectedChange={() => {}}
+          open={true}
+          items={items}
+          selected={[]}
+          placeholder="Select items"
+          placeholderText="Filter items"
+          title={
+            <div className={classes.Title}>
+              <IconButton icon={ArrowLeftIcon} aria-label="Back" />
+              <span>Title</span>
+            </div>
+          }
+        />,
         usingRemoveActiveDescendant,
       )
 
@@ -272,7 +262,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       it('should select an active option when activated', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(<BasicSelectPanel />, usingRemoveActiveDescendant)
+        renderWithProp(<BasicSelectPanel />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
 
@@ -308,7 +298,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       it('should support navigating through items with ArrowUp and ArrowDown', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(<BasicSelectPanel />, usingRemoveActiveDescendant)
+        renderWithProp(<BasicSelectPanel />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
 
@@ -387,7 +377,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       it('should support navigating through items with PageDown and PageUp', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(<BasicSelectPanel />, usingRemoveActiveDescendant)
+        renderWithProp(<BasicSelectPanel />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
 
@@ -442,23 +432,21 @@ for (const usingRemoveActiveDescendant of [false, true]) {
           const [filter, setFilter] = React.useState('')
 
           return (
-            <ThemeProvider>
-              <SelectPanel
-                title="test title"
-                items={items}
-                placeholder="Select items"
-                selected={selected}
-                onSelectedChange={setSelected}
-                filterValue={filter}
-                onFilterChange={setFilter}
-                open={open}
-                onOpenChange={setOpen}
-              />
-            </ThemeProvider>
+            <SelectPanel
+              title="test title"
+              items={items}
+              placeholder="Select items"
+              selected={selected}
+              onSelectedChange={setSelected}
+              filterValue={filter}
+              onFilterChange={setFilter}
+              open={open}
+              onOpenChange={setOpen}
+            />
           )
         }
 
-        renderWithFlag(<Fixture />, usingRemoveActiveDescendant)
+        renderWithProp(<Fixture />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
 
@@ -483,25 +471,24 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       }
 
       return (
-        <ThemeProvider>
-          <SelectPanel
-            title="test title"
-            subtitle="test subtitle"
-            items={items.filter(item => item.text?.includes(filter))}
-            placeholder="Select items"
-            placeholderText="Filter items"
-            selected={selected}
-            onSelectedChange={onSelectedChange}
-            filterValue={filter}
-            onFilterChange={value => {
-              setFilter(value)
-            }}
-            open={open}
-            onOpenChange={isOpen => {
-              setOpen(isOpen)
-            }}
-          />
-        </ThemeProvider>
+        <SelectPanel
+          title="test title"
+          subtitle="test subtitle"
+          items={items.filter(item => item.text?.includes(filter))}
+          placeholder="Select items"
+          placeholderText="Filter items"
+          selected={selected}
+          onSelectedChange={onSelectedChange}
+          filterValue={filter}
+          onFilterChange={value => {
+            setFilter(value)
+          }}
+          open={open}
+          onOpenChange={isOpen => {
+            setOpen(isOpen)
+          }}
+          _PrivateFocusManagement={usingRemoveActiveDescendant ? 'roving-tabindex' : 'active-descendant'}
+        />
       )
     }
 
@@ -550,26 +537,24 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       }
 
       return (
-        <ThemeProvider>
-          <SelectPanel
-            title="test title"
-            subtitle="test subtitle"
-            items={filteredItems}
-            placeholder="Select items"
-            placeholderText="Filter items"
-            selected={selected}
-            onSelectedChange={onSelectedChange}
-            filterValue={filter}
-            onFilterChange={value => {
-              setFilter(value)
-            }}
-            open={open}
-            onOpenChange={isOpen => {
-              setOpen(isOpen)
-            }}
-            message={getMessage()}
-          />
-        </ThemeProvider>
+        <SelectPanel
+          title="test title"
+          subtitle="test subtitle"
+          items={filteredItems}
+          placeholder="Select items"
+          placeholderText="Filter items"
+          selected={selected}
+          onSelectedChange={onSelectedChange}
+          filterValue={filter}
+          onFilterChange={value => {
+            setFilter(value)
+          }}
+          open={open}
+          onOpenChange={isOpen => {
+            setOpen(isOpen)
+          }}
+          message={getMessage()}
+        />
       )
     }
 
@@ -585,25 +570,23 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       const items: SelectPanelProps['items'] = []
 
       return (
-        <ThemeProvider>
-          <SelectPanel
-            title="test title"
-            subtitle="test subtitle"
-            items={items.filter(item => item.text?.includes(filter))}
-            placeholder="Select items"
-            placeholderText="Filter items"
-            selected={selected}
-            onSelectedChange={onSelectedChange}
-            filterValue={filter}
-            onFilterChange={value => {
-              setFilter(value)
-            }}
-            open={open}
-            onOpenChange={isOpen => {
-              setOpen(isOpen)
-            }}
-          />
-        </ThemeProvider>
+        <SelectPanel
+          title="test title"
+          subtitle="test subtitle"
+          items={items.filter(item => item.text?.includes(filter))}
+          placeholder="Select items"
+          placeholderText="Filter items"
+          selected={selected}
+          onSelectedChange={onSelectedChange}
+          filterValue={filter}
+          onFilterChange={value => {
+            setFilter(value)
+          }}
+          open={open}
+          onOpenChange={isOpen => {
+            setOpen(isOpen)
+          }}
+        />
       )
     }
 
@@ -611,7 +594,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       it('should filter the list of items when the user types into the input', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(<FilterableSelectPanel />, usingRemoveActiveDescendant)
+        renderWithProp(<FilterableSelectPanel />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
 
@@ -638,29 +621,27 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         const [open, setOpen] = React.useState(false)
 
         return (
-          <ThemeProvider>
-            <SelectPanel
-              title="test title"
-              subtitle="test subtitle"
-              placeholder="Select items"
-              open={open}
-              items={items}
-              onFilterChange={() => {}}
-              selected={[]}
-              onSelectedChange={() => {}}
-              onOpenChange={isOpen => {
-                setOpen(isOpen)
-              }}
-              initialLoadingType={initialLoadingType}
-            />
-          </ThemeProvider>
+          <SelectPanel
+            title="test title"
+            subtitle="test subtitle"
+            placeholder="Select items"
+            open={open}
+            items={items}
+            onFilterChange={() => {}}
+            selected={[]}
+            onSelectedChange={() => {}}
+            onOpenChange={isOpen => {
+              setOpen(isOpen)
+            }}
+            initialLoadingType={initialLoadingType}
+          />
         )
       }
 
       it('displays a loading spinner on first open', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(<LoadingSelectPanel />, usingRemoveActiveDescendant)
+        renderWithProp(<LoadingSelectPanel />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
 
@@ -670,7 +651,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       it('displays a loading skeleton on first open', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(<LoadingSelectPanel initialLoadingType="skeleton" />, usingRemoveActiveDescendant)
+        renderWithProp(<LoadingSelectPanel initialLoadingType="skeleton" />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
 
@@ -680,7 +661,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       it('displays a loading spinner in the text input if items are already loaded', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(<LoadingSelectPanel items={items} />, usingRemoveActiveDescendant)
+        renderWithProp(<LoadingSelectPanel items={items} />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
 
@@ -697,7 +678,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
 
       it('should announce initially focused item', async () => {
         const user = userEvent.setup()
-        renderWithFlag(<FilterableSelectPanel />, usingRemoveActiveDescendant)
+        renderWithProp(<FilterableSelectPanel />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
         expect(screen.getByLabelText('Filter items')).toHaveFocus()
@@ -730,33 +711,31 @@ for (const usingRemoveActiveDescendant of [false, true]) {
           }
 
           return (
-            <ThemeProvider>
-              <SelectPanel
-                title="test title"
-                subtitle="test subtitle"
-                items={items}
-                placeholder="Select items"
-                placeholderText="Filter items"
-                selected={selected}
-                onSelectedChange={onSelectedChange}
-                filterValue={filter}
-                onFilterChange={value => {
-                  setFilter(value)
-                }}
-                open={open}
-                onOpenChange={isOpen => {
-                  setOpen(isOpen)
-                }}
-                notice={{
-                  text: 'This is a notice',
-                  variant: 'warning',
-                }}
-              />
-            </ThemeProvider>
+            <SelectPanel
+              title="test title"
+              subtitle="test subtitle"
+              items={items}
+              placeholder="Select items"
+              placeholderText="Filter items"
+              selected={selected}
+              onSelectedChange={onSelectedChange}
+              filterValue={filter}
+              onFilterChange={value => {
+                setFilter(value)
+              }}
+              open={open}
+              onOpenChange={isOpen => {
+                setOpen(isOpen)
+              }}
+              notice={{
+                text: 'This is a notice',
+                variant: 'warning',
+              }}
+            />
           )
         }
 
-        renderWithFlag(<SelectPanelWithNotice />, usingRemoveActiveDescendant)
+        renderWithProp(<SelectPanelWithNotice />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
         expect(screen.getByLabelText('Filter items')).toHaveFocus()
@@ -766,7 +745,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
 
       it('should announce filtered results', async () => {
         const user = userEvent.setup()
-        renderWithFlag(<FilterableSelectPanel />, usingRemoveActiveDescendant)
+        renderWithProp(<FilterableSelectPanel />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
         expect(screen.getByLabelText('Filter items')).toHaveFocus()
@@ -819,7 +798,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
 
       it('should announce default empty message when no results are available (no custom message is provided)', async () => {
         const user = userEvent.setup()
-        renderWithFlag(<FilterableSelectPanel />, usingRemoveActiveDescendant)
+        renderWithProp(<FilterableSelectPanel />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
 
@@ -846,34 +825,32 @@ for (const usingRemoveActiveDescendant of [false, true]) {
           const [open, setOpen] = React.useState(false)
 
           return (
-            <ThemeProvider>
-              <SelectPanel
-                title="test title"
-                subtitle="test subtitle"
-                placeholder="Select items"
-                placeholderText="Filter items"
-                open={open}
-                items={[]}
-                onFilterChange={value => {
-                  setFilter(value)
-                }}
-                filterValue={filter}
-                selected={[]}
-                onSelectedChange={() => {}}
-                onOpenChange={isOpen => {
-                  setOpen(isOpen)
-                }}
-                message={{
-                  title: 'Nothing found',
-                  body: `There's nothing here.`,
-                  variant: 'empty',
-                }}
-              />
-            </ThemeProvider>
+            <SelectPanel
+              title="test title"
+              subtitle="test subtitle"
+              placeholder="Select items"
+              placeholderText="Filter items"
+              open={open}
+              items={[]}
+              onFilterChange={value => {
+                setFilter(value)
+              }}
+              filterValue={filter}
+              selected={[]}
+              onSelectedChange={() => {}}
+              onOpenChange={isOpen => {
+                setOpen(isOpen)
+              }}
+              message={{
+                title: 'Nothing found',
+                body: `There's nothing here.`,
+                variant: 'empty',
+              }}
+            />
           )
         }
 
-        renderWithFlag(<SelectPanelWithCustomEmptyMessage />, usingRemoveActiveDescendant)
+        renderWithProp(<SelectPanelWithCustomEmptyMessage />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
 
@@ -895,7 +872,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       it('should accept a className to style the component', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(<BasicSelectPanel className="test-class" />, usingRemoveActiveDescendant)
+        renderWithProp(<BasicSelectPanel className="test-class" />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
 
@@ -907,7 +884,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       it('should display the default empty state message when there is no matching item after filtering (No custom message is provided)', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(<FilterableSelectPanel />, usingRemoveActiveDescendant)
+        renderWithProp(<FilterableSelectPanel />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
 
@@ -920,7 +897,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       it('should display the default empty state message when there is no item after the initial load (No custom message is provided)', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(<NoItemAvailableSelectPanel />, usingRemoveActiveDescendant)
+        renderWithProp(<NoItemAvailableSelectPanel />, usingRemoveActiveDescendant)
 
         await waitFor(async () => {
           await user.click(screen.getByText('Select items'))
@@ -930,7 +907,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       it('should display the custom empty state message when there is no matching item after filtering', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(
+        renderWithProp(
           <SelectPanelWithCustomMessages
             items={[
               {
@@ -959,7 +936,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       it('should display the custom empty state message when there is no item after the initial load', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(<SelectPanelWithCustomMessages items={[]} />, usingRemoveActiveDescendant)
+        renderWithProp(<SelectPanelWithCustomMessages items={[]} />, usingRemoveActiveDescendant)
 
         await waitFor(async () => {
           await user.click(screen.getByText('Select items'))
@@ -972,7 +949,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         const handleAction = vi.fn()
         const user = userEvent.setup()
 
-        renderWithFlag(
+        renderWithProp(
           <SelectPanelWithCustomMessages items={[]} withAction={true} onAction={handleAction} />,
           usingRemoveActiveDescendant,
         )
@@ -1006,33 +983,31 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         }
 
         return (
-          <ThemeProvider>
-            <SelectPanel
-              title="test title"
-              subtitle="test subtitle"
-              footer={<div>test footer</div>}
-              items={items}
-              placeholder="Select items"
-              placeholderText="Filter items"
-              selected={selected}
-              onSelectedChange={onSelectedChange}
-              filterValue={filter}
-              onFilterChange={value => {
-                setFilter(value)
-              }}
-              open={open}
-              onOpenChange={isOpen => {
-                setOpen(isOpen)
-              }}
-            />
-          </ThemeProvider>
+          <SelectPanel
+            title="test title"
+            subtitle="test subtitle"
+            footer={<div>test footer</div>}
+            items={items}
+            placeholder="Select items"
+            placeholderText="Filter items"
+            selected={selected}
+            onSelectedChange={onSelectedChange}
+            filterValue={filter}
+            onFilterChange={value => {
+              setFilter(value)
+            }}
+            open={open}
+            onOpenChange={isOpen => {
+              setOpen(isOpen)
+            }}
+          />
         )
       }
 
       it('should render the provided `footer` at the bottom of the dialog', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(<SelectPanelWithFooter />, usingRemoveActiveDescendant)
+        renderWithProp(<SelectPanelWithFooter />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
         expect(screen.getByText('test footer')).toBeInTheDocument()
@@ -1082,26 +1057,24 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       }
 
       return (
-        <ThemeProvider>
-          <SelectPanel
-            title="test title"
-            subtitle="test subtitle"
-            groupMetadata={groupMetadata}
-            placeholderText="Filter items"
-            placeholder="Select items"
-            items={listOfItems}
-            selected={selectedItems}
-            onSelectedChange={onSelectedChange}
-            open={open}
-            onOpenChange={isOpen => {
-              setOpen(isOpen)
-            }}
-            filterValue={filter}
-            onFilterChange={value => {
-              setFilter(value)
-            }}
-          />
-        </ThemeProvider>
+        <SelectPanel
+          title="test title"
+          subtitle="test subtitle"
+          groupMetadata={groupMetadata}
+          placeholderText="Filter items"
+          placeholder="Select items"
+          items={listOfItems}
+          selected={selectedItems}
+          onSelectedChange={onSelectedChange}
+          open={open}
+          onOpenChange={isOpen => {
+            setOpen(isOpen)
+          }}
+          filterValue={filter}
+          onFilterChange={value => {
+            setFilter(value)
+          }}
+        />
       )
     }
 
@@ -1109,7 +1082,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       it('should render groups with items', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(<SelectPanelWithGroups />, usingRemoveActiveDescendant)
+        renderWithProp(<SelectPanelWithGroups />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
         const listbox = screen.getByRole('listbox')
@@ -1128,7 +1101,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       it('should select items within groups', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(<SelectPanelWithGroups />, usingRemoveActiveDescendant)
+        renderWithProp(<SelectPanelWithGroups />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
 
@@ -1160,7 +1133,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       it('selections render as radios when variant modal and single select', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(
+        renderWithProp(
           <BasicSelectPanel variant="modal" onCancel={() => {}} selected={undefined} />,
           usingRemoveActiveDescendant,
         )
@@ -1175,7 +1148,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       it('save and oncancel buttons are present when variant modal', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(<BasicSelectPanel variant="modal" onCancel={() => {}} />, usingRemoveActiveDescendant)
+        renderWithProp(<BasicSelectPanel variant="modal" onCancel={() => {}} />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
 
@@ -1204,7 +1177,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       it('should render selected items at the top by default when FF on', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(
+        renderWithProp(
           <FeatureFlags flags={{primer_react_select_panel_order_selected_at_top: true}}>
             <BasicSelectPanel items={items} selected={[items[1]]} />
           </FeatureFlags>,
@@ -1221,7 +1194,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       it('should not render selected items at the top by default when FF off', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(
+        renderWithProp(
           <FeatureFlags flags={{primer_react_select_panel_order_selected_at_top: false}}>
             <BasicSelectPanel items={items} selected={[items[1]]} />
           </FeatureFlags>,
@@ -1238,7 +1211,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       it('should not render selected items at the top when showSelectedOptionsFirst set to false', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(
+        renderWithProp(
           <BasicSelectPanel items={items} selected={[items[1]]} showSelectedOptionsFirst={false} />,
           usingRemoveActiveDescendant,
         )
@@ -1254,11 +1227,9 @@ for (const usingRemoveActiveDescendant of [false, true]) {
 
     describe('disableFullscreenOnNarrow prop', () => {
       const renderSelectPanelWithFlags = (flags: Record<string, boolean>, props: Record<string, unknown> = {}) => {
-        return renderWithFlag(
+        return renderWithProp(
           <FeatureFlags flags={flags}>
-            <ThemeProvider>
-              <SingleSelectPanel {...props} />
-            </ThemeProvider>
+            <SingleSelectPanel {...props} />
           </FeatureFlags>,
           usingRemoveActiveDescendant,
         )
@@ -1270,24 +1241,22 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         const [open, setOpen] = React.useState(false)
 
         return (
-          <ThemeProvider>
-            <SelectPanel
-              title="test title"
-              subtitle="test subtitle"
-              items={items}
-              placeholder="Select an item"
-              placeholderText="Filter items"
-              selected={undefined}
-              onSelectedChange={() => {}}
-              filterValue={filter}
-              onFilterChange={value => {
-                setFilter(value)
-              }}
-              open={open}
-              onOpenChange={open => setOpen(open)}
-              {...passthroughProps}
-            />
-          </ThemeProvider>
+          <SelectPanel
+            title="test title"
+            subtitle="test subtitle"
+            items={items}
+            placeholder="Select an item"
+            placeholderText="Filter items"
+            selected={undefined}
+            onSelectedChange={() => {}}
+            filterValue={filter}
+            onFilterChange={value => {
+              setFilter(value)
+            }}
+            open={open}
+            onOpenChange={open => setOpen(open)}
+            {...passthroughProps}
+          />
         )
       }
 
@@ -1355,33 +1324,31 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         }
 
         return (
-          <ThemeProvider>
-            <SelectPanel
-              title="test title"
-              subtitle="test subtitle"
-              items={items}
-              placeholder="Select items"
-              placeholderText="Filter items"
-              selected={selected}
-              onSelectedChange={onSelectedChange}
-              filterValue={filter}
-              onFilterChange={value => {
-                setFilter(value)
-              }}
-              open={open}
-              onOpenChange={isOpen => {
-                setOpen(isOpen)
-              }}
-              showSelectAll={showSelectAll}
-            />
-          </ThemeProvider>
+          <SelectPanel
+            title="test title"
+            subtitle="test subtitle"
+            items={items}
+            placeholder="Select items"
+            placeholderText="Filter items"
+            selected={selected}
+            onSelectedChange={onSelectedChange}
+            filterValue={filter}
+            onFilterChange={value => {
+              setFilter(value)
+            }}
+            open={open}
+            onOpenChange={isOpen => {
+              setOpen(isOpen)
+            }}
+            showSelectAll={showSelectAll}
+          />
         )
       }
 
       it('should render a Select All checkbox when showSelectAll is true', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(<SelectAllSelectPanel />, usingRemoveActiveDescendant)
+        renderWithProp(<SelectAllSelectPanel />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
 
@@ -1393,7 +1360,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       it('should not render a Select All checkbox when showSelectAll is false', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(<SelectAllSelectPanel showSelectAll={false} />, usingRemoveActiveDescendant)
+        renderWithProp(<SelectAllSelectPanel showSelectAll={false} />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
 
@@ -1404,7 +1371,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       it('should select all items when the Select All checkbox is clicked', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(<SelectAllSelectPanel />, usingRemoveActiveDescendant)
+        renderWithProp(<SelectAllSelectPanel />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
 
@@ -1419,7 +1386,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       it('should deselect all items when the Deselect All checkbox is clicked', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(<SelectAllSelectPanel />, usingRemoveActiveDescendant)
+        renderWithProp(<SelectAllSelectPanel />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
 
@@ -1440,7 +1407,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       it('should update Select All checkbox to indeterminate state when some items (but not all) are selected', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(<SelectAllSelectPanel />, usingRemoveActiveDescendant)
+        renderWithProp(<SelectAllSelectPanel />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
 
@@ -1456,7 +1423,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       it('should update Select All checkbox to checked when all items are selected manually', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(<SelectAllSelectPanel />, usingRemoveActiveDescendant)
+        renderWithProp(<SelectAllSelectPanel />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
 
@@ -1474,7 +1441,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       it('should update Select All checkbox label to "Deselect all" when all items are selected', async () => {
         const user = userEvent.setup()
 
-        renderWithFlag(<SelectAllSelectPanel />, usingRemoveActiveDescendant)
+        renderWithProp(<SelectAllSelectPanel />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
 
@@ -1499,30 +1466,28 @@ for (const usingRemoveActiveDescendant of [false, true]) {
           }
 
           return (
-            <ThemeProvider>
-              <SelectPanel
-                title="test title"
-                subtitle="test subtitle"
-                items={items.filter(item => item.text?.includes(filter))}
-                placeholder="Select items"
-                placeholderText="Filter items"
-                selected={selected}
-                onSelectedChange={onSelectedChange}
-                filterValue={filter}
-                onFilterChange={value => {
-                  setFilter(value)
-                }}
-                open={open}
-                onOpenChange={isOpen => {
-                  setOpen(isOpen)
-                }}
-                showSelectAll={true}
-              />
-            </ThemeProvider>
+            <SelectPanel
+              title="test title"
+              subtitle="test subtitle"
+              items={items.filter(item => item.text?.includes(filter))}
+              placeholder="Select items"
+              placeholderText="Filter items"
+              selected={selected}
+              onSelectedChange={onSelectedChange}
+              filterValue={filter}
+              onFilterChange={value => {
+                setFilter(value)
+              }}
+              open={open}
+              onOpenChange={isOpen => {
+                setOpen(isOpen)
+              }}
+              showSelectAll={true}
+            />
           )
         }
 
-        renderWithFlag(<FilterableSelectAllPanel />, usingRemoveActiveDescendant)
+        renderWithProp(<FilterableSelectAllPanel />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
 

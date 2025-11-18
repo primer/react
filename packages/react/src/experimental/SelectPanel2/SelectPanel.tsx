@@ -27,7 +27,8 @@ import {clsx} from 'clsx'
 
 import classes from './SelectPanel.module.css'
 import type {PositionSettings} from '@primer/behaviors'
-import type {FCWithSlotMarker} from '../../utils/types'
+import type {FCWithSlotMarker, WithSlotMarker} from '../../utils/types'
+import {isSlot} from '../../utils/is-slot'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -124,8 +125,8 @@ const Panel: React.FC<SelectPanelProps> = ({
   }
 
   const contents = React.Children.map(props.children, child => {
-    if (React.isValidElement(child) && child.type === SelectPanelButton) {
-      // eslint-disable-next-line react-compiler/react-compiler
+    if (React.isValidElement(child) && (child.type === SelectPanelButton || isSlot(child, SelectPanelButton))) {
+      // eslint-disable-next-line react-hooks/immutability
       Anchor = React.cloneElement(child, {
         // @ts-ignore TODO
         ref: anchorRef,
@@ -332,6 +333,7 @@ const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((prop
     return (
       <Button
         ref={anchorRef}
+        // eslint-disable-next-line react-hooks/refs
         aria-label={`${(anchorRef as MutableRefObject<HTMLButtonElement>).current.textContent}, ${labelText}`}
         {...inputProps}
       />
@@ -339,7 +341,9 @@ const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((prop
   } else {
     return <Button ref={anchorRef} {...props} />
   }
-})
+}) as WithSlotMarker<React.ForwardRefExoticComponent<ButtonProps & React.RefAttributes<HTMLButtonElement>>>
+
+SelectPanelButton.__SLOT__ = Symbol('SelectPanel.Button')
 
 const SelectPanelHeader: FCWithSlotMarker<React.ComponentPropsWithoutRef<'div'> & {onBack?: () => void}> = ({
   children,

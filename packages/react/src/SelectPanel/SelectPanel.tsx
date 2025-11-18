@@ -1,5 +1,5 @@
 import {SearchIcon, TriangleDownIcon, XIcon, type IconProps} from '@primer/octicons-react'
-import React, {useCallback, useEffect, useMemo, useRef, useState, type KeyboardEventHandler} from 'react'
+import React, {useCallback, useEffect, useMemo, useRef, useState, type KeyboardEventHandler, type JSX} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
@@ -216,7 +216,6 @@ function Panel({
   const usingFullScreenOnNarrow = disableFullscreenOnNarrow ? false : featureFlagFullScreenOnNarrow
   const shouldOrderSelectedFirst =
     useFeatureFlag('primer_react_select_panel_order_selected_at_top') && showSelectedOptionsFirst
-  const usingRemoveActiveDescendant = useFeatureFlag('primer_react_select_panel_remove_active_descendant')
 
   // Single select modals work differently, they have an intermediate state where the user has selected an item but
   // has not yet confirmed the selection. This is the only time the user can cancel the selection.
@@ -374,7 +373,6 @@ function Panel({
     }
 
     // Only fire this effect if items have changed
-    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items])
 
@@ -756,8 +754,10 @@ function Panel({
       const hasModifier = event.ctrlKey || event.altKey || event.metaKey
       if (hasModifier) return
 
-      // skip if it's not a alphabet key
-      if (!isAlphabetKey(event.nativeEvent as KeyboardEvent)) return
+      // skip if it's not the forward slash or an alphabet key
+      if (event.key !== '/' && !isAlphabetKey(event.nativeEvent as KeyboardEvent)) {
+        return
+      }
 
       // if this is a typeahead event, don't propagate outside of menu
       event.stopPropagation()
@@ -795,7 +795,7 @@ function Panel({
                 }
               : {}),
           } as React.CSSProperties,
-          onKeyDown: usingRemoveActiveDescendant ? preventBubbling(overlayProps?.onKeyDown) : overlayProps?.onKeyDown,
+          onKeyDown: preventBubbling(overlayProps?.onKeyDown),
         }}
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}

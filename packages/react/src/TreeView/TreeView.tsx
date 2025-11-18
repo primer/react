@@ -27,6 +27,8 @@ import {ActionList} from '../ActionList'
 import {getAccessibleKeybindingHintString} from '../KeybindingHint'
 import {useIsMacOS} from '../hooks'
 import {Tooltip} from '../TooltipV2'
+import {isSlot} from '../utils/is-slot'
+import type {FCWithSlotMarker} from '../utils/types'
 
 // ----------------------------------------------------------------------------
 // Context
@@ -231,6 +233,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
 
     // Set the expanded state and cache it
     const setIsExpandedWithCache = React.useCallback(
+      // eslint-disable-next-line react-hooks/preserve-manual-memoization
       (newIsExpanded: boolean) => {
         setIsExpanded(newIsExpanded)
         expandedStateCache.current?.set(itemId, newIsExpanded)
@@ -457,7 +460,7 @@ export type TreeViewSubTreeProps = {
   'aria-label'?: string
 }
 
-const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children, 'aria-label': ariaLabel}) => {
+const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children, 'aria-label': ariaLabel}) => {
   const {announceUpdate} = React.useContext(RootContext)
   const {itemId, isExpanded, isSubTreeEmpty, setIsSubTreeEmpty} = React.useContext(ItemContext)
   const loadingItemRef = React.useRef<HTMLElement>(null)
@@ -573,6 +576,7 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children, 'aria-
 }
 
 SubTree.displayName = 'TreeView.SubTree'
+SubTree.__SLOT__ = Symbol('TreeView.SubTree')
 
 function usePreviousValue<T>(value: T): T {
   const ref = React.useRef(value)
@@ -581,6 +585,7 @@ function usePreviousValue<T>(value: T): T {
     ref.current = value
   }, [value])
 
+  // eslint-disable-next-line react-hooks/refs
   return ref.current
 }
 
@@ -638,11 +643,11 @@ const EmptyItem = React.forwardRef<HTMLElement>((props, ref) => {
 function useSubTree(children: React.ReactNode) {
   return React.useMemo(() => {
     const subTree = React.Children.toArray(children).find(
-      child => React.isValidElement(child) && child.type === SubTree,
+      child => React.isValidElement(child) && (child.type === SubTree || isSlot(child, SubTree)),
     )
 
     const childrenWithoutSubTree = React.Children.toArray(children).filter(
-      child => !(React.isValidElement(child) && child.type === SubTree),
+      child => !(React.isValidElement(child) && (child.type === SubTree || isSlot(child, SubTree))),
     )
 
     return {

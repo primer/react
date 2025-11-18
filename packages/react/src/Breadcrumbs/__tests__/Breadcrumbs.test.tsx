@@ -2,19 +2,11 @@ import Breadcrumbs from '..'
 import {render as HTMLRender, screen, waitFor, within} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
-import {ThemeProvider} from '../../ThemeProvider'
 import {FeatureFlags} from '../../FeatureFlags'
-import theme from '../../theme'
 
 // Helper function to render with theme and feature flags
 const renderWithTheme = (component: React.ReactElement, flags?: Record<string, boolean>) => {
-  const wrappedComponent = flags ? (
-    <FeatureFlags flags={flags}>
-      <ThemeProvider theme={theme}>{component}</ThemeProvider>
-    </FeatureFlags>
-  ) : (
-    <ThemeProvider theme={theme}>{component}</ThemeProvider>
-  )
+  const wrappedComponent = flags ? <FeatureFlags flags={flags}>{component}</FeatureFlags> : <>{component}</>
   return HTMLRender(wrappedComponent)
 }
 
@@ -23,11 +15,13 @@ const mockObserve = vi.fn()
 const mockUnobserve = vi.fn()
 const mockDisconnect = vi.fn()
 
-globalThis.ResizeObserver = vi.fn().mockImplementation(() => ({
-  observe: mockObserve,
-  unobserve: mockUnobserve,
-  disconnect: mockDisconnect,
-}))
+globalThis.ResizeObserver = vi.fn().mockImplementation(function () {
+  return {
+    observe: mockObserve,
+    unobserve: mockUnobserve,
+    disconnect: mockDisconnect,
+  }
+})
 
 describe('Breadcrumbs', () => {
   it('renders a <nav>', () => {
@@ -213,7 +207,7 @@ describe('Breadcrumbs', () => {
   it('shows overflow menu during resize when items exceed container width', () => {
     let resizeCallback: ((entries: ResizeObserverEntry[]) => void) | undefined
 
-    const mockResizeObserver = vi.fn().mockImplementation(callback => {
+    const mockResizeObserver = vi.fn().mockImplementation(function (callback) {
       resizeCallback = callback
       return {
         observe: mockObserve,
@@ -271,7 +265,7 @@ describe('Breadcrumbs', () => {
   it('correctly populates overflow menu during resize events', async () => {
     let resizeCallback: ((entries: ResizeObserverEntry[]) => void) | undefined
 
-    const mockResizeObserver = vi.fn().mockImplementation(callback => {
+    const mockResizeObserver = vi.fn().mockImplementation(function (callback) {
       resizeCallback = callback
       return {
         observe: mockObserve,

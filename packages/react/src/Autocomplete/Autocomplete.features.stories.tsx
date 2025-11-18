@@ -2,8 +2,9 @@ import type {ChangeEventHandler, RefObject} from 'react'
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
 
-import {BaseStyles, Stack, ThemeProvider, registerPortalRoot} from '..'
-import {Dialog} from '../DialogV1'
+import BaseStyles from '../BaseStyles'
+import {Stack, registerPortalRoot} from '..'
+import {Dialog} from '../deprecated/DialogV1'
 import TextInputTokens from '../TextInputWithTokens'
 import Autocomplete from './Autocomplete'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -112,18 +113,16 @@ const autocompleteStoryMeta: Meta = {
       }, [])
 
       return (
-        <ThemeProvider>
-          <BaseStyles>
-            <div onKeyDownCapture={reportKey}>
-              <p className={classes.LastKeyPressed} id="key-press-label">
-                Last key pressed: {lastKey}
-              </p>
-              <div className={classes.StoryPadding}>
-                <Story />
-              </div>
+        <BaseStyles>
+          <div onKeyDownCapture={reportKey}>
+            <p className={classes.LastKeyPressed} id="key-press-label">
+              Last key pressed: {lastKey}
+            </p>
+            <div className={classes.StoryPadding}>
+              <Story />
             </div>
-          </BaseStyles>
-        </ThemeProvider>
+          </div>
+        </BaseStyles>
       )
     },
   ],
@@ -547,6 +546,7 @@ export const InADialog = () => {
   useEffect(() => {
     if (outerContainerRef.current instanceof HTMLElement) {
       registerPortalRoot(outerContainerRef.current, 'outerContainer')
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setMounted(true)
     }
   }, [isDialogOpen])

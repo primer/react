@@ -1,12 +1,10 @@
-import {act, useCallback, useState} from 'react'
+import {act, createRef, useCallback, useRef, useState} from 'react'
 import {describe, expect, it, vi} from 'vitest'
 import {render} from '@testing-library/react'
-import {userEvent} from '@vitest/browser/context'
+import {userEvent} from 'vitest/browser'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'
-import theme from '../theme'
 import BaseStyles from '../BaseStyles'
-import {ThemeProvider} from '../ThemeProvider'
 import type {AnchorPosition} from '@primer/behaviors'
 type TestComponentSettings = {
   initiallyOpen?: boolean
@@ -37,19 +35,17 @@ const AnchoredOverlayTestComponent = ({
     [onCloseCallback],
   )
   return (
-    <ThemeProvider theme={theme}>
-      <BaseStyles>
-        <AnchoredOverlay
-          open={open}
-          onOpen={onOpen}
-          onClose={onClose}
-          renderAnchor={props => <Button {...props}>Anchor Button</Button>}
-          onPositionChange={onPositionChange}
-        >
-          <button type="button">Focusable Child</button>
-        </AnchoredOverlay>
-      </BaseStyles>
-    </ThemeProvider>
+    <BaseStyles>
+      <AnchoredOverlay
+        open={open}
+        onOpen={onOpen}
+        onClose={onClose}
+        renderAnchor={props => <Button {...props}>Anchor Button</Button>}
+        onPositionChange={onPositionChange}
+      >
+        <button type="button">Focusable Child</button>
+      </AnchoredOverlay>
+    </BaseStyles>
   )
 }
 
@@ -148,5 +144,35 @@ describe('AnchoredOverlay', () => {
         top: 36,
       },
     })
+  })
+
+  it('should support a `ref` through `overlayProps` on the overlay element', () => {
+    const ref = createRef<HTMLDivElement>()
+
+    function Test() {
+      const anchorRef = useRef(null)
+      return (
+        <AnchoredOverlay
+          overlayProps={{
+            ref,
+            id: 'overlay',
+          }}
+          open
+          renderAnchor={props => {
+            return (
+              <button {...props} ref={anchorRef} type="button">
+                anchor
+              </button>
+            )
+          }}
+        >
+          <div>content</div>
+        </AnchoredOverlay>
+      )
+    }
+
+    render(<Test />)
+
+    expect(document.getElementById('overlay')).toBe(ref.current)
   })
 })

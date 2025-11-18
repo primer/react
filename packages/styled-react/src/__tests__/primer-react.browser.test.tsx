@@ -26,7 +26,6 @@ import {
   NavList,
   Overlay,
   PageHeader,
-  PageLayout,
   RadioGroup,
   RelativeTime,
   SegmentedControl,
@@ -271,31 +270,6 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(itemLiEl!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-  test('NavList.Group supports `sx` prop', () => {
-    render(
-      <NavList>
-        <NavList.Group data-testid="component" sx={{background: 'red'}}>
-          <NavList.Item>item</NavList.Item>
-        </NavList.Group>
-      </NavList>,
-    )
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('NavList.GroupHeading supports `sx` prop', () => {
-    render(
-      <NavList>
-        <NavList.Group>
-          <NavList.GroupHeading data-testid="component" sx={{background: 'red'}}>
-            test
-          </NavList.GroupHeading>
-          <NavList.Item>item</NavList.Item>
-        </NavList.Group>
-      </NavList>,
-    )
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
   test('NavList.LeadingVisual supports `sx` prop', () => {
     render(<NavList.LeadingVisual data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
@@ -333,26 +307,6 @@ describe('@primer/react', () => {
 
   test('PageHeader.Title supports `sx` prop', () => {
     const {container} = render(<PageHeader.Title data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('PageLayout supports `sx` prop', () => {
-    const {container} = render(<PageLayout data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('PageLayout.Content supports `sx` prop', () => {
-    const {container} = render(
-      <PageLayout.Content as="section" data-testid="component" sx={{background: 'red'}} aria-labelledby="normal" />,
-    )
-
-    const outerElement = container.firstElementChild! as HTMLElement
-    expect(window.getComputedStyle(outerElement).backgroundColor).toBe('rgb(255, 0, 0)')
-    expect(outerElement).toHaveAttribute('aria-labelledby', 'normal')
-  })
-
-  test('PageLayout.Pane supports `sx` prop', () => {
-    const {container} = render(<PageLayout.Pane data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 

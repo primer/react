@@ -1,6 +1,6 @@
-import {PrimerBreakpoints} from '../src/utils/layout'
 import React, {useEffect} from 'react'
-import {ThemeProvider, BaseStyles} from '../src'
+import {ThemeProvider} from '../src/ThemeProvider'
+import BaseStyles from '../src/BaseStyles'
 import {FeatureFlags} from '../src/FeatureFlags'
 import {DefaultFeatureFlags} from '../src/FeatureFlags/DefaultFeatureFlags'
 import {clsx} from 'clsx'
@@ -8,6 +8,17 @@ import {clsx} from 'clsx'
 import './storybook.css'
 import './primitives-v8.css'
 import {Profiler} from 'react'
+
+// TODO: Update the hard-coded values when the primitives are ready
+const breakpoints = ['544px', '768px', '1012px', '1280px']
+export const PrimerBreakpoints = {
+  xsmall: {width: '320px'},
+  small: {width: breakpoints[0]},
+  medium: {width: breakpoints[1]},
+  large: {width: breakpoints[2]},
+  xlarge: {width: breakpoints[3]},
+  xxlarge: {width: '1400px'},
+}
 
 let storybookViewports = {}
 Object.entries(PrimerBreakpoints).forEach(([viewport, value]) => {
@@ -44,7 +55,7 @@ const preview = {
               [
                 '*',
                 // Within a set of stories, set the order to the following
-                ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
+                ['README', '*', 'Playground', /Playground$/, 'Features', 'Examples'],
               ],
             ],
           ],
@@ -61,7 +72,7 @@ const preview = {
                   [
                     '*',
                     // Within a set of stories, set the order to the following
-                    ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
+                    ['README', '*', 'Playground', /Playground$/, 'Features', 'Examples'],
                   ],
                 ],
               ],
@@ -81,7 +92,7 @@ const preview = {
                   [
                     '*',
                     // Within a set of stories, set the order to the following
-                    ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
+                    ['README', '*', 'Playground', /Playground$/, 'Features', 'Examples'],
                   ],
                 ],
               ],
@@ -99,7 +110,7 @@ const preview = {
                   [
                     '*',
                     // Within a set of stories, set the order to the following
-                    ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
+                    ['README', '*', 'Playground', /Playground$/, 'Features', 'Examples'],
                   ],
                 ],
               ],
@@ -275,9 +286,10 @@ export const decorators = [
 
     // Set data-a11y-link-underlines=true to enable underlines in all stories except the Link dev Inline Story.
     let wrapperProps =
-      context.id !== 'components-link-dev--inline'
+      context.id !== 'components-link-dev--inline' ||
+      context.id !== 'components-button-dev--link-variant-with-underline-preference'
         ? {
-            'data-a11y-link-underlines': context.id !== 'components-link-dev--inline',
+            'data-a11y-link-underlines': true,
             className: clsx('story-wrap'),
           }
         : {className: clsx('story-wrap')}

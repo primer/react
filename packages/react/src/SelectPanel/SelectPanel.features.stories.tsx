@@ -582,13 +582,8 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
       <SelectPanel
         title="Select labels"
         subtitle="Use labels to organize issues and pull requests"
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button
-            trailingAction={TriangleDownIcon}
-            aria-labelledby={` ${ariaLabelledBy}`}
-            {...anchorProps}
-            aria-haspopup="dialog"
-          >
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
             {children ?? 'Select Labels'}
           </Button>
         )}
@@ -656,8 +651,8 @@ export const CustomisedNoInitialItems = () => {
       <ToggleSwitch onClick={onClick} checked={isError} aria-labelledby="toggle" />
       <SelectPanel
         title="Set projects"
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
             {children ?? 'Select Labels'}
           </Button>
         )}
@@ -709,13 +704,8 @@ export const CustomisedNoResults: StoryObj<typeof SelectPanel> = {
       <SelectPanel
         title="Select labels"
         subtitle="Use labels to organize issues and pull requests"
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button
-            trailingAction={TriangleDownIcon}
-            aria-labelledby={` ${ariaLabelledBy}`}
-            {...anchorProps}
-            aria-haspopup="dialog"
-          >
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
             {children ?? 'Select Labels'}
           </Button>
         )}
@@ -949,6 +939,7 @@ export const WithMessage = () => {
   const filteredItems = itemsToShow.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setFilter('')
   }, [messageVariant])
 

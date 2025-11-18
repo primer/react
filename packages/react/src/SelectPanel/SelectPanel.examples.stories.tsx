@@ -140,8 +140,8 @@ export const HeightInitialWithUnderflowingItemsAfterFetch = () => {
     <FormControl>
       <FormControl.Label>Labels</FormControl.Label>
       <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
             {children}
           </Button>
         )}
@@ -172,8 +172,8 @@ export const AboveTallBody = () => {
     <FormControl>
       <FormControl.Label>Labels</FormControl.Label>
       <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
             {children}
           </Button>
         )}
@@ -362,7 +362,6 @@ export const RepositionAfterLoading = () => {
         setLoading(false)
       }
     }, 2000)
-    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open])
 
@@ -370,7 +369,6 @@ export const RepositionAfterLoading = () => {
     if (!loading) {
       setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
     }
-    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter])
 
@@ -411,7 +409,6 @@ export const SelectPanelRepositionInsideDialog = () => {
         setLoading(false)
       }
     }, 2000)
-    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open])
 
@@ -419,7 +416,6 @@ export const SelectPanelRepositionInsideDialog = () => {
     if (!loading) {
       setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
     }
-    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter])
 

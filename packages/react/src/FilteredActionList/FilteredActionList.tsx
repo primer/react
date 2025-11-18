@@ -1,6 +1,6 @@
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {scrollIntoView, FocusKeys} from '@primer/behaviors'
-import type {KeyboardEventHandler} from 'react'
+import type {KeyboardEventHandler, JSX} from 'react'
 import type React from 'react'
 import {useCallback, useEffect, useRef, useState} from 'react'
 import type {TextInputProps} from '../TextInput'
@@ -22,7 +22,6 @@ import {ActionListContainerContext} from '../ActionList/ActionListContainerConte
 import {isValidElementType} from 'react-is'
 import {useAnnouncements} from './useAnnouncements'
 import {clsx} from 'clsx'
-import {useFeatureFlag} from '../FeatureFlags'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -45,6 +44,26 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
   announcementsEnabled?: boolean
   fullScreenOnNarrow?: boolean
   onSelectAllChange?: (checked: boolean) => void
+  /**
+   * Private API for use internally only. Adds the ability to switch between
+   * `active-descendant` and roving tabindex.
+   *
+   * By default, FilteredActionList uses `aria-activedescendant` to manage focus.
+   *
+   * Roving tabindex is an alternative focus management method that moves
+   * focus to the list items themselves instead of keeping focus on the input.
+   *
+   * Improper usage can lead to inaccessible experiences, so this prop should be used with caution.
+   *
+   * For usage, refer to the documentation:
+   *
+   * WAI-ARIA `aria-activedescendant`: https://www.w3.org/TR/wai-aria-1.2/#aria-activedescendant
+   *
+   * Roving Tabindex: https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#kbd_roving_tabindex
+   *
+   * @default 'active-descendant'
+   */
+  _PrivateFocusManagement?: 'roving-tabindex' | 'active-descendant'
 }
 
 export function FilteredActionList({
@@ -67,6 +86,7 @@ export function FilteredActionList({
   announcementsEnabled = true,
   fullScreenOnNarrow,
   onSelectAllChange,
+  _PrivateFocusManagement = 'active-descendant',
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -85,7 +105,7 @@ export function FilteredActionList({
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
 
-  const usingRemoveActiveDescendant = useFeatureFlag('primer_react_select_panel_remove_active_descendant')
+  const usingRovingTabindex = _PrivateFocusManagement === 'roving-tabindex'
   const [listContainerElement, setListContainerElement] = useState<HTMLUListElement | null>(null)
   const activeDescendantRef = useRef<HTMLElement>()
 
@@ -164,7 +184,6 @@ export function FilteredActionList({
     [activeDescendantRef],
   )
 
-  // BEGIN: Todo remove when we remove usingRemoveActiveDescendant
   const listContainerRefCallback = useCallback(
     (node: HTMLUListElement | null) => {
       setListContainerElement(node)
@@ -175,10 +194,9 @@ export function FilteredActionList({
   useEffect(() => {
     onInputRefChanged?.(inputRef)
   }, [inputRef, onInputRefChanged])
-  //END: Todo remove when we remove usingRemoveActiveDescendant
 
   useFocusZone(
-    !usingRemoveActiveDescendant
+    !usingRovingTabindex
       ? {
           containerRef: {current: listContainerElement},
           bindKeys: FocusKeys.ArrowVertical | FocusKeys.PageUpDown,
@@ -196,7 +214,7 @@ export function FilteredActionList({
           },
         }
       : undefined,
-    [listContainerElement, usingRemoveActiveDescendant],
+    [listContainerElement, usingRovingTabindex],
   )
 
   useEffect(() => {
@@ -209,7 +227,7 @@ export function FilteredActionList({
   }, [items, inputRef])
 
   useEffect(() => {
-    if (usingRemoveActiveDescendant) {
+    if (usingRovingTabindex) {
       const inputAndListContainerElement = inputAndListContainerRef.current
       if (!inputAndListContainerElement) return
       const list = listRef.current
@@ -228,21 +246,22 @@ export function FilteredActionList({
         inputAndListContainerElement.removeEventListener('focusin', handleFocusIn)
       }
     }
-  }, [items, inputRef, listContainerElement, usingRemoveActiveDescendant]) // Re-run when items change to update active indicators
+  }, [items, inputRef, listContainerElement, usingRovingTabindex]) // Re-run when items change to update active indicators
 
   useEffect(() => {
-    if (usingRemoveActiveDescendant && !loading) {
+    if (usingRovingTabindex && !loading) {
       setIsInputFocused(inputRef.current && inputRef.current === document.activeElement ? true : false)
     }
-  }, [loading, inputRef, usingRemoveActiveDescendant])
+  }, [loading, inputRef, usingRovingTabindex])
 
   useAnnouncements(
     items,
-    usingRemoveActiveDescendant ? listRef : {current: listContainerElement},
+    usingRovingTabindex ? listRef : {current: listContainerElement},
     inputRef,
     announcementsEnabled,
     loading,
     messageText,
+    _PrivateFocusManagement,
   )
   useScrollFlash(scrollContainerRef)
 
@@ -265,7 +284,7 @@ export function FilteredActionList({
     let firstGroupIndex = 0
     const actionListContent = (
       <ActionList
-        ref={usingRemoveActiveDescendant ? listRef : listContainerRefCallback}
+        ref={usingRovingTabindex ? listRef : listContainerRefCallback}
         showDividers={showItemDividers}
         selectionVariant={selectionVariant}
         {...listProps}
@@ -316,7 +335,7 @@ export function FilteredActionList({
     )
 
     // Use ActionListContainerContext.Provider only for the old behavior (when feature flag is disabled)
-    if (usingRemoveActiveDescendant) {
+    if (usingRovingTabindex) {
       return (
         <ActionListContainerContext.Provider
           value={{
@@ -348,7 +367,7 @@ export function FilteredActionList({
           value={filterValue}
           onChange={onInputChange}
           onKeyPress={onInputKeyPress}
-          onKeyDown={usingRemoveActiveDescendant ? onInputKeyDown : () => {}}
+          onKeyDown={usingRovingTabindex ? onInputKeyDown : () => {}}
           placeholder={placeholderText}
           role="combobox"
           aria-expanded="true"

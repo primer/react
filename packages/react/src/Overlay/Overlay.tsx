@@ -11,7 +11,6 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './Overlay.module.css'
 import {clsx} from 'clsx'
-import theme from '../theme'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
@@ -114,10 +113,10 @@ export const BaseOverlay = React.forwardRef(
         ref={forwardedRef}
         style={
           {
-            left,
-            right,
-            top,
-            bottom,
+            '--top': typeof top === 'number' ? `${top}px` : top,
+            '--left': typeof left === 'number' ? `${left}px` : left,
+            '--right': typeof right === 'number' ? `${right}px` : right,
+            '--bottom': typeof bottom === 'number' ? `${bottom}px` : bottom,
             position,
             ...styleFromProps,
           } as React.CSSProperties
@@ -191,8 +190,8 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
   ): ReactElement => {
     const overlayRef = useRef<HTMLDivElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, overlayRef)
-    const slideAnimationDistance = parseInt(theme.space[2], 10)
-    const slideAnimationEasing = theme.animation.easeOutCubic
+    const slideAnimationDistance = 8 // var(--base-size-8), hardcoded to do some math
+    const slideAnimationEasing = 'cubic-bezier(0.33, 1, 0.68, 1)'
 
     useOverlay({
       overlayRef,
