@@ -1518,42 +1518,44 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         expect(selectAllCheckbox).not.toBeChecked()
         expect(selectAllCheckbox).toHaveProperty('indeterminate', true)
       })
+    })
 
+    // Create a large list of items
+    const largeItemList = Array.from({length: 1000}, (_, index) => ({
+      id: `${index + 1}`,
+      text: `item ${index + 1}`,
+    }))
+
+    function VirtualizedSelectAllPanel() {
+      const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+      const [open, setOpen] = React.useState(false)
+
+      const onSelectedChange = (selected: SelectPanelProps['items']) => {
+        setSelected(selected)
+      }
+
+      return (
+        <SelectPanel
+          title="test title"
+          subtitle="test subtitle"
+          items={largeItemList}
+          placeholder="Select items"
+          selected={selected}
+          onSelectedChange={onSelectedChange}
+          open={open}
+          onOpenChange={isOpen => {
+            setOpen(isOpen)
+          }}
+          onFilterChange={() => {}}
+          showSelectAll={true}
+          isVirtualized={true}
+        />
+      )
+    }
+
+    describe('isVirtualized', () => {
       it('should render a subset of listItems when isVirtualized is true', async () => {
         const user = userEvent.setup()
-
-        // Create a large list of items
-        const largeItemList = Array.from({length: 1000}, (_, index) => ({
-          id: `${index + 1}`,
-          text: `item ${index + 1}`,
-        }))
-
-        function VirtualizedSelectAllPanel() {
-          const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
-          const [open, setOpen] = React.useState(false)
-
-          const onSelectedChange = (selected: SelectPanelProps['items']) => {
-            setSelected(selected)
-          }
-
-          return (
-            <SelectPanel
-              title="test title"
-              subtitle="test subtitle"
-              items={largeItemList}
-              placeholder="Select items"
-              selected={selected}
-              onSelectedChange={onSelectedChange}
-              open={open}
-              onOpenChange={isOpen => {
-                setOpen(isOpen)
-              }}
-              onFilterChange={() => {}}
-              showSelectAll={true}
-              isVirtualized={true}
-            />
-          )
-        }
 
         renderWithProp(<VirtualizedSelectAllPanel />)
 
@@ -1564,6 +1566,29 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         expect(options.length).toBeLessThan(50)
         expect(options[0]).toHaveTextContent('item 1')
         expect(options[options.length - 1]).toHaveTextContent(`item ${options.length}`)
+      })
+
+      it('does not allow focus wrapping', async () => {
+        const user = userEvent.setup()
+
+        renderWithProp(<VirtualizedSelectAllPanel />)
+
+        await user.click(screen.getByText('Select items'))
+
+        const filterInput = screen.getByPlaceholderText('Filter items')
+        filterInput.focus()
+
+        await user.keyboard('{ArrowUp}')
+
+        // get first option
+        const listbox = screen.getByRole('listbox')
+        const firstOption = listbox.childNodes[0] as HTMLElement
+
+        expect(firstOption).toHaveAttribute('data-is-active-descendant')
+
+        await user.keyboard('{ArrowDown}')
+        const secondOption = listbox.childNodes[1] as HTMLElement
+        expect(secondOption).toHaveAttribute('data-is-active-descendant')
       })
     })
   })
