@@ -366,7 +366,7 @@ export const Tooltip: ForwardRefExoticComponent<
                   <VisuallyHidden>({getAccessibleKeybindingHintString(keybindingHint, isMacOS)})</VisuallyHidden>
                 </span>
                 <span className={clsx(classes.KeybindingHintContainer, text && classes.HasTextBefore)} aria-hidden>
-                  <KeybindingHint keys={keybindingHint} format="condensed" variant="onEmphasis" size="small" />
+                  <KeybindingHint keys={keybindingHint} format="condensed" size="small" />
                 </span>
               </>
             ) : (

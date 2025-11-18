@@ -31,13 +31,10 @@ const splitChord = (chord: string) =>
     .map(k => k.toLowerCase())
     .sort(compareLowercaseKeys)
 
-export const Chord = ({keys, format = 'condensed', variant = 'normal', size = 'normal'}: KeybindingHintProps) => (
+export const Chord = ({keys, format = 'condensed', size = 'normal'}: KeybindingHintProps) => (
   <Text
     data-kbd-chord
     className={clsx(classes.Chord, {
-      [classes.ChordNormal]: variant === 'normal',
-      [classes.ChordOnEmphasis]: variant === 'onEmphasis',
-      [classes.ChordOnPrimary]: variant === 'onPrimary',
       [classes.ChordSmall]: size === 'small',
     })}
   >
