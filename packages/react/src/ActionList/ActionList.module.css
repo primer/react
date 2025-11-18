@@ -164,7 +164,6 @@
     &:where([data-variant='danger']) {
       & .LeadingAction,
       .LeadingVisual,
-      .TrailingVisual,
       .ItemLabel {
         color: var(--control-danger-fgColor-rest);
       }
@@ -175,7 +174,6 @@
 
           & .LeadingAction,
           .LeadingVisual,
-          .TrailingVisual,
           .ItemLabel {
             color: var(--control-danger-fgColor-hover);
           }
@@ -192,7 +190,6 @@
 
         & .LeadingAction,
         .LeadingVisual,
-        .TrailingVisual,
         .ItemLabel {
           color: var(--control-danger-fgColor-hover);
         }
