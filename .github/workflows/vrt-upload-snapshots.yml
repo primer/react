@@ -1,0 +1,51 @@
+name: Visual Regression Snapshots
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+  actions: write
+
+jobs:
+  snapshots-runner:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      shard: [1, 2]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+      - name: Set up Node.js
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - name: Set up turbo cache
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
+        with:
+          path: .turbo
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Run tests defined in vitest
+        uses: docker://mcr.microsoft.com/playwright:v1.55.0-jammy
+        with:
+          args: npx vitest --project '@primer/styled-react (vrt)' --update --shard="${{ matrix.shard }}/${{ strategy.job-total }}"
+      - name: Upload images
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+        with:
+          name: vrt-snapshots-${{ strategy.shard }}
+          path: '**/__screenshots__/**/*-linux.png'

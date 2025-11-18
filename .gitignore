@@ -50,7 +50,6 @@ results.json
 
 # Vitest
 **/__screenshots__/**/*.png
-!**/__screenshots__/**/*-linux.png
 **/.vitest-attachments/**
 
 # Turbo
