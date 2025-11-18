@@ -191,6 +191,11 @@
         {
           "name": "ref",
           "type": "React.RefObject<HTMLElement>"
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "\"h3\""
         }
       ]
     },
