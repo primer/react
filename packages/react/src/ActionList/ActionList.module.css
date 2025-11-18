@@ -179,6 +179,11 @@
           .ItemLabel {
             color: var(--control-danger-fgColor-hover);
           }
+
+          & [data-kbd-chord] {
+            background-color: var(--bgColor-default);
+            transition: none;
+          }
         }
       }
 
@@ -190,6 +195,11 @@
         .TrailingVisual,
         .ItemLabel {
           color: var(--control-danger-fgColor-hover);
+        }
+
+        & [data-kbd-chord] {
+          background-color: var(--bgColor-default);
+          transition: none;
         }
       }
     }
