@@ -2,7 +2,6 @@ import {render, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {describe, expect, it, vi} from 'vitest'
 import React from 'react'
-import {FeatureFlags} from '@primer/react/experimental'
 import {ThemeProvider, useColorSchemeVar, useTheme, Box} from '../'
 
 // window.matchMedia() is not implemented by JSDOM so we have to create a mock:
@@ -53,13 +52,11 @@ it('respects theme prop', () => {
   }
 
   render(
-    <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-      <ThemeProvider theme={theme}>
-        <Box color="text" mb={1}>
-          Hello
-        </Box>
-      </ThemeProvider>
-    </FeatureFlags>,
+    <ThemeProvider theme={theme}>
+      <Box color="text" mb={1}>
+        Hello
+      </Box>
+    </ThemeProvider>,
   )
 
   expect(screen.getByText('Hello')).toHaveStyle('color: #f00')
@@ -68,13 +65,11 @@ it('respects theme prop', () => {
 
 it('has default theme', () => {
   render(
-    <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-      <ThemeProvider>
-        <Box color="fg.default" mb={1}>
-          Hello
-        </Box>
-      </ThemeProvider>
-    </FeatureFlags>,
+    <ThemeProvider>
+      <Box color="fg.default" mb={1}>
+        Hello
+      </Box>
+    </ThemeProvider>,
   )
 
   expect(screen.getByText('Hello')).toMatchSnapshot()
@@ -82,13 +77,11 @@ it('has default theme', () => {
 
 it('inherits theme from parent', () => {
   render(
-    <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-      <ThemeProvider theme={exampleTheme}>
-        <ThemeProvider>
-          <Box color="text">Hello</Box>
-        </ThemeProvider>
+    <ThemeProvider theme={exampleTheme}>
+      <ThemeProvider>
+        <Box color="text">Hello</Box>
       </ThemeProvider>
-    </FeatureFlags>,
+    </ThemeProvider>,
   )
 
   expect(screen.getByText('Hello')).toHaveStyle('color: rgb(0, 0, 0)')
@@ -96,11 +89,9 @@ it('inherits theme from parent', () => {
 
 it('defaults to light color scheme', () => {
   render(
-    <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-      <ThemeProvider theme={exampleTheme}>
-        <Box color="text">Hello</Box>
-      </ThemeProvider>
-    </FeatureFlags>,
+    <ThemeProvider theme={exampleTheme}>
+      <Box color="text">Hello</Box>
+    </ThemeProvider>,
   )
 
   expect(screen.getByText('Hello')).toHaveStyle('color: rgb(0, 0, 0)')
@@ -108,11 +99,9 @@ it('defaults to light color scheme', () => {
 
 it('defaults to dark color scheme in night mode', () => {
   render(
-    <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-      <ThemeProvider theme={exampleTheme} colorMode="night">
-        <Box color="text">Hello</Box>
-      </ThemeProvider>
-    </FeatureFlags>,
+    <ThemeProvider theme={exampleTheme} colorMode="night">
+      <Box color="text">Hello</Box>
+    </ThemeProvider>,
   )
 
   expect(screen.getByText('Hello')).toHaveStyle('color: rgb(255, 255, 255)')
@@ -122,11 +111,9 @@ it('defaults to first color scheme when passed an invalid color scheme name', ()
   const spy = vi.spyOn(console, 'error').mockImplementationOnce(() => {})
 
   render(
-    <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-      <ThemeProvider theme={exampleTheme} dayScheme="foo">
-        <Box color="text">Hello</Box>
-      </ThemeProvider>
-    </FeatureFlags>,
+    <ThemeProvider theme={exampleTheme} dayScheme="foo">
+      <Box color="text">Hello</Box>
+    </ThemeProvider>,
   )
 
   expect(spy).toHaveBeenCalledWith('`foo` scheme not defined in `theme.colorSchemes`')
@@ -137,11 +124,9 @@ it('defaults to first color scheme when passed an invalid color scheme name', ()
 
 it('respects nightScheme prop', () => {
   render(
-    <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-      <ThemeProvider theme={exampleTheme} colorMode="night" nightScheme="dark_dimmed">
-        <Box color="text">Hello</Box>
-      </ThemeProvider>
-    </FeatureFlags>,
+    <ThemeProvider theme={exampleTheme} colorMode="night" nightScheme="dark_dimmed">
+      <Box color="text">Hello</Box>
+    </ThemeProvider>,
   )
 
   expect(screen.getByText('Hello')).toHaveStyle('color: rgb(128, 128, 128)')
@@ -149,11 +134,9 @@ it('respects nightScheme prop', () => {
 
 it('respects nightScheme prop with colorMode="dark"', () => {
   render(
-    <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-      <ThemeProvider theme={exampleTheme} colorMode="dark" nightScheme="dark_dimmed">
-        <Box color="text">Hello</Box>
-      </ThemeProvider>
-    </FeatureFlags>,
+    <ThemeProvider theme={exampleTheme} colorMode="dark" nightScheme="dark_dimmed">
+      <Box color="text">Hello</Box>
+    </ThemeProvider>,
   )
 
   expect(screen.getByText('Hello')).toHaveStyle('color: rgb(128, 128, 128)')
@@ -161,11 +144,9 @@ it('respects nightScheme prop with colorMode="dark"', () => {
 
 it('respects dayScheme prop', () => {
   render(
-    <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-      <ThemeProvider theme={exampleTheme} colorMode="day" dayScheme="dark" nightScheme="dark_dimmed">
-        <Box color="text">Hello</Box>
-      </ThemeProvider>
-    </FeatureFlags>,
+    <ThemeProvider theme={exampleTheme} colorMode="day" dayScheme="dark" nightScheme="dark_dimmed">
+      <Box color="text">Hello</Box>
+    </ThemeProvider>,
   )
 
   expect(screen.getByText('Hello')).toHaveStyle('color: rgb(255, 255, 255)')
@@ -173,11 +154,9 @@ it('respects dayScheme prop', () => {
 
 it('respects dayScheme prop with colorMode="light"', () => {
   render(
-    <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-      <ThemeProvider theme={exampleTheme} colorMode="light" dayScheme="dark" nightScheme="dark_dimmed">
-        <Box color="text">Hello</Box>
-      </ThemeProvider>
-    </FeatureFlags>,
+    <ThemeProvider theme={exampleTheme} colorMode="light" dayScheme="dark" nightScheme="dark_dimmed">
+      <Box color="text">Hello</Box>
+    </ThemeProvider>,
   )
 
   expect(screen.getByText('Hello')).toHaveStyle('color: rgb(255, 255, 255)')
@@ -185,11 +164,9 @@ it('respects dayScheme prop with colorMode="light"', () => {
 
 it('works in auto mode', () => {
   render(
-    <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-      <ThemeProvider theme={exampleTheme} colorMode="auto">
-        <Box color="text">Hello</Box>
-      </ThemeProvider>
-    </FeatureFlags>,
+    <ThemeProvider theme={exampleTheme} colorMode="auto">
+      <Box color="text">Hello</Box>
+    </ThemeProvider>,
   )
 
   expect(screen.getByText('Hello')).toHaveStyle('color: rgb(0, 0, 0)')
@@ -208,11 +185,9 @@ it('works in auto mode (dark)', () => {
   }))
 
   render(
-    <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-      <ThemeProvider theme={exampleTheme} colorMode="auto">
-        <Box color="text">Hello</Box>
-      </ThemeProvider>
-    </FeatureFlags>,
+    <ThemeProvider theme={exampleTheme} colorMode="auto">
+      <Box color="text">Hello</Box>
+    </ThemeProvider>,
   )
 
   expect(screen.getByText('Hello')).toHaveStyle('color: rgb(255, 255, 255)')
@@ -226,14 +201,12 @@ it('updates when colorMode prop changes', async () => {
   function App() {
     const [colorMode, setColorMode] = React.useState<'day' | 'night'>('day')
     return (
-      <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-        <ThemeProvider theme={exampleTheme} colorMode={colorMode}>
-          <Box color="text">{colorMode}</Box>
-          <button type="button" onClick={() => setColorMode(colorMode === 'day' ? 'night' : 'day')}>
-            Toggle
-          </button>
-        </ThemeProvider>
-      </FeatureFlags>
+      <ThemeProvider theme={exampleTheme} colorMode={colorMode}>
+        <Box color="text">{colorMode}</Box>
+        <button type="button" onClick={() => setColorMode(colorMode === 'day' ? 'night' : 'day')}>
+          Toggle
+        </button>
+      </ThemeProvider>
     )
   }
 
@@ -256,14 +229,12 @@ it('updates when dayScheme prop changes', async () => {
   function App() {
     const [dayScheme, setDayScheme] = React.useState('light')
     return (
-      <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-        <ThemeProvider theme={exampleTheme} dayScheme={dayScheme}>
-          <Box color="text">{dayScheme}</Box>
-          <button type="button" onClick={() => setDayScheme(dayScheme === 'light' ? 'dark_dimmed' : 'light')}>
-            Toggle
-          </button>
-        </ThemeProvider>
-      </FeatureFlags>
+      <ThemeProvider theme={exampleTheme} dayScheme={dayScheme}>
+        <Box color="text">{dayScheme}</Box>
+        <button type="button" onClick={() => setDayScheme(dayScheme === 'light' ? 'dark_dimmed' : 'light')}>
+          Toggle
+        </button>
+      </ThemeProvider>
     )
   }
 
@@ -286,14 +257,12 @@ it('updates when nightScheme prop changes', async () => {
   function App() {
     const [nightScheme, setNightScheme] = React.useState('dark')
     return (
-      <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-        <ThemeProvider theme={exampleTheme} colorMode="night" nightScheme={nightScheme}>
-          <Box color="text">{nightScheme}</Box>
-          <button type="button" onClick={() => setNightScheme(nightScheme === 'dark' ? 'dark_dimmed' : 'dark')}>
-            Toggle
-          </button>
-        </ThemeProvider>
-      </FeatureFlags>
+      <ThemeProvider theme={exampleTheme} colorMode="night" nightScheme={nightScheme}>
+        <Box color="text">{nightScheme}</Box>
+        <button type="button" onClick={() => setNightScheme(nightScheme === 'dark' ? 'dark_dimmed' : 'dark')}>
+          Toggle
+        </button>
+      </ThemeProvider>
     )
   }
 
@@ -316,16 +285,14 @@ it('inherits colorMode from parent', async () => {
   function App() {
     const [colorMode, setcolorMode] = React.useState<'day' | 'night'>('day')
     return (
-      <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-        <ThemeProvider theme={exampleTheme} colorMode={colorMode}>
-          <button type="button" onClick={() => setcolorMode(colorMode === 'day' ? 'night' : 'day')}>
-            Toggle
-          </button>
-          <ThemeProvider>
-            <Box color="text">{colorMode}</Box>
-          </ThemeProvider>
+      <ThemeProvider theme={exampleTheme} colorMode={colorMode}>
+        <button type="button" onClick={() => setcolorMode(colorMode === 'day' ? 'night' : 'day')}>
+          Toggle
+        </button>
+        <ThemeProvider>
+          <Box color="text">{colorMode}</Box>
         </ThemeProvider>
-      </FeatureFlags>
+      </ThemeProvider>
     )
   }
 
@@ -344,16 +311,14 @@ it('inherits dayScheme from parent', async () => {
   function App() {
     const [dayScheme, setDayScheme] = React.useState('light')
     return (
-      <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-        <ThemeProvider theme={exampleTheme} colorMode="night" dayScheme={dayScheme}>
-          <button type="button" onClick={() => setDayScheme(dayScheme === 'light' ? 'dark_dimmed' : 'light')}>
-            Toggle
-          </button>
-          <ThemeProvider colorMode="day">
-            <Box color="text">{dayScheme}</Box>
-          </ThemeProvider>
+      <ThemeProvider theme={exampleTheme} colorMode="night" dayScheme={dayScheme}>
+        <button type="button" onClick={() => setDayScheme(dayScheme === 'light' ? 'dark_dimmed' : 'light')}>
+          Toggle
+        </button>
+        <ThemeProvider colorMode="day">
+          <Box color="text">{dayScheme}</Box>
         </ThemeProvider>
-      </FeatureFlags>
+      </ThemeProvider>
     )
   }
 
@@ -372,16 +337,14 @@ it('inherits nightScheme from parent', async () => {
   function App() {
     const [nightScheme, setNightScheme] = React.useState('dark')
     return (
-      <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-        <ThemeProvider theme={exampleTheme} colorMode="day" nightScheme={nightScheme}>
-          <button type="button" onClick={() => setNightScheme(nightScheme === 'dark' ? 'dark_dimmed' : 'dark')}>
-            Toggle
-          </button>
-          <ThemeProvider colorMode="night">
-            <Box color="text">{nightScheme}</Box>
-          </ThemeProvider>
+      <ThemeProvider theme={exampleTheme} colorMode="day" nightScheme={nightScheme}>
+        <button type="button" onClick={() => setNightScheme(nightScheme === 'dark' ? 'dark_dimmed' : 'dark')}>
+          Toggle
+        </button>
+        <ThemeProvider colorMode="night">
+          <Box color="text">{nightScheme}</Box>
         </ThemeProvider>
-      </FeatureFlags>
+      </ThemeProvider>
     )
   }
 
@@ -408,12 +371,10 @@ describe('setColorMode', () => {
     }
 
     render(
-      <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-        <ThemeProvider theme={exampleTheme} colorMode="day">
-          <Box color="text">Hello</Box>
-          <ToggleMode />
-        </ThemeProvider>
-      </FeatureFlags>,
+      <ThemeProvider theme={exampleTheme} colorMode="day">
+        <Box color="text">Hello</Box>
+        <ToggleMode />
+      </ThemeProvider>,
     )
 
     // starts in day mode (light scheme)
@@ -440,12 +401,10 @@ describe('setDayScheme', () => {
     }
 
     render(
-      <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-        <ThemeProvider theme={exampleTheme} colorMode="day">
-          <Box color="text">Hello</Box>
-          <ToggleDayScheme />
-        </ThemeProvider>
-      </FeatureFlags>,
+      <ThemeProvider theme={exampleTheme} colorMode="day">
+        <Box color="text">Hello</Box>
+        <ToggleDayScheme />
+      </ThemeProvider>,
     )
 
     // starts in day mode (light scheme)
@@ -472,12 +431,10 @@ describe('setNightScheme', () => {
     }
 
     render(
-      <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-        <ThemeProvider theme={exampleTheme} colorMode="night">
-          <Box color="text">Hello</Box>
-          <ToggleNightScheme />
-        </ThemeProvider>
-      </FeatureFlags>,
+      <ThemeProvider theme={exampleTheme} colorMode="night">
+        <Box color="text">Hello</Box>
+        <ToggleNightScheme />
+      </ThemeProvider>,
     )
 
     // starts in night mode (dark scheme)
@@ -517,12 +474,10 @@ describe('useColorSchemeVar', () => {
     }
 
     render(
-      <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-        <ThemeProvider theme={exampleTheme} nightScheme="dark_dimmed">
-          <CustomBg />
-          <ToggleMode />
-        </ThemeProvider>
-      </FeatureFlags>,
+      <ThemeProvider theme={exampleTheme} nightScheme="dark_dimmed">
+        <CustomBg />
+        <ToggleMode />
+      </ThemeProvider>,
     )
 
     expect(screen.getByText('Hello')).toHaveStyle('background-color: rgb(255, 0, 0)')
@@ -551,12 +506,10 @@ describe('useColorSchemeVar', () => {
     }
 
     render(
-      <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-        <ThemeProvider theme={exampleTheme}>
-          <CustomBg />
-          <ToggleMode />
-        </ThemeProvider>
-      </FeatureFlags>,
+      <ThemeProvider theme={exampleTheme}>
+        <CustomBg />
+        <ToggleMode />
+      </ThemeProvider>,
     )
 
     expect(screen.getByText('Hello')).toHaveStyle('background-color: rgb(255, 0, 0)')
@@ -588,11 +541,9 @@ describe('useTheme().resolvedColorScheme', () => {
     }
 
     render(
-      <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-        <ThemeProvider theme={{color: 'red'}}>
-          <Component />
-        </ThemeProvider>
-      </FeatureFlags>,
+      <ThemeProvider theme={{color: 'red'}}>
+        <Component />
+      </ThemeProvider>,
     )
 
     expect(screen.getByTestId('text').textContent).toEqual('')
@@ -608,11 +559,9 @@ describe('useTheme().resolvedColorScheme', () => {
     const schemeToApply = 'dark'
 
     render(
-      <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-        <ThemeProvider theme={exampleTheme} colorMode="day" dayScheme={schemeToApply}>
-          <Component />
-        </ThemeProvider>
-      </FeatureFlags>,
+      <ThemeProvider theme={exampleTheme} colorMode="day" dayScheme={schemeToApply}>
+        <Component />
+      </ThemeProvider>,
     )
 
     expect(exampleTheme.colorSchemes).toHaveProperty(schemeToApply)
@@ -629,11 +578,9 @@ describe('useTheme().resolvedColorScheme', () => {
 
     const schemeToApply = 'totally-invalid-colorscheme'
     render(
-      <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-        <ThemeProvider theme={exampleTheme} colorMode="day" dayScheme={schemeToApply}>
-          <Component />
-        </ThemeProvider>
-      </FeatureFlags>,
+      <ThemeProvider theme={exampleTheme} colorMode="day" dayScheme={schemeToApply}>
+        <Component />
+      </ThemeProvider>,
     )
 
     const defaultThemeColorScheme = Object.keys(exampleTheme.colorSchemes)[0]
@@ -657,15 +604,11 @@ describe('useTheme().resolvedColorScheme', () => {
       const schemeToApply = 'dark'
 
       render(
-        <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-          <ThemeProvider theme={exampleTheme} colorMode="day" dayScheme={schemeToApply}>
-            <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-              <ThemeProvider>
-                <Component />
-              </ThemeProvider>
-            </FeatureFlags>
+        <ThemeProvider theme={exampleTheme} colorMode="day" dayScheme={schemeToApply}>
+          <ThemeProvider>
+            <Component />
           </ThemeProvider>
-        </FeatureFlags>,
+        </ThemeProvider>,
       )
 
       expect(exampleTheme.colorSchemes).toHaveProperty(schemeToApply)
@@ -683,15 +626,11 @@ describe('useTheme().resolvedColorScheme', () => {
 
       const schemeToApply = 'totally-invalid-colorscheme'
       render(
-        <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-          <ThemeProvider theme={exampleTheme} colorMode="day" dayScheme={schemeToApply}>
-            <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
-              <ThemeProvider>
-                <Component />
-              </ThemeProvider>
-            </FeatureFlags>
+        <ThemeProvider theme={exampleTheme} colorMode="day" dayScheme={schemeToApply}>
+          <ThemeProvider>
+            <Component />
           </ThemeProvider>
-        </FeatureFlags>,
+        </ThemeProvider>,
       )
 
       const defaultThemeColorScheme = Object.keys(exampleTheme.colorSchemes)[0]
