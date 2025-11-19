@@ -25,7 +25,7 @@ jobs:
         with:
           app-id: 902635
           owner: 'primer'
-          repositories: 'primer/react'
+          repositories: 'react'
           private-key: ${{ secrets.PRIMER_INTEGRATION_APP_PRIVATE_KEY }}
           permission-statuses: 'write'
 
