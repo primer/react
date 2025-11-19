@@ -3,7 +3,7 @@ import useSafeTimeout from '../hooks/useSafeTimeout'
 import {getAccessibleName} from './shared'
 
 type TypeaheadOptions = {
-  containerRef: React.RefObject<HTMLElement>
+  containerRef: React.RefObject<HTMLElement | null>
   onFocusChange: (element: Element) => void
 }
 

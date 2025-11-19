@@ -3,9 +3,9 @@ import {useEffect} from 'react'
 import {iterateFocusableElements} from '@primer/behaviors/utils'
 
 export type UseOpenAndCloseFocusSettings = {
-  initialFocusRef?: React.RefObject<HTMLElement>
-  containerRef: React.RefObject<HTMLElement>
-  returnFocusRef: React.RefObject<HTMLElement>
+  initialFocusRef?: React.RefObject<HTMLElement | null>
+  containerRef: React.RefObject<HTMLElement | null>
+  returnFocusRef: React.RefObject<HTMLElement | null>
   preventFocusOnOpen?: boolean
 }
 

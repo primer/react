@@ -27,7 +27,7 @@ interface AnchoredOverlayPropsWithAnchor {
   /**
    * An override to the internal ref that will be spread on to the renderAnchor
    */
-  anchorRef?: React.RefObject<HTMLElement>
+  anchorRef?: React.RefObject<HTMLElement | null>
 
   /**
    * An override to the internal id that will be spread on to the renderAnchor
@@ -46,7 +46,7 @@ interface AnchoredOverlayPropsWithoutAnchor {
    * An override to the internal renderAnchor ref that will be used to position the overlay.
    * When renderAnchor is null this can be used to make an anchor that is detached from ActionMenu.
    */
-  anchorRef: React.RefObject<HTMLElement>
+  anchorRef: React.RefObject<HTMLElement | null>
   /**
    * An override to the internal id that will be spread on to the renderAnchor
    */

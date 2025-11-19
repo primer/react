@@ -7,13 +7,13 @@ export interface FocusTrapHookSettings {
    * Ref that will be used for the trapping container. If not provided, one will
    * be created by this hook and returned.
    */
-  containerRef?: React.RefObject<HTMLElement>
+  containerRef?: React.RefObject<HTMLElement | null>
 
   /**
    * Ref for the element that should receive focus when the focus trap is first enabled. If
    * not provided, one will be created by this hook and returned. Its use is optional.
    */
-  initialFocusRef?: React.RefObject<HTMLElement>
+  initialFocusRef?: React.RefObject<HTMLElement | null>
 
   /**
    * Set to true to disable the focus trap and clean up listeners. Can be re-enabled at
@@ -33,7 +33,7 @@ export interface FocusTrapHookSettings {
    *
    * Overrides restoreFocusOnCleanUp
    */
-  returnFocusRef?: React.RefObject<HTMLElement>
+  returnFocusRef?: React.RefObject<HTMLElement | null>
 }
 
 /**
@@ -44,7 +44,7 @@ export interface FocusTrapHookSettings {
 export function useFocusTrap(
   settings?: FocusTrapHookSettings,
   dependencies: React.DependencyList = [],
-): {containerRef: React.RefObject<HTMLElement>; initialFocusRef: React.RefObject<HTMLElement>} {
+): {containerRef: React.RefObject<HTMLElement | null>; initialFocusRef: React.RefObject<HTMLElement | null>} {
   const containerRef = useProvidedRefOrCreate(settings?.containerRef)
   const initialFocusRef = useProvidedRefOrCreate(settings?.initialFocusRef)
   const disabled = settings?.disabled

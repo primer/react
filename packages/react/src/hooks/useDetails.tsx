@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useState, useRef} from 'react'
 
 type UseDetailsParameters = {
-  ref?: React.RefObject<HTMLDetailsElement>
+  ref?: React.RefObject<HTMLDetailsElement | null>
   closeOnOutsideClick?: boolean
   defaultOpen?: boolean
   onClickOutside?: (event: MouseEvent) => void

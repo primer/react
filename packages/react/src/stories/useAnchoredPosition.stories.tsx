@@ -137,7 +137,7 @@ export const UseAnchoredPosition = (args: any) => {
         left={args.anchorX ?? 0}
         width={args.anchorWidth}
         height={args.anchorHeight}
-        ref={anchorElementRef as React.RefObject<HTMLDivElement>}
+        ref={anchorElementRef as React.RefObject<HTMLDivElement | null>}
       >
         Anchor Element
       </Anchor>
@@ -146,7 +146,7 @@ export const UseAnchoredPosition = (args: any) => {
         left={position?.left ?? 0}
         width={args.floatWidth ?? 150}
         height={args.floatHeight ?? 150}
-        ref={floatingElementRef as React.RefObject<HTMLDivElement>}
+        ref={floatingElementRef as React.RefObject<HTMLDivElement | null>}
       >
         Floating element
       </Float>
@@ -160,9 +160,9 @@ export const CenteredOnScreen = () => {
   })
   // The outer Position element simply fills all available space
   return (
-    <div className={classes.FullSizeAnchor} ref={anchorElementRef as React.RefObject<HTMLDivElement>}>
+    <div className={classes.FullSizeAnchor} ref={anchorElementRef as React.RefObject<HTMLDivElement | null>}>
       <Float
-        ref={floatingElementRef as React.RefObject<HTMLDivElement>}
+        ref={floatingElementRef as React.RefObject<HTMLDivElement | null>}
         top={position?.top ?? 0}
         left={position?.left ?? 0}
       >
@@ -205,7 +205,7 @@ export const ComplexAncestry = () => {
               left={position?.left ?? 0}
               width={150}
               height={220}
-              ref={floatingElementRef as React.RefObject<HTMLDivElement>}
+              ref={floatingElementRef as React.RefObject<HTMLDivElement | null>}
             >
               Floating element
             </Float>
@@ -214,7 +214,7 @@ export const ComplexAncestry = () => {
         <div className={classes.TallContainer}>
           Anchor element container. This element is really tall to demonstrate behavior within a scrollable clipping
           container.
-          <div className={classes.AnchorElement} ref={anchorElementRef as React.RefObject<HTMLDivElement>}>
+          <div className={classes.AnchorElement} ref={anchorElementRef as React.RefObject<HTMLDivElement | null>}>
             Anchor Element
           </div>
         </div>
@@ -288,13 +288,17 @@ export const WithPortal = () => {
           with <code>useAnchoredPosition</code>, we can break out of this constraint.
         </p>
         <div className={classes.ButtonContainer}>
-          <Button variant="primary" onClick={toggleMenu} ref={anchorElementRef as React.RefObject<HTMLButtonElement>}>
+          <Button
+            variant="primary"
+            onClick={toggleMenu}
+            ref={anchorElementRef as React.RefObject<HTMLButtonElement | null>}
+          >
             Show the overlay!
           </Button>
           {showMenu ? (
             <Portal>
               <Float
-                ref={floatingElementRef as React.RefObject<HTMLDivElement>}
+                ref={floatingElementRef as React.RefObject<HTMLDivElement | null>}
                 style={{top: `${position?.top ?? 0}px`, left: `${position?.left ?? 0}px`}}
                 width={250}
                 height={400}

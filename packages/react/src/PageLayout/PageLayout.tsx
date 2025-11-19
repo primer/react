@@ -32,7 +32,7 @@ const PageLayoutContext = React.createContext<{
   padding: keyof typeof SPACING_MAP
   rowGap: keyof typeof SPACING_MAP
   columnGap: keyof typeof SPACING_MAP
-  paneRef: React.RefObject<HTMLDivElement>
+  paneRef: React.RefObject<HTMLDivElement | null>
 }>({
   padding: 'normal',
   rowGap: 'normal',

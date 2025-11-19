@@ -18,7 +18,7 @@ export const SkeletonBox = React.forwardRef<HTMLElement, SkeletonBoxProps>(funct
 ) {
   return (
     <div
-      ref={ref as React.RefObject<HTMLDivElement>}
+      ref={ref as React.RefObject<HTMLDivElement | null>}
       className={clsx(className, classes.SkeletonBox)}
       style={{height, width, ...(style || {})}}
       {...props}

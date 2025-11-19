@@ -17,7 +17,7 @@ const ButtonGroup = React.forwardRef(function ButtonGroup(
   forwardRef,
 ) {
   const buttons = React.Children.map(children, (child, index) => <div key={index}>{child}</div>)
-  const buttonRef = useProvidedRefOrCreate(forwardRef as React.RefObject<HTMLDivElement>)
+  const buttonRef = useProvidedRefOrCreate(forwardRef as React.RefObject<HTMLDivElement | null>)
 
   useFocusZone({
     containerRef: buttonRef,

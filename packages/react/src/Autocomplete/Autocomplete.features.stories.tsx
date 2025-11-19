@@ -462,7 +462,7 @@ export const CustomOverlayMenuAnchor = () => {
         <FormControl.Label htmlFor="autocompleteInput" id="autocompleteLabel">
           Default label
         </FormControl.Label>
-        <div ref={menuAnchorRef as React.RefObject<HTMLDivElement>} className={classes.AnchorContainer}>
+        <div ref={menuAnchorRef as React.RefObject<HTMLDivElement | null>} className={classes.AnchorContainer}>
           <Autocomplete>
             <Autocomplete.Input
               id="autocompleteInput"
@@ -522,7 +522,7 @@ export const InOverlayWithCustomScrollContainerRef = () => {
             <div className={classes.OverlayInputBar}>
               <Autocomplete.Input ref={inputRef} className={classes.OverlayInput} block aria-label="Search" />
             </div>
-            <div ref={scrollContainerRef as RefObject<HTMLDivElement>} className={classes.OverlayScroll}>
+            <div ref={scrollContainerRef as RefObject<HTMLDivElement | null>} className={classes.OverlayScroll}>
               <Autocomplete.Menu
                 items={items}
                 selectedItemIds={[]}

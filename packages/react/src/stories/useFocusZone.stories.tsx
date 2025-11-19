@@ -42,7 +42,7 @@ export const BasicFocusZone = () => {
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
-        <div className={classes.BorderedContainer} ref={containerRef as React.RefObject<HTMLDivElement>}>
+        <div className={classes.BorderedContainer} ref={containerRef as React.RefObject<HTMLDivElement | null>}>
           <strong>Use Up Arrow, Down Arrow, Home, and End to move focus within this box.</strong>
           <div className={classes.FlexColumnContainer}>
             <MarginButton>Durian</MarginButton>
@@ -81,7 +81,7 @@ export const FocusOutBehavior = () => {
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
-        <div className={classes.BorderedContainer} ref={containerRef1 as React.RefObject<HTMLDivElement>}>
+        <div className={classes.BorderedContainer} ref={containerRef1 as React.RefObject<HTMLDivElement | null>}>
           <strong>
             Use Left Arrow, Right Arrow, Home, and End to move focus within this box. Focus stops at the ends.
           </strong>
@@ -92,7 +92,7 @@ export const FocusOutBehavior = () => {
             <MarginButton>Fig</MarginButton>
           </div>
         </div>
-        <div className={classes.BorderedContainer} ref={containerRef2 as React.RefObject<HTMLDivElement>}>
+        <div className={classes.BorderedContainer} ref={containerRef2 as React.RefObject<HTMLDivElement | null>}>
           <strong>Use Left Arrow, Right Arrow, Home, and End to move focus within this box. Focus is circular.</strong>
 
           <div className={classes.FlexRowContainer}>
@@ -181,7 +181,7 @@ export const CustomFocusMovement = () => {
 
         <div className={classes.BorderedContainer}>
           <strong>Use arrow keys to move focus within this box.</strong>
-          <div className={classes.GridContainer} ref={containerRef as React.RefObject<HTMLDivElement>}>
+          <div className={classes.GridContainer} ref={containerRef as React.RefObject<HTMLDivElement | null>}>
             <MarginButton>Banana</MarginButton>
             <MarginButton>Cantaloupe</MarginButton>
             <MarginButton>Durian</MarginButton>
@@ -243,7 +243,7 @@ export const FocusInStrategy = () => {
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
-        <div className={classes.BorderedContainer} ref={firstContainerRef as React.RefObject<HTMLDivElement>}>
+        <div className={classes.BorderedContainer} ref={firstContainerRef as React.RefObject<HTMLDivElement | null>}>
           <strong>&ldquo;First&rdquo; strategy (focus first focusable element)</strong>
           <div className={classes.FlexRowContainer}>
             <MarginButton>Banana</MarginButton>
@@ -251,7 +251,7 @@ export const FocusInStrategy = () => {
             <MarginButton>Durian</MarginButton>
           </div>
         </div>
-        <div className={classes.BorderedContainer} ref={closestContainerRef as React.RefObject<HTMLDivElement>}>
+        <div className={classes.BorderedContainer} ref={closestContainerRef as React.RefObject<HTMLDivElement | null>}>
           <strong>&ldquo;Closest&rdquo; strategy (focus first or last depending on focus direction)</strong>
           <div className={classes.FlexRowContainer}>
             <MarginButton>Elderberry</MarginButton>
@@ -259,7 +259,7 @@ export const FocusInStrategy = () => {
             <MarginButton>Grapefruit</MarginButton>
           </div>
         </div>
-        <div className={classes.BorderedContainer} ref={prevContainerRef as React.RefObject<HTMLDivElement>}>
+        <div className={classes.BorderedContainer} ref={prevContainerRef as React.RefObject<HTMLDivElement | null>}>
           <strong>&ldquo;Previous&rdquo; strategy (most recently focused element)</strong>
           <div className={classes.FlexRowContainer}>
             <MarginButton>Honeydew</MarginButton>
@@ -267,7 +267,7 @@ export const FocusInStrategy = () => {
             <MarginButton>Kiwi</MarginButton>
           </div>
         </div>
-        <div className={classes.BorderedContainer} ref={customContainerRef as React.RefObject<HTMLDivElement>}>
+        <div className={classes.BorderedContainer} ref={customContainerRef as React.RefObject<HTMLDivElement | null>}>
           <strong>&ldquo;Custom&rdquo; strategy (choose randomly for this example)</strong>
           <div className={classes.FlexRowContainer}>
             <MarginButton>Lemon</MarginButton>
@@ -316,7 +316,7 @@ export const SpecialSituations = () => {
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
-        <div className={classes.BorderedContainer} ref={vContainerRef as React.RefObject<HTMLDivElement>}>
+        <div className={classes.BorderedContainer} ref={vContainerRef as React.RefObject<HTMLDivElement | null>}>
           <strong id="focus-label">Bound keys: Up, Down, PageUp, PageDown, W, S, J, K, Home, End, Tab</strong>
           <div className={classes.FlexColumnContainer}>
             <input
@@ -339,7 +339,7 @@ export const SpecialSituations = () => {
             ></textarea>
           </div>
         </div>
-        <div className={classes.BorderedContainer} ref={hContainerRef as React.RefObject<HTMLDivElement>}>
+        <div className={classes.BorderedContainer} ref={hContainerRef as React.RefObject<HTMLDivElement | null>}>
           <label htmlFor="focus-input">
             <strong>Use Left Arrow and Right Arrow to move focus within this box. Focus is circular.</strong>
           </label>
@@ -400,7 +400,7 @@ export const ChangingSubtree = () => {
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
-        <div className={classes.BorderedContainer} ref={containerRef as React.RefObject<HTMLDivElement>}>
+        <div className={classes.BorderedContainer} ref={containerRef as React.RefObject<HTMLDivElement | null>}>
           <strong>Bound keys: Arrow Up and Arrow Down</strong>
           <div className={classes.FlexColumnContainer}>{buttons}</div>
         </div>
@@ -439,11 +439,11 @@ export const NestedZones = () => {
         <div className={classes.AbsoluteTopRight}>Last key pressed: {lastKey}</div>
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
-        <div className={classes.BorderedContainer} ref={outerContainerRef as React.RefObject<HTMLDivElement>}>
+        <div className={classes.BorderedContainer} ref={outerContainerRef as React.RefObject<HTMLDivElement | null>}>
           <strong>Bound keys: Arrow Up and Arrow Down</strong>
           <br />
           <MarginButton>Cantaloupe</MarginButton>
-          <div className={classes.BorderedContainer} ref={innerContainerRef as React.RefObject<HTMLDivElement>}>
+          <div className={classes.BorderedContainer} ref={innerContainerRef as React.RefObject<HTMLDivElement | null>}>
             <strong>Additional Bound keys: Arrow Left and Arrow Right</strong>
             <div className={classes.FlexColumnContainer} id="list">
               <MarginButton>Durian</MarginButton>
@@ -504,7 +504,7 @@ export const ActiveDescendant = () => {
           </label>
           <div className={classes.FlexColumnContainer}>
             <input
-              ref={controllingElementRef as React.RefObject<HTMLInputElement>}
+              ref={controllingElementRef as React.RefObject<HTMLInputElement | null>}
               type="text"
               defaultValue="Focus remains here."
               aria-controls="list"
@@ -513,7 +513,7 @@ export const ActiveDescendant = () => {
             <div
               className={classes.FlexColumnContainer}
               id="list"
-              ref={containerRef as React.RefObject<HTMLDivElement>}
+              ref={containerRef as React.RefObject<HTMLDivElement | null>}
             >
               <MarginButton>Durian</MarginButton>
               <MarginButton>Elderberry</MarginButton>

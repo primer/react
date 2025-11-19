@@ -1,7 +1,7 @@
 import {type RefObject, useEffect, useState} from 'react'
 
 export function useFocus() {
-  const [focusTarget, setFocusTarget] = useState<HTMLElement | RefObject<HTMLElement> | null>(null)
+  const [focusTarget, setFocusTarget] = useState<HTMLElement | RefObject<HTMLElement | null> | null>(null)
 
   useEffect(() => {
     if (focusTarget === null) {

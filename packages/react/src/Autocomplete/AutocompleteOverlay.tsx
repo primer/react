@@ -14,7 +14,7 @@ type AutocompleteOverlayInternalProps = {
   /**
    * The ref of the element that the position of the menu is based on. By default, the menu is positioned based on the text input
    */
-  menuAnchorRef?: React.RefObject<HTMLElement>
+  menuAnchorRef?: React.RefObject<HTMLElement | null>
   /**
    * Props to be spread on the internal `Overlay` component.
    */
@@ -60,7 +60,7 @@ function AutocompleteOverlay({
       preventFocusOnOpen={true}
       onClickOutside={closeOptionList}
       onEscape={closeOptionList}
-      ref={floatingElementRef as React.RefObject<HTMLDivElement>}
+      ref={floatingElementRef as React.RefObject<HTMLDivElement | null>}
       top={position?.top}
       left={position?.left}
       className={classes.Overlay}

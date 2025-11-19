@@ -27,7 +27,7 @@ export type RadioProps = {
   /**
    * Forward a ref to the underlying input element
    */
-  ref?: React.RefObject<HTMLInputElement>
+  ref?: React.RefObject<HTMLInputElement | null>
   /**
    * Indicates whether the radio button must be checked before the form can be submitted
    */

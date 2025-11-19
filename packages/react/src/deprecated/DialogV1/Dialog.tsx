@@ -35,8 +35,8 @@ function DialogHeader({children, className, as: Component = 'div', ...rest}: Dia
 type InternalDialogProps = {
   isOpen?: boolean
   onDismiss?: () => void
-  initialFocusRef?: React.RefObject<HTMLElement>
-  returnFocusRef?: React.RefObject<HTMLElement>
+  initialFocusRef?: React.RefObject<HTMLElement | null>
+  returnFocusRef?: React.RefObject<HTMLElement | null>
   as?: React.ElementType
 } & StyledDialogBaseProps &
   HTMLAttributes<HTMLDivElement>

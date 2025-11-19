@@ -20,7 +20,7 @@ export type CheckboxProps = {
   /**
    * Forward a ref to the underlying input element
    */
-  ref?: React.RefObject<HTMLInputElement>
+  ref?: React.RefObject<HTMLInputElement | null>
   /**
    * Indicates whether the checkbox must be checked
    */
@@ -44,7 +44,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     {checked, className, defaultChecked, indeterminate, disabled, onChange, required, validationStatus, value, ...rest},
     ref,
   ): ReactElement => {
-    const checkboxRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
+    const checkboxRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement | null>)
     const checkboxGroupContext = useContext(CheckboxGroupContext)
     const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
       checkboxGroupContext.onChange && checkboxGroupContext.onChange(e)

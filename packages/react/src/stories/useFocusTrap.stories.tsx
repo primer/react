@@ -59,7 +59,7 @@ export const FocusTrap = () => {
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
-        <div className={classes.TrapZone} ref={containerRef as React.RefObject<HTMLDivElement>}>
+        <div className={classes.TrapZone} ref={containerRef as React.RefObject<HTMLDivElement | null>}>
           <strong>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</strong>
           <Stack direction="vertical" gap="normal">
             <MarginButton>Durian</MarginButton>
@@ -102,7 +102,7 @@ export const RestoreFocus = () => {
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
-        <div className={classes.TrapZone} ref={containerRef as React.RefObject<HTMLDivElement>}>
+        <div className={classes.TrapZone} ref={containerRef as React.RefObject<HTMLDivElement | null>}>
           <strong>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</strong>
           <Stack direction="vertical" gap="normal">
             <MarginButton>Durian</MarginButton>
@@ -150,11 +150,11 @@ export const CustomInitialFocus = () => {
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
-        <div className={classes.TrapZone} ref={containerRef as React.RefObject<HTMLDivElement>}>
+        <div className={classes.TrapZone} ref={containerRef as React.RefObject<HTMLDivElement | null>}>
           <strong>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</strong>
           <Stack direction="vertical" gap="normal">
             <MarginButton>Durian</MarginButton>
-            <MarginButton ref={initialFocusRef as React.RefObject<HTMLButtonElement>}>Elderberry</MarginButton>
+            <MarginButton ref={initialFocusRef as React.RefObject<HTMLButtonElement | null>}>Elderberry</MarginButton>
             <MarginButton>Fig</MarginButton>
           </Stack>
         </div>
@@ -217,7 +217,7 @@ export const DynamicFocusTrapContents = () => {
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
-        <div className={classes.TrapZone} ref={containerRef as React.RefObject<HTMLDivElement>}>
+        <div className={classes.TrapZone} ref={containerRef as React.RefObject<HTMLDivElement | null>}>
           <strong>Trap zone! Press SPACE to {trapEnabled ? 'deactivate' : 'activate'}.</strong>
           <Stack direction="vertical" gap="normal">
             <ToggleableButton name="Durian"></ToggleableButton>
@@ -287,7 +287,7 @@ export const MultipleFocusTraps = () => {
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
-        <div className={classes.TrapZoneSmall} ref={containerRef1 as React.RefObject<HTMLDivElement>}>
+        <div className={classes.TrapZoneSmall} ref={containerRef1 as React.RefObject<HTMLDivElement | null>}>
           <strong>
             Trap zone ({trapEnabled1 ? 'enabled' : 'disabled'})! Press <code>1</code> to toggle.
           </strong>
@@ -300,7 +300,7 @@ export const MultipleFocusTraps = () => {
         <MarginButton>Grapefruit</MarginButton>
         <MarginButton>Honeydew</MarginButton>
         <MarginButton>Jackfruit</MarginButton>
-        <div className={classes.TrapZoneSmall} ref={containerRef2 as React.RefObject<HTMLDivElement>}>
+        <div className={classes.TrapZoneSmall} ref={containerRef2 as React.RefObject<HTMLDivElement | null>}>
           <strong>
             Trap zone ({trapEnabled2 ? 'enabled' : 'disabled'})! Press <code>2</code> to toggle.
           </strong>

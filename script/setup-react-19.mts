@@ -43,4 +43,14 @@ for (const packageJsonPath of packageJsonPaths) {
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n', 'utf8')
 }
 
-execSync('npm install', {stdio: 'inherit'})
+// eslint-disable-next-line no-console
+console.log('Removing patches for @types/react...')
+execSync('rm ./patches/@types+react+18.3.11.patch', {
+  stdio: 'inherit',
+})
+
+// eslint-disable-next-line no-console
+console.log('Installing updated dependencies...')
+execSync('npm install', {
+  stdio: 'inherit',
+})

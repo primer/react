@@ -320,16 +320,19 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
   const containerRef = React.useRef<HTMLUListElement>(null)
 
-  useResizeObserver((resizeObserverEntries: ResizeObserverEntry[]) => {
-    const navWidth = resizeObserverEntries[0].contentRect.width
-    const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
-    const hasActiveMenu = menuItemIds.size > 0
+  useResizeObserver(
+    (resizeObserverEntries: ResizeObserverEntry[]) => {
+      const navWidth = resizeObserverEntries[0].contentRect.width
+      const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
+      const hasActiveMenu = menuItemIds.size > 0
 
-    if (navWidth > 0) {
-      const newMenuItemIds = getMenuItems(navWidth, moreMenuWidth, childRegistry, hasActiveMenu, computedGap)
-      if (newMenuItemIds) setMenuItemIds(newMenuItemIds)
-    }
-  }, navRef as RefObject<HTMLElement>)
+      if (navWidth > 0) {
+        const newMenuItemIds = getMenuItems(navWidth, moreMenuWidth, childRegistry, hasActiveMenu, computedGap)
+        if (newMenuItemIds) setMenuItemIds(newMenuItemIds)
+      }
+    },
+    navRef as RefObject<HTMLElement | null>,
+  )
 
   const isVisibleChild = useCallback(
     (id: string) => {
@@ -554,7 +557,7 @@ const ActionBarGroupContext = React.createContext<{
 
 export const ActionBarGroup = forwardRef(({children}: React.PropsWithChildren, forwardedRef) => {
   const backupRef = useRef<HTMLDivElement>(null)
-  const ref = (forwardedRef ?? backupRef) as RefObject<HTMLDivElement>
+  const ref = (forwardedRef ?? backupRef) as RefObject<HTMLDivElement | null>
   const id = useId()
   const {registerChild, unregisterChild} = React.useContext(ActionBarContext)
 
@@ -586,7 +589,7 @@ export const ActionBarGroup = forwardRef(({children}: React.PropsWithChildren, f
 export const ActionBarMenu = forwardRef(
   ({'aria-label': ariaLabel, icon, overflowIcon, items, ...props}: ActionBarMenuProps, forwardedRef) => {
     const backupRef = useRef<HTMLButtonElement>(null)
-    const ref = (forwardedRef ?? backupRef) as RefObject<HTMLButtonElement>
+    const ref = (forwardedRef ?? backupRef) as RefObject<HTMLButtonElement | null>
     const id = useId()
     const {registerChild, unregisterChild, isVisibleChild} = React.useContext(ActionBarContext)
 
