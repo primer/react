@@ -33,7 +33,8 @@ const meta: Meta = {
 export default meta
 
 const NextJSLikeLink = forwardRef(
-  ({href, children}: {href: string; children: React.ReactNode}, ref): React.ReactElement => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ({href, children}: {href: string; children: React.ReactNode}, ref): React.ReactElement<any> => {
     const child = React.Children.only(children)
     const childProps = {
       ref,

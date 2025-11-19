@@ -40,7 +40,8 @@ export type UnderlineNavItemProps = {
    *  Icon before the text
    *  @deprecated Use the `leadingVisual` prop instead
    */
-  icon?: React.FunctionComponent<IconProps> | React.ReactElement
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  icon?: React.FunctionComponent<IconProps> | React.ReactElement<any>
 
   /**
    * Render a visual before the text
