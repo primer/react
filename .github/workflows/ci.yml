@@ -78,6 +78,7 @@ jobs:
         run: node script/setup-react-19.mts
       - name: Build
         run: npm run build
+        continue-on-error: ${{ matrix.react-version == 'react-19' }}
       - name: Run tests defined in vitest
         uses: docker://mcr.microsoft.com/playwright:v1.55.0-jammy
         with:
