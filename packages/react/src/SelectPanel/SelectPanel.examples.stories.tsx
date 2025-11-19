@@ -593,7 +593,7 @@ export const Virtualized = () => {
   const [renderSubset, setRenderSubset] = React.useState(true)
 
   const [filter, setFilter] = useState('')
-  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const [scrollContainer, setScrollContainer] = useState<HTMLDivElement | null>(null)
   const filteredItems = lotsOfItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
 
   const timeAfterOpen = useRef<number>()
@@ -616,15 +616,9 @@ export const Virtualized = () => {
     [open],
   )
 
-  // useEffect(() => {
-  //   return () => {
-  //     setRenderSubset(true)
-  //   }
-  // }, [scrollContainerRef.current])
-
   const virtualizer = useVirtualizer({
     count: filteredItems.length,
-    getScrollElement: () => scrollContainerRef.current ?? null,
+    getScrollElement: () => scrollContainer ?? null,
     estimateSize: () => DEFAULT_VIRTUAL_ITEM_HEIGHT,
     overscan: 10,
     debug: true,
@@ -651,6 +645,7 @@ export const Virtualized = () => {
 
             return {
               ...item,
+              key: virtualItem.index,
               style: {
                 position: 'absolute',
                 top: 0,
@@ -665,7 +660,7 @@ export const Virtualized = () => {
     [renderSubset, virtualizer, filteredItems],
   )
 
-  console.log('virtualizedItems', virtualizedItems.length)
+  // console.log('virtualizedItems', virtualizedItems.length)
 
   return (
     <form>
@@ -712,8 +707,10 @@ export const Virtualized = () => {
             id: 'select-labels-panel-dialog',
           }}
           focusOutBehavior="stop"
-          scrollContainerRef={scrollContainerRef}
-          actionListStyles={virtualizedContainerStyle}
+          scrollContainerRef={node => setScrollContainer(node)}
+          actionListProps={{
+            style: virtualizedContainerStyle,
+          }}
         />
       </FormControl>
     </form>

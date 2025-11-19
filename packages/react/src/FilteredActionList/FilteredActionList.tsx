@@ -5,7 +5,7 @@ import type React from 'react'
 import {useCallback, useEffect, useRef, useState} from 'react'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
-import {ActionList} from '../ActionList'
+import {ActionList, type ActionListProps} from '../ActionList'
 import type {GroupedListProps, ListPropsBase, ItemInput, RenderItemFn} from './'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
@@ -32,7 +32,7 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement> | null) => void
   onListContainerRefChanged?: (ref: HTMLElement | null) => void
   onInputRefChanged?: (ref: React.RefObject<HTMLInputElement>) => void
-  scrollContainerRef?: React.MutableRefObject<HTMLDivElement | null>
+  scrollContainerRef?: React.Ref<HTMLDivElement | null>
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
   message?: React.ReactNode
@@ -44,7 +44,7 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
   announcementsEnabled?: boolean
   fullScreenOnNarrow?: boolean
   onSelectAllChange?: (checked: boolean) => void
-  actionListStyles?: React.CSSProperties
+  actionListProps?: Partial<ActionListProps>
   focusOutBehavior?: 'stop' | 'wrap'
   /**
    * Private API for use internally only. Adds the ability to switch between
@@ -89,7 +89,7 @@ export function FilteredActionList({
   announcementsEnabled = true,
   fullScreenOnNarrow,
   onSelectAllChange,
-  actionListStyles,
+  actionListProps,
   focusOutBehavior,
   _PrivateFocusManagement = 'active-descendant',
   ...listProps
@@ -107,7 +107,9 @@ export function FilteredActionList({
   const inputAndListContainerRef = useRef<HTMLDivElement>(null)
   const listRef = useRef<HTMLUListElement>(null)
 
-  const scrollContainerRef = useProvidedRefOrCreate<HTMLDivElement>(providedScrollContainerRef)
+  const scrollContainerRef = useProvidedRefOrCreate<HTMLDivElement>(
+    providedScrollContainerRef as React.RefObject<HTMLDivElement>,
+  )
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
 
   const usingRovingTabindex = _PrivateFocusManagement === 'roving-tabindex'
@@ -296,7 +298,7 @@ export function FilteredActionList({
         role="listbox"
         id={listId}
         className={classes.ActionList}
-        style={actionListStyles}
+        {...actionListProps}
       >
         {groupMetadata?.length
           ? groupMetadata.map((group, index) => {
