@@ -12,10 +12,10 @@
   "dependencies": {
     "@primer/react": "38.2.0",
     "@primer/styled-react": "1.0.0",
-    "next": "^16.0.0",
+    "next": "^16.0.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.3"
   },
   "devDependencies": {
     "rimraf": "^5.0.5"
