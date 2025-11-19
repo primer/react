@@ -253,7 +253,7 @@ export function FilteredActionList({
         inputAndListContainerElement.removeEventListener('focusin', handleFocusIn)
       }
     }
-  }, [items, inputRef, listContainerElement, usingRovingTabindex, listRef]) // Re-run when items change to update active indicators
+  }, [items, inputRef, listContainerElement, usingRovingTabindex]) // Re-run when items change to update active indicators
 
   useEffect(() => {
     if (usingRovingTabindex && !loading) {
