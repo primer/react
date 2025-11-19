@@ -1,4 +1,4 @@
-import {RelativeTimeElement} from '@github/relative-time-element'
+import {RelativeTimeElement} from '@github/relative-time-element/relative-time'
 import type {ComponentProps} from '../utils/types'
 import {createComponent} from '../utils/create-component'
 
