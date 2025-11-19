@@ -590,16 +590,15 @@ const DEFAULT_VIRTUAL_ITEM_HEIGHT = 35
 export const Virtualized = () => {
   const [selected, setSelected] = useState<ItemInput[]>([])
   const [open, setOpen] = useState(false)
-  const [renderSubset, setRenderSubset] = React.useState(true)
+  const [renderSubset, setRenderSubset] = useState(true)
 
   const [filter, setFilter] = useState('')
   const [scrollContainer, setScrollContainer] = useState<HTMLDivElement | null>(null)
   const filteredItems = lotsOfItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
 
-  const timeAfterOpen = useRef<number>()
   /* perf measurement logic start */
   const timeBeforeOpen = useRef<number>()
-  // const timeAfterOpen = useRef<number>()
+  const timeAfterOpen = useRef<number>()
   const [timeTakenToOpen, setTimeTakenToOpen] = useState<number>()
 
   const onOpenChange = () => {
@@ -659,8 +658,6 @@ export const Virtualized = () => {
         : filteredItems,
     [renderSubset, virtualizer, filteredItems],
   )
-
-  // console.log('virtualizedItems', virtualizedItems.length)
 
   return (
     <form>

@@ -231,7 +231,7 @@ export function FilteredActionList({
         behavior: 'auto',
       })
     }
-  }, [items, inputRef, scrollContainerRef])
+  }, [items, inputRef])
 
   useEffect(() => {
     if (usingRovingTabindex) {
