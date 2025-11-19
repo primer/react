@@ -194,7 +194,7 @@
         },
         {
           "name": "as",
-          "description": "Heading level for the group heading. Sets the semantic heading tag (h1-h6).",
+          "description": "Heading level for the group heading. Sets the semantic heading tag.",
           "required": false,
           "type": "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'",
           "defaultValue": "\"h3\""
