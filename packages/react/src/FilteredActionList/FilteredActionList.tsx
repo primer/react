@@ -17,7 +17,6 @@ import type {FilteredActionListLoadingType} from './FilteredActionListLoaders'
 import {FilteredActionListLoadingTypes, FilteredActionListBodyLoader} from './FilteredActionListLoaders'
 import classes from './FilteredActionList.module.css'
 import Checkbox from '../Checkbox'
-
 import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
 import {isValidElementType} from 'react-is'
 import {useAnnouncements} from './useAnnouncements'
@@ -33,6 +32,7 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement> | null) => void
   onListContainerRefChanged?: (ref: HTMLElement | null) => void
   onInputRefChanged?: (ref: React.RefObject<HTMLInputElement>) => void
+  scrollContainerRef?: React.MutableRefObject<HTMLDivElement | null>
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
   message?: React.ReactNode
@@ -44,6 +44,8 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
   announcementsEnabled?: boolean
   fullScreenOnNarrow?: boolean
   onSelectAllChange?: (checked: boolean) => void
+  actionListStyles?: React.CSSProperties
+  focusOutBehavior?: 'stop' | 'wrap'
   /**
    * Private API for use internally only. Adds the ability to switch between
    * `active-descendant` and roving tabindex.
@@ -77,6 +79,7 @@ export function FilteredActionList({
   items,
   textInputProps,
   inputRef: providedInputRef,
+  scrollContainerRef: providedScrollContainerRef,
   groupMetadata,
   showItemDividers,
   message,
@@ -86,6 +89,8 @@ export function FilteredActionList({
   announcementsEnabled = true,
   fullScreenOnNarrow,
   onSelectAllChange,
+  actionListStyles,
+  focusOutBehavior,
   _PrivateFocusManagement = 'active-descendant',
   ...listProps
 }: FilteredActionListProps): JSX.Element {
@@ -102,7 +107,7 @@ export function FilteredActionList({
   const inputAndListContainerRef = useRef<HTMLDivElement>(null)
   const listRef = useRef<HTMLUListElement>(null)
 
-  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const scrollContainerRef = useProvidedRefOrCreate<HTMLDivElement>(providedScrollContainerRef)
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
 
   const usingRovingTabindex = _PrivateFocusManagement === 'roving-tabindex'
@@ -167,7 +172,7 @@ export function FilteredActionList({
         }
       }
     },
-    [items, groupMetadata, getItemListForEachGroup],
+    [listRef, groupMetadata, items, getItemListForEachGroup],
   )
 
   const onInputKeyPress: KeyboardEventHandler = useCallback(
@@ -200,7 +205,7 @@ export function FilteredActionList({
       ? {
           containerRef: {current: listContainerElement},
           bindKeys: FocusKeys.ArrowVertical | FocusKeys.PageUpDown,
-          focusOutBehavior: 'wrap',
+          focusOutBehavior: focusOutBehavior ?? 'wrap',
           focusableElementFilter: element => {
             return !(element instanceof HTMLInputElement)
           },
@@ -224,7 +229,7 @@ export function FilteredActionList({
         behavior: 'auto',
       })
     }
-  }, [items, inputRef])
+  }, [items, inputRef, scrollContainerRef])
 
   useEffect(() => {
     if (usingRovingTabindex) {
@@ -246,7 +251,7 @@ export function FilteredActionList({
         inputAndListContainerElement.removeEventListener('focusin', handleFocusIn)
       }
     }
-  }, [items, inputRef, listContainerElement, usingRovingTabindex]) // Re-run when items change to update active indicators
+  }, [items, inputRef, listContainerElement, usingRovingTabindex, listRef]) // Re-run when items change to update active indicators
 
   useEffect(() => {
     if (usingRovingTabindex && !loading) {
@@ -291,6 +296,7 @@ export function FilteredActionList({
         role="listbox"
         id={listId}
         className={classes.ActionList}
+        style={actionListStyles}
       >
         {groupMetadata?.length
           ? groupMetadata.map((group, index) => {
