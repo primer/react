@@ -174,7 +174,7 @@ export function FilteredActionList({
         }
       }
     },
-    [listRef, groupMetadata, items, getItemListForEachGroup],
+    [items, groupMetadata, getItemListForEachGroup],
   )
 
   const onInputKeyPress: KeyboardEventHandler = useCallback(
