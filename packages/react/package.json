@@ -1,7 +1,7 @@
 {
   "name": "@primer/react",
   "type": "module",
-  "version": "38.1.0",
+  "version": "38.2.0",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
