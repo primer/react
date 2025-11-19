@@ -4,7 +4,7 @@ import {useAnchoredPosition} from '../hooks'
 import type {AnchorSide} from '@primer/behaviors'
 import Portal, {registerPortalRoot} from '../Portal'
 import {Button} from '../Button'
-import classes from './AnchoredPositionStories.module.css'
+import classes from './AnchoredPosition.stories.module.css'
 
 export default {
   title: 'Hooks/useAnchoredPosition',
