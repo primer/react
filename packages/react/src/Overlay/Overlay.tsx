@@ -106,7 +106,8 @@ export const BaseOverlay = React.forwardRef(
       ...rest
     },
     forwardedRef,
-  ): ReactElement => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): ReactElement<any> => {
     return (
       <Component
         {...rest}
@@ -187,7 +188,8 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
       ...props
     },
     forwardedRef,
-  ): ReactElement => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): ReactElement<any> => {
     const overlayRef = useRef<HTMLDivElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, overlayRef)
     const slideAnimationDistance = 8 // var(--base-size-8), hardcoded to do some math
