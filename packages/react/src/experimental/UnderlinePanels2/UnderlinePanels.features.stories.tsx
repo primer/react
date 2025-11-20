@@ -10,6 +10,7 @@ import {
   GitPullRequestIcon,
   GraphIcon,
   PlayIcon,
+  ProjectIcon,
   ShieldLockIcon,
 } from '@primer/octicons-react'
 
@@ -84,13 +85,13 @@ export const WithIconsHiddenOnNarrowScreen = () => (
       <UnderlinePanels.Tab value="tab-5" icon={PlayIcon}>
         Tab 5
       </UnderlinePanels.Tab>
-      <UnderlinePanels.Tab value="tab-6" icon={GraphIcon}>
+      <UnderlinePanels.Tab value="tab-6" icon={ProjectIcon}>
         Tab 6
       </UnderlinePanels.Tab>
-      <UnderlinePanels.Tab value="tab-7" icon={GearIcon}>
+      <UnderlinePanels.Tab value="tab-7" icon={GraphIcon}>
         Tab 7
       </UnderlinePanels.Tab>
-      <UnderlinePanels.Tab value="tab-8" icon={ShieldLockIcon}>
+      <UnderlinePanels.Tab value="tab-8" icon={GearIcon}>
         Tab 8
       </UnderlinePanels.Tab>
       <UnderlinePanels.Tab value="tab-9" icon={ShieldLockIcon}>

@@ -37,7 +37,7 @@ const stories: Array<{title: string; id: string}> = [
   },
 ]
 
-test.describe('UnderlinePanels', () => {
+test.describe('UnderlinePanels2', () => {
   for (const story of stories) {
     test.describe(story.title, () => {
       for (const theme of themes) {
