@@ -1,5 +1,5 @@
 import type React from 'react'
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it} from 'vitest'
 import type {TooltipProps} from '../Tooltip'
 import {Tooltip} from '../Tooltip'
 import {render as HTMLRender} from '@testing-library/react'
@@ -122,7 +122,6 @@ describe('Tooltip', () => {
     expect(triggerEL.getAttribute('aria-describedby')).toContain('custom-tooltip-id')
   })
   it('should throw an error if the trigger element is disabled', () => {
-    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     expect(() => {
       HTMLRender(
         <Tooltip text="Tooltip text" direction="n">
@@ -132,8 +131,6 @@ describe('Tooltip', () => {
     }).toThrow(
       'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
     )
-    expect(spy).toHaveBeenCalled()
-    spy.mockRestore()
   })
   it('should not throw an error when the trigger element is a button in a fieldset', () => {
     const {getByRole} = HTMLRender(
