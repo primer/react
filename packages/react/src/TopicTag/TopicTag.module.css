@@ -16,10 +16,10 @@
     background-color: var(--bgColor-accent-emphasis);
     color: var(--fgColor-onEmphasis);
   }
-}
 
-/* Add a reset to when TopicTag is an <a> element since our link styles apply an underline text-decoration by default */
-/* stylelint-disable-next-line selector-no-qualifying-type */
-:where(a.TopicTag) {
-  text-decoration: none;
+  /* Add a reset to when TopicTag is an <a> element since our link styles apply an underline text-decoration by default */
+  /* stylelint-disable-next-line selector-no-qualifying-type */
+  &:where(a) {
+    text-decoration: none;
+  }
 }
