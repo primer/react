@@ -49,7 +49,8 @@ results.json
 *.module.css.d.ts
 
 # Vitest
-**/__screenshots__/**
+**/__screenshots__/**/*.png
+**/.vitest-attachments/**
 
 # Turbo
 .turbo

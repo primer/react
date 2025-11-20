@@ -7,6 +7,7 @@ export default defineConfig({
       'packages/*/vitest.config.mts',
       'packages/*/vitest.config.browser.ts',
       'packages/*/vitest.config.browser.mts',
+      'packages/*/vitest.config.vrt.ts',
     ],
   },
 })

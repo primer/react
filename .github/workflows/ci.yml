@@ -82,7 +82,7 @@ jobs:
       - name: Run tests defined in vitest
         uses: docker://mcr.microsoft.com/playwright:v1.55.0-jammy
         with:
-          args: npm test
+          args: npm test -- --project '!@primer/styled-react (vrt)'
         continue-on-error: ${{ matrix.react-version == 'react-19' }}
 
   type-check:
