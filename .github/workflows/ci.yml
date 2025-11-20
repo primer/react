@@ -83,7 +83,6 @@ jobs:
         uses: docker://mcr.microsoft.com/playwright:v1.55.0-jammy
         with:
           args: npm test
-        continue-on-error: ${{ matrix.react-version == 'react-19' }}
 
   type-check:
     runs-on: ubuntu-latest

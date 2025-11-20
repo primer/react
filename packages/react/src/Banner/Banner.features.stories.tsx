@@ -255,7 +255,7 @@ export const CustomIcon = () => {
     <Banner
       title="Upsell"
       description="An example banner with a custom icon"
-      icon={<CopilotIcon />}
+      leadingVisual={<CopilotIcon />}
       onDismiss={action('onDismiss')}
       variant="upsell"
     />
