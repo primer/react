@@ -96,4 +96,4 @@ export * from '../KeybindingHint'
 export * from './Tabs'
 
 export {TopicTag} from '../TopicTag'
-export type {TopicTagProps} from '../TopicTag'
+export type {TopicTagProps, TopicTagGroupProps} from '../TopicTag'

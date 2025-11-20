@@ -14,8 +14,19 @@
     {
       "name": "className",
       "type": "string",
-      "description": "Class name for custom styling"
+      "description": "Provide a class name for styling on the outermost element"
     }
   ],
-  "subcomponents": []
+  "subcomponents": [
+    {
+      "name": "TopicTag.Group",
+      "props": [
+        {
+          "name": "className",
+          "type": "string",
+          "description": "Provide a class name for styling on the outermost element"
+        }
+      ]
+    }
+  ]
 }

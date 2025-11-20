@@ -7,11 +7,7 @@ export default {
   component: TopicTag,
 } satisfies Meta<typeof TopicTag>
 
-export const AsLink = () => (
-  <TopicTag as="a" href="/topics/react">
-    React
-  </TopicTag>
-)
+export const AsButton = () => <TopicTag as="button">React</TopicTag>
 
 export const AsGroup = () => {
   const tags = [

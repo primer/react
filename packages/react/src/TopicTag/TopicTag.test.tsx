@@ -4,18 +4,22 @@ import {userEvent} from 'vitest/browser'
 import {TopicTag} from '../TopicTag'
 
 describe('TopicTag', () => {
-  test('defaults to <button> semantics', async () => {
+  test('defaults to <a> semantics', async () => {
     const onClick = vi.fn()
-    render(<TopicTag onClick={onClick}>test</TopicTag>)
+    render(
+      <TopicTag href="/test" onClick={onClick}>
+        test
+      </TopicTag>,
+    )
 
-    await userEvent.click(screen.getByRole('button', {name: 'test'}))
+    await userEvent.click(screen.getByRole('link', {name: 'test'}))
     expect(onClick).toHaveBeenCalled()
   })
 
-  test('support <a> semantics through `href` prop', async () => {
+  test('support <button> semantics through `as` prop', async () => {
     const onClick = vi.fn()
     render(
-      <TopicTag as="a" href="#test" onClick={onClick}>
+      <TopicTag as="button" onClick={onClick}>
         test
       </TopicTag>,
     )

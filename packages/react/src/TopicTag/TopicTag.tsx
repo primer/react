@@ -8,8 +8,8 @@ type TopicTagProps<As extends ElementType> = {
   className?: string
 } & Omit<React.ComponentPropsWithoutRef<As>, 'as' | 'className'>
 
-function TopicTag<As extends ElementType = 'button'>({as, children, className, ...rest}: TopicTagProps<As>) {
-  const BaseComponent = as ?? 'button'
+function TopicTag<As extends ElementType = 'a'>({as, children, className, ...rest}: TopicTagProps<As>) {
+  const BaseComponent = as ?? 'a'
   return (
     <BaseComponent
       {...rest}
