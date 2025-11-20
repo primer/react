@@ -26,7 +26,7 @@ export const AsGroup = () => {
   return (
     <TopicTagGroup>
       {tags.map(tag => (
-        <TopicTag as="a" href={`/topics/${tag.toLowerCase()}`} key={tag}>
+        <TopicTag key={tag} href={`/topics/${tag.toLowerCase()}`}>
           {tag}
         </TopicTag>
       ))}
