@@ -24,7 +24,8 @@ const TooltipComponentWithExistingDescription = (props: Omit<TooltipProps, 'text
   </>
 )
 
-function ExampleWithActionMenu(actionMenuTrigger: React.ReactElement): JSX.Element {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function ExampleWithActionMenu(actionMenuTrigger: React.ReactElement<any>): JSX.Element {
   return (
     <BaseStyles>
       <ActionMenu>

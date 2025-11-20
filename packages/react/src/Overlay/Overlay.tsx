@@ -106,17 +106,18 @@ export const BaseOverlay = React.forwardRef(
       ...rest
     },
     forwardedRef,
-  ): ReactElement => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): ReactElement<any> => {
     return (
       <Component
         {...rest}
         ref={forwardedRef}
         style={
           {
-            left,
-            right,
-            top,
-            bottom,
+            '--top': typeof top === 'number' ? `${top}px` : top,
+            '--left': typeof left === 'number' ? `${left}px` : left,
+            '--right': typeof right === 'number' ? `${right}px` : right,
+            '--bottom': typeof bottom === 'number' ? `${bottom}px` : bottom,
             position,
             ...styleFromProps,
           } as React.CSSProperties
@@ -187,7 +188,8 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
       ...props
     },
     forwardedRef,
-  ): ReactElement => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): ReactElement<any> => {
     const overlayRef = useRef<HTMLDivElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, overlayRef)
     const slideAnimationDistance = 8 // var(--base-size-8), hardcoded to do some math

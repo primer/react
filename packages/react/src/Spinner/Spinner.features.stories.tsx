@@ -19,3 +19,5 @@ export const SuppressScreenReaderText = () => (
     <AriaStatus>Loading...</AriaStatus>
   </Stack>
 )
+
+export const WithDelay = () => <Spinner delay />
