@@ -32,6 +32,9 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement> | null) => void
   onListContainerRefChanged?: (ref: HTMLElement | null) => void
   onInputRefChanged?: (ref: React.RefObject<HTMLInputElement>) => void
+  /**
+   * A ref assigned to the scrollable container wrapping the ActionList
+   */
   scrollContainerRef?: React.Ref<HTMLDivElement | null>
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
@@ -44,7 +47,18 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
   announcementsEnabled?: boolean
   fullScreenOnNarrow?: boolean
   onSelectAllChange?: (checked: boolean) => void
+  /**
+   * Additional props to pass to the underlying ActionList component.
+   */
   actionListProps?: Partial<ActionListProps>
+  /**
+   * Determines how keyboard focus behaves when navigating beyond the first or last item in the list.
+   *
+   * - `'stop'`: Focus will stop at the first or last item; further navigation in that direction will not move focus.
+   * - `'wrap'`: Focus will wrap around to the opposite end of the list when navigating past the boundaries (e.g., pressing Down on the last item moves focus to the first).
+   *
+   *  @default 'wrap'
+   */
   focusOutBehavior?: 'stop' | 'wrap'
   /**
    * Private API for use internally only. Adds the ability to switch between
@@ -90,7 +104,7 @@ export function FilteredActionList({
   fullScreenOnNarrow,
   onSelectAllChange,
   actionListProps,
-  focusOutBehavior,
+  focusOutBehavior = 'wrap',
   _PrivateFocusManagement = 'active-descendant',
   ...listProps
 }: FilteredActionListProps): JSX.Element {
@@ -116,7 +130,7 @@ export function FilteredActionList({
   const [listContainerElement, setListContainerElement] = useState<HTMLUListElement | null>(null)
   const activeDescendantRef = useRef<HTMLElement>()
 
-  const listId = useId()
+  const listId = useId(actionListProps?.id)
   const inputDescriptionTextId = useId()
   const [isInputFocused, setIsInputFocused] = useState(false)
 
@@ -207,7 +221,7 @@ export function FilteredActionList({
       ? {
           containerRef: {current: listContainerElement},
           bindKeys: FocusKeys.ArrowVertical | FocusKeys.PageUpDown,
-          focusOutBehavior: focusOutBehavior ?? 'wrap',
+          focusOutBehavior,
           focusableElementFilter: element => {
             return !(element instanceof HTMLInputElement)
           },
@@ -295,10 +309,10 @@ export function FilteredActionList({
         showDividers={showItemDividers}
         selectionVariant={selectionVariant}
         {...listProps}
+        {...actionListProps}
         role="listbox"
         id={listId}
-        className={classes.ActionList}
-        {...actionListProps}
+        className={clsx(classes.ActionList, actionListProps?.className)}
       >
         {groupMetadata?.length
           ? groupMetadata.map((group, index) => {
