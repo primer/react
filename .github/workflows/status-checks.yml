@@ -13,7 +13,6 @@ on:
 permissions:
   issues: write
   pull-requests: write
-  statuses: write
 
 jobs:
   github-ui:
@@ -26,7 +25,9 @@ jobs:
         with:
           app-id: 902635
           owner: 'primer'
+          repositories: 'react'
           private-key: ${{ secrets.PRIMER_INTEGRATION_APP_PRIVATE_KEY }}
+          permission-statuses: 'write'
 
       # Support for reporting on required github-ui status checks on pull requests
       - name: Override status checks for pull request
@@ -86,6 +87,7 @@ jobs:
           allowed_contexts: pull_request
           # Note: this permission step is _critical_ to make sure only maintainers can run the command
           permissions: 'write,admin'
+          allow_forks: true
       - name: Override status checks for issue comment
         if: ${{ github.event_name == 'issue_comment' && steps.command.outputs.continue == 'true' }}
         run: |

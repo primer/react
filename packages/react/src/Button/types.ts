@@ -58,17 +58,20 @@ export type ButtonProps = {
   /**
    * The icon for the IconButton
    */
-  icon?: React.FunctionComponent<IconProps> | React.ElementType | React.ReactElement | null
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  icon?: React.FunctionComponent<IconProps> | React.ElementType | React.ReactElement<any> | null
 
   /**
    * The leading visual which comes before the button content
    */
-  leadingVisual?: React.ElementType | React.ReactElement | null
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  leadingVisual?: React.ElementType | React.ReactElement<any> | null
 
   /**
    * The trailing visual which comes after the button content
    */
-  trailingVisual?: React.ElementType | React.ReactElement | null
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  trailingVisual?: React.ElementType | React.ReactElement<any> | null
 
   /**
    * Trailing action which comes after the trailing visual and is always the last element
