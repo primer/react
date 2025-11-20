@@ -158,7 +158,8 @@ function ItemWithSubNav({children, subNav, depth: _depth, defaultOpen, style}: I
         <ActionList.TrailingVisual>
           <ChevronDownIcon className={classes.ExpandIcon} />
         </ActionList.TrailingVisual>
-        <SubItem>{React.cloneElement(subNav as React.ReactElement, {ref: subNavRef})}</SubItem>
+        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+        <SubItem>{React.cloneElement(subNav as React.ReactElement<any>, {ref: subNavRef})}</SubItem>
       </ActionList.Item>
     </ItemWithSubNavContext.Provider>
   )
@@ -384,6 +385,7 @@ const GroupHeading: React.FC<NavListGroupHeadingProps> = ({as = 'h3', className,
 // Export
 
 export const NavList = Object.assign(Root, {
+  Description: ActionList.Description,
   Item,
   SubNav,
   LeadingVisual,

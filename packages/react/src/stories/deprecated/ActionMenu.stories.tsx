@@ -18,7 +18,7 @@ import type {ActionMenuProps} from '../../deprecated'
 import {ActionMenu, ActionList} from '../../deprecated'
 import type {ItemProps} from '../../deprecated/ActionList'
 import {Button, type ButtonProps} from '../../Button'
-import classes from './ActionMenuStories.module.css'
+import classes from './ActionMenu.stories.module.css'
 
 const meta: Meta = {
   title: 'Deprecated/Components/ActionMenu',

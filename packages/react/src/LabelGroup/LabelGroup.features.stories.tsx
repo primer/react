@@ -3,7 +3,7 @@ import LabelGroup from './LabelGroup'
 import type {Meta, StoryFn} from '@storybook/react-vite'
 import Token from '../Token/Token'
 import Label from '../Label/Label'
-import classes from './LabelGroupStories.module.css'
+import classes from './LabelGroup.stories.module.css'
 
 const meta: Meta = {
   title: 'Components/LabelGroup/Features',

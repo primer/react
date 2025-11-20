@@ -208,4 +208,4 @@ Organizational overhead of shared dependencies is something that we will have to
 ## Consequences
 
 - By using `@lit-labs/ssr` today, we introduce a new dependency into Primer React. This may be removed later should React support Custom Elements out of the box (which seems likely for React 19), but for now we will need to continue to ship this dependency.
-- This decision may expediate the need to resolve organisational overhead issues. Deciding to use custom elements to share more code among PVC and PRC may highlight other areas which need to be addressed in subsequent PRs.
+- This decision may expedite the need to resolve organisational overhead issues. Deciding to use custom elements to share more code among PVC and PRC may highlight other areas which need to be addressed in subsequent PRs.

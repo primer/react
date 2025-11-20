@@ -4,6 +4,8 @@ export type ChildSize = {
 }
 export type ChildWidthArray = Array<ChildSize>
 export type ResponsiveProps = {
-  items: Array<React.ReactElement>
-  menuItems: Array<React.ReactElement>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  items: Array<React.ReactElement<any>>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  menuItems: Array<React.ReactElement<any>>
 }
