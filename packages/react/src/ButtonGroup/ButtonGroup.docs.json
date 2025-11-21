@@ -25,6 +25,12 @@
     {
       "name": "ref",
       "type": "React.RefObject<HTMLDivElement>"
+    },
+    {
+      "name": "overflowAriaLabel",
+      "type": "string",
+      "defaultValue": "\"More actions\"",
+      "description": "Accessible label announced for the overflow trigger button."
     }
   ],
   "subcomponents": []
