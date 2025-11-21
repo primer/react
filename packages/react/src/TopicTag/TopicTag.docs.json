@@ -1,7 +1,7 @@
 {
   "id": "topic_tag",
   "name": "TopicTag",
-  "status": "alpha",
+  "status": "draft",
   "a11yReviewed": false,
   "stories": [],
   "importPath": "@primer/react/experimental",

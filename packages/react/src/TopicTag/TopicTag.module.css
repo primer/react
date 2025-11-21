@@ -1,11 +1,9 @@
 /* Add a reset for when TopicTag is an <a> element since our link styles apply an underline text-decoration by default */
-/* stylelint-disable-next-line selector-no-qualifying-type */
 .TopicTag:where(a) {
   text-decoration: none;
 }
 
 /* Add a reset for when TopicTag is a <button> element */
-/* stylelint-disable-next-line selector-no-qualifying-type */
 .TopicTag:where(button) {
   @mixin buttonReset;
 }
