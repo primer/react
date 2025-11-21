@@ -57,11 +57,13 @@ export const Playground: StoryFn<typeof UnderlinePanels> = args => {
 
   return (
     <UnderlinePanels {...args}>
-      {tabs.map((tab: string, index: number) => (
-        <UnderlinePanels.Tab key={index} value={`tab-${index}`}>
-          {tab}
-        </UnderlinePanels.Tab>
-      ))}
+      <UnderlinePanels.TabList aria-label="Select a tab">
+        {tabs.map((tab: string, index: number) => (
+          <UnderlinePanels.Tab key={index} value={`tab-${index}`}>
+            {tab}
+          </UnderlinePanels.Tab>
+        ))}
+      </UnderlinePanels.TabList>
       {panels.map((panel: string, index: number) => (
         <UnderlinePanels.Panel key={index} value={`tab-${index}`}>
           {panel}
