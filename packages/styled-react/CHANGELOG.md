@@ -1,5 +1,11 @@
 # @primer/styled-react
 
+## 1.0.1
+
+### Patch Changes
+
+- [#7226](https://github.com/primer/react/pull/7226) [`d0c29aa`](https://github.com/primer/react/commit/d0c29aa27bf1f85b6e577de28faed5e6f352ab73) Thanks [@pksjce](https://github.com/pksjce)! - Move the version to 1.0.1
+
 ## 1.0.0
 
 ### Major Changes
