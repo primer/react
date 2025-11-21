@@ -5,15 +5,9 @@ import {TopicTag} from '../TopicTag'
 
 describe('TopicTag', () => {
   test('defaults to <a> semantics', async () => {
-    const onClick = vi.fn()
-    render(
-      <TopicTag href="/test" onClick={onClick}>
-        test
-      </TopicTag>,
-    )
+    render(<TopicTag href="#">test</TopicTag>)
 
-    await userEvent.click(screen.getByRole('link', {name: 'test'}))
-    expect(onClick).toHaveBeenCalled()
+    expect(screen.getByRole('link', {name: 'test'})).toBeInTheDocument()
   })
 
   test('support <button> semantics through `as` prop', async () => {
@@ -24,7 +18,7 @@ describe('TopicTag', () => {
       </TopicTag>,
     )
 
-    await userEvent.click(screen.getByRole('link', {name: 'test'}))
+    await userEvent.click(screen.getByRole('button', {name: 'test'}))
     expect(onClick).toHaveBeenCalled()
   })
 

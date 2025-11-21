@@ -4,9 +4,9 @@ import classes from './TopicTagGroup.module.css'
 
 type TopicTagGroupProps = React.HTMLAttributes<HTMLElement>
 
-function TopicTagGroup({children, ...rest}: TopicTagGroupProps) {
+function TopicTagGroup({children, className, ...rest}: TopicTagGroupProps) {
   return (
-    <div {...rest} className={clsx(classes.TopicTagGroup)}>
+    <div {...rest} className={clsx(className, classes.TopicTagGroup)}>
       {children}
     </div>
   )
