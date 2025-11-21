@@ -1,6 +1,6 @@
-import {createContext, useContext, useMemo, useRef, useState, type PropsWithChildren} from 'react'
+import {createContext, useContext, useMemo, useRef, useState} from 'react'
 import type {Icon} from '@primer/octicons-react'
-import type {TabPanelProps, TabListProps, TabProps, TabsProps} from '../Tabs'
+import type {TabPanelProps, TabListProps, TabsProps} from '../Tabs'
 import {clsx} from 'clsx'
 import styles from './UnderlinePanels.module.css'
 import {Tabs, useTab, useTabList, useTabPanel} from '../Tabs'
@@ -9,8 +9,21 @@ import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 import {useResizeObserver, type ResizeObserverEntry} from '../../hooks/useResizeObserver'
 
 export type UnderlinePanelsProps = TabsProps & {
+  /**
+   * Custom prefix to use when generating the IDs of tabs and `aria-labelledby` for the panels
+   */
   id?: string
+
+  /**
+   * Whether to show loading state for counters in tabs. Used when counter values are being fetched to prevent layout shifts.
+   * @default false
+   */
   loadingCounters?: boolean
+
+  /**
+   * A single TabList (UnderlinePanels.TabList) and panels (UnderlinePanels.Panel) to render
+   */
+  children: React.ReactNode
 }
 
 export function UnderlinePanels({children, loadingCounters, ...rest}: UnderlinePanelsProps) {
@@ -35,7 +48,12 @@ interface UnderlinePanelsContextType {
 
 const UnderlinePanelsContext = createContext<UnderlinePanelsContextType | undefined>(undefined)
 
-export type UnderlinePanelsTabListProps = PropsWithChildren<TabListProps>
+export type UnderlinePanelsTabListProps = TabListProps & {
+  /**
+   * A list of UnderlinePanels.Tab components
+   */
+  children: React.ReactNode
+}
 
 function UnderlinePanelsTabList({className, children, ...props}: UnderlinePanelsTabListProps) {
   const listRef = useRef<HTMLUListElement>(null)
@@ -75,18 +93,34 @@ UnderlinePanels.TabList = UnderlinePanelsTabList
 UnderlinePanelsTabList.displayName = 'UnderlinePanels.TabList'
 UnderlinePanelsTabList.__SLOT__ = Symbol('UnderlinePanels.TabList')
 
-export type UnderlinePanelsTabProps = PropsWithChildren<
-  TabProps & {
-    /**
-     * Content of CounterLabel rendered after tab text label
-     */
-    counter?: number | string
-    /**
-     *  Icon rendered before the tab text label
-     */
-    icon?: Icon
-  }
->
+export type UnderlinePanelsTabProps = {
+  /**
+   * Specify whether the tab is disabled
+   * @default false
+   */
+  disabled?: boolean
+
+  /**
+   * Provide a value that uniquely identifies the tab.
+   * This should mirror the value provided to the corresponding TabPanel
+   */
+  value: string
+
+  /**
+   * Content of CounterLabel rendered after tab text label
+   */
+  counter?: number | string
+
+  /**
+   *  Icon rendered before the tab text label
+   */
+  icon?: Icon
+
+  /**
+   * Content of the tab
+   */
+  children: React.ReactNode
+}
 
 function UnderlinePanelsTab({children, ...props}: UnderlinePanelsTabProps) {
   const {tabProps} = useTab(props)
@@ -112,7 +146,18 @@ UnderlinePanels.Tab = UnderlinePanelsTab
 UnderlinePanelsTab.displayName = 'UnderlinePanels.Tab'
 UnderlinePanelsTab.__SLOT__ = Symbol('UnderlinePanels.Tab')
 
-export type UnderlinePanelsPanelProps = PropsWithChildren<TabPanelProps>
+export type UnderlinePanelsPanelProps = {
+  /**
+   * Provide a value that uniquely identifies the tab panel. This should mirror
+   * the value set for the corresponding tab
+   */
+  value: string
+
+  /**
+   * Content of the panel
+   */
+  children: React.ReactNode
+}
 
 function UnderlinePanelsPanel({value, ...rest}: UnderlinePanelsPanelProps) {
   const {tabPanelProps} = useTabPanel({value})

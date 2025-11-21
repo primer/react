@@ -1,0 +1,137 @@
+{
+  "id": "underline_panels2",
+  "name": "UnderlinePanels2",
+  "status": "draft",
+  "a11yReviewed": false,
+  "stories": [
+    {
+      "id": "experimental-components-underlinepanels2--default"
+    },
+    {
+      "id": "experimental-components-underlinepanels2-features--labelled-by-external-element"
+    },
+    {
+      "id": "experimental-components-underlinepanels2-features--selected-tab"
+    },
+    {
+      "id": "experimental-components-underlinepanels2-features--with-counters"
+    },
+    {
+      "id": "experimental-components-underlinepanels2-features--with-counters-in-loading-state"
+    },
+    {
+      "id": "experimental-components-underlinepanels2-features--with-icons"
+    },
+    {
+      "id": "experimental-components-underlinepanels2-features--with-icons-hidden-on-narrow-screen"
+    }
+  ],
+  "importPath": "@primer/react/experimental",
+  "props": [
+    {
+      "name": "id",
+      "type": "string",
+      "derive": true
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "derive": true
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "derive": true
+    },
+    {
+      "name": "onValueChange",
+      "derive": true
+    },
+    {
+      "name": "children",
+      "type": "React.ReactNode",
+      "derive": true
+    },
+    {
+      "name": "loadingCounters",
+      "type": "boolean",
+      "derive": true
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "UnderlinePanels2.TabList",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "derive": true
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string",
+          "derive": true
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "derive": true
+        },
+        {
+          "name": "ref",
+          "type": "React.Ref<HTMLUListElement>",
+          "derive": true
+        }
+      ],
+      "passthrough": {
+        "element": "ul",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul#Attributes"
+      }
+    },
+    {
+      "name": "UnderlinePanels2.Tab",
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "derive": true
+        },
+        {
+          "name": "counter",
+          "type": "number | string",
+          "derive": true
+        },
+        {
+          "name": "disabled",
+          "derive": true
+        },
+        {
+          "name": "icon",
+          "type": "Icon",
+          "derive": true
+        },
+        {
+          "name": "children",
+          "derive": true
+        }
+      ]
+    },
+    {
+      "name": "UnderlinePanels2.Panel",
+      "props": [
+        {
+          "name": "value",
+          "derive": true
+        },
+        {
+          "name": "children",
+          "derive": true
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#Attributes"
+      }
+    }
+  ]
+}

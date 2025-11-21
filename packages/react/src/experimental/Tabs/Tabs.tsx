@@ -94,10 +94,12 @@ function Tabs({id, ...props}: TabsProps) {
 }
 
 type Label = {
+  /** The accessible label for the tab list */
   'aria-label': string
 }
 
 type LabelledBy = {
+  /** The id of an external element that labels the tab list */
   'aria-labelledby': string
 }
 
