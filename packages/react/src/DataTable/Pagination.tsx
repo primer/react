@@ -2,7 +2,7 @@ import {ChevronLeftIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type React from 'react'
 import {useCallback, useMemo, useState} from 'react'
 import {Button} from '../internal/components/ButtonReset'
-import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
+import {AriaStatus} from '../live-region'
 import {VisuallyHidden} from '../VisuallyHidden'
 import {warning} from '../utils/warning'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
@@ -99,72 +99,69 @@ export function Pagination({
   }, [pageCount, pageIndex, showPages])
 
   return (
-    <LiveRegion>
-      <LiveRegionOutlet />
-      <nav aria-label={label} className={clsx('TablePagination', classes.TablePagination)} id={id}>
-        <Range pageStart={pageStart} pageEnd={pageEnd} totalCount={totalCount} />
-        <ol
-          className={clsx('TablePaginationSteps', classes.TablePaginationSteps)}
-          data-hidden-viewport-ranges={getViewportRangesToHidePages().join(' ')}
-        >
-          <Step>
-            <Button
-              className={clsx('TablePaginationAction', classes.TablePaginationAction)}
-              type="button"
-              data-has-page={hasPreviousPage ? true : undefined}
-              aria-disabled={!hasPreviousPage ? true : undefined}
-              onClick={() => {
-                if (!hasPreviousPage) {
-                  return
-                }
-                selectPreviousPage()
-              }}
-            >
-              {hasPreviousPage ? <ChevronLeftIcon /> : null}
-              <span>Previous</span>
-              <VisuallyHidden>&nbsp;page</VisuallyHidden>
-            </Button>
-          </Step>
-          {model.map((page, i) => {
-            if (page.type === 'BREAK') {
-              return <TruncationStep key={`truncation-${i}`} />
-            } else if (page.type === 'NUM') {
-              return (
-                <Step key={i}>
-                  <Page
-                    active={!!page.selected}
-                    onClick={() => {
-                      selectPage(page.num - 1)
-                    }}
-                  >
-                    {page.num}
-                    {page.precedesBreak ? <VisuallyHidden>…</VisuallyHidden> : null}
-                  </Page>
-                </Step>
-              )
-            }
-          })}
-          <Step>
-            <Button
-              className={clsx('TablePaginationAction', classes.TablePaginationAction)}
-              type="button"
-              data-has-page={hasNextPage ? true : undefined}
-              aria-disabled={!hasNextPage ? true : undefined}
-              onClick={() => {
-                if (!hasNextPage) {
-                  return
-                }
-                selectNextPage()
-              }}
-            >
-              <span>Next</span>
-              <VisuallyHidden>&nbsp;page</VisuallyHidden>
-              {hasNextPage ? <ChevronRightIcon /> : null}
-            </Button>
-          </Step>
-        </ol>
-      </nav>
-    </LiveRegion>
+    <nav aria-label={label} className={clsx('TablePagination', classes.TablePagination)} id={id}>
+      <Range pageStart={pageStart} pageEnd={pageEnd} totalCount={totalCount} />
+      <ol
+        className={clsx('TablePaginationSteps', classes.TablePaginationSteps)}
+        data-hidden-viewport-ranges={getViewportRangesToHidePages().join(' ')}
+      >
+        <Step>
+          <Button
+            className={clsx('TablePaginationAction', classes.TablePaginationAction)}
+            type="button"
+            data-has-page={hasPreviousPage ? true : undefined}
+            aria-disabled={!hasPreviousPage ? true : undefined}
+            onClick={() => {
+              if (!hasPreviousPage) {
+                return
+              }
+              selectPreviousPage()
+            }}
+          >
+            {hasPreviousPage ? <ChevronLeftIcon /> : null}
+            <span>Previous</span>
+            <VisuallyHidden>&nbsp;page</VisuallyHidden>
+          </Button>
+        </Step>
+        {model.map((page, i) => {
+          if (page.type === 'BREAK') {
+            return <TruncationStep key={`truncation-${i}`} />
+          } else if (page.type === 'NUM') {
+            return (
+              <Step key={i}>
+                <Page
+                  active={!!page.selected}
+                  onClick={() => {
+                    selectPage(page.num - 1)
+                  }}
+                >
+                  {page.num}
+                  {page.precedesBreak ? <VisuallyHidden>…</VisuallyHidden> : null}
+                </Page>
+              </Step>
+            )
+          }
+        })}
+        <Step>
+          <Button
+            className={clsx('TablePaginationAction', classes.TablePaginationAction)}
+            type="button"
+            data-has-page={hasNextPage ? true : undefined}
+            aria-disabled={!hasNextPage ? true : undefined}
+            onClick={() => {
+              if (!hasNextPage) {
+                return
+              }
+              selectNextPage()
+            }}
+          >
+            <span>Next</span>
+            <VisuallyHidden>&nbsp;page</VisuallyHidden>
+            {hasNextPage ? <ChevronRightIcon /> : null}
+          </Button>
+        </Step>
+      </ol>
+    </nav>
   )
 }
 
@@ -179,7 +176,11 @@ function Range({pageStart, pageEnd, totalCount}: RangeProps) {
   const end = pageEnd
   return (
     <>
-      <Message value={`Showing ${start} through ${end} of ${totalCount}`} />
+      <VisuallyHidden>
+        <AriaStatus aria-atomic="true">
+          Showing {start} through {end} of {totalCount}
+        </AriaStatus>
+      </VisuallyHidden>
       <p className={clsx('TablePaginationRange', classes.TablePaginationRange)}>
         {start}
         <VisuallyHidden>&nbsp;through&nbsp;</VisuallyHidden>

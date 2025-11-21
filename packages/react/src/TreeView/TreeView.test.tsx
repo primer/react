@@ -5,6 +5,7 @@ import React from 'react'
 import type {SubTreeState} from './TreeView'
 import {TreeView} from './TreeView'
 import {GearIcon} from '@primer/octicons-react'
+import {getLiveRegion} from '../live-region/__tests__/test-helpers'
 
 // TODO: Move this function into a shared location
 function renderWithTheme(
@@ -1392,6 +1393,10 @@ describe('State', () => {
 
 describe('Asynchronous loading', () => {
   it('updates aria live region when loading is done', () => {
+    // Set up live region for this test
+    const liveRegionEl = document.createElement('live-region')
+    document.body.appendChild(liveRegionEl)
+
     function TestTree() {
       const [state, setState] = React.useState<SubTreeState>('initial')
 
@@ -1426,15 +1431,15 @@ describe('Asynchronous loading', () => {
     const {getByRole} = renderWithTheme(<TestTree />)
 
     const doneButton = getByRole('button', {name: 'Load'})
-    const liveRegion = getByRole('status')
+    const liveRegion = getLiveRegion()
 
     // Live region should be empty
-    expect(liveRegion).toHaveTextContent('')
+    expect(liveRegion.getMessage('polite')).toBe('')
 
     // Click load button to mimic async loading
     fireEvent.click(doneButton)
 
-    expect(liveRegion).toHaveTextContent('Parent content loading')
+    expect(liveRegion.getMessage('polite')).toBe('Parent content loading')
 
     // Click done button to mimic the completion of async loading
     fireEvent.click(doneButton)
@@ -1444,8 +1449,10 @@ describe('Asynchronous loading', () => {
     })
 
     // Live region should be updated
-    expect(liveRegion).not.toHaveTextContent('Child 2 is empty')
-    expect(liveRegion).toHaveTextContent('Parent content loaded')
+    expect(liveRegion.getMessage('polite')).toBe('Parent content loaded')
+
+    // Clean up live region
+    document.body.removeChild(liveRegionEl)
   })
 
   it('moves focus from loading item to first child', async () => {
@@ -1810,7 +1817,8 @@ describe('CSS Module Migration', () => {
       </TreeView>
     )
 
-    // Testing on the second child element because the first child element is visually hidden
-    expect(render(<TreeViewTestComponent />).container.children[1]).toHaveClass('test-class-name')
+    // Find the TreeView ul element (which should have the className)
+    const treeElement = render(<TreeViewTestComponent />).getByRole('tree')
+    expect(treeElement).toHaveClass('test-class-name')
   })
 })
