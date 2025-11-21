@@ -104,7 +104,8 @@ type LabelledBy = {
 }
 
 type Labelled = Label | LabelledBy
-type TabListProps = Labelled & React.HTMLAttributes<HTMLElement>
+type TabListProps = Labelled &
+  Pick<React.HTMLAttributes<HTMLElement>, 'aria-orientation' | 'aria-label' | 'aria-labelledby'>
 
 function useTabList<T extends HTMLElement>(
   props: TabListProps & {
@@ -186,7 +187,7 @@ function useTabList<T extends HTMLElement>(
   }
 }
 
-function TabList({children, ...rest}: TabListProps) {
+function TabList({children, ...rest}: React.PropsWithChildren<TabListProps>) {
   const {tabListProps} = useTabList<HTMLDivElement>(rest)
 
   return (

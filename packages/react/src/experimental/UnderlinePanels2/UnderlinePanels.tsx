@@ -1,6 +1,6 @@
 import {createContext, useContext, useMemo, useRef, useState} from 'react'
 import type {Icon} from '@primer/octicons-react'
-import type {TabPanelProps, TabListProps, TabsProps} from '../Tabs'
+import type {TabListProps, TabsProps} from '../Tabs'
 import {clsx} from 'clsx'
 import styles from './UnderlinePanels.module.css'
 import {Tabs, useTab, useTabList, useTabPanel} from '../Tabs'
@@ -53,7 +53,7 @@ export type UnderlinePanelsTabListProps = TabListProps & {
    * A list of UnderlinePanels.Tab components
    */
   children: React.ReactNode
-}
+} & React.HTMLAttributes<HTMLDivElement>
 
 function UnderlinePanelsTabList({className, children, ...props}: UnderlinePanelsTabListProps) {
   const listRef = useRef<HTMLUListElement>(null)

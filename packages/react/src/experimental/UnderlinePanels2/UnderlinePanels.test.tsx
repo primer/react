@@ -1,11 +1,12 @@
+import ReactDOMServer from 'react-dom/server'
 import {render, screen} from '@testing-library/react'
 import {describe, it, expect, vi} from 'vitest'
 import {UnderlinePanels, type UnderlinePanelsTabListProps} from './UnderlinePanels'
 import {userEvent} from 'vitest/browser'
 
-const UnderlinePanelsMockComponent = ({id, ...rest}: {id?: string} & UnderlinePanelsTabListProps) => (
+const UnderlinePanelsMockComponent = ({id, ...rest}: {id?: string} & Omit<UnderlinePanelsTabListProps, 'children'>) => (
   <UnderlinePanels defaultValue="tab-1" id={id}>
-    <UnderlinePanels.TabList {...rest}>
+    <UnderlinePanels.TabList {...(rest as UnderlinePanelsTabListProps)}>
       <UnderlinePanels.Tab value="tab-1">Tab 1</UnderlinePanels.Tab>
       <UnderlinePanels.Tab value="tab-2">Tab 2</UnderlinePanels.Tab>
       <UnderlinePanels.Tab value="tab-3">Tab 3</UnderlinePanels.Tab>
@@ -116,5 +117,26 @@ describe('UnderlinePanels', () => {
     const {container} = render(<Element />)
 
     expect(container.firstElementChild).toHaveClass('test-class-name')
+  })
+
+  describe('SSR', () => {
+    it('renders correctly on server and hydrates without id mismatch', () => {
+      const element = <UnderlinePanelsMockComponent />
+
+      const container = document.createElement('div')
+      document.body.appendChild(container)
+      const htmlString = ReactDOMServer.renderToString(element)
+
+      expect(htmlString).toMatchSnapshot()
+
+      container.innerHTML = htmlString
+      render(element, {hydrate: true, container})
+
+      const firstTab = screen.getByRole('tab', {name: 'Tab 1'})
+      const firstPanel = screen.getByText('Panel 1')
+
+      expect(firstTab).toBeInTheDocument()
+      expect(firstPanel).toBeInTheDocument()
+    })
   })
 })
