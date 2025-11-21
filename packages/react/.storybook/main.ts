@@ -4,12 +4,14 @@ import react from '@vitejs/plugin-react'
 import postcssPresetPrimer from 'postcss-preset-primer'
 import type {StorybookConfig} from '@storybook/react-vite'
 import {isSupported} from '../script/react-compiler.mjs'
+import {getCodeEditorStaticDirs} from 'storybook-addon-code-editor/getStaticDirs'
 
 const require = createRequire(import.meta.url)
 
 const {DEPLOY_ENV = 'development'} = process.env
 
 const config: StorybookConfig = {
+  staticDirs: [...getCodeEditorStaticDirs(__filename)],
   stories:
     DEPLOY_ENV === 'development'
       ? ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)']
@@ -20,6 +22,7 @@ const config: StorybookConfig = {
     getAbsolutePath('@storybook/addon-a11y'),
     getAbsolutePath('@storybook/addon-links'),
     getAbsolutePath('@storybook/addon-docs'),
+    getAbsolutePath('storybook-addon-code-editor'),
   ],
 
   framework: {
