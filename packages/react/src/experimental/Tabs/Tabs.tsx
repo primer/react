@@ -187,7 +187,7 @@ function useTabList<T extends HTMLElement>(
   }
 }
 
-function TabList({children, ...rest}: React.PropsWithChildren<TabListProps>) {
+function TabList({children, ...rest}: React.PropsWithChildren<TabListProps & React.HTMLAttributes<HTMLDivElement>>) {
   const {tabListProps} = useTabList<HTMLDivElement>(rest)
 
   return (
