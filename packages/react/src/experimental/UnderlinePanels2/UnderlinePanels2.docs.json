@@ -103,6 +103,7 @@
         },
         {
           "name": "disabled",
+          "type": "boolean",
           "derive": true
         },
         {
@@ -112,6 +113,7 @@
         },
         {
           "name": "children",
+          "type": "React.ReactNode",
           "derive": true
         }
       ]
@@ -121,10 +123,12 @@
       "props": [
         {
           "name": "value",
+          "type": "string",
           "derive": true
         },
         {
           "name": "children",
+          "type": "React.ReactNode",
           "derive": true
         }
       ],
