@@ -1,7 +1,7 @@
 import ReactDOMServer from 'react-dom/server'
 import {render, screen} from '@testing-library/react'
 import {describe, it, expect, vi} from 'vitest'
-import {UnderlinePanels, type UnderlinePanelsTabListProps} from './UnderlinePanels'
+import {UnderlinePanels, type UnderlinePanelsTabListProps} from './UnderlinePanels2'
 import {userEvent} from 'vitest/browser'
 
 const UnderlinePanelsMockComponent = ({id, ...rest}: {id?: string} & Omit<UnderlinePanelsTabListProps, 'children'>) => (

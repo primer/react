@@ -1,5 +1,5 @@
 import type {Meta, StoryFn} from '@storybook/react-vite'
-import {UnderlinePanels} from './UnderlinePanels'
+import {UnderlinePanels} from './UnderlinePanels2'
 
 const meta: Meta<typeof UnderlinePanels> = {
   title: 'Experimental/Components/UnderlinePanels2',

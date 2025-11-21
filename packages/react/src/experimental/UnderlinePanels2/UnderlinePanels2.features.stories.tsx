@@ -1,6 +1,6 @@
 import type {Meta} from '@storybook/react-vite'
 import {INITIAL_VIEWPORTS} from 'storybook/viewport'
-import {UnderlinePanels} from './UnderlinePanels'
+import {UnderlinePanels} from './UnderlinePanels2'
 import type {ComponentProps} from '../../utils/types'
 import {
   CodeIcon,

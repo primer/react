@@ -1,11 +1,11 @@
 import type {ComponentProps} from '../../utils/types'
 import type {Meta, StoryFn} from '@storybook/react-vite'
-import {UnderlinePanels} from './UnderlinePanels'
+import {UnderlinePanels} from './UnderlinePanels2'
 
 export default {
   title: 'Experimental/Components/UnderlinePanels2/Dev',
   component: UnderlinePanels,
-  subcomponents: {Tab: UnderlinePanels.Tab, Panel: UnderlinePanels.Panel},
+  subcomponents: {Tab: UnderlinePanels.Tab, Panel: UnderlinePanels.Panel, TabList: UnderlinePanels.TabList},
 } as Meta<ComponentProps<typeof UnderlinePanels>>
 
 export const Default = () => (
@@ -35,12 +35,12 @@ export const SingleTabPlayground: StoryFn<ComponentProps<typeof UnderlinePanels.
 }
 
 SingleTabPlayground.args = {
-  'aria-selected': true,
   counter: '14K',
+  disabled: false,
 }
 
 SingleTabPlayground.argTypes = {
-  'aria-selected': {
+  disabled: {
     control: {
       type: 'boolean',
     },
