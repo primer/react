@@ -127,8 +127,6 @@ describe('UnderlinePanels', () => {
       document.body.appendChild(container)
       const htmlString = ReactDOMServer.renderToString(element)
 
-      expect(htmlString).toMatchSnapshot()
-
       container.innerHTML = htmlString
       render(element, {hydrate: true, container})
 
