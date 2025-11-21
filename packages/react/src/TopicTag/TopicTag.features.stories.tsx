@@ -7,7 +7,7 @@ export default {
   component: TopicTag,
 } satisfies Meta<typeof TopicTag>
 
-export const AsButton = () => <TopicTag as="button">React</TopicTag>
+export const AsButton = () => <TopicTag as="button">react</TopicTag>
 
 export const AsGroup = () => {
   const tags = [
@@ -26,7 +26,7 @@ export const AsGroup = () => {
   return (
     <TopicTagGroup>
       {tags.map(tag => (
-        <TopicTag key={tag} href={`/topics/${tag.toLowerCase()}`}>
+        <TopicTag key={tag} href={`/topics/${tag}`}>
           {tag}
         </TopicTag>
       ))}

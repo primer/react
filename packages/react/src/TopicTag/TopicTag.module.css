@@ -1,11 +1,35 @@
+/* Add a reset for when TopicTag is an <a> element since our link styles apply an underline text-decoration by default */
+/* stylelint-disable-next-line selector-no-qualifying-type */
+.TopicTag:where(a) {
+  text-decoration: none;
+}
+
+/* Add a reset for when TopicTag is a <button> element */
+/* stylelint-disable-next-line selector-no-qualifying-type */
+.TopicTag:where(button) {
+  margin: 0;
+  display: inline-flex;
+  padding: 0;
+  border: 0;
+  appearance: none;
+  background: none;
+  cursor: pointer;
+  text-align: start;
+  font: inherit;
+  color: inherit;
+  align-items: center;
+
+  &::-moz-focus-inner {
+    border: 0;
+  }
+}
+
 .TopicTag {
   background-color: var(--bgColor-accent-muted);
   color: var(--fgColor-accent);
   font-size: var(--text-body-size-small);
   font-weight: var(--base-text-weight-semibold);
-  /* --text-body-lineHeight-small */
-  /* stylelint-disable-next-line primer/typography */
-  line-height: 1.66667;
+  line-height: var(--text-body-lineHeight-small);
   border-radius: var(--borderRadius-full);
   padding: var(--base-size-2) var(--base-size-12);
   border: var(--borderWidth-thin) solid var(--topicTag-borderColor, transparent);
@@ -17,9 +41,8 @@
     color: var(--fgColor-onEmphasis);
   }
 
-  /* Add a reset to when TopicTag is an <a> element since our link styles apply an underline text-decoration by default */
-  /* stylelint-disable-next-line selector-no-qualifying-type */
-  &:where(a) {
-    text-decoration: none;
+  &:where(a, button) {
+    cursor: pointer;
+    user-select: none;
   }
 }

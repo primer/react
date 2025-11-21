@@ -33,7 +33,7 @@ describe('TopicTag', () => {
     expect(container.firstChild).toHaveClass('custom-class')
   })
 
-  test('additional props are supplied to outermost element', () => {
+  test('additional props are applied to outermost element', () => {
     const {container} = render(
       <TopicTag data-testid="test" id="test-id">
         test
