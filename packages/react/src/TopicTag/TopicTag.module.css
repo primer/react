@@ -7,21 +7,7 @@
 /* Add a reset for when TopicTag is a <button> element */
 /* stylelint-disable-next-line selector-no-qualifying-type */
 .TopicTag:where(button) {
-  margin: 0;
-  display: inline-flex;
-  padding: 0;
-  border: 0;
-  appearance: none;
-  background: none;
-  cursor: pointer;
-  text-align: start;
-  font: inherit;
-  color: inherit;
-  align-items: center;
-
-  &::-moz-focus-inner {
-    border: 0;
-  }
+  @mixin buttonReset;
 }
 
 .TopicTag {
