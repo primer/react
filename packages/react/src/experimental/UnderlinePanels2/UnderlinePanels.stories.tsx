@@ -15,6 +15,12 @@ const meta: Meta<typeof UnderlinePanels> = {
         name: 'string',
       },
     },
+    defaultValue: {
+      type: {
+        required: true,
+        name: 'string',
+      },
+    },
     loadingCounters: {
       control: {
         type: 'boolean',
@@ -24,6 +30,7 @@ const meta: Meta<typeof UnderlinePanels> = {
   args: {
     id: 'test',
     loadingCounters: false,
+    defaultValue: 'tab-0',
   },
 }
 
