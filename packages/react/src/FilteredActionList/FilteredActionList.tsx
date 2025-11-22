@@ -21,6 +21,7 @@ import {ActionListContainerContext} from '../ActionList/ActionListContainerConte
 import {isValidElementType} from 'react-is'
 import {useAnnouncements} from './useAnnouncements'
 import {clsx} from 'clsx'
+import {useResponsiveValue} from '../hooks/useResponsiveValue'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -126,7 +127,12 @@ export function FilteredActionList({
   )
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
 
-  const usingRovingTabindex = _PrivateFocusManagement === 'roving-tabindex'
+  const currentResponsiveVariant = useResponsiveValue(
+    fullScreenOnNarrow ? {regular: 'anchored', narrow: 'fullscreen'} : undefined,
+    'anchored',
+  )
+
+  const usingRovingTabindex = currentResponsiveVariant === 'fullscreen'
   const [listContainerElement, setListContainerElement] = useState<HTMLUListElement | null>(null)
   const activeDescendantRef = useRef<HTMLElement>()
 
