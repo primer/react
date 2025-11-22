@@ -92,9 +92,10 @@ jobs:
             npx changeset pre exit
             npx changeset version --snapshot
           else
-            pkg_json_path=packages/react/package.json
-            version=$(jq -r .version $pkg_json_path)
-            echo "$( jq ".version = \"$(echo $version)-rc.$(git rev-parse --short HEAD)\"" $pkg_json_path )" > $pkg_json_path
+            for pkg_json_path in packages/react/package.json packages/styled-react/package.json; do
+              version=$(jq -r .version $pkg_json_path)
+              echo "$( jq ".version = \"$(echo $version)-rc.$(git rev-parse --short HEAD)\"" $pkg_json_path )" > $pkg_json_path
+            done
           fi
 
           npx changeset publish --tag next
