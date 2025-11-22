@@ -1,16 +1,18 @@
 import {act, createRef, useCallback, useRef, useState} from 'react'
 import {describe, expect, it, vi} from 'vitest'
-import {render} from '@testing-library/react'
+import {render, type RenderResult} from '@testing-library/react'
 import {userEvent} from 'vitest/browser'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'
 import BaseStyles from '../BaseStyles'
 import type {AnchorPosition} from '@primer/behaviors'
+import {implementsClassNameBehavior} from '../utils/testing'
 type TestComponentSettings = {
   initiallyOpen?: boolean
   onOpenCallback?: (gesture: string) => void
   onCloseCallback?: (gesture: string) => void
   onPositionChange?: ({position}: {position: AnchorPosition}) => void
+  className?: string
 }
 
 const AnchoredOverlayTestComponent = ({
@@ -18,6 +20,7 @@ const AnchoredOverlayTestComponent = ({
   onOpenCallback,
   onCloseCallback,
   onPositionChange,
+  className,
 }: TestComponentSettings = {}) => {
   const [open, setOpen] = useState(initiallyOpen)
   const onOpen = useCallback(
@@ -42,6 +45,7 @@ const AnchoredOverlayTestComponent = ({
         onClose={onClose}
         renderAnchor={props => <Button {...props}>Anchor Button</Button>}
         onPositionChange={onPositionChange}
+        className={className}
       >
         <button type="button">Focusable Child</button>
       </AnchoredOverlay>
@@ -50,6 +54,12 @@ const AnchoredOverlayTestComponent = ({
 }
 
 describe('AnchoredOverlay', () => {
+  implementsClassNameBehavior(
+    AnchoredOverlay,
+    'prc-Overlay-Overlay-ViJgm',
+    component => component.container.firstChild!.childNodes[1].firstChild?.firstChild as HTMLElement,
+    props => <AnchoredOverlayTestComponent initiallyOpen={true} {...props} />,
+  )
   it('should call onOpen when the anchor is clicked', async () => {
     const mockOpenCallback = vi.fn()
     const mockCloseCallback = vi.fn()
