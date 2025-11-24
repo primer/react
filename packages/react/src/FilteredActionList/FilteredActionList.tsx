@@ -80,6 +80,10 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
    * @default 'active-descendant'
    */
   _PrivateFocusManagement?: 'roving-tabindex' | 'active-descendant'
+  /**
+   * If true, disables selecting items when hovering over them with the mouse.
+   */
+  disableSelectOnHover?: boolean
 }
 
 export function FilteredActionList({
@@ -106,6 +110,7 @@ export function FilteredActionList({
   actionListProps,
   focusOutBehavior = 'wrap',
   _PrivateFocusManagement = 'active-descendant',
+  disableSelectOnHover = false,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -233,6 +238,7 @@ export function FilteredActionList({
               scrollIntoView(current, scrollContainerRef.current, menuScrollMargins)
             }
           },
+          selectOnHover: disableSelectOnHover ? false : true,
         }
       : undefined,
     [listContainerElement, usingRovingTabindex],
@@ -332,6 +338,7 @@ export function FilteredActionList({
                         className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
                         data-input-focused={isInputFocused ? '' : undefined}
                         data-first-child={index === firstGroupIndex && itemIndex === 0 ? '' : undefined}
+                        data-select-on-hover={disableSelectOnHover ? 'true' : 'false'}
                         {...item}
                         renderItem={listProps.renderItem}
                       />
@@ -348,6 +355,7 @@ export function FilteredActionList({
                   className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
                   data-input-focused={isInputFocused ? '' : undefined}
                   data-first-child={index === 0 ? '' : undefined}
+                  data-select-on-hover={disableSelectOnHover ? 'true' : 'false'}
                   {...item}
                   renderItem={listProps.renderItem}
                 />

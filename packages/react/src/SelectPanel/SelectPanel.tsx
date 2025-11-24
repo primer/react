@@ -117,6 +117,10 @@ interface SelectPanelBaseProps {
    * @default undefined (uses feature flag default)
    */
   disableFullscreenOnNarrow?: boolean
+  /**
+   * Whether to disable selecting items on hover.
+   */
+  disableSelectOnHover?: boolean
   showSelectAll?: boolean
 }
 
@@ -193,6 +197,7 @@ function Panel({
   disableFullscreenOnNarrow,
   align,
   showSelectAll = false,
+  disableSelectOnHover = false,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -883,6 +888,7 @@ function Panel({
             }}
             fullScreenOnNarrow={usingFullScreenOnNarrow}
             className={clsx(className, classes.FilteredActionList)}
+            disableSelectOnHover={disableSelectOnHover}
           />
           {footer ? (
             <div className={classes.Footer}>{footer}</div>

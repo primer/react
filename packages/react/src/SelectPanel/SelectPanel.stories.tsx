@@ -92,6 +92,7 @@ export const Default = () => {
               }
             : undefined
         }
+        disableSelectOnHover={true}
       />
     </FormControl>
   )
