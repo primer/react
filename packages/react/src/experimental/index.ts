@@ -93,3 +93,7 @@ export {IssueLabel} from './IssueLabel'
 export type {IssueLabelProps} from './IssueLabel'
 
 export * from '../KeybindingHint'
+export * from './Tabs'
+
+export {TopicTag} from '../TopicTag'
+export type {TopicTagProps, TopicTagGroupProps} from '../TopicTag'

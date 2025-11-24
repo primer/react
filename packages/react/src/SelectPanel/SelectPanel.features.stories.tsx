@@ -43,7 +43,8 @@ const NoResultsMessage = (filter: string): {variant: 'empty'; title: string; bod
   }
 }
 
-const EmptyMessage: {variant: 'empty'; title: string; body: React.ReactElement} = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const EmptyMessage: {variant: 'empty'; title: string; body: React.ReactElement<any>} = {
   variant: 'empty',
   title: `You haven't created any projects yet`,
   body: (
@@ -340,7 +341,8 @@ export const WithNotice = () => {
   const [open, setOpen] = useState(false)
   const [noticeVariant, setNoticeVariant] = useState(0)
 
-  const noticeVariants: Array<{text: string | React.ReactElement; variant: 'info' | 'warning' | 'error'}> = [
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const noticeVariants: Array<{text: string | React.ReactElement<any>; variant: 'info' | 'warning' | 'error'}> = [
     {
       variant: 'info',
       text: 'Try a different search term.',
@@ -582,13 +584,8 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
       <SelectPanel
         title="Select labels"
         subtitle="Use labels to organize issues and pull requests"
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button
-            trailingAction={TriangleDownIcon}
-            aria-labelledby={` ${ariaLabelledBy}`}
-            {...anchorProps}
-            aria-haspopup="dialog"
-          >
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
             {children ?? 'Select Labels'}
           </Button>
         )}
@@ -642,7 +639,8 @@ export const CustomisedNoInitialItems = () => {
     setIsError(!isError)
   }, [setIsError, isError])
 
-  function getMessage(): {variant: 'empty' | 'error'; title: string; body: string | React.ReactElement} {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function getMessage(): {variant: 'empty' | 'error'; title: string; body: string | React.ReactElement<any>} {
     if (isError) return ErrorMessage
     else if (filter) return NoResultsMessage(filter)
     else return EmptyMessage
@@ -656,8 +654,8 @@ export const CustomisedNoInitialItems = () => {
       <ToggleSwitch onClick={onClick} checked={isError} aria-labelledby="toggle" />
       <SelectPanel
         title="Set projects"
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
             {children ?? 'Select Labels'}
           </Button>
         )}
@@ -709,13 +707,8 @@ export const CustomisedNoResults: StoryObj<typeof SelectPanel> = {
       <SelectPanel
         title="Select labels"
         subtitle="Use labels to organize issues and pull requests"
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button
-            trailingAction={TriangleDownIcon}
-            aria-labelledby={` ${ariaLabelledBy}`}
-            {...anchorProps}
-            aria-haspopup="dialog"
-          >
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
             {children ?? 'Select Labels'}
           </Button>
         )}
@@ -911,10 +904,12 @@ export const WithMessage = () => {
     | undefined
     | {
         title: string
-        body: string | React.ReactElement
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        body: string | React.ReactElement<any>
         variant: 'empty' | 'error' | 'warning'
         icon?: React.ComponentType<IconProps>
-        action?: React.ReactElement
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        action?: React.ReactElement<any>
       }
   > = [
     undefined, // Default message
@@ -949,6 +944,7 @@ export const WithMessage = () => {
   const filteredItems = itemsToShow.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setFilter('')
   }, [messageVariant])
 

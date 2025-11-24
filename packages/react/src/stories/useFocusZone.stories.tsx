@@ -1,26 +1,15 @@
-import React, {useCallback, useRef, useState} from 'react'
+import React, {useCallback, useRef, useState, type JSX} from 'react'
 import type {Meta} from '@storybook/react-vite'
-import {BaseStyles, Flash, theme, ThemeProvider} from '..'
+import {Flash} from '..'
 import {Button} from '../Button'
 import Link from '../Link'
 import {FocusKeys} from '@primer/behaviors'
 import type {Direction} from '@primer/behaviors'
 import {useFocusZone} from '../hooks/useFocusZone'
-import classes from './FocusZoneStories.module.css'
+import classes from './FocusZone.stories.module.css'
 
 export default {
   title: 'Hooks/useFocusZone',
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider theme={theme}>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    },
-  ],
 } as Meta
 
 const MarginButton = ({children, ...props}: React.ComponentProps<typeof Button>) => (

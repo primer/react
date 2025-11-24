@@ -32,7 +32,7 @@ export const Playground = (args: FormControlArgs<TextInputProps>) => {
     <form className={classes.Container}>
       <FormControl {...parentArgs}>
         <FormControl.Label {...labelArgs} />
-        <TextInput value={value} onChange={handleChange} {...args} />
+        <TextInput value={value} onChange={handleChange} onInput={handleChange} {...args} />
         {captionArgs.children && <FormControl.Caption {...captionArgs} />}
         {validationArgs.children && validationArgs.variant && (
           <FormControl.Validation {...validationArgs} variant={validationArgs.variant} />

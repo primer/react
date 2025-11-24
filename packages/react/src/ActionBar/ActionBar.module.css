@@ -9,7 +9,20 @@
   white-space: nowrap;
   list-style: none;
   align-items: center;
-  gap: var(--base-size-8);
+  gap: var(--actionbar-gap, var(--stack-gap-condensed));
+
+  /* Gap scale (mirrors Stack) */
+  &:where([data-gap='none']) {
+    --actionbar-gap: 0;
+
+    .Divider {
+      padding: 0 var(--base-size-8);
+    }
+  }
+
+  &:where([data-gap='condensed']) {
+    --actionbar-gap: var(--stack-gap-condensed);
+  }
 }
 
 .Nav {
@@ -32,4 +45,9 @@
     /* stylelint-disable-next-line primer/colors */
     background: var(--borderColor-muted);
   }
+}
+
+.Group {
+  display: flex;
+  gap: inherit;
 }

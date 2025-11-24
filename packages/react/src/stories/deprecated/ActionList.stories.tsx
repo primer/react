@@ -12,13 +12,12 @@ import {
   ArrowLeftIcon,
 } from '@primer/octicons-react'
 import type {Meta} from '@storybook/react-vite'
-import React, {forwardRef} from 'react'
-import {Label, ThemeProvider} from '../..'
+import React, {forwardRef, type JSX} from 'react'
+import {Label} from '../..'
 import {ActionList as _ActionList} from '../../deprecated/ActionList'
 import {Header} from '../../deprecated/ActionList/Header'
-import BaseStyles from '../../BaseStyles'
 import {ReactRouterLikeLink} from '../../Pagination/mocks/ReactRouterLink'
-import classes from './ActionListStories.module.css'
+import classes from './ActionList.stories.module.css'
 
 const ActionList = Object.assign(_ActionList, {
   Header,
@@ -27,15 +26,6 @@ const ActionList = Object.assign(_ActionList, {
 const meta: Meta = {
   title: 'Deprecated/Components/ActionList',
   component: ActionList,
-  decorators: [
-    (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => (
-      <ThemeProvider>
-        <BaseStyles>
-          <Story />
-        </BaseStyles>
-      </ThemeProvider>
-    ),
-  ],
   parameters: {
     controls: {
       disable: true,
@@ -358,12 +348,14 @@ export function SizeStressTestingStory(): JSX.Element {
 SizeStressTestingStory.storyName = 'Size Stress Testing'
 
 const NextJSLikeLink = forwardRef(
-  ({href, children}: {href: string; children: React.ReactNode}, ref): React.ReactElement => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ({href, children}: {href: string; children: React.ReactNode}, ref): React.ReactElement<any> => {
     const child = React.Children.only(children)
     const childProps = {
       ref,
       href,
     }
+    // eslint-disable-next-line react-hooks/refs
     return <>{React.isValidElement(child) ? React.cloneElement(child, childProps) : null}</>
   },
 )

@@ -34,7 +34,8 @@
     },
     {
       "name": "flush",
-      "derive": true
+      "derive": true,
+      "type": "boolean"
     },
     {
       "name": "className",
@@ -42,6 +43,13 @@
       "required": false,
       "description": "Custom className",
       "defaultValue": ""
+    },
+    {
+      "name": "gap",
+      "type": "'none' | 'condensed'",
+      "required": false,
+      "defaultValue": "'condensed'",
+      "description": "Horizontal gap scale between items (restricted to none or condensed)."
     }
   ],
   "subcomponents": [
@@ -82,6 +90,45 @@
     {
       "name": "ActionBar.Divider",
       "props": []
+    },
+    {
+      "name": "ActionBar.Group",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "defaultValue": ""
+        }
+      ]
+    },
+    {
+      "name": "ActionBar.Menu",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible label for the menu button."
+        },
+        {
+          "name": "icon",
+          "type": "Component",
+          "required": true,
+          "description": "Icon for the menu button."
+        },
+        {
+          "name": "items",
+          "type": "ActionBarMenuItemProps[]",
+          "required": true,
+          "description": "Array of menu items to render in the menu. Each item can be an action, group, or divider."
+        },
+        {
+          "name": "overflowIcon",
+          "type": "Component | 'none'",
+          "required": false,
+          "description": "Icon displayed when the menu item is within the overflow menu. If 'none' is provided, no icon will be shown in the overflow menu."
+        }
+      ]
     }
   ]
 }

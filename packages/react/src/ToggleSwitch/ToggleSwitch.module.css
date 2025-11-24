@@ -136,13 +136,13 @@
 .SwitchButton:where([data-checked='false']:not([data-disabled='true']):hover),
 .SwitchButton:where([data-checked='false']:not([data-disabled='true']):focus-visible) {
   /* stylelint-disable-next-line primer/colors */
-  background-color: var(--controlTrack-bgColor-hover, var(--color-switch-track-hover-bg, hsla(210deg, 24%, 90%, 1)));
+  background-color: var(--controlTrack-bgColor-hover, var(--color-switch-track-hover-bg, hsl(210deg, 24%, 90%, 1)));
 }
 
 .SwitchButton:where([data-checked='false']:not([data-disabled='true']):active),
 .SwitchButton:where([data-checked='false']:not([data-disabled='true']):active:focus-visible) {
   /* stylelint-disable-next-line primer/colors */
-  background-color: var(--controlTrack-bgColor-active, var(--color-switch-track-active-bg, hsla(210deg, 24%, 88%, 1)));
+  background-color: var(--controlTrack-bgColor-active, var(--color-switch-track-active-bg, hsl(210deg, 24%, 88%, 1)));
 }
 
 .SwitchButton:where([data-checked='true']:not([data-disabled='true'])) {
@@ -257,6 +257,7 @@
 }
 
 .ToggleKnob:where([data-disabled='true']) {
+  background-color: var(--controlKnob-bgColor-disabled);
   /* stylelint-disable-next-line primer/colors */
   border-color: var(--controlTrack-bgColor-disabled, var(--color-switch-track-disabled-bg, #8c959f));
 

@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {ThemeProvider as SCThemeProvider} from 'styled-components'
 import defaultTheme from './theme'
 import deepmerge from 'deepmerge'
 import {useId} from './hooks'
@@ -16,7 +15,6 @@ type ColorMode = 'day' | 'night' | 'light' | 'dark'
 export type ColorModeWithAuto = ColorMode | 'auto'
 
 export type ThemeProviderProps = {
-  theme?: Theme
   colorMode?: ColorModeWithAuto
   dayScheme?: string
   nightScheme?: string
@@ -46,7 +44,7 @@ const getServerHandoff = (id: string) => {
     const serverData = document.getElementById(`__PRIMER_DATA_${id}__`)?.textContent
     if (serverData) return JSON.parse(serverData)
   } catch (_error) {
-    // if document/element does not exist or JSON is invalid, supress error
+    // if document/element does not exist or JSON is invalid, suppress error
   }
   return {}
 }
@@ -61,7 +59,7 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
   } = useTheme()
 
   // Initialize state
-  const theme = props.theme ?? fallbackTheme ?? defaultTheme
+  const theme = fallbackTheme ?? defaultTheme
 
   const uniqueDataId = useId()
   const {resolvedServerColorMode} = getServerHandoff(uniqueDataId)
@@ -71,6 +69,7 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
   const [dayScheme, setDayScheme] = useSyncedState(props.dayScheme ?? fallbackDayScheme ?? defaultDayScheme)
   const [nightScheme, setNightScheme] = useSyncedState(props.nightScheme ?? fallbackNightScheme ?? defaultNightScheme)
   const systemColorMode = useSystemColorMode()
+  // eslint-disable-next-line react-hooks/refs
   const resolvedColorMode = resolvedColorModePassthrough.current || resolveColorMode(colorMode, systemColorMode)
   const colorScheme = chooseColorScheme(resolvedColorMode, dayScheme, nightScheme)
   const {resolvedTheme, resolvedColorScheme} = React.useMemo(
@@ -120,7 +119,11 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
         setNightScheme,
       }}
     >
-      <SCThemeProvider theme={resolvedTheme}>
+      <div
+        data-color-mode={colorMode === 'auto' ? 'auto' : colorScheme.includes('dark') ? 'dark' : 'light'}
+        data-light-theme={dayScheme}
+        data-dark-theme={nightScheme}
+      >
         {children}
         {props.preventSSRMismatch ? (
           <script
@@ -129,7 +132,7 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
             dangerouslySetInnerHTML={{__html: JSON.stringify({resolvedServerColorMode: resolvedColorMode})}}
           />
         ) : null}
-      </SCThemeProvider>
+      </div>
     </ThemeContext.Provider>
   )
 }

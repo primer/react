@@ -3,12 +3,10 @@ on:
   push:
     branches:
       - main
-      - next-major
   pull_request:
   merge_group:
     branches:
       - main
-      - next-major
     types:
       - checks_requested
 
@@ -23,7 +21,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
       - name: Set up Node.js
-        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -38,7 +36,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
       - name: Set up Node.js
-        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -55,11 +53,15 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        react-version: ['react-18', 'react-19']
     steps:
       - name: Checkout repository
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
       - name: Set up Node.js
-        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -72,8 +74,11 @@ jobs:
             ${{ runner.os }}-turbo-
       - name: Install dependencies
         run: npm ci
+      - if: ${{ matrix.react-version == 'react-19' }}
+        run: node script/setup-react-19.mts
       - name: Build
         run: npm run build
+        continue-on-error: ${{ matrix.react-version == 'react-19' }}
       - name: Run tests defined in vitest
         uses: docker://mcr.microsoft.com/playwright:v1.55.0-jammy
         with:
@@ -81,11 +86,15 @@ jobs:
 
   type-check:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        react-version: ['react-18', 'react-19']
     steps:
       - name: Checkout repository
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
       - name: Set up Node.js
-        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -98,18 +107,26 @@ jobs:
             ${{ runner.os }}-turbo-
       - name: Install dependencies
         run: npm ci
+      - if: ${{ matrix.react-version == 'react-19' }}
+        run: node script/setup-react-19.mts
       - name: Build project
         run: npm run build
+        continue-on-error: ${{ matrix.react-version == 'react-19' }}
       - name: Type check
         run: npm run type-check
+        continue-on-error: ${{ matrix.react-version == 'react-19' }}
 
   examples:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        react-version: ['react-18', 'react-19']
     steps:
       - name: Checkout repository
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
       - name: Set up Node.js
-        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -122,8 +139,11 @@ jobs:
             ${{ runner.os }}-turbo-
       - name: Install dependencies
         run: npm ci
+      - if: ${{ matrix.react-version == 'react-19' }}
+        run: node script/setup-react-19.mts
       - name: Build
         run: npx turbo build
+        continue-on-error: ${{ matrix.react-version == 'react-19' }}
 
   build-components-json:
     runs-on: ubuntu-latest
@@ -131,7 +151,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
       - name: Set up Node.js
-        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -162,7 +182,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
       - name: Set up Node.js
-        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'

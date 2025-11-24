@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
 
       - name: Set up Node.js
-        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -66,7 +66,7 @@ jobs:
             core.setOutput('metrics', metrics.join('\n'))
 
       - name: Build count
-        uses: masci/datadog@f0cad7cba58a34e65535732564c9bf174ee89006
+        uses: masci/datadog@a3f481d2ed0f4e1edde2be2f564b94719d6d4bc2
         with:
           api-key: ${{ secrets.datadog_api_key }}
           metrics: ${{ steps.file-counts.outputs.metrics }}

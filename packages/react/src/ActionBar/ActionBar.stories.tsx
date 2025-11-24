@@ -21,8 +21,8 @@ export default meta
 type Story = StoryObj<typeof ActionBar>
 
 export const Playground: Story = {
-  render: args => (
-    <ActionBar {...args}>
+  render: ({'aria-labelledby': _, ...args}) => (
+    <ActionBar {...args} aria-label="Toolbar">
       <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
       <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
       <ActionBar.Divider />
@@ -42,10 +42,17 @@ Playground.argTypes = {
       type: 'boolean',
     },
   },
+  gap: {
+    control: {type: 'radio'},
+    options: ['none', 'condensed'],
+    description: 'Horizontal gap scale between items',
+    table: {defaultValue: {summary: 'condensed'}},
+  },
 }
 Playground.args = {
   size: 'medium',
   flush: false,
+  gap: 'condensed',
 }
 
 export const Default = () => (

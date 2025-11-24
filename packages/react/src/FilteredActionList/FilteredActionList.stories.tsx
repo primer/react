@@ -1,22 +1,11 @@
 import type {Meta} from '@storybook/react-vite'
-import React from 'react'
-import {ThemeProvider} from '..'
+import React, {type JSX} from 'react'
 import {FilteredActionList} from '../FilteredActionList'
-import BaseStyles from '../BaseStyles'
 import classes from './FilteredActionList.stories.module.css'
 
 const meta: Meta = {
   title: 'Components/FilteredActionList',
   component: FilteredActionList,
-  decorators: [
-    (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => (
-      <ThemeProvider>
-        <BaseStyles>
-          <Story />
-        </BaseStyles>
-      </ThemeProvider>
-    ),
-  ],
   parameters: {
     controls: {
       disable: true,

@@ -15,15 +15,20 @@ export type SegmentedControlButtonProps = {
   selected?: boolean
   /** Whether the segment is selected. This is used for uncontrolled `SegmentedControls` to pick one `SegmentedControlButton` that is selected on the initial render. */
   defaultSelected?: boolean
-  /** The leading icon comes before item label */
-  leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement
+  /** The leading visual comes before item label */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  leadingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement<any>
+  /** @deprecated Use `leadingVisual` instead. The leading icon comes before item label */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement<any>
   /** Optional counter to display on the right side of the button */
   count?: number | string
 } & ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
 const SegmentedControlButton: FCWithSlotMarker<React.PropsWithChildren<SegmentedControlButtonProps>> = ({
   children,
-  leadingIcon: LeadingIcon,
+  leadingVisual,
+  leadingIcon,
   selected,
   className,
   // Note: this value is read in the `SegmentedControl` component to determine which button is selected but we do not need to apply it to an underlying element
@@ -31,12 +36,15 @@ const SegmentedControlButton: FCWithSlotMarker<React.PropsWithChildren<Segmented
   count,
   ...rest
 }) => {
+  // Use leadingVisual if provided, otherwise fall back to leadingIcon for backwards compatibility
+  const LeadingVisual = leadingVisual ?? leadingIcon
+
   return (
     <li className={clsx(classes.Item)} data-selected={selected ? '' : undefined}>
       <button aria-current={selected} className={clsx(classes.Button, className)} type="button" {...rest}>
         <span className={clsx(classes.Content, 'segmentedControl-content')}>
-          {LeadingIcon && (
-            <div className={classes.LeadingIcon}>{isElement(LeadingIcon) ? LeadingIcon : <LeadingIcon />}</div>
+          {LeadingVisual && (
+            <div className={classes.LeadingIcon}>{isElement(LeadingVisual) ? LeadingVisual : <LeadingVisual />}</div>
           )}
           <div className={clsx(classes.Text, 'segmentedControl-text')} data-text={children}>
             {children}

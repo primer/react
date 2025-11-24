@@ -43,7 +43,8 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (
     {checked, className, defaultChecked, indeterminate, disabled, onChange, required, validationStatus, value, ...rest},
     ref,
-  ): ReactElement => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): ReactElement<any> => {
     const checkboxRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
     const checkboxGroupContext = useContext(CheckboxGroupContext)
     const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
@@ -67,7 +68,6 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
 
     useLayoutEffect(() => {
       if (checkboxRef.current) {
-        // eslint-disable-next-line react-compiler/react-compiler
         checkboxRef.current.indeterminate = indeterminate || false
       }
     }, [indeterminate, checked, checkboxRef])

@@ -19,9 +19,11 @@ import classes from './AutocompleteMenu.module.css'
 
 type OnSelectedChange<T> = (item: T | T[]) => void
 export type AutocompleteMenuItem = MandateProps<ActionListItemProps, 'id'> & {
-  leadingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  leadingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement<any>
   text?: string
-  trailingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  trailingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement<any>
 }
 
 const getDefaultSortFn = (isItemSelectedFn: (itemId: string) => boolean) => (itemIdA: string, itemIdB: string) =>
@@ -288,7 +290,6 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
       },
       activeDescendantFocus: inputRef,
       onActiveDescendantChanged: (current, _previous, directlyActivated) => {
-        // eslint-disable-next-line react-compiler/react-compiler
         activeDescendantRef.current = current || null
         if (current) {
           const selectedItem = allItemsToRenderRef.current.find(item => {
@@ -326,6 +327,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
       itemIdSortResult.every((element, index) => element === sortedItemIds[index])
 
     if (showMenu === false && !sortResultMatchesState) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSortedItemIds(itemIdSortResult)
     }
 

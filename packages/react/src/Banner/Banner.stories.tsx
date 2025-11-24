@@ -3,6 +3,7 @@ import Link from '../Link'
 import {Banner} from '../Banner'
 import {PageLayout} from '../PageLayout'
 import {action} from 'storybook/actions'
+import {CopilotIcon, GitPullRequestIcon} from '@primer/octicons-react'
 
 const meta = {
   title: 'Components/Banner',
@@ -31,8 +32,16 @@ export const Default = () => {
   )
 }
 
+const iconMap = {
+  GitPullRequestIcon: <GitPullRequestIcon />,
+  CopilotIcon: <CopilotIcon />,
+}
+
 export const Playground: StoryObj<typeof Banner> = {
-  render: ({onDismiss, primaryAction, secondaryAction, ...rest}) => {
+  render: ({onDismiss, primaryAction, secondaryAction, leadingVisual, ...rest}) => {
+    // Map the string selection to the actual icon component
+    const leadingVisualElement = leadingVisual && iconMap[leadingVisual as keyof typeof iconMap]
+
     return (
       <PageLayout>
         <PageLayout.Pane divider="line" position="start">
@@ -43,6 +52,7 @@ export const Playground: StoryObj<typeof Banner> = {
             secondaryAction={
               secondaryAction ? <Banner.SecondaryAction>{secondaryAction}</Banner.SecondaryAction> : null
             }
+            leadingVisual={leadingVisualElement}
             {...rest}
           />
         </PageLayout.Pane>
@@ -55,6 +65,7 @@ export const Playground: StoryObj<typeof Banner> = {
             secondaryAction={
               secondaryAction ? <Banner.SecondaryAction>{secondaryAction}</Banner.SecondaryAction> : null
             }
+            leadingVisual={leadingVisualElement}
             {...rest}
           />
         </PageLayout.Content>
@@ -77,6 +88,12 @@ export const Playground: StoryObj<typeof Banner> = {
     },
     description: {
       control: 'text',
+    },
+    leadingVisual: {
+      control: {
+        type: 'select',
+      },
+      options: [undefined, 'GitPullRequestIcon', 'CopilotIcon'],
     },
     onDismiss: {
       control: 'boolean',
