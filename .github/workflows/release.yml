@@ -41,7 +41,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - uses: actions/create-github-app-token@67018539274d69449ef7c02e8e71183d1719ab42
+      - name: Create GitHub App token
+        uses: actions/create-github-app-token@67018539274d69449ef7c02e8e71183d1719ab42
         id: app-token
         with:
           app-id: ${{ vars.PRIMER_APP_ID_SHARED }}
@@ -73,6 +74,7 @@ jobs:
         with:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Set up Node
         uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
@@ -85,6 +87,13 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Create GitHub App token
+        uses: actions/create-github-app-token@67018539274d69449ef7c02e8e71183d1719ab42
+        id: app-token
+        with:
+          app-id: ${{ vars.PRIMER_APP_ID_SHARED }}
+          private-key: ${{ secrets.PRIMER_APP_PRIVATE_KEY_SHARED }}
 
       - name: Publish release candidate
         run: |
@@ -100,7 +109,7 @@ jobs:
 
           npx changeset publish --tag next
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Report versions
         uses: primer/.github/.github/actions/report-versions@v2.4.0
@@ -118,6 +127,7 @@ jobs:
         with:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
+          persist-credentials: false
       - name: Set up Node
         uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
         with:
@@ -127,6 +137,12 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build --if-present
+      - name: Create GitHub App token
+        uses: actions/create-github-app-token@67018539274d69449ef7c02e8e71183d1719ab42
+        id: app-token
+        with:
+          app-id: ${{ vars.PRIMER_APP_ID_SHARED }}
+          private-key: ${{ secrets.PRIMER_APP_PRIVATE_KEY_SHARED }}
       - name: Publish canary release
         run: |
           if [[ -f '.changeset/pre.json' ]]; then
@@ -137,7 +153,7 @@ jobs:
           npx changeset version --snapshot
           npx changeset publish --tag canary
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Report versions
         uses: primer/.github/.github/actions/report-versions@v2.4.0
