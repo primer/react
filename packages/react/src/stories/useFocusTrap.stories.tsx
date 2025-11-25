@@ -4,7 +4,7 @@ import type {Meta} from '@storybook/react-vite'
 import {Button, Flash, Stack, Text} from '..'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
-import classes from './FocusTrapStories.module.css'
+import classes from './FocusTrap.stories.module.css'
 
 export default {
   title: 'Hooks/useFocusTrap',
