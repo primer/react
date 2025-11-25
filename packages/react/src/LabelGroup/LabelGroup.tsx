@@ -91,6 +91,7 @@ const OverlayToggle: React.FC<
         </Button>
       )}
       focusZoneSettings={{disabled: true}}
+      overlayProps={{role: 'dialog', 'aria-label': `All ${hiddenItemIds.length} labels`}}
     >
       <div className={classes.OverlayContainer} style={{width: overlayWidth, padding: `${overlayPaddingPx}px`}}>
         <div className={classes.OverlayInner}>{children}</div>
