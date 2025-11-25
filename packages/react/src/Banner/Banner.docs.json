@@ -75,7 +75,13 @@
     {
       "name": "icon",
       "type": "React.ReactNode",
-      "description": "Provide a custom icon for the Banner. This is only available when `variant` is `info` or `upsell`"
+      "description": "Provide a custom icon for the Banner. This is only available when `variant` is `info` or `upsell`",
+      "deprecated": true
+    },
+    {
+      "name": "leadingVisual",
+      "type": "React.ReactNode",
+      "description": "Provide a custom leading visual for the Banner. This is only available when `variant` is `info` or `upsell`"
     },
     {
       "name": "onDismiss",

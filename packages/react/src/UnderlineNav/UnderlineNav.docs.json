@@ -83,7 +83,14 @@
           "name": "icon",
           "type": "Component",
           "defaultValue": "",
-          "description": "The leading icon comes before item label"
+          "description": "The leading icon comes before item label",
+          "deprecated": true
+        },
+        {
+          "name": "leadingVisual",
+          "type": "React.ReactElement",
+          "defaultValue": "",
+          "description": "The leading visual comes before item label"
         },
         {
           "name": "onSelect",
@@ -104,3 +111,4 @@
     }
   ]
 }
+
