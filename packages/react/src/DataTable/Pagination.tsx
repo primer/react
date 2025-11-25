@@ -177,7 +177,7 @@ function Range({pageStart, pageEnd, totalCount}: RangeProps) {
   return (
     <>
       <VisuallyHidden>
-        <AriaStatus aria-atomic="true">
+        <AriaStatus>
           Showing {start} through {end} of {totalCount}
         </AriaStatus>
       </VisuallyHidden>
