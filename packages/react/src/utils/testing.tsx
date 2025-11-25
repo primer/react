@@ -1,12 +1,12 @@
 import {type RenderResult, render as HTMLRender} from '@testing-library/react'
 import {it, expect} from 'vitest'
 
-export function implementsClassNameBehavior(
-  Component: React.ComponentType<any>,
+export function implementsClassNameBehavior<TProps extends {className?: string}>(
+  Component: React.ComponentType<TProps>,
   baseClassName?: string,
   getClassNameElement: (component: RenderResult) => HTMLElement = component =>
     component.container.firstChild as HTMLElement,
-  renderComponent: (props: any) => React.JSX.Element = props => <Component {...props} />,
+  renderComponent: (props: {className?: string}) => React.JSX.Element = props => <Component {...(props as TProps)} />,
 ) {
   it('renders with the base className', () => {
     const component = HTMLRender(renderComponent({}))
