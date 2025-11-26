@@ -194,13 +194,17 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
 
   React.useEffect(() => {
     stableOnDrag.current = onDrag
-  }, [onDrag])
+  })
 
   React.useEffect(() => {
     stableOnDragEnd.current = onDragEnd
-  }, [onDragEnd])
+  })
 
   React.useEffect(() => {
+    if (!isDragging) {
+      return
+    }
+
     function handleDrag(event: MouseEvent) {
       stableOnDrag.current?.(event.movementX, false)
       event.preventDefault()
@@ -210,6 +214,20 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       setIsDragging(false)
       stableOnDragEnd.current?.()
       event.preventDefault()
+    }
+
+    window.addEventListener('mousemove', handleDrag)
+    window.addEventListener('mouseup', handleDragEnd)
+
+    return () => {
+      window.removeEventListener('mousemove', handleDrag)
+      window.removeEventListener('mouseup', handleDragEnd)
+    }
+  }, [isDragging])
+
+  React.useEffect(() => {
+    if (!isKeyboardDrag) {
+      return
     }
 
     function handleKeyDrag(event: KeyboardEvent) {
@@ -232,32 +250,28 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       stableOnDragEnd.current?.()
       event.preventDefault()
     }
-    // TODO: Support touch events
-    if (isDragging || isKeyboardDrag) {
-      window.addEventListener('mousemove', handleDrag)
-      window.addEventListener('keydown', handleKeyDrag)
-      window.addEventListener('mouseup', handleDragEnd)
-      window.addEventListener('keyup', handleKeyDragEnd)
-      const body = document.body as HTMLElement | undefined
-      body?.setAttribute('data-page-layout-dragging', 'true')
-    } else {
-      window.removeEventListener('mousemove', handleDrag)
-      window.removeEventListener('mouseup', handleDragEnd)
+
+    window.addEventListener('keydown', handleKeyDrag)
+    window.addEventListener('keyup', handleKeyDragEnd)
+
+    return () => {
       window.removeEventListener('keydown', handleKeyDrag)
       window.removeEventListener('keyup', handleKeyDragEnd)
-      const body = document.body as HTMLElement | undefined
+    }
+  }, [isKeyboardDrag, currentWidth, minWidth, maxWidth])
+
+  React.useEffect(() => {
+    const body = document.body as HTMLElement | undefined
+    if (isDragging || isKeyboardDrag) {
+      body?.setAttribute('data-page-layout-dragging', 'true')
+    } else {
       body?.removeAttribute('data-page-layout-dragging')
     }
 
     return () => {
-      window.removeEventListener('mousemove', handleDrag)
-      window.removeEventListener('mouseup', handleDragEnd)
-      window.removeEventListener('keydown', handleKeyDrag)
-      window.removeEventListener('keyup', handleKeyDragEnd)
-      const body = document.body as HTMLElement | undefined
       body?.removeAttribute('data-page-layout-dragging')
     }
-  }, [isDragging, isKeyboardDrag, currentWidth, minWidth, maxWidth])
+  }, [isDragging, isKeyboardDrag])
 
   return (
     <div
@@ -623,14 +637,22 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       return storedWidth && !isNaN(Number(storedWidth)) ? Number(storedWidth) : getDefaultPaneWidth(width)
     })
 
-    const updatePaneWidth = (width: number) => {
-      setPaneWidth(width)
+    type NextPaneWidth = number | ((previous: number) => number)
 
-      try {
-        localStorage.setItem(widthStorageKey, width.toString())
-      } catch (_error) {
-        // Ignore errors
-      }
+    const updatePaneWidth = (nextWidth: NextPaneWidth, {persist = false}: {persist?: boolean} = {}) => {
+      setPaneWidth(previous => {
+        const resolvedWidth = typeof nextWidth === 'function' ? nextWidth(previous) : nextWidth
+
+        if (persist) {
+          try {
+            localStorage.setItem(widthStorageKey, resolvedWidth.toString())
+          } catch (_error) {
+            // Ignore errors
+          }
+        }
+
+        return resolvedWidth
+      })
     }
 
     useRefObjectAsForwardedRef(forwardRef, paneRef)
@@ -725,17 +747,17 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             } else {
               deltaWithDirection = position === 'end' ? -delta : delta
             }
-            updatePaneWidth(paneWidth + deltaWithDirection)
+            updatePaneWidth(previous => previous + deltaWithDirection)
           }}
           // Ensure `paneWidth` state and actual pane width are in sync when the drag ends
           onDragEnd={() => {
             const paneRect = paneRef.current?.getBoundingClientRect()
             if (!paneRect) return
-            updatePaneWidth(paneRect.width)
+            updatePaneWidth(() => paneRect.width, {persist: true})
           }}
           position={positionProp}
           // Reset pane width on double click
-          onDoubleClick={() => updatePaneWidth(getDefaultPaneWidth(width))}
+          onDoubleClick={() => updatePaneWidth(() => getDefaultPaneWidth(width), {persist: true})}
           className={classes.PaneVerticalDivider}
           style={
             {
