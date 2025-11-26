@@ -23,6 +23,17 @@ export const Default = () => (
   </ButtonGroup>
 )
 
+export const Overflow = () => (
+  <div style={{maxWidth: '220px'}}>
+    <ButtonGroup>
+      <Button>Button 1</Button>
+      <Button>Button 2</Button>
+      <Button>Button 3</Button>
+      <Button>Button 4</Button>
+    </ButtonGroup>
+  </div>
+)
+
 export const Playground: StoryFn<ButtonProps & {buttonCount: number}> = args => {
   const {buttonCount = 3, ...buttonProps} = args
   const buttons = Array.from({length: buttonCount}, (_, i) => (
