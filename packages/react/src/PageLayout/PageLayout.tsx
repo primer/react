@@ -639,21 +639,36 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
     type NextPaneWidth = number | ((previous: number) => number)
 
-    const updatePaneWidth = (nextWidth: NextPaneWidth, {persist = false}: {persist?: boolean} = {}) => {
-      setPaneWidth(previous => {
-        const resolvedWidth = typeof nextWidth === 'function' ? nextWidth(previous) : nextWidth
+    const updatePaneWidth = React.useCallback(
+      (nextWidth: NextPaneWidth, {persist = false}: {persist?: boolean} = {}) => {
+        setPaneWidth(previous => {
+          const resolvedWidth = typeof nextWidth === 'function' ? nextWidth(previous) : nextWidth
 
-        if (persist) {
-          try {
-            localStorage.setItem(widthStorageKey, resolvedWidth.toString())
-          } catch (_error) {
-            // Ignore errors
+          if (persist) {
+            try {
+              localStorage.setItem(widthStorageKey, resolvedWidth.toString())
+            } catch (_error) {
+              // Ignore errors
+            }
           }
-        }
 
-        return resolvedWidth
-      })
-    }
+          return resolvedWidth
+        })
+      },
+      [widthStorageKey],
+    )
+    const applyPaneDelta = React.useCallback(
+      (delta: number) => {
+        updatePaneWidth(previous => previous + delta)
+      },
+      [updatePaneWidth],
+    )
+
+    const {
+      enqueue: enqueuePaneDelta,
+      flush: flushPaneDelta,
+      cancel: cancelPaneDelta,
+    } = useRafAccumulator(applyPaneDelta)
 
     useRefObjectAsForwardedRef(forwardRef, paneRef)
 
@@ -747,17 +762,23 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             } else {
               deltaWithDirection = position === 'end' ? -delta : delta
             }
-            updatePaneWidth(previous => previous + deltaWithDirection)
+            enqueuePaneDelta(deltaWithDirection, {immediate: isKeyboard})
           }}
           // Ensure `paneWidth` state and actual pane width are in sync when the drag ends
           onDragEnd={() => {
+            cancelPaneDelta()
+            flushPaneDelta()
             const paneRect = paneRef.current?.getBoundingClientRect()
             if (!paneRect) return
             updatePaneWidth(() => paneRect.width, {persist: true})
           }}
           position={positionProp}
           // Reset pane width on double click
-          onDoubleClick={() => updatePaneWidth(() => getDefaultPaneWidth(width), {persist: true})}
+          onDoubleClick={() => {
+            cancelPaneDelta()
+            flushPaneDelta()
+            updatePaneWidth(() => getDefaultPaneWidth(width), {persist: true})
+          }}
           className={classes.PaneVerticalDivider}
           style={
             {
@@ -879,3 +900,75 @@ Header.__SLOT__ = Symbol('PageLayout.Header')
 Content.__SLOT__ = Symbol('PageLayout.Content')
 ;(Pane as WithSlotMarker<typeof Pane>).__SLOT__ = Symbol('PageLayout.Pane')
 Footer.__SLOT__ = Symbol('PageLayout.Footer')
+
+type RafAccumulatorOptions = {
+  immediate?: boolean
+}
+
+type RafAccumulatorControls = {
+  enqueue: (delta: number, options?: RafAccumulatorOptions) => void
+  flush: () => void
+  cancel: () => void
+}
+
+/**
+ * Batches numeric updates so that only a single callback runs per animation frame.
+ * Falls back to synchronous updates when the DOM is not available (SSR/tests).
+ */
+function useRafAccumulator(applyDelta: (delta: number) => void): RafAccumulatorControls {
+  const pendingDeltaRef = React.useRef(0)
+  const rafIdRef = React.useRef<number | null>(null)
+
+  const flush = React.useCallback(() => {
+    if (pendingDeltaRef.current === 0) return
+    const delta = pendingDeltaRef.current
+    pendingDeltaRef.current = 0
+    applyDelta(delta)
+  }, [applyDelta])
+
+  const cancel = React.useCallback(() => {
+    if (!canUseDOM) return
+    if (rafIdRef.current !== null) {
+      window.cancelAnimationFrame(rafIdRef.current)
+      rafIdRef.current = null
+    }
+  }, [])
+
+  const schedule = React.useCallback(() => {
+    if (!canUseDOM) {
+      flush()
+      return
+    }
+    if (rafIdRef.current !== null) {
+      return
+    }
+    rafIdRef.current = window.requestAnimationFrame(() => {
+      rafIdRef.current = null
+      flush()
+    })
+  }, [flush])
+
+  const enqueue = React.useCallback(
+    (delta: number, options?: RafAccumulatorOptions) => {
+      const immediate = options?.immediate ?? false
+      pendingDeltaRef.current += delta
+
+      if (immediate) {
+        cancel()
+        flush()
+      } else {
+        schedule()
+      }
+    },
+    [cancel, flush, schedule],
+  )
+
+  React.useEffect(() => {
+    return () => {
+      cancel()
+      pendingDeltaRef.current = 0
+    }
+  }, [cancel])
+
+  return {enqueue, flush, cancel}
+}
