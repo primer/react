@@ -260,18 +260,28 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     }
   }, [isKeyboardDrag, currentWidth, minWidth, maxWidth])
 
+  const isDraggingByAnyMeans = isDragging || isKeyboardDrag
+
   React.useEffect(() => {
     const body = document.body as HTMLElement | undefined
-    if (isDragging || isKeyboardDrag) {
-      body?.setAttribute('data-page-layout-dragging', 'true')
+    if (!body) return
+
+    const previousDraggingValue = body.getAttribute('data-page-layout-dragging')
+
+    if (isDraggingByAnyMeans) {
+      body.setAttribute('data-page-layout-dragging', 'true')
     } else {
-      body?.removeAttribute('data-page-layout-dragging')
+      body.removeAttribute('data-page-layout-dragging')
     }
 
     return () => {
-      body?.removeAttribute('data-page-layout-dragging')
+      if (previousDraggingValue === null) {
+        body.removeAttribute('data-page-layout-dragging')
+      } else {
+        body.setAttribute('data-page-layout-dragging', previousDraggingValue)
+      }
     }
-  }, [isDragging, isKeyboardDrag])
+  }, [isDraggingByAnyMeans])
 
   return (
     <div
@@ -284,7 +294,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
         // Drag handle
         <div
           className={classes.DraggableHandle}
-          data-dragging={isDragging || isKeyboardDrag}
+          data-dragging={isDraggingByAnyMeans}
           role="slider"
           aria-label="Draggable pane splitter"
           aria-valuemin={minWidth}
