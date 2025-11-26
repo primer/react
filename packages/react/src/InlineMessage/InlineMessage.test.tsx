@@ -1,5 +1,6 @@
 import {render, screen} from '@testing-library/react'
 import {describe, expect, it, test} from 'vitest'
+import {InfoIcon} from '@primer/octicons-react'
 import {InlineMessage} from '../InlineMessage'
 
 describe('InlineMessage', () => {
@@ -78,5 +79,33 @@ describe('InlineMessage', () => {
       </InlineMessage>,
     )
     expect(screen.getByTestId('container')).toHaveAttribute('data-variant', 'warning')
+  })
+
+  it('should render a custom icon when `leadingVisual` is a string', () => {
+    const {container} = render(
+      <InlineMessage variant="warning" leadingVisual="🔒">
+        test with emoji
+      </InlineMessage>,
+    )
+    expect(screen.getByText('test with emoji')).toBeInTheDocument()
+    expect(container.textContent).toContain('🔒')
+  })
+
+  it('should render a custom JSX element when `leadingVisual` is a React element', () => {
+    render(
+      <InlineMessage variant="critical" leadingVisual={<span data-testid="custom-element">⚠️</span>}>
+        test with JSX element
+      </InlineMessage>,
+    )
+    expect(screen.getByText('test with JSX element')).toBeInTheDocument()
+    expect(screen.getByTestId('custom-element')).toBeInTheDocument()
+  })
+
+  it('should use default icon when `leadingVisual` is not provided', () => {
+    const {container} = render(<InlineMessage variant="success">test with default icon</InlineMessage>)
+    expect(screen.getByText('test with default icon')).toBeInTheDocument()
+    // Default icon should be rendered
+    const svg = container.querySelector('svg')
+    expect(svg).toBeInTheDocument()
   })
 })
