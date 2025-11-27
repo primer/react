@@ -678,6 +678,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     // Track visual delta during mouse drag to avoid document reflow
     // Width is only committed at the end of the drag
     const [dragDelta, setDragDelta] = React.useState(0)
+    const dragDeltaRef = React.useRef(0) // Ref to track total delta for committing
     const [isDragging, setIsDragging] = React.useState(false)
 
     const applyPaneDelta = React.useCallback(
@@ -689,7 +690,13 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
     // For mouse dragging, accumulate delta and update via CSS variable for visual feedback
     const applyDragDelta = React.useCallback((delta: number) => {
+      dragDeltaRef.current += delta
       setDragDelta(prev => prev + delta)
+    }, [])
+
+    const resetDragDelta = React.useCallback(() => {
+      dragDeltaRef.current = 0
+      setDragDelta(0)
     }, [])
 
     const {
@@ -819,10 +826,11 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             cancelDragDelta()
             flushDragDelta()
 
-            // Commit the drag delta to actual width
-            if (dragDelta !== 0) {
-              updatePaneWidth(prev => prev + dragDelta, {persist: true})
-              setDragDelta(0)
+            // Commit the drag delta to actual width using the ref for accurate value
+            const totalDelta = dragDeltaRef.current
+            if (totalDelta !== 0) {
+              updatePaneWidth(prev => prev + totalDelta, {persist: true})
+              resetDragDelta()
             } else {
               // Fallback: read from DOM if no delta tracked
               const paneRect = paneRef.current?.getBoundingClientRect()
@@ -838,7 +846,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             cancelPaneDelta()
             flushPaneDelta()
             cancelDragDelta()
-            setDragDelta(0)
+            resetDragDelta()
             updatePaneWidth(() => getDefaultPaneWidth(width), {persist: true})
           }}
           className={classes.PaneVerticalDivider}
