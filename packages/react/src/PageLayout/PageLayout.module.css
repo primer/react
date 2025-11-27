@@ -4,12 +4,6 @@ body[data-page-layout-dragging='true'] {
   cursor: col-resize;
 }
 
-/* Disable text selection while dragging */
-/* stylelint-disable-next-line selector-no-qualifying-type */
-body[data-page-layout-dragging='true'] * {
-  user-select: none;
-}
-
 .PageLayoutRoot {
   /* Region Order */
   --region-order-header: 0;
@@ -581,6 +575,8 @@ body[data-page-layout-dragging='true'] * {
 }
 
 .Pane {
+  --pane-drag-delta: 0;
+
   width: var(--pane-width-size);
   /* stylelint-disable-next-line primer/spacing */
   padding: var(--spacing);
@@ -594,6 +590,13 @@ body[data-page-layout-dragging='true'] * {
 
     @media screen and (min-width: 768px) {
       width: clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width));
+    }
+  }
+
+  /* Apply transform during mouse drag for better performance (avoids reflow) */
+  &:where([data-is-dragging]) {
+    @media screen and (min-width: 768px) {
+      width: clamp(var(--pane-min-width), calc(var(--pane-width) + var(--pane-drag-delta)), var(--pane-max-width));
     }
   }
 }
@@ -702,6 +705,8 @@ body[data-page-layout-dragging='true'] * {
   cursor: col-resize;
   background-color: transparent;
   transition-delay: 0.1s;
+  touch-action: none;
+  user-select: none;
 }
 
 .DraggableHandle:hover {
