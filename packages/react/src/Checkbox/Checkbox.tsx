@@ -43,7 +43,8 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (
     {checked, className, defaultChecked, indeterminate, disabled, onChange, required, validationStatus, value, ...rest},
     ref,
-  ): ReactElement => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): ReactElement<any> => {
     const checkboxRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
     const checkboxGroupContext = useContext(CheckboxGroupContext)
     const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
@@ -83,7 +84,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         checkbox.setAttribute('aria-checked', checkbox.checked ? 'true' : 'false')
       }
     })
-
+    // @ts-expect-error inputProp needs a non nullable ref
     return <input {...inputProps} className={clsx(className, sharedClasses.Input, classes.Checkbox)} />
   },
 )

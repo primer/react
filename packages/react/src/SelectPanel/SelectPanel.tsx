@@ -75,8 +75,10 @@ export type SelectPanelSecondaryAction =
 
 interface SelectPanelBaseProps {
   // TODO: Make `title` required in the next major version
-  title?: string | React.ReactElement
-  subtitle?: string | React.ReactElement
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  title?: string | React.ReactElement<any>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  subtitle?: string | React.ReactElement<any>
   onOpenChange: (
     open: boolean,
     gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection' | 'cancel',
@@ -89,20 +91,24 @@ interface SelectPanelBaseProps {
   initialLoadingType?: InitialLoadingType
   className?: string
   notice?: {
-    text: string | React.ReactElement
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    text: string | React.ReactElement<any>
     variant: 'info' | 'warning' | 'error'
   }
   message?: {
     title: string
-    body: string | React.ReactElement
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    body: string | React.ReactElement<any>
     variant: 'empty' | 'error' | 'warning'
     icon?: React.ComponentType<IconProps>
-    action?: React.ReactElement
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    action?: React.ReactElement<any>
   }
   /**
    * @deprecated Use `secondaryAction` instead.
    */
-  footer?: string | React.ReactElement
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  footer?: string | React.ReactElement<any>
   showSelectedOptionsFirst?: boolean
   /**
    * Whether to disable fullscreen behavior on narrow viewports.
@@ -851,6 +857,7 @@ function Panel({
             filterValue={filterValue}
             onFilterChange={onFilterChange}
             onListContainerRefChanged={onListContainerRefChanged}
+            // @ts-expect-error it needs a non nullable ref
             onInputRefChanged={onInputRefChanged}
             placeholderText={placeholderText}
             {...listProps}

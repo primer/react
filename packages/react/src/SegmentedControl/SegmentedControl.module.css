@@ -1,4 +1,7 @@
 .SegmentedControl {
+  /* TODO: use primitive `control.medium.size` when it is available instead of '32px' */
+  --segmented-control-icon-width: 32px;
+
   display: inline-flex;
 
   /* TODO: use primitive `control.{small|medium}.size` when it is available */
@@ -10,15 +13,147 @@
   border: var(--borderWidth-thin) solid var(--controlTrack-borderColor-rest, transparent);
   border-radius: var(--borderRadius-medium);
 
-  &:where([data-full-width]) {
+  /* Responsive full-width */
+  &[data-full-width='true'] {
     display: flex;
     width: 100%;
+
+    --segmented-control-icon-width: 100%;
+  }
+
+  &[data-full-width='false'] {
+    display: inline-flex;
+    width: auto;
+
+    --segmented-control-icon-width: 32px;
+  }
+
+  @media (--viewportRange-narrow) {
+    &[data-full-width-narrow='true'] {
+      display: flex;
+      width: 100%;
+
+      --segmented-control-icon-width: 100%;
+    }
+
+    &[data-full-width-narrow='false'] {
+      display: inline-flex;
+      width: auto;
+
+      --segmented-control-icon-width: 32px;
+    }
+  }
+
+  @media (--viewportRange-regular) {
+    &[data-full-width-regular='true'] {
+      display: flex;
+      width: 100%;
+
+      --segmented-control-icon-width: 100%;
+    }
+
+    &[data-full-width-regular='false'] {
+      display: inline-flex;
+      width: auto;
+
+      --segmented-control-icon-width: 32px;
+    }
+  }
+
+  @media (--viewportRange-wide) {
+    &[data-full-width-wide='true'] {
+      display: flex;
+      width: 100%;
+
+      --segmented-control-icon-width: 100%;
+    }
+
+    &[data-full-width-wide='false'] {
+      display: inline-flex;
+      width: auto;
+
+      --segmented-control-icon-width: 32px;
+    }
+
+    &[data-full-width-regular='true']:not([data-full-width-wide='true']) {
+      display: inline-flex;
+      width: auto;
+
+      --segmented-control-icon-width: 32px;
+    }
+  }
+
+  /* Hide when dropdown variant is active */
+  &[data-variant='dropdown'] {
+    display: none;
+  }
+
+  /* Handle hideLabels variant - hide button text */
+  &[data-variant='hideLabels'] .Text {
+    display: none;
+  }
+
+  @media (--viewportRange-narrow) {
+    &[data-variant-narrow='dropdown'] {
+      display: none;
+    }
+
+    &[data-variant-narrow='hideLabels'] .Text {
+      display: none;
+    }
+  }
+
+  @media (--viewportRange-regular) {
+    &[data-variant-regular='dropdown'] {
+      display: none;
+    }
+
+    &[data-variant-regular='hideLabels'] .Text {
+      display: none;
+    }
+  }
+
+  @media (--viewportRange-wide) {
+    &[data-variant-wide='dropdown'] {
+      display: none;
+    }
+
+    &[data-variant-wide='hideLabels'] .Text {
+      display: none;
+    }
   }
 
   &:where([data-size='small']) {
     /* TODO: use primitive `control.{small|medium}.size` when it is available */
     height: 28px;
     font-size: var(--text-body-size-small);
+  }
+}
+
+.DropdownContainer {
+  display: none;
+
+  /* Show when dropdown variant is active */
+  &[data-variant='dropdown'] {
+    display: block;
+  }
+
+  @media (--viewportRange-narrow) {
+    &[data-variant-narrow='dropdown'] {
+      display: block;
+    }
+  }
+
+  @media (--viewportRange-regular) {
+    &[data-variant-regular='dropdown'] {
+      display: block;
+    }
+  }
+
+  @media (--viewportRange-wide) {
+    &[data-variant-wide='dropdown'] {
+      display: block;
+    }
   }
 }
 
@@ -138,12 +273,7 @@
 }
 
 .IconButton {
-  /* TODO: use primitive `control.medium.size` when it is available instead of '32px' */
-  width: 32px;
-
-  .SegmentedControl:where([data-full-width]) & {
-    width: 100%;
-  }
+  width: var(--segmented-control-icon-width, 32px);
 }
 
 .Content {

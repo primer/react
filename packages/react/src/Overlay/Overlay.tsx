@@ -106,7 +106,8 @@ export const BaseOverlay = React.forwardRef(
       ...rest
     },
     forwardedRef,
-  ): ReactElement => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): ReactElement<any> => {
     return (
       <Component
         {...rest}
@@ -137,14 +138,14 @@ export const BaseOverlay = React.forwardRef(
 
 type ContainerProps = {
   anchorSide?: AnchorSide
-  ignoreClickRefs?: React.RefObject<HTMLElement>[]
-  initialFocusRef?: React.RefObject<HTMLElement>
+  ignoreClickRefs?: React.RefObject<HTMLElement | null>[]
+  initialFocusRef?: React.RefObject<HTMLElement | null>
   onClickOutside: (e: TouchOrMouseEvent) => void
   onEscape: (e: KeyboardEvent) => void
   portalContainerName?: string
   preventOverflow?: boolean
   preventFocusOnOpen?: boolean
-  returnFocusRef: React.RefObject<HTMLElement>
+  returnFocusRef: React.RefObject<HTMLElement | null>
 }
 
 type internalOverlayProps = Merge<OwnOverlayProps, ContainerProps>
@@ -187,7 +188,8 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
       ...props
     },
     forwardedRef,
-  ): ReactElement => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): ReactElement<any> => {
     const overlayRef = useRef<HTMLDivElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, overlayRef)
     const slideAnimationDistance = 8 // var(--base-size-8), hardcoded to do some math
