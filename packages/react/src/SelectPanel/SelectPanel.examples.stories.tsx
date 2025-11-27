@@ -10,7 +10,7 @@ import FormControl from '../FormControl'
 import {Stack} from '../Stack'
 import {Dialog} from '../experimental'
 import styles from './SelectPanel.examples.stories.module.css'
-import {useVirtualizer} from '@tanstack/react-virtual'
+import {useVirtualizer, type VirtualItem} from '@tanstack/react-virtual'
 import Checkbox from '../Checkbox'
 import Label from '../Label'
 
@@ -639,7 +639,7 @@ export const Virtualized = () => {
   const virtualizedItems = useMemo(
     () =>
       renderSubset
-        ? virtualizer.getVirtualItems().map(virtualItem => {
+        ? virtualizer.getVirtualItems().map((virtualItem: VirtualItem) => {
             const item = filteredItems[virtualItem.index]
 
             return {
