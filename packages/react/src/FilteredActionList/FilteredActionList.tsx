@@ -31,13 +31,13 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
   filterValue?: string
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement> | null) => void
   onListContainerRefChanged?: (ref: HTMLElement | null) => void
-  onInputRefChanged?: (ref: React.RefObject<HTMLInputElement>) => void
+  onInputRefChanged?: (ref: React.RefObject<HTMLInputElement | null>) => void
   /**
    * A ref assigned to the scrollable container wrapping the ActionList
    */
   scrollContainerRef?: React.Ref<HTMLDivElement | null>
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
-  inputRef?: React.RefObject<HTMLInputElement>
+  inputRef?: React.RefObject<HTMLInputElement | null>
   message?: React.ReactNode
   messageText?: {
     title: string
@@ -382,6 +382,7 @@ export function FilteredActionList({
     <div ref={inputAndListContainerRef} className={clsx(className, classes.Root)} data-testid="filtered-action-list">
       <div className={classes.Header}>
         <TextInput
+          // @ts-expect-error it needs a non nullable ref
           ref={inputRef}
           block
           width="auto"
@@ -418,6 +419,7 @@ export function FilteredActionList({
           </label>
         </div>
       )}
+      {/* @ts-expect-error div needs a non nullable ref */}
       <div ref={scrollContainerRef} className={classes.Container}>
         {getBodyContent()}
       </div>
