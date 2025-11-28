@@ -194,31 +194,41 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   const handlePointerDown = React.useCallback(
     (event: React.PointerEvent<HTMLDivElement>) => {
       if (event.button !== 0) return
-      event.preventDefault() // OPTIMIZATION: Prevent browser defaults
+      event.preventDefault()
       const target = event.currentTarget
       target.setPointerCapture(event.pointerId)
       isDraggingRef.current = true
       target.setAttribute('data-dragging', 'true')
+
       if (paneRef.current) {
         paneRef.current.style.willChange = 'width'
         const currentHeight = paneRef.current.scrollHeight
         paneRef.current.style.containIntrinsicSize = `auto ${currentHeight}px`
-        // Disable interactions
         paneRef.current.style.pointerEvents = 'none'
-
-        // Disable animations/transitions
         paneRef.current.style.transitionProperty = 'none'
+        // paneRef.current.style.contentVisibility = 'hidden'
       }
+
       stableOnDragStart.current?.()
     },
     [paneRef],
   )
 
+  const pointerMoveThrottleRafIdRef = React.useRef<number | null>(null)
+
   const handlePointerMove = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
     if (!isDraggingRef.current) return
-    event.preventDefault() // OPTIMIZATION: Critical for smooth dragging
+    event.preventDefault()
+
     if (event.movementX !== 0) {
-      stableOnDrag.current?.(event.movementX, false)
+      // OPTIMIZATION: Throttle to every other frame for huge DOM
+      // This skips every other drag event, halving layout work
+      if (!pointerMoveThrottleRafIdRef.current) {
+        pointerMoveThrottleRafIdRef.current = requestAnimationFrame(() => {
+          stableOnDrag.current?.(event.movementX, false)
+          pointerMoveThrottleRafIdRef.current = null
+        })
+      }
     }
   }, [])
 
@@ -234,13 +244,14 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       isDraggingRef.current = false
       const target = event.currentTarget
       target.removeAttribute('data-dragging')
+
       if (paneRef.current) {
-        // Restore everything
         paneRef.current.style.willChange = 'auto'
         paneRef.current.style.pointerEvents = ''
         paneRef.current.style.transitionProperty = ''
 
-        // Re-measure content after drag
+        paneRef.current.style.contentVisibility = 'auto'
+
         requestAnimationFrame(() => {
           if (paneRef.current) {
             const newHeight = paneRef.current.scrollHeight
@@ -752,22 +763,28 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             if (isKeyboard) {
               setPaneWidth(prev => prev + deltaWithDirection)
             } else {
-              // OPTIMIZATION: Pointer drag - batch DOM updates in requestAnimationFrame
               dragDeltaRef.current += deltaWithDirection
 
               if (!animationFrameRef.current) {
-                animationFrameRef.current = requestAnimationFrame(() => {
-                  if (paneRef.current) {
-                    // CHANGED: Use helper instead of inline calculation
-                    const {minWidth: minPaneWidth, maxWidth: maxPaneWidth} = getConstraints(paneRef.current)
+                let skippedFrame = false
 
+                const applyUpdate = () => {
+                  if (!skippedFrame) {
+                    skippedFrame = true
+                    animationFrameRef.current = requestAnimationFrame(applyUpdate)
+                    return
+                  }
+
+                  if (paneRef.current) {
+                    const {minWidth: minPaneWidth, maxWidth: maxPaneWidth} = getConstraints(paneRef.current)
                     const newWidth = paneWidth + dragDeltaRef.current
                     const clampedWidth = Math.max(minPaneWidth, Math.min(maxPaneWidth, newWidth))
-
                     paneRef.current.style.setProperty('--pane-width', `${clampedWidth}px`)
                   }
                   animationFrameRef.current = null
-                })
+                }
+
+                animationFrameRef.current = requestAnimationFrame(applyUpdate)
               }
             }
           }}

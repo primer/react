@@ -386,6 +386,17 @@
   
   /* Disable transitions - prevents expensive recalculations */
   transition: none !important;
+
+  content-visibility: auto;
+  contain-intrinsic-size: auto 100vh;
+}
+
+/* Hide complex UI during drag */
+.PageLayoutContent:has(.DraggableHandle[data-dragging='true']) .ContentWrapper [data-expensive],
+.PageLayoutContent:has(.DraggableHandle[data-dragging='true']) .ContentWrapper canvas,
+.PageLayoutContent:has(.DraggableHandle[data-dragging='true']) .ContentWrapper video {
+  /* Hide expensive elements during drag */
+  visibility: hidden !important;
 }
 
 /* OPTIMIZATION: Disable animations in ContentWrapper during drag
@@ -606,6 +617,9 @@
   /* OPTIMIZATION: Provide size estimate for content-visibility */
   contain-intrinsic-size: auto 100vh;
 
+  image-rendering: auto;
+  text-rendering: optimizeLegibility;
+
   @media screen and (min-width: 768px) {
     overflow: auto;
   }
@@ -627,6 +641,14 @@
   
   /* Disable transitions during drag */
   transition: none !important;
+
+    /* NEW: Reduce rendering quality during drag */
+  image-rendering: pixelated;
+  text-rendering: optimizeSpeed;
+  
+  /* Force hardware acceleration */
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 /* OPTIMIZATION: Disable animations in Pane during drag */
