@@ -169,7 +169,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   const stableOnDragStart = React.useRef(onDragStart)
   const stableOnDrag = React.useRef(onDrag)
   const stableOnDragEnd = React.useRef(onDragEnd)
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
     stableOnDrag.current = onDrag
     stableOnDragEnd.current = onDragEnd
     stableOnDragStart.current = onDragStart
