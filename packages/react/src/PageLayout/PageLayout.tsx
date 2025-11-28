@@ -201,6 +201,13 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       target.setAttribute('data-dragging', 'true')
       if (paneRef.current) {
         paneRef.current.style.willChange = 'width'
+        const currentHeight = paneRef.current.scrollHeight
+        paneRef.current.style.containIntrinsicSize = `auto ${currentHeight}px`
+        // Disable interactions
+        paneRef.current.style.pointerEvents = 'none'
+
+        // Disable animations/transitions
+        paneRef.current.style.transitionProperty = 'none'
       }
       stableOnDragStart.current?.()
     },
@@ -228,8 +235,20 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       const target = event.currentTarget
       target.removeAttribute('data-dragging')
       if (paneRef.current) {
+        // Restore everything
         paneRef.current.style.willChange = 'auto'
+        paneRef.current.style.pointerEvents = ''
+        paneRef.current.style.transitionProperty = ''
+
+        // Re-measure content after drag
+        requestAnimationFrame(() => {
+          if (paneRef.current) {
+            const newHeight = paneRef.current.scrollHeight
+            paneRef.current.style.containIntrinsicSize = `auto ${newHeight}px`
+          }
+        })
       }
+
       stableOnDragEnd.current?.()
     },
     [paneRef],
@@ -639,17 +658,23 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       const pane = paneRef.current
       if (!pane) return
 
-      const updateIntrinsicSize = () => {
-        const height = pane.scrollHeight
-        pane.style.containIntrinsicSize = `auto ${height}px`
+      // Initial measurement
+      const height = pane.scrollHeight
+      pane.style.contentVisibility = 'auto'
+      pane.style.containIntrinsicSize = `auto ${height}px`
+
+      // Update when content changes (but not during drag)
+      const updateSize = () => {
+        // Only update if not currently dragging
+        const isDragging = document.querySelector('.DraggableHandle[data-dragging="true"]')
+        if (!isDragging) {
+          const newHeight = pane.scrollHeight
+          pane.style.containIntrinsicSize = `auto ${newHeight}px`
+        }
       }
 
-      // Initial measurement
-      pane.style.contentVisibility = 'auto'
-      updateIntrinsicSize()
-
-      // Update when content size changes
-      const resizeObserver = new ResizeObserver(updateIntrinsicSize)
+      // Use ResizeObserver to detect content changes
+      const resizeObserver = new ResizeObserver(updateSize)
       resizeObserver.observe(pane)
 
       return () => {

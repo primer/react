@@ -345,6 +345,10 @@
   flex-grow: 1;
   flex-shrink: 1;
 
+  /* OPTIMIZATION: Isolate content area from rest of page
+     Note: No 'paint' containment to allow overflow effects (tooltips, modals, etc.) */
+  contain: layout style;
+
   &:where([data-is-hidden='true']) {
     display: none;
   }
@@ -369,6 +373,26 @@
       display: none;
     }
   }
+}
+
+/* OPTIMIZATION: Aggressive containment during drag for ContentWrapper
+   Safe to add 'paint' containment since user can't interact during drag */
+.PageLayoutContent:has(.DraggableHandle[data-dragging='true']) .ContentWrapper {
+  /* Add paint containment during drag */
+  contain: layout style paint;
+  
+  /* Disable interactions */
+  pointer-events: none;
+  
+  /* Disable transitions - prevents expensive recalculations */
+  transition: none !important;
+}
+
+/* OPTIMIZATION: Disable animations in ContentWrapper during drag
+   Prevents expensive animation recalculations on every frame */
+.PageLayoutContent:has(.DraggableHandle[data-dragging='true']) .ContentWrapper * {
+  animation-play-state: paused !important;
+  transition: none !important;
 }
 
 .Content {
@@ -573,7 +597,14 @@
   /* stylelint-disable-next-line primer/spacing */
   padding: var(--spacing);
 
+  /* OPTIMIZATION: Full containment for pane - isolates from rest of page */
   contain: layout style paint;
+  
+  /* OPTIMIZATION: For extremely tall content - skip rendering off-screen content */
+  content-visibility: auto;
+  
+  /* OPTIMIZATION: Provide size estimate for content-visibility */
+  contain-intrinsic-size: auto 100vh;
 
   @media screen and (min-width: 768px) {
     overflow: auto;
@@ -586,6 +617,22 @@
       width: clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width));
     }
   }
+}
+
+/* OPTIMIZATION: Additional optimizations for Pane during drag
+   Redundant with JavaScript but provides fallback */
+.PaneWrapper:has(.DraggableHandle[data-dragging='true']) .Pane {
+  /* Disable interactions during drag */
+  pointer-events: none;
+  
+  /* Disable transitions during drag */
+  transition: none !important;
+}
+
+/* OPTIMIZATION: Disable animations in Pane during drag */
+.PaneWrapper:has(.DraggableHandle[data-dragging='true']) .Pane * {
+  animation-play-state: paused !important;
+  transition: none !important;
 }
 
 .PaneHorizontalDivider {
