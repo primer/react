@@ -268,7 +268,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       const delta = quantized - lastQuantized
       lastAppliedXRef.current = dragStartXRef.current + quantized
 
-      // Throttle to every other frame for huge DOM
+      // Throttle based on adaptive FPS target
       if (!pointerMoveThrottleRafIdRef.current) {
         pointerMoveThrottleRafIdRef.current = requestAnimationFrame(() => {
           stableOnDrag.current?.(delta, false)
@@ -720,9 +720,10 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
     const animationFrameRef = React.useRef<number | null>(null)
     const lastFrameTimeRef = React.useRef(0)
-    const TARGET_FPS_DURING_DRAG = 30
-    const FRAME_BUDGET = 1000 / TARGET_FPS_DURING_DRAG
+    const targetFpsRef = React.useRef(60) // Start optimistic at 60fps
+    const slowFrameCountRef = React.useRef(0)
 
+    // Extract duplicate width calculation logic
     const applyWidthUpdate = React.useCallback(() => {
       if (paneRef.current) {
         const {minWidth: minPaneWidth, maxWidth: maxPaneWidth} = getConstraints(paneRef.current)
@@ -836,8 +837,27 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
               if (!animationFrameRef.current) {
                 animationFrameRef.current = requestAnimationFrame(timestamp => {
-                  // Cap at 30fps for smoother experience with huge DOM
-                  if (timestamp - lastFrameTimeRef.current < FRAME_BUDGET) {
+                  const frameBudget = 1000 / targetFpsRef.current
+                  const timeSinceLastFrame = timestamp - lastFrameTimeRef.current
+
+                  // Adaptive FPS: Detect slow frames and downgrade if needed
+                  if (lastFrameTimeRef.current > 0) {
+                    // Frame took too long (missed our target by 50%+)
+                    if (timeSinceLastFrame > frameBudget * 1.5) {
+                      slowFrameCountRef.current++
+
+                      // After 3 consecutive slow frames, reduce target FPS
+                      if (slowFrameCountRef.current >= 3 && targetFpsRef.current > 30) {
+                        targetFpsRef.current = 30
+                      }
+                    } else {
+                      // Frame was fast enough, reset counter
+                      slowFrameCountRef.current = 0
+                    }
+                  }
+
+                  // Throttle: Skip frame if too soon
+                  if (timeSinceLastFrame < frameBudget) {
                     // Skip this frame, reschedule
                     animationFrameRef.current = requestAnimationFrame(ts => {
                       lastFrameTimeRef.current = ts
@@ -858,6 +878,10 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               cancelAnimationFrame(animationFrameRef.current)
               animationFrameRef.current = null
             }
+
+            // Reset adaptive FPS for next drag
+            targetFpsRef.current = 60
+            slowFrameCountRef.current = 0
 
             // Commit accumulated pointer drag delta to React state
             const totalDelta = accumulatedDragDeltaRef.current
