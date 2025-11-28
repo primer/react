@@ -183,16 +183,10 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   // Initialize dimensions once
   React.useEffect(() => {
     if (paneRef.current !== null) {
-      const paneStyles = getComputedStyle(paneRef.current)
-      const maxPaneWidthDiffPixels = paneStyles.getPropertyValue('--pane-max-width-diff')
-      const minWidthPixels = paneStyles.getPropertyValue('--pane-min-width')
+      const constraints = getConstraints(paneRef.current)
       const paneWidth = paneRef.current.getBoundingClientRect().width
-      const maxPaneWidthDiff = Number(maxPaneWidthDiffPixels.split('px')[0])
-      const minPaneWidth = Number(minWidthPixels.split('px')[0])
-      const viewportWidth = window.innerWidth
-      const maxPaneWidth = viewportWidth > maxPaneWidthDiff ? viewportWidth - maxPaneWidthDiff : viewportWidth
-      setMinWidth(minPaneWidth)
-      setMaxWidth(maxPaneWidth)
+      setMinWidth(constraints.minWidth)
+      setMaxWidth(constraints.maxWidth)
       setCurrentWidth(paneWidth)
     }
   }, [paneRef])
@@ -641,6 +635,30 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
     const animationFrameRef = React.useRef<number | null>(null)
 
+    React.useEffect(() => {
+      const pane = paneRef.current
+      if (!pane) return
+
+      const updateIntrinsicSize = () => {
+        const height = pane.scrollHeight
+        pane.style.containIntrinsicSize = `auto ${height}px`
+      }
+
+      // Initial measurement
+      pane.style.contentVisibility = 'auto'
+      updateIntrinsicSize()
+
+      // Update when content size changes
+      const resizeObserver = new ResizeObserver(updateIntrinsicSize)
+      resizeObserver.observe(pane)
+
+      return () => {
+        resizeObserver.disconnect()
+        pane.style.contentVisibility = ''
+        pane.style.containIntrinsicSize = ''
+      }
+    }, [paneRef])
+
     return (
       <div
         className={clsx(classes.PaneWrapper, className)}
@@ -707,21 +725,21 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             const deltaWithDirection = isKeyboard ? delta : position === 'end' ? -delta : delta
 
             if (isKeyboard) {
-              // OPTIMIZATION: Keyboard uses React state for immediate visual feedback
               setPaneWidth(prev => prev + deltaWithDirection)
             } else {
               // OPTIMIZATION: Pointer drag - batch DOM updates in requestAnimationFrame
-              // This eliminates layout thrashing by grouping all reads, then all writes
               dragDeltaRef.current += deltaWithDirection
 
               if (!animationFrameRef.current) {
                 animationFrameRef.current = requestAnimationFrame(() => {
                   if (paneRef.current) {
-                    // BATCH READS: Get all DOM measurements first
-                    // const {minWidth: minPaneWidth, maxWidth: maxPaneWidth} = getMinMaxWidth()
+                    // CHANGED: Use helper instead of inline calculation
+                    const {minWidth: minPaneWidth, maxWidth: maxPaneWidth} = getConstraints(paneRef.current)
+
                     const newWidth = paneWidth + dragDeltaRef.current
-                    // BATCH WRITES: Update DOM after all reads complete
-                    paneRef.current.style.setProperty('--pane-width', `${newWidth}px`)
+                    const clampedWidth = Math.max(minPaneWidth, Math.min(maxPaneWidth, newWidth))
+
+                    paneRef.current.style.setProperty('--pane-width', `${clampedWidth}px`)
                   }
                   animationFrameRef.current = null
                 })
@@ -737,16 +755,17 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
             // OPTIMIZATION: Commit accumulated pointer drag delta to React state
             const totalDelta = dragDeltaRef.current
-            if (totalDelta !== 0) {
-              setPaneWidth(prev => {
-                const newWidth = prev + totalDelta
-                try {
-                  localStorage.setItem(widthStorageKey, newWidth.toString())
-                } catch (_error) {
-                  // Ignore errors
-                }
-                return newWidth
-              })
+            if (totalDelta !== 0 && paneRef.current) {
+              // FIX: Read the actual applied width from DOM to handle clamping
+              const actualWidth = parseInt(paneRef.current.style.getPropertyValue('--pane-width')) || paneWidth
+
+              setPaneWidth(actualWidth) // Use actual width, not paneWidth + totalDelta
+
+              try {
+                localStorage.setItem(widthStorageKey, actualWidth.toString())
+              } catch (_error) {
+                // Ignore errors
+              }
               dragDeltaRef.current = 0
             }
           }}
@@ -869,3 +888,14 @@ Header.__SLOT__ = Symbol('PageLayout.Header')
 Content.__SLOT__ = Symbol('PageLayout.Content')
 ;(Pane as WithSlotMarker<typeof Pane>).__SLOT__ = Symbol('PageLayout.Pane')
 Footer.__SLOT__ = Symbol('PageLayout.Footer')
+
+// Add this helper function before VerticalDivider component (around line 157)
+function getConstraints(element: HTMLElement) {
+  const paneStyles = getComputedStyle(element)
+  const maxPaneWidthDiff = Number(paneStyles.getPropertyValue('--pane-max-width-diff').split('px')[0]) || 511
+  const minPaneWidth = Number(paneStyles.getPropertyValue('--pane-min-width').split('px')[0]) || 256
+  const viewportWidth = window.innerWidth
+  const maxPaneWidth = viewportWidth > maxPaneWidthDiff ? viewportWidth - maxPaneWidthDiff : viewportWidth
+
+  return {minWidth: minPaneWidth, maxWidth: maxPaneWidth}
+}
