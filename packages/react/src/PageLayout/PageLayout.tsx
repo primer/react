@@ -152,6 +152,17 @@ type DraggableDividerProps = {
   onDragEnd?: () => void
   onDoubleClick?: () => void
 }
+
+function getConstraints(element: HTMLElement) {
+  const paneStyles = getComputedStyle(element)
+  const maxPaneWidthDiff = Number(paneStyles.getPropertyValue('--pane-max-width-diff').split('px')[0]) || 511
+  const minPaneWidth = Number(paneStyles.getPropertyValue('--pane-min-width').split('px')[0]) || 256
+  const viewportWidth = window.innerWidth
+  const maxPaneWidth = viewportWidth > maxPaneWidthDiff ? viewportWidth - maxPaneWidthDiff : viewportWidth
+
+  return {minWidth: minPaneWidth, maxWidth: maxPaneWidth}
+}
+
 const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & DraggableDividerProps>> = ({
   variant = 'none',
   draggable = false,
@@ -175,6 +186,13 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   })
 
   const {paneRef} = React.useContext(PageLayoutContext)
+
+  // Cache ContentWrapper reference to avoid repeated DOM queries
+  const contentWrapperRef = React.useRef<HTMLElement | null>(null)
+
+  React.useLayoutEffect(() => {
+    contentWrapperRef.current = document.querySelector('.ContentWrapper')
+  }, [])
 
   const [minWidth, setMinWidth] = React.useState(0)
   const [maxWidth, setMaxWidth] = React.useState(0)
@@ -201,12 +219,22 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       target.setAttribute('data-dragging', 'true')
 
       if (paneRef.current) {
-        paneRef.current.style.willChange = 'width'
+        // Essential JS optimizations that can't be done in CSS
         const currentHeight = paneRef.current.scrollHeight
         paneRef.current.style.containIntrinsicSize = `auto ${currentHeight}px`
-        paneRef.current.style.pointerEvents = 'none'
-        paneRef.current.style.transitionProperty = 'none'
-        // paneRef.current.style.contentVisibility = 'hidden'
+
+        // Lock scroll position to prevent reflow triggers
+        const scrollTop = paneRef.current.scrollTop
+        paneRef.current.style.overflow = 'hidden'
+        paneRef.current.scrollTop = scrollTop
+
+        // Optimize ContentWrapper
+        const contentWrapper = contentWrapperRef.current
+        if (contentWrapper) {
+          const contentScrollTop = contentWrapper.scrollTop || 0
+          contentWrapper.style.overflow = 'hidden'
+          contentWrapper.scrollTop = contentScrollTop
+        }
       }
 
       stableOnDragStart.current?.()
@@ -221,13 +249,16 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     event.preventDefault()
 
     if (event.movementX !== 0) {
-      // OPTIMIZATION: Throttle to every other frame for huge DOM
-      // This skips every other drag event, halving layout work
-      if (!pointerMoveThrottleRafIdRef.current) {
-        pointerMoveThrottleRafIdRef.current = requestAnimationFrame(() => {
-          stableOnDrag.current?.(event.movementX, false)
-          pointerMoveThrottleRafIdRef.current = null
-        })
+      // Snap to 4px grid - reduces updates by 75%
+      const quantized = Math.round(event.movementX / 4) * 4
+      if (quantized !== 0) {
+        // Throttle to every other frame for huge DOM
+        if (!pointerMoveThrottleRafIdRef.current) {
+          pointerMoveThrottleRafIdRef.current = requestAnimationFrame(() => {
+            stableOnDrag.current?.(quantized, false)
+            pointerMoveThrottleRafIdRef.current = null
+          })
+        }
       }
     }
   }, [])
@@ -245,19 +276,30 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       const target = event.currentTarget
       target.removeAttribute('data-dragging')
 
+      // Cancel any pending throttle frame
+      if (pointerMoveThrottleRafIdRef.current) {
+        cancelAnimationFrame(pointerMoveThrottleRafIdRef.current)
+        pointerMoveThrottleRafIdRef.current = null
+      }
+
       if (paneRef.current) {
-        paneRef.current.style.willChange = 'auto'
-        paneRef.current.style.pointerEvents = ''
-        paneRef.current.style.transitionProperty = ''
+        // Restore scroll (CSS handles most other cleanup)
+        paneRef.current.style.overflow = ''
+        paneRef.current.style.containIntrinsicSize = ''
 
-        paneRef.current.style.contentVisibility = 'auto'
-
+        // Re-measure content after drag
         requestAnimationFrame(() => {
           if (paneRef.current) {
             const newHeight = paneRef.current.scrollHeight
             paneRef.current.style.containIntrinsicSize = `auto ${newHeight}px`
           }
         })
+
+        // Restore ContentWrapper scroll
+        const contentWrapper = contentWrapperRef.current
+        if (contentWrapper) {
+          contentWrapper.style.overflow = ''
+        }
       }
 
       stableOnDragEnd.current?.()
@@ -274,8 +316,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
         event.key === 'ArrowDown'
       ) {
         event.preventDefault()
-        const target = event.currentTarget
-        target.setAttribute('data-dragging', 'true')
+        // Don't set data-dragging for keyboard - prevents CSS flicker
         setCurrentWidth(prevWidth => {
           let delta = 0
           // https://github.com/github/accessibility/issues/5101#issuecomment-1822870655
@@ -637,9 +678,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       return storedWidth && !isNaN(Number(storedWidth)) ? Number(storedWidth) : getDefaultPaneWidth(width)
     })
 
-    // OPTIMIZATION: Track accumulated drag delta during pointer drag
-    // This allows us to batch DOM updates without React state changes
-    const dragDeltaRef = React.useRef(0)
+    // Track accumulated drag delta during pointer drag
+    const accumulatedDragDeltaRef = React.useRef(0)
 
     useRefObjectAsForwardedRef(forwardRef, paneRef)
 
@@ -664,6 +704,20 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     }
 
     const animationFrameRef = React.useRef<number | null>(null)
+    const lastFrameTimeRef = React.useRef(0)
+    const TARGET_FPS_DURING_DRAG = 30
+    const FRAME_BUDGET = 1000 / TARGET_FPS_DURING_DRAG
+
+    // Extract duplicate width calculation logic
+    const applyWidthUpdate = React.useCallback(() => {
+      if (paneRef.current) {
+        const {minWidth: minPaneWidth, maxWidth: maxPaneWidth} = getConstraints(paneRef.current)
+        const newWidth = paneWidth + accumulatedDragDeltaRef.current
+        const clampedWidth = Math.max(minPaneWidth, Math.min(maxPaneWidth, newWidth))
+        paneRef.current.style.setProperty('--pane-width', `${clampedWidth}px`)
+      }
+      animationFrameRef.current = null
+    }, [paneRef, paneWidth])
 
     React.useEffect(() => {
       const pane = paneRef.current
@@ -763,28 +817,24 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             if (isKeyboard) {
               setPaneWidth(prev => prev + deltaWithDirection)
             } else {
-              dragDeltaRef.current += deltaWithDirection
+              // Accumulate deltas
+              accumulatedDragDeltaRef.current += deltaWithDirection
 
               if (!animationFrameRef.current) {
-                let skippedFrame = false
-
-                const applyUpdate = () => {
-                  if (!skippedFrame) {
-                    skippedFrame = true
-                    animationFrameRef.current = requestAnimationFrame(applyUpdate)
+                animationFrameRef.current = requestAnimationFrame(timestamp => {
+                  // Cap at 30fps for smoother experience with huge DOM
+                  if (timestamp - lastFrameTimeRef.current < FRAME_BUDGET) {
+                    // Skip this frame, reschedule
+                    animationFrameRef.current = requestAnimationFrame(ts => {
+                      lastFrameTimeRef.current = ts
+                      applyWidthUpdate()
+                    })
                     return
                   }
 
-                  if (paneRef.current) {
-                    const {minWidth: minPaneWidth, maxWidth: maxPaneWidth} = getConstraints(paneRef.current)
-                    const newWidth = paneWidth + dragDeltaRef.current
-                    const clampedWidth = Math.max(minPaneWidth, Math.min(maxPaneWidth, newWidth))
-                    paneRef.current.style.setProperty('--pane-width', `${clampedWidth}px`)
-                  }
-                  animationFrameRef.current = null
-                }
-
-                animationFrameRef.current = requestAnimationFrame(applyUpdate)
+                  lastFrameTimeRef.current = timestamp
+                  applyWidthUpdate()
+                })
               }
             }
           }}
@@ -795,10 +845,10 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               animationFrameRef.current = null
             }
 
-            // OPTIMIZATION: Commit accumulated pointer drag delta to React state
-            const totalDelta = dragDeltaRef.current
+            // Commit accumulated pointer drag delta to React state
+            const totalDelta = accumulatedDragDeltaRef.current
             if (totalDelta !== 0 && paneRef.current) {
-              // FIX: Read the actual applied width from DOM to handle clamping
+              // Read the actual applied width from DOM to handle clamping
               const actualWidth = parseInt(paneRef.current.style.getPropertyValue('--pane-width')) || paneWidth
 
               setPaneWidth(actualWidth) // Use actual width, not paneWidth + totalDelta
@@ -808,13 +858,13 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               } catch (_error) {
                 // Ignore errors
               }
-              dragDeltaRef.current = 0
+              accumulatedDragDeltaRef.current = 0
             }
           }}
           position={positionProp}
           // Reset pane width on double click
           onDoubleClick={() => {
-            dragDeltaRef.current = 0
+            accumulatedDragDeltaRef.current = 0
             const defaultWidth = getDefaultPaneWidth(width)
             setPaneWidth(defaultWidth)
             try {
@@ -930,14 +980,3 @@ Header.__SLOT__ = Symbol('PageLayout.Header')
 Content.__SLOT__ = Symbol('PageLayout.Content')
 ;(Pane as WithSlotMarker<typeof Pane>).__SLOT__ = Symbol('PageLayout.Pane')
 Footer.__SLOT__ = Symbol('PageLayout.Footer')
-
-// Add this helper function before VerticalDivider component (around line 157)
-function getConstraints(element: HTMLElement) {
-  const paneStyles = getComputedStyle(element)
-  const maxPaneWidthDiff = Number(paneStyles.getPropertyValue('--pane-max-width-diff').split('px')[0]) || 511
-  const minPaneWidth = Number(paneStyles.getPropertyValue('--pane-min-width').split('px')[0]) || 256
-  const viewportWidth = window.innerWidth
-  const maxPaneWidth = viewportWidth > maxPaneWidthDiff ? viewportWidth - maxPaneWidthDiff : viewportWidth
-
-  return {minWidth: minPaneWidth, maxWidth: maxPaneWidth}
-}

@@ -345,8 +345,10 @@
   flex-grow: 1;
   flex-shrink: 1;
 
-  /* OPTIMIZATION: Isolate content area from rest of page
-     Note: No 'paint' containment to allow overflow effects (tooltips, modals, etc.) */
+  /**
+   * OPTIMIZATION: Isolate content area from rest of page
+   * Note: No 'paint' containment to allow overflow effects (tooltips, modals, etc.)
+   */
   contain: layout style;
 
   &:where([data-is-hidden='true']) {
@@ -375,32 +377,30 @@
   }
 }
 
-/* OPTIMIZATION: Aggressive containment during drag for ContentWrapper
-   Safe to add 'paint' containment since user can't interact during drag */
+/**
+ * OPTIMIZATION: Aggressive containment during drag for ContentWrapper
+ * CSS handles most optimizations automatically via :has() selector
+ * JavaScript only handles scroll locking (can't be done in CSS)
+ */
 .PageLayoutContent:has(.DraggableHandle[data-dragging='true']) .ContentWrapper {
-  /* Add paint containment during drag */
+  /* Add paint containment during drag - safe since user can't interact */
   contain: layout style paint;
   
   /* Disable interactions */
   pointer-events: none;
   
-  /* Disable transitions - prevents expensive recalculations */
+  /* Disable transitions to prevent expensive recalculations */
   transition: none !important;
 
-  content-visibility: auto;
-  contain-intrinsic-size: auto 100vh;
+  /* Force compositor layer for hardware acceleration */
+  will-change: width;
+  transform: translateZ(0);
 }
 
-/* Hide complex UI during drag */
-.PageLayoutContent:has(.DraggableHandle[data-dragging='true']) .ContentWrapper [data-expensive],
-.PageLayoutContent:has(.DraggableHandle[data-dragging='true']) .ContentWrapper canvas,
-.PageLayoutContent:has(.DraggableHandle[data-dragging='true']) .ContentWrapper video {
-  /* Hide expensive elements during drag */
-  visibility: hidden !important;
-}
-
-/* OPTIMIZATION: Disable animations in ContentWrapper during drag
-   Prevents expensive animation recalculations on every frame */
+/**
+ * OPTIMIZATION: Disable animations in ContentWrapper during drag
+ * Prevents expensive animation recalculations on every frame
+ */
 .PageLayoutContent:has(.DraggableHandle[data-dragging='true']) .ContentWrapper * {
   animation-play-state: paused !important;
   transition: none !important;
@@ -608,17 +608,21 @@
   /* stylelint-disable-next-line primer/spacing */
   padding: var(--spacing);
 
-  /* OPTIMIZATION: Full containment for pane - isolates from rest of page */
+  /**
+   * OPTIMIZATION: Full containment for pane - isolates from rest of page
+   */
   contain: layout style paint;
   
-  /* OPTIMIZATION: For extremely tall content - skip rendering off-screen content */
+  /**
+   * OPTIMIZATION: For extremely tall content - skip rendering off-screen content
+   */
   content-visibility: auto;
   
-  /* OPTIMIZATION: Provide size estimate for content-visibility */
+  /**
+   * OPTIMIZATION: Provide size estimate for content-visibility
+   * JavaScript updates this dynamically based on actual content height
+   */
   contain-intrinsic-size: auto 100vh;
-
-  image-rendering: auto;
-  text-rendering: optimizeLegibility;
 
   @media screen and (min-width: 768px) {
     overflow: auto;
@@ -633,8 +637,10 @@
   }
 }
 
-/* OPTIMIZATION: Additional optimizations for Pane during drag
-   Redundant with JavaScript but provides fallback */
+/**
+ * OPTIMIZATION: Performance enhancements for Pane during drag
+ * CSS handles all optimizations automatically - JavaScript only locks scroll
+ */
 .PaneWrapper:has(.DraggableHandle[data-dragging='true']) .Pane {
   /* Disable interactions during drag */
   pointer-events: none;
@@ -642,16 +648,19 @@
   /* Disable transitions during drag */
   transition: none !important;
 
-    /* NEW: Reduce rendering quality during drag */
+  /* Reduce rendering quality during drag */
   image-rendering: pixelated;
   text-rendering: optimizeSpeed;
   
   /* Force hardware acceleration */
+  will-change: width, transform;
   transform: translateZ(0);
   backface-visibility: hidden;
 }
 
-/* OPTIMIZATION: Disable animations in Pane during drag */
+/**
+ * OPTIMIZATION: Disable animations in Pane during drag
+ */
 .PaneWrapper:has(.DraggableHandle[data-dragging='true']) .Pane * {
   animation-play-state: paused !important;
   transition: none !important;
@@ -755,12 +764,20 @@
   padding: var(--spacing);
 }
 
+/**
+ * DraggableHandle - Interactive resize handle
+ */
 .DraggableHandle {
   position: absolute;
   inset: 0 -2px;
   cursor: col-resize;
   background-color: transparent;
   transition-delay: 0.1s;
+  
+  /**
+   * OPTIMIZATION: Prevent touch scrolling and text selection during drag
+   * This is done in CSS because it needs to be set before any pointer events
+   */
   touch-action: none;
   user-select: none;
 }
@@ -776,4 +793,25 @@
 
 .DraggableHandle[data-dragging='true']:hover {
   background-color: var(--bgColor-accent-emphasis);
+}
+
+/**
+ * ACCESSIBILITY: Keyboard focus styles
+ * Show focus indicator when navigating via keyboard
+ */
+.DraggableHandle:focus {
+  outline: 2px solid var(--fgColor-accent);
+  outline-offset: 2px;
+}
+
+/**
+ * Only show focus outline when navigating via keyboard, not mouse
+ */
+.DraggableHandle:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.DraggableHandle:focus-visible {
+  outline: 2px solid var(--fgColor-accent);
+  outline-offset: 2px;
 }
