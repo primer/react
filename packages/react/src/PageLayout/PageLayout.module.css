@@ -1,9 +1,3 @@
-/* Maintain resize cursor while dragging */
-/* stylelint-disable-next-line selector-no-qualifying-type */
-body[data-page-layout-dragging='true'] {
-  cursor: col-resize;
-}
-
 .PageLayoutRoot {
   /* Region Order */
   --region-order-header: 0;
@@ -706,6 +700,7 @@ body[data-page-layout-dragging='true'] {
 
 .DraggableHandle[data-dragging='true'] {
   background-color: var(--bgColor-accent-emphasis);
+  cursor: col-resize;
 }
 
 .DraggableHandle[data-dragging='true']:hover {

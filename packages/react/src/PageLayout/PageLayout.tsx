@@ -164,11 +164,16 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   className,
   style,
 }) => {
-  const [isDragging, setIsDragging] = React.useState(false)
-  const [isKeyboardDrag, setIsKeyboardDrag] = React.useState(false)
+  const isDraggingRef = React.useRef<'mouse' | 'keyboard' | false>(false)
 
+  const stableOnDragStart = React.useRef(onDragStart)
   const stableOnDrag = React.useRef(onDrag)
   const stableOnDragEnd = React.useRef(onDragEnd)
+  React.useLayoutEffect(() => {
+    stableOnDrag.current = onDrag
+    stableOnDragEnd.current = onDragEnd
+    stableOnDragStart.current = onDragStart
+  })
 
   const {paneRef} = React.useContext(PageLayoutContext)
 
@@ -176,6 +181,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   const [maxWidth, setMaxWidth] = React.useState(0)
   const [currentWidth, setCurrentWidth] = React.useState(0)
 
+  // Initialize dimensions once
   React.useEffect(() => {
     if (paneRef.current !== null) {
       const paneStyles = getComputedStyle(paneRef.current as Element)
@@ -188,51 +194,60 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       const maxPaneWidth = viewportWidth > maxPaneWidthDiff ? viewportWidth - maxPaneWidthDiff : viewportWidth
       setMinWidth(minPaneWidth)
       setMaxWidth(maxPaneWidth)
-      setCurrentWidth(paneWidth || 0)
+      setCurrentWidth(paneWidth)
     }
-  }, [paneRef, isKeyboardDrag, isDragging])
+  }, [paneRef])
 
-  React.useEffect(() => {
-    stableOnDrag.current = onDrag
-  })
+  const handlePointerDown = React.useCallback((event: React.PointerEvent) => {
+    if (event.button !== 0) return
+    event.preventDefault() // OPTIMIZATION: Prevent browser defaults
+    const target = event.currentTarget as HTMLElement
+    target.setPointerCapture(event.pointerId)
+    isDraggingRef.current = 'mouse'
+    target.setAttribute('data-dragging', 'true')
+    stableOnDragStart.current?.()
+  }, [])
 
-  React.useEffect(() => {
-    stableOnDragEnd.current = onDragEnd
-  })
-
-  // Handle pointer events with setPointerCapture for better performance
-  const handlePointerDown = React.useCallback(
-    (event: React.PointerEvent) => {
-      if (event.button !== 0) return
-      const target = event.currentTarget as HTMLElement
-      target.setPointerCapture(event.pointerId)
-      setIsDragging(true)
-      onDragStart?.()
-    },
-    [onDragStart],
-  )
-
-  const handlePointerMove = React.useCallback(
-    (event: React.PointerEvent) => {
-      if (!isDragging) return
+  const handlePointerMove = React.useCallback((event: React.PointerEvent) => {
+    if (!isDraggingRef.current) return
+    event.preventDefault() // OPTIMIZATION: Critical for smooth dragging
+    if (event.movementX !== 0) {
       stableOnDrag.current?.(event.movementX, false)
-    },
-    [isDragging],
-  )
+    }
+  }, [])
 
-  const handlePointerUp = React.useCallback(
-    (event: React.PointerEvent) => {
-      if (!isDragging) return
+  const handlePointerUp = React.useCallback((event: React.PointerEvent) => {
+    if (isDraggingRef.current !== 'mouse') return
+    const target = event.currentTarget as HTMLElement
+    target.releasePointerCapture(event.pointerId)
+    isDraggingRef.current = false
+    isKeyboardDragRef.current = false
+    target.removeAttribute('data-dragging')
+    stableOnDragEnd.current?.()
+  }, [])
+
+  const handleKeyDown = React.useCallback((event: React.KeyboardEvent) => {
+    if (
+      event.key === 'ArrowLeft' ||
+      event.key === 'ArrowRight' ||
+      event.key === 'ArrowUp' ||
+      event.key === 'ArrowDown'
+    ) {
+      isDraggingRef.current = 'keyboard'
+
+      // Update attributes directly
       const target = event.currentTarget as HTMLElement
-      target.releasePointerCapture(event.pointerId)
-      setIsDragging(false)
-      stableOnDragEnd.current?.()
-    },
-    [isDragging],
-  )
+      target.setAttribute('data-dragging', 'true')
 
+      stableOnDragStart.current?.()
+    }
+  }, [])
+
+  // CONTINUATION FROM PART 1 - Insert after handleKeyDown in VerticalDivider
+
+  // Keyboard drag handling
   React.useEffect(() => {
-    if (!isKeyboardDrag) {
+    if (!isKeyboardDragRef.current) {
       return
     }
 
@@ -252,7 +267,15 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     }
 
     function handleKeyDragEnd(event: KeyboardEvent) {
-      setIsKeyboardDrag(false)
+      isDraggingRef.current = false
+      isKeyboardDragRef.current = false
+
+      // Clean up attributes directly
+      const draggableHandle = document.querySelector('[role="slider"]') as HTMLElement | null
+      if (draggableHandle) {
+        draggableHandle.removeAttribute('data-dragging')
+      }
+
       stableOnDragEnd.current?.()
       event.preventDefault()
     }
@@ -264,30 +287,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       window.removeEventListener('keydown', handleKeyDrag)
       window.removeEventListener('keyup', handleKeyDragEnd)
     }
-  }, [isKeyboardDrag, currentWidth, minWidth, maxWidth])
-
-  const isDraggingByAnyMeans = isDragging || isKeyboardDrag
-
-  React.useEffect(() => {
-    const body = document.body as HTMLElement | undefined
-    if (!body) return
-
-    const previousDraggingValue = body.getAttribute('data-page-layout-dragging')
-
-    if (isDraggingByAnyMeans) {
-      body.setAttribute('data-page-layout-dragging', 'true')
-    } else {
-      body.removeAttribute('data-page-layout-dragging')
-    }
-
-    return () => {
-      if (previousDraggingValue === null) {
-        body.removeAttribute('data-page-layout-dragging')
-      } else {
-        body.setAttribute('data-page-layout-dragging', previousDraggingValue)
-      }
-    }
-  }, [isDraggingByAnyMeans])
+  }, [minWidth, maxWidth, currentWidth])
 
   return (
     <div
@@ -299,7 +299,6 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       {draggable ? (
         <div
           className={classes.DraggableHandle}
-          data-dragging={isDraggingByAnyMeans}
           role="slider"
           aria-label="Draggable pane splitter"
           aria-valuemin={minWidth}
@@ -310,18 +309,9 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
-          onKeyDown={(event: React.KeyboardEvent) => {
-            if (
-              event.key === 'ArrowLeft' ||
-              event.key === 'ArrowRight' ||
-              event.key === 'ArrowUp' ||
-              event.key === 'ArrowDown'
-            ) {
-              setIsKeyboardDrag(true)
-              onDragStart?.()
-            }
-          }}
+          onKeyDown={handleKeyDown}
           onDoubleClick={onDoubleClick}
+          style={{touchAction: 'none'}} // OPTIMIZATION: Prevent touch scrolling
         />
       ) : null}
     </div>
@@ -520,17 +510,6 @@ export type PageLayoutPaneProps = {
   position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
   /**
    * @deprecated Use the `position` prop with a responsive value instead.
-   *
-   * Before:
-   * ```
-   * position="start"
-   * positionWhenNarrow="end"
-   * ```
-   *
-   * After:
-   * ```
-   * position={{regular: 'start', narrow: 'end'}}
-   * ```
    */
   positionWhenNarrow?: 'inherit' | keyof typeof panePositions
   'aria-labelledby'?: string
@@ -543,17 +522,6 @@ export type PageLayoutPaneProps = {
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
   /**
    * @deprecated Use the `divider` prop with a responsive value instead.
-   *
-   * Before:
-   * ```
-   * divider="line"
-   * dividerWhenNarrow="filled"
-   * ```
-   *
-   * After:
-   * ```
-   * divider={{regular: 'line', narrow: 'filled'}}
-   * ```
    */
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
   sticky?: boolean
@@ -580,6 +548,8 @@ const paneWidths = {
 const defaultPaneWidth = {small: 256, medium: 296, large: 320}
 
 const overflowProps = {tabIndex: 0, role: 'region'}
+
+// CONTINUATION FROM PART 2 - Insert after overflowProps in Pane section
 
 const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutPaneProps>>(
   (
@@ -649,63 +619,9 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       return storedWidth && !isNaN(Number(storedWidth)) ? Number(storedWidth) : getDefaultPaneWidth(width)
     })
 
-    type NextPaneWidth = number | ((previous: number) => number)
-
-    const updatePaneWidth = React.useCallback(
-      (nextWidth: NextPaneWidth, {persist = false}: {persist?: boolean} = {}) => {
-        setPaneWidth(previous => {
-          const resolvedWidth = typeof nextWidth === 'function' ? nextWidth(previous) : nextWidth
-
-          if (persist) {
-            try {
-              localStorage.setItem(widthStorageKey, resolvedWidth.toString())
-            } catch (_error) {
-              // Ignore errors
-            }
-          }
-
-          return resolvedWidth
-        })
-      },
-      [widthStorageKey],
-    )
-
-    // Track drag delta for direct DOM updates (avoids React re-renders during drag)
+    // OPTIMIZATION: Track accumulated drag delta during pointer drag
+    // This allows us to batch DOM updates without React state changes
     const dragDeltaRef = React.useRef(0)
-
-    // Apply delta directly to DOM for 120fps performance during mouse drag
-    const applyDragDelta = React.useCallback(
-      (delta: number) => {
-        dragDeltaRef.current += delta
-        if (paneRef.current) {
-          const newWidth = paneWidth + dragDeltaRef.current
-          paneRef.current.style.setProperty('--pane-width', `${newWidth}px`)
-        }
-      },
-      [paneRef, paneWidth],
-    )
-
-    const resetDragDelta = React.useCallback(() => {
-      dragDeltaRef.current = 0
-    }, [])
-
-    const applyPaneDelta = React.useCallback(
-      (delta: number) => {
-        updatePaneWidth(previous => previous + delta)
-      },
-      [updatePaneWidth],
-    )
-
-    const {
-      enqueue: enqueueDragDelta,
-      flush: flushDragDelta,
-      cancel: cancelDragDelta,
-    } = useRafAccumulator(applyDragDelta)
-    const {
-      enqueue: enqueuePaneDelta,
-      flush: flushPaneDelta,
-      cancel: cancelPaneDelta,
-    } = useRafAccumulator(applyPaneDelta)
 
     useRefObjectAsForwardedRef(forwardRef, paneRef)
 
@@ -794,37 +710,49 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           onDrag={(delta, isKeyboard = false) => {
             // Adjust delta direction based on pane position
             const deltaWithDirection = isKeyboard ? delta : position === 'end' ? -delta : delta
+
             if (isKeyboard) {
-              // Keyboard: update React state immediately
-              enqueuePaneDelta(deltaWithDirection, {immediate: true})
+              // OPTIMIZATION: Keyboard uses React state for immediate visual feedback
+              setPaneWidth(prev => prev + deltaWithDirection)
             } else {
-              // Mouse: update DOM directly for 120fps performance
-              enqueueDragDelta(deltaWithDirection)
+              // OPTIMIZATION: Pointer drag - direct DOM manipulation for 120fps
+              // Accumulate delta without triggering React re-renders
+              dragDeltaRef.current += deltaWithDirection
+              if (paneRef.current) {
+                const newWidth = paneWidth + dragDeltaRef.current
+                // Direct CSS variable update - bypasses React reconciliation
+                paneRef.current.style.setProperty('--pane-width', `${newWidth}px`)
+              }
             }
           }}
-          // Ensure `paneWidth` state and actual pane width are in sync when the drag ends
           onDragEnd={() => {
-            // Flush pending updates then cancel any scheduled RAFs
-            flushDragDelta()
-            cancelDragDelta()
-            flushPaneDelta()
-            cancelPaneDelta()
-            // Commit accumulated drag delta to React state
+            // OPTIMIZATION: Commit accumulated pointer drag delta to React state
+            // This is the only state update during the entire drag operation
             const totalDelta = dragDeltaRef.current
             if (totalDelta !== 0) {
-              updatePaneWidth(prev => prev + totalDelta, {persist: true})
-              resetDragDelta()
+              setPaneWidth(prev => {
+                const newWidth = prev + totalDelta
+                try {
+                  localStorage.setItem(widthStorageKey, newWidth.toString())
+                } catch (_error) {
+                  // Ignore errors
+                }
+                return newWidth
+              })
+              dragDeltaRef.current = 0
             }
           }}
           position={positionProp}
           // Reset pane width on double click
           onDoubleClick={() => {
-            flushDragDelta()
-            cancelDragDelta()
-            resetDragDelta()
-            flushPaneDelta()
-            cancelPaneDelta()
-            updatePaneWidth(() => getDefaultPaneWidth(width), {persist: true})
+            dragDeltaRef.current = 0
+            const defaultWidth = getDefaultPaneWidth(width)
+            setPaneWidth(defaultWidth)
+            try {
+              localStorage.setItem(widthStorageKey, defaultWidth.toString())
+            } catch (_error) {
+              // Ignore errors
+            }
           }}
           className={classes.PaneVerticalDivider}
           style={
@@ -857,17 +785,6 @@ export type PageLayoutFooterProps = {
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
   /**
    * @deprecated Use the `divider` prop with a responsive value instead.
-   *
-   * Before:
-   * ```
-   * divider="line"
-   * dividerWhenNarrow="filled"
-   * ```
-   *
-   * After:
-   * ```
-   * divider={{regular: 'line', narrow: 'filled'}}
-   * ```
    */
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
   hidden?: boolean | ResponsiveValue<boolean>
@@ -932,6 +849,8 @@ const Footer: FCWithSlotMarker<React.PropsWithChildren<PageLayoutFooterProps>> =
 
 Footer.displayName = 'PageLayout.Footer'
 
+// CONTINUATION FROM PART 3 - Final part with exports
+
 // ----------------------------------------------------------------------------
 // Export
 
@@ -947,75 +866,3 @@ Header.__SLOT__ = Symbol('PageLayout.Header')
 Content.__SLOT__ = Symbol('PageLayout.Content')
 ;(Pane as WithSlotMarker<typeof Pane>).__SLOT__ = Symbol('PageLayout.Pane')
 Footer.__SLOT__ = Symbol('PageLayout.Footer')
-
-type RafAccumulatorOptions = {
-  immediate?: boolean
-}
-
-type RafAccumulatorControls = {
-  enqueue: (delta: number, options?: RafAccumulatorOptions) => void
-  flush: () => void
-  cancel: () => void
-}
-
-/**
- * Batches numeric updates so that only a single callback runs per animation frame.
- * Falls back to synchronous updates when the DOM is not available (SSR/tests).
- */
-function useRafAccumulator(applyDelta: (delta: number) => void): RafAccumulatorControls {
-  const pendingDeltaRef = React.useRef(0)
-  const rafIdRef = React.useRef<number | null>(null)
-
-  const flush = React.useCallback(() => {
-    if (pendingDeltaRef.current === 0) return
-    const delta = pendingDeltaRef.current
-    pendingDeltaRef.current = 0
-    applyDelta(delta)
-  }, [applyDelta])
-
-  const cancel = React.useCallback(() => {
-    if (!canUseDOM) return
-    if (rafIdRef.current !== null) {
-      window.cancelAnimationFrame(rafIdRef.current)
-      rafIdRef.current = null
-    }
-  }, [])
-
-  const schedule = React.useCallback(() => {
-    if (!canUseDOM) {
-      flush()
-      return
-    }
-    if (rafIdRef.current !== null) {
-      return
-    }
-    rafIdRef.current = window.requestAnimationFrame(() => {
-      rafIdRef.current = null
-      flush()
-    })
-  }, [flush])
-
-  const enqueue = React.useCallback(
-    (delta: number, options?: RafAccumulatorOptions) => {
-      const immediate = options?.immediate ?? false
-      pendingDeltaRef.current += delta
-
-      if (immediate) {
-        cancel()
-        flush()
-      } else {
-        schedule()
-      }
-    },
-    [cancel, flush, schedule],
-  )
-
-  React.useEffect(() => {
-    return () => {
-      cancel()
-      pendingDeltaRef.current = 0
-    }
-  }, [cancel])
-
-  return {enqueue, flush, cancel}
-}
