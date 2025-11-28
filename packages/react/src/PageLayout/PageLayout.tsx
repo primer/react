@@ -197,15 +197,21 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     }
   }, [paneRef])
 
-  const handlePointerDown = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
-    if (event.button !== 0) return
-    event.preventDefault() // OPTIMIZATION: Prevent browser defaults
-    const target = event.currentTarget
-    target.setPointerCapture(event.pointerId)
-    isDraggingRef.current = true
-    target.setAttribute('data-dragging', 'true')
-    stableOnDragStart.current?.()
-  }, [])
+  const handlePointerDown = React.useCallback(
+    (event: React.PointerEvent<HTMLDivElement>) => {
+      if (event.button !== 0) return
+      event.preventDefault() // OPTIMIZATION: Prevent browser defaults
+      const target = event.currentTarget
+      target.setPointerCapture(event.pointerId)
+      isDraggingRef.current = true
+      target.setAttribute('data-dragging', 'true')
+      if (paneRef.current) {
+        paneRef.current.style.willChange = 'width'
+      }
+      stableOnDragStart.current?.()
+    },
+    [paneRef],
+  )
 
   const handlePointerMove = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
     if (!isDraggingRef.current) return
@@ -221,13 +227,19 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     // Cleanup will happen in onLostPointerCapture
   }, [])
 
-  const handleLostPointerCapture = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
-    if (!isDraggingRef.current) return
-    isDraggingRef.current = false
-    const target = event.currentTarget
-    target.removeAttribute('data-dragging')
-    stableOnDragEnd.current?.()
-  }, [])
+  const handleLostPointerCapture = React.useCallback(
+    (event: React.PointerEvent<HTMLDivElement>) => {
+      if (!isDraggingRef.current) return
+      isDraggingRef.current = false
+      const target = event.currentTarget
+      target.removeAttribute('data-dragging')
+      if (paneRef.current) {
+        paneRef.current.style.willChange = 'auto'
+      }
+      stableOnDragEnd.current?.()
+    },
+    [paneRef],
+  )
 
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -627,6 +639,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       }
     }
 
+    const animationFrameRef = React.useRef<number | null>(null)
+
     return (
       <div
         className={clsx(classes.PaneWrapper, className)}
@@ -690,26 +704,38 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           // If pane is resizable, the divider should be draggable
           draggable={resizable}
           onDrag={(delta, isKeyboard = false) => {
-            // Adjust delta direction based on pane position
             const deltaWithDirection = isKeyboard ? delta : position === 'end' ? -delta : delta
 
             if (isKeyboard) {
               // OPTIMIZATION: Keyboard uses React state for immediate visual feedback
               setPaneWidth(prev => prev + deltaWithDirection)
             } else {
-              // OPTIMIZATION: Pointer drag - direct DOM manipulation for 120fps
-              // Accumulate delta without triggering React re-renders
+              // OPTIMIZATION: Pointer drag - batch DOM updates in requestAnimationFrame
+              // This eliminates layout thrashing by grouping all reads, then all writes
               dragDeltaRef.current += deltaWithDirection
-              if (paneRef.current) {
-                const newWidth = paneWidth + dragDeltaRef.current
-                // Direct CSS variable update - bypasses React reconciliation
-                paneRef.current.style.setProperty('--pane-width', `${newWidth}px`)
+
+              if (!animationFrameRef.current) {
+                animationFrameRef.current = requestAnimationFrame(() => {
+                  if (paneRef.current) {
+                    // BATCH READS: Get all DOM measurements first
+                    // const {minWidth: minPaneWidth, maxWidth: maxPaneWidth} = getMinMaxWidth()
+                    const newWidth = paneWidth + dragDeltaRef.current
+                    // BATCH WRITES: Update DOM after all reads complete
+                    paneRef.current.style.setProperty('--pane-width', `${newWidth}px`)
+                  }
+                  animationFrameRef.current = null
+                })
               }
             }
           }}
           onDragEnd={() => {
+            // Clear any pending animation frame
+            if (animationFrameRef.current) {
+              cancelAnimationFrame(animationFrameRef.current)
+              animationFrameRef.current = null
+            }
+
             // OPTIMIZATION: Commit accumulated pointer drag delta to React state
-            // This is the only state update during the entire drag operation
             const totalDelta = dragDeltaRef.current
             if (totalDelta !== 0) {
               setPaneWidth(prev => {

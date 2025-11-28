@@ -573,6 +573,8 @@
   /* stylelint-disable-next-line primer/spacing */
   padding: var(--spacing);
 
+  contain: layout style paint;
+
   @media screen and (min-width: 768px) {
     overflow: auto;
   }
