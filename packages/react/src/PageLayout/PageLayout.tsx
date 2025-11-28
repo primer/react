@@ -221,7 +221,6 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     const target = event.currentTarget as HTMLElement
     target.releasePointerCapture(event.pointerId)
     isDraggingRef.current = false
-    isKeyboardDragRef.current = false
     target.removeAttribute('data-dragging')
     stableOnDragEnd.current?.()
   }, [])
@@ -243,51 +242,44 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     }
   }, [])
 
-  // CONTINUATION FROM PART 1 - Insert after handleKeyDown in VerticalDivider
+  const handleKeyDown = React.useCallback(
+    (event: React.KeyboardEvent) => {
+      if (
+        event.key === 'ArrowLeft' ||
+        event.key === 'ArrowRight' ||
+        event.key === 'ArrowUp' ||
+        event.key === 'ArrowDown'
+      ) {
+        event.preventDefault()
 
-  // Keyboard drag handling
-  React.useEffect(() => {
-    if (!isKeyboardDragRef.current) {
-      return
-    }
+        let delta = 0
+        // https://github.com/github/accessibility/issues/5101#issuecomment-1822870655
+        if ((event.key === 'ArrowLeft' || event.key === 'ArrowDown') && currentWidth > minWidth) {
+          delta = -3
+        } else if ((event.key === 'ArrowRight' || event.key === 'ArrowUp') && currentWidth < maxWidth) {
+          delta = 3
+        } else {
+          return
+        }
 
-    function handleKeyDrag(event: KeyboardEvent) {
-      let delta = 0
-      // https://github.com/github/accessibility/issues/5101#issuecomment-1822870655
-      if ((event.key === 'ArrowLeft' || event.key === 'ArrowDown') && currentWidth > minWidth) {
-        delta = -3
-      } else if ((event.key === 'ArrowRight' || event.key === 'ArrowUp') && currentWidth < maxWidth) {
-        delta = 3
-      } else {
-        return
+        setCurrentWidth(currentWidth + delta)
+        stableOnDrag.current?.(delta, true)
       }
-      setCurrentWidth(currentWidth + delta)
-      stableOnDrag.current?.(delta, true)
+    },
+    [currentWidth, minWidth, maxWidth],
+  )
+
+  const handleKeyUp = React.useCallback((event: React.KeyboardEvent) => {
+    if (
+      event.key === 'ArrowLeft' ||
+      event.key === 'ArrowRight' ||
+      event.key === 'ArrowUp' ||
+      event.key === 'ArrowDown'
+    ) {
       event.preventDefault()
-    }
-
-    function handleKeyDragEnd(event: KeyboardEvent) {
-      isDraggingRef.current = false
-      isKeyboardDragRef.current = false
-
-      // Clean up attributes directly
-      const draggableHandle = document.querySelector('[role="slider"]') as HTMLElement | null
-      if (draggableHandle) {
-        draggableHandle.removeAttribute('data-dragging')
-      }
-
       stableOnDragEnd.current?.()
-      event.preventDefault()
     }
-
-    window.addEventListener('keydown', handleKeyDrag)
-    window.addEventListener('keyup', handleKeyDragEnd)
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDrag)
-      window.removeEventListener('keyup', handleKeyDragEnd)
-    }
-  }, [minWidth, maxWidth, currentWidth])
+  }, [])
 
   return (
     <div
@@ -310,6 +302,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
           onKeyDown={handleKeyDown}
+          onKeyUp={handleKeyUp}
           onDoubleClick={onDoubleClick}
           style={{touchAction: 'none'}} // OPTIMIZATION: Prevent touch scrolling
         />
@@ -548,8 +541,6 @@ const paneWidths = {
 const defaultPaneWidth = {small: 256, medium: 296, large: 320}
 
 const overflowProps = {tabIndex: 0, role: 'region'}
-
-// CONTINUATION FROM PART 2 - Insert after overflowProps in Pane section
 
 const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutPaneProps>>(
   (
@@ -848,11 +839,6 @@ const Footer: FCWithSlotMarker<React.PropsWithChildren<PageLayoutFooterProps>> =
 }
 
 Footer.displayName = 'PageLayout.Footer'
-
-// CONTINUATION FROM PART 3 - Final part with exports
-
-// ----------------------------------------------------------------------------
-// Export
 
 export const PageLayout = Object.assign(Root, {
   __SLOT__: Symbol('PageLayout'),
