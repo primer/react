@@ -152,7 +152,6 @@ type DraggableDividerProps = {
   onDragEnd?: () => void
   onDoubleClick?: () => void
 }
-
 const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & DraggableDividerProps>> = ({
   variant = 'none',
   draggable = false,
@@ -164,7 +163,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   className,
   style,
 }) => {
-  const isDraggingRef = React.useRef<'mouse' | 'keyboard' | false>(false)
+  const isDraggingRef = React.useRef(false)
 
   const stableOnDragStart = React.useRef(onDragStart)
   const stableOnDrag = React.useRef(onDrag)
@@ -184,7 +183,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   // Initialize dimensions once
   React.useEffect(() => {
     if (paneRef.current !== null) {
-      const paneStyles = getComputedStyle(paneRef.current as Element)
+      const paneStyles = getComputedStyle(paneRef.current)
       const maxPaneWidthDiffPixels = paneStyles.getPropertyValue('--pane-max-width-diff')
       const minWidthPixels = paneStyles.getPropertyValue('--pane-min-width')
       const paneWidth = paneRef.current.getBoundingClientRect().width
@@ -198,17 +197,17 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     }
   }, [paneRef])
 
-  const handlePointerDown = React.useCallback((event: React.PointerEvent) => {
+  const handlePointerDown = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
     if (event.button !== 0) return
     event.preventDefault() // OPTIMIZATION: Prevent browser defaults
-    const target = event.currentTarget as HTMLElement
+    const target = event.currentTarget
     target.setPointerCapture(event.pointerId)
-    isDraggingRef.current = 'mouse'
+    isDraggingRef.current = true
     target.setAttribute('data-dragging', 'true')
     stableOnDragStart.current?.()
   }, [])
 
-  const handlePointerMove = React.useCallback((event: React.PointerEvent) => {
+  const handlePointerMove = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
     if (!isDraggingRef.current) return
     event.preventDefault() // OPTIMIZATION: Critical for smooth dragging
     if (event.movementX !== 0) {
@@ -216,17 +215,22 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     }
   }, [])
 
-  const handlePointerUp = React.useCallback((event: React.PointerEvent) => {
-    if (isDraggingRef.current !== 'mouse') return
-    const target = event.currentTarget as HTMLElement
-    target.releasePointerCapture(event.pointerId)
+  const handlePointerUp = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDraggingRef.current) return
+    event.preventDefault()
+    // Cleanup will happen in onLostPointerCapture
+  }, [])
+
+  const handleLostPointerCapture = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDraggingRef.current) return
     isDraggingRef.current = false
+    const target = event.currentTarget
     target.removeAttribute('data-dragging')
     stableOnDragEnd.current?.()
   }, [])
 
   const handleKeyDown = React.useCallback(
-    (event: React.KeyboardEvent) => {
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (
         event.key === 'ArrowLeft' ||
         event.key === 'ArrowRight' ||
@@ -234,7 +238,8 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
         event.key === 'ArrowDown'
       ) {
         event.preventDefault()
-
+        const target = event.currentTarget
+        target.setAttribute('data-dragging', 'true')
         setCurrentWidth(prevWidth => {
           let delta = 0
           // https://github.com/github/accessibility/issues/5101#issuecomment-1822870655
@@ -255,7 +260,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     [minWidth, maxWidth],
   )
 
-  const handleKeyUp = React.useCallback((event: React.KeyboardEvent) => {
+  const handleKeyUp = React.useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
     if (
       event.key === 'ArrowLeft' ||
       event.key === 'ArrowRight' ||
@@ -287,10 +292,10 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
+          onLostPointerCapture={handleLostPointerCapture}
           onKeyDown={handleKeyDown}
           onKeyUp={handleKeyUp}
           onDoubleClick={onDoubleClick}
-          style={{touchAction: 'none'}} // OPTIMIZATION: Prevent touch scrolling
         />
       ) : null}
     </div>
