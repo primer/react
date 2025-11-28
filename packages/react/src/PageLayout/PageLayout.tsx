@@ -21,6 +21,9 @@ const REGION_ORDER = {
   footer: 4,
 }
 
+// CSS variable name for drag delta (used for direct DOM manipulation during drag)
+const DRAG_DELTA_CSS_VAR = '--pane-drag-delta'
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SPACING_MAP = {
   none: 0,
@@ -320,7 +323,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
           style={
             {
               // Initialize drag delta CSS variable (updated directly via DOM for 120fps)
-              '--pane-drag-delta': '0px',
+              [DRAG_DELTA_CSS_VAR]: '0px',
             } as React.CSSProperties
           }
           onPointerDown={handlePointerDown}
@@ -597,6 +600,13 @@ const defaultPaneWidth = {small: 256, medium: 296, large: 320}
 
 const overflowProps = {tabIndex: 0, role: 'region'}
 
+/**
+ * Adjusts delta value based on pane position for proper drag direction handling
+ */
+function getAdjustedDelta(delta: number, position: 'start' | 'end'): number {
+  return position === 'end' ? -delta : delta
+}
+
 const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutPaneProps>>(
   (
     {
@@ -707,11 +717,11 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         dragDeltaRef.current += delta
         // Update DOM directly without React state to avoid re-renders
         if (paneRef.current) {
-          paneRef.current.style.setProperty('--pane-drag-delta', `${dragDeltaRef.current}px`)
+          paneRef.current.style.setProperty(DRAG_DELTA_CSS_VAR, `${dragDeltaRef.current}px`)
         }
         if (dragHandleRef.current) {
-          const adjustedDelta = position === 'end' ? -dragDeltaRef.current : dragDeltaRef.current
-          dragHandleRef.current.style.setProperty('--pane-drag-delta', `${adjustedDelta}px`)
+          const adjustedDelta = getAdjustedDelta(dragDeltaRef.current, position)
+          dragHandleRef.current.style.setProperty(DRAG_DELTA_CSS_VAR, `${adjustedDelta}px`)
         }
       },
       [paneRef, position],
@@ -721,10 +731,10 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       dragDeltaRef.current = 0
       // Reset DOM styles
       if (paneRef.current) {
-        paneRef.current.style.setProperty('--pane-drag-delta', '0px')
+        paneRef.current.style.setProperty(DRAG_DELTA_CSS_VAR, '0px')
       }
       if (dragHandleRef.current) {
-        dragHandleRef.current.style.setProperty('--pane-drag-delta', '0px')
+        dragHandleRef.current.style.setProperty(DRAG_DELTA_CSS_VAR, '0px')
       }
     }, [paneRef])
 
@@ -806,7 +816,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               '--pane-width-size': `var(--pane-width-${isPaneWidth(width) ? width : 'custom'})`,
               '--pane-width': `${paneWidth}px`,
               // Initialize drag delta CSS variable (updated directly via DOM for 120fps performance)
-              '--pane-drag-delta': '0px',
+              [DRAG_DELTA_CSS_VAR]: '0px',
             } as React.CSSProperties
           }
         >
@@ -834,13 +844,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             setIsDragging(true)
           }}
           onDrag={(delta, isKeyboard = false) => {
-            // Get the number of pixels the divider was dragged
-            let deltaWithDirection
-            if (isKeyboard) {
-              deltaWithDirection = delta
-            } else {
-              deltaWithDirection = position === 'end' ? -delta : delta
-            }
+            // Get the number of pixels the divider was dragged (adjusted for pane position)
+            const deltaWithDirection = isKeyboard ? delta : getAdjustedDelta(delta, position)
             if (isKeyboard) {
               // For keyboard, apply width changes immediately
               enqueuePaneDelta(deltaWithDirection, {immediate: true})
