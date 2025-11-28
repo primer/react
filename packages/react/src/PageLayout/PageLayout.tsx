@@ -209,6 +209,10 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     }
   }, [paneRef])
 
+  // Track start position to avoid cursor drift
+  const dragStartXRef = React.useRef(0)
+  const lastAppliedXRef = React.useRef(0)
+
   const handlePointerDown = React.useCallback(
     (event: React.PointerEvent<HTMLDivElement>) => {
       if (event.button !== 0) return
@@ -217,6 +221,10 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       target.setPointerCapture(event.pointerId)
       isDraggingRef.current = true
       target.setAttribute('data-dragging', 'true')
+
+      // Track start position
+      dragStartXRef.current = event.clientX
+      lastAppliedXRef.current = event.clientX
 
       if (paneRef.current) {
         // Essential JS optimizations that can't be done in CSS
@@ -248,17 +256,24 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     if (!isDraggingRef.current) return
     event.preventDefault()
 
-    if (event.movementX !== 0) {
-      // Snap to 4px grid - reduces updates by 75%
-      const quantized = Math.round(event.movementX / 4) * 4
-      if (quantized !== 0) {
-        // Throttle to every other frame for huge DOM
-        if (!pointerMoveThrottleRafIdRef.current) {
-          pointerMoveThrottleRafIdRef.current = requestAnimationFrame(() => {
-            stableOnDrag.current?.(quantized, false)
-            pointerMoveThrottleRafIdRef.current = null
-          })
-        }
+    // Calculate total delta from start position
+    const totalDelta = event.clientX - dragStartXRef.current
+
+    // Snap to 4px grid
+    const quantized = Math.round(totalDelta / 4) * 4
+
+    // Only update if quantized position changed
+    const lastQuantized = Math.round((lastAppliedXRef.current - dragStartXRef.current) / 4) * 4
+    if (quantized !== lastQuantized) {
+      const delta = quantized - lastQuantized
+      lastAppliedXRef.current = dragStartXRef.current + quantized
+
+      // Throttle to every other frame for huge DOM
+      if (!pointerMoveThrottleRafIdRef.current) {
+        pointerMoveThrottleRafIdRef.current = requestAnimationFrame(() => {
+          stableOnDrag.current?.(delta, false)
+          pointerMoveThrottleRafIdRef.current = null
+        })
       }
     }
   }, [])
@@ -708,7 +723,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     const TARGET_FPS_DURING_DRAG = 30
     const FRAME_BUDGET = 1000 / TARGET_FPS_DURING_DRAG
 
-    // Extract duplicate width calculation logic
     const applyWidthUpdate = React.useCallback(() => {
       if (paneRef.current) {
         const {minWidth: minPaneWidth, maxWidth: maxPaneWidth} = getConstraints(paneRef.current)
