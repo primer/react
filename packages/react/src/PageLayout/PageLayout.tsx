@@ -225,23 +225,6 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     stableOnDragEnd.current?.()
   }, [])
 
-  const handleKeyDown = React.useCallback((event: React.KeyboardEvent) => {
-    if (
-      event.key === 'ArrowLeft' ||
-      event.key === 'ArrowRight' ||
-      event.key === 'ArrowUp' ||
-      event.key === 'ArrowDown'
-    ) {
-      isDraggingRef.current = 'keyboard'
-
-      // Update attributes directly
-      const target = event.currentTarget as HTMLElement
-      target.setAttribute('data-dragging', 'true')
-
-      stableOnDragStart.current?.()
-    }
-  }, [])
-
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent) => {
       if (
@@ -252,21 +235,24 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       ) {
         event.preventDefault()
 
-        let delta = 0
-        // https://github.com/github/accessibility/issues/5101#issuecomment-1822870655
-        if ((event.key === 'ArrowLeft' || event.key === 'ArrowDown') && currentWidth > minWidth) {
-          delta = -3
-        } else if ((event.key === 'ArrowRight' || event.key === 'ArrowUp') && currentWidth < maxWidth) {
-          delta = 3
-        } else {
-          return
-        }
+        setCurrentWidth(prevWidth => {
+          let delta = 0
+          // https://github.com/github/accessibility/issues/5101#issuecomment-1822870655
+          if ((event.key === 'ArrowLeft' || event.key === 'ArrowDown') && prevWidth > minWidth) {
+            delta = -3
+          } else if ((event.key === 'ArrowRight' || event.key === 'ArrowUp') && prevWidth < maxWidth) {
+            delta = 3
+          }
 
-        setCurrentWidth(currentWidth + delta)
-        stableOnDrag.current?.(delta, true)
+          if (delta !== 0) {
+            stableOnDrag.current?.(delta, true)
+          }
+
+          return prevWidth + delta
+        })
       }
     },
-    [currentWidth, minWidth, maxWidth],
+    [minWidth, maxWidth],
   )
 
   const handleKeyUp = React.useCallback((event: React.KeyboardEvent) => {
