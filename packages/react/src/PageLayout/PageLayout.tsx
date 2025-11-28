@@ -792,7 +792,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           // If pane is resizable, the divider should be draggable
           draggable={resizable}
           onDrag={(delta, isKeyboard = false) => {
-            // Get the number of pixels the divider was dragged
+            // Adjust delta direction based on pane position
             const deltaWithDirection = isKeyboard ? delta : position === 'end' ? -delta : delta
             if (isKeyboard) {
               // Keyboard: update React state immediately
@@ -804,10 +804,11 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           }}
           // Ensure `paneWidth` state and actual pane width are in sync when the drag ends
           onDragEnd={() => {
-            cancelDragDelta()
+            // Flush pending updates then cancel any scheduled RAFs
             flushDragDelta()
-            cancelPaneDelta()
+            cancelDragDelta()
             flushPaneDelta()
+            cancelPaneDelta()
             // Commit accumulated drag delta to React state
             const totalDelta = dragDeltaRef.current
             if (totalDelta !== 0) {
@@ -818,10 +819,11 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           position={positionProp}
           // Reset pane width on double click
           onDoubleClick={() => {
+            flushDragDelta()
             cancelDragDelta()
             resetDragDelta()
-            cancelPaneDelta()
             flushPaneDelta()
+            cancelPaneDelta()
             updatePaneWidth(() => getDefaultPaneWidth(width), {persist: true})
           }}
           className={classes.PaneVerticalDivider}
