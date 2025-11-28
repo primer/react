@@ -150,7 +150,7 @@ const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
 
 type DraggableDividerProps = {
   draggable?: boolean
-  dragHandleRef?: React.RefObject<HTMLDivElement>
+  dragHandleRef?: React.MutableRefObject<HTMLDivElement | null>
   onDragStart?: () => void
   onDrag?: (delta: number, isKeyboard: boolean) => void
   onDragEnd?: () => void
@@ -171,9 +171,11 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
 }) => {
   const [isDragging, setIsDragging] = React.useState(false)
   const [isKeyboardDrag, setIsKeyboardDrag] = React.useState(false)
-  const internalDragHandleRef = React.useRef<HTMLDivElement>(null)
-  // Use external ref if provided, otherwise use internal ref
-  const dragHandleRef = externalDragHandleRef || internalDragHandleRef
+  const dragHandleRef = React.useRef<HTMLDivElement>(null)
+
+  // Sync external ref with internal ref using useImperativeHandle
+  // This allows parent component to access the drag handle DOM element for direct style manipulation
+  React.useImperativeHandle(externalDragHandleRef as React.Ref<HTMLDivElement | null>, () => dragHandleRef.current, [])
 
   const stableOnDrag = React.useRef(onDrag)
   const stableOnDragEnd = React.useRef(onDragEnd)
