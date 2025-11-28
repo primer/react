@@ -147,7 +147,7 @@ const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
 
 type DraggableDividerProps = {
   draggable?: boolean
-  dragDelta?: number
+  dragHandleRef?: React.RefObject<HTMLDivElement>
   onDragStart?: () => void
   onDrag?: (delta: number, isKeyboard: boolean) => void
   onDragEnd?: () => void
@@ -157,7 +157,7 @@ type DraggableDividerProps = {
 const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & DraggableDividerProps>> = ({
   variant = 'none',
   draggable = false,
-  dragDelta = 0,
+  dragHandleRef: externalDragHandleRef,
   onDragStart,
   onDrag,
   onDragEnd,
@@ -168,7 +168,9 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
 }) => {
   const [isDragging, setIsDragging] = React.useState(false)
   const [isKeyboardDrag, setIsKeyboardDrag] = React.useState(false)
-  const dragHandleRef = React.useRef<HTMLDivElement>(null)
+  const internalDragHandleRef = React.useRef<HTMLDivElement>(null)
+  // Use external ref if provided, otherwise use internal ref
+  const dragHandleRef = externalDragHandleRef || internalDragHandleRef
 
   const stableOnDrag = React.useRef(onDrag)
   const stableOnDragEnd = React.useRef(onDragEnd)
@@ -303,6 +305,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     >
       {draggable ? (
         // Drag handle using pointer events with setPointerCapture for performance
+        // Style is updated directly via DOM for 120fps performance (--pane-drag-delta)
         <div
           ref={dragHandleRef}
           className={classes.DraggableHandle}
@@ -316,7 +319,8 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
           tabIndex={0}
           style={
             {
-              '--pane-drag-delta': `${dragDelta}px`,
+              // Initialize drag delta CSS variable (updated directly via DOM for 120fps)
+              '--pane-drag-delta': '0px',
             } as React.CSSProperties
           }
           onPointerDown={handlePointerDown}
@@ -684,8 +688,9 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
     // Track visual delta during mouse drag to avoid document reflow
     // Width is only committed at the end of the drag
-    const [dragDelta, setDragDelta] = React.useState(0)
-    const dragDeltaRef = React.useRef(0) // Ref to track total delta for committing
+    // Use refs for direct DOM manipulation to avoid React re-renders (targeting 120fps)
+    const dragDeltaRef = React.useRef(0)
+    const dragHandleRef = React.useRef<HTMLDivElement>(null)
     const [isDragging, setIsDragging] = React.useState(false)
 
     const applyPaneDelta = React.useCallback(
@@ -695,16 +700,33 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       [updatePaneWidth],
     )
 
-    // For mouse dragging, accumulate delta and update via CSS variable for visual feedback
-    const applyDragDelta = React.useCallback((delta: number) => {
-      dragDeltaRef.current += delta
-      setDragDelta(prev => prev + delta)
-    }, [])
+    // For mouse dragging, accumulate delta and update DOM directly for visual feedback
+    // This avoids React re-renders for maximum performance (120fps target)
+    const applyDragDelta = React.useCallback(
+      (delta: number) => {
+        dragDeltaRef.current += delta
+        // Update DOM directly without React state to avoid re-renders
+        if (paneRef.current) {
+          paneRef.current.style.setProperty('--pane-drag-delta', `${dragDeltaRef.current}px`)
+        }
+        if (dragHandleRef.current) {
+          const adjustedDelta = position === 'end' ? -dragDeltaRef.current : dragDeltaRef.current
+          dragHandleRef.current.style.setProperty('--pane-drag-delta', `${adjustedDelta}px`)
+        }
+      },
+      [paneRef, position],
+    )
 
     const resetDragDelta = React.useCallback(() => {
       dragDeltaRef.current = 0
-      setDragDelta(0)
-    }, [])
+      // Reset DOM styles
+      if (paneRef.current) {
+        paneRef.current.style.setProperty('--pane-drag-delta', '0px')
+      }
+      if (dragHandleRef.current) {
+        dragHandleRef.current.style.setProperty('--pane-drag-delta', '0px')
+      }
+    }, [paneRef])
 
     const {
       enqueue: enqueuePaneDelta,
@@ -783,8 +805,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               '--pane-width-custom': isCustomWidthOptions(width) ? width.default : undefined,
               '--pane-width-size': `var(--pane-width-${isPaneWidth(width) ? width : 'custom'})`,
               '--pane-width': `${paneWidth}px`,
-              // Apply transform during mouse drag for better performance (avoids reflow)
-              '--pane-drag-delta': `${dragDelta}px`,
+              // Initialize drag delta CSS variable (updated directly via DOM for 120fps performance)
+              '--pane-drag-delta': '0px',
             } as React.CSSProperties
           }
         >
@@ -806,8 +828,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           }
           // If pane is resizable, the divider should be draggable
           draggable={resizable}
-          // Pass drag delta for GPU-accelerated transform preview (adjusted for position)
-          dragDelta={position === 'end' ? -dragDelta : dragDelta}
+          // Pass ref for direct DOM manipulation of drag delta (avoids React re-renders for 120fps)
+          dragHandleRef={dragHandleRef}
           onDragStart={() => {
             setIsDragging(true)
           }}
