@@ -599,7 +599,7 @@ body[data-page-layout-dragging='true'] {
   &:where([data-is-dragging]) {
     @media screen and (min-width: 768px) {
       /* Promote to own compositing layer for GPU acceleration */
-      will-change: transform, width;
+      will-change: transform;
       /* translateZ(0) forces GPU compositing */
       transform: translateZ(0);
     }
