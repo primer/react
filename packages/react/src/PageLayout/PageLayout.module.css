@@ -593,10 +593,15 @@ body[data-page-layout-dragging='true'] {
     }
   }
 
-  /* Apply transform during mouse drag for better performance (avoids reflow) */
+  /* Use GPU-accelerated transform during mouse drag instead of width changes to avoid reflow.
+     We keep the width fixed and use translateX to show the visual drag effect.
+     Actual width is committed only when drag ends. */
   &:where([data-is-dragging]) {
     @media screen and (min-width: 768px) {
-      width: clamp(var(--pane-min-width), calc(var(--pane-width) + var(--pane-drag-delta)), var(--pane-max-width));
+      /* Promote to own compositing layer for GPU acceleration */
+      will-change: transform, width;
+      /* translateZ(0) forces GPU compositing */
+      transform: translateZ(0);
     }
   }
 }
@@ -700,6 +705,8 @@ body[data-page-layout-dragging='true'] {
 }
 
 .DraggableHandle {
+  --pane-drag-delta: 0;
+
   position: absolute;
   inset: 0 -2px;
   cursor: col-resize;
@@ -715,6 +722,9 @@ body[data-page-layout-dragging='true'] {
 
 .DraggableHandle[data-dragging='true'] {
   background-color: var(--bgColor-accent-emphasis);
+  /* Use GPU-accelerated transform to show drag preview position */
+  will-change: transform;
+  transform: translateX(var(--pane-drag-delta));
 }
 
 .DraggableHandle[data-dragging='true']:hover {

@@ -147,6 +147,7 @@ const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
 
 type DraggableDividerProps = {
   draggable?: boolean
+  dragDelta?: number
   onDragStart?: () => void
   onDrag?: (delta: number, isKeyboard: boolean) => void
   onDragEnd?: () => void
@@ -156,6 +157,7 @@ type DraggableDividerProps = {
 const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & DraggableDividerProps>> = ({
   variant = 'none',
   draggable = false,
+  dragDelta = 0,
   onDragStart,
   onDrag,
   onDragEnd,
@@ -312,6 +314,11 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
           aria-valuenow={currentWidth}
           aria-valuetext={`Pane width ${currentWidth} pixels`}
           tabIndex={0}
+          style={
+            {
+              '--pane-drag-delta': `${dragDelta}px`,
+            } as React.CSSProperties
+          }
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
@@ -799,6 +806,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           }
           // If pane is resizable, the divider should be draggable
           draggable={resizable}
+          // Pass drag delta for GPU-accelerated transform preview (adjusted for position)
+          dragDelta={position === 'end' ? -dragDelta : dragDelta}
           onDragStart={() => {
             setIsDragging(true)
           }}
