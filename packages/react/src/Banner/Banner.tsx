@@ -80,6 +80,11 @@ export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
    * Override the default actions layout behavior
    */
   actionsLayout?: 'inline' | 'stacked' | 'default'
+
+  /**
+   * Full width banner specifically for use within confined spaces, such as dialogs, tables, cards, or boxes where available space is limited.
+   */
+  flush?: boolean
 }
 
 const iconForVariant: Record<BannerVariant, React.ReactNode> = {
@@ -114,6 +119,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
     title,
     variant = 'info',
     actionsLayout = 'default',
+    flush = false,
     ...rest
   },
   forwardRef,
@@ -161,6 +167,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
       tabIndex={-1}
       ref={ref}
       data-layout={rest.layout || 'default'}
+      data-flush={flush ? flush : undefined}
     >
       <div className={classes.BannerIcon}>{visual && supportsCustomIcon ? visual : iconForVariant[variant]}</div>
       <div className={classes.BannerContainer}>

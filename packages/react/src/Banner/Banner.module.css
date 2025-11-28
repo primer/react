@@ -51,6 +51,12 @@
     padding: var(--base-size-4);
   }
 
+  &[data-flush='true'] {
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+  }
+
   &[data-variant='critical'] {
     --banner-bgColor: var(--bgColor-danger-muted);
     --banner-borderColor: var(--borderColor-danger-muted);
