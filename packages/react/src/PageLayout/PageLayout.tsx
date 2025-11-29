@@ -187,13 +187,6 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
 
   const {paneRef} = React.useContext(PageLayoutContext)
 
-  // Cache ContentWrapper reference to avoid repeated DOM queries
-  const contentWrapperRef = React.useRef<HTMLElement | null>(null)
-
-  React.useLayoutEffect(() => {
-    contentWrapperRef.current = document.querySelector('.ContentWrapper')
-  }, [])
-
   const [minWidth, setMinWidth] = React.useState(0)
   const [maxWidth, setMaxWidth] = React.useState(0)
   const [currentWidth, setCurrentWidth] = React.useState(0)
@@ -209,72 +202,26 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     }
   }, [paneRef])
 
-  // Track start position to avoid cursor drift
-  const dragStartXRef = React.useRef(0)
-  const lastAppliedXRef = React.useRef(0)
+  const handlePointerDown = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    if (event.button !== 0) return
+    event.preventDefault()
+    const target = event.currentTarget
+    target.setPointerCapture(event.pointerId)
+    isDraggingRef.current = true
+    target.setAttribute('data-dragging', 'true')
 
-  const handlePointerDown = React.useCallback(
-    (event: React.PointerEvent<HTMLDivElement>) => {
-      if (event.button !== 0) return
-      event.preventDefault()
-      const target = event.currentTarget
-      target.setPointerCapture(event.pointerId)
-      isDraggingRef.current = true
-      target.setAttribute('data-dragging', 'true')
+    // Set global cursor so it doesn't separate from divider during fast drags
+    document.body.style.cursor = 'col-resize'
 
-      // Track start position
-      dragStartXRef.current = event.clientX
-      lastAppliedXRef.current = event.clientX
-
-      if (paneRef.current) {
-        // Essential JS optimizations that can't be done in CSS
-        const currentHeight = paneRef.current.scrollHeight
-        paneRef.current.style.containIntrinsicSize = `auto ${currentHeight}px`
-
-        // Lock scroll position to prevent reflow triggers
-        const scrollTop = paneRef.current.scrollTop
-        paneRef.current.style.overflow = 'hidden'
-        paneRef.current.scrollTop = scrollTop
-
-        // Optimize ContentWrapper
-        const contentWrapper = contentWrapperRef.current
-        if (contentWrapper) {
-          const contentScrollTop = contentWrapper.scrollTop || 0
-          contentWrapper.style.overflow = 'hidden'
-          contentWrapper.scrollTop = contentScrollTop
-        }
-      }
-
-      stableOnDragStart.current?.()
-    },
-    [paneRef],
-  )
-
-  const pointerMoveThrottleRafIdRef = React.useRef<number | null>(null)
+    stableOnDragStart.current?.()
+  }, [])
 
   const handlePointerMove = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
     if (!isDraggingRef.current) return
     event.preventDefault()
 
-    // Calculate total delta from start position
-    const totalDelta = event.clientX - dragStartXRef.current
-
-    // Snap to 4px grid
-    const quantized = Math.round(totalDelta / 4) * 4
-
-    // Only update if quantized position changed
-    const lastQuantized = Math.round((lastAppliedXRef.current - dragStartXRef.current) / 4) * 4
-    if (quantized !== lastQuantized) {
-      const delta = quantized - lastQuantized
-      lastAppliedXRef.current = dragStartXRef.current + quantized
-
-      // Throttle based on adaptive FPS target
-      if (!pointerMoveThrottleRafIdRef.current) {
-        pointerMoveThrottleRafIdRef.current = requestAnimationFrame(() => {
-          stableOnDrag.current?.(delta, false)
-          pointerMoveThrottleRafIdRef.current = null
-        })
-      }
+    if (event.movementX !== 0) {
+      stableOnDrag.current?.(event.movementX, false)
     }
   }, [])
 
@@ -284,43 +231,17 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     // Cleanup will happen in onLostPointerCapture
   }, [])
 
-  const handleLostPointerCapture = React.useCallback(
-    (event: React.PointerEvent<HTMLDivElement>) => {
-      if (!isDraggingRef.current) return
-      isDraggingRef.current = false
-      const target = event.currentTarget
-      target.removeAttribute('data-dragging')
+  const handleLostPointerCapture = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDraggingRef.current) return
+    isDraggingRef.current = false
+    const target = event.currentTarget
+    target.removeAttribute('data-dragging')
 
-      // Cancel any pending throttle frame
-      if (pointerMoveThrottleRafIdRef.current) {
-        cancelAnimationFrame(pointerMoveThrottleRafIdRef.current)
-        pointerMoveThrottleRafIdRef.current = null
-      }
+    // Reset global cursor
+    document.body.style.cursor = ''
 
-      if (paneRef.current) {
-        // Restore scroll (CSS handles most other cleanup)
-        paneRef.current.style.overflow = ''
-        paneRef.current.style.containIntrinsicSize = ''
-
-        // Re-measure content after drag
-        requestAnimationFrame(() => {
-          if (paneRef.current) {
-            const newHeight = paneRef.current.scrollHeight
-            paneRef.current.style.containIntrinsicSize = `auto ${newHeight}px`
-          }
-        })
-
-        // Restore ContentWrapper scroll
-        const contentWrapper = contentWrapperRef.current
-        if (contentWrapper) {
-          contentWrapper.style.overflow = ''
-        }
-      }
-
-      stableOnDragEnd.current?.()
-    },
-    [paneRef],
-  )
+    stableOnDragEnd.current?.()
+  }, [])
 
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -693,8 +614,11 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       return storedWidth && !isNaN(Number(storedWidth)) ? Number(storedWidth) : getDefaultPaneWidth(width)
     })
 
-    // Track accumulated drag delta during pointer drag
-    const accumulatedDragDeltaRef = React.useRef(0)
+    // Track current width during drag to avoid reading stale state
+    const currentWidthRef = React.useRef(paneWidth)
+    React.useEffect(() => {
+      currentWidthRef.current = paneWidth
+    }, [paneWidth])
 
     useRefObjectAsForwardedRef(forwardRef, paneRef)
 
@@ -717,22 +641,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         labelProp['aria-label'] = label
       }
     }
-
-    const animationFrameRef = React.useRef<number | null>(null)
-    const lastFrameTimeRef = React.useRef(0)
-    const targetFpsRef = React.useRef(60) // Start optimistic at 60fps
-    const slowFrameCountRef = React.useRef(0)
-
-    // Extract duplicate width calculation logic
-    const applyWidthUpdate = React.useCallback(() => {
-      if (paneRef.current) {
-        const {minWidth: minPaneWidth, maxWidth: maxPaneWidth} = getConstraints(paneRef.current)
-        const newWidth = paneWidth + accumulatedDragDeltaRef.current
-        const clampedWidth = Math.max(minPaneWidth, Math.min(maxPaneWidth, newWidth))
-        paneRef.current.style.setProperty('--pane-width', `${clampedWidth}px`)
-      }
-      animationFrameRef.current = null
-    }, [paneRef, paneWidth])
 
     React.useEffect(() => {
       const pane = paneRef.current
@@ -832,77 +740,34 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             if (isKeyboard) {
               setPaneWidth(prev => prev + deltaWithDirection)
             } else {
-              // Accumulate deltas
-              accumulatedDragDeltaRef.current += deltaWithDirection
-
-              if (!animationFrameRef.current) {
-                animationFrameRef.current = requestAnimationFrame(timestamp => {
-                  const frameBudget = 1000 / targetFpsRef.current
-                  const timeSinceLastFrame = timestamp - lastFrameTimeRef.current
-
-                  // Adaptive FPS: Detect slow frames and downgrade if needed
-                  if (lastFrameTimeRef.current > 0) {
-                    // Frame took too long (missed our target by 50%+)
-                    if (timeSinceLastFrame > frameBudget * 1.5) {
-                      slowFrameCountRef.current++
-
-                      // After 3 consecutive slow frames, reduce target FPS
-                      if (slowFrameCountRef.current >= 3 && targetFpsRef.current > 30) {
-                        targetFpsRef.current = 30
-                      }
-                    } else {
-                      // Frame was fast enough, reset counter
-                      slowFrameCountRef.current = 0
-                    }
-                  }
-
-                  // Throttle: Skip frame if too soon
-                  if (timeSinceLastFrame < frameBudget) {
-                    // Skip this frame, reschedule
-                    animationFrameRef.current = requestAnimationFrame(ts => {
-                      lastFrameTimeRef.current = ts
-                      applyWidthUpdate()
-                    })
-                    return
-                  }
-
-                  lastFrameTimeRef.current = timestamp
-                  applyWidthUpdate()
-                })
+              // Apply delta directly via CSS variable for immediate visual feedback
+              if (paneRef.current) {
+                const {minWidth: minPaneWidth, maxWidth: maxPaneWidth} = getConstraints(paneRef.current)
+                // Use ref to get current width during drag, not stale state
+                const newWidth = currentWidthRef.current + deltaWithDirection
+                const clampedWidth = Math.max(minPaneWidth, Math.min(maxPaneWidth, newWidth))
+                paneRef.current.style.setProperty('--pane-width', `${clampedWidth}px`)
+                // Update ref immediately so next delta is calculated correctly
+                currentWidthRef.current = clampedWidth
               }
             }
           }}
           onDragEnd={() => {
-            // Clear any pending animation frame
-            if (animationFrameRef.current) {
-              cancelAnimationFrame(animationFrameRef.current)
-              animationFrameRef.current = null
-            }
-
-            // Reset adaptive FPS for next drag
-            targetFpsRef.current = 60
-            slowFrameCountRef.current = 0
-
-            // Commit accumulated pointer drag delta to React state
-            const totalDelta = accumulatedDragDeltaRef.current
-            if (totalDelta !== 0 && paneRef.current) {
-              // Read the actual applied width from DOM to handle clamping
+            // Commit final width from DOM to React state
+            if (paneRef.current) {
               const actualWidth = parseInt(paneRef.current.style.getPropertyValue('--pane-width')) || paneWidth
-
-              setPaneWidth(actualWidth) // Use actual width, not paneWidth + totalDelta
+              setPaneWidth(actualWidth)
 
               try {
                 localStorage.setItem(widthStorageKey, actualWidth.toString())
               } catch (_error) {
                 // Ignore errors
               }
-              accumulatedDragDeltaRef.current = 0
             }
           }}
           position={positionProp}
           // Reset pane width on double click
           onDoubleClick={() => {
-            accumulatedDragDeltaRef.current = 0
             const defaultWidth = getDefaultPaneWidth(width)
             setPaneWidth(defaultWidth)
             try {
