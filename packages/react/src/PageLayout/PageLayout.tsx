@@ -176,6 +176,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   style,
 }) => {
   const isDraggingRef = React.useRef(false)
+  const constraintsRef = React.useRef({minWidth: 256, maxWidth: 1024})
 
   const stableOnDragStart = React.useRef(onDragStart)
   const stableOnDrag = React.useRef(onDrag)
@@ -189,17 +190,30 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   const {paneRef} = React.useContext(PageLayoutContext)
   const handleRef = React.useRef<HTMLDivElement>(null)
 
-  // Initialize ARIA attributes on mount
+  // Helper to update ARIA attributes (only valuenow/valuetext change dynamically)
+  const updateAriaValue = React.useCallback((width: number) => {
+    if (handleRef.current) {
+      handleRef.current.setAttribute('aria-valuenow', String(width))
+      handleRef.current.setAttribute('aria-valuetext', `Pane width ${width} pixels`)
+    }
+  }, [])
+
+  // Initialize static ARIA attributes on mount and cache constraints
   React.useEffect(() => {
     if (paneRef.current && handleRef.current) {
-      const constraints = getConstraints(paneRef.current)
+      // Cache constraints (expensive getComputedStyle call)
+      constraintsRef.current = getConstraints(paneRef.current)
+
       const currentWidth = Math.round(paneRef.current.getBoundingClientRect().width)
-      handleRef.current.setAttribute('aria-valuemin', String(constraints.minWidth))
-      handleRef.current.setAttribute('aria-valuemax', String(constraints.maxWidth))
-      handleRef.current.setAttribute('aria-valuenow', String(currentWidth))
-      handleRef.current.setAttribute('aria-valuetext', `Pane width ${currentWidth} pixels`)
+
+      // Set static attributes once
+      handleRef.current.setAttribute('aria-valuemin', String(constraintsRef.current.minWidth))
+      handleRef.current.setAttribute('aria-valuemax', String(constraintsRef.current.maxWidth))
+
+      // Set dynamic attributes
+      updateAriaValue(currentWidth)
     }
-  }, [paneRef])
+  }, [paneRef, updateAriaValue])
 
   const handlePointerDown = React.useCallback(
     (event: React.PointerEvent<HTMLDivElement>) => {
@@ -210,14 +224,9 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       isDraggingRef.current = true
       target.setAttribute('data-dragging', 'true')
 
-      // Update ARIA attributes directly on DOM
-      if (paneRef.current && handleRef.current) {
-        const constraints = getConstraints(paneRef.current)
-        const currentWidth = Math.round(paneRef.current.getBoundingClientRect().width)
-        handleRef.current.setAttribute('aria-valuemin', String(constraints.minWidth))
-        handleRef.current.setAttribute('aria-valuemax', String(constraints.maxWidth))
-        handleRef.current.setAttribute('aria-valuenow', String(currentWidth))
-        handleRef.current.setAttribute('aria-valuetext', `Pane width ${currentWidth} pixels`)
+      // Refresh constraints at drag start (viewport may have resized)
+      if (paneRef.current) {
+        constraintsRef.current = getConstraints(paneRef.current)
       }
 
       stableOnDragStart.current?.()
@@ -225,24 +234,14 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     [paneRef],
   )
 
-  const handlePointerMove = React.useCallback(
-    (event: React.PointerEvent<HTMLDivElement>) => {
-      if (!isDraggingRef.current) return
-      event.preventDefault()
+  const handlePointerMove = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDraggingRef.current) return
+    event.preventDefault()
 
-      if (event.movementX !== 0) {
-        stableOnDrag.current?.(event.movementX, false)
-
-        // Update ARIA valuenow for live feedback to screen readers
-        if (paneRef.current && handleRef.current) {
-          const currentWidth = Math.round(paneRef.current.getBoundingClientRect().width)
-          handleRef.current.setAttribute('aria-valuenow', String(currentWidth))
-          handleRef.current.setAttribute('aria-valuetext', `Pane width ${currentWidth} pixels`)
-        }
-      }
-    },
-    [paneRef],
-  )
+    if (event.movementX !== 0) {
+      stableOnDrag.current?.(event.movementX, false)
+    }
+  }, [])
 
   const handlePointerUp = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
     if (!isDraggingRef.current) return
@@ -250,14 +249,23 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     // Cleanup will happen in onLostPointerCapture
   }, [])
 
-  const handleLostPointerCapture = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
-    if (!isDraggingRef.current) return
-    isDraggingRef.current = false
-    const target = event.currentTarget
-    target.removeAttribute('data-dragging')
+  const handleLostPointerCapture = React.useCallback(
+    (event: React.PointerEvent<HTMLDivElement>) => {
+      if (!isDraggingRef.current) return
+      isDraggingRef.current = false
+      const target = event.currentTarget
+      target.removeAttribute('data-dragging')
 
-    stableOnDragEnd.current?.()
-  }, [])
+      // Update ARIA with final width after drag completes
+      if (paneRef.current) {
+        const finalWidth = Math.round(paneRef.current.getBoundingClientRect().width)
+        updateAriaValue(finalWidth)
+      }
+
+      stableOnDragEnd.current?.()
+    },
+    [paneRef, updateAriaValue],
+  )
 
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -270,14 +278,14 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
         event.preventDefault()
 
         if (!paneRef.current) return
-        const constraints = getConstraints(paneRef.current)
         const currentWidth = Math.round(paneRef.current.getBoundingClientRect().width)
+        const {minWidth, maxWidth} = constraintsRef.current
 
         let delta = 0
         // https://github.com/github/accessibility/issues/5101#issuecomment-1822870655
-        if ((event.key === 'ArrowLeft' || event.key === 'ArrowDown') && currentWidth > constraints.minWidth) {
+        if ((event.key === 'ArrowLeft' || event.key === 'ArrowDown') && currentWidth > minWidth) {
           delta = -3
-        } else if ((event.key === 'ArrowRight' || event.key === 'ArrowUp') && currentWidth < constraints.maxWidth) {
+        } else if ((event.key === 'ArrowRight' || event.key === 'ArrowUp') && currentWidth < maxWidth) {
           delta = 3
         }
 
@@ -285,15 +293,12 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
           stableOnDrag.current?.(delta, true)
 
           // Update ARIA after keyboard resize
-          if (handleRef.current) {
-            const newWidth = Math.round(paneRef.current.getBoundingClientRect().width)
-            handleRef.current.setAttribute('aria-valuenow', String(newWidth))
-            handleRef.current.setAttribute('aria-valuetext', `Pane width ${newWidth} pixels`)
-          }
+          const newWidth = Math.round(paneRef.current.getBoundingClientRect().width)
+          updateAriaValue(newWidth)
         }
       }
     },
-    [paneRef],
+    [paneRef, updateAriaValue],
   )
 
   const handleKeyUp = React.useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -321,6 +326,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
           className={classes.DraggableHandle}
           role="slider"
           aria-label="Draggable pane splitter"
+          aria-live="polite"
           tabIndex={0}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
