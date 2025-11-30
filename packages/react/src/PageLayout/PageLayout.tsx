@@ -350,7 +350,6 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
           className={classes.DraggableHandle}
           role="slider"
           aria-label="Draggable pane splitter"
-          aria-live="polite"
           tabIndex={0}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
