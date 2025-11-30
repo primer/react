@@ -153,35 +153,13 @@ type DraggableDividerProps = {
   onDoubleClick?: () => void
 }
 
-// Cache the last computed style to avoid repeated getComputedStyle calls during drag
-let constraintsCache: {element: HTMLElement | null; minWidth: number; maxWidth: number; viewportWidth: number} = {
-  element: null,
-  minWidth: 256,
-  maxWidth: 1024,
-  viewportWidth: 0,
-}
-
 function getConstraints(element: HTMLElement) {
-  const currentViewportWidth = window.innerWidth
-
-  // Return cached values if element and viewport haven't changed
-  if (constraintsCache.element === element && constraintsCache.viewportWidth === currentViewportWidth) {
-    return {minWidth: constraintsCache.minWidth, maxWidth: constraintsCache.maxWidth}
-  }
-
   const paneStyles = getComputedStyle(element)
   const maxPaneWidthDiff = Number(paneStyles.getPropertyValue('--pane-max-width-diff').split('px')[0]) || 511
   const minPaneWidth = Number(paneStyles.getPropertyValue('--pane-min-width').split('px')[0]) || 256
+  const currentViewportWidth = window.innerWidth
   const maxPaneWidth =
     currentViewportWidth > maxPaneWidthDiff ? currentViewportWidth - maxPaneWidthDiff : currentViewportWidth
-
-  // Update cache
-  constraintsCache = {
-    element,
-    minWidth: minPaneWidth,
-    maxWidth: maxPaneWidth,
-    viewportWidth: currentViewportWidth,
-  }
 
   return {minWidth: minPaneWidth, maxWidth: maxPaneWidth}
 }
@@ -209,44 +187,50 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   })
 
   const {paneRef} = React.useContext(PageLayoutContext)
+  const handleRef = React.useRef<HTMLDivElement>(null)
 
-  const [minWidth, setMinWidth] = React.useState(0)
-  const [maxWidth, setMaxWidth] = React.useState(0)
-  const [currentWidth, setCurrentWidth] = React.useState(0)
+  const handlePointerDown = React.useCallback(
+    (event: React.PointerEvent<HTMLDivElement>) => {
+      if (event.button !== 0) return
+      event.preventDefault()
+      const target = event.currentTarget
+      target.setPointerCapture(event.pointerId)
+      isDraggingRef.current = true
+      target.setAttribute('data-dragging', 'true')
 
-  // Initialize dimensions once
-  React.useEffect(() => {
-    if (paneRef.current !== null) {
-      const constraints = getConstraints(paneRef.current)
-      const paneWidth = paneRef.current.getBoundingClientRect().width
-      setMinWidth(constraints.minWidth)
-      setMaxWidth(constraints.maxWidth)
-      setCurrentWidth(paneWidth)
-    }
-  }, [paneRef])
+      // Update ARIA attributes directly on DOM
+      if (paneRef.current && handleRef.current) {
+        const constraints = getConstraints(paneRef.current)
+        const currentWidth = Math.round(paneRef.current.getBoundingClientRect().width)
+        handleRef.current.setAttribute('aria-valuemin', String(constraints.minWidth))
+        handleRef.current.setAttribute('aria-valuemax', String(constraints.maxWidth))
+        handleRef.current.setAttribute('aria-valuenow', String(currentWidth))
+        handleRef.current.setAttribute('aria-valuetext', `Pane width ${currentWidth} pixels`)
+      }
 
-  const handlePointerDown = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
-    if (event.button !== 0) return
-    event.preventDefault()
-    const target = event.currentTarget
-    target.setPointerCapture(event.pointerId)
-    isDraggingRef.current = true
-    target.setAttribute('data-dragging', 'true')
+      stableOnDragStart.current?.()
+    },
+    [paneRef],
+  )
 
-    // Set global cursor so it doesn't separate from divider during fast drags
-    document.body.style.cursor = 'col-resize'
+  const handlePointerMove = React.useCallback(
+    (event: React.PointerEvent<HTMLDivElement>) => {
+      if (!isDraggingRef.current) return
+      event.preventDefault()
 
-    stableOnDragStart.current?.()
-  }, [])
+      if (event.movementX !== 0) {
+        stableOnDrag.current?.(event.movementX, false)
 
-  const handlePointerMove = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
-    if (!isDraggingRef.current) return
-    event.preventDefault()
-
-    if (event.movementX !== 0) {
-      stableOnDrag.current?.(event.movementX, false)
-    }
-  }, [])
+        // Update ARIA valuenow for live feedback to screen readers
+        if (paneRef.current && handleRef.current) {
+          const currentWidth = Math.round(paneRef.current.getBoundingClientRect().width)
+          handleRef.current.setAttribute('aria-valuenow', String(currentWidth))
+          handleRef.current.setAttribute('aria-valuetext', `Pane width ${currentWidth} pixels`)
+        }
+      }
+    },
+    [paneRef],
+  )
 
   const handlePointerUp = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
     if (!isDraggingRef.current) return
@@ -260,9 +244,6 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     const target = event.currentTarget
     target.removeAttribute('data-dragging')
 
-    // Reset global cursor
-    document.body.style.cursor = ''
-
     stableOnDragEnd.current?.()
   }, [])
 
@@ -275,25 +256,25 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
         event.key === 'ArrowDown'
       ) {
         event.preventDefault()
-        // Don't set data-dragging for keyboard - prevents CSS flicker
-        setCurrentWidth(prevWidth => {
-          let delta = 0
-          // https://github.com/github/accessibility/issues/5101#issuecomment-1822870655
-          if ((event.key === 'ArrowLeft' || event.key === 'ArrowDown') && prevWidth > minWidth) {
-            delta = -3
-          } else if ((event.key === 'ArrowRight' || event.key === 'ArrowUp') && prevWidth < maxWidth) {
-            delta = 3
-          }
 
-          if (delta !== 0) {
-            stableOnDrag.current?.(delta, true)
-          }
+        if (!paneRef.current) return
+        const constraints = getConstraints(paneRef.current)
+        const currentWidth = Math.round(paneRef.current.getBoundingClientRect().width)
 
-          return prevWidth + delta
-        })
+        let delta = 0
+        // https://github.com/github/accessibility/issues/5101#issuecomment-1822870655
+        if ((event.key === 'ArrowLeft' || event.key === 'ArrowDown') && currentWidth > constraints.minWidth) {
+          delta = -3
+        } else if ((event.key === 'ArrowRight' || event.key === 'ArrowUp') && currentWidth < constraints.maxWidth) {
+          delta = 3
+        }
+
+        if (delta !== 0) {
+          stableOnDrag.current?.(delta, true)
+        }
       }
     },
-    [minWidth, maxWidth],
+    [paneRef],
   )
 
   const handleKeyUp = React.useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -317,13 +298,10 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     >
       {draggable ? (
         <div
+          ref={handleRef}
           className={classes.DraggableHandle}
           role="slider"
           aria-label="Draggable pane splitter"
-          aria-valuemin={minWidth}
-          aria-valuemax={maxWidth}
-          aria-valuenow={currentWidth}
-          aria-valuetext={`Pane width ${currentWidth} pixels`}
           tabIndex={0}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
