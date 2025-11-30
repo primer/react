@@ -189,6 +189,18 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   const {paneRef} = React.useContext(PageLayoutContext)
   const handleRef = React.useRef<HTMLDivElement>(null)
 
+  // Initialize ARIA attributes on mount
+  React.useEffect(() => {
+    if (paneRef.current && handleRef.current) {
+      const constraints = getConstraints(paneRef.current)
+      const currentWidth = Math.round(paneRef.current.getBoundingClientRect().width)
+      handleRef.current.setAttribute('aria-valuemin', String(constraints.minWidth))
+      handleRef.current.setAttribute('aria-valuemax', String(constraints.maxWidth))
+      handleRef.current.setAttribute('aria-valuenow', String(currentWidth))
+      handleRef.current.setAttribute('aria-valuetext', `Pane width ${currentWidth} pixels`)
+    }
+  }, [paneRef])
+
   const handlePointerDown = React.useCallback(
     (event: React.PointerEvent<HTMLDivElement>) => {
       if (event.button !== 0) return
@@ -271,6 +283,13 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
 
         if (delta !== 0) {
           stableOnDrag.current?.(delta, true)
+
+          // Update ARIA after keyboard resize
+          if (handleRef.current) {
+            const newWidth = Math.round(paneRef.current.getBoundingClientRect().width)
+            handleRef.current.setAttribute('aria-valuenow', String(newWidth))
+            handleRef.current.setAttribute('aria-valuetext', `Pane width ${newWidth} pixels`)
+          }
         }
       }
     },
