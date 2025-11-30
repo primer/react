@@ -13,6 +13,50 @@ import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes
 import classes from './PageLayout.module.css'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types'
 
+// Module-scoped ResizeObserver subscription for viewport width tracking
+let viewportWidthListeners: Set<() => void> | undefined
+let viewportWidthObserver: ResizeObserver | undefined
+
+function subscribeToViewportWidth(callback: () => void) {
+  if (!viewportWidthListeners) {
+    viewportWidthListeners = new Set()
+    viewportWidthObserver = new ResizeObserver(() => {
+      if (viewportWidthListeners) {
+        for (const listener of viewportWidthListeners) {
+          listener()
+        }
+      }
+    })
+    viewportWidthObserver.observe(document.documentElement)
+  }
+
+  viewportWidthListeners.add(callback)
+
+  return () => {
+    viewportWidthListeners?.delete(callback)
+    if (viewportWidthListeners?.size === 0) {
+      viewportWidthObserver?.disconnect()
+      viewportWidthObserver = undefined
+      viewportWidthListeners = undefined
+    }
+  }
+}
+
+function getViewportWidth() {
+  return window.innerWidth
+}
+
+function getServerViewportWidth() {
+  return 0
+}
+
+/**
+ * Custom hook that subscribes to viewport width changes using a shared ResizeObserver
+ */
+function useViewportWidth() {
+  return React.useSyncExternalStore(subscribeToViewportWidth, getViewportWidth, getServerViewportWidth)
+}
+
 const REGION_ORDER = {
   header: 0,
   paneStart: 1,
@@ -147,26 +191,19 @@ const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
 
 type DraggableDividerProps = {
   draggable?: boolean
+  minWidth?: number
+  maxWidth?: number
   onDragStart?: () => void
   onDrag?: (delta: number, isKeyboard: boolean) => void
   onDragEnd?: () => void
   onDoubleClick?: () => void
 }
 
-function getConstraints(element: HTMLElement) {
-  const paneStyles = getComputedStyle(element)
-  const maxPaneWidthDiff = Number(paneStyles.getPropertyValue('--pane-max-width-diff').split('px')[0]) || 511
-  const minPaneWidth = Number(paneStyles.getPropertyValue('--pane-min-width').split('px')[0]) || 256
-  const currentViewportWidth = window.innerWidth
-  const maxPaneWidth =
-    currentViewportWidth > maxPaneWidthDiff ? currentViewportWidth - maxPaneWidthDiff : currentViewportWidth
-
-  return {minWidth: minPaneWidth, maxWidth: maxPaneWidth}
-}
-
 const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & DraggableDividerProps>> = ({
   variant = 'none',
   draggable = false,
+  minWidth = 256,
+  maxWidth = 1024,
   onDragStart,
   onDrag,
   onDragEnd,
@@ -176,7 +213,6 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   style,
 }) => {
   const isDraggingRef = React.useRef(false)
-  const constraintsRef = React.useRef({minWidth: 256, maxWidth: 1024})
 
   const stableOnDragStart = React.useRef(onDragStart)
   const stableOnDrag = React.useRef(onDrag)
@@ -198,41 +234,30 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     }
   }, [])
 
-  // Initialize static ARIA attributes on mount and cache constraints
+  // Initialize static ARIA attributes on mount
   React.useEffect(() => {
     if (paneRef.current && handleRef.current) {
-      // Cache constraints (expensive getComputedStyle call)
-      constraintsRef.current = getConstraints(paneRef.current)
-
       const currentWidth = Math.round(paneRef.current.getBoundingClientRect().width)
 
       // Set static attributes once
-      handleRef.current.setAttribute('aria-valuemin', String(constraintsRef.current.minWidth))
-      handleRef.current.setAttribute('aria-valuemax', String(constraintsRef.current.maxWidth))
+      handleRef.current.setAttribute('aria-valuemin', String(minWidth))
+      handleRef.current.setAttribute('aria-valuemax', String(maxWidth))
 
       // Set dynamic attributes
       updateAriaValue(currentWidth)
     }
-  }, [paneRef, updateAriaValue])
+  }, [paneRef, minWidth, maxWidth, updateAriaValue])
 
-  const handlePointerDown = React.useCallback(
-    (event: React.PointerEvent<HTMLDivElement>) => {
-      if (event.button !== 0) return
-      event.preventDefault()
-      const target = event.currentTarget
-      target.setPointerCapture(event.pointerId)
-      isDraggingRef.current = true
-      target.setAttribute('data-dragging', 'true')
+  const handlePointerDown = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    if (event.button !== 0) return
+    event.preventDefault()
+    const target = event.currentTarget
+    target.setPointerCapture(event.pointerId)
+    isDraggingRef.current = true
+    target.setAttribute('data-dragging', 'true')
 
-      // Refresh constraints at drag start (viewport may have resized)
-      if (paneRef.current) {
-        constraintsRef.current = getConstraints(paneRef.current)
-      }
-
-      stableOnDragStart.current?.()
-    },
-    [paneRef],
-  )
+    stableOnDragStart.current?.()
+  }, [])
 
   const handlePointerMove = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
     if (!isDraggingRef.current) return
@@ -279,7 +304,6 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
 
         if (!paneRef.current) return
         const currentWidth = Math.round(paneRef.current.getBoundingClientRect().width)
-        const {minWidth, maxWidth} = constraintsRef.current
 
         let delta = 0
         // https://github.com/github/accessibility/issues/5101#issuecomment-1822870655
@@ -298,7 +322,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
         }
       }
     },
-    [paneRef, updateAriaValue],
+    [paneRef, minWidth, maxWidth, updateAriaValue],
   )
 
   const handleKeyUp = React.useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -646,6 +670,26 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       currentWidthRef.current = paneWidth
     }, [paneWidth])
 
+    // Subscribe to viewport width changes for responsive max constraint calculation
+    const viewportWidth = useViewportWidth()
+
+    // Calculate constraints from width configuration
+    const paneConstraints = React.useMemo(() => {
+      const minPaneWidth = isCustomWidthOptions(width) ? Number(width.min.split('px')[0]) : minWidth
+
+      let maxPaneWidth: number
+      if (isCustomWidthOptions(width)) {
+        maxPaneWidth = Number(width.max.split('px')[0])
+      } else {
+        // Use CSS variable logic: calc(100vw - var(--pane-max-width-diff))
+        // maxWidthDiff matches CSS: 959px for wide (≥1280px), 511px otherwise
+        const maxWidthDiff = viewportWidth >= 1280 ? 959 : 511
+        maxPaneWidth = viewportWidth > 0 ? Math.max(minPaneWidth, viewportWidth - maxWidthDiff) : minPaneWidth
+      }
+
+      return {minWidth: minPaneWidth, maxWidth: maxPaneWidth}
+    }, [width, minWidth, viewportWidth])
+
     useRefObjectAsForwardedRef(forwardRef, paneRef)
 
     const hasOverflow = useOverflow(paneRef)
@@ -730,6 +774,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           }
           // If pane is resizable, the divider should be draggable
           draggable={resizable}
+          minWidth={paneConstraints.minWidth}
+          maxWidth={paneConstraints.maxWidth}
           onDrag={(delta, isKeyboard = false) => {
             const deltaWithDirection = isKeyboard ? delta : position === 'end' ? -delta : delta
 
@@ -738,9 +784,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             } else {
               // Apply delta directly via CSS variable for immediate visual feedback
               if (paneRef.current) {
-                const {minWidth: minPaneWidth, maxWidth: maxPaneWidth} = getConstraints(paneRef.current)
                 const newWidth = currentWidthRef.current + deltaWithDirection
-                const clampedWidth = Math.max(minPaneWidth, Math.min(maxPaneWidth, newWidth))
+                const clampedWidth = Math.max(paneConstraints.minWidth, Math.min(paneConstraints.maxWidth, newWidth))
 
                 // Only update if the clamped width actually changed
                 // This prevents drift when dragging against min/max constraints
