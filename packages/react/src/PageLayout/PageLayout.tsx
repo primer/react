@@ -153,12 +153,35 @@ type DraggableDividerProps = {
   onDoubleClick?: () => void
 }
 
+// Cache the last computed style to avoid repeated getComputedStyle calls during drag
+let constraintsCache: {element: HTMLElement | null; minWidth: number; maxWidth: number; viewportWidth: number} = {
+  element: null,
+  minWidth: 256,
+  maxWidth: 1024,
+  viewportWidth: 0,
+}
+
 function getConstraints(element: HTMLElement) {
+  const currentViewportWidth = window.innerWidth
+
+  // Return cached values if element and viewport haven't changed
+  if (constraintsCache.element === element && constraintsCache.viewportWidth === currentViewportWidth) {
+    return {minWidth: constraintsCache.minWidth, maxWidth: constraintsCache.maxWidth}
+  }
+
   const paneStyles = getComputedStyle(element)
   const maxPaneWidthDiff = Number(paneStyles.getPropertyValue('--pane-max-width-diff').split('px')[0]) || 511
   const minPaneWidth = Number(paneStyles.getPropertyValue('--pane-min-width').split('px')[0]) || 256
-  const viewportWidth = window.innerWidth
-  const maxPaneWidth = viewportWidth > maxPaneWidthDiff ? viewportWidth - maxPaneWidthDiff : viewportWidth
+  const maxPaneWidth =
+    currentViewportWidth > maxPaneWidthDiff ? currentViewportWidth - maxPaneWidthDiff : currentViewportWidth
+
+  // Update cache
+  constraintsCache = {
+    element,
+    minWidth: minPaneWidth,
+    maxWidth: maxPaneWidth,
+    viewportWidth: currentViewportWidth,
+  }
 
   return {minWidth: minPaneWidth, maxWidth: maxPaneWidth}
 }
@@ -642,36 +665,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       }
     }
 
-    React.useEffect(() => {
-      const pane = paneRef.current
-      if (!pane) return
-
-      // Initial measurement
-      const height = pane.scrollHeight
-      pane.style.contentVisibility = 'auto'
-      pane.style.containIntrinsicSize = `auto ${height}px`
-
-      // Update when content changes (but not during drag)
-      const updateSize = () => {
-        // Only update if not currently dragging
-        const isDragging = document.querySelector('.DraggableHandle[data-dragging="true"]')
-        if (!isDragging) {
-          const newHeight = pane.scrollHeight
-          pane.style.containIntrinsicSize = `auto ${newHeight}px`
-        }
-      }
-
-      // Use ResizeObserver to detect content changes
-      const resizeObserver = new ResizeObserver(updateSize)
-      resizeObserver.observe(pane)
-
-      return () => {
-        resizeObserver.disconnect()
-        pane.style.contentVisibility = ''
-        pane.style.containIntrinsicSize = ''
-      }
-    }, [paneRef])
-
     return (
       <div
         className={clsx(classes.PaneWrapper, className)}
@@ -743,12 +736,15 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               // Apply delta directly via CSS variable for immediate visual feedback
               if (paneRef.current) {
                 const {minWidth: minPaneWidth, maxWidth: maxPaneWidth} = getConstraints(paneRef.current)
-                // Use ref to get current width during drag, not stale state
                 const newWidth = currentWidthRef.current + deltaWithDirection
                 const clampedWidth = Math.max(minPaneWidth, Math.min(maxPaneWidth, newWidth))
-                paneRef.current.style.setProperty('--pane-width', `${clampedWidth}px`)
-                // Update ref immediately so next delta is calculated correctly
-                currentWidthRef.current = clampedWidth
+
+                // Only update if the clamped width actually changed
+                // This prevents drift when dragging against min/max constraints
+                if (clampedWidth !== currentWidthRef.current) {
+                  paneRef.current.style.setProperty('--pane-width', `${clampedWidth}px`)
+                  currentWidthRef.current = clampedWidth
+                }
               }
             }
           }}

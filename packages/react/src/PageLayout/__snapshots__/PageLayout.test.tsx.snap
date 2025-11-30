@@ -57,7 +57,7 @@ exports[`PageLayout > renders condensed layout 1`] = `
           />
           <div
             class="prc-PageLayout-Pane-g6fEI"
-            style="--spacing: var(--spacing-none); --pane-min-width: 256px; --pane-max-width: calc(100vw - var(--pane-max-width-diff)); --pane-width-size: var(--pane-width-medium); --pane-width: 296px; content-visibility: auto; contain-intrinsic-size: auto 800px;"
+            style="--spacing: var(--spacing-none); --pane-min-width: 256px; --pane-max-width: calc(100vw - var(--pane-max-width-diff)); --pane-width-size: var(--pane-width-medium); --pane-width: 296px;"
           >
             Pane
           </div>
@@ -149,7 +149,7 @@ exports[`PageLayout > renders default layout 1`] = `
           />
           <div
             class="prc-PageLayout-Pane-g6fEI"
-            style="--spacing: var(--spacing-none); --pane-min-width: 256px; --pane-max-width: calc(100vw - var(--pane-max-width-diff)); --pane-width-size: var(--pane-width-medium); --pane-width: 296px; content-visibility: auto; contain-intrinsic-size: auto 800px;"
+            style="--spacing: var(--spacing-none); --pane-min-width: 256px; --pane-max-width: calc(100vw - var(--pane-max-width-diff)); --pane-width-size: var(--pane-width-medium); --pane-width: 296px;"
           >
             Pane
           </div>
@@ -243,7 +243,7 @@ exports[`PageLayout > renders pane in different position when narrow 1`] = `
           />
           <div
             class="prc-PageLayout-Pane-g6fEI"
-            style="--spacing: var(--spacing-none); --pane-min-width: 256px; --pane-max-width: calc(100vw - var(--pane-max-width-diff)); --pane-width-size: var(--pane-width-medium); --pane-width: 296px; content-visibility: auto; contain-intrinsic-size: auto 800px;"
+            style="--spacing: var(--spacing-none); --pane-min-width: 256px; --pane-max-width: calc(100vw - var(--pane-max-width-diff)); --pane-width-size: var(--pane-width-medium); --pane-width: 296px;"
           >
             Pane
           </div>
@@ -337,7 +337,7 @@ exports[`PageLayout > renders with dividers 1`] = `
           />
           <div
             class="prc-PageLayout-Pane-g6fEI"
-            style="--spacing: var(--spacing-none); --pane-min-width: 256px; --pane-max-width: calc(100vw - var(--pane-max-width-diff)); --pane-width-size: var(--pane-width-medium); --pane-width: 296px; content-visibility: auto; contain-intrinsic-size: auto 800px;"
+            style="--spacing: var(--spacing-none); --pane-min-width: 256px; --pane-max-width: calc(100vw - var(--pane-max-width-diff)); --pane-width-size: var(--pane-width-medium); --pane-width: 296px;"
           >
             Pane
           </div>
