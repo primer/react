@@ -56,8 +56,8 @@ export type UnderlinePanelsTabListProps = TabListProps & {
 } & React.HTMLAttributes<HTMLDivElement>
 
 function UnderlinePanelsTabList({className, children, ...props}: UnderlinePanelsTabListProps) {
-  const listRef = useRef<HTMLUListElement>(null)
-  const wrapperRef = useRef<HTMLDivElement>(null)
+  const listRef = useRef<HTMLUListElement | null>(null)
+  const wrapperRef = useRef<HTMLDivElement | null>(null)
   const {tabListProps} = useTabList<HTMLUListElement>({
     ref: listRef,
     ...props,
@@ -84,7 +84,9 @@ function UnderlinePanelsTabList({className, children, ...props}: UnderlinePanels
       data-icons-visible={panelsContext?.iconsVisible}
       className={clsx(className, styles.StyledUnderlineWrapper)}
     >
-      <UnderlineItemList {...tabListProps}>{children}</UnderlineItemList>
+      <UnderlineItemList {...tabListProps} ref={listRef}>
+        {children}
+      </UnderlineItemList>
     </UnderlineWrapper>
   )
 }
