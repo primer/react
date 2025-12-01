@@ -385,10 +385,10 @@
 .PageLayoutContent:has(.DraggableHandle[data-dragging='true']) .ContentWrapper {
   /* Add paint containment during drag - safe since user can't interact */
   contain: layout style paint;
-  
+
   /* Disable interactions */
   pointer-events: none;
-  
+
   /* Disable transitions to prevent expensive recalculations */
   transition: none !important;
 
@@ -396,7 +396,6 @@
   will-change: width;
   transform: translateZ(0);
 }
-
 
 .Content {
   width: 100%;
@@ -406,6 +405,14 @@
   margin-right: auto;
   margin-left: auto;
   flex-grow: 1;
+
+  /**
+   * OPTIMIZATION: Skip rendering off-screen content during scrolling/resizing
+   * This automatically helps consumers with large content by only rendering
+   * elements that are visible in the viewport
+   */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
 
   &:where([data-width='medium']) {
     max-width: 768px;
@@ -422,6 +429,16 @@
   &:where([data-width='xlarge']) {
     max-width: 1280px;
   }
+}
+
+/**
+ * OPTIMIZATION: Freeze content layout during resize drag
+ * This prevents expensive recalculations of large content areas
+ * while keeping content visible (just frozen in place)
+ */
+.PageLayoutContent:has(.DraggableHandle[data-dragging='true']) .Content {
+  /* Full containment - isolate from layout recalculations */
+  contain: strict;
 }
 
 .PaneWrapper {
@@ -604,12 +621,12 @@
    * OPTIMIZATION: Full containment for pane - isolates from rest of page
    */
   contain: layout style paint;
-  
+
   /**
    * OPTIMIZATION: For extremely tall content - skip rendering off-screen content
    */
   content-visibility: auto;
-  
+
   /**
    * OPTIMIZATION: Provide size estimate for content-visibility
    * JavaScript updates this dynamically based on actual content height
@@ -634,12 +651,15 @@
  * CSS handles all optimizations automatically - JavaScript only locks scroll
  */
 .PaneWrapper:has(.DraggableHandle[data-dragging='true']) .Pane {
+  /* Full containment - isolate from layout recalculations */
+  contain: strict;
+
   /* Disable interactions during drag */
   pointer-events: none;
+
   /* Disable transitions during drag */
   transition: none !important;
-  text-rendering: optimizeSpeed;
-  
+
   /* Force hardware acceleration */
   will-change: width, transform;
   transform: translateZ(0);
@@ -753,7 +773,7 @@
   cursor: col-resize;
   background-color: transparent;
   transition-delay: 0.1s;
-  
+
   /**
    * OPTIMIZATION: Prevent touch scrolling and text selection during drag
    * This is done in CSS because it needs to be set before any pointer events

@@ -568,30 +568,36 @@ export const HeavyContent: Story = {
 // Story 4: Extra Heavy Content - Extreme Load (10,000 elements)
 // ============================================================================
 
-// Progressive loading hook to avoid killing the browser
-// Uses startTransition to keep the UI responsive during loading
-function useProgressiveLoad(totalItems: number, batchSize = 100, delayMs = 16) {
+// Progressive loading hook that only loads when browser is idle
+// Uses requestIdleCallback to avoid freezing the browser
+function useProgressiveLoad(totalItems: number, batchSize = 50) {
   const [loadedCount, setLoadedCount] = React.useState(batchSize)
-  const [, startTransition] = React.useTransition()
 
   React.useEffect(() => {
     if (loadedCount >= totalItems) return
 
-    const timeoutId = setTimeout(() => {
-      startTransition(() => {
-        setLoadedCount(prev => Math.min(prev + batchSize, totalItems))
-      })
-    }, delayMs)
+    // Use requestIdleCallback if available, otherwise setTimeout with long delay
+    const scheduleNext = (callback: () => void) => {
+      return window.requestIdleCallback(callback, {timeout: 500})
+    }
 
-    return () => clearTimeout(timeoutId)
-  }, [loadedCount, totalItems, batchSize, delayMs])
+    const cancelNext = (id: number) => {
+      window.cancelIdleCallback(id)
+    }
+
+    const id = scheduleNext(() => {
+      setLoadedCount(prev => Math.min(prev + batchSize, totalItems))
+    })
+
+    return () => cancelNext(id)
+  }, [loadedCount, totalItems, batchSize])
 
   return loadedCount
 }
 
 // Simple element with exactly 5 DOM nodes:
 // div > (span + span + span + span) = 1 container + 4 children = 5 elements
-function StressItem({index}: {index: number}) {
+const StressItem = React.memo(function StressItem({index}: {index: number}) {
   return (
     <div
       style={{
@@ -617,7 +623,18 @@ function StressItem({index}: {index: number}) {
       </span>
     </div>
   )
-}
+})
+
+// Memoized list to prevent re-renders during drag
+const StressItemList = React.memo(function StressItemList({count}: {count: number}) {
+  return (
+    <>
+      {Array.from({length: count}).map((_, i) => (
+        <StressItem key={i} index={i + 1} />
+      ))}
+    </>
+  )
+})
 
 // Each StressItem = 5 DOM elements
 // 2000 items × 5 = 10,000 elements
@@ -628,7 +645,7 @@ const TOTAL_ELEMENTS = TOTAL_ITEMS * ELEMENTS_PER_ITEM
 export const ExtraHeavyContent: Story = {
   name: '4. Extra Heavy Content - Extreme Load (10,000 elements)',
   render: () => {
-    const loadedItems = useProgressiveLoad(TOTAL_ITEMS, 100, 16)
+    const loadedItems = useProgressiveLoad(TOTAL_ITEMS, 50) // 50 items per idle callback
     const loadedElements = loadedItems * ELEMENTS_PER_ITEM
     const loadProgress = Math.round((loadedItems / TOTAL_ITEMS) * 100)
 
@@ -711,10 +728,8 @@ export const ExtraHeavyContent: Story = {
                 <span style={{width: '60px'}}>Time</span>
                 <span style={{width: '50px', textAlign: 'center'}}>Status</span>
               </div>
-              {/* Items */}
-              {Array.from({length: loadedItems}).map((_, i) => (
-                <StressItem key={i} index={i + 1} />
-              ))}
+              {/* Items - memoized to prevent re-render during drag */}
+              <StressItemList count={loadedItems} />
             </div>
           </div>
         </PageLayout.Content>
