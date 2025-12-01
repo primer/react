@@ -1,0 +1,581 @@
+import React from 'react'
+import type {Meta, StoryObj} from '@storybook/react-vite'
+import {PageLayout} from './PageLayout'
+
+const meta: Meta<typeof PageLayout> = {
+  title: 'Components/PageLayout/Performance Tests',
+  component: PageLayout,
+}
+
+export default meta
+
+type Story = StoryObj<typeof PageLayout>
+
+// ============================================================================
+// Shared Performance Monitor Hook & Component
+// ============================================================================
+
+interface PerformanceMetrics {
+  fps: number
+  avgFrameTime: number
+  minFrameTime: number
+  maxFrameTime: number
+}
+
+function usePerformanceMonitor(): PerformanceMetrics {
+  const [fps, setFps] = React.useState<number>(0)
+  const [frameTimes, setFrameTimes] = React.useState<number[]>([])
+  const frameTimesRef = React.useRef<number[]>([])
+  const lastFrameTimeRef = React.useRef<number>(0)
+  const animationFrameRef = React.useRef<number>()
+
+  React.useEffect(() => {
+    const measureFPS = (timestamp: number) => {
+      if (lastFrameTimeRef.current) {
+        const frameTime = timestamp - lastFrameTimeRef.current
+        frameTimesRef.current.push(frameTime)
+
+        if (frameTimesRef.current.length > 60) {
+          frameTimesRef.current.shift()
+        }
+
+        const avgFrameTime = frameTimesRef.current.reduce((a, b) => a + b, 0) / frameTimesRef.current.length
+        const currentFps = 1000 / avgFrameTime
+
+        setFps(Math.round(currentFps))
+        setFrameTimes([...frameTimesRef.current])
+      }
+
+      lastFrameTimeRef.current = timestamp
+      animationFrameRef.current = requestAnimationFrame(measureFPS)
+    }
+
+    animationFrameRef.current = requestAnimationFrame(measureFPS)
+
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current)
+      }
+    }
+  }, [])
+
+  const avgFrameTime = frameTimes.length > 0 ? frameTimes.reduce((a, b) => a + b, 0) / frameTimes.length : 0
+  const maxFrameTime = frameTimes.length > 0 ? Math.max(...frameTimes) : 0
+  const minFrameTime = frameTimes.length > 0 ? Math.min(...frameTimes) : 0
+
+  return {fps, avgFrameTime, minFrameTime, maxFrameTime}
+}
+
+interface PerformanceHeaderProps {
+  title: string
+  loadDescription: string
+  targetFps: string
+  minGoodFps?: number
+  minOkFps?: number
+}
+
+function PerformanceHeader({
+  title,
+  loadDescription,
+  targetFps,
+  minGoodFps = 55,
+  minOkFps = 40,
+}: PerformanceHeaderProps) {
+  const {fps, avgFrameTime, minFrameTime, maxFrameTime} = usePerformanceMonitor()
+
+  return (
+    <div style={{padding: '16px', background: '#f6f8fa', borderRadius: '6px'}}>
+      <h1>{title}</h1>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(4, 1fr)',
+          gap: '16px',
+          marginTop: '12px',
+        }}
+      >
+        <div>
+          <strong>FPS:</strong>{' '}
+          <span style={{fontSize: '24px', color: fps >= minGoodFps ? 'green' : fps >= minOkFps ? 'orange' : 'red'}}>
+            {fps}
+          </span>
+        </div>
+        <div>
+          <strong>Avg:</strong> <span>{avgFrameTime.toFixed(2)}ms</span>
+        </div>
+        <div>
+          <strong>Min:</strong> <span>{minFrameTime.toFixed(2)}ms</span>
+        </div>
+        <div>
+          <strong>Max:</strong> <span>{maxFrameTime.toFixed(2)}ms</span>
+        </div>
+      </div>
+      <p style={{marginTop: '12px', fontSize: '14px'}}>
+        <strong>Load:</strong> {loadDescription}
+        <br />
+        <strong>Target:</strong> {targetFps}
+      </p>
+    </div>
+  )
+}
+
+// ============================================================================
+// Story 1: Baseline - Light Content (~100 elements)
+// ============================================================================
+
+export const BaselineLight: Story = {
+  name: '1. Light Content - Baseline (~100 elements)',
+  render: () => {
+    return (
+      <PageLayout>
+        <PageLayout.Header>
+          <PerformanceHeader
+            title="Performance Test: Light Content"
+            loadDescription="Minimal DOM elements (~100 elements)"
+            targetFps="60 FPS, ~8-10ms frame time"
+          />
+        </PageLayout.Header>
+
+        <PageLayout.Content>
+          <div style={{padding: '16px'}}>
+            <h2>Light Content Baseline</h2>
+            <p>Minimal DOM elements to establish baseline.</p>
+            <p>Should be effortless 60 FPS.</p>
+          </div>
+        </PageLayout.Content>
+
+        <PageLayout.Pane position="start" resizable>
+          <div style={{padding: '16px'}}>
+            <h3>Resizable Pane</h3>
+            <p>Drag to test - should be instant.</p>
+          </div>
+        </PageLayout.Pane>
+      </PageLayout>
+    )
+  },
+}
+
+// ============================================================================
+// Story 2: Medium Content - Virtualized Table (~3000 elements)
+// ============================================================================
+
+export const MediumContent: Story = {
+  name: '2. Medium Content - Large Table (~3000 elements)',
+  render: () => {
+    return (
+      <PageLayout>
+        <PageLayout.Header>
+          <PerformanceHeader
+            title="Performance Test: Medium Load"
+            loadDescription="~3,000 DOM elements (300 table rows × 10 columns)"
+            targetFps="55-60 FPS during drag"
+          />
+        </PageLayout.Header>
+        <PageLayout.Pane position="start" resizable>
+          <div style={{padding: '16px'}}>
+            <h3>Performance Monitor</h3>
+            <div
+              style={{
+                padding: '12px',
+                background: '#fff3cd',
+                borderRadius: '6px',
+                marginBottom: '16px',
+                fontSize: '13px',
+              }}
+            >
+              <strong>DOM Load:</strong> ~3,000 elements
+              <br />
+              <strong>Table:</strong> 300 rows × 10 cols
+              <br />
+              <strong>Target:</strong> 55-60 FPS
+            </div>
+            <p style={{fontSize: '13px'}}>
+              This table has enough elements to show performance differences. Drag and watch FPS.
+            </p>
+          </div>
+        </PageLayout.Pane>
+        <PageLayout.Content>
+          <div style={{padding: '16px'}}>
+            {/* Large table with complex cells */}
+            <h2 style={{marginBottom: '16px'}}>Data Table (300 rows × 10 columns)</h2>
+            <div style={{overflow: 'auto', height: '600px', border: '1px solid #e1e4e8'}}>
+              <table style={{width: '100%', borderCollapse: 'collapse'}}>
+                <thead style={{position: 'sticky', top: 0, background: '#fff', zIndex: 1}}>
+                  <tr style={{background: '#f6f8fa'}}>
+                    {['ID', 'Name', 'Email', 'Role', 'Status', 'Date', 'Count', 'Value', 'Tags', 'Actions'].map(
+                      (header, i) => (
+                        <th
+                          key={i}
+                          style={{
+                            padding: '8px 12px',
+                            textAlign: 'left',
+                            borderBottom: '2px solid #e1e4e8',
+                            fontWeight: '600',
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
+                          {header}
+                        </th>
+                      ),
+                    )}
+                  </tr>
+                </thead>
+                <tbody>
+                  {Array.from({length: 300}).map((_, rowIndex) => (
+                    <tr key={rowIndex} style={{borderBottom: '1px solid #e1e4e8'}}>
+                      <td style={{padding: '8px 12px', fontSize: '13px'}}>#{10000 + rowIndex}</td>
+                      <td style={{padding: '8px 12px', fontWeight: '500'}}>
+                        {['Alice', 'Bob', 'Charlie', 'Diana', 'Eve'][rowIndex % 5]}{' '}
+                        {['Smith', 'Jones', 'Davis'][rowIndex % 3]}
+                      </td>
+                      <td style={{padding: '8px 12px', fontSize: '12px', color: '#586069'}}>
+                        user{rowIndex}@example.com
+                      </td>
+                      <td style={{padding: '8px 12px', fontSize: '13px'}}>
+                        {['Admin', 'Editor', 'Viewer', 'Manager'][rowIndex % 4]}
+                      </td>
+                      <td style={{padding: '8px 12px'}}>
+                        <span
+                          style={{
+                            padding: '2px 8px',
+                            background: rowIndex % 3 === 0 ? '#d1f4e0' : rowIndex % 2 === 0 ? '#fff4ce' : '#ffd4d4',
+                            borderRadius: '12px',
+                            fontSize: '11px',
+                            fontWeight: '500',
+                          }}
+                        >
+                          {rowIndex % 3 === 0 ? 'Active' : rowIndex % 2 === 0 ? 'Pending' : 'Inactive'}
+                        </span>
+                      </td>
+                      <td style={{padding: '8px 12px', fontSize: '12px', color: '#586069'}}>
+                        2024-{String((rowIndex % 12) + 1).padStart(2, '0')}-
+                        {String((rowIndex % 28) + 1).padStart(2, '0')}
+                      </td>
+                      <td style={{padding: '8px 12px', fontSize: '13px', textAlign: 'right'}}>
+                        {(rowIndex * 17) % 1000}
+                      </td>
+                      <td style={{padding: '8px 12px', fontWeight: '500', textAlign: 'right'}}>
+                        ${((rowIndex * 123.45) % 10000).toFixed(2)}
+                      </td>
+                      <td style={{padding: '8px 12px', fontSize: '11px'}}>
+                        <span
+                          style={{background: '#e8f5e9', padding: '2px 6px', borderRadius: '3px', marginRight: '4px'}}
+                        >
+                          tag{rowIndex % 10}
+                        </span>
+                        <span style={{background: '#fff3e0', padding: '2px 6px', borderRadius: '3px'}}>
+                          type{rowIndex % 5}
+                        </span>
+                      </td>
+                      <td style={{padding: '8px 12px'}}>
+                        <button
+                          type="button"
+                          style={{
+                            fontSize: '11px',
+                            padding: '4px 8px',
+                            marginRight: '4px',
+                            cursor: 'pointer',
+                            border: '1px solid #e1e4e8',
+                            borderRadius: '3px',
+                            background: '#fff',
+                          }}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          type="button"
+                          style={{
+                            fontSize: '11px',
+                            padding: '4px 8px',
+                            cursor: 'pointer',
+                            border: '1px solid #e1e4e8',
+                            borderRadius: '3px',
+                            background: '#fff',
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </PageLayout.Content>
+      </PageLayout>
+    )
+  },
+}
+
+// ============================================================================
+// Story 3: Heavy Content - Multiple Sections (~5000 elements)
+// ============================================================================
+
+export const HeavyContent: Story = {
+  name: '3. Heavy Content - Multiple Sections (~5000 elements)',
+  render: () => {
+    return (
+      <PageLayout>
+        <PageLayout.Header>
+          <PerformanceHeader
+            title="Performance Test: Heavy Load"
+            loadDescription="~5,000 DOM elements (multiple heavy sections)"
+            targetFps="50-60 FPS during drag (stress test)"
+            minGoodFps={50}
+            minOkFps={30}
+          />
+        </PageLayout.Header>
+
+        <PageLayout.Pane position="start" resizable>
+          <div style={{padding: '16px'}}>
+            <h3>Stress Test</h3>
+            <div
+              style={{
+                padding: '12px',
+                background: '#ffe8e8',
+                borderRadius: '6px',
+                marginBottom: '16px',
+                fontSize: '13px',
+              }}
+            >
+              <strong>DOM Load:</strong> ~5,000 elements
+              <br />
+              <strong>Mix:</strong> Cards, tables, lists
+              <br />
+              <strong>Target:</strong> 50-60 FPS
+            </div>
+            <p style={{fontSize: '13px'}}>
+              <strong>Sections:</strong>
+            </p>
+            <ul style={{fontSize: '12px', paddingLeft: '20px'}}>
+              <li>200 activity cards (~1000 elem)</li>
+              <li>150-row table (~1200 elem)</li>
+              <li>200 issue items (~1200 elem)</li>
+              <li>+ Headers, buttons, etc</li>
+            </ul>
+            <p style={{fontSize: '13px', marginTop: '12px'}}>
+              This should show measurable FPS impact. Target is 50-60 FPS.
+            </p>
+          </div>
+        </PageLayout.Pane>
+
+        <PageLayout.Content>
+          <div style={{padding: '16px', overflow: 'auto', height: '600px'}}>
+            {/* Section 1: Large card grid */}
+            <div style={{marginBottom: '32px'}}>
+              <h2 style={{marginBottom: '16px'}}>Activity Feed (200 cards)</h2>
+              <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '12px'}}>
+                {Array.from({length: 200}).map((_, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      padding: '12px',
+                      border: '1px solid #e1e4e8',
+                      borderRadius: '6px',
+                      background: '#fff',
+                    }}
+                  >
+                    <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '8px'}}>
+                      <span style={{fontWeight: '600', fontSize: '14px'}}>Activity #{i + 1}</span>
+                      <span style={{fontSize: '11px', color: '#959da5'}}>{i % 60}m ago</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Section 2: Large table */}
+            <div style={{marginBottom: '32px'}}>
+              <h2 style={{marginBottom: '16px'}}>Data Table (150 rows × 8 columns)</h2>
+              <table style={{width: '100%', borderCollapse: 'collapse'}}>
+                <thead style={{position: 'sticky', top: 0, background: '#fff'}}>
+                  <tr style={{background: '#f6f8fa'}}>
+                    {['ID', 'Name', 'Type', 'Status', 'Date', 'Value', 'Priority', 'Owner'].map((header, i) => (
+                      <th
+                        key={i}
+                        style={{
+                          padding: '8px 12px',
+                          textAlign: 'left',
+                          borderBottom: '2px solid #e1e4e8',
+                          fontWeight: '600',
+                        }}
+                      >
+                        {header}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {Array.from({length: 150}).map((_, i) => (
+                    <tr key={i} style={{borderBottom: '1px solid #e1e4e8'}}>
+                      <td style={{padding: '8px 12px', fontSize: '12px'}}>#{5000 + i}</td>
+                      <td style={{padding: '8px 12px', fontSize: '13px'}}>Item {i + 1}</td>
+                      <td style={{padding: '8px 12px', fontSize: '12px'}}>
+                        {['Type A', 'Type B', 'Type C', 'Type D'][i % 4]}
+                      </td>
+                      <td style={{padding: '8px 12px'}}>
+                        <span
+                          style={{
+                            padding: '2px 8px',
+                            background: i % 2 === 0 ? '#d1f4e0' : '#fff4ce',
+                            borderRadius: '12px',
+                            fontSize: '11px',
+                          }}
+                        >
+                          {i % 2 === 0 ? 'Done' : 'In Progress'}
+                        </span>
+                      </td>
+                      <td style={{padding: '8px 12px', fontSize: '12px', color: '#586069'}}>Dec {(i % 30) + 1}</td>
+                      <td style={{padding: '8px 12px', fontWeight: '500'}}>${(i * 50 + 100).toFixed(2)}</td>
+                      <td style={{padding: '8px 12px', fontSize: '12px'}}>{['Low', 'Medium', 'High'][i % 3]}</td>
+                      <td style={{padding: '8px 12px', fontSize: '12px'}}>user{i % 20}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Section 3: List with nested content */}
+            <div>
+              <h2 style={{marginBottom: '16px'}}>Issue Tracker (200 items)</h2>
+              {Array.from({length: 200}).map((_, i) => (
+                <div
+                  key={i}
+                  style={{
+                    padding: '12px',
+                    marginBottom: '8px',
+                    background: i % 2 === 0 ? '#fff' : '#f6f8fa',
+                    borderRadius: '6px',
+                    border: '1px solid #e1e4e8',
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      marginBottom: '6px',
+                    }}
+                  >
+                    <div>
+                      <span style={{fontWeight: '600', marginRight: '8px'}}>Issue #{i + 1}</span>
+                      <span
+                        style={{
+                          fontSize: '11px',
+                          padding: '2px 6px',
+                          background: ['#e8f5e9', '#fff3e0', '#fce4ec'][i % 3],
+                          borderRadius: '3px',
+                        }}
+                      >
+                        {['bug', 'feature', 'enhancement'][i % 3]}
+                      </span>
+                    </div>
+                    <span style={{fontSize: '11px', color: '#586069'}}>{i % 10}d ago</span>
+                  </div>
+                  <div style={{fontSize: '13px', color: '#24292e', marginBottom: '6px'}}>
+                    Description for issue {i + 1}: This is some text that describes the issue in detail.
+                  </div>
+                  <div style={{fontSize: '11px', color: '#586069'}}>
+                    <span style={{marginRight: '12px'}}>👤 {['alice', 'bob', 'charlie'][i % 3]}</span>
+                    <span style={{marginRight: '12px'}}>💬 {i % 15} comments</span>
+                    <span>⭐ {i % 20} reactions</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </PageLayout.Content>
+      </PageLayout>
+    )
+  },
+}
+
+// Rest of stories...
+export const ResponsiveConstraintsTest: Story = {
+  name: '4. Responsive Constraints Test',
+  render: () => {
+    const [viewportWidth, setViewportWidth] = React.useState(typeof window !== 'undefined' ? window.innerWidth : 1280)
+
+    React.useEffect(() => {
+      const handleResize = () => setViewportWidth(window.innerWidth)
+      // eslint-disable-next-line github/prefer-observers
+      window.addEventListener('resize', handleResize)
+      return () => window.removeEventListener('resize', handleResize)
+    }, [])
+
+    const maxWidthDiff = viewportWidth >= 1280 ? 959 : 511
+    const calculatedMaxWidth = Math.max(256, viewportWidth - maxWidthDiff)
+
+    return (
+      <PageLayout>
+        <PageLayout.Header>
+          <PerformanceHeader
+            title="Responsive Constraints Test"
+            loadDescription={`Viewport: ${viewportWidth}px | Max Pane: ${calculatedMaxWidth}px`}
+            targetFps="Resize window and verify max pane width updates"
+            minGoodFps={55}
+            minOkFps={40}
+          />
+        </PageLayout.Header>
+
+        <PageLayout.Pane position="start" resizable>
+          <div style={{padding: '16px'}}>
+            <h3>Resizable Pane</h3>
+            <p>Max width: {calculatedMaxWidth}px</p>
+          </div>
+        </PageLayout.Pane>
+
+        <PageLayout.Content>
+          <div style={{padding: '16px'}}>
+            <h2>Test responsive max width constraints</h2>
+            <p>Resize window and watch max pane width update.</p>
+            <p style={{background: '#fff3cd', padding: '12px', borderRadius: '4px', marginTop: '16px'}}>
+              ⚠️ Current implementation uses hardcoded values. Should read from CSS.
+            </p>
+          </div>
+        </PageLayout.Content>
+      </PageLayout>
+    )
+  },
+}
+
+export const KeyboardARIATest: Story = {
+  name: '5. Keyboard & ARIA Test',
+  render: () => {
+    return (
+      <PageLayout>
+        <PageLayout.Header>
+          <PerformanceHeader
+            title="Keyboard & ARIA Test"
+            loadDescription="Tab to resize handle, use arrow keys (← → ↑ ↓)"
+            targetFps="Test keyboard navigation and screen reader support"
+            minGoodFps={55}
+            minOkFps={40}
+          />
+        </PageLayout.Header>
+
+        <PageLayout.Pane position="start" resizable>
+          <div style={{padding: '16px'}}>
+            <h3>Resizable Pane</h3>
+            <p>Use keyboard: ← → ↑ ↓</p>
+          </div>
+        </PageLayout.Pane>
+
+        <PageLayout.Content>
+          <div style={{padding: '16px'}}>
+            <h2>Test Instructions</h2>
+            <ol>
+              <li>Tab to resize handle</li>
+              <li>Use arrow keys to resize</li>
+              <li>Test with screen reader</li>
+            </ol>
+            <p style={{background: '#fff3cd', padding: '12px', borderRadius: '4px', marginTop: '16px'}}>
+              Fix needed: Move ARIA from paneRef to handleRef
+            </p>
+          </div>
+        </PageLayout.Content>
+      </PageLayout>
+    )
+  },
+}
