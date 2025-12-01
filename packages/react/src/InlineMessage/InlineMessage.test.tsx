@@ -1,7 +1,8 @@
 import {render, screen} from '@testing-library/react'
 import {describe, expect, it, test} from 'vitest'
-import {InfoIcon} from '@primer/octicons-react'
+import {InfoIcon, SearchIcon} from '@primer/octicons-react'
 import {InlineMessage} from '../InlineMessage'
+import React from 'react'
 
 describe('InlineMessage', () => {
   it('should render content passed as `children`', () => {
@@ -81,24 +82,33 @@ describe('InlineMessage', () => {
     expect(screen.getByTestId('container')).toHaveAttribute('data-variant', 'warning')
   })
 
-  it('should render a custom icon when `leadingVisual` is a string', () => {
-    const {container} = render(
-      <InlineMessage variant="warning" leadingVisual="🔒">
-        test with emoji
-      </InlineMessage>,
-    )
-    expect(screen.getByText('test with emoji')).toBeInTheDocument()
-    expect(container.textContent).toContain('🔒')
-  })
-
-  it('should render a custom JSX element when `leadingVisual` is a React element', () => {
+  it('should render leading visual', () => {
     render(
-      <InlineMessage variant="critical" leadingVisual={<span data-testid="custom-element">⚠️</span>}>
-        test with JSX element
-      </InlineMessage>,
+      <>
+        <InlineMessage variant="critical" leadingVisual={<SearchIcon data-testid="search-icon" />}>
+          test with custom icon
+        </InlineMessage>
+        <InlineMessage
+          variant="critical"
+          leadingVisual={React.memo(() => (
+            <div data-testid="memo">leadingVisual</div>
+          ))}
+        >
+          test with memo icon
+        </InlineMessage>
+        <InlineMessage
+          variant="critical"
+          leadingVisual={React.forwardRef(() => (
+            <div data-testid="forward-ref">leadingVisual</div>
+          ))}
+        >
+          test with forward ref icon
+        </InlineMessage>
+      </>,
     )
-    expect(screen.getByText('test with JSX element')).toBeInTheDocument()
-    expect(screen.getByTestId('custom-element')).toBeInTheDocument()
+    expect(screen.getByTestId('search-icon')).toBeInTheDocument()
+    expect(screen.getByTestId('memo')).toBeInTheDocument()
+    expect(screen.getByTestId('forward-ref')).toBeInTheDocument()
   })
 
   it('should use default icon when `leadingVisual` is not provided', () => {

@@ -1,6 +1,6 @@
 import {AlertFillIcon, AlertIcon, CheckCircleFillIcon, CheckCircleIcon} from '@primer/octicons-react'
 import {clsx} from 'clsx'
-import type React from 'react'
+import React from 'react'
 import {isValidElementType} from 'react-is'
 import classes from './InlineMessage.module.css'
 type MessageVariant = 'critical' | 'success' | 'unavailable' | 'warning'
@@ -18,7 +18,6 @@ export type InlineMessageProps = React.ComponentPropsWithoutRef<'div'> & {
 
   /**
    * A custom leading visual (icon or other element) to display instead of the default variant icon.
-   * Can be a React component, JSX element, or string (e.g., emoji).
    */
   leadingVisual?: React.ElementType | React.ReactNode
 }
@@ -42,21 +41,16 @@ export function InlineMessage({
   className,
   size = 'medium',
   variant,
-  leadingVisual,
+  leadingVisual: LeadingVisual,
   ...rest
 }: InlineMessageProps) {
   let icon: React.ReactNode
 
-  if (leadingVisual !== undefined) {
-    if (typeof leadingVisual === 'string') {
-      icon = <span className={classes.InlineMessageIcon}>{leadingVisual}</span>
-    } else if (isValidElementType(leadingVisual)) {
-      // Component type
-      const LeadingVisualComponent = leadingVisual
-      icon = <LeadingVisualComponent className={classes.InlineMessageIcon} />
+  if (LeadingVisual !== undefined) {
+    if (isValidElementType(LeadingVisual)) {
+      icon = <LeadingVisual className={classes.InlineMessageIcon} />
     } else {
-      // JSX element - wrap it with the icon styling
-      icon = leadingVisual
+      icon = LeadingVisual
     }
   } else {
     // Use default icon based on variant and size

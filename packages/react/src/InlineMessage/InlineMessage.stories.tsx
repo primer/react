@@ -36,7 +36,7 @@ const iconMap = {
 
 export const Playground: StoryObj<typeof InlineMessage> = {
   render(args) {
-    const {leadingVisual:leadingVisualOption, ...rest} = args
+    const {leadingVisual: leadingVisualOption, ...rest} = args
     const leadingVisual = leadingVisualOption ? iconMap[leadingVisualOption as keyof typeof iconMap] : undefined
     return (
       <InlineMessage {...rest} leadingVisual={leadingVisual}>
