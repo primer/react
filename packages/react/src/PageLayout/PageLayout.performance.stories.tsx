@@ -1,6 +1,8 @@
 import React from 'react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {PageLayout} from './PageLayout'
+import {Button} from '../Button'
+import Label from '../Label'
 
 const meta: Meta<typeof PageLayout> = {
   title: 'Components/PageLayout/Performance Tests',
@@ -322,22 +324,12 @@ export const MediumContent: Story = {
                         {['Admin', 'Editor', 'Viewer', 'Manager'][rowIndex % 4]}
                       </td>
                       <td style={{padding: '8px 12px'}}>
-                        <span
-                          style={{
-                            padding: '2px 8px',
-                            background:
-                              rowIndex % 3 === 0
-                                ? 'var(--bgColor-success-muted)'
-                                : rowIndex % 2 === 0
-                                  ? 'var(--bgColor-attention-muted)'
-                                  : 'var(--bgColor-danger-muted)',
-                            borderRadius: '12px',
-                            fontSize: '11px',
-                            fontWeight: '500',
-                          }}
+                        <Label
+                          variant={rowIndex % 3 === 0 ? 'success' : rowIndex % 2 === 0 ? 'attention' : 'danger'}
+                          size="small"
                         >
                           {rowIndex % 3 === 0 ? 'Active' : rowIndex % 2 === 0 ? 'Pending' : 'Inactive'}
-                        </span>
+                        </Label>
                       </td>
                       <td style={{padding: '8px 12px', fontSize: '12px', color: 'var(--fgColor-muted)'}}>
                         2024-{String((rowIndex % 12) + 1).padStart(2, '0')}-
@@ -350,54 +342,20 @@ export const MediumContent: Story = {
                         ${((rowIndex * 123.45) % 10000).toFixed(2)}
                       </td>
                       <td style={{padding: '8px 12px', fontSize: '11px'}}>
-                        <span
-                          style={{
-                            background: 'var(--bgColor-success-muted)',
-                            padding: '2px 6px',
-                            borderRadius: '3px',
-                            marginRight: '4px',
-                          }}
-                        >
+                        <Label variant="success" size="small" style={{marginRight: '4px'}}>
                           tag{rowIndex % 10}
-                        </span>
-                        <span
-                          style={{
-                            background: 'var(--bgColor-attention-muted)',
-                            padding: '2px 6px',
-                            borderRadius: '3px',
-                          }}
-                        >
+                        </Label>
+                        <Label variant="attention" size="small">
                           type{rowIndex % 5}
-                        </span>
+                        </Label>
                       </td>
                       <td style={{padding: '8px 12px'}}>
-                        <button
-                          type="button"
-                          style={{
-                            fontSize: '11px',
-                            padding: '4px 8px',
-                            marginRight: '4px',
-                            cursor: 'pointer',
-                            border: '1px solid var(--borderColor-default)',
-                            borderRadius: '3px',
-                            background: 'var(--bgColor-default)',
-                          }}
-                        >
+                        <Button size="small" variant="default" style={{marginRight: '4px'}}>
                           Edit
-                        </button>
-                        <button
-                          type="button"
-                          style={{
-                            fontSize: '11px',
-                            padding: '4px 8px',
-                            cursor: 'pointer',
-                            border: '1px solid var(--borderColor-default)',
-                            borderRadius: '3px',
-                            background: 'var(--bgColor-default)',
-                          }}
-                        >
+                        </Button>
+                        <Button size="small" variant="default">
                           Delete
-                        </button>
+                        </Button>
                       </td>
                     </tr>
                   ))}
@@ -487,26 +445,12 @@ export const HeavyContent: Story = {
                       User {['Alice', 'Bob', 'Charlie'][i % 3]} performed action on item {i}
                     </div>
                     <div style={{display: 'flex', gap: '4px'}}>
-                      <span
-                        style={{
-                          fontSize: '10px',
-                          background: 'var(--bgColor-success-muted)',
-                          padding: '2px 6px',
-                          borderRadius: '3px',
-                        }}
-                      >
+                      <Label variant="success" size="small">
                         {['create', 'update', 'delete'][i % 3]}
-                      </span>
-                      <span
-                        style={{
-                          fontSize: '10px',
-                          background: 'var(--bgColor-accent-muted)',
-                          padding: '2px 6px',
-                          borderRadius: '3px',
-                        }}
-                      >
+                      </Label>
+                      <Label variant="accent" size="small">
                         priority-{(i % 3) + 1}
-                      </span>
+                      </Label>
                     </div>
                   </div>
                 ))}
@@ -543,16 +487,9 @@ export const HeavyContent: Story = {
                         {['Type A', 'Type B', 'Type C', 'Type D'][i % 4]}
                       </td>
                       <td style={{padding: '8px 12px'}}>
-                        <span
-                          style={{
-                            padding: '2px 8px',
-                            background: i % 2 === 0 ? 'var(--bgColor-success-muted)' : 'var(--bgColor-attention-muted)',
-                            borderRadius: '12px',
-                            fontSize: '11px',
-                          }}
-                        >
+                        <Label variant={i % 2 === 0 ? 'success' : 'attention'} size="small">
                           {i % 2 === 0 ? 'Done' : 'In Progress'}
-                        </span>
+                        </Label>
                       </td>
                       <td style={{padding: '8px 12px', fontSize: '12px', color: 'var(--fgColor-muted)'}}>
                         Dec {(i % 30) + 1}
@@ -590,20 +527,9 @@ export const HeavyContent: Story = {
                   >
                     <div>
                       <span style={{fontWeight: '600', marginRight: '8px'}}>Issue #{i + 1}</span>
-                      <span
-                        style={{
-                          fontSize: '11px',
-                          padding: '2px 6px',
-                          background: [
-                            'var(--bgColor-success-muted)',
-                            'var(--bgColor-attention-muted)',
-                            'var(--bgColor-severe-muted)',
-                          ][i % 3],
-                          borderRadius: '3px',
-                        }}
-                      >
+                      <Label variant={(['success', 'attention', 'severe'] as const)[i % 3]} size="small">
                         {['bug', 'feature', 'enhancement'][i % 3]}
-                      </span>
+                      </Label>
                     </div>
                     <span style={{fontSize: '11px', color: 'var(--fgColor-muted)'}}>{i % 10}d ago</span>
                   </div>
