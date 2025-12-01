@@ -208,6 +208,11 @@ const updateAriaValue = (handle: HTMLElement | null, width: number) => {
   }
 }
 
+const DATA_DRAGGING_ATTR = 'data-dragging'
+const isDragging = (handle: HTMLElement | null) => {
+  return handle?.getAttribute(DATA_DRAGGING_ATTR) === 'true'
+}
+
 const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & DraggableDividerProps>> = ({
   variant = 'none',
   draggable = false,
@@ -222,8 +227,6 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   className,
   style,
 }) => {
-  const isDraggingRef = React.useRef(false)
-
   const stableOnDragStart = React.useRef(onDragStart)
   const stableOnDrag = React.useRef(onDrag)
   const stableOnDragEnd = React.useRef(onDragEnd)
@@ -247,14 +250,13 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     event.preventDefault()
     const target = event.currentTarget
     target.setPointerCapture(event.pointerId)
-    isDraggingRef.current = true
-    target.setAttribute('data-dragging', 'true')
+    target.setAttribute(DATA_DRAGGING_ATTR, 'true')
 
     stableOnDragStart.current?.()
   }, [])
 
   const handlePointerMove = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
-    if (!isDraggingRef.current) return
+    if (!isDragging(handleRef.current)) return
     event.preventDefault()
 
     if (event.movementX !== 0) {
@@ -263,17 +265,16 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   }, [])
 
   const handlePointerUp = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
-    if (!isDraggingRef.current) return
+    if (!isDragging(handleRef.current)) return
     event.preventDefault()
     // Cleanup will happen in onLostPointerCapture
   }, [])
 
   const handleLostPointerCapture = React.useCallback(
     (event: React.PointerEvent<HTMLDivElement>) => {
-      if (!isDraggingRef.current) return
-      isDraggingRef.current = false
+      if (!isDragging(handleRef.current)) return
       const target = event.currentTarget
-      target.removeAttribute('data-dragging')
+      target.removeAttribute(DATA_DRAGGING_ATTR)
 
       // Update ARIA with final width after drag completes
       if (paneRef.current) {
@@ -307,6 +308,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
         }
 
         if (delta !== 0) {
+          event.currentTarget.setAttribute(DATA_DRAGGING_ATTR, 'true')
           stableOnDrag.current?.(delta, true)
 
           // Update ARIA after keyboard resize
@@ -326,6 +328,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       event.key === 'ArrowDown'
     ) {
       event.preventDefault()
+      event.currentTarget.removeAttribute(DATA_DRAGGING_ATTR)
       stableOnDragEnd.current?.()
     }
   }, [])
