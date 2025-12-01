@@ -229,7 +229,7 @@ export const BaselineLight: Story = {
 
         <PageLayout.Pane position="start" resizable>
           <div style={{padding: '16px'}}>
-            <h3>Resizable Pane</h3>
+            <h1>Resizable Pane</h1>
             <p>Drag to test - should be instant.</p>
           </div>
         </PageLayout.Pane>
@@ -256,7 +256,7 @@ export const MediumContent: Story = {
         </PageLayout.Header>
         <PageLayout.Pane position="start" resizable>
           <div style={{padding: '16px'}}>
-            <h3>Performance Monitor</h3>
+            <p>Performance Monitor</p>
             <div
               style={{
                 padding: '12px',
@@ -282,6 +282,7 @@ export const MediumContent: Story = {
             {/* Large table with complex cells */}
             <h2 style={{marginBottom: '16px'}}>Data Table (300 rows × 10 columns)</h2>
             <div
+              tabIndex={0}
               style={{
                 overflow: 'auto',
                 height: '600px',
@@ -388,7 +389,7 @@ export const HeavyContent: Story = {
 
         <PageLayout.Pane position="start" resizable>
           <div style={{padding: '16px'}}>
-            <h3>Stress Test</h3>
+            <h1>Stress Test</h1>
             <div
               style={{
                 padding: '12px',
@@ -420,7 +421,7 @@ export const HeavyContent: Story = {
         </PageLayout.Pane>
 
         <PageLayout.Content>
-          <div style={{padding: '16px', overflow: 'auto', height: '600px'}}>
+          <div tabIndex={0} style={{padding: '16px', overflow: 'auto', height: '600px'}}>
             {/* Section 1: Large card grid */}
             <div style={{marginBottom: '32px'}}>
               <h2 style={{marginBottom: '16px'}}>Activity Feed (200 cards)</h2>
@@ -577,7 +578,7 @@ export const ResponsiveConstraintsTest: Story = {
 
         <PageLayout.Pane position="start" resizable>
           <div style={{padding: '16px'}}>
-            <h3>Resizable Pane</h3>
+            <h1>Resizable Pane</h1>
             <p>Max width: {calculatedMaxWidth}px</p>
           </div>
         </PageLayout.Pane>
@@ -666,7 +667,7 @@ export const KeyboardARIATest: Story = {
 
         <PageLayout.Pane position="start" resizable>
           <div style={{padding: '16px'}}>
-            <h3>Resizable Pane</h3>
+            <h1>Resizable Pane</h1>
             <p>Use keyboard: ← → ↑ ↓</p>
           </div>
         </PageLayout.Pane>
@@ -688,7 +689,7 @@ export const KeyboardARIATest: Story = {
                 background: 'var(--bgColor-canvas-subtle)',
               }}
             >
-              <h3 style={{marginBottom: '12px'}}>Live ARIA attributes</h3>
+              <h1 style={{marginBottom: '12px'}}>Live ARIA attributes</h1>
               <dl
                 style={{
                   display: 'grid',
