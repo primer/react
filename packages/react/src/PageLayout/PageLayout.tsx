@@ -697,27 +697,30 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       return isCustomWidthOptions(width) ? parseInt(width.min, 10) : minWidth
     }, [width, minWidth])
 
-    // Get current max width by reading CSS variable (call only in event handlers/effects, not during render)
-    const getCurrentMaxWidth = React.useCallback(() => {
+    // Cache max width constraint - updated when viewport changes (which triggers CSS breakpoint changes)
+    // This avoids calling getComputedStyle() on every drag frame
+    const maxPaneWidthRef = React.useRef(minPaneWidth)
+    React.useEffect(() => {
       if (isCustomWidthOptions(width)) {
-        return parseInt(width.max, 10)
+        maxPaneWidthRef.current = parseInt(width.max, 10)
+      } else {
+        const maxWidthDiff = getPaneMaxWidthDiff(paneRef.current)
+        maxPaneWidthRef.current =
+          viewportWidth > 0 ? Math.max(minPaneWidth, viewportWidth - maxWidthDiff) : minPaneWidth
       }
-      const maxWidthDiff = getPaneMaxWidthDiff(paneRef.current)
-      const currentViewportWidth = window.innerWidth
-      return currentViewportWidth > 0 ? Math.max(minPaneWidth, currentViewportWidth - maxWidthDiff) : minPaneWidth
-    }, [width, minPaneWidth, paneRef])
+    }, [width, minPaneWidth, viewportWidth, paneRef])
 
     // Ref to the drag handle for updating ARIA attributes
     const handleRef = React.useRef<HTMLDivElement>(null)
 
-    // Update ARIA attributes on mount and when viewport changes (which affects max width)
+    // Update ARIA attributes on mount and when viewport/constraints change
     React.useEffect(() => {
       updateAriaValues(handleRef.current, {
         min: minPaneWidth,
-        max: getCurrentMaxWidth(),
+        max: maxPaneWidthRef.current,
         current: currentWidthRef.current,
       })
-    }, [minPaneWidth, getCurrentMaxWidth, viewportWidth])
+    }, [minPaneWidth, viewportWidth])
 
     useRefObjectAsForwardedRef(forwardRef, paneRef)
 
@@ -814,7 +817,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           handleRef={handleRef}
           onDrag={(delta, isKeyboard = false) => {
             const deltaWithDirection = isKeyboard ? delta : position === 'end' ? -delta : delta
-            const maxWidth = getCurrentMaxWidth()
+            const maxWidth = maxPaneWidthRef.current
 
             if (isKeyboard) {
               // Clamp keyboard delta to stay within bounds
