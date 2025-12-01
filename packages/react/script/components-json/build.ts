@@ -160,7 +160,6 @@ const components = docsFiles.map(docsFilepath => {
       if (id.endsWith('--default')) {
         return {
           id,
-          code: defaultStoryCode,
         }
       }
       const storyName = getStoryName(id)
@@ -172,7 +171,7 @@ const components = docsFiles.map(docsFilepath => {
         )
       }
 
-      return {id, code}
+      return {id}
     })
 
   // Replace the stories array with the new array that includes source code
@@ -180,11 +179,10 @@ const components = docsFiles.map(docsFilepath => {
 
   // Add default story to the beginning of the array
   if (defaultStoryCode) {
-    const hasDefaultStory = docs.stories.find(story => story.code === defaultStoryCode)
+    const hasDefaultStory = docs.stories.find(story => story.id === defaultStoryId)
     if (!hasDefaultStory) {
       docs.stories.unshift({
         id: defaultStoryId,
-        code: defaultStoryCode,
       })
     }
   }
