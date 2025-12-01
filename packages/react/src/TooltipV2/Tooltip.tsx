@@ -279,6 +279,7 @@ export const Tooltip: ForwardRefExoticComponent<
           {React.isValidElement(child) &&
             // eslint-disable-next-line react-hooks/refs
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
+              // @ts-expect-error it needs a non nullable ref
               ref: triggerRef,
               // If it is a type description, we use tooltip to describe the trigger
               'aria-describedby': (() => {

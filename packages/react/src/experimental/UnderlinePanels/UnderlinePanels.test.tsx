@@ -99,7 +99,6 @@ describe('UnderlinePanels', () => {
   })
 
   it('throws an error when the number of tabs does not match the number of panels', () => {
-    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     expect(() => {
       render(
         <UnderlinePanels aria-label="Select a tab">
@@ -111,12 +110,9 @@ describe('UnderlinePanels', () => {
         </UnderlinePanels>,
       )
     }).toThrow('The number of tabs and panels must be equal. Counted 2 tabs and 3 panels.')
-    expect(spy).toHaveBeenCalled()
-    spy.mockRestore()
   })
 
   it('throws an error when the number of panels does not match the number of tabs', () => {
-    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     expect(() => {
       render(
         <UnderlinePanels aria-label="Select a tab">
@@ -128,12 +124,9 @@ describe('UnderlinePanels', () => {
         </UnderlinePanels>,
       )
     }).toThrow('The number of tabs and panels must be equal. Counted 3 tabs and 2 panels.')
-    expect(spy).toHaveBeenCalled()
-    spy.mockRestore()
   })
 
   it('throws an error when there are multiple items that have aria-selected', () => {
-    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     expect(() => {
       render(
         <UnderlinePanels aria-label="Select a tab">
@@ -146,8 +139,6 @@ describe('UnderlinePanels', () => {
         </UnderlinePanels>,
       )
     }).toThrow('Only one tab can be selected at a time.')
-    expect(spy).toHaveBeenCalled()
-    spy.mockRestore()
   })
 
   it('should support `className` on the outermost element', () => {

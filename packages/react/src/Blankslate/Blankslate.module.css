@@ -60,6 +60,7 @@
 .Heading,
 .Description {
   margin: 0;
+  text-align: center;
 }
 
 .Heading {

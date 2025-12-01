@@ -5,7 +5,7 @@ import type React from 'react'
 import {useCallback, useEffect, useRef, useState} from 'react'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
-import {ActionList} from '../ActionList'
+import {ActionList, type ActionListProps} from '../ActionList'
 import type {GroupedListProps, ListPropsBase, ItemInput, RenderItemFn} from './'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
@@ -17,7 +17,6 @@ import type {FilteredActionListLoadingType} from './FilteredActionListLoaders'
 import {FilteredActionListLoadingTypes, FilteredActionListBodyLoader} from './FilteredActionListLoaders'
 import classes from './FilteredActionList.module.css'
 import Checkbox from '../Checkbox'
-
 import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
 import {isValidElementType} from 'react-is'
 import {useAnnouncements} from './useAnnouncements'
@@ -32,9 +31,13 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
   filterValue?: string
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement> | null) => void
   onListContainerRefChanged?: (ref: HTMLElement | null) => void
-  onInputRefChanged?: (ref: React.RefObject<HTMLInputElement>) => void
+  onInputRefChanged?: (ref: React.RefObject<HTMLInputElement | null>) => void
+  /**
+   * A ref assigned to the scrollable container wrapping the ActionList
+   */
+  scrollContainerRef?: React.Ref<HTMLDivElement | null>
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
-  inputRef?: React.RefObject<HTMLInputElement>
+  inputRef?: React.RefObject<HTMLInputElement | null>
   message?: React.ReactNode
   messageText?: {
     title: string
@@ -44,6 +47,19 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
   announcementsEnabled?: boolean
   fullScreenOnNarrow?: boolean
   onSelectAllChange?: (checked: boolean) => void
+  /**
+   * Additional props to pass to the underlying ActionList component.
+   */
+  actionListProps?: Partial<ActionListProps>
+  /**
+   * Determines how keyboard focus behaves when navigating beyond the first or last item in the list.
+   *
+   * - `'stop'`: Focus will stop at the first or last item; further navigation in that direction will not move focus.
+   * - `'wrap'`: Focus will wrap around to the opposite end of the list when navigating past the boundaries (e.g., pressing Down on the last item moves focus to the first).
+   *
+   *  @default 'wrap'
+   */
+  focusOutBehavior?: 'stop' | 'wrap'
   /**
    * Private API for use internally only. Adds the ability to switch between
    * `active-descendant` and roving tabindex.
@@ -77,6 +93,7 @@ export function FilteredActionList({
   items,
   textInputProps,
   inputRef: providedInputRef,
+  scrollContainerRef: providedScrollContainerRef,
   groupMetadata,
   showItemDividers,
   message,
@@ -86,6 +103,8 @@ export function FilteredActionList({
   announcementsEnabled = true,
   fullScreenOnNarrow,
   onSelectAllChange,
+  actionListProps,
+  focusOutBehavior = 'wrap',
   _PrivateFocusManagement = 'active-descendant',
   ...listProps
 }: FilteredActionListProps): JSX.Element {
@@ -102,14 +121,16 @@ export function FilteredActionList({
   const inputAndListContainerRef = useRef<HTMLDivElement>(null)
   const listRef = useRef<HTMLUListElement>(null)
 
-  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const scrollContainerRef = useProvidedRefOrCreate<HTMLDivElement>(
+    providedScrollContainerRef as React.RefObject<HTMLDivElement>,
+  )
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
 
   const usingRovingTabindex = _PrivateFocusManagement === 'roving-tabindex'
   const [listContainerElement, setListContainerElement] = useState<HTMLUListElement | null>(null)
   const activeDescendantRef = useRef<HTMLElement>()
 
-  const listId = useId()
+  const listId = useId(actionListProps?.id)
   const inputDescriptionTextId = useId()
   const [isInputFocused, setIsInputFocused] = useState(false)
 
@@ -200,7 +221,7 @@ export function FilteredActionList({
       ? {
           containerRef: {current: listContainerElement},
           bindKeys: FocusKeys.ArrowVertical | FocusKeys.PageUpDown,
-          focusOutBehavior: 'wrap',
+          focusOutBehavior,
           focusableElementFilter: element => {
             return !(element instanceof HTMLInputElement)
           },
@@ -224,7 +245,7 @@ export function FilteredActionList({
         behavior: 'auto',
       })
     }
-  }, [items, inputRef])
+  }, [items, inputRef, scrollContainerRef])
 
   useEffect(() => {
     if (usingRovingTabindex) {
@@ -288,9 +309,10 @@ export function FilteredActionList({
         showDividers={showItemDividers}
         selectionVariant={selectionVariant}
         {...listProps}
+        {...actionListProps}
         role="listbox"
         id={listId}
-        className={classes.ActionList}
+        className={clsx(classes.ActionList, actionListProps?.className)}
       >
         {groupMetadata?.length
           ? groupMetadata.map((group, index) => {
@@ -360,6 +382,7 @@ export function FilteredActionList({
     <div ref={inputAndListContainerRef} className={clsx(className, classes.Root)} data-testid="filtered-action-list">
       <div className={classes.Header}>
         <TextInput
+          // @ts-expect-error it needs a non nullable ref
           ref={inputRef}
           block
           width="auto"
@@ -396,6 +419,7 @@ export function FilteredActionList({
           </label>
         </div>
       )}
+      {/* @ts-expect-error div needs a non nullable ref */}
       <div ref={scrollContainerRef} className={classes.Container}>
         {getBodyContent()}
       </div>

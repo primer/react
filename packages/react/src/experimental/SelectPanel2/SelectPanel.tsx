@@ -63,7 +63,7 @@ export type SelectPanelProps = {
 
   defaultOpen?: boolean
   open?: boolean
-  anchorRef?: React.RefObject<HTMLButtonElement>
+  anchorRef?: React.RefObject<HTMLButtonElement | null>
   anchoredPositionSettings?: Partial<PositionSettings>
 
   onCancel?: () => void

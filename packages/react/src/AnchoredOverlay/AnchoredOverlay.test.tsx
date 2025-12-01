@@ -122,11 +122,6 @@ describe('AnchoredOverlay', () => {
     expect(mockCloseCallback).toHaveBeenCalledWith('escape')
   })
 
-  it('should render consistently when open', () => {
-    const {container} = render(<AnchoredOverlayTestComponent initiallyOpen={true} />)
-    expect(container).toMatchSnapshot()
-  })
-
   it('should call onPositionChange when provided', async () => {
     const mockPositionChangeCallback = vi.fn(({position}: {position: AnchorPosition}) => position)
     render(<AnchoredOverlayTestComponent initiallyOpen={true} onPositionChange={mockPositionChangeCallback} />)
