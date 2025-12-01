@@ -106,7 +106,7 @@ describe('InlineMessage', () => {
         </InlineMessage>
       </>,
     )
-    expect(screen.getByTestId('search-icon')).toBeInTheDocument()
+    expect(screen.getByTestId('info-icon')).toBeInTheDocument()
     expect(screen.getByTestId('memo')).toBeInTheDocument()
     expect(screen.getByTestId('forward-ref')).toBeInTheDocument()
   })
