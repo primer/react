@@ -1532,46 +1532,45 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       }
 
       return (
-        <ThemeProvider>
-          <div
-            onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
-              const isAlphabetKey = e.key.length === 1 && /[a-z\d]/i.test(e.key)
-              const container = e.currentTarget
+        <div
+          onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
+            const isAlphabetKey = e.key.length === 1 && /[a-z\d]/i.test(e.key)
+            const container = e.currentTarget
 
-              if (!isAlphabetKey) return
-              container.setAttribute('data-keydown-called', 'true')
+            if (!isAlphabetKey) return
+            container.setAttribute('data-keydown-called', 'true')
+          }}
+          data-keydown-called="false"
+        >
+          <button type="button" onClick={() => setOpen(!open)}>
+            Toggle SelectPanel
+          </button>
+          <SelectPanel
+            title="test title"
+            subtitle="test subtitle"
+            items={items}
+            placeholder="Select items"
+            placeholderText="Filter items"
+            selected={selected}
+            onSelectedChange={onSelectedChange}
+            filterValue={filter}
+            onFilterChange={value => {
+              setFilter(value)
             }}
-            data-keydown-called="false"
-          >
-            <button type="button" onClick={() => setOpen(!open)}>
-              Toggle SelectPanel
-            </button>
-            <SelectPanel
-              title="test title"
-              subtitle="test subtitle"
-              items={items}
-              placeholder="Select items"
-              placeholderText="Filter items"
-              selected={selected}
-              onSelectedChange={onSelectedChange}
-              filterValue={filter}
-              onFilterChange={value => {
-                setFilter(value)
-              }}
-              open={open}
-              onOpenChange={isOpen => {
-                setOpen(isOpen)
-              }}
-            />
-          </div>
-        </ThemeProvider>
+            open={open}
+            onOpenChange={isOpen => {
+              setOpen(isOpen)
+            }}
+            _PrivateFocusManagement="roving-tabindex"
+          />
+        </div>
       )
     }
 
     it('should prevent event propagation when using keyboard while focusing on an item', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(<EventSelectPanel />, true)
+      render(<EventSelectPanel />)
 
       const toggleButton = screen.getByRole('button', {name: 'Toggle SelectPanel'})
       const container = toggleButton.parentElement as HTMLDivElement
