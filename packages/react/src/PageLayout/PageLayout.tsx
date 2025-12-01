@@ -204,9 +204,9 @@ const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
 type DraggableDividerProps = {
   draggable?: boolean
   handleRef: React.RefObject<HTMLDivElement>
-  onDrag?: (delta: number, isKeyboard: boolean) => void
-  onDragEnd?: () => void
-  onDoubleClick?: () => void
+  onDrag: (delta: number, isKeyboard: boolean) => void
+  onDragEnd: () => void
+  onDoubleClick: () => void
 }
 
 // Helper to update ARIA slider attributes via direct DOM manipulation
@@ -246,6 +246,11 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
 
   const {paneRef} = React.useContext(PageLayoutContext)
 
+  /**
+   * Pointer down starts a drag operation
+   * Capture the pointer to continue receiving events outside the handle area
+   * Set a data attribute to indicate dragging state
+   */
   const handlePointerDown = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
     if (event.button !== 0) return
     event.preventDefault()
@@ -254,18 +259,27 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     target.setAttribute(DATA_DRAGGING_ATTR, 'true')
   }, [])
 
+  /**
+   * Pointer move during drag
+   * Calls onDrag with movement delta
+   * Prevents default to avoid unwanted selection behavior
+   */
   const handlePointerMove = React.useCallback(
     (event: React.PointerEvent<HTMLDivElement>) => {
       if (!isDragging(handleRef.current)) return
       event.preventDefault()
 
       if (event.movementX !== 0) {
-        stableOnDrag.current?.(event.movementX, false)
+        stableOnDrag.current(event.movementX, false)
       }
     },
     [handleRef],
   )
 
+  /**
+   * Pointer up ends a drag operation
+   * Prevents default to avoid unwanted selection behavior
+   */
   const handlePointerUp = React.useCallback(
     (event: React.PointerEvent<HTMLDivElement>) => {
       if (!isDragging(handleRef.current)) return
@@ -275,17 +289,28 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     [handleRef],
   )
 
+  /**
+   * Lost pointer capture ends a drag operation
+   * Cleans up dragging state
+   * Calls onDragEnd callback
+   */
   const handleLostPointerCapture = React.useCallback(
     (event: React.PointerEvent<HTMLDivElement>) => {
       if (!isDragging(handleRef.current)) return
       const target = event.currentTarget
       target.removeAttribute(DATA_DRAGGING_ATTR)
-
-      stableOnDragEnd.current?.()
+      stableOnDragEnd.current()
     },
     [handleRef],
   )
 
+  /**
+   * Keyboard handling for accessibility
+   * Arrow keys adjust the pane size in 3px increments
+   * Prevents default scrolling behavior
+   * Sets and clears dragging state via data attribute
+   * Calls onDrag
+   */
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (
@@ -302,7 +327,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
         const delta = event.key === 'ArrowLeft' || event.key === 'ArrowDown' ? -3 : 3
 
         event.currentTarget.setAttribute(DATA_DRAGGING_ATTR, 'true')
-        stableOnDrag.current?.(delta, true)
+        stableOnDrag.current(delta, true)
       }
     },
     [paneRef],
@@ -317,7 +342,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     ) {
       event.preventDefault()
       event.currentTarget.removeAttribute(DATA_DRAGGING_ATTR)
-      stableOnDragEnd.current?.()
+      stableOnDragEnd.current()
     }
   }, [])
 
