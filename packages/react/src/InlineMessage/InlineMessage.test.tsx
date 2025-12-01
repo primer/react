@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react'
 import {describe, expect, it, test} from 'vitest'
-import {InfoIcon, SearchIcon} from '@primer/octicons-react'
+import {InfoIcon} from '@primer/octicons-react'
 import {InlineMessage} from '../InlineMessage'
 import React from 'react'
 
@@ -85,7 +85,7 @@ describe('InlineMessage', () => {
   it('should render leading visual', () => {
     render(
       <>
-        <InlineMessage variant="critical" leadingVisual={<SearchIcon data-testid="search-icon" />}>
+        <InlineMessage variant="critical" leadingVisual={<InfoIcon data-testid="info-icon" />}>
           test with custom icon
         </InlineMessage>
         <InlineMessage
