@@ -193,10 +193,19 @@ type DraggableDividerProps = {
   draggable?: boolean
   minWidth?: number
   maxWidth?: number
+  currentWidth: number
   onDragStart?: () => void
   onDrag?: (delta: number, isKeyboard: boolean) => void
   onDragEnd?: () => void
   onDoubleClick?: () => void
+}
+
+// Helper to update ARIA attributes (only valuenow/valuetext change dynamically)
+const updateAriaValue = (handle: HTMLElement | null, width: number) => {
+  if (handle) {
+    handle.setAttribute('aria-valuenow', String(width))
+    handle.setAttribute('aria-valuetext', `Pane width ${width} pixels`)
+  }
 }
 
 const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & DraggableDividerProps>> = ({
@@ -204,6 +213,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   draggable = false,
   minWidth = 256,
   maxWidth = 1024,
+  currentWidth,
   onDragStart,
   onDrag,
   onDragEnd,
@@ -226,27 +236,11 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   const {paneRef} = React.useContext(PageLayoutContext)
   const handleRef = React.useRef<HTMLDivElement>(null)
 
-  // Helper to update ARIA attributes (only valuenow/valuetext change dynamically)
-  const updateAriaValue = React.useCallback((width: number) => {
-    if (handleRef.current) {
-      handleRef.current.setAttribute('aria-valuenow', String(width))
-      handleRef.current.setAttribute('aria-valuetext', `Pane width ${width} pixels`)
-    }
-  }, [])
-
   // Initialize static ARIA attributes on mount
   React.useEffect(() => {
-    if (paneRef.current && handleRef.current) {
-      const currentWidth = Math.round(paneRef.current.getBoundingClientRect().width)
-
-      // Set static attributes once
-      handleRef.current.setAttribute('aria-valuemin', String(minWidth))
-      handleRef.current.setAttribute('aria-valuemax', String(maxWidth))
-
-      // Set dynamic attributes
-      updateAriaValue(currentWidth)
-    }
-  }, [paneRef, minWidth, maxWidth, updateAriaValue])
+    // Set dynamic attributes
+    updateAriaValue(handleRef.current, currentWidth)
+  }, [currentWidth])
 
   const handlePointerDown = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
     if (event.button !== 0) return
@@ -284,12 +278,12 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       // Update ARIA with final width after drag completes
       if (paneRef.current) {
         const finalWidth = Math.round(paneRef.current.getBoundingClientRect().width)
-        updateAriaValue(finalWidth)
+        updateAriaValue(handleRef.current, finalWidth)
       }
 
       stableOnDragEnd.current?.()
     },
-    [paneRef, updateAriaValue],
+    [paneRef],
   )
 
   const handleKeyDown = React.useCallback(
@@ -303,7 +297,6 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
         event.preventDefault()
 
         if (!paneRef.current) return
-        const currentWidth = Math.round(paneRef.current.getBoundingClientRect().width)
 
         let delta = 0
         // https://github.com/github/accessibility/issues/5101#issuecomment-1822870655
@@ -318,11 +311,11 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
 
           // Update ARIA after keyboard resize
           const newWidth = Math.round(paneRef.current.getBoundingClientRect().width)
-          updateAriaValue(newWidth)
+          updateAriaValue(handleRef.current, newWidth)
         }
       }
     },
-    [paneRef, minWidth, maxWidth, updateAriaValue],
+    [paneRef, currentWidth, minWidth, maxWidth],
   )
 
   const handleKeyUp = React.useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -351,6 +344,10 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
           role="slider"
           aria-label="Draggable pane splitter"
           tabIndex={0}
+          aria-valuemin={minWidth}
+          aria-valuemax={maxWidth}
+          // aria-valuenow - OPTIMIZATION: set dynamically during drag and on startup.
+          // aria-valuetext - OPTIMIZATION: set dynamically during drag and on startup.
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
@@ -775,6 +772,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           draggable={resizable}
           minWidth={paneConstraints.minWidth}
           maxWidth={paneConstraints.maxWidth}
+          currentWidth={paneWidth}
           onDrag={(delta, isKeyboard = false) => {
             const deltaWithDirection = isKeyboard ? delta : position === 'end' ? -delta : delta
 

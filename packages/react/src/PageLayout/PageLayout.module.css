@@ -397,14 +397,6 @@
   transform: translateZ(0);
 }
 
-/**
- * OPTIMIZATION: Disable animations in ContentWrapper during drag
- * Prevents expensive animation recalculations on every frame
- */
-.PageLayoutContent:has(.DraggableHandle[data-dragging='true']) .ContentWrapper * {
-  animation-play-state: paused !important;
-  transition: none !important;
-}
 
 .Content {
   width: 100%;
@@ -644,26 +636,14 @@
 .PaneWrapper:has(.DraggableHandle[data-dragging='true']) .Pane {
   /* Disable interactions during drag */
   pointer-events: none;
-  
   /* Disable transitions during drag */
   transition: none !important;
-
-  /* Reduce rendering quality during drag */
-  image-rendering: pixelated;
   text-rendering: optimizeSpeed;
   
   /* Force hardware acceleration */
   will-change: width, transform;
   transform: translateZ(0);
   backface-visibility: hidden;
-}
-
-/**
- * OPTIMIZATION: Disable animations in Pane during drag
- */
-.PaneWrapper:has(.DraggableHandle[data-dragging='true']) .Pane * {
-  animation-play-state: paused !important;
-  transition: none !important;
 }
 
 .PaneHorizontalDivider {
