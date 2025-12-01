@@ -204,7 +204,6 @@ const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
 type DraggableDividerProps = {
   draggable?: boolean
   handleRef?: React.RefObject<HTMLDivElement>
-  onDragStart?: () => void
   onDrag?: (delta: number, isKeyboard: boolean) => void
   onDragEnd?: () => void
   onDoubleClick?: () => void
@@ -231,7 +230,6 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   variant = 'none',
   draggable = false,
   handleRef,
-  onDragStart,
   onDrag,
   onDragEnd,
   onDoubleClick,
@@ -239,13 +237,11 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   className,
   style,
 }) => {
-  const stableOnDragStart = React.useRef(onDragStart)
   const stableOnDrag = React.useRef(onDrag)
   const stableOnDragEnd = React.useRef(onDragEnd)
   React.useEffect(() => {
     stableOnDrag.current = onDrag
     stableOnDragEnd.current = onDragEnd
-    stableOnDragStart.current = onDragStart
   })
 
   const {paneRef} = React.useContext(PageLayoutContext)
@@ -256,8 +252,6 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     const target = event.currentTarget
     target.setPointerCapture(event.pointerId)
     target.setAttribute(DATA_DRAGGING_ATTR, 'true')
-
-    stableOnDragStart.current?.()
   }, [])
 
   const handlePointerMove = React.useCallback(
