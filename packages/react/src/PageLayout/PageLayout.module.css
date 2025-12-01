@@ -390,7 +390,7 @@
   pointer-events: none;
 
   /* Disable transitions to prevent expensive recalculations */
-  transition: none !important;
+  transition: none;
 
   /* Force compositor layer for hardware acceleration */
   will-change: width;
@@ -621,17 +621,10 @@
    * OPTIMIZATION: Full containment for pane - isolates from rest of page
    */
   contain: layout style paint;
-
   /**
    * OPTIMIZATION: For extremely tall content - skip rendering off-screen content
    */
   content-visibility: auto;
-
-  /**
-   * OPTIMIZATION: Provide size estimate for content-visibility
-   * JavaScript updates this dynamically based on actual content height
-   */
-  contain-intrinsic-size: auto 100vh;
 
   @media screen and (min-width: 768px) {
     overflow: auto;
@@ -658,7 +651,7 @@
   pointer-events: none;
 
   /* Disable transitions during drag */
-  transition: none !important;
+  transition: none;
 
   /* Force hardware acceleration */
   will-change: width, transform;
