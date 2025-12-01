@@ -291,27 +291,7 @@ export const ResizablePane: StoryFn = () => (
       <Placeholder height={320} label="Pane" />
     </PageLayout.Pane>
     <PageLayout.Content>
-      <table>
-        {/** 10 columns, 1000 rows*/}
-        <thead>
-          <tr>
-            {Array.from({length: 10}).map((_, colIndex) => (
-              <th key={colIndex}>Header {colIndex + 1}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {Array.from({length: 1000}).map((_, rowIndex) => (
-            <tr key={rowIndex}>
-              {Array.from({length: 10}).map((_, colIndex) => (
-                <td key={colIndex}>
-                  Row {rowIndex + 1} - Col {colIndex + 1}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Placeholder height={640} label="Content" />
     </PageLayout.Content>
     <PageLayout.Footer>
       <Placeholder height={64} label="Footer" />
