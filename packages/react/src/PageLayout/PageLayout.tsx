@@ -12,6 +12,7 @@ import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes
 
 import classes from './PageLayout.module.css'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types'
+import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 // Module-scoped ResizeObserver subscription for viewport width tracking
 let viewportWidthListeners: Set<() => void> | undefined
@@ -642,7 +643,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     },
     forwardRef,
   ) => {
-    const [, startTransition] = React.useTransition()
     // Combine position and positionWhenNarrow for backwards compatibility
     const positionProp =
       !isResponsiveValue(responsivePosition) && positionWhenNarrow !== 'inherit'
@@ -693,6 +693,13 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       currentWidthRef.current = paneWidth
     }, [paneWidth])
 
+    // Set --pane-width via layout effect. This runs on every render to ensure
+    // the CSS variable reflects currentWidthRef (which may differ from state after drag).
+    // We intentionally have no deps array - we want this to run on every render.
+    useIsomorphicLayoutEffect(() => {
+      paneRef.current?.style.setProperty('--pane-width', `${currentWidthRef.current}px`)
+    })
+
     // Subscribe to viewport width changes for responsive max constraint calculation
     const viewportWidth = useViewportWidth()
 
@@ -735,9 +742,9 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       }
     }
 
-    const setWidthInLocalStorage = (value: string) => {
+    const setWidthInLocalStorage = (value: number) => {
       try {
-        localStorage.setItem(widthStorageKey, value)
+        localStorage.setItem(widthStorageKey, value.toString())
       } catch {
         // Ignore write errors
       }
@@ -783,7 +790,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               '--pane-max-width': isCustomWidthOptions(width) ? width.max : `calc(100vw - var(--pane-max-width-diff))`,
               '--pane-width-custom': isCustomWidthOptions(width) ? width.default : undefined,
               '--pane-width-size': `var(--pane-width-${isPaneWidth(width) ? width : 'custom'})`,
-              '--pane-width': `${paneWidth}px`,
+              // Note: --pane-width is set via useLayoutEffect to prevent re-renders from resetting it
             } as React.CSSProperties
           }
         >
@@ -828,30 +835,24 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               }
             }
           }}
-          // Ensure `paneWidth` state and actual pane width are in sync when the drag ends
+          // Save final width to localStorage (skip React state update to avoid reconciliation)
           onDragEnd={() => {
-            // Commit final width from DOM to React state
-            // Use startTransition to mark this as low-priority, letting the browser
-            // finish painting the final position before React reconciles
-            if (paneRef.current) {
-              const actualWidth = parseInt(paneRef.current.style.getPropertyValue('--pane-width')) || paneWidth
-
-              // Low-priority update - won't block the main thread
-              startTransition(() => {
-                setPaneWidth(actualWidth)
-              })
-              setWidthInLocalStorage(actualWidth.toString())
-            }
+            // For mouse drag: The CSS variable is already set and currentWidthRef is in sync.
+            // We intentionally skip setPaneWidth() to avoid triggering expensive React
+            // reconciliation with large DOM trees. The ref is the source of truth for
+            // subsequent drag operations.
+            setWidthInLocalStorage(currentWidthRef.current)
           }}
           position={positionProp}
           // Reset pane width on double click
           onDoubleClick={() => {
             const defaultWidth = getDefaultPaneWidth(width)
-            // Low-priority update - won't block the main thread
-            startTransition(() => {
-              setPaneWidth(defaultWidth)
-            })
-            setWidthInLocalStorage(defaultWidth.toString())
+            // Update CSS variable and ref directly - skip React state to avoid reconciliation
+            if (paneRef.current) {
+              paneRef.current.style.setProperty('--pane-width', `${defaultWidth}px`)
+              currentWidthRef.current = defaultWidth
+            }
+            setWidthInLocalStorage(defaultWidth)
           }}
           className={classes.PaneVerticalDivider}
           style={
