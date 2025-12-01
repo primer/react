@@ -122,10 +122,10 @@ export type UnderlinePanelsTabProps = {
    * Content of the tab
    */
   children: React.ReactNode
-}
+} & React.ComponentPropsWithoutRef<'button'>
 
-function UnderlinePanelsTab({children, ...props}: UnderlinePanelsTabProps) {
-  const {tabProps} = useTab(props)
+function UnderlinePanelsTab({children, value, disabled, counter, icon, ...rest}: UnderlinePanelsTabProps) {
+  const {tabProps} = useTab({value, disabled})
 
   const panelsContext = useContext(UnderlinePanelsContext)
   const loadingCounters = panelsContext?.loadingCounters ?? false
@@ -133,10 +133,11 @@ function UnderlinePanelsTab({children, ...props}: UnderlinePanelsTabProps) {
   return (
     <UnderlineItem
       as="button"
+      {...rest}
       {...tabProps}
-      counter={props.counter}
+      counter={counter}
       loadingCounters={loadingCounters}
-      icon={props.icon}
+      icon={icon}
       iconsVisible={panelsContext?.iconsVisible}
     >
       {children}
@@ -159,12 +160,12 @@ export type UnderlinePanelsPanelProps = {
    * Content of the panel
    */
   children: React.ReactNode
-}
+} & React.ComponentPropsWithoutRef<'div'>
 
 function UnderlinePanelsPanel({value, ...rest}: UnderlinePanelsPanelProps) {
   const {tabPanelProps} = useTabPanel({value})
 
-  return <div {...tabPanelProps} {...rest} />
+  return <div {...rest} {...tabPanelProps} />
 }
 
 UnderlinePanels.Panel = UnderlinePanelsPanel
