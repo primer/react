@@ -602,9 +602,6 @@ export const ResponsiveConstraintsTest: Story = {
           <div style={{padding: '16px'}}>
             <h2>Test responsive max width constraints</h2>
             <p>Resize window and watch max pane width update.</p>
-            <p style={{background: '#fff3cd', padding: '12px', borderRadius: '4px', marginTop: '16px'}}>
-              ⚠️ Current implementation uses hardcoded values. Should read from CSS.
-            </p>
           </div>
         </PageLayout.Content>
       </PageLayout>
@@ -615,6 +612,62 @@ export const ResponsiveConstraintsTest: Story = {
 export const KeyboardARIATest: Story = {
   name: 'Keyboard & ARIA Test',
   render: () => {
+    const [ariaAttributes, setAriaAttributes] = React.useState({
+      valuemin: '—',
+      valuemax: '—',
+      valuenow: '—',
+      valuetext: '—',
+    })
+
+    React.useEffect(() => {
+      if (typeof window === 'undefined') {
+        return undefined
+      }
+
+      const ATTRIBUTE_NAMES = ['aria-valuemin', 'aria-valuemax', 'aria-valuenow', 'aria-valuetext'] as const
+      const attributeFilter = ATTRIBUTE_NAMES.map(attribute => attribute)
+      let handleElement: HTMLElement | null = null
+      const mutationObserver = new MutationObserver(() => {
+        if (!handleElement) return
+        setAriaAttributes({
+          valuemin: handleElement.getAttribute('aria-valuemin') ?? '—',
+          valuemax: handleElement.getAttribute('aria-valuemax') ?? '—',
+          valuenow: handleElement.getAttribute('aria-valuenow') ?? '—',
+          valuetext: handleElement.getAttribute('aria-valuetext') ?? '—',
+        })
+      })
+
+      const attachObserver = () => {
+        handleElement = document.querySelector<HTMLElement>("[role='slider'][aria-label='Draggable pane splitter']")
+        if (!handleElement) return false
+
+        mutationObserver.observe(handleElement, {
+          attributes: true,
+          attributeFilter,
+        })
+
+        setAriaAttributes({
+          valuemin: handleElement.getAttribute('aria-valuemin') ?? '—',
+          valuemax: handleElement.getAttribute('aria-valuemax') ?? '—',
+          valuenow: handleElement.getAttribute('aria-valuenow') ?? '—',
+          valuetext: handleElement.getAttribute('aria-valuetext') ?? '—',
+        })
+
+        return true
+      }
+
+      const retryInterval = window.setInterval(() => {
+        if (attachObserver()) {
+          window.clearInterval(retryInterval)
+        }
+      }, 100)
+
+      return () => {
+        window.clearInterval(retryInterval)
+        mutationObserver.disconnect()
+      }
+    }, [])
+
     return (
       <PageLayout>
         <PageLayout.Header>
@@ -642,9 +695,37 @@ export const KeyboardARIATest: Story = {
               <li>Use arrow keys to resize</li>
               <li>Test with screen reader</li>
             </ol>
-            <p style={{background: '#fff3cd', padding: '12px', borderRadius: '4px', marginTop: '16px'}}>
-              Fix needed: Move ARIA from paneRef to handleRef
-            </p>
+            <div
+              style={{
+                marginTop: '24px',
+                padding: '16px',
+                border: '1px solid #d0d7de',
+                borderRadius: '6px',
+                background: '#f6f8fa',
+              }}
+            >
+              <h3 style={{marginBottom: '12px'}}>Live ARIA attributes</h3>
+              <dl
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'max-content 1fr',
+                  gap: '8px 16px',
+                  margin: 0,
+                }}
+              >
+                <dt style={{fontWeight: 600}}>aria-valuemin</dt>
+                <dd style={{margin: 0}}>{ariaAttributes.valuemin}</dd>
+                <dt style={{fontWeight: 600}}>aria-valuemax</dt>
+                <dd style={{margin: 0}}>{ariaAttributes.valuemax}</dd>
+                <dt style={{fontWeight: 600}}>aria-valuenow</dt>
+                <dd style={{margin: 0}}>{ariaAttributes.valuenow}</dd>
+                <dt style={{fontWeight: 600}}>aria-valuetext</dt>
+                <dd style={{margin: 0}}>{ariaAttributes.valuetext}</dd>
+              </dl>
+              <p style={{marginTop: '12px', fontSize: '12px', color: '#57606a'}}>
+                Values update live when the slider handle changes size via keyboard or pointer interactions.
+              </p>
+            </div>
           </div>
         </PageLayout.Content>
       </PageLayout>
