@@ -63,7 +63,7 @@ describe('SegmentedControl', () => {
   })
 
   it('renders the dropdown variant', () => {
-    const {getByText} = render(
+    const {getByRole} = render(
       <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
         {segmentData.map(({label}, index) => (
           <SegmentedControl.Button selected={index === 1} key={label}>
@@ -72,17 +72,17 @@ describe('SegmentedControl', () => {
         ))}
       </SegmentedControl>,
     )
-    const button = getByText(segmentData[1].label)
+    const button = getByRole('button', {name: `${segmentData[1].label}, File view`})
 
     expect(button).toBeInTheDocument()
     expect(button.closest('button')?.getAttribute('aria-haspopup')).toBe('true')
   })
 
   it('renders the hideLabels variant', () => {
-    const {getByLabelText} = render(
+    const {getByRole} = render(
       <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels'}}>
         {segmentData.map(({label, icon}, index) => (
-          <SegmentedControl.Button leadingIcon={icon} selected={index === 1} key={label}>
+          <SegmentedControl.Button leadingVisual={icon} selected={index === 1} key={label}>
             {label}
           </SegmentedControl.Button>
         ))}
@@ -90,8 +90,8 @@ describe('SegmentedControl', () => {
     )
 
     for (const datum of segmentData) {
-      const labelledButton = getByLabelText(datum.label)
-      expect(labelledButton).toBeDefined()
+      const labelledButton = getByRole('button', {name: datum.iconLabel})
+      expect(labelledButton).toBeInTheDocument()
     }
   })
 
@@ -113,7 +113,7 @@ describe('SegmentedControl', () => {
     const {getByLabelText} = render(
       <SegmentedControl aria-label="File view">
         {segmentData.map(({label, icon}, index) => (
-          <SegmentedControl.Button selected={index === 0} leadingIcon={icon} key={label}>
+          <SegmentedControl.Button selected={index === 0} leadingVisual={icon} key={label}>
             {label}
           </SegmentedControl.Button>
         ))}
@@ -252,7 +252,7 @@ describe('SegmentedControl', () => {
         </SegmentedControl>
       </BaseStyles>,
     )
-    const button = component.getByText(segmentData[0].label)
+    const button = component.getByRole('button', {name: `${segmentData[0].label}, File view`})
 
     fireEvent.click(button)
     expect(handleChange).not.toHaveBeenCalled()
@@ -275,7 +275,7 @@ describe('SegmentedControl', () => {
         </SegmentedControl>
       </BaseStyles>,
     )
-    const button = component.getByText(segmentData[0].label)
+    const button = component.getByRole('button', {name: `${segmentData[0].label}, File view`})
 
     fireEvent.click(button)
     expect(handleClick).not.toHaveBeenCalled()
@@ -285,21 +285,34 @@ describe('SegmentedControl', () => {
     expect(handleClick).toHaveBeenCalled()
   })
 
-  it('warns users if they try to use the hideLabels variant without a leadingIcon', () => {
-    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => {})
-
-    render(
-      <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels'}}>
-        {segmentData.map(({label}, index) => (
-          <SegmentedControl.Button selected={index === 1} key={label}>
-            {label}
-          </SegmentedControl.Button>
-        ))}
+  it('supports deprecated leadingIcon prop for backward compatibility', () => {
+    const {getByText} = render(
+      <SegmentedControl aria-label="File view">
+        <SegmentedControl.Button leadingIcon={EyeIcon}>Preview</SegmentedControl.Button>
+        <SegmentedControl.Button>Code</SegmentedControl.Button>
       </SegmentedControl>,
     )
 
-    expect(spy).toHaveBeenCalledTimes(3)
-    spy.mockRestore()
+    const button = getByText('Preview').closest('button')
+    expect(button).toBeDefined()
+    // Verify the icon is rendered
+    expect(button?.querySelector('svg')).toBeDefined()
+  })
+
+  it('prioritizes leadingVisual over deprecated leadingIcon when both are provided', () => {
+    const {getByRole} = render(
+      <SegmentedControl aria-label="File view">
+        <SegmentedControl.Button
+          leadingVisual={() => <EyeIcon aria-label="EyeIcon" />}
+          leadingIcon={() => <FileCodeIcon aria-label="FileCodeIcon" />}
+        >
+          Preview
+        </SegmentedControl.Button>
+      </SegmentedControl>,
+    )
+
+    // Should find EyeIcon, not FileCodeIcon
+    expect(getByRole('img', {name: 'EyeIcon'})).toBeInTheDocument()
   })
 
   it('should warn the user if they neglect to specify a label for the segmented control', () => {

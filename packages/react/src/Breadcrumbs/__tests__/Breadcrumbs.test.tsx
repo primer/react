@@ -5,7 +5,8 @@ import userEvent from '@testing-library/user-event'
 import {FeatureFlags} from '../../FeatureFlags'
 
 // Helper function to render with theme and feature flags
-const renderWithTheme = (component: React.ReactElement, flags?: Record<string, boolean>) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const renderWithTheme = (component: React.ReactElement<any>, flags?: Record<string, boolean>) => {
   const wrappedComponent = flags ? <FeatureFlags flags={flags}>{component}</FeatureFlags> : <>{component}</>
   return HTMLRender(wrappedComponent)
 }
@@ -15,11 +16,13 @@ const mockObserve = vi.fn()
 const mockUnobserve = vi.fn()
 const mockDisconnect = vi.fn()
 
-globalThis.ResizeObserver = vi.fn().mockImplementation(() => ({
-  observe: mockObserve,
-  unobserve: mockUnobserve,
-  disconnect: mockDisconnect,
-}))
+globalThis.ResizeObserver = vi.fn().mockImplementation(function () {
+  return {
+    observe: mockObserve,
+    unobserve: mockUnobserve,
+    disconnect: mockDisconnect,
+  }
+})
 
 describe('Breadcrumbs', () => {
   it('renders a <nav>', () => {
@@ -205,7 +208,7 @@ describe('Breadcrumbs', () => {
   it('shows overflow menu during resize when items exceed container width', () => {
     let resizeCallback: ((entries: ResizeObserverEntry[]) => void) | undefined
 
-    const mockResizeObserver = vi.fn().mockImplementation(callback => {
+    const mockResizeObserver = vi.fn().mockImplementation(function (callback) {
       resizeCallback = callback
       return {
         observe: mockObserve,
@@ -263,7 +266,7 @@ describe('Breadcrumbs', () => {
   it('correctly populates overflow menu during resize events', async () => {
     let resizeCallback: ((entries: ResizeObserverEntry[]) => void) | undefined
 
-    const mockResizeObserver = vi.fn().mockImplementation(callback => {
+    const mockResizeObserver = vi.fn().mockImplementation(function (callback) {
       resizeCallback = callback
       return {
         observe: mockObserve,

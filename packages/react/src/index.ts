@@ -1,7 +1,6 @@
 'use client'
 
 export {default as theme, type ThemeColorPaths, type ThemeShadowPaths} from './theme'
-export {get as themeGet} from './constants'
 export {default as BaseStyles} from './BaseStyles'
 export type {BaseStylesProps} from './BaseStyles'
 export {default as ThemeProvider, useTheme, useColorSchemeVar} from './ThemeProvider'
@@ -46,6 +45,7 @@ export {default as useIsomorphicLayoutEffect} from './utils/useIsomorphicLayoutE
 export {useProvidedRefOrCreate} from './hooks/useProvidedRefOrCreate'
 export {useId} from './hooks/useId'
 export {useSyncedState} from './hooks/useSyncedState'
+export {useAnchoredPosition, type AnchoredPositionHookSettings} from './hooks/useAnchoredPosition'
 
 // Utils
 export {createComponent} from './utils/create-component'
@@ -147,7 +147,7 @@ export type {
   SegmentedControlButtonProps,
   SegmentedControlIconButtonProps,
 } from './SegmentedControl'
-// Curently there is a duplicate Select component at the root of the dir, so need to be explicit about exporting from the src/Select dir
+// Currently there is a duplicate Select component at the root of the dir, so need to be explicit about exporting from the src/Select dir
 export {default as Select} from './Select'
 export type {SelectProps} from './Select'
 export {SelectPanel} from './SelectPanel'

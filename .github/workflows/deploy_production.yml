@@ -51,7 +51,7 @@ jobs:
     name: Production
     needs: [guard]
     if: ${{ needs.guard.outputs.should_deploy == 'true' }}
-    uses: primer/.github/.github/workflows/deploy.yml@5d641c4a200cecaddcb067822ea54dd17ae0a821
+    uses: primer/.github/.github/workflows/deploy.yml@2bbbbf004e8281856e08f6607eb46a7ee59e65ed
     secrets:
       gh_token: ${{ secrets.GITHUB_TOKEN }}
     with:

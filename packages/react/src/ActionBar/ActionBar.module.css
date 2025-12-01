@@ -14,6 +14,10 @@
   /* Gap scale (mirrors Stack) */
   &:where([data-gap='none']) {
     --actionbar-gap: 0;
+
+    .Divider {
+      padding: 0 var(--base-size-8);
+    }
   }
 
   &:where([data-gap='condensed']) {
@@ -41,4 +45,9 @@
     /* stylelint-disable-next-line primer/colors */
     background: var(--borderColor-muted);
   }
+}
+
+.Group {
+  display: flex;
+  gap: inherit;
 }

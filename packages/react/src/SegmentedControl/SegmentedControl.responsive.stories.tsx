@@ -1,0 +1,148 @@
+import type {Meta, StoryFn} from '@storybook/react-vite'
+import React from 'react'
+import {SegmentedControl} from './SegmentedControl'
+import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
+
+const meta: Meta = {
+  title: 'Components/SegmentedControl/Responsive Tests',
+  parameters: {
+    layout: 'padded',
+    controls: {expanded: true},
+  },
+}
+
+export default meta
+
+/**
+ * Test responsive fullWidth behavior.
+ * Resize the viewport to see the control change width at different breakpoints.
+ */
+export const FullWidthResponsive: StoryFn = () => (
+  <div>
+    <p style={{marginBottom: '16px'}}>Full width: yes (narrow) → no (regular + wide)</p>
+    <SegmentedControl aria-label="File view" fullWidth={{narrow: true, regular: false, wide: false}}>
+      <SegmentedControl.Button defaultSelected leadingVisual={EyeIcon}>
+        Preview
+      </SegmentedControl.Button>
+      <SegmentedControl.Button leadingVisual={FileCodeIcon}>Raw</SegmentedControl.Button>
+      <SegmentedControl.Button leadingVisual={PeopleIcon}>Blame</SegmentedControl.Button>
+    </SegmentedControl>
+  </div>
+)
+
+FullWidthResponsive.parameters = {
+  docs: {
+    description: {
+      story:
+        'The control fills the full width on **narrow** viewports and uses inline width on **regular** and **wide** viewports.',
+    },
+  },
+}
+
+/**
+ * Test responsive variant behavior with hideLabels.
+ * Resize the viewport to see labels hide/show at different breakpoints.
+ */
+export const VariantHideLabelsResponsive: StoryFn = () => (
+  <div>
+    <p style={{marginBottom: '16px'}}>Labels: hidden (narrow) → visible (regular + wide)</p>
+    <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels', regular: 'default', wide: 'default'}}>
+      <SegmentedControl.Button defaultSelected leadingVisual={EyeIcon}>
+        Preview
+      </SegmentedControl.Button>
+      <SegmentedControl.Button leadingVisual={FileCodeIcon}>Raw</SegmentedControl.Button>
+      <SegmentedControl.Button leadingVisual={PeopleIcon}>Blame</SegmentedControl.Button>
+    </SegmentedControl>
+  </div>
+)
+
+VariantHideLabelsResponsive.parameters = {
+  docs: {
+    description: {
+      story:
+        'Labels are **hidden** (icon-only) on narrow viewports and **visible** on regular and wide viewports. Note: leadingVisual prop is required for hideLabels variant.',
+    },
+  },
+}
+
+/**
+ * Test responsive variant behavior with dropdown.
+ * Resize the viewport to see the control switch between dropdown and buttons.
+ */
+export const VariantDropdownResponsive: StoryFn = () => (
+  <div>
+    <p style={{marginBottom: '16px'}}>Variant: dropdown (narrow) → buttons (regular + wide)</p>
+    <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown', regular: 'default', wide: 'default'}}>
+      <SegmentedControl.Button defaultSelected leadingVisual={EyeIcon}>
+        Preview
+      </SegmentedControl.Button>
+      <SegmentedControl.Button leadingVisual={FileCodeIcon}>Raw</SegmentedControl.Button>
+      <SegmentedControl.Button leadingVisual={PeopleIcon}>Blame</SegmentedControl.Button>
+    </SegmentedControl>
+  </div>
+)
+
+VariantDropdownResponsive.parameters = {
+  docs: {
+    description: {
+      story:
+        'Renders as a **dropdown menu** on narrow viewports and as **segmented buttons** on regular and wide viewports.',
+    },
+  },
+}
+
+/**
+ * Test responsive variant behavior when only the narrow breakpoint is specified.
+ */
+export const VariantDropdownNarrowOnly: StoryFn = () => (
+  <div>
+    <p style={{marginBottom: '16px'}}>Variant: dropdown (narrow) → buttons (others inherit default)</p>
+    <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
+      <SegmentedControl.Button defaultSelected leadingVisual={EyeIcon}>
+        Preview
+      </SegmentedControl.Button>
+      <SegmentedControl.Button leadingVisual={FileCodeIcon}>Raw</SegmentedControl.Button>
+      <SegmentedControl.Button leadingVisual={PeopleIcon}>Blame</SegmentedControl.Button>
+    </SegmentedControl>
+  </div>
+)
+
+VariantDropdownNarrowOnly.parameters = {
+  docs: {
+    description: {
+      story:
+        'Only the **narrow** breakpoint sets the dropdown variant; wider breakpoints fall back to the default segmented buttons.',
+    },
+  },
+}
+
+/**
+ * Test complex responsive behavior combining fullWidth and variant.
+ */
+export const ComplexResponsive: StoryFn = () => (
+  <div>
+    <p style={{marginBottom: '16px'}}>
+      Complex: full-width + icon-only (narrow) → full-width + labels (regular) → inline + labels (wide)
+    </p>
+    <SegmentedControl
+      aria-label="File view"
+      fullWidth={{narrow: true, regular: true, wide: false}}
+      variant={{narrow: 'hideLabels', regular: 'default', wide: 'default'}}
+    >
+      <SegmentedControl.Button defaultSelected leadingVisual={EyeIcon}>
+        Preview
+      </SegmentedControl.Button>
+      <SegmentedControl.Button leadingVisual={FileCodeIcon}>Raw</SegmentedControl.Button>
+      <SegmentedControl.Button leadingVisual={PeopleIcon}>Blame</SegmentedControl.Button>
+    </SegmentedControl>
+  </div>
+)
+
+ComplexResponsive.parameters = {
+  docs: {
+    description: {
+      story:
+        'Complex: **full-width + icon-only** (narrow) → **full-width + labels** (regular) → **inline + labels** (wide)',
+    },
+  },
+}

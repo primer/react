@@ -35,8 +35,14 @@ export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
 
   /**
    * Provide a custom icon for the Banner. This is only available when `variant` is `info` or `upsell`
+   * @deprecated Use `leadingVisual` instead
    */
   icon?: React.ReactNode
+
+  /**
+   * Provide a custom leading visual for the Banner. This is only available when `variant` is `info` or `upsell`
+   */
+  leadingVisual?: React.ReactNode
 
   /**
    * Optionally provide a handler to be called when the banner is dismissed.
@@ -69,6 +75,11 @@ export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
    * Specify the layout of the Banner. Compact layout will reduce the padding.
    */
   layout?: 'default' | 'compact'
+
+  /**
+   * Override the default actions layout behavior
+   */
+  actionsLayout?: 'inline' | 'stacked' | 'default'
 }
 
 const iconForVariant: Record<BannerVariant, React.ReactNode> = {
@@ -96,11 +107,13 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
     description,
     hideTitle,
     icon,
+    leadingVisual,
     onDismiss,
     primaryAction,
     secondaryAction,
     title,
     variant = 'info',
+    actionsLayout = 'default',
     ...rest
   },
   forwardRef,
@@ -111,9 +124,10 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
   const ref = useMergedRefs(forwardRef, bannerRef)
   const supportsCustomIcon = variant === 'info' || variant === 'upsell'
 
+  const visual = leadingVisual ?? icon
+
   if (__DEV__) {
     // This hook is called consistently depending on the environment
-    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
       if (title) {
@@ -143,11 +157,12 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
       data-dismissible={onDismiss ? '' : undefined}
       data-title-hidden={hideTitle ? '' : undefined}
       data-variant={variant}
+      data-actions-layout={actionsLayout}
       tabIndex={-1}
       ref={ref}
       data-layout={rest.layout || 'default'}
     >
-      <div className={classes.BannerIcon}>{icon && supportsCustomIcon ? icon : iconForVariant[variant]}</div>
+      <div className={classes.BannerIcon}>{visual && supportsCustomIcon ? visual : iconForVariant[variant]}</div>
       <div className={classes.BannerContainer}>
         <div className={classes.BannerContent}>
           {title ? (
@@ -239,7 +254,7 @@ export type BannerSecondaryActionProps = Omit<ButtonProps, 'variant'>
 
 const BannerSecondaryAction = forwardRef(({children, className, ...rest}, forwardedRef) => {
   return (
-    <Button ref={forwardedRef} className={clsx('BannerPrimaryAction', className)} variant="link" {...rest}>
+    <Button ref={forwardedRef} className={clsx('BannerPrimaryAction', className)} variant="invisible" {...rest}>
       {children}
     </Button>
   )

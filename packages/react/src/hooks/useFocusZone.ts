@@ -10,13 +10,13 @@ export interface FocusZoneHookSettings extends Omit<FocusZoneSettings, 'activeDe
    * Optional ref for the container that holds all elements participating in arrow key focus.
    * If one is not passed, we will create one for you and return it from the hook.
    */
-  containerRef?: React.RefObject<HTMLElement>
+  containerRef?: React.RefObject<HTMLElement | null>
 
   /**
    * If using the "active descendant" focus pattern, pass `true` or a ref to the controlling
    * element. If a ref object is not passed, we will create one for you.
    */
-  activeDescendantFocus?: boolean | React.RefObject<HTMLElement>
+  activeDescendantFocus?: boolean | React.RefObject<HTMLElement | null>
 
   /**
    * Set to true to disable the focus zone and clean up listeners. Can be re-enabled at
@@ -28,7 +28,10 @@ export interface FocusZoneHookSettings extends Omit<FocusZoneSettings, 'activeDe
 export function useFocusZone(
   settings: FocusZoneHookSettings = {},
   dependencies: React.DependencyList = [],
-): {containerRef: React.RefObject<HTMLElement>; activeDescendantControlRef: React.RefObject<HTMLElement>} {
+): {
+  containerRef: React.RefObject<HTMLElement | null>
+  activeDescendantControlRef: React.RefObject<HTMLElement | null>
+} {
   const containerRef = useProvidedRefOrCreate(settings.containerRef)
   const useActiveDescendant = !!settings.activeDescendantFocus
   const passedActiveDescendantRef =
@@ -59,7 +62,6 @@ export function useFocusZone(
         }
       }
     },
-    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [disabled, ...dependencies],
   )

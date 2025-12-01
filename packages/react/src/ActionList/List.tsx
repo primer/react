@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {type JSX} from 'react'
 import {fixedForwardRef} from '../utils/modern-polymorphic'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {useSlots} from '../hooks/useSlots'
@@ -66,6 +66,7 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
       }}
     >
       {slots.heading}
+      {/* @ts-expect-error ref needs a non nullable ref */}
       <Component
         className={clsx(classes.ActionList, className)}
         role={listRole}

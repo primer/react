@@ -2,12 +2,15 @@ import {describe, expect, it, vi} from 'vitest'
 import {render as HTMLRender, waitFor, act, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import type React from 'react'
-import {ActionMenu, ActionList, BaseStyles, Button, IconButton} from '..'
+import BaseStyles from '../BaseStyles'
+import {ActionMenu, ActionList, Button, IconButton} from '..'
 import Tooltip from '../Tooltip'
 import {Tooltip as TooltipV2} from '../TooltipV2/Tooltip'
 import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
 import {MixedSelection} from '../ActionMenu/ActionMenu.examples.stories'
 import {SearchIcon, KebabHorizontalIcon} from '@primer/octicons-react'
+
+import type {JSX} from 'react'
 
 function Example(): JSX.Element {
   return (
@@ -50,7 +53,8 @@ function ExampleWithTooltip(): JSX.Element {
   )
 }
 
-function ExampleWithTooltipV2(actionMenuTrigger: React.ReactElement): JSX.Element {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function ExampleWithTooltipV2(actionMenuTrigger: React.ReactElement<any>): JSX.Element {
   return (
     <BaseStyles>
       <ActionMenu>

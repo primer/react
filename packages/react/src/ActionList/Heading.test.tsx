@@ -1,7 +1,8 @@
-import {describe, it, expect, vi} from 'vitest'
+import {describe, it, expect} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
+import BaseStyles from '../BaseStyles'
 import {ActionList} from '.'
-import {BaseStyles, ActionMenu} from '..'
+import {ActionMenu} from '..'
 
 describe('ActionList.Heading', () => {
   it('should render the ActionList.Heading component as a heading with the given heading level', async () => {
@@ -28,7 +29,6 @@ describe('ActionList.Heading', () => {
   })
 
   it('should throw an error when ActionList.Heading is used within ActionMenu context', async () => {
-    const spy = vi.spyOn(console, 'error').mockImplementation(() => vi.fn())
     expect(() =>
       HTMLRender(
         <BaseStyles>
@@ -46,8 +46,6 @@ describe('ActionList.Heading', () => {
     ).toThrow(
       "ActionList.Heading shouldn't be used within an ActionMenu container. Menus are labelled by the menu button's name.",
     )
-    expect(spy).toHaveBeenCalled()
-    spy.mockRestore()
   })
 
   it('should support a custom `className` on the outermost element', () => {

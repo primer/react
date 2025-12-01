@@ -2,7 +2,8 @@ import type {Meta} from '@storybook/react-vite'
 import ButtonGroup from './ButtonGroup'
 import {Button, IconButton, LinkButton} from '../Button'
 import {CopilotIcon} from '@primer/octicons-react'
-import {Tooltip, BaseStyles} from '..'
+import BaseStyles from '../BaseStyles'
+import {Tooltip} from '..'
 
 const meta: Meta<typeof ButtonGroup> = {
   title: 'Components/ButtonGroup/Dev',

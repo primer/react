@@ -12,14 +12,14 @@ jobs:
           fetch-depth: 0
 
       - name: Set up Node.js
-        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
         with:
           node-version-file: '.nvmrc'
 
       - name: Get source files changes
         id: source-files
         run: |
-          DIFF=$(git diff --name-only origin/main | grep 'packages/react' | grep -Ev '.stories.tsx|.docs.json' || true)
+          DIFF=$(git diff --name-only origin/main | grep 'packages/react' | grep -Ev '.stories.tsx|.stories.module.css|.docs.json' || true)
           if [ -z "$DIFF" ]; then
             echo "diff=" >> $GITHUB_OUTPUT
           else
@@ -58,7 +58,7 @@ jobs:
               await github.rest.issues.addLabels({...issue, labels: [INTEGRATION_LABEL_NAMES.recommended]})
               await github.rest.issues.createComment({
                 ...issue,
-                body: '<!-- recommend-integration-tests.yml -->\n\n :wave: Hi, this pull request contains changes to the source code that github/github depends on. If you are GitHub staff, we recommend testing these changes with github/github using the [integration workflow](https://gh.io/testing_primer_at_dotcom). Thanks!'
+                body: '<!-- recommend-integration-tests.yml -->\n\n :wave: Hi, this pull request contains changes to the source code that github/github-ui depends on. If you are GitHub staff, test these changes with github/github-ui using the [integration workflow](https://gh.io/testing_primer_at_dotcom). Or, apply the `integration-tests: skipped manually` label to skip these checks.'
               })
             } else if (hasPassingLabel) {
               // recommend running integration tests again as there are new commits that might change the status
@@ -66,6 +66,6 @@ jobs:
               await github.rest.issues.addLabels({...issue, labels: [INTEGRATION_LABEL_NAMES.recommended]})
               await github.rest.issues.createComment({
                 ...issue,
-                body: '<!-- recommend-integration-tests.yml -->\n\n :wave: Hi, there are new commits since the last successful integration test. We recommend running the [integration workflow](https://gh.io/testing_primer_at_dotcom) once more, unless you are sure the new changes do not affect github/github. Thanks!'
+                body: '<!-- recommend-integration-tests.yml -->\n\n :wave: Hi, there are new commits since the last successful integration test. If you are GitHub staff, test these changes with github/github-ui using the [integration workflow](https://gh.io/testing_primer_at_dotcom). Or, apply the `integration-tests: skipped manually` label to skip these checks.'
               })
             }

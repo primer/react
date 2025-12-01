@@ -16,7 +16,7 @@
   animation: shimmer;
 
   @media (prefers-reduced-motion: no-preference) {
-    mask-image: linear-gradient(75deg, #000 30%, rgba(0, 0, 0, 0.65) 80%);
+    mask-image: linear-gradient(75deg, #000 30%, rgb(0, 0, 0, 0.65) 80%);
     mask-size: 200%;
     animation: shimmer;
     animation-duration: var(--base-duration-1000);

@@ -1,7 +1,7 @@
-import {act, useCallback, useState} from 'react'
+import {act, createRef, useCallback, useRef, useState} from 'react'
 import {describe, expect, it, vi} from 'vitest'
 import {render} from '@testing-library/react'
-import {userEvent} from '@vitest/browser/context'
+import {userEvent} from 'vitest/browser'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'
 import BaseStyles from '../BaseStyles'
@@ -122,11 +122,6 @@ describe('AnchoredOverlay', () => {
     expect(mockCloseCallback).toHaveBeenCalledWith('escape')
   })
 
-  it('should render consistently when open', () => {
-    const {container} = render(<AnchoredOverlayTestComponent initiallyOpen={true} />)
-    expect(container).toMatchSnapshot()
-  })
-
   it('should call onPositionChange when provided', async () => {
     const mockPositionChangeCallback = vi.fn(({position}: {position: AnchorPosition}) => position)
     render(<AnchoredOverlayTestComponent initiallyOpen={true} onPositionChange={mockPositionChangeCallback} />)
@@ -144,5 +139,35 @@ describe('AnchoredOverlay', () => {
         top: 36,
       },
     })
+  })
+
+  it('should support a `ref` through `overlayProps` on the overlay element', () => {
+    const ref = createRef<HTMLDivElement>()
+
+    function Test() {
+      const anchorRef = useRef(null)
+      return (
+        <AnchoredOverlay
+          overlayProps={{
+            ref,
+            id: 'overlay',
+          }}
+          open
+          renderAnchor={props => {
+            return (
+              <button {...props} ref={anchorRef} type="button">
+                anchor
+              </button>
+            )
+          }}
+        >
+          <div>content</div>
+        </AnchoredOverlay>
+      )
+    }
+
+    render(<Test />)
+
+    expect(document.getElementById('overlay')).toBe(ref.current)
   })
 })
