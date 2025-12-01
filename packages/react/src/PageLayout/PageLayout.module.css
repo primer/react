@@ -645,7 +645,7 @@
  */
 .PaneWrapper:has(.DraggableHandle[data-dragging='true']) .Pane {
   /* Full containment - isolate from layout recalculations */
-  contain: strict;
+  contain: layout style paint;
 
   /* Disable interactions during drag */
   pointer-events: none;
