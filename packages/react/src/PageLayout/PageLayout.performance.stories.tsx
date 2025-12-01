@@ -260,7 +260,7 @@ export const MediumContent: Story = {
             <div
               style={{
                 padding: '12px',
-                background: 'var(--bgColor-attention-muted)',
+                background: 'var(--bgColor-canvas-subtle)',
                 borderRadius: '6px',
                 marginBottom: '16px',
                 fontSize: '13px',
@@ -350,12 +350,10 @@ export const MediumContent: Story = {
                         </Label>
                       </td>
                       <td style={{padding: '8px 12px'}}>
-                        <Button size="small" variant="default" style={{marginRight: '4px'}}>
+                        <Button size="small" style={{marginRight: '4px'}}>
                           Edit
                         </Button>
-                        <Button size="small" variant="default">
-                          Delete
-                        </Button>
+                        <Button size="small">Delete</Button>
                       </td>
                     </tr>
                   ))}
@@ -394,7 +392,7 @@ export const HeavyContent: Story = {
             <div
               style={{
                 padding: '12px',
-                background: 'var(--bgColor-danger-muted)',
+                background: 'var(--bgColor-canvas-subtle)',
                 borderRadius: '6px',
                 marginBottom: '16px',
                 fontSize: '13px',
