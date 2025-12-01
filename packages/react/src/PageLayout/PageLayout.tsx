@@ -823,6 +823,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               // Clamp keyboard delta to stay within bounds
               const newWidth = Math.max(minPaneWidth, Math.min(maxWidth, currentWidthRef.current + deltaWithDirection))
               if (newWidth !== currentWidthRef.current) {
+                currentWidthRef.current = newWidth
+                paneRef.current?.style.setProperty('--pane-width', `${newWidth}px`)
                 setPaneWidth(newWidth)
                 updateAriaValues(handleRef.current, {current: newWidth})
               }
