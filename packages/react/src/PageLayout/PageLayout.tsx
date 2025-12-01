@@ -341,6 +341,13 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
           className={classes.DraggableHandle}
           role="slider"
           aria-label="Draggable pane splitter"
+          /**
+           * aria-valuemin, aria-valuemax, aria-valuenow, and aria-valuetext
+           * are set via direct DOM manipulation in order to avoid re-renders
+           * during drag operations.
+           *
+           * This is a performance optimization.
+           */
           tabIndex={0}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
