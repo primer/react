@@ -16,10 +16,10 @@ type Story = StoryObj<typeof PageLayout>
 // ============================================================================
 
 function usePerformanceMonitor(
-  fpsRef: React.RefObject<HTMLSpanElement>,
-  avgRef: React.RefObject<HTMLSpanElement>,
-  minRef: React.RefObject<HTMLSpanElement>,
-  maxRef: React.RefObject<HTMLSpanElement>,
+  fpsRef: React.RefObject<HTMLSpanElement | null>,
+  avgRef: React.RefObject<HTMLSpanElement | null>,
+  minRef: React.RefObject<HTMLSpanElement | null>,
+  maxRef: React.RefObject<HTMLSpanElement | null>,
   minGoodFps: number,
   minOkFps: number,
 ) {
@@ -48,7 +48,12 @@ function usePerformanceMonitor(
           // Direct DOM updates - no React re-renders
           if (fpsRef.current) {
             fpsRef.current.textContent = isFinite(currentFps) ? String(currentFps) : '—'
-            fpsRef.current.style.color = currentFps >= minGoodFps ? 'green' : currentFps >= minOkFps ? 'orange' : 'red'
+            fpsRef.current.style.color =
+              currentFps >= minGoodFps
+                ? 'var(--fgColor-success)'
+                : currentFps >= minOkFps
+                  ? 'var(--fgColor-attention)'
+                  : 'var(--fgColor-danger)'
           }
           if (avgRef.current) avgRef.current.textContent = isFinite(avgFrameTime) ? `${avgFrameTime.toFixed(2)}ms` : '—'
           if (minRef.current) minRef.current.textContent = isFinite(minFrameTime) ? `${minFrameTime.toFixed(2)}ms` : '—'
@@ -93,7 +98,13 @@ function PerformanceHeader({
   usePerformanceMonitor(fpsRef, avgRef, minRef, maxRef, minGoodFps, minOkFps)
 
   return (
-    <div style={{padding: '16px', background: '#f6f8fa', borderRadius: '6px'}}>
+    <div
+      style={{
+        padding: '16px',
+        background: 'var(--bgColor-canvas-subtle)',
+        borderRadius: '6px',
+      }}
+    >
       <h1>{title}</h1>
       <div
         style={{
@@ -143,7 +154,15 @@ export const EmptyBaseline: Story = {
     usePerformanceMonitor(fpsRef, avgRef, minRef, maxRef, 55, 40)
 
     return (
-      <div style={{padding: '16px', background: '#f6f8fa', borderRadius: '6px', maxWidth: '600px', margin: '20px'}}>
+      <div
+        style={{
+          padding: '16px',
+          background: 'var(--bgColor-canvas-subtle)',
+          borderRadius: '6px',
+          maxWidth: '600px',
+          margin: '20px',
+        }}
+      >
         <h1>Diagnostic: Empty Page FPS</h1>
         <div
           style={{
@@ -239,7 +258,7 @@ export const MediumContent: Story = {
             <div
               style={{
                 padding: '12px',
-                background: '#fff3cd',
+                background: 'var(--bgColor-attention-muted)',
                 borderRadius: '6px',
                 marginBottom: '16px',
                 fontSize: '13px',
@@ -260,10 +279,16 @@ export const MediumContent: Story = {
           <div style={{padding: '16px'}}>
             {/* Large table with complex cells */}
             <h2 style={{marginBottom: '16px'}}>Data Table (300 rows × 10 columns)</h2>
-            <div style={{overflow: 'auto', height: '600px', border: '1px solid #e1e4e8'}}>
+            <div
+              style={{
+                overflow: 'auto',
+                height: '600px',
+                border: '1px solid var(--borderColor-default)',
+              }}
+            >
               <table style={{width: '100%', borderCollapse: 'collapse'}}>
-                <thead style={{position: 'sticky', top: 0, background: '#fff', zIndex: 1}}>
-                  <tr style={{background: '#f6f8fa'}}>
+                <thead style={{position: 'sticky', top: 0, background: 'var(--bgColor-default)', zIndex: 1}}>
+                  <tr style={{background: 'var(--bgColor-canvas-subtle)'}}>
                     {['ID', 'Name', 'Email', 'Role', 'Status', 'Date', 'Count', 'Value', 'Tags', 'Actions'].map(
                       (header, i) => (
                         <th
@@ -271,7 +296,7 @@ export const MediumContent: Story = {
                           style={{
                             padding: '8px 12px',
                             textAlign: 'left',
-                            borderBottom: '2px solid #e1e4e8',
+                            borderBottom: '2px solid var(--borderColor-default)',
                             fontWeight: '600',
                             whiteSpace: 'nowrap',
                           }}
@@ -284,13 +309,13 @@ export const MediumContent: Story = {
                 </thead>
                 <tbody>
                   {Array.from({length: 300}).map((_, rowIndex) => (
-                    <tr key={rowIndex} style={{borderBottom: '1px solid #e1e4e8'}}>
+                    <tr key={rowIndex} style={{borderBottom: '1px solid var(--borderColor-default)'}}>
                       <td style={{padding: '8px 12px', fontSize: '13px'}}>#{10000 + rowIndex}</td>
                       <td style={{padding: '8px 12px', fontWeight: '500'}}>
                         {['Alice', 'Bob', 'Charlie', 'Diana', 'Eve'][rowIndex % 5]}{' '}
                         {['Smith', 'Jones', 'Davis'][rowIndex % 3]}
                       </td>
-                      <td style={{padding: '8px 12px', fontSize: '12px', color: '#586069'}}>
+                      <td style={{padding: '8px 12px', fontSize: '12px', color: 'var(--fgColor-muted)'}}>
                         user{rowIndex}@example.com
                       </td>
                       <td style={{padding: '8px 12px', fontSize: '13px'}}>
@@ -300,7 +325,12 @@ export const MediumContent: Story = {
                         <span
                           style={{
                             padding: '2px 8px',
-                            background: rowIndex % 3 === 0 ? '#d1f4e0' : rowIndex % 2 === 0 ? '#fff4ce' : '#ffd4d4',
+                            background:
+                              rowIndex % 3 === 0
+                                ? 'var(--bgColor-success-muted)'
+                                : rowIndex % 2 === 0
+                                  ? 'var(--bgColor-attention-muted)'
+                                  : 'var(--bgColor-danger-muted)',
                             borderRadius: '12px',
                             fontSize: '11px',
                             fontWeight: '500',
@@ -309,7 +339,7 @@ export const MediumContent: Story = {
                           {rowIndex % 3 === 0 ? 'Active' : rowIndex % 2 === 0 ? 'Pending' : 'Inactive'}
                         </span>
                       </td>
-                      <td style={{padding: '8px 12px', fontSize: '12px', color: '#586069'}}>
+                      <td style={{padding: '8px 12px', fontSize: '12px', color: 'var(--fgColor-muted)'}}>
                         2024-{String((rowIndex % 12) + 1).padStart(2, '0')}-
                         {String((rowIndex % 28) + 1).padStart(2, '0')}
                       </td>
@@ -321,11 +351,22 @@ export const MediumContent: Story = {
                       </td>
                       <td style={{padding: '8px 12px', fontSize: '11px'}}>
                         <span
-                          style={{background: '#e8f5e9', padding: '2px 6px', borderRadius: '3px', marginRight: '4px'}}
+                          style={{
+                            background: 'var(--bgColor-success-muted)',
+                            padding: '2px 6px',
+                            borderRadius: '3px',
+                            marginRight: '4px',
+                          }}
                         >
                           tag{rowIndex % 10}
                         </span>
-                        <span style={{background: '#fff3e0', padding: '2px 6px', borderRadius: '3px'}}>
+                        <span
+                          style={{
+                            background: 'var(--bgColor-attention-muted)',
+                            padding: '2px 6px',
+                            borderRadius: '3px',
+                          }}
+                        >
                           type{rowIndex % 5}
                         </span>
                       </td>
@@ -337,9 +378,9 @@ export const MediumContent: Story = {
                             padding: '4px 8px',
                             marginRight: '4px',
                             cursor: 'pointer',
-                            border: '1px solid #e1e4e8',
+                            border: '1px solid var(--borderColor-default)',
                             borderRadius: '3px',
-                            background: '#fff',
+                            background: 'var(--bgColor-default)',
                           }}
                         >
                           Edit
@@ -350,9 +391,9 @@ export const MediumContent: Story = {
                             fontSize: '11px',
                             padding: '4px 8px',
                             cursor: 'pointer',
-                            border: '1px solid #e1e4e8',
+                            border: '1px solid var(--borderColor-default)',
                             borderRadius: '3px',
-                            background: '#fff',
+                            background: 'var(--bgColor-default)',
                           }}
                         >
                           Delete
@@ -395,7 +436,7 @@ export const HeavyContent: Story = {
             <div
               style={{
                 padding: '12px',
-                background: '#ffe8e8',
+                background: 'var(--bgColor-danger-muted)',
                 borderRadius: '6px',
                 marginBottom: '16px',
                 fontSize: '13px',
@@ -433,23 +474,37 @@ export const HeavyContent: Story = {
                     key={i}
                     style={{
                       padding: '12px',
-                      border: '1px solid #e1e4e8',
+                      border: '1px solid var(--borderColor-default)',
                       borderRadius: '6px',
-                      background: '#fff',
+                      background: 'var(--bgColor-default)',
                     }}
                   >
                     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '8px'}}>
                       <span style={{fontWeight: '600', fontSize: '14px'}}>Activity #{i + 1}</span>
-                      <span style={{fontSize: '11px', color: '#959da5'}}>{i % 60}m ago</span>
+                      <span style={{fontSize: '11px', color: 'var(--fgColor-muted)'}}>{i % 60}m ago</span>
                     </div>
-                    <div style={{fontSize: '12px', color: '#586069', marginBottom: '8px'}}>
+                    <div style={{fontSize: '12px', color: 'var(--fgColor-muted)', marginBottom: '8px'}}>
                       User {['Alice', 'Bob', 'Charlie'][i % 3]} performed action on item {i}
                     </div>
                     <div style={{display: 'flex', gap: '4px'}}>
-                      <span style={{fontSize: '10px', background: '#e8f5e9', padding: '2px 6px', borderRadius: '3px'}}>
+                      <span
+                        style={{
+                          fontSize: '10px',
+                          background: 'var(--bgColor-success-muted)',
+                          padding: '2px 6px',
+                          borderRadius: '3px',
+                        }}
+                      >
                         {['create', 'update', 'delete'][i % 3]}
                       </span>
-                      <span style={{fontSize: '10px', background: '#e3f2fd', padding: '2px 6px', borderRadius: '3px'}}>
+                      <span
+                        style={{
+                          fontSize: '10px',
+                          background: 'var(--bgColor-accent-muted)',
+                          padding: '2px 6px',
+                          borderRadius: '3px',
+                        }}
+                      >
                         priority-{(i % 3) + 1}
                       </span>
                     </div>
@@ -462,15 +517,15 @@ export const HeavyContent: Story = {
             <div style={{marginBottom: '32px'}}>
               <h2 style={{marginBottom: '16px'}}>Data Table (150 rows × 8 columns)</h2>
               <table style={{width: '100%', borderCollapse: 'collapse'}}>
-                <thead style={{position: 'sticky', top: 0, background: '#fff'}}>
-                  <tr style={{background: '#f6f8fa'}}>
+                <thead style={{position: 'sticky', top: 0, background: 'var(--bgColor-default)'}}>
+                  <tr style={{background: 'var(--bgColor-canvas-subtle)'}}>
                     {['ID', 'Name', 'Type', 'Status', 'Date', 'Value', 'Priority', 'Owner'].map((header, i) => (
                       <th
                         key={i}
                         style={{
                           padding: '8px 12px',
                           textAlign: 'left',
-                          borderBottom: '2px solid #e1e4e8',
+                          borderBottom: '2px solid var(--borderColor-default)',
                           fontWeight: '600',
                         }}
                       >
@@ -481,7 +536,7 @@ export const HeavyContent: Story = {
                 </thead>
                 <tbody>
                   {Array.from({length: 150}).map((_, i) => (
-                    <tr key={i} style={{borderBottom: '1px solid #e1e4e8'}}>
+                    <tr key={i} style={{borderBottom: '1px solid var(--borderColor-default)'}}>
                       <td style={{padding: '8px 12px', fontSize: '12px'}}>#{5000 + i}</td>
                       <td style={{padding: '8px 12px', fontSize: '13px'}}>Item {i + 1}</td>
                       <td style={{padding: '8px 12px', fontSize: '12px'}}>
@@ -491,7 +546,7 @@ export const HeavyContent: Story = {
                         <span
                           style={{
                             padding: '2px 8px',
-                            background: i % 2 === 0 ? '#d1f4e0' : '#fff4ce',
+                            background: i % 2 === 0 ? 'var(--bgColor-success-muted)' : 'var(--bgColor-attention-muted)',
                             borderRadius: '12px',
                             fontSize: '11px',
                           }}
@@ -499,7 +554,9 @@ export const HeavyContent: Story = {
                           {i % 2 === 0 ? 'Done' : 'In Progress'}
                         </span>
                       </td>
-                      <td style={{padding: '8px 12px', fontSize: '12px', color: '#586069'}}>Dec {(i % 30) + 1}</td>
+                      <td style={{padding: '8px 12px', fontSize: '12px', color: 'var(--fgColor-muted)'}}>
+                        Dec {(i % 30) + 1}
+                      </td>
                       <td style={{padding: '8px 12px', fontWeight: '500'}}>${(i * 50 + 100).toFixed(2)}</td>
                       <td style={{padding: '8px 12px', fontSize: '12px'}}>{['Low', 'Medium', 'High'][i % 3]}</td>
                       <td style={{padding: '8px 12px', fontSize: '12px'}}>user{i % 20}</td>
@@ -518,9 +575,9 @@ export const HeavyContent: Story = {
                   style={{
                     padding: '12px',
                     marginBottom: '8px',
-                    background: i % 2 === 0 ? '#fff' : '#f6f8fa',
+                    background: i % 2 === 0 ? 'var(--bgColor-default)' : 'var(--bgColor-canvas-subtle)',
                     borderRadius: '6px',
-                    border: '1px solid #e1e4e8',
+                    border: '1px solid var(--borderColor-default)',
                   }}
                 >
                   <div
@@ -537,19 +594,23 @@ export const HeavyContent: Story = {
                         style={{
                           fontSize: '11px',
                           padding: '2px 6px',
-                          background: ['#e8f5e9', '#fff3e0', '#fce4ec'][i % 3],
+                          background: [
+                            'var(--bgColor-success-muted)',
+                            'var(--bgColor-attention-muted)',
+                            'var(--bgColor-severe-muted)',
+                          ][i % 3],
                           borderRadius: '3px',
                         }}
                       >
                         {['bug', 'feature', 'enhancement'][i % 3]}
                       </span>
                     </div>
-                    <span style={{fontSize: '11px', color: '#586069'}}>{i % 10}d ago</span>
+                    <span style={{fontSize: '11px', color: 'var(--fgColor-muted)'}}>{i % 10}d ago</span>
                   </div>
-                  <div style={{fontSize: '13px', color: '#24292e', marginBottom: '6px'}}>
+                  <div style={{fontSize: '13px', marginBottom: '6px'}}>
                     Description for issue {i + 1}: This is some text that describes the issue in detail.
                   </div>
-                  <div style={{fontSize: '11px', color: '#586069'}}>
+                  <div style={{fontSize: '11px', color: 'var(--fgColor-muted)'}}>
                     <span style={{marginRight: '12px'}}>👤 {['alice', 'bob', 'charlie'][i % 3]}</span>
                     <span style={{marginRight: '12px'}}>💬 {i % 15} comments</span>
                     <span>⭐ {i % 20} reactions</span>
@@ -698,9 +759,9 @@ export const KeyboardARIATest: Story = {
               style={{
                 marginTop: '24px',
                 padding: '16px',
-                border: '1px solid #d0d7de',
+                border: '1px solid var(--borderColor-default)',
                 borderRadius: '6px',
-                background: '#f6f8fa',
+                background: 'var(--bgColor-canvas-subtle)',
               }}
             >
               <h3 style={{marginBottom: '12px'}}>Live ARIA attributes</h3>
@@ -721,7 +782,7 @@ export const KeyboardARIATest: Story = {
                 <dt style={{fontWeight: 600}}>aria-valuetext</dt>
                 <dd style={{margin: 0}}>{ariaAttributes.valuetext}</dd>
               </dl>
-              <p style={{marginTop: '12px', fontSize: '12px', color: '#57606a'}}>
+              <p style={{marginTop: '12px', fontSize: '12px', color: 'var(--fgColor-muted)'}}>
                 Values update live when the slider handle changes size via keyboard or pointer interactions.
               </p>
             </div>
