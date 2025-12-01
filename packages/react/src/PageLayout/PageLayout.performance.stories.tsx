@@ -3,6 +3,7 @@ import type {Meta, StoryObj} from '@storybook/react-vite'
 import {PageLayout} from './PageLayout'
 import {Button} from '../Button'
 import Label from '../Label'
+import Heading from '../Heading'
 
 const meta: Meta<typeof PageLayout> = {
   title: 'Components/PageLayout/Performance Tests',
@@ -14,235 +15,6 @@ export default meta
 type Story = StoryObj<typeof PageLayout>
 
 // ============================================================================
-// Shared Performance Monitor Hook & Component
-// ============================================================================
-
-function usePerformanceMonitor(
-  fpsRef: React.RefObject<HTMLSpanElement | null>,
-  avgRef: React.RefObject<HTMLSpanElement | null>,
-  longFrameRef: React.RefObject<HTMLSpanElement | null>,
-  minGoodFps: number,
-  minOkFps: number,
-  longFrameThreshold = 50,
-) {
-  React.useEffect(() => {
-    const frameTimes: number[] = []
-    let lastUpdateTime = typeof performance !== 'undefined' ? performance.now() : 0
-    let animationFrameId: number | null = null
-    let observer: PerformanceObserver | null = null
-
-    const updateDisplays = () => {
-      if (frameTimes.length === 0) {
-        return
-      }
-
-      const now = typeof performance !== 'undefined' ? performance.now() : Date.now()
-      if (now - lastUpdateTime < 500) {
-        return
-      }
-
-      lastUpdateTime = now
-
-      const framesSum = frameTimes.reduce((a, b) => a + b, 0)
-      const avgFrameTime = framesSum / frameTimes.length
-      const currentFps = Math.round(1000 / avgFrameTime)
-      const longFrameCount = frameTimes.reduce((count, time) => (time >= longFrameThreshold ? count + 1 : count), 0)
-
-      if (fpsRef.current) {
-        fpsRef.current.textContent = isFinite(currentFps) ? String(currentFps) : '—'
-        fpsRef.current.style.color =
-          currentFps >= minGoodFps
-            ? 'var(--fgColor-success)'
-            : currentFps >= minOkFps
-              ? 'var(--fgColor-attention)'
-              : 'var(--fgColor-danger)'
-      }
-      if (avgRef.current) {
-        avgRef.current.textContent = isFinite(avgFrameTime) ? `${avgFrameTime.toFixed(2)}ms` : '—'
-      }
-      if (longFrameRef.current) {
-        longFrameRef.current.textContent = String(longFrameCount)
-        longFrameRef.current.style.color =
-          longFrameCount === 0
-            ? 'var(--fgColor-success)'
-            : longFrameCount <= 3
-              ? 'var(--fgColor-attention)'
-              : 'var(--fgColor-danger)'
-      }
-    }
-
-    const recordFrameTime = (frameTime: number) => {
-      frameTimes.push(frameTime)
-      if (frameTimes.length > 120) {
-        frameTimes.shift()
-      }
-      updateDisplays()
-    }
-
-    const supportsFrameObserver =
-      typeof PerformanceObserver !== 'undefined' &&
-      Array.isArray(PerformanceObserver.supportedEntryTypes) &&
-      PerformanceObserver.supportedEntryTypes.includes('frame')
-
-    if (supportsFrameObserver) {
-      observer = new PerformanceObserver(list => {
-        for (const entry of list.getEntries()) {
-          recordFrameTime(entry.duration)
-        }
-      })
-      try {
-        observer.observe({type: 'frame', buffered: false})
-      } catch (_error) {
-        observer.disconnect()
-        observer = null
-      }
-    }
-
-    if (!observer) {
-      let lastFrameTime = 0
-      const measureFPS = (timestamp: number) => {
-        if (lastFrameTime) {
-          recordFrameTime(timestamp - lastFrameTime)
-        }
-        lastFrameTime = timestamp
-        animationFrameId = requestAnimationFrame(measureFPS)
-      }
-
-      animationFrameId = requestAnimationFrame(measureFPS)
-    }
-
-    return () => {
-      if (animationFrameId !== null) {
-        cancelAnimationFrame(animationFrameId)
-      }
-      if (observer) {
-        observer.disconnect()
-      }
-    }
-  }, [fpsRef, avgRef, longFrameRef, minGoodFps, minOkFps, longFrameThreshold])
-}
-
-interface PerformanceHeaderProps {
-  title: string
-  loadDescription: string
-  targetFps: string
-  minGoodFps?: number
-  minOkFps?: number
-  longFrameThreshold?: number
-}
-
-function PerformanceHeader({
-  title,
-  loadDescription,
-  targetFps,
-  minGoodFps = 55,
-  minOkFps = 40,
-  longFrameThreshold = 50,
-}: PerformanceHeaderProps) {
-  const fpsRef = React.useRef<HTMLSpanElement>(null)
-  const avgRef = React.useRef<HTMLSpanElement>(null)
-  const longRef = React.useRef<HTMLSpanElement>(null)
-
-  usePerformanceMonitor(fpsRef, avgRef, longRef, minGoodFps, minOkFps, longFrameThreshold)
-
-  return (
-    <div
-      style={{
-        padding: '16px',
-        background: 'var(--bgColor-canvas-subtle)',
-        borderRadius: '6px',
-      }}
-    >
-      <h1>{title}</h1>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '16px',
-          marginTop: '12px',
-        }}
-      >
-        <div>
-          <strong>FPS:</strong>{' '}
-          <span ref={fpsRef} style={{fontSize: '24px'}}>
-            0
-          </span>
-        </div>
-        <div>
-          <strong>Avg:</strong> <span ref={avgRef}>0ms</span>
-        </div>
-        <div>
-          <strong>Long (≥{longFrameThreshold}ms):</strong> <span ref={longRef}>0</span>
-        </div>
-      </div>
-      <p style={{marginTop: '12px', fontSize: '14px'}}>
-        <strong>Load:</strong> {loadDescription}
-        <br />
-        <strong>Target:</strong> {targetFps}
-      </p>
-    </div>
-  )
-}
-
-// ============================================================================
-// Story 0: Empty Baseline - No PageLayout
-// ============================================================================
-
-export const EmptyBaseline: Story = {
-  name: '0. Empty Baseline - No PageLayout (diagnostic)',
-  render: () => {
-    const fpsRef = React.useRef<HTMLSpanElement>(null)
-    const avgRef = React.useRef<HTMLSpanElement>(null)
-    const longRef = React.useRef<HTMLSpanElement>(null)
-    const longFrameThreshold = 50
-
-    usePerformanceMonitor(fpsRef, avgRef, longRef, 55, 40, longFrameThreshold)
-
-    return (
-      <div
-        style={{
-          padding: '16px',
-          background: 'var(--bgColor-canvas-subtle)',
-          borderRadius: '6px',
-          maxWidth: '600px',
-          margin: '20px',
-        }}
-      >
-        <h1>Diagnostic: Empty Page FPS</h1>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '16px',
-            marginTop: '12px',
-          }}
-        >
-          <div>
-            <strong>FPS:</strong>{' '}
-            <span ref={fpsRef} style={{fontSize: '24px'}}>
-              0
-            </span>
-          </div>
-          <div>
-            <strong>Avg:</strong> <span ref={avgRef}>0ms</span>
-          </div>
-          <div>
-            <strong>Long (≥{longFrameThreshold}ms):</strong> <span ref={longRef}>0</span>
-          </div>
-        </div>
-        <p style={{marginTop: '12px', fontSize: '14px'}}>
-          This page has NO PageLayout component - just the FPS monitor.
-          <br />
-          If this shows 30 FPS, the issue is external (browser throttling, power settings, etc).
-          <br />
-          If this shows 60 FPS, the issue is in PageLayout.
-        </p>
-      </div>
-    )
-  },
-}
-
-// ============================================================================
 // Story 1: Baseline - Light Content (~100 elements)
 // ============================================================================
 
@@ -252,16 +24,11 @@ export const BaselineLight: Story = {
     return (
       <PageLayout padding="none" containerWidth="full">
         <PageLayout.Header>
-          <PerformanceHeader
-            title="Performance Test: Light Content"
-            loadDescription="Minimal DOM elements (~100 elements)"
-            targetFps="60 FPS, ~8-10ms frame time"
-          />
+          <Heading as="h1">Light Content Baseline</Heading>
         </PageLayout.Header>
 
         <PageLayout.Content>
           <div style={{padding: '16px'}}>
-            <h2>Light Content Baseline</h2>
             <p>Minimal DOM elements to establish baseline.</p>
             <p>Should be effortless 60 FPS.</p>
           </div>
@@ -269,7 +36,6 @@ export const BaselineLight: Story = {
 
         <PageLayout.Pane position="start" resizable>
           <div style={{padding: '16px'}}>
-            <h1>Resizable Pane</h1>
             <p>Drag to test - should be instant.</p>
           </div>
         </PageLayout.Pane>
@@ -288,11 +54,7 @@ export const MediumContent: Story = {
     return (
       <PageLayout padding="none" containerWidth="full">
         <PageLayout.Header>
-          <PerformanceHeader
-            title="Performance Test: Medium Load"
-            loadDescription="~3,000 DOM elements (300 table rows × 10 columns)"
-            targetFps="55-60 FPS during drag"
-          />
+          <Heading as="h1">Medium Content - Large Table</Heading>
         </PageLayout.Header>
         <PageLayout.Pane position="start" resizable>
           <div style={{padding: '16px'}}>
@@ -310,11 +72,7 @@ export const MediumContent: Story = {
               <br />
               <strong>Table:</strong> 300 rows × 10 cols
               <br />
-              <strong>Target:</strong> 55-60 FPS
             </div>
-            <p style={{fontSize: '13px'}}>
-              This table has enough elements to show performance differences. Drag and watch FPS.
-            </p>
           </div>
         </PageLayout.Pane>
         <PageLayout.Content>
@@ -418,18 +176,11 @@ export const HeavyContent: Story = {
     return (
       <PageLayout padding="none" containerWidth="full">
         <PageLayout.Header>
-          <PerformanceHeader
-            title="Performance Test: Heavy Load"
-            loadDescription="~5,000 DOM elements (multiple heavy sections)"
-            targetFps="50-60 FPS during drag (stress test)"
-            minGoodFps={50}
-            minOkFps={30}
-          />
+          <Heading as="h1">Heavy Content - Multiple Sections (~5000 elements)</Heading>
         </PageLayout.Header>
 
         <PageLayout.Pane position="start" resizable>
           <div style={{padding: '16px'}}>
-            <h1>Stress Test</h1>
             <div
               style={{
                 padding: '12px',
@@ -443,7 +194,6 @@ export const HeavyContent: Story = {
               <br />
               <strong>Mix:</strong> Cards, tables, lists
               <br />
-              <strong>Target:</strong> 50-60 FPS
             </div>
             <p style={{fontSize: '13px'}}>
               <strong>Sections:</strong>
@@ -454,16 +204,13 @@ export const HeavyContent: Story = {
               <li>200 issue items (~1200 elem)</li>
               <li>+ Headers, buttons, etc</li>
             </ul>
-            <p style={{fontSize: '13px', marginTop: '12px'}}>
-              This should show measurable FPS impact. Target is 50-60 FPS.
-            </p>
           </div>
         </PageLayout.Pane>
 
         <PageLayout.Content>
           <div tabIndex={0} style={{padding: '16px', overflowY: 'auto', height: '600px'}}>
             {/* Section 1: Large card grid */}
-            <div style={{marginBottom: '32px'}}>
+            <section style={{marginBottom: '32px'}}>
               <h2 style={{marginBottom: '16px'}}>Activity Feed (200 cards)</h2>
               <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '12px'}}>
                 {Array.from({length: 200}).map((_, i) => (
@@ -494,10 +241,10 @@ export const HeavyContent: Story = {
                   </div>
                 ))}
               </div>
-            </div>
+            </section>
 
             {/* Section 2: Large table */}
-            <div style={{marginBottom: '32px'}}>
+            <section style={{marginBottom: '32px'}}>
               <h2 style={{marginBottom: '16px'}}>Data Table (150 rows × 8 columns)</h2>
               <table style={{width: '100%', borderCollapse: 'collapse'}}>
                 <thead style={{position: 'sticky', top: 0, background: 'var(--bgColor-default)'}}>
@@ -540,10 +287,10 @@ export const HeavyContent: Story = {
                   ))}
                 </tbody>
               </table>
-            </div>
+            </section>
 
             {/* Section 3: List with nested content */}
-            <div>
+            <section>
               <h2 style={{marginBottom: '16px'}}>Issue Tracker (200 items)</h2>
               {Array.from({length: 200}).map((_, i) => (
                 <div
@@ -582,7 +329,7 @@ export const HeavyContent: Story = {
                   </div>
                 </div>
               ))}
-            </div>
+            </section>
           </div>
         </PageLayout.Content>
       </PageLayout>
@@ -607,18 +354,11 @@ export const ResponsiveConstraintsTest: Story = {
     return (
       <PageLayout padding="none" containerWidth="full">
         <PageLayout.Header>
-          <PerformanceHeader
-            title="Responsive Constraints Test"
-            loadDescription={`Viewport: ${viewportWidth}px | Max Pane: ${calculatedMaxWidth}px`}
-            targetFps="Resize window and verify max pane width updates"
-            minGoodFps={55}
-            minOkFps={40}
-          />
+          <Heading as="h1">Responsive Constraints Test</Heading>
         </PageLayout.Header>
 
         <PageLayout.Pane position="start" resizable>
           <div style={{padding: '16px'}}>
-            <h1>Resizable Pane</h1>
             <p>Max width: {calculatedMaxWidth}px</p>
           </div>
         </PageLayout.Pane>
@@ -696,18 +436,11 @@ export const KeyboardARIATest: Story = {
     return (
       <PageLayout padding="none" containerWidth="full">
         <PageLayout.Header>
-          <PerformanceHeader
-            title="Keyboard & ARIA Test"
-            loadDescription="Tab to resize handle, use arrow keys (← → ↑ ↓)"
-            targetFps="Test keyboard navigation and screen reader support"
-            minGoodFps={55}
-            minOkFps={40}
-          />
+          <Heading as="h1">Keyboard & ARIA Test</Heading>
         </PageLayout.Header>
 
         <PageLayout.Pane position="start" resizable>
           <div style={{padding: '16px'}}>
-            <h1>Resizable Pane</h1>
             <p>Use keyboard: ← → ↑ ↓</p>
           </div>
         </PageLayout.Pane>
@@ -729,7 +462,7 @@ export const KeyboardARIATest: Story = {
                 background: 'var(--bgColor-canvas-subtle)',
               }}
             >
-              <h1 style={{marginBottom: '12px'}}>Live ARIA attributes</h1>
+              <p style={{marginBottom: '12px'}}>Live ARIA attributes</p>
               <dl
                 style={{
                   display: 'grid',
