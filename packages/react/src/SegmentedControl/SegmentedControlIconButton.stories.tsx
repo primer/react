@@ -14,7 +14,6 @@ export default {
     selected: false,
     defaultSelected: false,
     disabled: false,
-    'aria-disabled': false,
   },
   argTypes: {
     icon: {
@@ -29,9 +28,6 @@ export default {
       type: 'boolean',
     },
     disabled: {
-      type: 'boolean',
-    },
-    'aria-disabled': {
       type: 'boolean',
     },
   },

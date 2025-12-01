@@ -167,7 +167,10 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
         const sharedChildProps = {
           onClick: onChange
             ? (event: React.MouseEvent<HTMLButtonElement>) => {
-                const isDisabled = child.props.disabled === true || child.props['aria-disabled'] === true
+                const isDisabled =
+                  child.props.disabled === true ||
+                  child.props['aria-disabled'] === 'true' ||
+                  child.props['aria-disabled'] === true
                 if (!isDisabled) {
                   onChange(index)
                   isUncontrolled && setSelectedIndexInternalState(index)
@@ -175,7 +178,10 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
                 }
               }
             : (event: React.MouseEvent<HTMLButtonElement>) => {
-                const isDisabled = child.props.disabled === true || child.props['aria-disabled'] === true
+                const isDisabled =
+                  child.props.disabled === true ||
+                  child.props['aria-disabled'] === 'true' ||
+                  child.props['aria-disabled'] === true
                 if (!isDisabled) {
                   child.props.onClick && child.props.onClick(event)
                   isUncontrolled && setSelectedIndexInternalState(index)

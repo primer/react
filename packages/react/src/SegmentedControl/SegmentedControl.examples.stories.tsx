@@ -15,7 +15,7 @@ export const WithDisabledButtons = () => (
     <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
       Raw
     </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon} disabled>
+    <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon} aria-disabled={true}>
       Blame
     </SegmentedControl.Button>
   </SegmentedControl>

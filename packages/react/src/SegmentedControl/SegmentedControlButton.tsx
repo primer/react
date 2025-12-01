@@ -19,8 +19,6 @@ export type SegmentedControlButtonProps = {
   leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement
   /** Applies `aria-disabled` to the button. This will disable certain functionality, such as `onClick` events. */
   disabled?: boolean
-  /** Applies `aria-disabled` to the button. This will disable certain functionality, such as `onClick` events. */
-  'aria-disabled'?: boolean
   /** Optional counter to display on the right side of the button */
   count?: number | string
 } & ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
@@ -31,12 +29,13 @@ const SegmentedControlButton: FCWithSlotMarker<React.PropsWithChildren<Segmented
   selected,
   className,
   disabled,
-  'aria-disabled': ariaDisabled,
   // Note: this value is read in the `SegmentedControl` component to determine which button is selected but we do not need to apply it to an underlying element
   defaultSelected: _defaultSelected,
   count,
-  ...rest
+  ...props
 }) => {
+  const {'aria-disabled': ariaDisabled, ...rest} = props
+
   return (
     <li className={clsx(classes.Item)} data-selected={selected ? '' : undefined}>
       <button
