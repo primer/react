@@ -735,6 +735,14 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       }
     }
 
+    const setWidthInLocalStorage = (value: string) => {
+      try {
+        localStorage.setItem(widthStorageKey, value)
+      } catch {
+        // Ignore write errors
+      }
+    }
+
     return (
       <div
         className={clsx(classes.PaneWrapper, className)}
@@ -832,12 +840,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               startTransition(() => {
                 setPaneWidth(actualWidth)
               })
-
-              try {
-                localStorage.setItem(widthStorageKey, actualWidth.toString())
-              } catch (_error) {
-                // Ignore errors
-              }
+              setWidthInLocalStorage(actualWidth.toString())
             }
           }}
           position={positionProp}
@@ -848,11 +851,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             startTransition(() => {
               setPaneWidth(defaultWidth)
             })
-            try {
-              localStorage.setItem(widthStorageKey, defaultWidth.toString())
-            } catch (_error) {
-              // Ignore errors
-            }
+            setWidthInLocalStorage(defaultWidth.toString())
           }}
           className={classes.PaneVerticalDivider}
           style={
