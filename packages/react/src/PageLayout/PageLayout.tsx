@@ -338,6 +338,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       style={style}
     >
       {draggable ? (
+        // Drag handle
         <div
           ref={handleRef}
           className={classes.DraggableHandle}
@@ -553,6 +554,17 @@ export type PageLayoutPaneProps = {
   position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
   /**
    * @deprecated Use the `position` prop with a responsive value instead.
+   *
+   * Before:
+   * ```
+   * position="start"
+   * positionWhenNarrow="end"
+   * ```
+   *
+   * After:
+   * ```
+   * position={{regular: 'start', narrow: 'end'}}
+   * ```
    */
   positionWhenNarrow?: 'inherit' | keyof typeof panePositions
   'aria-labelledby'?: string
@@ -565,6 +577,17 @@ export type PageLayoutPaneProps = {
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
   /**
    * @deprecated Use the `divider` prop with a responsive value instead.
+   *
+   * Before:
+   * ```
+   * divider="line"
+   * dividerWhenNarrow="filled"
+   * ```
+   *
+   * After:
+   * ```
+   * divider={{regular: 'line', narrow: 'filled'}}
+   * ```
    */
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
   sticky?: boolean
@@ -793,6 +816,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               }
             }
           }}
+          // Ensure `paneWidth` state and actual pane width are in sync when the drag ends
           onDragEnd={() => {
             // Commit final width from DOM to React state
             if (paneRef.current) {
@@ -848,6 +872,17 @@ export type PageLayoutFooterProps = {
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
   /**
    * @deprecated Use the `divider` prop with a responsive value instead.
+   *
+   * Before:
+   * ```
+   * divider="line"
+   * dividerWhenNarrow="filled"
+   * ```
+   *
+   * After:
+   * ```
+   * divider={{regular: 'line', narrow: 'filled'}}
+   * ```
    */
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
   hidden?: boolean | ResponsiveValue<boolean>
@@ -911,6 +946,9 @@ const Footer: FCWithSlotMarker<React.PropsWithChildren<PageLayoutFooterProps>> =
 }
 
 Footer.displayName = 'PageLayout.Footer'
+
+// ----------------------------------------------------------------------------
+// Export
 
 export const PageLayout = Object.assign(Root, {
   __SLOT__: Symbol('PageLayout'),
