@@ -203,7 +203,7 @@ const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
 
 type DraggableDividerProps = {
   draggable?: boolean
-  handleRef?: React.RefObject<HTMLDivElement>
+  handleRef: React.RefObject<HTMLDivElement>
   onDrag?: (delta: number, isKeyboard: boolean) => void
   onDragEnd?: () => void
   onDoubleClick?: () => void
@@ -256,7 +256,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
 
   const handlePointerMove = React.useCallback(
     (event: React.PointerEvent<HTMLDivElement>) => {
-      if (!handleRef?.current || !isDragging(handleRef.current)) return
+      if (!isDragging(handleRef.current)) return
       event.preventDefault()
 
       if (event.movementX !== 0) {
@@ -268,7 +268,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
 
   const handlePointerUp = React.useCallback(
     (event: React.PointerEvent<HTMLDivElement>) => {
-      if (!handleRef?.current || !isDragging(handleRef.current)) return
+      if (!isDragging(handleRef.current)) return
       event.preventDefault()
       // Cleanup will happen in onLostPointerCapture
     },
@@ -277,7 +277,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
 
   const handleLostPointerCapture = React.useCallback(
     (event: React.PointerEvent<HTMLDivElement>) => {
-      if (!handleRef?.current || !isDragging(handleRef.current)) return
+      if (!isDragging(handleRef.current)) return
       const target = event.currentTarget
       target.removeAttribute(DATA_DRAGGING_ATTR)
 
