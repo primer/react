@@ -642,6 +642,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     },
     forwardRef,
   ) => {
+    const [, startTransition] = React.useTransition()
     // Combine position and positionWhenNarrow for backwards compatibility
     const positionProp =
       !isResponsiveValue(responsivePosition) && positionWhenNarrow !== 'inherit'
@@ -822,9 +823,15 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           // Ensure `paneWidth` state and actual pane width are in sync when the drag ends
           onDragEnd={() => {
             // Commit final width from DOM to React state
+            // Use startTransition to mark this as low-priority, letting the browser
+            // finish painting the final position before React reconciles
             if (paneRef.current) {
               const actualWidth = parseInt(paneRef.current.style.getPropertyValue('--pane-width')) || paneWidth
-              setPaneWidth(actualWidth)
+
+              // Low-priority update - won't block the main thread
+              startTransition(() => {
+                setPaneWidth(actualWidth)
+              })
 
               try {
                 localStorage.setItem(widthStorageKey, actualWidth.toString())
@@ -837,7 +844,10 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           // Reset pane width on double click
           onDoubleClick={() => {
             const defaultWidth = getDefaultPaneWidth(width)
-            setPaneWidth(defaultWidth)
+            // Low-priority update - won't block the main thread
+            startTransition(() => {
+              setPaneWidth(defaultWidth)
+            })
             try {
               localStorage.setItem(widthStorageKey, defaultWidth.toString())
             } catch (_error) {
