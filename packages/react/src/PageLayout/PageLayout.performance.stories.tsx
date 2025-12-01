@@ -565,7 +565,6 @@ export const HeavyContent: Story = {
 }
 
 export const ResponsiveConstraintsTest: Story = {
-  name: 'Responsive Constraints Test',
   render: () => {
     const [viewportWidth, setViewportWidth] = React.useState(typeof window !== 'undefined' ? window.innerWidth : 1280)
 
