@@ -15,55 +15,59 @@ type Story = StoryObj<typeof PageLayout>
 // Shared Performance Monitor Hook & Component
 // ============================================================================
 
-interface PerformanceMetrics {
-  fps: number
-  avgFrameTime: number
-  minFrameTime: number
-  maxFrameTime: number
-}
-
-function usePerformanceMonitor(): PerformanceMetrics {
-  const [fps, setFps] = React.useState<number>(0)
-  const [frameTimes, setFrameTimes] = React.useState<number[]>([])
-  const frameTimesRef = React.useRef<number[]>([])
-  const lastFrameTimeRef = React.useRef<number>(0)
-  const animationFrameRef = React.useRef<number>()
-
+function usePerformanceMonitor(
+  fpsRef: React.RefObject<HTMLSpanElement>,
+  avgRef: React.RefObject<HTMLSpanElement>,
+  minRef: React.RefObject<HTMLSpanElement>,
+  maxRef: React.RefObject<HTMLSpanElement>,
+  minGoodFps: number,
+  minOkFps: number,
+) {
   React.useEffect(() => {
-    const measureFPS = (timestamp: number) => {
-      if (lastFrameTimeRef.current) {
-        const frameTime = timestamp - lastFrameTimeRef.current
-        frameTimesRef.current.push(frameTime)
+    const frameTimes: number[] = []
+    let lastFrameTime = 0
+    let lastUpdateTime = 0
+    let animationFrameId: number
 
-        if (frameTimesRef.current.length > 60) {
-          frameTimesRef.current.shift()
+    const measureFPS = (timestamp: number) => {
+      if (lastFrameTime) {
+        const frameTime = timestamp - lastFrameTime
+        frameTimes.push(frameTime)
+
+        if (frameTimes.length > 120) {
+          frameTimes.shift()
         }
 
-        const avgFrameTime = frameTimesRef.current.reduce((a, b) => a + b, 0) / frameTimesRef.current.length
-        const currentFps = 1000 / avgFrameTime
+        // Update DOM directly every 500ms - zero React overhead
+        if (timestamp - lastUpdateTime >= 500) {
+          const avgFrameTime = frameTimes.reduce((a, b) => a + b, 0) / frameTimes.length
+          const currentFps = Math.round(1000 / avgFrameTime)
+          const maxFrameTime = Math.max(...frameTimes)
+          const minFrameTime = Math.min(...frameTimes)
 
-        setFps(Math.round(currentFps))
-        setFrameTimes([...frameTimesRef.current])
+          // Direct DOM updates - no React re-renders
+          if (fpsRef.current) {
+            fpsRef.current.textContent = isFinite(currentFps) ? String(currentFps) : '—'
+            fpsRef.current.style.color = currentFps >= minGoodFps ? 'green' : currentFps >= minOkFps ? 'orange' : 'red'
+          }
+          if (avgRef.current) avgRef.current.textContent = isFinite(avgFrameTime) ? `${avgFrameTime.toFixed(2)}ms` : '—'
+          if (minRef.current) minRef.current.textContent = isFinite(minFrameTime) ? `${minFrameTime.toFixed(2)}ms` : '—'
+          if (maxRef.current) maxRef.current.textContent = isFinite(maxFrameTime) ? `${maxFrameTime.toFixed(2)}ms` : '—'
+
+          lastUpdateTime = timestamp
+        }
       }
 
-      lastFrameTimeRef.current = timestamp
-      animationFrameRef.current = requestAnimationFrame(measureFPS)
+      lastFrameTime = timestamp
+      animationFrameId = requestAnimationFrame(measureFPS)
     }
 
-    animationFrameRef.current = requestAnimationFrame(measureFPS)
+    animationFrameId = requestAnimationFrame(measureFPS)
 
     return () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current)
-      }
+      cancelAnimationFrame(animationFrameId)
     }
-  }, [])
-
-  const avgFrameTime = frameTimes.length > 0 ? frameTimes.reduce((a, b) => a + b, 0) / frameTimes.length : 0
-  const maxFrameTime = frameTimes.length > 0 ? Math.max(...frameTimes) : 0
-  const minFrameTime = frameTimes.length > 0 ? Math.min(...frameTimes) : 0
-
-  return {fps, avgFrameTime, minFrameTime, maxFrameTime}
+  }, [fpsRef, avgRef, minRef, maxRef, minGoodFps, minOkFps])
 }
 
 interface PerformanceHeaderProps {
@@ -81,7 +85,12 @@ function PerformanceHeader({
   minGoodFps = 55,
   minOkFps = 40,
 }: PerformanceHeaderProps) {
-  const {fps, avgFrameTime, minFrameTime, maxFrameTime} = usePerformanceMonitor()
+  const fpsRef = React.useRef<HTMLSpanElement>(null)
+  const avgRef = React.useRef<HTMLSpanElement>(null)
+  const minRef = React.useRef<HTMLSpanElement>(null)
+  const maxRef = React.useRef<HTMLSpanElement>(null)
+
+  usePerformanceMonitor(fpsRef, avgRef, minRef, maxRef, minGoodFps, minOkFps)
 
   return (
     <div style={{padding: '16px', background: '#f6f8fa', borderRadius: '6px'}}>
@@ -96,18 +105,18 @@ function PerformanceHeader({
       >
         <div>
           <strong>FPS:</strong>{' '}
-          <span style={{fontSize: '24px', color: fps >= minGoodFps ? 'green' : fps >= minOkFps ? 'orange' : 'red'}}>
-            {fps}
+          <span ref={fpsRef} style={{fontSize: '24px'}}>
+            0
           </span>
         </div>
         <div>
-          <strong>Avg:</strong> <span>{avgFrameTime.toFixed(2)}ms</span>
+          <strong>Avg:</strong> <span ref={avgRef}>0ms</span>
         </div>
         <div>
-          <strong>Min:</strong> <span>{minFrameTime.toFixed(2)}ms</span>
+          <strong>Min:</strong> <span ref={minRef}>0ms</span>
         </div>
         <div>
-          <strong>Max:</strong> <span>{maxFrameTime.toFixed(2)}ms</span>
+          <strong>Max:</strong> <span ref={maxRef}>0ms</span>
         </div>
       </div>
       <p style={{marginTop: '12px', fontSize: '14px'}}>
@@ -117,6 +126,59 @@ function PerformanceHeader({
       </p>
     </div>
   )
+}
+
+// ============================================================================
+// Story 0: Empty Baseline - No PageLayout
+// ============================================================================
+
+export const EmptyBaseline: Story = {
+  name: '0. Empty Baseline - No PageLayout (diagnostic)',
+  render: () => {
+    const fpsRef = React.useRef<HTMLSpanElement>(null)
+    const avgRef = React.useRef<HTMLSpanElement>(null)
+    const minRef = React.useRef<HTMLSpanElement>(null)
+    const maxRef = React.useRef<HTMLSpanElement>(null)
+
+    usePerformanceMonitor(fpsRef, avgRef, minRef, maxRef, 55, 40)
+
+    return (
+      <div style={{padding: '16px', background: '#f6f8fa', borderRadius: '6px', maxWidth: '600px', margin: '20px'}}>
+        <h1>Diagnostic: Empty Page FPS</h1>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            gap: '16px',
+            marginTop: '12px',
+          }}
+        >
+          <div>
+            <strong>FPS:</strong>{' '}
+            <span ref={fpsRef} style={{fontSize: '24px'}}>
+              0
+            </span>
+          </div>
+          <div>
+            <strong>Avg:</strong> <span ref={avgRef}>0ms</span>
+          </div>
+          <div>
+            <strong>Min:</strong> <span ref={minRef}>0ms</span>
+          </div>
+          <div>
+            <strong>Max:</strong> <span ref={maxRef}>0ms</span>
+          </div>
+        </div>
+        <p style={{marginTop: '12px', fontSize: '14px'}}>
+          This page has NO PageLayout component - just the FPS monitor.
+          <br />
+          If this shows 30 FPS, the issue is external (browser throttling, power settings, etc).
+          <br />
+          If this shows 60 FPS, the issue is in PageLayout.
+        </p>
+      </div>
+    )
+  },
 }
 
 // ============================================================================
@@ -380,6 +442,17 @@ export const HeavyContent: Story = {
                       <span style={{fontWeight: '600', fontSize: '14px'}}>Activity #{i + 1}</span>
                       <span style={{fontSize: '11px', color: '#959da5'}}>{i % 60}m ago</span>
                     </div>
+                    <div style={{fontSize: '12px', color: '#586069', marginBottom: '8px'}}>
+                      User {['Alice', 'Bob', 'Charlie'][i % 3]} performed action on item {i}
+                    </div>
+                    <div style={{display: 'flex', gap: '4px'}}>
+                      <span style={{fontSize: '10px', background: '#e8f5e9', padding: '2px 6px', borderRadius: '3px'}}>
+                        {['create', 'update', 'delete'][i % 3]}
+                      </span>
+                      <span style={{fontSize: '10px', background: '#e3f2fd', padding: '2px 6px', borderRadius: '3px'}}>
+                        priority-{(i % 3) + 1}
+                      </span>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -491,9 +564,168 @@ export const HeavyContent: Story = {
   },
 }
 
+// ============================================================================
+// Story 4: Extra Heavy Content - Extreme Load (10,000 elements)
+// ============================================================================
+
+// Progressive loading hook to avoid killing the browser
+// Uses startTransition to keep the UI responsive during loading
+function useProgressiveLoad(totalItems: number, batchSize = 100, delayMs = 16) {
+  const [loadedCount, setLoadedCount] = React.useState(batchSize)
+  const [, startTransition] = React.useTransition()
+
+  React.useEffect(() => {
+    if (loadedCount >= totalItems) return
+
+    const timeoutId = setTimeout(() => {
+      startTransition(() => {
+        setLoadedCount(prev => Math.min(prev + batchSize, totalItems))
+      })
+    }, delayMs)
+
+    return () => clearTimeout(timeoutId)
+  }, [loadedCount, totalItems, batchSize, delayMs])
+
+  return loadedCount
+}
+
+// Simple element with exactly 5 DOM nodes:
+// div > (span + span + span + span) = 1 container + 4 children = 5 elements
+function StressItem({index}: {index: number}) {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        gap: '8px',
+        padding: '4px 8px',
+        borderBottom: '1px solid #e1e4e8',
+        fontSize: '12px',
+      }}
+    >
+      <span style={{width: '50px', color: '#586069'}}>#{index}</span>
+      <span style={{flex: 1}}>Item {index}</span>
+      <span style={{width: '60px', color: '#586069'}}>{index % 100}ms</span>
+      <span
+        style={{
+          width: '50px',
+          textAlign: 'center',
+          background: index % 2 === 0 ? '#d1f4e0' : '#fff4ce',
+          borderRadius: '3px',
+        }}
+      >
+        {index % 2 === 0 ? '✓' : '○'}
+      </span>
+    </div>
+  )
+}
+
+// Each StressItem = 5 DOM elements
+// 2000 items × 5 = 10,000 elements
+const TOTAL_ITEMS = 2000
+const ELEMENTS_PER_ITEM = 5
+const TOTAL_ELEMENTS = TOTAL_ITEMS * ELEMENTS_PER_ITEM
+
+export const ExtraHeavyContent: Story = {
+  name: '4. Extra Heavy Content - Extreme Load (10,000 elements)',
+  render: () => {
+    const loadedItems = useProgressiveLoad(TOTAL_ITEMS, 100, 16)
+    const loadedElements = loadedItems * ELEMENTS_PER_ITEM
+    const loadProgress = Math.round((loadedItems / TOTAL_ITEMS) * 100)
+
+    return (
+      <PageLayout>
+        <PageLayout.Header>
+          <PerformanceHeader
+            title="Performance Test: Extreme Load"
+            loadDescription={`${loadedElements.toLocaleString()} / ${TOTAL_ELEMENTS.toLocaleString()} DOM elements (${loadProgress}%)`}
+            targetFps="30-60 FPS during drag (browser limit test)"
+            minGoodFps={40}
+            minOkFps={20}
+          />
+        </PageLayout.Header>
+
+        <PageLayout.Pane position="start" resizable>
+          <div style={{padding: '16px'}}>
+            <h3>Extreme Stress Test</h3>
+            <div
+              style={{
+                padding: '12px',
+                background: loadProgress < 100 ? '#fff3cd' : '#d4edda',
+                borderRadius: '6px',
+                marginBottom: '16px',
+                fontSize: '13px',
+              }}
+            >
+              <strong>{loadProgress < 100 ? '⏳ Loading...' : '✓ Loaded:'}</strong>
+              <br />
+              {loadedItems.toLocaleString()} / {TOTAL_ITEMS.toLocaleString()} items
+              <br />
+              {loadedElements.toLocaleString()} / {TOTAL_ELEMENTS.toLocaleString()} elements
+              <div
+                style={{
+                  marginTop: '8px',
+                  height: '4px',
+                  background: '#e1e4e8',
+                  borderRadius: '2px',
+                  overflow: 'hidden',
+                }}
+              >
+                <div
+                  style={{
+                    width: `${loadProgress}%`,
+                    height: '100%',
+                    background: loadProgress < 100 ? '#0969da' : '#28a745',
+                    transition: 'width 0.1s',
+                  }}
+                />
+              </div>
+            </div>
+            <p style={{fontSize: '12px', color: '#586069'}}>
+              Each item = 5 DOM nodes
+              <br />
+              {TOTAL_ITEMS} items × 5 = {TOTAL_ELEMENTS.toLocaleString()} elements
+            </p>
+          </div>
+        </PageLayout.Pane>
+
+        <PageLayout.Content>
+          <div style={{padding: '16px', overflow: 'auto', height: '600px'}}>
+            <h2 style={{marginBottom: '16px'}}>
+              Stress Test Items ({loadedItems.toLocaleString()} / {TOTAL_ITEMS.toLocaleString()})
+            </h2>
+            <div style={{background: '#fff', border: '1px solid #e1e4e8', borderRadius: '6px'}}>
+              {/* Header row */}
+              <div
+                style={{
+                  display: 'flex',
+                  gap: '8px',
+                  padding: '8px',
+                  borderBottom: '2px solid #e1e4e8',
+                  fontSize: '12px',
+                  fontWeight: '600',
+                  background: '#f6f8fa',
+                }}
+              >
+                <span style={{width: '50px'}}>ID</span>
+                <span style={{flex: 1}}>Name</span>
+                <span style={{width: '60px'}}>Time</span>
+                <span style={{width: '50px', textAlign: 'center'}}>Status</span>
+              </div>
+              {/* Items */}
+              {Array.from({length: loadedItems}).map((_, i) => (
+                <StressItem key={i} index={i + 1} />
+              ))}
+            </div>
+          </div>
+        </PageLayout.Content>
+      </PageLayout>
+    )
+  },
+}
+
 // Rest of stories...
 export const ResponsiveConstraintsTest: Story = {
-  name: '4. Responsive Constraints Test',
+  name: '5. Responsive Constraints Test',
   render: () => {
     const [viewportWidth, setViewportWidth] = React.useState(typeof window !== 'undefined' ? window.innerWidth : 1280)
 
@@ -541,7 +773,7 @@ export const ResponsiveConstraintsTest: Story = {
 }
 
 export const KeyboardARIATest: Story = {
-  name: '5. Keyboard & ARIA Test',
+  name: '6. Keyboard & ARIA Test',
   render: () => {
     return (
       <PageLayout>
