@@ -20,61 +20,106 @@ type Story = StoryObj<typeof PageLayout>
 function usePerformanceMonitor(
   fpsRef: React.RefObject<HTMLSpanElement | null>,
   avgRef: React.RefObject<HTMLSpanElement | null>,
-  minRef: React.RefObject<HTMLSpanElement | null>,
-  maxRef: React.RefObject<HTMLSpanElement | null>,
+  longFrameRef: React.RefObject<HTMLSpanElement | null>,
   minGoodFps: number,
   minOkFps: number,
+  longFrameThreshold = 50,
 ) {
   React.useEffect(() => {
     const frameTimes: number[] = []
-    let lastFrameTime = 0
-    let lastUpdateTime = 0
-    let animationFrameId: number
+    let lastUpdateTime = typeof performance !== 'undefined' ? performance.now() : 0
+    let animationFrameId: number | null = null
+    let observer: PerformanceObserver | null = null
 
-    const measureFPS = (timestamp: number) => {
-      if (lastFrameTime) {
-        const frameTime = timestamp - lastFrameTime
-        frameTimes.push(frameTime)
-
-        if (frameTimes.length > 120) {
-          frameTimes.shift()
-        }
-
-        // Update DOM directly every 500ms - zero React overhead
-        if (timestamp - lastUpdateTime >= 500) {
-          const avgFrameTime = frameTimes.reduce((a, b) => a + b, 0) / frameTimes.length
-          const currentFps = Math.round(1000 / avgFrameTime)
-          const maxFrameTime = Math.max(...frameTimes)
-          const minFrameTime = Math.min(...frameTimes)
-
-          // Direct DOM updates - no React re-renders
-          if (fpsRef.current) {
-            fpsRef.current.textContent = isFinite(currentFps) ? String(currentFps) : '—'
-            fpsRef.current.style.color =
-              currentFps >= minGoodFps
-                ? 'var(--fgColor-success)'
-                : currentFps >= minOkFps
-                  ? 'var(--fgColor-attention)'
-                  : 'var(--fgColor-danger)'
-          }
-          if (avgRef.current) avgRef.current.textContent = isFinite(avgFrameTime) ? `${avgFrameTime.toFixed(2)}ms` : '—'
-          if (minRef.current) minRef.current.textContent = isFinite(minFrameTime) ? `${minFrameTime.toFixed(2)}ms` : '—'
-          if (maxRef.current) maxRef.current.textContent = isFinite(maxFrameTime) ? `${maxFrameTime.toFixed(2)}ms` : '—'
-
-          lastUpdateTime = timestamp
-        }
+    const updateDisplays = () => {
+      if (frameTimes.length === 0) {
+        return
       }
 
-      lastFrameTime = timestamp
+      const now = typeof performance !== 'undefined' ? performance.now() : Date.now()
+      if (now - lastUpdateTime < 500) {
+        return
+      }
+
+      lastUpdateTime = now
+
+      const framesSum = frameTimes.reduce((a, b) => a + b, 0)
+      const avgFrameTime = framesSum / frameTimes.length
+      const currentFps = Math.round(1000 / avgFrameTime)
+      const longFrameCount = frameTimes.reduce((count, time) => (time >= longFrameThreshold ? count + 1 : count), 0)
+
+      if (fpsRef.current) {
+        fpsRef.current.textContent = isFinite(currentFps) ? String(currentFps) : '—'
+        fpsRef.current.style.color =
+          currentFps >= minGoodFps
+            ? 'var(--fgColor-success)'
+            : currentFps >= minOkFps
+              ? 'var(--fgColor-attention)'
+              : 'var(--fgColor-danger)'
+      }
+      if (avgRef.current) {
+        avgRef.current.textContent = isFinite(avgFrameTime) ? `${avgFrameTime.toFixed(2)}ms` : '—'
+      }
+      if (longFrameRef.current) {
+        longFrameRef.current.textContent = String(longFrameCount)
+        longFrameRef.current.style.color =
+          longFrameCount === 0
+            ? 'var(--fgColor-success)'
+            : longFrameCount <= 3
+              ? 'var(--fgColor-attention)'
+              : 'var(--fgColor-danger)'
+      }
+    }
+
+    const recordFrameTime = (frameTime: number) => {
+      frameTimes.push(frameTime)
+      if (frameTimes.length > 120) {
+        frameTimes.shift()
+      }
+      updateDisplays()
+    }
+
+    const supportsFrameObserver =
+      typeof PerformanceObserver !== 'undefined' &&
+      Array.isArray(PerformanceObserver.supportedEntryTypes) &&
+      PerformanceObserver.supportedEntryTypes.includes('frame')
+
+    if (supportsFrameObserver) {
+      observer = new PerformanceObserver(list => {
+        for (const entry of list.getEntries()) {
+          recordFrameTime(entry.duration)
+        }
+      })
+      try {
+        observer.observe({type: 'frame', buffered: false})
+      } catch (_error) {
+        observer.disconnect()
+        observer = null
+      }
+    }
+
+    if (!observer) {
+      let lastFrameTime = 0
+      const measureFPS = (timestamp: number) => {
+        if (lastFrameTime) {
+          recordFrameTime(timestamp - lastFrameTime)
+        }
+        lastFrameTime = timestamp
+        animationFrameId = requestAnimationFrame(measureFPS)
+      }
+
       animationFrameId = requestAnimationFrame(measureFPS)
     }
 
-    animationFrameId = requestAnimationFrame(measureFPS)
-
     return () => {
-      cancelAnimationFrame(animationFrameId)
+      if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId)
+      }
+      if (observer) {
+        observer.disconnect()
+      }
     }
-  }, [fpsRef, avgRef, minRef, maxRef, minGoodFps, minOkFps])
+  }, [fpsRef, avgRef, longFrameRef, minGoodFps, minOkFps, longFrameThreshold])
 }
 
 interface PerformanceHeaderProps {
@@ -83,6 +128,7 @@ interface PerformanceHeaderProps {
   targetFps: string
   minGoodFps?: number
   minOkFps?: number
+  longFrameThreshold?: number
 }
 
 function PerformanceHeader({
@@ -91,13 +137,13 @@ function PerformanceHeader({
   targetFps,
   minGoodFps = 55,
   minOkFps = 40,
+  longFrameThreshold = 50,
 }: PerformanceHeaderProps) {
   const fpsRef = React.useRef<HTMLSpanElement>(null)
   const avgRef = React.useRef<HTMLSpanElement>(null)
-  const minRef = React.useRef<HTMLSpanElement>(null)
-  const maxRef = React.useRef<HTMLSpanElement>(null)
+  const longRef = React.useRef<HTMLSpanElement>(null)
 
-  usePerformanceMonitor(fpsRef, avgRef, minRef, maxRef, minGoodFps, minOkFps)
+  usePerformanceMonitor(fpsRef, avgRef, longRef, minGoodFps, minOkFps, longFrameThreshold)
 
   return (
     <div
@@ -111,7 +157,7 @@ function PerformanceHeader({
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
+          gridTemplateColumns: 'repeat(3, 1fr)',
           gap: '16px',
           marginTop: '12px',
         }}
@@ -126,10 +172,7 @@ function PerformanceHeader({
           <strong>Avg:</strong> <span ref={avgRef}>0ms</span>
         </div>
         <div>
-          <strong>Min:</strong> <span ref={minRef}>0ms</span>
-        </div>
-        <div>
-          <strong>Max:</strong> <span ref={maxRef}>0ms</span>
+          <strong>Long (≥{longFrameThreshold}ms):</strong> <span ref={longRef}>0</span>
         </div>
       </div>
       <p style={{marginTop: '12px', fontSize: '14px'}}>
@@ -150,10 +193,10 @@ export const EmptyBaseline: Story = {
   render: () => {
     const fpsRef = React.useRef<HTMLSpanElement>(null)
     const avgRef = React.useRef<HTMLSpanElement>(null)
-    const minRef = React.useRef<HTMLSpanElement>(null)
-    const maxRef = React.useRef<HTMLSpanElement>(null)
+    const longRef = React.useRef<HTMLSpanElement>(null)
+    const longFrameThreshold = 50
 
-    usePerformanceMonitor(fpsRef, avgRef, minRef, maxRef, 55, 40)
+    usePerformanceMonitor(fpsRef, avgRef, longRef, 55, 40, longFrameThreshold)
 
     return (
       <div
@@ -169,7 +212,7 @@ export const EmptyBaseline: Story = {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
+            gridTemplateColumns: 'repeat(3, 1fr)',
             gap: '16px',
             marginTop: '12px',
           }}
@@ -184,10 +227,7 @@ export const EmptyBaseline: Story = {
             <strong>Avg:</strong> <span ref={avgRef}>0ms</span>
           </div>
           <div>
-            <strong>Min:</strong> <span ref={minRef}>0ms</span>
-          </div>
-          <div>
-            <strong>Max:</strong> <span ref={maxRef}>0ms</span>
+            <strong>Long (≥{longFrameThreshold}ms):</strong> <span ref={longRef}>0</span>
           </div>
         </div>
         <p style={{marginTop: '12px', fontSize: '14px'}}>
@@ -210,7 +250,7 @@ export const BaselineLight: Story = {
   name: '1. Light Content - Baseline (~100 elements)',
   render: () => {
     return (
-      <PageLayout>
+      <PageLayout padding="none" containerWidth="full">
         <PageLayout.Header>
           <PerformanceHeader
             title="Performance Test: Light Content"
@@ -246,7 +286,7 @@ export const MediumContent: Story = {
   name: '2. Medium Content - Large Table (~3000 elements)',
   render: () => {
     return (
-      <PageLayout>
+      <PageLayout padding="none" containerWidth="full">
         <PageLayout.Header>
           <PerformanceHeader
             title="Performance Test: Medium Load"
@@ -284,7 +324,7 @@ export const MediumContent: Story = {
             <div
               tabIndex={0}
               style={{
-                overflow: 'auto',
+                overflowY: 'auto',
                 height: '600px',
                 border: '1px solid var(--borderColor-default)',
               }}
@@ -376,7 +416,7 @@ export const HeavyContent: Story = {
   name: '3. Heavy Content - Multiple Sections (~5000 elements)',
   render: () => {
     return (
-      <PageLayout>
+      <PageLayout padding="none" containerWidth="full">
         <PageLayout.Header>
           <PerformanceHeader
             title="Performance Test: Heavy Load"
@@ -421,7 +461,7 @@ export const HeavyContent: Story = {
         </PageLayout.Pane>
 
         <PageLayout.Content>
-          <div tabIndex={0} style={{padding: '16px', overflow: 'auto', height: '600px'}}>
+          <div tabIndex={0} style={{padding: '16px', overflowY: 'auto', height: '600px'}}>
             {/* Section 1: Large card grid */}
             <div style={{marginBottom: '32px'}}>
               <h2 style={{marginBottom: '16px'}}>Activity Feed (200 cards)</h2>
@@ -565,7 +605,7 @@ export const ResponsiveConstraintsTest: Story = {
     const calculatedMaxWidth = Math.max(256, viewportWidth - maxWidthDiff)
 
     return (
-      <PageLayout>
+      <PageLayout padding="none" containerWidth="full">
         <PageLayout.Header>
           <PerformanceHeader
             title="Responsive Constraints Test"
@@ -654,7 +694,7 @@ export const KeyboardARIATest: Story = {
     }, [])
 
     return (
-      <PageLayout>
+      <PageLayout padding="none" containerWidth="full">
         <PageLayout.Header>
           <PerformanceHeader
             title="Keyboard & ARIA Test"
