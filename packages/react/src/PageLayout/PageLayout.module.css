@@ -437,8 +437,8 @@
  * while keeping content visible (just frozen in place)
  */
 .PageLayoutContent:has(.DraggableHandle[data-dragging='true']) .Content {
-  /* Full containment - isolate from layout recalculations */
-  contain: strict;
+  /* Full containment (without size) - isolate from layout recalculations */
+  contain: layout style paint;
 }
 
 .PaneWrapper {
@@ -786,25 +786,4 @@
 
 .DraggableHandle[data-dragging='true']:hover {
   background-color: var(--bgColor-accent-emphasis);
-}
-
-/**
- * ACCESSIBILITY: Keyboard focus styles
- * Show focus indicator when navigating via keyboard
- */
-.DraggableHandle:focus {
-  outline: 2px solid var(--fgColor-accent);
-  outline-offset: 2px;
-}
-
-/**
- * Only show focus outline when navigating via keyboard, not mouse
- */
-.DraggableHandle:focus:not(:focus-visible) {
-  outline: none;
-}
-
-.DraggableHandle:focus-visible {
-  outline: 2px solid var(--fgColor-accent);
-  outline-offset: 2px;
 }
