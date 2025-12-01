@@ -1,6 +1,6 @@
 import {AlertFillIcon, AlertIcon, CheckCircleFillIcon, CheckCircleIcon} from '@primer/octicons-react'
 import {clsx} from 'clsx'
-import React from 'react'
+import type React from 'react'
 import {isValidElementType} from 'react-is'
 import classes from './InlineMessage.module.css'
 type MessageVariant = 'critical' | 'success' | 'unavailable' | 'warning'
