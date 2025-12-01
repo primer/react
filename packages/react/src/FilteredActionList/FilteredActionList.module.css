@@ -1,67 +1,69 @@
-.Root {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.Header {
-  /* stylelint-disable-next-line primer/box-shadow */
-  box-shadow: 0 1px 0 var(--borderColor-default);
-  z-index: 1;
-}
-
-.Container {
-  display: flex;
-  height: 100%;
-  overflow: auto;
-  flex-grow: 1;
-}
-
-.ActionList {
-  flex-grow: 1;
-}
-
-.ActionListItem:focus {
-  background: var(--control-transparent-bgColor-selected);
-
-  &::after {
-    @mixin activeIndicatorLine;
+@layer primer.react.components.FilteredActionList {
+  .Root {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
-}
 
-.ActionListItem:where([data-input-focused]):where([data-first-child]) {
-  background: var(--control-transparent-bgColor-selected);
-
-  &::after {
-    @mixin activeIndicatorLine;
+  .Header {
+    /* stylelint-disable-next-line primer/box-shadow */
+    box-shadow: 0 1px 0 var(--borderColor-default);
+    z-index: 1;
   }
-}
 
-.FullScreenTextInput {
-  @media screen and (--viewportRange-narrow) {
-    /* Ensures inputs don't zoom on mobile iPhone but are body-font size on iPad */
-    @supports (-webkit-touch-callout: none) {
-      font-size: var(--text-title-size-small);
+  .Container {
+    display: flex;
+    height: 100%;
+    overflow: auto;
+    flex-grow: 1;
+  }
+
+  .ActionList {
+    flex-grow: 1;
+  }
+
+  .ActionListItem:focus {
+    background: var(--control-transparent-bgColor-selected);
+
+    &::after {
+      @mixin activeIndicatorLine;
     }
   }
-}
 
-.SelectAllContainer {
-  display: flex;
-  align-items: center;
-  padding-block: var(--base-size-4);
-  padding-inline: var(--base-size-16);
-  background: var(--bgColor-muted);
-  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
-}
+  .ActionListItem:where([data-input-focused]):where([data-first-child]) {
+    background: var(--control-transparent-bgColor-selected);
 
-.SelectAllCheckbox {
-  /* -1px hack to offset 1px border-bottom causing uneven alignment */
-  /* stylelint-disable-next-line primer/spacing */
-  margin: var(--base-size-4) var(--base-size-8) calc(var(--base-size-4) - 1px) 0;
-}
+    &::after {
+      @mixin activeIndicatorLine;
+    }
+  }
 
-.SelectAllLabel {
-  font-size: var(--text-body-size-medium);
-  color: var(--fgColor-muted);
+  .FullScreenTextInput {
+    @media screen and (--viewportRange-narrow) {
+      /* Ensures inputs don't zoom on mobile iPhone but are body-font size on iPad */
+      @supports (-webkit-touch-callout: none) {
+        font-size: var(--text-title-size-small);
+      }
+    }
+  }
+
+  .SelectAllContainer {
+    display: flex;
+    align-items: center;
+    padding-block: var(--base-size-4);
+    padding-inline: var(--base-size-16);
+    background: var(--bgColor-muted);
+    border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
+  }
+
+  .SelectAllCheckbox {
+    /* -1px hack to offset 1px border-bottom causing uneven alignment */
+    /* stylelint-disable-next-line primer/spacing */
+    margin: var(--base-size-4) var(--base-size-8) calc(var(--base-size-4) - 1px) 0;
+  }
+
+  .SelectAllLabel {
+    font-size: var(--text-body-size-medium);
+    color: var(--fgColor-muted);
+  }
 }

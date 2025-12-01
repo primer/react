@@ -1,53 +1,55 @@
-.List {
-  position: relative;
-  display: flex;
-  min-width: 0;
+@layer primer.react.components.ActionBar {
+  .List {
+    position: relative;
+    display: flex;
+    min-width: 0;
 
-  /* wonder why this is here */
-  /* stylelint-disable-next-line primer/spacing */
-  margin-bottom: -1px;
-  white-space: nowrap;
-  list-style: none;
-  align-items: center;
-  gap: var(--actionbar-gap, var(--stack-gap-condensed));
+    /* wonder why this is here */
+    /* stylelint-disable-next-line primer/spacing */
+    margin-bottom: -1px;
+    white-space: nowrap;
+    list-style: none;
+    align-items: center;
+    gap: var(--actionbar-gap, var(--stack-gap-condensed));
 
-  /* Gap scale (mirrors Stack) */
-  &:where([data-gap='none']) {
-    --actionbar-gap: 0;
+    /* Gap scale (mirrors Stack) */
+    &:where([data-gap='none']) {
+      --actionbar-gap: 0;
 
-    .Divider {
-      padding: 0 var(--base-size-8);
+      .Divider {
+        padding: 0 var(--base-size-8);
+      }
+    }
+
+    &:where([data-gap='condensed']) {
+      --actionbar-gap: var(--stack-gap-condensed);
     }
   }
 
-  &:where([data-gap='condensed']) {
-    --actionbar-gap: var(--stack-gap-condensed);
+  .Nav {
+    display: flex;
+    padding-inline: var(--base-size-16);
+    justify-content: flex-end;
+    align-items: center;
+
+    &:where([data-flush='true']) {
+      padding-inline: 0;
+    }
   }
-}
 
-.Nav {
-  display: flex;
-  padding-inline: var(--base-size-16);
-  justify-content: flex-end;
-  align-items: center;
-
-  &:where([data-flush='true']) {
-    padding-inline: 0;
+  .Divider {
+    &::before {
+      display: block;
+      width: var(--borderWidth-thin);
+      height: var(--base-size-20);
+      content: '';
+      /* stylelint-disable-next-line primer/colors */
+      background: var(--borderColor-muted);
+    }
   }
-}
 
-.Divider {
-  &::before {
-    display: block;
-    width: var(--borderWidth-thin);
-    height: var(--base-size-20);
-    content: '';
-    /* stylelint-disable-next-line primer/colors */
-    background: var(--borderColor-muted);
+  .Group {
+    display: flex;
+    gap: inherit;
   }
-}
-
-.Group {
-  display: flex;
-  gap: inherit;
 }

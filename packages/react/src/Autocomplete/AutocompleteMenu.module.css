@@ -1,9 +1,11 @@
-.SpinnerWrapper {
-  display: flex;
-  justify-content: center;
-  padding: var(--base-size-16);
-}
+@layer primer.react.components.Autocomplete {
+  .SpinnerWrapper {
+    display: flex;
+    justify-content: center;
+    padding: var(--base-size-16);
+  }
 
-.EmptyStateWrapper {
-  padding: var(--base-size-16);
+  .EmptyStateWrapper {
+    padding: var(--base-size-16);
+  }
 }

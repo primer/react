@@ -1,9 +1,11 @@
-.Caption {
-  display: block;
-  font-size: var(--text-body-size-small);
-  color: var(--fgColor-muted);
+@layer primer.react.components.FormControl {
+  .Caption {
+    display: block;
+    font-size: var(--text-body-size-small);
+    color: var(--fgColor-muted);
 
-  &:where([data-control-disabled]) {
-    color: var(--control-fgColor-disabled);
+    &:where([data-control-disabled]) {
+      color: var(--control-fgColor-disabled);
+    }
   }
 }

@@ -1,17 +1,19 @@
-.HeaderDev {
-  color: var(--color-prettylights-syntax-carriage-return-text);
-  /* stylelint-disable-next-line primer/no-display-colors */
-  background-color: var(--display-pine-bgColor-emphasis);
-}
+@layer primer.react.components.Header {
+  .HeaderDev {
+    color: var(--color-prettylights-syntax-carriage-return-text);
+    /* stylelint-disable-next-line primer/no-display-colors */
+    background-color: var(--display-pine-bgColor-emphasis);
+  }
 
-.HeaderDevItem {
-  padding-left: var(--base-size-24);
-}
+  .HeaderDevItem {
+    padding-left: var(--base-size-24);
+  }
 
-.HeaderDevLink {
-  color: var(--color-prettylights-syntax-carriage-return-text);
-}
+  .HeaderDevLink {
+    color: var(--color-prettylights-syntax-carriage-return-text);
+  }
 
-.Icon {
-  margin-right: var(--base-size-8);
+  .Icon {
+    margin-right: var(--base-size-8);
+  }
 }

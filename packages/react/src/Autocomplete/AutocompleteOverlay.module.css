@@ -1,3 +1,5 @@
-.Overlay {
-  overflow: auto;
+@layer primer.react.components.Autocomplete {
+  .Overlay {
+    overflow: auto;
+  }
 }

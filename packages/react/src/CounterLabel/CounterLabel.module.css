@@ -1,25 +1,27 @@
-.CounterLabel {
-  display: inline-block;
-  padding: var(--base-size-2) var(--base-size-6);
-  font-size: var(--text-body-size-small);
-  font-weight: var(--base-text-weight-semibold);
-  /* stylelint-disable-next-line primer/typography */
-  line-height: 1;
-  border: var(--borderWidth-thin) solid var(--counter-borderColor);
-  /* stylelint-disable-next-line primer/borders */
-  border-radius: 20px;
+@layer primer.react.components.CounterLabel {
+  .CounterLabel {
+    display: inline-block;
+    padding: var(--base-size-2) var(--base-size-6);
+    font-size: var(--text-body-size-small);
+    font-weight: var(--base-text-weight-semibold);
+    /* stylelint-disable-next-line primer/typography */
+    line-height: 1;
+    border: var(--borderWidth-thin) solid var(--counter-borderColor);
+    /* stylelint-disable-next-line primer/borders */
+    border-radius: 20px;
 
-  &:where([data-variant='primary']) {
-    color: var(--fgColor-onEmphasis);
-    background-color: var(--bgColor-neutral-emphasis);
-  }
+    &:where([data-variant='primary']) {
+      color: var(--fgColor-onEmphasis);
+      background-color: var(--bgColor-neutral-emphasis);
+    }
 
-  &:where([data-variant='secondary']) {
-    color: var(--fgColor-default);
-    background-color: var(--bgColor-neutral-muted);
-  }
+    &:where([data-variant='secondary']) {
+      color: var(--fgColor-default);
+      background-color: var(--bgColor-neutral-muted);
+    }
 
-  &:where(:empty) {
-    display: none;
+    &:where(:empty) {
+      display: none;
+    }
   }
 }

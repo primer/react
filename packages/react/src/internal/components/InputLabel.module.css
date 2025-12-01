@@ -1,32 +1,34 @@
-.Label {
-  display: block;
-  font-size: var(--text-body-size-medium);
-  font-weight: var(--base-text-weight-semibold);
-  color: var(--fgColor-default);
-  cursor: pointer;
-  align-self: flex-start;
+@layer primer.react.components.internal {
+  .Label {
+    display: block;
+    font-size: var(--text-body-size-medium);
+    font-weight: var(--base-text-weight-semibold);
+    color: var(--fgColor-default);
+    cursor: pointer;
+    align-self: flex-start;
 
-  &:where([data-control-disabled]) {
-    color: var(--control-fgColor-disabled);
-    cursor: not-allowed;
+    &:where([data-control-disabled]) {
+      color: var(--control-fgColor-disabled);
+      cursor: not-allowed;
+    }
+
+    &:where([data-visually-hidden]) {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      /* stylelint-disable-next-line primer/spacing */
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+      clip-path: inset(50%);
+    }
   }
 
-  &:where([data-visually-hidden]) {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    /* stylelint-disable-next-line primer/spacing */
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-    border: 0;
-    clip-path: inset(50%);
+  .RequiredText {
+    display: flex;
+    column-gap: var(--base-size-4);
   }
-}
-
-.RequiredText {
-  display: flex;
-  column-gap: var(--base-size-4);
 }

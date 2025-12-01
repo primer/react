@@ -1,52 +1,54 @@
-.Container {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: var(--base-size-4);
-  /* stylelint-disable-next-line primer/typography */
-  line-height: 1;
-  max-width: 100%;
-  overflow: hidden;
+@layer primer.react.components.LabelGroup {
+  .Container {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--base-size-4);
+    /* stylelint-disable-next-line primer/typography */
+    line-height: 1;
+    max-width: 100%;
+    overflow: hidden;
 
-  &:where([data-overflow='inline']) {
-    flex-wrap: wrap;
+    &:where([data-overflow='inline']) {
+      flex-wrap: wrap;
+    }
+
+    &:where([data-list]) {
+      padding-inline-start: 0;
+      margin-block-start: 0;
+      margin-block-end: 0;
+      list-style-type: none;
+    }
   }
 
-  &:where([data-list]) {
-    padding-inline-start: 0;
-    margin-block-start: 0;
-    margin-block-end: 0;
-    list-style-type: none;
-  }
-}
-
-.ItemWrapper {
-  display: flex;
-  align-items: center;
-  /* This min-height matches the height of the expand/collapse button.
+  .ItemWrapper {
+    display: flex;
+    align-items: center;
+    /* This min-height matches the height of the expand/collapse button.
      Without it, the labels/tokens will do a slight layout shift when expanded.
      This is because the height of the first row will match the token sizes,
      but the height of the second row will be the height of the collapse button.
   */
-  min-height: 28px;
-}
+    min-height: 28px;
+  }
 
-.ItemWrapper--hidden {
-  order: 9999;
-  pointer-events: none;
-  visibility: hidden;
-}
+  .ItemWrapper--hidden {
+    order: 9999;
+    pointer-events: none;
+    visibility: hidden;
+  }
 
-.OverlayContainer {
-  align-items: flex-start;
-  display: flex;
-}
+  .OverlayContainer {
+    align-items: flex-start;
+    display: flex;
+  }
 
-.OverlayInner {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--base-size-4);
-}
+  .OverlayInner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--base-size-4);
+  }
 
-.CloseButton {
-  flex-shrink: 0;
+  .CloseButton {
+    flex-shrink: 0;
+  }
 }

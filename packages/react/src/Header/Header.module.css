@@ -1,39 +1,41 @@
-.Header {
-  z-index: 32;
-  display: flex;
-  padding: var(--base-size-16);
-  overflow: auto;
-  font-size: var(--text-body-size-medium);
-  line-height: var(--text-title-lineHeight-large);
-  color: var(--header-fgColor-default);
-  background-color: var(--header-bgColor);
-  align-items: center;
-  flex-wrap: nowrap;
-}
-
-.HeaderItem {
-  display: flex;
-  margin-right: var(--base-size-16);
-  align-self: stretch;
-  align-items: center;
-  flex-wrap: nowrap;
-
-  &:where([data-full]) {
-    flex: auto;
-  }
-}
-
-.HeaderLink {
-  display: flex;
-  font-weight: var(--text-title-weight-large);
-  color: var(--header-fgColor-logo);
-  text-decoration: none;
-  white-space: nowrap;
-  cursor: pointer;
-  align-items: center;
-
-  &:hover,
-  &:focus {
+@layer primer.react.components.Header {
+  .Header {
+    z-index: 32;
+    display: flex;
+    padding: var(--base-size-16);
+    overflow: auto;
+    font-size: var(--text-body-size-medium);
+    line-height: var(--text-title-lineHeight-large);
     color: var(--header-fgColor-default);
+    background-color: var(--header-bgColor);
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+
+  .HeaderItem {
+    display: flex;
+    margin-right: var(--base-size-16);
+    align-self: stretch;
+    align-items: center;
+    flex-wrap: nowrap;
+
+    &:where([data-full]) {
+      flex: auto;
+    }
+  }
+
+  .HeaderLink {
+    display: flex;
+    font-weight: var(--text-title-weight-large);
+    color: var(--header-fgColor-logo);
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    align-items: center;
+
+    &:hover,
+    &:focus {
+      color: var(--header-fgColor-default);
+    }
   }
 }

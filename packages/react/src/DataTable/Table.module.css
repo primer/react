@@ -1,291 +1,293 @@
 /* Container ---------------------------------------------------------------- */
-.TableContainer {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas:
-    'title actions'
-    'divider divider'
-    'subtitle subtitle'
-    'filter filter'
-    'table table'
-    'footer footer';
-  column-gap: var(--base-size-8);
-}
-
-/* TableTitle */
-.TableTitle {
-  margin: 0;
-  font-size: var(--text-body-size-medium);
-  font-weight: var(--base-text-weight-semibold);
-  /* stylelint-disable-next-line primer/typography */
-  line-height: 20px;
-  color: var(--fgColor-default);
-  grid-area: title;
-  align-self: center;
-}
-
-/* TableSubtitle */
-.TableSubtitle {
-  margin: 0;
-  font-size: var(--text-body-size-small);
-  font-weight: var(--base-text-weight-normal);
-  line-height: var(--text-title-lineHeight-small);
-  color: var(--fgColor-default);
-  grid-area: subtitle;
-}
-
-/* TableActions */
-.TableActions {
-  display: flex;
-  column-gap: var(--base-size-8);
-  align-items: center;
-  grid-area: actions;
-  justify-self: end;
-}
-
-/* TableDivider */
-.TableDivider {
-  width: 100%;
-  height: 1px;
-  /* stylelint-disable-next-line primer/colors */
-  background-color: var(--borderColor-default);
-  grid-area: divider;
-  margin-block-start: var(--base-size-16);
-  margin-block-end: var(--base-size-8);
-}
-
-/* Spacing before the table */
-.TableTitle + .TableOverflowWrapper,
-.TableSubtitle + .TableOverflowWrapper,
-.TableActions + .TableOverflowWrapper {
-  margin-block-start: var(--base-size-8);
-}
-
-.TableOverflowWrapper {
-  grid-area: table;
-}
-
-/* Table -------------------------------------------------------------------- */
-.Table {
-  /* Default table styles */
-  --table-border-radius: 0.375rem;
-  --table-cell-padding: var(--cell-padding-block, 0.5rem) var(--cell-padding-inline, 0.75rem);
-  --table-font-size: 0.75rem;
-
-  display: grid;
-  width: 100%;
-  /* stylelint-disable-next-line primer/typography */
-  font-size: var(--table-font-size);
-  /* stylelint-disable-next-line primer/typography */
-  line-height: calc(20 / 12);
-  border-spacing: 0;
-  /* stylelint-disable-next-line primer/borders */
-  border-collapse: separate;
-  background-color: var(--bgColor-default);
-  grid-area: table;
-  grid-template-columns: var(--grid-template-columns);
-
-  /* Density modes: condensed, normal, spacious */
-  &:where([data-cell-padding='condensed']) {
-    --cell-padding-block: 0.25rem;
-    --cell-padding-inline: 0.5rem;
+@layer primer.react.components.DataTable {
+  .TableContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      'title actions'
+      'divider divider'
+      'subtitle subtitle'
+      'filter filter'
+      'table table'
+      'footer footer';
+    column-gap: var(--base-size-8);
   }
 
-  &:where([data-cell-padding='normal']) {
-    --cell-padding-block: 0.5rem;
-    --cell-padding-inline: 0.75rem;
+  /* TableTitle */
+  .TableTitle {
+    margin: 0;
+    font-size: var(--text-body-size-medium);
+    font-weight: var(--base-text-weight-semibold);
+    /* stylelint-disable-next-line primer/typography */
+    line-height: 20px;
+    color: var(--fgColor-default);
+    grid-area: title;
+    align-self: center;
   }
 
-  &:where([data-cell-padding='spacious']) {
-    --cell-padding-block: 0.75rem;
-    --cell-padding-inline: 1rem;
+  /* TableSubtitle */
+  .TableSubtitle {
+    margin: 0;
+    font-size: var(--text-body-size-small);
+    font-weight: var(--base-text-weight-normal);
+    line-height: var(--text-title-lineHeight-small);
+    color: var(--fgColor-default);
+    grid-area: subtitle;
   }
-}
 
-/* Borders */
-.TableCell:first-child,
-.TableHeader:first-child {
-  border-inline-start: var(--borderWidth-thin) solid var(--borderColor-default);
-}
+  /* TableActions */
+  .TableActions {
+    display: flex;
+    column-gap: var(--base-size-8);
+    align-items: center;
+    grid-area: actions;
+    justify-self: end;
+  }
 
-.TableCell:last-child,
-.TableHeader:last-child {
-  border-inline-end: var(--borderWidth-thin) solid var(--borderColor-default);
-}
+  /* TableDivider */
+  .TableDivider {
+    width: 100%;
+    height: 1px;
+    /* stylelint-disable-next-line primer/colors */
+    background-color: var(--borderColor-default);
+    grid-area: divider;
+    margin-block-start: var(--base-size-16);
+    margin-block-end: var(--base-size-8);
+  }
 
-.TableHeader,
-.TableCell {
-  display: flex;
-  /* stylelint-disable-next-line primer/spacing */
-  padding: var(--table-cell-padding);
-  text-align: start;
-  align-items: center;
-  border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
-}
+  /* Spacing before the table */
+  .TableTitle + .TableOverflowWrapper,
+  .TableSubtitle + .TableOverflowWrapper,
+  .TableActions + .TableOverflowWrapper {
+    margin-block-start: var(--base-size-8);
+  }
 
-.TableHeader:where([data-cell-align='end']),
-.TableCell:where([data-cell-align='end']) {
-  display: flex;
-  text-align: end;
-  justify-content: flex-end;
-}
+  .TableOverflowWrapper {
+    grid-area: table;
+  }
 
-.TableHeader[data-cell-align='end'] .TableSortButton {
-  display: flex;
-  flex-direction: row-reverse;
-}
+  /* Table -------------------------------------------------------------------- */
+  .Table {
+    /* Default table styles */
+    --table-border-radius: 0.375rem;
+    --table-cell-padding: var(--cell-padding-block, 0.5rem) var(--cell-padding-inline, 0.75rem);
+    --table-font-size: 0.75rem;
 
-.TableHead .TableRow:first-of-type .TableHeader {
-  border-block-start: var(--borderWidth-thin) solid var(--borderColor-default);
-}
+    display: grid;
+    width: 100%;
+    /* stylelint-disable-next-line primer/typography */
+    font-size: var(--table-font-size);
+    /* stylelint-disable-next-line primer/typography */
+    line-height: calc(20 / 12);
+    border-spacing: 0;
+    /* stylelint-disable-next-line primer/borders */
+    border-collapse: separate;
+    background-color: var(--bgColor-default);
+    grid-area: table;
+    grid-template-columns: var(--grid-template-columns);
 
-/* Border radius */
-/* stylelint-disable-next-line selector-max-specificity */
-.TableHead .TableRow:first-of-type .TableHeader:first-child {
-  /* stylelint-disable-next-line primer/borders */
-  border-top-left-radius: var(--table-border-radius);
-}
+    /* Density modes: condensed, normal, spacious */
+    &:where([data-cell-padding='condensed']) {
+      --cell-padding-block: 0.25rem;
+      --cell-padding-inline: 0.5rem;
+    }
 
-/* stylelint-disable-next-line selector-max-specificity */
-.TableHead .TableRow:first-of-type .TableHeader:last-child {
-  /* stylelint-disable-next-line primer/borders */
-  border-top-right-radius: var(--table-border-radius);
-}
+    &:where([data-cell-padding='normal']) {
+      --cell-padding-block: 0.5rem;
+      --cell-padding-inline: 0.75rem;
+    }
 
-/* stylelint-disable-next-line selector-max-compound-selectors,selector-max-specificity */
-.TableOverflowWrapper:last-child .Table .TableBody .TableRow:last-of-type .TableCell:first-child {
-  /* stylelint-disable-next-line primer/borders */
-  border-bottom-left-radius: var(--table-border-radius);
-}
+    &:where([data-cell-padding='spacious']) {
+      --cell-padding-block: 0.75rem;
+      --cell-padding-inline: 1rem;
+    }
+  }
 
-/* stylelint-disable-next-line selector-max-compound-selectors,selector-max-specificity */
-.TableOverflowWrapper:last-child .Table .TableBody .TableRow:last-of-type .TableCell:last-child {
-  /* stylelint-disable-next-line primer/borders */
-  border-bottom-right-radius: var(--table-border-radius);
-}
+  /* Borders */
+  .TableCell:first-child,
+  .TableHeader:first-child {
+    border-inline-start: var(--borderWidth-thin) solid var(--borderColor-default);
+  }
 
-/**
+  .TableCell:last-child,
+  .TableHeader:last-child {
+    border-inline-end: var(--borderWidth-thin) solid var(--borderColor-default);
+  }
+
+  .TableHeader,
+  .TableCell {
+    display: flex;
+    /* stylelint-disable-next-line primer/spacing */
+    padding: var(--table-cell-padding);
+    text-align: start;
+    align-items: center;
+    border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
+  }
+
+  .TableHeader:where([data-cell-align='end']),
+  .TableCell:where([data-cell-align='end']) {
+    display: flex;
+    text-align: end;
+    justify-content: flex-end;
+  }
+
+  .TableHeader[data-cell-align='end'] .TableSortButton {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  .TableHead .TableRow:first-of-type .TableHeader {
+    border-block-start: var(--borderWidth-thin) solid var(--borderColor-default);
+  }
+
+  /* Border radius */
+  /* stylelint-disable-next-line selector-max-specificity */
+  .TableHead .TableRow:first-of-type .TableHeader:first-child {
+    /* stylelint-disable-next-line primer/borders */
+    border-top-left-radius: var(--table-border-radius);
+  }
+
+  /* stylelint-disable-next-line selector-max-specificity */
+  .TableHead .TableRow:first-of-type .TableHeader:last-child {
+    /* stylelint-disable-next-line primer/borders */
+    border-top-right-radius: var(--table-border-radius);
+  }
+
+  /* stylelint-disable-next-line selector-max-compound-selectors,selector-max-specificity */
+  .TableOverflowWrapper:last-child .Table .TableBody .TableRow:last-of-type .TableCell:first-child {
+    /* stylelint-disable-next-line primer/borders */
+    border-bottom-left-radius: var(--table-border-radius);
+  }
+
+  /* stylelint-disable-next-line selector-max-compound-selectors,selector-max-specificity */
+  .TableOverflowWrapper:last-child .Table .TableBody .TableRow:last-of-type .TableCell:last-child {
+    /* stylelint-disable-next-line primer/borders */
+    border-bottom-right-radius: var(--table-border-radius);
+  }
+
+  /**
  * Offset padding to make sure type aligns regardless of cell padding
  * selection
  */
-.TableRow > *:first-child:not(.TableCellSkeleton),
-.TableRow > *:first-child .TableCellSkeletonItem {
-  padding-inline-start: var(--base-size-16);
-}
-
-.TableRow > *:last-child:not(.TableCellSkeleton),
-.TableRow > *:last-child .TableCellSkeletonItem {
-  padding-inline-end: var(--base-size-16);
-}
-
-/* TableHeader */
-.TableHeader {
-  font-weight: var(--base-text-weight-semibold);
-  color: var(--fgColor-muted);
-  background-color: var(--bgColor-muted);
-  border-block-start: var(--borderWidth-thin) solid var(--borderColor-default);
-}
-
-.TableHeader:where([aria-sort='descending']),
-.TableHeader:where([aria-sort='ascending']) {
-  color: var(--fgColor-default);
-}
-
-/* Control visibility of sort icons */
-.TableSortIcon {
-  visibility: hidden;
-}
-
-/* The ASC icon is visible if the header is sortable and is hovered or focused */
-.TableHeader:hover .TableSortIcon--ascending,
-.TableHeader .TableSortButton:focus .TableSortIcon--ascending {
-  visibility: visible;
-}
-
-/* Each sort icon is visible if the TableHeader is currently in the corresponding sort state */
-.TableHeader[aria-sort='ascending'] .TableSortIcon--ascending,
-.TableHeader[aria-sort='descending'] .TableSortIcon--descending {
-  visibility: visible;
-}
-
-/* TableRow */
-.TableRow:hover .TableCell:not(.TableCellSkeleton) {
-  background-color: var(--control-transparent-bgColor-hover);
-}
-
-/* TableCell */
-.TableCell:where([scope='row']) {
-  display: flex;
-  font-weight: var(--base-text-weight-semibold);
-  color: var(--fgColor-default);
-  align-items: center;
-}
-
-/* TableCellSkeleton */
-.TableCellSkeleton {
-  padding: 0;
-}
-
-.TableCellSkeletonItems {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-}
-
-.TableCellSkeletonItem {
-  /* stylelint-disable-next-line primer/spacing */
-  padding: var(--table-cell-padding);
-
-  &:nth-of-type(5n + 1) {
-    --skeleton-item-width: 85%;
+  .TableRow > *:first-child:not(.TableCellSkeleton),
+  .TableRow > *:first-child .TableCellSkeletonItem {
+    padding-inline-start: var(--base-size-16);
   }
 
-  &:nth-of-type(5n + 2) {
-    --skeleton-item-width: 67.5%;
+  .TableRow > *:last-child:not(.TableCellSkeleton),
+  .TableRow > *:last-child .TableCellSkeletonItem {
+    padding-inline-end: var(--base-size-16);
   }
 
-  &:nth-of-type(5n + 3) {
-    --skeleton-item-width: 80%;
+  /* TableHeader */
+  .TableHeader {
+    font-weight: var(--base-text-weight-semibold);
+    color: var(--fgColor-muted);
+    background-color: var(--bgColor-muted);
+    border-block-start: var(--borderWidth-thin) solid var(--borderColor-default);
   }
 
-  &:nth-of-type(5n + 4) {
-    --skeleton-item-width: 60%;
+  .TableHeader:where([aria-sort='descending']),
+  .TableHeader:where([aria-sort='ascending']) {
+    color: var(--fgColor-default);
   }
 
-  &:nth-of-type(5n + 5) {
-    --skeleton-item-width: 75%;
+  /* Control visibility of sort icons */
+  .TableSortIcon {
+    visibility: hidden;
   }
-}
 
-.TableCellSkeletonItem [data-component='SkeletonText'] {
-  width: var(--skeleton-item-width);
-}
+  /* The ASC icon is visible if the header is sortable and is hovered or focused */
+  .TableHeader:hover .TableSortIcon--ascending,
+  .TableHeader .TableSortButton:focus .TableSortIcon--ascending {
+    visibility: visible;
+  }
 
-.TableCellSkeletonItem:not(:last-of-type) {
-  border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
-}
+  /* Each sort icon is visible if the TableHeader is currently in the corresponding sort state */
+  .TableHeader[aria-sort='ascending'] .TableSortIcon--ascending,
+  .TableHeader[aria-sort='descending'] .TableSortIcon--descending {
+    visibility: visible;
+  }
 
-.TableSortButton {
-  column-gap: 0.5rem;
-}
+  /* TableRow */
+  .TableRow:hover .TableCell:not(.TableCellSkeleton) {
+    background-color: var(--control-transparent-bgColor-hover);
+  }
 
-/* Grid layout */
-.TableHead,
-.TableBody,
-.TableRow {
-  display: contents;
-}
+  /* TableCell */
+  .TableCell:where([scope='row']) {
+    display: flex;
+    font-weight: var(--base-text-weight-semibold);
+    color: var(--fgColor-default);
+    align-items: center;
+  }
 
-@supports (grid-template-columns: subgrid) {
+  /* TableCellSkeleton */
+  .TableCellSkeleton {
+    padding: 0;
+  }
+
+  .TableCellSkeletonItems {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .TableCellSkeletonItem {
+    /* stylelint-disable-next-line primer/spacing */
+    padding: var(--table-cell-padding);
+
+    &:nth-of-type(5n + 1) {
+      --skeleton-item-width: 85%;
+    }
+
+    &:nth-of-type(5n + 2) {
+      --skeleton-item-width: 67.5%;
+    }
+
+    &:nth-of-type(5n + 3) {
+      --skeleton-item-width: 80%;
+    }
+
+    &:nth-of-type(5n + 4) {
+      --skeleton-item-width: 60%;
+    }
+
+    &:nth-of-type(5n + 5) {
+      --skeleton-item-width: 75%;
+    }
+  }
+
+  .TableCellSkeletonItem [data-component='SkeletonText'] {
+    width: var(--skeleton-item-width);
+  }
+
+  .TableCellSkeletonItem:not(:last-of-type) {
+    border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
+  }
+
+  .TableSortButton {
+    column-gap: 0.5rem;
+  }
+
+  /* Grid layout */
   .TableHead,
   .TableBody,
   .TableRow {
-    display: grid;
-    grid-template-columns: subgrid;
-    grid-column: -1 /1;
+    display: contents;
   }
-}
 
-.PlaceholderText {
-  color: var(--fgColor-muted);
+  @supports (grid-template-columns: subgrid) {
+    .TableHead,
+    .TableBody,
+    .TableRow {
+      display: grid;
+      grid-template-columns: subgrid;
+      grid-column: -1 /1;
+    }
+  }
+
+  .PlaceholderText {
+    color: var(--fgColor-muted);
+  }
 }
