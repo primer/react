@@ -90,7 +90,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     ref,
   ) => {
     const [isInputFocused, setIsInputFocused] = useState<boolean>(false)
-    const inputRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
+    const inputRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement | null>)
     // this class is necessary to style FilterSearch, plz no touchy!
     const wrapperClasses = clsx(className, 'TextInput-wrapper')
     const showLeadingLoadingIndicator =
@@ -164,6 +164,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           {typeof LeadingVisual !== 'string' && isValidElementType(LeadingVisual) ? <LeadingVisual /> : LeadingVisual}
         </TextInputInnerVisualSlot>
         <UnstyledTextInput
+          // @ts-expect-error it needs a non nullable ref
           ref={inputRef}
           disabled={disabled}
           onFocus={handleInputFocus}
