@@ -766,11 +766,19 @@ export function PerformanceMonitorView({metrics, onReset}: PerformanceMonitorVie
             borderTop: '1px solid #333',
             paddingTop: '3px',
             marginTop: '2px',
-            color: metrics.reactUpdateCount === 0 ? '#3fb950' : metrics.reactUpdateCount <= 5 ? '#d29922' : '#f85149',
+            color:
+              metrics.reactUpdateCount === 0
+                ? '#3fb950' // No updates = great
+                : metrics.reactMaxActualDuration <= 8
+                  ? '#3fb950' // Fast renders = fine
+                  : metrics.reactMaxActualDuration <= 16
+                    ? '#d29922' // Medium renders = warning
+                    : '#f85149', // Slow renders = bad
             fontWeight: 600,
           }}
         >
-          {metrics.reactUpdateCount} updates{metrics.reactUpdateCount === 0 && ' ✓'}
+          {metrics.reactUpdateCount} updates
+          {metrics.reactUpdateCount === 0 ? ' ✓' : metrics.reactMaxActualDuration <= 8 ? ' ✓' : ''}
           {metrics.reactUpdateCount > 0 && (
             <span style={{fontWeight: 'normal', color: '#888', fontSize: '9px'}}>
               {' '}
