@@ -1021,10 +1021,15 @@ function IsolatedMonitorInner({
       /* Not supported */
     }
 
-    // Style write tracking
+    // Style write tracking - filter out mutations from our own monitor UI
     const styleObserver = new MutationObserver(mutations => {
       for (const mutation of mutations) {
         if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+          // Skip style changes from our performance monitor
+          const target = mutation.target as Element
+          if (target.closest('[data-perf-monitor]') || target.closest('[data-perf-monitor-root]')) {
+            continue
+          }
           m.styleWrites++
           styleWriteCount++
           lastStyleWriteTime = performance.now()
