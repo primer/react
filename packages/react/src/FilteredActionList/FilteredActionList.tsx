@@ -2,7 +2,7 @@ import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {scrollIntoView, FocusKeys} from '@primer/behaviors'
 import type {KeyboardEventHandler, JSX} from 'react'
 import type React from 'react'
-import {useCallback, useEffect, useRef, useState} from 'react'
+import {forwardRef, useCallback, useEffect, useRef, useState} from 'react'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {ActionList, type ActionListProps} from '../ActionList'
@@ -426,8 +426,7 @@ export function FilteredActionList({
     </div>
   )
 }
-
-function MappedActionListItem(item: ItemInput & {renderItem?: RenderItemFn}) {
+const MappedActionListItem = forwardRef<HTMLLIElement, ItemInput & {renderItem?: RenderItemFn}>((item, ref) => {
   // keep backward compatibility for renderItem
   // escape hatch for custom Item rendering
   if (typeof item.renderItem === 'function') return item.renderItem(item)
@@ -455,6 +454,7 @@ function MappedActionListItem(item: ItemInput & {renderItem?: RenderItemFn}) {
           onAction(item, e as React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>)
       }}
       data-id={id}
+      ref={ref}
       {...rest}
     >
       {LeadingVisual ? (
@@ -481,6 +481,6 @@ function MappedActionListItem(item: ItemInput & {renderItem?: RenderItemFn}) {
       ) : null}
     </ActionList.Item>
   )
-}
+})
 
 FilteredActionList.displayName = 'FilteredActionList'
