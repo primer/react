@@ -74,6 +74,10 @@ export interface PerformanceMetrics {
   reactTotalActualDuration: number
   reactMaxActualDuration: number
   reactLastActualDuration: number
+  // Additional React Profiler metrics
+  reactBaseDuration: number // Worst-case render time (no memoization)
+  reactMountCount: number // Number of mount renders
+  reactUpdateCount: number // Number of update renders
 }
 
 const initialMetrics: PerformanceMetrics = {
@@ -96,6 +100,9 @@ const initialMetrics: PerformanceMetrics = {
   reactTotalActualDuration: 0,
   reactMaxActualDuration: 0,
   reactLastActualDuration: 0,
+  reactBaseDuration: 0,
+  reactMountCount: 0,
+  reactUpdateCount: 0,
 }
 
 // ============================================================================
@@ -105,7 +112,7 @@ const initialMetrics: PerformanceMetrics = {
 // Callbacks context - stable, never changes after mount
 // Used by ProfiledComponent to report renders without subscribing to metrics
 interface PerformanceCallbacksContextValue {
-  reportReactRender: (actualDuration: number) => void
+  reportReactRender: (phase: 'mount' | 'update' | 'nested-update', actualDuration: number, baseDuration: number) => void
   setDomElements: (count: number | null) => void
   reset: () => void
 }
@@ -163,6 +170,9 @@ interface MutableMetricsState {
   reactTotalActualDuration: number
   reactMaxActualDuration: number
   reactLastActualDuration: number
+  reactBaseDuration: number
+  reactMountCount: number
+  reactUpdateCount: number
   // DOM
   domElements: number | null
 }
@@ -193,6 +203,9 @@ export function PerformanceProvider({
     reactTotalActualDuration: 0,
     reactMaxActualDuration: 0,
     reactLastActualDuration: 0,
+    reactBaseDuration: 0,
+    reactMountCount: 0,
+    reactUpdateCount: 0,
     domElements: null,
   })
 
@@ -205,15 +218,27 @@ export function PerformanceProvider({
   const [metrics, setMetrics] = React.useState<PerformanceMetrics>(initialMetrics)
 
   // React Profiler callback - updates mutable ref only
-  const reportReactRender = React.useCallback((actualDuration: number) => {
-    const m = mutableRef.current
-    m.reactRenderCount++
-    m.reactTotalActualDuration += actualDuration
-    m.reactLastActualDuration = actualDuration
-    if (actualDuration > m.reactMaxActualDuration) {
-      m.reactMaxActualDuration = actualDuration
-    }
-  }, [])
+  const reportReactRender = React.useCallback(
+    (phase: 'mount' | 'update' | 'nested-update', actualDuration: number, baseDuration: number) => {
+      const m = mutableRef.current
+      m.reactRenderCount++
+      m.reactTotalActualDuration += actualDuration
+      m.reactLastActualDuration = actualDuration
+      m.reactBaseDuration = baseDuration // Always update to latest base duration
+
+      if (actualDuration > m.reactMaxActualDuration) {
+        m.reactMaxActualDuration = actualDuration
+      }
+
+      // Track mount vs update counts
+      if (phase === 'mount') {
+        m.reactMountCount++
+      } else {
+        m.reactUpdateCount++
+      }
+    },
+    [],
+  )
 
   // DOM element count setter - updates mutable ref only
   const setDomElements = React.useCallback((count: number | null) => {
@@ -237,6 +262,9 @@ export function PerformanceProvider({
     m.reactTotalActualDuration = 0
     m.reactMaxActualDuration = 0
     m.reactLastActualDuration = 0
+    m.reactBaseDuration = 0
+    m.reactMountCount = 0
+    m.reactUpdateCount = 0
     frameTimesRef.current = []
     inputLatenciesRef.current = []
     paintTimesRef.current = []
@@ -307,6 +335,9 @@ export function PerformanceProvider({
         reactTotalActualDuration: m.reactTotalActualDuration,
         reactMaxActualDuration: m.reactMaxActualDuration,
         reactLastActualDuration: m.reactLastActualDuration,
+        reactBaseDuration: m.reactBaseDuration,
+        reactMountCount: m.reactMountCount,
+        reactUpdateCount: m.reactUpdateCount,
       })
 
       animationId = requestAnimationFrame(measure)
@@ -503,8 +534,15 @@ export function ProfiledComponent({id, children}: {id: string; children: React.R
   const callbacks = usePerformanceCallbacks()
 
   const onRender = React.useCallback(
-    (_profilerId: string, _phase: 'mount' | 'update' | 'nested-update', actualDuration: number) => {
-      callbacks?.reportReactRender(actualDuration)
+    (
+      _profilerId: string,
+      phase: 'mount' | 'update' | 'nested-update',
+      actualDuration: number,
+      baseDuration: number,
+      _startTime: number,
+      _commitTime: number,
+    ) => {
+      callbacks?.reportReactRender(phase, actualDuration, baseDuration)
     },
     [callbacks],
   )
@@ -563,13 +601,6 @@ export function PerformanceMonitorView({metrics, onReset}: PerformanceMonitorVie
         : 'var(--fgColor-danger)'
 
   const avgReactRender = metrics.reactRenderCount > 0 ? metrics.reactTotalActualDuration / metrics.reactRenderCount : 0
-
-  const reactRenderColor =
-    avgReactRender <= 2
-      ? 'var(--fgColor-success)'
-      : avgReactRender <= 8
-        ? 'var(--fgColor-attention)'
-        : 'var(--fgColor-danger)'
 
   return (
     <div
@@ -739,40 +770,52 @@ export function PerformanceMonitorView({metrics, onReset}: PerformanceMonitorVie
           {numberFormatter.format(metrics.styleWrites)}
         </span>
 
-        {/* React Profiler Section */}
-        <span style={{borderTop: '1px solid var(--borderColor-default)', paddingTop: '4px'}}>React renders:</span>
+        {/* React Profiler Section - simplified for resize testing */}
+        <span style={{borderTop: '1px solid var(--borderColor-default)', paddingTop: '4px'}}>React updates:</span>
         <span
           style={{
+            color:
+              metrics.reactUpdateCount === 0
+                ? 'var(--fgColor-success)'
+                : metrics.reactUpdateCount <= 5
+                  ? 'var(--fgColor-attention)'
+                  : 'var(--fgColor-danger)',
+            fontWeight: 600,
             fontVariantNumeric: 'tabular-nums',
             borderTop: '1px solid var(--borderColor-default)',
             paddingTop: '4px',
           }}
         >
-          {metrics.reactRenderCount}
+          {metrics.reactUpdateCount}
+          {metrics.reactUpdateCount === 0 && ' ✓'}
         </span>
-        <span>Avg render:</span>
-        <span
-          style={{
-            color: reactRenderColor,
-            fontWeight: 600,
-            fontVariantNumeric: 'tabular-nums',
-          }}
-        >
-          {msFormatter.format(avgReactRender)}ms
-        </span>
-        <span>Max render:</span>
-        <span
-          style={{
-            color: metrics.reactMaxActualDuration > 16 ? 'var(--fgColor-danger)' : 'inherit',
-            fontVariantNumeric: 'tabular-nums',
-          }}
-        >
-          {msFormatter.format(metrics.reactMaxActualDuration)}ms
-        </span>
-        <span>Last render:</span>
-        <span style={{fontVariantNumeric: 'tabular-nums'}}>
-          {msFormatter.format(metrics.reactLastActualDuration)}ms
-        </span>
+        {metrics.reactUpdateCount > 0 && (
+          <>
+            <span>Max render:</span>
+            <span
+              style={{
+                color: metrics.reactMaxActualDuration > 16 ? 'var(--fgColor-danger)' : 'inherit',
+                fontVariantNumeric: 'tabular-nums',
+              }}
+            >
+              {msFormatter.format(metrics.reactMaxActualDuration)}ms
+            </span>
+            <span>Memo efficiency:</span>
+            <span
+              style={{
+                color:
+                  metrics.reactBaseDuration > 0 && avgReactRender / metrics.reactBaseDuration < 0.3
+                    ? 'var(--fgColor-success)'
+                    : 'var(--fgColor-attention)',
+                fontVariantNumeric: 'tabular-nums',
+              }}
+            >
+              {metrics.reactBaseDuration > 0
+                ? `${Math.round((1 - avgReactRender / metrics.reactBaseDuration) * 100)}%`
+                : '—'}
+            </span>
+          </>
+        )}
       </div>
       <Text size="small" style={{marginTop: '8px', color: 'var(--fgColor-muted)'}}>
         Drag to resize.
