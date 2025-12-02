@@ -237,11 +237,8 @@ const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandl
       onKeyUp={event => {
         setIsDragging(false)
         event.preventDefault()
-        const paneRect = paneRef.current?.getBoundingClientRect()
-        if (!paneRect) return
-        setPaneWidth(paneRect.width)
         try {
-          localStorage.setItem(widthStorageKey, paneRect.width.toString())
+          localStorage.setItem(widthStorageKey, paneWidth.toString())
         } catch (_error) {
           // Ignore errors
         }
