@@ -512,6 +512,15 @@ export function PerformanceProvider({
   // Metrics context value (changes every RAF)
   const metricsValue = React.useMemo(() => ({metrics}), [metrics])
 
+  // Reset metrics after initial mount to exclude mount render from measurements
+  React.useEffect(() => {
+    // Use RAF to ensure we're past the initial paint
+    const id = requestAnimationFrame(() => {
+      reset()
+    })
+    return () => cancelAnimationFrame(id)
+  }, [reset])
+
   return (
     <PerformanceCallbacksContext.Provider value={callbacksValue}>
       <PerformanceMetricsContext.Provider value={metricsValue}>
