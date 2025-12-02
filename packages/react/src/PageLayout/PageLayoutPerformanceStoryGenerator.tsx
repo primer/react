@@ -38,6 +38,119 @@ const msFormatter = new Intl.NumberFormat('en-US', {minimumFractionDigits: 1, ma
 const mbFormatter = new Intl.NumberFormat('en-US', {minimumFractionDigits: 1, maximumFractionDigits: 1})
 const numberFormatter = new Intl.NumberFormat('en-US')
 
+// ============================================================================
+// Performance Thresholds & Constants
+// ============================================================================
+
+/** Target frame time for 60fps (1000ms / 60 = 16.67ms) */
+const FRAME_TIME_60FPS = 16.67
+
+/** FPS thresholds for color coding */
+const FPS_GOOD = 55
+const FPS_WARNING = 30
+
+/** Input latency thresholds (ms) */
+const INPUT_LATENCY_GOOD = 16
+const INPUT_LATENCY_WARNING = 50
+
+/** Long task threshold (ms) - Web Vitals standard */
+const LONG_TASK_THRESHOLD = 50
+
+/** Task count thresholds for color coding */
+const LONG_TASKS_WARNING = 5
+const LONGEST_TASK_WARNING = 100
+
+/** Frame time thresholds (ms) */
+const FRAME_TIME_WARNING = 32
+
+/** Memory delta thresholds (MB) */
+const MEMORY_DELTA_WARNING = 5
+const MEMORY_DELTA_DANGER = 20
+
+/** CLS (Cumulative Layout Shift) thresholds - Web Vitals standard */
+const CLS_GOOD = 0.1
+const CLS_WARNING = 0.25
+
+/** INP (Interaction to Next Paint) thresholds (ms) - Web Vitals standard */
+const INP_GOOD = 200
+const INP_WARNING = 500
+
+/** React render duration thresholds (ms) */
+const REACT_RENDER_GOOD = 8
+const REACT_RENDER_WARNING = 16
+
+/** Cascade count thresholds */
+const CASCADE_WARNING = 3
+
+/** Jitter detection thresholds */
+const JITTER_MULTIPLIER = 3
+const JITTER_INPUT_DELTA = 30
+const JITTER_INPUT_ABSOLUTE = 50
+const JITTER_FRAME_DELTA = 20
+const JITTER_FRAME_ABSOLUTE = 40
+const JITTER_PAINT_DELTA = 20
+const JITTER_PAINT_ABSOLUTE = 35
+
+/** Thrashing detection thresholds */
+const THRASHING_FRAME_THRESHOLD = 50
+const THRASHING_STYLE_WRITE_WINDOW = 50
+
+/** Rolling average window sizes */
+const FRAME_TIMES_WINDOW = 60
+const INPUT_LATENCIES_WINDOW = 30
+const PAINT_TIMES_WINDOW = 30
+const INTERACTION_LATENCIES_WINDOW = 50
+const SPARKLINE_HISTORY_SIZE = 30
+const JITTER_BASELINE_SIZE = 5
+const JITTER_RECENT_SIZE = 10
+const SPARKLINE_SAMPLE_INTERVAL = 5
+
+/** Max decay thresholds for gradual decrease */
+const MAX_DECAY_THRESHOLD = 20
+const MAX_DECAY_RATE = 0.99
+const MAX_INPUT_DECAY_THRESHOLD = 20
+const MAX_INPUT_DECAY_RATE = 0.98
+const MAX_PAINT_DECAY_THRESHOLD = 10
+const MAX_PAINT_DECAY_RATE = 0.98
+
+/** UI update rates */
+const FAST_UPDATE_FPS = 10
+const SLOW_UPDATE_FPS = 2
+const IDLE_CALLBACK_FAST_TIMEOUT = 50
+const IDLE_CALLBACK_SLOW_TIMEOUT = 200
+
+/** Dropped frames detection - count frames taking >2x expected time */
+const DROPPED_FRAME_MULTIPLIER = 2
+const DROPPED_FRAMES_WARNING = 10
+
+// ============================================================================
+// Error Boundary - Prevents monitor crashes from breaking the UI
+// ============================================================================
+
+interface ErrorBoundaryProps {
+  children: React.ReactNode
+  fallback?: string
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean
+}
+
+class MetricErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  state: ErrorBoundaryState = {hasError: false}
+
+  static getDerivedStateFromError(): ErrorBoundaryState {
+    return {hasError: true}
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <span style={{color: 'var(--fgColor-muted)', fontSize: '9px'}}>{this.props.fallback ?? '—'}</span>
+    }
+    return this.props.children
+  }
+}
+
 // Position options for the performance monitor
 export type MonitorPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
 
@@ -90,7 +203,6 @@ export type MonitorPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom
  * Tracks click and keyboard interaction responsiveness.
  * - `interactionCount`: Total discrete interactions tracked
  * - `inpMs`: Interaction to Next Paint - worst interaction latency
- * - `avgInteractionMs`: Average interaction latency
  *
  * ### React Profiler Metrics
  * Data from React.Profiler for render performance analysis.
@@ -98,8 +210,7 @@ export type MonitorPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom
  * - `reactMountDuration`: Total time spent in mount renders
  * - `reactPostMountUpdateCount`: Re-renders after initial mount
  * - `reactPostMountMaxDuration`: Slowest post-mount render
- * - `renderCascades`: Multiple commits in single frame (state batching issue)
- * - `maxRendersPerFrame`: Worst-case renders in one frame
+ * - `renderCascades`: Nested updates detected by React (state batching issue)
  *
  * ## Thrashing Detection
  *
@@ -309,12 +420,6 @@ export interface PerformanceMetrics {
    */
   inpMs: number
 
-  /**
-   * Average interaction latency across all tracked interactions.
-   * Lower is better; helps identify consistent vs sporadic slowness.
-   */
-  avgInteractionMs: number
-
   // ─────────────────────────────────────────────────────────────────────────
   // Re-render Cascade Detection
   // ─────────────────────────────────────────────────────────────────────────
@@ -326,11 +431,6 @@ export interface PerformanceMetrics {
    * Target: 0 during interactions.
    */
   renderCascades: number
-
-  /**
-   * @deprecated No longer tracked. Keeping for interface compatibility.
-   */
-  maxRendersPerFrame: number
 
   // ─────────────────────────────────────────────────────────────────────────
   // Sparkline History - Rolling data for trend visualization
@@ -972,9 +1072,6 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
     let lastTime = performance.now()
     let lastFastUIUpdate = 0
     let lastSlowUIUpdate = 0
-    const expectedFrameTime = 16.67 // 60fps -> 16.67ms per frame
-    const FAST_UPDATE_FPS = 10 // Frame/input metrics at ~10fps
-    const SLOW_UPDATE_FPS = 2 // Memory/DOM/React metrics at ~2fps
 
     // Track history array versions to avoid copying unchanged arrays
     let lastFpsHistoryLen = 0
@@ -989,10 +1086,10 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
     const checkForThrashing = (frameTime: number) => {
       const now = performance.now()
       const timeSinceLastWrite = now - lastStyleWriteTime
-      const hadRecentStyleWrite = styleWriteCount > 0 && timeSinceLastWrite < 50
+      const hadRecentStyleWrite = styleWriteCount > 0 && timeSinceLastWrite < THRASHING_STYLE_WRITE_WINDOW
 
       // Severe blocking: >50ms frame with recent style writes
-      if (hadRecentStyleWrite && frameTime > 50) {
+      if (hadRecentStyleWrite && frameTime > THRASHING_FRAME_THRESHOLD) {
         m.thrashingScore++
       }
 
@@ -1013,7 +1110,8 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
       if (fpsHistoryChanged) lastFpsHistoryLen = m.fpsHistory.length
       if (frameTimeHistoryChanged) lastFrameTimeHistoryLen = m.frameTimeHistory.length
 
-      stores.frame.setStateIfChanged({
+      // Changes frequently, always update
+      stores.frame.setState({
         fps,
         frameTime: Math.round(avgFrameTime * 10) / 10,
         maxFrameTime: Math.round(m.maxFrameTime * 10) / 10,
@@ -1022,7 +1120,8 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
         frameTimeHistory: frameTimeHistoryChanged ? [...m.frameTimeHistory] : stores.frame.getState().frameTimeHistory,
       })
 
-      stores.input.setStateIfChanged({
+      // Changes frequently, always update
+      stores.input.setState({
         inputLatency: Math.round(avgInputLatency * 10) / 10,
         maxInputLatency: Math.round(m.maxInputLatency * 10) / 10,
         paintTime: Math.round(avgPaintTime * 10) / 10,
@@ -1068,7 +1167,8 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
         renderCascades: m.nestedUpdateCount,
       })
 
-      stores.memory.setStateIfChanged({
+      // memory shifts constantly, always update
+      stores.memory.setState({
         memoryUsedMB: m.lastSampledMemoryMB,
         memoryDeltaMB,
         peakMemoryMB: m.peakMemoryMB,
@@ -1084,7 +1184,7 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
     // This ensures React rendering happens during idle time, not during active measurements
     const scheduleFastUpdate = () => {
       if ('requestIdleCallback' in window) {
-        requestIdleCallback(() => updateFastStores(), {timeout: 50})
+        requestIdleCallback(() => updateFastStores(), {timeout: IDLE_CALLBACK_FAST_TIMEOUT})
       } else {
         setTimeout(updateFastStores, 0)
       }
@@ -1092,7 +1192,7 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
 
     const scheduleSlowUpdate = () => {
       if ('requestIdleCallback' in window) {
-        requestIdleCallback(() => updateSlowStores(), {timeout: 200})
+        requestIdleCallback(() => updateSlowStores(), {timeout: IDLE_CALLBACK_SLOW_TIMEOUT})
       } else {
         setTimeout(updateSlowStores, 0)
       }
@@ -1105,25 +1205,28 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
 
       // Always collect measurements every RAF for accuracy
       m.frameTimes.push(delta)
-      if (m.frameTimes.length > 60) m.frameTimes.shift()
+      if (m.frameTimes.length > FRAME_TIMES_WINDOW) m.frameTimes.shift()
 
-      if (delta > expectedFrameTime * 2) {
-        m.droppedFrames += Math.floor(delta / expectedFrameTime) - 1
+      if (delta > FRAME_TIME_60FPS * DROPPED_FRAME_MULTIPLIER) {
+        m.droppedFrames += Math.floor(delta / FRAME_TIME_60FPS) - 1
       }
 
       if (delta > m.maxFrameTime) {
         m.maxFrameTime = delta
-      } else if (delta < 20 && m.maxFrameTime > 20) {
-        m.maxFrameTime *= 0.99
+      } else if (delta < MAX_DECAY_THRESHOLD && m.maxFrameTime > MAX_DECAY_THRESHOLD) {
+        m.maxFrameTime *= MAX_DECAY_RATE
       }
 
       checkForThrashing(delta)
 
       // Frame time jitter: detect sudden spikes in frame time that cause visible hitches
-      if (m.frameTimes.length >= 5) {
-        const baselineFrames = m.frameTimes.slice(-5, -1)
+      if (m.frameTimes.length >= JITTER_BASELINE_SIZE) {
+        const baselineFrames = m.frameTimes.slice(-JITTER_BASELINE_SIZE, -1)
         const avgBaseline = baselineFrames.reduce((a, b) => a + b, 0) / baselineFrames.length
-        const isFrameJitter = delta > avgBaseline * 3 && delta - avgBaseline > 20 && delta > 40
+        const isFrameJitter =
+          delta > avgBaseline * JITTER_MULTIPLIER &&
+          delta - avgBaseline > JITTER_FRAME_DELTA &&
+          delta > JITTER_FRAME_ABSOLUTE
         if (isFrameJitter) {
           m.inputJitter++
         }
@@ -1131,14 +1234,14 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
 
       // Sample sparkline/memory data periodically (every ~5 frames)
       m.sparklineSampleCount++
-      if (m.sparklineSampleCount >= 5) {
+      if (m.sparklineSampleCount >= SPARKLINE_SAMPLE_INTERVAL) {
         m.sparklineSampleCount = 0
         const avgFrameTime = m.frameTimes.reduce((a, b) => a + b, 0) / m.frameTimes.length
         const fps = Math.round(1000 / avgFrameTime)
         m.fpsHistory.push(fps)
-        if (m.fpsHistory.length > 30) m.fpsHistory.shift()
+        if (m.fpsHistory.length > SPARKLINE_HISTORY_SIZE) m.fpsHistory.shift()
         m.frameTimeHistory.push(avgFrameTime)
-        if (m.frameTimeHistory.length > 30) m.frameTimeHistory.shift()
+        if (m.frameTimeHistory.length > SPARKLINE_HISTORY_SIZE) m.frameTimeHistory.shift()
 
         const rawMemoryMB = getMemoryMB()
         if (rawMemoryMB !== null) {
@@ -1151,18 +1254,16 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
           }
           m.lastSampledMemoryMB = rawMemoryMB
           m.memoryHistory.push(rawMemoryMB)
-          if (m.memoryHistory.length > 30) m.memoryHistory.shift()
+          if (m.memoryHistory.length > SPARKLINE_HISTORY_SIZE) m.memoryHistory.shift()
         }
       }
 
       // Throttle React UI updates to minimize overhead
       // Measurements are still collected every RAF above
-      // Fast metrics (frame, input) update at ~10fps
       if (now - lastFastUIUpdate >= 1000 / FAST_UPDATE_FPS) {
         lastFastUIUpdate = now
         scheduleFastUpdate()
       }
-      // Slow metrics (memory, react, dom) update at ~2fps
       if (now - lastSlowUIUpdate >= 1000 / SLOW_UPDATE_FPS) {
         lastSlowUIUpdate = now
         scheduleSlowUpdate()
@@ -1182,15 +1283,16 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
         const rafTime = performance.now()
         const latency = rafTime - eventTime
         m.inputLatencies.push(latency)
-        if (m.inputLatencies.length > 30) m.inputLatencies.shift()
+        if (m.inputLatencies.length > INPUT_LATENCIES_WINDOW) m.inputLatencies.shift()
         if (latency > m.maxInputLatency) m.maxInputLatency = latency
-        else if (latency < 20 && m.maxInputLatency > 20) m.maxInputLatency *= 0.98
+        else if (latency < MAX_INPUT_DECAY_THRESHOLD && m.maxInputLatency > MAX_INPUT_DECAY_THRESHOLD)
+          m.maxInputLatency *= MAX_INPUT_DECAY_RATE
 
         // Input latency jitter: unexpected spike in pointer-to-RAF time
         recentInputLatencies.push(latency)
-        if (recentInputLatencies.length > 10) recentInputLatencies.shift()
+        if (recentInputLatencies.length > JITTER_RECENT_SIZE) recentInputLatencies.shift()
 
-        if (recentInputLatencies.length >= 5) {
+        if (recentInputLatencies.length >= JITTER_BASELINE_SIZE) {
           const baseline = recentInputLatencies.slice(0, -1)
           const avgBaseline = baseline.reduce((a, b) => a + b, 0) / baseline.length
 
@@ -1198,7 +1300,10 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
           // - More than 3x baseline (significant relative spike)
           // - AND >30ms above baseline (substantial jump)
           // - AND >50ms absolute (clearly noticeable delay)
-          const isJitter = latency > avgBaseline * 3 && latency - avgBaseline > 30 && latency > 50
+          const isJitter =
+            latency > avgBaseline * JITTER_MULTIPLIER &&
+            latency - avgBaseline > JITTER_INPUT_DELTA &&
+            latency > JITTER_INPUT_ABSOLUTE
 
           if (isJitter) {
             m.inputJitter++
@@ -1209,21 +1314,24 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
           const paintDuration = performance.now() - rafTime
           m.paintCycles++
           m.paintTimes.push(paintDuration)
-          if (m.paintTimes.length > 30) m.paintTimes.shift()
+          if (m.paintTimes.length > PAINT_TIMES_WINDOW) m.paintTimes.shift()
           if (paintDuration > m.maxPaintTime) m.maxPaintTime = paintDuration
-          else if (paintDuration < 10 && m.maxPaintTime > 10) m.maxPaintTime *= 0.98
+          else if (paintDuration < MAX_PAINT_DECAY_THRESHOLD && m.maxPaintTime > MAX_PAINT_DECAY_THRESHOLD)
+            m.maxPaintTime *= MAX_PAINT_DECAY_RATE
 
           // Paint time jitter: unexpected spike in paint/composite duration
           recentPaintTimes.push(paintDuration)
-          if (recentPaintTimes.length > 10) recentPaintTimes.shift()
+          if (recentPaintTimes.length > JITTER_RECENT_SIZE) recentPaintTimes.shift()
 
-          if (recentPaintTimes.length >= 5) {
+          if (recentPaintTimes.length >= JITTER_BASELINE_SIZE) {
             const baseline = recentPaintTimes.slice(0, -1)
             const avgBaseline = baseline.reduce((a, b) => a + b, 0) / baseline.length
 
             // Flag if paint time spikes: >3x baseline AND >20ms above AND >35ms absolute
             const isPaintJitter =
-              paintDuration > avgBaseline * 3 && paintDuration - avgBaseline > 20 && paintDuration > 35
+              paintDuration > avgBaseline * JITTER_MULTIPLIER &&
+              paintDuration - avgBaseline > JITTER_PAINT_DELTA &&
+              paintDuration > JITTER_PAINT_ABSOLUTE
 
             if (isPaintJitter) {
               m.inputJitter++
@@ -1252,7 +1360,7 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
     try {
       eventObserver = new PerformanceObserver(list => {
         for (const entry of list.getEntries()) {
-          if (entry.duration > 50) m.slowEvents++
+          if (entry.duration > LONG_TASK_THRESHOLD) m.slowEvents++
         }
       })
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -1304,7 +1412,7 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
         requestAnimationFrame(() => {
           const latency = performance.now() - eventTime
           m.interactionLatencies.push(latency)
-          if (m.interactionLatencies.length > 50) m.interactionLatencies.shift()
+          if (m.interactionLatencies.length > INTERACTION_LATENCIES_WINDOW) m.interactionLatencies.shift()
           if (latency > m.inpMs) m.inpMs = latency
         })
       })
@@ -1485,7 +1593,12 @@ const Sparkline = React.memo(
 const CollapsedFpsDisplay = React.memo(function CollapsedFpsDisplay() {
   const stores = useMetricStores()
   const {fps} = useStore(stores.frame)
-  const color = fps >= 55 ? 'var(--fgColor-success)' : fps >= 30 ? 'var(--fgColor-attention)' : 'var(--fgColor-danger)'
+  const color =
+    fps >= FPS_GOOD
+      ? 'var(--fgColor-success)'
+      : fps >= FPS_WARNING
+        ? 'var(--fgColor-attention)'
+        : 'var(--fgColor-danger)'
   return <span style={{color, fontWeight: 600}}>{fpsFormatter.format(fps)} fps</span>
 })
 
@@ -1494,9 +1607,9 @@ const CollapsedInputDisplay = React.memo(function CollapsedInputDisplay() {
   const stores = useMetricStores()
   const {inputLatency} = useStore(stores.input)
   const color =
-    inputLatency <= 16
+    inputLatency <= INPUT_LATENCY_GOOD
       ? 'var(--fgColor-success)'
-      : inputLatency <= 50
+      : inputLatency <= INPUT_LATENCY_WARNING
         ? 'var(--fgColor-attention)'
         : 'var(--fgColor-danger)'
   return <span style={{color}}>{msFormatter.format(inputLatency)}ms</span>
@@ -1507,7 +1620,11 @@ const CollapsedTasksDisplay = React.memo(function CollapsedTasksDisplay() {
   const stores = useMetricStores()
   const {longTasks} = useStore(stores.tasks)
   const color =
-    longTasks === 0 ? 'var(--fgColor-success)' : longTasks <= 5 ? 'var(--fgColor-attention)' : 'var(--fgColor-danger)'
+    longTasks === 0
+      ? 'var(--fgColor-success)'
+      : longTasks <= LONG_TASKS_WARNING
+        ? 'var(--fgColor-attention)'
+        : 'var(--fgColor-danger)'
   return <span style={{color}}>{longTasks} tasks</span>
 })
 
@@ -1519,7 +1636,9 @@ const DomCountDisplay = React.memo(function DomCountDisplay() {
   const {domElements} = useStore(stores.dom)
   return (
     <>
-      <MetricLabel>DOM</MetricLabel>
+      <MetricLabel description="Number of DOM elements in the profiled component tree. Fewer elements = better performance.">
+        DOM
+      </MetricLabel>
       <MetricValue>{domElements ? `${numberFormatter.format(domElements)} nodes` : 'N/A'}</MetricValue>
     </>
   )
@@ -1531,7 +1650,9 @@ const PeakMemoryDisplay = React.memo(function PeakMemoryDisplay() {
   const {peakMemoryMB, memoryUsedMB} = useStore(stores.memory)
   return (
     <>
-      <MetricLabel>Peak</MetricLabel>
+      <MetricLabel description="Highest JS heap size observed. Large gap from current may indicate memory spikes during interactions.">
+        Peak
+      </MetricLabel>
       <MetricValue>
         {peakMemoryMB !== null ? (
           <>
@@ -1572,11 +1693,60 @@ const sectionStartStyle: React.CSSProperties = {
 interface MetricLabelProps {
   children: React.ReactNode
   isSection?: boolean
+  /** Optional inline description shown in a details/summary disclosure */
+  description?: string
 }
 
-/** Label cell in the metrics grid */
-const MetricLabel = React.memo(function MetricLabel({children, isSection}: MetricLabelProps) {
-  return <span style={isSection ? sectionStartStyle : cellBaseStyle}>{children}</span>
+/**
+ * Label cell in the metrics grid.
+ * Uses <dt> for semantic term definition.
+ * Optional description uses details/summary for progressive disclosure.
+ */
+const MetricLabel = React.memo(function MetricLabel({children, isSection, description}: MetricLabelProps) {
+  const baseStyles = isSection ? sectionStartStyle : cellBaseStyle
+
+  if (description) {
+    return (
+      <dt style={baseStyles}>
+        <details
+          style={{
+            display: 'inline',
+          }}
+        >
+          <summary
+            style={{
+              cursor: 'help',
+              listStyle: 'none',
+              display: 'inline',
+            }}
+          >
+            {children} <span style={{opacity: 0.5, fontSize: '7px'}}>ⓘ</span>
+          </summary>
+          <div
+            style={{
+              position: 'absolute',
+              left: 0,
+              right: 0,
+              marginTop: '2px',
+              padding: '6px 8px',
+              background: 'var(--bgColor-default)',
+              border: '1px solid var(--borderColor-default)',
+              borderRadius: 'var(--borderRadius-small)',
+              fontSize: '9px',
+              lineHeight: 1.4,
+              color: 'var(--fgColor-default)',
+              boxShadow: 'var(--shadow-floating-small)',
+              zIndex: 10,
+            }}
+          >
+            {description}
+          </div>
+        </details>
+      </dt>
+    )
+  }
+
+  return <dt style={baseStyles}>{children}</dt>
 })
 
 /** Props for MetricValue component */
@@ -1588,19 +1758,23 @@ interface MetricValueProps {
   style?: React.CSSProperties
 }
 
-/** Value cell in the metrics grid */
+/**
+ * Value cell in the metrics grid.
+ * Uses <dd> for semantic definition description.
+ */
 const MetricValue = React.memo(function MetricValue({children, color, fontWeight, isSection, style}: MetricValueProps) {
   return (
-    <span
+    <dd
       style={{
         ...(isSection ? sectionStartStyle : cellBaseStyle),
+        margin: 0, // Reset default dd margin
         ...(color && {color}),
         ...(fontWeight && {fontWeight}),
         ...style,
       }}
     >
       {children}
-    </span>
+    </dd>
   )
 })
 
@@ -1648,45 +1822,34 @@ interface HelpPanelProps {
   prefersReducedMotion: boolean
 }
 
-/** Expandable help panel showing metric descriptions */
+/**
+ * Simplified help panel - now only shows keyboard shortcuts.
+ * Metric descriptions have moved to inline details/summary on each row.
+ */
 const HelpPanel = React.memo(function HelpPanel({prefersReducedMotion}: HelpPanelProps) {
   return (
     <div
       style={{
         marginBottom: '8px',
-        padding: '8px',
+        padding: '6px 8px',
         background: 'var(--bgColor-neutral-muted)',
         borderRadius: 'var(--borderRadius-small)',
-        maxHeight: '200px',
-        overflowY: 'auto',
+        fontSize: '9px',
+        lineHeight: 1.5,
+        color: 'var(--fgColor-onEmphasis)',
       }}
     >
-      <div style={{fontSize: '9px', lineHeight: 1.6}}>
-        {Object.entries(metricDescriptions).map(([key, {label, description}]) => (
-          <div key={key} style={{marginBottom: '6px'}}>
-            <span style={{color: 'var(--fgColor-onEmphasis)', fontWeight: 600}}>{label}</span>
-            <div style={{color: 'var(--fgColor-onEmphasis)', opacity: 0.8, marginTop: '1px'}}>{description}</div>
-          </div>
-        ))}
-        <div
-          style={{
-            marginTop: '8px',
-            paddingTop: '6px',
-            borderTop: '1px solid var(--borderColor-default)',
-            color: 'var(--fgColor-onEmphasis)',
-            opacity: 0.8,
-          }}
-        >
-          <strong style={{opacity: 1}}>Keyboard:</strong> Arrow keys move panel, Shift for larger steps, Home resets
-          position.
-          {prefersReducedMotion && (
-            <div style={{marginTop: '4px'}}>
-              <strong style={{opacity: 1}}>🔇 Reduced motion:</strong> Sparklines hidden to respect your system
-              preference.
-            </div>
-          )}
-        </div>
+      <div style={{opacity: 0.9}}>
+        <strong>Keyboard:</strong> Arrow keys move, Shift for larger steps, Home resets.
       </div>
+      <div style={{opacity: 0.8, marginTop: '2px'}}>
+        <strong>Tip:</strong> Click ⓘ icons on labels for metric descriptions.
+      </div>
+      {prefersReducedMotion && (
+        <div style={{marginTop: '4px', opacity: 0.8}}>
+          <strong>🔇 Reduced motion:</strong> Sparklines hidden per system preference.
+        </div>
+      )}
     </div>
   )
 })
@@ -1774,9 +1937,9 @@ const MemoryMetricRow = React.memo(function MemoryMetricRow({prefersReducedMotio
   const deltaColor =
     memoryDeltaMB === null
       ? 'var(--fgColor-onEmphasis)'
-      : memoryDeltaMB > 20
+      : memoryDeltaMB > MEMORY_DELTA_DANGER
         ? 'var(--fgColor-danger)'
-        : memoryDeltaMB > 5
+        : memoryDeltaMB > MEMORY_DELTA_WARNING
           ? 'var(--fgColor-attention)'
           : memoryDeltaMB < -2
             ? 'var(--fgColor-success)'
@@ -1832,18 +1995,24 @@ const FrameMetricsSection = React.memo(function FrameMetricsSection({prefersRedu
   const {fps, frameTime, maxFrameTime, fpsHistory, frameTimeHistory} = useStore(stores.frame)
 
   const fpsColor =
-    fps >= 55 ? 'var(--fgColor-success)' : fps >= 30 ? 'var(--fgColor-attention)' : 'var(--fgColor-danger)'
+    fps >= FPS_GOOD
+      ? 'var(--fgColor-success)'
+      : fps >= FPS_WARNING
+        ? 'var(--fgColor-attention)'
+        : 'var(--fgColor-danger)'
 
   return (
     <>
-      <MetricLabel isSection>FPS</MetricLabel>
+      <MetricLabel isSection description="Frames per second. Target: 60. Below 30 causes visible jank.">
+        FPS
+      </MetricLabel>
       <MetricValue isSection color={fpsColor} fontWeight={600} style={{display: 'flex', alignItems: 'center'}}>
         {fpsFormatter.format(fps)}
         {!prefersReducedMotion && (
           <Sparkline
             data={fpsHistory}
             color={fpsColor}
-            threshold={55}
+            threshold={FPS_GOOD}
             thresholdColor="var(--fgColor-attention)"
             invertThreshold={true}
             style={{marginLeft: 'auto'}}
@@ -1851,12 +2020,14 @@ const FrameMetricsSection = React.memo(function FrameMetricsSection({prefersRedu
         )}
       </MetricValue>
 
-      <MetricLabel>Frame</MetricLabel>
+      <MetricLabel description="Time between frames. Target: ≤16.67ms (60fps). >32ms means dropped frames.">
+        Frame
+      </MetricLabel>
       <MetricValue style={{display: 'flex', alignItems: 'center'}}>
         {msFormatter.format(frameTime)}ms{' '}
         <span
           style={{
-            color: maxFrameTime > 32 ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
+            color: maxFrameTime > FRAME_TIME_WARNING ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
             fontSize: '9px',
           }}
         >
@@ -1866,7 +2037,7 @@ const FrameMetricsSection = React.memo(function FrameMetricsSection({prefersRedu
           <Sparkline
             data={frameTimeHistory}
             color="var(--fgColor-onEmphasis)"
-            threshold={16.67}
+            threshold={FRAME_TIME_60FPS}
             thresholdColor="var(--fgColor-danger)"
             style={{marginLeft: 'auto'}}
           />
@@ -1882,20 +2053,25 @@ const InputMetricsSection = React.memo(function InputMetricsSection() {
   const {inputLatency, maxInputLatency, paintTime, maxPaintTime} = useStore(stores.input)
 
   const inputLatencyColor =
-    inputLatency <= 16
+    inputLatency <= INPUT_LATENCY_GOOD
       ? 'var(--fgColor-success)'
-      : inputLatency <= 50
+      : inputLatency <= INPUT_LATENCY_WARNING
         ? 'var(--fgColor-attention)'
         : 'var(--fgColor-danger)'
 
   return (
     <>
-      <MetricLabel isSection>Input</MetricLabel>
+      <MetricLabel
+        isSection
+        description="Time from pointer event to next animation frame. Target: ≤16ms. >50ms feels sluggish."
+      >
+        Input
+      </MetricLabel>
       <MetricValue isSection>
         <span style={{color: inputLatencyColor, fontWeight: 600}}>{msFormatter.format(inputLatency)}ms</span>{' '}
         <span
           style={{
-            color: maxInputLatency > 50 ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
+            color: maxInputLatency > INPUT_LATENCY_WARNING ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
             fontSize: '9px',
           }}
         >
@@ -1903,12 +2079,12 @@ const InputMetricsSection = React.memo(function InputMetricsSection() {
         </span>
       </MetricValue>
 
-      <MetricLabel>Paint</MetricLabel>
+      <MetricLabel description="Browser rendering/compositing time via double-RAF technique.">Paint</MetricLabel>
       <MetricValue>
         {msFormatter.format(paintTime)}ms{' '}
         <span
           style={{
-            color: maxPaintTime > 16 ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
+            color: maxPaintTime > INPUT_LATENCY_GOOD ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
             fontSize: '9px',
           }}
         >
@@ -1925,10 +2101,14 @@ const TaskMetricsSection = React.memo(function TaskMetricsSection() {
   const {longTasks, longestTask, droppedFrames} = useStore(stores.tasks)
 
   const longTaskColor =
-    longTasks === 0 ? 'var(--fgColor-success)' : longTasks <= 5 ? 'var(--fgColor-attention)' : 'var(--fgColor-danger)'
+    longTasks === 0
+      ? 'var(--fgColor-success)'
+      : longTasks <= LONG_TASKS_WARNING
+        ? 'var(--fgColor-attention)'
+        : 'var(--fgColor-danger)'
 
   const droppedColor =
-    droppedFrames > 10
+    droppedFrames > DROPPED_FRAMES_WARNING
       ? 'var(--fgColor-danger)'
       : droppedFrames > 0
         ? 'var(--fgColor-attention)'
@@ -1936,13 +2116,15 @@ const TaskMetricsSection = React.memo(function TaskMetricsSection() {
 
   return (
     <>
-      <MetricLabel isSection>Tasks</MetricLabel>
+      <MetricLabel isSection description="Long Tasks block the main thread >50ms. Target: 0 during interactions.">
+        Tasks
+      </MetricLabel>
       <MetricValue isSection>
         <span style={{color: longTaskColor, fontWeight: longTasks > 0 ? 600 : 'normal'}}>{longTasks} long</span>
         {longestTask > 0 && (
           <span
             style={{
-              color: longestTask > 100 ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
+              color: longestTask > LONGEST_TASK_WARNING ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
               fontSize: '9px',
             }}
           >
@@ -1952,7 +2134,9 @@ const TaskMetricsSection = React.memo(function TaskMetricsSection() {
         )}
       </MetricValue>
 
-      <MetricLabel>Dropped</MetricLabel>
+      <MetricLabel description="Frames taking >2× expected time (~33ms). High count = stuttering animation.">
+        Dropped
+      </MetricLabel>
       <MetricValue color={droppedColor}>{droppedFrames} frames</MetricValue>
     </>
   )
@@ -1964,18 +2148,22 @@ const LayoutMetricsSection = React.memo(function LayoutMetricsSection() {
   const {styleWrites, thrashingScore, inputJitter, layoutShiftScore, layoutShiftCount} = useStore(stores.layout)
 
   const clsColor =
-    layoutShiftScore < 0.1
+    layoutShiftScore < CLS_GOOD
       ? 'var(--fgColor-success)'
-      : layoutShiftScore < 0.25
+      : layoutShiftScore < CLS_WARNING
         ? 'var(--fgColor-attention)'
         : 'var(--fgColor-danger)'
 
   return (
     <>
-      <MetricLabel isSection>Style</MetricLabel>
+      <MetricLabel isSection description="Count of inline style attribute mutations observed via MutationObserver.">
+        Style
+      </MetricLabel>
       <MetricValue isSection>{styleWrites} writes</MetricValue>
 
-      <MetricLabel>Thrash</MetricLabel>
+      <MetricLabel description="Severe frame blocking (>50ms) near style writes. Indicates forced synchronous layout.">
+        Thrash
+      </MetricLabel>
       <MetricValue
         color={thrashingScore > 0 ? 'var(--fgColor-danger)' : 'var(--fgColor-success)'}
         fontWeight={thrashingScore > 0 ? 600 : 'normal'}
@@ -1983,7 +2171,9 @@ const LayoutMetricsSection = React.memo(function LayoutMetricsSection() {
         {thrashingScore === 0 ? 'none ✓' : `${thrashingScore} stalls`}
       </MetricValue>
 
-      <MetricLabel>Jitter</MetricLabel>
+      <MetricLabel description="Unexpected spikes in input latency, frame time, or paint time causing visible hitches.">
+        Jitter
+      </MetricLabel>
       <MetricValue
         color={inputJitter > 0 ? 'var(--fgColor-danger)' : 'var(--fgColor-success)'}
         fontWeight={inputJitter > 0 ? 600 : 'normal'}
@@ -1991,7 +2181,7 @@ const LayoutMetricsSection = React.memo(function LayoutMetricsSection() {
         {inputJitter === 0 ? 'none ✓' : `${inputJitter} hitches`}
       </MetricValue>
 
-      <MetricLabel>CLS</MetricLabel>
+      <MetricLabel description="Cumulative Layout Shift. <0.1 good, <0.25 needs work, >0.25 poor.">CLS</MetricLabel>
       <MetricValue color={clsColor} fontWeight={layoutShiftScore > 0 ? 600 : 'normal'}>
         {layoutShiftScore === 0 ? 'none ✓' : layoutShiftScore.toFixed(3)}
         {layoutShiftCount > 0 && (
@@ -2011,11 +2201,20 @@ const InteractionMetricsSection = React.memo(function InteractionMetricsSection(
   const {interactionCount, inpMs} = useStore(stores.interactions)
 
   const inpColor =
-    inpMs <= 200 ? 'var(--fgColor-success)' : inpMs <= 500 ? 'var(--fgColor-attention)' : 'var(--fgColor-danger)'
+    inpMs <= INP_GOOD
+      ? 'var(--fgColor-success)'
+      : inpMs <= INP_WARNING
+        ? 'var(--fgColor-attention)'
+        : 'var(--fgColor-danger)'
 
   return (
     <>
-      <MetricLabel isSection>Interact</MetricLabel>
+      <MetricLabel
+        isSection
+        description="Interaction to Next Paint (INP). Worst interaction latency. ≤200ms good, ≤500ms needs work."
+      >
+        Interact
+      </MetricLabel>
       <MetricValue isSection>
         {interactionCount > 0 ? (
           <>
@@ -2045,23 +2244,25 @@ const ReactMetricsSection = React.memo(function ReactMetricsSection() {
   const updateColor =
     reactPostMountUpdateCount === 0
       ? 'var(--fgColor-success)'
-      : reactPostMountMaxDuration <= 8
+      : reactPostMountMaxDuration <= REACT_RENDER_GOOD
         ? 'var(--fgColor-success)'
-        : reactPostMountMaxDuration <= 16
+        : reactPostMountMaxDuration <= REACT_RENDER_WARNING
           ? 'var(--fgColor-attention)'
           : 'var(--fgColor-danger)'
 
   const cascadeColor =
     renderCascades === 0
       ? 'var(--fgColor-success)'
-      : renderCascades <= 3
+      : renderCascades <= CASCADE_WARNING
         ? 'var(--fgColor-attention)'
         : 'var(--fgColor-danger)'
 
   return (
     <>
       {/* Mount */}
-      <MetricLabel isSection>⚛️ Mount</MetricLabel>
+      <MetricLabel isSection description="Initial React render count and duration. Isolated from interaction metrics.">
+        ⚛️ Mount
+      </MetricLabel>
       <MetricValue isSection>
         {reactMountCount > 0 ? (
           <>
@@ -2073,11 +2274,13 @@ const ReactMetricsSection = React.memo(function ReactMetricsSection() {
       </MetricValue>
 
       {/* Updates */}
-      <MetricLabel>⚛️ Updates</MetricLabel>
+      <MetricLabel description="Re-renders after mount. Target: 0 for drag. ≤8ms fast, ≤16ms acceptable.">
+        ⚛️ Updates
+      </MetricLabel>
       {reactRenderCount > 0 ? (
         <MetricValue color={updateColor} fontWeight={600}>
           {reactPostMountUpdateCount === 0 ? 'none ✓' : reactPostMountUpdateCount}
-          {reactPostMountUpdateCount > 0 && reactPostMountMaxDuration <= 8 && ' ✓'}
+          {reactPostMountUpdateCount > 0 && reactPostMountMaxDuration <= REACT_RENDER_GOOD && ' ✓'}
           {reactPostMountUpdateCount > 0 && (
             <span style={{fontWeight: 'normal', color: 'var(--fgColor-onEmphasis)', fontSize: '9px'}}>
               {' '}
@@ -2090,7 +2293,9 @@ const ReactMetricsSection = React.memo(function ReactMetricsSection() {
       )}
 
       {/* Cascades */}
-      <MetricLabel>⚛️ Cascades</MetricLabel>
+      <MetricLabel description="Nested updates - state changes during React commit phase. Common cause: setState in useLayoutEffect.">
+        ⚛️ Cascades
+      </MetricLabel>
       <MetricValue color={cascadeColor} fontWeight={renderCascades > 0 ? 600 : 'normal'}>
         {renderCascades === 0 ? 'none ✓' : renderCascades}
       </MetricValue>
@@ -2098,81 +2303,7 @@ const ReactMetricsSection = React.memo(function ReactMetricsSection() {
   )
 })
 
-/**
- * Metric descriptions for the help panel.
- * These mirror the JSDoc documentation on PerformanceMetrics interface.
- */
-const metricDescriptions = {
-  dom: {
-    label: 'DOM',
-    description: 'Number of DOM elements within the profiled component tree.',
-  },
-  memory: {
-    label: 'Memory',
-    description:
-      'JS heap size in MB (Chrome only). Delta shows change since start/reset. Sustained growth may indicate leaks.',
-  },
-  fps: {
-    label: 'FPS',
-    description: 'Frames per second. Target: 60fps. Green ≥55, Yellow ≥30, Red <30.',
-  },
-  frame: {
-    label: 'Frame',
-    description: 'Average frame time in ms. Target: ≤16.67ms for 60fps. Max shows peak with decay.',
-  },
-  input: {
-    label: 'Input',
-    description: 'Time from pointer event to next animation frame. Target: ≤16ms. Warning: >50ms.',
-  },
-  paint: {
-    label: 'Paint',
-    description: 'Browser rendering/compositing time measured via double-RAF. Target: ≤16ms.',
-  },
-  tasks: {
-    label: 'Tasks',
-    description: 'Long Tasks (>50ms) blocking main thread. Target: 0. Warning: >100ms duration.',
-  },
-  dropped: {
-    label: 'Dropped',
-    description: 'Frames taking >2x expected time (~33ms). Indicates visible stuttering.',
-  },
-  style: {
-    label: 'Style',
-    description: 'Inline style attribute mutations tracked via MutationObserver.',
-  },
-  thrash: {
-    label: 'Thrash',
-    description: 'Severe frame blocking (>50ms) near style writes. Indicates forced synchronous layout.',
-  },
-  jitter: {
-    label: 'Jitter',
-    description:
-      'Unexpected timing spikes from 3 sources: input latency, frame time, and paint time. Each flags >2x baseline jumps causing visible hitching.',
-  },
-  cls: {
-    label: 'CLS',
-    description:
-      'Cumulative Layout Shift. Measures unexpected layout movement. Target: <0.1 (good), <0.25 (needs improvement).',
-  },
-  interactions: {
-    label: 'Interactions',
-    description:
-      'Click/keyboard event count. INP shows worst latency to paint. Target INP: ≤200ms (good), ≤500ms (okay).',
-  },
-  mount: {
-    label: '⚛️ Mount',
-    description: 'React mount phase renders. Shows count and total duration of initial mounting.',
-  },
-  updates: {
-    label: '⚛️ Updates',
-    description: 'Re-renders after mount. Target: 0 for drag (pure CSS). Green ≤8ms, Yellow ≤16ms, Red >16ms.',
-  },
-  cascades: {
-    label: '⚛️ Nested',
-    description:
-      'Nested updates - state changes during commit phase (useLayoutEffect, render). Detected by React Profiler. Target: 0.',
-  },
-}
+// Note: metricDescriptions object removed - descriptions now inline via details/summary on each MetricLabel
 
 interface PerformanceMonitorViewProps {
   onReset: () => void
@@ -2362,38 +2493,56 @@ function PerformanceMonitorView({onReset, initialPosition = 'bottom-left'}: Perf
         </div>
       </div>
 
-      {/* Help Panel */}
+      {/* Help Panel - now only shows keyboard help since metrics have inline descriptions */}
       {showHelp && <HelpPanel prefersReducedMotion={prefersReducedMotion} />}
 
-      {/* Metrics Grid */}
-      <div style={{display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '1px 6px', lineHeight: 1.5}}>
-        {/* DOM count */}
-        <DomCountDisplay />
+      {/* Metrics Grid - uses semantic dl/dt/dd with position:relative for inline descriptions */}
+      <dl
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'auto 1fr',
+          gap: '1px 6px',
+          lineHeight: 1.5,
+          margin: 0, // Reset default dl margin
+          position: 'relative', // For absolute positioned descriptions
+        }}
+      >
+        <MetricErrorBoundary>
+          <DomCountDisplay />
+        </MetricErrorBoundary>
 
-        {/* Memory (Chrome only) */}
-        <MemoryMetricRow prefersReducedMotion={prefersReducedMotion} />
+        <MetricErrorBoundary>
+          <MemoryMetricRow prefersReducedMotion={prefersReducedMotion} />
+        </MetricErrorBoundary>
 
-        {/* Peak Memory */}
-        <PeakMemoryDisplay />
+        <MetricErrorBoundary>
+          <PeakMemoryDisplay />
+        </MetricErrorBoundary>
 
-        {/* Frame Section */}
-        <FrameMetricsSection prefersReducedMotion={prefersReducedMotion} />
+        <MetricErrorBoundary>
+          <FrameMetricsSection prefersReducedMotion={prefersReducedMotion} />
+        </MetricErrorBoundary>
 
-        {/* Input Section */}
-        <InputMetricsSection />
+        <MetricErrorBoundary>
+          <InputMetricsSection />
+        </MetricErrorBoundary>
 
-        {/* Tasks Section */}
-        <TaskMetricsSection />
+        <MetricErrorBoundary>
+          <TaskMetricsSection />
+        </MetricErrorBoundary>
 
-        {/* Layout Section */}
-        <LayoutMetricsSection />
+        <MetricErrorBoundary>
+          <LayoutMetricsSection />
+        </MetricErrorBoundary>
 
-        {/* Interactions Section */}
-        <InteractionMetricsSection />
+        <MetricErrorBoundary>
+          <InteractionMetricsSection />
+        </MetricErrorBoundary>
 
-        {/* React Section */}
-        <ReactMetricsSection />
-      </div>
+        <MetricErrorBoundary>
+          <ReactMetricsSection />
+        </MetricErrorBoundary>
+      </dl>
     </div>
   )
 }
