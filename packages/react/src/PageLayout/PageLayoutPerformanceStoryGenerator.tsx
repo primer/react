@@ -42,48 +42,197 @@ export type MonitorPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom
 // Performance Metrics Types
 // ============================================================================
 
+/**
+ * Performance metrics collected by the monitor.
+ *
+ * ## Metric Categories
+ *
+ * ### Frame Timing
+ * Core metrics for animation smoothness. Target: 60fps (16.67ms/frame).
+ * - `fps`: Frames per second (rolling average over ~60 frames)
+ * - `frameTime`: Average time between frames in milliseconds
+ * - `maxFrameTime`: Highest frame time observed (with decay)
+ * - `droppedFrames`: Count of frames that took >2x expected time
+ *
+ * ### Input Responsiveness
+ * Measures delay between user input and visual response.
+ * - `inputLatency`: Time from pointer event to next animation frame (avg)
+ * - `maxInputLatency`: Highest input latency observed (with decay)
+ *
+ * ### Paint Timing
+ * Measures browser's rendering/compositing time using double-RAF technique.
+ * - `paintTime`: Average time for browser to paint changes
+ * - `maxPaintTime`: Highest paint time observed (with decay)
+ * - `paintCycles`: Total number of paint measurements taken
+ *
+ * ### Main Thread Blocking
+ * Tracks JavaScript execution that blocks the main thread.
+ * - `longTasks`: Count of tasks >50ms (via PerformanceObserver)
+ * - `longestTask`: Duration of the longest task in ms
+ * - `slowEvents`: Count of events with processing time >50ms
+ *
+ * ### Layout Metrics
+ * Tracks style changes and potential layout thrashing.
+ * - `styleWrites`: Count of inline style attribute mutations
+ * - `thrashingScore`: Estimated severity of forced synchronous reflows
+ *
+ * ### React Profiler Metrics
+ * Data from React.Profiler for render performance analysis.
+ * - `reactMountCount`: Number of mount phase renders
+ * - `reactMountDuration`: Total time spent in mount renders
+ * - `reactPostMountUpdateCount`: Re-renders after initial mount
+ * - `reactPostMountMaxDuration`: Slowest post-mount render
+ *
+ * ## Thrashing Detection
+ *
+ * Layout thrashing occurs when JavaScript reads layout properties (offsetHeight,
+ * getBoundingClientRect, etc.) after modifying styles, forcing the browser to
+ * perform synchronous layout calculations. This causes janky animations.
+ *
+ * Since we can't directly detect layout reads, we use two heuristic strategies:
+ *
+ * 1. **Spike Detection**: Identifies sudden frame time jumps relative to baseline.
+ *    A spike is flagged when frame time is 2x baseline AND 8ms+ above it.
+ *    This catches intermittent thrashing that causes visible "jerks".
+ *
+ * 2. **Sustained Detection**: Tracks 3+ consecutive frames >24ms with style writes.
+ *    This catches consistent thrashing that wouldn't appear as individual spikes.
+ *
+ * The thrashingScore accumulates severity points based on how much frames exceed
+ * expected timing. A score of 0 with the ✓ indicator means no thrashing detected.
+ */
 export interface PerformanceMetrics {
-  // DOM metrics
+  // ─────────────────────────────────────────────────────────────────────────
+  // DOM Metrics
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Number of DOM elements within the profiled component tree. Null if not yet measured. */
   domElements: number | null
 
-  // Frame timing
+  // ─────────────────────────────────────────────────────────────────────────
+  // Frame Timing - Core animation smoothness metrics
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Frames per second, calculated from rolling average of frame times. Target: 60. */
   fps: number
+
+  /** Average frame time in milliseconds. Target: ≤16.67ms for 60fps. */
   frameTime: number
+
+  /** Maximum frame time observed, with gradual decay when frames improve. */
   maxFrameTime: number
+
+  /** Count of frames that took longer than 2x the expected frame time (~33ms). */
   droppedFrames: number
 
-  // Input responsiveness
+  // ─────────────────────────────────────────────────────────────────────────
+  // Input Responsiveness - User interaction latency
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Average time (ms) from pointer event timestamp to next animation frame. Target: ≤16ms. */
   inputLatency: number
+
+  /** Maximum input latency observed, with gradual decay. Warning threshold: >50ms. */
   maxInputLatency: number
 
-  // Paint timing
+  // ─────────────────────────────────────────────────────────────────────────
+  // Paint Timing - Browser rendering performance
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Average paint/composite time measured via double-RAF technique. Target: ≤16ms. */
   paintTime: number
+
+  /** Maximum paint time observed, with gradual decay. */
   maxPaintTime: number
+
+  /** Total number of paint cycles measured (for debugging). */
   paintCycles: number
 
-  // Main thread blocking
+  // ─────────────────────────────────────────────────────────────────────────
+  // Main Thread Blocking - JavaScript execution impact
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Count of Long Tasks (>50ms) detected via PerformanceObserver. Target: 0. */
   longTasks: number
+
+  /** Duration (ms) of the longest task observed. Warning threshold: >100ms. */
   longestTask: number
+
+  /** Count of slow event handlers (processing time >50ms). */
   slowEvents: number
 
-  // Layout metrics
-  styleWrites: number
-  thrashingScore: number // Estimated forced reflow severity (style writes × frame cost)
+  // ─────────────────────────────────────────────────────────────────────────
+  // Layout Metrics - Style changes and thrashing detection
+  // ─────────────────────────────────────────────────────────────────────────
 
-  // React Profiler metrics
+  /** Count of inline style attribute mutations observed via MutationObserver. */
+  styleWrites: number
+
+  /**
+   * Estimated layout thrashing severity score.
+   *
+   * Accumulates points when style writes correlate with frame time anomalies:
+   * - Spike: Frame time 2x baseline + 8ms above → severity = (frame - baseline) / 8
+   * - Sustained: 3+ consecutive >24ms frames with writes → severity = (frame - 16) / 8
+   *
+   * A score of 0 indicates no thrashing detected. Higher scores indicate more
+   * severe or frequent thrashing events. This is an estimate since we cannot
+   * directly detect forced synchronous layout.
+   */
+  thrashingScore: number
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // React Profiler Metrics - Component render performance
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Total number of React renders (mount + updates) recorded by Profiler. */
   reactRenderCount: number
+
+  /** Sum of all actualDuration values from React Profiler. */
   reactTotalActualDuration: number
+
+  /** Maximum actualDuration from any single render. */
   reactMaxActualDuration: number
+
+  /** Most recent render's actualDuration. */
   reactLastActualDuration: number
-  // Additional React Profiler metrics
-  reactBaseDuration: number // Worst-case render time (no memoization)
-  reactMountCount: number // Number of mount renders
-  reactUpdateCount: number // Number of update renders
-  // Post-mount metrics (excludes initial mount)
+
+  /**
+   * Latest baseDuration from React Profiler.
+   * Represents worst-case render time if no memoization was applied.
+   * Useful for identifying optimization opportunities.
+   */
+  reactBaseDuration: number
+
+  /** Count of mount-phase renders (initial component mounting). */
+  reactMountCount: number
+
+  /** Count of update-phase renders (re-renders after mount). */
+  reactUpdateCount: number
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Post-Mount Metrics - Interaction-triggered render performance
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /**
+   * Maximum render duration for updates AFTER initial mount.
+   * This isolates interaction performance from mount overhead.
+   * Target: ≤8ms for smooth interactions, ≤16ms acceptable, >16ms needs optimization.
+   */
   reactPostMountMaxDuration: number
+
+  /**
+   * Count of re-renders after initial mount.
+   * High counts during drag operations may indicate unnecessary re-renders.
+   * Ideal for drag resize: 0 (pure CSS/DOM manipulation).
+   */
   reactPostMountUpdateCount: number
-  // Mount phase snapshot
-  reactMountDuration: number // Total duration of mount phase renders
+
+  /**
+   * Total duration of all mount-phase renders.
+   * Preserved across resets to maintain historical mount performance data.
+   */
+  reactMountDuration: number
 }
 
 const initialMetrics: PerformanceMetrics = {
@@ -271,7 +420,7 @@ export function PerformanceProvider({
     mutableRef.current.domElements = count
   }, [])
 
-  // Reset all metrics
+  // Reset all metrics (except mount stats which don't change)
   const reset = React.useCallback(() => {
     const m = mutableRef.current
     m.maxFrameTime = 0
@@ -284,23 +433,25 @@ export function PerformanceProvider({
     m.slowEvents = 0
     m.styleWrites = 0
     m.thrashingScore = 0
-    m.reactRenderCount = 0
-    m.reactTotalActualDuration = 0
+    m.reactRenderCount = m.reactMountCount // Keep mount renders in count
+    m.reactTotalActualDuration = m.reactMountDuration // Keep mount duration
     m.reactMaxActualDuration = 0
     m.reactLastActualDuration = 0
     m.reactBaseDuration = 0
-    m.reactMountCount = 0
+    // Don't reset: reactMountCount, reactMountDuration, mountPhaseComplete
     m.reactUpdateCount = 0
     m.reactPostMountMaxDuration = 0
     m.reactPostMountUpdateCount = 0
-    // Don't reset mount duration/phase - that's historical
     frameTimesRef.current = []
     inputLatenciesRef.current = []
     paintTimesRef.current = []
     setMetrics(prev => ({
       ...initialMetrics,
-      // Preserve mount stats
+      // Preserve mount stats - they represent initial mount and don't change
+      reactMountCount: prev.reactMountCount,
       reactMountDuration: prev.reactMountDuration,
+      reactRenderCount: prev.reactMountCount,
+      reactTotalActualDuration: prev.reactMountDuration,
     }))
   }, [])
 
@@ -312,32 +463,65 @@ export function PerformanceProvider({
     const expectedFrameTime = 16.67
 
     // Layout thrashing detection state
-    let isDragging = false
     let styleWriteCount = 0
     let lastStyleWriteTime = 0
+    const recentFrameTimes: number[] = []
+    let consecutiveSlowFramesWithWrites = 0
 
-    // Thrashing detection: Track correlation between style writes and frame cost.
-    // Layout thrashing = reading layout properties after writing styles (forces sync reflow).
-    // We detect this by looking for patterns where:
-    // 1. Multiple style writes happen in a short window (common in drag handlers)
-    // 2. Frame times are elevated relative to baseline
-    // The more style writes per frame with elevated frame time = more likely thrashing.
+    // Thrashing detection: Two strategies combined:
+    // 1. SPIKE detection: sudden frame time jumps relative to baseline
+    // 2. SUSTAINED detection: consistently slow frames (>24ms) with style writes
+    //
+    // Normal dragging: consistent frame times even with many style writes
+    // Thrashing: either sudden spikes OR sustained slowness during style changes
     const checkForThrashing = (frameTime: number) => {
-      if (!isDragging) return
+      // Maintain a short rolling window of recent frame times
+      recentFrameTimes.push(frameTime)
+      if (recentFrameTimes.length > 10) {
+        recentFrameTimes.shift()
+      }
 
       const now = performance.now()
       const timeSinceLastWrite = now - lastStyleWriteTime
+      const hadRecentStyleWrite = styleWriteCount > 0 && timeSinceLastWrite < 20
 
-      // If we had style writes this frame and frame time is elevated
-      if (styleWriteCount > 0 && timeSinceLastWrite < 20) {
-        // Frame time > 8ms with style writes suggests forced reflows
-        // The more style writes + higher frame time = more severe thrashing
-        if (frameTime > 8) {
-          // Score based on how much the frame exceeded target
-          // 16ms frame with 5 writes = 5, 32ms with 5 writes = 10
-          const severity = Math.ceil((frameTime / 16) * Math.min(styleWriteCount, 10))
+      // Strategy 2: Track sustained slow frames with style writes
+      // This catches consistent thrashing that wouldn't show as a "spike"
+      if (hadRecentStyleWrite && frameTime > 24) {
+        consecutiveSlowFramesWithWrites++
+        // After 3+ consecutive slow frames with writes, likely thrashing
+        if (consecutiveSlowFramesWithWrites >= 3) {
+          const severity = Math.ceil((frameTime - 16) / 8)
           m.thrashingScore += severity
         }
+      } else {
+        consecutiveSlowFramesWithWrites = 0
+      }
+
+      // Need enough history for spike detection
+      if (recentFrameTimes.length < 5) {
+        styleWriteCount = 0
+        return
+      }
+
+      // Only check spikes if we had style writes recently
+      if (!hadRecentStyleWrite) {
+        styleWriteCount = 0
+        return
+      }
+
+      // Strategy 1: Calculate baseline from recent frames (excluding current)
+      const baseline = recentFrameTimes.slice(0, -1)
+      const avgBaseline = baseline.reduce((a, b) => a + b, 0) / baseline.length
+
+      // Detect spike: current frame is significantly worse than recent baseline
+      // A spike is 2x+ the baseline AND at least 8ms above it
+      const spikeThreshold = Math.max(avgBaseline * 2, avgBaseline + 8)
+
+      if (frameTime > spikeThreshold && frameTime > 16) {
+        // Severity based on how much we exceeded the spike threshold
+        const severity = Math.ceil((frameTime - avgBaseline) / 8)
+        m.thrashingScore += severity
       }
 
       // Reset per-frame counter
@@ -492,7 +676,6 @@ export function PerformanceProvider({
 
     // Style write tracking via MutationObserver on style attributes
     const styleObserver = new MutationObserver(mutations => {
-      if (!isDragging) return
       for (const mutation of mutations) {
         if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
           m.styleWrites++
@@ -509,25 +692,12 @@ export function PerformanceProvider({
       subtree: true,
     })
 
-    // Drag state observer
-    const dragObserver = new MutationObserver(() => {
-      isDragging = document.body.hasAttribute('data-page-layout-dragging')
-      if (isDragging) {
-        window.addEventListener('pointermove', handlePointerMove)
-      } else {
-        window.removeEventListener('pointermove', handlePointerMove)
-        inputLatenciesRef.current = []
-        paintTimesRef.current = []
-      }
-    })
-    dragObserver.observe(document.body, {attributes: true, attributeFilter: ['data-page-layout-dragging']})
     window.addEventListener('pointermove', handlePointerMove)
 
     animationId = requestAnimationFrame(measure)
 
     return () => {
       cancelAnimationFrame(animationId)
-      dragObserver.disconnect()
       styleObserver.disconnect()
       longTaskObserver?.disconnect()
       eventObserver?.disconnect()
@@ -606,6 +776,58 @@ export function ProfiledComponent({id, children}: {id: string; children: React.R
 // Stateless Performance Monitor View
 // ============================================================================
 
+/**
+ * Metric descriptions for the help panel.
+ * These mirror the JSDoc documentation on PerformanceMetrics interface.
+ */
+const metricDescriptions = {
+  dom: {
+    label: 'DOM',
+    description: 'Number of DOM elements within the profiled component tree.',
+  },
+  fps: {
+    label: 'FPS',
+    description: 'Frames per second. Target: 60fps. Green ≥55, Yellow ≥30, Red <30.',
+  },
+  frame: {
+    label: 'Frame',
+    description: 'Average frame time in ms. Target: ≤16.67ms for 60fps. Max shows peak with decay.',
+  },
+  input: {
+    label: 'Input',
+    description: 'Time from pointer event to next animation frame. Target: ≤16ms. Warning: >50ms.',
+  },
+  paint: {
+    label: 'Paint',
+    description: 'Browser rendering/compositing time measured via double-RAF. Target: ≤16ms.',
+  },
+  tasks: {
+    label: 'Tasks',
+    description: 'Long Tasks (>50ms) blocking main thread. Target: 0. Warning: >100ms duration.',
+  },
+  dropped: {
+    label: 'Dropped',
+    description: 'Frames taking >2x expected time (~33ms). Indicates visible stuttering.',
+  },
+  style: {
+    label: 'Style',
+    description: 'Inline style attribute mutations tracked via MutationObserver.',
+  },
+  thrash: {
+    label: 'Thrash',
+    description:
+      'Estimated layout thrashing severity. Detects frame spikes (2x baseline) or sustained slowness (3+ frames >24ms) during style writes. Score of 0 = no thrashing detected.',
+  },
+  mount: {
+    label: '⚛️ Mount',
+    description: 'React mount phase renders. Shows count and total duration of initial mounting.',
+  },
+  updates: {
+    label: '⚛️ Updates',
+    description: 'Re-renders after mount. Target: 0 for drag (pure CSS). Green ≤8ms, Yellow ≤16ms, Red >16ms.',
+  },
+}
+
 interface PerformanceMonitorViewProps {
   metrics: PerformanceMetrics
   onReset: () => void
@@ -614,6 +836,7 @@ interface PerformanceMonitorViewProps {
 
 function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-left'}: PerformanceMonitorViewProps) {
   const [isCollapsed, setIsCollapsed] = React.useState(false)
+  const [showHelp, setShowHelp] = React.useState(false)
   const [position, setPosition] = React.useState<{x: number; y: number} | null>(null) // null = use default bottom-left
   const [dragState, setDragState] = React.useState<{isDragging: boolean; offsetX: number; offsetY: number}>({
     isDragging: false,
@@ -827,6 +1050,24 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
         <div style={{display: 'flex', gap: '4px'}}>
           <button
             type="button"
+            onClick={() => setShowHelp(!showHelp)}
+            style={{
+              background: showHelp ? 'var(--bgColor-accent-muted)' : 'var(--bgColor-neutral-muted)',
+              border: 'none',
+              color: showHelp ? 'var(--fgColor-accent)' : 'var(--fgColor-muted)',
+              cursor: 'pointer',
+              padding: '2px 6px',
+              borderRadius: 'var(--borderRadius-small)',
+              fontSize: '9px',
+              fontWeight: 600,
+            }}
+            aria-label={showHelp ? 'Hide help' : 'Show help'}
+            aria-pressed={showHelp}
+          >
+            ?
+          </button>
+          <button
+            type="button"
             onClick={onReset}
             style={{
               background: 'var(--bgColor-neutral-muted)',
@@ -857,6 +1098,39 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
           </button>
         </div>
       </div>
+
+      {/* Help Panel */}
+      {showHelp && (
+        <div
+          style={{
+            marginBottom: '8px',
+            padding: '8px',
+            background: 'var(--bgColor-neutral-muted)',
+            borderRadius: 'var(--borderRadius-small)',
+            maxHeight: '200px',
+            overflowY: 'auto',
+          }}
+        >
+          <div style={{fontSize: '9px', lineHeight: 1.6}}>
+            {Object.entries(metricDescriptions).map(([key, {label, description}]) => (
+              <div key={key} style={{marginBottom: '6px'}}>
+                <span style={{color: 'var(--fgColor-onEmphasis)', fontWeight: 600}}>{label}</span>
+                <div style={{color: 'var(--fgColor-muted)', marginTop: '1px'}}>{description}</div>
+              </div>
+            ))}
+            <div
+              style={{
+                marginTop: '8px',
+                paddingTop: '6px',
+                borderTop: '1px solid var(--borderColor-muted)',
+                color: 'var(--fgColor-muted)',
+              }}
+            >
+              <strong>Keyboard:</strong> Arrow keys move panel, Shift for larger steps, Home resets position.
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Metrics Grid */}
       <div style={{display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '1px 6px', lineHeight: 1.5}}>
