@@ -149,12 +149,14 @@ function DragHandle({
   position,
   paneWidth,
   setPaneWidth,
-  onDoubleClick,
+  widthStorageKey,
+  initialPaneWidth,
 }: {
   paneWidth: number
   position: 'start' | 'end' | undefined
   setPaneWidth: React.Dispatch<React.SetStateAction<number>>
-  onDoubleClick: () => void
+  widthStorageKey: string
+  initialPaneWidth: number
 }) {
   const [isDragging, setIsDragging] = React.useState(false)
 
@@ -168,8 +170,8 @@ function DragHandle({
       const paneStyles = getComputedStyle(paneRef.current as Element)
       const maxPaneWidthDiffPixels = paneStyles.getPropertyValue('--pane-max-width-diff')
       const minWidthPixels = paneStyles.getPropertyValue('--pane-min-width')
-      const maxPaneWidthDiff = Number(maxPaneWidthDiffPixels.split('px')[0])
-      const minPaneWidth = Number(minWidthPixels.split('px')[0])
+      const maxPaneWidthDiff = parseInt(maxPaneWidthDiffPixels, 10)
+      const minPaneWidth = parseInt(minWidthPixels, 10)
       const viewportWidth = window.innerWidth
       const maxPaneWidth = viewportWidth > maxPaneWidthDiff ? viewportWidth - maxPaneWidthDiff : viewportWidth
       setMinWidth(minPaneWidth)
@@ -213,6 +215,11 @@ function DragHandle({
         const paneRect = paneRef.current?.getBoundingClientRect()
         if (!paneRect) return
         setPaneWidth(paneRect.width)
+        try {
+          localStorage.setItem(widthStorageKey, paneRect.width.toString())
+        } catch (_error) {
+          // Ignore errors
+        }
       }}
       onKeyDown={event => {
         if (
@@ -241,8 +248,20 @@ function DragHandle({
         const paneRect = paneRef.current?.getBoundingClientRect()
         if (!paneRect) return
         setPaneWidth(paneRect.width)
+        try {
+          localStorage.setItem(widthStorageKey, paneRect.width.toString())
+        } catch (_error) {
+          // Ignore errors
+        }
       }}
-      onDoubleClick={onDoubleClick}
+      onDoubleClick={() => {
+        setPaneWidth(initialPaneWidth)
+        try {
+          localStorage.setItem(widthStorageKey, initialPaneWidth.toString())
+        } catch (_error) {
+          // Ignore errors
+        }
+      }}
     />
   )
 }
@@ -519,6 +538,15 @@ const defaultPaneWidth = {small: 256, medium: 296, large: 320}
 
 const overflowProps = {tabIndex: 0, role: 'region'}
 
+const getDefaultPaneWidth = (width: PaneWidth | CustomWidthOptions): number => {
+  if (isPaneWidth(width)) {
+    return defaultPaneWidth[width]
+  } else if (isCustomWidthOptions(width)) {
+    return Number(width.default.split('px')[0])
+  }
+  return 0
+}
+
 const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutPaneProps>>(
   (
     {
@@ -561,30 +589,26 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
     const {rowGap, columnGap, paneRef} = React.useContext(PageLayoutContext)
 
-    const getDefaultPaneWidth = (width: PaneWidth | CustomWidthOptions): number => {
-      if (isPaneWidth(width)) {
-        return defaultPaneWidth[width]
-      } else if (isCustomWidthOptions(width)) {
-        return Number(width.default.split('px')[0])
-      }
-      return 0
-    }
+    const initialPaneWidth = getDefaultPaneWidth(width)
 
     const [paneWidth, setPaneWidth] = React.useState(() => {
       return getDefaultPaneWidth(width)
     })
 
+    /**
+     * On mount, read the stored width from localStorage if available
+     * and set the pane width accordingly.
+     */
     useIsomorphicLayoutEffect(() => {
-      let storedWidth
-
       try {
-        storedWidth = localStorage.getItem(widthStorageKey)
+        const storedWidth = localStorage.getItem(widthStorageKey)
+        if (storedWidth !== null && !isNaN(Number(storedWidth))) {
+          setPaneWidth(Number(storedWidth))
+        }
       } catch (_error) {
-        storedWidth = null
+        // ignore error reading localStorage
       }
-
-      setPaneWidth(storedWidth && !isNaN(Number(storedWidth)) ? Number(storedWidth) : getDefaultPaneWidth(width))
-    }, [width, widthStorageKey])
+    }, [widthStorageKey])
 
     useRefObjectAsForwardedRef(forwardRef, paneRef)
 
@@ -680,15 +704,9 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             <DragHandle
               paneWidth={paneWidth}
               setPaneWidth={setPaneWidth}
+              widthStorageKey={widthStorageKey}
+              initialPaneWidth={initialPaneWidth}
               position={isResponsiveValue(positionProp) ? undefined : positionProp}
-              onDoubleClick={() => {
-                setPaneWidth(getDefaultPaneWidth(width))
-                try {
-                  localStorage.setItem(widthStorageKey, width.toString())
-                } catch (_error) {
-                  // Ignore errors
-                }
-              }}
             />
           ) : null}
         </VerticalDivider>
