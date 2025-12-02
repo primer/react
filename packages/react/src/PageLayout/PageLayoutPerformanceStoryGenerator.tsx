@@ -79,6 +79,11 @@ export interface PerformanceMetrics {
   reactBaseDuration: number // Worst-case render time (no memoization)
   reactMountCount: number // Number of mount renders
   reactUpdateCount: number // Number of update renders
+  // Post-mount metrics (excludes initial mount)
+  reactPostMountMaxDuration: number
+  reactPostMountUpdateCount: number
+  // Mount phase snapshot
+  reactMountDuration: number // Total duration of mount phase renders
 }
 
 const initialMetrics: PerformanceMetrics = {
@@ -104,6 +109,9 @@ const initialMetrics: PerformanceMetrics = {
   reactBaseDuration: 0,
   reactMountCount: 0,
   reactUpdateCount: 0,
+  reactPostMountMaxDuration: 0,
+  reactPostMountUpdateCount: 0,
+  reactMountDuration: 0,
 }
 
 // ============================================================================
@@ -174,6 +182,11 @@ interface MutableMetricsState {
   reactBaseDuration: number
   reactMountCount: number
   reactUpdateCount: number
+  // Post-mount tracking
+  reactPostMountMaxDuration: number
+  reactPostMountUpdateCount: number
+  reactMountDuration: number
+  mountPhaseComplete: boolean
   // DOM
   domElements: number | null
 }
@@ -207,6 +220,10 @@ export function PerformanceProvider({
     reactBaseDuration: 0,
     reactMountCount: 0,
     reactUpdateCount: 0,
+    reactPostMountMaxDuration: 0,
+    reactPostMountUpdateCount: 0,
+    reactMountDuration: 0,
+    mountPhaseComplete: false,
     domElements: null,
   })
 
@@ -234,8 +251,16 @@ export function PerformanceProvider({
       // Track mount vs update counts
       if (phase === 'mount') {
         m.reactMountCount++
+        m.reactMountDuration += actualDuration
       } else {
         m.reactUpdateCount++
+        // Mark mount phase as complete on first update
+        m.mountPhaseComplete = true
+        // Track post-mount metrics
+        m.reactPostMountUpdateCount++
+        if (actualDuration > m.reactPostMountMaxDuration) {
+          m.reactPostMountMaxDuration = actualDuration
+        }
       }
     },
     [],
@@ -266,10 +291,17 @@ export function PerformanceProvider({
     m.reactBaseDuration = 0
     m.reactMountCount = 0
     m.reactUpdateCount = 0
+    m.reactPostMountMaxDuration = 0
+    m.reactPostMountUpdateCount = 0
+    // Don't reset mount duration/phase - that's historical
     frameTimesRef.current = []
     inputLatenciesRef.current = []
     paintTimesRef.current = []
-    setMetrics(initialMetrics)
+    setMetrics(prev => ({
+      ...initialMetrics,
+      // Preserve mount stats
+      reactMountDuration: prev.reactMountDuration,
+    }))
   }, [])
 
   // Browser metrics collection effect
@@ -375,6 +407,9 @@ export function PerformanceProvider({
         reactBaseDuration: m.reactBaseDuration,
         reactMountCount: m.reactMountCount,
         reactUpdateCount: m.reactUpdateCount,
+        reactPostMountMaxDuration: m.reactPostMountMaxDuration,
+        reactPostMountUpdateCount: m.reactPostMountUpdateCount,
+        reactMountDuration: m.reactMountDuration,
       })
 
       animationId = requestAnimationFrame(measure)
@@ -825,6 +860,13 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
 
       {/* Metrics Grid */}
       <div style={{display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '1px 6px', lineHeight: 1.5}}>
+        {/* DOM count */}
+
+        <span style={{color: 'var(--fgColor-muted)', fontSize: '9px'}}>DOM</span>
+        <span style={{color: 'var(--fgColor-muted)', fontSize: '9px'}}>
+          {metrics.domElements ? `${numberFormatter.format(metrics.domElements)} nodes` : 'N/A'}
+        </span>
+
         {/* Frame Section */}
         <span style={{color: 'var(--fgColor-muted)'}}>FPS</span>
         <span style={{color: fpsColor, fontWeight: 600}}>{fpsFormatter.format(metrics.fps)}</span>
@@ -955,7 +997,7 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
           )}
         </span>
 
-        {/* React Section */}
+        {/* React Mount Section */}
         <span
           style={{
             color: 'var(--fgColor-muted)',
@@ -964,42 +1006,52 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
             marginTop: '2px',
           }}
         >
-          React
+          ⚛️ Mount
         </span>
         <span
           style={{
             borderTop: '1px solid var(--borderColor-muted)',
             paddingTop: '3px',
             marginTop: '2px',
-            color:
-              metrics.reactUpdateCount === 0
-                ? 'var(--fgColor-success)' // No updates = great
-                : metrics.reactMaxActualDuration <= 8
-                  ? 'var(--fgColor-success)' // Fast renders = fine
-                  : metrics.reactMaxActualDuration <= 16
-                    ? 'var(--fgColor-attention)' // Medium renders = warning
-                    : 'var(--fgColor-danger)', // Slow renders = bad
-            fontWeight: 600,
+            color: 'var(--fgColor-muted)',
           }}
         >
-          {metrics.reactUpdateCount} updates
-          {metrics.reactUpdateCount === 0 ? ' ✓' : metrics.reactMaxActualDuration <= 8 ? ' ✓' : ''}
-          {metrics.reactUpdateCount > 0 && (
-            <span style={{fontWeight: 'normal', color: 'var(--fgColor-muted)', fontSize: '9px'}}>
-              {' '}
-              (max {msFormatter.format(metrics.reactMaxActualDuration)}ms)
-            </span>
+          {metrics.reactMountCount > 0 ? (
+            <>
+              {metrics.reactMountCount}× ({msFormatter.format(metrics.reactMountDuration)}ms)
+            </>
+          ) : (
+            <span style={{fontSize: '9px', fontStyle: 'italic'}}>awaiting profiler…</span>
           )}
         </span>
 
-        {/* DOM count */}
-        {metrics.domElements != null && (
-          <>
-            <span style={{color: 'var(--fgColor-muted)', fontSize: '9px'}}>DOM</span>
-            <span style={{color: 'var(--fgColor-muted)', fontSize: '9px'}}>
-              {numberFormatter.format(metrics.domElements)} nodes
-            </span>
-          </>
+        {/* React Updates Section (post-mount interactions) */}
+        <span style={{color: 'var(--fgColor-muted)'}}>⚛️ Updates</span>
+        {metrics.reactRenderCount > 0 ? (
+          <span
+            style={{
+              color:
+                metrics.reactPostMountUpdateCount === 0
+                  ? 'var(--fgColor-success)' // No updates = great
+                  : metrics.reactPostMountMaxDuration <= 8
+                    ? 'var(--fgColor-success)' // Fast renders = fine
+                    : metrics.reactPostMountMaxDuration <= 16
+                      ? 'var(--fgColor-attention)' // Medium renders = warning
+                      : 'var(--fgColor-danger)', // Slow renders = bad
+              fontWeight: 600,
+            }}
+          >
+            {metrics.reactPostMountUpdateCount === 0 ? 'none ✓' : metrics.reactPostMountUpdateCount}
+            {metrics.reactPostMountUpdateCount > 0 && metrics.reactPostMountMaxDuration <= 8 && ' ✓'}
+            {metrics.reactPostMountUpdateCount > 0 && (
+              <span style={{fontWeight: 'normal', color: 'var(--fgColor-muted)', fontSize: '9px'}}>
+                {' '}
+                (max {msFormatter.format(metrics.reactPostMountMaxDuration)}ms)
+              </span>
+            )}
+          </span>
+        ) : (
+          <span style={{color: 'var(--fgColor-muted)', fontSize: '9px', fontStyle: 'italic'}}>use profiling build</span>
         )}
       </div>
     </div>
