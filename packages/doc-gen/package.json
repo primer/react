@@ -21,18 +21,18 @@
   ],
   "scripts": {
     "clean": "rimraf dist",
-    "build": "rollup -c",
+    "build": "rolldown -c",
     "type-check": "tsc --noEmit",
-    "watch": "rollup -c -w",
+    "watch": "rolldown -w -c",
     "test": "vitest --run",
     "test:watch": "vitest"
   },
   "dependencies": {
     "@babel/runtime": "^7.28.2",
     "@types/signale": "^1.4.7",
+    "@types/yargs": "^17.0.33",
     "signale": "^1.4.0",
-    "yargs": "^18.0.0",
-    "@types/yargs": "^17.0.33"
+    "yargs": "^18.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.28.5",
@@ -40,11 +40,9 @@
     "@babel/preset-env": "^7.28.5",
     "@babel/preset-typescript": "^7.28.5",
     "@rollup/plugin-babel": "^6.1.0",
-    "@rollup/plugin-commonjs": "^29.0.0",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^16.0.3",
+    "prettier": "^3.4.2",
     "rimraf": "^6.0.1",
-    "rollup": "^4.53.3",
+    "rolldown": "^1.0.0-beta.52",
     "rollup-plugin-typescript2": "^0.36.0",
     "typescript": "^5.8.3"
   }
