@@ -51,7 +51,7 @@
     padding: var(--base-size-4);
   }
 
-  &[data-flush='true'] {
+  &[data-flush] {
     border-left: none;
     border-right: none;
     border-radius: 0;
