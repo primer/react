@@ -55,7 +55,7 @@ export function importCSS(options: ImportCSSOptions): Plugin {
       filter: {
         id: /\.css.js$/,
       },
-      async handler() {
+      handler() {
         return ''
       },
     },
