@@ -153,7 +153,7 @@ const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandl
   widthStorageKey: string
   initialPaneWidth: number
 }) {
-  const [isDragging, setIsDragging] = React.useState(false)
+  const [isDragging, setIsDragging] = React.useState<'pointer' | 'keyboard' | false>(false)
 
   const {paneRef} = React.useContext(PageLayoutContext)
 
@@ -187,7 +187,7 @@ const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandl
   return (
     <div
       className={classes.DraggableHandle}
-      data-dragging={isDragging}
+      data-dragging={!!isDragging || undefined}
       role="slider"
       aria-label="Draggable pane splitter"
       aria-valuemin={minWidth}
@@ -195,27 +195,23 @@ const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandl
       aria-valuenow={clampedPaneWidth}
       aria-valuetext={`Pane width ${clampedPaneWidth} pixels`}
       tabIndex={0}
+      style={isDragging === 'keyboard' ? {pointerEvents: 'none'} : undefined}
       onPointerDown={event => {
+        if (isDragging === 'keyboard') return
         if (event.button === 0) {
-          event.preventDefault()
-          setIsDragging(true)
+          setIsDragging('pointer')
           event.currentTarget.setPointerCapture(event.pointerId)
         }
       }}
       onPointerMove={event => {
-        if (!isDragging) return
-        event.preventDefault()
+        if (isDragging !== 'pointer') return
         const delta = event.movementX
         const deltaWithDirection = position === 'end' ? -delta : delta
         setPaneWidth(curr => clamp(curr + deltaWithDirection, {min: minWidth, max: maxWidth}))
       }}
-      onPointerUp={event => {
-        if (!isDragging) return
-        event.preventDefault()
-      }}
       onLostPointerCapture={event => {
+        if (isDragging !== 'pointer') return
         setIsDragging(false)
-        event.preventDefault()
         event.currentTarget.releasePointerCapture(event.pointerId)
         try {
           localStorage.setItem(widthStorageKey, paneWidth.toString())
@@ -224,21 +220,24 @@ const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandl
         }
       }}
       onKeyDown={event => {
+        // Don't handle keyboard if pointer dragging is active
+        if (isDragging === 'pointer') return
         if (
           event.key === 'ArrowLeft' ||
           event.key === 'ArrowRight' ||
           event.key === 'ArrowUp' ||
           event.key === 'ArrowDown'
         ) {
+          // Prevent arrow keys from scrolling the page
           event.preventDefault()
-          setIsDragging(true)
+          setIsDragging('keyboard')
           const step = event.key === 'ArrowLeft' || event.key === 'ArrowDown' ? -3 : 3
           setPaneWidth(curr => clamp(curr + step, {min: minWidth, max: maxWidth}))
         }
       }}
-      onKeyUp={event => {
+      onKeyUp={() => {
+        if (isDragging !== 'keyboard') return
         setIsDragging(false)
-        event.preventDefault()
         try {
           localStorage.setItem(widthStorageKey, paneWidth.toString())
         } catch (_error) {
