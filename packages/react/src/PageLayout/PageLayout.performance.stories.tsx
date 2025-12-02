@@ -5,6 +5,127 @@ import {Button} from '../Button'
 import Label from '../Label'
 import Heading from '../Heading'
 
+// Formatters with fixed decimal places to prevent layout shifts
+const fpsFormatter = new Intl.NumberFormat('en-US', {minimumIntegerDigits: 2, maximumFractionDigits: 0})
+const msFormatter = new Intl.NumberFormat('en-US', {minimumFractionDigits: 1, maximumFractionDigits: 1})
+const numberFormatter = new Intl.NumberFormat('en-US')
+
+// Hook to count DOM elements within a container
+function useDOMElementCount(ref: React.RefObject<HTMLElement | null>) {
+  const [count, setCount] = React.useState<number | null>(null)
+
+  React.useEffect(() => {
+    const countElements = () => {
+      if (ref.current) {
+        setCount(ref.current.querySelectorAll('*').length)
+      }
+    }
+
+    // Initial count
+    countElements()
+
+    // Re-count when DOM changes (handles dynamic content)
+    if (ref.current) {
+      const observer = new MutationObserver(countElements)
+      observer.observe(ref.current, {childList: true, subtree: true})
+      return () => observer.disconnect()
+    }
+    return undefined
+  }, [ref])
+
+  return count
+}
+
+// Performance monitor component that displays FPS and frame timing
+function PerformanceMonitor({domCount}: {domCount?: number | null}) {
+  const [stats, setStats] = React.useState({fps: 0, frameTime: 0, maxFrameTime: 0})
+  const frameTimesRef = React.useRef<number[]>([])
+  const lastTimeRef = React.useRef(0)
+  const maxFrameTimeRef = React.useRef(0)
+
+  React.useEffect(() => {
+    let animationId: number
+    lastTimeRef.current = performance.now()
+
+    const measure = () => {
+      const now = performance.now()
+      const delta = now - lastTimeRef.current
+      lastTimeRef.current = now
+
+      frameTimesRef.current.push(delta)
+      if (frameTimesRef.current.length > 60) {
+        frameTimesRef.current.shift()
+      }
+
+      // Track max frame time (reset after 2 seconds of good frames)
+      if (delta > maxFrameTimeRef.current) {
+        maxFrameTimeRef.current = delta
+      } else if (delta < 20 && maxFrameTimeRef.current > 20) {
+        // Slowly decay max if we're getting good frames
+        maxFrameTimeRef.current = maxFrameTimeRef.current * 0.99
+      }
+
+      const avgFrameTime = frameTimesRef.current.reduce((a, b) => a + b, 0) / frameTimesRef.current.length
+      const fps = Math.round(1000 / avgFrameTime)
+
+      setStats({
+        fps,
+        frameTime: Math.round(avgFrameTime * 10) / 10,
+        maxFrameTime: Math.round(maxFrameTimeRef.current * 10) / 10,
+      })
+
+      animationId = requestAnimationFrame(measure)
+    }
+
+    animationId = requestAnimationFrame(measure)
+    return () => cancelAnimationFrame(animationId)
+  }, [])
+
+  const fpsColor =
+    stats.fps >= 55 ? 'var(--fgColor-success)' : stats.fps >= 30 ? 'var(--fgColor-attention)' : 'var(--fgColor-danger)'
+
+  return (
+    <div
+      style={{
+        padding: '12px',
+        background: 'var(--bgColor-canvas-subtle)',
+        borderRadius: '6px',
+        marginBottom: '16px',
+        fontFamily: 'monospace',
+        fontSize: '12px',
+      }}
+    >
+      <div style={{marginBottom: '8px', fontWeight: 600, fontSize: '13px'}}>Performance Monitor</div>
+      <div style={{display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '4px 12px'}}>
+        {domCount != null && (
+          <>
+            <span>DOM elements:</span>
+            <span style={{fontVariantNumeric: 'tabular-nums'}}>{numberFormatter.format(domCount)}</span>
+          </>
+        )}
+        <span>FPS:</span>
+        <span style={{color: fpsColor, fontWeight: 600, fontVariantNumeric: 'tabular-nums'}}>
+          {fpsFormatter.format(stats.fps)}
+        </span>
+        <span>Frame time:</span>
+        <span style={{fontVariantNumeric: 'tabular-nums'}}>{msFormatter.format(stats.frameTime)}ms</span>
+        <span>Max frame:</span>
+        <span
+          style={{
+            color: stats.maxFrameTime > 32 ? 'var(--fgColor-danger)' : 'inherit',
+            fontVariantNumeric: 'tabular-nums',
+          }}
+        >
+          {msFormatter.format(stats.maxFrameTime)}ms
+        </span>
+      </div>
+      <div style={{marginTop: '8px', fontSize: '11px', color: 'var(--fgColor-muted)'}}>
+        Drag the resize handle to test
+      </div>
+    </div>
+  )
+}
+
 const meta: Meta<typeof PageLayout> = {
   title: 'Components/PageLayout/Performance Tests',
   component: PageLayout,
@@ -19,84 +140,85 @@ export default meta
 type Story = StoryObj<typeof PageLayout>
 
 // ============================================================================
-// Story 1: Baseline - Light Content (~100 elements)
+// Story 1: Baseline - Light Content (< 100 elements)
 // ============================================================================
 
 export const BaselineLight: Story = {
-  name: '1. Light Content - Baseline (~100 elements)',
+  name: '1. Light Content - Baseline',
   render: () => {
+    const contentRef = React.useRef<HTMLDivElement>(null)
+    const domCount = useDOMElementCount(contentRef)
+
     return (
-      <PageLayout padding="none" containerWidth="full">
-        <PageLayout.Header>
-          <Heading as="h1">Light Content Baseline</Heading>
-        </PageLayout.Header>
+      <div ref={contentRef}>
+        <PageLayout padding="none" containerWidth="full">
+          <PageLayout.Header>
+            <Heading as="h1">Light Content Baseline</Heading>
+          </PageLayout.Header>
 
-        <PageLayout.Content>
-          <div style={{padding: '16px'}}>
-            <p>Minimal DOM elements to establish baseline.</p>
-            <p>Should be effortless 60 FPS.</p>
-          </div>
-        </PageLayout.Content>
+          <PageLayout.Content>
+            <div style={{padding: '16px'}}>
+              <p>Minimal DOM elements to establish baseline.</p>
+              <p>Should be effortless 60 FPS.</p>
+            </div>
+          </PageLayout.Content>
 
-        <PageLayout.Pane position="start" resizable>
-          <div style={{padding: '16px'}}>
-            <p>Drag to test - should be instant.</p>
-          </div>
-        </PageLayout.Pane>
-      </PageLayout>
+          <PageLayout.Pane position="start" resizable>
+            <div style={{padding: '16px'}}>
+              <PerformanceMonitor domCount={domCount} />
+              <p>Drag to test - should be instant.</p>
+            </div>
+          </PageLayout.Pane>
+        </PageLayout>
+      </div>
     )
   },
 }
 
-// ============================================================================
-// Story 2: Medium Content - Large Table (~3000 elements)
-// ============================================================================
-
 export const MediumContent: Story = {
-  name: '2. Medium Content - Large Table (~3000 elements)',
+  name: '2. Medium Content',
 
   render: () => {
+    const contentRef = React.useRef<HTMLDivElement>(null)
+    const domCount = useDOMElementCount(contentRef)
+
     return (
-      <PageLayout padding="none" containerWidth="full">
-        <PageLayout.Header>
-          <Heading as="h1">Medium Content - Large Table</Heading>
-        </PageLayout.Header>
-        <PageLayout.Pane position="start" resizable>
-          <div style={{padding: '16px'}}>
-            <p>Performance Monitor</p>
-            <div
-              style={{
-                padding: '12px',
-                background: 'var(--bgColor-canvas-subtle)',
-                borderRadius: '6px',
-                marginBottom: '16px',
-                fontSize: '13px',
-              }}
-            >
-              <strong>DOM Load:</strong> ~3,000 elements
-              <br />
-              <strong>Table:</strong> 300 rows × 10 cols
-              <br />
+      <div ref={contentRef}>
+        <PageLayout padding="none" containerWidth="full">
+          <PageLayout.Header>
+            <Heading as="h1">Medium Content</Heading>
+          </PageLayout.Header>
+          <PageLayout.Pane widthStorageKey="medium-content" position="start" resizable>
+            <div style={{padding: '16px'}}>
+              <PerformanceMonitor domCount={domCount} />
+              <div
+                style={{
+                  padding: '12px',
+                  background: 'var(--bgColor-canvas-subtle)',
+                  borderRadius: '6px',
+                  marginBottom: '16px',
+                  fontSize: '13px',
+                }}
+              >
+                <strong>Table:</strong> 100 rows × 6 cols
+              </div>
             </div>
-          </div>
-        </PageLayout.Pane>
-        <PageLayout.Content>
-          <div style={{padding: '16px'}}>
-            {/* Large table with complex cells */}
-            <h2 style={{marginBottom: '16px'}}>Data Table (300 rows × 10 columns)</h2>
-            <div
-              tabIndex={0}
-              style={{
-                overflowY: 'auto',
-                height: '600px',
-                border: '1px solid var(--borderColor-default)',
-              }}
-            >
-              <table style={{width: '100%', borderCollapse: 'collapse'}}>
-                <thead style={{position: 'sticky', top: 0, background: 'var(--bgColor-default)', zIndex: 1}}>
-                  <tr style={{background: 'var(--bgColor-canvas-subtle)'}}>
-                    {['ID', 'Name', 'Email', 'Role', 'Status', 'Date', 'Count', 'Value', 'Tags', 'Actions'].map(
-                      (header, i) => (
+          </PageLayout.Pane>
+          <PageLayout.Content>
+            <div style={{padding: '16px'}}>
+              <h2 style={{marginBottom: '16px'}}>Data Table (100 rows × 6 columns)</h2>
+              <div
+                tabIndex={0}
+                style={{
+                  overflowY: 'auto',
+                  height: '600px',
+                  border: '1px solid var(--borderColor-default)',
+                }}
+              >
+                <table style={{width: '100%', borderCollapse: 'collapse'}}>
+                  <thead style={{position: 'sticky', top: 0, background: 'var(--bgColor-default)', zIndex: 1}}>
+                    <tr style={{background: 'var(--bgColor-canvas-subtle)'}}>
+                      {['ID', 'Name', 'Role', 'Status', 'Date', 'Actions'].map((header, i) => (
                         <th
                           key={i}
                           style={{
@@ -109,241 +231,349 @@ export const MediumContent: Story = {
                         >
                           {header}
                         </th>
-                      ),
-                    )}
-                  </tr>
-                </thead>
-                <tbody>
-                  {Array.from({length: 300}).map((_, rowIndex) => (
-                    <tr key={rowIndex} style={{borderBottom: '1px solid var(--borderColor-default)'}}>
-                      <td style={{padding: '8px 12px', fontSize: '13px'}}>#{10000 + rowIndex}</td>
-                      <td style={{padding: '8px 12px', fontWeight: '500'}}>
-                        {['Alice', 'Bob', 'Charlie', 'Diana', 'Eve'][rowIndex % 5]}{' '}
-                        {['Smith', 'Jones', 'Davis'][rowIndex % 3]}
-                      </td>
-                      <td style={{padding: '8px 12px', fontSize: '12px', color: 'var(--fgColor-muted)'}}>
-                        user{rowIndex}@example.com
-                      </td>
-                      <td style={{padding: '8px 12px', fontSize: '13px'}}>
-                        {['Admin', 'Editor', 'Viewer', 'Manager'][rowIndex % 4]}
-                      </td>
-                      <td style={{padding: '8px 12px'}}>
-                        <Label
-                          variant={rowIndex % 3 === 0 ? 'success' : rowIndex % 2 === 0 ? 'attention' : 'danger'}
-                          size="small"
-                        >
-                          {rowIndex % 3 === 0 ? 'Active' : rowIndex % 2 === 0 ? 'Pending' : 'Inactive'}
-                        </Label>
-                      </td>
-                      <td style={{padding: '8px 12px', fontSize: '12px', color: 'var(--fgColor-muted)'}}>
-                        2024-{String((rowIndex % 12) + 1).padStart(2, '0')}-
-                        {String((rowIndex % 28) + 1).padStart(2, '0')}
-                      </td>
-                      <td style={{padding: '8px 12px', fontSize: '13px', textAlign: 'right'}}>
-                        {(rowIndex * 17) % 1000}
-                      </td>
-                      <td style={{padding: '8px 12px', fontWeight: '500', textAlign: 'right'}}>
-                        ${((rowIndex * 123.45) % 10000).toFixed(2)}
-                      </td>
-                      <td style={{padding: '8px 12px', fontSize: '11px'}}>
-                        <Label variant="success" size="small" style={{marginRight: '4px'}}>
-                          tag{rowIndex % 10}
-                        </Label>
-                        <Label variant="attention" size="small">
-                          type{rowIndex % 5}
-                        </Label>
-                      </td>
-                      <td style={{padding: '8px 12px'}}>
-                        <Button size="small" style={{marginRight: '4px'}}>
-                          Edit
-                        </Button>
-                        <Button size="small">Delete</Button>
-                      </td>
+                      ))}
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {Array.from({length: 100}).map((_, rowIndex) => (
+                      <tr key={rowIndex} style={{borderBottom: '1px solid var(--borderColor-default)'}}>
+                        <td style={{padding: '8px 12px', fontSize: '13px'}}>#{1000 + rowIndex}</td>
+                        <td style={{padding: '8px 12px', fontWeight: '500'}}>
+                          {['Alice', 'Bob', 'Charlie', 'Diana', 'Eve'][rowIndex % 5]}{' '}
+                          {['Smith', 'Jones', 'Davis'][rowIndex % 3]}
+                        </td>
+                        <td style={{padding: '8px 12px', fontSize: '13px'}}>
+                          {['Admin', 'Editor', 'Viewer', 'Manager'][rowIndex % 4]}
+                        </td>
+                        <td style={{padding: '8px 12px'}}>
+                          <Label
+                            variant={rowIndex % 3 === 0 ? 'success' : rowIndex % 2 === 0 ? 'attention' : 'danger'}
+                            size="small"
+                          >
+                            {rowIndex % 3 === 0 ? 'Active' : rowIndex % 2 === 0 ? 'Pending' : 'Inactive'}
+                          </Label>
+                        </td>
+                        <td style={{padding: '8px 12px', fontSize: '12px', color: 'var(--fgColor-muted)'}}>
+                          2024-{String((rowIndex % 12) + 1).padStart(2, '0')}-
+                          {String((rowIndex % 28) + 1).padStart(2, '0')}
+                        </td>
+                        <td style={{padding: '8px 12px'}}>
+                          <Button size="small" style={{marginRight: '4px'}}>
+                            Edit
+                          </Button>
+                          <Button size="small">Delete</Button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
-        </PageLayout.Content>
-      </PageLayout>
+          </PageLayout.Content>
+        </PageLayout>
+      </div>
     )
   },
 }
 
-// ============================================================================
-// Story 3: Heavy Content - Multiple Sections (~10000 elements)
-// ============================================================================
+export const LargeContent: Story = {
+  name: '3. Large Content',
 
-export const HeavyContent: Story = {
-  name: '3. Heavy Content - Multiple Sections (~10000 elements)',
   render: () => {
+    const contentRef = React.useRef<HTMLDivElement>(null)
+    const domCount = useDOMElementCount(contentRef)
+
     return (
-      <PageLayout padding="none" containerWidth="full">
-        <PageLayout.Header>
-          <Heading as="h1">Heavy Content - Multiple Sections (~5000 elements)</Heading>
-        </PageLayout.Header>
-
-        <PageLayout.Pane position="start" resizable>
-          <div style={{padding: '16px'}}>
-            <div
-              style={{
-                padding: '12px',
-                background: 'var(--bgColor-canvas-subtle)',
-                borderRadius: '6px',
-                marginBottom: '16px',
-                fontSize: '13px',
-              }}
-            >
-              <strong>DOM Load:</strong> ~10,000 elements
-              <br />
-              <strong>Mix:</strong> Cards, tables, lists
-              <br />
+      <div ref={contentRef}>
+        <PageLayout padding="none" containerWidth="full">
+          <PageLayout.Header>
+            <Heading as="h1">Large Content - Large Table</Heading>
+          </PageLayout.Header>
+          <PageLayout.Pane widthStorageKey="large-content" position="start" resizable>
+            <div style={{padding: '16px'}}>
+              <PerformanceMonitor domCount={domCount} />
+              <div
+                style={{
+                  padding: '12px',
+                  background: 'var(--bgColor-canvas-subtle)',
+                  borderRadius: '6px',
+                  marginBottom: '16px',
+                  fontSize: '13px',
+                }}
+              >
+                <strong>Table:</strong> 300 rows × 10 cols
+              </div>
             </div>
-            <p style={{fontSize: '13px'}}>
-              <strong>Sections:</strong>
-            </p>
-            <ul style={{fontSize: '12px', paddingLeft: '20px'}}>
-              <li>400 activity cards (~2400 elem)</li>
-              <li>350-row table (~3500 elem)</li>
-              <li>400 issue items (~3200 elem)</li>
-              <li>+ Headers, buttons, etc</li>
-            </ul>
-          </div>
-        </PageLayout.Pane>
+          </PageLayout.Pane>
+          <PageLayout.Content>
+            <div style={{padding: '16px'}}>
+              {/* Large table with complex cells */}
+              <h2 style={{marginBottom: '16px'}}>Data Table (300 rows × 10 columns)</h2>
+              <div
+                tabIndex={0}
+                style={{
+                  overflowY: 'auto',
+                  height: '600px',
+                  border: '1px solid var(--borderColor-default)',
+                }}
+              >
+                <table style={{width: '100%', borderCollapse: 'collapse'}}>
+                  <thead style={{position: 'sticky', top: 0, background: 'var(--bgColor-default)', zIndex: 1}}>
+                    <tr style={{background: 'var(--bgColor-canvas-subtle)'}}>
+                      {['ID', 'Name', 'Email', 'Role', 'Status', 'Date', 'Count', 'Value', 'Tags', 'Actions'].map(
+                        (header, i) => (
+                          <th
+                            key={i}
+                            style={{
+                              padding: '8px 12px',
+                              textAlign: 'left',
+                              borderBottom: '2px solid var(--borderColor-default)',
+                              fontWeight: '600',
+                              whiteSpace: 'nowrap',
+                            }}
+                          >
+                            {header}
+                          </th>
+                        ),
+                      )}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Array.from({length: 300}).map((_, rowIndex) => (
+                      <tr key={rowIndex} style={{borderBottom: '1px solid var(--borderColor-default)'}}>
+                        <td style={{padding: '8px 12px', fontSize: '13px'}}>#{10000 + rowIndex}</td>
+                        <td style={{padding: '8px 12px', fontWeight: '500'}}>
+                          {['Alice', 'Bob', 'Charlie', 'Diana', 'Eve'][rowIndex % 5]}{' '}
+                          {['Smith', 'Jones', 'Davis'][rowIndex % 3]}
+                        </td>
+                        <td style={{padding: '8px 12px', fontSize: '12px', color: 'var(--fgColor-muted)'}}>
+                          user{rowIndex}@example.com
+                        </td>
+                        <td style={{padding: '8px 12px', fontSize: '13px'}}>
+                          {['Admin', 'Editor', 'Viewer', 'Manager'][rowIndex % 4]}
+                        </td>
+                        <td style={{padding: '8px 12px'}}>
+                          <Label
+                            variant={rowIndex % 3 === 0 ? 'success' : rowIndex % 2 === 0 ? 'attention' : 'danger'}
+                            size="small"
+                          >
+                            {rowIndex % 3 === 0 ? 'Active' : rowIndex % 2 === 0 ? 'Pending' : 'Inactive'}
+                          </Label>
+                        </td>
+                        <td style={{padding: '8px 12px', fontSize: '12px', color: 'var(--fgColor-muted)'}}>
+                          2024-{String((rowIndex % 12) + 1).padStart(2, '0')}-
+                          {String((rowIndex % 28) + 1).padStart(2, '0')}
+                        </td>
+                        <td style={{padding: '8px 12px', fontSize: '13px', textAlign: 'right'}}>
+                          {(rowIndex * 17) % 1000}
+                        </td>
+                        <td style={{padding: '8px 12px', fontWeight: '500', textAlign: 'right'}}>
+                          ${((rowIndex * 123.45) % 10000).toFixed(2)}
+                        </td>
+                        <td style={{padding: '8px 12px', fontSize: '11px'}}>
+                          <Label variant="success" size="small" style={{marginRight: '4px'}}>
+                            tag{rowIndex % 10}
+                          </Label>
+                          <Label variant="attention" size="small">
+                            type{rowIndex % 5}
+                          </Label>
+                        </td>
+                        <td style={{padding: '8px 12px'}}>
+                          <Button size="small" style={{marginRight: '4px'}}>
+                            Edit
+                          </Button>
+                          <Button size="small">Delete</Button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </PageLayout.Content>
+        </PageLayout>
+      </div>
+    )
+  },
+}
 
-        <PageLayout.Content>
-          <div tabIndex={0} style={{padding: '16px', overflowY: 'auto', height: '600px'}}>
-            {/* Section 1: Large card grid */}
-            <section style={{marginBottom: '32px'}}>
-              <h2 style={{marginBottom: '16px'}}>Activity Feed (400 cards)</h2>
-              <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '12px'}}>
+export const ExtraLargeContent: Story = {
+  name: '4. Extra Large Content',
+  render: () => {
+    const contentRef = React.useRef<HTMLDivElement>(null)
+    const domCount = useDOMElementCount(contentRef)
+
+    return (
+      <div ref={contentRef}>
+        <PageLayout padding="none" containerWidth="full">
+          <PageLayout.Header>
+            <Heading as="h1">Extra Large Content - Multiple Sections</Heading>
+          </PageLayout.Header>
+
+          <PageLayout.Pane position="start" resizable>
+            <div style={{padding: '16px'}}>
+              <PerformanceMonitor domCount={domCount} />
+              <div
+                style={{
+                  padding: '12px',
+                  background: 'var(--bgColor-canvas-subtle)',
+                  borderRadius: '6px',
+                  marginBottom: '16px',
+                  fontSize: '13px',
+                }}
+              >
+                <strong>Mix:</strong> Cards, tables, lists
+                <br />
+              </div>
+              <p style={{fontSize: '13px'}}>
+                <strong>Sections:</strong>
+              </p>
+              <ul style={{fontSize: '12px', paddingLeft: '20px'}}>
+                <li>400 activity cards</li>
+                <li>350-row table</li>
+                <li>400 issue items</li>
+                <li>+ Headers, buttons, etc</li>
+              </ul>
+            </div>
+          </PageLayout.Pane>
+
+          <PageLayout.Content>
+            <div tabIndex={0} style={{padding: '16px', overflowY: 'auto', height: '600px'}}>
+              {/* Section 1: Large card grid */}
+              <section style={{marginBottom: '32px'}}>
+                <h2 style={{marginBottom: '16px'}}>Activity Feed (400 cards)</h2>
+                <div
+                  style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '12px'}}
+                >
+                  {Array.from({length: 400}).map((_, i) => (
+                    <div
+                      key={i}
+                      style={{
+                        padding: '12px',
+                        border: '1px solid var(--borderColor-default)',
+                        borderRadius: '6px',
+                        background: 'var(--bgColor-default)',
+                      }}
+                    >
+                      <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '8px'}}>
+                        <span style={{fontWeight: '600', fontSize: '14px'}}>Activity #{i + 1}</span>
+                        <span style={{fontSize: '11px', color: 'var(--fgColor-muted)'}}>{i % 60}m ago</span>
+                      </div>
+                      <div style={{fontSize: '12px', color: 'var(--fgColor-muted)', marginBottom: '8px'}}>
+                        User {['Alice', 'Bob', 'Charlie'][i % 3]} performed action on item {i}
+                      </div>
+                      <div style={{display: 'flex', gap: '4px'}}>
+                        <Label variant="success" size="small">
+                          {['create', 'update', 'delete'][i % 3]}
+                        </Label>
+                        <Label variant="accent" size="small">
+                          priority-{(i % 3) + 1}
+                        </Label>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              {/* Section 2: Large table */}
+              <section style={{marginBottom: '32px'}}>
+                <h2 style={{marginBottom: '16px'}}>Data Table (350 rows × 8 columns)</h2>
+                <table style={{width: '100%', borderCollapse: 'collapse'}}>
+                  <thead style={{position: 'sticky', top: 0, background: 'var(--bgColor-default)'}}>
+                    <tr style={{background: 'var(--bgColor-canvas-subtle)'}}>
+                      {['ID', 'Name', 'Type', 'Status', 'Date', 'Value', 'Priority', 'Owner'].map((header, i) => (
+                        <th
+                          key={i}
+                          style={{
+                            padding: '8px 12px',
+                            textAlign: 'left',
+                            borderBottom: '2px solid var(--borderColor-default)',
+                            fontWeight: '600',
+                          }}
+                        >
+                          {header}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Array.from({length: 350}).map((_, i) => (
+                      <tr key={i} style={{borderBottom: '1px solid var(--borderColor-default)'}}>
+                        <td style={{padding: '8px 12px', fontSize: '12px'}}>#{5000 + i}</td>
+                        <td style={{padding: '8px 12px', fontSize: '13px'}}>Item {i + 1}</td>
+                        <td style={{padding: '8px 12px', fontSize: '12px'}}>
+                          {['Type A', 'Type B', 'Type C', 'Type D'][i % 4]}
+                        </td>
+                        <td style={{padding: '8px 12px'}}>
+                          <Label variant={i % 2 === 0 ? 'success' : 'attention'} size="small">
+                            {i % 2 === 0 ? 'Done' : 'In Progress'}
+                          </Label>
+                        </td>
+                        <td style={{padding: '8px 12px', fontSize: '12px', color: 'var(--fgColor-muted)'}}>
+                          Dec {(i % 30) + 1}
+                        </td>
+                        <td style={{padding: '8px 12px', fontWeight: '500'}}>${(i * 50 + 100).toFixed(2)}</td>
+                        <td style={{padding: '8px 12px', fontSize: '12px'}}>{['Low', 'Medium', 'High'][i % 3]}</td>
+                        <td style={{padding: '8px 12px', fontSize: '12px'}}>user{i % 20}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </section>
+
+              {/* Section 3: List with nested content */}
+              <section>
+                <h2 style={{marginBottom: '16px'}}>Issue Tracker (400 items)</h2>
                 {Array.from({length: 400}).map((_, i) => (
                   <div
                     key={i}
                     style={{
                       padding: '12px',
-                      border: '1px solid var(--borderColor-default)',
+                      marginBottom: '8px',
+                      background: i % 2 === 0 ? 'var(--bgColor-default)' : 'var(--bgColor-canvas-subtle)',
                       borderRadius: '6px',
-                      background: 'var(--bgColor-default)',
+                      border: '1px solid var(--borderColor-default)',
                     }}
                   >
-                    <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '8px'}}>
-                      <span style={{fontWeight: '600', fontSize: '14px'}}>Activity #{i + 1}</span>
-                      <span style={{fontSize: '11px', color: 'var(--fgColor-muted)'}}>{i % 60}m ago</span>
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        marginBottom: '6px',
+                      }}
+                    >
+                      <div>
+                        <span style={{fontWeight: '600', marginRight: '8px'}}>Issue #{i + 1}</span>
+                        <Label variant={(['success', 'attention', 'severe'] as const)[i % 3]} size="small">
+                          {['bug', 'feature', 'enhancement'][i % 3]}
+                        </Label>
+                      </div>
+                      <span style={{fontSize: '11px', color: 'var(--fgColor-muted)'}}>{i % 10}d ago</span>
                     </div>
-                    <div style={{fontSize: '12px', color: 'var(--fgColor-muted)', marginBottom: '8px'}}>
-                      User {['Alice', 'Bob', 'Charlie'][i % 3]} performed action on item {i}
+                    <div style={{fontSize: '13px', marginBottom: '6px'}}>
+                      Description for issue {i + 1}: This is some text that describes the issue in detail.
                     </div>
-                    <div style={{display: 'flex', gap: '4px'}}>
-                      <Label variant="success" size="small">
-                        {['create', 'update', 'delete'][i % 3]}
-                      </Label>
-                      <Label variant="accent" size="small">
-                        priority-{(i % 3) + 1}
-                      </Label>
+                    <div style={{fontSize: '11px', color: 'var(--fgColor-muted)'}}>
+                      <span style={{marginRight: '12px'}}>👤 {['alice', 'bob', 'charlie'][i % 3]}</span>
+                      <span style={{marginRight: '12px'}}>💬 {i % 15} comments</span>
+                      <span>⭐ {i % 20} reactions</span>
                     </div>
                   </div>
                 ))}
-              </div>
-            </section>
-
-            {/* Section 2: Large table */}
-            <section style={{marginBottom: '32px'}}>
-              <h2 style={{marginBottom: '16px'}}>Data Table (350 rows × 8 columns)</h2>
-              <table style={{width: '100%', borderCollapse: 'collapse'}}>
-                <thead style={{position: 'sticky', top: 0, background: 'var(--bgColor-default)'}}>
-                  <tr style={{background: 'var(--bgColor-canvas-subtle)'}}>
-                    {['ID', 'Name', 'Type', 'Status', 'Date', 'Value', 'Priority', 'Owner'].map((header, i) => (
-                      <th
-                        key={i}
-                        style={{
-                          padding: '8px 12px',
-                          textAlign: 'left',
-                          borderBottom: '2px solid var(--borderColor-default)',
-                          fontWeight: '600',
-                        }}
-                      >
-                        {header}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {Array.from({length: 350}).map((_, i) => (
-                    <tr key={i} style={{borderBottom: '1px solid var(--borderColor-default)'}}>
-                      <td style={{padding: '8px 12px', fontSize: '12px'}}>#{5000 + i}</td>
-                      <td style={{padding: '8px 12px', fontSize: '13px'}}>Item {i + 1}</td>
-                      <td style={{padding: '8px 12px', fontSize: '12px'}}>
-                        {['Type A', 'Type B', 'Type C', 'Type D'][i % 4]}
-                      </td>
-                      <td style={{padding: '8px 12px'}}>
-                        <Label variant={i % 2 === 0 ? 'success' : 'attention'} size="small">
-                          {i % 2 === 0 ? 'Done' : 'In Progress'}
-                        </Label>
-                      </td>
-                      <td style={{padding: '8px 12px', fontSize: '12px', color: 'var(--fgColor-muted)'}}>
-                        Dec {(i % 30) + 1}
-                      </td>
-                      <td style={{padding: '8px 12px', fontWeight: '500'}}>${(i * 50 + 100).toFixed(2)}</td>
-                      <td style={{padding: '8px 12px', fontSize: '12px'}}>{['Low', 'Medium', 'High'][i % 3]}</td>
-                      <td style={{padding: '8px 12px', fontSize: '12px'}}>user{i % 20}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </section>
-
-            {/* Section 3: List with nested content */}
-            <section>
-              <h2 style={{marginBottom: '16px'}}>Issue Tracker (400 items)</h2>
-              {Array.from({length: 400}).map((_, i) => (
-                <div
-                  key={i}
-                  style={{
-                    padding: '12px',
-                    marginBottom: '8px',
-                    background: i % 2 === 0 ? 'var(--bgColor-default)' : 'var(--bgColor-canvas-subtle)',
-                    borderRadius: '6px',
-                    border: '1px solid var(--borderColor-default)',
-                  }}
-                >
-                  <div
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      marginBottom: '6px',
-                    }}
-                  >
-                    <div>
-                      <span style={{fontWeight: '600', marginRight: '8px'}}>Issue #{i + 1}</span>
-                      <Label variant={(['success', 'attention', 'severe'] as const)[i % 3]} size="small">
-                        {['bug', 'feature', 'enhancement'][i % 3]}
-                      </Label>
-                    </div>
-                    <span style={{fontSize: '11px', color: 'var(--fgColor-muted)'}}>{i % 10}d ago</span>
-                  </div>
-                  <div style={{fontSize: '13px', marginBottom: '6px'}}>
-                    Description for issue {i + 1}: This is some text that describes the issue in detail.
-                  </div>
-                  <div style={{fontSize: '11px', color: 'var(--fgColor-muted)'}}>
-                    <span style={{marginRight: '12px'}}>👤 {['alice', 'bob', 'charlie'][i % 3]}</span>
-                    <span style={{marginRight: '12px'}}>💬 {i % 15} comments</span>
-                    <span>⭐ {i % 20} reactions</span>
-                  </div>
-                </div>
-              ))}
-            </section>
-          </div>
-        </PageLayout.Content>
-      </PageLayout>
+              </section>
+            </div>
+          </PageLayout.Content>
+        </PageLayout>
+      </div>
     )
   },
 }
 
 export const ResponsiveConstraintsTest: Story = {
   render: () => {
+    const contentRef = React.useRef<HTMLDivElement>(null)
+    const domCount = useDOMElementCount(contentRef)
     const [viewportWidth, setViewportWidth] = React.useState(typeof window !== 'undefined' ? window.innerWidth : 1280)
 
     React.useEffect(() => {
@@ -357,24 +587,27 @@ export const ResponsiveConstraintsTest: Story = {
     const calculatedMaxWidth = Math.max(256, viewportWidth - maxWidthDiff)
 
     return (
-      <PageLayout padding="none" containerWidth="full">
-        <PageLayout.Header>
-          <Heading as="h1">Responsive Constraints Test</Heading>
-        </PageLayout.Header>
+      <div ref={contentRef}>
+        <PageLayout padding="none" containerWidth="full">
+          <PageLayout.Header>
+            <Heading as="h1">Responsive Constraints Test</Heading>
+          </PageLayout.Header>
 
-        <PageLayout.Pane position="start" resizable>
-          <div style={{padding: '16px'}}>
-            <p>Max width: {calculatedMaxWidth}px</p>
-          </div>
-        </PageLayout.Pane>
+          <PageLayout.Pane position="start" resizable>
+            <div style={{padding: '16px'}}>
+              <PerformanceMonitor domCount={domCount} />
+              <p>Max width: {calculatedMaxWidth}px</p>
+            </div>
+          </PageLayout.Pane>
 
-        <PageLayout.Content>
-          <div style={{padding: '16px'}}>
-            <h2>Test responsive max width constraints</h2>
-            <p>Resize window and watch max pane width update.</p>
-          </div>
-        </PageLayout.Content>
-      </PageLayout>
+          <PageLayout.Content>
+            <div style={{padding: '16px'}}>
+              <h2>Test responsive max width constraints</h2>
+              <p>Resize window and watch max pane width update.</p>
+            </div>
+          </PageLayout.Content>
+        </PageLayout>
+      </div>
     )
   },
 }
@@ -382,6 +615,8 @@ export const ResponsiveConstraintsTest: Story = {
 export const KeyboardARIATest: Story = {
   name: 'Keyboard & ARIA Test',
   render: () => {
+    const contentRef = React.useRef<HTMLDivElement>(null)
+    const domCount = useDOMElementCount(contentRef)
     const [ariaAttributes, setAriaAttributes] = React.useState({
       valuemin: '—',
       valuemax: '—',
@@ -439,59 +674,62 @@ export const KeyboardARIATest: Story = {
     }, [])
 
     return (
-      <PageLayout padding="none" containerWidth="full">
-        <PageLayout.Header>
-          <Heading as="h1">Keyboard & ARIA Test</Heading>
-        </PageLayout.Header>
+      <div ref={contentRef}>
+        <PageLayout padding="none" containerWidth="full">
+          <PageLayout.Header>
+            <Heading as="h1">Keyboard & ARIA Test</Heading>
+          </PageLayout.Header>
 
-        <PageLayout.Pane position="start" resizable>
-          <div style={{padding: '16px'}}>
-            <p>Use keyboard: ← → ↑ ↓</p>
-          </div>
-        </PageLayout.Pane>
+          <PageLayout.Pane position="start" resizable>
+            <div style={{padding: '16px'}}>
+              <PerformanceMonitor domCount={domCount} />
+              <p>Use keyboard: ← → ↑ ↓</p>
+            </div>
+          </PageLayout.Pane>
 
-        <PageLayout.Content>
-          <div style={{padding: '16px'}}>
-            <h2>Test Instructions</h2>
-            <ol>
-              <li>Tab to resize handle</li>
-              <li>Use arrow keys to resize</li>
-              <li>Test with screen reader</li>
-            </ol>
-            <div
-              style={{
-                marginTop: '24px',
-                padding: '16px',
-                border: '1px solid var(--borderColor-default)',
-                borderRadius: '6px',
-                background: 'var(--bgColor-canvas-subtle)',
-              }}
-            >
-              <p style={{marginBottom: '12px'}}>Live ARIA attributes</p>
-              <dl
+          <PageLayout.Content>
+            <div style={{padding: '16px'}}>
+              <h2>Test Instructions</h2>
+              <ol>
+                <li>Tab to resize handle</li>
+                <li>Use arrow keys to resize</li>
+                <li>Test with screen reader</li>
+              </ol>
+              <div
                 style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'max-content 1fr',
-                  gap: '8px 16px',
-                  margin: 0,
+                  marginTop: '24px',
+                  padding: '16px',
+                  border: '1px solid var(--borderColor-default)',
+                  borderRadius: '6px',
+                  background: 'var(--bgColor-canvas-subtle)',
                 }}
               >
-                <dt style={{fontWeight: 600}}>aria-valuemin</dt>
-                <dd style={{margin: 0}}>{ariaAttributes.valuemin}</dd>
-                <dt style={{fontWeight: 600}}>aria-valuemax</dt>
-                <dd style={{margin: 0}}>{ariaAttributes.valuemax}</dd>
-                <dt style={{fontWeight: 600}}>aria-valuenow</dt>
-                <dd style={{margin: 0}}>{ariaAttributes.valuenow}</dd>
-                <dt style={{fontWeight: 600}}>aria-valuetext</dt>
-                <dd style={{margin: 0}}>{ariaAttributes.valuetext}</dd>
-              </dl>
-              <p style={{marginTop: '12px', fontSize: '12px', color: 'var(--fgColor-muted)'}}>
-                Values update live when the slider handle changes size via keyboard or pointer interactions.
-              </p>
+                <p style={{marginBottom: '12px'}}>Live ARIA attributes</p>
+                <dl
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'max-content 1fr',
+                    gap: '8px 16px',
+                    margin: 0,
+                  }}
+                >
+                  <dt style={{fontWeight: 600}}>aria-valuemin</dt>
+                  <dd style={{margin: 0}}>{ariaAttributes.valuemin}</dd>
+                  <dt style={{fontWeight: 600}}>aria-valuemax</dt>
+                  <dd style={{margin: 0}}>{ariaAttributes.valuemax}</dd>
+                  <dt style={{fontWeight: 600}}>aria-valuenow</dt>
+                  <dd style={{margin: 0}}>{ariaAttributes.valuenow}</dd>
+                  <dt style={{fontWeight: 600}}>aria-valuetext</dt>
+                  <dd style={{margin: 0}}>{ariaAttributes.valuetext}</dd>
+                </dl>
+                <p style={{marginTop: '12px', fontSize: '12px', color: 'var(--fgColor-muted)'}}>
+                  Values update live when the slider handle changes size via keyboard or pointer interactions.
+                </p>
+              </div>
             </div>
-          </div>
-        </PageLayout.Content>
-      </PageLayout>
+          </PageLayout.Content>
+        </PageLayout>
+      </div>
     )
   },
 }
