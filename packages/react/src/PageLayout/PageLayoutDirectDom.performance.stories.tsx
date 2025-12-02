@@ -6,7 +6,7 @@ import Label from '../Label'
 import Heading from '../Heading'
 import Text from '../Text'
 import {Stack} from '../Stack'
-import {PerformanceProvider, ProfiledComponent} from './PageLayoutPerformanceStoryGenerator'
+import {withPerformancePanel} from './PageLayoutPerformanceStoryGenerator'
 
 const meta: Meta<typeof PageLayout> = {
   title: 'Components/PageLayoutDirectDom/Performance Tests',
@@ -15,15 +15,7 @@ const meta: Meta<typeof PageLayout> = {
     // These performance only tests can freeze the accessibility scanner in a browser, so disable axe for them
     a11y: {disable: true},
   },
-  decorators: [
-    Story => (
-      <PerformanceProvider>
-        <ProfiledComponent id="PageLayout">
-          <Story />
-        </ProfiledComponent>
-      </PerformanceProvider>
-    ),
-  ],
+  decorators: [withPerformancePanel('PageLayoutDirectDom')],
 }
 
 export default meta

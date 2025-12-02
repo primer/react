@@ -1,3 +1,4 @@
+import type {Decorator} from '@storybook/react-vite'
 import React from 'react'
 
 /**
@@ -33,6 +34,9 @@ import React from 'react'
 const fpsFormatter = new Intl.NumberFormat('en-US', {minimumIntegerDigits: 2, maximumFractionDigits: 0})
 const msFormatter = new Intl.NumberFormat('en-US', {minimumFractionDigits: 1, maximumFractionDigits: 1})
 const numberFormatter = new Intl.NumberFormat('en-US')
+
+// Position options for the performance monitor
+export type MonitorPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
 
 // ============================================================================
 // Performance Metrics Types
@@ -174,7 +178,13 @@ interface MutableMetricsState {
   domElements: number | null
 }
 
-export function PerformanceProvider({children}: {children: React.ReactNode}) {
+export function PerformanceProvider({
+  children,
+  initialPosition = 'bottom-left',
+}: {
+  children: React.ReactNode
+  initialPosition?: MonitorPosition
+}) {
   // Ref for DOM element counting
   const contentRef = React.useRef<HTMLDivElement>(null)
 
@@ -521,7 +531,7 @@ export function PerformanceProvider({children}: {children: React.ReactNode}) {
   return (
     <PerformanceCallbacksContext.Provider value={callbacksValue}>
       <PerformanceMetricsContext.Provider value={metricsValue}>
-        <PerformanceMonitorView metrics={metrics} onReset={reset} />
+        <PerformanceMonitorView metrics={metrics} onReset={reset} initialPosition={initialPosition} />
         <div ref={contentRef}>{children}</div>
       </PerformanceMetricsContext.Provider>
     </PerformanceCallbacksContext.Provider>
@@ -564,9 +574,10 @@ export function ProfiledComponent({id, children}: {id: string; children: React.R
 interface PerformanceMonitorViewProps {
   metrics: PerformanceMetrics
   onReset: () => void
+  initialPosition?: MonitorPosition
 }
 
-function PerformanceMonitorView({metrics, onReset}: PerformanceMonitorViewProps) {
+function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-left'}: PerformanceMonitorViewProps) {
   const [isCollapsed, setIsCollapsed] = React.useState(false)
   const [position, setPosition] = React.useState<{x: number; y: number} | null>(null) // null = use default bottom-left
   const [dragState, setDragState] = React.useState<{isDragging: boolean; offsetX: number; offsetY: number}>({
@@ -670,8 +681,15 @@ function PerformanceMonitorView({metrics, onReset}: PerformanceMonitorViewProps)
 
   // avgReactRender intentionally not used in compact view
 
-  // Position styles - use explicit position if dragged, otherwise default to bottom-left
-  const positionStyle = position ? {left: `${position.x}px`, top: `${position.y}px`} : {left: '8px', bottom: '8px'}
+  // Position styles - use explicit position if dragged, otherwise use initialPosition
+  const defaultPositionStyle = {
+    'top-left': {left: '8px', top: '8px'},
+    'top-right': {right: '8px', top: '8px'},
+    'bottom-left': {left: '8px', bottom: '8px'},
+    'bottom-right': {right: '8px', bottom: '8px'},
+  }[initialPosition]
+
+  const positionStyle = position ? {left: `${position.x}px`, top: `${position.y}px`} : defaultPositionStyle
 
   // Collapsed view - just key metrics in a row
   if (isCollapsed) {
@@ -986,4 +1004,21 @@ function PerformanceMonitorView({metrics, onReset}: PerformanceMonitorViewProps)
       </div>
     </div>
   )
+}
+
+interface PerformancePanelOptions {
+  initialPosition?: MonitorPosition
+}
+
+export const withPerformancePanel = (id: string, options: PerformancePanelOptions = {}): Decorator => {
+  const {initialPosition = 'bottom-left'} = options
+  return Story => {
+    return (
+      <PerformanceProvider initialPosition={initialPosition}>
+        <ProfiledComponent id={id}>
+          <Story />
+        </ProfiledComponent>
+      </PerformanceProvider>
+    )
+  }
 }
