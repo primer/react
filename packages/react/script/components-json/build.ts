@@ -15,8 +15,8 @@ import prettier from '@prettier/sync'
 import chalk from 'chalk'
 import type {LintError} from 'markdownlint'
 import {lint as mdLint} from 'markdownlint/sync'
-import componentSchema from './component.schema.json'
-import outputSchema from './output.schema.json'
+import componentSchema from './component.schema.json' with {type: 'json'}
+import outputSchema from './output.schema.json' with {type: 'json'}
 
 const args = parseArgs({
   options: {
