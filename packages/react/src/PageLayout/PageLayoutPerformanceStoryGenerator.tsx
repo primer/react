@@ -1,5 +1,5 @@
 import type {Decorator} from '@storybook/react-vite'
-import React from 'react'
+import React, {startTransition} from 'react'
 import {createRoot, type Root} from 'react-dom/client'
 
 /**
@@ -313,15 +313,15 @@ export interface PerformanceMetrics {
   // ─────────────────────────────────────────────────────────────────────────
 
   /**
-   * Count of render cascades - when a single frame triggers multiple React commits.
-   * Indicates cascading state updates that could be batched.
+   * Count of nested updates - state updates triggered during React's commit phase.
+   * Detected natively by React Profiler as 'nested-update' phase.
+   * Common causes: setState in useLayoutEffect, setState during render.
    * Target: 0 during interactions.
    */
   renderCascades: number
 
   /**
-   * Maximum renders observed in a single frame.
-   * Values >1 indicate potential optimization opportunities for state batching.
+   * @deprecated No longer tracked. Keeping for interface compatibility.
    */
   maxRendersPerFrame: number
 
@@ -477,11 +477,8 @@ interface MutableMetricsState {
   interactionCount: number
   interactionLatencies: number[]
   inpMs: number
-  // Re-render cascades
-  renderCascades: number
-  maxRendersPerFrame: number
-  rendersThisFrame: number
-  lastRenderFrameTime: number
+  // Nested updates (detected by React Profiler)
+  nestedUpdateCount: number
   // Sparkline history
   memoryHistory: number[]
   fpsHistory: number[]
@@ -526,10 +523,7 @@ function createInitialMutableState(): MutableMetricsState {
     interactionCount: 0,
     interactionLatencies: [],
     inpMs: 0,
-    renderCascades: 0,
-    maxRendersPerFrame: 0,
-    rendersThisFrame: 0,
-    lastRenderFrameTime: 0,
+    nestedUpdateCount: 0,
     memoryHistory: [],
     fpsHistory: [],
     frameTimeHistory: [],
@@ -558,21 +552,12 @@ export function PerformanceProvider({
   const reportReactRender = React.useCallback(
     (phase: 'mount' | 'update' | 'nested-update', actualDuration: number, baseDuration: number) => {
       const m = mutableRef.current
-      const now = performance.now()
 
-      // Track render cascades - multiple renders in same frame
-      if (m.lastRenderFrameTime > 0 && now - m.lastRenderFrameTime < 16) {
-        m.rendersThisFrame++
-        if (m.rendersThisFrame > 1) {
-          m.renderCascades++
-        }
-        if (m.rendersThisFrame > m.maxRendersPerFrame) {
-          m.maxRendersPerFrame = m.rendersThisFrame
-        }
-      } else {
-        m.rendersThisFrame = 1
+      // Track nested updates - state updates triggered during commit phase
+      // React detects this natively and reports as 'nested-update' phase
+      if (phase === 'nested-update') {
+        m.nestedUpdateCount++
       }
-      m.lastRenderFrameTime = now
 
       m.reactRenderCount++
       m.reactTotalActualDuration += actualDuration
@@ -639,10 +624,7 @@ export function PerformanceProvider({
     m.interactionCount = 0
     m.interactionLatencies = []
     m.inpMs = 0
-    m.renderCascades = 0
-    m.maxRendersPerFrame = 0
-    m.rendersThisFrame = 0
-    m.lastRenderFrameTime = 0
+    m.nestedUpdateCount = 0
     m.memoryHistory = []
     m.fpsHistory = []
     m.frameTimeHistory = []
@@ -755,9 +737,10 @@ function IsolatedPerformanceMonitor({mutableRef, onReset, initialPosition}: Isol
     const root = createRoot(container)
     rootRef.current = root
 
-    // Render initial state
-    root.render(<IsolatedMonitorInner mutableRef={mutableRef} onReset={onReset} initialPosition={initialPosition} />)
-
+    startTransition(() => {
+      // Render initial state
+      root.render(<IsolatedMonitorInner mutableRef={mutableRef} onReset={onReset} initialPosition={initialPosition} />)
+    })
     // Cleanup on unmount
     return () => {
       setTimeout(() => {
@@ -927,8 +910,8 @@ function IsolatedMonitorInner({
         interactionCount: m.interactionCount,
         inpMs: Math.round(m.inpMs),
         avgInteractionMs,
-        renderCascades: m.renderCascades,
-        maxRendersPerFrame: m.maxRendersPerFrame,
+        renderCascades: m.nestedUpdateCount,
+        maxRendersPerFrame: 0, // Deprecated, keeping for interface compatibility
         fpsHistory: [...m.fpsHistory],
         frameTimeHistory: [...m.frameTimeHistory],
         memoryHistory: [...m.memoryHistory],
@@ -1233,9 +1216,9 @@ const metricDescriptions = {
     description: 'Re-renders after mount. Target: 0 for drag (pure CSS). Green ≤8ms, Yellow ≤16ms, Red >16ms.',
   },
   cascades: {
-    label: '⚛️ Cascades',
+    label: '⚛️ Nested',
     description:
-      'Multiple React commits in single frame. Indicates cascading state updates that could be batched. Target: 0.',
+      'Nested updates - state changes during commit phase (useLayoutEffect, render). Detected by React Profiler. Target: 0.',
   },
 }
 
