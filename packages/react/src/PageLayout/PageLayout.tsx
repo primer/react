@@ -21,17 +21,16 @@ const REGION_ORDER = {
   footer: 4,
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const SPACING_MAP = {
-  none: 0,
-  condensed: 3,
-  normal: [3, null, null, 4],
+type SPACING_MAP = {
+  none: 0
+  condensed: 3
+  normal: [3, null, null, 4]
 }
 
 const PageLayoutContext = React.createContext<{
-  padding: keyof typeof SPACING_MAP
-  rowGap: keyof typeof SPACING_MAP
-  columnGap: keyof typeof SPACING_MAP
+  padding: keyof SPACING_MAP
+  rowGap: keyof SPACING_MAP
+  columnGap: keyof SPACING_MAP
   paneRef: React.RefObject<HTMLDivElement>
 }>({
   padding: 'normal',
@@ -45,11 +44,11 @@ const PageLayoutContext = React.createContext<{
 
 export type PageLayoutProps = {
   /** The maximum width of the page container */
-  containerWidth?: keyof typeof containerWidths
+  containerWidth?: keyof containerWidths
   /** The spacing between the outer edges of the page container and the viewport */
-  padding?: keyof typeof SPACING_MAP
-  rowGap?: keyof typeof SPACING_MAP
-  columnGap?: keyof typeof SPACING_MAP
+  padding?: keyof SPACING_MAP
+  rowGap?: keyof SPACING_MAP
+  columnGap?: keyof SPACING_MAP
 
   /** Private prop to allow SplitPageLayout to customize slot components */
   _slotsConfig?: Record<'header' | 'footer', React.ElementType>
@@ -57,12 +56,11 @@ export type PageLayoutProps = {
   style?: React.CSSProperties
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const containerWidths = {
-  full: '100%',
-  medium: '768px',
-  large: '1012px',
-  xlarge: '1280px',
+type containerWidths = {
+  full: '100%'
+  medium: '768px'
+  large: '1012px'
+  xlarge: '1280px'
 }
 
 // TODO: refs
@@ -157,22 +155,32 @@ const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandl
 
   const {paneRef} = React.useContext(PageLayoutContext)
 
-  const [minWidth, setMinWidth] = React.useState(0)
-  const [maxWidth, setMaxWidth] = React.useState(0)
+  const [{minWidth, maxWidth}, setBounds] = React.useState({minWidth: 0, maxWidth: 0})
 
   useIsomorphicLayoutEffect(() => {
-    if (paneRef.current !== null) {
-      const paneStyles = getComputedStyle(paneRef.current as Element)
-      const maxPaneWidthDiffPixels = paneStyles.getPropertyValue('--pane-max-width-diff')
-      const minWidthPixels = paneStyles.getPropertyValue('--pane-min-width')
-      const maxPaneWidthDiff = parseInt(maxPaneWidthDiffPixels, 10)
-      const minPaneWidth = parseInt(minWidthPixels, 10)
-      const viewportWidth = window.innerWidth
-      const maxPaneWidth = viewportWidth > maxPaneWidthDiff ? viewportWidth - maxPaneWidthDiff : viewportWidth
-      setMinWidth(minPaneWidth)
-      setMaxWidth(maxPaneWidth)
+    const updateBounds = () => {
+      if (paneRef.current !== null) {
+        const paneStyles = getComputedStyle(paneRef.current as Element)
+        const maxPaneWidthDiffPixels = paneStyles.getPropertyValue('--pane-max-width-diff')
+        const minWidthPixels = paneStyles.getPropertyValue('--pane-min-width')
+        const maxPaneWidthDiff = parseInt(maxPaneWidthDiffPixels, 10)
+        const minPaneWidth = parseInt(minWidthPixels, 10)
+        const viewportWidth = window.innerWidth
+        const maxPaneWidth = viewportWidth > maxPaneWidthDiff ? viewportWidth - maxPaneWidthDiff : viewportWidth
+        setBounds({minWidth: minPaneWidth, maxWidth: maxPaneWidth})
+      }
     }
-  }, [paneRef])
+
+    const obs = new ResizeObserver(() => requestAnimationFrame(updateBounds))
+    obs.observe(document.documentElement)
+    updateBounds()
+
+    return () => {
+      obs.disconnect()
+    }
+  }, [])
+
+  const clampedPaneWidth = Math.min(Math.max(paneWidth, minWidth), maxWidth)
 
   return (
     <div
@@ -182,8 +190,8 @@ const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandl
       aria-label="Draggable pane splitter"
       aria-valuemin={minWidth}
       aria-valuemax={maxWidth}
-      aria-valuenow={paneWidth}
-      aria-valuetext={`Pane width ${paneWidth} pixels`}
+      aria-valuenow={clampedPaneWidth}
+      aria-valuetext={`Pane width ${clampedPaneWidth} pixels`}
       tabIndex={0}
       onPointerDown={event => {
         if (event.button === 0) {
@@ -197,7 +205,10 @@ const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandl
         event.preventDefault()
         const delta = event.movementX
         const deltaWithDirection = position === 'end' ? -delta : delta
-        setPaneWidth(curr => curr + deltaWithDirection)
+        setPaneWidth(curr => {
+          const next = curr + deltaWithDirection
+          return Math.min(Math.max(next, minWidth), maxWidth)
+        })
       }}
       onPointerUp={event => {
         if (!isDragging) return
@@ -225,11 +236,11 @@ const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandl
           setPaneWidth(curr => {
             // https://github.com/github/accessibility/issues/5101#issuecomment-1822870655
             if ((event.key === 'ArrowLeft' || event.key === 'ArrowDown') && paneWidth > minWidth) {
-              return curr - 3
+              return Math.min(curr - 3, maxWidth)
             } else if ((event.key === 'ArrowRight' || event.key === 'ArrowUp') && paneWidth < maxWidth) {
-              return curr + 3
+              return Math.max(curr + 3, minWidth)
             } else {
-              return curr
+              return Math.min(Math.max(curr, minWidth), maxWidth)
             }
           })
         }
@@ -244,7 +255,7 @@ const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandl
         }
       }}
       onDoubleClick={() => {
-        setPaneWidth(initialPaneWidth)
+        setPaneWidth(Math.max(minWidth, Math.min(initialPaneWidth, maxWidth)))
         try {
           localStorage.setItem(widthStorageKey, initialPaneWidth.toString())
         } catch (_error) {
@@ -288,7 +299,7 @@ export type PageLayoutHeaderProps = {
    */
   'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
 
-  padding?: keyof typeof SPACING_MAP
+  padding?: keyof SPACING_MAP
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
   /**
    * @deprecated Use the `divider` prop with a responsive value instead.
@@ -387,7 +398,7 @@ export type PageLayoutContentProps = {
    */
   'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
   width?: keyof typeof contentWidths
-  padding?: keyof typeof SPACING_MAP
+  padding?: keyof SPACING_MAP
   hidden?: boolean | ResponsiveValue<boolean>
   className?: string
   style?: React.CSSProperties
@@ -485,7 +496,7 @@ export type PageLayoutPaneProps = {
   minWidth?: number
   resizable?: boolean
   widthStorageKey?: string
-  padding?: keyof typeof SPACING_MAP
+  padding?: keyof SPACING_MAP
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
   /**
    * @deprecated Use the `divider` prop with a responsive value instead.
@@ -719,7 +730,7 @@ export type PageLayoutFooterProps = {
    * An id to an element which uniquely labels the rendered contentinfo landmark
    */
   'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
-  padding?: keyof typeof SPACING_MAP
+  padding?: keyof SPACING_MAP
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
   /**
    * @deprecated Use the `divider` prop with a responsive value instead.
