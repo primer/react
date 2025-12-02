@@ -64,6 +64,10 @@ const stories = [
     title: 'Dev: With Css',
     id: 'components-segmentedcontrol-dev--with-css',
   },
+  {
+    title: 'With Disabled Buttons',
+    id: 'components-segmentedcontrol-examples--with-disabled-buttons',
+  },
 ] as const
 
 test.describe('SegmentedControl', () => {
