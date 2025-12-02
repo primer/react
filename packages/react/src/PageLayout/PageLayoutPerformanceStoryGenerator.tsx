@@ -75,6 +75,19 @@ export type MonitorPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom
  * Tracks style changes and potential layout thrashing.
  * - `styleWrites`: Count of inline style attribute mutations
  * - `thrashingScore`: Estimated severity of forced synchronous reflows
+ * - `layoutShiftScore`: Cumulative Layout Shift (CLS) score
+ * - `layoutShiftCount`: Number of layout shift events
+ *
+ * ### Memory Metrics (Chrome only)
+ * Tracks JavaScript heap usage for memory leak detection.
+ * - `memoryUsedMB`: Current JS heap size in megabytes
+ * - `memoryDeltaMB`: Change since start/reset (positive = growth)
+ *
+ * ### Interaction Metrics (INP)
+ * Tracks click and keyboard interaction responsiveness.
+ * - `interactionCount`: Total discrete interactions tracked
+ * - `inpMs`: Interaction to Next Paint - worst interaction latency
+ * - `avgInteractionMs`: Average interaction latency
  *
  * ### React Profiler Metrics
  * Data from React.Profiler for render performance analysis.
@@ -82,6 +95,8 @@ export type MonitorPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom
  * - `reactMountDuration`: Total time spent in mount renders
  * - `reactPostMountUpdateCount`: Re-renders after initial mount
  * - `reactPostMountMaxDuration`: Slowest post-mount render
+ * - `renderCascades`: Multiple commits in single frame (state batching issue)
+ * - `maxRendersPerFrame`: Worst-case renders in one frame
  *
  * ## Thrashing Detection
  *
@@ -233,6 +248,73 @@ export interface PerformanceMetrics {
    * Preserved across resets to maintain historical mount performance data.
    */
   reactMountDuration: number
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Memory Metrics (Chrome only)
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /**
+   * Current JS heap size in MB. Only available in Chrome.
+   * Null if performance.memory is not supported.
+   */
+  memoryUsedMB: number | null
+
+  /**
+   * Change in heap size since monitoring started or last reset, in MB.
+   * Positive values indicate memory growth; sustained growth may indicate leaks.
+   */
+  memoryDeltaMB: number | null
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Layout Shift (CLS) - Visual stability
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /**
+   * Cumulative Layout Shift score. Measures unexpected layout movement.
+   * Target: <0.1 (good), <0.25 (needs improvement), >0.25 (poor).
+   * Critical for drag/resize operations where elements should move predictably.
+   */
+  layoutShiftScore: number
+
+  /** Number of individual layout shift events observed. */
+  layoutShiftCount: number
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Interaction Metrics - Click/Keyboard responsiveness
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Total number of discrete interactions (clicks, key presses) tracked. */
+  interactionCount: number
+
+  /**
+   * Interaction to Next Paint (INP) - worst interaction latency.
+   * Measures full delay from interaction to visual update.
+   * Target: ≤200ms (good), ≤500ms (needs improvement), >500ms (poor).
+   */
+  inpMs: number
+
+  /**
+   * Average interaction latency across all tracked interactions.
+   * Lower is better; helps identify consistent vs sporadic slowness.
+   */
+  avgInteractionMs: number
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Re-render Cascade Detection
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /**
+   * Count of render cascades - when a single frame triggers multiple React commits.
+   * Indicates cascading state updates that could be batched.
+   * Target: 0 during interactions.
+   */
+  renderCascades: number
+
+  /**
+   * Maximum renders observed in a single frame.
+   * Values >1 indicate potential optimization opportunities for state batching.
+   */
+  maxRendersPerFrame: number
 }
 
 const initialMetrics: PerformanceMetrics = {
@@ -261,6 +343,16 @@ const initialMetrics: PerformanceMetrics = {
   reactPostMountMaxDuration: 0,
   reactPostMountUpdateCount: 0,
   reactMountDuration: 0,
+  // New metrics
+  memoryUsedMB: null,
+  memoryDeltaMB: null,
+  layoutShiftScore: 0,
+  layoutShiftCount: 0,
+  interactionCount: 0,
+  inpMs: 0,
+  avgInteractionMs: 0,
+  renderCascades: 0,
+  maxRendersPerFrame: 0,
 }
 
 // ============================================================================
@@ -306,6 +398,16 @@ export function usePerformanceContext() {
 // Performance Provider - Collects all metrics
 // ============================================================================
 
+// Helper to get current memory usage in MB (Chrome only)
+function getMemoryMB(): number | null {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const memory = (performance as any).memory
+  if (memory?.usedJSHeapSize) {
+    return Math.round((memory.usedJSHeapSize / 1024 / 1024) * 10) / 10
+  }
+  return null
+}
+
 // Internal mutable state (never read during render)
 interface MutableMetricsState {
   // Frame timing
@@ -323,6 +425,8 @@ interface MutableMetricsState {
   // Layout
   styleWrites: number
   thrashingScore: number
+  layoutShiftScore: number
+  layoutShiftCount: number
   // React
   reactRenderCount: number
   reactTotalActualDuration: number
@@ -338,6 +442,17 @@ interface MutableMetricsState {
   mountPhaseComplete: boolean
   // DOM
   domElements: number | null
+  // Memory
+  baselineMemoryMB: number | null
+  // Interactions (INP)
+  interactionCount: number
+  interactionLatencies: number[]
+  inpMs: number
+  // Re-render cascades
+  renderCascades: number
+  maxRendersPerFrame: number
+  rendersThisFrame: number
+  lastRenderFrameTime: number
 }
 
 export function PerformanceProvider({
@@ -362,6 +477,8 @@ export function PerformanceProvider({
     slowEvents: 0,
     styleWrites: 0,
     thrashingScore: 0,
+    layoutShiftScore: 0,
+    layoutShiftCount: 0,
     reactRenderCount: 0,
     reactTotalActualDuration: 0,
     reactMaxActualDuration: 0,
@@ -374,6 +491,14 @@ export function PerformanceProvider({
     reactMountDuration: 0,
     mountPhaseComplete: false,
     domElements: null,
+    baselineMemoryMB: null,
+    interactionCount: 0,
+    interactionLatencies: [],
+    inpMs: 0,
+    renderCascades: 0,
+    maxRendersPerFrame: 0,
+    rendersThisFrame: 0,
+    lastRenderFrameTime: 0,
   })
 
   // Rolling average arrays (never read during render)
@@ -388,6 +513,23 @@ export function PerformanceProvider({
   const reportReactRender = React.useCallback(
     (phase: 'mount' | 'update' | 'nested-update', actualDuration: number, baseDuration: number) => {
       const m = mutableRef.current
+      const now = performance.now()
+
+      // Track render cascades - multiple renders in same frame
+      // If this render is within 16ms of the last one, it's the same frame
+      if (m.lastRenderFrameTime > 0 && now - m.lastRenderFrameTime < 16) {
+        m.rendersThisFrame++
+        if (m.rendersThisFrame > 1) {
+          m.renderCascades++
+        }
+        if (m.rendersThisFrame > m.maxRendersPerFrame) {
+          m.maxRendersPerFrame = m.rendersThisFrame
+        }
+      } else {
+        m.rendersThisFrame = 1
+      }
+      m.lastRenderFrameTime = now
+
       m.reactRenderCount++
       m.reactTotalActualDuration += actualDuration
       m.reactLastActualDuration = actualDuration
@@ -433,6 +575,8 @@ export function PerformanceProvider({
     m.slowEvents = 0
     m.styleWrites = 0
     m.thrashingScore = 0
+    m.layoutShiftScore = 0
+    m.layoutShiftCount = 0
     m.reactRenderCount = m.reactMountCount // Keep mount renders in count
     m.reactTotalActualDuration = m.reactMountDuration // Keep mount duration
     m.reactMaxActualDuration = 0
@@ -442,6 +586,17 @@ export function PerformanceProvider({
     m.reactUpdateCount = 0
     m.reactPostMountMaxDuration = 0
     m.reactPostMountUpdateCount = 0
+    // Reset memory baseline to current value for delta tracking
+    m.baselineMemoryMB = getMemoryMB()
+    // Reset interaction metrics
+    m.interactionCount = 0
+    m.interactionLatencies = []
+    m.inpMs = 0
+    // Reset cascade tracking
+    m.renderCascades = 0
+    m.maxRendersPerFrame = 0
+    m.rendersThisFrame = 0
+    m.lastRenderFrameTime = 0
     frameTimesRef.current = []
     inputLatenciesRef.current = []
     paintTimesRef.current = []
@@ -567,6 +722,22 @@ export function PerformanceProvider({
           ? paintTimesRef.current.reduce((a, b) => a + b, 0) / paintTimesRef.current.length
           : 0
 
+      // Get memory metrics
+      const currentMemoryMB = getMemoryMB()
+      if (m.baselineMemoryMB === null && currentMemoryMB !== null) {
+        m.baselineMemoryMB = currentMemoryMB
+      }
+      const memoryDeltaMB =
+        currentMemoryMB !== null && m.baselineMemoryMB !== null
+          ? Math.round((currentMemoryMB - m.baselineMemoryMB) * 10) / 10
+          : null
+
+      // Calculate average interaction latency
+      const avgInteractionMs =
+        m.interactionLatencies.length > 0
+          ? Math.round((m.interactionLatencies.reduce((a, b) => a + b, 0) / m.interactionLatencies.length) * 10) / 10
+          : 0
+
       // Update state from mutable refs (this is the only place we read refs)
       setMetrics({
         domElements: m.domElements,
@@ -584,6 +755,8 @@ export function PerformanceProvider({
         slowEvents: m.slowEvents,
         styleWrites: m.styleWrites,
         thrashingScore: m.thrashingScore,
+        layoutShiftScore: Math.round(m.layoutShiftScore * 1000) / 1000,
+        layoutShiftCount: m.layoutShiftCount,
         reactRenderCount: m.reactRenderCount,
         reactTotalActualDuration: m.reactTotalActualDuration,
         reactMaxActualDuration: m.reactMaxActualDuration,
@@ -594,6 +767,13 @@ export function PerformanceProvider({
         reactPostMountMaxDuration: m.reactPostMountMaxDuration,
         reactPostMountUpdateCount: m.reactPostMountUpdateCount,
         reactMountDuration: m.reactMountDuration,
+        memoryUsedMB: currentMemoryMB,
+        memoryDeltaMB,
+        interactionCount: m.interactionCount,
+        inpMs: Math.round(m.inpMs),
+        avgInteractionMs,
+        renderCascades: m.renderCascades,
+        maxRendersPerFrame: m.maxRendersPerFrame,
       })
 
       animationId = requestAnimationFrame(measure)
@@ -692,7 +872,55 @@ export function PerformanceProvider({
       subtree: true,
     })
 
+    // Layout Shift observer (CLS)
+    let layoutShiftObserver: PerformanceObserver | null = null
+    if (typeof PerformanceObserver !== 'undefined') {
+      try {
+        layoutShiftObserver = new PerformanceObserver(list => {
+          for (const entry of list.getEntries()) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const shiftEntry = entry as any
+            // Only count shifts that weren't caused by user input
+            if (!shiftEntry.hadRecentInput) {
+              m.layoutShiftScore += shiftEntry.value || 0
+              m.layoutShiftCount++
+            }
+          }
+        })
+        layoutShiftObserver.observe({type: 'layout-shift', buffered: true})
+      } catch {
+        // Not supported
+      }
+    }
+
+    // Click and keyboard interaction handler for INP tracking
+    const handleInteraction = (event: MouseEvent | KeyboardEvent) => {
+      const eventTime = event.timeStamp
+      m.interactionCount++
+
+      // Measure time to next paint using double RAF
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const paintTime = performance.now()
+          const latency = paintTime - eventTime
+
+          m.interactionLatencies.push(latency)
+          // Keep last 50 interactions for averaging
+          if (m.interactionLatencies.length > 50) {
+            m.interactionLatencies.shift()
+          }
+
+          // INP is the worst interaction latency
+          if (latency > m.inpMs) {
+            m.inpMs = latency
+          }
+        })
+      })
+    }
+
     window.addEventListener('pointermove', handlePointerMove)
+    window.addEventListener('click', handleInteraction)
+    window.addEventListener('keydown', handleInteraction)
 
     animationId = requestAnimationFrame(measure)
 
@@ -701,7 +929,10 @@ export function PerformanceProvider({
       styleObserver.disconnect()
       longTaskObserver?.disconnect()
       eventObserver?.disconnect()
+      layoutShiftObserver?.disconnect()
       window.removeEventListener('pointermove', handlePointerMove)
+      window.removeEventListener('click', handleInteraction)
+      window.removeEventListener('keydown', handleInteraction)
     }
   }, [])
 
@@ -785,6 +1016,11 @@ const metricDescriptions = {
     label: 'DOM',
     description: 'Number of DOM elements within the profiled component tree.',
   },
+  memory: {
+    label: 'Memory',
+    description:
+      'JS heap size in MB (Chrome only). Delta shows change since start/reset. Sustained growth may indicate leaks.',
+  },
   fps: {
     label: 'FPS',
     description: 'Frames per second. Target: 60fps. Green ≥55, Yellow ≥30, Red <30.',
@@ -818,6 +1054,16 @@ const metricDescriptions = {
     description:
       'Estimated layout thrashing severity. Detects frame spikes (2x baseline) or sustained slowness (3+ frames >24ms) during style writes. Score of 0 = no thrashing detected.',
   },
+  cls: {
+    label: 'CLS',
+    description:
+      'Cumulative Layout Shift. Measures unexpected layout movement. Target: <0.1 (good), <0.25 (needs improvement).',
+  },
+  interactions: {
+    label: 'Interactions',
+    description:
+      'Click/keyboard event count. INP shows worst latency to paint. Target INP: ≤200ms (good), ≤500ms (okay).',
+  },
   mount: {
     label: '⚛️ Mount',
     description: 'React mount phase renders. Shows count and total duration of initial mounting.',
@@ -825,6 +1071,11 @@ const metricDescriptions = {
   updates: {
     label: '⚛️ Updates',
     description: 'Re-renders after mount. Target: 0 for drag (pure CSS). Green ≤8ms, Yellow ≤16ms, Red >16ms.',
+  },
+  cascades: {
+    label: '⚛️ Cascades',
+    description:
+      'Multiple React commits in single frame. Indicates cascading state updates that could be batched. Target: 0.',
   },
 }
 
@@ -1141,9 +1392,51 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
           {metrics.domElements ? `${numberFormatter.format(metrics.domElements)} nodes` : 'N/A'}
         </span>
 
+        {/* Memory (Chrome only) */}
+        <span style={{color: 'var(--fgColor-muted)', fontSize: '9px'}}>Memory</span>
+        <span style={{color: 'var(--fgColor-muted)', fontSize: '9px'}}>
+          {metrics.memoryUsedMB !== null ? (
+            <>
+              {metrics.memoryUsedMB}MB
+              {metrics.memoryDeltaMB !== null && metrics.memoryDeltaMB !== 0 && (
+                <span
+                  style={{
+                    color: metrics.memoryDeltaMB > 10 ? 'var(--fgColor-danger)' : 'var(--fgColor-muted)',
+                    marginLeft: '4px',
+                  }}
+                >
+                  ({metrics.memoryDeltaMB > 0 ? '+' : ''}
+                  {metrics.memoryDeltaMB})
+                </span>
+              )}
+            </>
+          ) : (
+            'N/A'
+          )}
+        </span>
+
         {/* Frame Section */}
-        <span style={{color: 'var(--fgColor-muted)'}}>FPS</span>
-        <span style={{color: fpsColor, fontWeight: 600}}>{fpsFormatter.format(metrics.fps)}</span>
+        <span
+          style={{
+            color: 'var(--fgColor-muted)',
+            borderTop: '1px solid var(--borderColor-muted)',
+            paddingTop: '3px',
+            marginTop: '2px',
+          }}
+        >
+          FPS
+        </span>
+        <span
+          style={{
+            color: fpsColor,
+            fontWeight: 600,
+            borderTop: '1px solid var(--borderColor-muted)',
+            paddingTop: '3px',
+            marginTop: '2px',
+          }}
+        >
+          {fpsFormatter.format(metrics.fps)}
+        </span>
 
         <span style={{color: 'var(--fgColor-muted)'}}>Frame</span>
         <span>
@@ -1271,6 +1564,69 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
           )}
         </span>
 
+        {/* CLS - Cumulative Layout Shift */}
+        <span style={{color: 'var(--fgColor-muted)'}}>CLS</span>
+        <span
+          style={{
+            color:
+              metrics.layoutShiftScore < 0.1
+                ? 'var(--fgColor-success)'
+                : metrics.layoutShiftScore < 0.25
+                  ? 'var(--fgColor-attention)'
+                  : 'var(--fgColor-danger)',
+            fontWeight: metrics.layoutShiftScore > 0 ? 600 : 'normal',
+          }}
+        >
+          {metrics.layoutShiftScore === 0 ? 'none ✓' : metrics.layoutShiftScore.toFixed(3)}
+          {metrics.layoutShiftCount > 0 && (
+            <span style={{fontWeight: 'normal', color: 'var(--fgColor-muted)', fontSize: '9px'}}>
+              {' '}
+              ({metrics.layoutShiftCount}×)
+            </span>
+          )}
+        </span>
+
+        {/* Interactions - Click/Keyboard with INP */}
+        <span
+          style={{
+            color: 'var(--fgColor-muted)',
+            borderTop: '1px solid var(--borderColor-muted)',
+            paddingTop: '3px',
+            marginTop: '2px',
+          }}
+        >
+          Interact
+        </span>
+        <span
+          style={{
+            borderTop: '1px solid var(--borderColor-muted)',
+            paddingTop: '3px',
+            marginTop: '2px',
+          }}
+        >
+          {metrics.interactionCount > 0 ? (
+            <>
+              <span style={{color: 'var(--fgColor-muted)'}}>{metrics.interactionCount}×</span>
+              <span
+                style={{
+                  marginLeft: '4px',
+                  color:
+                    metrics.inpMs <= 200
+                      ? 'var(--fgColor-success)'
+                      : metrics.inpMs <= 500
+                        ? 'var(--fgColor-attention)'
+                        : 'var(--fgColor-danger)',
+                  fontWeight: 600,
+                }}
+              >
+                INP {metrics.inpMs}ms
+              </span>
+            </>
+          ) : (
+            <span style={{color: 'var(--fgColor-muted)'}}>none</span>
+          )}
+        </span>
+
         {/* React Mount Section */}
         <span
           style={{
@@ -1327,6 +1683,28 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
         ) : (
           <span style={{color: 'var(--fgColor-muted)', fontSize: '9px', fontStyle: 'italic'}}>use profiling build</span>
         )}
+
+        {/* Re-render Cascades */}
+        <span style={{color: 'var(--fgColor-muted)'}}>⚛️ Cascades</span>
+        <span
+          style={{
+            color:
+              metrics.renderCascades === 0
+                ? 'var(--fgColor-success)'
+                : metrics.renderCascades <= 3
+                  ? 'var(--fgColor-attention)'
+                  : 'var(--fgColor-danger)',
+            fontWeight: metrics.renderCascades > 0 ? 600 : 'normal',
+          }}
+        >
+          {metrics.renderCascades === 0 ? 'none ✓' : metrics.renderCascades}
+          {metrics.maxRendersPerFrame > 1 && (
+            <span style={{fontWeight: 'normal', color: 'var(--fgColor-muted)', fontSize: '9px'}}>
+              {' '}
+              (max {metrics.maxRendersPerFrame}/frame)
+            </span>
+          )}
+        </span>
       </div>
     </div>
   )
