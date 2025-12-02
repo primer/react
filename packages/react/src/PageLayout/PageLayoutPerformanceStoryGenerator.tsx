@@ -1832,7 +1832,7 @@ const MetricLabel = React.memo(function MetricLabel({children, isSection, descri
         >
           <summary
             style={{
-              cursor: 'help',
+              cursor: isOpen ? 'pointer' : 'help',
               listStyle: 'none',
               display: 'inline',
               color: isOpen ? 'var(--fgColor-accent)' : 'inherit',
