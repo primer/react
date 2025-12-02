@@ -440,7 +440,8 @@ function shallowEqual<T extends Record<string, unknown>>(a: T, b: T): boolean {
   return true
 }
 
-function createStore<T extends Record<string, unknown>>(initial: T): Store<T> {
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+function createStore<T extends {}>(initial: T): Store<T> {
   let state = initial
   const listeners = new Set<Listener>()
 
