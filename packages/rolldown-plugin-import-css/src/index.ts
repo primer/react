@@ -48,7 +48,10 @@ export function importCSS(options: ImportCSSOptions): Plugin {
           }
         }
 
-        return path.resolve(path.dirname(importer), source) + '.js'
+        return path.format({
+          base: path.join(path.dirname(importer), source),
+          ext: '.js',
+        })
       },
     },
     load: {
