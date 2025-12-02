@@ -315,6 +315,19 @@ export interface PerformanceMetrics {
    * Values >1 indicate potential optimization opportunities for state batching.
    */
   maxRendersPerFrame: number
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Sparkline History - Rolling data for trend visualization
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Rolling FPS values for sparkline (last 30 samples). */
+  fpsHistory: number[]
+
+  /** Rolling frame time values for sparkline (last 30 samples). */
+  frameTimeHistory: number[]
+
+  /** Rolling memory values for sparkline (last 30 samples, Chrome only). */
+  memoryHistory: number[]
 }
 
 const initialMetrics: PerformanceMetrics = {
@@ -353,6 +366,10 @@ const initialMetrics: PerformanceMetrics = {
   avgInteractionMs: 0,
   renderCascades: 0,
   maxRendersPerFrame: 0,
+  // Sparkline history
+  fpsHistory: [],
+  frameTimeHistory: [],
+  memoryHistory: [],
 }
 
 // ============================================================================
@@ -453,6 +470,8 @@ interface MutableMetricsState {
   maxRendersPerFrame: number
   rendersThisFrame: number
   lastRenderFrameTime: number
+  // Sparkline history
+  memoryHistory: number[]
 }
 
 export function PerformanceProvider({
@@ -499,7 +518,13 @@ export function PerformanceProvider({
     maxRendersPerFrame: 0,
     rendersThisFrame: 0,
     lastRenderFrameTime: 0,
+    memoryHistory: [],
   })
+
+  // Sparkline history refs (sampled less frequently for smooth graphs)
+  const fpsHistoryRef = React.useRef<number[]>([])
+  const frameTimeHistoryRef = React.useRef<number[]>([])
+  const sparklineSampleCountRef = React.useRef(0)
 
   // Rolling average arrays (never read during render)
   const frameTimesRef = React.useRef<number[]>([])
@@ -597,9 +622,13 @@ export function PerformanceProvider({
     m.maxRendersPerFrame = 0
     m.rendersThisFrame = 0
     m.lastRenderFrameTime = 0
+    m.memoryHistory = []
     frameTimesRef.current = []
     inputLatenciesRef.current = []
     paintTimesRef.current = []
+    fpsHistoryRef.current = []
+    frameTimeHistoryRef.current = []
+    sparklineSampleCountRef.current = 0
     setMetrics(prev => ({
       ...initialMetrics,
       // Preserve mount stats - they represent initial mount and don't change
@@ -738,6 +767,26 @@ export function PerformanceProvider({
           ? Math.round((m.interactionLatencies.reduce((a, b) => a + b, 0) / m.interactionLatencies.length) * 10) / 10
           : 0
 
+      // Sample sparkline data every 5 frames (~12 samples/sec at 60fps)
+      sparklineSampleCountRef.current++
+      if (sparklineSampleCountRef.current >= 5) {
+        sparklineSampleCountRef.current = 0
+
+        // FPS history
+        fpsHistoryRef.current.push(fps)
+        if (fpsHistoryRef.current.length > 30) fpsHistoryRef.current.shift()
+
+        // Frame time history
+        frameTimeHistoryRef.current.push(avgFrameTime)
+        if (frameTimeHistoryRef.current.length > 30) frameTimeHistoryRef.current.shift()
+
+        // Memory history (if available)
+        if (currentMemoryMB !== null) {
+          m.memoryHistory.push(currentMemoryMB)
+          if (m.memoryHistory.length > 30) m.memoryHistory.shift()
+        }
+      }
+
       // Update state from mutable refs (this is the only place we read refs)
       setMetrics({
         domElements: m.domElements,
@@ -774,6 +823,10 @@ export function PerformanceProvider({
         avgInteractionMs,
         renderCascades: m.renderCascades,
         maxRendersPerFrame: m.maxRendersPerFrame,
+        // Sparkline history (copy arrays to trigger re-render)
+        fpsHistory: [...fpsHistoryRef.current],
+        frameTimeHistory: [...frameTimeHistoryRef.current],
+        memoryHistory: [...m.memoryHistory],
       })
 
       animationId = requestAnimationFrame(measure)
@@ -1007,6 +1060,89 @@ export function ProfiledComponent({id, children}: {id: string; children: React.R
 // Stateless Performance Monitor View
 // ============================================================================
 
+// ============================================================================
+// Sparkline Component - Inline trend visualization
+// ============================================================================
+
+interface SparklineProps {
+  data: number[]
+  width?: number
+  height?: number
+  color?: string
+  /** Optional threshold line (e.g., 60 for FPS, 16.67 for frame time) */
+  threshold?: number
+  thresholdColor?: string
+  /** If true, values below threshold are bad (like FPS). If false, values above are bad (like frame time). */
+  invertThreshold?: boolean
+}
+
+function Sparkline({
+  data,
+  width = 50,
+  height = 16,
+  color = 'var(--fgColor-accent)',
+  threshold,
+  thresholdColor = 'var(--fgColor-danger)',
+  invertThreshold = false,
+}: SparklineProps) {
+  if (data.length < 2) {
+    return (
+      <svg width={width} height={height} style={{opacity: 0.3}} aria-hidden="true">
+        <line x1={0} y1={height / 2} x2={width} y2={height / 2} stroke={color} strokeWidth={1} strokeDasharray="2,2" />
+      </svg>
+    )
+  }
+
+  const min = Math.min(...data)
+  const max = Math.max(...data)
+  const range = max - min || 1
+
+  // Calculate Y position (inverted because SVG Y is top-down)
+  const getY = (value: number) => {
+    const normalized = (value - min) / range
+    return height - normalized * (height - 2) - 1
+  }
+
+  // Generate path
+  const points = data.map((value, i) => {
+    const x = (i / (data.length - 1)) * width
+    const y = getY(value)
+    return `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${y.toFixed(1)}`
+  })
+
+  // Calculate threshold line Y position if within range
+  let thresholdY: number | null = null
+  if (threshold !== undefined && threshold >= min && threshold <= max) {
+    thresholdY = getY(threshold)
+  }
+
+  // Determine if current value is "bad" based on threshold
+  const currentValue = data[data.length - 1]
+  const isBad = threshold !== undefined && (invertThreshold ? currentValue < threshold : currentValue > threshold)
+
+  return (
+    <svg width={width} height={height} style={{verticalAlign: 'middle', marginLeft: '4px'}} aria-hidden="true">
+      {/* Threshold line */}
+      {thresholdY !== null && (
+        <line
+          x1={0}
+          y1={thresholdY}
+          x2={width}
+          y2={thresholdY}
+          stroke={thresholdColor}
+          strokeWidth={0.5}
+          strokeDasharray="2,1"
+          opacity={0.5}
+        />
+      )}
+      {/* Main line */}
+      <path d={points.join(' ')} fill="none" stroke={isBad ? thresholdColor : color} strokeWidth={1.5} />
+      {/* Current value dot */}
+      <circle cx={width} cy={getY(currentValue)} r={2} fill={isBad ? thresholdColor : color} />
+    </svg>
+  )
+}
+
 /**
  * Metric descriptions for the help panel.
  * These mirror the JSDoc documentation on PerformanceMetrics interface.
@@ -1217,7 +1353,7 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
           ...positionStyle,
           zIndex: 9999,
           padding: '6px 10px',
-          background: 'rgba(0, 0, 0, 0.85)',
+          background: 'var(--bgColor-emphasis)',
           borderRadius: 'var(--borderRadius-medium)',
           fontFamily: 'monospace',
           fontSize: '11px',
@@ -1239,12 +1375,13 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
           type="button"
           onClick={() => setIsCollapsed(false)}
           style={{
-            background: 'transparent',
-            border: 'none',
-            color: 'var(--fgColor-muted)',
+            background: 'var(--bgColor-neutral-muted)',
+            border: '1px solid var(--borderColor-default)',
+            color: 'var(--fgColor-onEmphasis)',
             cursor: 'pointer',
-            padding: '0 4px',
-            fontSize: '14px',
+            padding: '2px 6px',
+            borderRadius: 'var(--borderRadius-small)',
+            fontSize: '12px',
           }}
           aria-label="Expand"
         >
@@ -1264,12 +1401,12 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
         ...positionStyle,
         zIndex: 9999,
         padding: '8px 10px',
-        background: 'rgba(0, 0, 0, 0.9)',
+        background: 'var(--bgColor-emphasis)',
         borderRadius: 'var(--borderRadius-medium)',
         fontFamily: 'monospace',
         fontSize: '10px',
-        color: 'var(--fgColor-muted)',
-        width: '220px',
+        color: 'var(--fgColor-onEmphasis)',
+        width: '280px',
         boxShadow: 'var(--shadow-floating-large)',
         backdropFilter: 'blur(4px)',
         userSelect: 'none',
@@ -1304,8 +1441,10 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
             onClick={() => setShowHelp(!showHelp)}
             style={{
               background: showHelp ? 'var(--bgColor-accent-muted)' : 'var(--bgColor-neutral-muted)',
-              border: 'none',
-              color: showHelp ? 'var(--fgColor-accent)' : 'var(--fgColor-muted)',
+              border: showHelp
+                ? '1px solid var(--borderColor-accent-emphasis)'
+                : '1px solid var(--borderColor-default)',
+              color: showHelp ? 'var(--fgColor-accent)' : 'var(--fgColor-onEmphasis)',
               cursor: 'pointer',
               padding: '2px 6px',
               borderRadius: 'var(--borderRadius-small)',
@@ -1322,8 +1461,8 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
             onClick={onReset}
             style={{
               background: 'var(--bgColor-neutral-muted)',
-              border: 'none',
-              color: 'var(--fgColor-muted)',
+              border: '1px solid var(--borderColor-default)',
+              color: 'var(--fgColor-onEmphasis)',
               cursor: 'pointer',
               padding: '2px 6px',
               borderRadius: 'var(--borderRadius-small)',
@@ -1336,12 +1475,13 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
             type="button"
             onClick={() => setIsCollapsed(true)}
             style={{
-              background: 'transparent',
-              border: 'none',
-              color: 'var(--fgColor-muted)',
+              background: 'var(--bgColor-neutral-muted)',
+              border: '1px solid var(--borderColor-default)',
+              color: 'var(--fgColor-onEmphasis)',
               cursor: 'pointer',
-              padding: '0 4px',
-              fontSize: '12px',
+              padding: '2px 6px',
+              borderRadius: 'var(--borderRadius-small)',
+              fontSize: '10px',
             }}
             aria-label="Collapse"
           >
@@ -1366,18 +1506,20 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
             {Object.entries(metricDescriptions).map(([key, {label, description}]) => (
               <div key={key} style={{marginBottom: '6px'}}>
                 <span style={{color: 'var(--fgColor-onEmphasis)', fontWeight: 600}}>{label}</span>
-                <div style={{color: 'var(--fgColor-muted)', marginTop: '1px'}}>{description}</div>
+                <div style={{color: 'var(--fgColor-onEmphasis)', opacity: 0.8, marginTop: '1px'}}>{description}</div>
               </div>
             ))}
             <div
               style={{
                 marginTop: '8px',
                 paddingTop: '6px',
-                borderTop: '1px solid var(--borderColor-muted)',
-                color: 'var(--fgColor-muted)',
+                borderTop: '1px solid var(--borderColor-default)',
+                color: 'var(--fgColor-onEmphasis)',
+                opacity: 0.8,
               }}
             >
-              <strong>Keyboard:</strong> Arrow keys move panel, Shift for larger steps, Home resets position.
+              <strong style={{opacity: 1}}>Keyboard:</strong> Arrow keys move panel, Shift for larger steps, Home resets
+              position.
             </div>
           </div>
         </div>
@@ -1387,21 +1529,21 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
       <div style={{display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '1px 6px', lineHeight: 1.5}}>
         {/* DOM count */}
 
-        <span style={{color: 'var(--fgColor-muted)', fontSize: '9px'}}>DOM</span>
-        <span style={{color: 'var(--fgColor-muted)', fontSize: '9px'}}>
+        <span style={{color: 'var(--fgColor-onEmphasis)', fontSize: '9px'}}>DOM</span>
+        <span style={{color: 'var(--fgColor-onEmphasis)', fontSize: '9px'}}>
           {metrics.domElements ? `${numberFormatter.format(metrics.domElements)} nodes` : 'N/A'}
         </span>
 
         {/* Memory (Chrome only) */}
-        <span style={{color: 'var(--fgColor-muted)', fontSize: '9px'}}>Memory</span>
-        <span style={{color: 'var(--fgColor-muted)', fontSize: '9px'}}>
+        <span style={{color: 'var(--fgColor-onEmphasis)', fontSize: '9px'}}>Memory</span>
+        <span style={{color: 'var(--fgColor-onEmphasis)', fontSize: '9px', display: 'flex', alignItems: 'center'}}>
           {metrics.memoryUsedMB !== null ? (
             <>
               {metrics.memoryUsedMB}MB
               {metrics.memoryDeltaMB !== null && metrics.memoryDeltaMB !== 0 && (
                 <span
                   style={{
-                    color: metrics.memoryDeltaMB > 10 ? 'var(--fgColor-danger)' : 'var(--fgColor-muted)',
+                    color: metrics.memoryDeltaMB > 10 ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
                     marginLeft: '4px',
                   }}
                 >
@@ -1409,6 +1551,12 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
                   {metrics.memoryDeltaMB})
                 </span>
               )}
+              <Sparkline
+                data={metrics.memoryHistory}
+                color="var(--fgColor-accent)"
+                threshold={metrics.memoryHistory.length > 0 ? metrics.memoryHistory[0] + 10 : undefined}
+                thresholdColor="var(--fgColor-danger)"
+              />
             </>
           ) : (
             'N/A'
@@ -1418,7 +1566,7 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
         {/* Frame Section */}
         <span
           style={{
-            color: 'var(--fgColor-muted)',
+            color: 'var(--fgColor-onEmphasis)',
             borderTop: '1px solid var(--borderColor-muted)',
             paddingTop: '3px',
             marginTop: '2px',
@@ -1433,28 +1581,43 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
             borderTop: '1px solid var(--borderColor-muted)',
             paddingTop: '3px',
             marginTop: '2px',
+            display: 'flex',
+            alignItems: 'center',
           }}
         >
           {fpsFormatter.format(metrics.fps)}
+          <Sparkline
+            data={metrics.fpsHistory}
+            color={fpsColor}
+            threshold={55}
+            thresholdColor="var(--fgColor-attention)"
+            invertThreshold={true}
+          />
         </span>
 
-        <span style={{color: 'var(--fgColor-muted)'}}>Frame</span>
-        <span>
+        <span style={{color: 'var(--fgColor-onEmphasis)'}}>Frame</span>
+        <span style={{display: 'flex', alignItems: 'center'}}>
           {msFormatter.format(metrics.frameTime)}ms{' '}
           <span
             style={{
-              color: metrics.maxFrameTime > 32 ? 'var(--fgColor-danger)' : 'var(--fgColor-muted)',
+              color: metrics.maxFrameTime > 32 ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
               fontSize: '9px',
             }}
           >
             (max {msFormatter.format(metrics.maxFrameTime)})
           </span>
+          <Sparkline
+            data={metrics.frameTimeHistory}
+            color="var(--fgColor-onEmphasis)"
+            threshold={16.67}
+            thresholdColor="var(--fgColor-danger)"
+          />
         </span>
 
         {/* Input Section */}
         <span
           style={{
-            color: 'var(--fgColor-muted)',
+            color: 'var(--fgColor-onEmphasis)',
             borderTop: '1px solid var(--borderColor-muted)',
             paddingTop: '3px',
             marginTop: '2px',
@@ -1466,7 +1629,7 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
           <span style={{color: inputLatencyColor, fontWeight: 600}}>{msFormatter.format(metrics.inputLatency)}ms</span>{' '}
           <span
             style={{
-              color: metrics.maxInputLatency > 50 ? 'var(--fgColor-danger)' : 'var(--fgColor-muted)',
+              color: metrics.maxInputLatency > 50 ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
               fontSize: '9px',
             }}
           >
@@ -1474,12 +1637,12 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
           </span>
         </span>
 
-        <span style={{color: 'var(--fgColor-muted)'}}>Paint</span>
+        <span style={{color: 'var(--fgColor-onEmphasis)'}}>Paint</span>
         <span>
           {msFormatter.format(metrics.paintTime)}ms{' '}
           <span
             style={{
-              color: metrics.maxPaintTime > 16 ? 'var(--fgColor-danger)' : 'var(--fgColor-muted)',
+              color: metrics.maxPaintTime > 16 ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
               fontSize: '9px',
             }}
           >
@@ -1490,7 +1653,7 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
         {/* Tasks Section */}
         <span
           style={{
-            color: 'var(--fgColor-muted)',
+            color: 'var(--fgColor-onEmphasis)',
             borderTop: '1px solid var(--borderColor-muted)',
             paddingTop: '3px',
             marginTop: '2px',
@@ -1505,7 +1668,7 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
           {metrics.longestTask > 0 && (
             <span
               style={{
-                color: metrics.longestTask > 100 ? 'var(--fgColor-danger)' : 'var(--fgColor-muted)',
+                color: metrics.longestTask > 100 ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
                 fontSize: '9px',
               }}
             >
@@ -1515,7 +1678,7 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
           )}
         </span>
 
-        <span style={{color: 'var(--fgColor-muted)'}}>Dropped</span>
+        <span style={{color: 'var(--fgColor-onEmphasis)'}}>Dropped</span>
         <span
           style={{
             color:
@@ -1523,7 +1686,7 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
                 ? 'var(--fgColor-danger)'
                 : metrics.droppedFrames > 0
                   ? 'var(--fgColor-attention)'
-                  : 'var(--fgColor-muted)',
+                  : 'var(--fgColor-onEmphasis)',
           }}
         >
           {metrics.droppedFrames} frames
@@ -1532,7 +1695,7 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
         {/* Layout Section */}
         <span
           style={{
-            color: 'var(--fgColor-muted)',
+            color: 'var(--fgColor-onEmphasis)',
             borderTop: '1px solid var(--borderColor-muted)',
             paddingTop: '3px',
             marginTop: '2px',
@@ -1545,13 +1708,13 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
             borderTop: '1px solid var(--borderColor-muted)',
             paddingTop: '3px',
             marginTop: '2px',
-            color: 'var(--fgColor-muted)',
+            color: 'var(--fgColor-onEmphasis)',
           }}
         >
           {metrics.styleWrites} writes
         </span>
 
-        <span style={{color: 'var(--fgColor-muted)'}}>Thrash</span>
+        <span style={{color: 'var(--fgColor-onEmphasis)'}}>Thrash</span>
         <span
           style={{
             color: metrics.thrashingScore > 0 ? 'var(--fgColor-danger)' : 'var(--fgColor-success)',
@@ -1560,12 +1723,12 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
         >
           {metrics.thrashingScore === 0 ? 'none ✓' : metrics.thrashingScore}
           {metrics.thrashingScore > 0 && (
-            <span style={{fontWeight: 'normal', color: 'var(--fgColor-muted)', fontSize: '9px'}}> (est.)</span>
+            <span style={{fontWeight: 'normal', color: 'var(--fgColor-onEmphasis)', fontSize: '9px'}}> (est.)</span>
           )}
         </span>
 
         {/* CLS - Cumulative Layout Shift */}
-        <span style={{color: 'var(--fgColor-muted)'}}>CLS</span>
+        <span style={{color: 'var(--fgColor-onEmphasis)'}}>CLS</span>
         <span
           style={{
             color:
@@ -1579,7 +1742,7 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
         >
           {metrics.layoutShiftScore === 0 ? 'none ✓' : metrics.layoutShiftScore.toFixed(3)}
           {metrics.layoutShiftCount > 0 && (
-            <span style={{fontWeight: 'normal', color: 'var(--fgColor-muted)', fontSize: '9px'}}>
+            <span style={{fontWeight: 'normal', color: 'var(--fgColor-onEmphasis)', fontSize: '9px'}}>
               {' '}
               ({metrics.layoutShiftCount}×)
             </span>
@@ -1589,7 +1752,7 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
         {/* Interactions - Click/Keyboard with INP */}
         <span
           style={{
-            color: 'var(--fgColor-muted)',
+            color: 'var(--fgColor-onEmphasis)',
             borderTop: '1px solid var(--borderColor-muted)',
             paddingTop: '3px',
             marginTop: '2px',
@@ -1606,7 +1769,7 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
         >
           {metrics.interactionCount > 0 ? (
             <>
-              <span style={{color: 'var(--fgColor-muted)'}}>{metrics.interactionCount}×</span>
+              <span style={{color: 'var(--fgColor-onEmphasis)'}}>{metrics.interactionCount}×</span>
               <span
                 style={{
                   marginLeft: '4px',
@@ -1623,14 +1786,14 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
               </span>
             </>
           ) : (
-            <span style={{color: 'var(--fgColor-muted)'}}>none</span>
+            <span style={{color: 'var(--fgColor-onEmphasis)'}}>none</span>
           )}
         </span>
 
         {/* React Mount Section */}
         <span
           style={{
-            color: 'var(--fgColor-muted)',
+            color: 'var(--fgColor-onEmphasis)',
             borderTop: '1px solid var(--borderColor-muted)',
             paddingTop: '3px',
             marginTop: '2px',
@@ -1643,7 +1806,7 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
             borderTop: '1px solid var(--borderColor-muted)',
             paddingTop: '3px',
             marginTop: '2px',
-            color: 'var(--fgColor-muted)',
+            color: 'var(--fgColor-onEmphasis)',
           }}
         >
           {metrics.reactMountCount > 0 ? (
@@ -1656,7 +1819,7 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
         </span>
 
         {/* React Updates Section (post-mount interactions) */}
-        <span style={{color: 'var(--fgColor-muted)'}}>⚛️ Updates</span>
+        <span style={{color: 'var(--fgColor-onEmphasis)'}}>⚛️ Updates</span>
         {metrics.reactRenderCount > 0 ? (
           <span
             style={{
@@ -1674,18 +1837,20 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
             {metrics.reactPostMountUpdateCount === 0 ? 'none ✓' : metrics.reactPostMountUpdateCount}
             {metrics.reactPostMountUpdateCount > 0 && metrics.reactPostMountMaxDuration <= 8 && ' ✓'}
             {metrics.reactPostMountUpdateCount > 0 && (
-              <span style={{fontWeight: 'normal', color: 'var(--fgColor-muted)', fontSize: '9px'}}>
+              <span style={{fontWeight: 'normal', color: 'var(--fgColor-onEmphasis)', fontSize: '9px'}}>
                 {' '}
                 (max {msFormatter.format(metrics.reactPostMountMaxDuration)}ms)
               </span>
             )}
           </span>
         ) : (
-          <span style={{color: 'var(--fgColor-muted)', fontSize: '9px', fontStyle: 'italic'}}>use profiling build</span>
+          <span style={{color: 'var(--fgColor-onEmphasis)', fontSize: '9px', fontStyle: 'italic'}}>
+            use profiling build
+          </span>
         )}
 
         {/* Re-render Cascades */}
-        <span style={{color: 'var(--fgColor-muted)'}}>⚛️ Cascades</span>
+        <span style={{color: 'var(--fgColor-onEmphasis)'}}>⚛️ Cascades</span>
         <span
           style={{
             color:
@@ -1699,7 +1864,7 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
         >
           {metrics.renderCascades === 0 ? 'none ✓' : metrics.renderCascades}
           {metrics.maxRendersPerFrame > 1 && (
-            <span style={{fontWeight: 'normal', color: 'var(--fgColor-muted)', fontSize: '9px'}}>
+            <span style={{fontWeight: 'normal', color: 'var(--fgColor-onEmphasis)', fontSize: '9px'}}>
               {' '}
               (max {metrics.maxRendersPerFrame}/frame)
             </span>
