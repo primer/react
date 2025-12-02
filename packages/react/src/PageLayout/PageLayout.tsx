@@ -180,7 +180,8 @@ const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandl
     }
   }, [])
 
-  const clampedPaneWidth = Math.min(Math.max(paneWidth, minWidth), maxWidth)
+  const clamp = (value: number) => Math.min(Math.max(value, minWidth), maxWidth)
+  const clampedPaneWidth = clamp(paneWidth)
 
   return (
     <div
@@ -205,10 +206,7 @@ const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandl
         event.preventDefault()
         const delta = event.movementX
         const deltaWithDirection = position === 'end' ? -delta : delta
-        setPaneWidth(curr => {
-          const next = curr + deltaWithDirection
-          return Math.min(Math.max(next, minWidth), maxWidth)
-        })
+        setPaneWidth(curr => clamp(curr + deltaWithDirection))
       }}
       onPointerUp={event => {
         if (!isDragging) return
@@ -233,16 +231,8 @@ const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandl
         ) {
           event.preventDefault()
           setIsDragging(true)
-          setPaneWidth(curr => {
-            // https://github.com/github/accessibility/issues/5101#issuecomment-1822870655
-            if ((event.key === 'ArrowLeft' || event.key === 'ArrowDown') && paneWidth > minWidth) {
-              return Math.min(curr - 3, maxWidth)
-            } else if ((event.key === 'ArrowRight' || event.key === 'ArrowUp') && paneWidth < maxWidth) {
-              return Math.max(curr + 3, minWidth)
-            } else {
-              return Math.min(Math.max(curr, minWidth), maxWidth)
-            }
-          })
+          const step = event.key === 'ArrowLeft' || event.key === 'ArrowDown' ? -3 : 3
+          setPaneWidth(curr => clamp(curr + step))
         }
       }}
       onKeyUp={event => {
@@ -255,7 +245,7 @@ const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandl
         }
       }}
       onDoubleClick={() => {
-        setPaneWidth(Math.max(minWidth, Math.min(initialPaneWidth, maxWidth)))
+        setPaneWidth(clamp(initialPaneWidth))
         try {
           localStorage.setItem(widthStorageKey, initialPaneWidth.toString())
         } catch (_error) {
