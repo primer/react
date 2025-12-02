@@ -9,6 +9,7 @@ const meta: Meta<typeof PageLayout> = {
   title: 'Components/PageLayout/Performance Tests',
   component: PageLayout,
   parameters: {
+    // These performance only tests can freeze the accessibility scanner in a browser, so disable axe for them
     a11y: {disable: true},
   },
 }
