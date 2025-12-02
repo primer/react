@@ -63,7 +63,7 @@ export const Playground: StoryObj<typeof InlineMessage> = {
         type: 'select',
       },
       options: Object.keys(iconMap),
-      description: 'Select a custom icon or emoji to override the default variant icon',
+      description: 'Select a custom icon to override the default variant icon',
     },
   },
   args: {

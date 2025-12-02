@@ -47,7 +47,7 @@ export function InlineMessage({
   let icon: React.ReactNode
 
   if (LeadingVisual !== undefined) {
-    if (isValidElementType(LeadingVisual)) {
+    if (typeof LeadingVisual !== 'string' && isValidElementType(LeadingVisual)) {
       icon = <LeadingVisual className={classes.InlineMessageIcon} />
     } else {
       icon = LeadingVisual
