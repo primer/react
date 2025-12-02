@@ -122,12 +122,7 @@ type DividerProps = {
   position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
 }
 
-const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
-  variant = 'none',
-  className,
-  position,
-  style,
-}) => {
+const HorizontalDivider: React.FC<DividerProps> = ({variant = 'none', className, position, style}) => {
   const {padding} = React.useContext(PageLayoutContext)
 
   return (
@@ -145,7 +140,7 @@ const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
   )
 }
 
-function DragHandle({
+const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandle({
   position,
   paneWidth,
   setPaneWidth,
@@ -212,11 +207,8 @@ function DragHandle({
         setIsDragging(false)
         event.preventDefault()
         event.currentTarget.releasePointerCapture(event.pointerId)
-        const paneRect = paneRef.current?.getBoundingClientRect()
-        if (!paneRect) return
-        setPaneWidth(paneRect.width)
         try {
-          localStorage.setItem(widthStorageKey, paneRect.width.toString())
+          localStorage.setItem(widthStorageKey, paneWidth.toString())
         } catch (_error) {
           // Ignore errors
         }
@@ -264,15 +256,15 @@ function DragHandle({
       }}
     />
   )
-}
+})
 
-const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
+const VerticalDivider = React.memo<React.PropsWithChildren<DividerProps>>(function VerticalDivider({
   variant = 'none',
   children,
   position,
   className,
   style,
-}) => {
+}) {
   return (
     <div
       className={clsx(classes.VerticalDivider, className)}
@@ -283,7 +275,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
       {children}
     </div>
   )
-}
+})
 
 // ----------------------------------------------------------------------------
 // PageLayout.Header
@@ -592,7 +584,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     const initialPaneWidth = getDefaultPaneWidth(width)
 
     const [paneWidth, setPaneWidth] = React.useState(() => {
-      return getDefaultPaneWidth(width)
+      return initialPaneWidth
     })
 
     /**
@@ -701,7 +693,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           }
         >
           {resizable ? (
-            <DragHandle
+            <VerticalDragToResizeHandle
               paneWidth={paneWidth}
               setPaneWidth={setPaneWidth}
               widthStorageKey={widthStorageKey}
