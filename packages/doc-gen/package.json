@@ -44,7 +44,7 @@
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "rimraf": "^6.0.1",
-    "rollup": "^4.53.1",
+    "rollup": "^4.53.3",
     "rollup-plugin-typescript2": "^0.36.0",
     "typescript": "^5.8.3"
   }
