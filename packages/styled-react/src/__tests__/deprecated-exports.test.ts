@@ -24,12 +24,10 @@ for (const [, filepath, exports] of entrypoints) {
   ts.forEachChild(sourceFile!, node => {
     if (ts.isExportDeclaration(node) && node.exportClause && ts.isNamedExports(node.exportClause)) {
       for (const element of node.exportClause.elements) {
-        const exportName = element.name.text
-        // Check for JSDoc comments on the export specifier
         const jsDocTags = ts.getJSDocTags(element)
         const deprecatedTag = jsDocTags.find(tag => tag.tagName.text === 'deprecated')
 
-        exports.push([exportName, !!deprecatedTag, deprecatedTag ? deprecatedTag.comment !== undefined : false])
+        exports.push([element.name.text, !!deprecatedTag, deprecatedTag ? deprecatedTag.comment !== undefined : false])
       }
     }
   })
