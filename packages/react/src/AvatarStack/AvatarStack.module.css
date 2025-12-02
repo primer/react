@@ -36,7 +36,7 @@
   }
 
   &:where([data-avatar-count='1'][data-shape='circle']) {
-    .AvatarItem {
+    .AvatarItem:where([data-component="Avatar"]) {
       /* stylelint-disable-next-line primer/box-shadow */
       box-shadow: 0 0 0 var(--avatar-border-width) var(--avatar-borderColor);
     }

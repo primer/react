@@ -62,6 +62,14 @@ export const CustomSizeOnChildren = () => (
   </AvatarStack>
 )
 
+export const SingleChild = () => (
+  <AvatarStack>
+    <a href="https://primer.style/">
+      <Avatar size={20} alt="Primer logo" src="https://avatars.githubusercontent.com/primer" />
+    </a>
+  </AvatarStack>
+)
+
 // the smallest size of the children avatars will be used at each breakpoint
 export const CustomSizeOnChildrenResponsive = () => (
   <AvatarStack>
