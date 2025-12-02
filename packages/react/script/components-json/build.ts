@@ -15,8 +15,8 @@ import prettier from '@prettier/sync'
 import chalk from 'chalk'
 import type {LintError} from 'markdownlint'
 import {lint as mdLint} from 'markdownlint/sync'
-import componentSchema from './component.schema.json' with {type: 'json'}
-import outputSchema from './output.schema.json' with {type: 'json'}
+import componentSchema from './component.schema.json'
+import outputSchema from './output.schema.json'
 
 const args = parseArgs({
   options: {
@@ -160,6 +160,7 @@ const components = docsFiles.map(docsFilepath => {
       if (id.endsWith('--default')) {
         return {
           id,
+          code: defaultStoryCode,
         }
       }
       const storyName = getStoryName(id)
@@ -171,7 +172,7 @@ const components = docsFiles.map(docsFilepath => {
         )
       }
 
-      return {id}
+      return {id, code}
     })
 
   // Replace the stories array with the new array that includes source code
@@ -179,10 +180,11 @@ const components = docsFiles.map(docsFilepath => {
 
   // Add default story to the beginning of the array
   if (defaultStoryCode) {
-    const hasDefaultStory = docs.stories.find(story => story.id === defaultStoryId)
+    const hasDefaultStory = docs.stories.find(story => story.code === defaultStoryCode)
     if (!hasDefaultStory) {
       docs.stories.unshift({
         id: defaultStoryId,
+        code: defaultStoryCode,
       })
     }
   }
