@@ -1,5 +1,31 @@
 # @primer/react
 
+## 38.3.0
+
+### Minor Changes
+
+- [#7200](https://github.com/primer/react/pull/7200) [`0a0c2a0`](https://github.com/primer/react/commit/0a0c2a0daa15ca51e370f638876c79c2c2bb4473) Thanks [@joshblack](https://github.com/joshblack)! - Add `leadingVisual` prop to `UnderlineNav.Item`
+
+- [#7197](https://github.com/primer/react/pull/7197) [`9605a30`](https://github.com/primer/react/commit/9605a30605d0ecf688e4ae50c70a59622c1a4a08) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Deprecate `icon` prop in favor of `leadingVisual` and fix SecondaryAction styling in Banner.
+
+- [#7220](https://github.com/primer/react/pull/7220) [`62fc3bb`](https://github.com/primer/react/commit/62fc3bb18d988e92786154a5368246782723bcea) Thanks [@kendallgassner](https://github.com/kendallgassner)! - Expose props to allow virtualization in the SelectPanel
+
+- [#7177](https://github.com/primer/react/pull/7177) [`feb7001`](https://github.com/primer/react/commit/feb7001ccfb4e1f2a4d2f4a41f7acd622eaf784e) Thanks [@joshblack](https://github.com/joshblack)! - Add experimental TopicTag and TopicTag.Group components
+
+### Patch Changes
+
+- [#6987](https://github.com/primer/react/pull/6987) [`cd5ab1b`](https://github.com/primer/react/commit/cd5ab1bc588cf111d13cb387c770ddb0b9f39d8e) Thanks [@kerimmoresh](https://github.com/kerimmoresh)! - docs: Fix Typos in comments
+
+- [#7239](https://github.com/primer/react/pull/7239) [`2735220`](https://github.com/primer/react/commit/27352201b87227a5a1d85f77eca91bfd08cd4536) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Center align header and description for BlankSlate
+
+- [#7223](https://github.com/primer/react/pull/7223) [`f9fb9eb`](https://github.com/primer/react/commit/f9fb9eba8f1b2db8fddd9f6926edf77454146084) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - ActionBar: Add padding to Divider when gap="none".
+
+- [#7134](https://github.com/primer/react/pull/7134) [`585c5fa`](https://github.com/primer/react/commit/585c5fa4864e8bb616495622da49beec009dfbe6) Thanks [@hectahertz](https://github.com/hectahertz)! - SegmentedControl: Remove useResponsiveValue hook from fullWidth and variant props to use `getResponsiveAttributes` instead.
+
+- [#7211](https://github.com/primer/react/pull/7211) [`46a7ebe`](https://github.com/primer/react/commit/46a7ebed73ceb6805b863e14ad1ee24dfe9c60cf) Thanks [@langermank](https://github.com/langermank)! - Adjust `ActionList.Item` danger variant CSS to support trailing count/keybinding hint
+
+- [#7246](https://github.com/primer/react/pull/7246) [`1667225`](https://github.com/primer/react/commit/166722526fe49c428af34eeb16e30d5e91103649) Thanks [@pksjce](https://github.com/pksjce)! - chore - Fix type compatibility with react 19 refs
+
 ## 38.2.0
 
 ### Minor Changes
