@@ -167,7 +167,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
       tabIndex={-1}
       ref={ref}
       data-layout={rest.layout || 'default'}
-      data-flush={flush ? flush : undefined}
+      data-flush={flush ? '' : undefined}
     >
       <div className={classes.BannerIcon}>{visual && supportsCustomIcon ? visual : iconForVariant[variant]}</div>
       <div className={classes.BannerContainer}>
