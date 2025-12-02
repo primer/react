@@ -1073,11 +1073,6 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
     let lastFastUIUpdate = 0
     let lastSlowUIUpdate = 0
 
-    // Track history array versions to avoid copying unchanged arrays
-    let lastFpsHistoryLen = 0
-    let lastFrameTimeHistoryLen = 0
-    let lastMemoryHistoryLen = 0
-
     // Layout thrashing detection state
     // Only detects severe blocking (>50ms frames) near style writes
     let styleWriteCount = 0
@@ -1104,20 +1099,14 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
         m.inputLatencies.length > 0 ? m.inputLatencies.reduce((a, b) => a + b, 0) / m.inputLatencies.length : 0
       const avgPaintTime = m.paintTimes.length > 0 ? m.paintTimes.reduce((a, b) => a + b, 0) / m.paintTimes.length : 0
 
-      // Only copy history arrays if they've changed (new data pushed)
-      const fpsHistoryChanged = m.fpsHistory.length !== lastFpsHistoryLen
-      const frameTimeHistoryChanged = m.frameTimeHistory.length !== lastFrameTimeHistoryLen
-      if (fpsHistoryChanged) lastFpsHistoryLen = m.fpsHistory.length
-      if (frameTimeHistoryChanged) lastFrameTimeHistoryLen = m.frameTimeHistory.length
-
       // Changes frequently, always update
       stores.frame.setState({
         fps,
         frameTime: Math.round(avgFrameTime * 10) / 10,
         maxFrameTime: Math.round(m.maxFrameTime * 10) / 10,
         // Only create new array if data changed, otherwise reuse reference
-        fpsHistory: fpsHistoryChanged ? [...m.fpsHistory] : stores.frame.getState().fpsHistory,
-        frameTimeHistory: frameTimeHistoryChanged ? [...m.frameTimeHistory] : stores.frame.getState().frameTimeHistory,
+        fpsHistory: [...m.fpsHistory],
+        frameTimeHistory: [...m.frameTimeHistory],
       })
 
       // Changes frequently, always update
@@ -1150,9 +1139,6 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
           ? Math.round((m.lastSampledMemoryMB - m.baselineMemoryMB) * 10) / 10
           : null
 
-      const memoryHistoryChanged = m.memoryHistory.length !== lastMemoryHistoryLen
-      if (memoryHistoryChanged) lastMemoryHistoryLen = m.memoryHistory.length
-
       stores.interactions.setStateIfChanged({
         interactionCount: m.interactionCount,
         inpMs: Math.round(m.inpMs),
@@ -1172,7 +1158,7 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
         memoryUsedMB: m.lastSampledMemoryMB,
         memoryDeltaMB,
         peakMemoryMB: m.peakMemoryMB,
-        memoryHistory: memoryHistoryChanged ? [...m.memoryHistory] : stores.memory.getState().memoryHistory,
+        memoryHistory: [...m.memoryHistory],
       })
 
       stores.dom.setStateIfChanged({
@@ -1512,90 +1498,73 @@ interface SparklineProps {
   style?: React.CSSProperties
 }
 
-const Sparkline = React.memo(
-  function Sparkline({
-    data,
-    width = 50,
-    height = 16,
-    color = 'var(--fgColor-accent)',
-    threshold,
-    thresholdColor = 'var(--fgColor-danger)',
-    invertThreshold = false,
-    style,
-  }: SparklineProps) {
-    if (data.length < 2) {
-      return (
-        <svg width={width} height={height} style={{opacity: 0.3, ...style}} aria-hidden="true">
-          <line
-            x1={0}
-            y1={height / 2}
-            x2={width}
-            y2={height / 2}
-            stroke={color}
-            strokeWidth={1}
-            strokeDasharray="2,2"
-          />
-        </svg>
-      )
-    }
-
-    const min = Math.min(...data)
-    const max = Math.max(...data)
-    const range = max - min || 1
-
-    // Calculate Y position (inverted because SVG Y is top-down)
-    const getY = (value: number) => {
-      const normalized = (value - min) / range
-      return height - normalized * (height - 2) - 1
-    }
-
-    // Generate path
-    const points = data.map((value, i) => {
-      const x = (i / (data.length - 1)) * width
-      const y = getY(value)
-      return `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${y.toFixed(1)}`
-    })
-
-    // Calculate threshold line Y position if within range
-    let thresholdY: number | null = null
-    if (threshold !== undefined && threshold >= min && threshold <= max) {
-      thresholdY = getY(threshold)
-    }
-
-    // Determine if current value is "bad" based on threshold
-    const currentValue = data[data.length - 1]
-    const isBad = threshold !== undefined && (invertThreshold ? currentValue < threshold : currentValue > threshold)
-
+const Sparkline = React.memo(function Sparkline({
+  data,
+  width = 50,
+  height = 16,
+  color = 'var(--fgColor-accent)',
+  threshold,
+  thresholdColor = 'var(--fgColor-danger)',
+  invertThreshold = false,
+  style,
+}: SparklineProps) {
+  if (data.length < 2) {
     return (
-      <svg width={width} height={height} style={{verticalAlign: 'middle', ...style}} aria-hidden="true">
-        {/* Threshold line */}
-        {thresholdY !== null && (
-          <line
-            x1={0}
-            y1={thresholdY}
-            x2={width}
-            y2={thresholdY}
-            stroke={thresholdColor}
-            strokeWidth={0.5}
-            strokeDasharray="2,1"
-            opacity={0.5}
-          />
-        )}
-        {/* Main line */}
-        <path d={points.join(' ')} fill="none" stroke={isBad ? thresholdColor : color} strokeWidth={1.5} />
-        {/* Current value dot */}
-        <circle cx={width} cy={getY(currentValue)} r={2} fill={isBad ? thresholdColor : color} />
+      <svg width={width} height={height} style={{opacity: 0.3, ...style}} aria-hidden="true">
+        <line x1={0} y1={height / 2} x2={width} y2={height / 2} stroke={color} strokeWidth={1} strokeDasharray="2,2" />
       </svg>
     )
-  },
-  // Custom comparison: skip re-render if data array reference unchanged
-  (prev, next) =>
-    prev.data === next.data &&
-    prev.threshold === next.threshold &&
-    prev.color === next.color &&
-    prev.width === next.width &&
-    prev.height === next.height,
-)
+  }
+
+  const min = Math.min(...data)
+  const max = Math.max(...data)
+  const range = max - min || 1
+
+  // Calculate Y position (inverted because SVG Y is top-down)
+  const getY = (value: number) => {
+    const normalized = (value - min) / range
+    return height - normalized * (height - 2) - 1
+  }
+
+  // Generate path
+  const points = data.map((value, i) => {
+    const x = (i / (data.length - 1)) * width
+    const y = getY(value)
+    return `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${y.toFixed(1)}`
+  })
+
+  // Calculate threshold line Y position if within range
+  let thresholdY: number | null = null
+  if (threshold !== undefined && threshold >= min && threshold <= max) {
+    thresholdY = getY(threshold)
+  }
+
+  // Determine if current value is "bad" based on threshold
+  const currentValue = data[data.length - 1]
+  const isBad = threshold !== undefined && (invertThreshold ? currentValue < threshold : currentValue > threshold)
+
+  return (
+    <svg width={width} height={height} style={{verticalAlign: 'middle', ...style}} aria-hidden="true">
+      {/* Threshold line */}
+      {thresholdY !== null && (
+        <line
+          x1={0}
+          y1={thresholdY}
+          x2={width}
+          y2={thresholdY}
+          stroke={thresholdColor}
+          strokeWidth={0.5}
+          strokeDasharray="2,1"
+          opacity={0.5}
+        />
+      )}
+      {/* Main line */}
+      <path d={points.join(' ')} fill="none" stroke={isBad ? thresholdColor : color} strokeWidth={1.5} />
+      {/* Current value dot */}
+      <circle cx={width} cy={getY(currentValue)} r={2} fill={isBad ? thresholdColor : color} />
+    </svg>
+  )
+})
 
 // ============================================================================
 // Leaf Display Components - Each owns its store subscription
@@ -1702,6 +1671,33 @@ const cellBaseStyle: React.CSSProperties = {
   color: 'var(--fgColor-onEmphasis)',
   fontSize: '9px',
 }
+
+/** Section heading that spans both columns */
+const SectionHeading = React.memo(function SectionHeading({
+  children,
+  isFirst,
+}: {
+  children: React.ReactNode
+  isFirst?: boolean
+}) {
+  return (
+    <dt
+      style={{
+        gridColumn: '1 / -1',
+        fontSize: '8px',
+        fontWeight: 600,
+        textTransform: 'uppercase',
+        letterSpacing: '0.5px',
+        color: 'var(--fgColor-muted)',
+        marginTop: isFirst ? 0 : '6px',
+        paddingTop: isFirst ? 0 : '4px',
+        boxShadow: isFirst ? 'none' : 'inset 0 1px 0 0 var(--borderColor-muted)',
+      }}
+    >
+      {children}
+    </dt>
+  )
+})
 
 /**
  * Styles for section-starting cells (with top border).
@@ -2115,10 +2111,8 @@ const FrameMetricsSection = React.memo(function FrameMetricsSection({prefersRedu
 
   return (
     <>
-      <MetricLabel isSection description="Frames per second. Target: 60. Below 30 causes visible jank.">
-        FPS
-      </MetricLabel>
-      <MetricValue isSection color={fpsColor} fontWeight={600} style={{display: 'flex', alignItems: 'center'}}>
+      <MetricLabel description="Frames per second. Target: 60. Below 30 causes visible jank.">FPS</MetricLabel>
+      <MetricValue color={fpsColor} fontWeight={600} style={{display: 'flex', alignItems: 'center'}}>
         {fpsFormatter.format(fps)}
         {!prefersReducedMotion && (
           <Sparkline
@@ -2173,13 +2167,10 @@ const InputMetricsSection = React.memo(function InputMetricsSection() {
 
   return (
     <>
-      <MetricLabel
-        isSection
-        description="Time from pointer event to next animation frame. Target: ≤16ms. >50ms feels sluggish."
-      >
+      <MetricLabel description="Time from pointer event to next animation frame. Target: ≤16ms. >50ms feels sluggish.">
         Input
       </MetricLabel>
-      <MetricValue isSection>
+      <MetricValue>
         <span style={{color: inputLatencyColor, fontWeight: 600}}>{msFormatter.format(inputLatency)}ms</span>{' '}
         <span
           style={{
@@ -2228,10 +2219,10 @@ const TaskMetricsSection = React.memo(function TaskMetricsSection() {
 
   return (
     <>
-      <MetricLabel isSection description="Long Tasks block the main thread >50ms. Target: 0 during interactions.">
+      <MetricLabel description="Long Tasks block the main thread >50ms. Target: 0 during interactions.">
         Tasks
       </MetricLabel>
-      <MetricValue isSection>
+      <MetricValue>
         <span style={{color: longTaskColor, fontWeight: longTasks > 0 ? 600 : 'normal'}}>{longTasks} long</span>
         {longestTask > 0 && (
           <span
@@ -2268,10 +2259,10 @@ const LayoutMetricsSection = React.memo(function LayoutMetricsSection() {
 
   return (
     <>
-      <MetricLabel isSection description="Count of inline style attribute mutations observed via MutationObserver.">
+      <MetricLabel description="Count of inline style attribute mutations observed via MutationObserver.">
         Style
       </MetricLabel>
-      <MetricValue isSection>{styleWrites} writes</MetricValue>
+      <MetricValue>{styleWrites} writes</MetricValue>
 
       <MetricLabel description="Severe frame blocking (>50ms) near style writes. Indicates forced synchronous layout.">
         Thrash
@@ -2321,13 +2312,10 @@ const InteractionMetricsSection = React.memo(function InteractionMetricsSection(
 
   return (
     <>
-      <MetricLabel
-        isSection
-        description="Interaction to Next Paint (INP). Worst interaction latency. ≤200ms good, ≤500ms needs work."
-      >
+      <MetricLabel description="Interaction to Next Paint (INP). Worst interaction latency. ≤200ms good, ≤500ms needs work.">
         Interact
       </MetricLabel>
-      <MetricValue isSection>
+      <MetricValue>
         {interactionCount > 0 ? (
           <>
             <span>{interactionCount}×</span>
@@ -2372,10 +2360,10 @@ const ReactMetricsSection = React.memo(function ReactMetricsSection() {
   return (
     <>
       {/* Mount */}
-      <MetricLabel isSection description="Initial React render count and duration. Isolated from interaction metrics.">
+      <MetricLabel description="Initial React render count and duration. Isolated from interaction metrics.">
         ⚛️ Mount
       </MetricLabel>
-      <MetricValue isSection>
+      <MetricValue>
         {reactMountCount > 0 ? (
           <>
             {reactMountCount}× ({msFormatter.format(reactMountDuration)}ms)
@@ -2627,38 +2615,50 @@ function PerformanceMonitorView({onReset, initialPosition = 'bottom-left'}: Perf
             position: 'relative', // For absolute positioned descriptions
           }}
         >
+          {/* Overview Section */}
+          <SectionHeading isFirst>Overview</SectionHeading>
           <MetricErrorBoundary>
             <DomCountDisplay />
           </MetricErrorBoundary>
-
           <MetricErrorBoundary>
             <MemoryMetricRow prefersReducedMotion={prefersReducedMotion} />
           </MetricErrorBoundary>
-
           <MetricErrorBoundary>
             <PeakMemoryDisplay />
           </MetricErrorBoundary>
 
+          {/* Frames Section */}
+          <SectionHeading>Frames</SectionHeading>
           <MetricErrorBoundary>
             <FrameMetricsSection prefersReducedMotion={prefersReducedMotion} />
           </MetricErrorBoundary>
 
+          {/* Input Section */}
+          <SectionHeading>Input</SectionHeading>
           <MetricErrorBoundary>
             <InputMetricsSection />
           </MetricErrorBoundary>
 
+          {/* Tasks Section */}
+          <SectionHeading>Tasks</SectionHeading>
           <MetricErrorBoundary>
             <TaskMetricsSection />
           </MetricErrorBoundary>
 
+          {/* Layout Section */}
+          <SectionHeading>Layout</SectionHeading>
           <MetricErrorBoundary>
             <LayoutMetricsSection />
           </MetricErrorBoundary>
 
+          {/* Interactions Section */}
+          <SectionHeading>Interactions</SectionHeading>
           <MetricErrorBoundary>
             <InteractionMetricsSection />
           </MetricErrorBoundary>
 
+          {/* React Section */}
+          <SectionHeading>React</SectionHeading>
           <MetricErrorBoundary>
             <ReactMetricsSection />
           </MetricErrorBoundary>
