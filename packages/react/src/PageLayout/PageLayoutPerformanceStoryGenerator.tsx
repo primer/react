@@ -187,17 +187,24 @@ export interface PerformanceMetrics {
   styleWrites: number
 
   /**
-   * Estimated layout thrashing severity score.
-   *
-   * Accumulates points when style writes correlate with frame time anomalies:
-   * - Spike: Frame time 2x baseline + 8ms above → severity = (frame - baseline) / 8
-   * - Sustained: 3+ consecutive >24ms frames with writes → severity = (frame - 16) / 8
-   *
-   * A score of 0 indicates no thrashing detected. Higher scores indicate more
-   * severe or frequent thrashing events. This is an estimate since we cannot
-   * directly detect forced synchronous layout.
+   * Count of severe frame blocking events (>50ms) near style writes.
+   * Indicates potential layout thrashing - forced synchronous layout.
+   * These are major stalls that completely block the main thread.
    */
   thrashingScore: number
+
+  /**
+   * Count of jitter events - unexpected spikes causing visible hitching during drag.
+   * Detected from three sources:
+   *
+   * 1. **Input latency jitter**: Pointer-to-RAF time spikes (>3x baseline, >30ms jump, >50ms)
+   * 2. **Frame time jitter**: Frame-to-frame time spikes (>3x baseline, >20ms jump, >40ms)
+   * 3. **Paint time jitter**: Paint duration spikes (>3x baseline, >20ms jump, >35ms)
+   *
+   * Thresholds are set high to avoid false positives from normal drag variance.
+   * Only catches obvious hitches that would be visible to users.
+   */
+  inputJitter: number
 
   // ─────────────────────────────────────────────────────────────────────────
   // React Profiler Metrics - Component render performance
@@ -355,6 +362,7 @@ const initialMetrics: PerformanceMetrics = {
   slowEvents: 0,
   styleWrites: 0,
   thrashingScore: 0,
+  inputJitter: 0,
   reactRenderCount: 0,
   reactTotalActualDuration: 0,
   reactMaxActualDuration: 0,
@@ -453,6 +461,8 @@ interface MutableMetricsState {
   styleWrites: number
   thrashingScore: number
   layoutShiftScore: number
+  // Input jitter
+  inputJitter: number
   layoutShiftCount: number
   // React
   reactRenderCount: number
@@ -505,6 +515,7 @@ function createInitialMutableState(): MutableMetricsState {
     thrashingScore: 0,
     layoutShiftScore: 0,
     layoutShiftCount: 0,
+    inputJitter: 0,
     reactRenderCount: 0,
     reactTotalActualDuration: 0,
     reactMaxActualDuration: 0,
@@ -610,6 +621,7 @@ export function PerformanceProvider({
     m.thrashingScore = 0
     m.layoutShiftScore = 0
     m.layoutShiftCount = 0
+    m.inputJitter = 0
     m.reactRenderCount = mountCount
     m.reactTotalActualDuration = mountDuration
     m.reactMaxActualDuration = 0
@@ -779,40 +791,20 @@ function IsolatedMonitorInner({
     const expectedFrameTime = 16.67
 
     // Layout thrashing detection state
+    // Only detects severe blocking (>50ms frames) near style writes
     let styleWriteCount = 0
     let lastStyleWriteTime = 0
-    const recentFrameTimes: number[] = []
-    let consecutiveSlowFramesWithWrites = 0
 
     const checkForThrashing = (frameTime: number) => {
-      recentFrameTimes.push(frameTime)
-      if (recentFrameTimes.length > 10) recentFrameTimes.shift()
-
       const now = performance.now()
       const timeSinceLastWrite = now - lastStyleWriteTime
-      const hadRecentStyleWrite = styleWriteCount > 0 && timeSinceLastWrite < 20
+      const hadRecentStyleWrite = styleWriteCount > 0 && timeSinceLastWrite < 50
 
-      if (hadRecentStyleWrite && frameTime > 24) {
-        consecutiveSlowFramesWithWrites++
-        if (consecutiveSlowFramesWithWrites >= 3) {
-          m.thrashingScore += Math.ceil((frameTime - 16) / 8)
-        }
-      } else {
-        consecutiveSlowFramesWithWrites = 0
+      // Severe blocking: >50ms frame with recent style writes
+      if (hadRecentStyleWrite && frameTime > 50) {
+        m.thrashingScore++
       }
 
-      if (recentFrameTimes.length < 5 || !hadRecentStyleWrite) {
-        styleWriteCount = 0
-        return
-      }
-
-      const baseline = recentFrameTimes.slice(0, -1)
-      const avgBaseline = baseline.reduce((a, b) => a + b, 0) / baseline.length
-      const spikeThreshold = Math.max(avgBaseline * 2, avgBaseline + 8)
-
-      if (frameTime > spikeThreshold && frameTime > 16) {
-        m.thrashingScore += Math.ceil((frameTime - avgBaseline) / 8)
-      }
       styleWriteCount = 0
     }
 
@@ -835,6 +827,24 @@ function IsolatedMonitorInner({
       }
 
       checkForThrashing(delta)
+
+      // Frame time jitter: detect sudden spikes in frame time that cause visible hitches
+      // Only check after we have a baseline (5+ frames)
+      if (m.frameTimes.length >= 5) {
+        // Use last 4 frames (excluding current) for baseline
+        const baselineFrames = m.frameTimes.slice(-5, -1)
+        const avgBaseline = baselineFrames.reduce((a, b) => a + b, 0) / baselineFrames.length
+
+        // Flag as jitter if frame time is:
+        // - More than 3x baseline (significant relative spike)
+        // - AND >20ms above baseline (substantial jump)
+        // - AND >40ms absolute (clearly problematic)
+        const isFrameJitter = delta > avgBaseline * 3 && delta - avgBaseline > 20 && delta > 40
+
+        if (isFrameJitter) {
+          m.inputJitter++
+        }
+      }
 
       const avgFrameTime = m.frameTimes.reduce((a, b) => a + b, 0) / m.frameTimes.length
       const fps = Math.round(1000 / avgFrameTime)
@@ -892,6 +902,7 @@ function IsolatedMonitorInner({
         slowEvents: m.slowEvents,
         styleWrites: m.styleWrites,
         thrashingScore: m.thrashingScore,
+        inputJitter: m.inputJitter,
         layoutShiftScore: Math.round(m.layoutShiftScore * 1000) / 1000,
         layoutShiftCount: m.layoutShiftCount,
         reactRenderCount: m.reactRenderCount,
@@ -920,7 +931,11 @@ function IsolatedMonitorInner({
       animationId = requestAnimationFrame(measure)
     }
 
-    // Input latency and paint time handler
+    // Input latency, paint time, and jitter detection
+    // Track recent values to detect unexpected spikes (jitter) from multiple sources
+    const recentInputLatencies: number[] = []
+    const recentPaintTimes: number[] = []
+
     const handlePointerMove = (event: PointerEvent) => {
       const eventTime = event.timeStamp
       requestAnimationFrame(() => {
@@ -931,6 +946,25 @@ function IsolatedMonitorInner({
         if (latency > m.maxInputLatency) m.maxInputLatency = latency
         else if (latency < 20 && m.maxInputLatency > 20) m.maxInputLatency *= 0.98
 
+        // Input latency jitter: unexpected spike in pointer-to-RAF time
+        recentInputLatencies.push(latency)
+        if (recentInputLatencies.length > 10) recentInputLatencies.shift()
+
+        if (recentInputLatencies.length >= 5) {
+          const baseline = recentInputLatencies.slice(0, -1)
+          const avgBaseline = baseline.reduce((a, b) => a + b, 0) / baseline.length
+
+          // Flag as jitter if latency is:
+          // - More than 3x baseline (significant relative spike)
+          // - AND >30ms above baseline (substantial jump)
+          // - AND >50ms absolute (clearly noticeable delay)
+          const isJitter = latency > avgBaseline * 3 && latency - avgBaseline > 30 && latency > 50
+
+          if (isJitter) {
+            m.inputJitter++
+          }
+        }
+
         requestAnimationFrame(() => {
           const paintDuration = performance.now() - rafTime
           m.paintCycles++
@@ -938,6 +972,23 @@ function IsolatedMonitorInner({
           if (m.paintTimes.length > 30) m.paintTimes.shift()
           if (paintDuration > m.maxPaintTime) m.maxPaintTime = paintDuration
           else if (paintDuration < 10 && m.maxPaintTime > 10) m.maxPaintTime *= 0.98
+
+          // Paint time jitter: unexpected spike in paint/composite duration
+          recentPaintTimes.push(paintDuration)
+          if (recentPaintTimes.length > 10) recentPaintTimes.shift()
+
+          if (recentPaintTimes.length >= 5) {
+            const baseline = recentPaintTimes.slice(0, -1)
+            const avgBaseline = baseline.reduce((a, b) => a + b, 0) / baseline.length
+
+            // Flag if paint time spikes: >3x baseline AND >20ms above AND >35ms absolute
+            const isPaintJitter =
+              paintDuration > avgBaseline * 3 && paintDuration - avgBaseline > 20 && paintDuration > 35
+
+            if (isPaintJitter) {
+              m.inputJitter++
+            }
+          }
         })
       })
     }
@@ -1194,8 +1245,12 @@ const metricDescriptions = {
   },
   thrash: {
     label: 'Thrash',
+    description: 'Severe frame blocking (>50ms) near style writes. Indicates forced synchronous layout.',
+  },
+  jitter: {
+    label: 'Jitter',
     description:
-      'Estimated layout thrashing severity. Detects frame spikes (2x baseline) or sustained slowness (3+ frames >24ms) during style writes. Score of 0 = no thrashing detected.',
+      'Unexpected timing spikes from 3 sources: input latency, frame time, and paint time. Each flags >2x baseline jumps causing visible hitching.',
   },
   cls: {
     label: 'CLS',
@@ -1780,10 +1835,17 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
             fontWeight: metrics.thrashingScore > 0 ? 600 : 'normal',
           }}
         >
-          {metrics.thrashingScore === 0 ? 'none ✓' : metrics.thrashingScore}
-          {metrics.thrashingScore > 0 && (
-            <span style={{fontWeight: 'normal', color: 'var(--fgColor-onEmphasis)', fontSize: '9px'}}> (est.)</span>
-          )}
+          {metrics.thrashingScore === 0 ? 'none ✓' : `${metrics.thrashingScore} stalls`}
+        </span>
+
+        <span style={{color: 'var(--fgColor-onEmphasis)'}}>Jitter</span>
+        <span
+          style={{
+            color: metrics.inputJitter > 0 ? 'var(--fgColor-danger)' : 'var(--fgColor-success)',
+            fontWeight: metrics.inputJitter > 0 ? 600 : 'normal',
+          }}
+        >
+          {metrics.inputJitter === 0 ? 'none ✓' : `${metrics.inputJitter} hitches`}
         </span>
 
         {/* CLS - Cumulative Layout Shift */}
