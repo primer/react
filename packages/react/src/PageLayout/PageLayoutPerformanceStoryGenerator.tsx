@@ -1,13 +1,15 @@
 import type {Decorator} from '@storybook/react-vite'
 import React from 'react'
+import {createRoot, type Root} from 'react-dom/client'
 
 /**
  * Performance Monitoring for PageLayout Stories
  *
  * Architecture:
  * - PerformanceProvider: Wraps stories and manages all performance metrics.
- *   It renders the performance monitor UI OUTSIDE the profiled tree so that
- *   monitor re-renders don't inflate React render counts.
+ *   The monitor UI is rendered in a SEPARATE React root, completely isolated
+ *   from the profiled component tree. This ensures monitor updates never
+ *   compete with or affect the measured component's render cycle.
  *
  * - ProfiledComponent: Wraps the actual story content with React.Profiler
  *   to track React render performance. Only children of ProfiledComponent
@@ -482,20 +484,18 @@ interface MutableMetricsState {
   lastRenderFrameTime: number
   // Sparkline history
   memoryHistory: number[]
+  fpsHistory: number[]
+  frameTimeHistory: number[]
+  // Rolling averages
+  frameTimes: number[]
+  inputLatencies: number[]
+  paintTimes: number[]
+  sparklineSampleCount: number
 }
 
-export function PerformanceProvider({
-  children,
-  initialPosition = 'bottom-left',
-}: {
-  children: React.ReactNode
-  initialPosition?: MonitorPosition
-}) {
-  // Ref for DOM element counting
-  const contentRef = React.useRef<HTMLDivElement>(null)
-
-  // Mutable state for collecting metrics (never read during render)
-  const mutableRef = React.useRef<MutableMetricsState>({
+// Create initial mutable state
+function createInitialMutableState(): MutableMetricsState {
+  return {
     maxFrameTime: 0,
     droppedFrames: 0,
     maxInputLatency: 0,
@@ -531,30 +531,36 @@ export function PerformanceProvider({
     rendersThisFrame: 0,
     lastRenderFrameTime: 0,
     memoryHistory: [],
-  })
+    fpsHistory: [],
+    frameTimeHistory: [],
+    frameTimes: [],
+    inputLatencies: [],
+    paintTimes: [],
+    sparklineSampleCount: 0,
+  }
+}
 
-  // Sparkline history refs (sampled less frequently for smooth graphs)
-  const fpsHistoryRef = React.useRef<number[]>([])
-  const frameTimeHistoryRef = React.useRef<number[]>([])
-  const sparklineSampleCountRef = React.useRef(0)
+export function PerformanceProvider({
+  children,
+  initialPosition = 'bottom-left',
+}: {
+  children: React.ReactNode
+  initialPosition?: MonitorPosition
+}) {
+  // Ref for DOM element counting
+  const contentRef = React.useRef<HTMLDivElement>(null)
 
-  // Rolling average arrays (never read during render)
-  const frameTimesRef = React.useRef<number[]>([])
-  const inputLatenciesRef = React.useRef<number[]>([])
-  const paintTimesRef = React.useRef<number[]>([])
-  const memoryReadingsRef = React.useRef<number[]>([])
+  // Mutable state for collecting metrics - shared with isolated monitor via ref
+  // This is the ONLY shared state between provider and monitor
+  const mutableRef = React.useRef<MutableMetricsState>(createInitialMutableState())
 
-  // State for rendering - updated once per RAF from mutable refs
-  const [metrics, setMetrics] = React.useState<PerformanceMetrics>(initialMetrics)
-
-  // React Profiler callback - updates mutable ref only
+  // React Profiler callback - updates mutable ref only (no React state)
   const reportReactRender = React.useCallback(
     (phase: 'mount' | 'update' | 'nested-update', actualDuration: number, baseDuration: number) => {
       const m = mutableRef.current
       const now = performance.now()
 
       // Track render cascades - multiple renders in same frame
-      // If this render is within 16ms of the last one, it's the same frame
       if (m.lastRenderFrameTime > 0 && now - m.lastRenderFrameTime < 16) {
         m.rendersThisFrame++
         if (m.rendersThisFrame > 1) {
@@ -571,21 +577,18 @@ export function PerformanceProvider({
       m.reactRenderCount++
       m.reactTotalActualDuration += actualDuration
       m.reactLastActualDuration = actualDuration
-      m.reactBaseDuration = baseDuration // Always update to latest base duration
+      m.reactBaseDuration = baseDuration
 
       if (actualDuration > m.reactMaxActualDuration) {
         m.reactMaxActualDuration = actualDuration
       }
 
-      // Track mount vs update counts
       if (phase === 'mount') {
         m.reactMountCount++
         m.reactMountDuration += actualDuration
       } else {
         m.reactUpdateCount++
-        // Mark mount phase as complete on first update
         m.mountPhaseComplete = true
-        // Track post-mount metrics
         m.reactPostMountUpdateCount++
         if (actualDuration > m.reactPostMountMaxDuration) {
           m.reactPostMountMaxDuration = actualDuration
@@ -600,9 +603,16 @@ export function PerformanceProvider({
     mutableRef.current.domElements = count
   }, [])
 
-  // Reset all metrics (except mount stats which don't change)
+  // Reset function - resets mutable state, monitor will pick up changes
   const reset = React.useCallback(() => {
     const m = mutableRef.current
+    const currentMemory = getMemoryMB()
+
+    // Preserve mount stats
+    const mountCount = m.reactMountCount
+    const mountDuration = m.reactMountDuration
+
+    // Reset most metrics
     m.maxFrameTime = 0
     m.droppedFrames = 0
     m.maxInputLatency = 0
@@ -615,50 +625,172 @@ export function PerformanceProvider({
     m.thrashingScore = 0
     m.layoutShiftScore = 0
     m.layoutShiftCount = 0
-    m.reactRenderCount = m.reactMountCount // Keep mount renders in count
-    m.reactTotalActualDuration = m.reactMountDuration // Keep mount duration
+    m.reactRenderCount = mountCount
+    m.reactTotalActualDuration = mountDuration
     m.reactMaxActualDuration = 0
     m.reactLastActualDuration = 0
     m.reactBaseDuration = 0
-    // Don't reset: reactMountCount, reactMountDuration, mountPhaseComplete
     m.reactUpdateCount = 0
     m.reactPostMountMaxDuration = 0
     m.reactPostMountUpdateCount = 0
-    // Reset memory baseline to current value for delta tracking
-    const currentMemory = getMemoryMB()
     m.baselineMemoryMB = currentMemory
     m.peakMemoryMB = currentMemory
     m.lastSampledMemoryMB = currentMemory
-    // Reset interaction metrics
     m.interactionCount = 0
     m.interactionLatencies = []
     m.inpMs = 0
-    // Reset cascade tracking
     m.renderCascades = 0
     m.maxRendersPerFrame = 0
     m.rendersThisFrame = 0
     m.lastRenderFrameTime = 0
     m.memoryHistory = []
-    frameTimesRef.current = []
-    inputLatenciesRef.current = []
-    paintTimesRef.current = []
-    memoryReadingsRef.current = []
-    fpsHistoryRef.current = []
-    frameTimeHistoryRef.current = []
-    sparklineSampleCountRef.current = 0
-    setMetrics(prev => ({
-      ...initialMetrics,
-      // Preserve mount stats - they represent initial mount and don't change
-      reactMountCount: prev.reactMountCount,
-      reactMountDuration: prev.reactMountDuration,
-      reactRenderCount: prev.reactMountCount,
-      reactTotalActualDuration: prev.reactMountDuration,
-    }))
+    m.fpsHistory = []
+    m.frameTimeHistory = []
+    m.frameTimes = []
+    m.inputLatencies = []
+    m.paintTimes = []
+    m.sparklineSampleCount = 0
   }, [])
 
-  // Browser metrics collection effect
+  // DOM element counting effect - only observer setup, no state
+  React.useEffect(() => {
+    const countElements = () => {
+      if (contentRef.current) {
+        const count = contentRef.current.querySelectorAll('*').length
+        mutableRef.current.domElements = count
+      }
+    }
+
+    countElements()
+
+    if (contentRef.current) {
+      const observer = new MutationObserver(countElements)
+      observer.observe(contentRef.current, {childList: true, subtree: true})
+      return () => observer.disconnect()
+    }
+    return undefined
+  }, [])
+
+  // Stable callbacks context value (never changes after mount)
+  const callbacksValue = React.useMemo(
+    () => ({reportReactRender, setDomElements, reset}),
+    [reportReactRender, setDomElements, reset],
+  )
+
+  return (
+    <PerformanceCallbacksContext.Provider value={callbacksValue}>
+      {/* Monitor renders in COMPLETELY separate React root with its own state */}
+      {/* The mutableRef is passed so the monitor can read metrics and set up observers */}
+      <IsolatedPerformanceMonitor mutableRef={mutableRef} onReset={reset} initialPosition={initialPosition} />
+      <div ref={contentRef}>{children}</div>
+    </PerformanceCallbacksContext.Provider>
+  )
+}
+
+// ============================================================================
+// Profiled Component Wrapper
+// ============================================================================
+
+export function ProfiledComponent({id, children}: {id: string; children: React.ReactNode}) {
+  // Use only the callbacks context (stable, won't re-render on metrics changes)
+  const callbacks = usePerformanceCallbacks()
+
+  const onRender = React.useCallback(
+    (
+      _profilerId: string,
+      phase: 'mount' | 'update' | 'nested-update',
+      actualDuration: number,
+      baseDuration: number,
+      _startTime: number,
+      _commitTime: number,
+    ) => {
+      callbacks?.reportReactRender(phase, actualDuration, baseDuration)
+    },
+    [callbacks],
+  )
+
+  return (
+    <React.Profiler id={id} onRender={onRender}>
+      {children}
+    </React.Profiler>
+  )
+}
+
+// ============================================================================
+// Isolated Performance Monitor - Renders in separate React root
+// ============================================================================
+
+/**
+ * Creates a performance monitor that renders in its own React root.
+ * This component OWNS all metrics collection (RAF loop, observers) and state.
+ * The provider only passes a mutable ref for React profiler data.
+ *
+ * Architecture:
+ * - Runs RAF loop entirely within the isolated root's effects
+ * - Updates state in the isolated root (not the main tree)
+ * - Main tree provider has ZERO React state - only refs and callbacks
+ *
+ * This ensures the profiled component's render cycle is never affected by
+ * metrics collection or monitor UI updates.
+ */
+interface IsolatedPerformanceMonitorProps {
+  mutableRef: React.RefObject<MutableMetricsState>
+  onReset: () => void
+  initialPosition: MonitorPosition
+}
+
+function IsolatedPerformanceMonitor({mutableRef, onReset, initialPosition}: IsolatedPerformanceMonitorProps) {
+  const containerRef = React.useRef<HTMLDivElement | null>(null)
+  const rootRef = React.useRef<Root | null>(null)
+
+  // Create container and separate React root on mount
+  React.useEffect(() => {
+    // Create container div outside of React's tree
+    const container = document.createElement('div')
+    container.setAttribute('data-perf-monitor-root', '')
+    document.body.appendChild(container)
+    containerRef.current = container
+
+    // Create separate React root
+    const root = createRoot(container)
+    rootRef.current = root
+
+    // Render initial state
+    root.render(<IsolatedMonitorInner mutableRef={mutableRef} onReset={onReset} initialPosition={initialPosition} />)
+
+    // Cleanup on unmount
+    return () => {
+      setTimeout(() => {
+        root.unmount()
+        container.remove()
+      }, 0)
+    }
+  }, [mutableRef, onReset, initialPosition])
+
+  // This component renders nothing in the main tree
+  return null
+}
+
+/**
+ * Inner component that runs inside the isolated React root.
+ * This owns the RAF loop and all state - completely separate from the profiled tree.
+ */
+function IsolatedMonitorInner({
+  mutableRef,
+  onReset,
+  initialPosition,
+}: {
+  mutableRef: React.RefObject<MutableMetricsState>
+  onReset: () => void
+  initialPosition: MonitorPosition
+}) {
+  const [metrics, setMetrics] = React.useState<PerformanceMetrics>(initialMetrics)
+
+  // RAF loop and all observers run in this isolated root
   React.useEffect(() => {
     const m = mutableRef.current
+    if (!m) return
+
     let animationId: number
     let lastTime = performance.now()
     const expectedFrameTime = 16.67
@@ -669,63 +801,35 @@ export function PerformanceProvider({
     const recentFrameTimes: number[] = []
     let consecutiveSlowFramesWithWrites = 0
 
-    // Thrashing detection: Two strategies combined:
-    // 1. SPIKE detection: sudden frame time jumps relative to baseline
-    // 2. SUSTAINED detection: consistently slow frames (>24ms) with style writes
-    //
-    // Normal dragging: consistent frame times even with many style writes
-    // Thrashing: either sudden spikes OR sustained slowness during style changes
     const checkForThrashing = (frameTime: number) => {
-      // Maintain a short rolling window of recent frame times
       recentFrameTimes.push(frameTime)
-      if (recentFrameTimes.length > 10) {
-        recentFrameTimes.shift()
-      }
+      if (recentFrameTimes.length > 10) recentFrameTimes.shift()
 
       const now = performance.now()
       const timeSinceLastWrite = now - lastStyleWriteTime
       const hadRecentStyleWrite = styleWriteCount > 0 && timeSinceLastWrite < 20
 
-      // Strategy 2: Track sustained slow frames with style writes
-      // This catches consistent thrashing that wouldn't show as a "spike"
       if (hadRecentStyleWrite && frameTime > 24) {
         consecutiveSlowFramesWithWrites++
-        // After 3+ consecutive slow frames with writes, likely thrashing
         if (consecutiveSlowFramesWithWrites >= 3) {
-          const severity = Math.ceil((frameTime - 16) / 8)
-          m.thrashingScore += severity
+          m.thrashingScore += Math.ceil((frameTime - 16) / 8)
         }
       } else {
         consecutiveSlowFramesWithWrites = 0
       }
 
-      // Need enough history for spike detection
-      if (recentFrameTimes.length < 5) {
+      if (recentFrameTimes.length < 5 || !hadRecentStyleWrite) {
         styleWriteCount = 0
         return
       }
 
-      // Only check spikes if we had style writes recently
-      if (!hadRecentStyleWrite) {
-        styleWriteCount = 0
-        return
-      }
-
-      // Strategy 1: Calculate baseline from recent frames (excluding current)
       const baseline = recentFrameTimes.slice(0, -1)
       const avgBaseline = baseline.reduce((a, b) => a + b, 0) / baseline.length
-
-      // Detect spike: current frame is significantly worse than recent baseline
-      // A spike is 2x+ the baseline AND at least 8ms above it
       const spikeThreshold = Math.max(avgBaseline * 2, avgBaseline + 8)
 
       if (frameTime > spikeThreshold && frameTime > 16) {
-        // Severity based on how much we exceeded the spike threshold
-        const severity = Math.ceil((frameTime - avgBaseline) / 8)
-        m.thrashingScore += severity
+        m.thrashingScore += Math.ceil((frameTime - avgBaseline) / 8)
       }
-
-      // Reset per-frame counter
       styleWriteCount = 0
     }
 
@@ -734,90 +838,61 @@ export function PerformanceProvider({
       const delta = now - lastTime
       lastTime = now
 
-      frameTimesRef.current.push(delta)
-      if (frameTimesRef.current.length > 60) {
-        frameTimesRef.current.shift()
-      }
+      m.frameTimes.push(delta)
+      if (m.frameTimes.length > 60) m.frameTimes.shift()
 
-      // Track dropped frames
       if (delta > expectedFrameTime * 2) {
         m.droppedFrames += Math.floor(delta / expectedFrameTime) - 1
       }
 
-      // Track max frame time with decay
       if (delta > m.maxFrameTime) {
         m.maxFrameTime = delta
       } else if (delta < 20 && m.maxFrameTime > 20) {
-        m.maxFrameTime = m.maxFrameTime * 0.99
+        m.maxFrameTime *= 0.99
       }
 
-      // Check for thrashing based on style writes + frame time correlation
       checkForThrashing(delta)
 
-      // Calculate averages
-      const avgFrameTime = frameTimesRef.current.reduce((a, b) => a + b, 0) / frameTimesRef.current.length
+      const avgFrameTime = m.frameTimes.reduce((a, b) => a + b, 0) / m.frameTimes.length
       const fps = Math.round(1000 / avgFrameTime)
-
       const avgInputLatency =
-        inputLatenciesRef.current.length > 0
-          ? inputLatenciesRef.current.reduce((a, b) => a + b, 0) / inputLatenciesRef.current.length
-          : 0
-
-      const avgPaintTime =
-        paintTimesRef.current.length > 0
-          ? paintTimesRef.current.reduce((a, b) => a + b, 0) / paintTimesRef.current.length
-          : 0
-
-      // Calculate average interaction latency
+        m.inputLatencies.length > 0 ? m.inputLatencies.reduce((a, b) => a + b, 0) / m.inputLatencies.length : 0
+      const avgPaintTime = m.paintTimes.length > 0 ? m.paintTimes.reduce((a, b) => a + b, 0) / m.paintTimes.length : 0
       const avgInteractionMs =
         m.interactionLatencies.length > 0
           ? Math.round((m.interactionLatencies.reduce((a, b) => a + b, 0) / m.interactionLatencies.length) * 10) / 10
           : 0
 
-      // Sample sparkline data every 5 frames (~12 samples/sec at 60fps)
-      // This includes memory which doesn't need per-frame updates
-      sparklineSampleCountRef.current++
-      if (sparklineSampleCountRef.current >= 5) {
-        sparklineSampleCountRef.current = 0
+      // Sample sparkline data every 5 frames
+      m.sparklineSampleCount++
+      if (m.sparklineSampleCount >= 5) {
+        m.sparklineSampleCount = 0
+        m.fpsHistory.push(fps)
+        if (m.fpsHistory.length > 30) m.fpsHistory.shift()
+        m.frameTimeHistory.push(avgFrameTime)
+        if (m.frameTimeHistory.length > 30) m.frameTimeHistory.shift()
 
-        // FPS history
-        fpsHistoryRef.current.push(fps)
-        if (fpsHistoryRef.current.length > 30) fpsHistoryRef.current.shift()
-
-        // Frame time history
-        frameTimeHistoryRef.current.push(avgFrameTime)
-        if (frameTimeHistoryRef.current.length > 30) frameTimeHistoryRef.current.shift()
-
-        // Memory sampling (only at sparkline intervals for stability)
         const rawMemoryMB = getMemoryMB()
         if (rawMemoryMB !== null) {
-          // Set baseline on first reading
           if (m.baselineMemoryMB === null) {
             m.baselineMemoryMB = rawMemoryMB
             m.peakMemoryMB = rawMemoryMB
           }
-
-          // Track peak memory
           if (m.peakMemoryMB === null || rawMemoryMB > m.peakMemoryMB) {
             m.peakMemoryMB = rawMemoryMB
           }
-
-          // Store for display (no smoothing needed at this rate)
           m.lastSampledMemoryMB = rawMemoryMB
-
-          // Add to sparkline history
           m.memoryHistory.push(rawMemoryMB)
           if (m.memoryHistory.length > 30) m.memoryHistory.shift()
         }
       }
 
-      // Calculate memory delta from baseline
       const memoryDeltaMB =
         m.lastSampledMemoryMB !== null && m.baselineMemoryMB !== null
           ? Math.round((m.lastSampledMemoryMB - m.baselineMemoryMB) * 10) / 10
           : null
 
-      // Update state from mutable refs (this is the only place we read refs)
+      // Update state in isolated root (this is the only setState call)
       setMetrics({
         domElements: m.domElements,
         fps,
@@ -854,91 +929,65 @@ export function PerformanceProvider({
         avgInteractionMs,
         renderCascades: m.renderCascades,
         maxRendersPerFrame: m.maxRendersPerFrame,
-        // Sparkline history (copy arrays to trigger re-render)
-        fpsHistory: [...fpsHistoryRef.current],
-        frameTimeHistory: [...frameTimeHistoryRef.current],
+        fpsHistory: [...m.fpsHistory],
+        frameTimeHistory: [...m.frameTimeHistory],
         memoryHistory: [...m.memoryHistory],
       })
 
       animationId = requestAnimationFrame(measure)
     }
 
-    // Pointer move handler for input latency and paint time
+    // Input latency and paint time handler
     const handlePointerMove = (event: PointerEvent) => {
       const eventTime = event.timeStamp
       requestAnimationFrame(() => {
         const rafTime = performance.now()
         const latency = rafTime - eventTime
+        m.inputLatencies.push(latency)
+        if (m.inputLatencies.length > 30) m.inputLatencies.shift()
+        if (latency > m.maxInputLatency) m.maxInputLatency = latency
+        else if (latency < 20 && m.maxInputLatency > 20) m.maxInputLatency *= 0.98
 
-        inputLatenciesRef.current.push(latency)
-        if (inputLatenciesRef.current.length > 30) {
-          inputLatenciesRef.current.shift()
-        }
-
-        if (latency > m.maxInputLatency) {
-          m.maxInputLatency = latency
-        } else if (latency < 20 && m.maxInputLatency > 20) {
-          m.maxInputLatency = m.maxInputLatency * 0.98
-        }
-
-        // Double RAF for paint time
         requestAnimationFrame(() => {
-          const afterPaintTime = performance.now()
-          const paintDuration = afterPaintTime - rafTime
-
+          const paintDuration = performance.now() - rafTime
           m.paintCycles++
-
-          paintTimesRef.current.push(paintDuration)
-          if (paintTimesRef.current.length > 30) {
-            paintTimesRef.current.shift()
-          }
-
-          if (paintDuration > m.maxPaintTime) {
-            m.maxPaintTime = paintDuration
-          } else if (paintDuration < 10 && m.maxPaintTime > 10) {
-            m.maxPaintTime = m.maxPaintTime * 0.98
-          }
+          m.paintTimes.push(paintDuration)
+          if (m.paintTimes.length > 30) m.paintTimes.shift()
+          if (paintDuration > m.maxPaintTime) m.maxPaintTime = paintDuration
+          else if (paintDuration < 10 && m.maxPaintTime > 10) m.maxPaintTime *= 0.98
         })
       })
     }
 
     // Long Task observer
     let longTaskObserver: PerformanceObserver | null = null
-    if (typeof PerformanceObserver !== 'undefined') {
-      try {
-        longTaskObserver = new PerformanceObserver(list => {
-          for (const entry of list.getEntries()) {
-            m.longTasks++
-            if (entry.duration > m.longestTask) {
-              m.longestTask = entry.duration
-            }
-          }
-        })
-        longTaskObserver.observe({type: 'longtask'})
-      } catch {
-        // Not supported
-      }
+    try {
+      longTaskObserver = new PerformanceObserver(list => {
+        for (const entry of list.getEntries()) {
+          m.longTasks++
+          if (entry.duration > m.longestTask) m.longestTask = entry.duration
+        }
+      })
+      longTaskObserver.observe({type: 'longtask'})
+    } catch {
+      /* Not supported */
     }
 
     // Event timing observer
     let eventObserver: PerformanceObserver | null = null
-    if (typeof PerformanceObserver !== 'undefined') {
-      try {
-        eventObserver = new PerformanceObserver(list => {
-          for (const entry of list.getEntries()) {
-            if (entry.duration > 50) {
-              m.slowEvents++
-            }
-          }
-        })
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        eventObserver.observe({type: 'event', durationThreshold: 16} as any)
-      } catch {
-        // Not supported
-      }
+    try {
+      eventObserver = new PerformanceObserver(list => {
+        for (const entry of list.getEntries()) {
+          if (entry.duration > 50) m.slowEvents++
+        }
+      })
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      eventObserver.observe({type: 'event', durationThreshold: 16} as any)
+    } catch {
+      /* Not supported */
     }
 
-    // Style write tracking via MutationObserver on style attributes
+    // Style write tracking
     const styleObserver = new MutationObserver(mutations => {
       for (const mutation of mutations) {
         if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
@@ -948,56 +997,36 @@ export function PerformanceProvider({
         }
       }
     })
+    styleObserver.observe(document.body, {attributes: true, attributeFilter: ['style'], subtree: true})
 
-    // Start observing when component mounts
-    styleObserver.observe(document.body, {
-      attributes: true,
-      attributeFilter: ['style'],
-      subtree: true,
-    })
-
-    // Layout Shift observer (CLS)
+    // Layout Shift observer
     let layoutShiftObserver: PerformanceObserver | null = null
-    if (typeof PerformanceObserver !== 'undefined') {
-      try {
-        layoutShiftObserver = new PerformanceObserver(list => {
-          for (const entry of list.getEntries()) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const shiftEntry = entry as any
-            // Only count shifts that weren't caused by user input
-            if (!shiftEntry.hadRecentInput) {
-              m.layoutShiftScore += shiftEntry.value || 0
-              m.layoutShiftCount++
-            }
+    try {
+      layoutShiftObserver = new PerformanceObserver(list => {
+        for (const entry of list.getEntries()) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const shiftEntry = entry as any
+          if (!shiftEntry.hadRecentInput) {
+            m.layoutShiftScore += shiftEntry.value || 0
+            m.layoutShiftCount++
           }
-        })
-        layoutShiftObserver.observe({type: 'layout-shift', buffered: true})
-      } catch {
-        // Not supported
-      }
+        }
+      })
+      layoutShiftObserver.observe({type: 'layout-shift', buffered: true})
+    } catch {
+      /* Not supported */
     }
 
-    // Click and keyboard interaction handler for INP tracking
+    // Interaction handler for INP
     const handleInteraction = (event: MouseEvent | KeyboardEvent) => {
       const eventTime = event.timeStamp
       m.interactionCount++
-
-      // Measure time to next paint using double RAF
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          const paintTime = performance.now()
-          const latency = paintTime - eventTime
-
+          const latency = performance.now() - eventTime
           m.interactionLatencies.push(latency)
-          // Keep last 50 interactions for averaging
-          if (m.interactionLatencies.length > 50) {
-            m.interactionLatencies.shift()
-          }
-
-          // INP is the worst interaction latency
-          if (latency > m.inpMs) {
-            m.inpMs = latency
-          }
+          if (m.interactionLatencies.length > 50) m.interactionLatencies.shift()
+          if (latency > m.inpMs) m.inpMs = latency
         })
       })
     }
@@ -1005,7 +1034,6 @@ export function PerformanceProvider({
     window.addEventListener('pointermove', handlePointerMove)
     window.addEventListener('click', handleInteraction)
     window.addEventListener('keydown', handleInteraction)
-
     animationId = requestAnimationFrame(measure)
 
     return () => {
@@ -1018,73 +1046,9 @@ export function PerformanceProvider({
       window.removeEventListener('click', handleInteraction)
       window.removeEventListener('keydown', handleInteraction)
     }
-  }, [])
+  }, [mutableRef])
 
-  // DOM element counting effect
-  React.useEffect(() => {
-    const countElements = () => {
-      if (contentRef.current) {
-        const count = contentRef.current.querySelectorAll('*').length
-        setDomElements(count)
-      }
-    }
-
-    countElements()
-
-    if (contentRef.current) {
-      const observer = new MutationObserver(countElements)
-      observer.observe(contentRef.current, {childList: true, subtree: true})
-      return () => observer.disconnect()
-    }
-    return undefined
-  }, [setDomElements])
-
-  // Stable callbacks context value (never changes after mount)
-  const callbacksValue = React.useMemo(
-    () => ({reportReactRender, setDomElements, reset}),
-    [reportReactRender, setDomElements, reset],
-  )
-
-  // Metrics context value (changes every RAF)
-  const metricsValue = React.useMemo(() => ({metrics}), [metrics])
-
-  return (
-    <PerformanceCallbacksContext.Provider value={callbacksValue}>
-      <PerformanceMetricsContext.Provider value={metricsValue}>
-        <PerformanceMonitorView metrics={metrics} onReset={reset} initialPosition={initialPosition} />
-        <div ref={contentRef}>{children}</div>
-      </PerformanceMetricsContext.Provider>
-    </PerformanceCallbacksContext.Provider>
-  )
-}
-
-// ============================================================================
-// Profiled Component Wrapper
-// ============================================================================
-
-export function ProfiledComponent({id, children}: {id: string; children: React.ReactNode}) {
-  // Use only the callbacks context (stable, won't re-render on metrics changes)
-  const callbacks = usePerformanceCallbacks()
-
-  const onRender = React.useCallback(
-    (
-      _profilerId: string,
-      phase: 'mount' | 'update' | 'nested-update',
-      actualDuration: number,
-      baseDuration: number,
-      _startTime: number,
-      _commitTime: number,
-    ) => {
-      callbacks?.reportReactRender(phase, actualDuration, baseDuration)
-    },
-    [callbacks],
-  )
-
-  return (
-    <React.Profiler id={id} onRender={onRender}>
-      {children}
-    </React.Profiler>
-  )
+  return <PerformanceMonitorView metrics={metrics} onReset={onReset} initialPosition={initialPosition} />
 }
 
 // ============================================================================
@@ -1364,6 +1328,7 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
     }
   }
 
+  // Color thresholds for metrics display
   const fpsColor =
     metrics.fps >= 55
       ? 'var(--fgColor-success)'
