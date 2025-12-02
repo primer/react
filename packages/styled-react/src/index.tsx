@@ -89,531 +89,622 @@ export {
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   ActionList,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type ActionListProps,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type ActionListItemProps,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type ActionListLinkItemProps,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type ActionListGroupProps,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type ActionListDividerProps,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type ActionListLeadingVisualProps,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type ActionListTrailingVisualProps,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type ActionListTrailingActionProps,
 } from './components/ActionList'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   ActionMenu,
 } from './components/ActionMenu'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   Autocomplete,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type AutocompleteOverlayProps,
 } from './components/Autocomplete'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   Avatar,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type AvatarProps,
 } from './components/Avatar'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   Breadcrumbs,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   Breadcrumb,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type BreadcrumbsProps,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type BreadcrumbsItemProps,
 } from './components/Breadcrumbs'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   ButtonComponent as Button,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type ButtonComponentProps as ButtonProps,
 } from './components/Button'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   Checkbox,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type CheckboxProps,
 } from './components/Checkbox'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   CheckboxGroup,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type CheckboxGroupProps,
 } from './components/CheckboxGroup'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   CircleBadge,
 } from './components/CircleBadge'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   CounterLabel,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type CounterLabelProps,
 } from './components/CounterLabel'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   Dialog,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type DialogProps,
 } from './components/Dialog'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   Flash,
 } from './components/Flash'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   FormControl,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type FormControlProps,
 } from './components/FormControl'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   Header,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type HeaderProps,
 } from './components/Header'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   Heading,
 } from './components/Heading'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   IconButton,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type IconButtonProps,
 } from './components/IconButton'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   Label,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type LabelProps,
 } from './components/Label'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   Link,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type LinkProps,
 } from './components/Link'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   LinkButton,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type LinkButtonProps,
 } from './components/LinkButton'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   NavList,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type NavListProps,
 } from './components/NavList'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   Overlay,
 } from './components/Overlay'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   PageHeader,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type PageHeaderProps,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type PageHeaderActionsProps,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type PageHeaderTitleProps,
 } from './components/PageHeader'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   RadioGroup,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type RadioGroupProps,
 } from './components/RadioGroup'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   RelativeTime,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type RelativeTimeProps,
 } from './components/RelativeTime'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   SegmentedControl,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type SegmentedControlProps,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type SegmentedControlButtonProps,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type SegmentedControlIconButtonProps,
 } from './components/SegmentedControl'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   Select,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type SelectProps,
 } from './components/Select'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   Spinner,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type SpinnerProps,
 } from './components/Spinner'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   StateLabel,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type StateLabelProps,
 } from './components/StateLabel'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   SubNav,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type SubNavProps,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type SubNavLinkProps,
 } from './components/SubNav'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   Text,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type TextProps,
 } from './components/Text'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   Textarea,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type TextareaProps,
 } from './components/Textarea'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   TextInput,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type TextInputProps,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type TextInputActionProps,
 } from './components/TextInput'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   Timeline,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type TimelineProps,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type TimelineItemProps,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type TimelineBadgeProps,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type TimelineBodyProps,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type TimelineBreakProps,
 } from './components/Timeline'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   ToggleSwitch,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type ToggleSwitchProps,
 } from './components/ToggleSwitch'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   Tooltip,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type TooltipProps,
 } from './components/Tooltip'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   Token,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type TokenProps,
 } from './components/Token'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   Truncate,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type TruncateProps,
 } from './components/Truncate'
 
 export {
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   UnderlineNav,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type UnderlineNavProps,
 
   /**
-   * @deprecated
+   * @deprecated Usage of the `sx` prop with this component is no longer
+   * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type UnderlineNavItemProps,
 } from './components/UnderlineNav'
