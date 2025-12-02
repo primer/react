@@ -65,6 +65,7 @@ export interface PerformanceMetrics {
   // Layout thrashing indicators
   layoutReads: number
   styleWrites: number
+  layoutThrashing: number // Read-after-write cycles that force reflow
 
   // React Profiler metrics
   reactRenderCount: number
@@ -93,6 +94,7 @@ const initialMetrics: PerformanceMetrics = {
   slowEvents: 0,
   layoutReads: 0,
   styleWrites: 0,
+  layoutThrashing: 0,
   reactRenderCount: 0,
   reactTotalActualDuration: 0,
   reactMaxActualDuration: 0,
@@ -162,6 +164,8 @@ interface MutableMetricsState {
   // Layout
   layoutReads: number
   styleWrites: number
+  layoutThrashing: number
+  lastOperationWasWrite: boolean
   // React
   reactRenderCount: number
   reactTotalActualDuration: number
@@ -196,6 +200,8 @@ export function PerformanceProvider({
     slowEvents: 0,
     layoutReads: 0,
     styleWrites: 0,
+    layoutThrashing: 0,
+    lastOperationWasWrite: false,
     reactRenderCount: 0,
     reactTotalActualDuration: 0,
     reactMaxActualDuration: 0,
@@ -255,6 +261,8 @@ export function PerformanceProvider({
     m.slowEvents = 0
     m.layoutReads = 0
     m.styleWrites = 0
+    m.layoutThrashing = 0
+    m.lastOperationWasWrite = false
     m.reactRenderCount = 0
     m.reactTotalActualDuration = 0
     m.reactMaxActualDuration = 0
@@ -328,6 +336,7 @@ export function PerformanceProvider({
         slowEvents: m.slowEvents,
         layoutReads: m.layoutReads,
         styleWrites: m.styleWrites,
+        layoutThrashing: m.layoutThrashing,
         reactRenderCount: m.reactRenderCount,
         reactTotalActualDuration: m.reactTotalActualDuration,
         reactMaxActualDuration: m.reactMaxActualDuration,
@@ -415,11 +424,17 @@ export function PerformanceProvider({
       }
     }
 
-    // Layout read tracking
+    // Layout read tracking - detect thrashing (read after write forces reflow)
     let isDragging = false
     const originalGetBoundingClientRect = Element.prototype.getBoundingClientRect
     Element.prototype.getBoundingClientRect = function () {
-      if (isDragging) m.layoutReads++
+      if (isDragging) {
+        m.layoutReads++
+        if (m.lastOperationWasWrite) {
+          m.layoutThrashing++ // Read after write = forced reflow!
+        }
+        m.lastOperationWasWrite = false
+      }
       return originalGetBoundingClientRect.call(this)
     }
 
@@ -428,7 +443,13 @@ export function PerformanceProvider({
     if (originalOffsetWidthDescriptor?.get) {
       Object.defineProperty(HTMLElement.prototype, 'offsetWidth', {
         get() {
-          if (isDragging) m.layoutReads++
+          if (isDragging) {
+            m.layoutReads++
+            if (m.lastOperationWasWrite) {
+              m.layoutThrashing++
+            }
+            m.lastOperationWasWrite = false
+          }
           return originalOffsetWidthDescriptor.get!.call(this)
         },
         configurable: true,
@@ -437,7 +458,13 @@ export function PerformanceProvider({
     if (originalOffsetHeightDescriptor?.get) {
       Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
         get() {
-          if (isDragging) m.layoutReads++
+          if (isDragging) {
+            m.layoutReads++
+            if (m.lastOperationWasWrite) {
+              m.layoutThrashing++
+            }
+            m.lastOperationWasWrite = false
+          }
           return originalOffsetHeightDescriptor.get!.call(this)
         },
         configurable: true,
@@ -447,7 +474,10 @@ export function PerformanceProvider({
     // Style write tracking
     const originalSetProperty = CSSStyleDeclaration.prototype.setProperty
     CSSStyleDeclaration.prototype.setProperty = function (...args) {
-      if (isDragging) m.styleWrites++
+      if (isDragging) {
+        m.styleWrites++
+        m.lastOperationWasWrite = true
+      }
       return originalSetProperty.apply(this, args)
     }
 
@@ -763,6 +793,16 @@ export function PerformanceMonitorView({metrics, onReset}: PerformanceMonitorVie
           >
             {metrics.layoutReads} reads
           </span>
+        </span>
+
+        <span style={{color: '#888'}}>Thrash</span>
+        <span
+          style={{
+            color: metrics.layoutThrashing > 0 ? '#f85149' : '#3fb950',
+            fontWeight: metrics.layoutThrashing > 0 ? 600 : 'normal',
+          }}
+        >
+          {metrics.layoutThrashing} reflows{metrics.layoutThrashing === 0 && ' ✓'}
         </span>
 
         <span style={{color: '#888'}}>Style</span>
