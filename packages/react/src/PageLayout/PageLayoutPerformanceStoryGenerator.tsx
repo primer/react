@@ -346,48 +346,185 @@ export interface PerformanceMetrics {
   memoryHistory: number[]
 }
 
-const initialMetrics: PerformanceMetrics = {
-  domElements: null,
-  fps: 0,
-  frameTime: 0,
-  maxFrameTime: 0,
-  droppedFrames: 0,
-  inputLatency: 0,
-  maxInputLatency: 0,
-  paintTime: 0,
-  maxPaintTime: 0,
-  paintCycles: 0,
-  longTasks: 0,
-  longestTask: 0,
-  slowEvents: 0,
-  styleWrites: 0,
-  thrashingScore: 0,
-  inputJitter: 0,
-  reactRenderCount: 0,
-  reactTotalActualDuration: 0,
-  reactMaxActualDuration: 0,
-  reactLastActualDuration: 0,
-  reactBaseDuration: 0,
-  reactMountCount: 0,
-  reactUpdateCount: 0,
-  reactPostMountMaxDuration: 0,
-  reactPostMountUpdateCount: 0,
-  reactMountDuration: 0,
-  // New metrics
-  memoryUsedMB: null,
-  peakMemoryMB: null,
-  memoryDeltaMB: null,
-  layoutShiftScore: 0,
-  layoutShiftCount: 0,
-  interactionCount: 0,
-  inpMs: 0,
-  avgInteractionMs: 0,
-  renderCascades: 0,
-  maxRendersPerFrame: 0,
-  // Sparkline history
-  fpsHistory: [],
-  frameTimeHistory: [],
-  memoryHistory: [],
+// ============================================================================
+// Tiny Stores - One per metric group
+// ============================================================================
+
+/**
+ * Multiple tiny stores instead of one big store with selectors.
+ * Each component subscribes to exactly the store(s) it needs.
+ *
+ * Benefits:
+ * - No selectors, no shallowEqual, no ref caching needed
+ * - Components only re-render when their store updates
+ * - Simpler mental model: one store = one concern
+ * - Store references are stable (setState replaces state object)
+ */
+
+// ─── Store Types ─────────────────────────────────────────────────────────────
+
+interface FrameMetrics {
+  fps: number
+  frameTime: number
+  maxFrameTime: number
+  fpsHistory: number[]
+  frameTimeHistory: number[]
+}
+
+interface InputMetrics {
+  inputLatency: number
+  maxInputLatency: number
+  paintTime: number
+  maxPaintTime: number
+}
+
+interface TaskMetrics {
+  longTasks: number
+  longestTask: number
+  droppedFrames: number
+}
+
+interface LayoutMetrics {
+  styleWrites: number
+  thrashingScore: number
+  inputJitter: number
+  layoutShiftScore: number
+  layoutShiftCount: number
+}
+
+interface InteractionMetrics {
+  interactionCount: number
+  inpMs: number
+}
+
+interface ReactMetrics {
+  reactMountCount: number
+  reactMountDuration: number
+  reactRenderCount: number
+  reactPostMountUpdateCount: number
+  reactPostMountMaxDuration: number
+  renderCascades: number
+}
+
+interface MemoryMetrics {
+  memoryUsedMB: number | null
+  memoryDeltaMB: number | null
+  peakMemoryMB: number | null
+  memoryHistory: number[]
+}
+
+interface DomMetrics {
+  domElements: number | null
+}
+
+// ─── Generic Store Factory ───────────────────────────────────────────────────
+
+type Listener = () => void
+
+interface Store<T> {
+  getState: () => T
+  setState: (next: T) => void
+  subscribe: (listener: Listener) => () => void
+}
+
+function createStore<T>(initial: T): Store<T> {
+  let state = initial
+  const listeners = new Set<Listener>()
+
+  return {
+    getState: () => state,
+    setState: (next: T) => {
+      state = next
+      for (const listener of listeners) {
+        listener()
+      }
+    },
+    subscribe: (listener: Listener) => {
+      listeners.add(listener)
+      return () => listeners.delete(listener)
+    },
+  }
+}
+
+/**
+ * Hook to subscribe to a store. Returns the current state.
+ * Re-renders only when setState is called on this specific store.
+ */
+function useStore<T>(store: Store<T>): T {
+  return React.useSyncExternalStore(store.subscribe, store.getState, store.getState)
+}
+
+// ─── All Stores Container ────────────────────────────────────────────────────
+
+interface MetricStores {
+  frame: Store<FrameMetrics>
+  input: Store<InputMetrics>
+  tasks: Store<TaskMetrics>
+  layout: Store<LayoutMetrics>
+  interactions: Store<InteractionMetrics>
+  react: Store<ReactMetrics>
+  memory: Store<MemoryMetrics>
+  dom: Store<DomMetrics>
+}
+
+function createAllStores(): MetricStores {
+  return {
+    frame: createStore<FrameMetrics>({
+      fps: 0,
+      frameTime: 0,
+      maxFrameTime: 0,
+      fpsHistory: [],
+      frameTimeHistory: [],
+    }),
+    input: createStore<InputMetrics>({
+      inputLatency: 0,
+      maxInputLatency: 0,
+      paintTime: 0,
+      maxPaintTime: 0,
+    }),
+    tasks: createStore<TaskMetrics>({
+      longTasks: 0,
+      longestTask: 0,
+      droppedFrames: 0,
+    }),
+    layout: createStore<LayoutMetrics>({
+      styleWrites: 0,
+      thrashingScore: 0,
+      inputJitter: 0,
+      layoutShiftScore: 0,
+      layoutShiftCount: 0,
+    }),
+    interactions: createStore<InteractionMetrics>({
+      interactionCount: 0,
+      inpMs: 0,
+    }),
+    react: createStore<ReactMetrics>({
+      reactMountCount: 0,
+      reactMountDuration: 0,
+      reactRenderCount: 0,
+      reactPostMountUpdateCount: 0,
+      reactPostMountMaxDuration: 0,
+      renderCascades: 0,
+    }),
+    memory: createStore<MemoryMetrics>({
+      memoryUsedMB: null,
+      memoryDeltaMB: null,
+      peakMemoryMB: null,
+      memoryHistory: [],
+    }),
+    dom: createStore<DomMetrics>({
+      domElements: null,
+    }),
+  }
+}
+
+// Context to pass all stores to sub-components
+const MetricStoresContext = React.createContext<MetricStores | null>(null)
+
+function useMetricStores(): MetricStores {
+  const stores = React.useContext(MetricStoresContext)
+  if (!stores) throw new Error('useMetricStores must be used within MetricStoresContext.Provider')
+  return stores
 }
 
 // ============================================================================
@@ -782,7 +919,7 @@ const IsolatedPerformanceMonitor = React.memo(function IsolatedPerformanceMonito
 
 /**
  * Inner component that runs inside the isolated React root.
- * This owns the RAF loop and all state - completely separate from the profiled tree.
+ * This owns the RAF loop and metrics stores - completely separate from the profiled tree.
  */
 const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
   mutableRef,
@@ -793,7 +930,12 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
   onReset: () => void
   initialPosition: MonitorPosition
 }) {
-  const [metrics, setMetrics] = React.useState<PerformanceMetrics>(initialMetrics)
+  // Create all stores once on mount - stable references
+  const storesRef = React.useRef<MetricStores | null>(null)
+  if (!storesRef.current) {
+    storesRef.current = createAllStores()
+  }
+  const stores = storesRef.current
 
   // RAF loop and all observers run in this isolated root
   // CRITICAL: Measurement runs every RAF for accuracy, but UI updates are throttled
@@ -826,78 +968,81 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
       styleWriteCount = 0
     }
 
-    // Compute metrics snapshot without triggering React update
-    const computeMetricsSnapshot = (): PerformanceMetrics => {
+    // Update all stores with computed metrics
+    const updateStores = () => {
       const avgFrameTime = m.frameTimes.length > 0 ? m.frameTimes.reduce((a, b) => a + b, 0) / m.frameTimes.length : 0
       const fps = avgFrameTime > 0 ? Math.round(1000 / avgFrameTime) : 0
       const avgInputLatency =
         m.inputLatencies.length > 0 ? m.inputLatencies.reduce((a, b) => a + b, 0) / m.inputLatencies.length : 0
       const avgPaintTime = m.paintTimes.length > 0 ? m.paintTimes.reduce((a, b) => a + b, 0) / m.paintTimes.length : 0
-      const avgInteractionMs =
-        m.interactionLatencies.length > 0
-          ? Math.round((m.interactionLatencies.reduce((a, b) => a + b, 0) / m.interactionLatencies.length) * 10) / 10
-          : 0
       const memoryDeltaMB =
         m.lastSampledMemoryMB !== null && m.baselineMemoryMB !== null
           ? Math.round((m.lastSampledMemoryMB - m.baselineMemoryMB) * 10) / 10
           : null
 
-      return {
-        domElements: m.domElements,
+      // Update each store with its relevant metrics
+      stores.frame.setState({
         fps,
         frameTime: Math.round(avgFrameTime * 10) / 10,
         maxFrameTime: Math.round(m.maxFrameTime * 10) / 10,
-        droppedFrames: m.droppedFrames,
+        fpsHistory: [...m.fpsHistory],
+        frameTimeHistory: [...m.frameTimeHistory],
+      })
+
+      stores.input.setState({
         inputLatency: Math.round(avgInputLatency * 10) / 10,
         maxInputLatency: Math.round(m.maxInputLatency * 10) / 10,
         paintTime: Math.round(avgPaintTime * 10) / 10,
         maxPaintTime: Math.round(m.maxPaintTime * 10) / 10,
-        paintCycles: m.paintCycles,
+      })
+
+      stores.tasks.setState({
         longTasks: m.longTasks,
         longestTask: Math.round(m.longestTask),
-        slowEvents: m.slowEvents,
+        droppedFrames: m.droppedFrames,
+      })
+
+      stores.layout.setState({
         styleWrites: m.styleWrites,
         thrashingScore: m.thrashingScore,
         inputJitter: m.inputJitter,
         layoutShiftScore: Math.round(m.layoutShiftScore * 1000) / 1000,
         layoutShiftCount: m.layoutShiftCount,
-        reactRenderCount: m.reactRenderCount,
-        reactTotalActualDuration: m.reactTotalActualDuration,
-        reactMaxActualDuration: m.reactMaxActualDuration,
-        reactLastActualDuration: m.reactLastActualDuration,
-        reactBaseDuration: m.reactBaseDuration,
-        reactMountCount: m.reactMountCount,
-        reactUpdateCount: m.reactUpdateCount,
-        reactPostMountMaxDuration: m.reactPostMountMaxDuration,
-        reactPostMountUpdateCount: m.reactPostMountUpdateCount,
-        reactMountDuration: m.reactMountDuration,
-        memoryUsedMB: m.lastSampledMemoryMB,
-        peakMemoryMB: m.peakMemoryMB,
-        memoryDeltaMB,
+      })
+
+      stores.interactions.setState({
         interactionCount: m.interactionCount,
         inpMs: Math.round(m.inpMs),
-        avgInteractionMs,
+      })
+
+      stores.react.setState({
+        reactMountCount: m.reactMountCount,
+        reactMountDuration: m.reactMountDuration,
+        reactRenderCount: m.reactRenderCount,
+        reactPostMountUpdateCount: m.reactPostMountUpdateCount,
+        reactPostMountMaxDuration: m.reactPostMountMaxDuration,
         renderCascades: m.nestedUpdateCount,
-        maxRendersPerFrame: 0,
-        fpsHistory: [...m.fpsHistory],
-        frameTimeHistory: [...m.frameTimeHistory],
+      })
+
+      stores.memory.setState({
+        memoryUsedMB: m.lastSampledMemoryMB,
+        memoryDeltaMB,
+        peakMemoryMB: m.peakMemoryMB,
         memoryHistory: [...m.memoryHistory],
-      }
+      })
+
+      stores.dom.setState({
+        domElements: m.domElements,
+      })
     }
 
     // Schedule UI update using requestIdleCallback when available, falls back to setTimeout
     // This ensures React rendering happens during idle time, not during active measurements
     const scheduleUIUpdate = () => {
-      const snapshot = computeMetricsSnapshot()
       if ('requestIdleCallback' in window) {
-        requestIdleCallback(
-          () => {
-            setMetrics(snapshot)
-          },
-          {timeout: 100},
-        )
+        requestIdleCallback(() => updateStores(), {timeout: 100})
       } else {
-        setTimeout(() => setMetrics(snapshot), 0)
+        setTimeout(updateStores, 0)
       }
     }
 
@@ -1122,9 +1267,13 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
       window.removeEventListener('click', handleInteraction)
       window.removeEventListener('keydown', handleInteraction)
     }
-  }, [mutableRef])
+  }, [mutableRef, stores])
 
-  return <PerformanceMonitorView metrics={metrics} onReset={onReset} initialPosition={initialPosition} />
+  return (
+    <MetricStoresContext.Provider value={stores}>
+      <PerformanceMonitorView onReset={onReset} initialPosition={initialPosition} />
+    </MetricStoresContext.Provider>
+  )
 })
 
 // ============================================================================
@@ -1242,6 +1391,89 @@ function Sparkline({
     </svg>
   )
 }
+
+// ============================================================================
+// Leaf Display Components - Each owns its store subscription
+// ============================================================================
+
+/**
+ * Tiny components that read from stores and render values.
+ * By pushing store reads to the leaf level:
+ * - Only the smallest possible component re-renders on store update
+ * - Data dependencies are explicit and colocated with rendering
+ * - Parent components don't re-render when metrics change
+ */
+
+// ─── Collapsed View Displays ─────────────────────────────────────────────────
+
+/** FPS display for collapsed view */
+const CollapsedFpsDisplay = React.memo(function CollapsedFpsDisplay() {
+  const stores = useMetricStores()
+  const {fps} = useStore(stores.frame)
+  const color = fps >= 55 ? 'var(--fgColor-success)' : fps >= 30 ? 'var(--fgColor-attention)' : 'var(--fgColor-danger)'
+  return <span style={{color, fontWeight: 600}}>{fpsFormatter.format(fps)} fps</span>
+})
+
+/** Input latency display for collapsed view */
+const CollapsedInputDisplay = React.memo(function CollapsedInputDisplay() {
+  const stores = useMetricStores()
+  const {inputLatency} = useStore(stores.input)
+  const color =
+    inputLatency <= 16
+      ? 'var(--fgColor-success)'
+      : inputLatency <= 50
+        ? 'var(--fgColor-attention)'
+        : 'var(--fgColor-danger)'
+  return <span style={{color}}>{msFormatter.format(inputLatency)}ms</span>
+})
+
+/** Long tasks display for collapsed view */
+const CollapsedTasksDisplay = React.memo(function CollapsedTasksDisplay() {
+  const stores = useMetricStores()
+  const {longTasks} = useStore(stores.tasks)
+  const color =
+    longTasks === 0 ? 'var(--fgColor-success)' : longTasks <= 5 ? 'var(--fgColor-attention)' : 'var(--fgColor-danger)'
+  return <span style={{color}}>{longTasks} tasks</span>
+})
+
+// ─── Expanded View Displays ──────────────────────────────────────────────────
+
+/** DOM element count display */
+const DomCountDisplay = React.memo(function DomCountDisplay() {
+  const stores = useMetricStores()
+  const {domElements} = useStore(stores.dom)
+  return (
+    <>
+      <MetricLabel>DOM</MetricLabel>
+      <MetricValue>{domElements ? `${numberFormatter.format(domElements)} nodes` : 'N/A'}</MetricValue>
+    </>
+  )
+})
+
+/** Peak memory display */
+const PeakMemoryDisplay = React.memo(function PeakMemoryDisplay() {
+  const stores = useMetricStores()
+  const {peakMemoryMB, memoryUsedMB} = useStore(stores.memory)
+  return (
+    <>
+      <MetricLabel>Peak</MetricLabel>
+      <MetricValue>
+        {peakMemoryMB !== null ? (
+          <>
+            {mbFormatter.format(peakMemoryMB)}MB
+            {memoryUsedMB !== null && peakMemoryMB > memoryUsedMB + 1 && (
+              <span style={{color: 'var(--fgColor-attention)', marginLeft: '4px', fontSize: '8px'}}>
+                (+{mbFormatter.format(peakMemoryMB - memoryUsedMB)} from current)
+              </span>
+            )}
+          </>
+        ) : (
+          'N/A'
+        )}
+      </MetricValue>
+    </>
+  )
+})
 
 // ============================================================================
 // Extracted Sub-Components for Monitor UI
@@ -1386,7 +1618,6 @@ const HelpPanel = React.memo(function HelpPanel({prefersReducedMotion}: HelpPane
 
 /** Props for CollapsedMonitorView */
 interface CollapsedMonitorViewProps {
-  metrics: PerformanceMetrics
   positionStyle: React.CSSProperties
   dragState: {isDragging: boolean; offsetX: number; offsetY: number}
   onPointerDown: (e: React.PointerEvent) => void
@@ -1398,7 +1629,6 @@ interface CollapsedMonitorViewProps {
 
 /** Collapsed single-row view showing key metrics */
 const CollapsedMonitorView = React.memo(function CollapsedMonitorView({
-  metrics,
   positionStyle,
   dragState,
   onPointerDown,
@@ -1407,27 +1637,6 @@ const CollapsedMonitorView = React.memo(function CollapsedMonitorView({
   onKeyDown,
   onExpand,
 }: CollapsedMonitorViewProps) {
-  const fpsColor =
-    metrics.fps >= 55
-      ? 'var(--fgColor-success)'
-      : metrics.fps >= 30
-        ? 'var(--fgColor-attention)'
-        : 'var(--fgColor-danger)'
-
-  const inputLatencyColor =
-    metrics.inputLatency <= 16
-      ? 'var(--fgColor-success)'
-      : metrics.inputLatency <= 50
-        ? 'var(--fgColor-attention)'
-        : 'var(--fgColor-danger)'
-
-  const longTaskColor =
-    metrics.longTasks === 0
-      ? 'var(--fgColor-success)'
-      : metrics.longTasks <= 5
-        ? 'var(--fgColor-attention)'
-        : 'var(--fgColor-danger)'
-
   return (
     <div
       data-perf-monitor
@@ -1458,9 +1667,9 @@ const CollapsedMonitorView = React.memo(function CollapsedMonitorView({
         touchAction: 'none',
       }}
     >
-      <span style={{color: fpsColor, fontWeight: 600}}>{fpsFormatter.format(metrics.fps)} fps</span>
-      <span style={{color: inputLatencyColor}}>{msFormatter.format(metrics.inputLatency)}ms</span>
-      <span style={{color: longTaskColor}}>{metrics.longTasks} tasks</span>
+      <CollapsedFpsDisplay />
+      <CollapsedInputDisplay />
+      <CollapsedTasksDisplay />
       <MonitorButton onClick={onExpand} label="Expand" fontSize="12px">
         ▼
       </MonitorButton>
@@ -1470,13 +1679,15 @@ const CollapsedMonitorView = React.memo(function CollapsedMonitorView({
 
 /** Props for MemoryMetricRow */
 interface MemoryMetricRowProps {
-  metrics: PerformanceMetrics
   prefersReducedMotion: boolean
 }
 
 /** Memory metric display with sparkline and delta */
-const MemoryMetricRow = React.memo(function MemoryMetricRow({metrics, prefersReducedMotion}: MemoryMetricRowProps) {
-  if (metrics.memoryUsedMB === null) {
+const MemoryMetricRow = React.memo(function MemoryMetricRow({prefersReducedMotion}: MemoryMetricRowProps) {
+  const stores = useMetricStores()
+  const {memoryUsedMB, memoryDeltaMB, memoryHistory} = useStore(stores.memory)
+
+  if (memoryUsedMB === null) {
     return (
       <>
         <MetricLabel>Memory</MetricLabel>
@@ -1486,36 +1697,36 @@ const MemoryMetricRow = React.memo(function MemoryMetricRow({metrics, prefersRed
   }
 
   const deltaColor =
-    metrics.memoryDeltaMB === null
+    memoryDeltaMB === null
       ? 'var(--fgColor-onEmphasis)'
-      : metrics.memoryDeltaMB > 20
+      : memoryDeltaMB > 20
         ? 'var(--fgColor-danger)'
-        : metrics.memoryDeltaMB > 5
+        : memoryDeltaMB > 5
           ? 'var(--fgColor-attention)'
-          : metrics.memoryDeltaMB < -2
+          : memoryDeltaMB < -2
             ? 'var(--fgColor-success)'
             : 'var(--fgColor-onEmphasis)'
 
   const deltaText =
-    metrics.memoryDeltaMB === null
+    memoryDeltaMB === null
       ? ''
-      : metrics.memoryDeltaMB > 0.5
-        ? `+${mbFormatter.format(metrics.memoryDeltaMB)}`
-        : metrics.memoryDeltaMB < -0.5
-          ? mbFormatter.format(metrics.memoryDeltaMB)
+      : memoryDeltaMB > 0.5
+        ? `+${mbFormatter.format(memoryDeltaMB)}`
+        : memoryDeltaMB < -0.5
+          ? mbFormatter.format(memoryDeltaMB)
           : '±0'
 
   return (
     <>
       <MetricLabel>Memory</MetricLabel>
       <MetricValue style={{display: 'flex', alignItems: 'center'}}>
-        <span style={{minWidth: '45px'}}>{mbFormatter.format(metrics.memoryUsedMB)}MB</span>
-        {metrics.memoryDeltaMB !== null && (
+        <span style={{minWidth: '45px'}}>{mbFormatter.format(memoryUsedMB)}MB</span>
+        {memoryDeltaMB !== null && (
           <span
             style={{
               color: deltaColor,
               marginLeft: '4px',
-              fontWeight: Math.abs(metrics.memoryDeltaMB) > 5 ? 600 : 'normal',
+              fontWeight: Math.abs(memoryDeltaMB) > 5 ? 600 : 'normal',
             }}
           >
             {deltaText}
@@ -1523,9 +1734,9 @@ const MemoryMetricRow = React.memo(function MemoryMetricRow({metrics, prefersRed
         )}
         {!prefersReducedMotion && (
           <Sparkline
-            data={metrics.memoryHistory}
+            data={memoryHistory}
             color="var(--fgColor-accent)"
-            threshold={metrics.memoryHistory.length > 0 ? metrics.memoryHistory[0] + 10 : undefined}
+            threshold={memoryHistory.length > 0 ? memoryHistory[0] + 10 : undefined}
             thresholdColor="var(--fgColor-attention)"
             style={{marginLeft: 'auto'}}
           />
@@ -1537,30 +1748,25 @@ const MemoryMetricRow = React.memo(function MemoryMetricRow({metrics, prefersRed
 
 /** Props for FrameMetricsSection */
 interface FrameMetricsSectionProps {
-  metrics: PerformanceMetrics
   prefersReducedMotion: boolean
 }
 
 /** Frame timing metrics (FPS, Frame time) with sparklines */
-const FrameMetricsSection = React.memo(function FrameMetricsSection({
-  metrics,
-  prefersReducedMotion,
-}: FrameMetricsSectionProps) {
+const FrameMetricsSection = React.memo(function FrameMetricsSection({prefersReducedMotion}: FrameMetricsSectionProps) {
+  const stores = useMetricStores()
+  const {fps, frameTime, maxFrameTime, fpsHistory, frameTimeHistory} = useStore(stores.frame)
+
   const fpsColor =
-    metrics.fps >= 55
-      ? 'var(--fgColor-success)'
-      : metrics.fps >= 30
-        ? 'var(--fgColor-attention)'
-        : 'var(--fgColor-danger)'
+    fps >= 55 ? 'var(--fgColor-success)' : fps >= 30 ? 'var(--fgColor-attention)' : 'var(--fgColor-danger)'
 
   return (
     <>
       <MetricLabel isSection>FPS</MetricLabel>
       <MetricValue isSection color={fpsColor} fontWeight={600} style={{display: 'flex', alignItems: 'center'}}>
-        {fpsFormatter.format(metrics.fps)}
+        {fpsFormatter.format(fps)}
         {!prefersReducedMotion && (
           <Sparkline
-            data={metrics.fpsHistory}
+            data={fpsHistory}
             color={fpsColor}
             threshold={55}
             thresholdColor="var(--fgColor-attention)"
@@ -1572,18 +1778,18 @@ const FrameMetricsSection = React.memo(function FrameMetricsSection({
 
       <MetricLabel>Frame</MetricLabel>
       <MetricValue style={{display: 'flex', alignItems: 'center'}}>
-        {msFormatter.format(metrics.frameTime)}ms{' '}
+        {msFormatter.format(frameTime)}ms{' '}
         <span
           style={{
-            color: metrics.maxFrameTime > 32 ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
+            color: maxFrameTime > 32 ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
             fontSize: '9px',
           }}
         >
-          (max {msFormatter.format(metrics.maxFrameTime)})
+          (max {msFormatter.format(maxFrameTime)})
         </span>
         {!prefersReducedMotion && (
           <Sparkline
-            data={metrics.frameTimeHistory}
+            data={frameTimeHistory}
             color="var(--fgColor-onEmphasis)"
             threshold={16.67}
             thresholdColor="var(--fgColor-danger)"
@@ -1595,17 +1801,15 @@ const FrameMetricsSection = React.memo(function FrameMetricsSection({
   )
 })
 
-/** Props for InputMetricsSection */
-interface InputMetricsSectionProps {
-  metrics: PerformanceMetrics
-}
-
 /** Input responsiveness metrics (Input latency, Paint time) */
-const InputMetricsSection = React.memo(function InputMetricsSection({metrics}: InputMetricsSectionProps) {
+const InputMetricsSection = React.memo(function InputMetricsSection() {
+  const stores = useMetricStores()
+  const {inputLatency, maxInputLatency, paintTime, maxPaintTime} = useStore(stores.input)
+
   const inputLatencyColor =
-    metrics.inputLatency <= 16
+    inputLatency <= 16
       ? 'var(--fgColor-success)'
-      : metrics.inputLatency <= 50
+      : inputLatency <= 50
         ? 'var(--fgColor-attention)'
         : 'var(--fgColor-danger)'
 
@@ -1613,51 +1817,45 @@ const InputMetricsSection = React.memo(function InputMetricsSection({metrics}: I
     <>
       <MetricLabel isSection>Input</MetricLabel>
       <MetricValue isSection>
-        <span style={{color: inputLatencyColor, fontWeight: 600}}>{msFormatter.format(metrics.inputLatency)}ms</span>{' '}
+        <span style={{color: inputLatencyColor, fontWeight: 600}}>{msFormatter.format(inputLatency)}ms</span>{' '}
         <span
           style={{
-            color: metrics.maxInputLatency > 50 ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
+            color: maxInputLatency > 50 ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
             fontSize: '9px',
           }}
         >
-          (max {msFormatter.format(metrics.maxInputLatency)})
+          (max {msFormatter.format(maxInputLatency)})
         </span>
       </MetricValue>
 
       <MetricLabel>Paint</MetricLabel>
       <MetricValue>
-        {msFormatter.format(metrics.paintTime)}ms{' '}
+        {msFormatter.format(paintTime)}ms{' '}
         <span
           style={{
-            color: metrics.maxPaintTime > 16 ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
+            color: maxPaintTime > 16 ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
             fontSize: '9px',
           }}
         >
-          (max {msFormatter.format(metrics.maxPaintTime)})
+          (max {msFormatter.format(maxPaintTime)})
         </span>
       </MetricValue>
     </>
   )
 })
 
-/** Props for TaskMetricsSection */
-interface TaskMetricsSectionProps {
-  metrics: PerformanceMetrics
-}
-
 /** Task metrics (Long tasks, Dropped frames) */
-const TaskMetricsSection = React.memo(function TaskMetricsSection({metrics}: TaskMetricsSectionProps) {
+const TaskMetricsSection = React.memo(function TaskMetricsSection() {
+  const stores = useMetricStores()
+  const {longTasks, longestTask, droppedFrames} = useStore(stores.tasks)
+
   const longTaskColor =
-    metrics.longTasks === 0
-      ? 'var(--fgColor-success)'
-      : metrics.longTasks <= 5
-        ? 'var(--fgColor-attention)'
-        : 'var(--fgColor-danger)'
+    longTasks === 0 ? 'var(--fgColor-success)' : longTasks <= 5 ? 'var(--fgColor-attention)' : 'var(--fgColor-danger)'
 
   const droppedColor =
-    metrics.droppedFrames > 10
+    droppedFrames > 10
       ? 'var(--fgColor-danger)'
-      : metrics.droppedFrames > 0
+      : droppedFrames > 0
         ? 'var(--fgColor-attention)'
         : 'var(--fgColor-onEmphasis)'
 
@@ -1665,70 +1863,66 @@ const TaskMetricsSection = React.memo(function TaskMetricsSection({metrics}: Tas
     <>
       <MetricLabel isSection>Tasks</MetricLabel>
       <MetricValue isSection>
-        <span style={{color: longTaskColor, fontWeight: metrics.longTasks > 0 ? 600 : 'normal'}}>
-          {metrics.longTasks} long
-        </span>
-        {metrics.longestTask > 0 && (
+        <span style={{color: longTaskColor, fontWeight: longTasks > 0 ? 600 : 'normal'}}>{longTasks} long</span>
+        {longestTask > 0 && (
           <span
             style={{
-              color: metrics.longestTask > 100 ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
+              color: longestTask > 100 ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
               fontSize: '9px',
             }}
           >
             {' '}
-            ({metrics.longestTask}ms)
+            ({longestTask}ms)
           </span>
         )}
       </MetricValue>
 
       <MetricLabel>Dropped</MetricLabel>
-      <MetricValue color={droppedColor}>{metrics.droppedFrames} frames</MetricValue>
+      <MetricValue color={droppedColor}>{droppedFrames} frames</MetricValue>
     </>
   )
 })
 
-/** Props for LayoutMetricsSection */
-interface LayoutMetricsSectionProps {
-  metrics: PerformanceMetrics
-}
-
 /** Layout metrics (Style writes, Thrash, Jitter, CLS) */
-const LayoutMetricsSection = React.memo(function LayoutMetricsSection({metrics}: LayoutMetricsSectionProps) {
+const LayoutMetricsSection = React.memo(function LayoutMetricsSection() {
+  const stores = useMetricStores()
+  const {styleWrites, thrashingScore, inputJitter, layoutShiftScore, layoutShiftCount} = useStore(stores.layout)
+
   const clsColor =
-    metrics.layoutShiftScore < 0.1
+    layoutShiftScore < 0.1
       ? 'var(--fgColor-success)'
-      : metrics.layoutShiftScore < 0.25
+      : layoutShiftScore < 0.25
         ? 'var(--fgColor-attention)'
         : 'var(--fgColor-danger)'
 
   return (
     <>
       <MetricLabel isSection>Style</MetricLabel>
-      <MetricValue isSection>{metrics.styleWrites} writes</MetricValue>
+      <MetricValue isSection>{styleWrites} writes</MetricValue>
 
       <MetricLabel>Thrash</MetricLabel>
       <MetricValue
-        color={metrics.thrashingScore > 0 ? 'var(--fgColor-danger)' : 'var(--fgColor-success)'}
-        fontWeight={metrics.thrashingScore > 0 ? 600 : 'normal'}
+        color={thrashingScore > 0 ? 'var(--fgColor-danger)' : 'var(--fgColor-success)'}
+        fontWeight={thrashingScore > 0 ? 600 : 'normal'}
       >
-        {metrics.thrashingScore === 0 ? 'none ✓' : `${metrics.thrashingScore} stalls`}
+        {thrashingScore === 0 ? 'none ✓' : `${thrashingScore} stalls`}
       </MetricValue>
 
       <MetricLabel>Jitter</MetricLabel>
       <MetricValue
-        color={metrics.inputJitter > 0 ? 'var(--fgColor-danger)' : 'var(--fgColor-success)'}
-        fontWeight={metrics.inputJitter > 0 ? 600 : 'normal'}
+        color={inputJitter > 0 ? 'var(--fgColor-danger)' : 'var(--fgColor-success)'}
+        fontWeight={inputJitter > 0 ? 600 : 'normal'}
       >
-        {metrics.inputJitter === 0 ? 'none ✓' : `${metrics.inputJitter} hitches`}
+        {inputJitter === 0 ? 'none ✓' : `${inputJitter} hitches`}
       </MetricValue>
 
       <MetricLabel>CLS</MetricLabel>
-      <MetricValue color={clsColor} fontWeight={metrics.layoutShiftScore > 0 ? 600 : 'normal'}>
-        {metrics.layoutShiftScore === 0 ? 'none ✓' : metrics.layoutShiftScore.toFixed(3)}
-        {metrics.layoutShiftCount > 0 && (
+      <MetricValue color={clsColor} fontWeight={layoutShiftScore > 0 ? 600 : 'normal'}>
+        {layoutShiftScore === 0 ? 'none ✓' : layoutShiftScore.toFixed(3)}
+        {layoutShiftCount > 0 && (
           <span style={{fontWeight: 'normal', color: 'var(--fgColor-onEmphasis)', fontSize: '9px'}}>
             {' '}
-            ({metrics.layoutShiftCount}×)
+            ({layoutShiftCount}×)
           </span>
         )}
       </MetricValue>
@@ -1736,30 +1930,22 @@ const LayoutMetricsSection = React.memo(function LayoutMetricsSection({metrics}:
   )
 })
 
-/** Props for InteractionMetricsSection */
-interface InteractionMetricsSectionProps {
-  metrics: PerformanceMetrics
-}
-
 /** Interaction metrics (INP) */
-const InteractionMetricsSection = React.memo(function InteractionMetricsSection({
-  metrics,
-}: InteractionMetricsSectionProps) {
+const InteractionMetricsSection = React.memo(function InteractionMetricsSection() {
+  const stores = useMetricStores()
+  const {interactionCount, inpMs} = useStore(stores.interactions)
+
   const inpColor =
-    metrics.inpMs <= 200
-      ? 'var(--fgColor-success)'
-      : metrics.inpMs <= 500
-        ? 'var(--fgColor-attention)'
-        : 'var(--fgColor-danger)'
+    inpMs <= 200 ? 'var(--fgColor-success)' : inpMs <= 500 ? 'var(--fgColor-attention)' : 'var(--fgColor-danger)'
 
   return (
     <>
       <MetricLabel isSection>Interact</MetricLabel>
       <MetricValue isSection>
-        {metrics.interactionCount > 0 ? (
+        {interactionCount > 0 ? (
           <>
-            <span>{metrics.interactionCount}×</span>
-            <span style={{marginLeft: '4px', color: inpColor, fontWeight: 600}}>INP {metrics.inpMs}ms</span>
+            <span>{interactionCount}×</span>
+            <span style={{marginLeft: '4px', color: inpColor, fontWeight: 600}}>INP {inpMs}ms</span>
           </>
         ) : (
           'none'
@@ -1769,26 +1955,31 @@ const InteractionMetricsSection = React.memo(function InteractionMetricsSection(
   )
 })
 
-/** Props for ReactMetricsSection */
-interface ReactMetricsSectionProps {
-  metrics: PerformanceMetrics
-}
-
 /** React profiler metrics (Mount, Updates, Cascades) */
-const ReactMetricsSection = React.memo(function ReactMetricsSection({metrics}: ReactMetricsSectionProps) {
+const ReactMetricsSection = React.memo(function ReactMetricsSection() {
+  const stores = useMetricStores()
+  const {
+    reactMountCount,
+    reactMountDuration,
+    reactRenderCount,
+    reactPostMountUpdateCount,
+    reactPostMountMaxDuration,
+    renderCascades,
+  } = useStore(stores.react)
+
   const updateColor =
-    metrics.reactPostMountUpdateCount === 0
+    reactPostMountUpdateCount === 0
       ? 'var(--fgColor-success)'
-      : metrics.reactPostMountMaxDuration <= 8
+      : reactPostMountMaxDuration <= 8
         ? 'var(--fgColor-success)'
-        : metrics.reactPostMountMaxDuration <= 16
+        : reactPostMountMaxDuration <= 16
           ? 'var(--fgColor-attention)'
           : 'var(--fgColor-danger)'
 
   const cascadeColor =
-    metrics.renderCascades === 0
+    renderCascades === 0
       ? 'var(--fgColor-success)'
-      : metrics.renderCascades <= 3
+      : renderCascades <= 3
         ? 'var(--fgColor-attention)'
         : 'var(--fgColor-danger)'
 
@@ -1797,9 +1988,9 @@ const ReactMetricsSection = React.memo(function ReactMetricsSection({metrics}: R
       {/* Mount */}
       <MetricLabel isSection>⚛️ Mount</MetricLabel>
       <MetricValue isSection>
-        {metrics.reactMountCount > 0 ? (
+        {reactMountCount > 0 ? (
           <>
-            {metrics.reactMountCount}× ({msFormatter.format(metrics.reactMountDuration)}ms)
+            {reactMountCount}× ({msFormatter.format(reactMountDuration)}ms)
           </>
         ) : (
           <span style={{fontSize: '9px', fontStyle: 'italic'}}>awaiting profiler…</span>
@@ -1808,14 +1999,14 @@ const ReactMetricsSection = React.memo(function ReactMetricsSection({metrics}: R
 
       {/* Updates */}
       <MetricLabel>⚛️ Updates</MetricLabel>
-      {metrics.reactRenderCount > 0 ? (
+      {reactRenderCount > 0 ? (
         <MetricValue color={updateColor} fontWeight={600}>
-          {metrics.reactPostMountUpdateCount === 0 ? 'none ✓' : metrics.reactPostMountUpdateCount}
-          {metrics.reactPostMountUpdateCount > 0 && metrics.reactPostMountMaxDuration <= 8 && ' ✓'}
-          {metrics.reactPostMountUpdateCount > 0 && (
+          {reactPostMountUpdateCount === 0 ? 'none ✓' : reactPostMountUpdateCount}
+          {reactPostMountUpdateCount > 0 && reactPostMountMaxDuration <= 8 && ' ✓'}
+          {reactPostMountUpdateCount > 0 && (
             <span style={{fontWeight: 'normal', color: 'var(--fgColor-onEmphasis)', fontSize: '9px'}}>
               {' '}
-              (max {msFormatter.format(metrics.reactPostMountMaxDuration)}ms)
+              (max {msFormatter.format(reactPostMountMaxDuration)}ms)
             </span>
           )}
         </MetricValue>
@@ -1825,14 +2016,8 @@ const ReactMetricsSection = React.memo(function ReactMetricsSection({metrics}: R
 
       {/* Cascades */}
       <MetricLabel>⚛️ Cascades</MetricLabel>
-      <MetricValue color={cascadeColor} fontWeight={metrics.renderCascades > 0 ? 600 : 'normal'}>
-        {metrics.renderCascades === 0 ? 'none ✓' : metrics.renderCascades}
-        {metrics.maxRendersPerFrame > 1 && (
-          <span style={{fontWeight: 'normal', color: 'var(--fgColor-onEmphasis)', fontSize: '9px'}}>
-            {' '}
-            (max {metrics.maxRendersPerFrame}/frame)
-          </span>
-        )}
+      <MetricValue color={cascadeColor} fontWeight={renderCascades > 0 ? 600 : 'normal'}>
+        {renderCascades === 0 ? 'none ✓' : renderCascades}
       </MetricValue>
     </>
   )
@@ -1915,12 +2100,11 @@ const metricDescriptions = {
 }
 
 interface PerformanceMonitorViewProps {
-  metrics: PerformanceMetrics
   onReset: () => void
   initialPosition?: MonitorPosition
 }
 
-function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-left'}: PerformanceMonitorViewProps) {
+function PerformanceMonitorView({onReset, initialPosition = 'bottom-left'}: PerformanceMonitorViewProps) {
   const [isCollapsed, setIsCollapsed] = React.useState(false)
   const [showHelp, setShowHelp] = React.useState(false)
   const [position, setPosition] = React.useState<{x: number; y: number} | null>(null)
@@ -2024,7 +2208,6 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
   if (isCollapsed) {
     return (
       <CollapsedMonitorView
-        metrics={metrics}
         positionStyle={positionStyle}
         dragState={dragState}
         onPointerDown={handlePointerDown}
@@ -2110,48 +2293,31 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
       {/* Metrics Grid */}
       <div style={{display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '1px 6px', lineHeight: 1.5}}>
         {/* DOM count */}
-        <MetricLabel>DOM</MetricLabel>
-        <MetricValue>
-          {metrics.domElements ? `${numberFormatter.format(metrics.domElements)} nodes` : 'N/A'}
-        </MetricValue>
+        <DomCountDisplay />
 
         {/* Memory (Chrome only) */}
-        <MemoryMetricRow metrics={metrics} prefersReducedMotion={prefersReducedMotion} />
+        <MemoryMetricRow prefersReducedMotion={prefersReducedMotion} />
 
         {/* Peak Memory */}
-        <MetricLabel>Peak</MetricLabel>
-        <MetricValue>
-          {metrics.peakMemoryMB !== null ? (
-            <>
-              {mbFormatter.format(metrics.peakMemoryMB)}MB
-              {metrics.memoryUsedMB !== null && metrics.peakMemoryMB > metrics.memoryUsedMB + 1 && (
-                <span style={{color: 'var(--fgColor-attention)', marginLeft: '4px', fontSize: '8px'}}>
-                  (+{mbFormatter.format(metrics.peakMemoryMB - metrics.memoryUsedMB)} from current)
-                </span>
-              )}
-            </>
-          ) : (
-            'N/A'
-          )}
-        </MetricValue>
+        <PeakMemoryDisplay />
 
         {/* Frame Section */}
-        <FrameMetricsSection metrics={metrics} prefersReducedMotion={prefersReducedMotion} />
+        <FrameMetricsSection prefersReducedMotion={prefersReducedMotion} />
 
         {/* Input Section */}
-        <InputMetricsSection metrics={metrics} />
+        <InputMetricsSection />
 
         {/* Tasks Section */}
-        <TaskMetricsSection metrics={metrics} />
+        <TaskMetricsSection />
 
         {/* Layout Section */}
-        <LayoutMetricsSection metrics={metrics} />
+        <LayoutMetricsSection />
 
         {/* Interactions Section */}
-        <InteractionMetricsSection metrics={metrics} />
+        <InteractionMetricsSection />
 
         {/* React Section */}
-        <ReactMetricsSection metrics={metrics} />
+        <ReactMetricsSection />
       </div>
     </div>
   )
