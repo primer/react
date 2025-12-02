@@ -209,10 +209,9 @@ const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandl
         const deltaWithDirection = position === 'end' ? -delta : delta
         setPaneWidth(curr => clamp(curr + deltaWithDirection, {min: minWidth, max: maxWidth}))
       }}
-      onLostPointerCapture={event => {
+      onLostPointerCapture={() => {
         if (isDragging !== 'pointer') return
         setIsDragging(false)
-        event.currentTarget.releasePointerCapture(event.pointerId)
         try {
           localStorage.setItem(widthStorageKey, paneWidth.toString())
         } catch (_error) {

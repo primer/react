@@ -14,6 +14,12 @@ const SKIPPED_TESTS = [
   'components-flash-features--with-icon-action-dismiss', // TODO: Remove once color-contrast issues have been resolved
   'components-flash-features--with-icon-and-action', // TODO: Remove once color-contrast issues have been resolved
   'components-filteredactionlist--default',
+  // PageLayout performance tests - stress tests with many DOM elements
+  'components-pagelayout-performance-tests--baseline-light',
+  'components-pagelayout-performance-tests--medium-content',
+  'components-pagelayout-performance-tests--heavy-content',
+  'components-pagelayout-performance-tests--responsive-constraints-test',
+  'components-pagelayout-performance-tests--keyboard-aria-test',
 ]
 
 type Component = {

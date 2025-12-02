@@ -8,6 +8,9 @@ import Heading from '../Heading'
 const meta: Meta<typeof PageLayout> = {
   title: 'Components/PageLayout/Performance Tests',
   component: PageLayout,
+  parameters: {
+    a11y: {disable: true},
+  },
 }
 
 export default meta
@@ -45,11 +48,12 @@ export const BaselineLight: Story = {
 }
 
 // ============================================================================
-// Story 2: Medium Content - Virtualized Table (~3000 elements)
+// Story 2: Medium Content - Large Table (~3000 elements)
 // ============================================================================
 
 export const MediumContent: Story = {
   name: '2. Medium Content - Large Table (~3000 elements)',
+
   render: () => {
     return (
       <PageLayout padding="none" containerWidth="full">
@@ -167,11 +171,11 @@ export const MediumContent: Story = {
 }
 
 // ============================================================================
-// Story 3: Heavy Content - Multiple Sections (~5000 elements)
+// Story 3: Heavy Content - Multiple Sections (~10000 elements)
 // ============================================================================
 
 export const HeavyContent: Story = {
-  name: '3. Heavy Content - Multiple Sections (~5000 elements)',
+  name: '3. Heavy Content - Multiple Sections (~10000 elements)',
   render: () => {
     return (
       <PageLayout padding="none" containerWidth="full">
@@ -190,7 +194,7 @@ export const HeavyContent: Story = {
                 fontSize: '13px',
               }}
             >
-              <strong>DOM Load:</strong> ~5,000 elements
+              <strong>DOM Load:</strong> ~10,000 elements
               <br />
               <strong>Mix:</strong> Cards, tables, lists
               <br />
@@ -199,9 +203,9 @@ export const HeavyContent: Story = {
               <strong>Sections:</strong>
             </p>
             <ul style={{fontSize: '12px', paddingLeft: '20px'}}>
-              <li>200 activity cards (~1000 elem)</li>
-              <li>150-row table (~1200 elem)</li>
-              <li>200 issue items (~1200 elem)</li>
+              <li>400 activity cards (~2400 elem)</li>
+              <li>350-row table (~3500 elem)</li>
+              <li>400 issue items (~3200 elem)</li>
               <li>+ Headers, buttons, etc</li>
             </ul>
           </div>
@@ -211,9 +215,9 @@ export const HeavyContent: Story = {
           <div tabIndex={0} style={{padding: '16px', overflowY: 'auto', height: '600px'}}>
             {/* Section 1: Large card grid */}
             <section style={{marginBottom: '32px'}}>
-              <h2 style={{marginBottom: '16px'}}>Activity Feed (200 cards)</h2>
+              <h2 style={{marginBottom: '16px'}}>Activity Feed (400 cards)</h2>
               <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '12px'}}>
-                {Array.from({length: 200}).map((_, i) => (
+                {Array.from({length: 400}).map((_, i) => (
                   <div
                     key={i}
                     style={{
@@ -245,7 +249,7 @@ export const HeavyContent: Story = {
 
             {/* Section 2: Large table */}
             <section style={{marginBottom: '32px'}}>
-              <h2 style={{marginBottom: '16px'}}>Data Table (150 rows × 8 columns)</h2>
+              <h2 style={{marginBottom: '16px'}}>Data Table (350 rows × 8 columns)</h2>
               <table style={{width: '100%', borderCollapse: 'collapse'}}>
                 <thead style={{position: 'sticky', top: 0, background: 'var(--bgColor-default)'}}>
                   <tr style={{background: 'var(--bgColor-canvas-subtle)'}}>
@@ -265,7 +269,7 @@ export const HeavyContent: Story = {
                   </tr>
                 </thead>
                 <tbody>
-                  {Array.from({length: 150}).map((_, i) => (
+                  {Array.from({length: 350}).map((_, i) => (
                     <tr key={i} style={{borderBottom: '1px solid var(--borderColor-default)'}}>
                       <td style={{padding: '8px 12px', fontSize: '12px'}}>#{5000 + i}</td>
                       <td style={{padding: '8px 12px', fontSize: '13px'}}>Item {i + 1}</td>
@@ -291,8 +295,8 @@ export const HeavyContent: Story = {
 
             {/* Section 3: List with nested content */}
             <section>
-              <h2 style={{marginBottom: '16px'}}>Issue Tracker (200 items)</h2>
-              {Array.from({length: 200}).map((_, i) => (
+              <h2 style={{marginBottom: '16px'}}>Issue Tracker (400 items)</h2>
+              {Array.from({length: 400}).map((_, i) => (
                 <div
                   key={i}
                   style={{
