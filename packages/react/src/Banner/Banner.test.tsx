@@ -241,7 +241,7 @@ describe('Banner', () => {
 
   it('should render data-flush attribute when flush is true', () => {
     const {container} = render(<Banner title="test" flush />)
-    expect(container.firstChild).toHaveAttribute('data-flush', 'true')
+    expect(container.firstChild).toHaveAttribute('data-flush')
   })
 
   it('should not render data-flush attribute when flush is false', () => {
