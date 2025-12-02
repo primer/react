@@ -146,10 +146,7 @@ const Root: React.FC<TreeViewProps> = ({
     >
       <>
         <VisuallyHidden>
-          {/* Message fail without passing a `key` */}
-          <AriaStatus announceOnShow key={ariaLiveMessage}>
-            {ariaLiveMessage}
-          </AriaStatus>
+          <AriaStatus announceOnShow>{ariaLiveMessage}</AriaStatus>
         </VisuallyHidden>
         <ul
           ref={containerRef}

@@ -1392,11 +1392,14 @@ describe('State', () => {
 })
 
 describe('Asynchronous loading', () => {
-  it('updates aria live region when loading is done', () => {
-    // Set up live region for this test
-    const liveRegionEl = document.createElement('live-region')
-    document.body.appendChild(liveRegionEl)
+  afterEach(() => {
+    const liveRegion = document.querySelector('live-region')
+    if (liveRegion) {
+      document.body.removeChild(liveRegion)
+    }
+  })
 
+  it('updates aria live region when loading is done', async () => {
     function TestTree() {
       const [state, setState] = React.useState<SubTreeState>('initial')
 
@@ -1428,6 +1431,7 @@ describe('Asynchronous loading', () => {
         </div>
       )
     }
+    const user = userEvent.setup()
     const {getByRole} = renderWithTheme(<TestTree />)
 
     const doneButton = getByRole('button', {name: 'Load'})
@@ -1437,12 +1441,16 @@ describe('Asynchronous loading', () => {
     expect(liveRegion.getMessage('polite')).toBe('')
 
     // Click load button to mimic async loading
-    fireEvent.click(doneButton)
+    await act(async () => {
+      await user.click(doneButton)
+    })
 
     expect(liveRegion.getMessage('polite')).toBe('Parent content loading')
 
     // Click done button to mimic the completion of async loading
-    fireEvent.click(doneButton)
+    await act(async () => {
+      await user.click(doneButton)
+    })
 
     act(() => {
       vi.runAllTimers()
@@ -1450,9 +1458,6 @@ describe('Asynchronous loading', () => {
 
     // Live region should be updated
     expect(liveRegion.getMessage('polite')).toBe('Parent content loaded')
-
-    // Clean up live region
-    document.body.removeChild(liveRegionEl)
   })
 
   it('moves focus from loading item to first child', async () => {
