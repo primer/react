@@ -62,10 +62,9 @@ export interface PerformanceMetrics {
   longestTask: number
   slowEvents: number
 
-  // Layout thrashing indicators
-  layoutReads: number
+  // Layout metrics
   styleWrites: number
-  layoutThrashing: number // Read-after-write cycles that force reflow
+  thrashingScore: number // Estimated forced reflow severity (style writes × frame cost)
 
   // React Profiler metrics
   reactRenderCount: number
@@ -92,9 +91,8 @@ const initialMetrics: PerformanceMetrics = {
   longTasks: 0,
   longestTask: 0,
   slowEvents: 0,
-  layoutReads: 0,
   styleWrites: 0,
-  layoutThrashing: 0,
+  thrashingScore: 0,
   reactRenderCount: 0,
   reactTotalActualDuration: 0,
   reactMaxActualDuration: 0,
@@ -162,10 +160,8 @@ interface MutableMetricsState {
   longestTask: number
   slowEvents: number
   // Layout
-  layoutReads: number
   styleWrites: number
-  layoutThrashing: number
-  lastOperationWasWrite: boolean
+  thrashingScore: number
   // React
   reactRenderCount: number
   reactTotalActualDuration: number
@@ -198,10 +194,8 @@ export function PerformanceProvider({
     longTasks: 0,
     longestTask: 0,
     slowEvents: 0,
-    layoutReads: 0,
     styleWrites: 0,
-    layoutThrashing: 0,
-    lastOperationWasWrite: false,
+    thrashingScore: 0,
     reactRenderCount: 0,
     reactTotalActualDuration: 0,
     reactMaxActualDuration: 0,
@@ -259,10 +253,8 @@ export function PerformanceProvider({
     m.longTasks = 0
     m.longestTask = 0
     m.slowEvents = 0
-    m.layoutReads = 0
     m.styleWrites = 0
-    m.layoutThrashing = 0
-    m.lastOperationWasWrite = false
+    m.thrashingScore = 0
     m.reactRenderCount = 0
     m.reactTotalActualDuration = 0
     m.reactMaxActualDuration = 0
@@ -306,10 +298,9 @@ export function PerformanceProvider({
         // The more style writes + higher frame time = more severe thrashing
         if (frameTime > 8) {
           // Score based on how much the frame exceeded target
-          // 16ms frame with 5 writes = 5 thrashes, 32ms with 5 writes = 10 thrashes
+          // 16ms frame with 5 writes = 5, 32ms with 5 writes = 10
           const severity = Math.ceil((frameTime / 16) * Math.min(styleWriteCount, 10))
-          m.layoutThrashing += severity
-          m.layoutReads += styleWriteCount // Each write likely triggered a read
+          m.thrashingScore += severity
         }
       }
 
@@ -371,9 +362,8 @@ export function PerformanceProvider({
         longTasks: m.longTasks,
         longestTask: Math.round(m.longestTask),
         slowEvents: m.slowEvents,
-        layoutReads: m.layoutReads,
         styleWrites: m.styleWrites,
-        layoutThrashing: m.layoutThrashing,
+        thrashingScore: m.thrashingScore,
         reactRenderCount: m.reactRenderCount,
         reactTotalActualDuration: m.reactTotalActualDuration,
         reactMaxActualDuration: m.reactMaxActualDuration,
@@ -533,15 +523,6 @@ export function PerformanceProvider({
 
   // Metrics context value (changes every RAF)
   const metricsValue = React.useMemo(() => ({metrics}), [metrics])
-
-  // Reset metrics after initial mount to exclude mount render from measurements
-  React.useEffect(() => {
-    // Use RAF to ensure we're past the initial paint
-    const id = requestAnimationFrame(() => {
-      reset()
-    })
-    return () => cancelAnimationFrame(id)
-  }, [reset])
 
   return (
     <PerformanceCallbacksContext.Provider value={callbacksValue}>
@@ -775,30 +756,23 @@ export function PerformanceMonitorView({metrics, onReset}: PerformanceMonitorVie
         </span>
 
         {/* Layout Section */}
-        <span style={{color: '#888', borderTop: '1px solid #333', paddingTop: '3px', marginTop: '2px'}}>Layout</span>
-        <span style={{borderTop: '1px solid #333', paddingTop: '3px', marginTop: '2px'}}>
-          <span
-            style={{
-              color: metrics.layoutReads > 100 ? '#f85149' : metrics.layoutReads > 0 ? '#d29922' : '#666',
-              fontWeight: metrics.layoutReads > 0 ? 600 : 'normal',
-            }}
-          >
-            {metrics.layoutReads} reads
-          </span>
+        <span style={{color: '#888', borderTop: '1px solid #333', paddingTop: '3px', marginTop: '2px'}}>Style</span>
+        <span style={{borderTop: '1px solid #333', paddingTop: '3px', marginTop: '2px', color: '#666'}}>
+          {metrics.styleWrites} writes
         </span>
 
         <span style={{color: '#888'}}>Thrash</span>
         <span
           style={{
-            color: metrics.layoutThrashing > 0 ? '#f85149' : '#3fb950',
-            fontWeight: metrics.layoutThrashing > 0 ? 600 : 'normal',
+            color: metrics.thrashingScore > 0 ? '#f85149' : '#3fb950',
+            fontWeight: metrics.thrashingScore > 0 ? 600 : 'normal',
           }}
         >
-          {metrics.layoutThrashing} reflows{metrics.layoutThrashing === 0 && ' ✓'}
+          {metrics.thrashingScore === 0 ? 'none ✓' : metrics.thrashingScore}
+          {metrics.thrashingScore > 0 && (
+            <span style={{fontWeight: 'normal', color: '#888', fontSize: '9px'}}> (est.)</span>
+          )}
         </span>
-
-        <span style={{color: '#888'}}>Style</span>
-        <span style={{color: metrics.styleWrites > 500 ? '#d29922' : '#666'}}>{metrics.styleWrites} writes</span>
 
         {/* React Section */}
         <span style={{color: '#888', borderTop: '1px solid #333', paddingTop: '3px', marginTop: '2px'}}>React</span>
