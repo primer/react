@@ -13,12 +13,12 @@ import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import classes from './PageLayout.module.css'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types'
 
-const REGION_ORDER = {
-  header: 0,
-  paneStart: 1,
-  content: 2,
-  paneEnd: 3,
-  footer: 4,
+type REGION_ORDER = {
+  header: 0
+  paneStart: 1
+  content: 2
+  paneEnd: 3
+  footer: 4
 }
 
 type SPACING_MAP = {
@@ -117,7 +117,7 @@ type DividerProps = {
   variant?: 'none' | 'line' | 'filled' | ResponsiveValue<'none' | 'line' | 'filled'>
   className?: string
   style?: React.CSSProperties
-  position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
+  position?: keyof panePositions | ResponsiveValue<keyof panePositions>
 }
 
 const HorizontalDivider: React.FC<DividerProps> = ({variant = 'none', className, position, style}) => {
@@ -387,7 +387,7 @@ export type PageLayoutContentProps = {
    * An id to an element which uniquely labels the rendered main landmark
    */
   'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
-  width?: keyof typeof contentWidths
+  width?: keyof contentWidths
   padding?: keyof SPACING_MAP
   hidden?: boolean | ResponsiveValue<boolean>
   className?: string
@@ -395,12 +395,11 @@ export type PageLayoutContentProps = {
 }
 
 // TODO: Account for pane width when centering content
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const contentWidths = {
-  full: '100%',
-  medium: '768px',
-  large: '1012px',
-  xlarge: '1280px',
+type contentWidths = {
+  full: '100%'
+  medium: '768px'
+  large: '1012px'
+  xlarge: '1280px'
 }
 
 const Content: FCWithSlotMarker<React.PropsWithChildren<PageLayoutContentProps>> = ({
@@ -452,7 +451,7 @@ type CustomWidthOptions = {
   max: Measurement
 }
 
-type PaneWidth = keyof typeof paneWidths
+type PaneWidth = keyof paneWidths
 
 const isCustomWidthOptions = (width: PaneWidth | CustomWidthOptions): width is CustomWidthOptions => {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -464,7 +463,7 @@ const isPaneWidth = (width: PaneWidth | CustomWidthOptions): width is PaneWidth 
 }
 
 export type PageLayoutPaneProps = {
-  position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
+  position?: keyof panePositions | ResponsiveValue<keyof panePositions>
   /**
    * @deprecated Use the `position` prop with a responsive value instead.
    *
@@ -479,7 +478,7 @@ export type PageLayoutPaneProps = {
    * position={{regular: 'start', narrow: 'end'}}
    * ```
    */
-  positionWhenNarrow?: 'inherit' | keyof typeof panePositions
+  positionWhenNarrow?: 'inherit' | keyof panePositions
   'aria-labelledby'?: string
   'aria-label'?: string
   width?: PaneWidth | CustomWidthOptions
@@ -511,17 +510,15 @@ export type PageLayoutPaneProps = {
   style?: React.CSSProperties
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const panePositions = {
-  start: REGION_ORDER.paneStart,
-  end: REGION_ORDER.paneEnd,
+type panePositions = {
+  start: REGION_ORDER['paneStart']
+  end: REGION_ORDER['paneEnd']
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const paneWidths = {
-  small: ['100%', null, '240px', '256px'],
-  medium: ['100%', null, '256px', '296px'],
-  large: ['100%', null, '256px', '320px'],
+type paneWidths = {
+  small: ['100%', null, '240px', '256px']
+  medium: ['100%', null, '256px', '296px']
+  large: ['100%', null, '256px', '320px']
 }
 
 const defaultPaneWidth = {small: 256, medium: 296, large: 320}
