@@ -582,6 +582,84 @@ interface PerformanceMonitorViewProps {
 
 export function PerformanceMonitorView({metrics, onReset}: PerformanceMonitorViewProps) {
   const [isCollapsed, setIsCollapsed] = React.useState(false)
+  const [position, setPosition] = React.useState<{x: number; y: number} | null>(null) // null = use default bottom-left
+  const [dragState, setDragState] = React.useState<{isDragging: boolean; offsetX: number; offsetY: number}>({
+    isDragging: false,
+    offsetX: 0,
+    offsetY: 0,
+  })
+
+  // Handle drag start - capture pointer for smooth dragging
+  const handlePointerDown = (e: React.PointerEvent) => {
+    // Only drag from the header area, not buttons
+    if ((e.target as HTMLElement).closest('button'))
+      return // Capture pointer to receive all events even outside element
+    ;(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId)
+
+    // Get current position (either from state or computed from bottom-left)
+    const rect = (e.currentTarget as HTMLElement).closest('[data-perf-monitor]')?.getBoundingClientRect()
+    const currentX = position?.x ?? rect?.left ?? 8
+    const currentY = position?.y ?? rect?.top ?? window.innerHeight - (rect?.height ?? 300) - 8
+
+    setDragState({
+      isDragging: true,
+      offsetX: e.clientX - currentX,
+      offsetY: e.clientY - currentY,
+    })
+    e.preventDefault()
+  }
+
+  // Handle drag move
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (!dragState.isDragging) return
+    setPosition({
+      x: e.clientX - dragState.offsetX,
+      y: e.clientY - dragState.offsetY,
+    })
+  }
+
+  // Handle drag end
+  const handlePointerUp = (e: React.PointerEvent) => {
+    if (!dragState.isDragging) return
+    ;(e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId)
+    setDragState(prev => ({...prev, isDragging: false}))
+  }
+
+  // Keyboard support for moving the panel
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    const step = e.shiftKey ? 50 : 10
+    let newPosition = position
+
+    // Get current position if not set
+    if (!newPosition) {
+      const rect = (e.currentTarget as HTMLElement).getBoundingClientRect()
+      newPosition = {x: rect.left, y: rect.top}
+    }
+
+    switch (e.key) {
+      case 'ArrowUp':
+        setPosition({...newPosition, y: newPosition.y - step})
+        e.preventDefault()
+        break
+      case 'ArrowDown':
+        setPosition({...newPosition, y: newPosition.y + step})
+        e.preventDefault()
+        break
+      case 'ArrowLeft':
+        setPosition({...newPosition, x: newPosition.x - step})
+        e.preventDefault()
+        break
+      case 'ArrowRight':
+        setPosition({...newPosition, x: newPosition.x + step})
+        e.preventDefault()
+        break
+      case 'Home':
+        // Reset to default position
+        setPosition(null)
+        e.preventDefault()
+        break
+    }
+  }
 
   const fpsColor =
     metrics.fps >= 55
@@ -606,14 +684,24 @@ export function PerformanceMonitorView({metrics, onReset}: PerformanceMonitorVie
 
   // avgReactRender intentionally not used in compact view
 
+  // Position styles - use explicit position if dragged, otherwise default to bottom-left
+  const positionStyle = position ? {left: `${position.x}px`, top: `${position.y}px`} : {left: '8px', bottom: '8px'}
+
   // Collapsed view - just key metrics in a row
   if (isCollapsed) {
     return (
       <div
+        data-perf-monitor
+        role="region"
+        aria-label="Performance monitor (collapsed). Use arrow keys to move, Home to reset position."
+        tabIndex={0}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onKeyDown={handleKeyDown}
         style={{
           position: 'fixed',
-          top: '8px',
-          right: '8px',
+          ...positionStyle,
           zIndex: 9999,
           padding: '6px 10px',
           background: 'rgba(0, 0, 0, 0.85)',
@@ -626,6 +714,10 @@ export function PerformanceMonitorView({metrics, onReset}: PerformanceMonitorVie
           gap: '12px',
           boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
           backdropFilter: 'blur(4px)',
+          cursor: dragState.isDragging ? 'grabbing' : 'grab',
+          userSelect: 'none',
+          touchAction: 'none',
+          outline: 'none',
         }}
       >
         <span style={{color: fpsColor, fontWeight: 600}}>{fpsFormatter.format(metrics.fps)} fps</span>
@@ -644,7 +736,7 @@ export function PerformanceMonitorView({metrics, onReset}: PerformanceMonitorVie
           }}
           aria-label="Expand"
         >
-          ◀
+          ▼
         </button>
       </div>
     )
@@ -652,10 +744,12 @@ export function PerformanceMonitorView({metrics, onReset}: PerformanceMonitorVie
 
   return (
     <div
+      data-perf-monitor
+      role="region"
+      aria-label="Performance monitor"
       style={{
         position: 'fixed',
-        bottom: '8px',
-        left: '8px',
+        ...positionStyle,
         zIndex: 9999,
         padding: '8px 10px',
         background: 'rgba(0, 0, 0, 0.9)',
@@ -666,10 +760,32 @@ export function PerformanceMonitorView({metrics, onReset}: PerformanceMonitorVie
         width: '220px',
         boxShadow: '0 2px 12px rgba(0,0,0,0.4)',
         backdropFilter: 'blur(4px)',
+        userSelect: 'none',
       }}
     >
-      {/* Header */}
-      <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px'}}>
+      {/* Header - draggable */}
+      <div
+        role="slider"
+        aria-label="Drag to move panel. Use arrow keys to move, Shift for larger steps, Home to reset."
+        aria-valuetext={
+          position ? `Position: ${Math.round(position.x)}, ${Math.round(position.y)}` : 'Default position'
+        }
+        tabIndex={0}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onKeyDown={handleKeyDown}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: '6px',
+          cursor: dragState.isDragging ? 'grabbing' : 'grab',
+          touchAction: 'none',
+          outline: 'none',
+          borderRadius: '3px',
+        }}
+      >
         <span style={{fontWeight: 600, color: '#fff', fontSize: '11px'}}>⚡ Perf</span>
         <div style={{display: 'flex', gap: '4px'}}>
           <button
@@ -700,7 +816,7 @@ export function PerformanceMonitorView({metrics, onReset}: PerformanceMonitorVie
             }}
             aria-label="Collapse"
           >
-            ▶
+            ▲
           </button>
         </div>
       </div>
