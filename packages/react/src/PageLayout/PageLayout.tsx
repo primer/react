@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, {useRef, useMemo} from 'react'
 import {clsx} from 'clsx'
 import {useId} from '../hooks/useId'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
@@ -120,7 +120,12 @@ type DividerProps = {
   position?: keyof panePositions | ResponsiveValue<keyof panePositions>
 }
 
-const HorizontalDivider: React.FC<DividerProps> = ({variant = 'none', className, position, style}) => {
+const HorizontalDivider = React.memo<DividerProps>(function HorizontalDivider({
+  variant = 'none',
+  className,
+  position,
+  style,
+}) {
   const {padding} = React.useContext(PageLayoutContext)
 
   return (
@@ -128,17 +133,22 @@ const HorizontalDivider: React.FC<DividerProps> = ({variant = 'none', className,
       className={clsx(classes.HorizontalDivider, className)}
       {...getResponsiveAttributes('variant', variant)}
       {...getResponsiveAttributes('position', position)}
-      style={
-        {
-          '--spacing-divider': `var(--spacing-${padding})`,
-          ...style,
-        } as React.CSSProperties
-      }
+      style={useMemo(
+        () =>
+          ({
+            '--spacing-divider': `var(--spacing-${padding})`,
+            ...style,
+          }) as React.CSSProperties,
+        [padding, style],
+      )}
     />
   )
-}
+})
 
 const clamp = (value: number, {min, max}: {min: number; max: number}) => Math.min(Math.max(value, min), max)
+
+// Style constant to avoid recreation on each render
+const keyboardDraggingStyle = {pointerEvents: 'none'} as const
 
 const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandle({
   position,
@@ -160,6 +170,8 @@ const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandl
   const [{minWidth, maxWidth}, setBounds] = React.useState({minWidth: 0, maxWidth: 0})
 
   useIsomorphicLayoutEffect(() => {
+    let rafId: number | null = null
+
     const updateBounds = () => {
       if (paneRef.current !== null) {
         const paneStyles = getComputedStyle(paneRef.current as Element)
@@ -173,17 +185,31 @@ const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandl
       }
     }
 
-    const obs = new ResizeObserver(() => requestAnimationFrame(updateBounds))
+    // Throttle ResizeObserver callbacks to avoid excessive updates
+    const handleResize = () => {
+      if (rafId !== null) return
+      rafId = requestAnimationFrame(() => {
+        rafId = null
+        updateBounds()
+      })
+    }
+
+    const obs = new ResizeObserver(handleResize)
     obs.observe(document.documentElement)
     updateBounds()
 
     return () => {
       obs.disconnect()
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId)
+      }
     }
-  }, [])
+  }, [paneRef])
 
   const clampedPaneWidth = clamp(paneWidth, {min: minWidth, max: maxWidth})
 
+  const isKeyboardDragging = isDragging === 'keyboard'
+  const isPointerDragging = isDragging === 'pointer'
   return (
     <div
       className={classes.DraggableHandle}
@@ -195,22 +221,22 @@ const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandl
       aria-valuenow={clampedPaneWidth}
       aria-valuetext={`Pane width ${clampedPaneWidth} pixels`}
       tabIndex={0}
-      style={isDragging === 'keyboard' ? {pointerEvents: 'none'} : undefined}
+      style={isKeyboardDragging ? keyboardDraggingStyle : undefined}
       onPointerDown={event => {
-        if (isDragging === 'keyboard') return
+        if (isKeyboardDragging) return
         if (event.button === 0) {
           setIsDragging('pointer')
           event.currentTarget.setPointerCapture(event.pointerId)
         }
       }}
       onPointerMove={event => {
-        if (isDragging !== 'pointer') return
+        if (!isPointerDragging) return
         const delta = event.movementX
         const deltaWithDirection = position === 'end' ? -delta : delta
         setPaneWidth(curr => clamp(curr + deltaWithDirection, {min: minWidth, max: maxWidth}))
       }}
       onLostPointerCapture={() => {
-        if (isDragging !== 'pointer') return
+        if (!isPointerDragging) return
         setIsDragging(false)
         try {
           localStorage.setItem(widthStorageKey, paneWidth.toString())
@@ -220,7 +246,7 @@ const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandl
       }}
       onKeyDown={event => {
         // Don't handle keyboard if pointer dragging is active
-        if (isDragging === 'pointer') return
+        if (isPointerDragging) return
         if (
           event.key === 'ArrowLeft' ||
           event.key === 'ArrowRight' ||
@@ -235,7 +261,7 @@ const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandl
         }
       }}
       onKeyUp={() => {
-        if (isDragging !== 'keyboard') return
+        if (!isKeyboardDragging) return
         setIsDragging(false)
         try {
           localStorage.setItem(widthStorageKey, paneWidth.toString())
