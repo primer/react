@@ -947,8 +947,8 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
     let animationId: number
     let lastTime = performance.now()
     let lastUIUpdate = 0
-    const expectedFrameTime = 16.67
-    const UI_UPDATE_INTERVAL = 200 // Update UI at ~5fps to minimize React overhead
+    const expectedFrameTime = 16.67 // 60fps -> 16.67ms per frame
+    const UI_UPDATE_FPS = 10 // Update UI at ~10fps to minimize React overhead
 
     // Layout thrashing detection state
     // Only detects severe blocking (>50ms frames) near style writes
@@ -1103,9 +1103,9 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
         }
       }
 
-      // Throttle React UI updates to ~5fps to minimize overhead
+      // Throttle React UI updates to minimize overhead
       // Measurements are still collected every RAF above
-      if (now - lastUIUpdate >= UI_UPDATE_INTERVAL) {
+      if (now - lastUIUpdate >= 1000 / UI_UPDATE_FPS) {
         lastUIUpdate = now
         scheduleUIUpdate()
       }
