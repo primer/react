@@ -1,26 +1,26 @@
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
+import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 export function useOverflow<T extends HTMLElement>(ref: React.RefObject<T>) {
   const [hasOverflow, setHasOverflow] = useState(false)
 
-  useEffect(() => {
-    if (ref.current === null) {
+  useIsomorphicLayoutEffect(() => {
+    const element = ref.current
+    if (element === null) {
       return
     }
 
-    const observer = new ResizeObserver(entries => {
-      for (const entry of entries) {
-        if (
-          entry.target.scrollHeight > entry.target.clientHeight ||
-          entry.target.scrollWidth > entry.target.clientWidth
-        ) {
-          setHasOverflow(true)
-          break
-        }
-      }
-    })
+    const checkOverflow = () => {
+      const overflow = element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth
+      setHasOverflow(overflow)
+    }
 
-    observer.observe(ref.current)
+    // Check immediately on mount
+    checkOverflow()
+
+    const observer = new ResizeObserver(checkOverflow)
+    observer.observe(element)
+
     return () => {
       observer.disconnect()
     }
