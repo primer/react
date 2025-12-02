@@ -1,42 +1,44 @@
-.Invisible {
-  position: relative;
-  padding-top: var(--base-size-2);
-  padding-right: var(--base-size-4);
-  padding-bottom: var(--base-size-2);
-  padding-left: var(--base-size-4);
-  color: var(--fgColor-muted);
-  background-color: transparent;
+@layer primer.react.components.internal {
+  .Invisible {
+    position: relative;
+    padding-top: var(--base-size-2);
+    padding-right: var(--base-size-4);
+    padding-bottom: var(--base-size-2);
+    padding-left: var(--base-size-4);
+    color: var(--fgColor-muted);
+    background-color: transparent;
 
-  &:hover,
-  &:focus {
-    color: var(--fgColor-default);
-  }
+    &:hover,
+    &:focus {
+      color: var(--fgColor-default);
+    }
 
-  &[data-component='IconButton'] {
-    width: var(--inner-action-size);
-    height: var(--inner-action-size);
-  }
+    &[data-component='IconButton'] {
+      width: var(--inner-action-size);
+      height: var(--inner-action-size);
+    }
 
-  @media (pointer: coarse) {
-    ::after {
-      position: absolute;
-      top: 50%;
-      right: 0;
-      left: 0;
-      min-height: 44px;
-      content: '';
-      transform: translateY(-50%);
+    @media (pointer: coarse) {
+      ::after {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        left: 0;
+        min-height: 44px;
+        content: '';
+        transform: translateY(-50%);
+      }
     }
   }
-}
 
-.TextInputAction {
-  margin-right: var(--base-size-4);
-  margin-left: var(--base-size-4);
-  /* stylelint-disable-next-line primer/typography */
-  line-height: 0;
-}
+  .TextInputAction {
+    margin-right: var(--base-size-4);
+    margin-left: var(--base-size-4);
+    /* stylelint-disable-next-line primer/typography */
+    line-height: 0;
+  }
 
-.ConditionalTooltip {
-  display: inline-block;
+  .ConditionalTooltip {
+    display: inline-block;
+  }
 }

@@ -1,46 +1,48 @@
-.TokenTextContainer {
-  width: auto;
-  min-width: 0;
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
-  font: inherit;
-  /* stylelint-disable-next-line primer/typography */
-  line-height: normal;
-  color: inherit;
+@layer primer.react.components.Token {
+  .TokenTextContainer {
+    width: auto;
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    font: inherit;
+    /* stylelint-disable-next-line primer/typography */
+    line-height: normal;
+    color: inherit;
 
-  /* reset anchor styles */
-  color: currentColor;
-  text-decoration: none;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    /* reset anchor styles */
+    color: currentColor;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
-  /* reset button styles, make the cursor a pointer, and add line-height */
-  background: transparent;
-  border: none;
-  flex-grow: 1;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  appearance: none;
-}
+    /* reset button styles, make the cursor a pointer, and add line-height */
+    background: transparent;
+    border: none;
+    flex-grow: 1;
+    -webkit-font-smoothing: inherit;
+    -moz-osx-font-smoothing: inherit;
+    appearance: none;
+  }
 
-/* Position psuedo-element above text content, but below the
-  remove button.
-  This ensures the <a> or <button> receives the click no
-  matter where on the token the user clicks. */
-.TokenTextContainer:is(a, button, [tabIndex='0']) {
-  cursor: pointer;
-}
+  /* Position psuedo-element above text content, but below the
+    remove button.
+    This ensures the <a> or <button> receives the click no
+    matter where on the token the user clicks. */
+  .TokenTextContainer:is(a, button, [tabIndex='0']) {
+    cursor: pointer;
+  }
 
-/* Position psuedo-element above text content, but below the
-  remove button.
-  This ensures the <a> or <button> receives the click no
-  matter where on the token the user clicks. */
-.TokenTextContainer:is(a, button, [tabIndex='0'])::after {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  content: '';
+  /* Position psuedo-element above text content, but below the
+    remove button.
+    This ensures the <a> or <button> receives the click no
+    matter where on the token the user clicks. */
+  .TokenTextContainer:is(a, button, [tabIndex='0'])::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    content: '';
+  }
 }

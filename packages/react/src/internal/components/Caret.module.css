@@ -1,16 +1,18 @@
-.Caret {
-  pointer-events: none;
-  position: absolute;
-}
+@layer primer.react.components.internal {
+  .Caret {
+    pointer-events: none;
+    position: absolute;
+  }
 
-.CaretTriangle {
-  /* stylelint-disable-next-line primer/colors */
-  fill: var(--caret-bg, var(--bgColor-default));
-}
+  .CaretTriangle {
+    /* stylelint-disable-next-line primer/colors */
+    fill: var(--caret-bg, var(--bgColor-default));
+  }
 
-.CaretBorder {
-  fill: none;
-  /* stylelint-disable-next-line primer/colors */
-  stroke: var(--caret-border-color, var(--borderColor-default));
-  stroke-width: var(--caret-border-width, var(--borderWidth-thin));
+  .CaretBorder {
+    fill: none;
+    /* stylelint-disable-next-line primer/colors */
+    stroke: var(--caret-border-color, var(--borderColor-default));
+    stroke-width: var(--caret-border-width, var(--borderWidth-thin));
+  }
 }

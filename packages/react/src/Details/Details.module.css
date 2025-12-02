@@ -1,7 +1,9 @@
-.Details > summary {
-  list-style: none;
-}
+@layer primer.react.components.Details {
+  .Details > summary {
+    list-style: none;
+  }
 
-.Details > summary::-webkit-details-marker {
-  display: none;
+  .Details > summary::-webkit-details-marker {
+    display: none;
+  }
 }

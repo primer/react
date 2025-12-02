@@ -1,30 +1,32 @@
-@keyframes shimmer {
-  from {
-    mask-position: 200%;
+@layer primer.react.components.Skeleton {
+  @keyframes shimmer {
+    from {
+      mask-position: 200%;
+    }
+
+    to {
+      mask-position: 0%;
+    }
   }
 
-  to {
-    mask-position: 0%;
-  }
-}
-
-.SkeletonBox {
-  display: block;
-  height: 1rem;
-  background-color: var(--skeletonLoader-bgColor);
-  border-radius: var(--borderRadius-small);
-  animation: shimmer;
-
-  @media (prefers-reduced-motion: no-preference) {
-    mask-image: linear-gradient(75deg, #000 30%, rgb(0, 0, 0, 0.65) 80%);
-    mask-size: 200%;
+  .SkeletonBox {
+    display: block;
+    height: 1rem;
+    background-color: var(--skeletonLoader-bgColor);
+    border-radius: var(--borderRadius-small);
     animation: shimmer;
-    animation-duration: var(--base-duration-1000);
-    animation-iteration-count: infinite;
-  }
 
-  @media (forced-colors: active) {
-    outline: 1px solid transparent;
-    outline-offset: -1px;
+    @media (prefers-reduced-motion: no-preference) {
+      mask-image: linear-gradient(75deg, #000 30%, rgb(0, 0, 0, 0.65) 80%);
+      mask-size: 200%;
+      animation: shimmer;
+      animation-duration: var(--base-duration-1000);
+      animation-iteration-count: infinite;
+    }
+
+    @media (forced-colors: active) {
+      outline: 1px solid transparent;
+      outline-offset: -1px;
+    }
   }
 }

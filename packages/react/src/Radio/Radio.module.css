@@ -1,33 +1,35 @@
-.Radio {
-  border-radius: var(--borderRadius-full, 100vh);
-  transition:
-    background-color,
-    border-color 80ms cubic-bezier(0.33, 1, 0.68, 1); /* checked -> unchecked - add 120ms delay to fully see animation-out */
+@layer primer.react.components.Radio {
+  .Radio {
+    border-radius: var(--borderRadius-full, 100vh);
+    transition:
+      background-color,
+      border-color 80ms cubic-bezier(0.33, 1, 0.68, 1); /* checked -> unchecked - add 120ms delay to fully see animation-out */
 
-  &:where(:checked) {
-    /* stylelint-disable-next-line primer/colors */
-    background-color: var(--control-checked-fgColor-rest);
-
-    /* using bgColor here to avoid a border change in dark high contrast */
-    /* stylelint-disable-next-line primer/colors */
-    border-color: var(--control-checked-bgColor-rest);
-    border-width: var(--borderWidth-thicker);
-
-    &:disabled {
-      cursor: not-allowed;
+    &:where(:checked) {
       /* stylelint-disable-next-line primer/colors */
-      background-color: var(--fgColor-muted);
+      background-color: var(--control-checked-fgColor-rest);
+
+      /* using bgColor here to avoid a border change in dark high contrast */
       /* stylelint-disable-next-line primer/colors */
-      border-color: var(--fgColor-muted);
+      border-color: var(--control-checked-bgColor-rest);
+      border-width: var(--borderWidth-thicker);
+
+      &:disabled {
+        cursor: not-allowed;
+        /* stylelint-disable-next-line primer/colors */
+        background-color: var(--fgColor-muted);
+        /* stylelint-disable-next-line primer/colors */
+        border-color: var(--fgColor-muted);
+      }
     }
-  }
 
-  &:focus-visible {
-    @mixin focusOutline 2px;
-  }
+    &:focus-visible {
+      @mixin focusOutline 2px;
+    }
 
-  @media (forced-colors: active) {
-    background-color: canvastext;
-    border-color: canvastext;
+    @media (forced-colors: active) {
+      background-color: canvastext;
+      border-color: canvastext;
+    }
   }
 }

@@ -1,79 +1,81 @@
-:where(.Label) {
-  display: inline-flex;
-  font-size: var(--text-body-size-small);
-  font-weight: var(--base-text-weight-medium);
-  /* stylelint-disable-next-line primer/typography */
-  line-height: 1;
-  color: var(--fgColor-default);
-  white-space: nowrap;
-  background-color: transparent;
-  border-style: solid;
-  border-width: var(--borderWidth-thin);
-  border-radius: var(--borderRadius-full);
-  align-items: center;
+@layer primer.react.components.Label {
+  :where(.Label) {
+    display: inline-flex;
+    font-size: var(--text-body-size-small);
+    font-weight: var(--base-text-weight-medium);
+    /* stylelint-disable-next-line primer/typography */
+    line-height: 1;
+    color: var(--fgColor-default);
+    white-space: nowrap;
+    background-color: transparent;
+    border-style: solid;
+    border-width: var(--borderWidth-thin);
+    border-radius: var(--borderRadius-full);
+    align-items: center;
 
-  &:where([data-size='small']) {
-    height: var(--base-size-20);
-    padding: 0 var(--base-size-6);
-  }
+    &:where([data-size='small']) {
+      height: var(--base-size-20);
+      padding: 0 var(--base-size-6);
+    }
 
-  &:where([data-size='large']) {
-    height: var(--base-size-24);
-    padding: 0 var(--base-size-8);
-  }
+    &:where([data-size='large']) {
+      height: var(--base-size-24);
+      padding: 0 var(--base-size-8);
+    }
 
-  &:where([data-variant='default']) {
-    border-color: var(--borderColor-default);
-  }
+    &:where([data-variant='default']) {
+      border-color: var(--borderColor-default);
+    }
 
-  &:where([data-variant='primary']) {
-    /* stylelint-disable-next-line primer/colors */
-    border-color: var(--fgColor-default);
-  }
+    &:where([data-variant='primary']) {
+      /* stylelint-disable-next-line primer/colors */
+      border-color: var(--fgColor-default);
+    }
 
-  &:where([data-variant='secondary']) {
-    color: var(--fgColor-muted);
-    border-color: var(--borderColor-muted);
-  }
+    &:where([data-variant='secondary']) {
+      color: var(--fgColor-muted);
+      border-color: var(--borderColor-muted);
+    }
 
-  &:where([data-variant='accent']) {
-    color: var(--fgColor-accent);
-    /* stylelint-disable-next-line primer/colors */
-    border-color: var(--bgColor-accent-emphasis);
-  }
+    &:where([data-variant='accent']) {
+      color: var(--fgColor-accent);
+      /* stylelint-disable-next-line primer/colors */
+      border-color: var(--bgColor-accent-emphasis);
+    }
 
-  &:where([data-variant='success']) {
-    color: var(--fgColor-success);
-    /* stylelint-disable-next-line primer/colors */
-    border-color: var(--bgColor-success-emphasis);
-  }
+    &:where([data-variant='success']) {
+      color: var(--fgColor-success);
+      /* stylelint-disable-next-line primer/colors */
+      border-color: var(--bgColor-success-emphasis);
+    }
 
-  &:where([data-variant='attention']) {
-    color: var(--fgColor-attention);
-    /* stylelint-disable-next-line primer/colors */
-    border-color: var(--bgColor-attention-emphasis);
-  }
+    &:where([data-variant='attention']) {
+      color: var(--fgColor-attention);
+      /* stylelint-disable-next-line primer/colors */
+      border-color: var(--bgColor-attention-emphasis);
+    }
 
-  &:where([data-variant='severe']) {
-    color: var(--fgColor-severe);
-    /* stylelint-disable-next-line primer/colors */
-    border-color: var(--bgColor-severe-emphasis);
-  }
+    &:where([data-variant='severe']) {
+      color: var(--fgColor-severe);
+      /* stylelint-disable-next-line primer/colors */
+      border-color: var(--bgColor-severe-emphasis);
+    }
 
-  &:where([data-variant='danger']) {
-    color: var(--fgColor-danger);
-    border-color: var(--borderColor-danger-emphasis);
-  }
+    &:where([data-variant='danger']) {
+      color: var(--fgColor-danger);
+      border-color: var(--borderColor-danger-emphasis);
+    }
 
-  &:where([data-variant='done']) {
-    color: var(--fgColor-done);
-    /* stylelint-disable-next-line primer/colors */
-    border-color: var(--bgColor-done-emphasis);
-  }
+    &:where([data-variant='done']) {
+      color: var(--fgColor-done);
+      /* stylelint-disable-next-line primer/colors */
+      border-color: var(--bgColor-done-emphasis);
+    }
 
-  &:where([data-variant='sponsors']) {
-    color: var(--fgColor-sponsors);
-    /* stylelint-disable-next-line primer/colors */
-    border-color: var(--bgColor-sponsors-emphasis);
+    &:where([data-variant='sponsors']) {
+      color: var(--fgColor-sponsors);
+      /* stylelint-disable-next-line primer/colors */
+      border-color: var(--bgColor-sponsors-emphasis);
+    }
   }
 }

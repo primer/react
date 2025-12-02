@@ -1,5 +1,7 @@
-.Title {
-  display: flex;
-  align-items: center;
-  gap: var(--base-size-4);
+@layer primer.react.components.SelectPanel {
+  .Title {
+    display: flex;
+    align-items: center;
+    gap: var(--base-size-4);
+  }
 }

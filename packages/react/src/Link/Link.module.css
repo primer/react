@@ -1,38 +1,40 @@
-:where(.Link) {
-  color: var(--fgColor-accent);
-  text-decoration: none;
-  text-underline-offset: 0.05rem;
+@layer primer.react.components.Link {
+  :where(.Link) {
+    color: var(--fgColor-accent);
+    text-decoration: none;
+    text-underline-offset: 0.05rem;
 
-  /* Reset for button tags */
-  &:is(button) {
-    display: inline-block;
-    padding: 0;
-    font-size: inherit;
-    white-space: nowrap;
-    cursor: pointer;
-    user-select: none;
-    background-color: transparent;
-    border: 0;
-    appearance: none;
-  }
-
-  &:hover {
-    text-decoration: underline;
-  }
-
-  /*
-    Inline links (inside a text block) should have underline based on accessibility setting set in data-attribute
-  */
-  [data-a11y-link-underlines='true'] &:where([data-inline='true']) {
-    text-decoration: underline;
-  }
-
-  &:where([data-muted='true']) {
-    color: var(--fgColor-muted);
+    /* Reset for button tags */
+    &:is(button) {
+      display: inline-block;
+      padding: 0;
+      font-size: inherit;
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+      background-color: transparent;
+      border: 0;
+      appearance: none;
+    }
 
     &:hover {
-      color: var(--fgColor-accent);
-      text-decoration: none;
+      text-decoration: underline;
+    }
+
+    /*
+      Inline links (inside a text block) should have underline based on accessibility setting set in data-attribute
+    */
+    [data-a11y-link-underlines='true'] &:where([data-inline='true']) {
+      text-decoration: underline;
+    }
+
+    &:where([data-muted='true']) {
+      color: var(--fgColor-muted);
+
+      &:hover {
+        color: var(--fgColor-accent);
+        text-decoration: none;
+      }
     }
   }
 }

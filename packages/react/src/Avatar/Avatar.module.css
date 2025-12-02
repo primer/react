@@ -1,34 +1,36 @@
-:where(.Avatar) {
-  display: inline-block;
-  width: var(--avatarSize-regular);
-  height: var(--avatarSize-regular);
-  overflow: hidden; /* Ensure page layout in Firefox should images fail to load */
-  /* stylelint-disable-next-line primer/typography */
-  line-height: 1;
-  vertical-align: middle;
-  border-radius: 50%;
-  /* stylelint-disable-next-line primer/box-shadow */
-  box-shadow: 0 0 0 1px var(--avatar-borderColor);
+@layer primer.react.components.Avatar {
+  :where(.Avatar) {
+    display: inline-block;
+    width: var(--avatarSize-regular);
+    height: var(--avatarSize-regular);
+    overflow: hidden; /* Ensure page layout in Firefox should images fail to load */
+    /* stylelint-disable-next-line primer/typography */
+    line-height: 1;
+    vertical-align: middle;
+    border-radius: 50%;
+    /* stylelint-disable-next-line primer/box-shadow */
+    box-shadow: 0 0 0 1px var(--avatar-borderColor);
 
-  &:where([data-square]) {
-    /* stylelint-disable-next-line primer/borders */
-    border-radius: clamp(4px, calc(var(--avatarSize-regular) - 24px), var(--borderRadius-medium));
-  }
-
-  &:where([data-responsive]) {
-    @media screen and (--viewportRange-narrow) {
-      width: var(--avatarSize-narrow);
-      height: var(--avatarSize-narrow);
+    &:where([data-square]) {
+      /* stylelint-disable-next-line primer/borders */
+      border-radius: clamp(4px, calc(var(--avatarSize-regular) - 24px), var(--borderRadius-medium));
     }
 
-    @media screen and (--viewportRange-regular) {
-      width: var(--avatarSize-regular);
-      height: var(--avatarSize-regular);
-    }
+    &:where([data-responsive]) {
+      @media screen and (--viewportRange-narrow) {
+        width: var(--avatarSize-narrow);
+        height: var(--avatarSize-narrow);
+      }
 
-    @media screen and (--viewportRange-wide) {
-      width: var(--avatarSize-wide);
-      height: var(--avatarSize-wide);
+      @media screen and (--viewportRange-regular) {
+        width: var(--avatarSize-regular);
+        height: var(--avatarSize-regular);
+      }
+
+      @media screen and (--viewportRange-wide) {
+        width: var(--avatarSize-wide);
+        height: var(--avatarSize-wide);
+      }
     }
   }
 }

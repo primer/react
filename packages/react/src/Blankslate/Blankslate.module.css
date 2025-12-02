@@ -1,134 +1,136 @@
-.Container {
-  container: blankslate / inline-size;
-}
-
-.Blankslate {
-  display: grid;
-  justify-items: center;
-  /* stylelint-disable-next-line primer/spacing */
-  padding: var(--blankslate-padding);
-
-  &:where([data-border]) {
-    border: var(--borderWidth-thin) solid var(--borderColor-default);
-    border-radius: var(--borderRadius-medium);
+@layer primer.react.components.Blankslate {
+  .Container {
+    container: blankslate / inline-size;
   }
 
-  &:where([data-narrow]) {
-    max-width: 485px;
-    margin: 0 auto;
-  }
-
-  &:where([data-size='medium']) {
-    --blankslate-heading-text: var(--text-title-shorthand-medium);
-    --blankslate-heading-margin-block: 0 var(--base-size-4);
-    --blankslate-description-text: var(--text-body-shorthand-large);
-    --blankslate-padding: var(--base-size-32);
-    --blankslate-action-margin-block-end: var(--base-size-16);
-  }
-
-  &:where([data-size='medium'][data-spacious]) {
-    --blankslate-padding: var(--base-size-80) var(--base-size-40);
-  }
-
-  &:where([data-size='small']) {
-    --blankslate-heading-text: var(--text-title-shorthand-small);
-    --blankslate-heading-margin-block: 0 var(--base-size-4);
-    --blankslate-description-text: var(--text-body-shorthand-medium);
-    --blankslate-padding: var(--base-size-32) var(--base-size-20);
-    --blankslate-action-margin-block-end: var(--base-size-12);
-    --blankslate-visual-size: var(--base-size-24);
-  }
-
-  &:where([data-size='small'][data-spacious]) {
-    --blankslate-padding: var(--base-size-44) var(--base-size-28);
-  }
-
-  &:where([data-size='large']) {
-    --blankslate-heading-text: var(--text-title-shorthand-large);
-    --blankslate-heading-margin-block: var(--base-size-8) var(--base-size-4);
-    --blankslate-description-text: var(--text-body-shorthand-large);
-    --blankslate-description-margin-block: 0 var(--base-size-8);
-    --blankslate-padding: var(--base-size-32);
-    --blankslate-action-margin-block-end: var(--base-size-16);
-  }
-
-  &:where([data-size='large'][data-spacious]) {
-    --blankslate-padding: var(--base-size-80) var(--base-size-40);
-  }
-}
-
-.Heading,
-.Description {
-  margin: 0;
-  text-align: center;
-}
-
-.Heading {
-  /* stylelint-disable-next-line primer/typography */
-  font: var(--blankslate-heading-text);
-  /* stylelint-disable-next-line primer/spacing */
-  margin-block: var(--blankslate-heading-margin-block);
-}
-
-.Description {
-  /* stylelint-disable-next-line primer/typography */
-  font: var(--blankslate-description-text);
-  color: var(--fgColor-muted);
-  /* stylelint-disable-next-line primer/spacing */
-  margin-block: var(--blankslate-description-margin-block);
-}
-
-.Visual {
-  color: var(--fgColor-muted);
-  /* This display property exists so that the container matches the size of the inner svg element */
-  display: inline-flex;
-  margin-block-end: var(--base-size-8);
-  max-width: var(--blankslate-visual-size);
-
-  & svg {
-    width: 100%;
-  }
-}
-
-.Action {
-  /* stylelint-disable-next-line primer/typography */
-  font: var(--blankslate-description-text);
-  margin-block-start: var(--base-size-16);
-
-  &:where(:last-of-type) {
-    /* stylelint-disable-next-line primer/spacing */
-    margin-block-end: var(--blankslate-action-margin-block-end);
-  }
-}
-
-/* At the time these styles were written, 34rem was our "small" breakpoint width */
-@container blankslate (max-width: 34rem) {
   .Blankslate {
-    --blankslate-padding: var(--base-size-20);
+    display: grid;
+    justify-items: center;
+    /* stylelint-disable-next-line primer/spacing */
+    padding: var(--blankslate-padding);
 
-    &:where([data-spacious='true']) {
+    &:where([data-border]) {
+      border: var(--borderWidth-thin) solid var(--borderColor-default);
+      border-radius: var(--borderRadius-medium);
+    }
+
+    &:where([data-narrow]) {
+      max-width: 485px;
+      margin: 0 auto;
+    }
+
+    &:where([data-size='medium']) {
+      --blankslate-heading-text: var(--text-title-shorthand-medium);
+      --blankslate-heading-margin-block: 0 var(--base-size-4);
+      --blankslate-description-text: var(--text-body-shorthand-large);
+      --blankslate-padding: var(--base-size-32);
+      --blankslate-action-margin-block-end: var(--base-size-16);
+    }
+
+    &:where([data-size='medium'][data-spacious]) {
+      --blankslate-padding: var(--base-size-80) var(--base-size-40);
+    }
+
+    &:where([data-size='small']) {
+      --blankslate-heading-text: var(--text-title-shorthand-small);
+      --blankslate-heading-margin-block: 0 var(--base-size-4);
+      --blankslate-description-text: var(--text-body-shorthand-medium);
+      --blankslate-padding: var(--base-size-32) var(--base-size-20);
+      --blankslate-action-margin-block-end: var(--base-size-12);
+      --blankslate-visual-size: var(--base-size-24);
+    }
+
+    &:where([data-size='small'][data-spacious]) {
       --blankslate-padding: var(--base-size-44) var(--base-size-28);
     }
 
-    --blankslate-heading-text: var(--text-title-shorthand-small);
-    --blankslate-description-text: var(--text-body-shorthand-medium);
+    &:where([data-size='large']) {
+      --blankslate-heading-text: var(--text-title-shorthand-large);
+      --blankslate-heading-margin-block: var(--base-size-8) var(--base-size-4);
+      --blankslate-description-text: var(--text-body-shorthand-large);
+      --blankslate-description-margin-block: 0 var(--base-size-8);
+      --blankslate-padding: var(--base-size-32);
+      --blankslate-action-margin-block-end: var(--base-size-16);
+    }
+
+    &:where([data-size='large'][data-spacious]) {
+      --blankslate-padding: var(--base-size-80) var(--base-size-40);
+    }
+  }
+
+  .Heading,
+  .Description {
+    margin: 0;
+    text-align: center;
+  }
+
+  .Heading {
+    /* stylelint-disable-next-line primer/typography */
+    font: var(--blankslate-heading-text);
+    /* stylelint-disable-next-line primer/spacing */
+    margin-block: var(--blankslate-heading-margin-block);
+  }
+
+  .Description {
+    /* stylelint-disable-next-line primer/typography */
+    font: var(--blankslate-description-text);
+    color: var(--fgColor-muted);
+    /* stylelint-disable-next-line primer/spacing */
+    margin-block: var(--blankslate-description-margin-block);
   }
 
   .Visual {
-    max-width: var(--base-size-24);
-    margin-bottom: var(--base-size-8);
     color: var(--fgColor-muted);
+    /* This display property exists so that the container matches the size of the inner svg element */
+    display: inline-flex;
+    margin-block-end: var(--base-size-8);
+    max-width: var(--blankslate-visual-size);
+
+    & svg {
+      width: 100%;
+    }
   }
 
   .Action {
-    margin-top: var(--base-size-8);
+    /* stylelint-disable-next-line primer/typography */
+    font: var(--blankslate-description-text);
+    margin-block-start: var(--base-size-16);
 
-    &:first-of-type {
-      margin-top: var(--base-size-16);
+    &:where(:last-of-type) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-block-end: var(--blankslate-action-margin-block-end);
+    }
+  }
+
+  /* At the time these styles were written, 34rem was our "small" breakpoint width */
+  @container blankslate (max-width: 34rem) {
+    .Blankslate {
+      --blankslate-padding: var(--base-size-20);
+
+      &:where([data-spacious='true']) {
+        --blankslate-padding: var(--base-size-44) var(--base-size-28);
+      }
+
+      --blankslate-heading-text: var(--text-title-shorthand-small);
+      --blankslate-description-text: var(--text-body-shorthand-medium);
     }
 
-    &:last-of-type {
-      margin-bottom: calc(var(--base-size-8) / 2);
+    .Visual {
+      max-width: var(--base-size-24);
+      margin-bottom: var(--base-size-8);
+      color: var(--fgColor-muted);
+    }
+
+    .Action {
+      margin-top: var(--base-size-8);
+
+      &:first-of-type {
+        margin-top: var(--base-size-16);
+      }
+
+      &:last-of-type {
+        margin-bottom: calc(var(--base-size-8) / 2);
+      }
     }
   }
 }

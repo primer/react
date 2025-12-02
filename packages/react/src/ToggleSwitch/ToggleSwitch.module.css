@@ -1,267 +1,269 @@
-.ToggleSwitch {
-  --toggleSwitch-transition-duration: 80ms;
-  --toggleSwitch-transition-easing: cubic-bezier(0.5, 1, 0.89, 1);
+@layer primer.react.components.ToggleSwitch {
+  .ToggleSwitch {
+    --toggleSwitch-transition-duration: 80ms;
+    --toggleSwitch-transition-easing: cubic-bezier(0.5, 1, 0.89, 1);
 
-  display: inline-flex;
-  align-items: center;
-}
-
-.ToggleSwitch:where([data-status-label-position='start']) {
-  flex-direction: row;
-}
-
-.ToggleSwitch:where([data-status-label-position='end']) {
-  flex-direction: row-reverse;
-}
-
-.LoadingSpinner {
-  display: inline-flex;
-}
-
-.LoadingSpinner:where([data-status-label-position='end']) {
-  margin-right: 0;
-  margin-left: var(--base-size-8);
-}
-
-.StatusText {
-  margin-left: var(--base-size-8);
-  margin-right: var(--base-size-8);
-  position: relative;
-  color: var(--fgColor-default);
-  font-size: var(--text-body-size-medium);
-  cursor: pointer;
-}
-
-.StatusText:where([data-disabled='true']) {
-  cursor: not-allowed;
-  color: var(--fgColor-muted);
-}
-
-.StatusText:where([data-size='small']) {
-  font-size: var(--text-body-size-small);
-}
-
-.StatusText:where([data-size='medium']) {
-  font-size: var(--text-body-size-medium);
-}
-
-.StatusTextItem {
-  display: block;
-  text-align: right;
-}
-
-.StatusTextItem:where([data-hidden='true']) {
-  visibility: hidden;
-  height: 0;
-}
-
-.SwitchButton {
-  cursor: pointer;
-  user-select: none;
-  appearance: none;
-  text-decoration: none;
-  padding: 0;
-  transition-property: background-color, border-color;
-  transition-duration: var(--toggleSwitch-transition-duration);
-  transition-timing-function: var(--toggleSwitch-transition-easing);
-  border-radius: var(--borderRadius-medium);
-  border-style: solid;
-  border-width: var(--borderWidth-thin);
-  display: block;
-  position: relative;
-  overflow: hidden;
-
-  /* Default medium size */
-  height: 32px;
-  width: 64px;
-
-  /* Focus styles */
-  &:focus-visible {
-    outline: 2px solid var(--focus-outlineColor);
-    outline-offset: 3px;
+    display: inline-flex;
+    align-items: center;
   }
 
-  &:focus:not(:focus-visible) {
-    outline: solid 1px transparent;
+  .ToggleSwitch:where([data-status-label-position='start']) {
+    flex-direction: row;
   }
 
-  /* Touch device support */
-  @media (pointer: coarse) {
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      transform: translateY(-50%);
-      top: 50%;
-      min-height: 44px;
+  .ToggleSwitch:where([data-status-label-position='end']) {
+    flex-direction: row-reverse;
+  }
+
+  .LoadingSpinner {
+    display: inline-flex;
+  }
+
+  .LoadingSpinner:where([data-status-label-position='end']) {
+    margin-right: 0;
+    margin-left: var(--base-size-8);
+  }
+
+  .StatusText {
+    margin-left: var(--base-size-8);
+    margin-right: var(--base-size-8);
+    position: relative;
+    color: var(--fgColor-default);
+    font-size: var(--text-body-size-medium);
+    cursor: pointer;
+  }
+
+  .StatusText:where([data-disabled='true']) {
+    cursor: not-allowed;
+    color: var(--fgColor-muted);
+  }
+
+  .StatusText:where([data-size='small']) {
+    font-size: var(--text-body-size-small);
+  }
+
+  .StatusText:where([data-size='medium']) {
+    font-size: var(--text-body-size-medium);
+  }
+
+  .StatusTextItem {
+    display: block;
+    text-align: right;
+  }
+
+  .StatusTextItem:where([data-hidden='true']) {
+    visibility: hidden;
+    height: 0;
+  }
+
+  .SwitchButton {
+    cursor: pointer;
+    user-select: none;
+    appearance: none;
+    text-decoration: none;
+    padding: 0;
+    transition-property: background-color, border-color;
+    transition-duration: var(--toggleSwitch-transition-duration);
+    transition-timing-function: var(--toggleSwitch-transition-easing);
+    border-radius: var(--borderRadius-medium);
+    border-style: solid;
+    border-width: var(--borderWidth-thin);
+    display: block;
+    position: relative;
+    overflow: hidden;
+
+    /* Default medium size */
+    height: 32px;
+    width: 64px;
+
+    /* Focus styles */
+    &:focus-visible {
+      outline: 2px solid var(--focus-outlineColor);
+      outline-offset: 3px;
+    }
+
+    &:focus:not(:focus-visible) {
+      outline: solid 1px transparent;
+    }
+
+    /* Touch device support */
+    @media (pointer: coarse) {
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
+        top: 50%;
+        min-height: 44px;
+      }
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion) {
+      transition: none;
+
+      * {
+        transition: none;
+      }
     }
   }
 
-  /* Reduced motion support */
-  @media (prefers-reduced-motion) {
-    transition: none;
+  /* Size variants */
+  .SwitchButton:where([data-size='small']) {
+    height: 24px;
+    width: 48px;
+  }
 
-    * {
+  /* State variants */
+  .SwitchButton:where([data-disabled='true']) {
+    /* stylelint-disable-next-line primer/colors */
+    background-color: var(--controlTrack-bgColor-disabled, var(--color-switch-track-disabled-bg, #8c959f));
+    border-color: transparent;
+    cursor: not-allowed;
+    transition-property: none;
+
+    @media (forced-colors: active) {
+      border-color: GrayText;
+    }
+  }
+
+  .SwitchButton:where([data-checked='false']:not([data-disabled='true'])) {
+    /* stylelint-disable-next-line primer/colors */
+    background-color: var(--controlTrack-bgColor-rest, var(--color-switch-track-bg, #eaeef2));
+    border-color: var(--controlTrack-borderColor-rest);
+  }
+
+  .SwitchButton:where([data-checked='false']:not([data-disabled='true']):hover),
+  .SwitchButton:where([data-checked='false']:not([data-disabled='true']):focus-visible) {
+    /* stylelint-disable-next-line primer/colors */
+    background-color: var(--controlTrack-bgColor-hover, var(--color-switch-track-hover-bg, hsl(210deg, 24%, 90%, 1)));
+  }
+
+  .SwitchButton:where([data-checked='false']:not([data-disabled='true']):active),
+  .SwitchButton:where([data-checked='false']:not([data-disabled='true']):active:focus-visible) {
+    /* stylelint-disable-next-line primer/colors */
+    background-color: var(--controlTrack-bgColor-active, var(--color-switch-track-active-bg, hsl(210deg, 24%, 88%, 1)));
+  }
+
+  .SwitchButton:where([data-checked='true']:not([data-disabled='true'])) {
+    /* stylelint-disable-next-line primer/colors */
+    background-color: var(--control-checked-bgColor-rest, var(--color-switch-track-checked-bg, #0969da));
+    border-color: var(--control-checked-borderColor-rest, transparent);
+  }
+
+  .SwitchButton:where([data-checked='true']:not([data-disabled='true']):hover),
+  .SwitchButton:where([data-checked='true']:not([data-disabled='true']):focus-visible) {
+    /* stylelint-disable-next-line primer/colors */
+    background-color: var(--control-checked-bgColor-hover, var(--color-switch-track-checked-hover-bg, #0860ca));
+  }
+
+  .SwitchButton:where([data-checked='true']:not([data-disabled='true']):active),
+  .SwitchButton:where([data-checked='true']:not([data-disabled='true']):active:focus-visible) {
+    /* stylelint-disable-next-line primer/colors */
+    background-color: var(--control-checked-bgColor-active, var(--color-switch-track-checked-active-bg, #0757ba));
+  }
+
+  .SwitchButtonContent {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .IconContainer {
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 50%;
+    /* stylelint-disable-next-line primer/typography */
+    line-height: 0;
+    transition-property: transform;
+    transition-duration: var(--toggleSwitch-transition-duration);
+    transition-timing-function: var(--toggleSwitch-transition-easing);
+
+    @media (prefers-reduced-motion) {
       transition: none;
     }
   }
-}
 
-/* Size variants */
-.SwitchButton:where([data-size='small']) {
-  height: 24px;
-  width: 48px;
-}
-
-/* State variants */
-.SwitchButton:where([data-disabled='true']) {
-  /* stylelint-disable-next-line primer/colors */
-  background-color: var(--controlTrack-bgColor-disabled, var(--color-switch-track-disabled-bg, #8c959f));
-  border-color: transparent;
-  cursor: not-allowed;
-  transition-property: none;
-
-  @media (forced-colors: active) {
-    border-color: GrayText;
+  .LineIconContainer {
+    /* stylelint-disable-next-line primer/colors */
+    color: var(--control-checked-fgColor-rest, var(--color-switch-track-checked-fg, #fff));
   }
-}
 
-.SwitchButton:where([data-checked='false']:not([data-disabled='true'])) {
-  /* stylelint-disable-next-line primer/colors */
-  background-color: var(--controlTrack-bgColor-rest, var(--color-switch-track-bg, #eaeef2));
-  border-color: var(--controlTrack-borderColor-rest);
-}
-
-.SwitchButton:where([data-checked='false']:not([data-disabled='true']):hover),
-.SwitchButton:where([data-checked='false']:not([data-disabled='true']):focus-visible) {
-  /* stylelint-disable-next-line primer/colors */
-  background-color: var(--controlTrack-bgColor-hover, var(--color-switch-track-hover-bg, hsl(210deg, 24%, 90%, 1)));
-}
-
-.SwitchButton:where([data-checked='false']:not([data-disabled='true']):active),
-.SwitchButton:where([data-checked='false']:not([data-disabled='true']):active:focus-visible) {
-  /* stylelint-disable-next-line primer/colors */
-  background-color: var(--controlTrack-bgColor-active, var(--color-switch-track-active-bg, hsl(210deg, 24%, 88%, 1)));
-}
-
-.SwitchButton:where([data-checked='true']:not([data-disabled='true'])) {
-  /* stylelint-disable-next-line primer/colors */
-  background-color: var(--control-checked-bgColor-rest, var(--color-switch-track-checked-bg, #0969da));
-  border-color: var(--control-checked-borderColor-rest, transparent);
-}
-
-.SwitchButton:where([data-checked='true']:not([data-disabled='true']):hover),
-.SwitchButton:where([data-checked='true']:not([data-disabled='true']):focus-visible) {
-  /* stylelint-disable-next-line primer/colors */
-  background-color: var(--control-checked-bgColor-hover, var(--color-switch-track-checked-hover-bg, #0860ca));
-}
-
-.SwitchButton:where([data-checked='true']:not([data-disabled='true']):active),
-.SwitchButton:where([data-checked='true']:not([data-disabled='true']):active:focus-visible) {
-  /* stylelint-disable-next-line primer/colors */
-  background-color: var(--control-checked-bgColor-active, var(--color-switch-track-checked-active-bg, #0757ba));
-}
-
-.SwitchButtonContent {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.IconContainer {
-  flex-grow: 1;
-  flex-shrink: 0;
-  flex-basis: 50%;
-  /* stylelint-disable-next-line primer/typography */
-  line-height: 0;
-  transition-property: transform;
-  transition-duration: var(--toggleSwitch-transition-duration);
-  transition-timing-function: var(--toggleSwitch-transition-easing);
-
-  @media (prefers-reduced-motion) {
-    transition: none;
+  .LineIconContainer:where([data-disabled='true']) {
+    /* stylelint-disable-next-line primer/colors */
+    color: var(--control-checked-fgColor-disabled, var(--color-switch-track-checked-disabled-fg, #fff));
   }
-}
 
-.LineIconContainer {
-  /* stylelint-disable-next-line primer/colors */
-  color: var(--control-checked-fgColor-rest, var(--color-switch-track-checked-fg, #fff));
-}
-
-.LineIconContainer:where([data-disabled='true']) {
-  /* stylelint-disable-next-line primer/colors */
-  color: var(--control-checked-fgColor-disabled, var(--color-switch-track-checked-disabled-fg, #fff));
-}
-
-.LineIconContainer:where([data-checked='true']) {
-  transform: translateX(0);
-}
-
-.LineIconContainer:where([data-checked='false']) {
-  transform: translateX(-100%);
-}
-
-.CircleIconContainer {
-  /* stylelint-disable-next-line primer/colors */
-  color: var(--controlTrack-fgColor-rest, var(--color-switch-track-fg, #656d76));
-}
-
-.CircleIconContainer:where([data-disabled='true']) {
-  /* stylelint-disable-next-line primer/colors */
-  color: var(--controlTrack-fgColor-disabled, var(--color-switch-track-disabled-fg, #fff));
-}
-
-.CircleIconContainer:where([data-checked='true']) {
-  transform: translateX(100%);
-}
-
-.CircleIconContainer:where([data-checked='false']) {
-  transform: translateX(0);
-}
-
-.ToggleKnob {
-  /* stylelint-disable-next-line primer/colors */
-  background-color: var(--controlKnob-bgColor-rest, var(--color-switch-knob-bg, #fff));
-  border-width: var(--borderWidth-thin);
-  border-style: solid;
-  /* stylelint-disable-next-line primer/colors */
-  border-color: var(--controlKnob-borderColor-rest, var(--color-switch-knob-border, #858f99));
-  /* Use calc to account for 1px border around the control */
-  /* stylelint-disable-next-line primer/borders */
-  border-radius: calc(var(--borderRadius-medium) - var(--borderWidth-thin));
-  width: 50%;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  transition-property: transform;
-  transition-duration: var(--toggleSwitch-transition-duration);
-  transition-timing-function: var(--toggleSwitch-transition-easing);
-  z-index: 1;
-
-  @media (prefers-reduced-motion) {
-    transition: none;
+  .LineIconContainer:where([data-checked='true']) {
+    transform: translateX(0);
   }
-}
 
-.ToggleKnob:where([data-checked='false']) {
-  transform: translateX(0);
-}
+  .LineIconContainer:where([data-checked='false']) {
+    transform: translateX(-100%);
+  }
 
-.ToggleKnob:where([data-checked='true']) {
-  transform: translateX(100%);
-  /* stylelint-disable-next-line primer/colors */
-  border-color: var(--controlKnob-borderColor-checked, var(--color-switch-knob-checked-border, #0969da));
-}
+  .CircleIconContainer {
+    /* stylelint-disable-next-line primer/colors */
+    color: var(--controlTrack-fgColor-rest, var(--color-switch-track-fg, #656d76));
+  }
 
-.ToggleKnob:where([data-disabled='true']) {
-  background-color: var(--controlKnob-bgColor-disabled);
-  /* stylelint-disable-next-line primer/colors */
-  border-color: var(--controlTrack-bgColor-disabled, var(--color-switch-track-disabled-bg, #8c959f));
+  .CircleIconContainer:where([data-disabled='true']) {
+    /* stylelint-disable-next-line primer/colors */
+    color: var(--controlTrack-fgColor-disabled, var(--color-switch-track-disabled-fg, #fff));
+  }
 
-  @media (forced-colors: active) {
-    color: GrayText;
+  .CircleIconContainer:where([data-checked='true']) {
+    transform: translateX(100%);
+  }
+
+  .CircleIconContainer:where([data-checked='false']) {
+    transform: translateX(0);
+  }
+
+  .ToggleKnob {
+    /* stylelint-disable-next-line primer/colors */
+    background-color: var(--controlKnob-bgColor-rest, var(--color-switch-knob-bg, #fff));
+    border-width: var(--borderWidth-thin);
+    border-style: solid;
+    /* stylelint-disable-next-line primer/colors */
+    border-color: var(--controlKnob-borderColor-rest, var(--color-switch-knob-border, #858f99));
+    /* Use calc to account for 1px border around the control */
+    /* stylelint-disable-next-line primer/borders */
+    border-radius: calc(var(--borderRadius-medium) - var(--borderWidth-thin));
+    width: 50%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    transition-property: transform;
+    transition-duration: var(--toggleSwitch-transition-duration);
+    transition-timing-function: var(--toggleSwitch-transition-easing);
+    z-index: 1;
+
+    @media (prefers-reduced-motion) {
+      transition: none;
+    }
+  }
+
+  .ToggleKnob:where([data-checked='false']) {
+    transform: translateX(0);
+  }
+
+  .ToggleKnob:where([data-checked='true']) {
+    transform: translateX(100%);
+    /* stylelint-disable-next-line primer/colors */
+    border-color: var(--controlKnob-borderColor-checked, var(--color-switch-knob-checked-border, #0969da));
+  }
+
+  .ToggleKnob:where([data-disabled='true']) {
+    background-color: var(--controlKnob-bgColor-disabled);
+    /* stylelint-disable-next-line primer/colors */
+    border-color: var(--controlTrack-bgColor-disabled, var(--color-switch-track-disabled-bg, #8c959f));
+
+    @media (forced-colors: active) {
+      color: GrayText;
+    }
   }
 }

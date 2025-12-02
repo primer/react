@@ -1,86 +1,90 @@
 /* stylelint-disable selector-max-specificity */
 /* stylelint-disable selector-type-no-unknown */
 
-/* -------------------------------- 
- *           Global Styles         
- *--------------------------------- */
-* {
-  box-sizing: border-box;
-}
+@layer primer.react.reset {
+  /* -------------------------------- 
+   *           Global Styles         
+   *--------------------------------- */
+  * {
+    box-sizing: border-box;
+  }
 
-body {
-  margin: 0;
-}
+  body {
+    margin: 0;
+  }
 
-table {
-  /* stylelint-disable-next-line primer/borders */
-  border-collapse: collapse;
-}
+  table {
+    /* stylelint-disable-next-line primer/borders */
+    border-collapse: collapse;
+  }
 
-[data-color-mode='light'] input {
-  color-scheme: light;
-}
-
-[data-color-mode='dark'] input {
-  color-scheme: dark;
-}
-
-@media (prefers-color-scheme: light) {
-  [data-color-mode='auto'][data-light-theme*='light'] {
+  [data-color-mode='light'] input {
     color-scheme: light;
   }
-}
 
-@media (prefers-color-scheme: dark) {
-  [data-color-mode='auto'][data-dark-theme*='dark'] {
+  [data-color-mode='dark'] input {
     color-scheme: dark;
   }
-}
 
-[role='button']:focus:not(:focus-visible):not(:global(.focus-visible)),
-[role='tabpanel'][tabindex='0']:focus:not(:focus-visible):not(:global(.focus-visible)),
-button:focus:not(:focus-visible):not(:global(.focus-visible)),
-summary:focus:not(:focus-visible):not(:global(.focus-visible)),
-a:focus:not(:focus-visible):not(:global(.focus-visible)) {
-  outline: none;
-  box-shadow: none;
-}
-
-[tabindex='0']:focus:not(:focus-visible):not(:global(.focus-visible)),
-details-dialog:focus:not(:focus-visible):not(:global(.focus-visible)) {
-  outline: none;
-}
-
-/* -------------------------------------------------------------------------- */
-
-.BaseStyles {
-  font-family: var(--BaseStyles-fontFamily, var(--fontStack-system));
-  /* stylelint-disable-next-line primer/typography */
-  line-height: var(--BaseStyles-lineHeight, 1.5);
-  /* stylelint-disable-next-line primer/colors */
-  color: var(--BaseStyles-fgColor, var(--fgColor-default));
-
-  /* Global styles for light mode */
-  &:has([data-color-mode='light']) {
-    input & {
+  @media (prefers-color-scheme: light) {
+    [data-color-mode='auto'][data-light-theme*='light'] {
       color-scheme: light;
     }
   }
 
-  /* Global styles for dark mode */
-  &:has([data-color-mode='dark']) {
-    input & {
+  @media (prefers-color-scheme: dark) {
+    [data-color-mode='auto'][data-dark-theme*='dark'] {
       color-scheme: dark;
     }
   }
 
-  /* Low-specificity default link styling */
-  :where(a:not([class*='prc-']):not([class*='PRC-']):not([class*='Primer_Brand__'])) {
-    color: var(--fgColor-accent, var(--color-accent-fg));
-    text-decoration: none;
+  [role='button']:focus:not(:focus-visible):not(:global(.focus-visible)),
+  [role='tabpanel'][tabindex='0']:focus:not(:focus-visible):not(:global(.focus-visible)),
+  button:focus:not(:focus-visible):not(:global(.focus-visible)),
+  summary:focus:not(:focus-visible):not(:global(.focus-visible)),
+  a:focus:not(:focus-visible):not(:global(.focus-visible)) {
+    outline: none;
+    box-shadow: none;
+  }
 
-    &:hover {
-      text-decoration: underline;
+  [tabindex='0']:focus:not(:focus-visible):not(:global(.focus-visible)),
+  details-dialog:focus:not(:focus-visible):not(:global(.focus-visible)) {
+    outline: none;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+
+@layer primer.react.base {
+  .BaseStyles {
+    font-family: var(--BaseStyles-fontFamily, var(--fontStack-system));
+    /* stylelint-disable-next-line primer/typography */
+    line-height: var(--BaseStyles-lineHeight, 1.5);
+    /* stylelint-disable-next-line primer/colors */
+    color: var(--BaseStyles-fgColor, var(--fgColor-default));
+
+    /* Global styles for light mode */
+    &:has([data-color-mode='light']) {
+      input & {
+        color-scheme: light;
+      }
+    }
+
+    /* Global styles for dark mode */
+    &:has([data-color-mode='dark']) {
+      input & {
+        color-scheme: dark;
+      }
+    }
+
+    /* Low-specificity default link styling */
+    :where(a:not([class*='prc-']):not([class*='PRC-']):not([class*='Primer_Brand__'])) {
+      color: var(--fgColor-accent, var(--color-accent-fg));
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 }

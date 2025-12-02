@@ -1,7 +1,9 @@
-.StoryWrapper {
-  display: grid;
-  grid-template-columns: max-content auto;
-  max-width: 20rem;
-  align-items: center;
-  justify-content: space-between;
+@layer primer.react.components.ToggleSwitch {
+  .StoryWrapper {
+    display: grid;
+    grid-template-columns: max-content auto;
+    max-width: 20rem;
+    align-items: center;
+    justify-content: space-between;
+  }
 }

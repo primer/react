@@ -1,62 +1,64 @@
-.TextInputWrapper {
-  padding-top: var(--base-size-6);
-  padding-bottom: var(--base-size-6);
-  padding-left: var(--base-size-12);
+@layer primer.react.components.TextInputWithTokens {
+  .TextInputWrapper {
+    padding-top: var(--base-size-6);
+    padding-bottom: var(--base-size-6);
+    padding-left: var(--base-size-12);
 
-  &:where([data-block]) {
+    &:where([data-block]) {
+      display: flex;
+      width: 100%;
+    }
+
+    &:where([data-token-wrapping='true']) {
+      overflow: auto;
+    }
+  }
+
+  .UnstyledTextInput {
+    height: 100%;
+  }
+
+  .InputWrapper {
+    order: 1;
+    flex-grow: 1;
+  }
+
+  .Container {
     display: flex;
-    width: 100%;
+    margin-bottom: calc(var(--base-size-4) * -1);
+    margin-left: calc(var(--base-size-4) * -1);
+    align-items: center;
+    flex-wrap: wrap;
+    flex-grow: 1;
+
+    &:where([data-prevent-token-wrapping='true']) {
+      flex-wrap: nowrap;
+    }
+
+    > * {
+      margin-bottom: var(--base-size-4);
+      margin-left: var(--base-size-4);
+      flex-shrink: 0;
+    }
   }
 
-  &:where([data-token-wrapping='true']) {
-    overflow: auto;
-  }
-}
-
-.UnstyledTextInput {
-  height: 100%;
-}
-
-.InputWrapper {
-  order: 1;
-  flex-grow: 1;
-}
-
-.Container {
-  display: flex;
-  margin-bottom: calc(var(--base-size-4) * -1);
-  margin-left: calc(var(--base-size-4) * -1);
-  align-items: center;
-  flex-wrap: wrap;
-  flex-grow: 1;
-
-  &:where([data-prevent-token-wrapping='true']) {
-    flex-wrap: nowrap;
+  .OverflowCountSmall {
+    color: var(--fgColor-muted);
+    font-size: var(--text-body-size-small);
   }
 
-  > * {
-    margin-bottom: var(--base-size-4);
-    margin-left: var(--base-size-4);
-    flex-shrink: 0;
+  .OverflowCountMedium {
+    color: var(--fgColor-muted);
+    font-size: var(--text-body-size-medium);
   }
-}
 
-.OverflowCountSmall {
-  color: var(--fgColor-muted);
-  font-size: var(--text-body-size-small);
-}
+  .OverflowCountLarge {
+    color: var(--fgColor-muted);
+    font-size: var(--text-body-size-medium);
+  }
 
-.OverflowCountMedium {
-  color: var(--fgColor-muted);
-  font-size: var(--text-body-size-medium);
-}
-
-.OverflowCountLarge {
-  color: var(--fgColor-muted);
-  font-size: var(--text-body-size-medium);
-}
-
-.OverflowCountXLarge {
-  color: var(--fgColor-muted);
-  font-size: var(--text-body-size-large);
+  .OverflowCountXLarge {
+    color: var(--fgColor-muted);
+    font-size: var(--text-body-size-large);
+  }
 }

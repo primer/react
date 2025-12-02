@@ -1,24 +1,26 @@
-.Spinner {
-  position: absolute;
-  top: 0;
-  right: 0;
-  max-width: 100%;
-  height: 100%;
-}
+@layer primer.react.components.internal {
+  .Spinner {
+    position: absolute;
+    top: 0;
+    right: 0;
+    max-width: 100%;
+    height: 100%;
+  }
 
-.SpinnerLeading {
-  left: 0;
-}
+  .SpinnerLeading {
+    left: 0;
+  }
 
-.SpinnerHidden {
-  visibility: hidden;
-}
+  .SpinnerHidden {
+    visibility: hidden;
+  }
 
-.SpinnerVisible {
-  visibility: visible;
-}
+  .SpinnerVisible {
+    visibility: visible;
+  }
 
-.Box {
-  position: relative;
-  display: flex;
+  .Box {
+    position: relative;
+    display: flex;
+  }
 }

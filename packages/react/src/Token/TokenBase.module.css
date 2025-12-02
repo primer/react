@@ -1,54 +1,56 @@
-.TokenBase {
-  position: relative;
-  display: inline-flex;
-  font-family: inherit;
-  font-weight: var(--base-text-weight-semibold);
-  text-decoration: none;
-  white-space: nowrap;
-  border-radius: var(--borderRadius-full);
-  align-items: center;
-  /* stylelint-disable-next-line primer/typography */
-  line-height: 1;
-}
+@layer primer.react.components.Token {
+  .TokenBase {
+    position: relative;
+    display: inline-flex;
+    font-family: inherit;
+    font-weight: var(--base-text-weight-semibold);
+    text-decoration: none;
+    white-space: nowrap;
+    border-radius: var(--borderRadius-full);
+    align-items: center;
+    /* stylelint-disable-next-line primer/typography */
+    line-height: 1;
+  }
 
-.TokenBase:where([data-cursor-is-interactive='true']) {
-  cursor: pointer;
-}
+  .TokenBase:where([data-cursor-is-interactive='true']) {
+    cursor: pointer;
+  }
 
-.TokenBase:where([data-cursor-is-interactive='false']) {
-  cursor: auto;
-}
+  .TokenBase:where([data-cursor-is-interactive='false']) {
+    cursor: auto;
+  }
 
-.TokenBase:where([data-size='small']) {
-  width: auto;
-  height: var(--base-size-16);
-  padding-right: var(--base-size-4);
-  padding-left: var(--base-size-4);
-  font-size: var(--text-body-size-small);
-}
+  .TokenBase:where([data-size='small']) {
+    width: auto;
+    height: var(--base-size-16);
+    padding-right: var(--base-size-4);
+    padding-left: var(--base-size-4);
+    font-size: var(--text-body-size-small);
+  }
 
-.TokenBase:where([data-size='medium']) {
-  width: auto;
-  height: var(--base-size-20);
-  padding-right: var(--base-size-6);
-  padding-left: var(--base-size-6);
-  font-size: var(--text-body-size-small);
-}
+  .TokenBase:where([data-size='medium']) {
+    width: auto;
+    height: var(--base-size-20);
+    padding-right: var(--base-size-6);
+    padding-left: var(--base-size-6);
+    font-size: var(--text-body-size-small);
+  }
 
-.TokenBase[data-size='large'] {
-  width: auto;
-  height: var(--base-size-24);
-  padding-right: var(--base-size-8);
-  padding-left: var(--base-size-8);
-  font-size: var(--text-body-size-medium);
-}
+  .TokenBase[data-size='large'] {
+    width: auto;
+    height: var(--base-size-24);
+    padding-right: var(--base-size-8);
+    padding-left: var(--base-size-8);
+    font-size: var(--text-body-size-medium);
+  }
 
-.TokenBase[data-size='xlarge'] {
-  width: auto;
-  height: var(--base-size-32);
-  padding-top: 0;
-  padding-right: var(--base-size-12);
-  padding-bottom: 0;
-  padding-left: var(--base-size-12);
-  font-size: var(--text-body-size-medium);
+  .TokenBase[data-size='xlarge'] {
+    width: auto;
+    height: var(--base-size-32);
+    padding-top: 0;
+    padding-right: var(--base-size-12);
+    padding-bottom: 0;
+    padding-left: var(--base-size-12);
+    font-size: var(--text-body-size-medium);
+  }
 }

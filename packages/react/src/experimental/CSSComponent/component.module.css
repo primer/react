@@ -1,8 +1,10 @@
-.Component {
-  width: fit-content;
-  /* stylelint-disable-next-line primer/spacing */
-  padding: var(--control-xsmall-paddingBlock) var(--control-xsmall-paddingInline-normal);
-  color: var(--fgColor-muted);
-  background-color: var(--bgColor-default);
-  border: var(--borderWidth-thin) solid var(--borderColor-default);
+@layer primer.react.components.CSSComponent {
+  .Component {
+    width: fit-content;
+    /* stylelint-disable-next-line primer/spacing */
+    padding: var(--control-xsmall-paddingBlock) var(--control-xsmall-paddingInline-normal);
+    color: var(--fgColor-muted);
+    background-color: var(--bgColor-default);
+    border: var(--borderWidth-thin) solid var(--borderColor-default);
+  }
 }

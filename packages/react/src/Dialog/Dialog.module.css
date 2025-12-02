@@ -1,320 +1,322 @@
-/* The --prc-dialog-scrollgutter property is used only on the body element to
- * simulate scrollbar-gutter:stable. This property is not and should not
- * be used elsewhere in the DOM. There is a performance penalty to
- * setting inherited properties which can cause a large style recalc to
- * occur, so it benefits us to prevent inheritance for this property.
- * See https://web.dev/blog/at-property-performance
- */
-@property --prc-dialog-scrollgutter {
-  initial-value: 0;
-  inherits: false;
-  syntax: '<length>';
-}
-
-@keyframes dialog-backdrop-appear {
-  0% {
-    opacity: 0;
+@layer primer.react.components.Dialog {
+  /* The --prc-dialog-scrollgutter property is used only on the body element to
+   * simulate scrollbar-gutter:stable. This property is not and should not
+   * be used elsewhere in the DOM. There is a performance penalty to
+   * setting inherited properties which can cause a large style recalc to
+   * occur, so it benefits us to prevent inheritance for this property.
+   * See https://web.dev/blog/at-property-performance
+   */
+  @property --prc-dialog-scrollgutter {
+    initial-value: 0;
+    inherits: false;
+    syntax: '<length>';
   }
 
-  100% {
-    opacity: 1;
+  @keyframes dialog-backdrop-appear {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
   }
-}
 
-@keyframes Overlay--motion-scaleFade {
-  0% {
-    opacity: 0;
-    transform: scale(0.5);
+  @keyframes Overlay--motion-scaleFade {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 
-  100% {
-    opacity: 1;
-    transform: scale(1);
+  @keyframes Overlay--motion-slideUp {
+    from {
+      transform: translateY(100%);
+    }
   }
-}
 
-@keyframes Overlay--motion-slideUp {
-  from {
-    transform: translateY(100%);
+  @keyframes Overlay--motion-slideInRight {
+    from {
+      transform: translateX(-100%);
+    }
   }
-}
 
-@keyframes Overlay--motion-slideInRight {
-  from {
-    transform: translateX(-100%);
+  @keyframes Overlay--motion-slideInLeft {
+    from {
+      transform: translateX(100%);
+    }
   }
-}
 
-@keyframes Overlay--motion-slideInLeft {
-  from {
-    transform: translateX(100%);
+  /* Used to determine whether there should be a border between the body and footer */
+  @keyframes detect-scroll {
+    from,
+    to {
+      --can-scroll: 1;
+    }
   }
-}
 
-/* Used to determine whether there should be a border between the body and footer */
-@keyframes detect-scroll {
-  from,
-  to {
-    --can-scroll: 1;
-  }
-}
-
-.Backdrop {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  background-color: var(--overlay-backdrop-bgColor);
-  animation: dialog-backdrop-appear 200ms cubic-bezier(0.33, 1, 0.68, 1);
-  align-items: center;
-  justify-content: center;
-
-  &[data-position-regular='center'] {
+  .Backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    background-color: var(--overlay-backdrop-bgColor);
+    animation: dialog-backdrop-appear 200ms cubic-bezier(0.33, 1, 0.68, 1);
     align-items: center;
     justify-content: center;
-  }
 
-  &[data-position-regular='left'] {
-    align-items: center;
-    justify-content: flex-start;
-  }
-
-  &[data-position-regular='right'] {
-    align-items: center;
-    justify-content: flex-end;
-  }
-
-  @media (max-width: 767px) {
-    &[data-position-narrow='center'] {
+    &[data-position-regular='center'] {
       align-items: center;
       justify-content: center;
     }
 
-    &[data-position-narrow='bottom'] {
-      align-items: end;
-      justify-content: center;
+    &[data-position-regular='left'] {
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    &[data-position-regular='right'] {
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    @media (max-width: 767px) {
+      &[data-position-narrow='center'] {
+        align-items: center;
+        justify-content: center;
+      }
+
+      &[data-position-narrow='bottom'] {
+        align-items: end;
+        justify-content: center;
+      }
     }
   }
-}
 
-.Dialog {
-  display: flex;
-  /* stylelint-disable-next-line primer/responsive-widths */
-  width: 640px;
-  min-width: 296px;
-  max-width: calc(100dvw - 64px);
-  height: auto;
-  max-height: calc(100dvh - 64px);
-  flex-direction: column;
-  background-color: var(--overlay-bgColor);
-  border-radius: var(--borderRadius-large);
-  border-radius: var(--borderRadius-large, var(--borderRadius-large));
-  box-shadow: var(--shadow-floating-small);
-  opacity: 1;
-
-  &:where([data-width='small']) {
-    width: 296px;
-  }
-
-  &:where([data-width='medium']) {
-    width: 320px;
-  }
-
-  &:where([data-width='large']) {
+  .Dialog {
+    display: flex;
     /* stylelint-disable-next-line primer/responsive-widths */
-    width: 480px;
-  }
-
-  &:where([data-height='small']) {
-    height: 480px;
-  }
-
-  &:where([data-height='large']) {
-    height: 640px;
-  }
-
-  @media screen and (prefers-reduced-motion: no-preference) {
-    animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 1ms 1 normal none running;
-  }
-
-  &[data-position-regular='center'] {
+    width: 640px;
+    min-width: 296px;
+    max-width: calc(100dvw - 64px);
+    height: auto;
+    max-height: calc(100dvh - 64px);
+    flex-direction: column;
+    background-color: var(--overlay-bgColor);
+    border-radius: var(--borderRadius-large);
     border-radius: var(--borderRadius-large, var(--borderRadius-large));
+    box-shadow: var(--shadow-floating-small);
+    opacity: 1;
+
+    &:where([data-width='small']) {
+      width: 296px;
+    }
+
+    &:where([data-width='medium']) {
+      width: 320px;
+    }
+
+    &:where([data-width='large']) {
+      /* stylelint-disable-next-line primer/responsive-widths */
+      width: 480px;
+    }
+
+    &:where([data-height='small']) {
+      height: 480px;
+    }
+
+    &:where([data-height='large']) {
+      height: 640px;
+    }
 
     @media screen and (prefers-reduced-motion: no-preference) {
       animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 1ms 1 normal none running;
     }
-  }
 
-  &[data-position-regular='left'] {
-    height: 100dvh;
-    max-height: unset;
-    border-radius: var(--borderRadius-large, var(--borderRadius-large));
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-
-    @media screen and (prefers-reduced-motion: no-preference) {
-      animation: Overlay--motion-slideInRight 0.25s cubic-bezier(0.33, 1, 0.68, 1) 1ms 1 normal none running;
-    }
-  }
-
-  &[data-position-regular='right'] {
-    height: 100dvh;
-    max-height: unset;
-    border-radius: var(--borderRadius-large, var(--borderRadius-large));
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-
-    @media screen and (prefers-reduced-motion: no-preference) {
-      animation: Overlay--motion-slideInLeft 0.25s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
-    }
-  }
-
-  @media (max-width: 767px) {
-    &[data-position-narrow='center'] {
-      /* stylelint-disable-next-line primer/responsive-widths */
-      width: 640px;
-      height: auto;
+    &[data-position-regular='center'] {
       border-radius: var(--borderRadius-large, var(--borderRadius-large));
-
-      &:where([data-width='small']) {
-        width: 296px;
-      }
-
-      &:where([data-width='medium']) {
-        width: 320px;
-      }
-
-      &:where([data-width='large']) {
-        /* stylelint-disable-next-line primer/responsive-widths */
-        width: 480px;
-      }
-
-      &:where([data-height='small']) {
-        height: 480px;
-      }
-
-      &:where([data-height='large']) {
-        height: 640px;
-      }
-    }
-
-    &[data-position-narrow='bottom'] {
-      width: 100dvw;
-      max-width: 100dvw;
-      height: auto;
-      max-height: calc(100dvh - 64px);
-      border-radius: var(--borderRadius-large, var(--borderRadius-large));
-      border-bottom-right-radius: 0;
-      border-bottom-left-radius: 0;
-
-      @media screen and (prefers-reduced-motion: no-preference) {
-        animation: Overlay--motion-slideUp 0.25s cubic-bezier(0.33, 1, 0.68, 1) 1ms 1 normal none running;
-      }
-    }
-
-    &[data-position-narrow='fullscreen'] {
-      width: 100%;
-      max-width: 100dvw;
-      height: 100%;
-      max-height: 100dvh;
-      border-radius: unset !important;
-      flex-grow: 1;
 
       @media screen and (prefers-reduced-motion: no-preference) {
         animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 1ms 1 normal none running;
       }
     }
+
+    &[data-position-regular='left'] {
+      height: 100dvh;
+      max-height: unset;
+      border-radius: var(--borderRadius-large, var(--borderRadius-large));
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+
+      @media screen and (prefers-reduced-motion: no-preference) {
+        animation: Overlay--motion-slideInRight 0.25s cubic-bezier(0.33, 1, 0.68, 1) 1ms 1 normal none running;
+      }
+    }
+
+    &[data-position-regular='right'] {
+      height: 100dvh;
+      max-height: unset;
+      border-radius: var(--borderRadius-large, var(--borderRadius-large));
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+
+      @media screen and (prefers-reduced-motion: no-preference) {
+        animation: Overlay--motion-slideInLeft 0.25s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+      }
+    }
+
+    @media (max-width: 767px) {
+      &[data-position-narrow='center'] {
+        /* stylelint-disable-next-line primer/responsive-widths */
+        width: 640px;
+        height: auto;
+        border-radius: var(--borderRadius-large, var(--borderRadius-large));
+
+        &:where([data-width='small']) {
+          width: 296px;
+        }
+
+        &:where([data-width='medium']) {
+          width: 320px;
+        }
+
+        &:where([data-width='large']) {
+          /* stylelint-disable-next-line primer/responsive-widths */
+          width: 480px;
+        }
+
+        &:where([data-height='small']) {
+          height: 480px;
+        }
+
+        &:where([data-height='large']) {
+          height: 640px;
+        }
+      }
+
+      &[data-position-narrow='bottom'] {
+        width: 100dvw;
+        max-width: 100dvw;
+        height: auto;
+        max-height: calc(100dvh - 64px);
+        border-radius: var(--borderRadius-large, var(--borderRadius-large));
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+
+        @media screen and (prefers-reduced-motion: no-preference) {
+          animation: Overlay--motion-slideUp 0.25s cubic-bezier(0.33, 1, 0.68, 1) 1ms 1 normal none running;
+        }
+      }
+
+      &[data-position-narrow='fullscreen'] {
+        width: 100%;
+        max-width: 100dvw;
+        height: 100%;
+        max-height: 100dvh;
+        border-radius: unset !important;
+        flex-grow: 1;
+
+        @media screen and (prefers-reduced-motion: no-preference) {
+          animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 1ms 1 normal none running;
+        }
+      }
+    }
   }
-}
 
-body:has(.Dialog.DisableScroll) {
-  /* stylelint-disable-next-line primer/spacing */
-  padding-right: var(--prc-dialog-scrollgutter) !important;
-  overflow: hidden !important;
-}
+  body:has(.Dialog.DisableScroll) {
+    /* stylelint-disable-next-line primer/spacing */
+    padding-right: var(--prc-dialog-scrollgutter) !important;
+    overflow: hidden !important;
+  }
 
-.DialogOverflowWrapper {
-  flex-grow: 1;
-}
+  .DialogOverflowWrapper {
+    flex-grow: 1;
+  }
 
-/*
+  /*
 Add a border between the body and footer if:
 - the dialog has a footer
 - the dialog has a body that can scroll
 - the browser supports the `animation-timeline` property and its `scroll()` function
 */
-.Dialog:has(.Footer) {
-  --can-scroll: 0;
+  .Dialog:has(.Footer) {
+    --can-scroll: 0;
 
-  .DialogOverflowWrapper {
-    /* If the browser does not support the `animation-timeline` property, always show a border */
-    border-bottom: var(--borderWidth-default) solid var(--borderColor-default);
-    animation: detect-scroll;
-    animation-timeline: scroll(self);
+    .DialogOverflowWrapper {
+      /* If the browser does not support the `animation-timeline` property, always show a border */
+      border-bottom: var(--borderWidth-default) solid var(--borderColor-default);
+      animation: detect-scroll;
+      animation-timeline: scroll(self);
 
-    @supports (animation-timeline: scroll(self)) {
-      border-bottom: calc(var(--borderWidth-thin) * var(--can-scroll)) solid var(--borderColor-default);
+      @supports (animation-timeline: scroll(self)) {
+        border-bottom: calc(var(--borderWidth-thin) * var(--can-scroll)) solid var(--borderColor-default);
+      }
     }
   }
-}
 
-.Header {
-  z-index: 1;
-  max-height: 35vh;
-  padding: var(--base-size-8);
-  overflow-y: auto;
-  /* stylelint-disable-next-line primer/box-shadow */
-  box-shadow: 0 1px 0 var(--borderColor-default);
-  flex-shrink: 0;
-}
+  .Header {
+    z-index: 1;
+    max-height: 35vh;
+    padding: var(--base-size-8);
+    overflow-y: auto;
+    /* stylelint-disable-next-line primer/box-shadow */
+    box-shadow: 0 1px 0 var(--borderColor-default);
+    flex-shrink: 0;
+  }
 
-.HeaderInner {
-  display: flex;
-}
+  .HeaderInner {
+    display: flex;
+  }
 
-.HeaderContent {
-  display: flex;
-  padding-inline: var(--base-size-8);
-  padding-block: var(--base-size-6);
-  flex-direction: column;
-  flex-grow: 1;
-}
+  .HeaderContent {
+    display: flex;
+    padding-inline: var(--base-size-8);
+    padding-block: var(--base-size-6);
+    flex-direction: column;
+    flex-grow: 1;
+  }
 
-.Title {
-  margin: 0; /* override default margin */
-  font-size: var(--text-body-size-medium);
-  font-weight: var(--text-title-weight-large);
-}
+  .Title {
+    margin: 0; /* override default margin */
+    font-size: var(--text-body-size-medium);
+    font-weight: var(--text-title-weight-large);
+  }
 
-.Subtitle {
-  margin: 0; /* override default margin */
-  margin-top: var(--base-size-4);
-  font-size: var(--text-body-size-small);
-  font-weight: var(--base-text-weight-normal);
-  color: var(--fgColor-muted);
-}
+  .Subtitle {
+    margin: 0; /* override default margin */
+    margin-top: var(--base-size-4);
+    font-size: var(--text-body-size-small);
+    font-weight: var(--base-text-weight-normal);
+    color: var(--fgColor-muted);
+  }
 
-.Body {
-  padding: var(--base-size-16);
-  overflow: auto;
-  flex-grow: 1;
-}
+  .Body {
+    padding: var(--base-size-16);
+    overflow: auto;
+    flex-grow: 1;
+  }
 
-.Footer {
-  z-index: 1;
-  display: flex;
-  flex-flow: wrap;
-  justify-content: flex-end;
-  padding: var(--base-size-16);
-  gap: var(--base-size-8);
-  flex-shrink: 0;
+  .Footer {
+    z-index: 1;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: flex-end;
+    padding: var(--base-size-16);
+    gap: var(--base-size-8);
+    flex-shrink: 0;
 
-  @media (max-height: 325px) {
-    flex-wrap: nowrap;
-    overflow-x: scroll;
-    flex-direction: row;
-    justify-content: unset;
+    @media (max-height: 325px) {
+      flex-wrap: nowrap;
+      overflow-x: scroll;
+      flex-direction: row;
+      justify-content: unset;
+    }
   }
 }

@@ -1,42 +1,44 @@
-.InlineMessage {
-  display: grid;
-  /* stylelint-disable-next-line primer/typography */
-  font-size: var(--inline-message-fontSize);
-  /* stylelint-disable-next-line primer/typography */
-  line-height: var(--inline-message-lineHeight);
-  /* stylelint-disable-next-line primer/colors */
-  color: var(--inline-message-fgColor);
-  column-gap: 0.5rem;
-  grid-template-columns: auto 1fr;
-  align-items: start;
+@layer primer.react.components.InlineMessage {
+  .InlineMessage {
+    display: grid;
+    /* stylelint-disable-next-line primer/typography */
+    font-size: var(--inline-message-fontSize);
+    /* stylelint-disable-next-line primer/typography */
+    line-height: var(--inline-message-lineHeight);
+    /* stylelint-disable-next-line primer/colors */
+    color: var(--inline-message-fgColor);
+    column-gap: 0.5rem;
+    grid-template-columns: auto 1fr;
+    align-items: start;
 
-  &[data-size='small'] {
-    --inline-message-fontSize: var(--text-body-size-small);
-    --inline-message-lineHeight: var(--text-body-lineHeight-small, 1.6666);
+    &[data-size='small'] {
+      --inline-message-fontSize: var(--text-body-size-small);
+      --inline-message-lineHeight: var(--text-body-lineHeight-small, 1.6666);
+    }
+
+    &[data-size='medium'] {
+      --inline-message-fontSize: var(--text-body-size-medium);
+      --inline-message-lineHeight: var(--text-body-lineHeight-medium, 1.4285);
+    }
+
+    &[data-variant='warning'] {
+      --inline-message-fgColor: var(--fgColor-attention);
+    }
+
+    &[data-variant='critical'] {
+      --inline-message-fgColor: var(--fgColor-danger);
+    }
+
+    &[data-variant='success'] {
+      --inline-message-fgColor: var(--fgColor-success);
+    }
+
+    &[data-variant='unavailable'] {
+      --inline-message-fgColor: var(--fgColor-muted);
+    }
   }
 
-  &[data-size='medium'] {
-    --inline-message-fontSize: var(--text-body-size-medium);
-    --inline-message-lineHeight: var(--text-body-lineHeight-medium, 1.4285);
+  .InlineMessageIcon {
+    min-height: calc(var(--inline-message-lineHeight) * var(--inline-message-fontSize));
   }
-
-  &[data-variant='warning'] {
-    --inline-message-fgColor: var(--fgColor-attention);
-  }
-
-  &[data-variant='critical'] {
-    --inline-message-fgColor: var(--fgColor-danger);
-  }
-
-  &[data-variant='success'] {
-    --inline-message-fgColor: var(--fgColor-success);
-  }
-
-  &[data-variant='unavailable'] {
-    --inline-message-fgColor: var(--fgColor-muted);
-  }
-}
-
-.InlineMessageIcon {
-  min-height: calc(var(--inline-message-lineHeight) * var(--inline-message-fontSize));
 }

@@ -1,140 +1,142 @@
-.Page {
-  min-width: 32px; /* primer.control.medium.size */
-  height: 32px; /* primer.control.medium.size */
-  padding: var(--base-size-8) calc((var(--base-size-32) - var(--base-size-20)) / 2); /* primer.control.medium.paddingInline.condensed primer.control.medium.paddingBlock */
-  margin-right: var(--base-size-4);
-  font-style: normal;
-  /* stylelint-disable-next-line primer/typography */
-  line-height: 1;
-  color: var(--fgColor-default);
-  text-align: center;
-  text-decoration: none;
-  white-space: nowrap;
-  vertical-align: middle;
-  cursor: pointer;
-  user-select: none;
-  background-color: transparent;
-  border-radius: var(--borderRadius-medium);
-  transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.Page[rel='prev'] > svg,
-.Page[rel='next'] > svg {
-  /* sizing with `em` so icons scale with inherited font-size */
-  height: 1em;
-  width: 1em;
-}
-
-.Page[rel='prev'] > svg {
-  margin-inline-end: var(--base-size-4);
-}
-
-.Page[rel='next'] > svg {
-  margin-inline-start: var(--base-size-4);
-}
-
-.Page:last-child {
-  margin-right: 0;
-}
-
-.Page:hover,
-.Page:focus {
-  text-decoration: none;
-  background-color: var(--control-transparent-bgColor-hover);
-  outline: 0;
-  transition-duration: 0.1s;
-}
-
-.Page:focus-visible {
-  outline: 2px solid var(--bgColor-accent-emphasis);
-  outline-offset: -2px;
-}
-
-.Page:active {
-  border-color: var(--borderColor-muted);
-}
-
-.Page[rel='prev'],
-.Page[rel='next'] {
-  color: var(--fgColor-accent);
-}
-
-.Page[aria-current],
-.Page[aria-current]:hover {
-  color: var(--fgColor-onEmphasis);
-  background-color: var(--bgColor-accent-emphasis);
-  border-color: transparent;
-}
-
-.Page[aria-current]:focus-visible {
-  outline: 2px solid var(--bgColor-accent-emphasis);
-  outline-offset: -2px;
-  /* stylelint-disable-next-line primer/box-shadow */
-  box-shadow: inset 0 0 0 3px var(--fgColor-onEmphasis);
-}
-
-.Page[aria-hidden],
-.Page[aria-hidden]:hover,
-.Page[role='presentation'],
-.Page[role='presentation']:hover {
-  color: var(--fgColor-disabled);
-  cursor: default;
-  background-color: transparent;
-}
-
-.PaginationContainer {
-  /* stylelint-disable-next-line primer/spacing */
-  margin-top: 20px;
-  /* stylelint-disable-next-line primer/spacing */
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-.TablePaginationSteps {
-  display: inline-block;
-}
-
-@media screen and (--viewportRange-narrow) {
-  .TablePaginationSteps[data-hidden-viewport-ranges*='narrow'] > *:not(:first-child):not(:last-child) {
-    display: none;
+@layer primer.react.components.Pagination {
+  .Page {
+    min-width: 32px; /* primer.control.medium.size */
+    height: 32px; /* primer.control.medium.size */
+    padding: var(--base-size-8) calc((var(--base-size-32) - var(--base-size-20)) / 2); /* primer.control.medium.paddingInline.condensed primer.control.medium.paddingBlock */
+    margin-right: var(--base-size-4);
+    font-style: normal;
+    /* stylelint-disable-next-line primer/typography */
+    line-height: 1;
+    color: var(--fgColor-default);
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    background-color: transparent;
+    border-radius: var(--borderRadius-medium);
+    transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .TablePaginationSteps[data-hidden-viewport-ranges*='narrow'] > *:first-child {
-    margin-inline-end: 0;
+  .Page[rel='prev'] > svg,
+  .Page[rel='next'] > svg {
+    /* sizing with `em` so icons scale with inherited font-size */
+    height: 1em;
+    width: 1em;
   }
 
-  .TablePaginationSteps[data-hidden-viewport-ranges*='narrow'] > *:last-child {
-    margin-inline-start: 0;
-  }
-}
-
-@media screen and (--viewportRange-regular) {
-  .TablePaginationSteps[data-hidden-viewport-ranges*='regular'] > *:not(:first-child):not(:last-child) {
-    display: none;
+  .Page[rel='prev'] > svg {
+    margin-inline-end: var(--base-size-4);
   }
 
-  .TablePaginationSteps[data-hidden-viewport-ranges*='regular'] > *:first-child {
-    margin-inline-end: 0;
+  .Page[rel='next'] > svg {
+    margin-inline-start: var(--base-size-4);
   }
 
-  .TablePaginationSteps[data-hidden-viewport-ranges*='regular'] > *:last-child {
-    margin-inline-start: 0;
-  }
-}
-
-@media screen and (--viewportRange-wide) {
-  .TablePaginationSteps[data-hidden-viewport-ranges*='wide'] > *:not(:first-child):not(:last-child) {
-    display: none;
+  .Page:last-child {
+    margin-right: 0;
   }
 
-  .TablePaginationSteps[data-hidden-viewport-ranges*='wide'] > *:first-child {
-    margin-inline-end: 0;
+  .Page:hover,
+  .Page:focus {
+    text-decoration: none;
+    background-color: var(--control-transparent-bgColor-hover);
+    outline: 0;
+    transition-duration: 0.1s;
   }
 
-  .TablePaginationSteps[data-hidden-viewport-ranges*='wide'] > *:last-child {
-    margin-inline-start: 0;
+  .Page:focus-visible {
+    outline: 2px solid var(--bgColor-accent-emphasis);
+    outline-offset: -2px;
+  }
+
+  .Page:active {
+    border-color: var(--borderColor-muted);
+  }
+
+  .Page[rel='prev'],
+  .Page[rel='next'] {
+    color: var(--fgColor-accent);
+  }
+
+  .Page[aria-current],
+  .Page[aria-current]:hover {
+    color: var(--fgColor-onEmphasis);
+    background-color: var(--bgColor-accent-emphasis);
+    border-color: transparent;
+  }
+
+  .Page[aria-current]:focus-visible {
+    outline: 2px solid var(--bgColor-accent-emphasis);
+    outline-offset: -2px;
+    /* stylelint-disable-next-line primer/box-shadow */
+    box-shadow: inset 0 0 0 3px var(--fgColor-onEmphasis);
+  }
+
+  .Page[aria-hidden],
+  .Page[aria-hidden]:hover,
+  .Page[role='presentation'],
+  .Page[role='presentation']:hover {
+    color: var(--fgColor-disabled);
+    cursor: default;
+    background-color: transparent;
+  }
+
+  .PaginationContainer {
+    /* stylelint-disable-next-line primer/spacing */
+    margin-top: 20px;
+    /* stylelint-disable-next-line primer/spacing */
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .TablePaginationSteps {
+    display: inline-block;
+  }
+
+  @media screen and (--viewportRange-narrow) {
+    .TablePaginationSteps[data-hidden-viewport-ranges*='narrow'] > *:not(:first-child):not(:last-child) {
+      display: none;
+    }
+
+    .TablePaginationSteps[data-hidden-viewport-ranges*='narrow'] > *:first-child {
+      margin-inline-end: 0;
+    }
+
+    .TablePaginationSteps[data-hidden-viewport-ranges*='narrow'] > *:last-child {
+      margin-inline-start: 0;
+    }
+  }
+
+  @media screen and (--viewportRange-regular) {
+    .TablePaginationSteps[data-hidden-viewport-ranges*='regular'] > *:not(:first-child):not(:last-child) {
+      display: none;
+    }
+
+    .TablePaginationSteps[data-hidden-viewport-ranges*='regular'] > *:first-child {
+      margin-inline-end: 0;
+    }
+
+    .TablePaginationSteps[data-hidden-viewport-ranges*='regular'] > *:last-child {
+      margin-inline-start: 0;
+    }
+  }
+
+  @media screen and (--viewportRange-wide) {
+    .TablePaginationSteps[data-hidden-viewport-ranges*='wide'] > *:not(:first-child):not(:last-child) {
+      display: none;
+    }
+
+    .TablePaginationSteps[data-hidden-viewport-ranges*='wide'] > *:first-child {
+      margin-inline-end: 0;
+    }
+
+    .TablePaginationSteps[data-hidden-viewport-ranges*='wide'] > *:last-child {
+      margin-inline-start: 0;
+    }
   }
 }

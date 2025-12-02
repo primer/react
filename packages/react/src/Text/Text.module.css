@@ -1,32 +1,34 @@
-.Text {
-  &:where([data-size='small']) {
-    font-size: var(--text-body-size-small);
-    line-height: var(--text-body-lineHeight-small);
-  }
+@layer primer.react.components.Text {
+  .Text {
+    &:where([data-size='small']) {
+      font-size: var(--text-body-size-small);
+      line-height: var(--text-body-lineHeight-small);
+    }
 
-  &:where([data-size='medium']) {
-    font-size: var(--text-body-size-medium);
-    line-height: var(--text-body-lineHeight-medium);
-  }
+    &:where([data-size='medium']) {
+      font-size: var(--text-body-size-medium);
+      line-height: var(--text-body-lineHeight-medium);
+    }
 
-  &:where([data-size='large']) {
-    font-size: var(--text-body-size-large);
-    line-height: var(--text-body-lineHeight-large);
-  }
+    &:where([data-size='large']) {
+      font-size: var(--text-body-size-large);
+      line-height: var(--text-body-lineHeight-large);
+    }
 
-  &:where([data-weight='light']) {
-    font-weight: var(--base-text-weight-light);
-  }
+    &:where([data-weight='light']) {
+      font-weight: var(--base-text-weight-light);
+    }
 
-  &:where([data-weight='normal']) {
-    font-weight: var(--base-text-weight-normal);
-  }
+    &:where([data-weight='normal']) {
+      font-weight: var(--base-text-weight-normal);
+    }
 
-  &:where([data-weight='medium']) {
-    font-weight: var(--base-text-weight-medium);
-  }
+    &:where([data-weight='medium']) {
+      font-weight: var(--base-text-weight-medium);
+    }
 
-  &:where([data-weight='semibold']) {
-    font-weight: var(--base-text-weight-semibold);
+    &:where([data-weight='semibold']) {
+      font-weight: var(--base-text-weight-semibold);
+    }
   }
 }

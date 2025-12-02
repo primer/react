@@ -1,26 +1,28 @@
-.ConfirmationHeader {
-  display: flex;
-  padding: var(--base-size-8);
-  flex-direction: row;
+@layer primer.react.components.ConfirmationDialog {
+  .ConfirmationHeader {
+    display: flex;
+    padding: var(--base-size-8);
+    flex-direction: row;
 
-  > h1 {
-    padding: var(--base-size-6) var(--base-size-8);
+    > h1 {
+      padding: var(--base-size-6) var(--base-size-8);
+      flex-grow: 1;
+    }
+  }
+
+  .ConfirmationBody {
+    padding: 0 var(--base-size-16) var(--base-size-16) var(--base-size-16);
+    font-size: var(--text-body-size-medium);
     flex-grow: 1;
   }
-}
 
-.ConfirmationBody {
-  padding: 0 var(--base-size-16) var(--base-size-16) var(--base-size-16);
-  font-size: var(--text-body-size-medium);
-  flex-grow: 1;
-}
-
-.ConfirmationFooter {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: max-content;
-  grid-gap: var(--base-size-8);
-  align-items: end;
-  justify-content: end;
-  padding: var(--base-size-4) var(--base-size-16) var(--base-size-16);
+  .ConfirmationFooter {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    grid-gap: var(--base-size-8);
+    align-items: end;
+    justify-content: end;
+    padding: var(--base-size-4) var(--base-size-16) var(--base-size-16);
+  }
 }

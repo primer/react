@@ -1,17 +1,19 @@
-.SubNavDev {
-  padding: var(--base-size-4);
-  border: var(--borderWidth-thick) solid var(--borderColor-default);
-}
+@layer primer.react.components.SubNav {
+  .SubNavDev {
+    padding: var(--base-size-4);
+    border: var(--borderWidth-thick) solid var(--borderColor-default);
+  }
 
-.SubNavLinksDev {
-  margin: var(--base-size-8);
-}
+  .SubNavLinksDev {
+    margin: var(--base-size-8);
+  }
 
-.SubNavLinkDev {
-  font-weight: var(--text-title-weight-large);
-  color: var(--fgColor-accent);
+  .SubNavLinkDev {
+    font-weight: var(--text-title-weight-large);
+    color: var(--fgColor-accent);
 
-  &:is([data-selected]) {
-    background-color: var(--bgColor-open-emphasis);
+    &:is([data-selected]) {
+      background-color: var(--bgColor-open-emphasis);
+    }
   }
 }

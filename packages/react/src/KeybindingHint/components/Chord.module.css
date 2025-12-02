@@ -1,48 +1,50 @@
-.Chord {
-  display: inline-flex;
-  border: var(--borderWidth-thin) solid;
-  font-weight: var(--base-text-weight-normal);
-  gap: 0.5ch;
-  box-shadow: none;
-  vertical-align: baseline;
-  overflow: hidden;
-  justify-content: center;
-  border-radius: var(--borderRadius-default);
-  font-size: var(--text-body-size-small);
-  padding: var(--base-size-4);
-  line-height: 10px; /* stylelint-disable-line primer/typography */
-}
+@layer primer.react.components.KeybindingHint {
+  .Chord {
+    display: inline-flex;
+    border: var(--borderWidth-thin) solid;
+    font-weight: var(--base-text-weight-normal);
+    gap: 0.5ch;
+    box-shadow: none;
+    vertical-align: baseline;
+    overflow: hidden;
+    justify-content: center;
+    border-radius: var(--borderRadius-default);
+    font-size: var(--text-body-size-small);
+    padding: var(--base-size-4);
+    line-height: 10px; /* stylelint-disable-line primer/typography */
+  }
 
-.ChordNormal {
-  background: var(--bgColor-transparent);
-  color: var(--fgColor-muted);
-  border-color: var(--borderColor-default);
-}
+  .ChordNormal {
+    background: var(--bgColor-transparent);
+    color: var(--fgColor-muted);
+    border-color: var(--borderColor-default);
+  }
 
-.ChordOnEmphasis {
-  background: var(--counter-bgColor-emphasis);
-  color: var(--fgColor-onEmphasis);
-  border-color: transparent;
-}
+  .ChordOnEmphasis {
+    background: var(--counter-bgColor-emphasis);
+    color: var(--fgColor-onEmphasis);
+    border-color: transparent;
+  }
 
-.ChordOnPrimary {
-  background: var(--button-primary-bgColor-active);
-  color: var(--fgColor-onEmphasis);
-  border-color: transparent;
-}
+  .ChordOnPrimary {
+    background: var(--button-primary-bgColor-active);
+    color: var(--fgColor-onEmphasis);
+    border-color: transparent;
+  }
 
-.ChordSmall {
-  border-radius: var(--borderRadius-small);
-  font-size: 11px; /* stylelint-disable-line primer/typography */
-  padding: var(--base-size-2);
-  line-height: var(--base-size-8); /* stylelint-disable-line primer/typography */
-  min-width: var(--base-size-16);
-}
+  .ChordSmall {
+    border-radius: var(--borderRadius-small);
+    font-size: 11px; /* stylelint-disable-line primer/typography */
+    padding: var(--base-size-2);
+    line-height: var(--base-size-8); /* stylelint-disable-line primer/typography */
+    min-width: var(--base-size-16);
+  }
 
-.ChordNormal:not(.ChordSmall) {
-  border-radius: var(--borderRadius-medium);
-  font-size: var(--text-body-size-small, 0.75rem);
-  padding: var(--base-size-4);
-  line-height: 10px; /* stylelint-disable-line primer/typography */
-  min-width: var(--base-size-20);
+  .ChordNormal:not(.ChordSmall) {
+    border-radius: var(--borderRadius-medium);
+    font-size: var(--text-body-size-small, 0.75rem);
+    padding: var(--base-size-4);
+    line-height: 10px; /* stylelint-disable-line primer/typography */
+    min-width: var(--base-size-20);
+  }
 }

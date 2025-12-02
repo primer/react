@@ -1,48 +1,50 @@
-.Body {
-  display: flex;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  flex-direction: column;
+@layer primer.react.components.internal {
+  .Body {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    flex-direction: column;
 
-  & > * + * {
-    margin-top: var(--base-size-8);
+    & > * + * {
+      margin-top: var(--base-size-8);
+    }
   }
-}
 
-.GroupFieldset {
-  padding: 0;
-  margin: 0;
-  border: none;
+  .GroupFieldset {
+    padding: 0;
+    margin: 0;
+    border: none;
 
-  &:where([data-validation]) {
-    margin-bottom: var(--base-size-8);
+    &:where([data-validation]) {
+      margin-bottom: var(--base-size-8);
+    }
   }
-}
 
-.GroupLegend {
-  padding: 0;
+  .GroupLegend {
+    padding: 0;
 
-  &:where([data-legend-visible]) {
-    margin-bottom: var(--base-size-8);
+    &:where([data-legend-visible]) {
+      margin-bottom: var(--base-size-8);
+    }
   }
-}
 
-.CheckboxOrRadioGroupCaption {
-  font-size: var(--text-body-size-medium);
-  color: var(--fgColor-muted);
-}
-
-.RadioGroupLabel {
-  display: block;
-  font-size: var(--text-body-size-medium);
-  font-weight: var(--base-text-weight-semibold);
-
-  &:where([data-label-disabled]) {
+  .CheckboxOrRadioGroupCaption {
+    font-size: var(--text-body-size-medium);
     color: var(--fgColor-muted);
   }
-}
 
-.GroupLabelChildren {
-  margin-right: var(--base-size-8);
+  .RadioGroupLabel {
+    display: block;
+    font-size: var(--text-body-size-medium);
+    font-weight: var(--base-text-weight-semibold);
+
+    &:where([data-label-disabled]) {
+      color: var(--fgColor-muted);
+    }
+  }
+
+  .GroupLabelChildren {
+    margin-right: var(--base-size-8);
+  }
 }
