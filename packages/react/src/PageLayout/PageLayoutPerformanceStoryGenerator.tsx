@@ -1443,6 +1443,28 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
 })
 
 // ============================================================================
+// Accordion Context - Only one details panel open at a time
+// ============================================================================
+
+/**
+ * Context for accordion behavior - ensures only one metric description
+ * is expanded at a time across the entire monitor panel.
+ */
+interface AccordionContextValue {
+  openId: string | null
+  setOpenId: (id: string | null) => void
+}
+
+const AccordionContext = React.createContext<AccordionContextValue>({
+  openId: null,
+  setOpenId: () => {},
+})
+
+function useAccordion() {
+  return React.useContext(AccordionContext)
+}
+
+// ============================================================================
 // Stateless Performance Monitor View
 // ============================================================================
 
@@ -1659,7 +1681,7 @@ const PeakMemoryDisplay = React.memo(function PeakMemoryDisplay() {
             {mbFormatter.format(peakMemoryMB)}MB
             {memoryUsedMB !== null && peakMemoryMB > memoryUsedMB + 1 && (
               <span style={{color: 'var(--fgColor-attention)', marginLeft: '4px', fontSize: '8px'}}>
-                (+{mbFormatter.format(peakMemoryMB - memoryUsedMB)} from current)
+                (+{mbFormatter.format(peakMemoryMB - memoryUsedMB)})
               </span>
             )}
           </>
@@ -1681,12 +1703,16 @@ const cellBaseStyle: React.CSSProperties = {
   fontSize: '9px',
 }
 
-/** Styles for section-starting cells (with top border) */
+/**
+ * Styles for section-starting cells (with top border).
+ * Uses box-shadow instead of border-top so both dt and dd
+ * show a continuous line at the same visual position.
+ */
 const sectionStartStyle: React.CSSProperties = {
   ...cellBaseStyle,
-  borderTop: '1px solid var(--borderColor-muted)',
-  paddingTop: '3px',
-  marginTop: '2px',
+  boxShadow: 'inset 0 1px 0 0 var(--borderColor-muted)',
+  paddingTop: '5px',
+  marginTop: '3px',
 }
 
 /** Props for MetricLabel component */
@@ -1698,17 +1724,108 @@ interface MetricLabelProps {
 }
 
 /**
+ * Smart tooltip that repositions itself if it would overflow the viewport or widget.
+ * Shows below by default, flips above if needed.
+ * Positioned relative to the parent dl grid to span full width.
+ */
+const MetricTooltip = React.memo(function MetricTooltip({description}: {description: string}) {
+  const tooltipRef = React.useRef<HTMLDivElement>(null)
+  const [positionStyle, setPositionStyle] = React.useState<React.CSSProperties>({})
+
+  React.useLayoutEffect(() => {
+    const tooltip = tooltipRef.current
+    if (!tooltip) return
+
+    // Find the parent dt to calculate vertical position
+    const dt = tooltip.closest('dt')
+    const dl = tooltip.closest('dl')
+    if (!dt || !dl) return
+
+    const dtRect = dt.getBoundingClientRect()
+    const dlRect = dl.getBoundingClientRect()
+    const monitorPanel = tooltip.closest('[data-perf-monitor]')
+    const panelRect = monitorPanel?.getBoundingClientRect()
+
+    // Calculate position relative to dl
+    const topRelativeToDl = dtRect.bottom - dlRect.top
+    const bottomRelativeToDl = dlRect.bottom - dtRect.top
+
+    // Check if tooltip would overflow viewport or panel
+    const viewportBottom = window.innerHeight
+    const panelBottom = panelRect?.bottom ?? viewportBottom
+    const spaceBelow = Math.min(viewportBottom, panelBottom) - dtRect.bottom - 8
+
+    // Estimate tooltip height (roughly 40px for single line)
+    const estimatedHeight = 40
+
+    if (spaceBelow < estimatedHeight) {
+      // Show above
+      setPositionStyle({
+        bottom: bottomRelativeToDl + 2,
+        left: 0,
+        right: 0,
+      })
+    } else {
+      // Show below
+      setPositionStyle({
+        top: topRelativeToDl + 2,
+        left: 0,
+        right: 0,
+      })
+    }
+  }, [description])
+
+  return (
+    <div
+      ref={tooltipRef}
+      style={{
+        position: 'absolute',
+        ...positionStyle,
+        padding: '6px 8px',
+        background: 'var(--bgColor-default)',
+        border: '1px solid var(--borderColor-default)',
+        borderRadius: 'var(--borderRadius-small)',
+        fontSize: '9px',
+        lineHeight: 1.4,
+        color: 'var(--fgColor-default)',
+        boxShadow: 'var(--shadow-floating-small)',
+        zIndex: 10,
+      }}
+    >
+      {description}
+    </div>
+  )
+})
+
+/**
  * Label cell in the metrics grid.
  * Uses <dt> for semantic term definition.
  * Optional description uses details/summary for progressive disclosure.
+ * Note: tooltip is positioned relative to the parent dl, not this dt.
+ * Uses accordion behavior - opening one closes others.
  */
 const MetricLabel = React.memo(function MetricLabel({children, isSection, description}: MetricLabelProps) {
   const baseStyles = isSection ? sectionStartStyle : cellBaseStyle
+  const {openId, setOpenId} = useAccordion()
+  // Generate stable ID from description (first 20 chars)
+  const id = description ? description.slice(0, 20) : null
+  const isOpen = id !== null && openId === id
 
   if (description) {
+    const handleToggle = (e: React.SyntheticEvent<HTMLDetailsElement>) => {
+      const willOpen = (e.target as HTMLDetailsElement).open
+      if (willOpen) {
+        setOpenId(id)
+      } else if (openId === id) {
+        setOpenId(null)
+      }
+    }
+
     return (
       <dt style={baseStyles}>
         <details
+          open={isOpen}
+          onToggle={handleToggle}
           style={{
             display: 'inline',
           }}
@@ -1718,29 +1835,24 @@ const MetricLabel = React.memo(function MetricLabel({children, isSection, descri
               cursor: 'help',
               listStyle: 'none',
               display: 'inline',
+              color: isOpen ? 'var(--fgColor-accent)' : 'inherit',
             }}
           >
-            {children} <span style={{opacity: 0.5, fontSize: '7px'}}>ⓘ</span>
+            {children}{' '}
+            <span
+              style={{
+                display: 'inline-block',
+                width: '8px', // Fixed width to prevent layout shift
+                textAlign: 'center',
+                opacity: isOpen ? 1 : 0.5,
+                fontSize: '7px',
+              }}
+              aria-hidden="true"
+            >
+              ⓘ
+            </span>
           </summary>
-          <div
-            style={{
-              position: 'absolute',
-              left: 0,
-              right: 0,
-              marginTop: '2px',
-              padding: '6px 8px',
-              background: 'var(--bgColor-default)',
-              border: '1px solid var(--borderColor-default)',
-              borderRadius: 'var(--borderRadius-small)',
-              fontSize: '9px',
-              lineHeight: 1.4,
-              color: 'var(--fgColor-default)',
-              boxShadow: 'var(--shadow-floating-small)',
-              zIndex: 10,
-            }}
-          >
-            {description}
-          </div>
+          <MetricTooltip description={description} />
         </details>
       </dt>
     )
@@ -1767,7 +1879,7 @@ const MetricValue = React.memo(function MetricValue({children, color, fontWeight
     <dd
       style={{
         ...(isSection ? sectionStartStyle : cellBaseStyle),
-        margin: 0, // Reset default dd margin
+        marginLeft: 0,
         ...(color && {color}),
         ...(fontWeight && {fontWeight}),
         ...style,
@@ -2321,6 +2433,13 @@ function PerformanceMonitorView({onReset, initialPosition = 'bottom-left'}: Perf
   })
   const prefersReducedMotion = usePrefersReducedMotion()
 
+  // Accordion state - only one metric description open at a time
+  const [openDescriptionId, setOpenDescriptionId] = React.useState<string | null>(null)
+  const accordionValue = React.useMemo(
+    () => ({openId: openDescriptionId, setOpenId: setOpenDescriptionId}),
+    [openDescriptionId],
+  )
+
   // Handle drag start - capture pointer for smooth dragging
   const handlePointerDown = React.useCallback(
     (e: React.PointerEvent) => {
@@ -2497,52 +2616,54 @@ function PerformanceMonitorView({onReset, initialPosition = 'bottom-left'}: Perf
       {showHelp && <HelpPanel prefersReducedMotion={prefersReducedMotion} />}
 
       {/* Metrics Grid - uses semantic dl/dt/dd with position:relative for inline descriptions */}
-      <dl
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'auto 1fr',
-          gap: '1px 6px',
-          lineHeight: 1.5,
-          margin: 0, // Reset default dl margin
-          position: 'relative', // For absolute positioned descriptions
-        }}
-      >
-        <MetricErrorBoundary>
-          <DomCountDisplay />
-        </MetricErrorBoundary>
+      <AccordionContext.Provider value={accordionValue}>
+        <dl
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'auto 1fr',
+            gap: '1px 6px',
+            lineHeight: 1.5,
+            margin: 0, // Reset default dl margin
+            position: 'relative', // For absolute positioned descriptions
+          }}
+        >
+          <MetricErrorBoundary>
+            <DomCountDisplay />
+          </MetricErrorBoundary>
 
-        <MetricErrorBoundary>
-          <MemoryMetricRow prefersReducedMotion={prefersReducedMotion} />
-        </MetricErrorBoundary>
+          <MetricErrorBoundary>
+            <MemoryMetricRow prefersReducedMotion={prefersReducedMotion} />
+          </MetricErrorBoundary>
 
-        <MetricErrorBoundary>
-          <PeakMemoryDisplay />
-        </MetricErrorBoundary>
+          <MetricErrorBoundary>
+            <PeakMemoryDisplay />
+          </MetricErrorBoundary>
 
-        <MetricErrorBoundary>
-          <FrameMetricsSection prefersReducedMotion={prefersReducedMotion} />
-        </MetricErrorBoundary>
+          <MetricErrorBoundary>
+            <FrameMetricsSection prefersReducedMotion={prefersReducedMotion} />
+          </MetricErrorBoundary>
 
-        <MetricErrorBoundary>
-          <InputMetricsSection />
-        </MetricErrorBoundary>
+          <MetricErrorBoundary>
+            <InputMetricsSection />
+          </MetricErrorBoundary>
 
-        <MetricErrorBoundary>
-          <TaskMetricsSection />
-        </MetricErrorBoundary>
+          <MetricErrorBoundary>
+            <TaskMetricsSection />
+          </MetricErrorBoundary>
 
-        <MetricErrorBoundary>
-          <LayoutMetricsSection />
-        </MetricErrorBoundary>
+          <MetricErrorBoundary>
+            <LayoutMetricsSection />
+          </MetricErrorBoundary>
 
-        <MetricErrorBoundary>
-          <InteractionMetricsSection />
-        </MetricErrorBoundary>
+          <MetricErrorBoundary>
+            <InteractionMetricsSection />
+          </MetricErrorBoundary>
 
-        <MetricErrorBoundary>
-          <ReactMetricsSection />
-        </MetricErrorBoundary>
-      </dl>
+          <MetricErrorBoundary>
+            <ReactMetricsSection />
+          </MetricErrorBoundary>
+        </dl>
+      </AccordionContext.Provider>
     </div>
   )
 }
