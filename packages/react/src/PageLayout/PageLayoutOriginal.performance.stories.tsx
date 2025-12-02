@@ -4,6 +4,8 @@ import {PageLayout} from './PageLayoutOriginal'
 import {Button} from '../Button'
 import Label from '../Label'
 import Heading from '../Heading'
+import Text from '../Text'
+import {Stack} from '../Stack'
 
 // Formatters with fixed decimal places to prevent layout shifts
 const fpsFormatter = new Intl.NumberFormat('en-US', {minimumIntegerDigits: 2, maximumFractionDigits: 0})
@@ -222,23 +224,14 @@ function PerformanceMonitor({domCount}: {domCount?: number | null}) {
         fontSize: '12px',
       }}
     >
-      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px'}}>
-        <span style={{fontWeight: 600, fontSize: '13px'}}>Performance Monitor</span>
-        <button
-          type="button"
-          onClick={resetCounters}
-          style={{
-            fontSize: '10px',
-            padding: '2px 6px',
-            background: 'var(--bgColor-default)',
-            border: '1px solid var(--borderColor-default)',
-            borderRadius: '4px',
-            cursor: 'pointer',
-          }}
-        >
+      <Stack direction="horizontal" align="center" justify="space-between" style={{marginBottom: '8px'}}>
+        <Text weight="semibold" size="medium">
+          Performance Monitor
+        </Text>
+        <Button type="button" size="small" onClick={resetCounters}>
           Reset
-        </button>
-      </div>
+        </Button>
+      </Stack>
       <div style={{display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '4px 12px'}}>
         {domCount != null && (
           <>
@@ -335,7 +328,9 @@ function PerformanceMonitor({domCount}: {domCount?: number | null}) {
           {numberFormatter.format(stats.layoutReads)}
         </span>
       </div>
-      <div style={{marginTop: '8px', fontSize: '11px', color: 'var(--fgColor-muted)'}}>Drag to resize.</div>
+      <Text size="small" style={{marginTop: '8px', color: 'var(--fgColor-muted)'}}>
+        Drag to resize.
+      </Text>
     </div>
   )
 }
@@ -371,17 +366,17 @@ export const BaselineLight: Story = {
           </PageLayout.Header>
 
           <PageLayout.Content>
-            <div style={{padding: '16px'}}>
-              <p>Minimal DOM elements to establish baseline.</p>
-              <p>Should be effortless 60 FPS.</p>
-            </div>
+            <Stack padding="normal" gap="condensed">
+              <Text>Minimal DOM elements to establish baseline.</Text>
+              <Text>Should be effortless 60 FPS.</Text>
+            </Stack>
           </PageLayout.Content>
 
           <PageLayout.Pane position="start" resizable>
-            <div style={{padding: '16px'}}>
+            <Stack padding="normal" gap="condensed">
               <PerformanceMonitor domCount={domCount} />
-              <p>Drag to test - should be instant.</p>
-            </div>
+              <Text>Drag to test - should be instant.</Text>
+            </Stack>
           </PageLayout.Pane>
         </PageLayout>
       </div>
@@ -403,24 +398,22 @@ export const MediumContent: Story = {
             <Heading as="h1">Medium Content</Heading>
           </PageLayout.Header>
           <PageLayout.Pane widthStorageKey="medium-content" position="start" resizable>
-            <div style={{padding: '16px'}}>
+            <Stack padding="normal" gap="condensed">
               <PerformanceMonitor domCount={domCount} />
               <div
                 style={{
                   padding: '12px',
                   background: 'var(--bgColor-canvas-subtle)',
                   borderRadius: '6px',
-                  marginBottom: '16px',
-                  fontSize: '13px',
                 }}
               >
-                <strong>Table:</strong> 100 rows × 6 cols
+                <Text weight="semibold">Table:</Text> 100 rows × 6 cols
               </div>
-            </div>
+            </Stack>
           </PageLayout.Pane>
           <PageLayout.Content>
-            <div style={{padding: '16px'}}>
-              <h2 style={{marginBottom: '16px'}}>Data Table (100 rows × 6 columns)</h2>
+            <Stack padding="normal" gap="normal">
+              <Heading as="h2">Data Table (100 rows × 6 columns)</Heading>
               <div
                 tabIndex={0}
                 style={{
@@ -472,17 +465,17 @@ export const MediumContent: Story = {
                           {String((rowIndex % 28) + 1).padStart(2, '0')}
                         </td>
                         <td style={{padding: '8px 12px'}}>
-                          <Button size="small" style={{marginRight: '4px'}}>
-                            Edit
-                          </Button>
-                          <Button size="small">Delete</Button>
+                          <Stack direction="horizontal" gap="condensed">
+                            <Button size="small">Edit</Button>
+                            <Button size="small">Delete</Button>
+                          </Stack>
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-            </div>
+            </Stack>
           </PageLayout.Content>
         </PageLayout>
       </div>
@@ -504,25 +497,23 @@ export const LargeContent: Story = {
             <Heading as="h1">Large Content - Large Table</Heading>
           </PageLayout.Header>
           <PageLayout.Pane widthStorageKey="large-content" position="start" resizable>
-            <div style={{padding: '16px'}}>
+            <Stack padding="normal" gap="condensed">
               <PerformanceMonitor domCount={domCount} />
               <div
                 style={{
                   padding: '12px',
                   background: 'var(--bgColor-canvas-subtle)',
                   borderRadius: '6px',
-                  marginBottom: '16px',
-                  fontSize: '13px',
                 }}
               >
-                <strong>Table:</strong> 300 rows × 10 cols
+                <Text weight="semibold">Table:</Text> 300 rows × 10 cols
               </div>
-            </div>
+            </Stack>
           </PageLayout.Pane>
           <PageLayout.Content>
-            <div style={{padding: '16px'}}>
+            <Stack padding="normal" gap="normal">
               {/* Large table with complex cells */}
-              <h2 style={{marginBottom: '16px'}}>Data Table (300 rows × 10 columns)</h2>
+              <Heading as="h2">Data Table (300 rows × 10 columns)</Heading>
               <div
                 tabIndex={0}
                 style={{
@@ -585,25 +576,27 @@ export const LargeContent: Story = {
                           ${((rowIndex * 123.45) % 10000).toFixed(2)}
                         </td>
                         <td style={{padding: '8px 12px', fontSize: '11px'}}>
-                          <Label variant="success" size="small" style={{marginRight: '4px'}}>
-                            tag{rowIndex % 10}
-                          </Label>
-                          <Label variant="attention" size="small">
-                            type{rowIndex % 5}
-                          </Label>
+                          <Stack direction="horizontal" gap="condensed">
+                            <Label variant="success" size="small">
+                              tag{rowIndex % 10}
+                            </Label>
+                            <Label variant="attention" size="small">
+                              type{rowIndex % 5}
+                            </Label>
+                          </Stack>
                         </td>
                         <td style={{padding: '8px 12px'}}>
-                          <Button size="small" style={{marginRight: '4px'}}>
-                            Edit
-                          </Button>
-                          <Button size="small">Delete</Button>
+                          <Stack direction="horizontal" gap="condensed">
+                            <Button size="small">Edit</Button>
+                            <Button size="small">Delete</Button>
+                          </Stack>
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-            </div>
+            </Stack>
           </PageLayout.Content>
         </PageLayout>
       </div>
@@ -625,73 +618,73 @@ export const ExtraLargeContent: Story = {
           </PageLayout.Header>
 
           <PageLayout.Pane position="start" resizable>
-            <div style={{padding: '16px'}}>
+            <Stack padding="normal" gap="condensed">
               <PerformanceMonitor domCount={domCount} />
               <div
                 style={{
                   padding: '12px',
                   background: 'var(--bgColor-canvas-subtle)',
                   borderRadius: '6px',
-                  marginBottom: '16px',
-                  fontSize: '13px',
                 }}
               >
-                <strong>Mix:</strong> Cards, tables, lists
-                <br />
+                <Text weight="semibold">Mix:</Text> Cards, tables, lists
               </div>
-              <p style={{fontSize: '13px'}}>
-                <strong>Sections:</strong>
-              </p>
-              <ul style={{fontSize: '12px', paddingLeft: '20px'}}>
+              <Text size="medium" weight="semibold">
+                Sections:
+              </Text>
+              <ul style={{fontSize: '12px', paddingLeft: '20px', margin: 0}}>
                 <li>400 activity cards</li>
                 <li>350-row table</li>
                 <li>400 issue items</li>
                 <li>+ Headers, buttons, etc</li>
               </ul>
-            </div>
+            </Stack>
           </PageLayout.Pane>
 
           <PageLayout.Content>
             <div tabIndex={0} style={{padding: '16px', overflowY: 'auto', height: '600px'}}>
               {/* Section 1: Large card grid */}
-              <section style={{marginBottom: '32px'}}>
-                <h2 style={{marginBottom: '16px'}}>Activity Feed (400 cards)</h2>
+              <Stack as="section" gap="normal" style={{marginBottom: '32px'}}>
+                <Heading as="h2">Activity Feed (400 cards)</Heading>
                 <div
                   style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '12px'}}
                 >
                   {Array.from({length: 400}).map((_, i) => (
-                    <div
+                    <Stack
                       key={i}
+                      padding="normal"
+                      gap="condensed"
                       style={{
-                        padding: '12px',
                         border: '1px solid var(--borderColor-default)',
                         borderRadius: '6px',
                         background: 'var(--bgColor-default)',
                       }}
                     >
-                      <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '8px'}}>
-                        <span style={{fontWeight: '600', fontSize: '14px'}}>Activity #{i + 1}</span>
-                        <span style={{fontSize: '11px', color: 'var(--fgColor-muted)'}}>{i % 60}m ago</span>
-                      </div>
-                      <div style={{fontSize: '12px', color: 'var(--fgColor-muted)', marginBottom: '8px'}}>
+                      <Stack direction="horizontal" justify="space-between">
+                        <Text weight="semibold">Activity #{i + 1}</Text>
+                        <Text size="small" style={{color: 'var(--fgColor-muted)'}}>
+                          {i % 60}m ago
+                        </Text>
+                      </Stack>
+                      <Text size="small" style={{color: 'var(--fgColor-muted)'}}>
                         User {['Alice', 'Bob', 'Charlie'][i % 3]} performed action on item {i}
-                      </div>
-                      <div style={{display: 'flex', gap: '4px'}}>
+                      </Text>
+                      <Stack direction="horizontal" gap="condensed">
                         <Label variant="success" size="small">
                           {['create', 'update', 'delete'][i % 3]}
                         </Label>
                         <Label variant="accent" size="small">
                           priority-{(i % 3) + 1}
                         </Label>
-                      </div>
-                    </div>
+                      </Stack>
+                    </Stack>
                   ))}
                 </div>
-              </section>
+              </Stack>
 
               {/* Section 2: Large table */}
-              <section style={{marginBottom: '32px'}}>
-                <h2 style={{marginBottom: '16px'}}>Data Table (350 rows × 8 columns)</h2>
+              <Stack as="section" gap="normal" style={{marginBottom: '32px'}}>
+                <Heading as="h2">Data Table (350 rows × 8 columns)</Heading>
                 <table style={{width: '100%', borderCollapse: 'collapse'}}>
                   <thead style={{position: 'sticky', top: 0, background: 'var(--bgColor-default)'}}>
                     <tr style={{background: 'var(--bgColor-canvas-subtle)'}}>
@@ -733,49 +726,44 @@ export const ExtraLargeContent: Story = {
                     ))}
                   </tbody>
                 </table>
-              </section>
+              </Stack>
 
               {/* Section 3: List with nested content */}
-              <section>
-                <h2 style={{marginBottom: '16px'}}>Issue Tracker (400 items)</h2>
+              <Stack as="section" gap="condensed">
+                <Heading as="h2">Issue Tracker (400 items)</Heading>
                 {Array.from({length: 400}).map((_, i) => (
-                  <div
+                  <Stack
                     key={i}
+                    padding="normal"
+                    gap="condensed"
                     style={{
-                      padding: '12px',
-                      marginBottom: '8px',
                       background: i % 2 === 0 ? 'var(--bgColor-default)' : 'var(--bgColor-canvas-subtle)',
                       borderRadius: '6px',
                       border: '1px solid var(--borderColor-default)',
                     }}
                   >
-                    <div
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        marginBottom: '6px',
-                      }}
-                    >
-                      <div>
-                        <span style={{fontWeight: '600', marginRight: '8px'}}>Issue #{i + 1}</span>
+                    <Stack direction="horizontal" justify="space-between" align="center">
+                      <Stack direction="horizontal" gap="condensed" align="center">
+                        <Text weight="semibold">Issue #{i + 1}</Text>
                         <Label variant={(['success', 'attention', 'severe'] as const)[i % 3]} size="small">
                           {['bug', 'feature', 'enhancement'][i % 3]}
                         </Label>
-                      </div>
-                      <span style={{fontSize: '11px', color: 'var(--fgColor-muted)'}}>{i % 10}d ago</span>
-                    </div>
-                    <div style={{fontSize: '13px', marginBottom: '6px'}}>
+                      </Stack>
+                      <Text size="small" style={{color: 'var(--fgColor-muted)'}}>
+                        {i % 10}d ago
+                      </Text>
+                    </Stack>
+                    <Text size="medium">
                       Description for issue {i + 1}: This is some text that describes the issue in detail.
-                    </div>
-                    <div style={{fontSize: '11px', color: 'var(--fgColor-muted)'}}>
+                    </Text>
+                    <Text size="small" style={{color: 'var(--fgColor-muted)'}}>
                       <span style={{marginRight: '12px'}}>👤 {['alice', 'bob', 'charlie'][i % 3]}</span>
                       <span style={{marginRight: '12px'}}>💬 {i % 15} comments</span>
                       <span>⭐ {i % 20} reactions</span>
-                    </div>
-                  </div>
+                    </Text>
+                  </Stack>
                 ))}
-              </section>
+              </Stack>
             </div>
           </PageLayout.Content>
         </PageLayout>
@@ -808,17 +796,17 @@ export const ResponsiveConstraintsTest: Story = {
           </PageLayout.Header>
 
           <PageLayout.Pane position="start" resizable>
-            <div style={{padding: '16px'}}>
+            <Stack padding="normal" gap="condensed">
               <PerformanceMonitor domCount={domCount} />
-              <p>Max width: {calculatedMaxWidth}px</p>
-            </div>
+              <Text>Max width: {calculatedMaxWidth}px</Text>
+            </Stack>
           </PageLayout.Pane>
 
           <PageLayout.Content>
-            <div style={{padding: '16px'}}>
-              <h2>Test responsive max width constraints</h2>
-              <p>Resize window and watch max pane width update.</p>
-            </div>
+            <Stack padding="normal" gap="condensed">
+              <Heading as="h2">Test responsive max width constraints</Heading>
+              <Text>Resize window and watch max pane width update.</Text>
+            </Stack>
           </PageLayout.Content>
         </PageLayout>
       </div>
@@ -895,30 +883,30 @@ export const KeyboardARIATest: Story = {
           </PageLayout.Header>
 
           <PageLayout.Pane position="start" resizable>
-            <div style={{padding: '16px'}}>
+            <Stack padding="normal" gap="condensed">
               <PerformanceMonitor domCount={domCount} />
-              <p>Use keyboard: ← → ↑ ↓</p>
-            </div>
+              <Text>Use keyboard: ← → ↑ ↓</Text>
+            </Stack>
           </PageLayout.Pane>
 
           <PageLayout.Content>
-            <div style={{padding: '16px'}}>
-              <h2>Test Instructions</h2>
+            <Stack padding="normal" gap="normal">
+              <Heading as="h2">Test Instructions</Heading>
               <ol>
                 <li>Tab to resize handle</li>
                 <li>Use arrow keys to resize</li>
                 <li>Test with screen reader</li>
               </ol>
-              <div
+              <Stack
+                padding="normal"
+                gap="normal"
                 style={{
-                  marginTop: '24px',
-                  padding: '16px',
                   border: '1px solid var(--borderColor-default)',
                   borderRadius: '6px',
                   background: 'var(--bgColor-canvas-subtle)',
                 }}
               >
-                <p style={{marginBottom: '12px'}}>Live ARIA attributes</p>
+                <Text>Live ARIA attributes</Text>
                 <dl
                   style={{
                     display: 'grid',
@@ -927,20 +915,28 @@ export const KeyboardARIATest: Story = {
                     margin: 0,
                   }}
                 >
-                  <dt style={{fontWeight: 600}}>aria-valuemin</dt>
+                  <Text as="dt" weight="semibold">
+                    aria-valuemin
+                  </Text>
                   <dd style={{margin: 0}}>{ariaAttributes.valuemin}</dd>
-                  <dt style={{fontWeight: 600}}>aria-valuemax</dt>
+                  <Text as="dt" weight="semibold">
+                    aria-valuemax
+                  </Text>
                   <dd style={{margin: 0}}>{ariaAttributes.valuemax}</dd>
-                  <dt style={{fontWeight: 600}}>aria-valuenow</dt>
+                  <Text as="dt" weight="semibold">
+                    aria-valuenow
+                  </Text>
                   <dd style={{margin: 0}}>{ariaAttributes.valuenow}</dd>
-                  <dt style={{fontWeight: 600}}>aria-valuetext</dt>
+                  <Text as="dt" weight="semibold">
+                    aria-valuetext
+                  </Text>
                   <dd style={{margin: 0}}>{ariaAttributes.valuetext}</dd>
                 </dl>
-                <p style={{marginTop: '12px', fontSize: '12px', color: 'var(--fgColor-muted)'}}>
+                <Text size="small" style={{color: 'var(--fgColor-muted)'}}>
                   Values update live when the slider handle changes size via keyboard or pointer interactions.
-                </p>
-              </div>
-            </div>
+                </Text>
+              </Stack>
+            </Stack>
           </PageLayout.Content>
         </PageLayout>
       </div>
