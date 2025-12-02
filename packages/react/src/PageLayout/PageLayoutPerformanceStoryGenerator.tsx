@@ -424,20 +424,43 @@ type Listener = () => void
 interface Store<T> {
   getState: () => T
   setState: (next: T) => void
+  /** Only updates if values changed (shallow comparison). Returns true if updated. */
+  setStateIfChanged: (next: T) => boolean
   subscribe: (listener: Listener) => () => void
 }
 
-function createStore<T>(initial: T): Store<T> {
+/** Shallow compare two objects - returns true if equal */
+function shallowEqual<T extends Record<string, unknown>>(a: T, b: T): boolean {
+  const keysA = Object.keys(a)
+  const keysB = Object.keys(b)
+  if (keysA.length !== keysB.length) return false
+  for (const key of keysA) {
+    if (a[key] !== b[key]) return false
+  }
+  return true
+}
+
+function createStore<T extends Record<string, unknown>>(initial: T): Store<T> {
   let state = initial
   const listeners = new Set<Listener>()
+
+  const notify = () => {
+    for (const listener of listeners) {
+      listener()
+    }
+  }
 
   return {
     getState: () => state,
     setState: (next: T) => {
       state = next
-      for (const listener of listeners) {
-        listener()
-      }
+      notify()
+    },
+    setStateIfChanged: (next: T) => {
+      if (shallowEqual(state, next)) return false
+      state = next
+      notify()
+      return true
     },
     subscribe: (listener: Listener) => {
       listeners.add(listener)
@@ -946,9 +969,16 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
 
     let animationId: number
     let lastTime = performance.now()
-    let lastUIUpdate = 0
+    let lastFastUIUpdate = 0
+    let lastSlowUIUpdate = 0
     const expectedFrameTime = 16.67 // 60fps -> 16.67ms per frame
-    const UI_UPDATE_FPS = 10 // Update UI at ~10fps to minimize React overhead
+    const FAST_UPDATE_FPS = 10 // Frame/input metrics at ~10fps
+    const SLOW_UPDATE_FPS = 2 // Memory/DOM/React metrics at ~2fps
+
+    // Track history array versions to avoid copying unchanged arrays
+    let lastFpsHistoryLen = 0
+    let lastFrameTimeHistoryLen = 0
+    let lastMemoryHistoryLen = 0
 
     // Layout thrashing detection state
     // Only detects severe blocking (>50ms frames) near style writes
@@ -968,54 +998,67 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
       styleWriteCount = 0
     }
 
-    // Update all stores with computed metrics
-    const updateStores = () => {
+    // Update fast-changing stores (frame, input, tasks, layout)
+    const updateFastStores = () => {
       const avgFrameTime = m.frameTimes.length > 0 ? m.frameTimes.reduce((a, b) => a + b, 0) / m.frameTimes.length : 0
       const fps = avgFrameTime > 0 ? Math.round(1000 / avgFrameTime) : 0
       const avgInputLatency =
         m.inputLatencies.length > 0 ? m.inputLatencies.reduce((a, b) => a + b, 0) / m.inputLatencies.length : 0
       const avgPaintTime = m.paintTimes.length > 0 ? m.paintTimes.reduce((a, b) => a + b, 0) / m.paintTimes.length : 0
-      const memoryDeltaMB =
-        m.lastSampledMemoryMB !== null && m.baselineMemoryMB !== null
-          ? Math.round((m.lastSampledMemoryMB - m.baselineMemoryMB) * 10) / 10
-          : null
 
-      // Update each store with its relevant metrics
-      stores.frame.setState({
+      // Only copy history arrays if they've changed (new data pushed)
+      const fpsHistoryChanged = m.fpsHistory.length !== lastFpsHistoryLen
+      const frameTimeHistoryChanged = m.frameTimeHistory.length !== lastFrameTimeHistoryLen
+      if (fpsHistoryChanged) lastFpsHistoryLen = m.fpsHistory.length
+      if (frameTimeHistoryChanged) lastFrameTimeHistoryLen = m.frameTimeHistory.length
+
+      stores.frame.setStateIfChanged({
         fps,
         frameTime: Math.round(avgFrameTime * 10) / 10,
         maxFrameTime: Math.round(m.maxFrameTime * 10) / 10,
-        fpsHistory: [...m.fpsHistory],
-        frameTimeHistory: [...m.frameTimeHistory],
+        // Only create new array if data changed, otherwise reuse reference
+        fpsHistory: fpsHistoryChanged ? [...m.fpsHistory] : stores.frame.getState().fpsHistory,
+        frameTimeHistory: frameTimeHistoryChanged ? [...m.frameTimeHistory] : stores.frame.getState().frameTimeHistory,
       })
 
-      stores.input.setState({
+      stores.input.setStateIfChanged({
         inputLatency: Math.round(avgInputLatency * 10) / 10,
         maxInputLatency: Math.round(m.maxInputLatency * 10) / 10,
         paintTime: Math.round(avgPaintTime * 10) / 10,
         maxPaintTime: Math.round(m.maxPaintTime * 10) / 10,
       })
 
-      stores.tasks.setState({
+      stores.tasks.setStateIfChanged({
         longTasks: m.longTasks,
         longestTask: Math.round(m.longestTask),
         droppedFrames: m.droppedFrames,
       })
 
-      stores.layout.setState({
+      stores.layout.setStateIfChanged({
         styleWrites: m.styleWrites,
         thrashingScore: m.thrashingScore,
         inputJitter: m.inputJitter,
         layoutShiftScore: Math.round(m.layoutShiftScore * 1000) / 1000,
         layoutShiftCount: m.layoutShiftCount,
       })
+    }
 
-      stores.interactions.setState({
+    // Update slow-changing stores (memory, dom, react, interactions)
+    const updateSlowStores = () => {
+      const memoryDeltaMB =
+        m.lastSampledMemoryMB !== null && m.baselineMemoryMB !== null
+          ? Math.round((m.lastSampledMemoryMB - m.baselineMemoryMB) * 10) / 10
+          : null
+
+      const memoryHistoryChanged = m.memoryHistory.length !== lastMemoryHistoryLen
+      if (memoryHistoryChanged) lastMemoryHistoryLen = m.memoryHistory.length
+
+      stores.interactions.setStateIfChanged({
         interactionCount: m.interactionCount,
         inpMs: Math.round(m.inpMs),
       })
 
-      stores.react.setState({
+      stores.react.setStateIfChanged({
         reactMountCount: m.reactMountCount,
         reactMountDuration: m.reactMountDuration,
         reactRenderCount: m.reactRenderCount,
@@ -1024,25 +1067,33 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
         renderCascades: m.nestedUpdateCount,
       })
 
-      stores.memory.setState({
+      stores.memory.setStateIfChanged({
         memoryUsedMB: m.lastSampledMemoryMB,
         memoryDeltaMB,
         peakMemoryMB: m.peakMemoryMB,
-        memoryHistory: [...m.memoryHistory],
+        memoryHistory: memoryHistoryChanged ? [...m.memoryHistory] : stores.memory.getState().memoryHistory,
       })
 
-      stores.dom.setState({
+      stores.dom.setStateIfChanged({
         domElements: m.domElements,
       })
     }
 
-    // Schedule UI update using requestIdleCallback when available, falls back to setTimeout
+    // Schedule UI updates using requestIdleCallback when available
     // This ensures React rendering happens during idle time, not during active measurements
-    const scheduleUIUpdate = () => {
+    const scheduleFastUpdate = () => {
       if ('requestIdleCallback' in window) {
-        requestIdleCallback(() => updateStores(), {timeout: 100})
+        requestIdleCallback(() => updateFastStores(), {timeout: 50})
       } else {
-        setTimeout(updateStores, 0)
+        setTimeout(updateFastStores, 0)
+      }
+    }
+
+    const scheduleSlowUpdate = () => {
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => updateSlowStores(), {timeout: 200})
+      } else {
+        setTimeout(updateSlowStores, 0)
       }
     }
 
@@ -1105,9 +1156,15 @@ const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
 
       // Throttle React UI updates to minimize overhead
       // Measurements are still collected every RAF above
-      if (now - lastUIUpdate >= 1000 / UI_UPDATE_FPS) {
-        lastUIUpdate = now
-        scheduleUIUpdate()
+      // Fast metrics (frame, input) update at ~10fps
+      if (now - lastFastUIUpdate >= 1000 / FAST_UPDATE_FPS) {
+        lastFastUIUpdate = now
+        scheduleFastUpdate()
+      }
+      // Slow metrics (memory, react, dom) update at ~2fps
+      if (now - lastSlowUIUpdate >= 1000 / SLOW_UPDATE_FPS) {
+        lastSlowUIUpdate = now
+        scheduleSlowUpdate()
       }
 
       animationId = requestAnimationFrame(measure)
@@ -1324,73 +1381,90 @@ interface SparklineProps {
   style?: React.CSSProperties
 }
 
-function Sparkline({
-  data,
-  width = 50,
-  height = 16,
-  color = 'var(--fgColor-accent)',
-  threshold,
-  thresholdColor = 'var(--fgColor-danger)',
-  invertThreshold = false,
-  style,
-}: SparklineProps) {
-  if (data.length < 2) {
+const Sparkline = React.memo(
+  function Sparkline({
+    data,
+    width = 50,
+    height = 16,
+    color = 'var(--fgColor-accent)',
+    threshold,
+    thresholdColor = 'var(--fgColor-danger)',
+    invertThreshold = false,
+    style,
+  }: SparklineProps) {
+    if (data.length < 2) {
+      return (
+        <svg width={width} height={height} style={{opacity: 0.3, ...style}} aria-hidden="true">
+          <line
+            x1={0}
+            y1={height / 2}
+            x2={width}
+            y2={height / 2}
+            stroke={color}
+            strokeWidth={1}
+            strokeDasharray="2,2"
+          />
+        </svg>
+      )
+    }
+
+    const min = Math.min(...data)
+    const max = Math.max(...data)
+    const range = max - min || 1
+
+    // Calculate Y position (inverted because SVG Y is top-down)
+    const getY = (value: number) => {
+      const normalized = (value - min) / range
+      return height - normalized * (height - 2) - 1
+    }
+
+    // Generate path
+    const points = data.map((value, i) => {
+      const x = (i / (data.length - 1)) * width
+      const y = getY(value)
+      return `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${y.toFixed(1)}`
+    })
+
+    // Calculate threshold line Y position if within range
+    let thresholdY: number | null = null
+    if (threshold !== undefined && threshold >= min && threshold <= max) {
+      thresholdY = getY(threshold)
+    }
+
+    // Determine if current value is "bad" based on threshold
+    const currentValue = data[data.length - 1]
+    const isBad = threshold !== undefined && (invertThreshold ? currentValue < threshold : currentValue > threshold)
+
     return (
-      <svg width={width} height={height} style={{opacity: 0.3, ...style}} aria-hidden="true">
-        <line x1={0} y1={height / 2} x2={width} y2={height / 2} stroke={color} strokeWidth={1} strokeDasharray="2,2" />
+      <svg width={width} height={height} style={{verticalAlign: 'middle', ...style}} aria-hidden="true">
+        {/* Threshold line */}
+        {thresholdY !== null && (
+          <line
+            x1={0}
+            y1={thresholdY}
+            x2={width}
+            y2={thresholdY}
+            stroke={thresholdColor}
+            strokeWidth={0.5}
+            strokeDasharray="2,1"
+            opacity={0.5}
+          />
+        )}
+        {/* Main line */}
+        <path d={points.join(' ')} fill="none" stroke={isBad ? thresholdColor : color} strokeWidth={1.5} />
+        {/* Current value dot */}
+        <circle cx={width} cy={getY(currentValue)} r={2} fill={isBad ? thresholdColor : color} />
       </svg>
     )
-  }
-
-  const min = Math.min(...data)
-  const max = Math.max(...data)
-  const range = max - min || 1
-
-  // Calculate Y position (inverted because SVG Y is top-down)
-  const getY = (value: number) => {
-    const normalized = (value - min) / range
-    return height - normalized * (height - 2) - 1
-  }
-
-  // Generate path
-  const points = data.map((value, i) => {
-    const x = (i / (data.length - 1)) * width
-    const y = getY(value)
-    return `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${y.toFixed(1)}`
-  })
-
-  // Calculate threshold line Y position if within range
-  let thresholdY: number | null = null
-  if (threshold !== undefined && threshold >= min && threshold <= max) {
-    thresholdY = getY(threshold)
-  }
-
-  // Determine if current value is "bad" based on threshold
-  const currentValue = data[data.length - 1]
-  const isBad = threshold !== undefined && (invertThreshold ? currentValue < threshold : currentValue > threshold)
-
-  return (
-    <svg width={width} height={height} style={{verticalAlign: 'middle', ...style}} aria-hidden="true">
-      {/* Threshold line */}
-      {thresholdY !== null && (
-        <line
-          x1={0}
-          y1={thresholdY}
-          x2={width}
-          y2={thresholdY}
-          stroke={thresholdColor}
-          strokeWidth={0.5}
-          strokeDasharray="2,1"
-          opacity={0.5}
-        />
-      )}
-      {/* Main line */}
-      <path d={points.join(' ')} fill="none" stroke={isBad ? thresholdColor : color} strokeWidth={1.5} />
-      {/* Current value dot */}
-      <circle cx={width} cy={getY(currentValue)} r={2} fill={isBad ? thresholdColor : color} />
-    </svg>
-  )
-}
+  },
+  // Custom comparison: skip re-render if data array reference unchanged
+  (prev, next) =>
+    prev.data === next.data &&
+    prev.threshold === next.threshold &&
+    prev.color === next.color &&
+    prev.width === next.width &&
+    prev.height === next.height,
+)
 
 // ============================================================================
 // Leaf Display Components - Each owns its store subscription
