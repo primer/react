@@ -2,7 +2,7 @@ import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {scrollIntoView, FocusKeys} from '@primer/behaviors'
 import type {KeyboardEventHandler, JSX} from 'react'
 import type React from 'react'
-import {useCallback, useEffect, useRef, useState} from 'react'
+import {forwardRef, useCallback, useEffect, useRef, useState} from 'react'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {ActionList, type ActionListProps} from '../ActionList'
@@ -31,13 +31,13 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
   filterValue?: string
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement> | null) => void
   onListContainerRefChanged?: (ref: HTMLElement | null) => void
-  onInputRefChanged?: (ref: React.RefObject<HTMLInputElement>) => void
+  onInputRefChanged?: (ref: React.RefObject<HTMLInputElement | null>) => void
   /**
    * A ref assigned to the scrollable container wrapping the ActionList
    */
   scrollContainerRef?: React.Ref<HTMLDivElement | null>
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
-  inputRef?: React.RefObject<HTMLInputElement>
+  inputRef?: React.RefObject<HTMLInputElement | null>
   message?: React.ReactNode
   messageText?: {
     title: string
@@ -382,6 +382,7 @@ export function FilteredActionList({
     <div ref={inputAndListContainerRef} className={clsx(className, classes.Root)} data-testid="filtered-action-list">
       <div className={classes.Header}>
         <TextInput
+          // @ts-expect-error it needs a non nullable ref
           ref={inputRef}
           block
           width="auto"
@@ -418,14 +419,14 @@ export function FilteredActionList({
           </label>
         </div>
       )}
+      {/* @ts-expect-error div needs a non nullable ref */}
       <div ref={scrollContainerRef} className={classes.Container}>
         {getBodyContent()}
       </div>
     </div>
   )
 }
-
-function MappedActionListItem(item: ItemInput & {renderItem?: RenderItemFn}) {
+const MappedActionListItem = forwardRef<HTMLLIElement, ItemInput & {renderItem?: RenderItemFn}>((item, ref) => {
   // keep backward compatibility for renderItem
   // escape hatch for custom Item rendering
   if (typeof item.renderItem === 'function') return item.renderItem(item)
@@ -453,6 +454,7 @@ function MappedActionListItem(item: ItemInput & {renderItem?: RenderItemFn}) {
           onAction(item, e as React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>)
       }}
       data-id={id}
+      ref={ref}
       {...rest}
     >
       {LeadingVisual ? (
@@ -479,6 +481,6 @@ function MappedActionListItem(item: ItemInput & {renderItem?: RenderItemFn}) {
       ) : null}
     </ActionList.Item>
   )
-}
+})
 
 FilteredActionList.displayName = 'FilteredActionList'
