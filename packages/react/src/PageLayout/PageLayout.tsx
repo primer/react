@@ -685,26 +685,34 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
     const {rowGap, columnGap, paneRef} = React.useContext(PageLayoutContext)
 
-    // Track current width during drag - initialized to default for hydration safety
-    const currentWidthRef = React.useRef<number | null>(null)
-    // if we don't have a ref set, set one to the default width. This is only for the first render.
-    if (currentWidthRef.current === null) {
-      currentWidthRef.current = getDefaultPaneWidth(width)
-    }
+    // Initial pane width for the first render - only used to set the initial CSS variable.
+    // After mount, all updates go directly to the DOM via style.setProperty() to avoid re-renders.
+    const defaultWidth = getDefaultPaneWidth(width)
+
+    // Track current width during drag - initialized lazily in layout effect
+    const currentWidthRef = React.useRef(defaultWidth)
+
+    // Track whether we've initialized the width from localStorage
+    const initializedRef = React.useRef(false)
 
     useIsomorphicLayoutEffect(() => {
-      // before paint reads the stored width from localStorage and update if necessary
+      // Only initialize once on mount - subsequent updates come from drag operations
+      if (initializedRef.current || !resizable) return
+      initializedRef.current = true
+      // Before paint, check localStorage for a stored width
       try {
         const value = localStorage.getItem(widthStorageKey)
         if (value !== null && !isNaN(Number(value))) {
           const num = Number(value)
           currentWidthRef.current = num
           paneRef.current?.style.setProperty('--pane-width', `${num}px`)
+          return
         }
       } catch {
-        // localStorage unavailable (e.g., private browsing)
+        // localStorage unavailable - set default via DOM
       }
-    }, [widthStorageKey])
+      paneRef.current?.style.setProperty('--pane-width', `${defaultWidth}px`)
+    }, [widthStorageKey, paneRef, resizable, defaultWidth])
 
     // Subscribe to viewport width changes for responsive max constraint calculation
     const viewportWidth = useViewportWidth()
@@ -807,7 +815,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               '--pane-max-width': isCustomWidthOptions(width) ? width.max : `calc(100vw - var(--pane-max-width-diff))`,
               '--pane-width-custom': isCustomWidthOptions(width) ? width.default : undefined,
               '--pane-width-size': `var(--pane-width-${isPaneWidth(width) ? width : 'custom'})`,
-              // Note: --pane-width is set via useLayoutEffect to prevent re-renders from resetting it
+              // --pane-width is set via layout effect (for localStorage) and DOM manipulation (for drag).
             } as React.CSSProperties
           }
         >
