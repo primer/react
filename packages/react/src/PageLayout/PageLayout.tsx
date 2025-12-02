@@ -138,6 +138,8 @@ const HorizontalDivider: React.FC<DividerProps> = ({variant = 'none', className,
   )
 }
 
+const clamp = (value: number, {min, max}: {min: number; max: number}) => Math.min(Math.max(value, min), max)
+
 const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandle({
   position,
   paneWidth,
@@ -180,8 +182,7 @@ const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandl
     }
   }, [])
 
-  const clamp = (value: number) => Math.min(Math.max(value, minWidth), maxWidth)
-  const clampedPaneWidth = clamp(paneWidth)
+  const clampedPaneWidth = clamp(paneWidth, {min: minWidth, max: maxWidth})
 
   return (
     <div
@@ -206,7 +207,7 @@ const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandl
         event.preventDefault()
         const delta = event.movementX
         const deltaWithDirection = position === 'end' ? -delta : delta
-        setPaneWidth(curr => clamp(curr + deltaWithDirection))
+        setPaneWidth(curr => clamp(curr + deltaWithDirection, {min: minWidth, max: maxWidth}))
       }}
       onPointerUp={event => {
         if (!isDragging) return
@@ -232,7 +233,7 @@ const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandl
           event.preventDefault()
           setIsDragging(true)
           const step = event.key === 'ArrowLeft' || event.key === 'ArrowDown' ? -3 : 3
-          setPaneWidth(curr => clamp(curr + step))
+          setPaneWidth(curr => clamp(curr + step, {min: minWidth, max: maxWidth}))
         }
       }}
       onKeyUp={event => {
@@ -245,7 +246,7 @@ const VerticalDragToResizeHandle = React.memo(function VerticalDragToResizeHandl
         }
       }}
       onDoubleClick={() => {
-        setPaneWidth(clamp(initialPaneWidth))
+        setPaneWidth(clamp(initialPaneWidth, {min: minWidth, max: maxWidth}))
         try {
           localStorage.setItem(widthStorageKey, initialPaneWidth.toString())
         } catch (_error) {
