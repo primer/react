@@ -1,7 +1,4 @@
 import React from 'react'
-import {Button} from '../Button'
-import Text from '../Text'
-import {Stack} from '../Stack'
 
 /**
  * Performance Monitoring for PageLayout Stories
@@ -572,6 +569,8 @@ interface PerformanceMonitorViewProps {
 }
 
 export function PerformanceMonitorView({metrics, onReset}: PerformanceMonitorViewProps) {
+  const [isCollapsed, setIsCollapsed] = React.useState(false)
+
   const fpsColor =
     metrics.fps >= 55
       ? 'var(--fgColor-success)'
@@ -593,233 +592,201 @@ export function PerformanceMonitorView({metrics, onReset}: PerformanceMonitorVie
         ? 'var(--fgColor-attention)'
         : 'var(--fgColor-danger)'
 
-  const paintTimeColor =
-    metrics.paintTime <= 8
-      ? 'var(--fgColor-success)'
-      : metrics.paintTime <= 16
-        ? 'var(--fgColor-attention)'
-        : 'var(--fgColor-danger)'
+  // avgReactRender intentionally not used in compact view
 
-  const avgReactRender = metrics.reactRenderCount > 0 ? metrics.reactTotalActualDuration / metrics.reactRenderCount : 0
+  // Collapsed view - just key metrics in a row
+  if (isCollapsed) {
+    return (
+      <div
+        style={{
+          position: 'fixed',
+          top: '8px',
+          right: '8px',
+          zIndex: 9999,
+          padding: '6px 10px',
+          background: 'rgba(0, 0, 0, 0.85)',
+          borderRadius: '6px',
+          fontFamily: 'monospace',
+          fontSize: '11px',
+          color: '#fff',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+          backdropFilter: 'blur(4px)',
+        }}
+      >
+        <span style={{color: fpsColor, fontWeight: 600}}>{fpsFormatter.format(metrics.fps)} fps</span>
+        <span style={{color: inputLatencyColor}}>{msFormatter.format(metrics.inputLatency)}ms</span>
+        <span style={{color: longTaskColor}}>{metrics.longTasks} tasks</span>
+        <button
+          type="button"
+          onClick={() => setIsCollapsed(false)}
+          style={{
+            background: 'transparent',
+            border: 'none',
+            color: '#888',
+            cursor: 'pointer',
+            padding: '0 4px',
+            fontSize: '14px',
+          }}
+          aria-label="Expand"
+        >
+          ◀
+        </button>
+      </div>
+    )
+  }
 
   return (
     <div
       style={{
-        padding: '12px',
-        background: 'var(--bgColor-canvas-subtle)',
+        position: 'fixed',
+        bottom: '8px',
+        left: '8px',
+        zIndex: 9999,
+        padding: '8px 10px',
+        background: 'rgba(0, 0, 0, 0.9)',
         borderRadius: '6px',
-        marginBottom: '16px',
         fontFamily: 'monospace',
-        fontSize: '12px',
+        fontSize: '10px',
+        color: '#ccc',
+        width: '220px',
+        boxShadow: '0 2px 12px rgba(0,0,0,0.4)',
+        backdropFilter: 'blur(4px)',
       }}
     >
-      <Stack direction="horizontal" align="center" justify="space-between" style={{marginBottom: '8px'}}>
-        <Text weight="semibold" size="medium">
-          Performance Monitor
-        </Text>
-        <Button type="button" size="small" onClick={onReset}>
-          Reset
-        </Button>
-      </Stack>
-      <div style={{display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '4px 12px'}}>
+      {/* Header */}
+      <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px'}}>
+        <span style={{fontWeight: 600, color: '#fff', fontSize: '11px'}}>⚡ Perf</span>
+        <div style={{display: 'flex', gap: '4px'}}>
+          <button
+            type="button"
+            onClick={onReset}
+            style={{
+              background: '#333',
+              border: 'none',
+              color: '#999',
+              cursor: 'pointer',
+              padding: '2px 6px',
+              borderRadius: '3px',
+              fontSize: '9px',
+            }}
+          >
+            Reset
+          </button>
+          <button
+            type="button"
+            onClick={() => setIsCollapsed(true)}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: '#666',
+              cursor: 'pointer',
+              padding: '0 4px',
+              fontSize: '12px',
+            }}
+            aria-label="Collapse"
+          >
+            ▶
+          </button>
+        </div>
+      </div>
+
+      {/* Metrics Grid */}
+      <div style={{display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '1px 6px', lineHeight: 1.5}}>
+        {/* Frame Section */}
+        <span style={{color: '#888'}}>FPS</span>
+        <span style={{color: fpsColor, fontWeight: 600}}>{fpsFormatter.format(metrics.fps)}</span>
+
+        <span style={{color: '#888'}}>Frame</span>
+        <span>
+          {msFormatter.format(metrics.frameTime)}ms{' '}
+          <span style={{color: metrics.maxFrameTime > 32 ? '#f85149' : '#666', fontSize: '9px'}}>
+            (max {msFormatter.format(metrics.maxFrameTime)})
+          </span>
+        </span>
+
+        {/* Input Section */}
+        <span style={{color: '#888', borderTop: '1px solid #333', paddingTop: '3px', marginTop: '2px'}}>Input</span>
+        <span style={{borderTop: '1px solid #333', paddingTop: '3px', marginTop: '2px'}}>
+          <span style={{color: inputLatencyColor, fontWeight: 600}}>{msFormatter.format(metrics.inputLatency)}ms</span>{' '}
+          <span style={{color: metrics.maxInputLatency > 50 ? '#f85149' : '#666', fontSize: '9px'}}>
+            (max {msFormatter.format(metrics.maxInputLatency)})
+          </span>
+        </span>
+
+        <span style={{color: '#888'}}>Paint</span>
+        <span>
+          {msFormatter.format(metrics.paintTime)}ms{' '}
+          <span style={{color: metrics.maxPaintTime > 16 ? '#f85149' : '#666', fontSize: '9px'}}>
+            (max {msFormatter.format(metrics.maxPaintTime)})
+          </span>
+        </span>
+
+        {/* Tasks Section */}
+        <span style={{color: '#888', borderTop: '1px solid #333', paddingTop: '3px', marginTop: '2px'}}>Tasks</span>
+        <span style={{borderTop: '1px solid #333', paddingTop: '3px', marginTop: '2px'}}>
+          <span style={{color: longTaskColor, fontWeight: metrics.longTasks > 0 ? 600 : 'normal'}}>
+            {metrics.longTasks} long
+          </span>
+          {metrics.longestTask > 0 && (
+            <span style={{color: metrics.longestTask > 100 ? '#f85149' : '#888', fontSize: '9px'}}>
+              {' '}
+              ({metrics.longestTask}ms)
+            </span>
+          )}
+        </span>
+
+        <span style={{color: '#888'}}>Dropped</span>
+        <span style={{color: metrics.droppedFrames > 10 ? '#f85149' : metrics.droppedFrames > 0 ? '#d29922' : '#666'}}>
+          {metrics.droppedFrames} frames
+        </span>
+
+        {/* Layout Section */}
+        <span style={{color: '#888', borderTop: '1px solid #333', paddingTop: '3px', marginTop: '2px'}}>Layout</span>
+        <span style={{borderTop: '1px solid #333', paddingTop: '3px', marginTop: '2px'}}>
+          <span
+            style={{
+              color: metrics.layoutReads > 100 ? '#f85149' : metrics.layoutReads > 0 ? '#d29922' : '#666',
+              fontWeight: metrics.layoutReads > 0 ? 600 : 'normal',
+            }}
+          >
+            {metrics.layoutReads} reads
+          </span>
+        </span>
+
+        <span style={{color: '#888'}}>Style</span>
+        <span style={{color: metrics.styleWrites > 500 ? '#d29922' : '#666'}}>{metrics.styleWrites} writes</span>
+
+        {/* React Section */}
+        <span style={{color: '#888', borderTop: '1px solid #333', paddingTop: '3px', marginTop: '2px'}}>React</span>
+        <span
+          style={{
+            borderTop: '1px solid #333',
+            paddingTop: '3px',
+            marginTop: '2px',
+            color: metrics.reactUpdateCount === 0 ? '#3fb950' : metrics.reactUpdateCount <= 5 ? '#d29922' : '#f85149',
+            fontWeight: 600,
+          }}
+        >
+          {metrics.reactUpdateCount} updates{metrics.reactUpdateCount === 0 && ' ✓'}
+          {metrics.reactUpdateCount > 0 && (
+            <span style={{fontWeight: 'normal', color: '#888', fontSize: '9px'}}>
+              {' '}
+              (max {msFormatter.format(metrics.reactMaxActualDuration)}ms)
+            </span>
+          )}
+        </span>
+
+        {/* DOM count */}
         {metrics.domElements != null && (
           <>
-            <span>DOM elements:</span>
-            <span style={{fontVariantNumeric: 'tabular-nums'}}>{numberFormatter.format(metrics.domElements)}</span>
-          </>
-        )}
-        <span>FPS:</span>
-        <span style={{color: fpsColor, fontWeight: 600, fontVariantNumeric: 'tabular-nums'}}>
-          {fpsFormatter.format(metrics.fps)}
-        </span>
-        <span>Frame time:</span>
-        <span style={{fontVariantNumeric: 'tabular-nums'}}>{msFormatter.format(metrics.frameTime)}ms</span>
-        <span>Max frame:</span>
-        <span
-          style={{
-            color: metrics.maxFrameTime > 32 ? 'var(--fgColor-danger)' : 'inherit',
-            fontVariantNumeric: 'tabular-nums',
-          }}
-        >
-          {msFormatter.format(metrics.maxFrameTime)}ms
-        </span>
-
-        <span style={{borderTop: '1px solid var(--borderColor-default)', paddingTop: '4px'}}>Input latency:</span>
-        <span
-          style={{
-            color: inputLatencyColor,
-            fontWeight: 600,
-            fontVariantNumeric: 'tabular-nums',
-            borderTop: '1px solid var(--borderColor-default)',
-            paddingTop: '4px',
-          }}
-        >
-          {msFormatter.format(metrics.inputLatency)}ms
-        </span>
-        <span>Max input lag:</span>
-        <span
-          style={{
-            color: metrics.maxInputLatency > 50 ? 'var(--fgColor-danger)' : 'inherit',
-            fontVariantNumeric: 'tabular-nums',
-          }}
-        >
-          {msFormatter.format(metrics.maxInputLatency)}ms
-        </span>
-
-        <span style={{borderTop: '1px solid var(--borderColor-default)', paddingTop: '4px'}}>Paint time:</span>
-        <span
-          style={{
-            color: paintTimeColor,
-            fontWeight: 600,
-            fontVariantNumeric: 'tabular-nums',
-            borderTop: '1px solid var(--borderColor-default)',
-            paddingTop: '4px',
-          }}
-        >
-          {msFormatter.format(metrics.paintTime)}ms
-        </span>
-        <span>Max paint:</span>
-        <span
-          style={{
-            color: metrics.maxPaintTime > 16 ? 'var(--fgColor-danger)' : 'inherit',
-            fontVariantNumeric: 'tabular-nums',
-          }}
-        >
-          {msFormatter.format(metrics.maxPaintTime)}ms
-        </span>
-
-        <span style={{borderTop: '1px solid var(--borderColor-default)', paddingTop: '4px'}}>
-          Long tasks (&gt;50ms):
-        </span>
-        <span
-          style={{
-            color: longTaskColor,
-            fontWeight: 600,
-            fontVariantNumeric: 'tabular-nums',
-            borderTop: '1px solid var(--borderColor-default)',
-            paddingTop: '4px',
-          }}
-        >
-          {metrics.longTasks}
-        </span>
-        <span>Longest task:</span>
-        <span
-          style={{
-            color: metrics.longestTask > 100 ? 'var(--fgColor-danger)' : 'inherit',
-            fontVariantNumeric: 'tabular-nums',
-          }}
-        >
-          {metrics.longestTask}ms
-        </span>
-        <span>Dropped frames:</span>
-        <span
-          style={{
-            color: metrics.droppedFrames > 10 ? 'var(--fgColor-danger)' : 'inherit',
-            fontVariantNumeric: 'tabular-nums',
-          }}
-        >
-          {metrics.droppedFrames}
-        </span>
-
-        <span style={{borderTop: '1px solid var(--borderColor-default)', paddingTop: '4px'}}>Layout reads:</span>
-        <span
-          style={{
-            color:
-              metrics.layoutReads === 0
-                ? 'var(--fgColor-muted)'
-                : metrics.layoutReads < 100
-                  ? 'var(--fgColor-attention)'
-                  : 'var(--fgColor-danger)',
-            fontWeight: metrics.layoutReads > 0 ? 600 : 'normal',
-            fontVariantNumeric: 'tabular-nums',
-            borderTop: '1px solid var(--borderColor-default)',
-            paddingTop: '4px',
-          }}
-        >
-          {numberFormatter.format(metrics.layoutReads)}
-        </span>
-        <span>Slow events:</span>
-        <span
-          style={{
-            color:
-              metrics.slowEvents === 0
-                ? 'var(--fgColor-muted)'
-                : metrics.slowEvents <= 5
-                  ? 'var(--fgColor-attention)'
-                  : 'var(--fgColor-danger)',
-            fontWeight: metrics.slowEvents > 0 ? 600 : 'normal',
-            fontVariantNumeric: 'tabular-nums',
-          }}
-        >
-          {metrics.slowEvents}
-        </span>
-        <span>Paint cycles:</span>
-        <span style={{fontVariantNumeric: 'tabular-nums'}}>{numberFormatter.format(metrics.paintCycles)}</span>
-        <span>Style writes:</span>
-        <span
-          style={{
-            color:
-              metrics.styleWrites === 0
-                ? 'var(--fgColor-muted)'
-                : metrics.styleWrites < 500
-                  ? 'inherit'
-                  : 'var(--fgColor-attention)',
-            fontVariantNumeric: 'tabular-nums',
-          }}
-        >
-          {numberFormatter.format(metrics.styleWrites)}
-        </span>
-
-        {/* React Profiler Section - simplified for resize testing */}
-        <span style={{borderTop: '1px solid var(--borderColor-default)', paddingTop: '4px'}}>React updates:</span>
-        <span
-          style={{
-            color:
-              metrics.reactUpdateCount === 0
-                ? 'var(--fgColor-success)'
-                : metrics.reactUpdateCount <= 5
-                  ? 'var(--fgColor-attention)'
-                  : 'var(--fgColor-danger)',
-            fontWeight: 600,
-            fontVariantNumeric: 'tabular-nums',
-            borderTop: '1px solid var(--borderColor-default)',
-            paddingTop: '4px',
-          }}
-        >
-          {metrics.reactUpdateCount}
-          {metrics.reactUpdateCount === 0 && ' ✓'}
-        </span>
-        {metrics.reactUpdateCount > 0 && (
-          <>
-            <span>Max render:</span>
-            <span
-              style={{
-                color: metrics.reactMaxActualDuration > 16 ? 'var(--fgColor-danger)' : 'inherit',
-                fontVariantNumeric: 'tabular-nums',
-              }}
-            >
-              {msFormatter.format(metrics.reactMaxActualDuration)}ms
-            </span>
-            <span>Memo efficiency:</span>
-            <span
-              style={{
-                color:
-                  metrics.reactBaseDuration > 0 && avgReactRender / metrics.reactBaseDuration < 0.3
-                    ? 'var(--fgColor-success)'
-                    : 'var(--fgColor-attention)',
-                fontVariantNumeric: 'tabular-nums',
-              }}
-            >
-              {metrics.reactBaseDuration > 0
-                ? `${Math.round((1 - avgReactRender / metrics.reactBaseDuration) * 100)}%`
-                : '—'}
-            </span>
+            <span style={{color: '#666', fontSize: '9px'}}>DOM</span>
+            <span style={{color: '#666', fontSize: '9px'}}>{numberFormatter.format(metrics.domElements)} nodes</span>
           </>
         )}
       </div>
-      <Text size="small" style={{marginTop: '8px', color: 'var(--fgColor-muted)'}}>
-        Drag to resize.
-      </Text>
     </div>
   )
 }
