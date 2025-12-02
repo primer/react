@@ -78,6 +78,13 @@ export type {AnnounceProps, AriaStatusProps, AriaAlertProps} from '../live-regio
 export {UnderlinePanels} from './UnderlinePanels'
 export type {UnderlinePanelsProps, UnderlinePanelsTabProps, UnderlinePanelsPanelProps} from './UnderlinePanels'
 
+export {UnderlinePanels as UnderlinePanels2} from './UnderlinePanels2'
+export type {
+  UnderlinePanelsProps as UnderlinePanels2Props,
+  UnderlinePanelsTabProps as UnderlinePanels2TabProps,
+  UnderlinePanelsPanelProps as UnderlinePanels2PanelProps,
+} from './UnderlinePanels2'
+
 export {SkeletonBox} from '../Skeleton'
 export type {SkeletonBoxProps} from '../Skeleton'
 export {SkeletonText} from '../SkeletonText'
