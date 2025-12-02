@@ -1,5 +1,5 @@
 import type {Decorator} from '@storybook/react-vite'
-import React, {startTransition} from 'react'
+import React, {startTransition, StrictMode} from 'react'
 import {createRoot, type Root} from 'react-dom/client'
 
 /**
@@ -545,7 +545,7 @@ function createInitialMutableState(): MutableMetricsState {
   }
 }
 
-export function PerformanceProvider({
+export const PerformanceProvider = React.memo(function PerformanceProvider({
   children,
   initialPosition = 'bottom-left',
 }: {
@@ -679,13 +679,19 @@ export function PerformanceProvider({
       <div ref={contentRef}>{children}</div>
     </PerformanceCallbacksContext.Provider>
   )
-}
+})
 
 // ============================================================================
 // Profiled Component Wrapper
 // ============================================================================
 
-export function ProfiledComponent({id, children}: {id: string; children: React.ReactNode}) {
+export const ProfiledComponent = React.memo(function ProfiledComponent({
+  id,
+  children,
+}: {
+  id: string
+  children: React.ReactNode
+}) {
   // Use only the callbacks context (stable, won't re-render on metrics changes)
   const callbacks = usePerformanceCallbacks()
 
@@ -708,7 +714,7 @@ export function ProfiledComponent({id, children}: {id: string; children: React.R
       {children}
     </React.Profiler>
   )
-}
+})
 
 // ============================================================================
 // Isolated Performance Monitor - Renders in separate React root
@@ -733,7 +739,11 @@ interface IsolatedPerformanceMonitorProps {
   initialPosition: MonitorPosition
 }
 
-function IsolatedPerformanceMonitor({mutableRef, onReset, initialPosition}: IsolatedPerformanceMonitorProps) {
+const IsolatedPerformanceMonitor = React.memo(function IsolatedPerformanceMonitor({
+  mutableRef,
+  onReset,
+  initialPosition,
+}: IsolatedPerformanceMonitorProps) {
   const containerRef = React.useRef<HTMLDivElement | null>(null)
   const rootRef = React.useRef<Root | null>(null)
 
@@ -751,7 +761,11 @@ function IsolatedPerformanceMonitor({mutableRef, onReset, initialPosition}: Isol
 
     startTransition(() => {
       // Render initial state
-      root.render(<IsolatedMonitorInner mutableRef={mutableRef} onReset={onReset} initialPosition={initialPosition} />)
+      root.render(
+        <StrictMode>
+          <IsolatedMonitorInner mutableRef={mutableRef} onReset={onReset} initialPosition={initialPosition} />
+        </StrictMode>,
+      )
     })
     // Cleanup on unmount
     return () => {
@@ -764,13 +778,13 @@ function IsolatedPerformanceMonitor({mutableRef, onReset, initialPosition}: Isol
 
   // This component renders nothing in the main tree
   return null
-}
+})
 
 /**
  * Inner component that runs inside the isolated React root.
  * This owns the RAF loop and all state - completely separate from the profiled tree.
  */
-function IsolatedMonitorInner({
+const IsolatedMonitorInner = React.memo(function IsolatedMonitorInner({
   mutableRef,
   onReset,
   initialPosition,
@@ -782,13 +796,17 @@ function IsolatedMonitorInner({
   const [metrics, setMetrics] = React.useState<PerformanceMetrics>(initialMetrics)
 
   // RAF loop and all observers run in this isolated root
+  // CRITICAL: Measurement runs every RAF for accuracy, but UI updates are throttled
+  // to minimize React overhead leaking into the profiled application
   React.useEffect(() => {
     const m = mutableRef.current
     if (!m) return
 
     let animationId: number
     let lastTime = performance.now()
+    let lastUIUpdate = 0
     const expectedFrameTime = 16.67
+    const UI_UPDATE_INTERVAL = 200 // Update UI at ~5fps to minimize React overhead
 
     // Layout thrashing detection state
     // Only detects severe blocking (>50ms frames) near style writes
@@ -808,46 +826,10 @@ function IsolatedMonitorInner({
       styleWriteCount = 0
     }
 
-    const measure = () => {
-      const now = performance.now()
-      const delta = now - lastTime
-      lastTime = now
-
-      m.frameTimes.push(delta)
-      if (m.frameTimes.length > 60) m.frameTimes.shift()
-
-      if (delta > expectedFrameTime * 2) {
-        m.droppedFrames += Math.floor(delta / expectedFrameTime) - 1
-      }
-
-      if (delta > m.maxFrameTime) {
-        m.maxFrameTime = delta
-      } else if (delta < 20 && m.maxFrameTime > 20) {
-        m.maxFrameTime *= 0.99
-      }
-
-      checkForThrashing(delta)
-
-      // Frame time jitter: detect sudden spikes in frame time that cause visible hitches
-      // Only check after we have a baseline (5+ frames)
-      if (m.frameTimes.length >= 5) {
-        // Use last 4 frames (excluding current) for baseline
-        const baselineFrames = m.frameTimes.slice(-5, -1)
-        const avgBaseline = baselineFrames.reduce((a, b) => a + b, 0) / baselineFrames.length
-
-        // Flag as jitter if frame time is:
-        // - More than 3x baseline (significant relative spike)
-        // - AND >20ms above baseline (substantial jump)
-        // - AND >40ms absolute (clearly problematic)
-        const isFrameJitter = delta > avgBaseline * 3 && delta - avgBaseline > 20 && delta > 40
-
-        if (isFrameJitter) {
-          m.inputJitter++
-        }
-      }
-
-      const avgFrameTime = m.frameTimes.reduce((a, b) => a + b, 0) / m.frameTimes.length
-      const fps = Math.round(1000 / avgFrameTime)
+    // Compute metrics snapshot without triggering React update
+    const computeMetricsSnapshot = (): PerformanceMetrics => {
+      const avgFrameTime = m.frameTimes.length > 0 ? m.frameTimes.reduce((a, b) => a + b, 0) / m.frameTimes.length : 0
+      const fps = avgFrameTime > 0 ? Math.round(1000 / avgFrameTime) : 0
       const avgInputLatency =
         m.inputLatencies.length > 0 ? m.inputLatencies.reduce((a, b) => a + b, 0) / m.inputLatencies.length : 0
       const avgPaintTime = m.paintTimes.length > 0 ? m.paintTimes.reduce((a, b) => a + b, 0) / m.paintTimes.length : 0
@@ -855,38 +837,12 @@ function IsolatedMonitorInner({
         m.interactionLatencies.length > 0
           ? Math.round((m.interactionLatencies.reduce((a, b) => a + b, 0) / m.interactionLatencies.length) * 10) / 10
           : 0
-
-      // Sample sparkline data every 5 frames
-      m.sparklineSampleCount++
-      if (m.sparklineSampleCount >= 5) {
-        m.sparklineSampleCount = 0
-        m.fpsHistory.push(fps)
-        if (m.fpsHistory.length > 30) m.fpsHistory.shift()
-        m.frameTimeHistory.push(avgFrameTime)
-        if (m.frameTimeHistory.length > 30) m.frameTimeHistory.shift()
-
-        const rawMemoryMB = getMemoryMB()
-        if (rawMemoryMB !== null) {
-          if (m.baselineMemoryMB === null) {
-            m.baselineMemoryMB = rawMemoryMB
-            m.peakMemoryMB = rawMemoryMB
-          }
-          if (m.peakMemoryMB === null || rawMemoryMB > m.peakMemoryMB) {
-            m.peakMemoryMB = rawMemoryMB
-          }
-          m.lastSampledMemoryMB = rawMemoryMB
-          m.memoryHistory.push(rawMemoryMB)
-          if (m.memoryHistory.length > 30) m.memoryHistory.shift()
-        }
-      }
-
       const memoryDeltaMB =
         m.lastSampledMemoryMB !== null && m.baselineMemoryMB !== null
           ? Math.round((m.lastSampledMemoryMB - m.baselineMemoryMB) * 10) / 10
           : null
 
-      // Update state in isolated root (this is the only setState call)
-      setMetrics({
+      return {
         domElements: m.domElements,
         fps,
         frameTime: Math.round(avgFrameTime * 10) / 10,
@@ -922,11 +878,92 @@ function IsolatedMonitorInner({
         inpMs: Math.round(m.inpMs),
         avgInteractionMs,
         renderCascades: m.nestedUpdateCount,
-        maxRendersPerFrame: 0, // Deprecated, keeping for interface compatibility
+        maxRendersPerFrame: 0,
         fpsHistory: [...m.fpsHistory],
         frameTimeHistory: [...m.frameTimeHistory],
         memoryHistory: [...m.memoryHistory],
-      })
+      }
+    }
+
+    // Schedule UI update using requestIdleCallback when available, falls back to setTimeout
+    // This ensures React rendering happens during idle time, not during active measurements
+    const scheduleUIUpdate = () => {
+      const snapshot = computeMetricsSnapshot()
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(
+          () => {
+            setMetrics(snapshot)
+          },
+          {timeout: 100},
+        )
+      } else {
+        setTimeout(() => setMetrics(snapshot), 0)
+      }
+    }
+
+    const measure = () => {
+      const now = performance.now()
+      const delta = now - lastTime
+      lastTime = now
+
+      // Always collect measurements every RAF for accuracy
+      m.frameTimes.push(delta)
+      if (m.frameTimes.length > 60) m.frameTimes.shift()
+
+      if (delta > expectedFrameTime * 2) {
+        m.droppedFrames += Math.floor(delta / expectedFrameTime) - 1
+      }
+
+      if (delta > m.maxFrameTime) {
+        m.maxFrameTime = delta
+      } else if (delta < 20 && m.maxFrameTime > 20) {
+        m.maxFrameTime *= 0.99
+      }
+
+      checkForThrashing(delta)
+
+      // Frame time jitter: detect sudden spikes in frame time that cause visible hitches
+      if (m.frameTimes.length >= 5) {
+        const baselineFrames = m.frameTimes.slice(-5, -1)
+        const avgBaseline = baselineFrames.reduce((a, b) => a + b, 0) / baselineFrames.length
+        const isFrameJitter = delta > avgBaseline * 3 && delta - avgBaseline > 20 && delta > 40
+        if (isFrameJitter) {
+          m.inputJitter++
+        }
+      }
+
+      // Sample sparkline/memory data periodically (every ~5 frames)
+      m.sparklineSampleCount++
+      if (m.sparklineSampleCount >= 5) {
+        m.sparklineSampleCount = 0
+        const avgFrameTime = m.frameTimes.reduce((a, b) => a + b, 0) / m.frameTimes.length
+        const fps = Math.round(1000 / avgFrameTime)
+        m.fpsHistory.push(fps)
+        if (m.fpsHistory.length > 30) m.fpsHistory.shift()
+        m.frameTimeHistory.push(avgFrameTime)
+        if (m.frameTimeHistory.length > 30) m.frameTimeHistory.shift()
+
+        const rawMemoryMB = getMemoryMB()
+        if (rawMemoryMB !== null) {
+          if (m.baselineMemoryMB === null) {
+            m.baselineMemoryMB = rawMemoryMB
+            m.peakMemoryMB = rawMemoryMB
+          }
+          if (m.peakMemoryMB === null || rawMemoryMB > m.peakMemoryMB) {
+            m.peakMemoryMB = rawMemoryMB
+          }
+          m.lastSampledMemoryMB = rawMemoryMB
+          m.memoryHistory.push(rawMemoryMB)
+          if (m.memoryHistory.length > 30) m.memoryHistory.shift()
+        }
+      }
+
+      // Throttle React UI updates to ~5fps to minimize overhead
+      // Measurements are still collected every RAF above
+      if (now - lastUIUpdate >= UI_UPDATE_INTERVAL) {
+        lastUIUpdate = now
+        scheduleUIUpdate()
+      }
 
       animationId = requestAnimationFrame(measure)
     }
@@ -1088,7 +1125,7 @@ function IsolatedMonitorInner({
   }, [mutableRef])
 
   return <PerformanceMonitorView metrics={metrics} onReset={onReset} initialPosition={initialPosition} />
-}
+})
 
 // ============================================================================
 // Stateless Performance Monitor View
@@ -1206,6 +1243,601 @@ function Sparkline({
   )
 }
 
+// ============================================================================
+// Extracted Sub-Components for Monitor UI
+// ============================================================================
+
+/** Common base styles for grid cells */
+const cellBaseStyle: React.CSSProperties = {
+  color: 'var(--fgColor-onEmphasis)',
+  fontSize: '9px',
+}
+
+/** Styles for section-starting cells (with top border) */
+const sectionStartStyle: React.CSSProperties = {
+  ...cellBaseStyle,
+  borderTop: '1px solid var(--borderColor-muted)',
+  paddingTop: '3px',
+  marginTop: '2px',
+}
+
+/** Props for MetricLabel component */
+interface MetricLabelProps {
+  children: React.ReactNode
+  isSection?: boolean
+}
+
+/** Label cell in the metrics grid */
+const MetricLabel = React.memo(function MetricLabel({children, isSection}: MetricLabelProps) {
+  return <span style={isSection ? sectionStartStyle : cellBaseStyle}>{children}</span>
+})
+
+/** Props for MetricValue component */
+interface MetricValueProps {
+  children: React.ReactNode
+  color?: string
+  fontWeight?: number | string
+  isSection?: boolean
+  style?: React.CSSProperties
+}
+
+/** Value cell in the metrics grid */
+const MetricValue = React.memo(function MetricValue({children, color, fontWeight, isSection, style}: MetricValueProps) {
+  return (
+    <span
+      style={{
+        ...(isSection ? sectionStartStyle : cellBaseStyle),
+        ...(color && {color}),
+        ...(fontWeight && {fontWeight}),
+        ...style,
+      }}
+    >
+      {children}
+    </span>
+  )
+})
+
+/** Props for MonitorButton */
+interface MonitorButtonProps {
+  onClick: () => void
+  label: string
+  children: React.ReactNode
+  isActive?: boolean
+  fontSize?: string
+}
+
+/** Consistent button styling for monitor controls */
+const MonitorButton = React.memo(function MonitorButton({
+  onClick,
+  label,
+  children,
+  isActive,
+  fontSize = '9px',
+}: MonitorButtonProps) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      style={{
+        background: isActive ? 'var(--bgColor-accent-muted)' : 'var(--bgColor-neutral-muted)',
+        border: isActive ? '1px solid var(--borderColor-accent-emphasis)' : '1px solid var(--borderColor-default)',
+        color: isActive ? 'var(--fgColor-accent)' : 'var(--fgColor-onEmphasis)',
+        cursor: 'pointer',
+        padding: '2px 6px',
+        borderRadius: 'var(--borderRadius-small)',
+        fontSize,
+        fontWeight: isActive ? 600 : 'normal',
+      }}
+      aria-label={label}
+      aria-pressed={isActive}
+    >
+      {children}
+    </button>
+  )
+})
+
+/** Props for HelpPanel */
+interface HelpPanelProps {
+  prefersReducedMotion: boolean
+}
+
+/** Expandable help panel showing metric descriptions */
+const HelpPanel = React.memo(function HelpPanel({prefersReducedMotion}: HelpPanelProps) {
+  return (
+    <div
+      style={{
+        marginBottom: '8px',
+        padding: '8px',
+        background: 'var(--bgColor-neutral-muted)',
+        borderRadius: 'var(--borderRadius-small)',
+        maxHeight: '200px',
+        overflowY: 'auto',
+      }}
+    >
+      <div style={{fontSize: '9px', lineHeight: 1.6}}>
+        {Object.entries(metricDescriptions).map(([key, {label, description}]) => (
+          <div key={key} style={{marginBottom: '6px'}}>
+            <span style={{color: 'var(--fgColor-onEmphasis)', fontWeight: 600}}>{label}</span>
+            <div style={{color: 'var(--fgColor-onEmphasis)', opacity: 0.8, marginTop: '1px'}}>{description}</div>
+          </div>
+        ))}
+        <div
+          style={{
+            marginTop: '8px',
+            paddingTop: '6px',
+            borderTop: '1px solid var(--borderColor-default)',
+            color: 'var(--fgColor-onEmphasis)',
+            opacity: 0.8,
+          }}
+        >
+          <strong style={{opacity: 1}}>Keyboard:</strong> Arrow keys move panel, Shift for larger steps, Home resets
+          position.
+          {prefersReducedMotion && (
+            <div style={{marginTop: '4px'}}>
+              <strong style={{opacity: 1}}>🔇 Reduced motion:</strong> Sparklines hidden to respect your system
+              preference.
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+})
+
+/** Props for CollapsedMonitorView */
+interface CollapsedMonitorViewProps {
+  metrics: PerformanceMetrics
+  positionStyle: React.CSSProperties
+  dragState: {isDragging: boolean; offsetX: number; offsetY: number}
+  onPointerDown: (e: React.PointerEvent) => void
+  onPointerMove: (e: React.PointerEvent) => void
+  onPointerUp: (e: React.PointerEvent) => void
+  onKeyDown: (e: React.KeyboardEvent) => void
+  onExpand: () => void
+}
+
+/** Collapsed single-row view showing key metrics */
+const CollapsedMonitorView = React.memo(function CollapsedMonitorView({
+  metrics,
+  positionStyle,
+  dragState,
+  onPointerDown,
+  onPointerMove,
+  onPointerUp,
+  onKeyDown,
+  onExpand,
+}: CollapsedMonitorViewProps) {
+  const fpsColor =
+    metrics.fps >= 55
+      ? 'var(--fgColor-success)'
+      : metrics.fps >= 30
+        ? 'var(--fgColor-attention)'
+        : 'var(--fgColor-danger)'
+
+  const inputLatencyColor =
+    metrics.inputLatency <= 16
+      ? 'var(--fgColor-success)'
+      : metrics.inputLatency <= 50
+        ? 'var(--fgColor-attention)'
+        : 'var(--fgColor-danger)'
+
+  const longTaskColor =
+    metrics.longTasks === 0
+      ? 'var(--fgColor-success)'
+      : metrics.longTasks <= 5
+        ? 'var(--fgColor-attention)'
+        : 'var(--fgColor-danger)'
+
+  return (
+    <div
+      data-perf-monitor
+      role="region"
+      aria-label="Performance monitor (collapsed). Use arrow keys to move, Home to reset position."
+      tabIndex={0}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onKeyDown={onKeyDown}
+      style={{
+        position: 'fixed',
+        ...positionStyle,
+        zIndex: 9999,
+        padding: '6px 10px',
+        background: 'var(--bgColor-emphasis)',
+        borderRadius: 'var(--borderRadius-medium)',
+        fontFamily: 'monospace',
+        fontSize: '11px',
+        color: 'var(--fgColor-onEmphasis)',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        boxShadow: 'var(--shadow-floating-medium)',
+        backdropFilter: 'blur(4px)',
+        cursor: dragState.isDragging ? 'grabbing' : 'grab',
+        userSelect: 'none',
+        touchAction: 'none',
+      }}
+    >
+      <span style={{color: fpsColor, fontWeight: 600}}>{fpsFormatter.format(metrics.fps)} fps</span>
+      <span style={{color: inputLatencyColor}}>{msFormatter.format(metrics.inputLatency)}ms</span>
+      <span style={{color: longTaskColor}}>{metrics.longTasks} tasks</span>
+      <MonitorButton onClick={onExpand} label="Expand" fontSize="12px">
+        ▼
+      </MonitorButton>
+    </div>
+  )
+})
+
+/** Props for MemoryMetricRow */
+interface MemoryMetricRowProps {
+  metrics: PerformanceMetrics
+  prefersReducedMotion: boolean
+}
+
+/** Memory metric display with sparkline and delta */
+const MemoryMetricRow = React.memo(function MemoryMetricRow({metrics, prefersReducedMotion}: MemoryMetricRowProps) {
+  if (metrics.memoryUsedMB === null) {
+    return (
+      <>
+        <MetricLabel>Memory</MetricLabel>
+        <MetricValue>N/A</MetricValue>
+      </>
+    )
+  }
+
+  const deltaColor =
+    metrics.memoryDeltaMB === null
+      ? 'var(--fgColor-onEmphasis)'
+      : metrics.memoryDeltaMB > 20
+        ? 'var(--fgColor-danger)'
+        : metrics.memoryDeltaMB > 5
+          ? 'var(--fgColor-attention)'
+          : metrics.memoryDeltaMB < -2
+            ? 'var(--fgColor-success)'
+            : 'var(--fgColor-onEmphasis)'
+
+  const deltaText =
+    metrics.memoryDeltaMB === null
+      ? ''
+      : metrics.memoryDeltaMB > 0.5
+        ? `+${mbFormatter.format(metrics.memoryDeltaMB)}`
+        : metrics.memoryDeltaMB < -0.5
+          ? mbFormatter.format(metrics.memoryDeltaMB)
+          : '±0'
+
+  return (
+    <>
+      <MetricLabel>Memory</MetricLabel>
+      <MetricValue style={{display: 'flex', alignItems: 'center'}}>
+        <span style={{minWidth: '45px'}}>{mbFormatter.format(metrics.memoryUsedMB)}MB</span>
+        {metrics.memoryDeltaMB !== null && (
+          <span
+            style={{
+              color: deltaColor,
+              marginLeft: '4px',
+              fontWeight: Math.abs(metrics.memoryDeltaMB) > 5 ? 600 : 'normal',
+            }}
+          >
+            {deltaText}
+          </span>
+        )}
+        {!prefersReducedMotion && (
+          <Sparkline
+            data={metrics.memoryHistory}
+            color="var(--fgColor-accent)"
+            threshold={metrics.memoryHistory.length > 0 ? metrics.memoryHistory[0] + 10 : undefined}
+            thresholdColor="var(--fgColor-attention)"
+            style={{marginLeft: 'auto'}}
+          />
+        )}
+      </MetricValue>
+    </>
+  )
+})
+
+/** Props for FrameMetricsSection */
+interface FrameMetricsSectionProps {
+  metrics: PerformanceMetrics
+  prefersReducedMotion: boolean
+}
+
+/** Frame timing metrics (FPS, Frame time) with sparklines */
+const FrameMetricsSection = React.memo(function FrameMetricsSection({
+  metrics,
+  prefersReducedMotion,
+}: FrameMetricsSectionProps) {
+  const fpsColor =
+    metrics.fps >= 55
+      ? 'var(--fgColor-success)'
+      : metrics.fps >= 30
+        ? 'var(--fgColor-attention)'
+        : 'var(--fgColor-danger)'
+
+  return (
+    <>
+      <MetricLabel isSection>FPS</MetricLabel>
+      <MetricValue isSection color={fpsColor} fontWeight={600} style={{display: 'flex', alignItems: 'center'}}>
+        {fpsFormatter.format(metrics.fps)}
+        {!prefersReducedMotion && (
+          <Sparkline
+            data={metrics.fpsHistory}
+            color={fpsColor}
+            threshold={55}
+            thresholdColor="var(--fgColor-attention)"
+            invertThreshold={true}
+            style={{marginLeft: 'auto'}}
+          />
+        )}
+      </MetricValue>
+
+      <MetricLabel>Frame</MetricLabel>
+      <MetricValue style={{display: 'flex', alignItems: 'center'}}>
+        {msFormatter.format(metrics.frameTime)}ms{' '}
+        <span
+          style={{
+            color: metrics.maxFrameTime > 32 ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
+            fontSize: '9px',
+          }}
+        >
+          (max {msFormatter.format(metrics.maxFrameTime)})
+        </span>
+        {!prefersReducedMotion && (
+          <Sparkline
+            data={metrics.frameTimeHistory}
+            color="var(--fgColor-onEmphasis)"
+            threshold={16.67}
+            thresholdColor="var(--fgColor-danger)"
+            style={{marginLeft: 'auto'}}
+          />
+        )}
+      </MetricValue>
+    </>
+  )
+})
+
+/** Props for InputMetricsSection */
+interface InputMetricsSectionProps {
+  metrics: PerformanceMetrics
+}
+
+/** Input responsiveness metrics (Input latency, Paint time) */
+const InputMetricsSection = React.memo(function InputMetricsSection({metrics}: InputMetricsSectionProps) {
+  const inputLatencyColor =
+    metrics.inputLatency <= 16
+      ? 'var(--fgColor-success)'
+      : metrics.inputLatency <= 50
+        ? 'var(--fgColor-attention)'
+        : 'var(--fgColor-danger)'
+
+  return (
+    <>
+      <MetricLabel isSection>Input</MetricLabel>
+      <MetricValue isSection>
+        <span style={{color: inputLatencyColor, fontWeight: 600}}>{msFormatter.format(metrics.inputLatency)}ms</span>{' '}
+        <span
+          style={{
+            color: metrics.maxInputLatency > 50 ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
+            fontSize: '9px',
+          }}
+        >
+          (max {msFormatter.format(metrics.maxInputLatency)})
+        </span>
+      </MetricValue>
+
+      <MetricLabel>Paint</MetricLabel>
+      <MetricValue>
+        {msFormatter.format(metrics.paintTime)}ms{' '}
+        <span
+          style={{
+            color: metrics.maxPaintTime > 16 ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
+            fontSize: '9px',
+          }}
+        >
+          (max {msFormatter.format(metrics.maxPaintTime)})
+        </span>
+      </MetricValue>
+    </>
+  )
+})
+
+/** Props for TaskMetricsSection */
+interface TaskMetricsSectionProps {
+  metrics: PerformanceMetrics
+}
+
+/** Task metrics (Long tasks, Dropped frames) */
+const TaskMetricsSection = React.memo(function TaskMetricsSection({metrics}: TaskMetricsSectionProps) {
+  const longTaskColor =
+    metrics.longTasks === 0
+      ? 'var(--fgColor-success)'
+      : metrics.longTasks <= 5
+        ? 'var(--fgColor-attention)'
+        : 'var(--fgColor-danger)'
+
+  const droppedColor =
+    metrics.droppedFrames > 10
+      ? 'var(--fgColor-danger)'
+      : metrics.droppedFrames > 0
+        ? 'var(--fgColor-attention)'
+        : 'var(--fgColor-onEmphasis)'
+
+  return (
+    <>
+      <MetricLabel isSection>Tasks</MetricLabel>
+      <MetricValue isSection>
+        <span style={{color: longTaskColor, fontWeight: metrics.longTasks > 0 ? 600 : 'normal'}}>
+          {metrics.longTasks} long
+        </span>
+        {metrics.longestTask > 0 && (
+          <span
+            style={{
+              color: metrics.longestTask > 100 ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
+              fontSize: '9px',
+            }}
+          >
+            {' '}
+            ({metrics.longestTask}ms)
+          </span>
+        )}
+      </MetricValue>
+
+      <MetricLabel>Dropped</MetricLabel>
+      <MetricValue color={droppedColor}>{metrics.droppedFrames} frames</MetricValue>
+    </>
+  )
+})
+
+/** Props for LayoutMetricsSection */
+interface LayoutMetricsSectionProps {
+  metrics: PerformanceMetrics
+}
+
+/** Layout metrics (Style writes, Thrash, Jitter, CLS) */
+const LayoutMetricsSection = React.memo(function LayoutMetricsSection({metrics}: LayoutMetricsSectionProps) {
+  const clsColor =
+    metrics.layoutShiftScore < 0.1
+      ? 'var(--fgColor-success)'
+      : metrics.layoutShiftScore < 0.25
+        ? 'var(--fgColor-attention)'
+        : 'var(--fgColor-danger)'
+
+  return (
+    <>
+      <MetricLabel isSection>Style</MetricLabel>
+      <MetricValue isSection>{metrics.styleWrites} writes</MetricValue>
+
+      <MetricLabel>Thrash</MetricLabel>
+      <MetricValue
+        color={metrics.thrashingScore > 0 ? 'var(--fgColor-danger)' : 'var(--fgColor-success)'}
+        fontWeight={metrics.thrashingScore > 0 ? 600 : 'normal'}
+      >
+        {metrics.thrashingScore === 0 ? 'none ✓' : `${metrics.thrashingScore} stalls`}
+      </MetricValue>
+
+      <MetricLabel>Jitter</MetricLabel>
+      <MetricValue
+        color={metrics.inputJitter > 0 ? 'var(--fgColor-danger)' : 'var(--fgColor-success)'}
+        fontWeight={metrics.inputJitter > 0 ? 600 : 'normal'}
+      >
+        {metrics.inputJitter === 0 ? 'none ✓' : `${metrics.inputJitter} hitches`}
+      </MetricValue>
+
+      <MetricLabel>CLS</MetricLabel>
+      <MetricValue color={clsColor} fontWeight={metrics.layoutShiftScore > 0 ? 600 : 'normal'}>
+        {metrics.layoutShiftScore === 0 ? 'none ✓' : metrics.layoutShiftScore.toFixed(3)}
+        {metrics.layoutShiftCount > 0 && (
+          <span style={{fontWeight: 'normal', color: 'var(--fgColor-onEmphasis)', fontSize: '9px'}}>
+            {' '}
+            ({metrics.layoutShiftCount}×)
+          </span>
+        )}
+      </MetricValue>
+    </>
+  )
+})
+
+/** Props for InteractionMetricsSection */
+interface InteractionMetricsSectionProps {
+  metrics: PerformanceMetrics
+}
+
+/** Interaction metrics (INP) */
+const InteractionMetricsSection = React.memo(function InteractionMetricsSection({
+  metrics,
+}: InteractionMetricsSectionProps) {
+  const inpColor =
+    metrics.inpMs <= 200
+      ? 'var(--fgColor-success)'
+      : metrics.inpMs <= 500
+        ? 'var(--fgColor-attention)'
+        : 'var(--fgColor-danger)'
+
+  return (
+    <>
+      <MetricLabel isSection>Interact</MetricLabel>
+      <MetricValue isSection>
+        {metrics.interactionCount > 0 ? (
+          <>
+            <span>{metrics.interactionCount}×</span>
+            <span style={{marginLeft: '4px', color: inpColor, fontWeight: 600}}>INP {metrics.inpMs}ms</span>
+          </>
+        ) : (
+          'none'
+        )}
+      </MetricValue>
+    </>
+  )
+})
+
+/** Props for ReactMetricsSection */
+interface ReactMetricsSectionProps {
+  metrics: PerformanceMetrics
+}
+
+/** React profiler metrics (Mount, Updates, Cascades) */
+const ReactMetricsSection = React.memo(function ReactMetricsSection({metrics}: ReactMetricsSectionProps) {
+  const updateColor =
+    metrics.reactPostMountUpdateCount === 0
+      ? 'var(--fgColor-success)'
+      : metrics.reactPostMountMaxDuration <= 8
+        ? 'var(--fgColor-success)'
+        : metrics.reactPostMountMaxDuration <= 16
+          ? 'var(--fgColor-attention)'
+          : 'var(--fgColor-danger)'
+
+  const cascadeColor =
+    metrics.renderCascades === 0
+      ? 'var(--fgColor-success)'
+      : metrics.renderCascades <= 3
+        ? 'var(--fgColor-attention)'
+        : 'var(--fgColor-danger)'
+
+  return (
+    <>
+      {/* Mount */}
+      <MetricLabel isSection>⚛️ Mount</MetricLabel>
+      <MetricValue isSection>
+        {metrics.reactMountCount > 0 ? (
+          <>
+            {metrics.reactMountCount}× ({msFormatter.format(metrics.reactMountDuration)}ms)
+          </>
+        ) : (
+          <span style={{fontSize: '9px', fontStyle: 'italic'}}>awaiting profiler…</span>
+        )}
+      </MetricValue>
+
+      {/* Updates */}
+      <MetricLabel>⚛️ Updates</MetricLabel>
+      {metrics.reactRenderCount > 0 ? (
+        <MetricValue color={updateColor} fontWeight={600}>
+          {metrics.reactPostMountUpdateCount === 0 ? 'none ✓' : metrics.reactPostMountUpdateCount}
+          {metrics.reactPostMountUpdateCount > 0 && metrics.reactPostMountMaxDuration <= 8 && ' ✓'}
+          {metrics.reactPostMountUpdateCount > 0 && (
+            <span style={{fontWeight: 'normal', color: 'var(--fgColor-onEmphasis)', fontSize: '9px'}}>
+              {' '}
+              (max {msFormatter.format(metrics.reactPostMountMaxDuration)}ms)
+            </span>
+          )}
+        </MetricValue>
+      ) : (
+        <MetricValue style={{fontSize: '9px', fontStyle: 'italic'}}>use profiling build</MetricValue>
+      )}
+
+      {/* Cascades */}
+      <MetricLabel>⚛️ Cascades</MetricLabel>
+      <MetricValue color={cascadeColor} fontWeight={metrics.renderCascades > 0 ? 600 : 'normal'}>
+        {metrics.renderCascades === 0 ? 'none ✓' : metrics.renderCascades}
+        {metrics.maxRendersPerFrame > 1 && (
+          <span style={{fontWeight: 'normal', color: 'var(--fgColor-onEmphasis)', fontSize: '9px'}}>
+            {' '}
+            (max {metrics.maxRendersPerFrame}/frame)
+          </span>
+        )}
+      </MetricValue>
+    </>
+  )
+})
+
 /**
  * Metric descriptions for the help panel.
  * These mirror the JSDoc documentation on PerformanceMetrics interface.
@@ -1291,7 +1923,7 @@ interface PerformanceMonitorViewProps {
 function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-left'}: PerformanceMonitorViewProps) {
   const [isCollapsed, setIsCollapsed] = React.useState(false)
   const [showHelp, setShowHelp] = React.useState(false)
-  const [position, setPosition] = React.useState<{x: number; y: number} | null>(null) // null = use default bottom-left
+  const [position, setPosition] = React.useState<{x: number; y: number} | null>(null)
   const [dragState, setDragState] = React.useState<{isDragging: boolean; offsetX: number; offsetY: number}>({
     isDragging: false,
     offsetX: 0,
@@ -1300,100 +1932,83 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
   const prefersReducedMotion = usePrefersReducedMotion()
 
   // Handle drag start - capture pointer for smooth dragging
-  const handlePointerDown = (e: React.PointerEvent) => {
-    // Only drag from the header area, not buttons
-    if ((e.target as HTMLElement).closest('button'))
-      return // Capture pointer to receive all events even outside element
-    ;(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId)
+  const handlePointerDown = React.useCallback(
+    (e: React.PointerEvent) => {
+      if ((e.target as HTMLElement).closest('button')) return
+      ;(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId)
 
-    // Get current position (either from state or computed from bottom-left)
-    const rect = (e.currentTarget as HTMLElement).closest('[data-perf-monitor]')?.getBoundingClientRect()
-    const currentX = position?.x ?? rect?.left ?? 8
-    const currentY = position?.y ?? rect?.top ?? window.innerHeight - (rect?.height ?? 300) - 8
+      const rect = (e.currentTarget as HTMLElement).closest('[data-perf-monitor]')?.getBoundingClientRect()
+      const currentX = position?.x ?? rect?.left ?? 8
+      const currentY = position?.y ?? rect?.top ?? window.innerHeight - (rect?.height ?? 300) - 8
 
-    setDragState({
-      isDragging: true,
-      offsetX: e.clientX - currentX,
-      offsetY: e.clientY - currentY,
-    })
-    e.preventDefault()
-  }
+      setDragState({
+        isDragging: true,
+        offsetX: e.clientX - currentX,
+        offsetY: e.clientY - currentY,
+      })
+      e.preventDefault()
+    },
+    [position],
+  )
 
   // Handle drag move
-  const handlePointerMove = (e: React.PointerEvent) => {
-    if (!dragState.isDragging) return
-    setPosition({
-      x: e.clientX - dragState.offsetX,
-      y: e.clientY - dragState.offsetY,
-    })
-  }
+  const handlePointerMove = React.useCallback(
+    (e: React.PointerEvent) => {
+      if (!dragState.isDragging) return
+      setPosition({
+        x: e.clientX - dragState.offsetX,
+        y: e.clientY - dragState.offsetY,
+      })
+    },
+    [dragState],
+  )
 
   // Handle drag end
-  const handlePointerUp = (e: React.PointerEvent) => {
-    if (!dragState.isDragging) return
-    ;(e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId)
-    setDragState(prev => ({...prev, isDragging: false}))
-  }
+  const handlePointerUp = React.useCallback(
+    (e: React.PointerEvent) => {
+      if (!dragState.isDragging) return
+      ;(e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId)
+      setDragState(prev => ({...prev, isDragging: false}))
+    },
+    [dragState.isDragging],
+  )
 
   // Keyboard support for moving the panel
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    const step = e.shiftKey ? 50 : 10
-    let newPosition = position
+  const handleKeyDown = React.useCallback(
+    (e: React.KeyboardEvent) => {
+      const step = e.shiftKey ? 50 : 10
+      let newPosition = position
 
-    // Get current position if not set
-    if (!newPosition) {
-      const rect = (e.currentTarget as HTMLElement).getBoundingClientRect()
-      newPosition = {x: rect.left, y: rect.top}
-    }
+      if (!newPosition) {
+        const rect = (e.currentTarget as HTMLElement).getBoundingClientRect()
+        newPosition = {x: rect.left, y: rect.top}
+      }
 
-    switch (e.key) {
-      case 'ArrowUp':
-        setPosition({...newPosition, y: newPosition.y - step})
-        e.preventDefault()
-        break
-      case 'ArrowDown':
-        setPosition({...newPosition, y: newPosition.y + step})
-        e.preventDefault()
-        break
-      case 'ArrowLeft':
-        setPosition({...newPosition, x: newPosition.x - step})
-        e.preventDefault()
-        break
-      case 'ArrowRight':
-        setPosition({...newPosition, x: newPosition.x + step})
-        e.preventDefault()
-        break
-      case 'Home':
-        // Reset to default position
-        setPosition(null)
-        e.preventDefault()
-        break
-    }
-  }
-
-  // Color thresholds for metrics display
-  const fpsColor =
-    metrics.fps >= 55
-      ? 'var(--fgColor-success)'
-      : metrics.fps >= 30
-        ? 'var(--fgColor-attention)'
-        : 'var(--fgColor-danger)'
-
-  const inputLatencyColor =
-    metrics.inputLatency <= 16
-      ? 'var(--fgColor-success)'
-      : metrics.inputLatency <= 50
-        ? 'var(--fgColor-attention)'
-        : 'var(--fgColor-danger)'
-
-  const longTaskColor =
-    metrics.longTasks === 0
-      ? 'var(--fgColor-success)'
-      : metrics.longTasks <= 5
-        ? 'var(--fgColor-attention)'
-        : 'var(--fgColor-danger)'
-
-  // avgReactRender intentionally not used in compact view
+      switch (e.key) {
+        case 'ArrowUp':
+          setPosition({...newPosition, y: newPosition.y - step})
+          e.preventDefault()
+          break
+        case 'ArrowDown':
+          setPosition({...newPosition, y: newPosition.y + step})
+          e.preventDefault()
+          break
+        case 'ArrowLeft':
+          setPosition({...newPosition, x: newPosition.x - step})
+          e.preventDefault()
+          break
+        case 'ArrowRight':
+          setPosition({...newPosition, x: newPosition.x + step})
+          e.preventDefault()
+          break
+        case 'Home':
+          setPosition(null)
+          e.preventDefault()
+          break
+      }
+    },
+    [position],
+  )
 
   // Position styles - use explicit position if dragged, otherwise use initialPosition
   const defaultPositionStyle = {
@@ -1405,58 +2020,19 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
 
   const positionStyle = position ? {left: `${position.x}px`, top: `${position.y}px`} : defaultPositionStyle
 
-  // Collapsed view - just key metrics in a row
+  // Collapsed view - use extracted component
   if (isCollapsed) {
     return (
-      <div
-        data-perf-monitor
-        role="region"
-        aria-label="Performance monitor (collapsed). Use arrow keys to move, Home to reset position."
-        tabIndex={0}
+      <CollapsedMonitorView
+        metrics={metrics}
+        positionStyle={positionStyle}
+        dragState={dragState}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onKeyDown={handleKeyDown}
-        style={{
-          position: 'fixed',
-          ...positionStyle,
-          zIndex: 9999,
-          padding: '6px 10px',
-          background: 'var(--bgColor-emphasis)',
-          borderRadius: 'var(--borderRadius-medium)',
-          fontFamily: 'monospace',
-          fontSize: '11px',
-          color: 'var(--fgColor-onEmphasis)',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-          boxShadow: 'var(--shadow-floating-medium)',
-          backdropFilter: 'blur(4px)',
-          cursor: dragState.isDragging ? 'grabbing' : 'grab',
-          userSelect: 'none',
-          touchAction: 'none',
-        }}
-      >
-        <span style={{color: fpsColor, fontWeight: 600}}>{fpsFormatter.format(metrics.fps)} fps</span>
-        <span style={{color: inputLatencyColor}}>{msFormatter.format(metrics.inputLatency)}ms</span>
-        <span style={{color: longTaskColor}}>{metrics.longTasks} tasks</span>
-        <button
-          type="button"
-          onClick={() => setIsCollapsed(false)}
-          style={{
-            background: 'var(--bgColor-neutral-muted)',
-            border: '1px solid var(--borderColor-default)',
-            color: 'var(--fgColor-onEmphasis)',
-            cursor: 'pointer',
-            padding: '2px 6px',
-            borderRadius: 'var(--borderRadius-small)',
-            fontSize: '12px',
-          }}
-          aria-label="Expand"
-        >
-          ▼
-        </button>
-      </div>
+        onExpand={() => setIsCollapsed(false)}
+      />
     )
   }
 
@@ -1512,156 +2088,39 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
           )}
         </span>
         <div style={{display: 'flex', gap: '4px'}}>
-          <button
-            type="button"
+          <MonitorButton
             onClick={() => setShowHelp(!showHelp)}
-            style={{
-              background: showHelp ? 'var(--bgColor-accent-muted)' : 'var(--bgColor-neutral-muted)',
-              border: showHelp
-                ? '1px solid var(--borderColor-accent-emphasis)'
-                : '1px solid var(--borderColor-default)',
-              color: showHelp ? 'var(--fgColor-accent)' : 'var(--fgColor-onEmphasis)',
-              cursor: 'pointer',
-              padding: '2px 6px',
-              borderRadius: 'var(--borderRadius-small)',
-              fontSize: '9px',
-              fontWeight: 600,
-            }}
-            aria-label={showHelp ? 'Hide help' : 'Show help'}
-            aria-pressed={showHelp}
+            label={showHelp ? 'Hide help' : 'Show help'}
+            isActive={showHelp}
           >
             ?
-          </button>
-          <button
-            type="button"
-            onClick={onReset}
-            style={{
-              background: 'var(--bgColor-neutral-muted)',
-              border: '1px solid var(--borderColor-default)',
-              color: 'var(--fgColor-onEmphasis)',
-              cursor: 'pointer',
-              padding: '2px 6px',
-              borderRadius: 'var(--borderRadius-small)',
-              fontSize: '9px',
-            }}
-          >
+          </MonitorButton>
+          <MonitorButton onClick={onReset} label="Reset metrics">
             Reset
-          </button>
-          <button
-            type="button"
-            onClick={() => setIsCollapsed(true)}
-            style={{
-              background: 'var(--bgColor-neutral-muted)',
-              border: '1px solid var(--borderColor-default)',
-              color: 'var(--fgColor-onEmphasis)',
-              cursor: 'pointer',
-              padding: '2px 6px',
-              borderRadius: 'var(--borderRadius-small)',
-              fontSize: '10px',
-            }}
-            aria-label="Collapse"
-          >
+          </MonitorButton>
+          <MonitorButton onClick={() => setIsCollapsed(true)} label="Collapse" fontSize="10px">
             ▲
-          </button>
+          </MonitorButton>
         </div>
       </div>
 
       {/* Help Panel */}
-      {showHelp && (
-        <div
-          style={{
-            marginBottom: '8px',
-            padding: '8px',
-            background: 'var(--bgColor-neutral-muted)',
-            borderRadius: 'var(--borderRadius-small)',
-            maxHeight: '200px',
-            overflowY: 'auto',
-          }}
-        >
-          <div style={{fontSize: '9px', lineHeight: 1.6}}>
-            {Object.entries(metricDescriptions).map(([key, {label, description}]) => (
-              <div key={key} style={{marginBottom: '6px'}}>
-                <span style={{color: 'var(--fgColor-onEmphasis)', fontWeight: 600}}>{label}</span>
-                <div style={{color: 'var(--fgColor-onEmphasis)', opacity: 0.8, marginTop: '1px'}}>{description}</div>
-              </div>
-            ))}
-            <div
-              style={{
-                marginTop: '8px',
-                paddingTop: '6px',
-                borderTop: '1px solid var(--borderColor-default)',
-                color: 'var(--fgColor-onEmphasis)',
-                opacity: 0.8,
-              }}
-            >
-              <strong style={{opacity: 1}}>Keyboard:</strong> Arrow keys move panel, Shift for larger steps, Home resets
-              position.
-              {prefersReducedMotion && (
-                <div style={{marginTop: '4px'}}>
-                  <strong style={{opacity: 1}}>🔇 Reduced motion:</strong> Sparklines hidden to respect your system
-                  preference.
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+      {showHelp && <HelpPanel prefersReducedMotion={prefersReducedMotion} />}
 
       {/* Metrics Grid */}
       <div style={{display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '1px 6px', lineHeight: 1.5}}>
         {/* DOM count */}
-
-        <span style={{color: 'var(--fgColor-onEmphasis)', fontSize: '9px'}}>DOM</span>
-        <span style={{color: 'var(--fgColor-onEmphasis)', fontSize: '9px'}}>
+        <MetricLabel>DOM</MetricLabel>
+        <MetricValue>
           {metrics.domElements ? `${numberFormatter.format(metrics.domElements)} nodes` : 'N/A'}
-        </span>
+        </MetricValue>
 
         {/* Memory (Chrome only) */}
-        <span style={{color: 'var(--fgColor-onEmphasis)', fontSize: '9px'}}>Memory</span>
-        <span style={{color: 'var(--fgColor-onEmphasis)', fontSize: '9px', display: 'flex', alignItems: 'center'}}>
-          {metrics.memoryUsedMB !== null ? (
-            <>
-              <span style={{minWidth: '45px'}}>{mbFormatter.format(metrics.memoryUsedMB)}MB</span>
-              {metrics.memoryDeltaMB !== null && (
-                <span
-                  style={{
-                    color:
-                      metrics.memoryDeltaMB > 20
-                        ? 'var(--fgColor-danger)' // Large growth - concern
-                        : metrics.memoryDeltaMB > 5
-                          ? 'var(--fgColor-attention)' // Moderate growth - watch
-                          : metrics.memoryDeltaMB < -2
-                            ? 'var(--fgColor-success)' // Significant decrease - GC ran
-                            : 'var(--fgColor-onEmphasis)', // Stable
-                    marginLeft: '4px',
-                    fontWeight: Math.abs(metrics.memoryDeltaMB) > 5 ? 600 : 'normal',
-                  }}
-                >
-                  {metrics.memoryDeltaMB > 0.5
-                    ? `+${mbFormatter.format(metrics.memoryDeltaMB)}`
-                    : metrics.memoryDeltaMB < -0.5
-                      ? mbFormatter.format(metrics.memoryDeltaMB)
-                      : '±0'}
-                </span>
-              )}
-              {!prefersReducedMotion && (
-                <Sparkline
-                  data={metrics.memoryHistory}
-                  color="var(--fgColor-accent)"
-                  threshold={metrics.memoryHistory.length > 0 ? metrics.memoryHistory[0] + 10 : undefined}
-                  thresholdColor="var(--fgColor-attention)"
-                  style={{marginLeft: 'auto'}}
-                />
-              )}
-            </>
-          ) : (
-            'N/A'
-          )}
-        </span>
+        <MemoryMetricRow metrics={metrics} prefersReducedMotion={prefersReducedMotion} />
 
         {/* Peak Memory */}
-        <span style={{color: 'var(--fgColor-onEmphasis)', fontSize: '9px'}}>Peak</span>
-        <span style={{color: 'var(--fgColor-onEmphasis)', fontSize: '9px'}}>
+        <MetricLabel>Peak</MetricLabel>
+        <MetricValue>
           {metrics.peakMemoryMB !== null ? (
             <>
               {mbFormatter.format(metrics.peakMemoryMB)}MB
@@ -1674,328 +2133,25 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
           ) : (
             'N/A'
           )}
-        </span>
+        </MetricValue>
 
         {/* Frame Section */}
-        <span
-          style={{
-            color: 'var(--fgColor-onEmphasis)',
-            borderTop: '1px solid var(--borderColor-muted)',
-            paddingTop: '3px',
-            marginTop: '2px',
-          }}
-        >
-          FPS
-        </span>
-        <span
-          style={{
-            color: fpsColor,
-            fontWeight: 600,
-            borderTop: '1px solid var(--borderColor-muted)',
-            paddingTop: '3px',
-            marginTop: '2px',
-            display: 'flex',
-            alignItems: 'center',
-          }}
-        >
-          {fpsFormatter.format(metrics.fps)}
-          {!prefersReducedMotion && (
-            <Sparkline
-              data={metrics.fpsHistory}
-              color={fpsColor}
-              threshold={55}
-              thresholdColor="var(--fgColor-attention)"
-              invertThreshold={true}
-              style={{marginLeft: 'auto'}}
-            />
-          )}
-        </span>
-
-        <span style={{color: 'var(--fgColor-onEmphasis)'}}>Frame</span>
-        <span style={{display: 'flex', alignItems: 'center'}}>
-          {msFormatter.format(metrics.frameTime)}ms{' '}
-          <span
-            style={{
-              color: metrics.maxFrameTime > 32 ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
-              fontSize: '9px',
-            }}
-          >
-            (max {msFormatter.format(metrics.maxFrameTime)})
-          </span>
-          {!prefersReducedMotion && (
-            <Sparkline
-              data={metrics.frameTimeHistory}
-              color="var(--fgColor-onEmphasis)"
-              threshold={16.67}
-              thresholdColor="var(--fgColor-danger)"
-              style={{marginLeft: 'auto'}}
-            />
-          )}
-        </span>
+        <FrameMetricsSection metrics={metrics} prefersReducedMotion={prefersReducedMotion} />
 
         {/* Input Section */}
-        <span
-          style={{
-            color: 'var(--fgColor-onEmphasis)',
-            borderTop: '1px solid var(--borderColor-muted)',
-            paddingTop: '3px',
-            marginTop: '2px',
-          }}
-        >
-          Input
-        </span>
-        <span style={{borderTop: '1px solid var(--borderColor-muted)', paddingTop: '3px', marginTop: '2px'}}>
-          <span style={{color: inputLatencyColor, fontWeight: 600}}>{msFormatter.format(metrics.inputLatency)}ms</span>{' '}
-          <span
-            style={{
-              color: metrics.maxInputLatency > 50 ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
-              fontSize: '9px',
-            }}
-          >
-            (max {msFormatter.format(metrics.maxInputLatency)})
-          </span>
-        </span>
-
-        <span style={{color: 'var(--fgColor-onEmphasis)'}}>Paint</span>
-        <span>
-          {msFormatter.format(metrics.paintTime)}ms{' '}
-          <span
-            style={{
-              color: metrics.maxPaintTime > 16 ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
-              fontSize: '9px',
-            }}
-          >
-            (max {msFormatter.format(metrics.maxPaintTime)})
-          </span>
-        </span>
+        <InputMetricsSection metrics={metrics} />
 
         {/* Tasks Section */}
-        <span
-          style={{
-            color: 'var(--fgColor-onEmphasis)',
-            borderTop: '1px solid var(--borderColor-muted)',
-            paddingTop: '3px',
-            marginTop: '2px',
-          }}
-        >
-          Tasks
-        </span>
-        <span style={{borderTop: '1px solid var(--borderColor-muted)', paddingTop: '3px', marginTop: '2px'}}>
-          <span style={{color: longTaskColor, fontWeight: metrics.longTasks > 0 ? 600 : 'normal'}}>
-            {metrics.longTasks} long
-          </span>
-          {metrics.longestTask > 0 && (
-            <span
-              style={{
-                color: metrics.longestTask > 100 ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
-                fontSize: '9px',
-              }}
-            >
-              {' '}
-              ({metrics.longestTask}ms)
-            </span>
-          )}
-        </span>
-
-        <span style={{color: 'var(--fgColor-onEmphasis)'}}>Dropped</span>
-        <span
-          style={{
-            color:
-              metrics.droppedFrames > 10
-                ? 'var(--fgColor-danger)'
-                : metrics.droppedFrames > 0
-                  ? 'var(--fgColor-attention)'
-                  : 'var(--fgColor-onEmphasis)',
-          }}
-        >
-          {metrics.droppedFrames} frames
-        </span>
+        <TaskMetricsSection metrics={metrics} />
 
         {/* Layout Section */}
-        <span
-          style={{
-            color: 'var(--fgColor-onEmphasis)',
-            borderTop: '1px solid var(--borderColor-muted)',
-            paddingTop: '3px',
-            marginTop: '2px',
-          }}
-        >
-          Style
-        </span>
-        <span
-          style={{
-            borderTop: '1px solid var(--borderColor-muted)',
-            paddingTop: '3px',
-            marginTop: '2px',
-            color: 'var(--fgColor-onEmphasis)',
-          }}
-        >
-          {metrics.styleWrites} writes
-        </span>
+        <LayoutMetricsSection metrics={metrics} />
 
-        <span style={{color: 'var(--fgColor-onEmphasis)'}}>Thrash</span>
-        <span
-          style={{
-            color: metrics.thrashingScore > 0 ? 'var(--fgColor-danger)' : 'var(--fgColor-success)',
-            fontWeight: metrics.thrashingScore > 0 ? 600 : 'normal',
-          }}
-        >
-          {metrics.thrashingScore === 0 ? 'none ✓' : `${metrics.thrashingScore} stalls`}
-        </span>
+        {/* Interactions Section */}
+        <InteractionMetricsSection metrics={metrics} />
 
-        <span style={{color: 'var(--fgColor-onEmphasis)'}}>Jitter</span>
-        <span
-          style={{
-            color: metrics.inputJitter > 0 ? 'var(--fgColor-danger)' : 'var(--fgColor-success)',
-            fontWeight: metrics.inputJitter > 0 ? 600 : 'normal',
-          }}
-        >
-          {metrics.inputJitter === 0 ? 'none ✓' : `${metrics.inputJitter} hitches`}
-        </span>
-
-        {/* CLS - Cumulative Layout Shift */}
-        <span style={{color: 'var(--fgColor-onEmphasis)'}}>CLS</span>
-        <span
-          style={{
-            color:
-              metrics.layoutShiftScore < 0.1
-                ? 'var(--fgColor-success)'
-                : metrics.layoutShiftScore < 0.25
-                  ? 'var(--fgColor-attention)'
-                  : 'var(--fgColor-danger)',
-            fontWeight: metrics.layoutShiftScore > 0 ? 600 : 'normal',
-          }}
-        >
-          {metrics.layoutShiftScore === 0 ? 'none ✓' : metrics.layoutShiftScore.toFixed(3)}
-          {metrics.layoutShiftCount > 0 && (
-            <span style={{fontWeight: 'normal', color: 'var(--fgColor-onEmphasis)', fontSize: '9px'}}>
-              {' '}
-              ({metrics.layoutShiftCount}×)
-            </span>
-          )}
-        </span>
-
-        {/* Interactions - Click/Keyboard with INP */}
-        <span
-          style={{
-            color: 'var(--fgColor-onEmphasis)',
-            borderTop: '1px solid var(--borderColor-muted)',
-            paddingTop: '3px',
-            marginTop: '2px',
-          }}
-        >
-          Interact
-        </span>
-        <span
-          style={{
-            borderTop: '1px solid var(--borderColor-muted)',
-            paddingTop: '3px',
-            marginTop: '2px',
-          }}
-        >
-          {metrics.interactionCount > 0 ? (
-            <>
-              <span style={{color: 'var(--fgColor-onEmphasis)'}}>{metrics.interactionCount}×</span>
-              <span
-                style={{
-                  marginLeft: '4px',
-                  color:
-                    metrics.inpMs <= 200
-                      ? 'var(--fgColor-success)'
-                      : metrics.inpMs <= 500
-                        ? 'var(--fgColor-attention)'
-                        : 'var(--fgColor-danger)',
-                  fontWeight: 600,
-                }}
-              >
-                INP {metrics.inpMs}ms
-              </span>
-            </>
-          ) : (
-            <span style={{color: 'var(--fgColor-onEmphasis)'}}>none</span>
-          )}
-        </span>
-
-        {/* React Mount Section */}
-        <span
-          style={{
-            color: 'var(--fgColor-onEmphasis)',
-            borderTop: '1px solid var(--borderColor-muted)',
-            paddingTop: '3px',
-            marginTop: '2px',
-          }}
-        >
-          ⚛️ Mount
-        </span>
-        <span
-          style={{
-            borderTop: '1px solid var(--borderColor-muted)',
-            paddingTop: '3px',
-            marginTop: '2px',
-            color: 'var(--fgColor-onEmphasis)',
-          }}
-        >
-          {metrics.reactMountCount > 0 ? (
-            <>
-              {metrics.reactMountCount}× ({msFormatter.format(metrics.reactMountDuration)}ms)
-            </>
-          ) : (
-            <span style={{fontSize: '9px', fontStyle: 'italic'}}>awaiting profiler…</span>
-          )}
-        </span>
-
-        {/* React Updates Section (post-mount interactions) */}
-        <span style={{color: 'var(--fgColor-onEmphasis)'}}>⚛️ Updates</span>
-        {metrics.reactRenderCount > 0 ? (
-          <span
-            style={{
-              color:
-                metrics.reactPostMountUpdateCount === 0
-                  ? 'var(--fgColor-success)' // No updates = great
-                  : metrics.reactPostMountMaxDuration <= 8
-                    ? 'var(--fgColor-success)' // Fast renders = fine
-                    : metrics.reactPostMountMaxDuration <= 16
-                      ? 'var(--fgColor-attention)' // Medium renders = warning
-                      : 'var(--fgColor-danger)', // Slow renders = bad
-              fontWeight: 600,
-            }}
-          >
-            {metrics.reactPostMountUpdateCount === 0 ? 'none ✓' : metrics.reactPostMountUpdateCount}
-            {metrics.reactPostMountUpdateCount > 0 && metrics.reactPostMountMaxDuration <= 8 && ' ✓'}
-            {metrics.reactPostMountUpdateCount > 0 && (
-              <span style={{fontWeight: 'normal', color: 'var(--fgColor-onEmphasis)', fontSize: '9px'}}>
-                {' '}
-                (max {msFormatter.format(metrics.reactPostMountMaxDuration)}ms)
-              </span>
-            )}
-          </span>
-        ) : (
-          <span style={{color: 'var(--fgColor-onEmphasis)', fontSize: '9px', fontStyle: 'italic'}}>
-            use profiling build
-          </span>
-        )}
-
-        {/* Re-render Cascades */}
-        <span style={{color: 'var(--fgColor-onEmphasis)'}}>⚛️ Cascades</span>
-        <span
-          style={{
-            color:
-              metrics.renderCascades === 0
-                ? 'var(--fgColor-success)'
-                : metrics.renderCascades <= 3
-                  ? 'var(--fgColor-attention)'
-                  : 'var(--fgColor-danger)',
-            fontWeight: metrics.renderCascades > 0 ? 600 : 'normal',
-          }}
-        >
-          {metrics.renderCascades === 0 ? 'none ✓' : metrics.renderCascades}
-          {metrics.maxRendersPerFrame > 1 && (
-            <span style={{fontWeight: 'normal', color: 'var(--fgColor-onEmphasis)', fontSize: '9px'}}>
-              {' '}
-              (max {metrics.maxRendersPerFrame}/frame)
-            </span>
-          )}
-        </span>
+        {/* React Section */}
+        <ReactMetricsSection metrics={metrics} />
       </div>
     </div>
   )
