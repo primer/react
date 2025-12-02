@@ -174,13 +174,7 @@ interface MutableMetricsState {
   domElements: number | null
 }
 
-export function PerformanceProvider({
-  children,
-  showMonitor = true,
-}: {
-  children: React.ReactNode
-  showMonitor?: boolean
-}) {
+export function PerformanceProvider({children}: {children: React.ReactNode}) {
   // Ref for DOM element counting
   const contentRef = React.useRef<HTMLDivElement>(null)
 
@@ -527,7 +521,7 @@ export function PerformanceProvider({
   return (
     <PerformanceCallbacksContext.Provider value={callbacksValue}>
       <PerformanceMetricsContext.Provider value={metricsValue}>
-        {showMonitor && <PerformanceMonitorInternal metrics={metrics} reset={reset} />}
+        <PerformanceMonitorView metrics={metrics} onReset={reset} />
         <div ref={contentRef}>{children}</div>
       </PerformanceMetricsContext.Provider>
     </PerformanceCallbacksContext.Provider>
@@ -564,14 +558,6 @@ export function ProfiledComponent({id, children}: {id: string; children: React.R
 }
 
 // ============================================================================
-// Internal Performance Monitor (rendered by provider, outside profiled tree)
-// ============================================================================
-
-function PerformanceMonitorInternal({metrics, reset}: {metrics: PerformanceMetrics; reset: () => void}) {
-  return <PerformanceMonitorView metrics={metrics} onReset={reset} />
-}
-
-// ============================================================================
 // Stateless Performance Monitor View
 // ============================================================================
 
@@ -580,7 +566,7 @@ interface PerformanceMonitorViewProps {
   onReset: () => void
 }
 
-export function PerformanceMonitorView({metrics, onReset}: PerformanceMonitorViewProps) {
+function PerformanceMonitorView({metrics, onReset}: PerformanceMonitorViewProps) {
   const [isCollapsed, setIsCollapsed] = React.useState(false)
   const [position, setPosition] = React.useState<{x: number; y: number} | null>(null) // null = use default bottom-left
   const [dragState, setDragState] = React.useState<{isDragging: boolean; offsetX: number; offsetY: number}>({
@@ -705,19 +691,18 @@ export function PerformanceMonitorView({metrics, onReset}: PerformanceMonitorVie
           zIndex: 9999,
           padding: '6px 10px',
           background: 'rgba(0, 0, 0, 0.85)',
-          borderRadius: '6px',
+          borderRadius: 'var(--borderRadius-medium)',
           fontFamily: 'monospace',
           fontSize: '11px',
-          color: '#fff',
+          color: 'var(--fgColor-onEmphasis)',
           display: 'flex',
           alignItems: 'center',
           gap: '12px',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+          boxShadow: 'var(--shadow-floating-medium)',
           backdropFilter: 'blur(4px)',
           cursor: dragState.isDragging ? 'grabbing' : 'grab',
           userSelect: 'none',
           touchAction: 'none',
-          outline: 'none',
         }}
       >
         <span style={{color: fpsColor, fontWeight: 600}}>{fpsFormatter.format(metrics.fps)} fps</span>
@@ -729,7 +714,7 @@ export function PerformanceMonitorView({metrics, onReset}: PerformanceMonitorVie
           style={{
             background: 'transparent',
             border: 'none',
-            color: '#888',
+            color: 'var(--fgColor-muted)',
             cursor: 'pointer',
             padding: '0 4px',
             fontSize: '14px',
@@ -753,12 +738,12 @@ export function PerformanceMonitorView({metrics, onReset}: PerformanceMonitorVie
         zIndex: 9999,
         padding: '8px 10px',
         background: 'rgba(0, 0, 0, 0.9)',
-        borderRadius: '6px',
+        borderRadius: 'var(--borderRadius-medium)',
         fontFamily: 'monospace',
         fontSize: '10px',
-        color: '#ccc',
+        color: 'var(--fgColor-muted)',
         width: '220px',
-        boxShadow: '0 2px 12px rgba(0,0,0,0.4)',
+        boxShadow: 'var(--shadow-floating-large)',
         backdropFilter: 'blur(4px)',
         userSelect: 'none',
       }}
@@ -782,22 +767,21 @@ export function PerformanceMonitorView({metrics, onReset}: PerformanceMonitorVie
           marginBottom: '6px',
           cursor: dragState.isDragging ? 'grabbing' : 'grab',
           touchAction: 'none',
-          outline: 'none',
-          borderRadius: '3px',
+          borderRadius: 'var(--borderRadius-small)',
         }}
       >
-        <span style={{fontWeight: 600, color: '#fff', fontSize: '11px'}}>⚡ Perf</span>
+        <span style={{fontWeight: 600, color: 'var(--fgColor-onEmphasis)', fontSize: '11px'}}>⚡ Perf</span>
         <div style={{display: 'flex', gap: '4px'}}>
           <button
             type="button"
             onClick={onReset}
             style={{
-              background: '#333',
+              background: 'var(--bgColor-neutral-muted)',
               border: 'none',
-              color: '#999',
+              color: 'var(--fgColor-muted)',
               cursor: 'pointer',
               padding: '2px 6px',
-              borderRadius: '3px',
+              borderRadius: 'var(--borderRadius-small)',
               fontSize: '9px',
             }}
           >
@@ -809,7 +793,7 @@ export function PerformanceMonitorView({metrics, onReset}: PerformanceMonitorVie
             style={{
               background: 'transparent',
               border: 'none',
-              color: '#666',
+              color: 'var(--fgColor-muted)',
               cursor: 'pointer',
               padding: '0 4px',
               fontSize: '12px',
@@ -824,94 +808,166 @@ export function PerformanceMonitorView({metrics, onReset}: PerformanceMonitorVie
       {/* Metrics Grid */}
       <div style={{display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '1px 6px', lineHeight: 1.5}}>
         {/* Frame Section */}
-        <span style={{color: '#888'}}>FPS</span>
+        <span style={{color: 'var(--fgColor-muted)'}}>FPS</span>
         <span style={{color: fpsColor, fontWeight: 600}}>{fpsFormatter.format(metrics.fps)}</span>
 
-        <span style={{color: '#888'}}>Frame</span>
+        <span style={{color: 'var(--fgColor-muted)'}}>Frame</span>
         <span>
           {msFormatter.format(metrics.frameTime)}ms{' '}
-          <span style={{color: metrics.maxFrameTime > 32 ? '#f85149' : '#666', fontSize: '9px'}}>
+          <span
+            style={{
+              color: metrics.maxFrameTime > 32 ? 'var(--fgColor-danger)' : 'var(--fgColor-muted)',
+              fontSize: '9px',
+            }}
+          >
             (max {msFormatter.format(metrics.maxFrameTime)})
           </span>
         </span>
 
         {/* Input Section */}
-        <span style={{color: '#888', borderTop: '1px solid #333', paddingTop: '3px', marginTop: '2px'}}>Input</span>
-        <span style={{borderTop: '1px solid #333', paddingTop: '3px', marginTop: '2px'}}>
+        <span
+          style={{
+            color: 'var(--fgColor-muted)',
+            borderTop: '1px solid var(--borderColor-muted)',
+            paddingTop: '3px',
+            marginTop: '2px',
+          }}
+        >
+          Input
+        </span>
+        <span style={{borderTop: '1px solid var(--borderColor-muted)', paddingTop: '3px', marginTop: '2px'}}>
           <span style={{color: inputLatencyColor, fontWeight: 600}}>{msFormatter.format(metrics.inputLatency)}ms</span>{' '}
-          <span style={{color: metrics.maxInputLatency > 50 ? '#f85149' : '#666', fontSize: '9px'}}>
+          <span
+            style={{
+              color: metrics.maxInputLatency > 50 ? 'var(--fgColor-danger)' : 'var(--fgColor-muted)',
+              fontSize: '9px',
+            }}
+          >
             (max {msFormatter.format(metrics.maxInputLatency)})
           </span>
         </span>
 
-        <span style={{color: '#888'}}>Paint</span>
+        <span style={{color: 'var(--fgColor-muted)'}}>Paint</span>
         <span>
           {msFormatter.format(metrics.paintTime)}ms{' '}
-          <span style={{color: metrics.maxPaintTime > 16 ? '#f85149' : '#666', fontSize: '9px'}}>
+          <span
+            style={{
+              color: metrics.maxPaintTime > 16 ? 'var(--fgColor-danger)' : 'var(--fgColor-muted)',
+              fontSize: '9px',
+            }}
+          >
             (max {msFormatter.format(metrics.maxPaintTime)})
           </span>
         </span>
 
         {/* Tasks Section */}
-        <span style={{color: '#888', borderTop: '1px solid #333', paddingTop: '3px', marginTop: '2px'}}>Tasks</span>
-        <span style={{borderTop: '1px solid #333', paddingTop: '3px', marginTop: '2px'}}>
+        <span
+          style={{
+            color: 'var(--fgColor-muted)',
+            borderTop: '1px solid var(--borderColor-muted)',
+            paddingTop: '3px',
+            marginTop: '2px',
+          }}
+        >
+          Tasks
+        </span>
+        <span style={{borderTop: '1px solid var(--borderColor-muted)', paddingTop: '3px', marginTop: '2px'}}>
           <span style={{color: longTaskColor, fontWeight: metrics.longTasks > 0 ? 600 : 'normal'}}>
             {metrics.longTasks} long
           </span>
           {metrics.longestTask > 0 && (
-            <span style={{color: metrics.longestTask > 100 ? '#f85149' : '#888', fontSize: '9px'}}>
+            <span
+              style={{
+                color: metrics.longestTask > 100 ? 'var(--fgColor-danger)' : 'var(--fgColor-muted)',
+                fontSize: '9px',
+              }}
+            >
               {' '}
               ({metrics.longestTask}ms)
             </span>
           )}
         </span>
 
-        <span style={{color: '#888'}}>Dropped</span>
-        <span style={{color: metrics.droppedFrames > 10 ? '#f85149' : metrics.droppedFrames > 0 ? '#d29922' : '#666'}}>
+        <span style={{color: 'var(--fgColor-muted)'}}>Dropped</span>
+        <span
+          style={{
+            color:
+              metrics.droppedFrames > 10
+                ? 'var(--fgColor-danger)'
+                : metrics.droppedFrames > 0
+                  ? 'var(--fgColor-attention)'
+                  : 'var(--fgColor-muted)',
+          }}
+        >
           {metrics.droppedFrames} frames
         </span>
 
         {/* Layout Section */}
-        <span style={{color: '#888', borderTop: '1px solid #333', paddingTop: '3px', marginTop: '2px'}}>Style</span>
-        <span style={{borderTop: '1px solid #333', paddingTop: '3px', marginTop: '2px', color: '#666'}}>
+        <span
+          style={{
+            color: 'var(--fgColor-muted)',
+            borderTop: '1px solid var(--borderColor-muted)',
+            paddingTop: '3px',
+            marginTop: '2px',
+          }}
+        >
+          Style
+        </span>
+        <span
+          style={{
+            borderTop: '1px solid var(--borderColor-muted)',
+            paddingTop: '3px',
+            marginTop: '2px',
+            color: 'var(--fgColor-muted)',
+          }}
+        >
           {metrics.styleWrites} writes
         </span>
 
-        <span style={{color: '#888'}}>Thrash</span>
+        <span style={{color: 'var(--fgColor-muted)'}}>Thrash</span>
         <span
           style={{
-            color: metrics.thrashingScore > 0 ? '#f85149' : '#3fb950',
+            color: metrics.thrashingScore > 0 ? 'var(--fgColor-danger)' : 'var(--fgColor-success)',
             fontWeight: metrics.thrashingScore > 0 ? 600 : 'normal',
           }}
         >
           {metrics.thrashingScore === 0 ? 'none ✓' : metrics.thrashingScore}
           {metrics.thrashingScore > 0 && (
-            <span style={{fontWeight: 'normal', color: '#888', fontSize: '9px'}}> (est.)</span>
+            <span style={{fontWeight: 'normal', color: 'var(--fgColor-muted)', fontSize: '9px'}}> (est.)</span>
           )}
         </span>
 
         {/* React Section */}
-        <span style={{color: '#888', borderTop: '1px solid #333', paddingTop: '3px', marginTop: '2px'}}>React</span>
         <span
           style={{
-            borderTop: '1px solid #333',
+            color: 'var(--fgColor-muted)',
+            borderTop: '1px solid var(--borderColor-muted)',
+            paddingTop: '3px',
+            marginTop: '2px',
+          }}
+        >
+          React
+        </span>
+        <span
+          style={{
+            borderTop: '1px solid var(--borderColor-muted)',
             paddingTop: '3px',
             marginTop: '2px',
             color:
               metrics.reactUpdateCount === 0
-                ? '#3fb950' // No updates = great
+                ? 'var(--fgColor-success)' // No updates = great
                 : metrics.reactMaxActualDuration <= 8
-                  ? '#3fb950' // Fast renders = fine
+                  ? 'var(--fgColor-success)' // Fast renders = fine
                   : metrics.reactMaxActualDuration <= 16
-                    ? '#d29922' // Medium renders = warning
-                    : '#f85149', // Slow renders = bad
+                    ? 'var(--fgColor-attention)' // Medium renders = warning
+                    : 'var(--fgColor-danger)', // Slow renders = bad
             fontWeight: 600,
           }}
         >
           {metrics.reactUpdateCount} updates
           {metrics.reactUpdateCount === 0 ? ' ✓' : metrics.reactMaxActualDuration <= 8 ? ' ✓' : ''}
           {metrics.reactUpdateCount > 0 && (
-            <span style={{fontWeight: 'normal', color: '#888', fontSize: '9px'}}>
+            <span style={{fontWeight: 'normal', color: 'var(--fgColor-muted)', fontSize: '9px'}}>
               {' '}
               (max {msFormatter.format(metrics.reactMaxActualDuration)}ms)
             </span>
@@ -921,8 +977,10 @@ export function PerformanceMonitorView({metrics, onReset}: PerformanceMonitorVie
         {/* DOM count */}
         {metrics.domElements != null && (
           <>
-            <span style={{color: '#666', fontSize: '9px'}}>DOM</span>
-            <span style={{color: '#666', fontSize: '9px'}}>{numberFormatter.format(metrics.domElements)} nodes</span>
+            <span style={{color: 'var(--fgColor-muted)', fontSize: '9px'}}>DOM</span>
+            <span style={{color: 'var(--fgColor-muted)', fontSize: '9px'}}>
+              {numberFormatter.format(metrics.domElements)} nodes
+            </span>
           </>
         )}
       </div>
