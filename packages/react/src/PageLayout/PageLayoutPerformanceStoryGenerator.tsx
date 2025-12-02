@@ -283,6 +283,40 @@ export function PerformanceProvider({
     let lastTime = performance.now()
     const expectedFrameTime = 16.67
 
+    // Layout thrashing detection state
+    let isDragging = false
+    let styleWriteCount = 0
+    let lastStyleWriteTime = 0
+
+    // Thrashing detection: Track correlation between style writes and frame cost.
+    // Layout thrashing = reading layout properties after writing styles (forces sync reflow).
+    // We detect this by looking for patterns where:
+    // 1. Multiple style writes happen in a short window (common in drag handlers)
+    // 2. Frame times are elevated relative to baseline
+    // The more style writes per frame with elevated frame time = more likely thrashing.
+    const checkForThrashing = (frameTime: number) => {
+      if (!isDragging) return
+
+      const now = performance.now()
+      const timeSinceLastWrite = now - lastStyleWriteTime
+
+      // If we had style writes this frame and frame time is elevated
+      if (styleWriteCount > 0 && timeSinceLastWrite < 20) {
+        // Frame time > 8ms with style writes suggests forced reflows
+        // The more style writes + higher frame time = more severe thrashing
+        if (frameTime > 8) {
+          // Score based on how much the frame exceeded target
+          // 16ms frame with 5 writes = 5 thrashes, 32ms with 5 writes = 10 thrashes
+          const severity = Math.ceil((frameTime / 16) * Math.min(styleWriteCount, 10))
+          m.layoutThrashing += severity
+          m.layoutReads += styleWriteCount // Each write likely triggered a read
+        }
+      }
+
+      // Reset per-frame counter
+      styleWriteCount = 0
+    }
+
     const measure = () => {
       const now = performance.now()
       const delta = now - lastTime
@@ -304,6 +338,9 @@ export function PerformanceProvider({
       } else if (delta < 20 && m.maxFrameTime > 20) {
         m.maxFrameTime = m.maxFrameTime * 0.99
       }
+
+      // Check for thrashing based on style writes + frame time correlation
+      checkForThrashing(delta)
 
       // Calculate averages
       const avgFrameTime = frameTimesRef.current.reduce((a, b) => a + b, 0) / frameTimesRef.current.length
@@ -424,62 +461,24 @@ export function PerformanceProvider({
       }
     }
 
-    // Layout read tracking - detect thrashing (read after write forces reflow)
-    let isDragging = false
-    const originalGetBoundingClientRect = Element.prototype.getBoundingClientRect
-    Element.prototype.getBoundingClientRect = function () {
-      if (isDragging) {
-        m.layoutReads++
-        if (m.lastOperationWasWrite) {
-          m.layoutThrashing++ // Read after write = forced reflow!
+    // Style write tracking via MutationObserver on style attributes
+    const styleObserver = new MutationObserver(mutations => {
+      if (!isDragging) return
+      for (const mutation of mutations) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+          m.styleWrites++
+          styleWriteCount++
+          lastStyleWriteTime = performance.now()
         }
-        m.lastOperationWasWrite = false
       }
-      return originalGetBoundingClientRect.call(this)
-    }
+    })
 
-    const originalOffsetWidthDescriptor = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'offsetWidth')
-    const originalOffsetHeightDescriptor = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'offsetHeight')
-    if (originalOffsetWidthDescriptor?.get) {
-      Object.defineProperty(HTMLElement.prototype, 'offsetWidth', {
-        get() {
-          if (isDragging) {
-            m.layoutReads++
-            if (m.lastOperationWasWrite) {
-              m.layoutThrashing++
-            }
-            m.lastOperationWasWrite = false
-          }
-          return originalOffsetWidthDescriptor.get!.call(this)
-        },
-        configurable: true,
-      })
-    }
-    if (originalOffsetHeightDescriptor?.get) {
-      Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
-        get() {
-          if (isDragging) {
-            m.layoutReads++
-            if (m.lastOperationWasWrite) {
-              m.layoutThrashing++
-            }
-            m.lastOperationWasWrite = false
-          }
-          return originalOffsetHeightDescriptor.get!.call(this)
-        },
-        configurable: true,
-      })
-    }
-
-    // Style write tracking
-    const originalSetProperty = CSSStyleDeclaration.prototype.setProperty
-    CSSStyleDeclaration.prototype.setProperty = function (...args) {
-      if (isDragging) {
-        m.styleWrites++
-        m.lastOperationWasWrite = true
-      }
-      return originalSetProperty.apply(this, args)
-    }
+    // Start observing when component mounts
+    styleObserver.observe(document.body, {
+      attributes: true,
+      attributeFilter: ['style'],
+      subtree: true,
+    })
 
     // Drag state observer
     const dragObserver = new MutationObserver(() => {
@@ -500,17 +499,10 @@ export function PerformanceProvider({
     return () => {
       cancelAnimationFrame(animationId)
       dragObserver.disconnect()
+      styleObserver.disconnect()
       longTaskObserver?.disconnect()
       eventObserver?.disconnect()
       window.removeEventListener('pointermove', handlePointerMove)
-      Element.prototype.getBoundingClientRect = originalGetBoundingClientRect
-      if (originalOffsetWidthDescriptor) {
-        Object.defineProperty(HTMLElement.prototype, 'offsetWidth', originalOffsetWidthDescriptor)
-      }
-      if (originalOffsetHeightDescriptor) {
-        Object.defineProperty(HTMLElement.prototype, 'offsetHeight', originalOffsetHeightDescriptor)
-      }
-      CSSStyleDeclaration.prototype.setProperty = originalSetProperty
     }
   }, [])
 
