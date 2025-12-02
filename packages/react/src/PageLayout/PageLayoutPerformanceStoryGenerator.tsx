@@ -33,6 +33,7 @@ import React from 'react'
 // Formatters with fixed decimal places to prevent layout shifts
 const fpsFormatter = new Intl.NumberFormat('en-US', {minimumIntegerDigits: 2, maximumFractionDigits: 0})
 const msFormatter = new Intl.NumberFormat('en-US', {minimumFractionDigits: 1, maximumFractionDigits: 1})
+const mbFormatter = new Intl.NumberFormat('en-US', {minimumFractionDigits: 1, maximumFractionDigits: 1})
 const numberFormatter = new Intl.NumberFormat('en-US')
 
 // Position options for the performance monitor
@@ -260,6 +261,12 @@ export interface PerformanceMetrics {
   memoryUsedMB: number | null
 
   /**
+   * Peak JS heap size observed since start/reset, in MB.
+   * Useful for identifying memory spikes during interactions.
+   */
+  peakMemoryMB: number | null
+
+  /**
    * Change in heap size since monitoring started or last reset, in MB.
    * Positive values indicate memory growth; sustained growth may indicate leaks.
    */
@@ -358,6 +365,7 @@ const initialMetrics: PerformanceMetrics = {
   reactMountDuration: 0,
   // New metrics
   memoryUsedMB: null,
+  peakMemoryMB: null,
   memoryDeltaMB: null,
   layoutShiftScore: 0,
   layoutShiftCount: 0,
@@ -461,6 +469,8 @@ interface MutableMetricsState {
   domElements: number | null
   // Memory
   baselineMemoryMB: number | null
+  peakMemoryMB: number | null
+  lastSampledMemoryMB: number | null
   // Interactions (INP)
   interactionCount: number
   interactionLatencies: number[]
@@ -511,6 +521,8 @@ export function PerformanceProvider({
     mountPhaseComplete: false,
     domElements: null,
     baselineMemoryMB: null,
+    peakMemoryMB: null,
+    lastSampledMemoryMB: null,
     interactionCount: 0,
     interactionLatencies: [],
     inpMs: 0,
@@ -530,6 +542,7 @@ export function PerformanceProvider({
   const frameTimesRef = React.useRef<number[]>([])
   const inputLatenciesRef = React.useRef<number[]>([])
   const paintTimesRef = React.useRef<number[]>([])
+  const memoryReadingsRef = React.useRef<number[]>([])
 
   // State for rendering - updated once per RAF from mutable refs
   const [metrics, setMetrics] = React.useState<PerformanceMetrics>(initialMetrics)
@@ -612,7 +625,10 @@ export function PerformanceProvider({
     m.reactPostMountMaxDuration = 0
     m.reactPostMountUpdateCount = 0
     // Reset memory baseline to current value for delta tracking
-    m.baselineMemoryMB = getMemoryMB()
+    const currentMemory = getMemoryMB()
+    m.baselineMemoryMB = currentMemory
+    m.peakMemoryMB = currentMemory
+    m.lastSampledMemoryMB = currentMemory
     // Reset interaction metrics
     m.interactionCount = 0
     m.interactionLatencies = []
@@ -626,6 +642,7 @@ export function PerformanceProvider({
     frameTimesRef.current = []
     inputLatenciesRef.current = []
     paintTimesRef.current = []
+    memoryReadingsRef.current = []
     fpsHistoryRef.current = []
     frameTimeHistoryRef.current = []
     sparklineSampleCountRef.current = 0
@@ -751,16 +768,6 @@ export function PerformanceProvider({
           ? paintTimesRef.current.reduce((a, b) => a + b, 0) / paintTimesRef.current.length
           : 0
 
-      // Get memory metrics
-      const currentMemoryMB = getMemoryMB()
-      if (m.baselineMemoryMB === null && currentMemoryMB !== null) {
-        m.baselineMemoryMB = currentMemoryMB
-      }
-      const memoryDeltaMB =
-        currentMemoryMB !== null && m.baselineMemoryMB !== null
-          ? Math.round((currentMemoryMB - m.baselineMemoryMB) * 10) / 10
-          : null
-
       // Calculate average interaction latency
       const avgInteractionMs =
         m.interactionLatencies.length > 0
@@ -768,6 +775,7 @@ export function PerformanceProvider({
           : 0
 
       // Sample sparkline data every 5 frames (~12 samples/sec at 60fps)
+      // This includes memory which doesn't need per-frame updates
       sparklineSampleCountRef.current++
       if (sparklineSampleCountRef.current >= 5) {
         sparklineSampleCountRef.current = 0
@@ -780,12 +788,34 @@ export function PerformanceProvider({
         frameTimeHistoryRef.current.push(avgFrameTime)
         if (frameTimeHistoryRef.current.length > 30) frameTimeHistoryRef.current.shift()
 
-        // Memory history (if available)
-        if (currentMemoryMB !== null) {
-          m.memoryHistory.push(currentMemoryMB)
+        // Memory sampling (only at sparkline intervals for stability)
+        const rawMemoryMB = getMemoryMB()
+        if (rawMemoryMB !== null) {
+          // Set baseline on first reading
+          if (m.baselineMemoryMB === null) {
+            m.baselineMemoryMB = rawMemoryMB
+            m.peakMemoryMB = rawMemoryMB
+          }
+
+          // Track peak memory
+          if (m.peakMemoryMB === null || rawMemoryMB > m.peakMemoryMB) {
+            m.peakMemoryMB = rawMemoryMB
+          }
+
+          // Store for display (no smoothing needed at this rate)
+          m.lastSampledMemoryMB = rawMemoryMB
+
+          // Add to sparkline history
+          m.memoryHistory.push(rawMemoryMB)
           if (m.memoryHistory.length > 30) m.memoryHistory.shift()
         }
       }
+
+      // Calculate memory delta from baseline
+      const memoryDeltaMB =
+        m.lastSampledMemoryMB !== null && m.baselineMemoryMB !== null
+          ? Math.round((m.lastSampledMemoryMB - m.baselineMemoryMB) * 10) / 10
+          : null
 
       // Update state from mutable refs (this is the only place we read refs)
       setMetrics({
@@ -816,7 +846,8 @@ export function PerformanceProvider({
         reactPostMountMaxDuration: m.reactPostMountMaxDuration,
         reactPostMountUpdateCount: m.reactPostMountUpdateCount,
         reactMountDuration: m.reactMountDuration,
-        memoryUsedMB: currentMemoryMB,
+        memoryUsedMB: m.lastSampledMemoryMB,
+        peakMemoryMB: m.peakMemoryMB,
         memoryDeltaMB,
         interactionCount: m.interactionCount,
         inpMs: Math.round(m.inpMs),
@@ -1061,6 +1092,32 @@ export function ProfiledComponent({id, children}: {id: string; children: React.R
 // ============================================================================
 
 // ============================================================================
+// Reduced Motion Hook
+// ============================================================================
+
+/**
+ * Hook to detect prefers-reduced-motion media query.
+ * Returns true if the user prefers reduced motion.
+ */
+function usePrefersReducedMotion(): boolean {
+  const [prefersReducedMotion, setPrefersReducedMotion] = React.useState(() => {
+    if (typeof window === 'undefined') return false
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  })
+
+  React.useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const handler = (event: MediaQueryListEvent) => setPrefersReducedMotion(event.matches)
+
+    // Modern browsers
+    mediaQuery.addEventListener('change', handler)
+    return () => mediaQuery.removeEventListener('change', handler)
+  }, [])
+
+  return prefersReducedMotion
+}
+
+// ============================================================================
 // Sparkline Component - Inline trend visualization
 // ============================================================================
 
@@ -1074,6 +1131,8 @@ interface SparklineProps {
   thresholdColor?: string
   /** If true, values below threshold are bad (like FPS). If false, values above are bad (like frame time). */
   invertThreshold?: boolean
+  /** Additional styles for positioning */
+  style?: React.CSSProperties
 }
 
 function Sparkline({
@@ -1084,10 +1143,11 @@ function Sparkline({
   threshold,
   thresholdColor = 'var(--fgColor-danger)',
   invertThreshold = false,
+  style,
 }: SparklineProps) {
   if (data.length < 2) {
     return (
-      <svg width={width} height={height} style={{opacity: 0.3}} aria-hidden="true">
+      <svg width={width} height={height} style={{opacity: 0.3, ...style}} aria-hidden="true">
         <line x1={0} y1={height / 2} x2={width} y2={height / 2} stroke={color} strokeWidth={1} strokeDasharray="2,2" />
       </svg>
     )
@@ -1121,7 +1181,7 @@ function Sparkline({
   const isBad = threshold !== undefined && (invertThreshold ? currentValue < threshold : currentValue > threshold)
 
   return (
-    <svg width={width} height={height} style={{verticalAlign: 'middle', marginLeft: '4px'}} aria-hidden="true">
+    <svg width={width} height={height} style={{verticalAlign: 'middle', ...style}} aria-hidden="true">
       {/* Threshold line */}
       {thresholdY !== null && (
         <line
@@ -1230,6 +1290,7 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
     offsetX: 0,
     offsetY: 0,
   })
+  const prefersReducedMotion = usePrefersReducedMotion()
 
   // Handle drag start - capture pointer for smooth dragging
   const handlePointerDown = (e: React.PointerEvent) => {
@@ -1434,7 +1495,14 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
           borderRadius: 'var(--borderRadius-small)',
         }}
       >
-        <span style={{fontWeight: 600, color: 'var(--fgColor-onEmphasis)', fontSize: '11px'}}>⚡ Perf</span>
+        <span style={{fontWeight: 600, color: 'var(--fgColor-onEmphasis)', fontSize: '11px'}}>
+          ⚡ Perf
+          {prefersReducedMotion && (
+            <span role="img" aria-label="Sparklines hidden (reduced motion)" style={{marginLeft: '4px'}}>
+              🔇
+            </span>
+          )}
+        </span>
         <div style={{display: 'flex', gap: '4px'}}>
           <button
             type="button"
@@ -1520,6 +1588,12 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
             >
               <strong style={{opacity: 1}}>Keyboard:</strong> Arrow keys move panel, Shift for larger steps, Home resets
               position.
+              {prefersReducedMotion && (
+                <div style={{marginTop: '4px'}}>
+                  <strong style={{opacity: 1}}>🔇 Reduced motion:</strong> Sparklines hidden to respect your system
+                  preference.
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -1539,24 +1613,55 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
         <span style={{color: 'var(--fgColor-onEmphasis)', fontSize: '9px', display: 'flex', alignItems: 'center'}}>
           {metrics.memoryUsedMB !== null ? (
             <>
-              {metrics.memoryUsedMB}MB
-              {metrics.memoryDeltaMB !== null && metrics.memoryDeltaMB !== 0 && (
+              <span style={{minWidth: '45px'}}>{mbFormatter.format(metrics.memoryUsedMB)}MB</span>
+              {metrics.memoryDeltaMB !== null && (
                 <span
                   style={{
-                    color: metrics.memoryDeltaMB > 10 ? 'var(--fgColor-danger)' : 'var(--fgColor-onEmphasis)',
+                    color:
+                      metrics.memoryDeltaMB > 20
+                        ? 'var(--fgColor-danger)' // Large growth - concern
+                        : metrics.memoryDeltaMB > 5
+                          ? 'var(--fgColor-attention)' // Moderate growth - watch
+                          : metrics.memoryDeltaMB < -2
+                            ? 'var(--fgColor-success)' // Significant decrease - GC ran
+                            : 'var(--fgColor-onEmphasis)', // Stable
                     marginLeft: '4px',
+                    fontWeight: Math.abs(metrics.memoryDeltaMB) > 5 ? 600 : 'normal',
                   }}
                 >
-                  ({metrics.memoryDeltaMB > 0 ? '+' : ''}
-                  {metrics.memoryDeltaMB})
+                  {metrics.memoryDeltaMB > 0.5
+                    ? `+${mbFormatter.format(metrics.memoryDeltaMB)}`
+                    : metrics.memoryDeltaMB < -0.5
+                      ? mbFormatter.format(metrics.memoryDeltaMB)
+                      : '±0'}
                 </span>
               )}
-              <Sparkline
-                data={metrics.memoryHistory}
-                color="var(--fgColor-accent)"
-                threshold={metrics.memoryHistory.length > 0 ? metrics.memoryHistory[0] + 10 : undefined}
-                thresholdColor="var(--fgColor-danger)"
-              />
+              {!prefersReducedMotion && (
+                <Sparkline
+                  data={metrics.memoryHistory}
+                  color="var(--fgColor-accent)"
+                  threshold={metrics.memoryHistory.length > 0 ? metrics.memoryHistory[0] + 10 : undefined}
+                  thresholdColor="var(--fgColor-attention)"
+                  style={{marginLeft: 'auto'}}
+                />
+              )}
+            </>
+          ) : (
+            'N/A'
+          )}
+        </span>
+
+        {/* Peak Memory */}
+        <span style={{color: 'var(--fgColor-onEmphasis)', fontSize: '9px'}}>Peak</span>
+        <span style={{color: 'var(--fgColor-onEmphasis)', fontSize: '9px'}}>
+          {metrics.peakMemoryMB !== null ? (
+            <>
+              {mbFormatter.format(metrics.peakMemoryMB)}MB
+              {metrics.memoryUsedMB !== null && metrics.peakMemoryMB > metrics.memoryUsedMB + 1 && (
+                <span style={{color: 'var(--fgColor-attention)', marginLeft: '4px', fontSize: '8px'}}>
+                  (+{mbFormatter.format(metrics.peakMemoryMB - metrics.memoryUsedMB)} from current)
+                </span>
+              )}
             </>
           ) : (
             'N/A'
@@ -1586,13 +1691,16 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
           }}
         >
           {fpsFormatter.format(metrics.fps)}
-          <Sparkline
-            data={metrics.fpsHistory}
-            color={fpsColor}
-            threshold={55}
-            thresholdColor="var(--fgColor-attention)"
-            invertThreshold={true}
-          />
+          {!prefersReducedMotion && (
+            <Sparkline
+              data={metrics.fpsHistory}
+              color={fpsColor}
+              threshold={55}
+              thresholdColor="var(--fgColor-attention)"
+              invertThreshold={true}
+              style={{marginLeft: 'auto'}}
+            />
+          )}
         </span>
 
         <span style={{color: 'var(--fgColor-onEmphasis)'}}>Frame</span>
@@ -1606,12 +1714,15 @@ function PerformanceMonitorView({metrics, onReset, initialPosition = 'bottom-lef
           >
             (max {msFormatter.format(metrics.maxFrameTime)})
           </span>
-          <Sparkline
-            data={metrics.frameTimeHistory}
-            color="var(--fgColor-onEmphasis)"
-            threshold={16.67}
-            thresholdColor="var(--fgColor-danger)"
-          />
+          {!prefersReducedMotion && (
+            <Sparkline
+              data={metrics.frameTimeHistory}
+              color="var(--fgColor-onEmphasis)"
+              threshold={16.67}
+              thresholdColor="var(--fgColor-danger)"
+              style={{marginLeft: 'auto'}}
+            />
+          )}
         </span>
 
         {/* Input Section */}
