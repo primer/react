@@ -5,7 +5,6 @@ import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isResponsiveValue} from '../hooks/useResponsiveValue'
 import {useSlots} from '../hooks/useSlots'
-import {canUseDOM} from '../utils/environment'
 import {useOverflow} from '../hooks/useOverflow'
 import {warning} from '../utils/warning'
 import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes'
@@ -569,6 +568,15 @@ const isPaneWidth = (width: PaneWidth | CustomWidthOptions): width is PaneWidth 
   return ['small', 'medium', 'large'].includes(width as PaneWidth)
 }
 
+const getDefaultPaneWidth = (w: PaneWidth | CustomWidthOptions): number => {
+  if (isPaneWidth(w)) {
+    return defaultPaneWidth[w]
+  } else if (isCustomWidthOptions(w)) {
+    return parseInt(w.default, 10)
+  }
+  return 0
+}
+
 export type PageLayoutPaneProps = {
   position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
   /**
@@ -677,51 +685,32 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
     const {rowGap, columnGap, paneRef} = React.useContext(PageLayoutContext)
 
-    const getDefaultPaneWidth = (width: PaneWidth | CustomWidthOptions): number => {
-      if (isPaneWidth(width)) {
-        return defaultPaneWidth[width]
-      } else if (isCustomWidthOptions(width)) {
-        return parseInt(width.default, 10)
-      }
-      return 0
+    // Track current width during drag - initialized to default for hydration safety
+    const currentWidthRef = React.useRef<number | null>(null)
+    // if we don't have a ref set, set one to the default width. This is only for the first render.
+    if (currentWidthRef.current === null) {
+      currentWidthRef.current = getDefaultPaneWidth(width)
     }
 
-    const [paneWidth, setPaneWidth] = React.useState(() => {
-      if (!canUseDOM) {
-        return getDefaultPaneWidth(width)
-      }
-
-      let storedWidth
-
-      try {
-        storedWidth = localStorage.getItem(widthStorageKey)
-      } catch (_error) {
-        storedWidth = null
-      }
-
-      return storedWidth && !isNaN(Number(storedWidth)) ? Number(storedWidth) : getDefaultPaneWidth(width)
-    })
-
-    // Track current width during drag to avoid reading stale state
-    const currentWidthRef = React.useRef(paneWidth)
-    React.useEffect(() => {
-      currentWidthRef.current = paneWidth
-    }, [paneWidth])
-
-    // Set --pane-width via layout effect. This runs on every render to ensure
-    // the CSS variable reflects currentWidthRef (which may differ from state after drag).
-    // We intentionally have no deps array - we want this to run on every render.
     useIsomorphicLayoutEffect(() => {
-      paneRef.current?.style.setProperty('--pane-width', `${currentWidthRef.current}px`)
-    })
+      // before paint reads the stored width from localStorage and update if necessary
+      try {
+        const value = localStorage.getItem(widthStorageKey)
+        if (value !== null && !isNaN(Number(value))) {
+          const num = Number(value)
+          currentWidthRef.current = num
+          paneRef.current?.style.setProperty('--pane-width', `${num}px`)
+        }
+      } catch {
+        // localStorage unavailable (e.g., private browsing)
+      }
+    }, [widthStorageKey])
 
     // Subscribe to viewport width changes for responsive max constraint calculation
     const viewportWidth = useViewportWidth()
 
     // Calculate min width constraint from width configuration
-    const minPaneWidth = React.useMemo(() => {
-      return isCustomWidthOptions(width) ? parseInt(width.min, 10) : minWidth
-    }, [width, minWidth])
+    const minPaneWidth = isCustomWidthOptions(width) ? parseInt(width.min, 10) : minWidth
 
     // Cache max width constraint - updated when viewport changes (which triggers CSS breakpoint changes)
     // This avoids calling getComputedStyle() on every drag frame
@@ -740,11 +729,11 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     const handleRef = React.useRef<HTMLDivElement>(null)
 
     // Update ARIA attributes on mount and when viewport/constraints change
-    React.useEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       updateAriaValues(handleRef.current, {
         min: minPaneWidth,
         max: maxPaneWidthRef.current,
-        current: currentWidthRef.current,
+        current: currentWidthRef.current!,
       })
     }, [minPaneWidth, viewportWidth])
 
@@ -847,17 +836,16 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
             if (isKeyboard) {
               // Clamp keyboard delta to stay within bounds
-              const newWidth = Math.max(minPaneWidth, Math.min(maxWidth, currentWidthRef.current + deltaWithDirection))
+              const newWidth = Math.max(minPaneWidth, Math.min(maxWidth, currentWidthRef.current! + deltaWithDirection))
               if (newWidth !== currentWidthRef.current) {
                 currentWidthRef.current = newWidth
                 paneRef.current?.style.setProperty('--pane-width', `${newWidth}px`)
-                setPaneWidth(newWidth)
                 updateAriaValues(handleRef.current, {current: newWidth})
               }
             } else {
               // Apply delta directly via CSS variable for immediate visual feedback
               if (paneRef.current) {
-                const newWidth = currentWidthRef.current + deltaWithDirection
+                const newWidth = currentWidthRef.current! + deltaWithDirection
                 const clampedWidth = Math.max(minPaneWidth, Math.min(maxWidth, newWidth))
 
                 // Only update if the clamped width actually changed
@@ -876,7 +864,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             // We intentionally skip setPaneWidth() to avoid triggering expensive React
             // reconciliation with large DOM trees. The ref is the source of truth for
             // subsequent drag operations.
-            setWidthInLocalStorage(currentWidthRef.current)
+            setWidthInLocalStorage(currentWidthRef.current!)
           }}
           position={positionProp}
           // Reset pane width on double click
