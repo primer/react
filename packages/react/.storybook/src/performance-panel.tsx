@@ -229,60 +229,176 @@ const SecondaryValue = styled.span(({theme}) => ({
   color: theme.color.mediumdark,
 }))
 
-const InfoIcon = styled.span(({theme}) => ({
+const InfoIconWrapper = styled.span({
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
   position: 'relative',
-  width: '14px',
-  height: '14px',
-  fontSize: '9px',
-  borderRadius: '50%',
-  background: theme.color.medium,
-  color: theme.color.defaultText,
   cursor: 'help',
   flexShrink: 0,
+})
+
+const InfoIconCircle = styled.span(({theme}) => ({
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '13px',
+  height: '13px',
+  fontSize: '9px',
+  fontWeight: 600,
+  fontStyle: 'italic',
+  fontFamily: 'Georgia, serif',
+  borderRadius: '50%',
+  border: `1px solid ${theme.color.mediumdark}`,
+  color: theme.color.mediumdark,
   userSelect: 'none',
-  '&:hover > span': {
-    visibility: 'visible',
-    opacity: 1,
-  },
+  lineHeight: 1,
 }))
 
-const TooltipContent = styled.span(({theme}) => ({
-  visibility: 'hidden',
-  opacity: 0,
-  position: 'absolute',
-  top: '100%',
-  left: '50%',
-  transform: 'translateX(-50%)',
-  marginTop: '8px',
-  padding: '6px 10px',
-  background: theme.color.darkest,
-  color: theme.color.lightest,
-  fontSize: '11px',
-  fontWeight: 'normal',
-  fontFamily: theme.typography.fonts.base,
-  lineHeight: 1.4,
-  borderRadius: theme.appBorderRadius,
-  boxShadow: '0 4px 12px rgba(0,0,0,0.4)',
-  whiteSpace: 'normal',
-  width: 'max-content',
-  maxWidth: '220px',
-  zIndex: 9999,
-  transition: 'opacity 0.15s ease, visibility 0.15s ease',
-  pointerEvents: 'none',
-  // Arrow
-  '&::before': {
-    content: '""',
+interface TooltipPosition {
+  horizontal: 'left' | 'center' | 'right'
+  vertical: 'top' | 'bottom'
+}
+
+const TooltipContent = styled.span<{$position: TooltipPosition}>(({theme, $position}) => {
+  const {horizontal, vertical} = $position
+
+  // Horizontal transforms
+  const transforms = {
+    left: 'translateX(0)',
+    center: 'translateX(-50%)',
+    right: 'translateX(-100%)',
+  }
+  const leftValues = {
+    left: '0',
+    center: '50%',
+    right: '100%',
+  }
+  // Arrow horizontal position
+  const arrowLeft = {
+    left: '12px',
+    center: '50%',
+    right: 'calc(100% - 12px)',
+  }
+
+  // Vertical positioning
+  const verticalPos =
+    vertical === 'bottom'
+      ? {top: '100%', bottom: 'auto', marginTop: '8px', marginBottom: 0}
+      : {top: 'auto', bottom: '100%', marginTop: 0, marginBottom: '8px'}
+
+  // Arrow vertical positioning
+  const arrowStyles =
+    vertical === 'bottom'
+      ? {
+          bottom: '100%',
+          top: 'auto',
+          border: '5px solid transparent',
+          borderBottomColor: theme.color.darkest,
+          borderTopColor: 'transparent',
+        }
+      : {
+          bottom: 'auto',
+          top: '100%',
+          border: '5px solid transparent',
+          borderTopColor: theme.color.darkest,
+          borderBottomColor: 'transparent',
+        }
+
+  return {
+    visibility: 'hidden',
+    opacity: 0,
     position: 'absolute',
-    bottom: '100%',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    border: '5px solid transparent',
-    borderBottomColor: theme.color.darkest,
-  },
-}))
+    ...verticalPos,
+    left: leftValues[horizontal],
+    transform: transforms[horizontal],
+    padding: '6px 10px',
+    background: theme.color.darkest,
+    color: theme.color.lightest,
+    fontSize: '11px',
+    fontWeight: 'normal',
+    fontFamily: theme.typography.fonts.base,
+    lineHeight: 1.4,
+    borderRadius: theme.appBorderRadius,
+    boxShadow: '0 4px 12px rgba(0,0,0,0.4)',
+    whiteSpace: 'normal',
+    width: 'max-content',
+    maxWidth: '220px',
+    zIndex: 9999,
+    transition: 'opacity 0.15s ease, visibility 0.15s ease',
+    pointerEvents: 'none',
+    // Arrow
+    '&::before': {
+      content: '""',
+      position: 'absolute',
+      left: arrowLeft[horizontal],
+      transform: 'translateX(-50%)',
+      ...arrowStyles,
+    },
+  }
+})
+
+/**
+ * Smart tooltip component that adjusts position to avoid viewport overflow.
+ * Uses a ref to measure position and determines optimal alignment.
+ */
+function SmartTooltip({text}: {text: string}) {
+  const wrapperRef = React.useRef<HTMLSpanElement>(null)
+  const [position, setPosition] = React.useState<TooltipPosition>({horizontal: 'center', vertical: 'bottom'})
+  const [isVisible, setIsVisible] = React.useState(false)
+
+  const updatePosition = React.useCallback(() => {
+    if (!wrapperRef.current) return
+
+    const rect = wrapperRef.current.getBoundingClientRect()
+    const tooltipWidth = 220 // max-width of tooltip
+    const tooltipHeight = 80 // estimated height
+    const padding = 8 // minimum distance from edge
+
+    // Horizontal positioning
+    let horizontal: 'left' | 'center' | 'right' = 'center'
+    const centeredLeft = rect.left + rect.width / 2 - tooltipWidth / 2
+    const centeredRight = rect.left + rect.width / 2 + tooltipWidth / 2
+
+    if (centeredLeft < padding) {
+      horizontal = 'left'
+    } else if (centeredRight > window.innerWidth - padding) {
+      horizontal = 'right'
+    }
+
+    // Vertical positioning - prefer bottom, use top if no room
+    let vertical: 'top' | 'bottom' = 'bottom'
+    const spaceBelow = window.innerHeight - rect.bottom
+    const spaceAbove = rect.top
+
+    if (spaceBelow < tooltipHeight + padding && spaceAbove > tooltipHeight + padding) {
+      vertical = 'top'
+    }
+
+    setPosition({horizontal, vertical})
+  }, [])
+
+  const handleMouseEnter = React.useCallback(() => {
+    updatePosition()
+    setIsVisible(true)
+  }, [updatePosition])
+
+  const handleMouseLeave = React.useCallback(() => {
+    setIsVisible(false)
+  }, [])
+
+  return (
+    <InfoIconWrapper ref={wrapperRef} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <InfoIconCircle>i</InfoIconCircle>
+      <TooltipContent
+        $position={position}
+        style={{visibility: isVisible ? 'visible' : 'hidden', opacity: isVisible ? 1 : 0}}
+      >
+        {text}
+      </TooltipContent>
+    </InfoIconWrapper>
+  )
+}
 
 const StatusBadge = styled.span<{variant: 'success' | 'warning' | 'error' | 'neutral'}>(({theme, variant}) => {
   const colors = {
@@ -440,11 +556,7 @@ function Metric({label, tooltip, children}: MetricProps) {
     <MetricItem>
       <MetricLabel>
         {label}
-        {tooltip && (
-          <InfoIcon>
-            ?<TooltipContent>{tooltip}</TooltipContent>
-          </InfoIcon>
-        )}
+        {tooltip && <SmartTooltip text={tooltip} />}
       </MetricLabel>
       <MetricValue>{children}</MetricValue>
     </MetricItem>
@@ -715,12 +827,9 @@ function ReactSection({metrics}: {metrics: PerformanceMetrics}) {
   return (
     <MetricsSection icon="⚛️" title="React Performance">
       <Metric label="Mount" tooltip="Initial render count and total duration.">
-        {metrics.reactMountCount > 0 ? (
-          <>
-            {metrics.reactMountCount}×<SecondaryValue>({formatMs(metrics.reactMountDuration)}ms total)</SecondaryValue>
-          </>
-        ) : (
-          <SecondaryValue style={{fontStyle: 'italic'}}>Awaiting profiler data…</SecondaryValue>
+        {metrics.reactMountCount}×
+        {metrics.reactMountDuration > 0 && (
+          <SecondaryValue>({formatMs(metrics.reactMountDuration)}ms total)</SecondaryValue>
         )}
       </Metric>
 

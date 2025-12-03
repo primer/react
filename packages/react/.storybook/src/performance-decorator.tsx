@@ -90,31 +90,21 @@ import {addons} from 'storybook/preview-api'
 import {PERF_EVENTS} from './performance-types'
 import {
   // Constants
-  FRAME_TIME_60FPS,
-  DROPPED_FRAME_MULTIPLIER,
-  THRASHING_FRAME_THRESHOLD,
-  THRASHING_STYLE_WRITE_WINDOW,
-  INTERACTION_LATENCIES_WINDOW,
-  FRAME_TIMES_WINDOW,
-  INPUT_LATENCIES_WINDOW,
-  PAINT_TIMES_WINDOW,
   SPARKLINE_HISTORY_SIZE,
-  JITTER_BASELINE_SIZE,
-  JITTER_MULTIPLIER,
-  JITTER_INPUT_DELTA,
-  JITTER_INPUT_ABSOLUTE,
-  JITTER_FRAME_DELTA,
-  JITTER_FRAME_ABSOLUTE,
-  MAX_DECAY_THRESHOLD,
-  MAX_DECAY_RATE,
-  MAX_INPUT_DECAY_THRESHOLD,
-  MAX_INPUT_DECAY_RATE,
-  MAX_PAINT_DECAY_THRESHOLD,
-  MAX_PAINT_DECAY_RATE,
   // Utility functions
   computeAverage,
   computeP95,
-  getMemoryMB,
+  addToWindow,
+  // Collector classes
+  FrameTimingCollector,
+  InputCollector,
+  MainThreadCollector,
+  LayoutShiftCollector,
+  MemoryCollector,
+  StyleMutationCollector,
+  ForcedReflowCollector,
+  ReactProfilerCollector,
+  PaintCollector,
 } from './performance-collectors'
 
 // ============================================================================
@@ -132,67 +122,17 @@ const SPARKLINE_SAMPLE_INTERVAL_MS = 200
 // ============================================================================
 
 /**
- * Internal state object for raw metrics collection.
- * This is NOT sent to the panel directly - see {@link ComputedMetrics}.
- *
- * Contains rolling windows of samples, peak trackers, and counters
- * that are processed by `computeMetrics()` before transmission.
+ * Internal state object for metrics not managed by collector classes.
+ * Most metrics are now collected by the modular collector classes.
+ * This interface only tracks decorator-specific state.
  *
  * @interface MetricsState
  * @private
  */
 interface MetricsState {
   // ─────────────────────────────────────────────────────────────────────────
-  // Rolling Windows - Recent samples for computing averages
-  // ─────────────────────────────────────────────────────────────────────────
-
-  /** Recent frame times (ms) from requestAnimationFrame deltas. Window size: 60 */
-  frameTimes: number[]
-
-  /** Recent input event latencies (ms) from event timestamps. Window size: 30 */
-  inputLatencies: number[]
-
-  /** Recent paint times (ms) from PerformanceObserver. Window size: 30 */
-  paintTimes: number[]
-
-  // ─────────────────────────────────────────────────────────────────────────
-  // Peak Values - Tracked with decay to avoid stale maxes
-  // ─────────────────────────────────────────────────────────────────────────
-
-  /** Peak frame time (ms) - decays when values drop below threshold */
-  maxFrameTime: number
-
-  /** Peak input latency (ms) - decays when values drop below threshold */
-  maxInputLatency: number
-
-  /** Peak paint time (ms) - decays when values drop below threshold */
-  maxPaintTime: number
-
-  // ─────────────────────────────────────────────────────────────────────────
-  // Jitter Detection - Identifies inconsistent responsiveness
-  // ─────────────────────────────────────────────────────────────────────────
-
-  /** Count of input jitter events (latency spikes vs recent baseline) */
-  inputJitter: number
-
-  /** Recent input latencies for jitter baseline calculation */
-  recentInputLatencies: number[]
-
-  // ─────────────────────────────────────────────────────────────────────────
-  // Memory Tracking - JS heap usage (Chrome only)
-  // ─────────────────────────────────────────────────────────────────────────
-
-  /** Memory at reset/start (MB) - used to compute delta */
-  baselineMemoryMB: number | null
-
-  /** Highest memory observed since reset (MB) */
-  peakMemoryMB: number | null
-
-  /** Most recent memory reading (MB) */
-  lastMemoryMB: number | null
-
-  // ─────────────────────────────────────────────────────────────────────────
   // Sparkline History - Time series for trend visualization
+  // (Collectors provide raw data, decorator builds time series)
   // ─────────────────────────────────────────────────────────────────────────
 
   /** FPS samples over time for sparkline chart. Size: 30 */
@@ -201,192 +141,15 @@ interface MetricsState {
   /** Frame time samples over time for sparkline chart. Size: 30 */
   frameTimeHistory: number[]
 
-  /** Memory samples over time for sparkline chart. Size: 30 */
-  memoryHistory: number[]
-
-  // ─────────────────────────────────────────────────────────────────────────
-  // Frame Health Counters
-  // ─────────────────────────────────────────────────────────────────────────
-
-  /** Frames exceeding 2× target frame time (33.34ms at 60fps) */
-  droppedFrames: number
-
-  /** Tasks exceeding 50ms (Long Tasks API) */
-  longTasks: number
-
-  /** Duration of longest task observed (ms) */
-  longestTask: number
-
-  // ─────────────────────────────────────────────────────────────────────────
-  // Layout Thrashing Detection
-  // ─────────────────────────────────────────────────────────────────────────
-
-  /** Count of style attribute mutations (potential forced reflow triggers) */
-  styleWrites: number
-
-  /** Thrashing score: style writes near long frames indicate layout thrashing */
-  thrashingScore: number
-
-  // ─────────────────────────────────────────────────────────────────────────
-  // Cumulative Layout Shift (CLS)
-  // ─────────────────────────────────────────────────────────────────────────
-
-  /** Cumulative layout shift score (0-1, should be <0.1 for good UX) */
-  layoutShiftScore: number
-
-  /** Number of individual layout shift events */
-  layoutShiftCount: number
-
-  // ─────────────────────────────────────────────────────────────────────────
-  // Interaction to Next Paint (INP)
-  // ─────────────────────────────────────────────────────────────────────────
-
-  /** Total user interactions tracked */
-  interactionCount: number
-
-  /** Recent interaction latencies for INP calculation. Window: 50 */
-  interactionLatencies: number[]
-
-  /** Interaction to Next Paint - 75th percentile of interaction latencies */
-  inpMs: number
-
-  // ─────────────────────────────────────────────────────────────────────────
-  // React Profiler Metrics
-  // ─────────────────────────────────────────────────────────────────────────
-
-  /** Total React Profiler onRender callbacks */
-  reactRenderCount: number
-
-  /** Components mounted (phase === 'mount') */
-  reactMountCount: number
-
-  /** Total time spent in mount renders (ms) */
-  reactMountDuration: number
-
-  /** Renders after mount phase (updates) */
-  reactPostMountUpdateCount: number
-
-  /** Longest post-mount update duration (ms) */
-  reactPostMountMaxDuration: number
-
-  /** Render cascades: setState during render (phase === 'nested-update') */
-  nestedUpdateCount: number
-
-  /** True after first post-mount update detected */
-  mountPhaseComplete: boolean
-
-  // ─────────────────────────────────────────────────────────────────────────
-  // DOM Metrics
-  // ─────────────────────────────────────────────────────────────────────────
-
-  /** Current DOM element count in story container */
+  /** DOM element count in story container */
   domElements: number | null
-
-  // ─────────────────────────────────────────────────────────────────────────
-  // Extended Performance Metrics
-  // ─────────────────────────────────────────────────────────────────────────
-
-  /** Synchronous layout/style reads that forced browser reflow */
-  forcedReflowCount: number
-
-  /** Currently registered event listeners (when available) */
-  eventListenerCount: number
-
-  /** Active observers (Intersection, Mutation, Resize) */
-  observerCount: number
-
-  /** CSS custom property changes via setProperty */
-  cssVarChanges: number
-
-  /** Time spent evaluating scripts (ms) */
-  scriptEvalTime: number
-
-  /** Memory allocation rate (MB/s) - indicates GC pressure */
-  gcPressure: number
-
-  /** Paint events from PerformanceObserver */
-  paintCount: number
-
-  /** Compositor layers (when available via DevTools protocol) */
-  compositorLayers: number | null
-
-  // ─────────────────────────────────────────────────────────────────────────
-  // Jank Detection Metrics (Advanced)
-  // ─────────────────────────────────────────────────────────────────────────
-
-  /**
-   * Total Blocking Time (TBT) - sum of (longTask - 50ms) for all long tasks.
-   * Key Core Web Vital correlating with interactivity.
-   * Lower is better; <200ms is good, <600ms needs improvement.
-   */
-  totalBlockingTime: number
-
-  /**
-   * Average DOM mutations per measurement frame.
-   * High values (>50/frame) can cause jank from style recalculation.
-   */
-  domMutationsPerFrame: number
-
-  /** Rolling window of DOM mutation counts per frame */
-  domMutationFrames: number[]
-
-  /**
-   * React updates exceeding 16ms (one frame budget).
-   * Indicates components that may cause dropped frames.
-   */
-  slowReactUpdates: number
-
-  /** Recent React update durations for P95 calculation */
-  reactUpdateDurations: number[]
 }
 
 function createInitialState(): MetricsState {
   return {
-    frameTimes: [],
-    inputLatencies: [],
-    paintTimes: [],
-    maxFrameTime: 0,
-    maxInputLatency: 0,
-    maxPaintTime: 0,
-    inputJitter: 0,
-    recentInputLatencies: [],
-    baselineMemoryMB: null,
-    peakMemoryMB: null,
-    lastMemoryMB: null,
     fpsHistory: [],
     frameTimeHistory: [],
-    memoryHistory: [],
-    droppedFrames: 0,
-    longTasks: 0,
-    longestTask: 0,
-    styleWrites: 0,
-    thrashingScore: 0,
-    layoutShiftScore: 0,
-    layoutShiftCount: 0,
-    interactionCount: 0,
-    interactionLatencies: [],
-    inpMs: 0,
-    reactRenderCount: 0,
-    reactMountCount: 0,
-    reactMountDuration: 0,
-    reactPostMountUpdateCount: 0,
-    reactPostMountMaxDuration: 0,
-    nestedUpdateCount: 0,
-    mountPhaseComplete: false,
     domElements: null,
-    forcedReflowCount: 0,
-    eventListenerCount: 0,
-    observerCount: 0,
-    cssVarChanges: 0,
-    scriptEvalTime: 0,
-    gcPressure: 0,
-    paintCount: 0,
-    compositorLayers: null,
-    totalBlockingTime: 0,
-    domMutationsPerFrame: 0,
-    domMutationFrames: [],
-    slowReactUpdates: 0,
-    reactUpdateDurations: [],
   }
 }
 
@@ -582,71 +345,97 @@ export interface ComputedMetrics {
 }
 
 /**
- * Transforms raw MetricsState into the panel-ready ComputedMetrics format.
+ * Collector instances created eagerly during render.
+ * All collectors are non-null after initialization.
+ */
+interface CollectorRefs {
+  frame: FrameTimingCollector
+  input: InputCollector
+  mainThread: MainThreadCollector
+  layoutShift: LayoutShiftCollector
+  memory: MemoryCollector
+  style: StyleMutationCollector
+  reflow: ForcedReflowCollector
+  react: ReactProfilerCollector
+  paint: PaintCollector
+}
+
+/**
+ * Transforms collector metrics into the panel-ready ComputedMetrics format.
  *
- * Applies:
- * - Averaging for rolling windows (frameTimes → frameTime)
- * - Rounding to 1 decimal place for display
- * - Memory delta calculation (current - baseline)
- * - P95 calculation for React durations
+ * Gathers metrics from all collector instances and computes derived values:
+ * - FPS from average frame time
+ * - Memory delta from baseline
+ * - P95 for React durations
  *
- * @param m - Current raw metrics state
+ * @param collectors - Collector instances
+ * @param state - Decorator-specific state (sparklines, DOM count)
  * @returns Processed metrics ready for panel display
  * @private
  */
-function computeMetrics(m: MetricsState): ComputedMetrics {
-  const avgFrameTime = computeAverage(m.frameTimes)
+function computeMetrics(collectors: CollectorRefs, state: MetricsState): ComputedMetrics {
+  const frame = collectors.frame.getMetrics()
+  const input = collectors.input.getMetrics()
+  const mainThread = collectors.mainThread.getMetrics()
+  const layout = collectors.layoutShift.getMetrics()
+  const memory = collectors.memory.getMetrics()
+  const style = collectors.style.getMetrics()
+  const reflow = collectors.reflow.getMetrics()
+  const react = collectors.react.getMetrics()
+  const paint = collectors.paint.getMetrics()
+
+  const avgFrameTime = computeAverage(frame.frameTimes)
   const fps = avgFrameTime > 0 ? Math.round(1000 / avgFrameTime) : 0
-  const avgInputLatency = computeAverage(m.inputLatencies)
-  const avgPaintTime = computeAverage(m.paintTimes)
+  const avgInputLatency = computeAverage(input.inputLatencies)
+  const avgPaintTime = computeAverage(input.paintTimes)
   const memoryDeltaMB =
-    m.lastMemoryMB !== null && m.baselineMemoryMB !== null
-      ? Math.round((m.lastMemoryMB - m.baselineMemoryMB) * 10) / 10
+    memory.lastMemoryMB !== null && memory.baselineMemoryMB !== null
+      ? Math.round((memory.lastMemoryMB - memory.baselineMemoryMB) * 10) / 10
       : null
 
   return {
     fps,
     frameTime: Math.round(avgFrameTime * 10) / 10,
-    maxFrameTime: Math.round(m.maxFrameTime * 10) / 10,
+    maxFrameTime: Math.round(frame.maxFrameTime * 10) / 10,
     inputLatency: Math.round(avgInputLatency * 10) / 10,
-    maxInputLatency: Math.round(m.maxInputLatency * 10) / 10,
+    maxInputLatency: Math.round(input.maxInputLatency * 10) / 10,
     paintTime: Math.round(avgPaintTime * 10) / 10,
-    maxPaintTime: Math.round(m.maxPaintTime * 10) / 10,
-    inputJitter: m.inputJitter,
-    memoryUsedMB: m.lastMemoryMB,
+    maxPaintTime: Math.round(input.maxPaintTime * 10) / 10,
+    inputJitter: input.inputJitter,
+    memoryUsedMB: memory.lastMemoryMB,
     memoryDeltaMB,
-    peakMemoryMB: m.peakMemoryMB,
-    fpsHistory: [...m.fpsHistory],
-    frameTimeHistory: [...m.frameTimeHistory],
-    memoryHistory: [...m.memoryHistory],
-    longTasks: m.longTasks,
-    longestTask: m.longestTask,
-    droppedFrames: m.droppedFrames,
-    styleWrites: m.styleWrites,
-    thrashingScore: m.thrashingScore,
-    layoutShiftScore: m.layoutShiftScore,
-    layoutShiftCount: m.layoutShiftCount,
-    interactionCount: m.interactionCount,
-    inpMs: m.inpMs,
-    reactMountCount: m.reactMountCount,
-    reactMountDuration: m.reactMountDuration,
-    reactRenderCount: m.reactRenderCount,
-    reactPostMountUpdateCount: m.reactPostMountUpdateCount,
-    reactPostMountMaxDuration: m.reactPostMountMaxDuration,
-    renderCascades: m.nestedUpdateCount,
-    domElements: m.domElements,
-    forcedReflowCount: m.forcedReflowCount,
-    eventListenerCount: m.eventListenerCount,
-    observerCount: m.observerCount,
-    cssVarChanges: m.cssVarChanges,
-    scriptEvalTime: Math.round(m.scriptEvalTime * 10) / 10,
-    gcPressure: Math.round(m.gcPressure * 100) / 100,
-    paintCount: m.paintCount,
-    compositorLayers: m.compositorLayers,
-    totalBlockingTime: Math.round(m.totalBlockingTime),
-    domMutationsPerFrame: Math.round(computeAverage(m.domMutationFrames)),
-    slowReactUpdates: m.slowReactUpdates,
-    reactP95Duration: computeP95(m.reactUpdateDurations),
+    peakMemoryMB: memory.peakMemoryMB,
+    fpsHistory: [...state.fpsHistory],
+    frameTimeHistory: [...state.frameTimeHistory],
+    memoryHistory: [...memory.memoryHistory],
+    longTasks: mainThread.longTasks,
+    longestTask: mainThread.longestTask,
+    droppedFrames: frame.droppedFrames,
+    styleWrites: style.styleWrites,
+    thrashingScore: style.thrashingScore,
+    layoutShiftScore: layout.layoutShiftScore,
+    layoutShiftCount: layout.layoutShiftCount,
+    interactionCount: input.interactionCount,
+    inpMs: input.inpMs,
+    reactMountCount: react.reactMountCount,
+    reactMountDuration: react.reactMountDuration,
+    reactRenderCount: react.reactRenderCount,
+    reactPostMountUpdateCount: react.reactPostMountUpdateCount,
+    reactPostMountMaxDuration: react.reactPostMountMaxDuration,
+    renderCascades: react.nestedUpdateCount,
+    domElements: state.domElements,
+    forcedReflowCount: reflow.forcedReflowCount,
+    eventListenerCount: 0, // Not currently tracked by collectors
+    observerCount: 0, // Not currently tracked by collectors
+    cssVarChanges: style.cssVarChanges,
+    scriptEvalTime: Math.round(paint.scriptEvalTime * 10) / 10,
+    gcPressure: Math.round(memory.gcPressure * 100) / 100,
+    paintCount: paint.paintCount,
+    compositorLayers: paint.compositorLayers,
+    totalBlockingTime: Math.round(mainThread.totalBlockingTime),
+    domMutationsPerFrame: Math.round(computeAverage(style.domMutationFrames)),
+    slowReactUpdates: react.slowReactUpdates,
+    reactP95Duration: computeP95(react.reactUpdateDurations),
   }
 }
 
@@ -747,74 +536,76 @@ export const PerformanceProvider = React.memo(function PerformanceProvider({
 }: PerformanceProviderProps) {
   const contentRef = React.useRef<HTMLDivElement>(null)
   const stateRef = React.useRef<MetricsState>(createInitialState())
+  // Create collectors outside of render to avoid react-hooks/refs rule.
+  // We use useState with an initializer function which runs synchronously
+  // during the first render, before children mount.
+  const [collectors] = React.useState<CollectorRefs>(() => {
+    const styleCollector = new StyleMutationCollector()
+    const reflowCollector = new ForcedReflowCollector()
+    styleCollector.onLayoutDirty = () => reflowCollector.markLayoutDirty()
+
+    return {
+      frame: new FrameTimingCollector(delta => styleCollector.checkThrashing(delta)),
+      input: new InputCollector(),
+      mainThread: new MainThreadCollector(),
+      layoutShift: new LayoutShiftCollector(),
+      memory: new MemoryCollector(),
+      style: styleCollector,
+      reflow: reflowCollector,
+      react: new ReactProfilerCollector(),
+      paint: new PaintCollector(),
+    }
+  })
   const lastComputedRef = React.useRef<ComputedMetrics | null>(null)
 
+  // Reset all collectors and state
   const resetMetrics = React.useCallback(() => {
-    const currentMemory = getMemoryMB()
-    const m = stateRef.current
-    const mountCount = m.reactMountCount
-    const mountDuration = m.reactMountDuration
+    collectors.frame.reset()
+    collectors.input.reset()
+    collectors.mainThread.reset()
+    collectors.layoutShift.reset()
+    collectors.memory.reset()
+    collectors.style.reset()
+    collectors.reflow.reset()
+    collectors.react.reset()
+    collectors.paint.reset()
 
-    Object.assign(m, createInitialState())
-    m.reactMountCount = mountCount
-    m.reactMountDuration = mountDuration
-    m.baselineMemoryMB = currentMemory
-    m.peakMemoryMB = currentMemory
-    m.lastMemoryMB = currentMemory
-  }, [])
+    Object.assign(stateRef.current, createInitialState())
+  }, [collectors])
 
-  // React profiler callback
+  // React profiler callback - delegates to ReactProfilerCollector
   const reportReactRender = React.useCallback(
     (phase: 'mount' | 'update' | 'nested-update', actualDuration: number, _baseDuration: number) => {
-      const m = stateRef.current
-
-      if (phase === 'nested-update') {
-        m.nestedUpdateCount++
-      }
-
-      m.reactRenderCount++
-
-      if (phase === 'mount') {
-        m.reactMountCount++
-        m.reactMountDuration += actualDuration
-      } else {
-        m.mountPhaseComplete = true
-        m.reactPostMountUpdateCount++
-        if (actualDuration > m.reactPostMountMaxDuration) {
-          m.reactPostMountMaxDuration = actualDuration
-        }
-
-        // Track slow React updates (>16ms is a full frame budget)
-        if (actualDuration > 16) {
-          m.slowReactUpdates++
-        }
-
-        // Keep rolling window of update durations for P95 calculation
-        m.reactUpdateDurations.push(actualDuration)
-        if (m.reactUpdateDurations.length > 100) {
-          m.reactUpdateDurations.shift()
-        }
-      }
+      collectors.react.reportRender(phase, actualDuration)
     },
-    [],
+    [collectors],
   )
 
   const setDomElements = React.useCallback((count: number | null) => {
     stateRef.current.domElements = count
   }, [])
 
-  // Main measurement loop and channel communication
+  // Main measurement loop - collectors already created in useState
   React.useEffect(() => {
     if (!enabled) return
 
-    const m = stateRef.current
+    const state = stateRef.current
     const channel = addons.getChannel()
+
+    // Start all collectors
+    collectors.frame.start()
+    collectors.input.start()
+    collectors.mainThread.start()
+    collectors.layoutShift.start()
+    collectors.memory.start()
+    collectors.style.start()
+    collectors.reflow.start()
+    collectors.react.start()
+    collectors.paint.start()
 
     // Handle channel events
     const handleRequestMetrics = () => {
-      // Always respond with current metrics, even if we haven't computed any yet
-      // This lets the panel know the decorator is active
-      const metricsToSend = lastComputedRef.current ?? computeMetrics(m)
+      const metricsToSend = lastComputedRef.current ?? computeMetrics(collectors, state)
       channel.emit(PERF_EVENTS.METRICS_UPDATE, metricsToSend)
     }
 
@@ -825,466 +616,60 @@ export const PerformanceProvider = React.memo(function PerformanceProvider({
     channel.on(PERF_EVENTS.REQUEST_METRICS, handleRequestMetrics)
     channel.on(PERF_EVENTS.RESET, handleReset)
 
-    let animationId: number
-    let lastTime = performance.now()
+    // Periodic updates for sparklines and metrics emission
     let lastUpdateTime = performance.now()
     let lastSparklineTime = performance.now()
-    let styleWriteCount = 0
-    let lastStyleWriteTime = 0
 
-    const processFrame = (delta: number) => {
-      // Add to rolling window
-      m.frameTimes.push(delta)
-      if (m.frameTimes.length > FRAME_TIMES_WINDOW) m.frameTimes.shift()
-
-      // Update max with decay
-      if (delta > m.maxFrameTime) {
-        m.maxFrameTime = delta
-      } else if (delta < MAX_DECAY_THRESHOLD && m.maxFrameTime > MAX_DECAY_THRESHOLD) {
-        m.maxFrameTime *= MAX_DECAY_RATE
-      }
-
-      // Dropped frames
-      if (delta > FRAME_TIME_60FPS * DROPPED_FRAME_MULTIPLIER) {
-        m.droppedFrames += Math.floor(delta / FRAME_TIME_60FPS) - 1
-      }
-
-      // Frame jitter detection
-      if (m.frameTimes.length >= JITTER_BASELINE_SIZE) {
-        const baselineFrames = m.frameTimes.slice(-JITTER_BASELINE_SIZE, -1)
-        const avgBaseline = computeAverage(baselineFrames)
-        const isJitter =
-          delta > avgBaseline * JITTER_MULTIPLIER &&
-          delta - avgBaseline > JITTER_FRAME_DELTA &&
-          delta > JITTER_FRAME_ABSOLUTE
-        if (isJitter) m.inputJitter++
-      }
-    }
-
-    const processInput = (latency: number) => {
-      m.inputLatencies.push(latency)
-      if (m.inputLatencies.length > INPUT_LATENCIES_WINDOW) m.inputLatencies.shift()
-
-      // Update max with decay
-      if (latency > m.maxInputLatency) {
-        m.maxInputLatency = latency
-      } else if (latency < MAX_INPUT_DECAY_THRESHOLD && m.maxInputLatency > MAX_INPUT_DECAY_THRESHOLD) {
-        m.maxInputLatency *= MAX_INPUT_DECAY_RATE
-      }
-
-      // Input jitter detection
-      m.recentInputLatencies.push(latency)
-      if (m.recentInputLatencies.length > 10) m.recentInputLatencies.shift()
-      if (m.recentInputLatencies.length >= JITTER_BASELINE_SIZE) {
-        const baseline = m.recentInputLatencies.slice(0, -1)
-        const avgBaseline = computeAverage(baseline)
-        if (
-          latency > avgBaseline * JITTER_MULTIPLIER &&
-          latency - avgBaseline > JITTER_INPUT_DELTA &&
-          latency > JITTER_INPUT_ABSOLUTE
-        ) {
-          m.inputJitter++
-        }
-      }
-    }
-
-    const processPaint = (paintTime: number) => {
-      m.paintTimes.push(paintTime)
-      if (m.paintTimes.length > PAINT_TIMES_WINDOW) m.paintTimes.shift()
-
-      if (paintTime > m.maxPaintTime) {
-        m.maxPaintTime = paintTime
-      } else if (paintTime < MAX_PAINT_DECAY_THRESHOLD && m.maxPaintTime > MAX_PAINT_DECAY_THRESHOLD) {
-        m.maxPaintTime *= MAX_PAINT_DECAY_RATE
-      }
-    }
-
-    const updateMemory = () => {
-      const memory = getMemoryMB()
-      if (memory === null) return
-
-      m.lastMemoryMB = memory
-      if (m.baselineMemoryMB === null) m.baselineMemoryMB = memory
-      if (m.peakMemoryMB === null || memory > m.peakMemoryMB) m.peakMemoryMB = memory
-
-      m.memoryHistory.push(memory)
-      if (m.memoryHistory.length > SPARKLINE_HISTORY_SIZE) m.memoryHistory.shift()
-    }
-
-    const updateSparklines = () => {
-      if (m.frameTimes.length > 0) {
-        const avgFrameTime = computeAverage(m.frameTimes)
-        const fps = Math.round(1000 / avgFrameTime)
-
-        m.fpsHistory.push(fps)
-        if (m.fpsHistory.length > SPARKLINE_HISTORY_SIZE) m.fpsHistory.shift()
-
-        m.frameTimeHistory.push(avgFrameTime)
-        if (m.frameTimeHistory.length > SPARKLINE_HISTORY_SIZE) m.frameTimeHistory.shift()
-      }
-    }
-
-    const checkForThrashing = (frameTime: number) => {
+    const updateLoop = () => {
       const now = performance.now()
-      const timeSinceLastWrite = now - lastStyleWriteTime
-      const hadRecentStyleWrite = styleWriteCount > 0 && timeSinceLastWrite < THRASHING_STYLE_WRITE_WINDOW
 
-      if (hadRecentStyleWrite && frameTime > THRASHING_FRAME_THRESHOLD) {
-        m.thrashingScore++
-      }
-
-      styleWriteCount = 0
-    }
-
-    const measure = () => {
-      const now = performance.now()
-      const delta = now - lastTime
-      lastTime = now
-
-      processFrame(delta)
-      checkForThrashing(delta)
-
-      // Sample sparkline data more frequently than panel updates
+      // Update memory and sparklines periodically
       if (now - lastSparklineTime >= SPARKLINE_SAMPLE_INTERVAL_MS) {
         lastSparklineTime = now
-        updateMemory()
-        updateSparklines()
+        collectors.memory.update()
+        collectors.paint.updateCompositorLayers()
+
+        // Build sparkline data from collector metrics
+        const frameMetrics = collectors.frame.getMetrics()
+        if (frameMetrics.frameTimes.length > 0) {
+          const avgFrameTime = computeAverage(frameMetrics.frameTimes)
+          const fps = Math.round(1000 / avgFrameTime)
+          addToWindow(state.fpsHistory, fps, SPARKLINE_HISTORY_SIZE)
+          addToWindow(state.frameTimeHistory, avgFrameTime, SPARKLINE_HISTORY_SIZE)
+        }
       }
 
       // Emit computed metrics periodically to the panel
       if (now - lastUpdateTime >= UPDATE_INTERVAL_MS) {
         lastUpdateTime = now
 
-        const computed = computeMetrics(m)
+        const computed = computeMetrics(collectors, state)
         lastComputedRef.current = computed
         channel.emit(PERF_EVENTS.METRICS_UPDATE, computed)
       }
 
-      animationId = requestAnimationFrame(measure)
+      updateAnimationId = requestAnimationFrame(updateLoop)
     }
 
-    // Input latency tracking
-    const handlePointerMove = (event: PointerEvent) => {
-      const eventTime = event.timeStamp
-      requestAnimationFrame(() => {
-        const rafTime = performance.now()
-        const latency = rafTime - eventTime
-        processInput(latency)
-
-        // Paint time measurement via double-RAF
-        requestAnimationFrame(() => {
-          const paintEnd = performance.now()
-          const paintTime = paintEnd - rafTime
-          processPaint(paintTime)
-        })
-      })
-    }
-
-    // Long task observer - also calculates Total Blocking Time (TBT)
-    let longTaskObserver: PerformanceObserver | null = null
-    try {
-      longTaskObserver = new PerformanceObserver(list => {
-        for (const entry of list.getEntries()) {
-          m.longTasks++
-          if (entry.duration > m.longestTask) m.longestTask = entry.duration
-          // TBT = sum of (duration - 50ms) for all long tasks
-          // Long tasks are >50ms, so we accumulate the "blocking" portion
-          m.totalBlockingTime += Math.max(0, entry.duration - 50)
-        }
-      })
-      longTaskObserver.observe({type: 'longtask'})
-    } catch {
-      /* Not supported */
-    }
-
-    // Style mutation observer - also tracks CSS variable changes
-    const styleObserver = new MutationObserver(mutations => {
-      for (const mutation of mutations) {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-          m.styleWrites++
-          styleWriteCount++
-          lastStyleWriteTime = performance.now()
-          markLayoutDirty() // Mark layout dirty for forced reflow detection
-
-          // Count CSS variable changes by checking if style contains "--"
-          const target = mutation.target as HTMLElement
-          const styleValue = target.getAttribute('style') || ''
-          const cssVarMatches = styleValue.match(/--[\w-]+\s*:/g)
-          if (cssVarMatches) {
-            m.cssVarChanges += cssVarMatches.length
-          }
-        }
-      }
-    })
-    styleObserver.observe(document.body, {attributes: true, attributeFilter: ['style'], subtree: true})
-
-    // DOM mutation observer for counting DOM churn
-    let domMutationCount = 0
-    const domMutationObserver = new MutationObserver(mutations => {
-      // Count meaningful DOM mutations (not just style changes)
-      for (const mutation of mutations) {
-        if (mutation.type === 'childList') {
-          domMutationCount += mutation.addedNodes.length + mutation.removedNodes.length
-        } else if (mutation.type === 'attributes' && mutation.attributeName !== 'style') {
-          domMutationCount++
-        }
-      }
-    })
-    domMutationObserver.observe(document.body, {
-      childList: true,
-      attributes: true,
-      subtree: true,
-      attributeFilter: ['class', 'id', 'data-state', 'aria-expanded', 'aria-hidden', 'hidden', 'disabled'],
-    })
-
-    // Sample DOM mutations per frame periodically
-    const domMutationSampleInterval = setInterval(() => {
-      m.domMutationFrames.push(domMutationCount)
-      if (m.domMutationFrames.length > 30) m.domMutationFrames.shift()
-      domMutationCount = 0
-    }, SPARKLINE_SAMPLE_INTERVAL_MS)
-
-    // Layout shift observer
-    let layoutShiftObserver: PerformanceObserver | null = null
-    try {
-      layoutShiftObserver = new PerformanceObserver(list => {
-        for (const entry of list.getEntries()) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const shiftEntry = entry as any
-          if (!shiftEntry.hadRecentInput) {
-            m.layoutShiftScore += shiftEntry.value
-            m.layoutShiftCount++
-          }
-        }
-      })
-      layoutShiftObserver.observe({type: 'layout-shift', buffered: true})
-    } catch {
-      /* Not supported */
-    }
-
-    // Interaction handler for INP
-    const handleInteraction = (event: MouseEvent | KeyboardEvent) => {
-      const eventTime = event.timeStamp
-      m.interactionCount++
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          const latency = performance.now() - eventTime
-          m.interactionLatencies.push(latency)
-          if (m.interactionLatencies.length > INTERACTION_LATENCIES_WINDOW) m.interactionLatencies.shift()
-          if (latency > m.inpMs) m.inpMs = latency
-        })
-      })
-    }
-
-    // ========================================================================
-    // NEW METRICS: Forced Reflow Detection
-    // ========================================================================
-    // Instrument layout-triggering getters to detect forced reflows
-    // A forced reflow happens when you read layout properties after writing styles
-    // before the browser has had a chance to do layout naturally
-    //
-    // Note: This modifies HTMLElement.prototype globally. We use a registry pattern
-    // so multiple decorator instances can share the instrumentation.
-    const reflowTriggeringProps = [
-      'offsetTop',
-      'offsetLeft',
-      'offsetWidth',
-      'offsetHeight',
-      'scrollTop',
-      'scrollLeft',
-      'scrollWidth',
-      'scrollHeight',
-      'clientTop',
-      'clientLeft',
-      'clientWidth',
-      'clientHeight',
-    ] as const
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const reflowRegistry = ((window as any).__perfReflowRegistry =
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (window as any).__perfReflowRegistry || {
-        initialized: false,
-        originalGetters: new Map<string, PropertyDescriptor>(),
-        layoutDirty: false,
-        dirtyTimeout: null as ReturnType<typeof setTimeout> | null,
-        metricsRef: null as MetricsState | null,
-      })
-
-    // Update the metrics reference for the current instance
-    reflowRegistry.metricsRef = m
-
-    const markLayoutDirty = () => {
-      reflowRegistry.layoutDirty = true
-      // Clear dirty flag after next microtask (when browser would naturally layout)
-      if (reflowRegistry.dirtyTimeout) clearTimeout(reflowRegistry.dirtyTimeout)
-      reflowRegistry.dirtyTimeout = setTimeout(() => {
-        reflowRegistry.layoutDirty = false
-      }, 0)
-    }
-
-    if (!reflowRegistry.initialized) {
-      reflowRegistry.initialized = true
-
-      for (const prop of reflowTriggeringProps) {
-        const descriptor = Object.getOwnPropertyDescriptor(HTMLElement.prototype, prop)
-        if (descriptor?.get) {
-          reflowRegistry.originalGetters.set(prop, descriptor)
-          Object.defineProperty(HTMLElement.prototype, prop, {
-            get() {
-              if (reflowRegistry.layoutDirty && reflowRegistry.metricsRef) {
-                reflowRegistry.metricsRef.forcedReflowCount++
-                reflowRegistry.layoutDirty = false // Only count once per dirty cycle
-              }
-              return descriptor.get!.call(this)
-            },
-            configurable: true,
-          })
-        }
-      }
-    }
-
-    // We don't restore on cleanup since it's shared - just null out the ref
-    const restoreReflowDetection = () => {
-      // Clear any pending timeout
-      if (reflowRegistry.dirtyTimeout) {
-        clearTimeout(reflowRegistry.dirtyTimeout)
-        reflowRegistry.dirtyTimeout = null
-      }
-      // Don't restore the getters - they're shared across instances
-    }
-
-    // ========================================================================
-    // NEW METRICS: Script Evaluation Time (via PerformanceObserver)
-    // ========================================================================
-    // Track long tasks that are script-related and resource timing
-    let scriptObserver: PerformanceObserver | null = null
-    try {
-      scriptObserver = new PerformanceObserver(list => {
-        for (const entry of list.getEntries()) {
-          if (entry.entryType === 'resource') {
-            // Only count actual script resources (not just .js files)
-            const resourceEntry = entry as PerformanceResourceTiming
-            if (resourceEntry.initiatorType === 'script') {
-              // Use responseEnd - fetchStart for total script load+parse time
-              const scriptTime = resourceEntry.responseEnd - resourceEntry.fetchStart
-              if (scriptTime > 0) {
-                m.scriptEvalTime += scriptTime
-              }
-            }
-          }
-        }
-      })
-      scriptObserver.observe({type: 'resource', buffered: true})
-    } catch {
-      /* Not supported */
-    }
-
-    // ========================================================================
-    // NEW METRICS: GC Pressure (Memory Allocation Rate)
-    // ========================================================================
-    let lastGcCheckTime = performance.now()
-    let lastGcMemory = getMemoryMB()
-
-    const updateGcPressure = () => {
-      const now = performance.now()
-      const currentMemory = getMemoryMB()
-      if (currentMemory !== null && lastGcMemory !== null) {
-        const timeDelta = (now - lastGcCheckTime) / 1000 // seconds
-        if (timeDelta > 0) {
-          const memoryDelta = currentMemory - lastGcMemory
-          // Only track positive growth (allocations)
-          if (memoryDelta > 0) {
-            m.gcPressure = memoryDelta / timeDelta // MB/s
-          } else {
-            // Decay the pressure reading
-            m.gcPressure *= 0.9
-          }
-        }
-      }
-      lastGcCheckTime = now
-      lastGcMemory = currentMemory
-    }
-
-    // ========================================================================
-    // NEW METRICS: Paint Count
-    // ========================================================================
-    let paintObserver: PerformanceObserver | null = null
-    try {
-      paintObserver = new PerformanceObserver(list => {
-        m.paintCount += list.getEntries().length
-      })
-      paintObserver.observe({type: 'paint', buffered: true})
-    } catch {
-      /* Not supported */
-    }
-
-    // ========================================================================
-    // NEW METRICS: Compositor Layers (Chrome only)
-    // ========================================================================
-    const updateCompositorLayers = () => {
-      // Count elements with will-change or transform that promote to layers
-      const layerPromotingSelectors = [
-        '[style*="will-change"]',
-        '[style*="transform: translate"]',
-        '[style*="transform:translate"]',
-        '[style*="translateZ"]',
-        '[style*="translate3d"]',
-      ]
-
-      let layerCount = 0
-      for (const selector of layerPromotingSelectors) {
-        try {
-          layerCount += document.querySelectorAll(selector).length
-        } catch {
-          /* Invalid selector */
-        }
-      }
-
-      // Also count elements with computed will-change
-      const allElements = document.querySelectorAll('*')
-      for (const el of allElements) {
-        const style = getComputedStyle(el)
-        if (style.willChange && style.willChange !== 'auto') {
-          layerCount++
-        }
-      }
-
-      m.compositorLayers = layerCount
-    }
-
-    // Periodic updates for new metrics
-    const newMetricsInterval = setInterval(() => {
-      updateGcPressure()
-      updateCompositorLayers()
-    }, 1000)
-
-    window.addEventListener('pointermove', handlePointerMove)
-    window.addEventListener('click', handleInteraction)
-    window.addEventListener('keydown', handleInteraction)
-    animationId = requestAnimationFrame(measure)
+    let updateAnimationId = requestAnimationFrame(updateLoop)
 
     return () => {
-      cancelAnimationFrame(animationId)
-      clearInterval(newMetricsInterval)
-      clearInterval(domMutationSampleInterval)
-      styleObserver.disconnect()
-      domMutationObserver.disconnect()
-      longTaskObserver?.disconnect()
-      layoutShiftObserver?.disconnect()
-      scriptObserver?.disconnect()
-      paintObserver?.disconnect()
-      restoreReflowDetection()
-      // Note: We don't restore EventTarget, Observer proxies, or CSSStyleDeclaration
-      // because they're shared across all instances and should persist.
-      // The registries use refs that get updated per-instance.
-      window.removeEventListener('pointermove', handlePointerMove)
-      window.removeEventListener('click', handleInteraction)
-      window.removeEventListener('keydown', handleInteraction)
+      // Stop all collectors
+      collectors.frame.stop()
+      collectors.input.stop()
+      collectors.mainThread.stop()
+      collectors.layoutShift.stop()
+      collectors.memory.stop()
+      collectors.style.stop()
+      collectors.reflow.stop()
+      collectors.react.stop()
+      collectors.paint.stop()
+
+      cancelAnimationFrame(updateAnimationId)
       channel.off(PERF_EVENTS.REQUEST_METRICS, handleRequestMetrics)
       channel.off(PERF_EVENTS.RESET, handleReset)
     }
-  }, [enabled, resetMetrics])
+  }, [enabled, collectors, resetMetrics])
 
   // DOM element counting
   React.useEffect(() => {
