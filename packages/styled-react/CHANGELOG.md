@@ -1,5 +1,11 @@
 # @primer/styled-react
 
+## 1.0.2
+
+### Patch Changes
+
+- [#7261](https://github.com/primer/react/pull/7261) [`13effb8`](https://github.com/primer/react/commit/13effb815ab45ac7b517fd4ea5b0365d1fc52508) Thanks [@joshblack](https://github.com/joshblack)! - Update exports from @primer/styled-react to be marked as deprecated
+
 ## 1.0.1
 
 ### Patch Changes
