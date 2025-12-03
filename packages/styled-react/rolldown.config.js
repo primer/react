@@ -1,8 +1,7 @@
 import babel from '@rollup/plugin-babel'
-import {defineConfig} from 'rollup'
+import {defineConfig} from 'rolldown'
 import typescript from 'rollup-plugin-typescript2'
 import packageJson from './package.json' with {type: 'json'}
-import MagicString from 'magic-string'
 
 const dependencies = [
   ...Object.keys(packageJson.peerDependencies ?? {}),
