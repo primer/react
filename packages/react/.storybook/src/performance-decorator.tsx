@@ -85,159 +85,47 @@
  */
 
 import React from 'react'
+import type {Decorator} from '@storybook/react-vite'
 import {addons} from 'storybook/preview-api'
+import {PERF_EVENTS} from './performance-types'
+import {
+  // Constants
+  FRAME_TIME_60FPS,
+  DROPPED_FRAME_MULTIPLIER,
+  THRASHING_FRAME_THRESHOLD,
+  THRASHING_STYLE_WRITE_WINDOW,
+  INTERACTION_LATENCIES_WINDOW,
+  FRAME_TIMES_WINDOW,
+  INPUT_LATENCIES_WINDOW,
+  PAINT_TIMES_WINDOW,
+  SPARKLINE_HISTORY_SIZE,
+  JITTER_BASELINE_SIZE,
+  JITTER_MULTIPLIER,
+  JITTER_INPUT_DELTA,
+  JITTER_INPUT_ABSOLUTE,
+  JITTER_FRAME_DELTA,
+  JITTER_FRAME_ABSOLUTE,
+  MAX_DECAY_THRESHOLD,
+  MAX_DECAY_RATE,
+  MAX_INPUT_DECAY_THRESHOLD,
+  MAX_INPUT_DECAY_RATE,
+  MAX_PAINT_DECAY_THRESHOLD,
+  MAX_PAINT_DECAY_RATE,
+  // Utility functions
+  computeAverage,
+  computeP95,
+  getMemoryMB,
+} from './performance-collectors'
 
 // ============================================================================
-// Channel Events
+// Timing Constants (decorator-specific)
 // ============================================================================
-
-/**
- * Addon identifier - must match the value in performance-tool.tsx
- * @constant {string}
- * @private
- */
-const ADDON_ID = 'primer-performance-monitor'
-
-/**
- * Channel event names for communication between preview and manager.
- * @constant {Object}
- * @property {string} METRICS_UPDATE - Emitted by decorator with latest metrics
- * @property {string} RESET - Emitted by panel to reset all metrics to baseline
- * @property {string} REQUEST_METRICS - Emitted by panel to request immediate metrics update
- * @private
- */
-const PERF_EVENTS = {
-  METRICS_UPDATE: `${ADDON_ID}/metrics-update`,
-  RESET: `${ADDON_ID}/reset`,
-  REQUEST_METRICS: `${ADDON_ID}/request-metrics`,
-}
-
-// ============================================================================
-// Constants
-// ============================================================================
-
-/** Target frame time for 60fps rendering (ms) */
-const FRAME_TIME_60FPS = 16.67
-
-/** Multiplier for detecting dropped frames (frame > 16.67ms × 2 = dropped) */
-const DROPPED_FRAME_MULTIPLIER = 2
-
-/** Frame time threshold (ms) for detecting layout thrashing */
-const THRASHING_FRAME_THRESHOLD = 50
-
-/** Time window (ms) for associating style writes with long frames */
-const THRASHING_STYLE_WRITE_WINDOW = 50
-
-/** Max interaction latencies to keep for INP calculation */
-const INTERACTION_LATENCIES_WINDOW = 50
 
 /** How often to emit metrics to the panel (ms) */
 const UPDATE_INTERVAL_MS = 50
 
 /** How often to sample sparkline data points (ms) */
 const SPARKLINE_SAMPLE_INTERVAL_MS = 200
-
-/** Rolling window size for frame time samples */
-const FRAME_TIMES_WINDOW = 60
-
-/** Rolling window size for input latency samples */
-const INPUT_LATENCIES_WINDOW = 30
-
-/** Rolling window size for paint time samples */
-const PAINT_TIMES_WINDOW = 30
-
-/** Number of data points to keep for sparkline charts */
-const SPARKLINE_HISTORY_SIZE = 30
-
-/** Number of recent samples to use for jitter baseline */
-const JITTER_BASELINE_SIZE = 5
-
-/** Jitter = spike exceeding baseline × this multiplier */
-const JITTER_MULTIPLIER = 3
-
-/** Minimum delta (ms) from baseline to count as input jitter */
-const JITTER_INPUT_DELTA = 30
-
-/** Minimum absolute value (ms) to count as input jitter */
-const JITTER_INPUT_ABSOLUTE = 50
-
-/** Minimum delta (ms) from baseline to count as frame jitter */
-const JITTER_FRAME_DELTA = 20
-
-/** Minimum absolute value (ms) to count as frame jitter */
-const JITTER_FRAME_ABSOLUTE = 40
-
-/** Threshold below which max values start to decay */
-const MAX_DECAY_THRESHOLD = 20
-
-/** Decay rate per frame for max frame time */
-const MAX_DECAY_RATE = 0.99
-
-/** Threshold below which max input latency starts to decay */
-const MAX_INPUT_DECAY_THRESHOLD = 20
-
-/** Decay rate per frame for max input latency */
-const MAX_INPUT_DECAY_RATE = 0.98
-
-/** Threshold below which max paint time starts to decay */
-const MAX_PAINT_DECAY_THRESHOLD = 10
-
-/** Decay rate per frame for max paint time */
-const MAX_PAINT_DECAY_RATE = 0.98
-
-// ============================================================================
-// Helper Functions
-// ============================================================================
-
-/**
- * Gets current JavaScript heap memory usage in megabytes.
- * Only available in Chromium-based browsers via the non-standard performance.memory API.
- *
- * @returns Memory usage in MB, or null if unavailable (Firefox, Safari, etc.)
- * @example
- * const memory = getMemoryMB() // 45.2 or null
- * @private
- */
-function getMemoryMB(): number | null {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const memory = (performance as any).memory
-  if (memory?.usedJSHeapSize) {
-    return Math.round((memory.usedJSHeapSize / 1024 / 1024) * 10) / 10
-  }
-  return null
-}
-
-/**
- * Computes the arithmetic mean of a numeric array.
- *
- * @param arr - Array of numbers to average
- * @returns The average, or 0 for empty arrays
- * @example
- * computeAverage([10, 20, 30]) // 20
- * computeAverage([]) // 0
- * @private
- */
-function computeAverage(arr: number[]): number {
-  if (arr.length === 0) return 0
-  return arr.reduce((a, b) => a + b, 0) / arr.length
-}
-
-/**
- * Computes the 95th percentile of a numeric array.
- * Used for identifying worst-case performance excluding outliers.
- *
- * @param arr - Array of numbers
- * @returns The 95th percentile value, or 0 for empty arrays
- * @example
- * computeP95([1, 2, 3, ..., 100]) // ~95
- * @private
- */
-function computeP95(arr: number[]): number {
-  if (arr.length === 0) return 0
-  const sorted = [...arr].sort((a, b) => a - b)
-  const idx = Math.floor(sorted.length * 0.95)
-  return Math.round(sorted[Math.min(idx, sorted.length - 1)] * 10) / 10
-}
 
 // ============================================================================
 // Metrics State (Internal)
@@ -1504,7 +1392,7 @@ export const ProfiledComponent = React.memo(function ProfiledComponent({
  *
  * Apply to individual stories or globally in preview.tsx.
  *
- * @param Story - The story component to wrap
+ * @type {Decorator} - The story component to wrap
  * @returns The story wrapped with performance monitoring
  *
  * @example
@@ -1521,10 +1409,10 @@ export const ProfiledComponent = React.memo(function ProfiledComponent({
  * @see {@link ProfiledComponent} - The React Profiler wrapper
  * @see {@link ComputedMetrics} - The metrics sent to the panel
  */
-export function withPerformanceMonitor(Story: React.ComponentType) {
+export const withPerformanceMonitor: Decorator = (Story, ctx) => {
   return (
     <PerformanceProvider enabled>
-      <ProfiledComponent id="story">
+      <ProfiledComponent id={ctx.id}>
         <Story />
       </ProfiledComponent>
     </PerformanceProvider>

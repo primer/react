@@ -41,261 +41,21 @@
  * @module performance-panel
  * @see {@link ./performance-decorator.tsx} - The metrics collector
  * @see {@link ./performance-tool.tsx} - Addon registration
+ * @see {@link ./performance-types.ts} - Shared types and constants
  */
 
 import React from 'react'
 import {useChannel, useStorybookState} from 'storybook/manager-api'
 import {AddonPanel} from 'storybook/internal/components'
 import {styled, useTheme} from 'storybook/theming'
-import {ADDON_ID} from './performance-tool'
-
-// ============================================================================
-// Channel Events
-// ============================================================================
-
-/**
- * Channel event names for panel↔decorator communication.
- * Must match values in performance-decorator.tsx.
- * @constant {Object}
- */
-export const PERF_EVENTS = {
-  /** Decorator → Panel: New metrics available */
-  METRICS_UPDATE: `${ADDON_ID}/metrics-update`,
-  /** Panel → Decorator: Reset all metrics to baseline */
-  RESET: `${ADDON_ID}/reset`,
-  /** Panel → Decorator: Request immediate metrics update */
-  REQUEST_METRICS: `${ADDON_ID}/request-metrics`,
-}
-
-// ============================================================================
-// Thresholds
-// ============================================================================
-
-/**
- * Performance thresholds for metric color-coding.
- *
- * Based on Web Vitals standards where applicable:
- * - FPS/Frame timing: 60fps target (16.67ms frame budget)
- * - Input latency: <100ms good, <300ms acceptable (RAIL model)
- * - CLS: <0.1 good, <0.25 needs improvement (Core Web Vital)
- * - INP: <200ms good, <500ms needs improvement (Core Web Vital)
- * - TBT: <200ms good, <600ms needs improvement (Lighthouse)
- *
- * @constant {Object}
- */
-const THRESHOLDS = {
-  // Frame timing
-  /** FPS above this is good (green) */
-  FPS_GOOD: 55,
-  /** FPS below this is poor (red) */
-  FPS_WARNING: 30,
-  /** Target frame time for 60fps (ms) */
-  FRAME_TIME_TARGET: 16.67,
-  /** Frame time above this is poor (ms) */
-  FRAME_TIME_WARNING: 32,
-
-  // Input responsiveness
-  /** Input latency below this is excellent (ms) */
-  INPUT_LATENCY_GOOD: 16,
-  /** Input latency above this needs attention (ms) */
-  INPUT_LATENCY_WARNING: 50,
-  /** INP below this is good - Core Web Vital (ms) */
-  INP_GOOD: 200,
-  /** INP above this is poor - Core Web Vital (ms) */
-  INP_WARNING: 500,
-
-  // Main thread
-  /** Long tasks above this count needs attention */
-  LONG_TASKS_WARNING: 5,
-  /** Longest task above this is concerning (ms) */
-  LONGEST_TASK_WARNING: 100,
-  /** Dropped frames above this indicates jank */
-  DROPPED_FRAMES_WARNING: 10,
-  /** TBT below this is good (ms) - Lighthouse metric */
-  TBT_WARNING: 200,
-  /** TBT above this is poor (ms) */
-  TBT_DANGER: 600,
-
-  // Layout & Style
-  /** CLS below this is good - Core Web Vital */
-  CLS_GOOD: 0.1,
-  /** CLS above this is poor - Core Web Vital */
-  CLS_WARNING: 0.25,
-  /** Forced reflows above this needs attention */
-  FORCED_REFLOW_WARNING: 5,
-  /** Forced reflows above this is serious */
-  FORCED_REFLOW_DANGER: 20,
-  /** DOM mutations/frame above this may cause jank */
-  DOM_MUTATIONS_WARNING: 50,
-  /** DOM mutations/frame above this likely causes jank */
-  DOM_MUTATIONS_DANGER: 200,
-
-  // React
-  /** React render time below this is good (ms) */
-  REACT_RENDER_GOOD: 8,
-  /** React render time above this is slow (ms) */
-  REACT_RENDER_WARNING: 16,
-  /** Render cascades above this is problematic */
-  CASCADE_WARNING: 3,
-  /** Slow updates above this needs attention */
-  SLOW_UPDATES_WARNING: 3,
-  /** Slow updates above this is serious */
-  SLOW_UPDATES_DANGER: 10,
-  /** P95 React duration above this needs attention (ms) */
-  REACT_P95_WARNING: 8,
-  /** P95 React duration above this is poor (ms) */
-  REACT_P95_DANGER: 16,
-
-  // Memory
-  /** Memory growth above this needs attention (MB) */
-  MEMORY_DELTA_WARNING: 5,
-  /** Memory growth above this indicates leak (MB) */
-  MEMORY_DELTA_DANGER: 20,
-  /** GC pressure above this indicates allocation issues (MB/s) */
-  GC_PRESSURE_WARNING: 1,
-  /** GC pressure above this is serious (MB/s) */
-  GC_PRESSURE_DANGER: 5,
-
-  // Observers (informational)
-  /** Event listeners above this is high */
-  EVENT_LISTENERS_WARNING: 50,
-  /** Event listeners above this is very high */
-  EVENT_LISTENERS_DANGER: 100,
-  /** Observers above this is high */
-  OBSERVERS_WARNING: 10,
-  /** Observers above this is very high */
-  OBSERVERS_DANGER: 25,
-  /** CSS var changes above this is excessive */
-  CSS_VAR_CHANGES_WARNING: 50,
-  /** Compositor layers above this needs attention */
-  LAYERS_WARNING: 20,
-  /** Compositor layers above this is concerning */
-  LAYERS_DANGER: 50,
-} as const
-
-// ============================================================================
-// Types
-// ============================================================================
-
-/**
- * Performance metrics received from the decorator.
- * Mirrors ComputedMetrics from performance-decorator.tsx.
- * @interface PerformanceMetrics
- * @private
- */
-interface PerformanceMetrics {
-  // Frame timing
-  fps: number
-  frameTime: number
-  maxFrameTime: number
-  droppedFrames: number
-
-  // Input
-  inputLatency: number
-  maxInputLatency: number
-  inputJitter: number
-  interactionCount: number
-  inpMs: number
-
-  // Paint
-  paintTime: number
-  maxPaintTime: number
-  paintCount: number
-
-  // Main thread
-  longTasks: number
-  longestTask: number
-  totalBlockingTime: number
-
-  // Layout & Style
-  styleWrites: number
-  thrashingScore: number
-  layoutShiftScore: number
-  layoutShiftCount: number
-  forcedReflowCount: number
-  domMutationsPerFrame: number
-  cssVarChanges: number
-
-  // React
-  reactMountCount: number
-  reactMountDuration: number
-  reactRenderCount: number
-  reactPostMountUpdateCount: number
-  reactPostMountMaxDuration: number
-  renderCascades: number
-  slowReactUpdates: number
-  reactP95Duration: number
-
-  // Memory
-  memoryUsedMB: number | null
-  memoryDeltaMB: number | null
-  peakMemoryMB: number | null
-  gcPressure: number
-
-  // DOM
-  domElements: number | null
-  scriptEvalTime: number
-
-  // Observers
-  eventListenerCount: number
-  observerCount: number
-  compositorLayers: number | null
-
-  // Sparkline data
-  fpsHistory: number[]
-  frameTimeHistory: number[]
-  memoryHistory: number[]
-}
-
-/**
- * Default/initial metrics state (all zeros/nulls).
- * @constant {PerformanceMetrics}
- * @private
- */
-const DEFAULT_METRICS: PerformanceMetrics = {
-  fps: 0,
-  frameTime: 0,
-  maxFrameTime: 0,
-  droppedFrames: 0,
-  inputLatency: 0,
-  maxInputLatency: 0,
-  paintTime: 0,
-  maxPaintTime: 0,
-  longTasks: 0,
-  longestTask: 0,
-  styleWrites: 0,
-  thrashingScore: 0,
-  inputJitter: 0,
-  layoutShiftScore: 0,
-  layoutShiftCount: 0,
-  interactionCount: 0,
-  inpMs: 0,
-  reactMountCount: 0,
-  reactMountDuration: 0,
-  reactRenderCount: 0,
-  reactPostMountUpdateCount: 0,
-  reactPostMountMaxDuration: 0,
-  renderCascades: 0,
-  memoryUsedMB: null,
-  memoryDeltaMB: null,
-  peakMemoryMB: null,
-  domElements: null,
-  fpsHistory: [],
-  frameTimeHistory: [],
-  memoryHistory: [],
-  forcedReflowCount: 0,
-  eventListenerCount: 0,
-  observerCount: 0,
-  cssVarChanges: 0,
-  scriptEvalTime: 0,
-  gcPressure: 0,
-  paintCount: 0,
-  compositorLayers: null,
-  totalBlockingTime: 0,
-  domMutationsPerFrame: 0,
-  slowReactUpdates: 0,
-  reactP95Duration: 0,
-}
+import {
+  PERF_EVENTS,
+  THRESHOLDS,
+  DEFAULT_METRICS,
+  getStatusVariant,
+  getZeroIsGoodStatus,
+  type PerformanceMetrics,
+} from './performance-types'
 
 // ============================================================================
 // Formatters
@@ -656,25 +416,14 @@ function Sparkline({
 }
 
 // ============================================================================
-// Helper Functions
+// Helper Functions (aliases for imported utilities)
 // ============================================================================
 
-type StatusVariant = 'success' | 'warning' | 'error' | 'neutral'
+/** Alias for getStatusVariant from performance-types */
+const getStatus = getStatusVariant
 
-function getStatus(value: number, good: number, warning: number, higherIsBetter = false): StatusVariant {
-  if (higherIsBetter) {
-    if (value >= good) return 'success'
-    if (value >= warning) return 'warning'
-    return 'error'
-  }
-  if (value <= good) return 'success'
-  if (value <= warning) return 'warning'
-  return 'error'
-}
-
-function getZeroStatus(value: number): StatusVariant {
-  return value === 0 ? 'success' : 'error'
-}
+/** Alias for getZeroIsGoodStatus from performance-types */
+const getZeroStatus = getZeroIsGoodStatus
 
 // ============================================================================
 // Metric Components
