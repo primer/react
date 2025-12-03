@@ -100,7 +100,7 @@ const RelativeTime = styled(createComponent(React, 'relative-time', RelativeTime
 
 There are no additional steps required for consumers of Primer React, and the component behaves as if it is a first-class React component, supporting the same properties and events as any regular React component. The server will render the Custom Element tag (in the case of the `RelativeTime` component, `<relative-time>`) and the client is able to assign class properties and use callbacks for events, as expected.
 
-While React 18 and below require a small library like `@lit-labs/react`, due to the [lack of support for Custom Element](https://custom-elements-everywhere.com/libraries/react/results/results.html), React 19 [will likely need no such library](https://custom-elements-everywhere.com/libraries/react-experimental/results/results.html).
+While React 18 and below require a small library like `@lit-labs/react`, due to the lack of support for Custom Element, React 19 [does support Custom Elements](https://custom-elements-everywhere.com/libraries/react/results/results.html), hence no longer needs such library.
 
 Custom Elements ShadowDOM content can be rendered either client side (when the element connects to the DOM) or server side using a `<template>` element which allows the browser to piece together ShadowDOM content as the HTML stream in. This is known as "Declarative ShadowDOM". Declarative ShadowDOM is not always necessary, as it depends on the use case of the element which is being rendered. Declarative ShadowDOM is supported in Chrome and Safari 17 (at the time of writing this is unreleased, but [technology preview 162 includes DSD support](https://webkit.org/blog/13703/release-notes-for-safari-technology-preview-162/). For other browsers a DSD polyfill is a few additional lines of code.
 
@@ -162,7 +162,7 @@ Today, Primer React includes the `RelativeTime` component. Using the `@lit-labs/
 const RelativeTime = styled(createComponent(React, 'relative-time', RelativeTimeElement))(sx)
 ```
 
-While React 18 and below require a small library like `@lit-labs/react`, due to the [lack of support for Custom Element](https://custom-elements-everywhere.com/libraries/react/results/results.html), React 19 [will likely need no such library](https://custom-elements-everywhere.com/libraries/react-experimental/results/results.html).
+While React 18 and below require a small library like `@lit-labs/react`, due to the lack of support for Custom Element, React 19 [does support Custom Elements](https://custom-elements-everywhere.com/libraries/react/results/results.html), hence no longer needs such library.
 
 ### Organizational overhead
 
