@@ -199,6 +199,8 @@ export interface PerformanceMetrics {
   maxFrameTime: number
   /** Frames exceeding 2× frame budget (33.34ms at 60fps) */
   droppedFrames: number
+  /** Frame jitter count - sudden spikes in frame time vs baseline */
+  frameJitter: number
 
   // ─────────────────────────────────────────────────────────────────────────
   // Input Responsiveness
@@ -322,6 +324,7 @@ export const DEFAULT_METRICS: PerformanceMetrics = {
   frameTime: 0,
   maxFrameTime: 0,
   droppedFrames: 0,
+  frameJitter: 0,
   inputLatency: 0,
   maxInputLatency: 0,
   inputJitter: 0,

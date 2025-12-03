@@ -596,6 +596,7 @@ function MetricsSection({icon, title, children}: SectionProps) {
  * - FPS: Frames per second with sparkline trend
  * - Frame Time: Average/max frame duration
  * - Dropped Frames: Count of frames exceeding 2× budget
+ * - Frame Jitter: Sudden spikes in frame time
  *
  * @component
  * @param props.metrics - Current performance metrics
@@ -608,6 +609,7 @@ function FrameTimingSection({metrics}: {metrics: PerformanceMetrics}) {
       : metrics.droppedFrames > 0
         ? 'warning'
         : 'success'
+  const frameJitterStatus = getZeroStatus(metrics.frameJitter)
 
   return (
     <MetricsSection icon="📊" title="Frame Timing">
@@ -637,6 +639,15 @@ function FrameTimingSection({metrics}: {metrics: PerformanceMetrics}) {
         <StatusBadge variant={droppedStatus}>
           {metrics.droppedFrames}
           {metrics.droppedFrames === 0 && ' ✓'}
+        </StatusBadge>
+      </Metric>
+
+      <Metric
+        label="Frame Jitter"
+        tooltip="Sudden spikes in frame time vs recent baseline. Indicates inconsistent rendering."
+      >
+        <StatusBadge variant={frameJitterStatus}>
+          {metrics.frameJitter === 0 ? 'None ✓' : `${metrics.frameJitter} spikes`}
         </StatusBadge>
       </Metric>
     </MetricsSection>
@@ -794,7 +805,10 @@ function LayoutAndInternalsSection({metrics}: {metrics: PerformanceMetrics}) {
         {metrics.cssVarChanges > 0 && <SecondaryValue>({metrics.cssVarChanges} CSS vars)</SecondaryValue>}
       </Metric>
 
-      <Metric label="Jitter" tooltip="Unexpected latency spikes causing visible hitches during drag.">
+      <Metric
+        label="Input Jitter"
+        tooltip="Unexpected input latency spikes causing visible hitches during interaction."
+      >
         <StatusBadge variant={jitterStatus}>
           {metrics.inputJitter === 0 ? 'None ✓' : `${metrics.inputJitter} hitches`}
         </StatusBadge>

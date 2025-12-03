@@ -267,6 +267,9 @@ export interface ComputedMetrics {
   /** Frames exceeding 2× frame budget (33.34ms at 60fps) */
   droppedFrames: number
 
+  /** Frame jitter count - sudden spikes in frame time vs baseline */
+  frameJitter: number
+
   // ─────────────────────────────────────────────────────────────────────────
   // Layout & Style
   // ─────────────────────────────────────────────────────────────────────────
@@ -411,6 +414,7 @@ function computeMetrics(collectors: CollectorRefs, state: MetricsState): Compute
     longTasks: mainThread.longTasks,
     longestTask: mainThread.longestTask,
     droppedFrames: frame.droppedFrames,
+    frameJitter: frame.frameJitter,
     styleWrites: style.styleWrites,
     thrashingScore: style.thrashingScore,
     layoutShiftScore: layout.layoutShiftScore,
