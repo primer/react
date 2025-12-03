@@ -1,8 +1,111 @@
+/**
+ * @fileoverview Performance Monitor Addon - Metrics Collection Decorator
+ *
+ * This decorator instruments React components to collect comprehensive performance
+ * metrics in real-time. It runs in Storybook's preview iframe and communicates
+ * metrics to the panel via Storybook's channel API.
+ *
+ * ## Architecture
+ *
+ * ```
+ * ┌─────────────────────────────────────────────────────────────────┐
+ * │ Preview Iframe (this file)                                      │
+ * │  ┌─────────────────────┐    ┌─────────────────────────────┐    │
+ * │  │ PerformanceProvider │───▶│ Metrics Collection          │    │
+ * │  │   └─ProfiledComponent│   │  • RAF loop (frame timing)  │    │
+ * │  │       └─Story       │   │  • PerformanceObservers     │    │
+ * │  └─────────────────────┘   │  • MutationObservers        │    │
+ * │                             │  • Event listeners          │    │
+ * │                             │  • React Profiler API       │    │
+ * │                             └──────────────┬──────────────┘    │
+ * │                                            │                    │
+ * │                              channel.emit(METRICS_UPDATE)       │
+ * └──────────────────────────────────────────────┼──────────────────┘
+ *                                                │
+ *                                                ▼
+ * ┌─────────────────────────────────────────────────────────────────┐
+ * │ Manager (performance-panel.tsx)                                 │
+ * │  ┌─────────────────────┐                                        │
+ * │  │ PerformancePanel    │◀── useChannel(METRICS_UPDATE)          │
+ * │  │   └─MetricsSections │                                        │
+ * │  └─────────────────────┘                                        │
+ * └─────────────────────────────────────────────────────────────────┘
+ * ```
+ *
+ * ## Metrics Categories
+ *
+ * ### Frame Timing
+ * - **FPS**: Frames per second calculated from requestAnimationFrame deltas
+ * - **Frame Time**: Average milliseconds per frame (target: ≤16.67ms for 60fps)
+ * - **Dropped Frames**: Frames exceeding 2× the expected frame time
+ *
+ * ### Input Responsiveness
+ * - **Input Latency**: Time from pointer event to next animation frame
+ * - **Paint Time**: Browser rendering time measured via double-RAF technique
+ * - **INP (Interaction to Next Paint)**: Worst-case click/key interaction latency
+ *
+ * ### Main Thread Health
+ * - **Long Tasks**: Tasks blocking main thread >50ms (via PerformanceObserver)
+ * - **Total Blocking Time (TBT)**: Sum of (duration - 50ms) for all long tasks
+ * - **Thrashing**: Style writes followed by long frames (forced sync layout)
+ * - **DOM Churn**: Rate of DOM mutations per measurement period
+ *
+ * ### Layout Stability
+ * - **CLS (Cumulative Layout Shift)**: Layout shift score without user input
+ * - **Forced Reflows**: Layout property reads after style writes
+ * - **Style Writes**: Inline style mutations observed via MutationObserver
+ * - **CSS Variable Changes**: Custom property changes in inline styles
+ *
+ * ### React Performance
+ * - **Mount Count/Duration**: Initial render metrics from React Profiler
+ * - **Slow Updates**: React updates exceeding 16ms frame budget
+ * - **P95 Duration**: 95th percentile React update time
+ * - **Render Cascades**: Nested updates during commit phase
+ *
+ * ### Memory & Resources
+ * - **Heap Usage**: Current JS heap size (Chrome only via performance.memory)
+ * - **Memory Delta**: Change from baseline since last reset
+ * - **GC Pressure**: Memory allocation rate in MB/s
+ * - **Compositor Layers**: Elements promoted to GPU layers
+ *
+ * @module performance-decorator
+ * @see {@link ./performance-panel.tsx} - The UI that displays these metrics
+ * @see {@link ./performance-tool.tsx} - Addon registration constants
+ *
+ * @example
+ * // In a story file
+ * import { withPerformanceMonitor } from '../.storybook/src/performance-decorator';
+ *
+ * export default {
+ *   title: 'Components/MyComponent',
+ *   decorators: [withPerformanceMonitor],
+ * };
+ *
+ * export const Default = () => <MyComponent />;
+ */
+
 import React from 'react'
 import {addons} from 'storybook/preview-api'
 
-// Event channels - must match panel.tsx
+// ============================================================================
+// Channel Events
+// ============================================================================
+
+/**
+ * Addon identifier - must match the value in performance-tool.tsx
+ * @constant {string}
+ * @private
+ */
 const ADDON_ID = 'primer-performance-monitor'
+
+/**
+ * Channel event names for communication between preview and manager.
+ * @constant {Object}
+ * @property {string} METRICS_UPDATE - Emitted by decorator with latest metrics
+ * @property {string} RESET - Emitted by panel to reset all metrics to baseline
+ * @property {string} REQUEST_METRICS - Emitted by panel to request immediate metrics update
+ * @private
+ */
 const PERF_EVENTS = {
   METRICS_UPDATE: `${ADDON_ID}/metrics-update`,
   RESET: `${ADDON_ID}/reset`,
@@ -13,37 +116,88 @@ const PERF_EVENTS = {
 // Constants
 // ============================================================================
 
+/** Target frame time for 60fps rendering (ms) */
 const FRAME_TIME_60FPS = 16.67
-const DROPPED_FRAME_MULTIPLIER = 2
-const THRASHING_FRAME_THRESHOLD = 50
-const THRASHING_STYLE_WRITE_WINDOW = 50
-const INTERACTION_LATENCIES_WINDOW = 50
-const UPDATE_INTERVAL_MS = 50 // How often to emit to panel (was 100ms)
-const SPARKLINE_SAMPLE_INTERVAL_MS = 200 // How often to sample sparkline data
 
-// Rolling window sizes
+/** Multiplier for detecting dropped frames (frame > 16.67ms × 2 = dropped) */
+const DROPPED_FRAME_MULTIPLIER = 2
+
+/** Frame time threshold (ms) for detecting layout thrashing */
+const THRASHING_FRAME_THRESHOLD = 50
+
+/** Time window (ms) for associating style writes with long frames */
+const THRASHING_STYLE_WRITE_WINDOW = 50
+
+/** Max interaction latencies to keep for INP calculation */
+const INTERACTION_LATENCIES_WINDOW = 50
+
+/** How often to emit metrics to the panel (ms) */
+const UPDATE_INTERVAL_MS = 50
+
+/** How often to sample sparkline data points (ms) */
+const SPARKLINE_SAMPLE_INTERVAL_MS = 200
+
+/** Rolling window size for frame time samples */
 const FRAME_TIMES_WINDOW = 60
+
+/** Rolling window size for input latency samples */
 const INPUT_LATENCIES_WINDOW = 30
+
+/** Rolling window size for paint time samples */
 const PAINT_TIMES_WINDOW = 30
+
+/** Number of data points to keep for sparkline charts */
 const SPARKLINE_HISTORY_SIZE = 30
 
-// Jitter detection thresholds
+/** Number of recent samples to use for jitter baseline */
 const JITTER_BASELINE_SIZE = 5
+
+/** Jitter = spike exceeding baseline × this multiplier */
 const JITTER_MULTIPLIER = 3
+
+/** Minimum delta (ms) from baseline to count as input jitter */
 const JITTER_INPUT_DELTA = 30
+
+/** Minimum absolute value (ms) to count as input jitter */
 const JITTER_INPUT_ABSOLUTE = 50
+
+/** Minimum delta (ms) from baseline to count as frame jitter */
 const JITTER_FRAME_DELTA = 20
+
+/** Minimum absolute value (ms) to count as frame jitter */
 const JITTER_FRAME_ABSOLUTE = 40
 
-// Max value decay
+/** Threshold below which max values start to decay */
 const MAX_DECAY_THRESHOLD = 20
+
+/** Decay rate per frame for max frame time */
 const MAX_DECAY_RATE = 0.99
+
+/** Threshold below which max input latency starts to decay */
 const MAX_INPUT_DECAY_THRESHOLD = 20
+
+/** Decay rate per frame for max input latency */
 const MAX_INPUT_DECAY_RATE = 0.98
+
+/** Threshold below which max paint time starts to decay */
 const MAX_PAINT_DECAY_THRESHOLD = 10
+
+/** Decay rate per frame for max paint time */
 const MAX_PAINT_DECAY_RATE = 0.98
 
-// Helper to get current memory usage in MB (Chrome only)
+// ============================================================================
+// Helper Functions
+// ============================================================================
+
+/**
+ * Gets current JavaScript heap memory usage in megabytes.
+ * Only available in Chromium-based browsers via the non-standard performance.memory API.
+ *
+ * @returns Memory usage in MB, or null if unavailable (Firefox, Safari, etc.)
+ * @example
+ * const memory = getMemoryMB() // 45.2 or null
+ * @private
+ */
 function getMemoryMB(): number | null {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const memory = (performance as any).memory
@@ -53,11 +207,31 @@ function getMemoryMB(): number | null {
   return null
 }
 
+/**
+ * Computes the arithmetic mean of a numeric array.
+ *
+ * @param arr - Array of numbers to average
+ * @returns The average, or 0 for empty arrays
+ * @example
+ * computeAverage([10, 20, 30]) // 20
+ * computeAverage([]) // 0
+ * @private
+ */
 function computeAverage(arr: number[]): number {
   if (arr.length === 0) return 0
   return arr.reduce((a, b) => a + b, 0) / arr.length
 }
 
+/**
+ * Computes the 95th percentile of a numeric array.
+ * Used for identifying worst-case performance excluding outliers.
+ *
+ * @param arr - Array of numbers
+ * @returns The 95th percentile value, or 0 for empty arrays
+ * @example
+ * computeP95([1, 2, 3, ..., 100]) // ~95
+ * @private
+ */
 function computeP95(arr: number[]): number {
   if (arr.length === 0) return 0
   const sorted = [...arr].sort((a, b) => a - b)
@@ -66,74 +240,216 @@ function computeP95(arr: number[]): number {
 }
 
 // ============================================================================
-// Metrics State
+// Metrics State (Internal)
 // ============================================================================
 
+/**
+ * Internal state object for raw metrics collection.
+ * This is NOT sent to the panel directly - see {@link ComputedMetrics}.
+ *
+ * Contains rolling windows of samples, peak trackers, and counters
+ * that are processed by `computeMetrics()` before transmission.
+ *
+ * @interface MetricsState
+ * @private
+ */
 interface MetricsState {
-  // Rolling windows
+  // ─────────────────────────────────────────────────────────────────────────
+  // Rolling Windows - Recent samples for computing averages
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Recent frame times (ms) from requestAnimationFrame deltas. Window size: 60 */
   frameTimes: number[]
+
+  /** Recent input event latencies (ms) from event timestamps. Window size: 30 */
   inputLatencies: number[]
+
+  /** Recent paint times (ms) from PerformanceObserver. Window size: 30 */
   paintTimes: number[]
 
-  // Max values with decay
+  // ─────────────────────────────────────────────────────────────────────────
+  // Peak Values - Tracked with decay to avoid stale maxes
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Peak frame time (ms) - decays when values drop below threshold */
   maxFrameTime: number
+
+  /** Peak input latency (ms) - decays when values drop below threshold */
   maxInputLatency: number
+
+  /** Peak paint time (ms) - decays when values drop below threshold */
   maxPaintTime: number
 
-  // Jitter tracking
+  // ─────────────────────────────────────────────────────────────────────────
+  // Jitter Detection - Identifies inconsistent responsiveness
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Count of input jitter events (latency spikes vs recent baseline) */
   inputJitter: number
+
+  /** Recent input latencies for jitter baseline calculation */
   recentInputLatencies: number[]
 
-  // Memory
+  // ─────────────────────────────────────────────────────────────────────────
+  // Memory Tracking - JS heap usage (Chrome only)
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Memory at reset/start (MB) - used to compute delta */
   baselineMemoryMB: number | null
+
+  /** Highest memory observed since reset (MB) */
   peakMemoryMB: number | null
+
+  /** Most recent memory reading (MB) */
   lastMemoryMB: number | null
 
-  // Sparkline history
+  // ─────────────────────────────────────────────────────────────────────────
+  // Sparkline History - Time series for trend visualization
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** FPS samples over time for sparkline chart. Size: 30 */
   fpsHistory: number[]
+
+  /** Frame time samples over time for sparkline chart. Size: 30 */
   frameTimeHistory: number[]
+
+  /** Memory samples over time for sparkline chart. Size: 30 */
   memoryHistory: number[]
 
-  // Counters
+  // ─────────────────────────────────────────────────────────────────────────
+  // Frame Health Counters
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Frames exceeding 2× target frame time (33.34ms at 60fps) */
   droppedFrames: number
+
+  /** Tasks exceeding 50ms (Long Tasks API) */
   longTasks: number
+
+  /** Duration of longest task observed (ms) */
   longestTask: number
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Layout Thrashing Detection
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Count of style attribute mutations (potential forced reflow triggers) */
   styleWrites: number
+
+  /** Thrashing score: style writes near long frames indicate layout thrashing */
   thrashingScore: number
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Cumulative Layout Shift (CLS)
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Cumulative layout shift score (0-1, should be <0.1 for good UX) */
   layoutShiftScore: number
+
+  /** Number of individual layout shift events */
   layoutShiftCount: number
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Interaction to Next Paint (INP)
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Total user interactions tracked */
   interactionCount: number
+
+  /** Recent interaction latencies for INP calculation. Window: 50 */
   interactionLatencies: number[]
+
+  /** Interaction to Next Paint - 75th percentile of interaction latencies */
   inpMs: number
 
-  // React profiler
+  // ─────────────────────────────────────────────────────────────────────────
+  // React Profiler Metrics
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Total React Profiler onRender callbacks */
   reactRenderCount: number
+
+  /** Components mounted (phase === 'mount') */
   reactMountCount: number
+
+  /** Total time spent in mount renders (ms) */
   reactMountDuration: number
+
+  /** Renders after mount phase (updates) */
   reactPostMountUpdateCount: number
+
+  /** Longest post-mount update duration (ms) */
   reactPostMountMaxDuration: number
+
+  /** Render cascades: setState during render (phase === 'nested-update') */
   nestedUpdateCount: number
+
+  /** True after first post-mount update detected */
   mountPhaseComplete: boolean
 
-  // DOM
+  // ─────────────────────────────────────────────────────────────────────────
+  // DOM Metrics
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Current DOM element count in story container */
   domElements: number | null
 
-  // New metrics
+  // ─────────────────────────────────────────────────────────────────────────
+  // Extended Performance Metrics
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Synchronous layout/style reads that forced browser reflow */
   forcedReflowCount: number
+
+  /** Currently registered event listeners (when available) */
   eventListenerCount: number
+
+  /** Active observers (Intersection, Mutation, Resize) */
   observerCount: number
+
+  /** CSS custom property changes via setProperty */
   cssVarChanges: number
+
+  /** Time spent evaluating scripts (ms) */
   scriptEvalTime: number
-  gcPressure: number // MB/s allocation rate
+
+  /** Memory allocation rate (MB/s) - indicates GC pressure */
+  gcPressure: number
+
+  /** Paint events from PerformanceObserver */
   paintCount: number
+
+  /** Compositor layers (when available via DevTools protocol) */
   compositorLayers: number | null
 
-  // Additional jank metrics
-  totalBlockingTime: number // Sum of (longTask - 50ms) for all long tasks
-  domMutationsPerFrame: number // DOM mutations in current measurement window
-  domMutationFrames: number[] // Rolling window of mutations per frame
-  slowReactUpdates: number // React updates > 16ms
-  reactUpdateDurations: number[] // Recent React update durations for analysis
+  // ─────────────────────────────────────────────────────────────────────────
+  // Jank Detection Metrics (Advanced)
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /**
+   * Total Blocking Time (TBT) - sum of (longTask - 50ms) for all long tasks.
+   * Key Core Web Vital correlating with interactivity.
+   * Lower is better; <200ms is good, <600ms needs improvement.
+   */
+  totalBlockingTime: number
+
+  /**
+   * Average DOM mutations per measurement frame.
+   * High values (>50/frame) can cause jank from style recalculation.
+   */
+  domMutationsPerFrame: number
+
+  /** Rolling window of DOM mutation counts per frame */
+  domMutationFrames: number[]
+
+  /**
+   * React updates exceeding 16ms (one frame budget).
+   * Indicates components that may cause dropped frames.
+   */
+  slowReactUpdates: number
+
+  /** Recent React update durations for P95 calculation */
+  reactUpdateDurations: number[]
 }
 
 function createInitialState(): MetricsState {
@@ -187,54 +503,209 @@ function createInitialState(): MetricsState {
 }
 
 // ============================================================================
-// Computed Metrics (what we send to the panel)
+// Computed Metrics (Panel API)
 // ============================================================================
 
+/**
+ * Processed metrics sent to the panel via Storybook channel.
+ * This is the public interface consumed by performance-panel.tsx.
+ *
+ * All values are computed from {@link MetricsState} with appropriate
+ * averaging, rounding, and transformation applied.
+ *
+ * @interface ComputedMetrics
+ * @public
+ *
+ * @example
+ * // Receiving metrics in the panel:
+ * channel.on(PERF_EVENTS.METRICS_UPDATE, (metrics: ComputedMetrics) => {
+ *   console.log(`FPS: ${metrics.fps}, TBT: ${metrics.totalBlockingTime}ms`)
+ * })
+ */
 export interface ComputedMetrics {
+  // ─────────────────────────────────────────────────────────────────────────
+  // Frame Timing
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Frames per second (derived from avg frame time). Target: 60fps */
   fps: number
+
+  /** Average frame duration (ms). Target: <16.67ms for 60fps */
   frameTime: number
+
+  /** Peak frame time with decay (ms). Spikes indicate jank */
   maxFrameTime: number
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Input Responsiveness
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Average input event processing latency (ms). Target: <100ms */
   inputLatency: number
+
+  /** Peak input latency with decay (ms) */
   maxInputLatency: number
-  paintTime: number
-  maxPaintTime: number
+
+  /** Input jitter count - latency spikes vs baseline */
   inputJitter: number
-  memoryUsedMB: number | null
-  memoryDeltaMB: number | null
-  peakMemoryMB: number | null
-  fpsHistory: number[]
-  frameTimeHistory: number[]
-  memoryHistory: number[]
-  longTasks: number
-  longestTask: number
-  droppedFrames: number
-  styleWrites: number
-  thrashingScore: number
-  layoutShiftScore: number
-  layoutShiftCount: number
-  interactionCount: number
+
+  /** Interaction to Next Paint (ms) - 75th percentile. Core Web Vital */
   inpMs: number
-  reactMountCount: number
-  reactMountDuration: number
-  reactRenderCount: number
-  reactPostMountUpdateCount: number
-  reactPostMountMaxDuration: number
-  renderCascades: number
-  domElements: number | null
-  forcedReflowCount: number
-  eventListenerCount: number
-  observerCount: number
-  cssVarChanges: number
-  scriptEvalTime: number
-  gcPressure: number
+
+  /** Total user interactions tracked */
+  interactionCount: number
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Paint Performance
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Average paint time (ms) */
+  paintTime: number
+
+  /** Peak paint time with decay (ms) */
+  maxPaintTime: number
+
+  /** Total paint operations observed */
   paintCount: number
-  compositorLayers: number | null
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Memory (Chrome only)
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Current JS heap usage (MB). Null if unsupported */
+  memoryUsedMB: number | null
+
+  /** Memory change since reset (MB). Positive = growth */
+  memoryDeltaMB: number | null
+
+  /** Peak memory observed (MB) */
+  peakMemoryMB: number | null
+
+  /** Memory allocation rate (MB/s). High values indicate GC pressure */
+  gcPressure: number
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Sparkline Data (Time Series)
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** FPS history for trend chart */
+  fpsHistory: number[]
+
+  /** Frame time history for trend chart */
+  frameTimeHistory: number[]
+
+  /** Memory history for trend chart */
+  memoryHistory: number[]
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Main Thread Health
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Tasks exceeding 50ms (Long Tasks API count) */
+  longTasks: number
+
+  /** Duration of longest observed task (ms) */
+  longestTask: number
+
+  /**
+   * Total Blocking Time (ms) - sum of (longTask - 50ms).
+   * Core Web Vital for interactivity. Good: <200ms, Poor: >600ms
+   */
   totalBlockingTime: number
+
+  /** Frames exceeding 2× frame budget (33.34ms at 60fps) */
+  droppedFrames: number
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Layout & Style
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Style attribute mutations (potential thrashing sources) */
+  styleWrites: number
+
+  /** Layout thrashing score (style writes near long frames) */
+  thrashingScore: number
+
+  /** Cumulative Layout Shift score. Good: <0.1, Poor: >0.25 */
+  layoutShiftScore: number
+
+  /** Number of layout shift events */
+  layoutShiftCount: number
+
+  /** Synchronous reads that forced browser reflow */
+  forcedReflowCount: number
+
+  /** Average DOM mutations per frame. High: >50 */
   domMutationsPerFrame: number
-  slowReactUpdates: number
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // React Profiler
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Total React render callbacks */
+  reactRenderCount: number
+
+  /** Mount phase renders (initial render) */
+  reactMountCount: number
+
+  /** Total mount phase duration (ms) */
+  reactMountDuration: number
+
+  /** Update renders (post-mount re-renders) */
+  reactPostMountUpdateCount: number
+
+  /** Longest update render duration (ms) */
+  reactPostMountMaxDuration: number
+
+  /** 95th percentile React update duration (ms) */
   reactP95Duration: number
+
+  /** React updates exceeding 16ms frame budget */
+  slowReactUpdates: number
+
+  /** Render cascades (setState during render) */
+  renderCascades: number
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // DOM & Resources
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Current DOM element count in story container */
+  domElements: number | null
+
+  /** Script evaluation time (ms) */
+  scriptEvalTime: number
+
+  /** CSS custom property changes */
+  cssVarChanges: number
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Observer Counts (informational)
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /** Active event listeners (when trackable) */
+  eventListenerCount: number
+
+  /** Active observers (Intersection, Mutation, Resize) */
+  observerCount: number
+
+  /** Compositor layers (DevTools protocol, often null) */
+  compositorLayers: number | null
 }
 
+/**
+ * Transforms raw MetricsState into the panel-ready ComputedMetrics format.
+ *
+ * Applies:
+ * - Averaging for rolling windows (frameTimes → frameTime)
+ * - Rounding to 1 decimal place for display
+ * - Memory delta calculation (current - baseline)
+ * - P95 calculation for React durations
+ *
+ * @param m - Current raw metrics state
+ * @returns Processed metrics ready for panel display
+ * @private
+ */
 function computeMetrics(m: MetricsState): ComputedMetrics {
   const avgFrameTime = computeAverage(m.frameTimes)
   const fps = avgFrameTime > 0 ? Math.round(1000 / avgFrameTime) : 0
@@ -292,29 +763,96 @@ function computeMetrics(m: MetricsState): ComputedMetrics {
 }
 
 // ============================================================================
-// Context for React Profiler
+// React Context
 // ============================================================================
 
+/**
+ * Context value provided by PerformanceProvider for manual metric reporting.
+ * @interface PerformanceContextValue
+ * @private
+ */
 interface PerformanceContextValue {
+  /**
+   * Reports a React render event from the Profiler component.
+   * @param phase - 'mount' for initial render, 'update' for re-render, 'nested-update' for cascades
+   * @param actualDuration - Time spent rendering the committed update (ms)
+   * @param baseDuration - Estimated render time without memoization (ms)
+   */
   reportReactRender: (phase: 'mount' | 'update' | 'nested-update', actualDuration: number, baseDuration: number) => void
+
+  /**
+   * Updates the DOM element count metric.
+   * @param count - Number of DOM elements, or null if unavailable
+   */
   setDomElements: (count: number | null) => void
 }
 
+/**
+ * React context for performance metric reporting.
+ * Used by ProfiledComponent to communicate with PerformanceProvider.
+ * @private
+ */
 const PerformanceContext = React.createContext<PerformanceContextValue | null>(null)
 
+/**
+ * Hook to access performance context for manual metric reporting.
+ * Returns null if not within a PerformanceProvider.
+ *
+ * @returns Performance context value or null
+ * @public
+ *
+ * @example
+ * function MyComponent() {
+ *   const perf = usePerformanceContext()
+ *   // perf?.reportReactRender('update', 5.2, 8.1)
+ * }
+ */
 export function usePerformanceContext() {
   return React.useContext(PerformanceContext)
 }
 
 // ============================================================================
-// Performance Provider (Preview Side)
+// Performance Provider
 // ============================================================================
 
+/**
+ * Props for the PerformanceProvider component.
+ * @interface PerformanceProviderProps
+ * @private
+ */
 interface PerformanceProviderProps {
+  /** React children to render and monitor */
   children: React.ReactNode
+  /** Whether performance monitoring is enabled. Default: true */
   enabled?: boolean
 }
 
+/**
+ * Main performance monitoring component for the preview iframe.
+ *
+ * This component orchestrates all metric collection by:
+ * 1. Setting up PerformanceObserver for long tasks, layout shifts, paints, resources
+ * 2. Running a requestAnimationFrame loop for frame timing
+ * 3. Installing a MutationObserver for style writes and DOM mutation tracking
+ * 4. Patching HTMLElement getters to detect forced reflows
+ * 5. Listening for input events to measure latency
+ * 6. Providing context for React Profiler integration
+ * 7. Emitting metrics to the panel via Storybook channel
+ *
+ * @component
+ * @param props - Component props
+ * @param props.children - Content to render and monitor
+ * @param props.enabled - Whether monitoring is active (default: true)
+ *
+ * @example
+ * // Used by withPerformanceMonitor decorator
+ * <PerformanceProvider enabled={shouldMonitor}>
+ *   <Story />
+ * </PerformanceProvider>
+ *
+ * @see {@link withPerformanceMonitor} - The decorator that uses this provider
+ * @see {@link ComputedMetrics} - The metrics emitted to the panel
+ */
 export const PerformanceProvider = React.memo(function PerformanceProvider({
   children,
   enabled = true,
@@ -897,15 +1435,42 @@ export const PerformanceProvider = React.memo(function PerformanceProvider({
 // Profiled Component Wrapper
 // ============================================================================
 
+/**
+ * Wraps children in a React.Profiler to capture render timing metrics.
+ *
+ * Connects to the PerformanceProvider context to report:
+ * - Mount vs update phases
+ * - Actual render duration (time with memoization)
+ * - Base duration (estimated time without memoization)
+ * - Nested updates (setState during render)
+ *
+ * @component
+ * @param props - Component props
+ * @param props.id - Profiler ID for identification
+ * @param props.children - Content to profile
+ *
+ * @example
+ * <ProfiledComponent id="my-story">
+ *   <MyComponent />
+ * </ProfiledComponent>
+ *
+ * @see {@link https://react.dev/reference/react/Profiler React Profiler API}
+ */
 export const ProfiledComponent = React.memo(function ProfiledComponent({
   id,
   children,
 }: {
+  /** Unique identifier for this profiler instance */
   id: string
+  /** React children to profile */
   children: React.ReactNode
 }) {
   const context = usePerformanceContext()
 
+  /**
+   * Profiler callback - invoked on each commit.
+   * Reports render metrics to PerformanceProvider.
+   */
   const onRender = React.useCallback(
     (
       _profilerId: string,
@@ -930,16 +1495,31 @@ export const ProfiledComponent = React.memo(function ProfiledComponent({
 // ============================================================================
 
 /**
- * Decorator that enables performance monitoring for a story.
- * When the Performance Monitor addon is enabled, metrics will be collected
- * and displayed in the addon panel.
+ * Storybook decorator that enables performance monitoring for stories.
+ *
+ * When applied, this decorator:
+ * 1. Wraps the story in a PerformanceProvider (starts all metric collection)
+ * 2. Wraps the story in a ProfiledComponent (captures React render timing)
+ * 3. Emits metrics to the addon panel every 50ms
+ *
+ * Apply to individual stories or globally in preview.tsx.
+ *
+ * @param Story - The story component to wrap
+ * @returns The story wrapped with performance monitoring
  *
  * @example
- * ```tsx
+ * // Per-story (in *.stories.tsx)
  * export default {
  *   decorators: [withPerformanceMonitor],
  * }
- * ```
+ *
+ * @example
+ * // Global (in .storybook/preview.tsx)
+ * export const decorators = [withPerformanceMonitor]
+ *
+ * @see {@link PerformanceProvider} - The provider component
+ * @see {@link ProfiledComponent} - The React Profiler wrapper
+ * @see {@link ComputedMetrics} - The metrics sent to the panel
  */
 export function withPerformanceMonitor(Story: React.ComponentType) {
   return (
