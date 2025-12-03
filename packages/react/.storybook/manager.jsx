@@ -3,12 +3,7 @@ import {IconButton, WithTooltip, TooltipLinkList} from 'storybook/internal/compo
 import {BeakerIcon} from '@primer/octicons-react'
 import React from 'react'
 import {Tool, TOOL_ID, ADDON_ID} from './src/accessibility-tool'
-import {
-  Tool as PerformanceTool,
-  TOOL_ID as PERF_TOOL_ID,
-  ADDON_ID as PERF_ADDON_ID,
-  PANEL_ID as PERF_PANEL_ID,
-} from './src/performance-tool'
+import {ADDON_ID as PERF_ADDON_ID, PANEL_ID as PERF_PANEL_ID} from './src/performance-tool'
 import {PerformancePanel} from './src/performance-panel'
 import theme from './theme'
 import {DefaultFeatureFlags} from '../src/FeatureFlags/DefaultFeatureFlags'
@@ -29,15 +24,6 @@ addons.register(ADDON_ID, () => {
 
 // Register performance monitor addon
 addons.register(PERF_ADDON_ID, () => {
-  // Register the toolbar button
-  addons.add(PERF_TOOL_ID, {
-    type: types.TOOL,
-    title: 'Performance Monitor',
-    match: ({viewMode}) => viewMode === 'story',
-    render: PerformanceTool,
-  })
-
-  // Register the panel
   addons.add(PERF_PANEL_ID, {
     type: types.PANEL,
     title: '⚡ Performance',
@@ -54,7 +40,7 @@ addons.register('FEATURE_FLAG_ADDON', () => {
     match: ({tabId, viewMode}) => {
       return !tabId && viewMode === 'story'
     },
-    render: function Render () {
+    render: function Render() {
       const [{featureFlags}, updateGlobals] = useGlobals()
       const hasFeatureEnabled = Object.values(featureFlags ?? {}).find(value => {
         return value
