@@ -1,7 +1,6 @@
 import babel from '@rollup/plugin-babel'
 import {importCSS} from 'rolldown-plugin-import-css'
 import postcssPresetPrimer from 'postcss-preset-primer'
-import MagicString from 'magic-string'
 import {defineConfig} from 'rolldown'
 import {isSupported} from './script/react-compiler.mjs'
 import packageJson from './package.json' with {type: 'json'}
