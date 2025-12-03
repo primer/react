@@ -49,6 +49,15 @@ const THRESHOLDS = {
   GC_PRESSURE_DANGER: 5,
   LAYERS_WARNING: 20,
   LAYERS_DANGER: 50,
+  // Jank-specific thresholds
+  TBT_WARNING: 200, // ms - Total Blocking Time
+  TBT_DANGER: 600,
+  DOM_MUTATIONS_WARNING: 50, // per sample period
+  DOM_MUTATIONS_DANGER: 200,
+  SLOW_UPDATES_WARNING: 3,
+  SLOW_UPDATES_DANGER: 10,
+  REACT_P95_WARNING: 8, // ms
+  REACT_P95_DANGER: 16,
 } as const
 
 // ============================================================================
@@ -95,6 +104,11 @@ interface PerformanceMetrics {
   gcPressure: number
   paintCount: number
   compositorLayers: number | null
+  // Additional jank metrics
+  totalBlockingTime: number
+  domMutationsPerFrame: number
+  slowReactUpdates: number
+  reactP95Duration: number
 }
 
 const DEFAULT_METRICS: PerformanceMetrics = {
@@ -136,6 +150,10 @@ const DEFAULT_METRICS: PerformanceMetrics = {
   gcPressure: 0,
   paintCount: 0,
   compositorLayers: null,
+  totalBlockingTime: 0,
+  domMutationsPerFrame: 0,
+  slowReactUpdates: 0,
+  reactP95Duration: 0,
 }
 
 // ============================================================================
@@ -155,26 +173,39 @@ const formatNumber = (value: number): string => new Intl.NumberFormat('en-US').f
 // ============================================================================
 
 const PanelWrapper = styled.div(({theme}) => ({
-  padding: '12px',
+  display: 'flex',
   fontFamily: theme.typography.fonts.mono,
   fontSize: '12px',
   lineHeight: 1.6,
   color: theme.color.defaultText,
-  overflow: 'auto',
   height: '100%',
   background: theme.background.content,
 }))
 
-const TopBar = styled.div({
-  display: 'flex',
-  justifyContent: 'flex-end',
-  marginBottom: '12px',
+const ContentArea = styled.div({
+  flex: 1,
+  overflow: 'auto',
+  padding: '8px',
 })
 
+const SideToolbar = styled.div(({theme}) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: '8px',
+  padding: '8px 6px',
+  borderLeft: `1px solid ${theme.appBorderColor}`,
+  background: theme.barBg,
+}))
+
 const ResetButton = styled.button(({theme}) => ({
-  padding: '4px 10px',
-  fontSize: '10px',
-  fontWeight: 500,
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '24px',
+  height: '24px',
+  padding: 0,
+  fontSize: '14px',
   fontFamily: theme.typography.fonts.base,
   background: theme.button.background,
   border: `1px solid ${theme.appBorderColor}`,
@@ -190,24 +221,23 @@ const ResetButton = styled.button(({theme}) => ({
 
 const SectionsGrid = styled.div({
   display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-  gap: '16px',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+  gap: '8px',
 })
 
 const Section = styled.section(({theme}) => ({
   background: theme.background.app,
   borderRadius: theme.appBorderRadius,
   border: `1px solid ${theme.appBorderColor}`,
-  overflow: 'hidden',
 }))
 
 const SectionHeader = styled.header(({theme}) => ({
-  padding: '10px 12px',
+  padding: '6px 10px',
   background: theme.barBg,
   borderBottom: `1px solid ${theme.appBorderColor}`,
   display: 'flex',
   alignItems: 'center',
-  gap: '8px',
+  gap: '6px',
 }))
 
 const SectionTitle = styled.h3(({theme}) => ({
@@ -225,16 +255,17 @@ const SectionIcon = styled.span({
 
 const MetricsList = styled.dl({
   margin: 0,
-  padding: '8px 0',
+  padding: '4px 0',
 })
 
 const MetricItem = styled.div(({theme}) => ({
   display: 'grid',
   gridTemplateColumns: '1fr auto',
   alignItems: 'center',
-  gap: '12px',
-  padding: '6px 12px',
+  gap: '8px',
+  padding: '4px 10px',
   borderBottom: `1px solid ${theme.appBorderColor}`,
+  position: 'relative',
   '&:last-child': {
     borderBottom: 'none',
   },
@@ -267,19 +298,59 @@ const SecondaryValue = styled.span(({theme}) => ({
   color: theme.color.mediumdark,
 }))
 
-const InfoIcon = styled.abbr(({theme}) => ({
+const InfoIcon = styled.span(({theme}) => ({
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
+  position: 'relative',
   width: '14px',
   height: '14px',
   fontSize: '9px',
   borderRadius: '50%',
   background: theme.color.medium,
   color: theme.color.defaultText,
-  textDecoration: 'none',
   cursor: 'help',
   flexShrink: 0,
+  userSelect: 'none',
+  '&:hover > span': {
+    visibility: 'visible',
+    opacity: 1,
+  },
+}))
+
+const TooltipContent = styled.span(({theme}) => ({
+  visibility: 'hidden',
+  opacity: 0,
+  position: 'absolute',
+  top: '100%',
+  left: '50%',
+  transform: 'translateX(-50%)',
+  marginTop: '8px',
+  padding: '6px 10px',
+  background: theme.color.darkest,
+  color: theme.color.lightest,
+  fontSize: '11px',
+  fontWeight: 'normal',
+  fontFamily: theme.typography.fonts.base,
+  lineHeight: 1.4,
+  borderRadius: theme.appBorderRadius,
+  boxShadow: '0 4px 12px rgba(0,0,0,0.4)',
+  whiteSpace: 'normal',
+  width: 'max-content',
+  maxWidth: '220px',
+  zIndex: 9999,
+  transition: 'opacity 0.15s ease, visibility 0.15s ease',
+  pointerEvents: 'none',
+  // Arrow
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    bottom: '100%',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    border: '5px solid transparent',
+    borderBottomColor: theme.color.darkest,
+  },
 }))
 
 const StatusBadge = styled.span<{variant: 'success' | 'warning' | 'error' | 'neutral'}>(({theme, variant}) => {
@@ -449,7 +520,11 @@ function Metric({label, tooltip, children}: MetricProps) {
     <MetricItem>
       <MetricLabel>
         {label}
-        {tooltip && <InfoIcon aria-label={tooltip}>?</InfoIcon>}
+        {tooltip && (
+          <InfoIcon>
+            ?<TooltipContent>{tooltip}</TooltipContent>
+          </InfoIcon>
+        )}
       </MetricLabel>
       <MetricValue>{children}</MetricValue>
     </MetricItem>
@@ -567,8 +642,9 @@ function InputSection({metrics}: {metrics: PerformanceMetrics}) {
 
 function MainThreadSection({metrics}: {metrics: PerformanceMetrics}) {
   const longTaskStatus = getStatus(metrics.longTasks, 0, THRESHOLDS.LONG_TASKS_WARNING)
+  const tbtStatus = getStatus(metrics.totalBlockingTime, 0, THRESHOLDS.TBT_WARNING)
   const thrashingStatus = getZeroStatus(metrics.thrashingScore)
-  const jitterStatus = getZeroStatus(metrics.inputJitter)
+  const domMutationStatus = getStatus(metrics.domMutationsPerFrame, 0, THRESHOLDS.DOM_MUTATIONS_WARNING)
 
   return (
     <MetricsSection icon="⏱️" title="Main Thread">
@@ -580,14 +656,64 @@ function MainThreadSection({metrics}: {metrics: PerformanceMetrics}) {
         {metrics.longestTask > 0 && <SecondaryValue>(max {Math.round(metrics.longestTask)}ms)</SecondaryValue>}
       </Metric>
 
-      <Metric label="Style Writes" tooltip="Inline style mutations observed via MutationObserver.">
-        {metrics.styleWrites}
+      <Metric
+        label="TBT"
+        tooltip="Total Blocking Time - sum of time beyond 50ms for each long task. Key Core Web Vital."
+      >
+        <StatusBadge variant={tbtStatus}>
+          {metrics.totalBlockingTime}ms
+          {metrics.totalBlockingTime === 0 && ' ✓'}
+        </StatusBadge>
       </Metric>
 
       <Metric label="Thrashing" tooltip="Frame blocking >50ms near style writes. Indicates forced synchronous layout.">
         <StatusBadge variant={thrashingStatus}>
           {metrics.thrashingScore === 0 ? 'None ✓' : `${metrics.thrashingScore} stalls`}
         </StatusBadge>
+      </Metric>
+
+      <Metric label="DOM Churn" tooltip="DOM mutations per sample period. High values indicate excessive re-rendering.">
+        <StatusBadge variant={domMutationStatus}>
+          {metrics.domMutationsPerFrame}
+          {metrics.domMutationsPerFrame === 0 && ' ✓'}
+        </StatusBadge>
+        <SecondaryValue>/period</SecondaryValue>
+      </Metric>
+    </MetricsSection>
+  )
+}
+
+// ============================================================================
+// Layout & Browser Internals Section (combined for better density)
+// ============================================================================
+
+function LayoutAndInternalsSection({metrics}: {metrics: PerformanceMetrics}) {
+  const clsStatus = getStatus(metrics.layoutShiftScore, THRESHOLDS.CLS_GOOD, THRESHOLDS.CLS_WARNING)
+  const reflowStatus = getStatus(metrics.forcedReflowCount, 0, THRESHOLDS.FORCED_REFLOW_WARNING)
+  const jitterStatus = getZeroStatus(metrics.inputJitter)
+
+  return (
+    <MetricsSection icon="📐" title="Layout & Stability">
+      <Metric label="CLS" tooltip="Cumulative Layout Shift. Target: <0.1 good, <0.25 needs work.">
+        <StatusBadge variant={clsStatus}>
+          {metrics.layoutShiftScore === 0 ? '0 ✓' : metrics.layoutShiftScore.toFixed(3)}
+        </StatusBadge>
+        {metrics.layoutShiftCount > 0 && <SecondaryValue>({metrics.layoutShiftCount} shifts)</SecondaryValue>}
+      </Metric>
+
+      <Metric
+        label="Forced Reflows"
+        tooltip="Layout reads after style writes force synchronous layout. Major perf killer during drag."
+      >
+        <StatusBadge variant={reflowStatus}>
+          {metrics.forcedReflowCount}
+          {metrics.forcedReflowCount === 0 && ' ✓'}
+        </StatusBadge>
+      </Metric>
+
+      <Metric label="Style Writes" tooltip="Inline style mutations observed via MutationObserver.">
+        {metrics.styleWrites}
+        {metrics.cssVarChanges > 0 && <SecondaryValue>({metrics.cssVarChanges} CSS vars)</SecondaryValue>}
       </Metric>
 
       <Metric label="Jitter" tooltip="Unexpected latency spikes causing visible hitches during drag.">
@@ -600,37 +726,16 @@ function MainThreadSection({metrics}: {metrics: PerformanceMetrics}) {
 }
 
 // ============================================================================
-// Layout Stability Section
-// ============================================================================
-
-function LayoutSection({metrics}: {metrics: PerformanceMetrics}) {
-  const clsStatus = getStatus(metrics.layoutShiftScore, THRESHOLDS.CLS_GOOD, THRESHOLDS.CLS_WARNING)
-
-  return (
-    <MetricsSection icon="📐" title="Layout Stability">
-      <Metric label="CLS" tooltip="Cumulative Layout Shift. Target: <0.1 good, <0.25 needs work.">
-        <StatusBadge variant={clsStatus}>
-          {metrics.layoutShiftScore === 0 ? '0 ✓' : metrics.layoutShiftScore.toFixed(3)}
-        </StatusBadge>
-        {metrics.layoutShiftCount > 0 && <SecondaryValue>({metrics.layoutShiftCount} shifts)</SecondaryValue>}
-      </Metric>
-    </MetricsSection>
-  )
-}
-
-// ============================================================================
 // React Profiler Section
 // ============================================================================
 
 function ReactSection({metrics}: {metrics: PerformanceMetrics}) {
-  const updateStatus =
-    metrics.reactPostMountUpdateCount === 0
-      ? 'success'
-      : getStatus(metrics.reactPostMountMaxDuration, THRESHOLDS.REACT_RENDER_GOOD, THRESHOLDS.REACT_RENDER_WARNING)
+  const slowUpdateStatus = getStatus(metrics.slowReactUpdates, 0, THRESHOLDS.SLOW_UPDATES_WARNING)
+  const p95Status = getStatus(metrics.reactP95Duration, 0, THRESHOLDS.REACT_P95_WARNING)
   const cascadeStatus = getStatus(metrics.renderCascades, 0, THRESHOLDS.CASCADE_WARNING)
 
   return (
-    <MetricsSection icon="⚛️" title="React Profiler">
+    <MetricsSection icon="⚛️" title="React Performance">
       <Metric label="Mount" tooltip="Initial render count and total duration.">
         {metrics.reactMountCount > 0 ? (
           <>
@@ -641,19 +746,31 @@ function ReactSection({metrics}: {metrics: PerformanceMetrics}) {
         )}
       </Metric>
 
-      <Metric label="Updates" tooltip="Re-renders after mount. Target: 0 for drag operations.">
+      <Metric label="Slow Updates" tooltip="React updates taking >16ms (one frame budget). These cause visible jank.">
         {metrics.reactRenderCount > 0 ? (
           <>
-            <StatusBadge variant={updateStatus}>
-              {metrics.reactPostMountUpdateCount}
-              {metrics.reactPostMountUpdateCount === 0 && ' ✓'}
+            <StatusBadge variant={slowUpdateStatus}>
+              {metrics.slowReactUpdates}
+              {metrics.slowReactUpdates === 0 && ' ✓'}
             </StatusBadge>
-            {metrics.reactPostMountUpdateCount > 0 && (
-              <SecondaryValue>(max {formatMs(metrics.reactPostMountMaxDuration)}ms)</SecondaryValue>
-            )}
+            <SecondaryValue>/ {metrics.reactPostMountUpdateCount} total</SecondaryValue>
           </>
         ) : (
           <SecondaryValue style={{fontStyle: 'italic'}}>Use React profiling build</SecondaryValue>
+        )}
+      </Metric>
+
+      <Metric
+        label="P95 Duration"
+        tooltip="95th percentile React update duration. Represents worst-case user experience."
+      >
+        {metrics.reactP95Duration > 0 ? (
+          <StatusBadge variant={p95Status}>
+            {formatMs(metrics.reactP95Duration)}ms
+            {metrics.reactP95Duration < THRESHOLDS.REACT_P95_WARNING && ' ✓'}
+          </StatusBadge>
+        ) : (
+          <SecondaryValue>—</SecondaryValue>
         )}
       </Metric>
 
@@ -668,19 +785,13 @@ function ReactSection({metrics}: {metrics: PerformanceMetrics}) {
 }
 
 // ============================================================================
-// Memory Section
+// Memory & Rendering Section (combined for better density)
 // ============================================================================
 
-function MemorySection({metrics}: {metrics: PerformanceMetrics}) {
-  if (metrics.memoryUsedMB === null) {
-    return (
-      <MetricsSection icon="🧠" title="Memory">
-        <Metric label="Heap">
-          <SecondaryValue>Not available (Chrome only)</SecondaryValue>
-        </Metric>
-      </MetricsSection>
-    )
-  }
+function MemoryAndRenderingSection({metrics}: {metrics: PerformanceMetrics}) {
+  const gcStatus = getStatus(metrics.gcPressure, 0, THRESHOLDS.GC_PRESSURE_WARNING)
+  const layerStatus =
+    metrics.compositorLayers === null ? 'neutral' : getStatus(metrics.compositorLayers, 0, THRESHOLDS.LAYERS_WARNING)
 
   const deltaStatus =
     metrics.memoryDeltaMB === null
@@ -700,8 +811,28 @@ function MemorySection({metrics}: {metrics: PerformanceMetrics}) {
           ? formatMb(metrics.memoryDeltaMB)
           : '±0'
 
+  if (metrics.memoryUsedMB === null) {
+    return (
+      <MetricsSection icon="🧠" title="Memory & Rendering">
+        <Metric label="Heap">
+          <SecondaryValue>Not available (Chrome only)</SecondaryValue>
+        </Metric>
+        <Metric label="Paint Count" tooltip="Number of paint operations.">
+          {metrics.paintCount}
+        </Metric>
+        <Metric label="Compositor Layers" tooltip="Elements promoted to GPU layers.">
+          {metrics.compositorLayers !== null ? (
+            <StatusBadge variant={layerStatus}>{metrics.compositorLayers}</StatusBadge>
+          ) : (
+            '—'
+          )}
+        </Metric>
+      </MetricsSection>
+    )
+  }
+
   return (
-    <MetricsSection icon="🧠" title="Memory & DOM">
+    <MetricsSection icon="🧠" title="Memory & Rendering">
       <Metric label="Heap" tooltip="Current JS heap size. Watch for sustained growth indicating leaks.">
         <Sparkline data={metrics.memoryHistory} />
         <span>
@@ -710,118 +841,29 @@ function MemorySection({metrics}: {metrics: PerformanceMetrics}) {
         </span>
       </Metric>
 
-      <Metric label="Peak" tooltip="Highest heap size observed. Large gap from current indicates memory spikes.">
-        {metrics.peakMemoryMB !== null ? (
-          <>
-            {formatMb(metrics.peakMemoryMB)}MB
-            {metrics.peakMemoryMB > metrics.memoryUsedMB + 1 && (
-              <SecondaryValue style={{color: 'inherit'}}>
-                (+{formatMb(metrics.peakMemoryMB - metrics.memoryUsedMB)})
-              </SecondaryValue>
-            )}
-          </>
-        ) : (
-          '—'
-        )}
+      <Metric label="Peak / DOM" tooltip="Peak heap and DOM node count.">
+        {metrics.peakMemoryMB !== null ? `${formatMb(metrics.peakMemoryMB)}MB` : '—'}
+        <SecondaryValue>
+          / {metrics.domElements !== null ? formatNumber(metrics.domElements) : '—'} nodes
+        </SecondaryValue>
       </Metric>
 
-      <Metric label="DOM Nodes" tooltip="Total elements in profiled component tree.">
-        {metrics.domElements !== null ? formatNumber(metrics.domElements) : '—'}
-      </Metric>
-    </MetricsSection>
-  )
-}
-
-// ============================================================================
-// Browser Internals Section (NEW)
-// ============================================================================
-
-function BrowserInternalsSection({metrics}: {metrics: PerformanceMetrics}) {
-  const reflowStatus = getStatus(metrics.forcedReflowCount, 0, THRESHOLDS.FORCED_REFLOW_WARNING)
-  const listenerStatus = getStatus(metrics.eventListenerCount, 0, THRESHOLDS.EVENT_LISTENERS_WARNING)
-  const observerStatus = getStatus(metrics.observerCount, 0, THRESHOLDS.OBSERVERS_WARNING)
-  const cssVarStatus = metrics.cssVarChanges > THRESHOLDS.CSS_VAR_CHANGES_WARNING ? 'warning' : 'success'
-
-  return (
-    <MetricsSection icon="🔧" title="Browser Internals">
-      <Metric
-        label="Forced Reflows"
-        tooltip="Layout reads after style writes force synchronous layout. Major perf killer during drag."
-      >
-        <StatusBadge variant={reflowStatus}>
-          {metrics.forcedReflowCount}
-          {metrics.forcedReflowCount === 0 && ' ✓'}
-        </StatusBadge>
-      </Metric>
-
-      <Metric label="Event Listeners" tooltip="Total listeners on window/document. High counts may indicate leaks.">
-        {metrics.eventListenerCount > 0 ? (
-          <StatusBadge variant={listenerStatus}>{metrics.eventListenerCount}</StatusBadge>
-        ) : (
-          <SecondaryValue>DevTools only</SecondaryValue>
-        )}
-      </Metric>
-
-      <Metric label="Observers" tooltip="Active MutationObserver, ResizeObserver, IntersectionObserver instances.">
-        <StatusBadge variant={observerStatus}>
-          {metrics.observerCount}
-          {metrics.observerCount === 0 && ' ✓'}
-        </StatusBadge>
-      </Metric>
-
-      <Metric
-        label="CSS Var Changes"
-        tooltip="setProperty() calls on CSS custom properties. Can trigger full subtree recalc."
-      >
-        <StatusBadge variant={cssVarStatus}>
-          {metrics.cssVarChanges}
-          {metrics.cssVarChanges === 0 && ' ✓'}
-        </StatusBadge>
-      </Metric>
-    </MetricsSection>
-  )
-}
-
-// ============================================================================
-// Rendering Pipeline Section (NEW)
-// ============================================================================
-
-function RenderingSection({metrics}: {metrics: PerformanceMetrics}) {
-  const gcStatus = getStatus(metrics.gcPressure, 0, THRESHOLDS.GC_PRESSURE_WARNING)
-  const layerStatus =
-    metrics.compositorLayers === null ? 'neutral' : getStatus(metrics.compositorLayers, 0, THRESHOLDS.LAYERS_WARNING)
-
-  return (
-    <MetricsSection icon="🎨" title="Rendering Pipeline">
-      <Metric
-        label="Paint Count"
-        tooltip="Number of paint operations. High during interaction may indicate repaint thrashing."
-      >
-        {metrics.paintCount}
-      </Metric>
-
-      <Metric label="GC Pressure" tooltip="Memory allocation rate (MB/s). High values cause GC pauses.">
+      <Metric label="GC Pressure" tooltip="Memory allocation rate. High values cause GC pauses.">
         <StatusBadge variant={gcStatus}>
           {metrics.gcPressure > 0.01 ? `${metrics.gcPressure.toFixed(2)} MB/s` : 'Low ✓'}
         </StatusBadge>
       </Metric>
 
-      <Metric
-        label="Compositor Layers"
-        tooltip="Elements promoted to GPU layers via will-change/transform. Too many = memory overhead."
-      >
-        {metrics.compositorLayers !== null ? (
-          <StatusBadge variant={layerStatus}>
-            {metrics.compositorLayers}
-            {metrics.compositorLayers < THRESHOLDS.LAYERS_WARNING && ' ✓'}
-          </StatusBadge>
-        ) : (
-          '—'
-        )}
-      </Metric>
-
-      <Metric label="Script Eval" tooltip="Time spent evaluating scripts (from Resource Timing API).">
-        {metrics.scriptEvalTime > 0 ? `${formatMs(metrics.scriptEvalTime)}ms` : '—'}
+      <Metric label="Paint / Layers" tooltip="Paint operations and compositor layer count.">
+        {metrics.paintCount}
+        <SecondaryValue>
+          /{' '}
+          {metrics.compositorLayers !== null ? (
+            <StatusBadge variant={layerStatus}>{metrics.compositorLayers} layers</StatusBadge>
+          ) : (
+            '—'
+          )}
+        </SecondaryValue>
       </Metric>
     </MetricsSection>
   )
@@ -907,22 +949,21 @@ function PanelContent({active}: {active: boolean}) {
 
   return (
     <PanelWrapper>
-      <TopBar>
-        <ResetButton type="button" onClick={handleReset}>
-          ↺ Reset
+      <ContentArea>
+        <SectionsGrid>
+          <FrameTimingSection metrics={metrics} />
+          <InputSection metrics={metrics} />
+          <MainThreadSection metrics={metrics} />
+          <ReactSection metrics={metrics} />
+          <LayoutAndInternalsSection metrics={metrics} />
+          <MemoryAndRenderingSection metrics={metrics} />
+        </SectionsGrid>
+      </ContentArea>
+      <SideToolbar>
+        <ResetButton type="button" onClick={handleReset} title="Reset all metrics">
+          ↺
         </ResetButton>
-      </TopBar>
-
-      <SectionsGrid>
-        <FrameTimingSection metrics={metrics} />
-        <InputSection metrics={metrics} />
-        <MainThreadSection metrics={metrics} />
-        <LayoutSection metrics={metrics} />
-        <ReactSection metrics={metrics} />
-        <MemorySection metrics={metrics} />
-        <BrowserInternalsSection metrics={metrics} />
-        <RenderingSection metrics={metrics} />
-      </SectionsGrid>
+      </SideToolbar>
     </PanelWrapper>
   )
 }

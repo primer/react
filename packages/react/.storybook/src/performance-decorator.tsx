@@ -58,6 +58,13 @@ function computeAverage(arr: number[]): number {
   return arr.reduce((a, b) => a + b, 0) / arr.length
 }
 
+function computeP95(arr: number[]): number {
+  if (arr.length === 0) return 0
+  const sorted = [...arr].sort((a, b) => a - b)
+  const idx = Math.floor(sorted.length * 0.95)
+  return Math.round(sorted[Math.min(idx, sorted.length - 1)] * 10) / 10
+}
+
 // ============================================================================
 // Metrics State
 // ============================================================================
@@ -120,6 +127,13 @@ interface MetricsState {
   gcPressure: number // MB/s allocation rate
   paintCount: number
   compositorLayers: number | null
+
+  // Additional jank metrics
+  totalBlockingTime: number // Sum of (longTask - 50ms) for all long tasks
+  domMutationsPerFrame: number // DOM mutations in current measurement window
+  domMutationFrames: number[] // Rolling window of mutations per frame
+  slowReactUpdates: number // React updates > 16ms
+  reactUpdateDurations: number[] // Recent React update durations for analysis
 }
 
 function createInitialState(): MetricsState {
@@ -164,6 +178,11 @@ function createInitialState(): MetricsState {
     gcPressure: 0,
     paintCount: 0,
     compositorLayers: null,
+    totalBlockingTime: 0,
+    domMutationsPerFrame: 0,
+    domMutationFrames: [],
+    slowReactUpdates: 0,
+    reactUpdateDurations: [],
   }
 }
 
@@ -210,6 +229,10 @@ export interface ComputedMetrics {
   gcPressure: number
   paintCount: number
   compositorLayers: number | null
+  totalBlockingTime: number
+  domMutationsPerFrame: number
+  slowReactUpdates: number
+  reactP95Duration: number
 }
 
 function computeMetrics(m: MetricsState): ComputedMetrics {
@@ -261,6 +284,10 @@ function computeMetrics(m: MetricsState): ComputedMetrics {
     gcPressure: Math.round(m.gcPressure * 100) / 100,
     paintCount: m.paintCount,
     compositorLayers: m.compositorLayers,
+    totalBlockingTime: Math.round(m.totalBlockingTime),
+    domMutationsPerFrame: Math.round(computeAverage(m.domMutationFrames)),
+    slowReactUpdates: m.slowReactUpdates,
+    reactP95Duration: computeP95(m.reactUpdateDurations),
   }
 }
 
@@ -329,6 +356,17 @@ export const PerformanceProvider = React.memo(function PerformanceProvider({
         m.reactPostMountUpdateCount++
         if (actualDuration > m.reactPostMountMaxDuration) {
           m.reactPostMountMaxDuration = actualDuration
+        }
+
+        // Track slow React updates (>16ms is a full frame budget)
+        if (actualDuration > 16) {
+          m.slowReactUpdates++
+        }
+
+        // Keep rolling window of update durations for P95 calculation
+        m.reactUpdateDurations.push(actualDuration)
+        if (m.reactUpdateDurations.length > 100) {
+          m.reactUpdateDurations.shift()
         }
       }
     },
@@ -516,13 +554,16 @@ export const PerformanceProvider = React.memo(function PerformanceProvider({
       })
     }
 
-    // Long task observer
+    // Long task observer - also calculates Total Blocking Time (TBT)
     let longTaskObserver: PerformanceObserver | null = null
     try {
       longTaskObserver = new PerformanceObserver(list => {
         for (const entry of list.getEntries()) {
           m.longTasks++
           if (entry.duration > m.longestTask) m.longestTask = entry.duration
+          // TBT = sum of (duration - 50ms) for all long tasks
+          // Long tasks are >50ms, so we accumulate the "blocking" portion
+          m.totalBlockingTime += Math.max(0, entry.duration - 50)
         }
       })
       longTaskObserver.observe({type: 'longtask'})
@@ -530,17 +571,52 @@ export const PerformanceProvider = React.memo(function PerformanceProvider({
       /* Not supported */
     }
 
-    // Style mutation observer
+    // Style mutation observer - also tracks CSS variable changes
     const styleObserver = new MutationObserver(mutations => {
       for (const mutation of mutations) {
         if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
           m.styleWrites++
           styleWriteCount++
           lastStyleWriteTime = performance.now()
+          markLayoutDirty() // Mark layout dirty for forced reflow detection
+
+          // Count CSS variable changes by checking if style contains "--"
+          const target = mutation.target as HTMLElement
+          const styleValue = target.getAttribute('style') || ''
+          const cssVarMatches = styleValue.match(/--[\w-]+\s*:/g)
+          if (cssVarMatches) {
+            m.cssVarChanges += cssVarMatches.length
+          }
         }
       }
     })
     styleObserver.observe(document.body, {attributes: true, attributeFilter: ['style'], subtree: true})
+
+    // DOM mutation observer for counting DOM churn
+    let domMutationCount = 0
+    const domMutationObserver = new MutationObserver(mutations => {
+      // Count meaningful DOM mutations (not just style changes)
+      for (const mutation of mutations) {
+        if (mutation.type === 'childList') {
+          domMutationCount += mutation.addedNodes.length + mutation.removedNodes.length
+        } else if (mutation.type === 'attributes' && mutation.attributeName !== 'style') {
+          domMutationCount++
+        }
+      }
+    })
+    domMutationObserver.observe(document.body, {
+      childList: true,
+      attributes: true,
+      subtree: true,
+      attributeFilter: ['class', 'id', 'data-state', 'aria-expanded', 'aria-hidden', 'hidden', 'disabled'],
+    })
+
+    // Sample DOM mutations per frame periodically
+    const domMutationSampleInterval = setInterval(() => {
+      m.domMutationFrames.push(domMutationCount)
+      if (m.domMutationFrames.length > 30) m.domMutationFrames.shift()
+      domMutationCount = 0
+    }, SPARKLINE_SAMPLE_INTERVAL_MS)
 
     // Layout shift observer
     let layoutShiftObserver: PerformanceObserver | null = null
@@ -578,6 +654,11 @@ export const PerformanceProvider = React.memo(function PerformanceProvider({
     // NEW METRICS: Forced Reflow Detection
     // ========================================================================
     // Instrument layout-triggering getters to detect forced reflows
+    // A forced reflow happens when you read layout properties after writing styles
+    // before the browser has had a chance to do layout naturally
+    //
+    // Note: This modifies HTMLElement.prototype globally. We use a registry pattern
+    // so multiple decorator instances can share the instrumentation.
     const reflowTriggeringProps = [
       'offsetTop',
       'offsetLeft',
@@ -593,20 +674,41 @@ export const PerformanceProvider = React.memo(function PerformanceProvider({
       'clientHeight',
     ] as const
 
-    const originalGetters = new Map<string, PropertyDescriptor>()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const reflowRegistry = ((window as any).__perfReflowRegistry =
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any).__perfReflowRegistry || {
+        initialized: false,
+        originalGetters: new Map<string, PropertyDescriptor>(),
+        layoutDirty: false,
+        dirtyTimeout: null as ReturnType<typeof setTimeout> | null,
+        metricsRef: null as MetricsState | null,
+      })
 
-    // Track when we're in a "dirty" state (after style writes)
-    const instrumentReflowDetection = () => {
+    // Update the metrics reference for the current instance
+    reflowRegistry.metricsRef = m
+
+    const markLayoutDirty = () => {
+      reflowRegistry.layoutDirty = true
+      // Clear dirty flag after next microtask (when browser would naturally layout)
+      if (reflowRegistry.dirtyTimeout) clearTimeout(reflowRegistry.dirtyTimeout)
+      reflowRegistry.dirtyTimeout = setTimeout(() => {
+        reflowRegistry.layoutDirty = false
+      }, 0)
+    }
+
+    if (!reflowRegistry.initialized) {
+      reflowRegistry.initialized = true
+
       for (const prop of reflowTriggeringProps) {
         const descriptor = Object.getOwnPropertyDescriptor(HTMLElement.prototype, prop)
         if (descriptor?.get) {
-          originalGetters.set(prop, descriptor)
+          reflowRegistry.originalGetters.set(prop, descriptor)
           Object.defineProperty(HTMLElement.prototype, prop, {
             get() {
-              const now = performance.now()
-              // If a style was written recently and we're reading layout, it's a forced reflow
-              if (styleWriteCount > 0 && now - lastStyleWriteTime < 16) {
-                m.forcedReflowCount++
+              if (reflowRegistry.layoutDirty && reflowRegistry.metricsRef) {
+                reflowRegistry.metricsRef.forcedReflowCount++
+                reflowRegistry.layoutDirty = false // Only count once per dirty cycle
               }
               return descriptor.get!.call(this)
             },
@@ -616,90 +718,38 @@ export const PerformanceProvider = React.memo(function PerformanceProvider({
       }
     }
 
+    // We don't restore on cleanup since it's shared - just null out the ref
     const restoreReflowDetection = () => {
-      for (const [prop, descriptor] of originalGetters) {
-        Object.defineProperty(HTMLElement.prototype, prop, descriptor)
+      // Clear any pending timeout
+      if (reflowRegistry.dirtyTimeout) {
+        clearTimeout(reflowRegistry.dirtyTimeout)
+        reflowRegistry.dirtyTimeout = null
       }
-      originalGetters.clear()
-    }
-
-    instrumentReflowDetection()
-
-    // ========================================================================
-    // NEW METRICS: Event Listener Count
-    // ========================================================================
-    const updateEventListenerCount = () => {
-      // This is an approximation - we can only count listeners via Chrome DevTools API
-      let count = 0
-
-      // We can't directly count listeners, but we can check if handlers exist
-      // by attempting to get them via Chrome's debug API
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const getEventListeners = (window as any).getEventListeners
-      if (typeof getEventListeners === 'function') {
-        try {
-          const windowListeners = getEventListeners(window)
-          const documentListeners = getEventListeners(document)
-          for (const type of Object.keys(windowListeners)) {
-            count += windowListeners[type].length
-          }
-          for (const type of Object.keys(documentListeners)) {
-            count += documentListeners[type].length
-          }
-        } catch {
-          /* Not in DevTools context */
-        }
-      }
-
-      m.eventListenerCount = count
+      // Don't restore the getters - they're shared across instances
     }
 
     // ========================================================================
-    // NEW METRICS: Observer Count
+    // NEW METRICS: Script Evaluation Time (via PerformanceObserver)
     // ========================================================================
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ;(window as any).__trackedObservers = (window as any).__trackedObservers || new Set()
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const trackedObservers = (window as any).__trackedObservers as Set<unknown>
-
-    const updateObserverCount = () => {
-      // Clean up disconnected observers
-      m.observerCount = trackedObservers.size
-    }
-
-    // ========================================================================
-    // NEW METRICS: CSS Custom Property Changes
-    // ========================================================================
-    const originalSetProperty = CSSStyleDeclaration.prototype.setProperty
-    CSSStyleDeclaration.prototype.setProperty = function (
-      property: string,
-      value: string | null,
-      priority?: string,
-    ): void {
-      if (property.startsWith('--')) {
-        m.cssVarChanges++
-      }
-      return originalSetProperty.call(this, property, value, priority ?? '')
-    }
-
-    // ========================================================================
-    // NEW METRICS: Script Evaluation Time
-    // ========================================================================
+    // Track long tasks that are script-related and resource timing
     let scriptObserver: PerformanceObserver | null = null
     try {
       scriptObserver = new PerformanceObserver(list => {
         for (const entry of list.getEntries()) {
-          // Resource timing for scripts
-          if (entry.entryType === 'resource' && entry.name.endsWith('.js')) {
-            m.scriptEvalTime += entry.duration
-          }
-          // Also track via measure entries if available
-          if (entry.entryType === 'measure' && entry.name.includes('script')) {
-            m.scriptEvalTime += entry.duration
+          if (entry.entryType === 'resource') {
+            // Only count actual script resources (not just .js files)
+            const resourceEntry = entry as PerformanceResourceTiming
+            if (resourceEntry.initiatorType === 'script') {
+              // Use responseEnd - fetchStart for total script load+parse time
+              const scriptTime = resourceEntry.responseEnd - resourceEntry.fetchStart
+              if (scriptTime > 0) {
+                m.scriptEvalTime += scriptTime
+              }
+            }
           }
         }
       })
-      scriptObserver.observe({entryTypes: ['resource', 'measure']})
+      scriptObserver.observe({type: 'resource', buffered: true})
     } catch {
       /* Not supported */
     }
@@ -779,8 +829,6 @@ export const PerformanceProvider = React.memo(function PerformanceProvider({
 
     // Periodic updates for new metrics
     const newMetricsInterval = setInterval(() => {
-      updateEventListenerCount()
-      updateObserverCount()
       updateGcPressure()
       updateCompositorLayers()
     }, 1000)
@@ -793,13 +841,17 @@ export const PerformanceProvider = React.memo(function PerformanceProvider({
     return () => {
       cancelAnimationFrame(animationId)
       clearInterval(newMetricsInterval)
+      clearInterval(domMutationSampleInterval)
       styleObserver.disconnect()
+      domMutationObserver.disconnect()
       longTaskObserver?.disconnect()
       layoutShiftObserver?.disconnect()
       scriptObserver?.disconnect()
       paintObserver?.disconnect()
       restoreReflowDetection()
-      CSSStyleDeclaration.prototype.setProperty = originalSetProperty
+      // Note: We don't restore EventTarget, Observer proxies, or CSSStyleDeclaration
+      // because they're shared across all instances and should persist.
+      // The registries use refs that get updated per-instance.
       window.removeEventListener('pointermove', handlePointerMove)
       window.removeEventListener('click', handleInteraction)
       window.removeEventListener('keydown', handleInteraction)
