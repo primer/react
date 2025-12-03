@@ -62,11 +62,12 @@ export const CustomSizeOnChildren = () => (
   </AvatarStack>
 )
 
-export const SingleChild = () => (
-  <AvatarStack>
-    <a href="https://primer.style/">
-      <Avatar size={20} alt="Primer logo" src="https://avatars.githubusercontent.com/primer" />
-    </a>
+export const WithSquareAvatars = () => (
+  <AvatarStack shape="square">
+    <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/primer" />
+    <Avatar alt="GitHub logo" src="https://avatars.githubusercontent.com/github" />
+    <Avatar alt="Atom logo" src="https://avatars.githubusercontent.com/atom" />
+    <Avatar alt="GitHub Desktop logo" src="https://avatars.githubusercontent.com/desktop" />
   </AvatarStack>
 )
 
