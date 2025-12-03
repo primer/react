@@ -37,29 +37,30 @@ order in which they should be applied.
 - `components`: styles that are applied to components
 - `utilities`: an optional layer for utility classes in order to take precedence over earlier styles
 
-All layers should exist within the `primer` namespace and include a library,
-where applicable. For example:
+All layers should exist within the `primer` namespace. For example:
 
 ```css
-@layer primer.react.base {
+@layer primer.base {
   /* ... */
 }
 
-@layer primer.css.components.Button {
+@layer primer.components.Button {
   /* ... */
 }
 ```
 
-Libraries should only be included in a layer name if the name may exist across multiple
-libraries, such as a component. We would not need to include a library name for
-primitives as those would belong already in `theme` or for utilities from
-primer/css as they would already be in `utilities`.
-
-This will allow downstream consumers to order `primer` layers in a way that
-makes sense to the application.
-
 Naming for these layers must use `camelCase`. The only exception would be for
 the names of components which must use `PascalCase`.
+
+### Where should the order of CSS layers be defined
+
+The definition of CSS layers ordering is:
+
+```css
+@layer primer.base, primer.theme, primer.icons, primer.components, primer.utilities;
+```
+
+This file lives in `layer.css` which is imported by each entrypoint that `@primer/react` provides.
 
 ### Impact
 
@@ -75,8 +76,6 @@ This change will impact the following libraries:
   layer
 
 ## Unresolved questions
-
-- Where should the order of CSS layers be defined?
 
 ## Links & Resources
 
