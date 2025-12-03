@@ -201,6 +201,8 @@ export interface PerformanceMetrics {
   droppedFrames: number
   /** Frame jitter count - sudden spikes in frame time vs baseline */
   frameJitter: number
+  /** Frame stability (0-100%). 100% = perfectly consistent, lower = choppy */
+  frameStability: number
 
   // ─────────────────────────────────────────────────────────────────────────
   // Input Responsiveness
@@ -225,6 +227,8 @@ export interface PerformanceMetrics {
   maxPaintTime: number
   /** Total paint operations observed */
   paintCount: number
+  /** Paint jitter count - sudden spikes in paint time vs baseline */
+  paintJitter: number
 
   // ─────────────────────────────────────────────────────────────────────────
   // Memory (Chrome only)
@@ -325,6 +329,7 @@ export const DEFAULT_METRICS: PerformanceMetrics = {
   maxFrameTime: 0,
   droppedFrames: 0,
   frameJitter: 0,
+  frameStability: 100,
   inputLatency: 0,
   maxInputLatency: 0,
   inputJitter: 0,
@@ -333,6 +338,7 @@ export const DEFAULT_METRICS: PerformanceMetrics = {
   paintTime: 0,
   maxPaintTime: 0,
   paintCount: 0,
+  paintJitter: 0,
   memoryUsedMB: null,
   memoryDeltaMB: null,
   peakMemoryMB: null,

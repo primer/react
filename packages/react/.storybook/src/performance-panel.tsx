@@ -610,6 +610,7 @@ function FrameTimingSection({metrics}: {metrics: PerformanceMetrics}) {
         ? 'warning'
         : 'success'
   const frameJitterStatus = getZeroStatus(metrics.frameJitter)
+  const stabilityStatus = metrics.frameStability >= 90 ? 'success' : metrics.frameStability >= 70 ? 'warning' : 'error'
 
   return (
     <MetricsSection icon="📊" title="Frame Timing">
@@ -650,6 +651,13 @@ function FrameTimingSection({metrics}: {metrics: PerformanceMetrics}) {
           {metrics.frameJitter === 0 ? 'None ✓' : `${metrics.frameJitter} spikes`}
         </StatusBadge>
       </Metric>
+
+      <Metric
+        label="Frame Stability"
+        tooltip="Frame time consistency (0-100%). 100% = perfectly smooth, lower = choppy/variable frame pacing."
+      >
+        <StatusBadge variant={stabilityStatus}>{metrics.frameStability}%</StatusBadge>
+      </Metric>
     </MetricsSection>
   )
 }
@@ -672,6 +680,7 @@ function FrameTimingSection({metrics}: {metrics: PerformanceMetrics}) {
 function InputSection({metrics}: {metrics: PerformanceMetrics}) {
   const inputStatus = getStatus(metrics.inputLatency, THRESHOLDS.INPUT_LATENCY_GOOD, THRESHOLDS.INPUT_LATENCY_WARNING)
   const inpStatus = getStatus(metrics.inpMs, THRESHOLDS.INP_GOOD, THRESHOLDS.INP_WARNING)
+  const paintJitterStatus = getZeroStatus(metrics.paintJitter)
 
   return (
     <MetricsSection icon="👆" title="Input Responsiveness">
@@ -685,6 +694,15 @@ function InputSection({metrics}: {metrics: PerformanceMetrics}) {
           {formatMs(metrics.paintTime)}ms
           <SecondaryValue> (max {formatMs(metrics.maxPaintTime)})</SecondaryValue>
         </span>
+      </Metric>
+
+      <Metric
+        label="Paint Jitter"
+        tooltip="Sudden spikes in paint time vs recent baseline. Indicates rendering inconsistency."
+      >
+        <StatusBadge variant={paintJitterStatus}>
+          {metrics.paintJitter === 0 ? 'None ✓' : `${metrics.paintJitter} spikes`}
+        </StatusBadge>
       </Metric>
 
       <Metric label="INP" tooltip="Interaction to Next Paint - worst click/key latency. Target: ≤200ms.">

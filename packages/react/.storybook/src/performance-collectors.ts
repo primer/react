@@ -67,6 +67,12 @@ export const JITTER_FRAME_DELTA = 20
 /** Minimum absolute value (ms) to count as frame jitter */
 export const JITTER_FRAME_ABSOLUTE = 40
 
+/** Minimum delta (ms) from baseline to count as paint jitter */
+export const JITTER_PAINT_DELTA = 20
+
+/** Minimum absolute value (ms) to count as paint jitter */
+export const JITTER_PAINT_ABSOLUTE = 35
+
 /** Threshold below which max values start to decay */
 export const MAX_DECAY_THRESHOLD = 20
 
@@ -95,6 +101,32 @@ export const MAX_PAINT_DECAY_RATE = 0.98
 export function computeAverage(arr: number[]): number {
   if (arr.length === 0) return 0
   return arr.reduce((a, b) => a + b, 0) / arr.length
+}
+
+/**
+ * Computes the standard deviation of a numeric array.
+ */
+export function computeStdDev(arr: number[]): number {
+  if (arr.length < 2) return 0
+  const avg = computeAverage(arr)
+  const squaredDiffs = arr.map(x => (x - avg) ** 2)
+  return Math.sqrt(squaredDiffs.reduce((a, b) => a + b, 0) / arr.length)
+}
+
+/**
+ * Computes frame stability as a percentage (0-100).
+ * Uses coefficient of variation (CV = stdDev/mean).
+ * 100% = perfectly consistent, lower = more variance/choppiness.
+ */
+export function computeFrameStability(frameTimes: number[]): number {
+  if (frameTimes.length < 2) return 100
+  const avg = computeAverage(frameTimes)
+  if (avg === 0) return 100
+  const stdDev = computeStdDev(frameTimes)
+  const cv = stdDev / avg // coefficient of variation
+  // Convert CV to stability: CV of 0 = 100% stable, CV of 1 = 0% stable
+  // Clamp between 0-100
+  return Math.max(0, Math.min(100, Math.round((1 - cv) * 100)))
 }
 
 /**
@@ -174,6 +206,8 @@ export interface FrameTimingMetrics {
   maxFrameTime: number
   droppedFrames: number
   frameJitter: number
+  /** Frame time stability (0-100%). 100% = perfectly consistent, lower = choppy */
+  frameStability: number
 }
 
 /**
@@ -223,6 +257,7 @@ export class FrameTimingCollector implements MetricCollector<FrameTimingMetrics>
       maxFrameTime: this.#maxFrameTime,
       droppedFrames: this.#droppedFrames,
       frameJitter: this.#frameJitter,
+      frameStability: computeFrameStability(this.#frameTimes),
     }
   }
 
@@ -272,6 +307,7 @@ export interface InputMetrics {
   inputJitter: number
   paintTimes: number[]
   maxPaintTime: number
+  paintJitter: number
   interactionCount: number
   interactionLatencies: number[]
   inpMs: number
@@ -293,6 +329,8 @@ export class InputCollector implements MetricCollector<InputMetrics> {
   #recentInputLatencies: number[] = []
   #paintTimes: number[] = []
   #maxPaintTime = 0
+  #paintJitter = 0
+  #recentPaintTimes: number[] = []
   #interactionCount = 0
   #interactionLatencies: number[] = []
   #inpMs = 0
@@ -324,6 +362,8 @@ export class InputCollector implements MetricCollector<InputMetrics> {
     this.#recentInputLatencies = []
     this.#paintTimes = []
     this.#maxPaintTime = 0
+    this.#paintJitter = 0
+    this.#recentPaintTimes = []
     this.#interactionCount = 0
     this.#interactionLatencies = []
     this.#inpMs = 0
@@ -336,6 +376,7 @@ export class InputCollector implements MetricCollector<InputMetrics> {
       inputJitter: this.#inputJitter,
       paintTimes: [...this.#paintTimes],
       maxPaintTime: this.#maxPaintTime,
+      paintJitter: this.#paintJitter,
       interactionCount: this.#interactionCount,
       interactionLatencies: [...this.#interactionLatencies],
       inpMs: this.#inpMs,
@@ -406,6 +447,21 @@ export class InputCollector implements MetricCollector<InputMetrics> {
       MAX_PAINT_DECAY_THRESHOLD,
       MAX_PAINT_DECAY_RATE,
     )
+
+    // Paint jitter detection
+    this.#recentPaintTimes.push(paintTime)
+    if (this.#recentPaintTimes.length > 10) this.#recentPaintTimes.shift()
+    if (this.#recentPaintTimes.length >= JITTER_BASELINE_SIZE) {
+      const baseline = this.#recentPaintTimes.slice(0, -1)
+      const avgBaseline = computeAverage(baseline)
+      if (
+        paintTime > avgBaseline * JITTER_MULTIPLIER &&
+        paintTime - avgBaseline > JITTER_PAINT_DELTA &&
+        paintTime > JITTER_PAINT_ABSOLUTE
+      ) {
+        this.#paintJitter++
+      }
+    }
   }
 }
 

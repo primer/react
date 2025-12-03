@@ -219,6 +219,9 @@ export interface ComputedMetrics {
   /** Total paint operations observed */
   paintCount: number
 
+  /** Paint jitter count - sudden spikes in paint time vs baseline */
+  paintJitter: number
+
   // ─────────────────────────────────────────────────────────────────────────
   // Memory (Chrome only)
   // ─────────────────────────────────────────────────────────────────────────
@@ -269,6 +272,9 @@ export interface ComputedMetrics {
 
   /** Frame jitter count - sudden spikes in frame time vs baseline */
   frameJitter: number
+
+  /** Frame stability (0-100%). 100% = perfectly consistent, lower = choppy */
+  frameStability: number
 
   // ─────────────────────────────────────────────────────────────────────────
   // Layout & Style
@@ -415,6 +421,7 @@ function computeMetrics(collectors: CollectorRefs, state: MetricsState): Compute
     longestTask: mainThread.longestTask,
     droppedFrames: frame.droppedFrames,
     frameJitter: frame.frameJitter,
+    frameStability: frame.frameStability,
     styleWrites: style.styleWrites,
     thrashingScore: style.thrashingScore,
     layoutShiftScore: layout.layoutShiftScore,
@@ -435,6 +442,7 @@ function computeMetrics(collectors: CollectorRefs, state: MetricsState): Compute
     scriptEvalTime: Math.round(paint.scriptEvalTime * 10) / 10,
     gcPressure: Math.round(memory.gcPressure * 100) / 100,
     paintCount: paint.paintCount,
+    paintJitter: input.paintJitter,
     compositorLayers: paint.compositorLayers,
     totalBlockingTime: Math.round(mainThread.totalBlockingTime),
     domMutationsPerFrame: Math.round(computeAverage(style.domMutationFrames)),
