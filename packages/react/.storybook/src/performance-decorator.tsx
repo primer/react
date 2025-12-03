@@ -18,7 +18,7 @@ const DROPPED_FRAME_MULTIPLIER = 2
 const THRASHING_FRAME_THRESHOLD = 50
 const THRASHING_STYLE_WRITE_WINDOW = 50
 const INTERACTION_LATENCIES_WINDOW = 50
-const UPDATE_INTERVAL_MS = 100 // How often to emit to panel
+const UPDATE_INTERVAL_MS = 50 // How often to emit to panel (was 100ms)
 const SPARKLINE_SAMPLE_INTERVAL_MS = 200 // How often to sample sparkline data
 
 // Rolling window sizes
@@ -110,6 +110,16 @@ interface MetricsState {
 
   // DOM
   domElements: number | null
+
+  // New metrics
+  forcedReflowCount: number
+  eventListenerCount: number
+  observerCount: number
+  cssVarChanges: number
+  scriptEvalTime: number
+  gcPressure: number // MB/s allocation rate
+  paintCount: number
+  compositorLayers: number | null
 }
 
 function createInitialState(): MetricsState {
@@ -146,6 +156,14 @@ function createInitialState(): MetricsState {
     nestedUpdateCount: 0,
     mountPhaseComplete: false,
     domElements: null,
+    forcedReflowCount: 0,
+    eventListenerCount: 0,
+    observerCount: 0,
+    cssVarChanges: 0,
+    scriptEvalTime: 0,
+    gcPressure: 0,
+    paintCount: 0,
+    compositorLayers: null,
   }
 }
 
@@ -184,6 +202,14 @@ export interface ComputedMetrics {
   reactPostMountMaxDuration: number
   renderCascades: number
   domElements: number | null
+  forcedReflowCount: number
+  eventListenerCount: number
+  observerCount: number
+  cssVarChanges: number
+  scriptEvalTime: number
+  gcPressure: number
+  paintCount: number
+  compositorLayers: number | null
 }
 
 function computeMetrics(m: MetricsState): ComputedMetrics {
@@ -227,6 +253,14 @@ function computeMetrics(m: MetricsState): ComputedMetrics {
     reactPostMountMaxDuration: m.reactPostMountMaxDuration,
     renderCascades: m.nestedUpdateCount,
     domElements: m.domElements,
+    forcedReflowCount: m.forcedReflowCount,
+    eventListenerCount: m.eventListenerCount,
+    observerCount: m.observerCount,
+    cssVarChanges: m.cssVarChanges,
+    scriptEvalTime: Math.round(m.scriptEvalTime * 10) / 10,
+    gcPressure: Math.round(m.gcPressure * 100) / 100,
+    paintCount: m.paintCount,
+    compositorLayers: m.compositorLayers,
   }
 }
 
@@ -314,9 +348,10 @@ export const PerformanceProvider = React.memo(function PerformanceProvider({
 
     // Handle channel events
     const handleRequestMetrics = () => {
-      if (lastComputedRef.current) {
-        channel.emit(PERF_EVENTS.METRICS_UPDATE, lastComputedRef.current)
-      }
+      // Always respond with current metrics, even if we haven't computed any yet
+      // This lets the panel know the decorator is active
+      const metricsToSend = lastComputedRef.current ?? computeMetrics(m)
+      channel.emit(PERF_EVENTS.METRICS_UPDATE, metricsToSend)
     }
 
     const handleReset = () => {
@@ -539,6 +574,217 @@ export const PerformanceProvider = React.memo(function PerformanceProvider({
       })
     }
 
+    // ========================================================================
+    // NEW METRICS: Forced Reflow Detection
+    // ========================================================================
+    // Instrument layout-triggering getters to detect forced reflows
+    const reflowTriggeringProps = [
+      'offsetTop',
+      'offsetLeft',
+      'offsetWidth',
+      'offsetHeight',
+      'scrollTop',
+      'scrollLeft',
+      'scrollWidth',
+      'scrollHeight',
+      'clientTop',
+      'clientLeft',
+      'clientWidth',
+      'clientHeight',
+    ] as const
+
+    const originalGetters = new Map<string, PropertyDescriptor>()
+
+    // Track when we're in a "dirty" state (after style writes)
+    const instrumentReflowDetection = () => {
+      for (const prop of reflowTriggeringProps) {
+        const descriptor = Object.getOwnPropertyDescriptor(HTMLElement.prototype, prop)
+        if (descriptor?.get) {
+          originalGetters.set(prop, descriptor)
+          Object.defineProperty(HTMLElement.prototype, prop, {
+            get() {
+              const now = performance.now()
+              // If a style was written recently and we're reading layout, it's a forced reflow
+              if (styleWriteCount > 0 && now - lastStyleWriteTime < 16) {
+                m.forcedReflowCount++
+              }
+              return descriptor.get!.call(this)
+            },
+            configurable: true,
+          })
+        }
+      }
+    }
+
+    const restoreReflowDetection = () => {
+      for (const [prop, descriptor] of originalGetters) {
+        Object.defineProperty(HTMLElement.prototype, prop, descriptor)
+      }
+      originalGetters.clear()
+    }
+
+    instrumentReflowDetection()
+
+    // ========================================================================
+    // NEW METRICS: Event Listener Count
+    // ========================================================================
+    const updateEventListenerCount = () => {
+      // This is an approximation - we can only count listeners via Chrome DevTools API
+      let count = 0
+
+      // We can't directly count listeners, but we can check if handlers exist
+      // by attempting to get them via Chrome's debug API
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const getEventListeners = (window as any).getEventListeners
+      if (typeof getEventListeners === 'function') {
+        try {
+          const windowListeners = getEventListeners(window)
+          const documentListeners = getEventListeners(document)
+          for (const type of Object.keys(windowListeners)) {
+            count += windowListeners[type].length
+          }
+          for (const type of Object.keys(documentListeners)) {
+            count += documentListeners[type].length
+          }
+        } catch {
+          /* Not in DevTools context */
+        }
+      }
+
+      m.eventListenerCount = count
+    }
+
+    // ========================================================================
+    // NEW METRICS: Observer Count
+    // ========================================================================
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ;(window as any).__trackedObservers = (window as any).__trackedObservers || new Set()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const trackedObservers = (window as any).__trackedObservers as Set<unknown>
+
+    const updateObserverCount = () => {
+      // Clean up disconnected observers
+      m.observerCount = trackedObservers.size
+    }
+
+    // ========================================================================
+    // NEW METRICS: CSS Custom Property Changes
+    // ========================================================================
+    const originalSetProperty = CSSStyleDeclaration.prototype.setProperty
+    CSSStyleDeclaration.prototype.setProperty = function (
+      property: string,
+      value: string | null,
+      priority?: string,
+    ): void {
+      if (property.startsWith('--')) {
+        m.cssVarChanges++
+      }
+      return originalSetProperty.call(this, property, value, priority ?? '')
+    }
+
+    // ========================================================================
+    // NEW METRICS: Script Evaluation Time
+    // ========================================================================
+    let scriptObserver: PerformanceObserver | null = null
+    try {
+      scriptObserver = new PerformanceObserver(list => {
+        for (const entry of list.getEntries()) {
+          // Resource timing for scripts
+          if (entry.entryType === 'resource' && entry.name.endsWith('.js')) {
+            m.scriptEvalTime += entry.duration
+          }
+          // Also track via measure entries if available
+          if (entry.entryType === 'measure' && entry.name.includes('script')) {
+            m.scriptEvalTime += entry.duration
+          }
+        }
+      })
+      scriptObserver.observe({entryTypes: ['resource', 'measure']})
+    } catch {
+      /* Not supported */
+    }
+
+    // ========================================================================
+    // NEW METRICS: GC Pressure (Memory Allocation Rate)
+    // ========================================================================
+    let lastGcCheckTime = performance.now()
+    let lastGcMemory = getMemoryMB()
+
+    const updateGcPressure = () => {
+      const now = performance.now()
+      const currentMemory = getMemoryMB()
+      if (currentMemory !== null && lastGcMemory !== null) {
+        const timeDelta = (now - lastGcCheckTime) / 1000 // seconds
+        if (timeDelta > 0) {
+          const memoryDelta = currentMemory - lastGcMemory
+          // Only track positive growth (allocations)
+          if (memoryDelta > 0) {
+            m.gcPressure = memoryDelta / timeDelta // MB/s
+          } else {
+            // Decay the pressure reading
+            m.gcPressure *= 0.9
+          }
+        }
+      }
+      lastGcCheckTime = now
+      lastGcMemory = currentMemory
+    }
+
+    // ========================================================================
+    // NEW METRICS: Paint Count
+    // ========================================================================
+    let paintObserver: PerformanceObserver | null = null
+    try {
+      paintObserver = new PerformanceObserver(list => {
+        m.paintCount += list.getEntries().length
+      })
+      paintObserver.observe({type: 'paint', buffered: true})
+    } catch {
+      /* Not supported */
+    }
+
+    // ========================================================================
+    // NEW METRICS: Compositor Layers (Chrome only)
+    // ========================================================================
+    const updateCompositorLayers = () => {
+      // Count elements with will-change or transform that promote to layers
+      const layerPromotingSelectors = [
+        '[style*="will-change"]',
+        '[style*="transform: translate"]',
+        '[style*="transform:translate"]',
+        '[style*="translateZ"]',
+        '[style*="translate3d"]',
+      ]
+
+      let layerCount = 0
+      for (const selector of layerPromotingSelectors) {
+        try {
+          layerCount += document.querySelectorAll(selector).length
+        } catch {
+          /* Invalid selector */
+        }
+      }
+
+      // Also count elements with computed will-change
+      const allElements = document.querySelectorAll('*')
+      for (const el of allElements) {
+        const style = getComputedStyle(el)
+        if (style.willChange && style.willChange !== 'auto') {
+          layerCount++
+        }
+      }
+
+      m.compositorLayers = layerCount
+    }
+
+    // Periodic updates for new metrics
+    const newMetricsInterval = setInterval(() => {
+      updateEventListenerCount()
+      updateObserverCount()
+      updateGcPressure()
+      updateCompositorLayers()
+    }, 1000)
+
     window.addEventListener('pointermove', handlePointerMove)
     window.addEventListener('click', handleInteraction)
     window.addEventListener('keydown', handleInteraction)
@@ -546,9 +792,14 @@ export const PerformanceProvider = React.memo(function PerformanceProvider({
 
     return () => {
       cancelAnimationFrame(animationId)
+      clearInterval(newMetricsInterval)
       styleObserver.disconnect()
       longTaskObserver?.disconnect()
       layoutShiftObserver?.disconnect()
+      scriptObserver?.disconnect()
+      paintObserver?.disconnect()
+      restoreReflowDetection()
+      CSSStyleDeclaration.prototype.setProperty = originalSetProperty
       window.removeEventListener('pointermove', handlePointerMove)
       window.removeEventListener('click', handleInteraction)
       window.removeEventListener('keydown', handleInteraction)

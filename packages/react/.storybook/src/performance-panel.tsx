@@ -37,6 +37,18 @@ const THRESHOLDS = {
   REACT_RENDER_GOOD: 8,
   REACT_RENDER_WARNING: 16,
   CASCADE_WARNING: 3,
+  // New thresholds
+  FORCED_REFLOW_WARNING: 5,
+  FORCED_REFLOW_DANGER: 20,
+  EVENT_LISTENERS_WARNING: 50,
+  EVENT_LISTENERS_DANGER: 100,
+  OBSERVERS_WARNING: 10,
+  OBSERVERS_DANGER: 25,
+  CSS_VAR_CHANGES_WARNING: 50,
+  GC_PRESSURE_WARNING: 1, // MB/s
+  GC_PRESSURE_DANGER: 5,
+  LAYERS_WARNING: 20,
+  LAYERS_DANGER: 50,
 } as const
 
 // ============================================================================
@@ -74,6 +86,15 @@ interface PerformanceMetrics {
   fpsHistory: number[]
   frameTimeHistory: number[]
   memoryHistory: number[]
+  // New metrics
+  forcedReflowCount: number
+  eventListenerCount: number
+  observerCount: number
+  cssVarChanges: number
+  scriptEvalTime: number
+  gcPressure: number
+  paintCount: number
+  compositorLayers: number | null
 }
 
 const DEFAULT_METRICS: PerformanceMetrics = {
@@ -107,6 +128,14 @@ const DEFAULT_METRICS: PerformanceMetrics = {
   fpsHistory: [],
   frameTimeHistory: [],
   memoryHistory: [],
+  forcedReflowCount: 0,
+  eventListenerCount: 0,
+  observerCount: 0,
+  cssVarChanges: 0,
+  scriptEvalTime: 0,
+  gcPressure: 0,
+  paintCount: 0,
+  compositorLayers: null,
 }
 
 // ============================================================================
@@ -126,7 +155,7 @@ const formatNumber = (value: number): string => new Intl.NumberFormat('en-US').f
 // ============================================================================
 
 const PanelWrapper = styled.div(({theme}) => ({
-  padding: '16px',
+  padding: '12px',
   fontFamily: theme.typography.fonts.mono,
   fontSize: '12px',
   lineHeight: 1.6,
@@ -136,35 +165,26 @@ const PanelWrapper = styled.div(({theme}) => ({
   background: theme.background.content,
 }))
 
-const Header = styled.div(({theme}) => ({
+const TopBar = styled.div({
   display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  marginBottom: '16px',
-  paddingBottom: '12px',
-  borderBottom: `1px solid ${theme.appBorderColor}`,
-}))
-
-const Title = styled.h2(({theme}) => ({
-  margin: 0,
-  fontSize: '14px',
-  fontWeight: theme.typography.weight.bold,
-  color: theme.color.defaultText,
-}))
+  justifyContent: 'flex-end',
+  marginBottom: '12px',
+})
 
 const ResetButton = styled.button(({theme}) => ({
-  padding: '6px 12px',
-  fontSize: '11px',
+  padding: '4px 10px',
+  fontSize: '10px',
   fontWeight: 500,
   fontFamily: theme.typography.fonts.base,
   background: theme.button.background,
   border: `1px solid ${theme.appBorderColor}`,
   borderRadius: theme.appBorderRadius,
-  color: theme.color.defaultText,
+  color: theme.color.mediumdark,
   cursor: 'pointer',
-  transition: 'background 0.15s ease',
+  transition: 'all 0.15s ease',
   '&:hover': {
     background: theme.color.medium,
+    color: theme.color.defaultText,
   },
 }))
 
@@ -713,25 +733,150 @@ function MemorySection({metrics}: {metrics: PerformanceMetrics}) {
 }
 
 // ============================================================================
+// Browser Internals Section (NEW)
+// ============================================================================
+
+function BrowserInternalsSection({metrics}: {metrics: PerformanceMetrics}) {
+  const reflowStatus = getStatus(metrics.forcedReflowCount, 0, THRESHOLDS.FORCED_REFLOW_WARNING)
+  const listenerStatus = getStatus(metrics.eventListenerCount, 0, THRESHOLDS.EVENT_LISTENERS_WARNING)
+  const observerStatus = getStatus(metrics.observerCount, 0, THRESHOLDS.OBSERVERS_WARNING)
+  const cssVarStatus = metrics.cssVarChanges > THRESHOLDS.CSS_VAR_CHANGES_WARNING ? 'warning' : 'success'
+
+  return (
+    <MetricsSection icon="🔧" title="Browser Internals">
+      <Metric
+        label="Forced Reflows"
+        tooltip="Layout reads after style writes force synchronous layout. Major perf killer during drag."
+      >
+        <StatusBadge variant={reflowStatus}>
+          {metrics.forcedReflowCount}
+          {metrics.forcedReflowCount === 0 && ' ✓'}
+        </StatusBadge>
+      </Metric>
+
+      <Metric label="Event Listeners" tooltip="Total listeners on window/document. High counts may indicate leaks.">
+        {metrics.eventListenerCount > 0 ? (
+          <StatusBadge variant={listenerStatus}>{metrics.eventListenerCount}</StatusBadge>
+        ) : (
+          <SecondaryValue>DevTools only</SecondaryValue>
+        )}
+      </Metric>
+
+      <Metric label="Observers" tooltip="Active MutationObserver, ResizeObserver, IntersectionObserver instances.">
+        <StatusBadge variant={observerStatus}>
+          {metrics.observerCount}
+          {metrics.observerCount === 0 && ' ✓'}
+        </StatusBadge>
+      </Metric>
+
+      <Metric
+        label="CSS Var Changes"
+        tooltip="setProperty() calls on CSS custom properties. Can trigger full subtree recalc."
+      >
+        <StatusBadge variant={cssVarStatus}>
+          {metrics.cssVarChanges}
+          {metrics.cssVarChanges === 0 && ' ✓'}
+        </StatusBadge>
+      </Metric>
+    </MetricsSection>
+  )
+}
+
+// ============================================================================
+// Rendering Pipeline Section (NEW)
+// ============================================================================
+
+function RenderingSection({metrics}: {metrics: PerformanceMetrics}) {
+  const gcStatus = getStatus(metrics.gcPressure, 0, THRESHOLDS.GC_PRESSURE_WARNING)
+  const layerStatus =
+    metrics.compositorLayers === null ? 'neutral' : getStatus(metrics.compositorLayers, 0, THRESHOLDS.LAYERS_WARNING)
+
+  return (
+    <MetricsSection icon="🎨" title="Rendering Pipeline">
+      <Metric
+        label="Paint Count"
+        tooltip="Number of paint operations. High during interaction may indicate repaint thrashing."
+      >
+        {metrics.paintCount}
+      </Metric>
+
+      <Metric label="GC Pressure" tooltip="Memory allocation rate (MB/s). High values cause GC pauses.">
+        <StatusBadge variant={gcStatus}>
+          {metrics.gcPressure > 0.01 ? `${metrics.gcPressure.toFixed(2)} MB/s` : 'Low ✓'}
+        </StatusBadge>
+      </Metric>
+
+      <Metric
+        label="Compositor Layers"
+        tooltip="Elements promoted to GPU layers via will-change/transform. Too many = memory overhead."
+      >
+        {metrics.compositorLayers !== null ? (
+          <StatusBadge variant={layerStatus}>
+            {metrics.compositorLayers}
+            {metrics.compositorLayers < THRESHOLDS.LAYERS_WARNING && ' ✓'}
+          </StatusBadge>
+        ) : (
+          '—'
+        )}
+      </Metric>
+
+      <Metric label="Script Eval" tooltip="Time spent evaluating scripts (from Resource Timing API).">
+        {metrics.scriptEvalTime > 0 ? `${formatMs(metrics.scriptEvalTime)}ms` : '—'}
+      </Metric>
+    </MetricsSection>
+  )
+}
+
+// ============================================================================
 // Main Panel Component
 // ============================================================================
 
 function PanelContent({active}: {active: boolean}) {
   const [metrics, setMetrics] = React.useState<PerformanceMetrics>(DEFAULT_METRICS)
-  const [isConnected, setIsConnected] = React.useState(false)
+  const [connectionState, setConnectionState] = React.useState<'connecting' | 'connected' | 'disconnected'>(
+    'connecting',
+  )
   const state = useStorybookState()
+  const connectionTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const emit = useChannel({
     [PERF_EVENTS.METRICS_UPDATE]: (data: PerformanceMetrics) => {
       setMetrics(data)
-      setIsConnected(true)
+      setConnectionState('connected')
+      // Clear timeout if we receive data
+      if (connectionTimeoutRef.current) {
+        clearTimeout(connectionTimeoutRef.current)
+        connectionTimeoutRef.current = null
+      }
     },
   })
 
   React.useEffect(() => {
     if (active) {
+      // Reset to connecting state on story change
+      setConnectionState('connecting')
+
+      // Request metrics immediately
       emit(PERF_EVENTS.REQUEST_METRICS)
+
+      // Also request again after a short delay to handle race conditions
+      const retryTimeout = setTimeout(() => {
+        emit(PERF_EVENTS.REQUEST_METRICS)
+      }, 100)
+
+      // Only show "not active" after waiting a bit
+      connectionTimeoutRef.current = setTimeout(() => {
+        setConnectionState(prev => (prev === 'connecting' ? 'disconnected' : prev))
+      }, 500)
+
+      return () => {
+        clearTimeout(retryTimeout)
+        if (connectionTimeoutRef.current) {
+          clearTimeout(connectionTimeoutRef.current)
+        }
+      }
     }
+    return undefined
   }, [active, emit, state.storyId])
 
   const handleReset = React.useCallback(() => {
@@ -741,7 +886,15 @@ function PanelContent({active}: {active: boolean}) {
 
   if (!active) return null
 
-  if (!isConnected) {
+  if (connectionState === 'connecting') {
+    return (
+      <EmptyState>
+        <p style={{fontSize: '12px', color: 'inherit'}}>Connecting…</p>
+      </EmptyState>
+    )
+  }
+
+  if (connectionState === 'disconnected') {
     return (
       <EmptyState>
         <p style={{marginBottom: '12px', fontSize: '13px'}}>Performance monitoring not active</p>
@@ -754,12 +907,11 @@ function PanelContent({active}: {active: boolean}) {
 
   return (
     <PanelWrapper>
-      <Header>
-        <Title>⚡ Performance Monitor</Title>
+      <TopBar>
         <ResetButton type="button" onClick={handleReset}>
-          Reset Metrics
+          ↺ Reset
         </ResetButton>
-      </Header>
+      </TopBar>
 
       <SectionsGrid>
         <FrameTimingSection metrics={metrics} />
@@ -768,6 +920,8 @@ function PanelContent({active}: {active: boolean}) {
         <LayoutSection metrics={metrics} />
         <ReactSection metrics={metrics} />
         <MemorySection metrics={metrics} />
+        <BrowserInternalsSection metrics={metrics} />
+        <RenderingSection metrics={metrics} />
       </SectionsGrid>
     </PanelWrapper>
   )
