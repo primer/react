@@ -1,7 +1,16 @@
 import type {Meta} from '@storybook/react-vite'
 import {PageLayout} from '../PageLayout'
 import {NavList} from './NavList'
-import {ArrowRightIcon, ArrowLeftIcon, BookIcon, FileDirectoryIcon} from '@primer/octicons-react'
+import {
+  ArrowRightIcon,
+  ArrowLeftIcon,
+  BookIcon,
+  FileDirectoryIcon,
+  RepoIcon,
+  IssueOpenedIcon,
+  PlusIcon,
+} from '@primer/octicons-react'
+import {IconButton} from '../Button'
 
 const meta: Meta = {
   title: 'Components/NavList/Dev',
@@ -68,4 +77,41 @@ export const WithGroupTitleAndHeading = () => (
     </PageLayout.Pane>
     <PageLayout.Content></PageLayout.Content>
   </PageLayout>
+)
+
+const CustomTrailingAction = () => {
+  return <IconButton variant="invisible" aria-label="Custom trailing action" icon={PlusIcon} />
+}
+
+CustomTrailingAction.__SLOT__ = NavList.TrailingAction.__SLOT__
+
+export const WithCustomTrailingActionSlot = () => (
+  <NavList>
+    <NavList.Item href="#" aria-current="page">
+      <NavList.LeadingVisual>
+        <RepoIcon />
+      </NavList.LeadingVisual>
+      Main Repository
+      <NavList.Description>Primary project repository</NavList.Description>
+      <CustomTrailingAction />
+    </NavList.Item>
+    <NavList.Item href="#">
+      <NavList.LeadingVisual>
+        <IssueOpenedIcon />
+      </NavList.LeadingVisual>
+      Bug Reports
+      <NavList.Description variant="block">
+        Submit and track bug reports for the project. Include detailed steps to reproduce, expected behavior, and system
+        information.
+      </NavList.Description>
+    </NavList.Item>
+    <NavList.Item href="#">
+      <NavList.LeadingVisual>
+        <BookIcon />
+      </NavList.LeadingVisual>
+      Documentation
+      <NavList.Description>User guides and API documentation</NavList.Description>
+      <NavList.TrailingAction label="Trailing Action" icon={BookIcon} />
+    </NavList.Item>
+  </NavList>
 )
