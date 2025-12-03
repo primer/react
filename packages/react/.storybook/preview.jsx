@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, Profiler} from 'react'
 import {ThemeProvider} from '../src/ThemeProvider'
 import BaseStyles from '../src/BaseStyles'
 import {FeatureFlags} from '../src/FeatureFlags'
@@ -7,7 +7,7 @@ import {clsx} from 'clsx'
 
 import './storybook.css'
 import './primitives-v8.css'
-import {Profiler} from 'react'
+import {withPerformanceMonitor} from './src/performance-decorator'
 
 // TODO: Update the hard-coded values when the primitives are ready
 const breakpoints = ['544px', '768px', '1012px', '1280px']
@@ -271,6 +271,8 @@ export const globalTypes = {
 }
 
 export const decorators = [
+  // Performance monitoring - wraps all stories automatically
+  withPerformanceMonitor,
   (Story, context) => {
     const {colorScheme} = context.globals
     useEffect(() => {
