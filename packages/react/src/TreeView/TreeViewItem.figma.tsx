@@ -1,4 +1,3 @@
-import React from 'react'
 import {TreeView} from './TreeView'
 import figma from '@figma/code-connect'
 

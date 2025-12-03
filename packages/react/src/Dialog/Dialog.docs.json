@@ -3,7 +3,7 @@
   "docsId": "dialog",
   "name": "Dialog",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-dialog--default"
@@ -76,7 +76,7 @@
     {
       "name": "role",
       "type": "'dialog' | 'alertdialog'",
-      "description": "The ARIA role to assign to this dialog. @see https://www.w3.org/TR/wai-aria-practices-1.1/#dialog_modal\n@see https://www.w3.org/TR/wai-aria-practices-1.1/#alertdialog"
+      "description": "The ARIA role to assign to this dialog. See [dialog modal](https://www.w3.org/TR/wai-aria-practices-1.1/#dialog_modal) and [alert dialog](https://www.w3.org/TR/wai-aria-practices-1.1/#alertdialog)"
     },
     {
       "name": "width",

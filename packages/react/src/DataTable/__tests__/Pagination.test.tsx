@@ -1,6 +1,5 @@
-import {page} from '@vitest/browser/context'
+import {page} from 'vitest/browser'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-import React from 'react'
 import {Pagination} from '../Pagination'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
@@ -31,13 +30,13 @@ describe('Table.Pagination', () => {
 
   it('should select the correct page with `defaultPageIndex`', () => {
     render(<Pagination aria-label="Pagination" defaultPageIndex={4} pageSize={10} totalCount={100} />)
-    const expectedPage = getPages().filter(p => p.textContent?.includes('5'))[0]
+    const expectedPage = getPages().filter(p => p.textContent.includes('5'))[0]
     expect(getCurrentPage()).toEqual(expectedPage)
   })
 
   it('should show the expected steps when `defaultPageIndex` is provided', () => {
     render(<Pagination aria-label="Pagination" defaultPageIndex={6} pageSize={10} totalCount={100} />)
-    const pages = getPages().map(p => p.textContent?.replace(/[a-z]|\s+/gi, ''))
+    const pages = getPages().map(p => p.textContent.replace(/[a-z]|\s+/gi, ''))
     expect(pages).toEqual(['1…', '4', '5', '6', '7', '8', '9', '10'])
   })
 
@@ -377,11 +376,38 @@ describe('Table.Pagination', () => {
     expect(getCurrentPage()).toEqual(getPage(1))
     expect(getInvalidPages()).toHaveLength(0)
   })
+
+  it('should display correct page range when navigating to page 4 with 100 items and page size of 15', async () => {
+    // When we have 100 items spread across pages of 15 items, and we go to page 4, we should get the proper page range
+    const user = userEvent.setup()
+    const onChange = vi.fn()
+
+    render(<Pagination aria-label="Test label" onChange={onChange} pageSize={15} totalCount={100} />)
+
+    // With 100 items and page size 15, we should have 7 pages total (pages 1-6 have 15 items each, page 7 has 10 items)
+    const pages = getPages()
+    expect(pages).toHaveLength(7)
+
+    // Navigate to page 4 (index 3)
+    await user.click(getPage(3))
+
+    expect(onChange).toHaveBeenCalledWith({
+      pageIndex: 3,
+    })
+
+    // Page 4 should show items 46-60
+    expect(getPageRange()).toEqual('46 through 60 of 100')
+    expect(getCurrentPage()).toEqual(getPage(3))
+
+    // Verify all pages are displayed (no truncation needed with only 7 pages)
+    const pageNumbers = getPages().map(p => p.textContent.replace(/\D/g, ''))
+    expect(pageNumbers).toEqual(['1', '2', '3', '4', '5', '6', '7'])
+  })
 })
 
 function getPages() {
   return screen.getAllByRole('button').filter(button => {
-    return button.textContent?.includes('Page')
+    return button.textContent.includes('Page')
   })
 }
 
@@ -424,7 +450,7 @@ function getLastPage() {
 }
 
 function getInvalidPages() {
-  return getPages().filter(p => p.textContent?.match(/Page\s-/g) || p.textContent?.match(/Page\s0$/g))
+  return getPages().filter(p => p.textContent.match(/Page\s-/g) || p.textContent.match(/Page\s0$/g))
 }
 
 function getPageRange() {

@@ -1,5 +1,4 @@
-import React from 'react'
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import type {SegmentedControlButtonProps} from './SegmentedControlButton'
 import SegmentedControlButton from './SegmentedControlButton'
 import {SegmentedControl} from '.'
@@ -25,7 +24,7 @@ export default {
 export const Playground: StoryFn<SegmentedControlButtonProps> = args => <SegmentedControlButton {...args} />
 Playground.args = {
   children: 'Option',
-  leadingIcon: undefined,
+  leadingVisual: undefined,
   selected: false,
   defaultSelected: false,
 }
@@ -33,7 +32,7 @@ Playground.argTypes = {
   children: {
     type: 'string',
   },
-  leadingIcon: {
+  leadingVisual: {
     control: 'select',
     options: Object.keys(icons),
     mapping: icons,
@@ -43,5 +42,8 @@ Playground.argTypes = {
   },
   defaultSelected: {
     type: 'boolean',
+  },
+  count: {
+    type: 'number',
   },
 }

@@ -1,30 +1,29 @@
+import react from '@vitejs/plugin-react'
 import {defineConfig} from 'vitest/config'
+import {isSupported} from './script/react-compiler.mjs'
 
 export default defineConfig({
+  plugins: [
+    react({
+      babel: {
+        plugins: [
+          [
+            'babel-plugin-react-compiler',
+            {
+              sources: (filepath: string) => isSupported(filepath),
+              target: '18',
+            },
+          ],
+        ],
+      },
+    }),
+  ],
   define: {
     __DEV__: true,
   },
   test: {
-    exclude: ['**/node_modules/**', '**/dist/**', '**/lib-esm/**', '**/lib/**', '**/generated/**'],
-    include: [
-      'src/Banner/**/*.test.?(c|m)[jt]s?(x)',
-      'src/DataTable/**/*.test.?(c|m)[jt]s?(x)',
-      'src/FeatureFlags/**/*.test.?(c|m)[jt]s?(x)',
-      'src/Stack/**/*.test.?(c|m)[jt]s?(x)',
-    ],
-    setupFiles: ['config/vitest/setup.ts'],
-    css: {
-      include: [/.+/],
-    },
-    browser: {
-      provider: 'playwright',
-      enabled: true,
-      headless: process.env.DEBUG_BROWSER_TESTS === 'true' ? false : true,
-      instances: [
-        {
-          browser: 'chromium',
-        },
-      ],
-    },
+    name: '@primer/react (node)',
+    include: ['src/__tests__/exports.test.ts', 'src/__tests__/storybook.test.tsx'],
+    environment: 'node',
   },
 })

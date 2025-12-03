@@ -20,7 +20,7 @@ jobs:
       # If it's 0, we deploy.
       should_deploy: ${{ steps.changeset-count.outputs.change_count == 0 && steps.has-pages.outputs.pages == 1 }}
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3
 
       - id: changeset-count
         run: echo "::set-output name=change_count::$(ls .changeset/*.md | grep -v README | wc -l | xargs)"
@@ -51,11 +51,11 @@ jobs:
     name: Production
     needs: [guard]
     if: ${{ needs.guard.outputs.should_deploy == 'true' }}
-    uses: primer/.github/.github/workflows/deploy.yml@5d641c4a200cecaddcb067822ea54dd17ae0a821
+    uses: primer/.github/.github/workflows/deploy.yml@2bbbbf004e8281856e08f6607eb46a7ee59e65ed
     secrets:
       gh_token: ${{ secrets.GITHUB_TOKEN }}
     with:
-      node_version: 18
+      node_version: 22
       install: npm ci
       build: npm run build:docs
       output_dir: docs/public

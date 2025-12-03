@@ -1,5 +1,4 @@
-import React from 'react'
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import type {ComponentProps} from '../utils/types'
 import StateLabel from './StateLabel'
 
@@ -18,18 +17,6 @@ Playground.args = {
 
 Playground.argTypes = {
   ref: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
-  sx: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
-  theme: {
     controls: false,
     table: {
       disable: true,

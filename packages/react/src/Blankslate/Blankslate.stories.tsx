@@ -1,6 +1,5 @@
 import {BookIcon} from '@primer/octicons-react'
-import type {Meta, StoryFn} from '@storybook/react'
-import React from 'react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import {Blankslate} from '../Blankslate'
 import type {ComponentProps} from '../utils/types'
 
@@ -31,8 +30,10 @@ export const Default = () => (
   </Blankslate>
 )
 
-export const Playground: StoryFn<ComponentProps<typeof Blankslate>> = args => (
-  <Blankslate {...args}>
+export const Playground: StoryFn<
+  ComponentProps<typeof Blankslate> & {primaryAction: boolean; secondaryAction: boolean}
+> = ({primaryAction, secondaryAction, ...rest}) => (
+  <Blankslate {...rest}>
     <Blankslate.Visual>
       <BookIcon size="medium" />
     </Blankslate.Visual>
@@ -41,8 +42,8 @@ export const Playground: StoryFn<ComponentProps<typeof Blankslate>> = args => (
       Wikis provide a place in your repository to lay out the roadmap of your project, show the current status, and
       document software better, together.
     </Blankslate.Description>
-    <Blankslate.PrimaryAction href="#">Create the first page</Blankslate.PrimaryAction>
-    <Blankslate.SecondaryAction href="#">Learn more about wikis</Blankslate.SecondaryAction>
+    {primaryAction ? <Blankslate.PrimaryAction href="#">Create the first page</Blankslate.PrimaryAction> : null}
+    {secondaryAction ? <Blankslate.SecondaryAction href="#">Learn more about wikis</Blankslate.SecondaryAction> : null}
   </Blankslate>
 )
 
@@ -50,4 +51,15 @@ Playground.args = {
   border: false,
   narrow: false,
   spacious: false,
+  size: 'medium',
+  primaryAction: true,
+  secondaryAction: true,
+}
+
+Playground.argTypes = {
+  size: {
+    controls: {
+      options: ['small', 'medium', 'large'],
+    },
+  },
 }

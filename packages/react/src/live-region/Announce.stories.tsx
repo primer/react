@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {Announce} from './Announce'
-import type {StoryObj} from '@storybook/react'
+import type {StoryObj} from '@storybook/react-vite'
 
 export default {
   title: 'Experimental/Components/Announce',

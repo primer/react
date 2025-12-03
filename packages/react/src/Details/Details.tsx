@@ -1,59 +1,33 @@
-import React, {useEffect, useState, type ComponentPropsWithoutRef, type ReactElement} from 'react'
-import type {SxProp} from '../sx'
+import React, {useEffect, type ComponentPropsWithoutRef, type ReactElement} from 'react'
+import {warning} from '../utils/warning'
 import {clsx} from 'clsx'
 import classes from './Details.module.css'
 import {useMergedRefs} from '../internal/hooks/useMergedRefs'
-import {defaultSxProp} from '../utils/defaultSxProp'
-import Box from '../Box'
 
 const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(
-  ({className, children, sx: sxProp = defaultSxProp, ...rest}, forwardRef): ReactElement => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ({className, children, ...rest}, forwardRef): ReactElement<any> => {
     const detailsRef = React.useRef<HTMLDetailsElement>(null)
     const ref = useMergedRefs(forwardRef, detailsRef)
-    const [hasSummary, setHasSummary] = useState(false)
 
     useEffect(() => {
+      if (!__DEV__) {
+        return
+      }
+
       const {current: details} = detailsRef
       if (!details) {
         return
       }
-
-      const updateSummary = () => {
-        const summary = details.querySelector('summary:not([data-default-summary])')
-        setHasSummary(!!summary)
-      }
-
-      // Update summary on mount
-      updateSummary()
-
-      const observer = new MutationObserver(() => {
-        updateSummary()
-      })
-
-      observer.observe(details, {
-        childList: true,
-        subtree: true,
-      })
-
-      return () => {
-        observer.disconnect()
-      }
-    }, [])
-
-    if (sxProp !== defaultSxProp) {
-      return (
-        <Box as={'details'} className={clsx(className, classes.Details)} {...rest} sx={sxProp} ref={ref}>
-          {/* Include default summary if summary is not provided */}
-          {!hasSummary && <Details.Summary data-default-summary>{'See Details'}</Details.Summary>}
-          {children}
-        </Box>
+      const summary = details.querySelector('summary:not([data-default-summary])')
+      warning(
+        summary === null,
+        'The <Details> component must have a <summary> child component. You can either use <Details.Summary> or a native <summary> element.',
       )
-    }
+    }, [])
 
     return (
       <details className={clsx(className, classes.Details)} {...rest} ref={ref}>
-        {/* Include default summary if summary is not provided */}
-        {!hasSummary && <Details.Summary data-default-summary>{'See Details'}</Details.Summary>}
         {children}
       </details>
     )
@@ -86,5 +60,5 @@ const Details = Object.assign(Root, {
   Summary,
 })
 
-export type DetailsProps = ComponentPropsWithoutRef<'details'> & SxProp
+export type DetailsProps = ComponentPropsWithoutRef<'details'>
 export default Details

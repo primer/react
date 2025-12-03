@@ -1,8 +1,7 @@
-import React, {useState, useRef} from 'react'
-import type {Meta, StoryObj} from '@storybook/react'
-import Box from '../Box'
+import React, {useState, useRef, useEffect} from 'react'
+import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Button} from '../Button'
-import type {ItemInput, GroupedListProps} from '../deprecated/ActionList/List'
+import type {ItemInput, GroupedListProps} from '.'
 import Link from '../Link'
 import {SelectPanel, type SelectPanelProps} from './SelectPanel'
 import {
@@ -11,12 +10,15 @@ import {
   GearIcon,
   InfoIcon,
   NoteIcon,
+  PlusIcon,
   ProjectIcon,
   SearchIcon,
   StopIcon,
+  TagIcon,
   TriangleDownIcon,
   TypographyIcon,
   VersionsIcon,
+  type IconProps,
 } from '@primer/octicons-react'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import ToggleSwitch from '../ToggleSwitch'
@@ -24,6 +26,7 @@ import Text from '../Text'
 import FormControl from '../FormControl'
 import {SegmentedControl} from '../SegmentedControl'
 import {Stack} from '../Stack'
+import classes from './SelectPanel.features.stories.module.css'
 
 const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Features',
@@ -40,7 +43,8 @@ const NoResultsMessage = (filter: string): {variant: 'empty'; title: string; bod
   }
 }
 
-const EmptyMessage: {variant: 'empty'; title: string; body: React.ReactElement} = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const EmptyMessage: {variant: 'empty'; title: string; body: React.ReactElement<any>} = {
   variant: 'empty',
   title: `You haven't created any projects yet`,
   body: (
@@ -59,15 +63,12 @@ const ErrorMessage: {variant: 'error'; title: string; body: string} = {
 function getColorCircle(color: string) {
   return function () {
     return (
-      <Box
-        bg={color}
-        borderColor={color}
-        width={14}
-        height={14}
-        borderRadius={10}
-        margin="auto"
-        borderWidth="1px"
-        borderStyle="solid"
+      <div
+        className={classes.ColorCircle}
+        style={{
+          backgroundColor: color,
+          borderColor: color,
+        }}
       />
     )
   }
@@ -209,6 +210,37 @@ export const MultiSelect = () => {
   )
 }
 
+export const WithDisabledItem = () => {
+  const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
+  const [filter, setFilter] = useState('')
+  const filteredItems = items.map((item, index) => (index === 3 ? {...item, disabled: true} : item))
+  const [open, setOpen] = useState(false)
+
+  return (
+    <FormControl>
+      <FormControl.Label>Labels</FormControl.Label>
+      <SelectPanel
+        title="Select labels"
+        placeholder="Select labels"
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            {children}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        width="medium"
+        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+      />
+    </FormControl>
+  )
+}
+
 export const WithExternalAnchor = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
@@ -309,7 +341,8 @@ export const WithNotice = () => {
   const [open, setOpen] = useState(false)
   const [noticeVariant, setNoticeVariant] = useState(0)
 
-  const noticeVariants: Array<{text: string | React.ReactElement; variant: 'info' | 'warning' | 'error'}> = [
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const noticeVariants: Array<{text: string | React.ReactElement<any>; variant: 'info' | 'warning' | 'error'}> = [
     {
       variant: 'info',
       text: 'Try a different search term.',
@@ -496,15 +529,7 @@ export const WithLabelInternally = () => {
     <SelectPanel
       renderAnchor={({children, ...anchorProps}) => (
         <Button {...anchorProps} trailingAction={TriangleDownIcon} aria-haspopup="dialog">
-          <Box
-            sx={{
-              color: 'var(--fgColor-muted)',
-              display: 'inline-block',
-            }}
-          >
-            Choices:
-          </Box>{' '}
-          {children || 'None selected'}
+          <span className={classes.MutedText}>Choices:</span> {children || 'None selected'}
         </Button>
       )}
       open={open}
@@ -526,6 +551,7 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
     const [open, setOpen] = useState(false)
     const filterTimerId = useRef<number | null>(null)
     const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
+    const [loading, setLoading] = useState(true)
     const [query, setQuery] = useState('')
 
     const fetchItems = (query: string) => {
@@ -534,10 +560,20 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
         setQuery(query)
       }
 
+      setLoading(true)
       filterTimerId.current = safeSetTimeout(() => {
         setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(query.toLowerCase())))
+        setLoading(false)
       }, 2000) as unknown as number
     }
+
+    useEffect(() => {
+      filterTimerId.current = safeSetTimeout(() => {
+        setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(query.toLowerCase())))
+        setLoading(false)
+      }, 2000) as unknown as number
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const onOpenChange = (value: boolean) => {
       setOpen(value)
@@ -548,13 +584,8 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
       <SelectPanel
         title="Select labels"
         subtitle="Use labels to organize issues and pull requests"
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button
-            trailingAction={TriangleDownIcon}
-            aria-labelledby={` ${ariaLabelledBy}`}
-            {...anchorProps}
-            aria-haspopup="dialog"
-          >
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
             {children ?? 'Select Labels'}
           </Button>
         )}
@@ -569,6 +600,7 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
         height={height}
         initialLoadingType={initialLoadingType}
         width="medium"
+        loading={loading}
         message={filteredItems.length === 0 ? NoResultsMessage(query) : undefined}
       />
     )
@@ -607,7 +639,8 @@ export const CustomisedNoInitialItems = () => {
     setIsError(!isError)
   }, [setIsError, isError])
 
-  function getMessage(): {variant: 'empty' | 'error'; title: string; body: string | React.ReactElement} {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function getMessage(): {variant: 'empty' | 'error'; title: string; body: string | React.ReactElement<any>} {
     if (isError) return ErrorMessage
     else if (filter) return NoResultsMessage(filter)
     else return EmptyMessage
@@ -615,14 +648,14 @@ export const CustomisedNoInitialItems = () => {
 
   return (
     <>
-      <Text id="toggle" fontWeight={'bold'} fontSize={2}>
+      <Text id="toggle" className={classes.TextLargeBold}>
         Enable Error State :{isError ? 'On' : 'Off'}
       </Text>
       <ToggleSwitch onClick={onClick} checked={isError} aria-labelledby="toggle" />
       <SelectPanel
         title="Set projects"
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
             {children ?? 'Select Labels'}
           </Button>
         )}
@@ -648,28 +681,34 @@ export const CustomisedNoResults: StoryObj<typeof SelectPanel> = {
     const [open, setOpen] = useState(false)
     const filterTimerId = useRef<number | null>(null)
     const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
+    const [loading, setLoading] = useState(true)
     const onFilterChange = (value: string) => {
       setFilterValue(value)
       if (filterTimerId.current) {
         safeClearTimeout(filterTimerId.current)
       }
 
+      setLoading(true)
       filterTimerId.current = safeSetTimeout(() => {
         setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(value.toLowerCase())))
+        setLoading(false)
       }, 2000) as unknown as number
     }
+
+    useEffect(() => {
+      filterTimerId.current = safeSetTimeout(() => {
+        setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filterValue.toLowerCase())))
+        setLoading(false)
+      }, 2000) as unknown as number
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
       <SelectPanel
         title="Select labels"
         subtitle="Use labels to organize issues and pull requests"
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button
-            trailingAction={TriangleDownIcon}
-            aria-labelledby={` ${ariaLabelledBy}`}
-            {...anchorProps}
-            aria-haspopup="dialog"
-          >
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
             {children ?? 'Select Labels'}
           </Button>
         )}
@@ -682,6 +721,7 @@ export const CustomisedNoResults: StoryObj<typeof SelectPanel> = {
         onFilterChange={onFilterChange}
         showItemDividers={true}
         initialLoadingType={initialLoadingType}
+        loading={loading}
         height={height}
         overlayProps={{maxHeight: height === 'auto' || height === 'initial' ? 'xlarge' : height}}
         message={filteredItems.length === 0 ? NoResultsMessage(filterValue) : undefined}
@@ -705,9 +745,9 @@ export const CustomisedNoResults: StoryObj<typeof SelectPanel> = {
 }
 
 export const WithOnCancel = () => {
-  const [intialSelection, setInitialSelection] = React.useState<ItemInput[]>(items.slice(1, 3))
+  const [initialSelection, setInitialSelection] = React.useState<ItemInput[]>(items.slice(1, 3))
 
-  const [selected, setSelected] = React.useState<ItemInput[]>(intialSelection)
+  const [selected, setSelected] = React.useState<ItemInput[]>(initialSelection)
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
 
@@ -733,7 +773,7 @@ export const WithOnCancel = () => {
         items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
-        onCancel={() => setSelected(intialSelection)}
+        onCancel={() => setSelected(initialSelection)}
         onFilterChange={setFilter}
         width="medium"
       />
@@ -742,9 +782,9 @@ export const WithOnCancel = () => {
 }
 
 export const MultiSelectModal = () => {
-  const [intialSelection, setInitialSelection] = React.useState<ItemInput[]>(items.slice(1, 3))
+  const [initialSelection, setInitialSelection] = React.useState<ItemInput[]>(items.slice(1, 3))
 
-  const [selected, setSelected] = React.useState<ItemInput[]>(intialSelection)
+  const [selected, setSelected] = React.useState<ItemInput[]>(initialSelection)
   const [filter, setFilter] = React.useState('')
   const [open, setOpen] = useState(false)
 
@@ -770,7 +810,7 @@ export const MultiSelectModal = () => {
       items={filteredItems}
       selected={selected}
       onSelectedChange={setSelected}
-      onCancel={() => setSelected(intialSelection)}
+      onCancel={() => setSelected(initialSelection)}
       onFilterChange={setFilter}
       width="medium"
     />
@@ -803,5 +843,192 @@ export const SingleSelectModal = () => {
       onFilterChange={setFilter}
       width="medium"
     />
+  )
+}
+
+type Items = ItemInput & {
+  inactiveText?: string
+}
+
+const itemsWithInactive: Items[] = [
+  ...items,
+  {
+    leadingVisual: getColorCircle('#00ff00'),
+    text: 'request',
+    id: 9,
+    inactiveText: 'Currently inactive due to an outage',
+    description: 'New feature or request',
+    descriptionVariant: 'block',
+  },
+]
+
+export const WithInactiveItems = () => {
+  const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
+  const [filter, setFilter] = useState('')
+  const filteredItems = itemsWithInactive.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
+
+  const [open, setOpen] = useState(false)
+
+  return (
+    <FormControl>
+      <FormControl.Label>Labels</FormControl.Label>
+      <SelectPanel
+        title="Select labels"
+        placeholder="Select labels" // button text when no items are selected
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            {children}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        width="medium"
+        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+      />
+    </FormControl>
+  )
+}
+
+export const WithMessage = () => {
+  const [selected, setSelected] = useState<ItemInput[]>([])
+  const [filter, setFilter] = useState('')
+  const [open, setOpen] = useState(false)
+  const [messageVariant, setMessageVariant] = useState(0)
+
+  const messageVariants: Array<
+    | undefined
+    | {
+        title: string
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        body: string | React.ReactElement<any>
+        variant: 'empty' | 'error' | 'warning'
+        icon?: React.ComponentType<IconProps>
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        action?: React.ReactElement<any>
+      }
+  > = [
+    undefined, // Default message
+    {
+      variant: 'empty',
+      title: 'No labels found',
+      body: 'Try adjusting your search or create a new label',
+      icon: TagIcon,
+      action: (
+        <Button variant="default" size="small" leadingVisual={PlusIcon} onClick={() => {}}>
+          Create new label
+        </Button>
+      ),
+    },
+    {
+      variant: 'error',
+      title: 'Failed to load labels',
+      body: (
+        <>
+          Check your network connection and try again or <Link href="/support">contact support</Link>
+        </>
+      ),
+    },
+    {
+      variant: 'warning',
+      title: 'Some labels may be outdated',
+      body: 'Consider refreshing to get the latest data',
+    },
+  ]
+
+  const itemsToShow = messageVariant === 0 ? items.slice(0, 3) : []
+  const filteredItems = itemsToShow.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setFilter('')
+  }, [messageVariant])
+
+  return (
+    <Stack align="start">
+      <FormControl>
+        <FormControl.Label>Message variant</FormControl.Label>
+        <SegmentedControl aria-label="Message variant" onChange={setMessageVariant}>
+          <SegmentedControl.Button defaultSelected aria-label="Default message">
+            Default message
+          </SegmentedControl.Button>
+          <SegmentedControl.Button aria-label="Empty" leadingIcon={SearchIcon}>
+            Empty
+          </SegmentedControl.Button>
+          <SegmentedControl.Button aria-label="Error" leadingIcon={StopIcon}>
+            Error
+          </SegmentedControl.Button>
+          <SegmentedControl.Button aria-label="Warning" leadingIcon={AlertIcon}>
+            Warning
+          </SegmentedControl.Button>
+        </SegmentedControl>
+      </FormControl>
+      <FormControl>
+        <FormControl.Label>SelectPanel with message</FormControl.Label>
+        <SelectPanel
+          renderAnchor={({children, ...anchorProps}) => (
+            <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+              {children}
+            </Button>
+          )}
+          placeholder="Select labels"
+          open={open}
+          onOpenChange={setOpen}
+          items={filteredItems}
+          selected={selected}
+          onSelectedChange={setSelected}
+          onFilterChange={setFilter}
+          overlayProps={{width: 'small', height: 'medium'}}
+          width="medium"
+          message={messageVariants[messageVariant]}
+          filterValue={filter}
+        />
+      </FormControl>
+    </Stack>
+  )
+}
+
+export const WithSelectAll = () => {
+  const [selected, setSelected] = useState<ItemInput[]>([])
+  const [filter, setFilter] = useState('')
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+
+  const [open, setOpen] = useState(false)
+
+  return (
+    <FormControl>
+      <FormControl.Label>Labels</FormControl.Label>
+      <SelectPanel
+        title="Select labels"
+        placeholder="Select labels" // button text when no items are selected
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            {children}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        width="medium"
+        showSelectAll={true}
+        message={
+          filteredItems.length === 0
+            ? {
+                variant: 'empty',
+                title: `No language found for \`${filter}\``,
+                body: 'Adjust your search term to find other languages',
+              }
+            : undefined
+        }
+      />
+    </FormControl>
   )
 }

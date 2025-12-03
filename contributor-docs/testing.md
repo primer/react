@@ -61,7 +61,7 @@ We make sure that every component has [these fundamental unit tests](https://git
 
 ### Overview
 
-We use [Jest](https://jestjs.io/) as our test runner to write and run our unit tests. Our preferred way of structuring tests is with `describe/it` block format and they are authored within the components's source directory with the file name of `ComponentName.test.tsx`
+We use [Vitest](https://vitest.dev/) as our test runner to write and run our unit tests. Our preferred way of structuring tests is with `describe/it` block format and they are authored within the components's source directory with the file name of `ComponentName.test.tsx`
 
 We predominantly use [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/)'s testing helpers such as
 
@@ -70,13 +70,13 @@ We predominantly use [@testing-library/react](https://testing-library.com/docs/r
 - `screen`
 - `act`
 
-To make assertions about the elements we use [Jest](https://jestjs.io/) and [jest-dom](https://github.com/testing-library/jest-dom).
+To make assertions about the elements we use [Vitest](https://vitest.dev/) and [jest-dom](https://github.com/testing-library/jest-dom).
 
 \*: Read about the [differences between `fireEvent` and `UserEvent`](https://testing-library.com/docs/user-event/intro/#differences-from-fireevent).
 
 ### Snapshots
 
-We are slowly moving away from using `Jest` snapshots as a way to test visual changes of our components. You can read more about the decision in this [ADR](https://github.com/primer/react/blob/main/contributor-docs/adrs/adr-011-snapshot-tests.md). We are in the process of migrating our existing snapshot tests to use [Playwright](https://playwright.dev/) for visual regression testing. If you are writing a new test and you need to test the visual changes of the component, please refer to the [Visual Regression Tests](#visual-regression-tests) section.
+We are slowly moving away from using snapshots as a way to test visual changes of our components. You can read more about the decision in this [ADR](https://github.com/primer/react/blob/main/contributor-docs/adrs/adr-011-snapshot-tests.md). We are in the process of migrating our existing snapshot tests to use [Playwright](https://playwright.dev/) for visual regression testing. If you are writing a new test and you need to test the visual changes of the component, please refer to the [Visual Regression Tests](#visual-regression-tests) section.
 
 ### Running Tests
 
@@ -84,21 +84,19 @@ We are slowly moving away from using `Jest` snapshots as a way to test visual ch
 | :------------------ | :----------------------- |
 | Run unit tests      | `npm test`               |
 | Run a specific test | `npm test ComponentName` |
-| Debug unit tests    | `npm test -- --watch`    |
-| Unit test coverage  | `npm test -- --coverage` |
 | Update snapshots    | `npm test -- -u`         |
 
 ## Interaction Tests
 
 ### As A Part Of Unit Tests
 
-We write our unit tests from a user perspective rather than focusing on implementation details. Simulating events to test user interactions is a core part of our testing practise.
+We write our unit tests from a user perspective rather than focusing on implementation details. Simulating events to test user interactions is a core part of our testing practice.
 
 We write user interaction tests leveraging [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/)’s [userEvent](<[userEvent](https://testing-library.com/docs/user-event/intro/)>) testing helper.
 
 ### Storybook Interaction Tests
 
-We use [Storybook interactions tests](https://storybook.js.org/docs/react/writing-tests/interaction-testing) to simulate and test some complex user interactions. They are particularly useful for cases where writing unit tests are not practical due to the limitation of the mock browser functionalities of JSDOM. For example testing out a component's overflow behaviour whose responsiveness is managed by its own dynamic width.
+We use [Storybook interactions tests](https://storybook.js.org/docs/react/writing-tests/interaction-testing) to simulate and test some complex user interactions. They are particularly useful for cases where writing unit tests is not practical due to the limitation of the mock browser functionalities of JSDOM. For example testing out a component's overflow behaviour whose responsiveness is managed by its own dynamic width.
 
 Storybook tests are authored within the components's source directory with the file name of `interactions.stories.tsx`
 
@@ -111,7 +109,8 @@ You can run these tests using Playwright locally or you can see the results of
 these tests on GitHub through the CI workflow.
 
 To get started locally, make sure to follow the [Prerequisites](#prerequisites)
-section to setup your machine. If you're looking for a quick overview of the commands
+section to setup your machine. You also need Storybook to be running locally
+before running any tests. If you're looking for a quick overview of the commands
 available, check out the table below.
 
 | Task                                                  | Command                                         |

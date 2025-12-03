@@ -1,12 +1,11 @@
-import React from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {Checkbox, CheckboxGroup, FormControl} from '..'
 import type {CheckboxOrRadioGroupArgs} from '../utils/form-story-helpers'
 
 export default {
   title: 'Components/CheckboxGroup',
   component: CheckboxGroup,
-  parameters: {controls: {exclude: ['aria-labelledby', 'id', 'onChange', 'sx']}},
+  parameters: {controls: {exclude: ['aria-labelledby', 'id', 'onChange']}},
 } as Meta
 
 export const Playground = ({

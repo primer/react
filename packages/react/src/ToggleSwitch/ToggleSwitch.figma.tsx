@@ -1,4 +1,3 @@
-import React from 'react'
 import {ToggleSwitch} from '../../src'
 import figma from '@figma/code-connect'
 
@@ -22,7 +21,13 @@ figma.connect(
       }),
     },
     example: ({size, checked, labelposition, loading}) => (
-      <ToggleSwitch size={size} checked={checked} statusLabelPosition={labelposition} loading={loading} />
+      <ToggleSwitch
+        aria-labelledby=""
+        size={size}
+        checked={checked}
+        statusLabelPosition={labelposition}
+        loading={loading}
+      />
     ),
   },
 )

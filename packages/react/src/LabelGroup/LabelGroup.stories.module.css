@@ -1,0 +1,9 @@
+.ResizableContainer {
+  /* stylelint-disable-next-line color-named */
+  outline: 1px solid black;
+  overflow: auto;
+  padding: var(--base-size-4);
+  resize: horizontal;
+  /* stylelint-disable-next-line primer/responsive-widths */
+  width: 600px;
+}

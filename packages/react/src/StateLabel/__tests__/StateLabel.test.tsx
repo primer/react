@@ -1,47 +1,32 @@
-import React from 'react'
+import {describe, expect, it} from 'vitest'
 import StateLabel from '../StateLabel'
-import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import axe from 'axe-core'
 
 describe('StateLabel', () => {
-  behavesAsComponent({
-    Component: StateLabel,
-    toRender: () => <StateLabel status="issueOpened">Open</StateLabel>,
-    options: {
-      // Rendering a Octicon seems to break getComputedStyles, which
-      // the sx prop implementation test uses to make sure the prop is working correctly.
-      // Despite my best efforts, I cannot figure out why this is happening. So,
-      // unfortunately, we will simply skip this test.
-      skipSx: true,
-    },
-  })
-
-  checkExports('StateLabel', {
-    default: StateLabel,
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<StateLabel status="issueOpened" />)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
-  })
-
   it('respects the status prop', () => {
-    expect(render(<StateLabel status="issueOpened" />)).toMatchSnapshot()
-    expect(render(<StateLabel status="issueClosed" />)).toMatchSnapshot()
-    expect(render(<StateLabel status="issueClosedNotPlanned" />)).toMatchSnapshot()
-    expect(render(<StateLabel status="pullMerged" />)).toMatchSnapshot()
-    expect(render(<StateLabel status="pullQueued" />)).toMatchSnapshot()
+    expect(HTMLRender(<StateLabel status="issueOpened" />).container).toMatchSnapshot()
+    expect(HTMLRender(<StateLabel status="issueClosed" />).container).toMatchSnapshot()
+    expect(HTMLRender(<StateLabel status="issueClosedNotPlanned" />).container).toMatchSnapshot()
+    expect(HTMLRender(<StateLabel status="pullMerged" />).container).toMatchSnapshot()
+    expect(HTMLRender(<StateLabel status="pullQueued" />).container).toMatchSnapshot()
   })
 
-  it('respects the variant prop', () => {
-    expect(render(<StateLabel variant="small" status="issueOpened" />)).toMatchSnapshot()
-    expect(render(<StateLabel variant="normal" status="issueOpened" />)).toMatchSnapshot()
+  it('respects the deprecated variant prop', () => {
+    expect(HTMLRender(<StateLabel variant="small" status="issueOpened" />).container).toMatchSnapshot()
+    expect(HTMLRender(<StateLabel variant="normal" status="issueOpened" />).container).toMatchSnapshot()
+  })
+
+  it('respects the size prop', () => {
+    expect(HTMLRender(<StateLabel size="small" status="issueOpened" />).container).toMatchSnapshot()
+    expect(HTMLRender(<StateLabel size="medium" status="issueOpened" />).container).toMatchSnapshot()
+  })
+
+  it('prefers the size prop over deprecated variant prop', () => {
+    expect(HTMLRender(<StateLabel size="small" variant="normal" status="issueOpened" />).container).toMatchSnapshot()
   })
 
   it('renders children', () => {
-    expect(render(<StateLabel status="issueOpened">hi</StateLabel>)).toMatchSnapshot()
+    expect(HTMLRender(<StateLabel status="issueOpened">hi</StateLabel>).container).toMatchSnapshot()
   })
 
   it('adds label to icon', () => {

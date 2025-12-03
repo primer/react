@@ -1,4 +1,3 @@
-import React from 'react'
 import {StateLabel} from '../../src'
 import figma from '@figma/code-connect'
 
@@ -9,7 +8,7 @@ figma.connect(
     props: {
       size: figma.enum('size', {
         small: 'small',
-        normal: 'normal',
+        medium: 'medium',
       }),
       status: figma.enum('status', {
         draft: 'issueDraft',
@@ -21,7 +20,7 @@ figma.connect(
     },
     variant: {variant: 'issue'},
     example: ({text, size, status}) => (
-      <StateLabel variant={size} status={status}>
+      <StateLabel size={size} status={status}>
         {text}
       </StateLabel>
     ),
@@ -35,7 +34,7 @@ figma.connect(
     props: {
       size: figma.enum('size', {
         small: 'small',
-        normal: 'normal',
+        medium: 'medium',
       }),
       status: figma.enum('status', {
         draft: 'draft',
@@ -49,7 +48,7 @@ figma.connect(
     },
     variant: {variant: 'pull request'},
     example: ({text, size, status}) => (
-      <StateLabel variant={size} status={status}>
+      <StateLabel size={size} status={status}>
         {text}
       </StateLabel>
     ),

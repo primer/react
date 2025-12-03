@@ -1,5 +1,4 @@
-import React from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import type {TruncateProps} from './Truncate'
 import Truncate from './Truncate'
 
@@ -37,12 +36,6 @@ Playground.argTypes = {
     type: 'number',
   },
   ref: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
-  sx: {
     controls: false,
     table: {
       disable: true,

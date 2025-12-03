@@ -1,9 +1,10 @@
 import React from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import Spinner from './Spinner'
-import {Box, Button} from '..'
+import {Button} from '..'
 import {VisuallyHidden} from '../VisuallyHidden'
 import {AriaStatus} from '../live-region'
+import classes from './Spinner.stories.module.css'
 
 export default {
   title: 'Components/Spinner/Examples',
@@ -41,7 +42,7 @@ export const FullLifecycle = () => {
 
   return (
     <>
-      <Button onClick={initiateLoading} sx={{mb: '1em'}}>
+      <Button onClick={initiateLoading} style={{marginBottom: '1em'}}>
         Load content
       </Button>
       {state === 'loading' && <Spinner />}
@@ -77,20 +78,20 @@ export const FullLifecycleVisibleLoadingText = () => {
   }
 
   return (
-    <Box sx={{display: 'flex', alignItems: 'flex-start', flexDirection: 'column', gap: '0.5em'}}>
-      <Button onClick={initiateLoading} sx={{mb: '1em'}}>
+    <div className={classes.LoadingExample}>
+      <Button onClick={initiateLoading} className={classes.LoadButton}>
         Load content
       </Button>
       {state !== 'done' && (
-        <Box sx={{alignItems: 'center', display: 'flex', gap: '0.25rem'}}>
+        <div className={classes.LoadingIndicator}>
           {state === 'loading' && <Spinner size="small" srText={null} />}
           <AriaStatus>{state === 'loading' ? 'Content is loading...' : ''}</AriaStatus>
-        </Box>
+        </div>
       )}
       <p>{loadedContent}</p>
       <VisuallyHidden>
         <AriaStatus>{state === 'done' && 'Content finished loading'}</AriaStatus>
       </VisuallyHidden>
-    </Box>
+    </div>
   )
 }

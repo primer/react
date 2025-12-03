@@ -1,14 +1,14 @@
 import type {ChangeEvent, ChangeEventHandler, FC} from 'react'
-import React, {createContext} from 'react'
+import type React from 'react'
+import {createContext} from 'react'
 import type {CheckboxOrRadioGroupProps} from '../internal/components/CheckboxOrRadioGroup'
 import CheckboxOrRadioGroup from '../internal/components/CheckboxOrRadioGroup'
 import CheckboxOrRadioGroupCaption from '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroupCaption'
 import CheckboxOrRadioGroupLabel from '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroupLabel'
 import CheckboxOrRadioGroupValidation from '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroupValidation'
 import {useRenderForcingRef} from '../hooks'
-import type {SxProp} from '../sx'
 
-type RadioGroupProps = {
+export type RadioGroupProps = {
   /**
    * An onChange handler that gets called when the selection changes
    */
@@ -17,8 +17,7 @@ type RadioGroupProps = {
    * The name used to identify this group of radios
    */
   name: string
-} & CheckboxOrRadioGroupProps &
-  SxProp
+} & CheckboxOrRadioGroupProps
 
 export const RadioGroupContext = createContext<{
   disabled?: boolean
@@ -59,6 +58,7 @@ const RadioGroup: FC<React.PropsWithChildren<RadioGroupProps>> = ({children, dis
 }
 
 export default Object.assign(RadioGroup, {
+  __SLOT__: Symbol('RadioGroup'),
   Caption: CheckboxOrRadioGroupCaption,
   Label: CheckboxOrRadioGroupLabel,
   Validation: CheckboxOrRadioGroupValidation,

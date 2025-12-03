@@ -2,7 +2,7 @@
   "id": "flash",
   "name": "Flash",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-flash--default"
@@ -48,10 +48,6 @@
       "name": "as",
       "type": "React.ElementType",
       "defaultValue": "\"div\""
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject"
     }
   ],
   "subcomponents": []

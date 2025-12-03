@@ -6,9 +6,10 @@ import {useResizeObserver} from './useResizeObserver'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 export interface AnchoredPositionHookSettings extends Partial<PositionSettings> {
-  floatingElementRef?: React.RefObject<Element>
-  anchorElementRef?: React.RefObject<Element>
+  floatingElementRef?: React.RefObject<Element | null>
+  anchorElementRef?: React.RefObject<Element | null>
   pinPosition?: boolean
+  onPositionChange?: (position: AnchorPosition | undefined) => void
 }
 
 /**
@@ -24,12 +25,13 @@ export function useAnchoredPosition(
   settings?: AnchoredPositionHookSettings,
   dependencies: React.DependencyList = [],
 ): {
-  floatingElementRef: React.RefObject<Element>
-  anchorElementRef: React.RefObject<Element>
+  floatingElementRef: React.RefObject<Element | null>
+  anchorElementRef: React.RefObject<Element | null>
   position: AnchorPosition | undefined
 } {
   const floatingElementRef = useProvidedRefOrCreate(settings?.floatingElementRef)
   const anchorElementRef = useProvidedRefOrCreate(settings?.anchorElementRef)
+  const savedOnPositionChange = React.useRef(settings?.onPositionChange)
   const [position, setPosition] = React.useState<AnchorPosition | undefined>(undefined)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setPrevHeight] = React.useState<number | undefined>(undefined)
@@ -71,10 +73,17 @@ export function useAnchoredPosition(
               return prev
             }
           }
+
+          if (prev && prev.anchorSide === newPosition.anchorSide) {
+            // if the position hasn't changed, don't update
+            savedOnPositionChange.current?.(newPosition)
+          }
+
           return newPosition
         })
       } else {
         setPosition(undefined)
+        savedOnPositionChange.current?.(undefined)
       }
       setPrevHeight(floatingElementRef.current?.clientHeight)
     },
@@ -82,10 +91,14 @@ export function useAnchoredPosition(
     [floatingElementRef, anchorElementRef, ...dependencies],
   )
 
+  useLayoutEffect(() => {
+    savedOnPositionChange.current = settings?.onPositionChange
+  }, [settings?.onPositionChange])
+
   useLayoutEffect(updatePosition, [updatePosition])
 
   useResizeObserver(updatePosition) // watches for changes in window size
-  useResizeObserver(updatePosition, floatingElementRef as React.RefObject<HTMLElement>) // watches for changes in floating element size
+  useResizeObserver(updatePosition, floatingElementRef as React.RefObject<HTMLElement | null>) // watches for changes in floating element size
 
   return {
     floatingElementRef,

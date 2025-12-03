@@ -1,5 +1,5 @@
-import React from 'react'
-import {Radio, RadioGroup, FormControl, Box} from '..'
+import {Radio, RadioGroup, FormControl} from '..'
+import classes from './RadioGroup.features.stories.module.css'
 
 export default {
   title: 'Components/RadioGroup/Features',
@@ -25,17 +25,9 @@ export const VisuallyHiddenLabel = () => (
 
 export const WithExternalLabel = () => (
   <>
-    <Box
-      id="choiceHeading"
-      borderBottomWidth="1px"
-      borderBottomStyle="solid"
-      borderBottomColor="border.default"
-      pb={2}
-      mb={3}
-      fontSize={3}
-    >
+    <div id="choiceHeading" className={classes.ExternalLabel}>
       External label
-    </Box>
+    </div>
     <RadioGroup aria-labelledby="choiceHeading" name="defaultRadioGroup">
       <FormControl>
         <Radio value="one" />

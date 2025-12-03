@@ -21,16 +21,16 @@ jobs:
       issues: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3
       - uses: ./.github/actions/pagerduty
         id: pagerduty
         with:
           schedule-id: 'P3IIVC4'
           token: ${{ secrets.PAGERDUTY_API_KEY_SID }}
       - name: Set up Node.js
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
         with:
-          node-version: 22
+          node-version-file: '.nvmrc'
       - name: Install packages for github-script
         run: npm i date-fns
       - name: Create Release Issue
@@ -117,6 +117,13 @@ jobs:
               '- [ ] Downstream repos have been updated to latest',
               '',
             ].join('\n');
+            const pathToGreen = [
+              '## Current Path to Green',
+              '',
+              'Current Status: 🟢',
+              '',
+            ].join('\n');
+
             const notes = [
               '## Notes',
               '',
@@ -159,9 +166,12 @@ jobs:
               ISSUE_BODY += '| Release Pull Request | [Link](https://gh.io/AAksvvr) |\n';
               ISSUE_BODY += '| Integration tests    | [Link](https://gh.io/AAkr65h) |\n';
               ISSUE_BODY += '\n';
+              ISSUE_BODY += pathToGreen;
+              ISSUE_BODY += '\n';
               ISSUE_BODY += timeline;
               ISSUE_BODY += '\n';
               ISSUE_BODY += checklist;
+              ISSUE_BODY += '\n';
               ISSUE_BODY += '\n';
               ISSUE_BODY += notes;
 
@@ -200,9 +210,12 @@ jobs:
               ISSUE_BODY += '| Release Pull Request | [Link](https://gh.io/AAksvvr) |\n';
               ISSUE_BODY += '| Integration tests    | [Link](https://gh.io/AAkr65h) |\n';
               ISSUE_BODY += '\n';
+              ISSUE_BODY += pathToGreen;
+              ISSUE_BODY += '\n';
               ISSUE_BODY += timeline;
               ISSUE_BODY += '\n';
               ISSUE_BODY += checklist;
+              ISSUE_BODY += "\n";
               ISSUE_BODY += '\n';
               ISSUE_BODY += notes;
 

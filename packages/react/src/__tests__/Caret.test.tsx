@@ -1,23 +1,12 @@
-import React from 'react'
-import type {CaretProps} from '../Caret'
-import Caret from '../Caret'
-import {render, checkExports} from '../utils/testing'
-import {render as HTMLRender} from '@testing-library/react'
-import axe from 'axe-core'
+import {render} from '@testing-library/react'
+import {describe, expect, it} from 'vitest'
+import Caret from '../internal/components/Caret'
+import type {CaretProps} from '../internal/components/Caret'
 
 describe('Caret', () => {
   it('renders <svg>', () => {
-    expect(render(<Caret />).type).toEqual('svg')
-  })
-
-  checkExports('Caret', {
-    default: Caret,
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<Caret />)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
+    const {container} = render(<Caret />)
+    expect(container.firstChild).toHaveProperty('tagName', 'svg')
   })
 
   it('renders cardinal directions', () => {

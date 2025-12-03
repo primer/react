@@ -2,8 +2,27 @@
   "id": "nav_list",
   "name": "NavList",
   "status": "alpha",
-  "a11yReviewed": false,
-  "stories": [],
+  "a11yReviewed": "2025-01-08",
+  "stories": [
+    {"id": "components-navlist--default"},
+    {"id": "components-navlist-features--expand-with-custom-items"},
+    {"id": "components-navlist-features--expand-with-pages"},
+    {"id": "components-navlist-features--group-with-expand-and-custom-items"},
+    {"id": "components-navlist-features--with-description"},
+    {"id": "components-navlist-features--with-expand"},
+    {"id": "components-navlist-features--with-expand-and-icons"},
+    {"id": "components-navlist-features--with-group"},
+    {"id": "components-navlist-features--with-group-expand"},
+    {"id": "components-navlist-features--with-group-heading-links"},
+    {"id": "components-navlist-features--with-inactive-items"},
+    {"id": "components-navlist-features--with-nested-sub-items"},
+    {"id": "components-navlist-features--with-next-js-link"},
+    {"id": "components-navlist-features--with-react-router-link"},
+    {"id": "components-navlist-features--with-reloads"},
+    {"id": "components-navlist-features--with-sub-items"},
+    {"id": "components-navlist-features--with-trailing-action"},
+    {"id": "components-navlist-features--with-trailing-action-in-sub-item"}
+  ],
   "importPath": "@primer/react",
   "props": [
     {
@@ -26,10 +45,6 @@
       "name": "as",
       "type": "React.ElementType",
       "defaultValue": "\"nav\""
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject"
     }
   ],
   "subcomponents": [
@@ -67,10 +82,6 @@
           "name": "as",
           "type": "React.ElementType",
           "defaultValue": "\"a\""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ],
       "passthrough": {
@@ -79,12 +90,35 @@
       }
     },
     {
-      "name": "NavList.LeadingVisual",
+      "name": "NavList.Description",
       "props": [
         {
-          "name": "sx",
-          "type": "SystemStyleObject"
+          "name": "variant",
+          "type": "'inline' | 'block'",
+          "defaultValue": "'inline'",
+          "description": "`inline` descriptions are positioned beside primary text. `block` descriptions are positioned below primary text."
         },
+        {
+          "name": "truncate",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Whether the inline description should truncate the text on overflow."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "description": "Custom CSS class name."
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties",
+          "description": "Custom CSS styles."
+        }
+      ]
+    },
+    {
+      "name": "NavList.LeadingVisual",
+      "props": [
         {
           "name": "ref",
           "type": "React.RefObject<HTMLElement>"
@@ -95,10 +129,6 @@
       "name": "NavList.TrailingVisual",
       "props": [
         {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        },
-        {
           "name": "ref",
           "type": "React.RefObject<HTMLElement>"
         }
@@ -107,10 +137,6 @@
     {
       "name": "NavList.SubNav",
       "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        },
         {
           "name": "ref",
           "type": "React.RefObject<HTMLElement>"
@@ -130,11 +156,7 @@
         {
           "name": "title",
           "type": "string",
-          "description": "The text that gets rendered as the group's heading. Alternatively, you can pass the `NavList.GroupHeading` component as a child of `NavList.Group`.\n If both `title` and `NavList.GroupHeading` are passed, `NavList.GroupHeading` will be rendered as the heading."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
+          "description": "The text that gets rendered as the group's heading. Alternatively, you can pass the `NavList.GroupHeading` component as a child of `NavList.Group`.\nIf both `title` and `NavList.GroupHeading` are passed, `NavList.GroupHeading` will be rendered as the heading."
         },
         {
           "name": "ref",
@@ -167,22 +189,21 @@
           "defaultValue": ""
         },
         {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        },
-        {
           "name": "ref",
           "type": "React.RefObject<HTMLElement>"
+        },
+        {
+          "name": "as",
+          "description": "Heading level for the group heading. Sets the semantic heading tag.",
+          "required": false,
+          "type": "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'",
+          "defaultValue": "\"h3\""
         }
       ]
     },
     {
       "name": "NavList.Divider",
       "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        },
         {
           "name": "ref",
           "type": "React.RefObject<HTMLElement>"
@@ -204,7 +225,7 @@
           "type": "string",
           "defaultValue": "",
           "required": true,
-          "description": "Acccessible name for the control."
+          "description": "Accessible name for the control."
         },
         {
           "name": "icon",
@@ -228,7 +249,7 @@
           "type": "string",
           "defaultValue": "",
           "required": true,
-          "description": "Acccessible name for the control."
+          "description": "Accessible name for the control."
         },
         {
           "name": "pages",

@@ -45,6 +45,7 @@
 
   @media screen and (forced-colors: active) {
     svg {
+      /* stylelint-disable-next-line declaration-property-value-no-unknown */
       fill: 'FieldText';
     }
   }
@@ -53,6 +54,7 @@
 .Disabled {
   @media screen and (forced-colors: active) {
     svg {
+      /* stylelint-disable-next-line declaration-property-value-no-unknown */
       fill: 'GrayText';
     }
   }

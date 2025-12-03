@@ -1,7 +1,7 @@
-import React from 'react'
+import {describe, expect, it, vi} from 'vitest'
+import type React from 'react'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import type {IconProps} from '@primer/octicons-react'
 import {
   CodeIcon,
   IssueOpenedIcon,
@@ -13,24 +13,6 @@ import {
 } from '@primer/octicons-react'
 
 import {UnderlineNav} from '.'
-import {checkExports, checkStoriesForAxeViolations} from '../utils/testing'
-import {baseMenuMinWidth, menuStyles} from './styles'
-
-// window.matchMedia() is not implemented by JSDOM so we have to create a mock:
-// https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
-Object.defineProperty(window, 'matchMedia', {
-  writable: true,
-  value: jest.fn().mockImplementation(query => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: jest.fn(), // deprecated
-    removeListener: jest.fn(), // deprecated
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
-  })),
-})
 
 const ResponsiveUnderlineNav = ({
   selectedItemText = 'Code',
@@ -41,16 +23,16 @@ const ResponsiveUnderlineNav = ({
   loadingCounters?: boolean
   displayExtraEl?: boolean
 }) => {
-  const items: {navigation: string; icon?: React.FC<IconProps>; counter?: number}[] = [
-    {navigation: 'Code', icon: CodeIcon},
-    {navigation: 'Issues', icon: IssueOpenedIcon, counter: 120},
-    {navigation: 'Pull Requests', icon: GitPullRequestIcon, counter: 13},
-    {navigation: 'Discussions', icon: CommentDiscussionIcon, counter: 5},
+  const items: {navigation: string; icon?: React.ReactElement; counter?: number}[] = [
+    {navigation: 'Code', icon: <CodeIcon />},
+    {navigation: 'Issues', icon: <IssueOpenedIcon />, counter: 120},
+    {navigation: 'Pull Requests', icon: <GitPullRequestIcon />, counter: 13},
+    {navigation: 'Discussions', icon: <CommentDiscussionIcon />, counter: 5},
     {navigation: 'Actions', counter: 4},
-    {navigation: 'Projects', icon: ProjectIcon, counter: 9},
-    {navigation: 'Insights', icon: GraphIcon},
+    {navigation: 'Projects', icon: <ProjectIcon />, counter: 9},
+    {navigation: 'Insights', icon: <GraphIcon />},
     {navigation: 'Settings', counter: 10},
-    {navigation: 'Security', icon: ShieldLockIcon},
+    {navigation: 'Security', icon: <ShieldLockIcon />},
   ]
 
   return (
@@ -59,7 +41,7 @@ const ResponsiveUnderlineNav = ({
         {items.map(item => (
           <UnderlineNav.Item
             key={item.navigation}
-            icon={item.icon}
+            leadingVisual={item.icon}
             aria-current={item.navigation === selectedItemText ? 'page' : undefined}
             counter={item.counter}
           >
@@ -73,11 +55,6 @@ const ResponsiveUnderlineNav = ({
 }
 
 describe('UnderlineNav', () => {
-  checkExports('UnderlineNav', {
-    default: undefined,
-    UnderlineNav,
-  })
-
   it('renders aria-current attribute to be pages when an item is selected', () => {
     const {getByRole} = render(<ResponsiveUnderlineNav />)
     const selectedNavLink = getByRole('link', {name: 'Code'})
@@ -98,7 +75,7 @@ describe('UnderlineNav', () => {
   })
 
   it('fires onSelect on click', async () => {
-    const onSelect = jest.fn()
+    const onSelect = vi.fn()
     const {getByRole} = render(
       <UnderlineNav aria-label="Test Navigation">
         <UnderlineNav.Item onSelect={onSelect}>Item 1</UnderlineNav.Item>
@@ -113,7 +90,7 @@ describe('UnderlineNav', () => {
   })
 
   it('fires onSelect on keypress', async () => {
-    const onSelect = jest.fn()
+    const onSelect = vi.fn()
     const {getByRole} = render(
       <UnderlineNav aria-label="Test Navigation">
         <UnderlineNav.Item onSelect={onSelect}>Item 1</UnderlineNav.Item>
@@ -145,7 +122,8 @@ describe('UnderlineNav', () => {
   it('adds className prop to base wrapper classes', () => {
     const {getByRole} = render(<ResponsiveUnderlineNav />)
     const nav = getByRole('navigation')
-    expect(nav).toHaveAttribute('class', 'UnderlineWrapper foo')
+    expect(nav.className).toContain('foo')
+    expect(nav.className).toContain('UnderlineWrapper')
   })
 
   it('renders the content of visually hidden span properly for screen readers', () => {
@@ -169,12 +147,10 @@ describe('UnderlineNav', () => {
     const heading = getByRole('heading', {name: 'Repository navigation'})
     // check if heading is h2 tag
     expect(heading.tagName).toBe('H2')
-    expect(heading.className).toContain('VisuallyHidden')
     expect(heading.textContent).toBe('Repository navigation')
   })
 
   it('throws an error when there are multiple items that have aria-current', () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation()
     expect(() => {
       render(
         <UnderlineNav aria-label="Test Navigation">
@@ -183,40 +159,49 @@ describe('UnderlineNav', () => {
         </UnderlineNav>,
       )
     }).toThrow('Only one current element is allowed')
-    expect(spy).toHaveBeenCalled()
-    spy.mockRestore()
-  })
-
-  it(`menuStyles should set the menu position, if the container size is below ${baseMenuMinWidth} px`, () => {
-    // GIVEN
-    // Mock the refs.
-    const containerRef = document.createElement('div')
-    const listRef = document.createElement('div')
-    // Set the clientWidth on the mock element
-    Object.defineProperty(listRef, 'clientWidth', {value: baseMenuMinWidth - 1})
-
-    // WHEN
-    const results = menuStyles(containerRef, listRef)
-
-    // THEN
-    // We are expecting a left value back, that way we know the `getAnchoredPosition` ran.
-    expect(results).toEqual(expect.objectContaining({left: 0}))
   })
 
   it('should support icons passed in as an element', () => {
     render(
       <UnderlineNav aria-label="Repository">
-        <UnderlineNav.Item aria-current="page" icon={<CodeIcon aria-label="Page one icon" />}>
+        <UnderlineNav.Item aria-current="page" leadingVisual={<CodeIcon aria-label="Page one icon" />}>
           Page one
         </UnderlineNav.Item>
-        <UnderlineNav.Item icon={<IssueOpenedIcon aria-label="Page two icon" />}>Page two</UnderlineNav.Item>
-        <UnderlineNav.Item icon={<GitPullRequestIcon aria-label="Page three icon" />}>Page three</UnderlineNav.Item>
+        <UnderlineNav.Item leadingVisual={<IssueOpenedIcon aria-label="Page two icon" />}>Page two</UnderlineNav.Item>
+        <UnderlineNav.Item leadingVisual={<GitPullRequestIcon aria-label="Page three icon" />}>
+          Page three
+        </UnderlineNav.Item>
       </UnderlineNav>,
     )
 
     expect(screen.getByLabelText('Page one icon')).toBeInTheDocument()
     expect(screen.getByLabelText('Page two icon')).toBeInTheDocument()
     expect(screen.getByLabelText('Page three icon')).toBeInTheDocument()
+  })
+
+  it('adds className prop to item classes', () => {
+    render(
+      <UnderlineNav aria-label="Repository">
+        <UnderlineNav.Item className="custom-class">Item 1</UnderlineNav.Item>
+      </UnderlineNav>,
+    )
+    const item = screen.getByRole('link', {name: 'Item 1'})
+    expect(item).toHaveClass('custom-class')
+    expect(item.className).toContain('UnderlineItem')
+  })
+
+  it('supports the deprecated `icon` prop', () => {
+    render(
+      <UnderlineNav aria-label="Test">
+        <UnderlineNav.Item icon={<CodeIcon data-testid="jsx-element" />}>as jsx element</UnderlineNav.Item>
+        <UnderlineNav.Item icon={props => <CodeIcon {...props} data-testid="functional-component" />}>
+          as functional component
+        </UnderlineNav.Item>
+      </UnderlineNav>,
+    )
+
+    expect(screen.getByTestId('jsx-element')).toBeInTheDocument()
+    expect(screen.getByTestId('functional-component')).toBeInTheDocument()
   })
 })
 
@@ -233,5 +218,3 @@ describe('Keyboard Navigation', () => {
     expect(nextItem).toHaveFocus()
   })
 })
-
-checkStoriesForAxeViolations('UnderlineNav.examples', '../UnderlineNav/')

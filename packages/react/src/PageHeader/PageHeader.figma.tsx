@@ -1,4 +1,3 @@
-import React from 'react'
 import {PageHeader} from '../'
 import figma from '@figma/code-connect'
 

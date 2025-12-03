@@ -1,0 +1,86 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`TextInput > renders contrast 1`] = `
+<div>
+  <span
+    aria-busy="false"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-contrast="true"
+  >
+    <input
+      class="prc-components-Input-sKHcw"
+      data-component="input"
+      name="zipcode"
+      type="text"
+    />
+  </span>
+</div>
+`;
+
+exports[`TextInput > renders error 1`] = `
+<div>
+  <span
+    aria-busy="false"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-validation="error"
+  >
+    <input
+      aria-invalid="true"
+      class="prc-components-Input-sKHcw"
+      data-component="input"
+      name="zipcode"
+      type="text"
+    />
+  </span>
+</div>
+`;
+
+exports[`TextInput > renders monospace 1`] = `
+<div>
+  <span
+    aria-busy="false"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-monospace="true"
+  >
+    <input
+      class="prc-components-Input-sKHcw"
+      data-component="input"
+      name="zipcode"
+      type="text"
+    />
+  </span>
+</div>
+`;
+
+exports[`TextInput > renders placeholder 1`] = `
+<div>
+  <span
+    aria-busy="false"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+  >
+    <input
+      class="prc-components-Input-sKHcw"
+      data-component="input"
+      name="zipcode"
+      placeholder="560076"
+      type="text"
+    />
+  </span>
+</div>
+`;
+
+exports[`TextInput > should render a password input 1`] = `
+<div>
+  <span
+    aria-busy="false"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+  >
+    <input
+      class="prc-components-Input-sKHcw"
+      data-component="input"
+      name="password"
+      type="password"
+    />
+  </span>
+</div>
+`;

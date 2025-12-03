@@ -1,5 +1,4 @@
-import React from 'react'
-import type {StoryFn, Meta} from '@storybook/react'
+import type {StoryFn, Meta} from '@storybook/react-vite'
 import {SegmentedControl} from '.'
 import SegmentedControlIconButton from './SegmentedControlIconButton'
 import SegmentedControlButton from './SegmentedControlButton'
@@ -48,7 +47,7 @@ export default {
     size: 'medium',
     variantAtNarrow: 'default',
     variantAtRegular: 'default',
-    variantAtWide: 'defualt',
+    variantAtWide: 'default',
   },
   argTypes: {
     fullWidth: {
@@ -112,13 +111,13 @@ export const Playground: StoryFn<Args> = args => (
     variant={parseVariantFromArgs(args)}
     size={args.size}
   >
-    <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingIcon={EyeIcon}>
+    <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingVisual={EyeIcon}>
       Preview
     </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
+    <SegmentedControl.Button aria-label={'Raw'} leadingVisual={FileCodeIcon}>
       Raw
     </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon}>
+    <SegmentedControl.Button aria-label={'Blame'} leadingVisual={PeopleIcon}>
       Blame
     </SegmentedControl.Button>
   </SegmentedControl>

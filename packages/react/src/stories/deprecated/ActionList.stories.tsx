@@ -11,15 +11,13 @@ import {
   ArrowRightIcon,
   ArrowLeftIcon,
 } from '@primer/octicons-react'
-import type {Meta} from '@storybook/react'
-import React, {forwardRef} from 'react'
-import styled from 'styled-components'
-import {Label, ThemeProvider} from '../..'
+import type {Meta} from '@storybook/react-vite'
+import React, {forwardRef, type JSX} from 'react'
+import {Label} from '../..'
 import {ActionList as _ActionList} from '../../deprecated/ActionList'
 import {Header} from '../../deprecated/ActionList/Header'
-import BaseStyles from '../../BaseStyles'
-import sx from '../../sx'
-import {ReactRouterLikeLink} from '../../__tests__/mocks/ReactRouterLink'
+import {ReactRouterLikeLink} from '../../Pagination/mocks/ReactRouterLink'
+import classes from './ActionList.stories.module.css'
 
 const ActionList = Object.assign(_ActionList, {
   Header,
@@ -28,15 +26,6 @@ const ActionList = Object.assign(_ActionList, {
 const meta: Meta = {
   title: 'Deprecated/Components/ActionList',
   component: ActionList,
-  decorators: [
-    (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => (
-      <ThemeProvider>
-        <BaseStyles>
-          <Story />
-        </BaseStyles>
-      </ThemeProvider>
-    ),
-  ],
   parameters: {
     controls: {
       disable: true,
@@ -45,14 +34,16 @@ const meta: Meta = {
 }
 export default meta
 
-const ErsatzOverlay = styled.div<{maxWidth?: string}>`
-  border-radius: 12px;
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.12),
-    0 8px 24px rgba(149, 157, 165, 0.2);
-  overflow: hidden;
-  max-width: ${({maxWidth}) => maxWidth || 'none'};
-`
+const ErsatzOverlay = ({maxWidth, children, ...props}: {maxWidth?: string; children: React.ReactNode}) => (
+  <div
+    className={classes.ErsatzOverlay}
+    style={maxWidth ? ({'--ersatz-overlay-max-width': maxWidth} as React.CSSProperties) : undefined}
+    data-max-width={maxWidth ? '' : undefined}
+    {...props}
+  >
+    {children}
+  </div>
+)
 
 export function ActionsStory(): JSX.Element {
   return (
@@ -152,9 +143,6 @@ export function MultiSelectListStory(): JSX.Element {
 MultiSelectListStory.storyName = 'Multi Select'
 
 export function ComplexListInsetVariantStory(): JSX.Element {
-  const StyledDiv = styled.div`
-    ${sx}
-  `
   return (
     <>
       <h1>Complex List</h1>
@@ -165,22 +153,20 @@ export function ComplexListInsetVariantStory(): JSX.Element {
             {groupId: '0'},
             {groupId: '1', header: {title: 'Live query', variant: 'filled', 'aria-level': 3}},
             {groupId: '2', header: {title: 'Layout', variant: 'subtle', 'aria-level': 3}, showItemDividers: true},
-            {groupId: '3', renderItem: props => <ActionList.Item style={{fontWeight: 'bold'}} {...props} />},
+            {groupId: '3', renderItem: props => <ActionList.Item {...props} className={classes.ActionListEmphasis} />},
             {
               groupId: '4',
               renderItem: ({leadingVisual: LeadingVisual, ...props}) => (
                 <ActionList.Item
                   {...props}
                   leadingVisual={() => (
-                    <StyledDiv sx={{'&>svg': {fill: 'white'}}}>
+                    <div className={classes.StyledDivWithWhiteFill}>
                       {LeadingVisual && <LeadingVisual></LeadingVisual>}
-                    </StyledDiv>
+                    </div>
                   )}
                 />
               ),
-              renderGroup: ({sx: sxProps, ...props}) => (
-                <ActionList.Group {...props} sx={{...sxProps, backgroundColor: 'cornflowerblue', color: 'white'}} />
-              ),
+              renderGroup: props => <ActionList.Group {...props} className={classes.CustomGroupStyle} />,
             },
           ]}
           items={[
@@ -196,7 +182,7 @@ export function ComplexListInsetVariantStory(): JSX.Element {
               leadingVisual: SearchIcon,
               text: 'repo:github/memex,github/github',
               groupId: '1',
-              renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />,
+              renderItem: props => <ActionList.Item {...props} className={classes.ActionListAccent} />,
             },
             {
               leadingVisual: NoteIcon,
@@ -228,9 +214,6 @@ export function ComplexListInsetVariantStory(): JSX.Element {
 ComplexListInsetVariantStory.storyName = 'Complex List — Inset Variant'
 
 export function ComplexListFullVariantStory(): JSX.Element {
-  const StyledDiv = styled.div`
-    ${sx}
-  `
   return (
     <>
       <h1>Complex List</h1>
@@ -242,22 +225,20 @@ export function ComplexListFullVariantStory(): JSX.Element {
             {groupId: '0'},
             {groupId: '1', header: {title: 'Live query', variant: 'filled', 'aria-level': 3}},
             {groupId: '2', header: {title: 'Layout', variant: 'subtle', 'aria-level': 3}},
-            {groupId: '3', renderItem: props => <ActionList.Item style={{fontWeight: 'bold'}} {...props} />},
+            {groupId: '3', renderItem: props => <ActionList.Item {...props} className={classes.ActionListEmphasis} />},
             {
               groupId: '4',
               renderItem: ({leadingVisual: LeadingVisual, ...props}) => (
                 <ActionList.Item
                   {...props}
                   leadingVisual={() => (
-                    <StyledDiv sx={{'&>svg': {fill: 'white'}}}>
+                    <div className={classes.StyledDivWithWhiteFill}>
                       {LeadingVisual && <LeadingVisual></LeadingVisual>}
-                    </StyledDiv>
+                    </div>
                   )}
                 />
               ),
-              renderGroup: ({sx: sxProps, ...props}) => (
-                <ActionList.Group {...props} sx={{...sxProps, backgroundColor: 'cornflowerblue', color: 'white'}} />
-              ),
+              renderGroup: props => <ActionList.Group {...props} className={classes.CustomGroupStyle} />,
             },
           ]}
           items={[
@@ -267,7 +248,7 @@ export function ComplexListFullVariantStory(): JSX.Element {
               leadingVisual: SearchIcon,
               text: 'repo:github/memex,github/github',
               groupId: '1',
-              renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />,
+              renderItem: props => <ActionList.Item {...props} className={classes.ActionListAccent} />,
             },
             {
               leadingVisual: NoteIcon,
@@ -367,12 +348,14 @@ export function SizeStressTestingStory(): JSX.Element {
 SizeStressTestingStory.storyName = 'Size Stress Testing'
 
 const NextJSLikeLink = forwardRef(
-  ({href, children}: {href: string; children: React.ReactNode}, ref): React.ReactElement => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ({href, children}: {href: string; children: React.ReactNode}, ref): React.ReactElement<any> => {
     const child = React.Children.only(children)
     const childProps = {
       ref,
       href,
     }
+    // eslint-disable-next-line react-hooks/refs
     return <>{React.isValidElement(child) ? React.cloneElement(child, childProps) : null}</>
   },
 )

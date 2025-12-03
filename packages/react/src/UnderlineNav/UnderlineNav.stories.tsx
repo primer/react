@@ -1,9 +1,8 @@
-import React from 'react'
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import {UnderlineNav} from './index'
 import {UnderlineNavItem} from './UnderlineNavItem'
 
-const excludedControlKeys = ['sx', 'as', 'variant', 'align', 'afterSelect']
+const excludedControlKeys = ['as', 'align', 'afterSelect']
 
 const meta: Meta<typeof UnderlineNav> = {
   title: 'Components/UnderlineNav',
@@ -11,7 +10,7 @@ const meta: Meta<typeof UnderlineNav> = {
   parameters: {
     controls: {
       expanded: true,
-      // variant and size are developed in the first design iteration but then they are abondened.
+      // size and others were developed in the first design iteration but then they are abandoned.
       // Still keeping them on the source code for future reference but they are not exposed as props.
       exclude: excludedControlKeys,
     },
@@ -27,10 +26,15 @@ const meta: Meta<typeof UnderlineNav> = {
         type: 'boolean',
       },
     },
+    variant: {
+      control: 'radio',
+      options: ['inset', 'flush'],
+    },
   },
   args: {
     'aria-label': 'Repository',
     loadingCounters: false,
+    variant: 'inset',
   },
 }
 

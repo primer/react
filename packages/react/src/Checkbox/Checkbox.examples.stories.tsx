@@ -1,7 +1,8 @@
-import React, {useRef, useState} from 'react'
-import {Box, Checkbox} from '..'
+import type React from 'react'
+import {useRef, useState} from 'react'
+import Checkbox from '../Checkbox'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
-import {action} from '@storybook/addon-actions'
+import {action} from 'storybook/actions'
 import FormControl from '../FormControl'
 
 export default {
@@ -17,12 +18,12 @@ export const Controlled = () => {
   }
 
   return (
-    <Box as="form">
+    <form>
       <FormControl>
         <Checkbox value="default" onChange={handleChange} checked={isChecked} />
         <FormControl.Label>Default label</FormControl.Label>
       </FormControl>
-    </Box>
+    </form>
   )
 }
 
@@ -36,11 +37,11 @@ export const Uncontrolled = () => {
   }, [])
 
   return (
-    <Box as="form">
+    <form>
       <FormControl>
         <Checkbox ref={checkboxRef} />
         <FormControl.Label>Default label</FormControl.Label>
       </FormControl>
-    </Box>
+    </form>
   )
 }

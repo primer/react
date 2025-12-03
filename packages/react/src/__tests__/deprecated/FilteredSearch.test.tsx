@@ -1,23 +1,15 @@
-import React from 'react'
+import {describe, expect, it} from 'vitest'
+import {render} from '@testing-library/react'
 import {FilteredSearch} from '../../deprecated'
-import {render, behavesAsComponent, checkExports} from '../../utils/testing'
-import {render as HTMLRender} from '@testing-library/react'
-import axe from 'axe-core'
 
 describe('FilteredSearch', () => {
-  behavesAsComponent({Component: FilteredSearch})
-
-  checkExports('deprecated/FilteredSearch', {
-    default: FilteredSearch,
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<FilteredSearch>Hello</FilteredSearch>)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
+  it('should render FilteredSearch', () => {
+    const {getByText} = render(<FilteredSearch>Hello</FilteredSearch>)
+    expect(getByText('Hello')).toBeInTheDocument()
   })
 
   it('renders a <div>', () => {
-    expect(render(<FilteredSearch />).type).toEqual('div')
+    const {container} = render(<FilteredSearch />)
+    expect(container.firstElementChild?.tagName).toEqual('DIV')
   })
 })

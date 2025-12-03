@@ -1,5 +1,4 @@
-import React from 'react'
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import Octicon from './Octicon'
 import {HeartFillIcon} from '@primer/octicons-react'
 
@@ -11,9 +10,9 @@ export default meta
 
 export const Default = () => <Octicon icon={HeartFillIcon} aria-label="Like" size={32} />
 
-export const Playground: StoryFn<typeof Octicon> = ({'aria-label': ariaLabel, ...args}) => (
-  <Octicon icon={HeartFillIcon} aria-label={ariaLabel ? ariaLabel : undefined} {...args} />
-)
+export const Playground: StoryFn<typeof Octicon> = ({'aria-label': ariaLabel, icon: _icon, ...args}) => {
+  return <Octicon icon={HeartFillIcon} aria-label={ariaLabel ? ariaLabel : undefined} {...args} />
+}
 
 Playground.args = {
   'aria-label': 'Heart',
@@ -37,25 +36,7 @@ Playground.argTypes = {
       disable: true,
     },
   },
-  sx: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
   as: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
-  forwardedAs: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
-  theme: {
     controls: false,
     table: {
       disable: true,

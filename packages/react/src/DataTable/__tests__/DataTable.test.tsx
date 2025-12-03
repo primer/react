@@ -1,7 +1,6 @@
 import {describe, expect, it, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
 import {render, screen, getByRole, queryByRole, queryAllByRole, renderHook} from '@testing-library/react'
-import React from 'react'
 import {DataTable, Table} from '../../DataTable'
 import type {Column} from '../column'
 import {createColumnHelper} from '../column'
@@ -827,7 +826,7 @@ describe('DataTable', () => {
 
       // When interacting with Column B, sort order should reset to ASC
       await user.click(screen.getByText('Column B'))
-      expect(getSortHeader('Column A')).not.toHaveAttribute('aria-sort')
+      expect(getSortHeader('Column A sort ascending')).not.toHaveAttribute('aria-sort')
       expect(getSortHeader('Column B')).toHaveAttribute('aria-sort', 'ascending')
       expect(getRowOrder()).toEqual([
         [3, 1],
@@ -1097,7 +1096,7 @@ describe('DataTable', () => {
 
       expect(screen.getByRole('table')).toHaveStyle({
         '--grid-template-columns': 'minmax(max-content, 1fr)',
-      })
+      } as Partial<CSSStyleDeclaration>)
     })
   })
 

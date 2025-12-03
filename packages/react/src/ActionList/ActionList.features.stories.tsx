@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {ActionList} from '.'
 import {Item} from './Item'
 import {LinkItem} from './LinkItem'
@@ -7,7 +7,6 @@ import {Group} from './Group'
 import {Divider} from './Divider'
 import {Description} from './Description'
 import Avatar from '../Avatar'
-import Box from '../Box'
 import Label from '../Label'
 import Heading from '../Heading'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -30,7 +29,9 @@ import {
   IssueOpenedIcon,
   ProjectIcon,
 } from '@primer/octicons-react'
+import {KeybindingHint} from '../KeybindingHint'
 import {FeatureFlags} from '../FeatureFlags'
+import classes from './ActionList.features.stories.module.css'
 
 export default {
   title: 'Components/ActionList/Features',
@@ -55,25 +56,25 @@ export const WithVisualListHeading = () => (
     </ActionList.Heading>
     <ActionList.Group>
       <ActionList.GroupHeading as="h3">Repositories</ActionList.GroupHeading>
-      <ActionList.Item onClick={() => {}}>
+      <ActionList.Item onSelect={() => {}}>
         <ActionList.LeadingVisual>
           <FileDirectoryIcon />
         </ActionList.LeadingVisual>
         app/assets/modules
       </ActionList.Item>
-      <ActionList.Item onClick={() => {}}>
+      <ActionList.Item onSelect={() => {}}>
         <ActionList.LeadingVisual>
           <FileDirectoryIcon />
         </ActionList.LeadingVisual>
         src/react/components
       </ActionList.Item>
-      <ActionList.Item onClick={() => {}}>
+      <ActionList.Item onSelect={() => {}}>
         <ActionList.LeadingVisual>
           <FileDirectoryIcon />
         </ActionList.LeadingVisual>
         memex/shared-ui/components
       </ActionList.Item>
-      <ActionList.Item onClick={() => {}}>
+      <ActionList.Item onSelect={() => {}}>
         <ActionList.LeadingVisual>
           <FileDirectoryIcon />
         </ActionList.LeadingVisual>
@@ -83,19 +84,19 @@ export const WithVisualListHeading = () => (
 
     <ActionList.Group>
       <ActionList.GroupHeading as="h3">Advanced</ActionList.GroupHeading>
-      <ActionList.Item onClick={() => {}}>
+      <ActionList.Item onSelect={() => {}}>
         <ActionList.LeadingVisual>
           <PlusCircleIcon />
         </ActionList.LeadingVisual>
         Owner
       </ActionList.Item>
-      <ActionList.Item onClick={() => {}}>
+      <ActionList.Item onSelect={() => {}}>
         <ActionList.LeadingVisual>
           <PlusCircleIcon />
         </ActionList.LeadingVisual>
         Symbol
       </ActionList.Item>
-      <ActionList.Item onClick={() => {}}>
+      <ActionList.Item onSelect={() => {}}>
         <ActionList.LeadingVisual>
           <PlusCircleIcon />
         </ActionList.LeadingVisual>
@@ -107,7 +108,7 @@ export const WithVisualListHeading = () => (
 
 export const WithCustomHeading = () => (
   <>
-    <Heading as="h1" id="list-heading" sx={{fontSize: 3, marginX: 3}}>
+    <Heading as="h1" id="list-heading" className={classes.HeadingLarge}>
       Details
     </Heading>
     <ActionList aria-labelledby="list-heading">
@@ -329,7 +330,35 @@ export const MultiSelect = () => {
   )
 }
 
-export const ListBoxMultiSelect = () => {
+export const ListboxSingleSelect = () => {
+  const [selectedIndice, setSelectedIndice] = React.useState<number>(0)
+  const handleSelect = (index: number) => {
+    setSelectedIndice(index)
+  }
+
+  return (
+    <ActionList selectionVariant="single" role="listbox" aria-label="Projects">
+      {projects.map((project, index) => (
+        <ActionList.Item
+          key={index}
+          selected={selectedIndice === index}
+          aria-checked={selectedIndice === index}
+          onSelect={() => handleSelect(index)}
+          disabled={index === 3 ? true : undefined}
+          role="option"
+        >
+          <ActionList.LeadingVisual>
+            <TableIcon />
+          </ActionList.LeadingVisual>
+          {project.name}
+          <ActionList.Description variant="block">{project.scope}</ActionList.Description>
+        </ActionList.Item>
+      ))}
+    </ActionList>
+  )
+}
+
+export const ListboxMultiSelect = () => {
   const [selectedIndices, setSelectedIndices] = React.useState<number[]>([0])
   const handleSelect = (index: number) => {
     if (selectedIndices.includes(index)) {
@@ -339,7 +368,7 @@ export const ListBoxMultiSelect = () => {
     }
   }
   return (
-    <ActionList role="menu" selectionVariant="multiple" aria-label="Project">
+    <ActionList role="menu" selectionVariant="multiple" aria-label="Projects">
       {projects.map((project, index) => (
         <ActionList.Item
           key={index}
@@ -482,7 +511,7 @@ export const LoadingItem = () => {
 
 export const Links = () => (
   <ActionList>
-    <ActionList.Heading as="h1" sx={{fontSize: 1}}>
+    <ActionList.Heading as="h1" className={classes.HeadingSmall}>
       Details
     </ActionList.Heading>
     <ActionList.LinkItem href="https://github.com/primer/react#readme">
@@ -533,7 +562,7 @@ export const CustomItemChildren = () => (
 )
 
 export const TextWrapAndTruncation = () => (
-  <Box maxWidth="300px">
+  <div className={classes.BoxWithMaxWidth}>
     <ActionList showDividers>
       <ActionList.Item>
         <ActionList.LeadingVisual>
@@ -554,6 +583,18 @@ export const TextWrapAndTruncation = () => (
         Inline Description
         <ActionList.Description truncate>
           This description gets truncated because it is inline with truncation
+        </ActionList.Description>
+        <ActionList.TrailingVisual>
+          <ArrowLeftIcon />
+        </ActionList.TrailingVisual>
+      </ActionList.Item>
+      <ActionList.Item>
+        <ActionList.LeadingVisual>
+          <ArrowRightIcon />
+        </ActionList.LeadingVisual>
+        Description with truncation and complex children
+        <ActionList.Description truncate>
+          With <strong>bold</strong> and <em>italic</em> text, and it should truncate if it is too long
         </ActionList.Description>
         <ActionList.TrailingVisual>
           <ArrowLeftIcon />
@@ -588,7 +629,7 @@ export const TextWrapAndTruncation = () => (
         </ActionList.TrailingVisual>
       </ActionList.Item>
     </ActionList>
-  </Box>
+  </div>
 )
 
 const teams = [
@@ -797,64 +838,173 @@ export const WithCustomTrailingVisuals = () => (
   </ActionList>
 )
 
-// removing this until CSS Modules FF ships, currently broken in production if button semantic FF is false
-// export const WithTrailingAction = () => {
-//   return (
-//     <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
-//       <ActionList>
-//         <ActionList.Item>
-//           <ActionList.LeadingVisual>
-//             <FileDirectoryIcon />
-//           </ActionList.LeadingVisual>
-//           Item 1 (with default TrailingAction)
-//           <ActionList.TrailingAction label="Expand sidebar" icon={ArrowLeftIcon} />
-//         </ActionList.Item>
-//         <ActionList.Item>
-//           Item 2 (with link TrailingAction)
-//           <ActionList.TrailingAction as="a" href="#" label="Some action 1" icon={ArrowRightIcon} />
-//         </ActionList.Item>
-//         <ActionList.Item>
-//           Item 3<ActionList.Description>This is an inline description.</ActionList.Description>
-//           <ActionList.TrailingAction label="Some action 2" icon={BookIcon} />
-//         </ActionList.Item>
-//         <ActionList.Item>
-//           Item 4<ActionList.Description variant="block">This is a block description.</ActionList.Description>
-//           <ActionList.TrailingAction label="Some action 3" icon={BookIcon} />
-//         </ActionList.Item>
-//         <ActionList.Item>
-//           Item 5<ActionList.Description variant="block">This is a block description.</ActionList.Description>
-//           <ActionList.TrailingAction label="Some action 4" />
-//         </ActionList.Item>
-//         <ActionList.Item>
-//           Item 6
-//           <ActionList.TrailingAction href="#" as="a" label="Some action 5" />
-//         </ActionList.Item>
-//         <ActionList.LinkItem href="#">
-//           LinkItem 1
-//           <ActionList.Description>
-//             with TrailingAction this is a long description and should not cause horizontal scroll on smaller screen
-//             sizes
-//           </ActionList.Description>
-//           <ActionList.TrailingAction label="Another action" />
-//         </ActionList.LinkItem>
-//         <ActionList.LinkItem href="#">
-//           LinkItem 2
-//           <ActionList.Description>
-//             with TrailingVisual this is a long description and should not cause horizontal scroll on smaller screen
-//             sizes
-//           </ActionList.Description>
-//           <ActionList.TrailingVisual>
-//             <TableIcon />
-//           </ActionList.TrailingVisual>
-//         </ActionList.LinkItem>
-//         <ActionList.Item inactiveText="Unavailable due to an outage">
-//           Inactive Item<ActionList.Description>With TrailingAction</ActionList.Description>
-//           <ActionList.TrailingAction as="a" href="#" label="Some action 8" icon={ArrowRightIcon} />
-//         </ActionList.Item>
-//       </ActionList>
-//     </FeatureFlags>
-//   )
-// }
+export const WithKeyboardShortcuts = () => (
+  <ActionList>
+    <ActionList.Item>
+      New file
+      <ActionList.TrailingVisual>
+        <KeybindingHint keys="Mod+N" />
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+    <ActionList.Item>
+      Open file
+      <ActionList.TrailingVisual>
+        <KeybindingHint keys="Mod+O" />
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+    <ActionList.Item>
+      Save
+      <ActionList.TrailingVisual>
+        <KeybindingHint keys="Mod+S" />
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+    <ActionList.Divider />
+    <ActionList.Item variant="danger">
+      Delete
+      <ActionList.TrailingVisual>
+        <KeybindingHint keys="Mod+D" />
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+  </ActionList>
+)
+
+export const WithTrailingCount = () => (
+  <ActionList>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <IssueOpenedIcon />
+      </ActionList.LeadingVisual>
+      Open issues
+      <ActionList.TrailingVisual>
+        <CounterLabel>24</CounterLabel>
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <GitPullRequestIcon />
+      </ActionList.LeadingVisual>
+      Pull requests
+      <ActionList.TrailingVisual>
+        <CounterLabel>8</CounterLabel>
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <ProjectIcon />
+      </ActionList.LeadingVisual>
+      Projects
+      <ActionList.TrailingVisual>
+        <CounterLabel>3</CounterLabel>
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+    <ActionList.Item variant="danger">
+      <ActionList.LeadingVisual>
+        <AlertIcon />
+      </ActionList.LeadingVisual>
+      Alerts
+      <ActionList.TrailingVisual>
+        <CounterLabel>12</CounterLabel>
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+  </ActionList>
+)
+
+export const WithTrailingAction = () => {
+  const [loadingState, setLoadingState] = React.useState(false)
+
+  // Auto-toggle every 2.5 seconds to continuously show transitions
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setLoadingState(prev => !prev)
+    }, 2500)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  return (
+    <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
+      <ActionList>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <FileDirectoryIcon />
+          </ActionList.LeadingVisual>
+          Item 1 (with default TrailingAction)
+          <ActionList.TrailingAction label="Expand sidebar" icon={ArrowLeftIcon} />
+        </ActionList.Item>
+        <ActionList.Item>
+          Item 2 (with link TrailingAction)
+          <ActionList.TrailingAction as="a" href="#" label="Some action 1" icon={ArrowRightIcon} />
+        </ActionList.Item>
+        <ActionList.Item>
+          Item 3<ActionList.Description>This is an inline description.</ActionList.Description>
+          <ActionList.TrailingAction label="Some action 2" icon={BookIcon} />
+        </ActionList.Item>
+        <ActionList.Item>
+          Item 4<ActionList.Description variant="block">This is a block description.</ActionList.Description>
+          <ActionList.TrailingAction label="Some action 3" icon={BookIcon} />
+        </ActionList.Item>
+        <ActionList.Item>
+          Item 5<ActionList.Description variant="block">This is a block description.</ActionList.Description>
+          <ActionList.TrailingAction label="Some action 4" />
+        </ActionList.Item>
+        <ActionList.Item>
+          Item 6
+          <ActionList.TrailingAction href="#" as="a" label="Some action 5" />
+        </ActionList.Item>
+        <ActionList.Item>
+          Icon button loading state
+          <ActionList.Description>
+            Shows how IconButton maintains width and centers spinner when loading
+          </ActionList.Description>
+          <ActionList.TrailingAction label="Process item" icon={ArrowRightIcon} loading />
+        </ActionList.Item>
+        <ActionList.Item>
+          Icon button with transitions
+          <ActionList.Description>
+            Automatically toggles loading state every 2.5 seconds to show transitions
+          </ActionList.Description>
+          <ActionList.TrailingAction label="Toggle loading" icon={ArrowRightIcon} loading={loadingState} />
+        </ActionList.Item>
+        <ActionList.Item>
+          Text button loading state
+          <ActionList.Description>
+            Shows how text button aligns spinner to the right and preserves width
+          </ActionList.Description>
+          <ActionList.TrailingAction label="Save changes" loading />
+        </ActionList.Item>
+        <ActionList.Item>
+          Text button with transitions
+          <ActionList.Description>
+            Automatically toggles loading state every 2.5 seconds to show transitions
+          </ActionList.Description>
+          <ActionList.TrailingAction label="Apply settings" loading={loadingState} />
+        </ActionList.Item>
+        <ActionList.LinkItem href="#">
+          LinkItem 1
+          <ActionList.Description>
+            with TrailingAction this is a long description and should not cause horizontal scroll on smaller screen
+            sizes
+          </ActionList.Description>
+          <ActionList.TrailingAction label="Another action" />
+        </ActionList.LinkItem>
+        <ActionList.LinkItem href="#">
+          LinkItem 2
+          <ActionList.Description>
+            with TrailingVisual this is a long description and should not cause horizontal scroll on smaller screen
+            sizes
+          </ActionList.Description>
+          <ActionList.TrailingVisual>
+            <TableIcon />
+          </ActionList.TrailingVisual>
+        </ActionList.LinkItem>
+        <ActionList.Item inactiveText="Unavailable due to an outage">
+          Inactive Item<ActionList.Description>With TrailingAction</ActionList.Description>
+          <ActionList.TrailingAction as="a" href="#" label="Some action 8" icon={ArrowRightIcon} />
+        </ActionList.Item>
+      </ActionList>
+    </FeatureFlags>
+  )
+}
 
 export const FullVariant = () => (
   <ActionList variant="full">
@@ -863,5 +1013,19 @@ export const FullVariant = () => (
     <ActionList.Item>Edit comment</ActionList.Item>
     <ActionList.Divider />
     <ActionList.Item variant="danger">Delete file</ActionList.Item>
+  </ActionList>
+)
+
+export const LargeItem = () => (
+  <ActionList>
+    <ActionList.Item size="large">Large item</ActionList.Item>
+    <ActionList.Item size="large">
+      Large item
+      <ActionList.Description>With inline description</ActionList.Description>
+    </ActionList.Item>
+    <ActionList.Item size="large">
+      Large item
+      <ActionList.Description variant="block">With block description</ActionList.Description>
+    </ActionList.Item>
   </ActionList>
 )

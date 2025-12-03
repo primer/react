@@ -1,15 +1,18 @@
-import React, {useState, useMemo} from 'react'
-import Box from '../Box'
-import type {Meta} from '@storybook/react'
+import React, {useState, useMemo, useRef, useEffect} from 'react'
+import type {Meta} from '@storybook/react-vite'
 import {Button} from '../Button'
-import type {ItemInput} from '../deprecated/ActionList/List'
+import type {ItemInput} from '../FilteredActionList'
 import {SelectPanel} from './SelectPanel'
 import type {OverlayProps} from '../Overlay'
 import {TriangleDownIcon} from '@primer/octicons-react'
-import {ActionList} from '../deprecated/ActionList'
+import {ActionList} from '../ActionList'
 import FormControl from '../FormControl'
 import {Stack} from '../Stack'
 import {Dialog} from '../experimental'
+import styles from './SelectPanel.examples.stories.module.css'
+import {useVirtualizer, type VirtualItem} from '@tanstack/react-virtual'
+import Checkbox from '../Checkbox'
+import Label from '../Label'
 
 const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Examples',
@@ -29,15 +32,12 @@ const NoResultsMessage = (filter: string): {variant: 'empty'; title: string; bod
 function getColorCircle(color: string) {
   return function () {
     return (
-      <Box
-        bg={color}
-        borderColor={color}
-        width={14}
-        height={14}
-        borderRadius={10}
-        margin="auto"
-        borderWidth="1px"
-        borderStyle="solid"
+      <div
+        className={styles.ColorCircle}
+        style={{
+          backgroundColor: color,
+          borderColor: color,
+        }}
       />
     )
   }
@@ -141,15 +141,15 @@ export const HeightInitialWithUnderflowingItemsAfterFetch = () => {
     <FormControl>
       <FormControl.Label>Labels</FormControl.Label>
       <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
             {children}
           </Button>
         )}
         placeholder="Select labels" // button text when no items are selected
         open={open}
         onOpenChange={onOpenChange}
-        loading={filteredItems.length === 0 && !filter}
+        loading={fetchedItems.length === 0}
         items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
@@ -173,8 +173,8 @@ export const AboveTallBody = () => {
     <FormControl>
       <FormControl.Label>Labels</FormControl.Label>
       <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
             {children}
           </Button>
         )}
@@ -300,28 +300,8 @@ export const CustomItemRenderer = () => {
         onFilterChange={setFilter}
         overlayProps={{width: 'medium'}}
         renderItem={item => (
-          <ActionList.Item
-            {...item}
-            text={undefined}
-            sx={{
-              mx: 2,
-              '&[data-is-active-descendant="activated-directly"]': {
-                backgroundColor: 'transparent',
-                outline: '2px solid var(--focus-outlineColor, var(--color-accent-emphasis))',
-                outlineOffset: '-2px',
-              },
-            }}
-          >
-            {' '}
-            <Box
-              sx={{
-                overflow: 'hidden',
-                whiteSpace: 'nowrap',
-                textOverflow: 'ellipsis',
-              }}
-            >
-              {item.text}
-            </Box>
+          <ActionList.Item id={item.id?.toString()} className={styles.CustomActionListItem}>
+            <ActionList.Description truncate>{item.text}</ActionList.Description>
           </ActionList.Item>
         )}
         message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
@@ -459,5 +439,293 @@ export const SelectPanelRepositionInsideDialog = () => {
         />
       </Stack>
     </Dialog>
+  )
+}
+
+export const WithDefaultMessage = () => {
+  const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
+  const [filter, setFilter] = useState('')
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+
+  const [open, setOpen] = useState(false)
+
+  return (
+    <FormControl>
+      <FormControl.Label>Labels</FormControl.Label>
+      <SelectPanel
+        title="Select labels"
+        placeholder="Select labels" // button text when no items are selected
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            {children}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        width="medium"
+      />
+    </FormControl>
+  )
+}
+
+const NUMBER_OF_ITEMS = 1800
+const lotsOfItems = Array.from({length: NUMBER_OF_ITEMS}, (_, index) => {
+  if (index === 5) {
+    return {
+      id: index,
+      text: `This is being used to show what would happen if you returned an item that needed text wrapping`,
+      description: `Description ${index}`,
+      leadingVisual: getColorCircle('#a2eeef'),
+    }
+  }
+  return {
+    id: index,
+    text: `Item ${index}`,
+    description: `Description ${index}`,
+    leadingVisual: getColorCircle('#a2eeef'),
+  }
+})
+
+export const RenderMoreOnScroll = () => {
+  const [selected, setSelected] = useState<ItemInput[]>([])
+  const [open, setOpen] = useState(false)
+  const [renderSubset, setRenderSubset] = React.useState(true)
+
+  const [filter, setFilter] = useState('')
+  const filteredItems = lotsOfItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+
+  const [numberOfItemsInSubset, setNumberOfItemsInSubset] = useState(50)
+  const subsetOfFiltereredItemsToRender = filteredItems.slice(0, renderSubset ? numberOfItemsInSubset : NUMBER_OF_ITEMS)
+
+  useEffect(function loadMoreItemsOnScrollEnd() {
+    const scrollContainer = document.querySelector('#select-labels-panel-dialog [role="listbox"]')?.parentElement
+
+    const handler = (event: Event) => {
+      const container = event.target as HTMLElement
+      if (container.scrollTop === container.scrollHeight - container.offsetHeight) {
+        // has scrolled to bottom
+        setNumberOfItemsInSubset(numberOfItemsInSubset + 50)
+      }
+    }
+
+    // eslint-disable-next-line github/prefer-observers
+    if (scrollContainer) scrollContainer.addEventListener('scroll', handler)
+    return () => scrollContainer?.removeEventListener('scroll', handler)
+  })
+
+  /* perf measurement logic start */
+  const timeBeforeOpen = useRef<number>()
+  const timeAfterOpen = useRef<number>()
+  const [timeTakenToOpen, setTimeTakenToOpen] = useState<number>()
+
+  const onOpenChange = () => {
+    if (!open) timeBeforeOpen.current = performance.now()
+    setOpen(!open)
+  }
+
+  useEffect(
+    function measureTimeAfterOpen() {
+      if (open) {
+        timeAfterOpen.current = performance.now()
+        if (timeBeforeOpen.current) setTimeTakenToOpen(timeAfterOpen.current - timeBeforeOpen.current)
+      }
+    },
+    [open],
+  )
+  /* end */
+
+  return (
+    <form>
+      <FormControl>
+        <FormControl.Label>Render subset of items on initial open</FormControl.Label>
+        <FormControl.Caption>
+          {renderSubset ? 'Loads more items on scroll' : `Loads all ${NUMBER_OF_ITEMS} items at once`}
+        </FormControl.Caption>
+        <Checkbox
+          checked={renderSubset}
+          onChange={() => {
+            setRenderSubset(!renderSubset)
+            setTimeTakenToOpen(undefined)
+            setNumberOfItemsInSubset(50)
+          }}
+        />
+      </FormControl>
+      <p>
+        Time taken (ms) to render initial {renderSubset ? 50 : NUMBER_OF_ITEMS} items:{' '}
+        {timeTakenToOpen ? <Label>{timeTakenToOpen.toFixed(2)} ms</Label> : '(click "Select Labels" to open)'}
+      </p>
+      <p>
+        Known bug: Scroll resets to top when the items change. Works well with feature flag{' '}
+        <Label>primer_react_select_panel_remove_active_descendant</Label>
+      </p>
+
+      <FormControl>
+        <FormControl.Label>Labels</FormControl.Label>
+        <SelectPanel
+          title="Select labels"
+          placeholder="Select labels"
+          subtitle="Use labels to organize issues and pull requests"
+          renderAnchor={({children, ...anchorProps}) => (
+            <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+              {children}
+            </Button>
+          )}
+          open={open}
+          onOpenChange={onOpenChange}
+          items={subsetOfFiltereredItemsToRender}
+          selected={selected}
+          onSelectedChange={setSelected}
+          onFilterChange={setFilter}
+          width="medium"
+          height="large"
+          message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+          overlayProps={{
+            id: 'select-labels-panel-dialog',
+          }}
+        />
+      </FormControl>
+    </form>
+  )
+}
+
+const DEFAULT_VIRTUAL_ITEM_HEIGHT = 35
+
+export const Virtualized = () => {
+  const [selected, setSelected] = useState<ItemInput[]>([])
+  const [open, setOpen] = useState(false)
+  const [renderSubset, setRenderSubset] = useState(true)
+
+  const [filter, setFilter] = useState('')
+  const [scrollContainer, setScrollContainer] = useState<HTMLDivElement | null>(null)
+  const filteredItems = lotsOfItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+
+  /* perf measurement logic start */
+  const timeBeforeOpen = useRef<number>()
+  const timeAfterOpen = useRef<number>()
+  const [timeTakenToOpen, setTimeTakenToOpen] = useState<number>()
+
+  const onOpenChange = () => {
+    if (!open) timeBeforeOpen.current = performance.now()
+    setOpen(!open)
+  }
+  useEffect(
+    function measureTimeAfterOpen() {
+      if (open) {
+        timeAfterOpen.current = performance.now()
+        if (timeBeforeOpen.current) setTimeTakenToOpen(timeAfterOpen.current - timeBeforeOpen.current)
+      }
+    },
+    [open],
+  )
+
+  const virtualizer = useVirtualizer({
+    count: filteredItems.length,
+    getScrollElement: () => scrollContainer ?? null,
+    estimateSize: () => DEFAULT_VIRTUAL_ITEM_HEIGHT,
+    overscan: 10,
+    enabled: renderSubset,
+    measureElement: el => {
+      return (el as HTMLElement).scrollHeight
+    },
+  })
+
+  const virtualizedContainerStyle = useMemo(
+    () =>
+      renderSubset
+        ? {
+            height: virtualizer.getTotalSize(),
+            width: '100%',
+            position: 'relative' as const,
+          }
+        : undefined,
+    [renderSubset, virtualizer],
+  )
+
+  const virtualizedItems = useMemo(
+    () =>
+      renderSubset
+        ? virtualizer.getVirtualItems().map((virtualItem: VirtualItem) => {
+            const item = filteredItems[virtualItem.index]
+
+            return {
+              ...item,
+              key: virtualItem.index,
+              'data-index': virtualItem.index,
+              ref: (node: Element | null) => {
+                if (node && node.getAttribute('data-index')) {
+                  virtualizer.measureElement(node)
+                }
+              },
+              style: {
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: `${virtualItem.size}px`,
+                transform: `translateY(${virtualItem.start}px)`,
+              },
+            }
+          })
+        : filteredItems,
+    [renderSubset, virtualizer, filteredItems],
+  )
+
+  return (
+    <form>
+      <FormControl>
+        <FormControl.Label>Render subset of items on initial open</FormControl.Label>
+        <FormControl.Caption>
+          {renderSubset
+            ? 'Uses virtualization to render visible items efficiently'
+            : `Loads all ${NUMBER_OF_ITEMS} items at once without virtualization`}
+        </FormControl.Caption>
+        <Checkbox
+          checked={renderSubset}
+          onChange={() => {
+            setRenderSubset(!renderSubset)
+            setTimeTakenToOpen(undefined)
+          }}
+        />
+      </FormControl>
+      <p>
+        Time taken (ms) to render initial {renderSubset ? 50 : NUMBER_OF_ITEMS} items:{' '}
+        {timeTakenToOpen ? <Label>{timeTakenToOpen.toFixed(2)} ms</Label> : '(click "Select Labels" to open)'}
+      </p>
+      <FormControl>
+        <FormControl.Label>Labels</FormControl.Label>
+        <SelectPanel
+          title="Select labels"
+          placeholder="Select labels"
+          subtitle="Use labels to organize issues and pull requests"
+          renderAnchor={({children, ...anchorProps}) => (
+            <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+              {children}
+            </Button>
+          )}
+          open={open}
+          onOpenChange={onOpenChange}
+          items={virtualizedItems}
+          selected={selected}
+          onSelectedChange={setSelected}
+          onFilterChange={setFilter}
+          width="medium"
+          height="large"
+          message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+          overlayProps={{
+            id: 'select-labels-panel-dialog',
+          }}
+          focusOutBehavior="stop"
+          scrollContainerRef={node => setScrollContainer(node)}
+          actionListProps={{
+            style: virtualizedContainerStyle,
+          }}
+        />
+      </FormControl>
+    </form>
   )
 }

@@ -187,3 +187,5 @@ AutocompleteInput.displayName = 'AutocompleteInput'
 
 export type AutocompleteInputProps = ComponentProps<typeof AutocompleteInput>
 export default AutocompleteInput
+
+AutocompleteInput.__SLOT__ = Symbol('Autocomplete.Input')

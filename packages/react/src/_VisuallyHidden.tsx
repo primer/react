@@ -1,29 +1,29 @@
-import styled from 'styled-components'
-import type {SxProp} from './sx'
-import sx from './sx'
+import classes from './_VisuallyHidden.module.css'
+import {clsx} from 'clsx'
+import type {PolymorphicProps} from './utils/modern-polymorphic'
+import type {ElementType} from 'react'
 
-interface Props {
-  isVisible?: boolean
+type VisuallyHiddenProps<As extends ElementType = 'span'> = PolymorphicProps<
+  As,
+  'span',
+  {
+    isVisible?: boolean
+  }
+>
+
+function VisuallyHidden<As extends ElementType = 'span'>({
+  isVisible,
+  children,
+  as,
+  className,
+  ...rest
+}: VisuallyHiddenProps<As>) {
+  const Component = as || 'span'
+  return (
+    <Component className={clsx(className, {[classes.InternalVisuallyHidden]: !isVisible})} {...rest}>
+      {children}
+    </Component>
+  )
 }
-
-const VisuallyHidden = styled.span<Props & SxProp>`
-  ${({isVisible = false}) => {
-    if (isVisible) {
-      return sx
-    }
-
-    return `
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border-width: 0;
-    `
-  }}
-`
 
 export default VisuallyHidden

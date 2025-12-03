@@ -1,6 +1,6 @@
-import React from 'react'
-import {Button, Box} from '..'
+import {Button} from '..'
 import {Tooltip} from './Tooltip'
+import classes from './Tooltip.dev.stories.module.css'
 
 export default {
   title: 'Components/TooltipV2/Dev',
@@ -9,17 +9,9 @@ export default {
 
 // Description type, north direction by default
 export const Default = () => (
-  <Box sx={{p: 6}}>
-    <Tooltip
-      text="This tooltip has a red background and a larger font size."
-      sx={{
-        '&[popover]': {
-          background: 'red',
-          fontSize: 2,
-        },
-      }}
-    >
+  <div className={classes.PaddedContainer}>
+    <Tooltip text="This tooltip has a red background and a larger font size." className={classes.Popover}>
       <Button>Delete</Button>
     </Tooltip>
-  </Box>
+  </div>
 )

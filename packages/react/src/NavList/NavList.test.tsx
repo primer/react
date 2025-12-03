@@ -1,57 +1,26 @@
+import {describe, it, expect, vi} from 'vitest'
 import {render, fireEvent, act} from '@testing-library/react'
 import React from 'react'
-import {ThemeProvider} from '..'
 import {NavList} from './NavList'
 import {FeatureFlags} from '../FeatureFlags'
-import {ReactRouterLikeLink} from '../__tests__/mocks/ReactRouterLink'
+import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
 
 type NextJSLinkProps = {href: string; children: React.ReactNode}
 
 const NextJSLikeLink = React.forwardRef<HTMLAnchorElement, NextJSLinkProps>(
-  ({href, children}, ref): React.ReactElement => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ({href, children}, ref): React.ReactElement<any> => {
     const child = React.Children.only(children)
     const childProps = {
       ref,
       href,
     }
+    // eslint-disable-next-line react-hooks/refs
     return <>{React.isValidElement(child) ? React.cloneElement(child, childProps) : null}</>
   },
 )
 
 describe('NavList', () => {
-  it('renders a simple list', () => {
-    const {container} = render(
-      <ThemeProvider>
-        <NavList>
-          <NavList.Item href="/" aria-current="page">
-            Home
-          </NavList.Item>
-          <NavList.Item href="/about">About</NavList.Item>
-          <NavList.Item href="/contact">Contact</NavList.Item>
-        </NavList>
-      </ThemeProvider>,
-    )
-    expect(container).toMatchSnapshot()
-  })
-
-  it('renders with groups', () => {
-    const {container} = render(
-      <ThemeProvider>
-        <NavList>
-          <NavList.Group title="Overview">
-            <NavList.Item href="/getting-started" aria-current="page">
-              Getting started
-            </NavList.Item>
-          </NavList.Group>
-          <NavList.Group title="Components">
-            <NavList.Item href="/Avatar">Avatar</NavList.Item>
-          </NavList.Group>
-        </NavList>
-      </ThemeProvider>,
-    )
-    expect(container).toMatchSnapshot()
-  })
-
   it('supports TrailingAction', async () => {
     const {getByRole} = render(
       <NavList>
@@ -182,7 +151,7 @@ describe('NavList.Item with NavList.SubNav', () => {
     expect(subNav).toBeNull()
   })
 
-  it('toggles visiblility of SubNav when clicked', () => {
+  it('toggles visibility of SubNav when clicked', () => {
     const {getByRole, queryByRole} = render(<NavListWithSubNav />)
     const itemWithSubNav = getByRole('button', {name: 'Item 2'})
 
@@ -198,60 +167,8 @@ describe('NavList.Item with NavList.SubNav', () => {
     expect(queryByRole('list', {name: 'Item 2'})).toBeNull()
   })
 
-  it('has active styles if SubNav contains the current item and is closed', () => {
-    const {container, getByRole, queryByRole} = render(
-      <ThemeProvider>
-        <NavList>
-          <NavList.Item>
-            Item
-            <NavList.SubNav>
-              <NavList.Item href="#" aria-current="page">
-                Sub Item
-              </NavList.Item>
-            </NavList.SubNav>
-          </NavList.Item>
-        </NavList>
-      </ThemeProvider>,
-    )
-
-    const button = getByRole('button')
-
-    // Starts open
-    expect(queryByRole('list', {name: 'Item'})).toBeVisible()
-
-    // Click to close
-    fireEvent.click(button)
-    expect(queryByRole('list', {name: 'Item'})).toBeNull()
-
-    // Snapshot styles
-    expect(container).toMatchSnapshot()
-  })
-
-  it('does not have active styles if SubNav contains the current item and is open', () => {
-    const {container, queryByRole} = render(
-      <ThemeProvider>
-        <NavList>
-          <NavList.Item>
-            Item
-            <NavList.SubNav>
-              <NavList.Item href="#" aria-current="page">
-                Sub Item
-              </NavList.Item>
-            </NavList.SubNav>
-          </NavList.Item>
-        </NavList>
-      </ThemeProvider>,
-    )
-
-    // Starts open
-    expect(queryByRole('list', {name: 'Item'})).toBeVisible()
-
-    // Snapshot styles
-    expect(container).toMatchSnapshot()
-  })
-
   it('prevents more than 4 levels of nested SubNavs', () => {
-    const consoleSpy = jest
+    const consoleSpy = vi
       .spyOn(console, 'error')
       // Suppress error message in test output
       .mockImplementation(() => null)
@@ -302,7 +219,7 @@ describe('NavList.Item with NavList.SubNav', () => {
     expect(consoleSpy).toHaveBeenCalled()
   })
 
-  it('is compatiable with React-Router-like link components', () => {
+  it('is compatible with React-Router-like link components', () => {
     function NavLink({href, children}: {href: string; children: React.ReactNode}) {
       // In a real app, you'd check if the href matches the url of the current page. For testing purposes, we'll use the text of the link to determine if it's current
       const isCurrent = children === 'Current'

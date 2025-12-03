@@ -5,7 +5,8 @@ import {Item} from './ActionList/Item'
 import {Divider} from './ActionList/Divider'
 import type {ButtonProps} from '../Button'
 import {Button} from '../Button'
-import React, {useCallback, useMemo} from 'react'
+import type React from 'react'
+import {useCallback, useMemo, type JSX} from 'react'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import type {OverlayProps} from '../Overlay'
@@ -45,9 +46,11 @@ const ActionMenuItem = (props: ItemProps) => <Item role="menuitem" {...props} />
 
 ActionMenuItem.displayName = 'ActionMenu.Item'
 
+const defaultRenderAnchor = <T extends ButtonProps>(props: T) => <Button {...props} />
+
 const ActionMenuBase = ({
   anchorContent,
-  renderAnchor = <T extends ButtonProps>(props: T) => <Button {...props} />,
+  renderAnchor = defaultRenderAnchor,
   anchorRef: externalAnchorRef,
   onAction,
   open,

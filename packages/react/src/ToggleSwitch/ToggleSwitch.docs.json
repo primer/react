@@ -2,7 +2,7 @@
   "id": "toggle_switch",
   "name": "ToggleSwitch",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-toggleswitch--default"
@@ -30,6 +30,9 @@
     },
     {
       "id": "components-toggleswitch-features--controlled"
+    },
+    {
+      "id": "components-toggleswitch-features--with-custom-labels"
     }
   ],
   "importPath": "@primer/react",
@@ -93,13 +96,37 @@
       "name": "statusLabelPosition",
       "type": "'start' | 'end'",
       "defaultValue": "'start'",
-      "description": "<div>Whether the \"on\" and \"off\" labels should appear before or after the switch.</div> <div> <Text fontWeight=\"bold\">This should only be changed when the switch's alignment needs to be adjusted.</Text> For example: It needs to be left-aligned because the label appears above it and the caption appears below it. </div>"
+      "description": "Whether the \"on\" and \"off\" labels should appear before or after the switch.\n\n**This should only be changed when the switch's alignment needs to be adjusted.** For example: It needs to be left-aligned because the label appears above it and the caption appears below it."
+    },
+    {
+      "name": "loadingLabelDelay",
+      "type": "number",
+      "defaultValue": "2000",
+      "description": "When the switch is in the loading state, this value controls the amount of delay in milliseconds before the word \"Loading\" is announced to screen readers."
+    },
+    {
+      "name": "loadingLabel",
+      "type": "string",
+      "defaultValue": "'Loading'",
+      "description": "The text that is announced to AT such as screen readers when the switch is in a loading state."
     },
     {
       "name": "buttonType",
       "type": "'button' | 'submit' | 'reset'",
       "defaultValue": "'button'",
-      "description": "<div>As it’s part of form behavior, this controls whether the button is of type button, submit, or reset.</div>"
+      "description": "As it’s part of form behavior, this controls whether the button is of type `button`, `submit`, or `reset`."
+    },
+    {
+      "name": "buttonLabelOn",
+      "type": "string",
+      "defaultValue": "'On'",
+      "description": "The text to display when the toggle switch is turned on. Only customize this label if there is a more specific label for the context. For example, you might use 'Show' if the setting is 'Show images'."
+    },
+    {
+      "name": "buttonLabelOff",
+      "type": "string",
+      "defaultValue": "'Off'",
+      "description": "The text to display when the toggle switch is turned off. Only customize this label if there is a more specific label for the context. For example, you might use 'Hide' if the setting is 'Show images'."
     }
   ],
   "subcomponents": []

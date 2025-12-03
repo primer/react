@@ -1,4 +1,3 @@
-import React from 'react'
 import {Pagination} from '../../src'
 import figma from '@figma/code-connect'
 

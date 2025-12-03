@@ -1,5 +1,4 @@
-import React from 'react'
-import type {StoryFn, Meta} from '@storybook/react'
+import type {StoryFn, Meta} from '@storybook/react-vite'
 import Text from './Text'
 
 export default {
@@ -20,12 +19,6 @@ Playground.args = {
 Playground.argTypes = {
   as: {
     type: 'string',
-  },
-  sx: {
-    controls: false,
-    table: {
-      disable: true,
-    },
   },
   ref: {
     controls: false,

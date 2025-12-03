@@ -1,6 +1,8 @@
 import {render} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React, {useState} from 'react'
+import {describe, expect, test, vi} from 'vitest'
+import type React from 'react'
+import {useState} from 'react'
 import {useControllableState} from '../useControllableState'
 
 describe('useControllableState', () => {
@@ -19,8 +21,8 @@ describe('useControllableState', () => {
   })
 
   test('controlled to uncontrolled', async () => {
-    const error = jest.spyOn(console, 'error').mockImplementation(() => {})
-    const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
+    const error = vi.spyOn(console, 'error').mockImplementation(() => {})
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
     const {getByTestId} = render(<Toggle defaultControlled />)
     await userEvent.click(getByTestId('toggle'))
@@ -33,7 +35,7 @@ describe('useControllableState', () => {
   })
 
   test('uncontrolled to controlled', async () => {
-    const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
     const {getByTestId} = render(<Toggle defaultControlled={false} />)
     await userEvent.click(getByTestId('toggle'))

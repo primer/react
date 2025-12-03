@@ -39,19 +39,20 @@ export type TextInputNonPassthroughProps = {
    * A visual that renders inside the input after the typing area
    */
   trailingAction?: React.ReactElement<React.HTMLProps<HTMLButtonElement>>
-} & Pick<
-  StyledWrapperProps,
-  | 'block'
-  | 'contrast'
-  | 'disabled'
-  | 'monospace'
-  | 'sx'
-  | 'width'
-  | 'maxWidth'
-  | 'minWidth'
-  | 'variant'
-  | 'size'
-  | 'validationStatus'
+} & Partial<
+  Pick<
+    StyledWrapperProps,
+    | 'block'
+    | 'contrast'
+    | 'disabled'
+    | 'monospace'
+    | 'width'
+    | 'maxWidth'
+    | 'minWidth'
+    | 'variant'
+    | 'size'
+    | 'validationStatus'
+  >
 >
 
 export type TextInputProps = Merge<React.ComponentPropsWithoutRef<'input'>, TextInputNonPassthroughProps>
@@ -73,15 +74,14 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       loaderText = 'Loading',
       monospace,
       validationStatus,
-      sx: sxProp,
       size: sizeProp,
       onFocus,
       onBlur,
       // start deprecated props
+      variant: variantProp,
       width: widthProp,
       minWidth: minWidthProp,
       maxWidth: maxWidthProp,
-      variant: variantProp,
       // end deprecated props
       type = 'text',
       required,
@@ -90,15 +90,22 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     ref,
   ) => {
     const [isInputFocused, setIsInputFocused] = useState<boolean>(false)
-    const inputRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
+    const inputRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement | null>)
     // this class is necessary to style FilterSearch, plz no touchy!
     const wrapperClasses = clsx(className, 'TextInput-wrapper')
     const showLeadingLoadingIndicator =
       loading && (loaderPosition === 'leading' || Boolean(LeadingVisual && loaderPosition !== 'trailing'))
     const showTrailingLoadingIndicator =
       loading && (loaderPosition === 'trailing' || Boolean(loaderPosition === 'auto' && !LeadingVisual))
-    const focusInput: MouseEventHandler = () => {
-      inputRef.current?.focus()
+
+    // Date/time input types that have segment-based focus
+    const isSegmentedInputType = type === 'date' || type === 'time' || type === 'datetime-local'
+
+    const focusInput: MouseEventHandler = e => {
+      // Don't call focus() if the input itself was clicked on date/time inputs.
+      if (e.target !== inputRef.current || !isSegmentedInputType) {
+        inputRef.current?.focus()
+      }
     }
     const leadingVisualId = useId()
     const trailingVisualId = useId()
@@ -135,7 +142,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         contrast={contrast}
         disabled={disabled}
         monospace={monospace}
-        sx={sxProp}
         size={sizeProp}
         width={widthProp}
         minWidth={minWidthProp}
@@ -158,6 +164,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           {typeof LeadingVisual !== 'string' && isValidElementType(LeadingVisual) ? <LeadingVisual /> : LeadingVisual}
         </TextInputInnerVisualSlot>
         <UnstyledTextInput
+          // @ts-expect-error it needs a non nullable ref
           ref={inputRef}
           disabled={disabled}
           onFocus={handleInputFocus}
@@ -192,5 +199,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
 TextInput.displayName = 'TextInput'
 
 export default Object.assign(TextInput, {
+  __SLOT__: Symbol('TextInput'),
   Action: TextInputAction,
 })

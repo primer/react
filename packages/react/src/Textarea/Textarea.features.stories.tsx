@@ -1,5 +1,4 @@
-import React from 'react'
-import {Box, FormControl, Heading, Stack} from '..'
+import {FormControl, Heading, Stack} from '..'
 import Textarea from '../Textarea'
 
 export default {
@@ -7,26 +6,26 @@ export default {
 }
 
 export const Disabled = () => (
-  <Box as="form">
+  <form>
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
       <Textarea disabled />
     </FormControl>
-  </Box>
+  </form>
 )
 
 export const WithCaption = () => (
-  <Box as="form">
+  <form>
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
       <FormControl.Caption>This is a caption</FormControl.Caption>
       <Textarea />
     </FormControl>
-  </Box>
+  </form>
 )
 
 export const VisuallyHiddenLabel = () => (
-  <Box as="form">
+  <form>
     <Heading as="h2" variant="small">
       Primer form title
     </Heading>
@@ -35,54 +34,54 @@ export const VisuallyHiddenLabel = () => (
       <Textarea />
       <FormControl.Caption>Label is visually hidden; the title describes the purpose visually</FormControl.Caption>
     </FormControl>
-  </Box>
+  </form>
 )
 
 export const Error = () => (
-  <Box as="form">
+  <form>
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
       <Textarea />
       <FormControl.Validation variant="error">Something went wrong</FormControl.Validation>
     </FormControl>
-  </Box>
+  </form>
 )
 
 export const Success = () => (
-  <Box as="form">
+  <form>
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
       <Textarea />
       <FormControl.Validation variant="success">Success</FormControl.Validation>
     </FormControl>
-  </Box>
+  </form>
 )
 
 export const Block = () => (
-  <Box as="form">
+  <form>
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
       <Textarea block />
     </FormControl>
-  </Box>
+  </form>
 )
 
 export const CustomHeight = () => (
-  <Box as="form">
+  <form>
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
       <Textarea rows={3} />
     </FormControl>
-  </Box>
+  </form>
 )
 
 export const CustomWidth = () => (
-  <Box as="form">
+  <form>
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
       <Textarea cols={60} />
     </FormControl>
-  </Box>
+  </form>
 )
 
 export const CustomResizeBehavior = () => (
@@ -104,4 +103,22 @@ export const CustomResizeBehavior = () => (
       <Textarea resize="vertical" />
     </FormControl>
   </Stack>
+)
+
+export const MinimumHeight = () => (
+  <form>
+    <FormControl>
+      <FormControl.Label>Default label</FormControl.Label>
+      <Textarea rows={1} minHeight={100} />
+    </FormControl>
+  </form>
+)
+
+export const MaximumHeight = () => (
+  <form>
+    <FormControl>
+      <FormControl.Label>Default label</FormControl.Label>
+      <Textarea rows={20} maxHeight={200} />
+    </FormControl>
+  </form>
 )

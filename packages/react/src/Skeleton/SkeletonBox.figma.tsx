@@ -1,4 +1,3 @@
-import React from 'react'
 import {SkeletonBox} from './'
 import figma from '@figma/code-connect'
 

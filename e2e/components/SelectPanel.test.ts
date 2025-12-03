@@ -5,7 +5,6 @@ import {matrix} from '../test-helpers/matrix'
 
 const scenarios = matrix({
   theme: themes,
-  modernActionList: [false, true],
   story: [
     {id: 'components-selectpanel--default', name: 'Default'},
     {id: 'components-selectpanel-features--single-select', name: 'Single Select'},
@@ -21,6 +20,7 @@ const scenarios = matrix({
       id: 'components-selectpanel-features--with-placeholder-for-search-input',
       name: 'With Placeholder for Search Input',
     },
+    {id: 'components-selectpanel-features--with-select-all', name: 'With Select All'},
     {id: 'components-selectpanel-examples--above-tall-body', name: 'Above Tall Body'},
     {id: 'components-selectpanel-examples--height-variations-and-scroll', name: 'Height Variations and Scroll'},
     {
@@ -34,18 +34,11 @@ const scenarios = matrix({
     {
       id: 'components-selectpanel-examples--height-initial-with-underflowing-items-after-fetch',
       name: 'Height Initial with Underflowing Items After Fetch',
+      visual: false,
     },
     {
       id: 'components-selectpanel-dev--with-css',
       name: 'With Css',
-    },
-    {
-      id: 'components-selectpanel-dev--with-sx',
-      name: 'With Sx',
-    },
-    {
-      id: 'components-selectpanel-dev--with-sx-and-css',
-      name: 'With Sx and Css',
     },
   ],
 })
@@ -54,26 +47,29 @@ test.describe('SelectPanel', () => {
   for (const scenario of scenarios) {
     const name = scenario.story.name
     const theme = scenario.theme
-    const flag = scenario.modernActionList ? `.modern-action-list--${scenario.modernActionList}` : ''
 
     const globals = {
       colorScheme: scenario.theme,
-      featureFlags: {primer_react_select_panel_with_modern_action_list: scenario.modernActionList},
     }
 
-    test(`${name} @vrt ${theme} ${flag}`, async ({page}) => {
-      await visit(page, {id: scenario.story.id, globals})
+    if (scenario.story.visual !== false) {
+      test(`${name} @vrt ${theme}`, async ({page}) => {
+        await visit(page, {id: scenario.story.id, globals})
+        await page.emulateMedia({reducedMotion: 'reduce'})
 
-      // Open select panel
-      const isPanelOpen = await page.isVisible('[role="listbox"]')
-      if (!isPanelOpen) {
-        await page.keyboard.press('Tab')
-        await page.keyboard.press('Enter')
-      }
-      expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SelectPanel.${name}.${theme}${flag}.png`)
-    })
+        // Open select panel
+        const isPanelOpen = await page.isVisible('[role="listbox"]')
+        if (!isPanelOpen) {
+          await page.keyboard.press('Tab')
+          await page.keyboard.press('Enter')
+        }
+        expect(await page.screenshot({animations: 'disabled', caret: 'hide'})).toMatchSnapshot(
+          `SelectPanel.${name}.${theme}.png`,
+        )
+      })
+    }
 
-    test(`${name} axe @aat ${theme} ${flag}`, async ({page}) => {
+    test(`${name} axe @aat ${theme}`, async ({page}) => {
       await visit(page, {id: scenario.story.id, globals})
       await expect(page).toHaveNoViolations({
         rules: {
@@ -85,10 +81,10 @@ test.describe('SelectPanel', () => {
     })
   }
 
-  test(`Default @vrt forced-colors .modern-action-list--true`, async ({page}) => {
+  // eslint-disable-next-line playwright/no-skipped-test
+  test.skip(`Default @vrt forced-colors`, async ({page}) => {
     await visit(page, {
       id: 'components-selectpanel--default',
-      globals: {featureFlags: {primer_react_select_panel_with_modern_action_list: true}},
     })
 
     // Open select panel
@@ -99,24 +95,29 @@ test.describe('SelectPanel', () => {
     }
 
     // windows high contrast mode: light
-    await page.emulateMedia({forcedColors: 'active', colorScheme: 'light'})
-    expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-      `SelectPanel-Default-forced-colors-light-modern-action-list--true.png`,
+    await page.emulateMedia({forcedColors: 'active', colorScheme: 'light', reducedMotion: 'reduce'})
+    await page.getByRole('listbox').waitFor({state: 'visible'})
+    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(255, 255, 255)')
+
+    expect(await page.screenshot({animations: 'disabled', caret: 'hide'})).toMatchSnapshot(
+      `SelectPanel-Default-forced-colors-light.png`,
     )
 
     // windows high contrast mode: dark
-    await page.emulateMedia({forcedColors: 'active', colorScheme: 'dark'})
-    expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-      `SelectPanel-Default-forced-colors-dark-modern-action-list--true.png`,
+    await page.emulateMedia({forcedColors: 'active', colorScheme: 'dark', reducedMotion: 'reduce'})
+    await page.getByRole('listbox').waitFor({state: 'visible'})
+    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(0, 0, 0)')
+
+    expect(await page.screenshot({animations: 'disabled', caret: 'hide'})).toMatchSnapshot(
+      `SelectPanel-Default-forced-colors-dark.png`,
     )
   })
 
-  test(`Default @vrt responsive width .modern-action-list--true .fullscreen-on-narrow--true`, async ({page}) => {
+  test(`Default @vrt responsive width .fullscreen-on-narrow--true`, async ({page}) => {
     await visit(page, {
       id: 'components-selectpanel--default',
       globals: {
         featureFlags: {
-          primer_react_select_panel_with_modern_action_list: true,
           primer_react_select_panel_fullscreen_on_narrow: true,
         },
       },
@@ -131,19 +132,14 @@ test.describe('SelectPanel', () => {
       await page.keyboard.press('Enter')
     }
 
-    expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-      `SelectPanel-Default-responsive-width-light-modern-action-list--true-full-screen-on-narrow--true.png`,
+    expect(await page.screenshot({animations: 'disabled', caret: 'hide'})).toMatchSnapshot(
+      `SelectPanel-Default-responsive-width-light-full-screen-on-narrow--true.png`,
     )
   })
 
   test(`Default @vrt with notice`, async ({page}) => {
     await visit(page, {
       id: 'components-selectpanel-features--with-notice',
-      globals: {
-        featureFlags: {
-          primer_react_select_panel_with_modern_action_list: true,
-        },
-      },
     })
 
     // Open select panel
@@ -156,8 +152,8 @@ test.describe('SelectPanel', () => {
       await page.keyboard.press('Enter')
     }
 
-    expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-      `SelectPanel-features--with-notice-light-modern-action-list--true.png`,
+    expect(await page.screenshot({animations: 'disabled', caret: 'hide'})).toMatchSnapshot(
+      `SelectPanel-features--with-notice-light.png`,
     )
   })
 })

@@ -2,7 +2,7 @@
   "id": "tree_view",
   "name": "TreeView",
   "status": "beta",
-  "a11yReviewed": true,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-treeview-features--files"
@@ -110,6 +110,11 @@
           "description": "The controlled expanded state of item. Must be used in conjunction with onExpandedChange."
         },
         {
+          "name": "secondaryActions",
+          "type": "TreeViewSecondaryActions[]",
+          "description": "An array of secondary actions to render in as a trailing action. Each action should have a 'label', 'icon', and 'onClick' handler."
+        },
+        {
           "name": "containIntrinsicSize",
           "type": "string",
           "description": "The size of this item's contents. Passing this will set 'content-visiblity: auto' on the content container, delaying rendering until the item is in the viewport."
@@ -179,7 +184,7 @@
         {
           "name": "state",
           "type": "| 'initial'\n| 'loading'\n| 'done'\n| 'error'",
-          "description": "Specify a state if items in the subtree are loaded asynchronously. An asynchronous subtree can be in one of the following states: 'initial', 'loading', 'done', or 'error'. In the 'initial' state, items are neither loaded nor loading. In the 'loading' state, items are loading and the subtree will render a loading indicator. In the 'done' state, items are loaded. Screen readers will announce when a subtree enters the 'done' state. An 'error' state means that an error occured while loading items."
+          "description": "Specify a state if items in the subtree are loaded asynchronously. An asynchronous subtree can be in one of the following states: 'initial', 'loading', 'done', or 'error'. In the 'initial' state, items are neither loaded nor loading. In the 'loading' state, items are loading and the subtree will render a loading indicator. In the 'done' state, items are loaded. Screen readers will announce when a subtree enters the 'done' state. An 'error' state means that an error occurred while loading items."
         },
         {
           "name": "count",

@@ -1,12 +1,10 @@
 import type {To} from 'history'
 import type {ComponentProps} from './utils/types'
 import Link, {type LinkProps} from './Link'
-import React, {type PropsWithChildren} from 'react'
+import type React from 'react'
+import {type PropsWithChildren} from 'react'
 import {clsx} from 'clsx'
-import type {SxProp} from './sx'
 import classes from './SideNav.module.css'
-import {defaultSxProp} from './utils/defaultSxProp'
-import {BoxWithFallback} from './internal/components/BoxWithFallback'
 
 type SideNavBaseProps = {
   as?: React.ElementType
@@ -15,16 +13,15 @@ type SideNavBaseProps = {
   className?: string
   children?: React.ReactNode
   'aria-label'?: string
-} & SxProp
+}
 
 function SideNav({
-  as = 'nav',
+  as: Component = 'nav',
   variant = 'normal',
   className,
   bordered,
   children,
   'aria-label': ariaLabel,
-  sx: sxProp = defaultSxProp,
 }: SideNavBaseProps) {
   const variantClassName = variant === 'lightweight' ? 'lightweight' : 'normal'
   const newClassName = clsx(
@@ -39,9 +36,9 @@ function SideNav({
   )
 
   return (
-    <BoxWithFallback as={as} className={newClassName} aria-label={ariaLabel} sx={sxProp}>
+    <Component className={newClassName} aria-label={ariaLabel}>
       {children}
-    </BoxWithFallback>
+    </Component>
   )
 }
 
@@ -58,15 +55,9 @@ const SideNavLink = ({selected, to, variant, className, children, ...rest}: Styl
   // according to their docs, NavLink supports aria-current:
   // https://reacttraining.com/react-router/web/api/NavLink/aria-current-string
   return (
-    <BoxWithFallback
-      as={Link}
-      aria-current={isReactRouter || selected ? 'page' : undefined}
-      className={newClassName}
-      variant={variant}
-      {...rest}
-    >
+    <Link aria-current={isReactRouter || selected ? 'page' : undefined} className={newClassName} {...rest}>
       {children}
-    </BoxWithFallback>
+    </Link>
   )
 }
 

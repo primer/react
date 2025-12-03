@@ -1,38 +1,11 @@
 import React from 'react'
-import {fireEvent, render, waitFor} from '@testing-library/react'
+import {render, fireEvent, waitFor} from '@testing-library/react'
+import {describe, expect, it, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
 import {Dialog} from './Dialog'
-import MatchMediaMock from 'jest-matchmedia-mock'
-import {behavesAsComponent, checkExports} from '../utils/testing'
-import axe from 'axe-core'
 import {Button} from '../Button'
 
-let matchMedia: MatchMediaMock
-
 describe('Dialog', () => {
-  beforeEach(() => {
-    matchMedia = new MatchMediaMock()
-  })
-
-  afterEach(() => {
-    matchMedia.clear()
-  })
-
-  behavesAsComponent({
-    Component: Dialog,
-    options: {skipAs: true, skipSx: true, skipClassName: true},
-    toRender: () => (
-      <Dialog onClose={() => {}}>
-        <div>Hidden when narrow</div>
-      </Dialog>
-    ),
-  })
-
-  checkExports('Dialog/Dialog', {
-    default: undefined,
-    Dialog,
-  })
-
   it('renders with role "dialog" by default', () => {
     const {getByRole} = render(<Dialog onClose={() => {}}>Pay attention to me</Dialog>)
 
@@ -60,7 +33,7 @@ describe('Dialog', () => {
 
   it('calls `onClose` when clicking the close button', async () => {
     const user = userEvent.setup()
-    const onClose = jest.fn()
+    const onClose = vi.fn()
     const {getByLabelText} = render(<Dialog onClose={onClose}>Pay attention to me</Dialog>)
 
     expect(onClose).not.toHaveBeenCalled()
@@ -73,7 +46,7 @@ describe('Dialog', () => {
 
   it('calls `onClose` when clicking the backdrop', async () => {
     const user = userEvent.setup()
-    const onClose = jest.fn()
+    const onClose = vi.fn()
     const {getByRole} = render(<Dialog onClose={onClose}>Pay attention to me</Dialog>)
 
     expect(onClose).not.toHaveBeenCalled()
@@ -86,7 +59,7 @@ describe('Dialog', () => {
   })
 
   it('does not call `onClose` when click was not originated from backdrop', async () => {
-    const onClose = jest.fn()
+    const onClose = vi.fn()
 
     const {getByRole} = render(<Dialog onClose={onClose}>Pay attention to me</Dialog>)
 
@@ -105,13 +78,14 @@ describe('Dialog', () => {
 
   it('calls `onClose` when keying "Escape"', async () => {
     const user = userEvent.setup()
-    const onClose = jest.fn()
+    const onClose = vi.fn()
 
     render(<Dialog onClose={onClose}>Pay attention to me</Dialog>)
 
     expect(onClose).not.toHaveBeenCalled()
 
-    await user.keyboard('{Escape}')
+    await user.keyboard('{Escape}') // escape once to remove focus from the close button
+    await user.keyboard('{Escape}') // escape again to trigger the onClose
 
     expect(onClose).toHaveBeenCalledWith('escape')
   })
@@ -121,7 +95,7 @@ describe('Dialog', () => {
 
     const {container} = render(<Dialog onClose={() => {}}>Pay attention to me</Dialog>)
 
-    expect(container.ownerDocument.body.style.overflow).toBe('hidden')
+    expect(container.ownerDocument.body).toHaveStyle('overflow: hidden')
   })
 
   it('does not attempt to change the <body> style for `overflow` if it is already set to "hidden"', () => {
@@ -129,13 +103,7 @@ describe('Dialog', () => {
 
     const {container} = render(<Dialog onClose={() => {}}>Pay attention to me</Dialog>)
 
-    expect(container.ownerDocument.body.style.overflow).toBe('hidden')
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = render(<Dialog onClose={() => {}}>Pay attention to me</Dialog>)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
+    expect(container.ownerDocument.body).toHaveStyle('overflow: hidden')
   })
 
   it('renders with data-position-regular="left" when position="left"', () => {
@@ -272,4 +240,99 @@ it('automatically focuses the element that is specified as initialFocusRef', () 
   )
 
   expect(getByRole('link')).toHaveFocus()
+})
+
+describe('Footer button loading states', () => {
+  it('applies loading state to footer buttons', () => {
+    const {getByRole} = render(
+      <Dialog
+        onClose={() => {}}
+        footerButtons={[
+          {buttonType: 'primary', content: 'Submit', loading: true},
+          {buttonType: 'default', content: 'Cancel', loading: false},
+        ]}
+      >
+        Dialog content
+      </Dialog>,
+    )
+
+    const submitButton = getByRole('button', {name: 'Submit'})
+    const cancelButton = getByRole('button', {name: 'Cancel'})
+
+    expect(submitButton).toHaveAttribute('data-loading', 'true')
+    expect(cancelButton).not.toHaveAttribute('data-loading', 'true')
+  })
+
+  it('shows loading spinner in button when loading', () => {
+    const {getByRole, baseElement} = render(
+      <Dialog onClose={() => {}} footerButtons={[{buttonType: 'primary', content: 'Processing...', loading: true}]}>
+        Dialog content
+      </Dialog>,
+    )
+
+    const button = getByRole('button', {name: 'Processing...'})
+    const spinner = baseElement.querySelector('[data-component="loadingSpinner"]') as HTMLElement
+
+    expect(spinner).toBeInTheDocument()
+    expect(button.contains(spinner)).toBe(true)
+  })
+
+  it('disables button clicks when loading', async () => {
+    const mockOnClick = vi.fn()
+    const {getByRole} = render(
+      <Dialog
+        onClose={() => {}}
+        footerButtons={[{buttonType: 'primary', content: 'Submit', loading: true, onClick: mockOnClick}]}
+      >
+        Dialog content
+      </Dialog>,
+    )
+
+    const button = getByRole('button', {name: 'Submit'})
+
+    fireEvent.click(button)
+
+    expect(mockOnClick).not.toHaveBeenCalled()
+  })
+
+  it('maintains focus management when button is loading', async () => {
+    const {getByRole} = render(
+      <Dialog
+        onClose={() => {}}
+        footerButtons={[
+          {buttonType: 'default', content: 'Cancel', autoFocus: true},
+          {buttonType: 'primary', content: 'Submit', loading: true},
+        ]}
+      >
+        Dialog content
+      </Dialog>,
+    )
+
+    const cancelButton = getByRole('button', {name: 'Cancel'})
+
+    await waitFor(() => expect(cancelButton).toHaveFocus())
+  })
+
+  it('handles multiple loading buttons correctly', () => {
+    const {getByRole} = render(
+      <Dialog
+        onClose={() => {}}
+        footerButtons={[
+          {buttonType: 'default', content: 'Save Draft', loading: true},
+          {buttonType: 'primary', content: 'Publish', loading: true},
+          {buttonType: 'danger', content: 'Delete', loading: false},
+        ]}
+      >
+        Dialog content
+      </Dialog>,
+    )
+
+    const saveDraftButton = getByRole('button', {name: 'Save Draft'})
+    const publishButton = getByRole('button', {name: 'Publish'})
+    const deleteButton = getByRole('button', {name: 'Delete'})
+
+    expect(saveDraftButton).toHaveAttribute('data-loading', 'true')
+    expect(publishButton).toHaveAttribute('data-loading', 'true')
+    expect(deleteButton).not.toHaveAttribute('data-loading', 'true')
+  })
 })

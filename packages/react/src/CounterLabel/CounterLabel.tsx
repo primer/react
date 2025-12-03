@@ -1,39 +1,32 @@
 import {clsx} from 'clsx'
 import type {HTMLAttributes} from 'react'
-import React, {forwardRef} from 'react'
-import type {SxProp} from '../sx'
+import type React from 'react'
+import {forwardRef} from 'react'
 import {VisuallyHidden} from '../VisuallyHidden'
-import {defaultSxProp} from '../utils/defaultSxProp'
-import Box from '../Box'
 import classes from './CounterLabel.module.css'
 
 export type CounterLabelProps = React.PropsWithChildren<
   HTMLAttributes<HTMLSpanElement> & {
+    /** @deprecated use variant instead */
     scheme?: 'primary' | 'secondary'
+    variant?: 'primary' | 'secondary'
     className?: string
-  } & SxProp
+  }
 >
 
 const CounterLabel = forwardRef<HTMLSpanElement, CounterLabelProps>(
-  ({scheme = 'secondary', sx = defaultSxProp, className, children, ...rest}, forwardedRef) => {
+  ({variant, scheme, className, children, ...rest}, forwardedRef) => {
     const label = <VisuallyHidden>&nbsp;({children})</VisuallyHidden>
+
+    const inferredVariant = variant || scheme || 'secondary'
+
     const counterProps = {
       ref: forwardedRef,
       ['aria-hidden']: 'true' as const,
-      ['data-scheme']: scheme,
+      ['data-variant']: inferredVariant,
       ...rest,
     }
 
-    if (sx !== defaultSxProp) {
-      return (
-        <>
-          <Box as="span" {...counterProps} className={clsx(className, classes.CounterLabel)} sx={sx}>
-            {children}
-          </Box>
-          {label}
-        </>
-      )
-    }
     return (
       <>
         <span {...counterProps} className={clsx(className, classes.CounterLabel)}>

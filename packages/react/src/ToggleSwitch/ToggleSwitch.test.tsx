@@ -1,21 +1,12 @@
+import {describe, expect, it, vi} from 'vitest'
 import React from 'react'
-import {render} from '@testing-library/react'
+import {render, waitFor} from '@testing-library/react'
 import ToggleSwitch from './'
-import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 import userEvent from '@testing-library/user-event'
 
 const SWITCH_LABEL_TEXT = 'Switch label'
 
 describe('ToggleSwitch', () => {
-  behavesAsComponent({
-    Component: ToggleSwitch,
-    options: {skipAs: true},
-  })
-
-  checkExports('ToggleSwitch', {
-    default: ToggleSwitch,
-  })
-
   it('renders a switch that is turned off', () => {
     const {getByLabelText} = render(
       <>
@@ -40,6 +31,26 @@ describe('ToggleSwitch', () => {
     expect(toggleSwitch).toHaveAttribute('aria-pressed', 'true')
   })
 
+  it('uses custom On text', () => {
+    const {getByText} = render(
+      <>
+        <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
+        <ToggleSwitch buttonLabelOn="Engaged" aria-labelledby="switchLabel" defaultChecked />
+      </>,
+    )
+    expect(getByText('Engaged')).toBeInTheDocument()
+  })
+
+  it('uses custom Off text', () => {
+    const {getByText} = render(
+      <>
+        <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
+        <ToggleSwitch buttonLabelOff="Deactivated" aria-labelledby="switchLabel" />
+      </>,
+    )
+    expect(getByText('Deactivated')).toBeInTheDocument()
+  })
+
   it('renders a switch that is disabled', async () => {
     const user = userEvent.setup()
     const {getByLabelText} = render(
@@ -55,7 +66,7 @@ describe('ToggleSwitch', () => {
     expect(toggleSwitch).toHaveAttribute('aria-pressed', 'false')
   })
 
-  it("renders a switch who's state is loading", async () => {
+  it('renders a switch whose state is loading', async () => {
     const user = userEvent.setup()
     const {getByLabelText, container} = render(
       <>
@@ -103,6 +114,22 @@ describe('ToggleSwitch', () => {
     expect(toggleSwitch).toHaveAttribute('aria-pressed', 'true')
   })
 
+  it('ensures the status label cannot toggle a disabled switch', async () => {
+    const user = userEvent.setup()
+    const {getByLabelText, getByText} = render(
+      <>
+        <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
+        <ToggleSwitch aria-labelledby="switchLabel" disabled />
+      </>,
+    )
+    const toggleSwitch = getByLabelText(SWITCH_LABEL_TEXT)
+    const toggleSwitchStatusLabel = getByText('Off')
+
+    expect(toggleSwitch).toHaveAttribute('aria-pressed', 'false')
+    await user.click(toggleSwitchStatusLabel)
+    expect(toggleSwitch).toHaveAttribute('aria-pressed', 'false')
+  })
+
   it('switches from off to on with a controlled prop', async () => {
     const user = userEvent.setup()
     const ControlledSwitchComponent = () => {
@@ -129,7 +156,7 @@ describe('ToggleSwitch', () => {
 
   it('calls onChange when the switch is toggled', async () => {
     const user = userEvent.setup()
-    const handleChange = jest.fn()
+    const handleChange = vi.fn()
     const ControlledSwitchComponent = ({handleSwitchChange}: {handleSwitchChange: (on: boolean) => void}) => {
       const [isOn, setIsOn] = React.useState(false)
 
@@ -166,20 +193,6 @@ describe('ToggleSwitch', () => {
     expect(toggleSwitch).toBeInTheDocument()
   })
 
-  it('supports a `ref` on the inner <button> element', () => {
-    const ref = jest.fn()
-
-    render(
-      <>
-        <span id="label">label</span>
-        <ToggleSwitch ref={ref} aria-labelledby="label" />
-      </>,
-    )
-
-    expect(ref).toHaveBeenCalled()
-    expect(ref).toHaveBeenCalledWith(expect.any(HTMLButtonElement))
-  })
-
   it('renders a switch that has button type button', () => {
     const {getByLabelText} = render(
       <>
@@ -192,5 +205,31 @@ describe('ToggleSwitch', () => {
     expect(toggleSwitch).toHaveAttribute('type', 'button')
   })
 
-  checkStoriesForAxeViolations('ToggleSwitch.features', '../ToggleSwitch/')
+  it('supports a `ref` on the inner <button> element', () => {
+    const ref = vi.fn()
+
+    render(
+      <>
+        <span id="label">label</span>
+        <ToggleSwitch ref={ref} aria-labelledby="label" />
+      </>,
+    )
+
+    expect(ref).toHaveBeenCalled()
+    expect(ref).toHaveBeenCalledWith(expect.any(HTMLButtonElement))
+  })
+
+  it('displays a loading label', async () => {
+    const TEST_ID = 'a test id'
+
+    const {getByTestId} = render(
+      <>
+        <span id="label">label</span>
+        <ToggleSwitch data-testid={TEST_ID} aria-labelledby="label" loadingLabelDelay={0} loading />
+      </>,
+    )
+
+    const toggleSwitch = getByTestId(TEST_ID)
+    await waitFor(() => expect(toggleSwitch).toHaveTextContent('Loading'))
+  })
 })

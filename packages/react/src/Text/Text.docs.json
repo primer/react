@@ -2,7 +2,7 @@
   "id": "text",
   "name": "Text",
   "status": "alpha",
-  "a11yReviewed": true,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-text--default"
@@ -41,11 +41,7 @@
       "name": "as",
       "defaultValue": "'span'",
       "type": "React.ElementType"
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject"
-    },
+    }, 
     {
       "name": "size",
       "type": "'large' | 'medium' | 'small'"

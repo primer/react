@@ -3,8 +3,8 @@
 
 import {announce as liveRegionAnnounce} from '@primer/live-region-element'
 import {useCallback, useEffect, useRef} from 'react'
-import type {FilteredActionListProps} from './FilteredActionListEntry'
-import type {ItemInput} from '../deprecated/ActionList/List'
+import type {FilteredActionListProps} from './index'
+import type {ItemInput} from '../SelectPanel'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const delayMs = 500
@@ -14,11 +14,12 @@ const useFirstRender = () => {
   useEffect(() => {
     firstRender.current = false
   }, [])
+  // eslint-disable-next-line react-hooks/refs
   return firstRender.current
 }
 
 const getItemWithActiveDescendant = (
-  listRef: React.RefObject<HTMLUListElement>,
+  listRef: React.RefObject<HTMLUListElement | null>,
   items: FilteredActionListProps['items'],
 ) => {
   const listElement = listRef.current
@@ -39,12 +40,19 @@ const getItemWithActiveDescendant = (
 
 export const useAnnouncements = (
   items: FilteredActionListProps['items'],
-  listContainerRef: React.RefObject<HTMLUListElement>,
-  inputRef: React.RefObject<HTMLInputElement>,
+  listContainerRef: React.RefObject<HTMLUListElement | null>,
+  inputRef: React.RefObject<HTMLInputElement | null>,
   enabled: boolean = true,
   loading: boolean = false,
+  message?: {title: string; description: string},
+  focusManagement?: 'active-descendant' | 'roving-tabindex',
 ) => {
+  const usingRovingTabindex = focusManagement === 'roving-tabindex'
+
   const liveRegion = document.querySelector('live-region')
+
+  // Notify user of the number of items available
+  const selectedItems = items.filter(item => item.selected).length
 
   const announce = useCallback(
     (...args: Parameters<typeof liveRegionAnnounce>): ReturnType<typeof liveRegionAnnounce> | undefined => {
@@ -58,30 +66,38 @@ export const useAnnouncements = (
   useEffect(
     function announceInitialFocus() {
       const focusHandler = () => {
-        // give @primer/behaviors a moment to apply active-descendant
-        window.requestAnimationFrame(() => {
-          const activeItem = getItemWithActiveDescendant(listContainerRef, items)
-          if (!activeItem) return
-          const {index, text, selected} = activeItem
-
-          const announcementText = [
-            `Focus on filter text box and list of items`,
-            `Focused item: ${text}`,
-            `${selected ? 'selected' : 'not selected'}`,
-            `${index + 1} of ${items.length}`,
-          ].join(', ')
+        if (usingRovingTabindex) {
+          const announcementText = `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
           announce(announcementText, {
             delayMs,
             from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
           })
-        })
+        } else {
+          // give @primer/behaviors a moment to apply active-descendant
+          window.requestAnimationFrame(() => {
+            const activeItem = getItemWithActiveDescendant(listContainerRef, items)
+            if (!activeItem) return
+            const {index, text, selected} = activeItem
+
+            const announcementText = [
+              `Focus on filter text box and list of items`,
+              `Focused item: ${text}`,
+              `${selected ? 'selected' : 'not selected'}`,
+              `${index + 1} of ${items.length}`,
+            ].join(', ')
+            announce(announcementText, {
+              delayMs,
+              from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+            })
+          })
+        }
       }
 
       const inputElement = inputRef.current
       inputElement?.addEventListener('focus', focusHandler)
       return () => inputElement?.removeEventListener('focus', focusHandler)
     },
-    [listContainerRef, inputRef, items, liveRegion, announce],
+    [listContainerRef, inputRef, items, liveRegion, announce, usingRovingTabindex, selectedItems],
   )
 
   const isFirstRender = useFirstRender()
@@ -92,29 +108,49 @@ export const useAnnouncements = (
       liveRegion?.clear() // clear previous announcements
 
       if (items.length === 0 && !loading) {
-        announce('No matching items.', {delayMs})
+        announce(`${message?.title}. ${message?.description}`, {delayMs})
         return
       }
 
-      // give @primer/behaviors a moment to update active-descendant
-      window.requestAnimationFrame(() => {
-        const activeItem = getItemWithActiveDescendant(listContainerRef, items)
-        if (!activeItem) return
-        const {index, text, selected} = activeItem
-
-        const announcementText = [
-          `List updated`,
-          `Focused item: ${text}`,
-          `${selected ? 'selected' : 'not selected'}`,
-          `${index + 1} of ${items.length}`,
-        ].join(', ')
+      if (usingRovingTabindex) {
+        const announcementText = `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
 
         announce(announcementText, {
           delayMs,
-          from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+          from: liveRegion ? liveRegion : undefined,
         })
-      })
+      } else {
+        // give @primer/behaviors a moment to update active-descendant
+        window.requestAnimationFrame(() => {
+          const activeItem = getItemWithActiveDescendant(listContainerRef, items)
+          if (!activeItem) return
+          const {index, text, selected} = activeItem
+
+          const announcementText = [
+            `List updated`,
+            `Focused item: ${text}`,
+            `${selected ? 'selected' : 'not selected'}`,
+            `${index + 1} of ${items.length}`,
+          ].join(', ')
+
+          announce(announcementText, {
+            delayMs,
+            from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+          })
+        })
+      }
     },
-    [announce, isFirstRender, items, listContainerRef, liveRegion, loading],
+    [
+      announce,
+      isFirstRender,
+      items,
+      listContainerRef,
+      liveRegion,
+      usingRovingTabindex,
+      message?.title,
+      message?.description,
+      loading,
+      selectedItems,
+    ],
   )
 }

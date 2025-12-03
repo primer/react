@@ -1,29 +1,11 @@
-import React from 'react'
 import BranchName from '../BranchName'
-import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import axe from 'axe-core'
+import {describe, expect, it} from 'vitest'
 
 describe('BranchName', () => {
-  behavesAsComponent({
-    Component: BranchName,
-    options: {
-      skipDisplayName: true,
-    },
-  })
-
-  checkExports('BranchName', {
-    default: BranchName,
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<BranchName />)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
-  })
-
   it('renders an <a> by default', () => {
-    expect(render(<BranchName />).type).toEqual('a')
+    const {container} = HTMLRender(<BranchName />)
+    expect(container.firstChild?.nodeName).toEqual('A')
   })
 
   it('should support `className` on the outermost element', () => {

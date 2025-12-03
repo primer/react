@@ -1,41 +1,21 @@
-import React from 'react'
-import type {Meta} from '@storybook/react'
-import {action} from '@storybook/addon-actions'
-import {get} from '../constants'
-import {BaseStyles, ThemeProvider} from '..'
-import Box from '../Box'
+import type {Meta} from '@storybook/react-vite'
+import {action} from 'storybook/actions'
 import Token from './Token'
 import {GitBranchIcon} from '@primer/octicons-react'
 import IssueLabelToken from './IssueLabelToken'
+import classes from './Token.features.stories.module.css'
 
 export default {
   title: 'Components/Token/Features',
   component: Token,
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    },
-  ],
 } as Meta
 
 export const InteractiveToken = () => {
   return (
-    <Box
-      display="flex"
-      sx={{
-        alignItems: 'start',
-        gap: get('space.2'),
-      }}
-    >
+    <div className={classes.TokenRow}>
       <Token as="a" href="/?path=/story/components-token-features--issue-label-token-custom-colors" text="Link" />
       <Token as="button" onClick={action('clicked')} text="Button" />
-    </Box>
+    </div>
   )
 }
 
@@ -43,28 +23,34 @@ export const TokenWithLeadingVisual = () => {
   return <Token text="token" leadingVisual={GitBranchIcon} />
 }
 
-export const TokenWithOnRemoveFn = () => {
+export const TokenWithOnRemoveFn = ({...args}) => {
   return (
-    <Box
-      display="flex"
-      sx={{
-        alignItems: 'start',
-        gap: get('space.2'),
-      }}
-    >
-      <Token text="token" onRemove={action('remove me')} />
+    <div className={classes.TokenRow}>
+      <Token text="token" onRemove={action('remove me')} {...args} />
       <Token
         as="a"
         href="/?path=/story/components-token-features--issue-label-token-custom-colors"
         onRemove={action('remove me')}
         text="Link"
+        {...args}
       />
-      <Token as="button" onClick={action('clicked')} onRemove={action('remove me')} text="Button" />
-    </Box>
+      <Token as="button" onClick={action('clicked')} onRemove={action('remove me')} text="Button" {...args} />
+    </div>
   )
 }
 
 TokenWithOnRemoveFn.storyName = 'Token with onRemove fn'
+TokenWithOnRemoveFn.args = {
+  size: 'medium',
+}
+TokenWithOnRemoveFn.argTypes = {
+  size: {
+    control: {
+      type: 'radio',
+    },
+    options: ['small', 'medium', 'large', 'xlarge'],
+  },
+}
 
 export const DefaultIssueLabelToken = () => {
   return <IssueLabelToken text="good first issue" />
@@ -73,20 +59,14 @@ DefaultIssueLabelToken.storyName = 'Default IssueLabelToken'
 
 export const InteractiveIssueLabelToken = () => {
   return (
-    <Box
-      display="flex"
-      sx={{
-        alignItems: 'start',
-        gap: get('space.2'),
-      }}
-    >
+    <div className={classes.TokenRow}>
       <IssueLabelToken
         as="a"
         href="/?path=/story/components-token-features--issue-label-token-custom-colors"
         text="Link"
       />
       <IssueLabelToken as="button" onClick={action('clicked')} text="Button" />
-    </Box>
+    </div>
   )
 }
 
@@ -94,13 +74,7 @@ InteractiveIssueLabelToken.storyName = 'Interactive IssueLabelToken'
 
 export const IssueLabelTokenWithOnRemoveFn = () => {
   return (
-    <Box
-      display="flex"
-      sx={{
-        alignItems: 'start',
-        gap: get('space.2'),
-      }}
-    >
+    <div className={classes.TokenRow}>
       <IssueLabelToken text="token" onRemove={action('remove me')} />
       <IssueLabelToken
         as="a"
@@ -109,33 +83,21 @@ export const IssueLabelTokenWithOnRemoveFn = () => {
         text="Link"
       />
       <IssueLabelToken as="button" onClick={action('clicked')} onRemove={action('remove me')} text="Button" />
-    </Box>
+    </div>
   )
 }
 
 IssueLabelTokenWithOnRemoveFn.storyName = 'IssueLabelToken with onRemove fn'
 
 export const SmallToken = () => <Token text="token" size="small" />
+export const MediumlToken = () => <Token text="token" size="medium" />
 export const LargeToken = () => <Token text="token" size="xlarge" />
 export const XLargeToken = () => <Token text="token" size="xlarge" />
 
 export const IssueLabelTokenCustomColors = () => {
   return (
-    <Box
-      display="flex"
-      sx={{
-        flexDirection: 'column',
-        alignItems: 'start',
-        gap: get('space.2'),
-      }}
-    >
-      <Box
-        display="flex"
-        sx={{
-          alignItems: 'start',
-          gap: get('space.2'),
-        }}
-      >
+    <div className={classes.TokenColumn}>
+      <div className={classes.TokenRow}>
         <IssueLabelToken
           as="a"
           href="/?path=/story/components-token-features--issue-label-token-custom-colors"
@@ -143,16 +105,9 @@ export const IssueLabelTokenCustomColors = () => {
           fillColor="#0366d6"
         />
         <IssueLabelToken as="button" onClick={action('clicked')} text="Button" fillColor="lightpink" />
-      </Box>
+      </div>
       <h3>Color examples</h3>
-      <Box
-        display="flex"
-        flexWrap="wrap"
-        sx={{
-          alignItems: 'start',
-          gap: get('space.2'),
-        }}
-      >
+      <div className={classes.TokenWrapRow}>
         <IssueLabelToken
           as="a"
           href="/?path=/story/components-token-features--issue-label-token-custom-colors"
@@ -267,7 +222,7 @@ export const IssueLabelTokenCustomColors = () => {
           text="💡 Light"
           fillColor="#E40C74"
         />
-      </Box>
-    </Box>
+      </div>
+    </div>
   )
 }

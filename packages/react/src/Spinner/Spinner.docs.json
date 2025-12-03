@@ -1,8 +1,44 @@
 {
+  "a11yReviewed": "2025-01-08",
   "id": "spinner",
+  "importPath": "@primer/react",
   "name": "Spinner",
+  "props": [
+    {
+      "description": "Sets the width and height of the spinner.",
+      "name": "size",
+      "type": "'small' | 'medium' | 'large'"
+    },
+    {
+      "defaultValue": "Loading",
+      "description": "Sets the text conveyed by assistive technologies such as screen readers. Set to `null` if the loading state is displayed in a text node somewhere else on the page.",
+      "name": "srText",
+      "type": "string | null"
+    },
+    {
+      "deprecated": true,
+      "description": "Sets the text conveyed by assistive technologies such as screen readers.",
+      "name": "aria-label",
+      "type": "string"
+    },
+    {
+      "defaultValue": "",
+      "description": "",
+      "name": "className",
+      "type": "string"
+    },
+    {
+      "name": "data-*",
+      "type": "string"
+    },
+    {
+      "defaultValue": "false",
+      "description": "Whether to delay the spinner before rendering by the defined 1000ms.",
+      "name": "delay",
+      "type": "boolean"
+    }
+  ],
   "status": "alpha",
-  "a11yReviewed": false,
   "stories": [
     {
       "id": "components-spinner--default"
@@ -15,40 +51,9 @@
     },
     {
       "id": "components-spinner-features--suppress-screen-reader-text"
-    }
-  ],
-  "importPath": "@primer/react",
-  "props": [
-    {
-      "name": "size",
-      "type": "'small' | 'medium' | 'large'",
-      "description": "Sets the width and height of the spinner."
     },
     {
-      "name": "srText",
-      "type": "string | null",
-      "defaultValue": "Loading",
-      "description": "Sets the text conveyed by assistive technologies such as screen readers. Set to `null` if the loading state is displayed in a text node somewhere else on the page."
-    },
-    {
-      "name": "aria-label",
-      "type": "string",
-      "description": "Sets the text conveyed by assistive technologies such as screen readers.",
-      "deprecated": true
-    },
-    {
-      "name": "className",
-      "type": "string",
-      "description": "",
-      "defaultValue": ""
-    },
-    {
-      "name": "data-*",
-      "type": "string"
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject"
+      "id": "components-spinner-features--with-delay"
     }
   ],
   "subcomponents": []

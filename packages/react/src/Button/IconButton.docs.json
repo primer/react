@@ -2,7 +2,7 @@
   "id": "icon_button",
   "name": "IconButton",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-iconbutton--default"
@@ -63,6 +63,16 @@
       "description": "This will be the Button description."
     },
     {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'button'"
+    },
+    {
+      "name": "href",
+      "type": "string",
+      "description": "**May only be used when `as` is set to 'a'**.\n The URL the button links to. If `as` is set to 'a', this prop is required."
+    },
+    {
       "name": "variant",
       "type": "'default' | 'primary' | 'danger' | 'invisible' | 'link'",
       "defaultValue": "",
@@ -107,7 +117,7 @@
       "name": "tooltipDirection",
       "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
       "defaultValue": "'s'",
-      "description": "The direction of the tooltip. ",
+      "description": "The direction of the tooltip.",
       "required": false
     },
     {
@@ -116,10 +126,6 @@
       "required": false,
       "description": "If `description` is provided, we will use a Tooltip to describe the button. Then `aria-label` is used to label the button.",
       "defaultValue": ""
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject"
     }
   ],
   "subcomponents": []

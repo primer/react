@@ -2,16 +2,13 @@
   "id": "link",
   "name": "Link",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-link--default"
     },
     {
       "id": "components-link-features--muted"
-    },
-    {
-      "id": "components-link-features--underline"
     },
     {
       "id": "components-link-features--inline"
@@ -58,10 +55,6 @@
       "name": "as",
       "type": "React.ElementType",
       "defaultValue": "\"a\""
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject"
     }
   ],
   "subcomponents": []

@@ -1,4 +1,3 @@
-import React from 'react'
 import {Spinner} from '../../src'
 import figma from '@figma/code-connect'
 

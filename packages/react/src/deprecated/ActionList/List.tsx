@@ -1,4 +1,4 @@
-import type {Key} from 'react'
+import type {Key, JSX} from 'react'
 import React from 'react'
 import type {AriaRole} from '../../utils/types'
 import type {GroupProps} from './Group'
@@ -6,13 +6,12 @@ import {Group} from './Group'
 import type {ItemProps} from './Item'
 import {Item} from './Item'
 import {Divider} from './Divider'
-import styled from 'styled-components'
-import {get} from '../../constants'
-import type {SystemCssProperties} from '@styled-system/css'
-import {hasActiveDescendantAttribute} from '@primer/behaviors'
+import {clsx} from 'clsx'
 import type {Merge} from '../../utils/types/Merge'
+import classes from './List.module.css'
 
-export type RenderItemFn = (props: ItemProps) => React.ReactElement
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type RenderItemFn = (props: ItemProps) => React.ReactElement<any>
 
 export type ItemInput =
   | Merge<React.ComponentPropsWithoutRef<'div'>, ItemProps>
@@ -73,6 +72,8 @@ export interface ListPropsBase {
    * Whether to display a divider above each `Item` in this `List` when it does not follow a `Header` or `Divider`.
    */
   showItemDividers?: boolean
+
+  className?: string
 }
 
 /**
@@ -108,42 +109,35 @@ function isGroupedListProps(props: ListProps): props is GroupedListProps {
  */
 export type ListProps = ListPropsBase | GroupedListProps
 
-const StyledList = styled.div`
-  font-size: ${get('fontSizes.1')};
-  /* 14px font-size * 1.428571429 = 20px line height
-   *
-   * TODO: When rem-based spacing on a 4px scale lands, replace
-   * hardcoded '20px'
-   */
-  line-height: 20px;
-
-  &[${hasActiveDescendantAttribute}], &:focus-within {
-    --item-hover-bg-override: none;
-    --item-hover-divider-border-color-override: ${get('colors.border.muted')};
-  }
-`
+// Base styles for the List component
+const listStyles: React.CSSProperties = {
+  fontSize: 'var(--text-body-size-medium, 14px)',
+  // 14px font-size * 1.428571429 = 20px line height
+  // TODO: When rem-based spacing on a 4px scale lands, replace hardcoded '20px'
+  lineHeight: '20px',
+}
 
 /**
- * Returns `sx` prop values for `List` children matching the given `List` style variation.
+ * Returns style objects for `List` children matching the given `List` style variation.
  * @param variant `List` style variation.
  */
 function useListVariant(variant: ListProps['variant'] = 'inset'): {
-  firstGroupStyle?: SystemCssProperties
-  lastGroupStyle?: SystemCssProperties
-  headerStyle?: SystemCssProperties
-  itemStyle?: SystemCssProperties
+  firstGroupStyle?: React.CSSProperties
+  lastGroupStyle?: React.CSSProperties
+  headerStyle?: React.CSSProperties
+  itemStyle?: React.CSSProperties
 } {
   switch (variant) {
     case 'full':
       return {
-        headerStyle: {paddingX: get('space.2')},
+        headerStyle: {paddingLeft: 'var(--base-size-8, 8px)', paddingRight: 'var(--base-size-8, 8px)'},
         itemStyle: {borderRadius: 0},
       }
     default:
       return {
-        firstGroupStyle: {marginTop: get('space.2')},
-        lastGroupStyle: {marginBottom: get('space.2')},
-        itemStyle: {marginX: get('space.2')},
+        firstGroupStyle: {marginTop: 'var(--base-size-8, 8px)'},
+        lastGroupStyle: {marginBottom: 'var(--base-size-8, 8px)'},
+        itemStyle: {marginLeft: 'var(--base-size-8, 8px)', marginRight: 'var(--base-size-8, 8px)'},
       }
   }
 }
@@ -152,8 +146,10 @@ function useListVariant(variant: ListProps['variant'] = 'inset'): {
  * Lists `Item`s, either grouped or ungrouped, with a `Divider` between each `Group`.
  */
 export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwardedRef): JSX.Element => {
-  // Get `sx` prop values for `List` children matching the given `List` style variation.
-  const {firstGroupStyle, lastGroupStyle, headerStyle, itemStyle} = useListVariant(props.variant)
+  // Extract style prop to avoid conflicts with BoxWithFallback
+  const {style, ...restProps} = props as ListProps & {style?: React.CSSProperties}
+  // Get style objects for `List` children matching the given `List` style variation.
+  const {firstGroupStyle, lastGroupStyle, headerStyle, itemStyle} = useListVariant(restProps.variant)
 
   /**
    * Render a `Group` using the first of the following renderers that is defined:
@@ -163,7 +159,7 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
   const renderGroup = (
     groupProps: GroupProps | (Partial<GroupProps> & {renderItem?: typeof Item; renderGroup?: typeof Group}),
   ) => {
-    const GroupComponent = (('renderGroup' in groupProps && groupProps.renderGroup) ?? props.renderGroup) || Group
+    const GroupComponent = (('renderGroup' in groupProps && groupProps.renderGroup) ?? restProps.renderGroup) || Group
     return <GroupComponent {...groupProps} key={groupProps.groupId} />
   }
 
@@ -174,15 +170,15 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
    */
   const renderItem = (itemProps: ItemInput, item: ItemInput, itemIndex: number) => {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    const ItemComponent = ('renderItem' in itemProps && itemProps.renderItem) || props.renderItem || Item
+    const ItemComponent = ('renderItem' in itemProps && itemProps.renderItem) || restProps.renderItem || Item
     const key = ('key' in itemProps ? itemProps.key : undefined) ?? itemProps.id?.toString() ?? itemIndex.toString()
     return (
       <ItemComponent
-        showDivider={props.showItemDividers}
-        selectionVariant={props.selectionVariant}
+        showDivider={restProps.showItemDividers}
+        selectionVariant={restProps.selectionVariant}
         {...itemProps}
         key={key}
-        sx={{...itemStyle, ...itemProps.sx}}
+        style={itemStyle}
         item={item}
       />
     )
@@ -194,21 +190,21 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
   let groups: (GroupProps | (Partial<GroupProps> & {renderItem?: typeof Item; renderGroup?: typeof Group}))[] = []
 
   // Collect rendered `Item`s into `Group`s, avoiding excess iteration over the lists of `items` and `groupMetadata`:
-  if (!isGroupedListProps(props)) {
+  if (!isGroupedListProps(restProps)) {
     // When no `groupMetadata`s is provided, collect rendered `Item`s into a single anonymous `Group`.
-    groups = [{items: props.items.map((item, index) => renderItem(item, item, index)), groupId: '0'}]
+    groups = [{items: restProps.items.map((item, index) => renderItem(item, item, index)), groupId: '0'}]
   } else {
     // When `groupMetadata` is provided, collect rendered `Item`s into their associated `Group`s.
 
     /**
      * A map of group identifiers to `Group`s, each with an associated array of `Item`s belonging to that `Group`.
      */
-    const groupMap = props.groupMetadata.reduce(
+    const groupMap = restProps.groupMetadata.reduce(
       (groupAccumulator, groupMetadata) => groupAccumulator.set(groupMetadata.groupId, groupMetadata),
       new Map<string, GroupProps | (Partial<GroupProps> & {renderItem?: typeof Item; renderGroup?: typeof Group})>(),
     )
 
-    for (const itemProps of props.items) {
+    for (const itemProps of restProps.items) {
       // Look up the group associated with the current item.
       const group = groupMap.get(itemProps.groupId)
       const itemIndex = group?.items?.length ?? 0
@@ -235,7 +231,15 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
   }
 
   return (
-    <StyledList {...props} ref={forwardedRef}>
+    <div
+      {...restProps}
+      ref={forwardedRef}
+      className={clsx(classes.List, props.className)}
+      style={{
+        ...listStyles,
+        ...(style || {}),
+      }}
+    >
       {groups.map(({header, ...groupProps}, index) => {
         const hasFilledHeader = header?.variant === 'filled'
         const shouldShowDivider = index > 0 && !hasFilledHeader
@@ -243,15 +247,15 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
           <React.Fragment key={groupProps.groupId}>
             {shouldShowDivider ? <Divider key={`${groupProps.groupId}-divider`} /> : null}
             {renderGroup({
-              sx: {
+              style: {
                 ...(index === 0 && firstGroupStyle),
                 ...(index === groups.length - 1 && lastGroupStyle),
-                ...(index > 0 && !shouldShowDivider && {mt: 2}),
+                ...(index > 0 && !shouldShowDivider && {marginTop: 'var(--base-size-8, 8px)'}),
               },
               ...(header && {
                 header: {
                   ...header,
-                  sx: {...headerStyle, ...header.sx},
+                  style: headerStyle,
                 },
               }),
               ...groupProps,
@@ -259,7 +263,7 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
           </React.Fragment>
         )
       })}
-    </StyledList>
+    </div>
   )
 })
 

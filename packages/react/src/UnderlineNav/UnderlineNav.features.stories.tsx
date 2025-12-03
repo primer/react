@@ -1,5 +1,4 @@
 import React from 'react'
-import type {IconProps} from '@primer/octicons-react'
 import {
   EyeIcon,
   CodeIcon,
@@ -12,9 +11,9 @@ import {
   ShieldLockIcon,
   GearIcon,
 } from '@primer/octicons-react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {UnderlineNav} from './index'
-import {INITIAL_VIEWPORTS} from '@storybook/addon-viewport'
+import {INITIAL_VIEWPORTS} from 'storybook/viewport'
 
 const meta = {
   title: 'Components/UnderlineNav/Features',
@@ -35,17 +34,17 @@ export const Default = () => {
 export const WithIcons = () => {
   return (
     <UnderlineNav aria-label="Repository with icons">
-      <UnderlineNav.Item icon={<CodeIcon />}>Code</UnderlineNav.Item>
-      <UnderlineNav.Item icon={<EyeIcon />} counter={6}>
+      <UnderlineNav.Item leadingVisual={<CodeIcon />}>Code</UnderlineNav.Item>
+      <UnderlineNav.Item leadingVisual={<EyeIcon />} counter={6}>
         Issues
       </UnderlineNav.Item>
-      <UnderlineNav.Item aria-current="page" icon={<GitPullRequestIcon />}>
+      <UnderlineNav.Item aria-current="page" leadingVisual={<GitPullRequestIcon />}>
         Pull Requests
       </UnderlineNav.Item>
-      <UnderlineNav.Item icon={<CommentDiscussionIcon />} counter={7}>
+      <UnderlineNav.Item leadingVisual={<CommentDiscussionIcon />} counter={7}>
         Discussions
       </UnderlineNav.Item>
-      <UnderlineNav.Item icon={<ProjectIcon />}>Projects</UnderlineNav.Item>
+      <UnderlineNav.Item leadingVisual={<ProjectIcon />}>Projects</UnderlineNav.Item>
     </UnderlineNav>
   )
 }
@@ -53,26 +52,26 @@ export const WithIcons = () => {
 export const WithCounterLabels = () => {
   return (
     <UnderlineNav aria-label="Repository with counters">
-      <UnderlineNav.Item aria-current="page" icon={<CodeIcon />} counter="11K">
+      <UnderlineNav.Item aria-current="page" leadingVisual={<CodeIcon />} counter="11K">
         Code
       </UnderlineNav.Item>
-      <UnderlineNav.Item icon={<IssueOpenedIcon />} counter={12}>
+      <UnderlineNav.Item leadingVisual={<IssueOpenedIcon />} counter={12}>
         Issues
       </UnderlineNav.Item>
     </UnderlineNav>
   )
 }
 
-const items: {navigation: string; icon: React.FC<IconProps>; counter?: number | string; href?: string}[] = [
-  {navigation: 'Code', icon: CodeIcon, href: '#code'},
-  {navigation: 'Issues', icon: IssueOpenedIcon, counter: '12K', href: '#issues'},
-  {navigation: 'Pull Requests', icon: GitPullRequestIcon, counter: 13, href: '#pull-requests'},
-  {navigation: 'Discussions', icon: CommentDiscussionIcon, counter: 5, href: '#discussions'},
-  {navigation: 'Actions', icon: PlayIcon, counter: 4, href: '#actions'},
-  {navigation: 'Projects', icon: ProjectIcon, counter: 9, href: '#projects'},
-  {navigation: 'Insights', icon: GraphIcon, counter: '0', href: '#insights'},
-  {navigation: 'Settings', icon: GearIcon, counter: 10, href: '#settings'},
-  {navigation: 'Security', icon: ShieldLockIcon, href: '#security'},
+const items: {navigation: string; icon: React.ReactElement; counter?: number | string; href?: string}[] = [
+  {navigation: 'Code', icon: <CodeIcon />, href: '#code'},
+  {navigation: 'Issues', icon: <IssueOpenedIcon />, counter: '12K', href: '#issues'},
+  {navigation: 'Pull Requests', icon: <GitPullRequestIcon />, counter: 13, href: '#pull-requests'},
+  {navigation: 'Discussions', icon: <CommentDiscussionIcon />, counter: 5, href: '#discussions'},
+  {navigation: 'Actions', icon: <PlayIcon />, counter: 4, href: '#actions'},
+  {navigation: 'Projects', icon: <ProjectIcon />, counter: 9, href: '#projects'},
+  {navigation: 'Insights', icon: <GraphIcon />, counter: '0', href: '#insights'},
+  {navigation: 'Settings', icon: <GearIcon />, counter: 10, href: '#settings'},
+  {navigation: 'Security', icon: <ShieldLockIcon />, href: '#security'},
 ]
 
 export const OverflowTemplate = ({initialSelectedIndex = 1}: {initialSelectedIndex?: number}) => {
@@ -86,7 +85,7 @@ export const OverflowTemplate = ({initialSelectedIndex = 1}: {initialSelectedInd
       {items.map((item, index) => (
         <UnderlineNav.Item
           key={item.navigation}
-          icon={item.icon}
+          leadingVisual={item.icon}
           aria-current={index === selectedIndex ? 'page' : undefined}
           // Set so that navigation in interaction tests does not cause the
           // page to load the storybook iframe URL and instead keeps the test in
@@ -134,7 +133,7 @@ export const CountersLoadingState = () => {
       {items.map((item, index) => (
         <UnderlineNav.Item
           key={item.navigation}
-          icon={item.icon}
+          leadingVisual={item.icon}
           aria-current={index === selectedIndex ? 'page' : undefined}
           onSelect={() => setSelectedIndex(index)}
           counter={item.counter}
@@ -142,6 +141,16 @@ export const CountersLoadingState = () => {
           {item.navigation}
         </UnderlineNav.Item>
       ))}
+    </UnderlineNav>
+  )
+}
+
+export const VariantFlush = () => {
+  return (
+    <UnderlineNav aria-label="Repository" variant="flush">
+      <UnderlineNav.Item aria-current="page">Code</UnderlineNav.Item>
+      <UnderlineNav.Item>Issues</UnderlineNav.Item>
+      <UnderlineNav.Item>Pull Requests</UnderlineNav.Item>
     </UnderlineNav>
   )
 }

@@ -40,10 +40,6 @@ const stories: Array<{title: string; id: string}> = [
     id: 'components-avatarstack-features--custom-size-on-children-responsive',
   },
   {
-    title: 'SX Prop',
-    id: 'components-avatarstack-dev--sx-prop',
-  },
-  {
     title: 'With Link Wrappers',
     id: 'components-avatarstack-dev--with-link-wrappers',
   },
@@ -62,7 +58,7 @@ test.describe('AvatarStack', () => {
               },
             })
 
-            expect(await page.screenshot()).toMatchSnapshot(`AvatarStack.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`AvatarStack.${story.title}.${theme}.png`)
           })
 
           test('@aat', async ({page}) => {

@@ -5,33 +5,15 @@ import type {SegmentedControlIconButtonProps} from './SegmentedControlIconButton
 import SegmentedControlIconButton from './SegmentedControlIconButton'
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
-import {useTheme} from '../ThemeProvider'
-import type {SxProp} from '../sx'
-import sx, {merge} from '../sx'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
-import {useResponsiveValue} from '../hooks/useResponsiveValue'
+import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes'
 import type {WidthOnlyViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
-import styled from 'styled-components'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import {isElement} from 'react-is'
-
 import classes from './SegmentedControl.module.css'
-
-import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
-import {useFeatureFlag} from '../FeatureFlags'
 import {clsx} from 'clsx'
-import {SEGMENTED_CONTROL_CSS_MODULES_FEATURE_FLAG} from './getSegmentedControlStyles'
+import {isSlot} from '../utils/is-slot'
 
-// Needed because passing a ref to `Box` causes a type error
-const SegmentedControlList = toggleStyledComponent(
-  SEGMENTED_CONTROL_CSS_MODULES_FEATURE_FLAG,
-  'ul',
-  styled.ul`
-    ${sx};
-  `,
-)
-
-type SegmentedControlProps = {
+export type SegmentedControlProps = {
   'aria-label'?: string
   'aria-labelledby'?: string
   'aria-describedby'?: string
@@ -44,20 +26,7 @@ type SegmentedControlProps = {
   /** Configure alternative ways to render the control when it gets rendered in tight spaces */
   variant?: 'default' | Partial<Record<WidthOnlyViewportRangeKeys, 'hideLabels' | 'dropdown' | 'default'>>
   className?: string
-} & SxProp
-
-const getSegmentedControlStyles = (props: {isFullWidth?: boolean; size?: SegmentedControlProps['size']}) => ({
-  backgroundColor: 'segmentedControl.bg',
-  borderRadius: 2,
-  border: '1px solid',
-  borderColor: 'var(--controlTrack-borderColor-rest, transparent)',
-  display: props.isFullWidth ? 'flex' : 'inline-flex',
-  fontSize: props.size === 'small' ? 0 : 1,
-  height: props.size === 'small' ? '28px' : '32px', // TODO: use primitive `control.{small|medium}.size` when it is available
-  margin: 0,
-  padding: 0,
-  width: props.isFullWidth ? '100%' : undefined,
-})
+}
 
 const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   'aria-label': ariaLabel,
@@ -66,20 +35,17 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   fullWidth,
   onChange,
   size,
-  sx: sxProp = defaultSxProp,
   variant = 'default',
   className,
   ...rest
 }) => {
   const segmentedControlContainerRef = useRef<HTMLUListElement>(null)
-  const {theme} = useTheme()
   const isUncontrolled =
     onChange === undefined ||
     React.Children.toArray(children).some(
       child => React.isValidElement<SegmentedControlButtonProps>(child) && child.props.defaultSelected !== undefined,
     )
-  const responsiveVariant = useResponsiveValue(variant, 'default')
-  const isFullWidth = useResponsiveValue(fullWidth, false)
+
   const selectedSegments = React.Children.toArray(children).map(
     child =>
       React.isValidElement<SegmentedControlButtonProps | SegmentedControlIconButtonProps>(child) &&
@@ -94,23 +60,27 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   )
     ? React.Children.toArray(children)[selectedIndex]
     : undefined
-  const getChildIcon = (childArg: React.ReactNode): React.ReactElement | null => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const getChildIcon = (childArg: React.ReactNode): React.ReactElement<any> | null => {
     if (
       React.isValidElement<SegmentedControlButtonProps>(childArg) &&
-      childArg.type === Button &&
-      childArg.props.leadingIcon
+      (childArg.type === Button || isSlot(childArg, Button))
     ) {
-      if (isElement(childArg.props.leadingIcon)) {
-        return childArg.props.leadingIcon
-      } else {
-        const LeadingIcon = childArg.props.leadingIcon
-        return <LeadingIcon />
+      // Use leadingVisual if provided, otherwise fall back to leadingIcon for backwards compatibility
+      const leadingVisual = childArg.props.leadingVisual ?? childArg.props.leadingIcon
+      if (leadingVisual) {
+        if (isElement(leadingVisual)) {
+          return leadingVisual
+        } else {
+          const LeadingVisual = leadingVisual
+          return <LeadingVisual />
+        }
       }
     }
 
     if (
       React.isValidElement<SegmentedControlIconButtonProps>(childArg) &&
-      childArg.type === SegmentedControlIconButton
+      (childArg.type === SegmentedControlIconButton || isSlot(childArg, SegmentedControlIconButton))
     ) {
       if (isElement(childArg.props.icon)) {
         childArg.props.icon
@@ -123,15 +93,15 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
     return null
   }
   const getChildText = (childArg: React.ReactNode) => {
-    if (React.isValidElement<SegmentedControlButtonProps>(childArg) && childArg.type === Button) {
+    if (
+      React.isValidElement<SegmentedControlButtonProps>(childArg) &&
+      (childArg.type === Button || isSlot(childArg, Button))
+    ) {
       return childArg.props.children
     }
 
     return React.isValidElement<SegmentedControlIconButtonProps>(childArg) ? childArg.props['aria-label'] : null
   }
-
-  const enabled = useFeatureFlag(SEGMENTED_CONTROL_CSS_MODULES_FEATURE_FLAG)
-  const listSx = enabled ? sxProp : merge(getSegmentedControlStyles({isFullWidth, size}), sxProp as SxProp)
 
   if (!ariaLabel && !ariaLabelledby) {
     // eslint-disable-next-line no-console
@@ -140,9 +110,13 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
     )
   }
 
-  return responsiveVariant === 'dropdown' ? (
-    // Render the 'dropdown' variant of the SegmentedControlButton or SegmentedControlIconButton
-    <>
+  // Check if dropdown variant is used at any breakpoint
+  const responsiveVariant = typeof variant === 'object' ? variant : undefined
+  const hasDropdownVariant = responsiveVariant ? Object.values(responsiveVariant).includes('dropdown') : false
+
+  // Render dropdown variant if needed
+  const dropdownContent = hasDropdownVariant && (
+    <div className={classes.DropdownContainer} {...getResponsiveAttributes('variant', variant)}>
       <ActionMenu>
         {/*
           The aria-label is only provided as a backup when the designer or engineer neglects to show a label for the SegmentedControl.
@@ -167,7 +141,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
                 <ActionList.Item
                   key={`segmented-control-action-btn-${index}`}
                   selected={index === selectedIndex}
-                  onSelect={(event: React.MouseEvent | React.KeyboardEvent) => {
+                  onSelect={event => {
                     isUncontrolled && setSelectedIndexInternalState(index)
                     onChange && onChange(index)
                     child.props.onClick && child.props.onClick(event as React.MouseEvent<HTMLLIElement>)
@@ -180,16 +154,18 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
           </ActionList>
         </ActionMenu.Overlay>
       </ActionMenu>
-    </>
-  ) : (
-    // Render a segmented control
-    <SegmentedControlList
-      sx={listSx}
+    </div>
+  )
+
+  // Render segmented control (default or hideLabels variant)
+  const segmentedControlContent = (
+    <ul
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledby}
       ref={segmentedControlContainerRef}
-      className={clsx(enabled && classes.SegmentedControl, className)}
-      data-full-width={isFullWidth || undefined}
+      className={clsx(classes.SegmentedControl, className)}
+      {...getResponsiveAttributes('full-width', fullWidth)}
+      {...getResponsiveAttributes('variant', variant)}
       data-size={size}
       {...rest}
     >
@@ -201,67 +177,55 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
         const sharedChildProps = {
           onClick: onChange
             ? (event: React.MouseEvent<HTMLButtonElement>) => {
-                onChange(index)
-                isUncontrolled && setSelectedIndexInternalState(index)
-                child.props.onClick && child.props.onClick(event)
+                const isDisabled =
+                  child.props.disabled === true ||
+                  child.props['aria-disabled'] === 'true' ||
+                  child.props['aria-disabled'] === true
+                if (!isDisabled) {
+                  onChange(index)
+                  isUncontrolled && setSelectedIndexInternalState(index)
+                  child.props.onClick && child.props.onClick(event)
+                }
               }
             : (event: React.MouseEvent<HTMLButtonElement>) => {
-                child.props.onClick && child.props.onClick(event)
-                isUncontrolled && setSelectedIndexInternalState(index)
+                const isDisabled =
+                  child.props.disabled === true ||
+                  child.props['aria-disabled'] === 'true' ||
+                  child.props['aria-disabled'] === true
+                if (!isDisabled) {
+                  child.props.onClick && child.props.onClick(event)
+                  isUncontrolled && setSelectedIndexInternalState(index)
+                }
               },
           selected: index === selectedIndex,
-          sx: {
+          style: {
             '--separator-color':
-              index === selectedIndex || index === selectedIndex - 1 ? 'transparent' : theme?.colors.border.default,
-            ...child.props.sx,
+              index === selectedIndex || index === selectedIndex - 1 ? 'transparent' : 'var(--borderColor-default)',
+            ...child.props.style,
           },
-        }
-
-        // Render the 'hideLabels' variant of the SegmentedControlButton
-        if (
-          responsiveVariant === 'hideLabels' &&
-          React.isValidElement<SegmentedControlButtonProps>(child) &&
-          child.type === Button
-        ) {
-          const {
-            'aria-label': childAriaLabel,
-            leadingIcon,
-            children: childPropsChildren,
-            ...restChildProps
-          } = child.props
-          const {sx: sharedSxProp, ...restSharedChildProps} = sharedChildProps
-          if (!leadingIcon) {
-            // eslint-disable-next-line no-console
-            console.warn('A `leadingIcon` prop is required when hiding visible labels')
-          } else {
-            return (
-              <SegmentedControlIconButton
-                aria-label={childAriaLabel || childPropsChildren}
-                icon={leadingIcon}
-                sx={
-                  {
-                    ...sharedSxProp,
-                    // setting width here avoids having to pass `isFullWidth` directly to child components
-                    width: !isFullWidth ? '32px' : '100%', // TODO: use primitive `control.medium.size` when it is available instead of '32px'
-                  } as React.CSSProperties
-                }
-                {...restSharedChildProps}
-                {...restChildProps}
-              />
-            )
-          }
         }
 
         // Render the children as-is and add the shared child props
         return React.cloneElement(child, sharedChildProps)
       })}
-    </SegmentedControlList>
+    </ul>
+  )
+
+  // Return both variants when dropdown is used, otherwise just the segmented control
+  return hasDropdownVariant ? (
+    <>
+      {dropdownContent}
+      {segmentedControlContent}
+    </>
+  ) : (
+    segmentedControlContent
   )
 }
 
 Root.displayName = 'SegmentedControl'
 
 export const SegmentedControl = Object.assign(Root, {
+  __SLOT__: Symbol('SegmentedControl'),
   Button,
   IconButton: SegmentedControlIconButton,
 })

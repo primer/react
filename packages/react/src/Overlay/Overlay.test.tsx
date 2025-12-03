@@ -1,16 +1,13 @@
-import React, {useRef, useState} from 'react'
-import {Overlay, Box, Text, Button} from '..'
 import {render, waitFor, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import axe from 'axe-core'
-import theme from '../theme'
+import React, {useRef, useState} from 'react'
+import {describe, expect, it, vi} from 'vitest'
+import {Button} from '../Button'
+import Overlay from '../Overlay'
+import Text from '../Text'
 import BaseStyles from '../BaseStyles'
-import {ThemeProvider} from '../ThemeProvider'
 import {NestedOverlays, MemexNestedOverlays, MemexIssueOverlay, PositionedOverlays} from './Overlay.features.stories'
 import {FeatureFlags} from '../FeatureFlags'
-import {setupMatchMedia} from '../utils/test-helpers'
-
-setupMatchMedia()
 
 type TestComponentSettings = {
   initialFocus?: 'button'
@@ -35,48 +32,55 @@ const TestComponent = ({
     }
   }
   return (
-    <ThemeProvider theme={theme}>
-      <BaseStyles>
-        <Box position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
-          <Button ref={openButtonRef} onClick={() => setIsOpen(!isOpen)}>
-            open overlay
-          </Button>
-          <Button>outside</Button>
-          {isOpen ? (
-            <Overlay
-              initialFocusRef={initialFocus === 'button' ? confirmButtonRef : undefined}
-              returnFocusRef={openButtonRef}
-              ignoreClickRefs={[openButtonRef]}
-              onEscape={closeOverlay}
-              onClickOutside={closeOverlay}
-              width={width}
-              preventFocusOnOpen={preventFocusOnOpen}
-              role="dialog"
+    <BaseStyles>
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+        }}
+        ref={anchorRef}
+      >
+        <Button ref={openButtonRef} onClick={() => setIsOpen(!isOpen)}>
+          open overlay
+        </Button>
+        <Button>outside</Button>
+        {isOpen ? (
+          <Overlay
+            initialFocusRef={initialFocus === 'button' ? confirmButtonRef : undefined}
+            returnFocusRef={openButtonRef}
+            ignoreClickRefs={[openButtonRef]}
+            onEscape={closeOverlay}
+            onClickOutside={closeOverlay}
+            width={width}
+            preventFocusOnOpen={preventFocusOnOpen}
+            role="dialog"
+          >
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                padding: '8px',
+              }}
             >
-              <Box display="flex" flexDirection="column" p={2}>
-                <Text>Are you sure?</Text>
-                <Button variant="danger" onClick={closeOverlay}>
-                  Cancel
-                </Button>
-                <Button onClick={closeOverlay} ref={confirmButtonRef}>
-                  Confirm
-                </Button>
-              </Box>
-            </Overlay>
-          ) : null}
-        </Box>
-      </BaseStyles>
-    </ThemeProvider>
+              <Text>Are you sure?</Text>
+              <Button variant="danger" onClick={closeOverlay}>
+                Cancel
+              </Button>
+              <Button onClick={closeOverlay} ref={confirmButtonRef}>
+                Confirm
+              </Button>
+            </div>
+          </Overlay>
+        ) : null}
+      </div>
+    </BaseStyles>
   )
 }
 
 describe('Overlay', () => {
-  it('should have no axe violations', async () => {
-    const {container} = render(<TestComponent />)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
-  })
-
   it('should focus initialFocusRef element passed into function on open', async () => {
     const user = userEvent.setup()
     const {getByRole} = render(<TestComponent initialFocus="button" />)
@@ -144,7 +148,7 @@ describe('Overlay', () => {
 
   it('should call function when user clicks outside container', async () => {
     const user = userEvent.setup()
-    const mockFunction = jest.fn()
+    const mockFunction = vi.fn()
     const {getByText, queryAllByText} = render(<TestComponent callback={mockFunction} />)
     await user.click(getByText('open overlay'))
     await user.click(getByText('outside'))
@@ -155,7 +159,7 @@ describe('Overlay', () => {
 
   it('should call function when user presses escape', async () => {
     const user = userEvent.setup()
-    const mockFunction = jest.fn()
+    const mockFunction = vi.fn()
     const {getByText, queryAllByText} = render(<TestComponent callback={mockFunction} />)
     await user.click(getByText('open overlay'))
     const domNode = getByText('Are you sure?')
@@ -166,7 +170,7 @@ describe('Overlay', () => {
   })
 
   it('should close the top most overlay on escape', async () => {
-    const spy = jest.spyOn(console, 'log').mockImplementation(message => {
+    const spy = vi.spyOn(console, 'log').mockImplementation(message => {
       if (!message.startsWith('global handler')) {
         throw new Error(
           `Expected console.log() to be called with: 'global handler:' but instead it was called with: ${message}`,
@@ -175,11 +179,7 @@ describe('Overlay', () => {
     })
 
     const user = userEvent.setup()
-    const container = render(
-      <ThemeProvider>
-        <NestedOverlays />
-      </ThemeProvider>,
-    )
+    const container = render(<NestedOverlays />)
 
     // open first menu
     await user.click(container.getByLabelText('Add this repository to a list'))
@@ -203,7 +203,7 @@ describe('Overlay', () => {
   })
 
   it.skip('should right align when given `right: 0` and `position: fixed`', async () => {
-    const spy = jest.spyOn(console, 'log').mockImplementation(message => {
+    const spy = vi.spyOn(console, 'log').mockImplementation(message => {
       if (!message.startsWith('global handler')) {
         throw new Error(
           `Expected console.log() to be called with: 'global handler:' but instead it was called with: ${message}`,
@@ -212,11 +212,7 @@ describe('Overlay', () => {
     })
 
     const user = userEvent.setup()
-    const container = render(
-      <ThemeProvider>
-        <PositionedOverlays role="dialog" right />
-      </ThemeProvider>,
-    )
+    const container = render(<PositionedOverlays role="dialog" right />)
 
     // open first menu
     await user.click(container.getByText('Open right overlay'))
@@ -226,14 +222,14 @@ describe('Overlay', () => {
     const overlay = container.getByRole('dialog')
 
     expect(innerOverlay).toBeInTheDocument()
-    expect(overlay).toHaveStyle({position: 'fixed', right: 0})
-    expect(overlay).not.toHaveStyle({left: 0})
+    expect(overlay).toHaveStyle({position: 'fixed', right: '0'})
+    expect(overlay).not.toHaveStyle({left: '0'})
 
     spy.mockRestore()
   })
 
   it.skip('should left align when not given position and left props', async () => {
-    const spy = jest.spyOn(console, 'log').mockImplementation(message => {
+    const spy = vi.spyOn(console, 'log').mockImplementation(message => {
       if (!message.startsWith('global handler')) {
         throw new Error(
           `Expected console.log() to be called with: 'global handler:' but instead it was called with: ${message}`,
@@ -242,11 +238,7 @@ describe('Overlay', () => {
     })
 
     const user = userEvent.setup()
-    const container = render(
-      <ThemeProvider>
-        <PositionedOverlays role="dialog" />
-      </ThemeProvider>,
-    )
+    const container = render(<PositionedOverlays role="dialog" />)
 
     // open first menu
     await user.click(container.getByText('Open left overlay'))
@@ -256,18 +248,14 @@ describe('Overlay', () => {
     const overlay = container.getByRole('dialog')
 
     expect(innerOverlay).toBeInTheDocument()
-    expect(overlay).toHaveStyle({left: 0, position: 'absolute'})
+    expect(overlay).toHaveStyle({left: '0', position: 'absolute'})
 
     spy.mockRestore()
   })
 
   it('memex repro: should only close the dropdown when escape is pressed', async () => {
     const user = userEvent.setup()
-    const container = render(
-      <ThemeProvider>
-        <MemexNestedOverlays />
-      </ThemeProvider>,
-    )
+    const container = render(<MemexNestedOverlays />)
 
     // open first menu
     await user.click(container.getByLabelText('Add custom iteration'))
@@ -286,11 +274,7 @@ describe('Overlay', () => {
 
   it('memex repro: should not close overlay when input has event.preventDefault', async () => {
     const user = userEvent.setup()
-    const container = render(
-      <ThemeProvider>
-        <MemexIssueOverlay />
-      </ThemeProvider>,
-    )
+    const container = render(<MemexIssueOverlay />)
 
     // clicking the title opens overlay
     await user.click(container.getByText('Implement draft issue editor'))
@@ -309,10 +293,9 @@ describe('Overlay', () => {
     expect(container.queryByLabelText('Change issue title')).not.toBeInTheDocument()
   })
 
-  // https://github.com/primer/react/issues/1802
   it.skip('memex repro: should not leak overlay events to the document', async () => {
     const user = userEvent.setup()
-    const mockHandler = jest.fn()
+    const mockHandler = vi.fn()
     const BugRepro1802 = () => {
       const [isOpen, setIsOpen] = useState(false)
       const closeOverlay = () => setIsOpen(false)
@@ -324,18 +307,16 @@ describe('Overlay', () => {
       }, [])
 
       return (
-        <ThemeProvider theme={theme}>
-          <BaseStyles>
-            <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
-              open overlay
-            </Button>
-            {isOpen ? (
-              <Overlay returnFocusRef={buttonRef} onEscape={closeOverlay} onClickOutside={closeOverlay}>
-                <Text>Text inside Overlay</Text>
-              </Overlay>
-            ) : null}
-          </BaseStyles>
-        </ThemeProvider>
+        <BaseStyles>
+          <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
+            open overlay
+          </Button>
+          {isOpen ? (
+            <Overlay returnFocusRef={buttonRef} onEscape={closeOverlay} onClickOutside={closeOverlay}>
+              <Text>Text inside Overlay</Text>
+            </Overlay>
+          ) : null}
+        </BaseStyles>
       )
     }
 

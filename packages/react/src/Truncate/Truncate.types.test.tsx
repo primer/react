@@ -1,4 +1,3 @@
-import React from 'react'
 import Truncate from '../Truncate'
 
 export function shouldAcceptCallWithNoProps() {

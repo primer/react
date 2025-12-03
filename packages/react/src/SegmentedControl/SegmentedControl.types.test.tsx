@@ -1,11 +1,10 @@
 import {LogoGithubIcon} from '@primer/octicons-react'
 import {SegmentedControl} from './SegmentedControl'
-import React from 'react'
 
 export function buttonWithLeadingIconElement() {
   return (
     <SegmentedControl>
-      <SegmentedControl.Button leadingIcon={<LogoGithubIcon />}>Button</SegmentedControl.Button>
+      <SegmentedControl.Button leadingVisual={<LogoGithubIcon />}>Button</SegmentedControl.Button>
     </SegmentedControl>
   )
 }

@@ -1,12 +1,11 @@
-import React from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import type {CheckboxProps} from '..'
-import {Box, Checkbox} from '..'
+import {Checkbox} from '..'
 import FormControl from '../FormControl'
 import type {FormControlArgs} from '../utils/form-story-helpers'
 import {formControlArgTypesWithoutValidation, getFormControlArgsByChildComponent} from '../utils/form-story-helpers'
 
-const excludedControlKeys = ['required', 'value', 'validationStatus', 'sx']
+const excludedControlKeys = ['required', 'value', 'validationStatus']
 
 export default {
   title: 'Components/Checkbox',
@@ -18,13 +17,13 @@ export const Playground = ({value: _value, checked, ...args}: FormControlArgs<Ch
   const {parentArgs, labelArgs, captionArgs} = getFormControlArgsByChildComponent(args)
 
   return (
-    <Box as="form">
+    <form>
       <FormControl {...parentArgs}>
         <Checkbox value="default" checked={checked} {...args} />
         <FormControl.Label {...labelArgs} />
         {captionArgs.children && <FormControl.Caption {...captionArgs} />}
       </FormControl>
-    </Box>
+    </form>
   )
 }
 Playground.args = {
@@ -40,10 +39,10 @@ Playground.argTypes = {
 }
 
 export const Default = () => (
-  <Box as="form">
+  <form>
     <FormControl>
       <Checkbox value="default" />
       <FormControl.Label>Default label</FormControl.Label>
     </FormControl>
-  </Box>
+  </form>
 )

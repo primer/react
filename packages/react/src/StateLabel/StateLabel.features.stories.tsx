@@ -1,5 +1,4 @@
-import React from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import type {ComponentProps} from '../utils/types'
 import StateLabel from './StateLabel'
 import VisuallyHidden from '../_VisuallyHidden'
@@ -30,7 +29,7 @@ export const Open = () => (
 export const Closed = () => <StateLabel status="closed">Closed</StateLabel>
 
 export const Small = () => (
-  <StateLabel status="issueOpened" variant="small">
+  <StateLabel status="issueOpened" size="small">
     Open
   </StateLabel>
 )

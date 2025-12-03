@@ -1,4 +1,3 @@
-import React from 'react'
 import {Heading, Popover, Text} from '../../src'
 import figma from '@figma/code-connect'
 
@@ -25,13 +24,7 @@ figma.connect(Popover, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Prim
   example: ({caret, heading, body, action}) => (
     <Popover caret={caret}>
       <Popover.Content>
-        <Heading
-          sx={{
-            fontSize: 2,
-          }}
-        >
-          {heading}
-        </Heading>
+        <Heading style={{fontSize: 'var(--text-title-size-small)'}}>{heading}</Heading>
         <Text as="p">{body}</Text>
         {action}
       </Popover.Content>

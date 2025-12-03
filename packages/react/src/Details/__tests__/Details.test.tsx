@@ -1,31 +1,10 @@
+import {describe, expect, it} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React, {act} from 'react'
-import {Details, useDetails, Box, Button} from '../..'
+import {Details, useDetails, Button} from '../..'
 import type {ButtonProps} from '../../Button'
-import {behavesAsComponent, checkExports} from '../../utils/testing'
-import axe from 'axe-core'
 
 describe('Details', () => {
-  behavesAsComponent({Component: Details, options: {skipAs: true}})
-
-  checkExports('Details', {
-    default: Details,
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = render(
-      <Details>
-        <Details.Summary>Summary</Details.Summary>Content
-      </Details>,
-    )
-    let results
-    await act(async () => {
-      results = await axe.run(container)
-    })
-    expect(results).toHaveNoViolations()
-  })
-
   it('Toggles when you click outside', async () => {
     const Component = () => {
       const {getDetailsProps} = useDetails({closeOnOutsideClick: true})
@@ -89,9 +68,9 @@ describe('Details', () => {
       return (
         <Details {...getDetailsProps()}>
           <summary data-testid="summary">{open ? 'Open' : 'Closed'}</summary>
-          <Box>
+          <div>
             <Button variant="primary">test</Button>
-          </Box>
+          </div>
         </Details>
       )
     }
@@ -103,44 +82,7 @@ describe('Details', () => {
     expect(getByTestId('summary')).toHaveTextContent('Open')
   })
 
-  it('Adds default summary if no summary supplied', async () => {
-    const {getByText} = render(<Details data-testid="details">content</Details>)
-
-    expect(getByText('See Details')).toBeInTheDocument()
-    expect(getByText('See Details').tagName).toBe('SUMMARY')
-  })
-
-  it('Does not add default summary if summary supplied', async () => {
-    const {findByTestId, findByText} = render(
-      <Details data-testid="details">
-        <Details.Summary data-testid="summary">summary</Details.Summary>
-        content
-      </Details>,
-    )
-
-    await expect(findByText('See Details')).rejects.toThrow()
-    expect(await findByTestId('summary')).toBeInTheDocument()
-    expect((await findByTestId('summary')).tagName).toBe('SUMMARY')
-  })
-
-  it('Does not add default summary if supplied as different element', async () => {
-    const {findByTestId, findByText} = render(
-      <Details data-testid="details">
-        <Box as="summary" data-testid="summary">
-          custom summary
-        </Box>
-        content
-      </Details>,
-    )
-
-    await expect(findByText('See Details')).rejects.toThrow()
-    expect(await findByTestId('summary')).toBeInTheDocument()
-    expect((await findByTestId('summary')).tagName).toBe('SUMMARY')
-  })
-
   describe('Details.Summary', () => {
-    behavesAsComponent({Component: Details.Summary, options: {skipSx: true}})
-
     it('should support a custom `className` on the container element', () => {
       render(<Details.Summary className="custom-class">test summary</Details.Summary>)
       expect(screen.getByText('test summary')).toHaveClass('custom-class')

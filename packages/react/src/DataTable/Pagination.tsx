@@ -1,125 +1,15 @@
 import {ChevronLeftIcon, ChevronRightIcon} from '@primer/octicons-react'
-import React, {useCallback, useState} from 'react'
-import styled from 'styled-components'
-import {get} from '../constants'
+import type React from 'react'
+import {useCallback, useMemo, useState} from 'react'
 import {Button} from '../internal/components/ButtonReset'
-import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
+import {AriaStatus} from '../live-region'
 import {VisuallyHidden} from '../VisuallyHidden'
 import {warning} from '../utils/warning'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {viewportRanges} from '../hooks/useResponsiveValue'
-
-const StyledPagination = styled.nav`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  column-gap: 1rem;
-  width: 100%;
-  grid-area: footer;
-  padding: 0.5rem 1rem;
-  border: 1px solid ${get('colors.border.default')};
-  border-top-width: 0;
-  border-end-start-radius: 6px;
-  border-end-end-radius: 6px;
-
-  .TablePaginationRange {
-    color: ${get('colors.fg.muted')};
-    font-size: 0.75rem;
-    margin: 0;
-  }
-
-  .TablePaginationSteps {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    list-style: none;
-    color: ${get('colors.fg.default')};
-    font-size: 0.875rem;
-    margin: 0;
-    padding: 0;
-  }
-
-  .TablePaginationStep:first-of-type {
-    margin-right: 1rem;
-  }
-
-  .TablePaginationStep:last-of-type {
-    margin-left: 1rem;
-  }
-
-  .TablePaginationAction {
-    display: flex;
-    align-items: center;
-    color: ${get('colors.fg.muted')};
-    font-size: 0.875rem;
-    line-height: calc(20 / 14);
-    user-select: none;
-    padding: 0.5rem;
-    border-radius: 6px;
-  }
-
-  .TablePaginationAction[data-has-page] {
-    color: ${get('colors.accent.fg')};
-  }
-
-  .TablePaginationPage {
-    min-width: 2rem;
-    min-height: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.875rem;
-    line-height: calc(20 / 14);
-    user-select: none;
-    border-radius: 6px;
-    padding: 0.5rem calc((2rem - 1.25rem) / 2); /* primer.control.medium.paddingInline.condensed primer.control.medium.paddingBlock */
-  }
-
-  .TablePaginationAction[data-has-page]:hover,
-  .TablePaginationAction[data-has-page]:focus,
-  .TablePaginationPage:hover,
-  .TablePaginationPage:focus {
-    background-color: ${get('colors.actionListItem.default.hoverBg')};
-    transition-duration: 0.1s;
-  }
-
-  .TablePaginationPage[data-active='true'] {
-    background-color: ${get('colors.accent.emphasis')};
-    color: ${get('colors.fg.onEmphasis')};
-  }
-
-  .TablePaginationTruncationStep {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 2rem;
-    min-height: 2rem;
-    user-select: none;
-  }
-
-  ${
-    // Hides pages based on the viewport range passed to `showPages`
-    Object.keys(viewportRanges)
-      .map(viewportRangeKey => {
-        return `
-      @media (${viewportRanges[viewportRangeKey as keyof typeof viewportRanges]}) {
-        .TablePaginationSteps[data-hidden-viewport-ranges*='${viewportRangeKey}'] > *:not(:first-child):not(:last-child) {
-          display: none;
-        }
-
-        .TablePaginationSteps[data-hidden-viewport-ranges*='${viewportRangeKey}'] > *:first-child {
-          margin-inline-end: 0;
-        }
-
-        .TablePaginationSteps[data-hidden-viewport-ranges*='${viewportRangeKey}'] > *:last-child {
-          margin-inline-start: 0;
-        }
-      }
-    `
-      })
-      .join('')
-  }
-`
+import {buildPaginationModel} from '../Pagination/model'
+import classes from './Pagination.module.css'
+import {clsx} from 'clsx'
 
 export type PaginationProps = Omit<React.ComponentPropsWithoutRef<'nav'>, 'onChange'> & {
   /**
@@ -160,11 +50,9 @@ export type PaginationProps = Omit<React.ComponentPropsWithoutRef<'nav'>, 'onCha
   totalCount: number
 }
 
-/**
- * Specifies the maximum number of items in between the first and last page,
- * including truncated steps
- */
-const MAX_TRUNCATED_STEP_COUNT = 7
+const defaultShowPages = {
+  narrow: false,
+}
 
 export function Pagination({
   'aria-label': label,
@@ -172,7 +60,7 @@ export function Pagination({
   id,
   onChange,
   pageSize = 25,
-  showPages = {narrow: false},
+  showPages = defaultShowPages,
   totalCount,
 }: PaginationProps) {
   const {
@@ -191,19 +79,7 @@ export function Pagination({
     pageSize,
     totalCount,
   })
-  const truncatedPageCount = pageCount > 2 ? Math.min(pageCount - 2, MAX_TRUNCATED_STEP_COUNT) : 0
-  const defaultOffset = getDefaultOffsetStartIndex(pageIndex, pageCount, truncatedPageCount)
-  const [defaultOffsetStartIndex, setDefaultOffsetStartIndex] = useState(defaultOffset)
-  const [offsetStartIndex, setOffsetStartIndex] = useState(defaultOffsetStartIndex)
 
-  if (defaultOffsetStartIndex !== defaultOffset) {
-    setOffsetStartIndex(defaultOffset)
-    setDefaultOffsetStartIndex(defaultOffset)
-  }
-
-  const offsetEndIndex = offsetStartIndex + truncatedPageCount - 1
-  const hasLeadingTruncation = offsetStartIndex >= 2
-  const hasTrailingTruncation = pageCount - 1 - offsetEndIndex > 1
   const getViewportRangesToHidePages = useCallback(() => {
     if (typeof showPages !== 'boolean') {
       return Object.keys(showPages).filter(key => !showPages[key as keyof typeof viewportRanges]) as Array<
@@ -218,145 +94,75 @@ export function Pagination({
     }
   }, [showPages])
 
+  const model = useMemo(() => {
+    return buildPaginationModel(pageCount, pageIndex + 1, !!showPages, 1, 2)
+  }, [pageCount, pageIndex, showPages])
+
   return (
-    <LiveRegion>
-      <LiveRegionOutlet />
-      <StyledPagination aria-label={label} className="TablePagination" id={id}>
-        <Range pageStart={pageStart} pageEnd={pageEnd} totalCount={totalCount} />
-        <ol className="TablePaginationSteps" data-hidden-viewport-ranges={getViewportRangesToHidePages().join(' ')}>
-          <Step>
-            <Button
-              className="TablePaginationAction"
-              type="button"
-              data-has-page={hasPreviousPage ? true : undefined}
-              aria-disabled={!hasPreviousPage ? true : undefined}
-              onClick={() => {
-                if (!hasPreviousPage) {
-                  return
-                }
-
-                selectPreviousPage()
-                if (hasLeadingTruncation) {
-                  if (pageIndex - 1 < offsetStartIndex + 1) {
-                    setOffsetStartIndex(offsetStartIndex - 1)
-                  }
-                }
-              }}
-            >
-              {hasPreviousPage ? <ChevronLeftIcon /> : null}
-              <span className="TablePaginationActionLabel">Previous</span>
-              <VisuallyHidden>&nbsp;page</VisuallyHidden>
-            </Button>
-          </Step>
-          {pageCount > 0 ? (
-            <Step>
-              <Page
-                active={pageIndex === 0}
-                onClick={() => {
-                  selectPage(0)
-                  if (pageCount > 1) {
-                    setOffsetStartIndex(1)
-                  }
-                }}
-              >
-                {1}
-                {hasLeadingTruncation ? <VisuallyHidden>…</VisuallyHidden> : null}
-              </Page>
-            </Step>
-          ) : null}
-          {pageCount > 2
-            ? Array.from({length: truncatedPageCount}).map((_, i) => {
-                if (i === 0 && hasLeadingTruncation) {
-                  return <TruncationStep key={`truncation-${i}`} />
-                }
-
-                if (i === truncatedPageCount - 1 && hasTrailingTruncation) {
-                  return <TruncationStep key={`truncation-${i}`} />
-                }
-
-                const page = offsetStartIndex + i
-                return (
-                  <Step key={i}>
-                    <Page
-                      active={pageIndex === page}
-                      onClick={() => {
-                        selectPage(page)
-                      }}
-                    >
-                      {page + 1}
-                      {i === truncatedPageCount - 2 && hasTrailingTruncation ? (
-                        <VisuallyHidden>…</VisuallyHidden>
-                      ) : null}
-                    </Page>
-                  </Step>
-                )
-              })
-            : null}
-          {pageCount > 1 ? (
-            <Step>
-              <Page
-                active={pageIndex === pageCount - 1}
-                onClick={() => {
-                  selectPage(pageCount - 1)
-                  setOffsetStartIndex(pageCount - 1 - truncatedPageCount)
-                }}
-              >
-                {pageCount}
-              </Page>
-            </Step>
-          ) : null}
-          <Step>
-            <Button
-              className="TablePaginationAction"
-              type="button"
-              data-has-page={hasNextPage ? true : undefined}
-              aria-disabled={!hasNextPage ? true : undefined}
-              onClick={() => {
-                if (!hasNextPage) {
-                  return
-                }
-
-                selectNextPage()
-                if (hasTrailingTruncation) {
-                  if (pageIndex + 1 > offsetEndIndex - 1) {
-                    setOffsetStartIndex(offsetStartIndex + 1)
-                  }
-                }
-              }}
-            >
-              <span className="TablePaginationActionLabel">Next</span>
-              <VisuallyHidden>&nbsp;page</VisuallyHidden>
-              {hasNextPage ? <ChevronRightIcon /> : null}
-            </Button>
-          </Step>
-        </ol>
-      </StyledPagination>
-    </LiveRegion>
+    <nav aria-label={label} className={clsx('TablePagination', classes.TablePagination)} id={id}>
+      <Range pageStart={pageStart} pageEnd={pageEnd} totalCount={totalCount} />
+      <ol
+        className={clsx('TablePaginationSteps', classes.TablePaginationSteps)}
+        data-hidden-viewport-ranges={getViewportRangesToHidePages().join(' ')}
+      >
+        <Step>
+          <Button
+            className={clsx('TablePaginationAction', classes.TablePaginationAction)}
+            type="button"
+            data-has-page={hasPreviousPage ? true : undefined}
+            aria-disabled={!hasPreviousPage ? true : undefined}
+            onClick={() => {
+              if (!hasPreviousPage) {
+                return
+              }
+              selectPreviousPage()
+            }}
+          >
+            {hasPreviousPage ? <ChevronLeftIcon /> : null}
+            <span>Previous</span>
+            <VisuallyHidden>&nbsp;page</VisuallyHidden>
+          </Button>
+        </Step>
+        {model.map((page, i) => {
+          if (page.type === 'BREAK') {
+            return <TruncationStep key={`truncation-${i}`} />
+          } else if (page.type === 'NUM') {
+            return (
+              <Step key={i}>
+                <Page
+                  active={!!page.selected}
+                  onClick={() => {
+                    selectPage(page.num - 1)
+                  }}
+                >
+                  {page.num}
+                  {page.precedesBreak ? <VisuallyHidden>…</VisuallyHidden> : null}
+                </Page>
+              </Step>
+            )
+          }
+        })}
+        <Step>
+          <Button
+            className={clsx('TablePaginationAction', classes.TablePaginationAction)}
+            type="button"
+            data-has-page={hasNextPage ? true : undefined}
+            aria-disabled={!hasNextPage ? true : undefined}
+            onClick={() => {
+              if (!hasNextPage) {
+                return
+              }
+              selectNextPage()
+            }}
+          >
+            <span>Next</span>
+            <VisuallyHidden>&nbsp;page</VisuallyHidden>
+            {hasNextPage ? <ChevronRightIcon /> : null}
+          </Button>
+        </Step>
+      </ol>
+    </nav>
   )
-}
-
-function getDefaultOffsetStartIndex(pageIndex: number, pageCount: number, truncatedPageCount: number): number {
-  // When the current page is closer to the end of the list than the beginning
-  if (pageIndex > pageCount - 1 - pageIndex) {
-    if (pageCount - 1 - pageIndex >= truncatedPageCount) {
-      return Math.max(pageIndex - 3, 1)
-    }
-    return Math.max(pageCount - 1 - truncatedPageCount, 1)
-  }
-
-  // When the current page is closer to the beginning of the list than the end
-  if (pageIndex < pageCount - 1 - pageIndex) {
-    if (pageIndex >= truncatedPageCount) {
-      return Math.max(pageIndex - 3, 1)
-    }
-    return 1
-  }
-
-  // When the current page is the midpoint between the beginning and the end
-  if (pageIndex < truncatedPageCount) {
-    return pageIndex
-  }
-  return Math.max(pageIndex - 3, 1)
 }
 
 type RangeProps = {
@@ -370,8 +176,12 @@ function Range({pageStart, pageEnd, totalCount}: RangeProps) {
   const end = pageEnd
   return (
     <>
-      <Message value={`Showing ${start} through ${end} of ${totalCount}`} />
-      <p className="TablePaginationRange">
+      <VisuallyHidden>
+        <AriaStatus>
+          Showing {start} through {end} of {totalCount}
+        </AriaStatus>
+      </VisuallyHidden>
+      <p className={clsx('TablePaginationRange', classes.TablePaginationRange)}>
         {start}
         <VisuallyHidden>&nbsp;through&nbsp;</VisuallyHidden>
         <span aria-hidden="true">‒</span>
@@ -383,14 +193,14 @@ function Range({pageStart, pageEnd, totalCount}: RangeProps) {
 
 function TruncationStep() {
   return (
-    <li aria-hidden="true" className="TablePaginationTruncationStep">
+    <li aria-hidden="true" className={clsx('TablePaginationTruncationStep', classes.TablePaginationTruncationStep)}>
       …
     </li>
   )
 }
 
 function Step({children}: React.PropsWithChildren) {
-  return <li className="TablePaginationStep">{children}</li>
+  return <li className={clsx('TablePaginationStep', classes.TablePaginationStep)}>{children}</li>
 }
 
 type PageProps = React.PropsWithChildren<{
@@ -401,7 +211,7 @@ type PageProps = React.PropsWithChildren<{
 function Page({active, children, onClick}: PageProps) {
   return (
     <Button
-      className="TablePaginationPage"
+      className={clsx('TablePaginationPage', classes.TablePaginationPage)}
       type="button"
       data-active={active ? true : undefined}
       aria-current={active ? true : undefined}

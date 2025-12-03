@@ -1,26 +1,13 @@
 import React from 'react'
-import type {Meta} from '@storybook/react'
-import {BaseStyles, Box, ThemeProvider} from '..'
+import type {Meta} from '@storybook/react-vite'
 import {useAnchoredPosition} from '../hooks'
-import styled from 'styled-components'
-import {get} from '../constants'
 import type {AnchorSide} from '@primer/behaviors'
 import Portal, {registerPortalRoot} from '../Portal'
 import {Button} from '../Button'
+import classes from './AnchoredPosition.stories.module.css'
 
 export default {
   title: 'Hooks/useAnchoredPosition',
-  decorators: [
-    // Note: For some reason, if you use <BaseStyles><Story /></BaseStyles>,
-    // the component gets unmounted from the root every time a control changes!
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>{Story()}</BaseStyles>
-        </ThemeProvider>
-      )
-    },
-  ],
   argTypes: {
     anchorX: {
       control: {type: 'range', min: 0, max: 500},
@@ -65,30 +52,59 @@ export default {
   },
 } as Meta
 
-const Float = styled(Box)`
-  position: absolute;
-  border: 1px solid ${get('colors.black')};
-  border-radius: ${get('radii.2')};
-  background-color: ${get('colors.orange.3')};
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  font-size: ${get('fontSizes.3')};
-  font-weight: ${get('fontWeights.bold')};
-  padding: ${get('space.3')};
-`
-const Anchor = styled(Box)`
-  position: absolute;
-  border: 1px solid ${get('colors.black')};
-  border-radius: ${get('radii.2')};
-  background-color: ${get('colors.blue.3')};
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  font-size: ${get('fontSizes.3')};
-  font-weight: ${get('fontWeights.bold')};
-  padding: ${get('space.3')};
-`
+interface FloatProps extends React.ComponentPropsWithRef<'div'> {
+  top?: number
+  left?: number
+  width?: number
+  height?: number
+  sx?: {visibility?: string}
+}
+
+interface AnchorProps extends React.ComponentPropsWithRef<'div'> {
+  top?: number
+  left?: number
+  width?: number
+  height?: number
+}
+
+const Float = ({children, top, left, width, height, sx, style, ...props}: FloatProps) => (
+  <div
+    className={classes.Float}
+    style={
+      {
+        ...style,
+        '--top': top !== undefined ? `${top}px` : undefined,
+        '--left': left !== undefined ? `${left}px` : undefined,
+        '--width': width !== undefined ? `${width}px` : undefined,
+        '--height': height !== undefined ? `${height}px` : undefined,
+        top: top !== undefined ? `${top}px` : undefined,
+        left: left !== undefined ? `${left}px` : undefined,
+        width: width !== undefined ? `${width}px` : undefined,
+        height: height !== undefined ? `${height}px` : undefined,
+        visibility: sx?.visibility,
+      } as React.CSSProperties
+    }
+    {...props}
+  >
+    {children}
+  </div>
+)
+
+const Anchor = ({children, top, left, width, height, style, ...props}: AnchorProps) => (
+  <div
+    className={classes.Anchor}
+    style={{
+      ...style,
+      top: top !== undefined ? `${top}px` : undefined,
+      left: left !== undefined ? `${left}px` : undefined,
+      width: width !== undefined ? `${width}px` : undefined,
+      height: height !== undefined ? `${height}px` : undefined,
+    }}
+    {...props}
+  >
+    {children}
+  </div>
+)
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const UseAnchoredPosition = (args: any) => {
@@ -115,7 +131,7 @@ export const UseAnchoredPosition = (args: any) => {
   )
 
   return (
-    <Box position="relative" m={2}>
+    <div className={classes.Container}>
       <Anchor
         top={args.anchorY ?? 0}
         left={args.anchorX ?? 0}
@@ -134,7 +150,7 @@ export const UseAnchoredPosition = (args: any) => {
       >
         Floating element
       </Float>
-    </Box>
+    </div>
   )
 }
 export const CenteredOnScreen = () => {
@@ -144,14 +160,7 @@ export const CenteredOnScreen = () => {
   })
   // The outer Position element simply fills all available space
   return (
-    <Box
-      ref={anchorElementRef as React.RefObject<HTMLDivElement>}
-      position="absolute"
-      top={0}
-      bottom={0}
-      left={0}
-      right={0}
-    >
+    <div className={classes.FullSizeAnchor} ref={anchorElementRef as React.RefObject<HTMLDivElement>}>
       <Float
         ref={floatingElementRef as React.RefObject<HTMLDivElement>}
         top={position?.top ?? 0}
@@ -164,7 +173,7 @@ export const CenteredOnScreen = () => {
           </small>
         </p>
       </Float>
-    </Box>
+    </div>
   )
 }
 
@@ -182,29 +191,13 @@ export const ComplexAncestry = () => {
   }, [recalculateSignal])
 
   // The outer Position element simply fills all available space
-  const space = 2
   return (
     <>
-      <Box
-        m={space}
-        p={space}
-        sx={{
-          border: '1px solid #000',
-          backgroundColor: 'blue.1',
-          height: '440px',
-          overflow: 'auto',
-          position: 'relative',
-        }}
-        tabIndex={0}
-      >
+      <div className={classes.ClippingContainer} tabIndex={0}>
         Clipping container - this element has <code>overflow</code> set to something other than <code>visible</code>
-        <Box m={space} p={space} sx={{border: '1px solid #000', backgroundColor: 'blue.2', position: 'relative'}}>
+        <div className={classes.RelativeParent}>
           Relatively positioned parent, but fluid height, so not the clipping parent.
-          <Box
-            m={space}
-            p={space}
-            sx={{border: '1px solid #000', backgroundColor: 'blue.3', position: 'static', overflow: 'hidden'}}
-          >
+          <div className={classes.StaticContainer}>
             Floating element container. Position=static and overflow=hidden to show that overflow-hidden on a
             statically-positioned element will not have any effect.
             <Float
@@ -216,44 +209,32 @@ export const ComplexAncestry = () => {
             >
               Floating element
             </Float>
-          </Box>
-        </Box>
-        <Box m={space} p={space} backgroundColor="blue.3" sx={{border: '1px solid #000', height: '2000px'}}>
+          </div>
+        </div>
+        <div className={classes.TallContainer}>
           Anchor element container. This element is really tall to demonstrate behavior within a scrollable clipping
           container.
-          <Box
-            width="200px"
-            backgroundColor="orange.3"
-            height={60}
-            ref={anchorElementRef as React.RefObject<HTMLDivElement>}
-            sx={{border: '1px solid #000'}}
-            m={space}
-            p={space}
-          >
+          <div className={classes.AnchorElement} ref={anchorElementRef as React.RefObject<HTMLDivElement>}>
             Anchor Element
-          </Box>
-        </Box>
-      </Box>
+          </div>
+        </div>
+      </div>
       <Button onClick={onRecalculateClick}>Click to recalculate floating position</Button>
     </>
   )
 }
 
-const Nav = styled('nav')`
-  width: 300px;
-  padding: ${get('space.3')};
-  position: relative;
-  overflow: hidden;
-  border-right: 1px solid ${get('colors.border.gray')};
-`
-const Main = styled('main')`
-  display: flex;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-`
+const Nav = ({children, ...props}: React.ComponentPropsWithoutRef<'nav'>) => (
+  <nav className={classes.Nav} {...props}>
+    {children}
+  </nav>
+)
+
+const Main = ({children, ...props}: React.ComponentPropsWithRef<'main'>) => (
+  <main className={classes.Main} {...props}>
+    {children}
+  </main>
+)
 
 /*
 
@@ -306,7 +287,7 @@ export const WithPortal = () => {
           <code>overflow:hidden</code>, meaning that its children cannot overflow this container. Using &lt;Portal&gt;
           with <code>useAnchoredPosition</code>, we can break out of this constraint.
         </p>
-        <Box sx={{textAlign: 'right'}}>
+        <div className={classes.ButtonContainer}>
           <Button variant="primary" onClick={toggleMenu} ref={anchorElementRef as React.RefObject<HTMLButtonElement>}>
             Show the overlay!
           </Button>
@@ -323,14 +304,14 @@ export const WithPortal = () => {
               </Float>
             </Portal>
           ) : null}
-        </Box>
+        </div>
       </Nav>
-      <Box sx={{flexGrow: 1}} p={3}>
+      <div className={classes.Body}>
         <h1>The body!</h1>
         <p>
           <em>Note: The controls below have no effect in this story.</em>
         </p>
-      </Box>
+      </div>
     </Main>
   )
 }

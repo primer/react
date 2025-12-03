@@ -7,10 +7,9 @@ import CheckboxOrRadioGroupValidation from './CheckboxOrRadioGroupValidation'
 import CheckboxOrRadioGroupContext from './CheckboxOrRadioGroupContext'
 import VisuallyHidden from '../../../_VisuallyHidden'
 import {useSlots} from '../../../hooks/useSlots'
-import type {SxProp} from '../../../sx'
 import classes from './CheckboxOrRadioGroup.module.css'
 import {clsx} from 'clsx'
-import {BoxWithFallback} from '../BoxWithFallback'
+import {isSlot} from '../../../utils/is-slot'
 
 export type CheckboxOrRadioGroupProps = {
   /** Class name for custom styling */
@@ -32,7 +31,7 @@ export type CheckboxOrRadioGroupProps = {
    * If true, the user must make a selection before the owning form can be submitted
    */
   required?: boolean
-} & SxProp
+}
 
 const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGroupProps>> = ({
   'aria-labelledby': ariaLabelledby,
@@ -41,7 +40,6 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
   id: idProp,
   required = false,
   className,
-  sx,
 }) => {
   const [slots, rest] = useSlots(children, {
     caption: CheckboxOrRadioGroupCaption,
@@ -49,13 +47,21 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
     validation: CheckboxOrRadioGroupValidation,
   })
   const labelChild = React.Children.toArray(children).find(
-    child => React.isValidElement(child) && child.type === CheckboxOrRadioGroupLabel,
+    child =>
+      React.isValidElement(child) &&
+      (child.type === CheckboxOrRadioGroupLabel || isSlot(child, CheckboxOrRadioGroupLabel)),
   )
   const validationChild = React.Children.toArray(children).find(child =>
-    React.isValidElement(child) && child.type === CheckboxOrRadioGroupValidation ? child : null,
+    React.isValidElement(child) &&
+    (child.type === CheckboxOrRadioGroupValidation || isSlot(child, CheckboxOrRadioGroupValidation))
+      ? child
+      : null,
   )
   const captionChild = React.Children.toArray(children).find(child =>
-    React.isValidElement(child) && child.type === CheckboxOrRadioGroupCaption ? child : null,
+    React.isValidElement(child) &&
+    (child.type === CheckboxOrRadioGroupCaption || isSlot(child, CheckboxOrRadioGroupCaption))
+      ? child
+      : null,
   )
   const id = useId(idProp)
   const validationMessageId = validationChild ? `${id}-validationMessage` : undefined
@@ -70,6 +76,8 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
 
   const isLegendVisible = React.isValidElement(labelChild) && !labelChild.props.visuallyHidden
 
+  const Component = labelChild ? 'fieldset' : 'div'
+
   return (
     <CheckboxOrRadioGroupContext.Provider
       value={{
@@ -80,16 +88,14 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
       }}
     >
       <div>
-        <BoxWithFallback
+        <Component
           className={clsx(className, classes.GroupFieldset)}
           data-validation={validationChild ? '' : undefined}
           {...(labelChild
             ? {
-                as: 'fieldset',
                 disabled,
               }
             : {})}
-          sx={sx}
         >
           {labelChild ? (
             /*
@@ -126,7 +132,7 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
           >
             {React.Children.toArray(rest).filter(child => React.isValidElement(child))}
           </div>
-        </BoxWithFallback>
+        </Component>
         {validationChild && (
           <ValidationAnimationContainer
             // If we have CheckboxOrRadioGroup.Label as a child, we render a screenreader-accessible validation message in the <legend>

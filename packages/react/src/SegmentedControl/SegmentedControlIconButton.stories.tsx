@@ -1,5 +1,4 @@
-import React from 'react'
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import type {SegmentedControlIconButtonProps} from './SegmentedControlIconButton'
 import SegmentedControlIconButton from './SegmentedControlIconButton'
 import {SegmentedControl} from '.'
@@ -14,6 +13,7 @@ export default {
     icon: FileCodeIcon,
     selected: false,
     defaultSelected: false,
+    disabled: false,
   },
   argTypes: {
     icon: {
@@ -25,6 +25,9 @@ export default {
       type: 'boolean',
     },
     defaultSelected: {
+      type: 'boolean',
+    },
+    disabled: {
       type: 'boolean',
     },
   },

@@ -48,7 +48,7 @@ In both instances, a component is required to manage focus trapping, as the `foc
 
 On top of this complexity, there's also the complexity of the behaviour itself. To properly manage focus trap, the focusTrap function creates [two sentinel elements and appends them to do the DOM](https://github.com/primer/behaviors/blob/acbcc744f56837166c2a3f76bab1f3572b61d0ca/src/focus-trap.ts#L67-L68). This increases complexity in debugging code, as there are surprising new DOM elements in the tree. This also [effects tests](https://github.com/primer/react/blob/386561a37b2b6f1f9d4b597e0ac6ede3a40ccbf7/src/__tests__/__snapshots__/AnchoredOverlay.test.tsx.snap#L222-L239). A Web Component would be able to utilise ShadowDOM to create clean separation of utility elements required by the behavior.
 
-While `focusTrap` has been used as an example, it should be noted this is not exceptional, rather representative. `focusZone` has a similarl [`useFocusZone` hook](https://github.com/primer/react/blob/5dd4bb1f7f92647197160298fc1f521b23b4823b/src/hooks/useFocusZone.ts), as does `anchoredPosition` with [`useAnchoredPosition`](https://github.com/primer/react/blob/5dd4bb1f7f92647197160298fc1f521b23b4823b/src/hooks/useAnchoredPosition.ts).
+While `focusTrap` has been used as an example, it should be noted this is not exceptional, rather representative. `focusZone` has a similar [`useFocusZone` hook](https://github.com/primer/react/blob/5dd4bb1f7f92647197160298fc1f521b23b4823b/src/hooks/useFocusZone.ts), as does `anchoredPosition` with [`useAnchoredPosition`](https://github.com/primer/react/blob/5dd4bb1f7f92647197160298fc1f521b23b4823b/src/hooks/useAnchoredPosition.ts).
 
 Were these behaviours Web Components, then they would be their own container, they would have lifecycle hooks to manage internal state, and they would have a standard invocation pattern. We'd simply drop `<focus-trap active={isActive}>` into a component. The element would manage lifecycle thanks to the hooks the browser provides, and interactive state could be managed via React (or in the case of VC, another WC).
 
@@ -58,7 +58,7 @@ Specifically for behaviours like `focusZone` and `focusTrap` it makes understand
 
 ### ShadowDOM
 
-ShadowDOM is the preferred way for Custom Elements to mutate HTML, as their shadow root is encapsulated from the rest of the document. This means that a Custom Element is free to mutate HTML within the ShadowDOM wihout disrupting reconcilers (such as React's Virtual DOM implementation) or observers (such as MutationObservers on the document). Any mutations within the ShadowDOM are private to that element. Frameworks like React can still interact with light DOM nodes as they normally would.
+ShadowDOM is the preferred way for Custom Elements to mutate HTML, as their shadow root is encapsulated from the rest of the document. This means that a Custom Element is free to mutate HTML within the ShadowDOM without disrupting reconcilers (such as React's Virtual DOM implementation) or observers (such as MutationObservers on the document). Any mutations within the ShadowDOM are private to that element. Frameworks like React can still interact with light DOM nodes as they normally would.
 
 ShadowDOM exists in browsers today, and powers some built in elements, like `<input>`, `<textarea>`, `<button>`, `<video>` and so on. The browser can build these elements out of many other elements which can be toggled off and on. For example, in Chrome, an `<input>` has an underlying ShadowDOM of:
 
@@ -152,7 +152,7 @@ ADR 002 claimed that React Hooks offer better extensibility as they can interact
 
 Given state management libraries are agnostic to the underlying framework, it is important to acknowledge that it is entirely possible to use state management libraries such as Redux or Mobx with many component frameworks such as Vue, Svelte or React, as well as with Custom Elements.
 
-React components may also directly communicate with Custom Elements using the same mechanisms that React components communicate with built in elements - by passing props within JSX. A complication arises with React as it hard codes a list of attributes that map to class properties, and a list of `on*` prefixed callbacks that map to events. For example using the `hidden` prop on element rendered by React, react will look up the `hidden` property in its hard coded loookup table and map the prop to a `.hidden =` call. Props given to JSX elements which are not in this hard coded table map to `setAttribute(name)` calls, and the result is stringified.
+React components may also directly communicate with Custom Elements using the same mechanisms that React components communicate with built in elements - by passing props within JSX. A complication arises with React as it hard codes a list of attributes that map to class properties, and a list of `on*` prefixed callbacks that map to events. For example using the `hidden` prop on element rendered by React, react will look up the `hidden` property in its hard coded lookup table and map the prop to a `.hidden =` call. Props given to JSX elements which are not in this hard coded table map to `setAttribute(name)` calls, and the result is stringified.
 
 While React's support for custom events and custom attributes is not as robust as, say, Preact's, it is entirely possible to map attributes and events to React props.
 
@@ -168,7 +168,7 @@ While React 18 and below require a small library like `@lit-labs/react`, due to 
 
 One consideration around sharing code between one or more implementations of primer is the organisational overhead of doing so.
 
-ADR 002 enumerates concerns around development, including the issue of developing against multiple repositories and handling depdencies with `npm link`. It also enumerates concerns around orchestrating releases. Again, this is mostly a concern around the available tooling across multiple repositories and out of scope.
+ADR 002 enumerates concerns around development, including the issue of developing against multiple repositories and handling dependencies with `npm link`. It also enumerates concerns around orchestrating releases. Again, this is mostly a concern around the available tooling across multiple repositories and out of scope.
 
 These issues are not intrinsic to the use of shared code, however. For example sharing of code can be done within a monorepo. This is out of scope of the discussion of this ADR.
 
@@ -195,7 +195,7 @@ Organizational overhead of shared dependencies is something that we will have to
 ### Custom Elements
 
 - This ADR does not conclude with a decision on how custom elements should be written. It does not enforce a decision on language or tooling.
-- This ADR does not enforce a decision that custom elements _must be written_ in any circumstances. It merely decides that we _may_ chose to use this technology as we see fit.
+- This ADR does not enforce a decision that custom elements _must be written_ in any circumstances. It merely decides that we _may_ choose to use this technology as we see fit.
 
 ### Repositories
 
@@ -208,4 +208,4 @@ Organizational overhead of shared dependencies is something that we will have to
 ## Consequences
 
 - By using `@lit-labs/ssr` today, we introduce a new dependency into Primer React. This may be removed later should React support Custom Elements out of the box (which seems likely for React 19), but for now we will need to continue to ship this dependency.
-- This decision may expediate the need to resolve organisational overhead issues. Deciding to use custom elements to share more code among PVC and PRC may highlight other areas which need to be addressed in subsequen PRs.
+- This decision may expedite the need to resolve organisational overhead issues. Deciding to use custom elements to share more code among PVC and PRC may highlight other areas which need to be addressed in subsequent PRs.

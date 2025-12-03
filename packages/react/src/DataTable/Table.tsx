@@ -1,19 +1,17 @@
 import {SortAscIcon, SortDescIcon} from '@primer/octicons-react'
 import {clsx} from 'clsx'
-import React from 'react'
+import React, {type JSX} from 'react'
 import Text from '../Text'
-import type {SxProp} from '../sx'
 import VisuallyHidden from '../_VisuallyHidden'
 import type {Column, CellAlignment} from './column'
 import type {UniqueRow} from './row'
 import {SortDirection} from './sorting'
 import {useTableLayout} from './useTable'
-import {SkeletonText} from '../experimental/Skeleton/SkeletonText'
+import {SkeletonText} from '../SkeletonText'
 import {ScrollableRegion} from '../ScrollableRegion'
 import {Button} from '../internal/components/ButtonReset'
 import classes from './Table.module.css'
-import {defaultSxProp} from '../utils/defaultSxProp'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
+import type {PolymorphicProps} from '../utils/modern-polymorphic'
 
 // ----------------------------------------------------------------------------
 // Table
@@ -150,14 +148,17 @@ function TableSortHeader({align, children, direction, onToggleSort, ...rest}: Ta
       >
         {children}
         {direction === SortDirection.NONE || direction === SortDirection.ASC ? (
-          <SortAscIcon
-            className={clsx(
-              'TableSortIcon',
-              'TableSortIcon--ascending',
-              classes.TableSortIcon,
-              classes['TableSortIcon--ascending'],
-            )}
-          />
+          <>
+            <SortAscIcon
+              className={clsx(
+                'TableSortIcon',
+                'TableSortIcon--ascending',
+                classes.TableSortIcon,
+                classes['TableSortIcon--ascending'],
+              )}
+            />
+            {direction === SortDirection.NONE ? <VisuallyHidden>sort ascending</VisuallyHidden> : null}
+          </>
         ) : null}
         {direction === SortDirection.DESC ? (
           <SortDescIcon
@@ -225,19 +226,26 @@ function TableCell({align, className, children, scope, ...rest}: TableCellProps)
 type TableCellPlaceholderProps = React.PropsWithChildren
 
 function TableCellPlaceholder({children}: TableCellPlaceholderProps) {
-  return <Text color="fg.subtle">{children}</Text>
+  return <Text className={classes.PlaceholderText}>{children}</Text>
 }
 
 // ----------------------------------------------------------------------------
 // TableContainer
 // ----------------------------------------------------------------------------
-export type TableContainerProps = React.PropsWithChildren<SxProp & React.HTMLAttributes<HTMLDivElement>>
+export type TableContainerProps<As extends React.ElementType = 'div'> = PolymorphicProps<As, 'div'> &
+  React.PropsWithChildren
 
-function TableContainer({children, sx: sxProp = defaultSxProp}: TableContainerProps) {
+function TableContainer<As extends React.ElementType = 'div'>({
+  children,
+  className,
+  as,
+  ...rest
+}: TableContainerProps<As>) {
+  const Component = as || 'div'
   return (
-    <BoxWithFallback className={clsx(classes.TableContainer)} sx={sxProp}>
+    <Component {...rest} className={clsx(className, classes.TableContainer)}>
       {children}
-    </BoxWithFallback>
+    </Component>
   )
 }
 

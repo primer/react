@@ -2,7 +2,7 @@
   "id": "button",
   "name": "Button",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-button--default"
@@ -96,6 +96,11 @@
       "defaultValue": "'button'"
     },
     {
+      "name": "href",
+      "type": "string",
+      "description": "**May only be used when `as` is set to 'a'**.\n The URL the button links to. If `as` is set to 'a', this prop is required."
+    },
+    {
       "name": "block",
       "type": "boolean",
       "description": "Allow button width to fill its container."
@@ -114,7 +119,7 @@
     {
       "name": "inactive",
       "type": "boolean",
-      "description": "Whether the button looks visually disabled, but can still accept all the same interactions as an enabled button.\n This is intended to be used when a system error such as an outage prevents the button from performing its usual action.\n Inactive styles are slightly different from disabled styles because inactive buttons need to have an accessible color contrast ratio. This is because inactive buttons can have tooltips or perform an action such as opening a dialog explaining why it's inactive.\n If both `disabled` and `inactive` are true, `disabled` takes precedence."
+      "description": "Whether the button looks visually disabled, but can still accept all the same interactions as an enabled button.\nThis is intended to be used when a system error such as an outage prevents the button from performing its usual action.\nInactive styles are slightly different from disabled styles because inactive buttons need to have an accessible color contrast ratio. This is because inactive buttons can have tooltips or perform an action such as opening a dialog explaining why it's inactive.\nIf both `disabled` and `inactive` are true, `disabled` takes precedence."
     },
     {
       "name": "leadingIcon",
@@ -137,7 +142,6 @@
       "type": "string",
       "description": "The content to announce to screen readers when loading. This requires `loading` prop to be true"
     },
-
     {
       "name": "ref",
       "type": "React.RefObject<HTMLButtonElement>"
@@ -146,10 +150,6 @@
       "name": "size",
       "type": "'small'\n| 'medium'\n| 'large'",
       "defaultValue": "'medium'"
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject"
     },
     {
       "name": "trailingIcon",

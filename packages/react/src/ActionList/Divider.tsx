@@ -1,55 +1,25 @@
-import React from 'react'
-import Box from '../Box'
-import {get} from '../constants'
-import type {Theme} from '../ThemeProvider'
-import type {SxProp} from '../sx'
-import {merge} from '../sx'
+import type React from 'react'
 import {clsx} from 'clsx'
-import {useFeatureFlag} from '../FeatureFlags'
 import classes from './ActionList.module.css'
-import {defaultSxProp} from '../utils/defaultSxProp'
-import {actionListCssModulesFlag} from './featureflag'
+import type {FCWithSlotMarker} from '../utils/types/Slots'
 
-export type ActionListDividerProps = SxProp & {
+export type ActionListDividerProps = {
   className?: string
+  style?: React.CSSProperties
 }
 
 /**
- * Visually separates `Item`s or `Group`s in an `ActionList`.
+ * Visually separates `Items` or `Groups` in an `ActionList`.
  */
-export const Divider: React.FC<React.PropsWithChildren<ActionListDividerProps>> = ({sx = defaultSxProp, className}) => {
-  const enabled = useFeatureFlag(actionListCssModulesFlag)
-  if (enabled) {
-    if (sx !== defaultSxProp) {
-      return (
-        <Box
-          className={clsx(className, classes.Divider)}
-          as="li"
-          aria-hidden="true"
-          sx={sx}
-          data-component="ActionList.Divider"
-        />
-      )
-    }
-    return <li className={clsx(className, classes.Divider)} aria-hidden="true" data-component="ActionList.Divider" />
-  }
+export const Divider: FCWithSlotMarker<React.PropsWithChildren<ActionListDividerProps>> = ({className, style}) => {
   return (
-    <Box
-      as="li"
+    <li
+      className={clsx(className, classes.Divider)}
+      style={style}
       aria-hidden="true"
-      sx={merge(
-        {
-          height: 1,
-          backgroundColor: 'actionListItem.inlineDivider',
-          marginTop: (theme: Theme) => `calc(${get('space.2')(theme)} - 1px)`,
-          marginBottom: 2,
-          listStyle: 'none', // hide the ::marker inserted by browser's stylesheet
-        },
-        sx as SxProp,
-      )}
-      className={className}
       data-component="ActionList.Divider"
     />
   )
 }
-Divider.displayName = 'ActionList.Divider'
+
+Divider.__SLOT__ = Symbol('ActionList.Divider')

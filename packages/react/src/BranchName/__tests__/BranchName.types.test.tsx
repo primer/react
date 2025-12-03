@@ -15,7 +15,6 @@ export function shouldAcceptAs() {
     <BranchName
       as="button"
       onClick={event => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         type test = Expect<Equal<typeof event, React.MouseEvent<HTMLButtonElement, MouseEvent>>>
       }}
     />
@@ -25,8 +24,7 @@ export function shouldAcceptAs() {
 export function defaultAsIsAnchor() {
   return (
     <BranchName
-      onClick={event => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      onClick={(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         type test = Expect<Equal<typeof event, React.MouseEvent<HTMLAnchorElement, MouseEvent>>>
       }}
     />
@@ -40,7 +38,6 @@ export function ShouldAcceptRef() {
       as="button"
       ref={ref}
       onClick={event => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         type test = Expect<Equal<typeof event, React.MouseEvent<HTMLButtonElement, MouseEvent>>>
       }}
     />

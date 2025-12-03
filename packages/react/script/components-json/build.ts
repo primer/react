@@ -1,6 +1,7 @@
-import generate from '@babel/generator'
+// @ts-expect-error there seems to be a mismatch in the types for this package
+import {generate} from '@babel/generator'
 import {parse} from '@babel/parser'
-import traverse from '@babel/traverse'
+import {traverse} from '@babel/core'
 import type {ArrowFunctionExpression, Identifier, FunctionDeclaration} from '@babel/types'
 import path from 'node:path'
 import {parseArgs} from 'node:util'
@@ -8,8 +9,12 @@ import Ajv from 'ajv'
 import {pascalCase, kebabCase} from 'change-case'
 import glob from 'fast-glob'
 import fs from 'fs'
+import {processDocsFile} from '@primer/doc-gen'
 import keyBy from 'lodash.keyby'
 import prettier from '@prettier/sync'
+import chalk from 'chalk'
+import type {LintError} from 'markdownlint'
+import {lint as mdLint} from 'markdownlint/sync'
 import componentSchema from './component.schema.json'
 import outputSchema from './output.schema.json'
 
@@ -35,7 +40,49 @@ type Component = {
   source?: string
 }
 
-const ajv = new Ajv()
+const ajv = new Ajv({
+  allowUnionTypes: true,
+})
+
+function formatMDError(lintError: LintError): string {
+  let range = ''
+
+  if (lintError.errorRange.length) {
+    range = `:${lintError.errorRange[0]}-${lintError.errorRange[0] + lintError.errorRange[1]}`
+  }
+
+  const prefix = chalk.gray(`${lintError.lineNumber}${range}`)
+  return `${prefix} - ${chalk.yellow(lintError.ruleDescription)}: ${lintError.errorDetail}`
+}
+
+ajv.addFormat('markdown', {
+  type: 'string',
+  validate: (value: string) => {
+    const lintResult = mdLint({
+      config: {
+        'first-line-h1': false,
+        'single-trailing-newline': false,
+        'line-length': false,
+      },
+      strings: {
+        md: value,
+      },
+    })
+
+    if (lintResult.md.length > 0) {
+      // eslint-disable-next-line no-console
+      console.error(`${chalk.red('Markdown linting errors for text: ')}"${value}"\n`)
+      for (const error of lintResult.md) {
+        // eslint-disable-next-line no-console
+        console.error(`  ${formatMDError(error)}\n`)
+      }
+
+      return false
+    }
+
+    return true
+  },
+})
 
 // Get all JSON files matching `src/**/*.docs.json`
 const docsFiles = glob.sync('src/**/*.docs.json')
@@ -68,7 +115,8 @@ function getStorybookData(): StorybookData {
 }
 
 const components = docsFiles.map(docsFilepath => {
-  const docs = JSON.parse(fs.readFileSync(docsFilepath, 'utf-8'))
+  // const docs = JSON.parse(fs.readFileSync(docsFilepath, 'utf-8'))
+  const docs = processDocsFile(docsFilepath)
 
   // Create a validator for the component schema
   const validate = ajv.compile<Component>(componentSchema)

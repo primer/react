@@ -68,7 +68,7 @@ Navigate to http://localhost:6006/ to see Primer react components in your browse
 
 - [React](https://reactjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
-- [Jest](https://jestjs.io/)
+- [Vitest](https://vitest.dev/)
 - [Storybook](https://storybook.js.org/)
 - [Prettier](https://prettier.io/)
 - [ESLint](https://eslint.org/)
@@ -107,7 +107,7 @@ Please review the related docs and ADRs below for more information on how to str
 Here's an example of a basic component written in the style of Primer react components:
 
 ```tsx
-import React from 'react'
+import type React from 'react'
 import styles from './Component.module.css'
 import {clsx} from 'clsx'
 

@@ -1,7 +1,8 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, Box} from '../../index'
+import {ActionList} from '../../index'
 import data from './mock-story-data'
+import sharedClasses from './SelectPanel2.stories.module.css'
 
 export default {
   title: 'Deprecated/Components/SelectPanel',
@@ -85,10 +86,7 @@ export const Default = () => {
                 selected={selectedLabelIds.includes(label.id)}
               >
                 <ActionList.LeadingVisual>
-                  <Box
-                    sx={{width: 14, height: 14, borderRadius: '100%'}}
-                    style={{backgroundColor: `#${label.color}`}}
-                  />
+                  <div className={sharedClasses.Circle} style={{backgroundColor: `#${label.color}`}} />
                 </ActionList.LeadingVisual>
                 {label.name}
                 <ActionList.Description variant="block">{label.description}</ActionList.Description>

@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import {SegmentedControl} from './SegmentedControl'
 import figma from '@figma/code-connect'
 
@@ -31,7 +31,7 @@ figma.connect(
     },
     example: ({selected, label, leadingIcon}) => (
       // @ts-expect-error: leadingIcon is optional
-      <SegmentedControl.Button selected={selected} leadingIcon={leadingIcon.fn}>
+      <SegmentedControl.Button selected={selected} leadingVisual={leadingIcon.fn}>
         {label}
       </SegmentedControl.Button>
     ),
@@ -44,7 +44,8 @@ figma.connect(
   {
     props: {
       selected: figma.enum('state', {selected: true}),
-      icon: figma.instance('icon').getProps<{name: string; fn: React.ReactElement}>(),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      icon: figma.instance('icon').getProps<{name: string; fn: React.ReactElement<any>}>(),
     },
     example: ({selected, icon}) => (
       <SegmentedControl.IconButton aria-label="Describe action" selected={selected} icon={icon.fn} />

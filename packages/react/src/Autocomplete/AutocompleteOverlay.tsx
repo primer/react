@@ -1,4 +1,5 @@
-import React, {useCallback, useContext} from 'react'
+import type React from 'react'
+import {useCallback, useContext} from 'react'
 import {useAnchoredPosition} from '../hooks'
 import type {OverlayProps} from '../Overlay'
 import Overlay from '../Overlay'
@@ -78,3 +79,5 @@ AutocompleteOverlay.displayName = 'AutocompleteOverlay'
 
 export type AutocompleteOverlayProps = ComponentProps<typeof AutocompleteOverlay>
 export default AutocompleteOverlay
+
+AutocompleteOverlay.__SLOT__ = Symbol('Autocomplete.Overlay')

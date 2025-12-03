@@ -1,33 +1,16 @@
 import type {HTMLProps} from 'react'
-import React, {useEffect, useState} from 'react'
-import styled, {keyframes, css} from 'styled-components'
-import Box from '../../Box'
+import type React from 'react'
+import {useEffect, useState} from 'react'
+import classes from './ValidationAnimationContainer.module.css'
 
 interface Props extends HTMLProps<HTMLDivElement> {
   show?: boolean
 }
-
-const fadeIn = keyframes`
-    0% {
-      opacity: 0;
-      transform: translateY(-100%);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  `
-// using easeOutQuint easing fn https://easings.net/#easeOutQuint
-const AnimatedElement = styled.div<Props>`
-  animation: ${props => props.show && css`170ms ${fadeIn} cubic-bezier(0.44, 0.74, 0.36, 1);`};
-  @media (prefers-reduced-motion) {
-    animation: none;
-  }
-`
 const ValidationAnimationContainer: React.FC<React.PropsWithChildren<Props>> = ({show, children}) => {
   const [shouldRender, setRender] = useState(show)
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (show) setRender(true)
   }, [show])
 
@@ -36,11 +19,11 @@ const ValidationAnimationContainer: React.FC<React.PropsWithChildren<Props>> = (
   }
 
   return shouldRender ? (
-    <Box height={show ? 'auto' : 0} overflow="hidden">
-      <AnimatedElement show={show} onAnimationEnd={onAnimationEnd}>
+    <div style={{height: show ? 'auto' : 0, overflow: 'hidden'}}>
+      <div data-show={show ? '' : undefined} onAnimationEnd={onAnimationEnd} className={classes.Animation}>
         {children}
-      </AnimatedElement>
-    </Box>
+      </div>
+    </div>
   ) : null
 }
 

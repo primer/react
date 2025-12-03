@@ -13,6 +13,8 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3
       - name: Add label to issue
         if: ${{ github.event.issue.author_association == 'MEMBER' }}
         run: |

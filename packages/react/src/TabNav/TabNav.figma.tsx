@@ -1,4 +1,3 @@
-import React from 'react'
 import TabNav from './TabNav'
 import figma from '@figma/code-connect'
 

@@ -14,17 +14,20 @@ const SKIPPED_TESTS = [
   'components-flash-features--with-icon-action-dismiss', // TODO: Remove once color-contrast issues have been resolved
   'components-flash-features--with-icon-and-action', // TODO: Remove once color-contrast issues have been resolved
   'components-filteredactionlist--default',
+  'components-pagelayout-performance-tests--medium-content',
+  'components-pagelayout-performance-tests--heavy-content',
 ]
 
 type Component = {
   name: string
+  type: 'story' | 'docs'
 }
 
 const {entries} = componentsConfig
 
 test.describe('Axe tests', () => {
   for (const [id, entry] of Object.entries(entries as Record<string, Component>)) {
-    if (SKIPPED_TESTS.includes(id)) {
+    if (SKIPPED_TESTS.includes(id) || entry.type !== 'story') {
       continue
     }
 

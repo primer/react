@@ -3,7 +3,7 @@
   "name": "Tooltip",
   "docsId": "tooltip",
   "status": "beta",
-  "a11yReviewed": true,
+  "a11yReviewed": "2025-01-08",
   "importPath": "@primer/react/next",
   "stories": [
     {
@@ -51,7 +51,7 @@
       "name": "type",
       "type": "'label' | 'description'",
       "defaultValue": "description",
-      "description": "The type of tooltip. `label` is used for labelling the element that triggers tooltip. `description` is used for describing or adding a suplementary information to the element that triggers the tooltip."
+      "description": "The type of tooltip. `label` is used for labelling the element that triggers tooltip. `description` is used for describing or adding a supplementary information to the element that triggers the tooltip."
     },
     {
       "name": "keybindingHint",
@@ -59,8 +59,10 @@
       "description": "Optional keybinding hint to indicate the availability of a keyboard shortcut. Supported syntax is described in the docs for the `KeybindingHint` component."
     },
     {
-      "name": "sx",
-      "type": "SystemStyleObject"
+      "name": "delay",
+      "type": "'short' | 'medium' | 'long'",
+      "defaultValue": "short",
+      "description": "Sets the delay before showing the tooltip. `short` is 50ms (default), `medium` is 400ms, and `long` is 1200ms."
     }
   ],
   "subcomponents": []

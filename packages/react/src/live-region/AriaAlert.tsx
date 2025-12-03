@@ -1,14 +1,12 @@
-import React, {type ElementType} from 'react'
+import type React from 'react'
+import {type ElementType} from 'react'
 import {Announce} from './Announce'
-import type {SxProp} from '../sx'
+import type {PolymorphicProps} from '../utils/modern-polymorphic'
 
-export type AriaAlertProps<As extends ElementType> = React.PropsWithChildren<
+export type AriaAlertProps<As extends ElementType> = PolymorphicProps<
+  As,
+  'div',
   {
-    /**
-     * Customize the element type of the rendered container
-     */
-    as?: As
-
     /**
      * Specify if the content of the element should be announced when this
      * component is rendered and is not hidden
@@ -21,17 +19,9 @@ export type AriaAlertProps<As extends ElementType> = React.PropsWithChildren<
      * @default false
      */
     hidden?: boolean
-  } & SxProp
+  }
 >
 
-export function AriaAlert<As extends ElementType>({
-  announceOnShow = true,
-  children,
-  ...rest
-}: AriaAlertProps<As> & React.ComponentPropsWithoutRef<ElementType extends As ? As : 'div'>) {
-  return (
-    <Announce {...rest} announceOnShow={announceOnShow} politeness="assertive">
-      {children}
-    </Announce>
-  )
+export function AriaAlert<As extends ElementType = 'div'>(props: AriaAlertProps<As>) {
+  return <Announce {...props} announceOnShow={props.announceOnShow ?? true} politeness="assertive" />
 }

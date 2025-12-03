@@ -7,7 +7,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import classes from './Select.module.css'
 
 export type SelectProps = Omit<
-  Omit<React.ComponentProps<'select'>, 'size'> & Omit<StyledWrapperProps, 'variant'>,
+  Omit<React.ComponentProps<'select'>, 'size'> & Omit<StyledWrapperProps, 'variant' | 'contrast'>,
   'multiple' | 'hasLeadingVisual' | 'hasTrailingVisual' | 'as'
 > & {
   placeholder?: string
@@ -34,28 +34,37 @@ const ArrowIndicator: React.FC<{className?: string}> = ({className}) => {
 
 const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   (
-    {block, children, contrast, disabled, placeholder, size, required, validationStatus, sx, ...rest}: SelectProps,
+    {
+      block,
+      children,
+      className,
+      defaultValue,
+      disabled,
+      placeholder,
+      size,
+      required,
+      validationStatus,
+      ...rest
+    }: SelectProps,
     ref,
   ) => {
     return (
       <TextInputWrapper
         block={block}
-        contrast={contrast}
         disabled={disabled}
         size={size}
         validationStatus={validationStatus}
-        className={classes.TextInputWrapper}
-        sx={sx}
+        className={clsx(classes.TextInputWrapper, className)}
       >
         <select
+          {...rest}
           ref={ref}
           required={required}
           disabled={disabled}
           aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
-          data-hasplaceholder={Boolean(placeholder)}
-          defaultValue={placeholder ?? undefined}
           className={clsx(classes.Select, disabled && classes.Disabled)}
-          {...rest}
+          data-hasplaceholder={Boolean(placeholder)}
+          defaultValue={defaultValue ?? placeholder ?? undefined}
         >
           {placeholder && (
             <option value="" disabled={required} hidden={required}>
@@ -79,6 +88,7 @@ const OptGroup: React.FC<React.PropsWithChildren<React.HTMLProps<HTMLOptGroupEle
 )
 
 export default Object.assign(Select, {
+  __SLOT__: Symbol('Select'),
   Option,
   OptGroup,
 })

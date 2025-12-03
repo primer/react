@@ -1,0 +1,16 @@
+.LoadingExample {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: var(--base-size-8);
+}
+
+.LoadingIndicator {
+  align-items: center;
+  display: flex;
+  gap: var(--base-size-4);
+}
+
+.LoadButton {
+  margin-bottom: var(--base-size-16);
+}

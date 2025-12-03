@@ -1,15 +1,6 @@
 import type React from 'react'
-import styled from 'styled-components'
-import type {SxProp} from '../sx'
-import sx from '../sx'
-import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 import type {TooltipDirection} from '../TooltipV2'
 import type {IconProps} from '@primer/octicons-react'
-
-export const StyledButton = styled.button<SxProp>`
-  ${getGlobalFocusStyles('-2px')};
-  ${sx};
-`
 
 export type VariantType = 'default' | 'primary' | 'invisible' | 'danger' | 'link'
 
@@ -56,8 +47,7 @@ export type ButtonBaseProps = {
    * Whether the button label should wrap to multiple lines if it is longer than the button width
    */
   labelWrap?: boolean
-} & SxProp &
-  React.ButtonHTMLAttributes<HTMLButtonElement>
+} & React.ButtonHTMLAttributes<HTMLButtonElement>
 
 export type ButtonProps = {
   /**
@@ -68,17 +58,20 @@ export type ButtonProps = {
   /**
    * The icon for the IconButton
    */
-  icon?: React.FunctionComponent<IconProps> | React.ElementType | React.ReactElement | null
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  icon?: React.FunctionComponent<IconProps> | React.ElementType | React.ReactElement<any> | null
 
   /**
    * The leading visual which comes before the button content
    */
-  leadingVisual?: React.ElementType | React.ReactElement | null
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  leadingVisual?: React.ElementType | React.ReactElement<any> | null
 
   /**
    * The trailing visual which comes after the button content
    */
-  trailingVisual?: React.ElementType | React.ReactElement | null
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  trailingVisual?: React.ElementType | React.ReactElement<any> | null
 
   /**
    * Trailing action which comes after the trailing visual and is always the last element
@@ -103,7 +96,6 @@ export type IconButtonProps = ButtonA11yProps & {
 
 // adopted from React.AnchorHTMLAttributes
 export type LinkButtonProps = {
-  underline?: boolean
   download?: string
   href?: string
   hrefLang?: string

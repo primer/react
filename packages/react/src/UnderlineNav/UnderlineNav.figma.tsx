@@ -1,4 +1,3 @@
-import React from 'react'
 import {UnderlineNav} from '../../src'
 import figma from '@figma/code-connect'
 
@@ -34,7 +33,7 @@ figma.connect(
       }),
     },
     example: ({label, current, counter, leadingVisual}) => (
-      <UnderlineNav.Item aria-current={current} counter={counter.count} icon={leadingVisual}>
+      <UnderlineNav.Item aria-current={current} counter={counter.count} leadingVisual={leadingVisual}>
         {label}
       </UnderlineNav.Item>
     ),

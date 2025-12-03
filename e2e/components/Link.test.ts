@@ -15,10 +15,6 @@ const stories = [
     title: 'Muted',
     id: 'components-link-features--muted',
   },
-  {
-    title: 'Underline',
-    id: 'components-link-features--underline',
-  },
 ] as const
 
 test.describe('Link', () => {
@@ -35,15 +31,15 @@ test.describe('Link', () => {
             })
 
             // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`Link.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Link.${story.title}.${theme}.png`)
 
             // Hover state
             await page.getByRole('link').hover()
-            expect(await page.screenshot()).toMatchSnapshot(`Link.${story.title}.${theme}.hover.png`)
+            await expect(page).toHaveScreenshot(`Link.${story.title}.${theme}.hover.png`)
 
             // Focus state
             await page.keyboard.press('Tab')
-            expect(await page.screenshot()).toMatchSnapshot(`Link.${story.title}.${theme}.focus.png`)
+            await expect(page).toHaveScreenshot(`Link.${story.title}.${theme}.focus.png`)
           })
         })
       }
@@ -62,7 +58,7 @@ test.describe('Link', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Link.Dev Inline.${theme}.png`)
+          await expect(page).toHaveScreenshot(`Link.Dev Inline.${theme}.png`)
         })
       })
     }

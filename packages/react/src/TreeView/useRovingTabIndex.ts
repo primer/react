@@ -98,7 +98,7 @@ export function getNextFocusableElement(activeElement: HTMLElement, event: Keybo
       return getParentElement(activeElement)
   }
 
-  // ArrowUp, ArrowDown, Home, and End behavior are the same regarless of element state
+  // ArrowUp, ArrowDown, Home, and End behavior are the same regardless of element state
   switch (event.key) {
     case 'ArrowUp':
       // Focus previous visible element

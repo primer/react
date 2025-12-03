@@ -2,7 +2,7 @@
   "id": "checkbox_group",
   "name": "CheckboxGroup",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-checkboxgroup--default"
@@ -48,7 +48,7 @@
       "name": "id",
       "type": "string",
       "defaultValue": "a generated string",
-      "description": "<span> The unique identifier for this input group. Used to associate the label, validation text, and caption text. <br /> You may want a custom ID to make it easier to select elements in integration tests. </span>"
+      "description": "The unique identifier for this input group. Used to associate the label, validation text, and caption text.\nYou may want a custom ID to make it easier to select elements in integration tests."
     },
     {
       "name": "onChange",
@@ -61,10 +61,6 @@
       "type": "boolean",
       "defaultValue": "false",
       "description": "If true, the user must make a selection before the owning form can be submitted"
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject"
     }
   ],
   "subcomponents": [
@@ -76,10 +72,6 @@
           "type": "boolean",
           "defaultValue": "false",
           "description": "If true, the fieldset legend will be visually hidden"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     },
@@ -91,10 +83,6 @@
           "type": "React.ReactNode",
           "defaultValue": "",
           "description": "The caption content"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     },
@@ -113,10 +101,6 @@
           "defaultValue": "",
           "required": true,
           "description": "Changes the visual style to match the validation status"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     }

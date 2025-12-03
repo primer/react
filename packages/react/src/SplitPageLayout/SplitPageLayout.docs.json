@@ -2,7 +2,7 @@
   "id": "split_page_layout",
   "name": "SplitPageLayout",
   "status": "alpha",
-  "a11yReviewed": true,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-splitpagelayout--default"
@@ -14,8 +14,8 @@
   "importPath": "@primer/react",
   "props": [
     {
-      "name": "sx",
-      "type": "SystemStyleObject"
+      "name": "className",
+      "type": "string"
     }
   ],
   "subcomponents": [
@@ -51,10 +51,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the header is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     },
@@ -74,6 +70,12 @@
           "defaultValue": ""
         },
         {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'main'",
+          "description": "Change the root node to another HTML element or custom component."
+        },
+        {
           "name": "width",
           "type": "| 'full' | 'medium' | 'large' | 'xlarge'",
           "defaultValue": "'large'",
@@ -90,10 +92,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     },
@@ -169,10 +167,6 @@
           "type": "'end' | 'start' | {narrow?: 'end' | 'start', narrow?: 'end' | 'start', wide?: 'end' | 'start'}",
           "description": "Which side of the page the pane should be on. Can be changed for different viewport widths.",
           "defaultValue": "start"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     },
@@ -208,10 +202,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the footer is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     }

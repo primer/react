@@ -1,10 +1,8 @@
-import React from 'react'
-import type {Meta} from '@storybook/react'
-
-import Header from './Header'
-import Avatar from '../Avatar'
-import Octicon from '../Octicon'
+import type {Meta} from '@storybook/react-vite'
 import {MarkGithubIcon} from '@primer/octicons-react'
+import Avatar from '../Avatar'
+import Header from './Header'
+import classes from './Header.features.stories.module.css'
 
 export default {
   title: 'Components/Header/Features',
@@ -15,7 +13,7 @@ export const WithFullSizeItem = () => (
   <Header>
     <Header.Item>Item 1</Header.Item>
     <Header.Item full>Item 2</Header.Item>
-    <Header.Item sx={{mr: 0}}>Item 3</Header.Item>
+    <Header.Item className={classes.LastItem}>Item 3</Header.Item>
   </Header>
 )
 
@@ -36,8 +34,8 @@ export const WithLinks = () => (
 export const WithManyItems = () => (
   <Header>
     <Header.Item>
-      <Header.Link href="#" sx={{fontSize: 2}}>
-        <Octicon icon={MarkGithubIcon} size={32} sx={{mr: 2}} />
+      <Header.Link className={classes.Logo} href="#">
+        <MarkGithubIcon className={classes.Icon} size={32} />
         <span>GitHub</span>
       </Header.Link>
     </Header.Item>
@@ -51,7 +49,7 @@ export const WithManyItems = () => (
     <Header.Item>Item</Header.Item>
     <Header.Item>Item</Header.Item>
     <Header.Item>Item</Header.Item>
-    <Header.Item sx={{mr: 0}}>
+    <Header.Item className={classes.LastItem}>
       <Avatar src="https://github.com/octocat.png" size={20} square alt="@octocat" />
     </Header.Item>
   </Header>

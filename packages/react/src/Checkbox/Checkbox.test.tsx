@@ -1,17 +1,11 @@
+import {describe, expect, it, vi, beforeEach} from 'vitest'
 import {render} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React from 'react'
 import Checkbox from '../Checkbox'
-import {behavesAsComponent, checkExports} from '../utils/testing'
 
 describe('Checkbox', () => {
   beforeEach(() => {
-    jest.resetAllMocks()
-  })
-  behavesAsComponent({Component: Checkbox, options: {skipAs: true}})
-
-  checkExports('Checkbox', {
-    default: Checkbox,
+    vi.clearAllMocks()
   })
 
   it('should support `className` on the outermost element', () => {
@@ -36,7 +30,7 @@ describe('Checkbox', () => {
   })
 
   it('renders an active checkbox when checked attribute is passed', () => {
-    const handleChange = jest.fn()
+    const handleChange = vi.fn()
     const {getByRole} = render(<Checkbox checked onChange={handleChange} />)
 
     const checkbox = getByRole('checkbox') as HTMLInputElement
@@ -46,7 +40,7 @@ describe('Checkbox', () => {
 
   it('accepts a change handler that can alter the checkbox state', async () => {
     const user = userEvent.setup()
-    const handleChange = jest.fn()
+    const handleChange = vi.fn()
     const {getByRole} = render(<Checkbox onChange={handleChange} />)
 
     const checkbox = getByRole('checkbox') as HTMLInputElement
@@ -63,7 +57,7 @@ describe('Checkbox', () => {
   })
 
   it('renders an indeterminate prop correctly', () => {
-    const handleChange = jest.fn()
+    const handleChange = vi.fn()
     const {getByRole} = render(<Checkbox indeterminate checked onChange={handleChange} />)
 
     const checkbox = getByRole('checkbox') as HTMLInputElement
@@ -74,7 +68,7 @@ describe('Checkbox', () => {
 
   it('renders an inactive checkbox state correctly', async () => {
     const user = userEvent.setup()
-    const handleChange = jest.fn()
+    const handleChange = vi.fn()
     const {getByRole, rerender} = render(<Checkbox disabled onChange={handleChange} />)
 
     const checkbox = getByRole('checkbox') as HTMLInputElement
@@ -105,7 +99,7 @@ describe('Checkbox', () => {
   })
 
   it('renders an aria-checked attribute correctly', () => {
-    const handleChange = jest.fn()
+    const handleChange = vi.fn()
     const {getByRole, rerender} = render(<Checkbox checked={false} onChange={handleChange} />)
 
     const checkbox = getByRole('checkbox') as HTMLInputElement
@@ -122,7 +116,7 @@ describe('Checkbox', () => {
   })
 
   it('renders an invalid aria state when validation prop indicates an error', () => {
-    const handleChange = jest.fn()
+    const handleChange = vi.fn()
     const {getByRole, rerender} = render(<Checkbox onChange={handleChange} />)
 
     const checkbox = getByRole('checkbox') as HTMLInputElement
@@ -139,7 +133,7 @@ describe('Checkbox', () => {
   })
 
   it('renders an aria state indicating the field is required', () => {
-    const handleChange = jest.fn()
+    const handleChange = vi.fn()
     const {getByRole, rerender} = render(<Checkbox onChange={handleChange} />)
 
     const checkbox = getByRole('checkbox') as HTMLInputElement

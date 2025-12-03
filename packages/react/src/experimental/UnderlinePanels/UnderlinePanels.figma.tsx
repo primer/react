@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-import React from 'react'
+import type React from 'react'
 import {UnderlinePanels} from '../'
 import figma from '@figma/code-connect'
 import type {IconProps} from '@primer/octicons-react'

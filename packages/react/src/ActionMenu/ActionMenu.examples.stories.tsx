@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, ActionMenu, ActionList, Button, IconButton, FormControl, TextInput} from '../'
+import {ActionMenu, ActionList, Button, IconButton, FormControl, TextInput} from '../'
 import {
   GearIcon,
   MilestoneIcon,
@@ -19,6 +19,8 @@ import {
   RocketIcon,
   WorkflowIcon,
 } from '@primer/octicons-react'
+import type {AnchorPosition, AnchorSide} from '@primer/behaviors'
+import classes from './ActionMenu.examples.stories.module.css'
 
 export default {
   title: 'Components/ActionMenu/Examples',
@@ -36,8 +38,7 @@ export const GroupsAndDescriptions = () => {
   return (
     <ActionMenu open>
       <ActionMenu.Button variant="default">
-        <Box sx={{display: 'inline-block', color: 'fg.muted'}}>Milestone:</Box>{' '}
-        {selectedMilestone?.name || 'Make a selection'}
+        <span className={classes.Milestone}>Milestone:</span> {selectedMilestone?.name || 'Make a selection'}
       </ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
         <ActionList selectionVariant="single" showDividers>
@@ -87,7 +88,7 @@ export const CustomOverlayProps = () => {
   const [open, setOpen] = React.useState(false)
 
   return (
-    <Box sx={{display: 'flex', justifyContent: 'center'}}>
+    <div className={classes.CenteredFlexContainer}>
       <ActionMenu open={open} onOpenChange={setOpen}>
         <ActionMenu.Button>Menu</ActionMenu.Button>
         <ActionMenu.Overlay width="large" align="center" preventOverflow={false}>
@@ -103,7 +104,36 @@ export const CustomOverlayProps = () => {
           </ActionList>
         </ActionMenu.Overlay>
       </ActionMenu>
-    </Box>
+    </div>
+  )
+}
+
+export const FullScreen = () => {
+  const [open, setOpen] = React.useState(false)
+
+  return (
+    <div className={classes.CenteredFlexContainer}>
+      <ActionMenu open={open} onOpenChange={setOpen}>
+        <ActionMenu.Button>Menu</ActionMenu.Button>
+        <ActionMenu.Overlay
+          width="large"
+          align="center"
+          preventOverflow={false}
+          variant={{regular: 'anchored', narrow: 'fullscreen'}}
+        >
+          <ActionList>
+            <ActionList.Item>Option 1</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </div>
   )
 }
 
@@ -165,6 +195,9 @@ export const ControlledMenu = () => {
 }
 
 export const ShortcutMenu = () => {
+  const [open, setOpen] = React.useState(false)
+  const triggerRef = React.useRef<HTMLButtonElement>(null)
+
   React.useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.shiftKey && (event.key === 'c' || event.key === 'C')) {
@@ -174,9 +207,6 @@ export const ShortcutMenu = () => {
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [])
-
-  const [open, setOpen] = React.useState(false)
-  const triggerRef = React.useRef<HTMLButtonElement>(null)
 
   return (
     <>
@@ -199,7 +229,7 @@ export const ShortcutMenu = () => {
        * we can pass an Anchor for the menu to "anchor to"
        */}
       <ActionMenu open={open} onOpenChange={setOpen}>
-        <ActionMenu.Button sx={{visibility: 'hidden'}}>Anchor</ActionMenu.Button>
+        <ActionMenu.Button className={classes.HiddenButton}>Anchor</ActionMenu.Button>
         <ActionMenu.Overlay
           ignoreClickRefs={[
             // Because the component is controlled from outside, but the anchor is still internal,
@@ -412,13 +442,13 @@ export const MultipleSections = () => {
         <ActionList>
           <ActionList.Group>
             <ActionList.GroupHeading>Raw file content</ActionList.GroupHeading>
-            <ActionList.Item onClick={() => alert('Workflows clicked')}>Download</ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Download</ActionList.Item>
             <ActionList.Divider />
-            <ActionList.Item onClick={() => alert('Workflows clicked')}>Jump to line</ActionList.Item>
-            <ActionList.Item onClick={() => alert('Workflows clicked')}>Find in file</ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Jump to line</ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Find in file</ActionList.Item>
             <ActionList.Divider />
-            <ActionList.Item onClick={() => alert('Workflows clicked')}>Copy path</ActionList.Item>
-            <ActionList.Item onClick={() => alert('Workflows clicked')}>Copy permalink</ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy path</ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy permalink</ActionList.Item>
           </ActionList.Group>
           <ActionList.Divider />
           <ActionList.Group selectionVariant="multiple">
@@ -436,7 +466,7 @@ export const MultipleSections = () => {
           <ActionList.Divider />
           <ActionList.Group>
             <ActionList.GroupHeading>View options</ActionList.GroupHeading>
-            <ActionList.Item onClick={() => alert('Delete file')} variant="danger">
+            <ActionList.Item onSelect={() => alert('Delete file')} variant="danger">
               Delete file
             </ActionList.Item>
           </ActionList.Group>
@@ -577,3 +607,50 @@ export const OnlyInactiveItems = () => (
     </ActionMenu.Overlay>
   </ActionMenu>
 )
+
+export const DynamicAnchorSides = () => {
+  const [currentSide, setCurrentSide] = React.useState<AnchorSide>('outside-bottom')
+  const [updatedSide, setUpdatedSide] = React.useState<AnchorPosition>()
+
+  return (
+    <>
+      <div className={classes.CustomPositionMiddle}>
+        <ActionMenu>
+          <ActionMenu.Button>Open menu</ActionMenu.Button>
+          <ActionMenu.Overlay
+            width="auto"
+            maxHeight="large"
+            side={currentSide}
+            onPositionChange={({position}) => {
+              setUpdatedSide(position)
+            }}
+          >
+            <ActionList>
+              <ActionList.Group>
+                <ActionList.GroupHeading>
+                  Inside {updatedSide?.anchorSide.includes('inside') ? '(current)' : null}
+                </ActionList.GroupHeading>
+                <ActionList.Item onSelect={() => setCurrentSide('inside-top')}>Inside-top</ActionList.Item>
+                <ActionList.Item onSelect={() => setCurrentSide('inside-bottom')}>Inside-bottom</ActionList.Item>
+                <ActionList.Item onSelect={() => setCurrentSide('inside-left')}>Inside-left</ActionList.Item>
+                <ActionList.Item onSelect={() => setCurrentSide('inside-right')}>Inside-right</ActionList.Item>
+                <ActionList.Item onSelect={() => setCurrentSide('inside-center')}>Inside-center</ActionList.Item>
+              </ActionList.Group>
+              <ActionList.Group>
+                <ActionList.GroupHeading>
+                  Outside {updatedSide?.anchorSide.includes('outside') ? '(current)' : null}
+                </ActionList.GroupHeading>
+                <ActionList.Item onSelect={() => setCurrentSide('outside-top')}>Outside-top</ActionList.Item>
+                <ActionList.Item onSelect={() => setCurrentSide('outside-bottom')}>Outside-bottom</ActionList.Item>
+                <ActionList.Item onSelect={() => setCurrentSide('outside-left')}>Outside-left</ActionList.Item>
+                <ActionList.Item onSelect={() => setCurrentSide('outside-right')}>Outside-right</ActionList.Item>
+              </ActionList.Group>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+
+        <span>Current Overlay Side: {currentSide}</span>
+      </div>
+    </>
+  )
+}

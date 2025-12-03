@@ -11,28 +11,18 @@ import {
   ArrowRightIcon,
   TriangleDownIcon,
 } from '@primer/octicons-react'
-import type {Meta} from '@storybook/react'
-import React, {useCallback, useState, useRef} from 'react'
-import styled from 'styled-components'
-import {ThemeProvider} from '../..'
+import type {Meta} from '@storybook/react-vite'
+import type React from 'react'
+import {useCallback, useState, useRef, type JSX} from 'react'
 import type {ActionMenuProps} from '../../deprecated'
 import {ActionMenu, ActionList} from '../../deprecated'
 import type {ItemProps} from '../../deprecated/ActionList'
-import BaseStyles from '../../BaseStyles'
 import {Button, type ButtonProps} from '../../Button'
+import classes from './ActionMenu.stories.module.css'
 
 const meta: Meta = {
   title: 'Deprecated/Components/ActionMenu',
   component: ActionMenu,
-  decorators: [
-    (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => (
-      <ThemeProvider>
-        <BaseStyles>
-          <Story />
-        </BaseStyles>
-      </ThemeProvider>
-    ),
-  ],
   parameters: {
     controls: {
       disable: true,
@@ -41,13 +31,11 @@ const meta: Meta = {
 }
 export default meta
 
-const ErsatzOverlay = styled.div`
-  border-radius: 12px;
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.12),
-    0 8px 24px rgba(149, 157, 165, 0.2);
-  padding: 8px;
-`
+const ErsatzOverlay = ({children, ...props}: {children: React.ReactNode}) => (
+  <div className={classes.ErsatzOverlay} {...props}>
+    {children}
+  </div>
+)
 
 export function ActionsStory(): JSX.Element {
   const [option, setOption] = useState('Select an option')
@@ -231,7 +219,7 @@ export function ComplexListStory(): JSX.Element {
 ComplexListStory.storyName = 'Complex List'
 
 export function CustomTrigger(): JSX.Element {
-  const customAnchor = (props: ButtonProps) => <Button {...props} sx={{cursor: 'pointer'}} />
+  const customAnchor = (props: ButtonProps) => <Button {...props} style={{cursor: 'pointer'}} />
   const [option, setOption] = useState('Select an option')
   const onAction = useCallback((itemProps: ItemProps) => {
     setOption(itemProps.text || '')

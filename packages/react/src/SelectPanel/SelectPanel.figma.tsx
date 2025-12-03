@@ -1,4 +1,3 @@
-import React from 'react'
 import {SelectPanel} from '../'
 import figma from '@figma/code-connect'
 

@@ -1,5 +1,4 @@
-import React from 'react'
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import {UnderlineNav} from './index'
 import {UnderlineNavItem} from './UnderlineNavItem'
 import {CodeIcon, GitPullRequestIcon, PeopleIcon} from '@primer/octicons-react'

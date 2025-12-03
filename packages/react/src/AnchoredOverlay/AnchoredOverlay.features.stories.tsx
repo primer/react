@@ -1,8 +1,7 @@
-import React, {useEffect, useRef, useState} from 'react'
-import type {Args, Meta} from '@storybook/react'
+import {useEffect, useRef, useState, type JSX} from 'react'
+import type {Args, Meta} from '@storybook/react-vite'
 import {FocusKeys} from '@primer/behaviors'
-
-import {Avatar, Box, Link, Text} from '..'
+import {Avatar, Link} from '..'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import Heading from '../Heading'
 import Octicon from '../Octicon'
@@ -11,6 +10,7 @@ import {registerPortalRoot} from '../Portal'
 import {Playground} from './AnchoredOverlay.stories'
 import {LocationIcon, RepoIcon} from '@primer/octicons-react'
 import {Stack} from '../Stack/Stack'
+import classes from './AnchoredOverlay.features.stories.module.css'
 
 export default {
   title: 'Components/AnchoredOverlay/Features',
@@ -24,25 +24,23 @@ const hoverCard = (
       <Button size="small">Follow</Button>
     </Stack>
     <Stack direction="horizontal" gap="none">
-      <Text weight="medium">monalisa</Text>
-      <Text color={'var(--fgColor-muted)'} ml={1}>
+      <span className={classes.UserName}>monalisa</span>
+      <span className={classes.UserMeta}>
         <Link inline muted href="#">
           Monalisa Octocat
         </Link>
-      </Text>
+      </span>
     </Stack>
-    <Text size="medium">Former beach cat and champion swimmer. Now your friendly octapus with a normal face.</Text>
+    <span className={classes.Bio}>
+      Former beach cat and champion swimmer. Now your friendly octopus with a normal face.
+    </span>
     <Stack direction="horizontal" gap="none">
-      <Octicon color={'var(--fgColor-muted)'} icon={LocationIcon} />
-      <Text size="small" color={'var(--fgColor-muted)'} ml={1}>
-        Interwebs
-      </Text>
+      <Octicon className={classes.Icon} icon={LocationIcon} />
+      <span className={classes.MetaMuted}>Interwebs</span>
     </Stack>
     <Stack direction="horizontal" gap="none">
-      <Octicon color={'var(--fgColor-muted)'} icon={RepoIcon} />
-      <Text size="small" color={'var(--fgColor-muted)'} ml={1}>
-        Owns this repository
-      </Text>
+      <Octicon className={classes.Icon} icon={RepoIcon} />
+      <span className={classes.MetaMuted}>Owns this repository</span>
     </Stack>
   </Stack>
 )
@@ -55,13 +53,13 @@ const HeaderAndLayout = ({children}: {children: JSX.Element}) => {
     }
   }, [scrollingElementRef])
   return (
-    <Box position="absolute" top={0} right={0} bottom={0} left={0} padding={4}>
+    <div className={classes.HeaderAndLayout}>
       <Heading>Header or some such</Heading>
-      <Box position="absolute" top={10} right={4} bottom={4} left={4} overflow="scroll" backgroundColor="powderblue">
+      <div className={classes.ScrollingRegion}>
         {children}
-        <Box ref={scrollingElementRef} position="absolute" top={0} left={0} />
-      </Box>
-    </Box>
+        <div ref={scrollingElementRef} className={classes.PortalRootRegion} />
+      </div>
+    </div>
   )
 }
 
@@ -80,9 +78,9 @@ export const PortalInsideScrollingElement = (args: Args) => {
                   .fill(null)
                   .map((_1, j) => (
                     <td key={`${i}${j}`}>
-                      <Box m={2}>
+                      <div className={classes.PlaygroundCell}>
                         <Playground {...{...args, portalContainerName: 'scrollingPortal'}} />
-                      </Box>
+                      </div>
                     </td>
                   ))}
               </tr>
@@ -103,11 +101,16 @@ export const CustomAnchorId = () => {
       onClose={() => setOpen(false)}
       renderAnchor={props => <Button {...props}>Button</Button>}
       anchorId="my-custom-anchor-id"
-      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay', sx: {minWidth: '320px'}}}
+      overlayProps={{
+        role: 'dialog',
+        'aria-modal': true,
+        'aria-label': 'User Card Overlay',
+        className: classes.Overlay,
+      }}
       focusZoneSettings={{disabled: true}}
       preventOverflow={false}
     >
-      <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
+      <div className={classes.FlexColFill}>{hoverCard}</div>
     </AnchoredOverlay>
   )
 }
@@ -122,11 +125,16 @@ export const Height = () => {
       onClose={() => setOpen(false)}
       renderAnchor={props => <Button {...props}>Button</Button>}
       height="large"
-      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay', sx: {minWidth: '320px'}}}
+      overlayProps={{
+        role: 'dialog',
+        'aria-modal': true,
+        'aria-label': 'User Card Overlay',
+        className: classes.Overlay,
+      }}
       focusZoneSettings={{disabled: true}}
       preventOverflow={false}
     >
-      <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
+      <div className={classes.FlexColFill}>{hoverCard}</div>
     </AnchoredOverlay>
   )
 }
@@ -141,20 +149,16 @@ export const Width = () => {
       onClose={() => setOpen(false)}
       renderAnchor={props => <Button {...props}>Button</Button>}
       width="large"
-      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay', sx: {minWidth: '320px'}}}
+      overlayProps={{
+        role: 'dialog',
+        'aria-modal': true,
+        'aria-label': 'User Card Overlay',
+        className: classes.Overlay,
+      }}
       focusZoneSettings={{disabled: true}}
       preventOverflow={false}
     >
-      <Box
-        sx={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-        {hoverCard}
-      </Box>
+      <div className={classes.FlexColFill}>{hoverCard}</div>
     </AnchoredOverlay>
   )
 }
@@ -173,11 +177,16 @@ export const AnchorAlignment = () => {
         </Button>
       )}
       align="center"
-      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay', sx: {minWidth: '320px'}}}
+      overlayProps={{
+        role: 'dialog',
+        'aria-modal': true,
+        'aria-label': 'User Card Overlay',
+        className: classes.Overlay,
+      }}
       focusZoneSettings={{disabled: true}}
       preventOverflow={false}
     >
-      <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
+      <div className={classes.FlexColFill}>{hoverCard}</div>
     </AnchoredOverlay>
   )
 }
@@ -192,11 +201,16 @@ export const AnchorSide = () => {
       onClose={() => setOpen(false)}
       renderAnchor={props => <Button {...props}>Button</Button>}
       side="outside-right"
-      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay', sx: {minWidth: '320px'}}}
+      overlayProps={{
+        role: 'dialog',
+        'aria-modal': true,
+        'aria-label': 'User Card Overlay',
+        className: classes.Overlay,
+      }}
       focusZoneSettings={{disabled: true}}
       preventOverflow={false}
     >
-      <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
+      <div className={classes.FlexColFill}>{hoverCard}</div>
     </AnchoredOverlay>
   )
 }
@@ -211,11 +225,16 @@ export const OffsetPositionFromAnchor = () => {
       onClose={() => setOpen(false)}
       renderAnchor={props => <Button {...props}>Button</Button>}
       anchorOffset={100}
-      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay', sx: {minWidth: '320px'}}}
+      overlayProps={{
+        role: 'dialog',
+        'aria-modal': true,
+        'aria-label': 'User Card Overlay',
+        className: classes.Overlay,
+      }}
       focusZoneSettings={{disabled: true}}
       preventOverflow={false}
     >
-      <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
+      <div className={classes.FlexColFill}>{hoverCard}</div>
     </AnchoredOverlay>
   )
 }
@@ -230,11 +249,16 @@ export const OffsetAlignmentFromAnchor = () => {
       onClose={() => setOpen(false)}
       renderAnchor={props => <Button {...props}>Button</Button>}
       alignmentOffset={100}
-      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay', sx: {minWidth: '320px'}}}
+      overlayProps={{
+        role: 'dialog',
+        'aria-modal': true,
+        'aria-label': 'User Card Overlay',
+        className: classes.Overlay,
+      }}
       focusZoneSettings={{disabled: true}}
       preventOverflow={false}
     >
-      <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
+      <div className={classes.FlexColFill}>{hoverCard}</div>
     </AnchoredOverlay>
   )
 }
@@ -250,7 +274,12 @@ export const FocusTrapOverrides = () => {
       onClose={() => setOpen(false)}
       renderAnchor={props => <Button {...props}>Button</Button>}
       focusTrapSettings={{initialFocusRef}}
-      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'Focus Trap Demo Overlay'}}
+      overlayProps={{
+        role: 'dialog',
+        'aria-modal': true,
+        'aria-label': 'Focus Trap Demo Overlay',
+        className: classes.Overlay,
+      }}
       focusZoneSettings={{disabled: true}}
       preventOverflow={false}
     >
@@ -270,7 +299,12 @@ export const FocusZoneOverrides = () => {
       onClose={() => setOpen(false)}
       renderAnchor={props => <Button {...props}>Button</Button>}
       focusZoneSettings={{bindKeys: FocusKeys.JK}}
-      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'Focus Zone Demo Overlay'}}
+      overlayProps={{
+        role: 'dialog',
+        'aria-modal': true,
+        'aria-label': 'Focus Zone Demo Overlay',
+        className: classes.Overlay,
+      }}
       preventOverflow={false}
     >
       <p>
@@ -298,7 +332,7 @@ export const OverlayPropsOverrides = () => {
         role: 'dialog',
         'aria-modal': true,
         'aria-label': 'User Card Overlay',
-        sx: {minWidth: '320px'},
+        className: classes.Overlay,
       }}
       focusZoneSettings={{disabled: true}}
       preventOverflow={false}
@@ -308,7 +342,46 @@ export const OverlayPropsOverrides = () => {
         <li>overflow: `auto`</li>
         <li>maxHeight: `xsmall`</li>
       </pre>
-      <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
+      <div className={classes.FlexColFill}>{hoverCard}</div>
+    </AnchoredOverlay>
+  )
+}
+
+export const FullscreenVariant = () => {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <AnchoredOverlay
+      open={open}
+      onOpen={() => setOpen(true)}
+      onClose={() => setOpen(false)}
+      renderAnchor={props => <Button {...props}>Open Fullscreen on Narrow</Button>}
+      variant={{narrow: 'fullscreen', regular: 'anchored'}}
+      overlayProps={{
+        role: 'dialog',
+        'aria-modal': true,
+        'aria-label': 'Fullscreen Overlay Demo',
+        className: classes.Overlay,
+        overflow: 'auto',
+      }}
+      focusZoneSettings={{disabled: true}}
+      preventOverflow={false}
+      width="large"
+    >
+      <div className={classes.FlexColFill}>
+        <Stack gap="normal" style={{padding: '16px'}}>
+          <Heading>Fullscreen Overlay Demo</Heading>
+          <div>
+            This overlay will appear fullscreen on narrow viewports (less than 768px) and as a regular anchored overlay
+            on wider screens.
+          </div>
+          <div>
+            Try resizing your browser window to see the responsive behavior in action. The overlay includes a close
+            button when in fullscreen mode.
+          </div>
+          {hoverCard}
+        </Stack>
+      </div>
     </AnchoredOverlay>
   )
 }

@@ -2,7 +2,7 @@
   "id": "avatar_stack",
   "name": "AvatarStack",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-avatarstack--default"
@@ -63,10 +63,6 @@
       "type": "string",
       "description": "Class name for custom styling.",
       "defaultValue": ""
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject"
     }
   ],
   "subcomponents": []

@@ -10,7 +10,7 @@
       "name": "aria-label",
       "type": "string",
       "defaultValue": "",
-      "description": "Specifies the aria-label attribute, which is read verbatim by screen readers "
+      "description": "Specifies the aria-label attribute, which is read verbatim by screen readers"
     },
     {
       "name": "icon",
@@ -35,10 +35,6 @@
       "type": "string",
       "defaultValue": "text-bottom",
       "description": "Sets the `vertical-align` CSS property"
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject"
     }
   ],
   "subcomponents": []

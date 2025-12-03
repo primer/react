@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./lib",
+    "outDir": "./dist",
     "typeRoots": ["../../node_modules/@types", "./node_modules/@types", "./@types"],
     "plugins": [{"name": "typescript-plugin-css-modules"}]
   },
@@ -12,6 +12,8 @@
     "src/**/*.tsx",
     "script/**/*.ts",
     "vitest.config.mts",
-    "config/**/*.ts"
+    "config/**/*.ts",
+    ".storybook/**/*.ts",
+    ".storybook/**/*.tsx"
   ]
 }

@@ -1,9 +1,10 @@
 import type {ChangeEventHandler, RefObject} from 'react'
 import React, {useCallback, useEffect, useRef, useState} from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 
-import {BaseStyles, Box, Stack, ThemeProvider, registerPortalRoot} from '..'
-import {Dialog} from '../DialogV1'
+import BaseStyles from '../BaseStyles'
+import {Stack, registerPortalRoot} from '..'
+import {Dialog} from '../deprecated/DialogV1'
 import TextInputTokens from '../TextInputWithTokens'
 import Autocomplete from './Autocomplete'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -17,12 +18,13 @@ import {
   getFormControlArgsByChildComponent,
   getTextInputArgTypes,
 } from '../utils/story-helpers'
+import classes from './Autocomplete.features.stories.module.css'
 
 type AutocompleteOverlayArgs = ComponentProps<typeof Autocomplete.Overlay>
 type AutocompleteMenuArgs = ComponentProps<typeof Autocomplete.Menu>
 type AutocompleteArgs = AutocompleteOverlayArgs & AutocompleteMenuArgs
 
-const excludedControlKeys = ['id', 'sx']
+const excludedControlKeys = ['id']
 
 const getArgsByChildComponent = ({
   // Autocomplete.Menu
@@ -111,18 +113,16 @@ const autocompleteStoryMeta: Meta = {
       }, [])
 
       return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Box onKeyDownCapture={reportKey}>
-              <Box as="p" position="absolute" right={5} top={2} id="key-press-label">
-                Last key pressed: {lastKey}
-              </Box>
-              <Box paddingTop={5}>
-                <Story />
-              </Box>
-            </Box>
-          </BaseStyles>
-        </ThemeProvider>
+        <BaseStyles>
+          <div onKeyDownCapture={reportKey}>
+            <p className={classes.LastKeyPressed} id="key-press-label">
+              Last key pressed: {lastKey}
+            </p>
+            <div className={classes.StoryPadding}>
+              <Story />
+            </div>
+          </div>
+        </BaseStyles>
       )
     },
   ],
@@ -246,7 +246,7 @@ export const WithTokenInput = () => {
   }
 
   return (
-    <Box as="form" sx={{p: 3}}>
+    <form className={classes.FormPadding}>
       <FormControl>
         <FormControl.Label id="autocompleteLabel">Default label</FormControl.Label>
         <Autocomplete>
@@ -262,7 +262,7 @@ export const WithTokenInput = () => {
           </Autocomplete.Overlay>
         </Autocomplete>
       </FormControl>
-    </Box>
+    </form>
   )
 }
 
@@ -270,7 +270,7 @@ export const AddNewItem = () => {
   const [inputValue, setInputValue] = React.useState<string>('')
 
   return (
-    <Box as="form" sx={{p: 3}}>
+    <form className={classes.FormPadding}>
       <FormControl>
         <FormControl.Label id="autocompleteLabel-add-new">Label</FormControl.Label>
         <Autocomplete>
@@ -289,8 +289,6 @@ export const AddNewItem = () => {
                   ? {
                       text: inputValue,
                       id: inputValue,
-                      // `handleAddItem` callback isn't needed for this specific example,
-                      // but it's included here to show that it exists
                       handleAddItem: selectedItem => {
                         // eslint-disable-next-line no-console
                         console.log('added item:', selectedItem)
@@ -304,7 +302,7 @@ export const AddNewItem = () => {
           </Autocomplete.Overlay>
         </Autocomplete>
       </FormControl>
-    </Box>
+    </form>
   )
 }
 
@@ -316,7 +314,7 @@ export const CustomSearchFilterFn = () => {
   const customFilterFn = (item: Datum) => item.text.includes(filterVal)
 
   return (
-    <Box as="form" sx={{p: 3}}>
+    <form className={classes.FormPadding}>
       <FormControl>
         <FormControl.Label id="autocompleteLabel">Default label</FormControl.Label>
         <Autocomplete>
@@ -334,7 +332,7 @@ export const CustomSearchFilterFn = () => {
           Items in dropdown are filtered if their text has no part that matches the input value
         </FormControl.Caption>
       </FormControl>
-    </Box>
+    </form>
   )
 }
 
@@ -352,7 +350,7 @@ export const CustomSortAfterMenuClose = () => {
     isItemSelected(itemIdA) === isItemSelected(itemIdB) ? 0 : isItemSelected(itemIdA) ? 1 : -1
 
   return (
-    <Box as="form" sx={{p: 3}}>
+    <form className={classes.FormPadding}>
       <FormControl>
         <FormControl.Label id="autocompleteLabel">Default label</FormControl.Label>
         <Autocomplete>
@@ -369,7 +367,7 @@ export const CustomSortAfterMenuClose = () => {
         </Autocomplete>
         <FormControl.Caption>When the dropdown closes, selected items are sorted to the end</FormControl.Caption>
       </FormControl>
-    </Box>
+    </form>
   )
 }
 
@@ -415,7 +413,7 @@ export const AsyncLoadingOfItems = (args: FormControlArgs<AutocompleteArgs>) => 
   }
 
   return (
-    <Box as="form" sx={{p: 3}}>
+    <form className={classes.FormPadding}>
       <FormControl {...parentArgs}>
         <FormControl.Label id="autocompleteLabel" {...labelArgs} />
         <Autocomplete>
@@ -436,14 +434,14 @@ export const AsyncLoadingOfItems = (args: FormControlArgs<AutocompleteArgs>) => 
           <FormControl.Validation {...validationArgs} variant={validationArgs.variant} />
         )}
       </FormControl>
-    </Box>
+    </form>
   )
 }
 AsyncLoadingOfItems.parameters = {controls: {exclude: [...excludedControlKeys, 'loading']}}
 
 export const RenderingTheMenuOutsideAnOverlay = () => {
   return (
-    <Box as="form" sx={{p: 3}}>
+    <form className={classes.FormPadding}>
       <FormControl>
         <FormControl.Label id="autocompleteLabel">Default label</FormControl.Label>
         <Autocomplete>
@@ -451,7 +449,7 @@ export const RenderingTheMenuOutsideAnOverlay = () => {
           <Autocomplete.Menu items={items} selectedItemIds={[]} aria-labelledby="autocompleteLabel" />
         </Autocomplete>
       </FormControl>
-    </Box>
+    </form>
   )
 }
 
@@ -459,47 +457,28 @@ export const CustomOverlayMenuAnchor = () => {
   const menuAnchorRef = useRef<HTMLElement>(null)
 
   return (
-    <Box as="form" sx={{p: 3}}>
+    <form className={classes.FormPadding}>
       <FormControl>
         <FormControl.Label htmlFor="autocompleteInput" id="autocompleteLabel">
           Default label
         </FormControl.Label>
-        <Box
-          ref={menuAnchorRef as React.RefObject<HTMLDivElement>}
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            flexGrow: 1,
-            flexShrink: 0,
-            flexBasis: '25%',
-            border: '1px solid black',
-            padding: '1em',
-          }}
-        >
+        <div ref={menuAnchorRef as React.RefObject<HTMLDivElement>} className={classes.AnchorContainer}>
           <Autocomplete>
             <Autocomplete.Input
               id="autocompleteInput"
               aria-describedby="autocompleteCaption autocompleteValidation"
-              sx={{
-                border: '0',
-                padding: '0',
-                boxShadow: 'none',
-                ':focus-within': {
-                  border: '0',
-                  boxShadow: 'none',
-                },
-              }}
+              className={classes.AnchorInput}
             />
             <Autocomplete.Overlay menuAnchorRef={menuAnchorRef}>
               <Autocomplete.Menu items={items} selectedItemIds={[]} aria-labelledby="autocompleteLabel" />
             </Autocomplete.Overlay>
           </Autocomplete>
-        </Box>
+        </div>
         <FormControl.Caption>
           The overlay menu position is anchored to the div with the black border instead of to the text input
         </FormControl.Caption>
       </FormControl>
-    </Box>
+    </form>
   )
 }
 
@@ -525,7 +504,7 @@ export const InOverlayWithCustomScrollContainerRef = () => {
   }
 
   return (
-    <Box as="form" sx={{p: 3}}>
+    <form className={classes.FormPadding}>
       Selected item: {selectedItem ? selectedItem.text : 'none'}
       <AnchoredOverlay
         open={isOpen}
@@ -539,45 +518,11 @@ export const InOverlayWithCustomScrollContainerRef = () => {
         preventOverflow={false}
       >
         <Autocomplete>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              height: '100%',
-            }}
-          >
-            <Box
-              sx={{
-                borderWidth: 0,
-                borderBottomWidth: 1,
-                borderColor: 'var(--borderColor-default)',
-                borderStyle: 'solid',
-              }}
-            >
-              <Autocomplete.Input
-                ref={inputRef}
-                sx={{
-                  display: 'flex',
-                  border: '0',
-                  paddingX: 3,
-                  paddingY: 1,
-                  boxShadow: 'none',
-                  ':focus-within': {
-                    border: '0',
-                    boxShadow: 'none',
-                  },
-                }}
-                block
-                aria-label="Search"
-              />
-            </Box>
-            <Box
-              ref={scrollContainerRef as RefObject<HTMLDivElement>}
-              sx={{
-                overflow: 'auto',
-                flexGrow: 1,
-              }}
-            >
+          <div className={classes.OverlayFlexCol}>
+            <div className={classes.OverlayInputBar}>
+              <Autocomplete.Input ref={inputRef} className={classes.OverlayInput} block aria-label="Search" />
+            </div>
+            <div ref={scrollContainerRef as RefObject<HTMLDivElement>} className={classes.OverlayScroll}>
               <Autocomplete.Menu
                 items={items}
                 selectedItemIds={[]}
@@ -585,11 +530,11 @@ export const InOverlayWithCustomScrollContainerRef = () => {
                 aria-labelledby="autocompleteLabel"
                 onSelectedChange={selectChange}
               />
-            </Box>
-          </Box>
+            </div>
+          </div>
         </Autocomplete>
       </AnchoredOverlay>
-    </Box>
+    </form>
   )
 }
 
@@ -601,6 +546,7 @@ export const InADialog = () => {
   useEffect(() => {
     if (outerContainerRef.current instanceof HTMLElement) {
       registerPortalRoot(outerContainerRef.current, 'outerContainer')
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setMounted(true)
     }
   }, [isDialogOpen])
@@ -615,7 +561,7 @@ export const InADialog = () => {
         onDismiss={() => setIsDialogOpen(false)}
       >
         <div ref={outerContainerRef}>
-          <Box as="form" sx={{p: 3}}>
+          <form className={classes.FormPadding}>
             {mounted ? (
               <FormControl>
                 <FormControl.Label id="autocompleteLabel">Default label</FormControl.Label>
@@ -627,7 +573,7 @@ export const InADialog = () => {
                 </Autocomplete>
               </FormControl>
             ) : null}
-          </Box>
+          </form>
         </div>
       </Dialog>
       <p>

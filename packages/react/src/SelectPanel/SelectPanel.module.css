@@ -17,6 +17,11 @@
   padding-top: var(--base-size-8);
   padding-right: var(--base-size-8);
   padding-left: var(--base-size-8);
+
+  &:where([data-variant='fullscreen']) {
+    min-height: 40px;
+    flex-shrink: 0;
+  }
 }
 
 .Title {
@@ -25,7 +30,20 @@
 }
 
 .Wrapper[data-variant='modal'] .Title {
-  margin-top: var(--base-size-8); /* styling specific to the modal variant */
+  margin-top: var(--base-size-8);
+  /* styling specific to the modal variant */
+}
+
+/*
+ * Align SelectPanel header text with AnchoredOverlay close button
+ * 
+ * Ensures the title properly aligns with the close button position
+ * in anchor variant on narrow viewports.
+ */
+.Wrapper[data-variant='anchored'] .Title {
+  @media screen and (--viewportRange-narrow) {
+    margin-top: var(--base-size-8);
+  }
 }
 
 .Subtitle {
@@ -35,19 +53,9 @@
 }
 
 .Notice {
-  display: flex;
-  padding-top: var(--base-size-12);
-  padding-right: var(--base-size-16);
-  padding-bottom: var(--base-size-12);
-  padding-left: var(--base-size-16);
   margin-top: var(--base-size-4);
   margin-right: var(--base-size-8);
   margin-left: var(--base-size-8);
-  font-size: var(--text-body-size-small);
-  flex-direction: row;
-  border: var(--borderWidth-thin) solid;
-  gap: var(--base-size-8);
-  border-radius: var(--borderRadius-medium);
 }
 
 .Notice a {
@@ -67,7 +75,7 @@
   border-color: var(--borderColor-attention-muted);
 }
 
-.Notice:where([data-variant='error']) {
+.Notice:where([data-variant='critical']) {
   color: var(--fgColor-danger);
   background-color: var(--bgColor-danger-muted);
   border-color: var(--borderColor-danger-muted);
@@ -81,6 +89,8 @@
 }
 
 .FilteredActionList {
+  /* inheriting height and maxHeight ensures that the FilteredActionList is never taller
+     than the Overlay (which would break scrolling the items) */
   height: inherit;
   max-height: inherit;
 }
@@ -88,7 +98,6 @@
 .Message {
   display: flex;
   height: 100%;
-  min-height: min(calc(var(--max-height) - 150px), 324px); /* maxHeight of dialog - (header & footer) */
   padding: var(--base-size-24);
   text-align: center;
   flex-direction: column;
@@ -124,23 +133,18 @@
   }
 }
 
+.MessageAction {
+  margin-top: var(--base-size-8);
+}
+
 .ResponsiveCloseButton {
-  display: none;
-
-  @media screen and (--viewportRange-narrow) {
-    display: inline-grid;
-  }
-
-  &:where([data-variant='modal'] &) {
-    display: inline-grid;
-  }
+  display: inline-grid;
 }
 
 .ResponsiveFooter {
   display: none;
   align-items: center;
   padding: var(--base-size-8);
-  gap: var(--stack-gap-condensed);
   justify-content: center;
 
   &:where([data-display-footer='always']) {
@@ -225,4 +229,8 @@
   position: absolute;
   inset: 0;
   background-color: var(--overlay-backdrop-bgColor);
+}
+
+.TextInput {
+  margin: var(--base-size-8);
 }

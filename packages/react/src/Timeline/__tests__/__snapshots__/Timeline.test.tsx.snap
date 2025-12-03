@@ -1,15 +1,19 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Timeline renders with clipSidebar prop 1`] = `
-<div
-  className="Timeline"
-  data-clip-sidebar=""
-/>
+exports[`Timeline > renders with clipSidebar prop 1`] = `
+<div>
+  <div
+    class="prc-Timeline-Timeline-T476g"
+    data-clip-sidebar=""
+  />
+</div>
 `;
 
-exports[`Timeline.Item renders with condensed prop 1`] = `
-<div
-  className="Timeline-Item TimelineItem"
-  data-condensed=""
-/>
+exports[`Timeline.Item > renders with condensed prop 1`] = `
+<div>
+  <div
+    class="Timeline-Item prc-Timeline-TimelineItem-yUFAS"
+    data-condensed=""
+  />
+</div>
 `;

@@ -2,7 +2,7 @@
   "id": "radio",
   "name": "Radio",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-radio--default"
@@ -59,15 +59,6 @@
     {
       "name": "ref",
       "type": "React.RefObject<HTMLInputElement>"
-    },
-    {
-      "name": "as",
-      "type": "React.ElementType",
-      "defaultValue": "\"input\""
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject"
     }
   ],
   "subcomponents": []

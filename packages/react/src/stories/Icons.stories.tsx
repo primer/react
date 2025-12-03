@@ -1,5 +1,4 @@
 import {StarFillIcon} from '@primer/octicons-react'
-import React from 'react'
 import {Stack} from '../Stack'
 
 export default {

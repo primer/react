@@ -1,20 +1,10 @@
-import React from 'react'
-import {SubNav} from '..'
-import {render, behavesAsComponent} from '../utils/testing'
-import {render as HTMLRender} from '@testing-library/react'
-import axe from 'axe-core'
+import {render} from '@testing-library/react'
+import {describe, expect, it} from 'vitest'
+import SubNav from '../SubNav'
 
 describe('SubNav.Link', () => {
-  behavesAsComponent({Component: SubNav.Link, options: {skipAs: true}})
-
   it('renders an <a> by default', () => {
-    expect(render(<SubNav.Link />).type).toEqual('a')
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<SubNav.Link />)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
+    expect(render(<SubNav.Link />).container.firstChild).toHaveProperty('tagName', 'A')
   })
 
   it('respects the "selected" prop', () => {

@@ -6,6 +6,8 @@
  */
 
 import * as React from 'react'
+import type {JSX} from 'react'
+import type {SlotMarker} from './types/Slots'
 
 /* -------------------------------------------------------------------------------------------------
  * Utility types
@@ -37,11 +39,12 @@ interface ForwardRefComponent<
    * Extends original type to ensure built in React types play nice
    * with polymorphic components still e.g. `React.ElementRef` etc.
    */
-> extends ForwardRefExoticComponent<IntrinsicElementString, OwnProps> {
+> extends ForwardRefExoticComponent<IntrinsicElementString, OwnProps>,
+    SlotMarker {
   /**
    * When `as` prop is passed, use this overload.
    * Merges original own props (without DOM props) and the inferred props
-   * from `as` element with the own props taking precendence.
+   * from `as` element with the own props taking precedence.
    *
    * We explicitly avoid `React.ElementType` and manually narrow the prop types
    * so that events are typed when using JSX.IntrinsicElements.
@@ -54,7 +57,7 @@ interface ForwardRefComponent<
         : As extends keyof JSX.IntrinsicElements
           ? Merge<JSX.IntrinsicElements[As], OwnProps & {as: As}>
           : never,
-  ): React.ReactElement | null
+  ): React.ReactElement<any> | null
 }
 
 export type {ForwardRefComponent, OwnProps, IntrinsicElement, Merge}

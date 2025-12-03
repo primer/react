@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import {TextEncoder} from 'node:util'
 
 // JSDOM doesn't mock ResizeObserver
@@ -28,12 +30,10 @@ global.TextEncoder = TextEncoder
  */
 if (typeof document !== 'undefined') {
   global.HTMLDialogElement.prototype.showModal = jest.fn(function mock(this: HTMLDialogElement) {
-    // eslint-disable-next-line no-invalid-this
     this.open = true
   })
 
   global.HTMLDialogElement.prototype.close = jest.fn(function mock(this: HTMLDialogElement) {
-    // eslint-disable-next-line no-invalid-this
     this.open = false
   })
 

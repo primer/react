@@ -1,93 +1,118 @@
-import React from 'react'
-import {getColorsFromHex} from './getColorFromHex'
-import {useTheme} from '../../ThemeProvider'
 import {clsx} from 'clsx'
+import type React from 'react'
 import classes from './IssueLabel.module.css'
-export type Hex = `#${string}`
+import {readableColor} from 'color2k'
+
+type Hex = `#${string}`
 
 type LabelColorVariant =
+  | 'auburn'
+  | 'blue'
+  | 'brown'
+  | 'coral'
+  | 'cyan'
+  | 'gray'
+  | 'green'
+  | 'indigo'
+  | 'lemon'
+  | 'lime'
+  | 'olive'
+  | 'orange'
+  | 'pine'
   | 'pink'
   | 'plum'
   | 'purple'
-  | 'indigo'
-  | 'blue'
-  | 'cyan'
-  | 'teal'
-  | 'pine'
-  | 'green'
-  | 'lime'
-  | 'olive'
-  | 'lemon'
-  | 'yellow'
-  | 'orange'
   | 'red'
-  | 'coral'
-  | 'gray'
-  | 'brown'
-  | 'auburn'
+  | 'teal'
+  | 'yellow'
 
-export interface IssueLabelProps {
+type BaseProps = {
+  className?: string
   fillColor?: Hex
   variant?: LabelColorVariant
-  href?: string
-  as?: 'button' | 'a' | 'span'
-  text: React.ReactNode
-  id?: number | string
-  className?: string
-  onClick?: React.MouseEventHandler<HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement>
-  onFocus?: React.FocusEventHandler<HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement>
 }
 
-export function IssueLabel({
+type ButtonProps = React.ComponentPropsWithoutRef<'button'> &
+  BaseProps & {
+    as?: never
+    onClick: React.MouseEventHandler<HTMLButtonElement>
+  }
+
+type LinkProps = React.ComponentPropsWithoutRef<'a'> &
+  BaseProps & {
+    as?: never
+    href: string
+  }
+
+type SpanProps = Omit<React.ComponentPropsWithoutRef<'span'>, 'onClick'> &
+  BaseProps & {
+    as?: never
+    onClick?: never
+    href?: never
+  }
+
+type IssueLabelAsProps<As extends React.ElementType> = {
+  as: As
+} & BaseProps &
+  Omit<React.ComponentPropsWithoutRef<As>, keyof BaseProps>
+
+type IssueLabelProps<As extends React.ElementType> = SpanProps | LinkProps | ButtonProps | IssueLabelAsProps<As>
+
+function IssueLabel(props: SpanProps): React.ReactNode
+function IssueLabel(props: LinkProps): React.ReactNode
+function IssueLabel(props: ButtonProps): React.ReactNode
+function IssueLabel<As extends React.ElementType>(props: IssueLabelAsProps<As>): React.ReactNode
+function IssueLabel<As extends React.ElementType>({
+  children,
   className,
   fillColor,
+  style,
   variant = 'gray',
-  href,
-  onClick,
-  onFocus,
-  text,
-  as,
-  id,
-  ...rest
-}: IssueLabelProps) {
-  // Error handling: `href` and `onClick` should not be set simultaneously
-  if (href && onClick) {
-    throw new Error('`href` and `onClick` cannot both be set. Choose either a link (`<a>`) or a button (`<button>`).')
+  ...props
+}: IssueLabelProps<As>): React.ReactNode {
+  const sharedProps = {
+    className: clsx(className, classes.IssueLabel),
+    'data-variant': fillColor ? undefined : variant,
+    style: fillColor
+      ? {
+          ...style,
+          backgroundColor: fillColor,
+          color: readableColor(fillColor),
+        }
+      : style,
   }
 
-  const {resolvedColorScheme} = useTheme()
-  const mode = resolvedColorScheme?.startsWith('dark') ? 'dark' : 'light'
-  // TODO: get the bgColor, getting it from theme.colorScheme seems a bit sketchy
-  const bgColors: Record<string, Hex> = {
-    light: '#ffffff',
-    dark: '#0d1117',
+  if ('as' in props && props.as) {
+    const {as: BaseComponent, ...rest} = props
+    return (
+      <BaseComponent {...rest} {...sharedProps}>
+        {children}
+      </BaseComponent>
+    )
   }
 
-  // Determine the component type: Prioritize `as`, then fallback to `href` or `onClick` logic
-  let Component: 'a' | 'button' | 'span' = 'span' // Default to <span>
-
-  if (as) {
-    Component = as // use 'as' prop if provided
-  } else if (href) {
-    Component = 'a' // render as <a> if `href` is provided
-  } else if (onClick) {
-    Component = 'button' // render as <button> if `onClick` is provided
+  if ('href' in props) {
+    return (
+      <a {...props} {...sharedProps}>
+        {children}
+      </a>
+    )
   }
 
-  const anchorProps = href ? {href} : {}
+  if ('onClick' in props) {
+    return (
+      <button type="button" {...props} {...sharedProps}>
+        {children}
+      </button>
+    )
+  }
 
   return (
-    <Component
-      {...rest}
-      {...anchorProps}
-      onClick={onClick}
-      onFocus={onFocus}
-      id={id?.toString()}
-      className={clsx(classes.IssueLabel, className)}
-      data-variant={fillColor ? undefined : variant}
-      style={fillColor ? getColorsFromHex(fillColor, resolvedColorScheme, bgColors[mode]) : undefined}
-    >
-      {text}
-    </Component>
+    <span {...props} {...sharedProps}>
+      {children}
+    </span>
   )
 }
+
+export {IssueLabel}
+export type {IssueLabelProps, Hex}

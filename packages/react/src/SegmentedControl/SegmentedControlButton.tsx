@@ -1,23 +1,12 @@
 import type {ButtonHTMLAttributes} from 'react'
-import React from 'react'
+import type React from 'react'
 import type {IconProps} from '@primer/octicons-react'
-import styled from 'styled-components'
-import Box from '../Box'
-import type {SxProp} from '../sx'
-import sx, {merge} from '../sx'
-import {
-  getSegmentedControlButtonStyles,
-  getSegmentedControlListItemStyles,
-  SEGMENTED_CONTROL_CSS_MODULES_FEATURE_FLAG,
-} from './getSegmentedControlStyles'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import {isElement} from 'react-is'
-import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
-import {useFeatureFlag} from '../FeatureFlags'
 
 import classes from './SegmentedControl.module.css'
 import {clsx} from 'clsx'
-import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
+import CounterLabel from '../CounterLabel'
+import type {FCWithSlotMarker} from '../utils/types'
 
 export type SegmentedControlButtonProps = {
   /** The visible label rendered in the button */
@@ -26,49 +15,61 @@ export type SegmentedControlButtonProps = {
   selected?: boolean
   /** Whether the segment is selected. This is used for uncontrolled `SegmentedControls` to pick one `SegmentedControlButton` that is selected on the initial render. */
   defaultSelected?: boolean
-  /** The leading icon comes before item label */
-  leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement
-} & SxProp &
-  ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
+  /** The leading visual comes before item label */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  leadingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement<any>
+  /** @deprecated Use `leadingVisual` instead. The leading icon comes before item label */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement<any>
+  /** Applies `aria-disabled` to the button. This will disable certain functionality, such as `onClick` events. */
+  disabled?: boolean
+  /** Optional counter to display on the right side of the button */
+  count?: number | string
+} & ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
-const SegmentedControlButtonStyled = toggleStyledComponent(
-  SEGMENTED_CONTROL_CSS_MODULES_FEATURE_FLAG,
-  'button',
-  styled.button`
-    ${getGlobalFocusStyles('-1px')};
-    ${sx};
-  `,
-)
-
-const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlButtonProps>> = ({
+const SegmentedControlButton: FCWithSlotMarker<React.PropsWithChildren<SegmentedControlButtonProps>> = ({
   children,
-  leadingIcon: LeadingIcon,
+  leadingVisual,
+  leadingIcon,
   selected,
-  sx: sxProp = defaultSxProp,
   className,
-  ...rest
+  disabled,
+  // Note: this value is read in the `SegmentedControl` component to determine which button is selected but we do not need to apply it to an underlying element
+  defaultSelected: _defaultSelected,
+  count,
+  ...props
 }) => {
-  const enabled = useFeatureFlag(SEGMENTED_CONTROL_CSS_MODULES_FEATURE_FLAG)
-  const mergedSx = enabled ? sxProp : merge(getSegmentedControlListItemStyles(), sxProp as SxProp)
+  const {'aria-disabled': ariaDisabled, ...rest} = props
+  // Use leadingVisual if provided, otherwise fall back to leadingIcon for backwards compatibility
+  const LeadingVisual = leadingVisual ?? leadingIcon
 
   return (
-    <Box as="li" sx={mergedSx} className={clsx(enabled && classes.Item)} data-selected={selected || undefined}>
-      <SegmentedControlButtonStyled
+    <li className={clsx(classes.Item)} data-selected={selected ? '' : undefined}>
+      <button
         aria-current={selected}
-        sx={enabled ? undefined : getSegmentedControlButtonStyles({selected, children})}
-        className={clsx(enabled && classes.Button, className)}
+        aria-disabled={disabled || ariaDisabled || undefined}
+        className={clsx(classes.Button, className)}
         type="button"
         {...rest}
       >
-        <span className={clsx(enabled ? classes.Content : 'segmentedControl-content')}>
-          {LeadingIcon && <Box mr={1}>{isElement(LeadingIcon) ? LeadingIcon : <LeadingIcon />}</Box>}
-          <Box className={clsx(enabled ? classes.Text : 'segmentedControl-text')} data-text={children}>
+        <span className={clsx(classes.Content, 'segmentedControl-content')}>
+          {LeadingVisual && (
+            <div className={classes.LeadingIcon}>{isElement(LeadingVisual) ? LeadingVisual : <LeadingVisual />}</div>
+          )}
+          <div className={clsx(classes.Text, 'segmentedControl-text')} data-text={children}>
             {children}
-          </Box>
+          </div>
+          {count !== undefined && (
+            <span className={classes.Counter}>
+              <CounterLabel>{count}</CounterLabel>
+            </span>
+          )}
         </span>
-      </SegmentedControlButtonStyled>
-    </Box>
+      </button>
+    </li>
   )
 }
 
 export default SegmentedControlButton
+
+SegmentedControlButton.__SLOT__ = Symbol('SegmentedControl.Button')

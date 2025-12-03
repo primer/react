@@ -1,5 +1,5 @@
-import type {Meta} from '@storybook/react'
-import React, {forwardRef} from 'react'
+import type {Meta} from '@storybook/react-vite'
+import React, {forwardRef, type JSX} from 'react'
 import {
   TypographyIcon,
   StarIcon,
@@ -14,12 +14,12 @@ import {
 import {ActionList} from '.'
 import TextInput from '../TextInput'
 import Spinner from '../Spinner'
-import Box from '../Box'
 import Text from '../Text'
 import FormControl from '../FormControl'
 import {AriaStatus} from '../live-region'
 import {VisuallyHidden} from '../VisuallyHidden'
-import {ReactRouterLikeLink} from '../__tests__/mocks/ReactRouterLink'
+import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
+import classes from './ActionList.examples.stories.module.css'
 
 const meta: Meta = {
   title: 'Components/ActionList/Examples',
@@ -33,12 +33,14 @@ const meta: Meta = {
 export default meta
 
 const NextJSLikeLink = forwardRef(
-  ({href, children}: {href: string; children: React.ReactNode}, ref): React.ReactElement => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ({href, children}: {href: string; children: React.ReactNode}, ref): React.ReactElement<any> => {
     const child = React.Children.only(children)
     const childProps = {
       ref,
       href,
     }
+    // eslint-disable-next-line react-hooks/refs
     return <>{React.isValidElement(child) ? React.cloneElement(child, childProps) : null}</>
   },
 )
@@ -209,23 +211,20 @@ export function AsyncListWithSpinner(): JSX.Element {
         filter. This pattern can be found in branch selection menus via the SelectPanel component.
       </p>
 
-      <FormControl sx={{m: 2, mb: 0, width: 'calc(100% - 16px)'}}>
+      <FormControl className={classes.AsyncListSearch}>
         <FormControl.Label>Search branches</FormControl.Label>
         <TextInput onChange={filter} block />
       </FormControl>
-      {results.length === 0 ? (
-        <Text sx={{display: 'block', fontSize: 1, m: 2}}>No branches match that query</Text>
-      ) : null}
-
+      {results.length === 0 ? <Text className={classes.AsyncListNoMatch}>No branches match that query</Text> : null}
       <VisuallyHidden>
         <AriaStatus>{getStatusMessage()}</AriaStatus>
       </VisuallyHidden>
 
-      <ActionList selectionVariant="single" role="listbox" aria-label="Branch" sx={{height: 208, overflow: 'auto'}}>
+      <ActionList selectionVariant="single" role="listbox" aria-label="Branch" className={classes.AsyncListItems}>
         {loading ? (
-          <Box sx={{display: 'flex', justifyContent: 'center', pt: 2}}>
+          <div className={classes.AsyncListSpinner}>
             <Spinner />
-          </Box>
+          </div>
         ) : (
           results.map(name => (
             <ActionList.Item key={name} role="option" selected={selected === name} onSelect={() => setSelected(name)}>
@@ -249,7 +248,7 @@ export function AllCombinations(): JSX.Element {
       <code>16 possible combinations</code>
       <br />
       <br />
-      <Box maxWidth="300px">
+      <div className={classes.AllCombinationsContainer}>
         <ActionList showDividers>
           <ActionList.Item>
             <ActionList.LeadingVisual>
@@ -438,7 +437,7 @@ export function AllCombinations(): JSX.Element {
             </ActionList.TrailingVisual>
           </ActionList.Item>
         </ActionList>
-      </Box>
+      </div>
     </>
   )
 }

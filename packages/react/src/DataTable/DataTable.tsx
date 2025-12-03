@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import type {Column} from './column'
 import {useTable} from './useTable'
 import type {SortDirection} from './sorting'

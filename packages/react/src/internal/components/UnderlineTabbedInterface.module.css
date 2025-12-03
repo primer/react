@@ -8,9 +8,14 @@
   /* make space for the underline */
   min-height: var(--control-xlarge-size, 48px);
 
-  /* using a box-shadow instead of a border to accomodate 'overflow-y: hidden' on UnderlinePanels */
+  /* using a box-shadow instead of a border to accommodate 'overflow-y: hidden' on UnderlinePanels */
   /* stylelint-disable-next-line primer/box-shadow */
   box-shadow: inset 0 -1px var(--borderColor-muted);
+
+  &[data-variant='flush'] {
+    /* stylelint-disable-next-line primer/spacing */
+    padding-inline: unset;
+  }
 }
 
 .UnderlineItemList {
@@ -105,6 +110,7 @@
   bottom: calc(50% - calc(var(--control-xlarge-size, var(--base-size-48)) / 2 + 1px));
   width: 100%;
   height: 2px;
+  pointer-events: none;
   content: '';
   background-color: transparent;
   border-radius: 0;
@@ -130,7 +136,8 @@
 .LoadingCounter {
   display: inline-block;
   width: 1.5rem;
-  height: 1rem; /* 16px */
+  height: 1rem;
+  /* 16px */
   background-color: var(--bgColor-neutral-muted);
   border-color: var(--borderColor-default);
   /* stylelint-disable-next-line primer/borders */

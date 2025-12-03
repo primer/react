@@ -8,17 +8,14 @@ npm run clean
 # Generate color schemes
 npm run build:precompile-color-schemes
 
+# Generate types for CSS Modules
+npm run type-css-modules
+
 # Bundle
 npx rollup -c
 
 # Type check
 npx tsc --project tsconfig.build.json
-
-# Copy type declarations
-npx copyfiles -u 1 "./lib/**/*.d.ts" ./lib-esm
-
-# Copy css
-npx copyfiles --flat ./lib/components.css ./css
 
 # Build components.json file for documentation
 npm run build:components.json

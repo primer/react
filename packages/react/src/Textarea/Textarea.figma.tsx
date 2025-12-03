@@ -1,4 +1,3 @@
-import React from 'react'
 import figma from '@figma/code-connect'
 import Textarea from './Textarea'
 import FormControl from '../FormControl'

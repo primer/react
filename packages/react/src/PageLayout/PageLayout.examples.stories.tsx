@@ -1,10 +1,11 @@
 import React from 'react'
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import {PageLayout} from './PageLayout'
 import {Placeholder} from '../Placeholder'
-import {ActionList, Box, Breadcrumbs, Button, Flash, LinkButton, NavList} from '..'
+import {ActionList, Breadcrumbs, Button, Flash, LinkButton, NavList} from '..'
 import {ArrowLeftIcon, FilterIcon} from '@primer/octicons-react'
 import {Dialog} from '../experimental'
+import classes from './PageLayout.examples.stories.module.css'
 
 export default {
   title: 'Components/PageLayout/Examples',
@@ -32,14 +33,7 @@ export const ParentDetail: StoryFn = () => {
 
   return (
     <>
-      <Flash
-        sx={{
-          display: 'none',
-          '@media screen and (min-width: 768px)': {
-            display: 'block',
-          },
-        }}
-      >
+      <Flash className={classes.ResponsiveFlash}>
         Resize your browser window to see the responsive behavior of the parent-detail pattern.
       </Flash>
       <PageLayout containerWidth="full">
@@ -135,14 +129,7 @@ export const ParentDetailBreadcrumb: StoryFn = () => {
 
   return (
     <>
-      <Flash
-        sx={{
-          display: 'none',
-          '@media screen and (min-width: 768px)': {
-            display: 'block',
-          },
-        }}
-      >
+      <Flash className={classes.ResponsiveFlash}>
         Resize your browser window to see the responsive behavior of the parent-detail pattern.
       </Flash>
       <PageLayout containerWidth="full">
@@ -153,7 +140,7 @@ export const ParentDetailBreadcrumb: StoryFn = () => {
             wide: true,
           }}
         >
-          <Box display="flex" alignItems="center" justifyContent="space-between">
+          <div className={classes.BreadcrumbHeaderRow}>
             <Breadcrumbs>
               <Breadcrumbs.Item href="#index">Pages</Breadcrumbs.Item>
               <Breadcrumbs.Item
@@ -167,7 +154,7 @@ export const ParentDetailBreadcrumb: StoryFn = () => {
             {!currentHash || currentHash === '#index' || currentHash === '#fruits' ? (
               <LinkButton href="#new-fruit">New fruit</LinkButton>
             ) : null}
-          </Box>
+          </div>
         </PageLayout.Header>
         <PageLayout.Pane
           position="start"
@@ -238,14 +225,7 @@ export const FilterBottomSheet: StoryFn = () => {
 
   return (
     <>
-      <Flash
-        sx={{
-          display: 'none',
-          '@media screen and (min-width: 768px)': {
-            display: 'block',
-          },
-        }}
-      >
+      <Flash className={classes.ResponsiveFlash}>
         Resize your browser window to see the responsive behavior of the filter sidebar pattern.
       </Flash>
 
@@ -328,14 +308,7 @@ export const FilterActionMenu: StoryFn = () => {
 
   return (
     <>
-      <Flash
-        sx={{
-          display: 'none',
-          '@media screen and (min-width: 768px)': {
-            display: 'block',
-          },
-        }}
-      >
+      <Flash className={classes.ResponsiveFlash}>
         Resize your browser window to see the responsive behavior of the filter sidebar pattern.
       </Flash>
 
@@ -551,14 +524,7 @@ export const FiltersBottomSheetTwoLevels: StoryFn = () => {
 
   return (
     <>
-      <Flash
-        sx={{
-          display: 'none',
-          '@media screen and (min-width: 768px)': {
-            display: 'block',
-          },
-        }}
-      >
+      <Flash className={classes.ResponsiveFlash}>
         Resize your browser window to see the responsive behavior of the filter sidebar pattern.
       </Flash>
 
@@ -655,14 +621,7 @@ export const FiltersBottomSheetTwoLevels: StoryFn = () => {
               Animals
             </NavList.Item>
           </NavList>
-          <Box
-            sx={{
-              display: 'none',
-              '@media (min-width: 768px)': {
-                display: 'block',
-              },
-            }}
-          >
+          <div className={classes.ResponsiveBox}>
             <ActionList>
               <ActionList.Group selectionVariant="single">
                 <ActionList.GroupHeading as="h4">Filters</ActionList.GroupHeading>
@@ -692,7 +651,7 @@ export const FiltersBottomSheetTwoLevels: StoryFn = () => {
                 </ActionList.Item>
               </ActionList.Group>
             </ActionList>
-          </Box>
+          </div>
         </PageLayout.Pane>
         <PageLayout.Content
           hidden={{
@@ -717,201 +676,6 @@ export const FiltersBottomSheetTwoLevels: StoryFn = () => {
 }
 
 FiltersBottomSheetTwoLevels.storyName = 'Filters w/ 2 levels (btm sheet on narrow)'
-
-//
-// TODO: uncomment this story if we decide we want to allow this pattern for seperate sets of filters
-//
-// export const ResponsiveNavCombo2: Story = () => {
-//   const [currentHash, setCurrentHash] = React.useState(window.location.hash)
-//   const [isOpen, setIsOpen] = React.useState(false)
-
-//   const categories = [
-//     {
-//       hash: '#fruits',
-//       name: 'Fruits',
-//     },
-//     {
-//       hash: '#vegetables',
-//       name: 'Vegetables',
-//     },
-//     {
-//       hash: '#animals',
-//       name: 'Animals',
-//     },
-//   ]
-//   const selectedCategory = currentHash ? categories.find(option => currentHash.includes(option.hash)) : categories[0]
-
-//   const buttonRef = React.useRef<HTMLButtonElement>(null)
-
-//   const onDialogClose = React.useCallback(() => setIsOpen(false), [])
-//   const getFilteredItems = (category: keyof typeof filterableItems) =>
-//     filterableItems[category].filter(item =>
-//       currentHash.includes('filter') ? currentHash.includes(`filter=${item.color}`) : true,
-//     )
-
-//   // Fake routing to mimic the behavior of a single page application
-//   React.useEffect(() => {
-//     const handleHashChange = () => {
-//       setCurrentHash(window.location.hash)
-//     }
-//     window.addEventListener('hashchange', handleHashChange)
-//     return () => {
-//       window.removeEventListener('hashchange', handleHashChange)
-//     }
-//   }, [])
-
-//   return (
-//     <>
-//       {/* <Flash variant="warning">
-//         Filters only work when you open the canvas in a new tab without the Storybook chrome.
-//       </Flash> */}
-//       <PageLayout containerWidth="full">
-//         <PageLayout.Header
-//           hidden={{
-//             narrow: currentHash.includes('#index'),
-//             regular: true,
-//             wide: true,
-//           }}
-//         >
-//           <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
-//             <ActionMenu>
-//               <ActionMenu.Button>
-//                 <Box sx={{color: 'fg.muted', display: 'inline-block'}}>Category:</Box>&nbsp;{selectedCategory?.name}
-//               </ActionMenu.Button>
-//               <ActionMenu.Overlay>
-//                 <ActionList>
-//                   {categories.map(category => (
-//                     <ActionList.LinkItem href={category.hash}>{category.name}</ActionList.LinkItem>
-//                   ))}
-//                 </ActionList>
-//               </ActionMenu.Overlay>
-//             </ActionMenu>
-
-//             <Button ref={buttonRef} onClick={() => setIsOpen(true)} leadingVisual={FilterIcon}>
-//               Filter
-//             </Button>
-//             {isOpen && (
-//               <Dialog title="Filter" onClose={onDialogClose} position={{narrow: 'bottom'}}>
-//                 <ActionList selectionVariant="single">
-//                   <ActionList.Item
-//                     onSelect={() => {
-//                       handleFilterChange('red')
-//                     }}
-//                     selected={currentHash.includes('filter=red')}
-//                   >
-//                     Red
-//                   </ActionList.Item>
-//                   <ActionList.Item
-//                     onSelect={() => {
-//                       handleFilterChange('blue')
-//                     }}
-//                     selected={currentHash.includes('filter=blue')}
-//                   >
-//                     Blue
-//                   </ActionList.Item>
-//                   <ActionList.Item
-//                     onSelect={() => {
-//                       handleFilterChange('green')
-//                     }}
-//                     selected={currentHash.includes('filter=green')}
-//                   >
-//                     Green
-//                   </ActionList.Item>
-//                 </ActionList>
-//               </Dialog>
-//             )}
-//           </Box>
-//         </PageLayout.Header>
-//         <PageLayout.Pane
-//           position="start"
-//           hidden={{
-//             narrow: !currentHash.includes('#index'),
-//             regular: false,
-//             wide: false,
-//           }}
-//         >
-//           <NavList>
-//             <NavList.Item
-//               href={generateHref('#fruits')}
-//               aria-current={
-//                 !currentHash || currentHash.includes('#index') || currentHash.includes('#fruits') ? 'page' : undefined
-//               }
-//             >
-//               Fruits
-//             </NavList.Item>
-//             <NavList.Item
-//               href={generateHref('#vegetables')}
-//               aria-current={currentHash.includes('#vegetables') ? 'page' : undefined}
-//             >
-//               Vegetables
-//             </NavList.Item>
-//             <NavList.Item
-//               href={generateHref('#animals')}
-//               aria-current={currentHash.includes('#animals') ? 'page' : undefined}
-//             >
-//               Animals
-//             </NavList.Item>
-//           </NavList>
-//           <Box
-//             sx={{
-//               display: 'none',
-//               '@media (min-width: 768px)': {
-//                 display: 'block',
-//               },
-//             }}
-//           >
-//             <ActionList>
-//               <ActionList.Group selectionVariant="single">
-//                 <ActionList.GroupHeading as="h4">Filters</ActionList.GroupHeading>
-//                 <ActionList.Item
-//                   onSelect={() => {
-//                     handleFilterChange('red')
-//                   }}
-//                   selected={currentHash.includes('filter=red')}
-//                 >
-//                   Red
-//                 </ActionList.Item>
-//                 <ActionList.Item
-//                   onSelect={() => {
-//                     handleFilterChange('blue')
-//                   }}
-//                   selected={currentHash.includes('filter=blue')}
-//                 >
-//                   Blue
-//                 </ActionList.Item>
-//                 <ActionList.Item
-//                   onSelect={() => {
-//                     handleFilterChange('green')
-//                   }}
-//                   selected={currentHash.includes('filter=green')}
-//                 >
-//                   Green
-//                 </ActionList.Item>
-//               </ActionList.Group>
-//             </ActionList>
-//           </Box>
-//         </PageLayout.Pane>
-//         <PageLayout.Content
-//           hidden={{
-//             narrow: currentHash.includes('#index'),
-//             regular: false,
-//             wide: false,
-//           }}
-//         >
-//           {!currentHash || currentHash.includes('#index') || currentHash.includes('#fruits')
-//             ? getFilteredItems('fruits').map(item => <Placeholder height={48} label={item.name} />)
-//             : null}
-//           {currentHash.includes('#vegetables')
-//             ? getFilteredItems('vegetables').map(item => <Placeholder height={48} label={item.name} />)
-//             : null}
-//           {currentHash.includes('#animals')
-//             ? getFilteredItems('animals').map(item => <Placeholder height={48} label={item.name} />)
-//             : null}
-//         </PageLayout.Content>
-//       </PageLayout>
-//     </>
-//   )
-// }
 
 // ResponsiveNavCombo2.storyName = 'Responsive nav combo - action menu + btm sheet'
 
@@ -1057,14 +821,7 @@ export const ParentDetailPlusFilters: StoryFn = () => {
 
   return (
     <>
-      <Flash
-        sx={{
-          display: 'none',
-          '@media screen and (min-width: 768px)': {
-            display: 'block',
-          },
-        }}
-      >
+      <Flash className={classes.ResponsiveFlash}>
         Resize your browser window to see the responsive behavior of the sidebar patterns.
       </Flash>
 
@@ -1076,7 +833,7 @@ export const ParentDetailPlusFilters: StoryFn = () => {
             wide: true,
           }}
         >
-          <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+          <div className={classes.HeaderRow}>
             <LinkButton href={generateHref('#index')} leadingVisual={ArrowLeftIcon} variant="invisible">
               Categories
             </LinkButton>
@@ -1114,7 +871,7 @@ export const ParentDetailPlusFilters: StoryFn = () => {
                 </ActionList>
               </Dialog>
             )}
-          </Box>
+          </div>
         </PageLayout.Header>
         <PageLayout.Pane
           position="start"
@@ -1147,14 +904,7 @@ export const ParentDetailPlusFilters: StoryFn = () => {
               Animals
             </NavList.Item>
           </NavList>
-          <Box
-            sx={{
-              display: 'none',
-              '@media (min-width: 768px)': {
-                display: 'block',
-              },
-            }}
-          >
+          <div className={classes.ResponsiveBox}>
             <ActionList>
               <ActionList.Group selectionVariant="single">
                 <ActionList.GroupHeading as="h4">Filters</ActionList.GroupHeading>
@@ -1184,7 +934,7 @@ export const ParentDetailPlusFilters: StoryFn = () => {
                 </ActionList.Item>
               </ActionList.Group>
             </ActionList>
-          </Box>
+          </div>
         </PageLayout.Pane>
         <PageLayout.Content
           hidden={{

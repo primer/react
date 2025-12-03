@@ -1,5 +1,4 @@
-import React from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {
   Button,
   IconButton,
@@ -8,7 +7,6 @@ import {
   Text,
   StateLabel,
   BranchName,
-  Box,
   PageLayout,
   Timeline,
   Heading,
@@ -35,6 +33,7 @@ import {Hidden} from '../Hidden'
 import {UnderlineNav} from '../UnderlineNav'
 import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
+import classes from './PageHeader.examples.stories.module.css'
 
 const meta: Meta = {
   title: 'Components/PageHeader/Examples',
@@ -51,7 +50,7 @@ const setViewportParamToNarrow = {
   },
 }
 export const Webhooks = () => (
-  <Box sx={{padding: 3}}>
+  <div className={classes.PaddingContainer}>
     <PageHeader role="banner" aria-label="Webhooks">
       <PageHeader.TitleArea>
         <PageHeader.Title as="h2">Webhooks</PageHeader.Title>
@@ -67,7 +66,7 @@ export const Webhooks = () => (
         <Button variant="primary">New webhook</Button>
       </PageHeader.Actions>
     </PageHeader>
-  </Box>
+  </div>
 )
 
 export const WebhooksOnNarrowViewport = () => {
@@ -77,7 +76,7 @@ export const WebhooksOnNarrowViewport = () => {
 WebhooksOnNarrowViewport.parameters = setViewportParamToNarrow
 
 export const PullRequestPage = () => (
-  <Box sx={{padding: 3}}>
+  <div className={classes.PaddingContainer}>
     <PageHeader
       role="banner"
       aria-label="PageHeader component initial layout explorations extra long pull request title"
@@ -105,16 +104,16 @@ export const PullRequestPage = () => (
           </ActionMenu>
         </Hidden>
         <Hidden when={['narrow']}>
-          <Box sx={{display: 'flex', gap: '0.5rem'}}>
+          <div className={classes.ControlStack}>
             <Button>Edit</Button>
             <Button leadingVisual={CodeIcon}>Code</Button>
-          </Box>
+          </div>
         </Hidden>
       </PageHeader.Actions>
       <PageHeader.Description>
         <StateLabel status="pullOpened">Open</StateLabel>
-        <Text sx={{color: 'fg.muted'}}>
-          <Link href="https://github.com/broccolinisoup" sx={{fontWeight: 'bold'}}>
+        <Text className={classes.DescriptionText}>
+          <Link href="https://github.com/broccolinisoup" className={classes.BoldLink}>
             broccolinisoup
           </Link>{' '}
           wants to merge 3 commits into <BranchName href="https://github.com/primer/react">main</BranchName> from{' '}
@@ -138,7 +137,7 @@ export const PullRequestPage = () => (
         </UnderlineNav>
       </PageHeader.Navigation>
     </PageHeader>
-  </Box>
+  </div>
 )
 
 export const PullRequestPageOnNarrowViewport = () => {
@@ -148,11 +147,11 @@ export const PullRequestPageOnNarrowViewport = () => {
 PullRequestPageOnNarrowViewport.parameters = setViewportParamToNarrow
 
 export const FilesPage = () => (
-  <Box sx={{padding: 3}}>
+  <div className={classes.PaddingContainer}>
     <PageHeader role="banner" aria-label="PageHeader.tsx">
-      <PageHeader.TitleArea sx={{alignItems: 'center'}}>
-        <Text sx={{color: 'rgb(101, 109, 118)', fontSize: '14px', fontWeight: 'normal'}}>/</Text>
-        <PageHeader.Title as="h1" sx={{fontSize: '14px', height: '21px'}}>
+      <PageHeader.TitleArea className={classes.FileTitleArea}>
+        <Text className={classes.FilePathText}>/</Text>
+        <PageHeader.Title as="h1" className={classes.FileTitle}>
           PageHeader.tsx
         </PageHeader.Title>
       </PageHeader.TitleArea>
@@ -284,16 +283,8 @@ export const FilesPage = () => (
         </Hidden>
       </PageHeader.Actions>
     </PageHeader>
-    <Box
-      sx={{
-        border: '1px solid grey',
-        padding: '1em',
-        margin: '1em',
-      }}
-    >
-      This is where the content of the file will be displayed.
-    </Box>
-  </Box>
+    <div className={classes.FileContentContainer}>This is where the content of the file will be displayed.</div>
+  </div>
 )
 
 export const FilesPageOnNarrowViewport = () => {
@@ -308,7 +299,7 @@ export const WithPageLayout = () => {
           <PageHeader.TitleArea>
             <PageHeader.Title as="h1">
               PageHeader component initial layout explorations extra long pull request title &nbsp;
-              <Text sx={{color: 'fg.muted', fontWeight: 'light'}}>#1831</Text>
+              <Text className={classes.SubduedText}>#1831</Text>
             </PageHeader.Title>
           </PageHeader.TitleArea>
           <PageHeader.ContextArea>
@@ -331,16 +322,16 @@ export const WithPageLayout = () => {
             </Hidden>
 
             <Hidden when={['narrow']}>
-              <Box sx={{display: 'flex', gap: '0.5rem'}}>
+              <div className={classes.ControlStack}>
                 <Button>Edit</Button>
                 <Button leadingVisual={CodeIcon}>Code</Button>
-              </Box>
+              </div>
             </Hidden>
           </PageHeader.Actions>
           <PageHeader.Description>
             <StateLabel status="pullOpened">Open</StateLabel>
-            <Text sx={{fontSize: 1, color: 'fg.muted'}}>
-              <Link href="https://github.com/broccolinisoup" sx={{fontWeight: 'bold'}}>
+            <Text className={classes.DescriptionText}>
+              <Link href="https://github.com/broccolinisoup" className={classes.BoldLink}>
                 broccolinisoup
               </Link>{' '}
               wants to merge 3 commits into <BranchName href="https://github.com/primer/react">main</BranchName> from{' '}
@@ -366,32 +357,31 @@ export const WithPageLayout = () => {
         </PageHeader>
       </PageLayout.Header>
       <PageLayout.Content>
-        <Box sx={{border: '1px solid', borderRadius: 2, borderColor: 'border.default', height: 200}}></Box>
+        <div className={classes.LayoutContentBox}></div>
       </PageLayout.Content>
       <PageLayout.Pane>
-        <Box sx={{display: 'flex', flexDirection: 'column', gap: 3}}>
-          <Box>
-            <Text sx={{fontSize: 0, fontWeight: 'bold', display: 'block', color: 'fg.muted'}}>Assignees</Text>
-
-            <Text sx={{fontSize: 0, color: 'fg.muted', lineHeight: 'condensed', display: 'flex', alignItems: 'center'}}>
+        <div className={classes.PaneStack}>
+          <div>
+            <Text className={classes.PaneSectionHeading}>Assignees</Text>
+            <Text className={classes.PaneMetaTextWithButton}>
               No one —
               <Button
                 variant="invisible"
                 onClick={() => {
                   alert('Assign yourself')
                 }}
-                sx={{color: 'fg.muted'}}
+                className={classes.PaneMetaButton}
               >
                 assign yourself
               </Button>
             </Text>
-          </Box>
-          <Box role="separator" sx={{width: '100%', height: 1, backgroundColor: 'border.default'}}></Box>
-          <Box>
-            <Text sx={{fontSize: 0, fontWeight: 'bold', display: 'block', color: 'fg.muted'}}>Labels</Text>
-            <Text sx={{fontSize: 0, color: 'fg.muted', lineHeight: 'condensed'}}>None yet</Text>
-          </Box>
-        </Box>
+          </div>
+          <div className={classes.PaneSeparator} role="separator"></div>
+          <div>
+            <Text className={classes.PaneSectionHeading}>Labels</Text>
+            <Text className={classes.PaneMetaText}>None yet</Text>
+          </div>
+        </div>
       </PageLayout.Pane>
     </PageLayout>
   )
@@ -405,13 +395,13 @@ export const IssuesPage = () => {
           <PageHeader.TitleArea>
             <PageHeader.Title as="h1">
               PageHeader component: A11y sign-off review - React to alpha &nbsp;
-              <Link href="https://github.com/github/primer/issues/1115" sx={{color: 'fg.muted', fontWeight: 'light'}}>
+              <Link href="https://github.com/github/primer/issues/1115" className={classes.SubduedText}>
                 #1115
               </Link>
             </PageHeader.Title>
           </PageHeader.TitleArea>
           <PageHeader.ContextArea>
-            <PageHeader.ContextBar sx={{gap: '8px'}}>
+            <PageHeader.ContextBar className={classes.LabelBar}>
               <Button
                 onClick={() => {
                   alert('The title will go into edit mode')
@@ -441,7 +431,7 @@ export const IssuesPage = () => {
           </PageHeader.ContextArea>
           <PageHeader.Actions>
             <Hidden when={['narrow']}>
-              <Box sx={{display: 'flex', gap: '0.5rem'}}>
+              <div className={classes.ControlStack}>
                 <Button
                   onClick={() => {
                     alert('The title will go into edit mode')
@@ -465,7 +455,7 @@ export const IssuesPage = () => {
                     alert('This button copies the permalink to the clipboard')
                   }}
                 />
-              </Box>
+              </div>
             </Hidden>
           </PageHeader.Actions>
           <PageHeader.Description>
@@ -474,16 +464,7 @@ export const IssuesPage = () => {
         </PageHeader>
       </PageLayout.Header>
       <PageLayout.Content>
-        <Box
-          sx={{
-            border: '1px solid',
-            borderRadius: 2,
-            borderColor: 'border.default',
-            height: 'auto',
-            padding: 3,
-            paddingTop: 0,
-          }}
-        >
+        <div className={classes.IssueMetaContent}>
           <h2>Context</h2>
           PageHeader will be responsible to determine the arrangement of the top-level headings, side actions, header
           metadata, parent links, and how all these elements adapt to different devices, pointer types, and smaller,
@@ -493,19 +474,15 @@ export const IssuesPage = () => {
             <li>Primer documentation site: https://primer.style</li>
             <li>Primer React storybook: https://primer.style/react/storybook/</li>
           </ul>
-        </Box>
-        <Box>
+        </div>
+        <div>
           <Timeline>
             <Timeline.Item>
               <Timeline.Badge>
                 <Octicon icon={CrossReferenceIcon} />
               </Timeline.Badge>
               <Timeline.Body>
-                <Link
-                  href="https://github.com/broccolinisoup"
-                  sx={{fontWeight: 'bold', color: 'fg.default', mr: 1}}
-                  muted
-                >
+                <Link href="https://github.com/broccolinisoup" className={classes.IssueTimelineLink} muted>
                   broccolinisoup
                 </Link>
                 mentioned this on Jul 20, 2022
@@ -516,51 +493,44 @@ export const IssuesPage = () => {
                 <Octicon icon={PaperclipIcon} />
               </Timeline.Badge>
               <Timeline.Body>
-                <Link
-                  href="https://github.com/lesliecdubbs"
-                  sx={{fontWeight: 'bold', color: 'fg.default', mr: 1}}
-                  muted
-                >
+                <Link href="https://github.com/lesliecdubbs" className={classes.IssueTimelineLink} muted>
                   lesliecdubbs
                 </Link>
                 added react and accessibility labels on Jul 12, 2022
               </Timeline.Body>
             </Timeline.Item>
           </Timeline>
-        </Box>
+        </div>
       </PageLayout.Content>
       <PageLayout.Pane>
-        <Box sx={{display: 'flex', flexDirection: 'column', gap: 3}}>
-          <Box>
-            <Heading as="h2" sx={{fontSize: 0, fontWeight: 'bold', display: 'block', color: 'fg.muted'}}>
+        <div className={classes.PaneStack}>
+          <div>
+            <Heading as="h2" className={classes.PaneSectionHeading}>
               Assignees
             </Heading>
-            <Text sx={{fontSize: 0, color: 'fg.muted', lineHeight: 'condensed', display: 'flex', alignItems: 'center'}}>
+            <Text className={classes.PaneMetaTextWithButton}>
               No one —
               <Button
                 variant="invisible"
                 onClick={() => {
                   alert('This button assigns the issue to the logged-in user')
                 }}
-                sx={{color: 'fg.muted'}}
+                className={classes.PaneMetaButton}
               >
                 assign yourself
               </Button>
             </Text>
-          </Box>
-          <Box>
-            <Heading
-              as="h2"
-              sx={{fontSize: 0, fontWeight: 'bold', display: 'block', color: 'fg.muted', paddingBottom: 2}}
-            >
+          </div>
+          <div>
+            <Heading as="h2" className={classes.PaneSectionHeadingWithPadding}>
               Labels
             </Heading>
-            <Box sx={{display: 'flex', alignItems: 'center', gap: 1}}>
+            <div className={classes.LabelTokenStack}>
               <Token as="button" onClick={() => alert('react token is selected')} text="react" />
               <Token as="button" onClick={() => alert('accessibility token is selected')} text="accessibility" />
-            </Box>
-          </Box>
-        </Box>
+            </div>
+          </div>
+        </div>
       </PageLayout.Pane>
     </PageLayout>
   )

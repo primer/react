@@ -1,6 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
-import sx, {type SxProp} from '../sx'
+import type React from 'react'
+import {useState, useEffect} from 'react'
 import {VisuallyHidden} from '../VisuallyHidden'
 import type {HTMLDataAttributes} from '../internal/internal-types'
 import {useId} from '../hooks'
@@ -22,8 +21,9 @@ export type SpinnerProps = {
   'aria-label'?: string
   className?: string
   style?: React.CSSProperties
-} & HTMLDataAttributes &
-  SxProp
+  /** Whether to delay the spinner before rendering by the defined 1000ms. */
+  delay?: boolean
+} & HTMLDataAttributes
 
 function Spinner({
   size: sizeKey = 'medium',
@@ -31,11 +31,28 @@ function Spinner({
   'aria-label': ariaLabel,
   className,
   style,
+  delay = false,
   ...props
 }: SpinnerProps) {
   const size = sizeMap[sizeKey]
   const hasHiddenLabel = srText !== null && ariaLabel === undefined
   const labelId = useId()
+
+  const [isVisible, setIsVisible] = useState(!delay)
+
+  useEffect(() => {
+    if (delay) {
+      const timeoutId = setTimeout(() => {
+        setIsVisible(true)
+      }, 1000)
+
+      return () => clearTimeout(timeoutId)
+    }
+  }, [delay])
+
+  if (!isVisible) {
+    return null
+  }
 
   return (
     /* inline-flex removes the extra line height */
@@ -48,7 +65,7 @@ function Spinner({
         aria-hidden
         aria-label={ariaLabel ?? undefined}
         aria-labelledby={hasHiddenLabel ? labelId : undefined}
-        className={className}
+        className={clsx(className, classes.SpinnerAnimation)}
         style={style}
         {...props}
       >
@@ -74,18 +91,6 @@ function Spinner({
   )
 }
 
-const StyledBaseSpinner = styled.div`
-  ${sx}
-`
+Spinner.displayName = 'Spinner'
 
-function StyledSpinner({sx, className, ...props}: SpinnerProps) {
-  if (sx) {
-    return <StyledBaseSpinner sx={sx} as={Spinner} className={clsx(className, classes.SpinnerAnimation)} {...props} />
-  }
-
-  return <Spinner className={clsx(className, classes.SpinnerAnimation)} {...props} />
-}
-
-StyledSpinner.displayName = 'Spinner'
-
-export default StyledSpinner
+export default Spinner

@@ -7,13 +7,12 @@ import {
   RepoIcon,
   TrashIcon,
 } from '@primer/octicons-react'
-import {action} from '@storybook/addon-actions'
-import type {Meta} from '@storybook/react'
+import {action} from 'storybook/actions'
+import type {Meta} from '@storybook/react-vite'
 import React from 'react'
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
 import {Blankslate} from '../Blankslate'
-import Box from '../Box'
 import {Button, IconButton} from '../Button'
 import {DataTable, Table} from '../DataTable'
 import Heading from '../Heading'
@@ -23,6 +22,7 @@ import RelativeTime from '../RelativeTime'
 import VisuallyHidden from '../_VisuallyHidden'
 import {createColumnHelper} from './column'
 import {fetchRepos, repos, useFlakeyQuery} from './storybook/data'
+import classes from './DataTable.features.stories.module.css'
 
 export default {
   title: 'Experimental/Components/DataTable/Features',
@@ -1383,10 +1383,10 @@ export const WithRightAlignedColumns = () => {
         columns={[
           {
             header: () => (
-              <Box display="flex" alignItems="center" sx={{gap: 1}}>
+              <div className={classes.RepositoryHeader}>
                 <RepoIcon size={16} />
                 Repository
-              </Box>
+              </div>
             ),
             field: 'name',
             rowHeader: true,

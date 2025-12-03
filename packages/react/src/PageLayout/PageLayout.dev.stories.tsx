@@ -1,7 +1,7 @@
-import React from 'react'
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import {Placeholder} from '../Placeholder'
 import {PageLayout} from './PageLayout'
+import classes from './PageLayout.dev.stories.module.css'
 
 const meta: Meta = {
   title: 'Components/PageLayout/Dev',
@@ -347,11 +347,11 @@ export const Default: StoryFn = args => (
     padding={args.padding}
     rowGap={args.rowGap}
     columnGap={args.columnGap}
-    sx={{border: '1px solid red'}}
+    className={classes.DebugPageLayout}
   >
     <PageLayout.Header
       padding={args['Header.padding']}
-      sx={{color: 'var(--fgColor-success)'}}
+      className={classes.SuccessColor}
       divider={{
         narrow: args['Header.divider.narrow'],
         regular: args['Header.divider.regular'],
@@ -366,7 +366,7 @@ export const Default: StoryFn = args => (
       <Placeholder height={args['Header placeholder height']} label="Header" />
     </PageLayout.Header>
     <PageLayout.Content
-      sx={{color: 'var(--fgColor-success)'}}
+      className={classes.SuccessColor}
       width={args['Content.width']}
       padding={args['Content.padding']}
       hidden={{
@@ -378,7 +378,7 @@ export const Default: StoryFn = args => (
       <Placeholder height={args['Content placeholder height']} label="Content" />
     </PageLayout.Content>
     <PageLayout.Pane
-      sx={{color: 'var(--fgColor-success)'}}
+      className={classes.SuccessColor}
       position={{
         narrow: args['Pane.position.narrow'],
         regular: args['Pane.position.regular'],
@@ -403,7 +403,7 @@ export const Default: StoryFn = args => (
       <Placeholder height={args['Pane placeholder height']} label="Pane" />
     </PageLayout.Pane>
     <PageLayout.Footer
-      sx={{color: 'var(--fgColor-success)'}}
+      className={classes.SuccessColor}
       padding={args['Footer.padding']}
       divider={{
         narrow: args['Footer.divider.narrow'],

@@ -24,7 +24,7 @@ try {
   )
   window.addEventListener('test', noop, options)
   window.removeEventListener('test', noop, options)
-} catch (e) {
+} catch (_e) {
   /* */
 }
 function featureSupported(): boolean {

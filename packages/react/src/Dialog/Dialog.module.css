@@ -1,3 +1,16 @@
+/* The --prc-dialog-scrollgutter property is used only on the body element to
+ * simulate scrollbar-gutter:stable. This property is not and should not
+ * be used elsewhere in the DOM. There is a performance penalty to
+ * setting inherited properties which can cause a large style recalc to
+ * occur, so it benefits us to prevent inheritance for this property.
+ * See https://web.dev/blog/at-property-performance
+ */
+@property --prc-dialog-scrollgutter {
+  initial-value: 0;
+  inherits: false;
+  syntax: '<length>';
+}
+
 @keyframes dialog-backdrop-appear {
   0% {
     opacity: 0;
@@ -35,6 +48,14 @@
 @keyframes Overlay--motion-slideInLeft {
   from {
     transform: translateX(100%);
+  }
+}
+
+/* Used to determine whether there should be a border between the body and footer */
+@keyframes detect-scroll {
+  from,
+  to {
+    --can-scroll: 1;
   }
 }
 
@@ -208,8 +229,35 @@
   }
 }
 
+body:has(.Dialog.DisableScroll) {
+  /* stylelint-disable-next-line primer/spacing */
+  padding-right: var(--prc-dialog-scrollgutter) !important;
+  overflow: hidden !important;
+}
+
 .DialogOverflowWrapper {
   flex-grow: 1;
+}
+
+/*
+Add a border between the body and footer if:
+- the dialog has a footer
+- the dialog has a body that can scroll
+- the browser supports the `animation-timeline` property and its `scroll()` function
+*/
+.Dialog:has(.Footer) {
+  --can-scroll: 0;
+
+  .DialogOverflowWrapper {
+    /* If the browser does not support the `animation-timeline` property, always show a border */
+    border-bottom: var(--borderWidth-default) solid var(--borderColor-default);
+    animation: detect-scroll;
+    animation-timeline: scroll(self);
+
+    @supports (animation-timeline: scroll(self)) {
+      border-bottom: calc(var(--borderWidth-thin) * var(--can-scroll)) solid var(--borderColor-default);
+    }
+  }
 }
 
 .Header {
@@ -220,6 +268,18 @@
   /* stylelint-disable-next-line primer/box-shadow */
   box-shadow: 0 1px 0 var(--borderColor-default);
   flex-shrink: 0;
+}
+
+.HeaderInner {
+  display: flex;
+}
+
+.HeaderContent {
+  display: flex;
+  padding-inline: var(--base-size-8);
+  padding-block: var(--base-size-6);
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .Title {
@@ -248,8 +308,6 @@
   flex-flow: wrap;
   justify-content: flex-end;
   padding: var(--base-size-16);
-  /* stylelint-disable-next-line primer/box-shadow */
-  box-shadow: 0 -1px 0 var(--borderColor-default);
   gap: var(--base-size-8);
   flex-shrink: 0;
 

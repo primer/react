@@ -40,16 +40,8 @@ const stories = [
     id: 'components-token-features--issue-label-token-with-on-remove-fn',
   },
   {
-    title: 'AvatarToken Default',
-    id: 'components-avatartoken--default-token',
-  },
-  {
-    title: 'AvatarToken Interactive',
-    id: 'components-avatartoken--interactive',
-  },
-  {
-    title: 'AvatarToken On Remove Fn',
-    id: 'components-avatartoken--with-on-remove-fn',
+    title: 'IssueLabelToken Custom Colors',
+    id: 'components-token-features--issue-label-token-custom-colors',
   },
 ]
 
@@ -67,7 +59,7 @@ test.describe('Token', () => {
             })
 
             // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`Token.Default.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Token.Default.${story.title}.${theme}.png`)
           })
         })
       }

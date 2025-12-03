@@ -62,14 +62,14 @@ jobs:
     steps:
       - name: Generate token
         id: generate_token
-        uses: actions/create-github-app-token@df432ceedc7162793a195dd1713ff69aefc7379e
+        uses: actions/create-github-app-token@7e473efe3cb98aa54f8d4bac15400b15fad77d94
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
       # Warning: we are checking out an untrusted source at this point in order
       # to push to the head pull request. Code from this checkout must not be
       # used in any of the following steps.
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.workflow_run.head_branch }}
@@ -110,7 +110,7 @@ jobs:
             rm snapshots.zip
             rm $filepath
           done
-      - uses: stefanzweifel/git-auto-commit-action@b863ae1933cb653a53c021fe36dbb774e1fb9403
+      - uses: stefanzweifel/git-auto-commit-action@28e16e81777b558cc906c8750092100bbb34c5e3
         with:
           commit_message: 'test(vrt): update snapshots'
 

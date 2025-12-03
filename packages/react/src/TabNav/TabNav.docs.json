@@ -17,10 +17,6 @@
       "name": "aria-label",
       "type": "string",
       "description": "Used to set the `aria-label` on the top level `<nav>` element."
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject"
     }
   ],
   "subcomponents": [
@@ -44,10 +40,6 @@
           "name": "to",
           "type": "string | Partial<Path>",
           "description": "Used when the item is rendered using a component like React Router's `Link`. The path to navigate to."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     }

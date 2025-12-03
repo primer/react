@@ -1,5 +1,4 @@
-import React from 'react'
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import type {AvatarStackProps} from './AvatarStack'
 import AvatarStack from './AvatarStack'
 import Avatar from '../Avatar'
@@ -57,12 +56,6 @@ Playground.argTypes = {
     name: 'size.wide',
     control: {
       type: 'number',
-    },
-  },
-  sx: {
-    controls: false,
-    table: {
-      disable: true,
     },
   },
 }

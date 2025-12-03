@@ -2,7 +2,7 @@
   "id": "action_menu",
   "name": "ActionMenu",
   "status": "beta",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-actionmenu--default"
@@ -110,6 +110,12 @@
           "type": "| 'inside-top' | 'inside-bottom' | 'inside-left' | 'inside-right' | 'inside-center' | 'outside-top' | 'outside-bottom' | 'outside-left' | 'outside-right'",
           "defaultValue": "'outside-bottom'",
           "description": "Controls which side of the anchor the menu will appear"
+        },
+        {
+          "name": "onPositionChange",
+          "type": "({ position }: { position: AnchorPosition }) => void",
+          "defaultValue": "",
+          "description": "Callback that is called when the position of the overlay changes"
         },
         {
           "name": "data-test-id",

@@ -1,19 +1,11 @@
-import React from 'react'
-import styled from 'styled-components'
-import {get} from '../../constants'
-
-export const StyledDivider = styled.div`
-  height: 1px;
-  background: ${get('colors.border.muted')};
-  margin-top: calc(${get('space.2')} - 1px);
-  margin-bottom: ${get('space.2')};
-`
+import type {JSX} from 'react'
+import classes from './Divider.module.css'
 
 /**
- * Visually separates `Item`s or `Group`s in an `ActionList`.
+ * Visually separates `Items or `Groups in an `ActionList`.
  */
 export function Divider(): JSX.Element {
-  return <StyledDivider />
+  return <div data-component="ActionList.Divider" className={classes.Divider} />
 }
 
 /**

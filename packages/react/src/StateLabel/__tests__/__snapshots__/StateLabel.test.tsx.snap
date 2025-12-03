@@ -1,465 +1,337 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`StateLabel renders children 1`] = `
-.c1 {
-  margin-right: 4px;
-}
-
-.c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  font-weight: 600;
-  line-height: 16px;
-  color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  text-align: center;
-  border-radius: 100px;
-  background-color: var(--bgColor-open-emphasis,var(--color-open-emphasis,#1f883d));
-  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-  box-shadow: var(--boxShadow-thin,inset 0 0 0 1px) var(--borderColor-open-emphasis,transparent);
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  font-size: 14px;
-}
-
-<span
-  className="c0"
->
-  <svg
-    aria-label="Issue"
-    className="octicon octicon-issue-opened c1"
-    display="inline-block"
-    fill="currentColor"
-    focusable="false"
-    height={16}
-    overflow="visible"
-    role="img"
-    style={
-      {
-        "verticalAlign": "text-bottom",
-      }
-    }
-    viewBox="0 0 16 16"
-    width={16}
+exports[`StateLabel > prefers the size prop over deprecated variant prop 1`] = `
+<div>
+  <span
+    class="prc-StateLabel-StateLabel-eEUJr"
+    data-size="small"
+    data-status="issueOpened"
   >
-    <path
-      d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"
-    />
-    <path
-      d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"
-    />
-  </svg>
-  hi
-</span>
+    <svg
+      aria-label="Issue"
+      class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
+      data-size-small=""
+      display="inline-block"
+      fill="currentColor"
+      focusable="false"
+      height="16"
+      overflow="visible"
+      role="img"
+      style="vertical-align: text-bottom;"
+      viewBox="0 0 16 16"
+      width="16"
+    >
+      <path
+        d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"
+      />
+      <path
+        d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"
+      />
+    </svg>
+  </span>
+</div>
 `;
 
-exports[`StateLabel respects the status prop 1`] = `
-.c1 {
-  margin-right: 4px;
-}
-
-.c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  font-weight: 600;
-  line-height: 16px;
-  color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  text-align: center;
-  border-radius: 100px;
-  background-color: var(--bgColor-open-emphasis,var(--color-open-emphasis,#1f883d));
-  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-  box-shadow: var(--boxShadow-thin,inset 0 0 0 1px) var(--borderColor-open-emphasis,transparent);
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  font-size: 14px;
-}
-
-<span
-  className="c0"
->
-  <svg
-    aria-label="Issue"
-    className="octicon octicon-issue-opened c1"
-    display="inline-block"
-    fill="currentColor"
-    focusable="false"
-    height={16}
-    overflow="visible"
-    role="img"
-    style={
-      {
-        "verticalAlign": "text-bottom",
-      }
-    }
-    viewBox="0 0 16 16"
-    width={16}
+exports[`StateLabel > renders children 1`] = `
+<div>
+  <span
+    class="prc-StateLabel-StateLabel-eEUJr"
+    data-size="medium"
+    data-status="issueOpened"
   >
-    <path
-      d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"
-    />
-    <path
-      d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"
-    />
-  </svg>
-</span>
+    <svg
+      aria-label="Issue"
+      class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
+      display="inline-block"
+      fill="currentColor"
+      focusable="false"
+      height="16"
+      overflow="visible"
+      role="img"
+      style="vertical-align: text-bottom;"
+      viewBox="0 0 16 16"
+      width="16"
+    >
+      <path
+        d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"
+      />
+      <path
+        d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"
+      />
+    </svg>
+    hi
+  </span>
+</div>
 `;
 
-exports[`StateLabel respects the status prop 2`] = `
-.c1 {
-  margin-right: 4px;
-}
-
-.c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  font-weight: 600;
-  line-height: 16px;
-  color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  text-align: center;
-  border-radius: 100px;
-  background-color: var(--bgColor-done-emphasis,var(--color-done-emphasis,#8250df));
-  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-  box-shadow: var(--boxShadow-thin,inset 0 0 0 1px) var(--borderColor-done-emphasis,transparent);
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  font-size: 14px;
-}
-
-<span
-  className="c0"
->
-  <svg
-    aria-label="Issue"
-    className="octicon octicon-issue-closed c1"
-    display="inline-block"
-    fill="currentColor"
-    focusable="false"
-    height={16}
-    overflow="visible"
-    role="img"
-    style={
-      {
-        "verticalAlign": "text-bottom",
-      }
-    }
-    viewBox="0 0 16 16"
-    width={16}
+exports[`StateLabel > respects the deprecated variant prop 1`] = `
+<div>
+  <span
+    class="prc-StateLabel-StateLabel-eEUJr"
+    data-size="small"
+    data-status="issueOpened"
   >
-    <path
-      d="M11.28 6.78a.75.75 0 0 0-1.06-1.06L7.25 8.69 5.78 7.22a.75.75 0 0 0-1.06 1.06l2 2a.75.75 0 0 0 1.06 0l3.5-3.5Z"
-    />
-    <path
-      d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0Zm-1.5 0a6.5 6.5 0 1 0-13 0 6.5 6.5 0 0 0 13 0Z"
-    />
-  </svg>
-</span>
+    <svg
+      aria-label="Issue"
+      class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
+      data-size-small=""
+      display="inline-block"
+      fill="currentColor"
+      focusable="false"
+      height="16"
+      overflow="visible"
+      role="img"
+      style="vertical-align: text-bottom;"
+      viewBox="0 0 16 16"
+      width="16"
+    >
+      <path
+        d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"
+      />
+      <path
+        d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"
+      />
+    </svg>
+  </span>
+</div>
 `;
 
-exports[`StateLabel respects the status prop 3`] = `
-.c1 {
-  margin-right: 4px;
-}
-
-.c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  font-weight: 600;
-  line-height: 16px;
-  color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  text-align: center;
-  border-radius: 100px;
-  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
-  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-  box-shadow: var(--boxShadow-thin,inset 0 0 0 1px) var(--borderColor-neutral-emphasis,transparent);
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  font-size: 14px;
-}
-
-<span
-  className="c0"
->
-  <svg
-    aria-label="Issue, not planned"
-    className="octicon octicon-skip c1"
-    display="inline-block"
-    fill="currentColor"
-    focusable="false"
-    height={16}
-    overflow="visible"
-    role="img"
-    style={
-      {
-        "verticalAlign": "text-bottom",
-      }
-    }
-    viewBox="0 0 16 16"
-    width={16}
+exports[`StateLabel > respects the deprecated variant prop 2`] = `
+<div>
+  <span
+    class="prc-StateLabel-StateLabel-eEUJr"
+    data-size="medium"
+    data-status="issueOpened"
   >
-    <path
-      d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm9.78-2.22-5.5 5.5a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734l5.5-5.5a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042Z"
-    />
-  </svg>
-</span>
+    <svg
+      aria-label="Issue"
+      class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
+      display="inline-block"
+      fill="currentColor"
+      focusable="false"
+      height="16"
+      overflow="visible"
+      role="img"
+      style="vertical-align: text-bottom;"
+      viewBox="0 0 16 16"
+      width="16"
+    >
+      <path
+        d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"
+      />
+      <path
+        d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"
+      />
+    </svg>
+  </span>
+</div>
 `;
 
-exports[`StateLabel respects the status prop 4`] = `
-.c1 {
-  margin-right: 4px;
-}
-
-.c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  font-weight: 600;
-  line-height: 16px;
-  color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  text-align: center;
-  border-radius: 100px;
-  background-color: var(--bgColor-done-emphasis,var(--color-done-emphasis,#8250df));
-  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-  box-shadow: var(--boxShadow-thin,inset 0 0 0 1px) var(--borderColor-done-emphasis,transparent);
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  font-size: 14px;
-}
-
-<span
-  className="c0"
->
-  <svg
-    aria-label="Pull request"
-    className="octicon octicon-git-merge c1"
-    display="inline-block"
-    fill="currentColor"
-    focusable="false"
-    height={16}
-    overflow="visible"
-    role="img"
-    style={
-      {
-        "verticalAlign": "text-bottom",
-      }
-    }
-    viewBox="0 0 16 16"
-    width={16}
+exports[`StateLabel > respects the size prop 1`] = `
+<div>
+  <span
+    class="prc-StateLabel-StateLabel-eEUJr"
+    data-size="small"
+    data-status="issueOpened"
   >
-    <path
-      d="M5.45 5.154A4.25 4.25 0 0 0 9.25 7.5h1.378a2.251 2.251 0 1 1 0 1.5H9.25A5.734 5.734 0 0 1 5 7.123v3.505a2.25 2.25 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.95-.218ZM4.25 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm8.5-4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM5 3.25a.75.75 0 1 0 0 .005V3.25Z"
-    />
-  </svg>
-</span>
+    <svg
+      aria-label="Issue"
+      class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
+      data-size-small=""
+      display="inline-block"
+      fill="currentColor"
+      focusable="false"
+      height="16"
+      overflow="visible"
+      role="img"
+      style="vertical-align: text-bottom;"
+      viewBox="0 0 16 16"
+      width="16"
+    >
+      <path
+        d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"
+      />
+      <path
+        d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"
+      />
+    </svg>
+  </span>
+</div>
 `;
 
-exports[`StateLabel respects the status prop 5`] = `
-.c1 {
-  margin-right: 4px;
-}
-
-.c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  font-weight: 600;
-  line-height: 16px;
-  color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  text-align: center;
-  border-radius: 100px;
-  background-color: var(--bgColor-attention-emphasis,var(--color-attention-emphasis,#9a6700));
-  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-  box-shadow: var(--boxShadow-thin,inset 0 0 0 1px) var(--borderColor-attention-emphasis,transparent);
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  font-size: 14px;
-}
-
-<span
-  className="c0"
->
-  <svg
-    aria-label="Pull request"
-    className="octicon octicon-git-merge-queue c1"
-    display="inline-block"
-    fill="currentColor"
-    focusable="false"
-    height={16}
-    overflow="visible"
-    role="img"
-    style={
-      {
-        "verticalAlign": "text-bottom",
-      }
-    }
-    viewBox="0 0 16 16"
-    width={16}
+exports[`StateLabel > respects the size prop 2`] = `
+<div>
+  <span
+    class="prc-StateLabel-StateLabel-eEUJr"
+    data-size="medium"
+    data-status="issueOpened"
   >
-    <path
-      d="M3.75 4.5a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5ZM3 7.75a.75.75 0 0 1 1.5 0v2.878a2.251 2.251 0 1 1-1.5 0Zm.75 5.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm5-7.75a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0Zm5.75 2.5a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-1.5 0a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z"
-    />
-  </svg>
-</span>
+    <svg
+      aria-label="Issue"
+      class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
+      display="inline-block"
+      fill="currentColor"
+      focusable="false"
+      height="16"
+      overflow="visible"
+      role="img"
+      style="vertical-align: text-bottom;"
+      viewBox="0 0 16 16"
+      width="16"
+    >
+      <path
+        d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"
+      />
+      <path
+        d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"
+      />
+    </svg>
+  </span>
+</div>
 `;
 
-exports[`StateLabel respects the variant prop 1`] = `
-.c1 {
-  margin-right: 4px;
-}
-
-.c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  font-weight: 600;
-  line-height: 16px;
-  color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  text-align: center;
-  border-radius: 100px;
-  background-color: var(--bgColor-open-emphasis,var(--color-open-emphasis,#1f883d));
-  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-  box-shadow: var(--boxShadow-thin,inset 0 0 0 1px) var(--borderColor-open-emphasis,transparent);
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  font-size: 12px;
-}
-
-<span
-  className="c0"
->
-  <svg
-    aria-label="Issue"
-    className="octicon octicon-issue-opened c1"
-    display="inline-block"
-    fill="currentColor"
-    focusable="false"
-    height={16}
-    overflow="visible"
-    role="img"
-    style={
-      {
-        "verticalAlign": "text-bottom",
-      }
-    }
-    viewBox="0 0 16 16"
-    width={16}
+exports[`StateLabel > respects the status prop 1`] = `
+<div>
+  <span
+    class="prc-StateLabel-StateLabel-eEUJr"
+    data-size="medium"
+    data-status="issueOpened"
   >
-    <path
-      d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"
-    />
-    <path
-      d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"
-    />
-  </svg>
-</span>
+    <svg
+      aria-label="Issue"
+      class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
+      display="inline-block"
+      fill="currentColor"
+      focusable="false"
+      height="16"
+      overflow="visible"
+      role="img"
+      style="vertical-align: text-bottom;"
+      viewBox="0 0 16 16"
+      width="16"
+    >
+      <path
+        d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"
+      />
+      <path
+        d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"
+      />
+    </svg>
+  </span>
+</div>
 `;
 
-exports[`StateLabel respects the variant prop 2`] = `
-.c1 {
-  margin-right: 4px;
-}
-
-.c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  font-weight: 600;
-  line-height: 16px;
-  color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  text-align: center;
-  border-radius: 100px;
-  background-color: var(--bgColor-open-emphasis,var(--color-open-emphasis,#1f883d));
-  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-  box-shadow: var(--boxShadow-thin,inset 0 0 0 1px) var(--borderColor-open-emphasis,transparent);
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  font-size: 14px;
-}
-
-<span
-  className="c0"
->
-  <svg
-    aria-label="Issue"
-    className="octicon octicon-issue-opened c1"
-    display="inline-block"
-    fill="currentColor"
-    focusable="false"
-    height={16}
-    overflow="visible"
-    role="img"
-    style={
-      {
-        "verticalAlign": "text-bottom",
-      }
-    }
-    viewBox="0 0 16 16"
-    width={16}
+exports[`StateLabel > respects the status prop 2`] = `
+<div>
+  <span
+    class="prc-StateLabel-StateLabel-eEUJr"
+    data-size="medium"
+    data-status="issueClosed"
   >
-    <path
-      d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"
-    />
-    <path
-      d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"
-    />
-  </svg>
-</span>
+    <svg
+      aria-label="Issue"
+      class="octicon octicon-issue-closed prc-StateLabel-Icon-UdR1Y"
+      display="inline-block"
+      fill="currentColor"
+      focusable="false"
+      height="16"
+      overflow="visible"
+      role="img"
+      style="vertical-align: text-bottom;"
+      viewBox="0 0 16 16"
+      width="16"
+    >
+      <path
+        d="M11.28 6.78a.75.75 0 0 0-1.06-1.06L7.25 8.69 5.78 7.22a.75.75 0 0 0-1.06 1.06l2 2a.75.75 0 0 0 1.06 0l3.5-3.5Z"
+      />
+      <path
+        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0Zm-1.5 0a6.5 6.5 0 1 0-13 0 6.5 6.5 0 0 0 13 0Z"
+      />
+    </svg>
+  </span>
+</div>
+`;
+
+exports[`StateLabel > respects the status prop 3`] = `
+<div>
+  <span
+    class="prc-StateLabel-StateLabel-eEUJr"
+    data-size="medium"
+    data-status="issueClosedNotPlanned"
+  >
+    <svg
+      aria-label="Issue, not planned"
+      class="octicon octicon-skip prc-StateLabel-Icon-UdR1Y"
+      display="inline-block"
+      fill="currentColor"
+      focusable="false"
+      height="16"
+      overflow="visible"
+      role="img"
+      style="vertical-align: text-bottom;"
+      viewBox="0 0 16 16"
+      width="16"
+    >
+      <path
+        d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm9.78-2.22-5.5 5.5a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734l5.5-5.5a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042Z"
+      />
+    </svg>
+  </span>
+</div>
+`;
+
+exports[`StateLabel > respects the status prop 4`] = `
+<div>
+  <span
+    class="prc-StateLabel-StateLabel-eEUJr"
+    data-size="medium"
+    data-status="pullMerged"
+  >
+    <svg
+      aria-label="Pull request"
+      class="octicon octicon-git-merge prc-StateLabel-Icon-UdR1Y"
+      display="inline-block"
+      fill="currentColor"
+      focusable="false"
+      height="16"
+      overflow="visible"
+      role="img"
+      style="vertical-align: text-bottom;"
+      viewBox="0 0 16 16"
+      width="16"
+    >
+      <path
+        d="M5.45 5.154A4.25 4.25 0 0 0 9.25 7.5h1.378a2.251 2.251 0 1 1 0 1.5H9.25A5.734 5.734 0 0 1 5 7.123v3.505a2.25 2.25 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.95-.218ZM4.25 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm8.5-4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM5 3.25a.75.75 0 1 0 0 .005V3.25Z"
+      />
+    </svg>
+  </span>
+</div>
+`;
+
+exports[`StateLabel > respects the status prop 5`] = `
+<div>
+  <span
+    class="prc-StateLabel-StateLabel-eEUJr"
+    data-size="medium"
+    data-status="pullQueued"
+  >
+    <svg
+      aria-label="Pull request"
+      class="octicon octicon-git-merge-queue prc-StateLabel-Icon-UdR1Y"
+      display="inline-block"
+      fill="currentColor"
+      focusable="false"
+      height="16"
+      overflow="visible"
+      role="img"
+      style="vertical-align: text-bottom;"
+      viewBox="0 0 16 16"
+      width="16"
+    >
+      <path
+        d="M3.75 4.5a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5ZM3 7.75a.75.75 0 0 1 1.5 0v2.878a2.251 2.251 0 1 1-1.5 0Zm.75 5.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm5-7.75a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0Zm5.75 2.5a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-1.5 0a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z"
+      />
+    </svg>
+  </span>
+</div>
 `;

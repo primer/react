@@ -1,9 +1,9 @@
-import React from 'react'
-import type {StoryFn, Meta} from '@storybook/react'
+import type {StoryFn, Meta} from '@storybook/react-vite'
 
-import {Box, Button, Heading, Text} from '..'
+import {Button, Heading, Text} from '..'
 import {NavList} from '../NavList'
 import {SplitPageLayout} from '../SplitPageLayout'
+import classes from './SplitPageLayout.features.stories.module.css'
 
 export default {
   title: 'Components/SplitPageLayout/Features',
@@ -23,30 +23,19 @@ export const SettingsPage: StoryFn<typeof SplitPageLayout> = () => (
       </NavList>
     </SplitPageLayout.Pane>
     <SplitPageLayout.Content>
-      <Heading as="h2" sx={{fontSize: 4, fontWeight: 'normal', color: 'danger.fg', mb: 2}}>
+      <Heading as="h2" className={classes.SectionHeading}>
         Danger zone
       </Heading>
-      <Box
-        sx={{
-          border: '1px solid',
-          borderColor: 'danger.emphasis',
-          borderRadius: 2,
-          p: 3,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: 3,
-        }}
-      >
-        <Box sx={{display: 'grid', gap: 1}}>
-          <Text sx={{fontSize: 1, fontWeight: 'bold', color: 'danger.fg'}}>Delete account</Text>
-          <Text sx={{fontSize: 1, color: 'fg.muted'}}>
+      <div className={classes.DeleteAccountContainer}>
+        <div className={classes.DeleteAccountTextContainer}>
+          <Text className={classes.DeleteAccountTitle}>Delete account</Text>
+          <Text className={classes.DeleteAccountDescription}>
             Are you sure you don&apos;t want to just downgrade your account to a free account? We won&apos;t charge your
             credit card anymore.
           </Text>
-        </Box>
+        </div>
         <Button variant="danger">Delete account</Button>
-      </Box>
+      </div>
     </SplitPageLayout.Content>
   </SplitPageLayout>
 )

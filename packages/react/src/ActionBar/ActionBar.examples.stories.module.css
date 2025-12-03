@@ -1,0 +1,71 @@
+.CommentBoxContainer {
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: var(--borderWidth-default) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+  min-inline-size: auto;
+  background-color: var(--bgColor-default);
+  color: var(--fgColor-default);
+}
+
+.CommentBoxHeader {
+  display: flex;
+  flex-direction: row;
+  background-color: var(--bgColor-muted);
+  border-top-left-radius: var(--borderRadius-medium);
+  border-top-right-radius: var(--borderRadius-medium);
+  justify-content: space-between;
+}
+
+.CommentBoxHeaderLeft {
+  width: 100%;
+  min-width: 0;
+}
+
+.CommentBoxHeaderRight {
+  display: flex;
+  gap: var(--base-size-8);
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.DialogContent {
+  padding: var(--base-size-24);
+}
+
+.ActionBarToggleContainer {
+  border: var(--borderWidth-default) solid var(--borderColor-default);
+  padding: var(--base-size-16);
+}
+
+.ActionBarToggleTop {
+  background-color: var(--bgColor-muted);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: var(--borderWidth-default) solid var(--borderColor-default);
+  padding: var(--base-size-16);
+}
+
+.ActionBarToggleUser {
+  margin-left: var(--base-size-8);
+  margin-right: var(--base-size-8);
+}
+
+.ActionBarToggleBottom {
+  padding: var(--base-size-16);
+}
+
+.ActionBarToggleButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: var(--base-size-8);
+  gap: var(--base-size-8);
+}
+
+.MultipleActionBarsSection {
+  padding: var(--base-size-16);
+}

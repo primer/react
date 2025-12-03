@@ -1,4 +1,3 @@
-import React from 'react'
 import figma from '@figma/code-connect'
 import TextInput from './TextInput'
 import FormControl from '../FormControl'

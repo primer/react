@@ -1,85 +1,87 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`PageLayout renders condensed layout 1`] = `
+exports[`PageLayout > renders condensed layout 1`] = `
 <div>
   <div
-    class="PageLayoutRoot"
-    style="--sticky-pane-height: 100vh; --spacing: var(--spacing-condensed);"
+    class="prc-PageLayout-PageLayoutRoot-NJqoS"
+    style="--spacing: var(--spacing-condensed);"
   >
     <div
-      class="PageLayoutWrapper"
+      class="prc-PageLayout-PageLayoutWrapper-Ji6aL"
       data-width="xlarge"
     >
       <header
-        class="Header"
+        class="prc-PageLayout-Header-EJ5fp"
+        data-hidden="false"
         style="--spacing: var(--spacing-condensed);"
       >
         <div
-          class="HeaderContent"
+          class="prc-PageLayout-HeaderContent-wCoO7"
           style="--spacing: var(--spacing-none);"
         >
           Header
         </div>
         <div
-          class="HorizontalDivider HeaderHorizontalDivider"
+          class="prc-PageLayout-HorizontalDivider-8Nn4S prc-PageLayout-HeaderHorizontalDivider-F16w2"
           data-variant="none"
           style="--spacing-divider: var(--spacing-condensed); --spacing: var(--spacing-condensed);"
         />
       </header>
       <div
-        class="PageLayoutContent"
+        class="prc-PageLayout-PageLayoutContent-CvTxr"
       >
         <main
-          class="ContentWrapper"
+          class="prc-PageLayout-ContentWrapper-984Tf"
           data-is-hidden="false"
         >
-          <div />
           <div
-            class="Content"
+            class="prc-PageLayout-Content-8xwKm"
             data-width="full"
             style="--spacing: var(--spacing-none);"
           >
             Content
           </div>
-          <div />
         </main>
         <div
-          class="PaneWrapper"
+          class="prc-PageLayout-PaneWrapper-RIDY-"
           data-is-hidden="false"
           data-position="end"
           style="--offset-header: 0px; --spacing-row: var(--spacing-condensed); --spacing-column: var(--spacing-condensed);"
         >
           <div
-            class="HorizontalDivider PaneHorizontalDivider"
+            class="prc-PageLayout-HorizontalDivider-8Nn4S prc-PageLayout-PaneHorizontalDivider-wnCG-"
             data-position="end"
-            data-variant="none"
+            data-variant-narrow="none"
+            data-variant-regular="none"
             style="--spacing-divider: var(--spacing-condensed); --spacing: var(--spacing-condensed);"
           />
           <div
-            class="Pane"
-            style="--spacing: var(--spacing-none); --pane-min-width: 256px; --pane-max-width: calc(100vw - var(--pane-max-width-diff)); --pane-width-size: var(--pane-width-medium); --pane-width: 296px;"
+            class="prc-PageLayout-Pane-g6fEI"
+            style="--spacing: var(--spacing-none); --pane-min-width: 256px; --pane-max-width: calc(100vw - var(--pane-max-width-diff)); --pane-width-size: var(--pane-width-medium);"
           >
             Pane
           </div>
           <div
-            class="VerticalDivider PaneVerticalDivider"
+            class="prc-PageLayout-VerticalDivider-f4Vw0 prc-PageLayout-PaneVerticalDivider-o0OsY"
             data-position="end"
-            data-variant="none"
+            data-variant-narrow="none"
+            data-variant-regular="none"
             style="--spacing: var(--spacing-condensed);"
           />
         </div>
       </div>
       <footer
-        class="FooterWrapper"
+        class="prc-PageLayout-FooterWrapper-CHYtZ"
+        data-hidden="false"
         style="--spacing: var(--spacing-condensed);"
       >
         <div
-          class="HorizontalDivider FooterHorizontalDivider"
+          class="prc-PageLayout-HorizontalDivider-8Nn4S prc-PageLayout-FooterHorizontalDivider-QqvMj"
           data-variant="none"
           style="--spacing-divider: var(--spacing-condensed); --spacing: var(--spacing-condensed);"
         />
         <div
-          class="FooterContent"
+          class="prc-PageLayout-FooterContent-K3nAV"
           style="--spacing: var(--spacing-none);"
         >
           Footer
@@ -90,86 +92,278 @@ exports[`PageLayout renders condensed layout 1`] = `
 </div>
 `;
 
-exports[`PageLayout renders default layout 1`] = `
+exports[`PageLayout > renders default layout 1`] = `
 <div>
   <div
-    class="PageLayoutRoot"
-    style="--sticky-pane-height: 100vh; --spacing: var(--spacing-normal);"
+    class="prc-PageLayout-PageLayoutRoot-NJqoS"
+    style="--spacing: var(--spacing-normal);"
   >
     <div
-      class="PageLayoutWrapper"
+      class="prc-PageLayout-PageLayoutWrapper-Ji6aL"
       data-width="xlarge"
     >
       <header
-        class="Header"
+        class="prc-PageLayout-Header-EJ5fp"
+        data-hidden="false"
         style="--spacing: var(--spacing-normal);"
       >
         <div
-          class="HeaderContent"
+          class="prc-PageLayout-HeaderContent-wCoO7"
           style="--spacing: var(--spacing-none);"
         >
           Header
         </div>
         <div
-          class="HorizontalDivider HeaderHorizontalDivider"
+          class="prc-PageLayout-HorizontalDivider-8Nn4S prc-PageLayout-HeaderHorizontalDivider-F16w2"
           data-variant="none"
           style="--spacing-divider: var(--spacing-normal); --spacing: var(--spacing-normal);"
         />
       </header>
       <div
-        class="PageLayoutContent"
+        class="prc-PageLayout-PageLayoutContent-CvTxr"
       >
         <main
-          class="ContentWrapper"
+          class="prc-PageLayout-ContentWrapper-984Tf"
           data-is-hidden="false"
         >
-          <div />
           <div
-            class="Content"
+            class="prc-PageLayout-Content-8xwKm"
             data-width="full"
             style="--spacing: var(--spacing-none);"
           >
             Content
           </div>
-          <div />
         </main>
         <div
-          class="PaneWrapper"
+          class="prc-PageLayout-PaneWrapper-RIDY-"
           data-is-hidden="false"
           data-position="end"
           style="--offset-header: 0px; --spacing-row: var(--spacing-normal); --spacing-column: var(--spacing-normal);"
         >
           <div
-            class="HorizontalDivider PaneHorizontalDivider"
+            class="prc-PageLayout-HorizontalDivider-8Nn4S prc-PageLayout-PaneHorizontalDivider-wnCG-"
             data-position="end"
-            data-variant="none"
+            data-variant-narrow="none"
+            data-variant-regular="none"
             style="--spacing-divider: var(--spacing-normal); --spacing: var(--spacing-normal);"
           />
           <div
-            class="Pane"
-            style="--spacing: var(--spacing-none); --pane-min-width: 256px; --pane-max-width: calc(100vw - var(--pane-max-width-diff)); --pane-width-size: var(--pane-width-medium); --pane-width: 296px;"
+            class="prc-PageLayout-Pane-g6fEI"
+            style="--spacing: var(--spacing-none); --pane-min-width: 256px; --pane-max-width: calc(100vw - var(--pane-max-width-diff)); --pane-width-size: var(--pane-width-medium);"
           >
             Pane
           </div>
           <div
-            class="VerticalDivider PaneVerticalDivider"
+            class="prc-PageLayout-VerticalDivider-f4Vw0 prc-PageLayout-PaneVerticalDivider-o0OsY"
             data-position="end"
-            data-variant="none"
+            data-variant-narrow="none"
+            data-variant-regular="none"
             style="--spacing: var(--spacing-normal);"
           />
         </div>
       </div>
       <footer
-        class="FooterWrapper"
+        class="prc-PageLayout-FooterWrapper-CHYtZ"
+        data-hidden="false"
         style="--spacing: var(--spacing-normal);"
       >
         <div
-          class="HorizontalDivider FooterHorizontalDivider"
+          class="prc-PageLayout-HorizontalDivider-8Nn4S prc-PageLayout-FooterHorizontalDivider-QqvMj"
           data-variant="none"
           style="--spacing-divider: var(--spacing-normal); --spacing: var(--spacing-normal);"
         />
         <div
-          class="FooterContent"
+          class="prc-PageLayout-FooterContent-K3nAV"
+          style="--spacing: var(--spacing-none);"
+        >
+          Footer
+        </div>
+      </footer>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`PageLayout > renders pane in different position when narrow 1`] = `
+<div>
+  <div
+    class="prc-PageLayout-PageLayoutRoot-NJqoS"
+    style="--spacing: var(--spacing-normal);"
+  >
+    <div
+      class="prc-PageLayout-PageLayoutWrapper-Ji6aL"
+      data-width="xlarge"
+    >
+      <header
+        class="prc-PageLayout-Header-EJ5fp"
+        data-hidden="false"
+        style="--spacing: var(--spacing-normal);"
+      >
+        <div
+          class="prc-PageLayout-HeaderContent-wCoO7"
+          style="--spacing: var(--spacing-none);"
+        >
+          Header
+        </div>
+        <div
+          class="prc-PageLayout-HorizontalDivider-8Nn4S prc-PageLayout-HeaderHorizontalDivider-F16w2"
+          data-variant="none"
+          style="--spacing-divider: var(--spacing-normal); --spacing: var(--spacing-normal);"
+        />
+      </header>
+      <div
+        class="prc-PageLayout-PageLayoutContent-CvTxr"
+      >
+        <main
+          class="prc-PageLayout-ContentWrapper-984Tf"
+          data-is-hidden="false"
+        >
+          <div
+            class="prc-PageLayout-Content-8xwKm"
+            data-width="full"
+            style="--spacing: var(--spacing-none);"
+          >
+            Content
+          </div>
+        </main>
+        <div
+          class="prc-PageLayout-PaneWrapper-RIDY-"
+          data-is-hidden="false"
+          data-position-narrow="start"
+          data-position-regular="end"
+          style="--offset-header: 0px; --spacing-row: var(--spacing-normal); --spacing-column: var(--spacing-normal);"
+        >
+          <div
+            class="prc-PageLayout-HorizontalDivider-8Nn4S prc-PageLayout-PaneHorizontalDivider-wnCG-"
+            data-position-narrow="start"
+            data-position-regular="end"
+            data-variant-narrow="none"
+            data-variant-regular="none"
+            style="--spacing-divider: var(--spacing-normal); --spacing: var(--spacing-normal);"
+          />
+          <div
+            class="prc-PageLayout-Pane-g6fEI"
+            style="--spacing: var(--spacing-none); --pane-min-width: 256px; --pane-max-width: calc(100vw - var(--pane-max-width-diff)); --pane-width-size: var(--pane-width-medium);"
+          >
+            Pane
+          </div>
+          <div
+            class="prc-PageLayout-VerticalDivider-f4Vw0 prc-PageLayout-PaneVerticalDivider-o0OsY"
+            data-position-narrow="start"
+            data-position-regular="end"
+            data-variant-narrow="none"
+            data-variant-regular="none"
+            style="--spacing: var(--spacing-normal);"
+          />
+        </div>
+      </div>
+      <footer
+        class="prc-PageLayout-FooterWrapper-CHYtZ"
+        data-hidden="false"
+        style="--spacing: var(--spacing-normal);"
+      >
+        <div
+          class="prc-PageLayout-HorizontalDivider-8Nn4S prc-PageLayout-FooterHorizontalDivider-QqvMj"
+          data-variant="none"
+          style="--spacing-divider: var(--spacing-normal); --spacing: var(--spacing-normal);"
+        />
+        <div
+          class="prc-PageLayout-FooterContent-K3nAV"
+          style="--spacing: var(--spacing-none);"
+        >
+          Footer
+        </div>
+      </footer>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`PageLayout > renders with dividers 1`] = `
+<div>
+  <div
+    class="prc-PageLayout-PageLayoutRoot-NJqoS"
+    style="--spacing: var(--spacing-normal);"
+  >
+    <div
+      class="prc-PageLayout-PageLayoutWrapper-Ji6aL"
+      data-width="xlarge"
+    >
+      <header
+        class="prc-PageLayout-Header-EJ5fp"
+        data-hidden="false"
+        style="--spacing: var(--spacing-normal);"
+      >
+        <div
+          class="prc-PageLayout-HeaderContent-wCoO7"
+          style="--spacing: var(--spacing-none);"
+        >
+          Header
+        </div>
+        <div
+          class="prc-PageLayout-HorizontalDivider-8Nn4S prc-PageLayout-HeaderHorizontalDivider-F16w2"
+          data-variant-narrow="filled"
+          data-variant-regular="line"
+          style="--spacing-divider: var(--spacing-normal); --spacing: var(--spacing-normal);"
+        />
+      </header>
+      <div
+        class="prc-PageLayout-PageLayoutContent-CvTxr"
+      >
+        <main
+          class="prc-PageLayout-ContentWrapper-984Tf"
+          data-is-hidden="false"
+        >
+          <div
+            class="prc-PageLayout-Content-8xwKm"
+            data-width="full"
+            style="--spacing: var(--spacing-none);"
+          >
+            Content
+          </div>
+        </main>
+        <div
+          class="prc-PageLayout-PaneWrapper-RIDY-"
+          data-is-hidden="false"
+          data-position="start"
+          style="--offset-header: 0px; --spacing-row: var(--spacing-normal); --spacing-column: var(--spacing-normal);"
+        >
+          <div
+            class="prc-PageLayout-HorizontalDivider-8Nn4S prc-PageLayout-PaneHorizontalDivider-wnCG-"
+            data-position="start"
+            data-variant-narrow="filled"
+            data-variant-regular="line"
+            style="--spacing-divider: var(--spacing-normal); --spacing: var(--spacing-normal);"
+          />
+          <div
+            class="prc-PageLayout-Pane-g6fEI"
+            style="--spacing: var(--spacing-none); --pane-min-width: 256px; --pane-max-width: calc(100vw - var(--pane-max-width-diff)); --pane-width-size: var(--pane-width-medium);"
+          >
+            Pane
+          </div>
+          <div
+            class="prc-PageLayout-VerticalDivider-f4Vw0 prc-PageLayout-PaneVerticalDivider-o0OsY"
+            data-position="start"
+            data-variant-narrow="none"
+            data-variant-regular="line"
+            data-variant-wide="line"
+            style="--spacing: var(--spacing-normal);"
+          />
+        </div>
+      </div>
+      <footer
+        class="prc-PageLayout-FooterWrapper-CHYtZ"
+        data-hidden="false"
+        style="--spacing: var(--spacing-normal);"
+      >
+        <div
+          class="prc-PageLayout-HorizontalDivider-8Nn4S prc-PageLayout-FooterHorizontalDivider-QqvMj"
+          data-variant-narrow="line"
+          data-variant-regular="none"
+          style="--spacing-divider: var(--spacing-normal); --spacing: var(--spacing-normal);"
+        />
+        <div
+          class="prc-PageLayout-FooterContent-K3nAV"
           style="--spacing: var(--spacing-none);"
         >
           Footer
@@ -184,7 +378,7 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
 <div>
   <div
     class="PageLayoutRoot"
-    style="--sticky-pane-height: 100vh; --spacing: var(--spacing-normal);"
+    style="--spacing: var(--spacing-normal);"
   >
     <div
       class="PageLayoutWrapper"
@@ -213,7 +407,6 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
           class="ContentWrapper"
           data-is-hidden="false"
         >
-          <div />
           <div
             class="Content"
             data-width="full"
@@ -221,7 +414,6 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
           >
             Content
           </div>
-          <div />
         </main>
         <div
           class="PaneWrapper"
@@ -244,96 +436,6 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
           <div
             class="VerticalDivider PaneVerticalDivider"
             data-position="end"
-            data-variant="none"
-            style="--spacing: var(--spacing-normal);"
-          />
-        </div>
-      </div>
-      <footer
-        class="FooterWrapper"
-        style="--spacing: var(--spacing-normal);"
-      >
-        <div
-          class="HorizontalDivider FooterHorizontalDivider"
-          data-variant="none"
-          style="--spacing-divider: var(--spacing-normal); --spacing: var(--spacing-normal);"
-        />
-        <div
-          class="FooterContent"
-          style="--spacing: var(--spacing-none);"
-        >
-          Footer
-        </div>
-      </footer>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`PageLayout renders with dividers 1`] = `
-<div>
-  <div
-    class="PageLayoutRoot"
-    style="--sticky-pane-height: 100vh; --spacing: var(--spacing-normal);"
-  >
-    <div
-      class="PageLayoutWrapper"
-      data-width="xlarge"
-    >
-      <header
-        class="Header"
-        style="--spacing: var(--spacing-normal);"
-      >
-        <div
-          class="HeaderContent"
-          style="--spacing: var(--spacing-none);"
-        >
-          Header
-        </div>
-        <div
-          class="HorizontalDivider HeaderHorizontalDivider"
-          data-variant="none"
-          style="--spacing-divider: var(--spacing-normal); --spacing: var(--spacing-normal);"
-        />
-      </header>
-      <div
-        class="PageLayoutContent"
-      >
-        <main
-          class="ContentWrapper"
-          data-is-hidden="false"
-        >
-          <div />
-          <div
-            class="Content"
-            data-width="full"
-            style="--spacing: var(--spacing-none);"
-          >
-            Content
-          </div>
-          <div />
-        </main>
-        <div
-          class="PaneWrapper"
-          data-is-hidden="false"
-          data-position="start"
-          style="--offset-header: 0px; --spacing-row: var(--spacing-normal); --spacing-column: var(--spacing-normal);"
-        >
-          <div
-            class="HorizontalDivider PaneHorizontalDivider"
-            data-position="start"
-            data-variant="none"
-            style="--spacing-divider: var(--spacing-normal); --spacing: var(--spacing-normal);"
-          />
-          <div
-            class="Pane"
-            style="--spacing: var(--spacing-none); --pane-min-width: 256px; --pane-max-width: calc(100vw - var(--pane-max-width-diff)); --pane-width-size: var(--pane-width-medium); --pane-width: 296px;"
-          >
-            Pane
-          </div>
-          <div
-            class="VerticalDivider PaneVerticalDivider"
-            data-position="start"
             data-variant="none"
             style="--spacing: var(--spacing-normal);"
           />

@@ -1,25 +1,8 @@
-import {Button} from '../Button'
 import {render, screen} from '@testing-library/react'
-import axe from 'axe-core'
-import {behavesAsComponent} from '../utils/testing'
-import type {ButtonGroupProps} from './ButtonGroup'
 import ButtonGroup from './ButtonGroup'
-import React from 'react'
-
-const TestButtonGroup = (props: ButtonGroupProps) => (
-  <ButtonGroup {...props}>
-    <Button>Button 1</Button>
-    <Button>Button 2</Button>
-    <Button>Button 3</Button>
-  </ButtonGroup>
-)
+import {describe, expect, it} from 'vitest'
 
 describe('ButtonGroup', () => {
-  behavesAsComponent({
-    Component: TestButtonGroup,
-    options: {skipSx: true, skipAs: true},
-  })
-
   it('should support `className` on the outermost element', () => {
     const Element = () => <ButtonGroup className={'test-class-name'} />
     expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
@@ -28,12 +11,6 @@ describe('ButtonGroup', () => {
   it('renders a <div>', () => {
     const container = render(<ButtonGroup data-testid="button-group" />)
     expect(container.getByTestId('button-group').tagName).toBe('DIV')
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = render(<TestButtonGroup />)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
   })
 
   it('should respect role prop', () => {

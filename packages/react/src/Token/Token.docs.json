@@ -2,7 +2,7 @@
   "id": "token",
   "name": "Token",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-token--default"
@@ -71,7 +71,6 @@
       "type": "boolean",
       "description": "Whether the token is selected"
     },
-
     {
       "name": "id",
       "type": "number | string",
@@ -81,10 +80,6 @@
       "name": "size",
       "type": "'small' | 'medium' | 'large' | 'xlarge'",
       "description": "Which size the token will be rendered at"
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject"
     }
   ],
   "subcomponents": [
@@ -122,7 +117,6 @@
           "type": "boolean",
           "description": "Whether the token is selected"
         },
-
         {
           "name": "id",
           "type": "number | string",
@@ -132,60 +126,6 @@
           "name": "size",
           "type": "'small' | 'medium' | 'large' | 'xlarge'",
           "description": "Which size the token will be rendered at"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ]
-    },
-    {
-      "name": "AvatarToken",
-      "props": [
-        {
-          "name": "avatarSrc",
-          "type": "string"
-        },
-        {
-          "name": "text",
-          "required": true,
-          "type": "string",
-          "description": "The text label inside the token"
-        },
-        {
-          "name": "as",
-          "type": "'button' | 'a' | 'span'",
-          "defaultValue": "'span'"
-        },
-        {
-          "name": "onRemove",
-          "type": "() => void",
-          "description": "The function that gets called when a user clicks the remove button, or keys `Backspace` or `Delete` when focused on the token"
-        },
-        {
-          "name": "hideRemoveButton",
-          "type": "boolean",
-          "description": "Whether the remove button should be rendered in the token"
-        },
-        {
-          "name": "isSelected",
-          "type": "boolean",
-          "description": "Whether the token is selected"
-        },
-
-        {
-          "name": "id",
-          "type": "number | string",
-          "description": "A unique identifier that can be associated with the token"
-        },
-        {
-          "name": "size",
-          "type": "'small' | 'medium' | 'large' | 'xlarge'",
-          "description": "Which size the token will be rendered at"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
         }
       ]
     }

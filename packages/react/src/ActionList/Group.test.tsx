@@ -1,48 +1,29 @@
+import {describe, it, expect} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
-import React from 'react'
-import theme from '../theme'
+import BaseStyles from '../BaseStyles'
 import {ActionList} from '.'
-import {BaseStyles, ThemeProvider, ActionMenu} from '..'
-import {FeatureFlags} from '../FeatureFlags'
-import {behavesAsComponent} from '../utils/testing'
+import {ActionMenu} from '..'
 
 describe('ActionList.Group', () => {
-  behavesAsComponent({
-    Component: ActionList.Group,
-    options: {skipAs: true, skipSx: true},
-    toRender: () => <ActionList.Group />,
-  })
-
-  behavesAsComponent({
-    Component: ActionList.GroupHeading,
-    options: {skipAs: true, skipSx: true},
-    toRender: () => <ActionList.GroupHeading />,
-  })
-
   it('should throw an error when ActionList.GroupHeading has an `as` prop when it is used within ActionMenu context', async () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation(() => jest.fn())
     expect(() =>
       HTMLRender(
-        <ThemeProvider theme={theme}>
-          <BaseStyles>
-            <ActionMenu open={true}>
-              <ActionMenu.Button>Trigger</ActionMenu.Button>
-              <ActionMenu.Overlay>
-                <ActionList>
-                  <ActionList.Group>
-                    <ActionList.GroupHeading as="h2">Group Heading</ActionList.GroupHeading>
-                  </ActionList.Group>
-                </ActionList>
-              </ActionMenu.Overlay>
-            </ActionMenu>
-          </BaseStyles>
-        </ThemeProvider>,
+        <BaseStyles>
+          <ActionMenu open={true}>
+            <ActionMenu.Button>Trigger</ActionMenu.Button>
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Group>
+                  <ActionList.GroupHeading as="h2">Group Heading</ActionList.GroupHeading>
+                </ActionList.Group>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </BaseStyles>,
       ),
     ).toThrow(
       "Looks like you are trying to set a heading level to a menu role. Group headings for menu type action lists are for representational purposes, and rendered as divs. Therefore they don't need a heading level.",
     )
-    expect(spy).toHaveBeenCalled()
-    spy.mockRestore()
   })
 
   it('should render the ActionList.GroupHeading component as a heading with the given heading level', async () => {
@@ -59,7 +40,6 @@ describe('ActionList.Group', () => {
     expect(heading).toHaveTextContent('Group Heading')
   })
   it('should throw an error if ActionList.GroupHeading is used without an `as` prop when no role is specified (for list role)', async () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation(() => jest.fn())
     expect(() =>
       HTMLRender(
         <ActionList>
@@ -73,8 +53,6 @@ describe('ActionList.Group', () => {
     ).toThrow(
       "You are setting a heading for a list, that requires a heading level. Please use 'as' prop to set a proper heading level.",
     )
-    expect(spy).toHaveBeenCalled()
-    spy.mockRestore()
   })
   it('should render the ActionList.GroupHeading component as a span (not a heading tag) when role is specified as listbox', async () => {
     const container = HTMLRender(
@@ -132,6 +110,19 @@ describe('ActionList.Group', () => {
     expect(list).not.toHaveAttribute('aria-labelledby', heading.id)
   })
 
+  it('should label the list with aria-label if it is specified', async () => {
+    const {container} = HTMLRender(
+      <ActionList>
+        <ActionList.Heading as="h1">Heading</ActionList.Heading>
+        <ActionList.Group aria-label="Animals" data-test-id="ActionList.Group">
+          <ActionList.Item>Item</ActionList.Item>
+        </ActionList.Group>
+      </ActionList>,
+    )
+    const list = container.querySelector(`li[data-test-id='ActionList.Group'] > ul`)
+    expect(list).toHaveAttribute('aria-label', 'Animals')
+  })
+
   it('should support a custom `className` on the outermost element', () => {
     const Element = () => {
       return (
@@ -144,18 +135,6 @@ describe('ActionList.Group', () => {
         </ActionList>
       )
     }
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
-    expect(HTMLRender(<FeatureFlagElement />).container.querySelector('h2')).toHaveClass('test-class-name')
-    expect(HTMLRender(<FeatureFlagElement />).container.querySelector('h2')).toHaveClass('test-class-name')
+    expect(HTMLRender(<Element />).container.querySelector('h2')).toHaveClass('test-class-name')
   })
 })

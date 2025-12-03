@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Breadcrumbs.Item respects the "selected" prop 1`] = `
+exports[`Breadcrumbs.Item > respects the "selected" prop 1`] = `
 <a
   aria-current="page"
-  className="Item selected ItemSelected"
+  class="prc-Breadcrumbs-Item-V05wG selected"
 />
 `;

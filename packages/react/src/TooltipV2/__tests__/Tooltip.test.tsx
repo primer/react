@@ -1,14 +1,13 @@
-import React from 'react'
+import type React from 'react'
+import {describe, expect, it} from 'vitest'
 import type {TooltipProps} from '../Tooltip'
 import {Tooltip} from '../Tooltip'
-import {checkStoriesForAxeViolations} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import theme from '../../theme'
-import {Button, IconButton, ActionMenu, ActionList, ThemeProvider, BaseStyles, ButtonGroup} from '../..'
+import BaseStyles from '../../BaseStyles'
+import {Button, IconButton, ActionMenu, ActionList, ButtonGroup} from '../..'
 import {XIcon} from '@primer/octicons-react'
-import {setupMatchMedia} from '../../utils/test-helpers'
 
-setupMatchMedia()
+import type {JSX} from 'react'
 
 const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
   <Tooltip text="Tooltip text" {...props}>
@@ -16,26 +15,32 @@ const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) =
   </Tooltip>
 )
 
-function ExampleWithActionMenu(actionMenuTrigger: React.ReactElement): JSX.Element {
+const TooltipComponentWithExistingDescription = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
+  <>
+    <span id="external-description">External description</span>
+    <Tooltip text="Tooltip text" {...props}>
+      <Button aria-describedby="external-description">Button Text</Button>
+    </Tooltip>
+  </>
+)
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function ExampleWithActionMenu(actionMenuTrigger: React.ReactElement<any>): JSX.Element {
   return (
-    <ThemeProvider theme={theme}>
-      <BaseStyles>
-        <ActionMenu>
-          {actionMenuTrigger}
-          <ActionMenu.Overlay>
-            <ActionList>
-              <ActionList.Item>New file</ActionList.Item>
-            </ActionList>
-          </ActionMenu.Overlay>
-        </ActionMenu>
-      </BaseStyles>
-    </ThemeProvider>
+    <BaseStyles>
+      <ActionMenu>
+        {actionMenuTrigger}
+        <ActionMenu.Overlay>
+          <ActionList>
+            <ActionList.Item>New file</ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </BaseStyles>
   )
 }
 
 describe('Tooltip', () => {
-  checkStoriesForAxeViolations('Tooltip.features', '../TooltipV2/')
-
   it('renders `data-direction="s"` by default', () => {
     const {getByText} = HTMLRender(<TooltipComponent />)
     expect(getByText('Tooltip text')).toHaveAttribute('data-direction', 's')
@@ -117,7 +122,6 @@ describe('Tooltip', () => {
     expect(triggerEL.getAttribute('aria-describedby')).toContain('custom-tooltip-id')
   })
   it('should throw an error if the trigger element is disabled', () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation()
     expect(() => {
       HTMLRender(
         <Tooltip text="Tooltip text" direction="n">
@@ -127,8 +131,6 @@ describe('Tooltip', () => {
     }).toThrow(
       'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
     )
-    expect(spy).toHaveBeenCalled()
-    spy.mockRestore()
   })
   it('should not throw an error when the trigger element is a button in a fieldset', () => {
     const {getByRole} = HTMLRender(
@@ -166,5 +168,17 @@ describe('Tooltip', () => {
       <TooltipComponent type="label" keybindingHint="Control+K" aria-label="Overridden label" />,
     )
     expect(getByRole('button', {name: 'Overridden label'})).toBeInTheDocument()
+  })
+
+  it('should append tooltip id to existing aria-describedby value on the trigger element', () => {
+    const {getByRole, getByText} = HTMLRender(<TooltipComponentWithExistingDescription />)
+    const triggerEL = getByRole('button')
+    const tooltipEl = getByText('Tooltip text')
+    const externalDescription = getByText('External description')
+
+    // Check that aria-describedby contains both the external description ID and the tooltip ID
+    const describedBy = triggerEL.getAttribute('aria-describedby')
+    expect(describedBy).toContain(externalDescription.id)
+    expect(describedBy).toContain(tooltipEl.id)
   })
 })

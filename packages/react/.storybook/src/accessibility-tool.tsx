@@ -1,6 +1,7 @@
 import React, {useCallback} from 'react'
-import {useGlobals} from '@storybook/manager-api'
-import {IconButton, Icons} from '@storybook/components'
+import {useGlobals} from 'storybook/manager-api'
+import {IconButton} from 'storybook/internal/components'
+import {AccessibilityAltIcon} from '@storybook/icons'
 
 export const ADDON_ID = 'show-surrounding-links'
 export const TOOL_ID = `${ADDON_ID}/tool`
@@ -9,14 +10,14 @@ export const Tool = () => {
   const [{showSurroundingElements}, updateGlobals] = useGlobals()
 
   const toggleMyTool = useCallback(() => {
-    const currentValue = showSurroundingElements ?? window?.localStorage.getItem('showSurroundingElements') === 'true'
+    const currentValue = showSurroundingElements ?? window.localStorage.getItem('showSurroundingElements') === 'true'
 
-    window?.localStorage?.setItem('showSurroundingElements', `${!currentValue}`)
+    window.localStorage.setItem('showSurroundingElements', `${!currentValue}`)
 
     updateGlobals({
       showSurroundingElements: !currentValue,
     })
-  }, [showSurroundingElements])
+  }, [showSurroundingElements, updateGlobals])
 
   return (
     <IconButton
@@ -24,10 +25,12 @@ export const Tool = () => {
       aria-label="Links before/after"
       title="Links before/after"
       onClick={toggleMyTool}
-      defaultChecked={showSurroundingElements ?? window?.localStorage.getItem('showSurroundingElements') === 'true'}
-      aria-pressed={showSurroundingElements ?? window?.localStorage.getItem('showSurroundingElements') === 'true'}
+      // eslint-disable-next-line ssr-friendly/no-dom-globals-in-react-fc
+      defaultChecked={showSurroundingElements ?? window.localStorage.getItem('showSurroundingElements') === 'true'}
+      // eslint-disable-next-line ssr-friendly/no-dom-globals-in-react-fc
+      aria-pressed={showSurroundingElements ?? window.localStorage.getItem('showSurroundingElements') === 'true'}
     >
-      <Icons icon="accessibilityalt" />
+      <AccessibilityAltIcon />
     </IconButton>
   )
 }

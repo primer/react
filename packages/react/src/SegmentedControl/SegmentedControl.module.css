@@ -1,4 +1,7 @@
 .SegmentedControl {
+  /* TODO: use primitive `control.medium.size` when it is available instead of '32px' */
+  --segmented-control-icon-width: 32px;
+
   display: inline-flex;
 
   /* TODO: use primitive `control.{small|medium}.size` when it is available */
@@ -10,15 +13,147 @@
   border: var(--borderWidth-thin) solid var(--controlTrack-borderColor-rest, transparent);
   border-radius: var(--borderRadius-medium);
 
-  &:where([data-full-width]) {
+  /* Responsive full-width */
+  &[data-full-width='true'] {
     display: flex;
     width: 100%;
+
+    --segmented-control-icon-width: 100%;
+  }
+
+  &[data-full-width='false'] {
+    display: inline-flex;
+    width: auto;
+
+    --segmented-control-icon-width: 32px;
+  }
+
+  @media (--viewportRange-narrow) {
+    &[data-full-width-narrow='true'] {
+      display: flex;
+      width: 100%;
+
+      --segmented-control-icon-width: 100%;
+    }
+
+    &[data-full-width-narrow='false'] {
+      display: inline-flex;
+      width: auto;
+
+      --segmented-control-icon-width: 32px;
+    }
+  }
+
+  @media (--viewportRange-regular) {
+    &[data-full-width-regular='true'] {
+      display: flex;
+      width: 100%;
+
+      --segmented-control-icon-width: 100%;
+    }
+
+    &[data-full-width-regular='false'] {
+      display: inline-flex;
+      width: auto;
+
+      --segmented-control-icon-width: 32px;
+    }
+  }
+
+  @media (--viewportRange-wide) {
+    &[data-full-width-wide='true'] {
+      display: flex;
+      width: 100%;
+
+      --segmented-control-icon-width: 100%;
+    }
+
+    &[data-full-width-wide='false'] {
+      display: inline-flex;
+      width: auto;
+
+      --segmented-control-icon-width: 32px;
+    }
+
+    &[data-full-width-regular='true']:not([data-full-width-wide='true']) {
+      display: inline-flex;
+      width: auto;
+
+      --segmented-control-icon-width: 32px;
+    }
+  }
+
+  /* Hide when dropdown variant is active */
+  &[data-variant='dropdown'] {
+    display: none;
+  }
+
+  /* Handle hideLabels variant - hide button text */
+  &[data-variant='hideLabels'] .Text {
+    display: none;
+  }
+
+  @media (--viewportRange-narrow) {
+    &[data-variant-narrow='dropdown'] {
+      display: none;
+    }
+
+    &[data-variant-narrow='hideLabels'] .Text {
+      display: none;
+    }
+  }
+
+  @media (--viewportRange-regular) {
+    &[data-variant-regular='dropdown'] {
+      display: none;
+    }
+
+    &[data-variant-regular='hideLabels'] .Text {
+      display: none;
+    }
+  }
+
+  @media (--viewportRange-wide) {
+    &[data-variant-wide='dropdown'] {
+      display: none;
+    }
+
+    &[data-variant-wide='hideLabels'] .Text {
+      display: none;
+    }
   }
 
   &:where([data-size='small']) {
     /* TODO: use primitive `control.{small|medium}.size` when it is available */
     height: 28px;
     font-size: var(--text-body-size-small);
+  }
+}
+
+.DropdownContainer {
+  display: none;
+
+  /* Show when dropdown variant is active */
+  &[data-variant='dropdown'] {
+    display: block;
+  }
+
+  @media (--viewportRange-narrow) {
+    &[data-variant-narrow='dropdown'] {
+      display: block;
+    }
+  }
+
+  @media (--viewportRange-regular) {
+    &[data-variant-regular='dropdown'] {
+      display: block;
+    }
+  }
+
+  @media (--viewportRange-wide) {
+    &[data-variant-wide='dropdown'] {
+      display: block;
+    }
   }
 }
 
@@ -65,6 +200,12 @@
     /* stylelint-disable-next-line primer/spacing */
     margin-right: -1px;
   }
+
+  .Counter {
+    margin-inline-start: var(--base-size-8);
+    display: flex;
+    align-items: center;
+  }
 }
 
 .Button {
@@ -90,6 +231,7 @@
 
   & svg {
     fill: var(--fgColor-muted);
+    color: var(--fgColor-muted);
   }
 
   /* fallback :focus state */
@@ -117,6 +259,17 @@
     width: 0;
   }
 
+  &[aria-disabled='true']:not([aria-current='true']) {
+    cursor: not-allowed;
+    color: var(--fgColor-disabled);
+    background-color: transparent;
+
+    & svg {
+      fill: var(--fgColor-disabled);
+      color: var(--fgColor-disabled);
+    }
+  }
+
   @media (pointer: coarse) {
     &::before {
       position: absolute;
@@ -131,12 +284,7 @@
 }
 
 .IconButton {
-  /* TODO: use primitive `control.medium.size` when it is available instead of '32px' */
-  width: 32px;
-
-  .SegmentedControl:where([data-full-width]) & {
-    width: 100%;
-  }
+  width: var(--segmented-control-icon-width, 32px);
 }
 
 .Content {
@@ -146,14 +294,13 @@
   padding-right: calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset));
   /* stylelint-disable-next-line primer/spacing */
   padding-left: calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset));
-  background-color: transparent;
   border-color: transparent;
   border-style: solid;
   border-width: var(--borderWidth-thin);
 
-  /* 
-    innerRadius = outerRadius - distance/2 
-    https://stackoverflow.com/questions/2932146/math-problem-determine-the-corner-radius-of-an-inner-border-based-on-outer-corn 
+  /*
+    innerRadius = outerRadius - distance/2
+    https://stackoverflow.com/questions/2932146/math-problem-determine-the-corner-radius-of-an-inner-border-based-on-outer-corn
   */
   /* stylelint-disable-next-line primer/borders */
   border-radius: calc(var(--segmented-control-outer-radius) - var(--segmented-control-button-bg-inset) / 2);
@@ -177,7 +324,7 @@
   }
 }
 
-.Button:not([aria-current='true']) {
+.Button:not([aria-current='true'], [aria-disabled='true']) {
   &:hover .Content {
     background-color: var(--controlTrack-bgColor-hover);
   }
@@ -196,4 +343,8 @@
   visibility: hidden;
   content: attr(data-text);
   user-select: none;
+}
+
+.LeadingIcon {
+  margin-right: var(--base-size-4);
 }

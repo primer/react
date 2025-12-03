@@ -7,10 +7,6 @@ const stories: Array<{title: string; id: string}> = [
     title: 'Default',
     id: 'components-details--default',
   },
-  {
-    title: 'SX Prop Stress Test',
-    id: 'components-details-dev--sx-prop-stress-test',
-  },
 ]
 
 test.describe('Details', () => {
@@ -27,12 +23,12 @@ test.describe('Details', () => {
             })
 
             // Default state - closed
-            expect(await page.screenshot()).toMatchSnapshot(`Details.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Details.${story.title}.${theme}.png`)
             // Click the summary to open
             await page.getByText('See Details').click()
             await page.getByText('This is some content').waitFor()
             // Open state
-            expect(await page.screenshot()).toMatchSnapshot(`Details.${story.title}.${theme}.open.png`)
+            await expect(page).toHaveScreenshot(`Details.${story.title}.${theme}.open.png`)
           })
         })
       }

@@ -1,0 +1,21 @@
+.CustomSize {
+  width: 24px;
+  height: 24px;
+}
+
+@media (min-width: 123px) {
+  .CustomSizeWithMedia {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.CustomIconColor {
+  /* stylelint-disable-next-line color-named */
+  color: red;
+}
+
+.BoxBorder {
+  border: var(--borderWidth-default) solid var(--borderColor-default);
+  display: inline-block;
+}

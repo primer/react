@@ -1,5 +1,5 @@
 import {LogoGithubIcon, StopIcon} from '@primer/octicons-react'
-import React, {useRef} from 'react'
+import {useRef} from 'react'
 import {Button, IconButton} from '../../Button'
 
 export function shouldAcceptOnlyAChildProp() {
@@ -20,9 +20,6 @@ export function ShouldAcceptKnownButtonPropsAndDomProps() {
       onClick={e => {
         // current target is assignable to HTMLButtonElement
         buttonEl.current = e.currentTarget
-      }}
-      sx={{
-        m: 1,
       }}
     >
       Child
@@ -59,7 +56,6 @@ export function iconButtonOptionalProps() {
     <>
       <IconButton icon={StopIcon} aria-label="Stop icon" size="small" />
       <IconButton icon={StopIcon} aria-label="Stop icon" variant="danger" />
-      <IconButton icon={StopIcon} aria-label="Stop icon" sx={{m: 1}} />
     </>
   )
 }

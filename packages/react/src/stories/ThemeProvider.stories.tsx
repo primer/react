@@ -1,9 +1,8 @@
-import React from 'react'
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 
-import {ThemeProvider, BaseStyles, Box, themeGet, useTheme} from '..'
-import type {ThemeProviderProps} from '../ThemeProvider'
-import {createGlobalStyle} from 'styled-components'
+import {ThemeProvider, type ThemeProviderProps, useTheme} from '../ThemeProvider'
+import BaseStyles from '../BaseStyles'
+import classes from './ThemeProvider.stories.module.css'
 
 export default {
   title: 'Behaviors/ThemeProvider',
@@ -18,12 +17,6 @@ export default {
   },
 } as Meta
 
-const GlobalStyle = createGlobalStyle`
-    body {
-        background-color: ${themeGet('colors.bg.canvas')};
-    }
-`
-
 function ActiveColorScheme() {
   const {colorScheme} = useTheme()
   return <span>Active color scheme: {colorScheme}</span>
@@ -32,7 +25,6 @@ function ActiveColorScheme() {
 export const Default: StoryFn<ThemeProviderProps> = args => {
   return (
     <ThemeProvider {...args}>
-      <GlobalStyle />
       <BaseStyles>
         <ActiveColorScheme />
       </BaseStyles>
@@ -49,18 +41,9 @@ Default.args = {
 function NightMode() {
   return (
     <ThemeProvider colorMode="night">
-      <Box
-        my={3}
-        p={3}
-        color="fg.default"
-        bg="canvas.default"
-        borderWidth="1px"
-        borderStyle="solid"
-        borderColor="border.default"
-        borderRadius={2}
-      >
+      <div className={classes.ThemedContainer}>
         Always night mode (<ActiveColorScheme />)
-      </Box>
+      </div>
     </ThemeProvider>
   )
 }
@@ -69,18 +52,9 @@ function InverseMode() {
   const {resolvedColorMode} = useTheme()
   return (
     <ThemeProvider colorMode={resolvedColorMode === 'day' ? 'night' : 'day'}>
-      <Box
-        my={3}
-        p={3}
-        color="fg.default"
-        bg="canvas.default"
-        borderWidth="1px"
-        borderStyle="solid"
-        borderColor="border.default"
-        borderRadius={2}
-      >
+      <div className={classes.ThemedContainer}>
         Always inverse of parent mode (<ActiveColorScheme />)
-      </Box>
+      </div>
     </ThemeProvider>
   )
 }
@@ -88,7 +62,6 @@ function InverseMode() {
 export const Nested: StoryFn<ThemeProviderProps> = args => {
   return (
     <ThemeProvider {...args}>
-      <GlobalStyle />
       <BaseStyles>
         <ActiveColorScheme />
         <NightMode />
@@ -102,10 +75,10 @@ const AutoContents = () => {
   const {colorMode, resolvedColorMode} = useTheme()
 
   return (
-    <Box sx={{padding: 10, backgroundColor: 'canvas.inset', color: 'fg.default'}}>
+    <div className={classes.AutoContainer}>
       colorMode: {colorMode} <br />
       resolvedColorMode: {resolvedColorMode} <br />
-    </Box>
+    </div>
   )
 }
 

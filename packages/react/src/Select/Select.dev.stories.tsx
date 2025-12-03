@@ -1,7 +1,7 @@
-import React from 'react'
-import type {Meta} from '@storybook/react'
-import {FormControl, Box} from '..'
+import type {Meta} from '@storybook/react-vite'
+import {FormControl} from '..'
 import Select from './Select'
+import classes from './Select.dev.stories.module.css'
 
 export default {
   title: 'Components/Select/Dev',
@@ -9,10 +9,10 @@ export default {
 } as Meta
 
 export const Default = () => (
-  <Box as="form">
+  <form>
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
-      <Select sx={{color: 'danger.fg'}}>
+      <Select className={classes.DangerText}>
         <Select.Option value="one">Choice one</Select.Option>
         <Select.Option value="two">Choice two</Select.Option>
         <Select.Option value="three">Choice three</Select.Option>
@@ -21,5 +21,5 @@ export const Default = () => (
         <Select.Option value="six">Choice six</Select.Option>
       </Select>
     </FormControl>
-  </Box>
+  </form>
 )

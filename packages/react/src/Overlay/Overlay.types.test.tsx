@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import Overlay from './Overlay'
 
 export function shouldAcceptCallWithNoProps(ref: React.RefObject<HTMLElement>) {

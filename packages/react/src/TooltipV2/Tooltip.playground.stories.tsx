@@ -1,7 +1,7 @@
-import React from 'react'
-import {Button, Box} from '..'
+import {Button} from '..'
 import {Tooltip} from './Tooltip'
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
+import classes from './Tooltip.playground.stories.module.css'
 
 const meta: Meta<typeof Tooltip> = {
   title: 'Components/TooltipV2/Playground',
@@ -36,10 +36,10 @@ export const Playground: StoryFn = args => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const {text, type, ...rest} = args
   return (
-    <Box sx={{p: 6}}>
+    <div className={classes.TooltipContainer}>
       <Tooltip text={text} type="description" {...rest}>
         <Button>Delete</Button>
       </Tooltip>
-    </Box>
+    </div>
   )
 }
