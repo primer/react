@@ -66,6 +66,7 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
       }}
     >
       {slots.heading}
+      {/* @ts-expect-error ref needs a non nullable ref */}
       <Component
         className={clsx(classes.ActionList, className)}
         role={listRole}

@@ -1,5 +1,65 @@
 # @primer/react
 
+## 38.3.0
+
+### Minor Changes
+
+- [#7200](https://github.com/primer/react/pull/7200) [`0a0c2a0`](https://github.com/primer/react/commit/0a0c2a0daa15ca51e370f638876c79c2c2bb4473) Thanks [@joshblack](https://github.com/joshblack)! - Add `leadingVisual` prop to `UnderlineNav.Item`
+
+- [#7197](https://github.com/primer/react/pull/7197) [`9605a30`](https://github.com/primer/react/commit/9605a30605d0ecf688e4ae50c70a59622c1a4a08) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Deprecate `icon` prop in favor of `leadingVisual` and fix SecondaryAction styling in Banner.
+
+- [#7220](https://github.com/primer/react/pull/7220) [`62fc3bb`](https://github.com/primer/react/commit/62fc3bb18d988e92786154a5368246782723bcea) Thanks [@kendallgassner](https://github.com/kendallgassner)! - Expose props to allow virtualization in the SelectPanel
+
+- [#7177](https://github.com/primer/react/pull/7177) [`feb7001`](https://github.com/primer/react/commit/feb7001ccfb4e1f2a4d2f4a41f7acd622eaf784e) Thanks [@joshblack](https://github.com/joshblack)! - Add experimental TopicTag and TopicTag.Group components
+
+### Patch Changes
+
+- [#6987](https://github.com/primer/react/pull/6987) [`cd5ab1b`](https://github.com/primer/react/commit/cd5ab1bc588cf111d13cb387c770ddb0b9f39d8e) Thanks [@kerimmoresh](https://github.com/kerimmoresh)! - docs: Fix Typos in comments
+
+- [#7239](https://github.com/primer/react/pull/7239) [`2735220`](https://github.com/primer/react/commit/27352201b87227a5a1d85f77eca91bfd08cd4536) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Center align header and description for BlankSlate
+
+- [#7223](https://github.com/primer/react/pull/7223) [`f9fb9eb`](https://github.com/primer/react/commit/f9fb9eba8f1b2db8fddd9f6926edf77454146084) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - ActionBar: Add padding to Divider when gap="none".
+
+- [#7134](https://github.com/primer/react/pull/7134) [`585c5fa`](https://github.com/primer/react/commit/585c5fa4864e8bb616495622da49beec009dfbe6) Thanks [@hectahertz](https://github.com/hectahertz)! - SegmentedControl: Remove useResponsiveValue hook from fullWidth and variant props to use `getResponsiveAttributes` instead.
+
+- [#7211](https://github.com/primer/react/pull/7211) [`46a7ebe`](https://github.com/primer/react/commit/46a7ebed73ceb6805b863e14ad1ee24dfe9c60cf) Thanks [@langermank](https://github.com/langermank)! - Adjust `ActionList.Item` danger variant CSS to support trailing count/keybinding hint
+
+- [#7246](https://github.com/primer/react/pull/7246) [`1667225`](https://github.com/primer/react/commit/166722526fe49c428af34eeb16e30d5e91103649) Thanks [@pksjce](https://github.com/pksjce)! - chore - Fix type compatibility with react 19 refs
+
+## 38.2.0
+
+### Minor Changes
+
+- [#7185](https://github.com/primer/react/pull/7185) [`a05b1f9`](https://github.com/primer/react/commit/a05b1f98fa69153f430a2dbde9272c90a78a8423) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - CounterLabel: Add variant prop and deprecate scheme prop
+
+- [#7165](https://github.com/primer/react/pull/7165) [`f2ba02a`](https://github.com/primer/react/commit/f2ba02a370154dc581c1567f93a4d14075ee5419) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Fixes multiple styling issues in the Token component.
+
+- [#7194](https://github.com/primer/react/pull/7194) [`32cdcfc`](https://github.com/primer/react/commit/32cdcfc46ead068197495714364f03261dc438fa) Thanks [@francinelucca](https://github.com/francinelucca)! - feat(NavList): add support for inline and block description
+
+- [#7143](https://github.com/primer/react/pull/7143) [`25a5f99`](https://github.com/primer/react/commit/25a5f99a8a624b066baa8e5b9961f96730f78be8) Thanks [@langermank](https://github.com/langermank)! - Adjust styling for button's that have nested keybinding hints
+
+- [#7196](https://github.com/primer/react/pull/7196) [`70f5ffe`](https://github.com/primer/react/commit/70f5ffe1c017d034da3f5d00ecf333b9bb6ed95c) Thanks [@TylerJDev](https://github.com/TylerJDev)! - FilteredActionList: Remove `usingRemoveActiveDescendant` feature flag, add private prop
+
+- [#7059](https://github.com/primer/react/pull/7059) [`fd3d09e`](https://github.com/primer/react/commit/fd3d09e3ef1a3774fb8c34ed562dcb52cfd3e0ba) Thanks [@jonrohan](https://github.com/jonrohan)! - feat(Spinner): Adds a delay prop to the Spinner component that delays rendering by 1000ms.
+
+- [#7149](https://github.com/primer/react/pull/7149) [`5e6e04e`](https://github.com/primer/react/commit/5e6e04e9fe0a6c6b3eef166dbc88d5d695ac02f3) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - StateLabel: Add size prop and deprecate variant prop to align with APIs in other components.
+
+- [#7142](https://github.com/primer/react/pull/7142) [`4f3be9c`](https://github.com/primer/react/commit/4f3be9c657c1a300c50266d90a65bdde9fcb8dc8) Thanks [@TylerJDev](https://github.com/TylerJDev)! - IconButton: Hide tooltip when a popup is open.
+
+### Patch Changes
+
+- [#7102](https://github.com/primer/react/pull/7102) [`07c9e55`](https://github.com/primer/react/commit/07c9e5573c22c93aed1f1b5768bac755018fb0f5) Thanks [@mperrotti](https://github.com/mperrotti)! - Makes Button and LinkButton 'link' variant respect user underline preference
+
+- [#7189](https://github.com/primer/react/pull/7189) [`424cbc5`](https://github.com/primer/react/commit/424cbc591ac3533c3d1d8467df4c1d2ee8c11f96) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Prevent focus reset on date/time input clicks in Safari.
+
+- [#7180](https://github.com/primer/react/pull/7180) [`f051a39`](https://github.com/primer/react/commit/f051a39229f55d059d867b59bc468020eda09145) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Feature flags: Remove feature flag `primer_react_use_styled_react_theming`
+
+- [#7198](https://github.com/primer/react/pull/7198) [`b1a8acc`](https://github.com/primer/react/commit/b1a8acc9471b569c12e0d1df4278f77e6b86e8b6) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Popover: add missing shadow
+
+- [#7188](https://github.com/primer/react/pull/7188) [`9403294`](https://github.com/primer/react/commit/94032941033d328aadf1e7caa141eb8e24604485) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Remove unused `underline` prop from LinkButtonProps.
+
+- [#7192](https://github.com/primer/react/pull/7192) [`b78167a`](https://github.com/primer/react/commit/b78167a6cf1489865657de795740279ab6d5a669) Thanks [@TylerJDev](https://github.com/TylerJDev)! - SelectPanel: Remove `usingRemoveActiveDescendant` usage from component
+
 ## 38.1.0
 
 ### Minor Changes

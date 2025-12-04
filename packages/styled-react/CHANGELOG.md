@@ -1,5 +1,21 @@
 # @primer/styled-react
 
+## 1.0.1
+
+### Patch Changes
+
+- [#7226](https://github.com/primer/react/pull/7226) [`d0c29aa`](https://github.com/primer/react/commit/d0c29aa27bf1f85b6e577de28faed5e6f352ab73) Thanks [@pksjce](https://github.com/pksjce)! - Move the version to 1.0.1
+
+## 1.0.0
+
+### Major Changes
+
+- [#7191](https://github.com/primer/react/pull/7191) [`d9a0747`](https://github.com/primer/react/commit/d9a07476818a52c76c151cfeefc7aea5b2638fe7) Thanks [@francinelucca](https://github.com/francinelucca)! - chore: remove styled PageLayout
+
+### Patch Changes
+
+- [#7161](https://github.com/primer/react/pull/7161) [`b83328c`](https://github.com/primer/react/commit/b83328cfedea43db3e9227901154da54946629ea) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Allow any `@primer/react` version as peer dependency.
+
 ## 0.3.0
 
 ### Minor Changes

@@ -44,7 +44,7 @@ export type DialogButtonProps = Omit<ButtonProps, 'content'> & {
    * A reference to the rendered Button’s DOM node, used together with
    * `autoFocus` for `focusTrap`’s `initialFocus`.
    */
-  ref?: React.RefObject<HTMLButtonElement>
+  ref?: React.RefObject<HTMLButtonElement | null>
 }
 
 /**
@@ -136,12 +136,12 @@ export interface DialogProps {
    * Return focus to this element when the Dialog closes,
    * instead of the element that had focus immediately before the Dialog opened
    */
-  returnFocusRef?: React.RefObject<HTMLElement>
+  returnFocusRef?: React.RefObject<HTMLElement | null>
 
   /**
    * The element to focus when the Dialog opens
    */
-  initialFocusRef?: React.RefObject<HTMLElement>
+  initialFocusRef?: React.RefObject<HTMLElement | null>
 
   /**
    * Additional class names to apply to the dialog
@@ -408,6 +408,7 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
             {...buttonProps}
             // 'normal' value is equivalent to 'default', this is used for backwards compatibility
             variant={buttonType === 'normal' ? 'default' : buttonType}
+            // @ts-expect-error it needs a non nullable ref
             ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
           >
             {content}

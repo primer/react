@@ -17,8 +17,8 @@
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.3",
-    "@primer/react": "38.1.0",
-    "@primer/styled-react": "0.3.0",
+    "@primer/react": "38.3.0",
+    "@primer/styled-react": "1.0.1",
     "styled-components": "5.x",
     "typescript": "^5.9.2",
     "vite": "^7.1.11"
