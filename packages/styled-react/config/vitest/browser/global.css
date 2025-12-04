@@ -84,5 +84,5 @@ details-dialog:focus:not(:focus-visible):not(:global(.focus-visible)) {
 
 [data-testid='screenshot'] {
   display: inline-flex;
-  padding: 1rem;
+  padding: var(--base-size-16);
 }
