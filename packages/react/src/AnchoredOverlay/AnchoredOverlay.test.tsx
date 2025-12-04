@@ -57,12 +57,7 @@ const AnchoredOverlayTestComponent = ({
 }
 
 describe('AnchoredOverlay', () => {
-  implementsClassName(
-    AnchoredOverlay,
-    overlayClasses.Overlay,
-    component => component.container.firstChild!.childNodes[1].firstChild?.firstChild as HTMLElement,
-    props => <AnchoredOverlayTestComponent initiallyOpen={true} {...props} />,
-  )
+  implementsClassName(props => <AnchoredOverlayTestComponent initiallyOpen={true} {...props} />, overlayClasses.Overlay)
   it('should call onOpen when the anchor is clicked', async () => {
     const mockOpenCallback = vi.fn()
     const mockCloseCallback = vi.fn()

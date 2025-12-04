@@ -1,18 +1,16 @@
-import {type RenderResult, render as HTMLRender} from '@testing-library/react'
+import {render as HTMLRender} from '@testing-library/react'
 import {it, expect} from 'vitest'
 
-export function implementsClassName<TProps extends {className?: string}>(
-  Component: React.ComponentType<TProps>,
-  baseClassName?: string,
-  getClassNameElement: (component: RenderResult) => HTMLElement = component =>
-    component.container.firstChild as HTMLElement,
-  renderComponent: (props: {className?: string}) => React.JSX.Element = props => <Component {...(props as TProps)} />,
-) {
+export function implementsClassName(Component: React.ElementType, baseClassName?: string) {
   it('renders with the custom className', () => {
-    const component = HTMLRender(renderComponent({className: 'test-class'}))
-    expect(getClassNameElement(component)).toHaveClass('test-class')
+    const component = HTMLRender(<Component className="test-class" />)
     if (baseClassName) {
-      expect(getClassNameElement(component)).toHaveClass(baseClassName)
+      const baseElement = component.container.getElementsByClassName(baseClassName)
+      expect(baseElement).toHaveLength(1)
+      expect(baseElement[0]).toHaveClass('test-class')
+    } else {
+      const classNameElement = component.container.getElementsByClassName('test-class')
+      expect(classNameElement).toHaveLength(1)
     }
   })
 }
