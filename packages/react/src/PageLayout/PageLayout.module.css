@@ -612,10 +612,6 @@
   padding: var(--spacing);
 
   /**
-   * OPTIMIZATION: Full containment for pane - isolates from rest of page
-   */
-  contain: layout style paint;
-  /**
    * OPTIMIZATION: For extremely tall content - skip rendering off-screen content
    */
   content-visibility: auto;
