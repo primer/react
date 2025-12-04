@@ -225,7 +225,7 @@ jobs:
       - name: Run Visual Regression Tests
         uses: docker://mcr.microsoft.com/playwright:v1.55.0-jammy
         with:
-          args: npx vitest run -t '\@vrt' --reporter=blob --outputFile '.vitest/reports/blob-${{matrix.shard}}' --shard="${{ matrix.shard }}/${{ strategy.job-total }}"
+          args: npx vitest run -t '\@vrt' --reporter default --reporter=blob --outputFile '.vitest/reports/blob-${{matrix.shard}}' --shard="${{ matrix.shard }}/${{ strategy.job-total }}"
       - name: Upload report
         uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
         with:
