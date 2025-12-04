@@ -1,5 +1,6 @@
 import {createRequire} from 'node:module'
 import path from 'node:path'
+import {fileURLToPath} from 'node:url'
 import react from '@vitejs/plugin-react'
 import postcssPresetPrimer from 'postcss-preset-primer'
 import type {StorybookConfig} from '@storybook/react-vite'
@@ -7,6 +8,7 @@ import {isSupported} from '../script/react-compiler.mjs'
 import {getCodeEditorStaticDirs} from 'storybook-addon-code-editor/getStaticDirs'
 
 const require = createRequire(import.meta.url)
+const __filename = fileURLToPath(import.meta.url)
 
 const {DEPLOY_ENV = 'development'} = process.env
 

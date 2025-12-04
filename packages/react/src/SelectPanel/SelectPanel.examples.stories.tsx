@@ -10,7 +10,7 @@ import FormControl from '../FormControl'
 import {Stack} from '../Stack'
 import {Dialog} from '../experimental'
 import styles from './SelectPanel.examples.stories.module.css'
-import {useVirtualizer} from '@tanstack/react-virtual'
+import {useVirtualizer, type VirtualItem} from '@tanstack/react-virtual'
 import Checkbox from '../Checkbox'
 import Label from '../Label'
 
@@ -475,6 +475,14 @@ export const WithDefaultMessage = () => {
 
 const NUMBER_OF_ITEMS = 1800
 const lotsOfItems = Array.from({length: NUMBER_OF_ITEMS}, (_, index) => {
+  if (index === 5) {
+    return {
+      id: index,
+      text: `This is being used to show what would happen if you returned an item that needed text wrapping`,
+      description: `Description ${index}`,
+      leadingVisual: getColorCircle('#a2eeef'),
+    }
+  }
   return {
     id: index,
     text: `Item ${index}`,
@@ -620,8 +628,10 @@ export const Virtualized = () => {
     getScrollElement: () => scrollContainer ?? null,
     estimateSize: () => DEFAULT_VIRTUAL_ITEM_HEIGHT,
     overscan: 10,
-    debug: true,
     enabled: renderSubset,
+    measureElement: el => {
+      return (el as HTMLElement).scrollHeight
+    },
   })
 
   const virtualizedContainerStyle = useMemo(
@@ -639,12 +649,18 @@ export const Virtualized = () => {
   const virtualizedItems = useMemo(
     () =>
       renderSubset
-        ? virtualizer.getVirtualItems().map(virtualItem => {
+        ? virtualizer.getVirtualItems().map((virtualItem: VirtualItem) => {
             const item = filteredItems[virtualItem.index]
 
             return {
               ...item,
               key: virtualItem.index,
+              'data-index': virtualItem.index,
+              ref: (node: Element | null) => {
+                if (node && node.getAttribute('data-index')) {
+                  virtualizer.measureElement(node)
+                }
+              },
               style: {
                 position: 'absolute',
                 top: 0,

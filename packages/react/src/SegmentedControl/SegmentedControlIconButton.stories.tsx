@@ -13,6 +13,7 @@ export default {
     icon: FileCodeIcon,
     selected: false,
     defaultSelected: false,
+    disabled: false,
   },
   argTypes: {
     icon: {
@@ -24,6 +25,9 @@ export default {
       type: 'boolean',
     },
     defaultSelected: {
+      type: 'boolean',
+    },
+    disabled: {
       type: 'boolean',
     },
   },
