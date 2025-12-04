@@ -251,7 +251,7 @@ jobs:
           pattern: vrt-*
           merge-multiple: true
       - name: Merge all reports
-        run: npx vitest merge-reports --reporter html .vitest/reports/blob
+        run: npx vitest merge-reports --reporter html --reporter default --reporter github-actions .vitest/reports/blob
       - name: Upload report
         uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
         with:
