@@ -345,12 +345,6 @@
   flex-grow: 1;
   flex-shrink: 1;
 
-  /**
-   * OPTIMIZATION: Isolate content area from rest of page
-   * Note: No 'paint' containment to allow overflow effects (tooltips, modals, etc.)
-   */
-  contain: layout style;
-
   &:where([data-is-hidden='true']) {
     display: none;
   }
