@@ -8,5 +8,8 @@ export default defineConfig({
       'packages/*/vitest.config.browser.ts',
       'packages/*/vitest.config.browser.mts',
     ],
+    outputFile: {
+      html: '.vitest/reports/html',
+    },
   },
 })

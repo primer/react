@@ -199,3 +199,61 @@ jobs:
         run: npm run build
       - name: Get export sizes
         run: node packages/react/script/get-export-sizes.cjs
+
+  vrt-runner:
+    runs-on: vrt-runner
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]
+    steps:
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3
+      - name: Set up Node.js
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - name: Set up turbo cache
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
+        with:
+          path: .turbo
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
+      - name: Install dependencies
+        run: npm ci
+      - name: Run Visual Regression Tests
+        run: npx vitest run -t '\@vrt' --reporter=blob --outputFile '.vitest/reports/blob-${{matrix.shard}}' --shard="${{ matrix.shard }}/${{ strategy.job-total }}"
+      - name: Upload report
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+        with:
+          name: vrt-${{ matrix.shard }}
+          path: .vitest/reports/blob
+          retention-days: 1
+
+  vrt:
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    needs: vrt-runner
+    steps:
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3
+      - name: Set up Node.js
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - name: install dependencies
+        run: npm ci
+      - name: Download all reports
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
+        with:
+          path: .vitest/reports/blob
+          pattern: vrt-*
+          merge-multiple: true
+      - name: Merge all reports
+        run: npx vitest merge-reports --reporter html .vitest/reports/blob
+      - name: Upload report
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+        with:
+          name: vrt-report
+          path: .vitest/reports/html
