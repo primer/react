@@ -1,7 +1,5 @@
 import {parseSizeFromArgs} from './storyHelpers'
-// @ts-expect-error -- this is fine
 import playgroundStoryCode from './StorySources/Avatar.playground.source.tsx?raw'
-// @ts-expect-error -- this is fine
 import defaultStoryCode from './StorySources/Avatar.default.source.tsx?raw'
 import Avatar, {type AvatarProps, DEFAULT_AVATAR_SIZE} from './Avatar'
 import type {Meta, StoryObj} from '@storybook/react-vite'
