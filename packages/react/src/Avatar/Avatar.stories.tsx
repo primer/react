@@ -5,7 +5,7 @@ import Avatar, {type AvatarProps, DEFAULT_AVATAR_SIZE} from './Avatar'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 // eslint-disable-next-line import/no-namespace
 import * as PrimerReactLibrary from '../index'
-import { makeLiveEditStory } from 'storybook-addon-code-editor';
+import {makeLiveEditStory} from 'storybook-addon-code-editor'
 
 // Conditionally import live editor with error handling
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -92,13 +92,13 @@ export const Default: StoryObj = {
 
 // Enable live editor if available
 // if (makeLiveEditStory) {
-  makeLiveEditStory(Default, {
-    availableImports: {'../../index': PrimerReactLibrary},
-    code: defaultStoryCode,
-  })
+makeLiveEditStory(Default, {
+  availableImports: {'../../index': PrimerReactLibrary},
+  code: defaultStoryCode,
+})
 
-  makeLiveEditStory(Playground, {
-    availableImports: {'../../index': PrimerReactLibrary, '../storyHelpers': {parseSizeFromArgs}},
-    code: playgroundStoryCode,
-  })
+makeLiveEditStory(Playground, {
+  availableImports: {'../../index': PrimerReactLibrary, '../storyHelpers': {parseSizeFromArgs}},
+  code: playgroundStoryCode,
+})
 // }
