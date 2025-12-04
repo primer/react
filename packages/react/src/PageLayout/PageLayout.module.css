@@ -1,3 +1,15 @@
+/* Maintain resize cursor while dragging */
+/* stylelint-disable-next-line selector-no-qualifying-type */
+body[data-page-layout-dragging='true'] {
+  cursor: col-resize;
+}
+
+/* Disable text selection while dragging */
+/* stylelint-disable-next-line selector-no-qualifying-type */
+body[data-page-layout-dragging='true'] * {
+  user-select: none;
+}
+
 .PageLayoutRoot {
   /* Region Order */
   --region-order-header: 0;
@@ -345,12 +357,6 @@
   flex-grow: 1;
   flex-shrink: 1;
 
-  /**
-   * OPTIMIZATION: Isolate content area from rest of page
-   * Note: No 'paint' containment to allow overflow effects (tooltips, modals, etc.)
-   */
-  contain: layout style;
-
   &:where([data-is-hidden='true']) {
     display: none;
   }
@@ -377,26 +383,6 @@
   }
 }
 
-/**
- * OPTIMIZATION: Aggressive containment during drag for ContentWrapper
- * CSS handles most optimizations automatically via :has() selector
- * JavaScript only handles scroll locking (can't be done in CSS)
- */
-.PageLayoutContent:has(.DraggableHandle[data-dragging='true']) .ContentWrapper {
-  /* Add paint containment during drag - safe since user can't interact */
-  contain: layout style paint;
-
-  /* Disable interactions */
-  pointer-events: none;
-
-  /* Disable transitions to prevent expensive recalculations */
-  transition: none;
-
-  /* Force compositor layer for hardware acceleration */
-  will-change: width;
-  transform: translateZ(0);
-}
-
 .Content {
   width: 100%;
 
@@ -405,14 +391,6 @@
   margin-right: auto;
   margin-left: auto;
   flex-grow: 1;
-
-  /**
-   * OPTIMIZATION: Skip rendering off-screen content during scrolling/resizing
-   * This automatically helps consumers with large content by only rendering
-   * elements that are visible in the viewport
-   */
-  content-visibility: auto;
-  contain-intrinsic-size: auto 500px;
 
   &:where([data-width='medium']) {
     max-width: 768px;
@@ -429,16 +407,6 @@
   &:where([data-width='xlarge']) {
     max-width: 1280px;
   }
-}
-
-/**
- * OPTIMIZATION: Freeze content layout during resize drag
- * This prevents expensive recalculations of large content areas
- * while keeping content visible (just frozen in place)
- */
-.PageLayoutContent:has(.DraggableHandle[data-dragging='true']) .Content {
-  /* Full containment (without size) - isolate from layout recalculations */
-  contain: layout style paint;
 }
 
 .PaneWrapper {
@@ -617,15 +585,6 @@
   /* stylelint-disable-next-line primer/spacing */
   padding: var(--spacing);
 
-  /**
-   * OPTIMIZATION: Full containment for pane - isolates from rest of page
-   */
-  contain: layout style paint;
-  /**
-   * OPTIMIZATION: For extremely tall content - skip rendering off-screen content
-   */
-  content-visibility: auto;
-
   @media screen and (min-width: 768px) {
     overflow: auto;
   }
@@ -637,26 +596,6 @@
       width: clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width));
     }
   }
-}
-
-/**
- * OPTIMIZATION: Performance enhancements for Pane during drag
- * CSS handles all optimizations automatically - JavaScript only locks scroll
- */
-.PaneWrapper:has(.DraggableHandle[data-dragging='true']) .Pane {
-  /* Full containment - isolate from layout recalculations */
-  contain: layout style paint;
-
-  /* Disable interactions during drag */
-  pointer-events: none;
-
-  /* Disable transitions during drag */
-  transition: none;
-
-  /* Force hardware acceleration */
-  will-change: width, transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
 }
 
 .PaneHorizontalDivider {
@@ -757,22 +696,12 @@
   padding: var(--spacing);
 }
 
-/**
- * DraggableHandle - Interactive resize handle
- */
 .DraggableHandle {
   position: absolute;
   inset: 0 -2px;
   cursor: col-resize;
   background-color: transparent;
   transition-delay: 0.1s;
-
-  /**
-   * OPTIMIZATION: Prevent touch scrolling and text selection during drag
-   * This is done in CSS because it needs to be set before any pointer events
-   */
-  touch-action: none;
-  user-select: none;
 }
 
 .DraggableHandle:hover {
@@ -781,7 +710,6 @@
 
 .DraggableHandle[data-dragging='true'] {
   background-color: var(--bgColor-accent-emphasis);
-  cursor: col-resize;
 }
 
 .DraggableHandle[data-dragging='true']:hover {
