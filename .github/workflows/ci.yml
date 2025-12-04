@@ -230,7 +230,7 @@ jobs:
         uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
         with:
           name: vrt-${{ matrix.shard }}
-          path: .vitest/reports/blob
+          path: .vitest/reports
           retention-days: 1
 
   vrt:
@@ -249,7 +249,7 @@ jobs:
       - name: Download all reports
         uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
         with:
-          path: .vitest/reports/blob
+          path: .vitest/reports
           pattern: vrt-*
           merge-multiple: true
       - name: Merge all reports
