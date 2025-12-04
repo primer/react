@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Check for implementsClassName in component test files
+
+echo "Checking for implementsClassName in component test files..."
+
+# Find all .test.tsx files in src/ (excluding utils and __tests__ directories)
+test_files=$(find packages/react/src -name "*.test.tsx" -not -path "*/utils/*" -not -path "*/__tests__/*")
+
+missing_tests=()
+
+for file in $test_files; do
+  # Check if file imports a component (has relative import) and doesn't have implementsClassName
+  if grep -q "from '\.\.\/" "$file" && ! grep -q "implementsClassName" "$file"; then
+    missing_tests+=("$file")
+  fi
+done
+
+if [ ${#missing_tests[@]} -gt 0 ]; then
+  echo "❌ The following component test files are missing implementsClassName:"
+  printf '%s\n' "${missing_tests[@]}"
+  echo ""
+  echo "Please add implementsClassName test to ensure className prop works correctly."
+  exit 1
+fi
+
+echo "✅ All component test files include implementsClassName"
