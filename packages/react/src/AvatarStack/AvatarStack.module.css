@@ -140,7 +140,11 @@
 
   .AvatarStack:where([data-shape='circle']) &:is(img) {
     /* stylelint-disable-next-line primer/box-shadow */
-    box-shadow: 0 0 0 var(--avatar-border-width) transparent;
+      box-shadow: 0 0 0 var(--avatar-border-width) transparent;
+  }
+
+  &:not([data-component='Avatar']) {
+    border-radius: 50%;
   }
 
   .AvatarStack:where([data-shape='square']) &:is(img) {
