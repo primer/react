@@ -6,7 +6,10 @@ import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'
 import BaseStyles from '../BaseStyles'
 import type {AnchorPosition} from '@primer/behaviors'
-import {implementsClassNameBehavior} from '../utils/testing'
+import {implementsClassName} from '../utils/testing'
+
+import overlayClasses from '../Overlay/Overlay.module.css'
+
 type TestComponentSettings = {
   initiallyOpen?: boolean
   onOpenCallback?: (gesture: string) => void
@@ -54,9 +57,9 @@ const AnchoredOverlayTestComponent = ({
 }
 
 describe('AnchoredOverlay', () => {
-  implementsClassNameBehavior(
+  implementsClassName(
     AnchoredOverlay,
-    'prc-Overlay-Overlay-ViJgm',
+    overlayClasses.Overlay,
     component => component.container.firstChild!.childNodes[1].firstChild?.firstChild as HTMLElement,
     props => <AnchoredOverlayTestComponent initiallyOpen={true} {...props} />,
   )
