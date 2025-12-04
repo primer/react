@@ -239,6 +239,16 @@ describe('Banner', () => {
     expect(container.firstChild).toHaveAttribute('data-actions-layout', 'default')
   })
 
+  it('should render data-flush attribute when flush is true', () => {
+    const {container} = render(<Banner title="test" flush />)
+    expect(container.firstChild).toHaveAttribute('data-flush')
+  })
+
+  it('should not render data-flush attribute when flush is false', () => {
+    const {container} = render(<Banner title="test" />)
+    expect(container.firstChild).not.toHaveAttribute('data-flush')
+  })
+
   describe('Banner.Title', () => {
     it('should render as a h2 element by default', () => {
       render(
