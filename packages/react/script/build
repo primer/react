@@ -12,7 +12,7 @@ npm run build:precompile-color-schemes
 npm run type-css-modules
 
 # Bundle
-npx rollup -c
+npx rolldown -c
 
 # Type check
 npx tsc --project tsconfig.build.json

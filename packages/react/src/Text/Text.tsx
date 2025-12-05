@@ -1,7 +1,7 @@
 import {clsx} from 'clsx'
 import React, {type ForwardedRef} from 'react'
-import {useRefObjectAsForwardedRef} from '../hooks'
 import classes from './Text.module.css'
+import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {fixedForwardRef, type PolymorphicProps} from '../utils/modern-polymorphic'
 
 export type TextProps<As extends React.ElementType = 'span'> = PolymorphicProps<

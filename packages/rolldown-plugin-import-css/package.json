@@ -1,0 +1,20 @@
+{
+  "name": "rolldown-plugin-import-css",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": "./src/index.ts",
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "postcss": "^8.4.38",
+    "postcss-modules": "^6.0.0"
+  },
+  "devDependencies": {
+    "postcss": "^8.4.38",
+    "postcss-modules": "^6.0.0",
+    "typescript": "^5.9.2"
+  },
+  "sideEffects": false
+}
