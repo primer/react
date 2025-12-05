@@ -381,3 +381,65 @@ export const LotsOfItems = () => {
     </>
   )
 }
+
+export const WithDisableOnHover = ({onCancel, secondaryAction}: ParamProps) => {
+  const [selected, setSelected] = useState<ItemInput[]>(simpleItems.slice(1, 3))
+  const [filter, setFilter] = useState('')
+  const filteredItems = simpleItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+
+  return (
+    <SelectPanel
+      title="Select labels"
+      placeholder="Select labels"
+      subtitle="Use labels to organize issues and pull requests"
+      renderAnchor={({children, ...anchorProps}) => (
+        <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+          {children}
+        </Button>
+      )}
+      open={open}
+      onOpenChange={setOpen}
+      items={filteredItems}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onFilterChange={setFilter}
+      width="medium"
+      message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+      onCancel={onCancel}
+      secondaryAction={secondaryAction}
+      disableSelectOnHover
+    />
+  )
+}
+
+export const WithInitialFocus = ({onCancel, secondaryAction}: ParamProps) => {
+  const [selected, setSelected] = useState<ItemInput[]>(simpleItems.slice(1, 3))
+  const [filter, setFilter] = useState('')
+  const filteredItems = simpleItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+
+  return (
+    <SelectPanel
+      title="Select labels"
+      placeholder="Select labels"
+      subtitle="Use labels to organize issues and pull requests"
+      renderAnchor={({children, ...anchorProps}) => (
+        <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+          {children}
+        </Button>
+      )}
+      open={open}
+      onOpenChange={setOpen}
+      items={filteredItems}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onFilterChange={setFilter}
+      width="medium"
+      message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+      onCancel={onCancel}
+      secondaryAction={secondaryAction}
+      setInitialFocus={true}
+    />
+  )
+}

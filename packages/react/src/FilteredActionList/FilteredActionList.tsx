@@ -84,6 +84,10 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
    * If true, disables selecting items when hovering over them with the mouse.
    */
   disableSelectOnHover?: boolean
+  /**
+   * If true, does not set `aria-activedescendant` value until user action.
+   */
+  setInitialFocus?: boolean
 }
 
 export function FilteredActionList({
@@ -111,6 +115,7 @@ export function FilteredActionList({
   focusOutBehavior = 'wrap',
   _PrivateFocusManagement = 'active-descendant',
   disableSelectOnHover = false,
+  setInitialFocus = false,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -238,7 +243,8 @@ export function FilteredActionList({
               scrollIntoView(current, scrollContainerRef.current, menuScrollMargins)
             }
           },
-          selectOnHover: disableSelectOnHover ? false : true,
+          focusInStrategy: setInitialFocus ? 'initial' : 'previous',
+          ignoreHoverEvents: disableSelectOnHover ? true : false,
         }
       : undefined,
     [listContainerElement, usingRovingTabindex],
