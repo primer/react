@@ -13,7 +13,7 @@ const transformChildren = (children: React.ReactNode, shape: AvatarStackProps['s
     if (!React.isValidElement(child)) return child
     return React.cloneElement(child, {
       ...child.props,
-      square: shape === 'square' ? true : undefined,
+      square: (shape === 'square' ? true : undefined) || child.props.square,
       className: clsx(child.props.className, 'pc-AvatarItem', classes.AvatarItem),
     })
   })
