@@ -475,6 +475,14 @@ export const WithDefaultMessage = () => {
 
 const NUMBER_OF_ITEMS = 1800
 const lotsOfItems = Array.from({length: NUMBER_OF_ITEMS}, (_, index) => {
+  if (index === 5) {
+    return {
+      id: index,
+      text: `This is being used to show what would happen if you returned an item that needed text wrapping`,
+      description: `Description ${index}`,
+      leadingVisual: getColorCircle('#a2eeef'),
+    }
+  }
   return {
     id: index,
     text: `Item ${index}`,
@@ -620,8 +628,10 @@ export const Virtualized = () => {
     getScrollElement: () => scrollContainer ?? null,
     estimateSize: () => DEFAULT_VIRTUAL_ITEM_HEIGHT,
     overscan: 10,
-    debug: true,
     enabled: renderSubset,
+    measureElement: el => {
+      return (el as HTMLElement).scrollHeight
+    },
   })
 
   const virtualizedContainerStyle = useMemo(
@@ -645,6 +655,12 @@ export const Virtualized = () => {
             return {
               ...item,
               key: virtualItem.index,
+              'data-index': virtualItem.index,
+              ref: (node: Element | null) => {
+                if (node && node.getAttribute('data-index')) {
+                  virtualizer.measureElement(node)
+                }
+              },
               style: {
                 position: 'absolute',
                 top: 0,
