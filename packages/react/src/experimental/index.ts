@@ -8,6 +8,8 @@
 
 'use client'
 
+import '../layer.css'
+
 export {Blankslate} from '../Blankslate'
 export type {BlankslateProps} from '../Blankslate'
 
