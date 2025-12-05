@@ -11,7 +11,7 @@ const ignorelist = new Set(['experimental/CSSComponent/component.module.css'])
 const files = glob
   .sync('**/*.module.css', {
     cwd: WORKSPACE_SRC_FOLDER,
-    ignore: ['**/*.stories.module.css'],
+    ignore: ['**/*.stories.module.css', '**/*.test.module.css'],
   })
   .filter(file => !ignorelist.has(file))
   .map(file => {
@@ -21,7 +21,7 @@ const files = glob
 const CSS_LAYER_REGEX = /^primer\.components\.[A-Z][A-Za-z0-9]+$/
 
 describe('CSS Layers', () => {
-  describe.each(files.slice(4, 5))('%s', (_name, filename) => {
+  describe.each(files)('%s', (_name, filename) => {
     const contents = fs.readFileSync(filename, 'utf8')
     const ast = parse(contents, {
       filename,
