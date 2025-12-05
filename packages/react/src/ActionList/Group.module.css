@@ -1,60 +1,62 @@
-.Group {
-  list-style: none;
+@layer primer.components.Group {
+  .Group {
+    list-style: none;
 
-  &:not(:first-child) {
-    margin-block-start: var(--base-size-8);
+    &:not(:first-child) {
+      margin-block-start: var(--base-size-8);
 
-    /* If somebody tries to pass the `title` prop AND a `NavList.GroupHeading` as a child, hide the `ActionList.GroupHeading */
-    /* stylelint-disable-next-line selector-max-specificity */
-    &:has(.GroupHeadingWrap + ul > .GroupHeadingWrap) {
+      /* If somebody tries to pass the `title` prop AND a `NavList.GroupHeading` as a child, hide the `ActionList.GroupHeading */
       /* stylelint-disable-next-line selector-max-specificity */
-      & > .GroupHeadingWrap {
-        display: none;
+      &:has(.GroupHeadingWrap + ul > .GroupHeadingWrap) {
+        /* stylelint-disable-next-line selector-max-specificity */
+        & > .GroupHeadingWrap {
+          display: none;
+        }
       }
     }
   }
-}
 
-.GroupList {
-  padding-inline-start: 0;
-}
-
-.GroupHeadingWrap {
-  display: flex;
-  font-size: var(--text-body-size-small);
-  font-weight: var(--base-text-weight-semibold);
-
-  /* line-height: var(--text-body-lineHeight-small); use when FF rolls out */
-  /* stylelint-disable-next-line primer/typography */
-  line-height: 18px;
-  color: var(--fgColor-muted);
-  flex-direction: column;
-  padding-inline: var(--base-size-16);
-  padding-block: var(--base-size-6);
-
-  &:where([data-variant='filled']) {
-    /* stylelint-disable-next-line primer/spacing */
-    margin-block-start: calc(var(--base-size-8) - var(--borderWidth-thin));
-    margin-block-end: var(--base-size-8);
-    background: var(--bgColor-muted);
-    border-top: solid var(--borderWidth-thin) var(--borderColor-muted);
-    border-bottom: solid var(--borderWidth-thin) var(--borderColor-muted);
-    padding-inline: var(--base-size-16);
-
-    &:first-child {
-      margin-block-start: 0;
-    }
+  .GroupList {
+    padding-inline-start: 0;
   }
 
-  /* & + ul:has(.GroupHeadingWrap) {
+  .GroupHeadingWrap {
+    display: flex;
+    font-size: var(--text-body-size-small);
+    font-weight: var(--base-text-weight-semibold);
+
+    /* line-height: var(--text-body-lineHeight-small); use when FF rolls out */
+    /* stylelint-disable-next-line primer/typography */
+    line-height: 18px;
+    color: var(--fgColor-muted);
+    flex-direction: column;
+    padding-inline: var(--base-size-16);
+    padding-block: var(--base-size-6);
+
+    &:where([data-variant='filled']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-block-start: calc(var(--base-size-8) - var(--borderWidth-thin));
+      margin-block-end: var(--base-size-8);
+      background: var(--bgColor-muted);
+      border-top: solid var(--borderWidth-thin) var(--borderColor-muted);
+      border-bottom: solid var(--borderWidth-thin) var(--borderColor-muted);
+      padding-inline: var(--base-size-16);
+
+      &:first-child {
+        margin-block-start: 0;
+      }
+    }
+
+    /* & + ul:has(.GroupHeadingWrap) {
     outline: solid 1px red;
   } */
-}
+  }
 
-.GroupHeading {
-  margin: 0;
-  font-size: var(--text-body-size-small);
-  font-weight: var(--base-text-weight-semibold);
-  color: var(--fgColor-muted);
-  align-self: flex-start;
+  .GroupHeading {
+    margin: 0;
+    font-size: var(--text-body-size-small);
+    font-weight: var(--base-text-weight-semibold);
+    color: var(--fgColor-muted);
+    align-self: flex-start;
+  }
 }

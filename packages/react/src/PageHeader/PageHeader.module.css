@@ -1,328 +1,330 @@
-.PageHeader {
-  /* Grid Row Order */
-  --grid-row-order-context-area: 1;
-  --grid-row-order-leading-action: 2;
-  --grid-row-order-breadcrumbs: 2;
-  --grid-row-order-title-area: 2;
-  --grid-row-order-trailing-action: 2;
-  --grid-row-order-actions: 2;
-  --grid-row-order-description: 3;
-  --grid-row-order-navigation: 4;
+@layer primer.components.PageHeader {
+  .PageHeader {
+    /* Grid Row Order */
+    --grid-row-order-context-area: 1;
+    --grid-row-order-leading-action: 2;
+    --grid-row-order-breadcrumbs: 2;
+    --grid-row-order-title-area: 2;
+    --grid-row-order-trailing-action: 2;
+    --grid-row-order-actions: 2;
+    --grid-row-order-description: 3;
+    --grid-row-order-navigation: 4;
 
-  /* Title Area Region Order */
-  --title-area-region-order-leading-visual: 0;
-  --title-area-region-order-title: 1;
-  --title-area-region-order-trailing-visual: 2;
+    /* Title Area Region Order */
+    --title-area-region-order-leading-visual: 0;
+    --title-area-region-order-title: 1;
+    --title-area-region-order-trailing-visual: 2;
 
-  /* Context Area Region Order */
-  --context-area-region-order-parent-link: 0;
-  --context-area-region-order-context-bar: 1;
-  --context-area-region-order-context-area-actions: 2;
+    /* Context Area Region Order */
+    --context-area-region-order-parent-link: 0;
+    --context-area-region-order-context-bar: 1;
+    --context-area-region-order-context-area-actions: 2;
 
-  display: grid;
+    display: grid;
 
-  /* We have max 5 columns. */
-  grid-template-columns: auto auto auto auto 1fr;
-  grid-template-areas:
-    'context-area context-area context-area context-area context-area'
-    'leading-action breadcrumbs title-area trailing-action actions'
-    'description description description description description'
-    'navigation navigation navigation navigation navigation';
+    /* We have max 5 columns. */
+    grid-template-columns: auto auto auto auto 1fr;
+    grid-template-areas:
+      'context-area context-area context-area context-area context-area'
+      'leading-action breadcrumbs title-area trailing-action actions'
+      'description description description description description'
+      'navigation navigation navigation navigation navigation';
 
-  /*
+    /*
     line-height is calculated with calc(height/font-size) and the below numbers are from @primer/primitives.
     --custom-font-size, --custom-line-height, --custom-font-weight are custom properties that can be used to override the below values.
     We don't want these values to be overridden but still want to allow consumers to override them if needed.
   */
-  &:has([data-component='TitleArea'][data-size-variant='large']) {
-    font-size: var(--custom-font-size, var(--text-title-size-large, 2rem));
-    font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
-    line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5)); /* calc(48/32) */
-
-    --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
-  }
-
-  &:has([data-component='TitleArea'][data-size-variant='medium']) {
-    font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
-    font-weight: var(--custom-font-weight, var(--base-text-weight-semibold, 600));
-    line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6)); /* calc(32/20) */
-
-    --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
-  }
-
-  &:has([data-component='TitleArea'][data-size-variant='subtitle']) {
-    font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
-    font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
-    line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6)); /* calc(32/20) */
-
-    --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
-  }
-
-  /* Responsive size variants */
-  @media (--viewportRange-narrow) {
-    &:has([data-component='TitleArea'][data-size-variant-narrow='large']) {
+    &:has([data-component='TitleArea'][data-size-variant='large']) {
       font-size: var(--custom-font-size, var(--text-title-size-large, 2rem));
       font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
-      line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
+      line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5)); /* calc(48/32) */
 
       --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
     }
 
-    &:has([data-component='TitleArea'][data-size-variant-narrow='medium']) {
+    &:has([data-component='TitleArea'][data-size-variant='medium']) {
       font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
       font-weight: var(--custom-font-weight, var(--base-text-weight-semibold, 600));
-      line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+      line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6)); /* calc(32/20) */
 
       --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
     }
 
-    &:has([data-component='TitleArea'][data-size-variant-narrow='subtitle']) {
+    &:has([data-component='TitleArea'][data-size-variant='subtitle']) {
       font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
       font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
-      line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
-
-      --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
-    }
-  }
-
-  @media (--viewportRange-regular) {
-    &:has([data-component='TitleArea'][data-size-variant-regular='large']) {
-      font-size: var(--custom-font-size, var(--text-title-size-large, 2rem));
-      font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
-      line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
-
-      --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
-    }
-
-    &:has([data-component='TitleArea'][data-size-variant-regular='medium']) {
-      font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
-      font-weight: var(--custom-font-weight, var(--base-text-weight-semibold, 600));
-      line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+      line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6)); /* calc(32/20) */
 
       --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
     }
 
-    &:has([data-component='TitleArea'][data-size-variant-regular='subtitle']) {
-      font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
-      font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
-      line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+    /* Responsive size variants */
+    @media (--viewportRange-narrow) {
+      &:has([data-component='TitleArea'][data-size-variant-narrow='large']) {
+        font-size: var(--custom-font-size, var(--text-title-size-large, 2rem));
+        font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
+        line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
 
-      --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+        --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
+      }
+
+      &:has([data-component='TitleArea'][data-size-variant-narrow='medium']) {
+        font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
+        font-weight: var(--custom-font-weight, var(--base-text-weight-semibold, 600));
+        line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+
+        --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+      }
+
+      &:has([data-component='TitleArea'][data-size-variant-narrow='subtitle']) {
+        font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
+        font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
+        line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+
+        --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+      }
     }
-  }
 
-  @media (--viewportRange-wide) {
-    &:has([data-component='TitleArea'][data-size-variant-wide='large']) {
-      font-size: var(--custom-font-size, var(--text-title-size-large, 2rem));
-      font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
-      line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
+    @media (--viewportRange-regular) {
+      &:has([data-component='TitleArea'][data-size-variant-regular='large']) {
+        font-size: var(--custom-font-size, var(--text-title-size-large, 2rem));
+        font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
+        line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
 
-      --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
+        --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
+      }
+
+      &:has([data-component='TitleArea'][data-size-variant-regular='medium']) {
+        font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
+        font-weight: var(--custom-font-weight, var(--base-text-weight-semibold, 600));
+        line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+
+        --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+      }
+
+      &:has([data-component='TitleArea'][data-size-variant-regular='subtitle']) {
+        font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
+        font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
+        line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+
+        --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+      }
     }
 
-    &:has([data-component='TitleArea'][data-size-variant-wide='medium']) {
-      font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
-      font-weight: var(--custom-font-weight, var(--base-text-weight-semibold, 600));
-      line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+    @media (--viewportRange-wide) {
+      &:has([data-component='TitleArea'][data-size-variant-wide='large']) {
+        font-size: var(--custom-font-size, var(--text-title-size-large, 2rem));
+        font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
+        line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
 
-      --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+        --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
+      }
+
+      &:has([data-component='TitleArea'][data-size-variant-wide='medium']) {
+        font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
+        font-weight: var(--custom-font-weight, var(--base-text-weight-semibold, 600));
+        line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+
+        --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+      }
+
+      &:has([data-component='TitleArea'][data-size-variant-wide='subtitle']) {
+        font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
+        font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
+        line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+
+        --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+      }
     }
 
-    &:has([data-component='TitleArea'][data-size-variant-wide='subtitle']) {
-      font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
-      font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
-      line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
-
-      --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
-    }
-  }
-
-  &[data-has-border='true']:has([data-component='PH_Navigation'][data-hidden-all]),
-  &[data-has-border='true']:not(:has([data-component='PH_Navigation'])) {
-    border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
-    padding-block-end: var(--base-size-8);
-  }
-
-  @media (--viewportRange-narrow) {
-    &[data-has-border='true']:has([data-component='PH_Navigation'][data-hidden-narrow]) {
+    &[data-has-border='true']:has([data-component='PH_Navigation'][data-hidden-all]),
+    &[data-has-border='true']:not(:has([data-component='PH_Navigation'])) {
       border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
       padding-block-end: var(--base-size-8);
     }
-  }
 
-  @media (--viewportRange-regular) {
-    &[data-has-border='true']:has([data-component='PH_Navigation'][data-hidden-regular]) {
-      border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
-      padding-block-end: var(--base-size-8);
+    @media (--viewportRange-narrow) {
+      &[data-has-border='true']:has([data-component='PH_Navigation'][data-hidden-narrow]) {
+        border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
+        padding-block-end: var(--base-size-8);
+      }
+    }
+
+    @media (--viewportRange-regular) {
+      &[data-has-border='true']:has([data-component='PH_Navigation'][data-hidden-regular]) {
+        border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
+        padding-block-end: var(--base-size-8);
+      }
+    }
+
+    @media (--viewportRange-wide) {
+      &[data-has-border='true']:has([data-component='PH_Navigation'][data-hidden-wide]) {
+        border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
+        padding-block-end: var(--base-size-8);
+      }
+    }
+
+    & [data-component='PH_LeadingAction'],
+    & [data-component='PH_TrailingAction'],
+    & [data-component='PH_Actions'],
+    & [data-component='PH_LeadingVisual'],
+    & [data-component='PH_TrailingVisual'] {
+      height: calc(var(--title-line-height) * 1em);
+    }
+
+    & [data-hidden-all] {
+      display: none;
+    }
+
+    & [data-hidden-narrow] {
+      @media (--viewportRange-narrow) {
+        display: none;
+      }
+    }
+
+    & [data-hidden-regular] {
+      @media (--viewportRange-regular) {
+        display: none;
+      }
+    }
+
+    & [data-hidden-wide] {
+      @media (--viewportRange-wide) {
+        display: none;
+      }
     }
   }
 
-  @media (--viewportRange-wide) {
-    &[data-has-border='true']:has([data-component='PH_Navigation'][data-hidden-wide]) {
-      border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
-      padding-block-end: var(--base-size-8);
-    }
+  .ContextArea {
+    display: flex;
+    padding-bottom: var(--base-size-8);
+    font-size: var(--text-body-size-medium, 0.875rem);
+    font-weight: var(--base-text-weight-normal);
+    line-height: var(--text-body-lineHeight-medium, 1.4285);
+    flex-direction: row;
+    grid-row: var(--grid-row-order-context-area);
+    grid-area: context-area;
+    align-items: center;
+    gap: var(--stack-gap-condensed);
   }
 
-  & [data-component='PH_LeadingAction'],
-  & [data-component='PH_TrailingAction'],
-  & [data-component='PH_Actions'],
-  & [data-component='PH_LeadingVisual'],
-  & [data-component='PH_TrailingVisual'] {
-    height: calc(var(--title-line-height) * 1em);
+  .ParentLink {
+    display: flex;
+    align-items: center;
+    order: var(--context-area-region-order-parent-link);
+    gap: var(--stack-gap-condensed);
   }
 
-  & [data-hidden-all] {
+  .ContextBar {
+    display: flex;
+    order: var(--context-area-region-order-context-bar);
+  }
+
+  .ContextAreaActions {
+    display: flex;
+    flex-direction: row;
+    order: var(--context-area-region-order-context-area-actions);
+    align-items: center;
+    gap: var(--stack-gap-condensed);
+    flex-grow: 1;
+    justify-content: flex-end;
+  }
+
+  .TitleArea {
+    grid-row: var(--grid-row-order-title-area);
+    grid-area: title-area;
+    display: flex;
+    gap: var(--stack-gap-condensed);
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .LeadingAction {
+    display: flex;
+    padding-right: var(--base-size-8);
+    grid-row: var(--grid-row-order-leading-action);
+    grid-area: leading-action;
+    align-items: center;
+  }
+
+  .Breadcrumbs {
+    display: flex;
+    padding-right: var(--base-size-8);
+    font-size: var(--text-body-size-medium, 0.875rem);
+    font-weight: var(--base-text-weight-normal);
+    line-height: var(--text-body-lineHeight-medium, 1.4285);
+    grid-row: var(--grid-row-order-breadcrumbs);
+    grid-area: breadcrumbs;
+    align-items: center;
+  }
+
+  .LeadingVisual {
+    /* using flex and order to display the leading visual in the title area. */
+    display: flex;
+    order: var(--title-area-region-order-leading-visual);
+    align-items: center;
+  }
+
+  .Title {
+    /* using flex and order to display the title in the title area. */
+    display: block;
+    order: var(--title-area-region-order-title);
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
+  .Title:where([data-hidden='true']) {
     display: none;
   }
 
-  & [data-hidden-narrow] {
-    @media (--viewportRange-narrow) {
-      display: none;
-    }
+  .TrailingVisual {
+    /* using flex and order to display the trailing visual in the title area. */
+    display: flex;
+    order: var(--title-area-region-order-trailing-visual);
+    align-items: center;
   }
 
-  & [data-hidden-regular] {
-    @media (--viewportRange-regular) {
-      display: none;
-    }
+  .TrailingAction {
+    display: flex;
+    padding-left: var(--base-size-8);
+    grid-row: var(--grid-row-order-trailing-action);
+    grid-area: trailing-action;
+    align-items: center;
   }
 
-  & [data-hidden-wide] {
-    @media (--viewportRange-wide) {
-      display: none;
-    }
+  .Actions {
+    display: flex;
+    min-width: max-content;
+    padding-left: var(--base-size-8);
+    flex-direction: row;
+    grid-row: var(--grid-row-order-actions);
+    grid-area: actions;
+    gap: var(--stack-gap-condensed);
+    justify-content: flex-end;
+    align-items: center;
   }
-}
 
-.ContextArea {
-  display: flex;
-  padding-bottom: var(--base-size-8);
-  font-size: var(--text-body-size-medium, 0.875rem);
-  font-weight: var(--base-text-weight-normal);
-  line-height: var(--text-body-lineHeight-medium, 1.4285);
-  flex-direction: row;
-  grid-row: var(--grid-row-order-context-area);
-  grid-area: context-area;
-  align-items: center;
-  gap: var(--stack-gap-condensed);
-}
+  .Description {
+    display: flex;
+    padding-top: var(--base-size-8);
+    font-size: var(--text-body-size-medium, 0.875rem);
+    font-weight: var(--base-text-weight-normal);
+    line-height: var(--text-body-lineHeight-medium, 1.4285);
+    flex-direction: row;
+    grid-row: var(--grid-row-order-description);
+    grid-area: description;
+    align-items: center;
+    gap: var(--stack-gap-condensed);
+  }
 
-.ParentLink {
-  display: flex;
-  align-items: center;
-  order: var(--context-area-region-order-parent-link);
-  gap: var(--stack-gap-condensed);
-}
-
-.ContextBar {
-  display: flex;
-  order: var(--context-area-region-order-context-bar);
-}
-
-.ContextAreaActions {
-  display: flex;
-  flex-direction: row;
-  order: var(--context-area-region-order-context-area-actions);
-  align-items: center;
-  gap: var(--stack-gap-condensed);
-  flex-grow: 1;
-  justify-content: flex-end;
-}
-
-.TitleArea {
-  grid-row: var(--grid-row-order-title-area);
-  grid-area: title-area;
-  display: flex;
-  gap: var(--stack-gap-condensed);
-  flex-direction: row;
-  align-items: flex-start;
-}
-
-.LeadingAction {
-  display: flex;
-  padding-right: var(--base-size-8);
-  grid-row: var(--grid-row-order-leading-action);
-  grid-area: leading-action;
-  align-items: center;
-}
-
-.Breadcrumbs {
-  display: flex;
-  padding-right: var(--base-size-8);
-  font-size: var(--text-body-size-medium, 0.875rem);
-  font-weight: var(--base-text-weight-normal);
-  line-height: var(--text-body-lineHeight-medium, 1.4285);
-  grid-row: var(--grid-row-order-breadcrumbs);
-  grid-area: breadcrumbs;
-  align-items: center;
-}
-
-.LeadingVisual {
-  /* using flex and order to display the leading visual in the title area. */
-  display: flex;
-  order: var(--title-area-region-order-leading-visual);
-  align-items: center;
-}
-
-.Title {
-  /* using flex and order to display the title in the title area. */
-  display: block;
-  order: var(--title-area-region-order-title);
-  font-size: inherit;
-  font-weight: inherit;
-}
-
-.Title:where([data-hidden='true']) {
-  display: none;
-}
-
-.TrailingVisual {
-  /* using flex and order to display the trailing visual in the title area. */
-  display: flex;
-  order: var(--title-area-region-order-trailing-visual);
-  align-items: center;
-}
-
-.TrailingAction {
-  display: flex;
-  padding-left: var(--base-size-8);
-  grid-row: var(--grid-row-order-trailing-action);
-  grid-area: trailing-action;
-  align-items: center;
-}
-
-.Actions {
-  display: flex;
-  min-width: max-content;
-  padding-left: var(--base-size-8);
-  flex-direction: row;
-  grid-row: var(--grid-row-order-actions);
-  grid-area: actions;
-  gap: var(--stack-gap-condensed);
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.Description {
-  display: flex;
-  padding-top: var(--base-size-8);
-  font-size: var(--text-body-size-medium, 0.875rem);
-  font-weight: var(--base-text-weight-normal);
-  line-height: var(--text-body-lineHeight-medium, 1.4285);
-  flex-direction: row;
-  grid-row: var(--grid-row-order-description);
-  grid-area: description;
-  align-items: center;
-  gap: var(--stack-gap-condensed);
-}
-
-.Navigation {
-  display: block;
-  padding-top: var(--base-size-8);
-  font-size: var(--text-body-size-medium, 0.875rem);
-  font-weight: var(--base-text-weight-normal);
-  line-height: var(--text-body-lineHeight-medium, 1.4285);
-  grid-row: var(--grid-row-order-navigation);
-  grid-area: navigation;
+  .Navigation {
+    display: block;
+    padding-top: var(--base-size-8);
+    font-size: var(--text-body-size-medium, 0.875rem);
+    font-weight: var(--base-text-weight-normal);
+    line-height: var(--text-body-lineHeight-medium, 1.4285);
+    grid-row: var(--grid-row-order-navigation);
+    grid-area: navigation;
+  }
 }

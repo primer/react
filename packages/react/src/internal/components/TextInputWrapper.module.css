@@ -1,221 +1,223 @@
-.TextInputBaseWrapper {
-  display: inline-flex;
-  min-height: var(--base-size-32);
-  overflow: hidden;
-  font-size: var(--text-body-size-medium);
-  /* stylelint-disable-next-line primer/typography */
-  line-height: var(--base-size-20);
-  color: var(--fgColor-default);
-  vertical-align: middle;
-  cursor: text;
-  background-color: var(--bgColor-default);
-  border: var(--borderWidth-thin) solid var(--control-borderColor-rest);
-  border-radius: var(--borderRadius-medium);
-  outline: none;
-  box-shadow: var(--shadow-inset);
-  align-items: stretch;
-
-  input,
-  textarea {
+@layer primer.components.TextInputWrapper {
+  .TextInputBaseWrapper {
+    display: inline-flex;
+    min-height: var(--base-size-32);
+    overflow: hidden;
+    font-size: var(--text-body-size-medium);
+    /* stylelint-disable-next-line primer/typography */
+    line-height: var(--base-size-20);
+    color: var(--fgColor-default);
+    vertical-align: middle;
     cursor: text;
-  }
+    background-color: var(--bgColor-default);
+    border: var(--borderWidth-thin) solid var(--control-borderColor-rest);
+    border-radius: var(--borderRadius-medium);
+    outline: none;
+    box-shadow: var(--shadow-inset);
+    align-items: stretch;
 
-  select {
-    cursor: pointer;
-  }
-
-  input,
-  textarea,
-  select {
-    &::placeholder {
-      color: var(--fgColor-muted);
+    input,
+    textarea {
+      cursor: text;
     }
-  }
 
-  &:where([data-trailing-action][data-focused]),
-  &:where(:not([data-trailing-action]):focus-within) {
-    border-color: var(--borderColor-accent-emphasis);
-    outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
-    outline-offset: -1px;
-  }
-
-  > textarea {
-    padding: var(--base-size-12);
-  }
-
-  &:where([data-contrast]) {
-    /* this variable is available behind a feature flag in gh/gh */
-    /* stylelint-disable-next-line primer/colors */
-    background-color: var(--control-bgColor-contrast, var(--bgColor-inset));
-  }
-
-  &:where([data-disabled]) {
-    color: var(--fgColor-disabled);
-    background-color: var(--control-bgColor-disabled);
-    border-color: var(--control-borderColor-disabled);
-    box-shadow: none;
+    select {
+      cursor: pointer;
+    }
 
     input,
     textarea,
     select {
-      cursor: not-allowed;
+      &::placeholder {
+        color: var(--fgColor-muted);
+      }
     }
-  }
-
-  &:where([data-monospace]) {
-    font-family: var(--fontStack-monospace);
-  }
-
-  &:where([data-validation='error']) {
-    border-color: var(--borderColor-danger-emphasis);
 
     &:where([data-trailing-action][data-focused]),
-    &:where(:not([data-trailing-action])):focus-within {
-      border-color: var(--control-borderColor-danger);
-      outline: 2px solid var(--control-borderColor-danger);
+    &:where(:not([data-trailing-action]):focus-within) {
+      border-color: var(--borderColor-accent-emphasis);
+      outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
       outline-offset: -1px;
     }
-  }
 
-  &:where([data-validation='success']) {
-    /* stylelint-disable-next-line primer/colors */
-    border-color: var(--bgColor-success-emphasis);
-  }
+    > textarea {
+      padding: var(--base-size-12);
+    }
 
-  &:where([data-block]) {
-    display: flex;
-    width: 100%;
-    align-self: stretch;
-  }
+    &:where([data-contrast]) {
+      /* this variable is available behind a feature flag in gh/gh */
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--control-bgColor-contrast, var(--bgColor-inset));
+    }
 
-  /* Ensures inputs don't zoom on mobile but are body-font size on desktop */
-  @media screen and (--viewportRange-regular) {
-    font-size: var(--text-body-size-medium);
-  }
+    &:where([data-disabled]) {
+      color: var(--fgColor-disabled);
+      background-color: var(--control-bgColor-disabled);
+      border-color: var(--control-borderColor-disabled);
+      box-shadow: none;
 
-  --inner-action-size: var(--base-size-24); /* Default size */
+      input,
+      textarea,
+      select {
+        cursor: not-allowed;
+      }
+    }
 
-  &:where([data-size='small']) {
-    --inner-action-size: var(--base-size-20);
+    &:where([data-monospace]) {
+      font-family: var(--fontStack-monospace);
+    }
 
-    min-height: var(--base-size-28);
-    /* stylelint-disable-next-line primer/spacing */
-    padding-top: 3px;
-    padding-right: var(--base-size-8);
-    /* stylelint-disable-next-line primer/spacing */
-    padding-bottom: 3px;
-    padding-left: var(--base-size-8);
-    font-size: var(--text-body-size-small);
-    /* stylelint-disable-next-line primer/typography */
-    line-height: var(--base-size-20);
-  }
+    &:where([data-validation='error']) {
+      border-color: var(--borderColor-danger-emphasis);
 
-  &:where([data-size='large']) {
-    --inner-action-size: var(--base-size-28);
+      &:where([data-trailing-action][data-focused]),
+      &:where(:not([data-trailing-action])):focus-within {
+        border-color: var(--control-borderColor-danger);
+        outline: 2px solid var(--control-borderColor-danger);
+        outline-offset: -1px;
+      }
+    }
 
-    height: var(--base-size-40);
-    /* stylelint-disable-next-line primer/spacing */
-    padding-top: 10px;
-    padding-right: var(--base-size-8);
-    /* stylelint-disable-next-line primer/spacing */
-    padding-bottom: 10px;
-    padding-left: var(--base-size-8);
-  }
+    &:where([data-validation='success']) {
+      /* stylelint-disable-next-line primer/colors */
+      border-color: var(--bgColor-success-emphasis);
+    }
 
-  /* Deprecated */
-  &:where([data-variant='small']) {
-    min-height: 28px;
-    /* stylelint-disable-next-line primer/spacing */
-    padding-top: 3px;
-    padding-right: var(--base-size-8);
-    /* stylelint-disable-next-line primer/spacing */
-    padding-bottom: 3px;
-    padding-left: var(--base-size-8);
-    /* stylelint-disable-next-line declaration-property-value-no-unknown */
-    font-size: (--text-body-size-small);
-    /* stylelint-disable-next-line primer/typography */
-    line-height: var(--base-size-20);
-  }
+    &:where([data-block]) {
+      display: flex;
+      width: 100%;
+      align-self: stretch;
+    }
 
-  /* Deprecated */
-  &:where([data-variant='large']) {
-    /* stylelint-disable-next-line primer/spacing */
-    padding-top: 10px;
-    padding-right: var(--base-size-8);
-    /* stylelint-disable-next-line primer/spacing */
-    padding-bottom: 10px;
-    padding-left: var(--base-size-8);
-    font-size: var(--text-title-size-medium);
-  }
-}
+    /* Ensures inputs don't zoom on mobile but are body-font size on desktop */
+    @media screen and (--viewportRange-regular) {
+      font-size: var(--text-body-size-medium);
+    }
 
-.TextInputWrapper {
-  padding-right: 0;
-  padding-left: 0;
+    --inner-action-size: var(--base-size-24); /* Default size */
 
-  > input,
-  > select {
-    padding-right: 0;
-    padding-left: 0;
-  }
+    &:where([data-size='small']) {
+      --inner-action-size: var(--base-size-20);
 
-  /* Repeat and position set for form states (success, error, etc) */
-  background-repeat: no-repeat;
-
-  /* For form validation. This keeps images 8px from right and centered vertically. */
-  background-position: right 8px center;
-
-  & > :not(:last-child) {
-    margin-right: var(--base-size-8);
-  }
-
-  & :global(.TextInput-icon) /* stylelint-disable-line selector-class-pattern */,
-  & :global(.TextInput-action)  /* stylelint-disable-line selector-class-pattern */ {
-    align-self: center;
-    color: var(--fgColor-muted);
-    flex-shrink: 0;
-  }
-
-  /* With leading visual */
-  &:where([data-leading-visual]) {
-    padding-left: var(--base-size-8);
-  }
-
-  /* With trailing visual */
-  &:where([data-trailing-visual]:not([data-trailing-action])) {
-    padding-right: var(--base-size-8);
-  }
-
-  /* Only trailing visual */
-  &:where(:not([data-leading-visual])[data-trailing-visual]),
-  &:where(:not([data-leading-visual])[data-trailing-action]) {
-    > input,
-    > select {
+      min-height: var(--base-size-28);
+      /* stylelint-disable-next-line primer/spacing */
+      padding-top: 3px;
+      padding-right: var(--base-size-8);
+      /* stylelint-disable-next-line primer/spacing */
+      padding-bottom: 3px;
       padding-left: var(--base-size-8);
+      font-size: var(--text-body-size-small);
+      /* stylelint-disable-next-line primer/typography */
+      line-height: var(--base-size-20);
+    }
+
+    &:where([data-size='large']) {
+      --inner-action-size: var(--base-size-28);
+
+      height: var(--base-size-40);
+      /* stylelint-disable-next-line primer/spacing */
+      padding-top: 10px;
+      padding-right: var(--base-size-8);
+      /* stylelint-disable-next-line primer/spacing */
+      padding-bottom: 10px;
+      padding-left: var(--base-size-8);
+    }
+
+    /* Deprecated */
+    &:where([data-variant='small']) {
+      min-height: 28px;
+      /* stylelint-disable-next-line primer/spacing */
+      padding-top: 3px;
+      padding-right: var(--base-size-8);
+      /* stylelint-disable-next-line primer/spacing */
+      padding-bottom: 3px;
+      padding-left: var(--base-size-8);
+      /* stylelint-disable-next-line declaration-property-value-no-unknown */
+      font-size: (--text-body-size-small);
+      /* stylelint-disable-next-line primer/typography */
+      line-height: var(--base-size-20);
+    }
+
+    /* Deprecated */
+    &:where([data-variant='large']) {
+      /* stylelint-disable-next-line primer/spacing */
+      padding-top: 10px;
+      padding-right: var(--base-size-8);
+      /* stylelint-disable-next-line primer/spacing */
+      padding-bottom: 10px;
+      padding-left: var(--base-size-8);
+      font-size: var(--text-title-size-medium);
     }
   }
 
-  /* Only leading visual */
-  &:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
-  &:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
-    padding-right: var(--base-size-8);
+  .TextInputWrapper {
+    padding-right: 0;
+    padding-left: 0;
+
+    > input,
+    > select {
+      padding-right: 0;
+      padding-left: 0;
+    }
+
+    /* Repeat and position set for form states (success, error, etc) */
+    background-repeat: no-repeat;
+
+    /* For form validation. This keeps images 8px from right and centered vertically. */
+    background-position: right 8px center;
+
+    & > :not(:last-child) {
+      margin-right: var(--base-size-8);
+    }
+
+    & :global(.TextInput-icon) /* stylelint-disable-line selector-class-pattern */,
+  & :global(.TextInput-action)  /* stylelint-disable-line selector-class-pattern */ {
+      align-self: center;
+      color: var(--fgColor-muted);
+      flex-shrink: 0;
+    }
+
+    /* With leading visual */
+    &:where([data-leading-visual]) {
+      padding-left: var(--base-size-8);
+    }
+
+    /* With trailing visual */
+    &:where([data-trailing-visual]:not([data-trailing-action])) {
+      padding-right: var(--base-size-8);
+    }
+
+    /* Only trailing visual */
+    &:where(:not([data-leading-visual])[data-trailing-visual]),
+    &:where(:not([data-leading-visual])[data-trailing-action]) {
+      > input,
+      > select {
+        padding-left: var(--base-size-8);
+      }
+    }
+
+    /* Only leading visual */
+    &:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+    &:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+      padding-right: var(--base-size-8);
+    }
+
+    /* No visuals at all */
+    &:where(:not([data-leading-visual]):not([data-trailing-visual]):not([data-trailing-action])) > input,
+    &:where(:not([data-leading-visual]):not([data-trailing-visual]):not([data-trailing-action])) > select {
+      padding-left: var(--base-size-12);
+      padding-right: var(--base-size-12);
+    }
   }
 
-  /* No visuals at all */
-  &:where(:not([data-leading-visual]):not([data-trailing-visual]):not([data-trailing-action])) > input,
-  &:where(:not([data-leading-visual]):not([data-trailing-visual]):not([data-trailing-action])) > select {
-    padding-left: var(--base-size-12);
-    padding-right: var(--base-size-12);
-  }
-}
+  /* Large size input */
+  .TextInputWrapper:where([data-size='large']) {
+    &:where([data-leading-visual]) {
+      padding-left: var(--base-size-12);
+    }
 
-/* Large size input */
-.TextInputWrapper:where([data-size='large']) {
-  &:where([data-leading-visual]) {
-    padding-left: var(--base-size-12);
-  }
-
-  &:where([data-trailing-visual]:not([data-trailing-action])) {
-    padding-right: var(--base-size-12);
+    &:where([data-trailing-visual]:not([data-trailing-action])) {
+      padding-right: var(--base-size-12);
+    }
   }
 }

@@ -1,156 +1,158 @@
-.UnderlineWrapper {
-  display: flex;
-  /* stylelint-disable-next-line primer/spacing */
-  padding-inline: var(--stack-padding-normal);
-  justify-content: flex-start;
-  align-items: center;
-
-  /* make space for the underline */
-  min-height: var(--control-xlarge-size, 48px);
-
-  /* using a box-shadow instead of a border to accommodate 'overflow-y: hidden' on UnderlinePanels */
-  /* stylelint-disable-next-line primer/box-shadow */
-  box-shadow: inset 0 -1px var(--borderColor-muted);
-
-  &[data-variant='flush'] {
+@layer primer.components.UnderlineTabbedInterface {
+  .UnderlineWrapper {
+    display: flex;
     /* stylelint-disable-next-line primer/spacing */
-    padding-inline: unset;
-  }
-}
+    padding-inline: var(--stack-padding-normal);
+    justify-content: flex-start;
+    align-items: center;
 
-.UnderlineItemList {
-  position: relative;
-  display: flex;
-  padding: 0;
-  margin: 0;
-  white-space: nowrap;
-  list-style: none;
-  align-items: center;
-  gap: 8px;
-}
+    /* make space for the underline */
+    min-height: var(--control-xlarge-size, 48px);
 
-.UnderlineItem {
-  /* underline tab specific styles */
-  position: relative;
-  display: inline-flex;
-  font: inherit;
-  font-size: var(--text-body-size-medium);
-  line-height: var(--text-body-lineHeight-medium, 1.4285);
-  color: var(--fgColor-default);
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  background-color: transparent;
-  border: 0;
-  border-radius: var(--borderRadius-medium, var(--borderRadius-small));
+    /* using a box-shadow instead of a border to accommodate 'overflow-y: hidden' on UnderlinePanels */
+    /* stylelint-disable-next-line primer/box-shadow */
+    box-shadow: inset 0 -1px var(--borderColor-muted);
 
-  /* button resets */
-  appearance: none;
-  padding-inline: var(--base-size-8);
-  padding-block: var(--base-size-6);
-  align-items: center;
-
-  @media (hover: hover) {
-    &:hover {
-      text-decoration: none;
-      background-color: var(--bgColor-neutral-muted);
-      transition: background-color 0.12s ease-out;
+    &[data-variant='flush'] {
+      /* stylelint-disable-next-line primer/spacing */
+      padding-inline: unset;
     }
   }
-}
 
-.UnderlineItem:focus {
-  outline: 2px solid transparent;
-  /* stylelint-disable-next-line primer/box-shadow */
-  box-shadow: inset 0 0 0 2px var(--fgColor-accent);
-
-  /* where focus-visible is supported, remove the focus box-shadow */
-  &:not(:focus-visible) {
-    box-shadow: none;
-  }
-}
-
-.UnderlineItem:focus-visible {
-  outline: 2px solid transparent;
-  /* stylelint-disable-next-line primer/box-shadow */
-  box-shadow: inset 0 0 0 2px var(--fgColor-accent);
-}
-
-/* renders a visibly hidden "copy" of the label in bold, reserving box space for when label becomes bold on selected */
-.UnderlineItem [data-content]::before {
-  display: block;
-  height: 0;
-  font-weight: var(--base-text-weight-semibold);
-  white-space: nowrap;
-  visibility: hidden;
-  content: attr(data-content);
-}
-
-.UnderlineItem [data-component='icon'] {
-  display: inline-flex;
-  color: var(--fgColor-muted);
-  align-items: center;
-  margin-inline-end: var(--base-size-8);
-}
-
-.UnderlineItem [data-component='counter'] {
-  margin-inline-start: var(--base-size-8);
-  display: flex;
-  align-items: center;
-}
-
-.UnderlineItem::after {
-  position: absolute;
-  right: 50%;
-
-  /* TODO: see if we can simplify this positioning */
-
-  /* 48px total height / 2 (24px) + 1px */
-  /* stylelint-disable-next-line primer/spacing */
-  bottom: calc(50% - calc(var(--control-xlarge-size, var(--base-size-48)) / 2 + 1px));
-  width: 100%;
-  height: 2px;
-  pointer-events: none;
-  content: '';
-  background-color: transparent;
-  border-radius: 0;
-  transform: translate(50%, -50%);
-}
-
-.UnderlineItem[aria-current]:not([aria-current='false']) [data-component='text'],
-.UnderlineItem[aria-selected='true'] [data-component='text'] {
-  font-weight: var(--base-text-weight-semibold);
-}
-
-.UnderlineItem[aria-current]:not([aria-current='false'])::after,
-.UnderlineItem[aria-selected='true']::after {
-  /* stylelint-disable-next-line primer/colors */
-  background-color: var(--underlineNav-borderColor-active, var(--color-primer-border-active, #fd8c73));
-
-  @media (forced-colors: active) {
-    /* Support for Window Force Color Mode https://learn.microsoft.com/en-us/fluent-ui/web-components/design-system/high-contrast */
-    background-color: LinkText;
-  }
-}
-
-.LoadingCounter {
-  display: inline-block;
-  width: 1.5rem;
-  height: 1rem;
-  /* 16px */
-  background-color: var(--bgColor-neutral-muted);
-  border-color: var(--borderColor-default);
-  /* stylelint-disable-next-line primer/borders */
-  border-radius: 20px;
-  animation: loadingCounterKeyFrames 1.2s ease-in-out infinite alternate;
-}
-
-@keyframes loadingCounterKeyFrames {
-  from {
-    opacity: 1;
+  .UnderlineItemList {
+    position: relative;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    white-space: nowrap;
+    list-style: none;
+    align-items: center;
+    gap: 8px;
   }
 
-  to {
-    opacity: 0.2;
+  .UnderlineItem {
+    /* underline tab specific styles */
+    position: relative;
+    display: inline-flex;
+    font: inherit;
+    font-size: var(--text-body-size-medium);
+    line-height: var(--text-body-lineHeight-medium, 1.4285);
+    color: var(--fgColor-default);
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: transparent;
+    border: 0;
+    border-radius: var(--borderRadius-medium, var(--borderRadius-small));
+
+    /* button resets */
+    appearance: none;
+    padding-inline: var(--base-size-8);
+    padding-block: var(--base-size-6);
+    align-items: center;
+
+    @media (hover: hover) {
+      &:hover {
+        text-decoration: none;
+        background-color: var(--bgColor-neutral-muted);
+        transition: background-color 0.12s ease-out;
+      }
+    }
+  }
+
+  .UnderlineItem:focus {
+    outline: 2px solid transparent;
+    /* stylelint-disable-next-line primer/box-shadow */
+    box-shadow: inset 0 0 0 2px var(--fgColor-accent);
+
+    /* where focus-visible is supported, remove the focus box-shadow */
+    &:not(:focus-visible) {
+      box-shadow: none;
+    }
+  }
+
+  .UnderlineItem:focus-visible {
+    outline: 2px solid transparent;
+    /* stylelint-disable-next-line primer/box-shadow */
+    box-shadow: inset 0 0 0 2px var(--fgColor-accent);
+  }
+
+  /* renders a visibly hidden "copy" of the label in bold, reserving box space for when label becomes bold on selected */
+  .UnderlineItem [data-content]::before {
+    display: block;
+    height: 0;
+    font-weight: var(--base-text-weight-semibold);
+    white-space: nowrap;
+    visibility: hidden;
+    content: attr(data-content);
+  }
+
+  .UnderlineItem [data-component='icon'] {
+    display: inline-flex;
+    color: var(--fgColor-muted);
+    align-items: center;
+    margin-inline-end: var(--base-size-8);
+  }
+
+  .UnderlineItem [data-component='counter'] {
+    margin-inline-start: var(--base-size-8);
+    display: flex;
+    align-items: center;
+  }
+
+  .UnderlineItem::after {
+    position: absolute;
+    right: 50%;
+
+    /* TODO: see if we can simplify this positioning */
+
+    /* 48px total height / 2 (24px) + 1px */
+    /* stylelint-disable-next-line primer/spacing */
+    bottom: calc(50% - calc(var(--control-xlarge-size, var(--base-size-48)) / 2 + 1px));
+    width: 100%;
+    height: 2px;
+    pointer-events: none;
+    content: '';
+    background-color: transparent;
+    border-radius: 0;
+    transform: translate(50%, -50%);
+  }
+
+  .UnderlineItem[aria-current]:not([aria-current='false']) [data-component='text'],
+  .UnderlineItem[aria-selected='true'] [data-component='text'] {
+    font-weight: var(--base-text-weight-semibold);
+  }
+
+  .UnderlineItem[aria-current]:not([aria-current='false'])::after,
+  .UnderlineItem[aria-selected='true']::after {
+    /* stylelint-disable-next-line primer/colors */
+    background-color: var(--underlineNav-borderColor-active, var(--color-primer-border-active, #fd8c73));
+
+    @media (forced-colors: active) {
+      /* Support for Window Force Color Mode https://learn.microsoft.com/en-us/fluent-ui/web-components/design-system/high-contrast */
+      background-color: LinkText;
+    }
+  }
+
+  .LoadingCounter {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1rem;
+    /* 16px */
+    background-color: var(--bgColor-neutral-muted);
+    border-color: var(--borderColor-default);
+    /* stylelint-disable-next-line primer/borders */
+    border-radius: 20px;
+    animation: loadingCounterKeyFrames 1.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes loadingCounterKeyFrames {
+    from {
+      opacity: 1;
+    }
+
+    to {
+      opacity: 0.2;
+    }
   }
 }

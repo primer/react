@@ -1,8 +1,10 @@
-.ScrollableRegion {
-  /* When setting overflow, we also set `position: relative` to avoid
+@layer primer.components.ScrollableRegion {
+  .ScrollableRegion {
+    /* When setting overflow, we also set `position: relative` to avoid
   *  `position: absolute` items breaking out of the container and causing
   *  scrollbars on the page. This can occur with common classes like `sr-only`
   *  and can cause difficult to track down layout issues */
-  position: relative;
-  overflow: auto;
+    position: relative;
+    overflow: auto;
+  }
 }

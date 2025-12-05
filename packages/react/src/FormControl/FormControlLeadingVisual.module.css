@@ -1,21 +1,23 @@
-.LeadingVisual {
-  --leadingVisual-size: 16px;
+@layer primer.components.FormControlLeadingVisual {
+  .LeadingVisual {
+    --leadingVisual-size: 16px;
 
-  color: var(--fgColor-default);
-  display: flex;
-  align-items: center;
+    color: var(--fgColor-default);
+    display: flex;
+    align-items: center;
 
-  &:where([data-control-disabled]) {
-    color: var(--control-fgColor-disabled);
-  }
+    &:where([data-control-disabled]) {
+      color: var(--control-fgColor-disabled);
+    }
 
-  & > * {
-    min-width: var(--leadingVisual-size);
-    min-height: var(--leadingVisual-size);
-    fill: currentColor;
-  }
+    & > * {
+      min-width: var(--leadingVisual-size);
+      min-height: var(--leadingVisual-size);
+      fill: currentColor;
+    }
 
-  &:where([data-has-caption]) {
-    --leadingVisual-size: 24px;
+    &:where([data-has-caption]) {
+      --leadingVisual-size: 24px;
+    }
   }
 }

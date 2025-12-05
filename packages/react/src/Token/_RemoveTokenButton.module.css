@@ -1,48 +1,50 @@
-.TokenButton {
-  display: inline-flex;
-  padding: 0;
-  margin-left: var(--base-size-4);
-  font-family: inherit;
-  color: currentColor;
-  text-decoration: none;
-  cursor: pointer;
-  user-select: none;
-  background-color: transparent;
-  border: 0;
-  border-radius: var(--borderRadius-full);
-  justify-content: center;
-  align-items: center;
-  appearance: none;
-  align-self: baseline;
-}
+@layer primer.components.RemoveTokenButton {
+  .TokenButton {
+    display: inline-flex;
+    padding: 0;
+    margin-left: var(--base-size-4);
+    font-family: inherit;
+    color: currentColor;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    background-color: transparent;
+    border: 0;
+    border-radius: var(--borderRadius-full);
+    justify-content: center;
+    align-items: center;
+    appearance: none;
+    align-self: baseline;
+  }
 
-.TokenButton[data-size='small'] {
-  width: var(--base-size-16);
-  height: var(--base-size-16);
-}
+  .TokenButton[data-size='small'] {
+    width: var(--base-size-16);
+    height: var(--base-size-16);
+  }
 
-.TokenButton[data-size='medium'] {
-  width: var(--base-size-20);
-  height: var(--base-size-20);
-}
+  .TokenButton[data-size='medium'] {
+    width: var(--base-size-20);
+    height: var(--base-size-20);
+  }
 
-.TokenButton[data-size='large'] {
-  width: var(--base-size-24);
-  height: var(--base-size-24);
-  margin-left: var(--base-size-6);
-}
+  .TokenButton[data-size='large'] {
+    width: var(--base-size-24);
+    height: var(--base-size-24);
+    margin-left: var(--base-size-6);
+  }
 
-.TokenButton[data-size='xlarge'] {
-  width: var(--base-size-32);
-  height: var(--base-size-32);
-  margin-left: var(--base-size-6);
-}
+  .TokenButton[data-size='xlarge'] {
+    width: var(--base-size-32);
+    height: var(--base-size-32);
+    margin-left: var(--base-size-6);
+  }
 
-.TokenButton:hover,
-.TokenButton:focus {
-  background-color: var(--control-transparent-bgColor-hover);
-}
+  .TokenButton:hover,
+  .TokenButton:focus {
+    background-color: var(--control-transparent-bgColor-hover);
+  }
 
-.TokenButton:active {
-  background-color: var(--control-transparent-bgColor-active);
+  .TokenButton:active {
+    background-color: var(--control-transparent-bgColor-active);
+  }
 }

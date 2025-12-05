@@ -1,253 +1,257 @@
-/* stylelint-disable selector-max-specificity */
-.DividedContent {
-  display: flex;
-  min-width: 0;
+@layer primer.components.Item {
+  /* stylelint-disable selector-max-specificity */
+  .DividedContent {
+    display: flex;
+    min-width: 0;
 
-  /* Required for dividers */
-  position: relative;
-  flex-grow: 1;
-}
-
-.MainContent {
-  align-items: baseline;
-  display: flex;
-  min-width: 0;
-  flex-direction: var(--main-content-flex-direction);
-  flex-grow: 1;
-}
-
-.Item {
-  /* 6px vertical padding + 20px line height = 32px total height */
-  /* stylelint-disable-next-line primer/spacing */
-  padding: 6px var(--base-size-8);
-  display: flex;
-  border-radius: var(--borderRadius-medium);
-  color: var(--fgColor-default);
-  /* 2 frames on a 60hz monitor */
-  transition: background 33.333ms linear;
-  text-decoration: none;
-}
-
-.Item--danger {
-  color: var(--fgColor-danger);
-}
-
-.Item--disabled {
-  color: var(--fgColor-disabled);
-  cursor: default;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .Item:hover {
-    /* allow override in case another item in the list is active/focused */
-    background: var(--item-hover-bg-override, var(--bgColor-muted));
-    cursor: pointer;
+    /* Required for dividers */
+    position: relative;
+    flex-grow: 1;
   }
 
-  .Item--danger:hover {
-    background: var(--item-hover-bg-override, var(--bgColor-danger-muted));
+  .MainContent {
+    align-items: baseline;
+    display: flex;
+    min-width: 0;
+    flex-direction: var(--main-content-flex-direction);
+    flex-grow: 1;
+  }
+
+  .Item {
+    /* 6px vertical padding + 20px line height = 32px total height */
+    /* stylelint-disable-next-line primer/spacing */
+    padding: 6px var(--base-size-8);
+    display: flex;
+    border-radius: var(--borderRadius-medium);
+    color: var(--fgColor-default);
+    /* 2 frames on a 60hz monitor */
+    transition: background 33.333ms linear;
+    text-decoration: none;
+  }
+
+  .Item--danger {
     color: var(--fgColor-danger);
   }
 
-  .Item--disabled:hover {
-    background: transparent;
+  .Item--disabled {
+    color: var(--fgColor-disabled);
     cursor: default;
   }
-}
 
-/* Item dividers */
-.Item:not(:first-of-type):not([data-component='ActionList.Divider'] + *):not([data-component='ActionList.Header'] + *) {
-  margin-top: 0;
+  @media (hover: hover) and (pointer: fine) {
+    .Item:hover {
+      /* allow override in case another item in the list is active/focused */
+      background: var(--item-hover-bg-override, var(--bgColor-muted));
+      cursor: pointer;
+    }
+
+    .Item--danger:hover {
+      background: var(--item-hover-bg-override, var(--bgColor-danger-muted));
+      color: var(--fgColor-danger);
+    }
+
+    .Item--disabled:hover {
+      background: transparent;
+      cursor: default;
+    }
+  }
+
+  /* Item dividers */
+  .Item:not(:first-of-type):not([data-component='ActionList.Divider'] + *):not(
+      [data-component='ActionList.Header'] + *
+    ) {
+    margin-top: 0;
+
+    :where([data-divider]) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-top: 1px;
+    }
+  }
+
+  .Item:not(:first-of-type):not([data-component='ActionList.Divider'] + *):not([data-component='ActionList.Header'] + *)
+    .DividedContent::before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    width: 100%;
+    /* stylelint-disable-next-line primer/spacing */
+    top: -7px;
+    border: 0 solid var(--borderColor-muted);
+    border-top-width: 0;
+  }
 
   :where([data-divider]) {
+    .DividedContent::before {
+      /* stylelint-disable-next-line primer/borders */
+      border-top-width: 1px;
+    }
+  }
+
+  /* Item dividers should not be visible above/below hovered items */
+  .Item:hover .DividedContent::before,
+  :hover + .Item .DividedContent::before {
+    /* allow override in case another item in the list is active/focused */
+    /* stylelint-disable-next-line primer/colors */
+    border-color: var(--item-hover-divider-border-color-override, transparent) !important;
+  }
+
+  /* Item dividers should not be visible above/below focused items */
+  .Item:focus .DividedContent::before,
+  :focus + .Item .DividedContent::before,
+  .Item[data-is-active-descendant] .DividedContent::before,
+  [data-active-descendant] + .Item .DividedContent::before {
+    /* !important because all the :not's above give higher specificity */
+    border-color: transparent !important;
+  }
+
+  /* Active Descendant */
+  .Item[data-is-active-descendant='activated-directly'] {
+    background: var(--bgColor-accent-muted);
+  }
+
+  .Item[data-is-active-descendant='activated-indirectly'] {
+    background: var(--bgColor-muted);
+  }
+
+  .Item:focus {
+    background: var(--bgColor-accent-muted);
+    outline: none;
+  }
+
+  .Item:active {
+    background: var(--bgColor-accent-muted);
+  }
+
+  .MainContent--inline {
+    flex-direction: row;
+  }
+
+  .MainContent--block {
+    flex-direction: column;
+  }
+
+  .BaseVisualContainer {
+    /* Match visual height to adjacent text line height. */
+    height: 20px;
+    width: var(--base-size-16);
+    margin-right: var(--base-size-8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .LeadingVisualContainer {
+    /* Match visual height to adjacent text line height. */
+    height: 20px;
+    width: var(--base-size-16);
+    margin-right: var(--base-size-8);
+    align-items: center;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .LeadingVisualContainer svg {
+    fill: var(--fgColor-muted);
+    font-size: var(--text-body-size-small);
+  }
+
+  .LeadingVisualContainer:where([data-variant='danger']) svg {
+    fill: var(--fgColor-danger);
+  }
+
+  .LeadingVisualContainer:where([data-disabled]) svg {
+    fill: var(--fgColor-disabled);
+  }
+
+  .TrailingContent {
+    /* Match visual height to adjacent text line height. */
+    color: var(--fgColor-muted);
+    height: 20px;
+    width: auto;
+    margin-left: var(--base-size-8);
+    margin-right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .TrailingContent:where([data-variant='danger']) {
+    color: var(--fgColor-muted);
+  }
+
+  .TrailingContent:where([data-disabled]) {
+    color: var(--fgColor-disabled);
+  }
+
+  .TrailingContent div:nth-child(2) {
+    margin-left: var(--base-size-8);
+  }
+
+  .TrailingContent svg {
+    fill: var(--fgColor-muted);
+    font-size: var(--text-body-size-small);
+  }
+
+  .TrailingContent:where([data-variant='danger']) svg {
+    fill: var(--fgColor-danger);
+  }
+
+  .TrailingContent:where([data-disabled]) svg {
+    fill: var(--fgColor-disabled);
+  }
+
+  .DescriptionContainer {
+    color: var(--fgColor-muted);
+    font-size: var(--text-body-size-small);
+    /* stylelint-disable-next-line primer/typography */
+    line-height: 16px;
+    min-width: 0;
+    flex-grow: 1;
+    /* stylelint-disable-next-line primer/spacing */
+    margin-left: var(--description-container-margin-left);
+    flex-basis: var(--description-container-flex-basis);
+  }
+
+  .MultiSelectIcon {
+    color: var(--fgColor-muted);
+  }
+
+  .MultiSelectIcon rect {
+    fill: var(--bgColor-default);
+    stroke: var(--borderColor-default);
+    shape-rendering: auto; /* this is a workaround to override global style in github/github, see primer/react#1666 */
+  }
+
+  .MultiSelectIcon path {
+    fill: var(--fgColor-onEmphasis);
+    box-shadow: var(--shadow-resting-small);
+    opacity: 0;
+  }
+
+  .MultiSelectIcon:where([data-selected]) rect {
+    fill: var(--bgColor-accent-emphasis);
+    stroke: var(--bgColor-accent-emphasis);
+  }
+
+  .MultiSelectIcon:where([data-selected]) path {
+    opacity: 1;
+  }
+
+  .Item[data-divider]:not(:first-of-type):not([data-component='ActionList.Divider'] + .Item):not(
+      [data-component='ActionList.Header'] + .Item
+    )
+    .DividedContent::before {
+    border-top-width: var(--borderWidth-thin);
+  }
+
+  .Item[data-divider]:not(:first-of-type):not([data-component='ActionList.Divider'] + .Item):not(
+      [data-component='ActionList.Header'] + .Item
+    ) {
     /* stylelint-disable-next-line primer/spacing */
     margin-top: 1px;
   }
-}
-
-.Item:not(:first-of-type):not([data-component='ActionList.Divider'] + *):not([data-component='ActionList.Header'] + *)
-  .DividedContent::before {
-  content: ' ';
-  display: block;
-  position: absolute;
-  width: 100%;
-  /* stylelint-disable-next-line primer/spacing */
-  top: -7px;
-  border: 0 solid var(--borderColor-muted);
-  border-top-width: 0;
-}
-
-:where([data-divider]) {
-  .DividedContent::before {
-    /* stylelint-disable-next-line primer/borders */
-    border-top-width: 1px;
-  }
-}
-
-/* Item dividers should not be visible above/below hovered items */
-.Item:hover .DividedContent::before,
-:hover + .Item .DividedContent::before {
-  /* allow override in case another item in the list is active/focused */
-  /* stylelint-disable-next-line primer/colors */
-  border-color: var(--item-hover-divider-border-color-override, transparent) !important;
-}
-
-/* Item dividers should not be visible above/below focused items */
-.Item:focus .DividedContent::before,
-:focus + .Item .DividedContent::before,
-.Item[data-is-active-descendant] .DividedContent::before,
-[data-active-descendant] + .Item .DividedContent::before {
-  /* !important because all the :not's above give higher specificity */
-  border-color: transparent !important;
-}
-
-/* Active Descendant */
-.Item[data-is-active-descendant='activated-directly'] {
-  background: var(--bgColor-accent-muted);
-}
-
-.Item[data-is-active-descendant='activated-indirectly'] {
-  background: var(--bgColor-muted);
-}
-
-.Item:focus {
-  background: var(--bgColor-accent-muted);
-  outline: none;
-}
-
-.Item:active {
-  background: var(--bgColor-accent-muted);
-}
-
-.MainContent--inline {
-  flex-direction: row;
-}
-
-.MainContent--block {
-  flex-direction: column;
-}
-
-.BaseVisualContainer {
-  /* Match visual height to adjacent text line height. */
-  height: 20px;
-  width: var(--base-size-16);
-  margin-right: var(--base-size-8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-.LeadingVisualContainer {
-  /* Match visual height to adjacent text line height. */
-  height: 20px;
-  width: var(--base-size-16);
-  margin-right: var(--base-size-8);
-  align-items: center;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.LeadingVisualContainer svg {
-  fill: var(--fgColor-muted);
-  font-size: var(--text-body-size-small);
-}
-
-.LeadingVisualContainer:where([data-variant='danger']) svg {
-  fill: var(--fgColor-danger);
-}
-
-.LeadingVisualContainer:where([data-disabled]) svg {
-  fill: var(--fgColor-disabled);
-}
-
-.TrailingContent {
-  /* Match visual height to adjacent text line height. */
-  color: var(--fgColor-muted);
-  height: 20px;
-  width: auto;
-  margin-left: var(--base-size-8);
-  margin-right: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-.TrailingContent:where([data-variant='danger']) {
-  color: var(--fgColor-muted);
-}
-
-.TrailingContent:where([data-disabled]) {
-  color: var(--fgColor-disabled);
-}
-
-.TrailingContent div:nth-child(2) {
-  margin-left: var(--base-size-8);
-}
-
-.TrailingContent svg {
-  fill: var(--fgColor-muted);
-  font-size: var(--text-body-size-small);
-}
-
-.TrailingContent:where([data-variant='danger']) svg {
-  fill: var(--fgColor-danger);
-}
-
-.TrailingContent:where([data-disabled]) svg {
-  fill: var(--fgColor-disabled);
-}
-
-.DescriptionContainer {
-  color: var(--fgColor-muted);
-  font-size: var(--text-body-size-small);
-  /* stylelint-disable-next-line primer/typography */
-  line-height: 16px;
-  min-width: 0;
-  flex-grow: 1;
-  /* stylelint-disable-next-line primer/spacing */
-  margin-left: var(--description-container-margin-left);
-  flex-basis: var(--description-container-flex-basis);
-}
-
-.MultiSelectIcon {
-  color: var(--fgColor-muted);
-}
-
-.MultiSelectIcon rect {
-  fill: var(--bgColor-default);
-  stroke: var(--borderColor-default);
-  shape-rendering: auto; /* this is a workaround to override global style in github/github, see primer/react#1666 */
-}
-
-.MultiSelectIcon path {
-  fill: var(--fgColor-onEmphasis);
-  box-shadow: var(--shadow-resting-small);
-  opacity: 0;
-}
-
-.MultiSelectIcon:where([data-selected]) rect {
-  fill: var(--bgColor-accent-emphasis);
-  stroke: var(--bgColor-accent-emphasis);
-}
-
-.MultiSelectIcon:where([data-selected]) path {
-  opacity: 1;
-}
-
-.Item[data-divider]:not(:first-of-type):not([data-component='ActionList.Divider'] + .Item):not(
-    [data-component='ActionList.Header'] + .Item
-  )
-  .DividedContent::before {
-  border-top-width: var(--borderWidth-thin);
-}
-
-.Item[data-divider]:not(:first-of-type):not([data-component='ActionList.Divider'] + .Item):not(
-    [data-component='ActionList.Header'] + .Item
-  ) {
-  /* stylelint-disable-next-line primer/spacing */
-  margin-top: 1px;
 }

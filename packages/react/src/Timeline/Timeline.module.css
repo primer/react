@@ -1,111 +1,113 @@
-.Timeline {
-  display: flex;
-  flex-direction: column;
+@layer primer.components.Timeline {
+  .Timeline {
+    display: flex;
+    flex-direction: column;
 
-  &:where([data-clip-sidebar]) {
-    .TimelineItem:first-child {
-      padding-top: 0;
+    &:where([data-clip-sidebar]) {
+      .TimelineItem:first-child {
+        padding-top: 0;
 
-      &:where([data-condensed])::before {
-        top: var(--base-size-12);
+        &:where([data-condensed])::before {
+          top: var(--base-size-12);
+        }
+      }
+
+      .TimelineItem:last-child {
+        padding-bottom: 0;
+
+        &:where([data-condensed])::before {
+          height: var(--base-size-12);
+        }
       }
     }
+  }
 
-    .TimelineItem:last-child {
+  .TimelineItem {
+    position: relative;
+    display: flex;
+    padding: var(--base-size-16) 0;
+    margin-left: var(--base-size-16);
+
+    &::before {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      display: block;
+      width: 2px;
+      content: '';
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--borderColor-muted);
+    }
+
+    &:where([data-condensed]) {
+      padding-top: var(--base-size-4);
       padding-bottom: 0;
 
-      &:where([data-condensed])::before {
-        height: var(--base-size-12);
+      &:last-child {
+        padding-bottom: var(--base-size-16);
+      }
+
+      .TimelineBadge {
+        height: 16px;
+        margin-top: var(--base-size-8);
+        margin-bottom: var(--base-size-8);
+        color: var(--fgColor-muted);
+        background-color: var(--bgColor-default);
+        border: 0;
       }
     }
   }
-}
 
-.TimelineItem {
-  position: relative;
-  display: flex;
-  padding: var(--base-size-16) 0;
-  margin-left: var(--base-size-16);
+  .TimelineBadgeWrapper {
+    position: relative;
+    z-index: 1;
+  }
 
-  &::before {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    display: block;
-    width: 2px;
-    content: '';
+  .TimelineBadge {
+    display: flex;
+    width: 32px;
+    height: 32px;
+    margin-right: var(--base-size-8);
+    /* stylelint-disable-next-line primer/spacing */
+    margin-left: -15px;
+    flex-shrink: 0;
+    overflow: hidden;
+    color: var(--fgColor-muted);
+
+    /* TODOl not quite sure if this is the correct migration for this line */
+    background-color: var(--timelineBadge-bgColor);
     /* stylelint-disable-next-line primer/colors */
-    background-color: var(--borderColor-muted);
+    border-color: var(--bgColor-default);
+    border-style: solid;
+    border-width: var(--borderWidth-thick);
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
   }
 
-  &:where([data-condensed]) {
-    padding-top: var(--base-size-4);
-    padding-bottom: 0;
-
-    &:last-child {
-      padding-bottom: var(--base-size-16);
-    }
-
-    .TimelineBadge {
-      height: 16px;
-      margin-top: var(--base-size-8);
-      margin-bottom: var(--base-size-8);
-      color: var(--fgColor-muted);
-      background-color: var(--bgColor-default);
-      border: 0;
-    }
+  .TimelineBody {
+    min-width: 0;
+    max-width: 100%;
+    margin-top: var(--base-size-4);
+    font-size: var(--text-body-size-medium);
+    color: var(--fgColor-muted);
+    flex: auto;
   }
-}
 
-.TimelineBadgeWrapper {
-  position: relative;
-  z-index: 1;
-}
+  .TimelineBreak {
+    position: relative;
+    z-index: 1;
+    height: var(--base-size-24);
+    margin: 0;
+    margin-bottom: calc(-1 * var(--base-size-16));
+    margin-left: 0;
+    background-color: var(--bgColor-default);
+    border: 0;
+    border-top: var(--borderWidth-thicker) solid var(--borderColor-default);
 
-.TimelineBadge {
-  display: flex;
-  width: 32px;
-  height: 32px;
-  margin-right: var(--base-size-8);
-  /* stylelint-disable-next-line primer/spacing */
-  margin-left: -15px;
-  flex-shrink: 0;
-  overflow: hidden;
-  color: var(--fgColor-muted);
-
-  /* TODOl not quite sure if this is the correct migration for this line */
-  background-color: var(--timelineBadge-bgColor);
-  /* stylelint-disable-next-line primer/colors */
-  border-color: var(--bgColor-default);
-  border-style: solid;
-  border-width: var(--borderWidth-thick);
-  border-radius: 50%;
-  align-items: center;
-  justify-content: center;
-}
-
-.TimelineBody {
-  min-width: 0;
-  max-width: 100%;
-  margin-top: var(--base-size-4);
-  font-size: var(--text-body-size-medium);
-  color: var(--fgColor-muted);
-  flex: auto;
-}
-
-.TimelineBreak {
-  position: relative;
-  z-index: 1;
-  height: var(--base-size-24);
-  margin: 0;
-  margin-bottom: calc(-1 * var(--base-size-16));
-  margin-left: 0;
-  background-color: var(--bgColor-default);
-  border: 0;
-  border-top: var(--borderWidth-thicker) solid var(--borderColor-default);
-
-  &:has(+ [data-condensed]) {
-    margin-bottom: calc(-1 * var(--base-size-12));
+    &:has(+ [data-condensed]) {
+      margin-bottom: calc(-1 * var(--base-size-12));
+    }
   }
 }

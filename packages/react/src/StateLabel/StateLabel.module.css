@@ -1,104 +1,106 @@
-.StateLabel {
-  display: inline-flex;
-  align-items: center;
-  font-weight: var(--base-text-weight-semibold);
-  /* stylelint-disable-next-line primer/typography */
-  line-height: 16px;
-  color: var(--fgColor-onEmphasis);
-  text-align: center;
-  border-radius: var(--borderRadius-full);
-}
+@layer primer.components.StateLabel {
+  .StateLabel {
+    display: inline-flex;
+    align-items: center;
+    font-weight: var(--base-text-weight-semibold);
+    /* stylelint-disable-next-line primer/typography */
+    line-height: 16px;
+    color: var(--fgColor-onEmphasis);
+    text-align: center;
+    border-radius: var(--borderRadius-full);
+  }
 
-/* Size variants */
-.StateLabel:where([data-size='small']) {
-  padding: var(--base-size-4) var(--base-size-8);
-  font-size: var(--text-body-size-small);
-}
+  /* Size variants */
+  .StateLabel:where([data-size='small']) {
+    padding: var(--base-size-4) var(--base-size-8);
+    font-size: var(--text-body-size-small);
+  }
 
-.StateLabel:where([data-size='medium']) {
-  padding: var(--base-size-8) var(--base-size-12);
-  font-size: var(--text-body-size-medium);
-}
+  .StateLabel:where([data-size='medium']) {
+    padding: var(--base-size-8) var(--base-size-12);
+    font-size: var(--text-body-size-medium);
+  }
 
-/* Status color variants */
-.StateLabel:where([data-status='issueClosed']) {
-  background-color: var(--bgColor-done-emphasis);
-  color: var(--fgColor-onEmphasis);
-  box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-done-emphasis, transparent);
-}
+  /* Status color variants */
+  .StateLabel:where([data-status='issueClosed']) {
+    background-color: var(--bgColor-done-emphasis);
+    color: var(--fgColor-onEmphasis);
+    box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-done-emphasis, transparent);
+  }
 
-.StateLabel:where([data-status='issueClosedNotPlanned']) {
-  background-color: var(--bgColor-neutral-emphasis);
-  color: var(--fgColor-onEmphasis);
-  box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-neutral-emphasis, transparent);
-}
+  .StateLabel:where([data-status='issueClosedNotPlanned']) {
+    background-color: var(--bgColor-neutral-emphasis);
+    color: var(--fgColor-onEmphasis);
+    box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-neutral-emphasis, transparent);
+  }
 
-.StateLabel:where([data-status='pullClosed']) {
-  background-color: var(--bgColor-closed-emphasis);
-  color: var(--fgColor-onEmphasis);
-  box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-closed-emphasis, transparent);
-}
+  .StateLabel:where([data-status='pullClosed']) {
+    background-color: var(--bgColor-closed-emphasis);
+    color: var(--fgColor-onEmphasis);
+    box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-closed-emphasis, transparent);
+  }
 
-.StateLabel:where([data-status='pullMerged']) {
-  background-color: var(--bgColor-done-emphasis);
-  color: var(--fgColor-onEmphasis);
-  box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-done-emphasis, transparent);
-}
+  .StateLabel:where([data-status='pullMerged']) {
+    background-color: var(--bgColor-done-emphasis);
+    color: var(--fgColor-onEmphasis);
+    box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-done-emphasis, transparent);
+  }
 
-.StateLabel:where([data-status='pullQueued']) {
-  background-color: var(--bgColor-attention-emphasis);
-  color: var(--fgColor-onEmphasis);
-  box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-attention-emphasis, transparent);
-}
+  .StateLabel:where([data-status='pullQueued']) {
+    background-color: var(--bgColor-attention-emphasis);
+    color: var(--fgColor-onEmphasis);
+    box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-attention-emphasis, transparent);
+  }
 
-.StateLabel:where([data-status='issueOpened']) {
-  background-color: var(--bgColor-open-emphasis);
-  color: var(--fgColor-onEmphasis);
-  box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-open-emphasis, transparent);
-}
+  .StateLabel:where([data-status='issueOpened']) {
+    background-color: var(--bgColor-open-emphasis);
+    color: var(--fgColor-onEmphasis);
+    box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-open-emphasis, transparent);
+  }
 
-.StateLabel:where([data-status='pullOpened']) {
-  background-color: var(--bgColor-open-emphasis);
-  color: var(--fgColor-onEmphasis);
-  box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-open-emphasis, transparent);
-}
+  .StateLabel:where([data-status='pullOpened']) {
+    background-color: var(--bgColor-open-emphasis);
+    color: var(--fgColor-onEmphasis);
+    box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-open-emphasis, transparent);
+  }
 
-.StateLabel:where([data-status='draft']) {
-  background-color: var(--bgColor-draft-emphasis, var(--bgColor-neutral-emphasis));
-  color: var(--fgColor-onEmphasis);
-  box-shadow: var(--boxShadow-thin, inset 0 0 0 1px)
-    var(--borderColor-draft-emphasis, var(--borderColor-neutral-emphasis, transparent));
-}
+  .StateLabel:where([data-status='draft']) {
+    background-color: var(--bgColor-draft-emphasis, var(--bgColor-neutral-emphasis));
+    color: var(--fgColor-onEmphasis);
+    box-shadow: var(--boxShadow-thin, inset 0 0 0 1px)
+      var(--borderColor-draft-emphasis, var(--borderColor-neutral-emphasis, transparent));
+  }
 
-.StateLabel:where([data-status='issueDraft']) {
-  background-color: var(--bgColor-draft-emphasis, var(--bgColor-neutral-emphasis));
-  color: var(--fgColor-onEmphasis);
-  box-shadow: var(--boxShadow-thin, inset 0 0 0 1px)
-    var(--borderColor-draft-emphasis, var(--borderColor-neutral-emphasis, transparent));
-}
+  .StateLabel:where([data-status='issueDraft']) {
+    background-color: var(--bgColor-draft-emphasis, var(--bgColor-neutral-emphasis));
+    color: var(--fgColor-onEmphasis);
+    box-shadow: var(--boxShadow-thin, inset 0 0 0 1px)
+      var(--borderColor-draft-emphasis, var(--borderColor-neutral-emphasis, transparent));
+  }
 
-.StateLabel:where([data-status='unavailable']) {
-  background-color: var(--bgColor-neutral-emphasis);
-  color: var(--fgColor-onEmphasis);
-  box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-neutral-emphasis, transparent);
-}
+  .StateLabel:where([data-status='unavailable']) {
+    background-color: var(--bgColor-neutral-emphasis);
+    color: var(--fgColor-onEmphasis);
+    box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-neutral-emphasis, transparent);
+  }
 
-.StateLabel:where([data-status='open']) {
-  background-color: var(--bgColor-open-emphasis);
-  color: var(--fgColor-onEmphasis);
-  box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-open-emphasis, transparent);
-}
+  .StateLabel:where([data-status='open']) {
+    background-color: var(--bgColor-open-emphasis);
+    color: var(--fgColor-onEmphasis);
+    box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-open-emphasis, transparent);
+  }
 
-.StateLabel:where([data-status='closed']) {
-  background-color: var(--bgColor-done-emphasis);
-  color: var(--fgColor-onEmphasis);
-  box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-done-emphasis, transparent);
-}
+  .StateLabel:where([data-status='closed']) {
+    background-color: var(--bgColor-done-emphasis);
+    color: var(--fgColor-onEmphasis);
+    box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-done-emphasis, transparent);
+  }
 
-.Icon {
-  margin-right: var(--base-size-4);
-}
+  .Icon {
+    margin-right: var(--base-size-4);
+  }
 
-.Icon:where([data-size-small]) {
-  width: 1em;
+  .Icon:where([data-size-small]) {
+    width: 1em;
+  }
 }

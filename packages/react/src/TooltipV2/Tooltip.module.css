@@ -1,127 +1,129 @@
-/* Animation definition */
-@keyframes tooltip-appear {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-.Tooltip {
-  /* Overriding the default popover styles */
-  display: none;
-
-  &[popover] {
-    position: absolute;
-    width: max-content;
-    max-width: 250px;
-    /* stylelint-disable-next-line primer/spacing */
-    padding: var(--overlay-paddingBlock-condensed) var(--overlay-padding-condensed);
-    margin: auto;
-
-    /* for scrollbar */
-    overflow: visible;
-    clip: auto;
-    font: var(--text-body-shorthand-small);
-    color: var(--tooltip-fgColor);
-    text-align: center;
-    word-wrap: break-word;
-    white-space: normal;
-    background: var(--tooltip-bgColor);
-    border: 0;
-    border-radius: var(--borderRadius-medium);
-    -webkit-font-smoothing: subpixel-antialiased;
-    inset: auto;
-    text-wrap: balance;
-  }
-
-  /* class name in chrome is :popover-open */
-  &[popover]:popover-open {
-    display: block;
-  }
-
-  /* class name in firefox and safari is \:popover-open */
-  /* stylelint-disable-next-line selector-class-pattern */
-  &[popover]:global(.\\:popover-open) {
-    display: block;
-  }
-
-  @media (forced-colors: active) {
-    outline: 1px solid transparent;
-  }
-
-  /* This is needed to keep the tooltip open when the user leaves the trigger element to hover tooltip */
-  &::after {
-    position: absolute;
-    right: 0;
-    left: 0;
-    display: block;
-    height: var(--overlay-offset);
-    content: '';
-  }
-
-  /* South, East, Southeast, Southwest after */
-  &[data-direction='n']::after,
-  &[data-direction='ne']::after,
-  &[data-direction='nw']::after {
-    top: 100%;
-  }
-
-  &[data-direction='s']::after,
-  &[data-direction='se']::after,
-  &[data-direction='sw']::after {
-    bottom: 100%;
-  }
-
-  &[data-direction='w']::after {
-    position: absolute;
-    bottom: 0;
-    left: 100%;
-    display: block;
-    width: 8px;
-    height: 100%;
-    content: '';
-  }
-
-  /* East before and after */
-  &[data-direction='e']::after {
-    position: absolute;
-    right: 100%;
-    bottom: 0;
-    display: block;
-    width: 8px;
-    height: 100%;
-    /* stylelint-disable-next-line primer/spacing */
-    margin-left: -8px;
-    content: '';
-  }
-
-  /* Only show animations if users don't have a preference for reduced motion */
-  @media screen and (prefers-reduced-motion: no-preference) {
-    /* Animation styles */
-    &:popover-open,
-    &:popover-open::before {
-      animation-name: tooltip-appear;
-      animation-duration: 0.1s;
-      animation-fill-mode: forwards;
-      animation-timing-function: ease-in;
-      animation-delay: 0s;
+@layer primer.components.Tooltip {
+  /* Animation definition */
+  @keyframes tooltip-appear {
+    from {
+      opacity: 0;
     }
 
-    /* Animation styles */
-    &:global(.\\:popover-open) /* stylelint-disable-line selector-class-pattern */,
+    to {
+      opacity: 1;
+    }
+  }
+
+  .Tooltip {
+    /* Overriding the default popover styles */
+    display: none;
+
+    &[popover] {
+      position: absolute;
+      width: max-content;
+      max-width: 250px;
+      /* stylelint-disable-next-line primer/spacing */
+      padding: var(--overlay-paddingBlock-condensed) var(--overlay-padding-condensed);
+      margin: auto;
+
+      /* for scrollbar */
+      overflow: visible;
+      clip: auto;
+      font: var(--text-body-shorthand-small);
+      color: var(--tooltip-fgColor);
+      text-align: center;
+      word-wrap: break-word;
+      white-space: normal;
+      background: var(--tooltip-bgColor);
+      border: 0;
+      border-radius: var(--borderRadius-medium);
+      -webkit-font-smoothing: subpixel-antialiased;
+      inset: auto;
+      text-wrap: balance;
+    }
+
+    /* class name in chrome is :popover-open */
+    &[popover]:popover-open {
+      display: block;
+    }
+
+    /* class name in firefox and safari is \:popover-open */
+    /* stylelint-disable-next-line selector-class-pattern */
+    &[popover]:global(.\\:popover-open) {
+      display: block;
+    }
+
+    @media (forced-colors: active) {
+      outline: 1px solid transparent;
+    }
+
+    /* This is needed to keep the tooltip open when the user leaves the trigger element to hover tooltip */
+    &::after {
+      position: absolute;
+      right: 0;
+      left: 0;
+      display: block;
+      height: var(--overlay-offset);
+      content: '';
+    }
+
+    /* South, East, Southeast, Southwest after */
+    &[data-direction='n']::after,
+    &[data-direction='ne']::after,
+    &[data-direction='nw']::after {
+      top: 100%;
+    }
+
+    &[data-direction='s']::after,
+    &[data-direction='se']::after,
+    &[data-direction='sw']::after {
+      bottom: 100%;
+    }
+
+    &[data-direction='w']::after {
+      position: absolute;
+      bottom: 0;
+      left: 100%;
+      display: block;
+      width: 8px;
+      height: 100%;
+      content: '';
+    }
+
+    /* East before and after */
+    &[data-direction='e']::after {
+      position: absolute;
+      right: 100%;
+      bottom: 0;
+      display: block;
+      width: 8px;
+      height: 100%;
+      /* stylelint-disable-next-line primer/spacing */
+      margin-left: -8px;
+      content: '';
+    }
+
+    /* Only show animations if users don't have a preference for reduced motion */
+    @media screen and (prefers-reduced-motion: no-preference) {
+      /* Animation styles */
+      &:popover-open,
+      &:popover-open::before {
+        animation-name: tooltip-appear;
+        animation-duration: 0.1s;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease-in;
+        animation-delay: 0s;
+      }
+
+      /* Animation styles */
+      &:global(.\\:popover-open) /* stylelint-disable-line selector-class-pattern */,
     &:global(.\\:popover-open)::before /* stylelint-disable-line selector-class-pattern */ {
-      animation-name: tooltip-appear;
-      animation-duration: 0.1s;
-      animation-fill-mode: forwards;
-      animation-timing-function: ease-in;
-      animation-delay: 0s;
+        animation-name: tooltip-appear;
+        animation-duration: 0.1s;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease-in;
+        animation-delay: 0s;
+      }
     }
   }
-}
 
-.KeybindingHintContainer.HasTextBefore {
-  margin-left: var(--base-size-6);
+  .KeybindingHintContainer.HasTextBefore {
+    margin-left: var(--base-size-6);
+  }
 }

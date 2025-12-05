@@ -1,236 +1,238 @@
-.Overlay {
-  /* CSS variables values are passed in via styles */
-  --max-height: 0;
-}
-
-.Wrapper {
-  display: flex;
-  height: inherit;
-  max-height: inherit;
-  flex-direction: column;
-}
-
-.Header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding-top: var(--base-size-8);
-  padding-right: var(--base-size-8);
-  padding-left: var(--base-size-8);
-
-  &:where([data-variant='fullscreen']) {
-    min-height: 40px;
-    flex-shrink: 0;
+@layer primer.components.SelectPanel {
+  .Overlay {
+    /* CSS variables values are passed in via styles */
+    --max-height: 0;
   }
-}
 
-.Title {
-  margin-left: var(--base-size-8);
-  font-size: var(--text-body-size-medium);
-}
+  .Wrapper {
+    display: flex;
+    height: inherit;
+    max-height: inherit;
+    flex-direction: column;
+  }
 
-.Wrapper[data-variant='modal'] .Title {
-  margin-top: var(--base-size-8);
-  /* styling specific to the modal variant */
-}
+  .Header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-top: var(--base-size-8);
+    padding-right: var(--base-size-8);
+    padding-left: var(--base-size-8);
 
-/*
+    &:where([data-variant='fullscreen']) {
+      min-height: 40px;
+      flex-shrink: 0;
+    }
+  }
+
+  .Title {
+    margin-left: var(--base-size-8);
+    font-size: var(--text-body-size-medium);
+  }
+
+  .Wrapper[data-variant='modal'] .Title {
+    margin-top: var(--base-size-8);
+    /* styling specific to the modal variant */
+  }
+
+  /*
  * Align SelectPanel header text with AnchoredOverlay close button
  * 
  * Ensures the title properly aligns with the close button position
  * in anchor variant on narrow viewports.
  */
-.Wrapper[data-variant='anchored'] .Title {
-  @media screen and (--viewportRange-narrow) {
-    margin-top: var(--base-size-8);
+  .Wrapper[data-variant='anchored'] .Title {
+    @media screen and (--viewportRange-narrow) {
+      margin-top: var(--base-size-8);
+    }
   }
-}
 
-.Subtitle {
-  margin-left: var(--base-size-8);
-  font-size: var(--text-body-size-small);
-  color: var(--fgColor-muted);
-}
+  .Subtitle {
+    margin-left: var(--base-size-8);
+    font-size: var(--text-body-size-small);
+    color: var(--fgColor-muted);
+  }
 
-.Notice {
-  margin-top: var(--base-size-4);
-  margin-right: var(--base-size-8);
-  margin-left: var(--base-size-8);
-}
+  .Notice {
+    margin-top: var(--base-size-4);
+    margin-right: var(--base-size-8);
+    margin-left: var(--base-size-8);
+  }
 
-.Notice a {
-  color: inherit;
-  text-decoration: underline;
-}
-
-.Notice:where([data-variant='info']) {
-  color: var(--fgColor-accent);
-  background-color: var(--bgColor-accent-muted);
-  border-color: var(--borderColor-accent-muted);
-}
-
-.Notice:where([data-variant='warning']) {
-  color: var(--fgColor-attention);
-  background-color: var(--bgColor-attention-muted);
-  border-color: var(--borderColor-attention-muted);
-}
-
-.Notice:where([data-variant='critical']) {
-  color: var(--fgColor-danger);
-  background-color: var(--bgColor-danger-muted);
-  border-color: var(--borderColor-danger-muted);
-}
-
-.Footer {
-  display: flex;
-  padding: var(--base-size-8);
-  border-top: var(--borderWidth-thin) solid;
-  border-top-color: var(--borderColor-default);
-}
-
-.FilteredActionList {
-  /* inheriting height and maxHeight ensures that the FilteredActionList is never taller
-     than the Overlay (which would break scrolling the items) */
-  height: inherit;
-  max-height: inherit;
-}
-
-.Message {
-  display: flex;
-  height: 100%;
-  padding: var(--base-size-24);
-  text-align: center;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-  gap: var(--base-size-4);
-
-  a {
+  .Notice a {
     color: inherit;
     text-decoration: underline;
   }
-}
 
-.MessageTitle {
-  font-size: var(--text-body-size-medium);
-  font-weight: var(--base-text-weight-semibold);
-}
+  .Notice:where([data-variant='info']) {
+    color: var(--fgColor-accent);
+    background-color: var(--bgColor-accent-muted);
+    border-color: var(--borderColor-accent-muted);
+  }
 
-.MessageBody {
-  font-size: var(--text-body-size-small);
-  color: var(--fgColor-muted);
-  align-items: center;
-  gap: var(--stack-gap-condensed);
-}
+  .Notice:where([data-variant='warning']) {
+    color: var(--fgColor-attention);
+    background-color: var(--bgColor-attention-muted);
+    border-color: var(--borderColor-attention-muted);
+  }
 
-.MessageIcon {
-  margin-bottom: var(--base-size-8);
-  color: var(--fgColor-attention);
-
-  &:where([data-variant='error']) {
+  .Notice:where([data-variant='critical']) {
     color: var(--fgColor-danger);
+    background-color: var(--bgColor-danger-muted);
+    border-color: var(--borderColor-danger-muted);
   }
-}
 
-.MessageAction {
-  margin-top: var(--base-size-8);
-}
-
-.ResponsiveCloseButton {
-  display: inline-grid;
-}
-
-.ResponsiveFooter {
-  display: none;
-  align-items: center;
-  padding: var(--base-size-8);
-  justify-content: center;
-
-  &:where([data-display-footer='always']) {
+  .Footer {
     display: flex;
+    padding: var(--base-size-8);
+    border-top: var(--borderWidth-thin) solid;
+    border-top-color: var(--borderColor-default);
   }
 
-  &:where([data-display-footer='only-small']) {
-    @media screen and (--viewportRange-narrow) {
+  .FilteredActionList {
+    /* inheriting height and maxHeight ensures that the FilteredActionList is never taller
+     than the Overlay (which would break scrolling the items) */
+    height: inherit;
+    max-height: inherit;
+  }
+
+  .Message {
+    display: flex;
+    height: 100%;
+    padding: var(--base-size-24);
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    gap: var(--base-size-4);
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+    }
+  }
+
+  .MessageTitle {
+    font-size: var(--text-body-size-medium);
+    font-weight: var(--base-text-weight-semibold);
+  }
+
+  .MessageBody {
+    font-size: var(--text-body-size-small);
+    color: var(--fgColor-muted);
+    align-items: center;
+    gap: var(--stack-gap-condensed);
+  }
+
+  .MessageIcon {
+    margin-bottom: var(--base-size-8);
+    color: var(--fgColor-attention);
+
+    &:where([data-variant='error']) {
+      color: var(--fgColor-danger);
+    }
+  }
+
+  .MessageAction {
+    margin-top: var(--base-size-8);
+  }
+
+  .ResponsiveCloseButton {
+    display: inline-grid;
+  }
+
+  .ResponsiveFooter {
+    display: none;
+    align-items: center;
+    padding: var(--base-size-8);
+    justify-content: center;
+
+    &:where([data-display-footer='always']) {
       display: flex;
     }
-  }
 
-  &[data-stretch-secondary-action='never'] {
-    justify-content: space-between;
-  }
+    &:where([data-display-footer='only-small']) {
+      @media screen and (--viewportRange-narrow) {
+        display: flex;
+      }
+    }
 
-  &:where([data-stretch-secondary-action='only-big']) {
-    @media screen and (--viewportRange-narrow) {
+    &[data-stretch-secondary-action='never'] {
       justify-content: space-between;
     }
-  }
 
-  &:where([data-stretch-save-button='only-small']) {
-    justify-content: space-between;
+    &:where([data-stretch-secondary-action='only-big']) {
+      @media screen and (--viewportRange-narrow) {
+        justify-content: space-between;
+      }
+    }
 
-    @media screen and (--viewportRange-narrow) {
-      justify-content: center;
+    &:where([data-stretch-save-button='only-small']) {
+      justify-content: space-between;
+
+      @media screen and (--viewportRange-narrow) {
+        justify-content: center;
+      }
     }
   }
-}
 
-.SecondaryAction {
-  flex-grow: 1;
-  align-items: stretch;
-  display: flex;
-  justify-content: center;
+  .SecondaryAction {
+    flex-grow: 1;
+    align-items: stretch;
+    display: flex;
+    justify-content: center;
 
-  &[data-stretch-secondary-action='never'] {
-    flex-grow: 0;
-    align-items: flex-start;
-  }
-
-  &:where([data-stretch-secondary-action='only-big']) {
-    @media screen and (--viewportRange-narrow) {
+    &[data-stretch-secondary-action='never'] {
       flex-grow: 0;
       align-items: flex-start;
     }
+
+    &:where([data-stretch-secondary-action='only-big']) {
+      @media screen and (--viewportRange-narrow) {
+        flex-grow: 0;
+        align-items: flex-start;
+      }
+    }
   }
-}
 
-.CancelSaveButtons {
-  display: flex;
-  gap: var(--stack-gap-condensed);
-  justify-content: flex-end;
-}
-
-.ResponsiveCancelSaveButtons {
-  display: none;
-
-  @media screen and (--viewportRange-narrow) {
+  .CancelSaveButtons {
     display: flex;
     gap: var(--stack-gap-condensed);
     justify-content: flex-end;
   }
-}
 
-.ResponsiveSaveButton {
-  display: none;
+  .ResponsiveCancelSaveButtons {
+    display: none;
 
-  @media screen and (--viewportRange-narrow) {
-    display: flex;
-  }
-
-  &:where([data-stretch-save-button='only-small']) {
     @media screen and (--viewportRange-narrow) {
-      flex-grow: 1;
+      display: flex;
+      gap: var(--stack-gap-condensed);
+      justify-content: flex-end;
     }
   }
-}
 
-.Backdrop {
-  position: absolute;
-  inset: 0;
-  background-color: var(--overlay-backdrop-bgColor);
-}
+  .ResponsiveSaveButton {
+    display: none;
 
-.TextInput {
-  margin: var(--base-size-8);
+    @media screen and (--viewportRange-narrow) {
+      display: flex;
+    }
+
+    &:where([data-stretch-save-button='only-small']) {
+      @media screen and (--viewportRange-narrow) {
+        flex-grow: 1;
+      }
+    }
+  }
+
+  .Backdrop {
+    position: absolute;
+    inset: 0;
+    background-color: var(--overlay-backdrop-bgColor);
+  }
+
+  .TextInput {
+    margin: var(--base-size-8);
+  }
 }

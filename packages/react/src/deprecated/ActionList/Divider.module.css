@@ -1,8 +1,10 @@
-.Divider {
-  height: var(--borderWidth-thin);
-  /* stylelint-disable-next-line primer/colors */
-  background: var(--borderColor-muted);
-  /* stylelint-disable-next-line primer/spacing */
-  margin-top: calc(var(--base-size-8) - 1px);
-  margin-bottom: var(--base-size-8);
+@layer primer.components.Divider {
+  .Divider {
+    height: var(--borderWidth-thin);
+    /* stylelint-disable-next-line primer/colors */
+    background: var(--borderColor-muted);
+    /* stylelint-disable-next-line primer/spacing */
+    margin-top: calc(var(--base-size-8) - 1px);
+    margin-bottom: var(--base-size-8);
+  }
 }

@@ -1,9 +1,10 @@
-.TreeViewRootUlStyles {
-  padding: 0;
-  margin: 0;
-  list-style: none;
+@layer primer.components.TreeView {
+  .TreeViewRootUlStyles {
+    padding: 0;
+    margin: 0;
+    list-style: none;
 
-  /*
+    /*
    * WARNING: This is a performance optimization.
    *
    * We define styles for the tree items at the root level of the tree
@@ -16,261 +17,262 @@
    *
    * Do NOT copy this pattern without understanding the tradeoffs.
    */
-  .TreeViewItem {
-    outline: none;
+    .TreeViewItem {
+      outline: none;
 
-    &:focus-visible > div,
-    &:global(.focus-visible) > div {
-      box-shadow: var(--boxShadow-thick) var(--fgColor-accent);
+      &:focus-visible > div,
+      &:global(.focus-visible) > div {
+        box-shadow: var(--boxShadow-thick) var(--fgColor-accent);
 
-      @media (forced-colors: active) {
-        outline: 2px solid HighlightText;
-        /* stylelint-disable-next-line declaration-property-value-no-unknown */
-        outline-offset: -2;
+        @media (forced-colors: active) {
+          outline: 2px solid HighlightText;
+          /* stylelint-disable-next-line declaration-property-value-no-unknown */
+          outline-offset: -2;
+        }
+      }
+
+      &[data-has-leading-action] {
+        --has-leading-action: 1;
       }
     }
 
-    &[data-has-leading-action] {
-      --has-leading-action: 1;
-    }
-  }
+    .TreeViewItemContainer {
+      --level: 1;
+      --toggle-width: 1rem;
+      --min-item-height: 2rem;
 
-  .TreeViewItemContainer {
-    --level: 1;
-    --toggle-width: 1rem;
-    --min-item-height: 2rem;
+      position: relative;
+      display: grid;
+      width: 100%;
+      font-size: var(--text-body-size-medium);
+      color: var(--fgColor-default);
+      cursor: pointer;
+      border-radius: var(--borderRadius-medium);
+      grid-template-columns: var(--spacer-width) var(--leading-action-width) var(--toggle-width) 1fr;
+      grid-template-areas: 'spacer leadingAction toggle content trailingAction';
 
-    position: relative;
-    display: grid;
-    width: 100%;
-    font-size: var(--text-body-size-medium);
-    color: var(--fgColor-default);
-    cursor: pointer;
-    border-radius: var(--borderRadius-medium);
-    grid-template-columns: var(--spacer-width) var(--leading-action-width) var(--toggle-width) 1fr;
-    grid-template-areas: 'spacer leadingAction toggle content trailingAction';
+      --leading-action-width: calc(var(--has-leading-action, 0) * 1.5rem);
+      --spacer-width: calc(calc(var(--level) - 1) * (var(--toggle-width) / 2));
 
-    --leading-action-width: calc(var(--has-leading-action, 0) * 1.5rem);
-    --spacer-width: calc(calc(var(--level) - 1) * (var(--toggle-width) / 2));
+      &:hover {
+        background-color: var(--control-transparent-bgColor-hover);
 
-    &:hover {
-      background-color: var(--control-transparent-bgColor-hover);
+        @media (forced-colors: active) {
+          outline: 2px solid transparent;
+          outline-offset: -2px;
+        }
+      }
 
-      @media (forced-colors: active) {
-        outline: 2px solid transparent;
-        outline-offset: -2px;
+      @media (pointer: coarse) {
+        --toggle-width: 1.5rem;
+        --min-item-height: 2.75rem;
+      }
+
+      &:has(.TreeViewItemSkeleton):hover {
+        cursor: default;
+        background-color: transparent;
+
+        @media (forced-colors: active) {
+          outline: none;
+        }
       }
     }
 
-    @media (pointer: coarse) {
-      --toggle-width: 1.5rem;
-      --min-item-height: 2.75rem;
+    &:where([data-omit-spacer='true']) .TreeViewItemContainer {
+      grid-template-columns: 0 0 0 1fr;
     }
 
-    &:has(.TreeViewItemSkeleton):hover {
-      cursor: default;
-      background-color: transparent;
+    .TreeViewItem[aria-current='true'] > .TreeViewItemContainer {
+      background-color: var(--control-transparent-bgColor-selected);
 
-      @media (forced-colors: active) {
-        outline: none;
-      }
-    }
-  }
+      /* Current item indicator */
+      /* stylelint-disable-next-line selector-max-specificity */
+      &::after {
+        position: absolute;
+        top: calc(50% - var(--base-size-12));
+        left: calc(-1 * var(--base-size-8));
+        width: 0.25rem;
+        height: 1.5rem;
+        content: '';
 
-  &:where([data-omit-spacer='true']) .TreeViewItemContainer {
-    grid-template-columns: 0 0 0 1fr;
-  }
-
-  .TreeViewItem[aria-current='true'] > .TreeViewItemContainer {
-    background-color: var(--control-transparent-bgColor-selected);
-
-    /* Current item indicator */
-    /* stylelint-disable-next-line selector-max-specificity */
-    &::after {
-      position: absolute;
-      top: calc(50% - var(--base-size-12));
-      left: calc(-1 * var(--base-size-8));
-      width: 0.25rem;
-      height: 1.5rem;
-      content: '';
-
-      /*
+        /*
        * Use fgColor accent for consistency across all themes. Using the "correct" variable,
        * --bgColor-accent-emphasis, causes vrt failures for dark high contrast mode
        */
-      /* stylelint-disable-next-line primer/colors */
-      background-color: var(--fgColor-accent);
-      border-radius: var(--borderRadius-medium);
+        /* stylelint-disable-next-line primer/colors */
+        background-color: var(--fgColor-accent);
+        border-radius: var(--borderRadius-medium);
 
-      @media (forced-colors: active) {
-        background-color: HighlightText;
+        @media (forced-colors: active) {
+          background-color: HighlightText;
+        }
       }
     }
-  }
 
-  .TreeViewItemToggle {
-    display: flex;
-    height: 100%;
+    .TreeViewItemToggle {
+      display: flex;
+      height: 100%;
 
-    /* The toggle should appear vertically centered for single-line items, but remain at the top for items that wrap
+      /* The toggle should appear vertically centered for single-line items, but remain at the top for items that wrap
     across more lines. */
-    /* stylelint-disable-next-line primer/spacing */
-    padding-top: calc(var(--min-item-height) / 2 - var(--base-size-12) / 2);
-    color: var(--fgColor-muted);
-    grid-area: toggle;
-    justify-content: center;
-    align-items: flex-start;
-  }
+      /* stylelint-disable-next-line primer/spacing */
+      padding-top: calc(var(--min-item-height) / 2 - var(--base-size-12) / 2);
+      color: var(--fgColor-muted);
+      grid-area: toggle;
+      justify-content: center;
+      align-items: flex-start;
+    }
 
-  .TreeViewItemToggleHover:hover {
-    background-color: var(--control-transparent-bgColor-hover);
-  }
+    .TreeViewItemToggleHover:hover {
+      background-color: var(--control-transparent-bgColor-hover);
+    }
 
-  .TreeViewItemToggleEnd {
-    border-top-left-radius: var(--borderRadius-medium);
-    border-bottom-left-radius: var(--borderRadius-medium);
-  }
+    .TreeViewItemToggleEnd {
+      border-top-left-radius: var(--borderRadius-medium);
+      border-bottom-left-radius: var(--borderRadius-medium);
+    }
 
-  .TreeViewItemContent {
-    display: flex;
-    height: 100%;
-    padding: 0 var(--base-size-8);
+    .TreeViewItemContent {
+      display: flex;
+      height: 100%;
+      padding: 0 var(--base-size-8);
 
-    /* The dynamic top and bottom padding to maintain the minimum item height for single line items */
-    /* stylelint-disable-next-line primer/spacing */
-    padding-top: calc((var(--min-item-height) - var(--custom-line-height, 1.3rem)) / 2);
-    /* stylelint-disable-next-line primer/spacing */
-    padding-bottom: calc((var(--min-item-height) - var(--custom-line-height, 1.3rem)) / 2);
-    line-height: var(--custom-line-height, var(--text-body-lineHeight-medium, 1.4285));
-    grid-area: content;
-    gap: var(--stack-gap-condensed);
-  }
+      /* The dynamic top and bottom padding to maintain the minimum item height for single line items */
+      /* stylelint-disable-next-line primer/spacing */
+      padding-top: calc((var(--min-item-height) - var(--custom-line-height, 1.3rem)) / 2);
+      /* stylelint-disable-next-line primer/spacing */
+      padding-bottom: calc((var(--min-item-height) - var(--custom-line-height, 1.3rem)) / 2);
+      line-height: var(--custom-line-height, var(--text-body-lineHeight-medium, 1.4285));
+      grid-area: content;
+      gap: var(--stack-gap-condensed);
+    }
 
-  .TreeViewItemContentText {
-    flex: 1 1 auto;
-    width: 0;
-  }
+    .TreeViewItemContentText {
+      flex: 1 1 auto;
+      width: 0;
+    }
 
-  &:where([data-truncate-text='true']) .TreeViewItemContentText {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+    &:where([data-truncate-text='true']) .TreeViewItemContentText {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
 
-  &:where([data-truncate-text='false']) .TreeViewItemContentText {
-    /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated */
-    word-break: break-word;
-  }
+    &:where([data-truncate-text='false']) .TreeViewItemContentText {
+      /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated */
+      word-break: break-word;
+    }
 
-  .TreeViewItemVisual {
-    display: flex;
+    .TreeViewItemVisual {
+      display: flex;
 
-    /* The visual icons should appear vertically centered for single-line items, but remain at the top for items that wrap
+      /* The visual icons should appear vertically centered for single-line items, but remain at the top for items that wrap
     across more lines. */
-    height: var(--custom-line-height, 1.3rem);
-    color: var(--fgColor-muted);
-    align-items: center;
-  }
+      height: var(--custom-line-height, 1.3rem);
+      color: var(--fgColor-muted);
+      align-items: center;
+    }
 
-  .TreeViewItemLeadingAction {
-    display: flex;
-    color: var(--fgColor-muted);
-    grid-area: leadingAction;
+    .TreeViewItemLeadingAction {
+      display: flex;
+      color: var(--fgColor-muted);
+      grid-area: leadingAction;
 
-    & > button {
+      & > button {
+        flex-shrink: 1;
+      }
+    }
+
+    .TreeViewItemTrailingAction {
+      display: flex;
+      color: var(--fgColor-muted);
+      grid-area: trailingAction;
+    }
+
+    .TreeViewItemTrailingActionButton {
       flex-shrink: 1;
     }
-  }
 
-  .TreeViewItemTrailingAction {
-    display: flex;
-    color: var(--fgColor-muted);
-    grid-area: trailingAction;
-  }
+    .TreeViewItemLevelLine {
+      width: 100%;
+      height: 100%;
 
-  .TreeViewItemTrailingActionButton {
-    flex-shrink: 1;
-  }
-
-  .TreeViewItemLevelLine {
-    width: 100%;
-    height: 100%;
-
-    /*
+      /*
      * On devices without hover, the nesting indicator lines
      * appear at all times.
      */
-    border-color: var(--borderColor-muted);
-    border-right: var(--borderWidth-thin) solid;
-  }
+      border-color: var(--borderColor-muted);
+      border-right: var(--borderWidth-thin) solid;
+    }
 
-  /*
+    /*
    * On devices with :hover support, the nesting indicator lines
    * fade in when the user mouses over the entire component,
    * or when there's focus inside the component. This makes
    * sure the component remains simple when not in use.
    */
-  @media (hover: hover) {
-    .TreeViewItemLevelLine {
-      border-color: transparent;
+    @media (hover: hover) {
+      .TreeViewItemLevelLine {
+        border-color: transparent;
+      }
+
+      &:hover .TreeViewItemLevelLine,
+      &:focus-within .TreeViewItemLevelLine {
+        border-color: var(--borderColor-muted);
+      }
     }
 
-    &:hover .TreeViewItemLevelLine,
-    &:focus-within .TreeViewItemLevelLine {
-      border-color: var(--borderColor-muted);
+    .TreeViewDirectoryIcon {
+      display: grid;
+      color: var(--treeViewItem-leadingVisual-iconColor-rest);
+    }
+
+    .TreeViewVisuallyHidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      /* stylelint-disable-next-line primer/spacing */
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
     }
   }
 
-  .TreeViewDirectoryIcon {
-    display: grid;
-    color: var(--treeViewItem-leadingVisual-iconColor-rest);
+  .TreeViewSkeletonItemContainerStyle {
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+    height: 2rem;
+
+    @media (pointer: coarse) {
+      height: 2.75rem;
+    }
+
+    &:nth-of-type(5n + 1) {
+      --tree-item-loading-width: 67%;
+    }
+
+    &:nth-of-type(5n + 2) {
+      --tree-item-loading-width: 47%;
+    }
+
+    &:nth-of-type(5n + 3) {
+      --tree-item-loading-width: 73%;
+    }
+
+    &:nth-of-type(5n + 4) {
+      --tree-item-loading-width: 64%;
+    }
+
+    &:nth-of-type(5n + 5) {
+      --tree-item-loading-width: 50%;
+    }
   }
 
-  .TreeViewVisuallyHidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    /* stylelint-disable-next-line primer/spacing */
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
+  .TreeItemSkeletonTextStyles {
+    width: var(--tree-item-loading-width, 67%);
   }
-}
-
-.TreeViewSkeletonItemContainerStyle {
-  display: flex;
-  align-items: center;
-  column-gap: 0.5rem;
-  height: 2rem;
-
-  @media (pointer: coarse) {
-    height: 2.75rem;
-  }
-
-  &:nth-of-type(5n + 1) {
-    --tree-item-loading-width: 67%;
-  }
-
-  &:nth-of-type(5n + 2) {
-    --tree-item-loading-width: 47%;
-  }
-
-  &:nth-of-type(5n + 3) {
-    --tree-item-loading-width: 73%;
-  }
-
-  &:nth-of-type(5n + 4) {
-    --tree-item-loading-width: 64%;
-  }
-
-  &:nth-of-type(5n + 5) {
-    --tree-item-loading-width: 50%;
-  }
-}
-
-.TreeItemSkeletonTextStyles {
-  width: var(--tree-item-loading-width, 67%);
 }

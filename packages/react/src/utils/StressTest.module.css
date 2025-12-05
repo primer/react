@@ -1,70 +1,72 @@
-.Root {
-  display: flex;
-  margin-top: var(--base-size-16);
-  margin-right: var(--base-size-32);
-  margin-bottom: var(--base-size-16);
-  margin-left: var(--base-size-32);
-  flex-direction: column;
-}
+@layer primer.components.StressTest {
+  .Root {
+    display: flex;
+    margin-top: var(--base-size-16);
+    margin-right: var(--base-size-32);
+    margin-bottom: var(--base-size-16);
+    margin-left: var(--base-size-32);
+    flex-direction: column;
+  }
 
-.Header {
-  display: flex;
-  padding: var(--base-size-16) var(--base-size-24);
-  flex-direction: row;
-  background-color: var(--bgColor-muted);
-  border: var(--borderWidth-thin) solid var(--borderColor-default);
-  border-top-left-radius: var(--borderRadius-medium);
-  border-top-right-radius: var(--borderRadius-medium);
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--base-size-4);
-}
+  .Header {
+    display: flex;
+    padding: var(--base-size-16) var(--base-size-24);
+    flex-direction: row;
+    background-color: var(--bgColor-muted);
+    border: var(--borderWidth-thin) solid var(--borderColor-default);
+    border-top-left-radius: var(--borderRadius-medium);
+    border-top-right-radius: var(--borderRadius-medium);
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--base-size-4);
+  }
 
-.HeaderRow {
-  display: flex;
-  flex-direction: row;
-  gap: var(--base-size-6);
-  justify-content: flex-start;
-  align-items: center;
-}
+  .HeaderRow {
+    display: flex;
+    flex-direction: row;
+    gap: var(--base-size-6);
+    justify-content: flex-start;
+    align-items: center;
+  }
 
-.HeaderColumn {
-  display: flex;
-  gap: var(--base-size-4);
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: stretch;
-}
+  .HeaderColumn {
+    display: flex;
+    gap: var(--base-size-4);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+  }
 
-.Container {
-  display: flex;
-  max-height: 300px;
-  padding: var(--base-size-16);
-  overflow: auto;
-  border: var(--borderWidth-thin) solid var(--borderColor-default);
-  border: var(--borderWidth-thin) solid var(--borderColor-muted);
-  border-top: none;
-  flex: 1;
-}
+  .Container {
+    display: flex;
+    max-height: 300px;
+    padding: var(--base-size-16);
+    overflow: auto;
+    border: var(--borderWidth-thin) solid var(--borderColor-default);
+    border: var(--borderWidth-thin) solid var(--borderColor-muted);
+    border-top: none;
+    flex: 1;
+  }
 
-.Footer {
-  display: flex;
-  padding: var(--base-size-12) var(--base-size-24);
-  flex-direction: row;
-  border: var(--borderWidth-thin) solid var(--borderColor-default);
-  border-top: none;
-  border-bottom-right-radius: var(--borderRadius-medium);
-  border-bottom-left-radius: var(--borderRadius-medium);
-  justify-content: flex-start;
-  align-items: center;
-}
+  .Footer {
+    display: flex;
+    padding: var(--base-size-12) var(--base-size-24);
+    flex-direction: row;
+    border: var(--borderWidth-thin) solid var(--borderColor-default);
+    border-top: none;
+    border-bottom-right-radius: var(--borderRadius-medium);
+    border-bottom-left-radius: var(--borderRadius-medium);
+    justify-content: flex-start;
+    align-items: center;
+  }
 
-.Box {
-  flex: 1;
-  display: flex;
-  min-height: min-content;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: stretch;
-  gap: var(--base-size-8);
+  .Box {
+    flex: 1;
+    display: flex;
+    min-height: min-content;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: var(--base-size-8);
+  }
 }

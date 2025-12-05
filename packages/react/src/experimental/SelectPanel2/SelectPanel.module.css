@@ -1,281 +1,283 @@
-.Overlay {
-  padding: 0;
-  color: var(--fgColor-default);
-  border: none;
+@layer primer.components.SelectPanel {
+  .Overlay {
+    padding: 0;
+    color: var(--fgColor-default);
+    border: none;
 
-  /* CSS variables values are passed in via styles */
-  --max-height: 0;
-  --position-top: 0;
-  --position-left: 0;
+    /* CSS variables values are passed in via styles */
+    --max-height: 0;
+    --position-top: 0;
+    --position-left: 0;
 
-  &:where([open]) {
-    display: flex; /* to fit children */
-  }
+    &:where([open]) {
+      display: flex; /* to fit children */
+    }
 
-  &:where([data-variant='anchored']),
-  &:where([data-variant='full-screen']) {
-    /* stylelint-disable-next-line primer/spacing */
-    top: var(--position-top);
-    /* stylelint-disable-next-line primer/spacing */
-    left: var(--position-left);
-    margin: 0;
+    &:where([data-variant='anchored']),
+    &:where([data-variant='full-screen']) {
+      /* stylelint-disable-next-line primer/spacing */
+      top: var(--position-top);
+      /* stylelint-disable-next-line primer/spacing */
+      left: var(--position-left);
+      margin: 0;
 
-    &::backdrop {
-      background-color: transparent;
+      &::backdrop {
+        background-color: transparent;
+      }
+    }
+
+    &:where([data-variant='modal']) {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    &:where([data-variant='modal'])::backdrop {
+      background-color: var(--overlay-backdrop-bgColor);
+    }
+
+    &:where([data-variant='full-screen']) {
+      top: 0;
+      left: 0;
+      width: 100%;
+      max-width: 100vw;
+      height: 100%;
+      max-height: 100vh;
+      margin: 0;
+      border-radius: unset;
+    }
+
+    &:where([data-variant='bottom-sheet']) {
+      top: auto;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      max-width: 100vw;
+      max-height: calc(100vh - 64px);
+      margin: 0;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
     }
   }
 
-  &:where([data-variant='modal']) {
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
-
-  &:where([data-variant='modal'])::backdrop {
-    background-color: var(--overlay-backdrop-bgColor);
-  }
-
-  &:where([data-variant='full-screen']) {
-    top: 0;
-    left: 0;
+  .Form {
+    display: flex;
     width: 100%;
-    max-width: 100vw;
+    flex-direction: column;
+  }
+
+  .Container {
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    flex-shrink: 1;
+    flex-grow: 1;
+    justify-content: space-between;
+
+    ul {
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+  }
+
+  .HeaderContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+
+    &:where([data-description]) {
+      align-items: flex-start;
+    }
+
+    &:where([data-search-input]) {
+      margin-bottom: var(--base-size-8);
+    }
+  }
+
+  .TitleWrapper {
+    margin-top: 0;
+    margin-left: var(--base-size-8);
+
+    &:where([data-description]) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-top: 2px;
+    }
+
+    &:where([data-on-back]) {
+      margin-left: var(--base-size-4);
+    }
+  }
+
+  .TextInput {
+    padding-left: var(--base-size-8) !important;
+
+    /* stylelint-disable-next-line selector-class-pattern */
+    &:has(input:placeholder-shown) :global(.TextInput-action) {
+      display: none;
+    }
+  }
+
+  .Checkbox {
+    margin-top: 0;
+  }
+
+  .FlexBox {
+    display: flex;
+  }
+
+  .Title {
+    font-size: var(--text-body-size-medium);
+    font-weight: var(--base-text-weight-semibold);
+  }
+
+  .Description {
+    display: block;
+    font-size: var(--text-body-size-small);
+    color: var(--fgColor-muted);
+  }
+
+  .ClearAction {
+    color: var(--fgColor-muted);
+    background: none;
+  }
+
+  .Footer {
+    display: flex;
+    min-height: 44px;
+    padding: var(--base-size-16);
+    border-top: var(--borderWidth-thin) solid;
+    border-top-color: var(--borderColor-default);
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+
+    &:where([data-hide-primary-actions]) {
+      padding: var(--base-size-8);
+    }
+  }
+
+  .FooterContent {
+    flex-grow: 0;
+
+    &:where([data-hide-primary-actions]) {
+      flex-grow: 1;
+    }
+  }
+
+  .FooterActions {
+    display: flex;
+    gap: var(--stack-gap-condensed);
+  }
+
+  .SecondaryCheckbox {
+    display: flex;
+    align-items: center;
+    gap: var(--stack-gap-condensed);
+  }
+
+  .SmallText {
+    font-size: var(--text-body-size-small);
+  }
+
+  .SelectPanelLoading {
+    display: flex;
     height: 100%;
-    max-height: 100vh;
-    margin: 0;
-    border-radius: unset;
+
+    /* maxHeight of dialog - (header & footer) */
+    min-height: min(calc(var(--max-height) - 150px), 324px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--stack-gap-normal);
   }
 
-  &:where([data-variant='bottom-sheet']) {
-    top: auto;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    max-width: 100vw;
-    max-height: calc(100vh - 64px);
-    margin: 0;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
+  .LoadingText {
+    font-size: var(--text-body-size-medium);
+    color: var(--fgColor-muted);
   }
-}
 
-.Form {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-}
+  .MessageFull {
+    display: flex;
+    height: 100%;
 
-.Container {
-  display: flex;
-  overflow: hidden;
-  flex-direction: column;
-  flex-shrink: 1;
-  flex-grow: 1;
-  justify-content: space-between;
-
-  ul {
-    overflow-y: auto;
+    /* maxHeight of dialog - (header & footer) */
+    min-height: min(calc(var(--max-height) - 150px), 324px);
+    padding-right: var(--base-size-24);
+    padding-left: var(--base-size-24);
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     flex-grow: 1;
-  }
-}
+    gap: var(--base-size-4);
 
-.HeaderContent {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0;
-
-  &:where([data-description]) {
-    align-items: flex-start;
+    a {
+      color: inherit;
+      text-decoration: underline;
+    }
   }
 
-  &:where([data-search-input]) {
+  .Octicon {
     margin-bottom: var(--base-size-8);
-  }
-}
 
-.TitleWrapper {
-  margin-top: 0;
-  margin-left: var(--base-size-8);
+    &.Error {
+      color: var(--fgColor-danger);
+    }
 
-  &:where([data-description]) {
-    /* stylelint-disable-next-line primer/spacing */
-    margin-top: 2px;
+    &.Warning {
+      color: var(--fgColor-attention);
+    }
   }
 
-  &:where([data-on-back]) {
-    margin-left: var(--base-size-4);
+  .MessageTitle {
+    font-size: var(--text-body-size-medium);
+    font-weight: var(--base-text-weight-medium);
   }
-}
 
-.TextInput {
-  padding-left: var(--base-size-8) !important;
-
-  /* stylelint-disable-next-line selector-class-pattern */
-  &:has(input:placeholder-shown) :global(.TextInput-action) {
-    display: none;
+  .MessageContent {
+    display: flex;
+    font-size: var(--text-body-size-medium);
+    color: var(--fgColor-muted);
+    flex-direction: column;
+    gap: var(--stack-gap-condensed);
+    align-items: center;
   }
-}
 
-.Checkbox {
-  margin-top: 0;
-}
+  .MessageInline {
+    display: flex;
+    padding-top: var(--base-size-12);
+    padding-right: var(--base-size-16);
+    padding-bottom: var(--base-size-12);
+    padding-left: var(--base-size-16);
+    font-size: var(--text-body-size-small);
+    border-bottom: var(--borderWidth-thin) solid;
+    gap: var(--stack-gap-condensed);
 
-.FlexBox {
-  display: flex;
-}
+    a {
+      color: inherit;
+      text-decoration: underline;
+    }
 
-.Title {
-  font-size: var(--text-body-size-medium);
-  font-weight: var(--base-text-weight-semibold);
-}
+    &:where([data-variant='error']) {
+      color: var(--fgColor-danger);
+      background-color: var(--bgColor-danger-muted);
+      border-color: var(--borderColor-danger-muted);
+    }
 
-.Description {
-  display: block;
-  font-size: var(--text-body-size-small);
-  color: var(--fgColor-muted);
-}
+    &:where([data-variant='warning']) {
+      color: var(--fgColor-attention);
+      background-color: var(--bgColor-attention-muted);
+      border-color: var(--borderColor-attention-muted);
+    }
+  }
 
-.ClearAction {
-  color: var(--fgColor-muted);
-  background: none;
-}
-
-.Footer {
-  display: flex;
-  min-height: 44px;
-  padding: var(--base-size-16);
-  border-top: var(--borderWidth-thin) solid;
-  border-top-color: var(--borderColor-default);
-  justify-content: space-between;
-  align-items: center;
-  flex-shrink: 0;
-
-  &:where([data-hide-primary-actions]) {
+  .Header {
+    display: flex;
     padding: var(--base-size-8);
+    flex-direction: column;
+    border-bottom: var(--borderWidth-thin) solid;
+    border-bottom-color: var(--borderColor-default);
   }
-}
-
-.FooterContent {
-  flex-grow: 0;
-
-  &:where([data-hide-primary-actions]) {
-    flex-grow: 1;
-  }
-}
-
-.FooterActions {
-  display: flex;
-  gap: var(--stack-gap-condensed);
-}
-
-.SecondaryCheckbox {
-  display: flex;
-  align-items: center;
-  gap: var(--stack-gap-condensed);
-}
-
-.SmallText {
-  font-size: var(--text-body-size-small);
-}
-
-.SelectPanelLoading {
-  display: flex;
-  height: 100%;
-
-  /* maxHeight of dialog - (header & footer) */
-  min-height: min(calc(var(--max-height) - 150px), 324px);
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: var(--stack-gap-normal);
-}
-
-.LoadingText {
-  font-size: var(--text-body-size-medium);
-  color: var(--fgColor-muted);
-}
-
-.MessageFull {
-  display: flex;
-  height: 100%;
-
-  /* maxHeight of dialog - (header & footer) */
-  min-height: min(calc(var(--max-height) - 150px), 324px);
-  padding-right: var(--base-size-24);
-  padding-left: var(--base-size-24);
-  text-align: center;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-  gap: var(--base-size-4);
-
-  a {
-    color: inherit;
-    text-decoration: underline;
-  }
-}
-
-.Octicon {
-  margin-bottom: var(--base-size-8);
-
-  &.Error {
-    color: var(--fgColor-danger);
-  }
-
-  &.Warning {
-    color: var(--fgColor-attention);
-  }
-}
-
-.MessageTitle {
-  font-size: var(--text-body-size-medium);
-  font-weight: var(--base-text-weight-medium);
-}
-
-.MessageContent {
-  display: flex;
-  font-size: var(--text-body-size-medium);
-  color: var(--fgColor-muted);
-  flex-direction: column;
-  gap: var(--stack-gap-condensed);
-  align-items: center;
-}
-
-.MessageInline {
-  display: flex;
-  padding-top: var(--base-size-12);
-  padding-right: var(--base-size-16);
-  padding-bottom: var(--base-size-12);
-  padding-left: var(--base-size-16);
-  font-size: var(--text-body-size-small);
-  border-bottom: var(--borderWidth-thin) solid;
-  gap: var(--stack-gap-condensed);
-
-  a {
-    color: inherit;
-    text-decoration: underline;
-  }
-
-  &:where([data-variant='error']) {
-    color: var(--fgColor-danger);
-    background-color: var(--bgColor-danger-muted);
-    border-color: var(--borderColor-danger-muted);
-  }
-
-  &:where([data-variant='warning']) {
-    color: var(--fgColor-attention);
-    background-color: var(--bgColor-attention-muted);
-    border-color: var(--borderColor-attention-muted);
-  }
-}
-
-.Header {
-  display: flex;
-  padding: var(--base-size-8);
-  flex-direction: column;
-  border-bottom: var(--borderWidth-thin) solid;
-  border-bottom-color: var(--borderColor-default);
 }

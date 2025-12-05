@@ -1,69 +1,71 @@
-.Select {
-  width: 100%;
-  /* stylelint-disable-next-line primer/spacing */
-  margin-top: 1px;
-  /* stylelint-disable-next-line primer/spacing */
-  margin-bottom: 1px;
-  /* stylelint-disable-next-line primer/spacing */
-  margin-left: 1px;
-  font-size: inherit;
-  color: currentColor;
+@layer primer.components.Select {
+  .Select {
+    width: 100%;
+    /* stylelint-disable-next-line primer/spacing */
+    margin-top: 1px;
+    /* stylelint-disable-next-line primer/spacing */
+    margin-bottom: 1px;
+    /* stylelint-disable-next-line primer/spacing */
+    margin-left: 1px;
+    font-size: inherit;
+    color: currentColor;
 
-  /* Firefox hacks:
+    /* Firefox hacks:
    * 1. Makes Firefox's native dropdown menu's background match the theme.
    *    background-color should be 'transparent', but Firefox uses the background-color on
    *    <select> to determine the background color used for the dropdown menu.
    * 2. Adds 1px margins to the <select> so the background color doesn't hide the focus outline created with an inset box-shadow.
    */
-  background-color: inherit;
-  border: 0;
-  border-radius: inherit;
-  outline: none;
-  appearance: none;
+    background-color: inherit;
+    border: 0;
+    border-radius: inherit;
+    outline: none;
+    appearance: none;
 
-  /* 2. Prevents visible overlap of partially transparent background colors.
+    /* 2. Prevents visible overlap of partially transparent background colors.
    *    'colors.input.disabledBg' happens to be partially transparent in light mode, so we use a
    *    transparent background-color on a disabled <select>. 
    */
-  &:disabled {
-    background-color: transparent;
-  }
+    &:disabled {
+      background-color: transparent;
+    }
 
-  /* 3. Maintain dark bg color in Firefox on Windows high-contrast mode
+    /* 3. Maintain dark bg color in Firefox on Windows high-contrast mode
    *    Firefox makes the <select>'s background color white when setting 'background-color: transparent;'   
    */
-  @media screen and (forced-colors: active) {
-    &:disabled {
-      background-color: -moz-combobox;
+    @media screen and (forced-colors: active) {
+      &:disabled {
+        background-color: -moz-combobox;
+      }
     }
   }
-}
 
-.TextInputWrapper {
-  position: relative;
-  overflow: hidden;
+  .TextInputWrapper {
+    position: relative;
+    overflow: hidden;
 
-  @media screen and (forced-colors: active) {
-    svg {
-      /* stylelint-disable-next-line declaration-property-value-no-unknown */
-      fill: 'FieldText';
+    @media screen and (forced-colors: active) {
+      svg {
+        /* stylelint-disable-next-line declaration-property-value-no-unknown */
+        fill: 'FieldText';
+      }
     }
   }
-}
 
-.Disabled {
-  @media screen and (forced-colors: active) {
-    svg {
-      /* stylelint-disable-next-line declaration-property-value-no-unknown */
-      fill: 'GrayText';
+  .Disabled {
+    @media screen and (forced-colors: active) {
+      svg {
+        /* stylelint-disable-next-line declaration-property-value-no-unknown */
+        fill: 'GrayText';
+      }
     }
   }
-}
 
-.ArrowIndicator {
-  position: absolute;
-  top: 50%;
-  right: var(--base-size-4);
-  pointer-events: none;
-  transform: translateY(-50%);
+  .ArrowIndicator {
+    position: absolute;
+    top: 50%;
+    right: var(--base-size-4);
+    pointer-events: none;
+    transform: translateY(-50%);
+  }
 }
