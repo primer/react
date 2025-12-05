@@ -1,4 +1,4 @@
-import React, {useState, useMemo, useRef, useEffect} from 'react'
+import React, {useState, useMemo, useRef, useEffect, useCallback, useLayoutEffect} from 'react'
 import type {Meta} from '@storybook/react-vite'
 import {Button} from '../Button'
 import type {ItemInput} from '../FilteredActionList'
@@ -627,53 +627,20 @@ export const Virtualized = () => {
     count: filteredItems.length,
     getScrollElement: () => scrollContainer ?? null,
     estimateSize: () => DEFAULT_VIRTUAL_ITEM_HEIGHT,
-    overscan: 10,
+    overscan: 5,
     enabled: renderSubset,
     measureElement: el => {
       return (el as HTMLElement).scrollHeight
     },
   })
 
-  const virtualizedContainerStyle = useMemo(
-    () =>
-      renderSubset
-        ? {
-            height: virtualizer.getTotalSize(),
-            width: '100%',
-            position: 'relative' as const,
-          }
-        : undefined,
-    [renderSubset, virtualizer],
-  )
-
-  const virtualizedItems = useMemo(
-    () =>
-      renderSubset
-        ? virtualizer.getVirtualItems().map((virtualItem: VirtualItem) => {
-            const item = filteredItems[virtualItem.index]
-
-            return {
-              ...item,
-              key: virtualItem.index,
-              'data-index': virtualItem.index,
-              ref: (node: Element | null) => {
-                if (node && node.getAttribute('data-index')) {
-                  virtualizer.measureElement(node)
-                }
-              },
-              style: {
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: `${virtualItem.size}px`,
-                transform: `translateY(${virtualItem.start}px)`,
-              },
-            }
-          })
-        : filteredItems,
-    [renderSubset, virtualizer, filteredItems],
-  )
+  // Re-measure items when filter or items change
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      virtualizer.measure()
+    }, 0)
+    return () => clearTimeout(timeoutId)
+  }, [virtualizer, filter])
 
   return (
     <form>
@@ -709,7 +676,32 @@ export const Virtualized = () => {
           )}
           open={open}
           onOpenChange={onOpenChange}
-          items={virtualizedItems}
+          items={
+            renderSubset
+              ? virtualizer.getVirtualItems().map((virtualItem: VirtualItem) => {
+                  const item = filteredItems[virtualItem.index]
+
+                  return {
+                    ...item,
+                    key: virtualItem.index,
+                    'data-index': virtualItem.index,
+                    ref: (node: Element | null) => {
+                      if (node && node.getAttribute('data-index')) {
+                        virtualizer.measureElement(node)
+                      }
+                    },
+                    style: {
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: `${virtualItem.size}px`,
+                      transform: `translateY(${virtualItem.start}px)`,
+                    },
+                  }
+                })
+              : filteredItems
+          }
           selected={selected}
           onSelectedChange={setSelected}
           onFilterChange={setFilter}
@@ -719,10 +711,27 @@ export const Virtualized = () => {
           overlayProps={{
             id: 'select-labels-panel-dialog',
           }}
+          onActiveDescendantChanged={useCallback(
+            (newActivedescendant: HTMLElement | undefined) => {
+              const index = newActivedescendant?.getAttribute('data-index')
+              const range = virtualizer.range
+              if (newActivedescendant === undefined) return
+              if (index && range && (Number(index) < range.startIndex || Number(index) > range.endIndex - 1)) {
+                virtualizer.scrollToIndex(Number(newActivedescendant.getAttribute('data-index')), {align: 'auto'})
+              }
+            },
+            [virtualizer],
+          )}
           focusOutBehavior="stop"
           scrollContainerRef={node => setScrollContainer(node)}
           actionListProps={{
-            style: virtualizedContainerStyle,
+            style: renderSubset
+              ? {
+                  height: virtualizer.getTotalSize(),
+                  width: '100%',
+                  position: 'relative' as const,
+                }
+              : undefined,
           }}
         />
       </FormControl>
