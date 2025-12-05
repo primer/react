@@ -710,7 +710,7 @@ export const Virtualized = () => {
               const index = newActivedescendant?.getAttribute('data-index')
               const range = virtualizer.range
               if (newActivedescendant === undefined) return
-              if (index && range && (Number(index) < range.startIndex || Number(index) > range.endIndex - 1)) {
+              if (index && range && (Number(index) < range.startIndex || Number(index) >= range.endIndex)) {
                 virtualizer.scrollToIndex(Number(newActivedescendant.getAttribute('data-index')), {align: 'auto'})
               }
             },
