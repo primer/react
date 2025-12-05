@@ -11,7 +11,7 @@ const ignorelist = new Set(['experimental/CSSComponent/component.module.css'])
 const files = glob
   .sync('**/*.module.css', {
     cwd: WORKSPACE_SRC_FOLDER,
-    ignore: ['**/*.stories.module.css', '**/*.test.module.css'],
+    ignore: ['**/*.stories.module.css', '**/*.test.module.css', '**/*.dev.module.css'],
   })
   .filter(file => !ignorelist.has(file))
   .map(file => {
