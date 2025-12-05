@@ -4,7 +4,8 @@ import {VisuallyHidden} from '../VisuallyHidden'
 import type {HTMLDataAttributes} from '../internal/internal-types'
 import {useId} from '../hooks'
 import classes from './Spinner.module.css'
-import {clsx} from 'clsx'
+import {useCallback, useRef} from 'react'
+import {useMedia} from '../hooks/useMedia'
 
 const sizeMap = {
   small: '16px',
@@ -34,6 +35,7 @@ function Spinner({
   delay = false,
   ...props
 }: SpinnerProps) {
+  const animation = useSpinnerAnimation()
   const size = sizeMap[sizeKey]
   const hasHiddenLabel = srText !== null && ariaLabel === undefined
   const labelId = useId()
@@ -58,6 +60,7 @@ function Spinner({
     /* inline-flex removes the extra line height */
     <span className={classes.Box}>
       <svg
+        ref={animation}
         height={size}
         width={size}
         viewBox="0 0 16 16"
@@ -65,7 +68,7 @@ function Spinner({
         aria-hidden
         aria-label={ariaLabel ?? undefined}
         aria-labelledby={hasHiddenLabel ? labelId : undefined}
-        className={clsx(className, classes.SpinnerAnimation)}
+        className={className}
         style={style}
         {...props}
       >
@@ -92,5 +95,51 @@ function Spinner({
 }
 
 Spinner.displayName = 'Spinner'
+
+/**
+ * Uses a technique from Spectrum to coordinate animations:
+ * @see https://github.com/adobe/react-spectrum/blob/ab5e6f3dba4235dafab9f81f8b5c506ce5f11230/packages/%40react-spectrum/s2/src/Skeleton.tsx#L21
+ */
+function useSpinnerAnimation() {
+  const ref = useRef<Animation | null>(null)
+  const noMotionPreference = useMedia('(prefers-reduced-motion: no-preference)', false)
+  return useCallback(
+    (element: HTMLElement | SVGSVGElement | null) => {
+      if (!element) {
+        return
+      }
+
+      if (ref.current !== null) {
+        return
+      }
+
+      if (noMotionPreference) {
+        ref.current = element.animate(
+          [
+            {
+              transform: 'rotate(0deg)',
+            },
+            {
+              transform: 'rotate(360deg)',
+            },
+          ],
+          {
+            // var(--base-duration-1000)
+            duration: 1000,
+            iterations: Infinity,
+            // var(--base-easing-linear)
+            easing: 'cubic-bezier(0,0,1,1)',
+          },
+        )
+
+        // Used to sync different animations. When all animations have the same
+        // startTime they will be in sync.
+        // @see https://developer.mozilla.org/en-US/docs/Web/API/Animation/startTime#syncing_different_animations
+        ref.current.startTime = 0
+      }
+    },
+    [noMotionPreference],
+  )
+}
 
 export default Spinner
