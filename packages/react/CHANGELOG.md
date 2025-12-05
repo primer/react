@@ -1,5 +1,54 @@
 # @primer/react
 
+## 38.4.0
+
+### Minor Changes
+
+- [#7258](https://github.com/primer/react/pull/7258) [`8e66a2c`](https://github.com/primer/react/commit/8e66a2ca9fb711530c1392c8dcdc3faa6623b902) Thanks [@kendallgassner](https://github.com/kendallgassner)! - Make MappedActionListItem a forwardRef component
+
+- [#7250](https://github.com/primer/react/pull/7250) [`a193d30`](https://github.com/primer/react/commit/a193d30cad6e308e2f0cc29ebdcc926ee057f0fb) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Banner: Add `flush` prop for use within confined spaces, such as dialogs, tables, cards, or boxes where available space is limited.
+
+- [#7247](https://github.com/primer/react/pull/7247) [`e1021e7`](https://github.com/primer/react/commit/e1021e7a5b65c605d98f025a30ef4fb5cce91024) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Add leadingVisual to InlineMessage component.
+
+- [#7047](https://github.com/primer/react/pull/7047) [`c07dd71`](https://github.com/primer/react/commit/c07dd71e990323a1c73ec99c44752df43d153090) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Remove the feature flag for `primer_react_segmented_control_tooltip` and GA tooltip by default behavior.
+  - Ensure that when `disabled` is applied, the tooltip is still triggered.
+
+### Patch Changes
+
+- [#7244](https://github.com/primer/react/pull/7244) [`d973c5a`](https://github.com/primer/react/commit/d973c5ad5aa59c66e1f609558b33a6b63880234a) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - "Update logic for how hex codes are applied"
+
+- [#7230](https://github.com/primer/react/pull/7230) [`534ca11`](https://github.com/primer/react/commit/534ca119a2552bb71684c64d2e7481cf426023b6) Thanks [@mperrotti](https://github.com/mperrotti)! - Replaces 'aria-live' usage and removes internal LiveRegion component
+
+- [#7267](https://github.com/primer/react/pull/7267) [`1d8759a`](https://github.com/primer/react/commit/1d8759aae8a3bdd1dc2b8bc8785867ca467b72b5) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Used correct tokens for disabled radio control
+
+- [#7241](https://github.com/primer/react/pull/7241) [`181f12e`](https://github.com/primer/react/commit/181f12e1244ea1f33559976ff16e32a1777e877d) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(LabelGroup): add role and aria-label to hidden items overlay
+
+## 38.3.0
+
+### Minor Changes
+
+- [#7200](https://github.com/primer/react/pull/7200) [`0a0c2a0`](https://github.com/primer/react/commit/0a0c2a0daa15ca51e370f638876c79c2c2bb4473) Thanks [@joshblack](https://github.com/joshblack)! - Add `leadingVisual` prop to `UnderlineNav.Item`
+
+- [#7197](https://github.com/primer/react/pull/7197) [`9605a30`](https://github.com/primer/react/commit/9605a30605d0ecf688e4ae50c70a59622c1a4a08) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Deprecate `icon` prop in favor of `leadingVisual` and fix SecondaryAction styling in Banner.
+
+- [#7220](https://github.com/primer/react/pull/7220) [`62fc3bb`](https://github.com/primer/react/commit/62fc3bb18d988e92786154a5368246782723bcea) Thanks [@kendallgassner](https://github.com/kendallgassner)! - Expose props to allow virtualization in the SelectPanel
+
+- [#7177](https://github.com/primer/react/pull/7177) [`feb7001`](https://github.com/primer/react/commit/feb7001ccfb4e1f2a4d2f4a41f7acd622eaf784e) Thanks [@joshblack](https://github.com/joshblack)! - Add experimental TopicTag and TopicTag.Group components
+
+### Patch Changes
+
+- [#6987](https://github.com/primer/react/pull/6987) [`cd5ab1b`](https://github.com/primer/react/commit/cd5ab1bc588cf111d13cb387c770ddb0b9f39d8e) Thanks [@kerimmoresh](https://github.com/kerimmoresh)! - docs: Fix Typos in comments
+
+- [#7239](https://github.com/primer/react/pull/7239) [`2735220`](https://github.com/primer/react/commit/27352201b87227a5a1d85f77eca91bfd08cd4536) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Center align header and description for BlankSlate
+
+- [#7223](https://github.com/primer/react/pull/7223) [`f9fb9eb`](https://github.com/primer/react/commit/f9fb9eba8f1b2db8fddd9f6926edf77454146084) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - ActionBar: Add padding to Divider when gap="none".
+
+- [#7134](https://github.com/primer/react/pull/7134) [`585c5fa`](https://github.com/primer/react/commit/585c5fa4864e8bb616495622da49beec009dfbe6) Thanks [@hectahertz](https://github.com/hectahertz)! - SegmentedControl: Remove useResponsiveValue hook from fullWidth and variant props to use `getResponsiveAttributes` instead.
+
+- [#7211](https://github.com/primer/react/pull/7211) [`46a7ebe`](https://github.com/primer/react/commit/46a7ebed73ceb6805b863e14ad1ee24dfe9c60cf) Thanks [@langermank](https://github.com/langermank)! - Adjust `ActionList.Item` danger variant CSS to support trailing count/keybinding hint
+
+- [#7246](https://github.com/primer/react/pull/7246) [`1667225`](https://github.com/primer/react/commit/166722526fe49c428af34eeb16e30d5e91103649) Thanks [@pksjce](https://github.com/pksjce)! - chore - Fix type compatibility with react 19 refs
+
 ## 38.2.0
 
 ### Minor Changes

@@ -16,9 +16,9 @@
     &:disabled {
       cursor: not-allowed;
       /* stylelint-disable-next-line primer/colors */
-      background-color: var(--fgColor-muted);
+      background-color: var(--control-checked-fgColor-disabled);
       /* stylelint-disable-next-line primer/colors */
-      border-color: var(--fgColor-muted);
+      border-color: var(--control-checked-bgColor-disabled);
     }
   }
 
