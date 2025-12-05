@@ -601,7 +601,7 @@ export const Virtualized = () => {
   const [renderSubset, setRenderSubset] = useState(true)
 
   const [filter, setFilter] = useState('')
-  const [filterUpdated, setFilterUpdated] = useState<boolean>(false)
+  // const filterUpdatedRef = useRef(false)
   const [scrollContainer, setScrollContainer] = useState<HTMLDivElement | null>(null)
   const filteredItems = lotsOfItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
 
@@ -630,21 +630,11 @@ export const Virtualized = () => {
     estimateSize: () => DEFAULT_VIRTUAL_ITEM_HEIGHT,
     overscan: 5,
     enabled: renderSubset,
+    getItemKey: index => filteredItems[index].id,
     measureElement: el => {
       return (el as HTMLElement).scrollHeight
     },
   })
-
-  // Re-measure items when filter or items change
-  useEffect(() => {
-    if (filterUpdated) {
-      const timeoutId = setTimeout(() => {
-        virtualizer.measure()
-        setFilterUpdated(false)
-      }, 0)
-      return () => clearTimeout(timeoutId)
-    }
-  }, [virtualizer, filterUpdated, setFilterUpdated])
 
   return (
     <form>
@@ -687,7 +677,7 @@ export const Virtualized = () => {
 
                   return {
                     ...item,
-                    key: virtualItem.index,
+                    key: item.id,
                     'data-index': virtualItem.index,
                     ref: (node: Element | null) => {
                       if (node && node.getAttribute('data-index')) {
@@ -710,7 +700,6 @@ export const Virtualized = () => {
           onSelectedChange={setSelected}
           onFilterChange={filterValue => {
             setFilter(filterValue)
-            setFilterUpdated(true)
           }}
           width="medium"
           height="large"
