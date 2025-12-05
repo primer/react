@@ -85,7 +85,8 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
    */
   disableSelectOnHover?: boolean
   /**
-   * If true, does not set `aria-activedescendant` value until user action.
+   * If true, focus remains where it was and the user must interact to move focus.
+   * If false, sets initial focus to the first item in the list when rendered, enabling keyboard navigation immediately.
    */
   setInitialFocus?: boolean
 }
@@ -244,7 +245,7 @@ export function FilteredActionList({
             }
           },
           focusInStrategy: setInitialFocus ? 'initial' : 'previous',
-          ignoreHoverEvents: disableSelectOnHover ? true : false,
+          ignoreHoverEvents: disableSelectOnHover,
         }
       : undefined,
     [listContainerElement, usingRovingTabindex],

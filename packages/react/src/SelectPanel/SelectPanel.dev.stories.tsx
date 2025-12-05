@@ -413,7 +413,7 @@ export const WithDisableOnHover = ({onCancel, secondaryAction}: ParamProps) => {
   )
 }
 
-export const WithInitialFocus = ({onCancel, secondaryAction}: ParamProps) => {
+export const WithInitialFocusEnabled = ({onCancel, secondaryAction}: ParamProps) => {
   const [selected, setSelected] = useState<ItemInput[]>(simpleItems.slice(1, 3))
   const [filter, setFilter] = useState('')
   const filteredItems = simpleItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
