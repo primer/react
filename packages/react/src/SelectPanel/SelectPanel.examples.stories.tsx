@@ -1,4 +1,4 @@
-import React, {useState, useMemo, useRef, useEffect, useCallback, useLayoutEffect} from 'react'
+import React, {useState, useMemo, useRef, useEffect, useCallback} from 'react'
 import type {Meta} from '@storybook/react-vite'
 import {Button} from '../Button'
 import type {ItemInput} from '../FilteredActionList'
