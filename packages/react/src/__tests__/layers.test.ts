@@ -13,12 +13,15 @@ const files = glob
     cwd: WORKSPACE_SRC_FOLDER,
     ignore: ['**/*.stories.module.css', '**/*.test.module.css', '**/*.dev.module.css'],
   })
-  .filter(file => !ignorelist.has(file))
+  .filter(file => {
+    return !ignorelist.has(file)
+  })
   .map(file => {
     return [path.basename(file), path.join(WORKSPACE_SRC_FOLDER, file)]
   })
 
-const CSS_LAYER_REGEX = /^primer\.components\.[A-Z][A-Za-z0-9]+$/
+const CSS_LAYER_COMPONENT_REGEX = /^primer\.components\.[A-Z][A-Za-z0-9]+$/
+const CSS_LAYER_UTILITY_REGEX = /^primer\.utilities\.[A-Z][A-Za-z0-9]+$/
 
 describe('CSS Layers', () => {
   describe.each(files)('%s', (_name, filename) => {
@@ -26,6 +29,8 @@ describe('CSS Layers', () => {
     const ast = parse(contents, {
       filename,
     }) as StyleSheet
+    const basename = path.basename(filename, '.module.css')
+    const isComponent = basename[0] === basename[0].toUpperCase()
 
     test('uses CSS Layer', () => {
       expect(ast.children.first?.type).toBe('Atrule')
@@ -40,7 +45,7 @@ describe('CSS Layers', () => {
       expect(node.prelude?.type).toBe('Raw')
       const prelude = node.prelude as Raw
 
-      expect(prelude.value).toMatch(CSS_LAYER_REGEX)
+      expect(prelude.value).toMatch(isComponent ? CSS_LAYER_COMPONENT_REGEX : CSS_LAYER_UTILITY_REGEX)
     })
   })
 })
