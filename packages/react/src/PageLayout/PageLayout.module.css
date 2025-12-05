@@ -400,14 +400,6 @@
   margin-left: auto;
   flex-grow: 1;
 
-  /**
-   * OPTIMIZATION: Skip rendering off-screen content during scrolling/resizing
-   * This automatically helps consumers with large content by only rendering
-   * elements that are visible in the viewport
-   */
-  content-visibility: auto;
-  contain-intrinsic-size: auto 500px;
-
   &:where([data-width='medium']) {
     max-width: 768px;
   }
@@ -610,11 +602,6 @@
   width: var(--pane-width-size);
   /* stylelint-disable-next-line primer/spacing */
   padding: var(--spacing);
-
-  /**
-   * OPTIMIZATION: For extremely tall content - skip rendering off-screen content
-   */
-  content-visibility: auto;
 
   @media screen and (min-width: 768px) {
     overflow: auto;
