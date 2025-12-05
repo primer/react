@@ -344,7 +344,6 @@ export function FilteredActionList({
                         className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
                         data-input-focused={isInputFocused ? '' : undefined}
                         data-first-child={index === firstGroupIndex && itemIndex === 0 ? '' : undefined}
-                        data-select-on-hover={disableSelectOnHover ? 'true' : 'false'}
                         {...item}
                         renderItem={listProps.renderItem}
                       />
@@ -361,7 +360,6 @@ export function FilteredActionList({
                   className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
                   data-input-focused={isInputFocused ? '' : undefined}
                   data-first-child={index === 0 ? '' : undefined}
-                  data-select-on-hover={disableSelectOnHover ? 'true' : 'false'}
                   {...item}
                   renderItem={listProps.renderItem}
                 />
