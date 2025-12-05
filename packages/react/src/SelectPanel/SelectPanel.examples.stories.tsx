@@ -601,6 +601,7 @@ export const Virtualized = () => {
   const [renderSubset, setRenderSubset] = useState(true)
 
   const [filter, setFilter] = useState('')
+  const [filterUpdated, setFilterUpdated] = useState<boolean>(false)
   const [scrollContainer, setScrollContainer] = useState<HTMLDivElement | null>(null)
   const filteredItems = lotsOfItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
 
@@ -636,11 +637,14 @@ export const Virtualized = () => {
 
   // Re-measure items when filter or items change
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      virtualizer.measure()
-    }, 0)
-    return () => clearTimeout(timeoutId)
-  }, [virtualizer, filter])
+    if (filterUpdated) {
+      const timeoutId = setTimeout(() => {
+        virtualizer.measure()
+        setFilterUpdated(false)
+      }, 0)
+      return () => clearTimeout(timeoutId)
+    }
+  }, [virtualizer, filterUpdated, setFilterUpdated])
 
   return (
     <form>
@@ -704,7 +708,10 @@ export const Virtualized = () => {
           }
           selected={selected}
           onSelectedChange={setSelected}
-          onFilterChange={setFilter}
+          onFilterChange={filterValue => {
+            setFilter(filterValue)
+            setFilterUpdated(true)
+          }}
           width="medium"
           height="large"
           message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
