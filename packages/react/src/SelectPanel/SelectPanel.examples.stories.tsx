@@ -698,9 +698,7 @@ export const Virtualized = () => {
           }
           selected={selected}
           onSelectedChange={setSelected}
-          onFilterChange={filterValue => {
-            setFilter(filterValue)
-          }}
+          onFilterChange={setFilter}
           width="medium"
           height="large"
           message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
