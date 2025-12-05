@@ -1,5 +1,28 @@
 # @primer/react
 
+## 38.4.0
+
+### Minor Changes
+
+- [#7258](https://github.com/primer/react/pull/7258) [`8e66a2c`](https://github.com/primer/react/commit/8e66a2ca9fb711530c1392c8dcdc3faa6623b902) Thanks [@kendallgassner](https://github.com/kendallgassner)! - Make MappedActionListItem a forwardRef component
+
+- [#7250](https://github.com/primer/react/pull/7250) [`a193d30`](https://github.com/primer/react/commit/a193d30cad6e308e2f0cc29ebdcc926ee057f0fb) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Banner: Add `flush` prop for use within confined spaces, such as dialogs, tables, cards, or boxes where available space is limited.
+
+- [#7247](https://github.com/primer/react/pull/7247) [`e1021e7`](https://github.com/primer/react/commit/e1021e7a5b65c605d98f025a30ef4fb5cce91024) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Add leadingVisual to InlineMessage component.
+
+- [#7047](https://github.com/primer/react/pull/7047) [`c07dd71`](https://github.com/primer/react/commit/c07dd71e990323a1c73ec99c44752df43d153090) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Remove the feature flag for `primer_react_segmented_control_tooltip` and GA tooltip by default behavior.
+  - Ensure that when `disabled` is applied, the tooltip is still triggered.
+
+### Patch Changes
+
+- [#7244](https://github.com/primer/react/pull/7244) [`d973c5a`](https://github.com/primer/react/commit/d973c5ad5aa59c66e1f609558b33a6b63880234a) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - "Update logic for how hex codes are applied"
+
+- [#7230](https://github.com/primer/react/pull/7230) [`534ca11`](https://github.com/primer/react/commit/534ca119a2552bb71684c64d2e7481cf426023b6) Thanks [@mperrotti](https://github.com/mperrotti)! - Replaces 'aria-live' usage and removes internal LiveRegion component
+
+- [#7267](https://github.com/primer/react/pull/7267) [`1d8759a`](https://github.com/primer/react/commit/1d8759aae8a3bdd1dc2b8bc8785867ca467b72b5) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Used correct tokens for disabled radio control
+
+- [#7241](https://github.com/primer/react/pull/7241) [`181f12e`](https://github.com/primer/react/commit/181f12e1244ea1f33559976ff16e32a1777e877d) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(LabelGroup): add role and aria-label to hidden items overlay
+
 ## 38.3.0
 
 ### Minor Changes
