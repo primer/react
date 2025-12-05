@@ -22,6 +22,20 @@ const files = glob
 
 const CSS_LAYER_COMPONENT_REGEX = /^primer\.components\.[A-Z][A-Za-z0-9]+$/
 const CSS_LAYER_UTILITY_REGEX = /^primer\.utilities\.[A-Z][A-Za-z0-9]+$/
+const CSS_LAYER_BASE_REGEX = /^primer\.base$/
+
+function getLayerRegex(filename: string): RegExp {
+  const basename = path.basename(filename, '.module.css')
+  if (basename === 'BaseStyles') {
+    return CSS_LAYER_BASE_REGEX
+  }
+
+  if (basename[0] === basename[0].toUpperCase()) {
+    return CSS_LAYER_COMPONENT_REGEX
+  }
+
+  return CSS_LAYER_UTILITY_REGEX
+}
 
 describe('CSS Layers', () => {
   describe.each(files)('%s', (_name, filename) => {
@@ -29,8 +43,6 @@ describe('CSS Layers', () => {
     const ast = parse(contents, {
       filename,
     }) as StyleSheet
-    const basename = path.basename(filename, '.module.css')
-    const isComponent = basename[0] === basename[0].toUpperCase()
 
     test('uses CSS Layer', () => {
       expect(ast.children.first?.type).toBe('Atrule')
@@ -45,7 +57,7 @@ describe('CSS Layers', () => {
       expect(node.prelude?.type).toBe('Raw')
       const prelude = node.prelude as Raw
 
-      expect(prelude.value).toMatch(isComponent ? CSS_LAYER_COMPONENT_REGEX : CSS_LAYER_UTILITY_REGEX)
+      expect(prelude.value).toMatch(getLayerRegex(filename))
     })
   })
 })
