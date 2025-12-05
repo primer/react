@@ -1,5 +1,11 @@
 # @primer/react
 
+## 38.4.1
+
+### Patch Changes
+
+- [#7275](https://github.com/primer/react/pull/7275) [`822c3e7`](https://github.com/primer/react/commit/822c3e791a9fd18df6b9a834f9bbb87151ec8076) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Improve drag performance for PageLayout
+
 ## 38.4.0
 
 ### Minor Changes
