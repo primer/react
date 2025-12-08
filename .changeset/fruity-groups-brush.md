@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-Added callback prop onActiveDescendantChanged to FilterActionList'
+Added callback prop onActiveDescendantChanged to FilteredActionList
