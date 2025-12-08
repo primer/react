@@ -29,6 +29,7 @@ import {useIsMacOS} from '../hooks'
 import {Tooltip} from '../TooltipV2'
 import {isSlot} from '../utils/is-slot'
 import type {FCWithSlotMarker} from '../utils/types'
+import {AriaStatus} from '../live-region'
 
 // ----------------------------------------------------------------------------
 // Context
@@ -144,8 +145,8 @@ const Root: React.FC<TreeViewProps> = ({
       }}
     >
       <>
-        <VisuallyHidden role="status" aria-live="polite" aria-atomic="true">
-          {ariaLiveMessage}
+        <VisuallyHidden>
+          <AriaStatus announceOnShow>{ariaLiveMessage}</AriaStatus>
         </VisuallyHidden>
         <ul
           ref={containerRef}

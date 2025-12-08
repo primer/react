@@ -31,6 +31,72 @@ import type {FilteredActionListProps} from './types'
 import {MappedActionListItem} from './components/MappedActionListItem'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
+export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
+  loading?: boolean
+  loadingType?: FilteredActionListLoadingType
+  placeholderText?: string
+  filterValue?: string
+  onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement> | null) => void
+  onListContainerRefChanged?: (ref: HTMLElement | null) => void
+  onInputRefChanged?: (ref: React.RefObject<HTMLInputElement | null>) => void
+  /**
+   * A ref assigned to the scrollable container wrapping the ActionList
+   */
+  scrollContainerRef?: React.Ref<HTMLDivElement | null>
+  textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
+  inputRef?: React.RefObject<HTMLInputElement | null>
+  message?: React.ReactNode
+  messageText?: {
+    title: string
+    description: string
+  }
+  className?: string
+  announcementsEnabled?: boolean
+  fullScreenOnNarrow?: boolean
+  onSelectAllChange?: (checked: boolean) => void
+  /**
+   * Additional props to pass to the underlying ActionList component.
+   */
+  actionListProps?: Partial<ActionListProps>
+  /**
+   * Determines how keyboard focus behaves when navigating beyond the first or last item in the list.
+   *
+   * - `'stop'`: Focus will stop at the first or last item; further navigation in that direction will not move focus.
+   * - `'wrap'`: Focus will wrap around to the opposite end of the list when navigating past the boundaries (e.g., pressing Down on the last item moves focus to the first).
+   *
+   *  @default 'wrap'
+   */
+  focusOutBehavior?: 'stop' | 'wrap'
+  /**
+   * Private API for use internally only. Adds the ability to switch between
+   * `active-descendant` and roving tabindex.
+   *
+   * By default, FilteredActionList uses `aria-activedescendant` to manage focus.
+   *
+   * Roving tabindex is an alternative focus management method that moves
+   * focus to the list items themselves instead of keeping focus on the input.
+   *
+   * Improper usage can lead to inaccessible experiences, so this prop should be used with caution.
+   *
+   * For usage, refer to the documentation:
+   *
+   * WAI-ARIA `aria-activedescendant`: https://www.w3.org/TR/wai-aria-1.2/#aria-activedescendant
+   *
+   * Roving Tabindex: https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#kbd_roving_tabindex
+   *
+   * @default 'active-descendant'
+   */
+  _PrivateFocusManagement?: 'roving-tabindex' | 'active-descendant'
+  /**
+   * If true, disables selecting items when hovering over them with the mouse.
+   */
+  disableSelectOnHover?: boolean
+  /**
+   * If true, focus remains where it was and the user must interact to move focus.
+   * If false, sets initial focus to the first item in the list when rendered, enabling keyboard navigation immediately.
+   */
+  setInitialFocus?: boolean
+}
 
 export function FilteredActionList({
   loading = false,
@@ -56,6 +122,8 @@ export function FilteredActionList({
   actionListProps,
   focusOutBehavior = 'wrap',
   _PrivateFocusManagement = 'active-descendant',
+  disableSelectOnHover = false,
+  setInitialFocus = false,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -333,6 +401,7 @@ export function FilteredActionList({
     <div ref={inputAndListContainerRef} className={clsx(className, classes.Root)} data-testid="filtered-action-list">
       <div className={classes.Header}>
         <TextInput
+          // @ts-expect-error it needs a non nullable ref
           ref={inputRef}
           block
           width="auto"
@@ -369,6 +438,7 @@ export function FilteredActionList({
           </label>
         </div>
       )}
+      {/* @ts-expect-error div needs a non nullable ref */}
       <div ref={scrollContainerRef} className={classes.Container}>
         {getBodyContent()}
       </div>

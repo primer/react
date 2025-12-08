@@ -823,6 +823,7 @@ function Panel({
             filterValue={filterValue}
             onFilterChange={onFilterChange}
             onListContainerRefChanged={onListContainerRefChanged}
+            // @ts-expect-error it needs a non nullable ref
             onInputRefChanged={onInputRefChanged}
             placeholderText={placeholderText}
             {...listProps}

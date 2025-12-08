@@ -114,7 +114,7 @@ function useTabList<T extends HTMLElement>(
     'aria-orientation': AriaAttributes['aria-orientation']
     'aria-label': AriaAttributes['aria-label']
     'aria-labelledby': AriaAttributes['aria-labelledby']
-    ref: React.RefObject<T>
+    ref: React.RefObject<T | null>
     role: 'tablist'
   }
 } {
@@ -186,6 +186,7 @@ function TabList({children, ...rest}: TabListProps) {
   const {tabListProps} = useTabList<HTMLDivElement>(rest)
 
   return (
+    // @ts-expect-error it needs a non nullable ref
     <div {...rest} {...tabListProps}>
       {children}
     </div>
