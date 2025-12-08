@@ -32,6 +32,7 @@
   "typings": "dist/index.d.ts",
   "sideEffects": [
     "dist/**/*.css",
+    "src/**/*.css",
     "src/**/test-helpers.tsx",
     "dist/**/test-helpers.js"
   ],
