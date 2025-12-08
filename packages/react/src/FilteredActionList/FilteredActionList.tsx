@@ -80,6 +80,15 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
    * @default 'active-descendant'
    */
   _PrivateFocusManagement?: 'roving-tabindex' | 'active-descendant'
+  /**
+   * If true, disables selecting items when hovering over them with the mouse.
+   */
+  disableSelectOnHover?: boolean
+  /**
+   * If true, focus remains where it was and the user must interact to move focus.
+   * If false, sets initial focus to the first item in the list when rendered, enabling keyboard navigation immediately.
+   */
+  setInitialFocus?: boolean
 }
 
 export function FilteredActionList({
@@ -106,6 +115,8 @@ export function FilteredActionList({
   actionListProps,
   focusOutBehavior = 'wrap',
   _PrivateFocusManagement = 'active-descendant',
+  disableSelectOnHover = false,
+  setInitialFocus = false,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -233,6 +244,8 @@ export function FilteredActionList({
               scrollIntoView(current, scrollContainerRef.current, menuScrollMargins)
             }
           },
+          focusInStrategy: setInitialFocus ? 'initial' : 'previous',
+          ignoreHoverEvents: disableSelectOnHover,
         }
       : undefined,
     [listContainerElement, usingRovingTabindex],
