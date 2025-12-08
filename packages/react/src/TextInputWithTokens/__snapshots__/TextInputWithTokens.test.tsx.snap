@@ -9426,7 +9426,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="prc-components-SpinnerVisible-FH5pT"
+                class="prc-components-SpinnerVisible-FH5pT prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="16px"
                 viewBox="0 0 16 16"
@@ -9469,7 +9469,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="prc-components-SpinnerVisible-FH5pT"
+                class="prc-components-SpinnerVisible-FH5pT prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="16px"
                 viewBox="0 0 16 16"
@@ -9881,7 +9881,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="prc-components-SpinnerHidden-c-Wb6"
+                class="prc-components-SpinnerHidden-c-Wb6 prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="16px"
                 viewBox="0 0 16 16"
@@ -10299,7 +10299,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="prc-components-SpinnerVisible-FH5pT"
+                class="prc-components-SpinnerVisible-FH5pT prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="16px"
                 viewBox="0 0 16 16"
@@ -10362,7 +10362,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3"
+                class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="32px"
                 viewBox="0 0 16 16"
@@ -10774,7 +10774,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="prc-components-SpinnerHidden-c-Wb6"
+                class="prc-components-SpinnerHidden-c-Wb6 prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="16px"
                 viewBox="0 0 16 16"
@@ -10837,7 +10837,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3"
+                class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="32px"
                 viewBox="0 0 16 16"
@@ -11249,7 +11249,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="prc-components-SpinnerHidden-c-Wb6"
+                class="prc-components-SpinnerHidden-c-Wb6 prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="16px"
                 viewBox="0 0 16 16"
@@ -11313,7 +11313,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3"
+                class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="32px"
                 viewBox="0 0 16 16"
@@ -11725,7 +11725,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="prc-components-SpinnerVisible-FH5pT"
+                class="prc-components-SpinnerVisible-FH5pT prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="16px"
                 viewBox="0 0 16 16"
@@ -12163,7 +12163,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt"
+                class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="32px"
                 viewBox="0 0 16 16"
@@ -12207,7 +12207,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="prc-components-SpinnerVisible-FH5pT"
+                class="prc-components-SpinnerVisible-FH5pT prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="16px"
                 viewBox="0 0 16 16"
@@ -12639,7 +12639,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt"
+                class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="32px"
                 viewBox="0 0 16 16"
@@ -13077,7 +13077,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt"
+                class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="32px"
                 viewBox="0 0 16 16"
@@ -13141,7 +13141,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3"
+                class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="32px"
                 viewBox="0 0 16 16"
@@ -13573,7 +13573,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt"
+                class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="32px"
                 viewBox="0 0 16 16"
@@ -13637,7 +13637,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3"
+                class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="32px"
                 viewBox="0 0 16 16"
@@ -14069,7 +14069,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt"
+                class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="32px"
                 viewBox="0 0 16 16"
@@ -14133,7 +14133,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3"
+                class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="32px"
                 viewBox="0 0 16 16"
@@ -14565,7 +14565,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt"
+                class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="32px"
                 viewBox="0 0 16 16"
@@ -14986,7 +14986,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="prc-components-SpinnerVisible-FH5pT"
+              class="prc-components-SpinnerVisible-FH5pT prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="16px"
               viewBox="0 0 16 16"
@@ -15029,7 +15029,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="prc-components-SpinnerVisible-FH5pT"
+              class="prc-components-SpinnerVisible-FH5pT prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="16px"
               viewBox="0 0 16 16"
@@ -15441,7 +15441,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="prc-components-SpinnerHidden-c-Wb6"
+              class="prc-components-SpinnerHidden-c-Wb6 prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="16px"
               viewBox="0 0 16 16"
@@ -15859,7 +15859,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="prc-components-SpinnerVisible-FH5pT"
+              class="prc-components-SpinnerVisible-FH5pT prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="16px"
               viewBox="0 0 16 16"
@@ -15922,7 +15922,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3"
+              class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="32px"
               viewBox="0 0 16 16"
@@ -16334,7 +16334,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="prc-components-SpinnerHidden-c-Wb6"
+              class="prc-components-SpinnerHidden-c-Wb6 prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="16px"
               viewBox="0 0 16 16"
@@ -16397,7 +16397,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3"
+              class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="32px"
               viewBox="0 0 16 16"
@@ -16809,7 +16809,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="prc-components-SpinnerHidden-c-Wb6"
+              class="prc-components-SpinnerHidden-c-Wb6 prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="16px"
               viewBox="0 0 16 16"
@@ -16873,7 +16873,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3"
+              class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="32px"
               viewBox="0 0 16 16"
@@ -17285,7 +17285,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="prc-components-SpinnerVisible-FH5pT"
+              class="prc-components-SpinnerVisible-FH5pT prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="16px"
               viewBox="0 0 16 16"
@@ -17723,7 +17723,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt"
+              class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="32px"
               viewBox="0 0 16 16"
@@ -17767,7 +17767,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="prc-components-SpinnerVisible-FH5pT"
+              class="prc-components-SpinnerVisible-FH5pT prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="16px"
               viewBox="0 0 16 16"
@@ -18199,7 +18199,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt"
+              class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="32px"
               viewBox="0 0 16 16"
@@ -18637,7 +18637,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt"
+              class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="32px"
               viewBox="0 0 16 16"
@@ -18701,7 +18701,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3"
+              class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="32px"
               viewBox="0 0 16 16"
@@ -19133,7 +19133,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt"
+              class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="32px"
               viewBox="0 0 16 16"
@@ -19197,7 +19197,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3"
+              class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="32px"
               viewBox="0 0 16 16"
@@ -19629,7 +19629,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt"
+              class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="32px"
               viewBox="0 0 16 16"
@@ -19693,7 +19693,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3"
+              class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="32px"
               viewBox="0 0 16 16"
@@ -20125,7 +20125,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt"
+              class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="32px"
               viewBox="0 0 16 16"
