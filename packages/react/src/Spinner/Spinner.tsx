@@ -1,11 +1,10 @@
 import {clsx} from 'clsx'
 import type React from 'react'
-import {useState, useEffect, useSyncExternalStore} from 'react'
+import {useCallback, useEffect, useRef, useState, useSyncExternalStore} from 'react'
 import {VisuallyHidden} from '../VisuallyHidden'
 import type {HTMLDataAttributes} from '../internal/internal-types'
 import {useId} from '../hooks'
 import classes from './Spinner.module.css'
-import {useCallback, useRef} from 'react'
 import {useMedia} from '../hooks/useMedia'
 
 const sizeMap = {
