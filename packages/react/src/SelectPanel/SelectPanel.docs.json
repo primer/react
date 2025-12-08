@@ -222,9 +222,15 @@
     },  
     {
       "name": "focusOutBehavior",
-       "type": "'start' | 'wrap'",
+      "type": "'start' | 'wrap'",
       "defaultValue": "'wrap'",
       "description": "Determines how keyboard focus behaves when navigating beyond the first or last item in the list."
+    },
+    {
+      "name": "onActiveDescendantChanged",
+      "type": "(newActiveDescendant: HTMLElement | undefined, previousActiveDescendant: HTMLElement | undefined, directlyActivated: boolean) => void | undefined",
+      "defaultValue": "undefined",
+      "description": "Callback function that is called when the active descendant changes."
     }
   ],
   "subcomponents": []

@@ -601,7 +601,6 @@ export const Virtualized = () => {
   const [renderSubset, setRenderSubset] = useState(true)
 
   const [filter, setFilter] = useState('')
-  // const filterUpdatedRef = useRef(false)
   const [scrollContainer, setScrollContainer] = useState<HTMLDivElement | null>(null)
   const filteredItems = lotsOfItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
 

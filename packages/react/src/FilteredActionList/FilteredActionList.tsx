@@ -61,7 +61,7 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
    */
   focusOutBehavior?: 'stop' | 'wrap'
   /**
-   * Callback function that is called whenever the active descendant changes.
+   * Callback function that is called when the active descendant changes.
    *
    * @param newActiveDescendant - The new active descendant element.
    * @param previousActiveDescendant - The previous active descendant element.
