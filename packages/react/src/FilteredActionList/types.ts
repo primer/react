@@ -1,8 +1,10 @@
 import type {Key} from 'react'
 import type {Merge} from '../utils/polymorphic'
 import type {Group} from '../ActionList/Group'
-import type {ActionListGroupProps} from '../deprecated'
+import type {ActionListGroupProps, ActionListProps} from '../deprecated'
 import type {AriaRole} from '../utils/types'
+import type {FilteredActionListLoadingType} from './FilteredActionListLoaders'
+import type {TextInputProps} from '../TextInput'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type RenderItemFn = (props: FilteredActionListItemProps) => React.ReactElement<any>
@@ -185,4 +187,62 @@ export interface ListPropsBase {
    * Whether to display a divider above each `Item` in this `List` when it does not follow a `Header` or `Divider`.
    */
   showItemDividers?: boolean
+}
+
+export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
+  loading?: boolean
+  loadingType?: FilteredActionListLoadingType
+  placeholderText?: string
+  filterValue?: string
+  onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement> | null) => void
+  onListContainerRefChanged?: (ref: HTMLElement | null) => void
+  onInputRefChanged?: (ref: React.RefObject<HTMLInputElement>) => void
+  /**
+   * A ref assigned to the scrollable container wrapping the ActionList
+   */
+  scrollContainerRef?: React.Ref<HTMLDivElement | null>
+  textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
+  inputRef?: React.RefObject<HTMLInputElement>
+  message?: React.ReactNode
+  messageText?: {
+    title: string
+    description: string
+  }
+  className?: string
+  announcementsEnabled?: boolean
+  fullScreenOnNarrow?: boolean
+  onSelectAllChange?: (checked: boolean) => void
+  /**
+   * Additional props to pass to the underlying ActionList component.
+   */
+  actionListProps?: Partial<ActionListProps>
+  /**
+   * Determines how keyboard focus behaves when navigating beyond the first or last item in the list.
+   *
+   * - `'stop'`: Focus will stop at the first or last item; further navigation in that direction will not move focus.
+   * - `'wrap'`: Focus will wrap around to the opposite end of the list when navigating past the boundaries (e.g., pressing Down on the last item moves focus to the first).
+   *
+   *  @default 'wrap'
+   */
+  focusOutBehavior?: 'stop' | 'wrap'
+  /**
+   * Private API for use internally only. Adds the ability to switch between
+   * `active-descendant` and roving tabindex.
+   *
+   * By default, FilteredActionList uses `aria-activedescendant` to manage focus.
+   *
+   * Roving tabindex is an alternative focus management method that moves
+   * focus to the list items themselves instead of keeping focus on the input.
+   *
+   * Improper usage can lead to inaccessible experiences, so this prop should be used with caution.
+   *
+   * For usage, refer to the documentation:
+   *
+   * WAI-ARIA `aria-activedescendant`: https://www.w3.org/TR/wai-aria-1.2/#aria-activedescendant
+   *
+   * Roving Tabindex: https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#kbd_roving_tabindex
+   *
+   * @default 'active-descendant'
+   */
+  _PrivateFocusManagement?: 'roving-tabindex' | 'active-descendant'
 }

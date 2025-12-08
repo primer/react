@@ -1,86 +1,36 @@
-import type {ScrollIntoViewOptions} from '@primer/behaviors'
+/** Behaviors */
 import {scrollIntoView, FocusKeys} from '@primer/behaviors'
-import type {KeyboardEventHandler, JSX} from 'react'
-import type React from 'react'
-import {useCallback, useEffect, useRef, useState} from 'react'
-import type {TextInputProps} from '../TextInput'
+
+/** Styles */
+import {clsx} from 'clsx'
+import classes from './FilteredActionList.module.css'
+
+/** Components / Context */
 import TextInput from '../TextInput'
-import {ActionList, type ActionListProps} from '../ActionList'
-import type {GroupedListProps, ListPropsBase, ItemInput, RenderItemFn} from './'
+import {ActionList} from '../ActionList'
+import {VisuallyHidden} from '../VisuallyHidden'
+import {FilteredActionListLoadingTypes, FilteredActionListBodyLoader} from './FilteredActionListLoaders'
+import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
+import Checkbox from '../Checkbox'
+
+/** React */
+import {useCallback, useEffect, useRef, useState} from 'react'
+
+/** Hooks */
+import {useAnnouncements} from './useAnnouncements'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
-import {VisuallyHidden} from '../VisuallyHidden'
-import type {FilteredActionListLoadingType} from './FilteredActionListLoaders'
-import {FilteredActionListLoadingTypes, FilteredActionListBodyLoader} from './FilteredActionListLoaders'
-import classes from './FilteredActionList.module.css'
-import Checkbox from '../Checkbox'
-import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
-import {isValidElementType} from 'react-is'
-import {useAnnouncements} from './useAnnouncements'
-import {clsx} from 'clsx'
+
+/** Types */
+import type {ScrollIntoViewOptions} from '@primer/behaviors'
+import type {KeyboardEventHandler, JSX} from 'react'
+import type {FilteredActionListProps} from './types'
+import {MappedActionListItem} from './components/MappedActionListItem'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
-
-export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
-  loading?: boolean
-  loadingType?: FilteredActionListLoadingType
-  placeholderText?: string
-  filterValue?: string
-  onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement> | null) => void
-  onListContainerRefChanged?: (ref: HTMLElement | null) => void
-  onInputRefChanged?: (ref: React.RefObject<HTMLInputElement>) => void
-  /**
-   * A ref assigned to the scrollable container wrapping the ActionList
-   */
-  scrollContainerRef?: React.Ref<HTMLDivElement | null>
-  textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
-  inputRef?: React.RefObject<HTMLInputElement>
-  message?: React.ReactNode
-  messageText?: {
-    title: string
-    description: string
-  }
-  className?: string
-  announcementsEnabled?: boolean
-  fullScreenOnNarrow?: boolean
-  onSelectAllChange?: (checked: boolean) => void
-  /**
-   * Additional props to pass to the underlying ActionList component.
-   */
-  actionListProps?: Partial<ActionListProps>
-  /**
-   * Determines how keyboard focus behaves when navigating beyond the first or last item in the list.
-   *
-   * - `'stop'`: Focus will stop at the first or last item; further navigation in that direction will not move focus.
-   * - `'wrap'`: Focus will wrap around to the opposite end of the list when navigating past the boundaries (e.g., pressing Down on the last item moves focus to the first).
-   *
-   *  @default 'wrap'
-   */
-  focusOutBehavior?: 'stop' | 'wrap'
-  /**
-   * Private API for use internally only. Adds the ability to switch between
-   * `active-descendant` and roving tabindex.
-   *
-   * By default, FilteredActionList uses `aria-activedescendant` to manage focus.
-   *
-   * Roving tabindex is an alternative focus management method that moves
-   * focus to the list items themselves instead of keeping focus on the input.
-   *
-   * Improper usage can lead to inaccessible experiences, so this prop should be used with caution.
-   *
-   * For usage, refer to the documentation:
-   *
-   * WAI-ARIA `aria-activedescendant`: https://www.w3.org/TR/wai-aria-1.2/#aria-activedescendant
-   *
-   * Roving Tabindex: https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#kbd_roving_tabindex
-   *
-   * @default 'active-descendant'
-   */
-  _PrivateFocusManagement?: 'roving-tabindex' | 'active-descendant'
-}
 
 export function FilteredActionList({
   loading = false,
@@ -233,6 +183,7 @@ export function FilteredActionList({
               scrollIntoView(current, scrollContainerRef.current, menuScrollMargins)
             }
           },
+          focusInStrategy: 'previous',
         }
       : undefined,
     [listContainerElement, usingRovingTabindex],
@@ -422,62 +373,6 @@ export function FilteredActionList({
         {getBodyContent()}
       </div>
     </div>
-  )
-}
-
-function MappedActionListItem(item: ItemInput & {renderItem?: RenderItemFn}) {
-  // keep backward compatibility for renderItem
-  // escape hatch for custom Item rendering
-  if (typeof item.renderItem === 'function') return item.renderItem(item)
-
-  const {
-    id,
-    description,
-    descriptionVariant,
-    text,
-    trailingVisual: TrailingVisual,
-    leadingVisual: LeadingVisual,
-    trailingText,
-    trailingIcon: TrailingIcon,
-    onAction,
-    children,
-    ...rest
-  } = item
-
-  return (
-    <ActionList.Item
-      role="option"
-      // @ts-ignore - for now
-      onSelect={(e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
-        if (typeof onAction === 'function')
-          onAction(item, e as React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>)
-      }}
-      data-id={id}
-      {...rest}
-    >
-      {LeadingVisual ? (
-        <ActionList.LeadingVisual>
-          <LeadingVisual />
-        </ActionList.LeadingVisual>
-      ) : null}
-      {children}
-      {text}
-      {description ? <ActionList.Description variant={descriptionVariant}>{description}</ActionList.Description> : null}
-      {TrailingVisual ? (
-        <ActionList.TrailingVisual>
-          {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? (
-            <TrailingVisual />
-          ) : (
-            TrailingVisual
-          )}
-        </ActionList.TrailingVisual>
-      ) : TrailingIcon || trailingText ? (
-        <ActionList.TrailingVisual>
-          {trailingText}
-          {TrailingIcon && <TrailingIcon />}
-        </ActionList.TrailingVisual>
-      ) : null}
-    </ActionList.Item>
   )
 }
 

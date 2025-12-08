@@ -1,0 +1,7 @@
+:where(.Boilerplate) {
+  padding: var(--base-size-16);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+  background-color: var(--bgColor-default);
+  color: var(--fgColor-default);
+}

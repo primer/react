@@ -225,7 +225,9 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   })
   useFocusTrap({containerRef: overlayRef, disabled: !open || !position, ...focusTrapSettings})
 
-  const showXIcon = onClose && variant.narrow === 'fullscreen' && displayCloseButton
+  const showXIcon =
+    (onClose && variant.narrow === 'fullscreen' && displayCloseButton) || (onClose && displayCloseButton)
+
   const XButtonAriaLabelledBy = closeButtonProps['aria-labelledby']
   const XButtonAriaLabel = closeButtonProps['aria-label']
 
