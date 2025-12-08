@@ -16,7 +16,7 @@ import styles from './ActionBar.module.css'
 import {clsx} from 'clsx'
 import {useRefObjectAsForwardedRef} from '../hooks'
 
-const ACTIONBAR_ITEM_GAP = 8
+const ACTIONBAR_ITEM_GAP = 12
 
 type ChildProps =
   | {
