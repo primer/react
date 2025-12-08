@@ -7,56 +7,46 @@ export default {
   component: Combobox,
 } as Meta<ComponentProps<typeof Combobox>>
 
-export const Playground: StoryFn<ComponentProps<typeof Combobox>> = args => <Combobox {...args} />
+const options = [
+  {label: 'Apple', id: '1'},
+  {label: 'Banana', id: '2'},
+  {label: 'Cherry', id: '3'},
+  {label: 'Date', id: '4'},
+  {label: 'Elderberry', id: '5'},
+  {label: 'Fig', id: '6'},
+  {label: 'Grape', id: '7'},
+]
+
+export const Playground: StoryFn<ComponentProps<typeof Combobox>> = args => <Combobox options={options} {...args} />
 
 Playground.argTypes = {
-  ref: {
-    control: false,
-    table: {
-      disable: true,
-    },
+  options: {
+    control: 'object',
   },
 }
-
-const options = [
-  {text: 'Apple', id: 1},
-  {text: 'Banana', id: 2},
-  {text: 'Cherry', id: 3},
-  {text: 'Date', id: 4},
-  {text: 'Elderberry', id: 5},
-  {text: 'Fig', id: 6},
-  {text: 'Grape', id: 7},
-]
 
 export const Default = () => {
   return <Combobox label="Choose a fruit" options={options} />
 }
 
+const groupedOptions = [
+  {label: 'Apple', id: '1', group: 'Fruits'},
+  {label: 'Banana', id: '2', group: 'Fruits'},
+  {label: 'Carrot', id: '3', group: 'Vegetables'},
+  {label: 'Broccoli', id: '4', group: 'Vegetables'},
+]
+
 export const WithGroups = () => {
-  return (
-    <Combobox label="Choose an item">
-      <Combobox.List>
-        <Combobox.Group groupLabel="Fruits">
-          <Combobox.Option>Apple</Combobox.Option>
-          <Combobox.Option>Banana</Combobox.Option>
-        </Combobox.Group>
-        <Combobox.Group groupLabel="Vegetables">
-          <Combobox.Option>Carrot</Combobox.Option>
-          <Combobox.Option>Broccoli</Combobox.Option>
-        </Combobox.Group>
-      </Combobox.List>
-    </Combobox>
-  )
+  return <Combobox label="Choose an item" options={groupedOptions} />
 }
 
+const optionsWithSelected = [
+  {label: 'Apple', id: '1'},
+  {label: 'Banana', id: '2', selected: true},
+  {label: 'Cherry', id: '3'},
+  {label: 'Date', id: '4'},
+]
+
 export const WithSelection = () => {
-  return (
-    <Combobox>
-      <Combobox.List>
-        <Combobox.Option>Option 1</Combobox.Option>
-        <Combobox.Option selected>Option 2 (Selected)</Combobox.Option>
-        <Combobox.Option>Option 3</Combobox.Option>
-      </Combobox.List>
-    </Combobox>
-  )
+  return <Combobox label="Choose a fruit" options={optionsWithSelected} />
 }

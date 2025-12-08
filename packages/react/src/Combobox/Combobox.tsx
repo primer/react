@@ -5,7 +5,7 @@ import selectPanelStyles from '../SelectPanel/SelectPanel.module.css'
 import React, {useRef} from 'react'
 import {MappedActionListItem} from '../FilteredActionList/components/MappedActionListItem'
 import {AnchoredOverlay, type AnchoredOverlayProps} from '../AnchoredOverlay'
-import TextInput, {type TextInputProps} from '../TextInput'
+import TextInput from '../TextInput'
 import styles2 from './Combobox.module.css'
 import Heading from '../Heading'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
@@ -59,13 +59,24 @@ export const ComboboxRoot = ({children, focusMode: _focusMode, ...rest}: Combobo
   )
 }
 
+type ComboboxOptions = {
+  label: string
+  id: string
+  group?: string
+  selected?: boolean
+}
+
 type ComboboxProps = {
   children?: React.ReactNode
-  options?: any[]
-} & ComboboxOverlayProps
+  options?: ComboboxOptions[]
+  label?: string
+}
 
 export const Combobox = ({children, options, ...rest}: ComboboxProps) => {
   const listboxRef = useRef<HTMLUListElement>(null)
+
+  // TODO: Add support for groups - let's use Listbox
+  // TODO: Add label prop
 
   return (
     <ComboboxOverlay {...rest} listboxRef={listboxRef}>
@@ -94,17 +105,24 @@ const ComboboxOverlay = ({
   const [comboboxOpen, setComboboxOpen] = React.useState(false)
   const inputTrigger = React.useRef<HTMLInputElement>(null)
 
-  // TODO: Fix type
-  const renderComboboxAnchor: any = props => {
-    if (renderAnchor === null) {
-      return null
+  const renderComboboxAnchor: AnchoredOverlayProps['renderAnchor'] = props => {
+    if (renderAnchor === null || !renderAnchor) {
+      return (
+        <ComboboxInput
+          {...props}
+          className={clsx(styles2.TextInput)}
+          ref={inputTrigger}
+          onFocus={() => setComboboxOpen(true)}
+        />
+      )
     }
 
-    const anchor = renderAnchor ? renderAnchor(props) : undefined
+    const anchor = renderAnchor(props)
     if (React.isValidElement(anchor)) {
       return anchor
     }
 
+    // Fallback to default input
     return (
       <ComboboxInput
         {...props}
@@ -123,23 +141,23 @@ const ComboboxOverlay = ({
       ? {
           containerRef: listboxRef,
           bindKeys: FocusKeys.ArrowVertical | FocusKeys.PageUpDown,
-          focusOutBehavior: 'wrap',
+          focusOutBehavior: 'wrap' as const,
           focusableElementFilter: (element: HTMLElement) => {
             return !(element instanceof HTMLInputElement) && !element.hasAttribute('aria-hidden')
           },
           activeDescendantFocus: inputTrigger,
           onActiveDescendantChanged: (
-            current: HTMLElement | null,
-            previous: HTMLElement | null,
+            current: HTMLElement | undefined,
+            previous: HTMLElement | undefined,
             directlyActivated: boolean,
           ) => {
-            activeDescendantRef.current = current
+            activeDescendantRef.current = current ?? null
 
             if (current && listboxRef.current && directlyActivated) {
               scrollIntoView(current, listboxRef.current, menuScrollMargins)
             }
           },
-          focusInStrategy: 'previous',
+          focusInStrategy: 'previous' as const,
         }
       : {
           focusableElementFilter: (element: HTMLElement) => {
@@ -149,15 +167,15 @@ const ComboboxOverlay = ({
               !(element instanceof HTMLButtonElement)
             )
           },
-          focusOutBehavior: 'wrap',
+          focusOutBehavior: 'wrap' as const,
         }
 
   return (
     <AnchoredOverlay
       open={open !== undefined ? open : comboboxOpen}
       onOpen={() => setComboboxOpen(true)}
-      renderAnchor={renderComboboxAnchor}
-      anchorRef={renderAnchor === null ? anchorRef : inputTrigger}
+      renderAnchor={renderAnchor === null ? null : renderComboboxAnchor}
+      anchorRef={renderAnchor === null ? anchorRef || inputTrigger : inputTrigger}
       // focusTrapSettings={{disabled: focusMode === 'active-descendant' && !renderAnchor ? true : false}}
       width="medium"
       focusZoneSettings={focusZoneSettings}
@@ -182,7 +200,7 @@ type ComboboxInputProps = {
   listboxRef?: React.RefObject<HTMLUListElement>
 }
 
-export const ComboboxInput = React.forwardRef<TextInputProps, ComboboxInputProps>(function ComboboxInput(
+export const ComboboxInput = React.forwardRef<HTMLInputElement, ComboboxInputProps>(function ComboboxInput(
   {className, placeholder = 'Search...', onFocus, value, onChange, listboxRef, ...rest},
   ref,
 ) {

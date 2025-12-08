@@ -1,6 +1,7 @@
 import {clsx} from 'clsx'
 import classes from '../ActionList/ActionList.module.css'
 import styles from '../FilteredActionList/FilteredActionList.module.css'
+import styles2 from './Listbox.module.css'
 import React from 'react'
 import {MappedActionListItem} from '../FilteredActionList/components/MappedActionListItem'
 import {ActionList} from '../ActionList'
@@ -24,9 +25,11 @@ export const List = React.forwardRef<HTMLUListElement, ListboxProps & {className
         selectionVariant: 'single',
       }}
     >
-      <ul role="listbox" ref={ref} className={clsx(classes.ActionList, className)} data-variant="inset" {...rest}>
-        {children}
-      </ul>
+      <div className={styles2.Container}>
+        <ul role="listbox" ref={ref} className={clsx(classes.ActionList, className)} data-variant="inset" {...rest}>
+          {children}
+        </ul>
+      </div>
     </ListContext.Provider>
   )
 })

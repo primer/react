@@ -24,6 +24,7 @@ import {
 } from '@primer/octicons-react'
 import {ParagraphIcon} from '@storybook/icons'
 import {ActionList} from '../ActionList'
+import styles from './Listbox.stories.module.css'
 
 export default {
   title: 'Components/Listbox',
@@ -91,78 +92,89 @@ export const ListboxInOverlay = () => {
     <div>
       <Combobox.Root
         renderAnchor={props => {
-          return <Button {...props}>Open Combobox</Button>
+          return <Button {...props}>Open Custom Panel</Button>
         }}
         focusMode="roving"
+        anchoredOverlayProps={{
+          height: 'large',
+        }}
       >
-        <Combobox.Root
-          open={informationSubmenuOpen}
-          anchorId="informationSubMenu"
-          anchorRef={trailingRef2}
-          side="outside-right"
-          renderAnchor={null}
-          width="medium"
-          focusMode="roving"
-          anchoredOverlayProps={{
-            overlayProps: {
-              onClickOutside: () => {
-                setInformationSubmenuOpen(false)
+        <div className={styles.Wrapper}>
+          <Combobox.Root
+            open={informationSubmenuOpen}
+            anchorId="informationSubMenu"
+            anchorRef={trailingRef2}
+            side="outside-right"
+            renderAnchor={null}
+            width="medium"
+            focusMode="roving"
+            anchoredOverlayProps={{
+              overlayProps: {
+                onClickOutside: () => {
+                  setInformationSubmenuOpen(false)
+                },
+                onEscape: () => {
+                  setInformationSubmenuOpen(false)
+                },
               },
-              onEscape: () => {
-                setInformationSubmenuOpen(false)
-              },
-            },
-          }}
-        >
-          <Combobox.Title title="File type / Choose a file type" subtitle="Supported file types" />
-          <Listbox>
-            <Listbox.Item leadingVisual={BookIcon}>Sub Item 1</Listbox.Item>
-            <Listbox.Item leadingVisual={HeadingIcon}>Sub Item 2</Listbox.Item>
-            <Listbox.Item leadingVisual={FileIcon}>Sub Item 3</Listbox.Item>
+            }}
+          >
+            <Combobox.Title title="File type / Choose a file type" subtitle="Supported file types" />
+            <Listbox>
+              <Listbox.Item leadingVisual={BookIcon}>Sub Item 1</Listbox.Item>
+              <Listbox.Item leadingVisual={HeadingIcon}>Sub Item 2</Listbox.Item>
+              <Listbox.Item leadingVisual={FileIcon}>Sub Item 3</Listbox.Item>
+            </Listbox>
+          </Combobox.Root>
+          <Combobox.Title title="Choose an option" subtitle="Options are filtered as you type" />
+          <Combobox.Input listboxRef={listboxRef} />
+          <Listbox ref={listboxRef}>
+            <Listbox.Group groupLabel="Group 1">
+              <Listbox.Item leadingVisual={GitBranchIcon}>
+                Overlay Item 1
+                <ActionList.TrailingAction
+                  label="Additional Information"
+                  icon={InfoIcon}
+                  onClick={() => {
+                    setInformationSubmenuOpen(!informationSubmenuOpen)
+                  }}
+                  ref={trailingRef2}
+                />
+              </Listbox.Item>
+              <Listbox.Item
+                leadingVisual={GitCommitIcon}
+                description="Some description for Overlay Item 2"
+                descriptionVariant="block"
+              >
+                Overlay Item 2
+              </Listbox.Item>
+              <Listbox.Item leadingVisual={GitCompareIcon}>Overlay Item 3</Listbox.Item>
+            </Listbox.Group>
+            <Listbox.Group groupLabel="Group 2">
+              <Listbox.Item leadingVisual={PencilIcon}>Overlay Item 4</Listbox.Item>
+              <Listbox.Item leadingVisual={MarkdownIcon}>Overlay Item 5</Listbox.Item>
+              <Listbox.Item leadingVisual={HeadingIcon}>Overlay Item 6</Listbox.Item>
+            </Listbox.Group>
+            <Listbox.Group groupLabel="Group 3">
+              <Listbox.Item leadingVisual={ListUnorderedIcon}>Overlay Item 7</Listbox.Item>
+              <Listbox.Item leadingVisual={ListOrderedIcon}>Overlay Item 8</Listbox.Item>
+              <Listbox.Item leadingVisual={ParagraphIcon}>Overlay Item 9</Listbox.Item>
+            </Listbox.Group>
+            <Listbox.Group groupLabel="Group 4">
+              <Listbox.Item leadingVisual={FileDirectoryIcon}>
+                Overlay Item 1
+                <ActionList.TrailingAction
+                  ref={trailingRef}
+                  label="Some action 1"
+                  icon={InfoIcon}
+                  onClick={() => {
+                    setSubmenuOpen(!submenuOpen)
+                  }}
+                />
+              </Listbox.Item>
+            </Listbox.Group>
           </Listbox>
-        </Combobox.Root>
-        <Combobox.Title title="Choose an option" subtitle="Options are filtered as you type" />
-        <Combobox.Input listboxRef={listboxRef} />
-        <Listbox ref={listboxRef}>
-          <Listbox.Group groupLabel="Group 1">
-            <Listbox.Item leadingVisual={GitBranchIcon}>
-              Overlay Item 1
-              <ActionList.TrailingAction
-                label="Additional Information"
-                icon={InfoIcon}
-                onClick={() => {
-                  setInformationSubmenuOpen(!informationSubmenuOpen)
-                }}
-                ref={trailingRef2}
-              />
-            </Listbox.Item>
-            <Listbox.Item leadingVisual={GitCommitIcon}>Overlay Item 2</Listbox.Item>
-            <Listbox.Item leadingVisual={GitCompareIcon}>Overlay Item 3</Listbox.Item>
-          </Listbox.Group>
-          <Listbox.Group groupLabel="Group 2">
-            <Listbox.Item leadingVisual={PencilIcon}>Overlay Item 4</Listbox.Item>
-            <Listbox.Item leadingVisual={MarkdownIcon}>Overlay Item 5</Listbox.Item>
-            <Listbox.Item leadingVisual={HeadingIcon}>Overlay Item 6</Listbox.Item>
-          </Listbox.Group>
-          <Listbox.Group groupLabel="Group 3">
-            <Listbox.Item leadingVisual={ListUnorderedIcon}>Overlay Item 7</Listbox.Item>
-            <Listbox.Item leadingVisual={ListOrderedIcon}>Overlay Item 8</Listbox.Item>
-            <Listbox.Item leadingVisual={ParagraphIcon}>Overlay Item 9</Listbox.Item>
-          </Listbox.Group>
-          <Listbox.Group groupLabel="Group 4">
-            <Listbox.Item leadingVisual={FileDirectoryIcon}>
-              Overlay Item 1
-              <ActionList.TrailingAction
-                ref={trailingRef}
-                label="Some action 1"
-                icon={InfoIcon}
-                onClick={() => {
-                  setSubmenuOpen(!submenuOpen)
-                }}
-              />
-            </Listbox.Item>
-          </Listbox.Group>
-        </Listbox>
+        </div>
       </Combobox.Root>
       <AnchoredOverlay
         open={submenuOpen}
@@ -238,37 +250,42 @@ export const ListboxInOverlayFilter = () => {
 
   return (
     <div>
-      <Combobox.Root renderAnchor={props => <Button {...props}>Open Combobox</Button>} focusMode="active-descendant">
-        <Combobox.Title title="Choose an option" subtitle="Options are filtered as you type" />
-        <Combobox.Input
-          listboxRef={listboxRef}
-          value={filterValue}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFilterValue(e.target.value)}
-        />
-        <Listbox ref={listboxRef}>
-          {Object.entries(groupedItems).map(([groupLabel, items]) => (
-            <Listbox.Group key={groupLabel} groupLabel={groupLabel}>
-              {items.map(item => (
-                <Listbox.Item key={item.id} leadingVisual={item.icon}>
-                  {item.text}
-                  {item.trailingAction && (
-                    <ActionList.TrailingAction
-                      label={item.trailingAction.label}
-                      icon={item.trailingAction.icon}
-                      onClick={item.trailingAction.onClick}
-                      ref={item.id === 1 ? trailingRef : undefined}
-                    />
-                  )}
-                </Listbox.Item>
-              ))}
-            </Listbox.Group>
-          ))}
-          {filteredItems.length === 0 && (
-            <div style={{padding: '16px', textAlign: 'center', color: 'var(--fgColor-muted)'}}>
-              No results found for: {filterValue}
-            </div>
-          )}
-        </Listbox>
+      <Combobox.Root
+        renderAnchor={props => <Button {...props}>Open Custom Panel</Button>}
+        focusMode="active-descendant"
+      >
+        <div className={styles.Wrapper}>
+          <Combobox.Title title="Choose an option" subtitle="Options are filtered as you type" />
+          <Combobox.Input
+            listboxRef={listboxRef}
+            value={filterValue}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFilterValue(e.target.value)}
+          />
+          <Listbox ref={listboxRef}>
+            {Object.entries(groupedItems).map(([groupLabel, items]) => (
+              <Listbox.Group key={groupLabel} groupLabel={groupLabel}>
+                {items.map(item => (
+                  <Listbox.Item key={item.id} leadingVisual={item.icon}>
+                    {item.text}
+                    {item.trailingAction && (
+                      <ActionList.TrailingAction
+                        label={item.trailingAction.label}
+                        icon={item.trailingAction.icon}
+                        onClick={item.trailingAction.onClick}
+                        ref={item.id === 1 ? trailingRef : undefined}
+                      />
+                    )}
+                  </Listbox.Item>
+                ))}
+              </Listbox.Group>
+            ))}
+            {filteredItems.length === 0 && (
+              <div style={{padding: '16px', textAlign: 'center', color: 'var(--fgColor-muted)'}}>
+                No results found for: {filterValue}
+              </div>
+            )}
+          </Listbox>
+        </div>
       </Combobox.Root>
 
       <AnchoredOverlay
