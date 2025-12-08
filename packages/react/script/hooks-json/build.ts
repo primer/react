@@ -1,8 +1,8 @@
 import glob from 'fast-glob'
 import fs from 'fs'
 import keyBy from 'lodash.keyby'
-import hookSchema from '../hooks-json/hook.schema.json'
-import outputSchema from './output.schema.json'
+import hookSchema from '../hooks-json/hook.schema.json' with {type: 'json'}
+import outputSchema from './output.schema.json' with {type: 'json'}
 import Ajv from 'ajv'
 
 // Only includes fields we use in this script
