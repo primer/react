@@ -6,6 +6,7 @@ import type {HTMLDataAttributes} from '../internal/internal-types'
 import {useId} from '../hooks'
 import classes from './Spinner.module.css'
 import {useMedia} from '../hooks/useMedia'
+import {useFeatureFlag} from '../FeatureFlags'
 
 const sizeMap = {
   small: '16px',
@@ -35,6 +36,7 @@ function Spinner({
   delay = false,
   ...props
 }: SpinnerProps) {
+  const syncAnimationsEnabled = useFeatureFlag('primer_react_spinner_synchronize_animations')
   const animationRef = useSpinnerAnimation()
   const size = sizeMap[sizeKey]
   const hasHiddenLabel = srText !== null && ariaLabel === undefined
@@ -60,7 +62,7 @@ function Spinner({
     /* inline-flex removes the extra line height */
     <span className={classes.Box}>
       <svg
-        ref={animationRef}
+        ref={syncAnimationsEnabled ? animationRef : undefined}
         height={size}
         width={size}
         viewBox="0 0 16 16"

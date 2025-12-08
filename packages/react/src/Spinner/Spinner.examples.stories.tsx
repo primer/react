@@ -98,24 +98,18 @@ export const FullLifecycleVisibleLoadingText = () => {
 
 export const SynchronizedSpinners = () => (
   <>
-    <div>
+    <Spinner />
+    <Delay ms={250}>
       <Spinner />
-    </div>
-    <div>
-      <Spinner />
-    </div>
-    <Delay ms={1500}>
-      <div>
-        <Spinner />
-      </div>
     </Delay>
-    <Delay ms={2500}>
-      <div>
-        <Spinner />
-      </div>
-      <div>
-        <Spinner />
-      </div>
+    <Delay ms={750}>
+      <Spinner />
+    </Delay>
+    <Delay ms={1500}>
+      <Spinner />
+    </Delay>
+    <Delay ms={2350}>
+      <Spinner />
     </Delay>
   </>
 )
