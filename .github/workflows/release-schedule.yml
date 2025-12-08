@@ -28,7 +28,7 @@ jobs:
           schedule-id: 'P3IIVC4'
           token: ${{ secrets.PAGERDUTY_API_KEY_SID }}
       - name: Set up Node.js
-        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
         with:
           node-version-file: '.nvmrc'
       - name: Install packages for github-script
