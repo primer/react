@@ -188,6 +188,42 @@ describe('Banner', () => {
     expect(screen.queryByTestId('icon')).toBe(null)
   })
 
+  it('should support a custom leadingVisual for info and upsell variants', () => {
+    const CustomIcon = vi.fn(() => <svg data-testid="leading-visual" aria-hidden="true" />)
+    const {rerender} = render(
+      <Banner title="test" description="test-description" variant="info" leadingVisual={<CustomIcon />} />,
+    )
+    expect(screen.getByTestId('leading-visual')).toBeInTheDocument()
+
+    rerender(<Banner title="test" description="test-description" variant="upsell" leadingVisual={<CustomIcon />} />)
+    expect(screen.getByTestId('leading-visual')).toBeInTheDocument()
+
+    rerender(<Banner title="test" description="test-description" variant="critical" leadingVisual={<CustomIcon />} />)
+    expect(screen.queryByTestId('leading-visual')).toBe(null)
+
+    rerender(<Banner title="test" description="test-description" variant="success" leadingVisual={<CustomIcon />} />)
+    expect(screen.queryByTestId('leading-visual')).toBe(null)
+
+    rerender(<Banner title="test" description="test-description" variant="warning" leadingVisual={<CustomIcon />} />)
+    expect(screen.queryByTestId('leading-visual')).toBe(null)
+  })
+
+  it('should prefer leadingVisual over icon when both are provided', () => {
+    const LeadingVisualIcon = () => <svg data-testid="leading-visual" aria-hidden="true" />
+    const DeprecatedIcon = () => <svg data-testid="deprecated-icon" aria-hidden="true" />
+    render(
+      <Banner
+        title="test"
+        description="test-description"
+        variant="info"
+        leadingVisual={<LeadingVisualIcon />}
+        icon={<DeprecatedIcon />}
+      />,
+    )
+    expect(screen.getByTestId('leading-visual')).toBeInTheDocument()
+    expect(screen.queryByTestId('deprecated-icon')).toBe(null)
+  })
+
   it('should render data-actions-layout attribute with inline value', () => {
     const {container} = render(<Banner title="test" actionsLayout="inline" />)
     expect(container.firstChild).toHaveAttribute('data-actions-layout', 'inline')
@@ -201,6 +237,16 @@ describe('Banner', () => {
   it('should render data-actions-layout attribute with default value when not specified', () => {
     const {container} = render(<Banner title="test" />)
     expect(container.firstChild).toHaveAttribute('data-actions-layout', 'default')
+  })
+
+  it('should render data-flush attribute when flush is true', () => {
+    const {container} = render(<Banner title="test" flush />)
+    expect(container.firstChild).toHaveAttribute('data-flush')
+  })
+
+  it('should not render data-flush attribute when flush is false', () => {
+    const {container} = render(<Banner title="test" />)
+    expect(container.firstChild).not.toHaveAttribute('data-flush')
   })
 
   describe('Banner.Title', () => {

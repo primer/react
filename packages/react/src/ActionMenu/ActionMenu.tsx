@@ -35,7 +35,8 @@ export type ActionMenuProps = {
   /**
    * Recommended: `ActionMenu.Button` or `ActionMenu.Anchor` with `ActionMenu.Overlay`
    */
-  children: React.ReactElement[] | React.ReactElement
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  children: React.ReactElement<any>[] | React.ReactElement<any>
 
   /**
    * If defined, will control the open/closed state of the overlay. Must be used in conjunction with `onOpenChange`.
@@ -179,11 +180,13 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
   )
 }
 
-export type ActionMenuAnchorProps = {children: React.ReactElement; id?: string} & React.HTMLAttributes<HTMLElement>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ActionMenuAnchorProps = {children: React.ReactElement<any>; id?: string} & React.HTMLAttributes<HTMLElement>
 const Anchor: WithSlotMarker<
   React.ForwardRefExoticComponent<
     {
-      children: React.ReactElement
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      children: React.ReactElement<any>
       id?: string
     } & React.HTMLAttributes<HTMLElement> &
       React.RefAttributes<HTMLElement>

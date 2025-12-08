@@ -5,7 +5,6 @@ import {announce as liveRegionAnnounce} from '@primer/live-region-element'
 import {useCallback, useEffect, useRef} from 'react'
 import type {FilteredActionListProps} from './index'
 import type {ItemInput} from '../SelectPanel'
-import {useFeatureFlag} from '../FeatureFlags'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const delayMs = 500
@@ -19,9 +18,8 @@ const useFirstRender = () => {
   return firstRender.current
 }
 
-//TODO remove this when we remove usingRemoveActiveDescendant
 const getItemWithActiveDescendant = (
-  listRef: React.RefObject<HTMLUListElement>,
+  listRef: React.RefObject<HTMLUListElement | null>,
   items: FilteredActionListProps['items'],
 ) => {
   const listElement = listRef.current
@@ -39,17 +37,18 @@ const getItemWithActiveDescendant = (
 
   return {index, text, selected}
 }
-//TODO remove this when we remove usingRemoveActiveDescendant
 
 export const useAnnouncements = (
   items: FilteredActionListProps['items'],
-  listContainerRef: React.RefObject<HTMLUListElement>,
-  inputRef: React.RefObject<HTMLInputElement>,
+  listContainerRef: React.RefObject<HTMLUListElement | null>,
+  inputRef: React.RefObject<HTMLInputElement | null>,
   enabled: boolean = true,
   loading: boolean = false,
   message?: {title: string; description: string},
+  focusManagement?: 'active-descendant' | 'roving-tabindex',
 ) => {
-  const usingRemoveActiveDescendant = useFeatureFlag('primer_react_select_panel_remove_active_descendant')
+  const usingRovingTabindex = focusManagement === 'roving-tabindex'
+
   const liveRegion = document.querySelector('live-region')
 
   // Notify user of the number of items available
@@ -67,7 +66,7 @@ export const useAnnouncements = (
   useEffect(
     function announceInitialFocus() {
       const focusHandler = () => {
-        if (usingRemoveActiveDescendant) {
+        if (usingRovingTabindex) {
           const announcementText = `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
           announce(announcementText, {
             delayMs,
@@ -98,7 +97,7 @@ export const useAnnouncements = (
       inputElement?.addEventListener('focus', focusHandler)
       return () => inputElement?.removeEventListener('focus', focusHandler)
     },
-    [listContainerRef, inputRef, items, liveRegion, announce, usingRemoveActiveDescendant, selectedItems],
+    [listContainerRef, inputRef, items, liveRegion, announce, usingRovingTabindex, selectedItems],
   )
 
   const isFirstRender = useFirstRender()
@@ -113,7 +112,7 @@ export const useAnnouncements = (
         return
       }
 
-      if (usingRemoveActiveDescendant) {
+      if (usingRovingTabindex) {
         const announcementText = `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
 
         announce(announcementText, {
@@ -147,7 +146,7 @@ export const useAnnouncements = (
       items,
       listContainerRef,
       liveRegion,
-      usingRemoveActiveDescendant,
+      usingRovingTabindex,
       message?.title,
       message?.description,
       loading,

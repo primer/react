@@ -33,6 +33,7 @@ const splitChord = (chord: string) =>
 
 export const Chord = ({keys, format = 'condensed', variant = 'normal', size = 'normal'}: KeybindingHintProps) => (
   <Text
+    data-kbd-chord
     className={clsx(classes.Chord, {
       [classes.ChordNormal]: variant === 'normal',
       [classes.ChordOnEmphasis]: variant === 'onEmphasis',

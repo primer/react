@@ -90,15 +90,22 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     ref,
   ) => {
     const [isInputFocused, setIsInputFocused] = useState<boolean>(false)
-    const inputRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
+    const inputRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement | null>)
     // this class is necessary to style FilterSearch, plz no touchy!
     const wrapperClasses = clsx(className, 'TextInput-wrapper')
     const showLeadingLoadingIndicator =
       loading && (loaderPosition === 'leading' || Boolean(LeadingVisual && loaderPosition !== 'trailing'))
     const showTrailingLoadingIndicator =
       loading && (loaderPosition === 'trailing' || Boolean(loaderPosition === 'auto' && !LeadingVisual))
-    const focusInput: MouseEventHandler = () => {
-      inputRef.current?.focus()
+
+    // Date/time input types that have segment-based focus
+    const isSegmentedInputType = type === 'date' || type === 'time' || type === 'datetime-local'
+
+    const focusInput: MouseEventHandler = e => {
+      // Don't call focus() if the input itself was clicked on date/time inputs.
+      if (e.target !== inputRef.current || !isSegmentedInputType) {
+        inputRef.current?.focus()
+      }
     }
     const leadingVisualId = useId()
     const trailingVisualId = useId()
@@ -157,6 +164,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           {typeof LeadingVisual !== 'string' && isValidElementType(LeadingVisual) ? <LeadingVisual /> : LeadingVisual}
         </TextInputInnerVisualSlot>
         <UnstyledTextInput
+          // @ts-expect-error it needs a non nullable ref
           ref={inputRef}
           disabled={disabled}
           onFocus={handleInputFocus}

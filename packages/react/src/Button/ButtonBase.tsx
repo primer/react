@@ -13,7 +13,8 @@ import classes from './ButtonBase.module.css'
 import {isElement} from 'react-is'
 
 const renderModuleVisual = (
-  Visual: React.ElementType | React.ReactElement,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  Visual: React.ElementType | React.ReactElement<any>,
   loading: boolean,
   visualName: string,
   counterLabel: boolean,

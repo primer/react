@@ -6,7 +6,7 @@ import Link from '../Link'
 import {FocusKeys} from '@primer/behaviors'
 import type {Direction} from '@primer/behaviors'
 import {useFocusZone} from '../hooks/useFocusZone'
-import classes from './FocusZoneStories.module.css'
+import classes from './FocusZone.stories.module.css'
 
 export default {
   title: 'Hooks/useFocusZone',

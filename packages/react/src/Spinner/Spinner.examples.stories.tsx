@@ -4,7 +4,7 @@ import Spinner from './Spinner'
 import {Button} from '..'
 import {VisuallyHidden} from '../VisuallyHidden'
 import {AriaStatus} from '../live-region'
-import classes from './SpinnerStories.module.css'
+import classes from './Spinner.stories.module.css'
 
 export default {
   title: 'Components/Spinner/Examples',

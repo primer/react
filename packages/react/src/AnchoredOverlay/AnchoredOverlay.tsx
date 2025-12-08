@@ -9,7 +9,7 @@ import {useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
 import {useId} from '../hooks/useId'
 import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
-import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveValue'
+import {type ResponsiveValue} from '../hooks/useResponsiveValue'
 import {IconButton, type IconButtonProps} from '../Button'
 import {XIcon} from '@primer/octicons-react'
 import classes from './AnchoredOverlay.module.css'
@@ -27,7 +27,7 @@ interface AnchoredOverlayPropsWithAnchor {
   /**
    * An override to the internal ref that will be spread on to the renderAnchor
    */
-  anchorRef?: React.RefObject<HTMLElement>
+  anchorRef?: React.RefObject<HTMLElement | null>
 
   /**
    * An override to the internal id that will be spread on to the renderAnchor
@@ -46,7 +46,7 @@ interface AnchoredOverlayPropsWithoutAnchor {
    * An override to the internal renderAnchor ref that will be used to position the overlay.
    * When renderAnchor is null this can be used to make an anchor that is detached from ActionMenu.
    */
-  anchorRef: React.RefObject<HTMLElement>
+  anchorRef: React.RefObject<HTMLElement | null>
   /**
    * An override to the internal id that will be spread on to the renderAnchor
    */
@@ -225,8 +225,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   })
   useFocusTrap({containerRef: overlayRef, disabled: !open || !position, ...focusTrapSettings})
 
-  const currentResponsiveVariant = useResponsiveValue(variant, 'anchored')
-
   const showXIcon = onClose && variant.narrow === 'fullscreen' && displayCloseButton
   const XButtonAriaLabelledBy = closeButtonProps['aria-labelledby']
   const XButtonAriaLabel = closeButtonProps['aria-label']
@@ -253,13 +251,13 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           visibility={position ? 'visible' : 'hidden'}
           height={height}
           width={width}
-          top={currentResponsiveVariant === 'anchored' ? position?.top || 0 : undefined}
-          left={currentResponsiveVariant === 'anchored' ? position?.left || 0 : undefined}
+          top={position?.top || 0}
+          left={position?.left || 0}
           responsiveVariant={variant.narrow === 'fullscreen' ? 'fullscreen' : undefined}
-          data-variant={currentResponsiveVariant}
           anchorSide={position?.anchorSide}
           className={className}
           preventOverflow={preventOverflow}
+          data-component="AnchoredOverlay"
           {...overlayProps}
           ref={node => {
             if (overlayProps?.ref) {
