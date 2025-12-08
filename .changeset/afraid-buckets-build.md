@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-Update Spinner animations to be synchronized
+Add feature flag to control whether Spinner animations are synchronized
