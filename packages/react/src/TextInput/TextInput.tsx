@@ -129,14 +129,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     const trailingVisualId = useId()
     const loadingId = useId()
 
-    const inputDescribedBy =
-      clsx(
-        inputProps['aria-describedby'],
-        LeadingVisual && leadingVisualId,
-        TrailingVisual && trailingVisualId,
-        loading && loadingId,
-      ) || undefined
-
     const handleInputFocus = useCallback(
       (e: React.FocusEvent<HTMLInputElement>) => {
         setIsInputFocused(true)
@@ -193,26 +185,18 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       [onChange, characterLimit],
     )
 
-    // Generate IDs for accessibility
     const characterCountId = useId()
-    const characterCountSRId = useId()
+    const characterCountLiveRegionId = useId()
     const characterLimitValidationId = useId()
 
-    // Merge aria-describedby to include character count
-    const mergedAriaDescribedBy = clsx(
-      clsx(inputDescribedBy, characterLimit && characterCountId, isOverLimit && characterLimitValidationId) ||
-        undefined,
-    )
-
-    // Determine effective validation status
-    const effectiveValidationStatus = isOverLimit ? 'error' : validationStatus
+    const isValid = isOverLimit ? 'error' : validationStatus
 
     return (
       <>
         <TextInputWrapper
           block={block}
           className={wrapperClasses}
-          validationStatus={effectiveValidationStatus}
+          validationStatus={isValid}
           contrast={contrast}
           disabled={disabled}
           monospace={monospace}
@@ -246,11 +230,10 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
             onChange={handleInputChange}
             type={type}
             aria-required={required}
-            aria-invalid={effectiveValidationStatus === 'error' ? 'true' : undefined}
+            aria-invalid={isValid === 'error' ? 'true' : undefined}
             value={value}
             defaultValue={defaultValue}
             {...inputProps}
-            aria-describedby={mergedAriaDescribedBy}
             data-component="input"
           />
           {loading && <VisuallyHidden id={loadingId}>{loaderText}</VisuallyHidden>}
@@ -271,7 +254,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         </TextInputWrapper>
         {characterLimit && (
           <>
-            <VisuallyHidden id={characterCountSRId} aria-live="polite" aria-atomic="true">
+            <VisuallyHidden id={characterCountLiveRegionId} aria-live="polite" aria-atomic="true">
               {screenReaderMessage}
             </VisuallyHidden>
             {isOverLimit && validationMessage && (

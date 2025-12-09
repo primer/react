@@ -28,13 +28,13 @@ export class CharacterCounter {
 
     if (charactersRemaining >= 0) {
       const characterText = charactersRemaining === 1 ? 'character' : 'characters'
-      message = `${charactersRemaining} ${characterText} remaining`
+      message = `${charactersRemaining} ${characterText} remaining.`
       this.callbacks.onCountUpdate(charactersRemaining, false, message)
       this.callbacks.onValidationChange(false, '')
     } else {
       const charactersOver = -charactersRemaining
       const characterText = charactersOver === 1 ? 'character' : 'characters'
-      message = `${charactersOver} ${characterText} over`
+      message = `${charactersOver} ${characterText} over.`
       this.callbacks.onCountUpdate(charactersOver, true, message)
       this.callbacks.onValidationChange(true, "You've exceeded the character limit")
     }

@@ -92,9 +92,8 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     const [screenReaderMessage, setScreenReaderMessage] = React.useState<string>('')
     const characterCounterRef = useRef<CharacterCounter | null>(null)
 
-    // Generate IDs for accessibility
     const characterCountId = useId()
-    const characterCountSRId = useId()
+    const characterCountLiveRegionId = useId()
     const characterLimitValidationId = useId()
 
     // Initialize character counter
@@ -112,8 +111,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             setScreenReaderMessage(message)
           },
         })
-
-        // Set initial count
         const initialValue =
           value !== undefined ? String(value) : defaultValue !== undefined ? String(defaultValue) : ''
         characterCounterRef.current.updateCharacterCount(initialValue.length, characterLimit)
@@ -143,19 +140,12 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       [onChange, characterLimit],
     )
 
-    // Determine effective validation status
-    const effectiveValidationStatus = isOverLimit ? 'error' : validationStatus
-
-    // Merge aria-describedby to include character count
-    const ariaDescribedBy =
-      [rest['aria-describedby'], characterLimit && characterCountId, isOverLimit && characterLimitValidationId]
-        .filter(Boolean)
-        .join(' ') || undefined
+    const isValid = isOverLimit ? 'error' : validationStatus
 
     return (
       <>
         <TextInputBaseWrapper
-          validationStatus={effectiveValidationStatus}
+          validationStatus={isValid}
           disabled={disabled}
           block={block}
           contrast={contrast}
@@ -166,8 +156,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             defaultValue={defaultValue}
             data-resize={resize}
             aria-required={required}
-            aria-invalid={effectiveValidationStatus === 'error' ? 'true' : 'false'}
-            aria-describedby={ariaDescribedBy}
+            aria-invalid={isValid === 'error' ? 'true' : 'false'}
             ref={ref}
             disabled={disabled}
             rows={rows}
@@ -184,7 +173,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         </TextInputBaseWrapper>
         {characterLimit && (
           <>
-            <VisuallyHidden id={characterCountSRId} aria-live="polite" aria-atomic="true">
+            <VisuallyHidden id={characterCountLiveRegionId} aria-live="polite" aria-atomic="true">
               {screenReaderMessage}
             </VisuallyHidden>
             {isOverLimit && validationMessage && (
@@ -196,10 +185,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
               id={characterCountId}
               size="small"
               style={{
-                color: isOverLimit
-                  ? 'var(--fgColor-danger, var(--color-danger-fg))'
-                  : 'var(--fgColor-muted, var(--color-fg-muted))',
-                marginTop: 'var(--base-size-4, 4px)',
+                color: 'var(--fgColor-muted, var(--color-fg-muted))',
               }}
             >
               {characterCount}

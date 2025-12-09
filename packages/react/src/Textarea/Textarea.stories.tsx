@@ -1,5 +1,4 @@
 import type {Meta} from '@storybook/react-vite'
-import {useState} from 'react'
 import type {TextareaProps} from '..'
 import {FormControl, Textarea} from '..'
 import {DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE, DEFAULT_TEXTAREA_ROWS} from '../Textarea'
@@ -71,46 +70,3 @@ export const Default = () => (
     </FormControl>
   </form>
 )
-
-export const WithCharacterLimit = () => {
-  const [value, setValue] = useState('')
-
-  return (
-    <form>
-      <FormControl>
-        <FormControl.Label>Bio</FormControl.Label>
-        <Textarea value={value} onChange={e => setValue(e.target.value)} characterLimit={100} />
-      </FormControl>
-    </form>
-  )
-}
-
-export const WithCharacterLimitAndCaption = () => {
-  const [value, setValue] = useState('')
-
-  return (
-    <form>
-      <FormControl>
-        <FormControl.Label>Bio</FormControl.Label>
-        <Textarea value={value} onChange={e => setValue(e.target.value)} characterLimit={100} />
-        <FormControl.Caption>Tell us about yourself</FormControl.Caption>
-      </FormControl>
-    </form>
-  )
-}
-
-export const WithCharacterLimitExceeded = () => {
-  const [value, setValue] = useState(
-    'This is a very long bio text that will definitely exceed the character limit that we have set for this textarea field. It keeps going and going.',
-  )
-
-  return (
-    <form>
-      <FormControl>
-        <FormControl.Label>Bio</FormControl.Label>
-        <Textarea value={value} onChange={e => setValue(e.target.value)} characterLimit={100} />
-        <FormControl.Caption>Keep it concise</FormControl.Caption>
-      </FormControl>
-    </form>
-  )
-}
