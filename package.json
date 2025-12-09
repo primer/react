@@ -30,7 +30,7 @@
     "test": "vitest",
     "test:type-check": "tsc --noEmit",
     "test:update": "npm run test -- -u",
-    "test:classname-coverage": "script/check-classname-tests",
+    "test:classname-coverage": "node script/check-classname-tests.mjs",
     "type-check": "tsc --noEmit && turbo type-check",
     "release": "npm run build && changeset publish",
     "reset": "script/reset",
