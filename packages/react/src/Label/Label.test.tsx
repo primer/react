@@ -1,8 +1,12 @@
 import {describe, expect, it} from 'vitest'
 import {render} from '@testing-library/react'
 import Label from '../Label'
+import {implementsClassName} from '../utils/testing'
+import classes from './Label.module.css'
 
 describe('Label', () => {
+  implementsClassName(Label, classes.Label)
+
   it('should support `className` on the outermost element', () => {
     const Element = () => <Label className={'test-class-name'} />
     expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
