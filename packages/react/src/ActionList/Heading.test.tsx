@@ -3,8 +3,21 @@ import {render as HTMLRender} from '@testing-library/react'
 import BaseStyles from '../BaseStyles'
 import {ActionList} from '.'
 import {ActionMenu} from '..'
+import {implementsClassName} from '../utils/testing'
+import classes from './Heading.module.css'
 
 describe('ActionList.Heading', () => {
+  implementsClassName(
+    props => (
+      <ActionList>
+        <ActionList.Heading as="h1" {...props}>
+          Heading
+        </ActionList.Heading>
+      </ActionList>
+    ),
+    classes.ActionListHeader,
+  )
+
   it('should render the ActionList.Heading component as a heading with the given heading level', async () => {
     const container = HTMLRender(
       <ActionList>

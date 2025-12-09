@@ -19,7 +19,7 @@ function getAllTestFiles(dir, files = []) {
       if (item !== 'utils' && item !== '__tests__') {
         getAllTestFiles(fullPath, files)
       }
-    } else if (stat.isFile() && item.endsWith('.test.tsx')) {
+    } else if (stat.isFile() && item.endsWith('.test.tsx') && !item.endsWith('.types.test.tsx')) {
       files.push(fullPath)
     }
   }

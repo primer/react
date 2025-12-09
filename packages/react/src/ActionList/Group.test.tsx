@@ -3,8 +3,21 @@ import {render as HTMLRender} from '@testing-library/react'
 import BaseStyles from '../BaseStyles'
 import {ActionList} from '.'
 import {ActionMenu} from '..'
+import {implementsClassName} from '../utils/testing'
+import classes from './Group.module.css'
 
 describe('ActionList.Group', () => {
+  implementsClassName(
+    props => (
+      <ActionList>
+        <ActionList.Group {...props}>
+          <ActionList.Item>item</ActionList.Item>
+        </ActionList.Group>
+      </ActionList>
+    ),
+    classes.Group,
+  )
+
   it('should throw an error when ActionList.GroupHeading has an `as` prop when it is used within ActionMenu context', async () => {
     expect(() =>
       HTMLRender(
