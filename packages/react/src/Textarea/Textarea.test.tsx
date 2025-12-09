@@ -150,4 +150,80 @@ describe('Textarea', () => {
     expect(style.minHeight).toBe(`${minHeight}px`)
     expect(style.maxHeight).toBe(`${maxHeight}px`)
   })
+
+  describe('character counter', () => {
+    it('should render character counter when characterLimit is provided', () => {
+      const {container} = render(<Textarea characterLimit={100} />)
+      expect(container.textContent).toContain('100 characters remaining')
+    })
+
+    it('should update character count on input', async () => {
+      const user = userEvent.setup()
+      const {getByRole, container} = render(<Textarea characterLimit={100} />)
+      const textarea = getByRole('textbox')
+
+      await user.type(textarea, 'Hello World')
+      expect(container.textContent).toContain('89 characters remaining')
+    })
+
+    it('should show singular "character" when one character remains', async () => {
+      const user = userEvent.setup()
+      const {getByRole, container} = render(<Textarea characterLimit={5} />)
+      const textarea = getByRole('textbox')
+
+      await user.type(textarea, 'Test')
+      expect(container.textContent).toContain('1 character remaining')
+    })
+
+    it('should show error state when character limit is exceeded', async () => {
+      const user = userEvent.setup()
+      const {getByRole, container} = render(<Textarea characterLimit={10} />)
+      const textarea = getByRole('textbox')
+
+      await user.type(textarea, 'This is a very long text')
+      expect(container.textContent).toContain('characters over')
+      expect(textarea).toHaveAttribute('aria-invalid', 'true')
+    })
+
+    it('should show validation message when character limit is exceeded', async () => {
+      const user = userEvent.setup()
+      const {getByRole, container} = render(<Textarea characterLimit={10} />)
+      const textarea = getByRole('textbox')
+
+      await user.type(textarea, 'This is too long')
+      expect(container.textContent).toContain("You've exceeded the character limit")
+    })
+
+    it('should clear error state when back under limit', async () => {
+      const user = userEvent.setup()
+      const {getByRole, container} = render(
+        <Textarea characterLimit={20} defaultValue="This is a very long text that exceeds the limit" />,
+      )
+      const textarea = getByRole('textbox')
+
+      // Initially over limit
+      expect(container.textContent).toContain('characters over')
+
+      // Clear some text
+      await user.clear(textarea)
+      await user.type(textarea, 'Short text')
+
+      expect(container.textContent).toContain('characters remaining')
+      expect(textarea).toHaveAttribute('aria-invalid', 'false')
+    })
+
+    it('should have aria-describedby pointing to character count', () => {
+      const {getByRole} = render(<Textarea characterLimit={100} />)
+      const textarea = getByRole('textbox')
+      const describedBy = textarea.getAttribute('aria-describedby')
+      expect(describedBy).toBeTruthy()
+    })
+
+    it('should have screen reader announcement element', () => {
+      const {container} = render(<Textarea characterLimit={100} />)
+      const srElement = container.querySelector('[aria-live="polite"]')
+      expect(srElement).toBeInTheDocument()
+      expect(srElement).toHaveAttribute('aria-atomic', 'true')
+    })
+  })
 })

@@ -1,9 +1,13 @@
 import type {TextareaHTMLAttributes, ReactElement} from 'react'
-import React from 'react'
+import React, {useEffect, useRef, useCallback, useId} from 'react'
 import {TextInputBaseWrapper} from '../internal/components/TextInputWrapper'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import classes from './TextArea.module.css'
 import type {WithSlotMarker} from '../utils/types'
+import {CharacterCounter} from '../utils/character-counter'
+import VisuallyHidden from '../_VisuallyHidden'
+import InputValidation from '../internal/components/InputValidation'
+import Text from '../Text'
 
 export const DEFAULT_TEXTAREA_ROWS = 7
 export const DEFAULT_TEXTAREA_COLS = 30
@@ -46,6 +50,11 @@ export type TextareaProps = {
    * CSS styles to apply to the Textarea
    */
   style?: React.CSSProperties
+  /**
+   * Optional character limit for the textarea. If provided, a character counter will be displayed below the textarea.
+   * When the limit is exceeded, validation styling will be applied.
+   */
+  characterLimit?: number
 } & TextareaHTMLAttributes<HTMLTextAreaElement>
 
 /**
@@ -68,37 +77,136 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       minHeight,
       maxHeight,
       style,
+      characterLimit,
+      onChange,
+      defaultValue,
       ...rest
     }: TextareaProps,
     ref,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
+    // Character counter state
+    const [characterCount, setCharacterCount] = React.useState<string>('')
+    const [isOverLimit, setIsOverLimit] = React.useState<boolean>(false)
+    const [validationMessage, setValidationMessage] = React.useState<string>('')
+    const [screenReaderMessage, setScreenReaderMessage] = React.useState<string>('')
+    const characterCounterRef = useRef<CharacterCounter | null>(null)
+
+    // Generate IDs for accessibility
+    const characterCountId = useId()
+    const characterCountSRId = useId()
+    const characterLimitValidationId = useId()
+
+    // Initialize character counter
+    useEffect(() => {
+      if (characterLimit) {
+        characterCounterRef.current = new CharacterCounter({
+          onCountUpdate: (count, overLimit, message) => {
+            setCharacterCount(message)
+            setIsOverLimit(overLimit)
+          },
+          onValidationChange: (isInvalid, message) => {
+            setValidationMessage(message)
+          },
+          onScreenReaderAnnounce: message => {
+            setScreenReaderMessage(message)
+          },
+        })
+
+        // Set initial count
+        const initialValue =
+          value !== undefined ? String(value) : defaultValue !== undefined ? String(defaultValue) : ''
+        characterCounterRef.current.updateCharacterCount(initialValue.length, characterLimit)
+
+        return () => {
+          characterCounterRef.current?.cleanup()
+        }
+      }
+    }, [characterLimit, value, defaultValue])
+
+    // Update character count when value changes
+    useEffect(() => {
+      if (characterLimit && characterCounterRef.current) {
+        const currentValue = value !== undefined ? String(value) : ''
+        characterCounterRef.current.updateCharacterCount(currentValue.length, characterLimit)
+      }
+    }, [value, characterLimit])
+
+    // Handle textarea change with character counter
+    const handleTextareaChange = useCallback(
+      (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        if (characterLimit && characterCounterRef.current) {
+          characterCounterRef.current.updateCharacterCount(e.target.value.length, characterLimit)
+        }
+        onChange?.(e)
+      },
+      [onChange, characterLimit],
+    )
+
+    // Determine effective validation status
+    const effectiveValidationStatus = isOverLimit ? 'error' : validationStatus
+
+    // Merge aria-describedby to include character count
+    const ariaDescribedBy =
+      [rest['aria-describedby'], characterLimit && characterCountId, isOverLimit && characterLimitValidationId]
+        .filter(Boolean)
+        .join(' ') || undefined
+
     return (
-      <TextInputBaseWrapper
-        validationStatus={validationStatus}
-        disabled={disabled}
-        block={block}
-        contrast={contrast}
-        className={className}
-      >
-        <textarea
-          value={value}
-          data-resize={resize}
-          aria-required={required}
-          aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
-          ref={ref}
+      <>
+        <TextInputBaseWrapper
+          validationStatus={effectiveValidationStatus}
           disabled={disabled}
-          rows={rows}
-          cols={cols}
-          className={classes.TextArea}
-          style={{
-            minHeight,
-            maxHeight,
-            ...style,
-          }}
-          {...rest}
-        />
-      </TextInputBaseWrapper>
+          block={block}
+          contrast={contrast}
+          className={className}
+        >
+          <textarea
+            value={value}
+            defaultValue={defaultValue}
+            data-resize={resize}
+            aria-required={required}
+            aria-invalid={effectiveValidationStatus === 'error' ? 'true' : 'false'}
+            aria-describedby={ariaDescribedBy}
+            ref={ref}
+            disabled={disabled}
+            rows={rows}
+            cols={cols}
+            className={classes.TextArea}
+            onChange={handleTextareaChange}
+            style={{
+              minHeight,
+              maxHeight,
+              ...style,
+            }}
+            {...rest}
+          />
+        </TextInputBaseWrapper>
+        {characterLimit && (
+          <>
+            <VisuallyHidden id={characterCountSRId} aria-live="polite" aria-atomic="true">
+              {screenReaderMessage}
+            </VisuallyHidden>
+            {isOverLimit && validationMessage && (
+              <InputValidation id={characterLimitValidationId} validationStatus="error">
+                {validationMessage}
+              </InputValidation>
+            )}
+            <Text
+              id={characterCountId}
+              size="small"
+              style={{
+                color: isOverLimit
+                  ? 'var(--fgColor-danger, var(--color-danger-fg))'
+                  : 'var(--fgColor-muted, var(--color-fg-muted))',
+                marginTop: 'var(--base-size-4, 4px)',
+              }}
+            >
+              {characterCount}
+            </Text>
+          </>
+        )}
+      </>
     )
   },
 )

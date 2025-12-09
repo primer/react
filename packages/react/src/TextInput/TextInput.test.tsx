@@ -273,4 +273,78 @@ describe('TextInput', () => {
     const {getByRole} = render(<TextInput />)
     expect(getByRole('textbox')).not.toHaveAttribute('aria-describedby')
   })
+
+  describe('character counter', () => {
+    it('should render character counter when characterLimit is provided', () => {
+      const {container} = render(<TextInput characterLimit={20} />)
+      expect(container.textContent).toContain('20 characters remaining')
+    })
+
+    it('should update character count on input', async () => {
+      const user = userEvent.setup()
+      const {getByRole, container} = render(<TextInput characterLimit={20} />)
+      const input = getByRole('textbox')
+
+      await user.type(input, 'Hello')
+      expect(container.textContent).toContain('15 characters remaining')
+    })
+
+    it('should show singular "character" when one character remains', async () => {
+      const user = userEvent.setup()
+      const {getByRole, container} = render(<TextInput characterLimit={5} />)
+      const input = getByRole('textbox')
+
+      await user.type(input, 'Test')
+      expect(container.textContent).toContain('1 character remaining')
+    })
+
+    it('should show error state when character limit is exceeded', async () => {
+      const user = userEvent.setup()
+      const {getByRole, container} = render(<TextInput characterLimit={5} />)
+      const input = getByRole('textbox')
+
+      await user.type(input, 'Hello World')
+      expect(container.textContent).toContain('6 characters over')
+      expect(input).toHaveAttribute('aria-invalid', 'true')
+    })
+
+    it('should show validation message when character limit is exceeded', async () => {
+      const user = userEvent.setup()
+      const {getByRole, container} = render(<TextInput characterLimit={5} />)
+      const input = getByRole('textbox')
+
+      await user.type(input, 'Hello World')
+      expect(container.textContent).toContain("You've exceeded the character limit")
+    })
+
+    it('should clear error state when back under limit', async () => {
+      const user = userEvent.setup()
+      const {getByRole, container} = render(<TextInput characterLimit={10} defaultValue="Hello World!" />)
+      const input = getByRole('textbox')
+
+      // Initially over limit
+      expect(container.textContent).toContain('2 characters over')
+
+      // Clear some text
+      await user.clear(input)
+      await user.type(input, 'Hello')
+
+      expect(container.textContent).toContain('5 characters remaining')
+      expect(input).not.toHaveAttribute('aria-invalid', 'true')
+    })
+
+    it('should have aria-describedby pointing to character count', () => {
+      const {getByRole} = render(<TextInput characterLimit={20} />)
+      const input = getByRole('textbox')
+      const describedBy = input.getAttribute('aria-describedby')
+      expect(describedBy).toBeTruthy()
+    })
+
+    it('should have screen reader announcement element', () => {
+      const {container} = render(<TextInput characterLimit={20} />)
+      const srElement = container.querySelector('[aria-live="polite"]')
+      expect(srElement).toBeInTheDocument()
+      expect(srElement).toHaveAttribute('aria-atomic', 'true')
+    })
+  })
 })

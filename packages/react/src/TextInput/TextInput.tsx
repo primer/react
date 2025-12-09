@@ -1,5 +1,5 @@
 import type {MouseEventHandler} from 'react'
-import React, {useCallback, useState, useId} from 'react'
+import React, {useCallback, useState, useId, useEffect, useRef} from 'react'
 import {isValidElementType} from 'react-is'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {clsx} from 'clsx'
@@ -12,6 +12,9 @@ import TextInputWrapper from '../internal/components/TextInputWrapper'
 import TextInputAction from '../internal/components/TextInputInnerAction'
 import UnstyledTextInput from '../internal/components/UnstyledTextInput'
 import VisuallyHidden from '../_VisuallyHidden'
+import {CharacterCounter} from '../utils/character-counter'
+import InputValidation from '../internal/components/InputValidation'
+import Text from '../Text'
 
 export type TextInputNonPassthroughProps = {
   /** @deprecated Use `leadingVisual` or `trailingVisual` prop instead */
@@ -39,6 +42,11 @@ export type TextInputNonPassthroughProps = {
    * A visual that renders inside the input after the typing area
    */
   trailingAction?: React.ReactElement<React.HTMLProps<HTMLButtonElement>>
+  /**
+   * Optional character limit for the input. If provided, a character counter will be displayed below the input.
+   * When the limit is exceeded, validation styling will be applied.
+   */
+  characterLimit?: number
 } & Partial<
   Pick<
     StyledWrapperProps,
@@ -85,12 +93,22 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       // end deprecated props
       type = 'text',
       required,
+      characterLimit,
+      onChange,
+      value,
+      defaultValue,
       ...inputProps
     },
     ref,
   ) => {
     const [isInputFocused, setIsInputFocused] = useState<boolean>(false)
     const inputRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement | null>)
+    const [characterCount, setCharacterCount] = useState<string>('')
+    const [isOverLimit, setIsOverLimit] = useState<boolean>(false)
+    const [validationMessage, setValidationMessage] = useState<string>('')
+    const [screenReaderMessage, setScreenReaderMessage] = useState<string>('')
+    const characterCounterRef = useRef<CharacterCounter | null>(null)
+
     // this class is necessary to style FilterSearch, plz no touchy!
     const wrapperClasses = clsx(className, 'TextInput-wrapper')
     const showLeadingLoadingIndicator =
@@ -134,64 +152,145 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       [onBlur],
     )
 
+    // Initialize character counter
+    useEffect(() => {
+      if (characterLimit) {
+        characterCounterRef.current = new CharacterCounter({
+          onCountUpdate: (count, overLimit, message) => {
+            setCharacterCount(message)
+            setIsOverLimit(overLimit)
+          },
+          onValidationChange: (isInvalid, message) => {
+            setValidationMessage(message)
+          },
+          onScreenReaderAnnounce: message => {
+            setScreenReaderMessage(message)
+          },
+        })
+
+        return () => {
+          characterCounterRef.current?.cleanup()
+        }
+      }
+    }, [characterLimit])
+
+    // Update character count when value changes
+    useEffect(() => {
+      if (characterLimit && characterCounterRef.current) {
+        const currentValue = value !== undefined ? String(value) : inputRef.current?.value || ''
+        characterCounterRef.current.updateCharacterCount(currentValue.length, characterLimit)
+      }
+    }, [value, characterLimit, inputRef])
+
+    // Handle input change with character counter
+    const handleInputChange = useCallback(
+      (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (characterLimit && characterCounterRef.current) {
+          characterCounterRef.current.updateCharacterCount(e.target.value.length, characterLimit)
+        }
+        onChange?.(e)
+      },
+      [onChange, characterLimit],
+    )
+
+    // Generate IDs for accessibility
+    const characterCountId = useId()
+    const characterCountSRId = useId()
+    const characterLimitValidationId = useId()
+
+    // Merge aria-describedby to include character count
+    const mergedAriaDescribedBy = clsx(
+      clsx(inputDescribedBy, characterLimit && characterCountId, isOverLimit && characterLimitValidationId) ||
+        undefined,
+    )
+
+    // Determine effective validation status
+    const effectiveValidationStatus = isOverLimit ? 'error' : validationStatus
+
     return (
-      <TextInputWrapper
-        block={block}
-        className={wrapperClasses}
-        validationStatus={validationStatus}
-        contrast={contrast}
-        disabled={disabled}
-        monospace={monospace}
-        size={sizeProp}
-        width={widthProp}
-        minWidth={minWidthProp}
-        maxWidth={maxWidthProp}
-        variant={variantProp}
-        hasLeadingVisual={Boolean(LeadingVisual || showLeadingLoadingIndicator)}
-        hasTrailingVisual={Boolean(TrailingVisual || showTrailingLoadingIndicator)}
-        hasTrailingAction={Boolean(trailingAction)}
-        isInputFocused={isInputFocused}
-        onClick={focusInput}
-        aria-busy={Boolean(loading)}
-      >
-        {IconComponent && <IconComponent className="TextInput-icon" />}
-        <TextInputInnerVisualSlot
-          visualPosition="leading"
-          showLoadingIndicator={showLeadingLoadingIndicator}
-          hasLoadingIndicator={typeof loading === 'boolean'}
-          id={leadingVisualId}
-        >
-          {typeof LeadingVisual !== 'string' && isValidElementType(LeadingVisual) ? <LeadingVisual /> : LeadingVisual}
-        </TextInputInnerVisualSlot>
-        <UnstyledTextInput
-          // @ts-expect-error it needs a non nullable ref
-          ref={inputRef}
+      <>
+        <TextInputWrapper
+          block={block}
+          className={wrapperClasses}
+          validationStatus={effectiveValidationStatus}
+          contrast={contrast}
           disabled={disabled}
-          onFocus={handleInputFocus}
-          onBlur={handleInputBlur}
-          type={type}
-          aria-required={required}
-          aria-invalid={validationStatus === 'error' ? 'true' : undefined}
-          {...inputProps}
-          aria-describedby={inputDescribedBy}
-          data-component="input"
-        />
-        {loading && <VisuallyHidden id={loadingId}>{loaderText}</VisuallyHidden>}
-        <TextInputInnerVisualSlot
-          visualPosition="trailing"
-          showLoadingIndicator={showTrailingLoadingIndicator}
-          hasLoadingIndicator={typeof loading === 'boolean'}
-          id={trailingVisualId}
-          data-testid="text-input-trailing-visual"
+          monospace={monospace}
+          size={sizeProp}
+          width={widthProp}
+          minWidth={minWidthProp}
+          maxWidth={maxWidthProp}
+          variant={variantProp}
+          hasLeadingVisual={Boolean(LeadingVisual || showLeadingLoadingIndicator)}
+          hasTrailingVisual={Boolean(TrailingVisual || showTrailingLoadingIndicator)}
+          hasTrailingAction={Boolean(trailingAction)}
+          isInputFocused={isInputFocused}
+          onClick={focusInput}
+          aria-busy={Boolean(loading)}
         >
-          {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? (
-            <TrailingVisual />
-          ) : (
-            TrailingVisual
-          )}
-        </TextInputInnerVisualSlot>
-        {trailingAction}
-      </TextInputWrapper>
+          {IconComponent && <IconComponent className="TextInput-icon" />}
+          <TextInputInnerVisualSlot
+            visualPosition="leading"
+            showLoadingIndicator={showLeadingLoadingIndicator}
+            hasLoadingIndicator={typeof loading === 'boolean'}
+            id={leadingVisualId}
+          >
+            {typeof LeadingVisual !== 'string' && isValidElementType(LeadingVisual) ? <LeadingVisual /> : LeadingVisual}
+          </TextInputInnerVisualSlot>
+          <UnstyledTextInput
+            // @ts-expect-error it needs a non nullable ref
+            ref={inputRef}
+            disabled={disabled}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
+            onChange={handleInputChange}
+            type={type}
+            aria-required={required}
+            aria-invalid={effectiveValidationStatus === 'error' ? 'true' : undefined}
+            value={value}
+            defaultValue={defaultValue}
+            {...inputProps}
+            aria-describedby={mergedAriaDescribedBy}
+            data-component="input"
+          />
+          {loading && <VisuallyHidden id={loadingId}>{loaderText}</VisuallyHidden>}
+          <TextInputInnerVisualSlot
+            visualPosition="trailing"
+            showLoadingIndicator={showTrailingLoadingIndicator}
+            hasLoadingIndicator={typeof loading === 'boolean'}
+            id={trailingVisualId}
+            data-testid="text-input-trailing-visual"
+          >
+            {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? (
+              <TrailingVisual />
+            ) : (
+              TrailingVisual
+            )}
+          </TextInputInnerVisualSlot>
+          {trailingAction}
+        </TextInputWrapper>
+        {characterLimit && (
+          <>
+            <VisuallyHidden id={characterCountSRId} aria-live="polite" aria-atomic="true">
+              {screenReaderMessage}
+            </VisuallyHidden>
+            {isOverLimit && validationMessage && (
+              <InputValidation id={characterLimitValidationId} validationStatus="error">
+                {validationMessage}
+              </InputValidation>
+            )}
+            <Text
+              id={characterCountId}
+              size="small"
+              style={{
+                color: 'var(--fgColor-muted, var(--color-fg-muted))',
+              }}
+            >
+              {characterCount}
+            </Text>
+          </>
+        )}
+      </>
     )
   },
 ) as PolymorphicForwardRefComponent<'input', TextInputProps>
