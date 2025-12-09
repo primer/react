@@ -1,6 +1,7 @@
 import {describe, expect, it, vi} from 'vitest'
-import {render} from '@testing-library/react'
+import {render, waitFor} from '@testing-library/react'
 import {PageHeader} from '.'
+import {useState, useEffect} from 'react'
 
 describe('PageHeader', () => {
   it('respects the title variant prop', () => {
@@ -93,5 +94,55 @@ describe('PageHeader', () => {
       </PageHeader>,
     )
     expect(container.firstChild).toHaveAttribute('aria-label', 'Custom aria-label')
+  })
+
+  it('has default fallback styles when children are lazy loaded', async () => {
+    // Component simulating lazy loading scenario
+    function LazyLoadedPageHeader() {
+      const [showTitle, setShowTitle] = useState(false)
+
+      useEffect(() => {
+        // Simulate lazy loading delay
+        const timer = setTimeout(() => setShowTitle(true), 10)
+        return () => clearTimeout(timer)
+      }, [])
+
+      return (
+        <PageHeader role="banner" aria-label="Test">
+          {showTitle && (
+            <PageHeader.TitleArea variant="medium">
+              <PageHeader.Title>Title</PageHeader.Title>
+            </PageHeader.TitleArea>
+          )}
+          <PageHeader.Actions>
+            <button type="button">Action</button>
+          </PageHeader.Actions>
+        </PageHeader>
+      )
+    }
+
+    const {container} = render(<LazyLoadedPageHeader />)
+    const pageHeader = container.querySelector('[role="banner"]') as HTMLElement
+
+    // Before children load, PageHeader should have default styles
+    expect(pageHeader).toBeInTheDocument()
+
+    // Check that CSS custom property has a fallback value by verifying computed style
+    const computedStyle = window.getComputedStyle(pageHeader)
+    const titleLineHeight = computedStyle.getPropertyValue('--title-line-height')
+
+    // Should have default value before TitleArea renders
+    expect(titleLineHeight).toBeTruthy()
+    expect(titleLineHeight.trim()).not.toBe('')
+
+    // Wait for lazy loaded content
+    await waitFor(() => {
+      expect(container.querySelector('[data-component="TitleArea"]')).toBeInTheDocument()
+    })
+
+    // After children load, styles should still work
+    const updatedComputedStyle = window.getComputedStyle(pageHeader)
+    const updatedTitleLineHeight = updatedComputedStyle.getPropertyValue('--title-line-height')
+    expect(updatedTitleLineHeight).toBeTruthy()
   })
 })

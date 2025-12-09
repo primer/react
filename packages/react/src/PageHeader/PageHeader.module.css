@@ -19,6 +19,12 @@
   --context-area-region-order-context-bar: 1;
   --context-area-region-order-context-area-actions: 2;
 
+  /* Default fallback values for when children haven't rendered yet (lazy loading) */
+  --title-line-height: var(--text-title-lineHeight-medium, 1.6);
+
+  font-size: var(--text-title-size-medium, 1.25rem);
+  font-weight: var(--base-text-weight-semibold, 600);
+  line-height: var(--text-title-lineHeight-medium, 1.6);
   display: grid;
 
   /* We have max 5 columns. */
