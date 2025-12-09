@@ -124,7 +124,7 @@ export function importCSS(options: ImportCSSOptions): Plugin {
       return {
         code: `
           import '${cssSource}';
-          ${cssModuleClasses && Object.keys(cssModuleClasses).length > 0 ? `export default ${JSON.stringify(cssModuleClasses)}` : ''}
+          ${cssModuleClasses !== null ? `export default ${JSON.stringify(cssModuleClasses)}` : ''}
         `,
         moduleSideEffects: 'no-treeshake',
       }
