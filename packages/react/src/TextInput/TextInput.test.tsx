@@ -4,8 +4,11 @@ import {render, fireEvent, screen} from '@testing-library/react'
 import {describe, it, expect, vi} from 'vitest'
 import React from 'react'
 import TextInput from '../TextInput'
+import {implementsClassName} from '../utils/testing'
 
 describe('TextInput', () => {
+  implementsClassName(TextInput, 'TextInput-wrapper')
+
   it('should support `className` on the outermost element', () => {
     const Element = () => <TextInput className={'test-class-name'} />
     const {container} = render(<Element />)

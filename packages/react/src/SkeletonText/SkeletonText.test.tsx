@@ -1,8 +1,12 @@
 import {render} from '@testing-library/react'
 import {describe, expect, it} from 'vitest'
 import {SkeletonText} from '../SkeletonText'
+import {implementsClassName} from '../utils/testing'
+import classes from './SkeletonText.module.css'
 
 describe('SkeletonText', () => {
+  implementsClassName(SkeletonText, classes.SkeletonText)
+
   it('should support `className` on the outermost element', () => {
     const {container} = render(<SkeletonText className={'test-class-name'} />)
     expect(container.firstChild).toHaveClass('test-class-name')

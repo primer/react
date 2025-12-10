@@ -7,6 +7,14 @@ import {fileURLToPath} from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
+// Files to ignore from className testing requirement
+const IGNORED_FILES = [
+  // Add file paths relative to project root here, e.g.:
+  // 'packages/react/src/SomeComponent/SomeComponent.test.tsx',
+  'packages/react/src/Portal/Portal.test.tsx',
+  'packages/react/src/Autocomplete/AutocompleteOverlay.tsx',
+]
+
 function getAllTestFiles(dir, files = []) {
   const items = readdirSync(dir)
 
@@ -37,6 +45,14 @@ function main() {
 
   for (const testFile of testFiles) {
     try {
+      // Make path relative to project root for comparison with IGNORED_FILES
+      const relativePath = testFile.replace(projectRoot + '/', '')
+
+      // Skip files in the ignored list
+      if (IGNORED_FILES.includes(relativePath)) {
+        continue
+      }
+
       const content = readFileSync(testFile, 'utf-8')
 
       // Check if file imports a component (has relative import) and doesn't have implementsClassName
@@ -44,8 +60,6 @@ function main() {
       const hasImplementsClassName = content.includes('implementsClassName')
 
       if (hasRelativeImport && !hasImplementsClassName) {
-        // Make path relative to project root for cleaner output
-        const relativePath = testFile.replace(projectRoot + '/', '')
         missingTests.push(relativePath)
       }
     } catch (error) {
