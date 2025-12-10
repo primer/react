@@ -3,6 +3,8 @@ import {render, screen} from '@testing-library/react'
 import {Table} from '../../DataTable'
 import {createColumnHelper} from '../column'
 import type {TableProps} from '../Table'
+import {implementsClassName} from '../../utils/testing'
+import classes from '../Table.module.css'
 
 function createTable({columns, rows}: {columns: Array<string>; rows: Array<Array<string>>}) {
   return (
@@ -30,6 +32,11 @@ function createTable({columns, rows}: {columns: Array<string>; rows: Array<Array
 }
 
 describe('Table', () => {
+  implementsClassName(Table, classes.Table)
+  implementsClassName(Table.Container, classes.TableContainer)
+  implementsClassName(props => <Table.Skeleton columns={[]} {...props} />)
+  implementsClassName(Table.Cell, classes.TableCell)
+
   it('should render an element with role="table" semantics', () => {
     const columns = ['Column A', 'Column B', 'Column C']
     const rows = [

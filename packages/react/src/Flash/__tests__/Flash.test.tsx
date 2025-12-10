@@ -1,8 +1,11 @@
 import {render, screen} from '@testing-library/react'
 import {describe, expect, it} from 'vitest'
 import Flash from '../Flash'
+import {implementsClassName} from '../../utils/testing'
+import classes from '../Flash.module.css'
 
 describe('Flash', () => {
+  implementsClassName(Flash, classes.Flash)
   it('should support the `full` prop', () => {
     render(
       <>
