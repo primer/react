@@ -1,4 +1,3 @@
-import path from 'node:path'
 import fs from 'node:fs'
 import {parseSync, traverse, types as t} from '@babel/core'
 import type {Page} from '@playwright/test'
