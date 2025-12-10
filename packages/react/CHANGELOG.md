@@ -1,5 +1,23 @@
 # @primer/react
 
+## 38.5.0
+
+### Minor Changes
+
+- [#7240](https://github.com/primer/react/pull/7240) [`79a6df1`](https://github.com/primer/react/commit/79a6df1b1a8d73acd7036f23b756bb08b9367344) Thanks [@TylerJDev](https://github.com/TylerJDev)! - FilteredActionList: Adds new prop `setInitialFocus` which will prevent `aria-activedescendant` from being set until user action
+
+- [#7240](https://github.com/primer/react/pull/7240) [`79a6df1`](https://github.com/primer/react/commit/79a6df1b1a8d73acd7036f23b756bb08b9367344) Thanks [@TylerJDev](https://github.com/TylerJDev)! - FilteredActionList: Add prop `disableSelectOnHover` which will disable the ability where hovering over an item sets it as the `aria-activedescendant` value
+
+### Patch Changes
+
+- [#7259](https://github.com/primer/react/pull/7259) [`c32b964`](https://github.com/primer/react/commit/c32b964e64a4cbfa4c877f4ed844ada47be871dd) Thanks [@TylerJDev](https://github.com/TylerJDev)! - AvatarStack: Border was incorrectly applying to elements that were not `Avatar` children.
+
+- [#7259](https://github.com/primer/react/pull/7259) [`c32b964`](https://github.com/primer/react/commit/c32b964e64a4cbfa4c877f4ed844ada47be871dd) Thanks [@TylerJDev](https://github.com/TylerJDev)! - AvatarStack: The square prop was not applying to individual `Avatar` components.
+
+- [#7275](https://github.com/primer/react/pull/7275) [`822c3e7`](https://github.com/primer/react/commit/822c3e791a9fd18df6b9a834f9bbb87151ec8076) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Improve drag performance for PageLayout
+
+- [#7242](https://github.com/primer/react/pull/7242) [`32faa80`](https://github.com/primer/react/commit/32faa80d754db46fa5c6583fb9c72dc9a7d22581) Thanks [@pksjce](https://github.com/pksjce)! - useFocusTrap - Fix [bug related to restoring focus on scrolling](https://github.com/github/primer/issues/5200)
+
 ## 38.4.0
 
 ### Minor Changes
