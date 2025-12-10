@@ -29,9 +29,9 @@
   },
   "scripts": {
     "clean": "rimraf dist",
-    "build": "rollup -c",
+    "build": "rolldown -c",
     "type-check": "tsc --noEmit",
-    "watch": "rollup -c -w"
+    "watch": "rolldown -w -c"
   },
   "dependencies": {
     "@babel/runtime": "^7.28.4",
@@ -50,11 +50,9 @@
     "@babel/preset-typescript": "^7.28.5",
     "@modelcontextprotocol/inspector": "^0.16.6",
     "@rollup/plugin-babel": "^6.1.0",
-    "@rollup/plugin-commonjs": "^29.0.0",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^16.0.3",
     "@types/turndown": "^5.0.5",
     "rimraf": "^6.0.1",
+    "rolldown": "^1.0.0-beta.53",
     "rollup": "^4.53.3",
     "rollup-plugin-typescript2": "^0.36.0",
     "typescript": "^5.9.2"
