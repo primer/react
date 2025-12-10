@@ -61,6 +61,18 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
    */
   focusOutBehavior?: 'stop' | 'wrap'
   /**
+   * Callback function that is called when the active descendant changes.
+   *
+   * @param newActiveDescendant - The new active descendant element.
+   * @param previousActiveDescendant - The previous active descendant element.
+   * @param directlyActivated - Whether the active descendant was directly activated (e.g., by a keyboard event).
+   */
+  onActiveDescendantChanged?: (
+    newActiveDescendant: HTMLElement | undefined,
+    previousActiveDescendant: HTMLElement | undefined,
+    directlyActivated: boolean,
+  ) => void
+  /**
    * Private API for use internally only. Adds the ability to switch between
    * `active-descendant` and roving tabindex.
    *
@@ -80,6 +92,15 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
    * @default 'active-descendant'
    */
   _PrivateFocusManagement?: 'roving-tabindex' | 'active-descendant'
+  /**
+   * If true, disables selecting items when hovering over them with the mouse.
+   */
+  disableSelectOnHover?: boolean
+  /**
+   * If true, focus remains where it was and the user must interact to move focus.
+   * If false, sets initial focus to the first item in the list when rendered, enabling keyboard navigation immediately.
+   */
+  setInitialFocus?: boolean
 }
 
 export function FilteredActionList({
@@ -106,6 +127,9 @@ export function FilteredActionList({
   actionListProps,
   focusOutBehavior = 'wrap',
   _PrivateFocusManagement = 'active-descendant',
+  onActiveDescendantChanged,
+  disableSelectOnHover = false,
+  setInitialFocus = false,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -228,14 +252,17 @@ export function FilteredActionList({
           activeDescendantFocus: inputRef,
           onActiveDescendantChanged: (current, previous, directlyActivated) => {
             activeDescendantRef.current = current
-
             if (current && scrollContainerRef.current && directlyActivated) {
               scrollIntoView(current, scrollContainerRef.current, menuScrollMargins)
             }
+
+            onActiveDescendantChanged?.(current, previous, directlyActivated)
           },
+          focusInStrategy: setInitialFocus ? 'initial' : 'previous',
+          ignoreHoverEvents: disableSelectOnHover,
         }
       : undefined,
-    [listContainerElement, usingRovingTabindex],
+    [listContainerElement, usingRovingTabindex, onActiveDescendantChanged],
   )
 
   useEffect(() => {

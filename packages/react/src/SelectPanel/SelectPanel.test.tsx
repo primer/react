@@ -85,6 +85,19 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       expect(trigger).toHaveAttribute('aria-expanded', 'false')
     })
 
+    it('should call onActiveDescendantChanged when using keyboard while focusing on an item', async () => {
+      const user = userEvent.setup()
+      // jest function
+      const onActiveDescendantChanged = vi.fn()
+
+      render(<BasicSelectPanel onActiveDescendantChanged={onActiveDescendantChanged} />)
+
+      await user.click(screen.getByText('Select items'))
+
+      await user.type(document.activeElement!, '{ArrowDown}')
+      expect(onActiveDescendantChanged).toHaveBeenCalled()
+    })
+
     it('should open the select panel when activating the trigger', async () => {
       const user = userEvent.setup()
 
@@ -1517,6 +1530,122 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         const selectAllCheckbox = screen.getByRole('checkbox', {name: 'Select all'})
         expect(selectAllCheckbox).not.toBeChecked()
         expect(selectAllCheckbox).toHaveProperty('indeterminate', true)
+      })
+    })
+
+    describe('disableSelectOnHover', () => {
+      it('should not update aria-activedescendant when hovering over items when disableSelectOnHover is true', async () => {
+        const user = userEvent.setup()
+
+        render(<BasicSelectPanel disableSelectOnHover={true} />)
+
+        await user.click(screen.getByText('Select items'))
+
+        const input = screen.getByPlaceholderText('Filter items')
+        const options = screen.getAllByRole('option')
+
+        // Initially, aria-activedescendant should not be set if setInitialFocus is false (default)
+        const initialActiveDescendant = input.getAttribute('aria-activedescendant')
+
+        // Hover over the first item
+        await user.hover(options[0])
+
+        // aria-activedescendant should not change when disableSelectOnHover is true
+        expect(input.getAttribute('aria-activedescendant')).toBe(initialActiveDescendant)
+
+        // Hover over the second item
+        await user.hover(options[1])
+
+        // aria-activedescendant should still not change
+        expect(input.getAttribute('aria-activedescendant')).toBe(initialActiveDescendant)
+      })
+
+      it('should update aria-activedescendant when hovering over items when disableSelectOnHover is false (default)', async () => {
+        const user = userEvent.setup()
+
+        render(<BasicSelectPanel />)
+
+        await user.click(screen.getByText('Select items'))
+
+        const input = screen.getByPlaceholderText('Filter items')
+        const options = screen.getAllByRole('option')
+
+        // Hover over the first item
+        await user.hover(options[0])
+
+        // aria-activedescendant should be set to the first item
+        expect(input.getAttribute('aria-activedescendant')).toBe(options[0].id)
+
+        // Hover over the second item
+        await user.hover(options[1])
+
+        // aria-activedescendant should be updated to the second item
+        expect(input.getAttribute('aria-activedescendant')).toBe(options[1].id)
+      })
+    })
+
+    describe('setInitialFocus', () => {
+      it('should not set aria-activedescendant until user interaction when setInitialFocus is true', async () => {
+        const user = userEvent.setup()
+
+        render(<BasicSelectPanel setInitialFocus={true} />)
+
+        await user.click(screen.getByText('Select items'))
+
+        const input = screen.getByPlaceholderText('Filter items')
+        const options = screen.getAllByRole('option')
+
+        // Initially, aria-activedescendant should not be set
+        expect(input.getAttribute('aria-activedescendant')).toBeFalsy()
+
+        // User interacts with keyboard
+        await user.keyboard('{ArrowDown}')
+
+        // Now aria-activedescendant should be set to the first item
+        expect(input.getAttribute('aria-activedescendant')).toBe(options[0].id)
+      })
+
+      it('should set aria-activedescendant to the first item on mount when setInitialFocus is false (default)', async () => {
+        const user = userEvent.setup()
+
+        render(<BasicSelectPanel />)
+
+        await user.click(screen.getByText('Select items'))
+
+        const input = screen.getByPlaceholderText('Filter items')
+        const options = screen.getAllByRole('option')
+
+        // Wait a tick for the effect to run
+        await new Promise(resolve => setTimeout(resolve, 0))
+
+        // aria-activedescendant should be set to the first item
+        expect(input.getAttribute('aria-activedescendant')).toBe(options[0].id)
+      })
+
+      it('should not set aria-activedescendant on mouse hover until after first interaction when setInitialFocus is true', async () => {
+        const user = userEvent.setup()
+
+        render(<BasicSelectPanel setInitialFocus={true} />)
+
+        await user.click(screen.getByText('Select items'))
+
+        const input = screen.getByPlaceholderText('Filter items')
+        const options = screen.getAllByRole('option')
+
+        // Initially, aria-activedescendant should not be set
+        expect(input.getAttribute('aria-activedescendant')).toBeFalsy()
+
+        // Hover over the first item (this is the first interaction)
+        await user.hover(options[0])
+
+        // Now aria-activedescendant should be set to the first item
+        expect(input.getAttribute('aria-activedescendant')).toBe(options[0].id)
+
+        // Hover over the second item
+        await user.hover(options[1])
+
+        // aria-activedescendant should update to the second item
+        expect(input.getAttribute('aria-activedescendant')).toBe(options[1].id)
       })
     })
   })

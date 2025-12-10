@@ -37,7 +37,7 @@
     }
 
     &:where([data-avatar-count='1'][data-shape='circle']) {
-      .AvatarItem {
+      .AvatarItem:where([data-component='Avatar']) {
         /* stylelint-disable-next-line primer/box-shadow */
         box-shadow: 0 0 0 var(--avatar-border-width) var(--avatar-borderColor);
       }
@@ -146,6 +146,10 @@
     .AvatarStack:where([data-shape='circle']) &:is(img) {
       /* stylelint-disable-next-line primer/box-shadow */
       box-shadow: 0 0 0 var(--avatar-border-width) transparent;
+    }
+
+    &:not([data-component='Avatar']):not(:has([data-square])) {
+      border-radius: 50%;
     }
 
     .AvatarStack:where([data-shape='square']) &:is(img) {
