@@ -57,7 +57,8 @@ function main() {
       const content = readFileSync(testFile, 'utf-8')
 
       // Check if file imports a component (has relative import) and doesn't have implementsClassName
-      const hasRelativeImport = content.includes("from '../")
+      const hasRelativeImport =
+        content.includes("from '../") || content.includes('from "./') || content.includes("from '.")
       const hasImplementsClassName = content.includes('implementsClassName')
 
       if (hasRelativeImport && !hasImplementsClassName) {
