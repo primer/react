@@ -118,11 +118,11 @@ function getStories(filepath: string): Array<{title: string; id: string}> {
     ExportNamedDeclaration(path) {
       if (path.node.declaration) {
         if (t.isVariableDeclaration(path.node.declaration)) {
-          path.node.declaration.declarations.forEach(declarator => {
+          for (const declarator of path.node.declaration.declarations) {
             if (t.isIdentifier(declarator.id)) {
               exports.push(declarator.id.name)
             }
-          })
+          }
         }
       }
     },
