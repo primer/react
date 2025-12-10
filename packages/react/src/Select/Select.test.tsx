@@ -2,8 +2,13 @@ import {describe, expect, it} from 'vitest'
 import {Select} from '..'
 import {render} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import {implementsClassName} from '../utils/testing'
+import classes from './Select.module.css'
 
 describe('Select', () => {
+  implementsClassName(Select, classes.TextInputWrapper)
+  implementsClassName(Select.Option)
+  implementsClassName(Select.OptGroup)
   it('should support `className` on the outermost element', () => {
     const Element = () => (
       <>
