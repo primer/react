@@ -25,8 +25,8 @@ function getAllTestFiles(dir, files = []) {
     const stat = statSync(fullPath)
 
     if (stat.isDirectory() && !item.startsWith('.') && item !== 'node_modules') {
-      // Skip utils and __tests__ directories
-      if (item !== 'utils' && item !== '__tests__') {
+      // Skip utils, hooks directories
+      if (item !== 'utils' && item !== 'hooks') {
         getAllTestFiles(fullPath, files)
       }
     } else if (stat.isFile() && item.endsWith('.test.tsx') && !item.endsWith('.types.test.tsx')) {
