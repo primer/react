@@ -8,6 +8,8 @@ import Text from '../Text'
 import BaseStyles from '../BaseStyles'
 import {NestedOverlays, MemexNestedOverlays, MemexIssueOverlay, PositionedOverlays} from './Overlay.features.stories'
 import {FeatureFlags} from '../FeatureFlags'
+import {implementsClassName} from '../utils/testing'
+import classes from './Overlay.module.css'
 
 type TestComponentSettings = {
   initialFocus?: 'button'
@@ -81,6 +83,18 @@ const TestComponent = ({
 }
 
 describe('Overlay', () => {
+  implementsClassName(props => {
+    const returnFocusRef = useRef<HTMLButtonElement>(null)
+    return (
+      <div>
+        <button ref={returnFocusRef}>trigger</button>
+        <Overlay returnFocusRef={returnFocusRef} {...props}>
+          <div>test content</div>
+        </Overlay>
+      </div>
+    )
+  }, classes.Overlay)
+
   it('should focus initialFocusRef element passed into function on open', async () => {
     const user = userEvent.setup()
     const {getByRole} = render(<TestComponent initialFocus="button" />)

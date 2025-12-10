@@ -9,6 +9,7 @@ import type {LiveRegionElement} from '@primer/live-region-element'
 import {IconButton} from '../Button'
 import {ArrowLeftIcon} from '@primer/octicons-react'
 import classes from './SelectPanel.test.module.css'
+import {implementsClassName} from '../utils/testing'
 
 // Instead of importing from live-region/__tests__/test-helpers.ts, we define our own getLiveRegion function
 export function getLiveRegion(): LiveRegionElement {
@@ -73,6 +74,7 @@ globalThis.Element.prototype.scrollTo = vi.fn()
 
 for (const usingRemoveActiveDescendant of [false, true]) {
   describe('SelectPanel', () => {
+    implementsClassName(props => <BasicSelectPanel open {...props} />, classes.FilteredActionList)
     it('should render an anchor to open the select panel using `placeholder`', () => {
       renderWithProp(<BasicSelectPanel />)
 
