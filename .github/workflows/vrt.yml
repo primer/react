@@ -42,8 +42,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
-        run: npx storybook build
-        working-directory: packages/react
+        run: npx turbo build:storybook
       - name: Run storybook
         id: storybook
         run: |
@@ -51,15 +50,26 @@ jobs:
           pid=$!
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
+      - name: Run styled-react storybook
+        id: styled-react-storybook
+        run: |
+          npx serve -l 6007 packages/styled-react/storybook-static &
+          pid=$!
+          echo "pid=$pid" >> $GITHUB_OUTPUT
+          sleep 5
       - name: Run VRT
         uses: docker://mcr.microsoft.com/playwright:v1.56.1-jammy
         env:
           STORYBOOK_URL: 'http://172.17.0.1:6006'
+          STYLED_REACT_STORYBOOK_URL: 'http://172.17.0.1:6007'
         with:
           args: npx playwright test --grep @vrt --update-snapshots --shard="${{ matrix.shard }}/${{ strategy.job-total }}"
       - name: Stop storybook
         if: ${{ always() }}
         run: kill ${{ steps.storybook.outputs.pid }}
+      - name: Stop styled-react storybook
+        if: ${{ always() }}
+        run: kill ${{ steps.styled-react-storybook.outputs.pid }}
       - name: Create snapshots.zip
         run: |
           if [[ ! -z  $(git ls-files --others --exclude-standard --modified) ]]; then
