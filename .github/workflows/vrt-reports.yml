@@ -59,7 +59,6 @@ jobs:
       - name: Stop storybook
         run: kill ${{ steps.storybook.outputs.pid }}
       - name: Stop styled-react storybook
-        if: ${{ always() }}
         run: kill ${{ steps.styled-react-storybook.outputs.pid }}
       - name: Upload report
         if: ${{ always() }}

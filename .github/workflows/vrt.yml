@@ -65,10 +65,8 @@ jobs:
         with:
           args: npx playwright test --grep @vrt --update-snapshots --shard="${{ matrix.shard }}/${{ strategy.job-total }}"
       - name: Stop storybook
-        if: ${{ always() }}
         run: kill ${{ steps.storybook.outputs.pid }}
       - name: Stop styled-react storybook
-        if: ${{ always() }}
         run: kill ${{ steps.styled-react-storybook.outputs.pid }}
       - name: Create snapshots.zip
         run: |
