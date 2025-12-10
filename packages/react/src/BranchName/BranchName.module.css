@@ -1,14 +1,16 @@
-.BranchName {
-  display: inline-block;
-  padding: var(--base-size-2) var(--base-size-6);
-  font-family: var(--fontStack-monospace);
-  font-size: var(--text-body-size-small);
-  color: var(--fgColor-link);
-  text-decoration: none;
-  background-color: var(--bgColor-accent-muted);
-  border-radius: var(--borderRadius-medium);
+@layer primer.components.BranchName {
+  .BranchName {
+    display: inline-block;
+    padding: var(--base-size-2) var(--base-size-6);
+    font-family: var(--fontStack-monospace);
+    font-size: var(--text-body-size-small);
+    color: var(--fgColor-link);
+    text-decoration: none;
+    background-color: var(--bgColor-accent-muted);
+    border-radius: var(--borderRadius-medium);
 
-  &:is(:not(a)) {
-    color: var(--fgColor-muted);
+    &:is(:not(a)) {
+      color: var(--fgColor-muted);
+    }
   }
 }

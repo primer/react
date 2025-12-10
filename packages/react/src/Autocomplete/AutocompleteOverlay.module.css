@@ -1,3 +1,5 @@
-.Overlay {
-  overflow: auto;
+@layer primer.components.AutocompleteOverlay {
+  .Overlay {
+    overflow: auto;
+  }
 }

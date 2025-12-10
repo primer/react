@@ -1,194 +1,196 @@
-@keyframes overlay-appear {
-  0% {
-    opacity: 0;
-  }
+@layer primer.components.Overlay {
+  @keyframes overlay-appear {
+    0% {
+      opacity: 0;
+    }
 
-  100% {
-    opacity: 1;
-  }
-}
-
-.Overlay {
-  position: absolute;
-  max-width: calc(100vw - 2rem);
-  width: auto;
-  min-width: 192px;
-  height: auto;
-  max-height: 100vh;
-  overflow: hidden;
-  background-color: var(--overlay-bgColor);
-  border-radius: var(--borderRadius-large);
-  box-shadow: var(--shadow-floating-small);
-  /* stylelint-disable-next-line primer/spacing */
-  top: var(--top, auto);
-  /* stylelint-disable-next-line primer/spacing */
-  left: var(--left, auto);
-  /* stylelint-disable-next-line primer/spacing */
-  right: var(--right, auto);
-  /* stylelint-disable-next-line primer/spacing */
-  bottom: var(--bottom, auto);
-
-  &:focus {
-    outline: none;
-  }
-
-  @media (forced-colors: active) {
-    /* Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips */
-    outline: solid 1px transparent;
-  }
-
-  &:where([data-reflow-container='true']) {
-    max-width: calc(100vw - 2rem);
-  }
-
-  &:where([data-overflow-auto]) {
-    overflow: auto;
-  }
-
-  &:where([data-overflow-hidden]) {
-    overflow: hidden;
-  }
-
-  &:where([data-overflow-scroll]) {
-    overflow: scroll;
-  }
-
-  &:where([data-overflow-visible]) {
-    overflow: visible;
-  }
-
-  &:where([data-height-xsmall]) {
-    height: 192px;
-  }
-
-  &:where([data-height-small]) {
-    height: 256px;
-  }
-
-  &:where([data-height-medium]) {
-    height: 320px;
-  }
-
-  &:where([data-height-large]) {
-    height: 432px;
-  }
-
-  &:where([data-height-xlarge]) {
-    height: 600px;
-  }
-
-  &:where([data-height-auto]),
-  &:where([data-height-initial]) {
-    height: auto;
-  }
-
-  &:where([data-height-fit-content]) {
-    height: fit-content;
-  }
-
-  &:where([data-max-height-xsmall]) {
-    max-height: 192px;
-  }
-
-  &:where([data-max-height-small]) {
-    max-height: 256px;
-  }
-
-  &:where([data-max-height-medium]) {
-    max-height: 320px;
-  }
-
-  &:where([data-max-height-large]) {
-    max-height: 432px;
-  }
-
-  &:where([data-max-height-xlarge]) {
-    max-height: 600px;
-  }
-
-  &:where([data-max-height-fit-content]) {
-    max-height: fit-content;
-  }
-
-  &:where([data-width-small]) {
-    width: 256px;
-  }
-
-  &:where([data-width-medium]) {
-    width: 320px;
-  }
-
-  &:where([data-width-large]) {
-    /* stylelint-disable-next-line primer/responsive-widths */
-    width: 480px;
-  }
-
-  &:where([data-width-xlarge]) {
-    /* stylelint-disable-next-line primer/responsive-widths */
-    width: 640px;
-  }
-
-  &:where([data-width-xxlarge]) {
-    /* stylelint-disable-next-line primer/responsive-widths */
-    width: 960px;
-  }
-
-  &:where([data-width-auto]) {
-    width: auto;
-  }
-
-  &:where([data-max-width-small]) {
-    max-width: 256px;
-  }
-
-  &:where([data-max-width-medium]) {
-    max-width: 320px;
-  }
-
-  &:where([data-max-width-large]) {
-    max-width: 480px;
-  }
-
-  &:where([data-max-width-xlarge]) {
-    max-width: 640px;
-  }
-
-  &:where([data-max-width-xxlarge]) {
-    max-width: 960px;
-  }
-
-  &:where([data-visibility-visible]) {
-    visibility: visible;
-  }
-
-  &:where([data-visibility-hidden]) {
-    visibility: hidden;
-  }
-
-  &:where([data-responsive='fullscreen']) {
-    @media screen and (--viewportRange-narrow) {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      max-width: none;
-      height: 100vh;
-      max-height: none;
-      margin: 0;
-      border-radius: unset;
+    100% {
+      opacity: 1;
     }
   }
 
-  @supports (height: 100dvh) {
-    /* fix for mobile safari (100vh clips the screen with the toolbar) */
-    &:where([data-variant='fullscreen']) {
-      height: 100dvh;
-    }
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
   .Overlay {
-    animation: overlay-appear 200ms cubic-bezier(0.33, 1, 0.68, 1);
+    position: absolute;
+    max-width: calc(100vw - 2rem);
+    width: auto;
+    min-width: 192px;
+    height: auto;
+    max-height: 100vh;
+    overflow: hidden;
+    background-color: var(--overlay-bgColor);
+    border-radius: var(--borderRadius-large);
+    box-shadow: var(--shadow-floating-small);
+    /* stylelint-disable-next-line primer/spacing */
+    top: var(--top, auto);
+    /* stylelint-disable-next-line primer/spacing */
+    left: var(--left, auto);
+    /* stylelint-disable-next-line primer/spacing */
+    right: var(--right, auto);
+    /* stylelint-disable-next-line primer/spacing */
+    bottom: var(--bottom, auto);
+
+    &:focus {
+      outline: none;
+    }
+
+    @media (forced-colors: active) {
+      /* Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips */
+      outline: solid 1px transparent;
+    }
+
+    &:where([data-reflow-container='true']) {
+      max-width: calc(100vw - 2rem);
+    }
+
+    &:where([data-overflow-auto]) {
+      overflow: auto;
+    }
+
+    &:where([data-overflow-hidden]) {
+      overflow: hidden;
+    }
+
+    &:where([data-overflow-scroll]) {
+      overflow: scroll;
+    }
+
+    &:where([data-overflow-visible]) {
+      overflow: visible;
+    }
+
+    &:where([data-height-xsmall]) {
+      height: 192px;
+    }
+
+    &:where([data-height-small]) {
+      height: 256px;
+    }
+
+    &:where([data-height-medium]) {
+      height: 320px;
+    }
+
+    &:where([data-height-large]) {
+      height: 432px;
+    }
+
+    &:where([data-height-xlarge]) {
+      height: 600px;
+    }
+
+    &:where([data-height-auto]),
+    &:where([data-height-initial]) {
+      height: auto;
+    }
+
+    &:where([data-height-fit-content]) {
+      height: fit-content;
+    }
+
+    &:where([data-max-height-xsmall]) {
+      max-height: 192px;
+    }
+
+    &:where([data-max-height-small]) {
+      max-height: 256px;
+    }
+
+    &:where([data-max-height-medium]) {
+      max-height: 320px;
+    }
+
+    &:where([data-max-height-large]) {
+      max-height: 432px;
+    }
+
+    &:where([data-max-height-xlarge]) {
+      max-height: 600px;
+    }
+
+    &:where([data-max-height-fit-content]) {
+      max-height: fit-content;
+    }
+
+    &:where([data-width-small]) {
+      width: 256px;
+    }
+
+    &:where([data-width-medium]) {
+      width: 320px;
+    }
+
+    &:where([data-width-large]) {
+      /* stylelint-disable-next-line primer/responsive-widths */
+      width: 480px;
+    }
+
+    &:where([data-width-xlarge]) {
+      /* stylelint-disable-next-line primer/responsive-widths */
+      width: 640px;
+    }
+
+    &:where([data-width-xxlarge]) {
+      /* stylelint-disable-next-line primer/responsive-widths */
+      width: 960px;
+    }
+
+    &:where([data-width-auto]) {
+      width: auto;
+    }
+
+    &:where([data-max-width-small]) {
+      max-width: 256px;
+    }
+
+    &:where([data-max-width-medium]) {
+      max-width: 320px;
+    }
+
+    &:where([data-max-width-large]) {
+      max-width: 480px;
+    }
+
+    &:where([data-max-width-xlarge]) {
+      max-width: 640px;
+    }
+
+    &:where([data-max-width-xxlarge]) {
+      max-width: 960px;
+    }
+
+    &:where([data-visibility-visible]) {
+      visibility: visible;
+    }
+
+    &:where([data-visibility-hidden]) {
+      visibility: hidden;
+    }
+
+    &:where([data-responsive='fullscreen']) {
+      @media screen and (--viewportRange-narrow) {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        max-width: none;
+        height: 100vh;
+        max-height: none;
+        margin: 0;
+        border-radius: unset;
+      }
+    }
+
+    @supports (height: 100dvh) {
+      /* fix for mobile safari (100vh clips the screen with the toolbar) */
+      &:where([data-variant='fullscreen']) {
+        height: 100dvh;
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .Overlay {
+      animation: overlay-appear 200ms cubic-bezier(0.33, 1, 0.68, 1);
+    }
   }
 }

@@ -1,12 +1,14 @@
-.ActionListHeader {
-  margin-block-end: var(--base-size-8);
+@layer primer.components.Heading {
+  .ActionListHeader {
+    margin-block-end: var(--base-size-8);
 
-  &:where([data-list-variant='full']) {
-    margin-inline-start: var(--base-size-8);
-  }
+    &:where([data-list-variant='full']) {
+      margin-inline-start: var(--base-size-8);
+    }
 
-  &:where([data-list-variant='inset'], [data-list-variant='horizontal-inset']) {
-    /* stylelint-disable-next-line primer/spacing */
-    margin-inline-start: calc(var(--control-medium-paddingInline-condensed) + var(--base-size-8));
+    &:where([data-list-variant='inset'], [data-list-variant='horizontal-inset']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-inline-start: calc(var(--control-medium-paddingInline-condensed) + var(--base-size-8));
+    }
   }
 }

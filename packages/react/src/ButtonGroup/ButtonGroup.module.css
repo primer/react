@@ -1,81 +1,83 @@
-.ButtonGroup {
-  display: inline-flex;
-  vertical-align: middle;
-  isolation: isolate;
+@layer primer.components.ButtonGroup {
+  .ButtonGroup {
+    display: inline-flex;
+    vertical-align: middle;
+    isolation: isolate;
 
-  & > *:not([data-loading-wrapper]) {
-    /* stylelint-disable-next-line primer/spacing */
-    margin-inline-end: -1px;
-    position: relative;
+    & > *:not([data-loading-wrapper]) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-inline-end: -1px;
+      position: relative;
 
-    /* reset border-radius */
-    button,
-    a {
-      border-radius: 0;
-    }
-
-    &:first-child {
+      /* reset border-radius */
       button,
       a {
-        border-top-left-radius: var(--borderRadius-medium);
-        border-bottom-left-radius: var(--borderRadius-medium);
+        border-radius: 0;
+      }
+
+      &:first-child {
+        button,
+        a {
+          border-top-left-radius: var(--borderRadius-medium);
+          border-bottom-left-radius: var(--borderRadius-medium);
+        }
+      }
+
+      &:last-child {
+        button,
+        a {
+          border-top-right-radius: var(--borderRadius-medium);
+          border-bottom-right-radius: var(--borderRadius-medium);
+        }
+      }
+
+      &:focus,
+      &:active,
+      &:hover {
+        z-index: 1;
       }
     }
 
-    &:last-child {
+    /* this is a workaround until portal based tooltips are fully removed from dotcom */
+    &:has(div:last-child:empty) {
       button,
       a {
-        border-top-right-radius: var(--borderRadius-medium);
-        border-bottom-right-radius: var(--borderRadius-medium);
+        border-radius: var(--borderRadius-medium);
       }
     }
 
-    &:focus,
-    &:active,
-    &:hover {
-      z-index: 1;
-    }
-  }
+    /* if child is loading button */
+    & > *[data-loading-wrapper] {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-inline-end: -1px;
+      position: relative;
 
-  /* this is a workaround until portal based tooltips are fully removed from dotcom */
-  &:has(div:last-child:empty) {
-    button,
-    a {
-      border-radius: var(--borderRadius-medium);
-    }
-  }
-
-  /* if child is loading button */
-  & > *[data-loading-wrapper] {
-    /* stylelint-disable-next-line primer/spacing */
-    margin-inline-end: -1px;
-    position: relative;
-
-    /* reset border-radius */
-    button,
-    a {
-      border-radius: 0;
-    }
-
-    &:focus,
-    &:active,
-    &:hover {
-      z-index: 1;
-    }
-
-    &:first-child {
+      /* reset border-radius */
       button,
       a {
-        border-top-left-radius: var(--borderRadius-medium);
-        border-bottom-left-radius: var(--borderRadius-medium);
+        border-radius: 0;
       }
-    }
 
-    &:last-child {
-      button,
-      a {
-        border-top-right-radius: var(--borderRadius-medium);
-        border-bottom-right-radius: var(--borderRadius-medium);
+      &:focus,
+      &:active,
+      &:hover {
+        z-index: 1;
+      }
+
+      &:first-child {
+        button,
+        a {
+          border-top-left-radius: var(--borderRadius-medium);
+          border-bottom-left-radius: var(--borderRadius-medium);
+        }
+      }
+
+      &:last-child {
+        button,
+        a {
+          border-top-right-radius: var(--borderRadius-medium);
+          border-bottom-right-radius: var(--borderRadius-medium);
+        }
       }
     }
   }

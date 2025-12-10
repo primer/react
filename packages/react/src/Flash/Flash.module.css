@@ -1,60 +1,62 @@
-.Flash {
-  position: relative;
-  padding: var(--base-size-16);
-  margin-top: 0;
-  color: var(--fgColor-default);
-  border-style: solid;
-  border-width: var(--borderWidth-thin);
-  border-radius: var(--borderRadius-medium);
+@layer primer.components.Flash {
+  .Flash {
+    position: relative;
+    padding: var(--base-size-16);
+    margin-top: 0;
+    color: var(--fgColor-default);
+    border-style: solid;
+    border-width: var(--borderWidth-thin);
+    border-radius: var(--borderRadius-medium);
 
-  &:where([data-variant='default']) {
-    background-color: var(--bgColor-accent-muted);
-    border-color: var(--borderColor-accent-muted);
+    &:where([data-variant='default']) {
+      background-color: var(--bgColor-accent-muted);
+      border-color: var(--borderColor-accent-muted);
+
+      & :where(svg) {
+        color: var(--fgColor-accent);
+      }
+    }
+
+    &:where([data-variant='success']) {
+      background-color: var(--bgColor-success-muted);
+      border-color: var(--borderColor-success-muted);
+
+      & :where(svg) {
+        color: var(--fgColor-success);
+      }
+    }
+
+    &:where([data-variant='danger']) {
+      background-color: var(--bgColor-danger-muted);
+      border-color: var(--borderColor-danger-muted);
+
+      & :where(svg) {
+        color: var(--fgColor-danger);
+      }
+    }
+
+    &:where([data-variant='warning']) {
+      background-color: var(--bgColor-attention-muted);
+      border-color: var(--borderColor-attention-muted);
+
+      & :where(svg) {
+        color: var(--fgColor-attention);
+      }
+    }
+
+    &:where([data-full]) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-top: -1px;
+      border-width: var(--borderWidth-thin) 0;
+      border-radius: 0;
+    }
+
+    & :where(p:last-child) {
+      margin-bottom: 0;
+    }
 
     & :where(svg) {
-      color: var(--fgColor-accent);
+      margin-right: var(--base-size-8);
     }
-  }
-
-  &:where([data-variant='success']) {
-    background-color: var(--bgColor-success-muted);
-    border-color: var(--borderColor-success-muted);
-
-    & :where(svg) {
-      color: var(--fgColor-success);
-    }
-  }
-
-  &:where([data-variant='danger']) {
-    background-color: var(--bgColor-danger-muted);
-    border-color: var(--borderColor-danger-muted);
-
-    & :where(svg) {
-      color: var(--fgColor-danger);
-    }
-  }
-
-  &:where([data-variant='warning']) {
-    background-color: var(--bgColor-attention-muted);
-    border-color: var(--borderColor-attention-muted);
-
-    & :where(svg) {
-      color: var(--fgColor-attention);
-    }
-  }
-
-  &:where([data-full]) {
-    /* stylelint-disable-next-line primer/spacing */
-    margin-top: -1px;
-    border-width: var(--borderWidth-thin) 0;
-    border-radius: 0;
-  }
-
-  & :where(p:last-child) {
-    margin-bottom: 0;
-  }
-
-  & :where(svg) {
-    margin-right: var(--base-size-8);
   }
 }

@@ -1,19 +1,21 @@
-.FilteredSearch {
-  display: flex;
-  align-items: stretch;
+@layer primer.components.FilteredSearch {
+  .FilteredSearch {
+    display: flex;
+    align-items: stretch;
 
-  & summary,
-  & > button {
-    border-radius: 0;
-    border-top-left-radius: var(--borderRadius-medium);
-    border-bottom-left-radius: var(--borderRadius-medium);
-    border-right: 0;
-  }
+    & summary,
+    & > button {
+      border-radius: 0;
+      border-top-left-radius: var(--borderRadius-medium);
+      border-bottom-left-radius: var(--borderRadius-medium);
+      border-right: 0;
+    }
 
-  /* stylelint-disable-next-line selector-class-pattern */
-  & :global(.TextInput-wrapper) {
-    border-radius: 0;
-    border-top-right-radius: var(--borderRadius-medium);
-    border-bottom-right-radius: var(--borderRadius-medium);
+    /* stylelint-disable-next-line selector-class-pattern */
+    & :global(.TextInput-wrapper) {
+      border-radius: 0;
+      border-top-right-radius: var(--borderRadius-medium);
+      border-bottom-right-radius: var(--borderRadius-medium);
+    }
   }
 }

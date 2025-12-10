@@ -1,766 +1,768 @@
-.PageLayoutRoot {
-  /* Region Order */
-  --region-order-header: 0;
-  --region-order-pane-start: 1;
-  --region-order-content: 2;
-  --region-order-pane-end: 3;
-  --region-order-footer: 4;
+@layer primer.components.PageLayout {
+  .PageLayoutRoot {
+    /* Region Order */
+    --region-order-header: 0;
+    --region-order-pane-start: 1;
+    --region-order-content: 2;
+    --region-order-pane-end: 3;
+    --region-order-footer: 4;
 
-  /* Spacing Values */
-  --spacing-none: 0;
-  --spacing-condensed: var(--base-size-16);
-  --spacing-normal: var(--base-size-16);
+    /* Spacing Values */
+    --spacing-none: 0;
+    --spacing-condensed: var(--base-size-16);
+    --spacing-normal: var(--base-size-16);
 
-  @media screen and (min-width: 1012px) {
-    --spacing-normal: var(--base-size-24);
-  }
-
-  /* Pane Width Values */
-  --pane-width-small: 100%;
-  --pane-width-medium: 100%;
-  --pane-width-large: 100%;
-  --pane-max-width-diff: 511px;
-
-  @media screen and (min-width: 768px) {
-    --pane-width-small: 240px;
-    --pane-width-medium: 256px;
-    --pane-width-large: 256px;
-  }
-
-  @media screen and (min-width: 1012px) {
-    --pane-width-small: 256px;
-    --pane-width-medium: 296px;
-    --pane-width-large: 320px;
-  }
-
-  @media screen and (min-width: 1280px) {
-    --pane-max-width-diff: 959px;
-  }
-
-  /* These following CSS variables are dynamic values that get overridden by styles passed in via props. */
-  --spacing: 0;
-  --spacing-row: 0;
-  --spacing-column: 0;
-  --spacing-divider: 0;
-  --offset-header: 0;
-  --pane-width: 0;
-  --pane-min-width: 0;
-  --pane-max-width: 0;
-  --pane-width-custom: 0;
-  --pane-width-size: 0;
-
-  /* stylelint-disable-next-line primer/spacing */
-  padding: var(--spacing);
-}
-
-.PageLayoutWrapper {
-  display: flex;
-  margin-right: auto;
-  margin-left: auto;
-  flex-wrap: wrap;
-  /* the wrapper should match the Root's dimensions by default */
-  width: 100%;
-  height: 100%;
-
-  &:where([data-width='medium']) {
-    max-width: 768px;
-  }
-
-  &:where([data-width='large']) {
-    max-width: 1012px;
-  }
-
-  &:where([data-width='full']) {
-    max-width: 100%;
-  }
-
-  &:where([data-width='xlarge']) {
-    max-width: 1280px;
-  }
-}
-
-.PageLayoutContent {
-  display: flex;
-  flex: 1 1 100%;
-  flex-wrap: wrap;
-  max-width: 100%;
-}
-
-.HorizontalDivider {
-  /* stylelint-disable-next-line primer/spacing */
-  margin-right: calc(-1 * var(--spacing-divider));
-  /* stylelint-disable-next-line primer/spacing */
-  margin-left: calc(-1 * var(--spacing-divider));
-
-  &:where([data-variant='none']) {
-    display: none;
-  }
-
-  &:where([data-variant='line']) {
-    display: block;
-    height: 1px;
-    /* stylelint-disable-next-line primer/colors */
-    background-color: var(--borderColor-default);
-  }
-
-  &:where([data-variant='filled']) {
-    display: block;
-    height: var(--base-size-8);
-    background-color: var(--bgColor-inset);
-    box-shadow:
-      /* stylelint-disable-next-line primer/box-shadow */
-      inset 0 -1px 0 0 var(--borderColor-default),
-      inset 0 1px 0 0 var(--borderColor-default);
-  }
-
-  /* Narrow viewport */
-  @media (--viewportRange-narrow) {
-    &:where([data-variant-narrow='none']) {
-      display: none;
+    @media screen and (min-width: 1012px) {
+      --spacing-normal: var(--base-size-24);
     }
 
-    &:where([data-variant-narrow='line']) {
-      display: block;
-      height: 1px;
-      /* stylelint-disable-next-line primer/colors */
-      background-color: var(--borderColor-default);
-    }
-
-    &:where([data-variant-narrow='filled']) {
-      display: block;
-      height: var(--base-size-8);
-      background-color: var(--bgColor-inset);
-      box-shadow:
-        /* stylelint-disable-next-line primer/box-shadow */
-        inset 0 -1px 0 0 var(--borderColor-default),
-        inset 0 1px 0 0 var(--borderColor-default);
-    }
-  }
-
-  /* Regular viewport */
-  @media (--viewportRange-regular) {
-    &:where([data-variant-regular='none']) {
-      display: none;
-    }
-
-    &:where([data-variant-regular='line']) {
-      display: block;
-      height: 1px;
-      /* stylelint-disable-next-line primer/colors */
-      background-color: var(--borderColor-default);
-    }
-
-    &:where([data-variant-regular='filled']) {
-      display: block;
-      height: var(--base-size-8);
-      background-color: var(--bgColor-inset);
-      box-shadow:
-        /* stylelint-disable-next-line primer/box-shadow */
-        inset 0 -1px 0 0 var(--borderColor-default),
-        inset 0 1px 0 0 var(--borderColor-default);
-    }
-  }
-
-  /* Wide viewport */
-  @media (--viewportRange-wide) {
-    &:where([data-variant-wide='none']) {
-      display: none;
-    }
-
-    &:where([data-variant-wide='line']) {
-      display: block;
-      height: 1px;
-      /* stylelint-disable-next-line primer/colors */
-      background-color: var(--borderColor-default);
-    }
-
-    &:where([data-variant-wide='filled']) {
-      display: block;
-      height: var(--base-size-8);
-      background-color: var(--bgColor-inset);
-      box-shadow:
-        /* stylelint-disable-next-line primer/box-shadow */
-        inset 0 -1px 0 0 var(--borderColor-default),
-        inset 0 1px 0 0 var(--borderColor-default);
-    }
-  }
-
-  @media screen and (min-width: 768px) {
-    margin-right: 0 !important;
-    margin-left: 0 !important;
-  }
-}
-
-.VerticalDivider {
-  position: relative;
-  height: 100%;
-
-  &:where([data-variant='none']) {
-    display: none;
-  }
-
-  &:where([data-variant='line']) {
-    display: block;
-    width: 1px;
-    /* stylelint-disable-next-line primer/colors */
-    background-color: var(--borderColor-default);
-  }
-
-  &:where([data-variant='filled']) {
-    display: block;
-    width: var(--base-size-8);
-    background-color: var(--bgColor-inset);
-    box-shadow:
-      /* stylelint-disable-next-line primer/box-shadow */
-      inset -1px 0 0 0 var(--borderColor-default),
-      inset 1px 0 0 0 var(--borderColor-default);
-  }
-
-  /* Narrow viewport */
-  @media (--viewportRange-narrow) {
-    &:where([data-variant-narrow='none']) {
-      display: none;
-    }
-
-    &:where([data-variant-narrow='line']) {
-      display: block;
-      width: 1px;
-      /* stylelint-disable-next-line primer/colors */
-      background-color: var(--borderColor-default);
-    }
-
-    &:where([data-variant-narrow='filled']) {
-      display: block;
-      width: var(--base-size-8);
-      background-color: var(--bgColor-inset);
-      box-shadow:
-        /* stylelint-disable-next-line primer/box-shadow */
-        inset -1px 0 0 0 var(--borderColor-default),
-        inset 1px 0 0 0 var(--borderColor-default);
-    }
-  }
-
-  /* Regular viewport */
-  @media (--viewportRange-regular) {
-    &:where([data-variant-regular='none']) {
-      display: none;
-    }
-
-    &:where([data-variant-regular='line']) {
-      display: block;
-      width: 1px;
-      /* stylelint-disable-next-line primer/colors */
-      background-color: var(--borderColor-default);
-    }
-
-    &:where([data-variant-regular='filled']) {
-      display: block;
-      width: var(--base-size-8);
-      background-color: var(--bgColor-inset);
-      box-shadow:
-        /* stylelint-disable-next-line primer/box-shadow */
-        inset -1px 0 0 0 var(--borderColor-default),
-        inset 1px 0 0 0 var(--borderColor-default);
-    }
-  }
-
-  /* Wide viewport */
-  @media (--viewportRange-wide) {
-    &:where([data-variant-wide='none']) {
-      display: none;
-    }
-
-    &:where([data-variant-wide='line']) {
-      display: block;
-      width: 1px;
-      /* stylelint-disable-next-line primer/colors */
-      background-color: var(--borderColor-default);
-    }
-
-    &:where([data-variant-wide='filled']) {
-      display: block;
-      width: var(--base-size-8);
-      background-color: var(--bgColor-inset);
-      box-shadow:
-        /* stylelint-disable-next-line primer/box-shadow */
-        inset -1px 0 0 0 var(--borderColor-default),
-        inset 1px 0 0 0 var(--borderColor-default);
-    }
-  }
-}
-
-.Header {
-  width: 100%;
-  /* stylelint-disable-next-line primer/spacing */
-  margin-bottom: var(--spacing);
-
-  &:where([data-hidden='true']) {
-    display: none;
-  }
-
-  /* Narrow viewport */
-  @media (--viewportRange-narrow) {
-    &:where([data-hidden-narrow='true']) {
-      display: none;
-    }
-  }
-
-  /* Regular viewport */
-  @media (--viewportRange-regular) {
-    &:where([data-hidden-regular='true']) {
-      display: none;
-    }
-  }
-
-  /* Wide viewport */
-  @media (--viewportRange-wide) {
-    &:where([data-hidden-wide='true']) {
-      display: none;
-    }
-  }
-}
-
-.HeaderContent {
-  /* stylelint-disable-next-line primer/spacing */
-  padding: var(--spacing);
-}
-
-.HeaderHorizontalDivider {
-  /* stylelint-disable-next-line primer/spacing */
-  margin-top: var(--spacing);
-}
-
-.ContentWrapper {
-  display: flex;
-
-  /* Hack to prevent overflowing content from pushing the pane region to the next line */
-  min-width: 1px;
-  flex-direction: column;
-  order: var(--region-order-content);
-
-  /* Set flex-basis to 0% to allow flex-grow to control the width of the content region.
-      Without this, the content region could wrap onto a different line
-      than the pane region on wide viewports if its contents are too wide. */
-  flex-basis: 0;
-  flex-grow: 1;
-  flex-shrink: 1;
-
-  &:where([data-is-hidden='true']) {
-    display: none;
-  }
-
-  /* Narrow viewport */
-  @media (--viewportRange-narrow) {
-    &:where([data-is-hidden-narrow='true']) {
-      display: none;
-    }
-  }
-
-  /* Regular viewport */
-  @media (--viewportRange-regular) {
-    &:where([data-is-hidden-regular='true']) {
-      display: none;
-    }
-  }
-
-  /* Wide viewport */
-  @media (--viewportRange-wide) {
-    &:where([data-is-hidden-wide='true']) {
-      display: none;
-    }
-  }
-}
-
-/**
- * OPTIMIZATION: Aggressive containment during drag for ContentWrapper
- * CSS handles most optimizations automatically via :has() selector
- * JavaScript only handles scroll locking (can't be done in CSS)
- */
-.PageLayoutContent:has(.DraggableHandle[data-dragging='true']) .ContentWrapper {
-  /* Add paint containment during drag - safe since user can't interact */
-  contain: layout style paint;
-
-  /* Disable interactions */
-  pointer-events: none;
-
-  /* Disable transitions to prevent expensive recalculations */
-  transition: none;
-
-  /* Force compositor layer for hardware acceleration */
-  will-change: width;
-  transform: translateZ(0);
-}
-
-.Content {
-  width: 100%;
-
-  /* stylelint-disable-next-line primer/spacing */
-  padding: var(--spacing);
-  margin-right: auto;
-  margin-left: auto;
-  flex-grow: 1;
-
-  &:where([data-width='medium']) {
-    max-width: 768px;
-  }
-
-  &:where([data-width='large']) {
-    max-width: 1012px;
-  }
-
-  &:where([data-width='full']) {
-    max-width: 100%;
-  }
-
-  &:where([data-width='xlarge']) {
-    max-width: 1280px;
-  }
-}
-
-/**
- * OPTIMIZATION: Freeze content layout during resize drag
- * This prevents expensive recalculations of large content areas
- * while keeping content visible (just frozen in place)
- */
-.PageLayoutContent:has(.DraggableHandle[data-dragging='true']) .Content {
-  /* Full containment (without size) - isolate from layout recalculations */
-  contain: layout style paint;
-}
-
-.PaneWrapper {
-  display: flex;
-  width: 100%;
-  margin-right: 0;
-  margin-left: 0;
-
-  &:where([data-is-hidden='true']) {
-    display: none;
-  }
-
-  /* Narrow viewport */
-  @media (--viewportRange-narrow) {
-    &:where([data-is-hidden-narrow='true']) {
-      display: none;
-    }
-
-    &:where([data-position-narrow='end']) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-top: var(--spacing-row);
-      flex-direction: column;
-      order: var(--region-order-pane-end);
-    }
-
-    &:where([data-position-narrow='start']) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-bottom: var(--spacing-row);
-      flex-direction: column-reverse;
-      order: var(--region-order-pane-start);
-    }
-  }
-
-  /* Base position (non-responsive) - applies at narrow viewports only */
-  @media (--viewportRange-narrow) {
-    &:where([data-position='end']) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-top: var(--spacing-row);
-      flex-direction: column;
-      order: var(--region-order-pane-end);
-    }
-
-    &:where([data-position='start']) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-bottom: var(--spacing-row);
-      flex-direction: column-reverse;
-      order: var(--region-order-pane-start);
-    }
-  }
-
-  @media screen and (min-width: 768px) {
-    &:where([data-is-hidden-regular='true']) {
-      display: none;
-    }
-
-    width: auto;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-
-    &:where([data-sticky]) {
-      position: sticky;
-      /* stylelint-disable-next-line primer/spacing */
-      top: var(--offset-header);
-      max-height: 100vh;
-    }
-
-    /* Base position (non-responsive) - applies at regular+ viewports */
-    &:where([data-position='end']) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-left: var(--spacing-column);
-      flex-direction: row-reverse;
-      order: var(--region-order-pane-end);
-    }
-
-    &:where([data-position='start']) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-right: var(--spacing-column);
-      flex-direction: row;
-      order: var(--region-order-pane-start);
-    }
-
-    &:where([data-position-regular='end']) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-left: var(--spacing-column);
-      flex-direction: row-reverse;
-      order: var(--region-order-pane-end);
-    }
-
-    &:where([data-position-regular='start']) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-right: var(--spacing-column);
-      flex-direction: row;
-      order: var(--region-order-pane-start);
-    }
-  }
-
-  @media (--viewportRange-wide) {
-    &:where([data-is-hidden-wide='true']) {
-      display: none;
-    }
-
-    &:where([data-position-wide='end']) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-left: var(--spacing-column);
-      flex-direction: row-reverse;
-      order: var(--region-order-pane-end);
-    }
-
-    &:where([data-position-wide='start']) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-right: var(--spacing-column);
-      flex-direction: row;
-      order: var(--region-order-pane-start);
-    }
-  }
-}
-
-.PaneVerticalDivider {
-  /* Base position (non-responsive) */
-  &:where([data-position='start']) {
-    /* stylelint-disable-next-line primer/spacing */
-    margin-left: var(--spacing);
-  }
-
-  &:where([data-position='end']) {
-    /* stylelint-disable-next-line primer/spacing */
-    margin-right: var(--spacing);
-  }
-
-  /* Responsive position */
-  @media (--viewportRange-narrow) {
-    &:where([data-position-narrow='start']) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-left: var(--spacing);
-      margin-right: 0;
-    }
-
-    &:where([data-position-narrow='end']) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-right: var(--spacing);
-      margin-left: 0;
-    }
-  }
-
-  @media (--viewportRange-regular) {
-    &:where([data-position-regular='start']) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-left: var(--spacing);
-      margin-right: 0;
-    }
-
-    &:where([data-position-regular='end']) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-right: var(--spacing);
-      margin-left: 0;
-    }
-  }
-
-  @media (--viewportRange-wide) {
-    &:where([data-position-wide='start']) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-left: var(--spacing);
-      margin-right: 0;
-    }
-
-    &:where([data-position-wide='end']) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-right: var(--spacing);
-      margin-left: 0;
-    }
-  }
-}
-
-.Pane {
-  width: var(--pane-width-size);
-  /* stylelint-disable-next-line primer/spacing */
-  padding: var(--spacing);
-
-  @media screen and (min-width: 768px) {
-    overflow: auto;
-  }
-
-  &:where([data-resizable]) {
-    width: 100%;
+    /* Pane Width Values */
+    --pane-width-small: 100%;
+    --pane-width-medium: 100%;
+    --pane-width-large: 100%;
+    --pane-max-width-diff: 511px;
 
     @media screen and (min-width: 768px) {
-      width: clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width));
+      --pane-width-small: 240px;
+      --pane-width-medium: 256px;
+      --pane-width-large: 256px;
+    }
+
+    @media screen and (min-width: 1012px) {
+      --pane-width-small: 256px;
+      --pane-width-medium: 296px;
+      --pane-width-large: 320px;
+    }
+
+    @media screen and (min-width: 1280px) {
+      --pane-max-width-diff: 959px;
+    }
+
+    /* These following CSS variables are dynamic values that get overridden by styles passed in via props. */
+    --spacing: 0;
+    --spacing-row: 0;
+    --spacing-column: 0;
+    --spacing-divider: 0;
+    --offset-header: 0;
+    --pane-width: 0;
+    --pane-min-width: 0;
+    --pane-max-width: 0;
+    --pane-width-custom: 0;
+    --pane-width-size: 0;
+
+    /* stylelint-disable-next-line primer/spacing */
+    padding: var(--spacing);
+  }
+
+  .PageLayoutWrapper {
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+    flex-wrap: wrap;
+    /* the wrapper should match the Root's dimensions by default */
+    width: 100%;
+    height: 100%;
+
+    &:where([data-width='medium']) {
+      max-width: 768px;
+    }
+
+    &:where([data-width='large']) {
+      max-width: 1012px;
+    }
+
+    &:where([data-width='full']) {
+      max-width: 100%;
+    }
+
+    &:where([data-width='xlarge']) {
+      max-width: 1280px;
     }
   }
-}
 
-/**
- * OPTIMIZATION: Performance enhancements for Pane during drag
- * CSS handles all optimizations automatically - JavaScript only locks scroll
- */
-.PaneWrapper:has(.DraggableHandle[data-dragging='true']) .Pane {
-  /* Full containment - isolate from layout recalculations */
-  contain: layout style paint;
+  .PageLayoutContent {
+    display: flex;
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+    max-width: 100%;
+  }
 
-  /* Disable interactions during drag */
-  pointer-events: none;
+  .HorizontalDivider {
+    /* stylelint-disable-next-line primer/spacing */
+    margin-right: calc(-1 * var(--spacing-divider));
+    /* stylelint-disable-next-line primer/spacing */
+    margin-left: calc(-1 * var(--spacing-divider));
 
-  /* Disable transitions during drag */
-  transition: none;
+    &:where([data-variant='none']) {
+      display: none;
+    }
 
-  /* Force hardware acceleration */
-  will-change: width, transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}
+    &:where([data-variant='line']) {
+      display: block;
+      height: 1px;
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--borderColor-default);
+    }
 
-.PaneHorizontalDivider {
-  &:where([data-position='start']) {
+    &:where([data-variant='filled']) {
+      display: block;
+      height: var(--base-size-8);
+      background-color: var(--bgColor-inset);
+      box-shadow:
+      /* stylelint-disable-next-line primer/box-shadow */
+        inset 0 -1px 0 0 var(--borderColor-default),
+        inset 0 1px 0 0 var(--borderColor-default);
+    }
+
+    /* Narrow viewport */
+    @media (--viewportRange-narrow) {
+      &:where([data-variant-narrow='none']) {
+        display: none;
+      }
+
+      &:where([data-variant-narrow='line']) {
+        display: block;
+        height: 1px;
+        /* stylelint-disable-next-line primer/colors */
+        background-color: var(--borderColor-default);
+      }
+
+      &:where([data-variant-narrow='filled']) {
+        display: block;
+        height: var(--base-size-8);
+        background-color: var(--bgColor-inset);
+        box-shadow:
+        /* stylelint-disable-next-line primer/box-shadow */
+          inset 0 -1px 0 0 var(--borderColor-default),
+          inset 0 1px 0 0 var(--borderColor-default);
+      }
+    }
+
+    /* Regular viewport */
+    @media (--viewportRange-regular) {
+      &:where([data-variant-regular='none']) {
+        display: none;
+      }
+
+      &:where([data-variant-regular='line']) {
+        display: block;
+        height: 1px;
+        /* stylelint-disable-next-line primer/colors */
+        background-color: var(--borderColor-default);
+      }
+
+      &:where([data-variant-regular='filled']) {
+        display: block;
+        height: var(--base-size-8);
+        background-color: var(--bgColor-inset);
+        box-shadow:
+        /* stylelint-disable-next-line primer/box-shadow */
+          inset 0 -1px 0 0 var(--borderColor-default),
+          inset 0 1px 0 0 var(--borderColor-default);
+      }
+    }
+
+    /* Wide viewport */
+    @media (--viewportRange-wide) {
+      &:where([data-variant-wide='none']) {
+        display: none;
+      }
+
+      &:where([data-variant-wide='line']) {
+        display: block;
+        height: 1px;
+        /* stylelint-disable-next-line primer/colors */
+        background-color: var(--borderColor-default);
+      }
+
+      &:where([data-variant-wide='filled']) {
+        display: block;
+        height: var(--base-size-8);
+        background-color: var(--bgColor-inset);
+        box-shadow:
+        /* stylelint-disable-next-line primer/box-shadow */
+          inset 0 -1px 0 0 var(--borderColor-default),
+          inset 0 1px 0 0 var(--borderColor-default);
+      }
+    }
+
+    @media screen and (min-width: 768px) {
+      margin-right: 0 !important;
+      margin-left: 0 !important;
+    }
+  }
+
+  .VerticalDivider {
+    position: relative;
+    height: 100%;
+
+    &:where([data-variant='none']) {
+      display: none;
+    }
+
+    &:where([data-variant='line']) {
+      display: block;
+      width: 1px;
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--borderColor-default);
+    }
+
+    &:where([data-variant='filled']) {
+      display: block;
+      width: var(--base-size-8);
+      background-color: var(--bgColor-inset);
+      box-shadow:
+      /* stylelint-disable-next-line primer/box-shadow */
+        inset -1px 0 0 0 var(--borderColor-default),
+        inset 1px 0 0 0 var(--borderColor-default);
+    }
+
+    /* Narrow viewport */
+    @media (--viewportRange-narrow) {
+      &:where([data-variant-narrow='none']) {
+        display: none;
+      }
+
+      &:where([data-variant-narrow='line']) {
+        display: block;
+        width: 1px;
+        /* stylelint-disable-next-line primer/colors */
+        background-color: var(--borderColor-default);
+      }
+
+      &:where([data-variant-narrow='filled']) {
+        display: block;
+        width: var(--base-size-8);
+        background-color: var(--bgColor-inset);
+        box-shadow:
+        /* stylelint-disable-next-line primer/box-shadow */
+          inset -1px 0 0 0 var(--borderColor-default),
+          inset 1px 0 0 0 var(--borderColor-default);
+      }
+    }
+
+    /* Regular viewport */
+    @media (--viewportRange-regular) {
+      &:where([data-variant-regular='none']) {
+        display: none;
+      }
+
+      &:where([data-variant-regular='line']) {
+        display: block;
+        width: 1px;
+        /* stylelint-disable-next-line primer/colors */
+        background-color: var(--borderColor-default);
+      }
+
+      &:where([data-variant-regular='filled']) {
+        display: block;
+        width: var(--base-size-8);
+        background-color: var(--bgColor-inset);
+        box-shadow:
+        /* stylelint-disable-next-line primer/box-shadow */
+          inset -1px 0 0 0 var(--borderColor-default),
+          inset 1px 0 0 0 var(--borderColor-default);
+      }
+    }
+
+    /* Wide viewport */
+    @media (--viewportRange-wide) {
+      &:where([data-variant-wide='none']) {
+        display: none;
+      }
+
+      &:where([data-variant-wide='line']) {
+        display: block;
+        width: 1px;
+        /* stylelint-disable-next-line primer/colors */
+        background-color: var(--borderColor-default);
+      }
+
+      &:where([data-variant-wide='filled']) {
+        display: block;
+        width: var(--base-size-8);
+        background-color: var(--bgColor-inset);
+        box-shadow:
+        /* stylelint-disable-next-line primer/box-shadow */
+          inset -1px 0 0 0 var(--borderColor-default),
+          inset 1px 0 0 0 var(--borderColor-default);
+      }
+    }
+  }
+
+  .Header {
+    width: 100%;
+    /* stylelint-disable-next-line primer/spacing */
+    margin-bottom: var(--spacing);
+
+    &:where([data-hidden='true']) {
+      display: none;
+    }
+
+    /* Narrow viewport */
+    @media (--viewportRange-narrow) {
+      &:where([data-hidden-narrow='true']) {
+        display: none;
+      }
+    }
+
+    /* Regular viewport */
+    @media (--viewportRange-regular) {
+      &:where([data-hidden-regular='true']) {
+        display: none;
+      }
+    }
+
+    /* Wide viewport */
+    @media (--viewportRange-wide) {
+      &:where([data-hidden-wide='true']) {
+        display: none;
+      }
+    }
+  }
+
+  .HeaderContent {
+    /* stylelint-disable-next-line primer/spacing */
+    padding: var(--spacing);
+  }
+
+  .HeaderHorizontalDivider {
     /* stylelint-disable-next-line primer/spacing */
     margin-top: var(--spacing);
   }
 
-  &:where([data-position='end']) {
+  .ContentWrapper {
+    display: flex;
+
+    /* Hack to prevent overflowing content from pushing the pane region to the next line */
+    min-width: 1px;
+    flex-direction: column;
+    order: var(--region-order-content);
+
+    /* Set flex-basis to 0% to allow flex-grow to control the width of the content region.
+      Without this, the content region could wrap onto a different line
+      than the pane region on wide viewports if its contents are too wide. */
+    flex-basis: 0;
+    flex-grow: 1;
+    flex-shrink: 1;
+
+    &:where([data-is-hidden='true']) {
+      display: none;
+    }
+
+    /* Narrow viewport */
+    @media (--viewportRange-narrow) {
+      &:where([data-is-hidden-narrow='true']) {
+        display: none;
+      }
+    }
+
+    /* Regular viewport */
+    @media (--viewportRange-regular) {
+      &:where([data-is-hidden-regular='true']) {
+        display: none;
+      }
+    }
+
+    /* Wide viewport */
+    @media (--viewportRange-wide) {
+      &:where([data-is-hidden-wide='true']) {
+        display: none;
+      }
+    }
+  }
+
+  /**
+ * OPTIMIZATION: Aggressive containment during drag for ContentWrapper
+ * CSS handles most optimizations automatically via :has() selector
+ * JavaScript only handles scroll locking (can't be done in CSS)
+ */
+  .PageLayoutContent:has(.DraggableHandle[data-dragging='true']) .ContentWrapper {
+    /* Add paint containment during drag - safe since user can't interact */
+    contain: layout style paint;
+
+    /* Disable interactions */
+    pointer-events: none;
+
+    /* Disable transitions to prevent expensive recalculations */
+    transition: none;
+
+    /* Force compositor layer for hardware acceleration */
+    will-change: width;
+    transform: translateZ(0);
+  }
+
+  .Content {
+    width: 100%;
+
+    /* stylelint-disable-next-line primer/spacing */
+    padding: var(--spacing);
+    margin-right: auto;
+    margin-left: auto;
+    flex-grow: 1;
+
+    &:where([data-width='medium']) {
+      max-width: 768px;
+    }
+
+    &:where([data-width='large']) {
+      max-width: 1012px;
+    }
+
+    &:where([data-width='full']) {
+      max-width: 100%;
+    }
+
+    &:where([data-width='xlarge']) {
+      max-width: 1280px;
+    }
+  }
+
+  /**
+ * OPTIMIZATION: Freeze content layout during resize drag
+ * This prevents expensive recalculations of large content areas
+ * while keeping content visible (just frozen in place)
+ */
+  .PageLayoutContent:has(.DraggableHandle[data-dragging='true']) .Content {
+    /* Full containment (without size) - isolate from layout recalculations */
+    contain: layout style paint;
+  }
+
+  .PaneWrapper {
+    display: flex;
+    width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+
+    &:where([data-is-hidden='true']) {
+      display: none;
+    }
+
+    /* Narrow viewport */
+    @media (--viewportRange-narrow) {
+      &:where([data-is-hidden-narrow='true']) {
+        display: none;
+      }
+
+      &:where([data-position-narrow='end']) {
+        /* stylelint-disable-next-line primer/spacing */
+        margin-top: var(--spacing-row);
+        flex-direction: column;
+        order: var(--region-order-pane-end);
+      }
+
+      &:where([data-position-narrow='start']) {
+        /* stylelint-disable-next-line primer/spacing */
+        margin-bottom: var(--spacing-row);
+        flex-direction: column-reverse;
+        order: var(--region-order-pane-start);
+      }
+    }
+
+    /* Base position (non-responsive) - applies at narrow viewports only */
+    @media (--viewportRange-narrow) {
+      &:where([data-position='end']) {
+        /* stylelint-disable-next-line primer/spacing */
+        margin-top: var(--spacing-row);
+        flex-direction: column;
+        order: var(--region-order-pane-end);
+      }
+
+      &:where([data-position='start']) {
+        /* stylelint-disable-next-line primer/spacing */
+        margin-bottom: var(--spacing-row);
+        flex-direction: column-reverse;
+        order: var(--region-order-pane-start);
+      }
+    }
+
+    @media screen and (min-width: 768px) {
+      &:where([data-is-hidden-regular='true']) {
+        display: none;
+      }
+
+      width: auto;
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+
+      &:where([data-sticky]) {
+        position: sticky;
+        /* stylelint-disable-next-line primer/spacing */
+        top: var(--offset-header);
+        max-height: 100vh;
+      }
+
+      /* Base position (non-responsive) - applies at regular+ viewports */
+      &:where([data-position='end']) {
+        /* stylelint-disable-next-line primer/spacing */
+        margin-left: var(--spacing-column);
+        flex-direction: row-reverse;
+        order: var(--region-order-pane-end);
+      }
+
+      &:where([data-position='start']) {
+        /* stylelint-disable-next-line primer/spacing */
+        margin-right: var(--spacing-column);
+        flex-direction: row;
+        order: var(--region-order-pane-start);
+      }
+
+      &:where([data-position-regular='end']) {
+        /* stylelint-disable-next-line primer/spacing */
+        margin-left: var(--spacing-column);
+        flex-direction: row-reverse;
+        order: var(--region-order-pane-end);
+      }
+
+      &:where([data-position-regular='start']) {
+        /* stylelint-disable-next-line primer/spacing */
+        margin-right: var(--spacing-column);
+        flex-direction: row;
+        order: var(--region-order-pane-start);
+      }
+    }
+
+    @media (--viewportRange-wide) {
+      &:where([data-is-hidden-wide='true']) {
+        display: none;
+      }
+
+      &:where([data-position-wide='end']) {
+        /* stylelint-disable-next-line primer/spacing */
+        margin-left: var(--spacing-column);
+        flex-direction: row-reverse;
+        order: var(--region-order-pane-end);
+      }
+
+      &:where([data-position-wide='start']) {
+        /* stylelint-disable-next-line primer/spacing */
+        margin-right: var(--spacing-column);
+        flex-direction: row;
+        order: var(--region-order-pane-start);
+      }
+    }
+  }
+
+  .PaneVerticalDivider {
+    /* Base position (non-responsive) */
+    &:where([data-position='start']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-left: var(--spacing);
+    }
+
+    &:where([data-position='end']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-right: var(--spacing);
+    }
+
+    /* Responsive position */
+    @media (--viewportRange-narrow) {
+      &:where([data-position-narrow='start']) {
+        /* stylelint-disable-next-line primer/spacing */
+        margin-left: var(--spacing);
+        margin-right: 0;
+      }
+
+      &:where([data-position-narrow='end']) {
+        /* stylelint-disable-next-line primer/spacing */
+        margin-right: var(--spacing);
+        margin-left: 0;
+      }
+    }
+
+    @media (--viewportRange-regular) {
+      &:where([data-position-regular='start']) {
+        /* stylelint-disable-next-line primer/spacing */
+        margin-left: var(--spacing);
+        margin-right: 0;
+      }
+
+      &:where([data-position-regular='end']) {
+        /* stylelint-disable-next-line primer/spacing */
+        margin-right: var(--spacing);
+        margin-left: 0;
+      }
+    }
+
+    @media (--viewportRange-wide) {
+      &:where([data-position-wide='start']) {
+        /* stylelint-disable-next-line primer/spacing */
+        margin-left: var(--spacing);
+        margin-right: 0;
+      }
+
+      &:where([data-position-wide='end']) {
+        /* stylelint-disable-next-line primer/spacing */
+        margin-right: var(--spacing);
+        margin-left: 0;
+      }
+    }
+  }
+
+  .Pane {
+    width: var(--pane-width-size);
+    /* stylelint-disable-next-line primer/spacing */
+    padding: var(--spacing);
+
+    @media screen and (min-width: 768px) {
+      overflow: auto;
+    }
+
+    &:where([data-resizable]) {
+      width: 100%;
+
+      @media screen and (min-width: 768px) {
+        width: clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width));
+      }
+    }
+  }
+
+  /**
+ * OPTIMIZATION: Performance enhancements for Pane during drag
+ * CSS handles all optimizations automatically - JavaScript only locks scroll
+ */
+  .PaneWrapper:has(.DraggableHandle[data-dragging='true']) .Pane {
+    /* Full containment - isolate from layout recalculations */
+    contain: layout style paint;
+
+    /* Disable interactions during drag */
+    pointer-events: none;
+
+    /* Disable transitions during drag */
+    transition: none;
+
+    /* Force hardware acceleration */
+    will-change: width, transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  .PaneHorizontalDivider {
+    &:where([data-position='start']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-top: var(--spacing);
+    }
+
+    &:where([data-position='end']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-bottom: var(--spacing);
+    }
+
+    /* Responsive position */
+    @media (--viewportRange-narrow) {
+      &:where([data-position-narrow='start']) {
+        /* stylelint-disable-next-line primer/spacing */
+        margin-top: var(--spacing);
+        margin-bottom: 0;
+      }
+
+      &:where([data-position-narrow='end']) {
+        /* stylelint-disable-next-line primer/spacing */
+        margin-bottom: var(--spacing);
+        margin-top: 0;
+      }
+    }
+
+    @media (--viewportRange-regular) {
+      &:where([data-position-regular='start']) {
+        /* stylelint-disable-next-line primer/spacing */
+        margin-top: var(--spacing);
+        margin-bottom: 0;
+      }
+
+      &:where([data-position-regular='end']) {
+        /* stylelint-disable-next-line primer/spacing */
+        margin-bottom: var(--spacing);
+        margin-top: 0;
+      }
+    }
+
+    @media (--viewportRange-wide) {
+      &:where([data-position-wide='start']) {
+        /* stylelint-disable-next-line primer/spacing */
+        margin-top: var(--spacing);
+        margin-bottom: 0;
+      }
+
+      &:where([data-position-wide='end']) {
+        /* stylelint-disable-next-line primer/spacing */
+        margin-bottom: var(--spacing);
+        margin-top: 0;
+      }
+    }
+  }
+
+  .FooterWrapper {
+    width: 100%;
+    order: var(--region-order-footer);
+
+    /* stylelint-disable-next-line primer/spacing */
+    margin-top: var(--spacing);
+
+    &:where([data-hidden='true']) {
+      display: none;
+    }
+
+    /* Narrow viewport */
+    @media (--viewportRange-narrow) {
+      &:where([data-hidden-narrow='true']) {
+        display: none;
+      }
+    }
+
+    /* Regular viewport */
+    @media (--viewportRange-regular) {
+      &:where([data-hidden-regular='true']) {
+        display: none;
+      }
+    }
+
+    /* Wide viewport */
+    @media (--viewportRange-wide) {
+      &:where([data-hidden-wide='true']) {
+        display: none;
+      }
+    }
+  }
+
+  .FooterHorizontalDivider {
     /* stylelint-disable-next-line primer/spacing */
     margin-bottom: var(--spacing);
   }
 
-  /* Responsive position */
-  @media (--viewportRange-narrow) {
-    &:where([data-position-narrow='start']) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-top: var(--spacing);
-      margin-bottom: 0;
-    }
-
-    &:where([data-position-narrow='end']) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-bottom: var(--spacing);
-      margin-top: 0;
-    }
+  .FooterContent {
+    /* stylelint-disable-next-line primer/spacing */
+    padding: var(--spacing);
   }
-
-  @media (--viewportRange-regular) {
-    &:where([data-position-regular='start']) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-top: var(--spacing);
-      margin-bottom: 0;
-    }
-
-    &:where([data-position-regular='end']) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-bottom: var(--spacing);
-      margin-top: 0;
-    }
-  }
-
-  @media (--viewportRange-wide) {
-    &:where([data-position-wide='start']) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-top: var(--spacing);
-      margin-bottom: 0;
-    }
-
-    &:where([data-position-wide='end']) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-bottom: var(--spacing);
-      margin-top: 0;
-    }
-  }
-}
-
-.FooterWrapper {
-  width: 100%;
-  order: var(--region-order-footer);
-
-  /* stylelint-disable-next-line primer/spacing */
-  margin-top: var(--spacing);
-
-  &:where([data-hidden='true']) {
-    display: none;
-  }
-
-  /* Narrow viewport */
-  @media (--viewportRange-narrow) {
-    &:where([data-hidden-narrow='true']) {
-      display: none;
-    }
-  }
-
-  /* Regular viewport */
-  @media (--viewportRange-regular) {
-    &:where([data-hidden-regular='true']) {
-      display: none;
-    }
-  }
-
-  /* Wide viewport */
-  @media (--viewportRange-wide) {
-    &:where([data-hidden-wide='true']) {
-      display: none;
-    }
-  }
-}
-
-.FooterHorizontalDivider {
-  /* stylelint-disable-next-line primer/spacing */
-  margin-bottom: var(--spacing);
-}
-
-.FooterContent {
-  /* stylelint-disable-next-line primer/spacing */
-  padding: var(--spacing);
-}
-
-/**
- * DraggableHandle - Interactive resize handle
- */
-.DraggableHandle {
-  position: absolute;
-  inset: 0 -2px;
-  cursor: col-resize;
-  background-color: transparent;
-  transition-delay: 0.1s;
 
   /**
+ * DraggableHandle - Interactive resize handle
+ */
+  .DraggableHandle {
+    position: absolute;
+    inset: 0 -2px;
+    cursor: col-resize;
+    background-color: transparent;
+    transition-delay: 0.1s;
+
+    /**
    * OPTIMIZATION: Prevent touch scrolling and text selection during drag
    * This is done in CSS because it needs to be set before any pointer events
    */
-  touch-action: none;
-  user-select: none;
-}
+    touch-action: none;
+    user-select: none;
+  }
 
-.DraggableHandle:hover {
-  background-color: var(--bgColor-neutral-muted);
-}
+  .DraggableHandle:hover {
+    background-color: var(--bgColor-neutral-muted);
+  }
 
-.DraggableHandle[data-dragging='true'] {
-  background-color: var(--bgColor-accent-emphasis);
-  cursor: col-resize;
-}
+  .DraggableHandle[data-dragging='true'] {
+    background-color: var(--bgColor-accent-emphasis);
+    cursor: col-resize;
+  }
 
-.DraggableHandle[data-dragging='true']:hover {
-  background-color: var(--bgColor-accent-emphasis);
+  .DraggableHandle[data-dragging='true']:hover {
+    background-color: var(--bgColor-accent-emphasis);
+  }
 }

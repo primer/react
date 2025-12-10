@@ -1,5 +1,7 @@
-.List[data-has-active-descendant],
-.List:focus-within {
-  --item-hover-bg-override: none;
-  --item-hover-divider-border-color-override: var(--borderColor-muted);
+@layer primer.components.List {
+  .List[data-has-active-descendant],
+  .List:focus-within {
+    --item-hover-bg-override: none;
+    --item-hover-divider-border-color-override: var(--borderColor-muted);
+  }
 }

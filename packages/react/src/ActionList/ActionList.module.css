@@ -1,52 +1,35 @@
-/* stylelint-disable max-nesting-depth, selector-max-specificity, selector-max-compound-selectors */
+@layer primer.components.ActionList {
+  /* stylelint-disable max-nesting-depth, selector-max-specificity, selector-max-compound-selectors */
 
-.ActionList {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-
-  ul {
+  .ActionList {
     padding: 0;
     margin: 0;
     list-style: none;
-  }
 
-  &:where([data-variant='inset']) {
-    padding-block: var(--base-size-8);
-  }
-
-  &:where([data-variant='inset'], [data-variant='horizontal-inset']) {
-    /* this is only to match default experience */
-    & .ActionListItem {
-      margin-inline: var(--base-size-8);
-    }
-  }
-
-  &:where([data-variant='horizontal-inset']) {
-    padding-bottom: var(--base-size-8);
-  }
-
-  &:where([data-dividers='true']) {
-    /* place dividers on the wrapper that excludes leading visuals/actions */
-    & .ActionListSubContent::before {
-      position: absolute;
-
-      /* use this top size after FF removed */
-
-      /* top: calc(-1 * var(--control-medium-paddingBlock)); */
-      /* stylelint-disable-next-line primer/spacing */
-      top: -7px;
-      display: block;
-      width: 100%;
-      height: 1px;
-      content: '';
-      /* stylelint-disable-next-line primer/colors */
-      background: var(--borderColor-muted);
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
     }
 
-    /* if inline description, move pseudo divider to description wrapper */
-    & [data-description-variant='inline'] {
-      &::before {
+    &:where([data-variant='inset']) {
+      padding-block: var(--base-size-8);
+    }
+
+    &:where([data-variant='inset'], [data-variant='horizontal-inset']) {
+      /* this is only to match default experience */
+      & .ActionListItem {
+        margin-inline: var(--base-size-8);
+      }
+    }
+
+    &:where([data-variant='horizontal-inset']) {
+      padding-bottom: var(--base-size-8);
+    }
+
+    &:where([data-dividers='true']) {
+      /* place dividers on the wrapper that excludes leading visuals/actions */
+      & .ActionListSubContent::before {
         position: absolute;
 
         /* use this top size after FF removed */
@@ -56,121 +39,155 @@
         top: -7px;
         display: block;
         width: 100%;
-        height: var(--borderWidth-thin);
+        height: 1px;
         content: '';
         /* stylelint-disable-next-line primer/colors */
         background: var(--borderColor-muted);
       }
 
-      /* remove the default divider */
-      & .ActionListSubContent::before {
-        content: unset;
+      /* if inline description, move pseudo divider to description wrapper */
+      & [data-description-variant='inline'] {
+        &::before {
+          position: absolute;
+
+          /* use this top size after FF removed */
+
+          /* top: calc(-1 * var(--control-medium-paddingBlock)); */
+          /* stylelint-disable-next-line primer/spacing */
+          top: -7px;
+          display: block;
+          width: 100%;
+          height: var(--borderWidth-thin);
+          content: '';
+          /* stylelint-disable-next-line primer/colors */
+          background: var(--borderColor-muted);
+        }
+
+        /* remove the default divider */
+        & .ActionListSubContent::before {
+          content: unset;
+        }
+      }
+
+      /* hide if item is first of type with label::before, or is the first item after a sectionDivider */
+      .ActionListItem:first-of-type .ActionListSubContent::before,
+      .Divider + .ActionListItem .ActionListSubContent::before {
+        visibility: hidden;
+      }
+
+      /* hide if item is first of type with label::before, or is the first item after a sectionDivider */
+      .ActionListItem:first-of-type [data-description-variant='inline']::before,
+      .Divider + .ActionListItem [data-description-variant='inline']::before {
+        visibility: hidden;
       }
     }
 
-    /* hide if item is first of type with label::before, or is the first item after a sectionDivider */
-    .ActionListItem:first-of-type .ActionListSubContent::before,
-    .Divider + .ActionListItem .ActionListSubContent::before {
-      visibility: hidden;
+    /* Make sure that the first visible item isn't a divider */
+    & .Divider:first-child {
+      display: none;
     }
 
-    /* hide if item is first of type with label::before, or is the first item after a sectionDivider */
-    .ActionListItem:first-of-type [data-description-variant='inline']::before,
-    .Divider + .ActionListItem [data-description-variant='inline']::before {
-      visibility: hidden;
+    /* if a list has a mix of items with and without descriptions, reset the label font-weight to normal */
+    &:has([data-has-description='true']):has([data-has-description='false']) {
+      & .ItemLabel {
+        font-weight: var(--base-text-weight-normal);
+      }
     }
   }
 
-  /* Make sure that the first visible item isn't a divider */
-  & .Divider:first-child {
-    display: none;
-  }
+  /* ActionListItem is a li that handles visual state, while ActionListItemContent controls actual state via button or link */
 
-  /* if a list has a mix of items with and without descriptions, reset the label font-weight to normal */
-  &:has([data-has-description='true']):has([data-has-description='false']) {
-    & .ItemLabel {
-      font-weight: var(--base-text-weight-normal);
+  .ActionListItem {
+    position: relative;
+    list-style: none;
+    background-color: var(--control-transparent-bgColor-rest);
+    border-radius: var(--borderRadius-medium);
+
+    /* apply flex if trailing action exists as an immediate child */
+    &:has(> .TrailingAction) {
+      display: flex;
+      flex-wrap: nowrap;
     }
-  }
-}
 
-/* ActionListItem is a li that handles visual state, while ActionListItemContent controls actual state via button or link */
+    /* state */
 
-.ActionListItem {
-  position: relative;
-  list-style: none;
-  background-color: var(--control-transparent-bgColor-rest);
-  border-radius: var(--borderRadius-medium);
-
-  /* apply flex if trailing action exists as an immediate child */
-  &:has(> .TrailingAction) {
-    display: flex;
-    flex-wrap: nowrap;
-  }
-
-  /* state */
-
-  @media (forced-colors: active) {
-    :focus,
+    @media (forced-colors: active) {
+      :focus,
     &:focus-visible,
     /* stylelint-disable-next-line selector-no-qualifying-type */
     >a.focus-visible,
     &[data-is-active-descendant] {
-      /* Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips */
-      outline: solid 1px transparent !important;
+        /* Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips */
+        outline: solid 1px transparent !important;
+      }
     }
-  }
 
-  &:not(:has([aria-disabled], [disabled]), [data-has-subitem='true']) {
-    @media (hover: hover) {
-      &:hover,
-      &:active {
-        cursor: pointer;
+    &:not(:has([aria-disabled], [disabled]), [data-has-subitem='true']) {
+      @media (hover: hover) {
+        &:hover,
+        &:active {
+          cursor: pointer;
+        }
+
+        &:hover {
+          background-color: var(--control-transparent-bgColor-hover);
+
+          &:not([data-active], :focus-visible) {
+            /* Support for "Windows high contrast mode" https:sarahmhigley.com/writing/whcm-quick-tips/ */
+            outline: solid var(--borderWidth-thin) transparent;
+            outline-offset: calc(-1 * var(--borderWidth-thin));
+            box-shadow: var(--boxShadow-thin) var(--control-transparent-borderColor-active);
+          }
+        }
       }
 
-      &:hover {
-        background-color: var(--control-transparent-bgColor-hover);
+      &:active {
+        background-color: var(--control-transparent-bgColor-active);
 
-        &:not([data-active], :focus-visible) {
+        &:not([data-active]) {
           /* Support for "Windows high contrast mode" https:sarahmhigley.com/writing/whcm-quick-tips/ */
           outline: solid var(--borderWidth-thin) transparent;
           outline-offset: calc(-1 * var(--borderWidth-thin));
           box-shadow: var(--boxShadow-thin) var(--control-transparent-borderColor-active);
         }
       }
-    }
 
-    &:active {
-      background-color: var(--control-transparent-bgColor-active);
+      &:focus-visible {
+        @mixin focusOutline 0;
 
-      &:not([data-active]) {
-        /* Support for "Windows high contrast mode" https:sarahmhigley.com/writing/whcm-quick-tips/ */
-        outline: solid var(--borderWidth-thin) transparent;
-        outline-offset: calc(-1 * var(--borderWidth-thin));
-        box-shadow: var(--boxShadow-thin) var(--control-transparent-borderColor-active);
-      }
-    }
-
-    &:focus-visible {
-      @mixin focusOutline 0;
-
-      & .ActionListSubContent::before,
-      & + .ActionListItem .ActionListSubContent::before {
-        visibility: hidden;
-      }
-    }
-
-    /* danger */
-    &:where([data-variant='danger']) {
-      & .LeadingAction,
-      .LeadingVisual,
-      .ItemLabel {
-        color: var(--control-danger-fgColor-rest);
+        & .ActionListSubContent::before,
+        & + .ActionListItem .ActionListSubContent::before {
+          visibility: hidden;
+        }
       }
 
-      @media (hover: hover) {
-        &:hover {
-          background: var(--control-danger-bgColor-hover);
+      /* danger */
+      &:where([data-variant='danger']) {
+        & .LeadingAction,
+        .LeadingVisual,
+        .ItemLabel {
+          color: var(--control-danger-fgColor-rest);
+        }
+
+        @media (hover: hover) {
+          &:hover {
+            background: var(--control-danger-bgColor-hover);
+
+            & .LeadingAction,
+            .LeadingVisual,
+            .ItemLabel {
+              color: var(--control-danger-fgColor-hover);
+            }
+
+            & [data-kbd-chord] {
+              background-color: var(--bgColor-default);
+              transition: none;
+            }
+          }
+        }
+
+        &:active {
+          background: var(--control-danger-bgColor-active);
 
           & .LeadingAction,
           .LeadingVisual,
@@ -185,613 +202,598 @@
         }
       }
 
-      &:active {
-        background: var(--control-danger-bgColor-active);
+      /* active state [aria-current] */
+      &:where([data-active]) {
+        background: var(--control-transparent-bgColor-selected);
 
-        & .LeadingAction,
-        .LeadingVisual,
-        .ItemLabel {
-          color: var(--control-danger-fgColor-hover);
+        /* provides a visual indication of the current item for Windows high-contrast mode */
+        outline: 2px solid transparent;
+
+        & .ItemLabel {
+          font-weight: var(--base-text-weight-semibold);
+          color: var(--control-fgColor-rest);
         }
 
-        & [data-kbd-chord] {
-          background-color: var(--bgColor-default);
-          transition: none;
-        }
-      }
-    }
-
-    /* active state [aria-current] */
-    &:where([data-active]) {
-      background: var(--control-transparent-bgColor-selected);
-
-      /* provides a visual indication of the current item for Windows high-contrast mode */
-      outline: 2px solid transparent;
-
-      & .ItemLabel {
-        font-weight: var(--base-text-weight-semibold);
-        color: var(--control-fgColor-rest);
-      }
-
-      @media (hover: hover) {
-        &:hover {
-          background-color: var(--control-transparent-bgColor-hover);
-        }
-      }
-
-      /* hide dividers if showDividers is true and item is active */
-
-      & .ActionListSubContent::before,
-      & + .ActionListItem .ActionListSubContent::before {
-        visibility: hidden;
-      }
-
-      /* blue accent line  */
-      &::after {
-        @mixin activeIndicatorLine;
-      }
-    }
-
-    &:where([data-is-active-descendant]) {
-      background: var(--control-transparent-bgColor-selected);
-
-      /* provides a visual indication of the current item for Windows high-contrast mode */
-      outline: 2px solid transparent;
-
-      /* hide dividers if showDividers is true and item is active */
-
-      /* add back in after FF ship */
-
-      /* & .ActionListSubContent::before,
-      & + .ActionListItem .ActionListSubContent::before {
-        visibility: hidden;
-      } */
-
-      /* blue accent line  */
-      &::after {
-        @mixin activeIndicatorLine;
-      }
-    }
-
-    /* inactive */
-    &:where([data-inactive='true']) {
-      /* ignore tooltip */
-      & * :not([popover], .InactiveWarning) {
-        color: var(--fgColor-muted);
-      }
-
-      @media (hover: hover) {
-        &:hover {
-          cursor: not-allowed;
-          background-color: transparent;
-
-          & * :not([popover], .InactiveWarning) {
-            color: var(--fgColor-muted);
+        @media (hover: hover) {
+          &:hover {
+            background-color: var(--control-transparent-bgColor-hover);
           }
         }
-      }
 
-      &:active {
-        background: transparent;
-      }
-    }
+        /* hide dividers if showDividers is true and item is active */
 
-    &:where([data-loading='true']),
-    &:has([data-loading='true']) {
-      & * {
-        color: var(--fgColor-muted);
-      }
-    }
-
-    /* hide dividers  */
-    @media (hover: hover) {
-      &:hover {
         & .ActionListSubContent::before,
         & + .ActionListItem .ActionListSubContent::before {
           visibility: hidden;
         }
 
-        & [data-description-variant='inline']::before,
-        & + .ActionListItem [data-description-variant='inline']::before {
-          visibility: hidden;
-        }
-      }
-    }
-  }
-
-  /* if item has subitem, move hover styles to ActionListContent */
-  &[data-has-subitem='true'] {
-    /* first child */
-    & > .ActionListContent {
-      z-index: 1;
-
-      @media (hover: hover) {
-        &:hover {
-          cursor: pointer;
-          background-color: var(--control-transparent-bgColor-hover);
+        /* blue accent line  */
+        &::after {
+          @mixin activeIndicatorLine;
         }
       }
 
-      &:active {
-        background-color: var(--control-transparent-bgColor-active);
+      &:where([data-is-active-descendant]) {
+        background: var(--control-transparent-bgColor-selected);
+
+        /* provides a visual indication of the current item for Windows high-contrast mode */
+        outline: 2px solid transparent;
+
+        /* hide dividers if showDividers is true and item is active */
+
+        /* add back in after FF ship */
+
+        /* & .ActionListSubContent::before,
+      & + .ActionListItem .ActionListSubContent::before {
+        visibility: hidden;
+      } */
+
+        /* blue accent line  */
+        &::after {
+          @mixin activeIndicatorLine;
+        }
+      }
+
+      /* inactive */
+      &:where([data-inactive='true']) {
+        /* ignore tooltip */
+        & * :not([popover], .InactiveWarning) {
+          color: var(--fgColor-muted);
+        }
+
+        @media (hover: hover) {
+          &:hover {
+            cursor: not-allowed;
+            background-color: transparent;
+
+            & * :not([popover], .InactiveWarning) {
+              color: var(--fgColor-muted);
+            }
+          }
+        }
+
+        &:active {
+          background: transparent;
+        }
+      }
+
+      &:where([data-loading='true']),
+      &:has([data-loading='true']) {
+        & * {
+          color: var(--fgColor-muted);
+        }
+      }
+
+      /* hide dividers  */
+      @media (hover: hover) {
+        &:hover {
+          & .ActionListSubContent::before,
+          & + .ActionListItem .ActionListSubContent::before {
+            visibility: hidden;
+          }
+
+          & [data-description-variant='inline']::before,
+          & + .ActionListItem [data-description-variant='inline']::before {
+            visibility: hidden;
+          }
+        }
       }
     }
 
-    & .Spacer {
-      display: block;
+    /* if item has subitem, move hover styles to ActionListContent */
+    &[data-has-subitem='true'] {
+      /* first child */
+      & > .ActionListContent {
+        z-index: 1;
+
+        @media (hover: hover) {
+          &:hover {
+            cursor: pointer;
+            background-color: var(--control-transparent-bgColor-hover);
+          }
+        }
+
+        &:active {
+          background-color: var(--control-transparent-bgColor-active);
+        }
+      }
+
+      & .Spacer {
+        display: block;
+      }
     }
-  }
 
-  /* disabled */
+    /* disabled */
 
-  &[aria-disabled='true'],
-  &:has([aria-disabled='true'], [disabled]) {
-    & .ActionListContent * {
-      color: var(--control-fgColor-disabled);
-    }
+    &[aria-disabled='true'],
+    &:has([aria-disabled='true'], [disabled]) {
+      & .ActionListContent * {
+        color: var(--control-fgColor-disabled);
+      }
 
-    & .ActionListContent {
+      & .ActionListContent {
+        @media (hover: hover) {
+          &:hover {
+            cursor: not-allowed;
+            background-color: transparent;
+          }
+        }
+      }
+
       @media (hover: hover) {
         &:hover {
-          cursor: not-allowed;
           background-color: transparent;
         }
       }
-    }
 
-    @media (hover: hover) {
-      &:hover {
-        background-color: transparent;
+      & .MultiSelectCheckbox {
+        background-color: var(--control-bgColor-disabled);
+        border-color: var(--control-borderColor-disabled);
+      }
+
+      &[aria-checked='true'],
+      &[aria-selected='true'] {
+        & .MultiSelectCheckbox {
+          background-color: var(--control-checked-bgColor-disabled);
+          /* stylelint-disable-next-line primer/colors */
+          border-color: var(--control-checked-bgColor-disabled);
+
+          &::before {
+            /* stylelint-disable-next-line primer/colors */
+            background-color: var(--control-checked-fgColor-disabled);
+          }
+        }
       }
     }
 
+    /* When TrailingAction is in loading state, keep labels and descriptions accessible */
+    &:has(.TrailingAction [data-loading='true']):not([aria-disabled='true']) {
+      /* Ensure labels and descriptions maintain accessibility contrast */
+      & .ItemLabel {
+        color: var(--fgColor-default);
+      }
+
+      & .Description {
+        color: var(--fgColor-default);
+      }
+    }
+
+    /* Make sure that the first visible item isn't a divider */
+    &[aria-hidden] + .Divider {
+      display: none;
+    }
+
+    /*
+  * checkbox item [aria-checked]
+  * listbox [aria-selected]
+  */
+
     & .MultiSelectCheckbox {
-      background-color: var(--control-bgColor-disabled);
-      border-color: var(--control-borderColor-disabled);
+      position: relative;
+      display: grid;
+      width: var(--base-size-16);
+      height: var(--base-size-16);
+      margin: 0;
+      cursor: pointer;
+      background-color: var(--bgColor-default);
+      border: var(--borderWidth-thin) solid var(--control-borderColor-emphasis);
+      border-radius: var(--borderRadius-small);
+      transition:
+        background-color,
+        border-color 80ms cubic-bezier(0.33, 1, 0.68, 1);
+      /* checked -> unchecked - add 120ms delay to fully see animation-out */
+
+      place-content: center;
+
+      &::before {
+        width: var(--base-size-16);
+        height: var(--base-size-16);
+        content: '';
+        /* stylelint-disable-next-line primer/colors */
+        background-color: var(--control-checked-fgColor-rest);
+        transition: visibility 0s linear 230ms;
+        clip-path: inset(var(--base-size-16) 0 0 0);
+
+        /* octicon checkmark image */
+        mask-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDEyIDkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTEuNzgwMyAwLjIxOTYyNUMxMS45MjEgMC4zNjA0MjcgMTIgMC41NTEzMDUgMTIgMC43NTAzMTNDMTIgMC45NDkzMjEgMTEuOTIxIDEuMTQwMTkgMTEuNzgwMyAxLjI4MUw0LjUxODYgOC41NDA0MkM0LjM3Nzc1IDguNjgxIDQuMTg2ODIgOC43NiAzLjk4Nzc0IDguNzZDMy43ODg2NyA4Ljc2IDMuNTk3NzMgOC42ODEgMy40NTY4OSA4LjU0MDQyTDAuMjAxNjIyIDUuMjg2MkMwLjA2ODkyNzcgNS4xNDM4MyAtMC4wMDMzMDkwNSA0Ljk1NTU1IDAuMDAwMTE2NDkzIDQuNzYwOThDMC4wMDM1NTIwNSA0LjU2NjQzIDAuMDgyMzg5NCA0LjM4MDgxIDAuMjIwMDMyIDQuMjQzMjFDMC4zNTc2NjUgNC4xMDU2MiAwLjU0MzM1NSA0LjAyNjgxIDAuNzM3OTcgNC4wMjMzOEMwLjkzMjU4NCA0LjAxOTk0IDEuMTIwOTMgNC4wOTIxNyAxLjI2MzM0IDQuMjI0ODJMMy45ODc3NCA2Ljk0ODM1TDEwLjcxODYgMC4yMTk2MjVDMTAuODU5NSAwLjA3ODk5MjMgMTEuMDUwNCAwIDExLjI0OTUgMEMxMS40NDg1IDAgMTEuNjM5NSAwLjA3ODk5MjMgMTEuNzgwMyAwLjIxOTYyNVoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=');
+        mask-size: 75%;
+        mask-repeat: no-repeat;
+        mask-position: center;
+        animation: checkmarkOut 80ms cubic-bezier(0.65, 0, 0.35, 1);
+        /*  forwards;  slightly snappier animation out */
+      }
+
+      @media (forced-colors: active) {
+        /* Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips */
+
+        /* background-color will be overriden but border-width is a workaround */
+        border-width: var(--borderWidth-thin);
+      }
     }
 
     &[aria-checked='true'],
     &[aria-selected='true'] {
       & .MultiSelectCheckbox {
-        background-color: var(--control-checked-bgColor-disabled);
-        /* stylelint-disable-next-line primer/colors */
-        border-color: var(--control-checked-bgColor-disabled);
+        background-color: var(--control-checked-bgColor-rest);
+        border-color: var(--control-checked-borderColor-rest);
+        transition:
+          background-color,
+          border-color 80ms cubic-bezier(0.32, 0, 0.67, 0) 0ms;
+        /* unchecked -> checked */
 
         &::before {
-          /* stylelint-disable-next-line primer/colors */
-          background-color: var(--control-checked-fgColor-disabled);
+          visibility: visible;
+          transition: visibility 0s linear 0s;
+          animation: checkmarkIn 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards 80ms;
+        }
+
+        @media (forced-colors: active) {
+          /* Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips
+        background-color will be overriden but border-width is a workaround */
+          /* stylelint-disable-next-line primer/borders */
+          border-width: 8px;
+        }
+      }
+
+      & .SingleSelectCheckmark {
+        visibility: visible;
+      }
+    }
+
+    &[aria-checked='false'],
+    &[aria-selected='false'] {
+      & .MultiSelectCheckbox {
+        &::before {
+          visibility: hidden;
+        }
+      }
+
+      & .SingleSelectCheckmark {
+        visibility: hidden;
+      }
+    }
+  }
+
+  /* hide by default to support inactive state where role cannot be menuitemradio or menuitemcheckbox */
+  .SingleSelectCheckmark {
+    visibility: hidden;
+  }
+
+  /* button or a tag */
+
+  /* [ [spacer] [leadingAction] [leadingVisual] [content] ] */
+  .ActionListContent {
+    --subitem-depth: 0px;
+
+    position: relative;
+    display: grid;
+    width: 100%;
+    color: var(--control-fgColor-rest);
+    text-align: left;
+    user-select: none;
+    background-color: transparent;
+    border: none;
+    border-radius: var(--borderRadius-medium);
+    transition: background 33.333ms linear;
+    /* stylelint-disable-next-line primer/spacing */
+    padding-block: var(--control-medium-paddingBlock);
+    /* stylelint-disable-next-line primer/spacing */
+    padding-inline: var(--control-medium-paddingInline-condensed);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    grid-template-rows: min-content;
+    grid-template-areas: 'spacer leadingAction leadingVisual content';
+    grid-template-columns: min-content min-content min-content minmax(0, auto);
+    align-items: start;
+
+    /* column-gap persists with empty grid-areas, margin applies only when children exist */
+    & > :not(:last-child, .Spacer) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-right: var(--control-medium-gap);
+    }
+
+    &:hover {
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* large */
+
+    &[data-size='large'] {
+      /* stylelint-disable-next-line primer/spacing */
+      padding-block: var(--control-large-paddingBlock);
+    }
+
+    /* collapsible item [aria-expanded] */
+
+    &[aria-expanded='true'] {
+      & .ExpandIcon {
+        transform: scaleY(-1);
+      }
+    }
+
+    &[aria-expanded='false'] {
+      & .ExpandIcon {
+        transform: scaleY(1);
+      }
+
+      & + .SubGroup {
+        display: none;
+      }
+
+      /* show active indicator on parent collapse if child is active */
+      &:has(+ .SubGroup [data-active='true']) {
+        background: var(--control-transparent-bgColor-selected);
+
+        & .ItemLabel {
+          font-weight: var(--base-text-weight-semibold);
+        }
+
+        & .ActionListSubContent::before,
+        & + .ActionListItem .ActionListSubContent::before {
+          visibility: hidden;
+        }
+
+        /* blue accent line */
+        &::after {
+          @mixin activeIndicatorLine;
         }
       }
     }
   }
 
-  /* When TrailingAction is in loading state, keep labels and descriptions accessible */
-  &:has(.TrailingAction [data-loading='true']):not([aria-disabled='true']) {
-    /* Ensure labels and descriptions maintain accessibility contrast */
-    & .ItemLabel {
-      color: var(--fgColor-default);
-    }
-
-    & .Description {
-      color: var(--fgColor-default);
-    }
-  }
-
-  /* Make sure that the first visible item isn't a divider */
-  &[aria-hidden] + .Divider {
-    display: none;
-  }
-
-  /*
-  * checkbox item [aria-checked]
-  * listbox [aria-selected]
-  */
-
-  & .MultiSelectCheckbox {
+  /* [ [content] [trailingVisual] [trailingAction] ] */
+  .ActionListSubContent {
+    grid-area: content;
     position: relative;
     display: grid;
-    width: var(--base-size-16);
-    height: var(--base-size-16);
-    margin: 0;
-    cursor: pointer;
-    background-color: var(--bgColor-default);
-    border: var(--borderWidth-thin) solid var(--control-borderColor-emphasis);
-    border-radius: var(--borderRadius-small);
-    transition:
-      background-color,
-      border-color 80ms cubic-bezier(0.33, 1, 0.68, 1);
-    /* checked -> unchecked - add 120ms delay to fully see animation-out */
+    width: 100%;
+    grid-template-rows: min-content;
+    grid-template-areas: 'label trailingVisual trailingAction';
+    grid-template-columns: minmax(0, auto) min-content min-content;
+    align-items: start;
 
-    place-content: center;
-
-    &::before {
-      width: var(--base-size-16);
-      height: var(--base-size-16);
-      content: '';
-      /* stylelint-disable-next-line primer/colors */
-      background-color: var(--control-checked-fgColor-rest);
-      transition: visibility 0s linear 230ms;
-      clip-path: inset(var(--base-size-16) 0 0 0);
-
-      /* octicon checkmark image */
-      mask-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDEyIDkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTEuNzgwMyAwLjIxOTYyNUMxMS45MjEgMC4zNjA0MjcgMTIgMC41NTEzMDUgMTIgMC43NTAzMTNDMTIgMC45NDkzMjEgMTEuOTIxIDEuMTQwMTkgMTEuNzgwMyAxLjI4MUw0LjUxODYgOC41NDA0MkM0LjM3Nzc1IDguNjgxIDQuMTg2ODIgOC43NiAzLjk4Nzc0IDguNzZDMy43ODg2NyA4Ljc2IDMuNTk3NzMgOC42ODEgMy40NTY4OSA4LjU0MDQyTDAuMjAxNjIyIDUuMjg2MkMwLjA2ODkyNzcgNS4xNDM4MyAtMC4wMDMzMDkwNSA0Ljk1NTU1IDAuMDAwMTE2NDkzIDQuNzYwOThDMC4wMDM1NTIwNSA0LjU2NjQzIDAuMDgyMzg5NCA0LjM4MDgxIDAuMjIwMDMyIDQuMjQzMjFDMC4zNTc2NjUgNC4xMDU2MiAwLjU0MzM1NSA0LjAyNjgxIDAuNzM3OTcgNC4wMjMzOEMwLjkzMjU4NCA0LjAxOTk0IDEuMTIwOTMgNC4wOTIxNyAxLjI2MzM0IDQuMjI0ODJMMy45ODc3NCA2Ljk0ODM1TDEwLjcxODYgMC4yMTk2MjVDMTAuODU5NSAwLjA3ODk5MjMgMTEuMDUwNCAwIDExLjI0OTUgMEMxMS40NDg1IDAgMTEuNjM5NSAwLjA3ODk5MjMgMTEuNzgwMyAwLjIxOTYyNVoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=');
-      mask-size: 75%;
-      mask-repeat: no-repeat;
-      mask-position: center;
-      animation: checkmarkOut 80ms cubic-bezier(0.65, 0, 0.35, 1);
-      /*  forwards;  slightly snappier animation out */
-    }
-
-    @media (forced-colors: active) {
-      /* Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips */
-
-      /* background-color will be overriden but border-width is a workaround */
-      border-width: var(--borderWidth-thin);
+    /* column-gap persists with empty grid-areas, margin applies only when children exist */
+    & > :not(:last-child) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-right: var(--control-medium-gap);
     }
   }
 
-  &[aria-checked='true'],
-  &[aria-selected='true'] {
-    & .MultiSelectCheckbox {
-      background-color: var(--control-checked-bgColor-rest);
-      border-color: var(--control-checked-borderColor-rest);
-      transition:
-        background-color,
-        border-color 80ms cubic-bezier(0.32, 0, 0.67, 0) 0ms;
-      /* unchecked -> checked */
+  /* place children on grid */
 
-      &::before {
-        visibility: visible;
-        transition: visibility 0s linear 0s;
-        animation: checkmarkIn 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards 80ms;
-      }
+  /* spacer used to create depth for nested lists */
 
-      @media (forced-colors: active) {
-        /* Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips
-        background-color will be overriden but border-width is a workaround */
-        /* stylelint-disable-next-line primer/borders */
-        border-width: 8px;
-      }
-    }
+  .Spacer {
+    display: none;
+    width: max(0px, var(--subitem-depth) * 8px);
+    grid-area: spacer;
+  }
 
-    & .SingleSelectCheckmark {
-      visibility: visible;
+  .LeadingAction {
+    grid-area: leadingAction;
+  }
+
+  .LeadingVisual {
+    grid-area: leadingVisual;
+  }
+
+  .TrailingVisual {
+    grid-area: trailingVisual;
+    font-size: var(--text-body-size-medium);
+  }
+
+  .TrailingAction {
+    grid-area: trailingAction;
+
+    /* if child is loading button */
+    & > *[data-loading-wrapper] {
+      height: 100%;
     }
   }
 
-  &[aria-checked='false'],
-  &[aria-selected='false'] {
-    & .MultiSelectCheckbox {
-      &::before {
-        visibility: hidden;
-      }
+  /* wrapper span
+default block */
+  .ItemDescriptionWrap {
+    grid-area: label;
+    display: flex;
+    flex-direction: column;
+    gap: var(--base-size-4);
+
+    & .ItemLabel {
+      font-weight: var(--base-text-weight-semibold);
+      /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated */
+      word-break: break-word;
     }
 
-    & .SingleSelectCheckmark {
-      visibility: hidden;
-    }
-  }
-}
-
-/* hide by default to support inactive state where role cannot be menuitemradio or menuitemcheckbox */
-.SingleSelectCheckmark {
-  visibility: hidden;
-}
-
-/* button or a tag */
-
-/* [ [spacer] [leadingAction] [leadingVisual] [content] ] */
-.ActionListContent {
-  --subitem-depth: 0px;
-
-  position: relative;
-  display: grid;
-  width: 100%;
-  color: var(--control-fgColor-rest);
-  text-align: left;
-  user-select: none;
-  background-color: transparent;
-  border: none;
-  border-radius: var(--borderRadius-medium);
-  transition: background 33.333ms linear;
-  /* stylelint-disable-next-line primer/spacing */
-  padding-block: var(--control-medium-paddingBlock);
-  /* stylelint-disable-next-line primer/spacing */
-  padding-inline: var(--control-medium-paddingInline-condensed);
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  grid-template-rows: min-content;
-  grid-template-areas: 'spacer leadingAction leadingVisual content';
-  grid-template-columns: min-content min-content min-content minmax(0, auto);
-  align-items: start;
-
-  /* column-gap persists with empty grid-areas, margin applies only when children exist */
-  & > :not(:last-child, .Spacer) {
-    /* stylelint-disable-next-line primer/spacing */
-    margin-right: var(--control-medium-gap);
-  }
-
-  &:hover {
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  /* large */
-
-  &[data-size='large'] {
-    /* stylelint-disable-next-line primer/spacing */
-    padding-block: var(--control-large-paddingBlock);
-  }
-
-  /* collapsible item [aria-expanded] */
-
-  &[aria-expanded='true'] {
-    & .ExpandIcon {
-      transform: scaleY(-1);
-    }
-  }
-
-  &[aria-expanded='false'] {
-    & .ExpandIcon {
-      transform: scaleY(1);
-    }
-
-    & + .SubGroup {
-      display: none;
-    }
-
-    /* show active indicator on parent collapse if child is active */
-    &:has(+ .SubGroup [data-active='true']) {
-      background: var(--control-transparent-bgColor-selected);
+    /* inline */
+    &:where([data-description-variant='inline']) {
+      position: relative;
+      word-break: normal;
+      flex-direction: row;
+      align-items: baseline;
+      gap: var(--base-size-8);
 
       & .ItemLabel {
-        font-weight: var(--base-text-weight-semibold);
+        word-break: normal;
       }
 
-      & .ActionListSubContent::before,
-      & + .ActionListItem .ActionListSubContent::before {
-        visibility: hidden;
+      &:has([data-truncate='true']) {
+        & .ItemLabel {
+          flex: 1 0 auto;
+        }
       }
 
-      /* blue accent line */
-      &::after {
-        @mixin activeIndicatorLine;
+      & .Description {
+        /* adjust line-height for baseline alignment */
+
+        /* line-height: calc(var(--control-medium-lineBoxHeight) - var(--base-size-2)); */
+        /* stylelint-disable-next-line primer/typography */
+        line-height: 16px;
       }
     }
   }
-}
 
-/* [ [content] [trailingVisual] [trailingAction] ] */
-.ActionListSubContent {
-  grid-area: content;
-  position: relative;
-  display: grid;
-  width: 100%;
-  grid-template-rows: min-content;
-  grid-template-areas: 'label trailingVisual trailingAction';
-  grid-template-columns: minmax(0, auto) min-content min-content;
-  align-items: start;
+  /* description */
+  .Description {
+    font-size: var(--text-body-size-small);
+    font-weight: var(--base-text-weight-normal);
 
-  /* column-gap persists with empty grid-areas, margin applies only when children exist */
-  & > :not(:last-child) {
-    /* stylelint-disable-next-line primer/spacing */
-    margin-right: var(--control-medium-gap);
+    /* line-height: var(--text-caption-lineHeight); */
+
+    /* remove after FF ships */
+    /* stylelint-disable-next-line primer/typography */
+    line-height: 16px;
+    color: var(--fgColor-muted);
   }
-}
 
-/* place children on grid */
-
-/* spacer used to create depth for nested lists */
-
-.Spacer {
-  display: none;
-  width: max(0px, var(--subitem-depth) * 8px);
-  grid-area: spacer;
-}
-
-.LeadingAction {
-  grid-area: leadingAction;
-}
-
-.LeadingVisual {
-  grid-area: leadingVisual;
-}
-
-.TrailingVisual {
-  grid-area: trailingVisual;
-  font-size: var(--text-body-size-medium);
-}
-
-.TrailingAction {
-  grid-area: trailingAction;
-
-  /* if child is loading button */
-  & > *[data-loading-wrapper] {
-    height: 100%;
+  /* helper for grid alignment with multi-line content
+span wrapping svg or text */
+  .VisualWrap {
+    display: flex;
+    min-width: max-content;
+    min-height: var(--control-medium-lineBoxHeight);
+    /* stylelint-disable-next-line primer/typography */
+    line-height: 20px;
+    /* temporary until we fix line-height rounding in primitives */
+    color: var(--fgColor-muted);
+    pointer-events: none;
+    fill: var(--fgColor-muted);
+    align-items: center;
   }
-}
 
-/* wrapper span
-default block */
-.ItemDescriptionWrap {
-  grid-area: label;
-  display: flex;
-  flex-direction: column;
-  gap: var(--base-size-4);
-
-  & .ItemLabel {
-    font-weight: var(--base-text-weight-semibold);
+  /* text */
+  .ItemLabel {
+    position: relative;
+    font-size: var(--text-body-size-medium);
+    font-weight: var(--base-text-weight-normal);
+    /* stylelint-disable-next-line primer/typography */
+    line-height: 20px;
+    /* temporary until we fix line-height rounding in primitives */
+    color: var(--fgColor-default);
+    grid-area: label;
     /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated */
     word-break: break-word;
   }
 
-  /* inline */
-  &:where([data-description-variant='inline']) {
-    position: relative;
-    word-break: normal;
-    flex-direction: row;
-    align-items: baseline;
-    gap: var(--base-size-8);
-
+  .SubGroup {
     & .ItemLabel {
-      word-break: normal;
+      font-size: var(--text-body-size-small);
     }
 
-    &:has([data-truncate='true']) {
-      & .ItemLabel {
-        flex: 1 0 auto;
+    & .ActionListItem {
+      margin-inline: 0;
+    }
+  }
+
+  /* trailing action icon button */
+
+  .TrailingActionButton {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    height: 100%;
+
+    /* Preserve width consistency when loading state is active for text buttons only */
+    &[data-loading='true']:has([data-component='buttonContent']) {
+      /* Double the left padding to compensate for missing right padding */
+      padding: 0 0 0 calc(var(--base-size-12) * 2);
+
+      /* Position spinner at the end to align with IconButton */
+      & [data-component='loadingSpinner'] {
+        place-self: end;
+        /* Match the IconButton spinner size */
+        width: var(--control-medium-size, 2rem);
+        height: var(--control-medium-size, 2rem);
+        /* Ensure spinner is properly centered */
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
+  }
 
-    & .Description {
-      /* adjust line-height for baseline alignment */
+  .InactiveButtonWrap {
+    &:has(.TrailingVisual) {
+      grid-area: trailingVisual;
+    }
 
-      /* line-height: calc(var(--control-medium-lineBoxHeight) - var(--base-size-2)); */
-      /* stylelint-disable-next-line primer/typography */
-      line-height: 16px;
+    &:has(.LeadingVisual) {
+      grid-area: leadingVisual;
     }
   }
-}
 
-/* description */
-.Description {
-  font-size: var(--text-body-size-small);
-  font-weight: var(--base-text-weight-normal);
+  .Divider {
+    display: block;
+    height: var(--borderWidth-thin);
+    padding: 0;
+    /* stylelint-disable-next-line primer/spacing */
+    margin-block-start: calc(var(--base-size-8) - var(--borderWidth-thin));
+    margin-block-end: var(--base-size-8);
+    list-style: none;
+    /* stylelint-disable-next-line primer/colors */
+    background: var(--borderColor-muted);
+    border: 0;
+  }
 
-  /* line-height: var(--text-caption-lineHeight); */
+  .InactiveButtonReset {
+    display: flex;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
 
-  /* remove after FF ships */
-  /* stylelint-disable-next-line primer/typography */
-  line-height: 16px;
-  color: var(--fgColor-muted);
-}
-
-/* helper for grid alignment with multi-line content
-span wrapping svg or text */
-.VisualWrap {
-  display: flex;
-  min-width: max-content;
-  min-height: var(--control-medium-lineBoxHeight);
-  /* stylelint-disable-next-line primer/typography */
-  line-height: 20px;
-  /* temporary until we fix line-height rounding in primitives */
-  color: var(--fgColor-muted);
-  pointer-events: none;
-  fill: var(--fgColor-muted);
-  align-items: center;
-}
-
-/* text */
-.ItemLabel {
-  position: relative;
-  font-size: var(--text-body-size-medium);
-  font-weight: var(--base-text-weight-normal);
-  /* stylelint-disable-next-line primer/typography */
-  line-height: 20px;
-  /* temporary until we fix line-height rounding in primitives */
-  color: var(--fgColor-default);
-  grid-area: label;
-  /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated */
-  word-break: break-word;
-}
-
-.SubGroup {
-  & .ItemLabel {
+  .InactiveWarning {
     font-size: var(--text-body-size-small);
+
+    /* line-height: var(--text-caption-lineHeight); */
+
+    /* use variable when FF removed */
+    /* stylelint-disable-next-line primer/typography */
+    line-height: 16px;
+    color: var(--fgColor-attention);
+    grid-row: 2/2;
   }
 
-  & .ActionListItem {
-    margin-inline: 0;
-  }
-}
+  @keyframes checkmarkIn {
+    from {
+      clip-path: inset(var(--base-size-16) 0 0 0);
+    }
 
-/* trailing action icon button */
-
-.TrailingActionButton {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  height: 100%;
-
-  /* Preserve width consistency when loading state is active for text buttons only */
-  &[data-loading='true']:has([data-component='buttonContent']) {
-    /* Double the left padding to compensate for missing right padding */
-    padding: 0 0 0 calc(var(--base-size-12) * 2);
-
-    /* Position spinner at the end to align with IconButton */
-    & [data-component='loadingSpinner'] {
-      place-self: end;
-      /* Match the IconButton spinner size */
-      width: var(--control-medium-size, 2rem);
-      height: var(--control-medium-size, 2rem);
-      /* Ensure spinner is properly centered */
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    to {
+      clip-path: inset(0 0 0 0);
     }
   }
-}
 
-.InactiveButtonWrap {
-  &:has(.TrailingVisual) {
-    grid-area: trailingVisual;
-  }
+  @keyframes checkmarkOut {
+    from {
+      clip-path: inset(0 0 0 0);
+    }
 
-  &:has(.LeadingVisual) {
-    grid-area: leadingVisual;
-  }
-}
-
-.Divider {
-  display: block;
-  height: var(--borderWidth-thin);
-  padding: 0;
-  /* stylelint-disable-next-line primer/spacing */
-  margin-block-start: calc(var(--base-size-8) - var(--borderWidth-thin));
-  margin-block-end: var(--base-size-8);
-  list-style: none;
-  /* stylelint-disable-next-line primer/colors */
-  background: var(--borderColor-muted);
-  border: 0;
-}
-
-.InactiveButtonReset {
-  display: flex;
-  padding: 0;
-  font: inherit;
-  color: inherit;
-  cursor: pointer;
-  background: none;
-  border: none;
-}
-
-.InactiveWarning {
-  font-size: var(--text-body-size-small);
-
-  /* line-height: var(--text-caption-lineHeight); */
-
-  /* use variable when FF removed */
-  /* stylelint-disable-next-line primer/typography */
-  line-height: 16px;
-  color: var(--fgColor-attention);
-  grid-row: 2/2;
-}
-
-@keyframes checkmarkIn {
-  from {
-    clip-path: inset(var(--base-size-16) 0 0 0);
-  }
-
-  to {
-    clip-path: inset(0 0 0 0);
-  }
-}
-
-@keyframes checkmarkOut {
-  from {
-    clip-path: inset(0 0 0 0);
-  }
-
-  to {
-    clip-path: inset(var(--base-size-16) 0 0 0);
+    to {
+      clip-path: inset(var(--base-size-16) 0 0 0);
+    }
   }
 }

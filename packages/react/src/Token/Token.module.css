@@ -1,34 +1,36 @@
-.Token {
-  max-width: 100%;
-  color: var(--fgColor-muted);
-  background-color: var(--bgColor-neutral-muted);
-  border-color: var(--borderColor-muted);
-  border-style: solid;
-}
+@layer primer.components.Token {
+  .Token {
+    max-width: 100%;
+    color: var(--fgColor-muted);
+    background-color: var(--bgColor-neutral-muted);
+    border-color: var(--borderColor-muted);
+    border-style: solid;
+  }
 
-.Token:where([data-interactive='true']):hover {
-  color: var(--fgColor-default);
-  background-color: var(--bgColor-neutral-muted);
-  box-shadow: var(--shadow-resting-medium);
-}
+  .Token:where([data-interactive='true']):hover {
+    color: var(--fgColor-default);
+    background-color: var(--bgColor-neutral-muted);
+    box-shadow: var(--shadow-resting-medium);
+  }
 
-.Token:where([data-is-selected='true']) {
-  color: var(--fgColor-default);
-  border-style: solid;
-  border-color: var(--borderColor-emphasis);
-}
+  .Token:where([data-is-selected='true']) {
+    color: var(--fgColor-default);
+    border-style: solid;
+    border-color: var(--borderColor-emphasis);
+  }
 
-.Token[data-is-remove-btn='true'] {
-  padding-right: 0;
-}
+  .Token[data-is-remove-btn='true'] {
+    padding-right: 0;
+  }
 
-.LeadingVisualContainer {
-  margin-right: var(--base-size-4);
-  /* stylelint-disable-next-line primer/typography */
-  line-height: 0;
-  flex-shrink: 0;
-}
+  .LeadingVisualContainer {
+    margin-right: var(--base-size-4);
+    /* stylelint-disable-next-line primer/typography */
+    line-height: 0;
+    flex-shrink: 0;
+  }
 
-.LargeLeadingVisual {
-  margin-right: var(--base-size-6);
+  .LargeLeadingVisual {
+    margin-right: var(--base-size-6);
+  }
 }

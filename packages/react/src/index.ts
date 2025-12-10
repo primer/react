@@ -1,5 +1,7 @@
 'use client'
 
+import './layer.css'
+
 export {default as theme, type ThemeColorPaths, type ThemeShadowPaths} from './theme'
 export {default as BaseStyles} from './BaseStyles'
 export type {BaseStylesProps} from './BaseStyles'

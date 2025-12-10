@@ -1,22 +1,24 @@
-.Input {
-  position: relative;
-  display: grid;
-  width: var(--base-size-16);
-  height: var(--base-size-16);
-  margin: 0;
+@layer primer.utilities.Input {
+  .Input {
+    position: relative;
+    display: grid;
+    width: var(--base-size-16);
+    height: var(--base-size-16);
+    margin: 0;
 
-  /* 2px to center align with label (20px line-height) */
-  margin-top: var(--base-size-2);
-  cursor: pointer;
-  background-color: var(--bgColor-default);
-  border-color: var(--control-borderColor-emphasis);
-  border-style: solid;
-  border-width: var(--borderWidth-thin);
-  appearance: none;
-  place-content: center;
+    /* 2px to center align with label (20px line-height) */
+    margin-top: var(--base-size-2);
+    cursor: pointer;
+    background-color: var(--bgColor-default);
+    border-color: var(--control-borderColor-emphasis);
+    border-style: solid;
+    border-width: var(--borderWidth-thin);
+    appearance: none;
+    place-content: center;
 
-  &:disabled {
-    background-color: var(--control-bgColor-disabled);
-    border-color: var(--control-borderColor-disabled);
+    &:disabled {
+      background-color: var(--control-bgColor-disabled);
+      border-color: var(--control-borderColor-disabled);
+    }
   }
 }

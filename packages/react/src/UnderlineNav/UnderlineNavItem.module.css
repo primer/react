@@ -1,5 +1,7 @@
-.UnderlineNavItem {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+@layer primer.components.UnderlineNavItem {
+  .UnderlineNavItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
