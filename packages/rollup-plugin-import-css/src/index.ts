@@ -37,18 +37,9 @@ export function importCSS(options: ImportCSSOptions): Plugin {
 
       const moduleInfo = this.getModuleInfo(importer)
       if (moduleInfo?.meta['import-css']?.source === source) {
-        // console.log(source)
         return {
           id: source,
-          external: 'relative',
-        }
-      }
-
-      if (source.endsWith('.css')) {
-        const id = path.resolve(path.dirname(importer), source)
-        return {
-          id,
-          moduleSideEffects: true,
+          external: true,
         }
       }
     },
@@ -59,8 +50,7 @@ export function importCSS(options: ImportCSSOptions): Plugin {
 
       const hash = getSourceHash(code)
       const relativePath = path.relative(rootDirectory, id)
-      const isCSSModule = id.endsWith('.module.css')
-      const name = isCSSModule ? path.basename(relativePath, '.module.css') : path.basename(relativePath, '.css')
+      const name = path.basename(relativePath, '.module.css')
 
       const fileName = path.join(
         path.dirname(relativePath),
@@ -77,23 +67,18 @@ export function importCSS(options: ImportCSSOptions): Plugin {
       // also included
 
       let cssModuleClasses = null
-      const plugins = [...postcssPlugins]
-
-      if (isCSSModule) {
-        plugins.push(
-          postcssModules({
-            ...postcssModulesOptions,
-            getJSON(filename, json) {
-              if (postcssModulesOptions.getJSON) {
-                postcssModulesOptions.getJSON(filename, json)
-              }
-              cssModuleClasses = json
-            },
-          }),
-        )
-      }
-
-      const result = await postcss(plugins).process(code, {
+      const result = await postcss([
+        ...postcssPlugins,
+        postcssModules({
+          ...postcssModulesOptions,
+          getJSON(filename, json) {
+            if (postcssModulesOptions.getJSON) {
+              postcssModulesOptions.getJSON(filename, json)
+            }
+            cssModuleClasses = json
+          },
+        }),
+      ]).process(code, {
         from: id,
         to: fileName,
         map: {
@@ -101,14 +86,11 @@ export function importCSS(options: ImportCSSOptions): Plugin {
         },
       })
 
-      const cssReferenceId = this.emitFile({
+      this.emitFile({
         type: 'asset',
         source: result.css,
         fileName,
       })
-      console.log('REFERENCE ID:', cssReferenceId)
-      console.log(this.getFileName(cssReferenceId))
-
       this.emitFile({
         type: 'asset',
         source: result.map.toString(),
@@ -116,23 +98,18 @@ export function importCSS(options: ImportCSSOptions): Plugin {
       })
 
       const moduleInfo = this.getModuleInfo(id)
-      // const cssSource = `./${path.basename(fileName)}`
-      const cssSource = path.join(rootDirectory, fileName)
+      const cssSource = `./${path.basename(fileName)}`
       if (moduleInfo) {
         moduleInfo.meta['import-css'] = {
           source: cssSource,
-          // source: fileName,
         }
       }
 
       return {
-        code: [
-          `import '${cssSource}';`,
-          'console.log(1);',
-          cssModuleClasses ? `export default ${JSON.stringify(cssModuleClasses)};` : null,
-        ]
-          .filter(Boolean)
-          .join('\n'),
+        code: `
+          import '${cssSource}';
+          export default ${JSON.stringify(cssModuleClasses)}
+        `,
       }
     },
   }
