@@ -3,29 +3,18 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "exports": {
-    "types": "./dist/index.d.ts",
-    "default": "./dist/index.js"
-  },
+  "exports": "./src/index.ts",
   "scripts": {
-    "build": "rollup -c",
-    "clean": "rimraf dist",
-    "type-check": "tsc --noEmit",
-    "watch": "rollup -c -w"
+    "type-check": "tsc --noEmit"
   },
   "peerDependencies": {
     "postcss": "^8.4.38",
     "postcss-modules": "^6.0.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^29.0.0",
-    "@rollup/plugin-node-resolve": "^16.0.3",
-    "esbuild": "^0.25.0",
     "postcss": "^8.4.38",
     "postcss-modules": "^6.0.0",
-    "rimraf": "^5.0.7",
-    "rollup-plugin-esbuild": "^6.2.1",
-    "rollup-plugin-typescript2": "^0.36.0",
+    "rolldown": "^1.0.0-beta.53",
     "typescript": "^5.9.2"
   },
   "sideEffects": false
