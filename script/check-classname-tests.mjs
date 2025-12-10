@@ -19,6 +19,7 @@ const IGNORED_FILES = [
   'packages/react/src/DataTable/__tests__/ErrorDialog.test.tsx',
   'packages/react/src/DataTable/__tests__/Pagination.test.tsx',
   'packages/react/src/FeatureFlags/__tests__/FeatureFlags.test.tsx',
+  'packages/react/src/FormControl/__tests__/useFormControlForwardedProps.test.tsx',
 ]
 
 function getAllTestFiles(dir, files = []) {
