@@ -43,7 +43,7 @@ afterEach(() => {
 })
 
 describe('TextInputWithTokens', () => {
-  implementsClassName(TextInputWithTokens, classes.TextInputWrapper)
+  implementsClassName(props => <TextInputWithTokens {...props} tokens={[]} />, classes.TextInputWrapper)
 
   it('should support `className` on the outermost element', () => {
     const onRemoveMock = vi.fn()
