@@ -87,6 +87,19 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       expect(trigger).toHaveAttribute('aria-expanded', 'false')
     })
 
+    it('should call onActiveDescendantChanged when using keyboard while focusing on an item', async () => {
+      const user = userEvent.setup()
+      // jest function
+      const onActiveDescendantChanged = vi.fn()
+
+      render(<BasicSelectPanel onActiveDescendantChanged={onActiveDescendantChanged} />)
+
+      await user.click(screen.getByText('Select items'))
+
+      await user.type(document.activeElement!, '{ArrowDown}')
+      expect(onActiveDescendantChanged).toHaveBeenCalled()
+    })
+
     it('should open the select panel when activating the trigger', async () => {
       const user = userEvent.setup()
 
