@@ -2,8 +2,20 @@ import {describe, it, expect, vi} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {ActionList} from '.'
+import {implementsClassName} from '../utils/testing'
+import classes from './ActionList.module.css'
+import headingClasses from './Heading.module.css'
+import groupClasses from './Group.module.css'
 
 describe('ActionList', () => {
+  implementsClassName(ActionList, classes.ActionList)
+  implementsClassName(ActionList.Group, groupClasses.Group)
+  implementsClassName(ActionList.LeadingVisual, classes.LeadingVisual)
+  implementsClassName(ActionList.TrailingVisual, classes.TrailingVisual)
+  implementsClassName(ActionList.TrailingAction, classes.TrailingAction)
+  implementsClassName(ActionList.Divider, classes.Divider)
+  implementsClassName(ActionList.Heading, headingClasses.ActionListHeader)
+  implementsClassName(ActionList.GroupHeading, groupClasses.GroupHeading)
   it('should warn when selected is provided without a selectionVariant on parent', async () => {
     // we expect console.warn to be called, so we spy on that in the test
     const spy = vi.spyOn(console, 'warn').mockImplementation(() => vi.fn())

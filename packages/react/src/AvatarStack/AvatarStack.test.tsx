@@ -1,6 +1,8 @@
 import {describe, expect, it} from 'vitest'
 import {render} from '@testing-library/react'
 import {AvatarStack} from '..'
+import {implementsClassName} from '../utils/testing'
+import classes from './AvatarStack.module.css'
 
 const avatarComp = (
   <AvatarStack>
@@ -21,6 +23,7 @@ const rightAvatarComp = (
 )
 
 describe('AvatarStack', () => {
+  implementsClassName(AvatarStack, classes.AvatarStack)
   it('should support `className` on the outermost element', () => {
     const Element = () => (
       <AvatarStack className={'test-class-name'}>

@@ -14,6 +14,7 @@ const IGNORED_FILES = [
   'packages/react/src/Portal/Portal.test.tsx',
   'packages/react/src/Autocomplete/AutocompleteOverlay.tsx',
   'packages/react/src/ActionMenu/ActionMenu.test.tsx',
+  'packages/react/src/Pagination/PaginationModel.test.tsx',
 ]
 
 function getAllTestFiles(dir, files = []) {

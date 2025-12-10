@@ -1,8 +1,13 @@
 import {describe, expect, it} from 'vitest'
 import {render} from '@testing-library/react'
 import {Header} from '..'
+import {implementsClassName} from '../utils/testing'
+import classes from './Header.module.css'
 
 describe('Header', () => {
+  implementsClassName(Header, classes.Header)
+  implementsClassName(Header.Item, classes.HeaderItem)
+  implementsClassName(Header.Link, classes.HeaderLink)
   describe('Header.Item', () => {
     it('accepts and applies className', () => {
       const {container} = render(<Header.Item className="primer" />)
