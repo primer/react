@@ -124,7 +124,10 @@ export function importCSS(options: ImportCSSOptions): Plugin {
       return {
         code: `
           import '${cssSource}';
-          ${cssModuleClasses !== null ? `export default ${JSON.stringify(cssModuleClasses)}` : ''}
+          ${
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            cssModuleClasses !== null ? `export default ${JSON.stringify(cssModuleClasses)}` : ''
+          }
         `,
         moduleSideEffects: 'no-treeshake',
       }
