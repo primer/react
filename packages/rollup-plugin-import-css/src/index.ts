@@ -1,4 +1,5 @@
 import type {Plugin} from 'rollup'
+import fs from 'node:fs/promises'
 import path from 'node:path'
 import {createHash} from 'node:crypto'
 import postcss from 'postcss'
@@ -40,18 +41,33 @@ export function importCSS(options: ImportCSSOptions): Plugin {
         return {
           id: source,
           external: true,
+          moduleSideEffects: true,
         }
       }
+
+      if (source.endsWith('.css')) {
+        const id = path.resolve(path.dirname(importer), source)
+        return path.format({
+          dir: path.dirname(id),
+          base: `${path.basename(id)}.js`,
+        })
+      }
     },
-    async transform(code, id) {
-      if (!id.endsWith('.css')) {
+    async load(id) {
+      if (id.endsWith('.css.js')) {
+        return ''
+      }
+    },
+    async transform(_code, id) {
+      if (!id.endsWith('.css.js')) {
         return
       }
 
+      const sourceId = path.join(path.dirname(id), path.basename(id, '.js'))
+      const code = await fs.readFile(sourceId, 'utf8')
       const hash = getSourceHash(code)
-      const relativePath = path.relative(rootDirectory, id)
-      const name = path.basename(relativePath, '.module.css')
-
+      const relativePath = path.relative(rootDirectory, sourceId)
+      const name = path.basename(relativePath, relativePath.endsWith('.module.css') ? '.module.css' : '.css')
       const fileName = path.join(
         path.dirname(relativePath),
         path.format({
@@ -66,7 +82,7 @@ export function importCSS(options: ImportCSSOptions): Plugin {
       // the classes is used, then the associated styles for those classes is
       // also included
 
-      let cssModuleClasses = null
+      let cssModuleClasses: {[name: string]: string} | null = null
       const result = await postcss([
         ...postcssPlugins,
         postcssModules({
@@ -108,8 +124,12 @@ export function importCSS(options: ImportCSSOptions): Plugin {
       return {
         code: `
           import '${cssSource}';
-          export default ${JSON.stringify(cssModuleClasses)}
+          ${
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            cssModuleClasses !== null ? `export default ${JSON.stringify(cssModuleClasses)}` : ''
+          }
         `,
+        moduleSideEffects: 'no-treeshake',
       }
     },
   }
