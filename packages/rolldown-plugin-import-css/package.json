@@ -1,5 +1,5 @@
 {
-  "name": "rollup-plugin-import-css",
+  "name": "rolldown-plugin-import-css",
   "version": "0.0.0",
   "private": true,
   "type": "module",
