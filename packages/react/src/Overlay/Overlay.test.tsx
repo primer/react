@@ -87,7 +87,7 @@ describe('Overlay', () => {
     const returnFocusRef = useRef<HTMLButtonElement>(null)
     return (
       <div>
-        <button ref={returnFocusRef}>trigger</button>
+        <Button ref={returnFocusRef}>trigger</Button>
         <Overlay returnFocusRef={returnFocusRef} {...props}>
           <div>test content</div>
         </Overlay>
