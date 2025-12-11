@@ -49,18 +49,16 @@ export function importCSS(options: ImportCSSOptions): Plugin {
           }
         }
 
-        if (source.endsWith('.css')) {
-          const id = path.resolve(path.dirname(importer), source)
-          return path.format({
-            dir: path.dirname(id),
-            base: `${path.basename(id)}.js`,
-          })
-        }
+        const id = path.resolve(path.dirname(importer), source)
+        return path.format({
+          dir: path.dirname(id),
+          base: `${path.basename(id)}.js`,
+        })
       },
     },
     load: {
       filter: {
-        id: /\.css.js$/,
+        id: /\.css\.js$/,
       },
       handler() {
         return ''
@@ -68,7 +66,7 @@ export function importCSS(options: ImportCSSOptions): Plugin {
     },
     transform: {
       filter: {
-        id: /\.module.css.js$/,
+        id: /\.module\.css\.js$/,
       },
       async handler(_code, id) {
         const sourceId = path.join(path.dirname(id), path.basename(id, '.js'))
@@ -131,12 +129,12 @@ export function importCSS(options: ImportCSSOptions): Plugin {
 
         return {
           code: `
-          import '${cssSource}';
-            ${
-              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-              cssModuleClasses !== null ? `export default ${JSON.stringify(cssModuleClasses)}` : ''
-            }
-          `,
+import '${cssSource}';
+${
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  cssModuleClasses !== null ? `export default ${JSON.stringify(cssModuleClasses)}` : ''
+}
+`,
           moduleSideEffects: 'no-treeshake',
         }
       },
