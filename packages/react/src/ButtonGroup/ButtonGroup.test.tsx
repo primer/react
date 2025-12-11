@@ -6,10 +6,6 @@ import classes from './ButtonGroup.module.css'
 
 describe('ButtonGroup', () => {
   implementsClassName(ButtonGroup, classes.ButtonGroup)
-  it('should support `className` on the outermost element', () => {
-    const Element = () => <ButtonGroup className={'test-class-name'} />
-    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
 
   it('renders a <div>', () => {
     const container = render(<ButtonGroup data-testid="button-group" />)

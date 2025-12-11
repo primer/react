@@ -10,9 +10,4 @@ describe('BranchName', () => {
     const {container} = HTMLRender(<BranchName />)
     expect(container.firstChild?.nodeName).toEqual('A')
   })
-
-  it('should support `className` on the outermost element', () => {
-    const Element = () => <BranchName className={'test-class-name'} />
-    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
 })

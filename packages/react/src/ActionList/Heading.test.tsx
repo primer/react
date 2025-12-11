@@ -60,15 +60,4 @@ describe('ActionList.Heading', () => {
       "ActionList.Heading shouldn't be used within an ActionMenu container. Menus are labelled by the menu button's name.",
     )
   })
-
-  it('should support a custom `className` on the outermost element', () => {
-    const actionList = HTMLRender(
-      <ActionList>
-        <ActionList.Heading as="h2" className="test-class-name">
-          Filter by
-        </ActionList.Heading>
-      </ActionList>,
-    )
-    expect(actionList.container.querySelector('h2')).toHaveClass('test-class-name')
-  })
 })

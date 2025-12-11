@@ -7,12 +7,6 @@ import classes from './ProgressBar.module.css'
 describe('ProgressBar', () => {
   implementsClassName(ProgressBar, classes.ProgressBarContainer)
   implementsClassName(ProgressBar.Item, classes.ProgressBarItem)
-  it('should support `className` on the outermost element', () => {
-    const Element = () => (
-      <ProgressBar progress={80} barSize="small" aria-label="Upload test.png" className={'test-class-name'} />
-    )
-    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
 
   it('respects the "barSize" prop', () => {
     const barSizeSmall = render(<ProgressBar progress={80} barSize="small" aria-label="Upload test.png" />)

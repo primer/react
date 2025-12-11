@@ -4,18 +4,13 @@ import userEvent from '@testing-library/user-event'
 import {ActionList} from '.'
 import {implementsClassName} from '../utils/testing'
 import classes from './ActionList.module.css'
-import headingClasses from './Heading.module.css'
-import groupClasses from './Group.module.css'
 
 describe('ActionList', () => {
   implementsClassName(ActionList, classes.ActionList)
-  implementsClassName(ActionList.Group, groupClasses.Group)
   implementsClassName(ActionList.LeadingVisual, classes.LeadingVisual)
   implementsClassName(ActionList.TrailingVisual, classes.TrailingVisual)
   implementsClassName(ActionList.TrailingAction, classes.TrailingAction)
   implementsClassName(ActionList.Divider, classes.Divider)
-  implementsClassName(ActionList.Heading, headingClasses.ActionListHeader)
-  implementsClassName(ActionList.GroupHeading, groupClasses.GroupHeading)
   it('should warn when selected is provided without a selectionVariant on parent', async () => {
     // we expect console.warn to be called, so we spy on that in the test
     const spy = vi.spyOn(console, 'warn').mockImplementation(() => vi.fn())
@@ -69,17 +64,6 @@ describe('ActionList', () => {
 
     await userEvent.keyboard('{ArrowUp}')
     expect(document.activeElement).toHaveTextContent('Option 4')
-  })
-
-  it('should support a custom `className` on the outermost element', () => {
-    const Element = () => {
-      return (
-        <ActionList className="test-class-name">
-          <ActionList.Item>Item</ActionList.Item>
-        </ActionList>
-      )
-    }
-    expect(HTMLRender(<Element />).container.querySelector('ul')).toHaveClass('test-class-name')
   })
 
   it('divider should support a custom `className`', () => {

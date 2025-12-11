@@ -45,12 +45,6 @@ afterEach(() => {
 describe('TextInputWithTokens', () => {
   implementsClassName(props => <TextInputWithTokens {...props} tokens={[]} />, classes.TextInputWrapper)
 
-  it('should support `className` on the outermost element', () => {
-    const onRemoveMock = vi.fn()
-    const Element = () => <TextInputWithTokens className={'test-class-name'} tokens={[]} onTokenRemove={onRemoveMock} />
-    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
-
   it('renders without tokens', () => {
     const onRemoveMock = vi.fn()
     expect(render(<TextInputWithTokens tokens={[]} onTokenRemove={onRemoveMock} />)).toMatchSnapshot()

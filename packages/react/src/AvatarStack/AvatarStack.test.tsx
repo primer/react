@@ -24,17 +24,6 @@ const rightAvatarComp = (
 
 describe('AvatarStack', () => {
   implementsClassName(AvatarStack, classes.AvatarStack)
-  it('should support `className` on the outermost element', () => {
-    const Element = () => (
-      <AvatarStack className={'test-class-name'}>
-        <img src="https://avatars.githubusercontent.com/primer" alt="" />
-        <img src="https://avatars.githubusercontent.com/github" alt="" />
-        <img src="https://avatars.githubusercontent.com/primer" alt="" />
-        <img src="https://avatars.githubusercontent.com/github" alt="" />
-      </AvatarStack>
-    )
-    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
 
   it('respects alignRight props', () => {
     const {container} = render(rightAvatarComp)

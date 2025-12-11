@@ -17,6 +17,7 @@ describe('ActionList.Group', () => {
     ),
     classes.Group,
   )
+  implementsClassName(ActionList.GroupHeading, classes.GroupHeading)
 
   it('should throw an error when ActionList.GroupHeading has an `as` prop when it is used within ActionMenu context', async () => {
     expect(() =>
@@ -134,20 +135,5 @@ describe('ActionList.Group', () => {
     )
     const list = container.querySelector(`li[data-test-id='ActionList.Group'] > ul`)
     expect(list).toHaveAttribute('aria-label', 'Animals')
-  })
-
-  it('should support a custom `className` on the outermost element', () => {
-    const Element = () => {
-      return (
-        <ActionList>
-          <ActionList.Group>
-            <ActionList.GroupHeading as="h2" className="test-class-name">
-              Test
-            </ActionList.GroupHeading>
-          </ActionList.Group>
-        </ActionList>
-      )
-    }
-    expect(HTMLRender(<Element />).container.querySelector('h2')).toHaveClass('test-class-name')
   })
 })

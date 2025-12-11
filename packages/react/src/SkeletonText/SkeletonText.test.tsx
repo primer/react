@@ -7,11 +7,6 @@ import classes from './SkeletonText.module.css'
 describe('SkeletonText', () => {
   implementsClassName(SkeletonText, classes.SkeletonText)
 
-  it('should support `className` on the outermost element', () => {
-    const {container} = render(<SkeletonText className={'test-class-name'} />)
-    expect(container.firstChild).toHaveClass('test-class-name')
-  })
-
   it('should support spreading extra props on the outermost element', () => {
     const {container} = render(<SkeletonText data-testid="skeleton-text" />)
     expect(container.firstChild).toHaveAttribute('data-testid', 'skeleton-text')

@@ -7,10 +7,6 @@ import classes from './Label.module.css'
 describe('Label', () => {
   implementsClassName(Label, classes.Label)
 
-  it('should support `className` on the outermost element', () => {
-    const Element = () => <Label className={'test-class-name'} />
-    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
   it('renders text node child', () => {
     const rendered = render(<Label>Default</Label>)
     expect(rendered.container.textContent).toEqual('Default')

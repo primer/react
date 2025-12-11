@@ -221,15 +221,6 @@ describe('Autocomplete', () => {
 
       expect(getByDisplayValue('0')).toBeDefined()
     })
-
-    it('should support `className` on the outermost element', () => {
-      const Element = () => (
-        <Autocomplete>
-          <Autocomplete.Input className={'test-class-name'} />
-        </Autocomplete>
-      )
-      expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-    })
   })
 
   describe('Autocomplete.Menu', () => {

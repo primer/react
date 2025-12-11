@@ -33,11 +33,6 @@ describe('Flash', () => {
     expect(screen.getByTestId('default')).toHaveAttribute('data-variant', 'default')
   })
 
-  it('should support `className` on the outermost element', () => {
-    const {container} = render(<Flash className="test-class" />)
-    expect(container.firstChild).toHaveClass('test-class')
-  })
-
   it('should spread props to the outermost element', () => {
     const {container} = render(<Flash data-testid="test" />)
     expect(container.firstChild).toHaveAttribute('data-testid', 'test')

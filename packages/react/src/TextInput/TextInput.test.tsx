@@ -9,12 +9,6 @@ import {implementsClassName} from '../utils/testing'
 describe('TextInput', () => {
   implementsClassName(TextInput, 'TextInput-wrapper')
 
-  it('should support `className` on the outermost element', () => {
-    const Element = () => <TextInput className={'test-class-name'} />
-    const {container} = render(<Element />)
-    expect(container.firstChild).toHaveClass('test-class-name')
-  })
-
   it('renders', () => {
     render(<TextInput name="zipcode" />)
     expect(screen.getByRole('textbox')).toHaveAttribute('type', 'text')

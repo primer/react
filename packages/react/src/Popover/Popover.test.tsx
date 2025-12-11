@@ -8,10 +8,6 @@ import {implementsClassName} from '../utils/testing'
 describe('Popover', () => {
   implementsClassName(Popover, classes.Popover)
   implementsClassName(Popover.Content, classes.PopoverContent)
-  it('should support `className` on the outermost element', () => {
-    const Element = () => <Popover className={'test-class-name'}></Popover>
-    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
 
   const CARET_POSITIONS: PopoverProps['caret'][] = [
     'top',

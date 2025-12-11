@@ -15,11 +15,6 @@ describe('Radio', () => {
     vi.resetAllMocks()
   })
 
-  it('should support `className` on the outermost element', () => {
-    const Element = () => <Radio {...defaultProps} className={'test-class-name'} />
-    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
-
   it('renders a valid radio input', () => {
     const {getByRole} = render(<Radio {...defaultProps} />)
 

@@ -24,10 +24,6 @@ describe('Textarea', () => {
     vi.resetAllMocks()
   })
 
-  it('should support `className` on the outermost element', () => {
-    expect(render(<Textarea className={'test-class-name'} />).container.firstChild).toHaveClass('test-class-name')
-  })
-
   it('renders a valid textarea input', () => {
     render(<Textarea />)
     expect(screen.getByRole('textbox')).toBeInTheDocument()

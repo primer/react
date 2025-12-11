@@ -7,11 +7,6 @@ import classes from './Avatar.module.css'
 describe('Avatar', () => {
   implementsClassName(Avatar, classes.Avatar)
 
-  it('should support `className` on the outermost element', () => {
-    const Element = () => <Avatar src="primer.png" className={'test-class-name'} />
-    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
-
   it('renders small by default', () => {
     const size = 20
     render(<Avatar src="primer.png" data-testid="avatar" />)
