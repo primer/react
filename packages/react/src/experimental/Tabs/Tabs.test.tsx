@@ -3,8 +3,22 @@ import {userEvent} from 'vitest/browser'
 import React from 'react'
 import {describe, test, expect, vi} from 'vitest'
 import {Tabs, TabList, Tab, TabPanel} from './Tabs'
+import {implementsClassName} from '../../utils/testing'
 
 describe('Tabs', () => {
+  implementsClassName(TabList)
+  implementsClassName(props => (
+    <Tabs defaultValue="a">
+      <TabList aria-label="a">
+        <Tab {...props} />
+      </TabList>
+    </Tabs>
+  ))
+  implementsClassName(props => (
+    <Tabs defaultValue="a">
+      <TabPanel {...props}></TabPanel>
+    </Tabs>
+  ))
   test('`defaultValue` sets the default selected tab', () => {
     render(
       <Tabs defaultValue="a">

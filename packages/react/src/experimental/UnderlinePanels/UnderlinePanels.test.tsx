@@ -4,6 +4,8 @@ import {render, screen} from '@testing-library/react'
 import {describe, it, afterEach, expect, vi} from 'vitest'
 import UnderlinePanels from './UnderlinePanels'
 import TabContainerElement from '@github/tab-container-element'
+import {implementsClassName} from '../../utils/testing'
+import classes from './UnderlinePanels.module.css'
 
 TabContainerElement.prototype.selectTab = vi.fn()
 
@@ -19,6 +21,9 @@ const UnderlinePanelsMockComponent = (props: {'aria-label'?: string; 'aria-label
 )
 
 describe('UnderlinePanels', () => {
+  implementsClassName(UnderlinePanels, classes.StyledUnderlineWrapper)
+  implementsClassName(UnderlinePanels.Tab)
+  implementsClassName(UnderlinePanels.Panel)
   afterEach(() => {
     vi.restoreAllMocks()
   })

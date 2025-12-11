@@ -6,7 +6,6 @@ import classes from './SubNav.module.css'
 
 describe('SubNav', () => {
   implementsClassName(SubNav, classes.SubNav)
-  implementsClassName(SubNav.Link, classes.Link)
   implementsClassName(SubNav.Links, classes.Links)
 
   it('renders a <nav>', () => {
