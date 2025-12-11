@@ -709,17 +709,41 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     useIsomorphicLayoutEffect(() => {
       getMaxPaneWidthRef.current = getMaxPaneWidth
     })
-    // Update max pane width on mount for accurate ARIA values
+    // Update max pane width on mount and window resize for accurate ARIA values
+    // Window resize events only fire on actual viewport changes (not content changes),
+    // so this doesn't cause the INP issues that ResizeObserver on document.documentElement did
     useIsomorphicLayoutEffect(() => {
-      const actualMax = getMaxPaneWidthRef.current()
-      setMaxPaneWidth(actualMax)
-      // Also update DOM directly in case React batches the state update
-      updateAriaValues(handleRef.current, {
-        min: minPaneWidth,
-        max: actualMax,
-        current: currentWidthRef.current!,
-      })
-    }, [minPaneWidth])
+      const updateMax = () => {
+        const actualMax = getMaxPaneWidthRef.current()
+        setMaxPaneWidth(actualMax)
+        // Clamp current width if it exceeds new max (viewport shrunk)
+        if (currentWidthRef.current > actualMax) {
+          currentWidthRef.current = actualMax
+          paneRef.current?.style.setProperty('--pane-width', `${actualMax}px`)
+          setDefaultWidth(actualMax)
+        }
+        updateAriaValues(handleRef.current, {max: actualMax, current: currentWidthRef.current})
+      }
+      updateMax()
+
+      // Debounce resize handler to only update after resize ends
+      // This avoids noisy ARIA updates during continuous resize
+      // CSS max-width handles visual clamping during resize anyway
+      let timeoutId: ReturnType<typeof setTimeout> | null = null
+      const debouncedUpdateMax = () => {
+        if (timeoutId) clearTimeout(timeoutId)
+        timeoutId = setTimeout(updateMax, 150)
+      }
+
+      // ResizeObserver on document.documentElement fires on any content change (typing, etc),
+      // causing INP regressions. Window resize only fires on viewport changes.
+      // eslint-disable-next-line github/prefer-observers
+      window.addEventListener('resize', debouncedUpdateMax)
+      return () => {
+        if (timeoutId) clearTimeout(timeoutId)
+        window.removeEventListener('resize', debouncedUpdateMax)
+      }
+    }, [minPaneWidth, paneRef])
 
     useRefObjectAsForwardedRef(forwardRef, paneRef)
 
