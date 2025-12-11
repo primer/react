@@ -6,7 +6,7 @@
       "outputs": [".next/**", "dist/**", "lib/**", "lib-esm/**", "generated/**"]
     },
     "build:storybook": {
-      "dependsOn": [],
+      "dependsOn": ["^build"],
       "outputs": ["storybook-static/**"]
     },
     "lint:npm": {
