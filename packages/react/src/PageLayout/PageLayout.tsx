@@ -13,50 +13,6 @@ import classes from './PageLayout.module.css'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
-// Module-scoped ResizeObserver subscription for viewport width tracking
-let viewportWidthListeners: Set<() => void> | undefined
-let viewportWidthObserver: ResizeObserver | undefined
-
-function subscribeToViewportWidth(callback: () => void) {
-  if (!viewportWidthListeners) {
-    viewportWidthListeners = new Set()
-    viewportWidthObserver = new ResizeObserver(() => {
-      if (viewportWidthListeners) {
-        for (const listener of viewportWidthListeners) {
-          listener()
-        }
-      }
-    })
-    viewportWidthObserver.observe(document.documentElement)
-  }
-
-  viewportWidthListeners.add(callback)
-
-  return () => {
-    viewportWidthListeners?.delete(callback)
-    if (viewportWidthListeners?.size === 0) {
-      viewportWidthObserver?.disconnect()
-      viewportWidthObserver = undefined
-      viewportWidthListeners = undefined
-    }
-  }
-}
-
-function getViewportWidth() {
-  return window.innerWidth
-}
-
-function getServerViewportWidth() {
-  return 0
-}
-
-/**
- * Custom hook that subscribes to viewport width changes using a shared ResizeObserver
- */
-function useViewportWidth() {
-  return React.useSyncExternalStore(subscribeToViewportWidth, getViewportWidth, getServerViewportWidth)
-}
-
 /**
  * Gets the --pane-max-width-diff CSS variable value from a pane element.
  * This value is set by CSS media queries and controls the max pane width constraint.
@@ -714,36 +670,31 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       paneRef.current?.style.setProperty('--pane-width', `${defaultWidth}px`)
     }, [widthStorageKey, paneRef, resizable, defaultWidth])
 
-    // Subscribe to viewport width changes for responsive max constraint calculation
-    const viewportWidth = useViewportWidth()
-
     // Calculate min width constraint from width configuration
     const minPaneWidth = isCustomWidthOptions(width) ? parseInt(width.min, 10) : minWidth
 
-    // Cache max width constraint - updated when viewport changes (which triggers CSS breakpoint changes)
-    // This avoids calling getComputedStyle() on every drag frame
-    const maxPaneWidthRef = React.useRef(minPaneWidth)
-    React.useEffect(() => {
+    // Calculate max width constraint lazily - called during drag operations
+    // This avoids subscribing to viewport changes just for constraint calculation
+    const getMaxPaneWidth = React.useCallback(() => {
       if (isCustomWidthOptions(width)) {
-        maxPaneWidthRef.current = parseInt(width.max, 10)
-      } else {
-        const maxWidthDiff = getPaneMaxWidthDiff(paneRef.current)
-        maxPaneWidthRef.current =
-          viewportWidth > 0 ? Math.max(minPaneWidth, viewportWidth - maxWidthDiff) : minPaneWidth
+        return parseInt(width.max, 10)
       }
-    }, [width, minPaneWidth, viewportWidth, paneRef])
+      const maxWidthDiff = getPaneMaxWidthDiff(paneRef.current)
+      const viewportWidth = window.innerWidth
+      return viewportWidth > 0 ? Math.max(minPaneWidth, viewportWidth - maxWidthDiff) : minPaneWidth
+    }, [width, minPaneWidth, paneRef])
 
     // Ref to the drag handle for updating ARIA attributes
     const handleRef = React.useRef<HTMLDivElement>(null)
 
-    // Update ARIA attributes on mount and when viewport/constraints change
+    // Update ARIA attributes on mount only - subsequent updates happen during drag operations
     useIsomorphicLayoutEffect(() => {
       updateAriaValues(handleRef.current, {
         min: minPaneWidth,
-        max: maxPaneWidthRef.current,
+        max: getMaxPaneWidth(),
         current: currentWidthRef.current!,
       })
-    }, [minPaneWidth, viewportWidth])
+    }, [minPaneWidth, getMaxPaneWidth])
 
     useRefObjectAsForwardedRef(forwardRef, paneRef)
 
@@ -840,7 +791,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           handleRef={handleRef}
           onDrag={(delta, isKeyboard = false) => {
             const deltaWithDirection = isKeyboard ? delta : position === 'end' ? -delta : delta
-            const maxWidth = maxPaneWidthRef.current
+            const maxWidth = getMaxPaneWidth()
 
             if (isKeyboard) {
               // Clamp keyboard delta to stay within bounds
@@ -848,7 +799,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               if (newWidth !== currentWidthRef.current) {
                 currentWidthRef.current = newWidth
                 paneRef.current?.style.setProperty('--pane-width', `${newWidth}px`)
-                updateAriaValues(handleRef.current, {current: newWidth})
+                updateAriaValues(handleRef.current, {current: newWidth, max: maxWidth})
               }
             } else {
               // Apply delta directly via CSS variable for immediate visual feedback
@@ -861,7 +812,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
                 if (clampedWidth !== currentWidthRef.current) {
                   paneRef.current.style.setProperty('--pane-width', `${clampedWidth}px`)
                   currentWidthRef.current = clampedWidth
-                  updateAriaValues(handleRef.current, {current: clampedWidth})
+                  updateAriaValues(handleRef.current, {current: clampedWidth, max: maxWidth})
                 }
               }
             }
