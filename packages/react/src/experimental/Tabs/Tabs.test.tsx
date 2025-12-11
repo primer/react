@@ -9,7 +9,7 @@ describe('Tabs', () => {
   implementsClassName(TabList)
   implementsClassName(props => (
     <Tabs defaultValue="a">
-      <TabList aria-label="a">
+      <TabList aria-label="Test tabs">
         <Tab {...props} />
       </TabList>
     </Tabs>
