@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, {useLayoutEffect, useRef} from 'react'
 import {clsx} from 'clsx'
 import {useId} from '../hooks/useId'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
@@ -663,6 +663,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           currentWidthRef.current = num
           paneRef.current?.style.setProperty('--pane-width', `${num}px`)
           setDefaultWidth(num)
+          return
         }
       } catch {
         // localStorage unavailable - keep default
@@ -686,14 +687,18 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     // Ref to the drag handle for updating ARIA attributes
     const handleRef = React.useRef<HTMLDivElement>(null)
 
+    const getMaxPaneWidthRef = React.useRef(getMaxPaneWidth)
+    useLayoutEffect(() => {
+      getMaxPaneWidthRef.current = getMaxPaneWidth
+    })
     // Update ARIA attributes on mount only - subsequent updates happen during drag operations
     useIsomorphicLayoutEffect(() => {
       updateAriaValues(handleRef.current, {
         min: minPaneWidth,
-        max: getMaxPaneWidth(),
+        max: getMaxPaneWidthRef.current(),
         current: currentWidthRef.current!,
       })
-    }, [minPaneWidth, getMaxPaneWidth])
+    }, [minPaneWidth])
 
     useRefObjectAsForwardedRef(forwardRef, paneRef)
 
