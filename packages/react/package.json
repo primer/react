@@ -39,7 +39,7 @@
     "build": "./script/build",
     "clean": "rimraf dist generated",
     "start": "concurrently npm:start:*",
-    "start:storybook": "STORYBOOK=true storybook dev -p 6006",
+    "start:storybook": "STORYBOOK=true storybook dev -p 6006 --no-open",
     "build:storybook": "storybook build",
     "build:docs": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs",
     "build:docs:preview": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs preview",

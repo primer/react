@@ -717,7 +717,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       }
     }
 
-    const setWidthInLocalStorage = (value: number) => {
+    const setDefaultWidthAndStoreInLocalStorage = (value: number) => {
+      setDefaultWidth(currentWidthRef.current!)
       try {
         localStorage.setItem(widthStorageKey, value.toString())
       } catch {
@@ -818,26 +819,24 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               }
             }
           }}
-          // Save final width to localStorage (skip React state update to avoid reconciliation)
+          // Save final width to localStorage and sync React state
           onDragEnd={() => {
-            // For mouse drag: The CSS variable is already set and currentWidthRef is in sync.
-            // We intentionally skip setPaneWidth() to avoid triggering expensive React
-            // reconciliation with large DOM trees. The ref is the source of truth for
-            // subsequent drag operations.
-            setWidthInLocalStorage(currentWidthRef.current!)
-            setDefaultWidth(currentWidthRef.current!)
+            // The CSS variable is already set and currentWidthRef is in sync.
+            // We sync React state so parent re-renders use the correct width.
+            // This causes one re-render after drag ends, but ensures consistency.
+            setDefaultWidthAndStoreInLocalStorage(currentWidthRef.current!)
           }}
           position={positionProp}
           // Reset pane width on double click
           onDoubleClick={() => {
-            const defaultWidth = getDefaultPaneWidth(width)
-            // Update CSS variable and ref directly - skip React state to avoid reconciliation
+            const resetWidth = getDefaultPaneWidth(width)
+            // Update CSS variable and ref directly
             if (paneRef.current) {
-              paneRef.current.style.setProperty('--pane-width', `${defaultWidth}px`)
-              currentWidthRef.current = defaultWidth
-              updateAriaValues(handleRef.current, {current: defaultWidth})
+              paneRef.current.style.setProperty('--pane-width', `${resetWidth}px`)
+              currentWidthRef.current = resetWidth
+              updateAriaValues(handleRef.current, {current: resetWidth})
             }
-            setWidthInLocalStorage(defaultWidth)
+            setDefaultWidthAndStoreInLocalStorage(resetWidth)
           }}
           className={classes.PaneVerticalDivider}
           style={
