@@ -185,15 +185,10 @@ const VerticalDivider: React.FC<React.PropsWithChildren<VerticalDividerProps>> =
   )
 }
 
-type DragHandleProps = {
+type DragHandleProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onDrag' | 'onDragEnd'> & {
   handleRef: React.RefObject<HTMLDivElement>
   onDrag: (delta: number, isKeyboard: boolean) => void
   onDragEnd: () => void
-  onDoubleClick: () => void
-  // ARIA slider values - set in JSX for SSR, updated via DOM manipulation during drag
-  ariaValueMin?: number
-  ariaValueMax?: number
-  ariaValueNow?: number
 }
 
 // Helper to update ARIA slider attributes via direct DOM manipulation
@@ -223,9 +218,11 @@ const DragHandle: React.FC<DragHandleProps> = ({
   onDrag,
   onDragEnd,
   onDoubleClick,
-  ariaValueMin,
-  ariaValueMax,
-  ariaValueNow,
+  'aria-valuemin': ariaValueMin,
+  'aria-valuemax': ariaValueMax,
+  'aria-valuenow': ariaValueNow,
+  'aria-valuetext': ariaValueText,
+  ...props
 }) => {
   const stableOnDrag = React.useRef(onDrag)
   const stableOnDragEnd = React.useRef(onDragEnd)
@@ -345,7 +342,7 @@ const DragHandle: React.FC<DragHandleProps> = ({
       aria-valuemin={ariaValueMin}
       aria-valuemax={ariaValueMax}
       aria-valuenow={ariaValueNow}
-      aria-valuetext={ariaValueNow !== undefined ? `Pane width ${ariaValueNow} pixels` : undefined}
+      aria-valuetext={ariaValueText ?? (ariaValueNow !== undefined ? `Pane width ${ariaValueNow} pixels` : undefined)}
       tabIndex={0}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
@@ -354,6 +351,7 @@ const DragHandle: React.FC<DragHandleProps> = ({
       onKeyDown={handleKeyDown}
       onKeyUp={handleKeyUp}
       onDoubleClick={onDoubleClick}
+      {...props}
     />
   )
 }
@@ -872,9 +870,9 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             <DragHandle
               handleRef={handleRef}
               // ARIA slider values for SSR accessibility - updated via DOM during drag
-              ariaValueMin={minPaneWidth}
-              ariaValueMax={maxPaneWidth}
-              ariaValueNow={defaultWidth}
+              aria-valuemin={minPaneWidth}
+              aria-valuemax={maxPaneWidth}
+              aria-valuenow={defaultWidth}
               onDrag={(delta, isKeyboard = false) => {
                 const deltaWithDirection = isKeyboard ? delta : position === 'end' ? -delta : delta
                 const maxWidth = getMaxPaneWidth()
