@@ -72,15 +72,15 @@ export const BaselineLight: Story = {
 
         <PageLayout.Content>
           <div style={{padding: '16px'}}>
-            <p>Minimal DOM elements to establish baseline.</p>
+            <SearchInput />
+            <p style={{marginTop: '16px'}}>Minimal DOM elements to establish baseline.</p>
             <p>Should be effortless 60 FPS.</p>
           </div>
         </PageLayout.Content>
 
         <PageLayout.Pane position="start" resizable>
           <div style={{padding: '16px'}}>
-            <SearchInput />
-            <p style={{marginTop: '16px'}}>Drag to test - should be instant.</p>
+            <p>Drag to test - should be instant.</p>
           </div>
         </PageLayout.Pane>
       </PageLayout>
@@ -102,13 +102,11 @@ export const MediumContent: Story = {
         </PageLayout.Header>
         <PageLayout.Pane position="start" resizable>
           <div style={{padding: '16px'}}>
-            <SearchInput />
             <div
               style={{
                 padding: '12px',
                 background: 'var(--bgColor-canvas-subtle)',
                 borderRadius: '6px',
-                marginTop: '16px',
                 marginBottom: '16px',
                 fontSize: '13px',
               }}
@@ -122,8 +120,9 @@ export const MediumContent: Story = {
         </PageLayout.Pane>
         <PageLayout.Content>
           <div style={{padding: '16px'}}>
+            <SearchInput />
             {/* Large table with complex cells */}
-            <h2 style={{marginBottom: '16px'}}>Data Table (300 rows × 10 columns)</h2>
+            <h2 style={{marginTop: '16px', marginBottom: '16px'}}>Data Table (300 rows × 10 columns)</h2>
             <div
               tabIndex={0}
               style={{
@@ -226,13 +225,11 @@ export const HeavyContent: Story = {
 
         <PageLayout.Pane position="start" resizable>
           <div style={{padding: '16px'}}>
-            <SearchInput />
             <div
               style={{
                 padding: '12px',
                 background: 'var(--bgColor-canvas-subtle)',
                 borderRadius: '6px',
-                marginTop: '16px',
                 marginBottom: '16px',
                 fontSize: '13px',
               }}
@@ -256,8 +253,9 @@ export const HeavyContent: Story = {
 
         <PageLayout.Content>
           <div tabIndex={0} style={{padding: '16px', overflowY: 'auto', height: '600px'}}>
+            <SearchInput />
             {/* Section 1: Large card grid */}
-            <section style={{marginBottom: '32px'}}>
+            <section style={{marginTop: '16px', marginBottom: '32px'}}>
               <h2 style={{marginBottom: '16px'}}>Activity Feed (200 cards)</h2>
               <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '12px'}}>
                 {Array.from({length: 200}).map((_, i) => (
