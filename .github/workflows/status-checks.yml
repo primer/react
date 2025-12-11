@@ -56,6 +56,12 @@ jobs:
             -f context='github-ui / projects' \
             -f description='Skipped' \
             -f target_url="$TARGET_URL"
+
+          gh api -X POST "/repos/primer/react/statuses/$SHA" \
+            -f state='success' \
+            -f context='github-ui / vrt' \
+            -f description='Skipped' \
+            -f target_url="$TARGET_URL"
         env:
           GH_TOKEN: ${{ steps.generate_primer_token.outputs.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
@@ -73,6 +79,11 @@ jobs:
           gh api -X POST "/repos/primer/react/statuses/${{ github.event.merge_group.head_sha }}" \
             -f state='success' \
             -f context='github-ui / projects' \
+            -f description='Skipped'
+
+          gh api -X POST "/repos/primer/react/statuses/${{ github.event.merge_group.head_sha }}" \
+            -f state='success' \
+            -f context='github-ui / vrt' \
             -f description='Skipped'
         env:
           GH_TOKEN: ${{ steps.generate_primer_token.outputs.token }}
@@ -106,6 +117,12 @@ jobs:
           gh api -X POST "/repos/primer/react/statuses/$SHA" \
             -f state='success' \
             -f context='github-ui / projects' \
+            -f description='Manual override' \
+            -f target_url="$COMMENT_URL"
+
+          gh api -X POST "/repos/primer/react/statuses/$SHA" \
+            -f state='success' \
+            -f context='github-ui / vrt' \
             -f description='Manual override' \
             -f target_url="$COMMENT_URL"
         env:
