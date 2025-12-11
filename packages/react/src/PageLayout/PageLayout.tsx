@@ -156,8 +156,30 @@ const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
   )
 }
 
-type DraggableDividerProps = {
+type VerticalDividerProps = DividerProps & {
   draggable?: boolean
+}
+
+const VerticalDivider: React.FC<React.PropsWithChildren<VerticalDividerProps>> = ({
+  variant = 'none',
+  position,
+  className,
+  style,
+  children,
+}) => {
+  return (
+    <div
+      className={clsx(classes.VerticalDivider, className)}
+      {...getResponsiveAttributes('variant', variant)}
+      {...getResponsiveAttributes('position', position)}
+      style={style}
+    >
+      {children}
+    </div>
+  )
+}
+
+type DragHandleProps = {
   handleRef: React.RefObject<HTMLDivElement>
   onDrag: (delta: number, isKeyboard: boolean) => void
   onDragEnd: () => void
@@ -185,16 +207,16 @@ const isDragging = (handle: HTMLElement | null) => {
   return handle?.getAttribute(DATA_DRAGGING_ATTR) === 'true'
 }
 
-const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & DraggableDividerProps>> = ({
-  variant = 'none',
-  draggable = false,
+/**
+ * DragHandle - handles all pointer and keyboard interactions for resizing
+ * ARIA values are set in JSX for SSR accessibility,
+ * then updated via DOM manipulation during drag for performance
+ */
+const DragHandle: React.FC<DragHandleProps> = ({
   handleRef,
   onDrag,
   onDragEnd,
   onDoubleClick,
-  position,
-  className,
-  style,
   ariaValueMin,
   ariaValueMax,
   ariaValueNow,
@@ -310,35 +332,23 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
 
   return (
     <div
-      className={clsx(classes.VerticalDivider, className)}
-      {...getResponsiveAttributes('variant', variant)}
-      {...getResponsiveAttributes('position', position)}
-      style={style}
-    >
-      {draggable ? (
-        // Drag handle
-        // ARIA values are set in JSX for SSR accessibility,
-        // then updated via DOM manipulation during drag for performance
-        <div
-          ref={handleRef}
-          className={classes.DraggableHandle}
-          role="slider"
-          aria-label="Draggable pane splitter"
-          aria-valuemin={ariaValueMin}
-          aria-valuemax={ariaValueMax}
-          aria-valuenow={ariaValueNow}
-          aria-valuetext={ariaValueNow !== undefined ? `Pane width ${ariaValueNow} pixels` : undefined}
-          tabIndex={0}
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={handlePointerUp}
-          onLostPointerCapture={handleLostPointerCapture}
-          onKeyDown={handleKeyDown}
-          onKeyUp={handleKeyUp}
-          onDoubleClick={onDoubleClick}
-        />
-      ) : null}
-    </div>
+      ref={handleRef}
+      className={classes.DraggableHandle}
+      role="slider"
+      aria-label="Draggable pane splitter"
+      aria-valuemin={ariaValueMin}
+      aria-valuemax={ariaValueMax}
+      aria-valuenow={ariaValueNow}
+      aria-valuetext={ariaValueNow !== undefined ? `Pane width ${ariaValueNow} pixels` : undefined}
+      tabIndex={0}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onLostPointerCapture={handleLostPointerCapture}
+      onKeyDown={handleKeyDown}
+      onKeyUp={handleKeyUp}
+      onDoubleClick={onDoubleClick}
+    />
   )
 }
 
@@ -838,65 +848,74 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           }
           // If pane is resizable, the divider should be draggable
           draggable={resizable}
-          handleRef={handleRef}
-          // ARIA slider values for SSR accessibility - updated via DOM during drag
-          ariaValueMin={minPaneWidth}
-          ariaValueMax={maxPaneWidth}
-          ariaValueNow={defaultWidth}
-          onDrag={(delta, isKeyboard = false) => {
-            const deltaWithDirection = isKeyboard ? delta : position === 'end' ? -delta : delta
-            const maxWidth = getMaxPaneWidth()
-
-            if (isKeyboard) {
-              // Clamp keyboard delta to stay within bounds
-              const newWidth = Math.max(minPaneWidth, Math.min(maxWidth, currentWidthRef.current! + deltaWithDirection))
-              if (newWidth !== currentWidthRef.current) {
-                currentWidthRef.current = newWidth
-                paneRef.current?.style.setProperty('--pane-width', `${newWidth}px`)
-                updateAriaValues(handleRef.current, {current: newWidth, max: maxWidth})
-              }
-            } else {
-              // Apply delta directly via CSS variable for immediate visual feedback
-              if (paneRef.current) {
-                const newWidth = currentWidthRef.current! + deltaWithDirection
-                const clampedWidth = Math.max(minPaneWidth, Math.min(maxWidth, newWidth))
-
-                // Only update if the clamped width actually changed
-                // This prevents drift when dragging against min/max constraints
-                if (clampedWidth !== currentWidthRef.current) {
-                  paneRef.current.style.setProperty('--pane-width', `${clampedWidth}px`)
-                  currentWidthRef.current = clampedWidth
-                  updateAriaValues(handleRef.current, {current: clampedWidth, max: maxWidth})
-                }
-              }
-            }
-          }}
-          // Save final width to localStorage and sync React state
-          onDragEnd={() => {
-            // The CSS variable is already set and currentWidthRef is in sync.
-            // We sync React state so parent re-renders use the correct width.
-            // This causes one re-render after drag ends, but ensures consistency.
-            setDefaultWidthAndStoreInLocalStorage(currentWidthRef.current!)
-          }}
           position={positionProp}
           // Reset pane width on double click
-          onDoubleClick={() => {
-            const resetWidth = getDefaultPaneWidth(width)
-            // Update CSS variable and ref directly
-            if (paneRef.current) {
-              paneRef.current.style.setProperty('--pane-width', `${resetWidth}px`)
-              currentWidthRef.current = resetWidth
-              updateAriaValues(handleRef.current, {current: resetWidth})
-            }
-            setDefaultWidthAndStoreInLocalStorage(resetWidth)
-          }}
+
           className={classes.PaneVerticalDivider}
           style={
             {
               '--spacing': `var(--spacing-${columnGap})`,
             } as React.CSSProperties
           }
-        />
+        >
+          {resizable ? (
+            <DragHandle
+              handleRef={handleRef}
+              // ARIA slider values for SSR accessibility - updated via DOM during drag
+              ariaValueMin={minPaneWidth}
+              ariaValueMax={maxPaneWidth}
+              ariaValueNow={defaultWidth}
+              onDrag={(delta, isKeyboard = false) => {
+                const deltaWithDirection = isKeyboard ? delta : position === 'end' ? -delta : delta
+                const maxWidth = getMaxPaneWidth()
+
+                if (isKeyboard) {
+                  // Clamp keyboard delta to stay within bounds
+                  const newWidth = Math.max(
+                    minPaneWidth,
+                    Math.min(maxWidth, currentWidthRef.current! + deltaWithDirection),
+                  )
+                  if (newWidth !== currentWidthRef.current) {
+                    currentWidthRef.current = newWidth
+                    paneRef.current?.style.setProperty('--pane-width', `${newWidth}px`)
+                    updateAriaValues(handleRef.current, {current: newWidth, max: maxWidth})
+                  }
+                } else {
+                  // Apply delta directly via CSS variable for immediate visual feedback
+                  if (paneRef.current) {
+                    const newWidth = currentWidthRef.current! + deltaWithDirection
+                    const clampedWidth = Math.max(minPaneWidth, Math.min(maxWidth, newWidth))
+
+                    // Only update if the clamped width actually changed
+                    // This prevents drift when dragging against min/max constraints
+                    if (clampedWidth !== currentWidthRef.current) {
+                      paneRef.current.style.setProperty('--pane-width', `${clampedWidth}px`)
+                      currentWidthRef.current = clampedWidth
+                      updateAriaValues(handleRef.current, {current: clampedWidth, max: maxWidth})
+                    }
+                  }
+                }
+              }}
+              // Save final width to localStorage and sync React state
+              onDragEnd={() => {
+                // The CSS variable is already set and currentWidthRef is in sync.
+                // We sync React state so parent re-renders use the correct width.
+                // This causes one re-render after drag ends, but ensures consistency.
+                setDefaultWidthAndStoreInLocalStorage(currentWidthRef.current!)
+              }}
+              onDoubleClick={() => {
+                const resetWidth = getDefaultPaneWidth(width)
+                // Update CSS variable and ref directly
+                if (paneRef.current) {
+                  paneRef.current.style.setProperty('--pane-width', `${resetWidth}px`)
+                  currentWidthRef.current = resetWidth
+                  updateAriaValues(handleRef.current, {current: resetWidth})
+                }
+                setDefaultWidthAndStoreInLocalStorage(resetWidth)
+              }}
+            />
+          ) : null}
+        </VerticalDivider>
       </div>
     )
   },
