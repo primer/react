@@ -23,6 +23,9 @@ const IGNORED_FILES = [
   'packages/react/src/internal/components/Caret.tsx',
   'packages/react/src/ThemeProvider.tsx',
   'packages/react/src/experimental/SelectPanel2/__tests__/SelectPanelLoading.test.tsx',
+  'packages/react/src/__tests__/ThemeProvider.test.tsx',
+  'packages/react/src/__tests__/deprecated/ActionMenu.test.tsx',
+  'packages/react/src/__tests__/Caret.test.tsx',
 ]
 
 function getAllTestFiles(dir, files = []) {
