@@ -783,14 +783,71 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       }
     }
 
-    const setDefaultWidthAndStoreInLocalStorage = (value: number) => {
-      setDefaultWidth(currentWidthRef.current!)
-      try {
-        localStorage.setItem(widthStorageKey, value.toString())
-      } catch {
-        // Ignore write errors
+    // Persist width to localStorage and sync React state
+    const setDefaultWidthAndStoreInLocalStorage = React.useCallback(
+      (value: number) => {
+        setDefaultWidth(value)
+        try {
+          localStorage.setItem(widthStorageKey, value.toString())
+        } catch {
+          // Ignore write errors
+        }
+      },
+      [widthStorageKey],
+    )
+
+    // Handle drag delta from pointer or keyboard interaction
+    const handleDrag = React.useCallback(
+      (delta: number, isKeyboard: boolean) => {
+        const deltaWithDirection = isKeyboard ? delta : position === 'end' ? -delta : delta
+        const maxWidth = getMaxPaneWidth()
+
+        if (isKeyboard) {
+          // Clamp keyboard delta to stay within bounds
+          const newWidth = Math.max(minPaneWidth, Math.min(maxWidth, currentWidthRef.current! + deltaWithDirection))
+          if (newWidth !== currentWidthRef.current) {
+            currentWidthRef.current = newWidth
+            paneRef.current?.style.setProperty('--pane-width', `${newWidth}px`)
+            updateAriaValues(handleRef.current, {current: newWidth, max: maxWidth})
+          }
+        } else {
+          // Apply delta directly via CSS variable for immediate visual feedback
+          if (paneRef.current) {
+            const newWidth = currentWidthRef.current! + deltaWithDirection
+            const clampedWidth = Math.max(minPaneWidth, Math.min(maxWidth, newWidth))
+
+            // Only update if the clamped width actually changed
+            // This prevents drift when dragging against min/max constraints
+            if (clampedWidth !== currentWidthRef.current) {
+              paneRef.current.style.setProperty('--pane-width', `${clampedWidth}px`)
+              currentWidthRef.current = clampedWidth
+              updateAriaValues(handleRef.current, {current: clampedWidth, max: maxWidth})
+            }
+          }
+        }
+      },
+      [position, getMaxPaneWidth, minPaneWidth, paneRef],
+    )
+
+    // Save final width to localStorage and sync React state after drag ends
+    const handleDragEnd = React.useCallback(() => {
+      // The CSS variable is already set and currentWidthRef is in sync.
+      // We sync React state so parent re-renders use the correct width.
+      // This causes one re-render after drag ends, but ensures consistency.
+      setDefaultWidthAndStoreInLocalStorage(currentWidthRef.current!)
+    }, [setDefaultWidthAndStoreInLocalStorage])
+
+    // Reset pane to default width on double-click
+    const handleReset = React.useCallback(() => {
+      const resetWidth = getDefaultPaneWidth(width)
+      // Update CSS variable and ref directly
+      if (paneRef.current) {
+        paneRef.current.style.setProperty('--pane-width', `${resetWidth}px`)
+        currentWidthRef.current = resetWidth
+        updateAriaValues(handleRef.current, {current: resetWidth})
       }
-    }
+      setDefaultWidthAndStoreInLocalStorage(resetWidth)
+    }, [width, paneRef, setDefaultWidthAndStoreInLocalStorage])
 
     return (
       <div
@@ -869,58 +926,12 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           {resizable ? (
             <DragHandle
               handleRef={handleRef}
-              // ARIA slider values for SSR accessibility - updated via DOM during drag
               aria-valuemin={minPaneWidth}
               aria-valuemax={maxPaneWidth}
               aria-valuenow={defaultWidth}
-              onDrag={(delta, isKeyboard = false) => {
-                const deltaWithDirection = isKeyboard ? delta : position === 'end' ? -delta : delta
-                const maxWidth = getMaxPaneWidth()
-
-                if (isKeyboard) {
-                  // Clamp keyboard delta to stay within bounds
-                  const newWidth = Math.max(
-                    minPaneWidth,
-                    Math.min(maxWidth, currentWidthRef.current! + deltaWithDirection),
-                  )
-                  if (newWidth !== currentWidthRef.current) {
-                    currentWidthRef.current = newWidth
-                    paneRef.current?.style.setProperty('--pane-width', `${newWidth}px`)
-                    updateAriaValues(handleRef.current, {current: newWidth, max: maxWidth})
-                  }
-                } else {
-                  // Apply delta directly via CSS variable for immediate visual feedback
-                  if (paneRef.current) {
-                    const newWidth = currentWidthRef.current! + deltaWithDirection
-                    const clampedWidth = Math.max(minPaneWidth, Math.min(maxWidth, newWidth))
-
-                    // Only update if the clamped width actually changed
-                    // This prevents drift when dragging against min/max constraints
-                    if (clampedWidth !== currentWidthRef.current) {
-                      paneRef.current.style.setProperty('--pane-width', `${clampedWidth}px`)
-                      currentWidthRef.current = clampedWidth
-                      updateAriaValues(handleRef.current, {current: clampedWidth, max: maxWidth})
-                    }
-                  }
-                }
-              }}
-              // Save final width to localStorage and sync React state
-              onDragEnd={() => {
-                // The CSS variable is already set and currentWidthRef is in sync.
-                // We sync React state so parent re-renders use the correct width.
-                // This causes one re-render after drag ends, but ensures consistency.
-                setDefaultWidthAndStoreInLocalStorage(currentWidthRef.current!)
-              }}
-              onDoubleClick={() => {
-                const resetWidth = getDefaultPaneWidth(width)
-                // Update CSS variable and ref directly
-                if (paneRef.current) {
-                  paneRef.current.style.setProperty('--pane-width', `${resetWidth}px`)
-                  currentWidthRef.current = resetWidth
-                  updateAriaValues(handleRef.current, {current: resetWidth})
-                }
-                setDefaultWidthAndStoreInLocalStorage(resetWidth)
-              }}
+              onDrag={handleDrag}
+              onDragEnd={handleDragEnd}
+              onDoubleClick={handleReset}
             />
           ) : null}
         </VerticalDivider>
