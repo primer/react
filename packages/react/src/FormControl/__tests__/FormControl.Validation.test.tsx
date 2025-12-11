@@ -1,5 +1,4 @@
-import {render} from '@testing-library/react'
-import {describe, it, expect} from 'vitest'
+import {describe} from 'vitest'
 import FormControl from '../FormControl'
 import {implementsClassName} from '../../utils/testing'
 import classes from '../../internal/components/InputValidation.module.css'
