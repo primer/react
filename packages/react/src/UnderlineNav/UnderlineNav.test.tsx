@@ -15,7 +15,7 @@ import {
 import {UnderlineNav} from '.'
 import {implementsClassName} from '../utils/testing'
 import classes from '../internal/components/UnderlineTabbedInterface.module.css'
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 
 const ResponsiveUnderlineNav = ({
   selectedItemText = 'Code',
