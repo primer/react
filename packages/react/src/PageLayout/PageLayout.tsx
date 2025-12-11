@@ -14,14 +14,20 @@ import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 /**
+ * Default value for --pane-max-width-diff CSS variable.
+ * This is the fallback when the element isn't mounted or value can't be read.
+ */
+const DEFAULT_MAX_WIDTH_DIFF = 511
+
+/**
  * Gets the --pane-max-width-diff CSS variable value from a pane element.
  * This value is set by CSS media queries and controls the max pane width constraint.
- * Falls back to 511 (the CSS default) if the value cannot be read.
+ * Note: This calls getComputedStyle which forces layout - cache the result when possible.
  */
 function getPaneMaxWidthDiff(paneElement: HTMLElement | null): number {
-  if (!paneElement) return 511
+  if (!paneElement) return DEFAULT_MAX_WIDTH_DIFF
   const value = parseInt(getComputedStyle(paneElement).getPropertyValue('--pane-max-width-diff'), 10)
-  return value > 0 ? value : 511
+  return value > 0 ? value : DEFAULT_MAX_WIDTH_DIFF
 }
 
 const REGION_ORDER = {
@@ -689,16 +695,18 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     // Calculate min width constraint from width configuration
     const minPaneWidth = isCustomWidthOptions(width) ? parseInt(width.min, 10) : minWidth
 
-    // Calculate max width constraint lazily - called during drag operations
-    // This avoids subscribing to viewport changes just for constraint calculation
+    // Cache the CSS variable value to avoid getComputedStyle during drag (causes layout thrashing)
+    // Updated on mount and resize when breakpoints might change
+    const maxWidthDiffRef = React.useRef(DEFAULT_MAX_WIDTH_DIFF)
+
+    // Calculate max width constraint using cached maxWidthDiff
     const getMaxPaneWidth = React.useCallback(() => {
       if (isCustomWidthOptions(width)) {
         return parseInt(width.max, 10)
       }
-      const maxWidthDiff = getPaneMaxWidthDiff(paneRef.current)
       const viewportWidth = window.innerWidth
-      return viewportWidth > 0 ? Math.max(minPaneWidth, viewportWidth - maxWidthDiff) : minPaneWidth
-    }, [width, minPaneWidth, paneRef])
+      return viewportWidth > 0 ? Math.max(minPaneWidth, viewportWidth - maxWidthDiffRef.current) : minPaneWidth
+    }, [width, minPaneWidth])
 
     // Max pane width for React state - SSR uses a sensible default, updated on mount
     // This is used for ARIA attributes in JSX to ensure SSR accessibility
@@ -724,6 +732,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     // so this doesn't cause the INP issues that ResizeObserver on document.documentElement did
     useIsomorphicLayoutEffect(() => {
       const updateMax = () => {
+        // Update cached CSS variable value (only getComputedStyle call happens here, not during drag)
+        maxWidthDiffRef.current = getPaneMaxWidthDiff(paneRef.current)
         const actualMax = getMaxPaneWidthRef.current()
         setMaxPaneWidth(actualMax)
         // Clamp current width if it exceeds new max (viewport shrunk)
