@@ -1,9 +1,11 @@
-import React from 'react'
+import React, {useState} from 'react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {PageLayout} from './PageLayout'
 import {Button} from '../Button'
 import Label from '../Label'
 import Heading from '../Heading'
+import Autocomplete from '../Autocomplete'
+import FormControl from '../FormControl'
 
 const meta: Meta<typeof PageLayout> = {
   title: 'Components/PageLayout/Performance Tests',
@@ -13,6 +15,47 @@ const meta: Meta<typeof PageLayout> = {
 export default meta
 
 type Story = StoryObj<typeof PageLayout>
+
+// Autocomplete suggestions data
+const suggestions = [
+  {id: '1', text: 'JavaScript'},
+  {id: '2', text: 'TypeScript'},
+  {id: '3', text: 'React'},
+  {id: '4', text: 'Vue'},
+  {id: '5', text: 'Angular'},
+  {id: '6', text: 'Svelte'},
+  {id: '7', text: 'Node.js'},
+  {id: '8', text: 'Python'},
+  {id: '9', text: 'Ruby'},
+  {id: '10', text: 'Go'},
+]
+
+// Reusable stateful autocomplete search component
+function SearchInput() {
+  const [filterValue, setFilterValue] = useState('')
+  const filteredItems = suggestions.filter(item => item.text.toLowerCase().includes(filterValue.toLowerCase()))
+
+  return (
+    <FormControl>
+      <FormControl.Label>Search</FormControl.Label>
+      <Autocomplete>
+        <Autocomplete.Input
+          value={filterValue}
+          onChange={e => setFilterValue(e.target.value)}
+          placeholder="Search items..."
+        />
+        <Autocomplete.Overlay>
+          <Autocomplete.Menu
+            items={filteredItems}
+            selectedItemIds={[]}
+            aria-labelledby="autocomplete-label"
+            selectionVariant="single"
+          />
+        </Autocomplete.Overlay>
+      </Autocomplete>
+    </FormControl>
+  )
+}
 
 // ============================================================================
 // Story 1: Baseline - Light Content (~100 elements)
@@ -36,7 +79,8 @@ export const BaselineLight: Story = {
 
         <PageLayout.Pane position="start" resizable>
           <div style={{padding: '16px'}}>
-            <p>Drag to test - should be instant.</p>
+            <SearchInput />
+            <p style={{marginTop: '16px'}}>Drag to test - should be instant.</p>
           </div>
         </PageLayout.Pane>
       </PageLayout>
@@ -58,12 +102,13 @@ export const MediumContent: Story = {
         </PageLayout.Header>
         <PageLayout.Pane position="start" resizable>
           <div style={{padding: '16px'}}>
-            <p>Performance Monitor</p>
+            <SearchInput />
             <div
               style={{
                 padding: '12px',
                 background: 'var(--bgColor-canvas-subtle)',
                 borderRadius: '6px',
+                marginTop: '16px',
                 marginBottom: '16px',
                 fontSize: '13px',
               }}
@@ -181,11 +226,13 @@ export const HeavyContent: Story = {
 
         <PageLayout.Pane position="start" resizable>
           <div style={{padding: '16px'}}>
+            <SearchInput />
             <div
               style={{
                 padding: '12px',
                 background: 'var(--bgColor-canvas-subtle)',
                 borderRadius: '6px',
+                marginTop: '16px',
                 marginBottom: '16px',
                 fontSize: '13px',
               }}
