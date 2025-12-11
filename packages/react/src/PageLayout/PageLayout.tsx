@@ -748,7 +748,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           paneRef.current?.style.setProperty('--pane-width', `${actualMax}px`)
           setDefaultWidth(actualMax)
         }
-        updateAriaValues(handleRef.current, {max: actualMax, current: currentWidthRef.current})
+        updateAriaValues(handleRef.current, {min: minPaneWidth, max: actualMax, current: currentWidthRef.current})
       }
       updateMax()
 
