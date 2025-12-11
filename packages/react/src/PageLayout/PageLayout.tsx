@@ -726,22 +726,20 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       }
       updateMax()
 
-      // Debounce resize handler to only update after resize ends
-      // This avoids noisy ARIA updates during continuous resize
-      // CSS max-width handles visual clamping during resize anyway
-      let timeoutId: ReturnType<typeof setTimeout> | null = null
-      const debouncedUpdateMax = () => {
-        if (timeoutId) clearTimeout(timeoutId)
-        timeoutId = setTimeout(updateMax, 150)
+      // Throttle resize handler to animation frames
+      let rafId: number | null = null
+      const throttledUpdateMax = () => {
+        if (rafId) cancelAnimationFrame(rafId)
+        rafId = requestAnimationFrame(updateMax)
       }
 
       // ResizeObserver on document.documentElement fires on any content change (typing, etc),
       // causing INP regressions. Window resize only fires on viewport changes.
       // eslint-disable-next-line github/prefer-observers
-      window.addEventListener('resize', debouncedUpdateMax)
+      window.addEventListener('resize', throttledUpdateMax)
       return () => {
-        if (timeoutId) clearTimeout(timeoutId)
-        window.removeEventListener('resize', debouncedUpdateMax)
+        if (rafId) cancelAnimationFrame(rafId)
+        window.removeEventListener('resize', throttledUpdateMax)
       }
     }, [minPaneWidth, paneRef])
 
