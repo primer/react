@@ -643,7 +643,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
     // Initial pane width for the first render - only used to set the initial CSS variable.
     // After mount, all updates go directly to the DOM via style.setProperty() to avoid re-renders.
-    const defaultWidth = getDefaultPaneWidth(width)
+    const [defaultWidth, setDefaultWidth] = React.useState(() => getDefaultPaneWidth(width))
 
     // Track current width during drag - initialized lazily in layout effect
     const currentWidthRef = React.useRef(defaultWidth)
@@ -662,13 +662,12 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           const num = Number(value)
           currentWidthRef.current = num
           paneRef.current?.style.setProperty('--pane-width', `${num}px`)
-          return
+          setDefaultWidth(num)
         }
       } catch {
-        // localStorage unavailable - set default via DOM
+        // localStorage unavailable - keep default
       }
-      paneRef.current?.style.setProperty('--pane-width', `${defaultWidth}px`)
-    }, [widthStorageKey, paneRef, resizable, defaultWidth])
+    }, [widthStorageKey, paneRef, resizable])
 
     // Calculate min width constraint from width configuration
     const minPaneWidth = isCustomWidthOptions(width) ? parseInt(width.min, 10) : minWidth
@@ -766,7 +765,9 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               '--pane-max-width': isCustomWidthOptions(width) ? width.max : `calc(100vw - var(--pane-max-width-diff))`,
               '--pane-width-custom': isCustomWidthOptions(width) ? width.default : undefined,
               '--pane-width-size': `var(--pane-width-${isPaneWidth(width) ? width : 'custom'})`,
-              // --pane-width is set via layout effect (for localStorage) and DOM manipulation (for drag).
+              // Set --pane-width to default on initial render (SSR-safe).
+              // Layout effect updates it from localStorage before paint to avoid CLS.
+              '--pane-width': resizable ? `${defaultWidth}px` : undefined,
             } as React.CSSProperties
           }
         >
@@ -824,6 +825,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             // reconciliation with large DOM trees. The ref is the source of truth for
             // subsequent drag operations.
             setWidthInLocalStorage(currentWidthRef.current!)
+            setDefaultWidth(currentWidthRef.current!)
           }}
           position={positionProp}
           // Reset pane width on double click
