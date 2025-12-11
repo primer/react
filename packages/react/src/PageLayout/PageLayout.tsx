@@ -185,10 +185,21 @@ const VerticalDivider: React.FC<React.PropsWithChildren<VerticalDividerProps>> =
   )
 }
 
-type DragHandleProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onDrag' | 'onDragEnd'> & {
+type DragHandleProps = {
+  /** Ref for imperative ARIA updates during drag */
   handleRef: React.RefObject<HTMLDivElement>
+  /** Called with movement delta on each drag tick */
   onDrag: (delta: number, isKeyboard: boolean) => void
+  /** Called when drag operation completes */
   onDragEnd: () => void
+  /** Reset width on double-click */
+  onDoubleClick?: React.MouseEventHandler<HTMLDivElement>
+  /** ARIA slider min value */
+  'aria-valuemin'?: number
+  /** ARIA slider max value */
+  'aria-valuemax'?: number
+  /** ARIA slider current value */
+  'aria-valuenow'?: number
 }
 
 // Helper to update ARIA slider attributes via direct DOM manipulation
@@ -221,7 +232,6 @@ const DragHandle: React.FC<DragHandleProps> = ({
   'aria-valuemin': ariaValueMin,
   'aria-valuemax': ariaValueMax,
   'aria-valuenow': ariaValueNow,
-  ...props
 }) => {
   const stableOnDrag = React.useRef(onDrag)
   const stableOnDragEnd = React.useRef(onDragEnd)
@@ -350,7 +360,6 @@ const DragHandle: React.FC<DragHandleProps> = ({
       onKeyDown={handleKeyDown}
       onKeyUp={handleKeyUp}
       onDoubleClick={onDoubleClick}
-      {...props}
     />
   )
 }
