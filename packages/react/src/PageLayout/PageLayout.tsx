@@ -20,6 +20,18 @@ import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 const DEFAULT_MAX_WIDTH_DIFF = 511
 
 /**
+ * Pixel increment for keyboard arrow key resizing.
+ * @see https://github.com/github/accessibility/issues/5101#issuecomment-1822870655
+ */
+const ARROW_KEY_STEP = 3
+
+/**
+ * Default max pane width for SSR when viewport is unknown.
+ * Updated to actual value in layout effect before paint.
+ */
+const SSR_DEFAULT_MAX_WIDTH = 600
+
+/**
  * Gets the --pane-max-width-diff CSS variable value from a pane element.
  * This value is set by CSS media queries and controls the max pane width constraint.
  * Note: This calls getComputedStyle which forces layout - cache the result when possible.
@@ -320,7 +332,7 @@ const DragHandle: React.FC<DragHandleProps> = ({
         if (!paneRef.current) return
 
         // https://github.com/github/accessibility/issues/5101#issuecomment-1822870655
-        const delta = event.key === 'ArrowLeft' || event.key === 'ArrowDown' ? -3 : 3
+        const delta = event.key === 'ArrowLeft' || event.key === 'ArrowDown' ? -ARROW_KEY_STEP : ARROW_KEY_STEP
 
         event.currentTarget.setAttribute(DATA_DRAGGING_ATTR, 'true')
         stableOnDrag.current(delta, true)
@@ -722,7 +734,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       }
       // SSR-safe default: use a reasonable max based on typical viewport
       // This will be updated in layout effect before paint
-      return 600
+      return SSR_DEFAULT_MAX_WIDTH
     }
     const [maxPaneWidth, setMaxPaneWidth] = React.useState(getInitialMaxPaneWidth)
 
