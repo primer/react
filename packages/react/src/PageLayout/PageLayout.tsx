@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useRef} from 'react'
+import React, {useRef} from 'react'
 import {clsx} from 'clsx'
 import {useId} from '../hooks/useId'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
@@ -162,6 +162,10 @@ type DraggableDividerProps = {
   onDrag: (delta: number, isKeyboard: boolean) => void
   onDragEnd: () => void
   onDoubleClick: () => void
+  // ARIA slider values - set in JSX for SSR, updated via DOM manipulation during drag
+  ariaValueMin?: number
+  ariaValueMax?: number
+  ariaValueNow?: number
 }
 
 // Helper to update ARIA slider attributes via direct DOM manipulation
@@ -191,6 +195,9 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   position,
   className,
   style,
+  ariaValueMin,
+  ariaValueMax,
+  ariaValueNow,
 }) => {
   const stableOnDrag = React.useRef(onDrag)
   const stableOnDragEnd = React.useRef(onDragEnd)
@@ -309,19 +316,18 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       style={style}
     >
       {draggable ? (
-        // Drag handle - ARIA attributes set via DOM manipulation for performance
+        // Drag handle
+        // ARIA values are set in JSX for SSR accessibility,
+        // then updated via DOM manipulation during drag for performance
         <div
           ref={handleRef}
           className={classes.DraggableHandle}
           role="slider"
           aria-label="Draggable pane splitter"
-          /**
-           * aria-valuemin, aria-valuemax, aria-valuenow, and aria-valuetext
-           * are set via direct DOM manipulation in order to avoid re-renders
-           * during drag operations.
-           *
-           * This is a performance optimization.
-           */
+          aria-valuemin={ariaValueMin}
+          aria-valuemax={ariaValueMax}
+          aria-valuenow={ariaValueNow}
+          aria-valuetext={ariaValueNow !== undefined ? `Pane width ${ariaValueNow} pixels` : undefined}
           tabIndex={0}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
@@ -684,18 +690,33 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       return viewportWidth > 0 ? Math.max(minPaneWidth, viewportWidth - maxWidthDiff) : minPaneWidth
     }, [width, minPaneWidth, paneRef])
 
+    // Max pane width for React state - SSR uses a sensible default, updated on mount
+    // This is used for ARIA attributes in JSX to ensure SSR accessibility
+    const getInitialMaxPaneWidth = () => {
+      if (isCustomWidthOptions(width)) {
+        return parseInt(width.max, 10)
+      }
+      // SSR-safe default: use a reasonable max based on typical viewport
+      // This will be updated in layout effect before paint
+      return 600
+    }
+    const [maxPaneWidth, setMaxPaneWidth] = React.useState(getInitialMaxPaneWidth)
+
     // Ref to the drag handle for updating ARIA attributes
     const handleRef = React.useRef<HTMLDivElement>(null)
 
     const getMaxPaneWidthRef = React.useRef(getMaxPaneWidth)
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       getMaxPaneWidthRef.current = getMaxPaneWidth
     })
-    // Update ARIA attributes on mount only - subsequent updates happen during drag operations
+    // Update max pane width on mount for accurate ARIA values
     useIsomorphicLayoutEffect(() => {
+      const actualMax = getMaxPaneWidthRef.current()
+      setMaxPaneWidth(actualMax)
+      // Also update DOM directly in case React batches the state update
       updateAriaValues(handleRef.current, {
         min: minPaneWidth,
-        max: getMaxPaneWidthRef.current(),
+        max: actualMax,
         current: currentWidthRef.current!,
       })
     }, [minPaneWidth])
@@ -796,6 +817,10 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           // If pane is resizable, the divider should be draggable
           draggable={resizable}
           handleRef={handleRef}
+          // ARIA slider values for SSR accessibility - updated via DOM during drag
+          ariaValueMin={minPaneWidth}
+          ariaValueMax={maxPaneWidth}
+          ariaValueNow={defaultWidth}
           onDrag={(delta, isKeyboard = false) => {
             const deltaWithDirection = isKeyboard ? delta : position === 'end' ? -delta : delta
             const maxWidth = getMaxPaneWidth()
