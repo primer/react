@@ -1,5 +1,17 @@
 # @primer/react
 
+## 38.6.0
+
+### Minor Changes
+
+- [#7157](https://github.com/primer/react/pull/7157) [`eddd934`](https://github.com/primer/react/commit/eddd9340cab24ebf8054c79ca855028ed511c495) Thanks [@joshblack](https://github.com/joshblack)! - Add feature flag to control whether Spinner animations are synchronized
+
+- [#7277](https://github.com/primer/react/pull/7277) [`4a1c9a5`](https://github.com/primer/react/commit/4a1c9a5e48cdce7059358cd37a6d7f3f23e20c43) Thanks [@kendallgassner](https://github.com/kendallgassner)! - Added callback prop onActiveDescendantChanged to FilteredActionList
+
+### Patch Changes
+
+- [#7305](https://github.com/primer/react/pull/7305) [`335e9e8`](https://github.com/primer/react/commit/335e9e8eedc23de3041656acffb4873cd007f698) Thanks [@llastflowers](https://github.com/llastflowers)! - Revert PR #7275
+
 ## 38.5.0
 
 ### Minor Changes
