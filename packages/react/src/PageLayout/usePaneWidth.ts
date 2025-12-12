@@ -294,7 +294,7 @@ export function usePaneWidth({
       }, DEBOUNCE_MS)
     }
 
-    // eslint-disable-next-line github/prefer-observers
+    // eslint-disable-next-line github/prefer-observers -- Uses window resize events instead of ResizeObserver to avoid INP issues. ResizeObserver on document.documentElement fires on any content change (typing, etc), while window resize only fires on actual viewport changes.
     window.addEventListener('resize', handleResize)
     return () => {
       if (rafId !== null) cancelAnimationFrame(rafId)
