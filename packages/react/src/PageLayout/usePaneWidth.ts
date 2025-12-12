@@ -269,7 +269,7 @@ export function usePaneWidth({
     let lastThrottleTime = 0
 
     const handleResize = () => {
-      const now = Date.now()
+      const now = window.performance.now()
 
       // Throttled CSS update for immediate visual feedback
       if (now - lastThrottleTime >= THROTTLE_MS) {
@@ -279,7 +279,7 @@ export function usePaneWidth({
         // Schedule next frame if we're within throttle window
         rafId = requestAnimationFrame(() => {
           rafId = null
-          lastThrottleTime = Date.now()
+          lastThrottleTime = window.performance.now()
           updateCSSOnly()
         })
       }
