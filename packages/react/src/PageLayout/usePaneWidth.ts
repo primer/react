@@ -1,5 +1,6 @@
 import React from 'react'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import cssExports from './PageLayout.module.css'
 
 // ----------------------------------------------------------------------------
 // Types
@@ -45,10 +46,12 @@ export type UsePaneWidthResult = {
 
 /**
  * Default value for --pane-max-width-diff CSS variable.
- * This is the fallback when the element isn't mounted or value can't be read.
+ * Imported from CSS to ensure JS fallback matches the CSS default.
  */
-export const DEFAULT_MAX_WIDTH_DIFF = 511
+export const DEFAULT_MAX_WIDTH_DIFF = Number(cssExports.paneMaxWidthDiffDefault)
 
+// --pane-max-width-diff changes at this breakpoint in PageLayout.module.css.
+const DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT = Number(cssExports.paneMaxWidthDiffBreakpoint)
 /**
  * Default max pane width for SSR when viewport is unknown.
  * Updated to actual value in layout effect before paint.
@@ -201,16 +204,16 @@ export function usePaneWidth({
   useIsomorphicLayoutEffect(() => {
     if (!resizable) return
 
-    // Track last viewport width to detect breakpoint crossings
-    // --pane-max-width-diff only changes at the 1280px breakpoint
-    const BREAKPOINT = 1280
     let lastViewportWidth = window.innerWidth
 
     const updateMax = ({forceRecalcCss = false}: {forceRecalcCss?: boolean} = {}) => {
+      // Track last viewport width to detect breakpoint crossings.
       const currentViewportWidth = window.innerWidth
       const crossedBreakpoint =
-        (lastViewportWidth < BREAKPOINT && currentViewportWidth >= BREAKPOINT) ||
-        (lastViewportWidth >= BREAKPOINT && currentViewportWidth < BREAKPOINT)
+        (lastViewportWidth < DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT &&
+          currentViewportWidth >= DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT) ||
+        (lastViewportWidth >= DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT &&
+          currentViewportWidth < DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT)
       lastViewportWidth = currentViewportWidth
 
       // Only call getComputedStyle if we crossed the breakpoint (expensive operation)

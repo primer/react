@@ -1,3 +1,11 @@
+/* Exported values for JavaScript consumption */
+:export {
+  /* Breakpoint where --pane-max-width-diff changes (used in usePaneWidth.ts) */
+  paneMaxWidthDiffBreakpoint: 1280;
+  /* Default value for --pane-max-width-diff below the breakpoint */
+  paneMaxWidthDiffDefault: 511;
+}
+
 .PageLayoutRoot {
   /* Region Order */
   --region-order-header: 0;
@@ -19,6 +27,7 @@
   --pane-width-small: 100%;
   --pane-width-medium: 100%;
   --pane-width-large: 100%;
+  /* NOTE: This value is exported via :export for use in usePaneWidth.ts */
   --pane-max-width-diff: 511px;
 
   @media screen and (min-width: 768px) {
@@ -33,6 +42,7 @@
     --pane-width-large: 320px;
   }
 
+  /* NOTE: This breakpoint value is exported via :export for use in usePaneWidth.ts */
   @media screen and (min-width: 1280px) {
     --pane-max-width-diff: 959px;
   }

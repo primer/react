@@ -503,4 +503,19 @@ describe('constants', () => {
     expect(ARROW_KEY_STEP).toBe(3)
     expect(defaultPaneWidth).toEqual({small: 256, medium: 296, large: 320})
   })
+
+  /**
+   * This test documents the CSS/JS coupling.
+   * The CSS variable --pane-max-width-diff changes at a breakpoint:
+   *   - Below breakpoint: 511px (DEFAULT_MAX_WIDTH_DIFF)
+   *   - At/above breakpoint: 959px
+   *
+   * The breakpoint value is exported from PageLayout.module.css via :export
+   * and imported into usePaneWidth.ts, so they stay in sync automatically.
+   */
+  it('should have DEFAULT_MAX_WIDTH_DIFF matching CSS value below breakpoint', () => {
+    // This constant must match --pane-max-width-diff in PageLayout.module.css
+    // for viewports below the breakpoint.
+    expect(DEFAULT_MAX_WIDTH_DIFF).toBe(511)
+  })
 })
