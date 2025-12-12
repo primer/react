@@ -621,6 +621,10 @@
     width: 100%;
 
     @media screen and (min-width: 768px) {
+      /* 
+       * --pane-max-width is set by JS on mount and updated on resize (debounced).
+       * JS calculates viewport - margin to avoid scrollbar discrepancy with 100vw.
+       */
       width: clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width));
     }
   }
