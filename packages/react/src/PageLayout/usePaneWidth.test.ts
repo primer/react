@@ -413,6 +413,210 @@ describe('usePaneWidth', () => {
       removeEventListenerSpy.mockRestore()
     })
   })
+
+  describe('resize behavior', () => {
+    beforeEach(() => {
+      vi.useFakeTimers()
+    })
+
+    afterEach(() => {
+      vi.useRealTimers()
+    })
+
+    it('should clamp current width when viewport shrinks below pane width', async () => {
+      vi.stubGlobal('innerWidth', 1280)
+      const refs = createMockRefs()
+
+      // Set a large initial width
+      localStorage.setItem('test-resize', '600')
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-resize',
+          ...refs,
+        }),
+      )
+
+      expect(result.current.currentWidth).toBe(600)
+
+      // Shrink viewport so max is now smaller than current width
+      // At 800px viewport with 511px diff, max = 289px
+      vi.stubGlobal('innerWidth', 800)
+      window.dispatchEvent(new Event('resize'))
+
+      // Fast-forward through throttle and debounce
+      await act(async () => {
+        vi.advanceTimersByTime(200)
+      })
+
+      // Width should be clamped to max (800 - 511 = 289)
+      expect(result.current.currentWidth).toBe(289)
+      expect(refs.paneRef.current?.style.getPropertyValue('--pane-width')).toBe('289px')
+    })
+
+    it('should update ARIA attributes on resize', async () => {
+      vi.stubGlobal('innerWidth', 1280)
+      const refs = createMockRefs()
+
+      renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-aria',
+          ...refs,
+        }),
+      )
+
+      // Initial max at 1280px viewport: 1280 - 511 = 769
+      expect(refs.handleRef.current?.getAttribute('aria-valuemax')).toBe('769')
+
+      // Resize viewport
+      vi.stubGlobal('innerWidth', 1000)
+      window.dispatchEvent(new Event('resize'))
+
+      // DOM updates happen immediately (within throttle window)
+      await act(async () => {
+        vi.advanceTimersByTime(50)
+      })
+
+      // ARIA max should update: 1000 - 511 = 489
+      expect(refs.handleRef.current?.getAttribute('aria-valuemax')).toBe('489')
+    })
+
+    it('should throttle rapid resize events for DOM updates', async () => {
+      vi.stubGlobal('innerWidth', 1280)
+      const refs = createMockRefs()
+
+      // Track style updates
+      const setPropertySpy = vi.spyOn(refs.paneRef.current!.style, 'setProperty')
+
+      // Set width that will need clamping
+      localStorage.setItem('test-throttle', '700')
+
+      renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-throttle',
+          ...refs,
+        }),
+      )
+
+      // Clear initial calls
+      setPropertySpy.mockClear()
+
+      // Fire many resize events rapidly
+      for (let i = 0; i < 10; i++) {
+        vi.stubGlobal('innerWidth', 800 - i * 10)
+        window.dispatchEvent(new Event('resize'))
+      }
+
+      // Advance time slightly (less than throttle window)
+      await act(async () => {
+        vi.advanceTimersByTime(10)
+      })
+
+      // Should not have processed all 10 - throttling limits calls
+      // First call happens immediately, RAF schedules one more
+      expect(setPropertySpy.mock.calls.length).toBeLessThan(10)
+    })
+
+    it('should debounce React state updates until resize stops', async () => {
+      vi.stubGlobal('innerWidth', 1280)
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-debounce',
+          ...refs,
+        }),
+      )
+
+      const initialMax = result.current.maxPaneWidth
+
+      // Fire resize
+      vi.stubGlobal('innerWidth', 1000)
+      window.dispatchEvent(new Event('resize'))
+
+      // Advance only 50ms (less than 150ms debounce)
+      await act(async () => {
+        vi.advanceTimersByTime(50)
+      })
+
+      // React state should not have updated yet (still debouncing)
+      // Note: DOM was updated, but React state waits
+      expect(result.current.maxPaneWidth).toBe(initialMax)
+
+      // Fire another resize (resets debounce timer)
+      vi.stubGlobal('innerWidth', 900)
+      window.dispatchEvent(new Event('resize'))
+
+      // Advance 100ms (still less than 150ms from last event)
+      await act(async () => {
+        vi.advanceTimersByTime(100)
+      })
+
+      // Still debouncing
+      expect(result.current.maxPaneWidth).toBe(initialMax)
+
+      // Now wait for debounce to complete
+      await act(async () => {
+        vi.advanceTimersByTime(200)
+      })
+
+      // React state should now be updated: 900 - 511 = 389
+      expect(result.current.maxPaneWidth).toBe(389)
+    })
+
+    it('should update DOM immediately even while debouncing React state', async () => {
+      vi.stubGlobal('innerWidth', 1280)
+      const refs = createMockRefs()
+
+      // Set width that will need clamping
+      localStorage.setItem('test-dom-immediate', '600')
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-dom-immediate',
+          ...refs,
+        }),
+      )
+
+      // Shrink viewport significantly
+      vi.stubGlobal('innerWidth', 800)
+      window.dispatchEvent(new Event('resize'))
+
+      // Advance just past throttle window
+      await act(async () => {
+        vi.advanceTimersByTime(60)
+      })
+
+      // DOM should be updated immediately (clamped to 289)
+      expect(refs.paneRef.current?.style.getPropertyValue('--pane-width')).toBe('289px')
+
+      // But React state still shows old value (debounce hasn't fired)
+      expect(result.current.currentWidth).toBe(600)
+
+      // Wait for debounce
+      await act(async () => {
+        vi.advanceTimersByTime(200)
+      })
+
+      // Now React state catches up
+      expect(result.current.currentWidth).toBe(289)
+    })
+  })
 })
 
 describe('helper functions', () => {
