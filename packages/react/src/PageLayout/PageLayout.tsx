@@ -9,6 +9,7 @@ import {canUseDOM} from '../utils/environment'
 import {useOverflow} from '../hooks/useOverflow'
 import {warning} from '../utils/warning'
 import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes'
+import {usePaneWidth} from './usePaneWidth'
 
 import classes from './PageLayout.module.css'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types'
@@ -172,25 +173,18 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
 
   const {paneRef} = React.useContext(PageLayoutContext)
 
-  const [minWidth, setMinWidth] = React.useState(0)
-  const [maxWidth, setMaxWidth] = React.useState(0)
-  const [currentWidth, setCurrentWidth] = React.useState(0)
+  // Use optimized hook for pane width management with RAF-based resize handling
+  const {minWidth, maxWidth, currentWidth} = usePaneWidth({
+    paneRef,
+    isDragging,
+    isKeyboardDrag,
+  })
 
+  // Track current width locally for synchronous keyboard dragging
+  const currentWidthRef = React.useRef(currentWidth)
   React.useEffect(() => {
-    if (paneRef.current !== null) {
-      const paneStyles = getComputedStyle(paneRef.current as Element)
-      const maxPaneWidthDiffPixels = paneStyles.getPropertyValue('--pane-max-width-diff')
-      const minWidthPixels = paneStyles.getPropertyValue('--pane-min-width')
-      const paneWidth = paneRef.current.getBoundingClientRect().width
-      const maxPaneWidthDiff = Number(maxPaneWidthDiffPixels.split('px')[0])
-      const minPaneWidth = Number(minWidthPixels.split('px')[0])
-      const viewportWidth = window.innerWidth
-      const maxPaneWidth = viewportWidth > maxPaneWidthDiff ? viewportWidth - maxPaneWidthDiff : viewportWidth
-      setMinWidth(minPaneWidth)
-      setMaxWidth(maxPaneWidth)
-      setCurrentWidth(paneWidth || 0)
-    }
-  }, [paneRef, isKeyboardDrag, isDragging])
+    currentWidthRef.current = currentWidth
+  }, [currentWidth])
 
   React.useEffect(() => {
     stableOnDrag.current = onDrag
@@ -215,14 +209,14 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     function handleKeyDrag(event: KeyboardEvent) {
       let delta = 0
       // https://github.com/github/accessibility/issues/5101#issuecomment-1822870655
-      if ((event.key === 'ArrowLeft' || event.key === 'ArrowDown') && currentWidth > minWidth) {
+      if ((event.key === 'ArrowLeft' || event.key === 'ArrowDown') && currentWidthRef.current > minWidth) {
         delta = -3
-      } else if ((event.key === 'ArrowRight' || event.key === 'ArrowUp') && currentWidth < maxWidth) {
+      } else if ((event.key === 'ArrowRight' || event.key === 'ArrowUp') && currentWidthRef.current < maxWidth) {
         delta = 3
       } else {
         return
       }
-      setCurrentWidth(currentWidth + delta)
+      currentWidthRef.current = currentWidthRef.current + delta
       stableOnDrag.current?.(delta, true)
       event.preventDefault()
     }
