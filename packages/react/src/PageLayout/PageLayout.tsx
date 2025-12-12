@@ -713,9 +713,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               '--pane-max-width': isCustomWidthOptions(width) ? width.max : `calc(100vw - var(--pane-max-width-diff))`,
               '--pane-width-custom': isCustomWidthOptions(width) ? width.default : undefined,
               '--pane-width-size': `var(--pane-width-${isPaneWidth(width) ? width : 'custom'})`,
-              // Set --pane-width to default on initial render (SSR-safe).
-              // Layout effect updates it from localStorage before paint to avoid CLS.
-              '--pane-width': resizable ? `${currentWidth}px` : undefined,
+              '--pane-width': `${currentWidth}px`,
             } as React.CSSProperties
           }
         >
