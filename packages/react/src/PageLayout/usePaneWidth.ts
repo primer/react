@@ -118,10 +118,6 @@ export const updateAriaValues = (
  * Manages pane width state with localStorage persistence and viewport constraints.
  * Handles initialization from storage, clamping on viewport resize, and provides
  * functions to save and reset width.
- *
- * Uses window resize events instead of ResizeObserver to avoid INP issues.
- * ResizeObserver on document.documentElement fires on any content change (typing, etc),
- * while window resize only fires on actual viewport changes.
  */
 export function usePaneWidth({
   width,
@@ -270,7 +266,7 @@ export function usePaneWidth({
       }
     }
 
-    // eslint-disable-next-line github/prefer-observers
+    // eslint-disable-next-line github/prefer-observers -- Uses window resize events instead of ResizeObserver to avoid INP issues. ResizeObserver on document.documentElement fires on any content change (typing, etc), while window resize only fires on actual viewport changes.
     window.addEventListener('resize', handleResize)
     return () => {
       if (timeoutId !== null) clearTimeout(timeoutId)
