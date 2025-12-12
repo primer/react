@@ -1,13 +1,9 @@
-/* Maintain resize cursor while dragging */
-/* stylelint-disable-next-line selector-no-qualifying-type */
-body[data-page-layout-dragging='true'] {
-  cursor: col-resize;
-}
-
-/* Disable text selection while dragging */
-/* stylelint-disable-next-line selector-no-qualifying-type */
-body[data-page-layout-dragging='true'] * {
-  user-select: none;
+/* Exported values for JavaScript consumption */
+:export {
+  /* Breakpoint where --pane-max-width-diff changes (used in usePaneWidth.ts) */
+  paneMaxWidthDiffBreakpoint: 1280;
+  /* Default value for --pane-max-width-diff below the breakpoint */
+  paneMaxWidthDiffDefault: 511;
 }
 
 .PageLayoutRoot {
@@ -31,6 +27,7 @@ body[data-page-layout-dragging='true'] * {
   --pane-width-small: 100%;
   --pane-width-medium: 100%;
   --pane-width-large: 100%;
+  /* NOTE: This value is exported via :export for use in usePaneWidth.ts */
   --pane-max-width-diff: 511px;
 
   @media screen and (min-width: 768px) {
@@ -45,6 +42,7 @@ body[data-page-layout-dragging='true'] * {
     --pane-width-large: 320px;
   }
 
+  /* NOTE: This breakpoint value is exported via :export for use in usePaneWidth.ts */
   @media screen and (min-width: 1280px) {
     --pane-max-width-diff: 959px;
   }
@@ -383,6 +381,26 @@ body[data-page-layout-dragging='true'] * {
   }
 }
 
+/**
+ * OPTIMIZATION: Aggressive containment during drag for ContentWrapper
+ * data-dragging is set on PageLayoutContent by JavaScript
+ * This avoids expensive :has() selectors
+ */
+.PageLayoutContent[data-dragging='true'] .ContentWrapper {
+  /* Add paint containment during drag - safe since user can't interact */
+  contain: layout style paint;
+
+  /* Disable interactions */
+  pointer-events: none;
+
+  /* Disable transitions to prevent expensive recalculations */
+  transition: none;
+
+  /* Force compositor layer for hardware acceleration */
+  will-change: width;
+  transform: translateZ(0);
+}
+
 .Content {
   width: 100%;
 
@@ -407,6 +425,16 @@ body[data-page-layout-dragging='true'] * {
   &:where([data-width='xlarge']) {
     max-width: 1280px;
   }
+}
+
+/**
+ * OPTIMIZATION: Freeze content layout during resize drag
+ * This prevents expensive recalculations of large content areas
+ * while keeping content visible (just frozen in place)
+ */
+.PageLayoutContent[data-dragging='true'] .Content {
+  /* Full containment (without size) - isolate from layout recalculations */
+  contain: layout style paint;
 }
 
 .PaneWrapper {
@@ -593,9 +621,34 @@ body[data-page-layout-dragging='true'] * {
     width: 100%;
 
     @media screen and (min-width: 768px) {
+      /* 
+       * --pane-max-width is set by JS on mount and updated on resize (debounced).
+       * JS calculates viewport - margin to avoid scrollbar discrepancy with 100vw.
+       */
       width: clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width));
     }
   }
+}
+
+/**
+ * OPTIMIZATION: Performance enhancements for Pane during drag
+ * data-dragging is set on PageLayoutContent by JavaScript
+ * This avoids expensive :has() selectors
+ */
+.PageLayoutContent[data-dragging='true'] .Pane {
+  /* Full containment - isolate from layout recalculations */
+  contain: layout style paint;
+
+  /* Disable interactions during drag */
+  pointer-events: none;
+
+  /* Disable transitions during drag */
+  transition: none;
+
+  /* Force hardware acceleration */
+  will-change: width, transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .PaneHorizontalDivider {
@@ -696,12 +749,22 @@ body[data-page-layout-dragging='true'] * {
   padding: var(--spacing);
 }
 
+/**
+ * DraggableHandle - Interactive resize handle
+ */
 .DraggableHandle {
   position: absolute;
   inset: 0 -2px;
   cursor: col-resize;
   background-color: transparent;
   transition-delay: 0.1s;
+
+  /**
+   * OPTIMIZATION: Prevent touch scrolling and text selection during drag
+   * This is done in CSS because it needs to be set before any pointer events
+   */
+  touch-action: none;
+  user-select: none;
 }
 
 .DraggableHandle:hover {
@@ -710,6 +773,7 @@ body[data-page-layout-dragging='true'] * {
 
 .DraggableHandle[data-dragging='true'] {
   background-color: var(--bgColor-accent-emphasis);
+  cursor: col-resize;
 }
 
 .DraggableHandle[data-dragging='true']:hover {

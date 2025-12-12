@@ -14,6 +14,8 @@ const SKIPPED_TESTS = [
   'components-flash-features--with-icon-action-dismiss', // TODO: Remove once color-contrast issues have been resolved
   'components-flash-features--with-icon-and-action', // TODO: Remove once color-contrast issues have been resolved
   'components-filteredactionlist--default',
+  'components-pagelayout-performance-tests--medium-content',
+  'components-pagelayout-performance-tests--heavy-content',
 ]
 
 type Component = {

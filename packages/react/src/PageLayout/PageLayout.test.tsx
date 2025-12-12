@@ -174,6 +174,61 @@ describe('PageLayout', async () => {
       const finalWidth = (pane as HTMLElement).style.getPropertyValue('--pane-width')
       expect(finalWidth).not.toEqual(initialWidth)
     })
+
+    it('should set data-dragging attribute during pointer drag', async () => {
+      const {container} = render(
+        <PageLayout>
+          <PageLayout.Pane resizable>
+            <Placeholder height={320} label="Pane" />
+          </PageLayout.Pane>
+          <PageLayout.Content>
+            <Placeholder height={640} label="Content" />
+          </PageLayout.Content>
+        </PageLayout>,
+      )
+
+      const content = container.querySelector('[class*="PageLayoutContent"]')
+      const divider = await screen.findByRole('slider')
+
+      // Before drag - no data-dragging attribute
+      expect(content).not.toHaveAttribute('data-dragging')
+
+      // Start drag
+      fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
+      expect(content).toHaveAttribute('data-dragging', 'true')
+
+      // End drag - pointer capture lost ends the drag and removes attribute
+      fireEvent.lostPointerCapture(divider, {pointerId: 1})
+      expect(content).not.toHaveAttribute('data-dragging')
+    })
+
+    it('should set data-dragging attribute during keyboard resize', async () => {
+      const {container} = render(
+        <PageLayout>
+          <PageLayout.Pane resizable>
+            <Placeholder height={320} label="Pane" />
+          </PageLayout.Pane>
+          <PageLayout.Content>
+            <Placeholder height={640} label="Content" />
+          </PageLayout.Content>
+        </PageLayout>,
+      )
+
+      const content = container.querySelector('[class*="PageLayoutContent"]')
+      const divider = await screen.findByRole('slider')
+
+      // Before interaction - no data-dragging attribute
+      expect(content).not.toHaveAttribute('data-dragging')
+
+      // Start keyboard resize (focus first)
+      fireEvent.focus(divider)
+      fireEvent.keyDown(divider, {key: 'ArrowRight'})
+      expect(content).toHaveAttribute('data-dragging', 'true')
+
+      // End keyboard resize - removes attribute
+      fireEvent.keyUp(divider, {key: 'ArrowRight'})
+      expect(content).not.toHaveAttribute('data-dragging')
+    })
   })
 
   describe('PageLayout.Content', () => {
