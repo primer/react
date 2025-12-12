@@ -62,11 +62,13 @@ const PageLayoutContext = React.createContext<{
   rowGap: keyof typeof SPACING_MAP
   columnGap: keyof typeof SPACING_MAP
   paneRef: React.RefObject<HTMLDivElement>
+  contentRef: React.RefObject<HTMLDivElement>
 }>({
   padding: 'normal',
   rowGap: 'normal',
   columnGap: 'normal',
   paneRef: {current: null},
+  contentRef: {current: null},
 })
 
 // ----------------------------------------------------------------------------
@@ -106,6 +108,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   _slotsConfig: slotsConfig,
 }) => {
   const paneRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
 
   const [slots, rest] = useSlots(children, slotsConfig ?? {header: Header, footer: Footer})
 
@@ -115,8 +118,9 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
       rowGap,
       columnGap,
       paneRef,
+      contentRef,
     }
-  }, [padding, rowGap, columnGap, paneRef])
+  }, [padding, rowGap, columnGap, paneRef, contentRef])
 
   return (
     <PageLayoutContext.Provider value={memoizedContextValue}>
@@ -131,7 +135,9 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
       >
         <div className={classes.PageLayoutWrapper} data-width={containerWidth}>
           {slots.header}
-          <div className={clsx(classes.PageLayoutContent)}>{rest}</div>
+          <div ref={contentRef} className={clsx(classes.PageLayoutContent)}>
+            {rest}
+          </div>
           {slots.footer}
         </div>
       </div>
@@ -252,20 +258,38 @@ const DragHandle: React.FC<DragHandleProps> = ({
     stableOnDragEnd.current = onDragEnd
   })
 
-  const {paneRef} = React.useContext(PageLayoutContext)
+  const {paneRef, contentRef} = React.useContext(PageLayoutContext)
+
+  // Helper to set/remove dragging attribute on content wrapper
+  // This avoids expensive :has() selectors - CSS uses simple descendant selectors instead
+  const setDragging = React.useCallback(
+    (dragging: boolean) => {
+      if (dragging) {
+        handleRef.current?.setAttribute(DATA_DRAGGING_ATTR, 'true')
+        contentRef.current?.setAttribute(DATA_DRAGGING_ATTR, 'true')
+      } else {
+        handleRef.current?.removeAttribute(DATA_DRAGGING_ATTR)
+        contentRef.current?.removeAttribute(DATA_DRAGGING_ATTR)
+      }
+    },
+    [handleRef, contentRef],
+  )
 
   /**
    * Pointer down starts a drag operation
    * Capture the pointer to continue receiving events outside the handle area
    * Set a data attribute to indicate dragging state
    */
-  const handlePointerDown = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
-    if (event.button !== 0) return
-    event.preventDefault()
-    const target = event.currentTarget
-    target.setPointerCapture(event.pointerId)
-    target.setAttribute(DATA_DRAGGING_ATTR, 'true')
-  }, [])
+  const handlePointerDown = React.useCallback(
+    (event: React.PointerEvent<HTMLDivElement>) => {
+      if (event.button !== 0) return
+      event.preventDefault()
+      const target = event.currentTarget
+      target.setPointerCapture(event.pointerId)
+      setDragging(true)
+    },
+    [setDragging],
+  )
 
   /**
    * Pointer move during drag
@@ -302,15 +326,11 @@ const DragHandle: React.FC<DragHandleProps> = ({
    * Cleans up dragging state
    * Calls onDragEnd callback
    */
-  const handleLostPointerCapture = React.useCallback(
-    (event: React.PointerEvent<HTMLDivElement>) => {
-      if (!isDragging(handleRef.current)) return
-      const target = event.currentTarget
-      target.removeAttribute(DATA_DRAGGING_ATTR)
-      stableOnDragEnd.current()
-    },
-    [handleRef],
-  )
+  const handleLostPointerCapture = React.useCallback(() => {
+    if (!isDragging(handleRef.current)) return
+    setDragging(false)
+    stableOnDragEnd.current()
+  }, [handleRef, setDragging])
 
   /**
    * Keyboard handling for accessibility
@@ -334,25 +354,28 @@ const DragHandle: React.FC<DragHandleProps> = ({
         // https://github.com/github/accessibility/issues/5101#issuecomment-1822870655
         const delta = event.key === 'ArrowLeft' || event.key === 'ArrowDown' ? -ARROW_KEY_STEP : ARROW_KEY_STEP
 
-        event.currentTarget.setAttribute(DATA_DRAGGING_ATTR, 'true')
+        setDragging(true)
         stableOnDrag.current(delta, true)
       }
     },
-    [paneRef],
+    [paneRef, setDragging],
   )
 
-  const handleKeyUp = React.useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (
-      event.key === 'ArrowLeft' ||
-      event.key === 'ArrowRight' ||
-      event.key === 'ArrowUp' ||
-      event.key === 'ArrowDown'
-    ) {
-      event.preventDefault()
-      event.currentTarget.removeAttribute(DATA_DRAGGING_ATTR)
-      stableOnDragEnd.current()
-    }
-  }, [])
+  const handleKeyUp = React.useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (
+        event.key === 'ArrowLeft' ||
+        event.key === 'ArrowRight' ||
+        event.key === 'ArrowUp' ||
+        event.key === 'ArrowDown'
+      ) {
+        event.preventDefault()
+        setDragging(false)
+        stableOnDragEnd.current()
+      }
+    },
+    [setDragging],
+  )
 
   return (
     <div

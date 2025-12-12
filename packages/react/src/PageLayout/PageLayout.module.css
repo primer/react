@@ -373,10 +373,10 @@
 
 /**
  * OPTIMIZATION: Aggressive containment during drag for ContentWrapper
- * CSS handles most optimizations automatically via :has() selector
- * JavaScript only handles scroll locking (can't be done in CSS)
+ * data-dragging is set on PageLayoutContent by JavaScript
+ * This avoids expensive :has() selectors
  */
-.PageLayoutContent:has(.DraggableHandle[data-dragging='true']) .ContentWrapper {
+.PageLayoutContent[data-dragging='true'] .ContentWrapper {
   /* Add paint containment during drag - safe since user can't interact */
   contain: layout style paint;
 
@@ -422,7 +422,7 @@
  * This prevents expensive recalculations of large content areas
  * while keeping content visible (just frozen in place)
  */
-.PageLayoutContent:has(.DraggableHandle[data-dragging='true']) .Content {
+.PageLayoutContent[data-dragging='true'] .Content {
   /* Full containment (without size) - isolate from layout recalculations */
   contain: layout style paint;
 }
@@ -618,9 +618,10 @@
 
 /**
  * OPTIMIZATION: Performance enhancements for Pane during drag
- * CSS handles all optimizations automatically - JavaScript only locks scroll
+ * data-dragging is set on PageLayoutContent by JavaScript
+ * This avoids expensive :has() selectors
  */
-.PaneWrapper:has(.DraggableHandle[data-dragging='true']) .Pane {
+.PageLayoutContent[data-dragging='true'] .Pane {
   /* Full containment - isolate from layout recalculations */
   contain: layout style paint;
 
