@@ -697,6 +697,10 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         />
         <div
           ref={paneRef}
+          // suppressHydrationWarning: We intentionally read from localStorage during
+          // useState init to avoid resize flicker, which causes a hydration mismatch
+          // for --pane-width. This only affects this element, not children.
+          suppressHydrationWarning
           {...(hasOverflow ? overflowProps : {})}
           {...labelProp}
           {...(id && {id: paneId})}

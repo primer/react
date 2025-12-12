@@ -1,4 +1,5 @@
 import React, {startTransition} from 'react'
+import {canUseDOM} from '../utils/environment'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import cssExports from './PageLayout.module.css'
 
@@ -148,7 +149,33 @@ export function usePaneWidth({
 
   // --- State ---
   // Current width for React renders (ARIA attributes). Updates go through saveWidth() or clamp on resize.
-  const [currentWidth, setCurrentWidth] = React.useState(() => getDefaultPaneWidth(width))
+  //
+  // NOTE: We read from localStorage during initial state to avoid a visible resize flicker
+  // when the stored width differs from the default. This causes a React hydration mismatch
+  // (server renders default width, client renders stored width), but we handle this with
+  // suppressHydrationWarning on the Pane element. The mismatch only affects the --pane-width
+  // CSS variable, not DOM structure or children.
+  const [currentWidth, setCurrentWidth] = React.useState(() => {
+    const defaultWidth = getDefaultPaneWidth(width)
+
+    if (!resizable || !canUseDOM) {
+      return defaultWidth
+    }
+
+    try {
+      const storedWidth = localStorage.getItem(widthStorageKey)
+      if (storedWidth !== null) {
+        const parsed = Number(storedWidth)
+        if (!isNaN(parsed) && parsed > 0) {
+          return parsed
+        }
+      }
+    } catch {
+      // localStorage unavailable - keep default
+    }
+
+    return defaultWidth
+  })
   // Mutable ref for drag operations - avoids re-renders on every pixel move
   const currentWidthRef = React.useRef(currentWidth)
   // Max width for ARIA - SSR uses custom max or a sensible default, updated on mount
@@ -171,29 +198,6 @@ export function usePaneWidth({
   )
 
   // --- Effects ---
-  // Track whether we've initialized the width from localStorage
-  const initializedRef = React.useRef(false)
-
-  // Initialize from localStorage on mount (before paint to avoid CLS)
-  useIsomorphicLayoutEffect(() => {
-    if (initializedRef.current || !resizable) return
-    initializedRef.current = true
-
-    try {
-      const stored = localStorage.getItem(widthStorageKey)
-      if (stored !== null) {
-        const parsed = Number(stored)
-        if (!isNaN(parsed) && parsed > 0) {
-          currentWidthRef.current = parsed
-          paneRef.current?.style.setProperty('--pane-width', `${parsed}px`)
-          setCurrentWidth(parsed)
-        }
-      }
-    } catch {
-      // localStorage unavailable - keep default
-    }
-  }, [widthStorageKey, paneRef, resizable])
-
   // Stable ref to getMaxPaneWidth for use in resize handler without re-subscribing
   const getMaxPaneWidthRef = React.useRef(getMaxPaneWidth)
   useIsomorphicLayoutEffect(() => {
