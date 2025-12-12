@@ -137,6 +137,7 @@ export const Item = React.forwardRef((itemProps, ref) => {
     onClick,
     id,
     className,
+    groupId: _groupId,
     ...props
   } = itemProps
 
