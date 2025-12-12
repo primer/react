@@ -353,7 +353,7 @@ describe('usePaneWidth', () => {
         }),
       )
 
-      // Adds resize listener for ref sync (debounced, no React state updates)
+      // Adds resize listener for throttled CSS updates and debounced state sync
       expect(addEventListenerSpy).toHaveBeenCalledWith('resize', expect.any(Function))
       addEventListenerSpy.mockRestore()
     })
