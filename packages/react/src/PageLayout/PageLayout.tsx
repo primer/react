@@ -185,8 +185,10 @@ const VerticalDivider: React.FC<React.PropsWithChildren<VerticalDividerProps>> =
 type DragHandleProps = {
   /** Ref for imperative ARIA updates during drag */
   handleRef: React.RefObject<HTMLDivElement>
-  /** Called with movement delta on each drag tick */
-  onDrag: (delta: number, isKeyboard: boolean) => void
+  /** Called once when drag starts with initial cursor X position */
+  onDragStart: (clientX: number) => void
+  /** Called on each drag tick with cursor position (pointer) or delta (keyboard) */
+  onDrag: (value: number, isKeyboard: boolean) => void
   /** Called when drag operation completes */
   onDragEnd: () => void
   /** Reset width on double-click */
@@ -211,6 +213,7 @@ const isDragging = (handle: HTMLElement | null) => {
  */
 const DragHandle: React.FC<DragHandleProps> = ({
   handleRef,
+  onDragStart,
   onDrag,
   onDragEnd,
   onDoubleClick,
@@ -218,9 +221,11 @@ const DragHandle: React.FC<DragHandleProps> = ({
   'aria-valuemax': ariaValueMax,
   'aria-valuenow': ariaValueNow,
 }) => {
+  const stableOnDragStart = React.useRef(onDragStart)
   const stableOnDrag = React.useRef(onDrag)
   const stableOnDragEnd = React.useRef(onDragEnd)
   React.useEffect(() => {
+    stableOnDragStart.current = onDragStart
     stableOnDrag.current = onDrag
     stableOnDragEnd.current = onDragEnd
   })
@@ -253,6 +258,7 @@ const DragHandle: React.FC<DragHandleProps> = ({
       event.preventDefault()
       const target = event.currentTarget
       target.setPointerCapture(event.pointerId)
+      stableOnDragStart.current(event.clientX)
       setDragging(true)
     },
     [setDragging],
@@ -260,7 +266,8 @@ const DragHandle: React.FC<DragHandleProps> = ({
 
   /**
    * Pointer move during drag
-   * Calls onDrag with movement delta
+   * Calls onDrag with absolute cursor X position
+   * Using absolute position avoids drift from accumulated deltas
    * Prevents default to avoid unwanted selection behavior
    */
   const handlePointerMove = React.useCallback(
@@ -268,9 +275,7 @@ const DragHandle: React.FC<DragHandleProps> = ({
       if (!isDragging(handleRef.current)) return
       event.preventDefault()
 
-      if (event.movementX !== 0) {
-        stableOnDrag.current(event.movementX, false)
-      }
+      stableOnDrag.current(event.clientX, false)
     },
     [handleRef],
   )
@@ -637,6 +642,13 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     // Ref to the drag handle for updating ARIA attributes
     const handleRef = React.useRef<HTMLDivElement>(null)
 
+    // Cache drag start values to calculate relative delta during drag
+    // This approach is immune to layout shifts (scrollbars appearing/disappearing)
+    const dragStartClientXRef = React.useRef<number>(0)
+    const dragStartWidthRef = React.useRef<number>(0)
+    // Cache max width at drag start - won't change during a drag operation
+    const dragMaxWidthRef = React.useRef<number>(0)
+
     const {currentWidth, currentWidthRef, minPaneWidth, maxPaneWidth, getMaxPaneWidth, saveWidth, getDefaultWidth} =
       usePaneWidth({
         width,
@@ -749,39 +761,45 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               aria-valuemin={minPaneWidth}
               aria-valuemax={maxPaneWidth}
               aria-valuenow={currentWidth}
-              onDrag={(delta, isKeyboard) => {
-                const deltaWithDirection = isKeyboard ? delta : position === 'end' ? -delta : delta
-                const maxWidth = getMaxPaneWidth()
-
-                // Safety clamp: if user starts dragging before debounced resize fires,
-                // sync ref to actual max. Rare edge case but prevents confusing behavior.
-                if (currentWidthRef.current! > maxWidth) {
-                  currentWidthRef.current = maxWidth
-                }
+              onDragStart={clientX => {
+                // Cache cursor position and pane width at drag start
+                // Using relative delta (current - start) is immune to layout shifts
+                // (e.g., scrollbars appearing/disappearing during drag)
+                dragStartClientXRef.current = clientX
+                dragStartWidthRef.current = paneRef.current?.getBoundingClientRect().width ?? currentWidthRef.current!
+                // Cache max width - won't change during drag
+                dragMaxWidthRef.current = getMaxPaneWidth()
+              }}
+              onDrag={(value, isKeyboard) => {
+                // Use cached max width for pointer drag, fresh value for keyboard (less frequent)
+                const maxWidth = isKeyboard ? getMaxPaneWidth() : dragMaxWidthRef.current
 
                 if (isKeyboard) {
-                  // Clamp keyboard delta to stay within bounds
-                  const newWidth = Math.max(
-                    minPaneWidth,
-                    Math.min(maxWidth, currentWidthRef.current! + deltaWithDirection),
-                  )
+                  // Keyboard: value is a delta (e.g., +3 or -3)
+                  const delta = value
+                  const newWidth = Math.max(minPaneWidth, Math.min(maxWidth, currentWidthRef.current! + delta))
                   if (newWidth !== currentWidthRef.current) {
                     currentWidthRef.current = newWidth
                     paneRef.current?.style.setProperty('--pane-width', `${newWidth}px`)
                     updateAriaValues(handleRef.current, {current: newWidth, max: maxWidth})
                   }
                 } else {
-                  // Apply delta directly via CSS variable for immediate visual feedback
+                  // Pointer: value is clientX - calculate width using relative delta from drag start
+                  // This approach is immune to layout shifts during drag
                   if (paneRef.current) {
-                    const newWidth = currentWidthRef.current! + deltaWithDirection
+                    const deltaX = value - dragStartClientXRef.current
+                    // For position='end': cursor moving left (negative delta) increases width
+                    // For position='start': cursor moving right (positive delta) increases width
+                    const directedDelta = position === 'end' ? -deltaX : deltaX
+                    const newWidth = dragStartWidthRef.current + directedDelta
+
                     const clampedWidth = Math.max(minPaneWidth, Math.min(maxWidth, newWidth))
 
-                    // Only update if the clamped width actually changed
-                    // This prevents drift when dragging against min/max constraints
-                    if (clampedWidth !== currentWidthRef.current) {
+                    // Only update if width actually changed
+                    if (Math.round(clampedWidth) !== Math.round(currentWidthRef.current!)) {
                       paneRef.current.style.setProperty('--pane-width', `${clampedWidth}px`)
                       currentWidthRef.current = clampedWidth
-                      updateAriaValues(handleRef.current, {current: clampedWidth, max: maxWidth})
+                      updateAriaValues(handleRef.current, {current: Math.round(clampedWidth), max: maxWidth})
                     }
                   }
                 }
