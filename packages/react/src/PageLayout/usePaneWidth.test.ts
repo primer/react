@@ -339,43 +339,7 @@ describe('usePaneWidth', () => {
   })
 
   describe('resize listener', () => {
-    it('should not add resize listener when not resizable', () => {
-      const addEventListenerSpy = vi.spyOn(window, 'addEventListener')
-      const refs = createMockRefs()
-
-      renderHook(() =>
-        usePaneWidth({
-          width: 'medium',
-          minWidth: 256,
-          resizable: false,
-          widthStorageKey: 'test',
-          ...refs,
-        }),
-      )
-
-      expect(addEventListenerSpy).not.toHaveBeenCalledWith('resize', expect.any(Function))
-      addEventListenerSpy.mockRestore()
-    })
-
-    it('should not add resize listener for custom widths (max is fixed)', () => {
-      const addEventListenerSpy = vi.spyOn(window, 'addEventListener')
-      const refs = createMockRefs()
-
-      renderHook(() =>
-        usePaneWidth({
-          width: {min: '150px', default: '300px', max: '500px'},
-          minWidth: 256,
-          resizable: true,
-          widthStorageKey: 'test',
-          ...refs,
-        }),
-      )
-
-      expect(addEventListenerSpy).not.toHaveBeenCalledWith('resize', expect.any(Function))
-      addEventListenerSpy.mockRestore()
-    })
-
-    it('should add resize listener for preset widths when resizable', () => {
+    it('should add debounced resize listener for preset widths', () => {
       const addEventListenerSpy = vi.spyOn(window, 'addEventListener')
       const refs = createMockRefs()
 
@@ -389,12 +353,231 @@ describe('usePaneWidth', () => {
         }),
       )
 
+      // Adds resize listener for throttled CSS updates and debounced state sync
       expect(addEventListenerSpy).toHaveBeenCalledWith('resize', expect.any(Function))
       addEventListenerSpy.mockRestore()
     })
 
+    it('should not add resize listener for custom widths (fixed max)', () => {
+      const addEventListenerSpy = vi.spyOn(window, 'addEventListener')
+      const refs = createMockRefs()
+
+      renderHook(() =>
+        usePaneWidth({
+          width: {min: '150px', default: '300px', max: '400px'},
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-custom',
+          ...refs,
+        }),
+      )
+
+      // Custom widths have fixed max - no need for resize listener
+      expect(addEventListenerSpy).not.toHaveBeenCalledWith('resize', expect.any(Function), expect.anything())
+      addEventListenerSpy.mockRestore()
+    })
+
+    it('should clamp ref when viewport shrinks', async () => {
+      vi.useFakeTimers()
+      vi.stubGlobal('innerWidth', 1280)
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-clamp',
+          ...refs,
+        }),
+      )
+
+      // Set current width to max
+      const initialMax = result.current.getMaxPaneWidth() // 1280 - 511 = 769
+      result.current.currentWidthRef.current = initialMax
+
+      // Shrink viewport
+      vi.stubGlobal('innerWidth', 800)
+
+      // Wrap resize + debounce in act() since it triggers startTransition state update
+      await act(async () => {
+        window.dispatchEvent(new Event('resize'))
+        await vi.advanceTimersByTimeAsync(150)
+      })
+
+      // getMaxPaneWidth now returns 800 - 511 = 289
+      expect(result.current.getMaxPaneWidth()).toBe(289)
+      // ref should be clamped after resize handler fires
+      expect(result.current.currentWidthRef.current).toBe(289)
+
+      vi.useRealTimers()
+    })
+
+    it('should update CSS variable immediately via throttle', async () => {
+      vi.useFakeTimers()
+      vi.stubGlobal('innerWidth', 1280)
+      const refs = createMockRefs()
+
+      renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-css-throttle',
+          ...refs,
+        }),
+      )
+
+      // Initial --pane-max-width should be set on mount
+      expect(refs.paneRef.current?.style.getPropertyValue('--pane-max-width')).toBe('769px')
+
+      // Shrink viewport
+      vi.stubGlobal('innerWidth', 1000)
+
+      // Fire resize - CSS should update immediately (throttled at 16ms)
+      window.dispatchEvent(new Event('resize'))
+
+      // CSS variable should be updated immediately: 1000 - 511 = 489
+      expect(refs.paneRef.current?.style.getPropertyValue('--pane-max-width')).toBe('489px')
+
+      vi.useRealTimers()
+    })
+
+    it('should update ARIA attributes after debounce', async () => {
+      vi.useFakeTimers()
+      vi.stubGlobal('innerWidth', 1280)
+      const refs = createMockRefs()
+
+      renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-aria-debounce',
+          ...refs,
+        }),
+      )
+
+      // Initial ARIA max should be set on mount
+      expect(refs.handleRef.current?.getAttribute('aria-valuemax')).toBe('769')
+
+      // Shrink viewport
+      vi.stubGlobal('innerWidth', 900)
+
+      // Fire resize but don't wait for debounce
+      window.dispatchEvent(new Event('resize'))
+      await vi.advanceTimersByTimeAsync(50)
+
+      // ARIA should NOT be updated yet
+      expect(refs.handleRef.current?.getAttribute('aria-valuemax')).toBe('769')
+
+      // Wait for debounce
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(100)
+      })
+
+      // ARIA should now be updated: 900 - 511 = 389
+      expect(refs.handleRef.current?.getAttribute('aria-valuemax')).toBe('389')
+
+      vi.useRealTimers()
+    })
+
+    it('should throttle CSS updates and debounce full sync on rapid resize', async () => {
+      vi.useFakeTimers()
+      vi.stubGlobal('innerWidth', 1280)
+      const refs = createMockRefs()
+
+      const setPropertySpy = vi.spyOn(refs.paneRef.current!.style, 'setProperty')
+
+      renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-throttle-debounce',
+          ...refs,
+        }),
+      )
+
+      // Clear mount calls
+      setPropertySpy.mockClear()
+
+      // Fire resize - first one updates CSS immediately
+      vi.stubGlobal('innerWidth', 1100)
+      window.dispatchEvent(new Event('resize'))
+
+      // CSS should update immediately (first call, throttle allows)
+      expect(setPropertySpy).toHaveBeenCalledWith('--pane-max-width', '589px') // 1100 - 511
+
+      setPropertySpy.mockClear()
+
+      // Fire more resize events rapidly (within throttle window)
+      for (let i = 0; i < 3; i++) {
+        vi.stubGlobal('innerWidth', 1000 - i * 50)
+        window.dispatchEvent(new Event('resize'))
+      }
+
+      // Throttle limits calls - may have scheduled RAF but not executed yet
+      // Advance past throttle window to let RAF execute
+      await vi.advanceTimersByTimeAsync(20)
+
+      // Should have at least one more CSS update from RAF
+      expect(setPropertySpy).toHaveBeenCalled()
+
+      // But ARIA should not be updated yet (debounced)
+      expect(refs.handleRef.current?.getAttribute('aria-valuemax')).toBe('769') // Still initial
+
+      // Wait for debounce to complete
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(150)
+      })
+
+      // Now ARIA and refs are synced
+      expect(refs.handleRef.current?.getAttribute('aria-valuemax')).toBe('389') // 900 - 511
+
+      vi.useRealTimers()
+    })
+
+    it('should update React state via startTransition after debounce', async () => {
+      vi.useFakeTimers()
+      vi.stubGlobal('innerWidth', 1280)
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-state-transition',
+          ...refs,
+        }),
+      )
+
+      // Initial maxPaneWidth state
+      expect(result.current.maxPaneWidth).toBe(769)
+
+      // Shrink viewport
+      vi.stubGlobal('innerWidth', 800)
+      window.dispatchEvent(new Event('resize'))
+
+      // Before debounce completes, state unchanged
+      await vi.advanceTimersByTimeAsync(50)
+      expect(result.current.maxPaneWidth).toBe(769)
+
+      // After debounce, state updated via startTransition
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(100)
+      })
+
+      // State now reflects new max: 800 - 511 = 289
+      expect(result.current.maxPaneWidth).toBe(289)
+
+      vi.useRealTimers()
+    })
+
     it('should cleanup resize listener on unmount', () => {
       const removeEventListenerSpy = vi.spyOn(window, 'removeEventListener')
+      const cancelAnimationFrameSpy = vi.spyOn(window, 'cancelAnimationFrame')
       const refs = createMockRefs()
 
       const {unmount} = renderHook(() =>
@@ -410,7 +593,74 @@ describe('usePaneWidth', () => {
       unmount()
 
       expect(removeEventListenerSpy).toHaveBeenCalledWith('resize', expect.any(Function))
+      // cancelAnimationFrame called with null is fine (no pending RAF)
       removeEventListenerSpy.mockRestore()
+      cancelAnimationFrameSpy.mockRestore()
+    })
+
+    it('should not add resize listener when not resizable', () => {
+      const addEventListenerSpy = vi.spyOn(window, 'addEventListener')
+      const refs = createMockRefs()
+
+      renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: false,
+          widthStorageKey: 'test-not-resizable',
+          ...refs,
+        }),
+      )
+
+      expect(addEventListenerSpy).not.toHaveBeenCalledWith('resize', expect.any(Function))
+      addEventListenerSpy.mockRestore()
+    })
+  })
+
+  describe('on-demand max calculation', () => {
+    it('should calculate max dynamically based on current viewport', () => {
+      vi.stubGlobal('innerWidth', 1280)
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-dynamic',
+          ...refs,
+        }),
+      )
+
+      // Initial max at 1280px: 1280 - 511 = 769
+      expect(result.current.getMaxPaneWidth()).toBe(769)
+
+      // Viewport changes (no resize event needed)
+      vi.stubGlobal('innerWidth', 800)
+
+      // getMaxPaneWidth reads window.innerWidth dynamically
+      expect(result.current.getMaxPaneWidth()).toBe(289)
+    })
+
+    it('should return custom max regardless of viewport for custom widths', () => {
+      vi.stubGlobal('innerWidth', 1280)
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: {min: '150px', default: '300px', max: '400px'},
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-custom',
+          ...refs,
+        }),
+      )
+
+      expect(result.current.getMaxPaneWidth()).toBe(400)
+
+      // Viewport changes don't affect custom max
+      vi.stubGlobal('innerWidth', 500)
+      expect(result.current.getMaxPaneWidth()).toBe(400)
     })
   })
 })

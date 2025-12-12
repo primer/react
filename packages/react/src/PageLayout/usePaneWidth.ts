@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {startTransition} from 'react'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import cssExports from './PageLayout.module.css'
 
@@ -200,15 +200,26 @@ export function usePaneWidth({
     getMaxPaneWidthRef.current = getMaxPaneWidth
   })
 
-  // Update max pane width on mount and window resize for accurate ARIA values
+  // Update CSS variable, refs, and ARIA on mount and window resize.
+  // Strategy:
+  // 1. Throttled (16ms): Update --pane-max-width CSS variable for immediate visual clamp
+  // 2. Debounced (150ms): Sync refs, ARIA, and React state when resize stops
   useIsomorphicLayoutEffect(() => {
     if (!resizable) return
 
     let lastViewportWidth = window.innerWidth
 
-    const updateMax = ({forceRecalcCss = false}: {forceRecalcCss?: boolean} = {}) => {
-      // Track last viewport width to detect breakpoint crossings.
+    // Quick CSS-only update for immediate visual feedback (throttled)
+    const updateCSSOnly = () => {
+      const actualMax = getMaxPaneWidthRef.current()
+      paneRef.current?.style.setProperty('--pane-max-width', `${actualMax}px`)
+    }
+
+    // Full sync of refs, ARIA, and state (debounced, runs when resize stops)
+    const syncAll = () => {
       const currentViewportWidth = window.innerWidth
+
+      // Only call getComputedStyle if we crossed the breakpoint (expensive)
       const crossedBreakpoint =
         (lastViewportWidth < DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT &&
           currentViewportWidth >= DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT) ||
@@ -216,63 +227,82 @@ export function usePaneWidth({
           currentViewportWidth < DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT)
       lastViewportWidth = currentViewportWidth
 
-      // Only call getComputedStyle if we crossed the breakpoint (expensive operation)
-      if (forceRecalcCss || crossedBreakpoint) {
+      if (crossedBreakpoint) {
         maxWidthDiffRef.current = getPaneMaxWidthDiff(paneRef.current)
       }
 
       const actualMax = getMaxPaneWidthRef.current()
-      setMaxPaneWidth(actualMax)
 
-      // Clamp current width if it exceeds new max (viewport shrunk)
-      if (currentWidthRef.current > actualMax) {
+      // Update CSS variable for visual clamping (may already be set by throttled update)
+      paneRef.current?.style.setProperty('--pane-max-width', `${actualMax}px`)
+
+      // Track if we clamped current width
+      const wasClamped = currentWidthRef.current > actualMax
+      if (wasClamped) {
         currentWidthRef.current = actualMax
         paneRef.current?.style.setProperty('--pane-width', `${actualMax}px`)
-        setCurrentWidth(actualMax)
       }
 
-      updateAriaValues(handleRef.current, {min: minPaneWidth, max: actualMax, current: currentWidthRef.current})
+      // Update ARIA via DOM - cheap, no React re-render
+      updateAriaValues(handleRef.current, {max: actualMax, current: currentWidthRef.current})
+
+      // Defer state updates so parent re-renders see accurate values
+      startTransition(() => {
+        setMaxPaneWidth(actualMax)
+        if (wasClamped) {
+          setCurrentWidth(actualMax)
+        }
+      })
     }
 
-    // Initial calculation - force CSS recalc to get correct value
-    updateMax({forceRecalcCss: true})
+    // Initial calculation on mount
+    maxWidthDiffRef.current = getPaneMaxWidthDiff(paneRef.current)
+    const initialMax = getMaxPaneWidthRef.current()
+    setMaxPaneWidth(initialMax)
+    paneRef.current?.style.setProperty('--pane-max-width', `${initialMax}px`)
+    updateAriaValues(handleRef.current, {min: minPaneWidth, max: initialMax, current: currentWidthRef.current})
 
     // For custom widths, max is fixed - no need to listen to resize
     if (customMaxWidth !== null) return
 
-    // Throttle resize with trailing edge:
-    // - Execute at most once per THROTTLE_MS during rapid resizing
-    // - Guarantee final event executes when resize stops
-    const THROTTLE_MS = 100
-    let timeoutId: ReturnType<typeof setTimeout> | null = null
-    let lastExecution = 0
+    // Throttle CSS updates (16ms ≈ 60fps), debounce full sync (150ms)
+    const THROTTLE_MS = 16
+    const DEBOUNCE_MS = 150
+    let rafId: number | null = null
+    let debounceId: ReturnType<typeof setTimeout> | null = null
+    let lastThrottleTime = 0
 
     const handleResize = () => {
       const now = Date.now()
-      const timeSinceLastExecution = now - lastExecution
 
-      if (timeoutId !== null) {
-        clearTimeout(timeoutId)
-        timeoutId = null
+      // Throttled CSS update for immediate visual feedback
+      if (now - lastThrottleTime >= THROTTLE_MS) {
+        lastThrottleTime = now
+        updateCSSOnly()
+      } else if (rafId === null) {
+        // Schedule next frame if we're within throttle window
+        rafId = requestAnimationFrame(() => {
+          rafId = null
+          lastThrottleTime = Date.now()
+          updateCSSOnly()
+        })
       }
 
-      if (timeSinceLastExecution >= THROTTLE_MS) {
-        lastExecution = now
-        updateMax()
-      } else {
-        // Schedule trailing edge execution
-        timeoutId = setTimeout(() => {
-          lastExecution = Date.now()
-          updateMax()
-          timeoutId = null
-        }, THROTTLE_MS - timeSinceLastExecution)
+      // Debounced full sync (refs, ARIA, state) when resize stops
+      if (debounceId !== null) {
+        clearTimeout(debounceId)
       }
+      debounceId = setTimeout(() => {
+        debounceId = null
+        syncAll()
+      }, DEBOUNCE_MS)
     }
 
     // eslint-disable-next-line github/prefer-observers -- Uses window resize events instead of ResizeObserver to avoid INP issues. ResizeObserver on document.documentElement fires on any content change (typing, etc), while window resize only fires on actual viewport changes.
     window.addEventListener('resize', handleResize)
     return () => {
-      if (timeoutId !== null) clearTimeout(timeoutId)
+      if (rafId !== null) cancelAnimationFrame(rafId)
+      if (debounceId !== null) clearTimeout(debounceId)
       window.removeEventListener('resize', handleResize)
     }
   }, [resizable, customMaxWidth, minPaneWidth, paneRef, handleRef])

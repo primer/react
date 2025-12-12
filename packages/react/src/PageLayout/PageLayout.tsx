@@ -751,6 +751,12 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
                 const deltaWithDirection = isKeyboard ? delta : position === 'end' ? -delta : delta
                 const maxWidth = getMaxPaneWidth()
 
+                // Safety clamp: if user starts dragging before debounced resize fires,
+                // sync ref to actual max. Rare edge case but prevents confusing behavior.
+                if (currentWidthRef.current! > maxWidth) {
+                  currentWidthRef.current = maxWidth
+                }
+
                 if (isKeyboard) {
                   // Clamp keyboard delta to stay within bounds
                   const newWidth = Math.max(
