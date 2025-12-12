@@ -1,11 +1,11 @@
 import {render} from '@testing-library/react'
 import {describe, expect, it} from 'vitest'
 import {SkeletonBox} from '../SkeletonBox'
+import classes from '../SkeletonBox.module.css'
+import {implementsClassName} from '../../utils/testing'
 
 describe('SkeletonBox', () => {
-  it('should support `className` on the outermost element', () => {
-    expect(render(<SkeletonBox className={'test-class-name'} />).container.firstChild).toHaveClass('test-class-name')
-  })
+  implementsClassName(SkeletonBox, classes.SkeletonBox)
 
   it('uses the default size when size is not provided', () => {
     const {container} = render(<SkeletonBox width={200} height={100} />)

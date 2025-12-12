@@ -1,8 +1,11 @@
 import {expect, it, describe} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
 import {ActionList} from '.'
+import {implementsClassName} from '../utils/testing'
+import classes from './ActionList.module.css'
 
 describe('ActionList.Description', () => {
+  implementsClassName(ActionList.Description, classes.Description)
   it('should render the description as inline without truncation by default', () => {
     const {getByText} = HTMLRender(
       <ActionList>

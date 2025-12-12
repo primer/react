@@ -1,8 +1,12 @@
 import {describe, expect, it} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import {IssueLabel} from '../IssueLabel'
+import {implementsClassName} from '../../utils/testing'
+import classes from './IssueLabel.module.css'
 
 describe('IssueLabel', () => {
+  implementsClassName(IssueLabel, classes.IssueLabel)
+
   it('should default to a `span`', () => {
     const {container} = render(<IssueLabel>Label</IssueLabel>)
     expect(container.firstChild).toHaveProperty('tagName', 'SPAN')

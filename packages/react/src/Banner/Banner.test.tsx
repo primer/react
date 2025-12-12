@@ -2,17 +2,16 @@ import {describe, expect, it, vi} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {Banner} from '../Banner'
+import {implementsClassName} from '../utils/testing'
+import classes from './Banner.module.css'
 
 describe('Banner', () => {
+  implementsClassName(props => <Banner title="test" {...props} />, classes.Banner)
+
   it('should render as a region element', () => {
     render(<Banner title="test" />)
     expect(screen.getByRole('region', {name: 'Information'})).toBeInTheDocument()
     expect(screen.getByRole('heading', {name: 'test'})).toBeInTheDocument()
-  })
-
-  it('should support a custom `className` on the outermost element', () => {
-    const Element = () => <Banner title="test" className="test-class-name" />
-    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('should label the landmark element with the corresponding variant label text', () => {

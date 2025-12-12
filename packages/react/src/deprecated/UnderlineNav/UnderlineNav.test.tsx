@@ -1,8 +1,12 @@
 import {render} from '@testing-library/react'
 import {describe, it, expect} from 'vitest'
 import UnderlineNav from '../UnderlineNav'
+import {implementsClassName} from '../../utils/testing'
+import classes from './UnderlineNav.module.css'
 
 describe('UnderlineNav', () => {
+  implementsClassName(UnderlineNav, classes.UnderlineNav)
+
   it('renders a <nav>', () => {
     const {container} = render(<UnderlineNav />)
     expect(container.firstElementChild?.tagName).toEqual('NAV')

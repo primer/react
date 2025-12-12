@@ -2,8 +2,10 @@ import {describe, expect, it, beforeEach, afterEach} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import {Announce} from '../Announce'
 import {getLiveRegion} from './test-helpers'
+import {implementsClassName} from '../../utils/testing'
 
 describe('Announce', () => {
+  implementsClassName(Announce)
   beforeEach(() => {
     const liveRegion = document.createElement('live-region')
     document.body.appendChild(liveRegion)

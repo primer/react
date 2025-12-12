@@ -2,8 +2,12 @@ import {render, screen} from '@testing-library/react'
 import {describe, test, expect, vi} from 'vitest'
 import {userEvent} from 'vitest/browser'
 import {TopicTag} from '../TopicTag'
+import {implementsClassName} from '../utils/testing'
+import classes from './TopicTag.module.css'
 
 describe('TopicTag', () => {
+  implementsClassName(TopicTag, classes.TopicTag)
+
   test('defaults to <a> semantics', async () => {
     render(<TopicTag href="#">test</TopicTag>)
 

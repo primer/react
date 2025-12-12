@@ -4,8 +4,11 @@ import userEvent from '@testing-library/user-event'
 import ActionBar from './'
 import {BoldIcon, ItalicIcon, CodeIcon} from '@primer/octicons-react'
 import {useState} from 'react'
+import {implementsClassName} from '../utils/testing'
+import classes from './ActionBar.module.css'
 
 describe('ActionBar', () => {
+  implementsClassName(ActionBar, classes.Nav)
   afterEach(() => {
     vi.clearAllMocks()
   })

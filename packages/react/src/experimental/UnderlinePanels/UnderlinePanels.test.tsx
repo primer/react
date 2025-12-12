@@ -4,6 +4,8 @@ import {render, screen} from '@testing-library/react'
 import {describe, it, afterEach, expect, vi} from 'vitest'
 import UnderlinePanels from './UnderlinePanels'
 import TabContainerElement from '@github/tab-container-element'
+import {implementsClassName} from '../../utils/testing'
+import classes from './UnderlinePanels.module.css'
 
 TabContainerElement.prototype.selectTab = vi.fn()
 
@@ -19,6 +21,9 @@ const UnderlinePanelsMockComponent = (props: {'aria-label'?: string; 'aria-label
 )
 
 describe('UnderlinePanels', () => {
+  implementsClassName(UnderlinePanels, classes.StyledUnderlineWrapper)
+  implementsClassName(UnderlinePanels.Tab)
+  implementsClassName(UnderlinePanels.Panel)
   afterEach(() => {
     vi.restoreAllMocks()
   })
@@ -139,20 +144,5 @@ describe('UnderlinePanels', () => {
         </UnderlinePanels>,
       )
     }).toThrow('Only one tab can be selected at a time.')
-  })
-
-  it('should support `className` on the outermost element', () => {
-    const Element = () => (
-      <UnderlinePanels className={'test-class-name'}>
-        <UnderlinePanels.Tab aria-selected={true}>Tab 1</UnderlinePanels.Tab>
-        <UnderlinePanels.Tab aria-selected={false}>Tab 2</UnderlinePanels.Tab>
-        <UnderlinePanels.Panel>Panel 1</UnderlinePanels.Panel>
-        <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
-      </UnderlinePanels>
-    )
-
-    const {container} = render(<Element />)
-
-    expect(container.firstElementChild?.firstElementChild).toHaveClass('test-class-name')
   })
 })

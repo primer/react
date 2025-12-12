@@ -1,12 +1,11 @@
 import {render} from '@testing-library/react'
 import {describe, test, expect} from 'vitest'
 import {TopicTagGroup} from './TopicTagGroup'
+import {implementsClassName} from '../utils/testing'
+import classes from './TopicTagGroup.module.css'
 
 describe('TopicTagGroup', () => {
-  test('supports `className` merging', () => {
-    const {container} = render(<TopicTagGroup className="custom-class">test</TopicTagGroup>)
-    expect(container.firstChild).toHaveClass('custom-class')
-  })
+  implementsClassName(TopicTagGroup, classes.TopicTagGroup)
 
   test('additional props are applied to outermost element', () => {
     const {container} = render(

@@ -50,6 +50,8 @@ jobs:
         run: npm run lint:md
       - name: Lint npm packages
         run: npx turbo lint:npm
+      - name: Check className test coverage
+        run: npm run test:classname-coverage
 
   test:
     runs-on: ubuntu-latest

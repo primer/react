@@ -1,12 +1,11 @@
 import {describe, expect, it} from 'vitest'
 import {CounterLabel} from '..'
 import {render as HTMLRender} from '@testing-library/react'
+import classes from './CounterLabel.module.css'
+import {implementsClassName} from '../utils/testing'
 
 describe('CounterLabel', () => {
-  it('should support `className` on the outermost element', () => {
-    const Element = () => <CounterLabel className={'test-class-name'} />
-    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
+  implementsClassName(CounterLabel, classes.CounterLabel)
 
   it('renders a <span>', () => {
     const {container} = HTMLRender(<CounterLabel>1234</CounterLabel>)

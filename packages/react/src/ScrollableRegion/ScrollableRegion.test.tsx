@@ -2,10 +2,14 @@ import {describe, expect, test, beforeEach, afterEach} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import {act} from 'react'
 import {ScrollableRegion} from '../ScrollableRegion'
+import {implementsClassName} from '../utils/testing'
+import classes from './ScrollableRegion.module.css'
 
 const originalResizeObserver = window.ResizeObserver
 
 describe('ScrollableRegion', () => {
+  implementsClassName(ScrollableRegion, classes.ScrollableRegion)
+
   let mockResizeCallback: (entries: Array<ResizeObserverEntry>) => void
 
   beforeEach(() => {

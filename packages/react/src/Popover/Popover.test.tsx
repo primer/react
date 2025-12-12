@@ -2,12 +2,12 @@ import {describe, expect, it} from 'vitest'
 import {render} from '@testing-library/react'
 import type {PopoverProps} from '../Popover'
 import Popover from '../Popover'
+import classes from './Popover.module.css'
+import {implementsClassName} from '../utils/testing'
 
 describe('Popover', () => {
-  it('should support `className` on the outermost element', () => {
-    const Element = () => <Popover className={'test-class-name'}></Popover>
-    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
+  implementsClassName(Popover, classes.Popover)
+  implementsClassName(Popover.Content, classes.PopoverContent)
 
   const CARET_POSITIONS: PopoverProps['caret'][] = [
     'top',

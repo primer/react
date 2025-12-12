@@ -4,8 +4,11 @@ import {describe, expect, it, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
 import {Dialog} from './Dialog'
 import {Button} from '../Button'
+import {implementsClassName} from '../utils/testing'
+import classes from './Dialog.module.css'
 
 describe('Dialog', () => {
+  implementsClassName(Dialog, classes.Dialog)
   it('renders with role "dialog" by default', () => {
     const {getByRole} = render(<Dialog onClose={() => {}}>Pay attention to me</Dialog>)
 

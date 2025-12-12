@@ -6,6 +6,8 @@ import type {SubTreeState} from './TreeView'
 import {TreeView} from './TreeView'
 import {GearIcon} from '@primer/octicons-react'
 import {getLiveRegion} from '../live-region/__tests__/test-helpers'
+import {implementsClassName} from '../utils/testing'
+import classes from './TreeView.module.css'
 
 // TODO: Move this function into a shared location
 function renderWithTheme(
@@ -27,6 +29,9 @@ afterEach(() => {
 })
 
 describe('Markup', () => {
+  implementsClassName(TreeView, classes.TreeViewRootUlStyles)
+  implementsClassName(TreeView.Item, classes.TreeViewItem)
+
   it('uses tree role', () => {
     const {queryByRole} = renderWithTheme(
       <TreeView aria-label="Test tree">
@@ -1810,20 +1815,4 @@ it('should activate the dialog for trailing action when keyboard shortcut is use
   fireEvent.keyDown(treeItem, {key: 'u', metaKey: true, shiftKey: true})
 
   expect(screen.getByRole('dialog')).toBeInTheDocument()
-})
-
-describe('CSS Module Migration', () => {
-  it('should support `className` on the outermost element', () => {
-    const TreeViewTestComponent = () => (
-      <TreeView aria-label="Test tree" className={'test-class-name'}>
-        <TreeView.Item id="item-1">Item 1</TreeView.Item>
-        <TreeView.Item id="item-2">Item 2</TreeView.Item>
-        <TreeView.Item id="item-3">Item 3</TreeView.Item>
-      </TreeView>
-    )
-
-    // Find the TreeView ul element (which should have the className)
-    const treeElement = render(<TreeViewTestComponent />).getByRole('tree')
-    expect(treeElement).toHaveClass('test-class-name')
-  })
 })

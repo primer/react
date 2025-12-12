@@ -1,8 +1,25 @@
 import {describe, expect, it, vi} from 'vitest'
 import {render} from '@testing-library/react'
 import {PageHeader} from '.'
+import {implementsClassName} from '../utils/testing'
+import classes from './PageHeader.module.css'
 
 describe('PageHeader', () => {
+  implementsClassName(PageHeader, classes.PageHeader)
+  implementsClassName(PageHeader.ContextArea, classes.ContextArea)
+  implementsClassName(PageHeader.ParentLink, classes.ParentLink)
+  implementsClassName(PageHeader.ContextBar, classes.ContextBar)
+  implementsClassName(PageHeader.TitleArea, classes.TitleArea)
+  implementsClassName(PageHeader.ContextAreaActions, classes.ContextAreaActions)
+  implementsClassName(PageHeader.LeadingAction, classes.LeadingAction)
+  implementsClassName(PageHeader.Breadcrumbs, classes.Breadcrumbs)
+  implementsClassName(PageHeader.LeadingVisual, classes.LeadingVisual)
+  implementsClassName(PageHeader.Title, classes.Title)
+  implementsClassName(PageHeader.TrailingVisual, classes.TrailingVisual)
+  implementsClassName(PageHeader.TrailingAction, classes.TrailingAction)
+  implementsClassName(PageHeader.Actions, classes.Actions)
+  implementsClassName(PageHeader.Description, classes.Description)
+  implementsClassName(PageHeader.Navigation, classes.Navigation)
   it('respects the title variant prop', () => {
     const {getByText} = render(
       <PageHeader role="banner" aria-label="Title">
