@@ -236,8 +236,9 @@ export function usePaneWidth({
       // Update CSS variable for visual clamping (may already be set by throttled update)
       paneRef.current?.style.setProperty('--pane-max-width', `${actualMax}px`)
 
-      // Clamp ref if viewport shrunk - ensures keyboard/drag work correctly
-      if (currentWidthRef.current > actualMax) {
+      // Track if we clamped current width
+      const wasClamped = currentWidthRef.current > actualMax
+      if (wasClamped) {
         currentWidthRef.current = actualMax
         paneRef.current?.style.setProperty('--pane-width', `${actualMax}px`)
       }
@@ -245,9 +246,12 @@ export function usePaneWidth({
       // Update ARIA via DOM - cheap, no React re-render
       updateAriaValues(handleRef.current, {max: actualMax, current: currentWidthRef.current})
 
-      // Defer state update so parent re-renders see accurate maxPaneWidth
+      // Defer state updates so parent re-renders see accurate values
       startTransition(() => {
         setMaxPaneWidth(actualMax)
+        if (wasClamped) {
+          setCurrentWidth(actualMax)
+        }
       })
     }
 
@@ -269,7 +273,7 @@ export function usePaneWidth({
     let lastThrottleTime = 0
 
     const handleResize = () => {
-      const now = window.performance.now()
+      const now = Date.now()
 
       // Throttled CSS update for immediate visual feedback
       if (now - lastThrottleTime >= THROTTLE_MS) {
@@ -279,7 +283,7 @@ export function usePaneWidth({
         // Schedule next frame if we're within throttle window
         rafId = requestAnimationFrame(() => {
           rafId = null
-          lastThrottleTime = window.performance.now()
+          lastThrottleTime = Date.now()
           updateCSSOnly()
         })
       }
