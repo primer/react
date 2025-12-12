@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-fix resizeobserver perf regression
+reapplies PageLayout resizable enhancements without INP drop from expensive selectors
