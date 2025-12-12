@@ -4,5 +4,6 @@
     "emitDeclarationOnly": true,
     "outDir": "./dist",
     "rootDir": "./src"
-  }
+  },
+  "exclude": ["**/__tests__/**", "vitest.config.mts"]
 }
