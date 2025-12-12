@@ -11,36 +11,15 @@ import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes
 
 import classes from './PageLayout.module.css'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types'
-import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
-
-/**
- * Default value for --pane-max-width-diff CSS variable.
- * This is the fallback when the element isn't mounted or value can't be read.
- */
-const DEFAULT_MAX_WIDTH_DIFF = 511
-
-/**
- * Pixel increment for keyboard arrow key resizing.
- * @see https://github.com/github/accessibility/issues/5101#issuecomment-1822870655
- */
-const ARROW_KEY_STEP = 3
-
-/**
- * Default max pane width for SSR when viewport is unknown.
- * Updated to actual value in layout effect before paint.
- */
-const SSR_DEFAULT_MAX_WIDTH = 600
-
-/**
- * Gets the --pane-max-width-diff CSS variable value from a pane element.
- * This value is set by CSS media queries and controls the max pane width constraint.
- * Note: This calls getComputedStyle which forces layout - cache the result when possible.
- */
-function getPaneMaxWidthDiff(paneElement: HTMLElement | null): number {
-  if (!paneElement) return DEFAULT_MAX_WIDTH_DIFF
-  const value = parseInt(getComputedStyle(paneElement).getPropertyValue('--pane-max-width-diff'), 10)
-  return value > 0 ? value : DEFAULT_MAX_WIDTH_DIFF
-}
+import {
+  usePaneWidth,
+  updateAriaValues,
+  isCustomWidthOptions,
+  isPaneWidth,
+  ARROW_KEY_STEP,
+  type CustomWidthOptions,
+  type PaneWidth,
+} from './usePaneWidth'
 
 const REGION_ORDER = {
   header: 0,
@@ -218,18 +197,6 @@ type DragHandleProps = {
   'aria-valuemax'?: number
   /** ARIA slider current value */
   'aria-valuenow'?: number
-}
-
-// Helper to update ARIA slider attributes via direct DOM manipulation
-// This avoids re-renders when values change during drag or on viewport resize
-const updateAriaValues = (handle: HTMLElement | null, values: {current?: number; min?: number; max?: number}) => {
-  if (!handle) return
-  if (values.min !== undefined) handle.setAttribute('aria-valuemin', String(values.min))
-  if (values.max !== undefined) handle.setAttribute('aria-valuemax', String(values.max))
-  if (values.current !== undefined) {
-    handle.setAttribute('aria-valuenow', String(values.current))
-    handle.setAttribute('aria-valuetext', `Pane width ${values.current} pixels`)
-  }
 }
 
 const DATA_DRAGGING_ATTR = 'data-dragging'
@@ -568,34 +535,6 @@ Content.displayName = 'PageLayout.Content'
 // ----------------------------------------------------------------------------
 // PageLayout.Pane
 
-type Measurement = `${number}px`
-
-type CustomWidthOptions = {
-  min: Measurement
-  default: Measurement
-  max: Measurement
-}
-
-type PaneWidth = keyof typeof paneWidths
-
-const isCustomWidthOptions = (width: PaneWidth | CustomWidthOptions): width is CustomWidthOptions => {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  return (width as CustomWidthOptions).default !== undefined
-}
-
-const isPaneWidth = (width: PaneWidth | CustomWidthOptions): width is PaneWidth => {
-  return ['small', 'medium', 'large'].includes(width as PaneWidth)
-}
-
-const getDefaultPaneWidth = (w: PaneWidth | CustomWidthOptions): number => {
-  if (isPaneWidth(w)) {
-    return defaultPaneWidth[w]
-  } else if (isCustomWidthOptions(w)) {
-    return parseInt(w.default, 10)
-  }
-  return 0
-}
-
 export type PageLayoutPaneProps = {
   position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
   /**
@@ -650,15 +589,6 @@ const panePositions = {
   end: REGION_ORDER.paneEnd,
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const paneWidths = {
-  small: ['100%', null, '240px', '256px'],
-  medium: ['100%', null, '256px', '296px'],
-  large: ['100%', null, '256px', '320px'],
-}
-
-const defaultPaneWidth = {small: 256, medium: 296, large: 320}
-
 const overflowProps = {tabIndex: 0, role: 'region'}
 
 const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutPaneProps>>(
@@ -704,105 +634,18 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
     const {rowGap, columnGap, paneRef} = React.useContext(PageLayoutContext)
 
-    // Initial pane width for the first render - only used to set the initial CSS variable.
-    // After mount, all updates go directly to the DOM via style.setProperty() to avoid re-renders.
-    const [defaultWidth, setDefaultWidth] = React.useState(() => getDefaultPaneWidth(width))
-
-    // Track current width during drag - initialized lazily in layout effect
-    const currentWidthRef = React.useRef(defaultWidth)
-
-    // Track whether we've initialized the width from localStorage
-    const initializedRef = React.useRef(false)
-
-    useIsomorphicLayoutEffect(() => {
-      // Only initialize once on mount - subsequent updates come from drag operations
-      if (initializedRef.current || !resizable) return
-      initializedRef.current = true
-      // Before paint, check localStorage for a stored width
-      try {
-        const value = localStorage.getItem(widthStorageKey)
-        if (value !== null && !isNaN(Number(value))) {
-          const num = Number(value)
-          currentWidthRef.current = num
-          paneRef.current?.style.setProperty('--pane-width', `${num}px`)
-          setDefaultWidth(num)
-          return
-        }
-      } catch {
-        // localStorage unavailable - keep default
-      }
-    }, [widthStorageKey, paneRef, resizable])
-
-    // Calculate min width constraint from width configuration
-    const minPaneWidth = isCustomWidthOptions(width) ? parseInt(width.min, 10) : minWidth
-
-    // Cache the CSS variable value to avoid getComputedStyle during drag (causes layout thrashing)
-    // Updated on mount and resize when breakpoints might change
-    const maxWidthDiffRef = React.useRef(DEFAULT_MAX_WIDTH_DIFF)
-
-    // Calculate max width constraint using cached maxWidthDiff
-    const getMaxPaneWidth = React.useCallback(() => {
-      if (isCustomWidthOptions(width)) {
-        return parseInt(width.max, 10)
-      }
-      const viewportWidth = window.innerWidth
-      return viewportWidth > 0 ? Math.max(minPaneWidth, viewportWidth - maxWidthDiffRef.current) : minPaneWidth
-    }, [width, minPaneWidth])
-
-    // Max pane width for React state - SSR uses a sensible default, updated on mount
-    // This is used for ARIA attributes in JSX to ensure SSR accessibility
-    const getInitialMaxPaneWidth = () => {
-      if (isCustomWidthOptions(width)) {
-        return parseInt(width.max, 10)
-      }
-      // SSR-safe default: use a reasonable max based on typical viewport
-      // This will be updated in layout effect before paint
-      return SSR_DEFAULT_MAX_WIDTH
-    }
-    const [maxPaneWidth, setMaxPaneWidth] = React.useState(getInitialMaxPaneWidth)
-
     // Ref to the drag handle for updating ARIA attributes
     const handleRef = React.useRef<HTMLDivElement>(null)
 
-    const getMaxPaneWidthRef = React.useRef(getMaxPaneWidth)
-    useIsomorphicLayoutEffect(() => {
-      getMaxPaneWidthRef.current = getMaxPaneWidth
-    })
-    // Update max pane width on mount and window resize for accurate ARIA values
-    // Window resize events only fire on actual viewport changes (not content changes),
-    // so this doesn't cause the INP issues that ResizeObserver on document.documentElement did
-    useIsomorphicLayoutEffect(() => {
-      const updateMax = () => {
-        // Update cached CSS variable value (only getComputedStyle call happens here, not during drag)
-        maxWidthDiffRef.current = getPaneMaxWidthDiff(paneRef.current)
-        const actualMax = getMaxPaneWidthRef.current()
-        setMaxPaneWidth(actualMax)
-        // Clamp current width if it exceeds new max (viewport shrunk)
-        if (currentWidthRef.current > actualMax) {
-          currentWidthRef.current = actualMax
-          paneRef.current?.style.setProperty('--pane-width', `${actualMax}px`)
-          setDefaultWidth(actualMax)
-        }
-        updateAriaValues(handleRef.current, {min: minPaneWidth, max: actualMax, current: currentWidthRef.current})
-      }
-      updateMax()
-
-      // Throttle resize handler to animation frames
-      let rafId: number | null = null
-      const throttledUpdateMax = () => {
-        if (rafId) cancelAnimationFrame(rafId)
-        rafId = requestAnimationFrame(updateMax)
-      }
-
-      // ResizeObserver on document.documentElement fires on any content change (typing, etc),
-      // causing INP regressions. Window resize only fires on viewport changes.
-      // eslint-disable-next-line github/prefer-observers
-      window.addEventListener('resize', throttledUpdateMax)
-      return () => {
-        if (rafId) cancelAnimationFrame(rafId)
-        window.removeEventListener('resize', throttledUpdateMax)
-      }
-    }, [minPaneWidth, paneRef])
+    const {currentWidth, currentWidthRef, minPaneWidth, maxPaneWidth, getMaxPaneWidth, saveWidth, getDefaultWidth} =
+      usePaneWidth({
+        width,
+        minWidth,
+        resizable,
+        widthStorageKey,
+        paneRef,
+        handleRef,
+      })
 
     useRefObjectAsForwardedRef(forwardRef, paneRef)
 
@@ -823,16 +666,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         labelProp['aria-labelledby'] = labelledBy
       } else if (label) {
         labelProp['aria-label'] = label
-      }
-    }
-
-    // Persist width to localStorage and sync React state
-    const saveWidth = (value: number) => {
-      setDefaultWidth(value)
-      try {
-        localStorage.setItem(widthStorageKey, value.toString())
-      } catch {
-        // Ignore write errors
       }
     }
 
@@ -878,7 +711,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               '--pane-width-size': `var(--pane-width-${isPaneWidth(width) ? width : 'custom'})`,
               // Set --pane-width to default on initial render (SSR-safe).
               // Layout effect updates it from localStorage before paint to avoid CLS.
-              '--pane-width': resizable ? `${defaultWidth}px` : undefined,
+              '--pane-width': resizable ? `${currentWidth}px` : undefined,
             } as React.CSSProperties
           }
         >
@@ -913,7 +746,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               handleRef={handleRef}
               aria-valuemin={minPaneWidth}
               aria-valuemax={maxPaneWidth}
-              aria-valuenow={defaultWidth}
+              aria-valuenow={currentWidth}
               onDrag={(delta, isKeyboard) => {
                 const deltaWithDirection = isKeyboard ? delta : position === 'end' ? -delta : delta
                 const maxWidth = getMaxPaneWidth()
@@ -950,7 +783,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
                 saveWidth(currentWidthRef.current!)
               }}
               onDoubleClick={() => {
-                const resetWidth = getDefaultPaneWidth(width)
+                const resetWidth = getDefaultWidth()
                 if (paneRef.current) {
                   paneRef.current.style.setProperty('--pane-width', `${resetWidth}px`)
                   currentWidthRef.current = resetWidth
