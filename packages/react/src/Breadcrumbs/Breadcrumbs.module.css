@@ -117,7 +117,8 @@
   list-style: none;
 
   /* allow menu items to wrap line */
-  &:has(.MenuOverlay) {
+  /* PERFORMANCE: MenuOverlay is inside MenuDetails > summary sibling, use shallow path */
+  &:has(> .MenuDetails .MenuOverlay) {
     white-space: normal;
   }
 

@@ -86,8 +86,12 @@
     display: none;
   }
 
-  /* if a list has a mix of items with and without descriptions, reset the label font-weight to normal */
-  &:has([data-has-description='true']):has([data-has-description='false']) {
+  /*
+   * PERFORMANCE: Uses data attribute set by JavaScript instead of
+   * :has([data-has-description='true']):has([data-has-description='false'])
+   * The double :has() scans all items twice on every style recalc - O(2n).
+   */
+  &[data-has-mixed-descriptions='true'] {
     & .ItemLabel {
       font-weight: var(--base-text-weight-normal);
     }
@@ -121,7 +125,8 @@
     }
   }
 
-  &:not(:has([aria-disabled], [disabled]), [data-has-subitem='true']) {
+  /* PERFORMANCE: Use data-disabled on <li> instead of :has([aria-disabled], [disabled]) which scans descendants */
+  &:not([data-disabled='true'], [data-has-subitem='true']) {
     @media (hover: hover) {
       &:hover,
       &:active {
@@ -276,8 +281,8 @@
       }
     }
 
-    &:where([data-loading='true']),
-    &:has([data-loading='true']) {
+    /* PERFORMANCE: data-loading is set on the <li> by JS, avoiding :has() descendant scan */
+    &:where([data-loading='true']) {
       & * {
         color: var(--fgColor-muted);
       }
@@ -322,10 +327,9 @@
     }
   }
 
-  /* disabled */
-
+  /* PERFORMANCE: data-disabled is set on the <li> by JS, avoiding :has() descendant scan */
   &[aria-disabled='true'],
-  &:has([aria-disabled='true'], [disabled]) {
+  &[data-disabled='true'] {
     & .ActionListContent * {
       color: var(--control-fgColor-disabled);
     }
@@ -366,7 +370,8 @@
   }
 
   /* When TrailingAction is in loading state, keep labels and descriptions accessible */
-  &:has(.TrailingAction [data-loading='true']):not([aria-disabled='true']) {
+  /* PERFORMANCE: scoped to direct child TrailingAction */
+  &:has(> .TrailingAction[data-loading='true']):not([aria-disabled='true']) {
     /* Ensure labels and descriptions maintain accessibility contrast */
     & .ItemLabel {
       color: var(--fgColor-default);
@@ -637,7 +642,8 @@ default block */
       word-break: normal;
     }
 
-    &:has([data-truncate='true']) {
+    /* PERFORMANCE: data-truncate is on this element itself, no :has() needed */
+    &[data-truncate='true'] {
       & .ItemLabel {
         flex: 1 0 auto;
       }
@@ -713,7 +719,8 @@ span wrapping svg or text */
   height: 100%;
 
   /* Preserve width consistency when loading state is active for text buttons only */
-  &[data-loading='true']:has([data-component='buttonContent']) {
+  /* PERFORMANCE: scoped to direct child for O(1) lookup */
+  &[data-loading='true']:has(> [data-component='buttonContent']) {
     /* Double the left padding to compensate for missing right padding */
     padding: 0 0 0 calc(var(--base-size-12) * 2);
 
@@ -731,6 +738,11 @@ span wrapping svg or text */
   }
 }
 
+/*
+ * NOTE: Uses descendant :has() - VisualComponent is nested inside Tooltip > button,
+ * which is 3 levels deep (> * > * > .TrailingVisual). This is acceptable since
+ * the search is scoped to this small wrapper element's subtree.
+ */
 .InactiveButtonWrap {
   &:has(.TrailingVisual) {
     grid-area: trailingVisual;

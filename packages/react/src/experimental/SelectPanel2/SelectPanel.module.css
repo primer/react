@@ -112,7 +112,12 @@
 .TextInput {
   padding-left: var(--base-size-8) !important;
 
-  /* stylelint-disable-next-line selector-class-pattern */
+  /*
+   * NOTE: Uses descendant :has() - input is not direct child of TextInputWrapper
+   * due to TextInputInnerVisualSlot wrappers. This is acceptable performance
+   * as the search is scoped to this single element's subtree.
+   */
+  /* stylelint-disable-next-line selector-class-pattern -- global class from TextInput */
   &:has(input:placeholder-shown) :global(.TextInput-action) {
     display: none;
   }
