@@ -299,9 +299,9 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
 
     // Add class directly to body for scroll disabling (instead of using CSS :has() selector)
     // This avoids expensive DOM-wide style recalcs on every interaction
-    document.body.classList.add('prc-dialog-scroll-disabled')
+    document.body.classList.add('DialogScrollDisabled')
     return () => {
-      document.body.classList.remove('prc-dialog-scroll-disabled')
+      document.body.classList.remove('DialogScrollDisabled')
     }
   }, [])
 

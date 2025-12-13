@@ -633,11 +633,13 @@
     }
   }
 
-  /* Icon-only + Counter - scoped :has() to direct child for performance */
-
-  &:where([data-has-count]):has(> [data-component='buttonContent'] > [data-component='leadingVisual']):not(
-      :has(> [data-component='buttonContent'] > [data-component='text'])
-    ) {
+  /*
+   * Icon-only + Counter
+   * NOTE: Uses descendant :has() - leadingVisual and text are nested inside
+   * buttonContent wrapper. This is acceptable as the search is scoped to
+   * this single button element's subtree (small DOM).
+   */
+  &:where([data-has-count]):has([data-component='leadingVisual']):not(:has([data-component='text'])) {
     /* stylelint-disable-next-line primer/spacing */
     padding-inline: var(--control-medium-paddingInline-condensed);
 

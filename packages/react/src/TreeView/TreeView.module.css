@@ -67,8 +67,12 @@
       --min-item-height: 2.75rem;
     }
 
-    /* PERFORMANCE: TreeViewItemSkeleton is a direct child, scope with > for O(1) lookup */
-    &:has(> .TreeViewItemSkeleton):hover {
+    /*
+     * NOTE: Uses descendant :has() - TreeViewItemSkeleton is nested inside
+     * TreeViewItemContent > TreeViewItemContentText, not a direct child.
+     * This is acceptable as the search is scoped to this element's subtree.
+     */
+    &:has(.TreeViewItemSkeleton):hover {
       cursor: default;
       background-color: transparent;
 

@@ -738,13 +738,17 @@ span wrapping svg or text */
   }
 }
 
-/* PERFORMANCE: scoped :has() to shallow path - button > VisualComponent */
+/*
+ * NOTE: Uses descendant :has() - VisualComponent is nested inside Tooltip > button,
+ * which is 3 levels deep (> * > * > .TrailingVisual). This is acceptable since
+ * the search is scoped to this small wrapper element's subtree.
+ */
 .InactiveButtonWrap {
-  &:has(> * > .TrailingVisual) {
+  &:has(.TrailingVisual) {
     grid-area: trailingVisual;
   }
 
-  &:has(> * > .LeadingVisual) {
+  &:has(.LeadingVisual) {
     grid-area: leadingVisual;
   }
 }
