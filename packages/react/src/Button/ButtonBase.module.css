@@ -580,12 +580,13 @@
     }
   }
 
+  /* PERFORMANCE: Use data-no-visuals attribute instead of :has(.Visual) to avoid descendant scan */
   [data-a11y-link-underlines='true'] &:where([data-variant='link']) {
-    &:not(:has(.Visual)) {
+    &:where([data-no-visuals='true']) {
       text-decoration: underline;
     }
 
-    &:has(.Visual) {
+    &:not([data-no-visuals='true']) {
       background-image: linear-gradient(to right, currentColor, currentColor);
       background-size: 100% 1.5px;
       background-position: 0 calc(100% - 2px);
@@ -598,12 +599,12 @@
   }
 
   [data-a11y-link-underlines='false'] &:where([data-variant='link']) {
-    &:not(:has(.Visual)) {
+    &:where([data-no-visuals='true']) {
       text-decoration: none;
       background-image: none;
     }
 
-    &:has(.Visual) {
+    &:not([data-no-visuals='true']) {
       background-image: none;
     }
   }
@@ -632,9 +633,11 @@
     }
   }
 
-  /* Icon-only + Counter */
+  /* Icon-only + Counter - scoped :has() to direct child for performance */
 
-  &:where([data-has-count]):has([data-component='leadingVisual']):not(:has([data-component='text'])) {
+  &:where([data-has-count]):has(> [data-component='buttonContent'] > [data-component='leadingVisual']):not(
+      :has(> [data-component='buttonContent'] > [data-component='text'])
+    ) {
     /* stylelint-disable-next-line primer/spacing */
     padding-inline: var(--control-medium-paddingInline-condensed);
 

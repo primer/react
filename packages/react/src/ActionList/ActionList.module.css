@@ -370,7 +370,8 @@
   }
 
   /* When TrailingAction is in loading state, keep labels and descriptions accessible */
-  &:has(.TrailingAction [data-loading='true']):not([aria-disabled='true']) {
+  /* PERFORMANCE: scoped to direct child TrailingAction */
+  &:has(> .TrailingAction[data-loading='true']):not([aria-disabled='true']) {
     /* Ensure labels and descriptions maintain accessibility contrast */
     & .ItemLabel {
       color: var(--fgColor-default);
@@ -641,7 +642,8 @@ default block */
       word-break: normal;
     }
 
-    &:has([data-truncate='true']) {
+    /* PERFORMANCE: data-truncate is on this element itself, no :has() needed */
+    &[data-truncate='true'] {
       & .ItemLabel {
         flex: 1 0 auto;
       }
@@ -717,7 +719,8 @@ span wrapping svg or text */
   height: 100%;
 
   /* Preserve width consistency when loading state is active for text buttons only */
-  &[data-loading='true']:has([data-component='buttonContent']) {
+  /* PERFORMANCE: scoped to direct child for O(1) lookup */
+  &[data-loading='true']:has(> [data-component='buttonContent']) {
     /* Double the left padding to compensate for missing right padding */
     padding: 0 0 0 calc(var(--base-size-12) * 2);
 
@@ -735,12 +738,13 @@ span wrapping svg or text */
   }
 }
 
+/* PERFORMANCE: scoped :has() to shallow path - button > VisualComponent */
 .InactiveButtonWrap {
-  &:has(.TrailingVisual) {
+  &:has(> * > .TrailingVisual) {
     grid-area: trailingVisual;
   }
 
-  &:has(.LeadingVisual) {
+  &:has(> * > .LeadingVisual) {
     grid-area: leadingVisual;
   }
 }
