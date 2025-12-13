@@ -249,8 +249,9 @@ Add a border between the body and footer if:
 - the dialog has a footer
 - the dialog has a body that can scroll
 - the browser supports the `animation-timeline` property and its `scroll()` function
+PERFORMANCE: Footer is a direct child of Dialog, scope with > for O(1) lookup
 */
-.Dialog:has(.Footer) {
+.Dialog:has(> .Footer) {
   --can-scroll: 0;
 
   .DialogOverflowWrapper {

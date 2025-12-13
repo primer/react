@@ -67,7 +67,8 @@
       --min-item-height: 2.75rem;
     }
 
-    &:has(.TreeViewItemSkeleton):hover {
+    /* PERFORMANCE: TreeViewItemSkeleton is a direct child, scope with > for O(1) lookup */
+    &:has(> .TreeViewItemSkeleton):hover {
       cursor: default;
       background-color: transparent;
 

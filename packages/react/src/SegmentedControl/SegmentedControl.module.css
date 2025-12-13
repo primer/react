@@ -187,7 +187,8 @@
     }
   }
 
-  &:focus-within:has(:focus-visible) {
+  /* PERFORMANCE: Button is direct child of Item, scope with > for O(1) lookup */
+  &:focus-within:has(> :focus-visible) {
     background-color: transparent;
   }
 
