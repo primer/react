@@ -126,7 +126,7 @@
   }
 
   /* PERFORMANCE: Use data-disabled on <li> instead of :has([aria-disabled], [disabled]) which scans descendants */
-  &:not([data-disabled='true'], [data-has-subitem='true']) {
+  &:not([aria-disabled], [data-disabled='true'], [data-has-subitem='true']) {
     @media (hover: hover) {
       &:hover,
       &:active {
@@ -642,8 +642,7 @@ default block */
       word-break: normal;
     }
 
-    /* PERFORMANCE: data-truncate is on this element itself, no :has() needed */
-    &[data-truncate='true'] {
+    &:has([data-truncate='true']) {
       & .ItemLabel {
         flex: 1 0 auto;
       }
