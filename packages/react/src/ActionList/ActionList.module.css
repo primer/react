@@ -86,8 +86,12 @@
     display: none;
   }
 
-  /* if a list has a mix of items with and without descriptions, reset the label font-weight to normal */
-  &:has([data-has-description='true']):has([data-has-description='false']) {
+  /*
+   * PERFORMANCE: Uses data attribute set by JavaScript instead of
+   * :has([data-has-description='true']):has([data-has-description='false'])
+   * The double :has() scans all items twice on every style recalc - O(2n).
+   */
+  &[data-has-mixed-descriptions='true'] {
     & .ItemLabel {
       font-weight: var(--base-text-weight-normal);
     }
@@ -121,7 +125,8 @@
     }
   }
 
-  &:not(:has([aria-disabled], [disabled]), [data-has-subitem='true']) {
+  /* PERFORMANCE: Use data-disabled on <li> instead of :has([aria-disabled], [disabled]) which scans descendants */
+  &:not([aria-disabled], [data-disabled='true'], [data-has-subitem='true']) {
     @media (hover: hover) {
       &:hover,
       &:active {
@@ -276,8 +281,8 @@
       }
     }
 
-    &:where([data-loading='true']),
-    &:has([data-loading='true']) {
+    /* PERFORMANCE: data-loading is set on the <li> by JS, avoiding :has() descendant scan */
+    &:where([data-loading='true']) {
       & * {
         color: var(--fgColor-muted);
       }
@@ -322,10 +327,9 @@
     }
   }
 
-  /* disabled */
-
+  /* PERFORMANCE: data-disabled is set on the <li> by JS, avoiding :has() descendant scan */
   &[aria-disabled='true'],
-  &:has([aria-disabled='true'], [disabled]) {
+  &[data-disabled='true'] {
     & .ActionListContent * {
       color: var(--control-fgColor-disabled);
     }

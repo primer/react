@@ -229,7 +229,12 @@
   }
 }
 
-body:has(.Dialog.DisableScroll) {
+/*
+ * PERFORMANCE: Using a direct class on body instead of body:has(.Dialog.DisableScroll)
+ * The :has() selector forces the browser to scan the entire DOM on every style recalc,
+ * which is O(n) where n is the number of DOM nodes. This is expensive on large pages.
+ */
+body:global(.prc-dialog-scroll-disabled) {
   /* stylelint-disable-next-line primer/spacing */
   padding-right: var(--prc-dialog-scrollgutter) !important;
   overflow: hidden !important;
