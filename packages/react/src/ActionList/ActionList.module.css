@@ -126,7 +126,7 @@
   }
 
   /* PERFORMANCE: Use data-disabled on <li> instead of :has([aria-disabled], [disabled]) which scans descendants */
-  &:not([aria-disabled], [data-disabled='true'], [data-has-subitem='true']) {
+  &:not([data-disabled='true'], [data-has-subitem='true']) {
     @media (hover: hover) {
       &:hover,
       &:active {
