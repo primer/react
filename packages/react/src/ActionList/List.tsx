@@ -9,53 +9,6 @@ import {useProvidedRefOrCreate} from '../hooks'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
-import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
-
-/**
- * Detects if the list has a mix of items with and without descriptions.
- * Sets a data attribute on the list element to enable CSS styling.
- * This replaces an expensive double :has() CSS selector that would scan all items twice.
- */
-function useMixedDescriptions(listRef: React.RefObject<HTMLElement | null>) {
-  useIsomorphicLayoutEffect(() => {
-    const list = listRef.current
-    if (!list) return
-
-    const updateMixedDescriptions = () => {
-      const items = list.querySelectorAll('[data-has-description]')
-      let hasWithDescription = false
-      let hasWithoutDescription = false
-
-      for (const item of items) {
-        const value = item.getAttribute('data-has-description')
-        if (value === 'true') hasWithDescription = true
-        if (value === 'false') hasWithoutDescription = true
-        if (hasWithDescription && hasWithoutDescription) break
-      }
-
-      const hasMixed = hasWithDescription && hasWithoutDescription
-      if (hasMixed) {
-        list.setAttribute('data-has-mixed-descriptions', 'true')
-      } else {
-        list.removeAttribute('data-has-mixed-descriptions')
-      }
-    }
-
-    // Initial check
-    updateMixedDescriptions()
-
-    // Observe for changes to handle dynamic item additions/removals
-    const observer = new MutationObserver(updateMixedDescriptions)
-    observer.observe(list, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ['data-has-description'],
-    })
-
-    return () => observer.disconnect()
-  }, [listRef])
-}
 
 const UnwrappedList = <As extends React.ElementType = 'ul'>(
   props: ActionListProps<As>,
@@ -101,9 +54,6 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
     focusOutBehavior:
       listRole === 'menu' || container === 'SelectPanel' || container === 'FilteredActionList' ? 'wrap' : undefined,
   })
-
-  // Detect mixed descriptions and set data attribute (replaces expensive :has() CSS selector)
-  useMixedDescriptions(listRef)
 
   return (
     <ListContext.Provider
