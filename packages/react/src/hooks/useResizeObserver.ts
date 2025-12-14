@@ -28,13 +28,39 @@ export function useResizeObserver<T extends HTMLElement>(
     }
 
     if (typeof ResizeObserver === 'function') {
+      // Track whether this is the first callback (fires immediately on observe())
+      let isFirstCallback = true
+      let pendingFrame: number | null = null
+      let latestEntries: ResizeObserverEntry[] | null = null
+
       const observer = new ResizeObserver(entries => {
-        savedCallback.current(entries)
+        // First callback must be immediate - ResizeObserver fires synchronously
+        // on observe() and consumers may depend on this timing
+        if (isFirstCallback) {
+          isFirstCallback = false
+          savedCallback.current(entries)
+          return
+        }
+
+        // Subsequent callbacks are throttled to reduce layout thrashing
+        // during rapid resize events (e.g., window drag)
+        latestEntries = entries
+        if (pendingFrame === null) {
+          pendingFrame = requestAnimationFrame(() => {
+            pendingFrame = null
+            if (latestEntries) {
+              savedCallback.current(latestEntries)
+            }
+          })
+        }
       })
 
       observer.observe(targetEl)
 
       return () => {
+        if (pendingFrame !== null) {
+          cancelAnimationFrame(pendingFrame)
+        }
         observer.disconnect()
       }
     } else {
