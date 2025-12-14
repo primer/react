@@ -320,15 +320,24 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
   const containerRef = React.useRef<HTMLUListElement>(null)
 
+  // Track pending animation frame to avoid redundant work and improve INP during resize
+  const pendingFrameRef = useRef<number | null>(null)
   useResizeObserver((resizeObserverEntries: ResizeObserverEntry[]) => {
-    const navWidth = resizeObserverEntries[0].contentRect.width
-    const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
-    const hasActiveMenu = menuItemIds.size > 0
-
-    if (navWidth > 0) {
-      const newMenuItemIds = getMenuItems(navWidth, moreMenuWidth, childRegistry, hasActiveMenu, computedGap)
-      if (newMenuItemIds) setMenuItemIds(newMenuItemIds)
+    // Cancel any pending frame to coalesce rapid resize events
+    if (pendingFrameRef.current !== null) {
+      cancelAnimationFrame(pendingFrameRef.current)
     }
+    pendingFrameRef.current = requestAnimationFrame(() => {
+      pendingFrameRef.current = null
+      const navWidth = resizeObserverEntries[0].contentRect.width
+      const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
+      const hasActiveMenu = menuItemIds.size > 0
+
+      if (navWidth > 0) {
+        const newMenuItemIds = getMenuItems(navWidth, moreMenuWidth, childRegistry, hasActiveMenu, computedGap)
+        if (newMenuItemIds) setMenuItemIds(newMenuItemIds)
+      }
+    })
   }, navRef as RefObject<HTMLElement>)
 
   const isVisibleChild = useCallback(
