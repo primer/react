@@ -320,22 +320,17 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
   const containerRef = React.useRef<HTMLUListElement>(null)
 
-  // Use throttled ResizeObserver to coalesce rapid resize events for better INP
-  useResizeObserver(
-    (resizeObserverEntries: ResizeObserverEntry[]) => {
-      const navWidth = resizeObserverEntries[0].contentRect.width
-      const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
-      const hasActiveMenu = menuItemIds.size > 0
+  // ResizeObserver is throttled by default (rAF) for better INP
+  useResizeObserver((resizeObserverEntries: ResizeObserverEntry[]) => {
+    const navWidth = resizeObserverEntries[0].contentRect.width
+    const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
+    const hasActiveMenu = menuItemIds.size > 0
 
-      if (navWidth > 0) {
-        const newMenuItemIds = getMenuItems(navWidth, moreMenuWidth, childRegistry, hasActiveMenu, computedGap)
-        if (newMenuItemIds) setMenuItemIds(newMenuItemIds)
-      }
-    },
-    navRef as RefObject<HTMLElement>,
-    [],
-    {throttle: true},
-  )
+    if (navWidth > 0) {
+      const newMenuItemIds = getMenuItems(navWidth, moreMenuWidth, childRegistry, hasActiveMenu, computedGap)
+      if (newMenuItemIds) setMenuItemIds(newMenuItemIds)
+    }
+  }, navRef as RefObject<HTMLElement>)
 
   const isVisibleChild = useCallback(
     (id: string) => {

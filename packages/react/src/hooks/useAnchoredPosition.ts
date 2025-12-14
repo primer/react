@@ -97,9 +97,9 @@ export function useAnchoredPosition(
 
   useLayoutEffect(updatePosition, [updatePosition])
 
-  // Use throttled ResizeObserver to coalesce rapid resize events for better INP
-  useResizeObserver(updatePosition, undefined, [], {throttle: true}) // watches for changes in window size
-  useResizeObserver(updatePosition, floatingElementRef as React.RefObject<HTMLElement | null>, [], {throttle: true}) // watches for changes in floating element size
+  // ResizeObserver is throttled by default (rAF) for better INP
+  useResizeObserver(updatePosition) // watches for changes in window size
+  useResizeObserver(updatePosition, floatingElementRef as React.RefObject<HTMLElement | null>) // watches for changes in floating element size
 
   return {
     floatingElementRef,
