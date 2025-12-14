@@ -24,6 +24,7 @@
   justify-content: space-between;
   gap: var(--base-size-8);
 
+  /* NOTE: Uses descendant :has() - button has very few children (icon, text, kbd). Acceptable. */
   &:has([data-kbd-chord]) {
     padding-inline-end: var(--base-size-6);
   }
@@ -173,6 +174,7 @@
       margin-right: var(--control-large-gap);
     }
 
+    /* NOTE: Uses descendant :has() - button has very few children (icon, text, kbd). Acceptable. */
     &:has([data-kbd-chord]) {
       padding-inline-end: var(--base-size-8);
     }
