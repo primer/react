@@ -107,21 +107,10 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
       return
     }
 
-    // Track pending frame to throttle MutationObserver callbacks
-    // This avoids synchronous getComputedStyle calls on every DOM mutation
-    let pendingFrame: number | null = null
-    const throttledAnnounce = () => {
-      if (pendingFrame !== null) {
-        cancelAnimationFrame(pendingFrame)
-      }
-      pendingFrame = requestAnimationFrame(() => {
-        pendingFrame = null
-        announce()
-      })
-    }
-
     // When the text of the container changes, announce the new text
-    const observer = new MutationObserver(throttledAnnounce)
+    const observer = new MutationObserver(() => {
+      announce()
+    })
 
     observer.observe(container, {
       subtree: true,
@@ -131,9 +120,6 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
 
     return () => {
       observer.disconnect()
-      if (pendingFrame !== null) {
-        cancelAnimationFrame(pendingFrame)
-      }
     }
   }, [announce])
 

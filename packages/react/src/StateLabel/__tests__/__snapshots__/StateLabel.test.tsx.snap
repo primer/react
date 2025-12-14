@@ -3,13 +3,13 @@
 exports[`StateLabel > prefers the size prop over deprecated variant prop 1`] = `
 <div>
   <span
-    class="prc-StateLabel-StateLabel-eEUJr"
+    class="prc-StateLabel-StateLabel-ukDwa"
     data-size="small"
     data-status="issueOpened"
   >
     <svg
       aria-label="Issue"
-      class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
+      class="octicon octicon-issue-opened prc-StateLabel-Icon-NuDm4"
       data-size-small=""
       display="inline-block"
       fill="currentColor"
@@ -35,13 +35,13 @@ exports[`StateLabel > prefers the size prop over deprecated variant prop 1`] = `
 exports[`StateLabel > renders children 1`] = `
 <div>
   <span
-    class="prc-StateLabel-StateLabel-eEUJr"
+    class="prc-StateLabel-StateLabel-ukDwa"
     data-size="medium"
     data-status="issueOpened"
   >
     <svg
       aria-label="Issue"
-      class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
+      class="octicon octicon-issue-opened prc-StateLabel-Icon-NuDm4"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -67,13 +67,13 @@ exports[`StateLabel > renders children 1`] = `
 exports[`StateLabel > respects the deprecated variant prop 1`] = `
 <div>
   <span
-    class="prc-StateLabel-StateLabel-eEUJr"
+    class="prc-StateLabel-StateLabel-ukDwa"
     data-size="small"
     data-status="issueOpened"
   >
     <svg
       aria-label="Issue"
-      class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
+      class="octicon octicon-issue-opened prc-StateLabel-Icon-NuDm4"
       data-size-small=""
       display="inline-block"
       fill="currentColor"
@@ -99,13 +99,13 @@ exports[`StateLabel > respects the deprecated variant prop 1`] = `
 exports[`StateLabel > respects the deprecated variant prop 2`] = `
 <div>
   <span
-    class="prc-StateLabel-StateLabel-eEUJr"
+    class="prc-StateLabel-StateLabel-ukDwa"
     data-size="medium"
     data-status="issueOpened"
   >
     <svg
       aria-label="Issue"
-      class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
+      class="octicon octicon-issue-opened prc-StateLabel-Icon-NuDm4"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -130,13 +130,13 @@ exports[`StateLabel > respects the deprecated variant prop 2`] = `
 exports[`StateLabel > respects the size prop 1`] = `
 <div>
   <span
-    class="prc-StateLabel-StateLabel-eEUJr"
+    class="prc-StateLabel-StateLabel-ukDwa"
     data-size="small"
     data-status="issueOpened"
   >
     <svg
       aria-label="Issue"
-      class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
+      class="octicon octicon-issue-opened prc-StateLabel-Icon-NuDm4"
       data-size-small=""
       display="inline-block"
       fill="currentColor"
@@ -162,13 +162,13 @@ exports[`StateLabel > respects the size prop 1`] = `
 exports[`StateLabel > respects the size prop 2`] = `
 <div>
   <span
-    class="prc-StateLabel-StateLabel-eEUJr"
+    class="prc-StateLabel-StateLabel-ukDwa"
     data-size="medium"
     data-status="issueOpened"
   >
     <svg
       aria-label="Issue"
-      class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
+      class="octicon octicon-issue-opened prc-StateLabel-Icon-NuDm4"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -193,13 +193,13 @@ exports[`StateLabel > respects the size prop 2`] = `
 exports[`StateLabel > respects the status prop 1`] = `
 <div>
   <span
-    class="prc-StateLabel-StateLabel-eEUJr"
+    class="prc-StateLabel-StateLabel-ukDwa"
     data-size="medium"
     data-status="issueOpened"
   >
     <svg
       aria-label="Issue"
-      class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
+      class="octicon octicon-issue-opened prc-StateLabel-Icon-NuDm4"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -224,13 +224,13 @@ exports[`StateLabel > respects the status prop 1`] = `
 exports[`StateLabel > respects the status prop 2`] = `
 <div>
   <span
-    class="prc-StateLabel-StateLabel-eEUJr"
+    class="prc-StateLabel-StateLabel-ukDwa"
     data-size="medium"
     data-status="issueClosed"
   >
     <svg
       aria-label="Issue"
-      class="octicon octicon-issue-closed prc-StateLabel-Icon-UdR1Y"
+      class="octicon octicon-issue-closed prc-StateLabel-Icon-NuDm4"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -255,13 +255,13 @@ exports[`StateLabel > respects the status prop 2`] = `
 exports[`StateLabel > respects the status prop 3`] = `
 <div>
   <span
-    class="prc-StateLabel-StateLabel-eEUJr"
+    class="prc-StateLabel-StateLabel-ukDwa"
     data-size="medium"
     data-status="issueClosedNotPlanned"
   >
     <svg
       aria-label="Issue, not planned"
-      class="octicon octicon-skip prc-StateLabel-Icon-UdR1Y"
+      class="octicon octicon-skip prc-StateLabel-Icon-NuDm4"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -283,13 +283,13 @@ exports[`StateLabel > respects the status prop 3`] = `
 exports[`StateLabel > respects the status prop 4`] = `
 <div>
   <span
-    class="prc-StateLabel-StateLabel-eEUJr"
+    class="prc-StateLabel-StateLabel-ukDwa"
     data-size="medium"
     data-status="pullMerged"
   >
     <svg
       aria-label="Pull request"
-      class="octicon octicon-git-merge prc-StateLabel-Icon-UdR1Y"
+      class="octicon octicon-git-merge prc-StateLabel-Icon-NuDm4"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -311,13 +311,13 @@ exports[`StateLabel > respects the status prop 4`] = `
 exports[`StateLabel > respects the status prop 5`] = `
 <div>
   <span
-    class="prc-StateLabel-StateLabel-eEUJr"
+    class="prc-StateLabel-StateLabel-ukDwa"
     data-size="medium"
     data-status="pullQueued"
   >
     <svg
       aria-label="Pull request"
-      class="octicon octicon-git-merge-queue prc-StateLabel-Icon-UdR1Y"
+      class="octicon octicon-git-merge-queue prc-StateLabel-Icon-NuDm4"
       display="inline-block"
       fill="currentColor"
       focusable="false"

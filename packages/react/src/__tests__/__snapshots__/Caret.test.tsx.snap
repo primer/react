@@ -10,7 +10,7 @@ exports[`Caret > renders cardinal directions 1`] = `
 
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; left: 50%; margin-left: -8px;"
@@ -20,11 +20,11 @@ exports[`Caret > renders cardinal directions 1`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -33,7 +33,7 @@ exports[`Caret > renders cardinal directions 1`] = `
   </body>,
   "container": <div>
     <svg
-      class="prc-components-Caret-9H5L6"
+      class="prc-components-Caret-PNu-B"
       height="16"
       role="presentation"
       style="bottom: 100%; left: 50%; margin-left: -8px;"
@@ -43,11 +43,11 @@ exports[`Caret > renders cardinal directions 1`] = `
         transform="translate(8,16) rotate(180)"
       >
         <path
-          class="prc-components-CaretTriangle-HAwX3"
+          class="prc-components-CaretTriangle-Iu0GY"
           d="M-8,0L0,8L8,0L-8,0Z"
         />
         <path
-          class="prc-components-CaretBorder-UWaaK"
+          class="prc-components-CaretBorder-o3vP2"
           d="M-8,0L0,8L8,0"
         />
       </g>
@@ -117,7 +117,7 @@ exports[`Caret > renders cardinal directions 2`] = `
 
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; left: 50%; margin-left: -8px;"
@@ -127,11 +127,11 @@ exports[`Caret > renders cardinal directions 2`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -139,7 +139,7 @@ exports[`Caret > renders cardinal directions 2`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="left: 100%; top: 50%; margin-top: -8px;"
@@ -149,11 +149,11 @@ exports[`Caret > renders cardinal directions 2`] = `
           transform="translate(0,8) rotate(-90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -162,7 +162,7 @@ exports[`Caret > renders cardinal directions 2`] = `
   </body>,
   "container": <div>
     <svg
-      class="prc-components-Caret-9H5L6"
+      class="prc-components-Caret-PNu-B"
       height="16"
       role="presentation"
       style="left: 100%; top: 50%; margin-top: -8px;"
@@ -172,11 +172,11 @@ exports[`Caret > renders cardinal directions 2`] = `
         transform="translate(0,8) rotate(-90)"
       >
         <path
-          class="prc-components-CaretTriangle-HAwX3"
+          class="prc-components-CaretTriangle-Iu0GY"
           d="M-8,0L0,8L8,0L-8,0Z"
         />
         <path
-          class="prc-components-CaretBorder-UWaaK"
+          class="prc-components-CaretBorder-o3vP2"
           d="M-8,0L0,8L8,0"
         />
       </g>
@@ -246,7 +246,7 @@ exports[`Caret > renders cardinal directions 3`] = `
 
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; left: 50%; margin-left: -8px;"
@@ -256,11 +256,11 @@ exports[`Caret > renders cardinal directions 3`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -268,7 +268,7 @@ exports[`Caret > renders cardinal directions 3`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="left: 100%; top: 50%; margin-top: -8px;"
@@ -278,11 +278,11 @@ exports[`Caret > renders cardinal directions 3`] = `
           transform="translate(0,8) rotate(-90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -290,7 +290,7 @@ exports[`Caret > renders cardinal directions 3`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="top: 100%; left: 50%; margin-left: -8px;"
@@ -300,11 +300,11 @@ exports[`Caret > renders cardinal directions 3`] = `
           transform="translate(8,0)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -313,7 +313,7 @@ exports[`Caret > renders cardinal directions 3`] = `
   </body>,
   "container": <div>
     <svg
-      class="prc-components-Caret-9H5L6"
+      class="prc-components-Caret-PNu-B"
       height="16"
       role="presentation"
       style="top: 100%; left: 50%; margin-left: -8px;"
@@ -323,11 +323,11 @@ exports[`Caret > renders cardinal directions 3`] = `
         transform="translate(8,0)"
       >
         <path
-          class="prc-components-CaretTriangle-HAwX3"
+          class="prc-components-CaretTriangle-Iu0GY"
           d="M-8,0L0,8L8,0L-8,0Z"
         />
         <path
-          class="prc-components-CaretBorder-UWaaK"
+          class="prc-components-CaretBorder-o3vP2"
           d="M-8,0L0,8L8,0"
         />
       </g>
@@ -397,7 +397,7 @@ exports[`Caret > renders cardinal directions 4`] = `
 
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; left: 50%; margin-left: -8px;"
@@ -407,11 +407,11 @@ exports[`Caret > renders cardinal directions 4`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -419,7 +419,7 @@ exports[`Caret > renders cardinal directions 4`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="left: 100%; top: 50%; margin-top: -8px;"
@@ -429,11 +429,11 @@ exports[`Caret > renders cardinal directions 4`] = `
           transform="translate(0,8) rotate(-90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -441,7 +441,7 @@ exports[`Caret > renders cardinal directions 4`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="top: 100%; left: 50%; margin-left: -8px;"
@@ -451,11 +451,11 @@ exports[`Caret > renders cardinal directions 4`] = `
           transform="translate(8,0)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -463,7 +463,7 @@ exports[`Caret > renders cardinal directions 4`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="right: 100%; top: 50%; margin-top: -8px;"
@@ -473,11 +473,11 @@ exports[`Caret > renders cardinal directions 4`] = `
           transform="translate(16,8) rotate(90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -486,7 +486,7 @@ exports[`Caret > renders cardinal directions 4`] = `
   </body>,
   "container": <div>
     <svg
-      class="prc-components-Caret-9H5L6"
+      class="prc-components-Caret-PNu-B"
       height="16"
       role="presentation"
       style="right: 100%; top: 50%; margin-top: -8px;"
@@ -496,11 +496,11 @@ exports[`Caret > renders cardinal directions 4`] = `
         transform="translate(16,8) rotate(90)"
       >
         <path
-          class="prc-components-CaretTriangle-HAwX3"
+          class="prc-components-CaretTriangle-Iu0GY"
           d="M-8,0L0,8L8,0L-8,0Z"
         />
         <path
-          class="prc-components-CaretBorder-UWaaK"
+          class="prc-components-CaretBorder-o3vP2"
           d="M-8,0L0,8L8,0"
         />
       </g>
@@ -570,7 +570,7 @@ exports[`Caret > renders cardinal directions 5`] = `
 
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; left: 50%; margin-left: -8px;"
@@ -580,11 +580,11 @@ exports[`Caret > renders cardinal directions 5`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -592,7 +592,7 @@ exports[`Caret > renders cardinal directions 5`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="left: 100%; top: 50%; margin-top: -8px;"
@@ -602,11 +602,11 @@ exports[`Caret > renders cardinal directions 5`] = `
           transform="translate(0,8) rotate(-90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -614,7 +614,7 @@ exports[`Caret > renders cardinal directions 5`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="top: 100%; left: 50%; margin-left: -8px;"
@@ -624,11 +624,11 @@ exports[`Caret > renders cardinal directions 5`] = `
           transform="translate(8,0)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -636,7 +636,7 @@ exports[`Caret > renders cardinal directions 5`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="right: 100%; top: 50%; margin-top: -8px;"
@@ -646,11 +646,11 @@ exports[`Caret > renders cardinal directions 5`] = `
           transform="translate(16,8) rotate(90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -658,7 +658,7 @@ exports[`Caret > renders cardinal directions 5`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; left: 8px;"
@@ -668,11 +668,11 @@ exports[`Caret > renders cardinal directions 5`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -681,7 +681,7 @@ exports[`Caret > renders cardinal directions 5`] = `
   </body>,
   "container": <div>
     <svg
-      class="prc-components-Caret-9H5L6"
+      class="prc-components-Caret-PNu-B"
       height="16"
       role="presentation"
       style="bottom: 100%; left: 8px;"
@@ -691,11 +691,11 @@ exports[`Caret > renders cardinal directions 5`] = `
         transform="translate(8,16) rotate(180)"
       >
         <path
-          class="prc-components-CaretTriangle-HAwX3"
+          class="prc-components-CaretTriangle-Iu0GY"
           d="M-8,0L0,8L8,0L-8,0Z"
         />
         <path
-          class="prc-components-CaretBorder-UWaaK"
+          class="prc-components-CaretBorder-o3vP2"
           d="M-8,0L0,8L8,0"
         />
       </g>
@@ -765,7 +765,7 @@ exports[`Caret > renders cardinal directions 6`] = `
 
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; left: 50%; margin-left: -8px;"
@@ -775,11 +775,11 @@ exports[`Caret > renders cardinal directions 6`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -787,7 +787,7 @@ exports[`Caret > renders cardinal directions 6`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="left: 100%; top: 50%; margin-top: -8px;"
@@ -797,11 +797,11 @@ exports[`Caret > renders cardinal directions 6`] = `
           transform="translate(0,8) rotate(-90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -809,7 +809,7 @@ exports[`Caret > renders cardinal directions 6`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="top: 100%; left: 50%; margin-left: -8px;"
@@ -819,11 +819,11 @@ exports[`Caret > renders cardinal directions 6`] = `
           transform="translate(8,0)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -831,7 +831,7 @@ exports[`Caret > renders cardinal directions 6`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="right: 100%; top: 50%; margin-top: -8px;"
@@ -841,11 +841,11 @@ exports[`Caret > renders cardinal directions 6`] = `
           transform="translate(16,8) rotate(90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -853,7 +853,7 @@ exports[`Caret > renders cardinal directions 6`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; left: 8px;"
@@ -863,11 +863,11 @@ exports[`Caret > renders cardinal directions 6`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -875,7 +875,7 @@ exports[`Caret > renders cardinal directions 6`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; right: 8px;"
@@ -885,11 +885,11 @@ exports[`Caret > renders cardinal directions 6`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -898,7 +898,7 @@ exports[`Caret > renders cardinal directions 6`] = `
   </body>,
   "container": <div>
     <svg
-      class="prc-components-Caret-9H5L6"
+      class="prc-components-Caret-PNu-B"
       height="16"
       role="presentation"
       style="bottom: 100%; right: 8px;"
@@ -908,11 +908,11 @@ exports[`Caret > renders cardinal directions 6`] = `
         transform="translate(8,16) rotate(180)"
       >
         <path
-          class="prc-components-CaretTriangle-HAwX3"
+          class="prc-components-CaretTriangle-Iu0GY"
           d="M-8,0L0,8L8,0L-8,0Z"
         />
         <path
-          class="prc-components-CaretBorder-UWaaK"
+          class="prc-components-CaretBorder-o3vP2"
           d="M-8,0L0,8L8,0"
         />
       </g>
@@ -982,7 +982,7 @@ exports[`Caret > renders cardinal directions 7`] = `
 
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; left: 50%; margin-left: -8px;"
@@ -992,11 +992,11 @@ exports[`Caret > renders cardinal directions 7`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1004,7 +1004,7 @@ exports[`Caret > renders cardinal directions 7`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="left: 100%; top: 50%; margin-top: -8px;"
@@ -1014,11 +1014,11 @@ exports[`Caret > renders cardinal directions 7`] = `
           transform="translate(0,8) rotate(-90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1026,7 +1026,7 @@ exports[`Caret > renders cardinal directions 7`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="top: 100%; left: 50%; margin-left: -8px;"
@@ -1036,11 +1036,11 @@ exports[`Caret > renders cardinal directions 7`] = `
           transform="translate(8,0)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1048,7 +1048,7 @@ exports[`Caret > renders cardinal directions 7`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="right: 100%; top: 50%; margin-top: -8px;"
@@ -1058,11 +1058,11 @@ exports[`Caret > renders cardinal directions 7`] = `
           transform="translate(16,8) rotate(90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1070,7 +1070,7 @@ exports[`Caret > renders cardinal directions 7`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; left: 8px;"
@@ -1080,11 +1080,11 @@ exports[`Caret > renders cardinal directions 7`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1092,7 +1092,7 @@ exports[`Caret > renders cardinal directions 7`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; right: 8px;"
@@ -1102,11 +1102,11 @@ exports[`Caret > renders cardinal directions 7`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1114,7 +1114,7 @@ exports[`Caret > renders cardinal directions 7`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="top: 100%; left: 8px;"
@@ -1124,11 +1124,11 @@ exports[`Caret > renders cardinal directions 7`] = `
           transform="translate(8,0)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1137,7 +1137,7 @@ exports[`Caret > renders cardinal directions 7`] = `
   </body>,
   "container": <div>
     <svg
-      class="prc-components-Caret-9H5L6"
+      class="prc-components-Caret-PNu-B"
       height="16"
       role="presentation"
       style="top: 100%; left: 8px;"
@@ -1147,11 +1147,11 @@ exports[`Caret > renders cardinal directions 7`] = `
         transform="translate(8,0)"
       >
         <path
-          class="prc-components-CaretTriangle-HAwX3"
+          class="prc-components-CaretTriangle-Iu0GY"
           d="M-8,0L0,8L8,0L-8,0Z"
         />
         <path
-          class="prc-components-CaretBorder-UWaaK"
+          class="prc-components-CaretBorder-o3vP2"
           d="M-8,0L0,8L8,0"
         />
       </g>
@@ -1221,7 +1221,7 @@ exports[`Caret > renders cardinal directions 8`] = `
 
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; left: 50%; margin-left: -8px;"
@@ -1231,11 +1231,11 @@ exports[`Caret > renders cardinal directions 8`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1243,7 +1243,7 @@ exports[`Caret > renders cardinal directions 8`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="left: 100%; top: 50%; margin-top: -8px;"
@@ -1253,11 +1253,11 @@ exports[`Caret > renders cardinal directions 8`] = `
           transform="translate(0,8) rotate(-90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1265,7 +1265,7 @@ exports[`Caret > renders cardinal directions 8`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="top: 100%; left: 50%; margin-left: -8px;"
@@ -1275,11 +1275,11 @@ exports[`Caret > renders cardinal directions 8`] = `
           transform="translate(8,0)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1287,7 +1287,7 @@ exports[`Caret > renders cardinal directions 8`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="right: 100%; top: 50%; margin-top: -8px;"
@@ -1297,11 +1297,11 @@ exports[`Caret > renders cardinal directions 8`] = `
           transform="translate(16,8) rotate(90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1309,7 +1309,7 @@ exports[`Caret > renders cardinal directions 8`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; left: 8px;"
@@ -1319,11 +1319,11 @@ exports[`Caret > renders cardinal directions 8`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1331,7 +1331,7 @@ exports[`Caret > renders cardinal directions 8`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; right: 8px;"
@@ -1341,11 +1341,11 @@ exports[`Caret > renders cardinal directions 8`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1353,7 +1353,7 @@ exports[`Caret > renders cardinal directions 8`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="top: 100%; left: 8px;"
@@ -1363,11 +1363,11 @@ exports[`Caret > renders cardinal directions 8`] = `
           transform="translate(8,0)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1375,7 +1375,7 @@ exports[`Caret > renders cardinal directions 8`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="top: 100%; right: 8px;"
@@ -1385,11 +1385,11 @@ exports[`Caret > renders cardinal directions 8`] = `
           transform="translate(8,0)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1398,7 +1398,7 @@ exports[`Caret > renders cardinal directions 8`] = `
   </body>,
   "container": <div>
     <svg
-      class="prc-components-Caret-9H5L6"
+      class="prc-components-Caret-PNu-B"
       height="16"
       role="presentation"
       style="top: 100%; right: 8px;"
@@ -1408,11 +1408,11 @@ exports[`Caret > renders cardinal directions 8`] = `
         transform="translate(8,0)"
       >
         <path
-          class="prc-components-CaretTriangle-HAwX3"
+          class="prc-components-CaretTriangle-Iu0GY"
           d="M-8,0L0,8L8,0L-8,0Z"
         />
         <path
-          class="prc-components-CaretBorder-UWaaK"
+          class="prc-components-CaretBorder-o3vP2"
           d="M-8,0L0,8L8,0"
         />
       </g>
@@ -1482,7 +1482,7 @@ exports[`Caret > renders cardinal directions 9`] = `
 
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; left: 50%; margin-left: -8px;"
@@ -1492,11 +1492,11 @@ exports[`Caret > renders cardinal directions 9`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1504,7 +1504,7 @@ exports[`Caret > renders cardinal directions 9`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="left: 100%; top: 50%; margin-top: -8px;"
@@ -1514,11 +1514,11 @@ exports[`Caret > renders cardinal directions 9`] = `
           transform="translate(0,8) rotate(-90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1526,7 +1526,7 @@ exports[`Caret > renders cardinal directions 9`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="top: 100%; left: 50%; margin-left: -8px;"
@@ -1536,11 +1536,11 @@ exports[`Caret > renders cardinal directions 9`] = `
           transform="translate(8,0)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1548,7 +1548,7 @@ exports[`Caret > renders cardinal directions 9`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="right: 100%; top: 50%; margin-top: -8px;"
@@ -1558,11 +1558,11 @@ exports[`Caret > renders cardinal directions 9`] = `
           transform="translate(16,8) rotate(90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1570,7 +1570,7 @@ exports[`Caret > renders cardinal directions 9`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; left: 8px;"
@@ -1580,11 +1580,11 @@ exports[`Caret > renders cardinal directions 9`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1592,7 +1592,7 @@ exports[`Caret > renders cardinal directions 9`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; right: 8px;"
@@ -1602,11 +1602,11 @@ exports[`Caret > renders cardinal directions 9`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1614,7 +1614,7 @@ exports[`Caret > renders cardinal directions 9`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="top: 100%; left: 8px;"
@@ -1624,11 +1624,11 @@ exports[`Caret > renders cardinal directions 9`] = `
           transform="translate(8,0)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1636,7 +1636,7 @@ exports[`Caret > renders cardinal directions 9`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="top: 100%; right: 8px;"
@@ -1646,11 +1646,11 @@ exports[`Caret > renders cardinal directions 9`] = `
           transform="translate(8,0)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1658,7 +1658,7 @@ exports[`Caret > renders cardinal directions 9`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="right: 100%; top: 8px;"
@@ -1668,11 +1668,11 @@ exports[`Caret > renders cardinal directions 9`] = `
           transform="translate(16,8) rotate(90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1681,7 +1681,7 @@ exports[`Caret > renders cardinal directions 9`] = `
   </body>,
   "container": <div>
     <svg
-      class="prc-components-Caret-9H5L6"
+      class="prc-components-Caret-PNu-B"
       height="16"
       role="presentation"
       style="right: 100%; top: 8px;"
@@ -1691,11 +1691,11 @@ exports[`Caret > renders cardinal directions 9`] = `
         transform="translate(16,8) rotate(90)"
       >
         <path
-          class="prc-components-CaretTriangle-HAwX3"
+          class="prc-components-CaretTriangle-Iu0GY"
           d="M-8,0L0,8L8,0L-8,0Z"
         />
         <path
-          class="prc-components-CaretBorder-UWaaK"
+          class="prc-components-CaretBorder-o3vP2"
           d="M-8,0L0,8L8,0"
         />
       </g>
@@ -1765,7 +1765,7 @@ exports[`Caret > renders cardinal directions 10`] = `
 
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; left: 50%; margin-left: -8px;"
@@ -1775,11 +1775,11 @@ exports[`Caret > renders cardinal directions 10`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1787,7 +1787,7 @@ exports[`Caret > renders cardinal directions 10`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="left: 100%; top: 50%; margin-top: -8px;"
@@ -1797,11 +1797,11 @@ exports[`Caret > renders cardinal directions 10`] = `
           transform="translate(0,8) rotate(-90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1809,7 +1809,7 @@ exports[`Caret > renders cardinal directions 10`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="top: 100%; left: 50%; margin-left: -8px;"
@@ -1819,11 +1819,11 @@ exports[`Caret > renders cardinal directions 10`] = `
           transform="translate(8,0)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1831,7 +1831,7 @@ exports[`Caret > renders cardinal directions 10`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="right: 100%; top: 50%; margin-top: -8px;"
@@ -1841,11 +1841,11 @@ exports[`Caret > renders cardinal directions 10`] = `
           transform="translate(16,8) rotate(90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1853,7 +1853,7 @@ exports[`Caret > renders cardinal directions 10`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; left: 8px;"
@@ -1863,11 +1863,11 @@ exports[`Caret > renders cardinal directions 10`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1875,7 +1875,7 @@ exports[`Caret > renders cardinal directions 10`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; right: 8px;"
@@ -1885,11 +1885,11 @@ exports[`Caret > renders cardinal directions 10`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1897,7 +1897,7 @@ exports[`Caret > renders cardinal directions 10`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="top: 100%; left: 8px;"
@@ -1907,11 +1907,11 @@ exports[`Caret > renders cardinal directions 10`] = `
           transform="translate(8,0)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1919,7 +1919,7 @@ exports[`Caret > renders cardinal directions 10`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="top: 100%; right: 8px;"
@@ -1929,11 +1929,11 @@ exports[`Caret > renders cardinal directions 10`] = `
           transform="translate(8,0)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1941,7 +1941,7 @@ exports[`Caret > renders cardinal directions 10`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="right: 100%; top: 8px;"
@@ -1951,11 +1951,11 @@ exports[`Caret > renders cardinal directions 10`] = `
           transform="translate(16,8) rotate(90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1963,7 +1963,7 @@ exports[`Caret > renders cardinal directions 10`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="right: 100%; bottom: 8px;"
@@ -1973,11 +1973,11 @@ exports[`Caret > renders cardinal directions 10`] = `
           transform="translate(16,8) rotate(90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -1986,7 +1986,7 @@ exports[`Caret > renders cardinal directions 10`] = `
   </body>,
   "container": <div>
     <svg
-      class="prc-components-Caret-9H5L6"
+      class="prc-components-Caret-PNu-B"
       height="16"
       role="presentation"
       style="right: 100%; bottom: 8px;"
@@ -1996,11 +1996,11 @@ exports[`Caret > renders cardinal directions 10`] = `
         transform="translate(16,8) rotate(90)"
       >
         <path
-          class="prc-components-CaretTriangle-HAwX3"
+          class="prc-components-CaretTriangle-Iu0GY"
           d="M-8,0L0,8L8,0L-8,0Z"
         />
         <path
-          class="prc-components-CaretBorder-UWaaK"
+          class="prc-components-CaretBorder-o3vP2"
           d="M-8,0L0,8L8,0"
         />
       </g>
@@ -2070,7 +2070,7 @@ exports[`Caret > renders cardinal directions 11`] = `
 
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; left: 50%; margin-left: -8px;"
@@ -2080,11 +2080,11 @@ exports[`Caret > renders cardinal directions 11`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -2092,7 +2092,7 @@ exports[`Caret > renders cardinal directions 11`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="left: 100%; top: 50%; margin-top: -8px;"
@@ -2102,11 +2102,11 @@ exports[`Caret > renders cardinal directions 11`] = `
           transform="translate(0,8) rotate(-90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -2114,7 +2114,7 @@ exports[`Caret > renders cardinal directions 11`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="top: 100%; left: 50%; margin-left: -8px;"
@@ -2124,11 +2124,11 @@ exports[`Caret > renders cardinal directions 11`] = `
           transform="translate(8,0)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -2136,7 +2136,7 @@ exports[`Caret > renders cardinal directions 11`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="right: 100%; top: 50%; margin-top: -8px;"
@@ -2146,11 +2146,11 @@ exports[`Caret > renders cardinal directions 11`] = `
           transform="translate(16,8) rotate(90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -2158,7 +2158,7 @@ exports[`Caret > renders cardinal directions 11`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; left: 8px;"
@@ -2168,11 +2168,11 @@ exports[`Caret > renders cardinal directions 11`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -2180,7 +2180,7 @@ exports[`Caret > renders cardinal directions 11`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; right: 8px;"
@@ -2190,11 +2190,11 @@ exports[`Caret > renders cardinal directions 11`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -2202,7 +2202,7 @@ exports[`Caret > renders cardinal directions 11`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="top: 100%; left: 8px;"
@@ -2212,11 +2212,11 @@ exports[`Caret > renders cardinal directions 11`] = `
           transform="translate(8,0)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -2224,7 +2224,7 @@ exports[`Caret > renders cardinal directions 11`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="top: 100%; right: 8px;"
@@ -2234,11 +2234,11 @@ exports[`Caret > renders cardinal directions 11`] = `
           transform="translate(8,0)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -2246,7 +2246,7 @@ exports[`Caret > renders cardinal directions 11`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="right: 100%; top: 8px;"
@@ -2256,11 +2256,11 @@ exports[`Caret > renders cardinal directions 11`] = `
           transform="translate(16,8) rotate(90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -2268,7 +2268,7 @@ exports[`Caret > renders cardinal directions 11`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="right: 100%; bottom: 8px;"
@@ -2278,11 +2278,11 @@ exports[`Caret > renders cardinal directions 11`] = `
           transform="translate(16,8) rotate(90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -2290,7 +2290,7 @@ exports[`Caret > renders cardinal directions 11`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="left: 100%; top: 8px;"
@@ -2300,11 +2300,11 @@ exports[`Caret > renders cardinal directions 11`] = `
           transform="translate(0,8) rotate(-90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -2313,7 +2313,7 @@ exports[`Caret > renders cardinal directions 11`] = `
   </body>,
   "container": <div>
     <svg
-      class="prc-components-Caret-9H5L6"
+      class="prc-components-Caret-PNu-B"
       height="16"
       role="presentation"
       style="left: 100%; top: 8px;"
@@ -2323,11 +2323,11 @@ exports[`Caret > renders cardinal directions 11`] = `
         transform="translate(0,8) rotate(-90)"
       >
         <path
-          class="prc-components-CaretTriangle-HAwX3"
+          class="prc-components-CaretTriangle-Iu0GY"
           d="M-8,0L0,8L8,0L-8,0Z"
         />
         <path
-          class="prc-components-CaretBorder-UWaaK"
+          class="prc-components-CaretBorder-o3vP2"
           d="M-8,0L0,8L8,0"
         />
       </g>
@@ -2397,7 +2397,7 @@ exports[`Caret > renders cardinal directions 12`] = `
 
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; left: 50%; margin-left: -8px;"
@@ -2407,11 +2407,11 @@ exports[`Caret > renders cardinal directions 12`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -2419,7 +2419,7 @@ exports[`Caret > renders cardinal directions 12`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="left: 100%; top: 50%; margin-top: -8px;"
@@ -2429,11 +2429,11 @@ exports[`Caret > renders cardinal directions 12`] = `
           transform="translate(0,8) rotate(-90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -2441,7 +2441,7 @@ exports[`Caret > renders cardinal directions 12`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="top: 100%; left: 50%; margin-left: -8px;"
@@ -2451,11 +2451,11 @@ exports[`Caret > renders cardinal directions 12`] = `
           transform="translate(8,0)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -2463,7 +2463,7 @@ exports[`Caret > renders cardinal directions 12`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="right: 100%; top: 50%; margin-top: -8px;"
@@ -2473,11 +2473,11 @@ exports[`Caret > renders cardinal directions 12`] = `
           transform="translate(16,8) rotate(90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -2485,7 +2485,7 @@ exports[`Caret > renders cardinal directions 12`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; left: 8px;"
@@ -2495,11 +2495,11 @@ exports[`Caret > renders cardinal directions 12`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -2507,7 +2507,7 @@ exports[`Caret > renders cardinal directions 12`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="bottom: 100%; right: 8px;"
@@ -2517,11 +2517,11 @@ exports[`Caret > renders cardinal directions 12`] = `
           transform="translate(8,16) rotate(180)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -2529,7 +2529,7 @@ exports[`Caret > renders cardinal directions 12`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="top: 100%; left: 8px;"
@@ -2539,11 +2539,11 @@ exports[`Caret > renders cardinal directions 12`] = `
           transform="translate(8,0)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -2551,7 +2551,7 @@ exports[`Caret > renders cardinal directions 12`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="top: 100%; right: 8px;"
@@ -2561,11 +2561,11 @@ exports[`Caret > renders cardinal directions 12`] = `
           transform="translate(8,0)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -2573,7 +2573,7 @@ exports[`Caret > renders cardinal directions 12`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="right: 100%; top: 8px;"
@@ -2583,11 +2583,11 @@ exports[`Caret > renders cardinal directions 12`] = `
           transform="translate(16,8) rotate(90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -2595,7 +2595,7 @@ exports[`Caret > renders cardinal directions 12`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="right: 100%; bottom: 8px;"
@@ -2605,11 +2605,11 @@ exports[`Caret > renders cardinal directions 12`] = `
           transform="translate(16,8) rotate(90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -2617,7 +2617,7 @@ exports[`Caret > renders cardinal directions 12`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="left: 100%; top: 8px;"
@@ -2627,11 +2627,11 @@ exports[`Caret > renders cardinal directions 12`] = `
           transform="translate(0,8) rotate(-90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -2639,7 +2639,7 @@ exports[`Caret > renders cardinal directions 12`] = `
     </div>
     <div>
       <svg
-        class="prc-components-Caret-9H5L6"
+        class="prc-components-Caret-PNu-B"
         height="16"
         role="presentation"
         style="left: 100%; bottom: 8px;"
@@ -2649,11 +2649,11 @@ exports[`Caret > renders cardinal directions 12`] = `
           transform="translate(0,8) rotate(-90)"
         >
           <path
-            class="prc-components-CaretTriangle-HAwX3"
+            class="prc-components-CaretTriangle-Iu0GY"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            class="prc-components-CaretBorder-UWaaK"
+            class="prc-components-CaretBorder-o3vP2"
             d="M-8,0L0,8L8,0"
           />
         </g>
@@ -2662,7 +2662,7 @@ exports[`Caret > renders cardinal directions 12`] = `
   </body>,
   "container": <div>
     <svg
-      class="prc-components-Caret-9H5L6"
+      class="prc-components-Caret-PNu-B"
       height="16"
       role="presentation"
       style="left: 100%; bottom: 8px;"
@@ -2672,11 +2672,11 @@ exports[`Caret > renders cardinal directions 12`] = `
         transform="translate(0,8) rotate(-90)"
       >
         <path
-          class="prc-components-CaretTriangle-HAwX3"
+          class="prc-components-CaretTriangle-Iu0GY"
           d="M-8,0L0,8L8,0L-8,0Z"
         />
         <path
-          class="prc-components-CaretBorder-UWaaK"
+          class="prc-components-CaretBorder-o3vP2"
           d="M-8,0L0,8L8,0"
         />
       </g>
