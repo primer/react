@@ -291,15 +291,9 @@ export const UnderlineNav = forwardRef(
 
     useOnOutsideClick({onClickOutside: closeOverlay, containerRef, ignoreClickRefs: [moreMenuBtnRef]})
 
-    // Track pending animation frame to avoid redundant work and improve INP during resize
-    const pendingFrameRef = useRef<number | null>(null)
-    useResizeObserver((resizeObserverEntries: ResizeObserverEntry[]) => {
-      // Cancel any pending frame to coalesce rapid resize events
-      if (pendingFrameRef.current !== null) {
-        cancelAnimationFrame(pendingFrameRef.current)
-      }
-      pendingFrameRef.current = requestAnimationFrame(() => {
-        pendingFrameRef.current = null
+    // Use throttled ResizeObserver to coalesce rapid resize events for better INP
+    useResizeObserver(
+      (resizeObserverEntries: ResizeObserverEntry[]) => {
         const navWidth = resizeObserverEntries[0].contentRect.width
         const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
         navWidth !== 0 &&
@@ -311,8 +305,11 @@ export const UnderlineNav = forwardRef(
             noIconChildWidthArray,
             updateListAndMenu,
           )
-      })
-    }, navRef as RefObject<HTMLElement>)
+      },
+      navRef as RefObject<HTMLElement>,
+      [],
+      {throttle: true},
+    )
 
     // Compute menuInlineStyles if needed
     let menuInlineStyles: React.CSSProperties = {...baseMenuInlineStyles}
