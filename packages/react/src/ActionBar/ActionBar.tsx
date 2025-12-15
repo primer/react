@@ -320,6 +320,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
   const containerRef = React.useRef<HTMLUListElement>(null)
 
+  // ResizeObserver is throttled by default (rAF) for better INP
   useResizeObserver((resizeObserverEntries: ResizeObserverEntry[]) => {
     const navWidth = resizeObserverEntries[0].contentRect.width
     const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
