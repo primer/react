@@ -86,7 +86,14 @@
     display: none;
   }
 
-  /* if a list has a mix of items with and without descriptions, reset the label font-weight to normal */
+  /*
+   * If a list has a mix of items with and without descriptions, reset the label font-weight.
+   * NOTE: Uses double descendant :has() - traverses list twice per recalc.
+   * This is acceptable because:
+   * 1. ActionLists are typically small (10-50 items)
+   * 2. Alternative would require JS to detect mixed state and set data attribute
+   * 3. The visual impact is subtle (font-weight change), not critical styling
+   */
   &:has([data-has-description='true']):has([data-has-description='false']) {
     & .ItemLabel {
       font-weight: var(--base-text-weight-normal);
@@ -121,7 +128,8 @@
     }
   }
 
-  &:not(:has([aria-disabled], [disabled]), [data-has-subitem='true']) {
+  /* PERFORMANCE: Use data-disabled on <li> instead of :has([aria-disabled], [disabled]) which scans descendants */
+  &:not([aria-disabled], [data-disabled='true'], [data-has-subitem='true']) {
     @media (hover: hover) {
       &:hover,
       &:active {
@@ -276,8 +284,8 @@
       }
     }
 
-    &:where([data-loading='true']),
-    &:has([data-loading='true']) {
+    /* PERFORMANCE: data-loading is set on the <li> by JS, avoiding :has() descendant scan */
+    &:where([data-loading='true']) {
       & * {
         color: var(--fgColor-muted);
       }
@@ -322,10 +330,9 @@
     }
   }
 
-  /* disabled */
-
+  /* PERFORMANCE: data-disabled is set on the <li> by JS, avoiding :has() descendant scan */
   &[aria-disabled='true'],
-  &:has([aria-disabled='true'], [disabled]) {
+  &[data-disabled='true'] {
     & .ActionListContent * {
       color: var(--control-fgColor-disabled);
     }
@@ -366,7 +373,8 @@
   }
 
   /* When TrailingAction is in loading state, keep labels and descriptions accessible */
-  &:has(.TrailingAction [data-loading='true']):not([aria-disabled='true']) {
+  /* PERFORMANCE: scoped to direct child TrailingAction */
+  &:has(> .TrailingAction[data-loading='true']):not([aria-disabled='true']) {
     /* Ensure labels and descriptions maintain accessibility contrast */
     & .ItemLabel {
       color: var(--fgColor-default);
@@ -540,7 +548,11 @@
       display: none;
     }
 
-    /* show active indicator on parent collapse if child is active */
+    /*
+     * Show active indicator on parent collapse if child is active.
+     * NOTE: Uses adjacent sibling + descendant :has() - SubGroup is typically small (few nav items).
+     * This is acceptable because scope is limited to the collapsed SubGroup's children.
+     */
     &:has(+ .SubGroup [data-active='true']) {
       background: var(--control-transparent-bgColor-selected);
 
@@ -637,6 +649,7 @@ default block */
       word-break: normal;
     }
 
+    /* NOTE: Uses descendant :has() - scope is just this item's children (label + description). Acceptable. */
     &:has([data-truncate='true']) {
       & .ItemLabel {
         flex: 1 0 auto;
@@ -713,7 +726,8 @@ span wrapping svg or text */
   height: 100%;
 
   /* Preserve width consistency when loading state is active for text buttons only */
-  &[data-loading='true']:has([data-component='buttonContent']) {
+  /* PERFORMANCE: scoped to direct child for O(1) lookup */
+  &[data-loading='true']:has(> [data-component='buttonContent']) {
     /* Double the left padding to compensate for missing right padding */
     padding: 0 0 0 calc(var(--base-size-12) * 2);
 
@@ -731,6 +745,11 @@ span wrapping svg or text */
   }
 }
 
+/*
+ * NOTE: Uses descendant :has() - VisualComponent is nested inside Tooltip > button,
+ * which is 3 levels deep (> * > * > .TrailingVisual). This is acceptable since
+ * the search is scoped to this small wrapper element's subtree.
+ */
 .InactiveButtonWrap {
   &:has(.TrailingVisual) {
     grid-area: trailingVisual;
