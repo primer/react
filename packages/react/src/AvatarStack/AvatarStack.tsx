@@ -120,7 +120,19 @@ const AvatarStack = ({
         setHasInteractiveChildren(hasInteractiveNodes(stackContainer.current))
       }
 
-      const observer = new MutationObserver(interactiveChildren)
+      // Track pending frame to throttle MutationObserver callbacks
+      let pendingFrame: number | null = null
+      const throttledInteractiveChildren = () => {
+        if (pendingFrame !== null) {
+          cancelAnimationFrame(pendingFrame)
+        }
+        pendingFrame = requestAnimationFrame(() => {
+          pendingFrame = null
+          interactiveChildren()
+        })
+      }
+
+      const observer = new MutationObserver(throttledInteractiveChildren)
 
       observer.observe(stackContainer.current, {childList: true})
 
@@ -129,6 +141,9 @@ const AvatarStack = ({
 
       return () => {
         observer.disconnect()
+        if (pendingFrame !== null) {
+          cancelAnimationFrame(pendingFrame)
+        }
       }
     }
   }, [])
