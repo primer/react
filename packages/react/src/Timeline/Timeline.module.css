@@ -105,6 +105,7 @@
   border: 0;
   border-top: var(--borderWidth-thicker) solid var(--borderColor-default);
 
+  /* NOTE: Uses adjacent sibling :has() - checks only the next sibling. O(1) complexity. */
   &:has(+ [data-condensed]) {
     margin-bottom: calc(-1 * var(--base-size-12));
   }
