@@ -119,7 +119,8 @@
   margin-block: var(--base-size-8);
 }
 
-.Banner[data-title-hidden]:not(:has(.BannerActions)) .BannerContent {
+/* PERFORMANCE: BannerActions is inside BannerContainer, use shallow path > * > for O(1) lookup */
+.Banner[data-title-hidden]:not(:has(> * > .BannerActions)) .BannerContent {
   margin-block: var(--base-size-6);
 }
 
@@ -152,8 +153,9 @@
   fill: var(--banner-icon-fgColor);
 }
 
+/* PERFORMANCE: BannerActions is inside BannerContainer, use shallow path > * > for O(1) lookup */
 /* stylelint-disable-next-line selector-max-specificity */
-.Banner[data-title-hidden]:not(:has(.BannerActions)) .BannerIcon svg {
+.Banner[data-title-hidden]:not(:has(> * > .BannerActions)) .BannerIcon svg {
   height: var(--base-size-16);
 }
 
@@ -166,7 +168,8 @@
   margin-inline-start: var(--base-size-4);
 }
 
-:where(.Banner):has(.BannerActions) .BannerDismiss {
+/* PERFORMANCE: BannerActions is inside BannerContainer, use shallow path > * > for O(1) lookup */
+:where(.Banner):has(> * > .BannerActions) .BannerDismiss {
   margin-block: var(--base-size-2);
 }
 
@@ -211,7 +214,8 @@
     display: grid;
   }
 
-  .BannerContainer:has(.BannerActionsContainer) {
+  /* PERFORMANCE: BannerActionsContainer is direct child of BannerContainer, scope with > for O(1) lookup */
+  .BannerContainer:has(> .BannerActionsContainer) {
     grid-template-rows: auto auto;
   }
 
