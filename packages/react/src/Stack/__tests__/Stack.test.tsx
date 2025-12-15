@@ -102,7 +102,7 @@ describe('Stack', () => {
 
   describe('gap', () => {
     // Fix when we have a better way to test this
-    it.skip('should set the default gap to `normal`', () => {
+    it.todo('should set the default gap to `normal`', () => {
       render(<Stack data-testid="stack" />)
       expect(screen.getByTestId('stack')).toHaveStyle('gap: var(--stack-gap,var(--stack-gap-normal,1rem));')
     })
