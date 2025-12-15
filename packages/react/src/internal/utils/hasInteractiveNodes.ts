@@ -54,7 +54,6 @@ export function hasInteractiveNodes(node: HTMLElement | null, ignoreNodes?: HTML
   return false
 }
 
-// Cache for visibility checks to avoid repeated getComputedStyle calls during a single traversal
 // Note: Only call getComputedStyle when CSS-based checks are insufficient
 function isNonValidInteractiveNode(node: HTMLElement) {
   // Fast path: Check attribute-based states first (no style recalc needed)
