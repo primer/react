@@ -99,6 +99,7 @@ export function useAnchoredPosition(
 
   useResizeObserver(updatePosition) // watches for changes in window size
   useResizeObserver(updatePosition, floatingElementRef as React.RefObject<HTMLElement | null>) // watches for changes in floating element size
+  useResizeObserver(updatePosition, anchorElementRef as React.RefObject<HTMLElement | null>) // watches for changes in anchor element size
 
   return {
     floatingElementRef,
