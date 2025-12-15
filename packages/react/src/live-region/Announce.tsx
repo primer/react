@@ -64,12 +64,9 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
       return
     }
 
-    const style = window.getComputedStyle(element)
-    if (style.display === 'none') {
-      return
-    }
-
-    if (style.visibility === 'hidden') {
+    // Check if element is visible - batch these layout reads together
+    const {display, visibility} = window.getComputedStyle(element)
+    if (display === 'none' || visibility === 'hidden') {
       return
     }
 
