@@ -291,6 +291,7 @@ export const UnderlineNav = forwardRef(
 
     useOnOutsideClick({onClickOutside: closeOverlay, containerRef, ignoreClickRefs: [moreMenuBtnRef]})
 
+    // ResizeObserver callbacks are now throttled with rAF for better INP
     useResizeObserver((resizeObserverEntries: ResizeObserverEntry[]) => {
       const navWidth = resizeObserverEntries[0].contentRect.width
       const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0

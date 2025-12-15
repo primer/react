@@ -91,11 +91,15 @@ export const UnderlineNavItem = forwardRef(
         ) as HTMLElement
         const text = content.textContent as string
 
-        const iconWidthWithMargin = icon
-          ? icon.getBoundingClientRect().width +
-            Number(getComputedStyle(icon).marginRight.slice(0, -2)) +
-            Number(getComputedStyle(icon).marginLeft.slice(0, -2))
-          : 0
+        let iconWidthWithMargin = 0
+        if (icon) {
+          // Batch all layout reads: getBoundingClientRect and getComputedStyle together
+          const iconRect = icon.getBoundingClientRect()
+          const iconStyle = getComputedStyle(icon)
+          // Use || 0 fallback for edge cases where margin might be 'auto' or non-numeric
+          iconWidthWithMargin =
+            iconRect.width + (parseFloat(iconStyle.marginRight) || 0) + (parseFloat(iconStyle.marginLeft) || 0)
+        }
 
         setChildrenWidth({text, width: domRect.width})
         setNoIconChildrenWidth({text, width: domRect.width - iconWidthWithMargin})
