@@ -302,6 +302,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     document.body.classList.add('DialogScrollDisabled')
     return () => {
       document.body.classList.remove('DialogScrollDisabled')
+      document.body.style.removeProperty('--prc-dialog-scrollgutter')
     }
   }, [])
 

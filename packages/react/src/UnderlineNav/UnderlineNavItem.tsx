@@ -96,7 +96,9 @@ export const UnderlineNavItem = forwardRef(
           // Batch all layout reads: getBoundingClientRect and getComputedStyle together
           const iconRect = icon.getBoundingClientRect()
           const iconStyle = getComputedStyle(icon)
-          iconWidthWithMargin = iconRect.width + parseFloat(iconStyle.marginRight) + parseFloat(iconStyle.marginLeft)
+          // Use || 0 fallback for edge cases where margin might be 'auto' or non-numeric
+          iconWidthWithMargin =
+            iconRect.width + (parseFloat(iconStyle.marginRight) || 0) + (parseFloat(iconStyle.marginLeft) || 0)
         }
 
         setChildrenWidth({text, width: domRect.width})
