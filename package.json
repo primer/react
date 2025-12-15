@@ -43,6 +43,7 @@
     "npm": ">=7"
   },
   "devDependencies": {
+    "@babel/core": "^7.28.5",
     "@babel/eslint-parser": "7.28.5",
     "@changesets/changelog-github": "0.5.1",
     "@changesets/cli": "^2.29.6",
@@ -64,6 +65,7 @@
     "@vitest/browser-playwright": "^4.0.3",
     "@vitest/eslint-plugin": "^1.3.24",
     "babel-plugin-react-compiler": "^1.0.0",
+    "change-case": "^5.4.4",
     "eslint": "^9.39.1",
     "eslint-import-resolver-typescript": "3.7.0",
     "eslint-plugin-clsx": "^0.0.11",
