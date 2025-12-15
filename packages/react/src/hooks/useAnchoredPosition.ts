@@ -108,7 +108,7 @@ export function useAnchoredPosition(
   // Uses updatePositionRef to avoid re-subscribing on every dependency change.
   React.useEffect(() => {
     const handleResize = () => updatePositionRef.current()
-    // eslint-disable-next-line github/prefer-observers
+    // eslint-disable-next-line github/prefer-observers -- window.addEventListener is used here to handle viewport (window) resize events, which cannot be detected by ResizeObserver (which only observes element size changes).
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
