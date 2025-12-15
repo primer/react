@@ -42,8 +42,8 @@ export function useResizeObserver<T extends HTMLElement>(
           return
         }
 
-        // Subsequent callbacks are throttled with rAF for better INP,
-        // reducing layout thrashing during rapid resize events (e.g., window drag)
+        // Subsequent callbacks are throttled to reduce layout thrashing
+        // during rapid resize events (e.g., window drag)
         latestEntries = entries
         if (pendingFrame === null) {
           pendingFrame = requestAnimationFrame(() => {

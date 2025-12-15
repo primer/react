@@ -2,7 +2,6 @@ import React from 'react'
 import {getAnchoredPosition} from '@primer/behaviors'
 import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
-import {useResizeObserver} from './useResizeObserver'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 export interface AnchoredPositionHookSettings extends Partial<PositionSettings> {
@@ -91,15 +90,77 @@ export function useAnchoredPosition(
     [floatingElementRef, anchorElementRef, ...dependencies],
   )
 
+  // Store updatePosition in a ref to avoid re-subscribing listeners when dependencies change.
+  // The ref always has the latest function, so listeners don't need updatePosition in their deps.
+  const updatePositionRef = React.useRef(updatePosition)
+  useLayoutEffect(() => {
+    updatePositionRef.current = updatePosition
+  })
+
   useLayoutEffect(() => {
     savedOnPositionChange.current = settings?.onPositionChange
   }, [settings?.onPositionChange])
 
+  // Recalculate position when dependencies change
   useLayoutEffect(updatePosition, [updatePosition])
 
-  useResizeObserver(updatePosition) // watches for changes in window size
-  useResizeObserver(updatePosition, floatingElementRef as React.RefObject<HTMLElement | null>) // watches for changes in floating element size
-  useResizeObserver(updatePosition, anchorElementRef as React.RefObject<HTMLElement | null>) // watches for changes in anchor element size
+  // Window resize listener for viewport changes.
+  // Uses updatePositionRef to avoid re-subscribing on every dependency change.
+  React.useEffect(() => {
+    const handleResize = () => updatePositionRef.current()
+    // eslint-disable-next-line github/prefer-observers
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  // Single coalesced ResizeObserver for floating element and anchor element.
+  // This reduces layout reads during resize events (better INP) by batching
+  // observations into one callback instead of triggering updatePosition 2x.
+  // Uses updatePositionRef to avoid re-creating observer on dependency changes.
+  useLayoutEffect(() => {
+    const floatingEl = floatingElementRef.current
+    const anchorEl = anchorElementRef.current
+
+    if (typeof ResizeObserver !== 'function') {
+      return
+    }
+
+    // First callback must be immediate - ResizeObserver fires synchronously
+    // on observe() and positioning must be correct before paint
+    let isFirstCallback = true
+    let pendingFrame: number | null = null
+
+    const observer = new ResizeObserver(() => {
+      if (isFirstCallback) {
+        isFirstCallback = false
+        updatePositionRef.current()
+        return
+      }
+
+      // Subsequent callbacks are throttled with rAF for better INP
+      if (pendingFrame === null) {
+        pendingFrame = requestAnimationFrame(() => {
+          pendingFrame = null
+          updatePositionRef.current()
+        })
+      }
+    })
+
+    // Observe floating and anchor elements if available
+    if (floatingEl instanceof Element) {
+      observer.observe(floatingEl)
+    }
+    if (anchorEl instanceof Element) {
+      observer.observe(anchorEl)
+    }
+
+    return () => {
+      if (pendingFrame !== null) {
+        cancelAnimationFrame(pendingFrame)
+      }
+      observer.disconnect()
+    }
+  }, [floatingElementRef, anchorElementRef])
 
   return {
     floatingElementRef,
