@@ -1,4 +1,4 @@
-import React, {startTransition} from 'react'
+import React, {startTransition, useMemo} from 'react'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import cssExports from './PageLayout.module.css'
 
@@ -107,8 +107,7 @@ export const defaultPaneWidth: Record<PaneWidth, number> = {small: 256, medium: 
 // Helper functions
 
 export const isCustomWidthOptions = (width: PaneWidth | CustomWidthOptions): width is CustomWidthOptions => {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  return (width as CustomWidthOptions).default !== undefined
+  return typeof width !== 'string'
 }
 
 export const isPaneWidth = (width: PaneWidth | CustomWidthOptions): width is PaneWidth => {
@@ -165,6 +164,30 @@ export const updateAriaValues = (
   }
 }
 
+const localStoragePersister = {
+  save: (key: string, width: number) => {
+    try {
+      localStorage.setItem(key, width.toString())
+    } catch {
+      // Ignore write errors (private browsing, quota exceeded, etc.)
+    }
+  },
+  get: (key: string): number | null => {
+    try {
+      const storedWidth = localStorage.getItem(key)
+      if (storedWidth !== null) {
+        const parsed = Number(storedWidth)
+        if (!isNaN(parsed) && parsed > 0) {
+          return parsed
+        }
+      }
+    } catch {
+      // localStorage unavailable
+    }
+    return null
+  },
+}
+
 // ----------------------------------------------------------------------------
 // Hook
 
@@ -211,7 +234,7 @@ export function usePaneWidth({
     return viewportWidth > 0 ? Math.max(minPaneWidth, viewportWidth - maxWidthDiffRef.current) : minPaneWidth
   }, [customMaxWidth, minPaneWidth])
 
-  const defaultWidth = getDefaultPaneWidth(width)
+  const defaultWidth = useMemo(() => getDefaultPaneWidth(width), [width])
   // --- State ---
   // Current width for React renders (ARIA attributes). Updates go through saveWidth() or clamp on resize.
   // For resizable=true (localStorage), we read synchronously in initializer to avoid flash on CSR.
@@ -222,16 +245,9 @@ export function usePaneWidth({
     // Only try localStorage for default persister (resizable === true)
     // Read directly here instead of via persister to satisfy react-hooks/refs lint rule
     if (resizable === true) {
-      try {
-        const storedWidth = localStorage.getItem(widthStorageKey)
-        if (storedWidth !== null) {
-          const parsed = Number(storedWidth)
-          if (!isNaN(parsed) && parsed > 0) {
-            return parsed
-          }
-        }
-      } catch {
-        // localStorage unavailable
+      const storedWidth = localStoragePersister.get(widthStorageKey)
+      if (storedWidth !== null) {
+        return storedWidth
       }
     }
     return defaultWidth
@@ -264,8 +280,10 @@ export function usePaneWidth({
 
     const config = resizableRef.current
 
-    // Handle custom persistence: {save: fn}
-    if (isCustomPersistConfig(config)) {
+    // Handle localStorage persistence: resizable === true
+    if (config === true) {
+      localStoragePersister.save(widthStorageKeyRef.current, value)
+    } else if (isCustomPersistConfig(config)) {
       try {
         const result = config.save(value, {widthStorageKey: widthStorageKeyRef.current})
         // Handle async rejections silently
@@ -278,19 +296,7 @@ export function usePaneWidth({
       } catch {
         // Ignore sync errors
       }
-      return
     }
-
-    // Handle localStorage persistence: resizable === true
-    if (resizableRef.current === true) {
-      try {
-        localStorage.setItem(widthStorageKeyRef.current, value.toString())
-      } catch {
-        // Ignore write errors (private browsing, quota exceeded, etc.)
-      }
-    }
-
-    // {persist: false} - no persistence
   }, [])
 
   // --- Effects ---

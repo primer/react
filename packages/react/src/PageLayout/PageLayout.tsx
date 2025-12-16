@@ -567,7 +567,7 @@ export type PageLayoutPaneProps = {
    * - `true`: Enable with default localStorage persistence
    * - `false`: Disable resizing
    * - `{persist: false}`: Enable without persistence (no hydration issues)
-   * - `WidthPersister`: Enable with custom storage (e.g., sessionStorage, server-side)
+   * - `{save: fn}`: Enable with custom persistence (e.g., server-side, IndexedDB)
    */
   resizable?: ResizableConfig
   widthStorageKey?: string
