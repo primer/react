@@ -23,17 +23,23 @@ export type PaneWidth = 'small' | 'medium' | 'large'
  */
 export interface WidthPersister {
   /** Save the width value to storage. Can be async for server-side persistence. */
-  save?: (value: number) => void | Promise<void>
+  save: (value: number) => void | Promise<void>
 }
+
+/**
+ * Configuration for resizable without persistence.
+ * Use this to enable resizing without storing the width anywhere.
+ */
+export type NoPersistConfig = {persist: false}
 
 /**
  * Resizable configuration options.
  * - `true`: Enable resizing with default localStorage persistence (may cause hydration mismatch)
  * - `false`: Disable resizing
- * - `{}`: Enable resizing without persistence (no hydration issues)
+ * - `{persist: false}`: Enable resizing without persistence (no hydration issues)
  * - `WidthPersister`: Enable resizing with custom storage implementation (no hydration issues)
  */
-export type ResizableConfig = boolean | WidthPersister | Record<string, never>
+export type ResizableConfig = boolean | WidthPersister | NoPersistConfig
 
 export type UsePaneWidthOptions = {
   width: PaneWidth | CustomWidthOptions
@@ -122,15 +128,15 @@ export const isWidthPersister = (config: ResizableConfig): config is WidthPersis
 }
 
 /**
- * Type guard to check if resizable config is an empty object (resizable without persistence)
+ * Type guard to check if resizable config is {persist: false} (resizable without persistence)
  */
-export const isResizableWithoutPersistence = (config: ResizableConfig): config is Record<string, never> => {
+export const isNoPersistConfig = (config: ResizableConfig): config is NoPersistConfig => {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- config could be null at runtime despite types
-  return typeof config === 'object' && config !== null && !('save' in config)
+  return typeof config === 'object' && config !== null && 'persist' in config && config.persist === false
 }
 
 /**
- * Check if resizing is enabled (boolean true, empty object, or persister object)
+ * Check if resizing is enabled (boolean true, {persist: false}, or persister object)
  */
 export const isResizableEnabled = (config: ResizableConfig): boolean => {
   return config === true || typeof config === 'object'
@@ -297,7 +303,7 @@ export function usePaneWidth({
 
       // Persist to storage (async is fine - fire and forget)
       // Wrapped in try-catch to prevent consumer errors from breaking the component
-      if (persister?.save) {
+      if (persister) {
         try {
           const result = persister.save(value)
           // Handle async rejections silently

@@ -566,7 +566,7 @@ export type PageLayoutPaneProps = {
    * Enable resizable pane behavior.
    * - `true`: Enable with default localStorage persistence
    * - `false`: Disable resizing
-   * - `{}`: Enable without persistence (no hydration issues)
+   * - `{persist: false}`: Enable without persistence (no hydration issues)
    * - `WidthPersister`: Enable with custom storage (e.g., sessionStorage, server-side)
    */
   resizable?: ResizableConfig

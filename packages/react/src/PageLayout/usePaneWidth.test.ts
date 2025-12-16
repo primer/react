@@ -13,7 +13,7 @@ import {
   ARROW_KEY_STEP,
   isWidthPersister,
   isResizableEnabled,
-  isResizableWithoutPersistence,
+  isNoPersistConfig,
   type WidthPersister,
 } from './usePaneWidth'
 
@@ -174,7 +174,7 @@ describe('usePaneWidth', () => {
       expect(result.current.currentWidth).toBe(defaultPaneWidth.medium)
     })
 
-    it('should not read from localStorage when empty object is provided', () => {
+    it('should not read from localStorage when {persist: false} is provided', () => {
       localStorage.setItem('test-pane', '500')
       const refs = createMockRefs()
 
@@ -182,7 +182,7 @@ describe('usePaneWidth', () => {
         usePaneWidth({
           width: 'medium',
           minWidth: 256,
-          resizable: {},
+          resizable: {persist: false},
           widthStorageKey: 'test-pane',
           ...refs,
         }),
@@ -192,14 +192,14 @@ describe('usePaneWidth', () => {
       expect(result.current.currentWidth).toBe(defaultPaneWidth.medium)
     })
 
-    it('should not save to any storage when empty object is provided', () => {
+    it('should not save to any storage when {persist: false} is provided', () => {
       const refs = createMockRefs()
 
       const {result} = renderHook(() =>
         usePaneWidth({
           width: 'medium',
           minWidth: 256,
-          resizable: {},
+          resizable: {persist: false},
           widthStorageKey: 'test-pane',
           ...refs,
         }),
@@ -425,7 +425,7 @@ describe('usePaneWidth', () => {
       expect(customPersister.save).toHaveBeenCalledWith(400)
     })
 
-    it('should call onWidthChange without persister when resizable={}', () => {
+    it('should call onWidthChange without persister when resizable={persist: false}', () => {
       const onWidthChange = vi.fn()
       const refs = createMockRefs()
 
@@ -433,7 +433,7 @@ describe('usePaneWidth', () => {
         usePaneWidth({
           width: 'medium',
           minWidth: 256,
-          resizable: {},
+          resizable: {persist: false},
           widthStorageKey: 'test-no-persist',
           onWidthChange,
           ...refs,
@@ -1166,26 +1166,26 @@ describe('type guards', () => {
       expect(isResizableEnabled({save: () => {}})).toBe(true)
     })
 
-    it('should return true for empty object (resizable without persistence)', () => {
-      expect(isResizableEnabled({})).toBe(true)
+    it('should return true for {persist: false} (resizable without persistence)', () => {
+      expect(isResizableEnabled({persist: false})).toBe(true)
     })
   })
 
-  describe('isResizableWithoutPersistence', () => {
-    it('should return true for empty object', () => {
-      expect(isResizableWithoutPersistence({})).toBe(true)
+  describe('isNoPersistConfig', () => {
+    it('should return true for {persist: false}', () => {
+      expect(isNoPersistConfig({persist: false})).toBe(true)
     })
 
     it('should return false for boolean true', () => {
-      expect(isResizableWithoutPersistence(true)).toBe(false)
+      expect(isNoPersistConfig(true)).toBe(false)
     })
 
     it('should return false for boolean false', () => {
-      expect(isResizableWithoutPersistence(false)).toBe(false)
+      expect(isNoPersistConfig(false)).toBe(false)
     })
 
     it('should return false for WidthPersister', () => {
-      expect(isResizableWithoutPersistence({save: () => {}})).toBe(false)
+      expect(isNoPersistConfig({save: () => {}})).toBe(false)
     })
   })
 })
