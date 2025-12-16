@@ -25,7 +25,7 @@ describe('Heading', () => {
   })
 
   // How can we test for generated class names?
-  it.skip('should only include css modules class', () => {
+  it.todo('should only include css modules class', () => {
     render(<Heading>test</Heading>)
     expect(screen.getByText('test')).toHaveClass('prc-Heading-Heading-6CmGO')
     // Note: this is the generated class name when CSS modules is used
