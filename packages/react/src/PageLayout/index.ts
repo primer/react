@@ -1,2 +1,2 @@
 export * from './PageLayout'
-export type {WidthPersister, NoPersistConfig, ResizableConfig} from './usePaneWidth'
+export type {NoPersistConfig, CustomPersistConfig, SaveOptions, ResizableConfig} from './usePaneWidth'
