@@ -19,6 +19,7 @@ import {
   ARROW_KEY_STEP,
   type CustomWidthOptions,
   type PaneWidth,
+  type ResizableConfig,
 } from './usePaneWidth'
 
 const REGION_ORDER = {
@@ -561,7 +562,13 @@ export type PageLayoutPaneProps = {
   'aria-label'?: string
   width?: PaneWidth | CustomWidthOptions
   minWidth?: number
-  resizable?: boolean
+  /**
+   * Enable resizable pane behavior.
+   * - `true`: Enable with default localStorage persistence
+   * - `false`: Disable resizing
+   * - `WidthPersister`: Enable with custom storage (e.g., sessionStorage, server-side)
+   */
+  resizable?: ResizableConfig
   widthStorageKey?: string
   padding?: keyof typeof SPACING_MAP
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
@@ -709,10 +716,11 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         />
         <div
           ref={paneRef}
-          // suppressHydrationWarning: We intentionally read from localStorage during
-          // useState init to avoid resize flicker, which causes a hydration mismatch
-          // for --pane-width. This only affects this element, not children.
-          suppressHydrationWarning
+          // suppressHydrationWarning: Only needed when resizable===true (default localStorage
+          // persister). We read from localStorage during useState init to avoid resize flicker,
+          // which causes a hydration mismatch for --pane-width. Custom persisters ({save} object)
+          // and empty object ({}) don't read localStorage, so no suppression needed.
+          suppressHydrationWarning={resizable === true}
           {...(hasOverflow ? overflowProps : {})}
           {...labelProp}
           {...(id && {id: paneId})}
@@ -746,7 +754,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
                 }
           }
           // If pane is resizable, the divider should be draggable
-          draggable={resizable}
+          draggable={!!resizable}
           position={positionProp}
           className={classes.PaneVerticalDivider}
           style={
