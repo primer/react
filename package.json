@@ -54,6 +54,7 @@
     "@github/markdownlint-github": "^0.8.0",
     "@github/mini-throttle": "2.1.1",
     "@github/prettier-config": "0.0.6",
+    "@github-ui/storybook-addon-performance-panel": "0.1.1",
     "@mdx-js/react": "1.6.22",
     "@playwright/test": "^1.56.1",
     "@prettier/sync": "0.5.5",
