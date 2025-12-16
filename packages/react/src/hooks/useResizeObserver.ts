@@ -50,6 +50,7 @@ export function useResizeObserver<T extends HTMLElement>(
             pendingFrame = null
             if (latestEntries) {
               savedCallback.current(latestEntries)
+              latestEntries = null
             }
           })
         }

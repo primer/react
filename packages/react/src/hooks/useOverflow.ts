@@ -43,6 +43,7 @@ export function useOverflow<T extends HTMLElement>(ref: React.RefObject<T>) {
           pendingFrame = null
           if (latestEntries) {
             checkOverflow(latestEntries)
+            latestEntries = null
           }
         })
       }
