@@ -1,5 +1,11 @@
 # @primer/react
 
+## 38.6.1
+
+### Patch Changes
+
+- [#7307](https://github.com/primer/react/pull/7307) [`5dcc87c`](https://github.com/primer/react/commit/5dcc87ca4befe911101e580da639b5c03d4ffdd6) Thanks [@mattcosta7](https://github.com/mattcosta7)! - reapplies PageLayout resizable enhancements without INP drop from expensive selectors
+
 ## 38.6.0
 
 ### Minor Changes
