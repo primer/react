@@ -2,9 +2,11 @@ import type {Meta, StoryFn} from '@storybook/react-vite'
 import React from 'react'
 import {PageLayout} from './PageLayout'
 import {Placeholder} from '../Placeholder'
-import {BranchName, Heading, Link, StateLabel, Text} from '..'
+import {BranchName, Heading, Link, StateLabel, Text, useIsomorphicLayoutEffect} from '..'
 import TabNav from '../TabNav'
 import classes from './PageLayout.features.stories.module.css'
+import type {CustomWidthOptions} from './usePaneWidth'
+import {defaultPaneWidth} from './usePaneWidth'
 
 export default {
   title: 'Components/PageLayout/Features',
@@ -379,27 +381,43 @@ export const ResizablePaneWithoutPersistence: StoryFn = () => (
 ResizablePaneWithoutPersistence.storyName = 'Resizable pane without persistence'
 
 export const ResizablePaneWithCustomPersistence: StoryFn = () => {
-  const [savedWidth, setSavedWidth] = React.useState<number | null>(null)
+  const key = 'page-layout-features-stories-custom-persistence-pane-width'
 
+  // Read initial width from localStorage (CSR only), falling back to medium preset
+  const getInitialWidth = (): CustomWidthOptions => {
+    const base: CustomWidthOptions = {min: '256px', default: `${defaultPaneWidth.medium}px`, max: '600px'}
+    if (typeof window !== 'undefined') {
+      const storedWidth = localStorage.getItem(key)
+      if (storedWidth !== null) {
+        const parsed = parseFloat(storedWidth)
+        if (!isNaN(parsed) && parsed > 0) {
+          return {...base, default: `${parsed}px`}
+        }
+      }
+    }
+    return base
+  }
+
+  const [widthConfig, setWidthConfig] = React.useState<CustomWidthOptions>(getInitialWidth)
+  useIsomorphicLayoutEffect(() => {
+    setWidthConfig(getInitialWidth())
+  }, [])
   return (
     <PageLayout>
       <PageLayout.Header>
         <Placeholder height={64} label="Header" />
       </PageLayout.Header>
       <PageLayout.Pane
+        width={widthConfig}
         resizable={{
-          save: (width, {widthStorageKey}) => {
-            // eslint-disable-next-line no-console
-            console.log(`Custom save: ${width}px with key "${widthStorageKey}"`)
-            setSavedWidth(width)
+          save: width => {
+            setWidthConfig(prev => ({...prev, default: `${width}px`}))
+            localStorage.setItem(key, width.toString())
           },
         }}
         aria-label="Side pane"
       >
-        <Placeholder
-          height={320}
-          label={savedWidth !== null ? `Pane (saved: ${savedWidth}px)` : 'Pane (custom persistence)'}
-        />
+        <Placeholder height={320} label={`Pane (width: ${widthConfig.default})`} />
       </PageLayout.Pane>
       <PageLayout.Content>
         <Placeholder height={640} label="Content" />
@@ -411,3 +429,50 @@ export const ResizablePaneWithCustomPersistence: StoryFn = () => {
   )
 }
 ResizablePaneWithCustomPersistence.storyName = 'Resizable pane with custom persistence'
+
+export const ResizablePaneWithNumberWidth: StoryFn = () => {
+  const key = 'page-layout-features-stories-number-width'
+
+  // Read initial width from localStorage (CSR only), falling back to medium preset
+  const getInitialWidth = (): number => {
+    if (typeof window !== 'undefined') {
+      const storedWidth = localStorage.getItem(key)
+      if (storedWidth !== null) {
+        const parsed = parseInt(storedWidth, 10)
+        if (!isNaN(parsed) && parsed > 0) {
+          return parsed
+        }
+      }
+    }
+    return defaultPaneWidth.medium
+  }
+
+  const [width, setWidth] = React.useState<number>(getInitialWidth)
+
+  return (
+    <PageLayout>
+      <PageLayout.Header>
+        <Placeholder height={64} label="Header" />
+      </PageLayout.Header>
+      <PageLayout.Pane
+        width={width}
+        resizable={{
+          save: newWidth => {
+            setWidth(newWidth)
+            localStorage.setItem(key, newWidth.toString())
+          },
+        }}
+        aria-label="Side pane"
+      >
+        <Placeholder height={320} label={`Pane (width: ${width}px)`} />
+      </PageLayout.Pane>
+      <PageLayout.Content>
+        <Placeholder height={640} label="Content" />
+      </PageLayout.Content>
+      <PageLayout.Footer>
+        <Placeholder height={64} label="Footer" />
+      </PageLayout.Footer>
+    </PageLayout>
+  )
+}
+ResizablePaneWithNumberWidth.storyName = 'Resizable pane with number width'

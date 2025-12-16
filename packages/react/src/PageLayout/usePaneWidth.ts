@@ -16,6 +16,14 @@ export type CustomWidthOptions = {
 export type PaneWidth = 'small' | 'medium' | 'large'
 
 /**
+ * Width value for the pane.
+ * - `PaneWidth`: Preset size ('small' | 'medium' | 'large')
+ * - `number`: Custom width in pixels (uses minWidth prop and viewport-based max)
+ * - `CustomWidthOptions`: Explicit min/default/max constraints
+ */
+export type PaneWidthValue = PaneWidth | number | CustomWidthOptions
+
+/**
  * Configuration for resizable without persistence.
  * Use this to enable resizing without storing the width anywhere.
  */
@@ -52,7 +60,7 @@ export const isCustomPersistConfig = (config: ResizableConfig): config is Custom
 export type ResizableConfig = boolean | NoPersistConfig | CustomPersistConfig
 
 export type UsePaneWidthOptions = {
-  width: PaneWidth | CustomWidthOptions
+  width: PaneWidthValue
   minWidth: number
   resizable: ResizableConfig
   widthStorageKey: string
@@ -106,17 +114,23 @@ export const defaultPaneWidth: Record<PaneWidth, number> = {small: 256, medium: 
 // ----------------------------------------------------------------------------
 // Helper functions
 
-export const isCustomWidthOptions = (width: PaneWidth | CustomWidthOptions): width is CustomWidthOptions => {
-  return typeof width !== 'string'
+export const isCustomWidthOptions = (width: PaneWidthValue): width is CustomWidthOptions => {
+  return typeof width === 'object' && 'min' in width && 'default' in width && 'max' in width
 }
 
-export const isPaneWidth = (width: PaneWidth | CustomWidthOptions): width is PaneWidth => {
-  return ['small', 'medium', 'large'].includes(width as PaneWidth)
+export const isPaneWidth = (width: PaneWidthValue): width is PaneWidth => {
+  return typeof width === 'string' && ['small', 'medium', 'large'].includes(width)
 }
 
-export const getDefaultPaneWidth = (w: PaneWidth | CustomWidthOptions): number => {
+export const isNumericWidth = (width: PaneWidthValue): width is number => {
+  return typeof width === 'number'
+}
+
+export const getDefaultPaneWidth = (w: PaneWidthValue): number => {
   if (isPaneWidth(w)) {
     return defaultPaneWidth[w]
+  } else if (isNumericWidth(w)) {
+    return w
   } else if (isCustomWidthOptions(w)) {
     return parseInt(w.default, 10)
   }
