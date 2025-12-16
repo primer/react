@@ -56,7 +56,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
   const uuid = useId(id)
   const loadingAnnouncementID = `${uuid}-loading-announcement`
 
-  // Only include the loading aria-description if there is a loading state
+  // Only include the loading aria-describedby if there is a loading state
   const ariaDescribedByIds = loading ? [loadingAnnouncementID, ariaDescribedBy] : [ariaDescribedBy]
 
   if (__DEV__) {
@@ -103,7 +103,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
         data-variant={variant}
         data-label-wrap={labelWrap}
         data-has-count={count !== undefined ? true : undefined}
-        aria-describedby={ariaDescribedByIds.filter(descriptionID => Boolean(descriptionID)).join(' ')}
+        aria-describedby={ariaDescribedByIds.filter(descriptionID => Boolean(descriptionID)).join(' ') || undefined}
         // aria-labelledby is needed because the accessible name becomes unset when the button is in a loading state.
         // We only set it when the button is in a loading state because it will supersede the aria-label when the screen
         // reader announces the button name.
