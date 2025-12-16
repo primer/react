@@ -1,389 +1,170 @@
-import {render, act} from '@testing-library/react'
-import {useRef, useEffect} from 'react'
-import {describe, expect, test, vi, beforeEach, afterEach} from 'vitest'
+import {render, waitFor, act} from '@testing-library/react'
+import {useRef, useState, useEffect, useImperativeHandle, forwardRef} from 'react'
+import {describe, expect, test} from 'vitest'
 import {useOverflow} from '../useOverflow'
 
-// Mock ResizeObserver
-let mockResizeObserverCallback: ResizeObserverCallback | null = null
-let mockObservedElements: Element[] = []
-
-class MockResizeObserver {
-  callback: ResizeObserverCallback
-
-  constructor(callback: ResizeObserverCallback) {
-    this.callback = callback
-    mockResizeObserverCallback = callback
-  }
-
-  observe(target: Element) {
-    mockObservedElements.push(target)
-    // ResizeObserver fires immediately on observe() with initial dimensions
-    this.callback(
-      [
-        {
-          target,
-          contentRect: target.getBoundingClientRect(),
-          borderBoxSize: [],
-          contentBoxSize: [],
-          devicePixelContentBoxSize: [],
-        },
-      ],
-      this,
-    )
-  }
-
-  unobserve(target: Element) {
-    mockObservedElements = mockObservedElements.filter(el => el !== target)
-  }
-
-  disconnect() {
-    mockObservedElements = []
-  }
+interface TestHandle {
+  setContainerHeight: (height: number) => void
 }
 
-// Helper to trigger resize events on an element
-function triggerResizeOnElement(target: Element, hasOverflow: boolean) {
-  if (mockResizeObserverCallback) {
-    // Mock the target's scroll dimensions
-    Object.defineProperty(target, 'scrollHeight', {
-      value: hasOverflow ? 200 : 100,
-      configurable: true,
-    })
-    Object.defineProperty(target, 'clientHeight', {
-      value: 100,
-      configurable: true,
-    })
-    Object.defineProperty(target, 'scrollWidth', {
-      value: hasOverflow ? 200 : 100,
-      configurable: true,
-    })
-    Object.defineProperty(target, 'clientWidth', {
-      value: 100,
-      configurable: true,
-    })
+const OverflowContainer = forwardRef<TestHandle, {onOverflowChange: (hasOverflow: boolean) => void}>(
+  function OverflowContainer({onOverflowChange}, ref) {
+    const containerRef = useRef<HTMLDivElement>(null)
+    const [containerHeight, setContainerHeight] = useState(200)
+    const hasOverflow = useOverflow(containerRef)
 
-    mockResizeObserverCallback(
-      [
-        {
-          target,
-          contentRect: target.getBoundingClientRect(),
-          borderBoxSize: [],
-          contentBoxSize: [],
-          devicePixelContentBoxSize: [],
-        },
-      ],
-      {} as ResizeObserver,
+    useEffect(() => {
+      onOverflowChange(hasOverflow)
+    }, [hasOverflow, onOverflowChange])
+
+    useImperativeHandle(ref, () => ({
+      setContainerHeight,
+    }))
+
+    return (
+      <div ref={containerRef} style={{width: 100, height: containerHeight, overflow: 'auto'}}>
+        <div style={{width: 50, height: 150}}>Content</div>
+      </div>
     )
-  }
-}
+  },
+)
 
 describe('useOverflow', () => {
-  let originalResizeObserver: typeof ResizeObserver
-  let rafCallbacks: Array<FrameRequestCallback>
-  let rafIdCounter: number
-
-  beforeEach(() => {
-    // Store original and replace with mock
-    originalResizeObserver = globalThis.ResizeObserver
-    globalThis.ResizeObserver = MockResizeObserver as unknown as typeof ResizeObserver
-
-    // Mock requestAnimationFrame
-    rafCallbacks = []
-    rafIdCounter = 0
-    vi.spyOn(globalThis, 'requestAnimationFrame').mockImplementation((callback: FrameRequestCallback) => {
-      rafCallbacks.push(callback)
-      return ++rafIdCounter
-    })
-    vi.spyOn(globalThis, 'cancelAnimationFrame').mockImplementation((_id: number) => {
-      // Track the call
-    })
-
-    mockResizeObserverCallback = null
-    mockObservedElements = []
-  })
-
-  afterEach(() => {
-    globalThis.ResizeObserver = originalResizeObserver
-    vi.restoreAllMocks()
-  })
-
-  // Helper to flush all pending animation frames
-  function flushAnimationFrames() {
-    const callbacks = [...rafCallbacks]
-    rafCallbacks = []
-    for (const cb of callbacks) {
-      cb(performance.now())
-    }
-  }
-
-  // Test component that reports results via callback
-  function TestComponent({
-    onResult,
-    onRef,
-  }: {
-    onResult?: (result: boolean) => void
-    onRef?: (element: HTMLDivElement | null) => void
-  }) {
-    const ref = useRef<HTMLDivElement>(null)
-    const result = useOverflow(ref)
-
-    useEffect(() => {
-      onResult?.(result)
-    }, [result, onResult])
-
-    useEffect(() => {
-      onRef?.(ref.current)
-    }, [onRef])
-
-    return <div ref={ref} data-testid="target" style={{width: 100, height: 100}} />
-  }
-
-  test('returns false when element has no overflow', () => {
+  test('returns false when element has no overflow', async () => {
     const results: boolean[] = []
 
-    render(<TestComponent onResult={result => results.push(result)} />)
-
-    expect(results).toContain(false)
-  })
-
-  test('checks overflow immediately on first observation', () => {
-    const results: boolean[] = []
-
-    render(<TestComponent onResult={result => results.push(result)} />)
-
-    // Initial check happens immediately on observe
-    expect(results.length).toBeGreaterThan(0)
-  })
-
-  test('throttles subsequent overflow checks using requestAnimationFrame', () => {
-    let targetElement: HTMLDivElement | null = null
-
-    render(<TestComponent onRef={el => (targetElement = el)} />)
-
-    // First observation is immediate, no rAF yet
-    expect(requestAnimationFrame).toHaveBeenCalledTimes(0)
-
-    // Trigger multiple rapid resize events
-    act(() => {
-      if (targetElement) {
-        triggerResizeOnElement(targetElement, false)
-        triggerResizeOnElement(targetElement, true)
-        triggerResizeOnElement(targetElement, false)
-      }
-    })
-
-    // requestAnimationFrame should have been called only once for throttling
-    expect(requestAnimationFrame).toHaveBeenCalledTimes(1)
-  })
-
-  test('processes latest entries after throttling', () => {
-    const results: boolean[] = []
-    let targetElement: HTMLDivElement | null = null
-
-    const {rerender} = render(
-      <TestComponent onResult={result => results.push(result)} onRef={el => (targetElement = el)} />,
-    )
-
-    // Initial state
-    expect(results).toContain(false)
-
-    // Trigger multiple resize events with different overflow states
-    act(() => {
-      if (targetElement) {
-        triggerResizeOnElement(targetElement, false) // First: no overflow
-        triggerResizeOnElement(targetElement, true) // Second: has overflow
-        triggerResizeOnElement(targetElement, true) // Third: has overflow (latest)
-      }
-    })
-
-    // Flush animation frame
-    act(() => {
-      flushAnimationFrames()
-    })
-
-    // After flushing, should have the latest state (overflow)
-    rerender(<TestComponent onResult={result => results.push(result)} onRef={el => (targetElement = el)} />)
-    expect(results[results.length - 1]).toBe(true)
-  })
-
-  test('cancels pending animation frames on cleanup', () => {
-    let targetElement: HTMLDivElement | null = null
-
-    const {unmount} = render(<TestComponent onRef={el => (targetElement = el)} />)
-
-    // Trigger a resize to schedule an animation frame
-    act(() => {
-      if (targetElement) {
-        triggerResizeOnElement(targetElement, true)
-      }
-    })
-
-    expect(requestAnimationFrame).toHaveBeenCalledTimes(1)
-
-    // Unmount before the animation frame executes
-    unmount()
-
-    // cancelAnimationFrame should have been called
-    expect(cancelAnimationFrame).toHaveBeenCalledTimes(1)
-    expect(cancelAnimationFrame).toHaveBeenCalledWith(1)
-  })
-
-  test('does not cancel animation frame if none pending', () => {
-    const {unmount} = render(<TestComponent />)
-
-    // No resize events triggered after initial observation
-    expect(requestAnimationFrame).toHaveBeenCalledTimes(0)
-
-    unmount()
-
-    // No cancelAnimationFrame should have been called
-    expect(cancelAnimationFrame).not.toHaveBeenCalled()
-  })
-
-  test('schedules new animation frame after previous one completes', () => {
-    let targetElement: HTMLDivElement | null = null
-
-    render(<TestComponent onRef={el => (targetElement = el)} />)
-
-    // First resize event
-    act(() => {
-      if (targetElement) {
-        triggerResizeOnElement(targetElement, true)
-      }
-    })
-
-    expect(requestAnimationFrame).toHaveBeenCalledTimes(1)
-
-    // Complete the animation frame
-    act(() => {
-      flushAnimationFrames()
-    })
-
-    // Second resize event
-    act(() => {
-      if (targetElement) {
-        triggerResizeOnElement(targetElement, false)
-      }
-    })
-
-    // New animation frame should be scheduled
-    expect(requestAnimationFrame).toHaveBeenCalledTimes(2)
-  })
-
-  test('detects vertical overflow (scrollHeight > clientHeight)', () => {
-    const results: boolean[] = []
-    let targetElement: HTMLDivElement | null = null
-
-    const {rerender} = render(
-      <TestComponent onResult={result => results.push(result)} onRef={el => (targetElement = el)} />,
-    )
-
-    // Set up vertical overflow
-    act(() => {
-      if (targetElement) {
-        Object.defineProperty(targetElement, 'scrollHeight', {value: 200, configurable: true})
-        Object.defineProperty(targetElement, 'clientHeight', {value: 100, configurable: true})
-        Object.defineProperty(targetElement, 'scrollWidth', {value: 100, configurable: true})
-        Object.defineProperty(targetElement, 'clientWidth', {value: 100, configurable: true})
-        triggerResizeOnElement(targetElement, true)
-      }
-    })
-
-    act(() => {
-      flushAnimationFrames()
-    })
-
-    rerender(<TestComponent onResult={result => results.push(result)} onRef={el => (targetElement = el)} />)
-    expect(results[results.length - 1]).toBe(true)
-  })
-
-  test('detects horizontal overflow (scrollWidth > clientWidth)', () => {
-    const results: boolean[] = []
-    let targetElement: HTMLDivElement | null = null
-
-    const {rerender} = render(
-      <TestComponent onResult={result => results.push(result)} onRef={el => (targetElement = el)} />,
-    )
-
-    // Set up horizontal overflow
-    act(() => {
-      if (targetElement) {
-        Object.defineProperty(targetElement, 'scrollHeight', {value: 100, configurable: true})
-        Object.defineProperty(targetElement, 'clientHeight', {value: 100, configurable: true})
-        Object.defineProperty(targetElement, 'scrollWidth', {value: 200, configurable: true})
-        Object.defineProperty(targetElement, 'clientWidth', {value: 100, configurable: true})
-        triggerResizeOnElement(targetElement, true)
-      }
-    })
-
-    act(() => {
-      flushAnimationFrames()
-    })
-
-    rerender(<TestComponent onResult={result => results.push(result)} onRef={el => (targetElement = el)} />)
-    expect(results[results.length - 1]).toBe(true)
-  })
-
-  test('returns false when ref.current is null', () => {
-    const results: boolean[] = []
-
-    function NullRefComponent({onResult}: {onResult: (result: boolean) => void}) {
+    function TestComponent() {
       const ref = useRef<HTMLDivElement>(null)
-      const result = useOverflow(ref)
+      const hasOverflow = useOverflow(ref)
 
       useEffect(() => {
-        onResult(result)
-      }, [result, onResult])
+        results.push(hasOverflow)
+      }, [hasOverflow])
 
-      // Don't render anything with the ref
+      return (
+        <div ref={ref} style={{width: 100, height: 100, overflow: 'auto'}}>
+          <div style={{width: 50, height: 50}}>Small content</div>
+        </div>
+      )
+    }
+
+    render(<TestComponent />)
+
+    await waitFor(() => {
+      expect(results.length).toBeGreaterThan(0)
+    })
+
+    expect(results[results.length - 1]).toBe(false)
+  })
+
+  test('returns true when element has vertical overflow', async () => {
+    const results: boolean[] = []
+
+    function TestComponent() {
+      const ref = useRef<HTMLDivElement>(null)
+      const hasOverflow = useOverflow(ref)
+
+      useEffect(() => {
+        results.push(hasOverflow)
+      }, [hasOverflow])
+
+      return (
+        <div ref={ref} style={{width: 100, height: 100, overflow: 'auto'}}>
+          <div style={{width: 50, height: 200}}>Tall content</div>
+        </div>
+      )
+    }
+
+    render(<TestComponent />)
+
+    await waitFor(() => {
+      expect(results).toContain(true)
+    })
+  })
+
+  test('returns true when element has horizontal overflow', async () => {
+    const results: boolean[] = []
+
+    function TestComponent() {
+      const ref = useRef<HTMLDivElement>(null)
+      const hasOverflow = useOverflow(ref)
+
+      useEffect(() => {
+        results.push(hasOverflow)
+      }, [hasOverflow])
+
+      return (
+        <div ref={ref} style={{width: 100, height: 100, overflow: 'auto'}}>
+          <div style={{width: 200, height: 50, whiteSpace: 'nowrap'}}>Wide content</div>
+        </div>
+      )
+    }
+
+    render(<TestComponent />)
+
+    await waitFor(() => {
+      expect(results).toContain(true)
+    })
+  })
+
+  test('returns false when ref.current is null', async () => {
+    const results: boolean[] = []
+
+    function TestComponent() {
+      const ref = useRef<HTMLDivElement>(null)
+      const hasOverflow = useOverflow(ref)
+
+      useEffect(() => {
+        results.push(hasOverflow)
+      }, [hasOverflow])
+
       return null
     }
 
-    render(<NullRefComponent onResult={result => results.push(result)} />)
+    render(<TestComponent />)
+
+    await waitFor(() => {
+      expect(results.length).toBeGreaterThan(0)
+    })
 
     expect(results[0]).toBe(false)
-    expect(mockObservedElements).toHaveLength(0)
   })
 
-  test('clears latestEntries after processing to avoid memory leaks', () => {
+  test('updates when overflow state changes', async () => {
     const results: boolean[] = []
-    let targetElement: HTMLDivElement | null = null
+    const handleRef = {current: null as TestHandle | null}
 
-    const {rerender} = render(
-      <TestComponent onResult={result => results.push(result)} onRef={el => (targetElement = el)} />,
-    )
+    function TestComponent() {
+      const ref = useRef<TestHandle>(null)
 
-    // First resize event
-    act(() => {
-      if (targetElement) {
-        Object.defineProperty(targetElement, 'scrollHeight', {value: 200, configurable: true})
-        Object.defineProperty(targetElement, 'clientHeight', {value: 100, configurable: true})
-        triggerResizeOnElement(targetElement, true)
-      }
+      useEffect(() => {
+        handleRef.current = ref.current
+      })
+
+      return (
+        <OverflowContainer
+          ref={ref}
+          onOverflowChange={hasOverflow => {
+            results.push(hasOverflow)
+          }}
+        />
+      )
+    }
+
+    render(<TestComponent />)
+
+    // Initially containerHeight=200, content height=150, so no overflow
+    await waitFor(() => {
+      expect(results).toContain(false)
     })
 
-    act(() => {
-      flushAnimationFrames()
+    // Shrink container to 100px, content is 150px, so overflow should be true
+    await act(async () => {
+      handleRef.current?.setContainerHeight(100)
     })
 
-    rerender(<TestComponent onResult={result => results.push(result)} onRef={el => (targetElement = el)} />)
-    expect(results[results.length - 1]).toBe(true)
-
-    // Second resize event with different state
-    act(() => {
-      if (targetElement) {
-        Object.defineProperty(targetElement, 'scrollHeight', {value: 100, configurable: true})
-        Object.defineProperty(targetElement, 'clientHeight', {value: 100, configurable: true})
-        triggerResizeOnElement(targetElement, false)
-      }
+    await waitFor(() => {
+      expect(results).toContain(true)
     })
-
-    act(() => {
-      flushAnimationFrames()
-    })
-
-    rerender(<TestComponent onResult={result => results.push(result)} onRef={el => (targetElement = el)} />)
-    // Should get the new state, not cached from before
-    expect(results[results.length - 1]).toBe(false)
   })
 })

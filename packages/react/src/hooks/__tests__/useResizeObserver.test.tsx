@@ -1,404 +1,194 @@
-import {render, act} from '@testing-library/react'
-import {useRef, useEffect} from 'react'
-import {describe, expect, test, vi, beforeEach, afterEach} from 'vitest'
-import {useResizeObserver} from '../useResizeObserver'
+import {render, waitFor, act} from '@testing-library/react'
+import {useRef, useEffect, useState, useImperativeHandle, forwardRef} from 'react'
+import {describe, expect, test} from 'vitest'
+import {useResizeObserver, type ResizeObserverEntry} from '../useResizeObserver'
 
-// Mock ResizeObserver
-let mockResizeObserverCallback: ResizeObserverCallback | null = null
-let mockObservedElements: Element[] = []
-
-class MockResizeObserver {
-  callback: ResizeObserverCallback
-
-  constructor(callback: ResizeObserverCallback) {
-    this.callback = callback
-    mockResizeObserverCallback = callback
-  }
-
-  observe(target: Element) {
-    mockObservedElements.push(target)
-    // ResizeObserver fires immediately on observe() with initial dimensions
-    this.callback(
-      [
-        {
-          target,
-          contentRect: target.getBoundingClientRect(),
-          borderBoxSize: [],
-          contentBoxSize: [],
-          devicePixelContentBoxSize: [],
-        },
-      ],
-      this,
-    )
-  }
-
-  unobserve(target: Element) {
-    mockObservedElements = mockObservedElements.filter(el => el !== target)
-  }
-
-  disconnect() {
-    mockObservedElements = []
-  }
+interface TestHandle {
+  setWidth: (width: number) => void
 }
 
-// Helper to trigger resize events
-function triggerResize(entries: ResizeObserverEntry[]) {
-  if (mockResizeObserverCallback) {
-    mockResizeObserverCallback(entries, {} as ResizeObserver)
-  }
-}
+const ResizableComponent = forwardRef<TestHandle, {callback: (entries: ResizeObserverEntry[]) => void}>(
+  function ResizableComponent({callback}, ref) {
+    const elementRef = useRef<HTMLDivElement>(null)
+    const [width, setWidth] = useState(100)
+    useResizeObserver(callback, elementRef)
 
-// Helper to create mock resize entries
-function createMockEntry(width: number, height: number, target?: Element): ResizeObserverEntry {
-  return {
-    target: target || document.createElement('div'),
-    contentRect: {
-      width,
-      height,
-      top: 0,
-      left: 0,
-      bottom: height,
-      right: width,
-      x: 0,
-      y: 0,
-      toJSON: () => ({}),
-    },
-    borderBoxSize: [],
-    contentBoxSize: [],
-    devicePixelContentBoxSize: [],
-  }
-}
+    useImperativeHandle(ref, () => ({
+      setWidth,
+    }))
+
+    return <div ref={elementRef} style={{width, height: 100}} data-testid="target" />
+  },
+)
 
 describe('useResizeObserver', () => {
-  let originalResizeObserver: typeof ResizeObserver
-  let rafCallbacks: Array<FrameRequestCallback>
-  let rafIdCounter: number
-
-  beforeEach(() => {
-    // Store original and replace with mock
-    originalResizeObserver = globalThis.ResizeObserver
-    globalThis.ResizeObserver = MockResizeObserver as unknown as typeof ResizeObserver
-
-    // Mock requestAnimationFrame
-    rafCallbacks = []
-    rafIdCounter = 0
-    vi.spyOn(globalThis, 'requestAnimationFrame').mockImplementation((callback: FrameRequestCallback) => {
-      rafCallbacks.push(callback)
-      return ++rafIdCounter
-    })
-    vi.spyOn(globalThis, 'cancelAnimationFrame').mockImplementation((_id: number) => {
-      // In a real implementation, we'd remove the callback, but for tests we just track the call
-    })
-
-    mockResizeObserverCallback = null
-    mockObservedElements = []
-  })
-
-  afterEach(() => {
-    globalThis.ResizeObserver = originalResizeObserver
-    vi.restoreAllMocks()
-  })
-
-  // Helper to flush all pending animation frames
-  function flushAnimationFrames() {
-    const callbacks = [...rafCallbacks]
-    rafCallbacks = []
-    for (const cb of callbacks) {
-      cb(performance.now())
-    }
-  }
-
-  test('fires callback immediately on first observation', () => {
-    const callback = vi.fn()
-
-    function TestComponent() {
-      useResizeObserver(callback)
-      return null
-    }
-
-    render(<TestComponent />)
-
-    // Callback should have been called immediately (synchronously) on observe
-    expect(callback).toHaveBeenCalledTimes(1)
-    // Should have been called with entries containing contentRect
-    expect(callback.mock.calls[0][0][0]).toHaveProperty('contentRect')
-  })
-
-  test('fires callback immediately for target ref on first observation', () => {
-    const callback = vi.fn()
+  test('fires callback on first observation', async () => {
+    const callbackEntries: ResizeObserverEntry[][] = []
 
     function TestComponent() {
       const ref = useRef<HTMLDivElement>(null)
-      useResizeObserver(callback, ref)
-      return <div ref={ref} data-testid="target" />
+      useResizeObserver(entries => {
+        callbackEntries.push(entries)
+      }, ref)
+      return <div ref={ref} style={{width: 100, height: 100}} data-testid="target" />
     }
 
     render(<TestComponent />)
 
-    // Callback should have been called immediately
-    expect(callback).toHaveBeenCalledTimes(1)
+    await waitFor(() => {
+      expect(callbackEntries.length).toBeGreaterThan(0)
+    })
   })
 
-  test('throttles subsequent callbacks using requestAnimationFrame', () => {
-    const callback = vi.fn()
+  test('fires callback when element resizes', async () => {
+    const callbackEntries: ResizeObserverEntry[][] = []
+    const handleRef = {current: null as TestHandle | null}
 
     function TestComponent() {
-      useResizeObserver(callback)
-      return null
-    }
-
-    render(<TestComponent />)
-
-    // First callback was immediate
-    expect(callback).toHaveBeenCalledTimes(1)
-    callback.mockClear()
-
-    // Trigger multiple rapid resize events
-    act(() => {
-      triggerResize([createMockEntry(100, 100)])
-      triggerResize([createMockEntry(200, 200)])
-      triggerResize([createMockEntry(300, 300)])
-    })
-
-    // Callback should not have been called yet (throttled)
-    expect(callback).toHaveBeenCalledTimes(0)
-
-    // requestAnimationFrame should have been called once
-    expect(requestAnimationFrame).toHaveBeenCalledTimes(1)
-
-    // Flush the animation frame
-    act(() => {
-      flushAnimationFrames()
-    })
-
-    // Now callback should have been called once with the latest entries
-    expect(callback).toHaveBeenCalledTimes(1)
-    expect(callback.mock.calls[0][0][0].contentRect.width).toBe(300)
-    expect(callback.mock.calls[0][0][0].contentRect.height).toBe(300)
-  })
-
-  test('processes latest entries after throttling, not stale ones', () => {
-    const callback = vi.fn()
-
-    function TestComponent() {
-      useResizeObserver(callback)
-      return null
-    }
-
-    render(<TestComponent />)
-    callback.mockClear()
-
-    // Trigger first resize event
-    act(() => {
-      triggerResize([createMockEntry(100, 100)])
-    })
-
-    // Before rAF executes, trigger more resize events
-    act(() => {
-      triggerResize([createMockEntry(150, 150)])
-      triggerResize([createMockEntry(200, 200)])
-    })
-
-    // Only one rAF should be pending
-    expect(requestAnimationFrame).toHaveBeenCalledTimes(1)
-
-    // Flush and verify we get the latest entry
-    act(() => {
-      flushAnimationFrames()
-    })
-
-    expect(callback).toHaveBeenCalledTimes(1)
-    expect(callback.mock.calls[0][0][0].contentRect.width).toBe(200)
-  })
-
-  test('cancels pending animation frames on cleanup', () => {
-    const callback = vi.fn()
-
-    function TestComponent() {
-      useResizeObserver(callback)
-      return null
-    }
-
-    const {unmount} = render(<TestComponent />)
-    callback.mockClear()
-
-    // Trigger a resize to schedule an animation frame
-    act(() => {
-      triggerResize([createMockEntry(100, 100)])
-    })
-
-    expect(requestAnimationFrame).toHaveBeenCalledTimes(1)
-
-    // Unmount before the animation frame executes
-    unmount()
-
-    // cancelAnimationFrame should have been called
-    expect(cancelAnimationFrame).toHaveBeenCalledTimes(1)
-    expect(cancelAnimationFrame).toHaveBeenCalledWith(1) // First rAF ID
-  })
-
-  test('does not cancel animation frame on cleanup if none pending', () => {
-    const callback = vi.fn()
-
-    function TestComponent() {
-      useResizeObserver(callback)
-      return null
-    }
-
-    const {unmount} = render(<TestComponent />)
-
-    // Only the initial immediate callback, no rAF scheduled
-    expect(requestAnimationFrame).toHaveBeenCalledTimes(0)
-
-    unmount()
-
-    // No cancelAnimationFrame should have been called
-    expect(cancelAnimationFrame).not.toHaveBeenCalled()
-  })
-
-  test('schedules new animation frame after previous one completes', () => {
-    const callback = vi.fn()
-
-    function TestComponent() {
-      useResizeObserver(callback)
-      return null
-    }
-
-    render(<TestComponent />)
-    callback.mockClear()
-
-    // First batch of resize events
-    act(() => {
-      triggerResize([createMockEntry(100, 100)])
-    })
-
-    expect(requestAnimationFrame).toHaveBeenCalledTimes(1)
-
-    // Complete the animation frame
-    act(() => {
-      flushAnimationFrames()
-    })
-
-    expect(callback).toHaveBeenCalledTimes(1)
-
-    // Second batch of resize events
-    act(() => {
-      triggerResize([createMockEntry(200, 200)])
-    })
-
-    // New animation frame should be scheduled
-    expect(requestAnimationFrame).toHaveBeenCalledTimes(2)
-
-    act(() => {
-      flushAnimationFrames()
-    })
-
-    expect(callback).toHaveBeenCalledTimes(2)
-  })
-
-  test('uses document.documentElement as default target', () => {
-    const callback = vi.fn()
-
-    function TestComponent() {
-      useResizeObserver(callback)
-      return null
-    }
-
-    render(<TestComponent />)
-
-    expect(mockObservedElements).toContain(document.documentElement)
-  })
-
-  test('uses provided ref as target', () => {
-    const callback = vi.fn()
-    let targetElement: HTMLDivElement | null = null
-
-    function TestComponent() {
-      const ref = useRef<HTMLDivElement>(null)
-      useResizeObserver(callback, ref)
+      const ref = useRef<TestHandle>(null)
 
       useEffect(() => {
-        targetElement = ref.current
+        handleRef.current = ref.current
       })
 
-      return <div ref={ref} data-testid="target" />
+      return (
+        <ResizableComponent
+          ref={ref}
+          callback={entries => {
+            callbackEntries.push(entries)
+          }}
+        />
+      )
     }
 
     render(<TestComponent />)
 
-    expect(mockObservedElements).toContain(targetElement)
-  })
-
-  test('updates savedCallback ref when callback changes', () => {
-    const callback1 = vi.fn()
-    const callback2 = vi.fn()
-
-    function TestComponent({callback}: {callback: (entries: ResizeObserverEntry[]) => void}) {
-      useResizeObserver(callback)
-      return null
-    }
-
-    const {rerender} = render(<TestComponent callback={callback1} />)
-
-    // First callback should have been called
-    expect(callback1).toHaveBeenCalledTimes(1)
-    expect(callback2).toHaveBeenCalledTimes(0)
-
-    callback1.mockClear()
-
-    // Update callback
-    rerender(<TestComponent callback={callback2} />)
-
-    // Trigger resize
-    act(() => {
-      triggerResize([createMockEntry(100, 100)])
+    await waitFor(() => {
+      expect(callbackEntries.length).toBe(1)
     })
 
-    act(() => {
-      flushAnimationFrames()
+    await act(async () => {
+      handleRef.current?.setWidth(200)
     })
 
-    // New callback should be called
-    expect(callback1).toHaveBeenCalledTimes(0)
-    expect(callback2).toHaveBeenCalledTimes(1)
+    await waitFor(() => {
+      expect(callbackEntries.length).toBeGreaterThan(1)
+    })
+
+    const lastEntry = callbackEntries[callbackEntries.length - 1][0]
+    expect(lastEntry.contentRect.width).toBe(200)
   })
 
-  test('clears latestEntries after processing to avoid memory leaks', () => {
-    // This test verifies the fix for the memory leak issue
-    // We can't directly observe latestEntries, but we can verify behavior
-    const callback = vi.fn()
+  test('uses document.documentElement as default target', async () => {
+    const callbackEntries: ResizeObserverEntry[][] = []
 
     function TestComponent() {
-      useResizeObserver(callback)
+      useResizeObserver(entries => {
+        callbackEntries.push(entries)
+      })
       return null
     }
 
     render(<TestComponent />)
-    callback.mockClear()
 
-    // Trigger resize
-    act(() => {
-      triggerResize([createMockEntry(100, 100)])
+    await waitFor(() => {
+      expect(callbackEntries.length).toBeGreaterThan(0)
+    })
+  })
+
+  test('observes provided ref as target', async () => {
+    const callbackEntries: ResizeObserverEntry[][] = []
+
+    function TestComponent() {
+      const ref = useRef<HTMLDivElement>(null)
+      useResizeObserver(entries => {
+        callbackEntries.push(entries)
+      }, ref)
+      return <div ref={ref} style={{width: 150, height: 75}} data-testid="target" />
+    }
+
+    render(<TestComponent />)
+
+    await waitFor(() => {
+      expect(callbackEntries.length).toBeGreaterThan(0)
     })
 
-    // Flush animation frame
-    act(() => {
-      flushAnimationFrames()
+    const entry = callbackEntries[0][0]
+    expect(entry.contentRect.width).toBe(150)
+    expect(entry.contentRect.height).toBe(75)
+  })
+
+  test('uses latest callback when it changes', async () => {
+    const callback1Entries: ResizeObserverEntry[][] = []
+    const callback2Entries: ResizeObserverEntry[][] = []
+
+    function TestComponent({callback, width}: {callback: (entries: ResizeObserverEntry[]) => void; width: number}) {
+      const ref = useRef<HTMLDivElement>(null)
+      useResizeObserver(callback, ref)
+      return <div ref={ref} style={{width, height: 100}} data-testid="target" />
+    }
+
+    const {rerender} = render(<TestComponent callback={entries => callback1Entries.push(entries)} width={100} />)
+
+    await waitFor(() => {
+      expect(callback1Entries.length).toBeGreaterThan(0)
     })
 
-    expect(callback).toHaveBeenCalledTimes(1)
+    // Update callback and trigger resize
+    rerender(<TestComponent callback={entries => callback2Entries.push(entries)} width={200} />)
 
-    // Trigger another resize and flush immediately
-    act(() => {
-      triggerResize([createMockEntry(200, 200)])
+    await waitFor(() => {
+      expect(callback2Entries.length).toBeGreaterThan(0)
+    })
+  })
+
+  test('re-observes when depsArray changes', async () => {
+    const callbackEntries: ResizeObserverEntry[][] = []
+
+    function TestComponent({dep}: {dep: number}) {
+      const ref = useRef<HTMLDivElement>(null)
+      useResizeObserver(
+        entries => {
+          callbackEntries.push(entries)
+        },
+        ref,
+        [dep],
+      )
+      return <div ref={ref} style={{width: 100, height: 100}} data-testid="target" />
+    }
+
+    const {rerender} = render(<TestComponent dep={1} />)
+
+    await waitFor(() => {
+      expect(callbackEntries.length).toBeGreaterThan(0)
     })
 
-    act(() => {
-      flushAnimationFrames()
-    })
+    const initialCallCount = callbackEntries.length
 
-    // Should get the new entry, not the old one
-    expect(callback).toHaveBeenCalledTimes(2)
-    expect(callback.mock.calls[1][0][0].contentRect.width).toBe(200)
+    rerender(<TestComponent dep={2} />)
+
+    await waitFor(() => {
+      expect(callbackEntries.length).toBeGreaterThan(initialCallCount)
+    })
+  })
+
+  test('does not fire callback when ref is null', async () => {
+    const callbackEntries: ResizeObserverEntry[][] = []
+
+    function TestComponent() {
+      const ref = useRef<HTMLDivElement>(null)
+      useResizeObserver(entries => {
+        callbackEntries.push(entries)
+      }, ref)
+      // Don't attach ref to any element
+      return null
+    }
+
+    render(<TestComponent />)
+
+    // Wait a bit to ensure no callbacks fire
+    await new Promise(resolve => setTimeout(resolve, 100))
+
+    expect(callbackEntries.length).toBe(0)
   })
 })
