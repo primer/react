@@ -566,10 +566,17 @@ export type PageLayoutPaneProps = {
    * Enable resizable pane behavior.
    * - `true`: Enable with default localStorage persistence
    * - `false`: Disable resizing
+   * - `{}`: Enable without persistence (no hydration issues)
    * - `WidthPersister`: Enable with custom storage (e.g., sessionStorage, server-side)
    */
   resizable?: ResizableConfig
   widthStorageKey?: string
+  /**
+   * Callback fired when the pane width changes (on drag end or reset).
+   * Use this for controlled mode or to sync width to external state/storage.
+   * Fires in addition to any persistence configured via `resizable`.
+   */
+  onWidthChange?: (width: number) => void
   padding?: keyof typeof SPACING_MAP
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
   /**
@@ -615,6 +622,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       padding = 'none',
       resizable = false,
       widthStorageKey = 'paneWidth',
+      onWidthChange,
       divider: responsiveDivider = 'none',
       dividerWhenNarrow = 'inherit',
       sticky = false,
@@ -664,6 +672,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         widthStorageKey,
         paneRef,
         handleRef,
+        onWidthChange,
       })
 
     useRefObjectAsForwardedRef(forwardRef, paneRef)

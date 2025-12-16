@@ -375,6 +375,179 @@ describe('usePaneWidth', () => {
     })
   })
 
+  describe('onWidthChange', () => {
+    it('should call onWidthChange when saveWidth is called', () => {
+      const onWidthChange = vi.fn()
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-callback',
+          onWidthChange,
+          ...refs,
+        }),
+      )
+
+      act(() => {
+        result.current.saveWidth(450)
+      })
+
+      expect(onWidthChange).toHaveBeenCalledWith(450)
+      expect(result.current.currentWidth).toBe(450)
+    })
+
+    it('should call both onWidthChange and persister.save', () => {
+      const onWidthChange = vi.fn()
+      const customPersister: WidthPersister = {
+        save: vi.fn(),
+      }
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: customPersister,
+          widthStorageKey: 'test-both',
+          onWidthChange,
+          ...refs,
+        }),
+      )
+
+      act(() => {
+        result.current.saveWidth(400)
+      })
+
+      expect(onWidthChange).toHaveBeenCalledWith(400)
+      expect(customPersister.save).toHaveBeenCalledWith(400)
+    })
+
+    it('should call onWidthChange without persister when resizable={}', () => {
+      const onWidthChange = vi.fn()
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: {},
+          widthStorageKey: 'test-no-persist',
+          onWidthChange,
+          ...refs,
+        }),
+      )
+
+      act(() => {
+        result.current.saveWidth(350)
+      })
+
+      expect(onWidthChange).toHaveBeenCalledWith(350)
+      expect(localStorage.getItem('test-no-persist')).toBeNull()
+    })
+
+    it('should handle errors in onWidthChange gracefully', () => {
+      const onWidthChange = vi.fn(() => {
+        throw new Error('Callback error')
+      })
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-error',
+          onWidthChange,
+          ...refs,
+        }),
+      )
+
+      // Should not throw
+      act(() => {
+        result.current.saveWidth(450)
+      })
+
+      expect(onWidthChange).toHaveBeenCalledWith(450)
+      expect(result.current.currentWidth).toBe(450)
+    })
+  })
+
+  describe('width prop sync (controlled mode)', () => {
+    it('should sync internal state when width prop changes', () => {
+      const refs = createMockRefs()
+
+      const {result, rerender} = renderHook(
+        ({width}: {width: 'small' | 'medium' | 'large'}) =>
+          usePaneWidth({
+            width,
+            minWidth: 256,
+            resizable: true,
+            widthStorageKey: 'test-sync',
+            ...refs,
+          }),
+        {initialProps: {width: 'medium' as 'small' | 'medium' | 'large'}},
+      )
+
+      expect(result.current.currentWidth).toBe(defaultPaneWidth.medium)
+
+      // Change width prop
+      rerender({width: 'large'})
+
+      expect(result.current.currentWidth).toBe(defaultPaneWidth.large)
+    })
+
+    it('should sync when width changes to custom width', () => {
+      const refs = createMockRefs()
+      type WidthType = 'medium' | {min: `${number}px`; default: `${number}px`; max: `${number}px`}
+
+      const {result, rerender} = renderHook(
+        ({width}: {width: WidthType}) =>
+          usePaneWidth({
+            width,
+            minWidth: 256,
+            resizable: true,
+            widthStorageKey: 'test-sync-custom',
+            ...refs,
+          }),
+        {initialProps: {width: 'medium' as WidthType}},
+      )
+
+      expect(result.current.currentWidth).toBe(defaultPaneWidth.medium)
+
+      // Change to custom width
+      rerender({width: {min: '200px', default: '400px', max: '600px'}})
+
+      expect(result.current.currentWidth).toBe(400)
+    })
+
+    it('should not fire onWidthChange when width prop changes externally', () => {
+      const onWidthChange = vi.fn()
+      const refs = createMockRefs()
+
+      const {rerender} = renderHook(
+        ({width}: {width: 'small' | 'medium' | 'large'}) =>
+          usePaneWidth({
+            width,
+            minWidth: 256,
+            resizable: true,
+            widthStorageKey: 'test-no-callback-sync',
+            onWidthChange,
+            ...refs,
+          }),
+        {initialProps: {width: 'medium' as 'small' | 'medium' | 'large'}},
+      )
+
+      // Change width prop externally
+      rerender({width: 'large'})
+
+      // Should not fire - this is external sync, not user action
+      expect(onWidthChange).not.toHaveBeenCalled()
+    })
+  })
+
   describe('minPaneWidth', () => {
     it('should use minWidth prop for preset widths', () => {
       const refs = createMockRefs()

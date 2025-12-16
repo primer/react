@@ -42,6 +42,11 @@ export type UsePaneWidthOptions = {
   widthStorageKey: string
   paneRef: React.RefObject<HTMLDivElement | null>
   handleRef: React.RefObject<HTMLDivElement | null>
+  /**
+   * Callback fired when the pane width changes (on drag end or reset).
+   * Use for controlled mode or to sync width to external state/storage.
+   */
+  onWidthChange?: (width: number) => void
 }
 
 export type UsePaneWidthResult = {
@@ -211,6 +216,7 @@ export function usePaneWidth({
   widthStorageKey,
   paneRef,
   handleRef,
+  onWidthChange,
 }: UsePaneWidthOptions): UsePaneWidthResult {
   // Derive constraints from width configuration
   const isCustomWidth = isCustomWidthOptions(width)
@@ -269,10 +275,26 @@ export function usePaneWidth({
   // --- Callbacks ---
   const getDefaultWidth = React.useCallback(() => getDefaultPaneWidth(width), [width])
 
+  // Stable ref for onWidthChange to avoid re-creating saveWidth on every render
+  const onWidthChangeRef = React.useRef(onWidthChange)
+  useIsomorphicLayoutEffect(() => {
+    onWidthChangeRef.current = onWidthChange
+  })
+
   const saveWidth = React.useCallback(
     (value: number) => {
       currentWidthRef.current = value
       setCurrentWidth(value)
+
+      // Fire callback if provided (for controlled mode / external sync)
+      if (onWidthChangeRef.current) {
+        try {
+          onWidthChangeRef.current(value)
+        } catch {
+          // Ignore consumer errors
+        }
+      }
+
       // Persist to storage (async is fine - fire and forget)
       // Wrapped in try-catch to prevent consumer errors from breaking the component
       if (persister?.save) {
@@ -304,6 +326,23 @@ export function usePaneWidth({
     if (!isResizableEnabled(resizableRef.current)) return
     currentWidthRef.current = currentWidth
   }, [currentWidth])
+
+  // Sync internal state from width prop changes (for controlled mode).
+  // This allows consumers to change width externally and have the pane respond.
+  const prevWidthPropRef = React.useRef(width)
+  useIsomorphicLayoutEffect(() => {
+    const newDefault = getDefaultPaneWidth(width)
+    const oldDefault = getDefaultPaneWidth(prevWidthPropRef.current)
+
+    // If width prop changed, sync internal state (but don't fire onWidthChange - this is external sync)
+    if (newDefault !== oldDefault) {
+      currentWidthRef.current = newDefault
+      setCurrentWidth(newDefault)
+      paneRef.current?.style.setProperty('--pane-width', `${newDefault}px`)
+      updateAriaValues(handleRef.current, {current: newDefault})
+    }
+    prevWidthPropRef.current = width
+  }, [width, paneRef, handleRef])
 
   // Stable ref to getMaxPaneWidth for use in resize handler without re-subscribing
   const getMaxPaneWidthRef = React.useRef(getMaxPaneWidth)
