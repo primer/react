@@ -1,4 +1,5 @@
 import type {Meta, StoryFn} from '@storybook/react-vite'
+import React from 'react'
 import {PageLayout} from './PageLayout'
 import {Placeholder} from '../Placeholder'
 import {BranchName, Heading, Link, StateLabel, Text} from '..'
@@ -358,3 +359,62 @@ export const WithCustomPaneHeading: StoryFn = () => (
     </PageLayout.Footer>
   </PageLayout>
 )
+
+export const ResizablePaneWithoutPersistence: StoryFn = () => (
+  <PageLayout>
+    <PageLayout.Header>
+      <Placeholder height={64} label="Header" />
+    </PageLayout.Header>
+    <PageLayout.Pane resizable={{persist: false}} aria-label="Side pane">
+      <Placeholder height={320} label="Pane (resizable, not persisted)" />
+    </PageLayout.Pane>
+    <PageLayout.Content>
+      <Placeholder height={640} label="Content" />
+    </PageLayout.Content>
+    <PageLayout.Footer>
+      <Placeholder height={64} label="Footer" />
+    </PageLayout.Footer>
+  </PageLayout>
+)
+ResizablePaneWithoutPersistence.storyName = 'Resizable pane without persistence'
+
+export const ResizablePaneWithCustomPersistence: StoryFn = () => {
+  const [savedWidth, setSavedWidth] = React.useState<number | null>(null)
+
+  return (
+    <div>
+      <div style={{marginBottom: '1rem', padding: '0.5rem', background: '#f6f8fa', borderRadius: '6px'}}>
+        <Text as="p" style={{margin: 0}}>
+          Last saved width: <strong>{savedWidth !== null ? `${savedWidth}px` : 'Not saved yet'}</strong>
+        </Text>
+        <Text as="p" style={{margin: 0, fontSize: '12px', color: 'var(--fgColor-muted)'}}>
+          (Resize the pane to see the custom save function in action)
+        </Text>
+      </div>
+      <PageLayout>
+        <PageLayout.Header>
+          <Placeholder height={64} label="Header" />
+        </PageLayout.Header>
+        <PageLayout.Pane
+          resizable={{
+            save: (width, {widthStorageKey}) => {
+              // eslint-disable-next-line no-console
+              console.log(`Custom save: ${width}px with key "${widthStorageKey}"`)
+              setSavedWidth(width)
+            },
+          }}
+          aria-label="Side pane"
+        >
+          <Placeholder height={320} label="Pane (custom persistence)" />
+        </PageLayout.Pane>
+        <PageLayout.Content>
+          <Placeholder height={640} label="Content" />
+        </PageLayout.Content>
+        <PageLayout.Footer>
+          <Placeholder height={64} label="Footer" />
+        </PageLayout.Footer>
+      </PageLayout>
+    </div>
+  )
+}
+ResizablePaneWithCustomPersistence.storyName = 'Resizable pane with custom persistence'
