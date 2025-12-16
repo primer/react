@@ -177,6 +177,8 @@ describe('Button', () => {
     )
     const buttonNode = container.getByRole('button')
 
+    fireEvent.click(buttonNode)
+
     expect(buttonNode.getAttribute('aria-describedby')).toBe(`${buttonId}-loading-announcement`)
 
     fireEvent.click(buttonNode)
@@ -199,6 +201,8 @@ describe('Button', () => {
     )
     const buttonNode = container.getByRole('button')
 
+    fireEvent.click(buttonNode)
+
     expect(buttonNode.getAttribute('aria-describedby')).toBe(`${buttonId}-loading-announcement`)
 
     fireEvent.click(buttonNode)
@@ -220,6 +224,10 @@ describe('Button', () => {
         <span>content</span>
       </StatefulLoadingButton>,
     )
+    const buttonNode = container.getByRole('button')
+
+    fireEvent.click(buttonNode)
+
     const buttonDescribedBy = container.getByRole('button').getAttribute('aria-describedby')
     const loadingAnnouncementId = `${buttonId}-loading-announcement`
 
