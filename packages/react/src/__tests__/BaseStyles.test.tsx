@@ -8,7 +8,7 @@ describe('BaseStyles', () => {
     expect(container).toMatchSnapshot()
   })
 
-  it.skip('respects styling props', () => {
+  it.todo('respects styling props', () => {
     const styles = {
       color: '#f00',
       fontFamily: 'Arial',
