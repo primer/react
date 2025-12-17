@@ -262,7 +262,6 @@ const DragHandle = memo<DragHandleProps>(function DragHandle({
       pane: paneRef.current,
       content: contentRef.current,
     })
-
     isDraggingRef.current = false
   }, [handleRef, contentRef, paneRef])
 
