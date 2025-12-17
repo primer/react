@@ -443,6 +443,7 @@ describe('Autocomplete', () => {
   })
 
   // TODO: Enable once className override bug is fixed in Autocomplete.Overlay, also remember to remove from ignore list on script/check-classname-tests.mjs
+  // eslint-disable-next-line vitest/no-disabled-tests
   describe.skip('Autocomplete.Overlay', () => {
     implementsClassName(
       props => (
