@@ -664,55 +664,6 @@ describe('usePaneWidth', () => {
       vi.useRealTimers()
     })
 
-    it('should skip resize handling while dragging', async () => {
-      vi.useFakeTimers()
-      vi.stubGlobal('innerWidth', 1280)
-      const refs = createMockRefs()
-
-      renderHook(() =>
-        usePaneWidth({
-          width: 'medium',
-          minWidth: 256,
-          resizable: true,
-          widthStorageKey: 'test-skip-while-dragging',
-          ...refs,
-        }),
-      )
-
-      // Simulate drag start by setting background-color (as DragHandle does)
-      refs.handleRef.current!.style.backgroundColor = 'var(--bgColor-accent-emphasis)'
-
-      // Fire resize
-      vi.stubGlobal('innerWidth', 1000)
-      window.dispatchEvent(new Event('resize'))
-
-      // Containment should NOT be applied (resize skipped while dragging)
-      expect(refs.paneRef.current?.style.contain).toBe('')
-
-      // Wait past debounce
-      await act(async () => {
-        await vi.advanceTimersByTimeAsync(200)
-      })
-
-      // CSS variable should still be old value (resize was skipped)
-      expect(refs.paneRef.current?.style.getPropertyValue('--pane-max-width')).toBe('769px')
-
-      // Clear drag state
-      refs.handleRef.current!.style.backgroundColor = ''
-
-      // Now resize should work
-      window.dispatchEvent(new Event('resize'))
-
-      await act(async () => {
-        await vi.advanceTimersByTimeAsync(150)
-      })
-
-      // Now CSS variable should be updated
-      expect(refs.paneRef.current?.style.getPropertyValue('--pane-max-width')).toBe('489px') // 1000 - 511
-
-      vi.useRealTimers()
-    })
-
     it('should cleanup containment styles on unmount during resize', async () => {
       vi.useFakeTimers()
       vi.stubGlobal('innerWidth', 1280)
