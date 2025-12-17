@@ -717,7 +717,7 @@
   inset: 0;
   background-color: var(--bgColor-neutral-muted);
   opacity: var(--draggable-handle--drag-opacity, 0);
-  transition: opacity 150ms ease; /* compositor-friendly */
+  transition: var(--draggable-handle--transition, opacity 150ms ease); /* compositor-friendly, disabled during drag */
   border-radius: inherit; /* optional if you need rounded corners */
 }
 
