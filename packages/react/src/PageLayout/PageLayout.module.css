@@ -381,26 +381,6 @@
   }
 }
 
-/**
- * OPTIMIZATION: Aggressive containment during drag for ContentWrapper
- * data-dragging is set on PageLayoutContent by JavaScript
- * This avoids expensive :has() selectors
- */
-.PageLayoutContent[data-dragging='true'] .ContentWrapper {
-  /* Add paint containment during drag - safe since user can't interact */
-  contain: layout style paint;
-
-  /* Disable interactions */
-  pointer-events: none;
-
-  /* Disable transitions to prevent expensive recalculations */
-  transition: none;
-
-  /* Force compositor layer for hardware acceleration */
-  will-change: width;
-  transform: translateZ(0);
-}
-
 .Content {
   width: 100%;
 
@@ -425,16 +405,6 @@
   &:where([data-width='xlarge']) {
     max-width: 1280px;
   }
-}
-
-/**
- * OPTIMIZATION: Freeze content layout during resize drag
- * This prevents expensive recalculations of large content areas
- * while keeping content visible (just frozen in place)
- */
-.PageLayoutContent[data-dragging='true'] .Content {
-  /* Full containment (without size) - isolate from layout recalculations */
-  contain: layout style paint;
 }
 
 .PaneWrapper {
@@ -630,27 +600,6 @@
   }
 }
 
-/**
- * OPTIMIZATION: Performance enhancements for Pane during drag
- * data-dragging is set on PageLayoutContent by JavaScript
- * This avoids expensive :has() selectors
- */
-.PageLayoutContent[data-dragging='true'] .Pane {
-  /* Full containment - isolate from layout recalculations */
-  contain: layout style paint;
-
-  /* Disable interactions during drag */
-  pointer-events: none;
-
-  /* Disable transitions during drag */
-  transition: none;
-
-  /* Force hardware acceleration */
-  will-change: width, transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}
-
 .PaneHorizontalDivider {
   &:where([data-position='start']) {
     /* stylelint-disable-next-line primer/spacing */
@@ -756,26 +705,23 @@
   position: absolute;
   inset: 0 -2px;
   cursor: col-resize;
-  background-color: transparent;
-  transition-delay: 0.1s;
 
-  /**
-   * OPTIMIZATION: Prevent touch scrolling and text selection during drag
-   * This is done in CSS because it needs to be set before any pointer events
-   */
+  /* Prevent touch scrolling and text selection during drag */
   touch-action: none;
   user-select: none;
 }
 
-.DraggableHandle:hover {
+.DraggableHandle::before {
+  content: '';
+  position: absolute;
+  inset: 0;
   background-color: var(--bgColor-neutral-muted);
+  opacity: var(--drag-opacity, 0);
+  transition: opacity 150ms ease; /* compositor-friendly */
+  border-radius: inherit; /* optional if you need rounded corners */
 }
 
-.DraggableHandle[data-dragging='true'] {
-  background-color: var(--bgColor-accent-emphasis);
-  cursor: col-resize;
-}
-
-.DraggableHandle[data-dragging='true']:hover {
-  background-color: var(--bgColor-accent-emphasis);
+/* Hover effect */
+.DraggableHandle:hover::before {
+  opacity: 1;
 }

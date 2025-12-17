@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, {memo, useRef} from 'react'
 import {clsx} from 'clsx'
 import {useId} from '../hooks/useId'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
@@ -28,6 +28,9 @@ const REGION_ORDER = {
   paneEnd: 3,
   footer: 4,
 }
+
+const ARROW_KEYS = new Set(['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'])
+const SHRINK_KEYS = new Set(['ArrowLeft', 'ArrowDown'])
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SPACING_MAP = {
@@ -103,15 +106,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
 
   return (
     <PageLayoutContext.Provider value={memoizedContextValue}>
-      <div
-        style={
-          {
-            '--spacing': `var(--spacing-${padding})`,
-            ...style,
-          } as React.CSSProperties
-        }
-        className={clsx(classes.PageLayoutRoot, className)}
-      >
+      <RootWrapper style={style} padding={padding} className={className}>
         <div className={classes.PageLayoutWrapper} data-width={containerWidth}>
           {slots.header}
           <div ref={contentRef} className={clsx(classes.PageLayoutContent)}>
@@ -119,10 +114,31 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
           </div>
           {slots.footer}
         </div>
-      </div>
+      </RootWrapper>
     </PageLayoutContext.Provider>
   )
 }
+
+const RootWrapper = memo(function RootWrapper({
+  style,
+  padding,
+  children,
+  className,
+}: React.PropsWithChildren<Pick<PageLayoutProps, 'style' | 'padding' | 'className'>>) {
+  return (
+    <div
+      style={
+        {
+          '--spacing': `var(--spacing-${padding})`,
+          ...style,
+        } as React.CSSProperties
+      }
+      className={clsx(classes.PageLayoutRoot, className)}
+    >
+      {children}
+    </div>
+  )
+})
 
 Root.displayName = 'PageLayout'
 
@@ -136,51 +152,48 @@ type DividerProps = {
   position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
 }
 
-const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
-  variant = 'none',
-  className,
-  position,
-  style,
-}) => {
-  const {padding} = React.useContext(PageLayoutContext)
+const HorizontalDivider = memo<React.PropsWithChildren<DividerProps>>(
+  ({variant = 'none', className, position, style}) => {
+    const {padding} = React.useContext(PageLayoutContext)
 
-  return (
-    <div
-      className={clsx(classes.HorizontalDivider, className)}
-      {...getResponsiveAttributes('variant', variant)}
-      {...getResponsiveAttributes('position', position)}
-      style={
-        {
-          '--spacing-divider': `var(--spacing-${padding})`,
-          ...style,
-        } as React.CSSProperties
-      }
-    />
-  )
-}
+    return (
+      <div
+        className={clsx(classes.HorizontalDivider, className)}
+        {...getResponsiveAttributes('variant', variant)}
+        {...getResponsiveAttributes('position', position)}
+        style={
+          {
+            '--spacing-divider': `var(--spacing-${padding})`,
+            ...style,
+          } as React.CSSProperties
+        }
+      />
+    )
+  },
+)
+
+HorizontalDivider.displayName = 'HorizontalDivider'
 
 type VerticalDividerProps = DividerProps & {
   draggable?: boolean
 }
 
-const VerticalDivider: React.FC<React.PropsWithChildren<VerticalDividerProps>> = ({
-  variant = 'none',
-  position,
-  className,
-  style,
-  children,
-}) => {
-  return (
-    <div
-      className={clsx(classes.VerticalDivider, className)}
-      {...getResponsiveAttributes('variant', variant)}
-      {...getResponsiveAttributes('position', position)}
-      style={style}
-    >
-      {children}
-    </div>
-  )
-}
+const VerticalDivider = memo<React.PropsWithChildren<VerticalDividerProps>>(
+  ({variant = 'none', position, className, style, children}) => {
+    return (
+      <div
+        className={clsx(classes.VerticalDivider, className)}
+        {...getResponsiveAttributes('variant', variant)}
+        {...getResponsiveAttributes('position', position)}
+        style={style}
+      >
+        {children}
+      </div>
+    )
+  },
+)
+
+VerticalDivider.displayName = 'VerticalDivider'
 
 type DragHandleProps = {
   /** Ref for imperative ARIA updates during drag */
@@ -201,17 +214,25 @@ type DragHandleProps = {
   'aria-valuenow'?: number
 }
 
-const DATA_DRAGGING_ATTR = 'data-dragging'
-const isDragging = (handle: HTMLElement | null) => {
-  return handle?.getAttribute(DATA_DRAGGING_ATTR) === 'true'
+function setDraggingStyleOptimizations(element: HTMLElement | null) {
+  if (!element) return
+  element.style.pointerEvents = 'none'
+  element.style.contain = 'layout style paint'
+  element.style.contentVisibility = 'auto'
 }
 
+function removeDraggingStylesOptimizations(element: HTMLElement | null) {
+  if (!element) return
+  element.style.pointerEvents = ''
+  element.style.contain = ''
+  element.style.contentVisibility = ''
+}
 /**
  * DragHandle - handles all pointer and keyboard interactions for resizing
  * ARIA values are set in JSX for SSR accessibility,
  * then updated via DOM manipulation during drag for performance
  */
-const DragHandle: React.FC<DragHandleProps> = ({
+const DragHandle = memo<DragHandleProps>(function DragHandle({
   handleRef,
   onDragStart,
   onDrag,
@@ -220,7 +241,7 @@ const DragHandle: React.FC<DragHandleProps> = ({
   'aria-valuemin': ariaValueMin,
   'aria-valuemax': ariaValueMax,
   'aria-valuenow': ariaValueNow,
-}) => {
+}) {
   const stableOnDragStart = React.useRef(onDragStart)
   const stableOnDrag = React.useRef(onDrag)
   const stableOnDragEnd = React.useRef(onDragEnd)
@@ -232,77 +253,116 @@ const DragHandle: React.FC<DragHandleProps> = ({
 
   const {paneRef, contentRef} = React.useContext(PageLayoutContext)
 
-  // Helper to set/remove dragging attribute on content wrapper
-  // This avoids expensive :has() selectors - CSS uses simple descendant selectors instead
-  const setDragging = React.useCallback(
-    (dragging: boolean) => {
-      if (dragging) {
-        handleRef.current?.setAttribute(DATA_DRAGGING_ATTR, 'true')
-        contentRef.current?.setAttribute(DATA_DRAGGING_ATTR, 'true')
-      } else {
-        handleRef.current?.removeAttribute(DATA_DRAGGING_ATTR)
-        contentRef.current?.removeAttribute(DATA_DRAGGING_ATTR)
-      }
-    },
-    [handleRef, contentRef],
-  )
+  // Dragging state as a ref - cheaper than reading from DOM style
+  const isDraggingRef = React.useRef(false)
+
+  // Helper to set/remove dragging optimization styles
+  // All properties set as inline styles ONLY during drag for zero overhead at rest
+  const startDragging = React.useCallback(() => {
+    if (isDraggingRef.current) return
+    // Handle: visual feedback
+    handleRef.current?.style.setProperty('background-color', 'var(--bgColor-accent-emphasis)')
+    handleRef.current?.style.setProperty('--drag-opacity', '1')
+    // Pane: hint browser to optimize for width changes
+    paneRef.current?.style.setProperty('will-change', 'width')
+    // Content & Pane: isolate from children during drag
+    // contain: limits layout/paint recalc to this subtree
+    // content-visibility: skip rendering off-screen content (valuable for large DOMs)
+    // pointer-events: skip hit-testing large child trees
+    setDraggingStyleOptimizations(contentRef.current)
+    setDraggingStyleOptimizations(paneRef.current)
+    isDraggingRef.current = true
+  }, [handleRef, contentRef, paneRef])
+
+  const endDragging = React.useCallback(() => {
+    if (!isDraggingRef.current) return
+    const handle = handleRef.current
+    const content = contentRef.current
+    const pane = paneRef.current
+
+    handle?.style.removeProperty('background-color')
+    handle?.style.removeProperty('--drag-opacity')
+    pane?.style.removeProperty('will-change')
+    removeDraggingStylesOptimizations(content)
+    removeDraggingStylesOptimizations(pane)
+    isDraggingRef.current = false
+  }, [handleRef, contentRef, paneRef])
 
   /**
    * Pointer down starts a drag operation
    * Capture the pointer to continue receiving events outside the handle area
-   * Set a data attribute to indicate dragging state
    */
   const handlePointerDown = React.useCallback(
     (event: React.PointerEvent<HTMLDivElement>) => {
       if (event.button !== 0) return
       event.preventDefault()
       const target = event.currentTarget
-      target.setPointerCapture(event.pointerId)
+      // Try to capture pointer - may fail in test environments or if pointer is already released
+      try {
+        target.setPointerCapture(event.pointerId)
+      } catch {
+        // Ignore - pointer capture is a nice-to-have for dragging outside the element
+      }
       stableOnDragStart.current(event.clientX)
-      setDragging(true)
+      startDragging()
     },
-    [setDragging],
+    [startDragging],
   )
+
+  // Simple rAF throttle - one update per frame, latest position wins
+  const rafIdRef = React.useRef<number | null>(null)
+  const pendingClientXRef = React.useRef<number | null>(null)
 
   /**
    * Pointer move during drag
    * Calls onDrag with absolute cursor X position
-   * Using absolute position avoids drift from accumulated deltas
-   * Prevents default to avoid unwanted selection behavior
+   * Uses rAF to coalesce updates to one per frame
    */
-  const handlePointerMove = React.useCallback(
-    (event: React.PointerEvent<HTMLDivElement>) => {
-      if (!isDragging(handleRef.current)) return
-      event.preventDefault()
+  const handlePointerMove = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDraggingRef.current) return
+    event.preventDefault()
 
-      stableOnDrag.current(event.clientX, false)
-    },
-    [handleRef],
-  )
+    // Store latest position - only the final position before rAF fires matters
+    pendingClientXRef.current = event.clientX
+
+    // Schedule update if not already scheduled
+    if (rafIdRef.current === null) {
+      rafIdRef.current = requestAnimationFrame(() => {
+        rafIdRef.current = null
+        if (pendingClientXRef.current !== null) {
+          stableOnDrag.current(pendingClientXRef.current, false)
+          pendingClientXRef.current = null
+        }
+      })
+    }
+  }, [])
 
   /**
    * Pointer up ends a drag operation
    * Prevents default to avoid unwanted selection behavior
    */
-  const handlePointerUp = React.useCallback(
-    (event: React.PointerEvent<HTMLDivElement>) => {
-      if (!isDragging(handleRef.current)) return
-      event.preventDefault()
-      // Cleanup will happen in onLostPointerCapture
-    },
-    [handleRef],
-  )
+  const handlePointerUp = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDraggingRef.current) return
+    event.preventDefault()
+    // Cleanup will happen in onLostPointerCapture
+  }, [])
 
   /**
    * Lost pointer capture ends a drag operation
-   * Cleans up dragging state
+   * Cleans up dragging state and cancels any pending rAF
    * Calls onDragEnd callback
    */
   const handleLostPointerCapture = React.useCallback(() => {
-    if (!isDragging(handleRef.current)) return
-    setDragging(false)
+    if (!isDraggingRef.current) return
+    // Cancel any pending rAF to prevent stale updates
+    if (rafIdRef.current !== null) {
+      cancelAnimationFrame(rafIdRef.current)
+      rafIdRef.current = null
+      pendingClientXRef.current = null
+    }
+    endDragging()
     stableOnDragEnd.current()
-  }, [handleRef, setDragging])
+  }, [endDragging])
 
   /**
    * Keyboard handling for accessibility
@@ -313,40 +373,29 @@ const DragHandle: React.FC<DragHandleProps> = ({
    */
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (
-        event.key === 'ArrowLeft' ||
-        event.key === 'ArrowRight' ||
-        event.key === 'ArrowUp' ||
-        event.key === 'ArrowDown'
-      ) {
-        event.preventDefault()
+      if (!ARROW_KEYS.has(event.key)) return
+      event.preventDefault()
 
-        if (!paneRef.current) return
+      // https://github.com/github/accessibility/issues/5101#issuecomment-1822870655
+      const delta = SHRINK_KEYS.has(event.key) ? -ARROW_KEY_STEP : ARROW_KEY_STEP
 
-        // https://github.com/github/accessibility/issues/5101#issuecomment-1822870655
-        const delta = event.key === 'ArrowLeft' || event.key === 'ArrowDown' ? -ARROW_KEY_STEP : ARROW_KEY_STEP
-
-        setDragging(true)
-        stableOnDrag.current(delta, true)
+      // Only set dragging on first keydown (not repeats)
+      if (!isDraggingRef.current) {
+        startDragging()
       }
+      stableOnDrag.current(delta, true)
     },
-    [paneRef, setDragging],
+    [startDragging],
   )
 
   const handleKeyUp = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (
-        event.key === 'ArrowLeft' ||
-        event.key === 'ArrowRight' ||
-        event.key === 'ArrowUp' ||
-        event.key === 'ArrowDown'
-      ) {
-        event.preventDefault()
-        setDragging(false)
-        stableOnDragEnd.current()
-      }
+      if (!ARROW_KEYS.has(event.key)) return
+      event.preventDefault()
+      endDragging()
+      stableOnDragEnd.current()
     },
-    [setDragging],
+    [endDragging],
   )
 
   return (
@@ -369,7 +418,7 @@ const DragHandle: React.FC<DragHandleProps> = ({
       onDoubleClick={onDoubleClick}
     />
   )
-}
+})
 
 // ----------------------------------------------------------------------------
 // PageLayout.Header
@@ -407,7 +456,7 @@ export type PageLayoutHeaderProps = {
   style?: React.CSSProperties
 }
 
-const Header: FCWithSlotMarker<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
+const Header: FCWithSlotMarker<React.PropsWithChildren<PageLayoutHeaderProps>> = memo(function Header({
   'aria-label': label,
   'aria-labelledby': labelledBy,
   padding = 'none',
@@ -417,7 +466,7 @@ const Header: FCWithSlotMarker<React.PropsWithChildren<PageLayoutHeaderProps>> =
   children,
   style,
   className,
-}) => {
+}) {
   // Combine divider and dividerWhenNarrow for backwards compatibility
   const dividerProp =
     !isResponsiveValue(divider) && dividerWhenNarrow !== 'inherit'
@@ -460,7 +509,7 @@ const Header: FCWithSlotMarker<React.PropsWithChildren<PageLayoutHeaderProps>> =
       />
     </header>
   )
-}
+})
 
 Header.displayName = 'PageLayout.Header'
 
@@ -499,7 +548,7 @@ const contentWidths = {
   xlarge: '1280px',
 }
 
-const Content: FCWithSlotMarker<React.PropsWithChildren<PageLayoutContentProps>> = ({
+const Content: FCWithSlotMarker<React.PropsWithChildren<PageLayoutContentProps>> = memo(function Content({
   as = 'main',
   'aria-label': label,
   'aria-labelledby': labelledBy,
@@ -509,7 +558,7 @@ const Content: FCWithSlotMarker<React.PropsWithChildren<PageLayoutContentProps>>
   children,
   className,
   style,
-}) => {
+}) {
   const Component = as
 
   return (
@@ -533,7 +582,7 @@ const Content: FCWithSlotMarker<React.PropsWithChildren<PageLayoutContentProps>>
       </div>
     </Component>
   )
-}
+})
 
 Content.displayName = 'PageLayout.Content'
 
@@ -637,7 +686,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     const position = isResponsiveValue(positionProp) ? 'end' : positionProp
     const dividerVariant = isResponsiveValue(dividerProp) ? 'none' : dividerProp
 
-    const {rowGap, columnGap, paneRef} = React.useContext(PageLayoutContext)
+    const {rowGap, columnGap, paneRef, contentRef} = React.useContext(PageLayoutContext)
 
     // Ref to the drag handle for updating ARIA attributes
     const handleRef = React.useRef<HTMLDivElement>(null)
@@ -657,6 +706,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         widthStorageKey,
         paneRef,
         handleRef,
+        contentRef,
       })
 
     useRefObjectAsForwardedRef(forwardRef, paneRef)
@@ -862,7 +912,7 @@ export type PageLayoutFooterProps = {
   style?: React.CSSProperties
 }
 
-const Footer: FCWithSlotMarker<React.PropsWithChildren<PageLayoutFooterProps>> = ({
+const Footer: FCWithSlotMarker<React.PropsWithChildren<PageLayoutFooterProps>> = memo(function Footer({
   'aria-label': label,
   'aria-labelledby': labelledBy,
   padding = 'none',
@@ -872,7 +922,7 @@ const Footer: FCWithSlotMarker<React.PropsWithChildren<PageLayoutFooterProps>> =
   children,
   className,
   style,
-}) => {
+}) {
   // Combine divider and dividerWhenNarrow for backwards compatibility
   const dividerProp =
     !isResponsiveValue(divider) && dividerWhenNarrow !== 'inherit'
@@ -915,7 +965,7 @@ const Footer: FCWithSlotMarker<React.PropsWithChildren<PageLayoutFooterProps>> =
       </div>
     </footer>
   )
-}
+})
 
 Footer.displayName = 'PageLayout.Footer'
 

@@ -175,7 +175,7 @@ describe('PageLayout', async () => {
       expect(finalWidth).not.toEqual(initialWidth)
     })
 
-    it('should set data-dragging attribute during pointer drag', async () => {
+    it('should set optimization styles during pointer drag', async () => {
       const {container} = render(
         <PageLayout>
           <PageLayout.Pane resizable>
@@ -187,22 +187,22 @@ describe('PageLayout', async () => {
         </PageLayout>,
       )
 
-      const content = container.querySelector('[class*="PageLayoutContent"]')
+      const content = container.querySelector('[class*="PageLayoutContent"]') as HTMLElement
       const divider = await screen.findByRole('slider')
 
-      // Before drag - no data-dragging attribute
-      expect(content).not.toHaveAttribute('data-dragging')
+      // Before drag - no contain property
+      expect(content.style.getPropertyValue('contain')).toBe('')
 
-      // Start drag
+      // Start drag - optimization properties are set
       fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
-      expect(content).toHaveAttribute('data-dragging', 'true')
+      expect(content.style.getPropertyValue('contain')).toBe('layout style paint')
 
-      // End drag - pointer capture lost ends the drag and removes attribute
+      // End drag - pointer capture lost ends the drag and removes optimization properties
       fireEvent.lostPointerCapture(divider, {pointerId: 1})
-      expect(content).not.toHaveAttribute('data-dragging')
+      expect(content.style.getPropertyValue('contain')).toBe('')
     })
 
-    it('should set data-dragging attribute during keyboard resize', async () => {
+    it('should set optimization styles during keyboard resize', async () => {
       const {container} = render(
         <PageLayout>
           <PageLayout.Pane resizable>
@@ -214,20 +214,47 @@ describe('PageLayout', async () => {
         </PageLayout>,
       )
 
-      const content = container.querySelector('[class*="PageLayoutContent"]')
+      const content = container.querySelector('[class*="PageLayoutContent"]') as HTMLElement
       const divider = await screen.findByRole('slider')
 
-      // Before interaction - no data-dragging attribute
-      expect(content).not.toHaveAttribute('data-dragging')
+      // Before interaction - no contain property
+      expect(content.style.getPropertyValue('contain')).toBe('')
 
       // Start keyboard resize (focus first)
       fireEvent.focus(divider)
       fireEvent.keyDown(divider, {key: 'ArrowRight'})
-      expect(content).toHaveAttribute('data-dragging', 'true')
+      expect(content.style.getPropertyValue('contain')).toBe('layout style paint')
 
-      // End keyboard resize - removes attribute
+      // End keyboard resize - removes optimization properties
       fireEvent.keyUp(divider, {key: 'ArrowRight'})
-      expect(content).not.toHaveAttribute('data-dragging')
+      expect(content.style.getPropertyValue('contain')).toBe('')
+    })
+
+    it('should add will-change during drag for optimized updates', async () => {
+      const {container} = render(
+        <PageLayout>
+          <PageLayout.Pane resizable>
+            <Placeholder height={320} label="Pane" />
+          </PageLayout.Pane>
+          <PageLayout.Content>
+            <Placeholder height={640} label="Content" />
+          </PageLayout.Content>
+        </PageLayout>,
+      )
+
+      const pane = container.querySelector('[class*="Pane"][data-resizable]') as HTMLElement
+      const divider = await screen.findByRole('slider')
+
+      // Before drag - no will-change
+      expect(pane.style.willChange).toBe('')
+
+      // Start drag - will-change is added
+      fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
+      expect(pane.style.willChange).toBe('width')
+
+      // End drag - will-change is removed
+      fireEvent.lostPointerCapture(divider, {pointerId: 1})
+      expect(pane.style.willChange).toBe('')
     })
   })
 

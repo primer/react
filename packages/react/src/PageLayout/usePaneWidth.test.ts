@@ -17,6 +17,7 @@ import {
 const createMockRefs = () => ({
   paneRef: {current: document.createElement('div')} as React.RefObject<HTMLDivElement>,
   handleRef: {current: document.createElement('div')} as React.RefObject<HTMLDivElement>,
+  contentRef: {current: document.createElement('div')} as React.RefObject<HTMLDivElement>,
 })
 
 describe('usePaneWidth', () => {
@@ -413,7 +414,7 @@ describe('usePaneWidth', () => {
       vi.useRealTimers()
     })
 
-    it('should update CSS variable immediately via throttle', async () => {
+    it('should debounce CSS variable update (no throttle)', async () => {
       vi.useFakeTimers()
       vi.stubGlobal('innerWidth', 1280)
       const refs = createMockRefs()
@@ -423,7 +424,7 @@ describe('usePaneWidth', () => {
           width: 'medium',
           minWidth: 256,
           resizable: true,
-          widthStorageKey: 'test-css-throttle',
+          widthStorageKey: 'test-css-debounce',
           ...refs,
         }),
       )
@@ -434,10 +435,18 @@ describe('usePaneWidth', () => {
       // Shrink viewport
       vi.stubGlobal('innerWidth', 1000)
 
-      // Fire resize - CSS should update immediately (throttled at 16ms)
+      // Fire resize - CSS should NOT update immediately (debounce only, no throttle)
       window.dispatchEvent(new Event('resize'))
 
-      // CSS variable should be updated immediately: 1000 - 511 = 489
+      // CSS variable should still be old value (debounced)
+      expect(refs.paneRef.current?.style.getPropertyValue('--pane-max-width')).toBe('769px')
+
+      // Wait for debounce
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(150)
+      })
+
+      // CSS variable should now be updated: 1000 - 511 = 489
       expect(refs.paneRef.current?.style.getPropertyValue('--pane-max-width')).toBe('489px')
 
       vi.useRealTimers()
@@ -482,7 +491,7 @@ describe('usePaneWidth', () => {
       vi.useRealTimers()
     })
 
-    it('should throttle CSS updates and debounce full sync on rapid resize', async () => {
+    it('should debounce full sync on rapid resize (no throttle)', async () => {
       vi.useFakeTimers()
       vi.stubGlobal('innerWidth', 1280)
       const refs = createMockRefs()
@@ -494,7 +503,7 @@ describe('usePaneWidth', () => {
           width: 'medium',
           minWidth: 256,
           resizable: true,
-          widthStorageKey: 'test-throttle-debounce',
+          widthStorageKey: 'test-debounce-only',
           ...refs,
         }),
       )
@@ -502,29 +511,24 @@ describe('usePaneWidth', () => {
       // Clear mount calls
       setPropertySpy.mockClear()
 
-      // Fire resize - first one updates CSS immediately
+      // Fire resize events rapidly
       vi.stubGlobal('innerWidth', 1100)
       window.dispatchEvent(new Event('resize'))
 
-      // CSS should update immediately (first call, throttle allows)
-      expect(setPropertySpy).toHaveBeenCalledWith('--pane-max-width', '589px') // 1100 - 511
+      // CSS should NOT update immediately (debounce only, no throttle)
+      expect(setPropertySpy).not.toHaveBeenCalledWith('--pane-max-width', '589px')
 
-      setPropertySpy.mockClear()
-
-      // Fire more resize events rapidly (within throttle window)
+      // Fire more resize events
       for (let i = 0; i < 3; i++) {
         vi.stubGlobal('innerWidth', 1000 - i * 50)
         window.dispatchEvent(new Event('resize'))
       }
 
-      // Throttle limits calls - may have scheduled RAF but not executed yet
-      // Advance past throttle window to let RAF execute
-      await vi.advanceTimersByTimeAsync(20)
+      // Advance a bit but not past debounce - no CSS updates yet
+      await vi.advanceTimersByTimeAsync(50)
+      expect(setPropertySpy).not.toHaveBeenCalledWith('--pane-max-width', expect.any(String))
 
-      // Should have at least one more CSS update from RAF
-      expect(setPropertySpy).toHaveBeenCalled()
-
-      // But ARIA should not be updated yet (debounced)
+      // ARIA should not be updated yet (debounced)
       expect(refs.handleRef.current?.getAttribute('aria-valuemax')).toBe('769') // Still initial
 
       // Wait for debounce to complete
@@ -532,8 +536,9 @@ describe('usePaneWidth', () => {
         await vi.advanceTimersByTimeAsync(150)
       })
 
-      // Now ARIA and refs are synced
-      expect(refs.handleRef.current?.getAttribute('aria-valuemax')).toBe('389') // 900 - 511
+      // Now CSS, ARIA and refs are synced with final viewport value (900)
+      expect(setPropertySpy).toHaveBeenCalledWith('--pane-max-width', '389px') // 900 - 511
+      expect(refs.handleRef.current?.getAttribute('aria-valuemax')).toBe('389')
 
       vi.useRealTimers()
     })
@@ -614,6 +619,130 @@ describe('usePaneWidth', () => {
 
       expect(addEventListenerSpy).not.toHaveBeenCalledWith('resize', expect.any(Function))
       addEventListenerSpy.mockRestore()
+    })
+
+    it('should apply containment styles during resize', async () => {
+      vi.useFakeTimers()
+      vi.stubGlobal('innerWidth', 1280)
+      const refs = createMockRefs()
+
+      renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-containment',
+          ...refs,
+        }),
+      )
+
+      // Initially no containment
+      expect(refs.paneRef.current?.style.contain).toBe('')
+      expect(refs.contentRef.current?.style.contain).toBe('')
+
+      // Fire resize
+      vi.stubGlobal('innerWidth', 1000)
+      window.dispatchEvent(new Event('resize'))
+
+      // Containment should be applied immediately
+      expect(refs.paneRef.current?.style.contain).toBe('layout style paint')
+      expect(refs.paneRef.current?.style.contentVisibility).toBe('auto')
+      expect(refs.contentRef.current?.style.contain).toBe('layout style paint')
+      expect(refs.contentRef.current?.style.contentVisibility).toBe('auto')
+
+      // Wait for debounce to complete
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(150)
+      })
+
+      // Containment should be removed after debounce
+      expect(refs.paneRef.current?.style.contain).toBe('')
+      expect(refs.paneRef.current?.style.contentVisibility).toBe('')
+      expect(refs.contentRef.current?.style.contain).toBe('')
+      expect(refs.contentRef.current?.style.contentVisibility).toBe('')
+
+      vi.useRealTimers()
+    })
+
+    it('should skip resize handling while dragging', async () => {
+      vi.useFakeTimers()
+      vi.stubGlobal('innerWidth', 1280)
+      const refs = createMockRefs()
+
+      renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-skip-while-dragging',
+          ...refs,
+        }),
+      )
+
+      // Simulate drag start by setting background-color (as DragHandle does)
+      refs.handleRef.current!.style.backgroundColor = 'var(--bgColor-accent-emphasis)'
+
+      // Fire resize
+      vi.stubGlobal('innerWidth', 1000)
+      window.dispatchEvent(new Event('resize'))
+
+      // Containment should NOT be applied (resize skipped while dragging)
+      expect(refs.paneRef.current?.style.contain).toBe('')
+
+      // Wait past debounce
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(200)
+      })
+
+      // CSS variable should still be old value (resize was skipped)
+      expect(refs.paneRef.current?.style.getPropertyValue('--pane-max-width')).toBe('769px')
+
+      // Clear drag state
+      refs.handleRef.current!.style.backgroundColor = ''
+
+      // Now resize should work
+      window.dispatchEvent(new Event('resize'))
+
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(150)
+      })
+
+      // Now CSS variable should be updated
+      expect(refs.paneRef.current?.style.getPropertyValue('--pane-max-width')).toBe('489px') // 1000 - 511
+
+      vi.useRealTimers()
+    })
+
+    it('should cleanup containment styles on unmount during resize', async () => {
+      vi.useFakeTimers()
+      vi.stubGlobal('innerWidth', 1280)
+      const refs = createMockRefs()
+
+      const {unmount} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-cleanup-containment',
+          ...refs,
+        }),
+      )
+
+      // Fire resize to apply containment
+      vi.stubGlobal('innerWidth', 1000)
+      window.dispatchEvent(new Event('resize'))
+
+      // Verify containment is applied
+      expect(refs.paneRef.current?.style.contain).toBe('layout style paint')
+
+      // Unmount before debounce completes
+      unmount()
+
+      // Containment should be cleaned up
+      expect(refs.paneRef.current?.style.contain).toBe('')
+      expect(refs.contentRef.current?.style.contain).toBe('')
+
+      vi.useRealTimers()
     })
   })
 
