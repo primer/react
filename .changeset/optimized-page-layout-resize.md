@@ -2,13 +2,21 @@
 "@primer/react": patch
 ---
 
-PageLayout: Refactor drag/resize optimizations to use inline styles instead of data attributes
+PageLayout: Optimize drag/resize performance with inline styles and new optimizations
 
-- Replace `[data-dragging]` attribute and CSS selectors with inline style application
-- Extract containment utilities to `paneUtils.ts` for reuse between drag and window resize
-- Simplify rAF throttle to basic coalescing pattern
-- Use CSS variable `--draggable-handle--drag-opacity` for handle visual feedback
-- Add `will-change: width` hint during drag
-- Apply containment during window resize (parity with drag behavior)
+**Refactored:**
+- Apply CSS containment via inline styles instead of `[data-dragging]` attribute selectors (O(1) vs O(n) selector matching)
+- Extract optimization utilities to `paneUtils.ts`
+- Use CSS variable for drag handle visual feedback
 
-This refactor improves maintainability and eliminates attribute selector matching during style recalculation.
+**Added:**
+- `content-visibility: auto` during drag/resize to skip off-screen content rendering
+- `will-change: width` hint during drag for compositor optimization
+- rAF throttle for drag updates (one update per frame, latest position wins)
+- React.memo on Header, Content, Footer, RootWrapper subcomponents
+- Containment during window resize (parity with drag)
+
+**Removed:**
+- `[data-dragging]` attribute and associated CSS descendant selectors
+
+These changes improve style recalculation performance on large DOMs (100k+ nodes) by eliminating descendant selector traversal.
