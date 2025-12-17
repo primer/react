@@ -2,15 +2,13 @@
 "@primer/react": patch
 ---
 
-PageLayout: Optimize drag resize and window resize performance for large DOMs
+PageLayout: Refactor drag/resize optimizations to use inline styles instead of data attributes
 
-- Add CSS containment (`contain`, `content-visibility`, `pointer-events`) during drag and window resize to limit style recalculation to subtrees
-- Use simple rAF throttle for drag updates (one update per frame, latest position wins)
-- Add `will-change: width` hint during drag for compositor optimization
-- Use debounce-only strategy for window resize with immediate containment
-- Extract drag/resize optimization utilities to `paneUtils.ts`
-- Wrap all PageLayout subcomponents with `React.memo()`
-- Use `startTransition()` for non-urgent state updates
-- Replace `[data-dragging]` attribute with inline styles and CSS variables
+- Replace `[data-dragging]` attribute and CSS selectors with inline style application
+- Extract containment utilities to `paneUtils.ts` for reuse between drag and window resize
+- Simplify rAF throttle to basic coalescing pattern
+- Use CSS variable `--draggable-handle--drag-opacity` for handle visual feedback
+- Add `will-change: width` hint during drag
+- Apply containment during window resize (parity with drag behavior)
 
-These changes reduce style recalculation time from ~200ms to ~10-20ms on DOMs with 100k+ nodes.
+This refactor improves maintainability and eliminates attribute selector matching during style recalculation.
