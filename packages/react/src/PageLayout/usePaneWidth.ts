@@ -292,10 +292,6 @@ export function usePaneWidth({
     }
 
     const handleResize = () => {
-      // Skip resize handling while dragging - dragging sets contain style via DragHandle
-      // Check for background-color which is set on drag start
-      if (handleRef.current?.style.backgroundColor) return
-
       // Apply containment at start of resize
       startResizeOptimizations()
 
