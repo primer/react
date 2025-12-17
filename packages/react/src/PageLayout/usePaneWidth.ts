@@ -2,6 +2,7 @@ import React, {startTransition} from 'react'
 import {canUseDOM} from '../utils/environment'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import cssExports from './PageLayout.module.css'
+import {setContainmentOptimizations, removeContainmentOptimizations} from './paneUtils'
 
 // ----------------------------------------------------------------------------
 // Types
@@ -275,34 +276,19 @@ export function usePaneWidth({
     let isResizing = false
 
     // Apply containment during resize to reduce layout thrashing on large DOMs
+    // Unlike drag, window resize doesn't need pointer-events: none
     const startResizeOptimizations = () => {
       if (isResizing) return
       isResizing = true
-      const pane = paneRef.current
-      const content = contentRef.current
-      if (pane) {
-        pane.style.contain = 'layout style paint'
-        pane.style.contentVisibility = 'auto'
-      }
-      if (content) {
-        content.style.contain = 'layout style paint'
-        content.style.contentVisibility = 'auto'
-      }
+      setContainmentOptimizations(paneRef.current)
+      setContainmentOptimizations(contentRef.current)
     }
 
     const endResizeOptimizations = () => {
       if (!isResizing) return
       isResizing = false
-      const pane = paneRef.current
-      const content = contentRef.current
-      if (pane) {
-        pane.style.contain = ''
-        pane.style.contentVisibility = ''
-      }
-      if (content) {
-        content.style.contain = ''
-        content.style.contentVisibility = ''
-      }
+      removeContainmentOptimizations(paneRef.current)
+      removeContainmentOptimizations(contentRef.current)
     }
 
     const handleResize = () => {

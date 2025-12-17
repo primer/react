@@ -20,6 +20,7 @@ import {
   type CustomWidthOptions,
   type PaneWidth,
 } from './usePaneWidth'
+import {setDraggingStyles, removeDraggingStyles} from './paneUtils'
 
 const REGION_ORDER = {
   header: 0,
@@ -214,19 +215,6 @@ type DragHandleProps = {
   'aria-valuenow'?: number
 }
 
-function setDraggingStyleOptimizations(element: HTMLElement | null) {
-  if (!element) return
-  element.style.pointerEvents = 'none'
-  element.style.contain = 'layout style paint'
-  element.style.contentVisibility = 'auto'
-}
-
-function removeDraggingStylesOptimizations(element: HTMLElement | null) {
-  if (!element) return
-  element.style.pointerEvents = ''
-  element.style.contain = ''
-  element.style.contentVisibility = ''
-}
 /**
  * DragHandle - handles all pointer and keyboard interactions for resizing
  * ARIA values are set in JSX for SSR accessibility,
@@ -256,35 +244,25 @@ const DragHandle = memo<DragHandleProps>(function DragHandle({
   // Dragging state as a ref - cheaper than reading from DOM style
   const isDraggingRef = React.useRef(false)
 
-  // Helper to set/remove dragging optimization styles
-  // All properties set as inline styles ONLY during drag for zero overhead at rest
+  // Set inline styles for drag optimizations - zero overhead at rest
   const startDragging = React.useCallback(() => {
     if (isDraggingRef.current) return
-    // Handle: visual feedback
-    handleRef.current?.style.setProperty('background-color', 'var(--bgColor-accent-emphasis)')
-    handleRef.current?.style.setProperty('--drag-opacity', '1')
-    // Pane: hint browser to optimize for width changes
-    paneRef.current?.style.setProperty('will-change', 'width')
-    // Content & Pane: isolate from children during drag
-    // contain: limits layout/paint recalc to this subtree
-    // content-visibility: skip rendering off-screen content (valuable for large DOMs)
-    // pointer-events: skip hit-testing large child trees
-    setDraggingStyleOptimizations(contentRef.current)
-    setDraggingStyleOptimizations(paneRef.current)
+    setDraggingStyles({
+      handle: handleRef.current,
+      pane: paneRef.current,
+      content: contentRef.current,
+    })
     isDraggingRef.current = true
   }, [handleRef, contentRef, paneRef])
 
   const endDragging = React.useCallback(() => {
     if (!isDraggingRef.current) return
-    const handle = handleRef.current
-    const content = contentRef.current
-    const pane = paneRef.current
+    removeDraggingStyles({
+      handle: handleRef.current,
+      pane: paneRef.current,
+      content: contentRef.current,
+    })
 
-    handle?.style.removeProperty('background-color')
-    handle?.style.removeProperty('--drag-opacity')
-    pane?.style.removeProperty('will-change')
-    removeDraggingStylesOptimizations(content)
-    removeDraggingStylesOptimizations(pane)
     isDraggingRef.current = false
   }, [handleRef, contentRef, paneRef])
 
@@ -338,13 +316,12 @@ const DragHandle = memo<DragHandleProps>(function DragHandle({
   }, [])
 
   /**
-   * Pointer up ends a drag operation
-   * Prevents default to avoid unwanted selection behavior
+   * Pointer up - cleanup is handled by onLostPointerCapture event
+   * which fires when pointer capture is released (including on pointerup)
    */
   const handlePointerUp = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
     if (!isDraggingRef.current) return
     event.preventDefault()
-    // Cleanup will happen in onLostPointerCapture
   }, [])
 
   /**
