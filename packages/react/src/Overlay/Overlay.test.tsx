@@ -216,7 +216,7 @@ describe('Overlay', () => {
     spy.mockRestore()
   })
 
-  it.skip('should right align when given `right: 0` and `position: fixed`', async () => {
+  it.todo('should right align when given `right: 0` and `position: fixed`', async () => {
     const spy = vi.spyOn(console, 'log').mockImplementation(message => {
       if (!message.startsWith('global handler')) {
         throw new Error(
@@ -242,7 +242,7 @@ describe('Overlay', () => {
     spy.mockRestore()
   })
 
-  it.skip('should left align when not given position and left props', async () => {
+  it.todo('should left align when not given position and left props', async () => {
     const spy = vi.spyOn(console, 'log').mockImplementation(message => {
       if (!message.startsWith('global handler')) {
         throw new Error(
@@ -307,7 +307,7 @@ describe('Overlay', () => {
     expect(container.queryByLabelText('Change issue title')).not.toBeInTheDocument()
   })
 
-  it.skip('memex repro: should not leak overlay events to the document', async () => {
+  it.todo('memex repro: should not leak overlay events to the document', async () => {
     const user = userEvent.setup()
     const mockHandler = vi.fn()
     const BugRepro1802 = () => {
