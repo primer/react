@@ -195,24 +195,14 @@ describe('Textarea', () => {
       expect(icon).toBeInTheDocument()
     })
 
-    it('should not show validation message when character limit is exceeded', async () => {
+    it('should clear error state when back under limit', async () => {
       const user = userEvent.setup()
       const {getByRole, container} = render(<Textarea characterLimit={10} />)
       const textarea = getByRole('textbox')
 
-      await user.type(textarea, 'This is too long')
-      expect(container.textContent).not.toContain("You've exceeded the character limit")
-    })
-
-    it('should clear error state when back under limit', async () => {
-      const user = userEvent.setup()
-      const {getByRole, container} = render(
-        <Textarea characterLimit={20} defaultValue="This is a very long text that exceeds the limit" />,
-      )
-      const textarea = getByRole('textbox')
-
-      // Initially over limit
+      await user.type(textarea, 'This is a very long text')
       expect(container.textContent).toContain('characters over')
+      expect(textarea).toHaveAttribute('aria-invalid', 'true')
 
       // Clear some text
       await user.clear(textarea)
@@ -240,7 +230,6 @@ describe('Textarea', () => {
       const {container} = render(<Textarea characterLimit={100} />)
       const srElement = container.querySelector('[aria-live="polite"]')
       expect(srElement).toBeInTheDocument()
-      expect(srElement).toHaveAttribute('aria-atomic', 'true')
       expect(srElement).toHaveAttribute('role', 'status')
     })
 

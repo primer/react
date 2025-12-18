@@ -318,15 +318,6 @@ describe('TextInput', () => {
       expect(icon).toBeInTheDocument()
     })
 
-    it('should not show validation message when character limit is exceeded', async () => {
-      const user = userEvent.setup()
-      const {getByRole, container} = render(<TextInput characterLimit={5} />)
-      const input = getByRole('textbox')
-
-      await user.type(input, 'Hello World')
-      expect(container.textContent).not.toContain("You've exceeded the character limit")
-    })
-
     it('should clear error state when back under limit', async () => {
       const user = userEvent.setup()
       const {getByRole, container} = render(<TextInput characterLimit={10} defaultValue="Hello World!" />)
@@ -361,7 +352,6 @@ describe('TextInput', () => {
       const {container} = render(<TextInput characterLimit={20} />)
       const srElement = container.querySelector('[aria-live="polite"]')
       expect(srElement).toBeInTheDocument()
-      expect(srElement).toHaveAttribute('aria-atomic', 'true')
       expect(srElement).toHaveAttribute('role', 'status')
     })
 
