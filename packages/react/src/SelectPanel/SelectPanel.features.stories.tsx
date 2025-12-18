@@ -789,6 +789,8 @@ export const MultiSelectModal = () => {
   const [open, setOpen] = useState(false)
 
   React.useEffect(() => {
+    // Sync initialSelection with the last committed selection after the modal closes.
+    // onCancel uses initialSelection to discard unsaved changes made while the modal is open.
     if (!open) setInitialSelection(selected)
   }, [open, selected])
 
