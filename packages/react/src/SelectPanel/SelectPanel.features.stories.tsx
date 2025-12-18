@@ -783,13 +783,13 @@ export const WithOnCancel = () => {
 
 export const MultiSelectModal = () => {
   const [initialSelection, setInitialSelection] = React.useState<ItemInput[]>(items.slice(1, 3))
-
   const [selected, setSelected] = React.useState<ItemInput[]>(initialSelection)
+  const [savedSelection, setSavedSelection] = React.useState<ItemInput[]>(initialSelection)
   const [filter, setFilter] = React.useState('')
   const [open, setOpen] = useState(false)
 
   React.useEffect(() => {
-    if (!open) setInitialSelection(selected) // Save selection as initialSelection for next time
+    if (!open) setInitialSelection(selected)
   }, [open, selected])
 
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
@@ -802,11 +802,16 @@ export const MultiSelectModal = () => {
       subtitle="Use labels to organize issues and pull requests"
       renderAnchor={({children, ...anchorProps}) => (
         <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
-          {children}
+          {savedSelection.map(item => item.text).join(', ') || 'Select labels'}
         </Button>
       )}
       open={open}
-      onOpenChange={setOpen}
+      onOpenChange={(nextOpen, gesture) => {
+        setOpen(nextOpen)
+        if (!nextOpen && gesture === 'selection') {
+          setSavedSelection(selected)
+        }
+      }}
       items={filteredItems}
       selected={selected}
       onSelectedChange={setSelected}
