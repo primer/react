@@ -204,7 +204,6 @@ describe('Textarea', () => {
       expect(container.textContent).toContain('characters over')
       expect(textarea).toHaveAttribute('aria-invalid', 'true')
 
-      // Clear some text
       await user.clear(textarea)
       await user.type(textarea, 'Short text')
 
@@ -218,7 +217,6 @@ describe('Textarea', () => {
       const describedBy = textarea.getAttribute('aria-describedby')
       expect(describedBy).toBeTruthy()
 
-      // Find the static message element
       const staticMessage = Array.from(container.querySelectorAll('[id]')).find(el =>
         el.textContent.includes('You can enter up to'),
       )

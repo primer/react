@@ -323,10 +323,8 @@ describe('TextInput', () => {
       const {getByRole, container} = render(<TextInput characterLimit={10} defaultValue="Hello World!" />)
       const input = getByRole('textbox')
 
-      // Initially over limit
       expect(container.textContent).toContain('2 characters over')
 
-      // Clear some text
       await user.clear(input)
       await user.type(input, 'Hello')
 
@@ -340,7 +338,6 @@ describe('TextInput', () => {
       const describedBy = input.getAttribute('aria-describedby')
       expect(describedBy).toBeTruthy()
 
-      // Find the static message element
       const staticMessage = Array.from(container.querySelectorAll('[id]')).find(el =>
         el.textContent.includes('You can enter up to'),
       )

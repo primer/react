@@ -128,6 +128,14 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     const trailingVisualId = useId()
     const loadingId = useId()
 
+    const inputDescribedBy =
+      clsx(
+        inputProps['aria-describedby'],
+        LeadingVisual && leadingVisualId,
+        TrailingVisual && trailingVisualId,
+        loading && loadingId,
+      ) || undefined
+
     const handleInputFocus = useCallback(
       (e: React.FocusEvent<HTMLInputElement>) => {
         setIsInputFocused(true)
@@ -232,8 +240,8 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
             {...inputProps}
             aria-describedby={
               characterLimit
-                ? [characterCountStaticMessageId, inputProps['aria-describedby']].filter(Boolean).join(' ') || undefined
-                : inputProps['aria-describedby']
+                ? [characterCountStaticMessageId, inputDescribedBy].filter(Boolean).join(' ') || undefined
+                : inputDescribedBy
             }
             data-component="input"
           />
