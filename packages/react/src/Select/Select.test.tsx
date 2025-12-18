@@ -2,28 +2,13 @@ import {describe, expect, it} from 'vitest'
 import {Select} from '..'
 import {render} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import {implementsClassName} from '../utils/testing'
+import classes from './Select.module.css'
 
 describe('Select', () => {
-  it('should support `className` on the outermost element', () => {
-    const Element = () => (
-      <>
-        <label htmlFor="default">Choice</label>
-        <Select id="default" data-testid="select-default" className="test-class-name">
-          <Select.Option value="one">Choice one</Select.Option>
-          <Select.Option value="two">Choice two</Select.Option>
-          <Select.Option value="three">Choice three</Select.Option>
-          <Select.Option value="four">Choice four</Select.Option>
-          <Select.Option value="five">Choice five</Select.Option>
-          <Select.Option value="six">Choice six</Select.Option>
-        </Select>
-      </>
-    )
-    const {container} = render(<Element />)
-    const select = container.querySelector('select')
-    const wrapper = container.querySelector('span.test-class-name')
-    expect(wrapper).toContainElement(select)
-    expect(wrapper).toHaveClass('test-class-name')
-  })
+  implementsClassName(Select, classes.TextInputWrapper)
+  implementsClassName(Select.Option)
+  implementsClassName(Select.OptGroup)
 
   it('renders a select input', () => {
     const {getByLabelText} = render(
