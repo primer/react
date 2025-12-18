@@ -1,11 +1,12 @@
 import {describe, expect, it} from 'vitest'
 import {SubNav} from '..'
 import {render as HTMLRender} from '@testing-library/react'
+import {implementsClassName} from '../utils/testing'
+import classes from './SubNav.module.css'
 
 describe('SubNav', () => {
-  it('should support `className` on the outermost element', () => {
-    expect(HTMLRender(<SubNav className={'test-class-name'} />).container.firstChild).toHaveClass('test-class-name')
-  })
+  implementsClassName(SubNav, classes.SubNav)
+  implementsClassName(SubNav.Links, classes.Links)
 
   it('renders a <nav>', () => {
     const {container} = HTMLRender(<SubNav />)

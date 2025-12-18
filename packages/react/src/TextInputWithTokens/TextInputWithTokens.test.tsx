@@ -7,6 +7,8 @@ import {IssueLabelToken} from '../Token'
 import type {TextInputWithTokensProps} from '../TextInputWithTokens'
 import TextInputWithTokens from '../TextInputWithTokens'
 import {MarkGithubIcon} from '@primer/octicons-react'
+import {implementsClassName} from '../utils/testing'
+import classes from './TextInputWithTokens.module.css'
 
 const mockTokens = [
   {text: 'zero', id: 0},
@@ -41,11 +43,7 @@ afterEach(() => {
 })
 
 describe('TextInputWithTokens', () => {
-  it('should support `className` on the outermost element', () => {
-    const onRemoveMock = vi.fn()
-    const Element = () => <TextInputWithTokens className={'test-class-name'} tokens={[]} onTokenRemove={onRemoveMock} />
-    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
+  implementsClassName(props => <TextInputWithTokens {...props} tokens={[]} />, classes.TextInputWrapper)
 
   it('renders without tokens', () => {
     const onRemoveMock = vi.fn()
