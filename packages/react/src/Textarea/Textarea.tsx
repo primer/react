@@ -4,9 +4,9 @@ import {TextInputBaseWrapper} from '../internal/components/TextInputWrapper'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import classes from './TextArea.module.css'
 import type {WithSlotMarker} from '../utils/types'
+import {AlertFillIcon} from '@primer/octicons-react'
 import {CharacterCounter} from '../utils/character-counter'
 import VisuallyHidden from '../_VisuallyHidden'
-import InputValidation from '../internal/components/InputValidation'
 import Text from '../Text'
 
 export const DEFAULT_TEXTAREA_ROWS = 7
@@ -88,13 +88,12 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     // Character counter state
     const [characterCount, setCharacterCount] = React.useState<string>('')
     const [isOverLimit, setIsOverLimit] = React.useState<boolean>(false)
-    const [validationMessage, setValidationMessage] = React.useState<string>('')
     const [screenReaderMessage, setScreenReaderMessage] = React.useState<string>('')
     const characterCounterRef = useRef<CharacterCounter | null>(null)
 
     const characterCountId = useId()
     const characterCountLiveRegionId = useId()
-    const characterLimitValidationId = useId()
+    const characterCountStaticMessageId = useId()
 
     // Initialize character counter
     useEffect(() => {
@@ -103,9 +102,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           onCountUpdate: (count, overLimit, message) => {
             setCharacterCount(message)
             setIsOverLimit(overLimit)
-          },
-          onValidationChange: (isInvalid, message) => {
-            setValidationMessage(message)
           },
           onScreenReaderAnnounce: message => {
             setScreenReaderMessage(message)
@@ -169,25 +165,35 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
               ...style,
             }}
             {...rest}
+            aria-describedby={
+              characterLimit
+                ? [characterCountStaticMessageId, rest['aria-describedby']].filter(Boolean).join(' ') || undefined
+                : rest['aria-describedby']
+            }
           />
         </TextInputBaseWrapper>
         {characterLimit && (
           <>
-            <VisuallyHidden id={characterCountLiveRegionId} aria-live="polite" aria-atomic="true">
+            <VisuallyHidden id={characterCountLiveRegionId} aria-live="polite" role="status">
               {screenReaderMessage}
             </VisuallyHidden>
-            {isOverLimit && validationMessage && (
-              <InputValidation id={characterLimitValidationId} validationStatus="error">
-                {validationMessage}
-              </InputValidation>
-            )}
+            <VisuallyHidden id={characterCountStaticMessageId}>
+              You can enter up to {characterLimit} {characterLimit === 1 ? 'character' : 'characters'}
+            </VisuallyHidden>
             <Text
+              aria-hidden="true"
               id={characterCountId}
               size="small"
               style={{
-                color: 'var(--fgColor-muted, var(--color-fg-muted))',
+                color: isOverLimit
+                  ? 'var(--fgColor-danger, var(--color-danger-fg))'
+                  : 'var(--fgColor-muted, var(--color-fg-muted))',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 'var(--base-size-4, 4px)',
               }}
             >
+              {isOverLimit && <AlertFillIcon size={16} />}
               {characterCount}
             </Text>
           </>

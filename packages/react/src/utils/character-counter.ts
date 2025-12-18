@@ -7,13 +7,13 @@ const SCREEN_READER_DELAY = 500
 
 export interface CharacterCounterCallbacks {
   onCountUpdate: (count: number, isOverLimit: boolean, message: string) => void
-  onValidationChange: (isInvalid: boolean, message: string) => void
   onScreenReaderAnnounce: (message: string) => void
 }
 
 export class CharacterCounter {
   private announceTimeout: number | null = null
   private callbacks: CharacterCounterCallbacks
+  private isInitialLoad: boolean = true
 
   constructor(callbacks: CharacterCounterCallbacks) {
     this.callbacks = callbacks
@@ -28,18 +28,23 @@ export class CharacterCounter {
 
     if (charactersRemaining >= 0) {
       const characterText = charactersRemaining === 1 ? 'character' : 'characters'
-      message = `${charactersRemaining} ${characterText} remaining.`
+      message = `${charactersRemaining} ${characterText} remaining`
       this.callbacks.onCountUpdate(charactersRemaining, false, message)
-      this.callbacks.onValidationChange(false, '')
     } else {
       const charactersOver = -charactersRemaining
       const characterText = charactersOver === 1 ? 'character' : 'characters'
-      message = `${charactersOver} ${characterText} over.`
+      message = `${charactersOver} ${characterText} over`
       this.callbacks.onCountUpdate(charactersOver, true, message)
-      this.callbacks.onValidationChange(true, "You've exceeded the character limit")
     }
 
-    this.announceToScreenReader(message)
+    if (!this.isInitialLoad) {
+      this.announceToScreenReader(message)
+    }
+
+    // After first update, set isInitialLoad to false
+    if (this.isInitialLoad) {
+      this.isInitialLoad = false
+    }
   }
 
   /**

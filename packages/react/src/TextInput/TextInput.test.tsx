@@ -308,13 +308,23 @@ describe('TextInput', () => {
       expect(input).toHaveAttribute('aria-invalid', 'true')
     })
 
-    it('should show validation message when character limit is exceeded', async () => {
+    it('should show alert icon when character limit is exceeded', async () => {
       const user = userEvent.setup()
       const {getByRole, container} = render(<TextInput characterLimit={5} />)
       const input = getByRole('textbox')
 
       await user.type(input, 'Hello World')
-      expect(container.textContent).toContain("You've exceeded the character limit")
+      const icon = container.querySelector('svg')
+      expect(icon).toBeInTheDocument()
+    })
+
+    it('should not show validation message when character limit is exceeded', async () => {
+      const user = userEvent.setup()
+      const {getByRole, container} = render(<TextInput characterLimit={5} />)
+      const input = getByRole('textbox')
+
+      await user.type(input, 'Hello World')
+      expect(container.textContent).not.toContain("You've exceeded the character limit")
     })
 
     it('should clear error state when back under limit', async () => {
@@ -333,11 +343,18 @@ describe('TextInput', () => {
       expect(input).not.toHaveAttribute('aria-invalid', 'true')
     })
 
-    it('should have aria-describedby pointing to character count', () => {
-      const {getByRole} = render(<TextInput characterLimit={20} />)
+    it('should have aria-describedby pointing to static message', () => {
+      const {getByRole, container} = render(<TextInput characterLimit={20} />)
       const input = getByRole('textbox')
       const describedBy = input.getAttribute('aria-describedby')
       expect(describedBy).toBeTruthy()
+
+      // Find the static message element
+      const staticMessage = Array.from(container.querySelectorAll('[id]')).find(el =>
+        el.textContent.includes('You can enter up to'),
+      )
+      expect(staticMessage).toBeTruthy()
+      expect(describedBy).toContain(staticMessage?.id)
     })
 
     it('should have screen reader announcement element', () => {
@@ -345,6 +362,23 @@ describe('TextInput', () => {
       const srElement = container.querySelector('[aria-live="polite"]')
       expect(srElement).toBeInTheDocument()
       expect(srElement).toHaveAttribute('aria-atomic', 'true')
+      expect(srElement).toHaveAttribute('role', 'status')
+    })
+
+    it('should have static screen reader message', () => {
+      const {container} = render(<TextInput characterLimit={20} />)
+      expect(container.textContent).toContain('You can enter up to 20 characters')
+    })
+
+    it('should show singular character in static message when limit is 1', () => {
+      const {container} = render(<TextInput characterLimit={1} />)
+      expect(container.textContent).toContain('You can enter up to 1 character')
+    })
+
+    it('should not announce on initial load', () => {
+      const {container} = render(<TextInput characterLimit={20} defaultValue="Hello" />)
+      const srElement = container.querySelector('[aria-live="polite"]')
+      expect(srElement?.textContent).toBe('')
     })
   })
 })

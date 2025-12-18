@@ -3,6 +3,7 @@ import React, {useCallback, useState, useId, useEffect, useRef} from 'react'
 import {isValidElementType} from 'react-is'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {clsx} from 'clsx'
+import {AlertFillIcon} from '@primer/octicons-react'
 
 import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisualSlot'
 import {useProvidedRefOrCreate} from '../hooks'
@@ -13,7 +14,6 @@ import TextInputAction from '../internal/components/TextInputInnerAction'
 import UnstyledTextInput from '../internal/components/UnstyledTextInput'
 import VisuallyHidden from '../_VisuallyHidden'
 import {CharacterCounter} from '../utils/character-counter'
-import InputValidation from '../internal/components/InputValidation'
 import Text from '../Text'
 
 export type TextInputNonPassthroughProps = {
@@ -105,7 +105,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     const inputRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement | null>)
     const [characterCount, setCharacterCount] = useState<string>('')
     const [isOverLimit, setIsOverLimit] = useState<boolean>(false)
-    const [validationMessage, setValidationMessage] = useState<string>('')
     const [screenReaderMessage, setScreenReaderMessage] = useState<string>('')
     const characterCounterRef = useRef<CharacterCounter | null>(null)
 
@@ -152,9 +151,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
             setCharacterCount(message)
             setIsOverLimit(overLimit)
           },
-          onValidationChange: (isInvalid, message) => {
-            setValidationMessage(message)
-          },
           onScreenReaderAnnounce: message => {
             setScreenReaderMessage(message)
           },
@@ -187,7 +183,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
 
     const characterCountId = useId()
     const characterCountLiveRegionId = useId()
-    const characterLimitValidationId = useId()
+    const characterCountStaticMessageId = useId()
 
     const isValid = isOverLimit ? 'error' : validationStatus
 
@@ -234,6 +230,11 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
             value={value}
             defaultValue={defaultValue}
             {...inputProps}
+            aria-describedby={
+              characterLimit
+                ? [characterCountStaticMessageId, inputProps['aria-describedby']].filter(Boolean).join(' ') || undefined
+                : inputProps['aria-describedby']
+            }
             data-component="input"
           />
           {loading && <VisuallyHidden id={loadingId}>{loaderText}</VisuallyHidden>}
@@ -254,21 +255,25 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         </TextInputWrapper>
         {characterLimit && (
           <>
-            <VisuallyHidden id={characterCountLiveRegionId} aria-live="polite" aria-atomic="true">
+            <VisuallyHidden id={characterCountLiveRegionId} aria-live="polite" role="status">
               {screenReaderMessage}
             </VisuallyHidden>
-            {isOverLimit && validationMessage && (
-              <InputValidation id={characterLimitValidationId} validationStatus="error">
-                {validationMessage}
-              </InputValidation>
-            )}
+            <VisuallyHidden id={characterCountStaticMessageId}>
+              You can enter up to {characterLimit} {characterLimit === 1 ? 'character' : 'characters'}
+            </VisuallyHidden>
             <Text
               id={characterCountId}
               size="small"
               style={{
-                color: 'var(--fgColor-muted, var(--color-fg-muted))',
+                color: isOverLimit
+                  ? 'var(--fgColor-danger, var(--color-danger-fg))'
+                  : 'var(--fgColor-muted, var(--color-fg-muted))',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 'var(--base-size-4, 4px)',
               }}
             >
+              {isOverLimit && <AlertFillIcon size={16} />}
               {characterCount}
             </Text>
           </>
