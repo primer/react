@@ -4,6 +4,8 @@ import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {describe, expect, it, vi, beforeEach} from 'vitest'
 import classes from './TextArea.module.css'
+import {implementsClassName} from '../utils/testing'
+import textInputClasses from '../internal/components/TextInputWrapper.module.css'
 
 function getCSSRules(selector: string): Array<CSSStyleRule> {
   return Array.from(document.styleSheets).flatMap(sheet => {
@@ -17,12 +19,9 @@ function getCSSRules(selector: string): Array<CSSStyleRule> {
 }
 
 describe('Textarea', () => {
+  implementsClassName(Textarea, textInputClasses.TextInputBaseWrapper)
   beforeEach(() => {
     vi.resetAllMocks()
-  })
-
-  it('should support `className` on the outermost element', () => {
-    expect(render(<Textarea className={'test-class-name'} />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('renders a valid textarea input', () => {

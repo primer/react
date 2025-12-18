@@ -61,6 +61,18 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
    */
   focusOutBehavior?: 'stop' | 'wrap'
   /**
+   * Callback function that is called when the active descendant changes.
+   *
+   * @param newActiveDescendant - The new active descendant element.
+   * @param previousActiveDescendant - The previous active descendant element.
+   * @param directlyActivated - Whether the active descendant was directly activated (e.g., by a keyboard event).
+   */
+  onActiveDescendantChanged?: (
+    newActiveDescendant: HTMLElement | undefined,
+    previousActiveDescendant: HTMLElement | undefined,
+    directlyActivated: boolean,
+  ) => void
+  /**
    * Private API for use internally only. Adds the ability to switch between
    * `active-descendant` and roving tabindex.
    *
@@ -115,6 +127,7 @@ export function FilteredActionList({
   actionListProps,
   focusOutBehavior = 'wrap',
   _PrivateFocusManagement = 'active-descendant',
+  onActiveDescendantChanged,
   disableSelectOnHover = false,
   setInitialFocus = false,
   ...listProps
@@ -239,16 +252,17 @@ export function FilteredActionList({
           activeDescendantFocus: inputRef,
           onActiveDescendantChanged: (current, previous, directlyActivated) => {
             activeDescendantRef.current = current
-
             if (current && scrollContainerRef.current && directlyActivated) {
               scrollIntoView(current, scrollContainerRef.current, menuScrollMargins)
             }
+
+            onActiveDescendantChanged?.(current, previous, directlyActivated)
           },
           focusInStrategy: setInitialFocus ? 'initial' : 'previous',
           ignoreHoverEvents: disableSelectOnHover,
         }
       : undefined,
-    [listContainerElement, usingRovingTabindex],
+    [listContainerElement, usingRovingTabindex, onActiveDescendantChanged],
   )
 
   useEffect(() => {

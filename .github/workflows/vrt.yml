@@ -19,7 +19,7 @@ jobs:
           echo $NUMBER > ./PR/number
         env:
           NUMBER: ${{ github.event.number }}
-      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
           name: pull-request
           path: ./PR
@@ -33,17 +33,16 @@ jobs:
       matrix:
         shard: [1, 2, 3, 4]
     steps:
-      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
       - name: Set up Node.js
-        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
-        run: npx storybook build
-        working-directory: packages/react
+        run: npx turbo build:storybook
       - name: Run storybook
         id: storybook
         run: |
@@ -51,22 +50,31 @@ jobs:
           pid=$!
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
+      - name: Run styled-react storybook
+        id: styled-react-storybook
+        run: |
+          npx serve -l 6007 packages/styled-react/storybook-static &
+          pid=$!
+          echo "pid=$pid" >> $GITHUB_OUTPUT
+          sleep 5
       - name: Run VRT
-        uses: docker://mcr.microsoft.com/playwright:v1.55.0-jammy
+        uses: docker://mcr.microsoft.com/playwright:v1.56.1-jammy
         env:
           STORYBOOK_URL: 'http://172.17.0.1:6006'
+          STYLED_REACT_STORYBOOK_URL: 'http://172.17.0.1:6007'
         with:
           args: npx playwright test --grep @vrt --update-snapshots --shard="${{ matrix.shard }}/${{ strategy.job-total }}"
       - name: Stop storybook
-        if: ${{ always() }}
         run: kill ${{ steps.storybook.outputs.pid }}
+      - name: Stop styled-react storybook
+        run: kill ${{ steps.styled-react-storybook.outputs.pid }}
       - name: Create snapshots.zip
         run: |
           if [[ ! -z  $(git ls-files --others --exclude-standard --modified) ]]; then
             git ls-files --others --exclude-standard --modified | zip snapshots -@
           fi
       - name: Upload snapshots
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
           name: snapshots-${{ matrix.shard }}
           path: snapshots.zip

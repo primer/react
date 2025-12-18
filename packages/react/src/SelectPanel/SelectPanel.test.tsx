@@ -9,6 +9,7 @@ import type {LiveRegionElement} from '@primer/live-region-element'
 import {IconButton} from '../Button'
 import {ArrowLeftIcon} from '@primer/octicons-react'
 import classes from './SelectPanel.test.module.css'
+import {implementsClassName} from '../utils/testing'
 
 // Instead of importing from live-region/__tests__/test-helpers.ts, we define our own getLiveRegion function
 export function getLiveRegion(): LiveRegionElement {
@@ -73,6 +74,7 @@ globalThis.Element.prototype.scrollTo = vi.fn()
 
 for (const usingRemoveActiveDescendant of [false, true]) {
   describe('SelectPanel', () => {
+    implementsClassName(props => <BasicSelectPanel open {...props} />, classes.FilteredActionList)
     it('should render an anchor to open the select panel using `placeholder`', () => {
       renderWithProp(<BasicSelectPanel />)
 
@@ -83,6 +85,19 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       })
       expect(trigger).toHaveAttribute('aria-haspopup', 'true')
       expect(trigger).toHaveAttribute('aria-expanded', 'false')
+    })
+
+    it('should call onActiveDescendantChanged when using keyboard while focusing on an item', async () => {
+      const user = userEvent.setup()
+      // jest function
+      const onActiveDescendantChanged = vi.fn()
+
+      render(<BasicSelectPanel onActiveDescendantChanged={onActiveDescendantChanged} />)
+
+      await user.click(screen.getByText('Select items'))
+
+      await user.type(document.activeElement!, '{ArrowDown}')
+      expect(onActiveDescendantChanged).toHaveBeenCalled()
     })
 
     it('should open the select panel when activating the trigger', async () => {

@@ -1,9 +1,11 @@
-import React from 'react'
+import React, {useState} from 'react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {PageLayout} from './PageLayout'
 import {Button} from '../Button'
 import Label from '../Label'
 import Heading from '../Heading'
+import Autocomplete from '../Autocomplete'
+import FormControl from '../FormControl'
 
 const meta: Meta<typeof PageLayout> = {
   title: 'Components/PageLayout/Performance Tests',
@@ -13,6 +15,47 @@ const meta: Meta<typeof PageLayout> = {
 export default meta
 
 type Story = StoryObj<typeof PageLayout>
+
+// Autocomplete suggestions data
+const suggestions = [
+  {id: '1', text: 'JavaScript'},
+  {id: '2', text: 'TypeScript'},
+  {id: '3', text: 'React'},
+  {id: '4', text: 'Vue'},
+  {id: '5', text: 'Angular'},
+  {id: '6', text: 'Svelte'},
+  {id: '7', text: 'Node.js'},
+  {id: '8', text: 'Python'},
+  {id: '9', text: 'Ruby'},
+  {id: '10', text: 'Go'},
+]
+
+// Reusable stateful autocomplete search component
+function SearchInput() {
+  const [filterValue, setFilterValue] = useState('')
+  const filteredItems = suggestions.filter(item => item.text.toLowerCase().includes(filterValue.toLowerCase()))
+
+  return (
+    <FormControl>
+      <FormControl.Label>Search</FormControl.Label>
+      <Autocomplete>
+        <Autocomplete.Input
+          value={filterValue}
+          onChange={e => setFilterValue(e.target.value)}
+          placeholder="Search items..."
+        />
+        <Autocomplete.Overlay>
+          <Autocomplete.Menu
+            items={filteredItems}
+            selectedItemIds={[]}
+            aria-labelledby="autocomplete-label"
+            selectionVariant="single"
+          />
+        </Autocomplete.Overlay>
+      </Autocomplete>
+    </FormControl>
+  )
+}
 
 // ============================================================================
 // Story 1: Baseline - Light Content (~100 elements)
@@ -29,7 +72,8 @@ export const BaselineLight: Story = {
 
         <PageLayout.Content>
           <div style={{padding: '16px'}}>
-            <p>Minimal DOM elements to establish baseline.</p>
+            <SearchInput />
+            <p style={{marginTop: '16px'}}>Minimal DOM elements to establish baseline.</p>
             <p>Should be effortless 60 FPS.</p>
           </div>
         </PageLayout.Content>
@@ -58,7 +102,6 @@ export const MediumContent: Story = {
         </PageLayout.Header>
         <PageLayout.Pane position="start" resizable>
           <div style={{padding: '16px'}}>
-            <p>Performance Monitor</p>
             <div
               style={{
                 padding: '12px',
@@ -77,8 +120,9 @@ export const MediumContent: Story = {
         </PageLayout.Pane>
         <PageLayout.Content>
           <div style={{padding: '16px'}}>
+            <SearchInput />
             {/* Large table with complex cells */}
-            <h2 style={{marginBottom: '16px'}}>Data Table (300 rows × 10 columns)</h2>
+            <h2 style={{marginTop: '16px', marginBottom: '16px'}}>Data Table (300 rows × 10 columns)</h2>
             <div
               tabIndex={0}
               style={{
@@ -209,8 +253,9 @@ export const HeavyContent: Story = {
 
         <PageLayout.Content>
           <div tabIndex={0} style={{padding: '16px', overflowY: 'auto', height: '600px'}}>
+            <SearchInput />
             {/* Section 1: Large card grid */}
-            <section style={{marginBottom: '32px'}}>
+            <section style={{marginTop: '16px', marginBottom: '32px'}}>
               <h2 style={{marginBottom: '16px'}}>Activity Feed (200 cards)</h2>
               <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '12px'}}>
                 {Array.from({length: 200}).map((_, i) => (

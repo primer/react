@@ -11,6 +11,7 @@ import {MixedSelection} from '../ActionMenu/ActionMenu.examples.stories'
 import {SearchIcon, KebabHorizontalIcon} from '@primer/octicons-react'
 
 import type {JSX} from 'react'
+import {implementsClassName} from '../utils/testing'
 
 function Example(): JSX.Element {
   return (
@@ -120,6 +121,8 @@ function ExampleWithSubmenus(): JSX.Element {
 }
 
 describe('ActionMenu', () => {
+  implementsClassName(ActionMenu.Button)
+
   it('should open Menu on MenuButton click', async () => {
     const component = HTMLRender(<Example />)
     const button = component.getByRole('button')
