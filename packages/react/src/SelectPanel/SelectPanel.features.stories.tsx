@@ -802,7 +802,7 @@ export const MultiSelectModal = () => {
       title="Select labels"
       placeholder="Select labels"
       subtitle="Use labels to organize issues and pull requests"
-      renderAnchor={({children, ...anchorProps}) => (
+      renderAnchor={({...anchorProps}) => (
         <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
           {savedSelection.map(item => item.text).join(', ') || 'Select labels'}
         </Button>
