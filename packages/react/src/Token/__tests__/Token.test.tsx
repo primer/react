@@ -6,6 +6,9 @@ import Token from '../Token'
 import type {TokenSizeKeys} from '../TokenBase'
 import {tokenSizes} from '../TokenBase'
 import {IssueLabelToken} from '..'
+import {implementsClassName} from '../../utils/testing'
+import classes from '../Token.module.css'
+import issueClasses from '../IssueLabelToken.module.css'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const testTokenComponent = (Component: React.ComponentType<React.PropsWithChildren<any>>) => {
@@ -99,6 +102,7 @@ const testTokenComponent = (Component: React.ComponentType<React.PropsWithChildr
 
 describe('Token components', () => {
   describe('Token', () => {
+    implementsClassName(Token, classes.Token)
     testTokenComponent(Token)
 
     it('renders with a leadingVisual', () => {
@@ -110,6 +114,7 @@ describe('Token components', () => {
   })
 
   describe('IssueLabelToken', () => {
+    implementsClassName(IssueLabelToken, issueClasses.IssueLabel)
     testTokenComponent(IssueLabelToken)
 
     it('renders default fill color', () => {
