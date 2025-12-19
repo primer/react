@@ -55,6 +55,10 @@ export class CharacterCounter {
       clearTimeout(this.announceTimeout)
     }
 
+    if (typeof window === 'undefined' || typeof window.setTimeout !== 'function') {
+      return
+    }
+
     this.announceTimeout = window.setTimeout(() => {
       this.callbacks.onScreenReaderAnnounce(message)
     }, SCREEN_READER_DELAY)
