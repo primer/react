@@ -1,8 +1,11 @@
 import {render} from '@testing-library/react'
 import {describe, expect, it} from 'vitest'
 import BaseStyles from '../BaseStyles'
+import classes from '../BaseStyles.module.css'
+import {implementsClassName} from '../utils/testing'
 
 describe('BaseStyles', () => {
+  implementsClassName(BaseStyles, classes.BaseStyles)
   it('has default styles', () => {
     const {container} = render(<BaseStyles>Hello</BaseStyles>)
     expect(container).toMatchSnapshot()

@@ -4,6 +4,7 @@ import React from 'react'
 import {NavList} from './NavList'
 import {FeatureFlags} from '../FeatureFlags'
 import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
+import {implementsClassName} from '../utils/testing'
 
 type NextJSLinkProps = {href: string; children: React.ReactNode}
 
@@ -21,6 +22,8 @@ const NextJSLikeLink = React.forwardRef<HTMLAnchorElement, NextJSLinkProps>(
 )
 
 describe('NavList', () => {
+  implementsClassName(NavList)
+
   it('supports TrailingAction', async () => {
     const {getByRole} = render(
       <NavList>
@@ -37,6 +40,7 @@ describe('NavList', () => {
 })
 
 describe('NavList.Item', () => {
+  implementsClassName(NavList.Item)
   it('passes aria-current prop to the underlying link', () => {
     const {getByRole} = render(
       <NavList>
