@@ -8,6 +8,8 @@ import BaseStyles from '../BaseStyles'
 import {Button} from '../Button'
 import {ConfirmationDialog, useConfirm} from './ConfirmationDialog'
 import {Stack} from '../Stack'
+import {implementsClassName} from '../utils/testing'
+import dialogClasses from '../Dialog/Dialog.module.css'
 
 const Basic = ({
   confirmButtonType,
@@ -294,4 +296,6 @@ describe('ConfirmationDialog', () => {
       expect(cancelButton).not.toHaveAttribute('data-loading', 'true')
     })
   })
+
+  implementsClassName(ConfirmationDialog, dialogClasses.Dialog)
 })
