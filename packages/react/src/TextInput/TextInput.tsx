@@ -165,7 +165,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           },
         })
 
-git st        return () => {
+        return () => {
           characterCounterRef.current?.cleanup()
           characterCounterRef.current = null
         }
