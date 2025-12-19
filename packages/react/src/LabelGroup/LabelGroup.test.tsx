@@ -4,6 +4,8 @@ import {describe, it, expect, vi} from 'vitest'
 import BaseStyles from '../BaseStyles'
 import {LabelGroup, Label} from '..'
 import userEvent from '@testing-library/user-event'
+import {implementsClassName} from '../utils/testing'
+import classes from './LabelGroup.module.css'
 
 const ThemeAndStyleContainer: React.FC<React.PropsWithChildren> = ({children}) => <BaseStyles>{children}</BaseStyles>
 
@@ -14,6 +16,8 @@ const AutoTruncateContainer: React.FC<React.PropsWithChildren & {width?: number}
 const observe = vi.fn()
 
 describe('LabelGroup', () => {
+  implementsClassName(LabelGroup, classes.Container)
+
   window.IntersectionObserver = vi.fn(function () {
     return {
       observe,
