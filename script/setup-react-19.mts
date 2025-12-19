@@ -34,13 +34,18 @@ for (const packageJsonPath of packageJsonPaths) {
         continue
       }
 
-      if (!semver.subset(targetRange, range)) {
-        dependencies[pkg] = targetRange
-      }
+      // Always update to React 19 range to ensure we get React 19 installed
+      dependencies[pkg] = targetRange
     }
   }
 
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n', 'utf8')
 }
 
-execSync('npm install', {stdio: 'inherit'})
+// Build list of packages to install with specific versions
+const packagesToInstall = Array.from(versions.entries())
+  .map(([pkg, version]) => `${pkg}@${version}`)
+  .join(' ')
+
+// Force install React 19 packages
+execSync(`npm install ${packagesToInstall} --legacy-peer-deps`, {stdio: 'inherit'})
