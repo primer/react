@@ -2,8 +2,13 @@ import {render} from '@testing-library/react'
 import {Checkbox, CheckboxGroup, FormControl} from '..'
 import userEvent from '@testing-library/user-event'
 import {describe, expect, it, vi, beforeAll, afterAll} from 'vitest'
+import {implementsClassName} from '../utils/testing'
+import classes from '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.module.css'
 
 describe('CheckboxGroup', () => {
+  implementsClassName(CheckboxGroup, classes.GroupFieldset)
+  implementsClassName(CheckboxGroup.Caption, classes.CheckboxOrRadioGroupCaption)
+  implementsClassName(CheckboxGroup.Label, classes.RadioGroupLabel)
   const mockWarningFn = vi.fn()
 
   beforeAll(() => {

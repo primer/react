@@ -4,6 +4,8 @@ import userEvent from '@testing-library/user-event'
 import React, {type JSX} from 'react'
 import {ActionList} from '.'
 import {BookIcon} from '@primer/octicons-react'
+import {implementsClassName} from '../utils/testing'
+import classes from './ActionList.module.css'
 
 function SimpleActionList(): JSX.Element {
   return (
@@ -60,6 +62,8 @@ function SingleSelectListStory(): JSX.Element {
 }
 
 describe('ActionList.Item', () => {
+  implementsClassName(ActionList.Item, classes.ActionListItem)
+  implementsClassName(ActionList.LinkItem)
   it('should have aria-keyshortcuts applied to the correct element', async () => {
     const {container} = HTMLRender(<SimpleActionList />)
     const linkOptions = await waitFor(() => container.querySelectorAll('a'))
