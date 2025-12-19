@@ -1,7 +1,7 @@
 .CharacterCounter {
   display: flex;
   align-items: center;
-  gap: var(--base-size-4);
+  gap: var(--control-xsmall-gap);
   color: var(--fgColor-muted);
 }
 
