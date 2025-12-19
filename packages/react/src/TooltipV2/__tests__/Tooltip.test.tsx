@@ -6,8 +6,10 @@ import {render as HTMLRender} from '@testing-library/react'
 import BaseStyles from '../../BaseStyles'
 import {Button, IconButton, ActionMenu, ActionList, ButtonGroup} from '../..'
 import {XIcon} from '@primer/octicons-react'
+import classes from '../Tooltip.module.css'
 
 import type {JSX} from 'react'
+import {implementsClassName} from '../../utils/testing'
 
 const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
   <Tooltip text="Tooltip text" {...props}>
@@ -41,6 +43,7 @@ function ExampleWithActionMenu(actionMenuTrigger: React.ReactElement<any>): JSX.
 }
 
 describe('Tooltip', () => {
+  implementsClassName(TooltipComponent, classes.Tooltip)
   it('renders `data-direction="s"` by default', () => {
     const {getByText} = HTMLRender(<TooltipComponent />)
     expect(getByText('Tooltip text')).toHaveAttribute('data-direction', 's')
