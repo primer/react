@@ -3,12 +3,11 @@ import {Spinner} from '..'
 import {render, screen} from '@testing-library/react'
 import {describe, expect, it, vi, beforeEach, afterEach} from 'vitest'
 import {act} from 'react'
+import {implementsClassName} from '../utils/testing'
+import classes from './Spinner.module.css'
 
 describe('Spinner', () => {
-  it('should support `className` on the outermost element', () => {
-    const Element = () => <Spinner className={'test-class-name'} />
-    expect(render(<Element />).container.firstChild?.firstChild).toHaveClass('test-class-name')
-  })
+  implementsClassName(Spinner, classes.SpinnerAnimation)
 
   it('should label the spinner with default loading text', async () => {
     const {getByLabelText} = render(<Spinner />)

@@ -3,6 +3,8 @@ import {render, screen} from '@testing-library/react'
 import {Table} from '../../DataTable'
 import {createColumnHelper} from '../column'
 import type {TableProps} from '../Table'
+import {implementsClassName} from '../../utils/testing'
+import classes from '../Table.module.css'
 
 function createTable({columns, rows}: {columns: Array<string>; rows: Array<Array<string>>}) {
   return (
@@ -30,6 +32,8 @@ function createTable({columns, rows}: {columns: Array<string>; rows: Array<Array
 }
 
 describe('Table', () => {
+  implementsClassName(Table, classes.Table)
+
   it('should render an element with role="table" semantics', () => {
     const columns = ['Column A', 'Column B', 'Column C']
     const rows = [
@@ -147,14 +151,11 @@ describe('Table', () => {
   })
 
   describe('Table.Container', () => {
+    implementsClassName(Table.Container, classes.TableContainer)
+
     it('should support additional props on the outermost element', () => {
       const {container} = render(<Table.Container data-testid="test" />)
       expect(container.firstElementChild).toHaveAttribute('data-testid', 'test')
-    })
-
-    it('should support a custom `className` through the `className` prop', () => {
-      const {container} = render(<Table.Container className="test" />)
-      expect(container.firstElementChild).toHaveClass('test')
     })
   })
 
@@ -218,6 +219,8 @@ describe('Table', () => {
   })
 
   describe('Table.Cell', () => {
+    implementsClassName(Table.Cell, classes.TableCell)
+
     it('should set the element to a <th> when `scope` is defined', () => {
       render(
         <Table>
@@ -256,6 +259,8 @@ describe('Table', () => {
   })
 
   describe('Table.Skeleton', () => {
+    implementsClassName(props => <Table.Skeleton columns={[]} {...props} />)
+
     it('should render a table with columns and loading content', () => {
       const columnHelper = createColumnHelper()
       const columns = [

@@ -3,10 +3,13 @@ import React from 'react'
 import {render, waitFor} from '@testing-library/react'
 import ToggleSwitch from './'
 import userEvent from '@testing-library/user-event'
+import {implementsClassName} from '../utils/testing'
+import classes from './ToggleSwitch.module.css'
 
 const SWITCH_LABEL_TEXT = 'Switch label'
 
 describe('ToggleSwitch', () => {
+  implementsClassName(ToggleSwitch, classes.ToggleSwitch)
   it('renders a switch that is turned off', () => {
     const {getByLabelText} = render(
       <>
