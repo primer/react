@@ -3,8 +3,22 @@ import {render as HTMLRender} from '@testing-library/react'
 import BaseStyles from '../BaseStyles'
 import {ActionList} from '.'
 import {ActionMenu} from '..'
+import {implementsClassName} from '../utils/testing'
+import classes from './Group.module.css'
 
 describe('ActionList.Group', () => {
+  implementsClassName(
+    props => (
+      <ActionList>
+        <ActionList.Group {...props}>
+          <ActionList.Item>item</ActionList.Item>
+        </ActionList.Group>
+      </ActionList>
+    ),
+    classes.Group,
+  )
+  implementsClassName(ActionList.GroupHeading, classes.GroupHeading)
+
   it('should throw an error when ActionList.GroupHeading has an `as` prop when it is used within ActionMenu context', async () => {
     expect(() =>
       HTMLRender(
@@ -121,20 +135,5 @@ describe('ActionList.Group', () => {
     )
     const list = container.querySelector(`li[data-test-id='ActionList.Group'] > ul`)
     expect(list).toHaveAttribute('aria-label', 'Animals')
-  })
-
-  it('should support a custom `className` on the outermost element', () => {
-    const Element = () => {
-      return (
-        <ActionList>
-          <ActionList.Group>
-            <ActionList.GroupHeading as="h2" className="test-class-name">
-              Test
-            </ActionList.GroupHeading>
-          </ActionList.Group>
-        </ActionList>
-      )
-    }
-    expect(HTMLRender(<Element />).container.querySelector('h2')).toHaveClass('test-class-name')
   })
 })

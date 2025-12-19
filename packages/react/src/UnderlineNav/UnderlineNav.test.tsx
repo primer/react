@@ -13,15 +13,20 @@ import {
 } from '@primer/octicons-react'
 
 import {UnderlineNav} from '.'
+import {implementsClassName} from '../utils/testing'
+import classes from '../internal/components/UnderlineTabbedInterface.module.css'
+import {clsx} from 'clsx'
 
 const ResponsiveUnderlineNav = ({
   selectedItemText = 'Code',
   loadingCounters = false,
   displayExtraEl = false,
+  className,
 }: {
   selectedItemText?: string
   loadingCounters?: boolean
   displayExtraEl?: boolean
+  className?: string
 }) => {
   const items: {navigation: string; icon?: React.ReactElement; counter?: number}[] = [
     {navigation: 'Code', icon: <CodeIcon />},
@@ -37,7 +42,7 @@ const ResponsiveUnderlineNav = ({
 
   return (
     <div>
-      <UnderlineNav aria-label="Repository" className="foo" loadingCounters={loadingCounters}>
+      <UnderlineNav aria-label="Repository" className={clsx('foo', className)} loadingCounters={loadingCounters}>
         {items.map(item => (
           <UnderlineNav.Item
             key={item.navigation}
@@ -55,6 +60,8 @@ const ResponsiveUnderlineNav = ({
 }
 
 describe('UnderlineNav', () => {
+  implementsClassName(ResponsiveUnderlineNav, classes.UnderlineWrapper)
+  implementsClassName(props => <UnderlineNav.Item {...props}>Hi</UnderlineNav.Item>)
   it('renders aria-current attribute to be pages when an item is selected', () => {
     const {getByRole} = render(<ResponsiveUnderlineNav />)
     const selectedNavLink = getByRole('link', {name: 'Code'})
