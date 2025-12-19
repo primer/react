@@ -12,7 +12,6 @@ exports[`TextInput > renders contrast 1`] = `
       data-component="input"
       name="zipcode"
       type="text"
-      value=""
     />
   </span>
 </div>
@@ -31,7 +30,6 @@ exports[`TextInput > renders error 1`] = `
       data-component="input"
       name="zipcode"
       type="text"
-      value=""
     />
   </span>
 </div>
@@ -49,7 +47,6 @@ exports[`TextInput > renders monospace 1`] = `
       data-component="input"
       name="zipcode"
       type="text"
-      value=""
     />
   </span>
 </div>
@@ -67,7 +64,6 @@ exports[`TextInput > renders placeholder 1`] = `
       name="zipcode"
       placeholder="560076"
       type="text"
-      value=""
     />
   </span>
 </div>
@@ -84,7 +80,6 @@ exports[`TextInput > should render a password input 1`] = `
       data-component="input"
       name="password"
       type="password"
-      value=""
     />
   </span>
 </div>
