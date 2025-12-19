@@ -107,16 +107,11 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             setScreenReaderMessage(message)
           },
         })
-        const initialValue =
-          value !== undefined ? String(value) : defaultValue !== undefined ? String(defaultValue) : ''
-        characterCounterRef.current.updateCharacterCount(initialValue.length, characterLimit)
 
         return () => {
           characterCounterRef.current?.cleanup()
         }
       }
-      // We don't want to re-initialize the character counter on value changes
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [characterLimit])
 
     // Update character count when value changes

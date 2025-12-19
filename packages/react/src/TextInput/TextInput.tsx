@@ -165,19 +165,21 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           },
         })
 
-        return () => {
+git st        return () => {
           characterCounterRef.current?.cleanup()
+          characterCounterRef.current = null
         }
       }
     }, [characterLimit])
 
-    // Update character count when value changes
+    // Update character count when value changes or on mount
     useEffect(() => {
-      if (characterLimit && characterCounterRef.current && value !== undefined) {
-        const currentValue = String(value)
+      if (characterLimit && characterCounterRef.current) {
+        const currentValue =
+          value !== undefined ? String(value) : defaultValue !== undefined ? String(defaultValue) : ''
         characterCounterRef.current.updateCharacterCount(currentValue.length, characterLimit)
       }
-    }, [value, characterLimit])
+    }, [value, defaultValue, characterLimit])
 
     // Handle input change with character counter
     const handleInputChange = useCallback(
