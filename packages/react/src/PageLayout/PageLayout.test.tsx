@@ -5,8 +5,12 @@ import 'react-intersection-observer/test-utils'
 import {viewportRanges} from '../hooks/useResponsiveValue'
 import {PageLayout} from './PageLayout'
 import {Placeholder} from '../Placeholder'
+import {implementsClassName} from '../utils/testing'
+import classes from './PageLayout.module.css'
 
 describe('PageLayout', async () => {
+  implementsClassName(PageLayout, classes.PageLayoutRoot)
+
   await page.viewport(1280, 800)
   it('renders default layout', () => {
     const {container} = render(
@@ -61,7 +65,7 @@ describe('PageLayout', async () => {
   })
 
   // The test suite can't compute styles so skipping
-  it.skip('can hide pane when narrow', () => {
+  it.todo('can hide pane when narrow', () => {
     // Set narrow viewport
     act(() => {
       window.matchMedia(viewportRanges.narrow)
@@ -80,7 +84,7 @@ describe('PageLayout', async () => {
   })
 
   // The test suite can't compute styles so skipping
-  it.skip('shows all subcomponents by default', () => {
+  it.todo('shows all subcomponents by default', () => {
     // Set regular viewport
     act(() => {
       matchMedia(viewportRanges.regular)
@@ -135,6 +139,7 @@ describe('PageLayout', async () => {
   })
 
   describe('PageLayout.Pane', () => {
+    implementsClassName(PageLayout.Pane, classes.PaneWrapper)
     it('should support a ref on the element wrapping the contents of Pane', () => {
       const ref = vi.fn()
       render(
@@ -174,9 +179,65 @@ describe('PageLayout', async () => {
       const finalWidth = (pane as HTMLElement).style.getPropertyValue('--pane-width')
       expect(finalWidth).not.toEqual(initialWidth)
     })
+
+    it('should set data-dragging attribute during pointer drag', async () => {
+      const {container} = render(
+        <PageLayout>
+          <PageLayout.Pane resizable>
+            <Placeholder height={320} label="Pane" />
+          </PageLayout.Pane>
+          <PageLayout.Content>
+            <Placeholder height={640} label="Content" />
+          </PageLayout.Content>
+        </PageLayout>,
+      )
+
+      const content = container.querySelector('[class*="PageLayoutContent"]')
+      const divider = await screen.findByRole('slider')
+
+      // Before drag - no data-dragging attribute
+      expect(content).not.toHaveAttribute('data-dragging')
+
+      // Start drag
+      fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
+      expect(content).toHaveAttribute('data-dragging', 'true')
+
+      // End drag - pointer capture lost ends the drag and removes attribute
+      fireEvent.lostPointerCapture(divider, {pointerId: 1})
+      expect(content).not.toHaveAttribute('data-dragging')
+    })
+
+    it('should set data-dragging attribute during keyboard resize', async () => {
+      const {container} = render(
+        <PageLayout>
+          <PageLayout.Pane resizable>
+            <Placeholder height={320} label="Pane" />
+          </PageLayout.Pane>
+          <PageLayout.Content>
+            <Placeholder height={640} label="Content" />
+          </PageLayout.Content>
+        </PageLayout>,
+      )
+
+      const content = container.querySelector('[class*="PageLayoutContent"]')
+      const divider = await screen.findByRole('slider')
+
+      // Before interaction - no data-dragging attribute
+      expect(content).not.toHaveAttribute('data-dragging')
+
+      // Start keyboard resize (focus first)
+      fireEvent.focus(divider)
+      fireEvent.keyDown(divider, {key: 'ArrowRight'})
+      expect(content).toHaveAttribute('data-dragging', 'true')
+
+      // End keyboard resize - removes attribute
+      fireEvent.keyUp(divider, {key: 'ArrowRight'})
+      expect(content).not.toHaveAttribute('data-dragging')
+    })
   })
 
   describe('PageLayout.Content', () => {
+    implementsClassName(PageLayout.Content, classes.ContentWrapper)
     it('should support a custom element type with the `as` prop', () => {
       const {container} = render(
         <PageLayout.Content as="div">
