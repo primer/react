@@ -31,7 +31,7 @@ describe('TextInput', () => {
   })
 
   it('renders error', () => {
-    expect(render(<TextInput name="zipcode" validationStatus="error" />).container).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" validationStatus="error" value="" />).container).toMatchSnapshot()
   })
 
   it('renders sets aria-invalid="true" on error', () => {
@@ -40,15 +40,15 @@ describe('TextInput', () => {
   })
 
   it('renders contrast', () => {
-    expect(render(<TextInput name="zipcode" contrast />).container).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" contrast value="" />).container).toMatchSnapshot()
   })
 
   it('renders monospace', () => {
-    expect(render(<TextInput name="zipcode" monospace />).container).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" monospace value="" />).container).toMatchSnapshot()
   })
 
   it('renders placeholder', () => {
-    expect(render(<TextInput name="zipcode" placeholder={'560076'} />).container).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" placeholder={'560076'} value="" />).container).toMatchSnapshot()
   })
 
   it('renders leadingVisual', () => {
@@ -194,7 +194,7 @@ describe('TextInput', () => {
   })
 
   it('should render a password input', () => {
-    expect(render(<TextInput name="password" type="password" />).container).toMatchSnapshot()
+    expect(render(<TextInput name="password" type="password" value="" />).container).toMatchSnapshot()
   })
 
   it('should not override prop aria-invalid', () => {
