@@ -5,6 +5,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import {clsx} from 'clsx'
 import {AlertFillIcon} from '@primer/octicons-react'
 
+import classes from './TextInput.module.css'
 import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisualSlot'
 import {useProvidedRefOrCreate} from '../hooks'
 import type {Merge} from '../utils/types'
@@ -172,11 +173,11 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
 
     // Update character count when value changes
     useEffect(() => {
-      if (characterLimit && characterCounterRef.current) {
-        const currentValue = value !== undefined ? String(value) : inputRef.current?.value || ''
+      if (characterLimit && characterCounterRef.current && value !== undefined) {
+        const currentValue = String(value)
         characterCounterRef.current.updateCharacterCount(currentValue.length, characterLimit)
       }
-    }, [value, characterLimit, inputRef])
+    }, [value, characterLimit])
 
     // Handle input change with character counter
     const handleInputChange = useCallback(
@@ -190,7 +191,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     )
 
     const characterCountId = useId()
-    const characterCountLiveRegionId = useId()
     const characterCountStaticMessageId = useId()
 
     const isValid = isOverLimit ? 'error' : validationStatus
@@ -263,23 +263,17 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         </TextInputWrapper>
         {characterLimit && (
           <>
-            <VisuallyHidden id={characterCountLiveRegionId} aria-live="polite" role="status">
+            <VisuallyHidden aria-live="polite" role="status">
               {screenReaderMessage}
             </VisuallyHidden>
             <VisuallyHidden id={characterCountStaticMessageId}>
               You can enter up to {characterLimit} {characterLimit === 1 ? 'character' : 'characters'}
             </VisuallyHidden>
             <Text
+              aria-hidden="true"
               id={characterCountId}
               size="small"
-              style={{
-                color: isOverLimit
-                  ? 'var(--fgColor-danger, var(--color-danger-fg))'
-                  : 'var(--fgColor-muted, var(--color-fg-muted))',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 'var(--base-size-4, 4px)',
-              }}
+              className={clsx(classes.CharacterCounter, isOverLimit && classes['CharacterCounter--error'])}
             >
               {isOverLimit && <AlertFillIcon size={16} />}
               {characterCount}

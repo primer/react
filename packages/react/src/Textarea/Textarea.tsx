@@ -8,6 +8,7 @@ import {AlertFillIcon} from '@primer/octicons-react'
 import {CharacterCounter} from '../utils/character-counter'
 import VisuallyHidden from '../_VisuallyHidden'
 import Text from '../Text'
+import {clsx} from 'clsx'
 
 export const DEFAULT_TEXTAREA_ROWS = 7
 export const DEFAULT_TEXTAREA_COLS = 30
@@ -92,7 +93,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     const characterCounterRef = useRef<CharacterCounter | null>(null)
 
     const characterCountId = useId()
-    const characterCountLiveRegionId = useId()
     const characterCountStaticMessageId = useId()
 
     // Initialize character counter
@@ -174,7 +174,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         </TextInputBaseWrapper>
         {characterLimit && (
           <>
-            <VisuallyHidden id={characterCountLiveRegionId} aria-live="polite" role="status">
+            <VisuallyHidden aria-live="polite" role="status">
               {screenReaderMessage}
             </VisuallyHidden>
             <VisuallyHidden id={characterCountStaticMessageId}>
@@ -184,14 +184,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
               aria-hidden="true"
               id={characterCountId}
               size="small"
-              style={{
-                color: isOverLimit
-                  ? 'var(--fgColor-danger, var(--color-danger-fg))'
-                  : 'var(--fgColor-muted, var(--color-fg-muted))',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 'var(--base-size-4, 4px)',
-              }}
+              className={clsx(classes.CharacterCounter, isOverLimit && classes['CharacterCounter--error'])}
             >
               {isOverLimit && <AlertFillIcon size={16} />}
               {characterCount}

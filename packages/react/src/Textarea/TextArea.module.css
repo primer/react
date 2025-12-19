@@ -32,3 +32,14 @@
 .TextArea:disabled {
   resize: none;
 }
+
+.CharacterCounter {
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-4);
+  color: var(--fgColor-muted);
+}
+
+.CharacterCounter--error {
+  color: var(--fgColor-danger);
+}
