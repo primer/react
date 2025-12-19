@@ -19,7 +19,7 @@ jobs:
           echo $NUMBER > ./PR/number
         env:
           NUMBER: ${{ github.event.number }}
-      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
           name: pull-request
           path: ./PR
@@ -74,7 +74,7 @@ jobs:
             git ls-files --others --exclude-standard --modified | zip snapshots -@
           fi
       - name: Upload snapshots
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
           name: snapshots-${{ matrix.shard }}
           path: snapshots.zip
