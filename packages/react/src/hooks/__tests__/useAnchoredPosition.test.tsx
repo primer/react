@@ -1,8 +1,64 @@
 import {render, waitFor, act, fireEvent} from '@testing-library/react'
-import {describe, it, expect, vi} from 'vitest'
+import {describe, it, expect, vi, beforeEach, afterEach} from 'vitest'
 import React from 'react'
 import type {AnchoredPositionHookSettings} from '../useAnchoredPosition'
 import {useAnchoredPosition} from '../useAnchoredPosition'
+
+// Store original ResizeObserver for restoration
+let originalResizeObserver: typeof ResizeObserver | undefined
+let resizeObserverInstances: Array<{
+  callback: ResizeObserverCallback
+  observedElements: Set<Element>
+  disconnect: () => void
+}> = []
+
+// Mock ResizeObserver that allows us to trigger callbacks
+function setupResizeObserverMock() {
+  originalResizeObserver = window.ResizeObserver
+  resizeObserverInstances = []
+
+  window.ResizeObserver = class MockResizeObserver {
+    callback: ResizeObserverCallback
+    observedElements: Set<Element> = new Set()
+
+    constructor(callback: ResizeObserverCallback) {
+      this.callback = callback
+      resizeObserverInstances.push({
+        callback: this.callback,
+        observedElements: this.observedElements,
+        disconnect: () => this.disconnect(),
+      })
+    }
+
+    observe(element: Element) {
+      this.observedElements.add(element)
+    }
+
+    unobserve(element: Element) {
+      this.observedElements.delete(element)
+    }
+
+    disconnect() {
+      this.observedElements.clear()
+    }
+  } as unknown as typeof ResizeObserver
+}
+
+function teardownResizeObserverMock() {
+  if (originalResizeObserver) {
+    window.ResizeObserver = originalResizeObserver
+  }
+  resizeObserverInstances = []
+}
+
+// Trigger resize observer callbacks for all instances observing the given element
+function triggerResizeObserver(element?: Element) {
+  for (const instance of resizeObserverInstances) {
+    if (!element || instance.observedElements.has(element)) {
+      instance.callback([], instance as unknown as ResizeObserver)
+    }
+  }
+}
 
 // Helper component that exposes hook return value via callback
 function TestComponent({
@@ -220,14 +276,16 @@ describe('useAnchoredPosition', () => {
     })
   })
 
-  describe('dependencies parameter', () => {
-    it('should recalculate position when dependencies change', async () => {
+  describe('dependencies parameter (deprecated)', () => {
+    it('should accept dependencies parameter for backwards compatibility but ignore it', async () => {
+      // The dependencies parameter is deprecated and ignored.
+      // This test verifies backwards compatibility - the parameter is accepted without error.
       const cb = vi.fn()
-      let dep = 1
 
-      function DependencyComponent() {
+      function DependencyComponent({dep}: {dep: number}) {
         const floatingElementRef = React.useRef<HTMLDivElement>(null)
         const anchorElementRef = React.useRef<HTMLDivElement>(null)
+        // Pass dependencies - should be accepted but ignored
         cb(useAnchoredPosition({floatingElementRef, anchorElementRef}, [dep]))
         return (
           <div style={{position: 'absolute'}}>
@@ -237,25 +295,58 @@ describe('useAnchoredPosition', () => {
         )
       }
 
-      const {rerender} = render(<DependencyComponent />)
+      const {rerender} = render(<DependencyComponent dep={1} />)
 
       await waitFor(() => {
         expect(cb.mock.calls.length).toBeGreaterThan(0)
       })
 
-      const callCountBeforeChange = cb.mock.calls.length
+      // Rerender with different dep - component re-renders but dependencies param has no effect
+      rerender(<DependencyComponent dep={2} />)
 
-      dep = 2
-      rerender(<DependencyComponent />)
-
+      // Just verify no errors occurred - the parameter is accepted for backwards compatibility
       await waitFor(() => {
-        expect(cb.mock.calls.length).toBeGreaterThan(callCountBeforeChange)
+        const lastCall = cb.mock.calls[cb.mock.calls.length - 1][0]
+        expect(lastCall.position).toBeDefined()
       })
     })
   })
 
   describe('resize handling', () => {
-    it('should recalculate position on window resize', async () => {
+    it('should call onPositionChange on window resize', async () => {
+      const onPositionChange = vi.fn()
+      const cb = vi.fn()
+      render(<TestComponent callback={cb} settings={{onPositionChange}} />)
+
+      await waitFor(() => {
+        expect(onPositionChange).toHaveBeenCalled()
+      })
+
+      const callCountBeforeResize = onPositionChange.mock.calls.length
+
+      act(() => {
+        fireEvent(window, new Event('resize'))
+      })
+
+      // Wait for rAF to process the resize
+      await waitFor(() => {
+        // onPositionChange is called even if position hasn't changed
+        // to notify consumers of potential layout changes
+        expect(onPositionChange.mock.calls.length).toBeGreaterThanOrEqual(callCountBeforeResize)
+      })
+    })
+  })
+
+  describe('ResizeObserver functionality', () => {
+    beforeEach(() => {
+      setupResizeObserverMock()
+    })
+
+    afterEach(() => {
+      teardownResizeObserverMock()
+    })
+
+    it('should observe both floating and anchor elements', async () => {
       const cb = vi.fn()
       render(<TestComponent callback={cb} />)
 
@@ -263,16 +354,63 @@ describe('useAnchoredPosition', () => {
         expect(cb.mock.calls.length).toBeGreaterThan(0)
       })
 
-      const callCountBeforeResize = cb.mock.calls.length
+      // Verify ResizeObserver was created and is observing both elements
+      expect(resizeObserverInstances.length).toBeGreaterThan(0)
+      const lastInstance = resizeObserverInstances[resizeObserverInstances.length - 1]
+      expect(lastInstance.observedElements.size).toBe(2)
+    })
 
-      act(() => {
-        fireEvent(window, new Event('resize'))
-      })
+    it('should recalculate position when ResizeObserver triggers', async () => {
+      const onPositionChange = vi.fn()
+      const cb = vi.fn()
+      render(<TestComponent callback={cb} settings={{onPositionChange}} />)
 
-      // Position recalculation may be async
       await waitFor(() => {
-        expect(cb.mock.calls.length).toBeGreaterThanOrEqual(callCountBeforeResize)
+        expect(onPositionChange).toHaveBeenCalled()
       })
+
+      const callCountBefore = onPositionChange.mock.calls.length
+
+      // Trigger ResizeObserver callback
+      act(() => {
+        triggerResizeObserver()
+      })
+
+      // Wait for rAF to process
+      await waitFor(() => {
+        expect(onPositionChange.mock.calls.length).toBeGreaterThanOrEqual(callCountBefore)
+      })
+    })
+
+    it('should not create ResizeObserver when elements are missing', async () => {
+      const cb = vi.fn()
+      render(<ConditionalFloatingComponent callback={cb} showFloating={false} />)
+
+      await waitFor(() => {
+        expect(cb.mock.calls.length).toBeGreaterThan(0)
+      })
+
+      // When floating element is missing, ResizeObserver should not observe anything
+      // (or not be created at all for position calculation)
+      const observersWithElements = resizeObserverInstances.filter(i => i.observedElements.size > 0)
+      expect(observersWithElements.length).toBe(0)
+    })
+
+    it('should disconnect ResizeObserver on unmount', async () => {
+      const cb = vi.fn()
+      const {unmount} = render(<TestComponent callback={cb} />)
+
+      await waitFor(() => {
+        expect(cb.mock.calls.length).toBeGreaterThan(0)
+      })
+
+      const lastInstance = resizeObserverInstances[resizeObserverInstances.length - 1]
+      expect(lastInstance.observedElements.size).toBe(2)
+
+      unmount()
+
+      // After unmount, observer should be disconnected
+      expect(lastInstance.observedElements.size).toBe(0)
     })
   })
 

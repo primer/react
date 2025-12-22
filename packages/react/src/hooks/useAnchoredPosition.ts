@@ -4,6 +4,9 @@ import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
+// Check for ResizeObserver support (not available in older browsers or some test environments)
+const hasResizeObserver = typeof ResizeObserver !== 'undefined'
+
 export interface AnchoredPositionHookSettings extends Partial<PositionSettings> {
   floatingElementRef?: React.RefObject<Element | null>
   anchorElementRef?: React.RefObject<Element | null>
@@ -35,12 +38,20 @@ export function useAnchoredPosition(
 
   // Mirror ref values to state so we can use them as effect dependencies.
   // This handles late-mounting elements - when ref.current changes, we sync
-  // to state which triggers effects to re-run.
+  // to state which triggers effects to re-run. We check on every render because
+  // refs can change at any time (e.g., conditional rendering) and we need to
+  // detect those changes. The setState calls are guarded to only fire when
+  // the value actually changes, preventing unnecessary re-renders.
   const [floatingEl, setFloatingEl] = React.useState<Element | null>(null)
   const [anchorEl, setAnchorEl] = React.useState<Element | null>(null)
   const [position, setPosition] = React.useState<AnchorPosition | undefined>(undefined)
 
-  // Mutable state that doesn't need to trigger re-renders
+  // Mutable state that doesn't need to trigger re-renders.
+  // State machine for update coalescing:
+  // - isPending: true when a rAF is scheduled, prevents duplicate rAF calls
+  // - When rAF fires, calculatePosition runs and sets isPending = false
+  // - If calculatePosition early-returns (missing elements), isPending is still reset
+  //   to allow future updates when elements become available
   const stateRef = React.useRef({
     prevPosition: undefined as AnchorPosition | undefined,
     prevHeight: undefined as number | undefined,
@@ -48,14 +59,17 @@ export function useAnchoredPosition(
   })
   const rafIdRef = React.useRef<number | null>(null)
 
-  // Keep settings in a ref to avoid recalculating position when only callbacks change
+  // Keep settings in a ref to avoid recalculating position when only callbacks change.
+  // Note: When onPositionChange changes, the new callback will be used for subsequent
+  // position changes but won't be immediately invoked with the current position.
   const settingsRef = React.useRef(settings)
   useLayoutEffect(() => {
     settingsRef.current = settings
   })
 
-  // Sync refs to state. Only triggers re-render when elements actually change.
-  // eslint-disable-next-line react-hooks/exhaustive-deps -- we guard manually, want this to run on every render
+  // Sync refs to state on every render. The setState calls are guarded to only
+  // trigger re-renders when the ref values actually change.
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- intentionally runs every render to detect ref changes
   useLayoutEffect(() => {
     const floatingCurrent = floatingElementRef.current
     const anchorCurrent = anchorElementRef.current
@@ -63,7 +77,8 @@ export function useAnchoredPosition(
     if (anchorCurrent !== anchorEl) setAnchorEl(anchorCurrent)
   })
 
-  // Calculate position - reads from refs for DOM operations, state is only for triggering
+  // Calculate position - reads from refs for DOM operations, state is only for triggering.
+  // This function is idempotent and safe to call multiple times.
   const calculatePosition = React.useCallback(() => {
     const state = stateRef.current
     state.isPending = false
@@ -101,8 +116,10 @@ export function useAnchoredPosition(
       prevHeight &&
       prevHeight > currentHeight
     ) {
-      // Mutate via ref, not state
+      // Pin the element's height to prevent shrinking, then update prevHeight
+      // to reflect the pinned height for subsequent calculations
       floating.style.height = `${prevHeight}px`
+      state.prevHeight = prevHeight // Keep the pinned height
       return
     }
 
@@ -122,7 +139,8 @@ export function useAnchoredPosition(
     }
   }, [floatingElementRef, anchorElementRef])
 
-  // Coalesce multiple update triggers into a single rAF
+  // Coalesce multiple update triggers into a single rAF to prevent layout thrashing.
+  // Multiple resize events or rapid changes will only result in one position calculation.
   const scheduleUpdate = React.useCallback(() => {
     if (!stateRef.current.isPending) {
       stateRef.current.isPending = true
@@ -136,19 +154,23 @@ export function useAnchoredPosition(
     calculatePosition()
   }, [calculatePosition, floatingEl, anchorEl])
 
-  // Watch for element resizes
+  // Watch for element resizes. Only set up observer when both elements are present,
+  // since position calculation requires both. Falls back to window resize events
+  // in environments where ResizeObserver is not available.
   useLayoutEffect(() => {
-    if (!floatingEl && !anchorEl) return
+    if (!floatingEl || !anchorEl) return
+    if (!hasResizeObserver) return // Fall back to window resize only
 
     const observer = new ResizeObserver(scheduleUpdate)
 
-    if (floatingEl) observer.observe(floatingEl)
-    if (anchorEl) observer.observe(anchorEl)
+    observer.observe(floatingEl)
+    observer.observe(anchorEl)
 
     return () => observer.disconnect()
   }, [floatingEl, anchorEl, scheduleUpdate])
 
-  // Watch for window resizes
+  // Watch for window resizes. This also serves as a fallback for environments
+  // without ResizeObserver support.
   React.useEffect(() => {
     // eslint-disable-next-line github/prefer-observers
     window.addEventListener('resize', scheduleUpdate)
