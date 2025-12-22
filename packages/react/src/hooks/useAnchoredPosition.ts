@@ -2,7 +2,6 @@ import React from 'react'
 import {getAnchoredPosition} from '@primer/behaviors'
 import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
-import {useResizeObserver} from './useResizeObserver'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 export interface AnchoredPositionHookSettings extends Partial<PositionSettings> {
@@ -16,14 +15,16 @@ export interface AnchoredPositionHookSettings extends Partial<PositionSettings> 
  * Calculates the top and left values for an absolutely-positioned floating element
  * to be anchored to some anchor element. Returns refs for the floating element
  * and the anchor element, along with the position.
+ *
  * @param settings Settings for calculating the anchored position.
- * @param dependencies Dependencies to determine when to re-calculate the position.
- * @returns An object of {top: number, left: number} to absolutely-position the
- * floating element.
+ * @param _dependencies @deprecated Ignored. Position updates are handled automatically
+ *   via ResizeObserver and window resize events.
+ * @returns An object of {floatingElementRef, anchorElementRef, position} to
+ *   absolutely-position the floating element.
  */
 export function useAnchoredPosition(
   settings?: AnchoredPositionHookSettings,
-  dependencies: React.DependencyList = [],
+  _dependencies?: React.DependencyList,
 ): {
   floatingElementRef: React.RefObject<Element | null>
   anchorElementRef: React.RefObject<Element | null>
@@ -31,78 +32,137 @@ export function useAnchoredPosition(
 } {
   const floatingElementRef = useProvidedRefOrCreate(settings?.floatingElementRef)
   const anchorElementRef = useProvidedRefOrCreate(settings?.anchorElementRef)
-  const savedOnPositionChange = React.useRef(settings?.onPositionChange)
-  const [position, setPosition] = React.useState<AnchorPosition | undefined>(undefined)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setPrevHeight] = React.useState<number | undefined>(undefined)
 
-  const topPositionChanged = (prevPosition: AnchorPosition | undefined, newPosition: AnchorPosition) => {
-    return (
+  // Mirror ref values to state so we can use them as effect dependencies.
+  // This handles late-mounting elements - when ref.current changes, we sync
+  // to state which triggers effects to re-run.
+  const [floatingEl, setFloatingEl] = React.useState<Element | null>(null)
+  const [anchorEl, setAnchorEl] = React.useState<Element | null>(null)
+  const [position, setPosition] = React.useState<AnchorPosition | undefined>(undefined)
+
+  // Mutable state that doesn't need to trigger re-renders
+  const stateRef = React.useRef({
+    prevPosition: undefined as AnchorPosition | undefined,
+    prevHeight: undefined as number | undefined,
+    isPending: false,
+  })
+  const rafIdRef = React.useRef<number | null>(null)
+
+  // Keep settings in a ref to avoid recalculating position when only callbacks change
+  const settingsRef = React.useRef(settings)
+  useLayoutEffect(() => {
+    settingsRef.current = settings
+  })
+
+  // Sync refs to state. Only triggers re-render when elements actually change.
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- we guard manually, want this to run on every render
+  useLayoutEffect(() => {
+    const floatingCurrent = floatingElementRef.current
+    const anchorCurrent = anchorElementRef.current
+    if (floatingCurrent !== floatingEl) setFloatingEl(floatingCurrent)
+    if (anchorCurrent !== anchorEl) setAnchorEl(anchorCurrent)
+  })
+
+  // Calculate position - reads from refs for DOM operations, state is only for triggering
+  const calculatePosition = React.useCallback(() => {
+    const state = stateRef.current
+    state.isPending = false
+    rafIdRef.current = null
+
+    // Read from refs for actual DOM operations
+    const floating = floatingElementRef.current as HTMLElement | null
+    const anchor = anchorElementRef.current
+
+    if (!floating || !anchor) {
+      if (state.prevPosition !== undefined) {
+        state.prevPosition = undefined
+        state.prevHeight = undefined
+        setPosition(undefined)
+        settingsRef.current?.onPositionChange?.(undefined)
+      }
+      return
+    }
+
+    // Batch all DOM reads before any writes to prevent layout thrashing
+    const currentHeight = floating.clientHeight
+    const anchorTop = anchor.getBoundingClientRect().top
+    const newPosition = getAnchoredPosition(floating, anchor, settingsRef.current)
+
+    const {prevPosition, prevHeight} = state
+    const currentSettings = settingsRef.current
+
+    // Pin logic: prevent visual jumping when anchored to top and element is shrinking
+    if (
+      currentSettings?.pinPosition &&
       prevPosition &&
       ['outside-top', 'inside-top'].includes(prevPosition.anchorSide) &&
-      // either the anchor changed or the element is trying to shrink in height
-      (prevPosition.anchorSide !== newPosition.anchorSide || prevPosition.top < newPosition.top)
-    )
-  }
+      (prevPosition.anchorSide !== newPosition.anchorSide || prevPosition.top < newPosition.top) &&
+      anchorTop > currentHeight &&
+      prevHeight &&
+      prevHeight > currentHeight
+    ) {
+      // Mutate via ref, not state
+      floating.style.height = `${prevHeight}px`
+      return
+    }
 
-  const updateElementHeight = () => {
-    let heightUpdated = false
-    setPrevHeight(prevHeight => {
-      // if the element is trying to shrink in height, restore to old height to prevent it from jumping
-      if (prevHeight && prevHeight > (floatingElementRef.current?.clientHeight ?? 0)) {
-        requestAnimationFrame(() => {
-          ;(floatingElementRef.current as HTMLElement).style.height = `${prevHeight}px`
-        })
-        heightUpdated = true
-      }
-      return prevHeight
-    })
-    return heightUpdated
-  }
+    state.prevHeight = currentHeight
 
-  const updatePosition = React.useCallback(
-    () => {
-      if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
-        const newPosition = getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings)
-        setPosition(prev => {
-          if (settings?.pinPosition && topPositionChanged(prev, newPosition)) {
-            const anchorTop = anchorElementRef.current?.getBoundingClientRect().top ?? 0
-            const elementStillFitsOnTop = anchorTop > (floatingElementRef.current?.clientHeight ?? 0)
+    // Only update state if position actually changed to avoid unnecessary re-renders
+    if (
+      !prevPosition ||
+      prevPosition.top !== newPosition.top ||
+      prevPosition.left !== newPosition.left ||
+      prevPosition.anchorSide !== newPosition.anchorSide ||
+      prevPosition.anchorAlign !== newPosition.anchorAlign
+    ) {
+      state.prevPosition = newPosition
+      setPosition(newPosition)
+      settingsRef.current?.onPositionChange?.(newPosition)
+    }
+  }, [floatingElementRef, anchorElementRef])
 
-            if (elementStillFitsOnTop && updateElementHeight()) {
-              return prev
-            }
-          }
+  // Coalesce multiple update triggers into a single rAF
+  const scheduleUpdate = React.useCallback(() => {
+    if (!stateRef.current.isPending) {
+      stateRef.current.isPending = true
+      rafIdRef.current = requestAnimationFrame(calculatePosition)
+    }
+  }, [calculatePosition])
 
-          if (prev && prev.anchorSide === newPosition.anchorSide) {
-            // if the position hasn't changed, don't update
-            savedOnPositionChange.current?.(newPosition)
-          }
-
-          return newPosition
-        })
-      } else {
-        setPosition(undefined)
-        savedOnPositionChange.current?.(undefined)
-      }
-      setPrevHeight(floatingElementRef.current?.clientHeight)
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [floatingElementRef, anchorElementRef, ...dependencies],
-  )
-
+  // Calculate position synchronously when elements change (for first paint)
+  // floatingEl/anchorEl state triggers this effect, but we read from refs inside
   useLayoutEffect(() => {
-    savedOnPositionChange.current = settings?.onPositionChange
-  }, [settings?.onPositionChange])
+    calculatePosition()
+  }, [calculatePosition, floatingEl, anchorEl])
 
-  useLayoutEffect(updatePosition, [updatePosition])
+  // Watch for element resizes
+  useLayoutEffect(() => {
+    if (!floatingEl && !anchorEl) return
 
-  useResizeObserver(updatePosition) // watches for changes in window size
-  useResizeObserver(updatePosition, floatingElementRef as React.RefObject<HTMLElement | null>) // watches for changes in floating element size
+    const observer = new ResizeObserver(scheduleUpdate)
 
-  return {
-    floatingElementRef,
-    anchorElementRef,
-    position,
-  }
+    if (floatingEl) observer.observe(floatingEl)
+    if (anchorEl) observer.observe(anchorEl)
+
+    return () => observer.disconnect()
+  }, [floatingEl, anchorEl, scheduleUpdate])
+
+  // Watch for window resizes
+  React.useEffect(() => {
+    // eslint-disable-next-line github/prefer-observers
+    window.addEventListener('resize', scheduleUpdate)
+    return () => window.removeEventListener('resize', scheduleUpdate)
+  }, [scheduleUpdate])
+
+  // Cancel pending rAF on unmount
+  React.useEffect(() => {
+    return () => {
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current)
+      }
+    }
+  }, [])
+
+  return {floatingElementRef, anchorElementRef, position}
 }
