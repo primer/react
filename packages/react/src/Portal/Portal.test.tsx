@@ -230,28 +230,5 @@ describe('Portal', () => {
 
       baseElement.innerHTML = ''
     })
-
-    it('removes CSS containment when flag changes from enabled to disabled', () => {
-      const {baseElement, rerender} = render(
-        <FeatureFlags flags={{primer_react_css_contain_portal: true}}>
-          <Portal>toggle-content</Portal>
-        </FeatureFlags>,
-      )
-
-      const generatedRoot = baseElement.querySelector('#__primerPortalRoot__')
-      const portalElement = generatedRoot?.firstElementChild as HTMLElement
-
-      expect(portalElement.style.contain).toBe('layout style')
-
-      rerender(
-        <FeatureFlags flags={{primer_react_css_contain_portal: false}}>
-          <Portal>toggle-content</Portal>
-        </FeatureFlags>,
-      )
-
-      expect(portalElement.style.contain).toBe('')
-
-      baseElement.innerHTML = ''
-    })
   })
 })

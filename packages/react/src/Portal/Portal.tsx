@@ -85,21 +85,13 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
     // to change the zIndex to a value other than "1".
     div.style.position = 'relative'
     div.style.zIndex = '1'
+    if (enableCSSContainment) {
+      div.style.contain = 'layout style'
+    }
     elementRef.current = div
   }
 
   const element = elementRef.current
-
-  // Apply CSS containment when feature flag is enabled.
-  // `contain: layout style` isolates layout and style calculations without
-  // clipping overflow (which would break dropdowns/tooltips).
-  useLayoutEffect(() => {
-    if (enableCSSContainment) {
-      element.style.contain = 'layout style'
-    } else {
-      element.style.contain = ''
-    }
-  }, [element, enableCSSContainment])
 
   useLayoutEffect(() => {
     let containerName = _containerName ?? portalContainerName
