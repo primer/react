@@ -1,5 +1,5 @@
-import {describe, expect, it, vi} from 'vitest'
-import Portal, {registerPortalRoot, PortalContext} from '../Portal/index'
+import {describe, expect, it, vi, beforeEach} from 'vitest'
+import Portal, {registerPortalRoot, PortalContext, resetCSSContainmentTracking} from '../Portal/index'
 
 import {render} from '@testing-library/react'
 import BaseStyles from '../BaseStyles'
@@ -186,6 +186,11 @@ describe('Portal', () => {
   })
 
   describe('CSS containment feature flag', () => {
+    beforeEach(() => {
+      // Reset containment tracking between tests
+      resetCSSContainmentTracking()
+    })
+
     it('does not apply CSS containment by default', () => {
       const {baseElement} = render(<Portal>test-content</Portal>)
       const generatedRoot = baseElement.querySelector('#__primerPortalRoot__') as HTMLElement

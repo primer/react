@@ -8,8 +8,17 @@ const DEFAULT_PORTAL_CONTAINER_NAME = '__default__'
 
 const portalRootRegistry: Partial<Record<string, Element>> = {}
 
-// Track whether CSS containment has been applied to avoid repeated work
-let cssContainmentApplied = false
+// Track which portal roots have had CSS containment applied (auto-cleans when element is GC'd)
+const cssContainmentApplied = new WeakMap<Element, boolean>()
+
+// Reset containment tracking (exported for testing)
+export function resetCSSContainmentTracking(): void {
+  // WeakMap doesn't have a clear method, but we can reset by deleting the current portal root entry
+  const portalRoot = portalRootRegistry[DEFAULT_PORTAL_CONTAINER_NAME]
+  if (portalRoot) {
+    cssContainmentApplied.delete(portalRoot)
+  }
+}
 
 /**
  * Register a container to serve as a portal root.
@@ -46,10 +55,10 @@ function ensureDefaultPortal(enableCSSContainment = false) {
     registerPortalRoot(defaultPortalContainer)
   }
 
-  // Apply CSS containment to the portal root if enabled (only once)
-  if (enableCSSContainment && !cssContainmentApplied) {
+  // Apply CSS containment to the portal root if enabled (only once per root)
+  if (enableCSSContainment) {
     const portalRoot = portalRootRegistry[DEFAULT_PORTAL_CONTAINER_NAME]
-    if (portalRoot instanceof HTMLElement) {
+    if (portalRoot instanceof HTMLElement && !cssContainmentApplied.has(portalRoot)) {
       const existingContain = portalRoot.style.contain
       if (existingContain && existingContain !== 'layout style') {
         // eslint-disable-next-line no-console
@@ -58,7 +67,7 @@ function ensureDefaultPortal(enableCSSContainment = false) {
         )
       }
       portalRoot.style.contain = 'layout style'
-      cssContainmentApplied = true
+      cssContainmentApplied.set(portalRoot, true)
     }
   }
 }
