@@ -32,9 +32,6 @@ function ensureDefaultPortal(enableCSSContainment = false) {
       defaultPortalContainer.style.top = '0'
       defaultPortalContainer.style.left = '0'
       defaultPortalContainer.style.width = '100%'
-      if (enableCSSContainment) {
-        defaultPortalContainer.style.contain = 'layout style'
-      }
       const suitablePortalRoot = document.querySelector('[data-portal-root]')
       if (suitablePortalRoot) {
         suitablePortalRoot.appendChild(defaultPortalContainer)
@@ -44,6 +41,21 @@ function ensureDefaultPortal(enableCSSContainment = false) {
     }
 
     registerPortalRoot(defaultPortalContainer)
+  }
+
+  // Apply CSS containment to the portal root if enabled
+  if (enableCSSContainment) {
+    const portalRoot = portalRootRegistry[DEFAULT_PORTAL_CONTAINER_NAME]
+    if (portalRoot instanceof HTMLElement) {
+      const existingContain = portalRoot.style.contain
+      if (existingContain && existingContain !== 'layout style') {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `Portal root already has contain: "${existingContain}". Overriding with "layout style" due to primer_react_css_contain_portal flag.`,
+        )
+      }
+      portalRoot.style.contain = 'layout style'
+    }
   }
 }
 

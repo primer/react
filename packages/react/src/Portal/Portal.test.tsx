@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it, vi} from 'vitest'
 import Portal, {registerPortalRoot, PortalContext} from '../Portal/index'
 
 import {render} from '@testing-library/react'
@@ -226,6 +226,53 @@ describe('Portal', () => {
       expect(generatedRoot.style.contain).toBe('')
 
       baseElement.innerHTML = ''
+    })
+
+    it('applies CSS containment to pre-existing portal root', () => {
+      // Create a pre-existing portal root declaratively
+      const existingRoot = document.createElement('div')
+      existingRoot.id = '__primerPortalRoot__'
+      document.body.appendChild(existingRoot)
+
+      const toRender = (
+        <FeatureFlags flags={{primer_react_css_contain_portal: true}}>
+          <Portal>content-in-existing-root</Portal>
+        </FeatureFlags>
+      )
+
+      const {baseElement} = render(toRender)
+      const generatedRoot = baseElement.querySelector('#__primerPortalRoot__') as HTMLElement
+
+      expect(generatedRoot).toBeInstanceOf(HTMLElement)
+      expect(generatedRoot.style.contain).toBe('layout style')
+
+      baseElement.innerHTML = ''
+      document.body.removeChild(existingRoot)
+    })
+
+    it('warns when overriding existing contain value', () => {
+      const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      // Create a pre-existing portal root with a different contain value
+      const existingRoot = document.createElement('div')
+      existingRoot.id = '__primerPortalRoot__'
+      existingRoot.style.contain = 'size'
+      document.body.appendChild(existingRoot)
+
+      const toRender = (
+        <FeatureFlags flags={{primer_react_css_contain_portal: true}}>
+          <Portal>content-with-override</Portal>
+        </FeatureFlags>
+      )
+
+      render(toRender)
+
+      expect(warnSpy).toHaveBeenCalledWith(
+        'Portal root already has contain: "size". Overriding with "layout style" due to primer_react_css_contain_portal flag.',
+      )
+
+      warnSpy.mockRestore()
+      document.body.removeChild(existingRoot)
     })
   })
 })
