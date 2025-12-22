@@ -8,6 +8,9 @@ const DEFAULT_PORTAL_CONTAINER_NAME = '__default__'
 
 const portalRootRegistry: Partial<Record<string, Element>> = {}
 
+// Track whether CSS containment has been applied to avoid repeated work
+let cssContainmentApplied = false
+
 /**
  * Register a container to serve as a portal root.
  * @param root The element that will be the root for portals created in this container
@@ -43,8 +46,8 @@ function ensureDefaultPortal(enableCSSContainment = false) {
     registerPortalRoot(defaultPortalContainer)
   }
 
-  // Apply CSS containment to the portal root if enabled
-  if (enableCSSContainment) {
+  // Apply CSS containment to the portal root if enabled (only once)
+  if (enableCSSContainment && !cssContainmentApplied) {
     const portalRoot = portalRootRegistry[DEFAULT_PORTAL_CONTAINER_NAME]
     if (portalRoot instanceof HTMLElement) {
       const existingContain = portalRoot.style.contain
@@ -55,6 +58,7 @@ function ensureDefaultPortal(enableCSSContainment = false) {
         )
       }
       portalRoot.style.contain = 'layout style'
+      cssContainmentApplied = true
     }
   }
 }
