@@ -1,6 +1,7 @@
 import React, {useContext} from 'react'
 import {createPortal} from 'react-dom'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import {useFeatureFlag} from '../FeatureFlags'
 
 const PRIMER_PORTAL_ROOT_ID = '__primerPortalRoot__'
 const DEFAULT_PORTAL_CONTAINER_NAME = '__default__'
@@ -75,6 +76,7 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
   containerName: _containerName,
 }) => {
   const {portalContainerName} = useContext(PortalContext)
+  const enableCSSContainment = useFeatureFlag('primer_react_css_contain_portal')
   const elementRef = React.useRef<HTMLDivElement | null>(null)
   if (!elementRef.current) {
     const div = document.createElement('div')
@@ -87,6 +89,17 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
   }
 
   const element = elementRef.current
+
+  // Apply CSS containment when feature flag is enabled.
+  // `contain: layout style` isolates layout and style calculations without
+  // clipping overflow (which would break dropdowns/tooltips).
+  useLayoutEffect(() => {
+    if (enableCSSContainment) {
+      element.style.contain = 'layout style'
+    } else {
+      element.style.contain = ''
+    }
+  }, [element, enableCSSContainment])
 
   useLayoutEffect(() => {
     let containerName = _containerName ?? portalContainerName

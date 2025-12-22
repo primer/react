@@ -4,6 +4,7 @@ import Portal, {registerPortalRoot, PortalContext} from '../Portal/index'
 import {render} from '@testing-library/react'
 import BaseStyles from '../BaseStyles'
 import React from 'react'
+import {FeatureFlags} from '../FeatureFlags'
 
 describe('Portal', () => {
   it('renders a default portal into document.body (no BaseStyles present)', () => {
@@ -182,5 +183,75 @@ describe('Portal', () => {
     // Cleanup
     document.body.removeChild(contextPortalRoot)
     document.body.removeChild(propPortalRoot)
+  })
+
+  describe('CSS containment feature flag', () => {
+    it('does not apply CSS containment by default', () => {
+      const {baseElement} = render(<Portal>test-content</Portal>)
+      const generatedRoot = baseElement.querySelector('#__primerPortalRoot__')
+      const portalElement = generatedRoot?.firstElementChild as HTMLElement
+
+      expect(portalElement).toBeInstanceOf(HTMLElement)
+      expect(portalElement.style.contain).toBe('')
+
+      baseElement.innerHTML = ''
+    })
+
+    it('applies CSS containment when primer_react_css_contain_portal flag is enabled', () => {
+      const toRender = (
+        <FeatureFlags flags={{primer_react_css_contain_portal: true}}>
+          <Portal>contained-content</Portal>
+        </FeatureFlags>
+      )
+
+      const {baseElement} = render(toRender)
+      const generatedRoot = baseElement.querySelector('#__primerPortalRoot__')
+      const portalElement = generatedRoot?.firstElementChild as HTMLElement
+
+      expect(portalElement).toBeInstanceOf(HTMLElement)
+      expect(portalElement.style.contain).toBe('layout style')
+
+      baseElement.innerHTML = ''
+    })
+
+    it('does not apply CSS containment when flag is explicitly disabled', () => {
+      const toRender = (
+        <FeatureFlags flags={{primer_react_css_contain_portal: false}}>
+          <Portal>uncontained-content</Portal>
+        </FeatureFlags>
+      )
+
+      const {baseElement} = render(toRender)
+      const generatedRoot = baseElement.querySelector('#__primerPortalRoot__')
+      const portalElement = generatedRoot?.firstElementChild as HTMLElement
+
+      expect(portalElement).toBeInstanceOf(HTMLElement)
+      expect(portalElement.style.contain).toBe('')
+
+      baseElement.innerHTML = ''
+    })
+
+    it('removes CSS containment when flag changes from enabled to disabled', () => {
+      const {baseElement, rerender} = render(
+        <FeatureFlags flags={{primer_react_css_contain_portal: true}}>
+          <Portal>toggle-content</Portal>
+        </FeatureFlags>,
+      )
+
+      const generatedRoot = baseElement.querySelector('#__primerPortalRoot__')
+      const portalElement = generatedRoot?.firstElementChild as HTMLElement
+
+      expect(portalElement.style.contain).toBe('layout style')
+
+      rerender(
+        <FeatureFlags flags={{primer_react_css_contain_portal: false}}>
+          <Portal>toggle-content</Portal>
+        </FeatureFlags>,
+      )
+
+      expect(portalElement.style.contain).toBe('')
+
+      baseElement.innerHTML = ''
+    })
   })
 })
