@@ -3,10 +3,13 @@ import Tooltip from './Tooltip'
 import {render, screen} from '@testing-library/react'
 import {describe, expect, it} from 'vitest'
 import {CodeIcon} from '@primer/octicons-react'
+import {implementsClassName} from '../utils/testing'
+import classes from './Tooltip.module.css'
 
 /* Tooltip v1 */
 
 describe('Tooltip', () => {
+  implementsClassName(Tooltip, classes.Tooltip)
   it('renders a <span> with the "tooltipped" class', () => {
     const {container} = render(<Tooltip />)
     expect(container.firstChild?.nodeName).toEqual('SPAN')
