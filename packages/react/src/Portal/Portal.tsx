@@ -21,7 +21,7 @@ export function registerPortalRoot(root: Element, name = DEFAULT_PORTAL_CONTAINE
 // Ensures that a default portal root exists and is registered. If a DOM element exists
 // with id __primerPortalRoot__, allow that element to serve as the default portal root.
 // Otherwise, create that element and attach it to the end of document.body.
-function ensureDefaultPortal() {
+function ensureDefaultPortal(enableCSSContainment = false) {
   const existingDefaultPortalContainer = portalRootRegistry[DEFAULT_PORTAL_CONTAINER_NAME]
   if (!existingDefaultPortalContainer || !document.body.contains(existingDefaultPortalContainer)) {
     let defaultPortalContainer = document.getElementById(PRIMER_PORTAL_ROOT_ID)
@@ -32,6 +32,9 @@ function ensureDefaultPortal() {
       defaultPortalContainer.style.top = '0'
       defaultPortalContainer.style.left = '0'
       defaultPortalContainer.style.width = '100%'
+      if (enableCSSContainment) {
+        defaultPortalContainer.style.contain = 'layout style'
+      }
       const suitablePortalRoot = document.querySelector('[data-portal-root]')
       if (suitablePortalRoot) {
         suitablePortalRoot.appendChild(defaultPortalContainer)
@@ -85,9 +88,6 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
     // to change the zIndex to a value other than "1".
     div.style.position = 'relative'
     div.style.zIndex = '1'
-    if (enableCSSContainment) {
-      div.style.contain = 'layout style'
-    }
     elementRef.current = div
   }
 
@@ -97,7 +97,7 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
     let containerName = _containerName ?? portalContainerName
     if (containerName === undefined) {
       containerName = DEFAULT_PORTAL_CONTAINER_NAME
-      ensureDefaultPortal()
+      ensureDefaultPortal(enableCSSContainment)
     }
     const parentElement = portalRootRegistry[containerName]
 

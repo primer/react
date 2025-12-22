@@ -188,11 +188,10 @@ describe('Portal', () => {
   describe('CSS containment feature flag', () => {
     it('does not apply CSS containment by default', () => {
       const {baseElement} = render(<Portal>test-content</Portal>)
-      const generatedRoot = baseElement.querySelector('#__primerPortalRoot__')
-      const portalElement = generatedRoot?.firstElementChild as HTMLElement
+      const generatedRoot = baseElement.querySelector('#__primerPortalRoot__') as HTMLElement
 
-      expect(portalElement).toBeInstanceOf(HTMLElement)
-      expect(portalElement.style.contain).toBe('')
+      expect(generatedRoot).toBeInstanceOf(HTMLElement)
+      expect(generatedRoot.style.contain).toBe('')
 
       baseElement.innerHTML = ''
     })
@@ -205,11 +204,10 @@ describe('Portal', () => {
       )
 
       const {baseElement} = render(toRender)
-      const generatedRoot = baseElement.querySelector('#__primerPortalRoot__')
-      const portalElement = generatedRoot?.firstElementChild as HTMLElement
+      const generatedRoot = baseElement.querySelector('#__primerPortalRoot__') as HTMLElement
 
-      expect(portalElement).toBeInstanceOf(HTMLElement)
-      expect(portalElement.style.contain).toBe('layout style')
+      expect(generatedRoot).toBeInstanceOf(HTMLElement)
+      expect(generatedRoot.style.contain).toBe('layout style')
 
       baseElement.innerHTML = ''
     })
@@ -222,11 +220,10 @@ describe('Portal', () => {
       )
 
       const {baseElement} = render(toRender)
-      const generatedRoot = baseElement.querySelector('#__primerPortalRoot__')
-      const portalElement = generatedRoot?.firstElementChild as HTMLElement
+      const generatedRoot = baseElement.querySelector('#__primerPortalRoot__') as HTMLElement
 
-      expect(portalElement).toBeInstanceOf(HTMLElement)
-      expect(portalElement.style.contain).toBe('')
+      expect(generatedRoot).toBeInstanceOf(HTMLElement)
+      expect(generatedRoot.style.contain).toBe('')
 
       baseElement.innerHTML = ''
     })
