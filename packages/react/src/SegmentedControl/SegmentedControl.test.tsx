@@ -4,6 +4,8 @@ import userEvent from '@testing-library/user-event'
 import {describe, expect, it, vi} from 'vitest'
 import BaseStyles from '../BaseStyles'
 import {SegmentedControl} from '../SegmentedControl'
+import {implementsClassName} from '../utils/testing'
+import classes from './SegmentedControl.module.css'
 
 const segmentData = [
   {
@@ -30,6 +32,8 @@ const segmentData = [
 ]
 
 describe('SegmentedControl', () => {
+  implementsClassName(SegmentedControl, classes.SegmentedControl)
+
   it('renders with a selected segment - controlled', () => {
     const {getByText} = render(
       <SegmentedControl aria-label="File view">

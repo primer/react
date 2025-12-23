@@ -3,8 +3,12 @@ import {describe, expect, it, test} from 'vitest'
 import {InfoIcon} from '@primer/octicons-react'
 import {InlineMessage} from '../InlineMessage'
 import React from 'react'
+import {implementsClassName} from '../utils/testing'
+import classes from './InlineMessage.module.css'
 
 describe('InlineMessage', () => {
+  implementsClassName(InlineMessage, classes.InlineMessage)
+
   it('should render content passed as `children`', () => {
     render(<InlineMessage variant="success">test contents</InlineMessage>)
     expect(screen.getByText('test contents')).toBeInTheDocument()
