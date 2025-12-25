@@ -1,6 +1,6 @@
 import React from 'react'
 import {render, fireEvent, waitFor} from '@testing-library/react'
-import {describe, expect, it, vi, beforeEach} from 'vitest'
+import {describe, expect, it, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
 import {Dialog} from './Dialog'
 import {Button} from '../Button'
@@ -341,12 +341,6 @@ describe('Footer button loading states', () => {
   })
 
   describe('primer_react_css_has_selector_perf feature flag', () => {
-    beforeEach(() => {
-      // Clean up body attributes and classes before each test
-      document.body.removeAttribute('data-dialog-scroll-optimized')
-      document.body.classList.remove('DialogScrollDisabled')
-    })
-
     it('does not add data-dialog-scroll-optimized attribute when flag is OFF', () => {
       const {unmount} = render(
         <FeatureFlags flags={{primer_react_css_has_selector_perf: false}}>
