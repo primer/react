@@ -443,7 +443,7 @@ export type PageLayoutHeaderProps = {
   style?: React.CSSProperties
 }
 
-function HeaderComponent({
+const Header: FCWithSlotMarker<React.PropsWithChildren<PageLayoutHeaderProps>> = function Header({
   'aria-label': label,
   'aria-labelledby': labelledBy,
   padding = 'none',
@@ -453,7 +453,7 @@ function HeaderComponent({
   children,
   style,
   className,
-}: React.PropsWithChildren<PageLayoutHeaderProps>) {
+}) {
   // Combine divider and dividerWhenNarrow for backwards compatibility
   const dividerProp =
     !isResponsiveValue(divider) && dividerWhenNarrow !== 'inherit'
@@ -497,9 +497,6 @@ function HeaderComponent({
     </header>
   )
 }
-
-const Header: FCWithSlotMarker<React.PropsWithChildren<PageLayoutHeaderProps>> = HeaderComponent
-
 Header.displayName = 'PageLayout.Header'
 
 // ----------------------------------------------------------------------------
@@ -537,7 +534,7 @@ const contentWidths = {
   xlarge: '1280px',
 }
 
-function ContentComponent({
+const Content: FCWithSlotMarker<React.PropsWithChildren<PageLayoutContentProps>> = function Content({
   as = 'main',
   'aria-label': label,
   'aria-labelledby': labelledBy,
@@ -547,7 +544,7 @@ function ContentComponent({
   children,
   className,
   style,
-}: React.PropsWithChildren<PageLayoutContentProps>) {
+}) {
   const Component = as
 
   return (
@@ -572,9 +569,6 @@ function ContentComponent({
     </Component>
   )
 }
-
-const Content: FCWithSlotMarker<React.PropsWithChildren<PageLayoutContentProps>> = ContentComponent
-
 Content.displayName = 'PageLayout.Content'
 
 // ----------------------------------------------------------------------------
@@ -903,7 +897,7 @@ export type PageLayoutFooterProps = {
   style?: React.CSSProperties
 }
 
-function FooterComponent({
+const Footer: FCWithSlotMarker<React.PropsWithChildren<PageLayoutFooterProps>> = function Footer({
   'aria-label': label,
   'aria-labelledby': labelledBy,
   padding = 'none',
@@ -913,7 +907,7 @@ function FooterComponent({
   children,
   className,
   style,
-}: React.PropsWithChildren<PageLayoutFooterProps>) {
+}) {
   // Combine divider and dividerWhenNarrow for backwards compatibility
   const dividerProp =
     !isResponsiveValue(divider) && dividerWhenNarrow !== 'inherit'
@@ -957,9 +951,6 @@ function FooterComponent({
     </footer>
   )
 }
-
-const Footer: FCWithSlotMarker<React.PropsWithChildren<PageLayoutFooterProps>> = FooterComponent
-
 Footer.displayName = 'PageLayout.Footer'
 
 // ----------------------------------------------------------------------------
