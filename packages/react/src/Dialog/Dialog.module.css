@@ -229,10 +229,26 @@
   }
 }
 
+/* DisableScroll class is added to Dialog when scroll should be disabled on body */
+.DisableScroll {
+  /* This class is used as a selector target for the legacy :has() CSS selector */
+}
+
 /*
- * PERFORMANCE: Using a direct class on body instead of body:has(.Dialog.DisableScroll)
- * The :has() selector forces the browser to scan the entire DOM on every style recalc,
- * which is O(n) where n is the number of DOM nodes. This is expensive on large pages.
+ * LEGACY: Scoped :has() selector with negation guard
+ * Only evaluates when data-dialog-scroll-optimized is NOT present on body.
+ * When the attribute IS present (flag ON), browser skips :has() evaluation
+ * because the :not() check fails first (O(1) attribute lookup).
+ */
+body:not([data-dialog-scroll-optimized]):has(.Dialog.DisableScroll) {
+  /* stylelint-disable-next-line primer/spacing */
+  padding-right: var(--prc-dialog-scrollgutter) !important;
+  overflow: hidden !important;
+}
+
+/*
+ * PERFORMANCE OPTIMIZATION: Direct class on body - O(1) lookup
+ * Active when primer_react_css_has_selector_perf flag is ON
  */
 body:global(.DialogScrollDisabled) {
   /* stylelint-disable-next-line primer/spacing */

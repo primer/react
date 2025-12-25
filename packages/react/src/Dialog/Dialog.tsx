@@ -16,6 +16,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import classes from './Dialog.module.css'
 import {clsx} from 'clsx'
 import {useSlots} from '../hooks/useSlots'
+import {useFeatureFlag} from '../FeatureFlags'
 
 /* Dialog Version 2 */
 
@@ -289,22 +290,42 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     [onClose],
   )
 
+  const usePerfOptimization = useFeatureFlag('primer_react_css_has_selector_perf')
+
   React.useEffect(() => {
     const scrollbarWidth = window.innerWidth - document.body.clientWidth
-    // If the dialog is rendered, we add a class to the dialog element to disable
-    dialogRef.current?.classList.add(classes.DisableScroll)
-    // and set a CSS variable to the scrollbar width so that the dialog can
-    // account for the scrollbar width when calculating its width.
+    const dialog = dialogRef.current
+
+    // Add DisableScroll class to this dialog
+    dialog?.classList.add(classes.DisableScroll)
     document.body.style.setProperty('--prc-dialog-scrollgutter', `${scrollbarWidth}px`)
 
-    // Add class directly to body for scroll disabling (instead of using CSS :has() selector)
-    // This avoids expensive DOM-wide style recalcs on every interaction
-    document.body.classList.add('DialogScrollDisabled')
-    return () => {
-      document.body.classList.remove('DialogScrollDisabled')
-      document.body.style.removeProperty('--prc-dialog-scrollgutter')
+    if (usePerfOptimization) {
+      // Optimized path: set attribute and class on body
+      document.body.setAttribute('data-dialog-scroll-optimized', '')
+      document.body.classList.add('DialogScrollDisabled')
+    } else {
+      // Legacy path: only add class (CSS :has() selector handles the rest)
+      document.body.classList.add('DialogScrollDisabled')
     }
-  }, [])
+
+    return () => {
+      // Remove DisableScroll class from this dialog
+      dialog?.classList.remove(classes.DisableScroll)
+
+      // Query DOM to check if any other dialogs with DisableScroll remain
+      const remainingDialogs = document.querySelectorAll(`.${classes.DisableScroll}`)
+
+      if (remainingDialogs.length === 0) {
+        // No more dialogs open, clean up body
+        document.body.style.removeProperty('--prc-dialog-scrollgutter')
+        document.body.classList.remove('DialogScrollDisabled')
+        if (usePerfOptimization) {
+          document.body.removeAttribute('data-dialog-scroll-optimized')
+        }
+      }
+    }
+  }, [usePerfOptimization])
 
   const header = slots.header ?? (renderHeader ?? DefaultHeader)(defaultedProps)
   const body = slots.body ?? (renderBody ?? DefaultBody)({...defaultedProps, children: childrenWithoutSlots})
