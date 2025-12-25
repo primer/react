@@ -20,47 +20,6 @@ import {useFeatureFlag} from '../FeatureFlags'
 
 /* Dialog Version 2 */
 
-// Ref counting to handle multiple dialogs open simultaneously
-// This is particularly important in mixed Turbo/React architecture
-// Note: These functions are safe in JavaScript's single-threaded event loop.
-// React effects execute synchronously within each render cycle.
-// Module-level state is appropriate here because:
-// 1. This code only runs in browser environments (document.body is required)
-// 2. Ref counting needs to be shared across all Dialog instances
-// 3. Tests run in isolated environments with fresh module state
-let optimizedScrollRefCount = 0
-let legacyScrollRefCount = 0
-
-function enableOptimizedScroll() {
-  optimizedScrollRefCount++
-  if (optimizedScrollRefCount === 1) {
-    document.body.setAttribute('data-dialog-scroll-optimized', '')
-    document.body.classList.add('DialogScrollDisabled')
-  }
-}
-
-function disableOptimizedScroll() {
-  optimizedScrollRefCount--
-  if (optimizedScrollRefCount === 0) {
-    document.body.classList.remove('DialogScrollDisabled')
-    document.body.removeAttribute('data-dialog-scroll-optimized')
-  }
-}
-
-function enableLegacyScroll() {
-  legacyScrollRefCount++
-  if (legacyScrollRefCount === 1) {
-    document.body.classList.add('DialogScrollDisabled')
-  }
-}
-
-function disableLegacyScroll() {
-  legacyScrollRefCount--
-  if (legacyScrollRefCount === 0) {
-    document.body.classList.remove('DialogScrollDisabled')
-  }
-}
-
 /**
  * Props that characterize a button to be rendered into the footer of
  * a Dialog.
@@ -336,28 +295,35 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   React.useEffect(() => {
     const scrollbarWidth = window.innerWidth - document.body.clientWidth
     const dialog = dialogRef.current
-    // If the dialog is rendered, we add a class to the dialog element to disable
+
+    // Add DisableScroll class to this dialog
     dialog?.classList.add(classes.DisableScroll)
-    // and set a CSS variable to the scrollbar width so that the dialog can
-    // account for the scrollbar width when calculating its width.
     document.body.style.setProperty('--prc-dialog-scrollgutter', `${scrollbarWidth}px`)
 
     if (usePerfOptimization) {
-      enableOptimizedScroll()
+      // Optimized path: set attribute and class on body
+      document.body.setAttribute('data-dialog-scroll-optimized', '')
+      document.body.classList.add('DialogScrollDisabled')
     } else {
-      // Legacy behavior: add class with ref counting for scroll disabling
-      // This is used when the feature flag is OFF and CSS :has() selector is active
-      enableLegacyScroll()
+      // Legacy path: only add class (CSS :has() selector handles the rest)
+      document.body.classList.add('DialogScrollDisabled')
     }
 
     return () => {
-      if (usePerfOptimization) {
-        disableOptimizedScroll()
-      } else {
-        disableLegacyScroll()
-      }
+      // Remove DisableScroll class from this dialog
       dialog?.classList.remove(classes.DisableScroll)
-      document.body.style.removeProperty('--prc-dialog-scrollgutter')
+
+      // Query DOM to check if any other dialogs with DisableScroll remain
+      const remainingDialogs = document.querySelectorAll(`.${classes.DisableScroll}`)
+
+      if (remainingDialogs.length === 0) {
+        // No more dialogs open, clean up body
+        document.body.style.removeProperty('--prc-dialog-scrollgutter')
+        document.body.classList.remove('DialogScrollDisabled')
+        if (usePerfOptimization) {
+          document.body.removeAttribute('data-dialog-scroll-optimized')
+        }
+      }
     }
   }, [usePerfOptimization])
 
