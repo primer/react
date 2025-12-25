@@ -3,6 +3,7 @@ import {type CSSProperties, type PropsWithChildren, type JSX} from 'react'
 import {clsx} from 'clsx'
 
 import classes from './BaseStyles.module.css'
+import {useFeatureFlag} from './FeatureFlags'
 
 import 'focus-visible'
 
@@ -14,6 +15,7 @@ export type BaseStylesProps = PropsWithChildren & {
   color?: string // Fixes `color` ts-error
 }
 function BaseStyles({children, color, className, as: Component = 'div', style, ...rest}: BaseStylesProps) {
+  const cssPerfHasSelector = useFeatureFlag('primer_react_css_perf_has_selector')
   const newClassName = clsx(classes.BaseStyles, className)
   const baseStyles = {
     ['--BaseStyles-fgColor']: color,
@@ -23,6 +25,7 @@ function BaseStyles({children, color, className, as: Component = 'div', style, .
     <Component
       className={newClassName}
       data-portal-root
+      {...(cssPerfHasSelector && {'data-primer-css-perf-has-selector': true})}
       style={{
         ...baseStyles,
         ...style,

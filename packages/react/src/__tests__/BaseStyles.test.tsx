@@ -3,6 +3,7 @@ import {describe, expect, it} from 'vitest'
 import BaseStyles from '../BaseStyles'
 import classes from '../BaseStyles.module.css'
 import {implementsClassName} from '../utils/testing'
+import {FeatureFlags} from '../FeatureFlags'
 
 describe('BaseStyles', () => {
   implementsClassName(BaseStyles, classes.BaseStyles)
@@ -36,5 +37,19 @@ describe('BaseStyles', () => {
     const {container} = render(<BaseStyles {...styles}>Hello</BaseStyles>)
     expect(container.children[0]).toHaveClass('test-classname')
     expect(container.children[0]).toHaveStyle({margin: '10px'})
+  })
+
+  it('does not add data-primer-css-perf-has-selector by default', () => {
+    const {container} = render(<BaseStyles>Hello</BaseStyles>)
+    expect(container.children[0]).not.toHaveAttribute('data-primer-css-perf-has-selector')
+  })
+
+  it('adds data-primer-css-perf-has-selector when feature flag is enabled', () => {
+    const {container} = render(
+      <FeatureFlags flags={{primer_react_css_perf_has_selector: true}}>
+        <BaseStyles>Hello</BaseStyles>
+      </FeatureFlags>,
+    )
+    expect(container.children[0]).toHaveAttribute('data-primer-css-perf-has-selector')
   })
 })
