@@ -68,22 +68,22 @@ details-dialog:focus:not(:focus-visible):not(:global(.focus-visible)) {
    *   [data-color-mode='dark'] input { color-scheme: dark; }
    *
    * Feature flag: When [data-primer-css-perf-has-selector] is NOT present on
-   * an ancestor element, the old (expensive) behavior is preserved.
-   * Add [data-primer-css-perf-has-selector] to an ancestor to opt-in to the
-   * optimized behavior (which skips these expensive selectors).
+   * the BaseStyles element, the old (expensive) behavior is preserved.
+   * Add [data-primer-css-perf-has-selector] to the BaseStyles element to opt-in
+   * to the optimized behavior (which skips these expensive selectors).
    *
    * See #7325 and #7312 for context on this performance optimization.
    */
 
   /* Global styles for light mode - only apply when feature flag is NOT present */
-  &:not([data-primer-css-perf-has-selector] *):has([data-color-mode='light']) {
+  &:not([data-primer-css-perf-has-selector]):has([data-color-mode='light']) {
     input & {
       color-scheme: light;
     }
   }
 
   /* Global styles for dark mode - only apply when feature flag is NOT present */
-  &:not([data-primer-css-perf-has-selector] *):has([data-color-mode='dark']) {
+  &:not([data-primer-css-perf-has-selector]):has([data-color-mode='dark']) {
     input & {
       color-scheme: dark;
     }
