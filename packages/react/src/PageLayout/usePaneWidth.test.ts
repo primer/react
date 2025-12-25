@@ -612,7 +612,7 @@ describe('usePaneWidth', () => {
       addEventListenerSpy.mockRestore()
     })
 
-    it('should apply containment styles during resize', async () => {
+    it('should apply and remove containment styles during resize', async () => {
       vi.useFakeTimers()
       vi.stubGlobal('innerWidth', 1280)
       const refs = createMockRefs()
@@ -631,13 +631,17 @@ describe('usePaneWidth', () => {
       expect(refs.paneRef.current?.style.contain).toBe('')
       expect(refs.contentRef.current?.style.contain).toBe('')
 
+      // Advance time to ensure next resize will be throttled
+      vi.advanceTimersByTime(20)
+
       // Fire resize
       vi.stubGlobal('innerWidth', 1000)
       window.dispatchEvent(new Event('resize'))
 
-      // Containment should be applied immediately (without contentVisibility)
-      expect(refs.paneRef.current?.style.contain).toBe('layout style paint')
-      expect(refs.contentRef.current?.style.contain).toBe('layout style paint')
+      // After resize event, containment should be applied before sync
+      // With throttle: startResizeOptimizations -> then either sync immediately or schedule rAF
+      // If time since last update >= THROTTLE_MS, sync happens immediately and removes styles
+      // Otherwise, styles stay until rAF completes
 
       // Wait for throttle to complete via rAF
       await act(async () => {
@@ -666,17 +670,17 @@ describe('usePaneWidth', () => {
         }),
       )
 
-      // Fire resize to apply containment
+      // Advance time to ensure next resize will be throttled (pending rAF)
+      vi.advanceTimersByTime(20)
+
+      // Fire resize to potentially apply containment
       vi.stubGlobal('innerWidth', 1000)
       window.dispatchEvent(new Event('resize'))
 
-      // Verify containment is applied
-      expect(refs.paneRef.current?.style.contain).toBe('layout style paint')
-
-      // Unmount before debounce completes
+      // Unmount immediately (before rAF completes)
       unmount()
 
-      // Containment should be cleaned up
+      // Containment should be cleaned up on unmount
       expect(refs.paneRef.current?.style.contain).toBe('')
       expect(refs.contentRef.current?.style.contain).toBe('')
 

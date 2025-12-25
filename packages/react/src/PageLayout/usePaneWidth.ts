@@ -293,7 +293,7 @@ export function usePaneWidth({
 
     const handleResize = () => {
       startResizeOptimizations()
-      
+
       const now = Date.now()
       if (now - lastUpdateTime >= THROTTLE_MS) {
         lastUpdateTime = now
