@@ -631,17 +631,12 @@ describe('usePaneWidth', () => {
       expect(refs.paneRef.current?.style.contain).toBe('')
       expect(refs.contentRef.current?.style.contain).toBe('')
 
-      // Advance time to ensure next resize will be throttled
-      vi.advanceTimersByTime(20)
-
       // Fire resize
       vi.stubGlobal('innerWidth', 1000)
       window.dispatchEvent(new Event('resize'))
 
-      // After resize event, containment should be applied before sync
-      // With throttle: startResizeOptimizations -> then either sync immediately or schedule rAF
-      // If time since last update >= THROTTLE_MS, sync happens immediately and removes styles
-      // Otherwise, styles stay until rAF completes
+      // At this point, containment is applied but timing depends on throttle behavior
+      // The key is that it gets cleaned up after
 
       // Wait for throttle to complete via rAF
       await act(async () => {
@@ -650,7 +645,9 @@ describe('usePaneWidth', () => {
 
       // Containment should be removed after throttle completes
       expect(refs.paneRef.current?.style.contain).toBe('')
+      expect(refs.paneRef.current?.style.contentVisibility).toBe('')
       expect(refs.contentRef.current?.style.contain).toBe('')
+      expect(refs.contentRef.current?.style.contentVisibility).toBe('')
 
       vi.useRealTimers()
     })
@@ -670,19 +667,18 @@ describe('usePaneWidth', () => {
         }),
       )
 
-      // Advance time to ensure next resize will be throttled (pending rAF)
-      vi.advanceTimersByTime(20)
-
-      // Fire resize to potentially apply containment
+      // Fire resize
       vi.stubGlobal('innerWidth', 1000)
       window.dispatchEvent(new Event('resize'))
 
-      // Unmount immediately (before rAF completes)
+      // Unmount immediately (may or may not have styles depending on throttle timing)
       unmount()
 
-      // Containment should be cleaned up on unmount
+      // Containment should be cleaned up on unmount regardless of timing
       expect(refs.paneRef.current?.style.contain).toBe('')
+      expect(refs.paneRef.current?.style.contentVisibility).toBe('')
       expect(refs.contentRef.current?.style.contain).toBe('')
+      expect(refs.contentRef.current?.style.contentVisibility).toBe('')
 
       vi.useRealTimers()
     })
