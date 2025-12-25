@@ -24,6 +24,10 @@ import {useFeatureFlag} from '../FeatureFlags'
 // This is particularly important in mixed Turbo/React architecture
 // Note: These functions are safe in JavaScript's single-threaded event loop.
 // React effects execute synchronously within each render cycle.
+// Module-level state is appropriate here because:
+// 1. This code only runs in browser environments (document.body is required)
+// 2. Ref counting needs to be shared across all Dialog instances
+// 3. Tests run in isolated environments with fresh module state
 let optimizedScrollRefCount = 0
 let legacyScrollRefCount = 0
 
@@ -331,8 +335,9 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
 
   React.useEffect(() => {
     const scrollbarWidth = window.innerWidth - document.body.clientWidth
+    const dialog = dialogRef.current
     // If the dialog is rendered, we add a class to the dialog element to disable
-    dialogRef.current?.classList.add(classes.DisableScroll)
+    dialog?.classList.add(classes.DisableScroll)
     // and set a CSS variable to the scrollbar width so that the dialog can
     // account for the scrollbar width when calculating its width.
     document.body.style.setProperty('--prc-dialog-scrollgutter', `${scrollbarWidth}px`)
@@ -351,6 +356,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
       } else {
         disableLegacyScroll()
       }
+      dialog?.classList.remove(classes.DisableScroll)
       document.body.style.removeProperty('--prc-dialog-scrollgutter')
     }
   }, [usePerfOptimization])
