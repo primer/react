@@ -30,8 +30,10 @@ const REGION_ORDER = {
   footer: 4,
 }
 
-const ARROW_KEYS = new Set(['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'])
-const SHRINK_KEYS = new Set(['ArrowLeft', 'ArrowDown'])
+const isArrowKey = (key: string) => 
+  key === 'ArrowLeft' || key === 'ArrowRight' || key === 'ArrowUp' || key === 'ArrowDown'
+const isShrinkKey = (key: string) => 
+  key === 'ArrowLeft' || key === 'ArrowDown'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SPACING_MAP = {
@@ -120,7 +122,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   )
 }
 
-const RootWrapper = memo(function RootWrapper({
+function RootWrapper({
   style,
   padding,
   children,
@@ -139,7 +141,7 @@ const RootWrapper = memo(function RootWrapper({
       {children}
     </div>
   )
-})
+}
 
 Root.displayName = 'PageLayout'
 
@@ -349,11 +351,11 @@ const DragHandle = memo<DragHandleProps>(function DragHandle({
    */
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (!ARROW_KEYS.has(event.key)) return
+      if (!isArrowKey(event.key)) return
       event.preventDefault()
 
       // https://github.com/github/accessibility/issues/5101#issuecomment-1822870655
-      const delta = SHRINK_KEYS.has(event.key) ? -ARROW_KEY_STEP : ARROW_KEY_STEP
+      const delta = isShrinkKey(event.key) ? -ARROW_KEY_STEP : ARROW_KEY_STEP
 
       // Only set dragging on first keydown (not repeats)
       if (!isDraggingRef.current) {
@@ -366,13 +368,23 @@ const DragHandle = memo<DragHandleProps>(function DragHandle({
 
   const handleKeyUp = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (!ARROW_KEYS.has(event.key)) return
+      if (!isArrowKey(event.key)) return
       event.preventDefault()
       endDragging()
       stableOnDragEnd.current()
     },
     [endDragging],
   )
+
+  // Cleanup rAF on unmount to prevent stale callbacks
+  React.useEffect(() => {
+    return () => {
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current)
+        rafIdRef.current = null
+      }
+    }
+  }, [])
 
   return (
     <div
@@ -432,7 +444,7 @@ export type PageLayoutHeaderProps = {
   style?: React.CSSProperties
 }
 
-const Header: FCWithSlotMarker<React.PropsWithChildren<PageLayoutHeaderProps>> = memo(function Header({
+const Header: FCWithSlotMarker<React.PropsWithChildren<PageLayoutHeaderProps>> = function Header({
   'aria-label': label,
   'aria-labelledby': labelledBy,
   padding = 'none',
@@ -485,7 +497,7 @@ const Header: FCWithSlotMarker<React.PropsWithChildren<PageLayoutHeaderProps>> =
       />
     </header>
   )
-})
+}
 
 Header.displayName = 'PageLayout.Header'
 
@@ -524,7 +536,7 @@ const contentWidths = {
   xlarge: '1280px',
 }
 
-const Content: FCWithSlotMarker<React.PropsWithChildren<PageLayoutContentProps>> = memo(function Content({
+const Content: FCWithSlotMarker<React.PropsWithChildren<PageLayoutContentProps>> = function Content({
   as = 'main',
   'aria-label': label,
   'aria-labelledby': labelledBy,
@@ -558,7 +570,7 @@ const Content: FCWithSlotMarker<React.PropsWithChildren<PageLayoutContentProps>>
       </div>
     </Component>
   )
-})
+}
 
 Content.displayName = 'PageLayout.Content'
 
@@ -888,7 +900,7 @@ export type PageLayoutFooterProps = {
   style?: React.CSSProperties
 }
 
-const Footer: FCWithSlotMarker<React.PropsWithChildren<PageLayoutFooterProps>> = memo(function Footer({
+const Footer: FCWithSlotMarker<React.PropsWithChildren<PageLayoutFooterProps>> = function Footer({
   'aria-label': label,
   'aria-labelledby': labelledBy,
   padding = 'none',
@@ -941,7 +953,7 @@ const Footer: FCWithSlotMarker<React.PropsWithChildren<PageLayoutFooterProps>> =
       </div>
     </footer>
   )
-})
+}
 
 Footer.displayName = 'PageLayout.Footer'
 
