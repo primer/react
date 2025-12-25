@@ -16,8 +16,44 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import classes from './Dialog.module.css'
 import {clsx} from 'clsx'
 import {useSlots} from '../hooks/useSlots'
+import {useFeatureFlag} from '../FeatureFlags'
 
 /* Dialog Version 2 */
+
+// Ref counting to handle multiple dialogs open simultaneously
+// This is particularly important in mixed Turbo/React architecture
+let optimizedScrollRefCount = 0
+let legacyScrollRefCount = 0
+
+function enableOptimizedScroll() {
+  optimizedScrollRefCount++
+  if (optimizedScrollRefCount === 1) {
+    document.body.setAttribute('data-dialog-scroll-optimized', '')
+    document.body.classList.add('DialogScrollDisabled')
+  }
+}
+
+function disableOptimizedScroll() {
+  optimizedScrollRefCount--
+  if (optimizedScrollRefCount === 0) {
+    document.body.classList.remove('DialogScrollDisabled')
+    document.body.removeAttribute('data-dialog-scroll-optimized')
+  }
+}
+
+function enableLegacyScroll() {
+  legacyScrollRefCount++
+  if (legacyScrollRefCount === 1) {
+    document.body.classList.add('DialogScrollDisabled')
+  }
+}
+
+function disableLegacyScroll() {
+  legacyScrollRefCount--
+  if (legacyScrollRefCount === 0) {
+    document.body.classList.remove('DialogScrollDisabled')
+  }
+}
 
 /**
  * Props that characterize a button to be rendered into the footer of
@@ -289,6 +325,8 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     [onClose],
   )
 
+  const usePerfOptimization = useFeatureFlag('primer_react_css_has_selector_perf')
+
   React.useEffect(() => {
     const scrollbarWidth = window.innerWidth - document.body.clientWidth
     // If the dialog is rendered, we add a class to the dialog element to disable
@@ -297,14 +335,23 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     // account for the scrollbar width when calculating its width.
     document.body.style.setProperty('--prc-dialog-scrollgutter', `${scrollbarWidth}px`)
 
-    // Add class directly to body for scroll disabling (instead of using CSS :has() selector)
-    // This avoids expensive DOM-wide style recalcs on every interaction
-    document.body.classList.add('DialogScrollDisabled')
+    if (usePerfOptimization) {
+      enableOptimizedScroll()
+    } else {
+      // Legacy behavior: add class with ref counting for scroll disabling
+      // This is used when the feature flag is OFF and CSS :has() selector is active
+      enableLegacyScroll()
+    }
+
     return () => {
-      document.body.classList.remove('DialogScrollDisabled')
+      if (usePerfOptimization) {
+        disableOptimizedScroll()
+      } else {
+        disableLegacyScroll()
+      }
       document.body.style.removeProperty('--prc-dialog-scrollgutter')
     }
-  }, [])
+  }, [usePerfOptimization])
 
   const header = slots.header ?? (renderHeader ?? DefaultHeader)(defaultedProps)
   const body = slots.body ?? (renderBody ?? DefaultBody)({...defaultedProps, children: childrenWithoutSlots})
