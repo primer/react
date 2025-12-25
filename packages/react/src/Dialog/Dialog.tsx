@@ -22,6 +22,8 @@ import {useFeatureFlag} from '../FeatureFlags'
 
 // Ref counting to handle multiple dialogs open simultaneously
 // This is particularly important in mixed Turbo/React architecture
+// Note: These functions are safe in JavaScript's single-threaded event loop.
+// React effects execute synchronously within each render cycle.
 let optimizedScrollRefCount = 0
 let legacyScrollRefCount = 0
 

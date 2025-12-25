@@ -229,6 +229,11 @@
   }
 }
 
+/* DisableScroll class is added to Dialog when scroll should be disabled on body */
+.DisableScroll {
+  /* This class is used as a selector target for the legacy :has() CSS selector */
+}
+
 /*
  * LEGACY: Scoped :has() selector with negation guard
  * Only evaluates when data-dialog-scroll-optimized is NOT present on body.
