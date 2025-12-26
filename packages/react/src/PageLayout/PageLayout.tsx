@@ -544,7 +544,7 @@ const Content: FCWithSlotMarker<React.PropsWithChildren<PageLayoutContentProps>>
   children,
   className,
   style,
-}) {
+}) => {
   const Component = as
 
   return (
