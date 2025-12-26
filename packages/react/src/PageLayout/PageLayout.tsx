@@ -443,7 +443,7 @@ export type PageLayoutHeaderProps = {
   style?: React.CSSProperties
 }
 
-const Header: FCWithSlotMarker<React.PropsWithChildren<PageLayoutHeaderProps>> = function Header({
+const Header: FCWithSlotMarker<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
   'aria-label': label,
   'aria-labelledby': labelledBy,
   padding = 'none',
