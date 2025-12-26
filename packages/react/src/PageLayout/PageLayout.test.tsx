@@ -234,7 +234,7 @@ describe('PageLayout', async () => {
       expect(content!.style.getPropertyValue('contain')).toBe('')
     })
 
-    it('should add will-change during drag for optimized updates', async () => {
+    it('should apply containment optimizations during drag', async () => {
       const {container} = render(
         <PageLayout>
           <PageLayout.Pane resizable>
@@ -249,15 +249,89 @@ describe('PageLayout', async () => {
       const pane = container.querySelector<HTMLElement>('[class*="Pane"][data-resizable]')
       const divider = await screen.findByRole('slider')
 
-      // Before drag - no will-change
-      expect(pane!.style.willChange).toBe('')
+      // Before drag - no containment
+      expect(pane!.style.contain).toBe('')
+      expect(pane!.style.pointerEvents).toBe('')
 
-      // Start drag - will-change is added
+      // Start drag - containment is added
       fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
-      expect(pane!.style.willChange).toBe('width')
-      // End drag - will-change is removed
+      expect(pane!.style.contain).toBe('layout style paint')
+      expect(pane!.style.pointerEvents).toBe('none')
+
+      // End drag - containment is removed
       fireEvent.lostPointerCapture(divider, {pointerId: 1})
-      expect(pane!.style.willChange).toBe('')
+      expect(pane!.style.contain).toBe('')
+      expect(pane!.style.pointerEvents).toBe('')
+    })
+
+    it('should apply content-visibility only for tall content during drag', async () => {
+      const {container} = render(
+        <PageLayout>
+          <PageLayout.Pane resizable>
+            <Placeholder height={320} label="Pane" />
+          </PageLayout.Pane>
+          <PageLayout.Content>
+            <Placeholder height={1200} label="Content" />
+          </PageLayout.Content>
+        </PageLayout>,
+      )
+
+      const content = container.querySelector<HTMLElement>('[class*="Content"]')
+      const divider = await screen.findByRole('slider')
+
+      // Mock offsetHeight for tall content (>1000px threshold)
+      Object.defineProperty(content, 'offsetHeight', {
+        configurable: true,
+        value: 1200,
+      })
+
+      // Before drag - no content-visibility
+      expect(content!.style.contentVisibility).toBe('')
+      expect(content!.style.containIntrinsicSize).toBe('')
+
+      // Start drag - content-visibility is added for tall content
+      fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
+      expect(content!.style.contentVisibility).toBe('auto')
+      expect(content!.style.containIntrinsicSize).toBe('auto 1200px')
+
+      // End drag - content-visibility is removed
+      fireEvent.lostPointerCapture(divider, {pointerId: 1})
+      expect(content!.style.contentVisibility).toBe('')
+      expect(content!.style.containIntrinsicSize).toBe('')
+    })
+
+    it('should not apply content-visibility for short content during drag', async () => {
+      const {container} = render(
+        <PageLayout>
+          <PageLayout.Pane resizable>
+            <Placeholder height={320} label="Pane" />
+          </PageLayout.Pane>
+          <PageLayout.Content>
+            <Placeholder height={640} label="Content" />
+          </PageLayout.Content>
+        </PageLayout>,
+      )
+
+      const content = container.querySelector<HTMLElement>('[class*="Content"]')
+      const divider = await screen.findByRole('slider')
+
+      // Mock offsetHeight for short content (<1000px threshold)
+      Object.defineProperty(content, 'offsetHeight', {
+        configurable: true,
+        value: 640,
+      })
+
+      // Start drag
+      fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
+
+      // content-visibility should NOT be applied for short content
+      expect(content!.style.contentVisibility).toBe('')
+      expect(content!.style.containIntrinsicSize).toBe('')
+      // But basic containment should still be applied
+      expect(content!.style.contain).toBe('layout style paint')
+
+      // End drag
+      fireEvent.lostPointerCapture(divider, {pointerId: 1})
     })
   })
 
