@@ -247,10 +247,11 @@ body:not([data-dialog-scroll-optimized]):has(.Dialog.DisableScroll) {
 }
 
 /*
- * PERFORMANCE OPTIMIZATION: Direct class on body - O(1) lookup
+ * PERFORMANCE OPTIMIZATION: Direct attribute on body - O(1) lookup
  * Active when primer_react_css_has_selector_perf flag is ON
  */
-body:global(.DialogScrollDisabled) {
+/* stylelint-disable-next-line selector-no-qualifying-type */
+body[data-dialog-scroll-disabled] {
   /* stylelint-disable-next-line primer/spacing */
   padding-right: var(--prc-dialog-scrollgutter) !important;
   overflow: hidden !important;
