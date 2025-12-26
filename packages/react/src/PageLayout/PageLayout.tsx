@@ -453,7 +453,7 @@ const Header: FCWithSlotMarker<React.PropsWithChildren<PageLayoutHeaderProps>> =
   children,
   style,
   className,
-}) {
+}) => {
   // Combine divider and dividerWhenNarrow for backwards compatibility
   const dividerProp =
     !isResponsiveValue(divider) && dividerWhenNarrow !== 'inherit'
