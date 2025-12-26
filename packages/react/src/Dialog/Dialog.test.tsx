@@ -364,12 +364,12 @@ describe('Footer button loading states', () => {
       )
 
       expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(true)
-      expect(document.body.classList.contains('DialogScrollDisabled')).toBe(true)
+      expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(true)
 
       unmount()
 
       expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false)
-      expect(document.body.classList.contains('DialogScrollDisabled')).toBe(false)
+      expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(false)
     })
 
     it('handles multiple dialogs with ref counting when flag is ON', () => {
@@ -380,7 +380,7 @@ describe('Footer button loading states', () => {
       )
 
       expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(true)
-      expect(document.body.classList.contains('DialogScrollDisabled')).toBe(true)
+      expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(true)
 
       // Render second dialog
       const {unmount: unmount2} = render(
@@ -391,21 +391,21 @@ describe('Footer button loading states', () => {
 
       // Attribute should still be present
       expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(true)
-      expect(document.body.classList.contains('DialogScrollDisabled')).toBe(true)
+      expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(true)
 
       // Unmount first dialog
       unmount1()
 
       // Attribute and class should still be present (second dialog is still open)
       expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(true)
-      expect(document.body.classList.contains('DialogScrollDisabled')).toBe(true)
+      expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(true)
 
       // Unmount second dialog
       unmount2()
 
       // Now both should be removed
       expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false)
-      expect(document.body.classList.contains('DialogScrollDisabled')).toBe(false)
+      expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(false)
     })
 
     it('handles multiple dialogs correctly when flag is OFF', () => {

@@ -301,9 +301,9 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     document.body.style.setProperty('--prc-dialog-scrollgutter', `${scrollbarWidth}px`)
 
     if (usePerfOptimization) {
-      // Optimized path: set attribute and class on body
+      // Optimized path: set attributes on body
       document.body.setAttribute('data-dialog-scroll-optimized', '')
-      document.body.classList.add('DialogScrollDisabled')
+      document.body.setAttribute('data-dialog-scroll-disabled', '')
     } else {
       // Legacy path: only add class (CSS :has() selector handles the rest)
       document.body.classList.add('DialogScrollDisabled')
@@ -319,9 +319,11 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
       if (remainingDialogs.length === 0) {
         // No more dialogs open, clean up body
         document.body.style.removeProperty('--prc-dialog-scrollgutter')
-        document.body.classList.remove('DialogScrollDisabled')
         if (usePerfOptimization) {
           document.body.removeAttribute('data-dialog-scroll-optimized')
+          document.body.removeAttribute('data-dialog-scroll-disabled')
+        } else {
+          document.body.classList.remove('DialogScrollDisabled')
         }
       }
     }
