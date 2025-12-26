@@ -234,7 +234,7 @@ describe('PageLayout', async () => {
       expect(content!.style.getPropertyValue('contain')).toBe('')
     })
 
-    it('should add will-change during drag for optimized updates', async () => {
+    it('should not add will-change during drag', async () => {
       const {container} = render(
         <PageLayout>
           <PageLayout.Pane resizable>
@@ -252,10 +252,10 @@ describe('PageLayout', async () => {
       // Before drag - no will-change
       expect(pane!.style.willChange).toBe('')
 
-      // Start drag - will-change is added
+      // Start drag - will-change should still not be set (removed optimization)
       fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
-      expect(pane!.style.willChange).toBe('width')
-      // End drag - will-change is removed
+      expect(pane!.style.willChange).toBe('')
+      // End drag - will-change remains unset
       fireEvent.lostPointerCapture(divider, {pointerId: 1})
       expect(pane!.style.willChange).toBe('')
     })
