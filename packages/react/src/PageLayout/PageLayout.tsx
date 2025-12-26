@@ -897,7 +897,7 @@ export type PageLayoutFooterProps = {
   style?: React.CSSProperties
 }
 
-const Footer: FCWithSlotMarker<React.PropsWithChildren<PageLayoutFooterProps>> = function Footer({
+const Footer: FCWithSlotMarker<React.PropsWithChildren<PageLayoutFooterProps>> = ({
   'aria-label': label,
   'aria-labelledby': labelledBy,
   padding = 'none',
