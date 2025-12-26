@@ -78,9 +78,8 @@ export const isCustomWidthOptions = (width: PaneWidth | CustomWidthOptions): wid
   return (width as CustomWidthOptions).default !== undefined
 }
 
-const PANE_WIDTHS = new Set<PaneWidth>(['small', 'medium', 'large'])
 export const isPaneWidth = (width: PaneWidth | CustomWidthOptions): width is PaneWidth => {
-  return PANE_WIDTHS.has(width as PaneWidth)
+  return width === 'small' || width === 'medium' || width === 'large'
 }
 
 export const getDefaultPaneWidth = (w: PaneWidth | CustomWidthOptions): number => {
@@ -268,11 +267,12 @@ export function usePaneWidth({
     // For custom widths, max is fixed - no need to listen to resize
     if (customMaxWidth !== null) return
 
-    // Only sync when resize stops (debounced) - no updates during continuous resize
-    // CSS handles visual clamping naturally via viewport-relative max values
-    // Updating --pane-max-width during resize causes expensive layout recalcs on large DOMs
-    const DEBOUNCE_MS = 150
-    let debounceId: ReturnType<typeof setTimeout> | null = null
+    // Throttle approach for window resize - provides immediate visual feedback for small DOMs
+    // while still limiting update frequency
+    const THROTTLE_MS = 16 // ~60fps
+    let lastUpdateTime = 0
+    let pendingUpdate = false
+    let rafId: number | null = null
     let isResizing = false
 
     // Apply containment during resize to reduce layout thrashing on large DOMs
@@ -292,24 +292,29 @@ export function usePaneWidth({
     }
 
     const handleResize = () => {
-      // Apply containment at start of resize
       startResizeOptimizations()
 
-      // Debounced full sync (refs, ARIA, state) when resize stops
-      if (debounceId !== null) {
-        clearTimeout(debounceId)
-      }
-      debounceId = setTimeout(() => {
-        debounceId = null
-        endResizeOptimizations()
+      const now = Date.now()
+      if (now - lastUpdateTime >= THROTTLE_MS) {
+        lastUpdateTime = now
         syncAll()
-      }, DEBOUNCE_MS)
+        endResizeOptimizations()
+      } else if (!pendingUpdate) {
+        pendingUpdate = true
+        rafId = requestAnimationFrame(() => {
+          pendingUpdate = false
+          rafId = null
+          lastUpdateTime = Date.now()
+          syncAll()
+          endResizeOptimizations()
+        })
+      }
     }
 
     // eslint-disable-next-line github/prefer-observers -- Uses window resize events instead of ResizeObserver to avoid INP issues. ResizeObserver on document.documentElement fires on any content change (typing, etc), while window resize only fires on actual viewport changes.
     window.addEventListener('resize', handleResize)
     return () => {
-      if (debounceId !== null) clearTimeout(debounceId)
+      if (rafId !== null) cancelAnimationFrame(rafId)
       endResizeOptimizations()
       window.removeEventListener('resize', handleResize)
     }
