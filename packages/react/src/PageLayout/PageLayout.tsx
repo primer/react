@@ -534,7 +534,7 @@ const contentWidths = {
   xlarge: '1280px',
 }
 
-const Content: FCWithSlotMarker<React.PropsWithChildren<PageLayoutContentProps>> = function Content({
+const Content: FCWithSlotMarker<React.PropsWithChildren<PageLayoutContentProps>> = ({
   as = 'main',
   'aria-label': label,
   'aria-labelledby': labelledBy,
