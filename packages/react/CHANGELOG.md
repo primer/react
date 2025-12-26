@@ -1,5 +1,17 @@
 # @primer/react
 
+## 38.6.2
+
+### Patch Changes
+
+- [#7334](https://github.com/primer/react/pull/7334) [`ea4789f`](https://github.com/primer/react/commit/ea4789fb15b42c8138ff3703f7fb5f2aad9e3810) Thanks [@mattcosta7](https://github.com/mattcosta7)! - perf(TreeView): Cache tree items in typeahead for better INP
+
+  - Add useTreeItemCache hook to cache DOM queries for tree items
+  - Update useRovingTabIndex and useTypeahead to use cached items
+  - Add documentation for acceptable :has() selector usage
+
+- [#7347](https://github.com/primer/react/pull/7347) [`72c7a7f`](https://github.com/primer/react/commit/72c7a7f74b0b2ea326a086252efa0027dbb04b78) Thanks [@owenniblock](https://github.com/owenniblock)! - Only shows the aria-describedby id for loading when the component is in the loading state
+
 ## 38.6.1
 
 ### Patch Changes

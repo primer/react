@@ -5,8 +5,12 @@ import 'react-intersection-observer/test-utils'
 import {viewportRanges} from '../hooks/useResponsiveValue'
 import {PageLayout} from './PageLayout'
 import {Placeholder} from '../Placeholder'
+import {implementsClassName} from '../utils/testing'
+import classes from './PageLayout.module.css'
 
 describe('PageLayout', async () => {
+  implementsClassName(PageLayout, classes.PageLayoutRoot)
+
   await page.viewport(1280, 800)
   it('renders default layout', () => {
     const {container} = render(
@@ -135,6 +139,7 @@ describe('PageLayout', async () => {
   })
 
   describe('PageLayout.Pane', () => {
+    implementsClassName(PageLayout.Pane, classes.PaneWrapper)
     it('should support a ref on the element wrapping the contents of Pane', () => {
       const ref = vi.fn()
       render(
@@ -257,6 +262,7 @@ describe('PageLayout', async () => {
   })
 
   describe('PageLayout.Content', () => {
+    implementsClassName(PageLayout.Content, classes.ContentWrapper)
     it('should support a custom element type with the `as` prop', () => {
       const {container} = render(
         <PageLayout.Content as="div">
