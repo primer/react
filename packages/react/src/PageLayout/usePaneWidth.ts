@@ -67,6 +67,18 @@ export const SSR_DEFAULT_MAX_WIDTH = 600
  */
 export const ARROW_KEY_STEP = 3
 
+/**
+ * Throttle interval for CSS-only updates during resize (16ms = ~60fps).
+ * Provides immediate visual feedback while limiting update frequency.
+ */
+const RESIZE_THROTTLE_MS = 16
+
+/**
+ * Debounce delay for full state sync during resize (150ms).
+ * Defers expensive operations (React state, ARIA, localStorage) until resize stops.
+ */
+const RESIZE_DEBOUNCE_MS = 150
+
 /** Default widths for preset size options */
 export const defaultPaneWidth: Record<PaneWidth, number> = {small: 256, medium: 296, large: 320}
 
@@ -274,12 +286,10 @@ export function usePaneWidth({
     if (customMaxWidth !== null) return
 
     // Throttle for CSS updates - provides immediate visual feedback
-    const THROTTLE_MS = 16 // ~60fps
     let lastUpdateTime = 0
     let rafId: number | null = null
 
     // Debounce for full state sync - defers expensive operations until resize stops
-    const DEBOUNCE_MS = 150
     let debounceId: ReturnType<typeof setTimeout> | null = null
 
     let isResizing = false
@@ -306,7 +316,7 @@ export function usePaneWidth({
       const now = Date.now()
 
       // Throttled CSS-only update for immediate visual feedback
-      if (now - lastUpdateTime >= THROTTLE_MS) {
+      if (now - lastUpdateTime >= RESIZE_THROTTLE_MS) {
         lastUpdateTime = now
         updateCSSOnly()
       } else if (rafId === null) {
@@ -325,7 +335,7 @@ export function usePaneWidth({
         debounceId = null
         syncAll()
         endResizeOptimizations()
-      }, DEBOUNCE_MS)
+      }, RESIZE_DEBOUNCE_MS)
     }
 
     // eslint-disable-next-line github/prefer-observers -- Uses window resize events instead of ResizeObserver to avoid INP issues. ResizeObserver on document.documentElement fires on any content change (typing, etc), while window resize only fires on actual viewport changes.
