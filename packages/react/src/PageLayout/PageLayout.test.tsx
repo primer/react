@@ -247,91 +247,50 @@ describe('PageLayout', async () => {
       )
 
       const pane = container.querySelector<HTMLElement>('[class*="Pane"][data-resizable]')
+      const content = container.querySelector<HTMLElement>('[class*="PageLayoutContent"]')
       const divider = await screen.findByRole('slider')
 
-      // Before drag - no containment
-      expect(pane!.style.contain).toBe('')
-      expect(pane!.style.pointerEvents).toBe('')
-
-      // Start drag - containment is added
-      fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
-      expect(pane!.style.contain).toBe('layout style paint')
-      expect(pane!.style.pointerEvents).toBe('none')
-
-      // End drag - containment is removed
-      fireEvent.lostPointerCapture(divider, {pointerId: 1})
-      expect(pane!.style.contain).toBe('')
-      expect(pane!.style.pointerEvents).toBe('')
-    })
-
-    it('should apply content-visibility only for tall content during drag', async () => {
-      const {container} = render(
-        <PageLayout>
-          <PageLayout.Pane resizable>
-            <Placeholder height={320} label="Pane" />
-          </PageLayout.Pane>
-          <PageLayout.Content>
-            <Placeholder height={1200} label="Content" />
-          </PageLayout.Content>
-        </PageLayout>,
-      )
-
-      const content = container.querySelector<HTMLElement>('[class*="Content"]')
-      const divider = await screen.findByRole('slider')
-
-      // Mock offsetHeight for tall content (>1000px threshold)
-      Object.defineProperty(content, 'offsetHeight', {
+      // Mock offsetHeight for testing
+      Object.defineProperty(pane, 'offsetHeight', {
         configurable: true,
-        value: 1200,
+        value: 320,
       })
-
-      // Before drag - no content-visibility
-      expect(content!.style.contentVisibility).toBe('')
-      expect(content!.style.containIntrinsicSize).toBe('')
-
-      // Start drag - content-visibility is added for tall content
-      fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
-      expect(content!.style.contentVisibility).toBe('auto')
-      expect(content!.style.containIntrinsicSize).toBe('auto 1200px')
-
-      // End drag - content-visibility is removed
-      fireEvent.lostPointerCapture(divider, {pointerId: 1})
-      expect(content!.style.contentVisibility).toBe('')
-      expect(content!.style.containIntrinsicSize).toBe('')
-    })
-
-    it('should not apply content-visibility for short content during drag', async () => {
-      const {container} = render(
-        <PageLayout>
-          <PageLayout.Pane resizable>
-            <Placeholder height={320} label="Pane" />
-          </PageLayout.Pane>
-          <PageLayout.Content>
-            <Placeholder height={640} label="Content" />
-          </PageLayout.Content>
-        </PageLayout>,
-      )
-
-      const content = container.querySelector<HTMLElement>('[class*="Content"]')
-      const divider = await screen.findByRole('slider')
-
-      // Mock offsetHeight for short content (<1000px threshold)
       Object.defineProperty(content, 'offsetHeight', {
         configurable: true,
         value: 640,
       })
 
-      // Start drag
-      fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
-
-      // content-visibility should NOT be applied for short content
+      // Before drag - no containment
+      expect(pane!.style.contain).toBe('')
+      expect(pane!.style.pointerEvents).toBe('')
+      expect(pane!.style.contentVisibility).toBe('')
+      expect(pane!.style.containIntrinsicSize).toBe('')
+      expect(content!.style.contain).toBe('')
+      expect(content!.style.pointerEvents).toBe('')
       expect(content!.style.contentVisibility).toBe('')
       expect(content!.style.containIntrinsicSize).toBe('')
-      // But basic containment should still be applied
-      expect(content!.style.contain).toBe('layout style paint')
 
-      // End drag
+      // Start drag - containment and content-visibility are added to both pane and content
+      fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
+      expect(pane!.style.contain).toBe('layout style paint')
+      expect(pane!.style.pointerEvents).toBe('none')
+      expect(pane!.style.contentVisibility).toBe('auto')
+      expect(pane!.style.containIntrinsicSize).toBe('auto 320px')
+      expect(content!.style.contain).toBe('layout style paint')
+      expect(content!.style.pointerEvents).toBe('none')
+      expect(content!.style.contentVisibility).toBe('auto')
+      expect(content!.style.containIntrinsicSize).toBe('auto 640px')
+
+      // End drag - containment is removed
       fireEvent.lostPointerCapture(divider, {pointerId: 1})
+      expect(pane!.style.contain).toBe('')
+      expect(pane!.style.pointerEvents).toBe('')
+      expect(pane!.style.contentVisibility).toBe('')
+      expect(pane!.style.containIntrinsicSize).toBe('')
+      expect(content!.style.contain).toBe('')
+      expect(content!.style.pointerEvents).toBe('')
+      expect(content!.style.contentVisibility).toBe('')
+      expect(content!.style.containIntrinsicSize).toBe('')
     })
   })
 
