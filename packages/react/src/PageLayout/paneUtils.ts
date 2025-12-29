@@ -9,7 +9,8 @@ const DATA_DRAGGING_ATTR = 'data-dragging'
 /** Apply visual feedback and performance optimizations during drag */
 export function setDraggingStyles({handle, pane, content}: DraggingStylesParams) {
   // Handle visual feedback (must be inline for instant response)
-  // Use CSS variable to control ::before pseudo-element background color
+  // Use CSS variable to control ::before pseudo-element background color.
+  // This avoids cascade conflicts between inline styles and pseudo-element backgrounds.
   handle?.style.setProperty('--draggable-handle--bg-color', 'var(--bgColor-accent-emphasis)')
   handle?.style.setProperty('--draggable-handle--drag-opacity', '1')
   handle?.style.setProperty('--draggable-handle--transition', 'none')
