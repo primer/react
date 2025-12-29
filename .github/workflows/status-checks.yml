@@ -102,7 +102,7 @@ jobs:
       - name: Override status checks for issue comment
         if: ${{ github.event_name == 'issue_comment' && steps.command.outputs.continue == 'true' }}
         run: |
-          SHA=$(gh pr view $NUMBER --json headRefOid --jq '.headRefOid')
+          SHA=$(gh pr view -R '${{ github.repository }}' $NUMBER --json headRefOid --jq '.headRefOid')
           if [ -z "$SHA" ]; then
             echo "No pull request found for issue #$NUMBER, or gh pr view failed."
             exit 1
