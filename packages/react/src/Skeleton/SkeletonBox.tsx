@@ -1,6 +1,8 @@
 import React from 'react'
 import {type CSSProperties, type HTMLProps} from 'react'
 import {clsx} from 'clsx'
+import {useLoadingVisibility} from '../loading'
+import type {LoadingDelay} from '../loading'
 import classes from './SkeletonBox.module.css'
 
 export type SkeletonBoxProps = {
@@ -10,17 +12,26 @@ export type SkeletonBoxProps = {
   width?: CSSProperties['width']
   /** The className of the skeleton box */
   className?: string
-} & HTMLProps<HTMLElement>
+} & LoadingDelay &
+  HTMLProps<HTMLElement>
 
 export const SkeletonBox = React.forwardRef<HTMLElement, SkeletonBoxProps>(function SkeletonBox(
-  {height, width, className, style, ...props},
+  {delay, height, width, className, style, ...props},
   ref,
 ) {
+  const {style: loadingStyle} = useLoadingVisibility(delay)
+  const containerStyle = {
+    height,
+    width,
+    ...loadingStyle,
+    ...style,
+  }
+
   return (
     <div
       ref={ref as React.RefObject<HTMLDivElement>}
       className={clsx(className, classes.SkeletonBox)}
-      style={{height, width, ...(style || {})}}
+      style={containerStyle}
       {...props}
     />
   )

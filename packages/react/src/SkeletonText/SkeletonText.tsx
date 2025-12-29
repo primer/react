@@ -1,10 +1,12 @@
+import {clsx} from 'clsx'
 import type React from 'react'
 import {type HTMLProps} from 'react'
-import classes from './SkeletonText.module.css'
-import {clsx} from 'clsx'
 import {SkeletonBox} from '../Skeleton'
+import classes from './SkeletonText.module.css'
+import {useLoadingVisibility} from '../loading'
+import type {LoadingDelay} from '../loading'
 
-interface SkeletonTextProps extends Omit<HTMLProps<HTMLElement>, 'size'> {
+interface SkeletonTextProps extends Omit<HTMLProps<HTMLElement>, 'size'>, LoadingDelay {
   /** Size of the text that the skeleton is replacing. */
   size?: 'display' | 'titleLarge' | 'titleMedium' | 'titleSmall' | 'bodyLarge' | 'bodyMedium' | 'bodySmall' | 'subtitle'
   /** Number of lines of skeleton text to render. */
@@ -15,7 +17,9 @@ interface SkeletonTextProps extends Omit<HTMLProps<HTMLElement>, 'size'> {
   className?: string
 }
 
-function SkeletonText({lines = 1, maxWidth, size = 'bodyMedium', className, style, ...rest}: SkeletonTextProps) {
+function SkeletonText({delay, lines = 1, maxWidth, size = 'bodyMedium', className, style, ...rest}: SkeletonTextProps) {
+  const {style: loadingStyle} = useLoadingVisibility(delay)
+
   if (lines < 2) {
     return (
       <SkeletonBox
@@ -25,6 +29,7 @@ function SkeletonText({lines = 1, maxWidth, size = 'bodyMedium', className, styl
         className={clsx(className, classes.SkeletonText)}
         style={{
           ...style,
+          ...loadingStyle,
           maxWidth,
         }}
         {...rest}
@@ -38,6 +43,7 @@ function SkeletonText({lines = 1, maxWidth, size = 'bodyMedium', className, styl
       className={classes.SkeletonTextWrapper}
       style={{
         ...style,
+        ...loadingStyle,
         maxWidth,
       }}
     >
