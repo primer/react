@@ -715,7 +715,8 @@
   content: '';
   position: absolute;
   inset: 0;
-  background-color: var(--bgColor-neutral-muted);
+  /* stylelint-disable-next-line primer/colors */
+  background-color: var(--draggable-handle--bg-color, var(--bgColor-neutral-muted));
   opacity: var(--draggable-handle--drag-opacity, 0);
   transition: var(--draggable-handle--transition, opacity 150ms ease); /* compositor-friendly, disabled during drag */
   border-radius: inherit; /* optional if you need rounded corners */
