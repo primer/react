@@ -25,12 +25,10 @@ import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
 
 /** Types */
-import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import type {KeyboardEventHandler, JSX} from 'react'
 import type {FilteredActionListProps} from './types'
 import {MappedActionListItem} from './components/MappedActionListItem'
-
-const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
+import {menuScrollMargins} from './utils'
 
 export function FilteredActionList({
   loading = false,
@@ -59,6 +57,8 @@ export function FilteredActionList({
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
+
+  // [Combobox] - Not used
   const onInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value

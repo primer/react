@@ -31,7 +31,15 @@ export default {
   component: Listbox,
 } as Meta<ComponentProps<typeof Listbox>>
 
-export const Playground: StoryFn<ComponentProps<typeof Listbox>> = args => <Listbox {...args} />
+export const Playground: StoryFn<ComponentProps<typeof Listbox>> = args => {
+  return (
+    <Listbox {...args}>
+      <Listbox.Item>List Item 1</Listbox.Item>
+      <Listbox.Item>List Item 2</Listbox.Item>
+      <Listbox.Item>List Item 3</Listbox.Item>
+    </Listbox>
+  )
+}
 
 Playground.argTypes = {
   ref: {
@@ -54,26 +62,13 @@ const items = [
 
 export const Default = () => {
   return (
-    <div>
-      <AnchoredOverlay open={true} renderAnchor={props => <Button {...props}>Open Overlay</Button>}>
-        <FilteredActionList items={items} onFilterChange={() => {}} />
-        <div>
-          <Button variant="primary">Submit</Button>
-        </div>
-      </AnchoredOverlay>
-    </div>
+    <Listbox>
+      {items.map(item => (
+        <Listbox.Item key={item.id}>{item.text}</Listbox.Item>
+      ))}
+    </Listbox>
   )
 }
-
-export const CustomText = () => <Listbox>Custom text content</Listbox>
-
-export const ListboxExample = () => (
-  <Listbox>
-    <Listbox.Item>Item 1</Listbox.Item>
-    <Listbox.Item>Item 2</Listbox.Item>
-    <Listbox.Item>Item 3</Listbox.Item>
-  </Listbox>
-)
 
 export const ListboxInOverlay = () => {
   const [submenuOpen, setSubmenuOpen] = React.useState(false)
@@ -261,7 +256,7 @@ export const ListboxInOverlayFilter = () => {
             value={filterValue}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFilterValue(e.target.value)}
           />
-          <Listbox ref={listboxRef}>
+          <Combobox.List ref={listboxRef}>
             {Object.entries(groupedItems).map(([groupLabel, items]) => (
               <Listbox.Group key={groupLabel} groupLabel={groupLabel}>
                 {items.map(item => (
@@ -284,7 +279,7 @@ export const ListboxInOverlayFilter = () => {
                 No results found for: {filterValue}
               </div>
             )}
-          </Listbox>
+          </Combobox.List>
         </div>
       </Combobox.Root>
 
@@ -303,6 +298,178 @@ export const ListboxInOverlayFilter = () => {
           <Listbox.Item leadingVisual={FileZipIcon}>Sub Item 2</Listbox.Item>
           <Listbox.Item leadingVisual={FileCodeIcon}>Sub Item 3</Listbox.Item>
         </Listbox>
+      </AnchoredOverlay>
+    </div>
+  )
+}
+
+export const ListboxInOverlay2 = () => {
+  const [submenuOpen, setSubmenuOpen] = React.useState(false)
+  const [submenu3Open, setSubmenu3Open] = React.useState(false)
+  const [informationSubmenuOpen, setInformationSubmenuOpen] = React.useState(false)
+  const listboxRef = React.useRef<HTMLUListElement>(null)
+  const secondListboxRef = React.useRef<HTMLUListElement>(null)
+  const thirdListboxRef = React.useRef<HTMLUListElement>(null)
+  const trailingRef = React.useRef<HTMLButtonElement>(null)
+  const trailingRef2 = React.useRef<HTMLButtonElement>(null)
+  const trailingRef3 = React.useRef<HTMLButtonElement>(null)
+
+  // TODO:
+  // * Ensure that aria-activedescendant is being set on ComboboxInput when navigating options [Done]
+  // * Ensure that AnchoredOverlay is replaced by Combobox.Root [Done]
+  // * Ensure that Combobox.Title is linked to Listbox/Input in terms of accessible name/description
+  // * Ensure that roving tabindex works correctly with Combobox.Input and Listbox options
+
+  return (
+    <div>
+      <Combobox.Root
+        renderAnchor={props => {
+          return <Button {...props}>Open Custom Panel</Button>
+        }}
+        focusMode="roving"
+        anchoredOverlayProps={{
+          height: 'large',
+        }}
+      >
+        <div className={styles.Wrapper}>
+          <Combobox.Root
+            open={informationSubmenuOpen}
+            anchorId="informationSubMenu"
+            anchorRef={trailingRef2}
+            side="outside-right"
+            renderAnchor={null}
+            width="medium"
+            focusMode="roving"
+            anchoredOverlayProps={{
+              overlayProps: {
+                onClickOutside: () => {
+                  setInformationSubmenuOpen(false)
+                },
+                onEscape: () => {
+                  setInformationSubmenuOpen(false)
+                },
+              },
+            }}
+          >
+            <Combobox.Title title="File type / Choose a file type" subtitle="Supported file types" />
+            <Listbox>
+              <Listbox.Item leadingVisual={BookIcon}>Sub Item 1</Listbox.Item>
+              <Listbox.Item leadingVisual={HeadingIcon}>Sub Item 2</Listbox.Item>
+              <Listbox.Item leadingVisual={FileIcon}>Sub Item 3</Listbox.Item>
+            </Listbox>
+          </Combobox.Root>
+          <Combobox.Title title="Choose an option" subtitle="Options are filtered as you type" />
+          <Combobox.Input listboxRef={listboxRef} />
+          <Listbox ref={listboxRef}>
+            <Listbox.Group groupLabel="Group 1">
+              <Listbox.Item leadingVisual={GitBranchIcon}>
+                Overlay Item 1
+                <ActionList.TrailingAction
+                  label="Additional Information"
+                  icon={InfoIcon}
+                  onClick={() => {
+                    setInformationSubmenuOpen(!informationSubmenuOpen)
+                  }}
+                  ref={trailingRef2}
+                />
+              </Listbox.Item>
+              <Listbox.Item
+                leadingVisual={GitCommitIcon}
+                description="Some description for Overlay Item 2"
+                descriptionVariant="block"
+              >
+                Overlay Item 2
+              </Listbox.Item>
+              <Listbox.Item leadingVisual={GitCompareIcon}>Overlay Item 3</Listbox.Item>
+            </Listbox.Group>
+            <Listbox.Group groupLabel="Group 2">
+              <Listbox.Item leadingVisual={PencilIcon}>Overlay Item 4</Listbox.Item>
+              <Listbox.Item leadingVisual={MarkdownIcon}>Overlay Item 5</Listbox.Item>
+              <Listbox.Item leadingVisual={HeadingIcon}>Overlay Item 6</Listbox.Item>
+            </Listbox.Group>
+            <Listbox.Group groupLabel="Group 3">
+              <Listbox.Item leadingVisual={ListUnorderedIcon}>Overlay Item 7</Listbox.Item>
+              <Listbox.Item leadingVisual={ListOrderedIcon}>Overlay Item 8</Listbox.Item>
+              <Listbox.Item leadingVisual={ParagraphIcon}>Overlay Item 9</Listbox.Item>
+            </Listbox.Group>
+            <Listbox.Group groupLabel="Group 4">
+              <Listbox.Item leadingVisual={FileDirectoryIcon}>
+                Overlay Item 1
+                <ActionList.TrailingAction
+                  ref={trailingRef}
+                  label="Some action 1"
+                  icon={InfoIcon}
+                  onClick={() => {
+                    setSubmenuOpen(!submenuOpen)
+                  }}
+                />
+              </Listbox.Item>
+            </Listbox.Group>
+          </Listbox>
+        </div>
+      </Combobox.Root>
+      <AnchoredOverlay
+        open={submenuOpen}
+        anchorId="testing"
+        anchorRef={trailingRef}
+        side="outside-right"
+        renderAnchor={null}
+        width="medium"
+        anchorOffset={10}
+        overlayProps={{
+          onClickOutside: () => {
+            setSubmenuOpen(false)
+          },
+          onEscape: () => {
+            setSubmenuOpen(false)
+          },
+        }}
+      >
+        <Combobox.Title title="File type / Choose a file type" subtitle="Supported file types" />
+        <Combobox.Input listboxRef={secondListboxRef} />
+        <Combobox.List ref={secondListboxRef}>
+          <Listbox.Item leadingVisual={FileIcon}>
+            Sub Item 1
+            <ActionList.TrailingAction
+              ref={trailingRef3}
+              label="Some action"
+              icon={InfoIcon}
+              onClick={() => {
+                setSubmenu3Open(!submenu3Open)
+              }}
+            />
+          </Listbox.Item>
+          <Listbox.Item leadingVisual={FileZipIcon}>Sub Item 2</Listbox.Item>
+          <Listbox.Item leadingVisual={FileCodeIcon}>Sub Item 3</Listbox.Item>
+        </Combobox.List>
+      </AnchoredOverlay>
+
+      <AnchoredOverlay
+        open={submenu3Open}
+        anchorId="testing"
+        anchorRef={trailingRef3}
+        side="outside-right"
+        renderAnchor={null}
+        width="medium"
+        anchorOffset={10}
+        overlayProps={{
+          onClickOutside: () => {
+            setSubmenu3Open(false)
+          },
+          onEscape: () => {
+            setSubmenu3Open(false)
+          },
+        }}
+      >
+        <Combobox.Title title="File type / Choose a file type" subtitle="Supported file types" />
+        <Combobox.Input listboxRef={thirdListboxRef} />
+        <Combobox.List ref={thirdListboxRef}>
+          <Listbox.Item leadingVisual={FileIcon}>
+            Sub Item 1 <ActionList.TrailingAction label="Some action" icon={InfoIcon} onClick={() => {}} />
+          </Listbox.Item>
+          <Listbox.Item leadingVisual={FileZipIcon}>Sub Item 2</Listbox.Item>
+          <Listbox.Item leadingVisual={FileCodeIcon}>Sub Item 3</Listbox.Item>
+        </Combobox.List>
       </AnchoredOverlay>
     </div>
   )

@@ -26,7 +26,15 @@ Playground.argTypes = {
 }
 
 export const Default = () => {
-  return <Combobox label="Choose a fruit" options={options} />
+  return (
+    <Combobox
+      label="Choose a fruit"
+      options={options}
+      onChange={(items, event) => {
+        console.log(items, event, '!!!')
+      }}
+    />
+  )
 }
 
 const groupedOptions = [

@@ -1,9 +1,7 @@
 import {clsx} from 'clsx'
 import classes from '../ActionList/ActionList.module.css'
-import styles from '../FilteredActionList/FilteredActionList.module.css'
 import selectPanelStyles from '../SelectPanel/SelectPanel.module.css'
-import React, {useRef} from 'react'
-import {MappedActionListItem} from '../FilteredActionList/components/MappedActionListItem'
+import React, {useRef, type KeyboardEventHandler} from 'react'
 import {AnchoredOverlay, type AnchoredOverlayProps} from '../AnchoredOverlay'
 import TextInput from '../TextInput'
 import styles2 from './Combobox.module.css'
@@ -11,6 +9,8 @@ import Heading from '../Heading'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 import {scrollIntoView} from '@primer/behaviors'
 import {useProvidedRefOrCreate} from '../hooks'
+import {menuScrollMargins} from '../FilteredActionList/utils'
+import {Listbox} from '../Listbox'
 
 type renderAnchor = <T extends Omit<React.HTMLAttributes<HTMLElement>, 'aria-label' | 'aria-labelledby'>>(
   props: T,
@@ -67,16 +67,40 @@ type ComboboxOptions = {
 }
 
 type ComboboxProps = {
+  /** The content of the Combobox */
   children?: React.ReactNode
+  /**
+   * A collection of options to display within the Combobox. Each option should have a
+   * `label` and `id` property, with optional `group` and `selected` properties.
+   */
   options?: ComboboxOptions[]
+  /**
+   * The label for the Combobox
+   */
   label?: string
+  /**
+   * Callback function called when items are selected or deselected
+   */
+  onChange?: (
+    option: ComboboxOptions[] | null,
+    e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent | null,
+  ) => void
 }
 
-export const Combobox = ({children, options, ...rest}: ComboboxProps) => {
+export const Combobox = ({children, options, onChange: onComboboxChange, ...rest}: ComboboxProps) => {
+  const [comboboxItems, setComboboxItems] = React.useState<ComboboxOptions[]>(options || [])
+
   const listboxRef = useRef<HTMLUListElement>(null)
 
   // TODO: Add support for groups - let's use Listbox
   // TODO: Add label prop
+
+  const onChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      onComboboxChange?.(comboboxItems, e)
+    },
+    [onComboboxChange, comboboxItems],
+  )
 
   return (
     <ComboboxOverlay {...rest} listboxRef={listboxRef}>
@@ -103,7 +127,24 @@ const ComboboxOverlay = ({
   // TODO: Add conditional logic for focusMode prop
   const {focusMode} = React.useContext(ComboboxContext)
   const [comboboxOpen, setComboboxOpen] = React.useState(false)
+
+  const activeDescendantRef = React.useRef<HTMLElement | null>(null)
   const inputTrigger = React.useRef<HTMLInputElement>(null)
+
+  // const onInputKeyPress: KeyboardEventHandler = React.useCallback(
+  //   (event: React.KeyboardEvent<HTMLInputElement>) => {
+  //     console.log('test', activeDescendantRef)
+  //     if (event.key === 'Enter' && activeDescendantRef.current) {
+  //       event.preventDefault()
+  //       event.nativeEvent.stopImmediatePropagation()
+
+  //       // Forward Enter key press to active descendant so that item gets activated
+  //       const activeDescendantEvent = new KeyboardEvent(event.type, event.nativeEvent)
+  //       activeDescendantRef.current.dispatchEvent(activeDescendantEvent)
+  //     }
+  //   },
+  //   [activeDescendantRef],
+  // )
 
   const renderComboboxAnchor: AnchoredOverlayProps['renderAnchor'] = props => {
     if (renderAnchor === null || !renderAnchor) {
@@ -132,9 +173,6 @@ const ComboboxOverlay = ({
       />
     )
   }
-
-  const activeDescendantRef = React.useRef<HTMLElement | null>(null)
-  const menuScrollMargins = {startMargin: 0, endMargin: 8}
 
   const focusZoneSettings =
     focusMode === 'active-descendant' && listboxRef
@@ -176,7 +214,6 @@ const ComboboxOverlay = ({
       onOpen={() => setComboboxOpen(true)}
       renderAnchor={renderAnchor === null ? null : renderComboboxAnchor}
       anchorRef={renderAnchor === null ? anchorRef || inputTrigger : inputTrigger}
-      // focusTrapSettings={{disabled: focusMode === 'active-descendant' && !renderAnchor ? true : false}}
       width="medium"
       focusZoneSettings={focusZoneSettings}
       onClose={() => {
@@ -208,7 +245,6 @@ export const ComboboxInput = React.forwardRef<HTMLInputElement, ComboboxInputPro
 
   const activeDescendantRef = React.useRef<HTMLElement>()
   const scrollContainerRef = listboxRef
-  const menuScrollMargins = {startMargin: 0, endMargin: 8}
 
   const {focusMode} = React.useContext(ComboboxContext)
 
@@ -237,6 +273,21 @@ export const ComboboxInput = React.forwardRef<HTMLInputElement, ComboboxInputPro
     [],
   )
 
+  const onInputKeyPress: KeyboardEventHandler = React.useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
+      console.log('test', activeDescendantRef)
+      if (event.key === 'Enter' && activeDescendantRef.current) {
+        event.preventDefault()
+        event.nativeEvent.stopImmediatePropagation()
+
+        // Forward Enter key press to active descendant so that item gets activated
+        const activeDescendantEvent = new KeyboardEvent(event.type, event.nativeEvent)
+        activeDescendantRef.current.dispatchEvent(activeDescendantEvent)
+      }
+    },
+    [activeDescendantRef],
+  )
+
   return (
     <TextInput
       type="text"
@@ -244,6 +295,7 @@ export const ComboboxInput = React.forwardRef<HTMLInputElement, ComboboxInputPro
       aria-autocomplete="list"
       aria-expanded="false"
       className={clsx(className, styles2.TextInput)}
+      onKeyPress={onInputKeyPress}
       placeholder={placeholder}
       onFocus={onFocus}
       ref={inputRef}
@@ -263,10 +315,12 @@ export const ComboboxList = React.forwardRef<HTMLUListElement, ComboboxListProps
   {className, children, ...rest},
   ref,
 ) {
+  const {focusMode} = React.useContext(ComboboxContext)
+
   return (
-    <ul role="listbox" ref={ref} className={clsx(classes.ActionList, className)} data-variant="inset" {...rest}>
+    <Listbox ref={ref} className={className} focusMode={focusMode} {...rest}>
       {children}
-    </ul>
+    </Listbox>
   )
 })
 
@@ -280,16 +334,7 @@ export const ComboboxOption = React.forwardRef<HTMLLIElement, ComboboxOptionProp
   {className, children = 'Combobox Option', selected, ...rest},
   _ref,
 ) {
-  return (
-    <MappedActionListItem
-      role="option"
-      aria-selected={selected}
-      className={clsx(styles.ActionListItem, className)}
-      {...rest}
-    >
-      {children}
-    </MappedActionListItem>
-  )
+  return <Listbox.Item>{children}</Listbox.Item>
 })
 
 type ComboboxGroupProps = {
