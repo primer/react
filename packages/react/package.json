@@ -170,7 +170,7 @@
     "react-is": "18.3.1",
     "recast": "0.23.7",
     "rimraf": "5.0.5",
-    "rollup": "4.53.3",
+    "rollup": "4.54.0",
     "rollup-plugin-import-css": "^0.0.0",
     "storybook": "^10.1.10",
     "terser": "5.36.0",
