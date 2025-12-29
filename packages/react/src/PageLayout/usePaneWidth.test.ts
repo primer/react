@@ -635,15 +635,24 @@ describe('usePaneWidth', () => {
       vi.stubGlobal('innerWidth', 1000)
       window.dispatchEvent(new Event('resize'))
 
-      // At this point, attribute is applied but timing depends on throttle behavior
-      // The key is that it gets cleaned up after
+      // Attribute should be applied immediately on first resize
+      expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(true)
+      expect(refs.contentRef.current?.hasAttribute('data-dragging')).toBe(true)
 
-      // Wait for throttle to complete via rAF
+      // Fire another resize event immediately (simulating continuous resize)
+      vi.stubGlobal('innerWidth', 900)
+      window.dispatchEvent(new Event('resize'))
+
+      // Attribute should still be present (containment stays on during continuous resize)
+      expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(true)
+      expect(refs.contentRef.current?.hasAttribute('data-dragging')).toBe(true)
+
+      // Wait for the debounce timeout (150ms) to complete after resize stops
       await act(async () => {
-        await vi.runAllTimersAsync()
+        await vi.advanceTimersByTimeAsync(150)
       })
 
-      // Attribute should be removed after throttle completes
+      // Attribute should be removed after debounce completes
       expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(false)
       expect(refs.contentRef.current?.hasAttribute('data-dragging')).toBe(false)
 
@@ -669,7 +678,11 @@ describe('usePaneWidth', () => {
       vi.stubGlobal('innerWidth', 1000)
       window.dispatchEvent(new Event('resize'))
 
-      // Unmount immediately (may or may not have attributes depending on throttle timing)
+      // Attribute should be applied
+      expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(true)
+      expect(refs.contentRef.current?.hasAttribute('data-dragging')).toBe(true)
+
+      // Unmount immediately (before debounce timer fires)
       unmount()
 
       // Attribute should be cleaned up on unmount regardless of timing

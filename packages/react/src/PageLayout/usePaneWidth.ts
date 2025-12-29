@@ -269,9 +269,11 @@ export function usePaneWidth({
     // Throttle approach for window resize - provides immediate visual feedback for small DOMs
     // while still limiting update frequency
     const THROTTLE_MS = 16 // ~60fps
+    const DEBOUNCE_MS = 150 // Delay before removing containment after resize stops
     let lastUpdateTime = 0
     let pendingUpdate = false
     let rafId: number | null = null
+    let debounceId: ReturnType<typeof setTimeout> | null = null
     let isResizing = false
 
     // Apply containment during resize to reduce layout thrashing on large DOMs
@@ -291,13 +293,13 @@ export function usePaneWidth({
     }
 
     const handleResize = () => {
+      // Apply containment on first resize event (stays applied until resize stops)
       startResizeOptimizations()
 
       const now = Date.now()
       if (now - lastUpdateTime >= THROTTLE_MS) {
         lastUpdateTime = now
         syncAll()
-        endResizeOptimizations()
       } else if (!pendingUpdate) {
         pendingUpdate = true
         rafId = requestAnimationFrame(() => {
@@ -305,15 +307,22 @@ export function usePaneWidth({
           rafId = null
           lastUpdateTime = Date.now()
           syncAll()
-          endResizeOptimizations()
         })
       }
+
+      // Debounce the cleanup — remove containment after resize stops
+      if (debounceId !== null) clearTimeout(debounceId)
+      debounceId = setTimeout(() => {
+        debounceId = null
+        endResizeOptimizations()
+      }, DEBOUNCE_MS)
     }
 
     // eslint-disable-next-line github/prefer-observers -- Uses window resize events instead of ResizeObserver to avoid INP issues. ResizeObserver on document.documentElement fires on any content change (typing, etc), while window resize only fires on actual viewport changes.
     window.addEventListener('resize', handleResize)
     return () => {
       if (rafId !== null) cancelAnimationFrame(rafId)
+      if (debounceId !== null) clearTimeout(debounceId)
       endResizeOptimizations()
       window.removeEventListener('resize', handleResize)
     }
