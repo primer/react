@@ -17,9 +17,11 @@ export function FeatureFlags({children, flags}: FeatureFlagsProps) {
     return scope
   }, [parentFeatureFlags, flags])
 
+  const isOptimizationEnabled = value.enabled('primer_react_css_has_selector_perf')
+
   // Set body attribute for CSS :has() optimization when flag is enabled
   useEffect(() => {
-    if (flags.primer_react_css_has_selector_perf) {
+    if (isOptimizationEnabled) {
       dialogScrollOptimizedCount++
       document.body.setAttribute('data-dialog-scroll-optimized', '')
       return () => {
@@ -29,7 +31,7 @@ export function FeatureFlags({children, flags}: FeatureFlagsProps) {
         }
       }
     }
-  }, [flags.primer_react_css_has_selector_perf])
+  }, [isOptimizationEnabled])
 
   return <FeatureFlagContext.Provider value={value}>{children}</FeatureFlagContext.Provider>
 }
