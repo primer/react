@@ -11,7 +11,7 @@ PageLayout: Optimize drag/resize performance with inline styles and new optimiza
 
 **Added:**
 - `content-visibility: auto` during drag/resize to skip off-screen content rendering
-- `will-change: width` hint during drag for compositor optimization
+
 - rAF throttle for drag updates (one update per frame, latest position wins)
 - Containment during window resize (parity with drag)
 

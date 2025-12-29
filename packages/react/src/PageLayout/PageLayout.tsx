@@ -121,26 +121,28 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   )
 }
 
-function RootWrapper({
-  style,
-  padding,
-  children,
-  className,
-}: React.PropsWithChildren<Pick<PageLayoutProps, 'style' | 'padding' | 'className'>>) {
-  return (
-    <div
-      style={
-        {
-          '--spacing': `var(--spacing-${padding})`,
-          ...style,
-        } as React.CSSProperties
-      }
-      className={clsx(classes.PageLayoutRoot, className)}
-    >
-      {children}
-    </div>
-  )
-}
+const RootWrapper = memo(
+  ({
+    style,
+    padding,
+    children,
+    className,
+  }: React.PropsWithChildren<Pick<PageLayoutProps, 'style' | 'padding' | 'className'>>) => {
+    return (
+      <div
+        style={
+          {
+            '--spacing': `var(--spacing-${padding})`,
+            ...style,
+          } as React.CSSProperties
+        }
+        className={clsx(classes.PageLayoutRoot, className)}
+      >
+        {children}
+      </div>
+    )
+  },
+)
 
 Root.displayName = 'PageLayout'
 
