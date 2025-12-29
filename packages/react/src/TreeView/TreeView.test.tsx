@@ -1489,7 +1489,7 @@ describe('Asynchronous loading', () => {
       )
     }
 
-    const {getByRole} = renderWithTheme(<TestTree />)
+    const {getByRole, unmount} = renderWithTheme(<TestTree />)
 
     const parentItem = getByRole('treeitem', {name: 'Parent'})
     const loadingItem = getByRole('treeitem', {name: 'Loading...'})
@@ -1518,6 +1518,8 @@ describe('Asynchronous loading', () => {
 
     // First child should be focused
     expect(firstChild).toHaveFocus()
+    // Unmount before restoring to prevent late async callbacks
+    unmount()
     spy.mockRestore()
   })
 
@@ -1642,7 +1644,7 @@ describe('Asynchronous loading', () => {
         </TreeView>
       )
     }
-    const {getByLabelText, getByText} = renderWithTheme(<Example />)
+    const {getByLabelText, getByText, unmount} = renderWithTheme(<Example />)
     const user = userEvent.setup()
 
     const treeitem = getByLabelText('Item 1')
@@ -1659,6 +1661,8 @@ describe('Asynchronous loading', () => {
 
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
     expect(getByLabelText('No items found')).toBeInTheDocument()
+    // Unmount before restoring to prevent late async callbacks
+    unmount()
     spy.mockRestore()
   })
 

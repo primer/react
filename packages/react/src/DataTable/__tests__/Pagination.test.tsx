@@ -95,7 +95,7 @@ describe('Table.Pagination', () => {
       const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
       const onChange = vi.fn()
 
-      const {rerender} = render(
+      const {rerender, unmount} = render(
         <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={0} pageSize={25} totalCount={25} />,
       )
       expect(getPages()).toHaveLength(1)
@@ -111,6 +111,8 @@ describe('Table.Pagination', () => {
       expect(onChange).toHaveBeenCalledWith({
         pageIndex: 2,
       })
+      // Unmount before restoring to prevent late async callbacks
+      unmount()
       spy.mockRestore()
     })
   })
@@ -291,7 +293,7 @@ describe('Table.Pagination', () => {
       const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
       const onChange = vi.fn()
 
-      const {rerender} = render(
+      const {rerender, unmount} = render(
         <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={1} pageSize={25} totalCount={50} />,
       )
       expect(getPages()).toHaveLength(2)
@@ -307,6 +309,8 @@ describe('Table.Pagination', () => {
       expect(onChange).toHaveBeenCalledWith({
         pageIndex: 0,
       })
+      // Unmount before restoring to prevent late async callbacks
+      unmount()
       spy.mockRestore()
     })
   })
@@ -359,7 +363,7 @@ describe('Table.Pagination', () => {
     // Suppress act warnings from async state updates in the Announce component
     const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     const onChange = vi.fn()
-    const {rerender} = render(
+    const {rerender, unmount} = render(
       <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={1} pageSize={10} totalCount={1000} />,
     )
     expect(getPages()).toHaveLength(8)
@@ -375,6 +379,8 @@ describe('Table.Pagination', () => {
     expect(onChange).toHaveBeenCalledWith({
       pageIndex: 0,
     })
+    // Unmount before restoring to prevent late async callbacks
+    unmount()
     spy.mockRestore()
   })
 
