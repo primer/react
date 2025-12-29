@@ -725,3 +725,15 @@
 .DraggableHandle:hover::before {
   opacity: 1;
 }
+
+/**
+ * OPTIMIZATION: CSS containment during drag/resize
+ * Direct attribute selectors are O(1) - only the attributed element is invalidated
+ * (Unlike descendant selectors which require O(n) traversal)
+ */
+.Pane[data-dragging='true'],
+.ContentWrapper[data-dragging='true'] {
+  contain: layout style paint;
+  pointer-events: none;
+  content-visibility: auto;
+}

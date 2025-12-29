@@ -612,7 +612,7 @@ describe('usePaneWidth', () => {
       addEventListenerSpy.mockRestore()
     })
 
-    it('should apply and remove containment styles during resize', async () => {
+    it('should apply and remove containment attributes during resize', async () => {
       vi.useFakeTimers()
       vi.stubGlobal('innerWidth', 1280)
       const refs = createMockRefs()
@@ -627,15 +627,15 @@ describe('usePaneWidth', () => {
         }),
       )
 
-      // Initially no containment
-      expect(refs.paneRef.current?.style.contain).toBe('')
-      expect(refs.contentRef.current?.style.contain).toBe('')
+      // Initially no data-dragging attribute
+      expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(false)
+      expect(refs.contentRef.current?.hasAttribute('data-dragging')).toBe(false)
 
       // Fire resize
       vi.stubGlobal('innerWidth', 1000)
       window.dispatchEvent(new Event('resize'))
 
-      // At this point, containment is applied but timing depends on throttle behavior
+      // At this point, attribute is applied but timing depends on throttle behavior
       // The key is that it gets cleaned up after
 
       // Wait for throttle to complete via rAF
@@ -643,16 +643,14 @@ describe('usePaneWidth', () => {
         await vi.runAllTimersAsync()
       })
 
-      // Containment should be removed after throttle completes
-      expect(refs.paneRef.current?.style.contain).toBe('')
-      expect(refs.paneRef.current?.style.contentVisibility).toBe('')
-      expect(refs.contentRef.current?.style.contain).toBe('')
-      expect(refs.contentRef.current?.style.contentVisibility).toBe('')
+      // Attribute should be removed after throttle completes
+      expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(false)
+      expect(refs.contentRef.current?.hasAttribute('data-dragging')).toBe(false)
 
       vi.useRealTimers()
     })
 
-    it('should cleanup containment styles on unmount during resize', async () => {
+    it('should cleanup containment attributes on unmount during resize', async () => {
       vi.useFakeTimers()
       vi.stubGlobal('innerWidth', 1280)
       const refs = createMockRefs()
@@ -671,14 +669,12 @@ describe('usePaneWidth', () => {
       vi.stubGlobal('innerWidth', 1000)
       window.dispatchEvent(new Event('resize'))
 
-      // Unmount immediately (may or may not have styles depending on throttle timing)
+      // Unmount immediately (may or may not have attributes depending on throttle timing)
       unmount()
 
-      // Containment should be cleaned up on unmount regardless of timing
-      expect(refs.paneRef.current?.style.contain).toBe('')
-      expect(refs.paneRef.current?.style.contentVisibility).toBe('')
-      expect(refs.contentRef.current?.style.contain).toBe('')
-      expect(refs.contentRef.current?.style.contentVisibility).toBe('')
+      // Attribute should be cleaned up on unmount regardless of timing
+      expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(false)
+      expect(refs.contentRef.current?.hasAttribute('data-dragging')).toBe(false)
 
       vi.useRealTimers()
     })
