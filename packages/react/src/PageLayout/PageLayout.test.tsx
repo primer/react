@@ -259,6 +259,35 @@ describe('PageLayout', async () => {
       fireEvent.lostPointerCapture(divider, {pointerId: 1})
       expect(pane!.style.willChange).toBe('')
     })
+
+    it('should cleanup dragging styles on unmount mid-drag', async () => {
+      const {container, unmount} = render(
+        <PageLayout>
+          <PageLayout.Pane resizable>
+            <Placeholder height={320} label="Pane" />
+          </PageLayout.Pane>
+          <PageLayout.Content>
+            <Placeholder height={640} label="Content" />
+          </PageLayout.Content>
+        </PageLayout>,
+      )
+
+      const pane = container.querySelector<HTMLElement>('[class*="Pane"][data-resizable]')
+      const content = container.querySelector<HTMLElement>('[class*="PageLayoutContent"]')
+      const divider = await screen.findByRole('slider')
+
+      // Start drag
+      fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
+      expect(pane).toHaveAttribute('data-dragging', 'true')
+      expect(content).toHaveAttribute('data-dragging', 'true')
+
+      // Unmount mid-drag
+      unmount()
+
+      // Attributes should be cleaned up
+      expect(pane).not.toHaveAttribute('data-dragging')
+      expect(content).not.toHaveAttribute('data-dragging')
+    })
   })
 
   describe('PageLayout.Content', () => {

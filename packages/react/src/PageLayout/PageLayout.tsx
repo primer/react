@@ -244,10 +244,19 @@ const DragHandle = memo<DragHandleProps>(function DragHandle({
 
   // Dragging state as a ref - cheaper than reading from DOM style
   const isDraggingRef = React.useRef(false)
+  
+  // Cache DOM elements for cleanup - refs from context get cleared during unmount
+  const cachedHandleRef = React.useRef<HTMLElement | null>(null)
+  const cachedPaneRef = React.useRef<HTMLElement | null>(null)
+  const cachedContentRef = React.useRef<HTMLElement | null>(null)
 
   // Set inline styles for drag optimizations - zero overhead at rest
   const startDragging = React.useCallback(() => {
     if (isDraggingRef.current) return
+    // Cache current element references for cleanup
+    cachedHandleRef.current = handleRef.current
+    cachedPaneRef.current = paneRef.current
+    cachedContentRef.current = contentRef.current
     setDraggingStyles({
       handle: handleRef.current,
       pane: paneRef.current,
@@ -378,9 +387,19 @@ const DragHandle = memo<DragHandleProps>(function DragHandle({
   // Cleanup rAF on unmount to prevent stale callbacks
   React.useEffect(() => {
     return () => {
+      // Cancel pending rAF
       if (rafIdRef.current !== null) {
         cancelAnimationFrame(rafIdRef.current)
         rafIdRef.current = null
+      }
+      // Clean up dragging state if unmounting mid-drag
+      // Use cached element references since refs from context get cleared during unmount
+      if (isDraggingRef.current) {
+        removeDraggingStyles({
+          handle: cachedHandleRef.current,
+          pane: cachedPaneRef.current,
+          content: cachedContentRef.current,
+        })
       }
     }
   }, [])
