@@ -276,8 +276,6 @@ export function usePaneWidth({
     let debounceId: ReturnType<typeof setTimeout> | null = null
     let isResizing = false
 
-    // Apply containment during resize to reduce layout thrashing on large DOMs
-    // Unlike drag, window resize doesn't need pointer-events: none
     const startResizeOptimizations = () => {
       if (isResizing) return
       isResizing = true
