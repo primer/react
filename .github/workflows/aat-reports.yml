@@ -72,7 +72,7 @@ jobs:
       - name: install dependencies
         run: npm ci
       - name: download all reports
-        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
         with:
           path: all-blob-reports
           pattern: aat-*
