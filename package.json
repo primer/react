@@ -61,9 +61,9 @@
     "@primer/stylelint-config": "13.4.1",
     "@size-limit/preset-big-lib": "11.2.0",
     "@types/semver": "^7.7.1",
-    "@vitest/browser": "^4.0.15",
-    "@vitest/browser-playwright": "^4.0.15",
-    "@vitest/eslint-plugin": "^1.5.2",
+    "@vitest/browser": "^4.0.16",
+    "@vitest/browser-playwright": "^4.0.16",
+    "@vitest/eslint-plugin": "^1.6.4",
     "babel-plugin-react-compiler": "^1.0.0",
     "change-case": "^5.4.4",
     "eslint": "^9.39.2",
@@ -92,7 +92,7 @@
     "turbo": "^2.6.3",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.40.0",
-    "vitest": "^4.0.15"
+    "vitest": "^4.0.16"
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "^4.53.3"
