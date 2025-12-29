@@ -1,3 +1,11 @@
+/* Exported values for JavaScript consumption */
+:export {
+  /* Breakpoint where --pane-max-width-diff changes (used in usePaneWidth.ts) */
+  paneMaxWidthDiffBreakpoint: 1280;
+  /* Default value for --pane-max-width-diff below the breakpoint */
+  paneMaxWidthDiffDefault: 511;
+}
+
 .PageLayoutRoot {
   /* Region Order */
   --region-order-header: 0;
@@ -19,6 +27,7 @@
   --pane-width-small: 100%;
   --pane-width-medium: 100%;
   --pane-width-large: 100%;
+  /* NOTE: This value is exported via :export for use in usePaneWidth.ts */
   --pane-max-width-diff: 511px;
 
   @media screen and (min-width: 768px) {
@@ -33,6 +42,7 @@
     --pane-width-large: 320px;
   }
 
+  /* NOTE: This breakpoint value is exported via :export for use in usePaneWidth.ts */
   @media screen and (min-width: 1280px) {
     --pane-max-width-diff: 959px;
   }
@@ -373,10 +383,10 @@
 
 /**
  * OPTIMIZATION: Aggressive containment during drag for ContentWrapper
- * CSS handles most optimizations automatically via :has() selector
- * JavaScript only handles scroll locking (can't be done in CSS)
+ * data-dragging is set on PageLayoutContent by JavaScript
+ * This avoids expensive :has() selectors
  */
-.PageLayoutContent:has(.DraggableHandle[data-dragging='true']) .ContentWrapper {
+.PageLayoutContent[data-dragging='true'] .ContentWrapper {
   /* Add paint containment during drag - safe since user can't interact */
   contain: layout style paint;
 
@@ -422,7 +432,7 @@
  * This prevents expensive recalculations of large content areas
  * while keeping content visible (just frozen in place)
  */
-.PageLayoutContent:has(.DraggableHandle[data-dragging='true']) .Content {
+.PageLayoutContent[data-dragging='true'] .Content {
   /* Full containment (without size) - isolate from layout recalculations */
   contain: layout style paint;
 }
@@ -611,6 +621,10 @@
     width: 100%;
 
     @media screen and (min-width: 768px) {
+      /* 
+       * --pane-max-width is set by JS on mount and updated on resize (debounced).
+       * JS calculates viewport - margin to avoid scrollbar discrepancy with 100vw.
+       */
       width: clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width));
     }
   }
@@ -618,9 +632,10 @@
 
 /**
  * OPTIMIZATION: Performance enhancements for Pane during drag
- * CSS handles all optimizations automatically - JavaScript only locks scroll
+ * data-dragging is set on PageLayoutContent by JavaScript
+ * This avoids expensive :has() selectors
  */
-.PaneWrapper:has(.DraggableHandle[data-dragging='true']) .Pane {
+.PageLayoutContent[data-dragging='true'] .Pane {
   /* Full containment - isolate from layout recalculations */
   contain: layout style paint;
 

@@ -34,7 +34,7 @@ jobs:
         if: ${{ always() }}
         run: kill ${{ steps.storybook.outputs.pid }}
       - name: Download previous benchmark data (if any)
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ./cache
           key: stress-tests-benchmark

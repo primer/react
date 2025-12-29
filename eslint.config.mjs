@@ -273,6 +273,7 @@ const config = defineConfig([
     },
     rules: {
       ...vitest.configs.recommended.rules,
+      'vitest/no-conditional-expect': 'off',
     },
     settings: {
       vitest: {
