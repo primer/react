@@ -373,6 +373,8 @@ export const UnderlineNav = forwardRef(
                       counter,
                       'aria-current': ariaCurrent,
                       onSelect,
+                      leadingVisual,
+                      icon,
                       ...menuItemProps
                     } = menuItem.props
 

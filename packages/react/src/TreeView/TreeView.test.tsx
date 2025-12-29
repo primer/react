@@ -1466,6 +1466,8 @@ describe('Asynchronous loading', () => {
   })
 
   it('moves focus from loading item to first child', async () => {
+    // Suppress act warnings from async state updates in the Announce component
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     function TestTree() {
       const [state, setState] = React.useState<SubTreeState>('loading')
 
@@ -1516,6 +1518,7 @@ describe('Asynchronous loading', () => {
 
     // First child should be focused
     expect(firstChild).toHaveFocus()
+    spy.mockRestore()
   })
 
   it('moves focus to parent item after closing error dialog', async () => {
@@ -1606,6 +1609,8 @@ describe('Asynchronous loading', () => {
   })
 
   it('should update `aria-expanded` if no content is loaded in', async () => {
+    // Suppress act warnings from async state updates in the Announce component
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     function Example() {
       const [state, setState] = React.useState<SubTreeState>('loading')
       const timeoutId = React.useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -1654,6 +1659,7 @@ describe('Asynchronous loading', () => {
 
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
     expect(getByLabelText('No items found')).toBeInTheDocument()
+    spy.mockRestore()
   })
 
   it('should have `aria-expanded` when directory is empty', async () => {
@@ -1775,6 +1781,8 @@ it('should have keyboard shortcut command as part of accessible name when using 
 })
 
 it('should activate the dialog for trailing action when keyboard shortcut is used', async () => {
+  // Suppress act warnings from async state updates
+  const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
   userEvent.setup()
   render(
     <TreeView aria-label="Files changed">
@@ -1815,4 +1823,5 @@ it('should activate the dialog for trailing action when keyboard shortcut is use
   fireEvent.keyDown(treeItem, {key: 'u', metaKey: true, shiftKey: true})
 
   expect(screen.getByRole('dialog')).toBeInTheDocument()
+  spy.mockRestore()
 })

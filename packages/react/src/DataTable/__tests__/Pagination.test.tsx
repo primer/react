@@ -91,6 +91,8 @@ describe('Table.Pagination', () => {
     })
 
     it('should rerender many pages correctly', async () => {
+      // Suppress act warnings from async state updates in the Announce component
+      const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
       const onChange = vi.fn()
 
       const {rerender} = render(
@@ -109,6 +111,7 @@ describe('Table.Pagination', () => {
       expect(onChange).toHaveBeenCalledWith({
         pageIndex: 2,
       })
+      spy.mockRestore()
     })
   })
 
@@ -284,6 +287,8 @@ describe('Table.Pagination', () => {
     })
 
     it('should rerender many pages correctly', async () => {
+      // Suppress act warnings from async state updates in the Announce component
+      const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
       const onChange = vi.fn()
 
       const {rerender} = render(
@@ -302,6 +307,7 @@ describe('Table.Pagination', () => {
       expect(onChange).toHaveBeenCalledWith({
         pageIndex: 0,
       })
+      spy.mockRestore()
     })
   })
 
@@ -350,6 +356,8 @@ describe('Table.Pagination', () => {
   })
 
   it('should rerender many pages correctly', async () => {
+    // Suppress act warnings from async state updates in the Announce component
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     const onChange = vi.fn()
     const {rerender} = render(
       <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={1} pageSize={10} totalCount={1000} />,
@@ -367,6 +375,7 @@ describe('Table.Pagination', () => {
     expect(onChange).toHaveBeenCalledWith({
       pageIndex: 0,
     })
+    spy.mockRestore()
   })
 
   it('when rendering 3 pages and the second page is selected we should render a page number not ...', async () => {

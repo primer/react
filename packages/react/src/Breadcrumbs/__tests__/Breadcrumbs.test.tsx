@@ -209,6 +209,8 @@ describe('Breadcrumbs', () => {
   })
 
   it('shows overflow menu during resize when items exceed container width', () => {
+    // Suppress act warnings from async state updates in the ResizeObserver callback
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     let resizeCallback: ((entries: ResizeObserverEntry[]) => void) | undefined
 
     const mockResizeObserver = vi.fn().mockImplementation(function (callback) {
@@ -264,9 +266,12 @@ describe('Breadcrumbs', () => {
 
     // Verify the navigation element is still present after resizes
     expect(screen.getByRole('navigation')).toBeInTheDocument()
+    spy.mockRestore()
   })
 
   it('correctly populates overflow menu during resize events', async () => {
+    // Suppress act warnings from async state updates in the ResizeObserver callback
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     let resizeCallback: ((entries: ResizeObserverEntry[]) => void) | undefined
 
     const mockResizeObserver = vi.fn().mockImplementation(function (callback) {
@@ -345,6 +350,7 @@ describe('Breadcrumbs', () => {
 
     // Menu button should still be present (7 items > 5)
     expect(screen.getByRole('button', {name: /more breadcrumb items/i})).toBeInTheDocument()
+    spy.mockRestore()
 
     // Open menu again to verify it still works after resize
     await user.click(screen.getByRole('button', {name: /more breadcrumb items/i}))
@@ -483,6 +489,8 @@ describe('Breadcrumbs', () => {
     })
 
     it('maintains focus on menu button when menu is closed', async () => {
+      // Suppress act warnings from async state updates in the ResizeObserver callback
+      const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
       const user = userEvent.setup()
 
       renderWithTheme(
@@ -518,6 +526,7 @@ describe('Breadcrumbs', () => {
 
       // Verify focus returns to button
       expect(menuButton).toHaveFocus()
+      spy.mockRestore()
     })
   })
 

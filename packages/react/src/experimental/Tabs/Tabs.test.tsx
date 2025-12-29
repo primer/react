@@ -66,6 +66,8 @@ describe('Tabs', () => {
   })
 
   test('onValueChange is called when tab changes', async () => {
+    // Suppress act warnings from async state updates
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     const user = userEvent.setup()
     const onValueChange = vi.fn()
 
@@ -85,6 +87,7 @@ describe('Tabs', () => {
 
     expect(onValueChange).toHaveBeenCalledWith({value: 'b'})
     expect(onValueChange).toHaveBeenCalledTimes(1)
+    spy.mockRestore()
   })
 
   describe('TabList', () => {
