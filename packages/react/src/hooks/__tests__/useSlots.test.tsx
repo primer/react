@@ -369,6 +369,7 @@ test('extracts wrapped components with slot symbols and conditions', () => {
 
 test('prefers direct component type match over slot symbol match', () => {
   const calls: Array<ReturnType<typeof useSlots>> = []
+  const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
   const children = [
     <TestComponentWithSlot key="direct">Direct component</TestComponentWithSlot>,
     <WrappedTestComponentWithSlot key="wrapped" />,
@@ -401,10 +402,12 @@ test('prefers direct component type match over slot symbol match', () => {
       ],
     ]
   `)
+  warnSpy.mockRestore()
 })
 
 test('handles components without slot symbols in mixed scenarios', () => {
   const calls: Array<ReturnType<typeof useSlots>> = []
+  const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
   const children = [
     <TestComponentA key="a">Component A</TestComponentA>,
     <WrappedTestComponentA key="wrapped" />,
@@ -442,6 +445,7 @@ test('handles components without slot symbols in mixed scenarios', () => {
       ],
     ]
   `)
+  warnSpy.mockRestore()
 })
 
 test('handles slot symbol matching with duplicate detection', () => {

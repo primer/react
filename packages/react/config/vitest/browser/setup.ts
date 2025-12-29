@@ -22,6 +22,12 @@ import './global.css'
 import {beforeEach} from 'vitest'
 import {cleanup} from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
+import failOnConsole from 'vitest-fail-on-console'
+
+// Fail tests on console.error and console.warn in CI
+if (process.env.CI) {
+  failOnConsole()
+}
 
 beforeEach(() => {
   cleanup()

@@ -32,7 +32,7 @@ export interface GroupProps extends React.ComponentPropsWithoutRef<'div'> {
 /**
  * Collects related `Items` in an `ActionList`.
  */
-export function Group({header, items, ...props}: GroupProps): JSX.Element {
+export function Group({header, items, groupId, showItemDividers, ...props}: GroupProps): JSX.Element {
   return (
     <div {...props}>
       {header && <Header {...header} />}
