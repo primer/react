@@ -9,7 +9,7 @@ export function setContainmentOptimizations(element: HTMLElement | null) {
   if (!element) return
   element.style.contain = 'layout style paint'
   element.style.contentVisibility = 'auto'
-  element.style.containIntrinsicSize = 'auto 500px'
+  element.style.containIntrinsicSize = `auto ${element.offsetHeight}px`
   element.style.pointerEvents = 'none'
 }
 
@@ -36,7 +36,6 @@ export function setDraggingStyles({handle, pane, content}: DraggingStylesParams)
   handle?.style.setProperty('--draggable-handle--drag-opacity', '1')
   // Disable transition for instant visual feedback during drag
   handle?.style.setProperty('--draggable-handle--transition', 'none')
-  pane?.style.setProperty('will-change', 'width')
   setContainmentOptimizations(content)
   setContainmentOptimizations(pane)
 }
@@ -46,7 +45,6 @@ export function removeDraggingStyles({handle, pane, content}: DraggingStylesPara
   handle?.style.removeProperty('background-color')
   handle?.style.removeProperty('--draggable-handle--drag-opacity')
   handle?.style.removeProperty('--draggable-handle--transition')
-  pane?.style.removeProperty('will-change')
   removeContainmentOptimizations(content)
   removeContainmentOptimizations(pane)
 }
