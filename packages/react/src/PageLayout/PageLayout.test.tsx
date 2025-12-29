@@ -195,15 +195,15 @@ describe('PageLayout', async () => {
       const content = container.querySelector<HTMLElement>('[class*="PageLayoutContent"]')
       const divider = await screen.findByRole('slider')
 
-      // Before drag - no contain property
-      expect(content!.style.getPropertyValue('contain')).toBe('')
+      // Before drag - no data-dragging attribute
+      expect(content).not.toHaveAttribute('data-dragging')
 
-      // Start drag - optimization properties are set
+      // Start drag - optimization attribute is set
       fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
-      expect(content!.style.getPropertyValue('contain')).toBe('layout style paint')
-      // End drag - pointer capture lost ends the drag and removes optimization properties
+      expect(content).toHaveAttribute('data-dragging', 'true')
+      // End drag - pointer capture lost ends the drag and removes optimization attribute
       fireEvent.lostPointerCapture(divider, {pointerId: 1})
-      expect(content!.style.getPropertyValue('contain')).toBe('')
+      expect(content).not.toHaveAttribute('data-dragging')
     })
 
     it('should set optimization styles during keyboard resize', async () => {
@@ -221,17 +221,17 @@ describe('PageLayout', async () => {
       const content = container.querySelector<HTMLElement>('[class*="PageLayoutContent"]')
       const divider = await screen.findByRole('slider')
 
-      // Before interaction - no contain property
-      expect(content!.style.getPropertyValue('contain')).toBe('')
+      // Before interaction - no data-dragging attribute
+      expect(content).not.toHaveAttribute('data-dragging')
 
       // Start keyboard resize (focus first)
       fireEvent.focus(divider)
       fireEvent.keyDown(divider, {key: 'ArrowRight'})
-      expect(content!.style.getPropertyValue('contain')).toBe('layout style paint')
+      expect(content).toHaveAttribute('data-dragging', 'true')
 
-      // End keyboard resize - removes optimization properties
+      // End keyboard resize - removes optimization attribute
       fireEvent.keyUp(divider, {key: 'ArrowRight'})
-      expect(content!.style.getPropertyValue('contain')).toBe('')
+      expect(content).not.toHaveAttribute('data-dragging')
     })
 
     it('should not add will-change during drag', async () => {

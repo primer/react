@@ -2,7 +2,6 @@ import React, {startTransition} from 'react'
 import {canUseDOM} from '../utils/environment'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import cssExports from './PageLayout.module.css'
-import {setContainmentOptimizations, removeContainmentOptimizations} from './paneUtils'
 
 // ----------------------------------------------------------------------------
 // Types
@@ -280,15 +279,15 @@ export function usePaneWidth({
     const startResizeOptimizations = () => {
       if (isResizing) return
       isResizing = true
-      setContainmentOptimizations(paneRef.current)
-      setContainmentOptimizations(contentRef.current)
+      paneRef.current?.setAttribute('data-dragging', 'true')
+      contentRef.current?.setAttribute('data-dragging', 'true')
     }
 
     const endResizeOptimizations = () => {
       if (!isResizing) return
       isResizing = false
-      removeContainmentOptimizations(paneRef.current)
-      removeContainmentOptimizations(contentRef.current)
+      paneRef.current?.removeAttribute('data-dragging')
+      contentRef.current?.removeAttribute('data-dragging')
     }
 
     const handleResize = () => {
