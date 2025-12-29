@@ -7,6 +7,9 @@ export type FeatureFlagsProps = React.PropsWithChildren<{
   flags: FeatureFlags
 }>
 
+// Global ref counter for data-dialog-scroll-optimized attribute
+let dialogScrollOptimizedCount = 0
+
 export function FeatureFlags({children, flags}: FeatureFlagsProps) {
   const parentFeatureFlags = useContext(FeatureFlagContext)
   const value = useMemo(() => {
@@ -17,9 +20,13 @@ export function FeatureFlags({children, flags}: FeatureFlagsProps) {
   // Set body attribute for CSS :has() optimization when flag is enabled
   useEffect(() => {
     if (flags.primer_react_css_has_selector_perf) {
+      dialogScrollOptimizedCount++
       document.body.setAttribute('data-dialog-scroll-optimized', '')
       return () => {
-        document.body.removeAttribute('data-dialog-scroll-optimized')
+        dialogScrollOptimizedCount--
+        if (dialogScrollOptimizedCount === 0) {
+          document.body.removeAttribute('data-dialog-scroll-optimized')
+        }
       }
     }
   }, [flags.primer_react_css_has_selector_perf])
