@@ -189,5 +189,47 @@ describe('FeatureFlags', () => {
       unmount3()
       expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false)
     })
+
+    it('should handle flag value changing from false to true', () => {
+      const {rerender, unmount} = render(
+        <FeatureFlags flags={{primer_react_css_has_selector_perf: false}}>
+          <div>Content</div>
+        </FeatureFlags>,
+      )
+
+      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false)
+
+      rerender(
+        <FeatureFlags flags={{primer_react_css_has_selector_perf: true}}>
+          <div>Content</div>
+        </FeatureFlags>,
+      )
+
+      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(true)
+
+      unmount()
+      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false)
+    })
+
+    it('should handle flag value changing from true to false', () => {
+      const {rerender, unmount} = render(
+        <FeatureFlags flags={{primer_react_css_has_selector_perf: true}}>
+          <div>Content</div>
+        </FeatureFlags>,
+      )
+
+      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(true)
+
+      rerender(
+        <FeatureFlags flags={{primer_react_css_has_selector_perf: false}}>
+          <div>Content</div>
+        </FeatureFlags>,
+      )
+
+      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false)
+
+      unmount()
+      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false)
+    })
   })
 })

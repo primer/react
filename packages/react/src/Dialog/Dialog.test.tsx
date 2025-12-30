@@ -1,14 +1,19 @@
 import React from 'react'
 import {render, fireEvent, waitFor} from '@testing-library/react'
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi, beforeEach} from 'vitest'
 import userEvent from '@testing-library/user-event'
 import {Dialog} from './Dialog'
 import {Button} from '../Button'
 import {implementsClassName} from '../utils/testing'
 import classes from './Dialog.module.css'
 import {FeatureFlags} from '../FeatureFlags'
+import {__resetDialogScrollOptimizedCount} from '../FeatureFlags/FeatureFlags'
 
 describe('Dialog', () => {
+  beforeEach(() => {
+    __resetDialogScrollOptimizedCount()
+  })
+
   implementsClassName(Dialog, classes.Dialog)
   it('renders with role "dialog" by default', () => {
     const {getByRole} = render(<Dialog onClose={() => {}}>Pay attention to me</Dialog>)
