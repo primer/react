@@ -1,7 +1,8 @@
 import type React from 'react'
-import {useContext, useMemo, useEffect} from 'react'
+import {useContext, useMemo} from 'react'
 import {FeatureFlagContext} from './FeatureFlagContext'
 import {FeatureFlagScope, type FeatureFlags} from './FeatureFlagScope'
+import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 export type FeatureFlagsProps = React.PropsWithChildren<{
   flags: FeatureFlags
@@ -39,7 +40,7 @@ export function FeatureFlags({children, flags}: FeatureFlagsProps) {
   const isOptimizationEnabled = value.enabled('primer_react_css_has_selector_perf')
 
   // Set body attribute for CSS :has() optimization when flag is enabled
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (isOptimizationEnabled) {
       dialogScrollOptimizedCount++
       document.body.setAttribute('data-dialog-scroll-optimized', '')

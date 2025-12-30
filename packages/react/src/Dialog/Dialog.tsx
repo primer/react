@@ -16,7 +16,6 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import classes from './Dialog.module.css'
 import {clsx} from 'clsx'
 import {useSlots} from '../hooks/useSlots'
-import {useFeatureFlag} from '../FeatureFlags'
 
 /* Dialog Version 2 */
 
@@ -290,11 +289,10 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     [onClose],
   )
 
-  const usePerfOptimization = useFeatureFlag('primer_react_css_has_selector_perf')
-
   React.useEffect(() => {
     const scrollbarWidth = window.innerWidth - document.body.clientWidth
     const dialog = dialogRef.current
+    const usePerfOptimization = document.body.hasAttribute('data-dialog-scroll-optimized')
 
     // Add DisableScroll class to this dialog (for legacy :has() selector path)
     dialog?.classList.add(classes.DisableScroll)
@@ -318,7 +316,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
         }
       }
     }
-  }, [usePerfOptimization])
+  }, [])
 
   const header = slots.header ?? (renderHeader ?? DefaultHeader)(defaultedProps)
   const body = slots.body ?? (renderBody ?? DefaultBody)({...defaultedProps, children: childrenWithoutSlots})
