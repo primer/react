@@ -24,8 +24,7 @@
   justify-content: space-between;
   gap: var(--base-size-8);
 
-  /* NOTE: Uses descendant :has() - button has very few children (icon, text, kbd). Acceptable. */
-  &:has([data-kbd-chord]) {
+  &[data-has-kbd] {
     padding-inline-end: var(--base-size-6);
   }
 
@@ -174,8 +173,7 @@
       margin-right: var(--control-large-gap);
     }
 
-    /* NOTE: Uses descendant :has() - button has very few children (icon, text, kbd). Acceptable. */
-    &:has([data-kbd-chord]) {
+    &[data-has-kbd] {
       padding-inline-end: var(--base-size-8);
     }
   }
@@ -637,11 +635,8 @@
 
   /*
    * Icon-only + Counter
-   * NOTE: Uses descendant :has() - leadingVisual and text are nested inside
-   * buttonContent wrapper. This is acceptable as the search is scoped to
-   * this single button element's subtree (small DOM).
    */
-  &:where([data-has-count]):has([data-component='leadingVisual']):not(:has([data-component='text'])) {
+  &:where([data-has-count][data-has-leading-visual]:not([data-has-text])) {
     /* stylelint-disable-next-line primer/spacing */
     padding-inline: var(--control-medium-paddingInline-condensed);
 

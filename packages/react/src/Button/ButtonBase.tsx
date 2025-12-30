@@ -59,6 +59,18 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
   // Only include the loading aria-describedby if there is a loading state
   const ariaDescribedByIds = loading ? [loadingAnnouncementID, ariaDescribedBy] : [ariaDescribedBy]
 
+  // Check if button contains a keyboard shortcut hint and add data attribute for styling
+  React.useLayoutEffect(() => {
+    if (innerRef.current) {
+      const hasKbd = innerRef.current.querySelector('[data-kbd-chord]') !== null
+      if (hasKbd) {
+        innerRef.current.setAttribute('data-has-kbd', 'true')
+      } else {
+        innerRef.current.removeAttribute('data-has-kbd')
+      }
+    }
+  })
+
   if (__DEV__) {
     /**
      * The Linter yells because it thinks this conditionally calls an effect,
@@ -99,6 +111,9 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
         data-inactive={inactive ? true : undefined}
         data-loading={Boolean(loading)}
         data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
+        data-has-visuals={LeadingVisual || TrailingVisual ? true : undefined}
+        data-has-leading-visual={LeadingVisual ? true : undefined}
+        data-has-text={children ? true : undefined}
         data-size={size}
         data-variant={variant}
         data-label-wrap={labelWrap}
