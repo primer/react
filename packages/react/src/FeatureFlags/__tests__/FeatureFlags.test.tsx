@@ -1,11 +1,12 @@
 import {describe, expect, it, beforeEach} from 'vitest'
 import {render} from '@testing-library/react'
 import {FeatureFlags, useFeatureFlag} from '../../FeatureFlags'
+import {__resetDialogScrollOptimizedCount} from '../FeatureFlags'
 
 describe('FeatureFlags', () => {
   beforeEach(() => {
-    // Clean up body attributes between tests
-    document.body.removeAttribute('data-dialog-scroll-optimized')
+    // Reset module state between tests for isolation
+    __resetDialogScrollOptimizedCount()
   })
 
   it('should allow a component to check if a feature flag is enabled', () => {
