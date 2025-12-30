@@ -24,30 +24,32 @@ export type PaneWidth = 'small' | 'medium' | 'large'
 export type PaneWidthValue = PaneWidth | number | CustomWidthOptions
 
 /**
- * Configuration for resizable without persistence.
- * Use this to enable resizing without storing the width anywhere.
- */
-export type NoPersistConfig = {persist: false}
-
-/**
- * Options passed to custom save function.
+ * Options passed to custom persist function.
  */
 export type SaveOptions = {widthStorageKey: string}
 
 /**
- * Configuration for custom persistence.
- * Provide your own save function to persist width to server, IndexedDB, etc.
+ * Custom persist function type.
  */
-export type CustomPersistConfig = {
-  save: (width: number, options: SaveOptions) => void | Promise<void>
+export type PersistFunction = (width: number, options: SaveOptions) => void | Promise<void>
+
+/**
+ * Configuration object for resizable pane.
+ * - `persist: false` - Enable resizing without any persistence
+ * - `persist: 'localStorage'` - Enable resizing with localStorage persistence
+ * - `persist: fn` - Enable resizing with custom persistence function
+ */
+export type PersistConfig = {
+  persist: false | 'localStorage' | PersistFunction
 }
 
 /**
- * Type guard to check if resizable config has a custom save function
+ * Type guard to check if persist value is a custom function
  */
-export const isCustomPersistConfig = (config: ResizableConfig): config is CustomPersistConfig => {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- config could be null at runtime despite types
-  return typeof config === 'object' && config !== null && 'save' in config && typeof config.save === 'function'
+export const isCustomPersistFunction = (
+  persist: false | 'localStorage' | PersistFunction,
+): persist is PersistFunction => {
+  return typeof persist === 'function'
 }
 
 /**
@@ -55,9 +57,10 @@ export const isCustomPersistConfig = (config: ResizableConfig): config is Custom
  * - `true`: Enable resizing with default localStorage persistence (may cause hydration mismatch)
  * - `false`: Disable resizing
  * - `{persist: false}`: Enable resizing without any persistence
- * - `{save: fn}`: Enable resizing with custom persistence
+ * - `{persist: 'localStorage'}`: Enable resizing with localStorage persistence
+ * - `{persist: fn}`: Enable resizing with custom persistence function
  */
-export type ResizableConfig = boolean | NoPersistConfig | CustomPersistConfig
+export type ResizableConfig = boolean | PersistConfig
 
 export type UsePaneWidthOptions = {
   width: PaneWidthValue
@@ -138,18 +141,18 @@ export const getDefaultPaneWidth = (w: PaneWidthValue): number => {
 }
 
 /**
- * Type guard to check if resizable config is {persist: false}
+ * Type guard to check if resizable config is a PersistConfig object
  */
-export const isNoPersistConfig = (config: ResizableConfig): config is NoPersistConfig => {
+export const isPersistConfig = (config: ResizableConfig): config is PersistConfig => {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- config could be null at runtime despite types
-  return typeof config === 'object' && config !== null && 'persist' in config && config.persist === false
+  return typeof config === 'object' && config !== null && 'persist' in config
 }
 
 /**
- * Check if resizing is enabled (boolean true, {persist: false}, or {save: fn})
+ * Check if resizing is enabled (boolean true or {persist: ...})
  */
 export const isResizableEnabled = (config: ResizableConfig): boolean => {
-  return config === true || isNoPersistConfig(config) || isCustomPersistConfig(config)
+  return config === true || isPersistConfig(config)
 }
 
 /**
@@ -294,12 +297,12 @@ export function usePaneWidth({
 
     const config = resizableRef.current
 
-    // Handle localStorage persistence: resizable === true
-    if (config === true) {
+    // Handle localStorage persistence: resizable === true or {persist: 'localStorage'}
+    if (config === true || (isPersistConfig(config) && config.persist === 'localStorage')) {
       localStoragePersister.save(widthStorageKeyRef.current, value)
-    } else if (isCustomPersistConfig(config)) {
+    } else if (isPersistConfig(config) && isCustomPersistFunction(config.persist)) {
       try {
-        const result = config.save(value, {widthStorageKey: widthStorageKeyRef.current})
+        const result = config.persist(value, {widthStorageKey: widthStorageKeyRef.current})
         // Handle async rejections silently
         if (result instanceof Promise) {
           // eslint-disable-next-line github/no-then
