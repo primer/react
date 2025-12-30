@@ -60,6 +60,11 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
   const ariaDescribedByIds = loading ? [loadingAnnouncementID, ariaDescribedBy] : [ariaDescribedBy]
 
   // Check if button contains a keyboard shortcut hint and add data attribute for styling
+  // TODO: This useLayoutEffect detects [data-kbd-chord] descendants to set data-has-kbd.
+  // This is a workaround because trailingVisual is opaque and we can't know at render time
+  // if it contains a KeybindingHint. Ideally, we'd have an explicit prop (e.g., hasKeybindingHint)
+  // that consumers set, eliminating the need for this runtime DOM query.
+  // See: https://github.com/primer/react/pull/7402
   React.useLayoutEffect(() => {
     if (innerRef.current) {
       const hasKbd = innerRef.current.querySelector('[data-kbd-chord]') !== null
