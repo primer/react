@@ -410,7 +410,7 @@ export const ResizablePaneWithCustomPersistence: StoryFn = () => {
       <PageLayout.Pane
         width={widthConfig}
         resizable={{
-          save: width => {
+          persist: width => {
             setWidthConfig(prev => ({...prev, default: `${width}px`}))
             localStorage.setItem(key, width.toString())
           },
@@ -457,7 +457,7 @@ export const ResizablePaneWithNumberWidth: StoryFn = () => {
       <PageLayout.Pane
         width={width}
         resizable={{
-          save: newWidth => {
+          persist: newWidth => {
             setWidth(newWidth)
             localStorage.setItem(key, newWidth.toString())
           },

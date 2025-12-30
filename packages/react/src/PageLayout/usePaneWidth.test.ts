@@ -12,9 +12,10 @@ import {
   SSR_DEFAULT_MAX_WIDTH,
   ARROW_KEY_STEP,
   isResizableEnabled,
-  isNoPersistConfig,
-  isCustomPersistConfig,
-  type CustomPersistConfig,
+  isPersistConfig,
+  isCustomPersistFunction,
+  type PersistConfig,
+  type PersistFunction,
 } from './usePaneWidth'
 
 // Mock refs for hook testing
@@ -227,9 +228,29 @@ describe('usePaneWidth', () => {
       localStorage.setItem = originalSetItem
     })
 
+    it('should use localStorage when {persist: "localStorage"} is provided', () => {
+      const refs = createMockRefs()
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: {persist: 'localStorage'},
+          widthStorageKey: 'test-explicit-localstorage',
+          ...refs,
+        }),
+      )
+
+      act(() => {
+        result.current.saveWidth(450)
+      })
+
+      expect(result.current.currentWidth).toBe(450)
+      expect(localStorage.getItem('test-explicit-localstorage')).toBe('450')
+    })
+
     it('should call custom save function with width and options', () => {
       const customSave = vi.fn()
-      const customPersister: CustomPersistConfig = {save: customSave}
+      const customPersister: PersistConfig = {persist: customSave}
       const refs = createMockRefs()
 
       const {result} = renderHook(() =>
@@ -254,7 +275,7 @@ describe('usePaneWidth', () => {
 
     it('should handle async custom save function', async () => {
       const customSave = vi.fn().mockResolvedValue(undefined)
-      const customPersister: CustomPersistConfig = {save: customSave}
+      const customPersister: PersistConfig = {persist: customSave}
       const refs = createMockRefs()
 
       const {result} = renderHook(() =>
@@ -279,7 +300,7 @@ describe('usePaneWidth', () => {
       const customSave = vi.fn(() => {
         throw new Error('Sync storage error')
       })
-      const customPersister: CustomPersistConfig = {save: customSave}
+      const customPersister: PersistConfig = {persist: customSave}
       const refs = createMockRefs()
 
       const {result} = renderHook(() =>
@@ -303,7 +324,7 @@ describe('usePaneWidth', () => {
 
     it('should handle async rejection from custom save gracefully', async () => {
       const customSave = vi.fn().mockRejectedValue(new Error('Async storage error'))
-      const customPersister: CustomPersistConfig = {save: customSave}
+      const customPersister: PersistConfig = {persist: customSave}
       const refs = createMockRefs()
 
       const {result} = renderHook(() =>
@@ -331,7 +352,7 @@ describe('usePaneWidth', () => {
 
     it('should not read from localStorage when custom save is provided', () => {
       localStorage.setItem('test-pane', '500')
-      const customPersister: CustomPersistConfig = {save: vi.fn()}
+      const customPersister: PersistConfig = {persist: vi.fn() as PersistFunction}
       const refs = createMockRefs()
 
       const {result} = renderHook(() =>
@@ -999,52 +1020,59 @@ describe('type guards', () => {
       expect(isResizableEnabled({persist: false})).toBe(true)
     })
 
-    it('should return true for {save: fn} (custom persistence)', () => {
-      expect(isResizableEnabled({save: () => {}})).toBe(true)
+    it('should return true for {persist: "localStorage"}', () => {
+      expect(isResizableEnabled({persist: 'localStorage'})).toBe(true)
+    })
+
+    it('should return true for {persist: fn} (custom persistence)', () => {
+      expect(isResizableEnabled({persist: () => {}})).toBe(true)
     })
   })
 
-  describe('isNoPersistConfig', () => {
+  describe('isPersistConfig', () => {
     it('should return true for {persist: false}', () => {
-      expect(isNoPersistConfig({persist: false})).toBe(true)
+      expect(isPersistConfig({persist: false})).toBe(true)
+    })
+
+    it('should return true for {persist: "localStorage"}', () => {
+      expect(isPersistConfig({persist: 'localStorage'})).toBe(true)
+    })
+
+    it('should return true for {persist: fn}', () => {
+      expect(isPersistConfig({persist: () => {}})).toBe(true)
     })
 
     it('should return false for boolean true', () => {
-      expect(isNoPersistConfig(true)).toBe(false)
+      expect(isPersistConfig(true)).toBe(false)
     })
 
     it('should return false for boolean false', () => {
-      expect(isNoPersistConfig(false)).toBe(false)
+      expect(isPersistConfig(false)).toBe(false)
     })
 
-    it('should return false for objects without persist: false', () => {
+    it('should return false for objects without persist property', () => {
       // @ts-expect-error - testing runtime behavior with arbitrary object
-      expect(isNoPersistConfig({other: 'value'})).toBe(false)
-    })
-
-    it('should return false for custom persist config', () => {
-      expect(isNoPersistConfig({save: () => {}})).toBe(false)
+      expect(isPersistConfig({other: 'value'})).toBe(false)
     })
   })
 
-  describe('isCustomPersistConfig', () => {
-    it('should return true for objects with save function', () => {
-      expect(isCustomPersistConfig({save: () => {}})).toBe(true)
-      expect(isCustomPersistConfig({save: async () => {}})).toBe(true)
+  describe('isCustomPersistFunction', () => {
+    it('should return true for function', () => {
+      const fn = () => {}
+      expect(isCustomPersistFunction(fn)).toBe(true)
     })
 
-    it('should return false for boolean values', () => {
-      expect(isCustomPersistConfig(true)).toBe(false)
-      expect(isCustomPersistConfig(false)).toBe(false)
+    it('should return true for async function', () => {
+      const fn = async () => {}
+      expect(isCustomPersistFunction(fn)).toBe(true)
     })
 
-    it('should return false for {persist: false}', () => {
-      expect(isCustomPersistConfig({persist: false})).toBe(false)
+    it('should return false for false', () => {
+      expect(isCustomPersistFunction(false)).toBe(false)
     })
 
-    it('should return false for null', () => {
-      // @ts-expect-error - testing runtime behavior
-      expect(isCustomPersistConfig(null)).toBe(false)
+    it('should return false for "localStorage"', () => {
+      expect(isCustomPersistFunction('localStorage')).toBe(false)
     })
   })
 })
