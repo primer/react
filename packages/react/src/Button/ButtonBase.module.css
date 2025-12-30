@@ -582,13 +582,13 @@
     }
   }
 
-  /* PERFORMANCE: Use data-no-visuals attribute instead of :has(.Visual) to avoid descendant scan */
+  /* PERFORMANCE: Use data-has-visuals attribute instead of :has(.Visual) to avoid descendant scan */
   [data-a11y-link-underlines='true'] &:where([data-variant='link']) {
-    &:where([data-no-visuals='true']) {
+    &:not([data-has-visuals]) {
       text-decoration: underline;
     }
 
-    &:not([data-no-visuals='true']) {
+    &[data-has-visuals] {
       background-image: linear-gradient(to right, currentColor, currentColor);
       background-size: 100% 1.5px;
       background-position: 0 calc(100% - 2px);
@@ -601,12 +601,12 @@
   }
 
   [data-a11y-link-underlines='false'] &:where([data-variant='link']) {
-    &:where([data-no-visuals='true']) {
+    &:not([data-has-visuals]) {
       text-decoration: none;
       background-image: none;
     }
 
-    &:not([data-no-visuals='true']) {
+    &[data-has-visuals] {
       background-image: none;
     }
   }

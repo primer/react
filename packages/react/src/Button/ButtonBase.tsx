@@ -98,7 +98,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
         data-block={block ? 'block' : null}
         data-inactive={inactive ? true : undefined}
         data-loading={Boolean(loading)}
-        data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
+        data-has-visuals={LeadingVisual || TrailingVisual || TrailingAction ? true : undefined}
         data-size={size}
         data-variant={variant}
         data-label-wrap={labelWrap}

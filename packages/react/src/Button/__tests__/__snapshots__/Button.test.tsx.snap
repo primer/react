@@ -5,7 +5,6 @@ exports[`Button > respects block prop 1`] = `
   class="prc-Button-ButtonBase-Eb8-K"
   data-block="block"
   data-loading="false"
-  data-no-visuals="true"
   data-size="medium"
   data-variant="default"
   id="test-button"
@@ -30,7 +29,6 @@ exports[`Button > respects the alignContent prop 1`] = `
 <button
   class="prc-Button-ButtonBase-Eb8-K"
   data-loading="false"
-  data-no-visuals="true"
   data-size="medium"
   data-variant="default"
   id="test-button"
@@ -55,7 +53,6 @@ exports[`Button > respects the large size prop 1`] = `
 <button
   class="prc-Button-ButtonBase-Eb8-K"
   data-loading="false"
-  data-no-visuals="true"
   data-size="large"
   data-variant="default"
   id="test-button"
@@ -80,7 +77,6 @@ exports[`Button > respects the small size prop 1`] = `
 <button
   class="prc-Button-ButtonBase-Eb8-K"
   data-loading="false"
-  data-no-visuals="true"
   data-size="small"
   data-variant="default"
   id="test-button"
@@ -105,7 +101,6 @@ exports[`Button > styles danger button appropriately 1`] = `
 <button
   class="prc-Button-ButtonBase-Eb8-K"
   data-loading="false"
-  data-no-visuals="true"
   data-size="medium"
   data-variant="danger"
   id="test-button"
@@ -130,7 +125,6 @@ exports[`Button > styles invisible button appropriately 1`] = `
 <button
   class="prc-Button-ButtonBase-Eb8-K"
   data-loading="false"
-  data-no-visuals="true"
   data-size="medium"
   data-variant="invisible"
   id="test-button"
@@ -155,7 +149,6 @@ exports[`Button > styles primary button appropriately 1`] = `
 <button
   class="prc-Button-ButtonBase-Eb8-K"
   data-loading="false"
-  data-no-visuals="true"
   data-size="medium"
   data-variant="primary"
   id="test-button"
