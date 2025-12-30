@@ -1,14 +1,19 @@
 import React from 'react'
 import {render, fireEvent, waitFor} from '@testing-library/react'
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi, beforeEach} from 'vitest'
 import userEvent from '@testing-library/user-event'
 import {Dialog} from './Dialog'
 import {Button} from '../Button'
 import {implementsClassName} from '../utils/testing'
 import classes from './Dialog.module.css'
 import {FeatureFlags} from '../FeatureFlags'
+import {__resetDialogScrollOptimizedCount} from '../FeatureFlags/FeatureFlags'
 
 describe('Dialog', () => {
+  beforeEach(() => {
+    __resetDialogScrollOptimizedCount()
+  })
+
   implementsClassName(Dialog, classes.Dialog)
   it('renders with role "dialog" by default', () => {
     const {getByRole} = render(<Dialog onClose={() => {}}>Pay attention to me</Dialog>)
@@ -341,7 +346,7 @@ describe('Footer button loading states', () => {
   })
 
   describe('primer_react_css_has_selector_perf feature flag', () => {
-    it('does not add data-dialog-scroll-optimized attribute when flag is OFF', () => {
+    it('does not add data-dialog-scroll-optimized or data-dialog-scroll-disabled when flag is OFF', () => {
       const {unmount} = render(
         <FeatureFlags flags={{primer_react_css_has_selector_perf: false}}>
           <Dialog onClose={() => {}}>Dialog content</Dialog>
@@ -349,27 +354,46 @@ describe('Footer button loading states', () => {
       )
 
       expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false)
-      expect(document.body.classList.contains('DialogScrollDisabled')).toBe(true)
+      expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(false)
 
       unmount()
 
-      expect(document.body.classList.contains('DialogScrollDisabled')).toBe(false)
+      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false)
+      expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(false)
     })
 
-    it('adds data-dialog-scroll-optimized attribute when flag is ON', () => {
+    it('adds data-dialog-scroll-optimized at provider level and data-dialog-scroll-disabled when dialog mounts', () => {
       const {unmount} = render(
         <FeatureFlags flags={{primer_react_css_has_selector_perf: true}}>
           <Dialog onClose={() => {}}>Dialog content</Dialog>
         </FeatureFlags>,
       )
 
+      // Provider sets data-dialog-scroll-optimized, Dialog sets data-dialog-scroll-disabled
       expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(true)
       expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(true)
 
       unmount()
 
+      // Both should be removed on unmount
       expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false)
       expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(false)
+    })
+
+    it('sets data-dialog-scroll-optimized even when no dialogs are open', () => {
+      const {unmount} = render(
+        <FeatureFlags flags={{primer_react_css_has_selector_perf: true}}>
+          <div>No dialogs here</div>
+        </FeatureFlags>,
+      )
+
+      // Provider sets the attribute even without dialogs
+      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(true)
+      expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(false)
+
+      unmount()
+
+      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false)
     })
 
     it('handles multiple dialogs with ref counting when flag is ON', () => {
@@ -389,14 +413,14 @@ describe('Footer button loading states', () => {
         </FeatureFlags>,
       )
 
-      // Attribute should still be present
+      // Attributes should still be present
       expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(true)
       expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(true)
 
       // Unmount first dialog
       unmount1()
 
-      // Attribute and class should still be present (second dialog is still open)
+      // Attributes should still be present (second dialog and provider are still mounted)
       expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(true)
       expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(true)
 
@@ -416,7 +440,7 @@ describe('Footer button loading states', () => {
       )
 
       expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false)
-      expect(document.body.classList.contains('DialogScrollDisabled')).toBe(true)
+      expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(false)
 
       // Render second dialog
       const {unmount: unmount2} = render(
@@ -425,21 +449,23 @@ describe('Footer button loading states', () => {
         </FeatureFlags>,
       )
 
-      // Attribute should not be present, class should be present
+      // Attributes should not be present
       expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false)
-      expect(document.body.classList.contains('DialogScrollDisabled')).toBe(true)
+      expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(false)
 
       // Unmount first dialog
       unmount1()
 
-      // Class should still be present (second dialog is still open)
-      expect(document.body.classList.contains('DialogScrollDisabled')).toBe(true)
+      // Attributes should still not be present
+      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false)
+      expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(false)
 
       // Unmount second dialog
       unmount2()
 
-      // Class should be removed
-      expect(document.body.classList.contains('DialogScrollDisabled')).toBe(false)
+      // Attributes should still not be present
+      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false)
+      expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(false)
     })
   })
 })

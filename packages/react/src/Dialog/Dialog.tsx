@@ -296,34 +296,25 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     const scrollbarWidth = window.innerWidth - document.body.clientWidth
     const dialog = dialogRef.current
 
-    // Add DisableScroll class to this dialog
+    // Add DisableScroll class to this dialog (for legacy :has() selector path)
     dialog?.classList.add(classes.DisableScroll)
     document.body.style.setProperty('--prc-dialog-scrollgutter', `${scrollbarWidth}px`)
 
     if (usePerfOptimization) {
-      // Optimized path: set attributes on body
-      document.body.setAttribute('data-dialog-scroll-optimized', '')
+      // Optimized path: set attribute on body for direct CSS targeting
       document.body.setAttribute('data-dialog-scroll-disabled', '')
-    } else {
-      // Legacy path: only add class (CSS :has() selector handles the rest)
-      document.body.classList.add('DialogScrollDisabled')
     }
+    // Legacy path: no action needed - CSS :has(.Dialog.DisableScroll) handles it
 
     return () => {
-      // Remove DisableScroll class from this dialog
       dialog?.classList.remove(classes.DisableScroll)
 
-      // Query DOM to check if any other dialogs with DisableScroll remain
       const remainingDialogs = document.querySelectorAll(`.${classes.DisableScroll}`)
 
       if (remainingDialogs.length === 0) {
-        // No more dialogs open, clean up body
         document.body.style.removeProperty('--prc-dialog-scrollgutter')
         if (usePerfOptimization) {
-          document.body.removeAttribute('data-dialog-scroll-optimized')
           document.body.removeAttribute('data-dialog-scroll-disabled')
-        } else {
-          document.body.classList.remove('DialogScrollDisabled')
         }
       }
     }
