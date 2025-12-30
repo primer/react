@@ -9,7 +9,7 @@ import {useFocusZone} from '../hooks/useFocusZone'
 import type {ComponentProps, MandateProps, AriaRole} from '../utils/types'
 import Spinner from '../Spinner'
 import {useId} from '../hooks/useId'
-import {AutocompleteContext} from './AutocompleteContext'
+import {AutocompleteContext, AutocompleteDeferredInputContext} from './AutocompleteContext'
 import type {IconProps} from '@primer/octicons-react'
 import {PlusIcon} from '@primer/octicons-react'
 import VisuallyHidden from '../_VisuallyHidden'
@@ -132,14 +132,14 @@ const debounceAnnouncement = debounce((announcement: string) => {
 
 function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMenuInternalProps<T>) {
   const autocompleteContext = useContext(AutocompleteContext)
-  if (autocompleteContext === null) {
+  const deferredInputContext = useContext(AutocompleteDeferredInputContext)
+  if (autocompleteContext === null || deferredInputContext === null) {
     throw new Error('AutocompleteContext returned null values')
   }
   const {
     activeDescendantRef,
     id,
     inputRef,
-    inputValue = '',
     scrollContainerRef,
     setAutocompleteSuggestion,
     setShowMenu,
@@ -148,6 +148,9 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
     setSelectedItemLength,
     showMenu,
   } = autocompleteContext
+  // Use deferred input value to avoid re-rendering on every keystroke
+  // This allows filtering large lists without blocking typing
+  const {deferredInputValue} = deferredInputContext
   const {
     items,
     selectedItemIds,
@@ -226,9 +229,9 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   const sortedAndFilteredItemsToRender = useMemo(
     () =>
       selectableItems
-        .filter(filterFn ? filterFn : getDefaultItemFilter(inputValue))
+        .filter(filterFn ? filterFn : getDefaultItemFilter(deferredInputValue))
         .sort((a, b) => itemSortOrderData[a.id] - itemSortOrderData[b.id]),
-    [selectableItems, itemSortOrderData, filterFn, inputValue],
+    [selectableItems, itemSortOrderData, filterFn, deferredInputValue],
   )
 
   const allItemsToRender = useMemo(
@@ -311,12 +314,14 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   )
 
   useEffect(() => {
-    if (highlightedItem?.text?.startsWith(inputValue) && !selectedItemIds.includes(highlightedItem.id)) {
+    // Use deferredInputValue to avoid running this effect on every keystroke
+    // The Input component guards against stale suggestions
+    if (highlightedItem?.text?.startsWith(deferredInputValue) && !selectedItemIds.includes(highlightedItem.id)) {
       setAutocompleteSuggestion(highlightedItem.text)
     } else {
       setAutocompleteSuggestion('')
     }
-  }, [highlightedItem, inputValue, selectedItemIds, setAutocompleteSuggestion])
+  }, [highlightedItem, deferredInputValue, selectedItemIds, setAutocompleteSuggestion])
 
   useEffect(() => {
     const itemIdSortResult = [...sortedItemIds].sort(
