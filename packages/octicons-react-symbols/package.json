@@ -4,8 +4,8 @@
   "type": "module",
   "private": true,
   "exports": {
-    "types": "./dist/index.d.ts",
-    "default": "./dist/index.js"
+    "types": "./dist/generated/index.d.ts",
+    "default": "./dist/generated/index.js"
   },
   "scripts": {
     "build": "node script/build.ts && rolldown -c",
@@ -34,6 +34,7 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@babel/runtime": "^7.28.4"
+    "@babel/runtime": "^7.28.4",
+    "react-compiler-runtime": "^1.0.0"
   }
 }

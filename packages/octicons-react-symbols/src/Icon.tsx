@@ -48,7 +48,6 @@ const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
       viewBox={`0 0 ${naturalWidth} ${naturalHeight}`}
       width={width}
       height={height}
-      id={id}
     >
       {title ? <title>{title}</title> : null}
       <use href={`#${id}`} />

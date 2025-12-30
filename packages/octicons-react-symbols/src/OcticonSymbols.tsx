@@ -1,17 +1,12 @@
-import type {PropsWithChildren, ReactElement} from 'react'
+import type {PropsWithChildren} from 'react'
 
-type OcticonSymbolsProps = PropsWithChildren<{
-  symbols: Array<ReactElement<any>>
-}>
+type OcticonSymbolsProps = PropsWithChildren<{}>
 
-function OcticonSymbols({children, symbols}: OcticonSymbolsProps) {
+function OcticonSymbols({children}: OcticonSymbolsProps) {
   return (
-    <>
-      <svg aria-hidden="true" height={0} width={0} display="none">
-        {symbols}
-      </svg>
+    <svg aria-hidden="true" height={0} width={0} display="none">
       {children}
-    </>
+    </svg>
   )
 }
 

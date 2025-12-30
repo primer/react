@@ -10,20 +10,38 @@ const external = [
 ].map(name => new RegExp(`^${name}(/.*)?`))
 
 export default defineConfig({
-  input: ['./src/index.ts'],
+  input: ['./src/generated/index.ts'],
   external,
   plugins: [
     typescript({
       tsconfig: 'tsconfig.build.json',
     }),
     babel({
-      presets: ['@babel/preset-typescript', '@babel/preset-react'],
-      plugins: ['@babel/plugin-transform-runtime', 'babel-plugin-react-compiler'],
+      presets: [
+        '@babel/preset-typescript',
+        [
+          '@babel/preset-react',
+          {
+            runtime: 'automatic',
+          },
+        ],
+      ],
+      plugins: [
+        [
+          'babel-plugin-react-compiler',
+          {
+            target: '18',
+          },
+        ],
+        '@babel/plugin-transform-runtime',
+      ],
       extensions: ['.js', '.jsx', '.ts', '.tsx'],
       babelHelpers: 'runtime',
     }),
   ],
   output: {
     dir: './dist',
+    preserveModules: true,
+    preserveModulesRoot: 'src',
   },
 })
