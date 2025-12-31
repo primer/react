@@ -2,7 +2,6 @@ import fs from 'node:fs'
 import path from 'node:path'
 import {describe, expect, test} from 'vitest'
 import glob from 'fast-glob'
-import groupBy from 'lodash.groupby'
 
 const ROOT_DIRECTORY = path.resolve(__dirname, '..', '..')
 
@@ -84,51 +83,47 @@ const stories = await Promise.all(
     }),
 )
 
-const components = Object.entries(
-  groupBy(stories, ({name}) => {
-    return name
-  }),
-)
+// Flatten the stories array to work with vitest 4.0.16's stricter suite function rules
+const flattenedStories = stories.map(story => ({
+  testName: `${story.name} - ${story.story.default.title} (${story.relativeFilepath})`,
+  ...story,
+}))
 
-describe.each(components)('%s', (_component, stories) => {
-  for (const {story, type, relativeFilepath} of stories) {
-    describe(`${story.default.title} (${relativeFilepath})`, () => {
-      test('title follows naming convention', () => {
-        // Matches:
-        // - title: 'Components/TreeView'
-        // Does not match:
-        // -  title: 'Component/TreeView/Features'
-        // -  title: 'TreeView'
-        const defaultTitlePattern = /Components\/\w+/
+describe.each(flattenedStories)('$testName', ({story, type}) => {
+  test('title follows naming convention', () => {
+    // Matches:
+    // - title: 'Components/TreeView'
+    // Does not match:
+    // -  title: 'Component/TreeView/Features'
+    // -  title: 'TreeView'
+    const defaultTitlePattern = /Components\/\w+/
 
-        // Matches:
-        // - title: 'Components/TreeView/Features'
-        // Does not match:
-        // -  title: 'Component/TreeView'
-        // -  title: 'TreeView'
-        const featureTitlePattern = /Components\/\w+\/Features/
+    // Matches:
+    // - title: 'Components/TreeView/Features'
+    // Does not match:
+    // -  title: 'Component/TreeView'
+    // -  title: 'TreeView'
+    const featureTitlePattern = /Components\/\w+\/Features/
 
-        expect(story.default.title).toMatch(type === 'default' ? defaultTitlePattern : featureTitlePattern)
-      })
+    expect(story.default.title).toMatch(type === 'default' ? defaultTitlePattern : featureTitlePattern)
+  })
 
-      if (type === 'default') {
-        test('exports a Default story', () => {
-          expect(story.Default).toBeDefined()
-        })
+  if (type === 'default') {
+    test('exports a Default story', () => {
+      expect(story.Default).toBeDefined()
+    })
 
-        test('Default story does not have `args`', () => {
-          expect(story.Default.args).not.toBeDefined()
-        })
+    test('Default story does not have `args`', () => {
+      expect(story.Default.args).not.toBeDefined()
+    })
 
-        test('Default story does not have `argTypes`', () => {
-          expect(story.Default.argTypes).not.toBeDefined()
-        })
+    test('Default story does not have `argTypes`', () => {
+      expect(story.Default.argTypes).not.toBeDefined()
+    })
 
-        test('only exports Default and Playground stories', () => {
-          for (const storyName of Object.keys(story)) {
-            expect(/^Default$|^(.*)Playground$|^default$/.test(storyName)).toBe(true)
-          }
-        })
+    test('only exports Default and Playground stories', () => {
+      for (const storyName of Object.keys(story)) {
+        expect(/^Default$|^(.*)Playground$|^default$/.test(storyName)).toBe(true)
       }
     })
   }
