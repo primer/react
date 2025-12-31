@@ -23,7 +23,7 @@ export type UsePaneWidthOptions = {
   widthStorageKey: string
   paneRef: React.RefObject<HTMLDivElement | null>
   handleRef: React.RefObject<HTMLDivElement | null>
-  contentRef: React.RefObject<HTMLDivElement | null>
+  contentWrapperRef: React.RefObject<HTMLDivElement | null>
 }
 
 export type UsePaneWidthResult = {
@@ -131,7 +131,7 @@ export function usePaneWidth({
   widthStorageKey,
   paneRef,
   handleRef,
-  contentRef,
+  contentWrapperRef,
 }: UsePaneWidthOptions): UsePaneWidthResult {
   // Derive constraints from width configuration
   const isCustomWidth = isCustomWidthOptions(width)
@@ -280,14 +280,14 @@ export function usePaneWidth({
       if (isResizing) return
       isResizing = true
       paneRef.current?.setAttribute('data-dragging', 'true')
-      contentRef.current?.setAttribute('data-dragging', 'true')
+      contentWrapperRef.current?.setAttribute('data-dragging', 'true')
     }
 
     const endResizeOptimizations = () => {
       if (!isResizing) return
       isResizing = false
       paneRef.current?.removeAttribute('data-dragging')
-      contentRef.current?.removeAttribute('data-dragging')
+      contentWrapperRef.current?.removeAttribute('data-dragging')
     }
 
     const handleResize = () => {
@@ -324,7 +324,7 @@ export function usePaneWidth({
       endResizeOptimizations()
       window.removeEventListener('resize', handleResize)
     }
-  }, [resizable, customMaxWidth, minPaneWidth, paneRef, handleRef, contentRef])
+  }, [resizable, customMaxWidth, minPaneWidth, paneRef, handleRef, contentWrapperRef])
 
   return {
     currentWidth,

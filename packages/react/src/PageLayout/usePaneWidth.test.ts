@@ -17,7 +17,7 @@ import {
 const createMockRefs = () => ({
   paneRef: {current: document.createElement('div')} as React.RefObject<HTMLDivElement>,
   handleRef: {current: document.createElement('div')} as React.RefObject<HTMLDivElement>,
-  contentRef: {current: document.createElement('div')} as React.RefObject<HTMLDivElement>,
+  contentWrapperRef: {current: document.createElement('div')} as React.RefObject<HTMLDivElement>,
 })
 
 describe('usePaneWidth', () => {
@@ -629,7 +629,7 @@ describe('usePaneWidth', () => {
 
       // Initially no data-dragging attribute
       expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(false)
-      expect(refs.contentRef.current?.hasAttribute('data-dragging')).toBe(false)
+      expect(refs.contentWrapperRef.current?.hasAttribute('data-dragging')).toBe(false)
 
       // Fire resize
       vi.stubGlobal('innerWidth', 1000)
@@ -637,7 +637,7 @@ describe('usePaneWidth', () => {
 
       // Attribute should be applied immediately on first resize
       expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(true)
-      expect(refs.contentRef.current?.hasAttribute('data-dragging')).toBe(true)
+      expect(refs.contentWrapperRef.current?.hasAttribute('data-dragging')).toBe(true)
 
       // Fire another resize event immediately (simulating continuous resize)
       vi.stubGlobal('innerWidth', 900)
@@ -645,7 +645,7 @@ describe('usePaneWidth', () => {
 
       // Attribute should still be present (containment stays on during continuous resize)
       expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(true)
-      expect(refs.contentRef.current?.hasAttribute('data-dragging')).toBe(true)
+      expect(refs.contentWrapperRef.current?.hasAttribute('data-dragging')).toBe(true)
 
       // Wait for the debounce timeout (150ms) to complete after resize stops
       await act(async () => {
@@ -654,7 +654,7 @@ describe('usePaneWidth', () => {
 
       // Attribute should be removed after debounce completes
       expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(false)
-      expect(refs.contentRef.current?.hasAttribute('data-dragging')).toBe(false)
+      expect(refs.contentWrapperRef.current?.hasAttribute('data-dragging')).toBe(false)
 
       vi.useRealTimers()
     })
@@ -680,14 +680,14 @@ describe('usePaneWidth', () => {
 
       // Attribute should be applied
       expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(true)
-      expect(refs.contentRef.current?.hasAttribute('data-dragging')).toBe(true)
+      expect(refs.contentWrapperRef.current?.hasAttribute('data-dragging')).toBe(true)
 
       // Unmount immediately (before debounce timer fires)
       unmount()
 
       // Attribute should be cleaned up on unmount regardless of timing
       expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(false)
-      expect(refs.contentRef.current?.hasAttribute('data-dragging')).toBe(false)
+      expect(refs.contentWrapperRef.current?.hasAttribute('data-dragging')).toBe(false)
 
       vi.useRealTimers()
     })

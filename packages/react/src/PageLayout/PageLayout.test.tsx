@@ -192,18 +192,18 @@ describe('PageLayout', async () => {
         </PageLayout>,
       )
 
-      const content = container.querySelector<HTMLElement>('[class*="PageLayoutContent"]')
+      const contentWrapper = container.querySelector<HTMLElement>('[class*="ContentWrapper"]')
       const divider = await screen.findByRole('slider')
 
       // Before drag - no data-dragging attribute
-      expect(content).not.toHaveAttribute('data-dragging')
+      expect(contentWrapper).not.toHaveAttribute('data-dragging')
 
       // Start drag - optimization attribute is set
       fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
-      expect(content).toHaveAttribute('data-dragging', 'true')
+      expect(contentWrapper).toHaveAttribute('data-dragging', 'true')
       // End drag - pointer capture lost ends the drag and removes optimization attribute
       fireEvent.lostPointerCapture(divider, {pointerId: 1})
-      expect(content).not.toHaveAttribute('data-dragging')
+      expect(contentWrapper).not.toHaveAttribute('data-dragging')
     })
 
     it('should set optimization styles during keyboard resize', async () => {
@@ -218,20 +218,20 @@ describe('PageLayout', async () => {
         </PageLayout>,
       )
 
-      const content = container.querySelector<HTMLElement>('[class*="PageLayoutContent"]')
+      const contentWrapper = container.querySelector<HTMLElement>('[class*="ContentWrapper"]')
       const divider = await screen.findByRole('slider')
 
       // Before interaction - no data-dragging attribute
-      expect(content).not.toHaveAttribute('data-dragging')
+      expect(contentWrapper).not.toHaveAttribute('data-dragging')
 
       // Start keyboard resize (focus first)
       fireEvent.focus(divider)
       fireEvent.keyDown(divider, {key: 'ArrowRight'})
-      expect(content).toHaveAttribute('data-dragging', 'true')
+      expect(contentWrapper).toHaveAttribute('data-dragging', 'true')
 
       // End keyboard resize - removes optimization attribute
       fireEvent.keyUp(divider, {key: 'ArrowRight'})
-      expect(content).not.toHaveAttribute('data-dragging')
+      expect(contentWrapper).not.toHaveAttribute('data-dragging')
     })
 
     it('should not add will-change during drag', async () => {

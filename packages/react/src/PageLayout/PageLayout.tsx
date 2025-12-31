@@ -46,13 +46,13 @@ const PageLayoutContext = React.createContext<{
   rowGap: keyof typeof SPACING_MAP
   columnGap: keyof typeof SPACING_MAP
   paneRef: React.RefObject<HTMLDivElement>
-  contentRef: React.RefObject<HTMLDivElement>
+  contentWrapperRef: React.RefObject<HTMLDivElement>
 }>({
   padding: 'normal',
   rowGap: 'normal',
   columnGap: 'normal',
   paneRef: {current: null},
-  contentRef: {current: null},
+  contentWrapperRef: {current: null},
 })
 
 // ----------------------------------------------------------------------------
@@ -92,7 +92,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   _slotsConfig: slotsConfig,
 }) => {
   const paneRef = useRef<HTMLDivElement>(null)
-  const contentRef = useRef<HTMLDivElement>(null)
+  const contentWrapperRef = useRef<HTMLDivElement>(null)
 
   const [slots, rest] = useSlots(children, slotsConfig ?? {header: Header, footer: Footer})
 
@@ -102,18 +102,16 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
       rowGap,
       columnGap,
       paneRef,
-      contentRef,
+      contentWrapperRef,
     }
-  }, [padding, rowGap, columnGap, paneRef, contentRef])
+  }, [padding, rowGap, columnGap, paneRef, contentWrapperRef])
 
   return (
     <PageLayoutContext.Provider value={memoizedContextValue}>
       <RootWrapper style={style} padding={padding} className={className}>
         <div className={classes.PageLayoutWrapper} data-width={containerWidth}>
           {slots.header}
-          <div ref={contentRef} className={clsx(classes.PageLayoutContent)}>
-            {rest}
-          </div>
+          <div className={clsx(classes.PageLayoutContent)}>{rest}</div>
           {slots.footer}
         </div>
       </RootWrapper>
@@ -242,7 +240,7 @@ const DragHandle = memo<DragHandleProps>(function DragHandle({
     stableOnDragEnd.current = onDragEnd
   })
 
-  const {paneRef, contentRef} = React.useContext(PageLayoutContext)
+  const {paneRef, contentWrapperRef} = React.useContext(PageLayoutContext)
 
   // Dragging state as a ref - cheaper than reading from DOM style
   const isDraggingRef = React.useRef(false)
@@ -253,20 +251,20 @@ const DragHandle = memo<DragHandleProps>(function DragHandle({
     setDraggingStyles({
       handle: handleRef.current,
       pane: paneRef.current,
-      content: contentRef.current,
+      contentWrapper: contentWrapperRef.current,
     })
     isDraggingRef.current = true
-  }, [handleRef, contentRef, paneRef])
+  }, [handleRef, contentWrapperRef, paneRef])
 
   const endDragging = React.useCallback(() => {
     if (!isDraggingRef.current) return
     removeDraggingStyles({
       handle: handleRef.current,
       pane: paneRef.current,
-      content: contentRef.current,
+      contentWrapper: contentWrapperRef.current,
     })
     isDraggingRef.current = false
-  }, [handleRef, contentRef, paneRef])
+  }, [handleRef, contentWrapperRef, paneRef])
 
   /**
    * Pointer down starts a drag operation
@@ -548,9 +546,11 @@ const Content: FCWithSlotMarker<React.PropsWithChildren<PageLayoutContentProps>>
   style,
 }) => {
   const Component = as
+  const {contentWrapperRef} = React.useContext(PageLayoutContext)
 
   return (
     <Component
+      ref={contentWrapperRef}
       aria-label={label}
       aria-labelledby={labelledBy}
       style={style}
@@ -673,7 +673,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     const position = isResponsiveValue(positionProp) ? 'end' : positionProp
     const dividerVariant = isResponsiveValue(dividerProp) ? 'none' : dividerProp
 
-    const {rowGap, columnGap, paneRef, contentRef} = React.useContext(PageLayoutContext)
+    const {rowGap, columnGap, paneRef, contentWrapperRef} = React.useContext(PageLayoutContext)
 
     // Ref to the drag handle for updating ARIA attributes
     const handleRef = React.useRef<HTMLDivElement>(null)
@@ -693,7 +693,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         widthStorageKey,
         paneRef,
         handleRef,
-        contentRef,
+        contentWrapperRef,
       })
 
     useRefObjectAsForwardedRef(forwardRef, paneRef)
