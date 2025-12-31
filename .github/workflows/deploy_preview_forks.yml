@@ -33,12 +33,12 @@ jobs:
       - name: Build docs preview
         run: npm run build:docs:preview
       - name: Download VRT reports
-        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
         with:
           name: vrt
           path: docs/public/vrt
       - name: Download AAT reports
-        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
         with:
           name: aat
           path: docs/public/aat
