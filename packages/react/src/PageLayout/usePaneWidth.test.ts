@@ -17,6 +17,7 @@ import {
 const createMockRefs = () => ({
   paneRef: {current: document.createElement('div')} as React.RefObject<HTMLDivElement>,
   handleRef: {current: document.createElement('div')} as React.RefObject<HTMLDivElement>,
+  contentWrapperRef: {current: document.createElement('div')} as React.RefObject<HTMLDivElement>,
 })
 
 describe('usePaneWidth', () => {
@@ -399,10 +400,10 @@ describe('usePaneWidth', () => {
       // Shrink viewport
       vi.stubGlobal('innerWidth', 800)
 
-      // Wrap resize + debounce in act() since it triggers startTransition state update
+      // Wrap resize + throttle in act() since it triggers startTransition state update
       await act(async () => {
         window.dispatchEvent(new Event('resize'))
-        await vi.advanceTimersByTimeAsync(150)
+        await vi.runAllTimersAsync()
       })
 
       // getMaxPaneWidth now returns 800 - 511 = 289
@@ -413,7 +414,7 @@ describe('usePaneWidth', () => {
       vi.useRealTimers()
     })
 
-    it('should update CSS variable immediately via throttle', async () => {
+    it('should throttle CSS variable update', async () => {
       vi.useFakeTimers()
       vi.stubGlobal('innerWidth', 1280)
       const refs = createMockRefs()
@@ -434,16 +435,22 @@ describe('usePaneWidth', () => {
       // Shrink viewport
       vi.stubGlobal('innerWidth', 1000)
 
-      // Fire resize - CSS should update immediately (throttled at 16ms)
+      // Fire resize - with throttle, first update happens immediately (if THROTTLE_MS passed)
       window.dispatchEvent(new Event('resize'))
 
-      // CSS variable should be updated immediately: 1000 - 511 = 489
+      // Since Date.now() starts at 0 and lastUpdateTime is 0, first update should happen immediately
+      // but it's in rAF, so we need to advance through rAF
+      await act(async () => {
+        await vi.runAllTimersAsync()
+      })
+
+      // CSS variable should now be updated: 1000 - 511 = 489
       expect(refs.paneRef.current?.style.getPropertyValue('--pane-max-width')).toBe('489px')
 
       vi.useRealTimers()
     })
 
-    it('should update ARIA attributes after debounce', async () => {
+    it('should update ARIA attributes after throttle', async () => {
       vi.useFakeTimers()
       vi.stubGlobal('innerWidth', 1280)
       const refs = createMockRefs()
@@ -453,7 +460,7 @@ describe('usePaneWidth', () => {
           width: 'medium',
           minWidth: 256,
           resizable: true,
-          widthStorageKey: 'test-aria-debounce',
+          widthStorageKey: 'test-aria-throttle',
           ...refs,
         }),
       )
@@ -464,16 +471,12 @@ describe('usePaneWidth', () => {
       // Shrink viewport
       vi.stubGlobal('innerWidth', 900)
 
-      // Fire resize but don't wait for debounce
+      // Fire resize - with throttle, update happens via rAF
       window.dispatchEvent(new Event('resize'))
-      await vi.advanceTimersByTimeAsync(50)
 
-      // ARIA should NOT be updated yet
-      expect(refs.handleRef.current?.getAttribute('aria-valuemax')).toBe('769')
-
-      // Wait for debounce
+      // Wait for rAF to complete
       await act(async () => {
-        await vi.advanceTimersByTimeAsync(100)
+        await vi.runAllTimersAsync()
       })
 
       // ARIA should now be updated: 900 - 511 = 389
@@ -482,7 +485,7 @@ describe('usePaneWidth', () => {
       vi.useRealTimers()
     })
 
-    it('should throttle CSS updates and debounce full sync on rapid resize', async () => {
+    it('should throttle full sync on rapid resize', async () => {
       vi.useFakeTimers()
       vi.stubGlobal('innerWidth', 1280)
       const refs = createMockRefs()
@@ -494,7 +497,7 @@ describe('usePaneWidth', () => {
           width: 'medium',
           minWidth: 256,
           resizable: true,
-          widthStorageKey: 'test-throttle-debounce',
+          widthStorageKey: 'test-throttle',
           ...refs,
         }),
       )
@@ -502,13 +505,19 @@ describe('usePaneWidth', () => {
       // Clear mount calls
       setPropertySpy.mockClear()
 
-      // Fire resize - first one updates CSS immediately
+      // Fire resize events rapidly
       vi.stubGlobal('innerWidth', 1100)
       window.dispatchEvent(new Event('resize'))
 
-      // CSS should update immediately (first call, throttle allows)
-      expect(setPropertySpy).toHaveBeenCalledWith('--pane-max-width', '589px') // 1100 - 511
+      // With throttle, CSS should update immediately or via rAF
+      await act(async () => {
+        await vi.runAllTimersAsync()
+      })
 
+      // First update should have happened: 1100 - 511 = 589
+      expect(setPropertySpy).toHaveBeenCalledWith('--pane-max-width', '589px')
+
+      // Clear for next test
       setPropertySpy.mockClear()
 
       // Fire more resize events rapidly (within throttle window)
@@ -517,28 +526,19 @@ describe('usePaneWidth', () => {
         window.dispatchEvent(new Event('resize'))
       }
 
-      // Throttle limits calls - may have scheduled RAF but not executed yet
-      // Advance past throttle window to let RAF execute
-      await vi.advanceTimersByTimeAsync(20)
-
-      // Should have at least one more CSS update from RAF
-      expect(setPropertySpy).toHaveBeenCalled()
-
-      // But ARIA should not be updated yet (debounced)
-      expect(refs.handleRef.current?.getAttribute('aria-valuemax')).toBe('769') // Still initial
-
-      // Wait for debounce to complete
+      // Should schedule via rAF
       await act(async () => {
-        await vi.advanceTimersByTimeAsync(150)
+        await vi.runAllTimersAsync()
       })
 
-      // Now ARIA and refs are synced
-      expect(refs.handleRef.current?.getAttribute('aria-valuemax')).toBe('389') // 900 - 511
+      // Now CSS and ARIA should be synced with final viewport value (900)
+      expect(setPropertySpy).toHaveBeenCalledWith('--pane-max-width', '389px') // 900 - 511
+      expect(refs.handleRef.current?.getAttribute('aria-valuemax')).toBe('389')
 
       vi.useRealTimers()
     })
 
-    it('should update React state via startTransition after debounce', async () => {
+    it('should update React state via startTransition after throttle', async () => {
       vi.useFakeTimers()
       vi.stubGlobal('innerWidth', 1280)
       const refs = createMockRefs()
@@ -560,13 +560,9 @@ describe('usePaneWidth', () => {
       vi.stubGlobal('innerWidth', 800)
       window.dispatchEvent(new Event('resize'))
 
-      // Before debounce completes, state unchanged
-      await vi.advanceTimersByTimeAsync(50)
-      expect(result.current.maxPaneWidth).toBe(769)
-
-      // After debounce, state updated via startTransition
+      // After throttle (via rAF), state updated via startTransition
       await act(async () => {
-        await vi.advanceTimersByTimeAsync(100)
+        await vi.runAllTimersAsync()
       })
 
       // State now reflects new max: 800 - 511 = 289
@@ -614,6 +610,86 @@ describe('usePaneWidth', () => {
 
       expect(addEventListenerSpy).not.toHaveBeenCalledWith('resize', expect.any(Function))
       addEventListenerSpy.mockRestore()
+    })
+
+    it('should apply and remove containment attributes during resize', async () => {
+      vi.useFakeTimers()
+      vi.stubGlobal('innerWidth', 1280)
+      const refs = createMockRefs()
+
+      renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-containment',
+          ...refs,
+        }),
+      )
+
+      // Initially no data-dragging attribute
+      expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(false)
+      expect(refs.contentWrapperRef.current?.hasAttribute('data-dragging')).toBe(false)
+
+      // Fire resize
+      vi.stubGlobal('innerWidth', 1000)
+      window.dispatchEvent(new Event('resize'))
+
+      // Attribute should be applied immediately on first resize
+      expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(true)
+      expect(refs.contentWrapperRef.current?.hasAttribute('data-dragging')).toBe(true)
+
+      // Fire another resize event immediately (simulating continuous resize)
+      vi.stubGlobal('innerWidth', 900)
+      window.dispatchEvent(new Event('resize'))
+
+      // Attribute should still be present (containment stays on during continuous resize)
+      expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(true)
+      expect(refs.contentWrapperRef.current?.hasAttribute('data-dragging')).toBe(true)
+
+      // Wait for the debounce timeout (150ms) to complete after resize stops
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(150)
+      })
+
+      // Attribute should be removed after debounce completes
+      expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(false)
+      expect(refs.contentWrapperRef.current?.hasAttribute('data-dragging')).toBe(false)
+
+      vi.useRealTimers()
+    })
+
+    it('should cleanup containment attributes on unmount during resize', async () => {
+      vi.useFakeTimers()
+      vi.stubGlobal('innerWidth', 1280)
+      const refs = createMockRefs()
+
+      const {unmount} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-cleanup-containment',
+          ...refs,
+        }),
+      )
+
+      // Fire resize
+      vi.stubGlobal('innerWidth', 1000)
+      window.dispatchEvent(new Event('resize'))
+
+      // Attribute should be applied
+      expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(true)
+      expect(refs.contentWrapperRef.current?.hasAttribute('data-dragging')).toBe(true)
+
+      // Unmount immediately (before debounce timer fires)
+      unmount()
+
+      // Attribute should be cleaned up on unmount regardless of timing
+      expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(false)
+      expect(refs.contentWrapperRef.current?.hasAttribute('data-dragging')).toBe(false)
+
+      vi.useRealTimers()
     })
   })
 
