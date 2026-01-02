@@ -33,8 +33,9 @@
     line-height is calculated with calc(height/font-size) and the below numbers are from @primer/primitives.
     --custom-font-size, --custom-line-height, --custom-font-weight are custom properties that can be used to override the below values.
     We don't want these values to be overridden but still want to allow consumers to override them if needed.
+    PERFORMANCE: Scoped :has() to direct child (>) for O(1) lookup instead of descendant scan.
   */
-  &:has([data-component='TitleArea'][data-size-variant='large']) {
+  &:has(> [data-component='TitleArea'][data-size-variant='large']) {
     font-size: var(--custom-font-size, var(--text-title-size-large, 2rem));
     font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
     line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5)); /* calc(48/32) */
@@ -42,7 +43,7 @@
     --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
   }
 
-  &:has([data-component='TitleArea'][data-size-variant='medium']) {
+  &:has(> [data-component='TitleArea'][data-size-variant='medium']) {
     font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
     font-weight: var(--custom-font-weight, var(--base-text-weight-semibold, 600));
     line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6)); /* calc(32/20) */
@@ -50,7 +51,7 @@
     --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
   }
 
-  &:has([data-component='TitleArea'][data-size-variant='subtitle']) {
+  &:has(> [data-component='TitleArea'][data-size-variant='subtitle']) {
     font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
     font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
     line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6)); /* calc(32/20) */
@@ -60,7 +61,7 @@
 
   /* Responsive size variants */
   @media (--viewportRange-narrow) {
-    &:has([data-component='TitleArea'][data-size-variant-narrow='large']) {
+    &:has(> [data-component='TitleArea'][data-size-variant-narrow='large']) {
       font-size: var(--custom-font-size, var(--text-title-size-large, 2rem));
       font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
       line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
@@ -68,7 +69,7 @@
       --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
     }
 
-    &:has([data-component='TitleArea'][data-size-variant-narrow='medium']) {
+    &:has(> [data-component='TitleArea'][data-size-variant-narrow='medium']) {
       font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
       font-weight: var(--custom-font-weight, var(--base-text-weight-semibold, 600));
       line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
@@ -76,7 +77,7 @@
       --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
     }
 
-    &:has([data-component='TitleArea'][data-size-variant-narrow='subtitle']) {
+    &:has(> [data-component='TitleArea'][data-size-variant-narrow='subtitle']) {
       font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
       font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
       line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
@@ -86,7 +87,7 @@
   }
 
   @media (--viewportRange-regular) {
-    &:has([data-component='TitleArea'][data-size-variant-regular='large']) {
+    &:has(> [data-component='TitleArea'][data-size-variant-regular='large']) {
       font-size: var(--custom-font-size, var(--text-title-size-large, 2rem));
       font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
       line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
@@ -94,7 +95,7 @@
       --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
     }
 
-    &:has([data-component='TitleArea'][data-size-variant-regular='medium']) {
+    &:has(> [data-component='TitleArea'][data-size-variant-regular='medium']) {
       font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
       font-weight: var(--custom-font-weight, var(--base-text-weight-semibold, 600));
       line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
@@ -102,7 +103,7 @@
       --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
     }
 
-    &:has([data-component='TitleArea'][data-size-variant-regular='subtitle']) {
+    &:has(> [data-component='TitleArea'][data-size-variant-regular='subtitle']) {
       font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
       font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
       line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
@@ -112,7 +113,7 @@
   }
 
   @media (--viewportRange-wide) {
-    &:has([data-component='TitleArea'][data-size-variant-wide='large']) {
+    &:has(> [data-component='TitleArea'][data-size-variant-wide='large']) {
       font-size: var(--custom-font-size, var(--text-title-size-large, 2rem));
       font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
       line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
@@ -120,7 +121,7 @@
       --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
     }
 
-    &:has([data-component='TitleArea'][data-size-variant-wide='medium']) {
+    &:has(> [data-component='TitleArea'][data-size-variant-wide='medium']) {
       font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
       font-weight: var(--custom-font-weight, var(--base-text-weight-semibold, 600));
       line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
@@ -128,7 +129,7 @@
       --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
     }
 
-    &:has([data-component='TitleArea'][data-size-variant-wide='subtitle']) {
+    &:has(> [data-component='TitleArea'][data-size-variant-wide='subtitle']) {
       font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
       font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
       line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
@@ -137,28 +138,28 @@
     }
   }
 
-  &[data-has-border='true']:has([data-component='PH_Navigation'][data-hidden-all]),
-  &[data-has-border='true']:not(:has([data-component='PH_Navigation'])) {
+  &[data-has-border='true']:has(> [data-component='PH_Navigation'][data-hidden-all]),
+  &[data-has-border='true']:not(:has(> [data-component='PH_Navigation'])) {
     border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
     padding-block-end: var(--base-size-8);
   }
 
   @media (--viewportRange-narrow) {
-    &[data-has-border='true']:has([data-component='PH_Navigation'][data-hidden-narrow]) {
+    &[data-has-border='true']:has(> [data-component='PH_Navigation'][data-hidden-narrow]) {
       border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
       padding-block-end: var(--base-size-8);
     }
   }
 
   @media (--viewportRange-regular) {
-    &[data-has-border='true']:has([data-component='PH_Navigation'][data-hidden-regular]) {
+    &[data-has-border='true']:has(> [data-component='PH_Navigation'][data-hidden-regular]) {
       border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
       padding-block-end: var(--base-size-8);
     }
   }
 
   @media (--viewportRange-wide) {
-    &[data-has-border='true']:has([data-component='PH_Navigation'][data-hidden-wide]) {
+    &[data-has-border='true']:has(> [data-component='PH_Navigation'][data-hidden-wide]) {
       border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
       padding-block-end: var(--base-size-8);
     }
