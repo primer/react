@@ -2,7 +2,7 @@ import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {scrollIntoView, FocusKeys} from '@primer/behaviors'
 import type {KeyboardEventHandler, JSX} from 'react'
 import type React from 'react'
-import {forwardRef, useCallback, useEffect, useRef, useState} from 'react'
+import {forwardRef, useCallback, useDeferredValue, useEffect, useRef, useState} from 'react'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {ActionList, type ActionListProps} from '../ActionList'
@@ -133,6 +133,7 @@ export function FilteredActionList({
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
+
   const onInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value
@@ -141,6 +142,10 @@ export function FilteredActionList({
     },
     [onFilterChange, setInternalFilterValue],
   )
+
+  // Use deferred value for items to avoid blocking typing during list re-rendering
+  // This allows the input to remain responsive while the list is being re-rendered with new items
+  const deferredItems = useDeferredValue(items)
 
   const inputAndListContainerRef = useRef<HTMLDivElement>(null)
   const listRef = useRef<HTMLUListElement>(null)
@@ -163,19 +168,16 @@ export function FilteredActionList({
 
   const selectAllLabelText = selectAllChecked ? 'Deselect all' : 'Select all'
 
-  const getItemListForEachGroup = useCallback(
-    (groupId: string) => {
-      const itemsInGroup = []
-      for (const item of items) {
-        // Look up the group associated with the current item.
-        if (item.groupId === groupId) {
-          itemsInGroup.push(item)
-        }
+  const getItemListForEachGroup = useCallback((groupId: string, itemsList: ItemInput[]) => {
+    const itemsInGroup = []
+    for (const item of itemsList) {
+      // Look up the group associated with the current item.
+      if (item.groupId === groupId) {
+        itemsInGroup.push(item)
       }
-      return itemsInGroup
-    },
-    [items],
-  )
+    }
+    return itemsInGroup
+  }, [])
 
   const onInputKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -194,7 +196,7 @@ export function FilteredActionList({
           let firstGroupIndex = 0
 
           for (let i = 0; i < groupMetadata.length; i++) {
-            if (getItemListForEachGroup(groupMetadata[i].groupId).length > 0) {
+            if (getItemListForEachGroup(groupMetadata[i].groupId, items).length > 0) {
               break
             } else {
               firstGroupIndex++
@@ -343,7 +345,7 @@ export function FilteredActionList({
       >
         {groupMetadata?.length
           ? groupMetadata.map((group, index) => {
-              if (index === firstGroupIndex && getItemListForEachGroup(group.groupId).length === 0) {
+              if (index === firstGroupIndex && getItemListForEachGroup(group.groupId, deferredItems).length === 0) {
                 firstGroupIndex++ // Increment firstGroupIndex if the first group has no items
               }
               return (
@@ -351,7 +353,7 @@ export function FilteredActionList({
                   <ActionList.GroupHeading variant={group.header?.variant ? group.header.variant : undefined}>
                     {group.header?.title ? group.header.title : `Group ${group.groupId}`}
                   </ActionList.GroupHeading>
-                  {getItemListForEachGroup(group.groupId).map(({key: itemKey, ...item}, itemIndex) => {
+                  {getItemListForEachGroup(group.groupId, deferredItems).map(({key: itemKey, ...item}, itemIndex) => {
                     const key = itemKey ?? item.id?.toString() ?? itemIndex.toString()
                     return (
                       <MappedActionListItem
@@ -367,7 +369,7 @@ export function FilteredActionList({
                 </ActionList.Group>
               )
             })
-          : items.map(({key: itemKey, ...item}, index) => {
+          : deferredItems.map(({key: itemKey, ...item}, index) => {
               const key = itemKey ?? item.id?.toString() ?? index.toString()
               return (
                 <MappedActionListItem
