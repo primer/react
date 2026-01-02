@@ -551,90 +551,47 @@ function Panel({
   )
 
   const itemsToRender = useMemo(() => {
-    return items
-      .map(item => {
-        return {
-          ...item,
-          role: 'option',
-          id: item.id,
-          selected: 'selected' in item && item.selected === undefined ? undefined : isItemCurrentlySelected(item),
-          onAction: (itemFromAction, event) => {
-            item.onAction?.(itemFromAction, event)
+    return items.map(item => {
+      return {
+        ...item,
+        role: 'option',
+        id: item.id,
+        selected: 'selected' in item && item.selected === undefined ? undefined : isItemCurrentlySelected(item),
+        onAction: (itemFromAction, event) => {
+          item.onAction?.(itemFromAction, event)
 
-            if (event.defaultPrevented) {
-              return
-            }
-
-            if (isMultiSelectVariant(selected)) {
-              const otherSelectedItems = selected.filter(selectedItem => !areItemsEqual(selectedItem, item))
-              const newSelectedItems = doesItemsIncludeItem(selected, item)
-                ? otherSelectedItems
-                : [...otherSelectedItems, item]
-
-              const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
-              multiSelectOnChange(newSelectedItems)
-              return
-            }
-
-            if (isSingleSelectModal) {
-              if (intermediateSelected?.id === item.id) {
-                // if the item is already selected, we need to unselect it
-                setIntermediateSelected(undefined)
-              } else {
-                setIntermediateSelected(item)
-              }
-              return
-            }
-            // single select anchored, direct save on click
-            const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
-            singleSelectOnChange(item === selected ? undefined : item)
-            onClose('selection')
-          },
-        } as ItemProps
-      })
-      .sort((itemA, itemB) => {
-        if (shouldOrderSelectedFirst) {
-          // itemA is selected (for sorting purposes) if an object in selectedOnSort matches every property of itemA, except for the selected property
-          const itemASelected = selectedOnSort.some(item =>
-            Object.entries(item).every(([key, value]) => {
-              if (key === 'selected') {
-                return true
-              }
-              return itemA[key as keyof ItemProps] === value
-            }),
-          )
-
-          // itemB is selected (for sorting purposes) if an object in selectedOnSort matches every property of itemA, except for the selected property
-          const itemBSelected = selectedOnSort.some(item =>
-            Object.entries(item).every(([key, value]) => {
-              if (key === 'selected') {
-                return true
-              }
-              return itemB[key as keyof ItemProps] === value
-            }),
-          )
-
-          // order selected items first
-          if (itemASelected > itemBSelected) {
-            return -1
-          } else if (itemASelected < itemBSelected) {
-            return 1
+          if (event.defaultPrevented) {
+            return
           }
-        }
 
-        return 0
-      })
-  }, [
-    onClose,
-    onSelectedChange,
-    items,
-    selected,
-    isItemCurrentlySelected,
-    isSingleSelectModal,
-    intermediateSelected,
-    shouldOrderSelectedFirst,
-    selectedOnSort,
-  ])
+          if (isMultiSelectVariant(selected)) {
+            const otherSelectedItems = selected.filter(selectedItem => !areItemsEqual(selectedItem, item))
+            const newSelectedItems = doesItemsIncludeItem(selected, item)
+              ? otherSelectedItems
+              : [...otherSelectedItems, item]
+
+            const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
+            multiSelectOnChange(newSelectedItems)
+            return
+          }
+
+          if (isSingleSelectModal) {
+            if (intermediateSelected?.id === item.id) {
+              // if the item is already selected, we need to unselect it
+              setIntermediateSelected(undefined)
+            } else {
+              setIntermediateSelected(item)
+            }
+            return
+          }
+          // single select anchored, direct save on click
+          const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
+          singleSelectOnChange(item === selected ? undefined : item)
+          onClose('selection')
+        },
+      } as ItemProps
+    })
+  }, [onClose, onSelectedChange, items, selected, isItemCurrentlySelected, isSingleSelectModal, intermediateSelected])
 
   if (prevItems !== items) {
     setPrevItems(items)
