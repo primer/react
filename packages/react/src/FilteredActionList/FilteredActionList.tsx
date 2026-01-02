@@ -2,7 +2,7 @@ import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {scrollIntoView, FocusKeys} from '@primer/behaviors'
 import type {KeyboardEventHandler, JSX} from 'react'
 import type React from 'react'
-import {forwardRef, useCallback, useEffect, useRef, useState} from 'react'
+import {forwardRef, useCallback, useDeferredValue, useEffect, useRef, useState} from 'react'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {ActionList, type ActionListProps} from '../ActionList'
@@ -133,6 +133,12 @@ export function FilteredActionList({
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
+
+  // Use deferred value for items to avoid blocking user input during expensive list rendering
+  // The immediate filterValue is used for the text input display (keeping typing responsive)
+  // The deferred items are used for rendering the list, allowing React to defer expensive rendering
+  const deferredItems = useDeferredValue(items)
+
   const onInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value
@@ -166,7 +172,7 @@ export function FilteredActionList({
   const getItemListForEachGroup = useCallback(
     (groupId: string) => {
       const itemsInGroup = []
-      for (const item of items) {
+      for (const item of deferredItems) {
         // Look up the group associated with the current item.
         if (item.groupId === groupId) {
           itemsInGroup.push(item)
@@ -174,7 +180,7 @@ export function FilteredActionList({
       }
       return itemsInGroup
     },
-    [items],
+    [deferredItems],
   )
 
   const onInputKeyDown = useCallback(
@@ -303,7 +309,7 @@ export function FilteredActionList({
   }, [loading, inputRef, usingRovingTabindex])
 
   useAnnouncements(
-    items,
+    deferredItems,
     usingRovingTabindex ? listRef : {current: listContainerElement},
     inputRef,
     announcementsEnabled,
@@ -367,7 +373,7 @@ export function FilteredActionList({
                 </ActionList.Group>
               )
             })
-          : items.map(({key: itemKey, ...item}, index) => {
+          : deferredItems.map(({key: itemKey, ...item}, index) => {
               const key = itemKey ?? item.id?.toString() ?? index.toString()
               return (
                 <MappedActionListItem
