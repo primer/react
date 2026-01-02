@@ -87,11 +87,7 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
   const isNarrow = useResponsiveValue({narrow: true}, false)
   const onClose: MenuCloseHandler = React.useCallback(
     gesture => {
-      // If `open` is controlled, use that value to determine if we should proceed with close logic.
-      // If uncontrolled, use internal state (combinedOpenState)
-      const openStatus = open === undefined ? combinedOpenState : open
-
-      if (isNarrow && openStatus && gesture === 'tab') {
+      if (isNarrow && combinedOpenState && gesture === 'tab') {
         return
       }
       setCombinedOpenState(false)
@@ -102,7 +98,7 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
           parentMenuContext.onClose?.(gesture)
       }
     },
-    [setCombinedOpenState, parentMenuContext, open, isNarrow, combinedOpenState],
+    [setCombinedOpenState, parentMenuContext, isNarrow, combinedOpenState],
   )
 
   const menuButtonChild = React.Children.toArray(children).find(
