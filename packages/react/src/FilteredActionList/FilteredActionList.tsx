@@ -2,7 +2,7 @@ import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {scrollIntoView, FocusKeys} from '@primer/behaviors'
 import type {KeyboardEventHandler, JSX} from 'react'
 import type React from 'react'
-import {forwardRef, useCallback, useDeferredValue, useEffect, useRef, useState} from 'react'
+import {forwardRef, memo, useCallback, useDeferredValue, useEffect, useRef, useState} from 'react'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {ActionList, type ActionListProps} from '../ActionList'
@@ -23,6 +23,128 @@ import {useAnnouncements} from './useAnnouncements'
 import {clsx} from 'clsx'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
+
+const MappedActionListItem = forwardRef<HTMLLIElement, ItemInput & {renderItem?: RenderItemFn}>((item, ref) => {
+  // keep backward compatibility for renderItem
+  // escape hatch for custom Item rendering
+  if (typeof item.renderItem === 'function') return item.renderItem(item)
+
+  const {
+    id,
+    description,
+    descriptionVariant,
+    text,
+    trailingVisual: TrailingVisual,
+    leadingVisual: LeadingVisual,
+    trailingText,
+    trailingIcon: TrailingIcon,
+    onAction,
+    children,
+    ...rest
+  } = item
+
+  return (
+    <ActionList.Item
+      role="option"
+      // @ts-ignore - for now
+      onSelect={(e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
+        if (typeof onAction === 'function')
+          onAction(item, e as React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>)
+      }}
+      data-id={id}
+      ref={ref}
+      {...rest}
+    >
+      {LeadingVisual ? (
+        <ActionList.LeadingVisual>
+          <LeadingVisual />
+        </ActionList.LeadingVisual>
+      ) : null}
+      {children}
+      {text}
+      {description ? <ActionList.Description variant={descriptionVariant}>{description}</ActionList.Description> : null}
+      {TrailingVisual ? (
+        <ActionList.TrailingVisual>
+          {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? (
+            <TrailingVisual />
+          ) : (
+            TrailingVisual
+          )}
+        </ActionList.TrailingVisual>
+      ) : TrailingIcon || trailingText ? (
+        <ActionList.TrailingVisual>
+          {trailingText}
+          {TrailingIcon && <TrailingIcon />}
+        </ActionList.TrailingVisual>
+      ) : null}
+    </ActionList.Item>
+  )
+})
+
+/**
+ * Memoized component that renders the list items.
+ * Using React.memo allows React to skip re-rendering when deferredItems hasn't changed yet,
+ * keeping the input responsive during typing.
+ */
+interface FilteredActionListItemsProps {
+  deferredItems: ItemInput[]
+  groupMetadata?: GroupedListProps['groupMetadata']
+  getItemListForEachGroup: (groupId: string, itemsList: ItemInput[]) => ItemInput[]
+  isInputFocused: boolean
+  renderItem?: RenderItemFn
+}
+
+const FilteredActionListItems = memo<FilteredActionListItemsProps>(
+  ({deferredItems, groupMetadata, getItemListForEachGroup, isInputFocused, renderItem}) => {
+    let firstGroupIndex = 0
+
+    return (
+      <>
+        {groupMetadata?.length
+          ? groupMetadata.map((group, index) => {
+              if (index === firstGroupIndex && getItemListForEachGroup(group.groupId, deferredItems).length === 0) {
+                firstGroupIndex++ // Increment firstGroupIndex if the first group has no items
+              }
+              return (
+                <ActionList.Group key={index}>
+                  <ActionList.GroupHeading variant={group.header?.variant ? group.header.variant : undefined}>
+                    {group.header?.title ? group.header.title : `Group ${group.groupId}`}
+                  </ActionList.GroupHeading>
+                  {getItemListForEachGroup(group.groupId, deferredItems).map(({key: itemKey, ...item}, itemIndex) => {
+                    const key = itemKey ?? item.id?.toString() ?? itemIndex.toString()
+                    return (
+                      <MappedActionListItem
+                        key={key}
+                        className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
+                        data-input-focused={isInputFocused ? '' : undefined}
+                        data-first-child={index === firstGroupIndex && itemIndex === 0 ? '' : undefined}
+                        {...item}
+                        renderItem={renderItem}
+                      />
+                    )
+                  })}
+                </ActionList.Group>
+              )
+            })
+          : deferredItems.map(({key: itemKey, ...item}, index) => {
+              const key = itemKey ?? item.id?.toString() ?? index.toString()
+              return (
+                <MappedActionListItem
+                  key={key}
+                  className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
+                  data-input-focused={isInputFocused ? '' : undefined}
+                  data-first-child={index === 0 ? '' : undefined}
+                  {...item}
+                  renderItem={renderItem}
+                />
+              )
+            })}
+      </>
+    )
+  },
+)
+
+FilteredActionListItems.displayName = 'FilteredActionListItems'
 
 export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   loading?: boolean
@@ -334,7 +456,6 @@ export function FilteredActionList({
     if (message) {
       return message
     }
-    let firstGroupIndex = 0
     const actionListContent = (
       <ActionList
         ref={usingRovingTabindex ? listRef : listContainerRefCallback}
@@ -346,45 +467,13 @@ export function FilteredActionList({
         id={listId}
         className={clsx(classes.ActionList, actionListProps?.className)}
       >
-        {groupMetadata?.length
-          ? groupMetadata.map((group, index) => {
-              if (index === firstGroupIndex && getItemListForEachGroup(group.groupId, deferredItems).length === 0) {
-                firstGroupIndex++ // Increment firstGroupIndex if the first group has no items
-              }
-              return (
-                <ActionList.Group key={index}>
-                  <ActionList.GroupHeading variant={group.header?.variant ? group.header.variant : undefined}>
-                    {group.header?.title ? group.header.title : `Group ${group.groupId}`}
-                  </ActionList.GroupHeading>
-                  {getItemListForEachGroup(group.groupId, deferredItems).map(({key: itemKey, ...item}, itemIndex) => {
-                    const key = itemKey ?? item.id?.toString() ?? itemIndex.toString()
-                    return (
-                      <MappedActionListItem
-                        key={key}
-                        className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
-                        data-input-focused={isInputFocused ? '' : undefined}
-                        data-first-child={index === firstGroupIndex && itemIndex === 0 ? '' : undefined}
-                        {...item}
-                        renderItem={listProps.renderItem}
-                      />
-                    )
-                  })}
-                </ActionList.Group>
-              )
-            })
-          : deferredItems.map(({key: itemKey, ...item}, index) => {
-              const key = itemKey ?? item.id?.toString() ?? index.toString()
-              return (
-                <MappedActionListItem
-                  key={key}
-                  className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
-                  data-input-focused={isInputFocused ? '' : undefined}
-                  data-first-child={index === 0 ? '' : undefined}
-                  {...item}
-                  renderItem={listProps.renderItem}
-                />
-              )
-            })}
+        <FilteredActionListItems
+          deferredItems={deferredItems}
+          groupMetadata={groupMetadata}
+          getItemListForEachGroup={getItemListForEachGroup}
+          isInputFocused={isInputFocused}
+          renderItem={listProps.renderItem}
+        />
       </ActionList>
     )
 
@@ -453,66 +542,11 @@ export function FilteredActionList({
       )}
       {/* @ts-expect-error div needs a non nullable ref */}
       <div ref={scrollContainerRef} className={classes.Container}>
+        {/* eslint-disable-next-line react-hooks/refs */}
         {getBodyContent()}
       </div>
     </div>
   )
 }
-const MappedActionListItem = forwardRef<HTMLLIElement, ItemInput & {renderItem?: RenderItemFn}>((item, ref) => {
-  // keep backward compatibility for renderItem
-  // escape hatch for custom Item rendering
-  if (typeof item.renderItem === 'function') return item.renderItem(item)
-
-  const {
-    id,
-    description,
-    descriptionVariant,
-    text,
-    trailingVisual: TrailingVisual,
-    leadingVisual: LeadingVisual,
-    trailingText,
-    trailingIcon: TrailingIcon,
-    onAction,
-    children,
-    ...rest
-  } = item
-
-  return (
-    <ActionList.Item
-      role="option"
-      // @ts-ignore - for now
-      onSelect={(e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
-        if (typeof onAction === 'function')
-          onAction(item, e as React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>)
-      }}
-      data-id={id}
-      ref={ref}
-      {...rest}
-    >
-      {LeadingVisual ? (
-        <ActionList.LeadingVisual>
-          <LeadingVisual />
-        </ActionList.LeadingVisual>
-      ) : null}
-      {children}
-      {text}
-      {description ? <ActionList.Description variant={descriptionVariant}>{description}</ActionList.Description> : null}
-      {TrailingVisual ? (
-        <ActionList.TrailingVisual>
-          {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? (
-            <TrailingVisual />
-          ) : (
-            TrailingVisual
-          )}
-        </ActionList.TrailingVisual>
-      ) : TrailingIcon || trailingText ? (
-        <ActionList.TrailingVisual>
-          {trailingText}
-          {TrailingIcon && <TrailingIcon />}
-        </ActionList.TrailingVisual>
-      ) : null}
-    </ActionList.Item>
-  )
-})
 
 FilteredActionList.displayName = 'FilteredActionList'
