@@ -68,6 +68,11 @@
       "description": "Changes the resize behavior"
     },
     {
+      "name": "characterLimit",
+      "type": "number",
+      "description": "The maximum number of characters allowed in the textarea"
+    },
+    {
       "name": "contrast",
       "type": "boolean",
       "defaultValue": "false",
