@@ -129,7 +129,7 @@
   }
 
   /* PERFORMANCE: Use data-disabled on <li> instead of :has([aria-disabled], [disabled]) which scans descendants */
-  &:not([aria-disabled], [data-disabled='true'], [data-has-subitem='true']) {
+  &:not([data-disabled='true'], [data-has-subitem='true']) {
     @media (hover: hover) {
       &:hover,
       &:active {
@@ -331,7 +331,6 @@
   }
 
   /* PERFORMANCE: data-disabled is set on the <li> by JS, avoiding :has() descendant scan */
-  &[aria-disabled='true'],
   &[data-disabled='true'] {
     & .ActionListContent * {
       color: var(--control-fgColor-disabled);
@@ -374,7 +373,7 @@
 
   /* When TrailingAction is in loading state, keep labels and descriptions accessible */
   /* PERFORMANCE: scoped to direct child TrailingAction */
-  &:has(> .TrailingAction[data-loading='true']):not([aria-disabled='true']) {
+  &:has(> .TrailingAction[data-loading='true']):not([data-disabled='true']) {
     /* Ensure labels and descriptions maintain accessibility contrast */
     & .ItemLabel {
       color: var(--fgColor-default);
