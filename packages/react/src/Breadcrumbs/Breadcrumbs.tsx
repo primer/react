@@ -188,9 +188,11 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
       listElement.children.length === childArray.length
     ) {
       const listElementArray = Array.from(listElement.children) as HTMLElement[]
+      // Batch all offsetWidth reads in a single pass to avoid layout thrashing
       const widths = listElementArray.map(child => child.offsetWidth)
       setChildArrayWidths(widths)
-      setRootItemWidth(listElementArray[0].offsetWidth)
+      // Use first width from the array instead of reading offsetWidth again
+      setRootItemWidth(widths[0])
     }
   }, [childArray, overflowMenuEnabled])
 
