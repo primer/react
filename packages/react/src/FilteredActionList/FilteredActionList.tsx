@@ -542,7 +542,7 @@ export function FilteredActionList({
       )}
       {/* @ts-expect-error div needs a non nullable ref */}
       <div ref={scrollContainerRef} className={classes.Container}>
-        {/* eslint-disable-next-line react-hooks/refs */}
+        {/* eslint-disable-next-line react-hooks/refs -- getBodyContent accesses scrollContainerRef.current for conditional loading indicator rendering, which is safe in this context */}
         {getBodyContent()}
       </div>
     </div>
