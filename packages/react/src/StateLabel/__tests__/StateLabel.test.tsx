@@ -1,8 +1,12 @@
 import {describe, expect, it} from 'vitest'
 import StateLabel from '../StateLabel'
 import {render as HTMLRender} from '@testing-library/react'
+import {implementsClassName} from '../../utils/testing'
+import classes from '../StateLabel.module.css'
 
 describe('StateLabel', () => {
+  implementsClassName(props => <StateLabel {...props} status="issueOpened" />, classes.StateLabel)
+
   it('respects the status prop', () => {
     expect(HTMLRender(<StateLabel status="issueOpened" />).container).toMatchSnapshot()
     expect(HTMLRender(<StateLabel status="issueClosed" />).container).toMatchSnapshot()
