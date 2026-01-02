@@ -4,7 +4,11 @@
   &:not(:first-child) {
     margin-block-start: var(--base-size-8);
 
-    /* If somebody tries to pass the `title` prop AND a `NavList.GroupHeading` as a child, hide the `ActionList.GroupHeading */
+    /*
+     * If somebody tries to pass the `title` prop AND a `NavList.GroupHeading` as a child, hide the `ActionList.GroupHeading`.
+     * NOTE: Uses descendant :has() - this is an edge case handler for developer errors.
+     * Scope is limited to group's children, not entire list. Acceptable performance cost.
+     */
     /* stylelint-disable-next-line selector-max-specificity */
     &:has(.GroupHeadingWrap + ul > .GroupHeadingWrap) {
       /* stylelint-disable-next-line selector-max-specificity */
