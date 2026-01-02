@@ -16,7 +16,7 @@ type Values<Input> = {
   [Key in InputKeys<Input>]: Input[Key] extends ReadonlyArray<unknown> ? Input[Key] : never
 }[InputKeys<Input>]
 
-export function matrix<Input extends Config<Input>>(input: Input): Array<Combination<Input>> {
+export function matrix<const Input extends Config<Input>>(input: Input): Array<Combination<Input>> {
   const {include = [], exclude = [], ...scenarios} = input
   const excluded = exclude.map(scenario => {
     return Object.entries(scenario) as Array<[InputKeys<Input>, Combination<Input>]>
