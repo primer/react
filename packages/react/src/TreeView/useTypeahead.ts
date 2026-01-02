@@ -1,4 +1,4 @@
-import React, {startTransition} from 'react'
+import React, {useDeferredValue, useState, useEffect} from 'react'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import {getAccessibleName} from './shared'
 import {useTreeItemCache} from './useTreeItemCache'
@@ -9,56 +9,46 @@ type TypeaheadOptions = {
 }
 
 export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
-  const searchValue = React.useRef('')
+  // Use state instead of ref so React can track changes
+  const [searchValue, setSearchValue] = useState('')
+  // Defer the search value for expensive operations
+  const deferredSearchValue = useDeferredValue(searchValue)
+
   const timeoutRef = React.useRef(0)
   const onFocusChangeRef = React.useRef(onFocusChange)
   const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
   const {getTreeItems} = useTreeItemCache(containerRef)
 
   // Update the ref when the callback changes
-  React.useEffect(() => {
+  useEffect(() => {
     onFocusChangeRef.current = onFocusChange
   }, [onFocusChange])
 
-  // Focus the closest element that matches the search value
-  const focusSearchValue = React.useCallback(
-    (searchValue: string) => {
-      // Don't change focus if the search value is empty
-      if (!searchValue) return
+  // Focus logic runs when deferred value changes
+  useEffect(() => {
+    if (!deferredSearchValue || !containerRef.current) return
 
-      if (!containerRef.current) return
+    const elements = getTreeItems()
+    const activeIndex = elements.findIndex(element => element === document.activeElement)
+    let sortedElements = wrapArray(elements, activeIndex)
 
-      // PERFORMANCE: Use cached tree items instead of querySelectorAll on every keypress
-      const elements = getTreeItems()
+    // Remove the active descendant from the beginning when starting a new search
+    if (deferredSearchValue.length === 1) {
+      sortedElements = sortedElements.slice(1)
+    }
 
-      // Get the index of active element
-      const activeIndex = elements.findIndex(element => element === document.activeElement)
+    const nextElement = sortedElements.find(element => {
+      const name = getAccessibleName(element).toLowerCase()
+      return name.startsWith(deferredSearchValue.toLowerCase())
+    })
 
-      // Wrap the array elements such that the active descendant is at the beginning
-      let sortedElements = wrapArray(elements, activeIndex)
+    if (nextElement) {
+      onFocusChangeRef.current(nextElement)
+    }
+  }, [deferredSearchValue, containerRef, getTreeItems])
 
-      // Remove the active descendant from the beginning of the array
-      // when the user initiates a new search
-      if (searchValue.length === 1) {
-        sortedElements = sortedElements.slice(1)
-      }
-
-      // Find the first element that matches the search value
-      const nextElement = sortedElements.find(element => {
-        const name = getAccessibleName(element).toLowerCase()
-        return name.startsWith(searchValue.toLowerCase())
-      })
-
-      // If a match is found, focus it
-      if (nextElement) {
-        onFocusChangeRef.current(nextElement)
-      }
-    },
-    [containerRef, getTreeItems],
-  )
-
-  // Update the search value when the user types
-  React.useEffect(() => {
+  // Keydown handler updates state immediately for responsive UI
+  useEffect(() => {
     if (!containerRef.current) return
     const container = containerRef.current
 
@@ -69,16 +59,12 @@ export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
       // Ignore key presses that occur with a modifier
       if (event.ctrlKey || event.altKey || event.metaKey) return
 
-      // Update the existing search value with the new key press
-      searchValue.current += event.key
-      // Defer the expensive search operation to avoid blocking user input
-      startTransition(() => {
-        focusSearchValue(searchValue.current)
-      })
+      // Update state immediately - React will defer the expensive focus operation
+      setSearchValue(prev => prev + event.key)
 
       // Reset the timeout
       safeClearTimeout(timeoutRef.current)
-      timeoutRef.current = safeSetTimeout(() => (searchValue.current = ''), 300)
+      timeoutRef.current = safeSetTimeout(() => setSearchValue(''), 300)
 
       // Prevent default behavior
       event.preventDefault()
@@ -87,7 +73,7 @@ export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
 
     container.addEventListener('keydown', onKeyDown)
     return () => container.removeEventListener('keydown', onKeyDown)
-  }, [containerRef, focusSearchValue, safeClearTimeout, safeSetTimeout])
+  }, [containerRef, safeClearTimeout, safeSetTimeout])
 }
 
 /**
