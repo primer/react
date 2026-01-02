@@ -168,6 +168,9 @@ export function FilteredActionList({
 
   const selectAllLabelText = selectAllChecked ? 'Deselect all' : 'Select all'
 
+  // Helper function to get items in a specific group
+  // Takes itemsList as parameter to work with both immediate and deferred items
+  // Empty dependency array is correct since the function doesn't close over external variables
   const getItemListForEachGroup = useCallback((groupId: string, itemsList: ItemInput[]) => {
     const itemsInGroup = []
     for (const item of itemsList) {
