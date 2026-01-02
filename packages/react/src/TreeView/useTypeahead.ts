@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {startTransition} from 'react'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import {getAccessibleName} from './shared'
 import {useTreeItemCache} from './useTreeItemCache'
@@ -71,7 +71,10 @@ export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
 
       // Update the existing search value with the new key press
       searchValue.current += event.key
-      focusSearchValue(searchValue.current)
+      // Defer the expensive search operation to avoid blocking user input
+      startTransition(() => {
+        focusSearchValue(searchValue.current)
+      })
 
       // Reset the timeout
       safeClearTimeout(timeoutRef.current)
