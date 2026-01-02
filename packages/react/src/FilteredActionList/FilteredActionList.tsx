@@ -208,9 +208,9 @@ export function FilteredActionList({
           }
 
           const firstGroup = groupMetadata[firstGroupIndex].groupId
-          firstItem = items.filter(item => item.groupId === firstGroup)[0]
+          firstItem = deferredItems.filter(item => item.groupId === firstGroup)[0]
         } else {
-          firstItem = items[0]
+          firstItem = deferredItems[0]
         }
         if (firstItem.onAction) {
           firstItem.onAction(firstItem, event)
@@ -218,7 +218,7 @@ export function FilteredActionList({
         }
       }
     },
-    [items, groupMetadata, getItemListForEachGroup],
+    [deferredItems, groupMetadata, getItemListForEachGroup],
   )
 
   const onInputKeyPress: KeyboardEventHandler = useCallback(
