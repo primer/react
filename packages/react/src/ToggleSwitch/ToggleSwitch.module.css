@@ -53,6 +53,7 @@
 .StatusTextItem:where([data-hidden='true']) {
   visibility: hidden;
   height: 0;
+  overflow: hidden;
 }
 
 .SwitchButton {
