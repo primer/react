@@ -289,22 +289,27 @@ export function usePaneWidth({
   const controlledWidth = isPersistConfig(resizable) ? resizable.width : undefined
   const [prevControlledWidth, setPrevControlledWidth] = React.useState(controlledWidth)
 
-  if (controlledWidth !== prevControlledWidth) {
-    // When resizable.width changes, update immediately
+  // Handle controlled width changes
+  const controlledWidthChanged = controlledWidth !== prevControlledWidth
+  const defaultWidthChanged = defaultWidth !== prevDefaultWidth
+
+  if (controlledWidthChanged) {
     setPrevControlledWidth(controlledWidth)
     if (typeof controlledWidth === 'number') {
+      // New controlled width provided
       setCurrentWidth(controlledWidth)
-    } else if (controlledWidth === undefined && prevControlledWidth !== undefined) {
+    } else if (prevControlledWidth !== undefined) {
       // Controlled width was removed, fall back to default
       setCurrentWidth(defaultWidth)
     }
-  } else if (defaultWidth !== prevDefaultWidth && controlledWidth === undefined) {
-    // Only sync defaultWidth if there's no controlled width
+  }
+
+  if (defaultWidthChanged) {
     setPrevDefaultWidth(defaultWidth)
-    setCurrentWidth(defaultWidth)
-  } else if (defaultWidth !== prevDefaultWidth) {
-    // Update prevDefaultWidth even when controlled
-    setPrevDefaultWidth(defaultWidth)
+    // Only sync defaultWidth to currentWidth if there's no controlled width
+    if (controlledWidth === undefined && !controlledWidthChanged) {
+      setCurrentWidth(defaultWidth)
+    }
   }
 
   // Mutable ref for drag operations - avoids re-renders on every pixel move

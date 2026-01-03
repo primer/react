@@ -599,8 +599,10 @@ export type PageLayoutPaneProps = {
   /**
    * The width of the pane - defines constraints and defaults only.
    * - Named sizes: `'small'` | `'medium'` | `'large'`
-   * - Number: explicit pixel width (uses `minWidth` prop and viewport-based max) **Deprecated**
    * - Custom object: `{min: string, default: string, max: string}`
+   * - Number: explicit pixel width (uses `minWidth` prop and viewport-based max)
+   *   **Deprecated**: Direct number values are deprecated. Use `CustomWidthOptions` with `default` property
+   *   or control the current width via `resizable.width` instead.
    *
    * For controlled width (current value), use `resizable.width` instead.
    */
