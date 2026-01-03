@@ -2,33 +2,35 @@
 '@primer/react': minor
 ---
 
-Add custom persistence options to PageLayout.Pane's `resizable` prop and number support for `width`
+Add custom persistence options to PageLayout.Pane's `resizable` prop with controlled width support
 
 The `resizable` prop now accepts additional configuration options:
 
 - `true` - Enable resizing with default localStorage persistence (existing behavior)
 - `false` - Disable resizing (existing behavior)
 - `{persist: false}` - Enable resizing without any persistence (avoids hydration mismatches)
-- `{save: fn}` - Enable resizing with custom persistence (e.g., server-side, IndexedDB)
+- `{persist: 'localStorage'}` - Enable resizing with explicit localStorage persistence
+- `{persist: fn}` - Enable resizing with custom persistence function (e.g., server-side, IndexedDB)
+- `{width: number, persist: ...}` - Controlled width mode: provide current width and persistence handler
 
-The `width` prop now accepts numbers in addition to named sizes and custom objects:
+**Key Features:**
 
-- `'small' | 'medium' | 'large'` - Preset width names (existing behavior)
-- `number` - Explicit pixel width (uses `minWidth` prop and viewport-based max) **NEW**
-- `{min, default, max}` - Custom width configuration (existing behavior)
+1. **Flexible persistence**: Choose between no persistence, localStorage, or custom persistence function
+2. **Controlled width support**: Separate current width from default constraints using `resizable.width`
+3. **SSR-friendly**: No persistence mode avoids hydration mismatches in server-rendered apps
 
 **New types exported:**
 
-- `NoPersistConfig` - Type for `{persist: false}` configuration
-- `CustomPersistConfig` - Type for `{save: fn}` configuration
-- `SaveOptions` - Options passed to custom save function (`{widthStorageKey: string}`)
-- `ResizableConfig` - Union type for all resizable configurations
-- `PaneWidth` - Type for preset width names (`'small' | 'medium' | 'large'`)
-- `PaneWidthValue` - Union type for all width values (`PaneWidth | number | CustomWidthOptions`)
+- `PersistFunction` - Type for custom persistence function: `(width: number, options: SaveOptions) => void | Promise<void>`
+- `SaveOptions` - Options passed to custom persist function: `{widthStorageKey: string}`
+- `PersistConfig` - Configuration object: `{width?: number, persist: false | 'localStorage' | PersistFunction}`
+- `ResizableConfig` - Union type for all resizable configurations: `boolean | PersistConfig`
+- `PaneWidth` - Type for preset width names: `'small' | 'medium' | 'large'`
+- `PaneWidthValue` - Union type for width prop: `PaneWidth | CustomWidthOptions`
 
 **New values exported:**
 
-- `defaultPaneWidth` - Record of preset width values (`{small: 256, medium: 296, large: 320}`)
+- `defaultPaneWidth` - Record of preset width values: `{small: 256, medium: 296, large: 320}`
 
 **Example usage:**
 
@@ -36,32 +38,51 @@ The `width` prop now accepts numbers in addition to named sizes and custom objec
 // No persistence - useful for SSR to avoid hydration mismatches
 <PageLayout.Pane resizable={{persist: false}} />
 
-// Custom persistence - save to your own storage
+// Explicit localStorage persistence
+<PageLayout.Pane resizable={{persist: 'localStorage'}} />
+
+// Custom persistence function - save to your own storage
 <PageLayout.Pane
   resizable={{
-    save: (width, {widthStorageKey}) => {
+    persist: (width, {widthStorageKey}) => {
       // Save to server, IndexedDB, sessionStorage, etc.
       myStorage.set(widthStorageKey, width)
     }
   }}
 />
 
-// Number width - uses minWidth prop and viewport-based max constraints
-const [savedWidth, setSavedWidth] = useState(defaultPaneWidth.medium)
+// Controlled width - separate current value from constraints
+const [currentWidth, setCurrentWidth] = useState(defaultPaneWidth.medium)
 <PageLayout.Pane
-  width={savedWidth}
+  width={{min: '256px', default: '296px', max: '600px'}}
   resizable={{
-    save: (width) => setSavedWidth(width)
+    width: currentWidth,
+    persist: (width) => {
+      setCurrentWidth(width)
+      localStorage.setItem('my-pane-width', width.toString())
+    }
   }}
 />
 
-// Using defaultPaneWidth for custom width configurations
+// Using named size for constraints with controlled current width
+const [currentWidth, setCurrentWidth] = useState(defaultPaneWidth.medium)
+<PageLayout.Pane
+  width="medium"
+  resizable={{
+    width: currentWidth,
+    persist: (width) => setCurrentWidth(width)
+  }}
+/>
+
+// Using defaultPaneWidth for initialization
 import {defaultPaneWidth} from '@primer/react'
 
-const widthConfig = {
-  min: '256px',
-  default: `${defaultPaneWidth.medium}px`,
-  max: '600px'
-}
-<PageLayout.Pane width={widthConfig} resizable={{persist: false}} />
+const [currentWidth, setCurrentWidth] = useState(defaultPaneWidth.large)
+<PageLayout.Pane
+  width="large"
+  resizable={{
+    width: currentWidth,
+    persist: false
+  }}
+/>
 ```
