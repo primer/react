@@ -2,87 +2,80 @@
 '@primer/react': minor
 ---
 
-Add custom persistence options to PageLayout.Pane's `resizable` prop with controlled width support
+Refine `PageLayout.Pane` resizable persistence API based on design review feedback
 
-The `resizable` prop now accepts additional configuration options:
+The `resizable` prop now has a refined API with clearer configuration types and better type safety:
 
-- `true` - Enable resizing with default localStorage persistence (existing behavior)
-- `false` - Disable resizing (existing behavior)
-- `{persist: false}` - Enable resizing without any persistence (avoids hydration mismatches)
-- `{persist: 'localStorage'}` - Enable resizing with explicit localStorage persistence
-- `{persist: fn}` - Enable resizing with custom persistence function (e.g., server-side, IndexedDB)
-- `{width: number, persist: ...}` - Controlled width mode: provide current width and persistence handler
+**New Configuration Types:**
 
-**Key Features:**
+- `{persist: false}` - Enable resizing without persistence (SSR-safe, width not allowed)
+- `{persist: 'localStorage', widthStorageKey: string, width: number | undefined}` - localStorage persistence with required widthStorageKey and width
+- `{persist: fn, width: number | undefined}` - Custom persistence with required width
 
-1. **Flexible persistence**: Choose between no persistence, localStorage, or custom persistence function
-2. **Controlled width support**: Separate current width from default constraints using `resizable.width`
-3. **SSR-friendly**: No persistence mode avoids hydration mismatches in server-rendered apps
+**Key Changes:**
 
-**New types exported:**
+1. **`width` required for persistence configs**: When using localStorage or custom persistence, `width` is now required (can be `undefined` to use default). This ensures intentional state management.
 
-- `PersistFunction` - Type for custom persistence function: `(width: number, options: SaveOptions) => void | Promise<void>`
-- `SaveOptions` - Options passed to custom persist function: `{widthStorageKey: string}`
-- `PersistConfig` - Configuration object: `{width?: number, persist: false | 'localStorage' | PersistFunction}`
-- `ResizableConfig` - Union type for all resizable configurations: `boolean | PersistConfig`
-- `PaneWidth` - Type for preset width names: `'small' | 'medium' | 'large'`
-- `PaneWidthValue` - Union type for width prop: `PaneWidth | CustomWidthOptions`
+2. **`widthStorageKey` in config for localStorage**: The storage key is now part of the localStorage config object, making it explicit and avoiding accidental collisions.
 
-**New values exported:**
+3. **Custom persist functions simplified**: Custom persist functions no longer receive `widthStorageKey` - consumers manage their own storage keys and mechanisms.
 
-- `defaultPaneWidth` - Record of preset width values: `{small: 256, medium: 296, large: 320}`
+4. **Backwards compatibility maintained**: `resizable={true}` with `widthStorageKey` prop still works but is deprecated.
 
-**Example usage:**
+**Deprecations:**
+
+- `widthStorageKey` prop is deprecated - use `resizable={{persist: 'localStorage', widthStorageKey: '...', width}}` instead
+- `resizable={true}` is implicitly deprecated - use the explicit config forms instead
+
+**New Exported Types:**
+
+- `NoPersistConfig` - Type for `{persist: false}`
+- `LocalStoragePersistConfig` - Type for localStorage configuration
+- `CustomPersistConfig` - Type for custom persistence configuration
+
+**Migration Examples:**
 
 ```tsx
-// No persistence - useful for SSR to avoid hydration mismatches
-<PageLayout.Pane resizable={{persist: false}} />
+// Before: Default localStorage (deprecated)
+<PageLayout.Pane resizable={true} widthStorageKey="my-pane" />
 
-// Explicit localStorage persistence
-<PageLayout.Pane resizable={{persist: 'localStorage'}} />
+// After: Explicit localStorage with widthStorageKey in config
+<PageLayout.Pane resizable={{persist: 'localStorage', widthStorageKey: 'my-pane', width: undefined}} />
 
-// Custom persistence function - save to your own storage
+// Before: Custom persist with widthStorageKey passed
 <PageLayout.Pane
   resizable={{
     persist: (width, {widthStorageKey}) => {
-      // Save to server, IndexedDB, sessionStorage, etc.
       myStorage.set(widthStorageKey, width)
     }
   }}
+  widthStorageKey="my-pane"
 />
 
-// Controlled width - separate current value from constraints
-const [currentWidth, setCurrentWidth] = useState(defaultPaneWidth.medium)
+// After: Custom persist manages its own storage key
 <PageLayout.Pane
-  width={{min: '256px', default: '296px', max: '600px'}}
   resizable={{
-    width: currentWidth,
-    persist: (width) => {
-      setCurrentWidth(width)
-      localStorage.setItem('my-pane-width', width.toString())
-    }
+    persist: (width) => myStorage.set('my-pane', width),
+    width: currentWidth
   }}
 />
 
-// Using named size for constraints with controlled current width
+// SSR-safe resizing without persistence (no change needed)
+<PageLayout.Pane resizable={{persist: false}} />
+
+// Controlled width with custom persistence
 const [currentWidth, setCurrentWidth] = useState(defaultPaneWidth.medium)
 <PageLayout.Pane
-  width="medium"
   resizable={{
-    width: currentWidth,
-    persist: (width) => setCurrentWidth(width)
-  }}
-/>
-
-// Using defaultPaneWidth for initialization
-import {defaultPaneWidth} from '@primer/react'
-
-const [currentWidth, setCurrentWidth] = useState(defaultPaneWidth.large)
-<PageLayout.Pane
-  width="large"
-  resizable={{
-    width: currentWidth,
-    persist: false
+    persist: (width) => setCurrentWidth(width),
+    width: currentWidth
   }}
 />
 ```
+
+**Rationale:**
+
+1. **Explicit is better**: Requiring `width` for persistence configs makes state management intentional
+2. **Clearer storage key management**: localStorage configs own their storage key; custom persisters manage their own
+3. **Better SSR support**: `{persist: false}` makes it clear there's no persistence to worry about
+4. **Type safety**: Separate config types provide better IntelliSense and type checking

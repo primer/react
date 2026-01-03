@@ -1,8 +1,10 @@
 export * from './PageLayout'
 export type {
+  NoPersistConfig,
+  LocalStoragePersistConfig,
+  CustomPersistConfig,
   PersistConfig,
   PersistFunction,
-  SaveOptions,
   ResizableConfig,
   PaneWidth,
   PaneWidthValue,
