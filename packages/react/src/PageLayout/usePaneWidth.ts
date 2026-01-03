@@ -206,7 +206,255 @@ const localStoragePersister = {
 }
 
 // ----------------------------------------------------------------------------
-// Hook
+// Types for Breaking Changes API
+
+export type UsePaneWidthOptionsV2 = {
+  defaultWidth: number | 'small' | 'medium' | 'large'
+  controlledWidth?: number
+  onWidthChange?: (width: number) => void
+  minWidth: number
+  maxWidth?: number
+  resizable: boolean
+  paneRef: React.RefObject<HTMLDivElement | null>
+  handleRef: React.RefObject<HTMLDivElement | null>
+  contentWrapperRef: React.RefObject<HTMLDivElement | null>
+}
+
+export type UsePaneWidthResultV2 = {
+  /** Current width for React state (used in ARIA attributes) */
+  currentWidth: number
+  /** Mutable ref tracking width during drag operations */
+  currentWidthRef: React.MutableRefObject<number>
+  /** Minimum allowed pane width */
+  minPaneWidth: number
+  /** Maximum allowed pane width (updates on viewport resize) */
+  maxPaneWidth: number
+  /** Calculate current max width constraint */
+  getMaxPaneWidth: () => number
+  /** Update width (calls onWidthChange if provided) */
+  saveWidth: (value: number) => void
+  /** Reset to default width */
+  getDefaultWidth: () => number
+}
+
+// ----------------------------------------------------------------------------
+// Hook for Breaking Changes API
+
+/**
+ * Manages pane width state with viewport constraints for controlled components.
+ * Handles width clamping on viewport resize and provides functions to update and reset width.
+ *
+ * For localStorage persistence, use the `useLocalStoragePaneWidth` hook separately.
+ */
+export function usePaneWidthV2({
+  defaultWidth: defaultWidthProp,
+  controlledWidth,
+  onWidthChange,
+  minWidth,
+  maxWidth: customMaxWidth,
+  resizable,
+  paneRef,
+  handleRef,
+  contentWrapperRef,
+}: UsePaneWidthOptionsV2): UsePaneWidthResultV2 {
+  // Resolve defaultWidth to a number
+  const defaultWidthResolved = useMemo(
+    () => (typeof defaultWidthProp === 'string' ? defaultPaneWidth[defaultWidthProp] : defaultWidthProp),
+    [defaultWidthProp],
+  )
+
+  const minPaneWidth = minWidth
+
+  // Refs for stable callbacks
+  const onWidthChangeRef = React.useRef(onWidthChange)
+
+  // Keep ref in sync with prop
+  useIsomorphicLayoutEffect(() => {
+    onWidthChangeRef.current = onWidthChange
+  })
+
+  // Cache the CSS variable value to avoid getComputedStyle during drag
+  const maxWidthDiffRef = React.useRef(DEFAULT_MAX_WIDTH_DIFF)
+
+  // Calculate max width constraint
+  const getMaxPaneWidth = React.useCallback(() => {
+    if (customMaxWidth !== undefined) return customMaxWidth
+    const viewportWidth = window.innerWidth
+    return viewportWidth > 0 ? Math.max(minPaneWidth, viewportWidth - maxWidthDiffRef.current) : minPaneWidth
+  }, [customMaxWidth, minPaneWidth])
+
+  // Current width state - controlled if controlledWidth is provided, otherwise uncontrolled
+  const [uncontrolledWidth, setUncontrolledWidth] = React.useState(defaultWidthResolved)
+  const currentWidth = controlledWidth !== undefined ? controlledWidth : uncontrolledWidth
+
+  // Mutable ref for drag operations
+  const currentWidthRef = React.useRef(currentWidth)
+
+  // Max width for ARIA
+  const [maxPaneWidth, setMaxPaneWidth] = React.useState(() => customMaxWidth ?? SSR_DEFAULT_MAX_WIDTH)
+
+  // Keep currentWidthRef in sync with state
+  useIsomorphicLayoutEffect(() => {
+    currentWidthRef.current = currentWidth
+  }, [currentWidth])
+
+  // Get default width
+  const getDefaultWidth = React.useCallback(() => defaultWidthResolved, [defaultWidthResolved])
+
+  // Save width function
+  const saveWidth = React.useCallback(
+    (value: number) => {
+      currentWidthRef.current = value
+
+      // Visual update already done via inline styles - React state sync is non-urgent
+      startTransition(() => {
+        if (controlledWidth === undefined) {
+          // Uncontrolled mode - update internal state
+          setUncontrolledWidth(value)
+        }
+
+        // Always call onWidthChange if provided
+        if (onWidthChangeRef.current) {
+          onWidthChangeRef.current(value)
+        }
+      })
+    },
+    [controlledWidth],
+  )
+
+  // Stable ref to getMaxPaneWidth
+  const getMaxPaneWidthRef = React.useRef(getMaxPaneWidth)
+  useIsomorphicLayoutEffect(() => {
+    getMaxPaneWidthRef.current = getMaxPaneWidth
+  })
+
+  // Update CSS variable, refs, and ARIA on mount and window resize
+  useIsomorphicLayoutEffect(() => {
+    if (!resizable) return
+
+    let lastViewportWidth = window.innerWidth
+
+    const syncAll = () => {
+      const currentViewportWidth = window.innerWidth
+
+      // Only call getComputedStyle if we crossed the breakpoint
+      const crossedBreakpoint =
+        (lastViewportWidth < DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT &&
+          currentViewportWidth >= DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT) ||
+        (lastViewportWidth >= DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT &&
+          currentViewportWidth < DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT)
+      lastViewportWidth = currentViewportWidth
+
+      if (crossedBreakpoint) {
+        maxWidthDiffRef.current = getPaneMaxWidthDiff(paneRef.current)
+      }
+
+      const actualMax = getMaxPaneWidthRef.current()
+
+      // Update CSS variable for visual clamping
+      paneRef.current?.style.setProperty('--pane-max-width', `${actualMax}px`)
+
+      // Track if we clamped current width
+      const wasClamped = currentWidthRef.current > actualMax
+      if (wasClamped) {
+        currentWidthRef.current = actualMax
+        paneRef.current?.style.setProperty('--pane-width', `${actualMax}px`)
+      }
+
+      // Update ARIA via DOM
+      updateAriaValues(handleRef.current, {max: actualMax, current: currentWidthRef.current})
+
+      // Defer state updates
+      startTransition(() => {
+        setMaxPaneWidth(actualMax)
+        if (wasClamped) {
+          if (controlledWidth === undefined) {
+            setUncontrolledWidth(actualMax)
+          }
+          if (onWidthChangeRef.current) {
+            onWidthChangeRef.current(actualMax)
+          }
+        }
+      })
+    }
+
+    // Initial calculation on mount
+    maxWidthDiffRef.current = getPaneMaxWidthDiff(paneRef.current)
+    const initialMax = getMaxPaneWidthRef.current()
+    setMaxPaneWidth(initialMax)
+    paneRef.current?.style.setProperty('--pane-max-width', `${initialMax}px`)
+    updateAriaValues(handleRef.current, {min: minPaneWidth, max: initialMax, current: currentWidthRef.current})
+
+    // For custom widths, max is fixed - no need to listen to resize
+    if (customMaxWidth !== undefined) return
+
+    // Throttle and debounce for window resize
+    const THROTTLE_MS = 16
+    const DEBOUNCE_MS = 150
+    let lastUpdateTime = 0
+    let pendingUpdate = false
+    let rafId: number | null = null
+    let debounceId: ReturnType<typeof setTimeout> | null = null
+    let isResizing = false
+
+    const startResizeOptimizations = () => {
+      if (isResizing) return
+      isResizing = true
+      paneRef.current?.setAttribute('data-dragging', 'true')
+      contentWrapperRef.current?.setAttribute('data-dragging', 'true')
+    }
+
+    const endResizeOptimizations = () => {
+      if (!isResizing) return
+      isResizing = false
+      paneRef.current?.removeAttribute('data-dragging')
+      contentWrapperRef.current?.removeAttribute('data-dragging')
+    }
+
+    const handleResize = () => {
+      startResizeOptimizations()
+
+      const now = Date.now()
+      if (now - lastUpdateTime >= THROTTLE_MS) {
+        lastUpdateTime = now
+        syncAll()
+      } else if (!pendingUpdate) {
+        pendingUpdate = true
+        rafId = requestAnimationFrame(() => {
+          pendingUpdate = false
+          rafId = null
+          lastUpdateTime = Date.now()
+          syncAll()
+        })
+      }
+
+      if (debounceId !== null) clearTimeout(debounceId)
+      debounceId = setTimeout(() => {
+        debounceId = null
+        endResizeOptimizations()
+      }, DEBOUNCE_MS)
+    }
+
+    // eslint-disable-next-line github/prefer-observers
+    window.addEventListener('resize', handleResize)
+    return () => {
+      if (rafId !== null) cancelAnimationFrame(rafId)
+      if (debounceId !== null) clearTimeout(debounceId)
+      endResizeOptimizations()
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [customMaxWidth, minPaneWidth, paneRef, handleRef, controlledWidth, resizable, contentWrapperRef])
+
+  return {
+    currentWidth,
+    currentWidthRef,
+    minPaneWidth,
+    maxPaneWidth,
+    getMaxPaneWidth,
+    saveWidth,
+    getDefaultWidth,
+  }
+}
 
 /**
  * Manages pane width state with storage persistence and viewport constraints.
