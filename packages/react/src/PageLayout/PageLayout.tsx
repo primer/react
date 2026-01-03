@@ -16,7 +16,6 @@ import {
   updateAriaValues,
   isCustomWidthOptions,
   isPaneWidth,
-  isNumericWidth,
   ARROW_KEY_STEP,
   type PaneWidthValue,
   type ResizableConfig,
@@ -600,9 +599,6 @@ export type PageLayoutPaneProps = {
    * The width of the pane - defines constraints and defaults only.
    * - Named sizes: `'small'` | `'medium'` | `'large'`
    * - Custom object: `{min: string, default: string, max: string}`
-   * - Number: explicit pixel width (uses `minWidth` prop and viewport-based max)
-   *   **Deprecated**: Direct number values are deprecated. Use `CustomWidthOptions` with `default` property
-   *   or control the current width via `resizable.width` instead.
    *
    * For controlled width (current value), use `resizable.width` instead.
    */
@@ -783,11 +779,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               '--spacing': `var(--spacing-${padding})`,
               '--pane-min-width': isCustomWidthOptions(width) ? width.min : `${minWidth}px`,
               '--pane-max-width': isCustomWidthOptions(width) ? width.max : `calc(100vw - var(--pane-max-width-diff))`,
-              '--pane-width-custom': isCustomWidthOptions(width)
-                ? width.default
-                : isNumericWidth(width)
-                  ? `${width}px`
-                  : undefined,
+              '--pane-width-custom': isCustomWidthOptions(width) ? width.default : undefined,
               '--pane-width-size': `var(--pane-width-${isPaneWidth(width) ? width : 'custom'})`,
               '--pane-width': `${currentWidth}px`,
             } as React.CSSProperties

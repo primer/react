@@ -19,10 +19,8 @@ export type PaneWidth = 'small' | 'medium' | 'large'
  * Width value for the pane - defines constraints and defaults only.
  * - `PaneWidth`: Preset size ('small' | 'medium' | 'large')
  * - `CustomWidthOptions`: Explicit min/default/max constraints
- * - `number`: Legacy - Custom width in pixels (uses minWidth prop and viewport-based max)
- *   **Deprecated**: Use CustomWidthOptions with default property instead
  */
-export type PaneWidthValue = PaneWidth | number | CustomWidthOptions
+export type PaneWidthValue = PaneWidth | CustomWidthOptions
 
 /**
  * Options passed to custom persist function.
@@ -133,15 +131,9 @@ export const isPaneWidth = (width: PaneWidthValue): width is PaneWidth => {
   return width === 'small' || width === 'medium' || width === 'large'
 }
 
-export const isNumericWidth = (width: PaneWidthValue): width is number => {
-  return typeof width === 'number'
-}
-
 export const getDefaultPaneWidth = (w: PaneWidthValue): number => {
   if (isPaneWidth(w)) {
     return defaultPaneWidth[w]
-  } else if (isNumericWidth(w)) {
-    return w
   } else if (isCustomWidthOptions(w)) {
     return parseInt(w.default, 10)
   }
