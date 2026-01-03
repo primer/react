@@ -5,7 +5,6 @@ import {Placeholder} from '../Placeholder'
 import {BranchName, Heading, Link, StateLabel, Text, useIsomorphicLayoutEffect} from '..'
 import TabNav from '../TabNav'
 import classes from './PageLayout.features.stories.module.css'
-import type {CustomWidthOptions} from './usePaneWidth'
 import {defaultPaneWidth} from './usePaneWidth'
 
 export default {
@@ -384,23 +383,22 @@ export const ResizablePaneWithCustomPersistence: StoryFn = () => {
   const key = 'page-layout-features-stories-custom-persistence-pane-width'
 
   // Read initial width from localStorage (CSR only), falling back to medium preset
-  const getInitialWidth = (): CustomWidthOptions => {
-    const base: CustomWidthOptions = {min: '256px', default: `${defaultPaneWidth.medium}px`, max: '600px'}
+  const getInitialWidth = (): number => {
     if (typeof window !== 'undefined') {
       const storedWidth = localStorage.getItem(key)
       if (storedWidth !== null) {
         const parsed = parseFloat(storedWidth)
         if (!isNaN(parsed) && parsed > 0) {
-          return {...base, default: `${parsed}px`}
+          return parsed
         }
       }
     }
-    return base
+    return defaultPaneWidth.medium
   }
 
-  const [widthConfig, setWidthConfig] = React.useState<CustomWidthOptions>(getInitialWidth)
+  const [currentWidth, setCurrentWidth] = React.useState<number>(getInitialWidth)
   useIsomorphicLayoutEffect(() => {
-    setWidthConfig(getInitialWidth())
+    setCurrentWidth(getInitialWidth())
   }, [])
   return (
     <PageLayout>
@@ -408,16 +406,17 @@ export const ResizablePaneWithCustomPersistence: StoryFn = () => {
         <Placeholder height={64} label="Header" />
       </PageLayout.Header>
       <PageLayout.Pane
-        width={widthConfig}
+        width={{min: '256px', default: `${defaultPaneWidth.medium}px`, max: '600px'}}
         resizable={{
+          width: currentWidth,
           persist: width => {
-            setWidthConfig(prev => ({...prev, default: `${width}px`}))
+            setCurrentWidth(width)
             localStorage.setItem(key, width.toString())
           },
         }}
         aria-label="Side pane"
       >
-        <Placeholder height={320} label={`Pane (width: ${widthConfig.default})`} />
+        <Placeholder height={320} label={`Pane (width: ${currentWidth}px)`} />
       </PageLayout.Pane>
       <PageLayout.Content>
         <Placeholder height={640} label="Content" />
@@ -447,7 +446,7 @@ export const ResizablePaneWithNumberWidth: StoryFn = () => {
     return defaultPaneWidth.medium
   }
 
-  const [width, setWidth] = React.useState<number>(getInitialWidth)
+  const [currentWidth, setCurrentWidth] = React.useState<number>(getInitialWidth)
 
   return (
     <PageLayout>
@@ -455,16 +454,17 @@ export const ResizablePaneWithNumberWidth: StoryFn = () => {
         <Placeholder height={64} label="Header" />
       </PageLayout.Header>
       <PageLayout.Pane
-        width={width}
+        width="medium"
         resizable={{
+          width: currentWidth,
           persist: newWidth => {
-            setWidth(newWidth)
+            setCurrentWidth(newWidth)
             localStorage.setItem(key, newWidth.toString())
           },
         }}
         aria-label="Side pane"
       >
-        <Placeholder height={320} label={`Pane (width: ${width}px)`} />
+        <Placeholder height={320} label={`Pane (width: ${currentWidth}px)`} />
       </PageLayout.Pane>
       <PageLayout.Content>
         <Placeholder height={640} label="Content" />
@@ -476,3 +476,51 @@ export const ResizablePaneWithNumberWidth: StoryFn = () => {
   )
 }
 ResizablePaneWithNumberWidth.storyName = 'Resizable pane with number width'
+
+export const ResizablePaneWithControlledWidth: StoryFn = () => {
+  const key = 'page-layout-features-stories-controlled-width'
+
+  // Read initial width from localStorage (CSR only), falling back to medium preset
+  const getInitialWidth = (): number => {
+    if (typeof window !== 'undefined') {
+      const storedWidth = localStorage.getItem(key)
+      if (storedWidth !== null) {
+        const parsed = parseInt(storedWidth, 10)
+        if (!isNaN(parsed) && parsed > 0) {
+          return parsed
+        }
+      }
+    }
+    return defaultPaneWidth.medium
+  }
+
+  const [currentWidth, setCurrentWidth] = React.useState<number>(getInitialWidth)
+
+  return (
+    <PageLayout>
+      <PageLayout.Header>
+        <Placeholder height={64} label="Header" />
+      </PageLayout.Header>
+      <PageLayout.Pane
+        width={{min: '256px', default: '296px', max: '600px'}}
+        resizable={{
+          width: currentWidth,
+          persist: newWidth => {
+            setCurrentWidth(newWidth)
+            localStorage.setItem(key, newWidth.toString())
+          },
+        }}
+        aria-label="Side pane"
+      >
+        <Placeholder height={320} label={`Pane (current: ${currentWidth}px)`} />
+      </PageLayout.Pane>
+      <PageLayout.Content>
+        <Placeholder height={640} label="Content" />
+      </PageLayout.Content>
+      <PageLayout.Footer>
+        <Placeholder height={64} label="Footer" />
+      </PageLayout.Footer>
+    </PageLayout>
+  )
+}
+ResizablePaneWithControlledWidth.storyName = 'Resizable pane with controlled width (new API)'
