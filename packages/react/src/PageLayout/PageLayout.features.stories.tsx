@@ -533,86 +533,89 @@ ResizablePaneWithControlledWidth.storyName = 'Resizable pane with controlled wid
 export const ResizablePaneMigrationExamples: StoryFn = () => {
   const [currentWidth, setCurrentWidth] = React.useState<number>(defaultPaneWidth.medium)
 
+  const codeStyle = {
+    background: '#f6f8fa',
+    padding: '1rem',
+    borderRadius: '6px',
+    fontSize: '12px',
+    fontFamily: 'monospace',
+    whiteSpace: 'pre' as const,
+    display: 'block',
+  }
+
+  // Code examples stored as variables to avoid HTML literal warnings
+  const oldApiExample1 = 'resizable={true}\nwidthStorageKey="my-pane"'
+  const newApiExample1 =
+    "resizable={{\n  persist: 'localStorage',\n  widthStorageKey: 'my-pane',\n  width: undefined\n}}"
+  const newApiExample2 = 'resizable={{persist: false}}'
+  const oldApiExample3 =
+    'resizable={{\n  persist: (width, {widthStorageKey}) => {\n    myStorage.set(widthStorageKey, width)\n  }\n}}\nwidthStorageKey="my-key"'
+  const newApiExample3 =
+    "resizable={{\n  persist: (width) => {\n    myStorage.set('my-key', width)\n  },\n  width: currentWidth\n}}"
+
   return (
     <div style={{display: 'flex', flexDirection: 'column', gap: '2rem'}}>
       <div>
-        <h3>Example 1: Default localStorage (Deprecated → New)</h3>
+        <Text as="h3" sx={{fontSize: 3, fontWeight: 'bold'}}>
+          Example 1: Default localStorage (Deprecated → New)
+        </Text>
         <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginTop: '1rem'}}>
           <div>
-            <h4>Old API (Deprecated):</h4>
-            <pre style={{background: '#f6f8fa', padding: '1rem', borderRadius: '6px', fontSize: '12px'}}>
-              {`<PageLayout.Pane
-  resizable={true}
-  widthStorageKey="my-pane"
-/>`}
-            </pre>
+            <Text as="h4" sx={{fontSize: 2, fontWeight: 'bold'}}>
+              Old API (Deprecated):
+            </Text>
+            <code style={codeStyle}>{oldApiExample1}</code>
           </div>
           <div>
-            <h4>New API:</h4>
-            <pre style={{background: '#f6f8fa', padding: '1rem', borderRadius: '6px', fontSize: '12px'}}>
-              {`<PageLayout.Pane
-  resizable={{
-    persist: 'localStorage',
-    widthStorageKey: 'my-pane',
-    width: undefined // or controlled value
-  }}
-/>`}
-            </pre>
+            <Text as="h4" sx={{fontSize: 2, fontWeight: 'bold'}}>
+              New API:
+            </Text>
+            <code style={codeStyle}>{newApiExample1}</code>
           </div>
         </div>
       </div>
 
       <div>
-        <h3>Example 2: No Persistence (SSR-safe)</h3>
+        <Text as="h3" sx={{fontSize: 3, fontWeight: 'bold'}}>
+          Example 2: No Persistence (SSR-safe)
+        </Text>
         <div style={{display: 'grid', gridTemplateColumns: '1fr', gap: '1rem', marginTop: '1rem'}}>
           <div>
-            <h4>New API (no old equivalent):</h4>
-            <pre style={{background: '#f6f8fa', padding: '1rem', borderRadius: '6px', fontSize: '12px'}}>
-              {`<PageLayout.Pane
-  resizable={{persist: false}}
-/>`}
-            </pre>
-            <p style={{fontSize: '14px', marginTop: '0.5rem'}}>
+            <Text as="h4" sx={{fontSize: 2, fontWeight: 'bold'}}>
+              New API (no old equivalent):
+            </Text>
+            <code style={codeStyle}>{newApiExample2}</code>
+            <Text as="p" sx={{fontSize: 1, mt: 2}}>
               Use this for SSR apps to avoid hydration mismatches
-            </p>
+            </Text>
           </div>
         </div>
       </div>
 
       <div>
-        <h3>Example 3: Custom Persistence (Simplified)</h3>
+        <Text as="h3" sx={{fontSize: 3, fontWeight: 'bold'}}>
+          Example 3: Custom Persistence (Simplified)
+        </Text>
         <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginTop: '1rem'}}>
           <div>
-            <h4>Old API:</h4>
-            <pre style={{background: '#f6f8fa', padding: '1rem', borderRadius: '6px', fontSize: '12px'}}>
-              {`<PageLayout.Pane
-  resizable={{
-    persist: (width, {widthStorageKey}) => {
-      myStorage.set(widthStorageKey, width)
-    }
-  }}
-  widthStorageKey="my-key"
-/>`}
-            </pre>
+            <Text as="h4" sx={{fontSize: 2, fontWeight: 'bold'}}>
+              Old API:
+            </Text>
+            <code style={codeStyle}>{oldApiExample3}</code>
           </div>
           <div>
-            <h4>New API (Simplified):</h4>
-            <pre style={{background: '#f6f8fa', padding: '1rem', borderRadius: '6px', fontSize: '12px'}}>
-              {`<PageLayout.Pane
-  resizable={{
-    persist: (width) => {
-      myStorage.set('my-key', width)
-    },
-    width: currentWidth
-  }}
-/>`}
-            </pre>
+            <Text as="h4" sx={{fontSize: 2, fontWeight: 'bold'}}>
+              New API (Simplified):
+            </Text>
+            <code style={codeStyle}>{newApiExample3}</code>
           </div>
         </div>
       </div>
 
       <div>
-        <h3>Live Example: Controlled Width with Custom Persistence</h3>
+        <Text as="h3" sx={{fontSize: 3, fontWeight: 'bold'}}>
+          Live Example: Controlled Width with Custom Persistence
+        </Text>
         <PageLayout>
           <PageLayout.Header>
             <Placeholder height={64} label="Header" />

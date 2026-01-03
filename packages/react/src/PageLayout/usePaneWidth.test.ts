@@ -17,10 +17,8 @@ import {
   isNoPersistConfig,
   isLocalStoragePersistConfig,
   isCustomPersistConfig,
-  type PersistConfig,
   type PersistFunction,
   type NoPersistConfig,
-  type LocalStoragePersistConfig,
   type CustomPersistConfig,
 } from './usePaneWidth'
 

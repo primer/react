@@ -26,6 +26,7 @@ export type PaneWidthValue = PaneWidth | CustomWidthOptions
  * Options passed to custom persist function.
  * Note: widthStorageKey is no longer passed - custom persisters manage their own storage.
  */
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export type SaveOptions = {}
 
 /**
