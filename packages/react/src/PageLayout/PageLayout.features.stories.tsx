@@ -5,7 +5,6 @@ import {Placeholder} from '../Placeholder'
 import {BranchName, Heading, Link, StateLabel, Text, useIsomorphicLayoutEffect} from '..'
 import TabNav from '../TabNav'
 import classes from './PageLayout.features.stories.module.css'
-import type {CustomWidthOptions} from './usePaneWidth'
 import {defaultPaneWidth} from './usePaneWidth'
 
 export default {
