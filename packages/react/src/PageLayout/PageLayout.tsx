@@ -597,10 +597,12 @@ export type PageLayoutPaneProps = {
   'aria-labelledby'?: string
   'aria-label'?: string
   /**
-   * The width of the pane.
+   * The width of the pane - defines constraints and defaults only.
    * - Named sizes: `'small'` | `'medium'` | `'large'`
-   * - Number: explicit pixel width (uses `minWidth` prop and viewport-based max)
+   * - Number: explicit pixel width (uses `minWidth` prop and viewport-based max) **Deprecated**
    * - Custom object: `{min: string, default: string, max: string}`
+   *
+   * For controlled width (current value), use `resizable.width` instead.
    */
   width?: PaneWidthValue
   minWidth?: number
@@ -608,8 +610,12 @@ export type PageLayoutPaneProps = {
    * Enable resizable pane behavior.
    * - `true`: Enable with default localStorage persistence
    * - `false`: Disable resizing
-   * - `{persist: false}`: Enable without persistence (no hydration issues)
-   * - `{save: fn}`: Enable with custom persistence (e.g., server-side, IndexedDB)
+   * - `{width?: number, persist: false}`: Enable without persistence, optionally with controlled current width
+   * - `{width?: number, persist: 'localStorage'}`: Enable with localStorage, optionally with controlled current width
+   * - `{width?: number, persist: fn}`: Enable with custom persistence, optionally with controlled current width
+   *
+   * The `width` property in the config represents the current/controlled width value.
+   * When provided, it takes precedence over the default width from the `width` prop.
    */
   resizable?: ResizableConfig
   widthStorageKey?: string

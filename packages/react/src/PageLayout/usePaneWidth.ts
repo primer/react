@@ -16,10 +16,11 @@ export type CustomWidthOptions = {
 export type PaneWidth = 'small' | 'medium' | 'large'
 
 /**
- * Width value for the pane.
+ * Width value for the pane - defines constraints and defaults only.
  * - `PaneWidth`: Preset size ('small' | 'medium' | 'large')
- * - `number`: Custom width in pixels (uses minWidth prop and viewport-based max)
  * - `CustomWidthOptions`: Explicit min/default/max constraints
+ * - `number`: Legacy - Custom width in pixels (uses minWidth prop and viewport-based max)
+ *   **Deprecated**: Use CustomWidthOptions with default property instead
  */
 export type PaneWidthValue = PaneWidth | number | CustomWidthOptions
 
@@ -35,11 +36,14 @@ export type PersistFunction = (width: number, options: SaveOptions) => void | Pr
 
 /**
  * Configuration object for resizable pane.
+ * - `width?: number` - Current/controlled width value in pixels (overrides width prop's default)
  * - `persist: false` - Enable resizing without any persistence
  * - `persist: 'localStorage'` - Enable resizing with localStorage persistence
  * - `persist: fn` - Enable resizing with custom persistence function
  */
 export type PersistConfig = {
+  /** Current controlled width value in pixels. When provided, this overrides the default from the width prop. */
+  width?: number
   persist: false | 'localStorage' | PersistFunction
 }
 
@@ -56,9 +60,12 @@ export const isCustomPersistFunction = (
  * Resizable configuration options.
  * - `true`: Enable resizing with default localStorage persistence (may cause hydration mismatch)
  * - `false`: Disable resizing
- * - `{persist: false}`: Enable resizing without any persistence
- * - `{persist: 'localStorage'}`: Enable resizing with localStorage persistence
- * - `{persist: fn}`: Enable resizing with custom persistence function
+ * - `{width?: number, persist: false}`: Enable resizing without any persistence, optionally with controlled width
+ * - `{width?: number, persist: 'localStorage'}`: Enable resizing with localStorage persistence, optionally with controlled width
+ * - `{width?: number, persist: fn}`: Enable resizing with custom persistence function, optionally with controlled width
+ *
+ * The `width` property in the config object represents the current/controlled width value.
+ * When provided, it takes precedence over the default width from the `width` prop.
  */
 export type ResizableConfig = boolean | PersistConfig
 
@@ -256,11 +263,15 @@ export function usePaneWidth({
   const defaultWidth = useMemo(() => getDefaultPaneWidth(width), [width])
   // --- State ---
   // Current width for React renders (ARIA attributes). Updates go through saveWidth() or clamp on resize.
-  // For resizable=true (localStorage), we read synchronously in initializer to avoid flash on CSR.
-  // This causes hydration mismatch (server renders default, client reads localStorage) which is
-  // suppressed via suppressHydrationWarning on the pane element.
-  // For other resizable configs ({persist: false}), consumer provides initial via `width` prop.
+  // Priority order for initial width:
+  // 1. resizable.width (controlled current value)
+  // 2. localStorage (resizable === true only)
+  // 3. defaultWidth (from width prop)
   const [currentWidth, setCurrentWidth] = React.useState(() => {
+    // Check if resizable config has a controlled width value
+    if (isPersistConfig(resizable) && typeof resizable.width === 'number') {
+      return resizable.width
+    }
     // Only try localStorage for default persister (resizable === true)
     // Read directly here instead of via persister to satisfy react-hooks/refs lint rule
     if (resizable === true) {
@@ -272,12 +283,28 @@ export function usePaneWidth({
     return defaultWidth
   })
 
-  // Inline state sync when width prop changes (avoids effect)
+  // Inline state sync when width prop or resizable.width changes (avoids effect)
   // See: https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
   const [prevDefaultWidth, setPrevDefaultWidth] = React.useState(defaultWidth)
-  if (defaultWidth !== prevDefaultWidth) {
+  const controlledWidth = isPersistConfig(resizable) ? resizable.width : undefined
+  const [prevControlledWidth, setPrevControlledWidth] = React.useState(controlledWidth)
+
+  if (controlledWidth !== prevControlledWidth) {
+    // When resizable.width changes, update immediately
+    setPrevControlledWidth(controlledWidth)
+    if (typeof controlledWidth === 'number') {
+      setCurrentWidth(controlledWidth)
+    } else if (controlledWidth === undefined && prevControlledWidth !== undefined) {
+      // Controlled width was removed, fall back to default
+      setCurrentWidth(defaultWidth)
+    }
+  } else if (defaultWidth !== prevDefaultWidth && controlledWidth === undefined) {
+    // Only sync defaultWidth if there's no controlled width
     setPrevDefaultWidth(defaultWidth)
     setCurrentWidth(defaultWidth)
+  } else if (defaultWidth !== prevDefaultWidth) {
+    // Update prevDefaultWidth even when controlled
+    setPrevDefaultWidth(defaultWidth)
   }
 
   // Mutable ref for drag operations - avoids re-renders on every pixel move
