@@ -188,7 +188,7 @@ describe('usePaneWidth', () => {
         usePaneWidth({
           width: 'medium',
           minWidth: 256,
-          resizable: {width: 400, persist: false},
+          resizable: {width: 400, persist: () => {}}, // Custom persist with controlled width
           widthStorageKey: 'test-pane',
           ...refs,
         }),
@@ -206,7 +206,7 @@ describe('usePaneWidth', () => {
         usePaneWidth({
           width: 'medium',
           minWidth: 256,
-          resizable: {width: 500, persist: 'localStorage'},
+          resizable: {width: 500, persist: 'localStorage', widthStorageKey: 'test-pane'},
           widthStorageKey: 'test-pane',
           ...refs,
         }),
@@ -218,7 +218,7 @@ describe('usePaneWidth', () => {
 
     it('should sync when resizable.width changes', () => {
       const refs = createMockRefs()
-      type ResizableType = {width?: number; persist: false}
+      type ResizableType = CustomPersistConfig
 
       const {result, rerender} = renderHook(
         ({resizable}: {resizable: ResizableType}) =>
@@ -229,20 +229,20 @@ describe('usePaneWidth', () => {
             widthStorageKey: 'test-sync-resizable',
             ...refs,
           }),
-        {initialProps: {resizable: {width: 350, persist: false} as ResizableType}},
+        {initialProps: {resizable: {width: 350, persist: () => {}} as ResizableType}},
       )
 
       expect(result.current.currentWidth).toBe(350)
 
       // Change resizable.width
-      rerender({resizable: {width: 450, persist: false}})
+      rerender({resizable: {width: 450, persist: () => {}}})
 
       expect(result.current.currentWidth).toBe(450)
     })
 
-    it('should fall back to default when resizable.width is removed', () => {
+    it('should fall back to default when switching from controlled to uncontrolled', () => {
       const refs = createMockRefs()
-      type ResizableType = {width?: number; persist: false}
+      type ResizableType = CustomPersistConfig | NoPersistConfig
 
       const {result, rerender} = renderHook(
         ({resizable}: {resizable: ResizableType}) =>
@@ -253,12 +253,12 @@ describe('usePaneWidth', () => {
             widthStorageKey: 'test-fallback',
             ...refs,
           }),
-        {initialProps: {resizable: {width: 400, persist: false} as ResizableType}},
+        {initialProps: {resizable: {width: 400, persist: () => {}} as ResizableType}},
       )
 
       expect(result.current.currentWidth).toBe(400)
 
-      // Remove width from resizable config
+      // Switch to no-persist config (uncontrolled)
       rerender({resizable: {persist: false}})
 
       // Should fall back to default from width prop
@@ -268,7 +268,7 @@ describe('usePaneWidth', () => {
     it('should not sync width prop default when resizable.width is provided', () => {
       const refs = createMockRefs()
       type WidthType = 'small' | 'medium' | 'large'
-      type ResizableType = {width: number; persist: false}
+      type ResizableType = CustomPersistConfig
 
       const {result, rerender} = renderHook(
         ({width, resizable}: {width: WidthType; resizable: ResizableType}) =>
@@ -282,7 +282,7 @@ describe('usePaneWidth', () => {
         {
           initialProps: {
             width: 'medium' as WidthType,
-            resizable: {width: 400, persist: false} as ResizableType,
+            resizable: {width: 400, persist: () => {}} as ResizableType,
           },
         },
       )
@@ -290,7 +290,7 @@ describe('usePaneWidth', () => {
       expect(result.current.currentWidth).toBe(400)
 
       // Change width prop (default changes from 296 to 320)
-      rerender({width: 'large', resizable: {width: 400, persist: false}})
+      rerender({width: 'large', resizable: {width: 400, persist: () => {}}})
 
       // Should NOT sync to new default because resizable.width is controlling
       expect(result.current.currentWidth).toBe(400)
