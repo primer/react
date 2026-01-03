@@ -606,16 +606,17 @@ export type PageLayoutPaneProps = {
   minWidth?: number
   /**
    * Enable resizable pane behavior.
-   * - `true`: Enable with default localStorage persistence
+   * - `true`: Enable with default localStorage persistence (DEPRECATED - use `{persist: 'localStorage', widthStorageKey, width}`)
    * - `false`: Disable resizing
-   * - `{width?: number, persist: false}`: Enable without persistence, optionally with controlled current width
-   * - `{width?: number, persist: 'localStorage'}`: Enable with localStorage, optionally with controlled current width
-   * - `{width?: number, persist: fn}`: Enable with custom persistence, optionally with controlled current width
-   *
-   * The `width` property in the config represents the current/controlled width value.
-   * When provided, it takes precedence over the default width from the `width` prop.
+   * - `{persist: false}`: Enable without persistence (SSR-safe)
+   * - `{persist: 'localStorage', widthStorageKey, width}`: Enable with localStorage, width required
+   * - `{persist: fn, width}`: Enable with custom persistence, width required
    */
   resizable?: ResizableConfig
+  /**
+   * @deprecated Use `resizable={{persist: 'localStorage', widthStorageKey: '...', width: undefined}}` instead.
+   * Only used for backwards compatibility when `resizable={true}`.
+   */
   widthStorageKey?: string
   padding?: keyof typeof SPACING_MAP
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>

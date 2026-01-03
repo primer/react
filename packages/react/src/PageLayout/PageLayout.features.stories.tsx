@@ -524,3 +524,118 @@ export const ResizablePaneWithControlledWidth: StoryFn = () => {
   )
 }
 ResizablePaneWithControlledWidth.storyName = 'Resizable pane with controlled width (new API)'
+
+/**
+ * Migration Examples: Old API → New API
+ *
+ * This story demonstrates migration patterns from the deprecated API to the new refined API.
+ */
+export const ResizablePaneMigrationExamples: StoryFn = () => {
+  const [currentWidth, setCurrentWidth] = React.useState<number>(defaultPaneWidth.medium)
+
+  const codeStyle = {
+    background: '#f6f8fa',
+    padding: '1rem',
+    borderRadius: '6px',
+    fontSize: '12px',
+    fontFamily: 'monospace',
+    whiteSpace: 'pre' as const,
+    display: 'block',
+  }
+
+  // Code examples stored as variables to avoid HTML literal warnings
+  const oldApiExample1 = 'resizable={true}\nwidthStorageKey="my-pane"'
+  const newApiExample1 =
+    "resizable={{\n  persist: 'localStorage',\n  widthStorageKey: 'my-pane',\n  width: undefined\n}}"
+  const newApiExample2 = 'resizable={{persist: false}}'
+  const oldApiExample3 =
+    'resizable={{\n  persist: (width, {widthStorageKey}) => {\n    myStorage.set(widthStorageKey, width)\n  }\n}}\nwidthStorageKey="my-key"'
+  const newApiExample3 =
+    "resizable={{\n  persist: (width) => {\n    myStorage.set('my-key', width)\n  },\n  width: currentWidth\n}}"
+
+  return (
+    <div style={{display: 'flex', flexDirection: 'column', gap: '2rem'}}>
+      <div>
+        <Text as="h3" sx={{fontSize: 3, fontWeight: 'bold'}}>
+          Example 1: Default localStorage (Deprecated → New)
+        </Text>
+        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginTop: '1rem'}}>
+          <div>
+            <Text as="h4" sx={{fontSize: 2, fontWeight: 'bold'}}>
+              Old API (Deprecated):
+            </Text>
+            <code style={codeStyle}>{oldApiExample1}</code>
+          </div>
+          <div>
+            <Text as="h4" sx={{fontSize: 2, fontWeight: 'bold'}}>
+              New API:
+            </Text>
+            <code style={codeStyle}>{newApiExample1}</code>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <Text as="h3" sx={{fontSize: 3, fontWeight: 'bold'}}>
+          Example 2: No Persistence (SSR-safe)
+        </Text>
+        <div style={{display: 'grid', gridTemplateColumns: '1fr', gap: '1rem', marginTop: '1rem'}}>
+          <div>
+            <Text as="h4" sx={{fontSize: 2, fontWeight: 'bold'}}>
+              New API (no old equivalent):
+            </Text>
+            <code style={codeStyle}>{newApiExample2}</code>
+            <Text as="p" sx={{fontSize: 1, mt: 2}}>
+              Use this for SSR apps to avoid hydration mismatches
+            </Text>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <Text as="h3" sx={{fontSize: 3, fontWeight: 'bold'}}>
+          Example 3: Custom Persistence (Simplified)
+        </Text>
+        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginTop: '1rem'}}>
+          <div>
+            <Text as="h4" sx={{fontSize: 2, fontWeight: 'bold'}}>
+              Old API:
+            </Text>
+            <code style={codeStyle}>{oldApiExample3}</code>
+          </div>
+          <div>
+            <Text as="h4" sx={{fontSize: 2, fontWeight: 'bold'}}>
+              New API (Simplified):
+            </Text>
+            <code style={codeStyle}>{newApiExample3}</code>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <Text as="h3" sx={{fontSize: 3, fontWeight: 'bold'}}>
+          Live Example: Controlled Width with Custom Persistence
+        </Text>
+        <PageLayout>
+          <PageLayout.Header>
+            <Placeholder height={64} label="Header" />
+          </PageLayout.Header>
+          <PageLayout.Pane
+            width="medium"
+            resizable={{
+              persist: width => setCurrentWidth(width),
+              width: currentWidth,
+            }}
+            aria-label="Side pane"
+          >
+            <Placeholder height={320} label={`Pane (width: ${currentWidth}px)`} />
+          </PageLayout.Pane>
+          <PageLayout.Content>
+            <Placeholder height={640} label="Content" />
+          </PageLayout.Content>
+        </PageLayout>
+      </div>
+    </div>
+  )
+}
+ResizablePaneMigrationExamples.storyName = 'Migration Examples (Old → New API)'
