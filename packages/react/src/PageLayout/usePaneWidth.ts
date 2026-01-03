@@ -287,6 +287,15 @@ export function usePaneWidthV2({
   const [uncontrolledWidth, setUncontrolledWidth] = React.useState(defaultWidthResolved)
   const currentWidth = controlledWidth !== undefined ? controlledWidth : uncontrolledWidth
 
+  // Sync defaultWidth changes to uncontrolled width (only when not controlled)
+  const prevDefaultWidth = React.useRef(defaultWidthResolved)
+  React.useEffect(() => {
+    if (defaultWidthResolved !== prevDefaultWidth.current && controlledWidth === undefined) {
+      prevDefaultWidth.current = defaultWidthResolved
+      setUncontrolledWidth(defaultWidthResolved)
+    }
+  }, [defaultWidthResolved, controlledWidth])
+
   // Mutable ref for drag operations
   const currentWidthRef = React.useRef(currentWidth)
 
