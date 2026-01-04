@@ -1,9 +1,10 @@
 import type React from 'react'
-import {forwardRef} from 'react'
+import {forwardRef, useContext} from 'react'
 import {Button, IconButton} from '../Button'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
+import {ActionListContainerContext} from './ActionListContainerContext'
 
 type ElementProps =
   | {
@@ -30,6 +31,17 @@ export type ActionListTrailingActionProps = ElementProps & {
 
 export const TrailingAction = forwardRef(
   ({as = 'button', icon, label, href = null, className, style, loading, ...props}, forwardedRef) => {
+    // Use context from ActionList
+    const {selectionVariant} = useContext(ActionListContainerContext)
+    // TODO: Rename
+    const withinMenu = selectionVariant === 'single' || selectionVariant === 'multiple'
+
+    if (withinMenu) {
+      console.log(
+        'Warning: ActionList.TrailingAction should not be used within selectable ActionLists. Please remove it to avoid unexpected behavior.',
+      )
+    }
+
     return (
       <span className={clsx(className, classes.TrailingAction)} style={style}>
         {icon ? (
@@ -38,13 +50,15 @@ export const TrailingAction = forwardRef(
             aria-label={label}
             icon={icon}
             variant="invisible"
-            tooltipDirection="w"
+            tooltipDirection="e"
             href={href}
             loading={loading}
             data-loading={Boolean(loading)}
             // @ts-expect-error StyledButton wants both Anchor and Button refs
             ref={forwardedRef}
             className={classes.TrailingActionButton}
+            aria-hidden={!withinMenu ? 'true' : undefined}
+            tabIndex={!withinMenu ? -1 : undefined}
             {...props}
           />
         ) : (
@@ -57,6 +71,7 @@ export const TrailingAction = forwardRef(
             data-loading={Boolean(loading)}
             ref={forwardedRef}
             className={classes.TrailingActionButton}
+            aria-hidden={withinMenu ? 'true' : undefined}
             {...props}
           >
             {label}
