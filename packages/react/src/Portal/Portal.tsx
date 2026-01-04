@@ -1,11 +1,24 @@
 import React, {useContext} from 'react'
 import {createPortal} from 'react-dom'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import {useFeatureFlag} from '../FeatureFlags'
 
 const PRIMER_PORTAL_ROOT_ID = '__primerPortalRoot__'
 const DEFAULT_PORTAL_CONTAINER_NAME = '__default__'
 
 const portalRootRegistry: Partial<Record<string, Element>> = {}
+
+// Track which portal roots have had CSS containment applied (auto-cleans when element is GC'd)
+const cssContainmentApplied = new WeakMap<Element, boolean>()
+
+// Reset containment tracking (exported for testing)
+export function resetCSSContainmentTracking(): void {
+  // WeakMap doesn't have a clear method, but we can reset by deleting the current portal root entry
+  const portalRoot = portalRootRegistry[DEFAULT_PORTAL_CONTAINER_NAME]
+  if (portalRoot) {
+    cssContainmentApplied.delete(portalRoot)
+  }
+}
 
 /**
  * Register a container to serve as a portal root.
@@ -20,7 +33,7 @@ export function registerPortalRoot(root: Element, name = DEFAULT_PORTAL_CONTAINE
 // Ensures that a default portal root exists and is registered. If a DOM element exists
 // with id __primerPortalRoot__, allow that element to serve as the default portal root.
 // Otherwise, create that element and attach it to the end of document.body.
-function ensureDefaultPortal() {
+function ensureDefaultPortal(enableCSSContainment = false) {
   const existingDefaultPortalContainer = portalRootRegistry[DEFAULT_PORTAL_CONTAINER_NAME]
   if (!existingDefaultPortalContainer || !document.body.contains(existingDefaultPortalContainer)) {
     let defaultPortalContainer = document.getElementById(PRIMER_PORTAL_ROOT_ID)
@@ -40,6 +53,22 @@ function ensureDefaultPortal() {
     }
 
     registerPortalRoot(defaultPortalContainer)
+  }
+
+  // Apply CSS containment to the portal root if enabled (only once per root)
+  if (enableCSSContainment) {
+    const portalRoot = portalRootRegistry[DEFAULT_PORTAL_CONTAINER_NAME]
+    if (portalRoot instanceof HTMLElement && !cssContainmentApplied.has(portalRoot)) {
+      const existingContain = portalRoot.style.contain
+      if (existingContain && existingContain !== 'layout style') {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `Portal root already has contain: "${existingContain}". Overriding with "layout style" due to primer_react_css_contain_portal flag.`,
+        )
+      }
+      portalRoot.style.contain = 'layout style'
+      cssContainmentApplied.set(portalRoot, true)
+    }
   }
 }
 
@@ -75,6 +104,7 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
   containerName: _containerName,
 }) => {
   const {portalContainerName} = useContext(PortalContext)
+  const enableCSSContainment = useFeatureFlag('primer_react_css_contain_portal')
   const elementRef = React.useRef<HTMLDivElement | null>(null)
   if (!elementRef.current) {
     const div = document.createElement('div')
@@ -92,7 +122,7 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
     let containerName = _containerName ?? portalContainerName
     if (containerName === undefined) {
       containerName = DEFAULT_PORTAL_CONTAINER_NAME
-      ensureDefaultPortal()
+      ensureDefaultPortal(enableCSSContainment)
     }
     const parentElement = portalRootRegistry[containerName]
 

@@ -1,9 +1,10 @@
-import {describe, expect, it} from 'vitest'
-import Portal, {registerPortalRoot, PortalContext} from '../Portal/index'
+import {describe, expect, it, vi, beforeEach} from 'vitest'
+import Portal, {registerPortalRoot, PortalContext, resetCSSContainmentTracking} from '../Portal/index'
 
 import {render} from '@testing-library/react'
 import BaseStyles from '../BaseStyles'
 import React from 'react'
+import {FeatureFlags} from '../FeatureFlags'
 
 describe('Portal', () => {
   it('renders a default portal into document.body (no BaseStyles present)', () => {
@@ -182,5 +183,101 @@ describe('Portal', () => {
     // Cleanup
     document.body.removeChild(contextPortalRoot)
     document.body.removeChild(propPortalRoot)
+  })
+
+  describe('CSS containment feature flag', () => {
+    beforeEach(() => {
+      // Reset containment tracking between tests
+      resetCSSContainmentTracking()
+    })
+
+    it('does not apply CSS containment by default', () => {
+      const {baseElement} = render(<Portal>test-content</Portal>)
+      const generatedRoot = baseElement.querySelector('#__primerPortalRoot__') as HTMLElement
+
+      expect(generatedRoot).toBeInstanceOf(HTMLElement)
+      expect(generatedRoot.style.contain).toBe('')
+
+      baseElement.innerHTML = ''
+    })
+
+    it('applies CSS containment when primer_react_css_contain_portal flag is enabled', () => {
+      const toRender = (
+        <FeatureFlags flags={{primer_react_css_contain_portal: true}}>
+          <Portal>contained-content</Portal>
+        </FeatureFlags>
+      )
+
+      const {baseElement} = render(toRender)
+      const generatedRoot = baseElement.querySelector('#__primerPortalRoot__') as HTMLElement
+
+      expect(generatedRoot).toBeInstanceOf(HTMLElement)
+      expect(generatedRoot.style.contain).toBe('layout style')
+
+      baseElement.innerHTML = ''
+    })
+
+    it('does not apply CSS containment when flag is explicitly disabled', () => {
+      const toRender = (
+        <FeatureFlags flags={{primer_react_css_contain_portal: false}}>
+          <Portal>uncontained-content</Portal>
+        </FeatureFlags>
+      )
+
+      const {baseElement} = render(toRender)
+      const generatedRoot = baseElement.querySelector('#__primerPortalRoot__') as HTMLElement
+
+      expect(generatedRoot).toBeInstanceOf(HTMLElement)
+      expect(generatedRoot.style.contain).toBe('')
+
+      baseElement.innerHTML = ''
+    })
+
+    it('applies CSS containment to pre-existing portal root', () => {
+      // Create a pre-existing portal root declaratively
+      const existingRoot = document.createElement('div')
+      existingRoot.id = '__primerPortalRoot__'
+      document.body.appendChild(existingRoot)
+
+      const toRender = (
+        <FeatureFlags flags={{primer_react_css_contain_portal: true}}>
+          <Portal>content-in-existing-root</Portal>
+        </FeatureFlags>
+      )
+
+      const {baseElement} = render(toRender)
+      const generatedRoot = baseElement.querySelector('#__primerPortalRoot__') as HTMLElement
+
+      expect(generatedRoot).toBeInstanceOf(HTMLElement)
+      expect(generatedRoot.style.contain).toBe('layout style')
+
+      baseElement.innerHTML = ''
+      document.body.removeChild(existingRoot)
+    })
+
+    it('warns when overriding existing contain value', () => {
+      const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      // Create a pre-existing portal root with a different contain value
+      const existingRoot = document.createElement('div')
+      existingRoot.id = '__primerPortalRoot__'
+      existingRoot.style.contain = 'size'
+      document.body.appendChild(existingRoot)
+
+      const toRender = (
+        <FeatureFlags flags={{primer_react_css_contain_portal: true}}>
+          <Portal>content-with-override</Portal>
+        </FeatureFlags>
+      )
+
+      render(toRender)
+
+      expect(warnSpy).toHaveBeenCalledWith(
+        'Portal root already has contain: "size". Overriding with "layout style" due to primer_react_css_contain_portal flag.',
+      )
+
+      warnSpy.mockRestore()
+      document.body.removeChild(existingRoot)
+    })
   })
 })
