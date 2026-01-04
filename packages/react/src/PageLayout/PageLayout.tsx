@@ -11,7 +11,7 @@ import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes
 
 import classes from './PageLayout.module.css'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types'
-import {usePaneWidthV2, updateAriaValues, ARROW_KEY_STEP, defaultPaneWidth} from './usePaneWidth'
+import {usePaneWidthV2, updateAriaValues, ARROW_KEY_STEP} from './usePaneWidth'
 import {setDraggingStyles, removeDraggingStyles} from './paneUtils'
 
 const REGION_ORDER = {
