@@ -11,7 +11,7 @@ import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes
 
 import classes from './PageLayout.module.css'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types'
-import {usePaneWidthV2, updateAriaValues, ARROW_KEY_STEP, defaultPaneWidth} from './usePaneWidth'
+import {usePaneWidthV2, updateAriaValues, ARROW_KEY_STEP} from './usePaneWidth'
 import {setDraggingStyles, removeDraggingStyles} from './paneUtils'
 
 const REGION_ORDER = {
@@ -568,7 +568,8 @@ Content.displayName = 'PageLayout.Content'
 // ----------------------------------------------------------------------------
 // PageLayout.Pane
 
-export type PageLayoutPaneProps = {
+// Base props shared by all pane variants
+type PageLayoutPaneBaseProps = {
   position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
   /**
    * @deprecated Use the `position` prop with a responsive value instead.
@@ -587,6 +588,50 @@ export type PageLayoutPaneProps = {
   positionWhenNarrow?: 'inherit' | keyof typeof panePositions
   'aria-labelledby'?: string
   'aria-label'?: string
+  padding?: keyof typeof SPACING_MAP
+  divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
+  /**
+   * @deprecated Use the `divider` prop with a responsive value instead.
+   *
+   * Before:
+   * ```
+   * divider="line"
+   * dividerWhenNarrow="filled"
+   * ```
+   *
+   * After:
+   * ```
+   * divider={{regular: 'line', narrow: 'filled'}}
+   * ```
+   */
+  dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
+  sticky?: boolean
+  offsetHeader?: string | number
+  hidden?: boolean | ResponsiveValue<boolean>
+  id?: string
+  className?: string
+  style?: React.CSSProperties
+}
+
+// Non-resizable pane - no width control props allowed
+type NonResizablePaneProps = PageLayoutPaneBaseProps & {
+  resizable?: false
+  width?: never
+  onWidthChange?: never
+  defaultWidth?: never
+  minWidth?: never
+  maxWidth?: never
+}
+
+// Resizable pane - width control props are allowed
+type ResizablePaneProps = PageLayoutPaneBaseProps & {
+  /**
+   * Enable resizable pane behavior.
+   * When true, displays a draggable handle to resize the pane.
+   * Use `width` and `onWidthChange` for controlled behavior,
+   * or `useLocalStoragePaneWidth` hook for localStorage persistence.
+   */
+  resizable: true
   /**
    * Default width of the pane in pixels or as a named size.
    * - Named sizes: `'small'` (256px) | `'medium'` (296px) | `'large'` (320px)
@@ -618,37 +663,9 @@ export type PageLayoutPaneProps = {
    * If not specified, uses a viewport-based calculation.
    */
   maxWidth?: number
-  /**
-   * Enable resizable pane behavior.
-   * When true, displays a draggable handle to resize the pane.
-   * Use `width` and `onWidthChange` for controlled behavior,
-   * or `useLocalStoragePaneWidth` hook for localStorage persistence.
-   */
-  resizable?: boolean
-  padding?: keyof typeof SPACING_MAP
-  divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
-  /**
-   * @deprecated Use the `divider` prop with a responsive value instead.
-   *
-   * Before:
-   * ```
-   * divider="line"
-   * dividerWhenNarrow="filled"
-   * ```
-   *
-   * After:
-   * ```
-   * divider={{regular: 'line', narrow: 'filled'}}
-   * ```
-   */
-  dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
-  sticky?: boolean
-  offsetHeader?: string | number
-  hidden?: boolean | ResponsiveValue<boolean>
-  id?: string
-  className?: string
-  style?: React.CSSProperties
 }
+
+export type PageLayoutPaneProps = NonResizablePaneProps | ResizablePaneProps
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const panePositions = {
@@ -700,6 +717,22 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     // The actual responsive behavior will be handled by CSS through data attributes
     const position = isResponsiveValue(positionProp) ? 'end' : positionProp
     const dividerVariant = isResponsiveValue(dividerProp) ? 'none' : dividerProp
+
+    // Dev-only warnings for invalid prop combinations
+    warning(
+      onWidthChange && !resizable,
+      'PageLayout.Pane: `onWidthChange` has no effect without `resizable={true}`. The callback will never be called.',
+    )
+
+    warning(
+      controlledWidth !== undefined && !resizable,
+      'PageLayout.Pane: `width` has no effect without `resizable={true}`. The pane width cannot be changed.',
+    )
+
+    warning(
+      controlledWidth !== undefined && !onWidthChange,
+      'PageLayout.Pane: You provided a `width` prop without an `onWidthChange` handler. This will render a read-only pane. If you want the pane width to be controlled, provide both `width` and `onWidthChange`. If you want an uncontrolled resizable pane, remove the `width` prop.',
+    )
 
     const {rowGap, columnGap, paneRef, contentWrapperRef} = React.useContext(PageLayoutContext)
 

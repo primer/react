@@ -1,4 +1,4 @@
-import {useState, useCallback, useEffect} from 'react'
+import {useState, useCallback, useEffect, startTransition} from 'react'
 import {defaultPaneWidth} from './usePaneWidth'
 
 export type UseLocalStoragePaneWidthOptions = {
@@ -47,20 +47,22 @@ export function useLocalStoragePaneWidth(
 
   // Sync from localStorage after mount (SSR-safe)
   useEffect(() => {
-    try {
-      const storedWidth = localStorage.getItem(key)
-      if (storedWidth !== null) {
-        const parsed = Number(storedWidth)
-        if (!isNaN(parsed) && parsed > 0) {
-          // Clamp to constraints
-          const clampedWidth = Math.max(minWidth, maxWidth !== undefined ? Math.min(maxWidth, parsed) : parsed)
-          setWidthState(clampedWidth)
+    startTransition(() => {
+      try {
+        const storedWidth = localStorage.getItem(key)
+        if (storedWidth !== null) {
+          const parsed = Number(storedWidth)
+          if (!isNaN(parsed) && parsed > 0) {
+            // Clamp to constraints
+            const clampedWidth = Math.max(minWidth, maxWidth !== undefined ? Math.min(maxWidth, parsed) : parsed)
+            setWidthState(clampedWidth)
+          }
         }
+      } catch {
+        // localStorage unavailable - continue with defaultWidth
       }
-    } catch {
-      // localStorage unavailable - continue with defaultWidth
-    }
-    setHasHydrated(true)
+      setHasHydrated(true)
+    })
   }, [key, minWidth, maxWidth])
 
   // Setter that persists to localStorage
