@@ -366,4 +366,28 @@ describe('Overlay', () => {
     const container = getByRole('dialog')
     expect(container).toHaveAttribute('data-reflow-container')
   })
+
+  it('should not have OverlayContainment class if CSS containment FF is not enabled', async () => {
+    const user = userEvent.setup()
+    const {getByRole} = render(<TestComponent />)
+
+    await user.click(getByRole('button', {name: 'open overlay'}))
+
+    const container = getByRole('dialog')
+    expect(container).not.toHaveClass(classes.OverlayContainment)
+  })
+
+  it('should have OverlayContainment class if CSS containment FF is enabled', async () => {
+    const user = userEvent.setup()
+    const {getByRole} = render(
+      <FeatureFlags flags={{primer_react_overlay_css_containment: true}}>
+        <TestComponent />
+      </FeatureFlags>,
+    )
+
+    await user.click(getByRole('button', {name: 'open overlay'}))
+
+    const container = getByRole('dialog')
+    expect(container).toHaveClass(classes.OverlayContainment)
+  })
 })

@@ -10,7 +10,6 @@
 
 .Overlay {
   position: absolute;
-  contain: layout style;
   max-width: calc(100vw - 2rem);
   width: auto;
   min-width: 192px;
@@ -186,6 +185,10 @@
       height: 100dvh;
     }
   }
+}
+
+.OverlayContainment {
+  contain: layout style;
 }
 
 @media (prefers-reduced-motion: no-preference) {

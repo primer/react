@@ -231,6 +231,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     const leftPosition = left === undefined && right === undefined ? 0 : left
 
     const overflowEnabled = useFeatureFlag('primer_react_overlay_overflow')
+    const cssContainmentEnabled = useFeatureFlag('primer_react_overlay_css_containment')
     return (
       <Portal containerName={portalContainerName}>
         <BaseOverlay
@@ -243,6 +244,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
           height={height}
           visibility={visibility}
           data-responsive={responsiveVariant}
+          className={cssContainmentEnabled ? classes.OverlayContainment : undefined}
           {...props}
         />
       </Portal>
