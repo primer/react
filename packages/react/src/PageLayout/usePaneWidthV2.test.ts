@@ -1,7 +1,7 @@
 import {describe, it, expect, vi, beforeEach, afterEach} from 'vitest'
 import {renderHook, act} from '@testing-library/react'
-import {usePaneWidthV2, defaultPaneWidth, SSR_DEFAULT_MAX_WIDTH} from './usePaneWidth'
-import React from 'react'
+import {usePaneWidthV2, defaultPaneWidth} from './usePaneWidth'
+import type React from 'react'
 
 // Mock refs for hook testing
 const createMockRefs = () => ({
@@ -289,19 +289,19 @@ describe('usePaneWidthV2', () => {
     it('should update width when defaultWidth changes in uncontrolled mode', () => {
       const refs = createMockRefs()
       const {result, rerender} = renderHook(
-        ({defaultWidth}) =>
+        ({defaultWidth}: {defaultWidth: number | 'small' | 'medium' | 'large'}) =>
           usePaneWidthV2({
             defaultWidth,
             minWidth: 256,
             resizable: true,
             ...refs,
           }),
-        {initialProps: {defaultWidth: 'small' as const}},
+        {initialProps: {defaultWidth: 'small'}},
       )
 
       expect(result.current.currentWidth).toBe(defaultPaneWidth.small)
 
-      rerender({defaultWidth: 'large' as const})
+      rerender({defaultWidth: 'large'})
 
       expect(result.current.currentWidth).toBe(defaultPaneWidth.large)
     })
@@ -309,7 +309,13 @@ describe('usePaneWidthV2', () => {
     it('should not update width when defaultWidth changes in controlled mode', () => {
       const refs = createMockRefs()
       const {result, rerender} = renderHook(
-        ({defaultWidth, controlledWidth}) =>
+        ({
+          defaultWidth,
+          controlledWidth,
+        }: {
+          defaultWidth: number | 'small' | 'medium' | 'large'
+          controlledWidth: number
+        }) =>
           usePaneWidthV2({
             defaultWidth,
             controlledWidth,
@@ -317,13 +323,13 @@ describe('usePaneWidthV2', () => {
             resizable: true,
             ...refs,
           }),
-        {initialProps: {defaultWidth: 'small' as const, controlledWidth: 300}},
+        {initialProps: {defaultWidth: 'small', controlledWidth: 300}},
       )
 
       expect(result.current.currentWidth).toBe(300)
 
       // Changing defaultWidth shouldn't affect controlled width
-      rerender({defaultWidth: 'large' as const, controlledWidth: 300})
+      rerender({defaultWidth: 'large', controlledWidth: 300})
 
       expect(result.current.currentWidth).toBe(300)
     })

@@ -272,4 +272,72 @@ describe('PageLayout', async () => {
       expect(container.firstChild?.nodeName).toEqual('DIV')
     })
   })
+
+  describe('warnings', () => {
+    it('should warn when onWidthChange is provided without resizable', () => {
+      const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      render(
+        <PageLayout>
+          {/* @ts-expect-error - Testing runtime warning for invalid prop combination */}
+          <PageLayout.Pane onWidthChange={() => {}} aria-label="Test pane">
+            Content
+          </PageLayout.Pane>
+          <PageLayout.Content>Content</PageLayout.Content>
+        </PageLayout>,
+      )
+
+      expect(consoleSpy).toHaveBeenCalled()
+      consoleSpy.mockRestore()
+    })
+
+    it('should warn when width is provided without resizable', () => {
+      const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      render(
+        <PageLayout>
+          {/* @ts-expect-error - Testing runtime warning for invalid prop combination */}
+          <PageLayout.Pane width={300} aria-label="Test pane">
+            Content
+          </PageLayout.Pane>
+          <PageLayout.Content>Content</PageLayout.Content>
+        </PageLayout>,
+      )
+
+      expect(consoleSpy).toHaveBeenCalled()
+      consoleSpy.mockRestore()
+    })
+
+    it('should warn when width is provided without onWidthChange', () => {
+      const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      render(
+        <PageLayout>
+          <PageLayout.Pane resizable width={300} aria-label="Test pane">
+            Content
+          </PageLayout.Pane>
+          <PageLayout.Content>Content</PageLayout.Content>
+        </PageLayout>,
+      )
+
+      expect(consoleSpy).toHaveBeenCalled()
+      consoleSpy.mockRestore()
+    })
+
+    it('should not warn for valid prop combinations', () => {
+      const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      render(
+        <PageLayout>
+          <PageLayout.Pane resizable width={300} onWidthChange={() => {}} aria-label="Test pane">
+            Content
+          </PageLayout.Pane>
+          <PageLayout.Content>Content</PageLayout.Content>
+        </PageLayout>,
+      )
+
+      expect(consoleSpy).not.toHaveBeenCalled()
+      consoleSpy.mockRestore()
+    })
+  })
 })
