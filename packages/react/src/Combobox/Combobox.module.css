@@ -1,0 +1,4 @@
+.TextInput {
+    margin: var(--base-size-8) var(--base-size-8) 0;
+    width: calc(100% - var(--base-size-16));
+}

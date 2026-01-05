@@ -1,5 +1,5 @@
 import {SearchIcon, TriangleDownIcon, XIcon, type IconProps} from '@primer/octicons-react'
-import React, {useCallback, useEffect, useMemo, useRef, useState, type KeyboardEventHandler, type JSX} from 'react'
+import React, {useCallback, useEffect, useMemo, useRef, useState, type JSX} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
@@ -20,17 +20,17 @@ import useSafeTimeout from '../hooks/useSafeTimeout'
 import type {FilteredActionListLoadingType} from '../FilteredActionList/FilteredActionListLoaders'
 import {FilteredActionListLoadingTypes} from '../FilteredActionList/FilteredActionListLoaders'
 import {useFeatureFlag} from '../FeatureFlags'
-import {announce, announceFromElement} from '@primer/live-region-element'
+import {announceFromElement} from '@primer/live-region-element'
 import classes from './SelectPanel.module.css'
 import {clsx} from 'clsx'
 import {debounce} from '@github/mini-throttle'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import type {ButtonProps, LinkButtonProps} from '../Button/types'
 import {Banner} from '../Banner'
-import {isAlphabetKey} from '../hooks/useMnemonics'
+import {announceLoading, preventBubbling} from './utils/utils'
+import type {InitialLoadingType, SelectPanelMultiSelection, SelectPanelSingleSelection} from './types'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
-const SHORT_DELAY_MS = 500
 const LONG_DELAY_MS = 1000
 const EMPTY_MESSAGE = {
   title: 'No items available',
@@ -43,32 +43,6 @@ const DefaultEmptyMessage = (
   </SelectPanelMessage>
 )
 
-async function announceText(text: string, delayMs = SHORT_DELAY_MS) {
-  const liveRegion = document.querySelector('live-region')
-
-  liveRegion?.clear() // clear previous announcements
-
-  await announce(text, {
-    delayMs,
-    from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
-  })
-}
-
-async function announceLoading() {
-  await announceText('Loading.')
-}
-
-interface SelectPanelSingleSelection {
-  selected: ItemInput | undefined
-  onSelectedChange: (selected: ItemInput | undefined) => void
-}
-
-interface SelectPanelMultiSelection {
-  selected: ItemInput[]
-  onSelectedChange: (selected: ItemInput[]) => void
-}
-
-export type InitialLoadingType = 'spinner' | 'skeleton'
 export type SelectPanelSecondaryAction =
   | React.ReactElement<typeof SecondaryButton>
   | React.ReactElement<typeof SecondaryLink>
@@ -550,6 +524,7 @@ function Panel({
     [selected, intermediateSelected, isSingleSelectModal],
   )
 
+  // [Hook]
   const itemsToRender = useMemo(() => {
     return items
       .map(item => {
@@ -648,10 +623,12 @@ function Panel({
     resetSort()
   }
 
+  // [Variable]
   const focusTrapSettings = {
     initialFocusRef: inputRef || undefined,
   }
 
+  // [Hook]
   const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
     return {
       className: classes.TextInput,
@@ -662,6 +639,7 @@ function Panel({
     }
   }, [inputLabel, textInputProps])
 
+  // [Function] returns JSX
   const loadingType = (): FilteredActionListLoadingType => {
     if (dataLoadedOnce) {
       return FilteredActionListLoadingTypes.input
@@ -674,6 +652,7 @@ function Panel({
     }
   }
 
+  // [Function] returns JSX
   function getMessage() {
     if (items.length === 0 && !message) {
       return DefaultEmptyMessage
@@ -688,12 +667,14 @@ function Panel({
 
   // We add permanent save and cancel buttons on:
   // - modals
+  // [Variable]
   const showPermanentCancelSaveButtons = variant === 'modal'
 
   // The next two could be collapsed, left them separate for readability
 
   // We add a responsive save and cancel button on:
   // - anchored panels with multi select if there is onCancel
+  // [Variable]
   const showResponsiveCancelSaveButtons =
     variant !== 'modal' && usingFullScreenOnNarrow && isMultiSelectVariant(selected) && onCancel !== undefined
 
@@ -701,10 +682,12 @@ function Panel({
   // - anchored panel with multi select if there is no onCancel.
   // This variant should disappear in the future, once onCancel is required,
   // but for now we need to support it so there is a user friendly way to close the panel.
+  // [Variable]
   const showResponsiveSaveAndCloseButton =
     variant !== 'modal' && usingFullScreenOnNarrow && isMultiSelectVariant(selected) && onCancel === undefined
 
   // If there is any element in the footer, we render it.
+  // [Variable]
   const renderFooter =
     secondaryAction !== undefined ||
     showPermanentCancelSaveButtons ||
@@ -713,6 +696,7 @@ function Panel({
 
   // If there's any permanent elements in the footer, we show it always.
   // The save button is only shown on small screens.
+  // [Variable]
   const displayFooter =
     secondaryAction !== undefined || showPermanentCancelSaveButtons
       ? 'always'
@@ -720,6 +704,7 @@ function Panel({
         ? 'only-small'
         : undefined
 
+  // [Variable]
   const stretchSecondaryAction =
     showResponsiveSaveAndCloseButton || showResponsiveCancelSaveButtons
       ? 'only-big'
@@ -727,6 +712,7 @@ function Panel({
         ? 'never'
         : 'always'
 
+  // [Variable]
   const stretchSaveButton = showResponsiveSaveAndCloseButton && secondaryAction === undefined ? 'only-small' : 'never'
 
   /*
@@ -740,34 +726,14 @@ function Panel({
    * The dual approach handles different responsive behaviors: AnchoredOverlay manages
    * close functionality for narrow fullscreen, while SelectPanel handles modal close on desktop.
    */
+  // [Variable]
   const showXCloseIcon = (onCancel !== undefined || !isMultiSelectVariant(selected)) && usingFullScreenOnNarrow
 
+  // [Hook]
   const currentResponsiveVariant = useResponsiveValue(
     usingFullScreenOnNarrow ? {regular: 'anchored', narrow: 'fullscreen'} : undefined,
     'anchored',
   )
-
-  const preventBubbling =
-    (customOnKeyDown: KeyboardEventHandler<HTMLDivElement> | undefined) =>
-    (event: React.KeyboardEvent<HTMLDivElement>) => {
-      // skip if a TextInput has focus
-      customOnKeyDown?.(event)
-
-      const activeElement = document.activeElement as HTMLElement
-      if (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA') return
-
-      // skip if used with modifier to preserve shortcuts like ⌘ + F
-      const hasModifier = event.ctrlKey || event.altKey || event.metaKey
-      if (hasModifier) return
-
-      // skip if it's not the forward slash or an alphabet key
-      if (event.key !== '/' && !isAlphabetKey(event.nativeEvent as KeyboardEvent)) {
-        return
-      }
-
-      // if this is a typeahead event, don't propagate outside of menu
-      event.stopPropagation()
-    }
 
   return (
     <>

@@ -1,29 +1,36 @@
-import type {ScrollIntoViewOptions} from '@primer/behaviors'
+/** Behaviors */
 import {scrollIntoView, FocusKeys} from '@primer/behaviors'
-import type {KeyboardEventHandler, JSX} from 'react'
-import type React from 'react'
-import {forwardRef, useCallback, useEffect, useRef, useState} from 'react'
-import type {TextInputProps} from '../TextInput'
+
+/** Styles */
+import {clsx} from 'clsx'
+import classes from './FilteredActionList.module.css'
+
+/** Components / Context */
 import TextInput from '../TextInput'
-import {ActionList, type ActionListProps} from '../ActionList'
-import type {GroupedListProps, ListPropsBase, ItemInput, RenderItemFn} from './'
+import {ActionList} from '../ActionList'
+import {VisuallyHidden} from '../VisuallyHidden'
+import {FilteredActionListLoadingTypes, FilteredActionListBodyLoader} from './FilteredActionListLoaders'
+import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
+import Checkbox from '../Checkbox'
+
+/** React */
+import {useCallback, useEffect, useRef, useState} from 'react'
+
+/** Hooks */
+import {useAnnouncements} from './useAnnouncements'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
-import {VisuallyHidden} from '../VisuallyHidden'
-import type {FilteredActionListLoadingType} from './FilteredActionListLoaders'
-import {FilteredActionListLoadingTypes, FilteredActionListBodyLoader} from './FilteredActionListLoaders'
-import classes from './FilteredActionList.module.css'
-import Checkbox from '../Checkbox'
-import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
-import {isValidElementType} from 'react-is'
-import {useAnnouncements} from './useAnnouncements'
-import {clsx} from 'clsx'
+
+/** Types */
+import type {ScrollIntoViewOptions} from '@primer/behaviors'
+import type {KeyboardEventHandler, JSX} from 'react'
+import type {FilteredActionListProps} from './types'
+import {MappedActionListItem} from './components/MappedActionListItem'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
-
 export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   loading?: boolean
   loadingType?: FilteredActionListLoadingType
@@ -258,8 +265,7 @@ export function FilteredActionList({
 
             onActiveDescendantChanged?.(current, previous, directlyActivated)
           },
-          focusInStrategy: setInitialFocus ? 'initial' : 'previous',
-          ignoreHoverEvents: disableSelectOnHover,
+          focusInStrategy: 'previous',
         }
       : undefined,
     [listContainerElement, usingRovingTabindex, onActiveDescendantChanged],
@@ -453,61 +459,5 @@ export function FilteredActionList({
     </div>
   )
 }
-const MappedActionListItem = forwardRef<HTMLLIElement, ItemInput & {renderItem?: RenderItemFn}>((item, ref) => {
-  // keep backward compatibility for renderItem
-  // escape hatch for custom Item rendering
-  if (typeof item.renderItem === 'function') return item.renderItem(item)
-
-  const {
-    id,
-    description,
-    descriptionVariant,
-    text,
-    trailingVisual: TrailingVisual,
-    leadingVisual: LeadingVisual,
-    trailingText,
-    trailingIcon: TrailingIcon,
-    onAction,
-    children,
-    ...rest
-  } = item
-
-  return (
-    <ActionList.Item
-      role="option"
-      // @ts-ignore - for now
-      onSelect={(e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
-        if (typeof onAction === 'function')
-          onAction(item, e as React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>)
-      }}
-      data-id={id}
-      ref={ref}
-      {...rest}
-    >
-      {LeadingVisual ? (
-        <ActionList.LeadingVisual>
-          <LeadingVisual />
-        </ActionList.LeadingVisual>
-      ) : null}
-      {children}
-      {text}
-      {description ? <ActionList.Description variant={descriptionVariant}>{description}</ActionList.Description> : null}
-      {TrailingVisual ? (
-        <ActionList.TrailingVisual>
-          {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? (
-            <TrailingVisual />
-          ) : (
-            TrailingVisual
-          )}
-        </ActionList.TrailingVisual>
-      ) : TrailingIcon || trailingText ? (
-        <ActionList.TrailingVisual>
-          {trailingText}
-          {TrailingIcon && <TrailingIcon />}
-        </ActionList.TrailingVisual>
-      ) : null}
-    </ActionList.Item>
-  )
-})
 
 FilteredActionList.displayName = 'FilteredActionList'
