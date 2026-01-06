@@ -269,7 +269,7 @@ export function FilteredActionList({
           focusPrependedElements,
         }
       : undefined,
-    [listContainerElement, usingRovingTabindex, onActiveDescendantChanged],
+    [listContainerElement, usingRovingTabindex, onActiveDescendantChanged, focusPrependedElements],
   )
 
   useEffect(() => {
