@@ -260,6 +260,7 @@ export function FilteredActionList({
           },
           focusInStrategy: setInitialFocus ? 'initial' : 'previous',
           ignoreHoverEvents: disableSelectOnHover,
+          focusPrependedElements: true, // Only true to test, will be prop-based
         }
       : undefined,
     [listContainerElement, usingRovingTabindex, onActiveDescendantChanged],
