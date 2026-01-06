@@ -41,7 +41,7 @@
     "@primer/react": "^38.0.0",
     "cheerio": "^1.0.0",
     "turndown": "^7.2.0",
-    "zod": "^4.1.13"
+    "zod": "^4.3.5"
   },
   "devDependencies": {
     "@babel/core": "^7.28.5",
@@ -55,7 +55,7 @@
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@types/turndown": "^5.0.5",
     "rimraf": "^6.0.1",
-    "rollup": "^4.53.3",
+    "rollup": "^4.54.0",
     "rollup-plugin-typescript2": "^0.36.0",
     "typescript": "^5.9.2"
   }
