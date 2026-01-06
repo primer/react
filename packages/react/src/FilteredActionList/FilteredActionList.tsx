@@ -101,6 +101,11 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
    * If false, sets initial focus to the first item in the list when rendered, enabling keyboard navigation immediately.
    */
   setInitialFocus?: boolean
+  /**
+   * Set to true to allow focus to move to elements that are dynamically prepended to the container.
+   * Default is false.
+   */
+  focusPrependedElements?: boolean
 }
 
 export function FilteredActionList({
@@ -130,6 +135,7 @@ export function FilteredActionList({
   onActiveDescendantChanged,
   disableSelectOnHover = false,
   setInitialFocus = false,
+  focusPrependedElements,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -260,6 +266,7 @@ export function FilteredActionList({
           },
           focusInStrategy: setInitialFocus ? 'initial' : 'previous',
           ignoreHoverEvents: disableSelectOnHover,
+          focusPrependedElements,
         }
       : undefined,
     [listContainerElement, usingRovingTabindex, onActiveDescendantChanged],
