@@ -93,6 +93,10 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
    */
   _PrivateFocusManagement?: 'roving-tabindex' | 'active-descendant'
   /**
+   * When new elements are prepended at index 0 and the current focus wasn't directly activated, focus now will update to the first element.
+   */
+  _PrivateFocusPrependedElements?: boolean
+  /**
    * If true, disables selecting items when hovering over them with the mouse.
    */
   disableSelectOnHover?: boolean
@@ -127,6 +131,7 @@ export function FilteredActionList({
   actionListProps,
   focusOutBehavior = 'wrap',
   _PrivateFocusManagement = 'active-descendant',
+  _PrivateFocusPrependedElements = false,
   onActiveDescendantChanged,
   disableSelectOnHover = false,
   setInitialFocus = false,
@@ -260,7 +265,7 @@ export function FilteredActionList({
           },
           focusInStrategy: setInitialFocus ? 'initial' : 'previous',
           ignoreHoverEvents: disableSelectOnHover,
-          focusPrependedElements: true, // Only true to test, will be prop-based
+          focusPrependedElements: _PrivateFocusPrependedElements,
         }
       : undefined,
     [listContainerElement, usingRovingTabindex, onActiveDescendantChanged],
