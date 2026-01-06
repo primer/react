@@ -1,10 +1,4 @@
 export * from './PageLayout'
-export type {
-  PersistConfig,
-  PersistFunction,
-  SaveOptions,
-  ResizableConfig,
-  PaneWidth,
-  PaneWidthValue,
-} from './usePaneWidth'
+export type {UseLocalStoragePaneWidthOptions} from './useLocalStoragePaneWidth'
+export {useLocalStoragePaneWidth} from './useLocalStoragePaneWidth'
 export {defaultPaneWidth} from './usePaneWidth'

@@ -11,15 +11,7 @@ import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes
 
 import classes from './PageLayout.module.css'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types'
-import {
-  usePaneWidth,
-  updateAriaValues,
-  isCustomWidthOptions,
-  isPaneWidth,
-  ARROW_KEY_STEP,
-  type PaneWidthValue,
-  type ResizableConfig,
-} from './usePaneWidth'
+import {usePaneWidthV2, updateAriaValues, ARROW_KEY_STEP} from './usePaneWidth'
 import {setDraggingStyles, removeDraggingStyles} from './paneUtils'
 
 const REGION_ORDER = {
@@ -576,7 +568,8 @@ Content.displayName = 'PageLayout.Content'
 // ----------------------------------------------------------------------------
 // PageLayout.Pane
 
-export type PageLayoutPaneProps = {
+// Base props shared by all pane variants
+type PageLayoutPaneBaseProps = {
   position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
   /**
    * @deprecated Use the `position` prop with a responsive value instead.
@@ -595,28 +588,6 @@ export type PageLayoutPaneProps = {
   positionWhenNarrow?: 'inherit' | keyof typeof panePositions
   'aria-labelledby'?: string
   'aria-label'?: string
-  /**
-   * The width of the pane - defines constraints and defaults only.
-   * - Named sizes: `'small'` | `'medium'` | `'large'`
-   * - Custom object: `{min: string, default: string, max: string}`
-   *
-   * For controlled width (current value), use `resizable.width` instead.
-   */
-  width?: PaneWidthValue
-  minWidth?: number
-  /**
-   * Enable resizable pane behavior.
-   * - `true`: Enable with default localStorage persistence
-   * - `false`: Disable resizing
-   * - `{width?: number, persist: false}`: Enable without persistence, optionally with controlled current width
-   * - `{width?: number, persist: 'localStorage'}`: Enable with localStorage, optionally with controlled current width
-   * - `{width?: number, persist: fn}`: Enable with custom persistence, optionally with controlled current width
-   *
-   * The `width` property in the config represents the current/controlled width value.
-   * When provided, it takes precedence over the default width from the `width` prop.
-   */
-  resizable?: ResizableConfig
-  widthStorageKey?: string
   padding?: keyof typeof SPACING_MAP
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
   /**
@@ -642,6 +613,60 @@ export type PageLayoutPaneProps = {
   style?: React.CSSProperties
 }
 
+// Non-resizable pane - no width control props allowed
+type NonResizablePaneProps = PageLayoutPaneBaseProps & {
+  resizable?: false
+  width?: never
+  onWidthChange?: never
+  defaultWidth?: never
+  minWidth?: never
+  maxWidth?: never
+}
+
+// Resizable pane - width control props are allowed
+type ResizablePaneProps = PageLayoutPaneBaseProps & {
+  /**
+   * Enable resizable pane behavior.
+   * When true, displays a draggable handle to resize the pane.
+   * Use `width` and `onWidthChange` for controlled behavior,
+   * or `useLocalStoragePaneWidth` hook for localStorage persistence.
+   */
+  resizable: true
+  /**
+   * Default width of the pane in pixels or as a named size.
+   * - Named sizes: `'small'` (256px) | `'medium'` (296px) | `'large'` (320px)
+   * - Number: Width in pixels (e.g., `350`)
+   *
+   * This is the initial/default width. For controlled width, use the `width` prop.
+   */
+  defaultWidth?: number | 'small' | 'medium' | 'large'
+  /**
+   * Controlled current width of the pane in pixels.
+   * When provided, the pane becomes a controlled component.
+   * Use with `onWidthChange` to handle width updates.
+   */
+  width?: number
+  /**
+   * Callback fired when the pane width changes (during resize or reset).
+   * Use with the `width` prop for controlled width behavior.
+   *
+   * @param width - New width in pixels
+   */
+  onWidthChange?: (width: number) => void
+  /**
+   * Minimum allowed width in pixels.
+   * @default 256
+   */
+  minWidth?: number
+  /**
+   * Maximum allowed width in pixels.
+   * If not specified, uses a viewport-based calculation.
+   */
+  maxWidth?: number
+}
+
+export type PageLayoutPaneProps = NonResizablePaneProps | ResizablePaneProps
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const panePositions = {
   start: REGION_ORDER.paneStart,
@@ -657,11 +682,13 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       'aria-labelledby': labelledBy,
       position: responsivePosition = 'end',
       positionWhenNarrow = 'inherit',
-      width = 'medium',
+      defaultWidth = 'medium',
+      width: controlledWidth,
+      onWidthChange,
       minWidth = 256,
+      maxWidth,
       padding = 'none',
       resizable = false,
-      widthStorageKey = 'paneWidth',
       divider: responsiveDivider = 'none',
       dividerWhenNarrow = 'inherit',
       sticky = false,
@@ -691,6 +718,22 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     const position = isResponsiveValue(positionProp) ? 'end' : positionProp
     const dividerVariant = isResponsiveValue(dividerProp) ? 'none' : dividerProp
 
+    // Dev-only warnings for invalid prop combinations
+    warning(
+      onWidthChange && !resizable,
+      'PageLayout.Pane: `onWidthChange` has no effect without `resizable={true}`. The callback will never be called.',
+    )
+
+    warning(
+      controlledWidth !== undefined && !resizable,
+      'PageLayout.Pane: `width` has no effect without `resizable={true}`. The pane width cannot be changed.',
+    )
+
+    warning(
+      controlledWidth !== undefined && !onWidthChange,
+      'PageLayout.Pane: You provided a `width` prop without an `onWidthChange` handler. This will render a read-only pane. If you want the pane width to be controlled, provide both `width` and `onWidthChange`. If you want an uncontrolled resizable pane, remove the `width` prop.',
+    )
+
     const {rowGap, columnGap, paneRef, contentWrapperRef} = React.useContext(PageLayoutContext)
 
     // Ref to the drag handle for updating ARIA attributes
@@ -704,11 +747,13 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     const dragMaxWidthRef = React.useRef<number>(0)
 
     const {currentWidth, currentWidthRef, minPaneWidth, maxPaneWidth, getMaxPaneWidth, saveWidth, getDefaultWidth} =
-      usePaneWidth({
-        width,
+      usePaneWidthV2({
+        defaultWidth,
+        controlledWidth,
+        onWidthChange,
         minWidth,
+        maxWidth,
         resizable,
-        widthStorageKey,
         paneRef,
         handleRef,
         contentWrapperRef,
@@ -764,11 +809,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         />
         <div
           ref={paneRef}
-          // suppressHydrationWarning: Only needed when resizable===true (default localStorage
-          // persister). We read from localStorage during useState init to avoid resize flicker,
-          // which causes a hydration mismatch for --pane-width. Custom persisters ({save} object)
-          // and empty object ({}) don't read localStorage, so no suppression needed.
-          suppressHydrationWarning={resizable === true}
+          // No hydration warning needed in the breaking changes API since
+          // we don't read from localStorage during render
           {...(hasOverflow ? overflowProps : {})}
           {...labelProp}
           {...(id && {id: paneId})}
@@ -777,10 +819,9 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           style={
             {
               '--spacing': `var(--spacing-${padding})`,
-              '--pane-min-width': isCustomWidthOptions(width) ? width.min : `${minWidth}px`,
-              '--pane-max-width': isCustomWidthOptions(width) ? width.max : `calc(100vw - var(--pane-max-width-diff))`,
-              '--pane-width-custom': isCustomWidthOptions(width) ? width.default : undefined,
-              '--pane-width-size': `var(--pane-width-${isPaneWidth(width) ? width : 'custom'})`,
+              '--pane-min-width': `${minWidth}px`,
+              '--pane-max-width': maxWidth !== undefined ? `${maxWidth}px` : `calc(100vw - var(--pane-max-width-diff))`,
+              '--pane-width-size': `var(--pane-width-${typeof defaultWidth === 'string' ? defaultWidth : 'custom'})`,
               '--pane-width': `${currentWidth}px`,
             } as React.CSSProperties
           }
