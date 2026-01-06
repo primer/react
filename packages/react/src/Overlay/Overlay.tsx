@@ -108,6 +108,7 @@ export const BaseOverlay = React.forwardRef(
     forwardedRef,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
+    const cssContainmentEnabled = useFeatureFlag('primer_react_overlay_css_containment')
     return (
       <Component
         {...rest}
@@ -130,7 +131,7 @@ export const BaseOverlay = React.forwardRef(
           [`data-visibility-${visibility}`]: '',
           [`data-overflow-${rest.overflow}`]: rest.overflow ? '' : undefined,
         }}
-        className={clsx(className, classes.Overlay)}
+        className={clsx(className, classes.Overlay, cssContainmentEnabled && classes.OverlayContainment)}
       />
     )
   },
@@ -231,7 +232,6 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     const leftPosition = left === undefined && right === undefined ? 0 : left
 
     const overflowEnabled = useFeatureFlag('primer_react_overlay_overflow')
-    const cssContainmentEnabled = useFeatureFlag('primer_react_overlay_css_containment')
     return (
       <Portal containerName={portalContainerName}>
         <BaseOverlay
@@ -244,7 +244,6 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
           height={height}
           visibility={visibility}
           data-responsive={responsiveVariant}
-          className={cssContainmentEnabled ? classes.OverlayContainment : undefined}
           {...props}
         />
       </Portal>
