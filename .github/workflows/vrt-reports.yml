@@ -24,7 +24,7 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'npm'
       - name: Set up turbo cache
-        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
+        uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb
         with:
           path: .turbo
           key: ${{ runner.os }}-turbo-${{ github.sha }}
@@ -42,17 +42,28 @@ jobs:
           pid=$!
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
+      - name: Run styled-react storybook
+        id: styled-react-storybook
+        run: |
+          npx serve -l 6007 packages/styled-react/storybook-static &
+          pid=$!
+          echo "pid=$pid" >> $GITHUB_OUTPUT
+          sleep 5
       - name: Run VRT
         uses: docker://mcr.microsoft.com/playwright:v1.56.1-jammy
         env:
           STORYBOOK_URL: 'http://172.17.0.1:6006'
+          STYLED_REACT_STORYBOOK_URL: 'http://172.17.0.1:6007'
         with:
           args: npx playwright test --grep @vrt --shard="${{ matrix.shard }}/${{ strategy.job-total }}"
       - name: Stop storybook
+        if: ${{ always() }}
         run: kill ${{ steps.storybook.outputs.pid }}
+      - name: Stop styled-react storybook
+        run: kill ${{ steps.styled-react-storybook.outputs.pid }}
       - name: Upload report
         if: ${{ always() }}
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
           name: vrt-${{ matrix.shard }}
           path: blob-report
@@ -72,7 +83,7 @@ jobs:
       - name: install dependencies
         run: npm ci
       - name: download all reports
-        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
         with:
           path: all-blob-reports
           pattern: vrt-*
@@ -80,7 +91,7 @@ jobs:
       - name: merge all reports
         run: npx playwright merge-reports --reporter html ./all-blob-reports
       - name: Upload report
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
           name: vrt
           path: playwright-report

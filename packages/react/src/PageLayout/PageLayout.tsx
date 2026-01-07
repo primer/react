@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, {memo, useRef} from 'react'
 import {clsx} from 'clsx'
 import {useId} from '../hooks/useId'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
@@ -11,62 +11,16 @@ import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes
 
 import classes from './PageLayout.module.css'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types'
-import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
-
-// Module-scoped ResizeObserver subscription for viewport width tracking
-let viewportWidthListeners: Set<() => void> | undefined
-let viewportWidthObserver: ResizeObserver | undefined
-
-function subscribeToViewportWidth(callback: () => void) {
-  if (!viewportWidthListeners) {
-    viewportWidthListeners = new Set()
-    viewportWidthObserver = new ResizeObserver(() => {
-      if (viewportWidthListeners) {
-        for (const listener of viewportWidthListeners) {
-          listener()
-        }
-      }
-    })
-    viewportWidthObserver.observe(document.documentElement)
-  }
-
-  viewportWidthListeners.add(callback)
-
-  return () => {
-    viewportWidthListeners?.delete(callback)
-    if (viewportWidthListeners?.size === 0) {
-      viewportWidthObserver?.disconnect()
-      viewportWidthObserver = undefined
-      viewportWidthListeners = undefined
-    }
-  }
-}
-
-function getViewportWidth() {
-  return window.innerWidth
-}
-
-function getServerViewportWidth() {
-  return 0
-}
-
-/**
- * Custom hook that subscribes to viewport width changes using a shared ResizeObserver
- */
-function useViewportWidth() {
-  return React.useSyncExternalStore(subscribeToViewportWidth, getViewportWidth, getServerViewportWidth)
-}
-
-/**
- * Gets the --pane-max-width-diff CSS variable value from a pane element.
- * This value is set by CSS media queries and controls the max pane width constraint.
- * Falls back to 511 (the CSS default) if the value cannot be read.
- */
-function getPaneMaxWidthDiff(paneElement: HTMLElement | null): number {
-  if (!paneElement) return 511
-  const value = parseInt(getComputedStyle(paneElement).getPropertyValue('--pane-max-width-diff'), 10)
-  return value > 0 ? value : 511
-}
+import {
+  usePaneWidth,
+  updateAriaValues,
+  isCustomWidthOptions,
+  isPaneWidth,
+  ARROW_KEY_STEP,
+  type CustomWidthOptions,
+  type PaneWidth,
+} from './usePaneWidth'
+import {setDraggingStyles, removeDraggingStyles} from './paneUtils'
 
 const REGION_ORDER = {
   header: 0,
@@ -75,6 +29,10 @@ const REGION_ORDER = {
   paneEnd: 3,
   footer: 4,
 }
+
+const isArrowKey = (key: string) =>
+  key === 'ArrowLeft' || key === 'ArrowRight' || key === 'ArrowUp' || key === 'ArrowDown'
+const isShrinkKey = (key: string) => key === 'ArrowLeft' || key === 'ArrowDown'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SPACING_MAP = {
@@ -88,11 +46,13 @@ const PageLayoutContext = React.createContext<{
   rowGap: keyof typeof SPACING_MAP
   columnGap: keyof typeof SPACING_MAP
   paneRef: React.RefObject<HTMLDivElement>
+  contentWrapperRef: React.RefObject<HTMLDivElement>
 }>({
   padding: 'normal',
   rowGap: 'normal',
   columnGap: 'normal',
   paneRef: {current: null},
+  contentWrapperRef: {current: null},
 })
 
 // ----------------------------------------------------------------------------
@@ -132,6 +92,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   _slotsConfig: slotsConfig,
 }) => {
   const paneRef = useRef<HTMLDivElement>(null)
+  const contentWrapperRef = useRef<HTMLDivElement>(null)
 
   const [slots, rest] = useSlots(children, slotsConfig ?? {header: Header, footer: Footer})
 
@@ -141,11 +102,31 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
       rowGap,
       columnGap,
       paneRef,
+      contentWrapperRef,
     }
-  }, [padding, rowGap, columnGap, paneRef])
+  }, [padding, rowGap, columnGap, paneRef, contentWrapperRef])
 
   return (
     <PageLayoutContext.Provider value={memoizedContextValue}>
+      <RootWrapper style={style} padding={padding} className={className}>
+        <div className={classes.PageLayoutWrapper} data-width={containerWidth}>
+          {slots.header}
+          <div className={clsx(classes.PageLayoutContent)}>{rest}</div>
+          {slots.footer}
+        </div>
+      </RootWrapper>
+    </PageLayoutContext.Provider>
+  )
+}
+
+const RootWrapper = memo(
+  ({
+    style,
+    padding,
+    children,
+    className,
+  }: React.PropsWithChildren<Pick<PageLayoutProps, 'style' | 'padding' | 'className'>>) => {
+    return (
       <div
         style={
           {
@@ -155,15 +136,11 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
         }
         className={clsx(classes.PageLayoutRoot, className)}
       >
-        <div className={classes.PageLayoutWrapper} data-width={containerWidth}>
-          {slots.header}
-          <div className={clsx(classes.PageLayoutContent)}>{rest}</div>
-          {slots.footer}
-        </div>
+        {children}
       </div>
-    </PageLayoutContext.Provider>
-  )
-}
+    )
+  },
+)
 
 Root.displayName = 'PageLayout'
 
@@ -177,131 +154,192 @@ type DividerProps = {
   position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
 }
 
-const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
-  variant = 'none',
-  className,
-  position,
-  style,
-}) => {
-  const {padding} = React.useContext(PageLayoutContext)
+const HorizontalDivider = memo<React.PropsWithChildren<DividerProps>>(
+  ({variant = 'none', className, position, style}) => {
+    const {padding} = React.useContext(PageLayoutContext)
 
-  return (
-    <div
-      className={clsx(classes.HorizontalDivider, className)}
-      {...getResponsiveAttributes('variant', variant)}
-      {...getResponsiveAttributes('position', position)}
-      style={
-        {
-          '--spacing-divider': `var(--spacing-${padding})`,
-          ...style,
-        } as React.CSSProperties
-      }
-    />
-  )
-}
+    return (
+      <div
+        className={clsx(classes.HorizontalDivider, className)}
+        {...getResponsiveAttributes('variant', variant)}
+        {...getResponsiveAttributes('position', position)}
+        style={
+          {
+            '--spacing-divider': `var(--spacing-${padding})`,
+            ...style,
+          } as React.CSSProperties
+        }
+      />
+    )
+  },
+)
 
-type DraggableDividerProps = {
+HorizontalDivider.displayName = 'HorizontalDivider'
+
+type VerticalDividerProps = DividerProps & {
   draggable?: boolean
+}
+
+const VerticalDivider = memo<React.PropsWithChildren<VerticalDividerProps>>(
+  ({variant = 'none', position, className, style, children}) => {
+    return (
+      <div
+        className={clsx(classes.VerticalDivider, className)}
+        {...getResponsiveAttributes('variant', variant)}
+        {...getResponsiveAttributes('position', position)}
+        style={style}
+      >
+        {children}
+      </div>
+    )
+  },
+)
+
+VerticalDivider.displayName = 'VerticalDivider'
+
+type DragHandleProps = {
+  /** Ref for imperative ARIA updates during drag */
   handleRef: React.RefObject<HTMLDivElement>
-  onDrag: (delta: number, isKeyboard: boolean) => void
+  /** Called once when drag starts with initial cursor X position */
+  onDragStart: (clientX: number) => void
+  /** Called on each drag tick with cursor position (pointer) or delta (keyboard) */
+  onDrag: (value: number, isKeyboard: boolean) => void
+  /** Called when drag operation completes */
   onDragEnd: () => void
-  onDoubleClick: () => void
+  /** Reset width on double-click */
+  onDoubleClick?: React.MouseEventHandler<HTMLDivElement>
+  /** ARIA slider min value */
+  'aria-valuemin'?: number
+  /** ARIA slider max value */
+  'aria-valuemax'?: number
+  /** ARIA slider current value */
+  'aria-valuenow'?: number
 }
 
-// Helper to update ARIA slider attributes via direct DOM manipulation
-// This avoids re-renders when values change during drag or on viewport resize
-const updateAriaValues = (handle: HTMLElement | null, values: {current?: number; min?: number; max?: number}) => {
-  if (!handle) return
-  if (values.min !== undefined) handle.setAttribute('aria-valuemin', String(values.min))
-  if (values.max !== undefined) handle.setAttribute('aria-valuemax', String(values.max))
-  if (values.current !== undefined) {
-    handle.setAttribute('aria-valuenow', String(values.current))
-    handle.setAttribute('aria-valuetext', `Pane width ${values.current} pixels`)
-  }
-}
-
-const DATA_DRAGGING_ATTR = 'data-dragging'
-const isDragging = (handle: HTMLElement | null) => {
-  return handle?.getAttribute(DATA_DRAGGING_ATTR) === 'true'
-}
-
-const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & DraggableDividerProps>> = ({
-  variant = 'none',
-  draggable = false,
+/**
+ * DragHandle - handles all pointer and keyboard interactions for resizing
+ * ARIA values are set in JSX for SSR accessibility,
+ * then updated via DOM manipulation during drag for performance
+ */
+const DragHandle = memo<DragHandleProps>(function DragHandle({
   handleRef,
+  onDragStart,
   onDrag,
   onDragEnd,
   onDoubleClick,
-  position,
-  className,
-  style,
-}) => {
+  'aria-valuemin': ariaValueMin,
+  'aria-valuemax': ariaValueMax,
+  'aria-valuenow': ariaValueNow,
+}) {
+  const stableOnDragStart = React.useRef(onDragStart)
   const stableOnDrag = React.useRef(onDrag)
   const stableOnDragEnd = React.useRef(onDragEnd)
   React.useEffect(() => {
+    stableOnDragStart.current = onDragStart
     stableOnDrag.current = onDrag
     stableOnDragEnd.current = onDragEnd
   })
 
-  const {paneRef} = React.useContext(PageLayoutContext)
+  const {paneRef, contentWrapperRef} = React.useContext(PageLayoutContext)
+
+  // Dragging state as a ref - cheaper than reading from DOM style
+  const isDraggingRef = React.useRef(false)
+
+  // Set inline styles for drag optimizations - zero overhead at rest
+  const startDragging = React.useCallback(() => {
+    if (isDraggingRef.current) return
+    setDraggingStyles({
+      handle: handleRef.current,
+      pane: paneRef.current,
+      contentWrapper: contentWrapperRef.current,
+    })
+    isDraggingRef.current = true
+  }, [handleRef, contentWrapperRef, paneRef])
+
+  const endDragging = React.useCallback(() => {
+    if (!isDraggingRef.current) return
+    removeDraggingStyles({
+      handle: handleRef.current,
+      pane: paneRef.current,
+      contentWrapper: contentWrapperRef.current,
+    })
+    isDraggingRef.current = false
+  }, [handleRef, contentWrapperRef, paneRef])
 
   /**
    * Pointer down starts a drag operation
    * Capture the pointer to continue receiving events outside the handle area
-   * Set a data attribute to indicate dragging state
    */
-  const handlePointerDown = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
-    if (event.button !== 0) return
-    event.preventDefault()
-    const target = event.currentTarget
-    target.setPointerCapture(event.pointerId)
-    target.setAttribute(DATA_DRAGGING_ATTR, 'true')
-  }, [])
+  const handlePointerDown = React.useCallback(
+    (event: React.PointerEvent<HTMLDivElement>) => {
+      if (event.button !== 0) return
+      event.preventDefault()
+      const target = event.currentTarget
+      // Try to capture pointer - may fail in test environments or if pointer is already released
+      try {
+        target.setPointerCapture(event.pointerId)
+      } catch {
+        // Ignore - pointer capture is a nice-to-have for dragging outside the element
+      }
+      stableOnDragStart.current(event.clientX)
+      startDragging()
+    },
+    [startDragging],
+  )
+
+  // Simple rAF throttle - one update per frame, latest position wins
+  const rafIdRef = React.useRef<number | null>(null)
+  const pendingClientXRef = React.useRef<number | null>(null)
 
   /**
    * Pointer move during drag
-   * Calls onDrag with movement delta
-   * Prevents default to avoid unwanted selection behavior
+   * Calls onDrag with absolute cursor X position
+   * Uses rAF to coalesce updates to one per frame
    */
-  const handlePointerMove = React.useCallback(
-    (event: React.PointerEvent<HTMLDivElement>) => {
-      if (!isDragging(handleRef.current)) return
-      event.preventDefault()
+  const handlePointerMove = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDraggingRef.current) return
+    event.preventDefault()
 
-      if (event.movementX !== 0) {
-        stableOnDrag.current(event.movementX, false)
-      }
-    },
-    [handleRef],
-  )
+    // Store latest position - only the final position before rAF fires matters
+    pendingClientXRef.current = event.clientX
+
+    // Schedule update if not already scheduled
+    if (rafIdRef.current === null) {
+      rafIdRef.current = requestAnimationFrame(() => {
+        rafIdRef.current = null
+        if (pendingClientXRef.current !== null) {
+          stableOnDrag.current(pendingClientXRef.current, false)
+          pendingClientXRef.current = null
+        }
+      })
+    }
+  }, [])
 
   /**
-   * Pointer up ends a drag operation
-   * Prevents default to avoid unwanted selection behavior
+   * Pointer up - cleanup is handled by onLostPointerCapture event
+   * which fires when pointer capture is released (including on pointerup)
    */
-  const handlePointerUp = React.useCallback(
-    (event: React.PointerEvent<HTMLDivElement>) => {
-      if (!isDragging(handleRef.current)) return
-      event.preventDefault()
-      // Cleanup will happen in onLostPointerCapture
-    },
-    [handleRef],
-  )
+  const handlePointerUp = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDraggingRef.current) return
+    event.preventDefault()
+  }, [])
 
   /**
    * Lost pointer capture ends a drag operation
-   * Cleans up dragging state
+   * Cleans up dragging state and cancels any pending rAF
    * Calls onDragEnd callback
    */
-  const handleLostPointerCapture = React.useCallback(
-    (event: React.PointerEvent<HTMLDivElement>) => {
-      if (!isDragging(handleRef.current)) return
-      const target = event.currentTarget
-      target.removeAttribute(DATA_DRAGGING_ATTR)
-      stableOnDragEnd.current()
-    },
-    [handleRef],
-  )
+  const handleLostPointerCapture = React.useCallback(() => {
+    if (!isDraggingRef.current) return
+    // Cancel any pending rAF to prevent stale updates
+    if (rafIdRef.current !== null) {
+      cancelAnimationFrame(rafIdRef.current)
+      rafIdRef.current = null
+      pendingClientXRef.current = null
+    }
+    endDragging()
+    stableOnDragEnd.current()
+  }, [endDragging])
 
   /**
    * Keyboard handling for accessibility
@@ -312,73 +350,62 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
    */
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (
-        event.key === 'ArrowLeft' ||
-        event.key === 'ArrowRight' ||
-        event.key === 'ArrowUp' ||
-        event.key === 'ArrowDown'
-      ) {
-        event.preventDefault()
+      if (!isArrowKey(event.key)) return
+      event.preventDefault()
 
-        if (!paneRef.current) return
+      // https://github.com/github/accessibility/issues/5101#issuecomment-1822870655
+      const delta = isShrinkKey(event.key) ? -ARROW_KEY_STEP : ARROW_KEY_STEP
 
-        // https://github.com/github/accessibility/issues/5101#issuecomment-1822870655
-        const delta = event.key === 'ArrowLeft' || event.key === 'ArrowDown' ? -3 : 3
-
-        event.currentTarget.setAttribute(DATA_DRAGGING_ATTR, 'true')
-        stableOnDrag.current(delta, true)
+      // Only set dragging on first keydown (not repeats)
+      if (!isDraggingRef.current) {
+        startDragging()
       }
+      stableOnDrag.current(delta, true)
     },
-    [paneRef],
+    [startDragging],
   )
 
-  const handleKeyUp = React.useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (
-      event.key === 'ArrowLeft' ||
-      event.key === 'ArrowRight' ||
-      event.key === 'ArrowUp' ||
-      event.key === 'ArrowDown'
-    ) {
+  const handleKeyUp = React.useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (!isArrowKey(event.key)) return
       event.preventDefault()
-      event.currentTarget.removeAttribute(DATA_DRAGGING_ATTR)
+      endDragging()
       stableOnDragEnd.current()
+    },
+    [endDragging],
+  )
+
+  // Cleanup rAF on unmount to prevent stale callbacks
+  React.useEffect(() => {
+    return () => {
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current)
+        rafIdRef.current = null
+      }
     }
   }, [])
 
   return (
     <div
-      className={clsx(classes.VerticalDivider, className)}
-      {...getResponsiveAttributes('variant', variant)}
-      {...getResponsiveAttributes('position', position)}
-      style={style}
-    >
-      {draggable ? (
-        // Drag handle - ARIA attributes set via DOM manipulation for performance
-        <div
-          ref={handleRef}
-          className={classes.DraggableHandle}
-          role="slider"
-          aria-label="Draggable pane splitter"
-          /**
-           * aria-valuemin, aria-valuemax, aria-valuenow, and aria-valuetext
-           * are set via direct DOM manipulation in order to avoid re-renders
-           * during drag operations.
-           *
-           * This is a performance optimization.
-           */
-          tabIndex={0}
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={handlePointerUp}
-          onLostPointerCapture={handleLostPointerCapture}
-          onKeyDown={handleKeyDown}
-          onKeyUp={handleKeyUp}
-          onDoubleClick={onDoubleClick}
-        />
-      ) : null}
-    </div>
+      ref={handleRef}
+      className={classes.DraggableHandle}
+      role="slider"
+      aria-label="Draggable pane splitter"
+      aria-valuemin={ariaValueMin}
+      aria-valuemax={ariaValueMax}
+      aria-valuenow={ariaValueNow}
+      aria-valuetext={ariaValueNow !== undefined ? `Pane width ${ariaValueNow} pixels` : undefined}
+      tabIndex={0}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onLostPointerCapture={handleLostPointerCapture}
+      onKeyDown={handleKeyDown}
+      onKeyUp={handleKeyUp}
+      onDoubleClick={onDoubleClick}
+    />
   )
-}
+})
 
 // ----------------------------------------------------------------------------
 // PageLayout.Header
@@ -470,7 +497,6 @@ const Header: FCWithSlotMarker<React.PropsWithChildren<PageLayoutHeaderProps>> =
     </header>
   )
 }
-
 Header.displayName = 'PageLayout.Header'
 
 // ----------------------------------------------------------------------------
@@ -520,9 +546,11 @@ const Content: FCWithSlotMarker<React.PropsWithChildren<PageLayoutContentProps>>
   style,
 }) => {
   const Component = as
+  const {contentWrapperRef} = React.useContext(PageLayoutContext)
 
   return (
     <Component
+      ref={contentWrapperRef}
       aria-label={label}
       aria-labelledby={labelledBy}
       style={style}
@@ -543,39 +571,10 @@ const Content: FCWithSlotMarker<React.PropsWithChildren<PageLayoutContentProps>>
     </Component>
   )
 }
-
 Content.displayName = 'PageLayout.Content'
 
 // ----------------------------------------------------------------------------
 // PageLayout.Pane
-
-type Measurement = `${number}px`
-
-type CustomWidthOptions = {
-  min: Measurement
-  default: Measurement
-  max: Measurement
-}
-
-type PaneWidth = keyof typeof paneWidths
-
-const isCustomWidthOptions = (width: PaneWidth | CustomWidthOptions): width is CustomWidthOptions => {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  return (width as CustomWidthOptions).default !== undefined
-}
-
-const isPaneWidth = (width: PaneWidth | CustomWidthOptions): width is PaneWidth => {
-  return ['small', 'medium', 'large'].includes(width as PaneWidth)
-}
-
-const getDefaultPaneWidth = (w: PaneWidth | CustomWidthOptions): number => {
-  if (isPaneWidth(w)) {
-    return defaultPaneWidth[w]
-  } else if (isCustomWidthOptions(w)) {
-    return parseInt(w.default, 10)
-  }
-  return 0
-}
 
 export type PageLayoutPaneProps = {
   position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
@@ -631,15 +630,6 @@ const panePositions = {
   end: REGION_ORDER.paneEnd,
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const paneWidths = {
-  small: ['100%', null, '240px', '256px'],
-  medium: ['100%', null, '256px', '296px'],
-  large: ['100%', null, '256px', '320px'],
-}
-
-const defaultPaneWidth = {small: 256, medium: 296, large: 320}
-
 const overflowProps = {tabIndex: 0, role: 'region'}
 
 const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutPaneProps>>(
@@ -683,67 +673,28 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     const position = isResponsiveValue(positionProp) ? 'end' : positionProp
     const dividerVariant = isResponsiveValue(dividerProp) ? 'none' : dividerProp
 
-    const {rowGap, columnGap, paneRef} = React.useContext(PageLayoutContext)
-
-    // Initial pane width for the first render - only used to set the initial CSS variable.
-    // After mount, all updates go directly to the DOM via style.setProperty() to avoid re-renders.
-    const defaultWidth = getDefaultPaneWidth(width)
-
-    // Track current width during drag - initialized lazily in layout effect
-    const currentWidthRef = React.useRef(defaultWidth)
-
-    // Track whether we've initialized the width from localStorage
-    const initializedRef = React.useRef(false)
-
-    useIsomorphicLayoutEffect(() => {
-      // Only initialize once on mount - subsequent updates come from drag operations
-      if (initializedRef.current || !resizable) return
-      initializedRef.current = true
-      // Before paint, check localStorage for a stored width
-      try {
-        const value = localStorage.getItem(widthStorageKey)
-        if (value !== null && !isNaN(Number(value))) {
-          const num = Number(value)
-          currentWidthRef.current = num
-          paneRef.current?.style.setProperty('--pane-width', `${num}px`)
-          return
-        }
-      } catch {
-        // localStorage unavailable - set default via DOM
-      }
-      paneRef.current?.style.setProperty('--pane-width', `${defaultWidth}px`)
-    }, [widthStorageKey, paneRef, resizable, defaultWidth])
-
-    // Subscribe to viewport width changes for responsive max constraint calculation
-    const viewportWidth = useViewportWidth()
-
-    // Calculate min width constraint from width configuration
-    const minPaneWidth = isCustomWidthOptions(width) ? parseInt(width.min, 10) : minWidth
-
-    // Cache max width constraint - updated when viewport changes (which triggers CSS breakpoint changes)
-    // This avoids calling getComputedStyle() on every drag frame
-    const maxPaneWidthRef = React.useRef(minPaneWidth)
-    React.useEffect(() => {
-      if (isCustomWidthOptions(width)) {
-        maxPaneWidthRef.current = parseInt(width.max, 10)
-      } else {
-        const maxWidthDiff = getPaneMaxWidthDiff(paneRef.current)
-        maxPaneWidthRef.current =
-          viewportWidth > 0 ? Math.max(minPaneWidth, viewportWidth - maxWidthDiff) : minPaneWidth
-      }
-    }, [width, minPaneWidth, viewportWidth, paneRef])
+    const {rowGap, columnGap, paneRef, contentWrapperRef} = React.useContext(PageLayoutContext)
 
     // Ref to the drag handle for updating ARIA attributes
     const handleRef = React.useRef<HTMLDivElement>(null)
 
-    // Update ARIA attributes on mount and when viewport/constraints change
-    useIsomorphicLayoutEffect(() => {
-      updateAriaValues(handleRef.current, {
-        min: minPaneWidth,
-        max: maxPaneWidthRef.current,
-        current: currentWidthRef.current!,
+    // Cache drag start values to calculate relative delta during drag
+    // This approach is immune to layout shifts (scrollbars appearing/disappearing)
+    const dragStartClientXRef = React.useRef<number>(0)
+    const dragStartWidthRef = React.useRef<number>(0)
+    // Cache max width at drag start - won't change during a drag operation
+    const dragMaxWidthRef = React.useRef<number>(0)
+
+    const {currentWidth, currentWidthRef, minPaneWidth, maxPaneWidth, getMaxPaneWidth, saveWidth, getDefaultWidth} =
+      usePaneWidth({
+        width,
+        minWidth,
+        resizable,
+        widthStorageKey,
+        paneRef,
+        handleRef,
+        contentWrapperRef,
       })
-    }, [minPaneWidth, viewportWidth])
 
     useRefObjectAsForwardedRef(forwardRef, paneRef)
 
@@ -764,14 +715,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         labelProp['aria-labelledby'] = labelledBy
       } else if (label) {
         labelProp['aria-label'] = label
-      }
-    }
-
-    const setWidthInLocalStorage = (value: number) => {
-      try {
-        localStorage.setItem(widthStorageKey, value.toString())
-      } catch {
-        // Ignore write errors
       }
     }
 
@@ -803,6 +746,10 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         />
         <div
           ref={paneRef}
+          // suppressHydrationWarning: We intentionally read from localStorage during
+          // useState init to avoid resize flicker, which causes a hydration mismatch
+          // for --pane-width. This only affects this element, not children.
+          suppressHydrationWarning
           {...(hasOverflow ? overflowProps : {})}
           {...labelProp}
           {...(id && {id: paneId})}
@@ -815,7 +762,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               '--pane-max-width': isCustomWidthOptions(width) ? width.max : `calc(100vw - var(--pane-max-width-diff))`,
               '--pane-width-custom': isCustomWidthOptions(width) ? width.default : undefined,
               '--pane-width-size': `var(--pane-width-${isPaneWidth(width) ? width : 'custom'})`,
-              // --pane-width is set via layout effect (for localStorage) and DOM manipulation (for drag).
+              '--pane-width': `${currentWidth}px`,
             } as React.CSSProperties
           }
         >
@@ -837,62 +784,79 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           }
           // If pane is resizable, the divider should be draggable
           draggable={resizable}
-          handleRef={handleRef}
-          onDrag={(delta, isKeyboard = false) => {
-            const deltaWithDirection = isKeyboard ? delta : position === 'end' ? -delta : delta
-            const maxWidth = maxPaneWidthRef.current
-
-            if (isKeyboard) {
-              // Clamp keyboard delta to stay within bounds
-              const newWidth = Math.max(minPaneWidth, Math.min(maxWidth, currentWidthRef.current! + deltaWithDirection))
-              if (newWidth !== currentWidthRef.current) {
-                currentWidthRef.current = newWidth
-                paneRef.current?.style.setProperty('--pane-width', `${newWidth}px`)
-                updateAriaValues(handleRef.current, {current: newWidth})
-              }
-            } else {
-              // Apply delta directly via CSS variable for immediate visual feedback
-              if (paneRef.current) {
-                const newWidth = currentWidthRef.current! + deltaWithDirection
-                const clampedWidth = Math.max(minPaneWidth, Math.min(maxWidth, newWidth))
-
-                // Only update if the clamped width actually changed
-                // This prevents drift when dragging against min/max constraints
-                if (clampedWidth !== currentWidthRef.current) {
-                  paneRef.current.style.setProperty('--pane-width', `${clampedWidth}px`)
-                  currentWidthRef.current = clampedWidth
-                  updateAriaValues(handleRef.current, {current: clampedWidth})
-                }
-              }
-            }
-          }}
-          // Save final width to localStorage (skip React state update to avoid reconciliation)
-          onDragEnd={() => {
-            // For mouse drag: The CSS variable is already set and currentWidthRef is in sync.
-            // We intentionally skip setPaneWidth() to avoid triggering expensive React
-            // reconciliation with large DOM trees. The ref is the source of truth for
-            // subsequent drag operations.
-            setWidthInLocalStorage(currentWidthRef.current!)
-          }}
           position={positionProp}
-          // Reset pane width on double click
-          onDoubleClick={() => {
-            const defaultWidth = getDefaultPaneWidth(width)
-            // Update CSS variable and ref directly - skip React state to avoid reconciliation
-            if (paneRef.current) {
-              paneRef.current.style.setProperty('--pane-width', `${defaultWidth}px`)
-              currentWidthRef.current = defaultWidth
-              updateAriaValues(handleRef.current, {current: defaultWidth})
-            }
-            setWidthInLocalStorage(defaultWidth)
-          }}
           className={classes.PaneVerticalDivider}
           style={
             {
               '--spacing': `var(--spacing-${columnGap})`,
             } as React.CSSProperties
           }
-        />
+        >
+          {resizable ? (
+            <DragHandle
+              handleRef={handleRef}
+              aria-valuemin={minPaneWidth}
+              aria-valuemax={maxPaneWidth}
+              aria-valuenow={currentWidth}
+              onDragStart={clientX => {
+                // Cache cursor position and pane width at drag start
+                // Using relative delta (current - start) is immune to layout shifts
+                // (e.g., scrollbars appearing/disappearing during drag)
+                dragStartClientXRef.current = clientX
+                dragStartWidthRef.current = paneRef.current?.getBoundingClientRect().width ?? currentWidthRef.current!
+                // Cache max width - won't change during drag
+                dragMaxWidthRef.current = getMaxPaneWidth()
+              }}
+              onDrag={(value, isKeyboard) => {
+                // Use cached max width for pointer drag, fresh value for keyboard (less frequent)
+                const maxWidth = isKeyboard ? getMaxPaneWidth() : dragMaxWidthRef.current
+
+                if (isKeyboard) {
+                  // Keyboard: value is a delta (e.g., +3 or -3)
+                  const delta = value
+                  const newWidth = Math.max(minPaneWidth, Math.min(maxWidth, currentWidthRef.current! + delta))
+                  if (newWidth !== currentWidthRef.current) {
+                    currentWidthRef.current = newWidth
+                    paneRef.current?.style.setProperty('--pane-width', `${newWidth}px`)
+                    updateAriaValues(handleRef.current, {current: newWidth, max: maxWidth})
+                  }
+                } else {
+                  // Pointer: value is clientX - calculate width using relative delta from drag start
+                  // This approach is immune to layout shifts during drag
+                  if (paneRef.current) {
+                    const deltaX = value - dragStartClientXRef.current
+                    // For position='end': cursor moving left (negative delta) increases width
+                    // For position='start': cursor moving right (positive delta) increases width
+                    const directedDelta = position === 'end' ? -deltaX : deltaX
+                    const newWidth = dragStartWidthRef.current + directedDelta
+
+                    const clampedWidth = Math.max(minPaneWidth, Math.min(maxWidth, newWidth))
+
+                    // Only update if width actually changed
+                    if (Math.round(clampedWidth) !== Math.round(currentWidthRef.current!)) {
+                      paneRef.current.style.setProperty('--pane-width', `${clampedWidth}px`)
+                      currentWidthRef.current = clampedWidth
+                      updateAriaValues(handleRef.current, {current: Math.round(clampedWidth), max: maxWidth})
+                    }
+                  }
+                }
+              }}
+              onDragEnd={() => {
+                // Sync React state so parent re-renders use the correct width
+                saveWidth(currentWidthRef.current!)
+              }}
+              onDoubleClick={() => {
+                const resetWidth = getDefaultWidth()
+                if (paneRef.current) {
+                  paneRef.current.style.setProperty('--pane-width', `${resetWidth}px`)
+                  currentWidthRef.current = resetWidth
+                  updateAriaValues(handleRef.current, {current: resetWidth})
+                }
+                saveWidth(resetWidth)
+              }}
+            />
+          ) : null}
+        </VerticalDivider>
       </div>
     )
   },
@@ -989,7 +953,6 @@ const Footer: FCWithSlotMarker<React.PropsWithChildren<PageLayoutFooterProps>> =
     </footer>
   )
 }
-
 Footer.displayName = 'PageLayout.Footer'
 
 // ----------------------------------------------------------------------------
