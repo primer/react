@@ -9,7 +9,7 @@ export {isResponsiveValue} from '../internal/utils/responsiveTypes'
 
 // This file contains utilities for working with responsive values.
 
-// The viewport range values from @primer/primtives don't work in Chrome
+// The viewport range values from @primer/primitives don't work in Chrome
 // because they use `em` units inside `calc()` (e.g., calc(48em - 0.02px)).
 // As a temporary workaround, we're hardcoding the viewport ranges in `px` units.
 // TODO: Use viewport range tokens from @primer/primitives
