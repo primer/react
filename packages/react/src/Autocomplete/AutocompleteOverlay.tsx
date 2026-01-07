@@ -1,5 +1,5 @@
 import type React from 'react'
-import {useCallback, useContext} from 'react'
+import {useCallback, useContext, useEffect, useRef} from 'react'
 import {useAnchoredPosition} from '../hooks'
 import type {OverlayProps} from '../Overlay'
 import Overlay from '../Overlay'
@@ -35,11 +35,22 @@ function AutocompleteOverlay({
   }
   const overlayProps = {...oldOverlayProps, ...newOverlayProps}
   const {inputRef, scrollContainerRef, selectedItemLength, setShowMenu, showMenu = false} = autocompleteContext
+
+  const computedAnchorRef = useRef<HTMLElement | null>(null)
+  useEffect(() => {
+    const explicit = menuAnchorRef?.current ?? null
+    const tokensContainer = inputRef.current
+      ? (inputRef.current.closest('[data-prevent-token-wrapping]') as HTMLElement | null)
+      : null
+    const tokensRoot = tokensContainer?.parentElement ?? null
+    computedAnchorRef.current = explicit ?? tokensRoot ?? inputRef.current
+  }, [menuAnchorRef, inputRef])
+
   const {floatingElementRef, position} = useAnchoredPosition(
     {
       side: 'outside-bottom',
       align: 'start',
-      anchorElementRef: menuAnchorRef ? menuAnchorRef : inputRef,
+      anchorElementRef: computedAnchorRef as React.RefObject<HTMLElement>,
     },
     [showMenu, selectedItemLength],
   )
