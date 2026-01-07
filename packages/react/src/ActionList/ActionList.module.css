@@ -634,12 +634,10 @@ default block */
     line-height: normal;
 
     & .ItemLabel {
-      display: inline;
       word-break: normal;
     }
 
     & .Description {
-      display: inline;
       margin-left: var(--base-size-8);
       /* adjust line-height for baseline alignment */
 
