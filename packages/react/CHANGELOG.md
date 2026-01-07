@@ -1,5 +1,11 @@
 # @primer/react
 
+## 38.7.1
+
+### Patch Changes
+
+- [#7364](https://github.com/primer/react/pull/7364) [`d239382`](https://github.com/primer/react/commit/d239382a6c6df8e97cabdb6f1be4009c2ea15d2c) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(Autocomplete.Overlay): prevent user-defined className from overriding default styles
+
 ## 38.7.0
 
 ### Minor Changes
