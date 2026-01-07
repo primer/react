@@ -1,4 +1,4 @@
-import type {ResponsiveValue} from '../../hooks/useResponsiveValue'
+import type {ResponsiveValue} from './responsiveTypes'
 
 const types = ['narrow', 'regular', 'wide'] as const
 
