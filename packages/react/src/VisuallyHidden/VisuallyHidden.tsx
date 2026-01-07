@@ -5,7 +5,7 @@ import classes from './VisuallyHidden.module.css'
 
 /**
  * Provides a component that implements the "visually hidden" technique. This is
- * analagous to the common `sr-only` class. Children that are rendered inside
+ * analogous to the common `sr-only` class. Children that are rendered inside
  * this component will not be visible but will be available to screen readers.
  *
  * Note: if this component, or a descendant, has focus then this component will

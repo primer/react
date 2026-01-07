@@ -10,6 +10,9 @@ import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
 import {MixedSelection} from '../ActionMenu/ActionMenu.examples.stories'
 import {SearchIcon, KebabHorizontalIcon} from '@primer/octicons-react'
 
+import type {JSX} from 'react'
+import {implementsClassName} from '../utils/testing'
+
 function Example(): JSX.Element {
   return (
     <BaseStyles>
@@ -51,7 +54,8 @@ function ExampleWithTooltip(): JSX.Element {
   )
 }
 
-function ExampleWithTooltipV2(actionMenuTrigger: React.ReactElement): JSX.Element {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function ExampleWithTooltipV2(actionMenuTrigger: React.ReactElement<any>): JSX.Element {
   return (
     <BaseStyles>
       <ActionMenu>
@@ -117,6 +121,8 @@ function ExampleWithSubmenus(): JSX.Element {
 }
 
 describe('ActionMenu', () => {
+  implementsClassName(ActionMenu.Button)
+
   it('should open Menu on MenuButton click', async () => {
     const component = HTMLRender(<Example />)
     const button = component.getByRole('button')

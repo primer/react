@@ -40,11 +40,9 @@ export function useMedia(mediaQueryString: string, defaultState?: boolean) {
     return false
   })
 
-  useEffect(() => {
-    if (features[mediaQueryString] !== undefined) {
-      setMatches(features[mediaQueryString] as boolean)
-    }
-  }, [features, mediaQueryString])
+  if (features[mediaQueryString] !== undefined && matches !== features[mediaQueryString]) {
+    setMatches(features[mediaQueryString] as boolean)
+  }
 
   useEffect(() => {
     // If `mediaQueryString` is present in features through `context` defer to
@@ -69,6 +67,7 @@ export function useMedia(mediaQueryString: string, defaultState?: boolean) {
     }
 
     // Make sure the media query list is in sync with the matches state
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMatches(mediaQueryList.matches)
 
     return () => {

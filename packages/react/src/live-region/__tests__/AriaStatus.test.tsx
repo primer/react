@@ -4,8 +4,10 @@ import React from 'react'
 import {AriaStatus} from '../AriaStatus'
 import {userEvent} from '@testing-library/user-event'
 import {getLiveRegion} from './test-helpers'
+import {implementsClassName} from '../../utils/testing'
 
 describe('AriaStatus', () => {
+  implementsClassName(AriaStatus)
   beforeEach(() => {
     const liveRegion = document.createElement('live-region')
     document.body.appendChild(liveRegion)

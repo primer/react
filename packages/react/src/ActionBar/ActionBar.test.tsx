@@ -1,11 +1,14 @@
 import {describe, expect, it, afterEach, vi} from 'vitest'
 import {render, screen, act} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import React, {createRef, useState} from 'react'
 import ActionBar from './'
 import {BoldIcon, ItalicIcon, CodeIcon} from '@primer/octicons-react'
-import {useState} from 'react'
+import {implementsClassName} from '../utils/testing'
+import classes from './ActionBar.module.css'
 
 describe('ActionBar', () => {
+  implementsClassName(ActionBar, classes.Nav)
   afterEach(() => {
     vi.clearAllMocks()
   })
@@ -295,5 +298,122 @@ describe('ActionBar gap prop', () => {
     )
     const toolbar = screen.getByRole('toolbar')
     expect(toolbar).toHaveAttribute('data-gap', 'condensed')
+  })
+})
+
+describe('ActionBar.Menu returnFocusRef', () => {
+  it('accepts returnFocusRef prop', () => {
+    const returnFocusRef = createRef<HTMLButtonElement>()
+    render(
+      <div>
+        <button ref={returnFocusRef} type="button">
+          Return focus target
+        </button>
+        <ActionBar aria-label="Toolbar">
+          <ActionBar.Menu
+            aria-label="More options"
+            icon={BoldIcon}
+            returnFocusRef={returnFocusRef}
+            items={[{label: 'Option 1', onClick: vi.fn()}]}
+          />
+        </ActionBar>
+      </div>,
+    )
+
+    expect(screen.getByRole('button', {name: 'More options'})).toBeInTheDocument()
+  })
+
+  it('returns focus to returnFocusRef when menu is closed', async () => {
+    const user = userEvent.setup()
+    const returnFocusRef = createRef<HTMLButtonElement>()
+
+    render(
+      <div>
+        <button ref={returnFocusRef} data-testid="return-focus-target" type="button">
+          Return focus target
+        </button>
+        <ActionBar aria-label="Toolbar">
+          <ActionBar.Menu
+            aria-label="More options"
+            icon={BoldIcon}
+            returnFocusRef={returnFocusRef}
+            items={[{label: 'Option 1', onClick: vi.fn()}]}
+          />
+        </ActionBar>
+      </div>,
+    )
+
+    const menuButton = screen.getByRole('button', {name: 'More options'})
+
+    // Open the menu
+    await user.click(menuButton)
+
+    // Verify menu is open
+    expect(screen.getByRole('menu')).toBeInTheDocument()
+
+    // Close the menu by pressing Escape
+    await user.keyboard('{Escape}')
+
+    // Verify focus is returned to the returnFocusRef element
+    const returnFocusTarget = screen.getByTestId('return-focus-target')
+    expect(document.activeElement).toEqual(returnFocusTarget)
+  })
+
+  it('returns focus to returnFocusRef when menu item is selected', async () => {
+    const user = userEvent.setup()
+    const returnFocusRef = createRef<HTMLButtonElement>()
+    const onClick = vi.fn()
+
+    render(
+      <div>
+        <button ref={returnFocusRef} data-testid="return-focus-target" type="button">
+          Return focus target
+        </button>
+        <ActionBar aria-label="Toolbar">
+          <ActionBar.Menu
+            aria-label="More options"
+            icon={BoldIcon}
+            returnFocusRef={returnFocusRef}
+            items={[{label: 'Option 1', onClick}]}
+          />
+        </ActionBar>
+      </div>,
+    )
+
+    const menuButton = screen.getByRole('button', {name: 'More options'})
+
+    // Open the menu
+    await user.click(menuButton)
+
+    // Click a menu item
+    await user.click(screen.getByRole('menuitem', {name: 'Option 1'}))
+
+    // Verify focus is returned to the returnFocusRef element
+    const returnFocusTarget = screen.getByTestId('return-focus-target')
+    expect(document.activeElement).toEqual(returnFocusTarget)
+  })
+
+  it('returns focus to anchor button when returnFocusRef is not provided', async () => {
+    const user = userEvent.setup()
+
+    render(
+      <ActionBar aria-label="Toolbar">
+        <ActionBar.Menu aria-label="More options" icon={BoldIcon} items={[{label: 'Option 1', onClick: vi.fn()}]} />
+      </ActionBar>,
+    )
+
+    const menuButton = screen.getByRole('button', {name: 'More options'})
+
+    // Open the menu
+    await user.click(menuButton)
+
+    // Verify menu is open
+    expect(screen.getByRole('menu')).toBeInTheDocument()
+
+    // Close the menu by pressing Escape
+    await user.keyboard('{Escape}')
+
+    // Verify focus returns to the menu button (default behavior)
+    expect(document.activeElement).toEqual(menuButton)
   })
 })

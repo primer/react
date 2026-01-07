@@ -1,8 +1,14 @@
 import {render, screen} from '@testing-library/react'
 import {describe, expect, it, test} from 'vitest'
+import {InfoIcon} from '@primer/octicons-react'
 import {InlineMessage} from '../InlineMessage'
+import React from 'react'
+import {implementsClassName} from '../utils/testing'
+import classes from './InlineMessage.module.css'
 
 describe('InlineMessage', () => {
+  implementsClassName(InlineMessage, classes.InlineMessage)
+
   it('should render content passed as `children`', () => {
     render(<InlineMessage variant="success">test contents</InlineMessage>)
     expect(screen.getByText('test contents')).toBeInTheDocument()
@@ -78,5 +84,42 @@ describe('InlineMessage', () => {
       </InlineMessage>,
     )
     expect(screen.getByTestId('container')).toHaveAttribute('data-variant', 'warning')
+  })
+
+  it('should render leading visual', () => {
+    render(
+      <>
+        <InlineMessage variant="critical" leadingVisual={<InfoIcon data-testid="info-icon" />}>
+          test with custom icon
+        </InlineMessage>
+        <InlineMessage
+          variant="critical"
+          leadingVisual={React.memo(() => (
+            <div data-testid="memo">leadingVisual</div>
+          ))}
+        >
+          test with memo icon
+        </InlineMessage>
+        <InlineMessage
+          variant="critical"
+          leadingVisual={React.forwardRef(() => (
+            <div data-testid="forward-ref">leadingVisual</div>
+          ))}
+        >
+          test with forward ref icon
+        </InlineMessage>
+      </>,
+    )
+    expect(screen.getByTestId('info-icon')).toBeInTheDocument()
+    expect(screen.getByTestId('memo')).toBeInTheDocument()
+    expect(screen.getByTestId('forward-ref')).toBeInTheDocument()
+  })
+
+  it('should use default icon when `leadingVisual` is not provided', () => {
+    const {container} = render(<InlineMessage variant="success">test with default icon</InlineMessage>)
+    expect(screen.getByText('test with default icon')).toBeInTheDocument()
+    // Default icon should be rendered
+    const svg = container.querySelector('svg')
+    expect(svg).toBeInTheDocument()
   })
 })

@@ -2,8 +2,11 @@ import {Text} from '..'
 import {render} from '@testing-library/react'
 import {describe, it, expect} from 'vitest'
 import testClasses from './Text.test.module.css'
+import {implementsClassName} from '../utils/testing'
+import classes from './Text.module.css'
 
 describe('Text', () => {
+  implementsClassName(Text, classes.Text)
   it('renders a <span> by default', () => {
     const {container} = render(<Text />)
     expect(container.firstChild?.nodeName).toEqual('SPAN')

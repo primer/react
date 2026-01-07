@@ -1,7 +1,7 @@
 import type {ChangeEventHandler, FocusEventHandler, KeyboardEventHandler} from 'react'
 import React, {useCallback, useContext, useEffect, useState} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {AutocompleteContext} from './AutocompleteContext'
+import {AutocompleteContext, AutocompleteInputContext} from './AutocompleteContext'
 import TextInput from '../TextInput'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import type {ComponentProps} from '../utils/types'
@@ -37,20 +37,12 @@ const AutocompleteInput = React.forwardRef(
     forwardedRef,
   ) => {
     const autocompleteContext = useContext(AutocompleteContext)
-    if (autocompleteContext === null) {
+    const inputContext = useContext(AutocompleteInputContext)
+    if (autocompleteContext === null || inputContext === null) {
       throw new Error('AutocompleteContext returned null values')
     }
-    const {
-      activeDescendantRef,
-      autocompleteSuggestion = '',
-      id,
-      inputRef,
-      inputValue = '',
-      isMenuDirectlyActivated,
-      setInputValue,
-      setShowMenu,
-      showMenu,
-    } = autocompleteContext
+    const {activeDescendantRef, id, inputRef, setInputValue, setShowMenu, showMenu} = autocompleteContext
+    const {autocompleteSuggestion = '', inputValue = '', isMenuDirectlyActivated} = inputContext
     useRefObjectAsForwardedRef(forwardedRef, inputRef)
     const [highlightRemainingText, setHighlightRemainingText] = useState<boolean>(true)
     const {safeSetTimeout} = useSafeTimeout()
@@ -153,7 +145,6 @@ const AutocompleteInput = React.forwardRef(
       }
 
       // calling this useEffect when `highlightRemainingText` changes breaks backspace functionality
-      // eslint-disable-next-line react-compiler/react-compiler
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [autocompleteSuggestion, inputValue, inputRef, isMenuDirectlyActivated])
 

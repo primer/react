@@ -44,7 +44,7 @@ const getServerHandoff = (id: string) => {
     const serverData = document.getElementById(`__PRIMER_DATA_${id}__`)?.textContent
     if (serverData) return JSON.parse(serverData)
   } catch (_error) {
-    // if document/element does not exist or JSON is invalid, supress error
+    // if document/element does not exist or JSON is invalid, suppress error
   }
   return {}
 }
@@ -69,6 +69,7 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
   const [dayScheme, setDayScheme] = useSyncedState(props.dayScheme ?? fallbackDayScheme ?? defaultDayScheme)
   const [nightScheme, setNightScheme] = useSyncedState(props.nightScheme ?? fallbackNightScheme ?? defaultNightScheme)
   const systemColorMode = useSystemColorMode()
+  // eslint-disable-next-line react-hooks/refs
   const resolvedColorMode = resolvedColorModePassthrough.current || resolveColorMode(colorMode, systemColorMode)
   const colorScheme = chooseColorScheme(resolvedColorMode, dayScheme, nightScheme)
   const {resolvedTheme, resolvedColorScheme} = React.useMemo(

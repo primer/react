@@ -255,26 +255,35 @@ export const CustomIcon = () => {
     <Banner
       title="Upsell"
       description="An example banner with a custom icon"
-      icon={<CopilotIcon />}
+      leadingVisual={<CopilotIcon />}
       onDismiss={action('onDismiss')}
       variant="upsell"
     />
   )
 }
 
-export const InsideDialog = () => {
+export const FlushInsideDialog = () => {
   const onDialogClose = React.useCallback(() => {}, [])
 
   return (
-    <Dialog title="Add issue fields" onClose={onDialogClose} width="small">
+    <Dialog
+      title="Add issue fields"
+      onClose={onDialogClose}
+      height="small"
+      renderBody={({children}) => {
+        // custom renderBody to remove default padding from body and move it to the child after banner
+        return <div style={{padding: 0}}>{children}</div>
+      }}
+    >
       <Banner
-        title="Something went wrong adding fields."
-        hideTitle
+        title="Something went wrong loading custom fields."
         description="Please try again."
         variant="critical"
         actionsLayout="inline"
         primaryAction={<Banner.PrimaryAction onClick={action('Try again')}>Try again</Banner.PrimaryAction>}
+        flush
       />
+      <div style={{padding: 'var(--base-size-16)'}}>rest of the dialog content goes here</div>
     </Dialog>
   )
 }

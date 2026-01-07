@@ -70,6 +70,7 @@ const OverlayToggle: React.FC<
   openOverflowOverlay,
   overlayPaddingPx,
   overlayWidth,
+  totalLength,
 }) =>
   hiddenItemIds.length ? (
     <AnchoredOverlay
@@ -91,6 +92,7 @@ const OverlayToggle: React.FC<
         </Button>
       )}
       focusZoneSettings={{disabled: true}}
+      overlayProps={{role: 'dialog', 'aria-label': `All ${totalLength} labels`, 'aria-modal': true}}
     >
       <div className={classes.OverlayContainer} style={{width: overlayWidth, padding: `${overlayPaddingPx}px`}}>
         <div className={classes.OverlayInner}>{children}</div>
@@ -151,6 +153,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
         }
 
         // @ts-ignore you can set `.current` on ref objects or ref callbacks in React
+        // eslint-disable-next-line react-hooks/immutability
         expandButtonRef.current = node
       }
     },

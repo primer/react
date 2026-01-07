@@ -35,7 +35,8 @@ export type ActionMenuProps = {
   /**
    * Recommended: `ActionMenu.Button` or `ActionMenu.Anchor` with `ActionMenu.Overlay`
    */
-  children: React.ReactElement[] | React.ReactElement
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  children: React.ReactElement<any>[] | React.ReactElement<any>
 
   /**
    * If defined, will control the open/closed state of the overlay. Must be used in conjunction with `onOpenChange`.
@@ -120,7 +121,7 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
       // tooltip trigger
       const anchorChildren = child.props.children
       if (anchorChildren.type === MenuButton || isSlot(anchorChildren, MenuButton)) {
-        // eslint-disable-next-line react-compiler/react-compiler
+        // eslint-disable-next-line react-hooks/immutability
         renderAnchor = anchorProps => {
           // We need to attach the anchor props to the tooltip trigger (ActionMenu.Button's grandchild) not the tooltip itself.
           const triggerButton = React.cloneElement(
@@ -179,11 +180,13 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
   )
 }
 
-export type ActionMenuAnchorProps = {children: React.ReactElement; id?: string} & React.HTMLAttributes<HTMLElement>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ActionMenuAnchorProps = {children: React.ReactElement<any>; id?: string} & React.HTMLAttributes<HTMLElement>
 const Anchor: WithSlotMarker<
   React.ForwardRefExoticComponent<
     {
-      children: React.ReactElement
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      children: React.ReactElement<any>
       id?: string
     } & React.HTMLAttributes<HTMLElement> &
       React.RefAttributes<HTMLElement>

@@ -44,7 +44,7 @@ export type DialogButtonProps = Omit<ButtonProps, 'content'> & {
    * A reference to the rendered Button’s DOM node, used together with
    * `autoFocus` for `focusTrap`’s `initialFocus`.
    */
-  ref?: React.RefObject<HTMLButtonElement>
+  ref?: React.RefObject<HTMLButtonElement | null>
 }
 
 /**
@@ -136,12 +136,12 @@ export interface DialogProps {
    * Return focus to this element when the Dialog closes,
    * instead of the element that had focus immediately before the Dialog opened
    */
-  returnFocusRef?: React.RefObject<HTMLElement>
+  returnFocusRef?: React.RefObject<HTMLElement | null>
 
   /**
    * The element to focus when the Dialog opens
    */
-  initialFocusRef?: React.RefObject<HTMLElement>
+  initialFocusRef?: React.RefObject<HTMLElement | null>
 
   /**
    * Additional class names to apply to the dialog
@@ -250,7 +250,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   const autoFocusedFooterButtonRef = useRef<HTMLButtonElement>(null)
   for (const footerButton of footerButtons) {
     if (footerButton.autoFocus) {
-      // eslint-disable-next-line react-compiler/react-compiler
+      // eslint-disable-next-line react-hooks/immutability
       footerButton.ref = autoFocusedFooterButtonRef
     }
   }
@@ -291,11 +291,31 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
 
   React.useEffect(() => {
     const scrollbarWidth = window.innerWidth - document.body.clientWidth
-    // If the dialog is rendered, we add a class to the dialog element to disable
-    dialogRef.current?.classList.add(classes.DisableScroll)
-    // and set a CSS variable to the scrollbar width so that the dialog can
-    // account for the scrollbar width when calculating its width.
+    const dialog = dialogRef.current
+    const usePerfOptimization = document.body.hasAttribute('data-dialog-scroll-optimized')
+
+    // Add DisableScroll class to this dialog (for legacy :has() selector path)
+    dialog?.classList.add(classes.DisableScroll)
     document.body.style.setProperty('--prc-dialog-scrollgutter', `${scrollbarWidth}px`)
+
+    if (usePerfOptimization) {
+      // Optimized path: set attribute on body for direct CSS targeting
+      document.body.setAttribute('data-dialog-scroll-disabled', '')
+    }
+    // Legacy path: no action needed - CSS :has(.Dialog.DisableScroll) handles it
+
+    return () => {
+      dialog?.classList.remove(classes.DisableScroll)
+
+      const remainingDialogs = document.querySelectorAll(`.${classes.DisableScroll}`)
+
+      if (remainingDialogs.length === 0) {
+        document.body.style.removeProperty('--prc-dialog-scrollgutter')
+        if (usePerfOptimization) {
+          document.body.removeAttribute('data-dialog-scroll-disabled')
+        }
+      }
+    }
   }, [])
 
   const header = slots.header ?? (renderHeader ?? DefaultHeader)(defaultedProps)
@@ -408,6 +428,7 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
             {...buttonProps}
             // 'normal' value is equivalent to 'default', this is used for backwards compatibility
             variant={buttonType === 'normal' ? 'default' : buttonType}
+            // @ts-expect-error it needs a non nullable ref
             ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
           >
             {content}

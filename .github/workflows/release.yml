@@ -2,6 +2,11 @@ name: Release
 
 on:
   push:
+    # Ignore merge queue branches and all tags
+    branches-ignore:
+      - 'gh-readonly-queue/**'
+    tags-ignore:
+      - '**'
   workflow_dispatch:
 
 concurrency:
@@ -21,14 +26,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
         with:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
           persist-credentials: false
 
       - name: Set up Node
-        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -36,7 +41,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - uses: actions/create-github-app-token@67018539274d69449ef7c02e8e71183d1719ab42
+      - uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf
         id: app-token
         with:
           app-id: ${{ vars.PRIMER_APP_ID_SHARED }}
@@ -54,7 +59,9 @@ jobs:
           publish: npm run release
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-      - uses: ./.github/actions/upload-versions
+
+      - name: Upload versions json file
+        uses: primer/.github/.github/actions/upload-versions@v2.4.0
 
   release-candidate:
     if: github.ref_name == 'changeset-release/main'
@@ -62,13 +69,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
         with:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
 
       - name: Set up Node
-        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -85,30 +92,21 @@ jobs:
             npx changeset pre exit
             npx changeset version --snapshot
           else
-            pkg_json_path=packages/react/package.json
-            version=$(jq -r .version $pkg_json_path)
-            echo "$( jq ".version = \"$(echo $version)-rc.$(git rev-parse --short HEAD)\"" $pkg_json_path )" > $pkg_json_path
+            for pkg_json_path in packages/react/package.json packages/styled-react/package.json; do
+              version=$(jq -r .version $pkg_json_path)
+              echo "$( jq ".version = \"$(echo $version)-rc.$(git rev-parse --short HEAD)\"" $pkg_json_path )" > $pkg_json_path
+            done
           fi
 
           npx changeset publish --tag next
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Output candidate version
-        uses: actions/github-script@a3e7071a34d7e1f219a8a4de9a5e0a34d1ee1293
-        with:
-          script: |
-            const package = require(`${process.env.GITHUB_WORKSPACE}/packages/react/package.json`)
-            github.repos.createCommitStatus({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              sha: context.sha,
-              state: 'success',
-              context: `Published ${package.name}`,
-              description: package.version,
-              target_url: `https://unpkg.com/${package.name}@${package.version}/`
-            })
-      - uses: ./.github/actions/upload-versions
+      - name: Report versions
+        uses: primer/.github/.github/actions/report-versions@v2.4.0
+
+      - name: Upload versions json file
+        uses: primer/.github/.github/actions/upload-versions@v2.4.0
 
   release-canary:
     name: Canary
@@ -116,12 +114,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
         with:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
       - name: Set up Node
-        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -140,18 +138,9 @@ jobs:
           npx changeset publish --tag canary
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Output canary version
-        uses: actions/github-script@a3e7071a34d7e1f219a8a4de9a5e0a34d1ee1293
-        with:
-          script: |
-            const package = require(`${process.env.GITHUB_WORKSPACE}/packages/react/package.json`)
-            github.repos.createCommitStatus({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              sha: context.sha,
-              state: 'success',
-              context: `Published ${package.name}`,
-              description: package.version,
-              target_url: `https://unpkg.com/${package.name}@${package.version}/`
-            })
-      - uses: ./.github/actions/upload-versions
+
+      - name: Report versions
+        uses: primer/.github/.github/actions/report-versions@v2.4.0
+
+      - name: Upload versions json file
+        uses: primer/.github/.github/actions/upload-versions@v2.4.0

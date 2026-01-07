@@ -1,8 +1,12 @@
 import {describe, expect, it} from 'vitest'
 import StateLabel from '../StateLabel'
 import {render as HTMLRender} from '@testing-library/react'
+import {implementsClassName} from '../../utils/testing'
+import classes from '../StateLabel.module.css'
 
 describe('StateLabel', () => {
+  implementsClassName(props => <StateLabel {...props} status="issueOpened" />, classes.StateLabel)
+
   it('respects the status prop', () => {
     expect(HTMLRender(<StateLabel status="issueOpened" />).container).toMatchSnapshot()
     expect(HTMLRender(<StateLabel status="issueClosed" />).container).toMatchSnapshot()
@@ -11,9 +15,18 @@ describe('StateLabel', () => {
     expect(HTMLRender(<StateLabel status="pullQueued" />).container).toMatchSnapshot()
   })
 
-  it('respects the variant prop', () => {
+  it('respects the deprecated variant prop', () => {
     expect(HTMLRender(<StateLabel variant="small" status="issueOpened" />).container).toMatchSnapshot()
     expect(HTMLRender(<StateLabel variant="normal" status="issueOpened" />).container).toMatchSnapshot()
+  })
+
+  it('respects the size prop', () => {
+    expect(HTMLRender(<StateLabel size="small" status="issueOpened" />).container).toMatchSnapshot()
+    expect(HTMLRender(<StateLabel size="medium" status="issueOpened" />).container).toMatchSnapshot()
+  })
+
+  it('prefers the size prop over deprecated variant prop', () => {
+    expect(HTMLRender(<StateLabel size="small" variant="normal" status="issueOpened" />).container).toMatchSnapshot()
   })
 
   it('renders children', () => {

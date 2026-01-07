@@ -37,6 +37,15 @@ describe('postcss-preset-primer', () => {
   })
 
   describe('mixins', () => {
+    test('@mixin activeIndicatorLine', async () => {
+      const result = await process(`
+        .selector {
+          @mixin activeIndicatorLine;
+        }
+      `)
+      expect(result).toMatchSnapshot()
+    })
+
     test('@mixin focusOutline', async () => {
       const result = await process(`
         .selector {
@@ -50,6 +59,15 @@ describe('postcss-preset-primer', () => {
       const result = await process(`
         .selector {
           @mixin focusOutlineOnEmphasis;
+        }
+      `)
+      expect(result).toMatchSnapshot()
+    })
+
+    test('@mixin buttonReset', async () => {
+      const result = await process(`
+        .selector {
+          @mixin buttonReset;
         }
       `)
       expect(result).toMatchSnapshot()
