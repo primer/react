@@ -66,5 +66,9 @@ export type FlattenResponsiveValue<T> =
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function isResponsiveValue(value: any): value is ResponsiveValue<any> {
-  return typeof value === 'object' && Object.keys(value).some(key => ['narrow', 'regular', 'wide'].includes(key))
+  return (
+    value !== null &&
+    typeof value === 'object' &&
+    Object.keys(value).some(key => ['narrow', 'regular', 'wide'].includes(key))
+  )
 }
