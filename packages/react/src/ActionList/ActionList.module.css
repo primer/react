@@ -628,27 +628,23 @@ default block */
   /* inline */
   &:where([data-description-variant='inline']) {
     position: relative;
+    display: block;
     word-break: normal;
-    flex-direction: row;
-    align-items: baseline;
-    gap: var(--base-size-8);
+    /* stylelint-disable-next-line primer/typography */
+    line-height: normal;
 
     & .ItemLabel {
       word-break: normal;
     }
 
-    &:has([data-truncate='true']) {
-      & .ItemLabel {
-        flex: 1 0 auto;
-      }
-    }
-
     & .Description {
+      margin-left: var(--base-size-8);
       /* adjust line-height for baseline alignment */
 
       /* line-height: calc(var(--control-medium-lineBoxHeight) - var(--base-size-2)); */
       /* stylelint-disable-next-line primer/typography */
       line-height: 16px;
+      overflow-wrap: break-word;
     }
   }
 }
