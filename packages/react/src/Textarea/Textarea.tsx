@@ -1,9 +1,14 @@
 import type {TextareaHTMLAttributes, ReactElement} from 'react'
-import React from 'react'
+import React, {useEffect, useRef, useCallback, useId} from 'react'
 import {TextInputBaseWrapper} from '../internal/components/TextInputWrapper'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import classes from './TextArea.module.css'
 import type {WithSlotMarker} from '../utils/types'
+import {AlertFillIcon} from '@primer/octicons-react'
+import {CharacterCounter} from '../utils/character-counter'
+import VisuallyHidden from '../_VisuallyHidden'
+import Text from '../Text'
+import {clsx} from 'clsx'
 
 export const DEFAULT_TEXTAREA_ROWS = 7
 export const DEFAULT_TEXTAREA_COLS = 30
@@ -46,6 +51,11 @@ export type TextareaProps = {
    * CSS styles to apply to the Textarea
    */
   style?: React.CSSProperties
+  /**
+   * Optional character limit for the textarea. If provided, a character counter will be displayed below the textarea.
+   * When the limit is exceeded, validation styling will be applied.
+   */
+  characterLimit?: number
 } & TextareaHTMLAttributes<HTMLTextAreaElement>
 
 /**
@@ -68,37 +78,118 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       minHeight,
       maxHeight,
       style,
+      characterLimit,
+      onChange,
+      defaultValue,
       ...rest
     }: TextareaProps,
     ref,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
+    // Character counter state
+    const [characterCount, setCharacterCount] = React.useState<string>('')
+    const [isOverLimit, setIsOverLimit] = React.useState<boolean>(false)
+    const [screenReaderMessage, setScreenReaderMessage] = React.useState<string>('')
+    const characterCounterRef = useRef<CharacterCounter | null>(null)
+
+    const characterCountId = useId()
+    const characterCountStaticMessageId = useId()
+
+    // Initialize character counter
+    useEffect(() => {
+      if (characterLimit) {
+        characterCounterRef.current = new CharacterCounter({
+          onCountUpdate: (count, overLimit, message) => {
+            setCharacterCount(message)
+            setIsOverLimit(overLimit)
+          },
+          onScreenReaderAnnounce: message => {
+            setScreenReaderMessage(message)
+          },
+        })
+
+        return () => {
+          characterCounterRef.current?.cleanup()
+        }
+      }
+    }, [characterLimit])
+
+    // Update character count when value changes
+    useEffect(() => {
+      if (characterLimit && characterCounterRef.current) {
+        const currentValue =
+          value !== undefined ? String(value) : defaultValue !== undefined ? String(defaultValue) : ''
+        characterCounterRef.current.updateCharacterCount(currentValue.length, characterLimit)
+      }
+    }, [value, defaultValue, characterLimit])
+
+    // Handle textarea change with character counter
+    const handleTextareaChange = useCallback(
+      (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        if (characterLimit && characterCounterRef.current) {
+          characterCounterRef.current.updateCharacterCount(e.target.value.length, characterLimit)
+        }
+        onChange?.(e)
+      },
+      [onChange, characterLimit],
+    )
+
+    const isValid = isOverLimit ? 'error' : validationStatus
+
     return (
-      <TextInputBaseWrapper
-        validationStatus={validationStatus}
-        disabled={disabled}
-        block={block}
-        contrast={contrast}
-        className={className}
-      >
-        <textarea
-          value={value}
-          data-resize={resize}
-          aria-required={required}
-          aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
-          ref={ref}
+      <>
+        <TextInputBaseWrapper
+          validationStatus={isValid}
           disabled={disabled}
-          rows={rows}
-          cols={cols}
-          className={classes.TextArea}
-          style={{
-            minHeight,
-            maxHeight,
-            ...style,
-          }}
-          {...rest}
-        />
-      </TextInputBaseWrapper>
+          block={block}
+          contrast={contrast}
+          className={className}
+        >
+          <textarea
+            value={value}
+            defaultValue={defaultValue}
+            data-resize={resize}
+            aria-required={required}
+            aria-invalid={isValid === 'error' ? 'true' : 'false'}
+            ref={ref}
+            disabled={disabled}
+            rows={rows}
+            cols={cols}
+            className={classes.TextArea}
+            onChange={handleTextareaChange}
+            style={{
+              minHeight,
+              maxHeight,
+              ...style,
+            }}
+            {...rest}
+            aria-describedby={
+              characterLimit
+                ? [characterCountStaticMessageId, rest['aria-describedby']].filter(Boolean).join(' ') || undefined
+                : rest['aria-describedby']
+            }
+          />
+        </TextInputBaseWrapper>
+        {characterLimit && (
+          <>
+            <VisuallyHidden aria-live="polite" role="status">
+              {screenReaderMessage}
+            </VisuallyHidden>
+            <VisuallyHidden id={characterCountStaticMessageId}>
+              You can enter up to {characterLimit} {characterLimit === 1 ? 'character' : 'characters'}
+            </VisuallyHidden>
+            <Text
+              aria-hidden="true"
+              id={characterCountId}
+              size="small"
+              className={clsx(classes.CharacterCounter, isOverLimit && classes['CharacterCounter--error'])}
+            >
+              {isOverLimit && <AlertFillIcon size={16} />}
+              {characterCount}
+            </Text>
+          </>
+        )}
+      </>
     )
   },
 )
