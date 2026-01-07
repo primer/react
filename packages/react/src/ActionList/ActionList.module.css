@@ -630,6 +630,7 @@ default block */
     position: relative;
     display: block;
     word-break: normal;
+    /* stylelint-disable-next-line primer/typography */
     line-height: normal;
 
     & .ItemLabel {
