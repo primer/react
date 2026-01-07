@@ -1,12 +1,14 @@
 import {clsx} from 'clsx'
 import type React from 'react'
-import {useCallback, useEffect, useRef, useState, useSyncExternalStore} from 'react'
+import {useCallback, useRef, useSyncExternalStore} from 'react'
 import {VisuallyHidden} from '../VisuallyHidden'
 import type {HTMLDataAttributes} from '../internal/internal-types'
 import {useId} from '../hooks'
 import classes from './Spinner.module.css'
 import {useMedia} from '../hooks/useMedia'
 import {useFeatureFlag} from '../FeatureFlags'
+import {useLoadingVisibility} from '../loading'
+import type {LoadingDelay} from '../loading'
 
 const sizeMap = {
   small: '16px',
@@ -25,7 +27,8 @@ export type SpinnerProps = {
   style?: React.CSSProperties
   /** Whether to delay the spinner before rendering by the defined 1000ms. */
   delay?: boolean
-} & HTMLDataAttributes
+} & LoadingDelay &
+  HTMLDataAttributes
 
 function Spinner({
   size: sizeKey = 'medium',
@@ -38,25 +41,10 @@ function Spinner({
 }: SpinnerProps) {
   const syncAnimationsEnabled = useFeatureFlag('primer_react_spinner_synchronize_animations')
   const animationRef = useSpinnerAnimation()
+  const {style: loadingStyle} = useLoadingVisibility(delay)
   const size = sizeMap[sizeKey]
   const hasHiddenLabel = srText !== null && ariaLabel === undefined
   const labelId = useId()
-
-  const [isVisible, setIsVisible] = useState(!delay)
-
-  useEffect(() => {
-    if (delay) {
-      const timeoutId = setTimeout(() => {
-        setIsVisible(true)
-      }, 1000)
-
-      return () => clearTimeout(timeoutId)
-    }
-  }, [delay])
-
-  if (!isVisible) {
-    return null
-  }
 
   return (
     /* inline-flex removes the extra line height */
@@ -71,7 +59,10 @@ function Spinner({
         aria-label={ariaLabel ?? undefined}
         aria-labelledby={hasHiddenLabel ? labelId : undefined}
         className={clsx(className, classes.SpinnerAnimation)}
-        style={style}
+        style={{
+          ...style,
+          ...loadingStyle,
+        }}
         {...props}
       >
         <circle

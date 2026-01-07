@@ -12,6 +12,9 @@ export const Default = () => <SkeletonBox />
 export const Playground: StoryFn<ComponentProps<typeof SkeletonBox>> = args => <SkeletonBox {...args} />
 
 Playground.argTypes = {
+  delay: {
+    type: 'number',
+  },
   height: {
     type: 'string',
   },
