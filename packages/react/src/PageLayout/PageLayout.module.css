@@ -24,16 +24,18 @@
   }
 
   /* Pane Width Values */
-  --pane-width-small: 100%;
-  --pane-width-medium: 100%;
-  --pane-width-large: 100%;
+  /* Default to regular viewport widths for SSR (desktop-first approach to avoid layout shift) */
+  --pane-width-small: 240px;
+  --pane-width-medium: 256px;
+  --pane-width-large: 256px;
   /* NOTE: This value is exported via :export for use in usePaneWidth.ts */
   --pane-max-width-diff: 511px;
 
-  @media screen and (min-width: 768px) {
-    --pane-width-small: 240px;
-    --pane-width-medium: 256px;
-    --pane-width-large: 256px;
+  /* Narrow viewport: switch to full width for stacking */
+  @media (--viewportRange-narrow) {
+    --pane-width-small: 100%;
+    --pane-width-medium: 100%;
+    --pane-width-large: 100%;
   }
 
   @media screen and (min-width: 1012px) {
@@ -409,16 +411,39 @@
 
 .PaneWrapper {
   display: flex;
-  width: 100%;
+  /* Default to auto width for SSR (desktop-first approach to avoid layout shift) */
+  width: auto;
   margin-right: 0;
   margin-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
 
   &:where([data-is-hidden='true']) {
     display: none;
   }
 
+  /* Default positioning for position='end' - most common case for SSR */
+  &:where([data-position='end']) {
+    /* stylelint-disable-next-line primer/spacing */
+    margin-left: var(--spacing-column);
+    flex-direction: row-reverse;
+    order: var(--region-order-pane-end);
+  }
+
+  &:where([data-position='start']) {
+    /* stylelint-disable-next-line primer/spacing */
+    margin-right: var(--spacing-column);
+    flex-direction: row;
+    order: var(--region-order-pane-start);
+  }
+
   /* Narrow viewport */
   @media (--viewportRange-narrow) {
+    /* Switch to full width for stacking on narrow viewports */
+    width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+
     &:where([data-is-hidden-narrow='true']) {
       display: none;
     }
@@ -426,6 +451,7 @@
     &:where([data-position-narrow='end']) {
       /* stylelint-disable-next-line primer/spacing */
       margin-top: var(--spacing-row);
+      margin-left: 0;
       flex-direction: column;
       order: var(--region-order-pane-end);
     }
@@ -433,16 +459,16 @@
     &:where([data-position-narrow='start']) {
       /* stylelint-disable-next-line primer/spacing */
       margin-bottom: var(--spacing-row);
+      margin-right: 0;
       flex-direction: column-reverse;
       order: var(--region-order-pane-start);
     }
-  }
 
-  /* Base position (non-responsive) - applies at narrow viewports only */
-  @media (--viewportRange-narrow) {
+    /* Base position (non-responsive) - overridden for narrow viewports */
     &:where([data-position='end']) {
       /* stylelint-disable-next-line primer/spacing */
       margin-top: var(--spacing-row);
+      margin-left: 0;
       flex-direction: column;
       order: var(--region-order-pane-end);
     }
@@ -450,6 +476,7 @@
     &:where([data-position='start']) {
       /* stylelint-disable-next-line primer/spacing */
       margin-bottom: var(--spacing-row);
+      margin-right: 0;
       flex-direction: column-reverse;
       order: var(--region-order-pane-start);
     }
@@ -460,10 +487,7 @@
       display: none;
     }
 
-    width: auto;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-
+    /* Sticky positioning for regular viewports */
     &:where([data-sticky]) {
       position: sticky;
       /* stylelint-disable-next-line primer/spacing */
@@ -471,24 +495,11 @@
       max-height: 100vh;
     }
 
-    /* Base position (non-responsive) - applies at regular+ viewports */
-    &:where([data-position='end']) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-left: var(--spacing-column);
-      flex-direction: row-reverse;
-      order: var(--region-order-pane-end);
-    }
-
-    &:where([data-position='start']) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-right: var(--spacing-column);
-      flex-direction: row;
-      order: var(--region-order-pane-start);
-    }
-
+    /* Responsive position overrides for regular viewports */
     &:where([data-position-regular='end']) {
       /* stylelint-disable-next-line primer/spacing */
       margin-left: var(--spacing-column);
+      margin-right: 0;
       flex-direction: row-reverse;
       order: var(--region-order-pane-end);
     }
@@ -496,6 +507,7 @@
     &:where([data-position-regular='start']) {
       /* stylelint-disable-next-line primer/spacing */
       margin-right: var(--spacing-column);
+      margin-left: 0;
       flex-direction: row;
       order: var(--region-order-pane-start);
     }
@@ -509,6 +521,7 @@
     &:where([data-position-wide='end']) {
       /* stylelint-disable-next-line primer/spacing */
       margin-left: var(--spacing-column);
+      margin-right: 0;
       flex-direction: row-reverse;
       order: var(--region-order-pane-end);
     }
@@ -516,6 +529,7 @@
     &:where([data-position-wide='start']) {
       /* stylelint-disable-next-line primer/spacing */
       margin-right: var(--spacing-column);
+      margin-left: 0;
       flex-direction: row;
       order: var(--region-order-pane-start);
     }
