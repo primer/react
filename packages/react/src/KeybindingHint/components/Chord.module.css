@@ -11,24 +11,9 @@
   font-size: var(--text-body-size-small);
   padding: var(--base-size-4);
   line-height: 10px; /* stylelint-disable-line primer/typography */
-}
-
-.ChordNormal {
   background: var(--bgColor-transparent);
   color: var(--fgColor-muted);
   border-color: var(--borderColor-default);
-}
-
-.ChordOnEmphasis {
-  background: var(--counter-bgColor-emphasis);
-  color: var(--fgColor-onEmphasis);
-  border-color: transparent;
-}
-
-.ChordOnPrimary {
-  background: var(--button-primary-bgColor-active);
-  color: var(--fgColor-onEmphasis);
-  border-color: transparent;
 }
 
 .ChordSmall {
