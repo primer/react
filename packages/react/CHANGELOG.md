@@ -1,5 +1,68 @@
 # @primer/react
 
+## 38.7.0
+
+### Minor Changes
+
+- [#7293](https://github.com/primer/react/pull/7293) [`d418509`](https://github.com/primer/react/commit/d418509884c6eb725e08c818f494e5e15495d4a1) Thanks [@lindseywild](https://github.com/lindseywild)! - Adds character counts to TextInput and TextArea components
+
+### Patch Changes
+
+- [#7354](https://github.com/primer/react/pull/7354) [`efbebdf`](https://github.com/primer/react/commit/efbebdf6589bf454ab78f17c83dc84ce88145e7b) Thanks [@llastflowers](https://github.com/llastflowers)! - update SelectPanel Multi Select Modal story
+
+- [#7426](https://github.com/primer/react/pull/7426) [`094be60`](https://github.com/primer/react/commit/094be609691f481bfc3c3c4eeae092e38f27167c) Thanks [@kelsey-myers](https://github.com/kelsey-myers)! - Add focusPrependedElements prop to useFocusZone, FilteredActionList, and SelectPanel
+
+- [#7349](https://github.com/primer/react/pull/7349) [`713d5a5`](https://github.com/primer/react/commit/713d5a5c5616e005cf8e939f33f8526210d3d634) Thanks [@mattcosta7](https://github.com/mattcosta7)! - PageLayout: Optimize drag/resize performance with inline styles and new optimizations
+
+  **Refactored:**
+
+  - Use direct attribute selectors (`.Pane[data-dragging='true']`) instead of descendant selectors for CSS containment (O(1) vs O(n) selector matching)
+  - Extract optimization utilities to `paneUtils.ts`
+  - Apply drag handle visual feedback via inline styles and CSS variables
+
+  **Added:**
+
+  - `content-visibility: auto` during drag/resize to skip off-screen content rendering
+  - rAF throttle for drag updates (one update per frame, latest position wins)
+  - Containment during window resize (parity with drag)
+
+  These changes improve style recalculation performance on large DOMs (100k+ nodes) by eliminating descendant selector traversal.
+
+- [#7337](https://github.com/primer/react/pull/7337) [`de970d6`](https://github.com/primer/react/commit/de970d6682f4e9a3aa5e3c637e0245da2a7a9d84) Thanks [@mattcosta7](https://github.com/mattcosta7)! - perf(Autocomplete): Split context to reduce unnecessary re-renders
+
+  Split AutocompleteContext into separate contexts for static values, setters, and dynamic state.
+  Components now subscribe only to the context slices they need, reducing re-renders.
+
+- [#7325](https://github.com/primer/react/pull/7325) [`cc7e10e`](https://github.com/primer/react/commit/cc7e10e7c0bee7ef9694ca94928446f704ada552) Thanks [@mattcosta7](https://github.com/mattcosta7)! - perf(BaseStyles): Remove expensive :has([data-color-mode]) selectors
+
+  Remove `:has([data-color-mode])` selectors that scanned the entire DOM on every style recalculation.
+  Input color-scheme is already handled by global selectors in the codebase.
+
+- [#7329](https://github.com/primer/react/pull/7329) [`501a41f`](https://github.com/primer/react/commit/501a41fc44e5c0edfca69af022676e0d26e1a1a0) Thanks [@mattcosta7](https://github.com/mattcosta7)! - perf(Dialog): Add feature flag for CSS :has() selector performance optimization
+
+  - Add `primer_react_css_has_selector_perf` feature flag (default: false)
+  - When flag is OFF: uses legacy `body:has(.Dialog.DisableScroll)` selector
+  - When flag is ON: uses optimized direct `body[data-dialog-scroll-disabled]` data attribute with ref counting
+  - Enables gradual rollout and easy rollback of performance optimization
+
+- [#7342](https://github.com/primer/react/pull/7342) [`a8b42b2`](https://github.com/primer/react/commit/a8b42b2e4cff9575eae8df897e64c1ca67ee180a) Thanks [@mattcosta7](https://github.com/mattcosta7)! - perf(hasInteractiveNodes): Optimize with combined selector and early attribute checks
+
+  - Use combined querySelectorAll selector instead of recursive traversal
+  - Check attribute-based states (disabled, hidden, inert) before getComputedStyle
+  - Only call getComputedStyle when CSS-based visibility check is needed
+
+## 38.6.2
+
+### Patch Changes
+
+- [#7334](https://github.com/primer/react/pull/7334) [`ea4789f`](https://github.com/primer/react/commit/ea4789fb15b42c8138ff3703f7fb5f2aad9e3810) Thanks [@mattcosta7](https://github.com/mattcosta7)! - perf(TreeView): Cache tree items in typeahead for better INP
+
+  - Add useTreeItemCache hook to cache DOM queries for tree items
+  - Update useRovingTabIndex and useTypeahead to use cached items
+  - Add documentation for acceptable :has() selector usage
+
+- [#7347](https://github.com/primer/react/pull/7347) [`72c7a7f`](https://github.com/primer/react/commit/72c7a7f74b0b2ea326a086252efa0027dbb04b78) Thanks [@owenniblock](https://github.com/owenniblock)! - Only shows the aria-describedby id for loading when the component is in the loading state
+
 ## 38.6.1
 
 ### Patch Changes

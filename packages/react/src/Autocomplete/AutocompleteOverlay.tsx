@@ -9,6 +9,7 @@ import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import VisuallyHidden from '../_VisuallyHidden'
 
 import classes from './AutocompleteOverlay.module.css'
+import {clsx} from 'clsx'
 
 type AutocompleteOverlayInternalProps = {
   /**
@@ -27,6 +28,7 @@ function AutocompleteOverlay({
   menuAnchorRef,
   overlayProps: oldOverlayProps,
   children,
+  className,
   ...newOverlayProps
 }: AutocompleteOverlayInternalProps) {
   const autocompleteContext = useContext(AutocompleteContext)
@@ -74,7 +76,7 @@ function AutocompleteOverlay({
       ref={floatingElementRef as React.RefObject<HTMLDivElement>}
       top={position?.top}
       left={position?.left}
-      className={classes.Overlay}
+      className={clsx(classes.Overlay, className)}
       {...overlayProps}
     >
       {children}
