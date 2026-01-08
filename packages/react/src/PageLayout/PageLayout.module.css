@@ -24,18 +24,16 @@
   }
 
   /* Pane Width Values */
-  /* Default to regular viewport widths for SSR (desktop-first approach to avoid layout shift) */
-  --pane-width-small: 240px;
-  --pane-width-medium: 256px;
-  --pane-width-large: 256px;
+  --pane-width-small: 100%;
+  --pane-width-medium: 100%;
+  --pane-width-large: 100%;
   /* NOTE: This value is exported via :export for use in usePaneWidth.ts */
   --pane-max-width-diff: 511px;
 
-  /* Narrow viewport: switch to full width for stacking */
-  @media (--viewportRange-narrow) {
-    --pane-width-small: 100%;
-    --pane-width-medium: 100%;
-    --pane-width-large: 100%;
+  @media screen and (min-width: 768px) {
+    --pane-width-small: 240px;
+    --pane-width-medium: 256px;
+    --pane-width-large: 256px;
   }
 
   @media screen and (min-width: 1012px) {
@@ -411,8 +409,7 @@
 
 .PaneWrapper {
   display: flex;
-  /* Default to auto width for SSR (desktop-first approach to avoid layout shift) */
-  width: auto;
+  width: 100%;
   margin-right: 0;
   margin-left: 0;
   margin-top: 0;
@@ -422,28 +419,22 @@
     display: none;
   }
 
-  /* Default positioning for position='end' - most common case for SSR */
   &:where([data-position='end']) {
     /* stylelint-disable-next-line primer/spacing */
-    margin-left: var(--spacing-column);
-    flex-direction: row-reverse;
+    margin-top: var(--spacing-row);
+    flex-direction: column;
     order: var(--region-order-pane-end);
   }
 
   &:where([data-position='start']) {
     /* stylelint-disable-next-line primer/spacing */
-    margin-right: var(--spacing-column);
-    flex-direction: row;
+    margin-bottom: var(--spacing-row);
+    flex-direction: column-reverse;
     order: var(--region-order-pane-start);
   }
 
   /* Narrow viewport */
   @media (--viewportRange-narrow) {
-    /* Switch to full width for stacking on narrow viewports */
-    width: 100%;
-    margin-right: 0;
-    margin-left: 0;
-
     &:where([data-is-hidden-narrow='true']) {
       display: none;
     }
@@ -483,6 +474,24 @@
   }
 
   @media screen and (min-width: 768px) {
+    width: auto;
+
+    &:where([data-position='end']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-left: var(--spacing-column);
+      margin-top: 0;
+      flex-direction: row-reverse;
+      order: var(--region-order-pane-end);
+    }
+
+    &:where([data-position='start']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-right: var(--spacing-column);
+      margin-bottom: 0;
+      flex-direction: row;
+      order: var(--region-order-pane-start);
+    }
+
     &:where([data-is-hidden-regular='true']) {
       display: none;
     }
@@ -602,7 +611,8 @@
   }
 
   &:where([data-resizable]) {
-    width: 100%;
+    /* Use the CSS variable instead of 100% - this respects media queries */
+    width: var(--pane-width-size);
 
     @media screen and (min-width: 768px) {
       /* 
