@@ -77,4 +77,51 @@ test.describe('Overlay ', () => {
       }
     })
   }
+
+  // Test with CSS containment feature flag enabled
+  test.describe('with CSS containment feature flag', () => {
+    for (const story of stories) {
+      test.describe(story.title, () => {
+        for (const theme of themes) {
+          test.describe(theme, () => {
+            test('@vrt', async ({page}) => {
+              await visit(page, {
+                id: story.id,
+                globals: {
+                  colorScheme: theme,
+                  featureFlags: {
+                    primer_react_overlay_css_containment: true,
+                  },
+                },
+                args: {
+                  open: true,
+                },
+              })
+
+              await expect(page).toHaveScreenshot(`Overlay.${story.title}.${theme}.with-containment.png`, {
+                animations: 'disabled',
+              })
+            })
+
+            test('axe @aat', async ({page}) => {
+              await visit(page, {
+                id: story.id,
+                globals: {
+                  colorScheme: theme,
+                  featureFlags: {
+                    primer_react_overlay_css_containment: true,
+                  },
+                },
+                args: {
+                  open: true,
+                },
+              })
+
+              await expect(page).toHaveNoViolations()
+            })
+          })
+        }
+      })
+    }
+  })
 })

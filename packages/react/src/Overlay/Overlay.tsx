@@ -108,6 +108,7 @@ export const BaseOverlay = React.forwardRef(
     forwardedRef,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
+    const cssContainmentEnabled = useFeatureFlag('primer_react_overlay_css_containment')
     return (
       <Component
         {...rest}
@@ -130,7 +131,7 @@ export const BaseOverlay = React.forwardRef(
           [`data-visibility-${visibility}`]: '',
           [`data-overflow-${rest.overflow}`]: rest.overflow ? '' : undefined,
         }}
-        className={clsx(className, classes.Overlay)}
+        className={clsx(className, classes.Overlay, cssContainmentEnabled && classes.OverlayContainment)}
       />
     )
   },
