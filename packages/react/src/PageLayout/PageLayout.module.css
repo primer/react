@@ -410,10 +410,6 @@
 .PaneWrapper {
   display: flex;
   width: 100%;
-  margin-right: 0;
-  margin-left: 0;
-  margin-top: 0;
-  margin-bottom: 0;
 
   &:where([data-is-hidden='true']) {
     display: none;
@@ -442,7 +438,6 @@
     &:where([data-position-narrow='end']) {
       /* stylelint-disable-next-line primer/spacing */
       margin-top: var(--spacing-row);
-      margin-left: 0;
       flex-direction: column;
       order: var(--region-order-pane-end);
     }
@@ -450,24 +445,6 @@
     &:where([data-position-narrow='start']) {
       /* stylelint-disable-next-line primer/spacing */
       margin-bottom: var(--spacing-row);
-      margin-right: 0;
-      flex-direction: column-reverse;
-      order: var(--region-order-pane-start);
-    }
-
-    /* Base position (non-responsive) - overridden for narrow viewports */
-    &:where([data-position='end']) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-top: var(--spacing-row);
-      margin-left: 0;
-      flex-direction: column;
-      order: var(--region-order-pane-end);
-    }
-
-    &:where([data-position='start']) {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-bottom: var(--spacing-row);
-      margin-right: 0;
       flex-direction: column-reverse;
       order: var(--region-order-pane-start);
     }
@@ -508,7 +485,6 @@
     &:where([data-position-regular='end']) {
       /* stylelint-disable-next-line primer/spacing */
       margin-left: var(--spacing-column);
-      margin-right: 0;
       flex-direction: row-reverse;
       order: var(--region-order-pane-end);
     }
@@ -516,7 +492,6 @@
     &:where([data-position-regular='start']) {
       /* stylelint-disable-next-line primer/spacing */
       margin-right: var(--spacing-column);
-      margin-left: 0;
       flex-direction: row;
       order: var(--region-order-pane-start);
     }
@@ -530,7 +505,6 @@
     &:where([data-position-wide='end']) {
       /* stylelint-disable-next-line primer/spacing */
       margin-left: var(--spacing-column);
-      margin-right: 0;
       flex-direction: row-reverse;
       order: var(--region-order-pane-end);
     }
@@ -538,7 +512,6 @@
     &:where([data-position-wide='start']) {
       /* stylelint-disable-next-line primer/spacing */
       margin-right: var(--spacing-column);
-      margin-left: 0;
       flex-direction: row;
       order: var(--region-order-pane-start);
     }
