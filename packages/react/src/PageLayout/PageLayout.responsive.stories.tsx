@@ -307,3 +307,42 @@ SSRSafeResponsive.parameters = {
     },
   },
 }
+
+/**
+ * Regression test for whitespace gap issue on narrow viewports.
+ * @see https://github.com/github/primer/issues/6253
+ *
+ * **The bug:** When PageLayout has a fixed/forced height (e.g., `height: 100%`) and the viewport is narrow,
+ * the PageLayoutContent container becomes taller than its children need.
+ * With `flex-direction: row` + `flex-wrap: wrap`, the extra vertical space is distributed as a gap
+ * around the wrapped rows (due to default `align-content: stretch`), causing a visible whitespace gap above the pane.
+ *
+ * **The fix:** On narrow viewports, `flex-direction: column` ensures items stack vertically without row-based distribution.
+ * Extra space is absorbed by `flex-grow` on the content instead of appearing as a gap.
+ */
+
+export const NarrowViewportFlexWrap: StoryFn = () => (
+  <div style={{height: '100vh', display: 'flex', flexDirection: 'column'}}>
+    <PageLayout
+      containerWidth="full"
+      columnGap="none"
+      padding="none"
+      style={{
+        height: '100%',
+      }}
+    >
+      <PageLayout.Pane position="start">
+        <Placeholder height={300} label="Pane" />
+      </PageLayout.Pane>
+      <PageLayout.Content width="full" padding="none">
+        <Placeholder height={300} label="Content" />
+      </PageLayout.Content>
+    </PageLayout>
+  </div>
+)
+
+NarrowViewportFlexWrap.parameters = {
+  viewport: {
+    defaultViewport: 'mobile1', // 320px width
+  },
+}
