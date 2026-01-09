@@ -321,7 +321,7 @@ SSRSafeResponsive.parameters = {
  * Extra space is absorbed by `flex-grow` on the content instead of appearing as a gap.
  */
 
-export const NarrowViewportFlexWrap: StoryFn = () => (
+export const FixedHeightResponsive: StoryFn = () => (
   <div style={{height: '100vh', display: 'flex', flexDirection: 'column'}}>
     <PageLayout
       containerWidth="full"
@@ -341,7 +341,7 @@ export const NarrowViewportFlexWrap: StoryFn = () => (
   </div>
 )
 
-NarrowViewportFlexWrap.parameters = {
+FixedHeightResponsive.parameters = {
   viewport: {
     defaultViewport: 'mobile1', // 320px width
   },
