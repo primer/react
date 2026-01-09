@@ -94,6 +94,7 @@
   flex: 1 1 100%;
   flex-wrap: wrap;
   max-width: 100%;
+
   @media (--viewportRange-narrow) {
     flex-direction: column;
   }
