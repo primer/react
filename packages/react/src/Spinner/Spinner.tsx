@@ -24,7 +24,7 @@ export type SpinnerProps = {
   className?: string
   style?: React.CSSProperties
   /** Whether to delay the spinner before rendering by the defined 1000ms. */
-  delay?: boolean
+  delay?: boolean | 'default' | number
 } & HTMLDataAttributes
 
 function Spinner({
@@ -46,9 +46,10 @@ function Spinner({
 
   useEffect(() => {
     if (delay) {
+      const delayDuration = typeof delay === 'number' ? delay : 1000
       const timeoutId = setTimeout(() => {
         setIsVisible(true)
-      }, 1000)
+      }, delayDuration)
 
       return () => clearTimeout(timeoutId)
     }
