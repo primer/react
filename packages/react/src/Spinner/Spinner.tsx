@@ -23,7 +23,7 @@ export type SpinnerProps = {
   'aria-label'?: string
   className?: string
   style?: React.CSSProperties
-  /** Whether to delay the spinner before rendering by the defined 1000ms. */
+  /** Controls whether and how long to delay rendering the spinner. Set to `true` or `'default'` to delay by 1000ms, or provide a custom number of milliseconds. */
   delay?: boolean | 'default' | number
 } & HTMLDataAttributes
 
