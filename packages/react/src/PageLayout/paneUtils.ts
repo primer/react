@@ -17,13 +17,14 @@ export function setDraggingStyles({handle, pane, contentWrapper}: DraggingStyles
 
   // Capture current dimensions and set contain-intrinsic-size BEFORE setting data-dragging
   // This ensures the element maintains its size when content-visibility: auto is applied
+  // Use 'auto' for width since it changes during drag, allowing browser to track actual size
   if (pane) {
     const rect = pane.getBoundingClientRect()
-    pane.style.setProperty('contain-intrinsic-size', `${rect.width}px ${rect.height}px`)
+    pane.style.setProperty('contain-intrinsic-size', `auto ${rect.width}px auto ${rect.height}px`)
   }
   if (contentWrapper) {
     const rect = contentWrapper.getBoundingClientRect()
-    contentWrapper.style.setProperty('contain-intrinsic-size', `${rect.width}px ${rect.height}px`)
+    contentWrapper.style.setProperty('contain-intrinsic-size', `auto ${rect.width}px auto ${rect.height}px`)
   }
 
   // Set attribute for CSS containment (O(1) direct selector, not descendant)

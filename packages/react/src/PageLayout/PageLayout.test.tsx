@@ -280,10 +280,10 @@ describe('PageLayout', async () => {
       expect(pane!.style.containIntrinsicSize).toBe('')
       expect(contentWrapper!.style.containIntrinsicSize).toBe('')
 
-      // Start drag - contain-intrinsic-size should be set
+      // Start drag - contain-intrinsic-size should be set with auto keyword
       fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
-      expect(pane!.style.containIntrinsicSize).toMatch(/^\d+(\.\d+)?px \d+(\.\d+)?px$/)
-      expect(contentWrapper!.style.containIntrinsicSize).toMatch(/^\d+(\.\d+)?px \d+(\.\d+)?px$/)
+      expect(pane!.style.containIntrinsicSize).toMatch(/^auto \d+(\.\d+)?px auto \d+(\.\d+)?px$/)
+      expect(contentWrapper!.style.containIntrinsicSize).toMatch(/^auto \d+(\.\d+)?px auto \d+(\.\d+)?px$/)
 
       // End drag - contain-intrinsic-size should be removed
       fireEvent.lostPointerCapture(divider, {pointerId: 1})
@@ -311,11 +311,11 @@ describe('PageLayout', async () => {
       expect(pane!.style.containIntrinsicSize).toBe('')
       expect(contentWrapper!.style.containIntrinsicSize).toBe('')
 
-      // Start keyboard resize
+      // Start keyboard resize - should set with auto keyword
       fireEvent.focus(divider)
       fireEvent.keyDown(divider, {key: 'ArrowRight'})
-      expect(pane!.style.containIntrinsicSize).toMatch(/^\d+(\.\d+)?px \d+(\.\d+)?px$/)
-      expect(contentWrapper!.style.containIntrinsicSize).toMatch(/^\d+(\.\d+)?px \d+(\.\d+)?px$/)
+      expect(pane!.style.containIntrinsicSize).toMatch(/^auto \d+(\.\d+)?px auto \d+(\.\d+)?px$/)
+      expect(contentWrapper!.style.containIntrinsicSize).toMatch(/^auto \d+(\.\d+)?px auto \d+(\.\d+)?px$/)
 
       // End keyboard resize - contain-intrinsic-size should be removed
       fireEvent.keyUp(divider, {key: 'ArrowRight'})
