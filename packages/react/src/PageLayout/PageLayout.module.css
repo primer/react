@@ -736,5 +736,4 @@
 .ContentWrapper[data-dragging='true'] {
   contain: layout style paint;
   pointer-events: none;
-  content-visibility: auto;
 }
