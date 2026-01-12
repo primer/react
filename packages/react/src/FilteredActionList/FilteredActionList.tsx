@@ -259,7 +259,10 @@ export function FilteredActionList({
           onActiveDescendantChanged: (current, previous, directlyActivated) => {
             activeDescendantRef.current = current
             if (current && scrollContainerRef.current && (directlyActivated || focusPrependedElements)) {
-              scrollIntoView(current, scrollContainerRef.current, menuScrollMargins)
+              scrollIntoView(current, scrollContainerRef.current, {
+                ...menuScrollMargins,
+                behavior: focusPrependedElements ? 'instant' : 'auto',
+              })
             }
 
             onActiveDescendantChanged?.(current, previous, directlyActivated)
