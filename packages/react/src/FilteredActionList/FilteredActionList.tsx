@@ -276,10 +276,10 @@ export function FilteredActionList({
     if (activeDescendantRef.current && scrollContainerRef.current) {
       scrollIntoView(activeDescendantRef.current, scrollContainerRef.current, {
         ...menuScrollMargins,
-        behavior: 'auto',
+        behavior: focusPrependedElements ? 'instant' : 'auto', // TODO: Change to prop
       })
     }
-  }, [items, inputRef, scrollContainerRef])
+  }, [items, inputRef, scrollContainerRef, focusPrependedElements])
 
   useEffect(() => {
     if (usingRovingTabindex) {
