@@ -259,6 +259,69 @@ describe('PageLayout', async () => {
       fireEvent.lostPointerCapture(divider, {pointerId: 1})
       expect(pane!.style.willChange).toBe('')
     })
+
+    it('should set contain-intrinsic-size during pointer drag', async () => {
+      const {container} = render(
+        <PageLayout>
+          <PageLayout.Pane resizable>
+            <Placeholder height={320} label="Pane" />
+          </PageLayout.Pane>
+          <PageLayout.Content>
+            <Placeholder height={640} label="Content" />
+          </PageLayout.Content>
+        </PageLayout>,
+      )
+
+      const pane = container.querySelector<HTMLElement>('[class*="Pane"][data-resizable]')
+      const contentWrapper = container.querySelector<HTMLElement>('[class*="ContentWrapper"]')
+      const divider = await screen.findByRole('slider')
+
+      // Before drag - no contain-intrinsic-size
+      expect(pane!.style.containIntrinsicSize).toBe('')
+      expect(contentWrapper!.style.containIntrinsicSize).toBe('')
+
+      // Start drag - contain-intrinsic-size should be set
+      fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
+      expect(pane!.style.containIntrinsicSize).toMatch(/^\d+(\.\d+)?px \d+(\.\d+)?px$/)
+      expect(contentWrapper!.style.containIntrinsicSize).toMatch(/^\d+(\.\d+)?px \d+(\.\d+)?px$/)
+
+      // End drag - contain-intrinsic-size should be removed
+      fireEvent.lostPointerCapture(divider, {pointerId: 1})
+      expect(pane!.style.containIntrinsicSize).toBe('')
+      expect(contentWrapper!.style.containIntrinsicSize).toBe('')
+    })
+
+    it('should set contain-intrinsic-size during keyboard resize', async () => {
+      const {container} = render(
+        <PageLayout>
+          <PageLayout.Pane resizable>
+            <Placeholder height={320} label="Pane" />
+          </PageLayout.Pane>
+          <PageLayout.Content>
+            <Placeholder height={640} label="Content" />
+          </PageLayout.Content>
+        </PageLayout>,
+      )
+
+      const pane = container.querySelector<HTMLElement>('[class*="Pane"][data-resizable]')
+      const contentWrapper = container.querySelector<HTMLElement>('[class*="ContentWrapper"]')
+      const divider = await screen.findByRole('slider')
+
+      // Before interaction - no contain-intrinsic-size
+      expect(pane!.style.containIntrinsicSize).toBe('')
+      expect(contentWrapper!.style.containIntrinsicSize).toBe('')
+
+      // Start keyboard resize
+      fireEvent.focus(divider)
+      fireEvent.keyDown(divider, {key: 'ArrowRight'})
+      expect(pane!.style.containIntrinsicSize).toMatch(/^\d+(\.\d+)?px \d+(\.\d+)?px$/)
+      expect(contentWrapper!.style.containIntrinsicSize).toMatch(/^\d+(\.\d+)?px \d+(\.\d+)?px$/)
+
+      // End keyboard resize - contain-intrinsic-size should be removed
+      fireEvent.keyUp(divider, {key: 'ArrowRight'})
+      expect(pane!.style.containIntrinsicSize).toBe('')
+      expect(contentWrapper!.style.containIntrinsicSize).toBe('')
+    })
   })
 
   describe('PageLayout.Content', () => {
