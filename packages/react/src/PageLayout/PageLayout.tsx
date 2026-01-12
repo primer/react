@@ -8,6 +8,7 @@ import {useSlots} from '../hooks/useSlots'
 import {useOverflow} from '../hooks/useOverflow'
 import {warning} from '../utils/warning'
 import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes'
+import {useFeatureFlag} from '../FeatureFlags'
 
 import classes from './PageLayout.module.css'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types'
@@ -242,6 +243,9 @@ const DragHandle = memo<DragHandleProps>(function DragHandle({
 
   const {paneRef, contentWrapperRef} = React.useContext(PageLayoutContext)
 
+  // Feature flag for drag optimization
+  const enableDragOptimization = useFeatureFlag('primer_react_page_layout_pane_drag_optimization')
+
   // Dragging state as a ref - cheaper than reading from DOM style
   const isDraggingRef = React.useRef(false)
 
@@ -252,9 +256,10 @@ const DragHandle = memo<DragHandleProps>(function DragHandle({
       handle: handleRef.current,
       pane: paneRef.current,
       contentWrapper: contentWrapperRef.current,
+      enableOptimization: enableDragOptimization,
     })
     isDraggingRef.current = true
-  }, [handleRef, contentWrapperRef, paneRef])
+  }, [handleRef, contentWrapperRef, paneRef, enableDragOptimization])
 
   const endDragging = React.useCallback(() => {
     if (!isDraggingRef.current) return
@@ -262,9 +267,10 @@ const DragHandle = memo<DragHandleProps>(function DragHandle({
       handle: handleRef.current,
       pane: paneRef.current,
       contentWrapper: contentWrapperRef.current,
+      enableOptimization: enableDragOptimization,
     })
     isDraggingRef.current = false
-  }, [handleRef, contentWrapperRef, paneRef])
+  }, [handleRef, contentWrapperRef, paneRef, enableDragOptimization])
 
   /**
    * Pointer down starts a drag operation

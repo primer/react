@@ -6,6 +6,7 @@ import {viewportRanges} from '../hooks/useResponsiveValue'
 import {PageLayout} from './PageLayout'
 import {Placeholder} from '../Placeholder'
 import {implementsClassName} from '../utils/testing'
+import {FeatureFlags} from '../FeatureFlags'
 import classes from './PageLayout.module.css'
 
 describe('PageLayout', async () => {
@@ -180,7 +181,7 @@ describe('PageLayout', async () => {
       expect(finalWidth).not.toEqual(initialWidth)
     })
 
-    it('should set optimization styles during pointer drag', async () => {
+    it('should NOT set optimization styles during pointer drag by default (feature flag disabled)', async () => {
       const {container} = render(
         <PageLayout>
           <PageLayout.Pane resizable>
@@ -198,7 +199,35 @@ describe('PageLayout', async () => {
       // Before drag - no data-dragging attribute
       expect(contentWrapper).not.toHaveAttribute('data-dragging')
 
-      // Start drag - optimization attribute is set
+      // Start drag - optimization attribute should NOT be set when flag is disabled
+      fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
+      expect(contentWrapper).not.toHaveAttribute('data-dragging')
+      // End drag
+      fireEvent.lostPointerCapture(divider, {pointerId: 1})
+      expect(contentWrapper).not.toHaveAttribute('data-dragging')
+    })
+
+    it('should set optimization styles during pointer drag when feature flag is enabled', async () => {
+      const {container} = render(
+        <FeatureFlags flags={{primer_react_page_layout_pane_drag_optimization: true}}>
+          <PageLayout>
+            <PageLayout.Pane resizable>
+              <Placeholder height={320} label="Pane" />
+            </PageLayout.Pane>
+            <PageLayout.Content>
+              <Placeholder height={640} label="Content" />
+            </PageLayout.Content>
+          </PageLayout>
+        </FeatureFlags>,
+      )
+
+      const contentWrapper = container.querySelector<HTMLElement>('[class*="ContentWrapper"]')
+      const divider = await screen.findByRole('slider')
+
+      // Before drag - no data-dragging attribute
+      expect(contentWrapper).not.toHaveAttribute('data-dragging')
+
+      // Start drag - optimization attribute is set when flag is enabled
       fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
       expect(contentWrapper).toHaveAttribute('data-dragging', 'true')
       // End drag - pointer capture lost ends the drag and removes optimization attribute
@@ -206,7 +235,7 @@ describe('PageLayout', async () => {
       expect(contentWrapper).not.toHaveAttribute('data-dragging')
     })
 
-    it('should set optimization styles during keyboard resize', async () => {
+    it('should NOT set optimization styles during keyboard resize by default (feature flag disabled)', async () => {
       const {container} = render(
         <PageLayout>
           <PageLayout.Pane resizable>
@@ -216,6 +245,36 @@ describe('PageLayout', async () => {
             <Placeholder height={640} label="Content" />
           </PageLayout.Content>
         </PageLayout>,
+      )
+
+      const contentWrapper = container.querySelector<HTMLElement>('[class*="ContentWrapper"]')
+      const divider = await screen.findByRole('slider')
+
+      // Before interaction - no data-dragging attribute
+      expect(contentWrapper).not.toHaveAttribute('data-dragging')
+
+      // Start keyboard resize (focus first)
+      fireEvent.focus(divider)
+      fireEvent.keyDown(divider, {key: 'ArrowRight'})
+      expect(contentWrapper).not.toHaveAttribute('data-dragging')
+
+      // End keyboard resize
+      fireEvent.keyUp(divider, {key: 'ArrowRight'})
+      expect(contentWrapper).not.toHaveAttribute('data-dragging')
+    })
+
+    it('should set optimization styles during keyboard resize when feature flag is enabled', async () => {
+      const {container} = render(
+        <FeatureFlags flags={{primer_react_page_layout_pane_drag_optimization: true}}>
+          <PageLayout>
+            <PageLayout.Pane resizable>
+              <Placeholder height={320} label="Pane" />
+            </PageLayout.Pane>
+            <PageLayout.Content>
+              <Placeholder height={640} label="Content" />
+            </PageLayout.Content>
+          </PageLayout>
+        </FeatureFlags>,
       )
 
       const contentWrapper = container.querySelector<HTMLElement>('[class*="ContentWrapper"]')
@@ -260,7 +319,7 @@ describe('PageLayout', async () => {
       expect(pane!.style.willChange).toBe('')
     })
 
-    it('should set contain-intrinsic-size during pointer drag', async () => {
+    it('should NOT set contain-intrinsic-size during pointer drag by default (feature flag disabled)', async () => {
       const {container} = render(
         <PageLayout>
           <PageLayout.Pane resizable>
@@ -280,7 +339,40 @@ describe('PageLayout', async () => {
       expect(pane!.style.containIntrinsicSize).toBe('')
       expect(contentWrapper!.style.containIntrinsicSize).toBe('')
 
-      // Start drag - contain-intrinsic-size should be set
+      // Start drag - contain-intrinsic-size should NOT be set when flag is disabled
+      fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
+      expect(pane!.style.containIntrinsicSize).toBe('')
+      expect(contentWrapper!.style.containIntrinsicSize).toBe('')
+
+      // End drag
+      fireEvent.lostPointerCapture(divider, {pointerId: 1})
+      expect(pane!.style.containIntrinsicSize).toBe('')
+      expect(contentWrapper!.style.containIntrinsicSize).toBe('')
+    })
+
+    it('should set contain-intrinsic-size during pointer drag when feature flag is enabled', async () => {
+      const {container} = render(
+        <FeatureFlags flags={{primer_react_page_layout_pane_drag_optimization: true}}>
+          <PageLayout>
+            <PageLayout.Pane resizable>
+              <Placeholder height={320} label="Pane" />
+            </PageLayout.Pane>
+            <PageLayout.Content>
+              <Placeholder height={640} label="Content" />
+            </PageLayout.Content>
+          </PageLayout>
+        </FeatureFlags>,
+      )
+
+      const pane = container.querySelector<HTMLElement>('[class*="Pane"][data-resizable]')
+      const contentWrapper = container.querySelector<HTMLElement>('[class*="ContentWrapper"]')
+      const divider = await screen.findByRole('slider')
+
+      // Before drag - no contain-intrinsic-size
+      expect(pane!.style.containIntrinsicSize).toBe('')
+      expect(contentWrapper!.style.containIntrinsicSize).toBe('')
+
+      // Start drag - contain-intrinsic-size should be set when flag is enabled
       fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
       expect(pane!.style.containIntrinsicSize).toMatch(/^\d+(\.\d+)?px \d+(\.\d+)?px$/)
       expect(contentWrapper!.style.containIntrinsicSize).toMatch(/^\d+(\.\d+)?px \d+(\.\d+)?px$/)
@@ -291,7 +383,7 @@ describe('PageLayout', async () => {
       expect(contentWrapper!.style.containIntrinsicSize).toBe('')
     })
 
-    it('should set contain-intrinsic-size during keyboard resize', async () => {
+    it('should NOT set contain-intrinsic-size during keyboard resize by default (feature flag disabled)', async () => {
       const {container} = render(
         <PageLayout>
           <PageLayout.Pane resizable>
@@ -312,6 +404,40 @@ describe('PageLayout', async () => {
       expect(contentWrapper!.style.containIntrinsicSize).toBe('')
 
       // Start keyboard resize
+      fireEvent.focus(divider)
+      fireEvent.keyDown(divider, {key: 'ArrowRight'})
+      expect(pane!.style.containIntrinsicSize).toBe('')
+      expect(contentWrapper!.style.containIntrinsicSize).toBe('')
+
+      // End keyboard resize
+      fireEvent.keyUp(divider, {key: 'ArrowRight'})
+      expect(pane!.style.containIntrinsicSize).toBe('')
+      expect(contentWrapper!.style.containIntrinsicSize).toBe('')
+    })
+
+    it('should set contain-intrinsic-size during keyboard resize when feature flag is enabled', async () => {
+      const {container} = render(
+        <FeatureFlags flags={{primer_react_page_layout_pane_drag_optimization: true}}>
+          <PageLayout>
+            <PageLayout.Pane resizable>
+              <Placeholder height={320} label="Pane" />
+            </PageLayout.Pane>
+            <PageLayout.Content>
+              <Placeholder height={640} label="Content" />
+            </PageLayout.Content>
+          </PageLayout>
+        </FeatureFlags>,
+      )
+
+      const pane = container.querySelector<HTMLElement>('[class*="Pane"][data-resizable]')
+      const contentWrapper = container.querySelector<HTMLElement>('[class*="ContentWrapper"]')
+      const divider = await screen.findByRole('slider')
+
+      // Before interaction - no contain-intrinsic-size
+      expect(pane!.style.containIntrinsicSize).toBe('')
+      expect(contentWrapper!.style.containIntrinsicSize).toBe('')
+
+      // Start keyboard resize - should set when flag is enabled
       fireEvent.focus(divider)
       fireEvent.keyDown(divider, {key: 'ArrowRight'})
       expect(pane!.style.containIntrinsicSize).toMatch(/^\d+(\.\d+)?px \d+(\.\d+)?px$/)
