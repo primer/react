@@ -95,34 +95,6 @@ describe('Spinner', () => {
       expect(true).toBe(true)
     })
 
-    it('should render after 1000ms when delay is default', () => {
-      const {container} = render(<Spinner delay="default" />)
-
-      // Not visible initially
-      expect(container.querySelector('svg')).not.toBeInTheDocument()
-
-      // Advance timers by 1000ms
-      act(() => {
-        vi.advanceTimersByTime(1000)
-      })
-
-      // Now it should be visible
-      expect(container.querySelector('svg')).toBeInTheDocument()
-    })
-
-    it('should cleanup timeout on unmount when delay is default', () => {
-      const {unmount} = render(<Spinner delay={'default'} />)
-
-      // Unmount before the delay completes
-      unmount()
-
-      // Advance timers to see if there are any side effects
-      vi.advanceTimersByTime(1000)
-
-      // No errors should occur
-      expect(true).toBe(true)
-    })
-
     it('should render after custom ms when delay is a number', () => {
       const {container} = render(<Spinner delay={500} />)
 
