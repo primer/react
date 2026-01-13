@@ -56,3 +56,14 @@
   overflow: auto;
   flex-grow: 1;
 }
+
+.InputWithStateLabel {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: var(--base-size-24);
+}
+
+.StateLabelInline {
+  white-space: nowrap;
+  margin-bottom: var(--base-size-4);
+}
