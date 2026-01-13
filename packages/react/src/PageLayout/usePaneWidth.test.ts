@@ -239,8 +239,9 @@ describe('usePaneWidth', () => {
     it('should fall back to default when currentWidth prop is removed', () => {
       const refs = createMockRefs()
 
+      type Props = {currentWidth?: number}
       const {result, rerender} = renderHook(
-        ({currentWidth}: {currentWidth?: number}) =>
+        ({currentWidth}: Props) =>
           usePaneWidth({
             width: 'medium',
             minWidth: 256,
@@ -249,13 +250,13 @@ describe('usePaneWidth', () => {
             currentWidth,
             ...refs,
           }),
-        {initialProps: {currentWidth: 400}},
+        {initialProps: {currentWidth: 400} as Props},
       )
 
       expect(result.current.currentWidth).toBe(400)
 
-      // Remove currentWidth prop
-      rerender({currentWidth: undefined})
+      // Remove currentWidth prop by not passing it
+      rerender({} as Props)
 
       // Should fall back to default from width prop
       expect(result.current.currentWidth).toBe(defaultPaneWidth.medium)
@@ -484,6 +485,83 @@ describe('usePaneWidth', () => {
 
       // Should use default, not localStorage value
       expect(result.current.currentWidth).toBe(defaultPaneWidth.medium)
+    })
+
+    it('should call onWidthChange instead of localStorage when provided', () => {
+      const onWidthChange = vi.fn()
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-onWidthChange',
+          onWidthChange,
+          ...refs,
+        }),
+      )
+
+      act(() => {
+        result.current.saveWidth(450)
+      })
+
+      expect(result.current.currentWidth).toBe(450)
+      expect(onWidthChange).toHaveBeenCalledWith(450)
+      // Should NOT write to localStorage when onWidthChange is provided
+      expect(localStorage.getItem('test-onWidthChange')).toBeNull()
+    })
+
+    it('should call onWidthChange instead of custom persist function', () => {
+      const onWidthChange = vi.fn()
+      const customPersist = vi.fn()
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: {persist: customPersist},
+          widthStorageKey: 'test-onWidthChange-priority',
+          onWidthChange,
+          ...refs,
+        }),
+      )
+
+      act(() => {
+        result.current.saveWidth(450)
+      })
+
+      expect(result.current.currentWidth).toBe(450)
+      expect(onWidthChange).toHaveBeenCalledWith(450)
+      // Custom persist should NOT be called when onWidthChange is provided
+      expect(customPersist).not.toHaveBeenCalled()
+    })
+
+    it('should handle errors from onWidthChange gracefully', () => {
+      const onWidthChange = vi.fn(() => {
+        throw new Error('Consumer callback error')
+      })
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-onWidthChange-error',
+          onWidthChange,
+          ...refs,
+        }),
+      )
+
+      // Should not throw - state should still update
+      act(() => {
+        result.current.saveWidth(450)
+      })
+
+      expect(result.current.currentWidth).toBe(450)
+      expect(onWidthChange).toHaveBeenCalledWith(450)
     })
   })
 
