@@ -1,5 +1,19 @@
 # @primer/react
 
+## 38.7.1
+
+### Patch Changes
+
+- [#7439](https://github.com/primer/react/pull/7439) [`ceb4337`](https://github.com/primer/react/commit/ceb433733de4dd19effa619b2b4e5bda129a8c6d) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Fix PageLayout whitespace gap on narrow viewports.
+
+- [#7364](https://github.com/primer/react/pull/7364) [`d239382`](https://github.com/primer/react/commit/d239382a6c6df8e97cabdb6f1be4009c2ea15d2c) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(Autocomplete.Overlay): prevent user-defined className from overriding default styles
+
+- [#7408](https://github.com/primer/react/pull/7408) [`e3592d9`](https://github.com/primer/react/commit/e3592d96e0252285dc8e70bb6e69f95199928a74) Thanks [@TylerJDev](https://github.com/TylerJDev)! - ActionMenu: Ensures that uncontrolled ActionMenu(s) retain tab-focus when fullscreen
+
+- [#7445](https://github.com/primer/react/pull/7445) [`4072e44`](https://github.com/primer/react/commit/4072e44c74056b7a4e81bd8bba276c165a71c4ba) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Fixed a bug where scroll might jump when resizing by removing content-visibility from dragging elements in PageLayout.
+
+- [#7431](https://github.com/primer/react/pull/7431) [`43d1d89`](https://github.com/primer/react/commit/43d1d89506476c0ccd5f4c4e4d59589e62715b1c) Thanks [@llastflowers](https://github.com/llastflowers)! - Fix positioning of Autocomplete overlay menu when tokens are present
+
 ## 38.7.0
 
 ### Minor Changes
