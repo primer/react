@@ -270,7 +270,8 @@ export function usePaneWidth({
     // OR if resizable is true or {persist: 'localStorage'}
     // Read directly here instead of via persister to satisfy react-hooks/refs lint rule
     const shouldUseLocalStorage =
-      onWidthChange === undefined && (resizable === true || (isPersistConfig(resizable) && resizable.persist === 'localStorage'))
+      onWidthChange === undefined &&
+      (resizable === true || (isPersistConfig(resizable) && resizable.persist === 'localStorage'))
     if (shouldUseLocalStorage) {
       const storedWidth = localStoragePersister.get(widthStorageKey)
       if (storedWidth !== null) {
