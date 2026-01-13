@@ -17,6 +17,12 @@
   "importPath": "@primer/react",
   "props": [
     {
+      "name": "delay",
+      "type": "boolean | 'number'",
+      "description": "Controls whether and how long to delay rendering the SkeletonBox. Set to true to delay by 1000ms, or provide a custom number of milliseconds.",
+      "defaultValue": "false"
+    },
+    {
       "name": "width",
       "type": "string",
       "description": "Width of the skeleton box. Accepts any valid CSS `width` value."
