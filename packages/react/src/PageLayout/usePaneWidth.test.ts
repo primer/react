@@ -182,17 +182,18 @@ describe('usePaneWidth', () => {
         usePaneWidth({
           width: 'medium',
           minWidth: 256,
-          resizable: {width: 400, persist: false},
+          resizable: {persist: false},
           widthStorageKey: 'test-pane',
+          currentWidth: 400,
           ...refs,
         }),
       )
 
-      // Should use resizable.width, not the default from width prop
+      // Should use currentWidth prop, not the default from width prop
       expect(result.current.currentWidth).toBe(400)
     })
 
-    it('should prefer resizable.width over localStorage', () => {
+    it('should prefer currentWidth prop over localStorage', () => {
       localStorage.setItem('test-pane', '350')
       const refs = createMockRefs()
 
@@ -200,83 +201,84 @@ describe('usePaneWidth', () => {
         usePaneWidth({
           width: 'medium',
           minWidth: 256,
-          resizable: {width: 500, persist: 'localStorage'},
+          resizable: {persist: 'localStorage'},
           widthStorageKey: 'test-pane',
+          currentWidth: 500,
           ...refs,
         }),
       )
 
-      // Should use resizable.width, not localStorage
+      // Should use currentWidth prop, not localStorage
       expect(result.current.currentWidth).toBe(500)
     })
 
-    it('should sync when resizable.width changes', () => {
+    it('should sync when currentWidth prop changes', () => {
       const refs = createMockRefs()
-      type ResizableType = {width?: number; persist: false}
 
       const {result, rerender} = renderHook(
-        ({resizable}: {resizable: ResizableType}) =>
+        ({currentWidth}: {currentWidth?: number}) =>
           usePaneWidth({
             width: 'medium',
             minWidth: 256,
-            resizable,
+            resizable: {persist: false},
             widthStorageKey: 'test-sync-resizable',
+            currentWidth,
             ...refs,
           }),
-        {initialProps: {resizable: {width: 350, persist: false} as ResizableType}},
+        {initialProps: {currentWidth: 350}},
       )
 
       expect(result.current.currentWidth).toBe(350)
 
-      // Change resizable.width
-      rerender({resizable: {width: 450, persist: false}})
+      // Change currentWidth prop
+      rerender({currentWidth: 450})
 
       expect(result.current.currentWidth).toBe(450)
     })
 
-    it('should fall back to default when resizable.width is removed', () => {
+    it('should fall back to default when currentWidth prop is removed', () => {
       const refs = createMockRefs()
-      type ResizableType = {width?: number; persist: false}
 
       const {result, rerender} = renderHook(
-        ({resizable}: {resizable: ResizableType}) =>
+        ({currentWidth}: {currentWidth?: number}) =>
           usePaneWidth({
             width: 'medium',
             minWidth: 256,
-            resizable,
+            resizable: {persist: false},
             widthStorageKey: 'test-fallback',
+            currentWidth,
             ...refs,
           }),
-        {initialProps: {resizable: {width: 400, persist: false} as ResizableType}},
+        {initialProps: {currentWidth: 400}},
       )
 
       expect(result.current.currentWidth).toBe(400)
 
-      // Remove width from resizable config
-      rerender({resizable: {persist: false}})
+      // Remove currentWidth prop
+      rerender({currentWidth: undefined})
 
       // Should fall back to default from width prop
       expect(result.current.currentWidth).toBe(defaultPaneWidth.medium)
     })
 
-    it('should not sync width prop default when resizable.width is provided', () => {
+    it('should not sync width prop default when currentWidth prop is provided', () => {
       const refs = createMockRefs()
       type WidthType = 'small' | 'medium' | 'large'
-      type ResizableType = {width: number; persist: false}
 
       const {result, rerender} = renderHook(
-        ({width, resizable}: {width: WidthType; resizable: ResizableType}) =>
+        ({width, currentWidth}: {width: WidthType; currentWidth: number}) =>
           usePaneWidth({
             width,
             minWidth: 256,
-            resizable,
+            resizable: {persist: false},
             widthStorageKey: 'test-no-sync',
+            currentWidth,
             ...refs,
           }),
         {
           initialProps: {
             width: 'medium' as WidthType,
-            resizable: {width: 400, persist: false} as ResizableType,
+            currentWidth: 400,
           },
         },
       )
@@ -284,9 +286,9 @@ describe('usePaneWidth', () => {
       expect(result.current.currentWidth).toBe(400)
 
       // Change width prop (default changes from 296 to 320)
-      rerender({width: 'large', resizable: {width: 400, persist: false}})
+      rerender({width: 'large', currentWidth: 400})
 
-      // Should NOT sync to new default because resizable.width is controlling
+      // Should NOT sync to new default because currentWidth prop is controlling
       expect(result.current.currentWidth).toBe(400)
     })
   })

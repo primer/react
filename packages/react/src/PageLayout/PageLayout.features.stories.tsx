@@ -400,6 +400,12 @@ export const ResizablePaneWithCustomPersistence: StoryFn = () => {
   useIsomorphicLayoutEffect(() => {
     setCurrentWidth(getInitialWidth())
   }, [])
+
+  const handleWidthChange = (width: number) => {
+    setCurrentWidth(width)
+    localStorage.setItem(key, width.toString())
+  }
+
   return (
     <PageLayout>
       <PageLayout.Header>
@@ -407,13 +413,9 @@ export const ResizablePaneWithCustomPersistence: StoryFn = () => {
       </PageLayout.Header>
       <PageLayout.Pane
         width={{min: '256px', default: `${defaultPaneWidth.medium}px`, max: '600px'}}
-        resizable={{
-          width: currentWidth,
-          persist: width => {
-            setCurrentWidth(width)
-            localStorage.setItem(key, width.toString())
-          },
-        }}
+        resizable
+        currentWidth={currentWidth}
+        onWidthChange={handleWidthChange}
         aria-label="Side pane"
       >
         <Placeholder height={320} label={`Pane (width: ${currentWidth}px)`} />
@@ -448,6 +450,11 @@ export const ResizablePaneWithNumberWidth: StoryFn = () => {
 
   const [currentWidth, setCurrentWidth] = React.useState<number>(getInitialWidth)
 
+  const handleWidthChange = (newWidth: number) => {
+    setCurrentWidth(newWidth)
+    localStorage.setItem(key, newWidth.toString())
+  }
+
   return (
     <PageLayout>
       <PageLayout.Header>
@@ -455,13 +462,9 @@ export const ResizablePaneWithNumberWidth: StoryFn = () => {
       </PageLayout.Header>
       <PageLayout.Pane
         width="medium"
-        resizable={{
-          width: currentWidth,
-          persist: newWidth => {
-            setCurrentWidth(newWidth)
-            localStorage.setItem(key, newWidth.toString())
-          },
-        }}
+        resizable
+        currentWidth={currentWidth}
+        onWidthChange={handleWidthChange}
         aria-label="Side pane"
       >
         <Placeholder height={320} label={`Pane (width: ${currentWidth}px)`} />
@@ -496,6 +499,11 @@ export const ResizablePaneWithControlledWidth: StoryFn = () => {
 
   const [currentWidth, setCurrentWidth] = React.useState<number>(getInitialWidth)
 
+  const handleWidthChange = (newWidth: number) => {
+    setCurrentWidth(newWidth)
+    localStorage.setItem(key, newWidth.toString())
+  }
+
   return (
     <PageLayout>
       <PageLayout.Header>
@@ -503,13 +511,9 @@ export const ResizablePaneWithControlledWidth: StoryFn = () => {
       </PageLayout.Header>
       <PageLayout.Pane
         width={{min: '256px', default: '296px', max: '600px'}}
-        resizable={{
-          width: currentWidth,
-          persist: newWidth => {
-            setCurrentWidth(newWidth)
-            localStorage.setItem(key, newWidth.toString())
-          },
-        }}
+        resizable
+        currentWidth={currentWidth}
+        onWidthChange={handleWidthChange}
         aria-label="Side pane"
       >
         <Placeholder height={320} label={`Pane (current: ${currentWidth}px)`} />

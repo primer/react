@@ -600,20 +600,32 @@ export type PageLayoutPaneProps = {
    * - Named sizes: `'small'` | `'medium'` | `'large'`
    * - Custom object: `{min: string, default: string, max: string}`
    *
-   * For controlled width (current value), use `resizable.width` instead.
+   * For controlled width (current value), use `currentWidth` prop instead.
    */
   width?: PaneWidthValue
   minWidth?: number
   /**
+   * Current/controlled width value in pixels.
+   * When provided, this overrides the default width from the `width` prop.
+   * Use with `onWidthChange` for controlled width behavior.
+   */
+  currentWidth?: number
+  /**
+   * Callback fired when the pane width changes (during resize).
+   * Only called when `resizable` is enabled.
+   * When provided, this callback is used instead of any persistence mechanism.
+   * Use with `currentWidth` for controlled width behavior.
+   */
+  onWidthChange?: (width: number) => void
+  /**
    * Enable resizable pane behavior.
-   * - `true`: Enable with default localStorage persistence
+   * - `true`: Enable with default localStorage persistence (only if onWidthChange is not provided)
    * - `false`: Disable resizing
-   * - `{width?: number, persist: false}`: Enable without persistence, optionally with controlled current width
-   * - `{width?: number, persist: 'localStorage'}`: Enable with localStorage, optionally with controlled current width
-   * - `{width?: number, persist: fn}`: Enable with custom persistence, optionally with controlled current width
+   * - `{persist: false}`: Enable without persistence
+   * - `{persist: 'localStorage'}`: Enable with localStorage (explicit)
+   * - `{persist: fn}`: Enable with custom persistence function
    *
-   * The `width` property in the config represents the current/controlled width value.
-   * When provided, it takes precedence over the default width from the `width` prop.
+   * Note: When `onWidthChange` is provided, it takes precedence over any persistence mechanism.
    */
   resizable?: ResizableConfig
   widthStorageKey?: string
@@ -659,6 +671,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       positionWhenNarrow = 'inherit',
       width = 'medium',
       minWidth = 256,
+      currentWidth: controlledWidth,
+      onWidthChange,
       padding = 'none',
       resizable = false,
       widthStorageKey = 'paneWidth',
@@ -712,6 +726,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         paneRef,
         handleRef,
         contentWrapperRef,
+        onWidthChange,
+        currentWidth: controlledWidth,
       })
 
     useRefObjectAsForwardedRef(forwardRef, paneRef)
