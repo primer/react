@@ -366,7 +366,7 @@ export const ResizablePaneWithoutPersistence: StoryFn = () => (
     <PageLayout.Header>
       <Placeholder height={64} label="Header" />
     </PageLayout.Header>
-    <PageLayout.Pane resizable={{persist: false}} aria-label="Side pane">
+    <PageLayout.Pane resizable aria-label="Side pane">
       <Placeholder height={320} label="Pane (resizable, not persisted)" />
     </PageLayout.Pane>
     <PageLayout.Content>

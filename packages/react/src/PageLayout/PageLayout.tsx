@@ -619,13 +619,10 @@ export type PageLayoutPaneProps = {
   onWidthChange?: (width: number) => void
   /**
    * Enable resizable pane behavior.
-   * - `true`: Enable with default localStorage persistence (only if onWidthChange is not provided)
-   * - `false`: Disable resizing
-   * - `{persist: false}`: Enable without persistence
-   * - `{persist: 'localStorage'}`: Enable with localStorage (explicit)
-   * - `{persist: fn}`: Enable with custom persistence function
+   * - `true`: Enable resizing with localStorage persistence (only if onWidthChange is not provided)
+   * - `false` or `undefined`: Disable resizing
    *
-   * Note: When `onWidthChange` is provided, it takes precedence over any persistence mechanism.
+   * Note: When `onWidthChange` is provided, it takes precedence over localStorage persistence.
    */
   resizable?: ResizableConfig
   widthStorageKey?: string

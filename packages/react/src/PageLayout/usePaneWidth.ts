@@ -23,43 +23,11 @@ export type PaneWidth = 'small' | 'medium' | 'large'
 export type PaneWidthValue = PaneWidth | CustomWidthOptions
 
 /**
- * Options passed to custom persist function.
+ * Resizable configuration.
+ * - `true`: Enable resizing (uses localStorage by default if onWidthChange not provided)
+ * - `false` or `undefined`: Disable resizing
  */
-export type SaveOptions = {widthStorageKey: string}
-
-/**
- * Custom persist function type.
- */
-export type PersistFunction = (width: number, options: SaveOptions) => void | Promise<void>
-
-/**
- * Configuration object for resizable pane.
- * - `persist: false` - Enable resizing without any persistence
- * - `persist: 'localStorage'` - Enable resizing with localStorage persistence
- * - `persist: fn` - Enable resizing with custom persistence function
- */
-export type PersistConfig = {
-  persist: false | 'localStorage' | PersistFunction
-}
-
-/**
- * Type guard to check if persist value is a custom function
- */
-export const isCustomPersistFunction = (
-  persist: false | 'localStorage' | PersistFunction,
-): persist is PersistFunction => {
-  return typeof persist === 'function'
-}
-
-/**
- * Resizable configuration options.
- * - `true`: Enable resizing with default localStorage persistence (may cause hydration mismatch)
- * - `false`: Disable resizing
- * - `{persist: false}`: Enable resizing without any persistence
- * - `{persist: 'localStorage'}`: Enable resizing with localStorage persistence (explicit)
- * - `{persist: fn}`: Enable resizing with custom persistence function
- */
-export type ResizableConfig = boolean | PersistConfig
+export type ResizableConfig = boolean | undefined
 
 export type UsePaneWidthOptions = {
   width: PaneWidthValue
@@ -139,21 +107,6 @@ export const getDefaultPaneWidth = (w: PaneWidthValue): number => {
 }
 
 /**
- * Type guard to check if resizable config is a PersistConfig object
- */
-export const isPersistConfig = (config: ResizableConfig): config is PersistConfig => {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- config could be null at runtime despite types
-  return typeof config === 'object' && config !== null && 'persist' in config
-}
-
-/**
- * Check if resizing is enabled (boolean true or {persist: ...})
- */
-export const isResizableEnabled = (config: ResizableConfig): boolean => {
-  return config === true || isPersistConfig(config)
-}
-
-/**
  * Gets the --pane-max-width-diff CSS variable value from a pane element.
  * This value is set by CSS media queries and controls the max pane width constraint.
  * Note: This calls getComputedStyle which forces layout - cache the result when possible.
@@ -212,9 +165,9 @@ const localStoragePersister = {
  * functions to save and reset width.
  *
  * Storage behavior:
- * - When `resizable` is `true`: Uses localStorage with the provided `widthStorageKey`
- * - When `resizable` is `{persist: false}`: Resizable without any persistence
- * - When `resizable` is `{save: fn}`: Resizable with custom persistence
+ * - When `resizable` is `true` and `onWidthChange` is not provided: Uses localStorage
+ * - When `onWidthChange` is provided: Calls the callback instead of localStorage
+ * - When `resizable` is `false` or `undefined`: Not resizable, no persistence
  */
 export function usePaneWidth({
   width,
@@ -259,7 +212,7 @@ export function usePaneWidth({
   // Current width for React renders (ARIA attributes). Updates go through saveWidth() or clamp on resize.
   // Priority order for initial width:
   // 1. currentWidth prop (controlled current value)
-  // 2. localStorage (if persist is undefined or 'localStorage')
+  // 2. localStorage (if onWidthChange is not provided and resizable is true)
   // 3. defaultWidth (from width prop)
   const [currentWidthState, setCurrentWidthState] = React.useState(() => {
     // Check if controlled width value is provided
@@ -267,11 +220,8 @@ export function usePaneWidth({
       return controlledWidth
     }
     // Try localStorage if onWidthChange is not provided (default persistence behavior)
-    // OR if resizable is true or {persist: 'localStorage'}
     // Read directly here instead of via persister to satisfy react-hooks/refs lint rule
-    const shouldUseLocalStorage =
-      onWidthChange === undefined &&
-      (resizable === true || (isPersistConfig(resizable) && resizable.persist === 'localStorage'))
+    const shouldUseLocalStorage = onWidthChange === undefined && resizable === true
     if (shouldUseLocalStorage) {
       const storedWidth = localStoragePersister.get(widthStorageKey)
       if (storedWidth !== null) {
@@ -344,22 +294,9 @@ export function usePaneWidth({
 
     const config = resizableRef.current
 
-    // Handle localStorage persistence: resizable === true or {persist: 'localStorage'}
-    if (config === true || (isPersistConfig(config) && config.persist === 'localStorage')) {
+    // Handle localStorage persistence when resizable === true
+    if (config === true) {
       localStoragePersister.save(widthStorageKeyRef.current, value)
-    } else if (isPersistConfig(config) && isCustomPersistFunction(config.persist)) {
-      try {
-        const result = config.persist(value, {widthStorageKey: widthStorageKeyRef.current})
-        // Handle async rejections silently
-        if (result instanceof Promise) {
-          // eslint-disable-next-line github/no-then
-          result.catch(() => {
-            // Ignore - consumer should handle their own errors
-          })
-        }
-      } catch {
-        // Ignore sync errors
-      }
     }
   }, [])
 
@@ -373,7 +310,7 @@ export function usePaneWidth({
   // Update CSS variable, refs, and ARIA on mount and window resize.
   // Strategy: Only sync when resize stops (debounced) to avoid layout thrashing on large DOMs
   useIsomorphicLayoutEffect(() => {
-    if (!isResizableEnabled(resizableRef.current)) return
+    if (!resizableRef.current) return
 
     let lastViewportWidth = window.innerWidth
 
