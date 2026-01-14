@@ -1,5 +1,5 @@
 ---
-"@primer/react": feat
+"@primer/react": minor
 ---
 
 feat(SkeletonBox): add customizable delay
