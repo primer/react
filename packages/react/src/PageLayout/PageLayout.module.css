@@ -94,6 +94,10 @@
   flex: 1 1 100%;
   flex-wrap: wrap;
   max-width: 100%;
+
+  @media (--viewportRange-narrow) {
+    flex-direction: column;
+  }
 }
 
 .HorizontalDivider {
@@ -736,5 +740,4 @@
 .ContentWrapper[data-dragging='true'] {
   contain: layout style paint;
   pointer-events: none;
-  content-visibility: auto;
 }
