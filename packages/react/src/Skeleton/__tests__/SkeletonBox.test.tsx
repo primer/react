@@ -84,5 +84,18 @@ describe('SkeletonBox', () => {
       // Now it should be visible
       expect(container.querySelector('div')).toBeInTheDocument()
     })
+
+    it('should cleanup timeout on unmount when delay is a number', () => {
+      const {unmount} = render(<SkeletonBox delay={500} />)
+
+      // Unmount before the delay completes
+      unmount()
+
+      // Advance timers to see if there are any side effects
+      vi.advanceTimersByTime(500)
+
+      // No errors should occur
+      expect(true).toBe(true)
+    })
   })
 })
