@@ -14,6 +14,9 @@ import {
 import type {Meta} from '@storybook/react-vite'
 import {UnderlineNav} from './index'
 import {INITIAL_VIEWPORTS} from 'storybook/viewport'
+import Popover from '../Popover'
+import Text from '../Text'
+import {Button} from '../Button'
 
 const meta = {
   title: 'Components/UnderlineNav/Features',
@@ -151,6 +154,38 @@ export const VariantFlush = () => {
       <UnderlineNav.Item aria-current="page">Code</UnderlineNav.Item>
       <UnderlineNav.Item>Issues</UnderlineNav.Item>
       <UnderlineNav.Item>Pull Requests</UnderlineNav.Item>
+    </UnderlineNav>
+  )
+}
+
+export const WithPopover = () => {
+  return (
+    <UnderlineNav aria-label="Repository">
+      <UnderlineNav.Item href="#code" leadingVisual={<CodeIcon />}>
+        Code
+      </UnderlineNav.Item>
+      <UnderlineNav.Item href="#issues" leadingVisual={<IssueOpenedIcon />}>
+        Issues
+      </UnderlineNav.Item>
+      <UnderlineNav.Item href="#security" leadingVisual={<ShieldLockIcon />} counter={12}>
+        Security
+        <Popover
+          open={true}
+          style={{
+            left: '50%',
+            transform: 'translateX(-50%)',
+            marginTop: 'var(--base-size-12)',
+          }}
+        >
+          <Popover.Content>Popover content</Popover.Content>
+        </Popover>
+      </UnderlineNav.Item>
+      <UnderlineNav.Item href="#insights" leadingVisual={<GraphIcon />}>
+        Insights
+      </UnderlineNav.Item>
+      <UnderlineNav.Item href="#settings" leadingVisual={<GearIcon />}>
+        Settings
+      </UnderlineNav.Item>
     </UnderlineNav>
   )
 }
