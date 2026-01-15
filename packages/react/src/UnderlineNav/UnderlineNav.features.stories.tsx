@@ -15,8 +15,6 @@ import type {Meta} from '@storybook/react-vite'
 import {UnderlineNav} from './index'
 import {INITIAL_VIEWPORTS} from 'storybook/viewport'
 import Popover from '../Popover'
-import Text from '../Text'
-import {Button} from '../Button'
 
 const meta = {
   title: 'Components/UnderlineNav/Features',
