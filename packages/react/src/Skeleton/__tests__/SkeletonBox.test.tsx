@@ -61,5 +61,28 @@ describe('SkeletonBox', () => {
       // No errors should occur
       expect(true).toBe(true)
     })
+
+    it('should render after custom delay when delay is a number', () => {
+      const {container} = render(<SkeletonBox delay={500} />)
+
+      // Not visible initially
+      expect(container.querySelector('div')).not.toBeInTheDocument()
+
+      // Advance timers by less than the custom delay (500ms)
+      act(() => {
+        vi.advanceTimersByTime(400)
+      })
+
+      // Still not visible
+      expect(container.querySelector('div')).not.toBeInTheDocument()
+
+      // Advance timers to complete the custom delay
+      act(() => {
+        vi.advanceTimersByTime(100)
+      })
+
+      // Now it should be visible
+      expect(container.querySelector('div')).toBeInTheDocument()
+    })
   })
 })
