@@ -1,13 +1,9 @@
 import type React from 'react'
 import {useCallback} from 'react'
 import {createRoot} from 'react-dom/client'
-import {FocusKeys} from '@primer/behaviors'
-import type {DialogProps, DialogHeaderProps, DialogButtonProps, DialogWidth, DialogHeight} from '../Dialog/Dialog'
+import type {DialogButtonProps, DialogWidth, DialogHeight} from '../Dialog/Dialog'
 import {Dialog} from '../Dialog/Dialog'
-import {useFocusZone} from '../hooks/useFocusZone'
 import BaseStyles from '../BaseStyles'
-import classes from './ConfirmationDialog.module.css'
-import Heading from '../Heading'
 
 /**
  * Props to customize the ConfirmationDialog.
@@ -81,39 +77,6 @@ export interface ConfirmationDialogProps {
   height?: DialogHeight
 }
 
-const ConfirmationHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({title, onClose, dialogLabelId}) => {
-  const onCloseClick = useCallback(() => {
-    onClose('close-button')
-  }, [onClose])
-
-  return (
-    <div className={classes.ConfirmationHeader}>
-      <Heading id={dialogLabelId} as="h1" variant="small">
-        {title}
-      </Heading>
-      <Dialog.CloseButton onClose={onCloseClick} />
-    </div>
-  )
-}
-
-const ConfirmationBody: React.FC<React.PropsWithChildren<DialogProps>> = ({children}) => {
-  return <div className={classes.ConfirmationBody}>{children}</div>
-}
-
-const ConfirmationFooter: React.FC<React.PropsWithChildren<DialogProps>> = ({footerButtons}) => {
-  const {containerRef: footerRef} = useFocusZone({
-    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.Tab,
-    focusInStrategy: 'closest',
-  })
-
-  // Must have exactly 2 buttons!
-  return (
-    <div ref={footerRef as React.RefObject<HTMLDivElement>} className={classes.ConfirmationFooter}>
-      <Dialog.Buttons buttons={footerButtons ?? []} />
-    </div>
-  )
-}
-
 /**
  * A ConfirmationDialog is a special kind of dialog with more rigid behavior. It
  * is used to confirm a user action. ConfirmationDialogs always have exactly
@@ -168,9 +131,6 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
       width={width}
       height={height}
       className={className}
-      renderHeader={ConfirmationHeader}
-      renderBody={ConfirmationBody}
-      renderFooter={ConfirmationFooter}
     >
       {children}
     </Dialog>
