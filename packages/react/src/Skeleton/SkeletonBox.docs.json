@@ -25,7 +25,7 @@
       "name": "height",
       "defaultValue": "1rem",
       "type": "string",
-      "description": "Height of the skeleton box. Accepts any valid CSS `height` value."
+      "description": "Height of the skeleton box. test 123 Accepts any valid CSS `height` value."
     },
     {
       "name": "className",
