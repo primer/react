@@ -10,8 +10,8 @@ export type SkeletonBoxProps = {
   width?: CSSProperties['width']
   /** The className of the skeleton box */
   className?: string
-  /** Controls whether and how long to delay rendering the SkeletonBox. Set to true to delay by 1000ms, or provide a custom number of milliseconds.*/
-  delay?: boolean | number
+  /** Controls whether and how long to delay rendering the SkeletonBox. Set to 'short' to delay by 300ms, 'long' to delay by 1000ms, or provide a custom number of milliseconds.*/
+  delay?: 'short' | 'long' | number
 } & HTMLProps<HTMLElement>
 
 export const SkeletonBox = React.forwardRef<HTMLElement, SkeletonBoxProps>(function SkeletonBox(
@@ -26,7 +26,7 @@ export const SkeletonBox = React.forwardRef<HTMLElement, SkeletonBoxProps>(funct
         () => {
           setIsVisible(true)
         },
-        typeof delay === 'number' ? delay : 1000,
+        typeof delay === 'number' ? delay : delay === 'short' ? 300 : 1000,
       )
 
       return () => clearTimeout(timeoutId)
