@@ -46,7 +46,7 @@ function Spinner({
 
   useEffect(() => {
     if (delay) {
-      let delayDuration = typeof delay === 'number' ? delay : delay === 'short' ? 300 : 1000
+      const delayDuration = typeof delay === 'number' ? delay : delay === 'short' ? 300 : 1000
       const timeoutId = setTimeout(() => {
         setIsVisible(true)
       }, delayDuration)
