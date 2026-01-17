@@ -33,9 +33,9 @@
     },
     {
       "defaultValue": "false",
-      "description": "Controls whether and how long to delay rendering the spinner. Set to `true` to delay by 1000ms, or provide a custom number of milliseconds.",
+      "description": "Controls whether and how long to delay rendering the spinner. Set to `true` to delay by 1000ms, `'short'` to delay by 300ms, `'long'` to delay by 1000ms, or provide a custom number of milliseconds.",
       "name": "delay",
-      "type": "boolean | number"
+      "type": "boolean | 'short' | 'long' | number"
     }
   ],
   "status": "alpha",
