@@ -11,4 +11,4 @@ export const CustomHeight = () => <SkeletonBox height="4rem" />
 
 export const CustomWidth = () => <SkeletonBox width="300px" />
 
-export const WithDelay = () => <SkeletonBox delay />
+export const WithDelay = () => <SkeletonBox delay="long" />
