@@ -1,6 +1,5 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import {createPortal} from 'react-dom'
-import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 const PRIMER_PORTAL_ROOT_ID = '__primerPortalRoot__'
 const DEFAULT_PORTAL_CONTAINER_NAME = '__default__'
@@ -75,20 +74,24 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
   containerName: _containerName,
 }) => {
   const {portalContainerName} = useContext(PortalContext)
-  const elementRef = React.useRef<HTMLDivElement | null>(null)
-  if (!elementRef.current) {
+  const [element, setElement] = useState<HTMLElement | null>(null)
+
+  const onMountRef = React.useRef(onMount)
+  useEffect(() => {
+    onMountRef.current = onMount
+  })
+
+  useEffect(() => {
+    // Create portal element on mount
     const div = document.createElement('div')
     // Portaled content should get their own stacking context so they don't interfere
     // with each other in unexpected ways. One should never find themselves tempted
     // to change the zIndex to a value other than "1".
     div.style.position = 'relative'
     div.style.zIndex = '1'
-    elementRef.current = div
-  }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setElement(div)
 
-  const element = elementRef.current
-
-  useLayoutEffect(() => {
     let containerName = _containerName ?? portalContainerName
     if (containerName === undefined) {
       containerName = DEFAULT_PORTAL_CONTAINER_NAME
@@ -101,14 +104,20 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
         `Portal container '${containerName}' is not yet registered. Container must be registered with registerPortalRoot before use.`,
       )
     }
-    parentElement.appendChild(element)
-    onMount?.()
+    parentElement.appendChild(div)
+    onMountRef.current?.()
 
     return () => {
-      parentElement.removeChild(element)
+      parentElement.removeChild(div)
+      setElement(null)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [element, _containerName, portalContainerName])
+  }, [_containerName, portalContainerName])
+
+  // During SSR and initial client render, return null to match server output.
+  // After mount, the portal element is created and we can render children into it.
+  if (!element) {
+    return null
+  }
 
   return createPortal(children, element)
 }

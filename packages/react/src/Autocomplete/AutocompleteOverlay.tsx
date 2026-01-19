@@ -63,9 +63,8 @@ function AutocompleteOverlay({
     setShowMenu(false)
   }, [setShowMenu])
 
-  if (typeof window === 'undefined') {
-    return null
-  }
+  // Note: Overlay uses Portal which requires DOM, but it's only rendered when showMenu is true.
+  // When showMenu is false, we safely render VisuallyHidden which doesn't require DOM.
 
   return showMenu ? (
     <Overlay

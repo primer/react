@@ -147,6 +147,10 @@ export function useColorSchemeVar(values: Partial<Record<string, string>>, fallb
 }
 
 function useSystemColorMode() {
+  // NOTE: Hydration consideration - useState initializer reads matchMedia which
+  // can differ between server and client. This is intentional; ThemeProvider has
+  // a `preventSSRMismatch` prop that passes resolved server state to client via
+  // a script tag to handle this case. Without it, color mode changes post-hydration.
   const [systemColorMode, setSystemColorMode] = React.useState(getSystemColorMode)
 
   React.useEffect(() => {
