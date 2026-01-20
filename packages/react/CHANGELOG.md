@@ -12,6 +12,8 @@
 
 - [#7427](https://github.com/primer/react/pull/7427) [`4bb6620`](https://github.com/primer/react/commit/4bb66203f0e6cd5d717b27d591ec5df169c1ad1a) Thanks [@barmo](https://github.com/barmo)! - Change actionlist item inline description styling from flex to block to fix overflow
 
+- [#7451](https://github.com/primer/react/pull/7451) [`0fc4523`](https://github.com/primer/react/commit/0fc45237ef3f912c86663817eb8983875b4c8d7e) Thanks [@daantosaurus](https://github.com/daantosaurus)! - UnderlineNav.Item: Fix layout issues when children contain React elements by extracting only direct text content for the `data-content` attribute.
+
 ## 38.7.1
 
 ### Patch Changes
