@@ -1,5 +1,19 @@
 # @primer/react
 
+## 38.8.0
+
+### Minor Changes
+
+- [#7455](https://github.com/primer/react/pull/7455) [`a86c183`](https://github.com/primer/react/commit/a86c183f5ea7add7584f895cff3027a7db35675e) Thanks [@HiroAgustin](https://github.com/HiroAgustin)! - Remove ConfirmationDialog custom renders to ensure visual parity with Dialog
+
+- [#7436](https://github.com/primer/react/pull/7436) [`9a4e46c`](https://github.com/primer/react/commit/9a4e46cf902a5c2e046ca7771211536ae0bd08ed) Thanks [@TylerJDev](https://github.com/TylerJDev)! - FilteredActionList: Adds new prop `scrollBehavior` to allow customization of scroll behavior
+
+### Patch Changes
+
+- [#7427](https://github.com/primer/react/pull/7427) [`4bb6620`](https://github.com/primer/react/commit/4bb66203f0e6cd5d717b27d591ec5df169c1ad1a) Thanks [@barmo](https://github.com/barmo)! - Change actionlist item inline description styling from flex to block to fix overflow
+
+- [#7462](https://github.com/primer/react/pull/7462) [`5579c9b`](https://github.com/primer/react/commit/5579c9b0298091ba83c3ea1957ff5878651cc9a8) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - UnderlineNav.Item: Fix layout issues when children contain React elements by extracting only direct text content for the `data-content` attribute [#7451](https://github.com/primer/react/pull/7451)
+
 ## 38.7.1
 
 ### Patch Changes
