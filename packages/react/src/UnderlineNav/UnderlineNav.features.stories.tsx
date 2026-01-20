@@ -168,7 +168,7 @@ export const WithPopover = () => {
       <UnderlineNav.Item href="#security" leadingVisual={<ShieldLockIcon />} counter={12}>
         Security
         <Popover
-          open={true}
+          open
           style={{
             left: '50%',
             transform: 'translateX(-50%)',
