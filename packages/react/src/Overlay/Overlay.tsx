@@ -1,11 +1,11 @@
 import type {ComponentPropsWithRef, ReactElement} from 'react'
 import React, {useEffect, useRef} from 'react'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import {iterateFocusableElements} from '@primer/behaviors/utils'
 import type {AriaRole, Merge} from '../utils/types'
 import type {TouchOrMouseEvent} from '../hooks'
 import {useOverlay} from '../hooks'
 import Portal from '../Portal'
-import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import type {AnchorSide} from '@primer/behaviors'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {useFeatureFlag} from '../FeatureFlags'
@@ -190,8 +190,42 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     forwardedRef,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
-    const overlayRef = useRef<HTMLDivElement>(null)
-    useRefObjectAsForwardedRef(forwardedRef, overlayRef)
+    const overlayRef = useRef<HTMLDivElement | null>(null)
+    // Track if we've already handled initial focus to avoid double-focusing
+    const hasInitialFocusRef = useRef(false)
+    // Use a callback ref to sync both overlayRef and forwardedRef immediately when element mounts.
+    // This is needed because Portal may delay mounting the element.
+    // We also handle initial focus here since useOpenAndCloseFocus's effect runs before
+    // the Portal creates the element, so containerRef.current is null when it first runs.
+    const setRef = React.useCallback(
+      (node: HTMLDivElement | null) => {
+        overlayRef.current = node
+        if (typeof forwardedRef === 'function') {
+          forwardedRef(node)
+        } else if (forwardedRef) {
+          forwardedRef.current = node
+        }
+
+        // Handle initial focus when element mounts (for async Portal)
+        // Schedule for next tick so inner content elements (like inputs) are rendered
+        if (node && !preventFocusOnOpen && !hasInitialFocusRef.current) {
+          hasInitialFocusRef.current = true
+          setTimeout(() => {
+            if (initialFocusRef?.current) {
+              initialFocusRef.current.focus()
+            } else {
+              const firstItem = iterateFocusableElements(node).next().value
+              firstItem?.focus()
+            }
+          }, 0)
+        }
+        // Reset when unmounting
+        if (!node) {
+          hasInitialFocusRef.current = false
+        }
+      },
+      [forwardedRef, preventFocusOnOpen, initialFocusRef],
+    )
     const slideAnimationDistance = 8 // var(--base-size-8), hardcoded to do some math
     const slideAnimationEasing = 'cubic-bezier(0.33, 1, 0.68, 1)'
 
@@ -237,7 +271,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
           role={role}
           width={width}
           data-reflow-container={overflowEnabled || !preventOverflow ? true : undefined}
-          ref={overlayRef}
+          ref={setRef}
           left={leftPosition}
           right={right}
           height={height}

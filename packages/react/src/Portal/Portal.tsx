@@ -1,5 +1,6 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useContext, useState} from 'react'
 import {createPortal} from 'react-dom'
+import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 const PRIMER_PORTAL_ROOT_ID = '__primerPortalRoot__'
 const DEFAULT_PORTAL_CONTAINER_NAME = '__default__'
@@ -74,23 +75,24 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
   containerName: _containerName,
 }) => {
   const {portalContainerName} = useContext(PortalContext)
-  const [element, setElement] = useState<HTMLElement | null>(null)
+  const [element, setElement] = useState<HTMLDivElement | null>(null)
 
+  // Store onMount in ref to avoid re-running effect when callback changes
   const onMountRef = React.useRef(onMount)
-  useEffect(() => {
+  useLayoutEffect(() => {
     onMountRef.current = onMount
   })
 
-  useEffect(() => {
-    // Create portal element on mount
+  // Create and attach portal element in useLayoutEffect for SSR safety.
+  // useLayoutEffect runs synchronously after DOM mutations but before paint,
+  // minimizing visual flicker while avoiding hydration mismatches.
+  useLayoutEffect(() => {
     const div = document.createElement('div')
     // Portaled content should get their own stacking context so they don't interfere
     // with each other in unexpected ways. One should never find themselves tempted
     // to change the zIndex to a value other than "1".
     div.style.position = 'relative'
     div.style.zIndex = '1'
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setElement(div)
 
     let containerName = _containerName ?? portalContainerName
     if (containerName === undefined) {
@@ -105,16 +107,15 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
       )
     }
     parentElement.appendChild(div)
+    setElement(div)
     onMountRef.current?.()
 
     return () => {
       parentElement.removeChild(div)
-      setElement(null)
     }
   }, [_containerName, portalContainerName])
 
-  // During SSR and initial client render, return null to match server output.
-  // After mount, the portal element is created and we can render children into it.
+  // Return null on server or before effect runs
   if (!element) {
     return null
   }

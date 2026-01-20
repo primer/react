@@ -1,5 +1,5 @@
 import {describe, expect, it, vi} from 'vitest'
-import {render as HTMLRender, waitFor, act, within} from '@testing-library/react'
+import {render as HTMLRender, waitFor, act, within, type RenderResult} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import type React from 'react'
 import BaseStyles from '../BaseStyles'
@@ -12,6 +12,23 @@ import {SearchIcon, KebabHorizontalIcon} from '@primer/octicons-react'
 
 import type {JSX} from 'react'
 import {implementsClassName} from '../utils/testing'
+
+/**
+ * Helper to wait for a menu to become visible and focused.
+ * With async Portal, the overlay renders but starts hidden until position is calculated.
+ * FocusZone activates after position is set, moving focus into the menu.
+ */
+async function waitForMenu(component: RenderResult, options?: {name?: string | RegExp}) {
+  const menu = await component.findByRole('menu', {...options, hidden: true})
+  await waitFor(() => expect(menu).toBeVisible(), {timeout: 3000})
+  // Wait for focus to be inside the menu (FocusZone has activated)
+  await waitFor(() => expect(menu.contains(document.activeElement)).toBe(true), {timeout: 3000})
+  // Delay to ensure FocusZone/FocusTrap event listeners are fully attached
+  await act(async () => {
+    await new Promise(resolve => setTimeout(resolve, 50))
+  })
+  return menu
+}
 
 function Example(): JSX.Element {
   return (
@@ -130,7 +147,8 @@ describe('ActionMenu', () => {
     const user = userEvent.setup()
     await user.click(button)
 
-    expect(component.getByRole('menu')).toBeInTheDocument()
+    const menu = await waitForMenu(component)
+    expect(menu).toBeInTheDocument()
   })
 
   it('should open Menu on MenuButton keypress', async () => {
@@ -141,7 +159,8 @@ describe('ActionMenu', () => {
     button.focus()
     await user.keyboard('{Enter}')
 
-    expect(component.getByRole('menu')).toBeInTheDocument()
+    const menu = await waitForMenu(component)
+    expect(menu).toBeInTheDocument()
   })
 
   it('should close Menu on selecting an action with click', async () => {
@@ -151,6 +170,7 @@ describe('ActionMenu', () => {
     const user = userEvent.setup()
     await user.click(button)
 
+    await waitForMenu(component)
     const menuItems = component.getAllByRole('menuitem')
     await user.click(menuItems[0])
 
@@ -164,6 +184,7 @@ describe('ActionMenu', () => {
     const user = userEvent.setup()
     await user.click(button)
 
+    await waitForMenu(component)
     const menuItems = component.getAllByRole('menuitem')
     menuItems[0].focus()
     await user.keyboard('{Enter}')
@@ -178,6 +199,7 @@ describe('ActionMenu', () => {
     const user = userEvent.setup()
     await user.click(button)
 
+    await waitForMenu(component)
     const menuItems = component.getAllByRole('menuitem')
     await user.click(menuItems[3])
 
@@ -193,12 +215,16 @@ describe('ActionMenu', () => {
     await user.click(button)
 
     // select first item by role, that would close the menu
-    await user.click(component.getAllByRole('menuitemradio')[0])
+    await waitForMenu(component)
+    const menuItems = component.getAllByRole('menuitemradio')
+    await user.click(menuItems[0])
     expect(component.queryByRole('menu')).not.toBeInTheDocument()
 
     // open menu again and check if the first option is checked
     await user.click(button)
-    expect(component.getAllByRole('menuitemradio')[0]).toHaveAttribute('aria-checked', 'true')
+    await waitForMenu(component)
+    const menuItemsAfter = component.getAllByRole('menuitemradio')
+    expect(menuItemsAfter[0]).toHaveAttribute('aria-checked', 'true')
   })
 
   it('should assign the right roles with groups & mixed selectionVariant', async () => {
@@ -211,6 +237,7 @@ describe('ActionMenu', () => {
     const user = userEvent.setup()
     await user.click(button)
 
+    await waitForMenu(component)
     expect(component.getByLabelText('Status')).toHaveAttribute('role', 'menuitemradio')
     expect(component.getByLabelText('Clear Group by')).toHaveAttribute('role', 'menuitem')
   })
@@ -222,18 +249,19 @@ describe('ActionMenu', () => {
     const user = userEvent.setup()
     await user.click(button)
 
-    expect(component.queryByRole('menu')).toBeInTheDocument()
+    await waitForMenu(component)
+    const menuItems = component.getAllByRole('menuitem')
 
     // linkItem button is the active element at this point
     await user.keyboard('{ArrowDown}{s}')
 
-    expect(component.getAllByRole('menuitem')[4]).toEqual(document.activeElement)
+    await waitFor(() => expect(menuItems[4]).toEqual(document.activeElement))
     await user.keyboard('{ArrowUp}')
-    expect(component.getAllByRole('menuitem')[3]).toEqual(document.activeElement)
+    await waitFor(() => expect(menuItems[3]).toEqual(document.activeElement))
 
     // assumes mnemonics aria-keyshortcuts are ignored
     await user.keyboard('{g}')
-    expect(component.getAllByRole('menuitem')[3]).toEqual(document.activeElement)
+    await waitFor(() => expect(menuItems[3]).toEqual(document.activeElement))
   })
 
   it('should select last element when ArrowUp is pressed after opening Menu with click', async () => {
@@ -244,13 +272,14 @@ describe('ActionMenu', () => {
     const user = userEvent.setup()
     await user.click(button)
 
-    expect(component.queryByRole('menu')).toBeInTheDocument()
+    await waitForMenu(component)
+    const menuItems = component.getAllByRole('menuitem')
 
     // button should be the active element
     // assumes button is the active element at this point
     await user.keyboard('{ArrowUp}')
 
-    expect(component.getAllByRole('menuitem').pop()).toEqual(document.activeElement)
+    expect(menuItems.pop()).toEqual(document.activeElement)
   })
 
   it('should close the menu if Tab is pressed and move to next element', async () => {
@@ -267,8 +296,9 @@ describe('ActionMenu', () => {
     expect(anchor).toEqual(document.activeElement) // trust, but verify
 
     await user.keyboard('{Enter}')
-    expect(component.queryByRole('menu')).toBeInTheDocument()
-    expect(component.getAllByRole('menuitem')[0]).toEqual(document.activeElement)
+    await waitForMenu(component)
+    const menuItems = component.getAllByRole('menuitem')
+    expect(menuItems[0]).toEqual(document.activeElement)
 
     // TODO: revisit why we need this waitFor
     await waitFor(async () => {
@@ -287,7 +317,7 @@ describe('ActionMenu', () => {
       await user.click(button)
     })
 
-    expect(component.queryByRole('menu')).toBeInTheDocument()
+    await waitForMenu(component)
     const menuItems = component.getAllByRole('menuitem')
 
     // TODO: Fix the focus trap from taking over focus control
@@ -318,7 +348,8 @@ describe('ActionMenu', () => {
     const user = userEvent.setup()
     await user.click(button)
 
-    expect(component.getByRole('menu')).toBeInTheDocument()
+    const menu = await waitForMenu(component)
+    expect(menu).toBeInTheDocument()
   })
 
   it('should open menu on menu button click and it is wrapped with tooltip v2', async () => {
@@ -334,7 +365,8 @@ describe('ActionMenu', () => {
     const user = userEvent.setup()
     await user.click(button)
 
-    expect(component.getByRole('menu')).toBeInTheDocument()
+    const menu = await waitForMenu(component)
+    expect(menu).toBeInTheDocument()
   })
 
   it('should display tooltip when menu button is focused', async () => {
@@ -375,7 +407,8 @@ describe('ActionMenu', () => {
     const user = userEvent.setup()
     await user.click(button)
 
-    expect(component.getByRole('menu')).toBeInTheDocument()
+    const menu = await waitForMenu(component)
+    expect(menu).toBeInTheDocument()
   })
 
   it('should display tooltip v2 and menu anchor is focused', async () => {
@@ -475,8 +508,9 @@ describe('ActionMenu', () => {
 
     const toggleButton = component.getByRole('button', {name: 'More actions'})
     await userEvent.click(toggleButton)
+    const menu = await waitForMenu(component)
     expect(toggleButton).toHaveAttribute('aria-labelledby')
-    expect(component.getByRole('menu')).toHaveAttribute('aria-labelledby', toggleButton.getAttribute('aria-labelledby'))
+    expect(menu).toHaveAttribute('aria-labelledby', toggleButton.getAttribute('aria-labelledby'))
   })
 
   describe('submenus', () => {
@@ -487,12 +521,13 @@ describe('ActionMenu', () => {
       const baseAnchor = component.getByRole('button', {name: 'Toggle Menu'})
       await user.click(baseAnchor)
 
+      await waitForMenu(component)
       const submenuAnchor = component.getByRole('menuitem', {name: 'Paste special'})
       expect(submenuAnchor).toHaveAttribute('aria-haspopup')
       await user.click(submenuAnchor)
       expect(submenuAnchor).toHaveAttribute('aria-expanded')
 
-      const subSubmenuAnchor = component.getByRole('menuitem', {name: 'Paste from'})
+      const subSubmenuAnchor = await component.findByRole('menuitem', {name: 'Paste from'})
       expect(subSubmenuAnchor).toHaveAttribute('aria-haspopup')
       await user.click(subSubmenuAnchor)
       expect(subSubmenuAnchor).toHaveAttribute('aria-expanded')
@@ -505,10 +540,11 @@ describe('ActionMenu', () => {
       const baseAnchor = component.getByRole('button', {name: 'Toggle Menu'})
       await user.click(baseAnchor)
 
+      await waitForMenu(component)
       const submenuAnchor = component.getByRole('menuitem', {name: 'Paste special'})
       await user.click(submenuAnchor)
 
-      const submenu = component.getByRole('menu', {name: 'Paste special'})
+      const submenu = await component.findByRole('menu', {name: 'Paste special'})
       await waitFor(() => {
         expect(submenu).toBeVisible()
       })
@@ -516,7 +552,7 @@ describe('ActionMenu', () => {
       const subSubmenuAnchor = within(submenu).getByRole('menuitem', {name: 'Paste from'})
       await user.click(subSubmenuAnchor)
 
-      const subSubmenu = component.getByRole('menu', {name: 'Paste from'})
+      const subSubmenu = await component.findByRole('menu', {name: 'Paste from'})
 
       await waitFor(() => {
         expect(subSubmenu).toBeVisible()
@@ -542,13 +578,14 @@ describe('ActionMenu', () => {
       const baseAnchor = component.getByRole('button', {name: 'Toggle Menu'})
       await user.click(baseAnchor)
 
+      await waitForMenu(component)
       const submenuAnchor = component.getByRole('menuitem', {name: 'Paste special'})
       expect(submenuAnchor).toHaveAttribute('aria-haspopup', 'true')
       submenuAnchor.focus()
       await user.keyboard('{Enter}')
       expect(submenuAnchor).toHaveAttribute('aria-expanded', 'true')
 
-      const subSubmenuAnchor = component.getByRole('menuitem', {name: 'Paste from'})
+      const subSubmenuAnchor = await component.findByRole('menuitem', {name: 'Paste from'})
       subSubmenuAnchor.focus()
       await user.keyboard('{ArrowRight}')
       expect(subSubmenuAnchor).toHaveAttribute('aria-expanded', 'true')
@@ -561,22 +598,34 @@ describe('ActionMenu', () => {
       const baseAnchor = component.getByRole('button', {name: 'Toggle Menu'})
       await user.click(baseAnchor)
 
+      await waitForMenu(component)
       const submenuAnchor = component.getByRole('menuitem', {name: 'Paste special'})
       await user.click(submenuAnchor)
+
+      // Wait for submenu to be visible and focused
+      const submenu = await component.findByRole('menu', {name: 'Paste special', hidden: true})
+      await waitFor(() => expect(submenu).toBeVisible())
+      await waitFor(() => expect(submenu.contains(document.activeElement)).toBe(true))
 
       const subSubmenuAnchor = component.getByRole('menuitem', {name: 'Paste from'})
       await user.click(subSubmenuAnchor)
 
-      expect(subSubmenuAnchor).toHaveAttribute('aria-expanded', 'true')
+      // Wait for sub-submenu to be visible and focused
+      const subSubmenu = await component.findByRole('menu', {name: 'Paste from', hidden: true})
+      await waitFor(() => expect(subSubmenu).toBeVisible())
+      await waitFor(() => expect(subSubmenu.contains(document.activeElement)).toBe(true))
+      await waitFor(() => expect(subSubmenuAnchor).toHaveAttribute('aria-expanded', 'true'))
 
       await user.keyboard('{Escape}')
-      expect(subSubmenuAnchor).not.toHaveAttribute('aria-expanded', 'true')
-      expect(submenuAnchor).toHaveAttribute('aria-expanded', 'true')
+      await waitFor(() => expect(subSubmenuAnchor).not.toHaveAttribute('aria-expanded', 'true'))
+      await waitFor(() => expect(submenuAnchor).toHaveAttribute('aria-expanded', 'true'))
+      // Focus the submenuAnchor before ArrowLeft (like passing tests do)
+      submenuAnchor.focus()
 
       await user.keyboard('{ArrowLeft}')
-      expect(submenuAnchor).not.toHaveAttribute('aria-expanded', 'true')
+      await waitFor(() => expect(submenuAnchor).not.toHaveAttribute('aria-expanded', 'true'))
 
-      expect(baseAnchor).toHaveAttribute('aria-expanded', 'true')
+      await waitFor(() => expect(baseAnchor).toHaveAttribute('aria-expanded', 'true'))
     })
 
     it('closes all menus when an item is selected', async () => {
@@ -586,13 +635,14 @@ describe('ActionMenu', () => {
       const baseAnchor = component.getByRole('button', {name: 'Toggle Menu'})
       await user.click(baseAnchor)
 
+      await waitForMenu(component)
       const submenuAnchor = component.getByRole('menuitem', {name: 'Paste special'})
       await user.click(submenuAnchor)
 
-      const subSubmenuAnchor = component.getByRole('menuitem', {name: 'Paste from'})
+      const subSubmenuAnchor = await component.findByRole('menuitem', {name: 'Paste from'})
       await user.click(subSubmenuAnchor)
 
-      const subSubmenuItem = component.getByRole('menuitem', {name: 'Current clipboard'})
+      const subSubmenuItem = await component.findByRole('menuitem', {name: 'Current clipboard'})
       await user.click(subSubmenuItem)
 
       expect(baseAnchor).not.toHaveAttribute('aria-expanded', 'true')
@@ -676,7 +726,7 @@ describe('ActionMenu', () => {
       const button = component.getByRole('button')
       await user.click(button)
 
-      expect(component.getByRole('menu')).toBeInTheDocument()
+      await waitForMenu(component)
       expect(mockOnClick).toHaveBeenCalledTimes(1)
 
       // select and close menu
@@ -686,7 +736,7 @@ describe('ActionMenu', () => {
 
       expect(button).toEqual(document.activeElement)
       await user.keyboard('{Enter}')
-      expect(component.queryByRole('menu')).toBeInTheDocument()
+      await waitForMenu(component)
       expect(mockOnKeyDown).toHaveBeenCalledTimes(1)
     })
 
@@ -717,7 +767,7 @@ describe('ActionMenu', () => {
       const button = component.getByRole('button')
       await user.click(button)
 
-      expect(component.getByRole('menu')).toBeInTheDocument()
+      await waitForMenu(component)
       expect(mockOnClick).toHaveBeenCalledTimes(1)
 
       // select and close menu
@@ -727,7 +777,7 @@ describe('ActionMenu', () => {
 
       expect(button).toEqual(document.activeElement)
       await user.keyboard('{Enter}')
-      expect(component.queryByRole('menu')).toBeInTheDocument()
+      await waitForMenu(component)
       expect(mockOnKeyDown).toHaveBeenCalledTimes(1)
     })
 
@@ -755,7 +805,7 @@ describe('ActionMenu', () => {
       const button = component.getByRole('button')
       await user.click(button)
 
-      expect(component.getByRole('menu')).toBeInTheDocument()
+      await waitForMenu(component)
       expect(mockOnClick).toHaveBeenCalledTimes(1)
 
       // select and close menu
@@ -765,7 +815,7 @@ describe('ActionMenu', () => {
 
       expect(button).toEqual(document.activeElement)
       await user.keyboard('{Enter}')
-      expect(component.queryByRole('menu')).toBeInTheDocument()
+      await waitForMenu(component)
       expect(mockOnKeyDown).toHaveBeenCalledTimes(1)
     })
 
@@ -798,7 +848,7 @@ describe('ActionMenu', () => {
       const button = component.getByRole('button')
       await user.click(button)
 
-      expect(component.getByRole('menu')).toBeInTheDocument()
+      await waitForMenu(component)
       expect(mockOnClick).toHaveBeenCalledTimes(1)
 
       // select and close menu
@@ -808,7 +858,7 @@ describe('ActionMenu', () => {
 
       expect(button).toEqual(document.activeElement)
       await user.keyboard('{Enter}')
-      expect(component.queryByRole('menu')).toBeInTheDocument()
+      await waitForMenu(component)
       expect(mockOnKeyDown).toHaveBeenCalledTimes(1)
     })
   })

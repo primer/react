@@ -270,7 +270,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       )
 
       await user.click(screen.getByText('Select items'))
-      expect(screen.getByLabelText('Filter items')).toHaveFocus()
+      await waitFor(() => expect(screen.getByLabelText('Filter items')).toHaveFocus(), {timeout: 3000})
     })
 
     describe('selection', () => {
@@ -753,9 +753,11 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         renderWithProp(<SelectPanelWithNotice />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
-        expect(screen.getByLabelText('Filter items')).toHaveFocus()
+        await waitFor(() => expect(screen.getByLabelText('Filter items')).toHaveFocus(), {timeout: 3000})
 
-        expect(getLiveRegion().getMessage('polite')?.trim()).toContain('This is a notice')
+        await waitFor(() => expect(getLiveRegion().getMessage('polite')?.trim()).toContain('This is a notice'), {
+          timeout: 3000,
+        })
       })
 
       it('should announce filtered results', async () => {
@@ -763,7 +765,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         renderWithProp(<FilterableSelectPanel />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
-        expect(screen.getByLabelText('Filter items')).toHaveFocus()
+        await waitFor(() => expect(screen.getByLabelText('Filter items')).toHaveFocus(), {timeout: 3000})
 
         await waitFor(
           async () => {

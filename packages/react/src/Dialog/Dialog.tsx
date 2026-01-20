@@ -2,10 +2,9 @@ import React, {useCallback, useEffect, useRef, useState, type SyntheticEvent} fr
 import type {ButtonProps} from '../Button'
 import {Button, IconButton} from '../Button'
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
-import {useFocusTrap} from '../hooks/useFocusTrap'
 import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
-import {FocusKeys} from '@primer/behaviors'
+import {FocusKeys, focusTrap} from '@primer/behaviors'
 import Portal from '../Portal'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {useId} from '../hooks/useId'
@@ -270,16 +269,41 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     footer: Dialog.Footer,
   })
 
-  const dialogRef = useRef<HTMLDivElement>(null)
+  const dialogRef = useRef<HTMLDivElement | null>(null)
   useRefObjectAsForwardedRef(forwardedRef, dialogRef)
   const backdropRef = useRef<HTMLDivElement>(null)
+  const hasInitialFocusRef = useRef(false)
+  const focusTrapAbortRef = useRef<AbortController | null>(null)
+  const previousFocusRef = useRef<HTMLElement | null>(null) as React.MutableRefObject<HTMLElement | null>
+  const [dialogMounted, setDialogMounted] = useState(false)
 
-  useFocusTrap({
-    containerRef: dialogRef,
-    initialFocusRef: initialFocusRef ?? autoFocusedFooterButtonRef,
-    restoreFocusOnCleanUp: returnFocusRef?.current ? false : true,
-    returnFocusRef,
-  })
+  // Callback ref to handle focus when element mounts (for async Portal timing)
+  const setDialogRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      dialogRef.current = node
+      setDialogMounted(!!node)
+      if (node && !hasInitialFocusRef.current) {
+        hasInitialFocusRef.current = true
+        // Save previously focused element for return focus
+        previousFocusRef.current = document.activeElement as HTMLElement
+        const finalInitialFocusRef = initialFocusRef ?? autoFocusedFooterButtonRef
+        // Initialize focus trap - handles both initial focus and keyboard trapping
+        focusTrapAbortRef.current = focusTrap(node, finalInitialFocusRef?.current ?? undefined) ?? null
+      }
+      if (!node) {
+        hasInitialFocusRef.current = false
+        // Cleanup focus trap and handle return focus
+        focusTrapAbortRef.current?.abort()
+        if (returnFocusRef?.current instanceof HTMLElement) {
+          returnFocusRef.current.focus()
+        } else if (previousFocusRef.current instanceof HTMLElement) {
+          previousFocusRef.current.focus()
+        }
+        previousFocusRef.current = null
+      }
+    },
+    [initialFocusRef, autoFocusedFooterButtonRef, returnFocusRef],
+  )
 
   useOnEscapePress(
     (event: KeyboardEvent) => {
@@ -290,6 +314,8 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   )
 
   React.useEffect(() => {
+    if (!dialogMounted) return
+
     const scrollbarWidth = window.innerWidth - document.body.clientWidth
     const dialog = dialogRef.current
     const usePerfOptimization = document.body.hasAttribute('data-dialog-scroll-optimized')
@@ -316,7 +342,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
         }
       }
     }
-  }, [])
+  }, [dialogMounted])
 
   const header = slots.header ?? (renderHeader ?? DefaultHeader)(defaultedProps)
   const body = slots.body ?? (renderBody ?? DefaultBody)({...defaultedProps, children: childrenWithoutSlots})
@@ -343,7 +369,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           }}
         >
           <div
-            ref={dialogRef}
+            ref={setDialogRef}
             role={role}
             aria-labelledby={dialogLabelId}
             aria-describedby={dialogDescriptionId}

@@ -35,6 +35,9 @@ test.describe('ConfirmationDialog', () => {
               args: {open: true},
             })
 
+            // Wait for dialog to be visible
+            await page.locator('role=dialog').waitFor({state: 'visible'})
+
             // Default state
             expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
               `ConfirmationDialog.${story.title}.${theme}.png`,
