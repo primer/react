@@ -15,7 +15,7 @@ export type SkeletonBoxProps = {
 } & HTMLProps<HTMLElement>
 
 export const SkeletonBox = React.forwardRef<HTMLElement, SkeletonBoxProps>(function SkeletonBox(
-  {height, width, className, style, delay = false, ...props},
+  {height, width, className, style, delay, ...props},
   ref,
 ) {
   const [isVisible, setIsVisible] = useState(!delay)
