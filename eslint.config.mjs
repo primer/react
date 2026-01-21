@@ -334,9 +334,35 @@ const config = defineConfig([
     files: [
       'packages/postcss-preset-primer/**/**.{ts,tsx,mts,mtsx,cjs,js,mjs}',
       'packages/rollup-plugin-import-css/**/**.{ts,tsx,mts,mtsx,cjs,js,mjs}',
+      'packages/eslint-plugin-primer-react/**/**.{ts,tsx,mts,mtsx,cjs,js,mjs}',
     ],
     rules: {
       'import/no-nodejs-modules': 'off',
+      '@typescript-eslint/no-require-imports': 'off',
+      'import/no-commonjs': 'off',
+    },
+  },
+
+  // eslint-plugin-primer-react rules and tests contain JSX examples that should not be linted
+  {
+    files: ['packages/eslint-plugin-primer-react/src/rules/**/*.{js,ts}'],
+    rules: {
+      'github/unescaped-html-literal': 'off',
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+    },
+  },
+
+  // eslint-plugin-primer-react test files use Jest globals
+  {
+    files: ['packages/eslint-plugin-primer-react/src/**/__tests__/**/*.{js,ts}'],
+    languageOptions: {
+      globals: {
+        describe: 'readonly',
+        it: 'readonly',
+        expect: 'readonly',
+        jest: 'readonly',
+      },
     },
   },
 
