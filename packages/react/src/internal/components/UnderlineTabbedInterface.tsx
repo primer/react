@@ -1,11 +1,12 @@
 // Used for UnderlineNav and UnderlinePanels components
 
-import React from 'react'
+import React, {useState} from 'react'
 import {type ForwardedRef, forwardRef, type FC, type PropsWithChildren, type ElementType} from 'react'
 import {isElement} from 'react-is'
 import type {IconProps} from '@primer/octicons-react'
 import CounterLabel from '../../CounterLabel'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../utils/polymorphic'
+import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 
 import classes from './UnderlineTabbedInterface.module.css'
 import {clsx} from 'clsx'
@@ -22,10 +23,19 @@ type UnderlineWrapperProps<As extends React.ElementType> = {
 
 export const UnderlineWrapper = forwardRef((props, ref) => {
   const {children, className, as: Component = 'div', ...rest} = props
+  // Track hydration state: true on server and initial client render, false after hydration
+  const [isSSR, setIsSSR] = useState(true)
+
+  useIsomorphicLayoutEffect(() => {
+    // After hydration, allow overflow to be visible
+    setIsSSR(false)
+  }, [])
+
   return (
     <Component
       className={clsx(classes.UnderlineWrapper, className)}
       ref={ref as ForwardedRef<HTMLDivElement>}
+      data-ssr-hidden={isSSR ? 'true' : 'false'}
       {...rest}
     >
       {children}
