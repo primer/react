@@ -1,0 +1,43 @@
+{
+  "name": "eslint-plugin-primer-react",
+  "version": "8.5.0",
+  "description": "ESLint rules for Primer React",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/primer/react.git"
+  },
+  "keywords": [
+    "eslint",
+    "eslintplugin"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/primer/react/issues"
+  },
+  "homepage": "https://github.com/primer/react/tree/main/packages/eslint-plugin-primer-react#readme",
+  "peerDependencies": {
+    "eslint": "^9.0.0"
+  },
+  "dependencies": {
+    "@styled-system/props": "^5.1.5",
+    "@typescript-eslint/utils": "^8.50.0",
+    "eslint-plugin-github": "^6.0.0",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-traverse": "^1.0.0",
+    "lodash": "^4.17.21",
+    "styled-system": "^5.1.5",
+    "typescript": "^5.8.2"
+  },
+  "devDependencies": {
+    "@typescript-eslint/rule-tester": "^8.50.0",
+    "@types/node": "^25.0.2",
+    "jest": "^30.0.5"
+  }
+}
