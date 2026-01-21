@@ -58,13 +58,13 @@ function AutocompleteOverlay({
       anchorElementRef: computedAnchorRef as React.RefObject<HTMLElement>,
       floatingElementRef,
     },
-    [showMenu, selectedItemLength, floatingElementRef.current],
+    [showMenu, selectedItemLength],
   )
 
   // Sync floatingElementRef to scrollContainerRef for scroll handling
   useEffect(() => {
     scrollContainerRef.current = floatingElementRef.current
-  }, [scrollContainerRef, floatingElementRef.current])
+  }, [scrollContainerRef, floatingElementRef])
 
   // Clear overlay ref when closed so position resets between open/close cycles
   useEffect(() => {
