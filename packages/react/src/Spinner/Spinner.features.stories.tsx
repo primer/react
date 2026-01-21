@@ -20,4 +20,4 @@ export const SuppressScreenReaderText = () => (
   </Stack>
 )
 
-export const WithDelay = () => <Spinner delay />
+export const WithDelay = () => <Spinner delay="long" />
