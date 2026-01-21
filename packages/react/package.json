@@ -37,6 +37,7 @@
   ],
   "scripts": {
     "build": "./script/build",
+    "build:components": "npx rollup -c",
     "clean": "rimraf dist generated",
     "start": "concurrently npm:start:*",
     "start:storybook": "STORYBOOK=true storybook dev -p 6006",
