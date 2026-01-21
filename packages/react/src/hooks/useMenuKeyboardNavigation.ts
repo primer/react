@@ -17,12 +17,13 @@ export const useMenuKeyboardNavigation = (
   containerRef?: React.RefObject<HTMLElement | null>,
   anchorRef?: React.RefObject<HTMLElement | null>,
   isSubmenu: boolean = false,
+  dependencies: React.DependencyList = [],
 ) => {
-  useMenuInitialFocus(open, containerRef, anchorRef)
-  useMnemonics(open, containerRef)
-  useCloseMenuOnTab(open, onClose, containerRef, anchorRef)
-  useMoveFocusToMenuItem(open, containerRef, anchorRef)
-  useCloseSubmenuOnArrow(open, isSubmenu, onClose, containerRef)
+  useMenuInitialFocus(open, containerRef, anchorRef, dependencies)
+  useMnemonics(open, containerRef, dependencies)
+  useCloseMenuOnTab(open, onClose, containerRef, anchorRef, dependencies)
+  useMoveFocusToMenuItem(open, containerRef, anchorRef, dependencies)
+  useCloseSubmenuOnArrow(open, isSubmenu, onClose, containerRef, dependencies)
 }
 
 /**
@@ -34,6 +35,7 @@ const useCloseMenuOnTab = (
   onClose: MenuCloseHandler | undefined,
   containerRef?: React.RefObject<HTMLElement | null>,
   anchorRef?: React.RefObject<HTMLElement | null>,
+  dependencies: React.DependencyList = [],
 ) => {
   React.useEffect(() => {
     const container = containerRef?.current
@@ -49,7 +51,8 @@ const useCloseMenuOnTab = (
       container?.removeEventListener('keydown', handler)
       anchor?.removeEventListener('keydown', handler)
     }
-  }, [open, onClose, containerRef, anchorRef])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, onClose, containerRef, anchorRef, ...dependencies])
 }
 
 /**
@@ -60,6 +63,7 @@ const useCloseSubmenuOnArrow = (
   isSubmenu: boolean,
   onClose: MenuCloseHandler | undefined,
   containerRef?: React.RefObject<HTMLElement | null>,
+  dependencies: React.DependencyList = [],
 ) => {
   React.useEffect(() => {
     const container = containerRef?.current
@@ -72,7 +76,8 @@ const useCloseSubmenuOnArrow = (
     return () => {
       container?.removeEventListener('keydown', handler)
     }
-  }, [open, onClose, containerRef, isSubmenu])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, onClose, containerRef, isSubmenu, ...dependencies])
 }
 
 /**
@@ -83,6 +88,7 @@ const useMoveFocusToMenuItem = (
   open: boolean,
   containerRef?: React.RefObject<HTMLElement | null>,
   anchorRef?: React.RefObject<HTMLElement | null>,
+  dependencies: React.DependencyList = [],
 ) => {
   React.useEffect(() => {
     const container = containerRef?.current
@@ -110,5 +116,6 @@ const useMoveFocusToMenuItem = (
 
     anchor?.addEventListener('keydown', handler)
     return () => anchor?.addEventListener('keydown', handler)
-  }, [open, containerRef, anchorRef])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, containerRef, anchorRef, ...dependencies])
 }

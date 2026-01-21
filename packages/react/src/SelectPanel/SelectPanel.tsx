@@ -476,20 +476,25 @@ function Panel({
   }, [open, isNarrowScreenSize])
 
   useEffect(() => {
-    const announceNotice = async () => {
-      if (!noticeRef.current) return
-      const liveRegion = document.querySelector('live-region')
+    if (!open || !notice) return
 
-      liveRegion?.clear()
+    // Use requestAnimationFrame to wait for Portal to render
+    const frameId = requestAnimationFrame(() => {
+      const announceNotice = async () => {
+        if (!noticeRef.current) return
+        const liveRegion = document.querySelector('live-region')
 
-      await announceFromElement(noticeRef.current, {
-        from: liveRegion ? liveRegion : undefined,
-      })
-    }
+        liveRegion?.clear()
 
-    if (open && notice) {
+        await announceFromElement(noticeRef.current, {
+          from: liveRegion ? liveRegion : undefined,
+        })
+      }
+
       announceNotice()
-    }
+    })
+
+    return () => cancelAnimationFrame(frameId)
   }, [notice, open])
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)

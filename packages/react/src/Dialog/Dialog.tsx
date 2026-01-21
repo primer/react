@@ -288,7 +288,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
         previousFocusRef.current = document.activeElement as HTMLElement
         const finalInitialFocusRef = initialFocusRef ?? autoFocusedFooterButtonRef
         // Initialize focus trap - handles both initial focus and keyboard trapping
-        focusTrapAbortRef.current = focusTrap(node, finalInitialFocusRef?.current ?? undefined) ?? null
+        focusTrapAbortRef.current = focusTrap(node, finalInitialFocusRef.current ?? undefined) ?? null
       }
       if (!node) {
         hasInitialFocusRef.current = false

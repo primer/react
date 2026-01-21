@@ -3,7 +3,12 @@ import {TriangleDownIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {OverlayProps} from '../Overlay'
-import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuKeyboardNavigation} from '../hooks'
+import {
+  useProvidedRefOrCreate,
+  useProvidedStateOrCreate,
+  useMenuKeyboardNavigation,
+  useRenderForcingRef,
+} from '../hooks'
 import {Divider} from '../ActionList/Divider'
 import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
 import type {ButtonProps} from '../Button'
@@ -284,7 +289,9 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
     isSubmenu = false,
   } = React.useContext(MenuContext) as MandateProps<MenuContextProps, 'anchorRef'>
 
-  const containerRef = React.useRef<HTMLDivElement>(null)
+  // Use useRenderForcingRef so the component re-renders when containerRef is set.
+  // This ensures keyboard navigation hooks re-run after Portal creates its element.
+  const [containerRef, updateContainerRef] = useRenderForcingRef<HTMLDivElement>()
   const isNarrow = useResponsiveValue({narrow: true}, false)
 
   const isNarrowFullscreen = !!isNarrow && variant.narrow === 'fullscreen'
@@ -300,7 +307,8 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
     [isNarrowFullscreen, onClose],
   )
 
-  useMenuKeyboardNavigation(open, handleClose, containerRef, anchorRef, isSubmenu)
+  // eslint-disable-next-line react-hooks/refs -- accessing ref.current in dependencies is intentional to re-run when ref is set
+  useMenuKeyboardNavigation(open, handleClose, containerRef, anchorRef, isSubmenu, [containerRef.current])
 
   const responsiveVariant = useResponsiveValue(variant, {regular: 'anchored', narrow: 'anchored'})
 
@@ -333,7 +341,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
       variant={variant}
     >
       <div
-        ref={containerRef}
+        ref={updateContainerRef}
         className={styles.ActionMenuContainer}
         data-variant={responsiveVariant}
         {...(overlayProps.overflow ? {[`data-overflow-${overlayProps.overflow}`]: ''} : {})}
