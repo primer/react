@@ -106,6 +106,12 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
    * Default is false.
    */
   focusPrependedElements?: boolean
+  /**
+   * Determines the scroll behavior of the container when an item is focused.
+   *
+   * @default 'auto'
+   */
+  scrollBehavior?: ScrollBehavior
 }
 
 export function FilteredActionList({
@@ -136,6 +142,7 @@ export function FilteredActionList({
   disableSelectOnHover = false,
   setInitialFocus = false,
   focusPrependedElements,
+  scrollBehavior,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -258,8 +265,11 @@ export function FilteredActionList({
           activeDescendantFocus: inputRef,
           onActiveDescendantChanged: (current, previous, directlyActivated) => {
             activeDescendantRef.current = current
-            if (current && scrollContainerRef.current && directlyActivated) {
-              scrollIntoView(current, scrollContainerRef.current, menuScrollMargins)
+            if (current && scrollContainerRef.current && (directlyActivated || focusPrependedElements)) {
+              scrollIntoView(current, scrollContainerRef.current, {
+                ...menuScrollMargins,
+                behavior: scrollBehavior,
+              })
             }
 
             onActiveDescendantChanged?.(current, previous, directlyActivated)
@@ -276,10 +286,10 @@ export function FilteredActionList({
     if (activeDescendantRef.current && scrollContainerRef.current) {
       scrollIntoView(activeDescendantRef.current, scrollContainerRef.current, {
         ...menuScrollMargins,
-        behavior: 'auto',
+        behavior: scrollBehavior,
       })
     }
-  }, [items, inputRef, scrollContainerRef])
+  }, [items, inputRef, scrollContainerRef, scrollBehavior])
 
   useEffect(() => {
     if (usingRovingTabindex) {
