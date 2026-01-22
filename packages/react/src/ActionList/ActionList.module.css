@@ -278,7 +278,11 @@
 
     &:where([data-loading='true']),
     &:has([data-loading='true']) {
-      & * {
+      & .ItemLabel,
+      & .Description,
+      & .LeadingVisual,
+      & .TrailingVisual,
+      & .VisualWrap {
         color: var(--fgColor-muted);
       }
     }
