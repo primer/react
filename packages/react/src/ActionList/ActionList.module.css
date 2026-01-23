@@ -282,6 +282,7 @@
       & .Description,
       & .LeadingVisual,
       & .TrailingVisual,
+      & .LeadingAction,
       & .VisualWrap {
         color: var(--fgColor-muted);
       }
