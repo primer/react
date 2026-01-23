@@ -277,7 +277,7 @@
     }
 
     &:where([data-loading='true']),
-    &:has(.TrailingAction [data-loading='true']) {
+    & > [data-loading='true'] {
       & .ItemLabel,
       & .Description,
       & .LeadingVisual,
