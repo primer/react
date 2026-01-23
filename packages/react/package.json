@@ -79,7 +79,7 @@
     "@github/tab-container-element": "^4.8.2",
     "@lit-labs/react": "1.2.1",
     "@oddbird/popover-polyfill": "^0.5.2",
-    "@primer/behaviors": "^1.9.1",
+    "@primer/behaviors": "^1.10.0",
     "@primer/live-region-element": "^0.7.1",
     "@primer/octicons-react": "^19.21.0",
     "@primer/primitives": "10.x || 11.x",
