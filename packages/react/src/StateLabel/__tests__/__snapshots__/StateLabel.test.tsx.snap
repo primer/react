@@ -335,3 +335,87 @@ exports[`StateLabel > respects the status prop 5`] = `
   </span>
 </div>
 `;
+
+exports[`StateLabel > respects the status prop 6`] = `
+<div>
+  <span
+    class="prc-StateLabel-StateLabel-eEUJr"
+    data-size="medium"
+    data-status="alertOpened"
+  >
+    <svg
+      aria-label="Alert"
+      class="octicon octicon-shield prc-StateLabel-Icon-UdR1Y"
+      display="inline-block"
+      fill="currentColor"
+      focusable="false"
+      height="16"
+      overflow="visible"
+      role="img"
+      style="vertical-align: text-bottom;"
+      viewBox="0 0 16 16"
+      width="16"
+    >
+      <path
+        d="M7.467.133a1.748 1.748 0 0 1 1.066 0l5.25 1.68A1.75 1.75 0 0 1 15 3.48V7c0 1.566-.32 3.182-1.303 4.682-.983 1.498-2.585 2.813-5.032 3.855a1.697 1.697 0 0 1-1.33 0c-2.447-1.042-4.049-2.357-5.032-3.855C1.32 10.182 1 8.566 1 7V3.48a1.75 1.75 0 0 1 1.217-1.667Zm.61 1.429a.25.25 0 0 0-.153 0l-5.25 1.68a.25.25 0 0 0-.174.238V7c0 1.358.275 2.666 1.057 3.86.784 1.194 2.121 2.34 4.366 3.297a.196.196 0 0 0 .154 0c2.245-.956 3.582-2.104 4.366-3.298C13.225 9.666 13.5 8.36 13.5 7V3.48a.251.251 0 0 0-.174-.237l-5.25-1.68ZM8.75 4.75v3a.75.75 0 0 1-1.5 0v-3a.75.75 0 0 1 1.5 0ZM9 10.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"
+      />
+    </svg>
+  </span>
+</div>
+`;
+
+exports[`StateLabel > respects the status prop 7`] = `
+<div>
+  <span
+    class="prc-StateLabel-StateLabel-eEUJr"
+    data-size="medium"
+    data-status="alertFixed"
+  >
+    <svg
+      aria-label="Alert"
+      class="octicon octicon-shield-check prc-StateLabel-Icon-UdR1Y"
+      display="inline-block"
+      fill="currentColor"
+      focusable="false"
+      height="16"
+      overflow="visible"
+      role="img"
+      style="vertical-align: text-bottom;"
+      viewBox="0 0 16 16"
+      width="16"
+    >
+      <path
+        d="m8.533.133 5.25 1.68A1.75 1.75 0 0 1 15 3.48V7c0 1.566-.32 3.182-1.303 4.682-.983 1.498-2.585 2.813-5.032 3.855a1.697 1.697 0 0 1-1.33 0c-2.447-1.042-4.049-2.357-5.032-3.855C1.32 10.182 1 8.566 1 7V3.48a1.75 1.75 0 0 1 1.217-1.667l5.25-1.68a1.748 1.748 0 0 1 1.066 0Zm-.61 1.429.001.001-5.25 1.68a.251.251 0 0 0-.174.237V7c0 1.36.275 2.666 1.057 3.859.784 1.194 2.121 2.342 4.366 3.298a.196.196 0 0 0 .154 0c2.245-.957 3.582-2.103 4.366-3.297C13.225 9.666 13.5 8.358 13.5 7V3.48a.25.25 0 0 0-.174-.238l-5.25-1.68a.25.25 0 0 0-.153 0ZM11.28 6.28l-3.5 3.5a.75.75 0 0 1-1.06 0l-1.5-1.5a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l.97.97 2.97-2.97a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042Z"
+      />
+    </svg>
+  </span>
+</div>
+`;
+
+exports[`StateLabel > respects the status prop 8`] = `
+<div>
+  <span
+    class="prc-StateLabel-StateLabel-eEUJr"
+    data-size="medium"
+    data-status="alertDismissed"
+  >
+    <svg
+      aria-label="Alert"
+      class="octicon octicon-shield-slash prc-StateLabel-Icon-UdR1Y"
+      display="inline-block"
+      fill="currentColor"
+      focusable="false"
+      height="16"
+      overflow="visible"
+      role="img"
+      style="vertical-align: text-bottom;"
+      viewBox="0 0 16 16"
+      width="16"
+    >
+      <path
+        d="M8.533.133a1.75 1.75 0 0 0-1.066 0l-2.091.67a.75.75 0 0 0 .457 1.428l2.09-.67a.25.25 0 0 1 .153 0l5.25 1.68a.25.25 0 0 1 .174.239V7c0 .233-.008.464-.025.694a.75.75 0 1 0 1.495.112c.02-.27.03-.538.03-.806V3.48a1.75 1.75 0 0 0-1.217-1.667L8.533.133ZM1 2.857l-.69-.5a.75.75 0 1 1 .88-1.214l14.5 10.5a.75.75 0 1 1-.88 1.214l-1.282-.928c-.995 1.397-2.553 2.624-4.864 3.608-.425.181-.905.18-1.329 0-2.447-1.042-4.049-2.356-5.032-3.855C1.32 10.182 1 8.566 1 7Zm1.5 1.086V7c0 1.358.275 2.666 1.057 3.86.784 1.194 2.121 2.34 4.366 3.297.05.02.106.02.153 0 2.127-.905 3.439-1.982 4.237-3.108Z"
+      />
+    </svg>
+  </span>
+</div>
+`;

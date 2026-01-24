@@ -45,9 +45,9 @@ describe('StateLabel', () => {
     expect(screen2.getByLabelText('Pull request')).toBeInTheDocument() // svg
     expect(screen2.getByText('Merged')).toBeInTheDocument() // text
 
-    const screen3 = HTMLRender(<StateLabel status="alertOpened">Open</StateLabel>)
+    const screen3 = HTMLRender(<StateLabel status="alertFixed">Fixed</StateLabel>)
     expect(screen3.getByLabelText('Alert')).toBeInTheDocument() // svg
-    expect(screen3.getByText('Open')).toBeInTheDocument() // text
+    expect(screen3.getByText('Fixed')).toBeInTheDocument() // text
   })
   it('renders open status without an icon', () => {
     const screen = HTMLRender(<StateLabel status="open">Open</StateLabel>)
