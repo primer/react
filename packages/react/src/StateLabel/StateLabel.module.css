@@ -95,6 +95,25 @@
   box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-done-emphasis, transparent);
 }
 
+.StateLabel:where([data-status='alertOpened']) {
+  background-color: var(--bgColor-open-emphasis);
+  color: var(--fgColor-onEmphasis);
+  box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-open-emphasis, transparent);
+}
+
+.StateLabel:where([data-status='alertFixed']) {
+  background-color: var(--bgColor-done-emphasis);
+  color: var(--fgColor-onEmphasis);
+  box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-done-emphasis, transparent);
+}
+
+.StateLabel:where([data-status='alertDismissed']) {
+  background-color: var(--bgColor-draft-emphasis, var(--bgColor-neutral-emphasis));
+  color: var(--fgColor-onEmphasis);
+  box-shadow: var(--boxShadow-thin, inset 0 0 0 1px)
+    var(--borderColor-draft-emphasis, var(--borderColor-neutral-emphasis, transparent));
+}
+
 .Icon {
   margin-right: var(--base-size-4);
 }

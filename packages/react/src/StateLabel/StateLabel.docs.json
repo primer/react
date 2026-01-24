@@ -38,6 +38,15 @@
       "id": "components-statelabel-features--unavailable"
     },
     {
+      "id": "components-statelabel-features--alert-opened"
+    },
+    {
+      "id": "components-statelabel-features--alert-fixed"
+    },
+    {
+      "id": "components-statelabel-features--alert-dismissed"
+    },
+    {
       "id": "components-statelabel-features--small"
     },
     {
@@ -56,7 +65,7 @@
     },
     {
       "name": "status",
-      "type": "'issueOpened' | 'issueClosed' | 'issueClosedNotPlanned' | 'pullOpened' | 'pullClosed' | 'pullMerged' | 'draft' | 'issueDraft' | 'unavailable' | 'open' | 'closed'",
+      "type": "'issueOpened' | 'issueClosed' | 'issueClosedNotPlanned' | 'pullOpened' | 'pullClosed' | 'pullMerged' | 'draft' | 'issueDraft' | 'pullQueued' | 'unavailable' | 'alertOpened' | 'alertFixed' | 'alertDismissed' | 'open' | 'closed'",
       "required": true
     }
   ],

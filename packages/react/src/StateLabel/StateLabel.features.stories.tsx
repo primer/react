@@ -19,6 +19,11 @@ export const PullMerged = () => <StateLabel status="pullMerged">Merged</StateLab
 export const Queued = () => <StateLabel status="pullQueued">Queued</StateLabel>
 export const Draft = () => <StateLabel status="draft">Draft</StateLabel>
 export const Unavailable = () => <StateLabel status="unavailable">Unavailable</StateLabel>
+
+export const AlertOpened = () => <StateLabel status="alertOpened">Open</StateLabel>
+export const AlertFixed = () => <StateLabel status="alertFixed">Fixed</StateLabel>
+export const AlertDismissed = () => <StateLabel status="alertDismissed">Dismissed</StateLabel>
+
 export const Open = () => (
   <StateLabel status="open">
     {/* Because open is a generic status, a visually hidden text could be added to specify the type of the artifact */}
