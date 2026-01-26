@@ -1,0 +1,95 @@
+@import 'tailwindcss' important;
+
+@import '@primer/primitives/dist/css/primitives.css';
+@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+@import '@primer/tailwind-config';
+
+@import '@primer/primitives/dist/css/primitives.css';
+@import '@primer/primitives/dist/css/functional/themes/light.css';
+@import '@primer/primitives/dist/css/functional/themes/dark.css';
+
+/* Extend Tailwind theme with button colors from Primer primitives */
+/* TODO: Move this to @primer/tailwind-config when possible */
+@theme inline {
+  --shadow-button-default-rest: var(--button-default-shadow-resting);
+
+  --background-color-button-primary-rest: var(--button-primary-bgColor-rest);
+  --background-color-button-primary-active: var(--button-primary-bgColor-active);
+  --background-color-button-primary-disabled: var(--button-primary-bgColor-disabled);
+  --background-color-button-primary-hover: var(--button-primary-bgColor-hover);
+
+  --text-color-button-primary-rest: var(--button-primary-fgColor-rest);
+  --text-color-button-primary-disabled: var(--button-primary-fgColor-disabled);
+
+  --border-color-button-primary-rest: var(--button-primary-borderColor-rest);
+  --border-color-button-primary-active: var(--button-primary-borderColor-active);
+  --border-color-button-primary-disabled: var(--button-primary-borderColor-disabled);
+  --border-color-button-primary-hover: var(--button-primary-borderColor-hover);
+
+  --background-color-button-danger-rest: var(--button-danger-bgColor-rest);
+  --background-color-button-danger-active: var(--button-danger-bgColor-active);
+  --background-color-button-danger-disabled: var(--button-danger-bgColor-disabled);
+  --background-color-button-danger-hover: var(--button-danger-bgColor-hover);
+
+  --text-color-button-danger-rest: var(--button-danger-fgColor-rest);
+  --text-color-button-danger-active: var(--button-danger-fgColor-active);
+  --text-color-button-danger-disabled: var(--button-danger-fgColor-disabled);
+  --text-color-button-danger-hover: var(--button-danger-fgColor-hover);
+
+  --border-color-button-danger-rest: var(--button-danger-borderColor-rest);
+  --border-color-button-danger-active: var(--button-danger-borderColor-active);
+  --border-color-button-danger-hover: var(--button-danger-borderColor-hover);
+
+  --background-color-button-default-rest: var(--button-default-bgColor-rest);
+  --background-color-button-default-active: var(--button-default-bgColor-active);
+  --background-color-button-default-disabled: var(--button-default-bgColor-disabled);
+  --background-color-button-default-hover: var(--button-default-bgColor-hover);
+
+  --text-color-button-default-rest: var(--control-fgColor-rest);
+  --text-color-button-default-active: var(--control-fgColor-rest);
+  --text-color-button-default-disabled: var(--control-fgColor-disabled);
+  --text-color-button-default-hover: var(--control-fgColor-rest);
+
+  --border-color-button-default-rest: var(--button-default-borderColor-rest);
+  --border-color-button-default-active: var(--button-default-borderColor-active);
+  --border-color-button-default-disabled: var(--button-default-borderColor-disabled);
+  --border-color-button-default-hover: var(--button-default-borderColor-hover);
+
+  --background-color-button-outline-rest: var(--button-outline-bgColor-rest);
+  --background-color-button-outline-active: var(--button-outline-bgColor-active);
+  --background-color-button-outline-disabled: var(--button-outline-bgColor-disabled);
+  --background-color-button-outline-hover: var(--button-outline-bgColor-hover);
+
+  --text-color-button-outline-rest: var(--button-outline-fgColor-rest);
+  --text-color-button-outline-active: var(--button-outline-fgColor-active);
+  --text-color-button-outline-disabled: var(--button-outline-fgColor-disabled);
+  --text-color-button-outline-hover: var(--button-outline-fgColor-hover);
+
+  --background-color-button-invisible-rest: var(--button-invisible-bgColor-rest);
+  --background-color-button-invisible-active: var(--button-invisible-bgColor-active);
+  --background-color-button-invisible-disabled: var(--button-invisible-bgColor-disabled);
+  --background-color-button-invisible-hover: var(--button-invisible-bgColor-hover);
+
+  --text-color-button-invisible-rest: var(--button-invisible-fgColor-rest);
+  --text-color-button-invisible-active: var(--button-invisible-fgColor-active);
+  --text-color-button-invisible-disabled: var(--button-invisible-fgColor-disabled);
+  --text-color-button-invisible-hover: var(--button-invisible-fgColor-hover);
+
+  --text-color-button-star: var(--button-star-iconColor);
+
+  --border-color-button-invisible-rest: var(--button-invisible-borderColor-rest);
+  --border-color-button-invisible-hover: var(--button-invisible-borderColor-hover);
+
+  /* ===========================================
+   * BORDER RADIUS
+   * =========================================== */
+  --radius-*: initial;
+  --radius-small: 0.1875rem;
+  --radius-medium: 0.375rem;
+  --radius-default: 0.375rem;
+  --radius-large: 0.75rem;
+  --radius-full: 624.9375rem;
+  --radius-overlay: 0.375rem;
+}

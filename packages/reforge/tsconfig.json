@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "typeRoots": ["../../node_modules/@types", "./node_modules/@types", "./@types"]
+  },
+  "include": [
+    "@types/**/*.ts",
+    "src/**/*.js",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "script/**/*.ts",
+    "vitest.config.mts",
+    "config/**/*.ts",
+    ".storybook/**/*.ts",
+    ".storybook/**/*.tsx"
+  ]
+}
