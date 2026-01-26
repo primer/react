@@ -30,7 +30,6 @@ import {
   ProjectIcon,
 } from '@primer/octicons-react'
 import {KeybindingHint} from '../KeybindingHint'
-import {FeatureFlags} from '../FeatureFlags'
 import classes from './ActionList.features.stories.module.css'
 
 export default {
@@ -393,17 +392,15 @@ export const WithDynamicContent = () => {
   const [isTrue, setIsTrue] = React.useState(false)
 
   return (
-    <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
-      <ActionList>
-        <ActionList.Item
-          onSelect={() => {
-            setIsTrue(!isTrue)
-          }}
-        >
-          Activated? {isTrue ? 'Yes' : 'No'}
-        </ActionList.Item>
-      </ActionList>
-    </FeatureFlags>
+    <ActionList>
+      <ActionList.Item
+        onSelect={() => {
+          setIsTrue(!isTrue)
+        }}
+      >
+        Activated? {isTrue ? 'Yes' : 'No'}
+      </ActionList.Item>
+    </ActionList>
   )
 }
 
@@ -922,87 +919,85 @@ export const WithTrailingAction = () => {
   }, [])
 
   return (
-    <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
-      <ActionList>
-        <ActionList.Item>
-          <ActionList.LeadingVisual>
-            <FileDirectoryIcon />
-          </ActionList.LeadingVisual>
-          Item 1 (with default TrailingAction)
-          <ActionList.TrailingAction label="Expand sidebar" icon={ArrowLeftIcon} />
-        </ActionList.Item>
-        <ActionList.Item>
-          Item 2 (with link TrailingAction)
-          <ActionList.TrailingAction as="a" href="#" label="Some action 1" icon={ArrowRightIcon} />
-        </ActionList.Item>
-        <ActionList.Item>
-          Item 3<ActionList.Description>This is an inline description.</ActionList.Description>
-          <ActionList.TrailingAction label="Some action 2" icon={BookIcon} />
-        </ActionList.Item>
-        <ActionList.Item>
-          Item 4<ActionList.Description variant="block">This is a block description.</ActionList.Description>
-          <ActionList.TrailingAction label="Some action 3" icon={BookIcon} />
-        </ActionList.Item>
-        <ActionList.Item>
-          Item 5<ActionList.Description variant="block">This is a block description.</ActionList.Description>
-          <ActionList.TrailingAction label="Some action 4" />
-        </ActionList.Item>
-        <ActionList.Item>
-          Item 6
-          <ActionList.TrailingAction href="#" as="a" label="Some action 5" />
-        </ActionList.Item>
-        <ActionList.Item>
-          Icon button loading state
-          <ActionList.Description>
-            Shows how IconButton maintains width and centers spinner when loading
-          </ActionList.Description>
-          <ActionList.TrailingAction label="Process item" icon={ArrowRightIcon} loading />
-        </ActionList.Item>
-        <ActionList.Item>
-          Icon button with transitions
-          <ActionList.Description>
-            Automatically toggles loading state every 2.5 seconds to show transitions
-          </ActionList.Description>
-          <ActionList.TrailingAction label="Toggle loading" icon={ArrowRightIcon} loading={loadingState} />
-        </ActionList.Item>
-        <ActionList.Item>
-          Text button loading state
-          <ActionList.Description>
-            Shows how text button aligns spinner to the right and preserves width
-          </ActionList.Description>
-          <ActionList.TrailingAction label="Save changes" loading />
-        </ActionList.Item>
-        <ActionList.Item>
-          Text button with transitions
-          <ActionList.Description>
-            Automatically toggles loading state every 2.5 seconds to show transitions
-          </ActionList.Description>
-          <ActionList.TrailingAction label="Apply settings" loading={loadingState} />
-        </ActionList.Item>
-        <ActionList.LinkItem href="#">
-          LinkItem 1
-          <ActionList.Description>
-            with TrailingAction this is a long description and should not cause horizontal scroll on smaller screen
-            sizes
-          </ActionList.Description>
-          <ActionList.TrailingAction label="Another action" />
-        </ActionList.LinkItem>
-        <ActionList.LinkItem href="#">
-          LinkItem 2
-          <ActionList.Description>
-            with TrailingVisual this is a long description and should not cause horizontal scroll on smaller screen
-            sizes
-          </ActionList.Description>
-          <ActionList.TrailingVisual>
-            <TableIcon />
-          </ActionList.TrailingVisual>
-        </ActionList.LinkItem>
-        <ActionList.Item inactiveText="Unavailable due to an outage">
-          Inactive Item<ActionList.Description>With TrailingAction</ActionList.Description>
-          <ActionList.TrailingAction as="a" href="#" label="Some action 8" icon={ArrowRightIcon} />
-        </ActionList.Item>
-      </ActionList>
-    </FeatureFlags>
+    <ActionList>
+      <ActionList.Item>
+        <ActionList.LeadingVisual>
+          <FileDirectoryIcon />
+        </ActionList.LeadingVisual>
+        Item 1 (with default TrailingAction)
+        <ActionList.TrailingAction label="Expand sidebar" icon={ArrowLeftIcon} />
+      </ActionList.Item>
+      <ActionList.Item>
+        Item 2 (with link TrailingAction)
+        <ActionList.TrailingAction as="a" href="#" label="Some action 1" icon={ArrowRightIcon} />
+      </ActionList.Item>
+      <ActionList.Item>
+        Item 3<ActionList.Description>This is an inline description.</ActionList.Description>
+        <ActionList.TrailingAction label="Some action 2" icon={BookIcon} />
+      </ActionList.Item>
+      <ActionList.Item>
+        Item 4<ActionList.Description variant="block">This is a block description.</ActionList.Description>
+        <ActionList.TrailingAction label="Some action 3" icon={BookIcon} />
+      </ActionList.Item>
+      <ActionList.Item>
+        Item 5<ActionList.Description variant="block">This is a block description.</ActionList.Description>
+        <ActionList.TrailingAction label="Some action 4" />
+      </ActionList.Item>
+      <ActionList.Item>
+        Item 6
+        <ActionList.TrailingAction href="#" as="a" label="Some action 5" />
+      </ActionList.Item>
+      <ActionList.Item>
+        Icon button loading state
+        <ActionList.Description>
+          Shows how IconButton maintains width and centers spinner when loading
+        </ActionList.Description>
+        <ActionList.TrailingAction label="Process item" icon={ArrowRightIcon} loading />
+      </ActionList.Item>
+      <ActionList.Item>
+        Icon button with transitions
+        <ActionList.Description>
+          Automatically toggles loading state every 2.5 seconds to show transitions
+        </ActionList.Description>
+        <ActionList.TrailingAction label="Toggle loading" icon={ArrowRightIcon} loading={loadingState} />
+      </ActionList.Item>
+      <ActionList.Item>
+        Text button loading state
+        <ActionList.Description>
+          Shows how text button aligns spinner to the right and preserves width
+        </ActionList.Description>
+        <ActionList.TrailingAction label="Save changes" loading />
+      </ActionList.Item>
+      <ActionList.Item>
+        Text button with transitions
+        <ActionList.Description>
+          Automatically toggles loading state every 2.5 seconds to show transitions
+        </ActionList.Description>
+        <ActionList.TrailingAction label="Apply settings" loading={loadingState} />
+      </ActionList.Item>
+      <ActionList.LinkItem href="#">
+        LinkItem 1
+        <ActionList.Description>
+          with TrailingAction this is a long description and should not cause horizontal scroll on smaller screen
+          sizes
+        </ActionList.Description>
+        <ActionList.TrailingAction label="Another action" />
+      </ActionList.LinkItem>
+      <ActionList.LinkItem href="#">
+        LinkItem 2
+        <ActionList.Description>
+          with TrailingVisual this is a long description and should not cause horizontal scroll on smaller screen
+          sizes
+        </ActionList.Description>
+        <ActionList.TrailingVisual>
+          <TableIcon />
+        </ActionList.TrailingVisual>
+      </ActionList.LinkItem>
+      <ActionList.Item inactiveText="Unavailable due to an outage">
+        Inactive Item<ActionList.Description>With TrailingAction</ActionList.Description>
+        <ActionList.TrailingAction as="a" href="#" label="Some action 8" icon={ArrowRightIcon} />
+      </ActionList.Item>
+    </ActionList>
   )
 }
 
