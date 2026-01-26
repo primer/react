@@ -41,6 +41,7 @@ test.describe('Timeline', () => {
       }
     })
   }
+
   test.describe('With Inline Links', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
