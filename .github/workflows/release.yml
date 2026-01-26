@@ -52,7 +52,7 @@ jobs:
         # Uses SHA for security hardening
         # Currently pointing at a commit for the v1.4.1 tag
         # Please keep this up-to-date if you're changing the SHA below
-        uses: changesets/action@e0145edc7d9d8679003495b11f87bd8ef63c0cba
+        uses: changesets/action@c48e67d110a68bc90ccf1098e9646092baacaa87
         with:
           title: Release tracking
           # This expects you to have a script called release which does a build for your packages and calls changeset publish
