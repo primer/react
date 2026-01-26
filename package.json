@@ -96,7 +96,7 @@
     "vitest": "^4.0.15"
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "^4.54.0"
+    "@rollup/rollup-linux-x64-gnu": "^4.56.0"
   },
   "prettier": "@github/prettier-config",
   "size-limit": [
