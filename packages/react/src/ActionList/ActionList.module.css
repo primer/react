@@ -277,8 +277,13 @@
     }
 
     &:where([data-loading='true']),
-    &:has([data-loading='true']) {
-      & * {
+    & > [data-loading='true'] {
+      & .ItemLabel,
+      & .Description,
+      & .LeadingVisual,
+      & .TrailingVisual,
+      & .LeadingAction,
+      & .VisualWrap {
         color: var(--fgColor-muted);
       }
     }
