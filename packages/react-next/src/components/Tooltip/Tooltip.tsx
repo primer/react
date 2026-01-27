@@ -1,4 +1,3 @@
-import React from 'react'
 import {Tooltip as BaseTooltip} from '@base-ui/react/tooltip'
 import {clsx} from 'clsx'
 

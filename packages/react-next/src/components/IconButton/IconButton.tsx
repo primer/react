@@ -1,4 +1,3 @@
-import React from 'react'
 import {Button as BaseButton} from '@base-ui/react/button'
 import type {Icon} from '@primer/octicons-react'
 import {cva, type VariantProps} from 'cva'

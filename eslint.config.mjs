@@ -394,7 +394,7 @@ const config = defineConfig([
   },
 
   {
-    files: ['packages/reforge/src/**/*.tsx'],
+    files: ['packages/react-next/src/**/*.tsx'],
     rules: {
       '@typescript-eslint/no-namespace': 'off',
       'import/export': 'warn',

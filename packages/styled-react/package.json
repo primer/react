@@ -40,7 +40,11 @@
     "@types/styled-system": "^5.1.23",
     "@types/styled-system__css": "^5.0.16",
     "@types/styled-system__theme-get": "^5.0.1",
-    "styled-system": "^5.1.5"
+    "styled-system": "^5.1.5",
+    "clsx": "^2.1.1",
+    "color2k": "^2.0.3",
+    "deepmerge": "^4.3.1",
+    "focus-visible": "^5.2.1"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.28.5",

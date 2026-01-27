@@ -11,6 +11,7 @@
     }
   },
   "files": [
+    "styles.css",
     "dist",
     "CHANGELOG.md"
   ],
@@ -18,12 +19,18 @@
   "license": "MIT",
   "typings": "dist/index.d.ts",
   "scripts": {
+    "clean": "rimraf dist generated",
     "start": "storybook dev -p 6007",
-    "test": "vitest --run"
+    "build": "./script/build",
+    "test": "vitest --run",
+    "build:storybook": "storybook build",
+    "lint:npm": "publint --types",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@base-ui/react": "1.1.0",
     "@primer/octicons-react": "^19.21.0",
+    "clsx": "^2.1.1",
     "cva": "1.0.0-beta.4"
   },
   "devDependencies": {
