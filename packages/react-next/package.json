@@ -1,5 +1,5 @@
 {
-  "name": "@primer/reforge",
+  "name": "@primer/react-next",
   "version": "0.0.0",
   "type": "module",
   "main": "./dist/index.js",

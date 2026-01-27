@@ -31,7 +31,7 @@ export default defineConfig({
     'process.env.CI': JSON.stringify(process.env.CI),
   },
   test: {
-    name: '@primer/reforge',
+    name: '@primer/react-next',
     exclude: [
       '**/node_modules/**',
       '**/dist/**',
