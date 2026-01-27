@@ -12,7 +12,6 @@ import {
   ShieldIcon,
   ShieldCheckIcon,
   ShieldSlashIcon,
-  ShieldXIcon,
 } from '@primer/octicons-react'
 import type React from 'react'
 import {forwardRef} from 'react'
@@ -34,7 +33,6 @@ const octiconMap = {
   alertOpened: ShieldIcon,
   alertFixed: ShieldCheckIcon,
   alertDismissed: ShieldSlashIcon,
-  alertClosed: ShieldXIcon,
   open: null,
   closed: null,
 }
@@ -53,7 +51,6 @@ const labelMap: Record<keyof typeof octiconMap, 'Issue' | 'Issue, not planned' |
   alertOpened: 'Alert',
   alertFixed: 'Alert',
   alertDismissed: 'Alert',
-  alertClosed: 'Alert',
   open: '',
   closed: '',
 }

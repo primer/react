@@ -16,7 +16,6 @@ describe('StateLabel', () => {
     expect(HTMLRender(<StateLabel status="alertOpened" />).container).toMatchSnapshot()
     expect(HTMLRender(<StateLabel status="alertFixed" />).container).toMatchSnapshot()
     expect(HTMLRender(<StateLabel status="alertDismissed" />).container).toMatchSnapshot()
-    expect(HTMLRender(<StateLabel status="alertClosed" />).container).toMatchSnapshot()
   })
 
   it('respects the deprecated variant prop', () => {
@@ -41,21 +40,14 @@ describe('StateLabel', () => {
     const screen1 = HTMLRender(<StateLabel status="issueOpened">Open</StateLabel>)
     expect(screen1.getByLabelText('Issue')).toBeInTheDocument() // svg
     expect(screen1.getByText('Open')).toBeInTheDocument() // text
-    screen1.unmount()
 
     const screen2 = HTMLRender(<StateLabel status="pullMerged">Merged</StateLabel>)
     expect(screen2.getByLabelText('Pull request')).toBeInTheDocument() // svg
     expect(screen2.getByText('Merged')).toBeInTheDocument() // text
-    screen2.unmount()
 
     const screen3 = HTMLRender(<StateLabel status="alertFixed">Fixed</StateLabel>)
     expect(screen3.getByLabelText('Alert')).toBeInTheDocument() // svg
     expect(screen3.getByText('Fixed')).toBeInTheDocument() // text
-    screen3.unmount()
-
-    const screen4 = HTMLRender(<StateLabel status="alertClosed">Closed</StateLabel>)
-    expect(screen4.getByLabelText('Alert')).toBeInTheDocument() // svg
-    expect(screen4.getByText('Closed')).toBeInTheDocument() // text
   })
   it('renders open status without an icon', () => {
     const screen = HTMLRender(<StateLabel status="open">Open</StateLabel>)
