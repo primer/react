@@ -42,6 +42,11 @@
       "description": ""
     },
     {
+      "name": "padding",
+      "type": "'condensed' | 'normal' | 'spacious'",
+      "description": "The size of the component padding"
+    }
+    {
       "name": "spacious",
       "type": "boolean",
       "description": ""
