@@ -27,15 +27,15 @@ export function useMedia(mediaQueryString: string, defaultState?: boolean) {
       return defaultState
     }
 
-    if (canUseDOM) {
-      return window.matchMedia(mediaQueryString).matches
+    // No defaultState provided - default to false to avoid hydration mismatch.
+    // The useEffect will sync to the real matchMedia value after hydration.
+    if (!canUseDOM) {
+      // On server, warn that defaultState should be provided
+      warning(
+        true,
+        '`useMedia` When server side rendering, defaultState should be defined to prevent a hydration mismatches.',
+      )
     }
-
-    // A default value has not been provided, and you are rendering on the server, warn of a possible hydration mismatch when defaulting to false.
-    warning(
-      true,
-      '`useMedia` When server side rendering, defaultState should be defined to prevent a hydration mismatches.',
-    )
 
     return false
   })
@@ -66,7 +66,9 @@ export function useMedia(mediaQueryString: string, defaultState?: boolean) {
       mediaQueryList.addListener(listener)
     }
 
-    // Make sure the media query list is in sync with the matches state
+    // Sync state with actual media query value after hydration.
+    // This may cause a re-render if defaultState differs from the real value,
+    // but that's expected behavior - not a hydration error.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setMatches(mediaQueryList.matches)
 

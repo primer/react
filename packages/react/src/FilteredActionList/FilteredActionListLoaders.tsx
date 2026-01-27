@@ -24,6 +24,10 @@ export const FilteredActionListLoadingTypes = {
 const SKELETON_ROW_HEIGHT = 24
 const SKELETON_MIN_ROWS = 3
 
+// Deterministic widths to avoid hydration mismatch from Math.random()
+// Pattern creates visual variety while being consistent across server/client
+const SKELETON_WIDTHS = [65, 45, 80, 35, 55, 70, 40, 60, 50, 75]
+
 export function FilteredActionListBodyLoader({
   loadingType,
   height,
@@ -58,8 +62,11 @@ function LoadingSkeleton({rows = 10, ...props}: {rows: number}): JSX.Element {
         {Array.from({length: rows}, (_, i) => (
           <Stack key={i} direction="horizontal" gap="condensed" align="center">
             <SkeletonBox width="16px" height="16px" />
-            {/* eslint-disable-next-line react-hooks/purity */}
-            <SkeletonBox height="10px" width={`${Math.random() * 60 + 20}%`} className={classes.LoadingSkeleton} />
+            <SkeletonBox
+              height="10px"
+              width={`${SKELETON_WIDTHS[i % SKELETON_WIDTHS.length]}%`}
+              className={classes.LoadingSkeleton}
+            />
           </Stack>
         ))}
       </Stack>

@@ -8,7 +8,11 @@ import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
  * typically appearing in a menu title, menu item, or the text of a button.
  */
 
-export const useMnemonics = (open: boolean, providedRef?: React.RefObject<HTMLElement | null>) => {
+export const useMnemonics = (
+  open: boolean,
+  providedRef?: React.RefObject<HTMLElement | null>,
+  dependencies: React.DependencyList = [],
+) => {
   const containerRef = useProvidedRefOrCreate(providedRef)
 
   React.useEffect(
@@ -26,7 +30,8 @@ export const useMnemonics = (open: boolean, providedRef?: React.RefObject<HTMLEl
         if (firstLetter) item.setAttribute('aria-keyshortcuts', firstLetter)
       })
     },
-    [open, containerRef],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [open, containerRef, ...dependencies],
   )
 
   React.useEffect(
@@ -79,7 +84,8 @@ export const useMnemonics = (open: boolean, providedRef?: React.RefObject<HTMLEl
       container.addEventListener('keydown', handler)
       return () => container.removeEventListener('keydown', handler)
     },
-    [open, containerRef],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [open, containerRef, ...dependencies],
   )
 
   return {containerRef}

@@ -5,6 +5,7 @@ export const useMenuInitialFocus = (
   open: boolean,
   containerRef?: React.RefObject<HTMLElement | null>,
   anchorRef?: React.RefObject<HTMLElement | null>,
+  dependencies: React.DependencyList = [],
 ) => {
   /**
    * We need to pick the first element to focus based on how the menu was opened,
@@ -72,6 +73,6 @@ export const useMenuInitialFocus = (
     // we don't want containerRef in dependencies
     // because re-renders to containerRef while it's open should not fire initialMenuFocus
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [open, openingGesture, anchorRef],
+    [open, openingGesture, anchorRef, ...dependencies],
   )
 }

@@ -1,11 +1,10 @@
 import type React from 'react'
 import {useCallback, useContext, useEffect, useRef} from 'react'
-import {useAnchoredPosition} from '../hooks'
+import {useAnchoredPosition, useRenderForcingRef} from '../hooks'
 import type {OverlayProps} from '../Overlay'
 import Overlay from '../Overlay'
 import type {ComponentProps} from '../utils/types'
 import {AutocompleteContext} from './AutocompleteContext'
-import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import VisuallyHidden from '../_VisuallyHidden'
 
 import classes from './AutocompleteOverlay.module.css'
@@ -48,24 +47,38 @@ function AutocompleteOverlay({
     computedAnchorRef.current = explicit ?? tokensRoot ?? inputRef.current
   }, [menuAnchorRef, inputRef])
 
-  const {floatingElementRef, position} = useAnchoredPosition(
+  // Use useRenderForcingRef to trigger position recalculation when overlay mounts
+  // (Portal creates element asynchronously via useLayoutEffect)
+  const [floatingElementRef, updateFloatingRef] = useRenderForcingRef<HTMLDivElement>()
+
+  const {position} = useAnchoredPosition(
     {
       side: 'outside-bottom',
       align: 'start',
       anchorElementRef: computedAnchorRef as React.RefObject<HTMLElement>,
+      floatingElementRef,
     },
     [showMenu, selectedItemLength],
   )
 
-  useRefObjectAsForwardedRef(scrollContainerRef, floatingElementRef)
+  // Sync floatingElementRef to scrollContainerRef for scroll handling
+  useEffect(() => {
+    scrollContainerRef.current = floatingElementRef.current
+  }, [scrollContainerRef, floatingElementRef])
+
+  // Clear overlay ref when closed so position resets between open/close cycles
+  useEffect(() => {
+    if (!showMenu && floatingElementRef.current) {
+      updateFloatingRef(null)
+    }
+  }, [showMenu, floatingElementRef, updateFloatingRef])
 
   const closeOptionList = useCallback(() => {
     setShowMenu(false)
   }, [setShowMenu])
 
-  if (typeof window === 'undefined') {
-    return null
-  }
+  // Note: Overlay uses Portal which requires DOM, but it's only rendered when showMenu is true.
+  // When showMenu is false, we safely render VisuallyHidden which doesn't require DOM.
 
   return showMenu ? (
     <Overlay
@@ -73,7 +86,7 @@ function AutocompleteOverlay({
       preventFocusOnOpen={true}
       onClickOutside={closeOptionList}
       onEscape={closeOptionList}
-      ref={floatingElementRef as React.RefObject<HTMLDivElement>}
+      ref={updateFloatingRef}
       top={position?.top}
       left={position?.left}
       className={clsx(classes.Overlay, className)}

@@ -43,8 +43,8 @@ describe('useMedia', () => {
     mockMatchMedia()
   })
 
-  it('should default to the matchMedia value', () => {
-    mockMatchMedia()
+  it('should default to false and sync to matchMedia value after mount', () => {
+    mockMatchMedia({defaultMatch: true})
 
     const match: boolean[] = []
 
@@ -55,11 +55,9 @@ describe('useMedia', () => {
     }
 
     render(<TestComponent />)
+    // First render defaults to false for SSR hydration safety
     expect(match[0]).toBe(false)
-
-    mockMatchMedia({defaultMatch: true})
-
-    render(<TestComponent />)
+    // After useEffect runs, syncs to actual matchMedia value
     expect(match[1]).toBe(true)
   })
 

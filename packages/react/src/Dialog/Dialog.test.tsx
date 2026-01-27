@@ -1,5 +1,5 @@
 import React from 'react'
-import {render, fireEvent, waitFor} from '@testing-library/react'
+import {render, fireEvent, waitFor, screen} from '@testing-library/react'
 import {describe, expect, it, vi, beforeEach} from 'vitest'
 import userEvent from '@testing-library/user-event'
 import {Dialog} from './Dialog'
@@ -99,12 +99,13 @@ describe('Dialog', () => {
     expect(onClose).toHaveBeenCalledWith('escape')
   })
 
-  it('changes the <body> style for `overflow` if it is not set to "hidden"', () => {
+  it('changes the <body> style for `overflow` if it is not set to "hidden"', async () => {
     document.body.style.overflow = 'scroll'
 
-    const {container} = render(<Dialog onClose={() => {}}>Pay attention to me</Dialog>)
+    const {container, getByRole} = render(<Dialog onClose={() => {}}>Pay attention to me</Dialog>)
 
-    expect(container.ownerDocument.body).toHaveStyle('overflow: hidden')
+    await waitFor(() => getByRole('dialog'))
+    await waitFor(() => expect(container.ownerDocument.body).toHaveStyle('overflow: hidden'))
   })
 
   it('does not attempt to change the <body> style for `overflow` if it is already set to "hidden"', () => {
@@ -164,8 +165,8 @@ describe('Dialog', () => {
 
     await user.click(getByLabelText('Close'))
 
-    expect(queryByRole('dialog')).toBeNull()
-    expect(triggerButton).toHaveFocus()
+    await waitFor(() => expect(queryByRole('dialog')).toBeNull())
+    await waitFor(() => expect(triggerButton).toHaveFocus())
   })
 
   it('returns focus to the element passed in returnFocusRef when the dialog closes', async () => {
@@ -201,7 +202,7 @@ describe('Dialog', () => {
     await user.click(triggerButton)
     await user.click(getByLabelText('Close'))
 
-    expect(getByRole('button', {name: 'return focus to (button 2)'})).toHaveFocus()
+    await waitFor(() => expect(getByRole('button', {name: 'return focus to (button 2)'})).toHaveFocus())
   })
 
   it('should support `className` on the Dialog element', async () => {
@@ -233,7 +234,7 @@ describe('Dialog', () => {
   })
 })
 
-it('automatically focuses the element that is specified as initialFocusRef', () => {
+it('automatically focuses the element that is specified as initialFocusRef', async () => {
   const initialFocusRef = React.createRef<HTMLAnchorElement>()
   const {getByRole} = render(
     <Dialog
@@ -248,7 +249,7 @@ it('automatically focuses the element that is specified as initialFocusRef', () 
     ></Dialog>,
   )
 
-  expect(getByRole('link')).toHaveFocus()
+  await waitFor(() => expect(getByRole('link')).toHaveFocus())
 })
 
 describe('Footer button loading states', () => {
@@ -396,15 +397,18 @@ describe('Footer button loading states', () => {
       expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false)
     })
 
-    it('handles multiple dialogs with ref counting when flag is ON', () => {
+    it('handles multiple dialogs with ref counting when flag is ON', async () => {
       const {unmount: unmount1} = render(
         <FeatureFlags flags={{primer_react_css_has_selector_perf: true}}>
           <Dialog onClose={() => {}}>Dialog 1</Dialog>
         </FeatureFlags>,
       )
 
-      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(true)
-      expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(true)
+      // Wait for first dialog to fully mount
+      await waitFor(() => expect(screen.getByRole('dialog')).toBeInTheDocument())
+
+      await waitFor(() => expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(true))
+      await waitFor(() => expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(true))
 
       // Render second dialog
       const {unmount: unmount2} = render(
@@ -413,23 +417,29 @@ describe('Footer button loading states', () => {
         </FeatureFlags>,
       )
 
+      // Wait for second dialog to fully mount
+      await waitFor(() => expect(screen.getAllByRole('dialog')).toHaveLength(2))
+
       // Attributes should still be present
-      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(true)
-      expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(true)
+      await waitFor(() => expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(true))
+      await waitFor(() => expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(true))
 
       // Unmount first dialog
       unmount1()
 
+      // Wait for DOM to settle - verify one dialog still exists
+      await waitFor(() => expect(screen.getAllByRole('dialog')).toHaveLength(1))
+
       // Attributes should still be present (second dialog and provider are still mounted)
-      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(true)
-      expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(true)
+      await waitFor(() => expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(true))
+      await waitFor(() => expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(true))
 
       // Unmount second dialog
       unmount2()
 
       // Now both should be removed
-      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false)
-      expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(false)
+      await waitFor(() => expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false))
+      await waitFor(() => expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(false))
     })
 
     it('handles multiple dialogs correctly when flag is OFF', () => {

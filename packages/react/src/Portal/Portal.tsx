@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState} from 'react'
 import {createPortal} from 'react-dom'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
@@ -75,20 +75,25 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
   containerName: _containerName,
 }) => {
   const {portalContainerName} = useContext(PortalContext)
-  const elementRef = React.useRef<HTMLDivElement | null>(null)
-  if (!elementRef.current) {
+  const [element, setElement] = useState<HTMLDivElement | null>(null)
+
+  // Store onMount in ref to avoid re-running effect when callback changes
+  const onMountRef = React.useRef(onMount)
+  useLayoutEffect(() => {
+    onMountRef.current = onMount
+  })
+
+  // Create and attach portal element in useLayoutEffect for SSR safety.
+  // useLayoutEffect runs synchronously after DOM mutations but before paint,
+  // minimizing visual flicker while avoiding hydration mismatches.
+  useLayoutEffect(() => {
     const div = document.createElement('div')
     // Portaled content should get their own stacking context so they don't interfere
     // with each other in unexpected ways. One should never find themselves tempted
     // to change the zIndex to a value other than "1".
     div.style.position = 'relative'
     div.style.zIndex = '1'
-    elementRef.current = div
-  }
 
-  const element = elementRef.current
-
-  useLayoutEffect(() => {
     let containerName = _containerName ?? portalContainerName
     if (containerName === undefined) {
       containerName = DEFAULT_PORTAL_CONTAINER_NAME
@@ -101,14 +106,19 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
         `Portal container '${containerName}' is not yet registered. Container must be registered with registerPortalRoot before use.`,
       )
     }
-    parentElement.appendChild(element)
-    onMount?.()
+    parentElement.appendChild(div)
+    setElement(div)
+    onMountRef.current?.()
 
     return () => {
-      parentElement.removeChild(element)
+      parentElement.removeChild(div)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [element, _containerName, portalContainerName])
+  }, [_containerName, portalContainerName])
+
+  // Return null on server or before effect runs
+  if (!element) {
+    return null
+  }
 
   return createPortal(children, element)
 }

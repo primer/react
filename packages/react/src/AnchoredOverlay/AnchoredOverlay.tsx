@@ -257,6 +257,8 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           anchorSide={position?.anchorSide}
           className={className}
           preventOverflow={preventOverflow}
+          initialFocusRef={focusTrapSettings?.initialFocusRef}
+          preventFocusOnOpen={focusTrapSettings?.disabled}
           data-component="AnchoredOverlay"
           {...overlayProps}
           ref={node => {

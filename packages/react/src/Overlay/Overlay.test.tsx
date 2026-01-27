@@ -99,18 +99,16 @@ describe('Overlay', () => {
     const user = userEvent.setup()
     const {getByRole} = render(<TestComponent initialFocus="button" />)
     await user.click(getByRole('button', {name: 'open overlay'}))
-    await waitFor(() => getByRole('button', {name: 'Confirm'}))
-    const confirmButton = getByRole('button', {name: 'Confirm'})
-    expect(document.activeElement).toEqual(confirmButton)
+    const confirmButton = await waitFor(() => getByRole('button', {name: 'Confirm'}))
+    await waitFor(() => expect(document.activeElement).toEqual(confirmButton))
   })
 
   it('should focus first element on open when no initialFocusRef is passed', async () => {
     const user = userEvent.setup()
     const {getByRole} = render(<TestComponent />)
     await user.click(getByRole('button', {name: 'open overlay'}))
-    await waitFor(() => getByRole('button', {name: 'Cancel'}))
-    const cancelButton = getByRole('button', {name: 'Cancel'})
-    expect(document.activeElement).toEqual(cancelButton)
+    const cancelButton = await waitFor(() => getByRole('button', {name: 'Cancel'}))
+    await waitFor(() => expect(document.activeElement).toEqual(cancelButton))
   })
 
   it('should not focus any element within the overlay on open when preventFocusOnOpen prop is true', async () => {

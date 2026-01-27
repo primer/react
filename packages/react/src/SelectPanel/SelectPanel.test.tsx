@@ -270,7 +270,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       )
 
       await user.click(screen.getByText('Select items'))
-      expect(screen.getByLabelText('Filter items')).toHaveFocus()
+      await waitFor(() => expect(screen.getByLabelText('Filter items')).toHaveFocus(), {timeout: 3000})
     })
 
     describe('selection', () => {
@@ -397,17 +397,30 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         await user.click(screen.getByText('Select items'))
 
         if (usingRemoveActiveDescendant) {
+          const itemOne = screen.getByRole('option', {name: 'item one'})
+
+          // Move focus to first item
           await user.type(document.activeElement!, '{ArrowDown}')
-
           expect(document.activeElement!).toHaveAccessibleName('item one')
 
-          await user.type(document.activeElement!, '{PageDown}')
+          // Wait for FocusZone to be fully initialized and track the current focus
+          await waitFor(() => {
+            expect(itemOne).toHaveAttribute('tabindex', '0')
+          })
 
-          expect(document.activeElement!).toHaveAccessibleName('item three')
+          // Navigate to last item with PageDown
+          await user.keyboard('{PageDown}')
 
-          await user.type(document.activeElement!, '{PageUp}')
+          await waitFor(() => {
+            expect(document.activeElement!).toHaveAccessibleName('item three')
+          })
 
-          expect(document.activeElement!).toHaveAccessibleName('item one')
+          // Navigate back to first item with PageUp
+          await user.keyboard('{PageUp}')
+
+          await waitFor(() => {
+            expect(document.activeElement!).toHaveAccessibleName('item one')
+          })
         } else {
           // First item by default should be the active element
           expect(document.activeElement!).toHaveAttribute(
@@ -753,9 +766,11 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         renderWithProp(<SelectPanelWithNotice />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
-        expect(screen.getByLabelText('Filter items')).toHaveFocus()
+        await waitFor(() => expect(screen.getByLabelText('Filter items')).toHaveFocus(), {timeout: 3000})
 
-        expect(getLiveRegion().getMessage('polite')?.trim()).toContain('This is a notice')
+        await waitFor(() => expect(getLiveRegion().getMessage('polite')?.trim()).toContain('This is a notice'), {
+          timeout: 3000,
+        })
       })
 
       it('should announce filtered results', async () => {
@@ -763,7 +778,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         renderWithProp(<FilterableSelectPanel />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
-        expect(screen.getByLabelText('Filter items')).toHaveFocus()
+        await waitFor(() => expect(screen.getByLabelText('Filter items')).toHaveFocus(), {timeout: 3000})
 
         await waitFor(
           async () => {
