@@ -352,18 +352,4 @@ describe('Overlay', () => {
     const container = getByRole('dialog')
     expect(container).not.toHaveAttribute('data-reflow-container')
   })
-
-  it('should `data-reflow-container` if FF is enabled', async () => {
-    const user = userEvent.setup()
-    const {getByRole} = render(
-      <FeatureFlags flags={{primer_react_overlay_overflow: true}}>
-        <TestComponent />
-      </FeatureFlags>,
-    )
-
-    await user.click(getByRole('button', {name: 'open overlay'}))
-
-    const container = getByRole('dialog')
-    expect(container).toHaveAttribute('data-reflow-container')
-  })
 })

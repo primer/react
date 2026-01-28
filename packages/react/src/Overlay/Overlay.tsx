@@ -8,7 +8,6 @@ import Portal from '../Portal'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import type {AnchorSide} from '@primer/behaviors'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {useFeatureFlag} from '../FeatureFlags'
 import classes from './Overlay.module.css'
 import {clsx} from 'clsx'
 
@@ -230,13 +229,12 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     // To be backwards compatible with the old Overlay, we need to set the left prop if x-position is not specified
     const leftPosition = left === undefined && right === undefined ? 0 : left
 
-    const overflowEnabled = useFeatureFlag('primer_react_overlay_overflow')
     return (
       <Portal containerName={portalContainerName}>
         <BaseOverlay
           role={role}
           width={width}
-          data-reflow-container={overflowEnabled || !preventOverflow ? true : undefined}
+          data-reflow-container={!preventOverflow ? true : undefined}
           ref={overlayRef}
           left={leftPosition}
           right={right}
