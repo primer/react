@@ -1,4 +1,12 @@
 {
+  "mcp": {
+    "servers": {
+      "playwright": {
+        "command": "npx",
+        "args": ["@playwright/mcp@latest"]
+      }
+    }
+  },
   "typescript.tsdk": "node_modules/typescript/lib",
   "editor.formatOnSave": true,
   "[javascript]": {
@@ -17,10 +25,7 @@
       "source.fixAll.stylelint": "explicit"
     }
   },
-  "stylelint.validate": [
-    "css",
-    "postcss"
-  ],
+  "stylelint.validate": ["css", "postcss"],
   "json.schemas": [
     {
       "fileMatch": ["*.docs.json"],
