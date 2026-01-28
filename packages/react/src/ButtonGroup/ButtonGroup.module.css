@@ -38,7 +38,8 @@
   }
 
   /* this is a workaround until portal based tooltips are fully removed from dotcom */
-  &:has(div:last-child:empty) {
+  /* PERFORMANCE: Scope to direct child for O(1) lookup */
+  &:has(> div:last-child:empty) {
     button,
     a {
       border-radius: var(--borderRadius-medium);
