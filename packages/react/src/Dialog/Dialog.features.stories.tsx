@@ -117,6 +117,36 @@ export const WithCustomRenderers = ({width, height, subtitle}: DialogStoryProps)
   )
 }
 
+export const WithDirectSubcomponents = ({width, height, subtitle}: DialogStoryProps) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const onDialogClose = useCallback(() => setIsOpen(false), [])
+  return (
+    <>
+      <Button onClick={() => setIsOpen(!isOpen)}>Show dialog</Button>
+      {isOpen && (
+        <Dialog
+          title="My Dialog"
+          subtitle={subtitle ? 'This is a subtitle!' : undefined}
+          width={width}
+          height={height}
+          onClose={onDialogClose}
+        >
+          <Dialog.Header>My dialog</Dialog.Header>
+          <Dialog.Body>{lipsum}</Dialog.Body>
+          <Dialog.Footer>
+            <Dialog.Buttons
+              buttons={[
+                {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
+                {buttonType: 'primary', content: 'Proceed'},
+              ]}
+            />
+          </Dialog.Footer>
+        </Dialog>
+      )}
+    </>
+  )
+}
+
 export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [secondOpen, setSecondOpen] = useState(false)

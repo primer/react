@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react'
+import React, {forwardRef, type JSX} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import type {ButtonProps} from './types'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
@@ -13,7 +13,8 @@ import classes from './ButtonBase.module.css'
 import {isElement} from 'react-is'
 
 const renderModuleVisual = (
-  Visual: React.ElementType | React.ReactElement,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  Visual: React.ElementType | React.ReactElement<any>,
   loading: boolean,
   visualName: string,
   counterLabel: boolean,
@@ -55,6 +56,9 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
   const uuid = useId(id)
   const loadingAnnouncementID = `${uuid}-loading-announcement`
 
+  // Only include the loading aria-describedby if there is a loading state
+  const ariaDescribedByIds = loading ? [loadingAnnouncementID, ariaDescribedBy] : [ariaDescribedBy]
+
   if (__DEV__) {
     /**
      * The Linter yells because it thinks this conditionally calls an effect,
@@ -62,7 +66,6 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
      * this is safe, and ensures the entire effect is kept out of prod builds
      * shaving precious bytes from the output, and avoiding mounting a noop effect
      */
-    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/rules-of-hooks
     React.useEffect(() => {
       if (
@@ -100,9 +103,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
         data-variant={variant}
         data-label-wrap={labelWrap}
         data-has-count={count !== undefined ? true : undefined}
-        aria-describedby={[loadingAnnouncementID, ariaDescribedBy]
-          .filter(descriptionID => Boolean(descriptionID))
-          .join(' ')}
+        aria-describedby={ariaDescribedByIds.filter(descriptionID => Boolean(descriptionID)).join(' ') || undefined}
         // aria-labelledby is needed because the accessible name becomes unset when the button is in a loading state.
         // We only set it when the button is in a loading state because it will supersede the aria-label when the screen
         // reader announces the button name.

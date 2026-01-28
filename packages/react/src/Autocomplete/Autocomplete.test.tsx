@@ -6,6 +6,9 @@ import type {AutocompleteInputProps} from '../Autocomplete'
 import Autocomplete from '../Autocomplete'
 import type {AutocompleteMenuInternalProps, AutocompleteMenuItem} from '../Autocomplete/AutocompleteMenu'
 import BaseStyles from '../BaseStyles'
+import {implementsClassName} from '../utils/testing'
+import classes from './AutocompleteOverlay.module.css'
+import {AutocompleteContext} from './AutocompleteContext'
 
 const mockItems = [
   {text: 'zero', id: '0'},
@@ -47,6 +50,11 @@ const LabelledAutocomplete = <T extends AutocompleteMenuItem>({
 
 describe('Autocomplete', () => {
   describe('Autocomplete.Input', () => {
+    implementsClassName(props => (
+      <Autocomplete>
+        <Autocomplete.Input {...props} />
+      </Autocomplete>
+    ))
     it('calls onChange', async () => {
       const user = userEvent.setup()
       const onChangeMock = vi.fn()
@@ -213,15 +221,6 @@ describe('Autocomplete', () => {
       )
 
       expect(getByDisplayValue('0')).toBeDefined()
-    })
-
-    it('should support `className` on the outermost element', () => {
-      const Element = () => (
-        <Autocomplete>
-          <Autocomplete.Input className={'test-class-name'} />
-        </Autocomplete>
-      )
-      expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
     })
   })
 
@@ -443,24 +442,32 @@ describe('Autocomplete', () => {
       expect(screen.getByText('Three')).toBeInTheDocument()
     })
   })
-
   describe('Autocomplete.Overlay', () => {
-    it('should support `className` on the outermost element', async () => {
-      const Element = ({className}: {className: string}) => (
-        <Autocomplete id="autocompleteId">
-          <Autocomplete.Input />
-          <Autocomplete.Overlay className={className} visibility="visible">
-            hi
-          </Autocomplete.Overlay>
-        </Autocomplete>
+    implementsClassName(props => {
+      // Create a context with showMenu set to true
+      const mockContext = {
+        activeDescendantRef: {current: null},
+        autocompleteSuggestion: '',
+        id: 'test-id',
+        inputRef: {current: document.createElement('input')},
+        inputValue: '',
+        isMenuDirectlyActivated: false,
+        scrollContainerRef: {current: null},
+        selectedItemLength: 0,
+        setAutocompleteSuggestion: () => {},
+        setInputValue: () => {},
+        setIsMenuDirectlyActivated: () => {},
+        setSelectedItemLength: () => {},
+        setShowMenu: () => {},
+        showMenu: true, // Force the menu to show
+      }
+
+      return (
+        <AutocompleteContext.Provider value={mockContext}>
+          <Autocomplete.Overlay {...props}>hi</Autocomplete.Overlay>
+        </AutocompleteContext.Provider>
       )
-      const {container: elementContainer, getByRole} = render(<Element className="test-class-name" />)
-      const inputNode = getByRole('combobox')
-      await userEvent.click(inputNode)
-      await userEvent.keyboard('{ArrowDown}')
-      // overlay is a sibling of elementContainer
-      expect(elementContainer.parentElement?.querySelectorAll('.test-class-name')).toHaveLength(1)
-    })
+    }, classes.Overlay)
   })
 
   describe('null context', () => {

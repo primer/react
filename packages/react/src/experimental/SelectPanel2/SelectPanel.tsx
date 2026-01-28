@@ -63,7 +63,7 @@ export type SelectPanelProps = {
 
   defaultOpen?: boolean
   open?: boolean
-  anchorRef?: React.RefObject<HTMLButtonElement>
+  anchorRef?: React.RefObject<HTMLButtonElement | null>
   anchoredPositionSettings?: Partial<PositionSettings>
 
   onCancel?: () => void
@@ -116,7 +116,8 @@ const Panel: React.FC<SelectPanelProps> = ({
   // 🚨 Hack for good API!
   // we strip out Anchor from children and wire it up to Dialog
   // with additional props for accessibility
-  let Anchor: React.ReactElement | undefined
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let Anchor: React.ReactElement<any> | undefined
   const anchorRef = useProvidedRefOrCreate(providedAnchorRef)
 
   const onAnchorClick = () => {
@@ -126,7 +127,7 @@ const Panel: React.FC<SelectPanelProps> = ({
 
   const contents = React.Children.map(props.children, child => {
     if (React.isValidElement(child) && (child.type === SelectPanelButton || isSlot(child, SelectPanelButton))) {
-      // eslint-disable-next-line react-compiler/react-compiler
+      // eslint-disable-next-line react-hooks/immutability
       Anchor = React.cloneElement(child, {
         // @ts-ignore TODO
         ref: anchorRef,
@@ -333,6 +334,7 @@ const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((prop
     return (
       <Button
         ref={anchorRef}
+        // eslint-disable-next-line react-hooks/refs
         aria-label={`${(anchorRef as MutableRefObject<HTMLButtonElement>).current.textContent}, ${labelText}`}
         {...inputProps}
       />
@@ -593,9 +595,11 @@ const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
   title,
   children,
 }) => {
+  const MessageWrapper = variant === 'empty' ? 'div' : AriaStatus
+
   if (size === 'full') {
     return (
-      <div aria-live={variant === 'empty' ? undefined : 'polite'} className={classes.MessageFull}>
+      <MessageWrapper className={classes.MessageFull}>
         {variant !== 'empty' ? (
           <Octicon
             icon={AlertIcon}
@@ -608,18 +612,14 @@ const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
         ) : null}
         <span className={classes.MessageTitle}>{title}</span>
         <span className={classes.MessageContent}>{children}</span>
-      </div>
+      </MessageWrapper>
     )
   } else {
     return (
-      <div
-        aria-live={variant === 'empty' ? undefined : 'polite'}
-        className={classes.MessageInline}
-        data-variant={variant}
-      >
+      <MessageWrapper className={classes.MessageInline} data-variant={variant}>
         <AlertIcon size={16} />
         <div>{children}</div>
-      </div>
+      </MessageWrapper>
     )
   }
 }

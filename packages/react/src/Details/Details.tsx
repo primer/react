@@ -5,7 +5,8 @@ import classes from './Details.module.css'
 import {useMergedRefs} from '../internal/hooks/useMergedRefs'
 
 const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(
-  ({className, children, ...rest}, forwardRef): ReactElement => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ({className, children, ...rest}, forwardRef): ReactElement<any> => {
     const detailsRef = React.useRef<HTMLDetailsElement>(null)
     const ref = useMergedRefs(forwardRef, detailsRef)
 

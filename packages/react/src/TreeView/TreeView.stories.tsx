@@ -2,7 +2,7 @@ import {DiffAddedIcon, DiffModifiedIcon, FileIcon} from '@primer/octicons-react'
 import type {Meta, StoryFn} from '@storybook/react-vite'
 import Octicon from '../Octicon'
 import {TreeView} from './TreeView'
-import classes from './TreeViewStories.module.css'
+import classes from './TreeView.stories.module.css'
 
 const meta: Meta = {
   title: 'Components/TreeView',

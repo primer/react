@@ -1,8 +1,12 @@
 import {render} from '@testing-library/react'
 import {describe, it, expect} from 'vitest'
 import {Hidden} from '../Hidden'
+import {implementsClassName} from '../utils/testing'
+import classes from './Hidden.module.css'
 
 describe('Hidden', () => {
+  implementsClassName(Hidden, classes.Hidden)
+
   it('renders the styles as expected when a single viewport value is provided as a string via `when` prop', () => {
     const hiddenElement = render(
       <div data-testid="hidden-regular">

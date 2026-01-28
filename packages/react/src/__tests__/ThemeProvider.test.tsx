@@ -70,7 +70,7 @@ it('works in auto mode', () => {
 })
 
 // TODO: need to wire up a prefers color scheme mock, vitest-matchmedia-mock?
-it.skip('works in auto mode (dark)', () => {
+it.todo('works in auto mode (dark)', () => {
   const matchMediaSpy = vi.spyOn(window, 'matchMedia').mockImplementation(query => ({
     matches: true, // enable dark mode
     media: query,

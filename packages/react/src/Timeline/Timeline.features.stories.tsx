@@ -48,6 +48,19 @@ export const CondensedItems = () => (
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
+    <Timeline.Break />
+    <Timeline.Item condensed>
+      <Timeline.Badge>
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
+      </Timeline.Badge>
+      <Timeline.Body>This is a message</Timeline.Body>
+    </Timeline.Item>
+    <Timeline.Item condensed>
+      <Timeline.Badge>
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
+      </Timeline.Badge>
+      <Timeline.Body>This is a message</Timeline.Body>
+    </Timeline.Item>
   </Timeline>
 )
 

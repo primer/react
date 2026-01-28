@@ -26,7 +26,6 @@ import {
   NavList,
   Overlay,
   PageHeader,
-  PageLayout,
   RadioGroup,
   RelativeTime,
   SegmentedControl,
@@ -308,26 +307,6 @@ describe('@primer/react', () => {
 
   test('PageHeader.Title supports `sx` prop', () => {
     const {container} = render(<PageHeader.Title data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('PageLayout supports `sx` prop', () => {
-    const {container} = render(<PageLayout data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('PageLayout.Content supports `sx` prop', () => {
-    const {container} = render(
-      <PageLayout.Content as="section" data-testid="component" sx={{background: 'red'}} aria-labelledby="normal" />,
-    )
-
-    const outerElement = container.firstElementChild! as HTMLElement
-    expect(window.getComputedStyle(outerElement).backgroundColor).toBe('rgb(255, 0, 0)')
-    expect(outerElement).toHaveAttribute('aria-labelledby', 'normal')
-  })
-
-  test('PageLayout.Pane supports `sx` prop', () => {
-    const {container} = render(<PageLayout.Pane data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 

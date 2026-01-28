@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
-import {isResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
+import {isResponsiveValue} from '../hooks/useResponsiveValue'
 import Heading from '../Heading'
 import {ArrowLeftIcon} from '@primer/octicons-react'
 import type {LinkProps as BaseLinkProps} from '../Link'
 import Link from '../Link'
+import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes'
 
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {areAllValuesTheSame, haveRegularAndWideSameValue} from '../utils/getBreakpointDeclarations'
@@ -205,13 +206,13 @@ export type TitleAreaProps = {
 const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<TitleAreaProps>>(
   ({children, className, hidden = false, variant = 'medium'}, forwardedRef) => {
     const titleAreaRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
-    const currentVariant = useResponsiveValue(variant, 'medium')
     return (
       <div
         className={clsx(classes.TitleArea, className)}
+        // @ts-expect-error it needs a non nullable ref
         ref={titleAreaRef}
         data-component="TitleArea"
-        data-size-variant={currentVariant}
+        {...getResponsiveAttributes('size-variant', variant)}
         {...getHiddenDataAttributes(hidden)}
       >
         {children}

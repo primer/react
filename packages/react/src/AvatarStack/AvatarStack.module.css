@@ -36,7 +36,7 @@
   }
 
   &:where([data-avatar-count='1'][data-shape='circle']) {
-    .AvatarItem {
+    .AvatarItem:where([data-component='Avatar']) {
       /* stylelint-disable-next-line primer/box-shadow */
       box-shadow: 0 0 0 var(--avatar-border-width) var(--avatar-borderColor);
     }
@@ -44,12 +44,12 @@
 
   &:where([data-avatar-count='1'][data-shape='square']) .AvatarItem {
     /* stylelint-disable-next-line primer/box-shadow */
-    box-shadow: 1px 0 rgba(0, 0, 0, 1);
+    box-shadow: 1px 0 rgb(0, 0, 0, 1);
   }
 
   &:where([data-avatar-count='1'][data-shape='square'][data-align-right]) .AvatarItem {
     /* stylelint-disable-next-line primer/box-shadow */
-    box-shadow: -1px 0 rgba(0, 0, 0, 1);
+    box-shadow: -1px 0 rgb(0, 0, 0, 1);
   }
 
   &:where([data-avatar-count='2']) {
@@ -143,14 +143,18 @@
     box-shadow: 0 0 0 var(--avatar-border-width) transparent;
   }
 
+  &:not([data-component='Avatar']):not(:has([data-square])) {
+    border-radius: 50%;
+  }
+
   .AvatarStack:where([data-shape='square']) &:is(img) {
     /* stylelint-disable-next-line primer/box-shadow */
-    box-shadow: 1px 0 rgba(255, 255, 255, 1);
+    box-shadow: 1px 0 rgb(255, 255, 255, 1);
   }
 
   .AvatarStack:where([data-shape='square'][data-align-right]) &:is(img) {
     /* stylelint-disable-next-line primer/box-shadow */
-    box-shadow: -1px 0 rgba(255, 255, 255, 1);
+    box-shadow: -1px 0 rgb(255, 255, 255, 1);
   }
 
   &:first-child {
@@ -184,13 +188,13 @@
   /* Circular mask */
   .AvatarStack:where([data-shape='circle']) &:nth-child(n + 2) {
     /* stylelint-disable-next-line declaration-property-value-no-unknown */
-    mask-image: radial-gradient(at 50% 50%, rgb(0, 0, 0) 70%, rgba(0, 0, 0, 0) 71%), linear-gradient(rgb(0, 0, 0) 0 0);
+    mask-image: radial-gradient(at 50% 50%, rgb(0, 0, 0) 70%, rgb(0, 0, 0, 0) 71%), linear-gradient(rgb(0, 0, 0) 0 0);
   }
 
   /* Square mask */
   .AvatarStack:where([data-shape='square']) &:nth-child(n + 2) {
     /* stylelint-disable-next-line declaration-property-value-no-unknown */
-    mask-image: linear-gradient(at 50% 50%, rgb(0, 0, 0) 70%, rgba(0, 0, 0, 0) 71%), linear-gradient(rgb(0, 0, 0) 0 0);
+    mask-image: linear-gradient(at 50% 50%, rgb(0, 0, 0) 70%, rgb(0, 0, 0, 0) 71%), linear-gradient(rgb(0, 0, 0) 0 0);
   }
 
   /* Cascade variant override for nth-child(n + 3) */

@@ -5,10 +5,18 @@
   &:where([data-clip-sidebar]) {
     .TimelineItem:first-child {
       padding-top: 0;
+
+      &:where([data-condensed])::before {
+        top: var(--base-size-12);
+      }
     }
 
     .TimelineItem:last-child {
       padding-bottom: 0;
+
+      &:where([data-condensed])::before {
+        height: var(--base-size-12);
+      }
     }
   }
 }
@@ -96,4 +104,8 @@
   background-color: var(--bgColor-default);
   border: 0;
   border-top: var(--borderWidth-thicker) solid var(--borderColor-default);
+
+  &:has(+ [data-condensed]) {
+    margin-bottom: calc(-1 * var(--base-size-12));
+  }
 }

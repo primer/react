@@ -3,7 +3,7 @@ import {SelectPanel} from './SelectPanel'
 import {ActionList, Avatar, Button, Link, SegmentedControl, ToggleSwitch, useResponsiveValue} from '../../index'
 import {TagIcon, GearIcon, ArrowBothIcon} from '@primer/octicons-react'
 import data from './mock-story-data'
-import sharedClasses from './SelectPanel2Stories.module.css'
+import sharedClasses from './SelectPanel2.stories.module.css'
 import classes from './SelectPanel.features.stories.module.css'
 
 export default {

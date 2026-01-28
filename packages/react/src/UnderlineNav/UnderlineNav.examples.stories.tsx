@@ -1,5 +1,4 @@
 import React from 'react'
-import type {IconProps} from '@primer/octicons-react'
 import {
   CodeIcon,
   IssueOpenedIcon,
@@ -23,7 +22,6 @@ import {
 import type {Meta} from '@storybook/react-vite'
 import {UnderlineNav} from './index'
 import {Avatar, Button, Heading, Link, Text, StateLabel, BranchName} from '..'
-import Octicon from '../Octicon'
 import classes from './UnderlineNav.examples.stories.module.css'
 
 export default {
@@ -49,16 +47,16 @@ export const PullRequestPage = () => {
         </div>
       </div>
       <UnderlineNav aria-label="Pull Request">
-        <UnderlineNav.Item icon={CommentDiscussionIcon} counter="0" aria-current="page">
+        <UnderlineNav.Item leadingVisual={<CommentDiscussionIcon />} counter="0" aria-current="page">
           Conversation
         </UnderlineNav.Item>
-        <UnderlineNav.Item counter={3} icon={GitCommitIcon}>
+        <UnderlineNav.Item counter={3} leadingVisual={<GitCommitIcon />}>
           Commits
         </UnderlineNav.Item>
-        <UnderlineNav.Item counter={7} icon={ChecklistIcon}>
+        <UnderlineNav.Item counter={7} leadingVisual={<ChecklistIcon />}>
           Checks
         </UnderlineNav.Item>
-        <UnderlineNav.Item counter={4} icon={FileDiffIcon}>
+        <UnderlineNav.Item counter={4} leadingVisual={<FileDiffIcon />}>
           Files Changes
         </UnderlineNav.Item>
       </UnderlineNav>
@@ -66,16 +64,16 @@ export const PullRequestPage = () => {
   )
 }
 
-const items: {navigation: string; icon: React.FC<IconProps>; counter?: number | string; href?: string}[] = [
-  {navigation: 'Code', icon: CodeIcon, href: '#code'},
-  {navigation: 'Issues', icon: IssueOpenedIcon, counter: '12K', href: '#issues'},
-  {navigation: 'Pull Requests', icon: GitPullRequestIcon, counter: 13, href: '#pull-requests'},
-  {navigation: 'Discussions', icon: CommentDiscussionIcon, counter: 5, href: '#discussions'},
-  {navigation: 'Actions', icon: PlayIcon, counter: 4, href: '#actions'},
-  {navigation: 'Projects', icon: ProjectIcon, counter: 9, href: '#projects'},
-  {navigation: 'Insights', icon: GraphIcon, counter: '0', href: '#insights'},
-  {navigation: 'Settings', icon: GearIcon, counter: 10, href: '#settings'},
-  {navigation: 'Security', icon: ShieldLockIcon, href: '#security'},
+const items: {navigation: string; icon: React.ReactElement; counter?: number | string; href?: string}[] = [
+  {navigation: 'Code', icon: <CodeIcon />, href: '#code'},
+  {navigation: 'Issues', icon: <IssueOpenedIcon />, counter: '12K', href: '#issues'},
+  {navigation: 'Pull Requests', icon: <GitPullRequestIcon />, counter: 13, href: '#pull-requests'},
+  {navigation: 'Discussions', icon: <CommentDiscussionIcon />, counter: 5, href: '#discussions'},
+  {navigation: 'Actions', icon: <PlayIcon />, counter: 4, href: '#actions'},
+  {navigation: 'Projects', icon: <ProjectIcon />, counter: 9, href: '#projects'},
+  {navigation: 'Insights', icon: <GraphIcon />, counter: '0', href: '#insights'},
+  {navigation: 'Settings', icon: <GearIcon />, counter: 10, href: '#settings'},
+  {navigation: 'Security', icon: <ShieldLockIcon />, href: '#security'},
 ]
 
 export const ReposPage = () => {
@@ -86,7 +84,7 @@ export const ReposPage = () => {
       {items.map((item, index) => (
         <UnderlineNav.Item
           key={item.navigation}
-          icon={item.icon}
+          leadingVisual={item.icon}
           aria-current={index === selectedIndex ? 'page' : undefined}
           onSelect={event => {
             event.preventDefault()
@@ -102,13 +100,13 @@ export const ReposPage = () => {
   )
 }
 
-const profileItems: {navigation: string; icon: React.FC<IconProps>; counter?: number | string; href?: string}[] = [
-  {navigation: 'Overview', icon: BookIcon, href: '#overview'},
-  {navigation: 'Repositories', icon: RepoIcon, counter: '12', href: '#repositories'},
-  {navigation: 'Projects', icon: ProjectIcon, counter: 3, href: '#projects'},
-  {navigation: 'Packages', icon: PackageIcon, counter: '0', href: '#packages'},
-  {navigation: 'Stars', icon: StarIcon, counter: '0', href: '#stars'},
-  {navigation: 'Activity', icon: ThreeBarsIcon, counter: 67, href: '#activity'},
+const profileItems: {navigation: string; icon: React.ReactElement; counter?: number | string; href?: string}[] = [
+  {navigation: 'Overview', icon: <BookIcon />, href: '#overview'},
+  {navigation: 'Repositories', icon: <RepoIcon />, counter: '12', href: '#repositories'},
+  {navigation: 'Projects', icon: <ProjectIcon />, counter: 3, href: '#projects'},
+  {navigation: 'Packages', icon: <PackageIcon />, counter: '0', href: '#packages'},
+  {navigation: 'Stars', icon: <StarIcon />, counter: '0', href: '#stars'},
+  {navigation: 'Activity', icon: <ThreeBarsIcon />, counter: 67, href: '#activity'},
 ]
 
 export const ProfilePage = () => {
@@ -120,7 +118,7 @@ export const ProfilePage = () => {
           {profileItems.map((item, index) => (
             <UnderlineNav.Item
               key={item.navigation}
-              icon={item.icon}
+              leadingVisual={item.icon}
               aria-current={index === selectedIndex ? 'page' : undefined}
               onSelect={event => {
                 event.preventDefault()
@@ -151,7 +149,7 @@ export const ProfilePage = () => {
             <div className={classes.ProfileEditSection}>
               <Button block>Edit Profile</Button>
               <div className={classes.ProfileFollowRow}>
-                <Octicon icon={PeopleIcon} size={16} className={classes.ProfileFollowerIcon} />
+                <PeopleIcon size={16} className={classes.ProfileFollowerIcon} />
                 <Link href="https://github.com" muted className={classes.ProfileFollowerCount}>
                   47 Followers
                 </Link>

@@ -7,6 +7,7 @@ import {SkeletonAvatar} from '../SkeletonAvatar'
 import {VisuallyHidden} from '../VisuallyHidden'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import classes from './Skeleton.examples.stories.module.css'
+import {AriaStatus} from '../experimental'
 
 export default {
   title: 'Components/Skeleton/Examples',
@@ -42,7 +43,9 @@ export const CommentsLoading = () => {
       {/** read by screen readers in place of the comments in a skeleton loading state */}
       {loading ? <VisuallyHidden>Comments are loading</VisuallyHidden> : null}
       {/** when loading is completed, it should be announced by the screen-reader */}
-      <VisuallyHidden aria-live="polite">{loadingFinished ? 'Comments are loaded' : null}</VisuallyHidden>
+      <VisuallyHidden>
+        <AriaStatus>{loadingFinished ? 'Comments are loaded' : null}</AriaStatus>
+      </VisuallyHidden>
       <div className={classes.CommentsSpacing}>
         <Button onClick={toggleLoadingState}>{loading ? 'Stop loading' : 'Start loading'}</Button>
         {Array.from({length: COMMENT_LIST_LENGTH}, (_, index) => (
@@ -101,7 +104,9 @@ export const CommentsLoadingWithSuspense = () => {
       {/** read by screen readers in place of the comments in a skeleton loading state */}
       {loadingStatus === 'pending' ? <VisuallyHidden>Comments are loading</VisuallyHidden> : null}
       {/** when loading is completed, it should be announced by the screen-reader */}
-      <VisuallyHidden aria-live="polite">{loadingStatus === 'fulfilled' ? 'Comments are loaded' : null}</VisuallyHidden>
+      <VisuallyHidden>
+        <AriaStatus>{loadingStatus === 'fulfilled' ? 'Comments are loaded' : null}</AriaStatus>
+      </VisuallyHidden>
 
       {/* aria-busy is passed so the screenreader doesn't announce the skeleton state */}
       <div className={classes.CommentsSpacing} aria-busy={loadingStatus === 'pending'}>

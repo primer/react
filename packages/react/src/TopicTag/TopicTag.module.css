@@ -1,0 +1,32 @@
+/* Add a reset for when TopicTag is an <a> element since our link styles apply an underline text-decoration by default */
+.TopicTag:where(a) {
+  text-decoration: none;
+}
+
+/* Add a reset for when TopicTag is a <button> element */
+.TopicTag:where(button) {
+  @mixin buttonReset;
+}
+
+.TopicTag {
+  background-color: var(--bgColor-accent-muted);
+  color: var(--fgColor-accent);
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-semibold);
+  line-height: var(--text-body-lineHeight-small);
+  border-radius: var(--borderRadius-full);
+  padding: var(--base-size-2) var(--base-size-12);
+  border: var(--borderWidth-thin) solid var(--topicTag-borderColor, transparent);
+  display: inline-flex;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: var(--bgColor-accent-emphasis);
+    color: var(--fgColor-onEmphasis);
+  }
+
+  &:where(a, button) {
+    cursor: pointer;
+    user-select: none;
+  }
+}

@@ -379,22 +379,27 @@ export const WithCallbackWhenOverlayOpenStateChanges = () => {
 
   return (
     <Stack as="form" padding="normal">
-      <FormControl>
-        <FormControl.Label id="autocompleteLabel">Default label</FormControl.Label>
-        <Autocomplete>
-          <Autocomplete.Input />
-          <Autocomplete.Overlay>
-            <Autocomplete.Menu
-              items={items}
-              selectedItemIds={[]}
-              onOpenChange={onOpenChange}
-              aria-labelledby="autocompleteLabel"
-            />
-          </Autocomplete.Overlay>
-        </Autocomplete>
-      </FormControl>
-      <div>
-        The menu is <strong>{isMenuOpen ? 'opened' : 'closed'}</strong>
+      <div className={classes.InputWithStateLabel}>
+        <div>
+          <FormControl>
+            <FormControl.Label id="autocompleteLabel">Default label</FormControl.Label>
+            <Autocomplete>
+              <Autocomplete.Input />
+              <Autocomplete.Overlay>
+                <Autocomplete.Menu
+                  items={items}
+                  selectedItemIds={[]}
+                  onOpenChange={onOpenChange}
+                  aria-labelledby="autocompleteLabel"
+                />
+              </Autocomplete.Overlay>
+            </Autocomplete>
+          </FormControl>
+        </div>
+
+        <div className={classes.StateLabelInline}>
+          The menu is <strong>{isMenuOpen ? 'open' : 'closed'}</strong>
+        </div>
       </div>
     </Stack>
   )
@@ -546,6 +551,7 @@ export const InADialog = () => {
   useEffect(() => {
     if (outerContainerRef.current instanceof HTMLElement) {
       registerPortalRoot(outerContainerRef.current, 'outerContainer')
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setMounted(true)
     }
   }, [isDialogOpen])

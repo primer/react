@@ -16,6 +16,7 @@ import {clsx} from 'clsx'
 export interface TokenProps extends TokenBaseProps {
   /**
    * A component that renders before the token text
+   * disabled when size is 'small'
    */
   leadingVisual?: React.ElementType
 }
@@ -71,7 +72,7 @@ const Token = forwardRef((props, forwardedRef) => {
       ref={forwardedRef}
       style={{borderWidth: `${tokenBorderWidthPx}px`, ...style}}
     >
-      {LeadingVisual ? (
+      {LeadingVisual && size !== 'small' ? (
         <LeadingVisualContainer size={size}>
           <LeadingVisual />
         </LeadingVisualContainer>

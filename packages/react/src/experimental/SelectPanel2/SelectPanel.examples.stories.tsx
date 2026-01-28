@@ -16,7 +16,7 @@ import {
   PlusCircleIcon,
 } from '@primer/octicons-react'
 import data from './mock-story-data'
-import sharedClasses from './SelectPanel2Stories.module.css'
+import sharedClasses from './SelectPanel2.stories.module.css'
 import classes from './SelectPanel.examples.stories.module.css'
 
 export default {

@@ -54,7 +54,6 @@ export const useOnEscapePress = (
   onEscape: (e: KeyboardEvent) => void,
   callbackDependencies: React.DependencyList = [onEscape],
 ): void => {
-  // eslint-disable-next-line react-compiler/react-compiler
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const escapeCallback = useCallback(onEscape, callbackDependencies)
 

@@ -78,6 +78,10 @@ const stories: Array<{title: string; id: string; viewports?: Array<keyof typeof 
     title: 'ActionsStacked',
     id: 'components-banner-features--actions-layout-stacked',
   },
+  {
+    title: 'FlushInsideDialog',
+    id: 'components-banner-features--flush-inside-dialog',
+  },
 ]
 
 test.describe('Banner', () => {

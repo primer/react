@@ -2,8 +2,11 @@ import {describe, it, expect} from 'vitest'
 import {render} from '@testing-library/react'
 import 'react-intersection-observer/test-utils'
 import {SplitPageLayout} from '../SplitPageLayout/SplitPageLayout'
+import {implementsClassName} from '../utils/testing'
 
 describe('SplitPageLayout', () => {
+  implementsClassName(SplitPageLayout)
+
   it('renders Pane with a custom ID', () => {
     const {getByText} = render(
       <SplitPageLayout>

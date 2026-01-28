@@ -1,8 +1,44 @@
 {
-  "id": "spinner",
-  "name": "Spinner",
-  "status": "alpha",
   "a11yReviewed": "2025-01-08",
+  "id": "spinner",
+  "importPath": "@primer/react",
+  "name": "Spinner",
+  "props": [
+    {
+      "description": "Sets the width and height of the spinner.",
+      "name": "size",
+      "type": "'small' | 'medium' | 'large'"
+    },
+    {
+      "defaultValue": "Loading",
+      "description": "Sets the text conveyed by assistive technologies such as screen readers. Set to `null` if the loading state is displayed in a text node somewhere else on the page.",
+      "name": "srText",
+      "type": "string | null"
+    },
+    {
+      "deprecated": true,
+      "description": "Sets the text conveyed by assistive technologies such as screen readers.",
+      "name": "aria-label",
+      "type": "string"
+    },
+    {
+      "defaultValue": "",
+      "description": "",
+      "name": "className",
+      "type": "string"
+    },
+    {
+      "name": "data-*",
+      "type": "string"
+    },
+    {
+      "defaultValue": "false",
+      "description": "Controls whether and how long to delay rendering the spinner. Set to `true` to delay by 1000ms, `'short'` to delay by 300ms, `'long'` to delay by 1000ms, or provide a custom number of milliseconds.",
+      "name": "delay",
+      "type": "boolean | 'short' | 'long' | number"
+    }
+  ],
+  "status": "alpha",
   "stories": [
     {
       "id": "components-spinner--default"
@@ -15,36 +51,9 @@
     },
     {
       "id": "components-spinner-features--suppress-screen-reader-text"
-    }
-  ],
-  "importPath": "@primer/react",
-  "props": [
-    {
-      "name": "size",
-      "type": "'small' | 'medium' | 'large'",
-      "description": "Sets the width and height of the spinner."
     },
     {
-      "name": "srText",
-      "type": "string | null",
-      "defaultValue": "Loading",
-      "description": "Sets the text conveyed by assistive technologies such as screen readers. Set to `null` if the loading state is displayed in a text node somewhere else on the page."
-    },
-    {
-      "name": "aria-label",
-      "type": "string",
-      "description": "Sets the text conveyed by assistive technologies such as screen readers.",
-      "deprecated": true
-    },
-    {
-      "name": "className",
-      "type": "string",
-      "description": "",
-      "defaultValue": ""
-    },
-    {
-      "name": "data-*",
-      "type": "string"
+      "id": "components-spinner-features--with-delay"
     }
   ],
   "subcomponents": []

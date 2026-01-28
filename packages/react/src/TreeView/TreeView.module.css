@@ -67,6 +67,11 @@
       --min-item-height: 2.75rem;
     }
 
+    /*
+     * NOTE: Uses descendant :has() - TreeViewItemSkeleton is nested inside
+     * TreeViewItemContent > TreeViewItemContentText, not a direct child.
+     * This is acceptable as the search is scoped to this element's subtree.
+     */
     &:has(.TreeViewItemSkeleton):hover {
       cursor: default;
       background-color: transparent;

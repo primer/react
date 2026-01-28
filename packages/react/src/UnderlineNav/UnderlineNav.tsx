@@ -43,7 +43,8 @@ const MORE_BTN_HEIGHT = 45
 const overflowEffect = (
   navWidth: number,
   moreMenuWidth: number,
-  childArray: Array<React.ReactElement>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  childArray: Array<React.ReactElement<any>>,
   childWidthArray: ChildWidthArray,
   noIconChildWidthArray: ChildWidthArray,
   updateListAndMenu: (props: ResponsiveProps, iconsVisible: boolean) => void,
@@ -60,8 +61,10 @@ const overflowEffect = (
     navWidth,
     moreMenuWidth || MORE_BTN_WIDTH,
   )
-  const items: Array<React.ReactElement> = []
-  const menuItems: Array<React.ReactElement> = []
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const items: Array<React.ReactElement<any>> = []
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const menuItems: Array<React.ReactElement<any>> = []
 
   // First, we check if we can fit all the items with their icons
   if (childArray.length <= numberOfItemsPossible) {
@@ -105,7 +108,8 @@ const overflowEffect = (
 }
 
 export const getValidChildren = (children: React.ReactNode) => {
-  return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement<any>[]
 }
 
 const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: number, moreMenuWidth = 0) => {
@@ -185,7 +189,6 @@ export const UnderlineNav = forwardRef(
 
     if (__DEV__) {
       // Practically, this is not a conditional hook, it is just making sure this hook runs only on DEV not PROD.
-      // eslint-disable-next-line react-compiler/react-compiler
       // eslint-disable-next-line react-hooks/rules-of-hooks
       useEffect(() => {
         // Address illegal state where there are multiple items that have `aria-current='page'` attribute
@@ -202,7 +205,8 @@ export const UnderlineNav = forwardRef(
     }
 
     const swapMenuItemWithListItem = (
-      prospectiveListItem: React.ReactElement,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      prospectiveListItem: React.ReactElement<any>,
       indexOfProspectiveListItem: number,
       event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
       callback: (props: ResponsiveProps, displayIcons: boolean) => void,

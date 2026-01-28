@@ -3,7 +3,8 @@ import type {Meta} from '@storybook/react-vite'
 
 import {Button, Flash, Stack, Text} from '..'
 import {useFocusTrap} from '../hooks/useFocusTrap'
-import classes from './FocusTrapStories.module.css'
+import {useOnEscapePress} from '../hooks/useOnEscapePress'
+import classes from './FocusTrap.stories.module.css'
 
 export default {
   title: 'Hooks/useFocusTrap',
@@ -113,6 +114,95 @@ export const RestoreFocus = () => {
         <MarginButton>Grapefruit</MarginButton>
         <MarginButton>Honeydew</MarginButton>
         <MarginButton>Jackfruit</MarginButton>
+      </Stack>
+    </>
+  )
+}
+
+export const RestoreFocusMinimal = () => {
+  const [enabled, setEnabled] = React.useState(false)
+  const toggleButtonRef = React.useRef<HTMLButtonElement>(null)
+  const {containerRef} = useFocusTrap({
+    disabled: !enabled,
+    restoreFocusOnCleanUp: true,
+    returnFocusRef: toggleButtonRef,
+    allowOutsideClick: true,
+  })
+
+  useOnEscapePress(
+    React.useCallback(
+      e => {
+        if (!enabled) return
+        e.preventDefault()
+        setEnabled(false)
+      },
+      [enabled, setEnabled],
+    ),
+    [enabled, setEnabled],
+  )
+
+  return (
+    <>
+      <HelperGlobalStyling />
+      <Stack direction="vertical" gap="normal">
+        <Flash style={{marginBottom: 'var(--base-size-12)'}}>
+          Minimal focus trap example. Click to toggle focus trap to toggle. While enabled, focus stays inside the green
+          zone. Disabling restores focus to the toggle button.
+        </Flash>
+        <Button
+          ref={toggleButtonRef}
+          onClick={() => {
+            if (enabled) {
+              setEnabled(false)
+            } else {
+              setEnabled(true)
+            }
+          }}
+        >
+          {enabled ? 'Disable' : 'Enable'} focus trap
+        </Button>
+        <div
+          style={{
+            height: '900px',
+            overflow: 'auto',
+            border: '1px dashed var(--borderColor-default)',
+            padding: 'var(--base-size-16)',
+            background: 'var(--bgColor-muted)',
+          }}
+          aria-hidden="true"
+        >
+          <Text
+            as="p"
+            style={{
+              fontSize: '12px',
+              lineHeight: '1.25',
+              margin: 0,
+            }}
+          >
+            Scroll down to reach the trap zone. This spacer exists so that when the trap zone becomes active you can
+            scroll such that the original toggle button is no longer visible. When you press Escape or the Close trap
+            button, focus will still restore to the toggle button and the browser will scroll it back into view.
+          </Text>
+          <Text
+            as="p"
+            style={{
+              fontSize: '12px',
+              lineHeight: '1.25',
+              margin: 0,
+            }}
+          >
+            (Content intentionally verbose to create vertical space.)
+          </Text>
+        </div>
+        <div className={classes.TrapZone} ref={containerRef as React.RefObject<HTMLDivElement>}>
+          <Stack direction="vertical" gap="normal">
+            <MarginButton>First</MarginButton>
+            <MarginButton>Second</MarginButton>
+            <MarginButton>Third</MarginButton>
+            <Button onClick={() => setEnabled(false)}>Close trap</Button>
+          </Stack>
+        </div>
+        <Button>Click here to escape trap</Button>
       </Stack>
     </>
   )

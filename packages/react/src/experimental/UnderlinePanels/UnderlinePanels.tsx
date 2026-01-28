@@ -52,6 +52,10 @@ export type UnderlinePanelsProps = {
    * Class name for custom styling
    */
   className?: string
+  /**
+   * Element type for the tab container
+   */
+  as?: React.ElementType
 }
 
 export type TabProps = PropsWithChildren<{

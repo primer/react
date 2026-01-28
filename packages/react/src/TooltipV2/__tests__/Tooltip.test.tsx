@@ -1,11 +1,15 @@
 import type React from 'react'
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it} from 'vitest'
 import type {TooltipProps} from '../Tooltip'
 import {Tooltip} from '../Tooltip'
 import {render as HTMLRender} from '@testing-library/react'
 import BaseStyles from '../../BaseStyles'
 import {Button, IconButton, ActionMenu, ActionList, ButtonGroup} from '../..'
 import {XIcon} from '@primer/octicons-react'
+import classes from '../Tooltip.module.css'
+
+import type {JSX} from 'react'
+import {implementsClassName} from '../../utils/testing'
 
 const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
   <Tooltip text="Tooltip text" {...props}>
@@ -22,7 +26,8 @@ const TooltipComponentWithExistingDescription = (props: Omit<TooltipProps, 'text
   </>
 )
 
-function ExampleWithActionMenu(actionMenuTrigger: React.ReactElement): JSX.Element {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function ExampleWithActionMenu(actionMenuTrigger: React.ReactElement<any>): JSX.Element {
   return (
     <BaseStyles>
       <ActionMenu>
@@ -38,6 +43,7 @@ function ExampleWithActionMenu(actionMenuTrigger: React.ReactElement): JSX.Eleme
 }
 
 describe('Tooltip', () => {
+  implementsClassName(TooltipComponent, classes.Tooltip)
   it('renders `data-direction="s"` by default', () => {
     const {getByText} = HTMLRender(<TooltipComponent />)
     expect(getByText('Tooltip text')).toHaveAttribute('data-direction', 's')
@@ -119,7 +125,6 @@ describe('Tooltip', () => {
     expect(triggerEL.getAttribute('aria-describedby')).toContain('custom-tooltip-id')
   })
   it('should throw an error if the trigger element is disabled', () => {
-    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     expect(() => {
       HTMLRender(
         <Tooltip text="Tooltip text" direction="n">
@@ -129,8 +134,6 @@ describe('Tooltip', () => {
     }).toThrow(
       'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
     )
-    expect(spy).toHaveBeenCalled()
-    spy.mockRestore()
   })
   it('should not throw an error when the trigger element is a button in a fieldset', () => {
     const {getByRole} = HTMLRender(

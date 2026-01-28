@@ -1,12 +1,11 @@
 import {render} from '@testing-library/react'
 import {describe, expect, it} from 'vitest'
 import Timeline from '..'
+import {implementsClassName} from '../../utils/testing'
+import classes from '../Timeline.module.css'
 
 describe('Timeline', () => {
-  it('should support `className` on the outermost element', () => {
-    const {container} = render(<Timeline className={'test-class-name'} />)
-    expect(container.firstChild).toHaveClass('test-class-name')
-  })
+  implementsClassName(Timeline, classes.Timeline)
 
   it('renders with clipSidebar prop', () => {
     const {container} = render(<Timeline clipSidebar />)
@@ -15,6 +14,7 @@ describe('Timeline', () => {
 })
 
 describe('Timeline.Item', () => {
+  implementsClassName(Timeline.Item, classes.TimelineItem)
   it('renders with condensed prop', () => {
     const {container} = render(<Timeline.Item condensed />)
     expect(container).toMatchSnapshot()
@@ -24,30 +24,16 @@ describe('Timeline.Item', () => {
     const {container} = render(<Timeline.Item />)
     expect(container.firstChild).toHaveClass('Timeline-Item')
   })
-
-  it('should support `className` on the outermost element', () => {
-    const {container} = render(<Timeline.Item className={'test-class-name'} />)
-    expect(container.firstChild).toHaveClass('test-class-name')
-  })
 })
 
 describe('Timeline.Badge', () => {
-  it('should support `className` on the outermost element', () => {
-    const {container} = render(<Timeline.Badge className={'test-class-name'} />)
-    expect(container.firstChild?.firstChild).toHaveClass('test-class-name')
-  })
+  implementsClassName(Timeline.Badge, classes.TimelineBadge)
 })
 
 describe('Timeline.Body', () => {
-  it('should support `className` on the outermost element', () => {
-    const {container} = render(<Timeline.Body className={'test-class-name'} />)
-    expect(container.firstChild).toHaveClass('test-class-name')
-  })
+  implementsClassName(Timeline.Body, classes.TimelineBody)
 })
 
 describe('Timeline.Break', () => {
-  it('should support `className` on the outermost element', () => {
-    const {container} = render(<Timeline.Break className={'test-class-name'} />)
-    expect(container.firstChild).toHaveClass('test-class-name')
-  })
+  implementsClassName(Timeline.Break, classes.TimelineBreak)
 })

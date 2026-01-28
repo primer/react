@@ -14,6 +14,8 @@
 
 .Token:where([data-is-selected='true']) {
   color: var(--fgColor-default);
+  border-style: solid;
+  border-color: var(--borderColor-emphasis);
 }
 
 .Token[data-is-remove-btn='true'] {
@@ -28,5 +30,5 @@
 }
 
 .LargeLeadingVisual {
-  margin-right: var(--base-size-8);
+  margin-right: var(--base-size-6);
 }

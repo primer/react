@@ -33,7 +33,7 @@ figma.connect(
       }),
     },
     example: ({label, current, counter, leadingVisual}) => (
-      <UnderlineNav.Item aria-current={current} counter={counter.count} icon={leadingVisual}>
+      <UnderlineNav.Item aria-current={current} counter={counter.count} leadingVisual={leadingVisual}>
         {label}
       </UnderlineNav.Item>
     ),

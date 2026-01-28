@@ -10,12 +10,12 @@
 }
 
 /* Size variants */
-.StateLabel:where([data-variant='small']) {
+.StateLabel:where([data-size='small']) {
   padding: var(--base-size-4) var(--base-size-8);
   font-size: var(--text-body-size-small);
 }
 
-.StateLabel:where([data-variant='normal']) {
+.StateLabel:where([data-size='medium']) {
   padding: var(--base-size-8) var(--base-size-12);
   font-size: var(--text-body-size-medium);
 }
@@ -64,7 +64,6 @@
 }
 
 .StateLabel:where([data-status='draft']) {
-  /* stylelint-disable-next-line primer/colors */
   background-color: var(--bgColor-draft-emphasis, var(--bgColor-neutral-emphasis));
   color: var(--fgColor-onEmphasis);
   box-shadow: var(--boxShadow-thin, inset 0 0 0 1px)
@@ -72,7 +71,6 @@
 }
 
 .StateLabel:where([data-status='issueDraft']) {
-  /* stylelint-disable-next-line primer/colors */
   background-color: var(--bgColor-draft-emphasis, var(--bgColor-neutral-emphasis));
   color: var(--fgColor-onEmphasis);
   box-shadow: var(--boxShadow-thin, inset 0 0 0 1px)
@@ -97,10 +95,35 @@
   box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-done-emphasis, transparent);
 }
 
+.StateLabel:where([data-status='alertOpened']) {
+  background-color: var(--bgColor-open-emphasis);
+  color: var(--fgColor-onEmphasis);
+  box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-open-emphasis, transparent);
+}
+
+.StateLabel:where([data-status='alertFixed']) {
+  background-color: var(--bgColor-done-emphasis);
+  color: var(--fgColor-onEmphasis);
+  box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-done-emphasis, transparent);
+}
+
+.StateLabel:where([data-status='alertDismissed']) {
+  background-color: var(--bgColor-draft-emphasis, var(--bgColor-neutral-emphasis));
+  color: var(--fgColor-onEmphasis);
+  box-shadow: var(--boxShadow-thin, inset 0 0 0 1px)
+    var(--borderColor-draft-emphasis, var(--borderColor-neutral-emphasis, transparent));
+}
+
+.StateLabel:where([data-status='alertClosed']) {
+  background-color: var(--bgColor-closed-emphasis);
+  color: var(--fgColor-onEmphasis);
+  box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-closed-emphasis, transparent);
+}
+
 .Icon {
   margin-right: var(--base-size-4);
 }
 
-.Icon:where([data-variant-small]) {
+.Icon:where([data-size-small]) {
   width: 1em;
 }

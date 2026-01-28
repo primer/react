@@ -51,7 +51,8 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
       ...rest
     }: RadioProps,
     ref,
-  ): ReactElement => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): ReactElement<any> => {
     const radioGroupContext = useContext(RadioGroupContext)
     const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
       radioGroupContext?.onChange && radioGroupContext.onChange(e)

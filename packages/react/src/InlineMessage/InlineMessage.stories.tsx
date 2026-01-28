@@ -1,4 +1,14 @@
 import type {Meta, StoryObj} from '@storybook/react-vite'
+import {
+  AlertIcon,
+  CheckCircleIcon,
+  InfoIcon,
+  LockIcon,
+  RocketIcon,
+  XCircleIcon,
+  HeartIcon,
+  StarIcon,
+} from '@primer/octicons-react'
 import {InlineMessage} from '../InlineMessage'
 
 const meta = {
@@ -12,9 +22,27 @@ export const Default = () => {
   return <InlineMessage variant="unavailable">An example inline message</InlineMessage>
 }
 
+const iconMap = {
+  default: undefined,
+  InfoIcon,
+  LockIcon,
+  RocketIcon,
+  AlertIcon,
+  CheckCircleIcon,
+  XCircleIcon,
+  HeartIcon,
+  StarIcon,
+} as const
+
 export const Playground: StoryObj<typeof InlineMessage> = {
   render(args) {
-    return <InlineMessage {...args}>An example inline message</InlineMessage>
+    const {leadingVisual: leadingVisualOption, ...rest} = args
+    const leadingVisual = leadingVisualOption ? iconMap[leadingVisualOption as keyof typeof iconMap] : undefined
+    return (
+      <InlineMessage {...rest} leadingVisual={leadingVisual}>
+        An example inline message
+      </InlineMessage>
+    )
   },
   argTypes: {
     size: {
@@ -29,9 +57,18 @@ export const Playground: StoryObj<typeof InlineMessage> = {
       },
       options: ['critical', 'success', 'unavailable', 'warning'],
     },
+    leadingVisual: {
+      name: 'leadingVisual',
+      control: {
+        type: 'select',
+      },
+      options: Object.keys(iconMap),
+      description: 'Select a custom icon to override the default variant icon',
+    },
   },
   args: {
     size: 'medium',
     variant: 'success',
+    leadingVisual: 'default',
   },
 }

@@ -3,9 +3,12 @@ import {render as HTMLRender, screen, waitFor, within} from '@testing-library/re
 import {describe, expect, it, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
 import {FeatureFlags} from '../../FeatureFlags'
+import {implementsClassName} from '../../utils/testing'
+import classes from '../Breadcrumbs.module.css'
 
 // Helper function to render with theme and feature flags
-const renderWithTheme = (component: React.ReactElement, flags?: Record<string, boolean>) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const renderWithTheme = (component: React.ReactElement<any>, flags?: Record<string, boolean>) => {
   const wrappedComponent = flags ? <FeatureFlags flags={flags}>{component}</FeatureFlags> : <>{component}</>
   return HTMLRender(wrappedComponent)
 }
@@ -24,6 +27,7 @@ globalThis.ResizeObserver = vi.fn().mockImplementation(function () {
 })
 
 describe('Breadcrumbs', () => {
+  implementsClassName(Breadcrumbs, classes.BreadcrumbsBase)
   it('renders a <nav>', () => {
     const {container} = HTMLRender(<Breadcrumbs />)
     expect(container.firstChild?.nodeName).toEqual('NAV')

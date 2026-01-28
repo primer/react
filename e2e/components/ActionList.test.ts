@@ -128,6 +128,18 @@ const stories = [
     title: 'Large Item',
     id: 'components-actionlist-features--large-item',
   },
+  {
+    title: 'Trailing count',
+    id: 'components-actionlist-features--with-trailing-count',
+  },
+  {
+    title: 'Keyboard shortcuts',
+    id: 'components-actionlist-features--with-keyboard-shortcuts',
+  },
+  {
+    title: 'All combinations',
+    id: 'components-actionlist-examples--all-combinations',
+  },
 ] as const
 
 test.describe('ActionList', () => {

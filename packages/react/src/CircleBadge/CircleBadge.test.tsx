@@ -2,10 +2,13 @@ import CircleBadge from './CircleBadge'
 import {CheckIcon} from '@primer/octicons-react'
 import {render as HTMLRender} from '@testing-library/react'
 import {describe, expect, it} from 'vitest'
+import {implementsClassName} from '../utils/testing'
+import classes from './CircleBadge.module.css'
 
 const imgInput = <img alt="Example" src="primer.jpg" />
 
 describe('CircleBadge', () => {
+  implementsClassName(CircleBadge, classes.CircleBadge)
   it('respects the inline prop', () => {
     const {container} = HTMLRender(<CircleBadge inline />)
     expect(container.firstChild).toMatchSnapshot()

@@ -2,7 +2,6 @@
 
 exports[`Button > respects block prop 1`] = `
 <button
-  aria-describedby="test-button-loading-announcement"
   class="prc-Button-ButtonBase-Eb8-K"
   data-block="block"
   data-loading="false"
@@ -29,7 +28,6 @@ exports[`Button > respects block prop 1`] = `
 
 exports[`Button > respects the alignContent prop 1`] = `
 <button
-  aria-describedby="test-button-loading-announcement"
   class="prc-Button-ButtonBase-Eb8-K"
   data-loading="false"
   data-no-visuals="true"
@@ -55,7 +53,6 @@ exports[`Button > respects the alignContent prop 1`] = `
 
 exports[`Button > respects the large size prop 1`] = `
 <button
-  aria-describedby="test-button-loading-announcement"
   class="prc-Button-ButtonBase-Eb8-K"
   data-loading="false"
   data-no-visuals="true"
@@ -81,7 +78,6 @@ exports[`Button > respects the large size prop 1`] = `
 
 exports[`Button > respects the small size prop 1`] = `
 <button
-  aria-describedby="test-button-loading-announcement"
   class="prc-Button-ButtonBase-Eb8-K"
   data-loading="false"
   data-no-visuals="true"
@@ -107,7 +103,6 @@ exports[`Button > respects the small size prop 1`] = `
 
 exports[`Button > styles danger button appropriately 1`] = `
 <button
-  aria-describedby="test-button-loading-announcement"
   class="prc-Button-ButtonBase-Eb8-K"
   data-loading="false"
   data-no-visuals="true"
@@ -133,7 +128,6 @@ exports[`Button > styles danger button appropriately 1`] = `
 
 exports[`Button > styles invisible button appropriately 1`] = `
 <button
-  aria-describedby="test-button-loading-announcement"
   class="prc-Button-ButtonBase-Eb8-K"
   data-loading="false"
   data-no-visuals="true"
@@ -159,7 +153,6 @@ exports[`Button > styles invisible button appropriately 1`] = `
 
 exports[`Button > styles primary button appropriately 1`] = `
 <button
-  aria-describedby="test-button-loading-announcement"
   class="prc-Button-ButtonBase-Eb8-K"
   data-loading="false"
   data-no-visuals="true"

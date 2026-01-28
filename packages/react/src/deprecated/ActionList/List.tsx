@@ -1,4 +1,4 @@
-import type {Key} from 'react'
+import type {Key, JSX} from 'react'
 import React from 'react'
 import type {AriaRole} from '../../utils/types'
 import type {GroupProps} from './Group'
@@ -10,7 +10,8 @@ import {clsx} from 'clsx'
 import type {Merge} from '../../utils/types/Merge'
 import classes from './List.module.css'
 
-export type RenderItemFn = (props: ItemProps) => React.ReactElement
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type RenderItemFn = (props: ItemProps) => React.ReactElement<any>
 
 export type ItemInput =
   | Merge<React.ComponentPropsWithoutRef<'div'>, ItemProps>

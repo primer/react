@@ -1,3 +1,4 @@
+import type {JSX} from 'react'
 import classes from './Divider.module.css'
 
 /**

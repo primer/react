@@ -11,6 +11,10 @@ import TextInput from '../../TextInput'
 import TextInputWithTokens from '../../TextInputWithTokens'
 import {MarkGithubIcon} from '@primer/octicons-react'
 import type {FCWithSlotMarker} from '../../utils/types'
+import {implementsClassName} from '../../utils/testing'
+import classes from '../FormControl.module.css'
+import captionClasses from '../FormControlCaption.module.css'
+import inputClasses from '../../internal/components/InputLabel.module.css'
 
 const LABEL_TEXT = 'Form control'
 const CAPTION_TEXT = 'Hint text'
@@ -54,6 +58,10 @@ const WrappedValidationComponent: FCWithSlotMarker<object> = () => (
 WrappedValidationComponent.__SLOT__ = FormControl.Validation.__SLOT__
 
 describe('FormControl', () => {
+  implementsClassName(FormControl, classes.ControlVerticalLayout)
+  implementsClassName(props => <FormControl {...props} layout="horizontal" />, classes.ControlHorizontalLayout)
+  implementsClassName(FormControl.Caption, captionClasses.Caption)
+  implementsClassName(FormControl.Label, inputClasses.Label)
   describe('vertically stacked layout (default)', () => {
     describe('rendering', () => {
       it('renders with a hidden label', () => {

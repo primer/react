@@ -1,6 +1,7 @@
 import React from 'react'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import {getAccessibleName} from './shared'
+import {useTreeItemCache} from './useTreeItemCache'
 
 type TypeaheadOptions = {
   containerRef: React.RefObject<HTMLElement>
@@ -12,6 +13,7 @@ export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
   const timeoutRef = React.useRef(0)
   const onFocusChangeRef = React.useRef(onFocusChange)
   const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
+  const {getTreeItems} = useTreeItemCache(containerRef)
 
   // Update the ref when the callback changes
   React.useEffect(() => {
@@ -25,10 +27,9 @@ export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
       if (!searchValue) return
 
       if (!containerRef.current) return
-      const container = containerRef.current
 
-      // Get focusable elements
-      const elements = Array.from(container.querySelectorAll('[role="treeitem"]'))
+      // PERFORMANCE: Use cached tree items instead of querySelectorAll on every keypress
+      const elements = getTreeItems()
 
       // Get the index of active element
       const activeIndex = elements.findIndex(element => element === document.activeElement)
@@ -53,7 +54,7 @@ export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
         onFocusChangeRef.current(nextElement)
       }
     },
-    [containerRef],
+    [containerRef, getTreeItems],
   )
 
   // Update the search value when the user types

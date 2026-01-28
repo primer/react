@@ -1,9 +1,11 @@
 import {describe, it, expect, vi} from 'vitest'
 import {render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React from 'react'
+import React, {type JSX} from 'react'
 import {ActionList} from '.'
 import {BookIcon} from '@primer/octicons-react'
+import {implementsClassName} from '../utils/testing'
+import classes from './ActionList.module.css'
 
 function SimpleActionList(): JSX.Element {
   return (
@@ -60,6 +62,8 @@ function SingleSelectListStory(): JSX.Element {
 }
 
 describe('ActionList.Item', () => {
+  implementsClassName(ActionList.Item, classes.ActionListItem)
+  implementsClassName(ActionList.LinkItem)
   it('should have aria-keyshortcuts applied to the correct element', async () => {
     const {container} = HTMLRender(<SimpleActionList />)
     const linkOptions = await waitFor(() => container.querySelectorAll('a'))
@@ -353,5 +357,32 @@ describe('ActionList.Item', () => {
     expect(item).toHaveAttribute('aria-describedby')
     expect(item).toHaveTextContent('Item, Description')
     expect(item).toHaveAccessibleDescription('Description')
+  })
+
+  it('should add role="tab" when ActionList has role="tablist"', () => {
+    const {getAllByRole} = HTMLRender(
+      <ActionList role="tablist">
+        <ActionList.Item>Tab 1</ActionList.Item>
+        <ActionList.Item>Tab 2</ActionList.Item>
+        <ActionList.Item>Tab 3</ActionList.Item>
+      </ActionList>,
+    )
+    const tabs = getAllByRole('tab')
+    expect(tabs[0]).toBeInTheDocument()
+    expect(tabs).toHaveLength(3)
+  })
+
+  it('should allow role="tab" on the li element', () => {
+    const {getAllByRole} = HTMLRender(
+      <ActionList role="tablist">
+        <ActionList.Item role="tab">Tab 1</ActionList.Item>
+        <ActionList.Item role="tab">Tab 2</ActionList.Item>
+        <ActionList.Item role="tab">Tab 3</ActionList.Item>
+      </ActionList>,
+    )
+    const tabs = getAllByRole('tab')
+    expect(tabs[0]).toBeInTheDocument()
+    expect(tabs[0].nodeType).toBe(Node.ELEMENT_NODE)
+    expect(tabs).toHaveLength(3)
   })
 })

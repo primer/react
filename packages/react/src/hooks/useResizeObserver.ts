@@ -11,7 +11,7 @@ export interface ResizeObserverEntry {
 
 export function useResizeObserver<T extends HTMLElement>(
   callback: ResizeObserverCallback,
-  target?: RefObject<T>,
+  target?: RefObject<T | null>,
   depsArray: unknown[] = [],
 ) {
   const [targetClientRect, setTargetClientRect] = useState<DOMRect | null>(null)
@@ -58,7 +58,6 @@ export function useResizeObserver<T extends HTMLElement>(
       }
     }
 
-    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [target?.current, ...depsArray])
 }

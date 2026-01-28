@@ -2,7 +2,7 @@ import React from 'react'
 import {SelectPanel} from './SelectPanel'
 import {ActionList} from '../../index'
 import data from './mock-story-data'
-import sharedClasses from './SelectPanel2Stories.module.css'
+import sharedClasses from './SelectPanel2.stories.module.css'
 
 export default {
   title: 'Deprecated/Components/SelectPanel',

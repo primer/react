@@ -1,5 +1,33 @@
 # @primer/styled-react
 
+## 1.0.2
+
+### Patch Changes
+
+- [#7261](https://github.com/primer/react/pull/7261) [`13effb8`](https://github.com/primer/react/commit/13effb815ab45ac7b517fd4ea5b0365d1fc52508) Thanks [@joshblack](https://github.com/joshblack)! - Update exports from @primer/styled-react to be marked as deprecated
+
+## 1.0.1
+
+### Patch Changes
+
+- [#7226](https://github.com/primer/react/pull/7226) [`d0c29aa`](https://github.com/primer/react/commit/d0c29aa27bf1f85b6e577de28faed5e6f352ab73) Thanks [@pksjce](https://github.com/pksjce)! - Move the version to 1.0.1
+
+## 1.0.0
+
+### Major Changes
+
+- [#7191](https://github.com/primer/react/pull/7191) [`d9a0747`](https://github.com/primer/react/commit/d9a07476818a52c76c151cfeefc7aea5b2638fe7) Thanks [@francinelucca](https://github.com/francinelucca)! - chore: remove styled PageLayout
+
+### Patch Changes
+
+- [#7161](https://github.com/primer/react/pull/7161) [`b83328c`](https://github.com/primer/react/commit/b83328cfedea43db3e9227901154da54946629ea) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Allow any `@primer/react` version as peer dependency.
+
+## 0.3.0
+
+### Minor Changes
+
+- [#7060](https://github.com/primer/react/pull/7060) [`3468793`](https://github.com/primer/react/commit/3468793e15269d6d9f226ee7844921e44bfc4622) Thanks [@francinelucca](https://github.com/francinelucca)! - chore(Dialog): add slots
+
 ## 1.0.0
 
 ### Major Changes

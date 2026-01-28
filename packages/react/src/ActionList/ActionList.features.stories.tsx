@@ -29,6 +29,7 @@ import {
   IssueOpenedIcon,
   ProjectIcon,
 } from '@primer/octicons-react'
+import {KeybindingHint} from '../KeybindingHint'
 import {FeatureFlags} from '../FeatureFlags'
 import classes from './ActionList.features.stories.module.css'
 
@@ -674,10 +675,8 @@ export const ChildWithSideEffects = () => {
   const [selected, setSelected] = React.useState(true)
 
   const SideEffectDescription = () => {
-    // eslint-disable-next-line react-compiler/react-compiler
     const [seconds, setSeconds] = React.useState(0)
 
-    // eslint-disable-next-line react-compiler/react-compiler
     React.useEffect(() => {
       const fn = () => setSeconds(s => s + 1)
       const interval = window.setInterval(fn, 1000)
@@ -834,6 +833,77 @@ export const WithCustomTrailingVisuals = () => (
       Projects
       <ActionList.TrailingVisual>
         <CounterLabel>2</CounterLabel>
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+  </ActionList>
+)
+
+export const WithKeyboardShortcuts = () => (
+  <ActionList>
+    <ActionList.Item>
+      New file
+      <ActionList.TrailingVisual>
+        <KeybindingHint keys="Mod+N" />
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+    <ActionList.Item>
+      Open file
+      <ActionList.TrailingVisual>
+        <KeybindingHint keys="Mod+O" />
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+    <ActionList.Item>
+      Save
+      <ActionList.TrailingVisual>
+        <KeybindingHint keys="Mod+S" />
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+    <ActionList.Divider />
+    <ActionList.Item variant="danger">
+      Delete
+      <ActionList.TrailingVisual>
+        <KeybindingHint keys="Mod+D" />
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+  </ActionList>
+)
+
+export const WithTrailingCount = () => (
+  <ActionList>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <IssueOpenedIcon />
+      </ActionList.LeadingVisual>
+      Open issues
+      <ActionList.TrailingVisual>
+        <CounterLabel>24</CounterLabel>
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <GitPullRequestIcon />
+      </ActionList.LeadingVisual>
+      Pull requests
+      <ActionList.TrailingVisual>
+        <CounterLabel>8</CounterLabel>
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <ProjectIcon />
+      </ActionList.LeadingVisual>
+      Projects
+      <ActionList.TrailingVisual>
+        <CounterLabel>3</CounterLabel>
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+    <ActionList.Item variant="danger">
+      <ActionList.LeadingVisual>
+        <AlertIcon />
+      </ActionList.LeadingVisual>
+      Alerts
+      <ActionList.TrailingVisual>
+        <CounterLabel>12</CounterLabel>
       </ActionList.TrailingVisual>
     </ActionList.Item>
   </ActionList>

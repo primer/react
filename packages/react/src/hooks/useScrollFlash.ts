@@ -4,7 +4,7 @@ import {useEffect} from 'react'
  * This hook will flash the scrollbars for a ref of a container that has scrollable overflow
  * @param scrollContainerRef The ref of the scrollable content
  */
-export default function useScrollFlash(scrollContainerRef: React.RefObject<HTMLElement>) {
+export default function useScrollFlash(scrollContainerRef: React.RefObject<HTMLElement | null>) {
   // https://adxlv.computer/projects/flash-scrollers/
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current
@@ -16,7 +16,6 @@ export default function useScrollFlash(scrollContainerRef: React.RefObject<HTMLE
 
     const altScroll = currentScroll < Math.min(1, maxScroll) ? currentScroll + 1 : currentScroll - 1
 
-    // eslint-disable-next-line react-compiler/react-compiler
     scrollContainer.scrollTop = altScroll
     scrollContainer.scrollTop = currentScroll
   }, [scrollContainerRef])

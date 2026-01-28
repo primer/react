@@ -1,6 +1,6 @@
 import {SortAscIcon, SortDescIcon} from '@primer/octicons-react'
 import {clsx} from 'clsx'
-import React from 'react'
+import React, {type JSX} from 'react'
 import Text from '../Text'
 import VisuallyHidden from '../_VisuallyHidden'
 import type {Column, CellAlignment} from './column'

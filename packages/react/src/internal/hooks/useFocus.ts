@@ -14,6 +14,7 @@ export function useFocus() {
       focusTarget.current?.focus()
     }
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setFocusTarget(null)
   }, [focusTarget])
 

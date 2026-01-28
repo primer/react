@@ -1,5 +1,5 @@
 import type {Meta} from '@storybook/react-vite'
-import React from 'react'
+import React, {type JSX} from 'react'
 import {FilteredActionList} from '../FilteredActionList'
 import classes from './FilteredActionList.stories.module.css'
 

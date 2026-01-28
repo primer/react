@@ -13,13 +13,13 @@ function focusable(el: Element) {
 }
 
 type UseDialogParameters = {
-  modalRef: React.RefObject<HTMLElement>
-  overlayRef: React.RefObject<HTMLElement>
+  modalRef: React.RefObject<HTMLElement | null>
+  overlayRef: React.RefObject<HTMLElement | null>
   isOpen?: boolean
   onDismiss?: () => void
-  initialFocusRef?: React.RefObject<HTMLElement>
-  closeButtonRef?: React.RefObject<HTMLElement>
-  returnFocusRef?: React.RefObject<HTMLElement>
+  initialFocusRef?: React.RefObject<HTMLElement | null>
+  closeButtonRef?: React.RefObject<HTMLElement | null>
+  returnFocusRef?: React.RefObject<HTMLElement | null>
 }
 
 function useDialog({

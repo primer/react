@@ -14,8 +14,8 @@ import type {MenuCloseHandler} from '../ActionMenu'
 export const useMenuKeyboardNavigation = (
   open: boolean,
   onClose: MenuCloseHandler | undefined,
-  containerRef?: React.RefObject<HTMLElement>,
-  anchorRef?: React.RefObject<HTMLElement>,
+  containerRef?: React.RefObject<HTMLElement | null>,
+  anchorRef?: React.RefObject<HTMLElement | null>,
   isSubmenu: boolean = false,
 ) => {
   useMenuInitialFocus(open, containerRef, anchorRef)
@@ -32,8 +32,8 @@ export const useMenuKeyboardNavigation = (
 const useCloseMenuOnTab = (
   open: boolean,
   onClose: MenuCloseHandler | undefined,
-  containerRef?: React.RefObject<HTMLElement>,
-  anchorRef?: React.RefObject<HTMLElement>,
+  containerRef?: React.RefObject<HTMLElement | null>,
+  anchorRef?: React.RefObject<HTMLElement | null>,
 ) => {
   React.useEffect(() => {
     const container = containerRef?.current
@@ -59,7 +59,7 @@ const useCloseSubmenuOnArrow = (
   open: boolean,
   isSubmenu: boolean,
   onClose: MenuCloseHandler | undefined,
-  containerRef?: React.RefObject<HTMLElement>,
+  containerRef?: React.RefObject<HTMLElement | null>,
 ) => {
   React.useEffect(() => {
     const container = containerRef?.current
@@ -81,8 +81,8 @@ const useCloseSubmenuOnArrow = (
  */
 const useMoveFocusToMenuItem = (
   open: boolean,
-  containerRef?: React.RefObject<HTMLElement>,
-  anchorRef?: React.RefObject<HTMLElement>,
+  containerRef?: React.RefObject<HTMLElement | null>,
+  anchorRef?: React.RefObject<HTMLElement | null>,
 ) => {
   React.useEffect(() => {
     const container = containerRef?.current

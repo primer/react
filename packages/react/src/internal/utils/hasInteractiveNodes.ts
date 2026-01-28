@@ -22,6 +22,9 @@ const interactiveElements = interactiveElementsSelectors.map(
   selector => `${selector}:not(${Object.values(nonValidSelectors).join('):not(')})`,
 )
 
+// Combined selector for fast querySelector check
+const interactiveSelector = interactiveElements.join(', ')
+
 /**
  * Finds interactive nodes within the passed node.
  * If the node itself is interactive, or children within are, it will return true.
@@ -38,32 +41,29 @@ export function hasInteractiveNodes(node: HTMLElement | null, ignoreNodes?: HTML
   // If one does exist, we can abort early.
 
   const nodesToIgnore = ignoreNodes ? [node, ...ignoreNodes] : [node]
-  const interactiveNodes = findInteractiveChildNodes(node, nodesToIgnore)
 
-  return Boolean(interactiveNodes)
+  // Performance optimization: Use querySelectorAll with combined selector first
+  // This avoids recursive getComputedStyle calls for each node
+  const candidates = node.querySelectorAll<HTMLElement>(interactiveSelector)
+  for (const candidate of candidates) {
+    if (!nodesToIgnore.includes(candidate) && !isNonValidInteractiveNode(candidate)) {
+      return true
+    }
+  }
+
+  return false
 }
 
+// Note: Only call getComputedStyle when CSS-based checks are insufficient
 function isNonValidInteractiveNode(node: HTMLElement) {
-  const nodeStyle = getComputedStyle(node)
+  // Fast path: Check attribute-based states first (no style recalc needed)
   const isNonInteractive = node.matches('[disabled], [hidden], [inert]')
+  if (isNonInteractive) return true
+
+  // Only call getComputedStyle if attribute checks passed
+  // This is necessary for display:none and visibility:hidden which aren't detectable via attributes
+  const nodeStyle = getComputedStyle(node)
   const isHiddenVisually = nodeStyle.display === 'none' || nodeStyle.visibility === 'hidden'
 
-  return isNonInteractive || isHiddenVisually
-}
-
-function findInteractiveChildNodes(node: HTMLElement | null, ignoreNodes: HTMLElement[]) {
-  if (!node) return
-
-  const ignoreSelector = ignoreNodes.find(elem => elem === node)
-  const isNotValidNode = isNonValidInteractiveNode(node)
-
-  if (node.matches(interactiveElements.join(', ')) && !ignoreSelector && !isNotValidNode) {
-    return node
-  }
-
-  for (const child of node.children) {
-    const interactiveNode = findInteractiveChildNodes(child as HTMLElement, ignoreNodes)
-
-    if (interactiveNode) return true
-  }
+  return isHiddenVisually
 }

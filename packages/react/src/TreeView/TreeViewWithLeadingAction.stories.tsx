@@ -5,7 +5,7 @@ import {Banner} from '../Banner'
 import {IconButton} from '../Button'
 import Octicon from '../Octicon'
 import {TreeView} from './TreeView'
-import classes from './TreeViewStories.module.css'
+import classes from './TreeView.stories.module.css'
 
 const meta: Meta = {
   title: 'Private/Components/TreeViewWithLeadingAction',

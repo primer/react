@@ -2,11 +2,9 @@
 
 ## Status
 
-| Stage         | Status                                     |
-| ------------- | ------------------------------------------ |
-| Approved      | ✅                                         |
-| Adopted       | ✅                                         |
-| Superseded by | [ADR 010](./adr-010-behavior-isolation.md) |
+| Stage  | State                                                       |
+| ------ | ----------------------------------------------------------- |
+| Status | Superseded by [ADR 009](./adr-009-behavior-isolation.md) ⚠️ |
 
 ## Related documents
 

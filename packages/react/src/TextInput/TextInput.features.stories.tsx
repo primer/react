@@ -318,3 +318,44 @@ export const WithAutocompleteAttribute = () => (
     </FormControl>
   </form>
 )
+
+export const WithCharacterLimit = () => {
+  const [value, setValue] = useState('')
+
+  return (
+    <form>
+      <FormControl>
+        <FormControl.Label>Username</FormControl.Label>
+        <TextInput value={value} onChange={e => setValue(e.target.value)} characterLimit={20} />
+      </FormControl>
+    </form>
+  )
+}
+
+export const WithCharacterLimitAndCaption = () => {
+  const [value, setValue] = useState('')
+
+  return (
+    <form>
+      <FormControl>
+        <FormControl.Label>Username</FormControl.Label>
+        <TextInput value={value} onChange={e => setValue(e.target.value)} characterLimit={20} />
+        <FormControl.Caption>Choose a unique username</FormControl.Caption>
+      </FormControl>
+    </form>
+  )
+}
+
+export const WithCharacterLimitExceeded = () => {
+  const [value, setValue] = useState('This is a very long text that exceeds the limit')
+
+  return (
+    <form>
+      <FormControl>
+        <FormControl.Label>Bio</FormControl.Label>
+        <TextInput value={value} onChange={e => setValue(e.target.value)} characterLimit={20} />
+        <FormControl.Caption>Keep it short</FormControl.Caption>
+      </FormControl>
+    </form>
+  )
+}

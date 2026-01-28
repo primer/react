@@ -207,6 +207,30 @@
       "type": "'start' | 'end' | 'center'",
       "defaultValue": "'start'",
       "description": "Determines the alignment of the panel relative to the anchor. Defaults to 'start' which aligns the left edge of the panel with the left edge of the anchor."
+    },
+    {
+      "name": "scrollContainerRef",
+      "type": "React.Ref<HTMLDivElement | null>",
+      "defaultValue": "undefined",
+      "description": "A ref assigned to the scrollable container wrapping the ActionList"
+    },
+    {
+      "name": "actionListProps",
+      "type": "Partial<ActionListProps>",
+      "defaultValue": "undefined",
+      "description": "See [ActionList props](/react/ActionList#props)."
+    },  
+    {
+      "name": "focusOutBehavior",
+      "type": "'start' | 'wrap'",
+      "defaultValue": "'wrap'",
+      "description": "Determines how keyboard focus behaves when navigating beyond the first or last item in the list."
+    },
+    {
+      "name": "onActiveDescendantChanged",
+      "type": "(newActiveDescendant: HTMLElement | undefined, previousActiveDescendant: HTMLElement | undefined, directlyActivated: boolean) => void | undefined",
+      "defaultValue": "undefined",
+      "description": "Callback function that is called when the active descendant changes."
     }
   ],
   "subcomponents": []

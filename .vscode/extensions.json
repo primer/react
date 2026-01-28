@@ -1,0 +1,4 @@
+{
+  // List of extensions which should be recommended for users of this workspace.
+  "recommendations": ["githubprimer.primer-primitives-autocomplete"]
+}

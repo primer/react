@@ -1,0 +1,41 @@
+.ErsatzOverlay {
+  border-radius: var(--borderRadius-large);
+  /* stylelint-disable primer/box-shadow */
+  box-shadow:
+    0 1px 3px rgb(0, 0, 0, 0.12),
+    0 8px 24px rgb(149, 157, 165, 0.2);
+  /* stylelint-enable primer/box-shadow */
+  overflow: hidden;
+}
+
+.ErsatzOverlay[data-max-width] {
+  max-width: var(--ersatz-overlay-max-width);
+}
+
+.StyledDivWithWhiteFill > svg {
+  /* stylelint-disable-next-line color-named */
+  fill: white;
+}
+
+.CustomGroupStyle {
+  /* stylelint-disable-next-line color-named */
+  background-color: cornflowerblue;
+  /* stylelint-disable-next-line color-named */
+  color: white;
+}
+
+.ActionListEmphasis {
+  /* stylelint-disable-next-line primer/typography */
+  font-weight: 700;
+}
+
+.ActionListAccent {
+  /* stylelint-disable-next-line color-named */
+  color: rebeccapurple;
+}
+
+.Item[data-is-active-descendant] .ActionListAccent,
+.Item:focus .ActionListAccent,
+.Item:active .ActionListAccent {
+  color: var(--fgColor-onEmphasis);
+}

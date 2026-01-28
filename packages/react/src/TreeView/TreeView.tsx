@@ -29,6 +29,7 @@ import {useIsMacOS} from '../hooks'
 import {Tooltip} from '../TooltipV2'
 import {isSlot} from '../utils/is-slot'
 import type {FCWithSlotMarker} from '../utils/types'
+import {AriaStatus} from '../live-region'
 
 // ----------------------------------------------------------------------------
 // Context
@@ -144,8 +145,8 @@ const Root: React.FC<TreeViewProps> = ({
       }}
     >
       <>
-        <VisuallyHidden role="status" aria-live="polite" aria-atomic="true">
-          {ariaLiveMessage}
+        <VisuallyHidden>
+          <AriaStatus announceOnShow>{ariaLiveMessage}</AriaStatus>
         </VisuallyHidden>
         <ul
           ref={containerRef}
@@ -233,6 +234,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
 
     // Set the expanded state and cache it
     const setIsExpandedWithCache = React.useCallback(
+      // eslint-disable-next-line react-hooks/preserve-manual-memoization
       (newIsExpanded: boolean) => {
         setIsExpanded(newIsExpanded)
         expandedStateCache.current?.set(itemId, newIsExpanded)
@@ -584,6 +586,7 @@ function usePreviousValue<T>(value: T): T {
     ref.current = value
   }, [value])
 
+  // eslint-disable-next-line react-hooks/refs
   return ref.current
 }
 
