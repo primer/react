@@ -1,0 +1,13 @@
+@import 'tailwindcss' important;
+
+@import '@primer/primitives/dist/css/primitives.css';
+@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+@import '@primer/tailwind-config';
+
+@import '@primer/primitives/dist/css/primitives.css';
+@import '@primer/primitives/dist/css/functional/themes/light.css';
+@import '@primer/primitives/dist/css/functional/themes/dark.css';
+
+@import '../styles.css';

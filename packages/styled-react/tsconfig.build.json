@@ -3,7 +3,19 @@
   "compilerOptions": {
     "outDir": "./dist",
     "declaration": true,
-    "emitDeclarationOnly": true
+    "emitDeclarationOnly": true,
+    "paths": {
+      "@primer/react": ["../react/dist/index.d.ts"],
+      "@primer/react/*": ["../react/dist/*"]
+    }
   },
-  "exclude": ["vitest.config.ts", "vitest.config.browser.ts", "config", "**/*.test.ts", "**/*.test.tsx", "./.storybook/**/*.ts", "./.storybook/**/*.tsx"]
+  "exclude": [
+    "vitest.config.ts",
+    "vitest.config.browser.ts",
+    "config",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "./.storybook/**/*.ts",
+    "./.storybook/**/*.tsx"
+  ]
 }

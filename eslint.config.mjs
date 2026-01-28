@@ -392,6 +392,14 @@ const config = defineConfig([
       'primer-react/direct-slot-children': 'off',
     },
   },
+
+  {
+    files: ['packages/react-next/src/**/*.tsx'],
+    rules: {
+      '@typescript-eslint/no-namespace': 'off',
+      'import/export': 'warn',
+    },
+  },
 ])
 
 export default tseslint.config(config)
