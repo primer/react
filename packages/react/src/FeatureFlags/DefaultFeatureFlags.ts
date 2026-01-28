@@ -1,7 +1,6 @@
 import {FeatureFlagScope} from './FeatureFlagScope'
 
 export const DefaultFeatureFlags = FeatureFlagScope.create({
-  primer_react_action_list_item_as_button: false,
   primer_react_breadcrumbs_overflow_menu: false,
   primer_react_css_has_selector_perf: false,
   primer_react_overlay_overflow: false,
