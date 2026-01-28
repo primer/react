@@ -7,7 +7,6 @@ import Overlay from '../Overlay'
 import Text from '../Text'
 import BaseStyles from '../BaseStyles'
 import {NestedOverlays, MemexNestedOverlays, MemexIssueOverlay, PositionedOverlays} from './Overlay.features.stories'
-import {FeatureFlags} from '../FeatureFlags'
 import {implementsClassName} from '../utils/testing'
 import classes from './Overlay.module.css'
 
