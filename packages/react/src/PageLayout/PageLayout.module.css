@@ -359,6 +359,9 @@
   flex-grow: 1;
   flex-shrink: 1;
 
+  /* Ensures content always remains within its container */
+  width: 100%;
+
   &:where([data-is-hidden='true']) {
     display: none;
   }
@@ -595,7 +598,7 @@
     width: 100%;
 
     @media screen and (min-width: 768px) {
-      /* 
+      /*
        * --pane-max-width is set by JS on mount and updated on resize (debounced).
        * JS calculates viewport - margin to avoid scrollbar discrepancy with 100vw.
        */
