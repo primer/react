@@ -1,12 +1,11 @@
 // Used for UnderlineNav and UnderlinePanels components
 
-import React, {useState} from 'react'
+import React from 'react'
 import {type ForwardedRef, forwardRef, type FC, type PropsWithChildren, type ElementType} from 'react'
 import {isElement} from 'react-is'
 import type {IconProps} from '@primer/octicons-react'
 import CounterLabel from '../../CounterLabel'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../utils/polymorphic'
-import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 
 import classes from './UnderlineTabbedInterface.module.css'
 import {clsx} from 'clsx'
@@ -33,23 +32,18 @@ type UnderlineWrapperProps<As extends React.ElementType> = {
   as?: As
   className?: string
   ref?: React.Ref<HTMLElement>
+  /** Indicates whether the overflow calculation is complete. When false, overflow is hidden to prevent CLS. */
+  ready?: boolean
 }
 
 export const UnderlineWrapper = forwardRef((props, ref) => {
-  const {children, className, as: Component = 'div', ...rest} = props
-  // Track hydration state: true on server and initial client render, false after hydration
-  const [isSSR, setIsSSR] = useState(true)
-
-  useIsomorphicLayoutEffect(() => {
-    // After hydration, allow overflow to be visible
-    setIsSSR(false)
-  }, [])
+  const {children, className, as: Component = 'div', ready, ...rest} = props
 
   return (
     <Component
       className={clsx(classes.UnderlineWrapper, className)}
       ref={ref as ForwardedRef<HTMLDivElement>}
-      data-ssr-hidden={isSSR ? 'true' : 'false'}
+      data-ready={ready ? 'true' : 'false'}
       {...rest}
     >
       {children}
@@ -84,6 +78,7 @@ export type UnderlineItemProps<As extends React.ElementType> = {
 export const UnderlineItem = React.forwardRef((props, ref) => {
   const {as: Component = 'a', children, counter, icon: Icon, iconsVisible, loadingCounters, className, ...rest} = props
   const textContent = getTextContent(children)
+
   return (
     <Component {...rest} ref={ref} className={clsx(classes.UnderlineItem, className)}>
       {iconsVisible && Icon && <span data-component="icon">{isElement(Icon) ? Icon : <Icon />}</span>}
