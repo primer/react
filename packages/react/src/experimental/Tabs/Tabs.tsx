@@ -1,7 +1,6 @@
 import React, {
   createContext,
   useContext,
-  useId,
   useMemo,
   type AriaAttributes,
   type ElementRef,
@@ -9,7 +8,7 @@ import React, {
 } from 'react'
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 import {useControllableState} from '../../hooks/useControllableState'
-import {useProvidedRefOrCreate} from '../../hooks'
+import {useId, useProvidedRefOrCreate} from '../../hooks'
 
 /**
  * Props to be used when the Tabs component's state is controlled by the parent
@@ -53,7 +52,10 @@ type UncontrolledTabsProps = {
   onValueChange?: ({value}: {value: string}) => void
 }
 
-type TabsProps = PropsWithChildren<ControlledTabsProps | UncontrolledTabsProps>
+type TabsProps = {
+  /** Base id for generating unique ids for tabs and panels */
+  id?: string
+} & PropsWithChildren<ControlledTabsProps | UncontrolledTabsProps>
 
 /**
  * The Tabs component provides the base structure for a tabbed interface, without providing any formal requirement on DOM structure or styling.
@@ -62,9 +64,9 @@ type TabsProps = PropsWithChildren<ControlledTabsProps | UncontrolledTabsProps>
  * This is intended to be used in conjunction with the `useTab`, `useTabList`, and `useTabPanel` hooks to build a fully accessible tabs component.
  * The `Tab`, `TabList`, and `TabPanel` components are provided for convenience to showcase the API & implementation.
  */
-function Tabs(props: TabsProps) {
+function Tabs({id, ...props}: TabsProps) {
   const {children, onValueChange} = props
-  const groupId = useId()
+  const groupId = useId(id)
 
   const [selectedValue, setSelectedValue] = useControllableState<string>({
     name: 'tab-selection',
@@ -92,15 +94,18 @@ function Tabs(props: TabsProps) {
 }
 
 type Label = {
+  /** The accessible label for the tab list */
   'aria-label': string
 }
 
 type LabelledBy = {
+  /** The id of an external element that labels the tab list */
   'aria-labelledby': string
 }
 
 type Labelled = Label | LabelledBy
-type TabListProps = Labelled & React.HTMLAttributes<HTMLElement>
+type TabListProps = Labelled &
+  Pick<React.HTMLAttributes<HTMLElement>, 'aria-orientation' | 'aria-label' | 'aria-labelledby'>
 
 function useTabList<T extends HTMLElement>(
   props: TabListProps & {
@@ -182,7 +187,7 @@ function useTabList<T extends HTMLElement>(
   }
 }
 
-function TabList({children, ...rest}: TabListProps) {
+function TabList({children, ...rest}: React.PropsWithChildren<TabListProps & React.HTMLAttributes<HTMLDivElement>>) {
   const {tabListProps} = useTabList<HTMLDivElement>(rest)
 
   return (
