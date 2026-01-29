@@ -4,7 +4,6 @@ import {IconButton} from '.'
 import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
 import {Tooltip} from '../TooltipV2'
-import {default as TooltipV1} from '../Tooltip'
 
 export default {
   title: 'Components/IconButton/Features',
