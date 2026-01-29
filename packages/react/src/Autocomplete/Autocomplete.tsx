@@ -1,7 +1,7 @@
 import type React from 'react'
-import {useCallback, useReducer, useRef} from 'react'
+import {useCallback, useDeferredValue, useMemo, useReducer, useRef} from 'react'
 import type {ComponentProps, FCWithSlotMarker} from '../utils/types'
-import {AutocompleteContext} from './AutocompleteContext'
+import {AutocompleteContext, AutocompleteInputContext, AutocompleteDeferredInputContext} from './AutocompleteContext'
 import AutocompleteInput from './AutocompleteInput'
 import AutocompleteMenu from './AutocompleteMenu'
 import AutocompleteOverlay from './AutocompleteOverlay'
@@ -69,26 +69,57 @@ const Autocomplete: FCWithSlotMarker<React.PropsWithChildren<{id?: string}>> = (
   }, [])
   const id = useId(idProp)
 
+  // Base context: refs, IDs, menu visibility, and callbacks
+  // Changes when menu opens/closes or selection changes, but NOT on every keystroke
+  const autocompleteContextValue = useMemo(
+    () => ({
+      activeDescendantRef,
+      id,
+      inputRef,
+      scrollContainerRef,
+      selectedItemLength,
+      setAutocompleteSuggestion,
+      setInputValue,
+      setIsMenuDirectlyActivated,
+      setShowMenu,
+      setSelectedItemLength,
+      showMenu,
+    }),
+    [
+      id,
+      selectedItemLength,
+      setAutocompleteSuggestion,
+      setInputValue,
+      setIsMenuDirectlyActivated,
+      setShowMenu,
+      setSelectedItemLength,
+      showMenu,
+    ],
+  )
+
+  // Input state context: values that change on every keystroke
+  // Split to prevent Overlay from re-rendering during typing
+  const autocompleteInputContextValue = useMemo(
+    () => ({
+      autocompleteSuggestion,
+      inputValue,
+      isMenuDirectlyActivated,
+    }),
+    [autocompleteSuggestion, inputValue, isMenuDirectlyActivated],
+  )
+
+  // Deferred input value for expensive operations like filtering
+  // Menu subscribes to this instead of inputValue to avoid re-rendering on every keystroke
+  const deferredInputValue = useDeferredValue(inputValue)
+  const autocompleteDeferredInputContextValue = useMemo(() => ({deferredInputValue}), [deferredInputValue])
+
   return (
-    <AutocompleteContext.Provider
-      value={{
-        activeDescendantRef,
-        autocompleteSuggestion,
-        id,
-        inputRef,
-        inputValue,
-        isMenuDirectlyActivated,
-        scrollContainerRef,
-        selectedItemLength,
-        setAutocompleteSuggestion,
-        setInputValue,
-        setIsMenuDirectlyActivated,
-        setShowMenu,
-        setSelectedItemLength,
-        showMenu,
-      }}
-    >
-      {children}
+    <AutocompleteContext.Provider value={autocompleteContextValue}>
+      <AutocompleteInputContext.Provider value={autocompleteInputContextValue}>
+        <AutocompleteDeferredInputContext.Provider value={autocompleteDeferredInputContextValue}>
+          {children}
+        </AutocompleteDeferredInputContext.Provider>
+      </AutocompleteInputContext.Provider>
     </AutocompleteContext.Provider>
   )
 }

@@ -23,6 +23,7 @@ export type UsePaneWidthOptions = {
   widthStorageKey: string
   paneRef: React.RefObject<HTMLDivElement | null>
   handleRef: React.RefObject<HTMLDivElement | null>
+  contentWrapperRef: React.RefObject<HTMLDivElement | null>
 }
 
 export type UsePaneWidthResult = {
@@ -77,7 +78,7 @@ export const isCustomWidthOptions = (width: PaneWidth | CustomWidthOptions): wid
 }
 
 export const isPaneWidth = (width: PaneWidth | CustomWidthOptions): width is PaneWidth => {
-  return ['small', 'medium', 'large'].includes(width as PaneWidth)
+  return width === 'small' || width === 'medium' || width === 'large'
 }
 
 export const getDefaultPaneWidth = (w: PaneWidth | CustomWidthOptions): number => {
@@ -130,6 +131,7 @@ export function usePaneWidth({
   widthStorageKey,
   paneRef,
   handleRef,
+  contentWrapperRef,
 }: UsePaneWidthOptions): UsePaneWidthResult {
   // Derive constraints from width configuration
   const isCustomWidth = isCustomWidthOptions(width)
@@ -187,7 +189,10 @@ export function usePaneWidth({
   const saveWidth = React.useCallback(
     (value: number) => {
       currentWidthRef.current = value
-      setCurrentWidth(value)
+      // Visual update already done via inline styles - React state sync is non-urgent
+      startTransition(() => {
+        setCurrentWidth(value)
+      })
       try {
         localStorage.setItem(widthStorageKey, value.toString())
       } catch {
@@ -205,19 +210,11 @@ export function usePaneWidth({
   })
 
   // Update CSS variable, refs, and ARIA on mount and window resize.
-  // Strategy:
-  // 1. Throttled (16ms): Update --pane-max-width CSS variable for immediate visual clamp
-  // 2. Debounced (150ms): Sync refs, ARIA, and React state when resize stops
+  // Strategy: Only sync when resize stops (debounced) to avoid layout thrashing on large DOMs
   useIsomorphicLayoutEffect(() => {
     if (!resizable) return
 
     let lastViewportWidth = window.innerWidth
-
-    // Quick CSS-only update for immediate visual feedback (throttled)
-    const updateCSSOnly = () => {
-      const actualMax = getMaxPaneWidthRef.current()
-      paneRef.current?.style.setProperty('--pane-max-width', `${actualMax}px`)
-    }
 
     // Full sync of refs, ARIA, and state (debounced, runs when resize stops)
     const syncAll = () => {
@@ -269,36 +266,53 @@ export function usePaneWidth({
     // For custom widths, max is fixed - no need to listen to resize
     if (customMaxWidth !== null) return
 
-    // Throttle CSS updates (16ms ≈ 60fps), debounce full sync (150ms)
-    const THROTTLE_MS = 16
-    const DEBOUNCE_MS = 150
+    // Throttle approach for window resize - provides immediate visual feedback for small DOMs
+    // while still limiting update frequency
+    const THROTTLE_MS = 16 // ~60fps
+    const DEBOUNCE_MS = 150 // Delay before removing containment after resize stops
+    let lastUpdateTime = 0
+    let pendingUpdate = false
     let rafId: number | null = null
     let debounceId: ReturnType<typeof setTimeout> | null = null
-    let lastThrottleTime = 0
+    let isResizing = false
+
+    const startResizeOptimizations = () => {
+      if (isResizing) return
+      isResizing = true
+      paneRef.current?.setAttribute('data-dragging', 'true')
+      contentWrapperRef.current?.setAttribute('data-dragging', 'true')
+    }
+
+    const endResizeOptimizations = () => {
+      if (!isResizing) return
+      isResizing = false
+      paneRef.current?.removeAttribute('data-dragging')
+      contentWrapperRef.current?.removeAttribute('data-dragging')
+    }
 
     const handleResize = () => {
-      const now = Date.now()
+      // Apply containment on first resize event (stays applied until resize stops)
+      startResizeOptimizations()
 
-      // Throttled CSS update for immediate visual feedback
-      if (now - lastThrottleTime >= THROTTLE_MS) {
-        lastThrottleTime = now
-        updateCSSOnly()
-      } else if (rafId === null) {
-        // Schedule next frame if we're within throttle window
+      const now = Date.now()
+      if (now - lastUpdateTime >= THROTTLE_MS) {
+        lastUpdateTime = now
+        syncAll()
+      } else if (!pendingUpdate) {
+        pendingUpdate = true
         rafId = requestAnimationFrame(() => {
+          pendingUpdate = false
           rafId = null
-          lastThrottleTime = Date.now()
-          updateCSSOnly()
+          lastUpdateTime = Date.now()
+          syncAll()
         })
       }
 
-      // Debounced full sync (refs, ARIA, state) when resize stops
-      if (debounceId !== null) {
-        clearTimeout(debounceId)
-      }
+      // Debounce the cleanup — remove containment after resize stops
+      if (debounceId !== null) clearTimeout(debounceId)
       debounceId = setTimeout(() => {
         debounceId = null
-        syncAll()
+        endResizeOptimizations()
       }, DEBOUNCE_MS)
     }
 
@@ -307,9 +321,10 @@ export function usePaneWidth({
     return () => {
       if (rafId !== null) cancelAnimationFrame(rafId)
       if (debounceId !== null) clearTimeout(debounceId)
+      endResizeOptimizations()
       window.removeEventListener('resize', handleResize)
     }
-  }, [resizable, customMaxWidth, minPaneWidth, paneRef, handleRef])
+  }, [resizable, customMaxWidth, minPaneWidth, paneRef, handleRef, contentWrapperRef])
 
   return {
     currentWidth,

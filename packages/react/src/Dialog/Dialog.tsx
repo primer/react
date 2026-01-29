@@ -291,11 +291,31 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
 
   React.useEffect(() => {
     const scrollbarWidth = window.innerWidth - document.body.clientWidth
-    // If the dialog is rendered, we add a class to the dialog element to disable
-    dialogRef.current?.classList.add(classes.DisableScroll)
-    // and set a CSS variable to the scrollbar width so that the dialog can
-    // account for the scrollbar width when calculating its width.
+    const dialog = dialogRef.current
+    const usePerfOptimization = document.body.hasAttribute('data-dialog-scroll-optimized')
+
+    // Add DisableScroll class to this dialog (for legacy :has() selector path)
+    dialog?.classList.add(classes.DisableScroll)
     document.body.style.setProperty('--prc-dialog-scrollgutter', `${scrollbarWidth}px`)
+
+    if (usePerfOptimization) {
+      // Optimized path: set attribute on body for direct CSS targeting
+      document.body.setAttribute('data-dialog-scroll-disabled', '')
+    }
+    // Legacy path: no action needed - CSS :has(.Dialog.DisableScroll) handles it
+
+    return () => {
+      dialog?.classList.remove(classes.DisableScroll)
+
+      const remainingDialogs = document.querySelectorAll(`.${classes.DisableScroll}`)
+
+      if (remainingDialogs.length === 0) {
+        document.body.style.removeProperty('--prc-dialog-scrollgutter')
+        if (usePerfOptimization) {
+          document.body.removeAttribute('data-dialog-scroll-disabled')
+        }
+      }
+    }
   }, [])
 
   const header = slots.header ?? (renderHeader ?? DefaultHeader)(defaultedProps)

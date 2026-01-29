@@ -35,6 +35,7 @@ type ChildProps =
       label: string
       icon: ActionBarIconButtonProps['icon'] | 'none'
       items: ActionBarMenuProps['items']
+      returnFocusRef?: React.RefObject<HTMLElement>
     }
 
 /**
@@ -155,6 +156,10 @@ export type ActionBarMenuProps = {
    * If 'none' is provided, no icon will be shown in the overflow menu.
    */
   overflowIcon?: ActionBarIconButtonProps['icon'] | 'none'
+  /**
+   * Target element to return focus to when the menu is closed.
+   */
+  returnFocusRef?: React.RefObject<HTMLElement>
 } & IconButtonProps
 
 const MORE_BTN_WIDTH = 32
@@ -428,7 +433,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
 
                     if (menuItem.type === 'menu') {
                       const menuItems = menuItem.items
-                      const {icon: Icon, label} = menuItem
+                      const {icon: Icon, label, returnFocusRef} = menuItem
 
                       return (
                         <ActionMenu key={id}>
@@ -442,7 +447,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                               {label}
                             </ActionList.Item>
                           </ActionMenu.Anchor>
-                          <ActionMenu.Overlay>
+                          <ActionMenu.Overlay {...(returnFocusRef && {returnFocusRef})}>
                             <ActionList>{menuItems.map((item, index) => renderMenuItem(item, index))}</ActionList>
                           </ActionMenu.Overlay>
                         </ActionMenu>
@@ -584,7 +589,10 @@ export const ActionBarGroup = forwardRef(({children}: React.PropsWithChildren, f
 })
 
 export const ActionBarMenu = forwardRef(
-  ({'aria-label': ariaLabel, icon, overflowIcon, items, ...props}: ActionBarMenuProps, forwardedRef) => {
+  (
+    {'aria-label': ariaLabel, icon, overflowIcon, items, returnFocusRef, ...props}: ActionBarMenuProps,
+    forwardedRef,
+  ) => {
     const backupRef = useRef<HTMLButtonElement>(null)
     const ref = (forwardedRef ?? backupRef) as RefObject<HTMLButtonElement>
     const id = useId()
@@ -606,6 +614,7 @@ export const ActionBarMenu = forwardRef(
         width: widthRef.current,
         label: ariaLabel,
         icon: overflowIcon ? overflowIcon : icon,
+        returnFocusRef,
         items,
       })
 
@@ -621,7 +630,7 @@ export const ActionBarMenu = forwardRef(
         <ActionMenu.Anchor>
           <IconButton variant="invisible" aria-label={ariaLabel} icon={icon} {...props} />
         </ActionMenu.Anchor>
-        <ActionMenu.Overlay>
+        <ActionMenu.Overlay {...(returnFocusRef && {returnFocusRef})}>
           <ActionList>{items.map((item, index) => renderMenuItem(item, index))}</ActionList>
         </ActionMenu.Overlay>
       </ActionMenu>

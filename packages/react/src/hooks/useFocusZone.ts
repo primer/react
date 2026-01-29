@@ -23,6 +23,11 @@ export interface FocusZoneHookSettings extends Omit<FocusZoneSettings, 'activeDe
    * any time.
    */
   disabled?: boolean
+
+  /**
+   * Set to true to allow focus to move to elements that are dynamically prepended to the container.
+   */
+  focusPrependedElements?: boolean
 }
 
 export function useFocusZone(

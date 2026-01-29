@@ -136,6 +136,10 @@ const stories = [
     title: 'Keyboard shortcuts',
     id: 'components-actionlist-features--with-keyboard-shortcuts',
   },
+  {
+    title: 'All combinations',
+    id: 'components-actionlist-examples--all-combinations',
+  },
 ] as const
 
 test.describe('ActionList', () => {
