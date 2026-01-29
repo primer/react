@@ -2,6 +2,7 @@ import type {Meta} from '@storybook/react-vite'
 import {action} from 'storybook/actions'
 import {IssueLabel} from '../IssueLabel'
 import {Stack} from '../../Stack'
+import classes from './IssueLabel.features.stories.module.css'
 
 const meta = {
   title: 'Experimental/Components/IssueLabel/Features',
@@ -72,12 +73,24 @@ export const AsLink = () => <IssueLabel href="/">Issue label</IssueLabel>
 export const AsButton = () => <IssueLabel onClick={action('onClick')}>Issue label</IssueLabel>
 
 export const GroupOfLabels = () => (
-  <Stack direction="horizontal" gap="condensed" wrap="wrap">
-    <IssueLabel variant="blue">Issue label</IssueLabel>
-    <IssueLabel variant="purple">Another label</IssueLabel>
-    <IssueLabel variant="green">A third label</IssueLabel>
-    <IssueLabel variant="orange">Issue label</IssueLabel>
-    <IssueLabel variant="yellow">Another label</IssueLabel>
-    <IssueLabel variant="brown">A third label</IssueLabel>
+  <Stack as="ul" className={classes.Group} direction="horizontal" gap="condensed" wrap="wrap">
+    <li className={classes.Item}>
+      <IssueLabel variant="blue">Issue label</IssueLabel>
+    </li>
+    <li className={classes.Item}>
+      <IssueLabel variant="purple">Another label</IssueLabel>
+    </li>
+    <li className={classes.Item}>
+      <IssueLabel variant="green">A third label</IssueLabel>
+    </li>
+    <li className={classes.Item}>
+      <IssueLabel variant="orange">Issue label</IssueLabel>
+    </li>
+    <li className={classes.Item}>
+      <IssueLabel variant="yellow">Another label</IssueLabel>
+    </li>
+    <li className={classes.Item}>
+      <IssueLabel variant="brown">A third label</IssueLabel>
+    </li>
   </Stack>
 )

@@ -1,0 +1,12 @@
+.Group {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  /* stylelint-disable-next-line primer/typography */
+  line-height: 0;
+}
+
+.Item {
+  margin: 0;
+  padding: 0;
+}
