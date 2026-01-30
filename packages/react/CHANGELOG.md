@@ -1,5 +1,17 @@
 # @primer/react
 
+## 38.9.0
+
+### Minor Changes
+
+- [#7472](https://github.com/primer/react/pull/7472) [`661d16f`](https://github.com/primer/react/commit/661d16f4a8afc46cae40e06299877d46864ea1c9) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - StateLabel: Add alert status variants (alertOpened, alertFixed, alertClosed, alertDismissed) with corresponding shield icons for displaying security alert states
+
+### Patch Changes
+
+- [#7471](https://github.com/primer/react/pull/7471) [`df4bd30`](https://github.com/primer/react/commit/df4bd30874275245f1300573f4f4694b0be78ad5) Thanks [@llastflowers](https://github.com/llastflowers)! - Add breakpoint to shrink gutter around dialog on very small screen heights
+
+- [#7468](https://github.com/primer/react/pull/7468) [`731fb71`](https://github.com/primer/react/commit/731fb718593ddd24cf1962c31c7746e3add54d6a) Thanks [@jonrohan](https://github.com/jonrohan)! - feat(ActionList): Optimizes CSS selector performance in ActionList by replacing expensive universal selectors (`*`) and broad `:has()` queries with targeted class selectors.
+
 ## 38.8.0
 
 ### Minor Changes
