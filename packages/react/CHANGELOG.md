@@ -1,5 +1,33 @@
 # @primer/react
 
+## 38.9.0
+
+### Minor Changes
+
+- [#7472](https://github.com/primer/react/pull/7472) [`661d16f`](https://github.com/primer/react/commit/661d16f4a8afc46cae40e06299877d46864ea1c9) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - StateLabel: Add alert status variants (alertOpened, alertFixed, alertClosed, alertDismissed) with corresponding shield icons for displaying security alert states
+
+### Patch Changes
+
+- [#7471](https://github.com/primer/react/pull/7471) [`df4bd30`](https://github.com/primer/react/commit/df4bd30874275245f1300573f4f4694b0be78ad5) Thanks [@llastflowers](https://github.com/llastflowers)! - Add breakpoint to shrink gutter around dialog on very small screen heights
+
+- [#7468](https://github.com/primer/react/pull/7468) [`731fb71`](https://github.com/primer/react/commit/731fb718593ddd24cf1962c31c7746e3add54d6a) Thanks [@jonrohan](https://github.com/jonrohan)! - feat(ActionList): Optimizes CSS selector performance in ActionList by replacing expensive universal selectors (`*`) and broad `:has()` queries with targeted class selectors.
+
+## 38.8.0
+
+### Minor Changes
+
+- [#7455](https://github.com/primer/react/pull/7455) [`a86c183`](https://github.com/primer/react/commit/a86c183f5ea7add7584f895cff3027a7db35675e) Thanks [@HiroAgustin](https://github.com/HiroAgustin)! - Remove ConfirmationDialog custom renders to ensure visual parity with Dialog
+
+- [#7438](https://github.com/primer/react/pull/7438) [`160c1c4`](https://github.com/primer/react/commit/160c1c4cf1c5111dd46b68471d49733f47f524cc) Thanks [@francinelucca](https://github.com/francinelucca)! - feat: make Spinner's delay customizable
+
+- [#7436](https://github.com/primer/react/pull/7436) [`9a4e46c`](https://github.com/primer/react/commit/9a4e46cf902a5c2e046ca7771211536ae0bd08ed) Thanks [@TylerJDev](https://github.com/TylerJDev)! - FilteredActionList: Adds new prop `scrollBehavior` to allow customization of scroll behavior
+
+- [#7448](https://github.com/primer/react/pull/7448) [`838859d`](https://github.com/primer/react/commit/838859d8ee2afc2afca71a28114020a14a68b297) Thanks [@francinelucca](https://github.com/francinelucca)! - feat(SkeletonBox): add customizable delay
+
+### Patch Changes
+
+- [#7451](https://github.com/primer/react/pull/7451) [`0fc4523`](https://github.com/primer/react/commit/0fc45237ef3f912c86663817eb8983875b4c8d7e) Thanks [@daantosaurus](https://github.com/daantosaurus)! - UnderlineNav.Item: Fix layout issues when children contain React elements by extracting only direct text content for the `data-content` attribute.
+
 ## 38.7.1
 
 ### Patch Changes
