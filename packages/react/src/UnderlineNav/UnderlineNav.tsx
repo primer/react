@@ -166,6 +166,8 @@ export const UnderlineNav = forwardRef(
     const [iconsVisible, setIconsVisible] = useState<boolean>(true)
     const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
     const [noIconChildWidthArray, setNoIconChildWidthArray] = useState<ChildWidthArray>([])
+    // Track whether the initial overflow calculation is complete to prevent CLS
+    const [isReady, setIsReady] = useState(false)
 
     const validChildren = getValidChildren(children)
 
@@ -248,6 +250,8 @@ export const UnderlineNav = forwardRef(
     const updateListAndMenu = useCallback((props: ResponsiveProps, displayIcons: boolean) => {
       setResponsiveProps(props)
       setIconsVisible(displayIcons)
+      // Mark as ready after the first overflow calculation completes
+      setIsReady(true)
     }, [])
     const setChildrenWidth = useCallback((size: ChildSize) => {
       setChildWidthArray(arr => {
@@ -330,7 +334,14 @@ export const UnderlineNav = forwardRef(
         }}
       >
         {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
-        <UnderlineWrapper as={as} aria-label={ariaLabel} className={className} ref={navRef} data-variant={variant}>
+        <UnderlineWrapper
+          as={as}
+          aria-label={ariaLabel}
+          className={className}
+          ref={navRef}
+          data-variant={variant}
+          ready={isReady}
+        >
           <UnderlineItemList ref={listRef} role="list">
             {listItems}
             {menuItems.length > 0 && (
