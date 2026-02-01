@@ -98,6 +98,12 @@
     content: '';
   }
 
+  & [data-kbd-chord] {
+    background: var(--counter-bgColor-emphasis);
+    color: var(--fgColor-onEmphasis);
+    border-color: transparent;
+  }
+
   /* Only show animations if users don't have a preference for reduced motion */
   @media screen and (prefers-reduced-motion: no-preference) {
     /* Animation styles */
