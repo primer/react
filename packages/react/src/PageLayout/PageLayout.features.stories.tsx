@@ -1,9 +1,11 @@
 import type {Meta, StoryFn} from '@storybook/react-vite'
+import React from 'react'
 import {PageLayout} from './PageLayout'
 import {Placeholder} from '../Placeholder'
-import {BranchName, Heading, Link, StateLabel, Text} from '..'
+import {BranchName, Heading, Link, StateLabel, Text, useIsomorphicLayoutEffect} from '..'
 import TabNav from '../TabNav'
 import classes from './PageLayout.features.stories.module.css'
+import {defaultPaneWidth} from './usePaneWidth'
 
 export default {
   title: 'Components/PageLayout/Features',
@@ -358,3 +360,167 @@ export const WithCustomPaneHeading: StoryFn = () => (
     </PageLayout.Footer>
   </PageLayout>
 )
+
+export const ResizablePaneWithoutPersistence: StoryFn = () => (
+  <PageLayout>
+    <PageLayout.Header>
+      <Placeholder height={64} label="Header" />
+    </PageLayout.Header>
+    <PageLayout.Pane resizable={{persist: false}} aria-label="Side pane">
+      <Placeholder height={320} label="Pane (resizable, not persisted)" />
+    </PageLayout.Pane>
+    <PageLayout.Content>
+      <Placeholder height={640} label="Content" />
+    </PageLayout.Content>
+    <PageLayout.Footer>
+      <Placeholder height={64} label="Footer" />
+    </PageLayout.Footer>
+  </PageLayout>
+)
+ResizablePaneWithoutPersistence.storyName = 'Resizable pane without persistence'
+
+export const ResizablePaneWithCustomPersistence: StoryFn = () => {
+  const key = 'page-layout-features-stories-custom-persistence-pane-width'
+
+  // Read initial width from localStorage (CSR only), falling back to medium preset
+  const getInitialWidth = (): number => {
+    if (typeof window !== 'undefined') {
+      const storedWidth = localStorage.getItem(key)
+      if (storedWidth !== null) {
+        const parsed = parseFloat(storedWidth)
+        if (!isNaN(parsed) && parsed > 0) {
+          return parsed
+        }
+      }
+    }
+    return defaultPaneWidth.medium
+  }
+
+  const [currentWidth, setCurrentWidth] = React.useState<number>(getInitialWidth)
+  useIsomorphicLayoutEffect(() => {
+    setCurrentWidth(getInitialWidth())
+  }, [])
+  return (
+    <PageLayout>
+      <PageLayout.Header>
+        <Placeholder height={64} label="Header" />
+      </PageLayout.Header>
+      <PageLayout.Pane
+        width={{min: '256px', default: `${defaultPaneWidth.medium}px`, max: '600px'}}
+        resizable={{
+          width: currentWidth,
+          persist: width => {
+            setCurrentWidth(width)
+            localStorage.setItem(key, width.toString())
+          },
+        }}
+        aria-label="Side pane"
+      >
+        <Placeholder height={320} label={`Pane (width: ${currentWidth}px)`} />
+      </PageLayout.Pane>
+      <PageLayout.Content>
+        <Placeholder height={640} label="Content" />
+      </PageLayout.Content>
+      <PageLayout.Footer>
+        <Placeholder height={64} label="Footer" />
+      </PageLayout.Footer>
+    </PageLayout>
+  )
+}
+ResizablePaneWithCustomPersistence.storyName = 'Resizable pane with custom persistence'
+
+export const ResizablePaneWithNumberWidth: StoryFn = () => {
+  const key = 'page-layout-features-stories-number-width'
+
+  // Read initial width from localStorage (CSR only), falling back to medium preset
+  const getInitialWidth = (): number => {
+    if (typeof window !== 'undefined') {
+      const storedWidth = localStorage.getItem(key)
+      if (storedWidth !== null) {
+        const parsed = parseInt(storedWidth, 10)
+        if (!isNaN(parsed) && parsed > 0) {
+          return parsed
+        }
+      }
+    }
+    return defaultPaneWidth.medium
+  }
+
+  const [currentWidth, setCurrentWidth] = React.useState<number>(getInitialWidth)
+
+  return (
+    <PageLayout>
+      <PageLayout.Header>
+        <Placeholder height={64} label="Header" />
+      </PageLayout.Header>
+      <PageLayout.Pane
+        width="medium"
+        resizable={{
+          width: currentWidth,
+          persist: newWidth => {
+            setCurrentWidth(newWidth)
+            localStorage.setItem(key, newWidth.toString())
+          },
+        }}
+        aria-label="Side pane"
+      >
+        <Placeholder height={320} label={`Pane (width: ${currentWidth}px)`} />
+      </PageLayout.Pane>
+      <PageLayout.Content>
+        <Placeholder height={640} label="Content" />
+      </PageLayout.Content>
+      <PageLayout.Footer>
+        <Placeholder height={64} label="Footer" />
+      </PageLayout.Footer>
+    </PageLayout>
+  )
+}
+ResizablePaneWithNumberWidth.storyName = 'Resizable pane with number width'
+
+export const ResizablePaneWithControlledWidth: StoryFn = () => {
+  const key = 'page-layout-features-stories-controlled-width'
+
+  // Read initial width from localStorage (CSR only), falling back to medium preset
+  const getInitialWidth = (): number => {
+    if (typeof window !== 'undefined') {
+      const storedWidth = localStorage.getItem(key)
+      if (storedWidth !== null) {
+        const parsed = parseInt(storedWidth, 10)
+        if (!isNaN(parsed) && parsed > 0) {
+          return parsed
+        }
+      }
+    }
+    return defaultPaneWidth.medium
+  }
+
+  const [currentWidth, setCurrentWidth] = React.useState<number>(getInitialWidth)
+
+  return (
+    <PageLayout>
+      <PageLayout.Header>
+        <Placeholder height={64} label="Header" />
+      </PageLayout.Header>
+      <PageLayout.Pane
+        width={{min: '256px', default: '296px', max: '600px'}}
+        resizable={{
+          width: currentWidth,
+          persist: newWidth => {
+            setCurrentWidth(newWidth)
+            localStorage.setItem(key, newWidth.toString())
+          },
+        }}
+        aria-label="Side pane"
+      >
+        <Placeholder height={320} label={`Pane (current: ${currentWidth}px)`} />
+      </PageLayout.Pane>
+      <PageLayout.Content>
+        <Placeholder height={640} label="Content" />
+      </PageLayout.Content>
+      <PageLayout.Footer>
+        <Placeholder height={64} label="Footer" />
+      </PageLayout.Footer>
+    </PageLayout>
+  )
+}
+ResizablePaneWithControlledWidth.storyName = 'Resizable pane with controlled width (new API)'
