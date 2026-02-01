@@ -12,6 +12,13 @@
   /* stylelint-disable-next-line primer/box-shadow */
   box-shadow: inset 0 -1px var(--borderColor-muted);
 
+  /* Hide overflow during SSR to prevent horizontal scrollbar before JS hydration calculates which items fit */
+  overflow: hidden;
+
+  &[data-ssr-hidden='false'] {
+    overflow: visible;
+  }
+
   &[data-variant='flush'] {
     /* stylelint-disable-next-line primer/spacing */
     padding-inline: unset;
