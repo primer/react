@@ -8,11 +8,14 @@ type MediaQueryEventListener = (event: {matches: boolean}) => void
 
 function mockMatchMedia({defaultMatch = false} = {}) {
   const listeners = new Set<MediaQueryEventListener>()
+  let currentMatch = defaultMatch
 
   Object.defineProperty(window, 'matchMedia', {
     writable: true,
     value: vi.fn().mockImplementation(query => ({
-      matches: defaultMatch,
+      get matches() {
+        return currentMatch
+      },
       media: query,
       onchange: null,
       addListener: vi.fn(), // deprecated
@@ -29,6 +32,7 @@ function mockMatchMedia({defaultMatch = false} = {}) {
 
   return {
     change({matches = false}) {
+      currentMatch = matches
       for (const listener of listeners) {
         listener({
           matches,
