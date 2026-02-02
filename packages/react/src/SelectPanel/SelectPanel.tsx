@@ -557,6 +557,24 @@ function Panel({
   )
 
   const itemsToRender = useMemo(() => {
+    // Pre-compute a Set of selected item IDs/references for O(1) lookups during sorting
+    // This avoids O(m * k) work per comparison in the sort function
+    const selectedOnSortSet = new Set<string | number | ItemInput>()
+    for (const item of selectedOnSort) {
+      if (item.id !== undefined) {
+        selectedOnSortSet.add(item.id)
+      } else {
+        selectedOnSortSet.add(item)
+      }
+    }
+
+    const isSelectedForSort = (item: ItemProps): boolean => {
+      if (item.id !== undefined) {
+        return selectedOnSortSet.has(item.id)
+      }
+      return selectedOnSortSet.has(item as unknown as ItemInput)
+    }
+
     return items
       .map(item => {
         return {
@@ -600,30 +618,13 @@ function Panel({
       })
       .sort((itemA, itemB) => {
         if (shouldOrderSelectedFirst) {
-          // itemA is selected (for sorting purposes) if an object in selectedOnSort matches every property of itemA, except for the selected property
-          const itemASelected = selectedOnSort.some(item =>
-            Object.entries(item).every(([key, value]) => {
-              if (key === 'selected') {
-                return true
-              }
-              return itemA[key as keyof ItemProps] === value
-            }),
-          )
-
-          // itemB is selected (for sorting purposes) if an object in selectedOnSort matches every property of itemA, except for the selected property
-          const itemBSelected = selectedOnSort.some(item =>
-            Object.entries(item).every(([key, value]) => {
-              if (key === 'selected') {
-                return true
-              }
-              return itemB[key as keyof ItemProps] === value
-            }),
-          )
+          const itemASelected = isSelectedForSort(itemA)
+          const itemBSelected = isSelectedForSort(itemB)
 
           // order selected items first
-          if (itemASelected > itemBSelected) {
+          if (itemASelected && !itemBSelected) {
             return -1
-          } else if (itemASelected < itemBSelected) {
+          } else if (!itemASelected && itemBSelected) {
             return 1
           }
         }
