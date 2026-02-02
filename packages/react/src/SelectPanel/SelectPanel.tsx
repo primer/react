@@ -317,6 +317,19 @@ function Panel({
     ],
   )
 
+  // Pre-compute a Set of item IDs in the current filtered view for O(1) lookups
+  const itemsInViewSet = useMemo(() => {
+    const set = new Set<string | number | ItemInput>()
+    for (const item of items) {
+      if (item.id !== undefined) {
+        set.add(item.id)
+      } else {
+        set.add(item)
+      }
+    }
+    return set
+  }, [items])
+
   const handleSelectAllChange = useCallback(
     (checked: boolean) => {
       // Exit early if not in multi-select mode
@@ -327,9 +340,13 @@ function Panel({
       const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
       const selectedArray = selected as ItemInput[]
 
-      const selectedItemsNotInFilteredView = selectedArray.filter(
-        (selectedItem: ItemInput) => !items.some(item => areItemsEqual(item, selectedItem)),
-      )
+      // Use Set for O(1) lookup instead of O(n) items.some()
+      const selectedItemsNotInFilteredView = selectedArray.filter((selectedItem: ItemInput) => {
+        if (selectedItem.id !== undefined) {
+          return !itemsInViewSet.has(selectedItem.id)
+        }
+        return !itemsInViewSet.has(selectedItem)
+      })
 
       if (checked) {
         multiSelectOnChange([...selectedItemsNotInFilteredView, ...items])
@@ -337,7 +354,7 @@ function Panel({
         multiSelectOnChange(selectedItemsNotInFilteredView)
       }
     },
-    [items, onSelectedChange, selected],
+    [items, itemsInViewSet, onSelectedChange, selected],
   )
 
   // disable body scroll when the panel is open on narrow screens
@@ -535,11 +552,30 @@ function Panel({
     }
   }, [placeholder, renderAnchor, selected])
 
+  // Pre-compute a Set of selected item IDs/references for O(1) lookups
+  // This optimizes isItemCurrentlySelected from O(m) to O(1) per call
+  const selectedItemsSet = useMemo(() => {
+    const set = new Set<string | number | ItemInput>()
+    if (isMultiSelectVariant(selected)) {
+      for (const item of selected) {
+        if (item.id !== undefined) {
+          set.add(item.id)
+        } else {
+          set.add(item)
+        }
+      }
+    }
+    return set
+  }, [selected])
+
   const isItemCurrentlySelected = useCallback(
     (item: ItemInput) => {
-      // For multi-select, we just need to check if the item is in the selected array
+      // For multi-select, use the pre-computed Set for O(1) lookup
       if (isMultiSelectVariant(selected)) {
-        return doesItemsIncludeItem(selected, item)
+        if (item.id !== undefined) {
+          return selectedItemsSet.has(item.id)
+        }
+        return selectedItemsSet.has(item)
       }
 
       // For single-select modal, there is an intermediate state when the user has selected
@@ -553,7 +589,7 @@ function Panel({
       // For single-select anchored, we just need to check if the item is the selected item
       return selected?.id !== undefined ? selected.id === item.id : selected === item
     },
-    [selected, intermediateSelected, isSingleSelectModal],
+    [selected, selectedItemsSet, intermediateSelected, isSingleSelectModal],
   )
 
   const itemsToRender = useMemo(() => {
