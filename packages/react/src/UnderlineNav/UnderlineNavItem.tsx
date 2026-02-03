@@ -57,6 +57,31 @@ export type UnderlineNavItemProps = {
    * Counter
    */
   counter?: number | string
+
+  /**
+   * @internal Used by UnderlineNav for CSS based responsive overflow
+   */
+  'data-hide-xnarrow'?: string
+  /**
+   * @internal Used by UnderlineNav for CSS based responsive overflow
+   */
+  'data-hide-narrow'?: string
+  /**
+   * @internal Used by UnderlineNav for CSS based responsive overflow
+   */
+  'data-hide-regular'?: string
+  /**
+   * @internal Used by UnderlineNav for CSS based responsive overflow
+   */
+  'data-hide-medium'?: string
+  /**
+   * @internal Used by UnderlineNav for CSS based responsive overflow
+   */
+  'data-hide-large'?: string
+  /**
+   * @internal Used by UnderlineNav for CSS based responsive overflow
+   */
+  'data-hide-wide'?: string
 } & LinkProps
 
 export const UnderlineNavItem = forwardRef(
@@ -70,6 +95,12 @@ export const UnderlineNavItem = forwardRef(
       'aria-current': ariaCurrent,
       icon: Icon,
       leadingVisual,
+      'data-hide-xnarrow': dataHideXnarrow,
+      'data-hide-narrow': dataHideNarrow,
+      'data-hide-regular': dataHideRegular,
+      'data-hide-medium': dataHideMedium,
+      'data-hide-large': dataHideLarge,
+      'data-hide-wide': dataHideWide,
       ...props
     },
     forwardedRef,
@@ -120,7 +151,15 @@ export const UnderlineNavItem = forwardRef(
     )
 
     return (
-      <li className={classes.UnderlineNavItem}>
+      <li
+        className={classes.UnderlineNavItem}
+        data-hide-xnarrow={dataHideXnarrow}
+        data-hide-narrow={dataHideNarrow}
+        data-hide-regular={dataHideRegular}
+        data-hide-medium={dataHideMedium}
+        data-hide-large={dataHideLarge}
+        data-hide-wide={dataHideWide}
+      >
         <UnderlineItem
           ref={ref}
           as={Component}

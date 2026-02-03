@@ -20,3 +20,88 @@
     margin-left: 0;
   }
 }
+
+/* Container for overflow menu when using responsive mode */
+.ResponsiveOverflowContainer {
+  display: flex;
+  align-items: center;
+}
+
+/* Responsive menu visibility - extra-narrow viewport (max-width: 544px) */
+@media (max-width: 544px) {
+  .ResponsiveOverflowContainer[data-hide-menu-xnarrow='true'] {
+    /* stylelint-disable-next-line declaration-no-important */
+    display: none !important;
+  }
+
+  /* Use :has() to target menu item li elements, excluding the container */
+  li:not(.ResponsiveOverflowContainer):has([data-hide-in-menu-xnarrow='true']) {
+    /* stylelint-disable-next-line declaration-no-important */
+    display: none !important;
+  }
+}
+
+/* Responsive menu visibility - narrow viewport (544px - 768px) */
+@media (min-width: 544px) and (max-width: 768px) {
+  .ResponsiveOverflowContainer[data-hide-menu-narrow='true'] {
+    /* stylelint-disable-next-line declaration-no-important */
+    display: none !important;
+  }
+
+  li:not(.ResponsiveOverflowContainer):has([data-hide-in-menu-narrow='true']) {
+    /* stylelint-disable-next-line declaration-no-important */
+    display: none !important;
+  }
+}
+
+/* Responsive menu visibility - regular viewport (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .ResponsiveOverflowContainer[data-hide-menu-regular='true'] {
+    /* stylelint-disable-next-line declaration-no-important */
+    display: none !important;
+  }
+
+  li:not(.ResponsiveOverflowContainer):has([data-hide-in-menu-regular='true']) {
+    /* stylelint-disable-next-line declaration-no-important */
+    display: none !important;
+  }
+}
+
+/* Responsive menu visibility - medium viewport (1024px - 1280px) */
+@media (min-width: 1024px) and (max-width: 1280px) {
+  .ResponsiveOverflowContainer[data-hide-menu-medium='true'] {
+    /* stylelint-disable-next-line declaration-no-important */
+    display: none !important;
+  }
+
+  li:not(.ResponsiveOverflowContainer):has([data-hide-in-menu-medium='true']) {
+    /* stylelint-disable-next-line declaration-no-important */
+    display: none !important;
+  }
+}
+
+/* Responsive menu visibility - large viewport (1280px - 1400px) */
+@media (min-width: 1280px) and (max-width: 1400px) {
+  .ResponsiveOverflowContainer[data-hide-menu-large='true'] {
+    /* stylelint-disable-next-line declaration-no-important */
+    display: none !important;
+  }
+
+  li:not(.ResponsiveOverflowContainer):has([data-hide-in-menu-large='true']) {
+    /* stylelint-disable-next-line declaration-no-important */
+    display: none !important;
+  }
+}
+
+/* Responsive menu visibility - wide viewport (min-width: 1400px) */
+@media (min-width: 1400px) {
+  .ResponsiveOverflowContainer[data-hide-menu-wide='true'] {
+    /* stylelint-disable-next-line declaration-no-important */
+    display: none !important;
+  }
+
+  li:not(.ResponsiveOverflowContainer):has([data-hide-in-menu-wide='true']) {
+    /* stylelint-disable-next-line declaration-no-important */
+    display: none !important;
+  }
+}

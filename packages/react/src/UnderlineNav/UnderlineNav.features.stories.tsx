@@ -154,3 +154,126 @@ export const VariantFlush = () => {
     </UnderlineNav>
   )
 }
+
+/**
+ * - At extra-narrow viewport (< 544px): Shows first 2 items inline; rest in menu
+ * - At narrow viewport (544px - 768px): Shows first 3 items inline; rest in menu
+ * - At regular viewport (768px - 1024px): Shows first 5 items inline; rest in menu
+ * - At medium viewport (1024px - 1280px): Shows first 6 items inline; rest in menu
+ * - At large viewport (1280px - 1400px): Shows first 7 items inline; rest in menu
+ * - At wide viewport (> 1400px): Shows all items inline; menu is hidden
+ */
+export const ResponsiveOverflow = () => {
+  const [selectedIndex, setSelectedIndex] = React.useState<number | null>(0)
+
+  return (
+    <UnderlineNav
+      aria-label="Repository"
+      responsiveOverflow={{
+        xnarrow: [0, 1], // Show first 2 items at extra small (< 544px)
+        narrow: [0, 1, 2], // Show first 3 items at narrow (544px - 768px)
+        regular: [0, 1, 2, 3, 4], // Show first 5 items at regular (768px - 1024px)
+        medium: [0, 1, 2, 3, 4, 5], // Show first 6 items at medium (1024px - 1280px)
+        large: [0, 1, 2, 3, 4, 5, 6], // Show first 7 items at large (1280px - 1400px)
+        wide: 'all', // Show all items at wide (> 1400px, hide menu)
+      }}
+    >
+      {items.map((item, index) => (
+        <UnderlineNav.Item
+          key={item.navigation}
+          leadingVisual={item.icon}
+          aria-current={index === selectedIndex ? 'page' : undefined}
+          target="_self"
+          onSelect={event => {
+            event.preventDefault()
+            setSelectedIndex(index)
+          }}
+          counter={item.counter}
+          href={item.href}
+        >
+          {item.navigation}
+        </UnderlineNav.Item>
+      ))}
+    </UnderlineNav>
+  )
+}
+
+export const ResponsiveOverflowXNarrow = () => {
+  return <ResponsiveOverflow />
+}
+
+ResponsiveOverflowXNarrow.parameters = {
+  viewport: {
+    viewports: {
+      ...INITIAL_VIEWPORTS,
+      xnarrowScreen: {
+        name: 'Extra Narrow Screen',
+        styles: {
+          width: '400px',
+          height: '100%',
+        },
+      },
+    },
+    defaultViewport: 'xnarrowScreen',
+  },
+}
+
+export const ResponsiveOverflowNarrow = () => {
+  return <ResponsiveOverflow />
+}
+
+ResponsiveOverflowNarrow.parameters = {
+  viewport: {
+    viewports: {
+      ...INITIAL_VIEWPORTS,
+      narrowScreen: {
+        name: 'Narrow Screen',
+        styles: {
+          width: '600px',
+          height: '100%',
+        },
+      },
+    },
+    defaultViewport: 'narrowScreen',
+  },
+}
+
+export const ResponsiveOverflowRegular = () => {
+  return <ResponsiveOverflow />
+}
+
+ResponsiveOverflowRegular.parameters = {
+  viewport: {
+    viewports: {
+      ...INITIAL_VIEWPORTS,
+      regularScreen: {
+        name: 'Regular Screen',
+        styles: {
+          width: '900px',
+          height: '100%',
+        },
+      },
+    },
+    defaultViewport: 'regularScreen',
+  },
+}
+
+export const ResponsiveOverflowWide = () => {
+  return <ResponsiveOverflow />
+}
+
+ResponsiveOverflowWide.parameters = {
+  viewport: {
+    viewports: {
+      ...INITIAL_VIEWPORTS,
+      wideScreen: {
+        name: 'Wide Screen',
+        styles: {
+          width: '1500px',
+          height: '100%',
+        },
+      },
+    },
+    defaultViewport: 'wideScreen',
+  },
+}

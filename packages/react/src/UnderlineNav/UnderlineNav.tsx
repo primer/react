@@ -3,7 +3,7 @@ import React, {useRef, forwardRef, useCallback, useState, useEffect} from 'react
 import {UnderlineNavContext} from './UnderlineNavContext'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useResizeObserver} from '../hooks/useResizeObserver'
-import type {ChildWidthArray, ResponsiveProps, ChildSize} from './types'
+import type {ChildWidthArray, ResponsiveProps, ChildSize, ResponsiveOverflowConfig} from './types'
 import VisuallyHidden from '../_VisuallyHidden'
 import {dividerStyles, menuItemStyles, baseMenuMinWidth} from './styles'
 import {UnderlineItemList, UnderlineWrapper, LoadingCounter, GAP} from '../internal/components/UnderlineTabbedInterface'
@@ -33,6 +33,21 @@ export type UnderlineNavProps = {
    * Setting this to `flush` will remove the horizontal padding on the items.
    */
   variant?: 'inset' | 'flush'
+  /**
+   * When provided, items are rendered with data attributes that CSS media queries use
+   * to control visibility. The overflow menu is always rendered but uses CSS to hide
+   * items that are visible inline at the current viewport.
+   *
+   * Example:
+   * ```
+   * {
+   *   narrow: [0, 1],        // Show first 2 items inline at narrow viewport
+   *   regular: [0, 1, 2, 3], // Show first 4 items inline at regular viewport
+   *   wide: 'all'            // Show all items inline at wide viewport
+   * }
+   * ```
+   */
+  responsiveOverflow?: ResponsiveOverflowConfig
 }
 // When page is loaded, we don't have ref for the more button as it is not on the DOM yet.
 // However, we need to calculate number of possible items when the more button present as well. So using the width of the more button as a constant.
@@ -69,7 +84,6 @@ const overflowEffect = (
   // First, we check if we can fit all the items with their icons
   if (childArray.length <= numberOfItemsPossible) {
     items.push(...childArray)
-    console.log('All items fit with icons')
     iconsVisible = true
   } else if (childArray.length <= numberOfItemsWithoutIconPossible) {
     // if we can't fit all the items with their icons, we check if we can fit all the items without their icons
@@ -144,6 +158,114 @@ const baseMenuInlineStyles: React.CSSProperties = {
   right: 0,
 }
 
+/**
+ * Check if an item index should be hidden at a given breakpoint
+ */
+function isItemHiddenAtBreakpoint(
+  config: ResponsiveOverflowConfig,
+  breakpoint: 'xnarrow' | 'narrow' | 'regular' | 'medium' | 'large' | 'wide',
+  index: number,
+): boolean {
+  const visibleItems = config[breakpoint]
+  if (visibleItems === undefined || visibleItems === 'all') {
+    return false
+  }
+  return !visibleItems.includes(index)
+}
+
+/**
+ * Get data attributes for an inline item based on responsive config
+ */
+function getResponsiveItemAttributes(
+  config: ResponsiveOverflowConfig,
+  index: number,
+): {
+  'data-hide-xnarrow'?: boolean
+  'data-hide-narrow'?: boolean
+  'data-hide-regular'?: boolean
+  'data-hide-medium'?: boolean
+  'data-hide-large'?: boolean
+  'data-hide-wide'?: boolean
+} {
+  return {
+    'data-hide-xnarrow': isItemHiddenAtBreakpoint(config, 'xnarrow', index) || undefined,
+    'data-hide-narrow': isItemHiddenAtBreakpoint(config, 'narrow', index) || undefined,
+    'data-hide-regular': isItemHiddenAtBreakpoint(config, 'regular', index) || undefined,
+    'data-hide-medium': isItemHiddenAtBreakpoint(config, 'medium', index) || undefined,
+    'data-hide-large': isItemHiddenAtBreakpoint(config, 'large', index) || undefined,
+    'data-hide-wide': isItemHiddenAtBreakpoint(config, 'wide', index) || undefined,
+  }
+}
+
+/**
+ * Get data attributes for a menu item based on responsive config.
+ * Menu items should be hidden when they are visible inline.
+ */
+function getResponsiveMenuItemAttributes(
+  config: ResponsiveOverflowConfig,
+  index: number,
+): {
+  'data-hide-in-menu-xnarrow'?: boolean
+  'data-hide-in-menu-narrow'?: boolean
+  'data-hide-in-menu-regular'?: boolean
+  'data-hide-in-menu-medium'?: boolean
+  'data-hide-in-menu-large'?: boolean
+  'data-hide-in-menu-wide'?: boolean
+} {
+  // Hide in menu when NOT hidden inline (i.e., when visible inline)
+  return {
+    'data-hide-in-menu-xnarrow': !isItemHiddenAtBreakpoint(config, 'xnarrow', index) || undefined,
+    'data-hide-in-menu-narrow': !isItemHiddenAtBreakpoint(config, 'narrow', index) || undefined,
+    'data-hide-in-menu-regular': !isItemHiddenAtBreakpoint(config, 'regular', index) || undefined,
+    'data-hide-in-menu-medium': !isItemHiddenAtBreakpoint(config, 'medium', index) || undefined,
+    'data-hide-in-menu-large': !isItemHiddenAtBreakpoint(config, 'large', index) || undefined,
+    'data-hide-in-menu-wide': !isItemHiddenAtBreakpoint(config, 'wide', index) || undefined,
+  }
+}
+
+/**
+ * Get data attributes for the menu container based on responsive config.
+ * Menu should be hidden when all items are visible inline.
+ */
+function getResponsiveMenuContainerAttributes(config: ResponsiveOverflowConfig): {
+  'data-hide-menu-xnarrow'?: boolean
+  'data-hide-menu-narrow'?: boolean
+  'data-hide-menu-regular'?: boolean
+  'data-hide-menu-medium'?: boolean
+  'data-hide-menu-large'?: boolean
+  'data-hide-menu-wide'?: boolean
+} {
+  return {
+    'data-hide-menu-xnarrow': config.xnarrow === 'all' || undefined,
+    'data-hide-menu-narrow': config.narrow === 'all' || undefined,
+    'data-hide-menu-regular': config.regular === 'all' || undefined,
+    'data-hide-menu-medium': config.medium === 'all' || undefined,
+    'data-hide-menu-large': config.large === 'all' || undefined,
+    'data-hide-menu-wide': config.wide === 'all' || undefined,
+  }
+}
+
+/**
+ * Get all item indices that could be hidden at any breakpoint.
+ * These items need to be included in the overflow menu.
+ */
+function getResponsiveMenuItemIndices(config: ResponsiveOverflowConfig, totalItems: number): number[] {
+  const hiddenIndices = new Set<number>()
+
+  for (const breakpoint of ['xnarrow', 'narrow', 'regular', 'medium', 'large', 'wide'] as const) {
+    const visibleItems = config[breakpoint]
+    if (visibleItems !== undefined && visibleItems !== 'all') {
+      for (let i = 0; i < totalItems; i++) {
+        if (!visibleItems.includes(i)) {
+          hiddenIndices.add(i)
+        }
+      }
+    }
+  }
+
+  return Array.from(hiddenIndices).sort((a, b) => a - b)
+}
+
 export const UnderlineNav = forwardRef(
   (
     {
@@ -153,6 +275,7 @@ export const UnderlineNav = forwardRef(
       variant = 'inset',
       className,
       children,
+      responsiveOverflow,
     }: UnderlineNavProps,
     forwardedRef,
   ) => {
@@ -164,12 +287,16 @@ export const UnderlineNav = forwardRef(
     const containerRef = React.useRef<HTMLUListElement>(null)
     const disclosureWidgetId = useId()
 
+    // Determine if we're using CSS-based responsive mode
+    const useResponsiveMode = Boolean(responsiveOverflow)
+
     const [isWidgetOpen, setIsWidgetOpen] = useState(false)
     const [iconsVisible, setIconsVisible] = useState<boolean>(false)
     const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
     const [noIconChildWidthArray, setNoIconChildWidthArray] = useState<ChildWidthArray>([])
     // Track whether the initial overflow calculation is complete to prevent CLS
-    const [isReady, setIsReady] = useState(false)
+    // In responsive mode, we're ready immediately since CSS handles visibility
+    const [isReady, setIsReady] = useState(useResponsiveMode)
 
     const validChildren = getValidChildren(children)
 
@@ -326,6 +453,119 @@ export const UnderlineNav = forwardRef(
       }
     }
 
+    if (useResponsiveMode && responsiveOverflow) {
+      // Get indices of items that need to be in the menu
+      const responsiveMenuItemIndices = getResponsiveMenuItemIndices(responsiveOverflow, validChildren.length)
+      const responsiveMenuItems = responsiveMenuItemIndices.map(index => ({
+        index,
+        child: validChildren[index],
+      }))
+
+      // Clone children with responsive data attributes
+      const responsiveListItems = validChildren.map((child, index) => {
+        const attrs = getResponsiveItemAttributes(responsiveOverflow, index)
+        return React.cloneElement(child, {...attrs, key: child.key ?? index})
+      })
+
+      const menuContainerAttrs = getResponsiveMenuContainerAttributes(responsiveOverflow)
+      const hasMenuItems = responsiveMenuItems.length > 0
+
+      return (
+        <UnderlineNavContext.Provider
+          value={{
+            setChildrenWidth,
+            setNoIconChildrenWidth,
+            loadingCounters,
+            iconsVisible: true, // Icons are always visible in responsive mode
+          }}
+        >
+          {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
+          <UnderlineWrapper
+            as={as}
+            aria-label={ariaLabel}
+            className={className}
+            ref={navRef}
+            data-variant={variant}
+            ready={true}
+          >
+            <UnderlineItemList ref={listRef} role="list">
+              {responsiveListItems}
+              {hasMenuItems && (
+                <li
+                  ref={moreMenuRef}
+                  className={classes.ResponsiveOverflowContainer}
+                  style={{alignItems: 'center', height: `${MORE_BTN_HEIGHT}px`}}
+                  {...menuContainerAttrs}
+                >
+                  <div style={dividerStyles}></div>
+                  <Button
+                    ref={moreMenuBtnRef}
+                    className={classes.MoreButton}
+                    aria-controls={disclosureWidgetId}
+                    aria-expanded={isWidgetOpen}
+                    onClick={onAnchorClick}
+                    trailingAction={TriangleDownIcon}
+                  >
+                    <span>
+                      More<VisuallyHidden as="span">&nbsp;{`${ariaLabel} items`}</VisuallyHidden>
+                    </span>
+                  </Button>
+                  <ActionList
+                    selectionVariant="single"
+                    ref={containerRef}
+                    id={disclosureWidgetId}
+                    style={{
+                      ...(listRef.current?.clientWidth && listRef.current.clientWidth >= baseMenuMinWidth
+                        ? baseMenuInlineStyles
+                        : menuInlineStyles),
+                      display: isWidgetOpen ? 'block' : 'none',
+                    }}
+                  >
+                    {responsiveMenuItems.map(({index, child}) => {
+                      const {children: menuItemChildren, counter, onSelect, ...menuItemProps} = child.props
+                      const menuItemAttrs = getResponsiveMenuItemAttributes(responsiveOverflow, index)
+
+                      return (
+                        <ActionList.LinkItem
+                          key={`menu-${index}-${menuItemChildren}`}
+                          style={menuItemStyles}
+                          onClick={(
+                            event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
+                          ) => {
+                            closeOverlay()
+                            focusOnMoreMenuBtn()
+                            typeof onSelect === 'function' && onSelect(event)
+                          }}
+                          {...menuItemProps}
+                          {...menuItemAttrs}
+                        >
+                          <span className={classes.MenuItemContent}>
+                            {menuItemChildren}
+                            {loadingCounters ? (
+                              <LoadingCounter />
+                            ) : (
+                              counter !== undefined && (
+                                <span data-component="counter">
+                                  <CounterLabel>{counter}</CounterLabel>
+                                </span>
+                              )
+                            )}
+                          </span>
+                        </ActionList.LinkItem>
+                      )
+                    })}
+                  </ActionList>
+                </li>
+              )}
+            </UnderlineItemList>
+          </UnderlineWrapper>
+        </UnderlineNavContext.Provider>
+      )
+    }
+
+    // ============================================
+    // Default JS-based overflow rendering
+    // ============================================
     return (
       <UnderlineNavContext.Provider
         value={{
