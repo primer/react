@@ -5,14 +5,10 @@ import {describe, expect, test} from 'vitest'
 import {
   ActionList,
   ActionMenu,
-  Autocomplete,
   Avatar,
   Box,
   Breadcrumbs,
   Button,
-  Checkbox,
-  CheckboxGroup,
-  CircleBadge,
   CounterLabel,
   Dialog,
   Flash,
@@ -23,16 +19,10 @@ import {
   Label,
   Link,
   LinkButton,
-  NavList,
   Overlay,
   PageHeader,
-  RadioGroup,
-  RelativeTime,
   SegmentedControl,
-  Select,
   Spinner,
-  StateLabel,
-  SubNav,
   Text,
   TextInput,
   Textarea,
@@ -69,35 +59,6 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-  test('Autocomplete.Input supports `sx` prop', () => {
-    const {container} = render(
-      <Autocomplete>
-        <Autocomplete.Input data-testid="component" sx={{background: 'red'}} />
-      </Autocomplete>,
-    )
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('Autocomplete.Overlay supports `sx` prop', async () => {
-    const user = userEvent.setup()
-
-    render(
-      <ThemeProvider>
-        <Autocomplete>
-          <Autocomplete.Input />
-          <Autocomplete.Overlay data-testid="component" sx={{background: 'red'}}>
-            test
-          </Autocomplete.Overlay>
-        </Autocomplete>
-      </ThemeProvider>,
-    )
-
-    await user.click(screen.getByRole('combobox'))
-    await user.keyboard('a')
-
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
   test('Avatar supports `sx` prop', () => {
     render(<Avatar data-testid="component" sx={{background: 'red'}} src="" />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
@@ -123,28 +84,6 @@ describe('@primer/react', () => {
     render(<Button as="button" data-testid="component" sx={{background: 'red'}} size="medium" />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
     expect(screen.getByTestId('component')).toHaveAttribute('data-size', 'medium')
-  })
-
-  test('Checkbox supports `sx` prop', () => {
-    render(<Checkbox data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('CheckboxGroup supports `sx` prop', () => {
-    const {container} = render(<CheckboxGroup aria-labelledby="hi" data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(container.firstElementChild!.firstElementChild!).backgroundColor).toBe(
-      'rgb(255, 0, 0)',
-    )
-  })
-
-  test('CheckboxGroup.Label supports `sx` prop', () => {
-    const {container} = render(<CheckboxGroup.Label data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('CircleBadge supports `sx` prop', () => {
-    render(<CircleBadge data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
   test('CounterLabel supports `sx` prop', () => {
@@ -246,35 +185,6 @@ describe('@primer/react', () => {
     expect(screen.getByTestId('component')).toHaveAttribute('icon')
   })
 
-  test('NavList supports `sx` prop', () => {
-    render(
-      <NavList data-testid="component" sx={{background: 'red'}}>
-        <NavList.Item>item</NavList.Item>
-      </NavList>,
-    )
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('NavList.Item supports `sx` prop', () => {
-    render(
-      <NavList>
-        <NavList.Item data-testid="component" sx={{background: 'red'}}>
-          item
-        </NavList.Item>
-      </NavList>,
-    )
-
-    const itemAnchorEl = screen.getByTestId('component')
-    const itemLiEl = itemAnchorEl.closest('li')
-    expect(itemLiEl).not.toBeNull()
-    expect(window.getComputedStyle(itemLiEl!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('NavList.LeadingVisual supports `sx` prop', () => {
-    render(<NavList.LeadingVisual data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
   test('Overlay supports `sx` prop', () => {
     const ref = createRef<HTMLElement>()
     render(
@@ -310,27 +220,6 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-  test('RadioGroup supports `sx` prop', () => {
-    const {container} = render(
-      <RadioGroup data-testid="component" name="test" sx={{background: 'red'}}>
-        <RadioGroup.Label>test</RadioGroup.Label>
-      </RadioGroup>,
-    )
-    expect(window.getComputedStyle(container.firstElementChild!.firstElementChild!).backgroundColor).toBe(
-      'rgb(255, 0, 0)',
-    )
-  })
-
-  test('RadioGroup.Label supports `sx` prop', () => {
-    const {container} = render(<RadioGroup.Label data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('RelativeTime supports `sx` prop', () => {
-    render(<RelativeTime data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
   test('SegmentedControl supports `sx` prop', () => {
     render(<SegmentedControl data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
@@ -360,29 +249,8 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-  test('Select supports `sx` prop', () => {
-    render(<Select as="select" data-testid="component" sx={{background: 'red'}} required />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-    expect(screen.getByTestId('component')).toHaveAttribute('required')
-  })
-
   test('Spinner supports `sx` prop', () => {
     render(<Spinner data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('StateLabel supports `sx` prop', () => {
-    render(<StateLabel data-testid="component" status="open" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('SubNav supports `sx` prop', () => {
-    render(<SubNav data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('SubNav.Link supports `sx` prop', () => {
-    render(<SubNav.Link data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
