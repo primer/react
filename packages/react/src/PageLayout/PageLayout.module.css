@@ -346,6 +346,7 @@
 
 .ContentWrapper {
   display: flex;
+  width: 100%;
 
   /* Hack to prevent overflowing content from pushing the pane region to the next line */
   min-width: 1px;
