@@ -1,5 +1,4 @@
-import {useState, useCallback} from 'react'
-import React from 'react'
+import React, {useState, useCallback} from 'react'
 import {ActionMenu, ActionList, Button, IconButton, FormControl, TextInput, Dialog, Text} from '../'
 import {
   GearIcon,
