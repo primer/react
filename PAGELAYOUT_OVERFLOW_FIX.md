@@ -3,6 +3,7 @@
 ## Issue Summary
 
 Visual regressions were occurring in PageLayout where content expanded outside the component's set width, causing horizontal overflow. This was particularly problematic with:
+
 - Wide tables
 - Long unbroken text strings
 - Fixed-width content elements
@@ -29,12 +30,14 @@ The issue was in the `.ContentWrapper` CSS class in `packages/react/src/PageLayo
 ### Problem
 
 The `.ContentWrapper` element uses flexbox with:
+
 - `flex-basis: 0` - Allows flex-grow to control the width
 - `flex-grow: 1` - Grows to fill available space
 - `flex-shrink: 1` - Can shrink if needed
 - `min-width: 1px` - Prevents overflow from pushing the pane region to the next line
 
 However, **it lacked an explicit `width: 100%` constraint**. This allowed child content to:
+
 1. Expand beyond the parent's intended width
 2. Ignore the flex container's sizing constraints
 3. Cause horizontal overflow when content had `min-width` or fixed widths exceeding available space
@@ -42,6 +45,7 @@ However, **it lacked an explicit `width: 100%` constraint**. This allowed child 
 ### Why This Happened
 
 In flexbox layouts, when `flex-basis: 0` is set with `flex-grow: 1`, the element grows to fill space. However, without an explicit width constraint, children can still overflow if they have:
+
 - Intrinsic sizing (like images, tables, or iframes)
 - `min-width` values
 - Fixed widths that exceed the computed flex size
@@ -54,7 +58,7 @@ Added `width: 100%` to `.ContentWrapper`:
 ```css
 .ContentWrapper {
   display: flex;
-  width: 100%;  /* ← NEW: Explicit width constraint */
+  width: 100%; /* ← NEW: Explicit width constraint */
   min-width: 1px;
   flex-direction: column;
   order: var(--region-order-content);
@@ -74,12 +78,14 @@ Added `width: 100%` to `.ContentWrapper`:
 ## Impact Assessment
 
 ### Positive Effects
+
 - ✅ Prevents horizontal overflow in PageLayout.Content
 - ✅ Maintains existing layout behavior
 - ✅ Works with all current PageLayout features (sticky panes, resizable panes, dividers)
 - ✅ No changes needed to component API or usage
 
 ### No Breaking Changes
+
 - The change is additive (adding a CSS property)
 - All flexbox properties remain intact
 - Existing content that already fits properly continues to work
@@ -88,7 +94,9 @@ Added `width: 100%` to `.ContentWrapper`:
 ## Testing
 
 ### Unit Tests
+
 ✅ All 17 PageLayout unit tests pass
+
 - Default layout rendering
 - Condensed layout
 - Divider variations
@@ -97,11 +105,14 @@ Added `width: 100%` to `.ContentWrapper`:
 - Custom widths
 
 ### Build Verification
+
 ✅ TypeScript compilation succeeds
 ✅ Rollup build completes without errors
 
 ### Visual Regression Testing
+
 ⏳ Should be verified in CI with Playwright VRT tests
+
 - Pull Request Page layout
 - Nested Scroll Container
 - Resizable Pane
@@ -122,13 +133,17 @@ Added `width: 100%` to `.ContentWrapper`:
 ## Future Considerations
 
 ### Similar Patterns in Codebase
+
 Consider auditing other components for similar patterns where:
+
 - Flexbox is used with `flex-basis: 0` and `flex-grow: 1`
 - No explicit `width` constraint exists
 - Overflow issues have been reported
 
 ### Best Practice
+
 When using flexbox with `flex-basis: 0` and `flex-grow: 1` for the main content area:
+
 1. Always include `width: 100%` to prevent child overflow
 2. Combine with `max-width: 100%` if needed for specific children
 3. Use `overflow-x: auto` on children that might overflow intentionally
