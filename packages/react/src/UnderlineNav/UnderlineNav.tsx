@@ -49,7 +49,7 @@ const overflowEffect = (
   noIconChildWidthArray: ChildWidthArray,
   updateListAndMenu: (props: ResponsiveProps, iconsVisible: boolean) => void,
 ) => {
-  let iconsVisible = true
+  let iconsVisible = false
   if (childWidthArray.length === 0) {
     updateListAndMenu({items: childArray, menuItems: []}, iconsVisible)
   }
@@ -69,6 +69,8 @@ const overflowEffect = (
   // First, we check if we can fit all the items with their icons
   if (childArray.length <= numberOfItemsPossible) {
     items.push(...childArray)
+    console.log('All items fit with icons')
+    iconsVisible = true
   } else if (childArray.length <= numberOfItemsWithoutIconPossible) {
     // if we can't fit all the items with their icons, we check if we can fit all the items without their icons
     iconsVisible = false
@@ -163,7 +165,7 @@ export const UnderlineNav = forwardRef(
     const disclosureWidgetId = useId()
 
     const [isWidgetOpen, setIsWidgetOpen] = useState(false)
-    const [iconsVisible, setIconsVisible] = useState<boolean>(true)
+    const [iconsVisible, setIconsVisible] = useState<boolean>(false)
     const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
     const [noIconChildWidthArray, setNoIconChildWidthArray] = useState<ChildWidthArray>([])
     // Track whether the initial overflow calculation is complete to prevent CLS
