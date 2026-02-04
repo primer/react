@@ -75,12 +75,22 @@ function Breadcrumbs({
 
   // Non-responsive mode: render children as-is
   if (!responsive) {
-    const wrappedChildren = React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
+    const childArray = React.Children.toArray(children)
+    const wrappedChildren =
+      overflow === 'menu' || overflow === 'menu-with-root'
+        ? childArray.map((child, index) => (
+            <li className={classes.BreadcrumbsItem} key={index}>
+              {child}
+              {index < childArray.length - 1 && <ItemSeparator />}
+            </li>
+          ))
+        : React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
     return (
       <nav
         className={clsx(className, classes.BreadcrumbsBase)}
         aria-label="Breadcrumbs"
         style={style}
+        data-overflow={overflow}
         data-variant={variant}
       >
         <BreadcrumbsList>{wrappedChildren}</BreadcrumbsList>
@@ -150,6 +160,7 @@ function Breadcrumbs({
       style={style}
       ref={containerRef as React.RefObject<HTMLElement>}
       data-overflow={overflow}
+      data-responsive="true"
       data-variant={variant}
     >
       <BreadcrumbsList>{finalChildren}</BreadcrumbsList>
