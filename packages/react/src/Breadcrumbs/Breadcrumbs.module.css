@@ -12,6 +12,9 @@
 
 [data-overflow='menu'],
 [data-overflow='menu-with-root'] {
+  /* Prevent overflow during SSR before JS calculates the overflow menu */
+  overflow: hidden;
+
   & .BreadcrumbsList {
     white-space: nowrap;
     display: flex;
