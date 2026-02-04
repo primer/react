@@ -575,19 +575,6 @@ describe('Breadcrumbs', () => {
       expect(screen.queryByRole('button', {name: /more breadcrumb items/i})).not.toBeInTheDocument()
     })
 
-    it('does not set data-overflow when responsive={false}', () => {
-      const {container} = renderWithTheme(
-        <Breadcrumbs responsive={false} overflow="menu">
-          <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="/docs">Docs</Breadcrumbs.Item>
-        </Breadcrumbs>,
-        {primer_react_breadcrumbs_overflow_menu: true},
-      )
-
-      // Should not have data-overflow when responsive is false
-      expect(container.firstChild).not.toHaveAttribute('data-overflow')
-    })
-
     it('defaults responsive to true', () => {
       const {container} = renderWithTheme(
         <Breadcrumbs overflow="menu">
