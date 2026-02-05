@@ -1,7 +1,7 @@
 .ActionMenuContainer {
   /* add default max height */
   max-height: 100vh;
-  
+
   &:where([data-variant='fullscreen']) {
     padding-top: var(--base-size-36);
   }
