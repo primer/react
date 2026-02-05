@@ -1,5 +1,11 @@
 # @primer/react
 
+## 38.10.0
+
+### Minor Changes
+
+- [#7488](https://github.com/primer/react/pull/7488) [`fe85519`](https://github.com/primer/react/commit/fe85519ff23c23294a524e2ddceef042eb3c3608) Thanks [@koesie10](https://github.com/koesie10)! - DataTable: Add `externalSorting` prop to disable client-side sorting
+
 ## 38.9.0
 
 ### Minor Changes
