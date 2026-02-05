@@ -920,6 +920,70 @@ describe('DataTable', () => {
 
       expect(handler).toHaveBeenCalledTimes(2)
     })
+
+    it('should not sort rows when externalSorting is true', async () => {
+      const user = userEvent.setup()
+      const handler = vi.fn()
+
+      render(
+        <DataTable
+          data={[
+            {id: 1, value: 3},
+            {id: 2, value: 1},
+            {id: 3, value: 2},
+          ]}
+          columns={[
+            {
+              header: 'Value',
+              field: 'value',
+              sortBy: true,
+            },
+          ]}
+          externalSorting
+          onToggleSort={handler}
+        />,
+      )
+
+      function getRowOrder() {
+        return screen
+          .getAllByRole('row')
+          .filter(row => {
+            return queryByRole(row, 'cell')
+          })
+          .map(row => {
+            const cell = getByRole(row, 'cell')
+            return cell.textContent
+          })
+      }
+
+      // Initial order should be preserved (no client-side sorting)
+      expect(getRowOrder()).toEqual(['3', '1', '2'])
+
+      // Click the header to trigger sort
+      await user.click(screen.getByText('Value'))
+
+      // Data order should NOT change (external sorting is enabled)
+      expect(getRowOrder()).toEqual(['3', '1', '2'])
+
+      // But onToggleSort should still be called
+      expect(handler).toHaveBeenCalledWith('value', 'ASC')
+
+      // The header should still show sort direction
+      const header = screen.getByRole('columnheader', {
+        name: 'Value',
+      })
+      expect(header).toHaveAttribute('aria-sort', 'ascending')
+
+      // Click again
+      await user.click(screen.getByText('Value'))
+
+      // Data order should still NOT change
+      expect(getRowOrder()).toEqual(['3', '1', '2'])
+
+      // onToggleSort should be called with DESC
+      expect(handler).toHaveBeenLastCalledWith('value', 'DESC')
+      expect(header).toHaveAttribute('aria-sort', 'descending')
+    })
   })
 
   describe('column widths', () => {
