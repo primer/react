@@ -705,7 +705,7 @@ export const InsideDialog = () => {
 
           <ActionMenu>
             <ActionMenu.Button>Actions</ActionMenu.Button>
-            <ActionMenu.Overlay width="medium" displayInVisibleViewport={true}>
+            <ActionMenu.Overlay width="medium" displayInViewport={true}>
               <ActionList>
                 <ActionList.Item onSelect={() => alert('Save clicked')}>
                   Save

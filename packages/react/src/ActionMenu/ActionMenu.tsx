@@ -256,7 +256,7 @@ const defaultVariant: ResponsiveValue<'anchored', 'anchored' | 'fullscreen'> = {
 }
 
 type MenuOverlayProps = Partial<OverlayProps> &
-  Pick<AnchoredOverlayProps, 'align' | 'side' | 'variant' | 'displayInVisibleViewport'> & {
+  Pick<AnchoredOverlayProps, 'align' | 'side' | 'variant' | 'displayInViewport'> & {
     /**
      * Recommended: `ActionList`
      */
@@ -268,7 +268,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
   align = 'start',
   side,
   onPositionChange,
-  displayInVisibleViewport,
+  displayInViewport,
   'aria-labelledby': ariaLabelledby,
   variant = defaultVariant,
   ...overlayProps
@@ -332,7 +332,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
       focusZoneSettings={isNarrowFullscreen ? {disabled: true} : {focusOutBehavior: 'wrap'}}
       onPositionChange={onPositionChange}
       variant={variant}
-      displayInVisibleViewport={displayInVisibleViewport}
+      displayInViewport={displayInViewport}
     >
       <div
         ref={containerRef}

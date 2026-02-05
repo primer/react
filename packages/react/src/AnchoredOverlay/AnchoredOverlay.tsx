@@ -121,7 +121,7 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
   (AnchoredOverlayPropsWithAnchor | AnchoredOverlayPropsWithoutAnchor) &
-  Partial<Pick<PositionSettings, 'align' | 'side' | 'anchorOffset' | 'alignmentOffset' | 'displayInVisibleViewport'>>
+  Partial<Pick<PositionSettings, 'align' | 'side' | 'anchorOffset' | 'alignmentOffset' | 'displayInViewport'>>
 
 const defaultVariant = {
   regular: 'anchored',
@@ -151,7 +151,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   align = 'start',
   alignmentOffset,
   anchorOffset,
-  displayInVisibleViewport,
+  displayInViewport,
   className,
   pinPosition,
   variant = defaultVariant,
@@ -207,7 +207,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       align,
       alignmentOffset,
       anchorOffset,
-      displayInVisibleViewport,
+      displayInViewport,
       onPositionChange: positionChange,
     },
     [overlayRef.current],
