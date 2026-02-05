@@ -1,6 +1,7 @@
-import React, {createContext, useContext, useState, useEffect} from 'react'
-import {canUseDOM} from '../utils/environment'
+import type React from 'react'
+import {createContext, useContext, useState, useCallback, useMemo, useSyncExternalStore} from 'react'
 import {warning} from '../utils/warning'
+import {canUseDOM} from '../utils/environment'
 
 /**
  * `useMedia` will use the given `mediaQueryString` with `matchMedia` to
@@ -17,71 +18,69 @@ import {warning} from '../utils/warning'
  */
 export function useMedia(mediaQueryString: string, defaultState?: boolean) {
   const features = useContext(MatchMediaContext)
-  const [matches, setMatches] = React.useState(() => {
-    if (features[mediaQueryString] !== undefined) {
-      return features[mediaQueryString] as boolean
-    }
+  const mediaQueryMatch = useMediaQuery(mediaQueryString, defaultState)
 
-    // Prevent a React hydration mismatch when a default value is provided by not defaulting to window.matchMedia(query).matches.
+  // If feature is overridden via context, use that value instead
+  const featureOverride = features[mediaQueryString]
+  if (featureOverride !== undefined) {
+    return featureOverride
+  }
+
+  return mediaQueryMatch
+}
+
+function useMediaQuery(mediaQueryString: string, defaultState?: boolean): boolean {
+  // Safe to use canUseDOM here because it's a module-level constant evaluated at load time.
+  // SSR safety is handled by useSyncExternalStore's getServerSnapshot, which React uses
+  // during server rendering and hydration instead of getSnapshot.
+  const mediaQueryList = useMemo(() => (canUseDOM ? window.matchMedia(mediaQueryString) : null), [mediaQueryString])
+
+  const subscribe = useCallback(
+    (callback: () => void) => {
+      if (!mediaQueryList) {
+        return () => {}
+      }
+
+      // Support fallback to `addListener` for broader browser support
+      // @ts-ignore this is not present in Safari <14
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      if (mediaQueryList.addEventListener) {
+        mediaQueryList.addEventListener('change', callback)
+      } else {
+        mediaQueryList.addListener(callback)
+      }
+
+      return () => {
+        // @ts-ignore this is not present in Safari <14
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (mediaQueryList.removeEventListener) {
+          mediaQueryList.removeEventListener('change', callback)
+        } else {
+          mediaQueryList.removeListener(callback)
+        }
+      }
+    },
+    [mediaQueryList],
+  )
+
+  const getSnapshot = useCallback(() => {
+    return mediaQueryList?.matches ?? false
+  }, [mediaQueryList])
+
+  const getServerSnapshot = useCallback(() => {
     if (defaultState !== undefined) {
       return defaultState
     }
 
-    if (canUseDOM) {
-      return window.matchMedia(mediaQueryString).matches
-    }
-
-    // A default value has not been provided, and you are rendering on the server, warn of a possible hydration mismatch when defaulting to false.
     warning(
       true,
       '`useMedia` When server side rendering, defaultState should be defined to prevent a hydration mismatches.',
     )
 
     return false
-  })
+  }, [defaultState])
 
-  if (features[mediaQueryString] !== undefined && matches !== features[mediaQueryString]) {
-    setMatches(features[mediaQueryString] as boolean)
-  }
-
-  useEffect(() => {
-    // If `mediaQueryString` is present in features through `context` defer to
-    // the value present instead of checking with matchMedia
-    if (features[mediaQueryString] !== undefined) {
-      return
-    }
-
-    function listener(event: MediaQueryListEvent) {
-      setMatches(event.matches)
-    }
-
-    const mediaQueryList = window.matchMedia(mediaQueryString)
-
-    // Support fallback to `addListener` for broader browser support
-    // @ts-ignore this is not present in Safari <14
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (mediaQueryList.addEventListener) {
-      mediaQueryList.addEventListener('change', listener)
-    } else {
-      mediaQueryList.addListener(listener)
-    }
-
-    // Make sure the media query list is in sync with the matches state
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMatches(mediaQueryList.matches)
-
-    return () => {
-      // @ts-ignore this is not present in Safari <14
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      if (mediaQueryList.addEventListener) {
-        mediaQueryList.removeEventListener('change', listener)
-      } else {
-        mediaQueryList.removeListener(listener)
-      }
-    }
-  }, [features, mediaQueryString])
-
-  return matches
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
 }
 
 type MediaQueryFeatures = {
