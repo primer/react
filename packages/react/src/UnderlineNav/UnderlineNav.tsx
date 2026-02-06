@@ -247,12 +247,19 @@ export const UnderlineNav = forwardRef(
       return breakpoint
     }
 
-    const updateListAndMenu = useCallback((props: ResponsiveProps, displayIcons: boolean) => {
-      setResponsiveProps(props)
-      setIconsVisible(displayIcons)
-      // Mark as ready after the first overflow calculation completes
-      setIsReady(true)
-    }, [])
+    const updateListAndMenu = useCallback(
+      (props: ResponsiveProps, displayIcons: boolean) => {
+        setResponsiveProps(props)
+        setIconsVisible(displayIcons)
+
+        // Only mark as ready once widths have been measured for all valid children
+        const widths = displayIcons ? childWidthArray : noIconChildWidthArray
+        if (!isReady && widths.length > 0 && widths.length === validChildren.length) {
+          setIsReady(true)
+        }
+      },
+      [childWidthArray, noIconChildWidthArray, isReady, validChildren.length],
+    )
     const setChildrenWidth = useCallback((size: ChildSize) => {
       setChildWidthArray(arr => {
         const newArr = [...arr, size]
