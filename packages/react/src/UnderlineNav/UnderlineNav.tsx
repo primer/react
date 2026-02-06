@@ -217,6 +217,7 @@ export const UnderlineNav = forwardRef(
               aria-expanded={isWidgetOpen}
               onClick={onAnchorClick}
               trailingAction={TriangleDownIcon}
+              disabled={menuItems.length === 0}
             >
               <span>
                 {onlyMenuVisible ? (
