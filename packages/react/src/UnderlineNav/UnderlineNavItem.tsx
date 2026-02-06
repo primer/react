@@ -91,6 +91,10 @@ export const UnderlineNavItem = forwardRef((allProps, forwardedRef) => {
     }
 
     // To preserve the item's spot in the registry, we don't unregister until we actually dismount the component.
+
+    // TODO: We should try to trim the registry down to the bare minimum needed to render a menu item so that we don't
+    // have to re-register every time `allProps` changes.
+    // See /workspaces/react/packages/react/src/ActionBar/ActionBar.tsx#531 for example.
   }, [ref, containerWidth, registerItem, id, allProps])
 
   // Unregister only on dismount:
