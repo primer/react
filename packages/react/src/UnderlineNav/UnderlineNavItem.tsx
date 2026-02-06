@@ -82,12 +82,19 @@ export const UnderlineNavItem = memo(
 
     useLayoutEffect(() => {
       if (ref.current) {
+        // Overflowing items wrap onto subsequent lines, so their `offsetTop` increases
         const isOverflowing = ref.current.offsetTop > 0
         setIsOverflowing(isOverflowing)
+
+        // Even if an item is not overflowing, it still needs to register itself to claim it's place in the registry.
+        // This preserves order - otherwise, items that overflow first would appear first in the menu.
         registerItem(id, isOverflowing ? allProps : null)
       }
+
+      // To preserve the item's spot in the registry, we don't unregister until we actually dismount the component.
     }, [ref, containerWidth, registerItem, id, allProps])
 
+    // Unregister only on dismount:
     useEffect(() => () => unregisterItem(id), [id, unregisterItem])
 
     const keyDownHandler = React.useCallback(
