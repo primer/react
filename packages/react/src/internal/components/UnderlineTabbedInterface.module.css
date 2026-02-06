@@ -60,7 +60,6 @@
   background-color: transparent;
   border: 0;
   border-radius: var(--borderRadius-medium, var(--borderRadius-small));
-  opacity: 1;
 
   /* button resets */
   appearance: none;
