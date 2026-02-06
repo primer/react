@@ -32,18 +32,15 @@ type UnderlineWrapperProps<As extends React.ElementType> = {
   as?: As
   className?: string
   ref?: React.Ref<HTMLElement>
-  /** Indicates whether the overflow calculation is complete. When false, overflow is hidden to prevent CLS. */
-  ready?: boolean
 }
 
 export const UnderlineWrapper = forwardRef((props, ref) => {
-  const {children, className, as: Component = 'div', ready, ...rest} = props
+  const {children, className, as: Component = 'div', ...rest} = props
 
   return (
     <Component
       className={clsx(classes.UnderlineWrapper, className)}
       ref={ref as ForwardedRef<HTMLDivElement>}
-      data-ready={ready === undefined ? undefined : ready ? 'true' : 'false'}
       {...rest}
     >
       {children}
@@ -66,7 +63,6 @@ export const LoadingCounter = () => {
 export type UnderlineItemProps<As extends React.ElementType> = {
   as?: As | 'a' | 'button'
   className?: string
-  iconsVisible?: boolean
   loadingCounters?: boolean
   counter?: number | string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -76,11 +72,11 @@ export type UnderlineItemProps<As extends React.ElementType> = {
 } & React.ComponentPropsWithoutRef<As extends 'a' ? 'a' : As extends 'button' ? 'button' : As>
 
 export const UnderlineItem = React.forwardRef((props, ref) => {
-  const {as: Component = 'a', children, counter, icon: Icon, iconsVisible, loadingCounters, className, ...rest} = props
+  const {as: Component = 'a', children, counter, icon: Icon, loadingCounters, className, ...rest} = props
   const textContent = getTextContent(children)
   return (
     <Component {...rest} ref={ref} className={clsx(classes.UnderlineItem, className)}>
-      {iconsVisible && Icon && <span data-component="icon">{isElement(Icon) ? Icon : <Icon />}</span>}
+      {Icon && <span data-component="icon">{isElement(Icon) ? Icon : <Icon />}</span>}
       {children && (
         <span data-component="text" data-content={textContent || undefined}>
           {children}

@@ -1,5 +1,5 @@
-import type {MutableRefObject, RefObject} from 'react'
-import React, {forwardRef, useRef, useContext} from 'react'
+import type {RefObject} from 'react'
+import React, {forwardRef, useRef, useContext, memo, useEffect, useId, useState} from 'react'
 import type {IconProps} from '@primer/octicons-react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {UnderlineNavContext} from './UnderlineNavContext'
@@ -59,9 +59,9 @@ export type UnderlineNavItemProps = {
   counter?: number | string
 } & LinkProps
 
-export const UnderlineNavItem = forwardRef(
-  (
-    {
+export const UnderlineNavItem = memo(
+  forwardRef((allProps, forwardedRef) => {
+    const {
       as: Component = 'a',
       href = '#',
       children,
@@ -71,36 +71,24 @@ export const UnderlineNavItem = forwardRef(
       icon: Icon,
       leadingVisual,
       ...props
-    },
-    forwardedRef,
-  ) => {
+    } = allProps
+
     const backupRef = useRef<HTMLElement>(null)
     const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
-    const {setChildrenWidth, setNoIconChildrenWidth, loadingCounters, iconsVisible} = useContext(UnderlineNavContext)
+    const {loadingCounters, containerWidth, registerItem, unregisterItem} = useContext(UnderlineNavContext)
+
+    const id = useId()
+    const [isOverflowing, setIsOverflowing] = useState(false)
 
     useLayoutEffect(() => {
       if (ref.current) {
-        const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
-
-        const icon = Array.from((ref as MutableRefObject<HTMLElement>).current.children).find(
-          child => child.getAttribute('data-component') === 'icon',
-        )
-
-        const content = Array.from((ref as MutableRefObject<HTMLElement>).current.children).find(
-          child => child.getAttribute('data-component') === 'text',
-        ) as HTMLElement
-        const text = content.textContent as string
-
-        const iconWidthWithMargin = icon
-          ? icon.getBoundingClientRect().width +
-            Number(getComputedStyle(icon).marginRight.slice(0, -2)) +
-            Number(getComputedStyle(icon).marginLeft.slice(0, -2))
-          : 0
-
-        setChildrenWidth({text, width: domRect.width})
-        setNoIconChildrenWidth({text, width: domRect.width - iconWidthWithMargin})
+        const isOverflowing = ref.current.offsetTop > 0
+        setIsOverflowing(isOverflowing)
+        registerItem(id, isOverflowing ? allProps : null)
       }
-    }, [ref, setChildrenWidth, setNoIconChildrenWidth])
+    }, [ref, containerWidth, registerItem, id, allProps])
+
+    useEffect(() => () => unregisterItem(id), [id, unregisterItem])
 
     const keyDownHandler = React.useCallback(
       (event: React.KeyboardEvent<HTMLAnchorElement>) => {
@@ -131,14 +119,15 @@ export const UnderlineNavItem = forwardRef(
           counter={counter}
           icon={leadingVisual ?? Icon}
           loadingCounters={loadingCounters}
-          iconsVisible={iconsVisible}
           {...props}
+          aria-hidden={isOverflowing ? true : allProps['aria-hidden']}
+          tabIndex={isOverflowing ? -1 : allProps.tabIndex}
         >
           {children}
         </UnderlineItem>
       </li>
     )
-  },
-) as PolymorphicForwardRefComponent<'a', UnderlineNavItemProps>
+  }) as PolymorphicForwardRefComponent<'a', UnderlineNavItemProps>,
+)
 
 UnderlineNavItem.displayName = 'UnderlineNavItem'

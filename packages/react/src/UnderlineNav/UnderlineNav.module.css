@@ -5,11 +5,13 @@
 }
 
 .MoreButtonContainer {
-  display: none;
+  display: flex;
+  visibility: hidden;
   align-items: center;
 
+  /* Visibility is controlled by scroll-state query instead of React state so that it's known during SSR */
   @container underline-wrapper scroll-state(scrollable: block) {
-    display: flex;
+    visibility: visible;
   }
 }
 
