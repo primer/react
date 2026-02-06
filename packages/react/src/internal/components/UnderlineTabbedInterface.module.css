@@ -35,6 +35,8 @@
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
+  /* Allows the menu to clip wrapped items to keep on shrinking even if a wrapped item was very wide */
+  overflow: hidden;
 }
 
 .UnderlineItem {
