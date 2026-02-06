@@ -38,7 +38,7 @@ export type UnderlineNavProps = {
 // However, we need to calculate number of possible items when the more button present as well. So using the width of the more button as a constant.
 export const MORE_BTN_WIDTH = 86
 // The height is needed to make sure we don't have a layout shift when the more button is the only item in the nav.
-const MORE_BTN_HEIGHT = 45
+const MORE_BTN_HEIGHT = 32
 
 const overflowEffect = (
   navWidth: number,
@@ -254,7 +254,7 @@ export const UnderlineNav = forwardRef(
 
         // Only mark as ready once widths have been measured for all valid children
         const widths = displayIcons ? childWidthArray : noIconChildWidthArray
-        if (!isReady && widths.length > 0 && widths.length === validChildren.length) {
+        if (!isReady && widths.length > 0 && widths.length >= validChildren.length) {
           setIsReady(true)
         }
       },
@@ -351,97 +351,101 @@ export const UnderlineNav = forwardRef(
         >
           <UnderlineItemList ref={listRef} role="list">
             {listItems}
-            {menuItems.length > 0 && (
-              <li ref={moreMenuRef} style={{display: 'flex', alignItems: 'center', height: `${MORE_BTN_HEIGHT}px`}}>
-                {!onlyMenuVisible && <div style={dividerStyles}></div>}
-                <Button
-                  ref={moreMenuBtnRef}
-                  className={classes.MoreButton}
-                  aria-controls={disclosureWidgetId}
-                  aria-expanded={isWidgetOpen}
-                  onClick={onAnchorClick}
-                  trailingAction={TriangleDownIcon}
-                >
-                  <span>
-                    {onlyMenuVisible ? (
-                      <>
-                        <VisuallyHidden as="span">{`${ariaLabel}`}&nbsp;</VisuallyHidden>Menu
-                      </>
-                    ) : (
-                      <>
-                        More<VisuallyHidden as="span">&nbsp;{`${ariaLabel} items`}</VisuallyHidden>
-                      </>
-                    )}
-                  </span>
-                </Button>
-                <ActionList
-                  selectionVariant="single"
-                  ref={containerRef}
-                  id={disclosureWidgetId}
-                  style={{
-                    ...(listRef.current?.clientWidth && listRef.current.clientWidth >= baseMenuMinWidth
-                      ? baseMenuInlineStyles
-                      : menuInlineStyles),
-                    display: isWidgetOpen ? 'block' : 'none',
-                  }}
-                >
-                  {menuItems.map((menuItem, index) => {
-                    const {
-                      children: menuItemChildren,
-                      counter,
-                      'aria-current': ariaCurrent,
-                      onSelect,
-                      ...menuItemProps
-                    } = menuItem.props
-
-                    // This logic is used to pop the selected item out of the menu and into the list when the navigation is control externally
-                    if (Boolean(ariaCurrent) && ariaCurrent !== 'false') {
-                      const event = new MouseEvent('click')
-                      !onlyMenuVisible &&
-                        swapMenuItemWithListItem(
-                          menuItem,
-                          index,
-                          // @ts-ignore - not a big deal because it is internally creating an event but ask help
-                          event as React.MouseEvent<HTMLAnchorElement>,
-                          updateListAndMenu,
-                        )
-                    }
-
-                    return (
-                      <ActionList.LinkItem
-                        key={menuItemChildren}
-                        style={menuItemStyles}
-                        onClick={(
-                          event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
-                        ) => {
-                          // When there are no items in the list, do not run the swap function as we want to keep everything in the menu.
-                          !onlyMenuVisible && swapMenuItemWithListItem(menuItem, index, event, updateListAndMenu)
-                          closeOverlay()
-                          focusOnMoreMenuBtn()
-                          // fire onSelect event that comes from the UnderlineNav.Item (if it is defined)
-                          typeof onSelect === 'function' && onSelect(event)
-                        }}
-                        {...menuItemProps}
-                      >
-                        <span className={classes.MenuItemContent}>
-                          {menuItemChildren}
-                          {loadingCounters ? (
-                            <LoadingCounter />
-                          ) : (
-                            counter !== undefined && (
-                              <span data-component="counter">
-                                <CounterLabel>{counter}</CounterLabel>
-                              </span>
-                            )
-                          )}
-                        </span>
-                      </ActionList.LinkItem>
-                    )
-                  })}
-                </ActionList>
-              </li>
-            )}
           </UnderlineItemList>
+          <div
+            ref={moreMenuRef}
+            style={{
+              display: menuItems.length > 0 ? 'flex' : undefined,
+              alignItems: 'center',
+              height: `${MORE_BTN_HEIGHT}px`,
+            }}
+            className={classes.MoreButtonContainer}
+          >
+            {!onlyMenuVisible && <div style={dividerStyles}></div>}
+            <Button
+              ref={moreMenuBtnRef}
+              className={classes.MoreButton}
+              aria-controls={disclosureWidgetId}
+              aria-expanded={isWidgetOpen}
+              onClick={onAnchorClick}
+              trailingAction={TriangleDownIcon}
+            >
+              <span>
+                {onlyMenuVisible ? (
+                  <>
+                    <VisuallyHidden as="span">{`${ariaLabel}`}&nbsp;</VisuallyHidden>Menu
+                  </>
+                ) : (
+                  <>
+                    More<VisuallyHidden as="span">&nbsp;{`${ariaLabel} items`}</VisuallyHidden>
+                  </>
+                )}
+              </span>
+            </Button>
+            <ActionList
+              selectionVariant="single"
+              ref={containerRef}
+              id={disclosureWidgetId}
+              style={{
+                ...(listRef.current?.clientWidth && listRef.current.clientWidth >= baseMenuMinWidth
+                  ? baseMenuInlineStyles
+                  : menuInlineStyles),
+                display: isWidgetOpen ? 'block' : 'none',
+              }}
+            >
+              {menuItems.map((menuItem, index) => {
+                const {
+                  children: menuItemChildren,
+                  counter,
+                  'aria-current': ariaCurrent,
+                  onSelect,
+                  ...menuItemProps
+                } = menuItem.props
+
+                // This logic is used to pop the selected item out of the menu and into the list when the navigation is control externally
+                if (Boolean(ariaCurrent) && ariaCurrent !== 'false') {
+                  const event = new MouseEvent('click')
+                  !onlyMenuVisible &&
+                    swapMenuItemWithListItem(
+                      menuItem,
+                      index,
+                      // @ts-ignore - not a big deal because it is internally creating an event but ask help
+                      event as React.MouseEvent<HTMLAnchorElement>,
+                      updateListAndMenu,
+                    )
+                }
+
+                return (
+                  <ActionList.LinkItem
+                    key={menuItemChildren}
+                    style={menuItemStyles}
+                    onClick={(event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>) => {
+                      // When there are no items in the list, do not run the swap function as we want to keep everything in the menu.
+                      !onlyMenuVisible && swapMenuItemWithListItem(menuItem, index, event, updateListAndMenu)
+                      closeOverlay()
+                      focusOnMoreMenuBtn()
+                      // fire onSelect event that comes from the UnderlineNav.Item (if it is defined)
+                      typeof onSelect === 'function' && onSelect(event)
+                    }}
+                    {...menuItemProps}
+                  >
+                    <span className={classes.MenuItemContent}>
+                      {menuItemChildren}
+                      {loadingCounters ? (
+                        <LoadingCounter />
+                      ) : (
+                        counter !== undefined && (
+                          <span data-component="counter">
+                            <CounterLabel>{counter}</CounterLabel>
+                          </span>
+                        )
+                      )}
+                    </span>
+                  </ActionList.LinkItem>
+                )
+              })}
+            </ActionList>
+          </div>
         </UnderlineWrapper>
       </UnderlineNavContext.Provider>
     )

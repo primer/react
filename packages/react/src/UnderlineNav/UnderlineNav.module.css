@@ -4,6 +4,15 @@
   justify-content: space-between;
 }
 
+.MoreButtonContainer {
+  display: none;
+  align-items: center;
+
+  @container underline-wrapper scroll-state(scrollable: block) {
+    display: flex;
+  }
+}
+
 /* More button styles migrated from styles.ts (was moreBtnStyles) */
 .MoreButton {
   margin: 0; /* reset Safari extra margin */
