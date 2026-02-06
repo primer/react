@@ -43,7 +43,7 @@ export const UnderlineWrapper = forwardRef((props, ref) => {
     <Component
       className={clsx(classes.UnderlineWrapper, className)}
       ref={ref as ForwardedRef<HTMLDivElement>}
-      data-ready={ready ? 'true' : 'false'}
+      data-ready={ready === undefined ? undefined : ready ? 'true' : 'false'}
       {...rest}
     >
       {children}
