@@ -111,12 +111,27 @@ server.registerTool(
     })
     if (!match) {
       return {
-        content: [
-          {
-            type: 'text',
-            text: `There is no component named \`${name}\` in the @primer/react package. For a full list of components, use the \`list_components\` tool.`,
-          },
-        ],
+        isError: true,
+        errorMessage: `There is no component named \`${name}\` in the @primer/react package. For a full list of components, use the \`list_components\` tool.`,
+        content: [],
+      }
+    }
+
+    const llmsUrl = new URL(`/product/components/${match.slug}/llms.txt`, 'https://primer.style')
+    const llmsResponse = await fetch(llmsUrl)
+    if (llmsResponse.ok) {
+      try {
+        const llmsText = await llmsResponse.text()
+        return {
+          content: [
+            {
+              type: 'text',
+              text: llmsText,
+            },
+          ],
+        }
+      } catch (_: unknown) {
+        // If there's an error fetching or processing the llms.txt, we fall back to the regular documentation
       }
     }
 
