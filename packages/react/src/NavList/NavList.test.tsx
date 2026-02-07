@@ -1,6 +1,7 @@
 import {describe, it, expect, vi} from 'vitest'
 import {render, fireEvent, act} from '@testing-library/react'
 import React from 'react'
+import {renderToStaticMarkup} from 'react-dom/server'
 import {NavList} from './NavList'
 import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
 import {implementsClassName} from '../utils/testing'
@@ -146,6 +147,11 @@ describe('NavList.Item with NavList.SubNav', () => {
     const itemWithSubNav = getByRole('button', {name: 'Item 2'})
     fireEvent.click(itemWithSubNav)
     expect(queryByRole('list', {name: 'Item 2'})).toBeNull()
+  })
+
+  it('renders parent item expanded on initial static render when SubNav contains the current item', () => {
+    const markup = renderToStaticMarkup(<NavListWithCurrentSubNav />)
+    expect(markup).toContain('aria-expanded="true"')
   })
 
   it('hides SubNav by default if SubNav does not contain the current item', () => {
