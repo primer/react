@@ -605,3 +605,65 @@ export const PositionedOverlays = ({right, role, open}: Args) => {
     </div>
   )
 }
+
+export const SettingMaxHeight = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const confirmButtonRef = useRef<HTMLButtonElement>(null)
+  const closeOverlay = () => setIsOpen(false)
+  const containerRef = useRef<HTMLDivElement>(null)
+  useFocusTrap({
+    containerRef,
+    disabled: !isOpen,
+  })
+
+  return (
+    <div>
+      <Button
+        ref={buttonRef}
+        onClick={() => {
+          setIsOpen(!isOpen)
+        }}
+      >
+        Open overlay with max height
+      </Button>
+      {isOpen ? (
+        <Overlay
+          initialFocusRef={confirmButtonRef}
+          returnFocusRef={buttonRef}
+          ignoreClickRefs={[buttonRef]}
+          onEscape={closeOverlay}
+          onClickOutside={closeOverlay}
+          width="medium"
+          maxHeight="small"
+          overflow="auto"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Overlay with max height example"
+          ref={containerRef}
+        >
+          <div className={classes.ScrollableContent}>
+            <IconButton
+              aria-label="Close"
+              onClick={closeOverlay}
+              icon={XIcon}
+              variant="invisible"
+              className={classes.CloseButtonOverlay}
+            />
+            <Text as="h2">Scrollable Content</Text>
+            <Text as="p">
+              This overlay demonstrates the maxHeight property. The content below will be scrollable when it exceeds the
+              maximum height of 256px (small).
+            </Text>
+            {Array.from({length: 50}, (_, i) => (
+              <Text key={`item-${i}`} as="p">
+                Content item {i + 1}: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua.
+              </Text>
+            ))}
+          </div>
+        </Overlay>
+      ) : null}
+    </div>
+  )
+}
