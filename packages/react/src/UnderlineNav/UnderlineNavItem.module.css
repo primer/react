@@ -3,3 +3,51 @@
   flex-direction: column;
   align-items: center;
 }
+
+/* Responsive item visibility - extra small viewport (max-width: 544px) */
+@media (max-width: 544px) {
+  .UnderlineNavItem[data-hide-xnarrow='true'] {
+    /* stylelint-disable-next-line declaration-no-important */
+    display: none !important;
+  }
+}
+
+/* Responsive item visibility - narrow viewport (544px - 768px) */
+@media (min-width: 544px) and (max-width: 768px) {
+  .UnderlineNavItem[data-hide-narrow='true'] {
+    /* stylelint-disable-next-line declaration-no-important */
+    display: none !important;
+  }
+}
+
+/* Responsive item visibility - regular viewport (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .UnderlineNavItem[data-hide-regular='true'] {
+    /* stylelint-disable-next-line declaration-no-important */
+    display: none !important;
+  }
+}
+
+/* Responsive item visibility - medium viewport (1024px - 1280px) */
+@media (min-width: 1024px) and (max-width: 1280px) {
+  .UnderlineNavItem[data-hide-medium='true'] {
+    /* stylelint-disable-next-line declaration-no-important */
+    display: none !important;
+  }
+}
+
+/* Responsive item visibility - large viewport (1280px - 1400px) */
+@media (min-width: 1280px) and (max-width: 1400px) {
+  .UnderlineNavItem[data-hide-large='true'] {
+    /* stylelint-disable-next-line declaration-no-important */
+    display: none !important;
+  }
+}
+
+/* Responsive item visibility - wide viewport (min-width: 1400px) */
+@media (min-width: 1400px) {
+  .UnderlineNavItem[data-hide-wide='true'] {
+    /* stylelint-disable-next-line declaration-no-important */
+    display: none !important;
+  }
+}
