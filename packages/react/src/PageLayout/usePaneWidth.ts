@@ -108,11 +108,12 @@ export const updateAriaValues = (
   values: {current?: number; min?: number; max?: number},
 ) => {
   if (!handle) return
-  if (values.min !== undefined) handle.setAttribute('aria-valuemin', String(values.min))
-  if (values.max !== undefined) handle.setAttribute('aria-valuemax', String(values.max))
+  if (values.min !== undefined) handle.setAttribute('aria-valuemin', String(Math.round(values.min)))
+  if (values.max !== undefined) handle.setAttribute('aria-valuemax', String(Math.round(values.max)))
   if (values.current !== undefined) {
-    handle.setAttribute('aria-valuenow', String(values.current))
-    handle.setAttribute('aria-valuetext', `Pane width ${values.current} pixels`)
+    const roundedCurrent = Math.round(values.current)
+    handle.setAttribute('aria-valuenow', String(roundedCurrent))
+    handle.setAttribute('aria-valuetext', `Pane width ${roundedCurrent} pixels`)
   }
 }
 
@@ -188,13 +189,14 @@ export function usePaneWidth({
 
   const saveWidth = React.useCallback(
     (value: number) => {
-      currentWidthRef.current = value
+      const roundedValue = Math.round(value)
+      currentWidthRef.current = roundedValue
       // Visual update already done via inline styles - React state sync is non-urgent
       startTransition(() => {
-        setCurrentWidth(value)
+        setCurrentWidth(roundedValue)
       })
       try {
-        localStorage.setItem(widthStorageKey, value.toString())
+        localStorage.setItem(widthStorageKey, roundedValue.toString())
       } catch {
         // Ignore write errors (private browsing, quota exceeded, etc.)
       }
@@ -232,7 +234,7 @@ export function usePaneWidth({
         maxWidthDiffRef.current = getPaneMaxWidthDiff(paneRef.current)
       }
 
-      const actualMax = getMaxPaneWidthRef.current()
+      const actualMax = Math.round(getMaxPaneWidthRef.current())
 
       // Update CSS variable for visual clamping (may already be set by throttled update)
       paneRef.current?.style.setProperty('--pane-max-width', `${actualMax}px`)
@@ -258,7 +260,7 @@ export function usePaneWidth({
 
     // Initial calculation on mount
     maxWidthDiffRef.current = getPaneMaxWidthDiff(paneRef.current)
-    const initialMax = getMaxPaneWidthRef.current()
+    const initialMax = Math.round(getMaxPaneWidthRef.current())
     setMaxPaneWidth(initialMax)
     paneRef.current?.style.setProperty('--pane-max-width', `${initialMax}px`)
     updateAriaValues(handleRef.current, {min: minPaneWidth, max: initialMax, current: currentWidthRef.current})

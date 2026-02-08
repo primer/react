@@ -803,18 +803,22 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
                 // Using relative delta (current - start) is immune to layout shifts
                 // (e.g., scrollbars appearing/disappearing during drag)
                 dragStartClientXRef.current = clientX
-                dragStartWidthRef.current = paneRef.current?.getBoundingClientRect().width ?? currentWidthRef.current!
+                dragStartWidthRef.current = Math.round(
+                  paneRef.current?.getBoundingClientRect().width ?? currentWidthRef.current!,
+                )
                 // Cache max width - won't change during drag
-                dragMaxWidthRef.current = getMaxPaneWidth()
+                dragMaxWidthRef.current = Math.round(getMaxPaneWidth())
               }}
               onDrag={(value, isKeyboard) => {
                 // Use cached max width for pointer drag, fresh value for keyboard (less frequent)
-                const maxWidth = isKeyboard ? getMaxPaneWidth() : dragMaxWidthRef.current
+                const maxWidth = Math.round(isKeyboard ? getMaxPaneWidth() : dragMaxWidthRef.current)
 
                 if (isKeyboard) {
                   // Keyboard: value is a delta (e.g., +3 or -3)
                   const delta = value
-                  const newWidth = Math.max(minPaneWidth, Math.min(maxWidth, currentWidthRef.current! + delta))
+                  const newWidth = Math.round(
+                    Math.max(minPaneWidth, Math.min(maxWidth, currentWidthRef.current! + delta)),
+                  )
                   if (newWidth !== currentWidthRef.current) {
                     currentWidthRef.current = newWidth
                     paneRef.current?.style.setProperty('--pane-width', `${newWidth}px`)
@@ -830,13 +834,13 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
                     const directedDelta = position === 'end' ? -deltaX : deltaX
                     const newWidth = dragStartWidthRef.current + directedDelta
 
-                    const clampedWidth = Math.max(minPaneWidth, Math.min(maxWidth, newWidth))
+                    const clampedWidth = Math.round(Math.max(minPaneWidth, Math.min(maxWidth, newWidth)))
 
                     // Only update if width actually changed
-                    if (Math.round(clampedWidth) !== Math.round(currentWidthRef.current!)) {
+                    if (clampedWidth !== currentWidthRef.current) {
                       paneRef.current.style.setProperty('--pane-width', `${clampedWidth}px`)
                       currentWidthRef.current = clampedWidth
-                      updateAriaValues(handleRef.current, {current: Math.round(clampedWidth), max: maxWidth})
+                      updateAriaValues(handleRef.current, {current: clampedWidth, max: maxWidth})
                     }
                   }
                 }
