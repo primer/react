@@ -816,9 +816,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
                 if (isKeyboard) {
                   // Keyboard: value is a delta (e.g., +3 or -3)
                   const delta = value
-                  const newWidth = Math.round(
-                    Math.max(minPaneWidth, Math.min(maxWidth, currentWidthRef.current! + delta)),
-                  )
+                  const newWidth = Math.max(minPaneWidth, Math.min(maxWidth, currentWidthRef.current! + delta))
                   if (newWidth !== currentWidthRef.current) {
                     currentWidthRef.current = newWidth
                     paneRef.current?.style.setProperty('--pane-width', `${newWidth}px`)
