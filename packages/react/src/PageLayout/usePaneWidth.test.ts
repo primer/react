@@ -153,6 +153,29 @@ describe('usePaneWidth', () => {
       expect(localStorage.getItem('test-save')).toBe('450')
     })
 
+    it('should round floating-point values before saving', () => {
+      const refs = createMockRefs()
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-save-float',
+          ...refs,
+        }),
+      )
+
+      act(() => {
+        // Pass a floating-point value similar to what getBoundingClientRect might return
+        result.current.saveWidth(256.05731201171875)
+      })
+
+      // Should be rounded to nearest integer
+      expect(result.current.currentWidth).toBe(256)
+      expect(result.current.currentWidthRef.current).toBe(256)
+      expect(localStorage.getItem('test-save-float')).toBe('256')
+    })
+
     it('should handle localStorage write errors gracefully', () => {
       const refs = createMockRefs()
 
@@ -799,6 +822,18 @@ describe('helper functions', () => {
       expect(handle.getAttribute('aria-valuemax')).toBe('500')
       expect(handle.getAttribute('aria-valuenow')).toBe('300')
       expect(handle.getAttribute('aria-valuetext')).toBe('Pane width 300 pixels')
+    })
+
+    it('should round floating-point values to integers', () => {
+      const handle = document.createElement('div')
+
+      // Test values with floating-point precision similar to getBoundingClientRect
+      updateAriaValues(handle, {min: 100.4, max: 500.7, current: 256.05731201171875})
+
+      expect(handle.getAttribute('aria-valuemin')).toBe('100')
+      expect(handle.getAttribute('aria-valuemax')).toBe('501')
+      expect(handle.getAttribute('aria-valuenow')).toBe('256')
+      expect(handle.getAttribute('aria-valuetext')).toBe('Pane width 256 pixels')
     })
 
     it('should handle null element gracefully', () => {
