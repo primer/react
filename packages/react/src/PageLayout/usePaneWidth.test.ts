@@ -78,6 +78,26 @@ describe('usePaneWidth', () => {
       expect(result.current.currentWidth).toBe(400)
     })
 
+    it('should round floating-point values from localStorage on mount', () => {
+      // Simulate old localStorage value with floating-point precision
+      localStorage.setItem('test-pane-float', '256.05731201171875')
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-pane-float',
+          ...refs,
+        }),
+      )
+
+      // Should be rounded to nearest integer
+      expect(result.current.currentWidth).toBe(256)
+      expect(result.current.currentWidthRef.current).toBe(256)
+    })
+
     it('should not restore from localStorage when not resizable', () => {
       localStorage.setItem('test-pane', '400')
       const refs = createMockRefs()

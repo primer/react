@@ -170,7 +170,7 @@ export function usePaneWidth({
       if (storedWidth !== null) {
         const parsed = Number(storedWidth)
         if (!isNaN(parsed) && parsed > 0) {
-          return parsed
+          return Math.round(parsed)
         }
       }
     } catch {
