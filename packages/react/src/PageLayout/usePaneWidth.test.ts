@@ -11,6 +11,11 @@ import {
   DEFAULT_MAX_WIDTH_DIFF,
   SSR_DEFAULT_MAX_WIDTH,
   ARROW_KEY_STEP,
+  isResizableEnabled,
+  isPersistConfig,
+  isCustomPersistFunction,
+  type PersistConfig,
+  type PersistFunction,
 } from './usePaneWidth'
 
 // Mock refs for hook testing
@@ -129,6 +134,161 @@ describe('usePaneWidth', () => {
 
       expect(result.current.currentWidth).toBe(defaultPaneWidth.medium)
     })
+
+    it('should not read from localStorage when {persist: false} is provided', () => {
+      localStorage.setItem('test-pane', '500')
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: {persist: false},
+          widthStorageKey: 'test-pane',
+          ...refs,
+        }),
+      )
+
+      // Should use default, not localStorage value
+      expect(result.current.currentWidth).toBe(defaultPaneWidth.medium)
+    })
+
+    it('should not save to any storage when {persist: false} is provided', () => {
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: {persist: false},
+          widthStorageKey: 'test-pane',
+          ...refs,
+        }),
+      )
+
+      act(() => {
+        result.current.saveWidth(450)
+      })
+
+      // Width state should update
+      expect(result.current.currentWidth).toBe(450)
+      // But localStorage should not be written
+      expect(localStorage.getItem('test-pane')).toBeNull()
+    })
+
+    it('should initialize with resizable.width when provided', () => {
+      const refs = createMockRefs()
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: {width: 400, persist: false},
+          widthStorageKey: 'test-pane',
+          ...refs,
+        }),
+      )
+
+      // Should use resizable.width, not the default from width prop
+      expect(result.current.currentWidth).toBe(400)
+    })
+
+    it('should prefer resizable.width over localStorage', () => {
+      localStorage.setItem('test-pane', '350')
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: {width: 500, persist: 'localStorage'},
+          widthStorageKey: 'test-pane',
+          ...refs,
+        }),
+      )
+
+      // Should use resizable.width, not localStorage
+      expect(result.current.currentWidth).toBe(500)
+    })
+
+    it('should sync when resizable.width changes', () => {
+      const refs = createMockRefs()
+      type ResizableType = {width?: number; persist: false}
+
+      const {result, rerender} = renderHook(
+        ({resizable}: {resizable: ResizableType}) =>
+          usePaneWidth({
+            width: 'medium',
+            minWidth: 256,
+            resizable,
+            widthStorageKey: 'test-sync-resizable',
+            ...refs,
+          }),
+        {initialProps: {resizable: {width: 350, persist: false} as ResizableType}},
+      )
+
+      expect(result.current.currentWidth).toBe(350)
+
+      // Change resizable.width
+      rerender({resizable: {width: 450, persist: false}})
+
+      expect(result.current.currentWidth).toBe(450)
+    })
+
+    it('should fall back to default when resizable.width is removed', () => {
+      const refs = createMockRefs()
+      type ResizableType = {width?: number; persist: false}
+
+      const {result, rerender} = renderHook(
+        ({resizable}: {resizable: ResizableType}) =>
+          usePaneWidth({
+            width: 'medium',
+            minWidth: 256,
+            resizable,
+            widthStorageKey: 'test-fallback',
+            ...refs,
+          }),
+        {initialProps: {resizable: {width: 400, persist: false} as ResizableType}},
+      )
+
+      expect(result.current.currentWidth).toBe(400)
+
+      // Remove width from resizable config
+      rerender({resizable: {persist: false}})
+
+      // Should fall back to default from width prop
+      expect(result.current.currentWidth).toBe(defaultPaneWidth.medium)
+    })
+
+    it('should not sync width prop default when resizable.width is provided', () => {
+      const refs = createMockRefs()
+      type WidthType = 'small' | 'medium' | 'large'
+      type ResizableType = {width: number; persist: false}
+
+      const {result, rerender} = renderHook(
+        ({width, resizable}: {width: WidthType; resizable: ResizableType}) =>
+          usePaneWidth({
+            width,
+            minWidth: 256,
+            resizable,
+            widthStorageKey: 'test-no-sync',
+            ...refs,
+          }),
+        {
+          initialProps: {
+            width: 'medium' as WidthType,
+            resizable: {width: 400, persist: false} as ResizableType,
+          },
+        },
+      )
+
+      expect(result.current.currentWidth).toBe(400)
+
+      // Change width prop (default changes from 296 to 320)
+      rerender({width: 'large', resizable: {width: 400, persist: false}})
+
+      // Should NOT sync to new default because resizable.width is controlling
+      expect(result.current.currentWidth).toBe(400)
+    })
   })
 
   describe('saveWidth', () => {
@@ -181,6 +341,196 @@ describe('usePaneWidth', () => {
       expect(result.current.currentWidth).toBe(450)
 
       localStorage.setItem = originalSetItem
+    })
+
+    it('should use localStorage when {persist: "localStorage"} is provided', () => {
+      const refs = createMockRefs()
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: {persist: 'localStorage'},
+          widthStorageKey: 'test-explicit-localstorage',
+          ...refs,
+        }),
+      )
+
+      act(() => {
+        result.current.saveWidth(450)
+      })
+
+      expect(result.current.currentWidth).toBe(450)
+      expect(localStorage.getItem('test-explicit-localstorage')).toBe('450')
+    })
+
+    it('should call custom save function with width and options', () => {
+      const customSave = vi.fn()
+      const customPersister: PersistConfig = {persist: customSave}
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: customPersister,
+          widthStorageKey: 'my-custom-key',
+          ...refs,
+        }),
+      )
+
+      act(() => {
+        result.current.saveWidth(450)
+      })
+
+      expect(result.current.currentWidth).toBe(450)
+      expect(customSave).toHaveBeenCalledWith(450, {widthStorageKey: 'my-custom-key'})
+      // Should NOT write to localStorage
+      expect(localStorage.getItem('my-custom-key')).toBeNull()
+    })
+
+    it('should handle async custom save function', async () => {
+      const customSave = vi.fn().mockResolvedValue(undefined)
+      const customPersister: PersistConfig = {persist: customSave}
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: customPersister,
+          widthStorageKey: 'test-async',
+          ...refs,
+        }),
+      )
+
+      act(() => {
+        result.current.saveWidth(350)
+      })
+
+      expect(result.current.currentWidth).toBe(350)
+      expect(customSave).toHaveBeenCalledWith(350, {widthStorageKey: 'test-async'})
+    })
+
+    it('should handle sync errors from custom save gracefully', () => {
+      const customSave = vi.fn(() => {
+        throw new Error('Sync storage error')
+      })
+      const customPersister: PersistConfig = {persist: customSave}
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: customPersister,
+          widthStorageKey: 'test-sync-error',
+          ...refs,
+        }),
+      )
+
+      // Should not throw - state should still update
+      act(() => {
+        result.current.saveWidth(450)
+      })
+
+      expect(result.current.currentWidth).toBe(450)
+      expect(customSave).toHaveBeenCalledWith(450, {widthStorageKey: 'test-sync-error'})
+    })
+
+    it('should handle async rejection from custom save gracefully', async () => {
+      const customSave = vi.fn().mockRejectedValue(new Error('Async storage error'))
+      const customPersister: PersistConfig = {persist: customSave}
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: customPersister,
+          widthStorageKey: 'test-async-error',
+          ...refs,
+        }),
+      )
+
+      // Should not throw - state should still update
+      act(() => {
+        result.current.saveWidth(450)
+      })
+
+      // Wait for promise rejection to be handled
+      await vi.waitFor(() => {
+        expect(customSave).toHaveBeenCalledWith(450, {widthStorageKey: 'test-async-error'})
+      })
+
+      expect(result.current.currentWidth).toBe(450)
+    })
+
+    it('should not read from localStorage when custom save is provided', () => {
+      localStorage.setItem('test-pane', '500')
+      const customPersister: PersistConfig = {persist: vi.fn() as PersistFunction}
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: customPersister,
+          widthStorageKey: 'test-pane',
+          ...refs,
+        }),
+      )
+
+      // Should use default, not localStorage value
+      expect(result.current.currentWidth).toBe(defaultPaneWidth.medium)
+    })
+  })
+
+  describe('width prop sync (controlled mode)', () => {
+    it('should sync internal state when width prop changes', () => {
+      const refs = createMockRefs()
+
+      const {result, rerender} = renderHook(
+        ({width}: {width: 'small' | 'medium' | 'large'}) =>
+          usePaneWidth({
+            width,
+            minWidth: 256,
+            resizable: true,
+            widthStorageKey: 'test-sync',
+            ...refs,
+          }),
+        {initialProps: {width: 'medium' as 'small' | 'medium' | 'large'}},
+      )
+
+      expect(result.current.currentWidth).toBe(defaultPaneWidth.medium)
+
+      // Change width prop
+      rerender({width: 'large'})
+
+      expect(result.current.currentWidth).toBe(defaultPaneWidth.large)
+    })
+
+    it('should sync when width changes to custom width', () => {
+      const refs = createMockRefs()
+      type WidthType = 'medium' | {min: `${number}px`; default: `${number}px`; max: `${number}px`}
+
+      const {result, rerender} = renderHook(
+        ({width}: {width: WidthType}) =>
+          usePaneWidth({
+            width,
+            minWidth: 256,
+            resizable: true,
+            widthStorageKey: 'test-sync-custom',
+            ...refs,
+          }),
+        {initialProps: {width: 'medium' as WidthType}},
+      )
+
+      expect(result.current.currentWidth).toBe(defaultPaneWidth.medium)
+
+      // Change to custom width
+      rerender({width: {min: '200px', default: '400px', max: '600px'}})
+
+      expect(result.current.currentWidth).toBe(400)
     })
   })
 
@@ -843,5 +1193,76 @@ describe('constants', () => {
     // This constant must match --pane-max-width-diff in PageLayout.module.css
     // for viewports below the breakpoint.
     expect(DEFAULT_MAX_WIDTH_DIFF).toBe(511)
+  })
+})
+
+describe('type guards', () => {
+  describe('isResizableEnabled', () => {
+    it('should return true for boolean true', () => {
+      expect(isResizableEnabled(true)).toBe(true)
+    })
+
+    it('should return false for boolean false', () => {
+      expect(isResizableEnabled(false)).toBe(false)
+    })
+
+    it('should return true for {persist: false} (resizable without persistence)', () => {
+      expect(isResizableEnabled({persist: false})).toBe(true)
+    })
+
+    it('should return true for {persist: "localStorage"}', () => {
+      expect(isResizableEnabled({persist: 'localStorage'})).toBe(true)
+    })
+
+    it('should return true for {persist: fn} (custom persistence)', () => {
+      expect(isResizableEnabled({persist: () => {}})).toBe(true)
+    })
+  })
+
+  describe('isPersistConfig', () => {
+    it('should return true for {persist: false}', () => {
+      expect(isPersistConfig({persist: false})).toBe(true)
+    })
+
+    it('should return true for {persist: "localStorage"}', () => {
+      expect(isPersistConfig({persist: 'localStorage'})).toBe(true)
+    })
+
+    it('should return true for {persist: fn}', () => {
+      expect(isPersistConfig({persist: () => {}})).toBe(true)
+    })
+
+    it('should return false for boolean true', () => {
+      expect(isPersistConfig(true)).toBe(false)
+    })
+
+    it('should return false for boolean false', () => {
+      expect(isPersistConfig(false)).toBe(false)
+    })
+
+    it('should return false for objects without persist property', () => {
+      // @ts-expect-error - testing runtime behavior with arbitrary object
+      expect(isPersistConfig({other: 'value'})).toBe(false)
+    })
+  })
+
+  describe('isCustomPersistFunction', () => {
+    it('should return true for function', () => {
+      const fn = () => {}
+      expect(isCustomPersistFunction(fn)).toBe(true)
+    })
+
+    it('should return true for async function', () => {
+      const fn = async () => {}
+      expect(isCustomPersistFunction(fn)).toBe(true)
+    })
+
+    it('should return false for false', () => {
+      expect(isCustomPersistFunction(false)).toBe(false)
+    })
+
+    it('should return false for "localStorage"', () => {
+      expect(isCustomPersistFunction('localStorage')).toBe(false)
+    })
   })
 })
