@@ -548,4 +548,44 @@ describe('Breadcrumbs', () => {
       expect(container.firstChild).toHaveAttribute('data-variant', 'spacious')
     })
   })
+
+  describe('responsive prop', () => {
+    it('renders children as-is when responsive={false}', () => {
+      renderWithTheme(
+        <Breadcrumbs responsive={false}>
+          <Breadcrumbs.Item href="/1">Item 1</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/2">Item 2</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/3">Item 3</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/4">Item 4</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/5">Item 5</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/6">Item 6</Breadcrumbs.Item>
+        </Breadcrumbs>,
+        {primer_react_breadcrumbs_overflow_menu: true},
+      )
+
+      // All items should be visible when responsive is false
+      expect(screen.getByText('Item 1')).toBeInTheDocument()
+      expect(screen.getByText('Item 2')).toBeInTheDocument()
+      expect(screen.getByText('Item 3')).toBeInTheDocument()
+      expect(screen.getByText('Item 4')).toBeInTheDocument()
+      expect(screen.getByText('Item 5')).toBeInTheDocument()
+      expect(screen.getByText('Item 6')).toBeInTheDocument()
+
+      // No overflow menu should be rendered
+      expect(screen.queryByRole('button', {name: /more breadcrumb items/i})).not.toBeInTheDocument()
+    })
+
+    it('defaults responsive to true', () => {
+      const {container} = renderWithTheme(
+        <Breadcrumbs overflow="menu">
+          <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/docs">Docs</Breadcrumbs.Item>
+        </Breadcrumbs>,
+        {primer_react_breadcrumbs_overflow_menu: true},
+      )
+
+      // Should have data-overflow when responsive is true (default)
+      expect(container.firstChild).toHaveAttribute('data-overflow', 'menu')
+    })
+  })
 })
