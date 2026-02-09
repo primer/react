@@ -65,7 +65,7 @@ export const PullRequestPage = () => {
 }
 
 const items: {navigation: string; icon: React.ReactElement; counter?: number | string; href?: string}[] = [
-  {navigation: 'Code', icon: <CodeIcon />, href: '#code'},
+  {navigation: 'Code (really really long first item title)', icon: <CodeIcon />, href: '#code'},
   {navigation: 'Issues', icon: <IssueOpenedIcon />, counter: '12K', href: '#issues'},
   {navigation: 'Pull Requests', icon: <GitPullRequestIcon />, counter: 13, href: '#pull-requests'},
   {navigation: 'Discussions', icon: <CommentDiscussionIcon />, counter: 5, href: '#discussions'},

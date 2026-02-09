@@ -54,6 +54,7 @@
   background-color: transparent;
   border: 0;
   border-radius: var(--borderRadius-medium, var(--borderRadius-small));
+  max-width: 100%;
 
   /* button resets */
   appearance: none;
@@ -106,6 +107,12 @@
   @container underline-wrapper scroll-state(scrollable: block) {
     display: none;
   }
+}
+
+.UnderlineItem [data-component='text'] {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .UnderlineItem [data-component='counter'] {
