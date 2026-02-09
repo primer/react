@@ -5,6 +5,7 @@
     "packages/rollup-plugin-import-css",
     "packages/react",
     "packages/mcp",
+    "packages/eslint-plugin-primer-react",
     "packages/*",
     "examples/*"
   ],
@@ -75,7 +76,6 @@
     "eslint-plugin-mdx": "3.6.2",
     "eslint-plugin-playwright": "^2.5.0",
     "eslint-plugin-prettier": "^5.5.5",
-    "eslint-plugin-primer-react": "^8.5.1",
     "eslint-plugin-react": "^7.35.5",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-ssr-friendly": "1.3.0",

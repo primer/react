@@ -12,7 +12,7 @@ import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import playwright from 'eslint-plugin-playwright'
 import prettierRecommended from 'eslint-plugin-prettier/recommended'
-import primerReact from 'eslint-plugin-primer-react'
+import primerReact from './packages/eslint-plugin-primer-react/src/index.js'
 import testingLibrary from 'eslint-plugin-testing-library'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
@@ -42,6 +42,7 @@ const config = defineConfig([
     'examples/codesandbox/**/*',
     'packages/react/src/utils/polymorphic.ts',
     'packages/styled-react/src/polymorphic.ts',
+    'packages/eslint-plugin-primer-react/**/*',
     '**/storybook-static',
     '**/CHANGELOG.md',
     '**/node_modules/**/*',
@@ -334,9 +335,11 @@ const config = defineConfig([
     files: [
       'packages/postcss-preset-primer/**/**.{ts,tsx,mts,mtsx,cjs,js,mjs}',
       'packages/rollup-plugin-import-css/**/**.{ts,tsx,mts,mtsx,cjs,js,mjs}',
+      'packages/eslint-plugin-primer-react/**/**.{ts,tsx,mts,mtsx,cjs,js,mjs}',
     ],
     rules: {
       'import/no-nodejs-modules': 'off',
+      '@typescript-eslint/no-require-imports': 'off',
     },
   },
 
