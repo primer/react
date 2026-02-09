@@ -46,6 +46,7 @@ const scenarios = matrix({
   size: ['small', 'medium', 'large'],
   spacious: [true, false],
   border: [true, false],
+  padding: ['condensed', 'normal', 'spacious'],
 })
 
 test.describe('Blankslate', () => {
