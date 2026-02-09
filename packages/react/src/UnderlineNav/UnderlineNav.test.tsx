@@ -1,6 +1,6 @@
 import {describe, expect, it, vi} from 'vitest'
 import type React from 'react'
-import {render, screen} from '@testing-library/react'
+import {render, screen, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {
   CodeIcon,
@@ -78,7 +78,8 @@ describe('UnderlineNav', () => {
   it('renders icons correctly', () => {
     const {getByRole} = render(<ResponsiveUnderlineNav />)
     const nav = getByRole('navigation')
-    expect(nav.getElementsByTagName('svg').length).toEqual(7)
+    const list = within(nav).getByRole('list')
+    expect(list.getElementsByTagName('svg').length).toEqual(7)
   })
 
   it('fires onSelect on click', async () => {
@@ -143,7 +144,7 @@ describe('UnderlineNav', () => {
 
   it('respects loadingCounters prop', () => {
     const {getByRole} = render(<ResponsiveUnderlineNav loadingCounters={true} />)
-    const item = getByRole('link', {name: 'Actions'})
+    const item = getByRole('link', {name: 'Actions', hidden: true})
     const loadingCounter = item.getElementsByTagName('span')[2]
     expect(loadingCounter.className).toContain('LoadingCounter')
     expect(loadingCounter.textContent).toBe('')

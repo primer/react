@@ -2,29 +2,27 @@
   display: flex;
   /* stylelint-disable-next-line primer/spacing */
   padding-inline: var(--stack-padding-normal);
-  justify-content: flex-start;
-  align-items: center;
+  padding-top: var(--base-size-8);
+  justify-content: space-between;
+  align-items: flex-start;
+  overflow: hidden;
+  /* stylelint-disable-next-line declaration-property-value-no-unknown */
+  container: underline-wrapper / scroll-state;
 
   /* make space for the underline */
-  min-height: var(--control-xlarge-size, 48px);
+  height: var(--control-xlarge-size, 48px);
 
   /* using a box-shadow instead of a border to accommodate 'overflow-y: hidden' on UnderlinePanels */
   /* stylelint-disable-next-line primer/box-shadow */
   box-shadow: inset 0 -1px var(--borderColor-muted);
 
-  /* Hide overflow until calculation is complete to prevent CLS */
-  overflow: visible;
-
-  &[data-ready='false'] {
-    overflow: hidden;
-  }
-  &[data-ready='true'] {
-    overflow: visible;
-  }
-
   &[data-variant='flush'] {
     /* stylelint-disable-next-line primer/spacing */
     padding-inline: unset;
+  }
+
+  &[data-hide-icons='true'] [data-component='icon'] {
+    display: none;
   }
 }
 
@@ -37,6 +35,9 @@
   list-style: none;
   align-items: center;
   gap: 8px;
+  flex-wrap: wrap;
+  /* Allows the menu to clip wrapped items to keep on shrinking even if a wrapped item was very wide */
+  overflow: hidden;
 }
 
 .UnderlineItem {
@@ -53,6 +54,7 @@
   background-color: transparent;
   border: 0;
   border-radius: var(--borderRadius-medium, var(--borderRadius-small));
+  max-width: 100%;
 
   /* button resets */
   appearance: none;
@@ -101,6 +103,16 @@
   color: var(--fgColor-muted);
   align-items: center;
   margin-inline-end: var(--base-size-8);
+
+  @container underline-wrapper scroll-state(scrollable: block) {
+    display: none;
+  }
+}
+
+.UnderlineItem [data-component='text'] {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .UnderlineItem [data-component='counter'] {
