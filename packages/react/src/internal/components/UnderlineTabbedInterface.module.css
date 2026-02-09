@@ -6,6 +6,7 @@
   justify-content: space-between;
   align-items: flex-start;
   overflow: hidden;
+  /* stylelint-disable-next-line declaration-property-value-no-unknown */
   container: underline-wrapper / scroll-state;
 
   /* make space for the underline */
