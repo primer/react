@@ -215,8 +215,6 @@ function Panel({
   const [needsNoItemsAnnouncement, setNeedsNoItemsAnnouncement] = useState<boolean>(false)
   const isNarrowScreenSize = useResponsiveValue({narrow: true, regular: false, wide: false}, false)
   const [selectedOnSort, setSelectedOnSort] = useState<ItemInput[]>([])
-  const [prevItems, setPrevItems] = useState<ItemInput[]>([])
-  const [prevOpen, setPrevOpen] = useState(open)
   const initialHeightRef = useRef(0)
   const initialScaleRef = useRef(1)
   const noticeRef = useRef<HTMLDivElement>(null)
@@ -679,17 +677,25 @@ function Panel({
     selectedOnSort,
   ])
 
-  if (prevItems !== items) {
-    setPrevItems(items)
-    if (prevItems.length === 0 && items.length > 0) {
-      resetSort()
+  // Track previous items and reset sort when items first load
+  const prevItemsRef = useRef(items)
+  useEffect(() => {
+    if (prevItemsRef.current !== items) {
+      if (prevItemsRef.current.length === 0 && items.length > 0) {
+        resetSort()
+      }
+      prevItemsRef.current = items
     }
-  }
+  }, [items, resetSort])
 
-  if (open !== prevOpen) {
-    setPrevOpen(open)
-    resetSort()
-  }
+  // Reset sort when panel opens
+  const prevOpenRef = useRef(open)
+  useEffect(() => {
+    if (prevOpenRef.current !== open) {
+      resetSort()
+      prevOpenRef.current = open
+    }
+  }, [open, resetSort])
 
   const focusTrapSettings = {
     initialFocusRef: inputRef || undefined,
