@@ -958,6 +958,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
       widthStorageKey = 'sidebarWidth',
       divider = 'none',
       hidden: responsiveHidden = false,
+      // todo, add sticky
       children,
       id,
       className,

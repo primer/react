@@ -4,6 +4,7 @@ import type {
   PageLayoutFooterProps,
   PageLayoutHeaderProps,
   PageLayoutPaneProps,
+  PageLayoutSidebarProps,
 } from '../PageLayout'
 import {PageLayout} from '../PageLayout'
 
@@ -22,7 +23,7 @@ export const Root: React.FC<React.PropsWithChildren<SplitPageLayoutProps>> = pro
       _slotsConfig={{
         header: Header,
         footer: Footer,
-        sidebar: Pane,
+        sidebar: Sidebar,
       }}
       {...props}
     />
@@ -87,6 +88,22 @@ export const Pane: React.FC<React.PropsWithChildren<SplitPageLayoutPaneProps>> =
 Pane.displayName = 'SplitPageLayout.Pane'
 
 // ----------------------------------------------------------------------------
+// SplitPageLayout.Sidebar
+
+export type SplitPageLayoutSidebarProps = PageLayoutSidebarProps
+
+export const Sidebar: React.FC<React.PropsWithChildren<SplitPageLayoutSidebarProps>> = ({
+  position = 'start',
+  padding = 'normal',
+  divider = 'line',
+  ...props
+}) => {
+  return <PageLayout.Sidebar position={position} padding={padding} divider={divider} {...props} />
+}
+
+Sidebar.displayName = 'SplitPageLayout.Sidebar'
+
+// ----------------------------------------------------------------------------
 // SplitPageLayout.Footer
 
 export type SplitPageLayoutFooterProps = PageLayoutFooterProps
@@ -109,5 +126,6 @@ export const SplitPageLayout = Object.assign(Root, {
   Header,
   Content,
   Pane,
+  Sidebar,
   Footer,
 })
