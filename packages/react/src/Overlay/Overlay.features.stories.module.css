@@ -164,6 +164,7 @@
 }
 
 .ScrollableContent {
+  position: relative;
   padding: var(--base-size-16);
   display: flex;
   flex-direction: column;
