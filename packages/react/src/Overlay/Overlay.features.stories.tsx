@@ -644,6 +644,7 @@ export const SettingMaxHeight = () => {
         >
           <div className={classes.ScrollableContent}>
             <IconButton
+              ref={confirmButtonRef}
               aria-label="Close"
               onClick={closeOverlay}
               icon={XIcon}
