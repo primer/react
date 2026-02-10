@@ -22,6 +22,7 @@ export const Root: React.FC<React.PropsWithChildren<SplitPageLayoutProps>> = pro
       _slotsConfig={{
         header: Header,
         footer: Footer,
+        sidebar: Pane,
       }}
       {...props}
     />
