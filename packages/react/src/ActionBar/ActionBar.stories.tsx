@@ -21,8 +21,15 @@ export default meta
 type Story = StoryObj<typeof ActionBar>
 
 export const Playground: Story = {
-  render: ({'aria-labelledby': _, ...args}) => (
-    <ActionBar {...args} aria-label="Toolbar">
+  args: {
+    overflowLabel: 'More item',
+    size: 'medium',
+    flush: false,
+    gap: 'condensed',
+  },
+
+  render: ({'aria-labelledby': _, overflowLabel, ...args}) => (
+    <ActionBar {...args} overflowLabel={overflowLabel} aria-label="Toolbar">
       <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
       <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
       <ActionBar.Divider />
@@ -48,11 +55,17 @@ Playground.argTypes = {
     description: 'Horizontal gap scale between items',
     table: {defaultValue: {summary: 'condensed'}},
   },
+  overflowLabel: {
+    control: {type: 'text'},
+    description: 'Accessible label for the overflow menu button',
+    table: {defaultValue: {summary: 'More items'}},
+  },
 }
 Playground.args = {
   size: 'medium',
   flush: false,
   gap: 'condensed',
+  overflowLabel: 'More items',
 }
 
 export const Default = () => (
