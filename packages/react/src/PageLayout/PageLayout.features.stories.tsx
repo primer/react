@@ -64,6 +64,11 @@ export const PullRequestPage = () => (
         </div>
       </div>
     </PageLayout.Pane>
+    <PageLayout.Sidebar position="start" aria-label="Inspector sidebar">
+      <div className={classes.SidebarBox}>
+        <p>This is the sidebar content.</p>
+      </div>
+    </PageLayout.Sidebar>
   </PageLayout>
 )
 
@@ -299,6 +304,23 @@ export const ResizablePane: StoryFn = () => (
   </PageLayout>
 )
 
+export const ResizablePaneTwo: StoryFn = () => (
+  <PageLayout containerWidth="full">
+    <PageLayout.Header>
+      <Placeholder height={64} label="Header" />
+    </PageLayout.Header>
+    <PageLayout.Pane resizable position="start" aria-label="Side pane">
+      <Placeholder height={320} label="Pane" />
+    </PageLayout.Pane>
+    <PageLayout.Content>
+      <Placeholder height={640} label="Content" />
+    </PageLayout.Content>
+    <PageLayout.Footer>
+      <Placeholder height={64} label="Footer" />
+    </PageLayout.Footer>
+  </PageLayout>
+)
+
 export const ScrollContainerWithinPageLayoutPane: StoryFn = () => (
   <div className={classes.NestedScrollContainer}>
     <div className={classes.OverflowAuto}>
@@ -349,6 +371,80 @@ export const WithCustomPaneHeading: StoryFn = () => (
         Pane Heading
       </Heading>
       <Placeholder height={320} label="Pane" />
+    </PageLayout.Pane>
+    <PageLayout.Content>
+      <Placeholder height={640} label="Content" />
+    </PageLayout.Content>
+    <PageLayout.Footer>
+      <Placeholder height={64} label="Footer" />
+    </PageLayout.Footer>
+  </PageLayout>
+)
+
+export const SidebarStart: StoryFn = () => (
+  <PageLayout containerWidth="full">
+    <PageLayout.Sidebar position="start" aria-label="Navigation sidebar">
+      <Placeholder height={800} label="Sidebar (Start)" />
+    </PageLayout.Sidebar>
+    <PageLayout.Header>
+      <Placeholder height={64} label="Header" />
+    </PageLayout.Header>
+    <PageLayout.Content>
+      <Placeholder height={640} label="Content" />
+    </PageLayout.Content>
+    <PageLayout.Footer>
+      <Placeholder height={64} label="Footer" />
+    </PageLayout.Footer>
+  </PageLayout>
+)
+
+export const SidebarEnd: StoryFn = () => (
+  <PageLayout containerWidth="full">
+    <PageLayout.Sidebar position="end" aria-label="Inspector sidebar">
+      <Placeholder height={800} label="Sidebar (End)" />
+    </PageLayout.Sidebar>
+    <PageLayout.Header>
+      <Placeholder height={64} label="Header" />
+    </PageLayout.Header>
+    <PageLayout.Content>
+      <Placeholder height={640} label="Content" />
+    </PageLayout.Content>
+    <PageLayout.Footer>
+      <Placeholder height={64} label="Footer" />
+    </PageLayout.Footer>
+  </PageLayout>
+)
+
+export const ResizableSidebar: StoryFn = () => (
+  <PageLayout containerWidth="full">
+    <PageLayout.Sidebar resizable position="start" aria-label="Resizable sidebar">
+      <Placeholder height={800} label="Resizable Sidebar" />
+    </PageLayout.Sidebar>
+    <PageLayout.Header>
+      <Placeholder height={64} label="Header" />
+    </PageLayout.Header>
+    <PageLayout.Pane position="end" aria-label="Side pane">
+      <Placeholder height={320} label="Pane" />
+    </PageLayout.Pane>
+    <PageLayout.Content>
+      <Placeholder height={640} label="Content" />
+    </PageLayout.Content>
+    <PageLayout.Footer>
+      <Placeholder height={64} label="Footer" />
+    </PageLayout.Footer>
+  </PageLayout>
+)
+
+export const SidebarWithPaneResizable: StoryFn = () => (
+  <PageLayout containerWidth="full">
+    <PageLayout.Sidebar resizable position="start" width="medium" aria-label="Navigation sidebar">
+      <Placeholder height={800} label="Resizable Sidebar" />
+    </PageLayout.Sidebar>
+    <PageLayout.Header>
+      <Placeholder height={64} label="Header" />
+    </PageLayout.Header>
+    <PageLayout.Pane resizable position="end" aria-label="Side pane">
+      <Placeholder height={320} label="Resizable Pane" />
     </PageLayout.Pane>
     <PageLayout.Content>
       <Placeholder height={640} label="Content" />

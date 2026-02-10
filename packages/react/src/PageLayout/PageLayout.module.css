@@ -596,7 +596,7 @@
     width: 100%;
 
     @media screen and (min-width: 768px) {
-      /* 
+      /*
        * --pane-max-width is set by JS on mount and updated on resize (debounced).
        * JS calculates viewport - margin to avoid scrollbar discrepancy with 100vw.
        */
@@ -739,6 +739,98 @@
  */
 .Pane[data-dragging='true'],
 .ContentWrapper[data-dragging='true'] {
+  contain: layout style paint;
+  pointer-events: none;
+}
+
+/* Sidebar */
+.PageLayoutRoot:where([data-has-sidebar]) {
+  /* Note: Sidebar styles are only applied when the PageLayout has a Sidebar child
+    via `[data-has-sidebar`]` on the root element
+  */
+  display: flex;
+  /*
+    Current layout structure for Sidebar support:
+    -- [Sidebar] | [Header + Content + Footer] | [Sidebar] --
+  */
+  flex-direction: row;
+}
+
+.SidebarWrapper {
+  /* Current layout structure:
+    -- [Sidebar] | [Resizable Divider] --
+  */
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  height: 100%;
+
+  &:where([data-is-hidden='true']) {
+    display: none;
+  }
+
+  /* Position: start (left side) */
+  &:where([data-position='start']) {
+    order: -1;
+  }
+
+  /* Position: end (right side) */
+  &:where([data-position='end']) {
+    order: 1;
+  }
+
+  /* Narrow viewport */
+  @media (--viewportRange-narrow) {
+    &:where([data-is-hidden-narrow='true']) {
+      display: none;
+    }
+  }
+
+  /* Regular viewport */
+  @media (--viewportRange-regular) {
+    &:where([data-is-hidden-regular='true']) {
+      display: none;
+    }
+  }
+
+  /* Wide viewport */
+  @media (--viewportRange-wide) {
+    &:where([data-is-hidden-wide='true']) {
+      display: none;
+    }
+  }
+}
+
+.Sidebar {
+  width: var(--pane-width-size);
+  /* stylelint-disable-next-line primer/spacing */
+  padding: var(--spacing);
+  height: 100%;
+  overflow: auto;
+
+  &:where([data-resizable]) {
+    width: 100%;
+
+    @media screen and (min-width: 768px) {
+      width: clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width));
+    }
+  }
+}
+
+.SidebarVerticalDivider {
+  /* Base position (non-responsive) */
+  &:where([data-position='start']) {
+    /* stylelint-disable-next-line primer/spacing */
+    margin-left: var(--spacing);
+  }
+
+  &:where([data-position='end']) {
+    /* stylelint-disable-next-line primer/spacing */
+    margin-right: var(--spacing);
+  }
+}
+
+.Sidebar[data-dragging='true'] {
   contain: layout style paint;
   pointer-events: none;
 }
