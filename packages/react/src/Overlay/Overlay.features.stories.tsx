@@ -654,7 +654,7 @@ export const SettingMaxHeight = () => {
             <Text as="h2">Scrollable Content</Text>
             <Text as="p">
               This overlay demonstrates the maxHeight property. The content below will be scrollable when it exceeds the
-              maximum height of 256px (small).
+              maximum height defined by the small size token, up to the available viewport height.
             </Text>
             {Array.from({length: 50}, (_, i) => (
               <Text key={`item-${i}`} as="p">
