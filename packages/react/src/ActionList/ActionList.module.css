@@ -486,6 +486,7 @@
 /* button or a tag */
 
 /* Uses the additional `button` selector to avoid the specificity conflicts when the reset styles for [buttons](packages/react/src/Link/Link.module.css) are bundled in a different order */
+/* stylelint-disable-next-line selector-no-qualifying-type */
 button.ActionListContent {
   display: grid;
   /* stylelint-disable-next-line primer/spacing */
