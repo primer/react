@@ -495,7 +495,7 @@ button.ActionListContent {
 }
 
 /* [ [spacer] [leadingAction] [leadingVisual] [content] ] */
-.ActionListContent,
+.ActionListContent {
   --subitem-depth: 0px;
 
   position: relative;
