@@ -324,7 +324,9 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
     'primer_react_action_menu_display_in_viewport_inside_portal',
   )
 
-  const isInsidePortal = useContext(PortalContext) !== undefined
+  const portalContext = useContext(PortalContext)
+
+  const isInsidePortal = portalContext.portalContainerName !== undefined
 
   return (
     <AnchoredOverlay
