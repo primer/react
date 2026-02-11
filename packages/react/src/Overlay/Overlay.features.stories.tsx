@@ -606,15 +606,15 @@ export const PositionedOverlays = ({right, role, open}: Args) => {
   )
 }
 
-export const SettingMaxHeight = () => {
+export const SettingMaxHeight = ({open}: Args) => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
-  const confirmButtonRef = useRef<HTMLButtonElement>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
   const closeOverlay = () => setIsOpen(false)
   const containerRef = useRef<HTMLDivElement>(null)
   useFocusTrap({
     containerRef,
-    disabled: !isOpen,
+    disabled: !isOpen && !open,
   })
 
   return (
@@ -627,9 +627,9 @@ export const SettingMaxHeight = () => {
       >
         Open overlay with max height
       </Button>
-      {isOpen ? (
+      {isOpen || open ? (
         <Overlay
-          initialFocusRef={confirmButtonRef}
+          initialFocusRef={closeButtonRef}
           returnFocusRef={buttonRef}
           ignoreClickRefs={[buttonRef]}
           onEscape={closeOverlay}
@@ -644,7 +644,7 @@ export const SettingMaxHeight = () => {
         >
           <div className={classes.ScrollableContent}>
             <IconButton
-              ref={confirmButtonRef}
+              ref={closeButtonRef}
               aria-label="Close"
               onClick={closeOverlay}
               icon={XIcon}
