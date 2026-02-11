@@ -811,7 +811,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           ref={paneRef}
           // Suppress hydration mismatch for --pane-width when localStorage
           // provides a width that differs from the server-rendered default.
-          suppressHydrationWarning={resizable === true}
+          // Not needed when onResizeEnd is provided (localStorage isn't read).
+          suppressHydrationWarning={resizable === true && !onResizeEnd}
           {...(hasOverflow ? overflowProps : {})}
           {...labelProp}
           {...(id && {id: paneId})}

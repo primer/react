@@ -1,6 +1,5 @@
 import React, {startTransition, useMemo} from 'react'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
-import {warning} from '../utils/warning'
 import cssExports from './PageLayout.module.css'
 
 // ----------------------------------------------------------------------------
@@ -174,13 +173,6 @@ export function usePaneWidth({
   onResizeEnd,
   currentWidth: controlledWidth,
 }: UsePaneWidthOptions): UsePaneWidthResult {
-  warning(
-    controlledWidth !== undefined && onResizeEnd === undefined,
-    '`currentWidth` was provided to PageLayout.Pane without `onResizeEnd`. ' +
-      '`currentWidth` requires `onResizeEnd` to persist changes. ' +
-      'Either add `onResizeEnd` or remove `currentWidth`.',
-  )
-
   // Derive constraints from width configuration
   const isCustomWidth = isCustomWidthOptions(width)
   const minPaneWidth = isCustomWidth ? parseInt(width.min, 10) : minWidth
