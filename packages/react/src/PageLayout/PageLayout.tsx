@@ -846,7 +846,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
                 }
           }
           // If pane is resizable, the divider should be draggable
-          draggable={!!resizable}
+          draggable={resizable}
           position={positionProp}
           className={classes.PaneVerticalDivider}
           style={
