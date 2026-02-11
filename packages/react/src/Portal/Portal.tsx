@@ -74,7 +74,8 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
   onMount,
   containerName: _containerName,
 }) => {
-  const {portalContainerName} = useContext(PortalContext)
+  const portalContext = useContext(PortalContext)
+  const {portalContainerName} = portalContext
   const elementRef = React.useRef<HTMLDivElement | null>(null)
   if (!elementRef.current) {
     const div = document.createElement('div')
@@ -110,5 +111,9 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [element, _containerName, portalContainerName])
 
-  return createPortal(children, element)
+  return portalContext ? (
+    createPortal(children, element)
+  ) : (
+    <PortalContext.Provider value={{}}>{createPortal(children, element)}</PortalContext.Provider>
+  )
 }
