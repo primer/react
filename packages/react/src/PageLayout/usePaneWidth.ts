@@ -139,7 +139,8 @@ const localStoragePersister = {
       if (storedWidth !== null) {
         const parsed = Number(storedWidth)
         if (!isNaN(parsed) && parsed > 0) {
-          return parsed
+          // Round to handle legacy float values from before Math.round was added to saveWidth
+          return Math.round(parsed)
         }
       }
     } catch {

@@ -130,6 +130,23 @@ describe('usePaneWidth', () => {
       expect(result.current.currentWidth).toBe(defaultPaneWidth.medium)
     })
 
+    it('should round legacy float values from localStorage', () => {
+      localStorage.setItem('test-pane', '296.7333984375')
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-pane',
+          ...refs,
+        }),
+      )
+
+      expect(result.current.currentWidth).toBe(297)
+    })
+
     it('should not read from localStorage when onResizeEnd is provided', () => {
       localStorage.setItem('test-pane', '500')
       const refs = createMockRefs()
