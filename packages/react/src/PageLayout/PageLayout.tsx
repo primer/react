@@ -634,6 +634,16 @@ export type PageLayoutPaneBaseProps = {
   sticky?: boolean
   offsetHeader?: string | number
   hidden?: boolean | ResponsiveValue<boolean>
+  /**
+   * Enable resizable pane behavior.
+   * When `true`, the pane may be resized by the user via drag or keyboard.
+   * Uses localStorage persistence by default unless `onResizeEnd` is provided.
+   *
+   * Note: With default localStorage persistence in SSR, the server-rendered
+   * width may differ from the stored client width, causing a brief layout
+   * shift on hydration. Use `onResizeEnd` with server-aware storage to avoid this.
+   */
+  resizable?: boolean
   id?: string
   className?: string
   style?: React.CSSProperties
@@ -643,43 +653,21 @@ export type PageLayoutPaneProps = PageLayoutPaneBaseProps &
   (
     | {
         /**
-         * Enable resizable pane behavior.
-         * When `true`, the pane may be resized by the user via drag or keyboard.
-         * Uses localStorage persistence by default unless `onResizeEnd` is provided.
-         *
-         * Note: With default localStorage persistence in SSR, the server-rendered
-         * width may differ from the stored client width, causing a brief layout
-         * shift on hydration. Use `onResizeEnd` with server-aware storage to avoid this.
-         */
-        resizable: true
-        currentWidth?: never
-        onResizeEnd?: never
-      }
-    | {
-        /**
-         * Enable resizable pane behavior with a custom resize callback.
-         * When `true`, the pane may be resized by the user via drag or keyboard.
-         */
-        resizable: true
-        /**
-         * Current/controlled width value in pixels.
-         * When provided, this is used as the current pane width instead of internal state.
-         * The `width` prop still defines the default used when resetting (e.g., double-click).
-         * Requires `onResizeEnd` to persist changes.
-         */
-        currentWidth: number | undefined
-        /**
          * Callback fired when a resize operation ends (drag release or keyboard key up).
          * When provided, this callback is used instead of localStorage persistence.
          * Use with `currentWidth` for controlled width behavior.
          */
         onResizeEnd: (width: number) => void
+        /**
+         * Current/controlled width value in pixels.
+         * When provided, this is used as the current pane width instead of internal state.
+         * The `width` prop still defines the default used when resetting (e.g., double-click).
+         */
+        currentWidth?: number
       }
     | {
-        /** Disable resizing (default). */
-        resizable?: false
-        currentWidth?: never
         onResizeEnd?: never
+        currentWidth?: never
       }
   )
 
