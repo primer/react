@@ -932,6 +932,21 @@ export type PageLayoutSidebarProps = {
   divider?: 'none' | 'line'
 
   /**
+   * Whether the sidebar sticks to the viewport when scrolling.
+   * When enabled, the sidebar uses `position: sticky` with `top: 0` and `height: 100vh`.
+   * @default false
+   */
+  sticky?: boolean
+
+  /**
+   * Controls sidebar behavior at narrow viewport widths (below 768px).
+   * - `'default'`: the sidebar retains its normal inline layout.
+   * - `'fullscreen'`: the sidebar expands to cover the full viewport like a dialog overlay.
+   * @default 'default'
+   */
+  whenNarrow?: 'default' | 'fullscreen'
+
+  /**
    * Whether the sidebar is hidden
    */
   hidden?: boolean | ResponsiveValue<boolean>
@@ -957,8 +972,9 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
       resizable = false,
       widthStorageKey = 'sidebarWidth',
       divider = 'none',
+      sticky = false,
+      whenNarrow = 'default',
       hidden: responsiveHidden = false,
-      // todo, add sticky
       children,
       id,
       className,
@@ -1020,6 +1036,8 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
         }
         {...getResponsiveAttributes('is-hidden', responsiveHidden)}
         data-position={position}
+        data-sticky={sticky || undefined}
+        data-when-narrow={whenNarrow !== 'default' ? whenNarrow : undefined}
       >
         <aside
           ref={sidebarRef}

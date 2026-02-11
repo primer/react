@@ -175,3 +175,58 @@ export const WithSidebarAndResizablePane: StoryFn<typeof SplitPageLayout> = () =
     </SplitPageLayout.Footer>
   </SplitPageLayout>
 )
+
+export const WithStickySidebar: StoryFn<typeof SplitPageLayout> = () => (
+  <SplitPageLayout>
+    <SplitPageLayout.Sidebar sticky position="start" aria-label="Sticky sidebar">
+      <div className={classes.SidebarContent}>
+        <Text className={classes.SidebarHeading}>Sticky Sidebar</Text>
+        <Text className={classes.SidebarText}>
+          This sidebar stays fixed in the viewport as you scroll the page content.
+        </Text>
+      </div>
+    </SplitPageLayout.Sidebar>
+    <SplitPageLayout.Header>
+      <Heading as="h1">Page Title</Heading>
+    </SplitPageLayout.Header>
+    <SplitPageLayout.Content>
+      <Heading as="h2" className={classes.SectionHeading}>
+        Scrollable Content
+      </Heading>
+      {Array.from({length: 20}).map((_, i) => (
+        <Text key={i} as="p">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non ipsum.
+          Maecenas imperdiet ante quam, at varius lorem molestie vel.
+        </Text>
+      ))}
+    </SplitPageLayout.Content>
+    <SplitPageLayout.Footer>
+      <Text>Footer content</Text>
+    </SplitPageLayout.Footer>
+  </SplitPageLayout>
+)
+
+export const SidebarFullscreenWhenNarrow: StoryFn<typeof SplitPageLayout> = () => (
+  <SplitPageLayout>
+    <SplitPageLayout.Sidebar position="start" whenNarrow="fullscreen" aria-label="Fullscreen sidebar">
+      <div className={classes.SidebarContent}>
+        <Text className={classes.SidebarHeading}>Fullscreen on Narrow</Text>
+        <Text className={classes.SidebarText}>
+          Resize the viewport below 768px to see this sidebar expand to fill the entire screen.
+        </Text>
+      </div>
+    </SplitPageLayout.Sidebar>
+    <SplitPageLayout.Header>
+      <Heading as="h1">Page Title</Heading>
+    </SplitPageLayout.Header>
+    <SplitPageLayout.Content>
+      <Heading as="h2" className={classes.SectionHeading}>
+        Main Content
+      </Heading>
+      <Text>This content is hidden behind the sidebar at narrow viewports.</Text>
+    </SplitPageLayout.Content>
+    <SplitPageLayout.Footer>
+      <Text>Footer content</Text>
+    </SplitPageLayout.Footer>
+  </SplitPageLayout>
+)
