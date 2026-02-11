@@ -361,22 +361,26 @@ export const WithCustomPaneHeading: StoryFn = () => (
   </PageLayout>
 )
 
-export const ResizablePaneWithoutPersistence: StoryFn = () => (
-  <PageLayout>
-    <PageLayout.Header>
-      <Placeholder height={64} label="Header" />
-    </PageLayout.Header>
-    <PageLayout.Pane resizable aria-label="Side pane">
-      <Placeholder height={320} label="Pane (resizable, not persisted)" />
-    </PageLayout.Pane>
-    <PageLayout.Content>
-      <Placeholder height={640} label="Content" />
-    </PageLayout.Content>
-    <PageLayout.Footer>
-      <Placeholder height={64} label="Footer" />
-    </PageLayout.Footer>
-  </PageLayout>
-)
+export const ResizablePaneWithoutPersistence: StoryFn = () => {
+  const [currentWidth, setCurrentWidth] = React.useState<number>(defaultPaneWidth.medium)
+
+  return (
+    <PageLayout>
+      <PageLayout.Header>
+        <Placeholder height={64} label="Header" />
+      </PageLayout.Header>
+      <PageLayout.Pane resizable currentWidth={currentWidth} onResizeEnd={setCurrentWidth} aria-label="Side pane">
+        <Placeholder height={320} label={`Pane (resizable, not persisted, width: ${currentWidth}px)`} />
+      </PageLayout.Pane>
+      <PageLayout.Content>
+        <Placeholder height={640} label="Content" />
+      </PageLayout.Content>
+      <PageLayout.Footer>
+        <Placeholder height={64} label="Footer" />
+      </PageLayout.Footer>
+    </PageLayout>
+  )
+}
 ResizablePaneWithoutPersistence.storyName = 'Resizable pane without persistence'
 
 export const ResizablePaneWithCustomPersistence: StoryFn = () => {

@@ -419,7 +419,7 @@ export function usePaneWidth({
       endResizeOptimizations()
       window.removeEventListener('resize', handleResize)
     }
-  }, [resizable, customMaxWidth, minPaneWidth, paneRef, handleRef])
+  }, [resizable, customMaxWidth, minPaneWidth, paneRef, handleRef, contentWrapperRef])
 
   return {
     currentWidth,
