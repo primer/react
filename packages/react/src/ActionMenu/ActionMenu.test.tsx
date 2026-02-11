@@ -1,4 +1,4 @@
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi, beforeEach} from 'vitest'
 import {render as HTMLRender, waitFor, act, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import type React from 'react'
@@ -9,11 +9,34 @@ import {Tooltip as TooltipV2} from '../TooltipV2/Tooltip'
 import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
 import {MixedSelection} from '../ActionMenu/ActionMenu.examples.stories'
 import {SearchIcon, KebabHorizontalIcon} from '@primer/octicons-react'
+import {getAnchoredPosition} from '@primer/behaviors'
+import type {AnchorPosition} from '@primer/behaviors'
 
 import type {JSX} from 'react'
 import {implementsClassName} from '../utils/testing'
 import {FeatureFlags} from '../FeatureFlags'
 import Portal from '../Portal'
+
+// Mock getAnchoredPosition for feature flag tests
+vi.mock('@primer/behaviors', async () => {
+  const actual = await vi.importActual('@primer/behaviors')
+  return {
+    ...actual,
+    getAnchoredPosition: vi.fn(
+      (
+        _floatingElement: Element,
+        _anchorElement: Element | DOMRect,
+        _settings?: Partial<{displayInViewport?: boolean}>,
+      ) =>
+        ({
+          top: 100,
+          left: 100,
+          anchorSide: 'outside-bottom',
+          anchorAlign: 'start',
+        }) as AnchorPosition,
+    ),
+  }
+})
 
 function Example(): JSX.Element {
   return (
@@ -816,9 +839,14 @@ describe('ActionMenu', () => {
   })
 
   describe('feature flag: primer_react_action_menu_display_in_viewport_inside_portal', () => {
-    it('should enable displayInViewport when flag is enabled and ActionMenu is inside a portal', async () => {
-      const mockOnPositionChange = vi.fn()
+    const mockGetAnchoredPosition = vi.mocked(getAnchoredPosition)
 
+    beforeEach(() => {
+      // Reset mock before each test
+      mockGetAnchoredPosition.mockClear()
+    })
+
+    it('should enable displayInViewport when flag is enabled and ActionMenu is inside a portal', async () => {
       // When the ActionMenu is wrapped in a Portal, it's inside a portal context.
       // With the flag enabled, displayInViewport should be automatically enabled.
       const component = HTMLRender(
@@ -826,7 +854,7 @@ describe('ActionMenu', () => {
           <Portal>
             <ActionMenu>
               <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
-              <ActionMenu.Overlay onPositionChange={mockOnPositionChange}>
+              <ActionMenu.Overlay>
                 <ActionList>
                   <ActionList.Item>New file</ActionList.Item>
                 </ActionList>
@@ -844,20 +872,24 @@ describe('ActionMenu', () => {
         expect(component.queryByRole('menu')).toBeInTheDocument()
       })
 
-      // Verify the menu rendered and positioning was applied
-      expect(mockOnPositionChange).toHaveBeenCalled()
+      // Verify getAnchoredPosition was called with displayInViewport: true
+      await waitFor(() => {
+        expect(mockGetAnchoredPosition).toHaveBeenCalled()
+      })
+
+      const calls = mockGetAnchoredPosition.mock.calls
+      const lastCall = calls[calls.length - 1]
+      expect(lastCall[2]?.displayInViewport).toBe(true)
     })
 
     it('should not enable displayInViewport when flag is enabled but ActionMenu is NOT inside a portal', async () => {
-      const mockOnPositionChange = vi.fn()
-
       // Without being wrapped in a Portal, the ActionMenu is not in a portal context.
-      // Even with the flag enabled, displayInViewport should remain at its default (false).
+      // Even with the flag enabled, displayInViewport should remain at its default (false/undefined).
       const component = HTMLRender(
         <FeatureFlags flags={{primer_react_action_menu_display_in_viewport_inside_portal: true}}>
           <ActionMenu>
             <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
-            <ActionMenu.Overlay onPositionChange={mockOnPositionChange}>
+            <ActionMenu.Overlay>
               <ActionList>
                 <ActionList.Item>New file</ActionList.Item>
               </ActionList>
@@ -874,21 +906,25 @@ describe('ActionMenu', () => {
         expect(component.queryByRole('menu')).toBeInTheDocument()
       })
 
-      // Verify the menu rendered correctly without displayInViewport
-      expect(mockOnPositionChange).toHaveBeenCalled()
+      // Verify getAnchoredPosition was called without displayInViewport enabled
+      await waitFor(() => {
+        expect(mockGetAnchoredPosition).toHaveBeenCalled()
+      })
+
+      const calls = mockGetAnchoredPosition.mock.calls
+      const lastCall = calls[calls.length - 1]
+      expect(lastCall[2]?.displayInViewport).not.toBe(true)
     })
 
     it('should not enable displayInViewport when flag is disabled, even inside a portal', async () => {
-      const mockOnPositionChange = vi.fn()
-
       // Even when inside a Portal, with the flag disabled, displayInViewport
-      // should remain at its default (false).
+      // should remain at its default (false/undefined).
       const component = HTMLRender(
         <FeatureFlags flags={{primer_react_action_menu_display_in_viewport_inside_portal: false}}>
           <Portal>
             <ActionMenu>
               <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
-              <ActionMenu.Overlay onPositionChange={mockOnPositionChange}>
+              <ActionMenu.Overlay>
                 <ActionList>
                   <ActionList.Item>New file</ActionList.Item>
                 </ActionList>
@@ -906,20 +942,24 @@ describe('ActionMenu', () => {
         expect(component.queryByRole('menu')).toBeInTheDocument()
       })
 
-      // Verify the menu rendered with default displayInViewport behavior
-      expect(mockOnPositionChange).toHaveBeenCalled()
+      // Verify getAnchoredPosition was called without displayInViewport enabled
+      await waitFor(() => {
+        expect(mockGetAnchoredPosition).toHaveBeenCalled()
+      })
+
+      const calls = mockGetAnchoredPosition.mock.calls
+      const lastCall = calls[calls.length - 1]
+      expect(lastCall[2]?.displayInViewport).not.toBe(true)
     })
 
     it('should not enable displayInViewport when flag is disabled and outside portal', async () => {
-      const mockOnPositionChange = vi.fn()
-
       // Default scenario: flag disabled and not in a portal context.
-      // displayInViewport should remain at its default (false).
+      // displayInViewport should remain at its default (false/undefined).
       const component = HTMLRender(
         <FeatureFlags flags={{primer_react_action_menu_display_in_viewport_inside_portal: false}}>
           <ActionMenu>
             <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
-            <ActionMenu.Overlay onPositionChange={mockOnPositionChange}>
+            <ActionMenu.Overlay>
               <ActionList>
                 <ActionList.Item>New file</ActionList.Item>
               </ActionList>
@@ -936,13 +976,17 @@ describe('ActionMenu', () => {
         expect(component.queryByRole('menu')).toBeInTheDocument()
       })
 
-      // Verify default behavior
-      expect(mockOnPositionChange).toHaveBeenCalled()
+      // Verify getAnchoredPosition was called without displayInViewport enabled
+      await waitFor(() => {
+        expect(mockGetAnchoredPosition).toHaveBeenCalled()
+      })
+
+      const calls = mockGetAnchoredPosition.mock.calls
+      const lastCall = calls[calls.length - 1]
+      expect(lastCall[2]?.displayInViewport).not.toBe(true)
     })
 
     it('should respect explicit displayInViewport prop over feature flag logic', async () => {
-      const mockOnPositionChange = vi.fn()
-
       // Test that an explicit displayInViewport=false prop overrides the automatic
       // detection, even when the flag is enabled and the ActionMenu is inside a portal.
       const component = HTMLRender(
@@ -950,7 +994,7 @@ describe('ActionMenu', () => {
           <Portal>
             <ActionMenu>
               <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
-              <ActionMenu.Overlay displayInViewport={false} onPositionChange={mockOnPositionChange}>
+              <ActionMenu.Overlay displayInViewport={false}>
                 <ActionList>
                   <ActionList.Item>New file</ActionList.Item>
                 </ActionList>
@@ -968,20 +1012,24 @@ describe('ActionMenu', () => {
         expect(component.queryByRole('menu')).toBeInTheDocument()
       })
 
-      // Verify explicit prop was respected
-      expect(mockOnPositionChange).toHaveBeenCalled()
+      // Verify getAnchoredPosition was called with displayInViewport: false (explicit override)
+      await waitFor(() => {
+        expect(mockGetAnchoredPosition).toHaveBeenCalled()
+      })
+
+      const calls = mockGetAnchoredPosition.mock.calls
+      const lastCall = calls[calls.length - 1]
+      expect(lastCall[2]?.displayInViewport).toBe(false)
     })
 
     it('should respect explicit displayInViewport=true prop even when flag is disabled', async () => {
-      const mockOnPositionChange = vi.fn()
-
       // Test that an explicit displayInViewport=true prop works regardless of
       // the flag state or portal context.
       const component = HTMLRender(
         <FeatureFlags flags={{primer_react_action_menu_display_in_viewport_inside_portal: false}}>
           <ActionMenu>
             <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
-            <ActionMenu.Overlay displayInViewport={true} onPositionChange={mockOnPositionChange}>
+            <ActionMenu.Overlay displayInViewport={true}>
               <ActionList>
                 <ActionList.Item>New file</ActionList.Item>
               </ActionList>
@@ -998,8 +1046,14 @@ describe('ActionMenu', () => {
         expect(component.queryByRole('menu')).toBeInTheDocument()
       })
 
-      // Verify explicit prop was respected
-      expect(mockOnPositionChange).toHaveBeenCalled()
+      // Verify getAnchoredPosition was called with displayInViewport: true (explicit override)
+      await waitFor(() => {
+        expect(mockGetAnchoredPosition).toHaveBeenCalled()
+      })
+
+      const calls = mockGetAnchoredPosition.mock.calls
+      const lastCall = calls[calls.length - 1]
+      expect(lastCall[2]?.displayInViewport).toBe(true)
     })
   })
 })
