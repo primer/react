@@ -340,7 +340,9 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
       focusZoneSettings={isNarrowFullscreen ? {disabled: true} : {focusOutBehavior: 'wrap'}}
       onPositionChange={onPositionChange}
       variant={variant}
-      displayInViewport={displayInViewport || (featureFlagDisplayInViewportInsidePortal && isInsidePortal)}
+      displayInViewport={
+        displayInViewport != undefined ? displayInViewport : featureFlagDisplayInViewportInsidePortal && isInsidePortal
+      }
     >
       <div
         ref={containerRef}
