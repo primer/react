@@ -130,10 +130,10 @@ describe('usePaneWidth', () => {
       expect(result.current.currentWidth).toBe(defaultPaneWidth.medium)
     })
 
-    it('should not read from localStorage when onWidthChange is provided', () => {
+    it('should not read from localStorage when onResizeEnd is provided', () => {
       localStorage.setItem('test-pane', '500')
       const refs = createMockRefs()
-      const onWidthChange = vi.fn()
+      const onResizeEnd = vi.fn()
 
       const {result} = renderHook(() =>
         usePaneWidth({
@@ -141,18 +141,18 @@ describe('usePaneWidth', () => {
           minWidth: 256,
           resizable: true,
           widthStorageKey: 'test-pane',
-          onWidthChange,
+          onResizeEnd,
           ...refs,
         }),
       )
 
-      // Should use default, not localStorage value when onWidthChange is provided
+      // Should use default, not localStorage value when onResizeEnd is provided
       expect(result.current.currentWidth).toBe(defaultPaneWidth.medium)
     })
 
-    it('should not save to localStorage when onWidthChange is provided', () => {
+    it('should not save to localStorage when onResizeEnd is provided', () => {
       const refs = createMockRefs()
-      const onWidthChange = vi.fn()
+      const onResizeEnd = vi.fn()
 
       const {result} = renderHook(() =>
         usePaneWidth({
@@ -160,7 +160,7 @@ describe('usePaneWidth', () => {
           minWidth: 256,
           resizable: true,
           widthStorageKey: 'test-pane',
-          onWidthChange,
+          onResizeEnd,
           ...refs,
         }),
       )
@@ -171,8 +171,8 @@ describe('usePaneWidth', () => {
 
       // Width state should update
       expect(result.current.currentWidth).toBe(450)
-      // onWidthChange should be called
-      expect(onWidthChange).toHaveBeenCalledWith(450)
+      // onResizeEnd should be called
+      expect(onResizeEnd).toHaveBeenCalledWith(450)
       // But localStorage should not be written
       expect(localStorage.getItem('test-pane')).toBeNull()
     })
@@ -347,8 +347,8 @@ describe('usePaneWidth', () => {
       localStorage.setItem = originalSetItem
     })
 
-    it('should call onWidthChange instead of localStorage when provided', () => {
-      const onWidthChange = vi.fn()
+    it('should call onResizeEnd instead of localStorage when provided', () => {
+      const onResizeEnd = vi.fn()
       const refs = createMockRefs()
 
       const {result} = renderHook(() =>
@@ -356,8 +356,8 @@ describe('usePaneWidth', () => {
           width: 'medium',
           minWidth: 256,
           resizable: true,
-          widthStorageKey: 'test-onWidthChange',
-          onWidthChange,
+          widthStorageKey: 'test-onResizeEnd',
+          onResizeEnd,
           ...refs,
         }),
       )
@@ -367,13 +367,13 @@ describe('usePaneWidth', () => {
       })
 
       expect(result.current.currentWidth).toBe(450)
-      expect(onWidthChange).toHaveBeenCalledWith(450)
-      // Should NOT write to localStorage when onWidthChange is provided
-      expect(localStorage.getItem('test-onWidthChange')).toBeNull()
+      expect(onResizeEnd).toHaveBeenCalledWith(450)
+      // Should NOT write to localStorage when onResizeEnd is provided
+      expect(localStorage.getItem('test-onResizeEnd')).toBeNull()
     })
 
-    it('should handle errors from onWidthChange gracefully', () => {
-      const onWidthChange = vi.fn(() => {
+    it('should handle errors from onResizeEnd gracefully', () => {
+      const onResizeEnd = vi.fn(() => {
         throw new Error('Consumer callback error')
       })
       const refs = createMockRefs()
@@ -383,8 +383,8 @@ describe('usePaneWidth', () => {
           width: 'medium',
           minWidth: 256,
           resizable: true,
-          widthStorageKey: 'test-onWidthChange-error',
-          onWidthChange,
+          widthStorageKey: 'test-onResizeEnd-error',
+          onResizeEnd,
           ...refs,
         }),
       )
@@ -395,7 +395,7 @@ describe('usePaneWidth', () => {
       })
 
       expect(result.current.currentWidth).toBe(450)
-      expect(onWidthChange).toHaveBeenCalledWith(450)
+      expect(onResizeEnd).toHaveBeenCalledWith(450)
     })
   })
 

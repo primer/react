@@ -415,7 +415,7 @@ export const ResizablePaneWithCustomPersistence: StoryFn = () => {
         width={{min: '256px', default: `${defaultPaneWidth.medium}px`, max: '600px'}}
         resizable
         currentWidth={currentWidth}
-        onWidthChange={handleWidthChange}
+        onResizeEnd={handleWidthChange}
         aria-label="Side pane"
       >
         <Placeholder height={320} label={`Pane (width: ${currentWidth}px)`} />
@@ -464,7 +464,7 @@ export const ResizablePaneWithNumberWidth: StoryFn = () => {
         width="medium"
         resizable
         currentWidth={currentWidth}
-        onWidthChange={handleWidthChange}
+        onResizeEnd={handleWidthChange}
         aria-label="Side pane"
       >
         <Placeholder height={320} label={`Pane (width: ${currentWidth}px)`} />
@@ -513,7 +513,7 @@ export const ResizablePaneWithControlledWidth: StoryFn = () => {
         width={{min: '256px', default: '296px', max: '600px'}}
         resizable
         currentWidth={currentWidth}
-        onWidthChange={handleWidthChange}
+        onResizeEnd={handleWidthChange}
         aria-label="Side pane"
       >
         <Placeholder height={320} label={`Pane (current: ${currentWidth}px)`} />

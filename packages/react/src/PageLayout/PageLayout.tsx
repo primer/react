@@ -18,7 +18,6 @@ import {
   isPaneWidth,
   ARROW_KEY_STEP,
   type PaneWidthValue,
-  type ResizableConfig,
 } from './usePaneWidth'
 import {setDraggingStyles, removeDraggingStyles} from './paneUtils'
 
@@ -576,7 +575,7 @@ Content.displayName = 'PageLayout.Content'
 // ----------------------------------------------------------------------------
 // PageLayout.Pane
 
-export type PageLayoutPaneProps = {
+export type PageLayoutPaneBaseProps = {
   position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
   /**
    * @deprecated Use the `position` prop with a responsive value instead.
@@ -596,35 +595,24 @@ export type PageLayoutPaneProps = {
   'aria-labelledby'?: string
   'aria-label'?: string
   /**
-   * The width of the pane - defines constraints and defaults only.
+   * The width of the pane.
    * - Named sizes: `'small'` | `'medium'` | `'large'`
    * - Custom object: `{min: string, default: string, max: string}`
    *
-   * For controlled width (current value), use `currentWidth` prop instead.
+   * When `resizable` is enabled, this defines the default width and constraints
+   * (min/max bounds for dragging). Use `currentWidth` to control the displayed width.
    */
   width?: PaneWidthValue
+  /**
+   * Minimum width of the pane in pixels. Only used with named `width` sizes.
+   * Ignored when `width` is a custom object (use `width.min` instead).
+   */
   minWidth?: number
   /**
-   * Current/controlled width value in pixels.
-   * When provided, this overrides the default width from the `width` prop.
-   * Use with `onWidthChange` for controlled width behavior.
+   * localStorage key used to persist the pane width across sessions.
+   * Only applies when `resizable` is `true` and no `onResizeEnd` callback is provided.
+   * @default 'paneWidth'
    */
-  currentWidth?: number
-  /**
-   * Callback fired when the pane width changes (during resize).
-   * Only called when `resizable` is enabled.
-   * When provided, this callback is used instead of any persistence mechanism.
-   * Use with `currentWidth` for controlled width behavior.
-   */
-  onWidthChange?: (width: number) => void
-  /**
-   * Enable resizable pane behavior.
-   * - `true`: Enable resizing with localStorage persistence (only if onWidthChange is not provided)
-   * - `false` or `undefined`: Disable resizing
-   *
-   * Note: When `onWidthChange` is provided, it takes precedence over localStorage persistence.
-   */
-  resizable?: ResizableConfig
   widthStorageKey?: string
   padding?: keyof typeof SPACING_MAP
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
@@ -651,6 +639,37 @@ export type PageLayoutPaneProps = {
   style?: React.CSSProperties
 }
 
+export type PageLayoutPaneProps = PageLayoutPaneBaseProps &
+  (
+    | {
+        /**
+         * Enable resizable pane behavior.
+         * When `true`, the pane may be resized by the user via drag or keyboard.
+         * Uses localStorage persistence by default unless `onResizeEnd` is provided.
+         */
+        resizable: true
+        /**
+         * Current/controlled width value in pixels.
+         * When provided, this is used as the current pane width instead of internal state.
+         * The `width` prop still defines the default used when resetting (e.g., double-click).
+         * Use with `onResizeEnd` for controlled width behavior.
+         */
+        currentWidth?: number
+        /**
+         * Callback fired when a resize operation ends (drag release or keyboard key up).
+         * When provided, this callback is used instead of localStorage persistence.
+         * Use with `currentWidth` for controlled width behavior.
+         */
+        onResizeEnd?: (width: number) => void
+      }
+    | {
+        /** Disable resizing (default). */
+        resizable?: false
+        currentWidth?: never
+        onResizeEnd?: never
+      }
+  )
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const panePositions = {
   start: REGION_ORDER.paneStart,
@@ -669,7 +688,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       width = 'medium',
       minWidth = 256,
       currentWidth: controlledWidth,
-      onWidthChange,
+      onResizeEnd,
       padding = 'none',
       resizable = false,
       widthStorageKey = 'paneWidth',
@@ -723,7 +742,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         paneRef,
         handleRef,
         contentWrapperRef,
-        onWidthChange,
+        onResizeEnd,
         currentWidth: controlledWidth,
       })
 

@@ -127,10 +127,20 @@
           "description": "When true, the pane may be resized by the user."
         },
         {
+          "name": "currentWidth",
+          "type": "number",
+          "description": "Current/controlled width value in pixels. When provided, used as the current pane width instead of internal state. The `width` prop still defines the default used when resetting (e.g., double-click). Only available when `resizable` is `true`. Use with `onResizeEnd` for controlled width behavior."
+        },
+        {
+          "name": "onResizeEnd",
+          "type": "(width: number) => void",
+          "description": "Callback fired when a resize operation ends (drag release or keyboard key up). When provided, takes precedence over localStorage persistence. Only available when `resizable` is `true`. Use with `currentWidth` for controlled width behavior."
+        },
+        {
           "name": "widthStorageKey",
           "type": "string",
           "defaultValue": "'paneWidth'",
-          "description": "Provide a key used by localStorage to persist the size of the pane on the client."
+          "description": "localStorage key used to persist the pane width across sessions. Only applies when `resizable` is `true` and no `onResizeEnd` callback is provided."
         },
         {
           "name": "sticky",

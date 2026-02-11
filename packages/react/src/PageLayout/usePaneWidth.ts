@@ -22,24 +22,17 @@ export type PaneWidth = 'small' | 'medium' | 'large'
  */
 export type PaneWidthValue = PaneWidth | CustomWidthOptions
 
-/**
- * Resizable configuration.
- * - `true`: Enable resizing (uses localStorage by default if onWidthChange not provided)
- * - `false` or `undefined`: Disable resizing
- */
-export type ResizableConfig = boolean | undefined
-
 export type UsePaneWidthOptions = {
   width: PaneWidthValue
   minWidth: number
-  resizable: ResizableConfig
+  resizable: boolean
   widthStorageKey: string
   paneRef: React.RefObject<HTMLDivElement | null>
   handleRef: React.RefObject<HTMLDivElement | null>
   contentWrapperRef: React.RefObject<HTMLDivElement | null>
-  /** Callback to notify of width changes when resizable */
-  onWidthChange?: (width: number) => void
-  /** Current/controlled width value (overrides default from width prop) */
+  /** Callback fired when a resize operation ends (drag release or keyboard key up) */
+  onResizeEnd?: (width: number) => void
+  /** Current/controlled width value in pixels (used instead of internal state; default from `width` is still used for reset) */
   currentWidth?: number
 }
 
@@ -165,8 +158,8 @@ const localStoragePersister = {
  * functions to save and reset width.
  *
  * Storage behavior:
- * - When `resizable` is `true` and `onWidthChange` is not provided: Uses localStorage
- * - When `onWidthChange` is provided: Calls the callback instead of localStorage
+ * - When `resizable` is `true` and `onResizeEnd` is not provided: Uses localStorage
+ * - When `onResizeEnd` is provided: Calls the callback instead of localStorage
  * - When `resizable` is `false` or `undefined`: Not resizable, no persistence
  */
 export function usePaneWidth({
@@ -177,7 +170,7 @@ export function usePaneWidth({
   paneRef,
   handleRef,
   contentWrapperRef,
-  onWidthChange,
+  onResizeEnd,
   currentWidth: controlledWidth,
 }: UsePaneWidthOptions): UsePaneWidthResult {
   // Derive constraints from width configuration
@@ -188,13 +181,13 @@ export function usePaneWidth({
   // Refs for stable callbacks - updated in layout effect below
   const widthStorageKeyRef = React.useRef(widthStorageKey)
   const resizableRef = React.useRef(resizable)
-  const onWidthChangeRef = React.useRef(onWidthChange)
+  const onResizeEndRef = React.useRef(onResizeEnd)
 
   // Keep refs in sync with props for stable callbacks
   useIsomorphicLayoutEffect(() => {
     resizableRef.current = resizable
     widthStorageKeyRef.current = widthStorageKey
-    onWidthChangeRef.current = onWidthChange
+    onResizeEndRef.current = onResizeEnd
   })
   // Cache the CSS variable value to avoid getComputedStyle during drag (causes layout thrashing)
   // Updated on mount and resize when breakpoints might change
@@ -212,16 +205,16 @@ export function usePaneWidth({
   // Current width for React renders (ARIA attributes). Updates go through saveWidth() or clamp on resize.
   // Priority order for initial width:
   // 1. currentWidth prop (controlled current value)
-  // 2. localStorage (if onWidthChange is not provided and resizable is true)
+  // 2. localStorage (if onResizeEnd is not provided and resizable is true)
   // 3. defaultWidth (from width prop)
   const [currentWidthState, setCurrentWidthState] = React.useState(() => {
     // Check if controlled width value is provided
     if (typeof controlledWidth === 'number') {
       return controlledWidth
     }
-    // Try localStorage if onWidthChange is not provided (default persistence behavior)
+    // Try localStorage if onResizeEnd is not provided (default persistence behavior)
     // Read directly here instead of via persister to satisfy react-hooks/refs lint rule
-    const shouldUseLocalStorage = onWidthChange === undefined && resizable === true
+    const shouldUseLocalStorage = onResizeEnd === undefined && resizable === true
     if (shouldUseLocalStorage) {
       const storedWidth = localStoragePersister.get(widthStorageKey)
       if (storedWidth !== null) {
@@ -282,10 +275,10 @@ export function usePaneWidth({
       setCurrentWidthState(value)
     })
 
-    // If onWidthChange is provided, call it instead of any persistence
-    if (onWidthChangeRef.current) {
+    // If onResizeEnd is provided, call it instead of any persistence
+    if (onResizeEndRef.current) {
       try {
-        onWidthChangeRef.current(value)
+        onResizeEndRef.current(value)
       } catch {
         // Ignore errors from consumer callback
       }
