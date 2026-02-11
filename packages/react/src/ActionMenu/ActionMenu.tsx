@@ -343,7 +343,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
       onPositionChange={onPositionChange}
       variant={variant}
       displayInViewport={
-        displayInViewport != undefined ? displayInViewport : featureFlagDisplayInViewportInsidePortal && isInsidePortal
+        displayInViewport !== undefined ? displayInViewport : featureFlagDisplayInViewportInsidePortal && isInsidePortal
       }
     >
       <div
