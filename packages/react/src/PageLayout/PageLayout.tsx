@@ -655,15 +655,15 @@ export type PageLayoutPaneProps = PageLayoutPaneBaseProps &
         /**
          * Callback fired when a resize operation ends (drag release or keyboard key up).
          * When provided, this callback is used instead of localStorage persistence.
-         * Use with `currentWidth` for controlled width behavior.
          */
         onResizeEnd: (width: number) => void
         /**
          * Current/controlled width value in pixels.
          * When provided, this is used as the current pane width instead of internal state.
          * The `width` prop still defines the default used when resetting (e.g., double-click).
+         * Pass `undefined` when the persisted value has not loaded yet (e.g., async fetch).
          */
-        currentWidth?: number
+        currentWidth: number | undefined
       }
     | {
         onResizeEnd?: never

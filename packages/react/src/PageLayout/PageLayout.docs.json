@@ -188,13 +188,13 @@
         },
         {
           "name": "currentWidth",
-          "type": "number",
-          "description": "Current/controlled width value in pixels. When provided, used as the current pane width instead of internal state. The `width` prop still defines the default used when resetting (e.g., double-click). Requires `onResizeEnd`."
+          "type": "number | undefined",
+          "description": "Current/controlled width value in pixels. Required when `onResizeEnd` is provided. Pass `undefined` when the persisted value has not loaded yet. The `width` prop still defines the default used when resetting (e.g., double-click)."
         },
         {
           "name": "onResizeEnd",
           "type": "(width: number) => void",
-          "description": "Callback fired when a resize operation ends (drag release or keyboard key up). When provided, replaces localStorage persistence. Required when `currentWidth` is provided."
+          "description": "Callback fired when a resize operation ends (drag release or keyboard key up). When provided, replaces localStorage persistence. Requires `currentWidth`."
         },
         {
           "name": "widthStorageKey",

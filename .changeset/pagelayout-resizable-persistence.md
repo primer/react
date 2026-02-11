@@ -4,12 +4,14 @@
 
 Add `currentWidth` and `onResizeEnd` props to PageLayout.Pane for controlled resizable width
 
-The `PageLayout.Pane` component now supports controlled width when `resizable` is `true`:
+The `PageLayout.Pane` component now supports controlled width:
 
-- `currentWidth` — sets the current displayed width in pixels, overriding the `width` prop's default
-- `onResizeEnd` — callback fired when a resize operation ends (pointer release or keyboard key up). When provided, it takes precedence over localStorage persistence.
+- `onResizeEnd` — callback fired when a resize operation ends (pointer release or keyboard key up). Replaces localStorage persistence. Requires `currentWidth`.
+- `currentWidth` — sets the current displayed width in pixels (`number | undefined`). Pass `undefined` when the persisted value hasn't loaded yet. Requires `onResizeEnd`.
 
-These props are only available when `resizable={true}` (enforced by TypeScript).
+Both props must be provided together (enforced by TypeScript). `resizable` remains a plain `boolean` prop.
+
+These props are only meaningful when `resizable={true}` — without it, no drag handle renders so `onResizeEnd` never fires.
 
 **New export:**
 
@@ -34,10 +36,10 @@ const [width, setWidth] = useState(defaultPaneWidth.medium)
   }}
 />
 
-// Controlled width without persistence
+// Async load — pass undefined until value is fetched
 <PageLayout.Pane
   resizable
-  currentWidth={width}
-  onResizeEnd={setWidth}
+  currentWidth={savedWidth ?? undefined}
+  onResizeEnd={handleResizeEnd}
 />
 ```
