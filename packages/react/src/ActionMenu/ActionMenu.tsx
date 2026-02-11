@@ -256,7 +256,7 @@ const defaultVariant: ResponsiveValue<'anchored', 'anchored' | 'fullscreen'> = {
 }
 
 type MenuOverlayProps = Partial<OverlayProps> &
-  Pick<AnchoredOverlayProps, 'align' | 'side' | 'variant'> & {
+  Pick<AnchoredOverlayProps, 'align' | 'side' | 'variant' | 'displayInViewport'> & {
     /**
      * Recommended: `ActionList`
      */
@@ -268,6 +268,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
   align = 'start',
   side,
   onPositionChange,
+  displayInViewport,
   'aria-labelledby': ariaLabelledby,
   variant = defaultVariant,
   ...overlayProps
@@ -285,11 +286,24 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
   } = React.useContext(MenuContext) as MandateProps<MenuContextProps, 'anchorRef'>
 
   const containerRef = React.useRef<HTMLDivElement>(null)
-  useMenuKeyboardNavigation(open, onClose, containerRef, anchorRef, isSubmenu)
   const isNarrow = useResponsiveValue({narrow: true}, false)
-  const responsiveVariant = useResponsiveValue(variant, {regular: 'anchored', narrow: 'anchored'})
 
   const isNarrowFullscreen = !!isNarrow && variant.narrow === 'fullscreen'
+
+  const handleClose: MenuCloseHandler = React.useCallback(
+    gesture => {
+      // In narrow fullscreen mode, don't close on tab, let focus stay in the menu
+      if (isNarrowFullscreen && gesture === 'tab') {
+        return
+      }
+      onClose?.(gesture)
+    },
+    [isNarrowFullscreen, onClose],
+  )
+
+  useMenuKeyboardNavigation(open, handleClose, containerRef, anchorRef, isSubmenu)
+
+  const responsiveVariant = useResponsiveValue(variant, {regular: 'anchored', narrow: 'anchored'})
 
   // If the menu anchor is an icon button, we need to label the menu by tooltip that also labelled the anchor.
   const [anchorAriaLabelledby, setAnchorAriaLabelledby] = useState<null | string>(null)
@@ -311,13 +325,14 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
       anchorId={anchorId}
       open={open}
       onOpen={onOpen}
-      onClose={onClose}
+      onClose={handleClose}
       align={align}
       side={side ?? (isSubmenu ? 'outside-right' : 'outside-bottom')}
       overlayProps={overlayProps}
       focusZoneSettings={isNarrowFullscreen ? {disabled: true} : {focusOutBehavior: 'wrap'}}
       onPositionChange={onPositionChange}
       variant={variant}
+      displayInViewport={displayInViewport}
     >
       <div
         ref={containerRef}

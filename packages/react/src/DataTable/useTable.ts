@@ -9,6 +9,7 @@ interface TableConfig<Data extends UniqueRow> {
   data: Array<Data>
   initialSortColumn?: string | number
   initialSortDirection?: Exclude<SortDirection, 'NONE'>
+  externalSorting?: boolean
   getRowId: (rowData: Data) => string | number
 }
 
@@ -48,6 +49,7 @@ export function useTable<Data extends UniqueRow>({
   data,
   initialSortColumn,
   initialSortDirection,
+  externalSorting,
   getRowId,
 }: TableConfig<Data>): Table<Data> {
   const [rowOrder, setRowOrder] = useState(data)
@@ -131,6 +133,11 @@ export function useTable<Data extends UniqueRow>({
 
     if (header.column.sortBy === false || header.column.sortBy === undefined) {
       throw new Error(`The column for this header is not sortable`)
+    }
+
+    if (externalSorting) {
+      // Don't sort the rows if external sorting is enabled. We expect the consumer to provide new sorted data instead.
+      return
     }
 
     const sortMethod =

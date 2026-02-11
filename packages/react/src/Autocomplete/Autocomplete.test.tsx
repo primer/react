@@ -8,6 +8,7 @@ import type {AutocompleteMenuInternalProps, AutocompleteMenuItem} from '../Autoc
 import BaseStyles from '../BaseStyles'
 import {implementsClassName} from '../utils/testing'
 import classes from './AutocompleteOverlay.module.css'
+import {AutocompleteContext} from './AutocompleteContext'
 
 const mockItems = [
   {text: 'zero', id: '0'},
@@ -441,21 +442,32 @@ describe('Autocomplete', () => {
       expect(screen.getByText('Three')).toBeInTheDocument()
     })
   })
+  describe('Autocomplete.Overlay', () => {
+    implementsClassName(props => {
+      // Create a context with showMenu set to true
+      const mockContext = {
+        activeDescendantRef: {current: null},
+        autocompleteSuggestion: '',
+        id: 'test-id',
+        inputRef: {current: document.createElement('input')},
+        inputValue: '',
+        isMenuDirectlyActivated: false,
+        scrollContainerRef: {current: null},
+        selectedItemLength: 0,
+        setAutocompleteSuggestion: () => {},
+        setInputValue: () => {},
+        setIsMenuDirectlyActivated: () => {},
+        setSelectedItemLength: () => {},
+        setShowMenu: () => {},
+        showMenu: true, // Force the menu to show
+      }
 
-  // TODO: Enable once className override bug is fixed in Autocomplete.Overlay, also remember to remove from ignore list on script/check-classname-tests.mjs
-  // eslint-disable-next-line vitest/no-disabled-tests
-  describe.skip('Autocomplete.Overlay', () => {
-    implementsClassName(
-      props => (
-        <Autocomplete id="autocompleteId">
-          <Autocomplete.Input />
-          <Autocomplete.Overlay {...props} visibility="visible">
-            hi
-          </Autocomplete.Overlay>
-        </Autocomplete>
-      ),
-      classes.Overlay,
-    )
+      return (
+        <AutocompleteContext.Provider value={mockContext}>
+          <Autocomplete.Overlay {...props}>hi</Autocomplete.Overlay>
+        </AutocompleteContext.Provider>
+      )
+    }, classes.Overlay)
   })
 
   describe('null context', () => {

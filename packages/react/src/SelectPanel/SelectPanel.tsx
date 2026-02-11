@@ -118,6 +118,11 @@ interface SelectPanelBaseProps {
    */
   disableFullscreenOnNarrow?: boolean
   showSelectAll?: boolean
+  /**
+   * Set to true to allow focus to move to elements that are dynamically prepended to the container.
+   * Default is false.
+   */
+  focusPrependedElements?: boolean
 }
 
 // onCancel is optional with variant=anchored, but required with variant=modal
@@ -193,6 +198,7 @@ function Panel({
   disableFullscreenOnNarrow,
   align,
   showSelectAll = false,
+  focusPrependedElements,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -884,6 +890,7 @@ function Panel({
             }}
             fullScreenOnNarrow={usingFullScreenOnNarrow}
             className={clsx(className, classes.FilteredActionList)}
+            focusPrependedElements={focusPrependedElements}
           />
           {footer ? (
             <div className={classes.Footer}>{footer}</div>

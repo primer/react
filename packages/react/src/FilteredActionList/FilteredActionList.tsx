@@ -101,6 +101,17 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
    * If false, sets initial focus to the first item in the list when rendered, enabling keyboard navigation immediately.
    */
   setInitialFocus?: boolean
+  /**
+   * Set to true to allow focus to move to elements that are dynamically prepended to the container.
+   * Default is false.
+   */
+  focusPrependedElements?: boolean
+  /**
+   * Determines the scroll behavior of the container when an item is focused.
+   *
+   * @default 'auto'
+   */
+  scrollBehavior?: ScrollBehavior
 }
 
 export function FilteredActionList({
@@ -130,6 +141,8 @@ export function FilteredActionList({
   onActiveDescendantChanged,
   disableSelectOnHover = false,
   setInitialFocus = false,
+  focusPrependedElements,
+  scrollBehavior,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -252,27 +265,31 @@ export function FilteredActionList({
           activeDescendantFocus: inputRef,
           onActiveDescendantChanged: (current, previous, directlyActivated) => {
             activeDescendantRef.current = current
-            if (current && scrollContainerRef.current && directlyActivated) {
-              scrollIntoView(current, scrollContainerRef.current, menuScrollMargins)
+            if (current && scrollContainerRef.current && (directlyActivated || focusPrependedElements)) {
+              scrollIntoView(current, scrollContainerRef.current, {
+                ...menuScrollMargins,
+                behavior: scrollBehavior,
+              })
             }
 
             onActiveDescendantChanged?.(current, previous, directlyActivated)
           },
           focusInStrategy: setInitialFocus ? 'initial' : 'previous',
           ignoreHoverEvents: disableSelectOnHover,
+          focusPrependedElements,
         }
       : undefined,
-    [listContainerElement, usingRovingTabindex, onActiveDescendantChanged],
+    [listContainerElement, usingRovingTabindex, onActiveDescendantChanged, focusPrependedElements],
   )
 
   useEffect(() => {
     if (activeDescendantRef.current && scrollContainerRef.current) {
       scrollIntoView(activeDescendantRef.current, scrollContainerRef.current, {
         ...menuScrollMargins,
-        behavior: 'auto',
+        behavior: scrollBehavior,
       })
     }
-  }, [items, inputRef, scrollContainerRef])
+  }, [items, inputRef, scrollContainerRef, scrollBehavior])
 
   useEffect(() => {
     if (usingRovingTabindex) {
