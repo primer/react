@@ -11,12 +11,7 @@ The `PageLayout.Pane` component now supports controlled width when `resizable` i
 
 These props are only available when `resizable={true}` (enforced by TypeScript).
 
-**New types exported:**
-
-- `PaneWidth` — Type for preset width names: `'small' | 'medium' | 'large'`
-- `PaneWidthValue` — Union type for width prop: `PaneWidth | CustomWidthOptions`
-
-**New values exported:**
+**New export:**
 
 - `defaultPaneWidth` — Record of preset width values: `{small: 256, medium: 296, large: 320}`
 
