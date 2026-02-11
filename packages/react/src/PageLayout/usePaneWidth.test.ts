@@ -1109,5 +1109,3 @@ describe('constants', () => {
     expect(DEFAULT_MAX_WIDTH_DIFF).toBe(511)
   })
 })
-
-
