@@ -208,6 +208,114 @@ const VerticalDivider = memo<React.PropsWithChildren<VerticalDividerProps>>(
 
 VerticalDivider.displayName = 'VerticalDivider'
 
+type SidebarDividerProps = {
+  position: 'start' | 'end'
+  divider: 'none' | 'line'
+  resizable: boolean
+  minPaneWidth: number
+  maxPaneWidth: number
+  currentWidth: number
+  currentWidthRef: React.MutableRefObject<number | undefined>
+  handleRef: React.RefObject<HTMLDivElement>
+  sidebarRef: React.RefObject<HTMLDivElement>
+  dragStartClientXRef: React.MutableRefObject<number>
+  dragStartWidthRef: React.MutableRefObject<number>
+  dragMaxWidthRef: React.MutableRefObject<number>
+  getMaxPaneWidth: () => number
+  getDefaultWidth: () => number
+  saveWidth: (width: number) => void
+}
+
+const SidebarDivider = memo<SidebarDividerProps>(function SidebarDivider({
+  position,
+  divider,
+  resizable,
+  minPaneWidth,
+  maxPaneWidth,
+  currentWidth,
+  currentWidthRef,
+  handleRef,
+  sidebarRef,
+  dragStartClientXRef,
+  dragStartWidthRef,
+  dragMaxWidthRef,
+  getMaxPaneWidth,
+  getDefaultWidth,
+  saveWidth,
+}) {
+  const {columnGap} = React.useContext(PageLayoutContext)
+
+  return (
+    <VerticalDivider
+      variant={resizable ? 'line' : divider}
+      position={position}
+      className={classes.SidebarVerticalDivider}
+      style={
+        {
+          '--spacing': `var(--spacing-${columnGap})`,
+        } as React.CSSProperties
+      }
+    >
+      {resizable ? (
+        <DragHandle
+          handleRef={handleRef}
+          aria-valuemin={minPaneWidth}
+          aria-valuemax={maxPaneWidth}
+          aria-valuenow={currentWidth}
+          onDragStart={clientX => {
+            dragStartClientXRef.current = clientX
+            dragStartWidthRef.current = sidebarRef.current?.getBoundingClientRect().width ?? currentWidthRef.current!
+            dragMaxWidthRef.current = getMaxPaneWidth()
+          }}
+          onDrag={(value, isKeyboard) => {
+            const maxWidth = isKeyboard ? getMaxPaneWidth() : dragMaxWidthRef.current
+
+            if (isKeyboard) {
+              // For position='end': invert the delta so arrow keys feel natural
+              // ArrowRight should shrink (move divider right), ArrowLeft should expand
+              const delta = position === 'end' ? -value : value
+              const newWidth = Math.max(minPaneWidth, Math.min(maxWidth, currentWidthRef.current! + delta))
+              if (newWidth !== currentWidthRef.current) {
+                currentWidthRef.current = newWidth
+                sidebarRef.current?.style.setProperty('--pane-width', `${newWidth}px`)
+                updateAriaValues(handleRef.current, {current: newWidth, max: maxWidth})
+              }
+            } else {
+              if (sidebarRef.current) {
+                const deltaX = value - dragStartClientXRef.current
+                // For position='end': cursor moving left (negative delta) increases width
+                // For position='start': cursor moving right (positive delta) increases width
+                const directedDelta = position === 'end' ? -deltaX : deltaX
+                const newWidth = dragStartWidthRef.current + directedDelta
+
+                const clampedWidth = Math.max(minPaneWidth, Math.min(maxWidth, newWidth))
+
+                if (Math.round(clampedWidth) !== Math.round(currentWidthRef.current!)) {
+                  sidebarRef.current.style.setProperty('--pane-width', `${clampedWidth}px`)
+                  currentWidthRef.current = clampedWidth
+                  updateAriaValues(handleRef.current, {current: Math.round(clampedWidth), max: maxWidth})
+                }
+              }
+            }
+          }}
+          onDragEnd={() => {
+            saveWidth(currentWidthRef.current!)
+          }}
+          onDoubleClick={() => {
+            const resetWidth = getDefaultWidth()
+            if (sidebarRef.current) {
+              sidebarRef.current.style.setProperty('--pane-width', `${resetWidth}px`)
+              currentWidthRef.current = resetWidth
+              updateAriaValues(handleRef.current, {current: resetWidth})
+            }
+            saveWidth(resetWidth)
+          }}
+        />
+      ) : null}
+    </VerticalDivider>
+  )
+})
+
 type DragHandleProps = {
   /** Ref for imperative ARIA updates during drag */
   handleRef: React.RefObject<HTMLDivElement>
@@ -1039,6 +1147,25 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
         data-sticky={sticky || undefined}
         data-when-narrow={whenNarrow !== 'default' ? whenNarrow : undefined}
       >
+        {position === 'end' && (
+          <SidebarDivider
+            position={position}
+            divider={divider}
+            resizable={resizable}
+            minPaneWidth={minPaneWidth}
+            maxPaneWidth={maxPaneWidth}
+            currentWidth={currentWidth}
+            currentWidthRef={currentWidthRef}
+            handleRef={handleRef}
+            sidebarRef={sidebarRef}
+            dragStartClientXRef={dragStartClientXRef}
+            dragStartWidthRef={dragStartWidthRef}
+            dragMaxWidthRef={dragMaxWidthRef}
+            getMaxPaneWidth={getMaxPaneWidth}
+            getDefaultWidth={getDefaultWidth}
+            saveWidth={saveWidth}
+          />
+        )}
         <aside
           ref={sidebarRef}
           suppressHydrationWarning
@@ -1060,72 +1187,25 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
         >
           {children}
         </aside>
-        <VerticalDivider
-          variant={resizable ? 'line' : divider}
-          position={position}
-          className={classes.SidebarVerticalDivider}
-          style={
-            {
-              '--spacing': `var(--spacing-${columnGap})`,
-            } as React.CSSProperties
-          }
-        >
-          {resizable ? (
-            <DragHandle
-              handleRef={handleRef}
-              aria-valuemin={minPaneWidth}
-              aria-valuemax={maxPaneWidth}
-              aria-valuenow={currentWidth}
-              onDragStart={clientX => {
-                dragStartClientXRef.current = clientX
-                dragStartWidthRef.current =
-                  sidebarRef.current?.getBoundingClientRect().width ?? currentWidthRef.current!
-                dragMaxWidthRef.current = getMaxPaneWidth()
-              }}
-              onDrag={(value, isKeyboard) => {
-                const maxWidth = isKeyboard ? getMaxPaneWidth() : dragMaxWidthRef.current
-
-                if (isKeyboard) {
-                  const delta = value
-                  const newWidth = Math.max(minPaneWidth, Math.min(maxWidth, currentWidthRef.current! + delta))
-                  if (newWidth !== currentWidthRef.current) {
-                    currentWidthRef.current = newWidth
-                    sidebarRef.current?.style.setProperty('--pane-width', `${newWidth}px`)
-                    updateAriaValues(handleRef.current, {current: newWidth, max: maxWidth})
-                  }
-                } else {
-                  if (sidebarRef.current) {
-                    const deltaX = value - dragStartClientXRef.current
-                    // For position='end': cursor moving left (negative delta) increases width
-                    // For position='start': cursor moving right (positive delta) increases width
-                    const directedDelta = position === 'end' ? -deltaX : deltaX
-                    const newWidth = dragStartWidthRef.current + directedDelta
-
-                    const clampedWidth = Math.max(minPaneWidth, Math.min(maxWidth, newWidth))
-
-                    if (Math.round(clampedWidth) !== Math.round(currentWidthRef.current!)) {
-                      sidebarRef.current.style.setProperty('--pane-width', `${clampedWidth}px`)
-                      currentWidthRef.current = clampedWidth
-                      updateAriaValues(handleRef.current, {current: Math.round(clampedWidth), max: maxWidth})
-                    }
-                  }
-                }
-              }}
-              onDragEnd={() => {
-                saveWidth(currentWidthRef.current!)
-              }}
-              onDoubleClick={() => {
-                const resetWidth = getDefaultWidth()
-                if (sidebarRef.current) {
-                  sidebarRef.current.style.setProperty('--pane-width', `${resetWidth}px`)
-                  currentWidthRef.current = resetWidth
-                  updateAriaValues(handleRef.current, {current: resetWidth})
-                }
-                saveWidth(resetWidth)
-              }}
-            />
-          ) : null}
-        </VerticalDivider>
+        {position === 'start' && (
+          <SidebarDivider
+            position={position}
+            divider={divider}
+            resizable={resizable}
+            minPaneWidth={minPaneWidth}
+            maxPaneWidth={maxPaneWidth}
+            currentWidth={currentWidth}
+            currentWidthRef={currentWidthRef}
+            handleRef={handleRef}
+            sidebarRef={sidebarRef}
+            dragStartClientXRef={dragStartClientXRef}
+            dragStartWidthRef={dragStartWidthRef}
+            dragMaxWidthRef={dragMaxWidthRef}
+            getMaxPaneWidth={getMaxPaneWidth}
+            getDefaultWidth={getDefaultWidth}
+            saveWidth={saveWidth}
+          />
+        )}
       </div>
     )
   },
