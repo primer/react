@@ -646,13 +646,26 @@ export type PageLayoutPaneProps = PageLayoutPaneBaseProps &
          * Enable resizable pane behavior.
          * When `true`, the pane may be resized by the user via drag or keyboard.
          * Uses localStorage persistence by default unless `onResizeEnd` is provided.
+         *
+         * Note: With default localStorage persistence in SSR, the server-rendered
+         * width may differ from the stored client width, causing a brief layout
+         * shift on hydration. Use `onResizeEnd` with server-aware storage to avoid this.
+         */
+        resizable: true
+        currentWidth?: never
+        onResizeEnd?: never
+      }
+    | {
+        /**
+         * Enable resizable pane behavior with a custom resize callback.
+         * When `true`, the pane may be resized by the user via drag or keyboard.
          */
         resizable: true
         /**
          * Current/controlled width value in pixels.
          * When provided, this is used as the current pane width instead of internal state.
          * The `width` prop still defines the default used when resetting (e.g., double-click).
-         * Use with `onResizeEnd` for controlled width behavior.
+         * Requires `onResizeEnd` to persist changes.
          */
         currentWidth?: number
         /**
@@ -660,7 +673,7 @@ export type PageLayoutPaneProps = PageLayoutPaneBaseProps &
          * When provided, this callback is used instead of localStorage persistence.
          * Use with `currentWidth` for controlled width behavior.
          */
-        onResizeEnd?: (width: number) => void
+        onResizeEnd: (width: number) => void
       }
     | {
         /** Disable resizing (default). */
@@ -796,10 +809,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         />
         <div
           ref={paneRef}
-          // suppressHydrationWarning: Only needed when resizable===true (default localStorage
-          // persister). We read from localStorage during useState init to avoid resize flicker,
-          // which causes a hydration mismatch for --pane-width. Custom persisters ({save} object)
-          // and empty object ({}) don't read localStorage, so no suppression needed.
+          // Suppress hydration mismatch for --pane-width when localStorage
+          // provides a width that differs from the server-rendered default.
           suppressHydrationWarning={resizable === true}
           {...(hasOverflow ? overflowProps : {})}
           {...labelProp}

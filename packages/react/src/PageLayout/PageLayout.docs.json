@@ -184,17 +184,17 @@
           "name": "resizable",
           "type": "boolean",
           "defaultValue": "false",
-          "description": "When true, the pane may be resized by the user."
+          "description": "When true, the pane may be resized by the user. Uses localStorage persistence by default. Note: with default persistence in SSR, the server-rendered width may differ from the stored client width, causing a brief layout shift on hydration. Use `onResizeEnd` with server-aware storage to avoid this."
         },
         {
           "name": "currentWidth",
           "type": "number",
-          "description": "Current/controlled width value in pixels. When provided, used as the current pane width instead of internal state. The `width` prop still defines the default used when resetting (e.g., double-click). Only available when `resizable` is `true`. Use with `onResizeEnd` for controlled width behavior."
+          "description": "Current/controlled width value in pixels. When provided, used as the current pane width instead of internal state. The `width` prop still defines the default used when resetting (e.g., double-click). Only available when `resizable` is `true`. Requires `onResizeEnd`."
         },
         {
           "name": "onResizeEnd",
           "type": "(width: number) => void",
-          "description": "Callback fired when a resize operation ends (drag release or keyboard key up). When provided, takes precedence over localStorage persistence. Only available when `resizable` is `true`. Use with `currentWidth` for controlled width behavior."
+          "description": "Callback fired when a resize operation ends (drag release or keyboard key up). When provided, replaces localStorage persistence. Required when `currentWidth` is provided. Only available when `resizable` is `true`."
         },
         {
           "name": "widthStorageKey",

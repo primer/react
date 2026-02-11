@@ -1,5 +1,6 @@
 import React, {startTransition, useMemo} from 'react'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import {warning} from '../utils/warning'
 import cssExports from './PageLayout.module.css'
 
 // ----------------------------------------------------------------------------
@@ -173,6 +174,13 @@ export function usePaneWidth({
   onResizeEnd,
   currentWidth: controlledWidth,
 }: UsePaneWidthOptions): UsePaneWidthResult {
+  warning(
+    controlledWidth !== undefined && onResizeEnd === undefined,
+    '`currentWidth` was provided to PageLayout.Pane without `onResizeEnd`. ' +
+      '`currentWidth` requires `onResizeEnd` to persist changes. ' +
+      'Either add `onResizeEnd` or remove `currentWidth`.',
+  )
+
   // Derive constraints from width configuration
   const isCustomWidth = isCustomWidthOptions(width)
   const minPaneWidth = isCustomWidth ? parseInt(width.min, 10) : minWidth
@@ -180,12 +188,10 @@ export function usePaneWidth({
 
   // Refs for stable callbacks - updated in layout effect below
   const widthStorageKeyRef = React.useRef(widthStorageKey)
-  const resizableRef = React.useRef(resizable)
   const onResizeEndRef = React.useRef(onResizeEnd)
 
   // Keep refs in sync with props for stable callbacks
   useIsomorphicLayoutEffect(() => {
-    resizableRef.current = resizable
     widthStorageKeyRef.current = widthStorageKey
     onResizeEndRef.current = onResizeEnd
   })
@@ -268,30 +274,35 @@ export function usePaneWidth({
   // --- Callbacks ---
   const getDefaultWidth = React.useCallback(() => getDefaultPaneWidth(width), [width])
 
-  const saveWidth = React.useCallback((value: number) => {
-    currentWidthRef.current = value
-    // Visual update already done via inline styles - React state sync is non-urgent
-    startTransition(() => {
-      setCurrentWidthState(value)
-    })
+  const saveWidth = React.useCallback(
+    (value: number) => {
+      // Round to integer — sub-pixel values are meaningless for persistence and ARIA
+      const rounded = Math.round(value)
+      currentWidthRef.current = rounded
+      // Visual update already done via inline styles - React state sync is non-urgent.
+      // In controlled mode, this keeps internal state in sync as a fallback if
+      // controlledWidth is later removed (component switches to uncontrolled).
+      startTransition(() => {
+        setCurrentWidthState(rounded)
+      })
 
-    // If onResizeEnd is provided, call it instead of any persistence
-    if (onResizeEndRef.current) {
-      try {
-        onResizeEndRef.current(value)
-      } catch {
-        // Ignore errors from consumer callback
+      // If onResizeEnd is provided, call it instead of any persistence
+      if (onResizeEndRef.current) {
+        try {
+          onResizeEndRef.current(rounded)
+        } catch {
+          // Ignore errors from consumer callback
+        }
+        return
       }
-      return
-    }
 
-    const config = resizableRef.current
-
-    // Handle localStorage persistence when resizable === true
-    if (config === true) {
-      localStoragePersister.save(widthStorageKeyRef.current, value)
-    }
-  }, [])
+      // Handle localStorage persistence when resizable === true and not controlled
+      if (resizable) {
+        localStoragePersister.save(widthStorageKeyRef.current, rounded)
+      }
+    },
+    [resizable],
+  )
 
   // --- Effects ---
   // Stable ref to getMaxPaneWidth for use in resize handler without re-subscribing
@@ -303,7 +314,7 @@ export function usePaneWidth({
   // Update CSS variable, refs, and ARIA on mount and window resize.
   // Strategy: Only sync when resize stops (debounced) to avoid layout thrashing on large DOMs
   useIsomorphicLayoutEffect(() => {
-    if (!resizableRef.current) return
+    if (!resizable) return
 
     let lastViewportWidth = window.innerWidth
 
@@ -415,7 +426,7 @@ export function usePaneWidth({
       endResizeOptimizations()
       window.removeEventListener('resize', handleResize)
     }
-  }, [customMaxWidth, minPaneWidth, paneRef, handleRef])
+  }, [resizable, customMaxWidth, minPaneWidth, paneRef, handleRef])
 
   return {
     currentWidth,
