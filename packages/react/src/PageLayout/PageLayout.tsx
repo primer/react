@@ -667,7 +667,7 @@ export type PageLayoutPaneProps = PageLayoutPaneBaseProps &
          * The `width` prop still defines the default used when resetting (e.g., double-click).
          * Requires `onResizeEnd` to persist changes.
          */
-        currentWidth?: number
+        currentWidth: number | undefined
         /**
          * Callback fired when a resize operation ends (drag release or keyboard key up).
          * When provided, this callback is used instead of localStorage persistence.
