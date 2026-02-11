@@ -1003,6 +1003,87 @@ describe('usePaneWidth', () => {
       expect(result.current.getMaxPaneWidth()).toBe(400)
     })
   })
+
+  describe('resizable toggling', () => {
+    it('should preserve width when resizable changes from false to true', () => {
+      const refs = createMockRefs()
+      const {result, rerender} = renderHook(
+        ({resizable}) =>
+          usePaneWidth({
+            width: 'medium',
+            minWidth: 256,
+            resizable,
+            widthStorageKey: 'test-toggle',
+            ...refs,
+          }),
+        {initialProps: {resizable: false}},
+      )
+
+      // Starts at default width
+      expect(result.current.currentWidth).toBe(defaultPaneWidth.medium)
+
+      // Toggle to resizable — width should be preserved
+      rerender({resizable: true})
+      expect(result.current.currentWidth).toBe(defaultPaneWidth.medium)
+    })
+
+    it('should preserve resized width when resizable changes from true to false', () => {
+      const refs = createMockRefs()
+      const {result, rerender} = renderHook(
+        ({resizable}) =>
+          usePaneWidth({
+            width: 'medium',
+            minWidth: 256,
+            resizable,
+            widthStorageKey: 'test-toggle-back',
+            ...refs,
+          }),
+        {initialProps: {resizable: true}},
+      )
+
+      // Simulate a resize
+      act(() => {
+        result.current.saveWidth(400)
+      })
+      expect(result.current.currentWidth).toBe(400)
+
+      // Toggle to non-resizable — internal state preserved
+      rerender({resizable: false})
+      expect(result.current.currentWidth).toBe(400)
+
+      // Toggle back to resizable — picks up the preserved width
+      rerender({resizable: true})
+      expect(result.current.currentWidth).toBe(400)
+    })
+
+    it('should preserve controlled width across resizable toggle', () => {
+      const refs = createMockRefs()
+      const onResizeEnd = vi.fn()
+      const {result, rerender} = renderHook(
+        ({resizable, currentWidth}: {resizable: boolean; currentWidth: number | undefined}) =>
+          usePaneWidth({
+            width: 'medium',
+            minWidth: 256,
+            resizable,
+            widthStorageKey: 'test-toggle-controlled',
+            onResizeEnd,
+            currentWidth,
+            ...refs,
+          }),
+        {initialProps: {resizable: true, currentWidth: 350 as number | undefined}},
+      )
+
+      expect(result.current.currentWidth).toBe(350)
+
+      // Toggle resizable off — controlled width still drives the value
+      rerender({resizable: false, currentWidth: 350})
+      expect(result.current.currentWidth).toBe(350)
+
+      // Toggle back on
+      rerender({resizable: true, currentWidth: 350})
+      expect(result.current.currentWidth).toBe(350)
+    })
+  })
 })
 
 describe('helper functions', () => {
