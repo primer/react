@@ -168,8 +168,10 @@ describe('ActionList', () => {
 
     const descriptions = container.querySelectorAll('[data-component="ActionList.Description"]')
 
-    expect(descriptions[0]).toHaveAttribute('title', 'Simple string description')
-    expect(descriptions[1]).toHaveAttribute('title', 'Complex content')
+    // For button-semantic items, the native title is suppressed in favor of
+    // a keyboard-accessible Tooltip rendered by the parent Item.
+    expect(descriptions[0]).toHaveAttribute('title', '')
+    expect(descriptions[1]).toHaveAttribute('title', '')
     expect(descriptions[2]).not.toHaveAttribute('title')
   })
 
