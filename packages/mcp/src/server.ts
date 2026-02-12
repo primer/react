@@ -706,13 +706,7 @@ server.registerTool(
     inputSchema: {
       surroundingText: z.string().describe('Text surrounding the image, relevant to the image.'),
       alt: z.string().describe('The alt text of the image being evaluated'),
-      image: z
-        .union([
-          z.instanceof(File).describe('The image src file being evaluated'),
-          z.url().describe('The URL of the image src being evaluated'),
-          z.string().describe('The file path of the image src being evaluated'),
-        ])
-        .describe('The image file, file path, or URL being evaluated'),
+      image: z.string().describe('The image URL or file path being evaluated'),
     },
   },
   async ({surroundingText, alt, image}) => {
