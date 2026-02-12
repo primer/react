@@ -111,12 +111,27 @@ server.registerTool(
     })
     if (!match) {
       return {
-        content: [
-          {
-            type: 'text',
-            text: `There is no component named \`${name}\` in the @primer/react package. For a full list of components, use the \`list_components\` tool.`,
-          },
-        ],
+        isError: true,
+        errorMessage: `There is no component named \`${name}\` in the @primer/react package. For a full list of components, use the \`list_components\` tool.`,
+        content: [],
+      }
+    }
+
+    const llmsUrl = new URL(`/product/components/${match.slug}/llms.txt`, 'https://primer.style')
+    const llmsResponse = await fetch(llmsUrl)
+    if (llmsResponse.ok) {
+      try {
+        const llmsText = await llmsResponse.text()
+        return {
+          content: [
+            {
+              type: 'text',
+              text: llmsText,
+            },
+          ],
+        }
+      } catch (_: unknown) {
+        // If there's an error fetching or processing the llms.txt, we fall back to the regular documentation
       }
     }
 
@@ -691,13 +706,7 @@ server.registerTool(
     inputSchema: {
       surroundingText: z.string().describe('Text surrounding the image, relevant to the image.'),
       alt: z.string().describe('The alt text of the image being evaluated'),
-      image: z
-        .union([
-          z.instanceof(File).describe('The image src file being evaluated'),
-          z.url().describe('The URL of the image src being evaluated'),
-          z.string().describe('The file path of the image src being evaluated'),
-        ])
-        .describe('The image file, file path, or URL being evaluated'),
+      image: z.string().describe('The image URL or file path being evaluated'),
     },
   },
   async ({surroundingText, alt, image}) => {
