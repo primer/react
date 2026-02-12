@@ -320,8 +320,6 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     if (!Number.isNaN(parsed)) setComputedGap(parsed)
   }, [gap])
   const moreMenuRef = useRef<HTMLLIElement>(null)
-  const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
-  const containerRef = React.useRef<HTMLUListElement>(null)
 
   useResizeObserver((resizeObserverEntries: ResizeObserverEntry[]) => {
     const navWidth = resizeObserverEntries[0].contentRect.width
