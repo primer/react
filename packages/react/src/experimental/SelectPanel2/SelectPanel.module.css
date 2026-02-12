@@ -77,12 +77,12 @@
   ul {
     overflow-y: auto;
     flex-grow: 1;
+  }
 
-    /* Allow the browser to skip rendering for off-screen items, reducing style recalc and layout costs in long lists */
-    & li {
-      content-visibility: auto;
-      contain-intrinsic-size: auto 32px;
-    }
+  /* Allow the browser to skip rendering for off-screen items, reducing style recalc and layout costs in long lists */
+  li {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 32px;
   }
 }
 
