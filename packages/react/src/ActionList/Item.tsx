@@ -41,7 +41,7 @@ function ConditionalTooltip({
     return children
   }
   return (
-    <Tooltip text={text || ''} direction="s" _privateDisableTooltip={!text}>
+    <Tooltip text={text || ''} direction="e" delay="medium" _privateDisableTooltip={!text}>
       {children}
     </Tooltip>
   )
