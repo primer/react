@@ -3,11 +3,9 @@ import React, {useState, useCallback, useRef, forwardRef, useId} from 'react'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {ActionList, type ActionListItemProps} from '../ActionList'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
-import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useResizeObserver} from '../hooks/useResizeObserver'
 
-import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
 import type {IconButtonProps} from '../Button'
 import {IconButton} from '../Button'
 import {ActionMenu} from '../ActionMenu'
@@ -343,29 +341,6 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     [menuItemIds],
   )
 
-  const [isWidgetOpen, setIsWidgetOpen] = useState(false)
-
-  const closeOverlay = React.useCallback(() => {
-    setIsWidgetOpen(false)
-  }, [setIsWidgetOpen])
-
-  const focusOnMoreMenuBtn = React.useCallback(() => {
-    moreMenuBtnRef.current?.focus()
-  }, [])
-
-  useOnEscapePress(
-    (event: KeyboardEvent) => {
-      if (isWidgetOpen) {
-        event.preventDefault()
-        closeOverlay()
-        focusOnMoreMenuBtn()
-      }
-    },
-    [isWidgetOpen],
-  )
-
-  useOnOutsideClick({onClickOutside: closeOverlay, containerRef, ignoreClickRefs: [moreMenuBtnRef]})
-
   useFocusZone({
     containerRef: listRef,
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
@@ -416,8 +391,6 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                         <ActionList.Item
                           key={label}
                           onSelect={event => {
-                            closeOverlay()
-                            focusOnMoreMenuBtn()
                             typeof onClick === 'function' && onClick(event as React.MouseEvent<HTMLElement>)
                           }}
                           disabled={disabled}
@@ -468,8 +441,6 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                                 <ActionList.Item
                                   key={key}
                                   onSelect={event => {
-                                    closeOverlay()
-                                    focusOnMoreMenuBtn()
                                     typeof onClick === 'function' && onClick(event as React.MouseEvent<HTMLElement>)
                                   }}
                                   disabled={disabled}
