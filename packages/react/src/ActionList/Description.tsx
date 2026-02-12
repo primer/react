@@ -29,7 +29,7 @@ export const Description: FCWithSlotMarker<React.PropsWithChildren<ActionListDes
   style,
   ...props
 }) => {
-  const {blockDescriptionId, inlineDescriptionId} = React.useContext(ItemContext)
+  const {blockDescriptionId, inlineDescriptionId, setTruncatedText} = React.useContext(ItemContext)
   const containerRef = React.useRef<HTMLDivElement>(null)
   const [computedTitle, setComputedTitle] = React.useState<string>('')
 
@@ -42,6 +42,29 @@ export const Description: FCWithSlotMarker<React.PropsWithChildren<ActionListDes
   }, [truncate, props.children])
 
   const effectiveTitle = typeof props.children === 'string' ? props.children : computedTitle
+
+  // Detect truncation and signal to parent Item for Tooltip
+  React.useEffect(() => {
+    if (!truncate || !containerRef.current || !setTruncatedText) return
+
+    function isContentTruncated() {
+      const el = containerRef.current
+      if (!el) return false
+      return el.scrollWidth > el.clientWidth
+    }
+
+    // Check initially
+    setTruncatedText(isContentTruncated() ? effectiveTitle : undefined)
+
+    const observer = new ResizeObserver(() => {
+      setTruncatedText(isContentTruncated() ? effectiveTitle : undefined)
+    })
+    observer.observe(containerRef.current)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [truncate, effectiveTitle, setTruncatedText])
 
   if (variant === 'block' || !truncate) {
     return (
@@ -61,7 +84,7 @@ export const Description: FCWithSlotMarker<React.PropsWithChildren<ActionListDes
         id={inlineDescriptionId}
         className={clsx(className, classes.Description)}
         style={style}
-        title={effectiveTitle}
+        title={setTruncatedText ? '' : effectiveTitle}
         inline={true}
         maxWidth="100%"
         data-component="ActionList.Description"
