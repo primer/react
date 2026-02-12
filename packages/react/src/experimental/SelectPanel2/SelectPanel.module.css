@@ -79,8 +79,10 @@
     flex-grow: 1;
   }
 
-  /* Allow the browser to skip rendering for off-screen items, reducing style recalc and layout costs in long lists */
-  li {
+  /* Allow the browser to skip rendering for off-screen items, reducing style recalc and layout costs in long lists.
+     Exclude items that show the active indicator line, as content-visibility: auto applies paint containment
+     which clips the absolutely-positioned ::after pseudo-element that renders outside the item bounds. */
+  li:not(:focus, [data-is-active-descendant], [data-active]) {
     content-visibility: auto;
     contain-intrinsic-size: auto 32px;
   }
