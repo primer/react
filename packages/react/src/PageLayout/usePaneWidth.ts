@@ -110,6 +110,7 @@ export function getPaneMaxWidthDiff(paneElement: HTMLElement | null): number {
  * The CSS only defines two breakpoint-dependent values, so a simple width check is equivalent.
  */
 export function getMaxWidthDiffFromViewport(): number {
+  if (!canUseDOM) return DEFAULT_MAX_WIDTH_DIFF
   return window.innerWidth >= DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT ? WIDE_MAX_WIDTH_DIFF : DEFAULT_MAX_WIDTH_DIFF
 }
 
