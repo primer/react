@@ -792,17 +792,17 @@ describe('helper functions', () => {
 
   describe('getMaxWidthDiffFromViewport', () => {
     it('should return default value below the breakpoint', () => {
-      vi.spyOn(window, 'innerWidth', 'get').mockReturnValue(1024)
+      vi.stubGlobal('innerWidth', 1024)
       expect(getMaxWidthDiffFromViewport()).toBe(511)
     })
 
     it('should return wide value at the breakpoint', () => {
-      vi.spyOn(window, 'innerWidth', 'get').mockReturnValue(1280)
+      vi.stubGlobal('innerWidth', 1280)
       expect(getMaxWidthDiffFromViewport()).toBe(959)
     })
 
     it('should return wide value above the breakpoint', () => {
-      vi.spyOn(window, 'innerWidth', 'get').mockReturnValue(1920)
+      vi.stubGlobal('innerWidth', 1920)
       expect(getMaxWidthDiffFromViewport()).toBe(959)
     })
   })
