@@ -102,10 +102,6 @@
   background-color: var(--control-transparent-bgColor-rest);
   border-radius: var(--borderRadius-medium);
 
-  /* Allow the browser to skip rendering for off-screen items, reducing style recalc and layout costs */
-  content-visibility: auto;
-  contain-intrinsic-size: auto 32px;
-
   /* apply flex if trailing action exists as an immediate child */
   &:has(> .TrailingAction) {
     display: flex;
