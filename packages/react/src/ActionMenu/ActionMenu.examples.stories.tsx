@@ -673,7 +673,7 @@ export const InsideDialog = () => {
   ))
 
   return (
-    <FeatureFlags flags={{primer_react_action_menu_display_in_viewport_inside_portal: true}}>
+    <FeatureFlags flags={{primer_react_action_menu_display_in_viewport_inside_dialog: true}}>
       <div style={{padding: '20px'}}>
         {/* Main scrollable content */}
         <div>

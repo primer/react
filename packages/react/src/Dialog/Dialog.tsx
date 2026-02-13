@@ -228,6 +228,9 @@ const defaultPosition = {
 
 const defaultFooterButtons: Array<DialogButtonProps> = []
 
+// useful to determine whether we're inside a Dialog from a nested component
+export const DialogContext = React.createContext<{} | undefined>(undefined)
+
 const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
   const {
     title = 'Dialog',
@@ -331,7 +334,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
         )
 
   return (
-    <>
+    <DialogContext.Provider value={{}}>
       <Portal>
         <div
           ref={backdropRef}
@@ -361,7 +364,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           </div>
         </div>
       </Portal>
-    </>
+    </DialogContext.Provider>
   )
 })
 _Dialog.displayName = 'Dialog'

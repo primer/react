@@ -18,7 +18,7 @@ import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveVa
 import {isSlot} from '../utils/is-slot'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types/Slots'
 import {useFeatureFlag} from '../FeatureFlags'
-import {PortalContext} from '../Portal'
+import {DialogContext} from '../Dialog/Dialog'
 
 export type MenuCloseHandler = (
   gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab' | 'item-select' | 'arrow-left' | 'close',
@@ -321,12 +321,10 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
   }, [anchorRef])
 
   const featureFlagDisplayInViewportInsidePortal = useFeatureFlag(
-    'primer_react_action_menu_display_in_viewport_inside_portal',
+    'primer_react_action_menu_display_in_viewport_inside_dialog',
   )
 
-  const portalContext = useContext(PortalContext)
-
-  const isInsidePortal = portalContext.portalContainerName !== undefined
+  const isInsideDialog = useContext(DialogContext) !== undefined
 
   return (
     <AnchoredOverlay
@@ -343,7 +341,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
       onPositionChange={onPositionChange}
       variant={variant}
       displayInViewport={
-        displayInViewport !== undefined ? displayInViewport : featureFlagDisplayInViewportInsidePortal && isInsidePortal
+        displayInViewport !== undefined ? displayInViewport : featureFlagDisplayInViewportInsidePortal && isInsideDialog
       }
     >
       <div
