@@ -242,8 +242,23 @@ export const UnderlineNav = forwardRef(
         observer.observe(list.children[i])
       }
 
+      // ResizeObserver to detect when the list grows while icons are hidden.
+      // IO won't re-fire when all items are already fully visible and the root
+      // just gets wider, so we need RO to trigger icon retry in that scenario.
+      const resizeObserver = new ResizeObserver(() => {
+        if (!iconsVisibleRef.current && iconPhaseRef.current === 'normal') {
+          const currentWidth = list.clientWidth
+          if (currentWidth > widthWhenIconsDisabledRef.current + 20) {
+            setIconsVisible(true)
+            iconPhaseRef.current = 'trying-with-icons'
+          }
+        }
+      })
+      resizeObserver.observe(list)
+
       return () => {
         observer.disconnect()
+        resizeObserver.disconnect()
       }
     }, [validChildren, navRef])
 
