@@ -2,7 +2,6 @@ import {describe, it, expect, vi} from 'vitest'
 import {render, fireEvent, act} from '@testing-library/react'
 import React from 'react'
 import {NavList} from './NavList'
-import {FeatureFlags} from '../FeatureFlags'
 import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
 import {implementsClassName} from '../utils/testing'
 
@@ -255,21 +254,19 @@ describe('NavList.Item with NavList.SubNav', () => {
   describe('TrailingAction', () => {
     function NavListWithSubNavAndTrailingAction() {
       return (
-        <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
-          <NavList>
-            <NavList.Item href="#">
-              Item
-              <NavList.TrailingAction label="This should not be rendered" />
-              <NavList.SubNav>
-                <NavList.Item href="#">
-                  Sub Item 1
-                  <NavList.TrailingAction label="Trailing Action for Sub Item 1" />
-                </NavList.Item>
-                <NavList.Item href="#">Sub Item 2</NavList.Item>
-              </NavList.SubNav>
-            </NavList.Item>
-          </NavList>
-        </FeatureFlags>
+        <NavList>
+          <NavList.Item href="#">
+            Item
+            <NavList.TrailingAction label="This should not be rendered" />
+            <NavList.SubNav>
+              <NavList.Item href="#">
+                Sub Item 1
+                <NavList.TrailingAction label="Trailing Action for Sub Item 1" />
+              </NavList.Item>
+              <NavList.Item href="#">Sub Item 2</NavList.Item>
+            </NavList.SubNav>
+          </NavList.Item>
+        </NavList>
       )
     }
 

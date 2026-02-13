@@ -69,7 +69,7 @@ jobs:
       # Warning: we are checking out an untrusted source at this point in order
       # to push to the head pull request. Code from this checkout must not be
       # used in any of the following steps.
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.workflow_run.head_branch }}

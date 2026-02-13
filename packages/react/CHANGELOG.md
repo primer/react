@@ -1,5 +1,65 @@
 # @primer/react
 
+## 38.11.0
+
+### Minor Changes
+
+- [#7509](https://github.com/primer/react/pull/7509) [`2e563b4`](https://github.com/primer/react/commit/2e563b44ac9e671f3f7fbf4f51a9612deb019db9) Thanks [@francinelucca](https://github.com/francinelucca)! - feat: implement displayInViewport for ActionMenu and AnchoredOverlay
+
+### Patch Changes
+
+- [#7501](https://github.com/primer/react/pull/7501) [`81ab065`](https://github.com/primer/react/commit/81ab065b734a7d919fd9ce42cee1ced648160d12) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Fix PageLayout horizontal overflow by adding width constraint to ContentWrapper
+
+- [#7483](https://github.com/primer/react/pull/7483) [`fe999ca`](https://github.com/primer/react/commit/fe999ca362d21447506798a024ac8e1b8709399a) Thanks [@francinelucca](https://github.com/francinelucca)! - remove primer_react_overlay_overflow FF from the codebase
+
+## 38.10.0
+
+### Minor Changes
+
+- [#7488](https://github.com/primer/react/pull/7488) [`fe85519`](https://github.com/primer/react/commit/fe85519ff23c23294a524e2ddceef042eb3c3608) Thanks [@koesie10](https://github.com/koesie10)! - DataTable: Add `externalSorting` prop to disable client-side sorting
+
+## 38.9.0
+
+### Minor Changes
+
+- [#7472](https://github.com/primer/react/pull/7472) [`661d16f`](https://github.com/primer/react/commit/661d16f4a8afc46cae40e06299877d46864ea1c9) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - StateLabel: Add alert status variants (alertOpened, alertFixed, alertClosed, alertDismissed) with corresponding shield icons for displaying security alert states
+
+### Patch Changes
+
+- [#7471](https://github.com/primer/react/pull/7471) [`df4bd30`](https://github.com/primer/react/commit/df4bd30874275245f1300573f4f4694b0be78ad5) Thanks [@llastflowers](https://github.com/llastflowers)! - Add breakpoint to shrink gutter around dialog on very small screen heights
+
+- [#7468](https://github.com/primer/react/pull/7468) [`731fb71`](https://github.com/primer/react/commit/731fb718593ddd24cf1962c31c7746e3add54d6a) Thanks [@jonrohan](https://github.com/jonrohan)! - feat(ActionList): Optimizes CSS selector performance in ActionList by replacing expensive universal selectors (`*`) and broad `:has()` queries with targeted class selectors.
+
+## 38.8.0
+
+### Minor Changes
+
+- [#7455](https://github.com/primer/react/pull/7455) [`a86c183`](https://github.com/primer/react/commit/a86c183f5ea7add7584f895cff3027a7db35675e) Thanks [@HiroAgustin](https://github.com/HiroAgustin)! - Remove ConfirmationDialog custom renders to ensure visual parity with Dialog
+
+- [#7438](https://github.com/primer/react/pull/7438) [`160c1c4`](https://github.com/primer/react/commit/160c1c4cf1c5111dd46b68471d49733f47f524cc) Thanks [@francinelucca](https://github.com/francinelucca)! - feat: make Spinner's delay customizable
+
+- [#7436](https://github.com/primer/react/pull/7436) [`9a4e46c`](https://github.com/primer/react/commit/9a4e46cf902a5c2e046ca7771211536ae0bd08ed) Thanks [@TylerJDev](https://github.com/TylerJDev)! - FilteredActionList: Adds new prop `scrollBehavior` to allow customization of scroll behavior
+
+- [#7448](https://github.com/primer/react/pull/7448) [`838859d`](https://github.com/primer/react/commit/838859d8ee2afc2afca71a28114020a14a68b297) Thanks [@francinelucca](https://github.com/francinelucca)! - feat(SkeletonBox): add customizable delay
+
+### Patch Changes
+
+- [#7451](https://github.com/primer/react/pull/7451) [`0fc4523`](https://github.com/primer/react/commit/0fc45237ef3f912c86663817eb8983875b4c8d7e) Thanks [@daantosaurus](https://github.com/daantosaurus)! - UnderlineNav.Item: Fix layout issues when children contain React elements by extracting only direct text content for the `data-content` attribute.
+
+## 38.7.1
+
+### Patch Changes
+
+- [#7439](https://github.com/primer/react/pull/7439) [`ceb4337`](https://github.com/primer/react/commit/ceb433733de4dd19effa619b2b4e5bda129a8c6d) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Fix PageLayout whitespace gap on narrow viewports.
+
+- [#7364](https://github.com/primer/react/pull/7364) [`d239382`](https://github.com/primer/react/commit/d239382a6c6df8e97cabdb6f1be4009c2ea15d2c) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(Autocomplete.Overlay): prevent user-defined className from overriding default styles
+
+- [#7408](https://github.com/primer/react/pull/7408) [`e3592d9`](https://github.com/primer/react/commit/e3592d96e0252285dc8e70bb6e69f95199928a74) Thanks [@TylerJDev](https://github.com/TylerJDev)! - ActionMenu: Ensures that uncontrolled ActionMenu(s) retain tab-focus when fullscreen
+
+- [#7445](https://github.com/primer/react/pull/7445) [`4072e44`](https://github.com/primer/react/commit/4072e44c74056b7a4e81bd8bba276c165a71c4ba) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Fixed a bug where scroll might jump when resizing by removing content-visibility from dragging elements in PageLayout.
+
+- [#7431](https://github.com/primer/react/pull/7431) [`43d1d89`](https://github.com/primer/react/commit/43d1d89506476c0ccd5f4c4e4d59589e62715b1c) Thanks [@llastflowers](https://github.com/llastflowers)! - Fix positioning of Autocomplete overlay menu when tokens are present
+
 ## 38.7.0
 
 ### Minor Changes
