@@ -468,7 +468,7 @@ export function FilteredActionList({
                 position: 'absolute' as const,
                 top: 0,
                 left: 0,
-                width: '100%',
+                right: 0,
                 transform: `translateY(${virtualItem.start}px)`,
               }}
               {...item}
@@ -513,7 +513,6 @@ export function FilteredActionList({
             ? {
                 ...actionListProps?.style,
                 height: virtualizer.getTotalSize(),
-                width: '100%',
                 position: 'relative' as const,
               }
             : actionListProps?.style
