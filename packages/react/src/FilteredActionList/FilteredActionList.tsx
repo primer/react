@@ -353,7 +353,10 @@ export function FilteredActionList({
   )
   useScrollFlash(scrollContainerRef)
 
-  const DEFAULT_VIRTUAL_ITEM_HEIGHT = 49
+  // Matches the most common ActionList.Item height (single-line text + description).
+  // Items are measured dynamically via `measureElement`, so this only affects the
+  // initial total-height estimate before items scroll into view.
+  const DEFAULT_VIRTUAL_ITEM_HEIGHT = 32
 
   const virtualizer = useVirtualizer({
     count: items.length,
