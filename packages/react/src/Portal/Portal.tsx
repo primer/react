@@ -90,7 +90,7 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
 
   useLayoutEffect(() => {
     let containerName = _containerName ?? portalContainerName
-    if (containerName === undefined || containerName === DEFAULT_PORTAL_CONTAINER_NAME) {
+    if (containerName === undefined) {
       containerName = DEFAULT_PORTAL_CONTAINER_NAME
       ensureDefaultPortal()
     }
@@ -110,11 +110,5 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [element, _containerName, portalContainerName])
 
-  return portalContainerName ? (
-    createPortal(children, element)
-  ) : (
-    <PortalContext.Provider value={{portalContainerName: _containerName ?? DEFAULT_PORTAL_CONTAINER_NAME}}>
-      {createPortal(children, element)}
-    </PortalContext.Provider>
-  )
+  return createPortal(children, element)
 }
