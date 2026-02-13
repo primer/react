@@ -76,7 +76,7 @@ export const UnderlineNavItem = forwardRef(
   ) => {
     const backupRef = useRef<HTMLElement>(null)
     const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
-    const {loadingCounters, iconsVisible} = useContext(UnderlineNavContext)
+    const {loadingCounters} = useContext(UnderlineNavContext)
 
     const keyDownHandler = React.useCallback(
       (event: React.KeyboardEvent<HTMLAnchorElement>) => {
@@ -111,7 +111,6 @@ export const UnderlineNavItem = forwardRef(
           counter={counter}
           icon={leadingVisual ?? Icon}
           loadingCounters={loadingCounters}
-          iconsVisible={iconsVisible}
           tabIndex={isHidden ? -1 : undefined}
           {...props}
         >
