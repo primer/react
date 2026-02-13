@@ -94,17 +94,6 @@ export const getDefaultPaneWidth = (w: PaneWidth | CustomWidthOptions): number =
 }
 
 /**
- * Gets the --pane-max-width-diff CSS variable value from a pane element.
- * This value is set by CSS media queries and controls the max pane width constraint.
- * Note: This calls getComputedStyle which forces layout - cache the result when possible.
- */
-export function getPaneMaxWidthDiff(paneElement: HTMLElement | null): number {
-  if (!paneElement) return DEFAULT_MAX_WIDTH_DIFF
-  const value = parseInt(getComputedStyle(paneElement).getPropertyValue('--pane-max-width-diff'), 10)
-  return value > 0 ? value : DEFAULT_MAX_WIDTH_DIFF
-}
-
-/**
  * Derives the --pane-max-width-diff value from viewport width alone.
  * Avoids the expensive getComputedStyle call that forces a synchronous layout recalc.
  * The CSS only defines two breakpoint-dependent values, so a simple width check is equivalent.
