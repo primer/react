@@ -172,6 +172,10 @@ export function FilteredActionList({
     }
   }
 
+  // Virtualization is disabled when groups are present — grouped lists render
+  // normally regardless of the `virtualized` prop.
+  const isVirtualized = virtualized && !groupMetadata?.length
+
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
   const onInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -290,7 +294,7 @@ export function FilteredActionList({
     getScrollElement: () => scrollContainerRef.current,
     estimateSize: () => DEFAULT_VIRTUAL_ITEM_HEIGHT,
     overscan: 10,
-    enabled: virtualized,
+    enabled: isVirtualized,
     getItemKey: index => {
       const item = items[index]
       return item.key ?? item.id?.toString() ?? index.toString()
@@ -298,15 +302,15 @@ export function FilteredActionList({
     measureElement: el => (el as HTMLElement).scrollHeight,
   })
 
-  const virtualItems = virtualized ? virtualizer.getVirtualItems() : undefined
+  const virtualItems = isVirtualized ? virtualizer.getVirtualItems() : undefined
 
   const virtualizedItemEntries = useMemo(() => {
-    if (!virtualized || !virtualItems) return undefined
+    if (!isVirtualized || !virtualItems) return undefined
     return virtualItems.map(virtualItem => {
       const item = items[virtualItem.index]
       return {virtualItem, item, index: virtualItem.index}
     })
-  }, [virtualized, virtualItems, items])
+  }, [isVirtualized, virtualItems, items])
 
   useFocusZone(
     !usingRovingTabindex
@@ -317,7 +321,7 @@ export function FilteredActionList({
           // 'wrap' would cycle focus within the visible window instead of reaching the
           // true end of the list. 'stop' lets the virtualizer's scrollToIndex bring
           // the correct items into view when navigating past the rendered boundaries.
-          focusOutBehavior: virtualized ? 'stop' : focusOutBehavior,
+          focusOutBehavior: isVirtualized ? 'stop' : focusOutBehavior,
           focusableElementFilter: element => {
             return !(element instanceof HTMLInputElement)
           },
@@ -325,7 +329,7 @@ export function FilteredActionList({
           onActiveDescendantChanged: (current, previous, directlyActivated) => {
             activeDescendantRef.current = current
 
-            if (virtualized && current) {
+            if (isVirtualized && current) {
               const index = current.getAttribute('data-index')
               const range = virtualizer.range
               if (index !== null && range && (Number(index) < range.startIndex || Number(index) >= range.endIndex)) {
@@ -347,7 +351,7 @@ export function FilteredActionList({
           focusPrependedElements,
         }
       : undefined,
-    [listContainerElement, usingRovingTabindex, onActiveDescendantChanged, focusPrependedElements, virtualized],
+    [listContainerElement, usingRovingTabindex, onActiveDescendantChanged, focusPrependedElements, isVirtualized],
   )
 
   useEffect(() => {
@@ -445,7 +449,7 @@ export function FilteredActionList({
         })
       }
 
-      if (virtualized && virtualizedItemEntries) {
+      if (isVirtualized && virtualizedItemEntries) {
         return virtualizedItemEntries.map(({virtualItem, item: {key: itemKey, ...item}, index}) => {
           const key = itemKey ?? item.id?.toString() ?? index.toString()
           return (
@@ -505,7 +509,7 @@ export function FilteredActionList({
         // These styles are independent of SelectPanel's `height`/`width` props, which control the
         // outer overlay dimensions, not the list content area.
         style={
-          virtualized
+          isVirtualized
             ? {
                 height: virtualizer.getTotalSize(),
                 width: '100%',
