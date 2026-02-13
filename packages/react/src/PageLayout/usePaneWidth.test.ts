@@ -5,7 +5,6 @@ import {
   isCustomWidthOptions,
   isPaneWidth,
   getDefaultPaneWidth,
-  getPaneMaxWidthDiff,
   getMaxWidthDiffFromViewport,
   updateAriaValues,
   defaultPaneWidth,
@@ -1139,26 +1138,6 @@ describe('helper functions', () => {
 
     it('should parse custom width default', () => {
       expect(getDefaultPaneWidth({min: '100px', default: '250px', max: '400px'})).toBe(250)
-    })
-  })
-
-  describe('getPaneMaxWidthDiff', () => {
-    it('should return default pane diff when element is null', () => {
-      expect(getPaneMaxWidthDiff(null)).toBe(DEFAULT_MAX_WIDTH_DIFF)
-    })
-
-    it('should return default sidebar diff when element is null and isSidebar is true', () => {
-      expect(getPaneMaxWidthDiff(null, true)).toBe(DEFAULT_SIDEBAR_MAX_WIDTH_DIFF)
-    })
-
-    it('should return default pane diff when CSS variable is not set', () => {
-      const element = document.createElement('div')
-      expect(getPaneMaxWidthDiff(element)).toBe(DEFAULT_MAX_WIDTH_DIFF)
-    })
-
-    it('should return default sidebar diff when CSS variable is not set and isSidebar is true', () => {
-      const element = document.createElement('div')
-      expect(getPaneMaxWidthDiff(element, true)).toBe(DEFAULT_SIDEBAR_MAX_WIDTH_DIFF)
     })
   })
 

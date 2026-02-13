@@ -116,20 +116,6 @@ export const getDefaultPaneWidth = (w: PaneWidthValue): number => {
 }
 
 /**
- * Gets the max-width-diff CSS variable value from a pane element.
- * For sidebars, reads --sidebar-max-width-diff (constant across viewports).
- * For panes, reads --pane-max-width-diff (changes at 1280px breakpoint).
- * Note: This calls getComputedStyle which forces layout - cache the result when possible.
- */
-export function getPaneMaxWidthDiff(paneElement: HTMLElement | null, isSidebar = false): number {
-  const defaultValue = isSidebar ? DEFAULT_SIDEBAR_MAX_WIDTH_DIFF : DEFAULT_MAX_WIDTH_DIFF
-  const cssVar = isSidebar ? '--sidebar-max-width-diff' : '--pane-max-width-diff'
-  if (!paneElement) return defaultValue
-  const value = parseInt(getComputedStyle(paneElement).getPropertyValue(cssVar), 10)
-  return value > 0 ? value : defaultValue
-}
-
-/**
  * Derives the --pane-max-width-diff value from viewport width alone.
  * Avoids the expensive getComputedStyle call that forces a synchronous layout recalc.
  * The CSS only defines two breakpoint-dependent values, so a simple width check is equivalent.
