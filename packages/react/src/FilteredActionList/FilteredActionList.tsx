@@ -285,6 +285,10 @@ export function FilteredActionList({
       ? {
           containerRef: {current: listContainerElement},
           bindKeys: FocusKeys.ArrowVertical | FocusKeys.PageUpDown,
+          // With virtualization, only a subset of items exists in the DOM at any time.
+          // 'wrap' would cycle focus within the visible window instead of reaching the
+          // true end of the list. 'stop' lets the virtualizer's scrollToIndex bring
+          // the correct items into view when navigating past the rendered boundaries.
           focusOutBehavior: virtualized ? 'stop' : focusOutBehavior,
           focusableElementFilter: element => {
             return !(element instanceof HTMLInputElement)
