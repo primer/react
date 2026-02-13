@@ -479,6 +479,11 @@ export function FilteredActionList({
         role="listbox"
         id={listId}
         className={clsx(classes.ActionList, actionListProps?.className)}
+        // When virtualized, the ActionList needs `position: relative` so that absolutely-positioned
+        // virtual items are placed correctly, and its `height` must equal the total virtual content
+        // size so the scroll container produces the right scrollbar.
+        // These styles are independent of SelectPanel's `height`/`width` props, which control the
+        // outer overlay dimensions, not the list content area.
         style={
           virtualized
             ? {
