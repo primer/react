@@ -280,6 +280,34 @@ export function FilteredActionList({
     onInputRefChanged?.(inputRef)
   }, [inputRef, onInputRefChanged])
 
+  // Matches the most common ActionList.Item height (single-line text + description).
+  // Items are measured dynamically via `measureElement`, so this only affects the
+  // initial total-height estimate before items scroll into view.
+  const DEFAULT_VIRTUAL_ITEM_HEIGHT = 32
+
+  const virtualizer = useVirtualizer({
+    count: items.length,
+    getScrollElement: () => scrollContainerRef.current,
+    estimateSize: () => DEFAULT_VIRTUAL_ITEM_HEIGHT,
+    overscan: 10,
+    enabled: virtualized,
+    getItemKey: index => {
+      const item = items[index]
+      return item.key ?? item.id?.toString() ?? index.toString()
+    },
+    measureElement: el => (el as HTMLElement).scrollHeight,
+  })
+
+  const virtualItems = virtualized ? virtualizer.getVirtualItems() : undefined
+
+  const virtualizedItemEntries = useMemo(() => {
+    if (!virtualized || !virtualItems) return undefined
+    return virtualItems.map(virtualItem => {
+      const item = items[virtualItem.index]
+      return {virtualItem, item, index: virtualItem.index}
+    })
+  }, [virtualized, virtualItems, items])
+
   useFocusZone(
     !usingRovingTabindex
       ? {
@@ -369,34 +397,6 @@ export function FilteredActionList({
     _PrivateFocusManagement,
   )
   useScrollFlash(scrollContainerRef)
-
-  // Matches the most common ActionList.Item height (single-line text + description).
-  // Items are measured dynamically via `measureElement`, so this only affects the
-  // initial total-height estimate before items scroll into view.
-  const DEFAULT_VIRTUAL_ITEM_HEIGHT = 32
-
-  const virtualizer = useVirtualizer({
-    count: items.length,
-    getScrollElement: () => scrollContainerRef.current,
-    estimateSize: () => DEFAULT_VIRTUAL_ITEM_HEIGHT,
-    overscan: 10,
-    enabled: virtualized,
-    getItemKey: index => {
-      const item = items[index]
-      return item.key ?? item.id?.toString() ?? index.toString()
-    },
-    measureElement: el => (el as HTMLElement).scrollHeight,
-  })
-
-  const virtualItems = virtualized ? virtualizer.getVirtualItems() : undefined
-
-  const virtualizedItemEntries = useMemo(() => {
-    if (!virtualized || !virtualItems) return undefined
-    return virtualItems.map(virtualItem => {
-      const item = items[virtualItem.index]
-      return {virtualItem, item, index: virtualItem.index}
-    })
-  }, [virtualized, virtualItems, items])
 
   const handleSelectAllChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
