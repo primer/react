@@ -39,12 +39,12 @@ jobs:
               repo: context.repo.repo,
               commit_sha: '${{ github.event.workflow_run.head_sha }}'
             });
-            
+
             if (response.data.length === 0) {
               core.info('No pull request found for this commit');
               return;
             }
-            
+
             const pr = response.data[0];
             core.setOutput('number', pr.number);
             core.setOutput('head_ref', pr.head.ref);
@@ -60,15 +60,15 @@ jobs:
               repo: context.repo.repo,
               run_id: ${{ github.event.workflow_run.id }}
             });
-            
+
             const lintJob = jobs.data.jobs.find(job => job.name === 'lint');
-            
+
             if (!lintJob) {
               core.info('No lint job found');
               core.setOutput('should_fix', 'false');
               return;
             }
-            
+
             if (lintJob.conclusion === 'failure') {
               core.info('Lint job failed, will attempt auto-fix');
               core.setOutput('should_fix', 'true');
