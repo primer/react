@@ -1,4 +1,4 @@
-name: Lint Auto-fix
+name: Lint and Format Auto-fix
 
 on:
   workflow_run:
@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   autofix:
-    # Only run on pull requests where lint failed
+    # Only run on pull requests where lint or format failed
     if: >
       github.event.workflow_run.event == 'pull_request' &&
       github.event.workflow_run.conclusion == 'failure'
@@ -39,19 +39,19 @@ jobs:
               repo: context.repo.repo,
               commit_sha: '${{ github.event.workflow_run.head_sha }}'
             });
-            
+
             if (response.data.length === 0) {
               core.info('No pull request found for this commit');
               return;
             }
-            
+
             const pr = response.data[0];
             core.setOutput('number', pr.number);
             core.setOutput('head_ref', pr.head.ref);
             core.setOutput('head_repo', pr.head.repo.full_name);
 
-      - name: Check if lint job failed
-        id: check_lint
+      - name: Check which jobs failed
+        id: check_jobs
         uses: actions/github-script@5c56fde4671bc2d3592fb0f2c5b5bab9ddae03b1
         with:
           script: |
@@ -60,25 +60,29 @@ jobs:
               repo: context.repo.repo,
               run_id: ${{ github.event.workflow_run.id }}
             });
-            
+
             const lintJob = jobs.data.jobs.find(job => job.name === 'lint');
-            
-            if (!lintJob) {
-              core.info('No lint job found');
-              core.setOutput('should_fix', 'false');
-              return;
-            }
-            
-            if (lintJob.conclusion === 'failure') {
+            const formatJob = jobs.data.jobs.find(job => job.name === 'format');
+
+            const lintFailed = lintJob && lintJob.conclusion === 'failure';
+            const formatFailed = formatJob && formatJob.conclusion === 'failure';
+
+            core.setOutput('lint_failed', lintFailed ? 'true' : 'false');
+            core.setOutput('format_failed', formatFailed ? 'true' : 'false');
+            core.setOutput('should_fix', (lintFailed || formatFailed) ? 'true' : 'false');
+
+            if (lintFailed) {
               core.info('Lint job failed, will attempt auto-fix');
-              core.setOutput('should_fix', 'true');
-            } else {
-              core.info('Lint job did not fail');
-              core.setOutput('should_fix', 'false');
+            }
+            if (formatFailed) {
+              core.info('Format job failed, will attempt auto-fix');
+            }
+            if (!lintFailed && !formatFailed) {
+              core.info('Neither lint nor format jobs failed');
             }
 
       - name: Checkout PR branch
-        if: steps.check_lint.outputs.should_fix == 'true' && steps.pr.outputs.head_ref != ''
+        if: steps.check_jobs.outputs.should_fix == 'true' && steps.pr.outputs.head_ref != ''
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
           repository: ${{ steps.pr.outputs.head_repo }}
@@ -87,40 +91,55 @@ jobs:
           fetch-depth: 0
 
       - name: Set up Node.js
-        if: steps.check_lint.outputs.should_fix == 'true' && steps.pr.outputs.head_ref != ''
+        if: steps.check_jobs.outputs.should_fix == 'true' && steps.pr.outputs.head_ref != ''
         uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
 
       - name: Install dependencies
-        if: steps.check_lint.outputs.should_fix == 'true' && steps.pr.outputs.head_ref != ''
+        if: steps.check_jobs.outputs.should_fix == 'true' && steps.pr.outputs.head_ref != ''
         run: npm ci
 
+      - name: Run format auto-fix
+        if: steps.check_jobs.outputs.format_failed == 'true' && steps.pr.outputs.head_ref != ''
+        run: npm run format
+
       - name: Run lint auto-fix
-        if: steps.check_lint.outputs.should_fix == 'true' && steps.pr.outputs.head_ref != ''
+        if: steps.check_jobs.outputs.lint_failed == 'true' && steps.pr.outputs.head_ref != ''
         run: |
           npm run lint:fix || true
           npm run lint:css:fix || true
-          npm run format || true
 
       - name: Commit and push changes
-        if: steps.check_lint.outputs.should_fix == 'true' && steps.pr.outputs.head_ref != ''
+        if: steps.check_jobs.outputs.should_fix == 'true' && steps.pr.outputs.head_ref != ''
         uses: stefanzweifel/git-auto-commit-action@04702edda442b2e678b25b537cec683a1493fcb9
         with:
-          commit_message: 'chore: auto-fix lint issues'
+          commit_message: 'chore: auto-fix lint and formatting issues'
           commit_user_name: 'github-actions[bot]'
           commit_user_email: 'github-actions[bot]@users.noreply.github.com'
 
       - name: Comment on PR
-        if: steps.check_lint.outputs.should_fix == 'true' && steps.pr.outputs.number != ''
+        if: steps.check_jobs.outputs.should_fix == 'true' && steps.pr.outputs.number != ''
         uses: actions/github-script@5c56fde4671bc2d3592fb0f2c5b5bab9ddae03b1
         with:
           github-token: ${{ steps.generate_token.outputs.token }}
           script: |
+            const lintFailed = '${{ steps.check_jobs.outputs.lint_failed }}' === 'true';
+            const formatFailed = '${{ steps.check_jobs.outputs.format_failed }}' === 'true';
+
+            let message = '🤖 ';
+            if (lintFailed && formatFailed) {
+              message += 'Lint and formatting issues have been automatically fixed and committed to this PR.';
+            } else if (lintFailed) {
+              message += 'Lint issues have been automatically fixed and committed to this PR.';
+            } else if (formatFailed) {
+              message += 'Formatting issues have been automatically fixed and committed to this PR.';
+            }
+
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: ${{ steps.pr.outputs.number }},
-              body: '🤖 Lint issues have been automatically fixed and committed to this PR.'
+              body: message
             });
