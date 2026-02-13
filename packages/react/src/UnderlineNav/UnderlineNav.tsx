@@ -54,9 +54,8 @@ export const UnderlineNav = forwardRef(
     const backupRef = useRef<HTMLElement>(null)
     const navRef = (forwardedRef ?? backupRef) as RefObject<HTMLElement>
     const listRef = useRef<HTMLUListElement>(null)
-    const moreMenuRef = useRef<HTMLDivElement>(null)
     const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
-    const containerRef = React.useRef<HTMLUListElement>(null)
+    const menuListRef = useRef<HTMLUListElement>(null)
     const disclosureWidgetId = useId()
 
     const [isWidgetOpen, setIsWidgetOpen] = useState(false)
@@ -262,11 +261,11 @@ export const UnderlineNav = forwardRef(
       }
     }, [validChildren, navRef])
 
-    const closeOverlay = React.useCallback(() => {
+    const closeOverlay = useCallback(() => {
       setIsWidgetOpen(false)
-    }, [setIsWidgetOpen])
+    }, [])
 
-    const focusOnMoreMenuBtn = React.useCallback(() => {
+    const focusOnMoreMenuBtn = useCallback(() => {
       moreMenuBtnRef.current?.focus()
     }, [])
 
@@ -288,7 +287,7 @@ export const UnderlineNav = forwardRef(
       [isWidgetOpen],
     )
 
-    useOnOutsideClick({onClickOutside: closeOverlay, containerRef, ignoreClickRefs: [moreMenuBtnRef]})
+    useOnOutsideClick({onClickOutside: closeOverlay, containerRef: menuListRef, ignoreClickRefs: [moreMenuBtnRef]})
 
     return (
       <UnderlineNavContext.Provider
@@ -318,7 +317,7 @@ export const UnderlineNav = forwardRef(
             })}
           </UnderlineItemList>
           {(hasOverflow || !ioReadyRef.current) && (
-            <div ref={moreMenuRef} className={clsx(classes.MoreMenuContainer, !hasOverflow && classes.MoreMenuHidden)}>
+            <div className={clsx(classes.MoreMenuContainer, !hasOverflow && classes.MoreMenuHidden)}>
               {!onlyMenuVisible && <div className={classes.Divider}></div>}
               <Button
                 ref={moreMenuBtnRef}
@@ -342,7 +341,7 @@ export const UnderlineNav = forwardRef(
               </Button>
               <ActionList
                 selectionVariant="single"
-                ref={containerRef}
+                ref={menuListRef}
                 id={disclosureWidgetId}
                 className={clsx(classes.OverflowMenu, isWidgetOpen && classes.OverflowMenuOpen)}
               >
