@@ -30,6 +30,18 @@
     },
     {
       "id": "components-pagelayout-features--with-custom-pane-heading"
+    },
+    {
+      "id": "components-pagelayout-features--resizable-pane-without-persistence"
+    },
+    {
+      "id": "components-pagelayout-features--resizable-pane-with-custom-persistence"
+    },
+    {
+      "id": "components-pagelayout-features--resizable-pane-with-number-width"
+    },
+    {
+      "id": "components-pagelayout-features--resizable-pane-with-controlled-width"
     }
   ],
   "importPath": "@primer/react",
@@ -172,13 +184,23 @@
           "name": "resizable",
           "type": "boolean",
           "defaultValue": "false",
-          "description": "When true, the pane may be resized by the user."
+          "description": "When true, the pane may be resized by the user. Uses localStorage persistence by default. Note: with default persistence in SSR, the server-rendered width may differ from the stored client width, causing a brief layout shift on hydration. Use `onResizeEnd` with server-aware storage to avoid this."
+        },
+        {
+          "name": "currentWidth",
+          "type": "number | undefined",
+          "description": "Current/controlled width value in pixels. Required when `onResizeEnd` is provided. Pass `undefined` when the persisted value has not loaded yet. The `width` prop still defines the default used when resetting (e.g., double-click)."
+        },
+        {
+          "name": "onResizeEnd",
+          "type": "(width: number) => void",
+          "description": "Callback fired when a resize operation ends (drag release or keyboard key up). When provided, replaces localStorage persistence. Requires `currentWidth`."
         },
         {
           "name": "widthStorageKey",
           "type": "string",
           "defaultValue": "'paneWidth'",
-          "description": "Provide a key used by localStorage to persist the size of the pane on the client."
+          "description": "localStorage key used to persist the pane width across sessions. Only applies when `resizable` is `true` and no `onResizeEnd` callback is provided."
         },
         {
           "name": "sticky",
