@@ -90,7 +90,9 @@ export const UnderlineNav = forwardRef(
     const disclosureWidgetId = useId()
 
     const [isWidgetOpen, setIsWidgetOpen] = useState(false)
-    const [iconsVisible, setIconsVisible] = useState<boolean>(true)
+    // Track icon visibility in a ref (not state) — toggling is done via CSS data attribute
+    // on the wrapper, avoiding React re-render cycles.
+    const iconsVisibleRef = useRef(true)
     // Index from which items overflow (-1 = no overflow).
     // All items from this index onward are clipped by CSS and duplicated in the overflow menu.
     const [overflowStartIndex, setOverflowStartIndex] = useState<number>(-1)
@@ -100,10 +102,6 @@ export const UnderlineNav = forwardRef(
     const hasOverflow = overflowStartIndex >= 0 && overflowStartIndex < validChildren.length
     // When the viewport is too narrow to show any list item. Only the dropdown is shown.
     const onlyMenuVisible = overflowStartIndex === 0
-
-    // Track iconsVisible in a ref for use inside IntersectionObserver callback (avoids stale closures)
-    const iconsVisibleRef = useRef(iconsVisible)
-    iconsVisibleRef.current = iconsVisible
 
     // Phase tracking for icon toggle to prevent infinite loops:
     // 'normal' - stable state
@@ -170,9 +168,21 @@ export const UnderlineNav = forwardRef(
     // IntersectionObserver-based overflow detection.
     // Uses CSS overflow: hidden on the list + IO to detect which items are clipped.
     // No forced reflows: IO fires asynchronously after layout.
+    // Icon toggling is done via CSS data attribute (no React re-render needed).
     useEffect(() => {
       const list = listRef.current
+      const wrapper = navRef.current
       if (!list || typeof IntersectionObserver === 'undefined') return
+
+      // Helper to toggle icon visibility via CSS data attribute on the wrapper.
+      // This avoids a React re-render cycle — the browser relayouts and IO re-fires.
+      const setIconsVisible = (visible: boolean) => {
+        iconsVisibleRef.current = visible
+        wrapper?.setAttribute('data-icons-visible', String(visible))
+      }
+
+      // Ensure the initial attribute matches the ref
+      wrapper?.setAttribute('data-icons-visible', String(iconsVisibleRef.current))
 
       // Clear visibility map on each observer setup
       visibilityMapRef.current.clear()
@@ -261,7 +271,7 @@ export const UnderlineNav = forwardRef(
       return () => {
         observer.disconnect()
       }
-    }, [validChildren, iconsVisible])
+    }, [validChildren, navRef])
 
     const closeOverlay = React.useCallback(() => {
       setIsWidgetOpen(false)
@@ -295,11 +305,17 @@ export const UnderlineNav = forwardRef(
       <UnderlineNavContext.Provider
         value={{
           loadingCounters,
-          iconsVisible,
         }}
       >
         {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
-        <UnderlineWrapper as={as} aria-label={ariaLabel} className={className} ref={navRef} data-variant={variant}>
+        <UnderlineWrapper
+          as={as}
+          aria-label={ariaLabel}
+          className={className}
+          ref={navRef}
+          data-variant={variant}
+          data-icons-visible={iconsVisibleRef.current}
+        >
           <UnderlineItemList ref={listRef} role="list" style={overflowListStyles}>
             {displayItems.map((item, index) => {
               const isOverflowing = hasOverflow && index >= overflowStartIndex
