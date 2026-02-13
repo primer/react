@@ -32,7 +32,7 @@
    Padding/margin accommodate the underline ::after pseudo-element below items. */
 .OverflowList {
   overflow: hidden;
-  flex: 1 1 0%;
+  flex: 1;
   min-width: 0;
   padding-bottom: var(--base-size-12);
   margin-bottom: calc(var(--base-size-12) * -1);
@@ -44,7 +44,7 @@
   border-left: var(--borderWidth-thin) solid var(--borderColor-muted);
   width: 1px;
   margin-right: var(--base-size-4);
-  height: 24px;
+  height: var(--base-size-24);
 }
 
 /* Dropdown overlay for the overflow menu */
@@ -82,10 +82,7 @@
   background: transparent;
   font-weight: var(--base-text-weight-normal);
   box-shadow: none;
-  padding-top: var(--base-size-4);
-  padding-bottom: var(--base-size-4);
-  padding-left: var(--base-size-8);
-  padding-right: var(--base-size-8);
+  padding: var(--base-size-4) var(--base-size-8);
 
   & > [data-component='trailingVisual'] {
     margin-left: 0;
