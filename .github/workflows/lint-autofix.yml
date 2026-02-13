@@ -48,7 +48,7 @@ jobs:
             const pr = response.data[0];
             core.setOutput('number', pr.number);
             core.setOutput('head_ref', pr.head.ref);
-            core.setOutput('head_repo', pr.head.repo.full_name);
+            core.setOutput('head_repo', pr.head.repo?.full_name || '');
 
       - name: Check which jobs failed
         id: check_jobs
