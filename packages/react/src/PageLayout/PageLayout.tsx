@@ -1109,6 +1109,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
         paneRef: sidebarRef,
         handleRef,
         contentWrapperRef: sidebarContentWrapperRef,
+        constrainToViewport: true,
       })
 
     useRefObjectAsForwardedRef(forwardRef, sidebarRef)
