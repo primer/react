@@ -17,6 +17,11 @@
     display: flex;
     flex-direction: row;
   }
+
+  /* Prevent overflow during SSR before JS calculates the overflow menu (responsive mode only) */
+  &[data-responsive='true'] {
+    overflow: hidden;
+  }
 }
 
 .ItemSeparator {

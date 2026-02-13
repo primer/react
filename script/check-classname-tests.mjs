@@ -23,6 +23,7 @@ const IGNORED_FILES = [
   'packages/react/src/__tests__/ThemeProvider.test.tsx',
   'packages/react/src/__tests__/deprecated/ActionMenu.test.tsx',
   'packages/react/src/__tests__/Caret.test.tsx',
+  'packages/react/src/Breadcrumbs/__tests__/useBreadcrumbsResponsive.test.tsx',
 ]
 
 function getAllTestFiles(dir, files = []) {
