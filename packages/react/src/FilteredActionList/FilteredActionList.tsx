@@ -122,6 +122,9 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
    *
    * Recommended for lists with more than 100 items.
    *
+   * Note: Has no effect when `groupMetadata` is provided, as grouped lists are
+   * typically small enough not to need virtualization.
+   *
    * @default false
    */
   virtualized?: boolean
@@ -159,6 +162,16 @@ export function FilteredActionList({
   virtualized = false,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
+  if (__DEV__) {
+    if (virtualized && groupMetadata?.length) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        'FilteredActionList: `virtualized` has no effect when `groupMetadata` is provided. ' +
+          'Grouped lists are rendered without virtualization.',
+      )
+    }
+  }
+
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
   const onInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
