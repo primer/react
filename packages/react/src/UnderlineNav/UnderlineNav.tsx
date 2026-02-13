@@ -12,6 +12,7 @@ import {useId} from '../hooks/useId'
 import {ActionList} from '../ActionList'
 import CounterLabel from '../CounterLabel'
 import {invariant} from '../utils/invariant'
+import {clsx} from 'clsx'
 import classes from './UnderlineNav.module.css'
 
 export type UnderlineNavProps = {
@@ -96,6 +97,9 @@ export const UnderlineNav = forwardRef(
     // Index from which items overflow (-1 = no overflow).
     // All items from this index onward are clipped by CSS and duplicated in the overflow menu.
     const [overflowStartIndex, setOverflowStartIndex] = useState<number>(-1)
+    // Tracks whether IO has completed its first determination.
+    // Before this, the More button is rendered with visibility: hidden to prevent CLS.
+    const ioReadyRef = useRef(false)
 
     const validChildren = useMemo(() => getValidChildren(children), [children])
 
@@ -205,6 +209,7 @@ export const UnderlineNav = forwardRef(
           }
 
           const hasOverflowNow = firstOverflow !== -1
+          ioReadyRef.current = true
 
           if (hasOverflowNow) {
             if (iconPhaseRef.current === 'trying-with-icons') {
@@ -311,7 +316,7 @@ export const UnderlineNav = forwardRef(
         <UnderlineWrapper
           as={as}
           aria-label={ariaLabel}
-          className={className}
+          className={clsx(className, classes.NavWrapper)}
           ref={navRef}
           data-variant={variant}
           data-icons-visible={iconsVisibleRef.current}
@@ -328,8 +333,12 @@ export const UnderlineNav = forwardRef(
               return item
             })}
           </UnderlineItemList>
-          {hasOverflow && (
-            <div ref={moreMenuRef} className={classes.MoreMenuContainer} style={{height: `${MORE_BTN_HEIGHT}px`}}>
+          {(hasOverflow || !ioReadyRef.current) && (
+            <div
+              ref={moreMenuRef}
+              className={clsx(classes.MoreMenuContainer, !hasOverflow && classes.MoreMenuHidden)}
+              style={{height: `${MORE_BTN_HEIGHT}px`}}
+            >
               {!onlyMenuVisible && <div style={dividerStyles}></div>}
               <Button
                 ref={moreMenuBtnRef}
