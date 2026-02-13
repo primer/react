@@ -694,7 +694,8 @@ describe('usePaneWidth', () => {
   })
 
   describe('on-demand max calculation', () => {
-    it('should calculate max dynamically based on current viewport', () => {
+    it('should calculate max dynamically based on current viewport', async () => {
+      vi.useFakeTimers()
       vi.stubGlobal('innerWidth', 1280)
       const refs = createMockRefs()
 
@@ -711,11 +712,18 @@ describe('usePaneWidth', () => {
       // Initial max at 1280px: 1280 - 959 (wide diff) = 321
       expect(result.current.getMaxPaneWidth()).toBe(321)
 
-      // Viewport changes (no resize event fired, so maxWidthDiffRef stays at 959)
+      // Shrink viewport (crosses 1280 breakpoint, diff switches to 511)
       vi.stubGlobal('innerWidth', 800)
+      window.dispatchEvent(new Event('resize'))
 
-      // getMaxPaneWidth reads window.innerWidth dynamically: max(256, 800 - 959) = 256
-      expect(result.current.getMaxPaneWidth()).toBe(256)
+      await act(async () => {
+        await vi.runAllTimersAsync()
+      })
+
+      // After resize: 800 - 511 = 289
+      expect(result.current.getMaxPaneWidth()).toBe(289)
+
+      vi.useRealTimers()
     })
 
     it('should return custom max regardless of viewport for custom widths', () => {
