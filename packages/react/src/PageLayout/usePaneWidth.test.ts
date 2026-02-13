@@ -129,6 +129,187 @@ describe('usePaneWidth', () => {
 
       expect(result.current.currentWidth).toBe(defaultPaneWidth.medium)
     })
+
+    it('should round legacy float values from localStorage', () => {
+      localStorage.setItem('test-pane', '296.7333984375')
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-pane',
+          ...refs,
+        }),
+      )
+
+      expect(result.current.currentWidth).toBe(297)
+    })
+
+    it('should not read from localStorage when onResizeEnd is provided', () => {
+      localStorage.setItem('test-pane', '500')
+      const refs = createMockRefs()
+      const onResizeEnd = vi.fn()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-pane',
+          onResizeEnd,
+          ...refs,
+        }),
+      )
+
+      // Should use default, not localStorage value when onResizeEnd is provided
+      expect(result.current.currentWidth).toBe(defaultPaneWidth.medium)
+    })
+
+    it('should not save to localStorage when onResizeEnd is provided', () => {
+      const refs = createMockRefs()
+      const onResizeEnd = vi.fn()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-pane',
+          onResizeEnd,
+          ...refs,
+        }),
+      )
+
+      act(() => {
+        result.current.saveWidth(450)
+      })
+
+      // Width state should update
+      expect(result.current.currentWidth).toBe(450)
+      // onResizeEnd should be called
+      expect(onResizeEnd).toHaveBeenCalledWith(450)
+      // But localStorage should not be written
+      expect(localStorage.getItem('test-pane')).toBeNull()
+    })
+
+    it('should initialize with currentWidth prop when provided', () => {
+      const refs = createMockRefs()
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-pane',
+          currentWidth: 400,
+          ...refs,
+        }),
+      )
+
+      // Should use currentWidth prop, not the default from width prop
+      expect(result.current.currentWidth).toBe(400)
+    })
+
+    it('should prefer currentWidth prop over localStorage', () => {
+      localStorage.setItem('test-pane', '350')
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-pane',
+          currentWidth: 500,
+          ...refs,
+        }),
+      )
+
+      // Should use currentWidth prop, not localStorage
+      expect(result.current.currentWidth).toBe(500)
+    })
+
+    it('should sync when currentWidth prop changes', () => {
+      const refs = createMockRefs()
+
+      const {result, rerender} = renderHook(
+        ({currentWidth}: {currentWidth?: number}) =>
+          usePaneWidth({
+            width: 'medium',
+            minWidth: 256,
+            resizable: true,
+            widthStorageKey: 'test-sync-resizable',
+            currentWidth,
+            ...refs,
+          }),
+        {initialProps: {currentWidth: 350}},
+      )
+
+      expect(result.current.currentWidth).toBe(350)
+
+      // Change currentWidth prop
+      rerender({currentWidth: 450})
+
+      expect(result.current.currentWidth).toBe(450)
+    })
+
+    it('should fall back to default when currentWidth prop is removed', () => {
+      const refs = createMockRefs()
+
+      type Props = {currentWidth?: number}
+      const {result, rerender} = renderHook(
+        ({currentWidth}: Props) =>
+          usePaneWidth({
+            width: 'medium',
+            minWidth: 256,
+            resizable: true,
+            widthStorageKey: 'test-fallback',
+            currentWidth,
+            ...refs,
+          }),
+        {initialProps: {currentWidth: 400} as Props},
+      )
+
+      expect(result.current.currentWidth).toBe(400)
+
+      // Remove currentWidth prop by not passing it
+      rerender({} as Props)
+
+      // Should fall back to default from width prop
+      expect(result.current.currentWidth).toBe(defaultPaneWidth.medium)
+    })
+
+    it('should not sync width prop default when currentWidth prop is provided', () => {
+      const refs = createMockRefs()
+      type WidthType = 'small' | 'medium' | 'large'
+
+      const {result, rerender} = renderHook(
+        ({width, currentWidth}: {width: WidthType; currentWidth: number}) =>
+          usePaneWidth({
+            width,
+            minWidth: 256,
+            resizable: true,
+            widthStorageKey: 'test-no-sync',
+            currentWidth,
+            ...refs,
+          }),
+        {
+          initialProps: {
+            width: 'medium' as WidthType,
+            currentWidth: 400,
+          },
+        },
+      )
+
+      expect(result.current.currentWidth).toBe(400)
+
+      // Change width prop (default changes from 296 to 320)
+      rerender({width: 'large', currentWidth: 400})
+
+      // Should NOT sync to new default because currentWidth prop is controlling
+      expect(result.current.currentWidth).toBe(400)
+    })
   })
 
   describe('saveWidth', () => {
@@ -181,6 +362,106 @@ describe('usePaneWidth', () => {
       expect(result.current.currentWidth).toBe(450)
 
       localStorage.setItem = originalSetItem
+    })
+
+    it('should call onResizeEnd instead of localStorage when provided', () => {
+      const onResizeEnd = vi.fn()
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-onResizeEnd',
+          onResizeEnd,
+          ...refs,
+        }),
+      )
+
+      act(() => {
+        result.current.saveWidth(450)
+      })
+
+      expect(result.current.currentWidth).toBe(450)
+      expect(onResizeEnd).toHaveBeenCalledWith(450)
+      // Should NOT write to localStorage when onResizeEnd is provided
+      expect(localStorage.getItem('test-onResizeEnd')).toBeNull()
+    })
+
+    it('should handle errors from onResizeEnd gracefully', () => {
+      const onResizeEnd = vi.fn(() => {
+        throw new Error('Consumer callback error')
+      })
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-onResizeEnd-error',
+          onResizeEnd,
+          ...refs,
+        }),
+      )
+
+      // Should not throw - state should still update
+      act(() => {
+        result.current.saveWidth(450)
+      })
+
+      expect(result.current.currentWidth).toBe(450)
+      expect(onResizeEnd).toHaveBeenCalledWith(450)
+    })
+  })
+
+  describe('width prop sync (controlled mode)', () => {
+    it('should sync internal state when width prop changes', () => {
+      const refs = createMockRefs()
+
+      const {result, rerender} = renderHook(
+        ({width}: {width: 'small' | 'medium' | 'large'}) =>
+          usePaneWidth({
+            width,
+            minWidth: 256,
+            resizable: true,
+            widthStorageKey: 'test-sync',
+            ...refs,
+          }),
+        {initialProps: {width: 'medium' as 'small' | 'medium' | 'large'}},
+      )
+
+      expect(result.current.currentWidth).toBe(defaultPaneWidth.medium)
+
+      // Change width prop
+      rerender({width: 'large'})
+
+      expect(result.current.currentWidth).toBe(defaultPaneWidth.large)
+    })
+
+    it('should sync when width changes to custom width', () => {
+      const refs = createMockRefs()
+      type WidthType = 'medium' | {min: `${number}px`; default: `${number}px`; max: `${number}px`}
+
+      const {result, rerender} = renderHook(
+        ({width}: {width: WidthType}) =>
+          usePaneWidth({
+            width,
+            minWidth: 256,
+            resizable: true,
+            widthStorageKey: 'test-sync-custom',
+            ...refs,
+          }),
+        {initialProps: {width: 'medium' as WidthType}},
+      )
+
+      expect(result.current.currentWidth).toBe(defaultPaneWidth.medium)
+
+      // Change to custom width
+      rerender({width: {min: '200px', default: '400px', max: '600px'}})
+
+      expect(result.current.currentWidth).toBe(400)
     })
   })
 
@@ -745,6 +1026,87 @@ describe('usePaneWidth', () => {
       // Viewport changes don't affect custom max
       vi.stubGlobal('innerWidth', 500)
       expect(result.current.getMaxPaneWidth()).toBe(400)
+    })
+  })
+
+  describe('resizable toggling', () => {
+    it('should preserve width when resizable changes from false to true', () => {
+      const refs = createMockRefs()
+      const {result, rerender} = renderHook(
+        ({resizable}) =>
+          usePaneWidth({
+            width: 'medium',
+            minWidth: 256,
+            resizable,
+            widthStorageKey: 'test-toggle',
+            ...refs,
+          }),
+        {initialProps: {resizable: false}},
+      )
+
+      // Starts at default width
+      expect(result.current.currentWidth).toBe(defaultPaneWidth.medium)
+
+      // Toggle to resizable — width should be preserved
+      rerender({resizable: true})
+      expect(result.current.currentWidth).toBe(defaultPaneWidth.medium)
+    })
+
+    it('should preserve resized width when resizable changes from true to false', () => {
+      const refs = createMockRefs()
+      const {result, rerender} = renderHook(
+        ({resizable}) =>
+          usePaneWidth({
+            width: 'medium',
+            minWidth: 256,
+            resizable,
+            widthStorageKey: 'test-toggle-back',
+            ...refs,
+          }),
+        {initialProps: {resizable: true}},
+      )
+
+      // Simulate a resize
+      act(() => {
+        result.current.saveWidth(400)
+      })
+      expect(result.current.currentWidth).toBe(400)
+
+      // Toggle to non-resizable — internal state preserved
+      rerender({resizable: false})
+      expect(result.current.currentWidth).toBe(400)
+
+      // Toggle back to resizable — picks up the preserved width
+      rerender({resizable: true})
+      expect(result.current.currentWidth).toBe(400)
+    })
+
+    it('should preserve controlled width across resizable toggle', () => {
+      const refs = createMockRefs()
+      const onResizeEnd = vi.fn()
+      const {result, rerender} = renderHook(
+        ({resizable, currentWidth}: {resizable: boolean; currentWidth: number | undefined}) =>
+          usePaneWidth({
+            width: 'medium',
+            minWidth: 256,
+            resizable,
+            widthStorageKey: 'test-toggle-controlled',
+            onResizeEnd,
+            currentWidth,
+            ...refs,
+          }),
+        {initialProps: {resizable: true, currentWidth: 350 as number | undefined}},
+      )
+
+      expect(result.current.currentWidth).toBe(350)
+
+      // Toggle resizable off — controlled width still drives the value
+      rerender({resizable: false, currentWidth: 350})
+      expect(result.current.currentWidth).toBe(350)
+
+      // Toggle back on
+      rerender({resizable: true, currentWidth: 350})
+      expect(result.current.currentWidth).toBe(350)
     })
   })
 })
