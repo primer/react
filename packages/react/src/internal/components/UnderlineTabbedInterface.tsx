@@ -32,12 +32,10 @@ type UnderlineWrapperProps<As extends React.ElementType> = {
   as?: As
   className?: string
   ref?: React.Ref<HTMLElement>
-  /** Indicates whether the overflow calculation is complete. When false, overflow is hidden to prevent CLS. */
 }
 
 export const UnderlineWrapper = forwardRef((props, ref) => {
   const {children, className, as: Component = 'div', ...rest} = props
-
   return (
     <Component
       className={clsx(classes.UnderlineWrapper, className)}
