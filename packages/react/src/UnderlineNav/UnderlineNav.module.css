@@ -4,6 +4,15 @@
   justify-content: space-between;
 }
 
+/* Container for the "More" button and overflow menu, positioned outside the list
+   so it is not clipped by overflow: hidden on the list. */
+.MoreMenuContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
 /* More button styles migrated from styles.ts (was moreBtnStyles) */
 .MoreButton {
   margin: 0; /* reset Safari extra margin */
