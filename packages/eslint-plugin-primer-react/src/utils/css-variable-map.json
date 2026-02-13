@@ -1,0 +1,2419 @@
+{
+  "--color-page-header-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--page-header-bgColor"
+    }
+  ],
+  "--color-diff-blob-addition-num-text": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--diffBlob-addition-fgColor-num"
+    }
+  ],
+  "--color-diff-blob-addition-fg": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--diffBlob-addition-fgColor-text"
+    }
+  ],
+  "--color-diff-blob-addition-num-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--diffBlob-addition-bgColor-num"
+    }
+  ],
+  "--color-diff-blob-addition-line-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--diffBlob-addition-bgColor-line"
+    }
+  ],
+  "--color-diff-blob-addition-word-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--diffBlob-addition-bgColor-word"
+    }
+  ],
+  "--color-diff-blob-deletion-num-text": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--diffBlob-deletion-fgColor-num"
+    }
+  ],
+  "--color-diff-blob-deletion-fg": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--diffBlob-deletion-fgColor-text"
+    }
+  ],
+  "--color-diff-blob-deletion-num-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--diffBlob-deletion-bgColor-num"
+    }
+  ],
+  "--color-diff-blob-deletion-line-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--diffBlob-deletion-bgColor-line"
+    }
+  ],
+  "--color-diff-blob-deletion-word-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--diffBlob-deletion-bgColor-word"
+    }
+  ],
+  "--color-diff-blob-hunk-num-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--diffBlob-hunk-bgColor-num"
+    }
+  ],
+  "--color-diff-blob-expander-icon": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--diffBlob-expander-iconColor"
+    }
+  ],
+  "--color-diffstat-deletion-border": [],
+  "--color-diffstat-addition-border": [],
+  "--color-diffstat-addition-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--diffStat-addition-bgColor"
+    }
+  ],
+  "--color-search-keyword-hl": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--highlight-neutral-bgColor"
+    }
+  ],
+  "--color-codemirror-text": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--codeMirror-fgColor"
+    }
+  ],
+  "--color-codemirror-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--codeMirror-bgColor"
+    }
+  ],
+  "--color-codemirror-gutters-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--codeMirror-gutters-bgColor"
+    }
+  ],
+  "--color-codemirror-guttermarker-text": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--codeMirror-gutterMarker-fgColor-default"
+    }
+  ],
+  "--color-codemirror-guttermarker-subtle-text": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--codeMirror-gutterMarker-fgColor-muted"
+    }
+  ],
+  "--color-codemirror-linenumber-text": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--codeMirror-lineNumber-fgColor"
+    }
+  ],
+  "--color-codemirror-cursor": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--codeMirror-cursor-fgColor"
+    }
+  ],
+  "--color-codemirror-selection-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--codeMirror-selection-bgColor"
+    }
+  ],
+  "--color-codemirror-activeline-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--codeMirror-activeline-bgColor"
+    }
+  ],
+  "--color-codemirror-matchingbracket-text": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--codeMirror-matchingBracket-fgColor"
+    }
+  ],
+  "--color-codemirror-lines-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--codeMirror-lines-bgColor"
+    }
+  ],
+  "--color-codemirror-syntax-comment": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--codeMirror-syntax-fgColor-comment"
+    }
+  ],
+  "--color-codemirror-syntax-constant": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--codeMirror-syntax-fgColor-constant"
+    }
+  ],
+  "--color-codemirror-syntax-entity": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--codeMirror-syntax-fgColor-entity"
+    }
+  ],
+  "--color-codemirror-syntax-keyword": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--codeMirror-syntax-fgColor-keyword"
+    }
+  ],
+  "--color-codemirror-syntax-storage": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--codeMirror-syntax-fgColor-storage"
+    }
+  ],
+  "--color-codemirror-syntax-string": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--codeMirror-syntax-fgColor-string"
+    }
+  ],
+  "--color-codemirror-syntax-support": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--codeMirror-syntax-fgColor-support"
+    }
+  ],
+  "--color-codemirror-syntax-variable": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--codeMirror-syntax-fgColor-variable"
+    }
+  ],
+  "--color-header-text": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--header-fgColor-default"
+    }
+  ],
+  "--color-header-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--header-bgColor"
+    }
+  ],
+  "--color-header-divider": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg",
+        "background",
+        "color"
+      ],
+      "replacement": "--header-borderColor-divider"
+    }
+  ],
+  "--color-header-logo": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--header-fgColor-logo"
+    }
+  ],
+  "--color-header-search-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background-color"],
+      "replacement": "--headerSearch-bgColor"
+    }
+  ],
+  "--color-header-search-border": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg"
+      ],
+      "replacement": "--headerSearch-borderColor"
+    }
+  ],
+  "--color-avatar-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--avatar-bgColor"
+    }
+  ],
+  "--color-avatar-border": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg",
+        "background",
+        "boxShadow"
+      ],
+      "replacement": "--avatar-borderColor"
+    }
+  ],
+  "--color-avatar-stack-fade": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--avatarStack-fade-bgColor-default"
+    }
+  ],
+  "--color-avatar-stack-fade-more": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--avatarStack-fade-bgColor-muted"
+    }
+  ],
+  "--color-topic-tag-border": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg"
+      ],
+      "replacement": "--topicTag-borderColor"
+    }
+  ],
+  "--color-counter-border": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg"
+      ],
+      "replacement": "--counter-borderColor"
+    }
+  ],
+  "--color-select-menu-backdrop-border": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg"
+      ],
+      "replacement": "--selectMenu-borderColor"
+    }
+  ],
+  "--color-select-menu-tap-highlight": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--control-bgColor-active"
+    }
+  ],
+  "--color-select-menu-tap-focus-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--selectMenu-bgColor-active"
+    }
+  ],
+  "--color-sidenav-selected-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--sideNav-bgColor-selected"
+    }
+  ],
+  "--color-menu-bg-active": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--menu-bgColor-active"
+    }
+  ],
+  "--color-input-disabled-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--control-bgColor-disabled"
+    }
+  ],
+  "--color-timeline-badge-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--timelineBadge-bgColor"
+    }
+  ],
+  "--color-btn-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--button-default-bgColor-rest"
+    }
+  ],
+  "--color-btn-border": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg"
+      ],
+      "replacement": "--button-default-borderColor-rest"
+    }
+  ],
+  "--color-btn-hover-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--button-default-bgColor-hover"
+    }
+  ],
+  "--color-btn-hover-border": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg"
+      ],
+      "replacement": "--button-default-borderColor-hover"
+    }
+  ],
+  "--color-btn-active-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--button-default-bgColor-active"
+    }
+  ],
+  "--color-btn-active-border": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg"
+      ],
+      "replacement": "--button-default-borderColor-active"
+    }
+  ],
+  "--color-btn-selected-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--button-default-bgColor-selected"
+    }
+  ],
+  "--color-btn-counter-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--buttonCounter-default-bgColor-rest"
+    }
+  ],
+  "--color-btn-primary-text": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--button-primary-fgColor-rest"
+    }
+  ],
+  "--color-btn-primary-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--button-primary-bgColor-rest"
+    }
+  ],
+  "--color-btn-primary-border": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg"
+      ],
+      "replacement": "--button-primary-borderColor-rest"
+    }
+  ],
+  "--color-btn-primary-hover-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--button-primary-bgColor-hover"
+    }
+  ],
+  "--color-btn-primary-hover-border": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg"
+      ],
+      "replacement": "--button-primary-borderColor-hover"
+    }
+  ],
+  "--color-btn-primary-selected-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--button-primary-bgColor-active"
+    }
+  ],
+  "--color-btn-primary-disabled-text": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--button-primary-fgColor-disabled"
+    }
+  ],
+  "--color-btn-primary-disabled-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--button-primary-bgColor-disabled"
+    }
+  ],
+  "--color-btn-primary-disabled-border": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg"
+      ],
+      "replacement": "--button-primary-borderColor-disabled"
+    }
+  ],
+  "--color-btn-primary-icon": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--button-primary-iconColor-rest"
+    }
+  ],
+  "--color-btn-primary-counter-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--buttonCounter-primary-bgColor-rest"
+    }
+  ],
+  "--color-btn-outline-text": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--button-outline-fgColor-rest"
+    }
+  ],
+  "--color-btn-outline-hover-text": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--button-outline-fgColor-hover"
+    }
+  ],
+  "--color-btn-outline-hover-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--button-outline-bgColor-hover"
+    }
+  ],
+  "--color-btn-outline-hover-border": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg"
+      ],
+      "replacement": "--button-outline-borderColor-hover"
+    }
+  ],
+  "--color-btn-outline-hover-counter-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--buttonCounter-outline-bgColor-hover"
+    }
+  ],
+  "--color-btn-outline-selected-text": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--button-outline-fgColor-active"
+    }
+  ],
+  "--color-btn-outline-selected-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--button-outline-bgColor-active"
+    }
+  ],
+  "--color-btn-outline-selected-border": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg"
+      ],
+      "replacement": "--button-outline-borderColor-active"
+    }
+  ],
+  "--color-btn-outline-disabled-text": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--button-outline-fgColor-disabled"
+    }
+  ],
+  "--color-btn-outline-disabled-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--button-outline-bgColor-disabled"
+    }
+  ],
+  "--color-btn-outline-disabled-counter-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--buttonCounter-outline-bgColor-disabled"
+    }
+  ],
+  "--color-btn-outline-counter-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--buttonCounter-outline-bgColor-rest"
+    }
+  ],
+  "--color-btn-danger-text": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--button-danger-fgColor-rest"
+    }
+  ],
+  "--color-btn-danger-hover-text": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--button-danger-fgColor-hover"
+    }
+  ],
+  "--color-btn-danger-hover-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--button-danger-bgColor-hover"
+    }
+  ],
+  "--color-btn-danger-hover-border": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg"
+      ],
+      "replacement": "--button-danger-borderColor-hover"
+    }
+  ],
+  "--color-btn-danger-hover-counter-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--buttonCounter-danger-bgColor-hover"
+    }
+  ],
+  "--color-btn-danger-selected-text": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--button-danger-fgColor-active"
+    }
+  ],
+  "--color-btn-danger-selected-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--button-danger-bgColor-active"
+    }
+  ],
+  "--color-btn-danger-selected-border": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg"
+      ],
+      "replacement": "--button-danger-borderColor-active"
+    }
+  ],
+  "--color-btn-danger-disabled-text": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--button-danger-fgColor-disabled"
+    }
+  ],
+  "--color-btn-danger-disabled-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--button-danger-bgColor-disabled"
+    }
+  ],
+  "--color-btn-danger-disabled-counter-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--buttonCounter-danger-bgColor-disabled"
+    }
+  ],
+  "--color-btn-danger-counter-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--buttonCounter-danger-bgColor-rest"
+    }
+  ],
+  "--color-btn-danger-icon": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--button-danger-iconColor-rest"
+    }
+  ],
+  "--color-btn-danger-hover-icon": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--button-danger-iconColor-hover"
+    }
+  ],
+  "--color-underlinenav-icon": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--underlineNav-iconColor-rest"
+    }
+  ],
+  "--color-underlinenav-border-hover": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg"
+      ],
+      "replacement": "--underlineNav-borderColor-hover"
+    }
+  ],
+  "--color-action-list-item-inline-divider": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg"
+      ],
+      "replacement": "--borderColor-muted"
+    }
+  ],
+  "--color-action-list-item-default-hover-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--control-transparent-bgColor-hover"
+    }
+  ],
+  "--color-action-list-item-default-hover-border": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg"
+      ],
+      "replacement": "--control-transparent-borderColor-hover"
+    }
+  ],
+  "--color-action-list-item-default-active-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--control-transparent-bgColor-active"
+    }
+  ],
+  "--color-action-list-item-default-active-border": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg"
+      ],
+      "replacement": "--control-transparent-borderColor-active"
+    }
+  ],
+  "--color-action-list-item-default-selected-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--control-transparent-bgColor-selected"
+    }
+  ],
+  "--color-action-list-item-danger-hover-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--control-danger-bgColor-hover"
+    }
+  ],
+  "--color-action-list-item-danger-active-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--control-danger-bgColor-active"
+    }
+  ],
+  "--color-action-list-item-danger-hover-text": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--control-danger-fgColor-hover"
+    }
+  ],
+  "--color-switch-track-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--controlTrack-bgColor-rest"
+    }
+  ],
+  "--color-switch-track-hover-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--controlTrack-bgColor-hover"
+    }
+  ],
+  "--color-switch-track-active-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--controlTrack-bgColor-active"
+    }
+  ],
+  "--color-switch-track-disabled-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--controlTrack-bgColor-disabled"
+    }
+  ],
+  "--color-switch-track-fg": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--controlTrack-fgColor-rest"
+    }
+  ],
+  "--color-switch-track-disabled-fg": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--controlTrack-fgColor-disabled"
+    }
+  ],
+  "--color-switch-track-border": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg"
+      ],
+      "replacement": "--controlTrack-borderColor-rest"
+    }
+  ],
+  "--color-switch-track-checked-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--control-checked-bgColor-rest"
+    }
+  ],
+  "--color-switch-track-checked-hover-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--control-checked-bgColor-hover"
+    }
+  ],
+  "--color-switch-track-checked-active-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--control-checked-bgColor-active"
+    }
+  ],
+  "--color-switch-track-checked-fg": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--control-checked-fgColor-rest"
+    }
+  ],
+  "--color-switch-track-checked-disabled-fg": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--control-checked-fgColor-disabled"
+    }
+  ],
+  "--color-switch-track-checked-border": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-transparent"
+    }
+  ],
+  "--color-switch-knob-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--controlKnob-bgColor-rest"
+    }
+  ],
+  "--color-switch-knob-disabled-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--controlKnob-bgColor-disabled"
+    }
+  ],
+  "--color-switch-knob-border": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg"
+      ],
+      "replacement": "--controlKnob-borderColor-rest"
+    }
+  ],
+  "--color-switch-knob-checked-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--controlKnob-bgColor-checked"
+    }
+  ],
+  "--color-switch-knob-checked-disabled-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--controlKnob-bgColor-disabled"
+    }
+  ],
+  "--color-switch-knob-checked-border": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg"
+      ],
+      "replacement": "--controlKnob-borderColor-checked"
+    }
+  ],
+  "--color-segmented-control-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--controlTrack-bgColor-rest"
+    }
+  ],
+  "--color-segmented-control-button-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--controlKnob-bgColor-rest"
+    }
+  ],
+  "--color-segmented-control-button-hover-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--controlTrack-bgColor-hover"
+    }
+  ],
+  "--color-segmented-control-button-active-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--controlTrack-bgColor-active"
+    }
+  ],
+  "--color-segmented-control-button-selected-border": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg"
+      ],
+      "replacement": "--controlKnob-borderColor-rest"
+    }
+  ],
+  "--color-tree-view-item-chevron-hover-bg": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--control-transparent-bgColor-hover"
+    }
+  ],
+  "--color-tree-view-item-directory-fill": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--treeViewItem-leadingVisual-bgColor-rest"
+    }
+  ],
+  "--color-canvas-default-transparent": [
+    {
+      "props": ["backgroundColor", "bg", "color"],
+      "replacement": "--bgColor-transparent"
+    },
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-transparent"
+    }
+  ],
+  "--color-fg-default": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--fgColor-default"
+    },
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--fgColor-default"
+    }
+  ],
+  "--color-fg-muted": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--fgColor-muted"
+    },
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-neutral-emphasis"
+    },
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-neutral-emphasis"
+    }
+  ],
+  "--color-fg-subtle": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--fgColor-muted"
+    },
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-neutral-emphasis"
+    }
+  ],
+  "--color-fg-on-emphasis": [
+    {
+      "props": [
+        "color",
+        "fill",
+        "caretColor",
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--fgColor-onEmphasis"
+    }
+  ],
+  "--color-canvas-default": [
+    {
+      "props": [
+        "backgroundColor",
+        "bg",
+        "background",
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "fill",
+        "stroke"
+      ],
+      "replacement": "--bgColor-default"
+    }
+  ],
+  "--color-canvas-overlay": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--overlay-bgColor"
+    }
+  ],
+  "--color-canvas-inset": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-inset"
+    }
+  ],
+  "--color-canvas-subtle": [
+    {
+      "props": [
+        "backgroundColor",
+        "bg",
+        "background",
+        "fill",
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--bgColor-muted"
+    }
+  ],
+  "--color-border-default": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "backgroundColor",
+        "bg",
+        "background",
+        "boxShadow",
+        "stroke",
+        "outline",
+        "fill"
+      ],
+      "replacement": "--borderColor-default"
+    }
+  ],
+  "--color-border-muted": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "backgroundColor",
+        "bg",
+        "background",
+        "outline",
+        "boxShadow",
+        "stroke"
+      ],
+      "replacement": "--borderColor-muted"
+    }
+  ],
+  "--color-border-subtle": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg",
+        "background",
+        "outline"
+      ],
+      "replacement": "--borderColor-muted"
+    }
+  ],
+  "--color-neutral-emphasis-plus": [
+    {
+      "props": [
+        "backgroundColor",
+        "bg",
+        "background",
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "color",
+        "stroke"
+      ],
+      "replacement": "--bgColor-emphasis"
+    }
+  ],
+  "--color-neutral-emphasis": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-neutral-emphasis"
+    },
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-neutral-emphasis"
+    },
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--fgColor-neutral"
+    }
+  ],
+  "--color-neutral-muted": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-neutral-muted"
+    },
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-neutral-muted"
+    }
+  ],
+  "--color-neutral-subtle": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-neutral-muted"
+    },
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-neutral-muted"
+    }
+  ],
+  "--color-accent-fg": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--fgColor-accent"
+    },
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-accent-emphasis"
+    },
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-accent-emphasis"
+    },
+    {
+      "props": ["outline"],
+      "replacement": "--focus-outlineColor"
+    }
+  ],
+  "--color-accent-emphasis": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-accent-emphasis"
+    },
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-accent-emphasis"
+    },
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--fgColor-accent"
+    },
+    {
+      "props": ["outline"],
+      "replacement": "--focus-outlineColor"
+    }
+  ],
+  "--color-accent-muted": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-accent-muted"
+    },
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-accent-muted"
+    }
+  ],
+  "--color-accent-subtle": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-accent-muted"
+    },
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-accent-muted"
+    }
+  ],
+  "--color-success-fg": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--fgColor-success"
+    },
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-success-emphasis"
+    },
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-success-emphasis"
+    }
+  ],
+  "--color-success-emphasis": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-success-emphasis"
+    },
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-success-emphasis"
+    },
+    {
+      "props": ["color"],
+      "replacement": "--fgColor-success"
+    }
+  ],
+  "--color-success-muted": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-success-muted"
+    },
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-success-muted"
+    }
+  ],
+  "--color-success-subtle": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-success-muted"
+    }
+  ],
+  "--color-attention-fg": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--fgColor-attention"
+    },
+    {
+      "props": ["backgroundColor", "bg", "boxShadow"],
+      "replacement": "--bgColor-attention-emphasis"
+    },
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-attention-emphasis"
+    }
+  ],
+  "--color-attention-emphasis": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-attention-emphasis"
+    },
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-attention-emphasis"
+    },
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--fgColor-attention"
+    }
+  ],
+  "--color-attention-muted": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-attention-muted"
+    }
+  ],
+  "--color-attention-subtle": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-attention-muted"
+    }
+  ],
+  "--color-severe-fg": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--fgColor-severe"
+    },
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-severe-emphasis"
+    },
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-severe-emphasis"
+    }
+  ],
+  "--color-severe-emphasis": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-severe-emphasis"
+    },
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-severe-emphasis"
+    },
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--fgColor-severe"
+    }
+  ],
+  "--color-severe-muted": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-severe-muted"
+    }
+  ],
+  "--color-severe-subtle": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-severe-muted"
+    }
+  ],
+  "--color-danger-fg": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--fgColor-danger"
+    },
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-danger-emphasis"
+    },
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-danger-emphasis"
+    }
+  ],
+  "--color-danger-emphasis": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-danger-emphasis"
+    },
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "outline"
+      ],
+      "replacement": "--borderColor-danger-emphasis"
+    },
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--fgColor-danger"
+    }
+  ],
+  "--color-danger-muted": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-danger-muted"
+    },
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-danger-muted"
+    }
+  ],
+  "--color-danger-subtle": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-danger-muted"
+    }
+  ],
+  "--color-open-fg": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--fgColor-open"
+    },
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-open-emphasis"
+    },
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-open-emphasis"
+    }
+  ],
+  "--color-open-emphasis": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-open-emphasis"
+    },
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-open-emphasis"
+    },
+    {
+      "props": ["color"],
+      "replacement": "--fgColor-open"
+    }
+  ],
+  "--color-open-muted": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-open-muted"
+    }
+  ],
+  "--color-open-subtle": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-open-muted"
+    }
+  ],
+  "--color-closed-fg": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--fgColor-closed"
+    },
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-closed-emphasis"
+    },
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-closed-emphasis"
+    }
+  ],
+  "--color-closed-emphasis": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-closed-emphasis"
+    },
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-closed-emphasis"
+    },
+    {
+      "props": ["color"],
+      "replacement": "--fgColor-closed"
+    }
+  ],
+  "--color-closed-muted": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-closed-muted"
+    }
+  ],
+  "--color-closed-subtle": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-closed-muted"
+    }
+  ],
+  "--color-done-fg": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--fgColor-done"
+    },
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-done-emphasis"
+    },
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-done-emphasis"
+    }
+  ],
+  "--color-done-emphasis": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-done-emphasis"
+    },
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-done-emphasis"
+    },
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--fgColor-done"
+    }
+  ],
+  "--color-done-muted": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-done-muted"
+    },
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-done-muted"
+    }
+  ],
+  "--color-done-subtle": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-done-muted"
+    }
+  ],
+  "--color-sponsors-fg": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--fgColor-sponsors"
+    },
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-sponsors-emphasis"
+    },
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-sponsors-emphasis"
+    }
+  ],
+  "--color-sponsors-emphasis": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-sponsors-emphasis"
+    },
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-sponsors-emphasis"
+    },
+    {
+      "props": ["color"],
+      "replacement": "--fgColor-sponsors"
+    }
+  ],
+  "--color-sponsors-muted": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow"
+      ],
+      "replacement": "--borderColor-sponsors-muted"
+    }
+  ],
+  "--color-sponsors-subtle": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--bgColor-sponsors-muted"
+    }
+  ],
+  "--color-primer-fg-disabled": [
+    {
+      "props": ["color", "fill", "caretColor", "stroke"],
+      "replacement": "--fgColor-disabled"
+    }
+  ],
+  "--color-primer-canvas-backdrop": [
+    {
+      "props": ["backgroundColor", "bg", "background"],
+      "replacement": "--overlay-backdrop-bgColor"
+    }
+  ],
+  "--color-primer-border-active": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg"
+      ],
+      "replacement": "--underlineNav-borderColor-active"
+    }
+  ],
+  "--color-primer-border-contrast": [
+    {
+      "props": [
+        "border",
+        "borderColor",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "borderLeft",
+        "borderRight",
+        "borderBottom",
+        "borderTop",
+        "boxShadow",
+        "backgroundColor",
+        "bg"
+      ],
+      "replacement": "--borderColor-muted"
+    }
+  ],
+  "--color-avatar-child-shadow": [
+    {
+      "props": ["boxShadow"],
+      "replacement": "--avatar-shadow"
+    }
+  ],
+  "--color-btn-text": [
+    {
+      "props": ["color"],
+      "replacement": "--button-default-fgColor-rest"
+    }
+  ],
+  "--color-btn-shadow": [
+    {
+      "props": ["boxShadow"],
+      "replacement": "--button-default-shadow-resting"
+    }
+  ],
+  "--color-btn-inset-shadow": [
+    {
+      "props": ["boxShadow"],
+      "replacement": "--button-default-shadow-inset"
+    }
+  ],
+  "--color-btn-primary-shadow": [
+    {
+      "props": ["boxShadow"],
+      "replacement": "--shadow-resting-small"
+    }
+  ],
+  "--color-btn-primary-inset-shadow": [
+    {
+      "props": ["boxShadow"],
+      "replacement": "--shadow-highlight"
+    }
+  ],
+  "--color-btn-primary-selected-shadow": [
+    {
+      "props": ["boxShadow"],
+      "replacement": "--button-primary-shadow-selected"
+    }
+  ],
+  "--color-btn-outline-hover-shadow": [
+    {
+      "props": ["boxShadow"],
+      "replacement": "--shadow-resting-small"
+    }
+  ],
+  "--color-btn-outline-hover-inset-shadow": [
+    {
+      "props": ["boxShadow"],
+      "replacement": "--shadow-highlight"
+    }
+  ],
+  "--color-btn-outline-selected-shadow": [
+    {
+      "props": ["boxShadow"],
+      "replacement": "--button-outline-shadow-selected"
+    }
+  ],
+  "--color-btn-danger-hover-shadow": [
+    {
+      "props": ["boxShadow"],
+      "replacement": "--shadow-resting-small"
+    }
+  ],
+  "--color-btn-danger-hover-inset-shadow": [
+    {
+      "props": ["boxShadow"],
+      "replacement": "--shadow-highlight"
+    }
+  ],
+  "--color-btn-danger-selected-shadow": [
+    {
+      "props": ["boxShadow"],
+      "replacement": "--button-danger-shadow-selected"
+    }
+  ],
+  "--color-overlay-shadow": [
+    {
+      "props": ["boxShadow"],
+      "replacement": "--shadow-floating-small"
+    }
+  ],
+  "--color-primer-shadow-highlight": [
+    {
+      "props": ["boxShadow"],
+      "replacement": "--shadow-highlight"
+    }
+  ],
+  "--color-primer-shadow-inset": [
+    {
+      "props": ["boxShadow"],
+      "replacement": "--shadow-inset"
+    }
+  ],
+  "--color-shadow-small": [
+    {
+      "props": ["boxShadow"],
+      "replacement": "--shadow-resting-small"
+    }
+  ],
+  "--color-shadow-medium": [
+    {
+      "props": ["boxShadow"],
+      "replacement": "--shadow-resting-medium"
+    }
+  ],
+  "--color-shadow-large": [
+    {
+      "props": ["boxShadow"],
+      "replacement": "--shadow-floating-large"
+    }
+  ],
+  "--color-shadow-extra-large": [
+    {
+      "props": ["boxShadow"],
+      "replacement": "--shadow-floating-xlarge"
+    }
+  ],
+  "--color-btn-danger-disabled-counter-fg": [
+    {
+      "props": ["color"],
+      "replacement": "--buttonCounter-danger-fgColor-disabled"
+    }
+  ],
+  "--color-btn-danger-hover-counter-fg": [
+    {
+      "props": ["color"],
+      "replacement": "--buttonCounter-danger-fgColor-hover"
+    }
+  ],
+  "--color-btn-danger-counter-fg": [
+    {
+      "props": ["color"],
+      "replacement": "--buttonCounter-danger-fgColor-rest"
+    }
+  ],
+  "--color-btn-outline-disabled-counter-fg": [
+    {
+      "props": ["color"],
+      "replacement": "--buttonCounter-outline-fgColor-disabled"
+    }
+  ],
+  "--color-btn-outline-hover-counter-fg": [
+    {
+      "props": ["color"],
+      "replacement": "--buttonCounter-outline-fgColor-hover"
+    }
+  ],
+  "--color-btn-outline-counter-fg": [
+    {
+      "props": ["color"],
+      "replacement": "--buttonCounter-outline-fgColor-rest"
+    }
+  ]
+}
