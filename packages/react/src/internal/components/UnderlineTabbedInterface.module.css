@@ -12,8 +12,15 @@
   /* stylelint-disable-next-line primer/box-shadow */
   box-shadow: inset 0 -1px var(--borderColor-muted);
 
-  &:not(:has([class*='prc-UnderlineNav-MoreButton-'])) {
-    overflow-x: hidden;
+  /* Hide overflow until calculation is complete to prevent CLS */
+  overflow: visible;
+
+  &[data-hydrated='false'] {
+    overflow: hidden;
+  }
+
+  &[data-hydrated='true'] {
+    overflow: visible;
   }
 
   &[data-variant='flush'] {

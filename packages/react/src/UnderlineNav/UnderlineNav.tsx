@@ -166,6 +166,8 @@ export const UnderlineNav = forwardRef(
     const [iconsVisible, setIconsVisible] = useState<boolean>(true)
     const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
     const [noIconChildWidthArray, setNoIconChildWidthArray] = useState<ChildWidthArray>([])
+    // Track whether the initial overflow calculation is complete to prevent CLS
+    const [isHydrated, setIsHydrated] = useState(false)
 
     const validChildren = getValidChildren(children)
 
@@ -245,10 +247,19 @@ export const UnderlineNav = forwardRef(
       return breakpoint
     }
 
-    const updateListAndMenu = useCallback((props: ResponsiveProps, displayIcons: boolean) => {
-      setResponsiveProps(props)
-      setIconsVisible(displayIcons)
-    }, [])
+    const updateListAndMenu = useCallback(
+      (props: ResponsiveProps, displayIcons: boolean) => {
+        setResponsiveProps(props)
+        setIconsVisible(displayIcons)
+
+        // Only mark as ready once widths have been measured for all valid children
+        const widths = displayIcons ? childWidthArray : noIconChildWidthArray
+        if (!isHydrated && widths.length > 0 && widths.length === validChildren.length) {
+          setIsHydrated(true)
+        }
+      },
+      [childWidthArray, noIconChildWidthArray, isHydrated, validChildren.length],
+    )
     const setChildrenWidth = useCallback((size: ChildSize) => {
       setChildWidthArray(arr => {
         const newArr = [...arr, size]
@@ -330,7 +341,14 @@ export const UnderlineNav = forwardRef(
         }}
       >
         {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
-        <UnderlineWrapper as={as} aria-label={ariaLabel} className={className} ref={navRef} data-variant={variant}>
+        <UnderlineWrapper
+          as={as}
+          aria-label={ariaLabel}
+          className={className}
+          ref={navRef}
+          data-variant={variant}
+          hydrated={isHydrated}
+        >
           <UnderlineItemList ref={listRef} role="list">
             {listItems}
             {menuItems.length > 0 && (
