@@ -3,7 +3,7 @@ import {render as HTMLRender, waitFor, act, within} from '@testing-library/react
 import userEvent from '@testing-library/user-event'
 import type React from 'react'
 import BaseStyles from '../BaseStyles'
-import {ActionMenu, ActionList, Button, IconButton} from '..'
+import {ActionMenu, ActionList, Button, IconButton, Dialog} from '..'
 import Tooltip from '../Tooltip'
 import {Tooltip as TooltipV2} from '../TooltipV2/Tooltip'
 import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
@@ -15,7 +15,6 @@ import type {AnchorPosition} from '@primer/behaviors'
 import type {JSX} from 'react'
 import {implementsClassName} from '../utils/testing'
 import {FeatureFlags} from '../FeatureFlags'
-import Portal from '../Portal'
 
 // Mock getAnchoredPosition for feature flag tests
 vi.mock('@primer/behaviors', async () => {
@@ -838,7 +837,7 @@ describe('ActionMenu', () => {
     })
   })
 
-  describe('feature flag: primer_react_action_menu_display_in_viewport_inside_portal', () => {
+  describe('feature flag: primer_react_action_menu_display_in_viewport_inside_dialog', () => {
     const mockGetAnchoredPosition = vi.mocked(getAnchoredPosition)
 
     beforeEach(() => {
@@ -846,12 +845,12 @@ describe('ActionMenu', () => {
       mockGetAnchoredPosition.mockClear()
     })
 
-    it('should enable displayInViewport when flag is enabled and ActionMenu is inside a portal', async () => {
-      // When the ActionMenu is wrapped in a Portal, it's inside a portal context.
+    it('should enable displayInViewport when flag is enabled and ActionMenu is inside a dialog', async () => {
+      // When the ActionMenu is wrapped in a Dialog, it's inside a dialog context.
       // With the flag enabled, displayInViewport should be automatically enabled.
       const component = HTMLRender(
-        <FeatureFlags flags={{primer_react_action_menu_display_in_viewport_inside_portal: true}}>
-          <Portal>
+        <FeatureFlags flags={{primer_react_action_menu_display_in_viewport_inside_dialog: true}}>
+          <Dialog onClose={() => {}}>
             <ActionMenu>
               <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
               <ActionMenu.Overlay>
@@ -860,12 +859,12 @@ describe('ActionMenu', () => {
                 </ActionList>
               </ActionMenu.Overlay>
             </ActionMenu>
-          </Portal>
+          </Dialog>
         </FeatureFlags>,
       )
 
       const user = userEvent.setup()
-      const button = component.getByRole('button')
+      const button = component.getByRole('button', {name: 'Toggle Menu'})
       await user.click(button)
 
       await waitFor(() => {
@@ -882,11 +881,11 @@ describe('ActionMenu', () => {
       expect(lastCall[2]?.displayInViewport).toBe(true)
     })
 
-    it('should not enable displayInViewport when flag is enabled but ActionMenu is NOT inside a portal', async () => {
-      // Without being wrapped in a Portal, the ActionMenu is not in a portal context.
+    it('should not enable displayInViewport when flag is enabled but ActionMenu is NOT inside a dialog', async () => {
+      // Without being wrapped in a Dialog, the ActionMenu is not in a dialog context.
       // Even with the flag enabled, displayInViewport should remain at its default (false/undefined).
       const component = HTMLRender(
-        <FeatureFlags flags={{primer_react_action_menu_display_in_viewport_inside_portal: true}}>
+        <FeatureFlags flags={{primer_react_action_menu_display_in_viewport_inside_dialog: true}}>
           <ActionMenu>
             <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
             <ActionMenu.Overlay>
@@ -916,12 +915,12 @@ describe('ActionMenu', () => {
       expect(lastCall[2]?.displayInViewport).not.toBe(true)
     })
 
-    it('should not enable displayInViewport when flag is disabled, even inside a portal', async () => {
-      // Even when inside a Portal, with the flag disabled, displayInViewport
+    it('should not enable displayInViewport when flag is disabled, even inside a dialog', async () => {
+      // Even when inside a Dialog, with the flag disabled, displayInViewport
       // should remain at its default (false/undefined).
       const component = HTMLRender(
-        <FeatureFlags flags={{primer_react_action_menu_display_in_viewport_inside_portal: false}}>
-          <Portal>
+        <FeatureFlags flags={{primer_react_action_menu_display_in_viewport_inside_dialog: false}}>
+          <Dialog onClose={() => {}}>
             <ActionMenu>
               <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
               <ActionMenu.Overlay>
@@ -930,12 +929,12 @@ describe('ActionMenu', () => {
                 </ActionList>
               </ActionMenu.Overlay>
             </ActionMenu>
-          </Portal>
+          </Dialog>
         </FeatureFlags>,
       )
 
       const user = userEvent.setup()
-      const button = component.getByRole('button')
+      const button = component.getByRole('button', {name: 'Toggle Menu'})
       await user.click(button)
 
       await waitFor(() => {
@@ -952,11 +951,11 @@ describe('ActionMenu', () => {
       expect(lastCall[2]?.displayInViewport).not.toBe(true)
     })
 
-    it('should not enable displayInViewport when flag is disabled and outside portal', async () => {
-      // Default scenario: flag disabled and not in a portal context.
+    it('should not enable displayInViewport when flag is disabled and outside dialog', async () => {
+      // Default scenario: flag disabled and not in a dialog context.
       // displayInViewport should remain at its default (false/undefined).
       const component = HTMLRender(
-        <FeatureFlags flags={{primer_react_action_menu_display_in_viewport_inside_portal: false}}>
+        <FeatureFlags flags={{primer_react_action_menu_display_in_viewport_inside_dialog: false}}>
           <ActionMenu>
             <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
             <ActionMenu.Overlay>
@@ -988,10 +987,10 @@ describe('ActionMenu', () => {
 
     it('should respect explicit displayInViewport prop over feature flag logic', async () => {
       // Test that an explicit displayInViewport=false prop overrides the automatic
-      // detection, even when the flag is enabled and the ActionMenu is inside a portal.
+      // detection, even when the flag is enabled and the ActionMenu is inside a dialog.
       const component = HTMLRender(
-        <FeatureFlags flags={{primer_react_action_menu_display_in_viewport_inside_portal: true}}>
-          <Portal>
+        <FeatureFlags flags={{primer_react_action_menu_display_in_viewport_inside_dialog: true}}>
+          <Dialog onClose={() => {}}>
             <ActionMenu>
               <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
               <ActionMenu.Overlay displayInViewport={false}>
@@ -1000,12 +999,12 @@ describe('ActionMenu', () => {
                 </ActionList>
               </ActionMenu.Overlay>
             </ActionMenu>
-          </Portal>
+          </Dialog>
         </FeatureFlags>,
       )
 
       const user = userEvent.setup()
-      const button = component.getByRole('button')
+      const button = component.getByRole('button', {name: 'Toggle Menu'})
       await user.click(button)
 
       await waitFor(() => {
@@ -1024,9 +1023,9 @@ describe('ActionMenu', () => {
 
     it('should respect explicit displayInViewport=true prop even when flag is disabled', async () => {
       // Test that an explicit displayInViewport=true prop works regardless of
-      // the flag state or portal context.
+      // the flag state or dialog context.
       const component = HTMLRender(
-        <FeatureFlags flags={{primer_react_action_menu_display_in_viewport_inside_portal: false}}>
+        <FeatureFlags flags={{primer_react_action_menu_display_in_viewport_inside_dialog: false}}>
           <ActionMenu>
             <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
             <ActionMenu.Overlay displayInViewport={true}>
