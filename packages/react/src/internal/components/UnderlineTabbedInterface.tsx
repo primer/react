@@ -32,17 +32,14 @@ type UnderlineWrapperProps<As extends React.ElementType> = {
   as?: As
   className?: string
   ref?: React.Ref<HTMLElement>
-  /** Indicates whether the overflow calculation is complete. When false, overflow is hidden to prevent CLS. */
-  hydrated?: boolean
 }
 
 export const UnderlineWrapper = forwardRef((props, ref) => {
-  const {children, className, as: Component = 'div', hydrated, ...rest} = props
+  const {children, className, as: Component = 'div', ...rest} = props
   return (
     <Component
       className={clsx(classes.UnderlineWrapper, className)}
       ref={ref as ForwardedRef<HTMLDivElement>}
-      data-hydrated={hydrated === undefined ? undefined : hydrated ? 'true' : 'false'}
       {...rest}
     >
       {children}

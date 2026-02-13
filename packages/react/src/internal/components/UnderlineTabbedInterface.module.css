@@ -15,11 +15,11 @@
   /* Hide overflow until calculation is complete to prevent CLS */
   overflow: visible;
 
-  &[data-hydrated='false'] {
+  &[data-overflow-measured='false'] {
     overflow: hidden;
   }
 
-  &[data-hydrated='true'] {
+  &[data-overflow-measured='true'] {
     overflow: visible;
   }
 
