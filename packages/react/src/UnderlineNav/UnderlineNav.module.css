@@ -1,3 +1,12 @@
+/* Fixed height on the wrapper prevents vertical CLS on first paint.
+   Horizontal clipping is handled by overflow: hidden on the <ul>.
+   The More button is always rendered (visibility: hidden when no overflow)
+   to prevent horizontal CLS. We intentionally omit overflow: hidden here
+   so the underline ::after pseudo-element (which extends ~1px below) is not clipped. */
+.NavWrapper {
+  height: var(--control-xlarge-size, 48px);
+}
+
 .MenuItemContent {
   display: flex;
   align-items: center;
@@ -11,6 +20,12 @@
   display: flex;
   align-items: center;
   flex: 0 0 auto;
+}
+
+/* Before IO has fired, the More button is rendered with visibility: hidden
+   to reserve space and prevent horizontal CLS when it appears. */
+.MoreMenuHidden {
+  visibility: hidden;
 }
 
 /* More button styles migrated from styles.ts (was moreBtnStyles) */
