@@ -2,7 +2,6 @@ import type {RefObject} from 'react'
 import React, {useRef, forwardRef, useCallback, useState, useEffect, useMemo} from 'react'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import VisuallyHidden from '../_VisuallyHidden'
-import {dividerStyles, menuItemStyles, baseMenuMinWidth} from './styles'
 import {UnderlineItemList, UnderlineWrapper, LoadingCounter} from '../internal/components/UnderlineTabbedInterface'
 import {Button} from '../Button'
 import {TriangleDownIcon} from '@primer/octicons-react'
@@ -32,42 +31,12 @@ export type UnderlineNavProps = {
   variant?: 'inset' | 'flush'
 }
 
-// Exported for backward compatibility
-export const MORE_BTN_WIDTH = 86
-// The height is needed to make sure we don't have a layout shift when the more button is the only item in the nav.
-const MORE_BTN_HEIGHT = 45
-
 // Threshold for considering an item "fully visible" in IntersectionObserver
 const VISIBILITY_THRESHOLD = 0.95
 
-// Inline styles for the overflow list container.
-// CSS overflow: hidden clips items that don't fit; IntersectionObserver detects which are clipped.
-// Padding/margin accommodate the underline ::after pseudo-element below items.
-const overflowListStyles: React.CSSProperties = {
-  overflow: 'hidden',
-  flex: '1 1 0%',
-  minWidth: 0,
-  paddingBottom: 12,
-  marginBottom: -12,
-}
-
-export const getValidChildren = (children: React.ReactNode) => {
+const getValidChildren = (children: React.ReactNode) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement<any>[]
-}
-
-// Inline styles converted from baseMenuStyles for use as CSSProperties
-const baseMenuInlineStyles: React.CSSProperties = {
-  position: 'absolute',
-  zIndex: 1,
-  top: '90%',
-  boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
-  borderRadius: 12,
-  background: 'var(--overlay-bgColor)',
-  listStyle: 'none',
-  minWidth: `${baseMenuMinWidth}px`,
-  maxWidth: '640px',
-  right: 0,
 }
 
 export const UnderlineNav = forwardRef(
@@ -321,7 +290,7 @@ export const UnderlineNav = forwardRef(
           data-variant={variant}
           data-icons-visible={iconsVisibleRef.current}
         >
-          <UnderlineItemList ref={listRef} role="list" style={overflowListStyles}>
+          <UnderlineItemList ref={listRef} role="list" className={classes.OverflowList}>
             {displayItems.map((item, index) => {
               const isOverflowing = hasOverflow && index >= overflowStartIndex
               if (isOverflowing) {
@@ -334,12 +303,8 @@ export const UnderlineNav = forwardRef(
             })}
           </UnderlineItemList>
           {(hasOverflow || !ioReadyRef.current) && (
-            <div
-              ref={moreMenuRef}
-              className={clsx(classes.MoreMenuContainer, !hasOverflow && classes.MoreMenuHidden)}
-              style={{height: `${MORE_BTN_HEIGHT}px`}}
-            >
-              {!onlyMenuVisible && <div style={dividerStyles}></div>}
+            <div ref={moreMenuRef} className={clsx(classes.MoreMenuContainer, !hasOverflow && classes.MoreMenuHidden)}>
+              {!onlyMenuVisible && <div className={classes.Divider}></div>}
               <Button
                 ref={moreMenuBtnRef}
                 className={classes.MoreButton}
@@ -364,10 +329,7 @@ export const UnderlineNav = forwardRef(
                 selectionVariant="single"
                 ref={containerRef}
                 id={disclosureWidgetId}
-                style={{
-                  ...baseMenuInlineStyles,
-                  display: isWidgetOpen ? 'block' : 'none',
-                }}
+                className={clsx(classes.OverflowMenu, isWidgetOpen && classes.OverflowMenuOpen)}
               >
                 {menuItems.map(menuItem => {
                   const {children: menuItemChildren, counter, onSelect, ...menuItemProps} = menuItem.props
@@ -375,7 +337,7 @@ export const UnderlineNav = forwardRef(
                   return (
                     <ActionList.LinkItem
                       key={menuItemChildren}
-                      style={menuItemStyles}
+                      className={classes.MenuItem}
                       onClick={(
                         event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
                       ) => {

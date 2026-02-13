@@ -28,6 +28,53 @@
   visibility: hidden;
 }
 
+/* Overflow list: clips items that don't fit; IO detects which are clipped.
+   Padding/margin accommodate the underline ::after pseudo-element below items. */
+.OverflowList {
+  overflow: hidden;
+  flex: 1 1 0%;
+  min-width: 0;
+  padding-bottom: var(--base-size-12);
+  margin-bottom: calc(var(--base-size-12) * -1);
+}
+
+/* Divider line before the More button */
+.Divider {
+  display: inline-block;
+  border-left: var(--borderWidth-thin) solid var(--borderColor-muted);
+  width: 1px;
+  margin-right: var(--base-size-4);
+  height: 24px;
+}
+
+/* Dropdown overlay for the overflow menu */
+.OverflowMenu {
+  position: absolute;
+  z-index: 1;
+  top: 90%;
+  box-shadow: var(--shadow-resting-medium);
+  border-radius: var(--borderRadius-medium);
+  background: var(--overlay-bgColor);
+  list-style: none;
+  min-width: 192px;
+  max-width: 640px;
+  right: 0;
+  display: none;
+}
+
+.OverflowMenuOpen {
+  display: block;
+}
+
+/* Hide the selected check icon on menu items and reset link decoration */
+.MenuItem {
+  text-decoration: none;
+
+  & > span {
+    display: none;
+  }
+}
+
 /* More button styles migrated from styles.ts (was moreBtnStyles) */
 .MoreButton {
   margin: 0; /* reset Safari extra margin */

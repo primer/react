@@ -47,13 +47,15 @@ export const UnderlineWrapper = forwardRef((props, ref) => {
   )
 }) as PolymorphicForwardRefComponent<ElementType, UnderlineWrapperProps<ElementType>>
 
-export const UnderlineItemList = forwardRef(({children, ...rest}: PropsWithChildren, forwardedRef) => {
-  return (
-    <ul className={classes.UnderlineItemList} ref={forwardedRef} {...rest}>
-      {children}
-    </ul>
-  )
-}) as PolymorphicForwardRefComponent<'ul'>
+export const UnderlineItemList = forwardRef(
+  ({children, className, ...rest}: PropsWithChildren<{className?: string}>, forwardedRef) => {
+    return (
+      <ul className={clsx(classes.UnderlineItemList, className)} ref={forwardedRef} {...rest}>
+        {children}
+      </ul>
+    )
+  },
+) as PolymorphicForwardRefComponent<'ul'>
 
 export const LoadingCounter = () => {
   return <span className={classes.LoadingCounter} />
