@@ -511,10 +511,10 @@ export function FilteredActionList({
         style={
           isVirtualized
             ? {
+                ...actionListProps?.style,
                 height: virtualizer.getTotalSize(),
                 width: '100%',
                 position: 'relative' as const,
-                ...actionListProps?.style,
               }
             : actionListProps?.style
         }
