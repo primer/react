@@ -17,8 +17,7 @@ import {
   isCustomWidthOptions,
   isPaneWidth,
   ARROW_KEY_STEP,
-  type CustomWidthOptions,
-  type PaneWidth,
+  type PaneWidthValue,
 } from './usePaneWidth'
 import {setDraggingStyles, removeDraggingStyles} from './paneUtils'
 
@@ -576,7 +575,7 @@ Content.displayName = 'PageLayout.Content'
 // ----------------------------------------------------------------------------
 // PageLayout.Pane
 
-export type PageLayoutPaneProps = {
+export type PageLayoutPaneBaseProps = {
   position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
   /**
    * @deprecated Use the `position` prop with a responsive value instead.
@@ -595,9 +594,25 @@ export type PageLayoutPaneProps = {
   positionWhenNarrow?: 'inherit' | keyof typeof panePositions
   'aria-labelledby'?: string
   'aria-label'?: string
-  width?: PaneWidth | CustomWidthOptions
+  /**
+   * The width of the pane.
+   * - Named sizes: `'small'` | `'medium'` | `'large'`
+   * - Custom object: `{min: string, default: string, max: string}`
+   *
+   * When `resizable` is enabled, this defines the default width and constraints
+   * (min/max bounds for dragging). Use `currentWidth` to control the displayed width.
+   */
+  width?: PaneWidthValue
+  /**
+   * Minimum width of the pane in pixels. Only used with named `width` sizes.
+   * Ignored when `width` is a custom object (use `width.min` instead).
+   */
   minWidth?: number
-  resizable?: boolean
+  /**
+   * localStorage key used to persist the pane width across sessions.
+   * Only applies when `resizable` is `true` and no `onResizeEnd` callback is provided.
+   * @default 'paneWidth'
+   */
   widthStorageKey?: string
   padding?: keyof typeof SPACING_MAP
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
@@ -619,10 +634,42 @@ export type PageLayoutPaneProps = {
   sticky?: boolean
   offsetHeader?: string | number
   hidden?: boolean | ResponsiveValue<boolean>
+  /**
+   * Enable resizable pane behavior.
+   * When `true`, the pane may be resized by the user via drag or keyboard.
+   * Uses localStorage persistence by default unless `onResizeEnd` is provided.
+   *
+   * Note: With default localStorage persistence in SSR, the server-rendered
+   * width may differ from the stored client width, causing a brief layout
+   * shift on hydration. Use `onResizeEnd` with server-aware storage to avoid this.
+   */
+  resizable?: boolean
   id?: string
   className?: string
   style?: React.CSSProperties
 }
+
+export type PageLayoutPaneProps = PageLayoutPaneBaseProps &
+  (
+    | {
+        /**
+         * Callback fired when a resize operation ends (drag release or keyboard key up).
+         * When provided, this callback is used instead of localStorage persistence.
+         */
+        onResizeEnd: (width: number) => void
+        /**
+         * Current/controlled width value in pixels.
+         * When provided, this is used as the current pane width instead of internal state.
+         * The `width` prop still defines the default used when resetting (e.g., double-click).
+         * Pass `undefined` when the persisted value has not loaded yet (e.g., async fetch).
+         */
+        currentWidth: number | undefined
+      }
+    | {
+        onResizeEnd?: never
+        currentWidth?: never
+      }
+  )
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const panePositions = {
@@ -641,6 +688,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       positionWhenNarrow = 'inherit',
       width = 'medium',
       minWidth = 256,
+      currentWidth: controlledWidth,
+      onResizeEnd,
       padding = 'none',
       resizable = false,
       widthStorageKey = 'paneWidth',
@@ -694,6 +743,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         paneRef,
         handleRef,
         contentWrapperRef,
+        onResizeEnd,
+        currentWidth: controlledWidth,
       })
 
     useRefObjectAsForwardedRef(forwardRef, paneRef)
@@ -746,10 +797,10 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         />
         <div
           ref={paneRef}
-          // suppressHydrationWarning: We intentionally read from localStorage during
-          // useState init to avoid resize flicker, which causes a hydration mismatch
-          // for --pane-width. This only affects this element, not children.
-          suppressHydrationWarning
+          // Suppress hydration mismatch for --pane-width when localStorage
+          // provides a width that differs from the server-rendered default.
+          // Not needed when onResizeEnd is provided (localStorage isn't read).
+          suppressHydrationWarning={resizable === true && !onResizeEnd}
           {...(hasOverflow ? overflowProps : {})}
           {...labelProp}
           {...(id && {id: paneId})}
