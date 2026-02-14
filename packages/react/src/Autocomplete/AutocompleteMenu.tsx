@@ -170,6 +170,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   const [highlightedItem, setHighlightedItem] = useState<T>()
   const [sortedItemIds, setSortedItemIds] = useState<Array<string>>(items.map(({id: itemId}) => itemId))
   const generatedUniqueId = useId(id)
+  const highlightedItemId = highlightedItem?.id
 
   const selectableItems = useMemo(
     () =>
@@ -178,7 +179,6 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
           ...selectableItem,
           role: 'option',
           id: selectableItem.id,
-          active: highlightedItem?.id === selectableItem.id,
           selected: selectionVariant === 'multiple' ? selectedItemIds.includes(selectableItem.id) : undefined,
           onAction: (item: T) => {
             const otherSelectedItemIds = selectedItemIds.filter(selectedItemId => selectedItemId !== item.id)
@@ -204,7 +204,6 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
         }
       }),
     [
-      highlightedItem,
       items,
       selectedItemIds,
       inputRef,
@@ -246,7 +245,6 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
               ...addNewItem,
               role: 'option',
               key: addNewItem.id,
-              active: highlightedItem?.id === addNewItem.id,
               selected: selectionVariant === 'multiple' ? selectedItemIds.includes(addNewItem.id) : undefined,
               leadingVisual: () => <PlusIcon />,
               onAction: (item: T) => {
@@ -269,7 +267,6 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
       selectionVariant,
       setInputValue,
       generatedUniqueId,
-      highlightedItem,
       selectedItemIds,
     ],
   )
@@ -381,6 +378,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
                     key={(key ?? id) as string | number}
                     onSelect={() => onAction(item)}
                     {...itemProps}
+                    active={highlightedItemId === id}
                     id={id}
                     data-id={id}
                     role={role as AriaRole}
