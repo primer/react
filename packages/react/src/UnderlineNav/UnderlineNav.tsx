@@ -168,11 +168,11 @@ export const UnderlineNav = forwardRef(
             visibilityMapRef.current.set(entry.target, entry.intersectionRatio >= VISIBILITY_THRESHOLD)
           }
 
-          // Find the first non-visible item (scanning from the start)
-          const listChildren = Array.from(list.children)
+          // Find the first non-visible nav item (skip anchor markers)
+          const navItems = Array.from(list.children).filter(child => !child.hasAttribute('data-anchor-marker'))
           let firstOverflow = -1
-          for (let i = 0; i < listChildren.length; i++) {
-            if (visibilityMapRef.current.get(listChildren[i]) === false) {
+          for (let i = 0; i < navItems.length; i++) {
+            if (visibilityMapRef.current.get(navItems[i]) === false) {
               firstOverflow = i
               break
             }
@@ -206,8 +206,8 @@ export const UnderlineNav = forwardRef(
 
             // Accessibility: never show only 1 item in the overflow menu.
             let adjustedFirstOverflow = firstOverflow
-            const overflowCount = listChildren.length - firstOverflow
-            if (overflowCount === 1 && listChildren.length > 1) {
+            const overflowCount = navItems.length - firstOverflow
+            if (overflowCount === 1 && navItems.length > 1) {
               adjustedFirstOverflow = firstOverflow - 1
             }
 
@@ -238,9 +238,11 @@ export const UnderlineNav = forwardRef(
         },
       )
 
-      // Observe all list items
+      // Observe only nav item children (skip zero-size anchor markers)
       for (let i = 0; i < list.children.length; i++) {
-        observer.observe(list.children[i])
+        if (!list.children[i].hasAttribute('data-anchor-marker')) {
+          observer.observe(list.children[i])
+        }
       }
 
       // ResizeObserver to detect when the list grows while icons are hidden.
@@ -309,17 +311,34 @@ export const UnderlineNav = forwardRef(
           <UnderlineItemList ref={listRef} role="list" className={classes.OverflowList}>
             {displayItems.map((item, index) => {
               const isOverflowing = hasOverflow && index >= overflowStartIndex
-              if (isOverflowing) {
-                return React.cloneElement(item, {
-                  'aria-hidden': 'true',
-                  key: item.key,
-                })
-              }
-              return item
+              return (
+                <React.Fragment key={item.key ?? index}>
+                  {isOverflowing
+                    ? React.cloneElement(item, {
+                        'aria-hidden': 'true',
+                      })
+                    : item}
+                  {/* Zero-size anchor marker after each item. The one at overflowStartIndex
+                      is used as the CSS anchor for the More button positioning. */}
+                  <li
+                    aria-hidden="true"
+                    data-anchor-marker=""
+                    className={classes.AnchorMarker}
+                    style={{anchorName: `--nav-anchor-${index}`} as React.CSSProperties}
+                  />
+                </React.Fragment>
+              )
             })}
           </UnderlineItemList>
           {(hasOverflow || !ioReadyRef.current) && (
-            <div className={clsx(classes.MoreMenuContainer, !hasOverflow && classes.MoreMenuHidden)}>
+            <div
+              className={clsx(classes.MoreMenuContainer, !hasOverflow && classes.MoreMenuHidden)}
+              style={
+                {
+                  positionAnchor: overflowStartIndex > 0 ? `--nav-anchor-${overflowStartIndex - 1}` : undefined,
+                } as React.CSSProperties
+              }
+            >
               {!onlyMenuVisible && <div className={classes.Divider}></div>}
               <Button
                 ref={moreMenuBtnRef}

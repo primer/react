@@ -5,6 +5,7 @@
    so the underline ::after pseudo-element (which extends ~1px below) is not clipped. */
 .NavWrapper {
   height: var(--control-xlarge-size, 48px);
+  position: relative;
 }
 
 .MenuItemContent {
@@ -13,13 +14,28 @@
   justify-content: space-between;
 }
 
-/* Container for the "More" button and overflow menu, positioned outside the list
-   so it is not clipped by overflow: hidden on the list. */
+/* Container for the "More" button and overflow menu.
+   Uses CSS anchor positioning to align with the anchor marker at overflowStartIndex.
+   Falls back to static position (end of flex row) in browsers without support. */
 .MoreMenuContainer {
-  position: relative;
+  position: absolute;
+  left: anchor(left);
+  align-self: center;
   display: flex;
   align-items: center;
-  flex: 0 0 auto;
+}
+
+/* Zero-size anchor markers placed after each nav item in the list.
+   They participate in the flex layout at 0px so they don't affect spacing,
+   but provide anchor points for CSS anchor positioning. */
+.AnchorMarker {
+  width: 0;
+  height: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  overflow: hidden;
+  flex: 0 0 0px;
 }
 
 /* Before IO has fired, the More button is rendered with visibility: hidden
