@@ -1,4 +1,5 @@
 import React, {startTransition, useMemo} from 'react'
+import {canUseDOM} from '../utils/environment'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import cssExports from './PageLayout.module.css'
 
