@@ -144,7 +144,9 @@ export const UnderlineNav = forwardRef(
     useEffect(() => {
       const list = listRef.current
       const wrapper = navRef.current
-      if (!list || typeof IntersectionObserver === 'undefined') return
+      if (!list || typeof IntersectionObserver === 'undefined' || typeof ResizeObserver === 'undefined') {
+        return
+      }
 
       // Helper to toggle icon visibility via CSS data attribute on the wrapper.
       // This avoids a React re-render cycle — the browser relayouts and IO re-fires.
@@ -345,12 +347,12 @@ export const UnderlineNav = forwardRef(
                 id={disclosureWidgetId}
                 className={clsx(classes.OverflowMenu, isWidgetOpen && classes.OverflowMenuOpen)}
               >
-                {menuItems.map(menuItem => {
+                {menuItems.map((menuItem, index) => {
                   const {children: menuItemChildren, counter, onSelect, ...menuItemProps} = menuItem.props
 
                   return (
                     <ActionList.LinkItem
-                      key={menuItemChildren}
+                      key={menuItem.key ?? index}
                       className={classes.MenuItem}
                       onClick={(
                         event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
