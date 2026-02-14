@@ -219,21 +219,30 @@ export const UnderlineNav = forwardRef(
             setOverflowStartIndex(adjustedFirstOverflow)
           } else {
             // All items are visible
-            setOverflowStartIndex(-1)
 
             if (iconPhaseRef.current === 'trying-without-icons') {
-              // Items fit without icons — stay without icons
+              // Items fit without icons — stay without icons, clear overflow
               iconPhaseRef.current = 'normal'
+              setOverflowStartIndex(-1)
             } else if (iconPhaseRef.current === 'trying-with-icons') {
-              // Icons fit — keep them visible
+              // Icons fit — keep them visible, clear overflow
               iconPhaseRef.current = 'normal'
+              setOverflowStartIndex(-1)
             } else if (!iconsVisibleRef.current) {
-              // Only retry icons if the list has actually grown since we disabled them
+              // Icons are hidden and all items fit. Before clearing overflow,
+              // try re-enabling icons to see if everything still fits.
+              // Don't clear overflowStartIndex yet to prevent a flash where
+              // overflow disappears then reappears if icons cause overflow.
               const currentWidth = list.clientWidth
               if (currentWidth > widthWhenIconsDisabledRef.current + 20) {
                 setIconsVisible(true)
                 iconPhaseRef.current = 'trying-with-icons'
+                // Don't setOverflowStartIndex(-1) yet — wait for next IO fire
+              } else {
+                setOverflowStartIndex(-1)
               }
+            } else {
+              setOverflowStartIndex(-1)
             }
           }
         },
