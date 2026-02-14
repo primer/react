@@ -47,6 +47,52 @@ function getdefaultCheckedSelectionChange<T extends AutocompleteMenuItem>(
 
 const isItemSelected = (itemId: string, selectedItemIds: Array<string>) => selectedItemIds.includes(itemId)
 
+/**
+ * Memoized wrapper around ActionList.Item that skips re-rendering when props
+ * haven't changed. Combined with the `highlightedItem` ref (instead of state),
+ * arrow-key navigation no longer triggers re-renders of the item list.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const MemoizedAutocompleteItem = React.memo(function MemoizedAutocompleteItem<T extends Record<string, any>>({
+  item,
+}: {
+  item: T
+}) {
+  const {
+    id,
+    onAction,
+    children,
+    text,
+    leadingVisual: LeadingVisual,
+    trailingVisual: TrailingVisual,
+    key,
+    role,
+    ...itemProps
+  } = item
+  return (
+    <ActionList.Item
+      key={(key ?? id) as string | number}
+      onSelect={() => onAction(item)}
+      {...itemProps}
+      id={id}
+      data-id={id}
+      role={role as AriaRole}
+    >
+      {LeadingVisual && (
+        <ActionList.LeadingVisual>
+          {isElement(LeadingVisual) ? LeadingVisual : <LeadingVisual />}
+        </ActionList.LeadingVisual>
+      )}
+      {(children ?? text) as React.ReactNode}
+      {TrailingVisual && (
+        <ActionList.TrailingVisual>
+          {isElement(TrailingVisual) ? TrailingVisual : <TrailingVisual />}
+        </ActionList.TrailingVisual>
+      )}
+    </ActionList.Item>
+  )
+})
+
 function getItemById<T extends AutocompleteMenuItem>(itemId: string, items: T[]) {
   return items.find(item => item.id === itemId)
 }
@@ -167,10 +213,13 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   } = props
   const listContainerRef = useRef<HTMLDivElement>(null)
   const allItemsToRenderRef = useRef<T[]>([])
-  const [highlightedItem, setHighlightedItem] = useState<T>()
+  // Using a ref instead of state to avoid triggering a re-render of all items
+  // on every arrow-key press. The active styling was already handled via DOM by
+  // useFocusZone (data-is-active-descendant) before this change, but the
+  // previous useState caused React to re-render the entire item list anyway.
+  const highlightedItemRef = useRef<T>()
   const [sortedItemIds, setSortedItemIds] = useState<Array<string>>(items.map(({id: itemId}) => itemId))
   const generatedUniqueId = useId(id)
-  const highlightedItemId = highlightedItem?.id
 
   const selectableItems = useMemo(
     () =>
@@ -291,13 +340,28 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
       activeDescendantFocus: inputRef,
       onActiveDescendantChanged: (current, _previous, directlyActivated) => {
         activeDescendantRef.current = current || null
+
+        // Active styling was already handled via DOM before this change:
+        // useFocusZone sets `data-is-active-descendant` on the active element,
+        // and ActionList styles that attribute in CSS. The key change is that
+        // we no longer call setHighlightedItem (state), avoiding re-renders.
+
         if (current) {
+          const currentLi = current.closest('li')
           const selectedItem = allItemsToRenderRef.current.find(item => {
-            return item.id === current.closest('li')?.getAttribute('data-id')
+            return item.id === currentLi?.getAttribute('data-id')
           })
 
-          setHighlightedItem(selectedItem)
+          highlightedItemRef.current = selectedItem
           setIsMenuDirectlyActivated(directlyActivated)
+
+          // Update autocomplete suggestion inline (moved from the useEffect
+          // that previously depended on highlightedItem state)
+          if (selectedItem?.text?.startsWith(deferredInputValue) && !selectedItemIds.includes(selectedItem.id)) {
+            setAutocompleteSuggestion(selectedItem.text)
+          } else {
+            setAutocompleteSuggestion('')
+          }
         }
 
         if (current && customScrollContainerRef && customScrollContainerRef.current && directlyActivated) {
@@ -311,14 +375,15 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   )
 
   useEffect(() => {
-    // Use deferredInputValue to avoid running this effect on every keystroke
-    // The Input component guards against stale suggestions
-    if (highlightedItem?.text?.startsWith(deferredInputValue) && !selectedItemIds.includes(highlightedItem.id)) {
-      setAutocompleteSuggestion(highlightedItem.text)
+    // When the input value changes, update the autocomplete suggestion based
+    // on the currently highlighted item (tracked via ref, not state).
+    const highlighted = highlightedItemRef.current
+    if (highlighted?.text?.startsWith(deferredInputValue) && !selectedItemIds.includes(highlighted.id)) {
+      setAutocompleteSuggestion(highlighted.text)
     } else {
       setAutocompleteSuggestion('')
     }
-  }, [highlightedItem, deferredInputValue, selectedItemIds, setAutocompleteSuggestion])
+  }, [deferredInputValue, selectedItemIds, setAutocompleteSuggestion])
 
   useEffect(() => {
     const itemIdSortResult = [...sortedItemIds].sort(
@@ -361,42 +426,9 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
               id={`${id}-listbox`}
               aria-labelledby={ariaLabelledBy}
             >
-              {allItemsToRender.map(item => {
-                const {
-                  id,
-                  onAction,
-                  children,
-                  text,
-                  leadingVisual: LeadingVisual,
-                  trailingVisual: TrailingVisual,
-                  key,
-                  role,
-                  ...itemProps
-                } = item
-                return (
-                  <ActionList.Item
-                    key={(key ?? id) as string | number}
-                    onSelect={() => onAction(item)}
-                    {...itemProps}
-                    active={highlightedItemId === id}
-                    id={id}
-                    data-id={id}
-                    role={role as AriaRole}
-                  >
-                    {LeadingVisual && (
-                      <ActionList.LeadingVisual>
-                        {isElement(LeadingVisual) ? LeadingVisual : <LeadingVisual />}
-                      </ActionList.LeadingVisual>
-                    )}
-                    {(children ?? text) as React.ReactNode}
-                    {TrailingVisual && (
-                      <ActionList.TrailingVisual>
-                        {isElement(TrailingVisual) ? TrailingVisual : <TrailingVisual />}
-                      </ActionList.TrailingVisual>
-                    )}
-                  </ActionList.Item>
-                )
-              })}
+              {allItemsToRender.map(item => (
+                <MemoizedAutocompleteItem key={(item.key ?? item.id) as string | number} item={item} />
+              ))}
             </ActionList>
           ) : emptyStateText !== false && emptyStateText !== null ? (
             <div className={classes.EmptyStateWrapper}>{emptyStateText}</div>
