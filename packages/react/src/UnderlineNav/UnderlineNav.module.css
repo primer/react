@@ -26,20 +26,17 @@
 }
 
 /* Zero-size anchor markers placed after each nav item in the list.
-   They participate in the flex layout at 0px so they don't affect spacing,
-   but provide anchor points for CSS anchor positioning. */
+   They provide anchor points for CSS anchor positioning of the More button. */
 .AnchorMarker {
   width: 0;
-  height: 0;
   padding: 0;
   margin: 0;
-  border: 0;
   overflow: hidden;
   flex: 0 0 0px;
 }
 
-/* Before IO has fired, the More button is rendered with visibility: hidden
-   to reserve space and prevent horizontal CLS when it appears. */
+/* Before IO has fired, the More button is hidden to prevent flash.
+   Since .MoreMenuContainer is position: absolute, this only hides visually. */
 .MoreMenuHidden {
   visibility: hidden;
 }

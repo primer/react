@@ -330,6 +330,7 @@ export const UnderlineNav = forwardRef(
                   {/* Zero-size anchor marker after each item. The one at overflowStartIndex
                       is used as the CSS anchor for the More button positioning. */}
                   <li
+                    role="presentation"
                     aria-hidden="true"
                     data-anchor-marker=""
                     className={classes.AnchorMarker}
