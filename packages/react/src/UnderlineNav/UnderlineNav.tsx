@@ -34,6 +34,11 @@ export type UnderlineNavProps = {
 // Threshold for considering an item "fully visible" in IntersectionObserver
 const VISIBILITY_THRESHOLD = 0.95
 
+// Approximate width of the "More" button + divider. IO's rootMargin shrinks the
+// detection zone by this amount so items overflow before reaching the list edge,
+// leaving room for the button.
+const MORE_BTN_WIDTH = 80
+
 const getValidChildren = (children: React.ReactNode) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement<any>[]
@@ -234,6 +239,10 @@ export const UnderlineNav = forwardRef(
         },
         {
           root: list,
+          // Negative right margin shrinks the effective root bounds so IO
+          // detects items as overflowing before they reach the list edge,
+          // leaving room for the More button.
+          rootMargin: `0px -${MORE_BTN_WIDTH}px 0px 0px`,
           threshold: [0, VISIBILITY_THRESHOLD, 1],
         },
       )

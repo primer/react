@@ -45,7 +45,7 @@
 }
 
 /* Overflow list: clips items that don't fit; IO detects which are clipped.
-   Padding/margin accommodate the underline ::after pseudo-element below items. */
+   Padding-bottom/margin-bottom accommodate the underline ::after pseudo-element. */
 .OverflowList {
   overflow: hidden;
   flex: 1;
