@@ -26,6 +26,11 @@ export type UnderlineNavItemProps = {
   children?: React.ReactNode
 
   /**
+   * Whether the item is hidden from the accessibility tree (set internally for overflowed items).
+   */
+  'aria-hidden'?: boolean | 'true' | 'false'
+
+  /**
    * Callback that will trigger both on click selection and keyboard selection.
    */
   onSelect?: (event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>) => void
@@ -111,8 +116,8 @@ export const UnderlineNavItem = forwardRef(
           counter={counter}
           icon={leadingVisual ?? Icon}
           loadingCounters={loadingCounters}
-          tabIndex={isHidden ? -1 : undefined}
           {...props}
+          tabIndex={isHidden ? -1 : props.tabIndex}
         >
           {children}
         </UnderlineItem>
