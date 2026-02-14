@@ -87,25 +87,34 @@ const getValidChildren = (children: React.ReactNode) => {
 //       ▲                                          │ IO re-fires
 //       │                              ┌───────────┴────────────┐
 //       │                              ▼                        ▼
-//       │                     still overflow?           no overflow?
+//       │                     still overflow?            no overflow?
 //       │                              │                        │
-//       │                              ▼                        ▼
-//       │                   set overflowStartIndex    stay without icons
-//       │                   (show More button)        clear overflow
-//       │                                             phase = 'normal'
-//       │
-//       │    RO: list grew             ┌────────────────────────┐
-//       │    past threshold            │  trying-with-icons     │
-//       │                              │  (re-enabled icons)    │
-//       │                              └───────────┬────────────┘
-//       │                                          │ IO re-fires
-//       │                              ┌───────────┴────────────┐
-//       │                              ▼                        ▼
-//       │                       icons fit?              overflow?
+//       │                              ▼                        │
+//       │                   set overflowStartIndex              │
+//       │                   (show More button)                  │
 //       │                              │                        │
-//       │                              ▼                        ▼
-//       └──────────────────── clear overflow          revert to no icons
-//            phase='normal'                           phase = 'normal'
+//       │                              └────────┬───────────────┘
+//       │                                       ▼
+//       │                           ┌───────────────────────┐
+//       │                           │       normal          │
+//       │                           │     (no icons)        │
+//       │                           └───────────┬───────────┘
+//       │                                       │
+//       │                           RO: list grew past threshold
+//       │                                       │
+//       │                                       ▼
+//       │                           ┌────────────────────────┐
+//       │                           │  trying-with-icons     │
+//       │                           │  (re-enabled icons)    │
+//       │                           └───────────┬────────────┘
+//       │                                       │ IO re-fires
+//       │                           ┌───────────┴────────────┐
+//       │                           ▼                        ▼
+//       │                     icons fit?              overflow?
+//       │                           │                        │
+//       │                           ▼                        ▼
+//       └──────────────── clear overflow        revert to no icons
+//           phase='normal'                      (back to normal, no icons)
 //
 // ─────────────────────────────────────────────────────────────────────────────
 
