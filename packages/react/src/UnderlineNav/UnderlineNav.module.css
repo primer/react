@@ -19,6 +19,7 @@
    Falls back to static position (end of flex row) in browsers without support. */
 .MoreMenuContainer {
   position: absolute;
+  /* stylelint-disable-next-line declaration-property-value-no-unknown, primer/spacing */
   left: anchor(left);
   align-self: center;
   display: flex;
