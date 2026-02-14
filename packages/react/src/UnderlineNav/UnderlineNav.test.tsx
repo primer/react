@@ -1,6 +1,6 @@
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi, beforeEach, afterEach} from 'vitest'
 import type React from 'react'
-import {render, screen} from '@testing-library/react'
+import {render, screen, act} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {
   CodeIcon,
@@ -78,7 +78,8 @@ describe('UnderlineNav', () => {
   it('renders icons correctly', () => {
     const {getByRole} = render(<ResponsiveUnderlineNav />)
     const nav = getByRole('navigation')
-    expect(nav.getElementsByTagName('svg').length).toEqual(7)
+    const list = nav.querySelector('[role="list"], ul, ol')!
+    expect(list.getElementsByTagName('svg').length).toEqual(7)
   })
 
   it('fires onSelect on click', async () => {
@@ -251,5 +252,166 @@ describe('Keyboard Navigation', () => {
     await user.tab()
     // focus should be on the next item
     expect(nextItem).toHaveFocus()
+  })
+})
+
+describe('Overflow detection (IntersectionObserver + ResizeObserver)', () => {
+  const originalIO = window.IntersectionObserver
+  const originalRO = window.ResizeObserver
+
+  let ioCallback: IntersectionObserverCallback
+  let ioInstance: IntersectionObserver
+  let roCallback: ResizeObserverCallback
+  let roInstance: ResizeObserver
+  let observedElements: Element[]
+
+  beforeEach(() => {
+    observedElements = []
+
+    window.IntersectionObserver = vi.fn(function (callback: IntersectionObserverCallback) {
+      ioCallback = callback
+      ioInstance = {
+        observe: vi.fn((el: Element) => observedElements.push(el)),
+        unobserve: vi.fn(),
+        disconnect: vi.fn(),
+        takeRecords: vi.fn().mockReturnValue([]),
+        root: null,
+        rootMargin: '',
+        thresholds: [],
+      }
+      return ioInstance
+    }) as unknown as typeof IntersectionObserver
+
+    window.ResizeObserver = vi.fn(function (callback: ResizeObserverCallback) {
+      roCallback = callback
+      roInstance = {
+        observe: vi.fn(),
+        disconnect: vi.fn(),
+        unobserve: vi.fn(),
+      }
+      return roInstance
+    }) as unknown as typeof ResizeObserver
+  })
+
+  afterEach(() => {
+    window.IntersectionObserver = originalIO
+    window.ResizeObserver = originalRO
+  })
+
+  // Suppress unused variable warnings for roCallback/roInstance
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _getRoRefs = () => ({roCallback, roInstance})
+
+  function fireIntersection(entries: Array<{target: Element; intersectionRatio: number}>) {
+    act(() => {
+      ioCallback(
+        entries.map(e => ({...e, isIntersecting: e.intersectionRatio > 0}) as unknown as IntersectionObserverEntry),
+        ioInstance,
+      )
+    })
+  }
+
+  /** Fire IO twice to complete the icon-toggle cycle:
+   *  1st call: icons visible + overflow => hides icons (early return)
+   *  2nd call: icons hidden + still overflow => sets overflowStartIndex */
+  function fireOverflow(visibleCount: number) {
+    const makeEntries = () =>
+      observedElements.map((el, i) => ({
+        target: el,
+        intersectionRatio: i < visibleCount ? 1 : 0,
+      }))
+    // Phase 1: triggers icon hiding
+    fireIntersection(makeEntries())
+    // Phase 2: with icons hidden, sets overflow
+    fireIntersection(makeEntries())
+  }
+
+  it('observes all list items', () => {
+    render(<ResponsiveUnderlineNav />)
+    // 9 nav items in the fixture
+    expect(observedElements).toHaveLength(9)
+  })
+
+  it('shows the "More" button when items overflow', () => {
+    render(<ResponsiveUnderlineNav />)
+    fireOverflow(5)
+    expect(screen.getByRole('button', {name: /More/})).toBeVisible()
+  })
+
+  it('marks overflowing items as aria-hidden', () => {
+    render(<ResponsiveUnderlineNav />)
+    fireOverflow(5)
+
+    const list = screen.getByRole('list')
+    const listItems = Array.from(list.querySelectorAll(':scope > li:not([data-anchor-marker])'))
+
+    // Items at indices 5-8 should be aria-hidden
+    for (let i = 5; i < listItems.length; i++) {
+      expect(listItems[i]).toHaveAttribute('aria-hidden', 'true')
+    }
+
+    // Items at indices 0-4 should not be aria-hidden
+    for (let i = 0; i < 5; i++) {
+      expect(listItems[i]).not.toHaveAttribute('aria-hidden')
+    }
+  })
+
+  it('removes the "More" button when all items become visible', () => {
+    render(<ResponsiveUnderlineNav />)
+    fireOverflow(5)
+    expect(screen.getByRole('button', {name: /More/})).toBeVisible()
+
+    // All items visible again
+    fireIntersection(
+      observedElements.map(el => ({
+        target: el,
+        intersectionRatio: 1,
+      })),
+    )
+
+    // "More" button should no longer be in the document
+    expect(screen.queryByRole('button', {name: /More/})).toBeNull()
+  })
+
+  it('swaps aria-current item from overflow into visible range', () => {
+    // "Settings" is at index 7, which will be in the overflow range
+    render(<ResponsiveUnderlineNav selectedItemText="Settings" />)
+    fireOverflow(5)
+
+    // The aria-current item should be visible (swapped into the last visible position)
+    const currentLink = screen.getByRole('link', {name: /Settings/})
+    expect(currentLink.closest('[aria-hidden]')).toBeNull()
+    expect(currentLink.getAttribute('aria-current')).toBe('page')
+  })
+
+  it('sets data-icons-visible to false when overflow occurs', () => {
+    const {container} = render(<ResponsiveUnderlineNav />)
+    const nav = container.querySelector('nav')!
+
+    // Initially icons are visible
+    expect(nav.getAttribute('data-icons-visible')).toBe('true')
+
+    // Single IO fire with overflow triggers icon hiding
+    fireIntersection(
+      observedElements.map((el, i) => ({
+        target: el,
+        intersectionRatio: i < 5 ? 1 : 0,
+      })),
+    )
+
+    // Icons should be hidden as first attempt to reduce overflow
+    expect(nav.getAttribute('data-icons-visible')).toBe('false')
+  })
+
+  it('ensures overflow menu has at least 2 items (never just 1)', () => {
+    render(<ResponsiveUnderlineNav />)
+
+    // Only 1 item would overflow (last item), but the rule says minimum 2
+    fireOverflow(8)
+
+    const list = screen.getByRole('list')
+    const hiddenItems = Array.from(list.querySelectorAll(':scope > li:not([data-anchor-marker])[aria-hidden="true"]'))
+    // Should have 2 hidden items (pulled one more into overflow to avoid single-item menu)
+    expect(hiddenItems.length).toBeGreaterThanOrEqual(2)
   })
 })

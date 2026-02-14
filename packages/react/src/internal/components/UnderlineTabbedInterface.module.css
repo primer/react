@@ -18,6 +18,12 @@
   }
 }
 
+/* Hide icons when the wrapper signals they should not be visible.
+   Both UnderlineNav and UnderlinePanels set data-icons-visible on their wrapper. */
+.UnderlineWrapper[data-icons-visible='false'] [data-component='icon'] {
+  display: none;
+}
+
 .UnderlineItemList {
   position: relative;
   display: flex;
@@ -88,6 +94,7 @@
 
 .UnderlineItem [data-component='icon'] {
   display: inline-flex;
+  flex-shrink: 0;
   color: var(--fgColor-muted);
   align-items: center;
   margin-inline-end: var(--base-size-8);
