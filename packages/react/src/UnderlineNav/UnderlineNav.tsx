@@ -44,6 +44,245 @@ const getValidChildren = (children: React.ReactNode) => {
   return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement<any>[]
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Overflow detection via IntersectionObserver + ResizeObserver
+// ─────────────────────────────────────────────────────────────────────────────
+//
+// Layout overview:
+//
+//  ┌─ NavWrapper (position: relative) ──────────────────────────────────────┐
+//  │ ┌─ OverflowList (overflow: hidden) ─────────────────────────────────┐  │
+//  │ │ [Code] [Issues] [PRs] [Discuss] [Actions] ░░░░░░░░░░░░░░░░░░░░░░  │  │
+//  │ │  visible items ──────────────────▶│  clipped by overflow: hidden  │  │
+//  │ └───────────────────────────────────┼───────────────────────────────┘  │
+//  │                                     │                                  │
+//  │                 CSS Anchor ─────────┘                                  │
+//  │                 Positioning        ┌──────────┐                        │
+//  │                 (position-anchor)─▶│ More ▼   │                        │
+//  │                                    └──────────┘                        │
+//  └────────────────────────────────────────────────────────────────────────┘
+//
+// How it works:
+//
+// 1. The <ul> has overflow: hidden. Items that don't fit are clipped.
+//
+// 2. An IntersectionObserver (root = <ul>) detects which items are clipped.
+//    rootMargin: '0px -80px 0px 0px' shrinks the detection zone from the
+//    right by MORE_BTN_WIDTH, reserving space for the "More" button.
+//
+// 3. When overflow is detected, overflowStartIndex is set via React state.
+//    Items from that index onward get aria-hidden + tabIndex={-1} and are
+//    duplicated in the overflow dropdown menu.
+//
+// 4. The "More" button uses CSS Anchor Positioning to sit flush after the
+//    last visible item. Zero-size anchor markers (<li>) after each item
+//    provide anchor points; position-anchor targets the right one.
+//
+// Icon toggle state machine:
+//
+//  ┌────────────┐  overflow detected   ┌────────────────────────┐
+//  │   normal   │─────────────────────▶│ trying-without-icons   │
+//  │  (icons)   │                      │  (hid icons, waiting)  │
+//  └────────────┘                      └───────────┬────────────┘
+//       ▲                                          │ IO re-fires
+//       │                              ┌───────────┴────────────┐
+//       │                              ▼                        ▼
+//       │                     still overflow?           no overflow?
+//       │                              │                        │
+//       │                              ▼                        ▼
+//       │                   set overflowStartIndex    stay without icons
+//       │                   (show More button)        clear overflow
+//       │                                             phase = 'normal'
+//       │
+//       │    RO: list grew             ┌────────────────────────┐
+//       │    past threshold            │  trying-with-icons     │
+//       │                              │  (re-enabled icons)    │
+//       │                              └───────────┬────────────┘
+//       │                                          │ IO re-fires
+//       │                              ┌───────────┴────────────┐
+//       │                              ▼                        ▼
+//       │                       icons fit?              overflow?
+//       │                              │                        │
+//       │                              ▼                        ▼
+//       └──────────────────── clear overflow          revert to no icons
+//            phase='normal'                           phase = 'normal'
+//
+// ─────────────────────────────────────────────────────────────────────────────
+
+type IconPhase = 'normal' | 'trying-without-icons' | 'trying-with-icons'
+
+interface OverflowRefs {
+  iconsVisibleRef: React.MutableRefObject<boolean>
+  iconPhaseRef: React.MutableRefObject<IconPhase>
+  widthWhenIconsDisabledRef: React.MutableRefObject<number>
+  visibilityMapRef: React.MutableRefObject<Map<Element, boolean>>
+  ioReadyRef: React.MutableRefObject<boolean>
+}
+
+/**
+ * Sets up IntersectionObserver + ResizeObserver on the nav list to detect
+ * which items overflow and manage the icon visibility toggle.
+ *
+ * Returns a cleanup function that disconnects both observers.
+ */
+function setupOverflowObservers(
+  list: HTMLUListElement,
+  wrapper: HTMLElement,
+  refs: OverflowRefs,
+  setOverflowStartIndex: (index: number) => void,
+): () => void {
+  const {iconsVisibleRef, iconPhaseRef, widthWhenIconsDisabledRef, visibilityMapRef, ioReadyRef} = refs
+
+  // Toggle icon visibility via CSS data attribute (no React re-render).
+  const setIconsVisible = (visible: boolean) => {
+    iconsVisibleRef.current = visible
+    wrapper.setAttribute('data-icons-visible', String(visible))
+  }
+
+  // Sync the initial attribute
+  wrapper.setAttribute('data-icons-visible', String(iconsVisibleRef.current))
+  visibilityMapRef.current.clear()
+
+  // ── IntersectionObserver ──────────────────────────────────────────────
+  const handleIntersection: IntersectionObserverCallback = entries => {
+    // Step 1: Update the visibility map with fresh intersection data
+    for (const entry of entries) {
+      visibilityMapRef.current.set(entry.target, entry.intersectionRatio >= VISIBILITY_THRESHOLD)
+    }
+
+    // Step 2: Find the first non-visible nav item (skip anchor markers)
+    const navItems = Array.from(list.children).filter(child => !child.hasAttribute('data-anchor-marker'))
+    let firstOverflow = -1
+    for (let i = 0; i < navItems.length; i++) {
+      if (visibilityMapRef.current.get(navItems[i]) === false) {
+        firstOverflow = i
+        break
+      }
+    }
+
+    const hasOverflowNow = firstOverflow !== -1
+    ioReadyRef.current = true
+
+    // Step 3: Handle the result based on current icon phase
+    if (hasOverflowNow) {
+      handleOverflow(firstOverflow, navItems.length, list, refs, setIconsVisible, setOverflowStartIndex)
+    } else {
+      handleNoOverflow(list, refs, setIconsVisible, setOverflowStartIndex)
+    }
+  }
+
+  const observer = new IntersectionObserver(handleIntersection, {
+    root: list,
+    rootMargin: `0px -${MORE_BTN_WIDTH}px 0px 0px`,
+    threshold: [0, VISIBILITY_THRESHOLD, 1],
+  })
+
+  // Observe only nav items (skip anchor markers)
+  for (let i = 0; i < list.children.length; i++) {
+    if (!list.children[i].hasAttribute('data-anchor-marker')) {
+      observer.observe(list.children[i])
+    }
+  }
+
+  // ── ResizeObserver ────────────────────────────────────────────────────
+  // IO won't re-fire when all items are already fully visible and the
+  // root just gets wider. RO detects this and triggers icon retry.
+  const resizeObserver = new ResizeObserver(() => {
+    if (!iconsVisibleRef.current && iconPhaseRef.current === 'normal') {
+      const currentWidth = list.clientWidth
+      if (currentWidth > widthWhenIconsDisabledRef.current + 20) {
+        setIconsVisible(true)
+        iconPhaseRef.current = 'trying-with-icons'
+      }
+    }
+  })
+  resizeObserver.observe(list)
+
+  return () => {
+    observer.disconnect()
+    resizeObserver.disconnect()
+  }
+}
+
+/** Called by IO when at least one item is clipped. */
+function handleOverflow(
+  firstOverflow: number,
+  itemCount: number,
+  list: HTMLUListElement,
+  refs: OverflowRefs,
+  setIconsVisible: (v: boolean) => void,
+  setOverflowStartIndex: (index: number) => void,
+) {
+  const {iconPhaseRef, iconsVisibleRef, widthWhenIconsDisabledRef} = refs
+
+  // Phase: we tried re-enabling icons but they don't fit. Revert.
+  if (iconPhaseRef.current === 'trying-with-icons') {
+    setIconsVisible(false)
+    iconPhaseRef.current = 'normal'
+    widthWhenIconsDisabledRef.current = list.clientWidth
+    return
+  }
+
+  // Phase: first overflow with icons. Try hiding icons.
+  if (iconsVisibleRef.current) {
+    setIconsVisible(false)
+    iconPhaseRef.current = 'trying-without-icons'
+    widthWhenIconsDisabledRef.current = list.clientWidth
+    return
+  }
+
+  // Phase: we hid icons and it's still overflowing. Accept it.
+  if (iconPhaseRef.current === 'trying-without-icons') {
+    iconPhaseRef.current = 'normal'
+  }
+
+  // Accessibility: never show only 1 item in the overflow menu.
+  let adjustedIndex = firstOverflow
+  const overflowCount = itemCount - firstOverflow
+  if (overflowCount === 1 && itemCount > 1) {
+    adjustedIndex = firstOverflow - 1
+  }
+
+  setOverflowStartIndex(adjustedIndex)
+}
+
+/** Called by IO when all items are fully visible. */
+function handleNoOverflow(
+  list: HTMLUListElement,
+  refs: OverflowRefs,
+  setIconsVisible: (v: boolean) => void,
+  setOverflowStartIndex: (index: number) => void,
+) {
+  const {iconPhaseRef, iconsVisibleRef, widthWhenIconsDisabledRef} = refs
+
+  if (iconPhaseRef.current === 'trying-without-icons') {
+    // Items fit without icons. Keep icons hidden, clear overflow.
+    iconPhaseRef.current = 'normal'
+    setOverflowStartIndex(-1)
+    return
+  }
+
+  if (iconPhaseRef.current === 'trying-with-icons') {
+    // Icons fit! Keep them, clear overflow.
+    iconPhaseRef.current = 'normal'
+    setOverflowStartIndex(-1)
+    return
+  }
+
+  if (!iconsVisibleRef.current) {
+    // All items fit but icons are hidden. Try re-enabling icons.
+    // Don't clear overflow yet to prevent a flash if icons cause overflow.
+    const currentWidth = list.clientWidth
+    if (currentWidth > widthWhenIconsDisabledRef.current + 20) {
+      setIconsVisible(true)
+      iconPhaseRef.current = 'trying-with-icons'
+      return // Wait for next IO fire to decide
+    }
+  }
+
+  setOverflowStartIndex(-1)
+}
+
 export const UnderlineNav = forwardRef(
   (
     {
@@ -80,11 +319,8 @@ export const UnderlineNav = forwardRef(
     // When the viewport is too narrow to show any list item. Only the dropdown is shown.
     const onlyMenuVisible = overflowStartIndex === 0
 
-    // Phase tracking for icon toggle to prevent infinite loops:
-    // 'normal' - stable state
-    // 'trying-without-icons' - just hid icons, waiting for IO to re-fire
-    // 'trying-with-icons' - trying to re-enable icons (container grew), waiting for IO
-    const iconPhaseRef = useRef<'normal' | 'trying-without-icons' | 'trying-with-icons'>('normal')
+    // Phase tracking for icon toggle (see state machine diagram above).
+    const iconPhaseRef = useRef<IconPhase>('normal')
 
     // Tracks the list width when icons were last disabled due to overflow.
     // Icons will only be retried when the list grows beyond this width.
@@ -142,10 +378,7 @@ export const UnderlineNav = forwardRef(
       return [items, overflow]
     }, [validChildren, overflowStartIndex, hasOverflow])
 
-    // IntersectionObserver-based overflow detection.
-    // Uses CSS overflow: hidden on the list + IO to detect which items are clipped.
-    // No forced reflows: IO fires asynchronously after layout.
-    // Icon toggling is done via CSS data attribute (no React re-render needed).
+    // See setupOverflowObservers() above for how this works.
     useEffect(() => {
       const list = listRef.current
       const wrapper = navRef.current
@@ -153,134 +386,12 @@ export const UnderlineNav = forwardRef(
         return
       }
 
-      // Helper to toggle icon visibility via CSS data attribute on the wrapper.
-      // This avoids a React re-render cycle — the browser relayouts and IO re-fires.
-      const setIconsVisible = (visible: boolean) => {
-        iconsVisibleRef.current = visible
-        wrapper?.setAttribute('data-icons-visible', String(visible))
-      }
-
-      // Ensure the initial attribute matches the ref
-      wrapper?.setAttribute('data-icons-visible', String(iconsVisibleRef.current))
-
-      // Clear visibility map on each observer setup
-      visibilityMapRef.current.clear()
-
-      const observer = new IntersectionObserver(
-        entries => {
-          // Update visibility map with new entries
-          for (const entry of entries) {
-            visibilityMapRef.current.set(entry.target, entry.intersectionRatio >= VISIBILITY_THRESHOLD)
-          }
-
-          // Find the first non-visible nav item (skip anchor markers)
-          const navItems = Array.from(list.children).filter(child => !child.hasAttribute('data-anchor-marker'))
-          let firstOverflow = -1
-          for (let i = 0; i < navItems.length; i++) {
-            if (visibilityMapRef.current.get(navItems[i]) === false) {
-              firstOverflow = i
-              break
-            }
-          }
-
-          const hasOverflowNow = firstOverflow !== -1
-          ioReadyRef.current = true
-
-          if (hasOverflowNow) {
-            if (iconPhaseRef.current === 'trying-with-icons') {
-              // We tried re-enabling icons but they don't fit. Revert.
-              setIconsVisible(false)
-              iconPhaseRef.current = 'normal'
-              // Remember this width so we don't retry until the list grows
-              widthWhenIconsDisabledRef.current = list.clientWidth
-              return
-            }
-
-            if (iconsVisibleRef.current) {
-              // First overflow with icons — try hiding icons to see if all items fit
-              setIconsVisible(false)
-              iconPhaseRef.current = 'trying-without-icons'
-              // Remember the width for retry prevention
-              widthWhenIconsDisabledRef.current = list.clientWidth
-              return
-            }
-
-            if (iconPhaseRef.current === 'trying-without-icons') {
-              iconPhaseRef.current = 'normal'
-            }
-
-            // Accessibility: never show only 1 item in the overflow menu.
-            let adjustedFirstOverflow = firstOverflow
-            const overflowCount = navItems.length - firstOverflow
-            if (overflowCount === 1 && navItems.length > 1) {
-              adjustedFirstOverflow = firstOverflow - 1
-            }
-
-            setOverflowStartIndex(adjustedFirstOverflow)
-          } else {
-            // All items are visible
-
-            if (iconPhaseRef.current === 'trying-without-icons') {
-              // Items fit without icons — stay without icons, clear overflow
-              iconPhaseRef.current = 'normal'
-              setOverflowStartIndex(-1)
-            } else if (iconPhaseRef.current === 'trying-with-icons') {
-              // Icons fit — keep them visible, clear overflow
-              iconPhaseRef.current = 'normal'
-              setOverflowStartIndex(-1)
-            } else if (!iconsVisibleRef.current) {
-              // Icons are hidden and all items fit. Before clearing overflow,
-              // try re-enabling icons to see if everything still fits.
-              // Don't clear overflowStartIndex yet to prevent a flash where
-              // overflow disappears then reappears if icons cause overflow.
-              const currentWidth = list.clientWidth
-              if (currentWidth > widthWhenIconsDisabledRef.current + 20) {
-                setIconsVisible(true)
-                iconPhaseRef.current = 'trying-with-icons'
-                // Don't setOverflowStartIndex(-1) yet — wait for next IO fire
-              } else {
-                setOverflowStartIndex(-1)
-              }
-            } else {
-              setOverflowStartIndex(-1)
-            }
-          }
-        },
-        {
-          root: list,
-          // Negative right margin shrinks the effective root bounds so IO
-          // detects items as overflowing before they reach the list edge,
-          // leaving room for the More button.
-          rootMargin: `0px -${MORE_BTN_WIDTH}px 0px 0px`,
-          threshold: [0, VISIBILITY_THRESHOLD, 1],
-        },
+      return setupOverflowObservers(
+        list,
+        wrapper!,
+        {iconsVisibleRef, iconPhaseRef, widthWhenIconsDisabledRef, visibilityMapRef, ioReadyRef},
+        setOverflowStartIndex,
       )
-
-      // Observe only nav item children (skip zero-size anchor markers)
-      for (let i = 0; i < list.children.length; i++) {
-        if (!list.children[i].hasAttribute('data-anchor-marker')) {
-          observer.observe(list.children[i])
-        }
-      }
-
-      // ResizeObserver to detect when the list grows while icons are hidden.
-      // IO won't re-fire when all items are already fully visible and the root
-      // just gets wider, so we need RO to trigger icon retry in that scenario.
-      const resizeObserver = new ResizeObserver(() => {
-        if (!iconsVisibleRef.current && iconPhaseRef.current === 'normal') {
-          const currentWidth = list.clientWidth
-          if (currentWidth > widthWhenIconsDisabledRef.current + 20) {
-            setIconsVisible(true)
-            iconPhaseRef.current = 'trying-with-icons'
-          }
-        }
-      })
-      resizeObserver.observe(list)
-
-      return () => {
-        observer.disconnect()
-        resizeObserver.disconnect()
-      }
     }, [validChildren, navRef])
 
     const closeOverlay = useCallback(() => {
