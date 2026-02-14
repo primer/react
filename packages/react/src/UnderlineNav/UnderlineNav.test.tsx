@@ -343,7 +343,7 @@ describe('Overflow detection (IntersectionObserver + ResizeObserver)', () => {
     fireOverflow(5)
 
     const list = screen.getByRole('list')
-    const listItems = Array.from(list.querySelectorAll(':scope > li'))
+    const listItems = Array.from(list.querySelectorAll(':scope > li:not([data-anchor-marker])'))
 
     // Items at indices 5-8 should be aria-hidden
     for (let i = 5; i < listItems.length; i++) {
@@ -410,7 +410,7 @@ describe('Overflow detection (IntersectionObserver + ResizeObserver)', () => {
     fireOverflow(8)
 
     const list = screen.getByRole('list')
-    const hiddenItems = Array.from(list.querySelectorAll(':scope > li[aria-hidden="true"]'))
+    const hiddenItems = Array.from(list.querySelectorAll(':scope > li:not([data-anchor-marker])[aria-hidden="true"]'))
     // Should have 2 hidden items (pulled one more into overflow to avoid single-item menu)
     expect(hiddenItems.length).toBeGreaterThanOrEqual(2)
   })
