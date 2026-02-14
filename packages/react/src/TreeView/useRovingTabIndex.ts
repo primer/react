@@ -142,30 +142,109 @@ export function getElementState(element: HTMLElement): 'open' | 'closed' | 'end'
   }
 }
 
+/**
+ * Find the next or previous visible treeitem using direct DOM traversal.
+ *
+ * PERFORMANCE: This is O(tree depth) instead of O(n) because it walks
+ * siblings and parent/child edges directly, rather than creating a TreeWalker
+ * that scans from the root to find the current element on every keystroke.
+ *
+ * NOTE: This relies on TreeView.SubTree unmounting its children when collapsed
+ * (returning null when !isExpanded). Because collapsed subtree children are
+ * never in the DOM, we can safely skip them by only entering children of nodes
+ * with aria-expanded="true". If SubTree ever changes to keep collapsed children
+ * mounted (e.g. via CSS display:none), this logic would need to add filtering
+ * for items inside collapsed parents.
+ */
 export function getVisibleElement(element: HTMLElement, direction: 'next' | 'previous'): HTMLElement | undefined {
-  const root = element.closest('[role=tree]')
+  if (direction === 'next') {
+    return getNextVisibleElement(element)
+  }
+  return getPreviousVisibleElement(element)
+}
 
-  if (!root) return
-
-  const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT, node => {
-    if (!(node instanceof HTMLElement)) return NodeFilter.FILTER_SKIP
-    return node.getAttribute('role') === 'treeitem' ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP
-  })
-
-  let current = walker.firstChild()
-
-  while (current !== element) {
-    current = walker.nextNode()
+function getNextVisibleElement(element: HTMLElement): HTMLElement | undefined {
+  // If the current item is expanded, the next visible item is its first child
+  if (element.getAttribute('aria-expanded') === 'true') {
+    const firstChild = getFirstChildElement(element)
+    if (firstChild) return firstChild
   }
 
-  let next = direction === 'next' ? walker.nextNode() : walker.previousNode()
+  // Otherwise, walk up the tree looking for a next sibling
+  let current: HTMLElement | undefined = element
+  while (current) {
+    const next = getNextSiblingTreeItem(current)
+    if (next) return next
 
-  // If next element is nested inside a collapsed subtree, continue iterating
-  while (next instanceof HTMLElement && next.parentElement?.closest('[role=treeitem][aria-expanded=false]')) {
-    next = direction === 'next' ? walker.nextNode() : walker.previousNode()
+    // No next sibling at this level, try the parent's next sibling
+    current = getParentElement(current)
   }
 
-  return next instanceof HTMLElement ? next : undefined
+  return undefined
+}
+
+function getPreviousVisibleElement(element: HTMLElement): HTMLElement | undefined {
+  const prev = getPreviousSiblingTreeItem(element)
+
+  if (prev) {
+    // Navigate to the deepest last visible descendant of the previous sibling
+    return getDeepestLastDescendant(prev)
+  }
+
+  // No previous sibling, the parent is the previous visible element
+  return getParentElement(element)
+}
+
+/**
+ * Walk into expanded subtrees to find the deepest last visible descendant.
+ * For example, if the last sibling is an expanded directory whose last child
+ * is also an expanded directory, we drill all the way down.
+ */
+function getDeepestLastDescendant(element: HTMLElement): HTMLElement {
+  if (element.getAttribute('aria-expanded') === 'true') {
+    const lastChild = getLastChildTreeItem(element)
+    if (lastChild) {
+      return getDeepestLastDescendant(lastChild)
+    }
+  }
+  return element
+}
+
+function getNextSiblingTreeItem(element: HTMLElement): HTMLElement | undefined {
+  let sibling = element.nextElementSibling
+  while (sibling) {
+    if (sibling instanceof HTMLElement && sibling.getAttribute('role') === 'treeitem') {
+      return sibling
+    }
+    sibling = sibling.nextElementSibling
+  }
+  return undefined
+}
+
+function getPreviousSiblingTreeItem(element: HTMLElement): HTMLElement | undefined {
+  let sibling = element.previousElementSibling
+  while (sibling) {
+    if (sibling instanceof HTMLElement && sibling.getAttribute('role') === 'treeitem') {
+      return sibling
+    }
+    sibling = sibling.previousElementSibling
+  }
+  return undefined
+}
+
+function getLastChildTreeItem(element: HTMLElement): HTMLElement | undefined {
+  // Find the [role=group] child (the subtree container), then get its last treeitem
+  for (let i = element.children.length - 1; i >= 0; i--) {
+    const child = element.children[i]
+    if (child instanceof HTMLElement && child.getAttribute('role') === 'group') {
+      let lastChild = child.lastElementChild
+      while (lastChild && !(lastChild instanceof HTMLElement && lastChild.getAttribute('role') === 'treeitem')) {
+        lastChild = lastChild.previousElementSibling
+      }
+      return lastChild instanceof HTMLElement ? lastChild : undefined
+    }
+  }
+  return undefined
 }
 
 export function getFirstChildElement(element: HTMLElement): HTMLElement | undefined {
