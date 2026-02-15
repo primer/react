@@ -1,6 +1,6 @@
 import {clsx} from 'clsx'
 import type React from 'react'
-import {useEffect, useRef, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {VisuallyHidden} from '../VisuallyHidden'
 import type {HTMLDataAttributes} from '../internal/internal-types'
 import {useId} from '../hooks'
@@ -113,9 +113,11 @@ Spinner.displayName = 'Spinner'
  * slower in Safari/WebKit.
  */
 function useSpinnerSyncDelay(): number {
-  const now = typeof performance !== 'undefined' ? performance.now() : 0
-  const delayRef = useRef(-(now % ANIMATION_DURATION_MS))
-  return delayRef.current
+  const [delay] = useState(() => {
+    const now = typeof performance !== 'undefined' ? performance.now() : 0
+    return -(now % ANIMATION_DURATION_MS)
+  })
+  return delay
 }
 
 export default Spinner
