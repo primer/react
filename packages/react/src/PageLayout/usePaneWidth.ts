@@ -131,35 +131,6 @@ export const updateAriaValues = (
   }
 }
 
-/**
- * Measures the available space for a pane/sidebar by examining its parent flex
- * container and subtracting the widths of sibling elements.
- *
- * Navigation: paneElement (<aside>) → SidebarWrapper → PageLayoutRoot
- * The siblings of SidebarWrapper (e.g., PageLayoutWrapper) are measured.
- *
- * Returns null if the DOM isn't available (SSR or unmounted).
- */
-function getAvailableSpaceFromSiblings(paneElement: HTMLElement | null): number | null {
-  // paneRef points to <aside> inside .SidebarWrapper
-  // Walk up: <aside> → .SidebarWrapper → .PageLayoutRoot
-  const sidebarWrapper = paneElement?.parentElement
-  const flexContainer = sidebarWrapper?.parentElement
-  if (!sidebarWrapper || !flexContainer) return null
-
-  const containerWidth = flexContainer.clientWidth
-  if (containerWidth <= 0) return null
-
-  let siblingsWidth = 0
-  for (const child of flexContainer.children) {
-    if (child !== sidebarWrapper) {
-      siblingsWidth += (child as HTMLElement).offsetWidth
-    }
-  }
-
-  return containerWidth - siblingsWidth
-}
-
 const localStoragePersister = {
   save: (key: string, width: number) => {
     try {
@@ -228,34 +199,18 @@ export function usePaneWidth({
   // Updated on mount and resize when breakpoints might change
   const maxWidthDiffRef = React.useRef(DEFAULT_MAX_WIDTH_DIFF)
 
-  // Calculate max width constraint.
-  // When constrainToViewport is true (Sidebar), we measure the actual parent flex container
-  // and subtract sibling widths to get the real available space. This accounts for other
-  // layout elements like Pane, Content, dividers, and gaps.
-  // For preset widths or when constrainToViewport is false, we use the static
-  // viewport - maxWidthDiff calculation.
+  // Calculate max width constraint - for custom widths this is capped to viewport bounds
+  // when constrainToViewport is set (e.g., Sidebar), otherwise it uses the custom max directly.
+  // For preset widths, max is always viewport-dependent.
   const getMaxPaneWidth = React.useCallback(() => {
-    // Try dynamic measurement first when constraining to viewport
-    if (constrainToViewport) {
-      const availableSpace = getAvailableSpaceFromSiblings(paneRef.current)
-      if (availableSpace !== null) {
-        const dynamicMax = Math.max(minPaneWidth, availableSpace)
-        if (customMaxWidth !== null) {
-          return Math.min(customMaxWidth, dynamicMax)
-        }
-        return dynamicMax
-      }
-    }
-
-    // Fallback: static viewport-based calculation
     const viewportWidth = window.innerWidth
     const viewportMax =
       viewportWidth > 0 ? Math.max(minPaneWidth, viewportWidth - maxWidthDiffRef.current) : minPaneWidth
     if (customMaxWidth !== null) {
-      return customMaxWidth
+      return constrainToViewport ? Math.min(customMaxWidth, viewportMax) : customMaxWidth
     }
     return viewportMax
-  }, [customMaxWidth, minPaneWidth, constrainToViewport, paneRef])
+  }, [customMaxWidth, minPaneWidth, constrainToViewport])
 
   const defaultWidth = useMemo(() => getDefaultPaneWidth(width), [width])
   // --- State ---
