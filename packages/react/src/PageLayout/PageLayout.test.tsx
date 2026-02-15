@@ -272,4 +272,23 @@ describe('PageLayout', async () => {
       expect(container.firstChild?.nodeName).toEqual('DIV')
     })
   })
+
+  describe('PageLayout.Sidebar', () => {
+    it('SidebarWrapper should allow shrinking to prevent overflow at narrow viewports', () => {
+      const {container} = render(
+        <PageLayout>
+          <PageLayout.Content>Content</PageLayout.Content>
+          <PageLayout.Sidebar resizable width={{min: '256px', default: '296px', max: '768px'}}>
+            Sidebar
+          </PageLayout.Sidebar>
+        </PageLayout>,
+      )
+
+      const sidebarWrapper = container.querySelector<HTMLElement>('[class*="SidebarWrapper"]')
+      expect(sidebarWrapper).not.toBeNull()
+
+      const style = getComputedStyle(sidebarWrapper!)
+      expect(style.flexShrink).toBe('1')
+    })
+  })
 })
