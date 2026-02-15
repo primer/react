@@ -55,16 +55,19 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
       listRole === 'menu' || container === 'SelectPanel' || container === 'FilteredActionList' ? 'wrap' : undefined,
   })
 
+  const listContextValue = React.useMemo(
+    () => ({
+      variant,
+      selectionVariant: selectionVariant || containerSelectionVariant,
+      showDividers,
+      role: listRole,
+      headingId,
+    }),
+    [variant, selectionVariant, containerSelectionVariant, showDividers, listRole, headingId],
+  )
+
   return (
-    <ListContext.Provider
-      value={{
-        variant,
-        selectionVariant: selectionVariant || containerSelectionVariant,
-        showDividers,
-        role: listRole,
-        headingId,
-      }}
-    >
+    <ListContext.Provider value={listContextValue}>
       {slots.heading}
       {/* @ts-expect-error ref needs a non nullable ref */}
       <Component
