@@ -3,10 +3,59 @@ import {warning} from '../utils/warning'
 import {isSlot} from '../utils/is-slot'
 import type {SlotMarker} from '../utils/types'
 
-// slot config allows 2 options:
-// 1. Component to match, example: { leadingVisual: LeadingVisual }
+/**
+ * useSlots - Extract slot components from children for SSR-compatible slot APIs.
+ *
+ * Given a list of children and a config mapping slot names to component types,
+ * separates children into two groups: matched slots and the rest.
+ *
+ *   Config: { leadingVisual: LeadingVisual, description: Description }
+ *
+ *   Children:             Matching:              Output:
+ *   +----------------+                           slots = {
+ *   | LeadingVisual  |   -> matches slot 0  -->    leadingVisual: <LeadingVisual />
+ *   | "Project name" |   -> no match        -->    description: <Description />
+ *   | Description    |   -> matches slot 1  -->  }
+ *   | TrailingVisual |   -> no match        -->  rest = ["Project name", <TrailingVisual />]
+ *   +----------------+
+ *
+ * Performance-sensitive: called per item in lists (e.g. 100-item ActionList
+ * calls this 101 times per render). Key optimizations:
+ *
+ *   1. for-loop matching instead of findIndex (no closure allocation per child)
+ *   2. Pre-computed isArrayMatcher[] (avoids Array.isArray in hot loop)
+ *   3. Short-circuit: once all slots filled, skip matching entirely
+ *      - In production: single integer comparison, straight to rest
+ *      - In dev: scans for duplicates to warn, then to rest
+ *
+ *   Flow per child:
+ *
+ *   child ──> isValidElement? ──no──> rest[]
+ *              |
+ *             yes
+ *              |
+ *              v
+ *          all slots filled? ──yes──> rest[] (prod)
+ *              |                       |
+ *             no                  [dev: check for
+ *              |                   duplicate warning]
+ *              v
+ *          match against unfilled slots
+ *              |
+ *         found match? ──no──> rest[]
+ *              |
+ *             yes
+ *              |
+ *              v
+ *          slots[key] = child, slotsFound++
+ *
+ * Slot config supports two matcher styles:
+ *   1. Component reference:  { visual: LeadingVisual }
+ *   2. Component + test fn:  { block: [Description, props => props.variant === 'block'] }
+ */
+
+// Slot config: Component reference, or [Component, testFn] tuple
 type ComponentMatcher = React.ElementType<Props>
-// 2. Component to match + a test function, example: { blockDescription: [Description, props => props.variant === 'block'] }
 type ComponentAndPropsMatcher = [ComponentMatcher, (props: Props) => boolean]
 
 export type SlotConfig = Record<string, ComponentMatcher | ComponentAndPropsMatcher>
@@ -19,21 +68,17 @@ type SlotElements<Config extends SlotConfig> = {
   [Property in keyof Config]: SlotValue<Config, Property>
 }
 
-type SlotValue<Config, Property extends keyof Config> = Config[Property] extends React.ElementType // config option 1
+type SlotValue<Config, Property extends keyof Config> = Config[Property] extends React.ElementType
   ? React.ReactElement<React.ComponentPropsWithoutRef<Config[Property]>, Config[Property]>
   : Config[Property] extends readonly [
-        infer ElementType extends React.ElementType, // config option 2, infer array[0] as component
+        infer ElementType extends React.ElementType,
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        infer _testFn, // even though we don't use testFn, we need to infer it to support types for slots.*.props
+        infer _testFn,
       ]
     ? React.ReactElement<React.ComponentPropsWithoutRef<ElementType>, ElementType>
-    : never // useful for narrowing types, third option is not possible
+    : never
 
-/**
- * Extract components from `children` so we can render them in different places,
- * allowing us to implement components with SSR-compatible slot APIs.
- * Note: We can only extract direct children, not nested ones.
- */
+/** Extract slot components from children. See file header for details. */
 export function useSlots<Config extends SlotConfig>(
   children: React.ReactNode,
   config: Config,
