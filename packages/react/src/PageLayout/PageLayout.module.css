@@ -760,6 +760,11 @@
   flex-direction: row;
 }
 
+:where([data-has-sidebar]) > .PageLayoutWrapper {
+  flex-shrink: 1;
+  min-width: 0;
+}
+
 .SidebarWrapper {
   /* Current layout structure:
     -- [Sidebar] | [Resizable Divider] --
