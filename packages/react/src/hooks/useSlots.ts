@@ -38,15 +38,26 @@ export function useSlots<Config extends SlotConfig>(
   children: React.ReactNode,
   config: Config,
 ): [Partial<SlotElements<Config>>, React.ReactNode[]] {
-  // Object mapping slot names to their elements
-  const slots: Partial<SlotElements<Config>> = {} as Partial<SlotElements<Config>>
-
   // Array of elements that are not slots
   const rest: React.ReactNode[] = []
 
   const keys = Object.keys(config) as Array<keyof Config>
   const values = Object.values(config)
   const totalSlots = keys.length
+
+  // Object mapping slot names to their elements, initialized with undefined for each key
+  const slots: Partial<SlotElements<Config>> = {} as Partial<SlotElements<Config>>
+  for (let i = 0; i < totalSlots; i++) {
+    slots[keys[i]] = undefined
+  }
+
+  // Pre-compute which slots use the [Component, testFn] matcher pattern
+  // to avoid Array.isArray() checks in the hot inner loop
+  const isArrayMatcher: boolean[] = new Array(totalSlots)
+  for (let i = 0; i < totalSlots; i++) {
+    isArrayMatcher[i] = Array.isArray(values[i])
+  }
+
   let slotsFound = 0
 
   // eslint-disable-next-line github/array-foreach
@@ -56,26 +67,39 @@ export function useSlots<Config extends SlotConfig>(
       return
     }
 
-    // Short-circuit: if all slots are filled, remaining children go to rest
+    // Fast path: once all slots are filled, skip matching entirely in production.
+    // In dev, check for duplicates to warn.
     if (slotsFound === totalSlots) {
+      if (__DEV__) {
+        for (let i = 0; i < totalSlots; i++) {
+          if (isArrayMatcher[i]) {
+            const [component, testFn] = values[i] as ComponentAndPropsMatcher
+            if ((child.type === component || isSlot(child, component as SlotMarker)) && testFn(child.props)) {
+              warning(true, `Found duplicate "${String(keys[i])}" slot. Only the first will be rendered.`)
+              return
+            }
+          } else {
+            if (child.type === values[i] || isSlot(child, values[i] as SlotMarker)) {
+              warning(true, `Found duplicate "${String(keys[i])}" slot. Only the first will be rendered.`)
+              return
+            }
+          }
+        }
+      }
       rest.push(child)
       return
     }
 
     let matchedIndex = -1
     for (let i = 0; i < totalSlots; i++) {
-      // Skip already-filled slots
-      if (slots[keys[i]] !== undefined) continue
-
-      const value = values[i]
-      if (Array.isArray(value)) {
-        const [component, testFn] = value
+      if (isArrayMatcher[i]) {
+        const [component, testFn] = values[i] as ComponentAndPropsMatcher
         if ((child.type === component || isSlot(child, component as SlotMarker)) && testFn(child.props)) {
           matchedIndex = i
           break
         }
       } else {
-        if (child.type === value || isSlot(child, value as SlotMarker)) {
+        if (child.type === values[i] || isSlot(child, values[i] as SlotMarker)) {
           matchedIndex = i
           break
         }
@@ -92,7 +116,9 @@ export function useSlots<Config extends SlotConfig>(
 
     // If slot is already filled, ignore duplicates
     if (slots[slotKey] !== undefined) {
-      warning(true, `Found duplicate "${String(slotKey)}" slot. Only the first will be rendered.`)
+      if (__DEV__) {
+        warning(true, `Found duplicate "${String(slotKey)}" slot. Only the first will be rendered.`)
+      }
       return
     }
 
