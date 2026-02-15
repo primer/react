@@ -40,18 +40,20 @@ function Spinner({
 }: SpinnerProps) {
   const syncAnimationsEnabled = useFeatureFlag('primer_react_spinner_synchronize_animations')
   const noMotionPreference = useMedia('(prefers-reduced-motion: no-preference)', false)
-  const syncDelay = useSpinnerSyncDelay()
   const size = sizeMap[sizeKey]
   const hasHiddenLabel = srText !== null && ariaLabel === undefined
   const labelId = useId()
 
-  const [isVisible, setIsVisible] = useState(!delay)
+  const [{isVisible, syncDelay}, setVisibleState] = useState(() => ({
+    isVisible: !delay,
+    syncDelay: !delay ? computeSyncDelay() : 0,
+  }))
 
   useEffect(() => {
     if (delay) {
       const delayDuration = typeof delay === 'number' ? delay : delay === 'short' ? 300 : 1000
       const timeoutId = setTimeout(() => {
-        setIsVisible(true)
+        setVisibleState({isVisible: true, syncDelay: computeSyncDelay()})
       }, delayDuration)
 
       return () => clearTimeout(timeoutId)
@@ -112,12 +114,9 @@ Spinner.displayName = 'Spinner'
  * (getAnimations, element.animate, startTime), which are significantly
  * slower in Safari/WebKit.
  */
-function useSpinnerSyncDelay(): number {
-  const [delay] = useState(() => {
-    const now = typeof performance !== 'undefined' ? performance.now() : 0
-    return -(now % ANIMATION_DURATION_MS)
-  })
-  return delay
+function computeSyncDelay(): number {
+  const now = typeof performance !== 'undefined' ? performance.now() : 0
+  return -(now % ANIMATION_DURATION_MS)
 }
 
 export default Spinner
