@@ -4,6 +4,8 @@
   paneMaxWidthDiffBreakpoint: 1280;
   /* Default value for --pane-max-width-diff below the breakpoint */
   paneMaxWidthDiffDefault: 511;
+  /* Default value for --sidebar-max-width-diff (constant across all viewports) */
+  sidebarMaxWidthDiffDefault: 256;
 }
 
 .PageLayoutRoot {
@@ -29,6 +31,8 @@
   --pane-width-large: 100%;
   /* NOTE: This value is exported via :export for use in usePaneWidth.ts */
   --pane-max-width-diff: 511px;
+  /* Sidebar uses a smaller diff since it doesn't need to reserve space for a file tree pane */
+  --sidebar-max-width-diff: 256px;
 
   @media screen and (min-width: 768px) {
     --pane-width-small: 240px;
@@ -762,7 +766,7 @@
   */
   display: flex;
   flex-direction: row;
-  flex-shrink: 0;
+  flex-shrink: 1;
   height: 100%;
 
   &:where([data-is-hidden='true']) {

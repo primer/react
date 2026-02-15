@@ -68,6 +68,12 @@ export type UsePaneWidthResult = {
  */
 export const DEFAULT_MAX_WIDTH_DIFF = Number(cssExports.paneMaxWidthDiffDefault)
 
+/**
+ * Default value for --sidebar-max-width-diff CSS variable.
+ * Unlike --pane-max-width-diff, this is constant across all viewport sizes.
+ */
+export const DEFAULT_SIDEBAR_MAX_WIDTH_DIFF = Number(cssExports.sidebarMaxWidthDiffDefault)
+
 // --pane-max-width-diff changes at this breakpoint in PageLayout.module.css.
 const DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT = Number(cssExports.paneMaxWidthDiffBreakpoint)
 /**
@@ -106,14 +112,17 @@ export const getDefaultPaneWidth = (w: PaneWidthValue): number => {
 }
 
 /**
- * Gets the --pane-max-width-diff CSS variable value from a pane element.
- * This value is set by CSS media queries and controls the max pane width constraint.
+ * Gets the max-width-diff CSS variable value from a pane element.
+ * For sidebars, reads --sidebar-max-width-diff (constant across viewports).
+ * For panes, reads --pane-max-width-diff (changes at 1280px breakpoint).
  * Note: This calls getComputedStyle which forces layout - cache the result when possible.
  */
-export function getPaneMaxWidthDiff(paneElement: HTMLElement | null): number {
-  if (!paneElement) return DEFAULT_MAX_WIDTH_DIFF
-  const value = parseInt(getComputedStyle(paneElement).getPropertyValue('--pane-max-width-diff'), 10)
-  return value > 0 ? value : DEFAULT_MAX_WIDTH_DIFF
+export function getPaneMaxWidthDiff(paneElement: HTMLElement | null, isSidebar = false): number {
+  const defaultValue = isSidebar ? DEFAULT_SIDEBAR_MAX_WIDTH_DIFF : DEFAULT_MAX_WIDTH_DIFF
+  const cssVar = isSidebar ? '--sidebar-max-width-diff' : '--pane-max-width-diff'
+  if (!paneElement) return defaultValue
+  const value = parseInt(getComputedStyle(paneElement).getPropertyValue(cssVar), 10)
+  return value > 0 ? value : defaultValue
 }
 
 // Helper to update ARIA slider attributes via direct DOM manipulation
@@ -197,7 +206,7 @@ export function usePaneWidth({
   })
   // Cache the CSS variable value to avoid getComputedStyle during drag (causes layout thrashing)
   // Updated on mount and resize when breakpoints might change
-  const maxWidthDiffRef = React.useRef(DEFAULT_MAX_WIDTH_DIFF)
+  const maxWidthDiffRef = React.useRef(constrainToViewport ? DEFAULT_SIDEBAR_MAX_WIDTH_DIFF : DEFAULT_MAX_WIDTH_DIFF)
 
   // Calculate max width constraint - for custom widths this is capped to viewport bounds
   // when constrainToViewport is set (e.g., Sidebar), otherwise it uses the custom max directly.
@@ -337,7 +346,7 @@ export function usePaneWidth({
       lastViewportWidth = currentViewportWidth
 
       if (crossedBreakpoint) {
-        maxWidthDiffRef.current = getPaneMaxWidthDiff(paneRef.current)
+        maxWidthDiffRef.current = getPaneMaxWidthDiff(paneRef.current, constrainToViewport)
       }
 
       const actualMax = getMaxPaneWidthRef.current()
@@ -365,7 +374,7 @@ export function usePaneWidth({
     }
 
     // Initial calculation on mount
-    maxWidthDiffRef.current = getPaneMaxWidthDiff(paneRef.current)
+    maxWidthDiffRef.current = getPaneMaxWidthDiff(paneRef.current, constrainToViewport)
     const initialMax = getMaxPaneWidthRef.current()
     setMaxPaneWidth(initialMax)
     paneRef.current?.style.setProperty('--pane-max-width', `${initialMax}px`)
