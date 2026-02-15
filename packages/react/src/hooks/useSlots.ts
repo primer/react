@@ -20,13 +20,11 @@ import type {SlotMarker} from '../utils/types'
  *   +----------------+
  *
  * Performance-sensitive: called per item in lists (e.g. 100-item ActionList
- * calls this 101 times per render). Key optimizations:
+ * calls this 101 times per render).
  *
- *   1. for-loop matching instead of findIndex (no closure allocation per child)
- *   2. Pre-computed isArrayMatcher[] (avoids Array.isArray in hot loop)
- *   3. Short-circuit: once all slots filled, skip matching entirely
- *      - In production: single integer comparison, straight to rest
- *      - In dev: scans for duplicates to warn, then to rest
+ * Once all slots are filled, remaining children skip matching entirely in
+ * production (single integer comparison). In dev, we still scan for duplicates
+ * to emit a warning.
  *
  *   Flow per child:
  *
@@ -54,15 +52,14 @@ import type {SlotMarker} from '../utils/types'
  *   2. Component + test fn:  { block: [Description, props => props.variant === 'block'] }
  */
 
-// Slot config: Component reference, or [Component, testFn] tuple
+// --- Types ---
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Props = any
 type ComponentMatcher = React.ElementType<Props>
 type ComponentAndPropsMatcher = [ComponentMatcher, (props: Props) => boolean]
 
 export type SlotConfig = Record<string, ComponentMatcher | ComponentAndPropsMatcher>
-
-// We don't know what the props are yet, we set them later based on slot config
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Props = any
 
 type SlotElements<Config extends SlotConfig> = {
   [Property in keyof Config]: SlotValue<Config, Property>
@@ -78,29 +75,33 @@ type SlotValue<Config, Property extends keyof Config> = Config[Property] extends
     ? React.ReactElement<React.ComponentPropsWithoutRef<ElementType>, ElementType>
     : never
 
+// --- Matching ---
+
+/** Check if a child element matches a slot config entry, either by direct type comparison or slot symbol. */
+function childMatchesSlot(child: React.ReactElement, slotValue: ComponentMatcher | ComponentAndPropsMatcher): boolean {
+  if (Array.isArray(slotValue)) {
+    const [component, testFn] = slotValue
+    return (child.type === component || isSlot(child, component as SlotMarker)) && testFn(child.props)
+  }
+  return child.type === slotValue || isSlot(child, slotValue as SlotMarker)
+}
+
+// --- Hook ---
+
 /** Extract slot components from children. See file header for details. */
 export function useSlots<Config extends SlotConfig>(
   children: React.ReactNode,
   config: Config,
 ): [Partial<SlotElements<Config>>, React.ReactNode[]] {
-  // Array of elements that are not slots
   const rest: React.ReactNode[] = []
-
   const keys = Object.keys(config) as Array<keyof Config>
   const values = Object.values(config)
   const totalSlots = keys.length
 
-  // Object mapping slot names to their elements, initialized with undefined for each key
+  // Initialize all slot keys to undefined so callers can check `slots.x === undefined`
   const slots: Partial<SlotElements<Config>> = {} as Partial<SlotElements<Config>>
   for (let i = 0; i < totalSlots; i++) {
     slots[keys[i]] = undefined
-  }
-
-  // Pre-compute which slots use the [Component, testFn] matcher pattern
-  // to avoid Array.isArray() checks in the hot inner loop
-  const isArrayMatcher: boolean[] = new Array(totalSlots)
-  for (let i = 0; i < totalSlots; i++) {
-    isArrayMatcher[i] = Array.isArray(values[i])
   }
 
   let slotsFound = 0
@@ -112,46 +113,18 @@ export function useSlots<Config extends SlotConfig>(
       return
     }
 
-    // Fast path: once all slots are filled, skip matching entirely in production.
-    // In dev, check for duplicates to warn.
+    // Short-circuit: all slots filled, no more matching needed
     if (slotsFound === totalSlots) {
-      if (__DEV__) {
-        for (let i = 0; i < totalSlots; i++) {
-          if (isArrayMatcher[i]) {
-            const [component, testFn] = values[i] as ComponentAndPropsMatcher
-            if ((child.type === component || isSlot(child, component as SlotMarker)) && testFn(child.props)) {
-              warning(true, `Found duplicate "${String(keys[i])}" slot. Only the first will be rendered.`)
-              return
-            }
-          } else {
-            if (child.type === values[i] || isSlot(child, values[i] as SlotMarker)) {
-              warning(true, `Found duplicate "${String(keys[i])}" slot. Only the first will be rendered.`)
-              return
-            }
-          }
-        }
+      if (__DEV__ && warnIfDuplicate(child, keys, values, totalSlots)) {
+        return
       }
       rest.push(child)
       return
     }
 
-    let matchedIndex = -1
-    for (let i = 0; i < totalSlots; i++) {
-      if (isArrayMatcher[i]) {
-        const [component, testFn] = values[i] as ComponentAndPropsMatcher
-        if ((child.type === component || isSlot(child, component as SlotMarker)) && testFn(child.props)) {
-          matchedIndex = i
-          break
-        }
-      } else {
-        if (child.type === values[i] || isSlot(child, values[i] as SlotMarker)) {
-          matchedIndex = i
-          break
-        }
-      }
-    }
+    // Try to match child against a slot
+    const matchedIndex = findMatchingSlot(child, values, totalSlots)
 
-    // If the child is not a slot, add it to the `rest` array
     if (matchedIndex === -1) {
       rest.push(child)
       return
@@ -159,7 +132,7 @@ export function useSlots<Config extends SlotConfig>(
 
     const slotKey = keys[matchedIndex]
 
-    // If slot is already filled, ignore duplicates
+    // Duplicate: slot already filled by an earlier child
     if (slots[slotKey] !== undefined) {
       if (__DEV__) {
         warning(true, `Found duplicate "${String(slotKey)}" slot. Only the first will be rendered.`)
@@ -167,10 +140,46 @@ export function useSlots<Config extends SlotConfig>(
       return
     }
 
-    // If the child is a slot, add it to the `slots` object
     slots[slotKey] = child as SlotValue<Config, keyof Config>
     slotsFound++
   })
 
   return [slots, rest]
+}
+
+// --- Helpers ---
+
+/**
+ * Find the first slot config entry matching this child.
+ * Returns the config index, or -1 if no match.
+ */
+function findMatchingSlot(
+  child: React.ReactElement,
+  values: Array<ComponentMatcher | ComponentAndPropsMatcher>,
+  totalSlots: number,
+): number {
+  for (let i = 0; i < totalSlots; i++) {
+    if (childMatchesSlot(child, values[i])) return i
+  }
+  return -1
+}
+
+/**
+ * Dev-only: check if a child duplicates an already-filled slot.
+ * Returns true (and warns) if a duplicate is found, false otherwise.
+ * Used in the short-circuit path where all slots are already filled.
+ */
+function warnIfDuplicate(
+  child: React.ReactElement,
+  keys: Array<string | number | symbol>,
+  values: Array<ComponentMatcher | ComponentAndPropsMatcher>,
+  totalSlots: number,
+): boolean {
+  for (let i = 0; i < totalSlots; i++) {
+    if (childMatchesSlot(child, values[i])) {
+      warning(true, `Found duplicate "${String(keys[i])}" slot. Only the first will be rendered.`)
+      return true
+    }
+  }
+  return false
 }
