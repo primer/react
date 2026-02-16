@@ -157,15 +157,13 @@ function ItemWithSubNav({children, subNav, depth: _depth, defaultOpen, style}: I
   const [containsCurrentItem, setContainsCurrentItem] = React.useState(hasCurrentItem)
 
   useIsomorphicLayoutEffect(() => {
-    if (subNavRef.current) {
-      // Check if SubNav contains current item
-      // valid values: page, step, location, date, time, true and false
-      const currentItem = subNavRef.current.querySelector('[aria-current]:not([aria-current=false])')
-      setContainsCurrentItem(Boolean(currentItem))
+    // Check if SubNav contains current item
+    // valid values: page, step, location, date, time, true and false
+    const currentItem = hasCurrentNavItem(subNav)
+    setContainsCurrentItem(Boolean(currentItem))
 
-      if (currentItem) {
-        setIsOpen(true)
-      }
+    if (currentItem) {
+      setIsOpen(true)
     }
   }, [subNav, buttonId])
 
