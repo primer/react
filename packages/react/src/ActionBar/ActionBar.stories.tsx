@@ -67,7 +67,11 @@ export const Default = () => (
     <ActionBar.IconButton icon={QuoteIcon} aria-label="Insert Quote"></ActionBar.IconButton>
     <ActionBar.IconButton icon={ListUnorderedIcon} aria-label="Unordered List"></ActionBar.IconButton>
     <ActionBar.IconButton icon={ListOrderedIcon} aria-label="Ordered List"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
+    <ActionBar.IconButton
+      icon={TasklistIcon}
+      aria-label="Task List"
+      onClick={() => alert('Task List clicked')}
+    ></ActionBar.IconButton>
   </ActionBar>
 )
 
