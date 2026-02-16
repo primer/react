@@ -245,6 +245,16 @@ function handleOverflow(
     iconPhaseRef.current = 'normal'
   }
 
+  // IO uses a negative rootMargin to reserve space for the More button.
+  // On a grow transition, items might appear clipped within the shrunken
+  // detection zone but actually fit in the full container width (since
+  // removing overflow also removes the More button). Check scrollWidth
+  // to avoid a false-positive overflow.
+  if (list.scrollWidth <= list.clientWidth) {
+    setOverflowStartIndex(-1)
+    return
+  }
+
   // Accessibility: never show only 1 item in the overflow menu.
   let adjustedIndex = firstOverflow
   const overflowCount = itemCount - firstOverflow
