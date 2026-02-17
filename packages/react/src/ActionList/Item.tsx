@@ -237,12 +237,11 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
     'data-inactive': inactive ? true : undefined,
     'data-loading': loading && !inactive ? true : undefined,
     tabIndex: focusable ? undefined : 0,
-    'aria-labelledby': `${labelId} ${slots.trailingVisual ? trailingVisualId : ''} ${
-      slots.description && descriptionVariant === 'inline' ? inlineDescriptionId : ''
-    }`,
+    'aria-labelledby': `${labelId} ${slots.trailingVisual ? trailingVisualId : ''}`,
     'aria-describedby':
       [
         slots.description && descriptionVariant === 'block' ? blockDescriptionId : undefined,
+        slots.description && descriptionVariant === 'inline' ? inlineDescriptionId : undefined,
         inactiveWarningId ?? undefined,
       ]
         .filter(String)
