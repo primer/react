@@ -781,11 +781,15 @@
   /* Position: start (left side) */
   &:where([data-position='start']) {
     order: -1;
+    /* stylelint-disable-next-line primer/spacing */
+    margin-right: var(--spacing-column);
   }
 
   /* Position: end (right side) */
   &:where([data-position='end']) {
     order: 1;
+    /* stylelint-disable-next-line primer/spacing */
+    margin-left: var(--spacing-column);
   }
 
   /* Sticky sidebar */
@@ -859,15 +863,16 @@
 }
 
 .SidebarVerticalDivider {
+  height: auto;
   /* Base position (non-responsive) */
   &:where([data-position='start']) {
     /* stylelint-disable-next-line primer/spacing */
-    margin-left: var(--spacing);
+    margin-left: var(--spacing-column);
   }
 
   &:where([data-position='end']) {
     /* stylelint-disable-next-line primer/spacing */
-    margin-right: var(--spacing);
+    margin-right: var(--spacing-column);
   }
 
   /* Hide divider in fullscreen mode at narrow viewport */

@@ -1,6 +1,6 @@
 import type {StoryFn, Meta} from '@storybook/react-vite'
 
-import {Button, Heading, Text} from '..'
+import {Button, Heading} from '..'
 import {NavList} from '../NavList'
 import {SplitPageLayout} from '../SplitPageLayout'
 import classes from './SplitPageLayout.features.stories.module.css'
@@ -28,11 +28,11 @@ export const SettingsPage: StoryFn<typeof SplitPageLayout> = () => (
       </Heading>
       <div className={classes.DeleteAccountContainer}>
         <div className={classes.DeleteAccountTextContainer}>
-          <Text className={classes.DeleteAccountTitle}>Delete account</Text>
-          <Text className={classes.DeleteAccountDescription}>
+          <p className={classes.DeleteAccountTitle}>Delete account</p>
+          <p className={classes.DeleteAccountDescription}>
             Are you sure you don&apos;t want to just downgrade your account to a free account? We won&apos;t charge your
             credit card anymore.
-          </Text>
+          </p>
         </div>
         <Button variant="danger">Delete account</Button>
       </div>
@@ -42,12 +42,12 @@ export const SettingsPage: StoryFn<typeof SplitPageLayout> = () => (
 
 export const WithSidebarStart: StoryFn<typeof SplitPageLayout> = () => (
   <SplitPageLayout>
-    <SplitPageLayout.Sidebar position="start" aria-label="Inspector sidebar">
+    <SplitPageLayout.Sidebar position="start" aria-label="Inspector sidebar" style={{height: 'auto'}}>
       <div className={classes.SidebarContent}>
-        <Text className={classes.SidebarHeading}>Sidebar</Text>
-        <Text className={classes.SidebarText}>
+        <p className={classes.SidebarHeading}>Sidebar</p>
+        <p className={classes.SidebarText}>
           This sidebar spans the full height of the layout, adjacent to the header, content, and footer.
-        </Text>
+        </p>
       </div>
     </SplitPageLayout.Sidebar>
     <SplitPageLayout.Header>
@@ -69,29 +69,29 @@ export const WithSidebarStart: StoryFn<typeof SplitPageLayout> = () => (
       </Heading>
       <div className={classes.DeleteAccountContainer}>
         <div className={classes.DeleteAccountTextContainer}>
-          <Text className={classes.DeleteAccountTitle}>Delete account</Text>
-          <Text className={classes.DeleteAccountDescription}>
+          <p className={classes.DeleteAccountTitle}>Delete account</p>
+          <p className={classes.DeleteAccountDescription}>
             Are you sure you don&apos;t want to just downgrade your account to a free account? We won&apos;t charge your
             credit card anymore.
-          </Text>
+          </p>
         </div>
         <Button variant="danger">Delete account</Button>
       </div>
     </SplitPageLayout.Content>
     <SplitPageLayout.Footer>
-      <Text>Footer content</Text>
+      <p>Footer content</p>
     </SplitPageLayout.Footer>
   </SplitPageLayout>
 )
 
 export const WithSidebarEnd: StoryFn<typeof SplitPageLayout> = () => (
   <SplitPageLayout>
-    <SplitPageLayout.Sidebar position="end" aria-label="Inspector sidebar">
+    <SplitPageLayout.Sidebar position="end" aria-label="Inspector sidebar" style={{height: 'auto'}}>
       <div className={classes.SidebarContent}>
-        <Text className={classes.SidebarHeading}>Inspector</Text>
-        <Text className={classes.SidebarText}>
+        <p className={classes.SidebarHeading}>Inspector</p>
+        <p className={classes.SidebarText}>
           This sidebar is positioned at the end (right side) and spans the full height.
-        </Text>
+        </p>
       </div>
     </SplitPageLayout.Sidebar>
     <SplitPageLayout.Header>
@@ -111,22 +111,22 @@ export const WithSidebarEnd: StoryFn<typeof SplitPageLayout> = () => (
       <Heading as="h2" className={classes.SectionHeading}>
         Account Settings
       </Heading>
-      <Text>Main content area</Text>
+      <p>Main content area</p>
     </SplitPageLayout.Content>
     <SplitPageLayout.Footer>
-      <Text>Footer content</Text>
+      <p>Footer content</p>
     </SplitPageLayout.Footer>
   </SplitPageLayout>
 )
 
 export const WithResizableSidebar: StoryFn<typeof SplitPageLayout> = () => (
   <SplitPageLayout>
-    <SplitPageLayout.Sidebar resizable position="start" aria-label="Resizable sidebar">
+    <SplitPageLayout.Sidebar resizable position="start" aria-label="Resizable sidebar" style={{height: 'auto'}}>
       <div className={classes.SidebarContent}>
-        <Text className={classes.SidebarHeading}>Resizable Sidebar</Text>
-        <Text className={classes.SidebarText}>
+        <p className={classes.SidebarHeading}>Resizable Sidebar</p>
+        <p className={classes.SidebarText}>
           Drag the edge to resize this sidebar. The width will be persisted across sessions.
-        </Text>
+        </p>
       </div>
     </SplitPageLayout.Sidebar>
     <SplitPageLayout.Header>
@@ -136,20 +136,20 @@ export const WithResizableSidebar: StoryFn<typeof SplitPageLayout> = () => (
       <Heading as="h2" className={classes.SectionHeading}>
         Main Content
       </Heading>
-      <Text>This layout has a resizable sidebar that can be dragged to adjust its width.</Text>
+      <p>This layout has a resizable sidebar that can be dragged to adjust its width.</p>
     </SplitPageLayout.Content>
     <SplitPageLayout.Footer>
-      <Text>Footer content</Text>
+      <p>Footer content</p>
     </SplitPageLayout.Footer>
   </SplitPageLayout>
 )
 
 export const WithSidebarAndResizablePane: StoryFn<typeof SplitPageLayout> = () => (
   <SplitPageLayout>
-    <SplitPageLayout.Sidebar resizable position="start" aria-label="Navigation sidebar">
+    <SplitPageLayout.Sidebar resizable position="start" aria-label="Navigation sidebar" style={{height: 'auto'}}>
       <div className={classes.SidebarContent}>
-        <Text className={classes.SidebarHeading}>Sidebar</Text>
-        <Text className={classes.SidebarText}>Full-height resizable sidebar</Text>
+        <p className={classes.SidebarHeading}>Sidebar</p>
+        <p className={classes.SidebarText}>Full-height resizable sidebar</p>
       </div>
     </SplitPageLayout.Sidebar>
     <SplitPageLayout.Header>
@@ -157,21 +157,21 @@ export const WithSidebarAndResizablePane: StoryFn<typeof SplitPageLayout> = () =
     </SplitPageLayout.Header>
     <SplitPageLayout.Pane resizable position="end" aria-label="Details pane">
       <div className={classes.SidebarContent}>
-        <Text className={classes.SidebarHeading}>Details Pane</Text>
-        <Text className={classes.SidebarText}>This pane is also resizable and sits beside the content.</Text>
+        <p className={classes.SidebarHeading}>Details Pane</p>
+        <p className={classes.SidebarText}>This pane is also resizable and sits beside the content.</p>
       </div>
     </SplitPageLayout.Pane>
     <SplitPageLayout.Content>
       <Heading as="h2" className={classes.SectionHeading}>
         Main Content
       </Heading>
-      <Text>
+      <p>
         This layout demonstrates using both a full-height sidebar and a resizable pane together. The sidebar spans the
         entire height while the pane sits adjacent to the content area only.
-      </Text>
+      </p>
     </SplitPageLayout.Content>
     <SplitPageLayout.Footer>
-      <Text>Footer content</Text>
+      <p>Footer content</p>
     </SplitPageLayout.Footer>
   </SplitPageLayout>
 )
@@ -180,10 +180,8 @@ export const WithStickySidebar: StoryFn<typeof SplitPageLayout> = () => (
   <SplitPageLayout>
     <SplitPageLayout.Sidebar sticky position="start" aria-label="Sticky sidebar">
       <div className={classes.SidebarContent}>
-        <Text className={classes.SidebarHeading}>Sticky Sidebar</Text>
-        <Text className={classes.SidebarText}>
-          This sidebar stays fixed in the viewport as you scroll the page content.
-        </Text>
+        <p className={classes.SidebarHeading}>Sticky Sidebar</p>
+        <p className={classes.SidebarText}>This sidebar stays fixed in the viewport as you scroll the page content.</p>
       </div>
     </SplitPageLayout.Sidebar>
     <SplitPageLayout.Header>
@@ -194,26 +192,31 @@ export const WithStickySidebar: StoryFn<typeof SplitPageLayout> = () => (
         Scrollable Content
       </Heading>
       {Array.from({length: 20}).map((_, i) => (
-        <Text key={i} as="p">
+        <p key={i}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non ipsum.
           Maecenas imperdiet ante quam, at varius lorem molestie vel.
-        </Text>
+        </p>
       ))}
     </SplitPageLayout.Content>
     <SplitPageLayout.Footer>
-      <Text>Footer content</Text>
+      <p>Footer content</p>
     </SplitPageLayout.Footer>
   </SplitPageLayout>
 )
 
 export const SidebarFullscreenWhenNarrow: StoryFn<typeof SplitPageLayout> = () => (
   <SplitPageLayout>
-    <SplitPageLayout.Sidebar position="start" whenNarrow="fullscreen" aria-label="Fullscreen sidebar">
+    <SplitPageLayout.Sidebar
+      position="start"
+      whenNarrow="fullscreen"
+      aria-label="Fullscreen sidebar"
+      style={{height: 'auto'}}
+    >
       <div className={classes.SidebarContent}>
-        <Text className={classes.SidebarHeading}>Fullscreen on Narrow</Text>
-        <Text className={classes.SidebarText}>
+        <p className={classes.SidebarHeading}>Fullscreen on Narrow</p>
+        <p className={classes.SidebarText}>
           Resize the viewport below 768px to see this sidebar expand to fill the entire screen.
-        </Text>
+        </p>
       </div>
     </SplitPageLayout.Sidebar>
     <SplitPageLayout.Header>
@@ -223,10 +226,10 @@ export const SidebarFullscreenWhenNarrow: StoryFn<typeof SplitPageLayout> = () =
       <Heading as="h2" className={classes.SectionHeading}>
         Main Content
       </Heading>
-      <Text>This content is hidden behind the sidebar at narrow viewports.</Text>
+      <p>This content is hidden behind the sidebar at narrow viewports.</p>
     </SplitPageLayout.Content>
     <SplitPageLayout.Footer>
-      <Text>Footer content</Text>
+      <p>Footer content</p>
     </SplitPageLayout.Footer>
   </SplitPageLayout>
 )

@@ -66,11 +66,6 @@ export const PullRequestPage = () => (
         </div>
       </div>
     </PageLayout.Pane>
-    <PageLayout.Sidebar position="start" aria-label="Inspector sidebar">
-      <div className={classes.SidebarBox}>
-        <p>This is the sidebar content.</p>
-      </div>
-    </PageLayout.Sidebar>
   </PageLayout>
 )
 
@@ -306,23 +301,6 @@ export const ResizablePane: StoryFn = () => (
   </PageLayout>
 )
 
-export const ResizablePaneTwo: StoryFn = () => (
-  <PageLayout containerWidth="full">
-    <PageLayout.Header>
-      <Placeholder height={64} label="Header" />
-    </PageLayout.Header>
-    <PageLayout.Pane resizable position="start" aria-label="Side pane">
-      <Placeholder height={320} label="Pane" />
-    </PageLayout.Pane>
-    <PageLayout.Content>
-      <Placeholder height={640} label="Content" />
-    </PageLayout.Content>
-    <PageLayout.Footer>
-      <Placeholder height={64} label="Footer" />
-    </PageLayout.Footer>
-  </PageLayout>
-)
-
 export const ScrollContainerWithinPageLayoutPane: StoryFn = () => (
   <div className={classes.NestedScrollContainer}>
     <div className={classes.OverflowAuto}>
@@ -423,14 +401,14 @@ export const ResizableSidebar: StoryFn = () => (
       resizable
       position="end"
       aria-label="Resizable sidebar"
-      style={{height: '100vh'}}
+      style={{height: 'auto'}}
       width={{
         min: '200px',
         default: '300px',
         max: '2000px',
       }}
     >
-      <Placeholder height={800} label="Resizable Sidebar" />
+      <Placeholder height="100%" label="Resizable Sidebar" />
     </PageLayout.Sidebar>
     <PageLayout.Header>
       <Placeholder height={64} label="Header" />
@@ -450,13 +428,13 @@ export const ResizableSidebar: StoryFn = () => (
 export const SidebarWithPaneResizable: StoryFn = () => (
   <PageLayout containerWidth="full">
     <PageLayout.Sidebar
-      style={{height: '100vh'}}
+      style={{height: 'auto'}}
       resizable
       position="end"
       aria-label="Navigation sidebar"
       width={{min: '200px', default: '300px', max: '2000px'}}
     >
-      <Placeholder height={800} label="Resizable Sidebar" />
+      <Placeholder height="100%" label="Resizable Sidebar" />
     </PageLayout.Sidebar>
     <PageLayout.Header>
       <Placeholder height={64} label="Header" />
