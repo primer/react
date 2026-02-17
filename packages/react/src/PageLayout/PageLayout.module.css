@@ -815,7 +815,6 @@
       min-width: unset;
       max-width: unset;
       border-radius: 0;
-      /* stylelint-disable-next-line primer/spacing */
       z-index: 999;
       background-color: var(--bgColor-default);
     }

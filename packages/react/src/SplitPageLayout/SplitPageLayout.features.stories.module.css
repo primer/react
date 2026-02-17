@@ -40,7 +40,6 @@
 }
 
 .SidebarHeading {
-  /* stylelint-disable-next-line primer/typography */
   font-size: var(--text-body-size-medium);
   font-weight: var(--base-text-weight-semibold);
   margin-bottom: var(--base-size-8);

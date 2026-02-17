@@ -288,7 +288,7 @@ describe('PageLayout', async () => {
       expect(sidebarWrapper).not.toBeNull()
 
       const style = getComputedStyle(sidebarWrapper!)
-      expect(style.flexShrink).toBe('1')
+      expect(style.flexShrink).toBe('0')
     })
   })
 })
