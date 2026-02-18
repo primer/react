@@ -60,24 +60,19 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
   const ariaDescribedByIds = loading ? [loadingAnnouncementID, ariaDescribedBy] : [ariaDescribedBy]
 
   if (__DEV__) {
-    /**
-     * The Linter yells because it thinks this conditionally calls an effect,
-     * but since this is a compile-time flag and not a runtime conditional
-     * this is safe, and ensures the entire effect is kept out of prod builds
-     * shaving precious bytes from the output, and avoiding mounting a noop effect
-     */
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    React.useEffect(() => {
-      if (
-        innerRef.current &&
-        !(innerRef.current instanceof HTMLButtonElement) &&
-        !((innerRef.current as unknown) instanceof HTMLAnchorElement) &&
-        !((innerRef.current as HTMLElement).tagName === 'SUMMARY')
-      ) {
-        // eslint-disable-next-line no-console
-        console.warn('This component should be an instanceof a semantic button or anchor')
-      }
-    }, [innerRef])
+    // Validate that the element is a semantic button/anchor.
+    // This runs during render (not in an effect) to avoid a conditional hook call
+    // that prevents React Compiler from optimizing this component.
+    const el = innerRef.current
+    if (
+      el &&
+      !(el instanceof HTMLButtonElement) &&
+      !((el as unknown) instanceof HTMLAnchorElement) &&
+      !((el as HTMLElement).tagName === 'SUMMARY')
+    ) {
+      // eslint-disable-next-line no-console
+      console.warn('This component should be an instanceof a semantic button or anchor')
+    }
   }
   return (
     <ConditionalWrapper
@@ -154,11 +149,9 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
                   */
                 count !== undefined && !TrailingVisual
                   ? renderModuleVisual(
-                      () => (
-                        <CounterLabel className={classes.CounterLabel} data-component="ButtonCounter">
-                          {count}
-                        </CounterLabel>
-                      ),
+                      <CounterLabel className={classes.CounterLabel} data-component="ButtonCounter">
+                        {count}
+                      </CounterLabel>,
                       Boolean(loading) && !LeadingVisual,
                       'trailingVisual',
                       true,
