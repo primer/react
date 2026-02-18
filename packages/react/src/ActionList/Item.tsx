@@ -285,6 +285,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
           data-variant={variant === 'danger' ? variant : undefined}
           data-active={active ? true : undefined}
           data-inactive={inactiveText ? true : undefined}
+          data-is-disabled={disabled ? true : undefined}
           data-has-subitem={slots.subItem ? true : undefined}
           data-has-description={slots.description ? true : false}
           className={clsx(classes.ActionListItem, className)}

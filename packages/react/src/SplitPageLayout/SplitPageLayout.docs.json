@@ -9,6 +9,24 @@
     },
     {
       "id": "components-splitpagelayout-features--settings-page"
+    },
+    {
+      "id": "components-splitpagelayout-features--with-sidebar-start"
+    },
+    {
+      "id": "components-splitpagelayout-features--with-sidebar-end"
+    },
+    {
+      "id": "components-splitpagelayout-features--with-resizable-sidebar"
+    },
+    {
+      "id": "components-splitpagelayout-features--with-sidebar-and-resizable-pane"
+    },
+    {
+      "id": "components-splitpagelayout-features--with-sticky-sidebar"
+    },
+    {
+      "id": "components-splitpagelayout-features--sidebar-fullscreen-responsive-variant"
     }
   ],
   "importPath": "@primer/react",
@@ -177,6 +195,75 @@
           "type": "'end' | 'start' | {narrow?: 'end' | 'start', narrow?: 'end' | 'start', wide?: 'end' | 'start'}",
           "description": "Which side of the page the pane should be on. Can be changed for different viewport widths.",
           "defaultValue": "start"
+        }
+      ]
+    },
+    {
+      "name": "SplitPageLayout.Sidebar",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "description": "A unique label for the sidebar region."
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string | undefined",
+          "description": "An id to an element which uniquely labels the sidebar region."
+        },
+        {
+          "name": "position",
+          "type": "'start' | 'end'",
+          "defaultValue": "'start'",
+          "description": "Position of the sidebar relative to the page layout. The sidebar spans the full height of the layout, adjacent to the header, content, and footer."
+        },
+        {
+          "name": "width",
+          "type": "| 'small' | 'medium' | 'large' | { min: string max: string default: string }",
+          "defaultValue": "'medium'",
+          "description": "The width of the sidebar. If using custom widths, provide an object with keys 'min', 'max' and 'default'."
+        },
+        {
+          "name": "minWidth",
+          "type": "number",
+          "defaultValue": "256",
+          "description": "Minimum width of the sidebar when resizable."
+        },
+        {
+          "name": "resizable",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "When true, the sidebar may be resized by the user. Width is persisted to localStorage by default."
+        },
+        {
+          "name": "padding",
+          "type": "| 'none' | 'condensed' | 'normal'",
+          "defaultValue": "'normal'",
+          "description": "The amount of padding inside the sidebar."
+        },
+        {
+          "name": "divider",
+          "type": "| 'none' | 'line'",
+          "defaultValue": "'line'",
+          "description": "Divider style between the sidebar and the rest of the layout."
+        },
+        {
+          "name": "sticky",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Whether the sidebar sticks to the viewport when scrolling. When enabled, the sidebar uses position: sticky with top: 0 and height: 100vh."
+        },
+        {
+          "name": "responsiveVariant",
+          "type": "| 'default' | 'fullscreen'",
+          "defaultValue": "'default'",
+          "description": "Controls sidebar behavior at narrow viewport widths (below 768px). 'default' retains its normal inline layout. 'fullscreen' expands to cover the full viewport like a dialog overlay."
+        },
+        {
+          "name": "hidden",
+          "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
+          "defaultValue": "false",
+          "description": "Whether the sidebar is hidden."
         }
       ]
     },
