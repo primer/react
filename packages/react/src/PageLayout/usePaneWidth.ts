@@ -26,7 +26,8 @@ export type UsePaneWidthOptions = {
   width: PaneWidthValue
   minWidth: number
   resizable: boolean
-  widthStorageKey: string
+  /** localStorage key for persisting width. When undefined, localStorage is not used. */
+  widthStorageKey?: string
   paneRef: React.RefObject<HTMLDivElement | null>
   handleRef: React.RefObject<HTMLDivElement | null>
   contentWrapperRef: React.RefObject<HTMLDivElement | null>
@@ -235,7 +236,7 @@ export function usePaneWidth({
     }
     // Try localStorage if onResizeEnd is not provided (default persistence behavior)
     // Read directly here instead of via persister to satisfy react-hooks/refs lint rule
-    const shouldUseLocalStorage = onResizeEnd === undefined && resizable === true
+    const shouldUseLocalStorage = onResizeEnd === undefined && resizable === true && widthStorageKey !== undefined
     if (shouldUseLocalStorage) {
       const storedWidth = localStoragePersister.get(widthStorageKey)
       if (storedWidth !== null) {
@@ -311,8 +312,8 @@ export function usePaneWidth({
         return
       }
 
-      // Handle localStorage persistence when resizable === true and not controlled
-      if (resizable) {
+      // Handle localStorage persistence when resizable === true, not controlled, and key is provided
+      if (resizable && widthStorageKeyRef.current) {
         localStoragePersister.save(widthStorageKeyRef.current, rounded)
       }
     },

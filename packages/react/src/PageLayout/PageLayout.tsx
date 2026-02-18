@@ -1077,8 +1077,9 @@ export type PageLayoutSidebarProps = {
   resizable?: boolean
 
   /**
-   * Storage key for persisting the sidebar width
-   * @default 'sidebarWidth'
+   * localStorage key used to persist the sidebar width across sessions.
+   * Only applies when `resizable` is `true`.
+   * When omitted, localStorage is not used.
    */
   widthStorageKey?: string
 
@@ -1131,7 +1132,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
       minWidth = 256,
       padding = 'none',
       resizable = false,
-      widthStorageKey = 'sidebarWidth',
+      widthStorageKey,
       divider = 'none',
       sticky = false,
       responsiveVariant = 'default',
@@ -1224,7 +1225,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
           ref={sidebarRef}
           // Suppress hydration mismatch for --pane-width when localStorage
           // provides a width that differs from the server-rendered default.
-          suppressHydrationWarning={resizable === true}
+          suppressHydrationWarning={resizable === true && !!widthStorageKey}
           {...(hasOverflow ? overflowProps : {})}
           {...labelProp}
           {...(id && {id: sidebarId})}

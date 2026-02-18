@@ -307,12 +307,6 @@
           "description": "When true, the sidebar may be resized by the user. Width is persisted to localStorage by default."
         },
         {
-          "name": "widthStorageKey",
-          "type": "string",
-          "defaultValue": "'sidebarWidth'",
-          "description": "localStorage key used to persist the sidebar width across sessions. Only applies when resizable is true."
-        },
-        {
           "name": "padding",
           "type": "| 'none' | 'condensed' | 'normal'",
           "defaultValue": "'none'",
