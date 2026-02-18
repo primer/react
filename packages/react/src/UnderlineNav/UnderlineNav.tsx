@@ -1,21 +1,16 @@
 import type {RefObject} from 'react'
-import React, {useRef, forwardRef, useCallback, useState, useEffect} from 'react'
-import {UnderlineNavContext} from './UnderlineNavContext'
+import React, {forwardRef, useCallback, useEffect, useRef, useState} from 'react'
+import VisuallyHidden from '../_VisuallyHidden'
+import {ActionList} from '../ActionList'
+import {ActionMenu} from '../ActionMenu'
+import CounterLabel from '../CounterLabel'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useResizeObserver} from '../hooks/useResizeObserver'
-import VisuallyHidden from '../_VisuallyHidden'
-import {dividerStyles, menuItemStyles, baseMenuMinWidth} from './styles'
-import {UnderlineItemList, UnderlineWrapper, LoadingCounter} from '../internal/components/UnderlineTabbedInterface'
-import {Button} from '../Button'
-import {TriangleDownIcon} from '@primer/octicons-react'
-import {useOnEscapePress} from '../hooks/useOnEscapePress'
-import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
-import {useId} from '../hooks/useId'
-import {ActionList} from '../ActionList'
-import CounterLabel from '../CounterLabel'
+import {LoadingCounter, UnderlineItemList, UnderlineWrapper} from '../internal/components/UnderlineTabbedInterface'
 import {invariant} from '../utils/invariant'
+import {dividerStyles} from './styles'
 import classes from './UnderlineNav.module.css'
-import {getAnchoredPosition} from '@primer/behaviors'
+import {UnderlineNavContext} from './UnderlineNavContext'
 import type {UnderlineNavItemProps} from './UnderlineNavItem'
 
 export type UnderlineNavProps = {
@@ -45,20 +40,6 @@ export const getValidChildren = (children: React.ReactNode) => {
   return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement<any>[]
 }
 
-// Inline styles converted from baseMenuStyles for use as CSSProperties
-const baseMenuInlineStyles: React.CSSProperties = {
-  position: 'absolute',
-  zIndex: 1,
-  top: '90%',
-  boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
-  borderRadius: 12,
-  background: 'var(--overlay-bgColor)',
-  listStyle: 'none',
-  minWidth: `${baseMenuMinWidth}px`,
-  maxWidth: '640px',
-  right: 0,
-}
-
 export const UnderlineNav = forwardRef(
   (
     {
@@ -74,12 +55,6 @@ export const UnderlineNav = forwardRef(
     const backupRef = useRef<HTMLElement>(null)
     const navRef = (forwardedRef ?? backupRef) as RefObject<HTMLElement>
     const listRef = useRef<HTMLUListElement>(null)
-    const moreMenuRef = useRef<HTMLDivElement>(null)
-    const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
-    const containerRef = React.useRef<HTMLUListElement>(null)
-    const disclosureWidgetId = useId()
-
-    const [isWidgetOpen, setIsWidgetOpen] = useState(false)
 
     /** Tracks whether any item has ever overflowed for the lifecycle of this component. Used to prevent flickering. */
     const [isOrEverHasOverflowed, setIsOrEverHasOverflowed] = useState(false)
@@ -123,53 +98,10 @@ export const UnderlineNav = forwardRef(
       })
     }
 
-    const closeOverlay = React.useCallback(() => {
-      setIsWidgetOpen(false)
-    }, [setIsWidgetOpen])
-
-    const focusOnMoreMenuBtn = React.useCallback(() => {
-      moreMenuBtnRef.current?.focus()
-    }, [])
-
-    const onAnchorClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
-      if (event.defaultPrevented || event.button !== 0) {
-        return
-      }
-      setIsWidgetOpen(isWidgetOpen => !isWidgetOpen)
-    }, [])
-
-    useOnEscapePress(
-      (event: KeyboardEvent) => {
-        if (isWidgetOpen) {
-          event.preventDefault()
-          closeOverlay()
-          focusOnMoreMenuBtn()
-        }
-      },
-      [isWidgetOpen],
-    )
-
-    useOnOutsideClick({onClickOutside: closeOverlay, containerRef, ignoreClickRefs: [moreMenuBtnRef]})
-
     const [containerWidth, setContainerWidth] = useState(-1)
     useResizeObserver((resizeObserverEntries: ResizeObserverEntry[]) => {
       setContainerWidth(resizeObserverEntries[0].contentRect.width)
     }, navRef)
-
-    // Compute menuInlineStyles if needed
-    let menuInlineStyles: React.CSSProperties = {...baseMenuInlineStyles}
-    if (containerRef.current && listRef.current) {
-      const {left} = getAnchoredPosition(containerRef.current, listRef.current, {
-        align: 'start',
-        side: 'outside-bottom',
-      })
-
-      menuInlineStyles = {
-        ...baseMenuInlineStyles,
-        right: undefined,
-        left,
-      }
-    }
 
     const menuItems = Array.from(registeredItems.entries()).filter(
       (entry): entry is [string, UnderlineNavItemProps] => entry[1] !== null,
@@ -201,79 +133,62 @@ export const UnderlineNav = forwardRef(
           <UnderlineItemList ref={listRef} role="list">
             {children}
           </UnderlineItemList>
+
           <div
-            ref={moreMenuRef}
             style={{
               alignItems: 'center',
               height: `${MORE_BTN_HEIGHT}px`,
             }}
             className={classes.MoreButtonContainer}
           >
-            {!onlyMenuVisible && <div style={dividerStyles}></div>}
-            <Button
-              ref={moreMenuBtnRef}
-              className={classes.MoreButton}
-              aria-controls={disclosureWidgetId}
-              aria-expanded={isWidgetOpen}
-              onClick={onAnchorClick}
-              trailingAction={TriangleDownIcon}
-              disabled={menuItems.length === 0}
-            >
-              <span>
-                {onlyMenuVisible ? (
-                  <>
-                    <VisuallyHidden as="span">{`${ariaLabel}`}&nbsp;</VisuallyHidden>Menu
-                  </>
-                ) : (
-                  <>
-                    More<VisuallyHidden as="span">&nbsp;{`${ariaLabel} items`}</VisuallyHidden>
-                  </>
-                )}
-              </span>
-            </Button>
-            <ActionList
-              selectionVariant="single"
-              ref={containerRef}
-              id={disclosureWidgetId}
-              style={{
-                ...(listRef.current?.clientWidth && listRef.current.clientWidth >= baseMenuMinWidth
-                  ? baseMenuInlineStyles
-                  : menuInlineStyles),
-                display: isWidgetOpen ? 'block' : 'none',
-              }}
-            >
-              {menuItems.map(([key, allProps]) => {
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                const {children: menuItemChildren, counter, onSelect, as, ...menuItemProps} = allProps
+            {!onlyMenuVisible && <div style={dividerStyles} />}
 
-                return (
-                  <ActionList.LinkItem
-                    key={key}
-                    style={menuItemStyles}
-                    onClick={(event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>) => {
-                      closeOverlay()
-                      focusOnMoreMenuBtn()
-                      // fire onSelect event that comes from the UnderlineNav.Item (if it is defined)
-                      typeof onSelect === 'function' && onSelect(event)
-                    }}
-                    {...menuItemProps}
-                  >
-                    <span className={classes.MenuItemContent}>
-                      {menuItemChildren}
-                      {loadingCounters ? (
-                        <LoadingCounter />
-                      ) : (
-                        counter !== undefined && (
-                          <span data-component="counter">
-                            <CounterLabel>{counter}</CounterLabel>
-                          </span>
-                        )
-                      )}
-                    </span>
-                  </ActionList.LinkItem>
-                )
-              })}
-            </ActionList>
+            <ActionMenu>
+              <ActionMenu.Button className={classes.MoreButton} disabled={menuItems.length === 0}>
+                <span>
+                  {onlyMenuVisible ? (
+                    <>
+                      <VisuallyHidden as="span">{`${ariaLabel}`}&nbsp;</VisuallyHidden>Menu
+                    </>
+                  ) : (
+                    <>
+                      More<VisuallyHidden as="span">&nbsp;{`${ariaLabel} items`}</VisuallyHidden>
+                    </>
+                  )}
+                </span>
+              </ActionMenu.Button>
+
+              <ActionMenu.Overlay>
+                <ActionList>
+                  {menuItems.map(([key, allProps]) => {
+                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                    const {children: menuItemChildren, counter, as, onSelect, ...menuItemProps} = allProps
+
+                    return (
+                      <ActionList.LinkItem
+                        key={key}
+                        className={classes.OverflowMenuItem}
+                        onClick={event => onSelect?.(event)}
+                        {...menuItemProps}
+                      >
+                        <span className={classes.OverflowMenuItemLabel}>{menuItemChildren}</span>
+                        <ActionList.TrailingVisual>
+                          {loadingCounters ? (
+                            <LoadingCounter />
+                          ) : (
+                            counter !== undefined && (
+                              <span data-component="counter">
+                                <CounterLabel>{counter}</CounterLabel>
+                              </span>
+                            )
+                          )}
+                        </ActionList.TrailingVisual>
+                      </ActionList.LinkItem>
+                    )
+                  })}
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
           </div>
         </UnderlineWrapper>
       </UnderlineNavContext.Provider>

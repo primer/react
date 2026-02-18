@@ -1,9 +1,3 @@
-.MenuItemContent {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .MoreButtonContainer {
   display: flex;
   visibility: hidden;
@@ -13,6 +7,10 @@
   @container underline-wrapper scroll-state(scrollable: block) {
     visibility: visible;
   }
+}
+
+.OverflowMenuItem [aria-current] .OverflowMenuItemLabel {
+  font-weight: var(--base-text-weight-semibold);
 }
 
 /* More button styles migrated from styles.ts (was moreBtnStyles) */
