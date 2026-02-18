@@ -15,7 +15,6 @@ const unsupported = new Set(
   [
     'src/ActionMenu/**/*.tsx',
     'src/AvatarStack/**/*.tsx',
-    'src/Button/**/*.tsx',
     'src/ConfirmationDialog/**/*.tsx',
     'src/Pagehead/**/*.tsx',
     'src/Pagination/**/*.tsx',
