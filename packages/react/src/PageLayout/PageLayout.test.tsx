@@ -274,7 +274,7 @@ describe('PageLayout', async () => {
   })
 
   describe('PageLayout.Sidebar', () => {
-    it('SidebarWrapper should allow shrinking to prevent overflow at narrow viewports', () => {
+    it('SidebarWrapper should prevent shrinking', () => {
       const {container} = render(
         <PageLayout>
           <PageLayout.Content>Content</PageLayout.Content>
@@ -295,10 +295,7 @@ describe('PageLayout', async () => {
       render(
         <PageLayout>
           <PageLayout.Content>Content</PageLayout.Content>
-          <PageLayout.Sidebar
-            resizable
-            width={{min: '256px', default: '296px', max: '768px'}}
-          >
+          <PageLayout.Sidebar resizable width={{min: '256px', default: '296px', max: '768px'}}>
             Sidebar
           </PageLayout.Sidebar>
         </PageLayout>,
@@ -320,19 +317,15 @@ describe('PageLayout', async () => {
       const {container} = render(
         <PageLayout>
           <PageLayout.Content>Content</PageLayout.Content>
-          <PageLayout.Sidebar
-            resizable
-            width={{min: '256px', default: '296px', max: '768px'}}
-          >
+          <PageLayout.Sidebar resizable width={{min: '256px', default: '296px', max: '768px'}}>
             Sidebar
           </PageLayout.Sidebar>
         </PageLayout>,
       )
 
-      const sidebarWrapper =
-        container.querySelector<HTMLElement>('[class*="SidebarWrapper"]')
+      const sidebarWrapper = container.querySelector<HTMLElement>('[class*="SidebarWrapper"]')
       expect(sidebarWrapper).not.toBeNull()
-      expect(sidebarWrapper?.dataset.dragging).toBeUndefined()
+      expect(sidebarWrapper?.getAttribute('data-dragging')).toBeNull()
 
       const handle = sidebarWrapper?.querySelector<HTMLElement>('[role="separator"]')
       expect(handle).not.toBeNull()
@@ -341,22 +334,20 @@ describe('PageLayout', async () => {
         fireEvent.pointerDown(handle!, {clientX: 300})
       })
 
-      expect(sidebarWrapper?.dataset.dragging).toBe('true')
+      expect(sidebarWrapper?.getAttribute('data-dragging')).toBe('true')
 
       act(() => {
         fireEvent.pointerUp(handle!)
       })
 
-      expect(sidebarWrapper?.dataset.dragging).toBeUndefined()
+      expect(sidebarWrapper?.getAttribute('data-dragging')).toBeNull()
     })
 
     it('applies aria-label to the sidebar landmark element', () => {
       render(
         <PageLayout>
           <PageLayout.Content>Content</PageLayout.Content>
-          <PageLayout.Sidebar aria-label="Primary sidebar">
-            Sidebar
-          </PageLayout.Sidebar>
+          <PageLayout.Sidebar aria-label="Primary sidebar">Sidebar</PageLayout.Sidebar>
         </PageLayout>,
       )
 
@@ -391,12 +382,9 @@ describe('PageLayout', async () => {
         </PageLayout>,
       )
 
-      let sidebarWrapper =
-        container.querySelector<HTMLElement>('[class*="SidebarWrapper"]')
+      let sidebarWrapper = container.querySelector<HTMLElement>('[class*="SidebarWrapper"]')
       expect(sidebarWrapper).not.toBeNull()
-      expect(
-        sidebarWrapper?.getAttribute('data-position') ?? 'start',
-      ).toBe('start')
+      expect(sidebarWrapper?.getAttribute('data-position') ?? 'start').toBe('start')
 
       rerender(
         <PageLayout>
@@ -405,12 +393,9 @@ describe('PageLayout', async () => {
         </PageLayout>,
       )
 
-      sidebarWrapper =
-        container.querySelector<HTMLElement>('[class*="SidebarWrapper"]')
+      sidebarWrapper = container.querySelector<HTMLElement>('[class*="SidebarWrapper"]')
       expect(sidebarWrapper).not.toBeNull()
-      expect(
-        sidebarWrapper?.getAttribute('data-position') ?? 'end',
-      ).toBe('end')
+      expect(sidebarWrapper?.getAttribute('data-position') ?? 'end').toBe('end')
     })
 
     it('supports sticky positioning', () => {
@@ -421,28 +406,22 @@ describe('PageLayout', async () => {
         </PageLayout>,
       )
 
-      const sidebarWrapper =
-        container.querySelector<HTMLElement>('[class*="SidebarWrapper"]')
+      const sidebarWrapper = container.querySelector<HTMLElement>('[class*="SidebarWrapper"]')
       expect(sidebarWrapper).not.toBeNull()
 
       const style = getComputedStyle(sidebarWrapper!)
-      expect(style.position === 'sticky' || style.position === 'webkit-sticky').toBe(
-        true,
-      )
+      expect(style.position === 'sticky' || style.position === 'webkit-sticky').toBe(true)
     })
 
     it('can render fullscreen when narrow with whenNarrow="fullscreen"', () => {
       const {container} = render(
         <PageLayout>
           <PageLayout.Content>Content</PageLayout.Content>
-          <PageLayout.Sidebar whenNarrow="fullscreen">
-            Sidebar
-          </PageLayout.Sidebar>
+          <PageLayout.Sidebar whenNarrow="fullscreen">Sidebar</PageLayout.Sidebar>
         </PageLayout>,
       )
 
-      const sidebarWrapper =
-        container.querySelector<HTMLElement>('[class*="SidebarWrapper"]')
+      const sidebarWrapper = container.querySelector<HTMLElement>('[class*="SidebarWrapper"]')
       expect(sidebarWrapper).not.toBeNull()
     })
 
@@ -450,27 +429,21 @@ describe('PageLayout', async () => {
       const {container, rerender} = render(
         <PageLayout>
           <PageLayout.Content>Content</PageLayout.Content>
-          <PageLayout.Sidebar hidden={{narrow: true}}>
-            Sidebar
-          </PageLayout.Sidebar>
+          <PageLayout.Sidebar hidden={{narrow: true}}>Sidebar</PageLayout.Sidebar>
         </PageLayout>,
       )
 
-      let sidebarWrapper =
-        container.querySelector<HTMLElement>('[class*="SidebarWrapper"]')
+      let sidebarWrapper = container.querySelector<HTMLElement>('[class*="SidebarWrapper"]')
       expect(sidebarWrapper).toBeNull()
 
       rerender(
         <PageLayout>
           <PageLayout.Content>Content</PageLayout.Content>
-          <PageLayout.Sidebar hidden={{wide: true}}>
-            Sidebar
-          </PageLayout.Sidebar>
+          <PageLayout.Sidebar hidden={{wide: true}}>Sidebar</PageLayout.Sidebar>
         </PageLayout>,
       )
 
-      sidebarWrapper =
-        container.querySelector<HTMLElement>('[class*="SidebarWrapper"]')
+      sidebarWrapper = container.querySelector<HTMLElement>('[class*="SidebarWrapper"]')
       expect(sidebarWrapper).not.toBeNull()
     })
 
