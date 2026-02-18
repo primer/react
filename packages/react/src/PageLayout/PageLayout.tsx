@@ -1220,7 +1220,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
             saveWidth={saveWidth}
           />
         )}
-        <aside
+        <div
           ref={sidebarRef}
           suppressHydrationWarning
           {...(hasOverflow ? overflowProps : {})}
@@ -1242,7 +1242,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
           }
         >
           {children}
-        </aside>
+        </div>
         {position === 'start' && (
           <SidebarDivider
             position={position}

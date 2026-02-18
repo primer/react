@@ -837,8 +837,6 @@
 
 .Sidebar {
   width: var(--pane-width-size);
-  /* stylelint-disable-next-line primer/spacing */
-  padding: var(--spacing);
   height: 100%;
   overflow: auto;
 
