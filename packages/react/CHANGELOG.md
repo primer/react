@@ -1,5 +1,29 @@
 # @primer/react
 
+## 38.13.0
+
+### Minor Changes
+
+- [#7099](https://github.com/primer/react/pull/7099) [`4720c2f`](https://github.com/primer/react/commit/4720c2f27cfacc7600244422ee22af9104b5aa09) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Banner: Use `aria-labelledby` to reference the title for the landmark region instead of generic variant labels.
+
+- [#7521](https://github.com/primer/react/pull/7521) [`12dda86`](https://github.com/primer/react/commit/12dda8654b07bffc33e6b8f29580914c95f3e8e2) Thanks [@TylerJDev](https://github.com/TylerJDev)! - PageLayout: Add `PageLayout.Sidebar` sub-component
+
+### Patch Changes
+
+- [#7537](https://github.com/primer/react/pull/7537) [`4fd987c`](https://github.com/primer/react/commit/4fd987c4194f51dc7e66f16895542a1e4678bde7) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(ActionList): enable React Compiler
+
+- [#7546](https://github.com/primer/react/pull/7546) [`86d6897`](https://github.com/primer/react/commit/86d68971a602be6c99535eb01227bf48dd87cfdc) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(Announce): skip getComputedStyle when there is no text content to announce
+
+- [#7552](https://github.com/primer/react/pull/7552) [`551ec63`](https://github.com/primer/react/commit/551ec6338af5c45e3f549245d85a4dd5a708df47) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(Button): fix CounterLabel remount and remove conditional DEV hook
+
+- [#7504](https://github.com/primer/react/pull/7504) [`d91e78e`](https://github.com/primer/react/commit/d91e78e8d1e69915222354b95d09d93d269dbd8b) Thanks [@TylerJDev](https://github.com/TylerJDev)! - UnderlineNav: Adds `overflow: hidden` when the "More" button isn't present
+
+- [#7526](https://github.com/primer/react/pull/7526) [`0c2358a`](https://github.com/primer/react/commit/0c2358aa12a409f7cbcf15ce4fd41cbb9eee4b6c) Thanks [@hectahertz](https://github.com/hectahertz)! - Add `content-visibility: auto` to ActionList items to improve rendering performance for large lists by allowing the browser to skip layout and paint for off-screen items.
+
+- [#7556](https://github.com/primer/react/pull/7556) [`6dc1858`](https://github.com/primer/react/commit/6dc1858538e3b7ea66b78dd9d37c391c530d78ae) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(ActionList): replace `:has([aria-disabled])` child scan with `data-is-disabled` attribute for faster style recalculation
+
+- [#7548](https://github.com/primer/react/pull/7548) [`d4b32c3`](https://github.com/primer/react/commit/d4b32c3672d3d5421711324654c1028527dcdf38) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(useIsMacOS): replace useState+useEffect with useSyncExternalStore to eliminate unnecessary re-render
+
 ## 38.12.0
 
 ### Minor Changes
