@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-UnderlineNav: Adds `overflow: hidden` when calculating items to prevent CLS
+UnderlineNav: Adds `overflow: hidden` when the "More" button isn't present

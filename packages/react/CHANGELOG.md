@@ -1,5 +1,69 @@
 # @primer/react
 
+## 38.12.0
+
+### Minor Changes
+
+- [#7348](https://github.com/primer/react/pull/7348) [`3c160b2`](https://github.com/primer/react/commit/3c160b26bded975de6175ccf04272e8946cef54e) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Add `currentWidth` and `onResizeEnd` props to PageLayout.Pane for controlled resizable width
+
+  The `PageLayout.Pane` component now supports controlled width:
+
+  - `onResizeEnd` — callback fired when a resize operation ends (pointer release or keyboard key up). Replaces localStorage persistence. Requires `currentWidth`.
+  - `currentWidth` — sets the current displayed width in pixels (`number | undefined`). Pass `undefined` when the persisted value hasn't loaded yet. Requires `onResizeEnd`.
+
+  Both props must be provided together (enforced by TypeScript). `resizable` remains a plain `boolean` prop.
+
+  These props are only meaningful when `resizable={true}` — without it, no drag handle renders so `onResizeEnd` never fires.
+
+  **New export:**
+
+  - `defaultPaneWidth` — Record of preset width values: `{small: 256, medium: 296, large: 320}`
+
+  **Example usage:**
+
+  ```tsx
+  import {PageLayout, defaultPaneWidth} from '@primer/react'
+
+  // Default behavior (unchanged) — localStorage persistence
+  <PageLayout.Pane resizable />
+
+  // Controlled width with custom persistence
+  const [width, setWidth] = useState(defaultPaneWidth.medium)
+  <PageLayout.Pane
+    resizable
+    currentWidth={width}
+    onResizeEnd={(newWidth) => {
+      setWidth(newWidth)
+      myStorage.save('pane-width', newWidth)
+    }}
+  />
+
+  // Async load — pass undefined until value is fetched
+  <PageLayout.Pane
+    resizable
+    currentWidth={savedWidth ?? undefined}
+    onResizeEnd={handleResizeEnd}
+  />
+  ```
+
+### Patch Changes
+
+- [#7527](https://github.com/primer/react/pull/7527) [`c87db98`](https://github.com/primer/react/commit/c87db981280090cdccc84d19c607d1462212d223) Thanks [@llastflowers](https://github.com/llastflowers)! - Update PageHeader story to have semantic headings
+
+- [#7535](https://github.com/primer/react/pull/7535) [`d86c970`](https://github.com/primer/react/commit/d86c970be94dc47da55d492dc978d63d3f9ca005) Thanks [@francinelucca](https://github.com/francinelucca)! - fix: ActionBar overflow menu not closing on select
+
+## 38.11.0
+
+### Minor Changes
+
+- [#7509](https://github.com/primer/react/pull/7509) [`2e563b4`](https://github.com/primer/react/commit/2e563b44ac9e671f3f7fbf4f51a9612deb019db9) Thanks [@francinelucca](https://github.com/francinelucca)! - feat: implement displayInViewport for ActionMenu and AnchoredOverlay
+
+### Patch Changes
+
+- [#7501](https://github.com/primer/react/pull/7501) [`81ab065`](https://github.com/primer/react/commit/81ab065b734a7d919fd9ce42cee1ced648160d12) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Fix PageLayout horizontal overflow by adding width constraint to ContentWrapper
+
+- [#7483](https://github.com/primer/react/pull/7483) [`fe999ca`](https://github.com/primer/react/commit/fe999ca362d21447506798a024ac8e1b8709399a) Thanks [@francinelucca](https://github.com/francinelucca)! - remove primer_react_overlay_overflow FF from the codebase
+
 ## 38.10.0
 
 ### Minor Changes
