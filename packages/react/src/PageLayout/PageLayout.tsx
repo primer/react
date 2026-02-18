@@ -1232,7 +1232,9 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
             {
               '--spacing': `var(--spacing-${padding})`,
               '--pane-min-width': isCustomWidthOptions(width) ? width.min : `${minWidth}px`,
-              '--pane-max-width': isCustomWidthOptions(width) ? width.max : `calc(100vw - var(--pane-max-width-diff))`,
+              '--pane-max-width': isCustomWidthOptions(width)
+                ? width.max
+                : `calc(100vw - var(--sidebar-max-width-diff))`,
               '--pane-width-custom': isCustomWidthOptions(width) ? width.default : undefined,
               '--pane-width-size': `var(--pane-width-${isPaneWidth(width) ? width : 'custom'})`,
               '--pane-width': `${currentWidth}px`,
