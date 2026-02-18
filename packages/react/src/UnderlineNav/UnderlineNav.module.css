@@ -13,6 +13,14 @@
   font-weight: var(--base-text-weight-semibold);
 }
 
+.MoreButtonDivider {
+  display: inline-block;
+  border-left: var(--borderWidth-default) solid var(--borderColor-muted);
+  width: 0;
+  margin-right: var(--base-size-4);
+  height: var(--base-size-24);
+}
+
 /* More button styles migrated from styles.ts (was moreBtnStyles) */
 .MoreButton {
   margin: 0; /* reset Safari extra margin */
