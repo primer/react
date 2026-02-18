@@ -119,7 +119,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
     <PageLayoutContext.Provider value={memoizedContextValue}>
       <RootWrapper style={style} padding={padding} className={className} hasSidebar={!!slots.sidebar}>
         {slots.sidebar}
-        <div className={classes.PageLayoutWrapper} data-width={containerWidth}>
+        <div ref={sidebarContentWrapperRef} className={classes.PageLayoutWrapper} data-width={containerWidth}>
           {slots.header}
           <div className={clsx(classes.PageLayoutContent)}>{rest}</div>
           {slots.footer}
