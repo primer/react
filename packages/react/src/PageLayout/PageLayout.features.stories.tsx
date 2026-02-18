@@ -468,9 +468,9 @@ export const StickySidebar: StoryFn = () => (
   </PageLayout>
 )
 
-export const SidebarFullscreenWhenNarrow: StoryFn = () => (
+export const SidebarFullscreenResponsiveVariant: StoryFn = () => (
   <PageLayout containerWidth="full">
-    <PageLayout.Sidebar position="start" whenNarrow="fullscreen" aria-label="Fullscreen sidebar">
+    <PageLayout.Sidebar position="start" responsiveVariant="fullscreen" aria-label="Fullscreen sidebar">
       <Placeholder height={800} label="Sidebar (fullscreen at narrow)" />
     </PageLayout.Sidebar>
     <PageLayout.Header>

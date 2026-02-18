@@ -68,8 +68,8 @@ const stories = [
     title: 'Sticky Sidebar',
   },
   {
-    id: 'components-pagelayout-features--sidebar-fullscreen-when-narrow',
-    title: 'Sidebar Fullscreen When Narrow',
+    id: 'components-pagelayout-features--sidebar-fullscreen-responsive-variant',
+    title: 'Sidebar Fullscreen Responsive Variant',
   },
 ] as const
 

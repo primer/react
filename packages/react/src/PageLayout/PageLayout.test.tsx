@@ -352,11 +352,11 @@ describe('PageLayout', async () => {
       expect(style.position === 'sticky' || style.position === 'webkit-sticky').toBe(true)
     })
 
-    it('can render fullscreen when narrow with whenNarrow="fullscreen"', () => {
+    it('can render fullscreen when narrow with responsiveVariant="fullscreen"', () => {
       const {container} = render(
         <PageLayout>
           <PageLayout.Content>Content</PageLayout.Content>
-          <PageLayout.Sidebar whenNarrow="fullscreen">Sidebar</PageLayout.Sidebar>
+          <PageLayout.Sidebar responsiveVariant="fullscreen">Sidebar</PageLayout.Sidebar>
         </PageLayout>,
       )
 

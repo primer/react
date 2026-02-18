@@ -204,11 +204,11 @@ export const WithStickySidebar: StoryFn<typeof SplitPageLayout> = () => (
   </SplitPageLayout>
 )
 
-export const SidebarFullscreenWhenNarrow: StoryFn<typeof SplitPageLayout> = () => (
+export const SidebarFullscreenResponsiveVariant: StoryFn<typeof SplitPageLayout> = () => (
   <SplitPageLayout>
     <SplitPageLayout.Sidebar
       position="start"
-      whenNarrow="fullscreen"
+      responsiveVariant="fullscreen"
       aria-label="Fullscreen sidebar"
       style={{height: 'auto'}}
     >

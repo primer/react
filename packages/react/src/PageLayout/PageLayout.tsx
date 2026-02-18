@@ -1105,7 +1105,7 @@ export type PageLayoutSidebarProps = {
    * - `'fullscreen'`: the sidebar expands to cover the full viewport like a dialog overlay.
    * @default 'default'
    */
-  whenNarrow?: 'default' | 'fullscreen'
+  responsiveVariant?: 'default' | 'fullscreen'
 
   /**
    * Whether the sidebar is hidden
@@ -1134,7 +1134,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
       widthStorageKey = 'sidebarWidth',
       divider = 'none',
       sticky = false,
-      whenNarrow = 'default',
+      responsiveVariant = 'default',
       hidden: responsiveHidden = false,
       children,
       id,
@@ -1199,7 +1199,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
         {...getResponsiveAttributes('is-hidden', responsiveHidden)}
         data-position={position}
         data-sticky={sticky || undefined}
-        data-when-narrow={whenNarrow !== 'default' ? whenNarrow : undefined}
+        data-responsive-variant={responsiveVariant !== 'default' ? responsiveVariant : undefined}
       >
         {position === 'end' && (
           <SidebarDivider
@@ -1222,7 +1222,9 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
         )}
         <div
           ref={sidebarRef}
-          suppressHydrationWarning
+          // Suppress hydration mismatch for --pane-width when localStorage
+          // provides a width that differs from the server-rendered default.
+          suppressHydrationWarning={resizable === true}
           {...(hasOverflow ? overflowProps : {})}
           {...labelProp}
           {...(id && {id: sidebarId})}

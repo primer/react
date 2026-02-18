@@ -59,7 +59,7 @@
       "id": "components-pagelayout-features--sticky-sidebar"
     },
     {
-      "id": "components-pagelayout-features--sidebar-fullscreen-when-narrow"
+      "id": "components-pagelayout-features--sidebar-fullscreen-responsive-variant"
     }
   ],
   "importPath": "@primer/react",
@@ -331,7 +331,7 @@
           "description": "Whether the sidebar sticks to the viewport when scrolling. When enabled, the sidebar uses position: sticky with top: 0 and height: 100vh."
         },
         {
-          "name": "whenNarrow",
+          "name": "responsiveVariant",
           "type": "| 'default' | 'fullscreen'",
           "defaultValue": "'default'",
           "description": "Controls sidebar behavior at narrow viewport widths (below 768px). 'default' retains its normal inline layout. 'fullscreen' expands to cover the full viewport like a dialog overlay."
