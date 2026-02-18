@@ -320,7 +320,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
     }
   }, [anchorRef])
 
-  const featureFlagDisplayInViewportInsidePortal = useFeatureFlag(
+  const featureFlagDisplayInViewportInsideDialog = useFeatureFlag(
     'primer_react_action_menu_display_in_viewport_inside_dialog',
   )
 
@@ -341,7 +341,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
       onPositionChange={onPositionChange}
       variant={variant}
       displayInViewport={
-        displayInViewport !== undefined ? displayInViewport : featureFlagDisplayInViewportInsidePortal && isInsideDialog
+        displayInViewport !== undefined ? displayInViewport : featureFlagDisplayInViewportInsideDialog && isInsideDialog
       }
     >
       <div
