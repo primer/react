@@ -5,7 +5,6 @@
   padding-top: var(--base-size-8);
   justify-content: space-between;
   align-items: flex-start;
-  overflow: hidden;
   /* stylelint-disable-next-line declaration-property-value-no-unknown */
   container: underline-wrapper / scroll-state;
 
