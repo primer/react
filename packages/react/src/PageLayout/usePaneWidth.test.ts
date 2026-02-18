@@ -9,6 +9,7 @@ import {
   updateAriaValues,
   defaultPaneWidth,
   DEFAULT_MAX_WIDTH_DIFF,
+  DEFAULT_SIDEBAR_MAX_WIDTH_DIFF,
   SSR_DEFAULT_MAX_WIDTH,
   ARROW_KEY_STEP,
 } from './usePaneWidth'
@@ -1141,13 +1142,22 @@ describe('helper functions', () => {
   })
 
   describe('getPaneMaxWidthDiff', () => {
-    it('should return default when element is null', () => {
+    it('should return default pane diff when element is null', () => {
       expect(getPaneMaxWidthDiff(null)).toBe(DEFAULT_MAX_WIDTH_DIFF)
     })
 
-    it('should return default when CSS variable is not set', () => {
+    it('should return default sidebar diff when element is null and isSidebar is true', () => {
+      expect(getPaneMaxWidthDiff(null, true)).toBe(DEFAULT_SIDEBAR_MAX_WIDTH_DIFF)
+    })
+
+    it('should return default pane diff when CSS variable is not set', () => {
       const element = document.createElement('div')
       expect(getPaneMaxWidthDiff(element)).toBe(DEFAULT_MAX_WIDTH_DIFF)
+    })
+
+    it('should return default sidebar diff when CSS variable is not set and isSidebar is true', () => {
+      const element = document.createElement('div')
+      expect(getPaneMaxWidthDiff(element, true)).toBe(DEFAULT_SIDEBAR_MAX_WIDTH_DIFF)
     })
   })
 
@@ -1187,6 +1197,7 @@ describe('helper functions', () => {
 describe('constants', () => {
   it('should export expected constants', () => {
     expect(DEFAULT_MAX_WIDTH_DIFF).toBe(511)
+    expect(DEFAULT_SIDEBAR_MAX_WIDTH_DIFF).toBe(256)
     expect(SSR_DEFAULT_MAX_WIDTH).toBe(600)
     expect(ARROW_KEY_STEP).toBe(3)
     expect(defaultPaneWidth).toEqual({small: 256, medium: 296, large: 320})
