@@ -106,7 +106,6 @@ export const UnderlineNav = forwardRef(
     const menuItems = Array.from(registeredItems.entries()).filter(
       (entry): entry is [string, UnderlineNavItemProps] => entry[1] !== null,
     )
-    const onlyMenuVisible = menuItems.length === registeredItems.size
 
     return (
       <UnderlineNavContext.Provider
@@ -136,25 +135,16 @@ export const UnderlineNav = forwardRef(
 
           <div
             style={{
-              alignItems: 'center',
               height: `${MORE_BTN_HEIGHT}px`,
             }}
             className={classes.MoreButtonContainer}
           >
-            {!onlyMenuVisible && <div style={dividerStyles} />}
+            <div style={dividerStyles} />
 
             <ActionMenu>
               <ActionMenu.Button className={classes.MoreButton} disabled={menuItems.length === 0}>
                 <span>
-                  {onlyMenuVisible ? (
-                    <>
-                      <VisuallyHidden as="span">{`${ariaLabel}`}&nbsp;</VisuallyHidden>Menu
-                    </>
-                  ) : (
-                    <>
-                      More<VisuallyHidden as="span">&nbsp;{`${ariaLabel} items`}</VisuallyHidden>
-                    </>
-                  )}
+                  More<VisuallyHidden as="span">&nbsp; items</VisuallyHidden>
                 </span>
               </ActionMenu.Button>
 
