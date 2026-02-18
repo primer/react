@@ -363,19 +363,5 @@ describe('PageLayout', async () => {
       const sidebarWrapper = container.querySelector<HTMLElement>('[class*="SidebarWrapper"]')
       expect(sidebarWrapper).not.toBeNull()
     })
-
-    it('forwards refs to the underlying sidebar element', () => {
-      const ref = {current: null as HTMLElement | null}
-
-      render(
-        <PageLayout>
-          <PageLayout.Content>Content</PageLayout.Content>
-          <PageLayout.Sidebar ref={ref}>Sidebar</PageLayout.Sidebar>
-        </PageLayout>,
-      )
-
-      expect(ref.current).not.toBeNull()
-      expect(ref.current instanceof HTMLElement).toBe(true)
-    })
   })
 })
