@@ -362,7 +362,9 @@ export const WithPageLayout = () => {
       <PageLayout.Pane>
         <div className={classes.PaneStack}>
           <div>
-            <Text className={classes.PaneSectionHeading}>Assignees</Text>
+            <Heading as="h2" className={classes.PaneSectionHeading}>
+              Assignees
+            </Heading>
             <Text className={classes.PaneMetaTextWithButton}>
               No one —
               <Button
@@ -378,7 +380,9 @@ export const WithPageLayout = () => {
           </div>
           <div className={classes.PaneSeparator} role="separator"></div>
           <div>
-            <Text className={classes.PaneSectionHeading}>Labels</Text>
+            <Heading as="h2" className={classes.PaneSectionHeading}>
+              Labels
+            </Heading>
             <Text className={classes.PaneMetaText}>None yet</Text>
           </div>
         </div>

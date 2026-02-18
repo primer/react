@@ -1,7 +1,7 @@
 {
   "name": "@primer/react",
   "type": "module",
-  "version": "38.11.0",
+  "version": "38.12.0",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -134,7 +134,7 @@
     "@types/react-is": "18.3.1",
     "@vitejs/plugin-react": "^4.3.3",
     "afterframe": "^1.0.2",
-    "ajv": "8.16.0",
+    "ajv": "8.18.0",
     "axe-core": "4.9.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-plugin-add-react-displayname": "0.0.5",
