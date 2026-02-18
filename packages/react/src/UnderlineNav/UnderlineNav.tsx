@@ -4,11 +4,8 @@ import VisuallyHidden from '../_VisuallyHidden'
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
 import CounterLabel from '../CounterLabel'
-import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
-import {useResizeObserver} from '../hooks/useResizeObserver'
 import {LoadingCounter, UnderlineItemList, UnderlineWrapper} from '../internal/components/UnderlineTabbedInterface'
 import {invariant} from '../utils/invariant'
-import {dividerStyles} from './styles'
 import classes from './UnderlineNav.module.css'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import type {UnderlineNavItemProps} from './UnderlineNavItem'
@@ -98,11 +95,6 @@ export const UnderlineNav = forwardRef(
       })
     }
 
-    const [containerWidth, setContainerWidth] = useState(-1)
-    useResizeObserver((resizeObserverEntries: ResizeObserverEntry[]) => {
-      setContainerWidth(resizeObserverEntries[0].contentRect.width)
-    }, navRef)
-
     const menuItems = Array.from(registeredItems.entries()).filter(
       (entry): entry is [string, UnderlineNavItemProps] => entry[1] !== null,
     )
@@ -112,7 +104,6 @@ export const UnderlineNav = forwardRef(
         value={{
           loadingCounters,
           registerItem,
-          containerWidth,
           unregisterItem,
         }}
       >
@@ -139,10 +130,10 @@ export const UnderlineNav = forwardRef(
             }}
             className={classes.MoreButtonContainer}
           >
-            <div style={dividerStyles} />
+            <div className={classes.MoreButtonDivider} />
 
             <ActionMenu>
-              <ActionMenu.Button className={classes.MoreButton} disabled={menuItems.length === 0}>
+              <ActionMenu.Button className={classes.MoreButton}>
                 <span>
                   More<VisuallyHidden as="span">&nbsp; items</VisuallyHidden>
                 </span>

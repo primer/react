@@ -3,7 +3,6 @@ import React, {forwardRef, useRef, useContext, useEffect, useId, useState} from 
 import type {IconProps} from '@primer/octicons-react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {UnderlineNavContext} from './UnderlineNavContext'
-import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {UnderlineItem} from '../internal/components/UnderlineTabbedInterface'
 import classes from './UnderlineNavItem.module.css'
 
@@ -74,28 +73,29 @@ export const UnderlineNavItem = forwardRef((allProps, forwardedRef) => {
 
   const backupRef = useRef<HTMLElement>(null)
   const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
-  const {loadingCounters, containerWidth, registerItem, unregisterItem} = useContext(UnderlineNavContext)
+  const {loadingCounters, registerItem, unregisterItem} = useContext(UnderlineNavContext)
 
   const id = useId()
   const [isOverflowing, setIsOverflowing] = useState(false)
 
-  useLayoutEffect(() => {
-    if (ref.current) {
+  useEffect(() => {
+    const element = ref.current
+    if (!element) return
+
+    const observer = new IntersectionObserver(() => {
       // Overflowing items wrap onto subsequent lines, so their `offsetTop` increases
-      const isOverflowing = ref.current.offsetTop > 0
+      const isOverflowing = element.offsetTop > 0
       setIsOverflowing(isOverflowing)
 
       // Even if an item is not overflowing, it still needs to register itself to claim it's place in the registry.
       // This preserves order - otherwise, items that overflow first would appear first in the menu.
       registerItem(id, isOverflowing ? allProps : null)
-    }
+    })
 
-    // To preserve the item's spot in the registry, we don't unregister until we actually dismount the component.
+    observer.observe(element)
 
-    // TODO: We should try to trim the registry down to the bare minimum needed to render a menu item so that we don't
-    // have to re-register every time `allProps` changes.
-    // See /workspaces/react/packages/react/src/ActionBar/ActionBar.tsx#531 for example.
-  }, [ref, containerWidth, registerItem, id, allProps])
+    return () => observer.disconnect()
+  }, [ref, registerItem, id, allProps])
 
   // Unregister only on dismount:
   useEffect(() => () => unregisterItem(id), [id, unregisterItem])

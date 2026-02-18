@@ -16,9 +16,6 @@
   /* stylelint-disable-next-line primer/box-shadow */
   box-shadow: inset 0 -1px var(--borderColor-muted);
 
-  /* Hide overflow until calculation is complete to prevent CLS */
-  overflow: visible;
-
   &[data-overflow-measured='false'] {
     overflow: hidden;
   }
