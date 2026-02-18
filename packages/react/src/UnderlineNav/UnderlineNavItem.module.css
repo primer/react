@@ -3,3 +3,9 @@
   flex-direction: column;
   align-items: center;
 }
+
+/* When an item overflows (aria-hidden set by parent), hide it visually.
+   The item remains in the DOM for IntersectionObserver to track. */
+.UnderlineNavItem[aria-hidden='true'] {
+  visibility: hidden;
+}

@@ -47,13 +47,15 @@ export const UnderlineWrapper = forwardRef((props, ref) => {
   )
 }) as PolymorphicForwardRefComponent<ElementType, UnderlineWrapperProps<ElementType>>
 
-export const UnderlineItemList = forwardRef(({children, ...rest}: PropsWithChildren, forwardedRef) => {
-  return (
-    <ul className={classes.UnderlineItemList} ref={forwardedRef} {...rest}>
-      {children}
-    </ul>
-  )
-}) as PolymorphicForwardRefComponent<'ul'>
+export const UnderlineItemList = forwardRef(
+  ({children, className, ...rest}: PropsWithChildren<{className?: string}>, forwardedRef) => {
+    return (
+      <ul className={clsx(classes.UnderlineItemList, className)} ref={forwardedRef} {...rest}>
+        {children}
+      </ul>
+    )
+  },
+) as PolymorphicForwardRefComponent<'ul'>
 
 export const LoadingCounter = () => {
   return <span className={classes.LoadingCounter} />
@@ -72,11 +74,23 @@ export type UnderlineItemProps<As extends React.ElementType> = {
 } & React.ComponentPropsWithoutRef<As extends 'a' ? 'a' : As extends 'button' ? 'button' : As>
 
 export const UnderlineItem = React.forwardRef((props, ref) => {
-  const {as: Component = 'a', children, counter, icon: Icon, iconsVisible, loadingCounters, className, ...rest} = props
+  const {
+    as: Component = 'a',
+    children,
+    counter,
+    icon: Icon,
+    // Destructure iconsVisible to prevent it from spreading onto the DOM via ...rest.
+    // Icon visibility is now controlled via CSS (data-icons-visible on wrapper).
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    iconsVisible: _iconsVisible,
+    loadingCounters,
+    className,
+    ...rest
+  } = props
   const textContent = getTextContent(children)
   return (
     <Component {...rest} ref={ref} className={clsx(classes.UnderlineItem, className)}>
-      {iconsVisible && Icon && <span data-component="icon">{isElement(Icon) ? Icon : <Icon />}</span>}
+      {Icon && <span data-component="icon">{isElement(Icon) ? Icon : <Icon />}</span>}
       {children && (
         <span data-component="text" data-content={textContent || undefined}>
           {children}

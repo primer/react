@@ -1,9 +1,8 @@
-import type {MutableRefObject, RefObject} from 'react'
+import type {RefObject} from 'react'
 import React, {forwardRef, useRef, useContext} from 'react'
 import type {IconProps} from '@primer/octicons-react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {UnderlineNavContext} from './UnderlineNavContext'
-import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {UnderlineItem} from '../internal/components/UnderlineTabbedInterface'
 import classes from './UnderlineNavItem.module.css'
 
@@ -25,6 +24,11 @@ export type UnderlineNavItemProps = {
    * Primary content for an UnderlineNav
    */
   children?: React.ReactNode
+
+  /**
+   * Whether the item is hidden from the accessibility tree (set internally for overflowed items).
+   */
+  'aria-hidden'?: boolean | 'true' | 'false'
 
   /**
    * Callback that will trigger both on click selection and keyboard selection.
@@ -68,6 +72,7 @@ export const UnderlineNavItem = forwardRef(
       counter,
       onSelect,
       'aria-current': ariaCurrent,
+      'aria-hidden': ariaHidden,
       icon: Icon,
       leadingVisual,
       ...props
@@ -76,31 +81,7 @@ export const UnderlineNavItem = forwardRef(
   ) => {
     const backupRef = useRef<HTMLElement>(null)
     const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
-    const {setChildrenWidth, setNoIconChildrenWidth, loadingCounters, iconsVisible} = useContext(UnderlineNavContext)
-
-    useLayoutEffect(() => {
-      if (ref.current) {
-        const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
-
-        const icon = Array.from((ref as MutableRefObject<HTMLElement>).current.children).find(
-          child => child.getAttribute('data-component') === 'icon',
-        )
-
-        const content = Array.from((ref as MutableRefObject<HTMLElement>).current.children).find(
-          child => child.getAttribute('data-component') === 'text',
-        ) as HTMLElement
-        const text = content.textContent as string
-
-        const iconWidthWithMargin = icon
-          ? icon.getBoundingClientRect().width +
-            Number(getComputedStyle(icon).marginRight.slice(0, -2)) +
-            Number(getComputedStyle(icon).marginLeft.slice(0, -2))
-          : 0
-
-        setChildrenWidth({text, width: domRect.width})
-        setNoIconChildrenWidth({text, width: domRect.width - iconWidthWithMargin})
-      }
-    }, [ref, setChildrenWidth, setNoIconChildrenWidth])
+    const {loadingCounters} = useContext(UnderlineNavContext)
 
     const keyDownHandler = React.useCallback(
       (event: React.KeyboardEvent<HTMLAnchorElement>) => {
@@ -119,8 +100,12 @@ export const UnderlineNavItem = forwardRef(
       [onSelect],
     )
 
+    // When aria-hidden is set (overflow items), hide the <li> from a11y tree
+    // and make the inner element non-focusable
+    const isHidden = ariaHidden === 'true' || ariaHidden === true
+
     return (
-      <li className={classes.UnderlineNavItem}>
+      <li className={classes.UnderlineNavItem} aria-hidden={isHidden || undefined}>
         <UnderlineItem
           ref={ref}
           as={Component}
@@ -131,8 +116,8 @@ export const UnderlineNavItem = forwardRef(
           counter={counter}
           icon={leadingVisual ?? Icon}
           loadingCounters={loadingCounters}
-          iconsVisible={iconsVisible}
           {...props}
+          tabIndex={isHidden ? -1 : props.tabIndex}
         >
           {children}
         </UnderlineItem>
