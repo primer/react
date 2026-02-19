@@ -65,6 +65,8 @@
 
   /* stylelint-disable-next-line primer/spacing */
   padding: var(--spacing);
+  display: flex;
+  flex: 1;
 }
 
 .PageLayoutWrapper {
