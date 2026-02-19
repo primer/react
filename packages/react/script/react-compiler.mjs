@@ -13,10 +13,8 @@ const files = glob
   })
 const unsupported = new Set(
   [
-    'src/ActionList/**/*.tsx',
     'src/ActionMenu/**/*.tsx',
     'src/AvatarStack/**/*.tsx',
-    'src/Button/**/*.tsx',
     'src/ConfirmationDialog/**/*.tsx',
     'src/Pagehead/**/*.tsx',
     'src/Pagination/**/*.tsx',
