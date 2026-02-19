@@ -27,10 +27,17 @@ export type UsePaneWidthOptions = {
   width: PaneWidthValue
   minWidth: number
   resizable: boolean
-  widthStorageKey: string
+  /** localStorage key for persisting width. When undefined, localStorage is not used. */
+  widthStorageKey?: string
   paneRef: React.RefObject<HTMLDivElement | null>
   handleRef: React.RefObject<HTMLDivElement | null>
   contentWrapperRef: React.RefObject<HTMLDivElement | null>
+  /**
+   * When true, custom max width values are capped to the viewport-based max.
+   * This prevents overflow in non-wrapping flex layouts (e.g., Sidebar).
+   * @default false
+   */
+  constrainToViewport?: boolean
   /** Callback fired when a resize operation ends (drag release or keyboard key up) */
   onResizeEnd?: (width: number) => void
   /** Current/controlled width value in pixels (used instead of internal state; default from `width` is still used for reset) */
@@ -65,6 +72,12 @@ export const DEFAULT_MAX_WIDTH_DIFF = Number(cssExports.paneMaxWidthDiffDefault)
 
 // Value for --pane-max-width-diff at/above the wide breakpoint.
 const WIDE_MAX_WIDTH_DIFF = Number(cssExports.paneMaxWidthDiffWide)
+
+/**
+ * Default value for --sidebar-max-width-diff CSS variable.
+ * Unlike --pane-max-width-diff, this is constant across all viewport sizes.
+ */
+export const DEFAULT_SIDEBAR_MAX_WIDTH_DIFF = Number(cssExports.sidebarMaxWidthDiffDefault)
 
 // --pane-max-width-diff changes at this breakpoint in PageLayout.module.css.
 const DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT = Number(cssExports.paneMaxWidthDiffBreakpoint)
@@ -104,11 +117,13 @@ export const getDefaultPaneWidth = (w: PaneWidthValue): number => {
 }
 
 /**
- * Derives the --pane-max-width-diff value from viewport width alone.
- * Avoids the expensive getComputedStyle call that forces a synchronous layout recalc.
- * The CSS only defines two breakpoint-dependent values, so a simple width check is equivalent.
+ * Derives the max-width-diff value without getComputedStyle.
+ * For sidebars, returns the constant (same across all viewports).
+ * For panes, derives from viewport width to avoid the expensive
+ * getComputedStyle call that forces a synchronous layout recalc.
  */
-export function getMaxWidthDiffFromViewport(): number {
+export function getMaxWidthDiff(isSidebar = false): number {
+  if (isSidebar) return DEFAULT_SIDEBAR_MAX_WIDTH_DIFF
   if (!canUseDOM) return DEFAULT_MAX_WIDTH_DIFF
   return window.innerWidth >= DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT ? WIDE_MAX_WIDTH_DIFF : DEFAULT_MAX_WIDTH_DIFF
 }
@@ -174,6 +189,7 @@ export function usePaneWidth({
   paneRef,
   handleRef,
   contentWrapperRef,
+  constrainToViewport = false,
   onResizeEnd,
   currentWidth: controlledWidth,
 }: UsePaneWidthOptions): UsePaneWidthResult {
@@ -193,14 +209,20 @@ export function usePaneWidth({
   })
   // Cache the CSS variable value to avoid getComputedStyle during drag (causes layout thrashing)
   // Updated on mount and resize when breakpoints might change
-  const maxWidthDiffRef = React.useRef(DEFAULT_MAX_WIDTH_DIFF)
+  const maxWidthDiffRef = React.useRef(constrainToViewport ? DEFAULT_SIDEBAR_MAX_WIDTH_DIFF : DEFAULT_MAX_WIDTH_DIFF)
 
-  // Calculate max width constraint - for custom widths this is fixed, otherwise viewport-dependent
+  // Calculate max width constraint - for custom widths this is capped to viewport bounds
+  // when constrainToViewport is set (e.g., Sidebar), otherwise it uses the custom max directly.
+  // For preset widths, max is always viewport-dependent.
   const getMaxPaneWidth = React.useCallback(() => {
-    if (customMaxWidth !== null) return customMaxWidth
     const viewportWidth = window.innerWidth
-    return viewportWidth > 0 ? Math.max(minPaneWidth, viewportWidth - maxWidthDiffRef.current) : minPaneWidth
-  }, [customMaxWidth, minPaneWidth])
+    const viewportMax =
+      viewportWidth > 0 ? Math.max(minPaneWidth, viewportWidth - maxWidthDiffRef.current) : minPaneWidth
+    if (customMaxWidth !== null) {
+      return constrainToViewport ? Math.min(customMaxWidth, viewportMax) : customMaxWidth
+    }
+    return viewportMax
+  }, [customMaxWidth, minPaneWidth, constrainToViewport])
 
   const defaultWidth = useMemo(() => getDefaultPaneWidth(width), [width])
   // --- State ---
@@ -216,7 +238,7 @@ export function usePaneWidth({
     }
     // Try localStorage if onResizeEnd is not provided (default persistence behavior)
     // Read directly here instead of via persister to satisfy react-hooks/refs lint rule
-    const shouldUseLocalStorage = onResizeEnd === undefined && resizable === true
+    const shouldUseLocalStorage = onResizeEnd === undefined && resizable === true && widthStorageKey !== undefined
     if (shouldUseLocalStorage) {
       const storedWidth = localStoragePersister.get(widthStorageKey)
       if (storedWidth !== null) {
@@ -292,8 +314,8 @@ export function usePaneWidth({
         return
       }
 
-      // Handle localStorage persistence when resizable === true and not controlled
-      if (resizable) {
+      // Handle localStorage persistence when resizable === true, not controlled, and key is provided
+      if (resizable && widthStorageKeyRef.current) {
         localStoragePersister.save(widthStorageKeyRef.current, rounded)
       }
     },
@@ -327,7 +349,7 @@ export function usePaneWidth({
       lastViewportWidth = currentViewportWidth
 
       if (crossedBreakpoint) {
-        maxWidthDiffRef.current = getMaxWidthDiffFromViewport()
+        maxWidthDiffRef.current = getMaxWidthDiff(constrainToViewport)
       }
 
       const actualMax = getMaxPaneWidthRef.current()
@@ -357,14 +379,14 @@ export function usePaneWidth({
     // Initial calculation on mount — use viewport-based lookup to avoid
     // getComputedStyle which forces a synchronous layout recalc on the
     // freshly-committed DOM tree (measured at ~614ms on large pages).
-    maxWidthDiffRef.current = getMaxWidthDiffFromViewport()
+    maxWidthDiffRef.current = getMaxWidthDiff(constrainToViewport)
     const initialMax = getMaxPaneWidthRef.current()
     setMaxPaneWidth(initialMax)
     paneRef.current?.style.setProperty('--pane-max-width', `${initialMax}px`)
     updateAriaValues(handleRef.current, {min: minPaneWidth, max: initialMax, current: currentWidthRef.current})
 
-    // For custom widths, max is fixed - no need to listen to resize
-    if (customMaxWidth !== null) return
+    // For custom widths that aren't viewport-constrained, max is fixed - no need to listen to resize
+    if (customMaxWidth !== null && !constrainToViewport) return
 
     // Throttle approach for window resize - provides immediate visual feedback for small DOMs
     // while still limiting update frequency
@@ -424,7 +446,7 @@ export function usePaneWidth({
       endResizeOptimizations()
       window.removeEventListener('resize', handleResize)
     }
-  }, [resizable, customMaxWidth, minPaneWidth, paneRef, handleRef, contentWrapperRef])
+  }, [resizable, customMaxWidth, constrainToViewport, minPaneWidth, paneRef, handleRef, contentWrapperRef])
 
   return {
     currentWidth,

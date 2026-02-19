@@ -5,10 +5,11 @@ import {
   isCustomWidthOptions,
   isPaneWidth,
   getDefaultPaneWidth,
-  getMaxWidthDiffFromViewport,
+  getMaxWidthDiff,
   updateAriaValues,
   defaultPaneWidth,
   DEFAULT_MAX_WIDTH_DIFF,
+  DEFAULT_SIDEBAR_MAX_WIDTH_DIFF,
   SSR_DEFAULT_MAX_WIDTH,
   ARROW_KEY_STEP,
 } from './usePaneWidth'
@@ -1148,20 +1149,27 @@ describe('helper functions', () => {
     })
   })
 
-  describe('getMaxWidthDiffFromViewport', () => {
+  describe('getMaxWidthDiff', () => {
     it('should return default value below the breakpoint', () => {
       vi.stubGlobal('innerWidth', 1024)
-      expect(getMaxWidthDiffFromViewport()).toBe(511)
+      expect(getMaxWidthDiff()).toBe(511)
     })
 
     it('should return wide value at the breakpoint', () => {
       vi.stubGlobal('innerWidth', 1280)
-      expect(getMaxWidthDiffFromViewport()).toBe(959)
+      expect(getMaxWidthDiff()).toBe(959)
     })
 
     it('should return wide value above the breakpoint', () => {
       vi.stubGlobal('innerWidth', 1920)
-      expect(getMaxWidthDiffFromViewport()).toBe(959)
+      expect(getMaxWidthDiff()).toBe(959)
+    })
+
+    it('should return sidebar diff regardless of viewport', () => {
+      vi.stubGlobal('innerWidth', 1024)
+      expect(getMaxWidthDiff(true)).toBe(DEFAULT_SIDEBAR_MAX_WIDTH_DIFF)
+      vi.stubGlobal('innerWidth', 1920)
+      expect(getMaxWidthDiff(true)).toBe(DEFAULT_SIDEBAR_MAX_WIDTH_DIFF)
     })
   })
 
@@ -1201,6 +1209,7 @@ describe('helper functions', () => {
 describe('constants', () => {
   it('should export expected constants', () => {
     expect(DEFAULT_MAX_WIDTH_DIFF).toBe(511)
+    expect(DEFAULT_SIDEBAR_MAX_WIDTH_DIFF).toBe(256)
     expect(SSR_DEFAULT_MAX_WIDTH).toBe(600)
     expect(ARROW_KEY_STEP).toBe(3)
     expect(defaultPaneWidth).toEqual({small: 256, medium: 296, large: 320})

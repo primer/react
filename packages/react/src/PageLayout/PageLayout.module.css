@@ -6,6 +6,8 @@
   paneMaxWidthDiffDefault: 511;
   /* Value for --pane-max-width-diff at/above the breakpoint */
   paneMaxWidthDiffWide: 959;
+  /* Default value for --sidebar-max-width-diff (constant across all viewports) */
+  sidebarMaxWidthDiffDefault: 256;
 }
 
 .PageLayoutRoot {
@@ -31,6 +33,8 @@
   --pane-width-large: 100%;
   /* NOTE: This value is exported via :export for use in usePaneWidth.ts */
   --pane-max-width-diff: 511px;
+  /* Sidebar uses a smaller diff since it doesn't need to reserve space for a file tree pane */
+  --sidebar-max-width-diff: 256px;
 
   @media screen and (min-width: 768px) {
     --pane-width-small: 240px;
@@ -598,7 +602,7 @@
     width: 100%;
 
     @media screen and (min-width: 768px) {
-      /* 
+      /*
        * --pane-max-width is set by JS on mount and updated on resize (debounced).
        * JS calculates viewport - margin to avoid scrollbar discrepancy with 100vw.
        */
@@ -741,6 +745,144 @@
  */
 .Pane[data-dragging='true'],
 .ContentWrapper[data-dragging='true'] {
+  contain: layout style paint;
+  pointer-events: none;
+}
+
+/* Sidebar */
+.PageLayoutRoot:where([data-has-sidebar]) {
+  /* Note: Sidebar styles are only applied when the PageLayout has a Sidebar child
+    via `[data-has-sidebar`]` on the root element
+  */
+  display: flex;
+  /*
+    Current layout structure for Sidebar support:
+    -- [Sidebar] | [Header + Content + Footer] | [Sidebar] --
+  */
+  flex-direction: row;
+}
+
+:where([data-has-sidebar]) > .PageLayoutWrapper {
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.SidebarWrapper {
+  /* Current layout structure:
+    -- [Sidebar] | [Resizable Divider] --
+  */
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  height: 100%;
+
+  &:where([data-is-hidden='true']) {
+    display: none;
+  }
+
+  /* Position: start (left side) */
+  &:where([data-position='start']) {
+    order: -1;
+    /* stylelint-disable-next-line primer/spacing */
+    margin-right: var(--spacing-column);
+  }
+
+  /* Position: end (right side) */
+  &:where([data-position='end']) {
+    order: 1;
+    /* stylelint-disable-next-line primer/spacing */
+    margin-left: var(--spacing-column);
+  }
+
+  /* Sticky sidebar */
+  &:where([data-sticky]) {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+  }
+
+  /* Narrow viewport */
+  @media (--viewportRange-narrow) {
+    &:where([data-is-hidden-narrow='true']) {
+      display: none;
+    }
+
+    /* Fullscreen mode at narrow viewport */
+    &:where([data-responsive-variant='fullscreen']) {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      min-width: unset;
+      max-width: unset;
+      border-radius: 0;
+      z-index: 999;
+      background-color: var(--bgColor-default);
+    }
+  }
+
+  /* Regular viewport */
+  @media (--viewportRange-regular) {
+    &:where([data-is-hidden-regular='true']) {
+      display: none;
+    }
+  }
+
+  /* Wide viewport */
+  @media (--viewportRange-wide) {
+    &:where([data-is-hidden-wide='true']) {
+      display: none;
+    }
+  }
+}
+
+.Sidebar {
+  width: var(--pane-width-size);
+  height: 100%;
+  overflow: auto;
+
+  &:where([data-resizable]) {
+    width: 100%;
+
+    @media screen and (min-width: 768px) {
+      width: clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width));
+    }
+  }
+
+  /* In fullscreen mode at narrow, sidebar takes full available space */
+  @media (--viewportRange-narrow) {
+    :where([data-responsive-variant='fullscreen']) > & {
+      width: 100%;
+      height: 100%;
+      min-width: unset;
+      max-width: unset;
+    }
+  }
+}
+
+.SidebarVerticalDivider {
+  height: auto;
+  /* Base position (non-responsive) */
+  &:where([data-position='start']) {
+    /* stylelint-disable-next-line primer/spacing */
+    margin-left: var(--spacing-column);
+  }
+
+  &:where([data-position='end']) {
+    /* stylelint-disable-next-line primer/spacing */
+    margin-right: var(--spacing-column);
+  }
+
+  /* Hide divider in fullscreen mode at narrow viewport */
+  @media (--viewportRange-narrow) {
+    :where([data-responsive-variant='fullscreen']) > & {
+      display: none;
+    }
+  }
+}
+
+.Sidebar[data-dragging='true'] {
   contain: layout style paint;
   pointer-events: none;
 }
