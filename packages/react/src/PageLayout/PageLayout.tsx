@@ -17,8 +17,9 @@ import {
   isCustomWidthOptions,
   isPaneWidth,
   ARROW_KEY_STEP,
-  type CustomWidthOptions,
+  type PaneWidthValue,
   type PaneWidth,
+  type CustomWidthOptions,
 } from './usePaneWidth'
 import {setDraggingStyles, removeDraggingStyles} from './paneUtils'
 
@@ -47,12 +48,16 @@ const PageLayoutContext = React.createContext<{
   columnGap: keyof typeof SPACING_MAP
   paneRef: React.RefObject<HTMLDivElement>
   contentWrapperRef: React.RefObject<HTMLDivElement>
+  sidebarRef: React.RefObject<HTMLDivElement>
+  sidebarContentWrapperRef: React.RefObject<HTMLDivElement>
 }>({
   padding: 'normal',
   rowGap: 'normal',
   columnGap: 'normal',
   paneRef: {current: null},
   contentWrapperRef: {current: null},
+  sidebarRef: {current: null},
+  sidebarContentWrapperRef: {current: null},
 })
 
 // ----------------------------------------------------------------------------
@@ -67,7 +72,7 @@ export type PageLayoutProps = {
   columnGap?: keyof typeof SPACING_MAP
 
   /** Private prop to allow SplitPageLayout to customize slot components */
-  _slotsConfig?: Record<'header' | 'footer', React.ElementType>
+  _slotsConfig?: Record<'header' | 'footer' | 'sidebar', React.ElementType>
   className?: string
   style?: React.CSSProperties
 }
@@ -93,8 +98,10 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
 }) => {
   const paneRef = useRef<HTMLDivElement>(null)
   const contentWrapperRef = useRef<HTMLDivElement>(null)
+  const sidebarRef = useRef<HTMLDivElement>(null)
+  const sidebarContentWrapperRef = useRef<HTMLDivElement>(null)
 
-  const [slots, rest] = useSlots(children, slotsConfig ?? {header: Header, footer: Footer})
+  const [slots, rest] = useSlots(children, slotsConfig ?? {header: Header, footer: Footer, sidebar: Sidebar})
 
   const memoizedContextValue = React.useMemo(() => {
     return {
@@ -103,13 +110,16 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
       columnGap,
       paneRef,
       contentWrapperRef,
+      sidebarRef,
+      sidebarContentWrapperRef,
     }
-  }, [padding, rowGap, columnGap, paneRef, contentWrapperRef])
+  }, [padding, rowGap, columnGap, paneRef, contentWrapperRef, sidebarRef, sidebarContentWrapperRef])
 
   return (
     <PageLayoutContext.Provider value={memoizedContextValue}>
-      <RootWrapper style={style} padding={padding} className={className}>
-        <div className={classes.PageLayoutWrapper} data-width={containerWidth}>
+      <RootWrapper style={style} padding={padding} className={className} hasSidebar={!!slots.sidebar}>
+        {slots.sidebar}
+        <div ref={sidebarContentWrapperRef} className={classes.PageLayoutWrapper} data-width={containerWidth}>
           {slots.header}
           <div className={clsx(classes.PageLayoutContent)}>{rest}</div>
           {slots.footer}
@@ -125,7 +135,8 @@ const RootWrapper = memo(
     padding,
     children,
     className,
-  }: React.PropsWithChildren<Pick<PageLayoutProps, 'style' | 'padding' | 'className'>>) => {
+    hasSidebar,
+  }: React.PropsWithChildren<Pick<PageLayoutProps, 'style' | 'padding' | 'className'> & {hasSidebar?: boolean}>) => {
     return (
       <div
         style={
@@ -135,6 +146,7 @@ const RootWrapper = memo(
           } as React.CSSProperties
         }
         className={clsx(classes.PageLayoutRoot, className)}
+        data-has-sidebar={hasSidebar || undefined}
       >
         {children}
       </div>
@@ -196,6 +208,114 @@ const VerticalDivider = memo<React.PropsWithChildren<VerticalDividerProps>>(
 )
 
 VerticalDivider.displayName = 'VerticalDivider'
+
+type SidebarDividerProps = {
+  position: 'start' | 'end'
+  divider: 'none' | 'line'
+  resizable: boolean
+  minPaneWidth: number
+  maxPaneWidth: number
+  currentWidth: number
+  currentWidthRef: React.MutableRefObject<number | undefined>
+  handleRef: React.RefObject<HTMLDivElement>
+  sidebarRef: React.RefObject<HTMLDivElement>
+  dragStartClientXRef: React.MutableRefObject<number>
+  dragStartWidthRef: React.MutableRefObject<number>
+  dragMaxWidthRef: React.MutableRefObject<number>
+  getMaxPaneWidth: () => number
+  getDefaultWidth: () => number
+  saveWidth: (width: number) => void
+}
+
+const SidebarDivider = memo<SidebarDividerProps>(function SidebarDivider({
+  position,
+  divider,
+  resizable,
+  minPaneWidth,
+  maxPaneWidth,
+  currentWidth,
+  currentWidthRef,
+  handleRef,
+  sidebarRef,
+  dragStartClientXRef,
+  dragStartWidthRef,
+  dragMaxWidthRef,
+  getMaxPaneWidth,
+  getDefaultWidth,
+  saveWidth,
+}) {
+  const {columnGap} = React.useContext(PageLayoutContext)
+
+  return (
+    <VerticalDivider
+      variant={resizable ? 'line' : divider}
+      position={position}
+      className={classes.SidebarVerticalDivider}
+      style={
+        {
+          '--spacing': `var(--spacing-${columnGap})`,
+        } as React.CSSProperties
+      }
+    >
+      {resizable ? (
+        <DragHandle
+          handleRef={handleRef}
+          aria-valuemin={minPaneWidth}
+          aria-valuemax={maxPaneWidth}
+          aria-valuenow={currentWidth}
+          onDragStart={clientX => {
+            dragStartClientXRef.current = clientX
+            dragStartWidthRef.current = sidebarRef.current?.getBoundingClientRect().width ?? currentWidthRef.current!
+            dragMaxWidthRef.current = getMaxPaneWidth()
+          }}
+          onDrag={(value, isKeyboard) => {
+            const maxWidth = isKeyboard ? getMaxPaneWidth() : dragMaxWidthRef.current
+
+            if (isKeyboard) {
+              // For position='end': invert the delta so arrow keys feel natural
+              // ArrowRight should shrink (move divider right), ArrowLeft should expand
+              const delta = position === 'end' ? -value : value
+              const newWidth = Math.max(minPaneWidth, Math.min(maxWidth, currentWidthRef.current! + delta))
+              if (newWidth !== currentWidthRef.current) {
+                currentWidthRef.current = newWidth
+                sidebarRef.current?.style.setProperty('--pane-width', `${newWidth}px`)
+                updateAriaValues(handleRef.current, {current: newWidth, max: maxWidth})
+              }
+            } else {
+              if (sidebarRef.current) {
+                const deltaX = value - dragStartClientXRef.current
+                // For position='end': cursor moving left (negative delta) increases width
+                // For position='start': cursor moving right (positive delta) increases width
+                const directedDelta = position === 'end' ? -deltaX : deltaX
+                const newWidth = dragStartWidthRef.current + directedDelta
+
+                const clampedWidth = Math.max(minPaneWidth, Math.min(maxWidth, newWidth))
+
+                if (Math.round(clampedWidth) !== Math.round(currentWidthRef.current!)) {
+                  sidebarRef.current.style.setProperty('--pane-width', `${clampedWidth}px`)
+                  currentWidthRef.current = clampedWidth
+                  updateAriaValues(handleRef.current, {current: Math.round(clampedWidth), max: maxWidth})
+                }
+              }
+            }
+          }}
+          onDragEnd={() => {
+            saveWidth(currentWidthRef.current!)
+          }}
+          onDoubleClick={() => {
+            const resetWidth = getDefaultWidth()
+            if (sidebarRef.current) {
+              sidebarRef.current.style.setProperty('--pane-width', `${resetWidth}px`)
+              currentWidthRef.current = resetWidth
+              updateAriaValues(handleRef.current, {current: resetWidth})
+            }
+            saveWidth(resetWidth)
+          }}
+        />
+      ) : null}
+    </VerticalDivider>
+  )
+})
 
 type DragHandleProps = {
   /** Ref for imperative ARIA updates during drag */
@@ -576,7 +696,7 @@ Content.displayName = 'PageLayout.Content'
 // ----------------------------------------------------------------------------
 // PageLayout.Pane
 
-export type PageLayoutPaneProps = {
+export type PageLayoutPaneBaseProps = {
   position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
   /**
    * @deprecated Use the `position` prop with a responsive value instead.
@@ -595,9 +715,25 @@ export type PageLayoutPaneProps = {
   positionWhenNarrow?: 'inherit' | keyof typeof panePositions
   'aria-labelledby'?: string
   'aria-label'?: string
-  width?: PaneWidth | CustomWidthOptions
+  /**
+   * The width of the pane.
+   * - Named sizes: `'small'` | `'medium'` | `'large'`
+   * - Custom object: `{min: string, default: string, max: string}`
+   *
+   * When `resizable` is enabled, this defines the default width and constraints
+   * (min/max bounds for dragging). Use `currentWidth` to control the displayed width.
+   */
+  width?: PaneWidthValue
+  /**
+   * Minimum width of the pane in pixels. Only used with named `width` sizes.
+   * Ignored when `width` is a custom object (use `width.min` instead).
+   */
   minWidth?: number
-  resizable?: boolean
+  /**
+   * localStorage key used to persist the pane width across sessions.
+   * Only applies when `resizable` is `true` and no `onResizeEnd` callback is provided.
+   * @default 'paneWidth'
+   */
   widthStorageKey?: string
   padding?: keyof typeof SPACING_MAP
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
@@ -619,10 +755,42 @@ export type PageLayoutPaneProps = {
   sticky?: boolean
   offsetHeader?: string | number
   hidden?: boolean | ResponsiveValue<boolean>
+  /**
+   * Enable resizable pane behavior.
+   * When `true`, the pane may be resized by the user via drag or keyboard.
+   * Uses localStorage persistence by default unless `onResizeEnd` is provided.
+   *
+   * Note: With default localStorage persistence in SSR, the server-rendered
+   * width may differ from the stored client width, causing a brief layout
+   * shift on hydration. Use `onResizeEnd` with server-aware storage to avoid this.
+   */
+  resizable?: boolean
   id?: string
   className?: string
   style?: React.CSSProperties
 }
+
+export type PageLayoutPaneProps = PageLayoutPaneBaseProps &
+  (
+    | {
+        /**
+         * Callback fired when a resize operation ends (drag release or keyboard key up).
+         * When provided, this callback is used instead of localStorage persistence.
+         */
+        onResizeEnd: (width: number) => void
+        /**
+         * Current/controlled width value in pixels.
+         * When provided, this is used as the current pane width instead of internal state.
+         * The `width` prop still defines the default used when resetting (e.g., double-click).
+         * Pass `undefined` when the persisted value has not loaded yet (e.g., async fetch).
+         */
+        currentWidth: number | undefined
+      }
+    | {
+        onResizeEnd?: never
+        currentWidth?: never
+      }
+  )
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const panePositions = {
@@ -641,6 +809,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       positionWhenNarrow = 'inherit',
       width = 'medium',
       minWidth = 256,
+      currentWidth: controlledWidth,
+      onResizeEnd,
       padding = 'none',
       resizable = false,
       widthStorageKey = 'paneWidth',
@@ -694,6 +864,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         paneRef,
         handleRef,
         contentWrapperRef,
+        onResizeEnd,
+        currentWidth: controlledWidth,
       })
 
     useRefObjectAsForwardedRef(forwardRef, paneRef)
@@ -746,10 +918,10 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         />
         <div
           ref={paneRef}
-          // suppressHydrationWarning: We intentionally read from localStorage during
-          // useState init to avoid resize flicker, which causes a hydration mismatch
-          // for --pane-width. This only affects this element, not children.
-          suppressHydrationWarning
+          // Suppress hydration mismatch for --pane-width when localStorage
+          // provides a width that differs from the server-rendered default.
+          // Not needed when onResizeEnd is provided (localStorage isn't read).
+          suppressHydrationWarning={resizable === true && !onResizeEnd}
           {...(hasOverflow ? overflowProps : {})}
           {...labelProp}
           {...(id && {id: paneId})}
@@ -867,6 +1039,242 @@ Pane.displayName = 'PageLayout.Pane'
 // ----------------------------------------------------------------------------
 // PageLayout.Footer
 
+// ----------------------------------------------------------------------------
+// PageLayout.Sidebar
+
+export type PageLayoutSidebarProps = {
+  /**
+   * A unique label for the sidebar region
+   */
+  'aria-label'?: React.AriaAttributes['aria-label']
+
+  /**
+   * An id to an element which uniquely labels the sidebar region
+   */
+  'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
+
+  /**
+   * Position of the sidebar relative to the page layout
+   * @default 'start'
+   */
+  position?: 'start' | 'end'
+
+  /**
+   * Width configuration for the sidebar
+   */
+  width?: PaneWidth | CustomWidthOptions
+
+  /**
+   * Minimum width of the sidebar when resizable
+   * @default 256
+   */
+  minWidth?: number
+
+  /**
+   * Whether the sidebar can be resized
+   * @default false
+   */
+  resizable?: boolean
+
+  /**
+   * localStorage key used to persist the sidebar width across sessions.
+   * Only applies when `resizable` is `true`.
+   * When omitted, localStorage is not used.
+   */
+  widthStorageKey?: string
+
+  /**
+   * Padding inside the sidebar
+   */
+  padding?: keyof typeof SPACING_MAP
+
+  /**
+   * Divider style between sidebar and content
+   */
+  divider?: 'none' | 'line'
+
+  /**
+   * Whether the sidebar sticks to the viewport when scrolling.
+   * When enabled, the sidebar uses `position: sticky` with `top: 0` and `height: 100vh`.
+   * @default false
+   */
+  sticky?: boolean
+
+  /**
+   * Controls sidebar behavior at narrow viewport widths (below 768px).
+   * - `'default'`: the sidebar retains its normal inline layout.
+   * - `'fullscreen'`: the sidebar expands to cover the full viewport like a dialog overlay.
+   * @default 'default'
+   */
+  responsiveVariant?: 'default' | 'fullscreen'
+
+  /**
+   * Whether the sidebar is hidden
+   */
+  hidden?: boolean | ResponsiveValue<boolean>
+
+  /**
+   * Optional id for the sidebar element
+   */
+  id?: string
+
+  className?: string
+  style?: React.CSSProperties
+}
+
+const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutSidebarProps>>(
+  (
+    {
+      'aria-label': label,
+      'aria-labelledby': labelledBy,
+      position = 'start',
+      width = 'medium',
+      minWidth = 256,
+      padding = 'none',
+      resizable = false,
+      widthStorageKey,
+      divider = 'none',
+      sticky = false,
+      responsiveVariant = 'default',
+      hidden: responsiveHidden = false,
+      children,
+      id,
+      className,
+      style,
+    },
+    forwardRef,
+  ) => {
+    const {columnGap, sidebarRef, sidebarContentWrapperRef} = React.useContext(PageLayoutContext)
+
+    // Ref to the drag handle for updating ARIA attributes
+    const handleRef = React.useRef<HTMLDivElement>(null)
+
+    // Cache drag start values to calculate relative delta during drag
+    const dragStartClientXRef = React.useRef<number>(0)
+    const dragStartWidthRef = React.useRef<number>(0)
+    const dragMaxWidthRef = React.useRef<number>(0)
+
+    const {currentWidth, currentWidthRef, minPaneWidth, maxPaneWidth, getMaxPaneWidth, saveWidth, getDefaultWidth} =
+      usePaneWidth({
+        width,
+        minWidth,
+        resizable,
+        widthStorageKey,
+        paneRef: sidebarRef,
+        handleRef,
+        contentWrapperRef: sidebarContentWrapperRef,
+        constrainToViewport: true,
+      })
+
+    useRefObjectAsForwardedRef(forwardRef, sidebarRef)
+
+    const hasOverflow = useOverflow(sidebarRef)
+
+    const sidebarId = useId(id)
+
+    const labelProp: {'aria-labelledby'?: string; 'aria-label'?: string} = {}
+    if (hasOverflow) {
+      warning(
+        label === undefined && labelledBy === undefined,
+        'The <PageLayout.Sidebar> has overflow and `aria-label` or `aria-labelledby` has not been set. ' +
+          'Please provide `aria-label` or `aria-labelledby` to <PageLayout.Sidebar> in order to label this ' +
+          'region.',
+      )
+
+      if (labelledBy) {
+        labelProp['aria-labelledby'] = labelledBy
+      } else if (label) {
+        labelProp['aria-label'] = label
+      }
+    }
+
+    return (
+      <div
+        className={clsx(classes.SidebarWrapper, className)}
+        style={
+          {
+            '--spacing-column': `var(--spacing-${columnGap})`,
+            ...style,
+          } as React.CSSProperties
+        }
+        {...getResponsiveAttributes('is-hidden', responsiveHidden)}
+        data-position={position}
+        data-sticky={sticky || undefined}
+        data-responsive-variant={responsiveVariant !== 'default' ? responsiveVariant : undefined}
+      >
+        {position === 'end' && (
+          <SidebarDivider
+            position={position}
+            divider={divider}
+            resizable={resizable}
+            minPaneWidth={minPaneWidth}
+            maxPaneWidth={maxPaneWidth}
+            currentWidth={currentWidth}
+            currentWidthRef={currentWidthRef}
+            handleRef={handleRef}
+            sidebarRef={sidebarRef}
+            dragStartClientXRef={dragStartClientXRef}
+            dragStartWidthRef={dragStartWidthRef}
+            dragMaxWidthRef={dragMaxWidthRef}
+            getMaxPaneWidth={getMaxPaneWidth}
+            getDefaultWidth={getDefaultWidth}
+            saveWidth={saveWidth}
+          />
+        )}
+        <div
+          ref={sidebarRef}
+          // Suppress hydration mismatch for --pane-width when localStorage
+          // provides a width that differs from the server-rendered default.
+          suppressHydrationWarning={resizable === true && !!widthStorageKey}
+          {...(hasOverflow ? overflowProps : {})}
+          {...labelProp}
+          {...(id && {id: sidebarId})}
+          className={classes.Sidebar}
+          data-resizable={resizable || undefined}
+          style={
+            {
+              '--spacing': `var(--spacing-${padding})`,
+              '--pane-min-width': isCustomWidthOptions(width) ? width.min : `${minWidth}px`,
+              '--pane-max-width': isCustomWidthOptions(width)
+                ? width.max
+                : `calc(100vw - var(--sidebar-max-width-diff))`,
+              '--pane-width-custom': isCustomWidthOptions(width) ? width.default : undefined,
+              '--pane-width-size': `var(--pane-width-${isPaneWidth(width) ? width : 'custom'})`,
+              '--pane-width': `${currentWidth}px`,
+            } as React.CSSProperties
+          }
+        >
+          {children}
+        </div>
+        {position === 'start' && (
+          <SidebarDivider
+            position={position}
+            divider={divider}
+            resizable={resizable}
+            minPaneWidth={minPaneWidth}
+            maxPaneWidth={maxPaneWidth}
+            currentWidth={currentWidth}
+            currentWidthRef={currentWidthRef}
+            handleRef={handleRef}
+            sidebarRef={sidebarRef}
+            dragStartClientXRef={dragStartClientXRef}
+            dragStartWidthRef={dragStartWidthRef}
+            dragMaxWidthRef={dragMaxWidthRef}
+            getMaxPaneWidth={getMaxPaneWidth}
+            getDefaultWidth={getDefaultWidth}
+            saveWidth={saveWidth}
+          />
+        )}
+      </div>
+    )
+  },
+)
+
+Sidebar.displayName = 'PageLayout.Sidebar'
+
+// ----------------------------------------------------------------------------
+// PageLayout.Footer
+
 export type PageLayoutFooterProps = {
   /**
    * A unique label for the rendered contentinfo landmark
@@ -963,10 +1371,12 @@ export const PageLayout = Object.assign(Root, {
   Header,
   Content,
   Pane: Pane as WithSlotMarker<typeof Pane>,
+  Sidebar: Sidebar as WithSlotMarker<typeof Sidebar>,
   Footer,
 })
 
 Header.__SLOT__ = Symbol('PageLayout.Header')
 Content.__SLOT__ = Symbol('PageLayout.Content')
 ;(Pane as WithSlotMarker<typeof Pane>).__SLOT__ = Symbol('PageLayout.Pane')
+;(Sidebar as WithSlotMarker<typeof Sidebar>).__SLOT__ = Symbol('PageLayout.Sidebar')
 Footer.__SLOT__ = Symbol('PageLayout.Footer')
