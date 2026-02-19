@@ -47,11 +47,19 @@ const postcssModulesOptions = {
   generateScopedName: 'prc-[folder]-[local]-[hash:base64:5]',
 }
 
-const baseConfig = {
+export default {
   input: {
     ...getEntrypointsFromInput(input),
     // "./test-helpers"
     'test-helpers': 'src/utils/test-helpers.tsx',
+  },
+  external: dependencies.map(createPackageRegex),
+  output: {
+    interop: 'auto',
+    dir: 'dist',
+    format: 'esm',
+    preserveModules: true,
+    preserveModulesRoot: 'src',
   },
   plugins: [
     babel({
@@ -209,18 +217,3 @@ const baseConfig = {
     defaultHandler(warning)
   },
 }
-
-export default [
-  // ESM
-  {
-    ...baseConfig,
-    external: dependencies.map(createPackageRegex),
-    output: {
-      interop: 'auto',
-      dir: 'dist',
-      format: 'esm',
-      preserveModules: true,
-      preserveModulesRoot: 'src',
-    },
-  },
-]
