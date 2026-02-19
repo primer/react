@@ -667,21 +667,21 @@ export const ConditionalChildren = () => {
   )
 }
 
+const SideEffectDescription = () => {
+  const [seconds, setSeconds] = React.useState(0)
+
+  React.useEffect(() => {
+    const fn = () => setSeconds(s => s + 1)
+    const interval = window.setInterval(fn, 1000)
+    return () => window.clearInterval(interval)
+  }, [])
+
+  return <>{seconds} seconds passed</>
+}
+
 export const ChildWithSideEffects = () => {
   const user = users[0]
   const [selected, setSelected] = React.useState(true)
-
-  const SideEffectDescription = () => {
-    const [seconds, setSeconds] = React.useState(0)
-
-    React.useEffect(() => {
-      const fn = () => setSeconds(s => s + 1)
-      const interval = window.setInterval(fn, 1000)
-      return () => window.clearInterval(interval)
-    }, [])
-
-    return <>{seconds} seconds passed</>
-  }
 
   return (
     <ActionList selectionVariant="multiple" role="listbox" aria-label="Assignees">
