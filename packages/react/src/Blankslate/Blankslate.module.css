@@ -55,6 +55,18 @@
   &:where([data-size='large'][data-spacious]) {
     --blankslate-padding: var(--base-size-80) var(--base-size-40);
   }
+
+  &:where([data-padding='condensed']) {
+    --blankslate-padding: var(--base-size-16);
+  }
+
+  &:where([data-padding='normal']) {
+    --blankslate-padding: var(--base-size-20);
+  }
+
+  &:where([data-padding='spacious']) {
+    --blankslate-padding: var(--base-size-24);
+  }
 }
 
 .Heading,

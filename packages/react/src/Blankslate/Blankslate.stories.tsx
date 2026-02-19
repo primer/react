@@ -57,6 +57,11 @@ Playground.args = {
 }
 
 Playground.argTypes = {
+  padding: {
+    controls: {
+      options: ['condensed', 'normal', 'spacious'],
+    },
+  },
   size: {
     controls: {
       options: ['small', 'medium', 'large'],

@@ -23,7 +23,13 @@ type BlankslateProps = React.HTMLAttributes<HTMLElement> & {
   narrow?: boolean
 
   /**
+   * Specify the padding of this component
+   */
+  padding?: 'condensed' | 'normal' | 'spacious'
+
+  /**
    * Increase the padding of this component
+   * @deprecated use the `padding` prop instead
    */
   spacious?: boolean
 
@@ -33,7 +39,16 @@ type BlankslateProps = React.HTMLAttributes<HTMLElement> & {
   size?: 'small' | 'medium' | 'large'
 }
 
-function Blankslate({border, children, narrow, spacious, className, size = 'medium', ...rest}: BlankslateProps) {
+function Blankslate({
+  border,
+  children,
+  className,
+  narrow,
+  padding,
+  spacious,
+  size = 'medium',
+  ...rest
+}: BlankslateProps) {
   const value = useMemo(() => {
     return {
       size,
@@ -47,7 +62,8 @@ function Blankslate({border, children, narrow, spacious, className, size = 'medi
           className={clsx(classes.Blankslate, className)}
           data-border={border ? '' : undefined}
           data-narrow={narrow ? '' : undefined}
-          data-spacious={spacious ? '' : undefined}
+          data-padding={padding ?? undefined}
+          data-spacious={!padding && spacious ? '' : undefined}
           data-size={size}
         >
           {children}
