@@ -4,6 +4,7 @@ import {ItemContext} from './shared'
 import classes from './ActionList.module.css'
 import {clsx} from 'clsx'
 import type {FCWithSlotMarker} from '../utils/types/Slots'
+import {useResizeObserver} from '../hooks/useResizeObserver'
 
 export type ActionListDescriptionProps = {
   /**
@@ -44,27 +45,23 @@ export const Description: FCWithSlotMarker<React.PropsWithChildren<ActionListDes
   const effectiveTitle = typeof props.children === 'string' ? props.children : computedTitle
 
   // Detect truncation and signal to parent Item for Tooltip
-  React.useEffect(() => {
-    if (!truncate || !containerRef.current || !setTruncatedText) return
-
-    function isContentTruncated() {
+  const truncateEnabled = truncate && !!setTruncatedText
+  useResizeObserver(
+    () => {
       const el = containerRef.current
-      if (!el) return false
-      return el.scrollWidth > el.clientWidth
-    }
+      if (!el || !setTruncatedText) return
+      setTruncatedText(el.scrollWidth > el.clientWidth ? effectiveTitle : undefined)
+    },
+    containerRef,
+    [truncateEnabled, effectiveTitle],
+  )
 
-    // Check initially
-    setTruncatedText(isContentTruncated() ? effectiveTitle : undefined)
-
-    const observer = new ResizeObserver(() => {
-      setTruncatedText(isContentTruncated() ? effectiveTitle : undefined)
-    })
-    observer.observe(containerRef.current)
-
-    return () => {
-      observer.disconnect()
-    }
-  }, [truncate, effectiveTitle, setTruncatedText])
+  // check on initial render
+  React.useEffect(() => {
+    if (!truncateEnabled || !containerRef.current) return
+    const el = containerRef.current
+    setTruncatedText(el.scrollWidth > el.clientWidth ? effectiveTitle : undefined)
+  }, [truncateEnabled, effectiveTitle, setTruncatedText])
 
   if (variant === 'block' || !truncate) {
     return (
