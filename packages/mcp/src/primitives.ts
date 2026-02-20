@@ -290,39 +290,31 @@ function getTokenValue(tokenName: string): string {
   return found?.value || ''
 }
 
-// Get group name from token name prefix
+// Human-readable display labels for canonical group prefixes
+const GROUP_LABELS: Record<string, string> = {
+  bgColor: 'Background Color',
+  fgColor: 'Foreground Color',
+  borderColor: 'Border Color',
+  border: 'Border',
+  shadow: 'Shadow',
+  focus: 'Focus',
+  color: 'Color',
+  borderWidth: 'Border Width',
+  borderRadius: 'Border Radius',
+  boxShadow: 'Box Shadow',
+  controlStack: 'Control Stack',
+  fontStack: 'Font Stack',
+  outline: 'Outline',
+  text: 'Text',
+  control: 'Control',
+  overlay: 'Overlay',
+  stack: 'Stack',
+  spinner: 'Spinner',
+}
+
+// Get canonical group prefix from token name
 function getGroupFromName(name: string): string {
-  const parts = name.split('-')
-  const prefix = parts[0]
-
-  // Map prefixes to readable group names
-  const groupMap: Record<string, string> = {
-    bgColor: 'background color',
-    fgColor: 'foreground color',
-    borderColor: 'border color',
-    border: 'border',
-    shadow: 'shadow',
-    focus: 'focus',
-    color: 'color',
-    borderWidth: 'border width',
-    borderRadius: 'border radius',
-    boxShadow: 'box shadow',
-    controlStack: 'control stack',
-    fontStack: 'font stack',
-    outline: 'outline',
-    text: 'text',
-    control: 'control',
-    overlay: 'overlay',
-    stack: 'stack',
-    spinner: 'spinner',
-  }
-
-  if (groupMap[prefix]) {
-    return groupMap[prefix]
-  }
-
-  // Component token - use the component name as group
-  return prefix
+  return name.split('-')[0]
 }
 
 // Build complete token list from JSON (includes all tokens, not just those with guidelines)
@@ -667,7 +659,7 @@ function tokenMatchesGroup(token: TokenWithGuidelines, resolvedGroup: string): b
 // Group tokens by their group property and format as Markdown
 function formatBundle(bundleTokens: TokenWithGuidelines[]): string {
   const grouped = bundleTokens.reduce<Record<string, TokenWithGuidelines[]>>((acc, token) => {
-    const group = token.group || 'Ungrouped'
+    const group = GROUP_LABELS[token.group] || token.group || 'Ungrouped'
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (!acc[group]) acc[group] = []
     acc[group].push(token)
@@ -717,6 +709,7 @@ export {
   searchTokens,
   formatBundle,
   GROUP_ALIASES,
+  GROUP_LABELS,
   tokenMatchesGroup,
   type TokenWithGuidelines,
 }
