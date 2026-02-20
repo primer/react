@@ -12,3 +12,24 @@
     display: inline-grid;
   }
 }
+
+.Anchor {
+  /* Anchor name, this is currently tied to `renderAnchor` */
+  anchor-name: --anchored-overlay-anchor;
+}
+
+/* TODO: Scope this! */
+.AnchoredOverlay {
+  /* Anchor position, this is currently tied to `<Overlay>` */
+  position-anchor: --anchored-overlay-anchor;
+
+  /* Default position: anchorSide: 'outside-bottom', anchorAlign: 'start' */
+  top: calc(anchor(bottom) + var(--base-size-4));
+  left: anchor(left);
+  position: absolute;
+
+  position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+  position-visibility: anchors-visible;
+
+  z-index: 100;
+}

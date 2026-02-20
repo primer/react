@@ -144,6 +144,12 @@ type ContainerProps = {
   portalContainerName?: string
   preventOverflow?: boolean
   preventFocusOnOpen?: boolean
+  preventPortal?: boolean
+  /**
+   * If true, applies the `popover` attribute to the overlay element,
+   * enabling the Popover API for top-layer rendering and light dismiss.
+   */
+  popover?: boolean
   returnFocusRef: React.RefObject<HTMLElement | null>
 }
 
@@ -160,6 +166,7 @@ type internalOverlayProps = Merge<OwnOverlayProps, ContainerProps>
  * @param portalContainerName Optional. The name of the portal container to render the Overlay into.
  * @param preventOverflow Optional. The Overlay width will be adjusted responsively if there is not enough space to display the Overlay. If `preventOverflow` is `true`, the width of the `Overlay` will not be adjusted.
  * @param preventFocusOnOpen Optional. If 'true', focus will not be applied when the component is first mounted, even if initialFocusRef prop is given.
+ * @param preventPortal Optional. If `true`, the Overlay will not be rendered inside a Portal and will instead render inline.
  * @param returnFocusRef Required. Ref for the element to focus when the `Overlay` is closed.
  * @param right Optional. Horizontal right position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
  * @param width Sets the width of the `Overlay`, pick from our set list of widths, or pass `auto` to automatically set the width based on the content of the `Overlay`. `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `480px`, `xlarge` corresponds to `640px`, `xxlarge` corresponds to `960px`.
@@ -178,6 +185,8 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
       portalContainerName,
       preventOverflow = true,
       preventFocusOnOpen,
+      preventPortal = false,
+      popover = false,
       returnFocusRef,
       right,
       role = 'none',
@@ -229,22 +238,27 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     // To be backwards compatible with the old Overlay, we need to set the left prop if x-position is not specified
     const leftPosition = left === undefined && right === undefined ? 0 : left
 
-    return (
-      <Portal containerName={portalContainerName}>
-        <BaseOverlay
-          role={role}
-          width={width}
-          data-reflow-container={!preventOverflow ? true : undefined}
-          ref={overlayRef}
-          left={leftPosition}
-          right={right}
-          height={height}
-          visibility={visibility}
-          data-responsive={responsiveVariant}
-          {...props}
-        />
-      </Portal>
+    const overlayContent = (
+      <BaseOverlay
+        role={role}
+        width={width}
+        data-reflow-container={!preventOverflow ? true : undefined}
+        ref={overlayRef}
+        left={leftPosition}
+        right={right}
+        height={height}
+        visibility={visibility}
+        data-responsive={responsiveVariant}
+        {...(popover ? {popover: 'auto'} : {})}
+        {...props}
+      />
     )
+
+    if (preventPortal) {
+      return overlayContent
+    }
+
+    return <Portal containerName={portalContainerName}>{overlayContent}</Portal>
   },
 ) as PolymorphicForwardRefComponent<'div', internalOverlayProps>
 

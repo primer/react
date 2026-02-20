@@ -117,6 +117,17 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
    * Props to be spread on the close button in the overlay.
    */
   closeButtonProps?: Partial<IconButtonProps>
+  /**
+   * If true, the overlay will render inline instead of inside a Portal.
+   */
+  preventPortal?: boolean
+  /**
+   * If true, the overlay will not use the internal anchor positioning provided by `useAnchoredPosition`.
+   * Use this when you want to control the overlay position yourself via `overlayProps`.
+   */
+  preventAnchorPositioning?: boolean
+
+  popover?: boolean
 }
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
@@ -159,6 +170,9 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   onPositionChange,
   displayCloseButton = true,
   closeButtonProps = defaultCloseButtonProps,
+  preventPortal,
+  preventAnchorPositioning,
+  popover = false,
 }) => {
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
@@ -242,6 +256,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           tabIndex: 0,
           onClick: onAnchorClick,
           onKeyDown: onAnchorKeyDown,
+          className: classes.Anchor,
         })}
       {open ? (
         <Overlay
@@ -250,15 +265,17 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           ignoreClickRefs={[anchorRef]}
           onEscape={onEscape}
           role="none"
-          visibility={position ? 'visible' : 'hidden'}
+          visibility={preventAnchorPositioning || position ? 'visible' : 'hidden'}
           height={height}
           width={width}
-          top={position?.top || 0}
-          left={position?.left || 0}
+          top={preventAnchorPositioning ? undefined : position?.top || 0}
+          left={preventAnchorPositioning ? undefined : position?.left || 0}
           responsiveVariant={variant.narrow === 'fullscreen' ? 'fullscreen' : undefined}
-          anchorSide={position?.anchorSide}
-          className={className}
+          anchorSide={preventAnchorPositioning ? undefined : position?.anchorSide}
+          className={classes.AnchoredOverlay}
           preventOverflow={preventOverflow}
+          preventPortal={preventPortal}
+          popover={popover}
           data-component="AnchoredOverlay"
           {...overlayProps}
           ref={node => {
@@ -267,6 +284,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
             }
             updateOverlayRef(node)
           }}
+          data-anchor-position={preventAnchorPositioning}
         >
           {showXIcon ? (
             <div className={classes.ResponsiveCloseButtonContainer}>
