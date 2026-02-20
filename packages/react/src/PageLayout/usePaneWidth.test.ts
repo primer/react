@@ -5,7 +5,7 @@ import {
   isCustomWidthOptions,
   isPaneWidth,
   getDefaultPaneWidth,
-  getPaneMaxWidthDiff,
+  getMaxWidthDiff,
   updateAriaValues,
   defaultPaneWidth,
   DEFAULT_MAX_WIDTH_DIFF,
@@ -554,7 +554,7 @@ describe('usePaneWidth', () => {
 
     it('should calculate max based on viewport for preset widths', () => {
       const refs = createMockRefs()
-      vi.stubGlobal('innerWidth', 1280)
+      vi.stubGlobal('innerWidth', 1024)
 
       const {result} = renderHook(() =>
         usePaneWidth({
@@ -566,8 +566,8 @@ describe('usePaneWidth', () => {
         }),
       )
 
-      // viewport (1280) - DEFAULT_MAX_WIDTH_DIFF (511) = 769
-      expect(result.current.getMaxPaneWidth()).toBe(769)
+      // viewport (1024) - DEFAULT_MAX_WIDTH_DIFF (511) = 513
+      expect(result.current.getMaxPaneWidth()).toBe(513)
     })
 
     it('should return minPaneWidth when viewport is too small', () => {
@@ -711,10 +711,10 @@ describe('usePaneWidth', () => {
         }),
       )
 
-      // Initial --pane-max-width should be set on mount
-      expect(refs.paneRef.current?.style.getPropertyValue('--pane-max-width')).toBe('769px')
+      // Initial --pane-max-width should be set on mount (1280 - 959 wide diff = 321)
+      expect(refs.paneRef.current?.style.getPropertyValue('--pane-max-width')).toBe('321px')
 
-      // Shrink viewport
+      // Shrink viewport (crosses 1280 breakpoint, diff switches to 511)
       vi.stubGlobal('innerWidth', 1000)
 
       // Fire resize - with throttle, first update happens immediately (if THROTTLE_MS passed)
@@ -747,10 +747,10 @@ describe('usePaneWidth', () => {
         }),
       )
 
-      // Initial ARIA max should be set on mount
-      expect(refs.handleRef.current?.getAttribute('aria-valuemax')).toBe('769')
+      // Initial ARIA max should be set on mount (1280 - 959 wide diff = 321)
+      expect(refs.handleRef.current?.getAttribute('aria-valuemax')).toBe('321')
 
-      // Shrink viewport
+      // Shrink viewport (crosses 1280 breakpoint, diff switches to 511)
       vi.stubGlobal('innerWidth', 900)
 
       // Fire resize - with throttle, update happens via rAF
@@ -835,10 +835,10 @@ describe('usePaneWidth', () => {
         }),
       )
 
-      // Initial maxPaneWidth state
-      expect(result.current.maxPaneWidth).toBe(769)
+      // Initial maxPaneWidth state (1280 - 959 wide diff = 321)
+      expect(result.current.maxPaneWidth).toBe(321)
 
-      // Shrink viewport
+      // Shrink viewport (crosses 1280 breakpoint, diff switches to 511)
       vi.stubGlobal('innerWidth', 800)
       window.dispatchEvent(new Event('resize'))
 
@@ -976,7 +976,8 @@ describe('usePaneWidth', () => {
   })
 
   describe('on-demand max calculation', () => {
-    it('should calculate max dynamically based on current viewport', () => {
+    it('should calculate max dynamically based on current viewport', async () => {
+      vi.useFakeTimers()
       vi.stubGlobal('innerWidth', 1280)
       const refs = createMockRefs()
 
@@ -990,14 +991,21 @@ describe('usePaneWidth', () => {
         }),
       )
 
-      // Initial max at 1280px: 1280 - 511 = 769
-      expect(result.current.getMaxPaneWidth()).toBe(769)
+      // Initial max at 1280px: 1280 - 959 (wide diff) = 321
+      expect(result.current.getMaxPaneWidth()).toBe(321)
 
-      // Viewport changes (no resize event needed)
+      // Shrink viewport (crosses 1280 breakpoint, diff switches to 511)
       vi.stubGlobal('innerWidth', 800)
+      window.dispatchEvent(new Event('resize'))
 
-      // getMaxPaneWidth reads window.innerWidth dynamically
+      await act(async () => {
+        await vi.runAllTimersAsync()
+      })
+
+      // After resize: 800 - 511 = 289
       expect(result.current.getMaxPaneWidth()).toBe(289)
+
+      vi.useRealTimers()
     })
 
     it('should return custom max regardless of viewport for custom widths', () => {
@@ -1141,23 +1149,27 @@ describe('helper functions', () => {
     })
   })
 
-  describe('getPaneMaxWidthDiff', () => {
-    it('should return default pane diff when element is null', () => {
-      expect(getPaneMaxWidthDiff(null)).toBe(DEFAULT_MAX_WIDTH_DIFF)
+  describe('getMaxWidthDiff', () => {
+    it('should return default value below the breakpoint', () => {
+      vi.stubGlobal('innerWidth', 1024)
+      expect(getMaxWidthDiff()).toBe(511)
     })
 
-    it('should return default sidebar diff when element is null and isSidebar is true', () => {
-      expect(getPaneMaxWidthDiff(null, true)).toBe(DEFAULT_SIDEBAR_MAX_WIDTH_DIFF)
+    it('should return wide value at the breakpoint', () => {
+      vi.stubGlobal('innerWidth', 1280)
+      expect(getMaxWidthDiff()).toBe(959)
     })
 
-    it('should return default pane diff when CSS variable is not set', () => {
-      const element = document.createElement('div')
-      expect(getPaneMaxWidthDiff(element)).toBe(DEFAULT_MAX_WIDTH_DIFF)
+    it('should return wide value above the breakpoint', () => {
+      vi.stubGlobal('innerWidth', 1920)
+      expect(getMaxWidthDiff()).toBe(959)
     })
 
-    it('should return default sidebar diff when CSS variable is not set and isSidebar is true', () => {
-      const element = document.createElement('div')
-      expect(getPaneMaxWidthDiff(element, true)).toBe(DEFAULT_SIDEBAR_MAX_WIDTH_DIFF)
+    it('should return sidebar diff regardless of viewport', () => {
+      vi.stubGlobal('innerWidth', 1024)
+      expect(getMaxWidthDiff(true)).toBe(DEFAULT_SIDEBAR_MAX_WIDTH_DIFF)
+      vi.stubGlobal('innerWidth', 1920)
+      expect(getMaxWidthDiff(true)).toBe(DEFAULT_SIDEBAR_MAX_WIDTH_DIFF)
     })
   })
 

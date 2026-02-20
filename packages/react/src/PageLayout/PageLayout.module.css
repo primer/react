@@ -4,6 +4,8 @@
   paneMaxWidthDiffBreakpoint: 1280;
   /* Default value for --pane-max-width-diff below the breakpoint */
   paneMaxWidthDiffDefault: 511;
+  /* Value for --pane-max-width-diff at/above the breakpoint */
+  paneMaxWidthDiffWide: 959;
   /* Default value for --sidebar-max-width-diff (constant across all viewports) */
   sidebarMaxWidthDiffDefault: 256;
 }
