@@ -1,5 +1,5 @@
 import type {RefObject} from 'react'
-import React, {forwardRef, useCallback, useEffect, useRef, useState} from 'react'
+import React, {forwardRef, useCallback, useEffect, useReducer, useRef, useState} from 'react'
 import VisuallyHidden from '../_VisuallyHidden'
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
@@ -9,6 +9,8 @@ import {invariant} from '../utils/invariant'
 import classes from './UnderlineNav.module.css'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import type {UnderlineNavItemProps} from './UnderlineNavItem'
+import {SkeletonText} from '../SkeletonText'
+import {clsx} from 'clsx'
 
 export type UnderlineNavProps = {
   children: React.ReactNode
@@ -54,7 +56,7 @@ export const UnderlineNav = forwardRef(
     const listRef = useRef<HTMLUListElement>(null)
 
     /** Tracks whether any item has ever overflowed for the lifecycle of this component. Used to prevent flickering. */
-    const [isOrEverHasOverflowed, setIsOrEverHasOverflowed] = useState(false)
+    const [hasOverflowed, registerHasOverflowed] = useReducer(() => true, false)
 
     const [registeredItems, setRegisteredItems] = useState(() => new Map<string, UnderlineNavItemProps | null>())
 
@@ -62,7 +64,7 @@ export const UnderlineNav = forwardRef(
       setRegisteredItems(prev => {
         if (menuItemProps === null && prev.get(id) === null) return prev
 
-        if (menuItemProps !== null) setIsOrEverHasOverflowed(true)
+        if (menuItemProps !== null) registerHasOverflowed()
 
         const copy = new Map(prev)
         copy.set(id, menuItemProps)
@@ -111,16 +113,16 @@ export const UnderlineNav = forwardRef(
         <UnderlineWrapper
           as={as}
           aria-label={ariaLabel}
-          className={className}
+          className={clsx(classes.UnderlineWrapper, className)}
           ref={navRef}
           data-variant={variant}
-          // When the component is first rendered, we use a scroll-state CSS container query to determine whether to
-          // hide icons. This works well for SSR where we can't have run any effects yet. But the pure CSS approach
-          // can cause flickering because hiding the icons makes more space, allowing them to show, which fills that
-          // space...so after that, if anything has ever wrapped, we just keep the icons hidden to prevent that flickering.
-          data-hide-icons={isOrEverHasOverflowed ? 'true' : 'false'}
+          data-overflow-mode="wrap"
+          // Force icons to stay hidden, avoiding flickering as icons create/remove overflow
+          data-hide-icons={hasOverflowed ? 'true' : 'false'}
+          // Ensure button is shown (after initial render) on browsers that don't support scroll-driven animations
+          data-has-overflow={menuItems.length > 0 ? 'true' : 'false'}
         >
-          <UnderlineItemList ref={listRef} role="list">
+          <UnderlineItemList ref={listRef} role="list" className={classes.ItemsList}>
             {children}
           </UnderlineItemList>
 
@@ -133,7 +135,7 @@ export const UnderlineNav = forwardRef(
             <div className={classes.MoreButtonDivider} />
 
             <ActionMenu>
-              <ActionMenu.Button className={classes.MoreButton}>
+              <ActionMenu.Button className={classes.MoreButton} data-component="overflow-menu-button">
                 <span>
                   More<VisuallyHidden as="span">&nbsp; items</VisuallyHidden>
                 </span>
@@ -141,32 +143,36 @@ export const UnderlineNav = forwardRef(
 
               <ActionMenu.Overlay>
                 <ActionList>
-                  {menuItems.map(([key, allProps]) => {
-                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                    const {children: menuItemChildren, counter, as, onSelect, ...menuItemProps} = allProps
+                  {menuItems.length > 0 ? (
+                    menuItems.map(([key, allProps]) => {
+                      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                      const {children: menuItemChildren, counter, as, onSelect, ...menuItemProps} = allProps
 
-                    return (
-                      <ActionList.LinkItem
-                        key={key}
-                        className={classes.OverflowMenuItem}
-                        onClick={event => onSelect?.(event)}
-                        {...menuItemProps}
-                      >
-                        <span className={classes.OverflowMenuItemLabel}>{menuItemChildren}</span>
-                        <ActionList.TrailingVisual>
-                          {loadingCounters ? (
-                            <LoadingCounter />
-                          ) : (
-                            counter !== undefined && (
-                              <span data-component="counter">
-                                <CounterLabel>{counter}</CounterLabel>
-                              </span>
-                            )
-                          )}
-                        </ActionList.TrailingVisual>
-                      </ActionList.LinkItem>
-                    )
-                  })}
+                      return (
+                        <ActionList.LinkItem
+                          key={key}
+                          className={classes.OverflowMenuItem}
+                          onClick={event => onSelect?.(event)}
+                          {...menuItemProps}
+                        >
+                          <span className={classes.OverflowMenuItemLabel}>{menuItemChildren}</span>
+                          <ActionList.TrailingVisual>
+                            {loadingCounters ? (
+                              <LoadingCounter />
+                            ) : (
+                              counter !== undefined && (
+                                <span data-component="counter">
+                                  <CounterLabel>{counter}</CounterLabel>
+                                </span>
+                              )
+                            )}
+                          </ActionList.TrailingVisual>
+                        </ActionList.LinkItem>
+                      )
+                    })
+                  ) : (
+                    <SkeletonText />
+                  )}
                 </ActionList>
               </ActionMenu.Overlay>
             </ActionMenu>

@@ -1,16 +1,12 @@
 .UnderlineWrapper {
   display: flex;
   /* stylelint-disable-next-line primer/spacing */
-  padding-inline: var(--stack-padding-normal);
-  padding-top: var(--base-size-8);
-  justify-content: space-between;
+  padding: calc((var(--control-xlarge-size) - var(--control-medium-size)) / 2) var(--stack-padding-normal);
+  justify-content: flex-start;
   align-items: flex-start;
-  overflow: hidden;
-  /* stylelint-disable-next-line declaration-property-value-no-unknown */
-  container: underline-wrapper / scroll-state;
 
   /* make space for the underline */
-  height: var(--control-xlarge-size, 48px);
+  min-height: var(--control-xlarge-size);
 
   /* using a box-shadow instead of a border to accommodate 'overflow-y: hidden' on UnderlinePanels */
   /* stylelint-disable-next-line primer/box-shadow */
@@ -24,6 +20,19 @@
   &[data-hide-icons='true'] [data-component='icon'] {
     display: none;
   }
+
+  &[data-overflow-mode='wrap'] {
+    /* Wrap items onto hidden next lines */
+    overflow: hidden;
+    max-height: var(--control-xlarge-size);
+
+    .UnderlineItemList {
+      flex-wrap: wrap;
+      overflow: hidden;
+      /* Ensure items wrap completely out of view */
+      row-gap: var(--base-size-16);
+    }
+  }
 }
 
 .UnderlineItemList {
@@ -34,10 +43,7 @@
   white-space: nowrap;
   list-style: none;
   align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  /* Allows the menu to clip wrapped items to keep on shrinking */
-  overflow: hidden;
+  gap: var(--stack-gap-condensed);
 }
 
 .UnderlineItem {
@@ -103,14 +109,9 @@
   color: var(--fgColor-muted);
   align-items: center;
   margin-inline-end: var(--base-size-8);
-
-  /* Hide via CSS when there's an overflow (for SSR; after initial render will control with React state) */
-  @container underline-wrapper scroll-state(scrollable: block) {
-    display: none;
-  }
 }
 
-/* Only the first item will ever truncate, after all other items wrap */
+/* Truncate items if necessary (should only ever apply to the last item after everything else overflows) */
 .UnderlineItem [data-component='text'] {
   overflow: hidden;
   text-overflow: ellipsis;

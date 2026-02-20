@@ -1,7 +1,7 @@
 // Used for UnderlineNav and UnderlinePanels components
 
 import React from 'react'
-import {type ForwardedRef, forwardRef, type FC, type PropsWithChildren, type ElementType} from 'react'
+import {type ForwardedRef, forwardRef, type FC, type ElementType} from 'react'
 import {isElement} from 'react-is'
 import type {IconProps} from '@primer/octicons-react'
 import CounterLabel from '../../CounterLabel'
@@ -48,9 +48,9 @@ export const UnderlineWrapper = forwardRef((props, ref) => {
   )
 }) as PolymorphicForwardRefComponent<ElementType, UnderlineWrapperProps<ElementType>>
 
-export const UnderlineItemList = forwardRef(({children, ...rest}: PropsWithChildren, forwardedRef) => {
+export const UnderlineItemList = forwardRef(({children, className, ...rest}, forwardedRef) => {
   return (
-    <ul className={classes.UnderlineItemList} ref={forwardedRef} {...rest}>
+    <ul className={clsx(className, classes.UnderlineItemList)} ref={forwardedRef} {...rest}>
       {children}
     </ul>
   )

@@ -82,15 +82,20 @@ export const UnderlineNavItem = forwardRef((allProps, forwardedRef) => {
     const element = ref.current
     if (!element) return
 
-    const observer = new IntersectionObserver(() => {
-      // Overflowing items wrap onto subsequent lines, so their `offsetTop` increases
-      const isOverflowing = element.offsetTop > 0
-      setIsOverflowing(isOverflowing)
+    const observer = new IntersectionObserver(
+      () => {
+        // Overflowing items wrap onto subsequent lines, so their `offsetTop` increases
+        const isOverflowing = element.offsetTop > 0
+        setIsOverflowing(isOverflowing)
 
-      // Even if an item is not overflowing, it still needs to register itself to claim it's place in the registry.
-      // This preserves order - otherwise, items that overflow first would appear first in the menu.
-      registerItem(id, isOverflowing ? allProps : null)
-    })
+        // Even if an item is not overflowing, it still needs to register itself to claim it's place in the registry.
+        // This preserves order - otherwise, items that overflow first would appear first in the menu.
+        registerItem(id, isOverflowing ? allProps : null)
+      },
+      {
+        threshold: 1,
+      },
+    )
 
     observer.observe(element)
 
