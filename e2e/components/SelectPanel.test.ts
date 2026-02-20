@@ -40,6 +40,10 @@ const scenarios = matrix({
       id: 'components-selectpanel-dev--with-css',
       name: 'With Css',
     },
+    {
+      id: 'components-selectpanel-examples--with-long-titles',
+      name: 'With Long Titles',
+    },
   ],
 })
 
