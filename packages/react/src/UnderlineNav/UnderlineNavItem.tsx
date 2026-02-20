@@ -1,9 +1,8 @@
-import type {MutableRefObject, RefObject} from 'react'
-import React, {forwardRef, useRef, useContext} from 'react'
+import type {RefObject} from 'react'
+import React, {forwardRef, useRef, useContext, useEffect, useId, useState} from 'react'
 import type {IconProps} from '@primer/octicons-react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {UnderlineNavContext} from './UnderlineNavContext'
-import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {UnderlineItem} from '../internal/components/UnderlineTabbedInterface'
 import classes from './UnderlineNavItem.module.css'
 
@@ -59,86 +58,90 @@ export type UnderlineNavItemProps = {
   counter?: number | string
 } & LinkProps
 
-export const UnderlineNavItem = forwardRef(
-  (
-    {
-      as: Component = 'a',
-      href = '#',
-      children,
-      counter,
-      onSelect,
-      'aria-current': ariaCurrent,
-      icon: Icon,
-      leadingVisual,
-      ...props
-    },
-    forwardedRef,
-  ) => {
-    const backupRef = useRef<HTMLElement>(null)
-    const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
-    const {setChildrenWidth, setNoIconChildrenWidth, loadingCounters, iconsVisible} = useContext(UnderlineNavContext)
+export const UnderlineNavItem = forwardRef((allProps, forwardedRef) => {
+  const {
+    as: Component = 'a',
+    href = '#',
+    children,
+    counter,
+    onSelect,
+    'aria-current': ariaCurrent,
+    icon: Icon,
+    leadingVisual,
+    ...props
+  } = allProps
 
-    useLayoutEffect(() => {
-      if (ref.current) {
-        const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
+  const backupRef = useRef<HTMLElement>(null)
+  const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
+  const {loadingCounters, registerItem, unregisterItem} = useContext(UnderlineNavContext)
 
-        const icon = Array.from((ref as MutableRefObject<HTMLElement>).current.children).find(
-          child => child.getAttribute('data-component') === 'icon',
-        )
+  const id = useId()
+  const [isOverflowing, setIsOverflowing] = useState(false)
 
-        const content = Array.from((ref as MutableRefObject<HTMLElement>).current.children).find(
-          child => child.getAttribute('data-component') === 'text',
-        ) as HTMLElement
-        const text = content.textContent as string
+  useEffect(() => {
+    const element = ref.current
+    if (!element) return
 
-        const iconWidthWithMargin = icon
-          ? icon.getBoundingClientRect().width +
-            Number(getComputedStyle(icon).marginRight.slice(0, -2)) +
-            Number(getComputedStyle(icon).marginLeft.slice(0, -2))
-          : 0
+    const observer = new IntersectionObserver(
+      () => {
+        // Overflowing items wrap onto subsequent lines, so their `offsetTop` increases
+        const isOverflowing = element.offsetTop > 0
+        setIsOverflowing(isOverflowing)
 
-        setChildrenWidth({text, width: domRect.width})
-        setNoIconChildrenWidth({text, width: domRect.width - iconWidthWithMargin})
+        // Even if an item is not overflowing, it still needs to register itself to claim it's place in the registry.
+        // This preserves order - otherwise, items that overflow first would appear first in the menu.
+        registerItem(id, isOverflowing ? allProps : null)
+      },
+      {
+        threshold: 1,
+      },
+    )
+
+    observer.observe(element)
+
+    return () => observer.disconnect()
+  }, [ref, registerItem, id, allProps])
+
+  // Unregister only on dismount:
+  useEffect(() => () => unregisterItem(id), [id, unregisterItem])
+
+  const keyDownHandler = React.useCallback(
+    (event: React.KeyboardEvent<HTMLAnchorElement>) => {
+      if ((event.key === ' ' || event.key === 'Enter') && !event.defaultPrevented && typeof onSelect === 'function') {
+        onSelect(event)
       }
-    }, [ref, setChildrenWidth, setNoIconChildrenWidth])
+    },
+    [onSelect],
+  )
+  const clickHandler = React.useCallback(
+    (event: React.MouseEvent<HTMLAnchorElement>) => {
+      if (!event.defaultPrevented && typeof onSelect === 'function') {
+        onSelect(event)
+      }
+    },
+    [onSelect],
+  )
 
-    const keyDownHandler = React.useCallback(
-      (event: React.KeyboardEvent<HTMLAnchorElement>) => {
-        if ((event.key === ' ' || event.key === 'Enter') && !event.defaultPrevented && typeof onSelect === 'function') {
-          onSelect(event)
-        }
-      },
-      [onSelect],
-    )
-    const clickHandler = React.useCallback(
-      (event: React.MouseEvent<HTMLAnchorElement>) => {
-        if (!event.defaultPrevented && typeof onSelect === 'function') {
-          onSelect(event)
-        }
-      },
-      [onSelect],
-    )
-
-    return (
-      <li className={classes.UnderlineNavItem}>
-        <UnderlineItem
-          ref={ref}
-          as={Component}
-          href={href}
-          aria-current={ariaCurrent}
-          onKeyDown={keyDownHandler}
-          onClick={clickHandler}
-          counter={counter}
-          icon={leadingVisual ?? Icon}
-          loadingCounters={loadingCounters}
-          iconsVisible={iconsVisible}
-          {...props}
-        >
-          {children}
-        </UnderlineItem>
-      </li>
-    )
-  },
-) as PolymorphicForwardRefComponent<'a', UnderlineNavItemProps>
+  return (
+    <li className={classes.UnderlineNavItem}>
+      <UnderlineItem
+        ref={ref}
+        as={Component}
+        href={href}
+        aria-current={ariaCurrent}
+        onKeyDown={keyDownHandler}
+        onClick={clickHandler}
+        counter={counter}
+        icon={leadingVisual ?? Icon}
+        loadingCounters={loadingCounters}
+        {...props}
+        aria-hidden={isOverflowing ? true : allProps['aria-hidden']}
+        tabIndex={isOverflowing ? -1 : allProps.tabIndex}
+      >
+        {children}
+      </UnderlineItem>
+    </li>
+  )
+}) as PolymorphicForwardRefComponent<'a', UnderlineNavItemProps>
 
 UnderlineNavItem.displayName = 'UnderlineNavItem'

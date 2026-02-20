@@ -202,12 +202,12 @@ test.describe('UnderlineNav', () => {
           // expect(await page.screenshot()).toMatchSnapshot()
 
           await page.setViewportSize({width: viewports['primer.breakpoint.sm'], height: 768})
-          await page.locator('button', {hasText: 'More Repository Items'}).waitFor()
+          await page.locator('button', {hasText: 'More items'}).waitFor()
 
           // Resize
           // expect(await page.screenshot()).toMatchSnapshot()
 
-          await page.getByRole('button', {name: 'More Repository Items'}).click()
+          await page.getByRole('button', {name: 'More items'}).click()
           // expect(await page.screenshot()).toMatchSnapshot()
 
           await page.getByRole('link', {name: 'Settings (10)'}).click()
@@ -241,8 +241,8 @@ test.describe('UnderlineNav', () => {
           })
           await page.setViewportSize({width: viewports['primer.breakpoint.sm'], height: 768})
 
-          await page.locator('button', {hasText: 'More Repository Items'}).waitFor()
-          await page.getByRole('button', {name: 'More Repository Items'}).click()
+          await page.locator('button', {hasText: 'More items'}).waitFor()
+          await page.getByRole('button', {name: 'More items'}).click()
           await page.getByRole('link', {name: 'Settings (10)'}).click()
 
           // State after selecting the second last item
@@ -253,7 +253,7 @@ test.describe('UnderlineNav', () => {
             width: 1100,
             height: 480,
           })
-          await page.locator('button', {hasText: 'More Repository Items'}).waitFor({
+          await page.locator('button', {hasText: 'More items'}).waitFor({
             state: 'hidden',
           })
 
@@ -265,7 +265,7 @@ test.describe('UnderlineNav', () => {
             width: 800,
             height: 480,
           })
-          await page.locator('button', {hasText: 'More Repository Items'}).waitFor()
+          await page.locator('button', {hasText: 'More items'}).waitFor()
 
           // Current state
           // expect(await page.screenshot()).toMatchSnapshot()
@@ -275,7 +275,7 @@ test.describe('UnderlineNav', () => {
             width: 600,
             height: 480,
           })
-          await page.locator('button', {hasText: 'More Repository Items'}).waitFor()
+          await page.locator('button', {hasText: 'More items'}).waitFor()
           // Current state
           // expect(await page.screenshot()).toMatchSnapshot()
         })

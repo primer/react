@@ -1,31 +1,37 @@
 .UnderlineWrapper {
   display: flex;
   /* stylelint-disable-next-line primer/spacing */
-  padding-inline: var(--stack-padding-normal);
+  padding: calc((var(--control-xlarge-size) - var(--control-medium-size)) / 2) var(--stack-padding-normal);
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
 
   /* make space for the underline */
-  min-height: var(--control-xlarge-size, 48px);
+  min-height: var(--control-xlarge-size);
 
   /* using a box-shadow instead of a border to accommodate 'overflow-y: hidden' on UnderlinePanels */
   /* stylelint-disable-next-line primer/box-shadow */
   box-shadow: inset 0 -1px var(--borderColor-muted);
 
-  /* Hide overflow until calculation is complete to prevent CLS */
-  overflow: visible;
-
-  &[data-overflow-measured='false'] {
-    overflow: hidden;
-  }
-
-  &[data-overflow-measured='true'] {
-    overflow: visible;
-  }
-
   &[data-variant='flush'] {
     /* stylelint-disable-next-line primer/spacing */
     padding-inline: unset;
+  }
+
+  &[data-hide-icons='true'] [data-component='icon'] {
+    display: none;
+  }
+
+  &[data-overflow-mode='wrap'] {
+    /* Wrap items onto hidden next lines */
+    overflow: hidden;
+    max-height: var(--control-xlarge-size);
+
+    .UnderlineItemList {
+      flex-wrap: wrap;
+      overflow: hidden;
+      /* Ensure items wrap completely out of view */
+      row-gap: var(--base-size-16);
+    }
   }
 }
 
@@ -37,7 +43,7 @@
   white-space: nowrap;
   list-style: none;
   align-items: center;
-  gap: 8px;
+  gap: var(--stack-gap-condensed);
 }
 
 .UnderlineItem {
@@ -54,6 +60,7 @@
   background-color: transparent;
   border: 0;
   border-radius: var(--borderRadius-medium, var(--borderRadius-small));
+  max-width: 100%;
 
   /* button resets */
   appearance: none;
@@ -102,6 +109,13 @@
   color: var(--fgColor-muted);
   align-items: center;
   margin-inline-end: var(--base-size-8);
+}
+
+/* Truncate items if necessary (should only ever apply to the last item after everything else overflows) */
+.UnderlineItem [data-component='text'] {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .UnderlineItem [data-component='counter'] {

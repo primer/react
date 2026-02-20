@@ -1,14 +1,12 @@
-import type React from 'react'
 import {createContext} from 'react'
+import type {UnderlineNavItemProps} from './UnderlineNavItem'
 
 export const UnderlineNavContext = createContext<{
-  setChildrenWidth: React.Dispatch<{text: string; width: number}>
-  setNoIconChildrenWidth: React.Dispatch<{text: string; width: number}>
   loadingCounters: boolean
-  iconsVisible: boolean
+  registerItem: (id: string, props: UnderlineNavItemProps | null) => void
+  unregisterItem: (id: string) => void
 }>({
-  setChildrenWidth: () => null,
-  setNoIconChildrenWidth: () => null,
   loadingCounters: false,
-  iconsVisible: true,
+  registerItem: () => {},
+  unregisterItem: () => {},
 })

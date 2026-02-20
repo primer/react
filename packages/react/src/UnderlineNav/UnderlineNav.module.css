@@ -1,10 +1,49 @@
-.MenuItemContent {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.UnderlineWrapper {
+  /* Progressive enhancement: Detect overflow using scroll-based animations.
+  The idiomatic way would be a scroll-state container query but browser support
+  is slightly better for animations. */
+  animation: detect-overflow linear;
+  animation-timeline: scroll(self block);
+
+  &[data-hide-icons='true'] {
+    --UnderlineNav_icons-display: none;
+  }
+
+  &[data-has-overflow='true'] {
+    --UnderlineNav_moreButton-visibility: visible;
+  }
 }
 
-/* More button styles migrated from styles.ts (was moreBtnStyles) */
+@keyframes detect-overflow {
+  0%,
+  100% {
+    --UnderlineNav_moreButton-visibility: visible;
+    --UnderlineNav_icons-display: none;
+  }
+}
+
+.ItemsList [data-component='icon'] {
+  display: var(--UnderlineNav_icons-display, inline);
+}
+
+.MoreButtonContainer {
+  display: flex;
+  visibility: var(--UnderlineNav_moreButton-visibility, hidden);
+  align-items: center;
+}
+
+.OverflowMenuItem [aria-current] .OverflowMenuItemLabel {
+  font-weight: var(--base-text-weight-semibold);
+}
+
+.MoreButtonDivider {
+  display: inline-block;
+  border-left: var(--borderWidth-default) solid var(--borderColor-muted);
+  width: 0;
+  margin-inline: var(--base-size-4);
+  height: var(--base-size-24);
+}
+
 .MoreButton {
   margin: 0; /* reset Safari extra margin */
   border: 0;
