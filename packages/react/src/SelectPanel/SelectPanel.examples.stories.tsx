@@ -13,6 +13,7 @@ import styles from './SelectPanel.examples.stories.module.css'
 import {useVirtualizer, type VirtualItem} from '@tanstack/react-virtual'
 import Checkbox from '../Checkbox'
 import Label from '../Label'
+import Avatar from '../Avatar'
 
 const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Examples',
@@ -729,5 +730,52 @@ export const Virtualized = () => {
         />
       </FormControl>
     </form>
+  )
+}
+
+const longNamedUsers: ItemInput[] = [
+  {login: 'pksjce', name: 'Pavithra Kodmad'},
+  {login: 'colebemis', name: 'Cole Bemis'},
+  {login: 'mperrotti', name: 'Mike Perrotti'},
+  {login: 'langermank', name: 'Katie Langerman'},
+  {login: 'siddharthkp', name: 'Siddharth Kshetrapal'},
+  {login: 'siddharthkp', name: 'Siddharth NoMiddleName Kshetrapal'},
+  {login: 'siddharth-kshetrapal', name: 'Siddharth Kshetrapal'},
+  {login: 'siddharth-kshetrapal', name: 'Siddharth NoMiddleName Kshetrapal'},
+].map(user => ({
+  ...user,
+  id: user.login,
+  text: user.login,
+  description: user.name,
+  leadingVisual: () => <Avatar src="https://github.com/primer.png" size={16} />,
+}))
+
+export const WithLongTitles = () => {
+  const [selected, setSelected] = useState<ItemInput[]>([])
+  const [filter, setFilter] = useState('')
+  const filteredItems = longNamedUsers.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
+
+  const [open, setOpen] = useState(false)
+
+  return (
+    <FormControl>
+      <FormControl.Label>Assignees</FormControl.Label>
+      <SelectPanel
+        title="Select assignees"
+        placeholder="Select assignees" // button text when no items are selected
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            {children}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        width="medium"
+      />
+    </FormControl>
   )
 }

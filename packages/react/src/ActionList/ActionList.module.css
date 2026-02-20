@@ -628,6 +628,7 @@ default block */
     font-weight: var(--base-text-weight-semibold);
     /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated */
     word-break: break-word;
+    flex-shrink: 0;
   }
 
   /* inline */
@@ -640,6 +641,7 @@ default block */
 
     & .ItemLabel {
       word-break: normal;
+      flex-shrink: 0;
     }
 
     &:has([data-truncate='true']) {
@@ -654,6 +656,9 @@ default block */
       /* line-height: calc(var(--control-medium-lineBoxHeight) - var(--base-size-2)); */
       /* stylelint-disable-next-line primer/typography */
       line-height: 16px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 }
