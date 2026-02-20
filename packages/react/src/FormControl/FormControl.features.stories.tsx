@@ -140,7 +140,7 @@ export const FormControlWithCustomInput = () => {
         <FormControl.Label htmlFor="custom-input">GitHub handle</FormControl.Label>
         <CustomTextInput
           id="custom-input"
-          aria-describedby="custom-input-caption custom-input-validation"
+          aria-describedby="custom-input-validation custom-input-caption"
           aria-invalid={validationResult === 'noSpaces'}
           onChange={handleInputChange}
         />
