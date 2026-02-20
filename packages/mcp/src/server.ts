@@ -856,7 +856,7 @@ server.registerTool(
 
 ## Design Tokens
 
-- Prefer design tokens over hard-coded values. For example, use \`var(--fgColor-default)\` instead of \`#24292f\`. Use the \`list_tokens\` tool to find the design token you need.
+- Prefer design tokens over hard-coded values. For example, use \`var(--fgColor-default)\` instead of \`#24292f\`. Use the \`find_tokens\` tool to search for a design token by keyword or group. Use \`get_design_token_specs\` to browse available token groups, and \`get_token_group_bundle\` to retrieve all tokens within a specific group.
 - Prefer recommending design tokens in the same group for related CSS properties. For example, when styling background and border color, use tokens from the same group/category
 
 ## Authoring & Using Components
