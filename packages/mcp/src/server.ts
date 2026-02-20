@@ -480,7 +480,11 @@ server.registerTool(
     description:
       "Search for specific tokens. Tip: If you only provide a 'group' and leave 'query' empty, it returns all tokens in that category. Avoid property-by-property searching.",
     inputSchema: {
-      query: z.string().describe('Search keywords (e.g., "danger border", "success background")'),
+      query: z
+        .string()
+        .optional()
+        .default('')
+        .describe('Search keywords (e.g., "danger border", "success background")'),
       group: z.string().optional().describe('Filter by group (e.g., "fgColor", "border")'),
       limit: z.number().optional().default(15).describe('Maximum results to return to stay within context limits'),
     },
