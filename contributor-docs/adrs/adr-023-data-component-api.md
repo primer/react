@@ -4,10 +4,10 @@
 
 ## Status
 
-| Stage          | State          |
-| -------------- | -------------- |
-| Status         | Proposed ❓    |
-| Implementation |  |
+| Stage          | State       |
+| -------------- | ----------- |
+| Status         | Proposed ❓ |
+| Implementation |             |
 
 ## Context
 
