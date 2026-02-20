@@ -18,6 +18,13 @@ import FormControlLeadingVisual from './FormControlLeadingVisual'
 import FormControlValidation from './_FormControlValidation'
 import {FormControlContextProvider} from './_FormControlContext'
 import {warning} from '../utils/warning'
+
+const formControlSlotsConfig = {
+  caption: FormControlCaption,
+  label: FormControlLabel,
+  leadingVisual: FormControlLeadingVisual,
+  validation: FormControlValidation,
+}
 import classes from './FormControl.module.css'
 import {isSlot} from '../utils/is-slot'
 
@@ -46,12 +53,7 @@ export type FormControlProps = {
 
 const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
   ({children, disabled: disabledProp, layout = 'vertical', id: idProp, required, className, style}, ref) => {
-    const [slots, childrenWithoutSlots] = useSlots(children, {
-      caption: FormControlCaption,
-      label: FormControlLabel,
-      leadingVisual: FormControlLeadingVisual,
-      validation: FormControlValidation,
-    })
+    const [slots, childrenWithoutSlots] = useSlots(children, formControlSlotsConfig)
     const expectedInputComponents = [
       Autocomplete,
       Checkbox,

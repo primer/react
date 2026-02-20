@@ -47,6 +47,14 @@ const DivItemContainerNoBox = React.forwardRef<HTMLDivElement, React.HTMLAttribu
   },
 )
 
+const itemSlotsConfig = {
+  leadingVisual: LeadingVisual,
+  trailingVisual: TrailingVisual,
+  trailingAction: TrailingAction,
+  subItem: SubItem,
+  description: Description,
+}
+
 const UnwrappedItem = <As extends React.ElementType = 'li'>(
   {
     variant = 'default',
@@ -69,14 +77,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   forwardedRef: React.Ref<any>,
 ): JSX.Element => {
-  const baseSlots = {
-    leadingVisual: LeadingVisual,
-    trailingVisual: TrailingVisual,
-    trailingAction: TrailingAction,
-    subItem: SubItem,
-  }
-
-  const [partialSlots, childrenWithoutSlots] = useSlots(props.children, {...baseSlots, description: Description})
+  const [partialSlots, childrenWithoutSlots] = useSlots(props.children, itemSlotsConfig)
 
   const slots = {description: undefined, ...partialSlots}
 

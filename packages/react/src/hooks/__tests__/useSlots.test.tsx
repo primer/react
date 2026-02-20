@@ -130,10 +130,7 @@ test('handles empty children', () => {
   expect(calls).toMatchInlineSnapshot(`
     [
       [
-        {
-          "a": undefined,
-          "b": undefined,
-        },
+        {},
         [],
       ],
     ]
@@ -165,7 +162,6 @@ test('ignores nested slots', () => {
       [
         {
           "a": <TestComponentA />,
-          "b": undefined,
         },
         [
           <div>

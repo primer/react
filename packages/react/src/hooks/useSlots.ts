@@ -38,14 +38,15 @@ export function useSlots<Config extends SlotConfig>(
   children: React.ReactNode,
   config: Config,
 ): [Partial<SlotElements<Config>>, React.ReactNode[]] {
-  // Object mapping slot names to their elements
-  const slots: Partial<SlotElements<Config>> = mapValues(config, () => undefined)
+  const slots: Partial<SlotElements<Config>> = {}
 
   // Array of elements that are not slots
   const rest: React.ReactNode[] = []
 
-  const keys = Object.keys(config) as Array<keyof Config>
-  const values = Object.values(config)
+  const entries = Object.entries(config) as Array<[keyof Config, Config[keyof Config]]>
+
+  // Set of slot keys that have already been filled, for O(1) duplicate detection
+  const filledSlots = new Set<keyof Config>()
 
   // eslint-disable-next-line github/array-foreach
   React.Children.forEach(children, child => {
@@ -54,44 +55,37 @@ export function useSlots<Config extends SlotConfig>(
       return
     }
 
-    const index = values.findIndex(value => {
+    let matchedKey: keyof Config | undefined
+
+    for (const [key, value] of entries) {
       if (Array.isArray(value)) {
         const [component, testFn] = value
-        return (child.type === component || isSlot(child, component as SlotMarker)) && testFn(child.props)
+        if ((child.type === component || isSlot(child, component as SlotMarker)) && testFn(child.props)) {
+          matchedKey = key
+          break
+        }
       } else {
-        return child.type === value || isSlot(child, value as SlotMarker)
+        if (child.type === value || isSlot(child, value as SlotMarker)) {
+          matchedKey = key
+          break
+        }
       }
-    })
+    }
 
-    // If the child is not a slot, add it to the `rest` array
-    if (index === -1) {
+    if (matchedKey === undefined) {
       rest.push(child)
       return
     }
 
-    const slotKey = keys[index]
-
     // If slot is already filled, ignore duplicates
-    if (slots[slotKey]) {
-      warning(true, `Found duplicate "${String(slotKey)}" slot. Only the first will be rendered.`)
+    if (filledSlots.has(matchedKey)) {
+      warning(true, `Found duplicate "${String(matchedKey)}" slot. Only the first will be rendered.`)
       return
     }
 
-    // If the child is a slot, add it to the `slots` object
-
-    slots[slotKey] = child as SlotValue<Config, keyof Config>
+    filledSlots.add(matchedKey)
+    slots[matchedKey] = child as SlotValue<Config, keyof Config>
   })
 
   return [slots, rest]
-}
-
-/** Map the values of an object */
-function mapValues<T extends Record<string, unknown>, V>(obj: T, fn: (value: T[keyof T]) => V) {
-  return Object.keys(obj).reduce(
-    (result, key: keyof T) => {
-      result[key] = fn(obj[key])
-      return result
-    },
-    {} as Record<keyof T, V>,
-  )
 }

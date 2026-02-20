@@ -10,6 +10,10 @@ import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
 
+const listSlotsConfig = {
+  heading: Heading,
+}
+
 const UnwrappedList = <As extends React.ElementType = 'ul'>(
   props: ActionListProps<As>,
   forwardedRef: React.Ref<unknown>,
@@ -24,9 +28,7 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
     className,
     ...restProps
   } = props
-  const [slots, childrenWithoutSlots] = useSlots(restProps.children, {
-    heading: Heading,
-  })
+  const [slots, childrenWithoutSlots] = useSlots(restProps.children, listSlotsConfig)
 
   const headingId = useId()
 
