@@ -24,6 +24,7 @@
   justify-content: space-between;
   gap: var(--base-size-8);
 
+  /* NOTE: Uses descendant :has() - button has very few children (icon, text, kbd). Acceptable. */
   &:has([data-kbd-chord]) {
     padding-inline-end: var(--base-size-6);
   }
@@ -173,6 +174,7 @@
       margin-right: var(--control-large-gap);
     }
 
+    /* NOTE: Uses descendant :has() - button has very few children (icon, text, kbd). Acceptable. */
     &:has([data-kbd-chord]) {
       padding-inline-end: var(--base-size-8);
     }
@@ -580,12 +582,13 @@
     }
   }
 
+  /* PERFORMANCE: Use data-no-visuals attribute instead of :has(.Visual) to avoid descendant scan */
   [data-a11y-link-underlines='true'] &:where([data-variant='link']) {
-    &:not(:has(.Visual)) {
+    &:where([data-no-visuals='true']) {
       text-decoration: underline;
     }
 
-    &:has(.Visual) {
+    &:not([data-no-visuals='true']) {
       background-image: linear-gradient(to right, currentColor, currentColor);
       background-size: 100% 1.5px;
       background-position: 0 calc(100% - 2px);
@@ -598,12 +601,12 @@
   }
 
   [data-a11y-link-underlines='false'] &:where([data-variant='link']) {
-    &:not(:has(.Visual)) {
+    &:where([data-no-visuals='true']) {
       text-decoration: none;
       background-image: none;
     }
 
-    &:has(.Visual) {
+    &:not([data-no-visuals='true']) {
       background-image: none;
     }
   }
@@ -632,8 +635,12 @@
     }
   }
 
-  /* Icon-only + Counter */
-
+  /*
+   * Icon-only + Counter
+   * NOTE: Uses descendant :has() - leadingVisual and text are nested inside
+   * buttonContent wrapper. This is acceptable as the search is scoped to
+   * this single button element's subtree (small DOM).
+   */
   &:where([data-has-count]):has([data-component='leadingVisual']):not(:has([data-component='text'])) {
     /* stylelint-disable-next-line primer/spacing */
     padding-inline: var(--control-medium-paddingInline-condensed);
