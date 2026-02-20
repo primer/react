@@ -135,12 +135,13 @@ type TokenGroups = {
 }
 
 function listTokenGroups(): TokenGroups {
-  const themeTokens = categories.functional.themes.light
+  // Use the full token set so non-theme groups (stack, text, borderRadius, etc.) are included
+  const allTokens = tokens
 
   // Group tokens by their first segment
   const groupMap = new Map<string, {count: number; subGroups: Set<string>}>()
 
-  for (const token of themeTokens) {
+  for (const token of allTokens) {
     const parts = token.name.split('-')
     const prefix = parts[0]
 
