@@ -83,7 +83,9 @@ jobs:
           PR_NUMBERS=$(gh pr list -L 100 -R primer/react --state open --json number,baseRefName,autoMergeRequest,reviewDecision -q '.[] | select(.autoMergeRequest != null) | select(.baseRefName == "main") | select(.reviewDecision == "APPROVED") | .number')
           if [ -n "$PR_NUMBERS" ]; then
             echo "Updating $PR_NUMBERS"
-            echo "$PR_NUMBERS" | xargs -I {} gh pr update-branch -R primer/react {}
+            for pr in $PR_NUMBERS; do
+              gh pr update-branch -R primer/react "$pr" || echo "Warning: failed to update PR #$pr (likely has conflicts)"
+            done
           else
             echo "No PRs to update."
           fi
