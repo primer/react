@@ -79,8 +79,10 @@ data-component="ComponentName.PartName"     → sub-component or internal part
 
    ```html
    <span data-component="ActionList.ItemLabel">
-     <span data-component="ActionList.ItemContent"> <span data-component="Button.Content"></span></span
-   ></span>
+     <span data-component="ActionList.ItemContent">
+       <span data-component="Button.Content"></span>
+     </span>
+   </span>
    ```
 
 4. **State and modifier attributes remain separate.** The `data-component`
