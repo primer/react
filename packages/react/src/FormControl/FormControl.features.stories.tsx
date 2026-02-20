@@ -118,7 +118,7 @@ const CustomCheckboxInput = (
     React.InputHTMLAttributes<HTMLInputElement>,
 ) => <input type="checkbox" {...props} />
 
-export const FormControlWithCustomInput = () => {
+export const WithCustomInput = () => {
   const [value, setValue] = React.useState('mona lisa')
   const [validationResult, setValidationResult] = React.useState('')
   const doesValueContainSpaces = (inputValue: string) => /\s/g.test(inputValue)
