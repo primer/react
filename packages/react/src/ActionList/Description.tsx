@@ -61,6 +61,10 @@ export const Description: FCWithSlotMarker<React.PropsWithChildren<ActionListDes
     if (!truncateEnabled || !containerRef.current) return
     const el = containerRef.current
     setTruncatedText(el.scrollWidth > el.clientWidth ? effectiveTitle : undefined)
+
+    return () => {
+      setTruncatedText(undefined)
+    }
   }, [truncateEnabled, effectiveTitle, setTruncatedText])
 
   if (variant === 'block' || !truncate) {

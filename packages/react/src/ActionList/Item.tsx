@@ -278,28 +278,28 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
         setTruncatedText: buttonSemantics ? setTruncatedText : undefined,
       }}
     >
-      <ConditionalTooltip text={truncatedText} enabled={buttonSemantics}>
-        <li
-          {...containerProps}
-          ref={listSemantics ? forwardedRef : null}
-          data-variant={variant === 'danger' ? variant : undefined}
-          data-active={active ? true : undefined}
-          data-inactive={inactiveText ? true : undefined}
-          data-is-disabled={disabled ? true : undefined}
-          data-has-subitem={slots.subItem ? true : undefined}
-          data-has-description={slots.description ? true : false}
-          className={clsx(classes.ActionListItem, className)}
-        >
-          {/* Reset TooltipContext so that child components (e.g. IconButton inside TrailingAction)
-              don't detect the outer ConditionalTooltip and suppress their own internal tooltips. */}
-          <TooltipContext.Provider value={{}}>
-            <ItemWrapper
-              {...wrapperProps}
-              className={classes.ActionListContent}
-              data-size={size}
-              // @ts-ignore: ItemWrapper is polymorphic and the ref type depends on the rendered element ('button' or 'li')
-              ref={forwardedRef}
-            >
+      <li
+        {...containerProps}
+        ref={listSemantics ? forwardedRef : null}
+        data-variant={variant === 'danger' ? variant : undefined}
+        data-active={active ? true : undefined}
+        data-inactive={inactiveText ? true : undefined}
+        data-is-disabled={disabled ? true : undefined}
+        data-has-subitem={slots.subItem ? true : undefined}
+        data-has-description={slots.description ? true : false}
+        className={clsx(classes.ActionListItem, className)}
+      >
+        <ConditionalTooltip text={truncatedText} enabled={buttonSemantics}>
+          <ItemWrapper
+            {...wrapperProps}
+            className={classes.ActionListContent}
+            data-size={size}
+            // @ts-ignore: ItemWrapper is polymorphic and the ref type depends on the rendered element ('button' or 'li')
+            ref={forwardedRef}
+          >
+            {/* Reset TooltipContext so that child components don't detect
+                the ConditionalTooltip and suppress their own internal tooltips. */}
+            <TooltipContext.Provider value={{}}>
               <span className={classes.Spacer} />
               <Selection selected={selected} className={classes.LeadingAction} />
               <VisualOrIndicator
@@ -345,12 +345,12 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
                   ) : null
                 }
               </span>
-            </ItemWrapper>
-            {!inactive && !loading && !menuContext && Boolean(slots.trailingAction) && slots.trailingAction}
-            {slots.subItem}
-          </TooltipContext.Provider>
-        </li>
-      </ConditionalTooltip>
+            </TooltipContext.Provider>
+          </ItemWrapper>
+        </ConditionalTooltip>
+        {!inactive && !loading && !menuContext && Boolean(slots.trailingAction) && slots.trailingAction}
+        {slots.subItem}
+      </li>
     </ItemContext.Provider>
   )
 }
