@@ -199,6 +199,7 @@ function Panel({
   align,
   showSelectAll = false,
   focusPrependedElements,
+  virtualized,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -891,6 +892,7 @@ function Panel({
             fullScreenOnNarrow={usingFullScreenOnNarrow}
             className={clsx(className, classes.FilteredActionList)}
             focusPrependedElements={focusPrependedElements}
+            virtualized={virtualized}
           />
           {footer ? (
             <div className={classes.Footer}>{footer}</div>
