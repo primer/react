@@ -87,23 +87,23 @@
   }
 
   &:where([data-max-height-xsmall]) {
-    max-height: 192px;
+    max-height: min(192px, 100dvh);
   }
 
   &:where([data-max-height-small]) {
-    max-height: 256px;
+    max-height: min(256px, 100dvh);
   }
 
   &:where([data-max-height-medium]) {
-    max-height: 320px;
+    max-height: min(320px, 100dvh);
   }
 
   &:where([data-max-height-large]) {
-    max-height: 432px;
+    max-height: min(432px, 100dvh);
   }
 
   &:where([data-max-height-xlarge]) {
-    max-height: 600px;
+    max-height: min(600px, 100dvh);
   }
 
   &:where([data-max-height-fit-content]) {
