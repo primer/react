@@ -17,6 +17,8 @@ import styles from './ActionMenu.module.css'
 import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isSlot} from '../utils/is-slot'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types/Slots'
+import {useFeatureFlag} from '../FeatureFlags'
+import {DialogContext} from '../Dialog/Dialog'
 
 export type MenuCloseHandler = (
   gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab' | 'item-select' | 'arrow-left' | 'close',
@@ -318,6 +320,12 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
     }
   }, [anchorRef])
 
+  const featureFlagDisplayInViewportInsideDialog = useFeatureFlag(
+    'primer_react_action_menu_display_in_viewport_inside_dialog',
+  )
+
+  const isInsideDialog = useContext(DialogContext) !== undefined
+
   return (
     <AnchoredOverlay
       anchorRef={anchorRef}
@@ -332,7 +340,9 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
       focusZoneSettings={isNarrowFullscreen ? {disabled: true} : {focusOutBehavior: 'wrap'}}
       onPositionChange={onPositionChange}
       variant={variant}
-      displayInViewport={displayInViewport}
+      displayInViewport={
+        displayInViewport !== undefined ? displayInViewport : featureFlagDisplayInViewportInsideDialog && isInsideDialog
+      }
     >
       <div
         ref={containerRef}
