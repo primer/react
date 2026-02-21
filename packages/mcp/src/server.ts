@@ -5,7 +5,19 @@ import * as cheerio from 'cheerio'
 import * as z from 'zod'
 import TurndownService from 'turndown'
 import {listComponents, listPatterns, listIcons} from './primer'
-import {tokens, serialize} from './primitives'
+import {
+  listTokenGroups,
+  loadAllTokensWithGuidelines,
+  loadDesignTokensGuide,
+  getDesignTokenSpecsText,
+  getTokenUsagePatternsText,
+  searchTokens,
+  formatBundle,
+  GROUP_ALIASES,
+  tokenMatchesGroup,
+  type TokenWithGuidelines,
+  getValidGroupsList,
+} from './primitives'
 import packageJson from '../package.json' with {type: 'json'}
 
 const server = new McpServer({
@@ -14,6 +26,9 @@ const server = new McpServer({
 })
 
 const turndownService = new TurndownService()
+
+// Load all tokens with guidelines from primitives
+const allTokensWithGuidelines: TokenWithGuidelines[] = loadAllTokensWithGuidelines()
 
 // -----------------------------------------------------------------------------
 // Project setup
@@ -459,21 +474,205 @@ ${text}`,
 // -----------------------------------------------------------------------------
 // Design Tokens
 // -----------------------------------------------------------------------------
-server.registerTool('list_tokens', {description: 'List all of the design tokens available from Primer'}, async () => {
-  let text =
-    'Below is a list of all design tokens available from Primer. Tokens are used in CSS and CSS Modules. To refer to the CSS Custom Property for a design token, wrap it in var(--{name-of-token}). To learn how to use a specific token, use a corresponding usage tool for the category of the token. For example, if a token is a color token look for the get_color_usage tool. \n\n'
+server.registerTool(
+  'find_tokens',
+  {
+    description:
+      "Search for specific tokens. Tip: If you only provide a 'group' and leave 'query' empty, it returns all tokens in that category. Avoid property-by-property searching.",
+    inputSchema: {
+      query: z
+        .string()
+        .optional()
+        .default('')
+        .describe('Search keywords (e.g., "danger border", "success background")'),
+      group: z.string().optional().describe('Filter by group (e.g., "fgColor", "border")'),
+      limit: z.number().optional().default(15).describe('Maximum results to return to stay within context limits'),
+    },
+  },
+  async ({query, group, limit}) => {
+    // Resolve group via aliases
+    const resolvedGroup = group ? GROUP_ALIASES[group.toLowerCase().replace(/\s+/g, '')] || group : undefined
 
-  text += serialize(tokens)
+    // Split query into keywords and extract any that match a known group
+    const rawKeywords = query
+      .toLowerCase()
+      .split(/\s+/)
+      .filter(k => k.length > 0)
 
-  return {
-    content: [
-      {
-        type: 'text',
-        text,
-      },
-    ],
-  }
-})
+    let effectiveGroup = resolvedGroup
+    const filteredKeywords: string[] = []
+
+    for (const kw of rawKeywords) {
+      const normalized = kw.replace(/\s+/g, '')
+      const aliasMatch = GROUP_ALIASES[normalized]
+      if (aliasMatch && !effectiveGroup) {
+        effectiveGroup = aliasMatch
+      } else {
+        filteredKeywords.push(kw)
+      }
+    }
+
+    // Guard: no query and no group → ask user to provide at least one
+    if (filteredKeywords.length === 0 && !effectiveGroup) {
+      return {
+        content: [
+          {
+            type: 'text',
+            text: 'Please provide a query, a group, or both. Call `get_design_token_specs` to see available token groups.',
+          },
+        ],
+      }
+    }
+
+    // Group-only search: return all tokens in the group
+    const isGroupOnly = filteredKeywords.length === 0 && effectiveGroup
+    let results: TokenWithGuidelines[]
+
+    if (isGroupOnly) {
+      results = allTokensWithGuidelines.filter(token => tokenMatchesGroup(token, effectiveGroup!))
+    } else {
+      results = searchTokens(allTokensWithGuidelines, filteredKeywords.join(' '), effectiveGroup)
+    }
+
+    if (results.length === 0) {
+      const validGroups = getValidGroupsList(allTokensWithGuidelines)
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `No tokens found matching "${query}"${effectiveGroup ? ` in group "${effectiveGroup}"` : ''}. 
+
+### 💡 Available Groups:
+${validGroups}
+
+### Troubleshooting for AI:
+1. **Multi-word Queries**: Search keywords use 'AND' logic. If searching "text shorthand typography" fails, try a single keyword like "shorthand" within the "text" group.
+2. **Property Mismatch**: Do not search for CSS properties like "offset", "padding", or "font-size". Use semantic intent keywords: "danger", "muted", "emphasis".
+3. **Typography**: Remember that \`caption\`, \`display\`, and \`code\` groups do NOT support size suffixes. Use the base shorthand only.
+4. **Group Intent**: Use the \`group\` parameter instead of putting group names in the \`query\` string (e.g., use group: "stack" instead of query: "stack padding").`,
+          },
+        ],
+      }
+    }
+
+    const limitedResults = results.slice(0, limit)
+
+    let output = `Found ${results.length} token(s) matching "${query}". Showing top ${limitedResults.length}:\n\n`
+    output += formatBundle(limitedResults)
+
+    if (results.length > limit) {
+      output += `\n\n*...and ${results.length - limit} more matches. Use more specific keywords to narrow the search.*`
+    }
+
+    return {
+      content: [{type: 'text', text: output}],
+    }
+  },
+)
+
+server.registerTool(
+  'get_token_group_bundle',
+  {
+    description:
+      "PREFERRED FOR COMPONENTS. Fetch all tokens for complex UI (e.g., Dialogs, Cards) in one call by providing an array of groups like ['overlay', 'shadow']. Use this instead of multiple find_tokens calls to save context.",
+    inputSchema: {
+      groups: z.array(z.string()).describe('Array of group names (e.g., ["overlay", "shadow", "focus"])'),
+    },
+  },
+  async ({groups}) => {
+    // Normalize and resolve aliases
+    const resolvedGroups = groups.map(g => {
+      const normalized = g.toLowerCase().replace(/\s+/g, '')
+      return GROUP_ALIASES[normalized] || g
+    })
+
+    // Filter tokens matching any of the resolved groups
+    const matched = allTokensWithGuidelines.filter(token => resolvedGroups.some(rg => tokenMatchesGroup(token, rg)))
+
+    if (matched.length === 0) {
+      const validGroups = getValidGroupsList(allTokensWithGuidelines)
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `No tokens found for groups: ${groups.join(', ')}.\n\n### Valid Groups:\n${validGroups}`,
+          },
+        ],
+      }
+    }
+
+    let text = `Found ${matched.length} token(s) across ${resolvedGroups.length} group(s):\n\n${formatBundle(matched)}`
+
+    // Usage Guidance Hints
+    const groupHints: Record<string, string> = {
+      control: '`control` tokens are for form inputs/checkboxes. For buttons, use the `button` group.',
+      button: '`button` tokens are for standard triggers. For form-fields, see the `control` group.',
+      text: 'STRICT: The following typography groups do NOT support size suffixes (-small, -medium, -large): `caption`, `display`, `codeBlock`, and `codeInline`. Use the base shorthand name only (e.g., --text-codeBlock-shorthand).',
+      fgColor: 'Use `fgColor` for text. For borders, use `borderColor`.',
+    }
+
+    const activeHints = resolvedGroups.map(g => groupHints[g]).filter(Boolean)
+
+    if (activeHints.length > 0) {
+      text += `\n\n### ⚠️ Usage Guidance:\n${activeHints.map(h => `- ${h}`).join('\n')}`
+    }
+
+    return {
+      content: [{type: 'text', text}],
+    }
+  },
+)
+
+server.registerTool(
+  'get_design_token_specs',
+  {
+    description:
+      'CRITICAL: CALL THIS FIRST. Provides the logic matrix and the list of valid group names. You cannot search accurately without this map.',
+  },
+  async () => {
+    const groups = listTokenGroups()
+    const customRules = getDesignTokenSpecsText(groups)
+    let text: string
+    try {
+      const upstreamGuide = loadDesignTokensGuide()
+      text = `${customRules}\n\n---\n\n${upstreamGuide}`
+    } catch {
+      text = customRules
+    }
+
+    return {
+      content: [{type: 'text', text}],
+    }
+  },
+)
+
+server.registerTool(
+  'get_token_usage_patterns',
+  {
+    description:
+      'Provides "Golden Example" CSS for core patterns: Button (Interactions) and Stack (Layout). Use this to understand how to apply the Logic Matrix, Motion, and Spacing scales.',
+  },
+  async () => {
+    const customPatterns = getTokenUsagePatternsText()
+    let text: string
+    try {
+      const guide = loadDesignTokensGuide()
+      const goldenExampleMatch = guide.match(/## Golden Example[\s\S]*?(?=\n## |$)/)
+      if (goldenExampleMatch) {
+        text = `${customPatterns}\n\n---\n\n${goldenExampleMatch[0].trim()}`
+      } else {
+        text = customPatterns
+      }
+    } catch {
+      text = customPatterns
+    }
+
+    return {
+      content: [{type: 'text', text}],
+    }
+  },
+)
 
 // -----------------------------------------------------------------------------
 // Foundations
@@ -661,7 +860,7 @@ server.registerTool(
 
 ## Design Tokens
 
-- Prefer design tokens over hard-coded values. For example, use \`var(--fgColor-default)\` instead of \`#24292f\`. Use the \`list_tokens\` tool to find the design token you need.
+- Prefer design tokens over hard-coded values. For example, use \`var(--fgColor-default)\` instead of \`#24292f\`. Use the \`find_tokens\` tool to search for a design token by keyword or group. Use \`get_design_token_specs\` to browse available token groups, and \`get_token_group_bundle\` to retrieve all tokens within a specific group.
 - Prefer recommending design tokens in the same group for related CSS properties. For example, when styling background and border color, use tokens from the same group/category
 
 ## Authoring & Using Components
