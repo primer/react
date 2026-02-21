@@ -1,5 +1,21 @@
 # @primer/react
 
+## 38.14.0
+
+### Minor Changes
+
+- [#7531](https://github.com/primer/react/pull/7531) [`0cfb938`](https://github.com/primer/react/commit/0cfb938704ec7589b6453a23ba8a9f2c8ab7d824) Thanks [@hectahertz](https://github.com/hectahertz)! - SelectPanel: Add built-in client-side list virtualization via a new `virtualized` prop. When enabled, only the visible items plus a small overscan buffer are rendered in the DOM, dramatically improving performance for large lists.
+
+### Patch Changes
+
+- [#7555](https://github.com/primer/react/pull/7555) [`64c2243`](https://github.com/primer/react/commit/64c2243d07fc580a5565493b917b27081ef6a191) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(useSlots): short-circuit iteration and skip filled slots
+
+- [#7547](https://github.com/primer/react/pull/7547) [`4943d67`](https://github.com/primer/react/commit/4943d671ddb590461e59f9745e6093d47e770f7a) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(useScrollFlash): defer scroll read/write to requestAnimationFrame to avoid forced reflow
+
+- [#7551](https://github.com/primer/react/pull/7551) [`2fbfc49`](https://github.com/primer/react/commit/2fbfc49fad6f11edc51850e32e9c0b2ade8ca1f1) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(Text): remove unnecessary useRef and useImperativeHandle hooks
+
+- [#7553](https://github.com/primer/react/pull/7553) [`6225ba2`](https://github.com/primer/react/commit/6225ba231cfdbe6ef7fa41dd62734d5a970bdc7d) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(useRefObjectAsForwardedRef): add dependency array to useImperativeHandle
+
 ## 38.13.0
 
 ### Minor Changes
