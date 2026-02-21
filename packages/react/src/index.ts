@@ -80,8 +80,18 @@ export type {BannerProps} from './Banner'
 
 export {default as BranchName} from './BranchName'
 export type {BranchNameProps} from './BranchName'
-export {default as Breadcrumbs, Breadcrumb} from './Breadcrumbs'
-export type {BreadcrumbsProps, BreadcrumbsItemProps, BreadcrumbProps, BreadcrumbItemProps} from './Breadcrumbs'
+export {default as Breadcrumbs, Breadcrumb, useBreadcrumbsResponsive, BreadcrumbsOverflowMenu} from './Breadcrumbs'
+export type {
+  BreadcrumbsProps,
+  BreadcrumbsItemProps,
+  BreadcrumbProps,
+  BreadcrumbItemProps,
+  UseBreadcrumbsResponsiveOptions,
+  UseBreadcrumbsResponsiveReturn,
+  BreadcrumbsOverflowMode,
+  BreadcrumbsItemElement,
+  BreadcrumbsOverflowMenuProps,
+} from './Breadcrumbs'
 export {default as ButtonGroup} from './ButtonGroup'
 export type {ButtonGroupProps} from './ButtonGroup'
 export type {CircleBadgeProps, CircleBadgeIconProps} from './CircleBadge'
