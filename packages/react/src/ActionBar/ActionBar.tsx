@@ -101,6 +101,12 @@ export type ActionBarProps = {
    * @default 'condensed'
    */
   gap?: GapScale
+
+  /**
+   * Accessible label for the overflow menu button
+   * @default "More items"
+   */
+  overflowLabel?: string
 } & A11yProps
 
 export type ActionBarIconButtonProps = {disabled?: boolean} & IconButtonProps
@@ -295,6 +301,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     flush = false,
     className,
     gap = 'condensed',
+    overflowLabel
   } = props
 
   // We derive the numeric gap from computed style so layout math stays in sync with CSS
@@ -373,7 +380,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
           {menuItemIds.size > 0 && (
             <ActionMenu>
               <ActionMenu.Anchor>
-                <IconButton variant="invisible" aria-label={`More ${ariaLabel} items`} icon={KebabHorizontalIcon} />
+                <IconButton variant='invisible' aria-label={overflowLabel ?? "More items"} icon={KebabHorizontalIcon}/>
               </ActionMenu.Anchor>
               <ActionMenu.Overlay>
                 <ActionList>
