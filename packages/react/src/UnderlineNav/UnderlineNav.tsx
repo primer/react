@@ -82,9 +82,9 @@ export const UnderlineNav = forwardRef(
       })
     }, [])
 
-    const validChildren = getValidChildren(children)
-
     if (__DEV__) {
+      const validChildren = getValidChildren(children)
+
       // Practically, this is not a conditional hook, it is just making sure this hook runs only on DEV not PROD.
       // eslint-disable-next-line react-hooks/rules-of-hooks
       useEffect(() => {
