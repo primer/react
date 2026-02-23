@@ -219,7 +219,7 @@
       "type": "Partial<ActionListProps>",
       "defaultValue": "undefined",
       "description": "See [ActionList props](/react/ActionList#props)."
-    },  
+    },
     {
       "name": "focusOutBehavior",
       "type": "'start' | 'wrap'",
@@ -231,6 +231,12 @@
       "type": "(newActiveDescendant: HTMLElement | undefined, previousActiveDescendant: HTMLElement | undefined, directlyActivated: boolean) => void | undefined",
       "defaultValue": "undefined",
       "description": "Callback function that is called when the active descendant changes."
+    },
+    {
+      "name": "virtualized",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "If true, enables client-side list virtualization. Only the visible items plus a small overscan buffer are rendered in the DOM, dramatically improving performance for large lists. Recommended for lists with more than 100 items. Has no effect when `groupMetadata` is provided."
     }
   ],
   "subcomponents": []
