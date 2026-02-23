@@ -23,8 +23,8 @@ export type SpinnerProps = {
   'aria-label'?: string
   className?: string
   style?: React.CSSProperties
-  /** Whether to delay the spinner before rendering by the defined 1000ms. */
-  delay?: boolean
+  /** Controls whether and how long to delay rendering the spinner. Set to `true` to delay by 1000ms, `'short'` to delay by 300ms, `'long'` to delay by 1000ms, or provide a custom number of milliseconds. */
+  delay?: boolean | 'short' | 'long' | number
 } & HTMLDataAttributes
 
 function Spinner({
@@ -46,9 +46,10 @@ function Spinner({
 
   useEffect(() => {
     if (delay) {
+      const delayDuration = typeof delay === 'number' ? delay : delay === 'short' ? 300 : 1000
       const timeoutId = setTimeout(() => {
         setIsVisible(true)
-      }, 1000)
+      }, delayDuration)
 
       return () => clearTimeout(timeoutId)
     }

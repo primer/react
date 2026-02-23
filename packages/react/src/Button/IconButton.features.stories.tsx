@@ -4,7 +4,6 @@ import {IconButton} from '.'
 import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
 import {Tooltip} from '../TooltipV2'
-import {default as TooltipV1} from '../Tooltip'
 
 export default {
   title: 'Components/IconButton/Features',
@@ -32,13 +31,6 @@ export const ExternalTooltip = () => (
   <Tooltip text="this is a supportive description for icon button" direction="se">
     <IconButton icon={HeartIcon} aria-label="HeartIcon" />
   </Tooltip>
-)
-
-/* eslint-disable-next-line camelcase */
-export const ExternalTooltipVersion_1 = () => (
-  <TooltipV1 text="this is a supportive description for icon button" direction="se">
-    <IconButton icon={HeartIcon} aria-label="HeartIcon" />
-  </TooltipV1>
 )
 
 export const AsAMenuAnchor = () => (

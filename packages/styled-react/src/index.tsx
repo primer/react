@@ -14,22 +14,6 @@ export {
   type BoxProps,
 } from './components/Box'
 
-export {
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  Details,
-} from '@primer/react'
-
-export {
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  ProgressBar,
-} from '@primer/react'
-
 // theming depends on styled-components
 export {
   /**
@@ -156,20 +140,6 @@ export {
    * @deprecated Usage of the `sx` prop with this component is no longer
    * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
-  Autocomplete,
-
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  type AutocompleteOverlayProps,
-} from './components/Autocomplete'
-
-export {
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
   Avatar,
 
   /**
@@ -218,42 +188,6 @@ export {
    */
   type ButtonComponentProps as ButtonProps,
 } from './components/Button'
-
-export {
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  Checkbox,
-
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  type CheckboxProps,
-} from './components/Checkbox'
-
-export {
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  CheckboxGroup,
-
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  type CheckboxGroupProps,
-} from './components/CheckboxGroup'
-
-export {
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  CircleBadge,
-} from './components/CircleBadge'
 
 export {
   /**
@@ -388,20 +322,6 @@ export {
    * @deprecated Usage of the `sx` prop with this component is no longer
    * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
-  NavList,
-
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  type NavListProps,
-} from './components/NavList'
-
-export {
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
   Overlay,
 } from './components/Overlay'
 
@@ -436,34 +356,6 @@ export {
    * @deprecated Usage of the `sx` prop with this component is no longer
    * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
-  RadioGroup,
-
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  type RadioGroupProps,
-} from './components/RadioGroup'
-
-export {
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  RelativeTime,
-
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  type RelativeTimeProps,
-} from './components/RelativeTime'
-
-export {
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
   SegmentedControl,
 
   /**
@@ -490,20 +382,6 @@ export {
    * @deprecated Usage of the `sx` prop with this component is no longer
    * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
-  Select,
-
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  type SelectProps,
-} from './components/Select'
-
-export {
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
   Spinner,
 
   /**
@@ -512,40 +390,6 @@ export {
    */
   type SpinnerProps,
 } from './components/Spinner'
-
-export {
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  StateLabel,
-
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  type StateLabelProps,
-} from './components/StateLabel'
-
-export {
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  SubNav,
-
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  type SubNavProps,
-
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  type SubNavLinkProps,
-} from './components/SubNav'
 
 export {
   /**

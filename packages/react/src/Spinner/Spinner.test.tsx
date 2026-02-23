@@ -62,6 +62,11 @@ describe('Spinner', () => {
       expect(container.querySelector('svg')).toBeInTheDocument()
     })
 
+    it('should render immediately when no delay is provided', () => {
+      const {container} = render(<Spinner />)
+      expect(container.querySelector('svg')).toBeInTheDocument()
+    })
+
     it('should not render immediately when delay is true', () => {
       const {container} = render(<Spinner delay={true} />)
       expect(container.querySelector('svg')).not.toBeInTheDocument()
@@ -73,9 +78,96 @@ describe('Spinner', () => {
       // Not visible initially
       expect(container.querySelector('svg')).not.toBeInTheDocument()
 
-      // Advance timers by 1000ms
+      // Advance timers by less than 1000ms
       act(() => {
-        vi.advanceTimersByTime(1000)
+        vi.advanceTimersByTime(800)
+      })
+
+      // Still not visible
+      expect(container.querySelector('svg')).not.toBeInTheDocument()
+
+      // Advance timers to complete the delay (1000ms)
+      act(() => {
+        vi.advanceTimersByTime(200)
+      })
+
+      // Now it should be visible
+      expect(container.querySelector('svg')).toBeInTheDocument()
+    })
+
+    it('should not render immediately when delay is "short"', () => {
+      const {container} = render(<Spinner delay="short" />)
+      expect(container.querySelector('svg')).not.toBeInTheDocument()
+    })
+
+    it('should render after 300ms when delay is "short"', () => {
+      const {container} = render(<Spinner delay="short" />)
+
+      // Not visible initially
+      expect(container.querySelector('svg')).not.toBeInTheDocument()
+
+      // Advance timers by less than 300ms
+      act(() => {
+        vi.advanceTimersByTime(250)
+      })
+
+      // Still not visible
+      expect(container.querySelector('svg')).not.toBeInTheDocument()
+
+      // Advance timers to complete the short delay (300ms)
+      act(() => {
+        vi.advanceTimersByTime(50)
+      })
+
+      // Now it should be visible
+      expect(container.querySelector('svg')).toBeInTheDocument()
+    })
+
+    it('should not render immediately when delay is "long"', () => {
+      const {container} = render(<Spinner delay="long" />)
+      expect(container.querySelector('svg')).not.toBeInTheDocument()
+    })
+
+    it('should render after 1000ms when delay is "long"', () => {
+      const {container} = render(<Spinner delay="long" />)
+
+      // Not visible initially
+      expect(container.querySelector('svg')).not.toBeInTheDocument()
+
+      // Advance timers by less than 1000ms
+      act(() => {
+        vi.advanceTimersByTime(800)
+      })
+
+      // Still not visible
+      expect(container.querySelector('svg')).not.toBeInTheDocument()
+
+      // Advance timers to complete the long delay (1000ms)
+      act(() => {
+        vi.advanceTimersByTime(200)
+      })
+
+      // Now it should be visible
+      expect(container.querySelector('svg')).toBeInTheDocument()
+    })
+
+    it('should render after custom ms when delay is a number', () => {
+      const {container} = render(<Spinner delay={500} />)
+
+      // Not visible initially
+      expect(container.querySelector('svg')).not.toBeInTheDocument()
+
+      // Advance timers by less than the custom delay (500ms)
+      act(() => {
+        vi.advanceTimersByTime(400)
+      })
+
+      // Still not visible
+      expect(container.querySelector('svg')).not.toBeInTheDocument()
+
+      // Advance timers to complete the custom delay
+      act(() => {
+        vi.advanceTimersByTime(100)
       })
 
       // Now it should be visible
@@ -90,6 +182,45 @@ describe('Spinner', () => {
 
       // Advance timers to see if there are any side effects
       vi.advanceTimersByTime(1000)
+
+      // No errors should occur
+      expect(true).toBe(true)
+    })
+
+    it('should cleanup timeout on unmount when delay is "short"', () => {
+      const {unmount} = render(<Spinner delay="short" />)
+
+      // Unmount before the delay completes
+      unmount()
+
+      // Advance timers to see if there are any side effects
+      vi.advanceTimersByTime(300)
+
+      // No errors should occur
+      expect(true).toBe(true)
+    })
+
+    it('should cleanup timeout on unmount when delay is "long"', () => {
+      const {unmount} = render(<Spinner delay="long" />)
+
+      // Unmount before the delay completes
+      unmount()
+
+      // Advance timers to see if there are any side effects
+      vi.advanceTimersByTime(1000)
+
+      // No errors should occur
+      expect(true).toBe(true)
+    })
+
+    it('should cleanup timeout on unmount when delay is a number', () => {
+      const {unmount} = render(<Spinner delay={500} />)
+
+      // Unmount before the delay completes
+      unmount()
+
+      // Advance timers to see if there are any side effects
+      vi.advanceTimersByTime(500)
 
       // No errors should occur
       expect(true).toBe(true)

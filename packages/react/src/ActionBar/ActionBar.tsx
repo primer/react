@@ -3,11 +3,9 @@ import React, {useState, useCallback, useRef, forwardRef, useId} from 'react'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {ActionList, type ActionListItemProps} from '../ActionList'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
-import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useResizeObserver} from '../hooks/useResizeObserver'
 
-import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
 import type {IconButtonProps} from '../Button'
 import {IconButton} from '../Button'
 import {ActionMenu} from '../ActionMenu'
@@ -322,8 +320,6 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     if (!Number.isNaN(parsed)) setComputedGap(parsed)
   }, [gap])
   const moreMenuRef = useRef<HTMLLIElement>(null)
-  const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
-  const containerRef = React.useRef<HTMLUListElement>(null)
 
   useResizeObserver((resizeObserverEntries: ResizeObserverEntry[]) => {
     const navWidth = resizeObserverEntries[0].contentRect.width
@@ -342,29 +338,6 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     },
     [menuItemIds],
   )
-
-  const [isWidgetOpen, setIsWidgetOpen] = useState(false)
-
-  const closeOverlay = React.useCallback(() => {
-    setIsWidgetOpen(false)
-  }, [setIsWidgetOpen])
-
-  const focusOnMoreMenuBtn = React.useCallback(() => {
-    moreMenuBtnRef.current?.focus()
-  }, [])
-
-  useOnEscapePress(
-    (event: KeyboardEvent) => {
-      if (isWidgetOpen) {
-        event.preventDefault()
-        closeOverlay()
-        focusOnMoreMenuBtn()
-      }
-    },
-    [isWidgetOpen],
-  )
-
-  useOnOutsideClick({onClickOutside: closeOverlay, containerRef, ignoreClickRefs: [moreMenuBtnRef]})
 
   useFocusZone({
     containerRef: listRef,
@@ -415,11 +388,8 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                       return (
                         <ActionList.Item
                           key={label}
-                          // eslint-disable-next-line primer-react/prefer-action-list-item-onselect
-                          onClick={(event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
-                            closeOverlay()
-                            focusOnMoreMenuBtn()
-                            typeof onClick === 'function' && onClick(event)
+                          onSelect={event => {
+                            typeof onClick === 'function' && onClick(event as React.MouseEvent<HTMLElement>)
                           }}
                           disabled={disabled}
                         >
@@ -469,8 +439,6 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                                 <ActionList.Item
                                   key={key}
                                   onSelect={event => {
-                                    closeOverlay()
-                                    focusOnMoreMenuBtn()
                                     typeof onClick === 'function' && onClick(event as React.MouseEvent<HTMLElement>)
                                   }}
                                   disabled={disabled}

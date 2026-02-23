@@ -57,32 +57,6 @@ export {
    * @deprecated Usage of the `sx` prop with this component is no longer
    * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
-  UnderlinePanels,
-
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  type UnderlinePanelsProps,
-
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  type UnderlinePanelsTabProps,
-
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  type UnderlinePanelsPanelProps,
-} from './components/UnderlinePanels'
-
-export {
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
   Table,
 
   /**

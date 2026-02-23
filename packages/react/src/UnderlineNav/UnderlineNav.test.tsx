@@ -210,6 +210,34 @@ describe('UnderlineNav', () => {
     expect(screen.getByTestId('jsx-element')).toBeInTheDocument()
     expect(screen.getByTestId('functional-component')).toBeInTheDocument()
   })
+
+  it('extracts only direct text content for data-content attribute, ignoring nested elements', () => {
+    render(
+      <UnderlineNav aria-label="Test">
+        <UnderlineNav.Item>
+          Tab Label
+          <span style={{position: 'absolute'}}>Hidden element</span>
+        </UnderlineNav.Item>
+      </UnderlineNav>,
+    )
+
+    const item = screen.getByRole('link', {name: /Tab Label/})
+    const textSpan = item.querySelector('[data-component="text"]')
+    // data-content should only have the content of the Text and not the nested span
+    expect(textSpan).toHaveAttribute('data-content', 'Tab Label')
+  })
+
+  it('handles string children correctly for data-content attribute', () => {
+    render(
+      <UnderlineNav aria-label="Test">
+        <UnderlineNav.Item>Simple Text</UnderlineNav.Item>
+      </UnderlineNav>,
+    )
+
+    const item = screen.getByRole('link', {name: 'Simple Text'})
+    const textSpan = item.querySelector('[data-component="text"]')
+    expect(textSpan).toHaveAttribute('data-content', 'Simple Text')
+  })
 })
 
 describe('Keyboard Navigation', () => {

@@ -200,6 +200,11 @@
       }
     }
 
+    @media (max-height: 280px) {
+      max-height: calc(100dvh - 12px);
+      max-width: calc(100dvw - 12px);
+    }
+
     &[data-position-narrow='bottom'] {
       width: 100dvw;
       max-width: 100dvw;
