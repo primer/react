@@ -126,20 +126,12 @@
 
 .UnderlineItem::after {
   position: absolute;
-  right: 50%;
-
-  /* TODO: see if we can simplify this positioning */
-
-  /* 48px total height / 2 (24px) + 1px */
-  /* stylelint-disable-next-line primer/spacing */
-  bottom: calc(50% - calc(var(--control-xlarge-size, var(--base-size-48)) / 2 + 1px));
-  width: 100%;
+  inset: auto 0 0;
+  margin-bottom: calc(-1 * var(--base-size-8));
   height: 2px;
   pointer-events: none;
   content: '';
   background-color: transparent;
-  border-radius: 0;
-  transform: translate(50%, -50%);
 }
 
 .UnderlineItem[aria-current]:not([aria-current='false']) [data-component='text'],
