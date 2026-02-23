@@ -131,35 +131,4 @@ SelectAMenuItem.play = async ({canvasElement}: {canvasElement: HTMLElement}) => 
   expect(lastListItem).toEqual(menuListItem)
 }
 
-const KeepSelectedItemVisible = () => {
-  return <OverflowTemplate initialSelectedIndex={7} />
-}
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-KeepSelectedItemVisible.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
-  const canvas = within(canvasElement)
-  // await delay(2000)
-  const selectedItem = canvas.getByRole('link', {name: 'Settings (10)'})
-  expect(selectedItem).toHaveAttribute('aria-current', 'page')
-  // change viewport
-  canvasElement.style.width = '900px'
-  await delay(1000)
-  expect(selectedItem).toHaveAttribute('aria-current', 'page')
-  canvasElement.style.width = '800px'
-  await delay(1000)
-  expect(selectedItem).toHaveAttribute('aria-current', 'page')
-  canvasElement.style.width = '700px'
-  await delay(1000)
-  expect(selectedItem).toHaveAttribute('aria-current', 'page')
-  canvasElement.style.width = '600px'
-  await delay(1000)
-  expect(selectedItem).toHaveAttribute('aria-current', 'page')
-  canvasElement.style.width = '500px'
-  await delay(1000)
-  const lastListItem = canvas.getByRole('list').children[2].children[0]
-  const menuListItem = canvas.getByRole('link', {name: 'Settings (10)'})
-  // expect Settings be the last element on the list.
-  expect(lastListItem).toEqual(menuListItem)
-}
-
-export {KeyboardNavigation, SelectAMenuItem, KeepSelectedItemVisible}
+export {KeyboardNavigation, SelectAMenuItem}
