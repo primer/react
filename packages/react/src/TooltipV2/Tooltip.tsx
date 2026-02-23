@@ -35,6 +35,17 @@ export type TooltipProps = React.PropsWithChildren<{
    * @default false
    */
   _privateDisableTooltip?: boolean
+  /**
+   * Private API for use internally only. Renders the tooltip popover element before
+   * the trigger in the DOM instead of after it.
+   *
+   * This is used by ActionList items to ensure the tooltip's popover `<span>` does not
+   * sit between the ActionListContent and its adjacent SubGroup sibling, which would
+   * break CSS adjacent sibling (`+`) selectors used for expand/collapse.
+   *
+   * @default false
+   */
+  _privateRenderBeforeTrigger?: boolean
 }> &
   React.HTMLAttributes<HTMLElement>
 
@@ -118,6 +129,7 @@ export const Tooltip: ForwardRefExoticComponent<
       keybindingHint,
       delay = 'short',
       _privateDisableTooltip = false,
+      _privateRenderBeforeTrigger = false,
       ...rest
     }: TooltipProps,
     forwardedRef,
@@ -273,107 +285,129 @@ export const Tooltip: ForwardRefExoticComponent<
     const isMacOS = useIsMacOS()
     const hasAriaLabel = 'aria-label' in rest
 
-    return (
-      <TooltipContext.Provider value={value}>
-        <>
-          {React.isValidElement(child) &&
-            // eslint-disable-next-line react-hooks/refs
-            React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
-              // @ts-expect-error it needs a non nullable ref
-              ref: triggerRef,
-              // If it is a type description, we use tooltip to describe the trigger
-              'aria-describedby': (() => {
-                // If tooltip is not a description type, keep the original aria-describedby
-                if (type !== 'description') {
-                  return child.props['aria-describedby']
-                }
-
-                // If tooltip is a description type, append our tooltipId
-                const existingDescribedBy = child.props['aria-describedby']
-                if (existingDescribedBy) {
-                  return `${existingDescribedBy} ${tooltipId}`
-                }
-
-                // If no existing aria-describedby, use our tooltipId
-                return tooltipId
-              })(),
-              // If it is a label type, we use tooltip to label the trigger
-              'aria-labelledby': type === 'label' ? tooltipId : child.props['aria-labelledby'],
-              onBlur: (event: React.FocusEvent) => {
-                closeTooltip()
-                child.props.onBlur?.(event)
-              },
-              onTouchEnd: (event: React.TouchEvent) => {
-                child.props.onTouchEnd?.(event)
-
-                // Hide tooltips on tap to essentially disable them on touch devices;
-                // this still allows viewing the tooltip on tap-and-hold
-                safeSetTimeout(() => closeTooltip(), 10)
-              },
-              onFocus: (event: React.FocusEvent) => {
-                // only show tooltip on :focus-visible, not on :focus
-                try {
-                  if (!event.target.matches(':focus-visible')) return
-                } catch (_error) {
-                  // jsdom (jest) does not support `:focus-visible` yet and would throw an error
-                  // https://github.com/jsdom/jsdom/issues/3426
-                }
-
-                openTooltip()
-                child.props.onFocus?.(event)
-              },
-              onMouseOverCapture: (event: React.MouseEvent) => {
-                const delayTime = delayTimeMap[delay] || 50
-                // We use a `capture` event to ensure this is called first before
-                // events that might cancel the opening timeout (like `onTouchEnd`)
-                // show tooltip after mouse has been hovering for the specified delay time
-                // (prevent showing tooltip when mouse is just passing through)
-                openTimeoutRef.current = safeSetTimeout(() => {
-                  // if the mouse is already moved out, do not show the tooltip
-                  if (!openTimeoutRef.current) return
-                  openTooltip()
-                  child.props.onMouseEnter?.(event)
-                }, delayTime)
-              },
-              onMouseLeave: (event: React.MouseEvent) => {
-                closeTooltip()
-                child.props.onMouseLeave?.(event)
-              },
-            })}
-          <span
-            className={clsx(className, classes.Tooltip)}
-            ref={tooltipElRef}
-            data-direction={calculatedDirection}
-            {...rest}
-            // Only need tooltip role if the tooltip is a description for supplementary information
-            role={type === 'description' ? 'tooltip' : undefined}
-            // stop AT from announcing the tooltip twice: when it is a label type it will be announced with "aria-labelledby",when it is a description type it will be announced with "aria-describedby"
-            aria-hidden={true}
-            // mouse leave and enter on the tooltip itself is needed to keep the tooltip open when the mouse is over the tooltip
-            onMouseEnter={openTooltip}
-            onMouseLeave={closeTooltip}
-            // If there is an aria-label prop, always assign the ID to the parent so the accessible label can be overridden
-            id={hasAriaLabel || !keybindingHint ? tooltipId : undefined}
-          >
-            {keybindingHint ? (
-              <>
-                <span id={hasAriaLabel ? undefined : tooltipId}>
-                  {text}
-                  {/* There is a bug in Chrome browsers where `aria-hidden` text inside the target of an `aria-labelledby`
+    const tooltipPopover = (
+      <span
+        className={clsx(className, classes.Tooltip)}
+        ref={tooltipElRef}
+        data-direction={calculatedDirection}
+        {...rest}
+        // Only need tooltip role if the tooltip is a description for supplementary information
+        role={type === 'description' ? 'tooltip' : undefined}
+        // stop AT from announcing the tooltip twice: when it is a label type it will be announced with "aria-labelledby",when it is a description type it will be announced with "aria-describedby"
+        aria-hidden={true}
+        // mouse leave and enter on the tooltip itself is needed to keep the tooltip open when the mouse is over the tooltip
+        onMouseEnter={openTooltip}
+        onMouseLeave={closeTooltip}
+        // If there is an aria-label prop, always assign the ID to the parent so the accessible label can be overridden
+        id={hasAriaLabel || !keybindingHint ? tooltipId : undefined}
+      >
+        {keybindingHint ? (
+          <>
+            <span id={hasAriaLabel ? undefined : tooltipId}>
+              {text}
+              {/* There is a bug in Chrome browsers where `aria-hidden` text inside the target of an `aria-labelledby`
                still gets included in the accessible label. `KeybindingHint` renders the symbols as `aria-hidden` text
                and renders full key names as `VisuallyHidden` text. Due to the browser bug this causes the label text
                to duplicate the symbols and key names. To work around this, we exclude the hint from being part of the
                label and instead render the plain keybinding description string. */}
-                  <VisuallyHidden>({getAccessibleKeybindingHintString(keybindingHint, isMacOS)})</VisuallyHidden>
-                </span>
-                <span className={clsx(classes.KeybindingHintContainer, text && classes.HasTextBefore)} aria-hidden>
-                  <KeybindingHint keys={keybindingHint} format="condensed" variant="onEmphasis" size="small" />
-                </span>
-              </>
-            ) : (
-              text
-            )}
-          </span>
+              <VisuallyHidden>({getAccessibleKeybindingHintString(keybindingHint, isMacOS)})</VisuallyHidden>
+            </span>
+            <span className={clsx(classes.KeybindingHintContainer, text && classes.HasTextBefore)} aria-hidden>
+              <KeybindingHint keys={keybindingHint} format="condensed" variant="onEmphasis" size="small" />
+            </span>
+          </>
+        ) : (
+          text
+        )}
+      </span>
+    )
+
+    const triggerElement =
+      React.isValidElement(child) &&
+      // eslint-disable-next-line react-hooks/refs
+      React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
+        // @ts-expect-error it needs a non nullable ref
+        ref: triggerRef,
+        // If it is a type description, we use tooltip to describe the trigger
+        'aria-describedby': (() => {
+          // If tooltip is not a description type, keep the original aria-describedby
+          if (type !== 'description') {
+            return child.props['aria-describedby']
+          }
+
+          // When the tooltip is disabled, don't add its ID to aria-describedby
+          // to avoid an empty string polluting the accessible description
+          if (_privateDisableTooltip) {
+            return child.props['aria-describedby']
+          }
+
+          // If tooltip is a description type, append our tooltipId
+          const existingDescribedBy = child.props['aria-describedby']
+          if (existingDescribedBy) {
+            return `${existingDescribedBy} ${tooltipId}`
+          }
+
+          // If no existing aria-describedby, use our tooltipId
+          return tooltipId
+        })(),
+        // If it is a label type, we use tooltip to label the trigger
+        'aria-labelledby': type === 'label' && !_privateDisableTooltip ? tooltipId : child.props['aria-labelledby'],
+        onBlur: (event: React.FocusEvent) => {
+          closeTooltip()
+          child.props.onBlur?.(event)
+        },
+        onTouchEnd: (event: React.TouchEvent) => {
+          child.props.onTouchEnd?.(event)
+
+          // Hide tooltips on tap to essentially disable them on touch devices;
+          // this still allows viewing the tooltip on tap-and-hold
+          safeSetTimeout(() => closeTooltip(), 10)
+        },
+        onFocus: (event: React.FocusEvent) => {
+          // only show tooltip on :focus-visible, not on :focus
+          try {
+            if (!event.target.matches(':focus-visible')) return
+          } catch (_error) {
+            // jsdom (jest) does not support `:focus-visible` yet and would throw an error
+            // https://github.com/jsdom/jsdom/issues/3426
+          }
+
+          openTooltip()
+          child.props.onFocus?.(event)
+        },
+        onMouseOverCapture: (event: React.MouseEvent) => {
+          const delayTime = delayTimeMap[delay] || 50
+          // We use a `capture` event to ensure this is called first before
+          // events that might cancel the opening timeout (like `onTouchEnd`)
+          // show tooltip after mouse has been hovering for the specified delay time
+          // (prevent showing tooltip when mouse is just passing through)
+          openTimeoutRef.current = safeSetTimeout(() => {
+            // if the mouse is already moved out, do not show the tooltip
+            if (!openTimeoutRef.current) return
+            openTooltip()
+            child.props.onMouseEnter?.(event)
+          }, delayTime)
+        },
+        onMouseLeave: (event: React.MouseEvent) => {
+          closeTooltip()
+          child.props.onMouseLeave?.(event)
+        },
+      })
+
+    return (
+      <TooltipContext.Provider value={value}>
+        <>
+          {_privateRenderBeforeTrigger ? (
+            <>
+              {tooltipPopover}
+              {triggerElement}
+            </>
+          ) : (
+            <>
+              {triggerElement}
+              {tooltipPopover}
+            </>
+          )}
         </>
       </TooltipContext.Provider>
     )
