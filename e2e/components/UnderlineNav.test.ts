@@ -210,7 +210,7 @@ test.describe('UnderlineNav', () => {
           await page.getByRole('button', {name: 'More items'}).click()
           expect(await page.screenshot()).toMatchSnapshot()
 
-          await page.getByRole('link', {name: 'Settings (10)'}).click()
+          await page.getByRole('menuitem', {name: 'Settings (10)'}).click()
           expect(await page.screenshot()).toMatchSnapshot()
         })
 
