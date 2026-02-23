@@ -137,7 +137,7 @@ export const UnderlineNav = forwardRef(
             <ActionMenu>
               <ActionMenu.Button className={classes.MoreButton} data-component="overflow-menu-button">
                 <span>
-                  More<VisuallyHidden as="span">&nbsp; items</VisuallyHidden>
+                  More<VisuallyHidden as="span"> items</VisuallyHidden>
                 </span>
               </ActionMenu.Button>
 
