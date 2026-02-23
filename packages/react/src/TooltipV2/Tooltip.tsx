@@ -351,7 +351,7 @@ export const Tooltip: ForwardRefExoticComponent<
           return tooltipId
         })(),
         // If it is a label type, we use tooltip to label the trigger
-        'aria-labelledby': type === 'label' && !_privateDisableTooltip ? tooltipId : child.props['aria-labelledby'],
+        'aria-labelledby': type === 'label' ? tooltipId : child.props['aria-labelledby'],
         onBlur: (event: React.FocusEvent) => {
           closeTooltip()
           child.props.onBlur?.(event)
