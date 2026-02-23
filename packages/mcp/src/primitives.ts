@@ -285,9 +285,21 @@ function parseDesignTokensSpec(markdown: string): TokenWithGuidelines[] {
 
 // Get token value from the loaded tokens
 function getTokenValue(tokenName: string): string {
-  const themeTokens = categories.functional.themes.light
-  const found = themeTokens.find(t => t.name === tokenName)
-  return found?.value || ''
+  const allSourceTokens = [
+    ...(categories.base?.motion ?? []),
+    ...(categories.base?.size ?? []),
+    ...(categories.base?.typography ?? []),
+    ...(categories.functional?.themes?.light ?? []),
+    ...(categories.functional?.size ?? []),
+    ...(categories.functional?.sizeCoarse ?? []),
+    ...(categories.functional?.sizeFine ?? []),
+    ...(categories.functional?.border ?? []),
+    ...(categories.functional?.radius ?? []),
+    ...(categories.functional?.typography ?? []),
+  ]
+
+  const found = allSourceTokens.find(token => token.name === tokenName)
+  return found?.value != null ? String(found.value) : ''
 }
 
 // Human-readable display labels for canonical group prefixes
