@@ -17,6 +17,7 @@ import {
   tokenMatchesGroup,
   type TokenWithGuidelines,
   getValidGroupsList,
+  groupHints,
 } from './primitives'
 import packageJson from '../package.json' with {type: 'json'}
 
@@ -603,14 +604,6 @@ server.registerTool(
     }
 
     let text = `Found ${matched.length} token(s) across ${resolvedGroups.length} group(s):\n\n${formatBundle(matched)}`
-
-    // Usage Guidance Hints
-    const groupHints: Record<string, string> = {
-      control: '`control` tokens are for form inputs/checkboxes. For buttons, use the `button` group.',
-      button: '`button` tokens are for standard triggers. For form-fields, see the `control` group.',
-      text: 'STRICT: The following typography groups do NOT support size suffixes (-small, -medium, -large): `caption`, `display`, `codeBlock`, and `codeInline`. Use the base shorthand name only (e.g., --text-codeBlock-shorthand).',
-      fgColor: 'Use `fgColor` for text. For borders, use `borderColor`.',
-    }
 
     const activeHints = resolvedGroups.map(g => groupHints[g]).filter(Boolean)
 

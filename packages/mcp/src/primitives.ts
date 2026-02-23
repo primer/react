@@ -695,6 +695,16 @@ function getValidGroupsList(validTokens: TokenWithGuidelines[]): string {
   return uniqueGroups.map(g => `\`${g}\``).join(', ')
 }
 
+// Usage Guidance Hints
+const groupHints: Record<string, string> = {
+  control: '`control` tokens are for form inputs/checkboxes. For buttons, use the `button` group.',
+  button: '`button` tokens are for standard triggers. For form-fields, see the `control` group.',
+  text: 'STRICT: The following typography groups do NOT support size suffixes (-small, -medium, -large): `caption`, `display`, `codeBlock`, and `codeInline`. Use the base shorthand name only (e.g., --text-codeBlock-shorthand).',
+  fgColor: 'Use `fgColor` for text. For borders, use `borderColor`.',
+  borderWidth:
+    '`borderWidth` only has sizing values (thin, thick, thicker). For border *colors*, use the `borderColor` or `border` group.',
+}
+
 export {
   parseDesignTokensSpec,
   findTokens,
@@ -708,6 +718,7 @@ export {
   getValidGroupsList,
   searchTokens,
   formatBundle,
+  groupHints,
   GROUP_ALIASES,
   GROUP_LABELS,
   tokenMatchesGroup,
