@@ -47,11 +47,12 @@ const overflowEffect = (
   childArray: Array<React.ReactElement<any>>,
   childWidthArray: ChildWidthArray,
   noIconChildWidthArray: ChildWidthArray,
-  updateListAndMenu: (props: ResponsiveProps, iconsVisible: boolean) => void,
+  updateListAndMenu: (props: ResponsiveProps, iconsVisible: boolean, overflowMeasured: boolean) => void,
 ) => {
   let iconsVisible = true
   if (childWidthArray.length === 0) {
-    updateListAndMenu({items: childArray, menuItems: []}, iconsVisible)
+    updateListAndMenu({items: childArray, menuItems: []}, iconsVisible, false)
+    return
   }
   const numberOfItemsPossible = calculatePossibleItems(childWidthArray, navWidth)
   const numberOfItemsWithoutIconPossible = calculatePossibleItems(noIconChildWidthArray, navWidth)
@@ -104,7 +105,7 @@ const overflowEffect = (
       }
     }
   }
-  updateListAndMenu({items, menuItems}, iconsVisible)
+  updateListAndMenu({items, menuItems}, iconsVisible, true)
 }
 
 export const getValidChildren = (children: React.ReactNode) => {
@@ -166,6 +167,8 @@ export const UnderlineNav = forwardRef(
     const [iconsVisible, setIconsVisible] = useState<boolean>(true)
     const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
     const [noIconChildWidthArray, setNoIconChildWidthArray] = useState<ChildWidthArray>([])
+    // Track whether the initial overflow calculation is complete to prevent CLS
+    const [isOverflowMeasured, setIsOverflowMeasured] = useState(false)
 
     const validChildren = getValidChildren(children)
 
@@ -209,7 +212,7 @@ export const UnderlineNav = forwardRef(
       prospectiveListItem: React.ReactElement<any>,
       indexOfProspectiveListItem: number,
       event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
-      callback: (props: ResponsiveProps, displayIcons: boolean) => void,
+      callback: (props: ResponsiveProps, displayIcons: boolean, overflowMeasured: boolean) => void,
     ) => {
       // get the selected menu item's width
       const widthToFitIntoList = getItemsWidth(prospectiveListItem.props.children)
@@ -229,7 +232,7 @@ export const UnderlineNav = forwardRef(
       const updatedMenuItems = [...menuItems]
       // Add itemsToAddToMenu array's items to the menu at the index of the prospectiveListItem and remove 1 count of items (prospectiveListItem)
       updatedMenuItems.splice(indexOfProspectiveListItem, 1, ...itemsToAddToMenu)
-      callback({items: updatedItemList, menuItems: updatedMenuItems}, false)
+      callback({items: updatedItemList, menuItems: updatedMenuItems}, false, true)
     }
     // How many items do we need to pull in to the menu to make room for the selected menu item.
     function getBreakpointForItemSwapping(widthToFitIntoList: number, availableSpace: number) {
@@ -245,10 +248,17 @@ export const UnderlineNav = forwardRef(
       return breakpoint
     }
 
-    const updateListAndMenu = useCallback((props: ResponsiveProps, displayIcons: boolean) => {
-      setResponsiveProps(props)
-      setIconsVisible(displayIcons)
-    }, [])
+    const updateListAndMenu = useCallback(
+      (props: ResponsiveProps, displayIcons: boolean, overflowMeasured: boolean) => {
+        setResponsiveProps(props)
+        setIconsVisible(displayIcons)
+
+        if (overflowMeasured) {
+          setIsOverflowMeasured(true)
+        }
+      },
+      [],
+    )
     const setChildrenWidth = useCallback((size: ChildSize) => {
       setChildWidthArray(arr => {
         const newArr = [...arr, size]
@@ -330,7 +340,14 @@ export const UnderlineNav = forwardRef(
         }}
       >
         {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
-        <UnderlineWrapper as={as} aria-label={ariaLabel} className={className} ref={navRef} data-variant={variant}>
+        <UnderlineWrapper
+          as={as}
+          aria-label={ariaLabel}
+          className={className}
+          ref={navRef}
+          data-variant={variant}
+          data-overflow-measured={isOverflowMeasured ? 'true' : 'false'}
+        >
           <UnderlineItemList ref={listRef} role="list">
             {listItems}
             {menuItems.length > 0 && (
