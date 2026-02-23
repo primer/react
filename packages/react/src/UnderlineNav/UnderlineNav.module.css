@@ -40,7 +40,7 @@
   }
 
   &::after {
-    content: "";
+    content: '';
     width: var(--base-size-2);
     position: absolute;
     inset: var(--base-size-2) auto var(--base-size-2) 0;
