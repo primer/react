@@ -59,13 +59,15 @@ export function createDescendantRegistry<T>() {
     const id = useId()
 
     useEffect(() => register(id, valueCallback()), [register, id, valueCallback, key])
+
+    return id
   }
 
   /** Simplified version of `useRegisterDescendantCallback` that allows directly passing a memoized value. */
   function useRegisterDescendant(value: T) {
     const valueCallback = useCallback(() => value, [value])
 
-    useRegisterDescendantCallback(valueCallback)
+    return useRegisterDescendantCallback(valueCallback)
   }
 
   /** Provide context for registering descendant components. This only needs to wrap `children`. */

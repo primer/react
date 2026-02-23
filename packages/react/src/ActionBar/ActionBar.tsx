@@ -1,5 +1,5 @@
 import type {RefObject, MouseEventHandler} from 'react'
-import React, {useState, useCallback, useRef, forwardRef, useId} from 'react'
+import React, {useState, useCallback, useRef, forwardRef} from 'react'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {ActionList, type ActionListItemProps} from '../ActionList'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
@@ -475,7 +475,6 @@ export const ActionBarIconButton = forwardRef(
   ({disabled, onClick, ...props}: ActionBarIconButtonProps, forwardedRef) => {
     const ref = useRef<HTMLButtonElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, ref)
-    const id = useId()
 
     const {size, isVisibleChild} = React.useContext(ActionBarContext)
     const {groupId} = React.useContext(ActionBarGroupContext)
@@ -495,7 +494,7 @@ export const ActionBarIconButton = forwardRef(
       [props, disabled, onClick, groupId, widthRef],
     )
 
-    ActionBarItemsRegistry.useRegisterDescendantCallback(registryProps)
+    const id = ActionBarItemsRegistry.useRegisterDescendantCallback(registryProps)
 
     const clickHandler = useCallback(
       (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -527,13 +526,11 @@ const ActionBarGroupContext = React.createContext<{
 export const ActionBarGroup = forwardRef(({children}: React.PropsWithChildren, forwardedRef) => {
   const backupRef = useRef<HTMLDivElement>(null)
   const ref = (forwardedRef ?? backupRef) as RefObject<HTMLDivElement>
-  const id = useId()
-
   const widthRef = useWidth(ref)
 
   const registryProps = useCallback((): ChildProps => ({type: 'group', width: widthRef.current}), [widthRef])
 
-  ActionBarItemsRegistry.useRegisterDescendantCallback(registryProps)
+  const id = ActionBarItemsRegistry.useRegisterDescendantCallback(registryProps)
 
   return (
     <ActionBarGroupContext.Provider value={{groupId: id}}>
@@ -551,7 +548,6 @@ export const ActionBarMenu = forwardRef(
   ) => {
     const backupRef = useRef<HTMLButtonElement>(null)
     const ref = (forwardedRef ?? backupRef) as RefObject<HTMLButtonElement>
-    const id = useId()
     const {isVisibleChild} = React.useContext(ActionBarContext)
 
     const [menuOpen, setMenuOpen] = useState(false)
@@ -570,7 +566,7 @@ export const ActionBarMenu = forwardRef(
       [ariaLabel, overflowIcon, icon, items, returnFocusRef, widthRef],
     )
 
-    ActionBarItemsRegistry.useRegisterDescendantCallback(registryProps)
+    const id = ActionBarItemsRegistry.useRegisterDescendantCallback(registryProps)
 
     if (!isVisibleChild(id)) return null
 
@@ -589,14 +585,13 @@ export const ActionBarMenu = forwardRef(
 
 export const VerticalDivider = () => {
   const ref = useRef<HTMLDivElement>(null)
-  const id = useId()
   const {isVisibleChild} = React.useContext(ActionBarContext)
 
   const widthRef = useWidth(ref)
 
   const registryProps = useCallback((): ChildProps => ({type: 'divider', width: widthRef.current}), [widthRef])
 
-  ActionBarItemsRegistry.useRegisterDescendantCallback(registryProps)
+  const id = ActionBarItemsRegistry.useRegisterDescendantCallback(registryProps)
 
   if (!isVisibleChild(id)) return null
   return <div ref={ref} data-component="ActionBar.VerticalDivider" aria-hidden="true" className={styles.Divider} />
