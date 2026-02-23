@@ -669,7 +669,10 @@ function formatBundle(bundleTokens: TokenWithGuidelines[]): string {
   return Object.entries(grouped)
     .map(([group, groupTokens]) => {
       const tokenList = groupTokens
-        .map(t => `- \`${t.name}\`\n  - **U**: ${t.useCase || '(none)'}\n  - **R**: ${t.rules || '(none)'}`)
+        .map(t => {
+          const nameLabel = t.value ? `\`${t.name}\` → \`${t.value}\`` : `\`${t.name}\``
+          return `- ${nameLabel}\n  - **U**: ${t.useCase || '(none)'}\n  - **R**: ${t.rules || '(none)'}`
+        })
         .join('\n')
       return `## ${group}\n\n${tokenList}`
     })

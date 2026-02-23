@@ -487,7 +487,14 @@ server.registerTool(
         .default('')
         .describe('Search keywords (e.g., "danger border", "success background")'),
       group: z.string().optional().describe('Filter by group (e.g., "fgColor", "border")'),
-      limit: z.number().optional().default(15).describe('Maximum results to return to stay within context limits'),
+      limit: z
+        .number()
+        .int()
+        .min(1)
+        .max(100)
+        .optional()
+        .default(15)
+        .describe('Maximum results to return to stay within context limits'),
     },
   },
   async ({query, group, limit}) => {
