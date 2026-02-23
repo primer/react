@@ -32,8 +32,21 @@
   align-items: center;
 }
 
-.OverflowMenuItem [aria-current] .OverflowMenuItemLabel {
-  font-weight: var(--base-text-weight-semibold);
+.OverflowMenuItem [aria-current] {
+  position: relative;
+
+  .OverflowMenuItemLabel {
+    font-weight: var(--base-text-weight-semibold);
+  }
+
+  &::after {
+    content: "";
+    width: var(--base-size-2);
+    position: absolute;
+    inset: var(--base-size-2) auto var(--base-size-2) 0;
+    /* stylelint-disable-next-line primer/colors */
+    background: var(--underlineNav-borderColor-active);
+  }
 }
 
 .MoreButtonDivider {
