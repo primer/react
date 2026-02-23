@@ -1,7 +1,8 @@
 .UnderlineWrapper {
   display: flex;
+  padding-top: var(--base-size-8);
   /* stylelint-disable-next-line primer/spacing */
-  padding: calc((var(--control-xlarge-size) - var(--control-medium-size)) / 2) var(--stack-padding-normal);
+  padding-inline: var(--stack-padding-normal);
   justify-content: flex-start;
   align-items: flex-start;
 
@@ -29,8 +30,6 @@
     .UnderlineItemList {
       flex-wrap: wrap;
       overflow: hidden;
-      /* Ensure items wrap completely out of view */
-      row-gap: var(--base-size-16);
     }
   }
 }
@@ -61,6 +60,7 @@
   border: 0;
   border-radius: var(--borderRadius-medium, var(--borderRadius-small));
   max-width: 100%;
+  margin-bottom: var(--base-size-8);
 
   /* button resets */
   appearance: none;
