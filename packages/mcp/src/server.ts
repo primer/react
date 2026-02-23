@@ -566,7 +566,13 @@ ${validGroups}
 
     const limitedResults = results.slice(0, limit)
 
-    let output = `Found ${results.length} token(s) matching "${query}". Showing top ${limitedResults.length}:\n\n`
+    let output: string
+
+    if (!query) {
+      output = `Found ${results.length} token(s). Showing top ${limitedResults.length}:\n\n`
+    } else {
+      output = `Found ${results.length} token(s) matching "${query}". Showing top ${limitedResults.length}:\n\n`
+    }
     output += formatBundle(limitedResults)
 
     if (results.length > limit) {
