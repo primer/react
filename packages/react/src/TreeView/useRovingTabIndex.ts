@@ -201,13 +201,13 @@ function getPreviousVisibleElement(element: HTMLElement): HTMLElement | undefine
  * is also an expanded directory, we drill all the way down.
  */
 function getDeepestLastDescendant(element: HTMLElement): HTMLElement {
-  if (element.getAttribute('aria-expanded') === 'true') {
-    const lastChild = getLastChildTreeItem(element)
-    if (lastChild) {
-      return getDeepestLastDescendant(lastChild)
-    }
+  let current = element
+  while (current.getAttribute('aria-expanded') === 'true') {
+    const lastChild = getLastChildTreeItem(current)
+    if (!lastChild) break
+    current = lastChild
   }
-  return element
+  return current
 }
 
 function getNextSiblingTreeItem(element: HTMLElement): HTMLElement | undefined {
