@@ -333,6 +333,50 @@ describe('SegmentedControl', () => {
     expect(button).toBeInTheDocument()
   })
 
+  it('uses aria-label without modification when count is undefined', () => {
+    const {getByRole} = render(
+      <SegmentedControl aria-label="Issues by label">
+        <SegmentedControl.Button defaultSelected aria-label="Feature">
+          Feature
+        </SegmentedControl.Button>
+      </SegmentedControl>,
+    )
+
+    const button = getByRole('button', {name: 'Feature'})
+
+    expect(button).toBeInTheDocument()
+    expect(button).toHaveAttribute('aria-label', 'Feature')
+  })
+
+  it('does not set aria-label when only count is provided and relies on text content', () => {
+    const {getByRole} = render(
+      <SegmentedControl aria-label="Issues by label">
+        <SegmentedControl.Button defaultSelected count={5}>
+          Feature
+        </SegmentedControl.Button>
+      </SegmentedControl>,
+    )
+
+    const button = getByRole('button', {name: 'Feature 5'})
+
+    expect(button).toBeInTheDocument()
+    expect(button).not.toHaveAttribute('aria-label')
+  })
+
+  it('handles a string count when aria-label is provided', () => {
+    const {getByRole} = render(
+      <SegmentedControl aria-label="Issues by label">
+        <SegmentedControl.Button defaultSelected aria-label="Feature" count="5">
+          Feature
+        </SegmentedControl.Button>
+      </SegmentedControl>,
+    )
+
+    const button = getByRole('button', {name: 'Feature 5'})
+
+    expect(button).toBeInTheDocument()
+  })
+
   it('should warn the user if they neglect to specify a label for the segmented control', () => {
     const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => {})
 
