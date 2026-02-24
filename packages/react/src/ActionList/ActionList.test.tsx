@@ -145,7 +145,7 @@ describe('ActionList', () => {
     expect(container.querySelector('li[aria-disabled="true"]')?.nextElementSibling).toHaveAttribute('tabindex', '0')
   })
 
-  it('sets title correctly for Description component', () => {
+  it('sets Description title for button-semantics items (tooltip path)', () => {
     const {container} = HTMLRender(
       <ActionList>
         <ActionList.Item>
@@ -172,6 +172,34 @@ describe('ActionList', () => {
     // a keyboard-accessible Tooltip rendered by the parent Item.
     expect(descriptions[0]).toHaveAttribute('title', '')
     expect(descriptions[1]).toHaveAttribute('title', '')
+    expect(descriptions[2]).not.toHaveAttribute('title')
+  })
+
+  it('sets Description title for list-semantics items (no truncation tooltip path)', () => {
+    const {container} = HTMLRender(
+      <ActionList role="listbox" selectionVariant="single">
+        <ActionList.Item>
+          Option 1<ActionList.Description truncate>Simple string description</ActionList.Description>
+        </ActionList.Item>
+        <ActionList.Item>
+          Option 2
+          <ActionList.Description truncate>
+            <span>Complex</span> content
+          </ActionList.Description>
+        </ActionList.Item>
+        <ActionList.Item>
+          Option 3
+          <ActionList.Description>
+            <span>Non-truncated</span> content
+          </ActionList.Description>
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const descriptions = container.querySelectorAll('[data-component="ActionList.Description"]')
+
+    expect(descriptions[0]).toHaveAttribute('title', 'Simple string description')
+    expect(descriptions[1]).toHaveAttribute('title', 'Complex content')
     expect(descriptions[2]).not.toHaveAttribute('title')
   })
 
