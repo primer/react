@@ -319,6 +319,20 @@ describe('SegmentedControl', () => {
     expect(getByRole('img', {name: 'EyeIcon'})).toBeInTheDocument()
   })
 
+  it('includes the count in the accessible name when aria-label is provided', () => {
+    const {getByRole} = render(
+      <SegmentedControl aria-label="Issues by label">
+        <SegmentedControl.Button defaultSelected aria-label="Feature" count={5}>
+          Feature
+        </SegmentedControl.Button>
+      </SegmentedControl>,
+    )
+
+    const button = getByRole('button', {name: 'Feature 5'})
+
+    expect(button).toBeInTheDocument()
+  })
+
   it('should warn the user if they neglect to specify a label for the segmented control', () => {
     const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => {})
 
