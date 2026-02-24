@@ -61,7 +61,7 @@ type TriggerPropsType = Pick<
   | 'onTouchCancel'
   | 'onTouchEnd'
 > & {
-  ref?: React.RefObject<HTMLElement>
+  ref?: React.Ref<HTMLElement>
 }
 
 // map tooltip direction to anchoredPosition props
@@ -322,12 +322,26 @@ export const Tooltip: ForwardRefExoticComponent<
       </span>
     )
 
+    const setTriggerRef = (node: HTMLElement | null) => {
+      if (typeof triggerRef === 'function') {
+        (triggerRef as React.RefCallback<HTMLElement>)(node)
+      } else if (triggerRef) {
+        ;(triggerRef as React.MutableRefObject<HTMLElement | null>).current = node
+      }
+
+      const childRef = (child as React.ReactElement<TriggerPropsType> & {ref?: React.Ref<HTMLElement>}).ref
+      if (typeof childRef === 'function') {
+        (childRef as React.RefCallback<HTMLElement>)(node)
+      } else if (childRef && typeof childRef === 'object') {
+        ;(childRef as React.MutableRefObject<HTMLElement | null>).current = node
+      }
+    }
+
     const triggerElement =
       React.isValidElement(child) &&
       // eslint-disable-next-line react-hooks/refs
       React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
-        // @ts-expect-error it needs a non nullable ref
-        ref: triggerRef,
+        ref: setTriggerRef,
         // If it is a type description, we use tooltip to describe the trigger
         'aria-describedby': (() => {
           // If tooltip is not a description type, keep the original aria-describedby
