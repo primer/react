@@ -77,6 +77,13 @@ export function createDescendantRegistry<T>() {
     /** State value to trigger a re-render and force all descendants to re-register. This ensures everything remains ordered. */
     const [key, setKey] = useState(0)
 
+    /**
+     * Tracks the `children` reference from the previous render to detect when the parent
+     * re-renders with new children (e.g., due to a reorder), as opposed to a Provider re-render
+     * triggered by our own `setRegistry` call (where children stay the same reference).
+     */
+    const prevChildrenRef = useRef<ReactNode>(children)
+
     // Instantiate a new map before all descendants' effects run to populate it
     useIsomorphicLayoutEffect(function instantiateNewRegistry() {
       if (workingRegistryRef.current === 'queued') {
@@ -112,11 +119,28 @@ export function createDescendantRegistry<T>() {
       }
     }, [])
 
-    // After all descendants' effects complete, commit the working registry to state
+    // After all descendants' effects complete, commit the working registry to state. When the
+    // registry is idle and the children reference changed (indicating the parent re-rendered with
+    // new children, e.g., due to a reorder), queue a rebuild so all descendants re-register in
+    // their current render order, keeping the registry accurate.
+    //
+    // This effect intentionally omits a dependency array so it runs after every render. Adding
+    // deps would prevent the registry Map from being committed after rebuild cycles (where `key`
+    // increments but `children` and `setRegistry` stay the same).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(function commitWorkingRegistry() {
+      const childrenChanged = prevChildrenRef.current !== children
+      prevChildrenRef.current = children
+
       if (workingRegistryRef.current instanceof Map) {
         setRegistry(workingRegistryRef.current)
         workingRegistryRef.current = 'idle'
+      } else if (workingRegistryRef.current === 'idle' && childrenChanged) {
+        // The children changed (e.g., reordering) without triggering any descendant
+        // mount/unmount/update. Trigger a rebuild to capture the new render order.
+        workingRegistryRef.current = 'queued'
+
+        setKey(prev => prev + 1)
       }
     })
 
