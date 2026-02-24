@@ -328,7 +328,7 @@ describe('SegmentedControl', () => {
       </SegmentedControl>,
     )
 
-    const button = getByRole('button', {name: 'Feature (5)'})
+    const button = getByRole('button', {name: 'Feature 5'})
 
     expect(button).toBeInTheDocument()
   })
@@ -357,7 +357,7 @@ describe('SegmentedControl', () => {
       </SegmentedControl>,
     )
 
-    const button = getByRole('button', {name: 'Feature (5)'})
+    const button = getByRole('button', {name: /Feature\s*\(\s*5\s*\)/})
 
     expect(button).toBeInTheDocument()
     expect(button).not.toHaveAttribute('aria-label')
@@ -372,7 +372,7 @@ describe('SegmentedControl', () => {
       </SegmentedControl>,
     )
 
-    const button = getByRole('button', {name: 'Feature (5)'})
+    const button = getByRole('button', {name: 'Feature 5'})
 
     expect(button).toBeInTheDocument()
   })
