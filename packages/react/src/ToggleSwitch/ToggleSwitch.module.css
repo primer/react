@@ -64,7 +64,8 @@
   transition-property: background-color, border-color;
   transition-duration: var(--toggleSwitch-transition-duration);
   transition-timing-function: var(--toggleSwitch-transition-easing);
-  border-radius: var(--borderRadius-medium);
+  /* stylelint-disable-next-line primer/borders */
+    border-radius: var(--borderRadius-default);
   border-style: solid;
   border-width: var(--borderWidth-thin);
   display: block;
@@ -231,7 +232,7 @@
   border-color: var(--controlKnob-borderColor-rest, var(--color-switch-knob-border, #858f99));
   /* Use calc to account for 1px border around the control */
   /* stylelint-disable-next-line primer/borders */
-  border-radius: calc(var(--borderRadius-medium) - var(--borderWidth-thick));
+  border-radius: calc(var(--borderRadius-default) - var(--borderWidth-thick));
   width: 50%;
   position: absolute;
   /* stylelint-disable-next-line primer/spacing */
