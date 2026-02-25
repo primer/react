@@ -21,7 +21,7 @@ function createTestRegistry() {
 
     return (
       <>
-        <div data-testid="registry-values">{Array.from(registryState.values()).join(',')}</div>
+        <div data-testid="registry-values">{Array.from(registryState?.values() ?? []).join(',')}</div>
         <Provider setRegistry={setRegistry}>{children}</Provider>
       </>
     )
@@ -144,31 +144,6 @@ describe('createDescendantRegistry', () => {
     await userEvent.click(getByRole('button'))
 
     expect(getByTestId('registry-values').textContent).toBe('a,b')
-  })
-
-  it.todo('updates registry order when items are reordered, using key to maintain component mount', async () => {
-    const {RegistryParent, Item} = createTestRegistry()
-
-    function Test() {
-      const [items, setItems] = useState(['a', 'b', 'c'])
-      return (
-        <RegistryParent>
-          {items.map(item => (
-            <Item key={item} value={item} />
-          ))}
-          <button type="button" onClick={() => setItems(['c', 'a', 'b'])}>
-            Reorder
-          </button>
-        </RegistryParent>
-      )
-    }
-
-    const {getByTestId, getByRole} = render(<Test />)
-    expect(getByTestId('registry-values').textContent).toBe('a,b,c')
-
-    await userEvent.click(getByRole('button'))
-
-    expect(getByTestId('registry-values').textContent).toBe('c,a,b')
   })
 
   it('registers deep descendants added to the beginning of the tree after initial render', async () => {

@@ -234,11 +234,11 @@ const renderMenuItem = (item: ActionBarMenuItemProps, index: number): React.Reac
 const getMenuItems = (
   navWidth: number,
   moreMenuWidth: number,
-  childRegistry: ChildRegistry,
+  childRegistry: ChildRegistry | undefined,
   hasActiveMenu: boolean,
   gap: number,
 ): Set<string> | void => {
-  const registryEntries = Array.from(childRegistry).filter(
+  const registryEntries = Array.from(childRegistry?.entries() ?? []).filter(
     (entry): entry is [string, ChildProps] =>
       entry[1] !== null && (entry[1].type !== 'action' || entry[1].groupId === undefined),
   )
@@ -341,7 +341,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   const groupedItems = React.useMemo(() => {
     const groupedItemsMap = new Map<string, Array<[string, ChildProps]>>()
 
-    for (const [key, childProps] of childRegistry) {
+    for (const [key, childProps] of childRegistry ?? []) {
       if (childProps.type === 'action' && childProps.groupId) {
         const existingGroup = groupedItemsMap.get(childProps.groupId) || []
         existingGroup.push([key, childProps])
@@ -371,7 +371,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
               <ActionMenu.Overlay>
                 <ActionList>
                   {Array.from(menuItemIds).map(id => {
-                    const menuItem = childRegistry.get(id)
+                    const menuItem = childRegistry?.get(id)
                     if (!menuItem) return null
 
                     if (menuItem.type === 'divider') {

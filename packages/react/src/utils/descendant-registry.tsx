@@ -16,7 +16,7 @@ import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect'
 interface ProviderProps<T> {
   children: ReactNode
   /** State setter from `useRegistryState`. */
-  setRegistry: Dispatch<React.SetStateAction<Map<string, T>>>
+  setRegistry: Dispatch<React.SetStateAction<Map<string, T> | undefined>>
 }
 
 /**
@@ -33,6 +33,10 @@ interface ProviderProps<T> {
  * 3. Register child components via `useRegisterDescendant` or `useRegisterDescendantCallback`.
  * 4. Access the registered data using the value from `useRegistryState`. This will be a map of `string` to `T`, where
  *    the string key is a unique and stable identifier for each component which can be used as a `key` if necessary.
+ *
+ * @note Note that this pattern is not SSR compatible. The registry is built during the effect phase, so it will not
+ * be populated on the first render. The initial `undefined` value can be used to show loading UI during SSR/initial
+ * render if necessary.
  */
 export function createDescendantRegistry<T>() {
   const Context = createContext<{
@@ -45,10 +49,13 @@ export function createDescendantRegistry<T>() {
     key: -1,
   })
 
-  /** Instantiate descendant registry state. */
+  /**
+   * Instantiate descendant registry state. The initial value will be `undefined`, indicating that the registry hasn't
+   * been built yet.
+   */
   function useRegistryState() {
     // We could do this inside of `Provider`, but then it would be difficult for the parent itself to access the state value
-    return useState(() => new Map<string, T>())
+    return useState<Map<string, T>>()
   }
 
   /**
