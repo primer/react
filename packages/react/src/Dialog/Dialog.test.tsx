@@ -136,6 +136,37 @@ describe('Dialog', () => {
     expect(getByRole('dialog')).toHaveAttribute('data-position-regular', 'center')
   })
 
+  describe('verticalPosition prop', () => {
+    it('sets data-vertical-position="top" on both dialog and backdrop', () => {
+      const {getByRole} = render(<Dialog onClose={() => {}} verticalPosition="top" />)
+      const dialog = getByRole('dialog')
+      expect(dialog).toHaveAttribute('data-vertical-position', 'top')
+      expect(dialog.parentElement).toHaveAttribute('data-vertical-position', 'top')
+    })
+
+    it('sets data-vertical-position="bottom" when verticalPosition is bottom', () => {
+      const {getByRole} = render(<Dialog onClose={() => {}} verticalPosition="bottom" />)
+      expect(getByRole('dialog')).toHaveAttribute('data-vertical-position', 'bottom')
+    })
+
+    it('sets data-vertical-position="center" when verticalPosition is center', () => {
+      const {getByRole} = render(<Dialog onClose={() => {}} verticalPosition="center" />)
+      expect(getByRole('dialog')).toHaveAttribute('data-vertical-position', 'center')
+    })
+
+    it('omits data-vertical-position when verticalPosition is not provided', () => {
+      const {getByRole} = render(<Dialog onClose={() => {}} />)
+      expect(getByRole('dialog')).not.toHaveAttribute('data-vertical-position')
+    })
+
+    it('supports combining verticalPosition with horizontal position prop', () => {
+      const {getByRole} = render(<Dialog onClose={() => {}} position="left" verticalPosition="top" />)
+      const dialog = getByRole('dialog')
+      expect(dialog).toHaveAttribute('data-position-regular', 'left')
+      expect(dialog).toHaveAttribute('data-vertical-position', 'top')
+    })
+  })
+
   it('automatically returns focus to the trigger element when the dialog closes', async () => {
     const Fixture = () => {
       const [isOpen, setIsOpen] = React.useState(false)

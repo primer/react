@@ -576,3 +576,63 @@ export const LoadingCustomFooterButtonsCould = () => {
     </>
   )
 }
+
+export const VerticalPositionTop = () => {
+  const [isOpen, setIsOpen] = useState(true)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const onDialogClose = useCallback(() => setIsOpen(false), [])
+
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
+        Show dialog
+      </Button>
+      {isOpen && (
+        <Dialog title="My Dialog" onClose={onDialogClose} verticalPosition="top">
+          {bodyContent}
+        </Dialog>
+      )}
+    </>
+  )
+}
+VerticalPositionTop.storyName = '[Vertical Position] Top'
+
+export const VerticalPositionBottom = () => {
+  const [isOpen, setIsOpen] = useState(true)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const onDialogClose = useCallback(() => setIsOpen(false), [])
+
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
+        Show dialog
+      </Button>
+      {isOpen && (
+        <Dialog title="My Dialog" onClose={onDialogClose} verticalPosition="bottom">
+          {bodyContent}
+        </Dialog>
+      )}
+    </>
+  )
+}
+VerticalPositionBottom.storyName = '[Vertical Position] Bottom'
+
+export const VerticalPositionTopWithHorizontalPosition = () => {
+  const [isOpen, setIsOpen] = useState(true)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const onDialogClose = useCallback(() => setIsOpen(false), [])
+
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
+        Show dialog
+      </Button>
+      {isOpen && (
+        <Dialog title="My Dialog" onClose={onDialogClose} position="left" verticalPosition="top">
+          {bodyContent}
+        </Dialog>
+      )}
+    </>
+  )
+}
+VerticalPositionTopWithHorizontalPosition.storyName = '[Vertical Position] Top with horizontal position left'
