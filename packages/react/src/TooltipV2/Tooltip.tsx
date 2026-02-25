@@ -64,6 +64,16 @@ type TriggerPropsType = Pick<
   ref?: React.Ref<HTMLElement>
 }
 
+function assignRef<T>(ref: React.Ref<T> | undefined, value: T | null) {
+  if (!ref) return
+  if (typeof ref === 'function') {
+    ref(value)
+    return
+  }
+
+  ;(ref as React.MutableRefObject<T | null>).current = value
+}
+
 // map tooltip direction to anchoredPosition props
 const directionToPosition: Record<TooltipDirection, {side: AnchorSide; align: AnchorAlignment}> = {
   nw: {side: 'outside-top', align: 'end'},
@@ -323,16 +333,10 @@ export const Tooltip: ForwardRefExoticComponent<
     )
 
     const setTriggerRef = (node: HTMLElement | null) => {
-      const triggerMutableRef = triggerRef as React.MutableRefObject<HTMLElement | null>
-      triggerMutableRef.current = node
+      assignRef(triggerRef, node)
 
       const childRef = (child as React.ReactElement<TriggerPropsType> & {ref?: React.Ref<HTMLElement>}).ref
-      if (typeof childRef === 'function') {
-        childRef(node)
-      } else if (childRef && typeof childRef === 'object') {
-        const childMutableRef = childRef as React.MutableRefObject<HTMLElement | null>
-        childMutableRef.current = node
-      }
+      assignRef(childRef, node)
     }
 
     const triggerElement =
