@@ -90,7 +90,7 @@
     "rimraf": "5.0.5",
     "size-limit": "11.2.0",
     "storybook": "^10.1.11",
-    "stylelint": "16.20.0",
+    "stylelint": "17.4.0",
     "turbo": "^2.6.3",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.40.0",
