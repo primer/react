@@ -16,7 +16,7 @@ import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect'
 interface ProviderProps<T> {
   children: ReactNode
   /** State setter from `useRegistryState`. */
-  setRegistry: Dispatch<React.SetStateAction<Map<string, T> | undefined>>
+  setRegistry: Dispatch<React.SetStateAction<ReadonlyMap<string, T> | undefined>>
 }
 
 /**
@@ -55,7 +55,7 @@ export function createDescendantRegistry<T>() {
    */
   function useRegistryState() {
     // We could do this inside of `Provider`, but then it would be difficult for the parent itself to access the state value
-    return useState<Map<string, T>>()
+    return useState<ReadonlyMap<string, T>>()
   }
 
   /**
@@ -89,15 +89,9 @@ export function createDescendantRegistry<T>() {
     const workingRegistryRef = useRef<Map<string, T | typeof unsetValue> | 'queued' | 'idle'>('queued')
 
     /** State value to trigger a re-render and force all descendants to re-register. This ensures everything remains ordered. */
-    const [key, incrementKey] = useReducer(prev => prev + 1, 0)
+    const [key, rebuildRegistry] = useReducer(prev => prev + 1, 0)
 
-    /** Queue a full tree rebuild to recollect all descendants in order. */
-    const queueRebuild = useCallback(() => {
-      workingRegistryRef.current = 'queued'
-      incrementKey()
-    }, [])
-
-    // If a rebuild is queued, instantiate a new map before all descendants' effects run to populate it
+    // If a rebuild is queued, instantiate a new map. Must be in a layout effect to run before all descendants' effects run to populate it
     useIsomorphicLayoutEffect(function instantiateNewRegistry() {
       if (workingRegistryRef.current === 'queued') {
         workingRegistryRef.current = new Map<string, T>()
@@ -105,10 +99,8 @@ export function createDescendantRegistry<T>() {
     })
 
     /**
-     * Each descendant will register itself. While building, this will just update the map. While idle, any descendant
-     * mounts or unmounts will trigger a full recalculation of the registry. This is necessary because a descendant
-     * might mount into the middle of the tree, and the only way for the provider to know that is to re-render the
-     * tree and listen to every descendant effect in order.
+     * Register a mounted descendant in the registry.
+     * @returns A cleanup function to unregister the descendant.
      */
     const register = useCallback(
       (id: string) => {
@@ -116,29 +108,37 @@ export function createDescendantRegistry<T>() {
           // Initializing to `unsetValue` allows the `register` effect to not depend on the value
           workingRegistryRef.current.set(id, unsetValue)
         } else if (workingRegistryRef.current === 'idle') {
-          queueRebuild()
+          // When idle, registering a new component causes the whole registry to be rebuilt (because that item could
+          // be inserted anywhere in the tree, changing the order of items)
+          workingRegistryRef.current = 'queued'
+          rebuildRegistry()
         }
+        // Noop if status is `queued` since we will restart the map in the next cycle
 
-        return () => {
+        return function unregister() {
           if (workingRegistryRef.current instanceof Map) {
             workingRegistryRef.current.delete(id)
           } else if (workingRegistryRef.current === 'idle') {
-            queueRebuild()
+            // No need to rebuild the registry when unregistering, because removing an item doesn't affect the order
+            // the rest of the items
+            setRegistry(prev => {
+              const copy = new Map(prev)
+              copy.delete(id)
+              return copy
+            })
           }
         }
       },
-      [queueRebuild],
+      [setRegistry],
     )
 
-    /**
-     * Update a descendant's value in the registry. Unlike a mount/dismount, a simple value update does not need to
-     * trigger a full recalculation, since we know the order did not change.
-     */
+    /** Update a descendant's value in the registry. */
     const updateValue = useCallback(
       (id: string, value: T) => {
         if (workingRegistryRef.current instanceof Map) {
           workingRegistryRef.current.set(id, value)
         } else if (workingRegistryRef.current === 'idle') {
+          // No need to rebuild the registry when updating a value; that doesn't affect order
           setRegistry(prev => new Map(prev).set(id, value))
         }
         // Ignore `queued` stage; a rebuild is coming that will capture the new value in the next render
@@ -149,7 +149,7 @@ export function createDescendantRegistry<T>() {
     // After all descendants' effects complete, commit the working registry to state
     useEffect(function commitWorkingRegistry() {
       if (workingRegistryRef.current instanceof Map) {
-        // There shouldn't be any unset values left, but just in case, filter them out
+        // There shouldn't be any unset values left, but still filter them just in case
         const setEntries = Array.from(workingRegistryRef.current.entries()).filter(
           (entry): entry is [string, T] => entry[1] !== unsetValue,
         )
