@@ -2,6 +2,10 @@
 
 ## 38.13.0
 
+### Patch Changes
+
+- Timeline: Update `TimelineBody` margin-top from `--base-size-4` (4px) to `--base-size-6` (6px)
+
 ### Minor Changes
 
 - [#7099](https://github.com/primer/react/pull/7099) [`4720c2f`](https://github.com/primer/react/commit/4720c2f27cfacc7600244422ee22af9104b5aa09) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Banner: Use `aria-labelledby` to reference the title for the landmark region instead of generic variant labels.

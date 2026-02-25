@@ -88,7 +88,7 @@
 .TimelineBody {
   min-width: 0;
   max-width: 100%;
-  margin-top: var(--base-size-4);
+  margin-top: var(--base-size-6);
   font-size: var(--text-body-size-medium);
   color: var(--fgColor-muted);
   flex: auto;
