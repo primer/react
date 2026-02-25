@@ -324,14 +324,14 @@ export const Tooltip: ForwardRefExoticComponent<
 
     const setTriggerRef = (node: HTMLElement | null) => {
       if (typeof triggerRef === 'function') {
-        (triggerRef as React.RefCallback<HTMLElement>)(node)
+        ;(triggerRef as React.RefCallback<HTMLElement>)(node)
       } else if (triggerRef) {
         ;(triggerRef as React.MutableRefObject<HTMLElement | null>).current = node
       }
 
       const childRef = (child as React.ReactElement<TriggerPropsType> & {ref?: React.Ref<HTMLElement>}).ref
       if (typeof childRef === 'function') {
-        (childRef as React.RefCallback<HTMLElement>)(node)
+        ;(childRef as React.RefCallback<HTMLElement>)(node)
       } else if (childRef && typeof childRef === 'object') {
         ;(childRef as React.MutableRefObject<HTMLElement | null>).current = node
       }
