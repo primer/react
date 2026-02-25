@@ -477,17 +477,19 @@ export const ActionBarIconButton = forwardRef(
 
     const width = useWidth(ref)
 
+    const {['aria-label']: ariaLabel, icon} = props
+
     const registryProps = useMemo(
       (): ChildProps => ({
         type: 'action',
-        label: props['aria-label'] ?? '',
-        icon: props.icon,
+        label: ariaLabel ?? '',
+        icon,
         disabled: !!disabled,
         onClick: onClick as MouseEventHandler,
         width,
         groupId: groupId ?? undefined,
       }),
-      [props, disabled, onClick, groupId, width],
+      [ariaLabel, icon, disabled, onClick, groupId, width],
     )
 
     const id = ActionBarItemsRegistry.useRegisterDescendant(registryProps)
