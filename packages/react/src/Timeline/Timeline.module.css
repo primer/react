@@ -40,8 +40,6 @@
   }
 
   &:where([data-condensed]) {
-    /* stylelint-disable-next-line primer/spacing */
-    margin-top: calc((1em * 1.5 / 2) - 8px);
     padding-top: var(--base-size-4);
     padding-bottom: 0;
 
@@ -61,8 +59,6 @@
 }
 
 .TimelineBadgeWrapper {
-  /* stylelint-disable-next-line primer/spacing */
-  margin-top: calc((1em * 1.5 / 2) - 16px);
   position: relative;
   z-index: 1;
 }
@@ -92,7 +88,8 @@
 .TimelineBody {
   min-width: 0;
   max-width: 100%;
-  /* margin-top: var(--base-size-6); */
+  /* stylelint-disable-next-line primer/spacing */
+  margin-top: calc(var(--base-size-4) + 1px);
   font-size: var(--text-body-size-medium);
   color: var(--fgColor-muted);
   flex: auto;
