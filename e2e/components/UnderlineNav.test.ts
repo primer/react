@@ -187,7 +187,7 @@ test.describe('UnderlineNav', () => {
     }
   })
 
-  test.describe.only('UnderlineNav Interactions', () => {
+  test.describe('UnderlineNav Interactions', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('Overflow interaction @vrt', async ({page}) => {
