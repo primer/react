@@ -133,12 +133,12 @@ export interface DialogProps {
   position?: 'center' | 'left' | 'right' | ResponsiveValue<'left' | 'right' | 'bottom' | 'fullscreen' | 'center'>
 
   /**
-   * The vertical position of the dialog.
+   * The vertical alignment of the dialog.
    * top: positions the Dialog ~4rem from the top of the screen, horizontally centered
    * center: (default) vertically centers the Dialog on the screen
    * bottom: positions the Dialog near the bottom of the screen, horizontally centered
    */
-  verticalPosition?: 'top' | 'center' | 'bottom'
+  align?: 'top' | 'center' | 'bottom'
 
   /**
    * Return focus to this element when the Dialog closes,
@@ -249,7 +249,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     height = 'auto',
     footerButtons = defaultFooterButtons,
     position = defaultPosition,
-    verticalPosition,
+    align,
     returnFocusRef,
     initialFocusRef,
     className,
@@ -346,7 +346,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           ref={backdropRef}
           className={classes.Backdrop}
           {...positionDataAttributes}
-          {...(verticalPosition && {'data-vertical-position': verticalPosition})}
+          {...(align && {'data-align': align})}
           onClick={onBackdropClick}
           onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => {
             setLastMouseDownIsBackdrop(e.target === e.currentTarget)
@@ -359,7 +359,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             aria-describedby={dialogDescriptionId}
             aria-modal
             {...positionDataAttributes}
-            {...(verticalPosition && {'data-vertical-position': verticalPosition})}
+            {...(align && {'data-align': align})}
             data-width={width}
             data-height={height}
             className={clsx(className, classes.Dialog)}

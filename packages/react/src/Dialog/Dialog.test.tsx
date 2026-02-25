@@ -136,34 +136,34 @@ describe('Dialog', () => {
     expect(getByRole('dialog')).toHaveAttribute('data-position-regular', 'center')
   })
 
-  describe('verticalPosition prop', () => {
-    it('sets data-vertical-position="top" on both dialog and backdrop', () => {
-      const {getByRole} = render(<Dialog onClose={() => {}} verticalPosition="top" />)
+  describe('align prop', () => {
+    it('sets data-align="top" on both dialog and backdrop', () => {
+      const {getByRole} = render(<Dialog onClose={() => {}} align="top" />)
       const dialog = getByRole('dialog')
-      expect(dialog).toHaveAttribute('data-vertical-position', 'top')
-      expect(dialog.parentElement).toHaveAttribute('data-vertical-position', 'top')
+      expect(dialog).toHaveAttribute('data-align', 'top')
+      expect(dialog.parentElement).toHaveAttribute('data-align', 'top')
     })
 
-    it('sets data-vertical-position="bottom" when verticalPosition is bottom', () => {
-      const {getByRole} = render(<Dialog onClose={() => {}} verticalPosition="bottom" />)
-      expect(getByRole('dialog')).toHaveAttribute('data-vertical-position', 'bottom')
+    it('sets data-align="bottom" when align is bottom', () => {
+      const {getByRole} = render(<Dialog onClose={() => {}} align="bottom" />)
+      expect(getByRole('dialog')).toHaveAttribute('data-align', 'bottom')
     })
 
-    it('sets data-vertical-position="center" when verticalPosition is center', () => {
-      const {getByRole} = render(<Dialog onClose={() => {}} verticalPosition="center" />)
-      expect(getByRole('dialog')).toHaveAttribute('data-vertical-position', 'center')
+    it('sets data-align="center" when align is center', () => {
+      const {getByRole} = render(<Dialog onClose={() => {}} align="center" />)
+      expect(getByRole('dialog')).toHaveAttribute('data-align', 'center')
     })
 
-    it('omits data-vertical-position when verticalPosition is not provided', () => {
+    it('omits data-align when align is not provided', () => {
       const {getByRole} = render(<Dialog onClose={() => {}} />)
-      expect(getByRole('dialog')).not.toHaveAttribute('data-vertical-position')
+      expect(getByRole('dialog')).not.toHaveAttribute('data-align')
     })
 
-    it('supports combining verticalPosition with horizontal position prop', () => {
-      const {getByRole} = render(<Dialog onClose={() => {}} position="left" verticalPosition="top" />)
+    it('supports combining align with horizontal position prop', () => {
+      const {getByRole} = render(<Dialog onClose={() => {}} position="left" align="top" />)
       const dialog = getByRole('dialog')
       expect(dialog).toHaveAttribute('data-position-regular', 'left')
-      expect(dialog).toHaveAttribute('data-vertical-position', 'top')
+      expect(dialog).toHaveAttribute('data-align', 'top')
     })
   })
 

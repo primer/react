@@ -36,13 +36,13 @@
       "id": "components-dialog-features--retains-focus-trap-with-dynamic-content"
     },
     {
-      "id": "components-dialog-features--vertical-position-top"
+      "id": "components-dialog-features--align-top"
     },
     {
-      "id": "components-dialog-features--vertical-position-bottom"
+      "id": "components-dialog-features--align-bottom"
     },
     {
-      "id": "components-dialog-features--vertical-position-top-with-horizontal-position"
+      "id": "components-dialog-features--align-top-with-horizontal-position"
     }
   ],
   "importPath": "@primer/react",
@@ -115,10 +115,10 @@
       "defaultValue": ""
     },
     {
-      "name": "verticalPosition",
+      "name": "align",
       "type": "'top' | 'center' | 'bottom'",
       "required": false,
-      "description": "The vertical position of the dialog. 'top' positions the Dialog ~4rem from the top of the screen, 'center' (default) vertically centers the Dialog, 'bottom' positions the Dialog near the bottom of the screen.",
+      "description": "The vertical alignment of the dialog. 'top' positions the Dialog ~4rem from the top of the screen, 'center' (default) vertically centers the Dialog, 'bottom' positions the Dialog near the bottom of the screen.",
       "defaultValue": ""
     },
     {

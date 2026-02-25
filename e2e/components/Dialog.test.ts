@@ -32,12 +32,12 @@ const stories = [
     id: 'components-dialog-features--with-direct-subcomponents',
   },
   {
-    title: 'Vertical position top',
-    id: 'components-dialog-features--vertical-position-top',
+    title: 'Align top',
+    id: 'components-dialog-features--align-top',
   },
   {
-    title: 'Vertical position bottom',
-    id: 'components-dialog-features--vertical-position-bottom',
+    title: 'Align bottom',
+    id: 'components-dialog-features--align-bottom',
   },
 ] as const
 

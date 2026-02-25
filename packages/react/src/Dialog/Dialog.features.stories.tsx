@@ -577,7 +577,7 @@ export const LoadingCustomFooterButtonsCould = () => {
   )
 }
 
-export const VerticalPositionTop = () => {
+export const AlignTop = () => {
   const [isOpen, setIsOpen] = useState(true)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
@@ -588,16 +588,16 @@ export const VerticalPositionTop = () => {
         Show dialog
       </Button>
       {isOpen && (
-        <Dialog title="My Dialog" onClose={onDialogClose} verticalPosition="top">
+        <Dialog title="My Dialog" onClose={onDialogClose} align="top">
           {bodyContent}
         </Dialog>
       )}
     </>
   )
 }
-VerticalPositionTop.storyName = '[Vertical Position] Top'
+AlignTop.storyName = '[Align] Top'
 
-export const VerticalPositionBottom = () => {
+export const AlignBottom = () => {
   const [isOpen, setIsOpen] = useState(true)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
@@ -608,16 +608,16 @@ export const VerticalPositionBottom = () => {
         Show dialog
       </Button>
       {isOpen && (
-        <Dialog title="My Dialog" onClose={onDialogClose} verticalPosition="bottom">
+        <Dialog title="My Dialog" onClose={onDialogClose} align="bottom">
           {bodyContent}
         </Dialog>
       )}
     </>
   )
 }
-VerticalPositionBottom.storyName = '[Vertical Position] Bottom'
+AlignBottom.storyName = '[Align] Bottom'
 
-export const VerticalPositionTopWithHorizontalPosition = () => {
+export const AlignTopWithHorizontalPosition = () => {
   const [isOpen, setIsOpen] = useState(true)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
@@ -628,11 +628,11 @@ export const VerticalPositionTopWithHorizontalPosition = () => {
         Show dialog
       </Button>
       {isOpen && (
-        <Dialog title="My Dialog" onClose={onDialogClose} position="left" verticalPosition="top">
+        <Dialog title="My Dialog" onClose={onDialogClose} position="left" align="top">
           {bodyContent}
         </Dialog>
       )}
     </>
   )
 }
-VerticalPositionTopWithHorizontalPosition.storyName = '[Vertical Position] Top with horizontal position left'
+AlignTopWithHorizontalPosition.storyName = '[Align] Top with horizontal position left'
