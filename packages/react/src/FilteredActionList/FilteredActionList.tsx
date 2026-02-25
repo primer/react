@@ -22,6 +22,7 @@ import {isValidElementType} from 'react-is'
 import {useAnnouncements} from './useAnnouncements'
 import {clsx} from 'clsx'
 import {useVirtualizer} from '@tanstack/react-virtual'
+import {warning} from '../utils/warning'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -162,15 +163,11 @@ export function FilteredActionList({
   virtualized = false,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
-  if (__DEV__) {
-    if (virtualized && groupMetadata?.length) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        'FilteredActionList: `virtualized` has no effect when `groupMetadata` is provided. ' +
-          'Grouped lists are rendered without virtualization.',
-      )
-    }
-  }
+  warning(
+    virtualized && Boolean(groupMetadata?.length),
+    'FilteredActionList: `virtualized` has no effect when `groupMetadata` is provided. ' +
+      'Grouped lists are rendered without virtualization.',
+  )
 
   // Virtualization is disabled when groups are present — grouped lists render
   // normally regardless of the `virtualized` prop.

@@ -3,6 +3,7 @@ import type {Column} from './column'
 import type {UniqueRow} from './row'
 import {DEFAULT_SORT_DIRECTION, SortDirection, transition, strategies} from './sorting'
 import type {ObjectPathValue} from './utils'
+import {warning} from '../utils/warning'
 
 interface TableConfig<Data extends UniqueRow> {
   columns: Array<Column<Data>>
@@ -231,22 +232,18 @@ function getInitialSortState<Data extends UniqueRow>(
     })
 
     if (column === undefined) {
-      if (__DEV__) {
-        // eslint-disable-next-line no-console
-        console.warn(
-          `Warning: Unable to find a column with id or field set to: ${initialSortColumn}. Please provide a value to \`initialSortColumn\` which corresponds to a \`id\` or \`field\` value in a column.`,
-        )
-      }
+      warning(
+        true,
+        `Warning: Unable to find a column with id or field set to: ${initialSortColumn}. Please provide a value to \`initialSortColumn\` which corresponds to a \`id\` or \`field\` value in a column.`,
+      )
       return null
     }
 
     if (column.sortBy === false || column.sortBy === undefined) {
-      if (__DEV__) {
-        // eslint-disable-next-line no-console
-        console.warn(
-          `Warning: The column specified by initialSortColumn={${initialSortColumn}} is not sortable. Please set \`sortBy\` to true or provide a sort strategy.`,
-        )
-      }
+      warning(
+        true,
+        `Warning: The column specified by initialSortColumn={${initialSortColumn}} is not sortable. Please set \`sortBy\` to true or provide a sort strategy.`,
+      )
       return null
     }
 
@@ -262,23 +259,19 @@ function getInitialSortState<Data extends UniqueRow>(
     })
 
     if (!column) {
-      if (__DEV__) {
-        // eslint-disable-next-line no-console
-        console.warn(
-          `Warning: An initialSortDirection value was provided but no columns are sortable. Please set \`sortBy\` to true or provide a sort strategy to a column.`,
-        )
-      }
+      warning(
+        true,
+        `Warning: An initialSortDirection value was provided but no columns are sortable. Please set \`sortBy\` to true or provide a sort strategy to a column.`,
+      )
       return null
     }
 
     const id = column.id ?? column.field
     if (id === undefined) {
-      if (__DEV__) {
-        // eslint-disable-next-line no-console
-        console.warn(
-          `Warning: Unable to find an \`id\` or \`field\` for the column: ${column}. Please set one of these properties on the column.`,
-        )
-      }
+      warning(
+        true,
+        `Warning: Unable to find an \`id\` or \`field\` for the column: ${column}. Please set one of these properties on the column.`,
+      )
       return null
     }
 

@@ -1,4 +1,5 @@
 import {useRef, useCallback} from 'react'
+import {warn} from './warning'
 
 type DeprecationType = {name: string; message: string; version: string}
 
@@ -55,8 +56,7 @@ export class Deprecations {
 
   static deprecate({name, message, version}: DeprecationType) {
     const msg = `WARNING! ${name} is deprecated and will be removed in version ${version}. ${message}`
-    // eslint-disable-next-line no-console
-    console.warn(msg)
+    warn(msg)
 
     this.get().deprecations.push({name, message, version})
   }

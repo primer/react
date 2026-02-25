@@ -5,6 +5,7 @@ import {Button, IconButton} from '../../Button'
 import {Tooltip} from '../../TooltipV2'
 import type {ButtonProps} from '../../Button'
 import {clsx} from 'clsx'
+import {warning} from '../../utils/warning'
 
 import styles from './TextInputInnerAction.module.css'
 
@@ -61,10 +62,10 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
   ) => {
     const styleProps = {className: clsx(variant === 'invisible' && styles.Invisible, className)}
 
-    if ((icon && !ariaLabel) || (!children && !ariaLabel)) {
-      // eslint-disable-next-line no-console
-      console.warn('Use the `aria-label` prop to provide an accessible label for assistive technology')
-    }
+    warning(
+      (icon && !ariaLabel) || (!children && !ariaLabel),
+      'Use the `aria-label` prop to provide an accessible label for assistive technology',
+    )
 
     const accessibleLabel = ariaLabel
       ? {'aria-label': ariaLabel}

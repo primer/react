@@ -10,6 +10,7 @@ import {useSlots} from '../../../hooks/useSlots'
 import classes from './CheckboxOrRadioGroup.module.css'
 import {clsx} from 'clsx'
 import {isSlot} from '../../../utils/is-slot'
+import {warning} from '../../../utils/warning'
 
 export type CheckboxOrRadioGroupProps = {
   /** Class name for custom styling */
@@ -67,12 +68,10 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
   const validationMessageId = validationChild ? `${id}-validationMessage` : undefined
   const captionId = captionChild ? `${id}-caption` : undefined
 
-  if (!labelChild && !ariaLabelledby) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      'A choice group must be labelled using a `CheckboxOrRadioGroup.Label` child, or by passing `aria-labelledby` to the CheckboxOrRadioGroup component.',
-    )
-  }
+  warning(
+    !labelChild && !ariaLabelledby,
+    'A choice group must be labelled using a `CheckboxOrRadioGroup.Label` child, or by passing `aria-labelledby` to the CheckboxOrRadioGroup component.',
+  )
 
   const isLegendVisible = React.isValidElement(labelChild) && !labelChild.props.visuallyHidden
 
