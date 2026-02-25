@@ -1,5 +1,5 @@
 import type {RefObject} from 'react'
-import React, {forwardRef, useCallback, useEffect, useReducer, useRef, useState} from 'react'
+import React, {forwardRef, useEffect, useReducer, useRef} from 'react'
 import VisuallyHidden from '../_VisuallyHidden'
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
@@ -8,7 +8,7 @@ import {LoadingCounter, UnderlineItemList, UnderlineWrapper} from '../internal/c
 import {invariant} from '../utils/invariant'
 import classes from './UnderlineNav.module.css'
 import {UnderlineNavContext} from './UnderlineNavContext'
-import type {UnderlineNavItemProps} from './UnderlineNavItem'
+import {UnderlineNavItemsRegistry, type UnderlineNavItemProps} from './UnderlineNavItem'
 import {SkeletonText} from '../SkeletonText'
 import {clsx} from 'clsx'
 
@@ -56,31 +56,16 @@ export const UnderlineNav = forwardRef(
     const listRef = useRef<HTMLUListElement>(null)
 
     /** Tracks whether any item has ever overflowed for the lifecycle of this component. Used to prevent flickering. */
-    const [hasOverflowed, registerHasOverflowed] = useReducer(() => true, false)
+    const [hasEverOverflowed, registerHasOverflowed] = useReducer(() => true, false)
 
-    const [registeredItems, setRegisteredItems] = useState(() => new Map<string, UnderlineNavItemProps | null>())
+    const [registeredItems, setRegisteredItems] = UnderlineNavItemsRegistry.useRegistryState()
 
-    const registerItem = useCallback((id: string, menuItemProps: UnderlineNavItemProps | null) => {
-      setRegisteredItems(prev => {
-        if (menuItemProps === null && prev.get(id) === null) return prev
+    const menuItems = Array.from(registeredItems?.entries() ?? []).filter(
+      (entry): entry is [string, UnderlineNavItemProps] => entry[1] !== null,
+    )
 
-        if (menuItemProps !== null) registerHasOverflowed()
-
-        const copy = new Map(prev)
-        copy.set(id, menuItemProps)
-        return copy
-      })
-    }, [])
-
-    const unregisterItem = useCallback((id: string) => {
-      setRegisteredItems(prev => {
-        if (!prev.has(id)) return prev
-
-        const copy = new Map(prev)
-        copy.delete(id)
-        return copy
-      })
-    }, [])
+    const isOverflowing = menuItems.length > 0
+    if (isOverflowing) registerHasOverflowed()
 
     if (__DEV__) {
       const validChildren = getValidChildren(children)
@@ -97,16 +82,10 @@ export const UnderlineNav = forwardRef(
       })
     }
 
-    const menuItems = Array.from(registeredItems.entries()).filter(
-      (entry): entry is [string, UnderlineNavItemProps] => entry[1] !== null,
-    )
-
     return (
       <UnderlineNavContext.Provider
         value={{
           loadingCounters,
-          registerItem,
-          unregisterItem,
         }}
       >
         {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
@@ -118,12 +97,14 @@ export const UnderlineNav = forwardRef(
           data-variant={variant}
           data-overflow-mode="wrap"
           // Force icons to stay hidden, avoiding flickering as icons create/remove overflow
-          data-hide-icons={hasOverflowed ? 'true' : 'false'}
+          data-hide-icons={hasEverOverflowed ? 'true' : 'false'}
           // Ensure button is shown (after initial render) on browsers that don't support scroll-driven animations
-          data-has-overflow={menuItems.length > 0 ? 'true' : 'false'}
+          data-has-overflow={isOverflowing ? 'true' : 'false'}
         >
           <UnderlineItemList ref={listRef} role="list" className={classes.ItemsList}>
-            {children}
+            <UnderlineNavItemsRegistry.Provider setRegistry={setRegisteredItems}>
+              {children}
+            </UnderlineNavItemsRegistry.Provider>
           </UnderlineItemList>
 
           <div
@@ -143,7 +124,9 @@ export const UnderlineNav = forwardRef(
 
               <ActionMenu.Overlay>
                 <ActionList>
-                  {menuItems.length > 0 ? (
+                  {registeredItems === undefined ? (
+                    <SkeletonText />
+                  ) : (
                     menuItems.map(([key, allProps]) => {
                       // eslint-disable-next-line @typescript-eslint/no-unused-vars
                       const {children: menuItemChildren, counter, as, onSelect, ...menuItemProps} = allProps
@@ -170,8 +153,6 @@ export const UnderlineNav = forwardRef(
                         </ActionList.LinkItem>
                       )
                     })
-                  ) : (
-                    <SkeletonText />
                   )}
                 </ActionList>
               </ActionMenu.Overlay>

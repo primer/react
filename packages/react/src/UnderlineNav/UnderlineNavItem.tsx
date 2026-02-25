@@ -1,10 +1,11 @@
 import type {RefObject} from 'react'
-import React, {forwardRef, useRef, useContext, useEffect, useId, useState} from 'react'
+import React, {forwardRef, useRef, useContext, useCallback, useSyncExternalStore} from 'react'
 import type {IconProps} from '@primer/octicons-react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import {UnderlineItem} from '../internal/components/UnderlineTabbedInterface'
 import classes from './UnderlineNavItem.module.css'
+import {createDescendantRegistry} from '../utils/descendant-registry'
 
 // adopted from React.AnchorHTMLAttributes
 export type LinkProps = {
@@ -58,6 +59,9 @@ export type UnderlineNavItemProps = {
   counter?: number | string
 } & LinkProps
 
+/** Registry of currently-overflowing underline items. If an item is not overflowing, its value will be `null`. */
+export const UnderlineNavItemsRegistry = createDescendantRegistry<UnderlineNavItemProps | null>()
+
 export const UnderlineNavItem = forwardRef((allProps, forwardedRef) => {
   const {
     as: Component = 'a',
@@ -73,39 +77,24 @@ export const UnderlineNavItem = forwardRef((allProps, forwardedRef) => {
 
   const backupRef = useRef<HTMLElement>(null)
   const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
-  const {loadingCounters, registerItem, unregisterItem} = useContext(UnderlineNavContext)
+  const {loadingCounters} = useContext(UnderlineNavContext)
 
-  const id = useId()
-  const [isOverflowing, setIsOverflowing] = useState(false)
-
-  useEffect(() => {
-    const element = ref.current
-    if (!element) return
-
-    // Even if an item is not overflowing, it still needs to register itself to claim it's place in the registry.
-    // This preserves order - otherwise, items that overflow first would appear first in the menu.
-    registerItem(id, null)
-
-    const observer = new IntersectionObserver(
-      () => {
-        // Overflowing items wrap onto subsequent lines, so their `offsetTop` increases
-        const isOverflowing = element.offsetTop > 0
-        setIsOverflowing(isOverflowing)
-
-        registerItem(id, isOverflowing ? allProps : null)
+  const isOverflowing = useSyncExternalStore(
+    useCallback(
+      onChange => {
+        const observer = new IntersectionObserver(() => onChange(), {
+          threshold: 1,
+        })
+        if (ref.current) observer.observe(ref.current)
+        return () => observer.disconnect()
       },
-      {
-        threshold: 1,
-      },
-    )
+      [ref],
+    ),
+    () => (ref.current ? ref.current.offsetTop > 0 : false),
+    () => false,
+  )
 
-    observer.observe(element)
-
-    return () => observer.disconnect()
-  }, [ref, registerItem, id, allProps])
-
-  // Unregister only on dismount:
-  useEffect(() => () => unregisterItem(id), [id, unregisterItem])
+  UnderlineNavItemsRegistry.useRegisterDescendant(isOverflowing ? allProps : null)
 
   const keyDownHandler = React.useCallback(
     (event: React.KeyboardEvent<HTMLAnchorElement>) => {
