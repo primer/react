@@ -283,14 +283,11 @@ export const Tooltip: ForwardRefExoticComponent<
       tooltip.setAttribute('popover', 'auto')
     }, [tooltipElRef, triggerRef, direction, type])
 
-    useOnEscapePress(
-      (event: KeyboardEvent) => {
-        if (isPopoverOpen) {
-          closeTooltip()
-        }
-      },
-      [isPopoverOpen],
-    )
+    useOnEscapePress(() => {
+      if (isPopoverOpen) {
+        closeTooltip()
+      }
+    }, [isPopoverOpen])
 
     const isMacOS = useIsMacOS()
     const hasAriaLabel = 'aria-label' in rest
@@ -334,10 +331,13 @@ export const Tooltip: ForwardRefExoticComponent<
 
     const childRef = (child as React.ReactElement<TriggerPropsType> & {ref?: React.Ref<HTMLElement>}).ref
 
-    const setTriggerRef = React.useCallback((node: HTMLElement | null) => {
-      assignRef(triggerRef, node)
-      assignRef(childRef, node)
-    }, [triggerRef, childRef])
+    const setTriggerRef = React.useCallback(
+      (node: HTMLElement | null) => {
+        assignRef(triggerRef, node)
+        assignRef(childRef, node)
+      },
+      [triggerRef, childRef],
+    )
 
     const triggerElement =
       React.isValidElement(child) &&
