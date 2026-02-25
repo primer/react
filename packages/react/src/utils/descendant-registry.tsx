@@ -13,10 +13,16 @@ import {
 } from 'react'
 import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect'
 
-interface ProviderProps<T> {
+export interface ProviderProps<T> {
   children: ReactNode
   /** State setter from `useRegistryState`. */
   setRegistry: Dispatch<React.SetStateAction<ReadonlyMap<string, T> | undefined>>
+}
+
+interface DescendantRegistryContext<T> {
+  register: (id: string) => () => void
+  updateValue: (id: string, value: T) => void
+  key: number
 }
 
 /**
@@ -40,11 +46,7 @@ interface ProviderProps<T> {
  * render if necessary.
  */
 export function createDescendantRegistry<T>() {
-  const Context = createContext<{
-    register: (id: string) => () => void
-    updateValue: (id: string, value: T) => void
-    key: number
-  }>({
+  const Context = createContext<DescendantRegistryContext<T>>({
     register: () => () => {},
     updateValue: () => {},
     key: -1,
@@ -59,28 +61,17 @@ export function createDescendantRegistry<T>() {
     return useState<ReadonlyMap<string, T>>()
   }
 
-  /**
-   * Register a descendant component with the registry, using a callback to get the data. Use this instead of
-   * `useRegisterDescendant` when you need to access a ref value or do some calculation to get the data that you want
-   * to register. The callback will be called during the effect phase. Ensure the callback is stable (`useCallback`).
-   */
-  function useRegisterDescendantCallback(valueCallback: () => T) {
+  /** Register a descendant component with the registry. */
+  function useRegisterDescendant(value: T) {
     const {register, updateValue, key} = useContext(Context)
 
     const id = useId()
 
     useEffect(() => register(id), [register, id, key])
 
-    useEffect(() => updateValue(id, valueCallback()), [updateValue, id, valueCallback, key])
+    useEffect(() => updateValue(id, value), [updateValue, id, value, key])
 
     return id
-  }
-
-  /** Simplified version of `useRegisterDescendantCallback` that allows directly passing a memoized value. */
-  function useRegisterDescendant(value: T) {
-    const valueCallback = useCallback(() => value, [value])
-
-    return useRegisterDescendantCallback(valueCallback)
   }
 
   const unsetValue = Symbol('unset')
@@ -164,5 +155,5 @@ export function createDescendantRegistry<T>() {
     return <Context.Provider value={contextValue}>{children}</Context.Provider>
   }
 
-  return {Provider, useRegistryState, useRegisterDescendant, useRegisterDescendantCallback}
+  return {Provider, useRegistryState, useRegisterDescendant}
 }

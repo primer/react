@@ -1,5 +1,5 @@
 import type {RefObject, MouseEventHandler} from 'react'
-import React, {useState, useCallback, useRef, forwardRef} from 'react'
+import React, {useState, useCallback, useRef, forwardRef, useMemo} from 'react'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {ActionList, type ActionListItemProps} from '../ActionList'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
@@ -460,15 +460,11 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
 }
 
 function useWidth(ref: React.RefObject<HTMLElement | null>) {
-  // Storing the width in a ref ensures we don't forget about it when not visible
-  const widthRef = useRef<number>(-1)
+  const [width, setWidth] = useState(-1)
 
-  useIsomorphicLayoutEffect(() => {
-    const width = ref.current?.getBoundingClientRect().width
-    if (width) widthRef.current = width
-  }, [])
+  useIsomorphicLayoutEffect(() => setWidth(ref.current?.getBoundingClientRect().width ?? -1), [ref])
 
-  return widthRef
+  return width
 }
 
 export const ActionBarIconButton = forwardRef(
@@ -479,22 +475,24 @@ export const ActionBarIconButton = forwardRef(
     const {size, isVisibleChild} = React.useContext(ActionBarContext)
     const {groupId} = React.useContext(ActionBarGroupContext)
 
-    const widthRef = useWidth(ref)
+    const width = useWidth(ref)
 
-    const registryProps = useCallback(
+    const {['aria-label']: ariaLabel, icon} = props
+
+    const registryProps = useMemo(
       (): ChildProps => ({
         type: 'action',
-        label: props['aria-label'] ?? '',
-        icon: props.icon,
+        label: ariaLabel ?? '',
+        icon,
         disabled: !!disabled,
         onClick: onClick as MouseEventHandler,
-        width: widthRef.current,
+        width,
         groupId: groupId ?? undefined,
       }),
-      [props, disabled, onClick, groupId, widthRef],
+      [ariaLabel, icon, disabled, onClick, groupId, width],
     )
 
-    const id = ActionBarItemsRegistry.useRegisterDescendantCallback(registryProps)
+    const id = ActionBarItemsRegistry.useRegisterDescendant(registryProps)
 
     const clickHandler = useCallback(
       (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -526,11 +524,11 @@ const ActionBarGroupContext = React.createContext<{
 export const ActionBarGroup = forwardRef(({children}: React.PropsWithChildren, forwardedRef) => {
   const backupRef = useRef<HTMLDivElement>(null)
   const ref = (forwardedRef ?? backupRef) as RefObject<HTMLDivElement>
-  const widthRef = useWidth(ref)
+  const width = useWidth(ref)
 
-  const registryProps = useCallback((): ChildProps => ({type: 'group', width: widthRef.current}), [widthRef])
+  const registryProps = useMemo((): ChildProps => ({type: 'group', width}), [width])
 
-  const id = ActionBarItemsRegistry.useRegisterDescendantCallback(registryProps)
+  const id = ActionBarItemsRegistry.useRegisterDescendant(registryProps)
 
   return (
     <ActionBarGroupContext.Provider value={{groupId: id}}>
@@ -552,21 +550,21 @@ export const ActionBarMenu = forwardRef(
 
     const [menuOpen, setMenuOpen] = useState(false)
 
-    const widthRef = useWidth(ref)
+    const width = useWidth(ref)
 
-    const registryProps = useCallback(
+    const registryProps = useMemo(
       (): ChildProps => ({
         type: 'menu',
-        width: widthRef.current,
+        width,
         label: ariaLabel,
         icon: overflowIcon ? overflowIcon : icon,
         returnFocusRef,
         items,
       }),
-      [ariaLabel, overflowIcon, icon, items, returnFocusRef, widthRef],
+      [ariaLabel, overflowIcon, icon, items, returnFocusRef, width],
     )
 
-    const id = ActionBarItemsRegistry.useRegisterDescendantCallback(registryProps)
+    const id = ActionBarItemsRegistry.useRegisterDescendant(registryProps)
 
     if (!isVisibleChild(id)) return null
 
@@ -587,11 +585,11 @@ export const VerticalDivider = () => {
   const ref = useRef<HTMLDivElement>(null)
   const {isVisibleChild} = React.useContext(ActionBarContext)
 
-  const widthRef = useWidth(ref)
+  const width = useWidth(ref)
 
-  const registryProps = useCallback((): ChildProps => ({type: 'divider', width: widthRef.current}), [widthRef])
+  const registryProps = useMemo((): ChildProps => ({type: 'divider', width}), [width])
 
-  const id = ActionBarItemsRegistry.useRegisterDescendantCallback(registryProps)
+  const id = ActionBarItemsRegistry.useRegisterDescendant(registryProps)
 
   if (!isVisibleChild(id)) return null
   return <div ref={ref} data-component="ActionBar.VerticalDivider" aria-hidden="true" className={styles.Divider} />
