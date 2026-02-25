@@ -34,8 +34,9 @@ interface ProviderProps<T> {
  * 4. Access the registered data using the value from `useRegistryState`. This will be a map of `string` to `T`, where
  *    the string key is a unique and stable identifier for each component which can be used as a `key` if necessary.
  *
- * @note Note that this pattern is not SSR compatible. The registry is built during the effect phase, so it will not
- * be populated on the first render. The initial `undefined` value can be used to show loading UI during SSR/initial
+ * @note Note that this pattern is not SSR compatible. It won't raise errors or hydration mismatches, but the
+ * registry will not be available during SSR. The registry is built during the effect phase, so it will be populated
+ * after hydration on the client. The initial `undefined` value can be used to safely show loading UI during SSR/initial
  * render if necessary.
  */
 export function createDescendantRegistry<T>() {
