@@ -276,6 +276,40 @@ export const Tooltip: ForwardRefExoticComponent<
     return (
       <TooltipContext.Provider value={value}>
         <>
+          <span
+            className={clsx(className, classes.Tooltip)}
+            ref={tooltipElRef}
+            data-direction={calculatedDirection}
+            {...rest}
+            // Only need tooltip role if the tooltip is a description for supplementary information
+            role={type === 'description' ? 'tooltip' : undefined}
+            // stop AT from announcing the tooltip twice: when it is a label type it will be announced with "aria-labelledby",when it is a description type it will be announced with "aria-describedby"
+            aria-hidden={true}
+            // mouse leave and enter on the tooltip itself is needed to keep the tooltip open when the mouse is over the tooltip
+            onMouseEnter={openTooltip}
+            onMouseLeave={closeTooltip}
+            // If there is an aria-label prop, always assign the ID to the parent so the accessible label can be overridden
+            id={hasAriaLabel || !keybindingHint ? tooltipId : undefined}
+          >
+            {keybindingHint ? (
+              <>
+                <span id={hasAriaLabel ? undefined : tooltipId}>
+                  {text}
+                  {/* There is a bug in Chrome browsers where `aria-hidden` text inside the target of an `aria-labelledby`
+               still gets included in the accessible label. `KeybindingHint` renders the symbols as `aria-hidden` text
+               and renders full key names as `VisuallyHidden` text. Due to the browser bug this causes the label text
+               to duplicate the symbols and key names. To work around this, we exclude the hint from being part of the
+               label and instead render the plain keybinding description string. */}
+                  <VisuallyHidden>({getAccessibleKeybindingHintString(keybindingHint, isMacOS)})</VisuallyHidden>
+                </span>
+                <span className={clsx(classes.KeybindingHintContainer, text && classes.HasTextBefore)} aria-hidden>
+                  <KeybindingHint keys={keybindingHint} format="condensed" variant="onEmphasis" size="small" />
+                </span>
+              </>
+            ) : (
+              text
+            )}
+          </span>
           {React.isValidElement(child) &&
             // eslint-disable-next-line react-hooks/refs
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
@@ -340,40 +374,6 @@ export const Tooltip: ForwardRefExoticComponent<
                 child.props.onMouseLeave?.(event)
               },
             })}
-          <span
-            className={clsx(className, classes.Tooltip)}
-            ref={tooltipElRef}
-            data-direction={calculatedDirection}
-            {...rest}
-            // Only need tooltip role if the tooltip is a description for supplementary information
-            role={type === 'description' ? 'tooltip' : undefined}
-            // stop AT from announcing the tooltip twice: when it is a label type it will be announced with "aria-labelledby",when it is a description type it will be announced with "aria-describedby"
-            aria-hidden={true}
-            // mouse leave and enter on the tooltip itself is needed to keep the tooltip open when the mouse is over the tooltip
-            onMouseEnter={openTooltip}
-            onMouseLeave={closeTooltip}
-            // If there is an aria-label prop, always assign the ID to the parent so the accessible label can be overridden
-            id={hasAriaLabel || !keybindingHint ? tooltipId : undefined}
-          >
-            {keybindingHint ? (
-              <>
-                <span id={hasAriaLabel ? undefined : tooltipId}>
-                  {text}
-                  {/* There is a bug in Chrome browsers where `aria-hidden` text inside the target of an `aria-labelledby`
-               still gets included in the accessible label. `KeybindingHint` renders the symbols as `aria-hidden` text
-               and renders full key names as `VisuallyHidden` text. Due to the browser bug this causes the label text
-               to duplicate the symbols and key names. To work around this, we exclude the hint from being part of the
-               label and instead render the plain keybinding description string. */}
-                  <VisuallyHidden>({getAccessibleKeybindingHintString(keybindingHint, isMacOS)})</VisuallyHidden>
-                </span>
-                <span className={clsx(classes.KeybindingHintContainer, text && classes.HasTextBefore)} aria-hidden>
-                  <KeybindingHint keys={keybindingHint} format="condensed" variant="onEmphasis" size="small" />
-                </span>
-              </>
-            ) : (
-              text
-            )}
-          </span>
         </>
       </TooltipContext.Provider>
     )
