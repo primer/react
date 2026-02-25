@@ -13,10 +13,16 @@ import {
 } from 'react'
 import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect'
 
-interface ProviderProps<T> {
+export interface ProviderProps<T> {
   children: ReactNode
   /** State setter from `useRegistryState`. */
   setRegistry: Dispatch<React.SetStateAction<ReadonlyMap<string, T> | undefined>>
+}
+
+interface DescendantRegistryContext<T> {
+  register: (id: string) => () => void
+  updateValue: (id: string, value: T) => void
+  key: number
 }
 
 /**
@@ -40,11 +46,7 @@ interface ProviderProps<T> {
  * render if necessary.
  */
 export function createDescendantRegistry<T>() {
-  const Context = createContext<{
-    register: (id: string) => () => void
-    updateValue: (id: string, value: T) => void
-    key: number
-  }>({
+  const Context = createContext<DescendantRegistryContext<T>>({
     register: () => () => {},
     updateValue: () => {},
     key: -1,
