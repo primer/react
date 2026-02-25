@@ -329,7 +329,7 @@ export const Tooltip: ForwardRefExoticComponent<
       </span>
     )
 
-    const childRef = (child as React.ReactElement<TriggerPropsType> & {ref?: React.Ref<HTMLElement>}).ref
+    const childRef = (child as React.ReactElement<TriggerPropsType>).props.ref as React.Ref<HTMLElement> | undefined
 
     const setTriggerRef = React.useCallback(
       (node: HTMLElement | null) => {
