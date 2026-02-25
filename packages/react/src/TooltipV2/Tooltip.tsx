@@ -71,7 +71,9 @@ function assignRef<T>(ref: React.Ref<T> | undefined, value: T | null) {
     return
   }
 
-  ;(ref as React.MutableRefObject<T | null>).current = value
+  if (typeof ref === 'object' && 'current' in ref) {
+    ;(ref as React.MutableRefObject<T | null>).current = value
+  }
 }
 
 // map tooltip direction to anchoredPosition props
@@ -284,8 +286,6 @@ export const Tooltip: ForwardRefExoticComponent<
     useOnEscapePress(
       (event: KeyboardEvent) => {
         if (isPopoverOpen) {
-          event.stopImmediatePropagation()
-          event.preventDefault()
           closeTooltip()
         }
       },
@@ -332,12 +332,12 @@ export const Tooltip: ForwardRefExoticComponent<
       </span>
     )
 
-    const setTriggerRef = (node: HTMLElement | null) => {
-      assignRef(triggerRef, node)
+    const childRef = (child as React.ReactElement<TriggerPropsType> & {ref?: React.Ref<HTMLElement>}).ref
 
-      const childRef = (child as React.ReactElement<TriggerPropsType> & {ref?: React.Ref<HTMLElement>}).ref
+    const setTriggerRef = React.useCallback((node: HTMLElement | null) => {
+      assignRef(triggerRef, node)
       assignRef(childRef, node)
-    }
+    }, [triggerRef, childRef])
 
     const triggerElement =
       React.isValidElement(child) &&
