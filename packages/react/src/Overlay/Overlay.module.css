@@ -15,7 +15,7 @@
   min-width: 192px;
   height: auto;
   max-height: 100vh;
-  overflow: hidden;
+  overflow: auto;
   background-color: var(--overlay-bgColor);
   border-radius: var(--borderRadius-large);
   box-shadow: var(--shadow-floating-small);

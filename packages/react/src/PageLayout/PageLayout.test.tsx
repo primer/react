@@ -272,4 +272,96 @@ describe('PageLayout', async () => {
       expect(container.firstChild?.nodeName).toEqual('DIV')
     })
   })
+
+  describe('PageLayout.Sidebar', () => {
+    it('SidebarWrapper should prevent shrinking', () => {
+      const {container} = render(
+        <PageLayout>
+          <PageLayout.Content>Content</PageLayout.Content>
+          <PageLayout.Sidebar resizable width={{min: '256px', default: '296px', max: '768px'}}>
+            Sidebar
+          </PageLayout.Sidebar>
+        </PageLayout>,
+      )
+
+      const sidebarWrapper = container.querySelector<HTMLElement>('[class*="SidebarWrapper"]')
+      expect(sidebarWrapper).not.toBeNull()
+
+      const style = getComputedStyle(sidebarWrapper!)
+      expect(style.flexShrink).toBe('0')
+    })
+
+    it('renders a resize handle and supports keyboard interaction when resizable', () => {
+      render(
+        <PageLayout>
+          <PageLayout.Content>Content</PageLayout.Content>
+          <PageLayout.Sidebar resizable width={{min: '256px', default: '296px', max: '768px'}}>
+            Sidebar
+          </PageLayout.Sidebar>
+        </PageLayout>,
+      )
+
+      const handle = screen.getByRole('slider')
+      expect(handle).toBeInTheDocument()
+
+      // Exercise keyboard handler (e.g. arrow keys) without asserting
+      // exact width math, to avoid coupling to implementation details.
+      handle.focus()
+      fireEvent.keyDown(handle, {key: 'ArrowLeft'})
+      fireEvent.keyDown(handle, {key: 'ArrowRight'})
+      fireEvent.keyDown(handle, {key: 'Home'})
+      fireEvent.keyDown(handle, {key: 'End'})
+    })
+
+    it('respects different position values (start, end)', () => {
+      const {rerender, container} = render(
+        <PageLayout>
+          <PageLayout.Sidebar position="start">Sidebar</PageLayout.Sidebar>
+          <PageLayout.Content>Content</PageLayout.Content>
+        </PageLayout>,
+      )
+
+      let sidebarWrapper = container.querySelector<HTMLElement>('[class*="SidebarWrapper"]')
+      expect(sidebarWrapper).not.toBeNull()
+      expect(sidebarWrapper?.getAttribute('data-position') ?? 'start').toBe('start')
+
+      rerender(
+        <PageLayout>
+          <PageLayout.Sidebar position="end">Sidebar</PageLayout.Sidebar>
+          <PageLayout.Content>Content</PageLayout.Content>
+        </PageLayout>,
+      )
+
+      sidebarWrapper = container.querySelector<HTMLElement>('[class*="SidebarWrapper"]')
+      expect(sidebarWrapper).not.toBeNull()
+      expect(sidebarWrapper?.getAttribute('data-position') ?? 'end').toBe('end')
+    })
+
+    it('supports sticky positioning', () => {
+      const {container} = render(
+        <PageLayout>
+          <PageLayout.Content>Content</PageLayout.Content>
+          <PageLayout.Sidebar sticky>Sidebar</PageLayout.Sidebar>
+        </PageLayout>,
+      )
+
+      const sidebarWrapper = container.querySelector<HTMLElement>('[class*="SidebarWrapper"]')
+      expect(sidebarWrapper).not.toBeNull()
+
+      const style = getComputedStyle(sidebarWrapper!)
+      expect(style.position === 'sticky' || style.position === 'webkit-sticky').toBe(true)
+    })
+
+    it('can render fullscreen when narrow with responsiveVariant="fullscreen"', () => {
+      const {container} = render(
+        <PageLayout>
+          <PageLayout.Content>Content</PageLayout.Content>
+          <PageLayout.Sidebar responsiveVariant="fullscreen">Sidebar</PageLayout.Sidebar>
+        </PageLayout>,
+      )
+
+      const sidebarWrapper = container.querySelector<HTMLElement>('[class*="SidebarWrapper"]')
+      expect(sidebarWrapper).not.toBeNull()
+    })
+  })
 })

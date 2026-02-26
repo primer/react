@@ -1,5 +1,83 @@
 # @primer/react
 
+## 38.13.0
+
+### Minor Changes
+
+- [#7099](https://github.com/primer/react/pull/7099) [`4720c2f`](https://github.com/primer/react/commit/4720c2f27cfacc7600244422ee22af9104b5aa09) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Banner: Use `aria-labelledby` to reference the title for the landmark region instead of generic variant labels.
+
+- [#7521](https://github.com/primer/react/pull/7521) [`12dda86`](https://github.com/primer/react/commit/12dda8654b07bffc33e6b8f29580914c95f3e8e2) Thanks [@TylerJDev](https://github.com/TylerJDev)! - PageLayout: Add `PageLayout.Sidebar` sub-component
+
+### Patch Changes
+
+- [#7537](https://github.com/primer/react/pull/7537) [`4fd987c`](https://github.com/primer/react/commit/4fd987c4194f51dc7e66f16895542a1e4678bde7) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(ActionList): enable React Compiler
+
+- [#7546](https://github.com/primer/react/pull/7546) [`86d6897`](https://github.com/primer/react/commit/86d68971a602be6c99535eb01227bf48dd87cfdc) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(Announce): skip getComputedStyle when there is no text content to announce
+
+- [#7568](https://github.com/primer/react/pull/7568) [`aa46098`](https://github.com/primer/react/commit/aa460989194e6bb2c0e15e16023a07cf7fc42dc0) Thanks [@HiroAgustin](https://github.com/HiroAgustin)! - Blankslate: Add `text-wrap: balance` to Heading and Description
+
+- [#7552](https://github.com/primer/react/pull/7552) [`551ec63`](https://github.com/primer/react/commit/551ec6338af5c45e3f549245d85a4dd5a708df47) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(Button): fix CounterLabel remount and remove conditional DEV hook
+
+- [#7504](https://github.com/primer/react/pull/7504) [`d91e78e`](https://github.com/primer/react/commit/d91e78e8d1e69915222354b95d09d93d269dbd8b) Thanks [@TylerJDev](https://github.com/TylerJDev)! - UnderlineNav: Adds `overflow: hidden` when the "More" button isn't present
+
+- [#7526](https://github.com/primer/react/pull/7526) [`0c2358a`](https://github.com/primer/react/commit/0c2358aa12a409f7cbcf15ce4fd41cbb9eee4b6c) Thanks [@hectahertz](https://github.com/hectahertz)! - Add `content-visibility: auto` to ActionList items to improve rendering performance for large lists by allowing the browser to skip layout and paint for off-screen items.
+
+- [#7556](https://github.com/primer/react/pull/7556) [`6dc1858`](https://github.com/primer/react/commit/6dc1858538e3b7ea66b78dd9d37c391c530d78ae) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(ActionList): replace `:has([aria-disabled])` child scan with `data-is-disabled` attribute for faster style recalculation
+
+- [#7548](https://github.com/primer/react/pull/7548) [`d4b32c3`](https://github.com/primer/react/commit/d4b32c3672d3d5421711324654c1028527dcdf38) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(useIsMacOS): replace useState+useEffect with useSyncExternalStore to eliminate unnecessary re-render
+
+## 38.12.0
+
+### Minor Changes
+
+- [#7348](https://github.com/primer/react/pull/7348) [`3c160b2`](https://github.com/primer/react/commit/3c160b26bded975de6175ccf04272e8946cef54e) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Add `currentWidth` and `onResizeEnd` props to PageLayout.Pane for controlled resizable width
+
+  The `PageLayout.Pane` component now supports controlled width:
+
+  - `onResizeEnd` — callback fired when a resize operation ends (pointer release or keyboard key up). Replaces localStorage persistence. Requires `currentWidth`.
+  - `currentWidth` — sets the current displayed width in pixels (`number | undefined`). Pass `undefined` when the persisted value hasn't loaded yet. Requires `onResizeEnd`.
+
+  Both props must be provided together (enforced by TypeScript). `resizable` remains a plain `boolean` prop.
+
+  These props are only meaningful when `resizable={true}` — without it, no drag handle renders so `onResizeEnd` never fires.
+
+  **New export:**
+
+  - `defaultPaneWidth` — Record of preset width values: `{small: 256, medium: 296, large: 320}`
+
+  **Example usage:**
+
+  ```tsx
+  import {PageLayout, defaultPaneWidth} from '@primer/react'
+
+  // Default behavior (unchanged) — localStorage persistence
+  <PageLayout.Pane resizable />
+
+  // Controlled width with custom persistence
+  const [width, setWidth] = useState(defaultPaneWidth.medium)
+  <PageLayout.Pane
+    resizable
+    currentWidth={width}
+    onResizeEnd={(newWidth) => {
+      setWidth(newWidth)
+      myStorage.save('pane-width', newWidth)
+    }}
+  />
+
+  // Async load — pass undefined until value is fetched
+  <PageLayout.Pane
+    resizable
+    currentWidth={savedWidth ?? undefined}
+    onResizeEnd={handleResizeEnd}
+  />
+  ```
+
+### Patch Changes
+
+- [#7527](https://github.com/primer/react/pull/7527) [`c87db98`](https://github.com/primer/react/commit/c87db981280090cdccc84d19c607d1462212d223) Thanks [@llastflowers](https://github.com/llastflowers)! - Update PageHeader story to have semantic headings
+
+- [#7535](https://github.com/primer/react/pull/7535) [`d86c970`](https://github.com/primer/react/commit/d86c970be94dc47da55d492dc978d63d3f9ca005) Thanks [@francinelucca](https://github.com/francinelucca)! - fix: ActionBar overflow menu not closing on select
+
 ## 38.11.0
 
 ### Minor Changes
