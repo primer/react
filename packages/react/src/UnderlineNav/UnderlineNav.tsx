@@ -1,5 +1,5 @@
 import type {RefObject} from 'react'
-import React, {forwardRef, useEffect, useReducer, useRef} from 'react'
+import React, {forwardRef, useEffect, useRef, useState} from 'react'
 import VisuallyHidden from '../_VisuallyHidden'
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
@@ -56,7 +56,7 @@ export const UnderlineNav = forwardRef(
     const listRef = useRef<HTMLUListElement>(null)
 
     /** Tracks whether any item has ever overflowed for the lifecycle of this component. Used to prevent flickering. */
-    const [hasEverOverflowed, registerHasOverflowed] = useReducer(() => true, false)
+    const [hasEverOverflowed, setHasOverflowed] = useState(false)
 
     const [registeredItems, setRegisteredItems] = UnderlineNavItemsRegistry.useRegistryState()
 
@@ -65,7 +65,7 @@ export const UnderlineNav = forwardRef(
     )
 
     const isOverflowing = menuItems.length > 0
-    if (isOverflowing) registerHasOverflowed()
+    if (isOverflowing && !hasEverOverflowed) setHasOverflowed(true)
 
     if (__DEV__) {
       const validChildren = getValidChildren(children)
