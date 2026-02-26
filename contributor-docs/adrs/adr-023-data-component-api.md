@@ -1,13 +1,13 @@
-# Public `data-component` API for targeting component parts
+# Public `data-component` and `data-slot` API for targeting component parts
 
 📆 Date: 2026-02-20
 
 ## Status
 
-| Stage          | State          |
-| -------------- | -------------- |
-| Status         | Proposed ❓    |
-| Implementation |  |
+| Stage          | State       |
+| -------------- | ----------- |
+| Status         | Proposed ❓ |
+| Implementation |             |
 
 ## Context
 
@@ -43,29 +43,31 @@ without notice and coverage is incomplete — many component parts have no
 
 ## Decision
 
-Establish `data-component` as a **public, stable API** for identifying component
-parts in the DOM. Every DOM element that represents a component or a meaningful
-structural part of a component must include a `data-component` attribute.
+Establish two **public, stable data attributes** for identifying components and
+their parts in the DOM:
+
+- **`data-component`** — identifies the root element of a component or
+  sub-component.
+- **`data-slot`** — identifies an inner structural part within a component.
 
 ### Naming convention
 
-Values follow **dot notation mirroring the React component API**, using
-PascalCase throughout:
+All values use PascalCase. The two attributes serve distinct roles:
 
 ```
-data-component="ComponentName"              → root element
-data-component="ComponentName.PartName"     → sub-component or internal part
+data-component="ComponentName"     → root element of a component or sub-component
+data-slot="PartName"               → inner part within a component
 ```
 
 #### Rules
 
-1. **Root components** use their React component name in PascalCase.
+1. **Root components** get `data-component` with their React component name.
 
    ```html
    <ul data-component="ActionList"></ul>
    ```
 
-2. **Public sub-components** use dot notation matching the React API. If
+2. **Public sub-components** get `data-component` matching the React API. If
    consumers write `<ActionList.Item>`, the DOM element gets
    `data-component="ActionList.Item"`.
 
@@ -73,132 +75,152 @@ data-component="ComponentName.PartName"     → sub-component or internal part
    <li data-component="ActionList.Item"></li>
    ```
 
-3. **Internal structural parts** (DOM elements that are not exposed as a
-   sub-component but represent a meaningful part of the structure) use the parent
-   component name followed by a PascalCase part name in dot notation.
+   Note: a sub-component root uses `data-component`, not `data-slot`, because it
+   is itself a component — it has its own props, its own identity, and may
+   contain its own slots.
+
+3. **Inner structural parts** (DOM elements that are not exposed as a
+   sub-component but represent a meaningful part of the structure) get
+   `data-slot` with a PascalCase name describing the part.
 
    ```html
-   <span data-component="ActionList.ItemLabel">
-     <span data-component="ActionList.ItemContent"> <span data-component="Button.Content"></span></span
-   ></span>
+   <span data-slot="Label">monalisa</span>
+   <span data-slot="Content">...</span>
+   <span data-slot="LeadingVisual"><img /></span>
    ```
 
-4. **State and modifier attributes remain separate.** The `data-component`
-   attribute identifies _what_ a part is. Existing attributes like
+   Slot names are **scoped to their parent component** — a `Label` slot inside
+   `ActionList.Item` is distinct from a `Label` slot inside `Button` because
+   they exist within different `data-component` boundaries.
+
+4. **State and modifier attributes remain separate.** `data-component` and
+   `data-slot` identify _what_ an element is. Existing attributes like
    `data-variant`, `data-size`, and `data-loading` describe the _state_ of that
-   part. These concerns must not be mixed.
+   element. These concerns must not be mixed.
 
    ```html
-   <li data-component="ActionList.Item" data-variant="danger" data-active="true"></li>
+   <li data-component="ActionList.Item" data-variant="danger" data-active="true">
+     <span data-slot="Label">Delete file</span>
+   </li>
    ```
 
 ### Relationship to CSS Modules and CSS Layers
 
-`data-component` complements the existing styling architecture:
+`data-component` and `data-slot` complement the existing styling architecture:
 
 - **CSS Modules** provide scoped class names for internal styling. Components
   continue to use CSS Module classes for their own styles.
 - **CSS Layers** ([ADR-021](./adr-021-css-layers.md)) ensure that consumer
   overrides take precedence over component styles regardless of specificity.
-- **`data-component`** provides the stable selectors that consumers use to
-  target parts within those overrides.
+- **`data-component` and `data-slot`** provide the stable selectors that
+  consumers use to target components and their parts within those overrides.
 
 Together, these three mechanisms give consumers a complete override path:
 
 ```css
-/* Consumer override — wins over component styles thanks to CSS layers */
-[data-component='ActionList.ItemLabel'] {
+/* Target a component */
+[data-component='ActionList.Item'] {
+  border-radius: 8px;
+}
+
+/* Target a slot within a component */
+[data-component='ActionList.Item'] [data-slot='Label'] {
   font-weight: 600;
 }
 ```
 
 ### Internal CSS usage
 
-Components may use `data-component` selectors in their own CSS Modules for
-targeting child parts. This replaces ad-hoc patterns like bare `[data-component='text']` with the
-standardized naming:
+Components may use `data-slot` selectors in their own CSS Modules for targeting
+child parts. This replaces ad-hoc patterns like bare `[data-component='text']`
+with the standardized naming:
 
 ```css
 /* ButtonBase.module.css */
-& :where([data-component='Button.LeadingVisual']) {
+& :where([data-slot='LeadingVisual']) {
   color: var(--button-leadingVisual-fgColor);
 }
 ```
 
 ### Coverage requirements
 
-Every component must provide `data-component` on:
+Every component must provide:
 
-1. The root element
-2. Every public sub-component element
-3. Every internal structural element that a consumer might reasonably need to
-   target (labels, content wrappers, visual slots, action slots)
+- **`data-component`** on the root element of every component and public
+  sub-component
+- **`data-slot`** on every internal structural element that a consumer might
+  reasonably need to target (labels, content wrappers, visual slots, action
+  slots)
 
 Elements that are purely for layout and have no semantic meaning (spacers,
-wrappers that exist only for CSS grid/flex layout) do not require
-`data-component`.
+wrappers that exist only for CSS grid/flex layout) do not require either
+attribute.
 
 ### Testing requirements
 
-The presence and value of `data-component` attributes must be covered by tests.
-This can be achieved through:
+The presence and values of `data-component` and `data-slot` attributes must be
+covered by tests. This can be achieved through:
 
-- Unit tests that assert `data-component` is present on rendered elements
+- Unit tests that assert the attributes are present on rendered elements
 - Snapshot tests that capture the attribute values
 
-Changing a `data-component` value is a **breaking change** and must follow the
-standard breaking change process.
+Changing a `data-component` or `data-slot` value is a **breaking change** and
+must follow the standard breaking change process.
 
 ### Migration
 
-Existing `data-component` values must be migrated to the new convention. This
-migration is a breaking change and should be coordinated as part of a major
-release. The following values need to change:
+Existing `data-component` values must be migrated to the new convention. Inner
+parts move from `data-component` to `data-slot` with simplified names (since
+they are scoped to their parent component). This migration is a breaking change
+and should be coordinated as part of a major release.
 
-| Current value                           | New value                   |
-| --------------------------------------- | --------------------------- |
-| `buttonContent`                         | `Button.Content`            |
-| `text` (in Button)                      | `Button.Label`              |
-| `leadingVisual` (in Button)             | `Button.LeadingVisual`      |
-| `trailingVisual` (in Button)            | `Button.TrailingVisual`     |
-| `trailingAction` (in Button)            | `Button.TrailingAction`     |
-| `ButtonCounter`                         | `Button.Counter`            |
-| `PH_LeadingAction`                      | `PageHeader.LeadingAction`  |
-| `PH_Breadcrumbs`                        | `PageHeader.Breadcrumbs`    |
-| `PH_LeadingVisual`                      | `PageHeader.LeadingVisual`  |
-| `PH_Title`                              | `PageHeader.Title`          |
-| `PH_TrailingVisual`                     | `PageHeader.TrailingVisual` |
-| `PH_TrailingAction`                     | `PageHeader.TrailingAction` |
-| `PH_Actions`                            | `PageHeader.Actions`        |
-| `PH_Navigation`                         | `PageHeader.Navigation`     |
-| `TitleArea`                             | `PageHeader.TitleArea`      |
-| `GroupHeadingWrap`                      | `ActionList.GroupHeading`   |
-| `ActionList.Item--DividerContainer`     | `ActionList.ItemSubContent` |
-| `icon` (in UnderlineTabbedInterface)    | `UnderlineNav.Icon`         |
-| `text` (in UnderlineTabbedInterface)    | `UnderlineNav.Label`        |
-| `counter` (in UnderlineTabbedInterface) | `UnderlineNav.Counter`      |
-| `multilineContainer`                    | `SkeletonText.Container`    |
-| `input` (in TextInput)                  | `TextInput.Input`           |
-| `AnchoredOverlay` (no dot)              | `AnchoredOverlay`           |
-| `ActionBar.VerticalDivider`             | `ActionBar.VerticalDivider` |
+| Current attr     | Current value                           | New attr         | New value                   |
+| ---------------- | --------------------------------------- | ---------------- | --------------------------- |
+| `data-component` | `buttonContent`                         | `data-slot`      | `Content`                   |
+| `data-component` | `text` (in Button)                      | `data-slot`      | `Label`                     |
+| `data-component` | `leadingVisual` (in Button)             | `data-slot`      | `LeadingVisual`             |
+| `data-component` | `trailingVisual` (in Button)            | `data-slot`      | `TrailingVisual`            |
+| `data-component` | `trailingAction` (in Button)            | `data-slot`      | `TrailingAction`            |
+| `data-component` | `ButtonCounter`                         | `data-slot`      | `Counter`                   |
+| `data-component` | `PH_LeadingAction`                      | `data-slot`      | `LeadingAction`             |
+| `data-component` | `PH_Breadcrumbs`                        | `data-slot`      | `Breadcrumbs`               |
+| `data-component` | `PH_LeadingVisual`                      | `data-slot`      | `LeadingVisual`             |
+| `data-component` | `PH_Title`                              | `data-slot`      | `Title`                     |
+| `data-component` | `PH_TrailingVisual`                     | `data-slot`      | `TrailingVisual`            |
+| `data-component` | `PH_TrailingAction`                     | `data-slot`      | `TrailingAction`            |
+| `data-component` | `PH_Actions`                            | `data-slot`      | `Actions`                   |
+| `data-component` | `PH_Navigation`                         | `data-slot`      | `Navigation`                |
+| `data-component` | `TitleArea`                             | `data-slot`      | `TitleArea`                 |
+| `data-component` | `GroupHeadingWrap`                      | `data-component` | `ActionList.GroupHeading`   |
+| `data-component` | `ActionList.Item--DividerContainer`     | `data-slot`      | `SubContent`                |
+| `data-component` | `icon` (in UnderlineTabbedInterface)    | `data-slot`      | `Icon`                      |
+| `data-component` | `text` (in UnderlineTabbedInterface)    | `data-slot`      | `Label`                     |
+| `data-component` | `counter` (in UnderlineTabbedInterface) | `data-slot`      | `Counter`                   |
+| `data-component` | `multilineContainer`                    | `data-slot`      | `Container`                 |
+| `data-component` | `input` (in TextInput)                  | `data-slot`      | `Input`                     |
+| `data-component` | `AnchoredOverlay`                       | `data-component` | `AnchoredOverlay`           |
+| `data-component` | `ActionBar.VerticalDivider`             | `data-component` | `ActionBar.VerticalDivider` |
 
-Components that currently have no `data-component` on key parts must also be
-updated to add them.
+Components that currently have no attributes on key parts must also be updated.
 
 ## Consequences
 
 ### Positive
 
-- **Stable selectors for consumers.** Consumers can target any part of a
-  component using `[data-component="..."]` selectors that are immune to CSS
-  Module hash changes and version upgrades.
+- **Stable selectors for consumers.** Consumers can target any component with
+  `[data-component="..."]` and any inner part with `[data-slot="..."]` — both
+  are immune to CSS Module hash changes and version upgrades.
+- **Clear separation.** `data-component` answers "which component is this?"
+  while `data-slot` answers "which part of the component is this?" This makes
+  the DOM self-documenting and avoids overloading a single attribute.
 - **Consistent naming.** A single convention replaces four inconsistent patterns,
   making the codebase easier to learn and maintain.
-- **Self-documenting.** Inspecting any element in DevTools immediately reveals
-  what component and part it belongs to — the values map directly to the React
-  API.
+- **Scoped slot names.** Because `data-slot` values are scoped to their parent
+  `data-component`, names like `Label` or `LeadingVisual` can be reused across
+  components without ambiguity.
 - **Enables JavaScript queries.** Consumers and tests can use
-  `querySelectorAll('[data-component="ActionList.Item"]')` reliably.
+  `querySelectorAll('[data-component="ActionList.Item"] [data-slot="Label"]')`
+  reliably.
 - **Complements CSS Layers.** Together with ADR-021, this gives consumers a
   complete, specificity-safe override mechanism.
 
