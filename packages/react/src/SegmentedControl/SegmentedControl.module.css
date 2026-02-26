@@ -1,20 +1,21 @@
 .SegmentedControl {
-  /* Component tokens – override these custom properties to customize the control */
-  --segmented-control-bgColor: var(--controlTrack-bgColor-rest);
-  --segmented-control-bgColor-hover: var(--controlTrack-bgColor-hover);
-  --segmented-control-bgColor-active: var(--controlTrack-bgColor-active);
-  --segmented-control-borderColor: var(--controlTrack-borderColor-rest, transparent);
-  --segmented-control-borderRadius: var(--borderRadius-medium);
-  --segmented-control-fgColor-icon: var(--fgColor-muted);
-  --segmented-control-fgColor-disabled: var(--fgColor-disabled);
-  --segmented-control-fontWeight: var(--base-text-weight-normal);
-  --segmented-control-selected-bgColor: var(--controlKnob-bgColor-rest);
-  --segmented-control-selected-borderColor: var(--controlKnob-borderColor-rest);
-  --segmented-control-selected-fontWeight: var(--base-text-weight-semibold);
-
-  /* TODO: use primitive `primer.control.medium.paddingInline.normal` when it is available */
-  --segmented-control-button-inner-padding: 12px;
-  --segmented-control-button-bg-inset: 4px;
+  /*
+   * Component tokens – override these custom properties from a parent element to customize the control:
+   *
+   * --segmented-control-bgColor
+   * --segmented-control-bgColor-hover
+   * --segmented-control-bgColor-active
+   * --segmented-control-borderColor
+   * --segmented-control-borderRadius
+   * --segmented-control-fgColor-icon
+   * --segmented-control-fgColor-disabled
+   * --segmented-control-fontWeight
+   * --segmented-control-selected-bgColor
+   * --segmented-control-selected-borderColor
+   * --segmented-control-selected-fontWeight
+   * --segmented-control-button-inner-padding
+   * --segmented-control-button-bg-inset
+   */
 
   /* TODO: use primitive `control.medium.size` when it is available instead of '32px' */
   --segmented-control-icon-width: 32px;
@@ -27,11 +28,13 @@
   margin: 0;
   font-size: var(--text-body-size-medium);
   /* stylelint-disable-next-line primer/colors */
-  background-color: var(--segmented-control-bgColor);
-  /* stylelint-disable-next-line primer/colors */
-  border: var(--borderWidth-thin) solid var(--segmented-control-borderColor);
+  background-color: var(--segmented-control-bgColor, var(--controlTrack-bgColor-rest));
+  /* stylelint-disable primer/colors */
+  border: var(--borderWidth-thin) solid
+    var(--segmented-control-borderColor, var(--controlTrack-borderColor-rest, transparent));
+  /* stylelint-enable primer/colors */
   /* stylelint-disable-next-line primer/borders */
-  border-radius: var(--segmented-control-borderRadius);
+  border-radius: var(--segmented-control-borderRadius, var(--borderRadius-medium));
 
   /* Responsive full-width */
   &[data-full-width='true'] {
@@ -232,23 +235,23 @@
   width: 100%;
   height: 100%;
   /* stylelint-disable-next-line primer/spacing */
-  padding: var(--segmented-control-button-bg-inset);
+  padding: var(--segmented-control-button-bg-inset, 4px);
   font-family: inherit;
   font-size: inherit;
-  font-weight: var(--base-text-weight-light);
+  font-weight: var(--segmented-control-fontWeight, var(--base-text-weight-normal));
   color: currentColor;
   cursor: pointer;
   background-color: transparent;
   border-color: transparent;
   border-width: 0;
   /* stylelint-disable-next-line primer/borders */
-  border-radius: var(--segmented-control-borderRadius);
+  border-radius: var(--segmented-control-borderRadius, var(--borderRadius-medium));
 
   & svg {
     /* stylelint-disable-next-line primer/colors */
-    fill: var(--segmented-control-fgColor-icon);
+    fill: var(--segmented-control-fgColor-icon, var(--fgColor-muted));
     /* stylelint-disable-next-line primer/colors */
-    color: var(--segmented-control-fgColor-icon);
+    color: var(--segmented-control-fgColor-icon, var(--fgColor-muted));
   }
 
   /* fallback :focus state */
@@ -279,14 +282,14 @@
   &[aria-disabled='true']:not([aria-current='true']) {
     cursor: not-allowed;
     /* stylelint-disable-next-line primer/colors */
-    color: var(--segmented-control-fgColor-disabled);
+    color: var(--segmented-control-fgColor-disabled, var(--fgColor-disabled));
     background-color: transparent;
 
     & svg {
       /* stylelint-disable-next-line primer/colors */
-      fill: var(--segmented-control-fgColor-disabled);
+      fill: var(--segmented-control-fgColor-disabled, var(--fgColor-disabled));
       /* stylelint-disable-next-line primer/colors */
-      color: var(--segmented-control-fgColor-disabled);
+      color: var(--segmented-control-fgColor-disabled, var(--fgColor-disabled));
     }
   }
 
@@ -310,10 +313,16 @@
 .Content {
   display: flex;
   height: 100%;
-  /* stylelint-disable-next-line primer/spacing */
-  padding-right: calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset));
-  /* stylelint-disable-next-line primer/spacing */
-  padding-left: calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset));
+  /* stylelint-disable primer/spacing */
+  padding-right: calc(
+    var(--segmented-control-button-inner-padding, var(--base-size-12)) -
+      var(--segmented-control-button-bg-inset, var(--base-size-4))
+  );
+  padding-left: calc(
+    var(--segmented-control-button-inner-padding, var(--base-size-12)) -
+      var(--segmented-control-button-bg-inset, var(--base-size-4))
+  );
+  /* stylelint-enable primer/spacing */
   border-color: transparent;
   border-style: solid;
   border-width: var(--borderWidth-thin);
@@ -322,39 +331,43 @@
     innerRadius = outerRadius - distance/2
     https://stackoverflow.com/questions/2932146/math-problem-determine-the-corner-radius-of-an-inner-border-based-on-outer-corn
   */
-  /* stylelint-disable-next-line primer/borders */
-  border-radius: calc(var(--segmented-control-borderRadius) - var(--segmented-control-button-bg-inset) / 2);
+  /* stylelint-disable primer/borders */
+  border-radius: calc(
+    var(--segmented-control-borderRadius, var(--borderRadius-medium)) - var(--segmented-control-button-bg-inset, 4px) /
+      2
+  );
+  /* stylelint-enable primer/borders */
   align-items: center;
   justify-content: center;
 }
 
 .Button[aria-current='true'] {
   padding: 0;
-  font-weight: var(--base-text-weight-light);
+  font-weight: var(--segmented-control-selected-fontWeight, var(--base-text-weight-semibold));
 
   .Content {
     /* stylelint-disable-next-line primer/spacing */
-    padding-right: var(--segmented-control-button-inner-padding);
+    padding-right: var(--segmented-control-button-inner-padding, 12px);
     /* stylelint-disable-next-line primer/spacing */
-    padding-left: var(--segmented-control-button-inner-padding);
+    padding-left: var(--segmented-control-button-inner-padding, 12px);
     /* stylelint-disable-next-line primer/colors */
-    background-color: var(--segmented-control-selected-bgColor);
+    background-color: var(--segmented-control-selected-bgColor, var(--controlKnob-bgColor-rest));
     /* stylelint-disable-next-line primer/colors */
-    border-color: var(--segmented-control-selected-borderColor);
+    border-color: var(--segmented-control-selected-borderColor, var(--controlKnob-borderColor-rest));
     /* stylelint-disable-next-line primer/borders */
-    border-radius: var(--segmented-control-borderRadius);
+    border-radius: var(--segmented-control-borderRadius, var(--borderRadius-medium));
   }
 }
 
 .Button:not([aria-current='true'], [aria-disabled='true']) {
   &:hover .Content {
     /* stylelint-disable-next-line primer/colors */
-    background-color: var(--segmented-control-bgColor-hover);
+    background-color: var(--segmented-control-bgColor-hover, var(--controlTrack-bgColor-hover));
   }
 
   &:active .Content {
     /* stylelint-disable-next-line primer/colors */
-    background-color: var(--segmented-control-bgColor-active);
+    background-color: var(--segmented-control-bgColor-active, var(--controlTrack-bgColor-active));
   }
 }
 
@@ -362,7 +375,7 @@
   display: block;
   height: 0;
   overflow: hidden;
-  font-weight: var(--base-text-weight-light);
+  font-weight: var(--segmented-control-selected-fontWeight, var(--base-text-weight-semibold));
   pointer-events: none;
   visibility: hidden;
   content: attr(data-text);
