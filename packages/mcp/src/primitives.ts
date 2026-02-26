@@ -463,9 +463,30 @@ Use these names in \`find_tokens(group: "...")\`:
   - *Note*: \`control\` is for form inputs; \`button\` is for triggers.
 
 ## 7. Token Bundle Recipes (Recommended)
-- **Forms/Inputs**: \`["control", "focus", "outline", "text", "borderRadius"]\`
+- **Forms/Inputs**: \`["control", "focus", "outline", "text", "borderRadius", "stack"]\`
 - **Modals/Dialogs**: \`["overlay", "shadow", "outline", "borderRadius", "bgColor"]\`
 - **Data Tables**: \`["stack", "borderColor", "text", "bgColor"]\`
+- **Cards/Containers**: ["stack", "bgColor", "borderColor", "shadow"]
+- **Interactive Lists**: ["stack", "text", "control", "focus", "borderColor", "bgColor"]
+- **Navigation & Sidebars**: ["control", "text", "accent", "stack", "focus"]
+
+## 8. Color Translation & Semantic Roles
+When a user provides a generic color, you MUST map it to these functional roles:
+
+| Color | Role | Common Use Case |
+| :--- | :--- | :--- |
+| **Blue** | \`accent\` | Links, primary buttons, selected states |
+| **Green** | \`success\` | Positive actions, "Done" states |
+| **Red** | \`danger\` | Errors, destructive actions, danger buttons |
+| **Yellow** | \`attention\` | Warnings, pending states, queued items |
+| **Purple** | \`done\` | Completed tasks, merged PRs |
+| **Pink** | \`sponsors\` | Sponsorship or heart-themed UI |
+| **Grey** | \`default/muted\` | Secondary text, subtle borders |
+
+### ⚠️ Usage Rules:
+1. **Emphasis Suffix**: Use \`-emphasis\` (solid color) for primary actions.
+2. **Muted Suffix**: Use \`-muted\` (light wash) for background alerts or subtle highlights.
+3. **onEmphasis**: If using an \`-emphasis\` background, you MUST use \`fgColor-onEmphasis\` for text.
 `.trim()
 }
 
@@ -648,6 +669,27 @@ const GROUP_ALIASES: Record<string, string> = {
   line: 'borderColor',
   stroke: 'borderColor',
   separator: 'borderColor',
+
+  // Color-to-Semantic Intent Mapping
+  red: 'danger',
+  green: 'success',
+  yellow: 'attention',
+  orange: 'severe',
+  blue: 'accent',
+  purple: 'done',
+  pink: 'sponsors',
+  grey: 'neutral',
+  gray: 'neutral',
+
+  // Descriptive Aliases
+  light: 'muted',
+  subtle: 'muted',
+  dark: 'emphasis',
+  strong: 'emphasis',
+  intense: 'emphasis',
+  bold: 'emphasis',
+  vivid: 'emphasis',
+  highlight: 'emphasis',
 }
 
 // Match a token against a resolved group by checking both the token name prefix and the group label

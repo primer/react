@@ -479,7 +479,7 @@ server.registerTool(
   'find_tokens',
   {
     description:
-      "Search for specific tokens. Tip: If you only provide a 'group' and leave 'query' empty, it returns all tokens in that category. Avoid property-by-property searching.",
+      'Search for specific tokens. Tip: If you only provide a \'group\' and leave \'query\' empty, it returns all tokens in that category. Avoid property-by-property searching. COLOR RESOLUTION: If a user asks for "pink" or "blue", do not search for the color name. Use the semantic intent: blue->accent, red->danger, green->success. Always check both "emphasis" and "muted" variants for background colors.',
     inputSchema: {
       query: z
         .string()
