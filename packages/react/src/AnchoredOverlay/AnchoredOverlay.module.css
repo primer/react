@@ -26,7 +26,7 @@
   /* Default position: anchorSide: 'outside-bottom', anchorAlign: 'start' */
   top: calc(anchor(bottom) + var(--base-size-4));
   left: anchor(left);
-  position: absolute;
+  position: fixed;
 
   position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
   position-visibility: anchors-visible;
