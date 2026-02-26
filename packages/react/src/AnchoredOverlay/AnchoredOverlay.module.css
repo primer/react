@@ -22,10 +22,11 @@
 .AnchoredOverlay {
   /* Anchor position, this is currently tied to `<Overlay>` */
   position-anchor: --anchored-overlay-anchor;
-
-  position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+  position-try-fallbacks:
+    flip-block,
+    flip-inline,
+    flip-block flip-inline;
   position-visibility: anchors-visible;
-
   z-index: 100;
   position: fixed;
 

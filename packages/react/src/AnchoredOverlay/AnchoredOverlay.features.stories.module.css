@@ -89,10 +89,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--borderColor-default, #d1d9e0);
+  border: var(--borderWidth-thin) solid var(--borderColor-default, #d1d9e0);
   padding: var(--base-size-16);
   position: relative;
-
   height: 200px;
 }
 
@@ -116,7 +115,7 @@
 .ScrollContainer {
   height: 400px;
   overflow: auto;
-  border: 1px solid var(--borderColor-default, #d1d9e0);
+  border: var(--borderWidth-thin) solid var(--borderColor-default, #d1d9e0);
   border-radius: var(--borderRadius-medium);
   position: relative;
 }
@@ -138,7 +137,7 @@
   justify-content: space-between;
   padding: var(--base-size-8) var(--base-size-16);
   background-color: var(--bgColor-default);
-  border-bottom: 1px solid var(--borderColor-default, #d1d9e0);
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default, #d1d9e0);
 }
 
 .StickyScrollArea {
