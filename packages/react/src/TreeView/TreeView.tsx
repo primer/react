@@ -150,6 +150,14 @@ const Root: React.FC<TreeViewProps> = ({
     })
   }, [])
 
+  useEffect(() => {
+    return () => {
+      if (pendingScrollRef.current !== null) {
+        cancelAnimationFrame(pendingScrollRef.current)
+      }
+    }
+  }, [])
+
   const expandedStateCache = React.useRef<Map<string, boolean> | null>(null)
 
   if (expandedStateCache.current === null) {
