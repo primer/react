@@ -23,13 +23,31 @@
   /* Anchor position, this is currently tied to `<Overlay>` */
   position-anchor: --anchored-overlay-anchor;
 
-  /* Default position: anchorSide: 'outside-bottom', anchorAlign: 'start' */
-  top: calc(anchor(bottom) + var(--base-size-4));
-  left: anchor(left);
-  position: fixed;
-
   position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
   position-visibility: anchors-visible;
 
   z-index: 100;
+  position: fixed;
+
+  &[data-side='outside-bottom'] {
+    top: calc(anchor(bottom) + var(--base-size-4));
+    left: anchor(left);
+  }
+
+  &[data-side='outside-top'] {
+    margin-bottom: var(--base-size-4);
+    bottom: anchor(top);
+  }
+
+  &[data-side='outside-left'] {
+    right: anchor(left);
+    top: anchor(top);
+    margin-right: var(--base-size-4);
+  }
+
+  &[data-side='outside-right'] {
+    left: anchor(right);
+    top: anchor(top);
+    margin-left: var(--base-size-4);
+  }
 }

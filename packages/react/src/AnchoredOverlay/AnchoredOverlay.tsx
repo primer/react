@@ -271,6 +271,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
             updateOverlayRef(node)
           }}
           data-anchor-position={cssAnchorPositioning}
+          data-side={position?.anchorSide}
         >
           {showXIcon ? (
             <div className={classes.ResponsiveCloseButtonContainer}>
