@@ -118,7 +118,6 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
    * Props to be spread on the close button in the overlay.
    */
   closeButtonProps?: Partial<IconButtonProps>
-  popover?: boolean
 }
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
@@ -154,13 +153,13 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   alignmentOffset,
   anchorOffset,
   displayInViewport,
+  className,
   pinPosition,
   variant = defaultVariant,
   preventOverflow = true,
   onPositionChange,
   displayCloseButton = true,
   closeButtonProps = defaultCloseButtonProps,
-  popover = false,
 }) => {
   const cssAnchorPositioning = useFeatureFlag('primer_react_css_anchor_positioning')
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
@@ -261,9 +260,8 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           left={cssAnchorPositioning ? undefined : position?.left || 0}
           responsiveVariant={variant.narrow === 'fullscreen' ? 'fullscreen' : undefined}
           anchorSide={cssAnchorPositioning ? undefined : position?.anchorSide}
-          className={classes.AnchoredOverlay}
+          className={clsx(className, cssAnchorPositioning ? classes.AnchoredOverlay : undefined)}
           preventOverflow={preventOverflow}
-          popover={popover}
           data-component="AnchoredOverlay"
           {...overlayProps}
           ref={node => {

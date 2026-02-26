@@ -242,7 +242,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
         height={height}
         visibility={visibility}
         data-responsive={responsiveVariant}
-        {...(cssAnchorPositioning ? {'data-anchor-position': ''} : {})}
+        data-anchor-position={cssAnchorPositioning ? 'true' : 'false'}
         {...props}
       />
     )
