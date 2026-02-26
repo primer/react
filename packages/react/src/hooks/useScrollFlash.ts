@@ -11,12 +11,17 @@ export default function useScrollFlash(scrollContainerRef: React.RefObject<HTMLE
     if (!scrollContainer) {
       return
     }
-    const currentScroll = scrollContainer.scrollTop
-    const maxScroll = scrollContainer.scrollHeight
 
-    const altScroll = currentScroll < Math.min(1, maxScroll) ? currentScroll + 1 : currentScroll - 1
+    // Defer to the next frame to avoid forcing a synchronous reflow
+    // when the effect runs immediately after React commits DOM changes.
+    const id = requestAnimationFrame(() => {
+      const currentScroll = scrollContainer.scrollTop
+      const altScroll = currentScroll < 1 ? currentScroll + 1 : currentScroll - 1
 
-    scrollContainer.scrollTop = altScroll
-    scrollContainer.scrollTop = currentScroll
+      scrollContainer.scrollTop = altScroll
+      scrollContainer.scrollTop = currentScroll
+    })
+
+    return () => cancelAnimationFrame(id)
   }, [scrollContainerRef])
 }

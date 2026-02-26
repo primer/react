@@ -361,6 +361,129 @@ export const WithCustomPaneHeading: StoryFn = () => (
   </PageLayout>
 )
 
+export const SidebarStart: StoryFn = () => (
+  <PageLayout containerWidth="full">
+    <PageLayout.Sidebar position="start" aria-label="Navigation sidebar">
+      <Placeholder height={800} label="Sidebar (Start)" />
+    </PageLayout.Sidebar>
+    <PageLayout.Header>
+      <Placeholder height={64} label="Header" />
+    </PageLayout.Header>
+    <PageLayout.Content>
+      <Placeholder height={640} label="Content" />
+    </PageLayout.Content>
+    <PageLayout.Footer>
+      <Placeholder height={64} label="Footer" />
+    </PageLayout.Footer>
+  </PageLayout>
+)
+
+export const SidebarEnd: StoryFn = () => (
+  <PageLayout containerWidth="full">
+    <PageLayout.Sidebar position="end" aria-label="Inspector sidebar">
+      <Placeholder height={800} label="Sidebar (End)" />
+    </PageLayout.Sidebar>
+    <PageLayout.Header>
+      <Placeholder height={64} label="Header" />
+    </PageLayout.Header>
+    <PageLayout.Content>
+      <Placeholder height={640} label="Content" />
+    </PageLayout.Content>
+    <PageLayout.Footer>
+      <Placeholder height={64} label="Footer" />
+    </PageLayout.Footer>
+  </PageLayout>
+)
+
+export const ResizableSidebar: StoryFn = () => (
+  <PageLayout containerWidth="full">
+    <PageLayout.Sidebar
+      resizable
+      position="end"
+      aria-label="Resizable sidebar"
+      style={{height: 'auto'}}
+      width={{
+        min: '200px',
+        default: '300px',
+        max: '2000px',
+      }}
+    >
+      <Placeholder height="100%" label="Resizable Sidebar" />
+    </PageLayout.Sidebar>
+    <PageLayout.Header>
+      <Placeholder height={64} label="Header" />
+    </PageLayout.Header>
+    <PageLayout.Pane position="start" aria-label="Side pane">
+      <Placeholder height={320} label="Pane" />
+    </PageLayout.Pane>
+    <PageLayout.Content>
+      <Placeholder height={640} label="Content" />
+    </PageLayout.Content>
+    <PageLayout.Footer>
+      <Placeholder height={64} label="Footer" />
+    </PageLayout.Footer>
+  </PageLayout>
+)
+
+export const SidebarWithPaneResizable: StoryFn = () => (
+  <PageLayout containerWidth="full">
+    <PageLayout.Sidebar
+      style={{height: 'auto'}}
+      resizable
+      position="end"
+      aria-label="Navigation sidebar"
+      width={{min: '200px', default: '300px', max: '2000px'}}
+    >
+      <Placeholder height="100%" label="Resizable Sidebar" />
+    </PageLayout.Sidebar>
+    <PageLayout.Header>
+      <Placeholder height={64} label="Header" />
+    </PageLayout.Header>
+    <PageLayout.Pane resizable position="start" aria-label="Side pane">
+      <Placeholder height={320} label="Resizable Pane" />
+    </PageLayout.Pane>
+    <PageLayout.Content>
+      <Placeholder height={640} label="Content" />
+    </PageLayout.Content>
+    <PageLayout.Footer>
+      <Placeholder height={64} label="Footer" />
+    </PageLayout.Footer>
+  </PageLayout>
+)
+
+export const StickySidebar: StoryFn = () => (
+  <PageLayout containerWidth="full">
+    <PageLayout.Sidebar sticky position="start" aria-label="Sticky sidebar">
+      <Placeholder height={200} label="Sticky Sidebar" />
+    </PageLayout.Sidebar>
+    <PageLayout.Header>
+      <Placeholder height={64} label="Header" />
+    </PageLayout.Header>
+    <PageLayout.Content>
+      <Placeholder height={2000} label="Tall Content (scroll to test sticky)" />
+    </PageLayout.Content>
+    <PageLayout.Footer>
+      <Placeholder height={64} label="Footer" />
+    </PageLayout.Footer>
+  </PageLayout>
+)
+
+export const SidebarFullscreenResponsiveVariant: StoryFn = () => (
+  <PageLayout containerWidth="full">
+    <PageLayout.Sidebar position="start" responsiveVariant="fullscreen" aria-label="Fullscreen sidebar">
+      <Placeholder height={800} label="Sidebar (fullscreen at narrow)" />
+    </PageLayout.Sidebar>
+    <PageLayout.Header>
+      <Placeholder height={64} label="Header" />
+    </PageLayout.Header>
+    <PageLayout.Content>
+      <Placeholder height={640} label="Content" />
+    </PageLayout.Content>
+    <PageLayout.Footer>
+      <Placeholder height={64} label="Footer" />
+    </PageLayout.Footer>
+  </PageLayout>
+)
 export const ResizablePaneWithoutPersistence: StoryFn = () => {
   const [currentWidth, setCurrentWidth] = React.useState<number>(defaultPaneWidth.medium)
 
