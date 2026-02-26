@@ -12,6 +12,7 @@
    * --segmented-control-fontWeight
    * --segmented-control-selected-bgColor
    * --segmented-control-selected-borderColor
+   * --segmented-control-selected-fgColor
    * --segmented-control-selected-fontWeight
    * --segmented-control-button-inner-padding
    * --segmented-control-button-bg-inset
@@ -344,6 +345,15 @@
 .Button[aria-current='true'] {
   padding: 0;
   font-weight: var(--segmented-control-selected-fontWeight, var(--base-text-weight-semibold));
+  /* stylelint-disable-next-line primer/colors */
+  color: var(--segmented-control-selected-fgColor, inherit);
+
+  & svg {
+    /* stylelint-disable-next-line primer/colors */
+    fill: var(--segmented-control-selected-fgColor, inherit);
+    /* stylelint-disable-next-line primer/colors */
+    color: var(--segmented-control-selected-fgColor, inherit);
+  }
 
   .Content {
     /* stylelint-disable-next-line primer/spacing */

@@ -164,6 +164,7 @@ export const CustomCSSTokens = () => (
         '--segmented-control-borderColor': 'var(--borderColor-accent-emphasis)',
         '--segmented-control-selected-bgColor': 'var(--bgColor-accent-emphasis)',
         '--segmented-control-selected-borderColor': 'var(--borderColor-accent-emphasis)',
+        '--segmented-control-selected-fgColor': 'var(--fgColor-onEmphasis)',
       } as React.CSSProperties
     }
   >
