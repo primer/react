@@ -1,3 +1,4 @@
+import type React from 'react'
 import {useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
 import {SegmentedControl} from '.'
@@ -154,3 +155,28 @@ export const AssociatedWithALabelAndCaption = () => (
   </div>
 )
 AssociatedWithALabelAndCaption.storyName = '[Example] Associated with a label and caption'
+
+export const CustomCSSTokens = () => (
+  <div
+    style={
+      {
+        '--segmented-control-bgColor': 'var(--bgColor-accent-muted)',
+        '--segmented-control-borderColor': 'var(--borderColor-accent-emphasis)',
+        '--segmented-control-selected-bgColor': 'var(--bgColor-accent-emphasis)',
+        '--segmented-control-selected-borderColor': 'var(--borderColor-accent-emphasis)',
+      } as React.CSSProperties
+    }
+  >
+    <SegmentedControl aria-label="File view">
+      <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingVisual={EyeIcon}>
+        Preview
+      </SegmentedControl.Button>
+      <SegmentedControl.Button aria-label={'Raw'} leadingVisual={FileCodeIcon}>
+        Raw
+      </SegmentedControl.Button>
+      <SegmentedControl.Button aria-label={'Blame'} leadingVisual={PeopleIcon}>
+        Blame
+      </SegmentedControl.Button>
+    </SegmentedControl>
+  </div>
+)
