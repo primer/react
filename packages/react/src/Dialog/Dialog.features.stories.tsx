@@ -616,23 +616,3 @@ export const AlignBottom = () => {
   )
 }
 AlignBottom.storyName = '[Align] Bottom'
-
-export const AlignTopWithHorizontalPosition = () => {
-  const [isOpen, setIsOpen] = useState(true)
-  const buttonRef = useRef<HTMLButtonElement>(null)
-  const onDialogClose = useCallback(() => setIsOpen(false), [])
-
-  return (
-    <>
-      <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
-        Show dialog
-      </Button>
-      {isOpen && (
-        <Dialog title="My Dialog" onClose={onDialogClose} position="left" align="top">
-          {bodyContent}
-        </Dialog>
-      )}
-    </>
-  )
-}
-AlignTopWithHorizontalPosition.storyName = '[Align] Top with horizontal position left'

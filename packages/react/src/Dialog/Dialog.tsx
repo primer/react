@@ -133,7 +133,7 @@ export interface DialogProps {
   position?: 'center' | 'left' | 'right' | ResponsiveValue<'left' | 'right' | 'bottom' | 'fullscreen' | 'center'>
 
   /**
-   * The vertical alignment of the dialog.
+   * The vertical alignment of the dialog. Only applies when position is 'center' (the default).
    * top: positions the Dialog ~4rem from the top of the screen, horizontally centered
    * center: (default) vertically centers the Dialog on the screen
    * bottom: positions the Dialog near the bottom of the screen, horizontally centered

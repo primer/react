@@ -159,7 +159,7 @@ describe('Dialog', () => {
       expect(getByRole('dialog')).not.toHaveAttribute('data-align')
     })
 
-    it('supports combining align with horizontal position prop', () => {
+    it('emits data-align attribute even when position is non-center', () => {
       const {getByRole} = render(<Dialog onClose={() => {}} position="left" align="top" />)
       const dialog = getByRole('dialog')
       expect(dialog).toHaveAttribute('data-position-regular', 'left')

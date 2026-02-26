@@ -86,34 +86,42 @@
     justify-content: flex-end;
   }
 
-  &[data-align='top'] {
-    align-items: flex-start;
-  }
+  /* align only applies when regular position is center (or absent) */
+  &:not([data-position-regular='left']):not([data-position-regular='right']) {
+    &[data-align='top'] {
+      align-items: flex-start;
+    }
 
-  &[data-align='center'] {
-    align-items: center;
-  }
+    &[data-align='center'] {
+      align-items: center;
+    }
 
-  &[data-align='bottom'] {
-    align-items: flex-end;
+    &[data-align='bottom'] {
+      align-items: flex-end;
+    }
   }
 
   @media (max-width: 767px) {
-    &[data-position-narrow='center']:not([data-align]) {
+    &[data-position-narrow='center'] {
       align-items: center;
       justify-content: center;
+
+      /* align still applies when narrow position is center */
+      &[data-align='top'] {
+        align-items: flex-start;
+      }
+
+      &[data-align='center'] {
+        align-items: center;
+      }
+
+      &[data-align='bottom'] {
+        align-items: flex-end;
+      }
     }
 
-    &[data-position-narrow='center'][data-align] {
-      justify-content: center;
-    }
-
-    &[data-position-narrow='bottom']:not([data-align]) {
+    &[data-position-narrow='bottom'] {
       align-items: end;
-      justify-content: center;
-    }
-
-    &[data-position-narrow='bottom'][data-align] {
       justify-content: center;
     }
   }
@@ -167,12 +175,15 @@
     }
   }
 
-  &[data-align='top'] {
-    margin-top: var(--base-size-64);
-  }
+  /* align margins only apply when regular position is center (or absent) */
+  &:not([data-position-regular='left']):not([data-position-regular='right']) {
+    &[data-align='top'] {
+      margin-top: var(--base-size-64);
+    }
 
-  &[data-align='bottom'] {
-    margin-bottom: var(--base-size-64);
+    &[data-align='bottom'] {
+      margin-bottom: var(--base-size-64);
+    }
   }
 
   &[data-position-regular='left'] {
@@ -241,6 +252,12 @@
       border-radius: var(--borderRadius-large, var(--borderRadius-large));
       border-bottom-right-radius: 0;
       border-bottom-left-radius: 0;
+
+      /* reset align margins since position wins at narrow */
+      &[data-align] {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
 
       @media screen and (prefers-reduced-motion: no-preference) {
         animation: Overlay--motion-slideUp 0.25s cubic-bezier(0.33, 1, 0.68, 1) 1ms 1 normal none running;
