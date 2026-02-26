@@ -11,6 +11,7 @@
   color: inherit;
   align-items: center;
 
+  /* stylelint-disable-next-line nesting-selector-no-missing-scoping-root */
   &::-moz-focus-inner {
     border: 0;
   }

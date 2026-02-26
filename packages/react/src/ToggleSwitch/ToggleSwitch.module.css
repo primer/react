@@ -64,7 +64,6 @@
   transition-property: background-color, border-color;
   transition-duration: var(--toggleSwitch-transition-duration);
   transition-timing-function: var(--toggleSwitch-transition-easing);
-  /* stylelint-disable-next-line primer/borders */
   border-radius: var(--borderRadius-default);
   border-style: solid;
   border-width: var(--borderWidth-thin);
