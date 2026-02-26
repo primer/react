@@ -404,8 +404,6 @@ export const CenteredOnPage = () => {
         }}
         focusZoneSettings={{disabled: true}}
         preventOverflow={false}
-        preventAnchorPositioning={true}
-        preventPortal={true}
       >
         <div className={classes.FlexColFill}>{hoverCard}</div>
       </AnchoredOverlay>
@@ -458,8 +456,6 @@ export const AnchorPositionGrid = () => {
                     }}
                     focusZoneSettings={{disabled: true}}
                     preventOverflow={false}
-                    preventAnchorPositioning={true}
-                    preventPortal={true}
                     popover
                   >
                     <div className={classes.FlexColFill}>{hoverCard}</div>
@@ -496,8 +492,6 @@ const AnchorPositionOverlay = ({
       }}
       focusZoneSettings={{disabled: true}}
       preventOverflow={false}
-      preventAnchorPositioning={true}
-      preventPortal={true}
     >
       <div className={classes.FlexColFill}>{children ?? hoverCard}</div>
     </AnchoredOverlay>

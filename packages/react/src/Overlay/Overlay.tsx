@@ -10,6 +10,7 @@ import type {AnchorSide} from '@primer/behaviors'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import classes from './Overlay.module.css'
 import {clsx} from 'clsx'
+import {useFeatureFlag} from '../FeatureFlags'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
@@ -144,7 +145,6 @@ type ContainerProps = {
   portalContainerName?: string
   preventOverflow?: boolean
   preventFocusOnOpen?: boolean
-  preventPortal?: boolean
   /**
    * If true, applies the `popover` attribute to the overlay element,
    * enabling the Popover API for top-layer rendering and light dismiss.
@@ -166,7 +166,6 @@ type internalOverlayProps = Merge<OwnOverlayProps, ContainerProps>
  * @param portalContainerName Optional. The name of the portal container to render the Overlay into.
  * @param preventOverflow Optional. The Overlay width will be adjusted responsively if there is not enough space to display the Overlay. If `preventOverflow` is `true`, the width of the `Overlay` will not be adjusted.
  * @param preventFocusOnOpen Optional. If 'true', focus will not be applied when the component is first mounted, even if initialFocusRef prop is given.
- * @param preventPortal Optional. If `true`, the Overlay will not be rendered inside a Portal and will instead render inline.
  * @param returnFocusRef Required. Ref for the element to focus when the `Overlay` is closed.
  * @param right Optional. Horizontal right position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
  * @param width Sets the width of the `Overlay`, pick from our set list of widths, or pass `auto` to automatically set the width based on the content of the `Overlay`. `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `480px`, `xlarge` corresponds to `640px`, `xxlarge` corresponds to `960px`.
@@ -185,7 +184,6 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
       portalContainerName,
       preventOverflow = true,
       preventFocusOnOpen,
-      preventPortal = false,
       popover = false,
       returnFocusRef,
       right,
@@ -198,6 +196,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     forwardedRef,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
+    const cssAnchorPositioning = useFeatureFlag('primer_react_css_anchor_positioning')
     const overlayRef = useRef<HTMLDivElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, overlayRef)
     const slideAnimationDistance = 8 // var(--base-size-8), hardcoded to do some math
@@ -254,7 +253,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
       />
     )
 
-    if (preventPortal) {
+    if (cssAnchorPositioning) {
       return overlayContent
     }
 

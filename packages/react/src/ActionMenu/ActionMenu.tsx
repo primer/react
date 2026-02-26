@@ -333,8 +333,6 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
       onPositionChange={onPositionChange}
       variant={variant}
       displayInViewport={displayInViewport}
-      preventPortal={true}
-      preventAnchorPositioning={true}
     >
       <div
         ref={containerRef}
