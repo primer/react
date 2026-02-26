@@ -20,13 +20,12 @@
   border-radius: var(--borderRadius-large);
   box-shadow: var(--shadow-floating-small);
 
-  /* top: var(--top, auto);
-
-  left: var(--left, auto);
-
-  right: var(--right, auto);
-
-  bottom: var(--bottom, auto); */
+  &:where(:not([data-anchor-position])) {
+    top: var(--top, auto);
+    left: var(--left, auto);
+    right: var(--right, auto);
+    bottom: var(--bottom, auto);
+  }
 
   &:focus {
     outline: none;

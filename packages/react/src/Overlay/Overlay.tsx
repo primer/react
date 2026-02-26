@@ -145,11 +145,6 @@ type ContainerProps = {
   portalContainerName?: string
   preventOverflow?: boolean
   preventFocusOnOpen?: boolean
-  /**
-   * If true, applies the `popover` attribute to the overlay element,
-   * enabling the Popover API for top-layer rendering and light dismiss.
-   */
-  popover?: boolean
   returnFocusRef: React.RefObject<HTMLElement | null>
 }
 
@@ -184,7 +179,6 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
       portalContainerName,
       preventOverflow = true,
       preventFocusOnOpen,
-      popover = false,
       returnFocusRef,
       right,
       role = 'none',
@@ -248,7 +242,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
         height={height}
         visibility={visibility}
         data-responsive={responsiveVariant}
-        {...(popover ? {popover: 'auto'} : {})}
+        {...(cssAnchorPositioning ? {'data-anchor-position': ''} : {})}
         {...props}
       />
     )
