@@ -422,7 +422,7 @@ function getDesignTokenSpecsText(groups: TokenGroups): string {
 
 ## 1. Core Rule & Enforcement
 - **Expert Mode**: You are a CSS expert. NEVER use raw values (hex, px, etc.). Only use tokens.
-- **Shorthand**: MUST use shorthand tokens (e.g., \`font: var(...)\`). NEVER split font-size/weight.
+- **Shorthand**: MUST use shorthand tokens (e.g., \`font: var(...)\`). NEVER split font-size/weight. Fallback Rule: If a specific shorthand does not exist for a component (e.g. Monospace code blocks), you MUST still use individual tokens for font-size, font-family, and line-height. NEVER use raw numeric values like 1.5.
 - **States**: MUST define 5 states: Rest, Hover, Focus-visible, Active, Disabled.
 - **Safety**: If unsure of a token name, suffix with \`/* check-token */\`.
 - **Focus States**: When implementing :focus-visible, you MUST use both:
@@ -625,6 +625,9 @@ const GROUP_ALIASES: Record<string, string> = {
   typography: 'text',
   font: 'text',
   text: 'text',
+  'line-height': 'text',
+  lineheight: 'text',
+  leading: 'text',
 
   // Layout & Spacing
   stack: 'stack',
@@ -701,7 +704,7 @@ function getValidGroupsList(validTokens: TokenWithGuidelines[]): string {
 const groupHints: Record<string, string> = {
   control: '`control` tokens are for form inputs/checkboxes. For buttons, use the `button` group.',
   button: '`button` tokens are for standard triggers. For form-fields, see the `control` group.',
-  text: 'STRICT: The following typography groups do NOT support size suffixes (-small, -medium, -large): `caption`, `display`, `codeBlock`, and `codeInline`. Use the base shorthand name only (e.g., --text-codeBlock-shorthand).',
+  text: 'STRICT: The following typography groups do NOT support size suffixes (-small, -medium, -large): `caption`, `display`, `codeBlock`, and `codeInline`. STRICT: Use shorthand tokens where possible. If splitting, you MUST fetch line-height tokens (e.g., --text-body-lineHeight-small) instead of using raw numbers.',
   fgColor: 'Use `fgColor` for text. For borders, use `borderColor`.',
   borderWidth:
     '`borderWidth` only has sizing values (thin, thick, thicker). For border *colors*, use the `borderColor` or `border` group.',
