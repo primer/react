@@ -6,6 +6,8 @@
   paneMaxWidthDiffDefault: 511;
   /* Default value for --sidebar-max-width-diff (constant across all viewports) */
   sidebarMaxWidthDiffDefault: 256;
+  /* Value for --pane-max-width-diff at/above the breakpoint */
+  paneMaxWidthDiffWide: 959;
 }
 
 .PageLayoutRoot {
