@@ -42,7 +42,8 @@ const SegmentedControlButton: FCWithSlotMarker<React.PropsWithChildren<Segmented
   const {'aria-disabled': ariaDisabled, 'aria-label': ariaLabel, ...rest} = props
   // Use leadingVisual if provided, otherwise fall back to leadingIcon for backwards compatibility
   const LeadingVisual = leadingVisual ?? leadingIcon
-  const computedAriaLabel = ariaLabel !== undefined && count !== undefined ? `${ariaLabel} ${count}` : ariaLabel
+  const computedAriaLabel =
+    ariaLabel !== undefined ? ariaLabel : count !== undefined ? `${children}, count: ${count}` : undefined
 
   return (
     <li className={clsx(classes.Item)} data-selected={selected ? '' : undefined}>

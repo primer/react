@@ -319,7 +319,7 @@ describe('SegmentedControl', () => {
     expect(getByRole('img', {name: 'EyeIcon'})).toBeInTheDocument()
   })
 
-  it('includes the count in the accessible name when aria-label is provided', () => {
+  it('uses explicit aria-label as-is when count is provided', () => {
     const {getByRole} = render(
       <SegmentedControl aria-label="Issues by label">
         <SegmentedControl.Button defaultSelected aria-label="Feature" count={5}>
@@ -328,9 +328,10 @@ describe('SegmentedControl', () => {
       </SegmentedControl>,
     )
 
-    const button = getByRole('button', {name: 'Feature 5'})
+    const button = getByRole('button', {name: 'Feature'})
 
     expect(button).toBeInTheDocument()
+    expect(button).toHaveAttribute('aria-label', 'Feature')
   })
 
   it('uses aria-label without modification when count is undefined', () => {
@@ -348,7 +349,7 @@ describe('SegmentedControl', () => {
     expect(button).toHaveAttribute('aria-label', 'Feature')
   })
 
-  it('does not set aria-label when only count is provided and relies on text content', () => {
+  it('uses a default accessible name with count when aria-label is not provided', () => {
     const {getByRole} = render(
       <SegmentedControl aria-label="Issues by label">
         <SegmentedControl.Button defaultSelected count={5}>
@@ -357,10 +358,25 @@ describe('SegmentedControl', () => {
       </SegmentedControl>,
     )
 
-    const button = getByRole('button', {name: /Feature\s*\(\s*5\s*\)/})
+    const button = getByRole('button', {name: 'Feature, count: 5'})
 
     expect(button).toBeInTheDocument()
-    expect(button).not.toHaveAttribute('aria-label')
+    expect(button).toHaveAttribute('aria-label', 'Feature, count: 5')
+  })
+
+  it('handles a string count when aria-label is not provided', () => {
+    const {getByRole} = render(
+      <SegmentedControl aria-label="Issues by label">
+        <SegmentedControl.Button defaultSelected count="5">
+          Feature
+        </SegmentedControl.Button>
+      </SegmentedControl>,
+    )
+
+    const button = getByRole('button', {name: 'Feature, count: 5'})
+
+    expect(button).toBeInTheDocument()
+    expect(button).toHaveAttribute('aria-label', 'Feature, count: 5')
   })
 
   it('handles a string count when aria-label is provided', () => {
@@ -372,9 +388,10 @@ describe('SegmentedControl', () => {
       </SegmentedControl>,
     )
 
-    const button = getByRole('button', {name: 'Feature 5'})
+    const button = getByRole('button', {name: 'Feature'})
 
     expect(button).toBeInTheDocument()
+    expect(button).toHaveAttribute('aria-label', 'Feature')
   })
 
   it('should warn the user if they neglect to specify a label for the segmented control', () => {

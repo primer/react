@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-Fixes an accessibility issue where screen readers announce segmented control buttons without their associated count.
+SegmentedControl: Screen readers now announce buttons with their associated count. Fixes [accessibility-audits#14898](https://github.com/github/accessibility-audits/issues/14898)
