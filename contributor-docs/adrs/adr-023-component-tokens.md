@@ -105,37 +105,28 @@ With this pattern, setting `--segmentedControl-bgColor` on a parent `<div>` has 
 
 The token is never defined by the component. It only references it with a fallback. If a consumer sets `--segmentedControl-bgColor` on any ancestor element, that value is inherited and used. If not, the fallback kicks in.
 
-### Documentation in CSS
+### Documentation
 
-List all available component tokens in a comment block at the top of the component's root selector:
+Component tokens must be documented in the component's `*.docs.json` file as a `cssTokens` array. This makes them discoverable through the documentation system and enables automated tooling.
 
-```css
-.SegmentedControl {
-  /*
-   * Component tokens – override these custom properties from a parent
-   * element to customize the control:
-   *
-   * --segmentedControl-bgColor
-   * --segmentedControl-bgColor-hover
-   * --segmentedControl-borderColor
-   * --segmentedControl-borderRadius
-   * --segmentedControl-fgColor
-   * --segmentedControl-iconColor
-   * --segmentedControl-fontWeight
-   * --segmentedControl-innerPadding
-   * --segmentedControl-trackPadding
-   * --segmentedControl-selected-bgColor
-   * --segmentedControl-selected-borderColor
-   * --segmentedControl-selected-borderRadius
-   * --segmentedControl-selected-fgColor
-   * --segmentedControl-selected-iconColor
-   * --segmentedControl-selected-fontWeight
-   */
-
-  background-color: var(--segmentedControl-bgColor, var(--controlTrack-bgColor-rest));
-  /* ... */
+```json
+{
+  "id": "segmented_control",
+  "name": "SegmentedControl",
+  "cssTokens": [
+    {
+      "name": "--segmentedControl-bgColor",
+      "defaultValue": "var(--controlTrack-bgColor-rest)",
+      "description": "Track background color"
+    }
+  ]
 }
 ```
+
+**Future tooling considerations:**
+
+- A **stylelint plugin** could enforce that undefined custom properties (those not from `@primer/primitives`) follow the `--{componentName}-{property}` naming convention.
+- A **PostCSS plugin** could extract component tokens from CSS files and generate the `cssTokens` entries in `docs.json` automatically, keeping documentation in sync with the implementation.
 
 ### Consumer usage
 

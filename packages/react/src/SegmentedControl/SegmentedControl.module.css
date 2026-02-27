@@ -1,28 +1,4 @@
 .SegmentedControl {
-  /*
-   * Component tokens – override these custom properties from a parent
-   * element to customize the control:
-   *
-   * --segmentedControl-bgColor
-   * --segmentedControl-bgColor-hover
-   * --segmentedControl-bgColor-active
-   * --segmentedControl-borderColor
-   * --segmentedControl-borderRadius
-   * --segmentedControl-fgColor
-   * --segmentedControl-fgColor-hover
-   * --segmentedControl-iconColor
-   * --segmentedControl-iconColor-hover
-   * --segmentedControl-fontWeight
-   * --segmentedControl-innerPadding
-   * --segmentedControl-trackPadding
-   * --segmentedControl-selected-bgColor
-   * --segmentedControl-selected-fgColor
-   * --segmentedControl-selected-iconColor
-   * --segmentedControl-selected-fontWeight
-   * --segmentedControl-selected-borderColor
-   * --segmentedControl-selected-borderRadius
-   */
-
   display: inline-flex;
 
   /* TODO: use primitive `control.{small|medium}.size` when it is available */
