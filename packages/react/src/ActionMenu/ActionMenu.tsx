@@ -156,7 +156,11 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
           }
         }
       } else {
-        renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
+        renderAnchor = anchorProps =>
+          React.cloneElement(child, {
+            ...anchorProps,
+            className: clsx(anchorProps.className, child.props.className),
+          })
       }
       return null
     } else if (child.type === MenuButton || isSlot(child, MenuButton)) {
