@@ -2,4 +2,4 @@
 "@primer/react": minor
 ---
 
-Add `align` prop to Dialog component
+Add `align` and `style` props to Dialog component
