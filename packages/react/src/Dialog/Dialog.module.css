@@ -86,8 +86,10 @@
     justify-content: flex-end;
   }
 
-  /* align only applies when regular position is center (or absent) */
-  &:not([data-position-regular='left']):not([data-position-regular='right']) {
+  /* align only applies when regular position is center (or absent).
+   * :where() zeroes out the :not() specificity so narrow-position rules (coming later)
+   * always win when data-position-narrow is bottom or fullscreen. */
+  &:where(:not([data-position-regular='left']):not([data-position-regular='right'])) {
     &[data-align='top'] {
       align-items: flex-start;
     }
