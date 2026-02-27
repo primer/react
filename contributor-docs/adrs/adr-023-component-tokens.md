@@ -4,18 +4,18 @@
 
 ## Status
 
-| Stage          | State          |
-| -------------- | -------------- |
-| Status         | Proposed ❓    |
-| Implementation | Not planned ⛔ |
+| Stage          | State    |
+| -------------- | -------- |
+| Status         | Proposed |
+| Implementation |          |
 
 ## Context
 
-Primer React components use design tokens from `@primer/primitives` for colors, spacing, typography, and borders. These tokens enforce consistency across the design system but make it difficult for consumers to customize the appearance of individual component instances without resorting to fragile CSS overrides targeting internal class names.
+Primer React components use design tokens from `@primer/primitives` for colors, spacing, typography, and borders. These tokens enforce consistency across the design system but make it difficult for consumers to customize the appearance of individual component instances without resorting to fragile CSS overrides targeting internal elements.
 
-A common need is to restyle a component for a specific context — for example, rendering a `SegmentedControl` with accent colors to indicate a primary action area, or adjusting border radius to match a custom layout. Today, the only options are:
+A common need is to restyle a component for a specific context or adjusting border radius to match a custom layout. Today, the only options are:
 
-1. **Override internal CSS module class names** — brittle, breaks on refactors, and not part of the public API.
+1. **Override internal CSS module class names or elements** — brittle, breaks on refactors, and not part of the public API.
 2. **Use inline styles on the component** — limited to properties exposed on the root element and cannot target internal elements like the selected state or hover states.
 3. **Wrap in a themed provider** — too broad, affects all components in the subtree.
 
@@ -25,28 +25,36 @@ Component tokens solve this by exposing a stable set of CSS custom properties th
 
 Every component should expose a set of **component tokens** as CSS custom properties. These tokens are the public styling API of the component and follow a consistent pattern across all components.
 
+Documentation must specify this as an escape hatch.
+
 ### Naming convention
 
 Component tokens use the following naming pattern:
 
 ```
---{component-name}-{property}
---{component-name}-{variant}-{property}
+--{componentName}-{property}
+--{componentName}-{variant}-{property}
 ```
 
 Examples from `SegmentedControl`:
 
-| Token                                     | Purpose                              |
-| ----------------------------------------- | ------------------------------------ |
-| `--segmented-control-bgColor`             | Track background color               |
-| `--segmented-control-bgColor-hover`       | Track background on hover            |
-| `--segmented-control-borderColor`         | Outer border color                   |
-| `--segmented-control-borderRadius`        | Outer border radius                  |
-| `--segmented-control-fgColor-icon`        | Icon color (default state)           |
-| `--segmented-control-fontWeight`          | Text weight (default state)          |
-| `--segmented-control-selected-bgColor`    | Selected segment background          |
-| `--segmented-control-selected-fgColor`    | Selected segment text and icon color |
-| `--segmented-control-selected-fontWeight` | Selected segment text weight         |
+| Token                                      | Purpose                        |
+| ------------------------------------------ | ------------------------------ |
+| `--segmentedControl-bgColor`               | Track background color         |
+| `--segmentedControl-bgColor-hover`         | Track background on hover      |
+| `--segmentedControl-borderColor`           | Outer border color             |
+| `--segmentedControl-borderRadius`          | Outer border radius            |
+| `--segmentedControl-iconColor`             | Icon color (default state)     |
+| `--segmentedControl-fgColor`               | Text color (default state)     |
+| `--segmentedControl-iconColor-hover`       | Icon color (hover state)       |
+| `--segmentedControl-fgColor-hover`         | Text color (hover state)       |
+| `--segmentedControl-fontWeight`            | Text weight (default state)    |
+| `--segmentedControl-selected-bgColor`      | Selected segment background    |
+| `--segmentedControl-selected-fgColor`      | Selected segment text color    |
+| `--segmentedControl-selected-iconColor`    | Selected segment icon color    |
+| `--segmentedControl-selected-fontWeight`   | Selected segment text weight   |
+| `--segmentedControl-selected-borderColor`  | Selected element border color  |
+| `--segmentedControl-selected-borderRadius` | Selected element border radius |
 
 ### What to tokenize
 
@@ -56,6 +64,7 @@ Expose tokens for visual properties that a consumer may reasonably need to custo
 - **Border radius** — the outer shape of the component.
 - **Font weight** — when the component uses non-standard weights (e.g., semibold for selected state).
 - **Spacing** — internal padding values that affect the component's visual density, when they are not derived from a standard size primitive.
+- **Shadow** — shadows for internal elements and the main element
 
 ### What NOT to tokenize
 
@@ -76,30 +85,22 @@ Do not expose tokens for:
 
 ```css
 .SegmentedControl {
-  --segmented-control-bgColor: var(--controlTrack-bgColor-rest);
-  background-color: var(--segmented-control-bgColor);
+  --segmentedControl-bgColor: var(--controlTrack-bgColor-rest);
+  background-color: var(--segmentedControl-bgColor);
 }
 ```
 
-With this pattern, setting `--segmented-control-bgColor` on a parent `<div>` has no effect because the component redefines it on its own element.
+With this pattern, setting `--segmentedControl-bgColor` on a parent `<div>` has no effect because the component redefines it on its own element.
 
 ✅ **Correct — use `var()` with a fallback value:**
 
 ```css
 .SegmentedControl {
-  background-color: var(--segmented-control-bgColor, var(--controlTrack-bgColor-rest));
+  background-color: var(--segmentedControl-bgColor, var(--controlTrack-bgColor-rest));
 }
 ```
 
-The token is never defined by the component. It only references it with a fallback. If a consumer sets `--segmented-control-bgColor` on any ancestor element, that value is inherited and used. If not, the fallback kicks in.
-
-For hardcoded fallback values (not from primitives), use the literal value directly:
-
-```css
-.Button {
-  padding: var(--segmented-control-button-bg-inset, 4px);
-}
-```
+The token is never defined by the component. It only references it with a fallback. If a consumer sets `--segmentedControl-bgColor` on any ancestor element, that value is inherited and used. If not, the fallback kicks in.
 
 ### Documentation in CSS
 
@@ -111,18 +112,18 @@ List all available component tokens in a comment block at the top of the compone
    * Component tokens – override these custom properties from a parent
    * element to customize the control:
    *
-   * --segmented-control-bgColor
-   * --segmented-control-bgColor-hover
-   * --segmented-control-bgColor-active
-   * --segmented-control-borderColor
-   * --segmented-control-borderRadius
-   * --segmented-control-selected-bgColor
-   * --segmented-control-selected-borderColor
-   * --segmented-control-selected-fgColor
-   * --segmented-control-selected-fontWeight
+   * --segmentedControl-bgColor
+   * --segmentedControl-bgColor-hover
+   * --segmentedControl-bgColor-active
+   * --segmentedControl-borderColor
+   * --segmentedControl-borderRadius
+   * --segmentedControl-selected-bgColor
+   * --segmentedControl-selected-borderColor
+   * --segmentedControl-selected-fgColor
+   * --segmentedControl-selected-fontWeight
    */
 
-  background-color: var(--segmented-control-bgColor, var(--controlTrack-bgColor-rest));
+  background-color: var(--segmentedControl-bgColor, var(--controlTrack-bgColor-rest));
   /* ... */
 }
 ```
@@ -135,9 +136,9 @@ Consumers override tokens by setting them on a parent element or via inline styl
 <div
   style={
     {
-      '--segmented-control-bgColor': 'var(--bgColor-accent-muted)',
-      '--segmented-control-selected-bgColor': 'var(--bgColor-accent-emphasis)',
-      '--segmented-control-selected-fgColor': 'var(--fgColor-onEmphasis)',
+      '--segmentedControl-bgColor': 'var(--bgColor-accent-muted)',
+      '--segmentedControl-selected-bgColor': 'var(--bgColor-accent-emphasis)',
+      '--segmentedControl-selected-fgColor': 'var(--fgColor-onEmphasis)',
     } as React.CSSProperties
   }
 >
@@ -162,36 +163,26 @@ Consumers should prefer using Primer primitive values (e.g., `var(--bgColor-acce
 
 ### Negative
 
-- **Repeated fallback values** — the same fallback (e.g., `var(--controlTrack-bgColor-rest)`) may appear in multiple places within a component's CSS, since tokens are not defined centrally on the element.
-- **Stylelint noise** — component tokens trigger `primer/colors` and `primer/borders` lint rules because they are not recognized Primer primitives. Each usage requires a `stylelint-disable` comment.
+- **Stylelint noise** — component tokens trigger `primer/colors` and `primer/borders` lint rules because they are not recognized Primer primitives. Each usage requires a `stylelint-disable` comment. This could be mitigated by allowing component tokens with primitives in styleLint.
 - **API surface** — once a token is documented and adopted, renaming or removing it is a breaking change per our [versioning policy](../versioning.md#a-component-changes-its-usage-of-a-css-custom-property).
 
 ## Alternatives
 
-### Define tokens on the component element with explicit assignment
+### Use `data-component` and `data-slot` attributes for styling hooks
+
+Components could expose stable DOM hooks such as `data-component="SegmentedControl"` and `data-slot="button"`, allowing consumers to target internal parts with selectors:
 
 ```css
-.SegmentedControl {
-  --segmented-control-bgColor: var(--controlTrack-bgColor-rest);
-  background-color: var(--segmented-control-bgColor);
+[data-component='SegmentedControl'] {
+  background-color: var(--bgColor-accent-muted);
+}
+
+[data-component='SegmentedControl'] [data-slot='selected'] {
+  color: var(--fgColor-onEmphasis);
 }
 ```
 
-This is simpler to read and avoids repeated fallbacks, but **blocks CSS inheritance**. Tokens set on a parent element would be overridden by the component's own definition. This was the initial implementation for `SegmentedControl` and was rejected because the Storybook demo showed that parent overrides had no effect.
-
-### Use `@property` registration with `inherits: true`
-
-The CSS `@property` rule could register tokens with default values while preserving inheritance:
-
-```css
-@property --segmented-control-bgColor {
-  syntax: '<color>';
-  inherits: true;
-  initial-value: transparent;
-}
-```
-
-This was not chosen because `@property` has limited browser support for complex fallback chains (e.g., referencing other custom properties as initial values is not supported), and it adds complexity for minimal benefit over the `var()` fallback pattern.
+This relies on selector-based overrides, couples consumers to the component's internal DOM shape, and encourages state styling through external selectors rather than a constrained token contract. It can be useful for testing and diagnostics, but component tokens provide a clearer, inheritance-friendly, and more stable public styling API, that we can control with guradrails.
 
 ### Expose a `style` prop for each sub-element
 
