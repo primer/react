@@ -14,14 +14,13 @@
 }
 
 .Wrapper {
-  anchor-scope: --anchored-overlay
+  anchor-scope: --anchored-overlay;
 }
 
 .Anchor {
   /* Anchor name, this is currently tied to `renderAnchor` */
   anchor-name: --anchored-overlay-anchor;
 }
-
 
 .AnchoredOverlay {
   /* Anchor position, this is currently tied to `<Overlay>` */
