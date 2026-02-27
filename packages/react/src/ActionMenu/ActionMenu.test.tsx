@@ -9,6 +9,7 @@ import {Tooltip as TooltipV2} from '../TooltipV2/Tooltip'
 import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
 import {MixedSelection} from '../ActionMenu/ActionMenu.examples.stories'
 import {SearchIcon, KebabHorizontalIcon} from '@primer/octicons-react'
+import anchoredOverlayClasses from '../AnchoredOverlay/AnchoredOverlay.module.css'
 
 import type {JSX} from 'react'
 import {implementsClassName} from '../utils/testing'
@@ -624,6 +625,7 @@ describe('ActionMenu', () => {
       )
       const anchor = component.getByRole('button', {name: 'Toggle Menu'})
       expect(anchor).toHaveClass('test-class')
+      expect(anchor).toHaveClass(anchoredOverlayClasses.Anchor)
     })
 
     it('supports className prop on ActionMenu.Button', async () => {
@@ -650,6 +652,7 @@ describe('ActionMenu', () => {
       )
       const button = component.getByRole('button', {name: 'Toggle Menu'})
       expect(button).toHaveClass('test-class')
+      expect(button).toHaveClass(anchoredOverlayClasses.Anchor)
     })
   })
 

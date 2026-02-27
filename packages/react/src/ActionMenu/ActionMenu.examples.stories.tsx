@@ -793,7 +793,7 @@ export const TwoActionMenus = () => {
   return (
     <div style={{display: 'flex', gap: '1rem', padding: '1rem'}}>
       <ActionMenu>
-        <ActionMenu.Button>First menu</ActionMenu.Button>
+        <ActionMenu.Button className="Testing">First menu</ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
           <ActionList>
             <ActionList.Item onSelect={() => alert('Copy clicked')}>

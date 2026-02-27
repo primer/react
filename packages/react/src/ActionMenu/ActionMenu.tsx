@@ -1,4 +1,5 @@
 import React, {useCallback, useContext, useMemo, useEffect, useState} from 'react'
+import {clsx} from 'clsx'
 import {TriangleDownIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -69,6 +70,10 @@ const mergeAnchorHandlers = (anchorProps: React.HTMLAttributes<HTMLElement>, but
       anchorOnKeyDown?.(event)
     }
     mergedAnchorProps.onKeyDown = mergedOnAnchorKeyDown
+  }
+
+if (buttonProps.className) {
+    mergedAnchorProps.className = clsx(anchorProps.className, buttonProps.className)
   }
 
   return mergedAnchorProps
@@ -232,6 +237,7 @@ const Anchor: WithSlotMarker<
       {React.cloneElement(child, {
         ...anchorProps,
         ref: anchorRef,
+        className: clsx(anchorProps.className, child.props.className),
         onClick: onButtonClick,
         onKeyDown: onButtonKeyDown,
       })}
