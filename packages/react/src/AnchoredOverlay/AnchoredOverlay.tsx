@@ -233,7 +233,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   const XButtonAriaLabelledBy = closeButtonProps['aria-labelledby']
   const XButtonAriaLabel = closeButtonProps['aria-label']
 
-  console.log('AnchoredOverlay className', cssAnchorPositioning ? classes.AnchoredOverlay : undefined)
+  const {className: overlayClassName, ...restOverlayProps} = overlayProps || {}
 
   return (
     <div className={classes.Wrapper}>
@@ -262,10 +262,10 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           left={cssAnchorPositioning ? undefined : position?.left || 0}
           responsiveVariant={variant.narrow === 'fullscreen' ? 'fullscreen' : undefined}
           anchorSide={cssAnchorPositioning ? undefined : position?.anchorSide}
-          className={clsx(className, cssAnchorPositioning ? classes.AnchoredOverlay : undefined)}
+          className={clsx(className, overlayClassName, cssAnchorPositioning ? classes.AnchoredOverlay : undefined)}
           preventOverflow={preventOverflow}
           data-component="AnchoredOverlay"
-          {...overlayProps}
+          {...restOverlayProps}
           ref={node => {
             if (overlayProps?.ref) {
               assignRef(overlayProps.ref, node)
