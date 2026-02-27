@@ -72,7 +72,7 @@ const mergeAnchorHandlers = (anchorProps: React.HTMLAttributes<HTMLElement>, but
     mergedAnchorProps.onKeyDown = mergedOnAnchorKeyDown
   }
 
-if (buttonProps.className) {
+  if (buttonProps.className) {
     mergedAnchorProps.className = clsx(anchorProps.className, buttonProps.className)
   }
 
