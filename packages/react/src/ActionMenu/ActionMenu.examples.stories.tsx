@@ -788,3 +788,62 @@ export const CenteredOnPage = () => {
     </div>
   )
 }
+
+export const TwoActionMenus = () => {
+  return (
+    <div style={{display: 'flex', gap: '1rem', padding: '1rem'}}>
+      <ActionMenu>
+        <ActionMenu.Button>First menu</ActionMenu.Button>
+        <ActionMenu.Overlay width="medium">
+          <ActionList>
+            <ActionList.Item onSelect={() => alert('Copy clicked')}>
+              <ActionList.LeadingVisual>
+                <CopyIcon />
+              </ActionList.LeadingVisual>
+              Copy
+              <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Archive clicked')}>
+              <ActionList.LeadingVisual>
+                <ArchiveIcon />
+              </ActionList.LeadingVisual>
+              Archive
+            </ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.Item variant="danger" onSelect={() => alert('Delete clicked')}>
+              Delete
+              <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+            </ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+
+      <ActionMenu>
+        <ActionMenu.Button leadingVisual={GearIcon}>Second menu</ActionMenu.Button>
+        <ActionMenu.Overlay width="medium">
+          <ActionList>
+            <ActionList.Item onSelect={() => alert('Settings clicked')}>
+              <ActionList.LeadingVisual>
+                <GearIcon />
+              </ActionList.LeadingVisual>
+              Settings
+            </ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>
+              <ActionList.LeadingVisual>
+                <WorkflowIcon />
+              </ActionList.LeadingVisual>
+              Workflows
+            </ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.LinkItem href="#">
+              <ActionList.LeadingVisual>
+                <BookIcon />
+              </ActionList.LeadingVisual>
+              Documentation
+            </ActionList.LinkItem>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </div>
+  )
+}

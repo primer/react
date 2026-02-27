@@ -234,7 +234,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   const XButtonAriaLabel = closeButtonProps['aria-label']
 
   return (
-    <>
+    <div className={classes.Wrapper}>
       {renderAnchor &&
         renderAnchor({
           ref: anchorRef,
@@ -294,7 +294,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           {children}
         </Overlay>
       ) : null}
-    </>
+    </div>
   )
 }
 
