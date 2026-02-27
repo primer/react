@@ -33,6 +33,7 @@
   z-index: 100;
   position: fixed;
 
+  /* stylelint-disable primer/spacing, declaration-property-value-no-unknown -- anchor() is a valid CSS Anchor Positioning value */
   &[data-side='outside-bottom'] {
     top: calc(anchor(bottom) + var(--base-size-4));
     left: anchor(left);

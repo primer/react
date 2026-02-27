@@ -68,6 +68,7 @@
   align-items: center;
   justify-content: center;
   min-height: 300vh;
+  /* stylelint-disable-next-line primer/responsive-widths -- intentionally large for scroll testing */
   min-width: 300vw;
 }
 
@@ -82,6 +83,7 @@
   align-items: center;
   justify-content: center;
   min-height: 200vh;
+  /* stylelint-disable-next-line primer/responsive-widths -- intentionally large for grid layout testing */
   min-width: 200vw;
 }
 
@@ -89,6 +91,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  /* stylelint-disable-next-line primer/colors -- fallback value for borderColor-default */
   border: var(--borderWidth-thin) solid var(--borderColor-default, #d1d9e0);
   padding: var(--base-size-16);
   position: relative;
@@ -115,6 +118,7 @@
 .ScrollContainer {
   height: 400px;
   overflow: auto;
+  /* stylelint-disable-next-line primer/colors -- fallback value for borderColor-default */
   border: var(--borderWidth-thin) solid var(--borderColor-default, #d1d9e0);
   border-radius: var(--borderRadius-medium);
   position: relative;
@@ -137,6 +141,7 @@
   justify-content: space-between;
   padding: var(--base-size-8) var(--base-size-16);
   background-color: var(--bgColor-default);
+  /* stylelint-disable-next-line primer/colors -- fallback value for borderColor-default */
   border-bottom: var(--borderWidth-thin) solid var(--borderColor-default, #d1d9e0);
 }
 

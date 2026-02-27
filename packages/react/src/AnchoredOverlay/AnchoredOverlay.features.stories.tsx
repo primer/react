@@ -456,7 +456,6 @@ export const AnchorPositionGrid = () => {
                     }}
                     focusZoneSettings={{disabled: true}}
                     preventOverflow={false}
-                    popover
                   >
                     <div className={classes.FlexColFill}>{hoverCard}</div>
                   </AnchoredOverlay>
