@@ -421,72 +421,41 @@ function getDesignTokenSpecsText(groups: TokenGroups): string {
 # Design Token Specifications
 
 ## 1. Core Rule & Enforcement
-- **Expert Mode**: You are a CSS expert. NEVER use raw values (hex, px, etc.). Only use tokens.
-- **Shorthand**: MUST use shorthand tokens (e.g., \`font: var(...)\`). NEVER split font-size/weight. Fallback Rule: If a specific shorthand does not exist for a component (e.g. Monospace code blocks), you MUST still use individual tokens for font-size, font-family, and line-height. NEVER use raw numeric values like 1.5.
-- **States**: MUST define 5 states: Rest, Hover, Focus-visible, Active, Disabled.
-- **Safety**: If unsure of a token name, suffix with \`/* check-token */\`.
-- **Focus States**: When implementing :focus-visible, you MUST use both:
-  - outline: var(--focus-outline)
-  - outline-offset: var(--outline-focus-offset)
+* **Expert Mode**: CSS expert. NEVER use raw values (hex, px, etc.). Tokens only.
+* **Shorthand**: MUST use \`font: var(...)\`. NEVER split size/weight. 
+* **Shorthand Fallback**: If no shorthand exists (e.g. Monospace), use individual tokens for font-size, family, and line-height. NEVER raw 1.5.
+* **States**: Define 5: Rest, Hover, Focus-visible, Active, Disabled.
+* **Focus**: \`:focus-visible\` MUST use \`outline: var(--focus-outline)\` AND \`outline-offset: var(--outline-focus-offset)\`.
+* **Validation**: CALL \`lint_css\` after any CSS change. Task is incomplete without a success message.
+* **Self-Correction**: Adopt autofixes immediately. Report unfixable errors to the user.
 
 ## 2. Typography Constraints (STRICT)
-- **Body Only**: Only the \`body\` group supports size suffixes (e.g., \`body-small\`, \`body-medium\`).
-- **Static Shorthands**: The following groups do NOT support size suffixes. Use the base shorthand only:
-  - **caption**: \`var(--text-caption-shorthand)\` (NEVER add -medium or -small)
-  - **display**: \`var(--text-display-shorthand)\`
-  - **codeBlock**: \`var(--text-codeBlock-shorthand)\`
-  - **codeInline**: \`var(--text-codeInline-shorthand)\`
+- **Body Only**: Only \`body\` group supports size suffixes (e.g., \`body-small\`).
+- **Static Shorthands**: NEVER add suffixes to \`caption\`, \`display\`, \`codeBlock\`, or \`codeInline\`.
 
-## 3. Logic Matrix: Color Pairings (CRITICAL)
-| Background Token | Foreground Token | Requirement |
-| :--- | :--- | :--- |
-| --bgColor-*-emphasis | --fgColor-onEmphasis | MUST pair |
-| --bgColor-*-muted | --fgColor-{semantic} | MUST match semantic |
-| --bgColor-default | --fgColor-default | Standard pairing |
-| --bgColor-muted | --fgColor-default | NEVER use fgColor-muted |
+## 3. Logic Matrix: Color & Semantic Mapping
+| Input Color/Intent | Semantic Role | Background Suffix | Foreground Requirement |
+| :--- | :--- | :--- | :--- |
+| Blue / Interactive | \`accent\` | \`-emphasis\` (Solid) | \`fgColor-onEmphasis\` |
+| Green / Positive | \`success\` | \`-muted\` (Light) | \`fgColor-{semantic}\` |
+| Red / Danger | \`danger\` | \`-emphasis\` | \`fgColor-onEmphasis\` |
+| Yellow / Warning | \`attention\` | \`-muted\` | \`fgColor-attention\` |
+| Orange / Critical | \`severe\` | \`-emphasis\` | \`fgColor-onEmphasis\` |
+| Purple / Done | \`done\` | Any | Match intent |
+| Pink / Sponsors | \`sponsors\` | Any | Match intent |
+| Grey / Neutral | \`default\` | \`bgColor-muted\` | \`fgColor-default\` (Not muted) |
 
-## 4. Semantic Intent Key
-Use these for \`find_tokens\` or to map natural language to groups:
-- **Search Aliases**: Map "background" -> \`bgColor\`, "foreground" -> \`fgColor\`, "typography/font" -> \`text\`, "padding/margin" -> \`stack\`, "radius" -> \`borderRadius\`, "shadow/elevation" -> \`overlay\`.
-- **danger**: Errors/Destructive | **success**: Positive/Done
-- **attention**: Warning/Pending | **accent**: Interactive/Selected
+## 4. Optimization & Recipes (MANDATORY)
+**Strategy**: STOP property-by-property searching. Use \`get_token_group_bundle\` for these common patterns:
+- **Forms**: \`["control", "focus", "outline", "text", "borderRadius", "stack"]\`
+- **Modals/Cards**: \`["overlay", "shadow", "outline", "borderRadius", "bgColor", "stack"]\`
+- **Tables/Lists**: \`["stack", "borderColor", "text", "bgColor", "control"]\`
+- **Nav/Sidebars**: \`["control", "text", "accent", "stack", "focus"]\`
+- **Status/Badges**: \`["text", "success", "danger", "attention", "severe", "stack"]\`
 
-## 5. Available Token Groups
-Use these names in \`find_tokens(group: "...")\`:
-- **Semantic**: ${groups.semantic.map(g => g.name).join(', ')}
-- **Components**: ${groups.component.map(g => g.name).join(', ')}
-
-## 6. Optimization Strategy (MANDATORY)
-- **STOP**: Do not call \`find_tokens\` repeatedly for individual properties.
-- **GO**: Use \`get_token_group_bundle\` to fetch relevant groups at once.
-  - *Example for Button*: \`get_token_group_bundle(groups: ["control", "button"])\`
-  - *Note*: \`control\` is for form inputs; \`button\` is for triggers.
-
-## 7. Token Bundle Recipes (Recommended)
-- **Forms/Inputs**: \`["control", "focus", "outline", "text", "borderRadius", "stack"]\`
-- **Modals/Dialogs**: \`["overlay", "shadow", "outline", "borderRadius", "bgColor"]\`
-- **Data Tables**: \`["stack", "borderColor", "text", "bgColor"]\`
-- **Cards/Containers**: ["stack", "bgColor", "borderColor", "shadow"]
-- **Interactive Lists**: ["stack", "text", "control", "focus", "borderColor", "bgColor"]
-- **Navigation & Sidebars**: ["control", "text", "accent", "stack", "focus"]
-
-## 8. Color Translation & Semantic Roles
-When a user provides a generic color, you MUST map it to these functional roles:
-
-| Color | Role | Common Use Case |
-| :--- | :--- | :--- |
-| **Blue** | \`accent\` | Links, primary buttons, selected states |
-| **Green** | \`success\` | Positive actions, "Done" states |
-| **Red** | \`danger\` | Errors, destructive actions, danger buttons |
-| **Yellow** | \`attention\` | Warnings, pending states, queued items |
-| **Purple** | \`done\` | Completed tasks, merged PRs |
-| **Pink** | \`sponsors\` | Sponsorship or heart-themed UI |
-| **Grey** | \`default/muted\` | Secondary text, subtle borders |
-
-### ⚠️ Usage Rules:
-1. **Emphasis Suffix**: Use \`-emphasis\` (solid color) for primary actions.
-2. **Muted Suffix**: Use \`-muted\` (light wash) for background alerts or subtle highlights.
-3. **onEmphasis**: If using an \`-emphasis\` background, you MUST use \`fgColor-onEmphasis\` for text.
+## 5. Available Groups
+- **Semantic**: ${groups.semantic.map(g => `${g.name}\``).join(', ')}
+- **Components**: ${groups.component.map(g => `\`${g.name}\``).join(', ')}
 `.trim()
 }
 
