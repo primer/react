@@ -233,6 +233,8 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   const XButtonAriaLabelledBy = closeButtonProps['aria-labelledby']
   const XButtonAriaLabel = closeButtonProps['aria-label']
 
+  console.log('AnchoredOverlay className', cssAnchorPositioning ? classes.AnchoredOverlay : undefined)
+
   return (
     <div className={classes.Wrapper}>
       {renderAnchor &&
