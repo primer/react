@@ -146,6 +146,7 @@ const Root: React.FC<TreeViewProps> = ({
 
     pendingScrollRef.current = requestAnimationFrame(() => {
       pendingScrollRef.current = null
+      if (!element.isConnected) return
       element.scrollIntoView({block: 'nearest', inline: 'nearest'})
     })
   }, [])
