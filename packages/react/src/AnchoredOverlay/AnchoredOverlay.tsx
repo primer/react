@@ -235,8 +235,8 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
   const {className: overlayClassName, ...restOverlayProps} = overlayProps || {}
 
-  return (
-    <div className={classes.Wrapper}>
+  const innerContent = (
+    <>
       {renderAnchor &&
         renderAnchor({
           ref: anchorRef,
@@ -296,8 +296,14 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           {children}
         </Overlay>
       ) : null}
-    </div>
+    </>
   )
+
+  if (cssAnchorPositioning) {
+    return <div className={classes.Wrapper}>{innerContent}</div>
+  }
+
+  return innerContent
 }
 
 function assignRef<T>(
