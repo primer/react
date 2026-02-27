@@ -18,12 +18,9 @@ import {
   type TokenWithGuidelines,
   getValidGroupsList,
   groupHints,
+  runStylelint,
 } from './primitives'
-import {exec} from 'child_process'
-import {promisify} from 'util'
 import packageJson from '../package.json' with {type: 'json'}
-
-const execAsync = promisify(exec) as (command: string) => Promise<{stdout: string; stderr: string}>
 
 const server = new McpServer({
   name: 'Primer',
@@ -694,7 +691,7 @@ server.registerTool(
   async ({css}) => {
     try {
       // --fix flag tells Stylelint to repair what it can
-      const {stdout} = await execAsync('npx stylelint --stdin --fix', {input: css})
+      const {stdout} = await runStylelint(css)
 
       return {
         content: [

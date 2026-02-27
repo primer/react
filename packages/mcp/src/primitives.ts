@@ -1,5 +1,6 @@
 import {readFileSync} from 'node:fs'
 import {createRequire} from 'node:module'
+import {spawn} from 'child_process'
 import baseMotion from '@primer/primitives/dist/docs/base/motion/motion.json' with {type: 'json'}
 import baseSize from '@primer/primitives/dist/docs/base/size/size.json' with {type: 'json'}
 import baseTypography from '@primer/primitives/dist/docs/base/typography/typography.json' with {type: 'json'}
@@ -721,6 +722,45 @@ const groupHints: Record<string, string> = {
     '`borderWidth` only has sizing values (thin, thick, thicker). For border *colors*, use the `borderColor` or `border` group.',
 }
 
+// -----------------------------------------------------------------------------
+// Stylelint runner
+// -----------------------------------------------------------------------------
+function runStylelint(css: string): Promise<{stdout: string; stderr: string}> {
+  return new Promise((resolve, reject) => {
+    const proc = spawn('npx', ['stylelint', '--stdin', '--fix'], {
+      stdio: ['pipe', 'pipe', 'pipe'],
+      shell: true,
+    })
+
+    let stdout = ''
+    let stderr = ''
+
+    proc.stdout.on('data', (data: Buffer) => {
+      stdout += data.toString()
+    })
+
+    proc.stderr.on('data', (data: Buffer) => {
+      stderr += data.toString()
+    })
+
+    proc.on('close', code => {
+      if (code === 0) {
+        resolve({stdout, stderr})
+      } else {
+        const error = new Error(`Stylelint exited with code ${code}`) as Error & {stdout: string; stderr: string}
+        error.stdout = stdout
+        error.stderr = stderr
+        reject(error)
+      }
+    })
+
+    proc.on('error', reject)
+
+    proc.stdin.write(css)
+    proc.stdin.end()
+  })
+}
+
 export {
   parseDesignTokensSpec,
   findTokens,
@@ -738,5 +778,6 @@ export {
   GROUP_ALIASES,
   GROUP_LABELS,
   tokenMatchesGroup,
+  runStylelint,
   type TokenWithGuidelines,
 }
