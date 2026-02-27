@@ -160,11 +160,14 @@ export const CustomCSSTokens = () => (
   <div
     style={
       {
-        '--segmented-control-bgColor': 'var(--bgColor-accent-muted)',
-        '--segmented-control-borderColor': 'var(--borderColor-accent-emphasis)',
-        '--segmented-control-selected-bgColor': 'var(--bgColor-accent-emphasis)',
-        '--segmented-control-selected-borderColor': 'var(--borderColor-accent-emphasis)',
-        '--segmented-control-selected-fgColor': 'var(--fgColor-onEmphasis)',
+        '--segmentedControl-bgColor': 'var(--bgColor-accent-muted)',
+        '--segmentedControl-borderColor': 'var(--borderColor-accent-emphasis)',
+        '--segmentedControl-selected-bgColor': 'var(--bgColor-accent-emphasis)',
+        '--segmentedControl-selected-borderColor': 'var(--borderColor-accent-emphasis)',
+        '--segmentedControl-selected-fgColor': 'var(--fgColor-onEmphasis)',
+        '--segmentedControl-selected-iconColor': 'var(--fgColor-onEmphasis)',
+        '--segmentedControl-bgColor-hover': 'color-mix(in srgb, var(--bgColor-accent-emphasis) 20%, transparent)',
+        '--segmentedControl-bgColor-active': 'color-mix(in srgb, var(--bgColor-accent-emphasis) 30%, transparent)',
       } as React.CSSProperties
     }
   >

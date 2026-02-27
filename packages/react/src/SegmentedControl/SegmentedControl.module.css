@@ -1,25 +1,27 @@
 .SegmentedControl {
   /*
-   * Component tokens – override these custom properties from a parent element to customize the control:
+   * Component tokens – override these custom properties from a parent
+   * element to customize the control:
    *
-   * --segmented-control-bgColor
-   * --segmented-control-bgColor-hover
-   * --segmented-control-bgColor-active
-   * --segmented-control-borderColor
-   * --segmented-control-borderRadius
-   * --segmented-control-fgColor-icon
-   * --segmented-control-fgColor-disabled
-   * --segmented-control-fontWeight
-   * --segmented-control-selected-bgColor
-   * --segmented-control-selected-borderColor
-   * --segmented-control-selected-fgColor
-   * --segmented-control-selected-fontWeight
-   * --segmented-control-button-inner-padding
-   * --segmented-control-button-bg-inset
+   * --segmentedControl-bgColor
+   * --segmentedControl-bgColor-hover
+   * --segmentedControl-bgColor-active
+   * --segmentedControl-borderColor
+   * --segmentedControl-borderRadius
+   * --segmentedControl-fgColor
+   * --segmentedControl-fgColor-hover
+   * --segmentedControl-iconColor
+   * --segmentedControl-iconColor-hover
+   * --segmentedControl-fontWeight
+   * --segmentedControl-innerPadding
+   * --segmentedControl-trackPadding
+   * --segmentedControl-selected-bgColor
+   * --segmentedControl-selected-fgColor
+   * --segmentedControl-selected-iconColor
+   * --segmentedControl-selected-fontWeight
+   * --segmentedControl-selected-borderColor
+   * --segmentedControl-selected-borderRadius
    */
-
-  /* TODO: use primitive `control.medium.size` when it is available instead of '32px' */
-  --segmented-control-icon-width: 32px;
 
   display: inline-flex;
 
@@ -29,27 +31,29 @@
   margin: 0;
   font-size: var(--text-body-size-medium);
   /* stylelint-disable-next-line primer/colors */
-  background-color: var(--segmented-control-bgColor, var(--controlTrack-bgColor-rest));
+  color: var(--segmentedControl-fgColor, currentColor);
+  /* stylelint-disable-next-line primer/colors */
+  background-color: var(--segmentedControl-bgColor, var(--controlTrack-bgColor-rest));
   /* stylelint-disable primer/colors */
   border: var(--borderWidth-thin) solid
-    var(--segmented-control-borderColor, var(--controlTrack-borderColor-rest, transparent));
+    var(--segmentedControl-borderColor, var(--controlTrack-borderColor-rest, transparent));
   /* stylelint-enable primer/colors */
   /* stylelint-disable-next-line primer/borders */
-  border-radius: var(--segmented-control-borderRadius, var(--borderRadius-medium));
+  border-radius: var(--segmentedControl-borderRadius, var(--borderRadius-medium));
 
   /* Responsive full-width */
   &[data-full-width='true'] {
     display: flex;
     width: 100%;
 
-    --segmented-control-icon-width: 100%;
+    & .IconButton {
+      width: 100%;
+    }
   }
 
   &[data-full-width='false'] {
     display: inline-flex;
     width: auto;
-
-    --segmented-control-icon-width: 32px;
   }
 
   @media (--viewportRange-narrow) {
@@ -57,14 +61,14 @@
       display: flex;
       width: 100%;
 
-      --segmented-control-icon-width: 100%;
+      & .IconButton {
+        width: 100%;
+      }
     }
 
     &[data-full-width-narrow='false'] {
       display: inline-flex;
       width: auto;
-
-      --segmented-control-icon-width: 32px;
     }
   }
 
@@ -73,14 +77,14 @@
       display: flex;
       width: 100%;
 
-      --segmented-control-icon-width: 100%;
+      & .IconButton {
+        width: 100%;
+      }
     }
 
     &[data-full-width-regular='false'] {
       display: inline-flex;
       width: auto;
-
-      --segmented-control-icon-width: 32px;
     }
   }
 
@@ -89,21 +93,19 @@
       display: flex;
       width: 100%;
 
-      --segmented-control-icon-width: 100%;
+      & .IconButton {
+        width: 100%;
+      }
     }
 
     &[data-full-width-wide='false'] {
       display: inline-flex;
       width: auto;
-
-      --segmented-control-icon-width: 32px;
     }
 
     &[data-full-width-regular='true']:not([data-full-width-wide='true']) {
       display: inline-flex;
       width: auto;
-
-      --segmented-control-icon-width: 32px;
     }
   }
 
@@ -236,23 +238,23 @@
   width: 100%;
   height: 100%;
   /* stylelint-disable-next-line primer/spacing */
-  padding: var(--segmented-control-button-bg-inset, 4px);
+  padding: var(--segmentedControl-trackPadding, 4px);
   font-family: inherit;
   font-size: inherit;
-  font-weight: var(--segmented-control-fontWeight, var(--base-text-weight-normal));
-  color: currentColor;
+  font-weight: var(--segmentedControl-fontWeight, var(--base-text-weight-normal));
+  color: inherit;
   cursor: pointer;
   background-color: transparent;
   border-color: transparent;
   border-width: 0;
   /* stylelint-disable-next-line primer/borders */
-  border-radius: var(--segmented-control-borderRadius, var(--borderRadius-medium));
+  border-radius: var(--segmentedControl-borderRadius, var(--borderRadius-medium));
 
   & svg {
     /* stylelint-disable-next-line primer/colors */
-    fill: var(--segmented-control-fgColor-icon, var(--fgColor-muted));
+    fill: var(--segmentedControl-iconColor, var(--fgColor-muted));
     /* stylelint-disable-next-line primer/colors */
-    color: var(--segmented-control-fgColor-icon, var(--fgColor-muted));
+    color: var(--segmentedControl-iconColor, var(--fgColor-muted));
   }
 
   /* fallback :focus state */
@@ -282,15 +284,12 @@
 
   &[aria-disabled='true']:not([aria-current='true']) {
     cursor: not-allowed;
-    /* stylelint-disable-next-line primer/colors */
-    color: var(--segmented-control-fgColor-disabled, var(--fgColor-disabled));
+    color: var(--fgColor-disabled);
     background-color: transparent;
 
     & svg {
-      /* stylelint-disable-next-line primer/colors */
-      fill: var(--segmented-control-fgColor-disabled, var(--fgColor-disabled));
-      /* stylelint-disable-next-line primer/colors */
-      color: var(--segmented-control-fgColor-disabled, var(--fgColor-disabled));
+      fill: var(--fgColor-disabled);
+      color: var(--fgColor-disabled);
     }
   }
 
@@ -308,21 +307,16 @@
 }
 
 .IconButton {
-  width: var(--segmented-control-icon-width, 32px);
+  /* TODO: use primitive `control.medium.size` when it is available instead of '32px' */
+  width: 32px;
 }
 
 .Content {
   display: flex;
   height: 100%;
   /* stylelint-disable primer/spacing */
-  padding-right: calc(
-    var(--segmented-control-button-inner-padding, var(--base-size-12)) -
-      var(--segmented-control-button-bg-inset, var(--base-size-4))
-  );
-  padding-left: calc(
-    var(--segmented-control-button-inner-padding, var(--base-size-12)) -
-      var(--segmented-control-button-bg-inset, var(--base-size-4))
-  );
+  padding-right: calc(var(--segmentedControl-innerPadding, 12px) - var(--segmentedControl-trackPadding, 4px));
+  padding-left: calc(var(--segmentedControl-innerPadding, 12px) - var(--segmentedControl-trackPadding, 4px));
   /* stylelint-enable primer/spacing */
   border-color: transparent;
   border-style: solid;
@@ -334,8 +328,7 @@
   */
   /* stylelint-disable primer/borders */
   border-radius: calc(
-    var(--segmented-control-borderRadius, var(--borderRadius-medium)) - var(--segmented-control-button-bg-inset, 4px) /
-      2
+    var(--segmentedControl-borderRadius, var(--borderRadius-medium)) - var(--segmentedControl-trackPadding, 4px) / 2
   );
   /* stylelint-enable primer/borders */
   align-items: center;
@@ -344,40 +337,56 @@
 
 .Button[aria-current='true'] {
   padding: 0;
-  font-weight: var(--segmented-control-selected-fontWeight, var(--base-text-weight-semibold));
+  font-weight: var(--segmentedControl-selected-fontWeight, var(--base-text-weight-semibold));
   /* stylelint-disable-next-line primer/colors */
-  color: var(--segmented-control-selected-fgColor, inherit);
+  color: var(--segmentedControl-selected-fgColor, inherit);
 
   & svg {
     /* stylelint-disable-next-line primer/colors */
-    fill: var(--segmented-control-selected-fgColor, inherit);
+    fill: var(--segmentedControl-selected-iconColor, inherit);
     /* stylelint-disable-next-line primer/colors */
-    color: var(--segmented-control-selected-fgColor, inherit);
+    color: var(--segmentedControl-selected-iconColor, inherit);
   }
 
   .Content {
     /* stylelint-disable-next-line primer/spacing */
-    padding-right: var(--segmented-control-button-inner-padding, 12px);
+    padding-right: var(--segmentedControl-innerPadding, 12px);
     /* stylelint-disable-next-line primer/spacing */
-    padding-left: var(--segmented-control-button-inner-padding, 12px);
+    padding-left: var(--segmentedControl-innerPadding, 12px);
     /* stylelint-disable-next-line primer/colors */
-    background-color: var(--segmented-control-selected-bgColor, var(--controlKnob-bgColor-rest));
+    background-color: var(--segmentedControl-selected-bgColor, var(--controlKnob-bgColor-rest));
     /* stylelint-disable-next-line primer/colors */
-    border-color: var(--segmented-control-selected-borderColor, var(--controlKnob-borderColor-rest));
-    /* stylelint-disable-next-line primer/borders */
-    border-radius: var(--segmented-control-borderRadius, var(--borderRadius-medium));
+    border-color: var(--segmentedControl-selected-borderColor, var(--controlKnob-borderColor-rest));
+    /* stylelint-disable primer/borders */
+    border-radius: var(
+      --segmentedControl-selected-borderRadius,
+      var(--segmentedControl-borderRadius, var(--borderRadius-medium))
+    );
+    /* stylelint-enable primer/borders */
   }
 }
 
 .Button:not([aria-current='true'], [aria-disabled='true']) {
+  &:hover {
+    /* stylelint-disable-next-line primer/colors */
+    color: var(--segmentedControl-fgColor-hover, inherit);
+
+    & svg {
+      /* stylelint-disable-next-line primer/colors */
+      fill: var(--segmentedControl-iconColor-hover, var(--segmentedControl-iconColor, var(--fgColor-muted)));
+      /* stylelint-disable-next-line primer/colors */
+      color: var(--segmentedControl-iconColor-hover, var(--segmentedControl-iconColor, var(--fgColor-muted)));
+    }
+  }
+
   &:hover .Content {
     /* stylelint-disable-next-line primer/colors */
-    background-color: var(--segmented-control-bgColor-hover, var(--controlTrack-bgColor-hover));
+    background-color: var(--segmentedControl-bgColor-hover, var(--controlTrack-bgColor-hover));
   }
 
   &:active .Content {
     /* stylelint-disable-next-line primer/colors */
-    background-color: var(--segmented-control-bgColor-active, var(--controlTrack-bgColor-active));
+    background-color: var(--segmentedControl-bgColor-active, var(--controlTrack-bgColor-active));
   }
 }
 
@@ -385,7 +394,7 @@
   display: block;
   height: 0;
   overflow: hidden;
-  font-weight: var(--segmented-control-selected-fontWeight, var(--base-text-weight-semibold));
+  font-weight: var(--segmentedControl-selected-fontWeight, var(--base-text-weight-semibold));
   pointer-events: none;
   visibility: hidden;
   content: attr(data-text);

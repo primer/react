@@ -38,23 +38,26 @@ Component tokens use the following naming pattern:
 
 Examples from `SegmentedControl`:
 
-| Token                                      | Purpose                        |
-| ------------------------------------------ | ------------------------------ |
-| `--segmentedControl-bgColor`               | Track background color         |
-| `--segmentedControl-bgColor-hover`         | Track background on hover      |
-| `--segmentedControl-borderColor`           | Outer border color             |
-| `--segmentedControl-borderRadius`          | Outer border radius            |
-| `--segmentedControl-iconColor`             | Icon color (default state)     |
-| `--segmentedControl-fgColor`               | Text color (default state)     |
-| `--segmentedControl-iconColor-hover`       | Icon color (hover state)       |
-| `--segmentedControl-fgColor-hover`         | Text color (hover state)       |
-| `--segmentedControl-fontWeight`            | Text weight (default state)    |
-| `--segmentedControl-selected-bgColor`      | Selected segment background    |
-| `--segmentedControl-selected-fgColor`      | Selected segment text color    |
-| `--segmentedControl-selected-iconColor`    | Selected segment icon color    |
-| `--segmentedControl-selected-fontWeight`   | Selected segment text weight   |
-| `--segmentedControl-selected-borderColor`  | Selected element border color  |
-| `--segmentedControl-selected-borderRadius` | Selected element border radius |
+| Token                                      | Purpose                                   |
+| ------------------------------------------ | ----------------------------------------- |
+| `--segmentedControl-bgColor`               | Track background color                    |
+| `--segmentedControl-bgColor-hover`         | Track background on hover                 |
+| `--segmentedControl-bgColor-active`        | Track background on active/press          |
+| `--segmentedControl-borderColor`           | Outer border color                        |
+| `--segmentedControl-borderRadius`          | Outer border radius                       |
+| `--segmentedControl-iconColor`             | Icon color (default state)                |
+| `--segmentedControl-fgColor`               | Text color (default state)                |
+| `--segmentedControl-iconColor-hover`       | Icon color (hover state)                  |
+| `--segmentedControl-fgColor-hover`         | Text color (hover state)                  |
+| `--segmentedControl-fontWeight`            | Text weight (default state)               |
+| `--segmentedControl-innerPadding`          | Horizontal padding inside each button     |
+| `--segmentedControl-trackPadding`          | Inset between the track border and button |
+| `--segmentedControl-selected-bgColor`      | Selected segment background               |
+| `--segmentedControl-selected-fgColor`      | Selected segment text color               |
+| `--segmentedControl-selected-iconColor`    | Selected segment icon color               |
+| `--segmentedControl-selected-fontWeight`   | Selected segment text weight              |
+| `--segmentedControl-selected-borderColor`  | Selected element border color             |
+| `--segmentedControl-selected-borderRadius` | Selected element border radius            |
 
 ### What to tokenize
 
@@ -114,12 +117,18 @@ List all available component tokens in a comment block at the top of the compone
    *
    * --segmentedControl-bgColor
    * --segmentedControl-bgColor-hover
-   * --segmentedControl-bgColor-active
    * --segmentedControl-borderColor
    * --segmentedControl-borderRadius
+   * --segmentedControl-fgColor
+   * --segmentedControl-iconColor
+   * --segmentedControl-fontWeight
+   * --segmentedControl-innerPadding
+   * --segmentedControl-trackPadding
    * --segmentedControl-selected-bgColor
    * --segmentedControl-selected-borderColor
+   * --segmentedControl-selected-borderRadius
    * --segmentedControl-selected-fgColor
+   * --segmentedControl-selected-iconColor
    * --segmentedControl-selected-fontWeight
    */
 
