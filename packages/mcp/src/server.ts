@@ -694,7 +694,7 @@ server.registerTool(
   async ({css}) => {
     try {
       // --fix flag tells Stylelint to repair what it can
-      const {stdout} = await execAsync(`echo "${css.replace(/"/g, '\\"')}" | npx stylelint --stdin --fix`)
+      const {stdout} = await execAsync('npx stylelint --stdin --fix', {input: css})
 
       return {
         content: [
