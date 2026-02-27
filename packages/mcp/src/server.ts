@@ -23,7 +23,7 @@ import {exec} from 'child_process'
 import {promisify} from 'util'
 import packageJson from '../package.json' with {type: 'json'}
 
-const execAsync = promisify(exec)
+const execAsync = promisify(exec) as (command: string) => Promise<{stdout: string; stderr: string}>
 
 const server = new McpServer({
   name: 'Primer',
