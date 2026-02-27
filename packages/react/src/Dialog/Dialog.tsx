@@ -155,6 +155,10 @@ export interface DialogProps {
    * Additional class names to apply to the dialog
    */
   className?: string
+  /**
+   * Additional styles to apply to the dialog
+   */
+  style?: React.CSSProperties
 }
 
 /**
@@ -253,6 +257,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     returnFocusRef,
     initialFocusRef,
     className,
+    style,
   } = props
   const dialogLabelId = useId()
   const dialogDescriptionId = useId()
@@ -363,6 +368,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             data-width={width}
             data-height={height}
             className={clsx(className, classes.Dialog)}
+            style={style}
           >
             {header}
             <ScrollableRegion aria-labelledby={dialogLabelId} className={classes.DialogOverflowWrapper}>
