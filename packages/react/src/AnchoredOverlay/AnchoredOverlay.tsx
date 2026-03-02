@@ -12,6 +12,7 @@ import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {type ResponsiveValue} from '../hooks/useResponsiveValue'
 import {IconButton, type IconButtonProps} from '../Button'
 import {XIcon} from '@primer/octicons-react'
+import polyfill from '@oddbird/css-anchor-positioning/fn'
 import classes from './AnchoredOverlay.module.css'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
@@ -124,6 +125,12 @@ export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
   (AnchoredOverlayPropsWithAnchor | AnchoredOverlayPropsWithoutAnchor) &
   Partial<Pick<PositionSettings, 'align' | 'side' | 'anchorOffset' | 'alignmentOffset' | 'displayInViewport'>>
 
+const applyAnchorPositioningPolyfill = () => {
+  if (typeof window !== 'undefined' && !('anchorName' in document.documentElement.style)) {
+    polyfill()
+  }
+}
+
 const defaultVariant = {
   regular: 'anchored',
   narrow: 'anchored',
@@ -220,7 +227,11 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     if (!open && overlayRef.current) {
       updateOverlayRef(null)
     }
-  }, [open, overlayRef, updateOverlayRef])
+
+    if (cssAnchorPositioning && open) {
+      applyAnchorPositioningPolyfill()
+    }
+  }, [open, overlayRef, updateOverlayRef, cssAnchorPositioning])
 
   useFocusZone({
     containerRef: overlayRef,
