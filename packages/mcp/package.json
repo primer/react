@@ -2,7 +2,7 @@
   "name": "@primer/mcp",
   "private": true,
   "description": "An MCP server that connects AI tools to the Primer Design System",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "type": "module",
   "bin": {
     "mcp": "./bin/mcp.js"
@@ -55,7 +55,7 @@
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@types/turndown": "^5.0.5",
     "rimraf": "^6.0.1",
-    "rollup": "^4.56.0",
+    "rollup": "^4.59.0",
     "rollup-plugin-typescript2": "^0.36.0",
     "typescript": "^5.9.2"
   }

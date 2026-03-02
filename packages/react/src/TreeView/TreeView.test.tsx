@@ -1440,15 +1440,14 @@ describe('Asynchronous loading', () => {
     const {getByRole} = renderWithTheme(<TestTree />)
 
     const doneButton = getByRole('button', {name: 'Load'})
-    const liveRegion = getLiveRegion()
-
-    // Live region should be empty
-    expect(liveRegion.getMessage('polite')).toBe('')
 
     // Click load button to mimic async loading
     await act(async () => {
       await user.click(doneButton)
     })
+
+    // Get live region after the first announcement creates it
+    const liveRegion = getLiveRegion()
 
     expect(liveRegion.getMessage('polite')).toBe('Parent content loading')
 
