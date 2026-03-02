@@ -301,12 +301,23 @@ export const NestedOverlays = ({role, open}: Args) => {
     disabled: !listOverlayOpen,
   })
 
-  React.useEffect(() => {
-    // eslint-disable-next-line no-console
-    const handler = (event: KeyboardEvent) => console.log('global handler:', event.key)
-    document.addEventListener('keydown', handler)
-    return () => document.removeEventListener('keydown', handler)
-  }, [])
+  const createListButton = (
+    <Button
+      variant="invisible"
+      ref={secondaryButtonRef}
+      style={{
+        paddingLeft: '8px',
+        paddingRight: '8px',
+        marginLeft: '8px',
+        marginRight: '8px',
+        display: 'flex',
+      }}
+      leadingVisual={PlusIcon}
+      onClick={() => setCreateListOverlayOpen(!createListOverlayOpen)}
+    >
+      Create list
+    </Button>
+  )
 
   return (
     <div>
@@ -355,23 +366,11 @@ export const NestedOverlays = ({role, open}: Args) => {
               </CheckboxGroup>
             </div>
             <ActionList.Divider />
-            <Tooltip text="Allows you to add more lists">
-              <Button
-                variant="invisible"
-                ref={secondaryButtonRef}
-                style={{
-                  paddingLeft: '8px',
-                  paddingRight: '8px',
-                  marginLeft: '8px',
-                  marginRight: '8px',
-                  display: 'flex',
-                }}
-                leadingVisual={PlusIcon}
-                onClick={() => setCreateListOverlayOpen(!createListOverlayOpen)}
-              >
-                Create list
-              </Button>
-            </Tooltip>
+            {createListOverlayOpen ? (
+              createListButton
+            ) : (
+              <Tooltip text="Allows you to add more lists">{createListButton}</Tooltip>
+            )}
           </div>
           {createListOverlayOpen && (
             <Overlay
