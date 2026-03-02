@@ -301,6 +301,13 @@ export const NestedOverlays = ({role, open}: Args) => {
     disabled: !listOverlayOpen,
   })
 
+  React.useEffect(() => {
+    // eslint-disable-next-line no-console
+    const handler = (event: KeyboardEvent) => console.log('global handler:', event.key)
+    document.addEventListener('keydown', handler)
+    return () => document.removeEventListener('keydown', handler)
+  }, [])
+
   const createListButton = (
     <Button
       variant="invisible"
