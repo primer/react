@@ -34,7 +34,7 @@ export type {
   ObjectPaths,
 } from '../DataTable'
 
-export * from '../Dialog/Dialog'
+export * from '../Dialog'
 
 export {InlineMessage} from '../InlineMessage'
 export type {InlineMessageProps} from '../InlineMessage'
