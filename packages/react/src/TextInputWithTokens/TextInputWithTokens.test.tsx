@@ -60,6 +60,31 @@ describe('TextInputWithTokens', () => {
     expect(render(<TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)).toMatchSnapshot()
   })
 
+  it('announces selected token values when used as a combobox', () => {
+    const onRemoveMock = vi.fn()
+    const {getByRole, container} = render(
+      <LabelledTextInputWithTokens
+        role="combobox"
+        tokens={[
+          {text: 'css', id: 'css'},
+          {text: 'react', id: 'react'},
+        ]}
+        onTokenRemove={onRemoveMock}
+      />,
+    )
+
+    const combobox = getByRole('combobox', {name: 'Tokens'})
+    const describedByIds = combobox.getAttribute('aria-describedby')
+
+    expect(describedByIds).toBeTruthy()
+
+    const describedByNodes = describedByIds
+      ? describedByIds.split(' ').map(descriptionId => container.querySelector(`#${descriptionId}`))
+      : []
+
+    expect(describedByNodes.some(node => node?.textContent === 'Selected values: css, react')).toBe(true)
+  })
+
   it('renders with tokens using a custom token component', () => {
     const onRemoveMock = vi.fn()
     expect(
