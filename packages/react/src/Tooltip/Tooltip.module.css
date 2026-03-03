@@ -19,7 +19,7 @@
   text-shadow: none;
   text-transform: none;
   letter-spacing: normal;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
   white-space: pre;
   pointer-events: none;
   content: attr(aria-label);
@@ -133,7 +133,7 @@
 .Tooltip--multiline::after {
   width: max-content;
   max-width: 250px;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
   white-space: pre-line;
   border-collapse: separate;
 }
