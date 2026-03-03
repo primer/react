@@ -22,13 +22,16 @@
 
   &[data-anchor-position='false'] {
     /* stylelint-disable-next-line primer/spacing */
-    top: var(--top, auto);
-    /* stylelint-disable-next-line primer/spacing */
-    left: var(--left, auto);
-    /* stylelint-disable-next-line primer/spacing */
     right: var(--right, auto);
     /* stylelint-disable-next-line primer/spacing */
     bottom: var(--bottom, auto);
+  }
+
+  &[data-anchor-position='true']:not([data-responsive='fullscreen']) {
+    /* stylelint-disable-next-line primer/spacing */
+    top: var(--top, auto);
+    /* stylelint-disable-next-line primer/spacing */
+    left: var(--left, auto);
   }
 
   &:focus {
