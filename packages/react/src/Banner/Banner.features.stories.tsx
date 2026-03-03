@@ -4,7 +4,7 @@ import type {Meta} from '@storybook/react-vite'
 import React from 'react'
 import {Banner} from '../Banner'
 import Link from '../Link'
-import {Dialog} from '../Dialog/Dialog'
+import {Dialog} from '../Dialog'
 import {Stack} from '../Stack'
 import Heading from '../Heading'
 
