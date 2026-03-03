@@ -37,11 +37,11 @@ function ConditionalTooltip({
   enabled: boolean
   children: React.ReactElement
 }) {
-  if (!enabled) {
+  if (!enabled || !text) {
     return children
   }
   return (
-    <Tooltip text={text || ''} direction="e" delay="medium" _privateDisableTooltip={!text}>
+    <Tooltip text={text || ''} direction="e" delay="medium">
       {children}
     </Tooltip>
   )

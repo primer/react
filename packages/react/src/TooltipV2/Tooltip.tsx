@@ -288,6 +288,12 @@ export const Tooltip: ForwardRefExoticComponent<
                   return child.props['aria-describedby']
                 }
 
+                // When the tooltip is disabled, don't add its ID to aria-describedby
+                // to avoid an empty string polluting the accessible description
+                if (_privateDisableTooltip) {
+                  return child.props['aria-describedby']
+                }
+
                 // If tooltip is a description type, append our tooltipId
                 const existingDescribedBy = child.props['aria-describedby']
                 if (existingDescribedBy) {
