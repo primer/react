@@ -238,6 +238,37 @@ describe('UnderlineNav', () => {
     const textSpan = item.querySelector('[data-component="text"]')
     expect(textSpan).toHaveAttribute('data-content', 'Simple Text')
   })
+
+  it('spreads counterProps onto the counter wrapper element', () => {
+    render(
+      <UnderlineNav aria-label="Test">
+        <UnderlineNav.Item counter={42} counterProps={{className: 'custom-counter'}}>
+          Issues
+        </UnderlineNav.Item>
+      </UnderlineNav>,
+    )
+
+    const item = screen.getByRole('link', {name: 'Issues (42)'})
+    const counterWrapper = item.querySelector('[data-component="counter"]')
+    expect(counterWrapper).toBeInTheDocument()
+    expect(counterWrapper).toHaveClass('custom-counter')
+    expect(counterWrapper!.textContent).toContain('42')
+  })
+
+  it('spreads counterProps onto the loading counter wrapper element', () => {
+    render(
+      <UnderlineNav aria-label="Test" loadingCounters={true}>
+        <UnderlineNav.Item counter={42} counterProps={{className: 'loading-custom-counter'}}>
+          Issues
+        </UnderlineNav.Item>
+      </UnderlineNav>,
+    )
+
+    const item = screen.getByRole('link', {name: 'Issues'})
+    const counterWrapper = item.querySelector('[data-component="counter"]')
+    expect(counterWrapper).toBeInTheDocument()
+    expect(counterWrapper).toHaveClass('loading-custom-counter')
+  })
 })
 
 describe('Keyboard Navigation', () => {

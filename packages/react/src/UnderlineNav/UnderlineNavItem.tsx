@@ -57,6 +57,11 @@ export type UnderlineNavItemProps = {
    * Counter
    */
   counter?: number | string
+
+  /**
+   * Additional HTML attributes for the counter wrapper element
+   */
+  counterProps?: React.HTMLAttributes<HTMLSpanElement>
 } & LinkProps
 
 export const UnderlineNavItem = forwardRef(
@@ -66,6 +71,7 @@ export const UnderlineNavItem = forwardRef(
       href = '#',
       children,
       counter,
+      counterProps,
       onSelect,
       'aria-current': ariaCurrent,
       icon: Icon,
@@ -129,6 +135,7 @@ export const UnderlineNavItem = forwardRef(
           onKeyDown={keyDownHandler}
           onClick={clickHandler}
           counter={counter}
+          counterProps={counterProps}
           icon={leadingVisual ?? Icon}
           loadingCounters={loadingCounters}
           iconsVisible={iconsVisible}

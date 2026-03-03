@@ -65,6 +65,7 @@ export type UnderlineItemProps<As extends React.ElementType> = {
   iconsVisible?: boolean
   loadingCounters?: boolean
   counter?: number | string
+  counterProps?: React.HTMLAttributes<HTMLSpanElement>
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   icon?: FC<IconProps> | React.ReactElement<any>
   id?: string
@@ -72,7 +73,17 @@ export type UnderlineItemProps<As extends React.ElementType> = {
 } & React.ComponentPropsWithoutRef<As extends 'a' ? 'a' : As extends 'button' ? 'button' : As>
 
 export const UnderlineItem = React.forwardRef((props, ref) => {
-  const {as: Component = 'a', children, counter, icon: Icon, iconsVisible, loadingCounters, className, ...rest} = props
+  const {
+    as: Component = 'a',
+    children,
+    counter,
+    counterProps,
+    icon: Icon,
+    iconsVisible,
+    loadingCounters,
+    className,
+    ...rest
+  } = props
   const textContent = getTextContent(children)
   return (
     <Component {...rest} ref={ref} className={clsx(classes.UnderlineItem, className)}>
@@ -84,11 +95,11 @@ export const UnderlineItem = React.forwardRef((props, ref) => {
       )}
       {counter !== undefined ? (
         loadingCounters ? (
-          <span data-component="counter">
+          <span data-component="counter" {...counterProps}>
             <LoadingCounter />
           </span>
         ) : (
-          <span data-component="counter">
+          <span data-component="counter" {...counterProps}>
             <CounterLabel>{counter}</CounterLabel>
           </span>
         )
