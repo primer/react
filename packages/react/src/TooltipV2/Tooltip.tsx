@@ -10,7 +10,6 @@ import classes from './Tooltip.module.css'
 import {getAccessibleKeybindingHintString, KeybindingHint, type KeybindingHintProps} from '../KeybindingHint'
 import VisuallyHidden from '../_VisuallyHidden'
 import useSafeTimeout from '../hooks/useSafeTimeout'
-import {useMergedRefs} from '../internal/hooks/useMergedRefs'
 import type {SlotMarker} from '../utils/types'
 
 export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
@@ -51,7 +50,7 @@ type TriggerPropsType = Pick<
   | 'onTouchCancel'
   | 'onTouchEnd'
 > & {
-  ref?: React.Ref<HTMLElement>
+  ref?: React.RefObject<HTMLElement>
 }
 
 // map tooltip direction to anchoredPosition props
@@ -274,26 +273,18 @@ export const Tooltip: ForwardRefExoticComponent<
     const isMacOS = useIsMacOS()
     const hasAriaLabel = 'aria-label' in rest
 
-    const childRef = ((child as React.ReactElement<TriggerPropsType>).props.ref ?? null) as React.Ref<HTMLElement>
-    const setTriggerRef = useMergedRefs<HTMLElement | null>(triggerRef, childRef, forwardedRef)
-
     return (
       <TooltipContext.Provider value={value}>
         <>
           {React.isValidElement(child) &&
             // eslint-disable-next-line react-hooks/refs
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
-              ref: setTriggerRef,
+              // @ts-expect-error it needs a non nullable ref
+              ref: triggerRef,
               // If it is a type description, we use tooltip to describe the trigger
               'aria-describedby': (() => {
                 // If tooltip is not a description type, keep the original aria-describedby
                 if (type !== 'description') {
-                  return child.props['aria-describedby']
-                }
-
-                // When the tooltip is disabled, don't add its ID to aria-describedby
-                // to avoid an empty string polluting the accessible description
-                if (_privateDisableTooltip) {
                   return child.props['aria-describedby']
                 }
 

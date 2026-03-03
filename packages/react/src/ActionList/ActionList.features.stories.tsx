@@ -1022,3 +1022,38 @@ export const LargeItem = () => (
     </ActionList.Item>
   </ActionList>
 )
+
+export const WithItemTooltip = () => {
+  const convertToIssueRef = React.useRef<HTMLLIElement>(null)
+  const [dropdownOpen, setDropdownOpen] = React.useState(false)
+  return (
+    <>
+      <ActionList aria-label="Actions">
+        <ActionList.Item
+          onSelect={() => {
+            setDropdownOpen(!dropdownOpen)
+          }}
+          ref={convertToIssueRef}
+        >
+          Convert to issue
+          <ActionList.Description truncate>
+            This description gets truncated because it is inline with truncation
+          </ActionList.Description>
+        </ActionList.Item>
+      </ActionList>
+      <AnchoredOverlay
+        open={dropdownOpen}
+        renderAnchor={null}
+        anchorRef={convertToIssueRef}
+        onClose={() => {
+          setDropdownOpen(false)
+        }}
+      >
+        <ActionList role="menu" aria-label="Convert to issue menu">
+          <ActionList.Item role="menuitem">Choose repository</ActionList.Item>
+          <ActionList.Item role="menuitem">Create issue</ActionList.Item>
+        </ActionList>
+      </AnchoredOverlay>
+    </>
+  )
+}

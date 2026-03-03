@@ -28,24 +28,23 @@ type ActionListSubItemProps = {
  * to avoid remount cycles when truncation state changes.
  * For non-button-semantic items, renders children directly.
  */
-function ConditionalTooltip({
-  text,
-  enabled,
-  children,
-}: {
-  text: string | undefined
-  enabled: boolean
-  children: React.ReactElement
-}) {
-  if (!enabled) {
+const ConditionalTooltip = React.forwardRef<
+  HTMLElement,
+  {
+    text: string | undefined
+    enabled: boolean
+    children: React.ReactElement
+  }
+>(function ConditionalTooltip({text, enabled, children}, forwardedRef) {
+  if (!enabled || !text) {
     return children
   }
   return (
-    <Tooltip text={text || ''} direction="e" delay="medium" _privateDisableTooltip={!text}>
+    <Tooltip ref={forwardedRef} text={text || ''} direction="e" delay="medium">
       {children}
     </Tooltip>
   )
-}
+})
 
 export const SubItem: React.FC<ActionListSubItemProps> = ({children}) => {
   return <>{children}</>
@@ -289,7 +288,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
         data-has-description={slots.description ? true : false}
         className={clsx(classes.ActionListItem, className)}
       >
-        <ConditionalTooltip text={truncatedText} enabled={buttonSemantics}>
+        <ConditionalTooltip ref={forwardedRef} text={truncatedText} enabled={buttonSemantics}>
           <ItemWrapper
             {...wrapperProps}
             className={classes.ActionListContent}
