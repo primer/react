@@ -62,7 +62,7 @@ describe('TextInputWithTokens', () => {
 
   it('announces selected token values when used as a combobox', () => {
     const onRemoveMock = vi.fn()
-    const {getByRole, container} = render(
+    const {getByRole} = render(
       <LabelledTextInputWithTokens
         role="combobox"
         tokens={[
@@ -79,10 +79,10 @@ describe('TextInputWithTokens', () => {
     expect(describedByIds).toBeTruthy()
 
     const describedByNodes = describedByIds
-      ? describedByIds.split(' ').map(descriptionId => container.querySelector(`#${descriptionId}`))
+      ? describedByIds.split(' ').map(descriptionId => document.getElementById(descriptionId))
       : []
 
-    expect(describedByNodes.some(node => node?.textContent === 'Selected values: css, react')).toBe(true)
+    expect(describedByNodes.some(node => node?.textContent === 'Selected: css, react')).toBe(true)
   })
 
   it('renders with tokens using a custom token component', () => {
