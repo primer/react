@@ -245,6 +245,7 @@
  * When the attribute IS present (flag ON), browser skips :has() evaluation
  * because the :not() check fails first (O(1) attribute lookup).
  */
+/* stylelint-disable-next-line selector-no-qualifying-type */
 body:not([data-dialog-scroll-optimized]):has(.Dialog.DisableScroll) {
   /* stylelint-disable-next-line primer/spacing */
   padding-right: var(--prc-dialog-scrollgutter) !important;
