@@ -1,5 +1,55 @@
 # @primer/react
 
+## 38.14.0
+
+### Minor Changes
+
+- [#7531](https://github.com/primer/react/pull/7531) [`0cfb938`](https://github.com/primer/react/commit/0cfb938704ec7589b6453a23ba8a9f2c8ab7d824) Thanks [@hectahertz](https://github.com/hectahertz)! - SelectPanel: Add built-in client-side list virtualization via a new `virtualized` prop. When enabled, only the visible items plus a small overscan buffer are rendered in the DOM, dramatically improving performance for large lists.
+
+### Patch Changes
+
+- [#7497](https://github.com/primer/react/pull/7497) [`931740b`](https://github.com/primer/react/commit/931740bc6d96dd3bb6f335ea98eedd4b64eb1859) Thanks [@hectahertz](https://github.com/hectahertz)! - Remove render phase setStates on SelectPanel
+
+- [#7532](https://github.com/primer/react/pull/7532) [`39a2151`](https://github.com/primer/react/commit/39a21512f71083649bdb00b1d3a6c05e40ec5bfb) Thanks [@hectahertz](https://github.com/hectahertz)! - **PageLayout**: Eliminate forced reflow (~614ms) on mount by replacing `getComputedStyle` call with a pure JS viewport width check for the `--pane-max-width-diff` CSS variable.
+
+- [#7555](https://github.com/primer/react/pull/7555) [`64c2243`](https://github.com/primer/react/commit/64c2243d07fc580a5565493b917b27081ef6a191) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(useSlots): short-circuit iteration and skip filled slots
+
+- [#7547](https://github.com/primer/react/pull/7547) [`4943d67`](https://github.com/primer/react/commit/4943d671ddb590461e59f9745e6093d47e770f7a) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(useScrollFlash): defer scroll read/write to requestAnimationFrame to avoid forced reflow
+
+- [#7497](https://github.com/primer/react/pull/7497) [`931740b`](https://github.com/primer/react/commit/931740bc6d96dd3bb6f335ea98eedd4b64eb1859) Thanks [@hectahertz](https://github.com/hectahertz)! - Improve SelectPanel performance
+
+- [#7551](https://github.com/primer/react/pull/7551) [`2fbfc49`](https://github.com/primer/react/commit/2fbfc49fad6f11edc51850e32e9c0b2ade8ca1f1) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(Text): remove unnecessary useRef and useImperativeHandle hooks
+
+- [#7571](https://github.com/primer/react/pull/7571) [`59ab235`](https://github.com/primer/react/commit/59ab235cb8089442652daca33746b11cea3e6a5f) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - AnchoredOverlay: changed `overflow` from `hidden` to `auto` to prevent content clipping at small viewports.
+
+- [#7553](https://github.com/primer/react/pull/7553) [`6225ba2`](https://github.com/primer/react/commit/6225ba231cfdbe6ef7fa41dd62734d5a970bdc7d) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(useRefObjectAsForwardedRef): add dependency array to useImperativeHandle
+
+## 38.13.0
+
+### Minor Changes
+
+- [#7099](https://github.com/primer/react/pull/7099) [`4720c2f`](https://github.com/primer/react/commit/4720c2f27cfacc7600244422ee22af9104b5aa09) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Banner: Use `aria-labelledby` to reference the title for the landmark region instead of generic variant labels.
+
+- [#7521](https://github.com/primer/react/pull/7521) [`12dda86`](https://github.com/primer/react/commit/12dda8654b07bffc33e6b8f29580914c95f3e8e2) Thanks [@TylerJDev](https://github.com/TylerJDev)! - PageLayout: Add `PageLayout.Sidebar` sub-component
+
+### Patch Changes
+
+- [#7537](https://github.com/primer/react/pull/7537) [`4fd987c`](https://github.com/primer/react/commit/4fd987c4194f51dc7e66f16895542a1e4678bde7) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(ActionList): enable React Compiler
+
+- [#7546](https://github.com/primer/react/pull/7546) [`86d6897`](https://github.com/primer/react/commit/86d68971a602be6c99535eb01227bf48dd87cfdc) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(Announce): skip getComputedStyle when there is no text content to announce
+
+- [#7568](https://github.com/primer/react/pull/7568) [`aa46098`](https://github.com/primer/react/commit/aa460989194e6bb2c0e15e16023a07cf7fc42dc0) Thanks [@HiroAgustin](https://github.com/HiroAgustin)! - Blankslate: Add `text-wrap: balance` to Heading and Description
+
+- [#7552](https://github.com/primer/react/pull/7552) [`551ec63`](https://github.com/primer/react/commit/551ec6338af5c45e3f549245d85a4dd5a708df47) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(Button): fix CounterLabel remount and remove conditional DEV hook
+
+- [#7504](https://github.com/primer/react/pull/7504) [`d91e78e`](https://github.com/primer/react/commit/d91e78e8d1e69915222354b95d09d93d269dbd8b) Thanks [@TylerJDev](https://github.com/TylerJDev)! - UnderlineNav: Adds `overflow: hidden` when the "More" button isn't present
+
+- [#7526](https://github.com/primer/react/pull/7526) [`0c2358a`](https://github.com/primer/react/commit/0c2358aa12a409f7cbcf15ce4fd41cbb9eee4b6c) Thanks [@hectahertz](https://github.com/hectahertz)! - Add `content-visibility: auto` to ActionList items to improve rendering performance for large lists by allowing the browser to skip layout and paint for off-screen items.
+
+- [#7556](https://github.com/primer/react/pull/7556) [`6dc1858`](https://github.com/primer/react/commit/6dc1858538e3b7ea66b78dd9d37c391c530d78ae) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(ActionList): replace `:has([aria-disabled])` child scan with `data-is-disabled` attribute for faster style recalculation
+
+- [#7548](https://github.com/primer/react/pull/7548) [`d4b32c3`](https://github.com/primer/react/commit/d4b32c3672d3d5421711324654c1028527dcdf38) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(useIsMacOS): replace useState+useEffect with useSyncExternalStore to eliminate unnecessary re-render
+
 ## 38.12.0
 
 ### Minor Changes

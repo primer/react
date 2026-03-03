@@ -510,7 +510,8 @@ export const InOverlayWithCustomScrollContainerRef = () => {
 
   return (
     <form className={classes.FormPadding}>
-      Selected item: {selectedItem ? selectedItem.text : 'none'}
+      <span id="selected-item-status">Selected item: {selectedItem ? selectedItem.text : 'none'}</span>
+
       <AnchoredOverlay
         open={isOpen}
         onOpen={handleOpen}
@@ -519,7 +520,11 @@ export const InOverlayWithCustomScrollContainerRef = () => {
         focusTrapSettings={{initialFocusRef: inputRef}}
         side="inside-top"
         anchorRef={triggerRef}
-        renderAnchor={props => <Button {...props}>open overlay</Button>}
+        renderAnchor={props => (
+          <Button {...props} aria-describedby="selected-item-status">
+            open overlay
+          </Button>
+        )}
         preventOverflow={false}
       >
         <Autocomplete>
