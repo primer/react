@@ -1036,6 +1036,9 @@ export const WithItemTooltip = () => {
           ref={convertToIssueRef}
         >
           Convert to issue
+          <ActionList.Description truncate>
+            This description gets truncated because it is inline with truncation
+          </ActionList.Description>
         </ActionList.Item>
       </ActionList>
       <AnchoredOverlay
