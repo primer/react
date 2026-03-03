@@ -23,11 +23,12 @@
 
     /* for scrollbar */
     overflow: visible;
+    /* stylelint-disable-next-line property-no-deprecated */
     clip: auto;
     font: var(--text-body-shorthand-small);
     color: var(--tooltip-fgColor);
     text-align: center;
-    word-wrap: break-word;
+    overflow-wrap: break-word;
     white-space: normal;
     background: var(--tooltip-bgColor);
     border: 0;
