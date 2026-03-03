@@ -16,6 +16,7 @@ import {UnderlineNav} from '.'
 import {implementsClassName} from '../utils/testing'
 import classes from '../internal/components/UnderlineTabbedInterface.module.css'
 import {clsx} from 'clsx'
+import {page} from 'vitest/browser'
 
 const ResponsiveUnderlineNav = ({
   selectedItemText = 'Code',
@@ -142,7 +143,8 @@ describe('UnderlineNav', () => {
     expect(counter.textContent).toBe('\u00A0(120)')
   })
 
-  it('respects loadingCounters prop', () => {
+  it('respects loadingCounters prop', async () => {
+    await page.viewport(1000, 500)
     const {getByRole} = render(<ResponsiveUnderlineNav loadingCounters={true} />)
     const item = getByRole('link', {name: 'Actions', hidden: true})
     const loadingCounter = item.getElementsByTagName('span')[2]
