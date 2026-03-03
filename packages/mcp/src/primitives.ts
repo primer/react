@@ -1,5 +1,6 @@
 import {readFileSync} from 'node:fs'
 import {createRequire} from 'node:module'
+import {spawn} from 'child_process'
 import baseMotion from '@primer/primitives/dist/docs/base/motion/motion.json' with {type: 'json'}
 import baseSize from '@primer/primitives/dist/docs/base/size/size.json' with {type: 'json'}
 import baseTypography from '@primer/primitives/dist/docs/base/typography/typography.json' with {type: 'json'}
@@ -421,51 +422,41 @@ function getDesignTokenSpecsText(groups: TokenGroups): string {
 # Design Token Specifications
 
 ## 1. Core Rule & Enforcement
-- **Expert Mode**: You are a CSS expert. NEVER use raw values (hex, px, etc.). Only use tokens.
-- **Shorthand**: MUST use shorthand tokens (e.g., \`font: var(...)\`). NEVER split font-size/weight.
-- **States**: MUST define 5 states: Rest, Hover, Focus-visible, Active, Disabled.
-- **Safety**: If unsure of a token name, suffix with \`/* check-token */\`.
-- **Focus States**: When implementing :focus-visible, you MUST use both:
-  - outline: var(--focus-outline)
-  - outline-offset: var(--outline-focus-offset)
+* **Expert Mode**: CSS expert. NEVER use raw values (hex, px, etc.). Tokens only.
+* **Shorthand**: MUST use \`font: var(...)\`. NEVER split size/weight. 
+* **Shorthand Fallback**: If no shorthand exists (e.g. Monospace), use individual tokens for font-size, family, and line-height. NEVER raw 1.5.
+* **States**: Define 5: Rest, Hover, Focus-visible, Active, Disabled.
+* **Focus**: \`:focus-visible\` MUST use \`outline: var(--focus-outline)\` AND \`outline-offset: var(--outline-focus-offset)\`.
+* **Validation**: CALL \`lint_css\` after any CSS change. Task is incomplete without a success message.
+* **Self-Correction**: Adopt autofixes immediately. Report unfixable errors to the user.
 
 ## 2. Typography Constraints (STRICT)
-- **Body Only**: Only the \`body\` group supports size suffixes (e.g., \`body-small\`, \`body-medium\`).
-- **Static Shorthands**: The following groups do NOT support size suffixes. Use the base shorthand only:
-  - **caption**: \`var(--text-caption-shorthand)\` (NEVER add -medium or -small)
-  - **display**: \`var(--text-display-shorthand)\`
-  - **codeBlock**: \`var(--text-codeBlock-shorthand)\`
-  - **codeInline**: \`var(--text-codeInline-shorthand)\`
+- **Body Only**: Only \`body\` group supports size suffixes (e.g., \`body-small\`).
+- **Static Shorthands**: NEVER add suffixes to \`caption\`, \`display\`, \`codeBlock\`, or \`codeInline\`.
 
-## 3. Logic Matrix: Color Pairings (CRITICAL)
-| Background Token | Foreground Token | Requirement |
-| :--- | :--- | :--- |
-| --bgColor-*-emphasis | --fgColor-onEmphasis | MUST pair |
-| --bgColor-*-muted | --fgColor-{semantic} | MUST match semantic |
-| --bgColor-default | --fgColor-default | Standard pairing |
-| --bgColor-muted | --fgColor-default | NEVER use fgColor-muted |
+## 3. Logic Matrix: Color & Semantic Mapping
+| Input Color/Intent | Semantic Role | Background Suffix | Foreground Requirement |
+| :--- | :--- | :--- | :--- |
+| Blue / Interactive | \`accent\` | \`-emphasis\` (Solid) | \`fgColor-onEmphasis\` |
+| Green / Positive | \`success\` | \`-muted\` (Light) | \`fgColor-{semantic}\` |
+| Red / Danger | \`danger\` | \`-emphasis\` | \`fgColor-onEmphasis\` |
+| Yellow / Warning | \`attention\` | \`-muted\` | \`fgColor-attention\` |
+| Orange / Critical | \`severe\` | \`-emphasis\` | \`fgColor-onEmphasis\` |
+| Purple / Done | \`done\` | Any | Match intent |
+| Pink / Sponsors | \`sponsors\` | Any | Match intent |
+| Grey / Neutral | \`default\` | \`bgColor-muted\` | \`fgColor-default\` (Not muted) |
 
-## 4. Semantic Intent Key
-Use these for \`find_tokens\` or to map natural language to groups:
-- **Search Aliases**: Map "background" -> \`bgColor\`, "foreground" -> \`fgColor\`, "typography/font" -> \`text\`, "padding/margin" -> \`stack\`, "radius" -> \`borderRadius\`, "shadow/elevation" -> \`overlay\`.
-- **danger**: Errors/Destructive | **success**: Positive/Done
-- **attention**: Warning/Pending | **accent**: Interactive/Selected
+## 4. Optimization & Recipes (MANDATORY)
+**Strategy**: STOP property-by-property searching. Use \`get_token_group_bundle\` for these common patterns:
+- **Forms**: \`["control", "focus", "outline", "text", "borderRadius", "stack"]\`
+- **Modals/Cards**: \`["overlay", "shadow", "outline", "borderRadius", "bgColor", "stack"]\`
+- **Tables/Lists**: \`["stack", "borderColor", "text", "bgColor", "control"]\`
+- **Nav/Sidebars**: \`["control", "text", "accent", "stack", "focus"]\`
+- **Status/Badges**: \`["text", "success", "danger", "attention", "severe", "stack"]\`
 
-## 5. Available Token Groups
-Use these names in \`find_tokens(group: "...")\`:
-- **Semantic**: ${groups.semantic.map(g => g.name).join(', ')}
-- **Components**: ${groups.component.map(g => g.name).join(', ')}
-
-## 6. Optimization Strategy (MANDATORY)
-- **STOP**: Do not call \`find_tokens\` repeatedly for individual properties.
-- **GO**: Use \`get_token_group_bundle\` to fetch relevant groups at once.
-  - *Example for Button*: \`get_token_group_bundle(groups: ["control", "button"])\`
-  - *Note*: \`control\` is for form inputs; \`button\` is for triggers.
-
-## 7. Token Bundle Recipes (Recommended)
-- **Forms/Inputs**: \`["control", "focus", "outline", "text", "borderRadius"]\`
-- **Modals/Dialogs**: \`["overlay", "shadow", "outline", "borderRadius", "bgColor"]\`
-- **Data Tables**: \`["stack", "borderColor", "text", "bgColor"]\`
+## 5. Available Groups
+- **Semantic**: ${groups.semantic.map(g => `${g.name}\``).join(', ')}
+- **Components**: ${groups.component.map(g => `\`${g.name}\``).join(', ')}
 `.trim()
 }
 
@@ -625,6 +616,9 @@ const GROUP_ALIASES: Record<string, string> = {
   typography: 'text',
   font: 'text',
   text: 'text',
+  'line-height': 'text',
+  lineheight: 'text',
+  leading: 'text',
 
   // Layout & Spacing
   stack: 'stack',
@@ -645,6 +639,27 @@ const GROUP_ALIASES: Record<string, string> = {
   line: 'borderColor',
   stroke: 'borderColor',
   separator: 'borderColor',
+
+  // Color-to-Semantic Intent Mapping
+  red: 'danger',
+  green: 'success',
+  yellow: 'attention',
+  orange: 'severe',
+  blue: 'accent',
+  purple: 'done',
+  pink: 'sponsors',
+  grey: 'neutral',
+  gray: 'neutral',
+
+  // Descriptive Aliases
+  light: 'muted',
+  subtle: 'muted',
+  dark: 'emphasis',
+  strong: 'emphasis',
+  intense: 'emphasis',
+  bold: 'emphasis',
+  vivid: 'emphasis',
+  highlight: 'emphasis',
 }
 
 // Match a token against a resolved group by checking both the token name prefix and the group label
@@ -701,10 +716,49 @@ function getValidGroupsList(validTokens: TokenWithGuidelines[]): string {
 const groupHints: Record<string, string> = {
   control: '`control` tokens are for form inputs/checkboxes. For buttons, use the `button` group.',
   button: '`button` tokens are for standard triggers. For form-fields, see the `control` group.',
-  text: 'STRICT: The following typography groups do NOT support size suffixes (-small, -medium, -large): `caption`, `display`, `codeBlock`, and `codeInline`. Use the base shorthand name only (e.g., --text-codeBlock-shorthand).',
+  text: 'STRICT: The following typography groups do NOT support size suffixes (-small, -medium, -large): `caption`, `display`, `codeBlock`, and `codeInline`. STRICT: Use shorthand tokens where possible. If splitting, you MUST fetch line-height tokens (e.g., --text-body-lineHeight-small) instead of using raw numbers.',
   fgColor: 'Use `fgColor` for text. For borders, use `borderColor`.',
   borderWidth:
     '`borderWidth` only has sizing values (thin, thick, thicker). For border *colors*, use the `borderColor` or `border` group.',
+}
+
+// -----------------------------------------------------------------------------
+// Stylelint runner
+// -----------------------------------------------------------------------------
+function runStylelint(css: string): Promise<{stdout: string; stderr: string}> {
+  return new Promise((resolve, reject) => {
+    const proc = spawn('npx', ['stylelint', '--stdin', '--fix'], {
+      stdio: ['pipe', 'pipe', 'pipe'],
+      shell: true,
+    })
+
+    let stdout = ''
+    let stderr = ''
+
+    proc.stdout.on('data', (data: Buffer) => {
+      stdout += data.toString()
+    })
+
+    proc.stderr.on('data', (data: Buffer) => {
+      stderr += data.toString()
+    })
+
+    proc.on('close', code => {
+      if (code === 0) {
+        resolve({stdout, stderr})
+      } else {
+        const error = new Error(`Stylelint exited with code ${code}`) as Error & {stdout: string; stderr: string}
+        error.stdout = stdout
+        error.stderr = stderr
+        reject(error)
+      }
+    })
+
+    proc.on('error', reject)
+
+    proc.stdin.write(css)
+    proc.stdin.end()
+  })
 }
 
 export {
@@ -724,5 +778,6 @@ export {
   GROUP_ALIASES,
   GROUP_LABELS,
   tokenMatchesGroup,
+  runStylelint,
   type TokenWithGuidelines,
 }
