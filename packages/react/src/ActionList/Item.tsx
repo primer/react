@@ -1,5 +1,4 @@
 import React, {type JSX} from 'react'
-
 import {useId} from '../hooks/useId'
 import {useSlots} from '../hooks/useSlots'
 import {ActionListContainerContext} from './ActionListContainerContext'
@@ -24,8 +23,7 @@ type ActionListSubItemProps = {
 }
 
 /**
- * Stable wrapper that keeps Tooltip in the tree for button-semantic items
- * to avoid remount cycles when truncation state changes.
+ * Wraps button-semantic items with Tooltip, disabled when not truncated
  * For non-button-semantic items, renders children directly.
  */
 const ConditionalTooltip = React.forwardRef<

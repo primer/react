@@ -308,24 +308,6 @@ export const NestedOverlays = ({role, open}: Args) => {
     return () => document.removeEventListener('keydown', handler)
   }, [])
 
-  const createListButton = (
-    <Button
-      variant="invisible"
-      ref={secondaryButtonRef}
-      style={{
-        paddingLeft: '8px',
-        paddingRight: '8px',
-        marginLeft: '8px',
-        marginRight: '8px',
-        display: 'flex',
-      }}
-      leadingVisual={PlusIcon}
-      onClick={() => setCreateListOverlayOpen(!createListOverlayOpen)}
-    >
-      Create list
-    </Button>
-  )
-
   return (
     <div>
       <TextInput placeholder="Input for focus testing" />
@@ -373,11 +355,23 @@ export const NestedOverlays = ({role, open}: Args) => {
               </CheckboxGroup>
             </div>
             <ActionList.Divider />
-            {createListOverlayOpen ? (
-              createListButton
-            ) : (
-              <Tooltip text="Allows you to add more lists">{createListButton}</Tooltip>
-            )}
+            <Tooltip text="Allows you to add more lists">
+              <Button
+                variant="invisible"
+                ref={secondaryButtonRef}
+                style={{
+                  paddingLeft: '8px',
+                  paddingRight: '8px',
+                  marginLeft: '8px',
+                  marginRight: '8px',
+                  display: 'flex',
+                }}
+                leadingVisual={PlusIcon}
+                onClick={() => setCreateListOverlayOpen(!createListOverlayOpen)}
+              >
+                Create list
+              </Button>
+            </Tooltip>
           </div>
           {createListOverlayOpen && (
             <Overlay
