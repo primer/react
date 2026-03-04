@@ -40,6 +40,9 @@
 
     & .BannerActions :where([data-primary-action='trailing']) {
       display: flex;
+      @media screen and (--viewportRange-narrow) {
+        flex-direction: column-reverse;
+      }
     }
 
     & .BannerActions :where([data-primary-action='leading']) {
