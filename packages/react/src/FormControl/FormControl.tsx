@@ -84,6 +84,12 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     const isRadioInput =
       React.isValidElement(InputComponent) && (InputComponent.type === Radio || isSlot(InputComponent, Radio))
 
+    const isSelectPanelInput =
+      React.isValidElement(InputComponent) &&
+      (InputComponent.type === SelectPanel || isSlot(InputComponent, SelectPanel))
+
+    const labelId = slots.label ? `${id}-label` : undefined
+
     if (InputComponent) {
       warning(
         inputProps?.id,
@@ -174,6 +180,8 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
           id,
           required,
           validationMessageId,
+          isReferenced: !isSelectPanelInput,
+          labelId,
         }}
       >
         {isChoiceInput || layout === 'horizontal' ? (
