@@ -108,10 +108,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     const [isOverLimit, setIsOverLimit] = useState<boolean>(false)
     const [screenReaderMessage, setScreenReaderMessage] = useState<string>('')
     const characterCounterRef = useRef<CharacterCounter | null>(null)
-    const lastCountedLengthRef = useRef<number | null>(null)
-    const lastCharacterCountRef = useRef<string>('')
-    const lastIsOverLimitRef = useRef<boolean>(false)
-    const lastScreenReaderMessageRef = useRef<string>('')
 
     // this class is necessary to style FilterSearch, plz no touchy!
     const wrapperClasses = clsx(className, 'TextInput-wrapper')
@@ -161,33 +157,17 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       if (characterLimit) {
         characterCounterRef.current = new CharacterCounter({
           onCountUpdate: (count, overLimit, message) => {
-            if (message !== lastCharacterCountRef.current) {
-              lastCharacterCountRef.current = message
-              setCharacterCount(message)
-            }
-
-            if (overLimit !== lastIsOverLimitRef.current) {
-              lastIsOverLimitRef.current = overLimit
-              setIsOverLimit(overLimit)
-            }
+            setCharacterCount(message)
+            setIsOverLimit(overLimit)
           },
           onScreenReaderAnnounce: message => {
-            if (message !== lastScreenReaderMessageRef.current) {
-              lastScreenReaderMessageRef.current = message
-              setScreenReaderMessage(message)
-            }
+            setScreenReaderMessage(message)
           },
         })
-
-        lastCountedLengthRef.current = null
 
         return () => {
           characterCounterRef.current?.cleanup()
           characterCounterRef.current = null
-          lastCountedLengthRef.current = null
-          lastCharacterCountRef.current = ''
-          lastIsOverLimitRef.current = false
-          lastScreenReaderMessageRef.current = ''
         }
       }
     }, [characterLimit])
@@ -197,12 +177,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       if (characterLimit && characterCounterRef.current) {
         const currentValue =
           value !== undefined ? String(value) : defaultValue !== undefined ? String(defaultValue) : ''
-        const currentLength = currentValue.length
-
-        if (currentLength !== lastCountedLengthRef.current) {
-          lastCountedLengthRef.current = currentLength
-          characterCounterRef.current.updateCharacterCount(currentLength, characterLimit)
-        }
+        characterCounterRef.current.updateCharacterCount(currentValue.length, characterLimit)
       }
     }, [value, defaultValue, characterLimit])
 
@@ -210,12 +185,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     const handleInputChange = useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
         if (characterLimit && characterCounterRef.current) {
-          const currentLength = e.target.value.length
-
-          if (currentLength !== lastCountedLengthRef.current) {
-            lastCountedLengthRef.current = currentLength
-            characterCounterRef.current.updateCharacterCount(currentLength, characterLimit)
-          }
+          characterCounterRef.current.updateCharacterCount(e.target.value.length, characterLimit)
         }
         onChange?.(e)
       },
