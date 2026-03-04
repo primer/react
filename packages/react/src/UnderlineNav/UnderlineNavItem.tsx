@@ -1,4 +1,3 @@
-import type {RefObject} from 'react'
 import React, {forwardRef, useRef, useContext, useCallback, useSyncExternalStore} from 'react'
 import type {IconProps} from '@primer/octicons-react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
@@ -6,6 +5,7 @@ import {UnderlineNavContext} from './UnderlineNavContext'
 import {UnderlineItem} from '../internal/components/UnderlineTabbedInterface'
 import classes from './UnderlineNavItem.module.css'
 import {createDescendantRegistry} from '../utils/descendant-registry'
+import {useRefObjectAsForwardedRef} from '../hooks'
 
 // adopted from React.AnchorHTMLAttributes
 export type LinkProps = {
@@ -75,8 +75,9 @@ export const UnderlineNavItem = forwardRef((allProps, forwardedRef) => {
     ...props
   } = allProps
 
-  const backupRef = useRef<HTMLElement>(null)
-  const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
+  const ref = useRef<HTMLAnchorElement>(null)
+  useRefObjectAsForwardedRef(forwardedRef, ref)
+
   const {loadingCounters} = useContext(UnderlineNavContext)
 
   const isOverflowing = useSyncExternalStore(

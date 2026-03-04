@@ -125,18 +125,19 @@ export const UnderlineNav = forwardRef(
               <ActionMenu.Overlay>
                 <ActionList>
                   {registeredItems === undefined ? (
-                    <SkeletonText />
+                    <ActionList.Item>
+                      <SkeletonText />
+                    </ActionList.Item>
                   ) : (
                     menuItems.map(([key, allProps]) => {
-                      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                      const {children: menuItemChildren, counter, as, onSelect, ...menuItemProps} = allProps
+                      const {children: menuItemChildren, counter, onSelect, ...menuItemProps} = allProps
 
                       return (
                         <ActionList.LinkItem
                           key={key}
                           className={classes.OverflowMenuItem}
                           onClick={event => onSelect?.(event)}
-                          {...menuItemProps}
+                          {...(menuItemProps as Omit<typeof menuItemProps, 'as'>)}
                         >
                           <span className={classes.OverflowMenuItemLabel}>{menuItemChildren}</span>
                           <ActionList.TrailingVisual>
