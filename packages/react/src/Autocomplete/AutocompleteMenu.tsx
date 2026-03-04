@@ -65,7 +65,7 @@ const MemoizedAutocompleteItem = React.memo(function MemoizedAutocompleteItem<T 
     text,
     leadingVisual: LeadingVisual,
     trailingVisual: TrailingVisual,
-    key: _key,
+    key: _unusedKey,
     role,
     ...itemProps
   } = item
@@ -212,9 +212,16 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   // previous useState caused React to re-render the entire item list anyway.
   const highlightedItemRef = useRef<T>()
   const deferredInputValueRef = useRef(deferredInputValue)
-  deferredInputValueRef.current = deferredInputValue
   const selectedItemIdsRef = useRef(selectedItemIds)
-  selectedItemIdsRef.current = selectedItemIds
+
+  useEffect(() => {
+    deferredInputValueRef.current = deferredInputValue
+  }, [deferredInputValue])
+
+  useEffect(() => {
+    selectedItemIdsRef.current = selectedItemIds
+  }, [selectedItemIds])
+
   const [sortedItemIds, setSortedItemIds] = useState<Array<string>>(items.map(({id: itemId}) => itemId))
   const generatedUniqueId = useId(id)
 
