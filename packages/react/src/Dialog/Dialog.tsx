@@ -370,7 +370,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             {...(align && {'data-align': align})}
             data-width={width}
             data-height={height}
-            data-has-footer={footer ? '' : undefined}
+            data-has-footer={footer != null ? '' : undefined}
             className={clsx(className, classes.Dialog)}
             style={style}
           >
