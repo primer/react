@@ -65,10 +65,11 @@ const MemoizedAutocompleteItem = React.memo(function MemoizedAutocompleteItem<T 
     text,
     leadingVisual: LeadingVisual,
     trailingVisual: TrailingVisual,
-    key: _unusedKey,
     role,
     ...itemProps
   } = item
+  // Remove key from itemProps so it doesn't spread onto the DOM
+  delete itemProps.key
   return (
     <ActionList.Item onSelect={() => onAction(item)} {...itemProps} id={id} data-id={id} role={role as AriaRole}>
       {LeadingVisual && (
@@ -401,6 +402,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
       itemIdSortResult.every((element, index) => element === sortedItemIds[index])
 
     if (showMenu === false && !sortResultMatchesState) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSortedItemIds(itemIdSortResult)
     }
 
