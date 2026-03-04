@@ -164,22 +164,22 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
     }
   })
 
-  return (
-    <MenuContext.Provider
-      value={{
-        anchorRef,
-        renderAnchor,
-        anchorId,
-        open: combinedOpenState,
-        onOpen,
-        onClose,
-        // will be undefined for the outermost level, then false for the top menu, then true inside that
-        isSubmenu: parentMenuContext.isSubmenu !== undefined,
-      }}
-    >
-      {contents}
-    </MenuContext.Provider>
+  const isSubmenu = parentMenuContext.isSubmenu !== undefined
+
+  const menuContextValue = useMemo(
+    () => ({
+      anchorRef,
+      renderAnchor,
+      anchorId,
+      open: combinedOpenState,
+      onOpen,
+      onClose,
+      isSubmenu,
+    }),
+    [anchorRef, renderAnchor, anchorId, combinedOpenState, onOpen, onClose, isSubmenu],
   )
+
+  return <MenuContext.Provider value={menuContextValue}>{contents}</MenuContext.Provider>
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -320,6 +320,20 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
     }
   }, [anchorRef])
 
+  const afterSelect = useCallback(() => onClose?.('item-select'), [onClose])
+
+  const overlayContextValue = useMemo(
+    () => ({
+      container: 'ActionMenu' as const,
+      listRole: 'menu' as const,
+      listLabelledBy: ariaLabelledby || anchorAriaLabelledby || anchorId,
+      selectionAttribute: 'aria-checked' as const,
+      afterSelect,
+      enableFocusZone: isNarrowFullscreen,
+    }),
+    [ariaLabelledby, anchorAriaLabelledby, anchorId, afterSelect, isNarrowFullscreen],
+  )
+
   const featureFlagDisplayInViewportInsideDialog = useFeatureFlag(
     'primer_react_action_menu_display_in_viewport_inside_dialog',
   )
@@ -351,17 +365,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
         {...(overlayProps.overflow ? {[`data-overflow-${overlayProps.overflow}`]: ''} : {})}
         {...(overlayProps.maxHeight ? {[`data-max-height-${overlayProps.maxHeight}`]: ''} : {})}
       >
-        <ActionListContainerContext.Provider
-          value={{
-            container: 'ActionMenu',
-            listRole: 'menu',
-            // If there is a custom aria-labelledby, use that. Otherwise, if exists, use the id that labels the anchor such as tooltip. If none of them exist, use anchor id.
-            listLabelledBy: ariaLabelledby || anchorAriaLabelledby || anchorId,
-            selectionAttribute: 'aria-checked', // Should this be here?
-            afterSelect: () => onClose?.('item-select'),
-            enableFocusZone: isNarrowFullscreen, // AnchoredOverlay takes care of focus zone. We only want to enable this if menu is narrow fullscreen.
-          }}
-        >
+        <ActionListContainerContext.Provider value={overlayContextValue}>
           {children}
         </ActionListContainerContext.Provider>
       </div>
