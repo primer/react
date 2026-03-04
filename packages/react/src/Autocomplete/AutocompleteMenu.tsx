@@ -65,19 +65,12 @@ const MemoizedAutocompleteItem = React.memo(function MemoizedAutocompleteItem<T 
     text,
     leadingVisual: LeadingVisual,
     trailingVisual: TrailingVisual,
-    key,
+    key: _key,
     role,
     ...itemProps
   } = item
   return (
-    <ActionList.Item
-      key={(key ?? id) as string | number}
-      onSelect={() => onAction(item)}
-      {...itemProps}
-      id={id}
-      data-id={id}
-      role={role as AriaRole}
-    >
+    <ActionList.Item onSelect={() => onAction(item)} {...itemProps} id={id} data-id={id} role={role as AriaRole}>
       {LeadingVisual && (
         <ActionList.LeadingVisual>
           {isElement(LeadingVisual) ? LeadingVisual : <LeadingVisual />}
@@ -218,6 +211,10 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   // useFocusZone (data-is-active-descendant) before this change, but the
   // previous useState caused React to re-render the entire item list anyway.
   const highlightedItemRef = useRef<T>()
+  const deferredInputValueRef = useRef(deferredInputValue)
+  deferredInputValueRef.current = deferredInputValue
+  const selectedItemIdsRef = useRef(selectedItemIds)
+  selectedItemIdsRef.current = selectedItemIds
   const [sortedItemIds, setSortedItemIds] = useState<Array<string>>(items.map(({id: itemId}) => itemId))
   const generatedUniqueId = useId(id)
 
@@ -357,7 +354,10 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
 
           // Update autocomplete suggestion inline (moved from the useEffect
           // that previously depended on highlightedItem state)
-          if (selectedItem?.text?.startsWith(deferredInputValue) && !selectedItemIds.includes(selectedItem.id)) {
+          if (
+            selectedItem?.text?.startsWith(deferredInputValueRef.current) &&
+            !selectedItemIdsRef.current.includes(selectedItem.id)
+          ) {
             setAutocompleteSuggestion(selectedItem.text)
           } else {
             setAutocompleteSuggestion('')
