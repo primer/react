@@ -31,6 +31,14 @@ const stories = [
     title: 'With Direct Subcomponents',
     id: 'components-dialog-features--with-direct-subcomponents',
   },
+  {
+    title: 'Align top',
+    id: 'components-dialog-features--align-top',
+  },
+  {
+    title: 'Align bottom',
+    id: 'components-dialog-features--align-bottom',
+  },
 ] as const
 
 test.describe('Dialog', () => {
