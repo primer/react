@@ -172,6 +172,19 @@ describe('Tooltip', () => {
     )
     expect(getByRole('button', {name: 'Overridden label'})).toBeInTheDocument()
   })
+  it('includes multiple keybinding hints joined with "or" in the label text', () => {
+    const {getByRole} = HTMLRender(<TooltipComponent type="label" keybindingHint={['Control+K', 'Control+Shift+K']} />)
+    expect(getByRole('button', {name: 'Tooltip text (control k or control shift k)'})).toBeInTheDocument()
+  })
+  it('renders multiple keybinding hints when an array is provided', () => {
+    const {getAllByTestId, container} = HTMLRender(
+      <TooltipComponent keybindingHint={['Control+K', 'Control+Shift+K']} />,
+    )
+    expect(getAllByTestId('keybinding-hint')).toHaveLength(2)
+    // Verify the "or" separator is rendered between keybinding hints
+    const hintContainer = container.querySelector('[aria-hidden="true"] [aria-hidden="true"]')
+    expect(hintContainer?.textContent).toContain(' or ')
+  })
 
   it('should append tooltip id to existing aria-describedby value on the trigger element', () => {
     const {getByRole, getByText} = HTMLRender(<TooltipComponentWithExistingDescription />)

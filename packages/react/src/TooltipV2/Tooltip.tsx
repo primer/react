@@ -17,7 +17,7 @@ export type TooltipProps = React.PropsWithChildren<{
   direction?: TooltipDirection
   text: string
   type?: 'label' | 'description'
-  keybindingHint?: KeybindingHintProps['keys']
+  keybindingHint?: KeybindingHintProps['keys'] | Array<KeybindingHintProps['keys']>
   /**
    * Delay in milliseconds before showing the tooltip
    * @default short (50ms)
@@ -273,6 +273,13 @@ export const Tooltip: ForwardRefExoticComponent<
     const isMacOS = useIsMacOS()
     const hasAriaLabel = 'aria-label' in rest
 
+    // Normalize keybindingHint to an array for uniform rendering
+    const keybindingHints = keybindingHint
+      ? Array.isArray(keybindingHint)
+        ? keybindingHint
+        : [keybindingHint]
+      : undefined
+
     return (
       <TooltipContext.Provider value={value}>
         <>
@@ -353,9 +360,9 @@ export const Tooltip: ForwardRefExoticComponent<
             onMouseEnter={openTooltip}
             onMouseLeave={closeTooltip}
             // If there is an aria-label prop, always assign the ID to the parent so the accessible label can be overridden
-            id={hasAriaLabel || !keybindingHint ? tooltipId : undefined}
+            id={hasAriaLabel || !keybindingHints ? tooltipId : undefined}
           >
-            {keybindingHint ? (
+            {keybindingHints ? (
               <>
                 <span id={hasAriaLabel ? undefined : tooltipId}>
                   {text}
@@ -364,10 +371,17 @@ export const Tooltip: ForwardRefExoticComponent<
                and renders full key names as `VisuallyHidden` text. Due to the browser bug this causes the label text
                to duplicate the symbols and key names. To work around this, we exclude the hint from being part of the
                label and instead render the plain keybinding description string. */}
-                  <VisuallyHidden>({getAccessibleKeybindingHintString(keybindingHint, isMacOS)})</VisuallyHidden>
+                  <VisuallyHidden>
+                    ({keybindingHints.map(hint => getAccessibleKeybindingHintString(hint, isMacOS)).join(' or ')})
+                  </VisuallyHidden>
                 </span>
                 <span className={clsx(classes.KeybindingHintContainer, text && classes.HasTextBefore)} aria-hidden>
-                  <KeybindingHint keys={keybindingHint} format="condensed" variant="onEmphasis" size="small" />
+                  {keybindingHints.map((hint, i) => (
+                    <React.Fragment key={`${i}-${hint}`}>
+                      {i > 0 && ' or '}
+                      <KeybindingHint keys={hint} format="condensed" variant="onEmphasis" size="small" />
+                    </React.Fragment>
+                  ))}
                 </span>
               </>
             ) : (
