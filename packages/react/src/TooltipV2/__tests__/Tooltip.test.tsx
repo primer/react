@@ -185,6 +185,10 @@ describe('Tooltip', () => {
     const hintContainer = container.querySelector('[aria-hidden="true"] [aria-hidden="true"]')
     expect(hintContainer?.textContent).toContain(' or ')
   })
+  it('treats an empty array keybindingHint as if no hint was provided', () => {
+    const {queryByTestId} = HTMLRender(<TooltipComponent keybindingHint={[]} />)
+    expect(queryByTestId('keybinding-hint')).not.toBeInTheDocument()
+  })
 
   it('should append tooltip id to existing aria-describedby value on the trigger element', () => {
     const {getByRole, getByText} = HTMLRender(<TooltipComponentWithExistingDescription />)

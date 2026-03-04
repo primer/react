@@ -273,10 +273,12 @@ export const Tooltip: ForwardRefExoticComponent<
     const isMacOS = useIsMacOS()
     const hasAriaLabel = 'aria-label' in rest
 
-    // Normalize keybindingHint to an array for uniform rendering
+    // Normalize keybindingHint to an array for uniform rendering, treating empty arrays as undefined
     const keybindingHints = keybindingHint
       ? Array.isArray(keybindingHint)
-        ? keybindingHint
+        ? keybindingHint.length > 0
+          ? keybindingHint
+          : undefined
         : [keybindingHint]
       : undefined
 
