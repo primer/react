@@ -88,7 +88,9 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
       React.isValidElement(InputComponent) &&
       (InputComponent.type === SelectPanel || isSlot(InputComponent, SelectPanel))
 
-    const labelId = slots.label ? `${id}-label` : undefined
+    const labelId = slots.label
+      ? ((React.isValidElement(slots.label) ? (slots.label.props as {id?: string}).id : undefined) ?? `${id}-label`)
+      : undefined
 
     if (InputComponent) {
       warning(
