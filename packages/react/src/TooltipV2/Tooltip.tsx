@@ -273,14 +273,8 @@ export const Tooltip: ForwardRefExoticComponent<
     const isMacOS = useIsMacOS()
     const hasAriaLabel = 'aria-label' in rest
 
-    // Normalize keybindingHint to an array for uniform rendering, treating empty arrays as undefined
-    const keybindingHints = keybindingHint
-      ? Array.isArray(keybindingHint)
-        ? keybindingHint.length > 0
-          ? keybindingHint
-          : undefined
-        : [keybindingHint]
-      : undefined
+    // Normalize keybindingHint to an array for uniform rendering
+    const keybindingHints = keybindingHint ? (Array.isArray(keybindingHint) ? keybindingHint : [keybindingHint]) : []
 
     return (
       <TooltipContext.Provider value={value}>
@@ -362,9 +356,9 @@ export const Tooltip: ForwardRefExoticComponent<
             onMouseEnter={openTooltip}
             onMouseLeave={closeTooltip}
             // If there is an aria-label prop, always assign the ID to the parent so the accessible label can be overridden
-            id={hasAriaLabel || !keybindingHints ? tooltipId : undefined}
+            id={hasAriaLabel || keybindingHints.length === 0 ? tooltipId : undefined}
           >
-            {keybindingHints ? (
+            {keybindingHints.length > 0 ? (
               <>
                 <span id={hasAriaLabel ? undefined : tooltipId}>
                   {text}
@@ -377,7 +371,14 @@ export const Tooltip: ForwardRefExoticComponent<
                     ({keybindingHints.map(hint => getAccessibleKeybindingHintString(hint, isMacOS)).join(' or ')})
                   </VisuallyHidden>
                 </span>
-                <span className={clsx(classes.KeybindingHintContainer, text && classes.HasTextBefore)} aria-hidden>
+                <span
+                  className={clsx(
+                    classes.KeybindingHintContainer,
+                    text && classes.HasTextBefore,
+                    keybindingHints.length > 1 && classes.HasMultipleHints,
+                  )}
+                  aria-hidden
+                >
                   {keybindingHints.map((hint, i) => (
                     <React.Fragment key={`${i}-${hint}`}>
                       {i > 0 && ' or '}

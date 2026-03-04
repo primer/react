@@ -126,3 +126,7 @@
 .KeybindingHintContainer.HasTextBefore {
   margin-left: var(--base-size-6);
 }
+
+.KeybindingHintContainer.HasTextBefore.HasMultipleHints {
+  margin-left: var(--base-size-8);
+}
