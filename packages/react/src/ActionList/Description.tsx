@@ -36,25 +36,22 @@ export const Description: FCWithSlotMarker<React.PropsWithChildren<ActionListDes
   // Extract text content from rendered DOM for tooltip
   React.useEffect(() => {
     if (truncate && containerRef.current) {
-      const textContent = containerRef.current.textContent || ''
+      const el = containerRef.current
+      const textContent = el.textContent || ''
       setComputedTitle(textContent)
+      if (setTruncatedText) {
+        setTruncatedText(
+          el.scrollWidth > el.clientWidth
+            ? typeof props.children === 'string'
+              ? props.children
+              : textContent
+            : undefined,
+        )
+      }
     }
-  }, [truncate, props.children])
+  }, [truncate, props.children, setTruncatedText])
 
   const effectiveTitle = typeof props.children === 'string' ? props.children : computedTitle
-
-  const truncateEnabled = truncate && !!setTruncatedText
-
-  // Check truncation on mount and when content changes
-  React.useEffect(() => {
-    if (!truncateEnabled || !containerRef.current) return
-    const el = containerRef.current
-    setTruncatedText(el.scrollWidth > el.clientWidth ? effectiveTitle : undefined)
-
-    return () => {
-      setTruncatedText(undefined)
-    }
-  }, [truncateEnabled, effectiveTitle, setTruncatedText])
 
   if (variant === 'block' || !truncate) {
     return (
