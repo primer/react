@@ -394,7 +394,6 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
       itemIdSortResult.every((element, index) => element === sortedItemIds[index])
 
     if (showMenu === false && !sortResultMatchesState) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSortedItemIds(itemIdSortResult)
     }
 
