@@ -167,6 +167,29 @@ covered by tests. This can be achieved through:
 Changing a `data-component` or `data-part` value is a **breaking change** and
 must follow the standard breaking change process.
 
+### Versioning and breaking changes
+
+Because `data-component` and `data-part` are **public API**, changes to them
+follow [Semantic Versioning](../versioning.md). The table below summarises what
+requires which kind of release:
+
+| Change                                                             | semver bump |
+| ------------------------------------------------------------------ | ----------- |
+| A `data-component` or `data-part` attribute is added to an element | `minor`     |
+| A `data-component` or `data-part` value is renamed                 | `major`     |
+| A `data-component` or `data-part` attribute is removed             | `major`     |
+| An attribute is moved from one element to another                  | `major`     |
+| A `data-component` is changed to `data-part` or vice-versa         | `major`     |
+
+**Deprecation path.** Before removing or renaming a value in a major release,
+the old value should be deprecated in at least one prior minor release. During
+the deprecation window the component must emit a development-mode console
+warning (using the existing `warn` / `deprecate` helpers) so consumers have
+time to migrate.
+
+The [Migration](#migration) table below captures the full set of renames
+planned for the next major release.
+
 ### Migration
 
 Existing `data-component` values must be migrated to the new convention. Inner
