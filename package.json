@@ -102,12 +102,7 @@
   "prettier": "@github/prettier-config",
   "size-limit": [
     {
-      "path": "packages/react/dist/browser.esm.js",
-      "webpack": false,
-      "running": false
-    },
-    {
-      "path": "packages/react/dist/browser.umd.js",
+      "path": "packages/react/dist/index.js",
       "webpack": false,
       "running": false
     }
