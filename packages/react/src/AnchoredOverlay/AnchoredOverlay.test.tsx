@@ -7,8 +7,10 @@ import {Button} from '../Button'
 import BaseStyles from '../BaseStyles'
 import type {AnchorPosition} from '@primer/behaviors'
 import {implementsClassName} from '../utils/testing'
+import {FeatureFlags} from '../FeatureFlags'
 
 import overlayClasses from '../Overlay/Overlay.module.css'
+import anchoredOverlayClasses from './AnchoredOverlay.module.css'
 
 type TestComponentSettings = {
   initiallyOpen?: boolean
@@ -177,5 +179,126 @@ describe('AnchoredOverlay', () => {
     render(<Test />)
 
     expect(document.getElementById('overlay')).toBe(ref.current)
+  })
+
+  describe('with primer_react_css_anchor_positioning feature flag', () => {
+    it('should render wrapper div when flag is enabled', () => {
+      const {container} = render(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <AnchoredOverlayTestComponent initiallyOpen={true} />
+        </FeatureFlags>,
+      )
+
+      const wrapper = container.querySelector(`.${anchoredOverlayClasses.Wrapper}`)
+      expect(wrapper).toBeInTheDocument()
+    })
+
+    it('should not render wrapper div when flag is disabled', () => {
+      const {container} = render(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: false}}>
+          <AnchoredOverlayTestComponent initiallyOpen={true} />
+        </FeatureFlags>,
+      )
+
+      const wrapper = container.querySelector(`.${anchoredOverlayClasses.Wrapper}`)
+      expect(wrapper).not.toBeInTheDocument()
+    })
+
+    it('should apply Anchor class to anchor element when flag is enabled', () => {
+      const {container} = render(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <AnchoredOverlayTestComponent initiallyOpen={true} />
+        </FeatureFlags>,
+      )
+
+      const anchor = container.querySelector('[aria-haspopup="true"]')
+      expect(anchor).toHaveClass(anchoredOverlayClasses.Anchor)
+    })
+
+    it('should not apply Anchor class to anchor element when flag is disabled', () => {
+      const {container} = render(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: false}}>
+          <AnchoredOverlayTestComponent initiallyOpen={true} />
+        </FeatureFlags>,
+      )
+
+      const anchor = container.querySelector('[aria-haspopup="true"]')
+      expect(anchor).not.toHaveClass(anchoredOverlayClasses.Anchor)
+    })
+
+    it('should render overlay as visible immediately when flag is enabled', () => {
+      const {baseElement} = render(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <AnchoredOverlayTestComponent initiallyOpen={true} />
+        </FeatureFlags>,
+      )
+
+      const overlay = baseElement.querySelector('[data-component="AnchoredOverlay"]')
+      expect(overlay).toHaveAttribute('data-visibility-visible', '')
+    })
+
+    it('should not use portal when flag is enabled', () => {
+      const {baseElement, container} = render(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <AnchoredOverlayTestComponent initiallyOpen={true} />
+        </FeatureFlags>,
+      )
+
+      // The overlay should be inside the component tree, not in the portal root
+      const portalRoot = baseElement.querySelector('#__primerPortalRoot__')
+      const overlayInPortal = portalRoot?.querySelector('[data-component="AnchoredOverlay"]')
+      expect(overlayInPortal).toBeNull()
+
+      // The overlay should be inside the wrapper
+      const wrapper = container.querySelector(`.${anchoredOverlayClasses.Wrapper}`)
+      const overlayInWrapper = wrapper?.querySelector('[data-component="AnchoredOverlay"]')
+      expect(overlayInWrapper).toBeInTheDocument()
+    })
+
+    it('should use portal when flag is disabled', () => {
+      const {baseElement} = render(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: false}}>
+          <AnchoredOverlayTestComponent initiallyOpen={true} />
+        </FeatureFlags>,
+      )
+
+      // The overlay should be inside the portal root
+      const portalRoot = baseElement.querySelector('#__primerPortalRoot__')
+      const overlayInPortal = portalRoot?.querySelector('[data-component="AnchoredOverlay"]')
+      expect(overlayInPortal).toBeInTheDocument()
+    })
+
+    it('should apply AnchoredOverlay class to overlay when flag is enabled', () => {
+      const {baseElement} = render(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <AnchoredOverlayTestComponent initiallyOpen={true} />
+        </FeatureFlags>,
+      )
+
+      const overlay = baseElement.querySelector('[data-component="AnchoredOverlay"]')
+      expect(overlay).toHaveClass(anchoredOverlayClasses.AnchoredOverlay)
+    })
+
+    it('should set data-anchor-position attribute when flag is enabled', () => {
+      const {baseElement} = render(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <AnchoredOverlayTestComponent initiallyOpen={true} />
+        </FeatureFlags>,
+      )
+
+      const overlay = baseElement.querySelector('[data-component="AnchoredOverlay"]')
+      expect(overlay).toHaveAttribute('data-anchor-position', 'true')
+    })
+
+    it('should set data-anchor-position to false when flag is disabled', () => {
+      const {baseElement} = render(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: false}}>
+          <AnchoredOverlayTestComponent initiallyOpen={true} />
+        </FeatureFlags>,
+      )
+
+      const overlay = baseElement.querySelector('[data-component="AnchoredOverlay"]')
+      expect(overlay).toHaveAttribute('data-anchor-position', 'false')
+    })
   })
 })

@@ -228,7 +228,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       updateOverlayRef(null)
     }
 
-    if (cssAnchorPositioning && open) {
+    if (cssAnchorPositioning) {
       applyAnchorPositioningPolyfill()
     }
   }, [open, overlayRef, updateOverlayRef, cssAnchorPositioning])
@@ -257,7 +257,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           tabIndex: 0,
           onClick: onAnchorClick,
           onKeyDown: onAnchorKeyDown,
-          className: classes.Anchor,
+          className: cssAnchorPositioning ? classes.Anchor : undefined,
         })}
       {open ? (
         <Overlay

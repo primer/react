@@ -42,6 +42,7 @@
   &[data-side='outside-top'] {
     margin-bottom: var(--base-size-4);
     bottom: anchor(top);
+    left: anchor(left);
   }
 
   &[data-side='outside-left'] {

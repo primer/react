@@ -444,11 +444,7 @@ export const AnchorPositionGrid = () => {
                     open={openCell === key}
                     onOpen={() => setOpenCell(key)}
                     onClose={() => setOpenCell(null)}
-                    renderAnchor={props => (
-                      <Button popoverTarget="popover_1" {...props}>
-                        Anchor
-                      </Button>
-                    )}
+                    renderAnchor={props => <Button {...props}>Anchor</Button>}
                     overlayProps={{
                       role: 'dialog',
                       'aria-modal': true,
