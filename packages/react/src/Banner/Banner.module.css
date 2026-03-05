@@ -42,7 +42,7 @@
       display: flex;
 
       @media screen and (--viewportRange-narrow) {
-        flex-direction: column-reverse;
+        flex-direction: column;
       }
     }
 
