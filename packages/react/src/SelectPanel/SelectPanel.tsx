@@ -28,6 +28,7 @@ import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import type {ButtonProps, LinkButtonProps} from '../Button/types'
 import {Banner} from '../Banner'
 import {isAlphabetKey} from '../hooks/useMnemonics'
+import {useFormControlContext} from '../FormControl/_FormControlContext'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const SHORT_DELAY_MS = 500
@@ -227,6 +228,8 @@ function Panel({
   const usingFullScreenOnNarrow = disableFullscreenOnNarrow ? false : featureFlagFullScreenOnNarrow
   const shouldOrderSelectedFirst =
     useFeatureFlag('primer_react_select_panel_order_selected_at_top') && showSelectedOptionsFirst
+  const {isReferenced, labelId} = useFormControlContext()
+  const selectedValueId = id ? `${id}-selected-value` : undefined
 
   // Single select modals work differently, they have an intermediate state where the user has selected an item but
   // has not yet confirmed the selection. This is the only time the user can cancel the selection.
@@ -542,14 +545,21 @@ function Panel({
     }
 
     const selectedItems = Array.isArray(selected) ? selected : [...(selected ? [selected] : [])]
+    const selectedValueText = selectedItems.length ? selectedItems.map(item => item.text).join(', ') : placeholder
+    const shouldAutoWireLabel = isReferenced === false && Boolean(labelId) && Boolean(selectedValueId)
 
     return <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
       return renderAnchor({
         ...props,
-        children: selectedItems.length ? selectedItems.map(item => item.text).join(', ') : placeholder,
+        ...(shouldAutoWireLabel
+          ? {
+              'aria-labelledby': [labelId, selectedValueId].filter(Boolean).join(' '),
+            }
+          : {}),
+        children: shouldAutoWireLabel ? <span id={selectedValueId}>{selectedValueText}</span> : selectedValueText,
       })
     }
-  }, [placeholder, renderAnchor, selected])
+  }, [placeholder, renderAnchor, selected, isReferenced, labelId, selectedValueId])
 
   // Pre-compute a Set of selected item IDs/references for O(1) lookups
   // This optimizes isItemCurrentlySelected from O(m) to O(1) per call
