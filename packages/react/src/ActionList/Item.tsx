@@ -34,11 +34,11 @@ const ConditionalTooltip = React.forwardRef<
     children: React.ReactElement
   }
 >(function ConditionalTooltip({text, enabled, children}, forwardedRef) {
-  if (!enabled || !text) {
+  if (!enabled) {
     return children
   }
   return (
-    <Tooltip ref={forwardedRef} text={text || ''} direction="e" delay="medium">
+    <Tooltip ref={forwardedRef} text={text || ''} direction="e" delay="medium" _privateDisableTooltip={!text}>
       {children}
     </Tooltip>
   )
