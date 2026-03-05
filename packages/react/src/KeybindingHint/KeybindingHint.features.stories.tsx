@@ -9,15 +9,15 @@ export default {
 
 const chord = 'Mod+Shift+K'
 
-export const Condensed = {args: {keys: chord}}
+export const Condensed = () => <KeybindingHint keys={chord} />
 
-export const Full = {args: {keys: chord, format: 'full'}}
+export const Full = () => <KeybindingHint keys={chord} format="full" />
 
 const sequence = 'Mod+x y z'
 
-export const SequenceCondensed = {args: {keys: sequence}}
+export const SequenceCondensed = () => <KeybindingHint keys={sequence} />
 
-export const SequenceFull = {args: {keys: sequence, format: 'full'}}
+export const SequenceFull = () => <KeybindingHint keys={sequence} format="full" />
 
 export const OnEmphasis: StoryObj<KeybindingHintProps> = {
   render: args => (
@@ -37,4 +37,4 @@ export const OnPrimary: StoryObj<KeybindingHintProps> = {
   args: {keys: chord, variant: 'onPrimary'},
 }
 
-export const Small = {args: {keys: chord, size: 'small'}}
+export const Small = () => <KeybindingHint keys={chord} size="small" />

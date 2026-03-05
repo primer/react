@@ -1,14 +1,40 @@
 {
-  "id": "KeybindingHint",
+  "id": "keybinding-hint",
   "name": "KeybindingHint",
-  "status": "draft",
+  "status": "alpha",
   "a11yReviewed": "2025-01-08",
-  "stories": [],
-  "importPath": "@primer/react",
+  "stories": [
+    {
+      "id": "experimental-components-keybindinghint--default"
+    },
+    {
+      "id": "experimental-components-keybindinghint-features--condensed"
+    },
+    {
+      "id": "experimental-components-keybindinghint-features--full"
+    },
+    {
+      "id": "experimental-components-keybindinghint-features--sequence-condensed"
+    },
+    {
+      "id": "experimental-components-keybindinghint-features--sequence-full"
+    },
+    {
+      "id": "experimental-components-keybindinghint-features--on-emphasis"
+    },
+    {
+      "id": "experimental-components-keybindinghint-features--on-primary"
+    },
+    {
+      "id": "experimental-components-keybindinghint-features--small"
+    }
+  ],
+  "importPath": "@primer/react/experimental",
   "props": [
     {
       "name": "keys",
       "type": "string",
+      "required": true,
       "description": "The keys involved in this keybinding."
     },
     {
@@ -19,9 +45,9 @@
     },
     {
       "name": "variant",
-      "type": "'normal' | 'onEmphasis'",
+      "type": "'normal' | 'onEmphasis' | 'onPrimary'",
       "defaultValue": "'normal'",
-      "description": "Set to `onEmphasis` for display on 'emphasis' colors."
+      "description": "Set to `onEmphasis` for display on emphasis colors, or `onPrimary` for display on primary buttons."
     },
     {
       "name": "size",

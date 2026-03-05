@@ -6,4 +6,4 @@ export default {
   component: KeybindingHint,
 } satisfies Meta<typeof KeybindingHint>
 
-export const Default = {args: {keys: 'Mod+Shift+K'}}
+export const Default = () => <KeybindingHint keys="Mod+Shift+K" />
