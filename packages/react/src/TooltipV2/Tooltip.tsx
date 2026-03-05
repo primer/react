@@ -103,6 +103,8 @@ const isInteractive = (element: HTMLElement) => {
 }
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})
 
+const emptyKeybindingHints: Array<KeybindingHintProps['keys']> = []
+
 export const Tooltip: ForwardRefExoticComponent<
   React.PropsWithoutRef<TooltipProps> & React.RefAttributes<HTMLElement>
 > &
@@ -115,7 +117,7 @@ export const Tooltip: ForwardRefExoticComponent<
       children,
       id,
       className,
-      keybindingHint = [],
+      keybindingHint = emptyKeybindingHints,
       delay = 'short',
       _privateDisableTooltip = false,
       ...rest
