@@ -115,7 +115,7 @@ export const Tooltip: ForwardRefExoticComponent<
       children,
       id,
       className,
-      keybindingHint,
+      keybindingHint = [],
       delay = 'short',
       _privateDisableTooltip = false,
       ...rest
@@ -274,7 +274,7 @@ export const Tooltip: ForwardRefExoticComponent<
     const hasAriaLabel = 'aria-label' in rest
 
     // Normalize keybindingHint to an array for uniform rendering
-    const keybindingHints = keybindingHint ? (Array.isArray(keybindingHint) ? keybindingHint : [keybindingHint]) : []
+    const keybindingHints = Array.isArray(keybindingHint) ? keybindingHint : [keybindingHint]
 
     return (
       <TooltipContext.Provider value={value}>
