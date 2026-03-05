@@ -28,7 +28,7 @@
   }
 
   &[data-anchor-position='false']:not([data-responsive='fullscreen']),
-  &:not([data-anchor-position]):not([data-responsive='fullscreen']):not([data-variant='anchored']) {
+  &:not([data-anchor-position]):not([data-responsive='fullscreen']):not([data-variant]) {
     /* stylelint-disable-next-line primer/spacing */
     top: var(--top, auto);
     /* stylelint-disable-next-line primer/spacing */
