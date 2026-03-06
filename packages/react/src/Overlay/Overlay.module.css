@@ -39,12 +39,12 @@
     }
   }
 
-        &:not([data-anchor-position]):not([data-responsive='fullscreen']):not([data-variant]) {
-          /* stylelint-disable-next-line primer/spacing */
-          top: var(--top, auto);
-          /* stylelint-disable-next-line primer/spacing */
-          left: var(--left, auto);
-        }
+  &:not([data-anchor-position]):not([data-responsive='fullscreen']):not([data-variant]) {
+    /* stylelint-disable-next-line primer/spacing */
+    top: var(--top, auto);
+    /* stylelint-disable-next-line primer/spacing */
+    left: var(--left, auto);
+  }
 
   &:focus {
     outline: none;
