@@ -25,6 +25,7 @@ describe('Link', () => {
   it('respects the "muted" prop', () => {
     const {container} = render(<Link muted />)
     expect(container.firstChild).toHaveAttribute('data-muted', 'true')
+    expect(container.firstChild).not.toHaveAttribute('muted')
   })
 
   it('logs a warning when trying to render invalid "as" prop', () => {
