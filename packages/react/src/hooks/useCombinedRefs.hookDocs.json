@@ -1,0 +1,20 @@
+{
+  "name": "useCombinedRefs",
+  "importPath": "@primer/react",
+  "stories": [],
+  "parameters": [
+    {
+      "name": "refA",
+      "derive": true,
+      "description": "First ref to combine."
+    },
+    {
+      "name": "refB",
+      "derive": true,
+      "description": "Second ref to combine."
+    }
+  ],
+  "returns": {
+    "derive": true
+  }
+}

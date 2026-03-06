@@ -1,5 +1,7 @@
 import type {ForwardedRef, RefObject} from 'react'
-import {useImperativeHandle} from 'react'
+import {useImperativeHandle, useMemo} from 'react'
+
+const unset = Symbol()
 
 /**
  * Use a ref object as the imperative handle for a forwarded ref. This can be used to
@@ -7,7 +9,34 @@ import {useImperativeHandle} from 'react'
  * instance with `.current`.
  *
  * **NOTE**: The `refObject` should be passed to the underlying element, NOT the `forwardedRef`.
+ *
+ * @deprecated Migrate to `useCombinedRefs`. It's safer, faster, and easier to use:
+ *
+ * ```diff
+ *   const ref = useRef(null)
+ *
+ * - useRefObjectAsForwardedRef(forwardedRef, ref)
+ * + const combinedRef = useCombinedRefs(forwardedRef, ref)
+ *
+ * - return <div ref={ref} />
+ * + return <div ref={combinedRef} />
+ * ```
  */
 export function useRefObjectAsForwardedRef<T>(forwardedRef: ForwardedRef<T>, refObject: RefObject<T | null>): void {
-  useImperativeHandle<T | null, T | null>(forwardedRef, () => refObject.current)
+  const wrappedForwardedRef: ForwardedRef<T> = useMemo(() => {
+    if (typeof forwardedRef === 'function') {
+      let lastInstance: T | null | typeof unset = unset
+
+      return (instance: T | null) => {
+        if (instance !== lastInstance) {
+          lastInstance = instance
+          forwardedRef(instance)
+        }
+      }
+    }
+
+    return forwardedRef
+  }, [forwardedRef])
+
+  useImperativeHandle<T | null, T | null>(wrappedForwardedRef, () => refObject.current)
 }

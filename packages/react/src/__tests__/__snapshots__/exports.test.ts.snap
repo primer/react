@@ -224,6 +224,7 @@ exports[`@primer/react > should not update exports without a semver change 1`] =
   "useOverlay",
   "useProvidedRefOrCreate",
   "useRefObjectAsForwardedRef",
+  "useCombinedRefs",
   "useResizeObserver",
   "useResponsiveValue",
   "useSafeTimeout",
