@@ -78,9 +78,9 @@ type Ref<T> = ForwardedRef<T> | React19RefCallback<T> | StandardRef<T> | undefin
 
 function setRef<T>(ref: Ref<T>, value: T, cleanupRef: MutableRefObject<CleanupFunction | undefined>) {
   // NOTE: This is technically incorrect; in React 19 even with a callback ref it should be possible to call a ref with
-  // `null` if it happens before unmount. But there's no way for a callback react to know whether this update is happening
-  // during unmount or not, because we are trying to still be cross-compatible with React 18. Once we only need to support
-  // React 19, this can be corrected using a cleanup callback in our own combined ref.
+  // `null` if it happens before unmount. But there's no way for a React 18 ref to know whether this update is happening
+  // during unmount or not. Once we only need to support React 19, this can be corrected using a cleanup callback in
+  // our own combined ref.
   if (value === null && cleanupRef.current) return
 
   if (typeof ref === 'function') {
