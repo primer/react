@@ -5,16 +5,18 @@
   "parameters": [
     {
       "name": "refA",
-      "derive": true,
+      "type": "Ref<T>",
+      "required": true,
       "description": "First ref to combine."
     },
     {
       "name": "refB",
-      "derive": true,
+      "type": "Ref<T>",
+      "required": true,
       "description": "Second ref to combine."
     }
   ],
   "returns": {
-    "derive": true
+    "type": "RefCallback<T>"
   }
 }
