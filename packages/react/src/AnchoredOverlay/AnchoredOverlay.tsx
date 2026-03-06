@@ -12,7 +12,6 @@ import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {type ResponsiveValue} from '../hooks/useResponsiveValue'
 import {IconButton, type IconButtonProps} from '../Button'
 import {XIcon} from '@primer/octicons-react'
-import polyfill from '@oddbird/css-anchor-positioning/fn'
 import classes from './AnchoredOverlay.module.css'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
@@ -125,8 +124,9 @@ export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
   (AnchoredOverlayPropsWithAnchor | AnchoredOverlayPropsWithoutAnchor) &
   Partial<Pick<PositionSettings, 'align' | 'side' | 'anchorOffset' | 'alignmentOffset' | 'displayInViewport'>>
 
-const applyAnchorPositioningPolyfill = () => {
+const applyAnchorPositioningPolyfill = async () => {
   if (typeof window !== 'undefined' && !('anchorName' in document.documentElement.style)) {
+    const {default: polyfill} = await import('@oddbird/css-anchor-positioning/fn')
     polyfill()
   }
 }
