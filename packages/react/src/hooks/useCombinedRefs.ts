@@ -84,8 +84,7 @@ function setRef<T>(ref: Ref<T>, value: T, cleanupRef: MutableRefObject<CleanupFu
   if (value === null && cleanupRef.current) return
 
   if (typeof ref === 'function') {
-    const cleanup = ref(value)
-    cleanupRef.current = cleanup || undefined
+    cleanupRef.current = ref(value) || undefined
   } else if (ref) {
     // `React.Ref` is typed as immutable to protect consumers but it's OK to mutate it here. We could just change the
     // type to only accept mutable refs, but then it would be harder to accept refs as props in React 19 because we
