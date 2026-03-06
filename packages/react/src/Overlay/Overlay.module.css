@@ -21,14 +21,14 @@
   box-shadow: var(--shadow-floating-small);
 
   &[data-anchor-position='false'],
-  &:not([data-anchor-position]):not([data-variant="modal"]) {
+  &:not([data-anchor-position]):not([data-variant='modal']) {
     /* stylelint-disable-next-line primer/spacing */
     right: var(--right, auto);
     /* stylelint-disable-next-line primer/spacing */
     bottom: var(--bottom, auto);
-    /* stylelint-disable-next-line primer/spacing */
 
     &:not([data-variant]) {
+      /* stylelint-disable-next-line primer/spacing */
       top: var(--top, auto);
       /* stylelint-disable-next-line primer/spacing */
       left: var(--left, auto);
