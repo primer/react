@@ -1,7 +1,7 @@
 import React, {forwardRef, type JSX} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import type {ButtonProps} from './types'
-import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
+import {useCombinedRefs} from '../hooks/useCombinedRefs'
 import {VisuallyHidden} from '../VisuallyHidden'
 import Spinner from '../Spinner'
 import CounterLabel from '../CounterLabel'
@@ -51,7 +51,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
   } = props
 
   const innerRef = React.useRef<HTMLButtonElement>(null)
-  useRefObjectAsForwardedRef(forwardedRef, innerRef)
+  useCombinedRefs(forwardedRef, innerRef)
 
   const uuid = useId(id)
   const loadingAnnouncementID = `${uuid}-loading-announcement`

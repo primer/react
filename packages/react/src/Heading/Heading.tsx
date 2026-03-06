@@ -1,6 +1,6 @@
 import {clsx} from 'clsx'
 import React, {forwardRef, useEffect} from 'react'
-import {useRefObjectAsForwardedRef} from '../hooks'
+import {useCombinedRefs} from '../hooks'
 import type {ComponentProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import classes from './Heading.module.css'
@@ -14,7 +14,7 @@ type StyledHeadingProps = {
 
 const Heading = forwardRef(({as: Component = 'h2', className, variant, ...props}, forwardedRef) => {
   const innerRef = React.useRef<HTMLHeadingElement>(null)
-  useRefObjectAsForwardedRef(forwardedRef, innerRef)
+  useCombinedRefs(forwardedRef, innerRef)
 
   if (__DEV__) {
     /**

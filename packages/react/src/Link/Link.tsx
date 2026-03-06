@@ -1,6 +1,6 @@
 import {clsx} from 'clsx'
 import React, {useEffect, type ForwardedRef, type ElementRef} from 'react'
-import {useRefObjectAsForwardedRef} from '../hooks'
+import {useCombinedRefs} from '../hooks'
 import classes from './Link.module.css'
 import type {ComponentProps} from '../utils/types'
 import {type PolymorphicProps, fixedForwardRef} from '../utils/modern-polymorphic'
@@ -20,7 +20,7 @@ export const UnwrappedLink = <As extends React.ElementType = 'a'>(
 ) => {
   const {as: Component = 'a', className, inline, hoverColor, ...restProps} = props
   const innerRef = React.useRef<ElementRef<As>>(null)
-  useRefObjectAsForwardedRef(ref, innerRef)
+  const combinedRef = useCombinedRefs(ref, innerRef)
 
   if (__DEV__) {
     /**
@@ -53,8 +53,7 @@ export const UnwrappedLink = <As extends React.ElementType = 'a'>(
       data-inline={inline}
       data-hover-color={hoverColor}
       {...restProps}
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ref={innerRef as any}
+      ref={combinedRef}
     />
   )
 }
