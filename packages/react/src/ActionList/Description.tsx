@@ -29,17 +29,27 @@ export const Description: FCWithSlotMarker<React.PropsWithChildren<ActionListDes
   style,
   ...props
 }) => {
-  const {blockDescriptionId, inlineDescriptionId} = React.useContext(ItemContext)
+  const {blockDescriptionId, inlineDescriptionId, setTruncatedText} = React.useContext(ItemContext)
   const containerRef = React.useRef<HTMLDivElement>(null)
   const [computedTitle, setComputedTitle] = React.useState<string>('')
 
   // Extract text content from rendered DOM for tooltip
   React.useEffect(() => {
     if (truncate && containerRef.current) {
-      const textContent = containerRef.current.textContent || ''
+      const el = containerRef.current
+      const textContent = el.textContent || ''
       setComputedTitle(textContent)
+      if (setTruncatedText) {
+        setTruncatedText(
+          el.scrollWidth > el.clientWidth
+            ? typeof props.children === 'string'
+              ? props.children
+              : textContent
+            : undefined,
+        )
+      }
     }
-  }, [truncate, props.children])
+  }, [truncate, props.children, setTruncatedText])
 
   const effectiveTitle = typeof props.children === 'string' ? props.children : computedTitle
 
@@ -61,7 +71,7 @@ export const Description: FCWithSlotMarker<React.PropsWithChildren<ActionListDes
         id={inlineDescriptionId}
         className={clsx(className, classes.Description)}
         style={style}
-        title={effectiveTitle}
+        title={setTruncatedText ? '' : effectiveTitle}
         inline={true}
         maxWidth="100%"
         data-component="ActionList.Description"
