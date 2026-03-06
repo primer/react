@@ -27,6 +27,7 @@
     /* stylelint-disable-next-line primer/spacing */
     bottom: var(--bottom, auto);
 
+    /* stylelint-disable-next-line selector-max-specificity */
     &[data-responsive='fullscreen']:not([data-variant]) {
       @media screen and (--viewportRange-narrow) {
         top: 0;
