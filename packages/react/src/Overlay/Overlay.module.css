@@ -27,9 +27,12 @@
     /* stylelint-disable-next-line primer/spacing */
     bottom: var(--bottom, auto);
     /* stylelint-disable-next-line primer/spacing */
-    top: var(--top, auto);
-    /* stylelint-disable-next-line primer/spacing */
-    left: var(--left, auto);
+
+    &:not([data-variant]) {
+      top: var(--top, auto);
+      /* stylelint-disable-next-line primer/spacing */
+      left: var(--left, auto);
+    }
 
     &:where([data-responsive='fullscreen']) {
       @media screen and (--viewportRange-narrow) {
