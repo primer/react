@@ -1,8 +1,12 @@
 import {screen, render} from '@testing-library/react'
 import {describe, expect, it} from 'vitest'
 import SideNav from '../SideNav'
+import classes from '../SideNav.module.css'
+import {implementsClassName} from '../utils/testing'
 
 describe('SideNav', () => {
+  implementsClassName(SideNav, classes.SideNav)
+  implementsClassName(SideNav.Link, classes.SideNavLink)
   it('renders a <nav> and <a>', () => {
     expect(render(<SideNav />).container.firstChild).toHaveProperty('tagName', 'NAV')
     expect(render(<SideNav.Link />).container.firstChild).toHaveProperty('tagName', 'A')

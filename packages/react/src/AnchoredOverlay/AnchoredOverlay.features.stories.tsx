@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react'
+import {useEffect, useRef, useState, type JSX} from 'react'
 import type {Args, Meta} from '@storybook/react-vite'
 import {FocusKeys} from '@primer/behaviors'
 import {Avatar, Link} from '..'
@@ -35,11 +35,11 @@ const hoverCard = (
       Former beach cat and champion swimmer. Now your friendly octopus with a normal face.
     </span>
     <Stack direction="horizontal" gap="none">
-      <Octicon color={'var(--fgColor-muted)'} icon={LocationIcon} />
+      <Octicon className={classes.Icon} icon={LocationIcon} />
       <span className={classes.MetaMuted}>Interwebs</span>
     </Stack>
     <Stack direction="horizontal" gap="none">
-      <Octicon color={'var(--fgColor-muted)'} icon={RepoIcon} />
+      <Octicon className={classes.Icon} icon={RepoIcon} />
       <span className={classes.MetaMuted}>Owns this repository</span>
     </Stack>
   </Stack>

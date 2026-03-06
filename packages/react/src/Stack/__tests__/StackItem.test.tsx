@@ -2,18 +2,11 @@ import {describe, expect, it, vi} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import type React from 'react'
 import {Stack, StackItem} from '../Stack'
+import {implementsClassName} from '../../utils/testing'
+import classes from '../Stack.module.css'
 
 describe('StackItem', () => {
-  it('should support `className` on the outermost element', () => {
-    const Element = () => (
-      <Stack>
-        <StackItem data-testid="stack-item" className={'test-class-name'}>
-          Content
-        </StackItem>
-      </Stack>
-    )
-    expect(render(<Element />).getAllByTestId('stack-item')[0]).toHaveClass('test-class-name')
-  })
+  implementsClassName(StackItem, classes.StackItem)
 
   it('should render its children', () => {
     render(

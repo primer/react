@@ -3,12 +3,10 @@ import React, {useRef, forwardRef, useCallback, useState, useEffect} from 'react
 import {UnderlineNavContext} from './UnderlineNavContext'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useResizeObserver} from '../hooks/useResizeObserver'
-import {useTheme} from '../ThemeProvider'
 import type {ChildWidthArray, ResponsiveProps, ChildSize} from './types'
 import VisuallyHidden from '../_VisuallyHidden'
-import {moreBtnStyles, getDividerStyle, menuStyles, menuItemStyles, baseMenuStyles, baseMenuMinWidth} from './styles'
+import {dividerStyles, menuItemStyles, baseMenuMinWidth} from './styles'
 import {UnderlineItemList, UnderlineWrapper, LoadingCounter, GAP} from '../internal/components/UnderlineTabbedInterface'
-import styled from 'styled-components'
 import {Button} from '../Button'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
@@ -18,6 +16,7 @@ import {ActionList} from '../ActionList'
 import CounterLabel from '../CounterLabel'
 import {invariant} from '../utils/invariant'
 import classes from './UnderlineNav.module.css'
+import {getAnchoredPosition} from '@primer/behaviors'
 
 export type UnderlineNavProps = {
   children: React.ReactNode
@@ -41,23 +40,19 @@ export const MORE_BTN_WIDTH = 86
 // The height is needed to make sure we don't have a layout shift when the more button is the only item in the nav.
 const MORE_BTN_HEIGHT = 45
 
-export const MoreMenuListItem = styled.li`
-  display: flex;
-  align-items: center;
-  height: ${MORE_BTN_HEIGHT}px;
-`
-
 const overflowEffect = (
   navWidth: number,
   moreMenuWidth: number,
-  childArray: Array<React.ReactElement>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  childArray: Array<React.ReactElement<any>>,
   childWidthArray: ChildWidthArray,
   noIconChildWidthArray: ChildWidthArray,
-  updateListAndMenu: (props: ResponsiveProps, iconsVisible: boolean) => void,
+  updateListAndMenu: (props: ResponsiveProps, iconsVisible: boolean, overflowMeasured: boolean) => void,
 ) => {
   let iconsVisible = true
   if (childWidthArray.length === 0) {
-    updateListAndMenu({items: childArray, menuItems: []}, iconsVisible)
+    updateListAndMenu({items: childArray, menuItems: []}, iconsVisible, false)
+    return
   }
   const numberOfItemsPossible = calculatePossibleItems(childWidthArray, navWidth)
   const numberOfItemsWithoutIconPossible = calculatePossibleItems(noIconChildWidthArray, navWidth)
@@ -67,8 +62,10 @@ const overflowEffect = (
     navWidth,
     moreMenuWidth || MORE_BTN_WIDTH,
   )
-  const items: Array<React.ReactElement> = []
-  const menuItems: Array<React.ReactElement> = []
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const items: Array<React.ReactElement<any>> = []
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const menuItems: Array<React.ReactElement<any>> = []
 
   // First, we check if we can fit all the items with their icons
   if (childArray.length <= numberOfItemsPossible) {
@@ -108,11 +105,12 @@ const overflowEffect = (
       }
     }
   }
-  updateListAndMenu({items, menuItems}, iconsVisible)
+  updateListAndMenu({items, menuItems}, iconsVisible, true)
 }
 
 export const getValidChildren = (children: React.ReactNode) => {
-  return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement<any>[]
 }
 
 const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: number, moreMenuWidth = 0) => {
@@ -129,6 +127,20 @@ const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: numb
     }
   }
   return breakpoint
+}
+
+// Inline styles converted from baseMenuStyles for use as CSSProperties
+const baseMenuInlineStyles: React.CSSProperties = {
+  position: 'absolute',
+  zIndex: 1,
+  top: '90%',
+  boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
+  borderRadius: 12,
+  background: 'var(--overlay-bgColor)',
+  listStyle: 'none',
+  minWidth: `${baseMenuMinWidth}px`,
+  maxWidth: '640px',
+  right: 0,
 }
 
 export const UnderlineNav = forwardRef(
@@ -151,11 +163,12 @@ export const UnderlineNav = forwardRef(
     const containerRef = React.useRef<HTMLUListElement>(null)
     const disclosureWidgetId = useId()
 
-    const {theme} = useTheme()
     const [isWidgetOpen, setIsWidgetOpen] = useState(false)
     const [iconsVisible, setIconsVisible] = useState<boolean>(true)
     const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
     const [noIconChildWidthArray, setNoIconChildWidthArray] = useState<ChildWidthArray>([])
+    // Track whether the initial overflow calculation is complete to prevent CLS
+    const [isOverflowMeasured, setIsOverflowMeasured] = useState(false)
 
     const validChildren = getValidChildren(children)
 
@@ -179,7 +192,6 @@ export const UnderlineNav = forwardRef(
 
     if (__DEV__) {
       // Practically, this is not a conditional hook, it is just making sure this hook runs only on DEV not PROD.
-      // eslint-disable-next-line react-compiler/react-compiler
       // eslint-disable-next-line react-hooks/rules-of-hooks
       useEffect(() => {
         // Address illegal state where there are multiple items that have `aria-current='page'` attribute
@@ -196,10 +208,11 @@ export const UnderlineNav = forwardRef(
     }
 
     const swapMenuItemWithListItem = (
-      prospectiveListItem: React.ReactElement,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      prospectiveListItem: React.ReactElement<any>,
       indexOfProspectiveListItem: number,
       event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
-      callback: (props: ResponsiveProps, displayIcons: boolean) => void,
+      callback: (props: ResponsiveProps, displayIcons: boolean, overflowMeasured: boolean) => void,
     ) => {
       // get the selected menu item's width
       const widthToFitIntoList = getItemsWidth(prospectiveListItem.props.children)
@@ -219,7 +232,7 @@ export const UnderlineNav = forwardRef(
       const updatedMenuItems = [...menuItems]
       // Add itemsToAddToMenu array's items to the menu at the index of the prospectiveListItem and remove 1 count of items (prospectiveListItem)
       updatedMenuItems.splice(indexOfProspectiveListItem, 1, ...itemsToAddToMenu)
-      callback({items: updatedItemList, menuItems: updatedMenuItems}, false)
+      callback({items: updatedItemList, menuItems: updatedMenuItems}, false, true)
     }
     // How many items do we need to pull in to the menu to make room for the selected menu item.
     function getBreakpointForItemSwapping(widthToFitIntoList: number, availableSpace: number) {
@@ -235,10 +248,17 @@ export const UnderlineNav = forwardRef(
       return breakpoint
     }
 
-    const updateListAndMenu = useCallback((props: ResponsiveProps, displayIcons: boolean) => {
-      setResponsiveProps(props)
-      setIconsVisible(displayIcons)
-    }, [])
+    const updateListAndMenu = useCallback(
+      (props: ResponsiveProps, displayIcons: boolean, overflowMeasured: boolean) => {
+        setResponsiveProps(props)
+        setIconsVisible(displayIcons)
+
+        if (overflowMeasured) {
+          setIsOverflowMeasured(true)
+        }
+      },
+      [],
+    )
     const setChildrenWidth = useCallback((size: ChildSize) => {
       setChildWidthArray(arr => {
         const newArr = [...arr, size]
@@ -295,10 +315,24 @@ export const UnderlineNav = forwardRef(
         )
     }, navRef as RefObject<HTMLElement>)
 
+    // Compute menuInlineStyles if needed
+    let menuInlineStyles: React.CSSProperties = {...baseMenuInlineStyles}
+    if (containerRef.current && listRef.current) {
+      const {left} = getAnchoredPosition(containerRef.current, listRef.current, {
+        align: 'start',
+        side: 'outside-bottom',
+      })
+
+      menuInlineStyles = {
+        ...baseMenuInlineStyles,
+        right: undefined,
+        left,
+      }
+    }
+
     return (
       <UnderlineNavContext.Provider
         value={{
-          theme,
           setChildrenWidth,
           setNoIconChildrenWidth,
           loadingCounters,
@@ -306,15 +340,22 @@ export const UnderlineNav = forwardRef(
         }}
       >
         {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
-        <UnderlineWrapper as={as} aria-label={ariaLabel} className={className} ref={navRef} data-variant={variant}>
+        <UnderlineWrapper
+          as={as}
+          aria-label={ariaLabel}
+          className={className}
+          ref={navRef}
+          data-variant={variant}
+          data-overflow-measured={isOverflowMeasured ? 'true' : 'false'}
+        >
           <UnderlineItemList ref={listRef} role="list">
             {listItems}
             {menuItems.length > 0 && (
-              <MoreMenuListItem ref={moreMenuRef}>
-                {!onlyMenuVisible && <div style={getDividerStyle(theme)}></div>}
+              <li ref={moreMenuRef} style={{display: 'flex', alignItems: 'center', height: `${MORE_BTN_HEIGHT}px`}}>
+                {!onlyMenuVisible && <div style={dividerStyles}></div>}
                 <Button
                   ref={moreMenuBtnRef}
-                  sx={moreBtnStyles}
+                  className={classes.MoreButton}
                   aria-controls={disclosureWidgetId}
                   aria-expanded={isWidgetOpen}
                   onClick={onAnchorClick}
@@ -336,12 +377,12 @@ export const UnderlineNav = forwardRef(
                   selectionVariant="single"
                   ref={containerRef}
                   id={disclosureWidgetId}
-                  sx={
-                    listRef.current?.clientWidth && listRef.current.clientWidth >= baseMenuMinWidth
-                      ? baseMenuStyles
-                      : menuStyles(containerRef.current, listRef.current)
-                  }
-                  style={{display: isWidgetOpen ? 'block' : 'none'}}
+                  style={{
+                    ...(listRef.current?.clientWidth && listRef.current.clientWidth >= baseMenuMinWidth
+                      ? baseMenuInlineStyles
+                      : menuInlineStyles),
+                    display: isWidgetOpen ? 'block' : 'none',
+                  }}
                 >
                   {menuItems.map((menuItem, index) => {
                     const {
@@ -368,7 +409,7 @@ export const UnderlineNav = forwardRef(
                     return (
                       <ActionList.LinkItem
                         key={menuItemChildren}
-                        sx={menuItemStyles}
+                        style={menuItemStyles}
                         onClick={(
                           event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
                         ) => {
@@ -397,7 +438,7 @@ export const UnderlineNav = forwardRef(
                     )
                   })}
                 </ActionList>
-              </MoreMenuListItem>
+              </li>
             )}
           </UnderlineItemList>
         </UnderlineWrapper>

@@ -1,9 +1,10 @@
 import {describe, expect, it, vi, afterEach} from 'vitest'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
-import theme from '../../theme'
+import BaseStyles from '../../BaseStyles'
 import {ActionMenu} from '../../deprecated'
-import {BaseStyles, ThemeProvider} from '../..'
 import type {ItemProps} from '../../deprecated/ActionList/Item'
+
+import type {JSX} from 'react'
 
 const items = [
   {text: 'New file'},
@@ -16,13 +17,11 @@ const mockOnActivate = vi.fn()
 
 function SimpleActionMenu(): JSX.Element {
   return (
-    <ThemeProvider theme={theme}>
-      <BaseStyles>
-        <div id="something-else">X</div>
-        <ActionMenu onAction={mockOnActivate} anchorContent="Menu" items={items} />
-        <div id="portal-root"></div>
-      </BaseStyles>
-    </ThemeProvider>
+    <BaseStyles>
+      <div id="something-else">X</div>
+      <ActionMenu onAction={mockOnActivate} anchorContent="Menu" items={items} />
+      <div id="portal-root"></div>
+    </BaseStyles>
   )
 }
 

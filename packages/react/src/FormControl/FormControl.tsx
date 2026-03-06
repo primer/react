@@ -19,6 +19,7 @@ import FormControlValidation from './_FormControlValidation'
 import {FormControlContextProvider} from './_FormControlContext'
 import {warning} from '../utils/warning'
 import classes from './FormControl.module.css'
+import {isSlot} from '../utils/is-slot'
 
 export type FormControlProps = {
   children?: React.ReactNode
@@ -40,10 +41,11 @@ export type FormControlProps = {
    */
   layout?: 'horizontal' | 'vertical'
   className?: string
+  style?: React.CSSProperties
 }
 
 const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
-  ({children, disabled: disabledProp, layout = 'vertical', id: idProp, required, className}, ref) => {
+  ({children, disabled: disabledProp, layout = 'vertical', id: idProp, required, className, style}, ref) => {
     const [slots, childrenWithoutSlots] = useSlots(children, {
       caption: FormControlCaption,
       label: FormControlLabel,
@@ -67,12 +69,28 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     const captionId = slots.caption ? `${id}-caption` : undefined
     const validationStatus = slots.validation?.props.variant
     const InputComponent = childrenWithoutSlots.find(child =>
-      expectedInputComponents.some(inputComponent => React.isValidElement(child) && child.type === inputComponent),
+      expectedInputComponents.some(
+        inputComponent =>
+          React.isValidElement(child) && (child.type === inputComponent || isSlot(child, inputComponent)),
+      ),
     )
     const inputProps = React.isValidElement(InputComponent) && InputComponent.props
     const isChoiceInput =
-      React.isValidElement(InputComponent) && (InputComponent.type === Checkbox || InputComponent.type === Radio)
-    const isRadioInput = React.isValidElement(InputComponent) && InputComponent.type === Radio
+      React.isValidElement(InputComponent) &&
+      (InputComponent.type === Checkbox ||
+        InputComponent.type === Radio ||
+        isSlot(InputComponent, Checkbox) ||
+        isSlot(InputComponent, Radio))
+    const isRadioInput =
+      React.isValidElement(InputComponent) && (InputComponent.type === Radio || isSlot(InputComponent, Radio))
+
+    const isSelectPanelInput =
+      React.isValidElement(InputComponent) &&
+      (InputComponent.type === SelectPanel || isSlot(InputComponent, SelectPanel))
+
+    const labelId = slots.label
+      ? ((React.isValidElement(slots.label) ? (slots.label.props as {id?: string}).id : undefined) ?? `${id}-label`)
+      : undefined
 
     if (InputComponent) {
       warning(
@@ -136,7 +154,8 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
             : null}
           {childrenWithoutSlots.filter(
             child =>
-              React.isValidElement(child) && ![Checkbox, Radio].some(inputComponent => child.type === inputComponent),
+              React.isValidElement(child) &&
+              ![Checkbox, Radio].some(inputComponent => child.type === inputComponent || isSlot(child, inputComponent)),
           )}
         </div>
         {slots.leadingVisual ? (
@@ -163,6 +182,8 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
           id,
           required,
           validationMessageId,
+          isReferenced: !isSelectPanelInput,
+          labelId,
         }}
       >
         {isChoiceInput || layout === 'horizontal' ? (
@@ -170,6 +191,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
             ref={ref}
             data-has-leading-visual={slots.leadingVisual ? '' : undefined}
             className={clsx(className, classes.ControlHorizontalLayout)}
+            style={style}
           >
             {InputChildren}
           </div>
@@ -178,6 +200,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
             ref={ref}
             data-has-label={!isLabelHidden ? '' : undefined}
             className={clsx(className, classes.ControlVerticalLayout)}
+            style={style}
           >
             {slots.label}
             {React.isValidElement(InputComponent) &&
@@ -197,7 +220,9 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
             {childrenWithoutSlots.filter(
               child =>
                 React.isValidElement(child) &&
-                !expectedInputComponents.some(inputComponent => child.type === inputComponent),
+                !expectedInputComponents.some(
+                  inputComponent => child.type === inputComponent || isSlot(child, inputComponent),
+                ),
             )}
             {slots.validation ? (
               <ValidationAnimationContainer show>{slots.validation}</ValidationAnimationContainer>
@@ -211,6 +236,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
 )
 
 export default Object.assign(FormControl, {
+  __SLOT__: Symbol('FormControl'),
   Caption: FormControlCaption,
   Label: FormControlLabel,
   LeadingVisual: FormControlLeadingVisual,

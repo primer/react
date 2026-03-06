@@ -15,6 +15,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 
 import classes from './Dialog.module.css'
 import {clsx} from 'clsx'
+import {useSlots} from '../hooks/useSlots'
 
 /* Dialog Version 2 */
 
@@ -43,7 +44,7 @@ export type DialogButtonProps = Omit<ButtonProps, 'content'> & {
    * A reference to the rendered Button’s DOM node, used together with
    * `autoFocus` for `focusTrap`’s `initialFocus`.
    */
-  ref?: React.RefObject<HTMLButtonElement>
+  ref?: React.RefObject<HTMLButtonElement | null>
 }
 
 /**
@@ -132,20 +133,32 @@ export interface DialogProps {
   position?: 'center' | 'left' | 'right' | ResponsiveValue<'left' | 'right' | 'bottom' | 'fullscreen' | 'center'>
 
   /**
+   * The vertical alignment of the dialog. Only applies when position is 'center' (the default).
+   * top: positions the Dialog ~4rem from the top of the screen, horizontally centered
+   * center: (default) vertically centers the Dialog on the screen
+   * bottom: positions the Dialog near the bottom of the screen, horizontally centered
+   */
+  align?: 'top' | 'center' | 'bottom'
+
+  /**
    * Return focus to this element when the Dialog closes,
    * instead of the element that had focus immediately before the Dialog opened
    */
-  returnFocusRef?: React.RefObject<HTMLElement>
+  returnFocusRef?: React.RefObject<HTMLElement | null>
 
   /**
    * The element to focus when the Dialog opens
    */
-  initialFocusRef?: React.RefObject<HTMLElement>
+  initialFocusRef?: React.RefObject<HTMLElement | null>
 
   /**
    * Additional class names to apply to the dialog
    */
   className?: string
+  /**
+   * Additional styles to apply to the dialog
+   */
+  style?: React.CSSProperties
 }
 
 /**
@@ -227,6 +240,9 @@ const defaultPosition = {
 
 const defaultFooterButtons: Array<DialogButtonProps> = []
 
+// useful to determine whether we're inside a Dialog from a nested component
+export const DialogContext = React.createContext<object | undefined>(undefined)
+
 const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
   const {
     title = 'Dialog',
@@ -240,16 +256,18 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     height = 'auto',
     footerButtons = defaultFooterButtons,
     position = defaultPosition,
+    align,
     returnFocusRef,
     initialFocusRef,
     className,
+    style,
   } = props
   const dialogLabelId = useId()
   const dialogDescriptionId = useId()
   const autoFocusedFooterButtonRef = useRef<HTMLButtonElement>(null)
   for (const footerButton of footerButtons) {
     if (footerButton.autoFocus) {
-      // eslint-disable-next-line react-compiler/react-compiler
+      // eslint-disable-next-line react-hooks/immutability
       footerButton.ref = autoFocusedFooterButtonRef
     }
   }
@@ -263,6 +281,11 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     },
     [onClose, lastMouseDownIsBackdrop],
   )
+  const [slots, childrenWithoutSlots] = useSlots(props.children, {
+    body: Dialog.Body,
+    header: Dialog.Header,
+    footer: Dialog.Footer,
+  })
 
   const dialogRef = useRef<HTMLDivElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, dialogRef)
@@ -285,16 +308,36 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
 
   React.useEffect(() => {
     const scrollbarWidth = window.innerWidth - document.body.clientWidth
-    // If the dialog is rendered, we add a class to the dialog element to disable
-    dialogRef.current?.classList.add(classes.DisableScroll)
-    // and set a CSS variable to the scrollbar width so that the dialog can
-    // account for the scrollbar width when calculating its width.
+    const dialog = dialogRef.current
+    const usePerfOptimization = document.body.hasAttribute('data-dialog-scroll-optimized')
+
+    // Add DisableScroll class to this dialog (for legacy :has() selector path)
+    dialog?.classList.add(classes.DisableScroll)
     document.body.style.setProperty('--prc-dialog-scrollgutter', `${scrollbarWidth}px`)
+
+    if (usePerfOptimization) {
+      // Optimized path: set attribute on body for direct CSS targeting
+      document.body.setAttribute('data-dialog-scroll-disabled', '')
+    }
+    // Legacy path: no action needed - CSS :has(.Dialog.DisableScroll) handles it
+
+    return () => {
+      dialog?.classList.remove(classes.DisableScroll)
+
+      const remainingDialogs = document.querySelectorAll(`.${classes.DisableScroll}`)
+
+      if (remainingDialogs.length === 0) {
+        document.body.style.removeProperty('--prc-dialog-scrollgutter')
+        if (usePerfOptimization) {
+          document.body.removeAttribute('data-dialog-scroll-disabled')
+        }
+      }
+    }
   }, [])
 
-  const header = (renderHeader ?? DefaultHeader)(defaultedProps)
-  const body = (renderBody ?? DefaultBody)(defaultedProps)
-  const footer = (renderFooter ?? DefaultFooter)(defaultedProps)
+  const header = slots.header ?? (renderHeader ?? DefaultHeader)(defaultedProps)
+  const body = slots.body ?? (renderBody ?? DefaultBody)({...defaultedProps, children: childrenWithoutSlots})
+  const footer = slots.footer ?? (renderFooter ?? DefaultFooter)(defaultedProps)
   const positionDataAttributes =
     typeof position === 'string'
       ? {'data-position-regular': position}
@@ -305,12 +348,13 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
         )
 
   return (
-    <>
+    <DialogContext.Provider value={{}}>
       <Portal>
         <div
           ref={backdropRef}
           className={classes.Backdrop}
           {...positionDataAttributes}
+          {...(align && {'data-align': align})}
           onClick={onBackdropClick}
           onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => {
             setLastMouseDownIsBackdrop(e.target === e.currentTarget)
@@ -323,9 +367,11 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             aria-describedby={dialogDescriptionId}
             aria-modal
             {...positionDataAttributes}
+            {...(align && {'data-align': align})}
             data-width={width}
             data-height={height}
             className={clsx(className, classes.Dialog)}
+            style={style}
           >
             {header}
             <ScrollableRegion aria-labelledby={dialogLabelId} className={classes.DialogOverflowWrapper}>
@@ -335,7 +381,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           </div>
         </div>
       </Portal>
-    </>
+    </DialogContext.Provider>
   )
 })
 _Dialog.displayName = 'Dialog'
@@ -344,7 +390,7 @@ type StyledHeaderProps = React.ComponentProps<'div'>
 
 const Header = React.forwardRef<HTMLDivElement, StyledHeaderProps>(function Header({className, ...rest}, forwardRef) {
   return <div ref={forwardRef} className={clsx(className, classes.Header)} {...rest} />
-})
+}) as PolymorphicForwardRefComponent<'div', StyledHeaderProps>
 Header.displayName = 'Dialog.Header'
 
 type StyledTitleProps = React.ComponentProps<'h1'>
@@ -376,7 +422,7 @@ type StyledFooterProps = React.ComponentProps<'div'>
 
 const Footer = React.forwardRef<HTMLDivElement, StyledFooterProps>(function Footer({className, ...rest}, forwardRef) {
   return <div ref={forwardRef} className={clsx(className, classes.Footer)} {...rest} />
-})
+}) as PolymorphicForwardRefComponent<'div', StyledFooterProps>
 Footer.displayName = 'Dialog.Footer'
 
 const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
@@ -402,6 +448,7 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
             {...buttonProps}
             // 'normal' value is equivalent to 'default', this is used for backwards compatibility
             variant={buttonType === 'normal' ? 'default' : buttonType}
+            // @ts-expect-error it needs a non nullable ref
             ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
           >
             {content}
@@ -437,7 +484,13 @@ const CloseButton: React.FC<React.PropsWithChildren<{onClose: () => void}>> = ({
  * The sub components provided (e.g. Header, Title, etc.) are available for custom
  * renderers only. They are not intended to be used otherwise.
  */
+
+Header.__SLOT__ = Symbol('Dialog.Header')
+Footer.__SLOT__ = Symbol('Dialog.Footer')
+Body.__SLOT__ = Symbol('Dialog.Body')
+
 export const Dialog = Object.assign(_Dialog, {
+  __SLOT__: Symbol('Dialog'),
   Header,
   Title,
   Subtitle,

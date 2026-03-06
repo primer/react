@@ -64,7 +64,7 @@
   transition-property: background-color, border-color;
   transition-duration: var(--toggleSwitch-transition-duration);
   transition-timing-function: var(--toggleSwitch-transition-easing);
-  border-radius: var(--borderRadius-medium);
+  border-radius: var(--borderRadius-default);
   border-style: solid;
   border-width: var(--borderWidth-thin);
   display: block;
@@ -136,13 +136,13 @@
 .SwitchButton:where([data-checked='false']:not([data-disabled='true']):hover),
 .SwitchButton:where([data-checked='false']:not([data-disabled='true']):focus-visible) {
   /* stylelint-disable-next-line primer/colors */
-  background-color: var(--controlTrack-bgColor-hover, var(--color-switch-track-hover-bg, hsla(210deg, 24%, 90%, 1)));
+  background-color: var(--controlTrack-bgColor-hover, var(--color-switch-track-hover-bg, hsl(210deg, 24%, 90%, 1)));
 }
 
 .SwitchButton:where([data-checked='false']:not([data-disabled='true']):active),
 .SwitchButton:where([data-checked='false']:not([data-disabled='true']):active:focus-visible) {
   /* stylelint-disable-next-line primer/colors */
-  background-color: var(--controlTrack-bgColor-active, var(--color-switch-track-active-bg, hsla(210deg, 24%, 88%, 1)));
+  background-color: var(--controlTrack-bgColor-active, var(--color-switch-track-active-bg, hsl(210deg, 24%, 88%, 1)));
 }
 
 .SwitchButton:where([data-checked='true']:not([data-disabled='true'])) {
@@ -231,11 +231,15 @@
   border-color: var(--controlKnob-borderColor-rest, var(--color-switch-knob-border, #858f99));
   /* Use calc to account for 1px border around the control */
   /* stylelint-disable-next-line primer/borders */
-  border-radius: calc(var(--borderRadius-medium) - var(--borderWidth-thin));
+  border-radius: calc(var(--borderRadius-default) - var(--borderWidth-thick));
   width: 50%;
   position: absolute;
-  top: 0;
-  bottom: 0;
+  /* stylelint-disable-next-line primer/spacing */
+  top: 1px;
+  /* stylelint-disable-next-line primer/spacing */
+  bottom: 1px;
+  /* stylelint-disable-next-line primer/spacing */
+  left: 1px;
   transition-property: transform;
   transition-duration: var(--toggleSwitch-transition-duration);
   transition-timing-function: var(--toggleSwitch-transition-easing);
@@ -251,12 +255,13 @@
 }
 
 .ToggleKnob:where([data-checked='true']) {
-  transform: translateX(100%);
+  transform: translateX(calc(100% - 2px));
   /* stylelint-disable-next-line primer/colors */
   border-color: var(--controlKnob-borderColor-checked, var(--color-switch-knob-checked-border, #0969da));
 }
 
 .ToggleKnob:where([data-disabled='true']) {
+  background-color: var(--controlKnob-bgColor-disabled);
   /* stylelint-disable-next-line primer/colors */
   border-color: var(--controlTrack-bgColor-disabled, var(--color-switch-track-disabled-bg, #8c959f));
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {type JSX} from 'react'
 import {fixedForwardRef} from '../utils/modern-polymorphic'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {useSlots} from '../hooks/useSlots'
@@ -9,7 +9,6 @@ import {useProvidedRefOrCreate} from '../hooks'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 const UnwrappedList = <As extends React.ElementType = 'ul'>(
   props: ActionListProps<As>,
@@ -67,8 +66,8 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
       }}
     >
       {slots.heading}
-      <BoxWithFallback
-        as={Component}
+      {/* @ts-expect-error ref needs a non nullable ref */}
+      <Component
         className={clsx(classes.ActionList, className)}
         role={listRole}
         aria-labelledby={ariaLabelledBy}
@@ -78,7 +77,7 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
         {...restProps}
       >
         {childrenWithoutSlots}
-      </BoxWithFallback>
+      </Component>
     </ListContext.Provider>
   )
 }

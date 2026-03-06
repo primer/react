@@ -1,0 +1,5 @@
+.ActionListExample {
+  max-width: 300px;
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+}

@@ -48,6 +48,19 @@ export const CondensedItems = () => (
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
+    <Timeline.Break />
+    <Timeline.Item condensed>
+      <Timeline.Badge>
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
+      </Timeline.Badge>
+      <Timeline.Body>This is a message</Timeline.Body>
+    </Timeline.Item>
+    <Timeline.Item condensed>
+      <Timeline.Badge>
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
+      </Timeline.Badge>
+      <Timeline.Body>This is a message</Timeline.Body>
+    </Timeline.Item>
   </Timeline>
 )
 
@@ -55,7 +68,7 @@ export const TimelineBreak = () => (
   <Timeline>
     <Timeline.Item>
       <Timeline.Badge className={classes.BadgeWithDoneBackground}>
-        <Octicon icon={GitMergeIcon} color="fg.onEmphasis" aria-label="Merged" />
+        <Octicon icon={GitMergeIcon} className={classes.GitMergeIcon} aria-label="Merged" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>

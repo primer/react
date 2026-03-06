@@ -34,7 +34,7 @@ export type {
   ObjectPaths,
 } from '../DataTable'
 
-export * from '../Dialog/Dialog'
+export * from '../Dialog'
 
 export {InlineMessage} from '../InlineMessage'
 export type {InlineMessageProps} from '../InlineMessage'
@@ -93,3 +93,7 @@ export {IssueLabel} from './IssueLabel'
 export type {IssueLabelProps} from './IssueLabel'
 
 export * from '../KeybindingHint'
+export * from './Tabs'
+
+export {TopicTag} from '../TopicTag'
+export type {TopicTagProps, TopicTagGroupProps} from '../TopicTag'

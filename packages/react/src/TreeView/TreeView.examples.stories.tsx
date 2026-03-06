@@ -3,8 +3,8 @@ import type {StoryFn, Meta} from '@storybook/react-vite'
 import React from 'react'
 import {TreeView} from './TreeView'
 import {IconButton} from '../Button'
-import {Dialog} from '../Dialog/Dialog'
-import classes from './TreeViewStories.module.css'
+import {Dialog} from '../Dialog'
+import classes from './TreeView.stories.module.css'
 
 const meta: Meta = {
   title: 'Components/TreeView/Examples',
@@ -85,6 +85,7 @@ export const TrailingActions: StoryFn = () => {
               label: 'Pull Requests',
               onClick: () => alert('Pull Requests clicked'),
               icon: GitPullRequestIcon,
+              count: 5,
             },
           ]}
         >

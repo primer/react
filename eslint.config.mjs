@@ -9,8 +9,9 @@ import {defineConfig, globalIgnores} from 'eslint/config'
 import githubPlugin from 'eslint-plugin-github'
 import storybook from 'eslint-plugin-storybook'
 import react from 'eslint-plugin-react'
-import reactCompiler from 'eslint-plugin-react-compiler'
 import reactHooks from 'eslint-plugin-react-hooks'
+import reactCompiler from 'eslint-plugin-react-compiler'
+import {unsupportedPatterns as reactCompilerUnsupported} from './packages/react/script/react-compiler.mjs'
 import playwright from 'eslint-plugin-playwright'
 import prettierRecommended from 'eslint-plugin-prettier/recommended'
 import primerReact from 'eslint-plugin-primer-react'
@@ -61,8 +62,22 @@ const config = defineConfig([
 
   react.configs.flat.recommended,
   react.configs.flat['jsx-runtime'],
-  reactCompiler.configs.recommended,
-  reactHooks.configs['recommended-latest'],
+  reactHooks.configs.flat['recommended-latest'],
+
+  // React Compiler
+  {
+    plugins: {'react-compiler': reactCompiler},
+    rules: {
+      'react-compiler/react-compiler': 'warn',
+    },
+  },
+  // Disable react-compiler rule for files not yet migrated
+  {
+    files: reactCompilerUnsupported.map(p => `packages/react/${p}`),
+    rules: {
+      'react-compiler/react-compiler': 'off',
+    },
+  },
 
   github.browser,
   github.recommended,
@@ -275,6 +290,7 @@ const config = defineConfig([
     },
     rules: {
       ...vitest.configs.recommended.rules,
+      'vitest/no-conditional-expect': 'off',
     },
     settings: {
       vitest: {

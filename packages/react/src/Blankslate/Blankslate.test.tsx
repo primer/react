@@ -2,12 +2,11 @@ import {describe, expect, it, vi} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {Blankslate} from '../Blankslate'
+import {implementsClassName} from '../utils/testing'
+import classes from './Blankslate.module.css'
 
 describe('Blankslate', () => {
-  it('should support a custom `className` on the outermost, non-container element', () => {
-    const {container} = render(<Blankslate className="test">Test content</Blankslate>)
-    expect(container.firstChild!.firstChild).toHaveClass('test')
-  })
+  implementsClassName(Blankslate, classes.Blankslate)
 
   it('should render with border when border is true', () => {
     const {container} = render(<Blankslate border>Test content</Blankslate>)

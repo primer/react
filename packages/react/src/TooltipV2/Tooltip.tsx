@@ -1,4 +1,4 @@
-import React, {Children, useEffect, useRef, useState, useMemo} from 'react'
+import React, {Children, useEffect, useRef, useState, useMemo, type ForwardRefExoticComponent} from 'react'
 import {useId, useProvidedRefOrCreate, useOnEscapePress, useIsMacOS} from '../hooks'
 import {invariant} from '../utils/invariant'
 import {warning} from '../utils/warning'
@@ -10,6 +10,7 @@ import classes from './Tooltip.module.css'
 import {getAccessibleKeybindingHintString, KeybindingHint, type KeybindingHintProps} from '../KeybindingHint'
 import VisuallyHidden from '../_VisuallyHidden'
 import useSafeTimeout from '../hooks/useSafeTimeout'
+import type {SlotMarker} from '../utils/types'
 
 export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 export type TooltipProps = React.PropsWithChildren<{
@@ -24,6 +25,16 @@ export type TooltipProps = React.PropsWithChildren<{
    * long (1200ms)
    */
   delay?: 'short' | 'medium' | 'long'
+  /**
+   * Private API for use internally only. Prevents the tooltip from opening if `true`.
+   *
+   * Accessibility note: This prop should be used with caution. Only use when needing to
+   * programmatically close the tooltip in response to a specific user action, such as
+   * opening a menu, or content where the tooltip could overlap with interactive content.
+   *
+   * @default false
+   */
+  _privateDisableTooltip?: boolean
 }> &
   React.HTMLAttributes<HTMLElement>
 
@@ -92,7 +103,10 @@ const isInteractive = (element: HTMLElement) => {
 }
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})
 
-export const Tooltip = React.forwardRef(
+export const Tooltip: ForwardRefExoticComponent<
+  React.PropsWithoutRef<TooltipProps> & React.RefAttributes<HTMLElement>
+> &
+  SlotMarker = React.forwardRef<HTMLElement, TooltipProps>(
   (
     {
       direction = 's',
@@ -103,6 +117,7 @@ export const Tooltip = React.forwardRef(
       className,
       keybindingHint,
       delay = 'short',
+      _privateDisableTooltip = false,
       ...rest
     }: TooltipProps,
     forwardedRef,
@@ -126,7 +141,8 @@ export const Tooltip = React.forwardRef(
           tooltipElRef.current &&
           triggerRef.current &&
           tooltipElRef.current.hasAttribute('popover') &&
-          !tooltipElRef.current.matches(':popover-open')
+          !tooltipElRef.current.matches(':popover-open') &&
+          !_privateDisableTooltip
         ) {
           const tooltip = tooltipElRef.current
           const trigger = triggerRef.current
@@ -261,7 +277,9 @@ export const Tooltip = React.forwardRef(
       <TooltipContext.Provider value={value}>
         <>
           {React.isValidElement(child) &&
+            // eslint-disable-next-line react-hooks/refs
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
+              // @ts-expect-error it needs a non nullable ref
               ref: triggerRef,
               // If it is a type description, we use tooltip to describe the trigger
               'aria-describedby': (() => {
@@ -342,10 +360,10 @@ export const Tooltip = React.forwardRef(
                 <span id={hasAriaLabel ? undefined : tooltipId}>
                   {text}
                   {/* There is a bug in Chrome browsers where `aria-hidden` text inside the target of an `aria-labelledby`
-               still gets included in the accessible label. `KeybindingHint` renders the symbols as `aria-hidden` text
-               and renders full key names as `VisuallyHidden` text. Due to the browser bug this causes the label text
-               to duplicate the symbols and key names. To work around this, we exclude the hint from being part of the
-               label and instead render the plain keybinding description string. */}
+                   still gets included in the accessible label. `KeybindingHint` renders the symbols as `aria-hidden` text
+                   and renders full key names as `VisuallyHidden` text. Due to the browser bug this causes the label text
+                   to duplicate the symbols and key names. To work around this, we exclude the hint from being part of the
+                   label and instead render the plain keybinding description string. */}
                   <VisuallyHidden>({getAccessibleKeybindingHintString(keybindingHint, isMacOS)})</VisuallyHidden>
                 </span>
                 <span className={clsx(classes.KeybindingHintContainer, text && classes.HasTextBefore)} aria-hidden>
@@ -361,3 +379,5 @@ export const Tooltip = React.forwardRef(
     )
   },
 )
+
+Tooltip.__SLOT__ = Symbol('Tooltip')

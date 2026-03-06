@@ -7,6 +7,10 @@
   vertical-align: baseline;
   overflow: hidden;
   justify-content: center;
+  border-radius: var(--borderRadius-default);
+  font-size: var(--text-body-size-small);
+  padding: var(--base-size-4);
+  line-height: 10px; /* stylelint-disable-line primer/typography */
 }
 
 .ChordNormal {

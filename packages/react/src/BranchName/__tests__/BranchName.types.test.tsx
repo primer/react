@@ -24,7 +24,7 @@ export function shouldAcceptAs() {
 export function defaultAsIsAnchor() {
   return (
     <BranchName
-      onClick={event => {
+      onClick={(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         type test = Expect<Equal<typeof event, React.MouseEvent<HTMLAnchorElement, MouseEvent>>>
       }}
     />

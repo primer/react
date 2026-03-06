@@ -15,10 +15,6 @@ const stories = [
     title: 'Muted',
     id: 'components-link-features--muted',
   },
-  {
-    title: 'Underline',
-    id: 'components-link-features--underline',
-  },
 ] as const
 
 test.describe('Link', () => {

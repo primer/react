@@ -38,21 +38,28 @@ export const Default = () => (
   </Timeline>
 )
 
-export const Playground: StoryFn<ComponentProps<typeof Timeline>> = args => (
+export const Playground: StoryFn<ComponentProps<typeof Timeline> & {condensed: boolean}> = args => (
   <Timeline {...args}>
-    <Timeline.Item>
+    <Timeline.Item condensed={args.condensed}>
       <Timeline.Badge>
         <Octicon icon={GitCommitIcon} aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
-    <Timeline.Item>
+    <Timeline.Item condensed={args.condensed}>
       <Timeline.Badge>
         <Octicon icon={GitCommitIcon} aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
-    <Timeline.Item>
+    <Timeline.Break />
+    <Timeline.Item condensed={args.condensed}>
+      <Timeline.Badge>
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
+      </Timeline.Badge>
+      <Timeline.Body>This is a message</Timeline.Body>
+    </Timeline.Item>
+    <Timeline.Item condensed={args.condensed}>
       <Timeline.Badge>
         <Octicon icon={GitCommitIcon} aria-label="Commit" />
       </Timeline.Badge>
@@ -63,4 +70,5 @@ export const Playground: StoryFn<ComponentProps<typeof Timeline>> = args => (
 
 Playground.args = {
   clipSidebar: false,
+  condensed: false,
 }

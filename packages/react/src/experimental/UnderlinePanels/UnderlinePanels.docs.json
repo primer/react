@@ -60,9 +60,10 @@
       "description": "Loading state for all counters. It displays loading animation for individual counters until all are resolved. It is needed to prevent multiple layout shift."
     },
     {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'div'",
+      "description": "The HTML element or React component used to render the outermost element."
     }
   ],
   "subcomponents": [
@@ -92,23 +93,12 @@
           "type": "Component",
           "defaultValue": "",
           "description": "Icon rendered before the tab text label"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
     {
       "name": "UnderlinePanels.Panel",
-      "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
-        }
-      ],
+      "props": [],
       "passthrough": {
         "element": "div",
         "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#Attributes"

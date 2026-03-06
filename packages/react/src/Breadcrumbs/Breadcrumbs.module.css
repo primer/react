@@ -61,7 +61,9 @@
   font-size: var(--text-body-size-medium);
 
   &:focus-visible {
-    @mixin focusOutline 1px;
+    border-radius: var(--borderRadius-small);
+
+    @mixin focusOutline 2px;
   }
 }
 

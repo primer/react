@@ -1,6 +1,8 @@
 import {describe, expect, it} from 'vitest'
 import {render} from '@testing-library/react'
 import {AvatarStack} from '..'
+import {implementsClassName} from '../utils/testing'
+import classes from './AvatarStack.module.css'
 
 const avatarComp = (
   <AvatarStack>
@@ -21,17 +23,7 @@ const rightAvatarComp = (
 )
 
 describe('AvatarStack', () => {
-  it('should support `className` on the outermost element', () => {
-    const Element = () => (
-      <AvatarStack className={'test-class-name'}>
-        <img src="https://avatars.githubusercontent.com/primer" alt="" />
-        <img src="https://avatars.githubusercontent.com/github" alt="" />
-        <img src="https://avatars.githubusercontent.com/primer" alt="" />
-        <img src="https://avatars.githubusercontent.com/github" alt="" />
-      </AvatarStack>
-    )
-    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
+  implementsClassName(AvatarStack, classes.AvatarStack)
 
   it('respects alignRight props', () => {
     const {container} = render(rightAvatarComp)

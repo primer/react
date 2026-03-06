@@ -4,6 +4,8 @@ import type {ComponentProps} from '../../utils/types'
 import Octicon from '../../Octicon'
 import {DotIcon, MailIcon, PersonIcon, SmileyIcon, ZapIcon} from '@primer/octicons-react'
 
+import classes from './SideNav.dev.stories.module.css'
+
 export default {
   title: 'Deprecated/Components/SideNav/Dev',
   component: SideNav,
@@ -41,7 +43,7 @@ export const FullVariant = () => (
     </SideNav.Link>
     <SideNav.Link href="#url" variant="full" selected>
       <Text>With a status icon</Text>
-      <Octicon size={16} icon={DotIcon} color="success.fg" />
+      <Octicon size={16} icon={DotIcon} className={classes.SuccessIcon} />
     </SideNav.Link>
     <SideNav.Link href="#url" variant="full">
       <Text>With a label</Text>

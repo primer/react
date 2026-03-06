@@ -1,12 +1,16 @@
 import {describe, it, expect, vi} from 'vitest'
-import {page} from '@vitest/browser/context'
+import {page} from 'vitest/browser'
 import {act, fireEvent, render, screen} from '@testing-library/react'
 import 'react-intersection-observer/test-utils'
 import {viewportRanges} from '../hooks/useResponsiveValue'
 import {PageLayout} from './PageLayout'
 import {Placeholder} from '../Placeholder'
+import {implementsClassName} from '../utils/testing'
+import classes from './PageLayout.module.css'
 
 describe('PageLayout', async () => {
+  implementsClassName(PageLayout, classes.PageLayoutRoot)
+
   await page.viewport(1280, 800)
   it('renders default layout', () => {
     const {container} = render(
@@ -61,7 +65,7 @@ describe('PageLayout', async () => {
   })
 
   // The test suite can't compute styles so skipping
-  it.skip('can hide pane when narrow', () => {
+  it.todo('can hide pane when narrow', () => {
     // Set narrow viewport
     act(() => {
       window.matchMedia(viewportRanges.narrow)
@@ -80,7 +84,7 @@ describe('PageLayout', async () => {
   })
 
   // The test suite can't compute styles so skipping
-  it.skip('shows all subcomponents by default', () => {
+  it.todo('shows all subcomponents by default', () => {
     // Set regular viewport
     act(() => {
       matchMedia(viewportRanges.regular)
@@ -135,6 +139,7 @@ describe('PageLayout', async () => {
   })
 
   describe('PageLayout.Pane', () => {
+    implementsClassName(PageLayout.Pane, classes.PaneWrapper)
     it('should support a ref on the element wrapping the contents of Pane', () => {
       const ref = vi.fn()
       render(
@@ -160,8 +165,8 @@ describe('PageLayout', async () => {
       )
 
       const placeholder = await screen.findByText('Pane')
-      const pane = placeholder.parentNode
-      const initialWidth = (pane as HTMLElement).style.getPropertyValue('--pane-width')
+      const pane = placeholder.parentNode as HTMLElement | null
+      const initialWidth = pane?.style.getPropertyValue('--pane-width')
       const divider = await screen.findByRole('slider')
 
       // Moving divider should resize pane.
@@ -171,12 +176,93 @@ describe('PageLayout', async () => {
       fireEvent.keyDown(divider, {key: 'ArrowRight'})
       fireEvent.keyDown(divider, {key: 'ArrowRight'})
 
-      const finalWidth = (pane as HTMLElement).style.getPropertyValue('--pane-width')
+      const finalWidth = pane?.style.getPropertyValue('--pane-width')
       expect(finalWidth).not.toEqual(initialWidth)
+    })
+
+    it('should set optimization styles during pointer drag', async () => {
+      const {container} = render(
+        <PageLayout>
+          <PageLayout.Pane resizable>
+            <Placeholder height={320} label="Pane" />
+          </PageLayout.Pane>
+          <PageLayout.Content>
+            <Placeholder height={640} label="Content" />
+          </PageLayout.Content>
+        </PageLayout>,
+      )
+
+      const contentWrapper = container.querySelector<HTMLElement>('[class*="ContentWrapper"]')
+      const divider = await screen.findByRole('slider')
+
+      // Before drag - no data-dragging attribute
+      expect(contentWrapper).not.toHaveAttribute('data-dragging')
+
+      // Start drag - optimization attribute is set
+      fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
+      expect(contentWrapper).toHaveAttribute('data-dragging', 'true')
+      // End drag - pointer capture lost ends the drag and removes optimization attribute
+      fireEvent.lostPointerCapture(divider, {pointerId: 1})
+      expect(contentWrapper).not.toHaveAttribute('data-dragging')
+    })
+
+    it('should set optimization styles during keyboard resize', async () => {
+      const {container} = render(
+        <PageLayout>
+          <PageLayout.Pane resizable>
+            <Placeholder height={320} label="Pane" />
+          </PageLayout.Pane>
+          <PageLayout.Content>
+            <Placeholder height={640} label="Content" />
+          </PageLayout.Content>
+        </PageLayout>,
+      )
+
+      const contentWrapper = container.querySelector<HTMLElement>('[class*="ContentWrapper"]')
+      const divider = await screen.findByRole('slider')
+
+      // Before interaction - no data-dragging attribute
+      expect(contentWrapper).not.toHaveAttribute('data-dragging')
+
+      // Start keyboard resize (focus first)
+      fireEvent.focus(divider)
+      fireEvent.keyDown(divider, {key: 'ArrowRight'})
+      expect(contentWrapper).toHaveAttribute('data-dragging', 'true')
+
+      // End keyboard resize - removes optimization attribute
+      fireEvent.keyUp(divider, {key: 'ArrowRight'})
+      expect(contentWrapper).not.toHaveAttribute('data-dragging')
+    })
+
+    it('should not add will-change during drag', async () => {
+      const {container} = render(
+        <PageLayout>
+          <PageLayout.Pane resizable>
+            <Placeholder height={320} label="Pane" />
+          </PageLayout.Pane>
+          <PageLayout.Content>
+            <Placeholder height={640} label="Content" />
+          </PageLayout.Content>
+        </PageLayout>,
+      )
+
+      const pane = container.querySelector<HTMLElement>('[class*="Pane"][data-resizable]')
+      const divider = await screen.findByRole('slider')
+
+      // Before drag - no will-change
+      expect(pane!.style.willChange).toBe('')
+
+      // Start drag - will-change should still not be set (removed optimization)
+      fireEvent.pointerDown(divider, {clientX: 300, clientY: 200, pointerId: 1})
+      expect(pane!.style.willChange).toBe('')
+      // End drag - will-change remains unset
+      fireEvent.lostPointerCapture(divider, {pointerId: 1})
+      expect(pane!.style.willChange).toBe('')
     })
   })
 
   describe('PageLayout.Content', () => {
+    implementsClassName(PageLayout.Content, classes.ContentWrapper)
     it('should support a custom element type with the `as` prop', () => {
       const {container} = render(
         <PageLayout.Content as="div">
@@ -184,6 +270,98 @@ describe('PageLayout', async () => {
         </PageLayout.Content>,
       )
       expect(container.firstChild?.nodeName).toEqual('DIV')
+    })
+  })
+
+  describe('PageLayout.Sidebar', () => {
+    it('SidebarWrapper should prevent shrinking', () => {
+      const {container} = render(
+        <PageLayout>
+          <PageLayout.Content>Content</PageLayout.Content>
+          <PageLayout.Sidebar resizable width={{min: '256px', default: '296px', max: '768px'}}>
+            Sidebar
+          </PageLayout.Sidebar>
+        </PageLayout>,
+      )
+
+      const sidebarWrapper = container.querySelector<HTMLElement>('[class*="SidebarWrapper"]')
+      expect(sidebarWrapper).not.toBeNull()
+
+      const style = getComputedStyle(sidebarWrapper!)
+      expect(style.flexShrink).toBe('0')
+    })
+
+    it('renders a resize handle and supports keyboard interaction when resizable', () => {
+      render(
+        <PageLayout>
+          <PageLayout.Content>Content</PageLayout.Content>
+          <PageLayout.Sidebar resizable width={{min: '256px', default: '296px', max: '768px'}}>
+            Sidebar
+          </PageLayout.Sidebar>
+        </PageLayout>,
+      )
+
+      const handle = screen.getByRole('slider')
+      expect(handle).toBeInTheDocument()
+
+      // Exercise keyboard handler (e.g. arrow keys) without asserting
+      // exact width math, to avoid coupling to implementation details.
+      handle.focus()
+      fireEvent.keyDown(handle, {key: 'ArrowLeft'})
+      fireEvent.keyDown(handle, {key: 'ArrowRight'})
+      fireEvent.keyDown(handle, {key: 'Home'})
+      fireEvent.keyDown(handle, {key: 'End'})
+    })
+
+    it('respects different position values (start, end)', () => {
+      const {rerender, container} = render(
+        <PageLayout>
+          <PageLayout.Sidebar position="start">Sidebar</PageLayout.Sidebar>
+          <PageLayout.Content>Content</PageLayout.Content>
+        </PageLayout>,
+      )
+
+      let sidebarWrapper = container.querySelector<HTMLElement>('[class*="SidebarWrapper"]')
+      expect(sidebarWrapper).not.toBeNull()
+      expect(sidebarWrapper?.getAttribute('data-position') ?? 'start').toBe('start')
+
+      rerender(
+        <PageLayout>
+          <PageLayout.Sidebar position="end">Sidebar</PageLayout.Sidebar>
+          <PageLayout.Content>Content</PageLayout.Content>
+        </PageLayout>,
+      )
+
+      sidebarWrapper = container.querySelector<HTMLElement>('[class*="SidebarWrapper"]')
+      expect(sidebarWrapper).not.toBeNull()
+      expect(sidebarWrapper?.getAttribute('data-position') ?? 'end').toBe('end')
+    })
+
+    it('supports sticky positioning', () => {
+      const {container} = render(
+        <PageLayout>
+          <PageLayout.Content>Content</PageLayout.Content>
+          <PageLayout.Sidebar sticky>Sidebar</PageLayout.Sidebar>
+        </PageLayout>,
+      )
+
+      const sidebarWrapper = container.querySelector<HTMLElement>('[class*="SidebarWrapper"]')
+      expect(sidebarWrapper).not.toBeNull()
+
+      const style = getComputedStyle(sidebarWrapper!)
+      expect(style.position === 'sticky' || style.position === 'webkit-sticky').toBe(true)
+    })
+
+    it('can render fullscreen when narrow with responsiveVariant="fullscreen"', () => {
+      const {container} = render(
+        <PageLayout>
+          <PageLayout.Content>Content</PageLayout.Content>
+          <PageLayout.Sidebar responsiveVariant="fullscreen">Sidebar</PageLayout.Sidebar>
+        </PageLayout>,
+      )
+
+      const sidebarWrapper = container.querySelector<HTMLElement>('[class*="SidebarWrapper"]')
+      expect(sidebarWrapper).not.toBeNull()
     })
   })
 })

@@ -1,25 +1,21 @@
 import {describe, expect, it} from 'vitest'
 import {render} from '@testing-library/react'
 import {Header} from '..'
+import {implementsClassName} from '../utils/testing'
+import classes from './Header.module.css'
 
 describe('Header', () => {
+  implementsClassName(Header, classes.Header)
   describe('Header.Item', () => {
+    implementsClassName(Header.Item, classes.HeaderItem)
     it('accepts and applies className', () => {
       const {container} = render(<Header.Item className="primer" />)
       expect(container.firstChild).toHaveClass('primer')
     })
-
-    it('should support `className` on the outermost element', () => {
-      const Element = () => <Header.Item className={'test-class-name'} />
-      expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-    })
   })
 
   describe('Header.Link', () => {
-    it('should support `className` on the outermost element', () => {
-      const Element = () => <Header.Link className={'test-class-name'} />
-      expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-    })
+    implementsClassName(Header.Link, classes.HeaderLink)
   })
 
   it('renders a <header> and <a>', () => {
@@ -32,10 +28,5 @@ describe('Header', () => {
   it('sets aria-label appropriately', () => {
     const {container} = render(<Header aria-label="Test label" />)
     expect(container.firstChild).toHaveAttribute('aria-label', 'Test label')
-  })
-
-  it('should support `className` on the outermost element', () => {
-    const Element = () => <Header className={'test-class-name'} />
-    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
   })
 })

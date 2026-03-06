@@ -1,11 +1,7 @@
-import {
-  LinkButton as PrimerLinkButton,
-  type LinkButtonProps as PrimerLinkButtonProps,
-  sx,
-  type SxProp,
-} from '@primer/react'
+import {LinkButton as PrimerLinkButton, type LinkButtonProps as PrimerLinkButtonProps} from '@primer/react'
 import styled from 'styled-components'
 import {type ForwardRefComponent} from '../polymorphic'
+import {sx, type SxProp} from '../sx'
 
 type LinkButtonProps = PrimerLinkButtonProps & SxProp
 

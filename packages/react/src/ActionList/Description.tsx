@@ -1,10 +1,9 @@
 import React from 'react'
 import Truncate from '../Truncate'
-import type {SxProp} from '../sx'
 import {ItemContext} from './shared'
 import classes from './ActionList.module.css'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 import {clsx} from 'clsx'
+import type {FCWithSlotMarker} from '../utils/types/Slots'
 
 export type ActionListDescriptionProps = {
   /**
@@ -16,44 +15,54 @@ export type ActionListDescriptionProps = {
   variant?: 'inline' | 'block'
 
   className?: string
+  style?: React.CSSProperties
   /**
    * Whether the inline description should truncate the text on overflow.
    */
   truncate?: boolean
-} & SxProp
+}
 
-export const Description: React.FC<React.PropsWithChildren<ActionListDescriptionProps>> = ({
+export const Description: FCWithSlotMarker<React.PropsWithChildren<ActionListDescriptionProps>> = ({
   variant = 'inline',
-  sx,
   className,
   truncate,
+  style,
   ...props
 }) => {
-  const {blockDescriptionId, inlineDescriptionId} = React.useContext(ItemContext)
+  const {blockDescriptionId, inlineDescriptionId, setTruncatedText} = React.useContext(ItemContext)
   const containerRef = React.useRef<HTMLDivElement>(null)
   const [computedTitle, setComputedTitle] = React.useState<string>('')
 
   // Extract text content from rendered DOM for tooltip
   React.useEffect(() => {
     if (truncate && containerRef.current) {
-      const textContent = containerRef.current.textContent || ''
+      const el = containerRef.current
+      const textContent = el.textContent || ''
       setComputedTitle(textContent)
+      if (setTruncatedText) {
+        setTruncatedText(
+          el.scrollWidth > el.clientWidth
+            ? typeof props.children === 'string'
+              ? props.children
+              : textContent
+            : undefined,
+        )
+      }
     }
-  }, [truncate, props.children])
+  }, [truncate, props.children, setTruncatedText])
 
   const effectiveTitle = typeof props.children === 'string' ? props.children : computedTitle
 
   if (variant === 'block' || !truncate) {
     return (
-      <BoxWithFallback
-        as="span"
-        sx={sx}
+      <span
         id={variant === 'block' ? blockDescriptionId : inlineDescriptionId}
         className={clsx(className, classes.Description)}
+        style={style}
         data-component="ActionList.Description"
       >
         {props.children}
-      </BoxWithFallback>
+      </span>
     )
   } else {
     return (
@@ -61,7 +70,8 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
         ref={containerRef}
         id={inlineDescriptionId}
         className={clsx(className, classes.Description)}
-        title={effectiveTitle}
+        style={style}
+        title={setTruncatedText ? '' : effectiveTitle}
         inline={true}
         maxWidth="100%"
         data-component="ActionList.Description"
@@ -71,3 +81,5 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
     )
   }
 }
+
+Description.__SLOT__ = Symbol('ActionList.Description')

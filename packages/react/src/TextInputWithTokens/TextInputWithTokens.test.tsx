@@ -7,6 +7,8 @@ import {IssueLabelToken} from '../Token'
 import type {TextInputWithTokensProps} from '../TextInputWithTokens'
 import TextInputWithTokens from '../TextInputWithTokens'
 import {MarkGithubIcon} from '@primer/octicons-react'
+import {implementsClassName} from '../utils/testing'
+import classes from './TextInputWithTokens.module.css'
 
 const mockTokens = [
   {text: 'zero', id: 0},
@@ -41,11 +43,7 @@ afterEach(() => {
 })
 
 describe('TextInputWithTokens', () => {
-  it('should support `className` on the outermost element', () => {
-    const onRemoveMock = vi.fn()
-    const Element = () => <TextInputWithTokens className={'test-class-name'} tokens={[]} onTokenRemove={onRemoveMock} />
-    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
+  implementsClassName(props => <TextInputWithTokens {...props} tokens={[]} />, classes.TextInputWrapper)
 
   it('renders without tokens', () => {
     const onRemoveMock = vi.fn()
@@ -60,6 +58,31 @@ describe('TextInputWithTokens', () => {
   it('renders with tokens', () => {
     const onRemoveMock = vi.fn()
     expect(render(<TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)).toMatchSnapshot()
+  })
+
+  it('announces selected token values when used as a combobox', () => {
+    const onRemoveMock = vi.fn()
+    const {getByRole} = render(
+      <LabelledTextInputWithTokens
+        role="combobox"
+        tokens={[
+          {text: 'css', id: 'css'},
+          {text: 'react', id: 'react'},
+        ]}
+        onTokenRemove={onRemoveMock}
+      />,
+    )
+
+    const combobox = getByRole('combobox', {name: 'Tokens'})
+    const describedByIds = combobox.getAttribute('aria-describedby')
+
+    expect(describedByIds).toBeTruthy()
+
+    const describedByNodes = describedByIds
+      ? describedByIds.split(' ').map(descriptionId => document.getElementById(descriptionId))
+      : []
+
+    expect(describedByNodes.some(node => node?.textContent === 'Selected: css, react')).toBe(true)
   })
 
   it('renders with tokens using a custom token component', () => {

@@ -3,10 +3,9 @@ import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
 import {describe, expect, it, vi} from 'vitest'
 import BaseStyles from '../BaseStyles'
-import theme from '../theme'
-import ThemeProvider from '../ThemeProvider'
-import {FeatureFlags} from '../FeatureFlags'
 import {SegmentedControl} from '../SegmentedControl'
+import {implementsClassName} from '../utils/testing'
+import classes from './SegmentedControl.module.css'
 
 const segmentData = [
   {
@@ -33,6 +32,8 @@ const segmentData = [
 ]
 
 describe('SegmentedControl', () => {
+  implementsClassName(SegmentedControl, classes.SegmentedControl)
+
   it('renders with a selected segment - controlled', () => {
     const {getByText} = render(
       <SegmentedControl aria-label="File view">
@@ -66,7 +67,7 @@ describe('SegmentedControl', () => {
   })
 
   it('renders the dropdown variant', () => {
-    const {getByText} = render(
+    const {getByRole} = render(
       <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
         {segmentData.map(({label}, index) => (
           <SegmentedControl.Button selected={index === 1} key={label}>
@@ -75,17 +76,17 @@ describe('SegmentedControl', () => {
         ))}
       </SegmentedControl>,
     )
-    const button = getByText(segmentData[1].label)
+    const button = getByRole('button', {name: `${segmentData[1].label}, File view`})
 
     expect(button).toBeInTheDocument()
     expect(button.closest('button')?.getAttribute('aria-haspopup')).toBe('true')
   })
 
   it('renders the hideLabels variant', () => {
-    const {getByLabelText} = render(
+    const {getByRole} = render(
       <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels'}}>
         {segmentData.map(({label, icon}, index) => (
-          <SegmentedControl.Button leadingIcon={icon} selected={index === 1} key={label}>
+          <SegmentedControl.Button leadingVisual={icon} selected={index === 1} key={label}>
             {label}
           </SegmentedControl.Button>
         ))}
@@ -93,8 +94,8 @@ describe('SegmentedControl', () => {
     )
 
     for (const datum of segmentData) {
-      const labelledButton = getByLabelText(datum.label)
-      expect(labelledButton).toBeDefined()
+      const labelledButton = getByRole('button', {name: datum.iconLabel})
+      expect(labelledButton).toBeInTheDocument()
     }
   })
 
@@ -116,7 +117,7 @@ describe('SegmentedControl', () => {
     const {getByLabelText} = render(
       <SegmentedControl aria-label="File view">
         {segmentData.map(({label, icon}, index) => (
-          <SegmentedControl.Button selected={index === 0} leadingIcon={icon} key={label}>
+          <SegmentedControl.Button selected={index === 0} leadingVisual={icon} key={label}>
             {label}
           </SegmentedControl.Button>
         ))}
@@ -144,19 +145,13 @@ describe('SegmentedControl', () => {
     }
   })
 
-  it('renders icon button with tooltip as label when feature flag is enabled', () => {
+  it('renders icon button with tooltip as label', () => {
     const {getByRole, getByText} = render(
-      <FeatureFlags
-        flags={{
-          primer_react_segmented_control_tooltip: true,
-        }}
-      >
-        <SegmentedControl aria-label="File view">
-          {segmentData.map(({label, icon}) => (
-            <SegmentedControl.IconButton icon={icon} aria-label={label} key={label} />
-          ))}
-        </SegmentedControl>
-      </FeatureFlags>,
+      <SegmentedControl aria-label="File view">
+        {segmentData.map(({label, icon}) => (
+          <SegmentedControl.IconButton icon={icon} aria-label={label} key={label} />
+        ))}
+      </SegmentedControl>,
     )
 
     for (const datum of segmentData) {
@@ -167,19 +162,13 @@ describe('SegmentedControl', () => {
     }
   })
 
-  it('renders icon button with tooltip description when feature flag is enabled', () => {
+  it('renders icon button with tooltip description', () => {
     const {getByRole, getByText} = render(
-      <FeatureFlags
-        flags={{
-          primer_react_segmented_control_tooltip: true,
-        }}
-      >
-        <SegmentedControl aria-label="File view">
-          {segmentData.map(({label, icon, description}) => (
-            <SegmentedControl.IconButton icon={icon} aria-label={label} description={description} key={label} />
-          ))}
-        </SegmentedControl>
-      </FeatureFlags>,
+      <SegmentedControl aria-label="File view">
+        {segmentData.map(({label, icon, description}) => (
+          <SegmentedControl.IconButton icon={icon} aria-label={label} description={description} key={label} />
+        ))}
+      </SegmentedControl>,
     )
 
     for (const datum of segmentData) {
@@ -187,21 +176,6 @@ describe('SegmentedControl', () => {
       const tooltipElement = getByText(datum.description)
       expect(labelledButton).toHaveAttribute('aria-describedby', tooltipElement.id)
       expect(labelledButton).toHaveAccessibleName(datum.label)
-      expect(labelledButton).toHaveAttribute('aria-label', datum.label)
-    }
-  })
-
-  it('renders icon button with aria-label and no tooltip', () => {
-    const {getByRole} = render(
-      <SegmentedControl aria-label="File view">
-        {segmentData.map(({label, icon}) => (
-          <SegmentedControl.IconButton icon={icon} aria-label={label} key={label} />
-        ))}
-      </SegmentedControl>,
-    )
-
-    for (const datum of segmentData) {
-      const labelledButton = getByRole('button', {name: datum.label})
       expect(labelledButton).toHaveAttribute('aria-label', datum.label)
     }
   })
@@ -272,19 +246,17 @@ describe('SegmentedControl', () => {
   it('calls onChange with index of clicked segment button when using the dropdown variant', async () => {
     const handleChange = vi.fn()
     const component = render(
-      <ThemeProvider theme={theme}>
-        <BaseStyles>
-          <SegmentedControl aria-label="File view" onChange={handleChange} variant={{narrow: 'dropdown'}}>
-            {segmentData.map(({label}, index) => (
-              <SegmentedControl.Button selected={index === 0} key={label}>
-                {label}
-              </SegmentedControl.Button>
-            ))}
-          </SegmentedControl>
-        </BaseStyles>
-      </ThemeProvider>,
+      <BaseStyles>
+        <SegmentedControl aria-label="File view" onChange={handleChange} variant={{narrow: 'dropdown'}}>
+          {segmentData.map(({label}, index) => (
+            <SegmentedControl.Button selected={index === 0} key={label}>
+              {label}
+            </SegmentedControl.Button>
+          ))}
+        </SegmentedControl>
+      </BaseStyles>,
     )
-    const button = component.getByText(segmentData[0].label)
+    const button = component.getByRole('button', {name: `${segmentData[0].label}, File view`})
 
     fireEvent.click(button)
     expect(handleChange).not.toHaveBeenCalled()
@@ -297,19 +269,17 @@ describe('SegmentedControl', () => {
   it('calls segment button onClick if it is passed when using the dropdown variant', async () => {
     const handleClick = vi.fn()
     const component = render(
-      <ThemeProvider theme={theme}>
-        <BaseStyles>
-          <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
-            {segmentData.map(({label}, index) => (
-              <SegmentedControl.Button selected={index === 0} key={label} onClick={handleClick}>
-                {label}
-              </SegmentedControl.Button>
-            ))}
-          </SegmentedControl>
-        </BaseStyles>
-      </ThemeProvider>,
+      <BaseStyles>
+        <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
+          {segmentData.map(({label}, index) => (
+            <SegmentedControl.Button selected={index === 0} key={label} onClick={handleClick}>
+              {label}
+            </SegmentedControl.Button>
+          ))}
+        </SegmentedControl>
+      </BaseStyles>,
     )
-    const button = component.getByText(segmentData[0].label)
+    const button = component.getByRole('button', {name: `${segmentData[0].label}, File view`})
 
     fireEvent.click(button)
     expect(handleClick).not.toHaveBeenCalled()
@@ -319,21 +289,34 @@ describe('SegmentedControl', () => {
     expect(handleClick).toHaveBeenCalled()
   })
 
-  it('warns users if they try to use the hideLabels variant without a leadingIcon', () => {
-    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => {})
-
-    render(
-      <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels'}}>
-        {segmentData.map(({label}, index) => (
-          <SegmentedControl.Button selected={index === 1} key={label}>
-            {label}
-          </SegmentedControl.Button>
-        ))}
+  it('supports deprecated leadingIcon prop for backward compatibility', () => {
+    const {getByText} = render(
+      <SegmentedControl aria-label="File view">
+        <SegmentedControl.Button leadingIcon={EyeIcon}>Preview</SegmentedControl.Button>
+        <SegmentedControl.Button>Code</SegmentedControl.Button>
       </SegmentedControl>,
     )
 
-    expect(spy).toHaveBeenCalledTimes(3)
-    spy.mockRestore()
+    const button = getByText('Preview').closest('button')
+    expect(button).toBeDefined()
+    // Verify the icon is rendered
+    expect(button?.querySelector('svg')).toBeDefined()
+  })
+
+  it('prioritizes leadingVisual over deprecated leadingIcon when both are provided', () => {
+    const {getByRole} = render(
+      <SegmentedControl aria-label="File view">
+        <SegmentedControl.Button
+          leadingVisual={() => <EyeIcon aria-label="EyeIcon" />}
+          leadingIcon={() => <FileCodeIcon aria-label="FileCodeIcon" />}
+        >
+          Preview
+        </SegmentedControl.Button>
+      </SegmentedControl>,
+    )
+
+    // Should find EyeIcon, not FileCodeIcon
+    expect(getByRole('img', {name: 'EyeIcon'})).toBeInTheDocument()
   })
 
   it('should warn the user if they neglect to specify a label for the segmented control', () => {

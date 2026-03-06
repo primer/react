@@ -22,29 +22,27 @@
 }
 
 .TokenButton[data-size='medium'] {
-  width: 20px;
-  height: 20px;
+  width: var(--base-size-20);
+  height: var(--base-size-20);
 }
 
 .TokenButton[data-size='large'] {
   width: var(--base-size-24);
   height: var(--base-size-24);
-  margin-left: var(--base-size-8);
+  margin-left: var(--base-size-6);
 }
 
 .TokenButton[data-size='xlarge'] {
   width: var(--base-size-32);
   height: var(--base-size-32);
-  margin-left: var(--base-size-8);
+  margin-left: var(--base-size-6);
 }
 
 .TokenButton:hover,
 .TokenButton:focus {
-  /* TODO: choose a better functional color variable for this */
-  background-color: var(--bgColor-neutral-muted);
+  background-color: var(--control-transparent-bgColor-hover);
 }
 
 .TokenButton:active {
-  /* TODO: choose a better functional color variable for this */
-  background-color: var(--bgColor-neutral-muted);
+  background-color: var(--control-transparent-bgColor-active);
 }

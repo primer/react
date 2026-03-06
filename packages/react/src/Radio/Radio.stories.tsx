@@ -8,7 +8,7 @@ import {
   getFormControlArgsByChildComponent,
 } from '../utils/form-story-helpers'
 
-const excludedControlKeys = ['required', 'value', 'name', 'validationStatus', 'sx']
+const excludedControlKeys = ['required', 'value', 'name', 'validationStatus']
 
 export default {
   title: 'Components/Radio',

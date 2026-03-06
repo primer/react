@@ -1,6 +1,8 @@
 import react from '@vitejs/plugin-react'
+import {playwright} from '@vitest/browser-playwright'
 import {defineConfig} from 'vitest/config'
 import postcssPresetPrimer from 'postcss-preset-primer'
+import {isSupported} from './script/react-compiler.mjs'
 
 export default defineConfig({
   css: {
@@ -11,7 +13,21 @@ export default defineConfig({
       plugins: [postcssPresetPrimer()],
     },
   },
-  plugins: [react()],
+  plugins: [
+    react({
+      babel: {
+        plugins: [
+          [
+            'babel-plugin-react-compiler',
+            {
+              target: '18',
+              sources: isSupported,
+            },
+          ],
+        ],
+      },
+    }),
+  ],
   define: {
     __DEV__: true,
     'process.env.CI': JSON.stringify(process.env.CI),
@@ -36,7 +52,7 @@ export default defineConfig({
       include: [/.+/],
     },
     browser: {
-      provider: 'playwright',
+      provider: playwright(),
       enabled: true,
       headless: process.env.DEBUG_BROWSER_TESTS === 'true' ? false : true,
       instances: [

@@ -1,43 +1,26 @@
-import {
-  Box,
-  FormControl as PrimerFormControl,
-  type FormControlProps as PrimerFormControlProps,
-  type FormControlCaptionProps as PrimerFormControlCaptionProps,
-  type FormControlValidationProps as PrimerFormControlValidationProps,
-  type SxProp,
-} from '@primer/react'
-import {forwardRef, type PropsWithChildren} from 'react'
+import {FormControl as PrimerFormControl, type FormControlProps as PrimerFormControlProps} from '@primer/react'
+import {type PropsWithChildren} from 'react'
+import styled from 'styled-components'
+import {sx, type SxProp} from '../sx'
 
 type FormControlProps = PropsWithChildren<PrimerFormControlProps> & SxProp
 
-const FormControlImpl = forwardRef<HTMLDivElement, FormControlProps>(function FormControl(props, ref) {
-  return <Box ref={ref} as={PrimerFormControl} {...props} />
-})
-
-type FormControlCaptionProps = PropsWithChildren<PrimerFormControlCaptionProps> & SxProp
-const FormControlCaption = (props: FormControlCaptionProps) => {
-  return <Box as={PrimerFormControl.Caption} {...props} />
-}
-
-type FormControlValidationProps = PropsWithChildren<PrimerFormControlValidationProps> & SxProp
-
-const FormControlValidation = (props: FormControlValidationProps) => {
-  return <Box as={PrimerFormControl.Validation} {...props} />
-}
-
-const FormControlLeadingVisual = (props: PropsWithChildren<SxProp>) => {
-  return <Box as={PrimerFormControl.LeadingVisual} {...props} />
-}
+const FormControlImpl: React.ComponentType<FormControlProps> = styled(PrimerFormControl).withConfig({
+  shouldForwardProp: prop => (prop as keyof FormControlProps) !== 'sx',
+})<FormControlProps>`
+  ${sx}
+`
 
 const FormControl = Object.assign(FormControlImpl, {
-  Caption: FormControlCaption,
-  LeadingVisual: FormControlLeadingVisual,
-  Validation: FormControlValidation,
+  __SLOT__: PrimerFormControl.__SLOT__,
+  Caption: PrimerFormControl.Caption,
+  LeadingVisual: PrimerFormControl.LeadingVisual,
+  Validation: PrimerFormControl.Validation,
   Label: PrimerFormControl.Label,
 }) as typeof FormControlImpl & {
-  Caption: typeof FormControlCaption
-  LeadingVisual: typeof FormControlLeadingVisual
-  Validation: typeof FormControlValidation
+  Caption: typeof PrimerFormControl.Caption
+  LeadingVisual: typeof PrimerFormControl.LeadingVisual
+  Validation: typeof PrimerFormControl.Validation
   Label: typeof PrimerFormControl.Label
 }
 

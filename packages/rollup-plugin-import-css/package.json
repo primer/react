@@ -18,8 +18,8 @@
     "postcss-modules": "^6.0.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^28.0.6",
-    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-commonjs": "^29.0.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
     "esbuild": "^0.25.0",
     "postcss": "^8.4.38",
     "postcss-modules": "^6.0.0",

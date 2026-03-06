@@ -25,6 +25,13 @@
     }
   }
 
+  &:where([data-variant='modal']) {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
   &:where([data-variant='modal'])::backdrop {
     background-color: var(--overlay-backdrop-bgColor);
   }
@@ -71,6 +78,15 @@
     overflow-y: auto;
     flex-grow: 1;
   }
+
+  /* Allow the browser to skip rendering for off-screen items, reducing style recalc and layout costs in long lists.
+     Exclude items that show the active indicator line, as content-visibility: auto applies paint containment
+     which clips the absolutely-positioned ::after pseudo-element that renders outside the item bounds. */
+  /* stylelint-disable-next-line selector-no-qualifying-type */
+  li:not(:focus, [data-is-active-descendant], [data-active]) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 32px;
+  }
 }
 
 .HeaderContent {
@@ -105,7 +121,7 @@
 .TextInput {
   padding-left: var(--base-size-8) !important;
 
-  /* stylelint-disable-next-line selector-class-pattern */
+  /* stylelint-disable-next-line selector-class-pattern, selector-no-qualifying-type */
   &:has(input:placeholder-shown) :global(.TextInput-action) {
     display: none;
   }

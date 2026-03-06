@@ -13,7 +13,7 @@ npm install -S @primer/styled-react
 
 ## Usage
 
-This is a pre-1.0 package designed to interop between Primer and existing
+This is a package designed to interop between Primer and existing
 styled-components usage. As a result, expect breaking changes between minor
 versions as components will be removed when their `sx` usage goes to zero.
 

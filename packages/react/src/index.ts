@@ -1,15 +1,12 @@
 'use client'
 
-export {default as theme} from './theme'
-export {get as themeGet} from './constants'
+export {default as theme, type ThemeColorPaths, type ThemeShadowPaths} from './theme'
 export {default as BaseStyles} from './BaseStyles'
 export type {BaseStylesProps} from './BaseStyles'
 export {default as ThemeProvider, useTheme, useColorSchemeVar} from './ThemeProvider'
 export type {ThemeProviderProps} from './ThemeProvider'
 
 // Layout
-export {default as Box} from './Box'
-export type {BoxProps} from './Box'
 export * from './Button'
 export {PageLayout} from './PageLayout'
 export type {
@@ -46,9 +43,13 @@ export {useResizeObserver} from './hooks/useResizeObserver'
 export {useResponsiveValue, type ResponsiveValue} from './hooks/useResponsiveValue'
 export {default as useIsomorphicLayoutEffect} from './utils/useIsomorphicLayoutEffect'
 export {useProvidedRefOrCreate} from './hooks/useProvidedRefOrCreate'
+export {useId} from './hooks/useId'
+export {useSyncedState} from './hooks/useSyncedState'
+export {useAnchoredPosition, type AnchoredPositionHookSettings} from './hooks/useAnchoredPosition'
 
 // Utils
 export {createComponent} from './utils/create-component'
+export type {SlotMarker} from './utils/types'
 
 // Components
 export {default as Radio} from './Radio'
@@ -91,8 +92,8 @@ export {default as CounterLabel} from './CounterLabel'
 export type {CounterLabelProps} from './CounterLabel'
 export {default as Details} from './Details'
 export type {DetailsProps} from './Details'
-export {Dialog} from './Dialog/Dialog'
-export type {DialogProps, DialogHeaderProps, DialogButtonProps, DialogWidth, DialogHeight} from './Dialog/Dialog'
+export {Dialog} from './Dialog'
+export type {DialogProps, DialogHeaderProps, DialogButtonProps, DialogWidth, DialogHeight} from './Dialog'
 export type {ConfirmationDialogProps} from './ConfirmationDialog/ConfirmationDialog'
 export {ConfirmationDialog} from './ConfirmationDialog/ConfirmationDialog'
 export {default as Flash} from './Flash'
@@ -146,7 +147,7 @@ export type {
   SegmentedControlButtonProps,
   SegmentedControlIconButtonProps,
 } from './SegmentedControl'
-// Curently there is a duplicate Select component at the root of the dir, so need to be explicit about exporting from the src/Select dir
+// Currently there is a duplicate Select component at the root of the dir, so need to be explicit about exporting from the src/Select dir
 export {default as Select} from './Select'
 export type {SelectProps} from './Select'
 export {SelectPanel} from './SelectPanel'
@@ -167,7 +168,7 @@ export type {SubNavProps, SubNavLinkProps, SubNavLinksProps} from './SubNav'
 export {default as ToggleSwitch} from './ToggleSwitch'
 export type {ToggleSwitchProps} from './ToggleSwitch'
 export {default as TextInput} from './TextInput'
-export type {TextInputProps} from './TextInput'
+export type {TextInputProps, TextInputActionProps} from './TextInput'
 export {default as TextInputWithTokens} from './TextInputWithTokens'
 export type {TextInputWithTokensProps} from './TextInputWithTokens'
 export {default as Text} from './Text'
@@ -223,9 +224,6 @@ export type {
   TitleAreaProps as PageHeaderTitleAreaProps,
   ChildrenPropTypes as PageHeaderChildrenPropTypes,
 } from './PageHeader'
-
-export {default as sx, merge} from './sx'
-export type {BetterCssProperties, BetterSystemStyleObject, SxProp} from './sx'
 
 export {SkeletonBox} from './Skeleton'
 export type {SkeletonBoxProps} from './Skeleton'

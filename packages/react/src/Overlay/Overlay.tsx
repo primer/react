@@ -1,16 +1,13 @@
 import type {ComponentPropsWithRef, ReactElement} from 'react'
 import React, {useEffect, useRef} from 'react'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
-import {get} from '../constants'
 import type {AriaRole, Merge} from '../utils/types'
 import type {TouchOrMouseEvent} from '../hooks'
 import {useOverlay} from '../hooks'
 import Portal from '../Portal'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import type {AnchorSide} from '@primer/behaviors'
-import {useTheme} from '../ThemeProvider'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {useFeatureFlag} from '../FeatureFlags'
 import classes from './Overlay.module.css'
 import {clsx} from 'clsx'
 
@@ -108,17 +105,18 @@ export const BaseOverlay = React.forwardRef(
       ...rest
     },
     forwardedRef,
-  ): ReactElement => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): ReactElement<any> => {
     return (
       <Component
         {...rest}
         ref={forwardedRef}
         style={
           {
-            left,
-            right,
-            top,
-            bottom,
+            '--top': typeof top === 'number' ? `${top}px` : top,
+            '--left': typeof left === 'number' ? `${left}px` : left,
+            '--right': typeof right === 'number' ? `${right}px` : right,
+            '--bottom': typeof bottom === 'number' ? `${bottom}px` : bottom,
             position,
             ...styleFromProps,
           } as React.CSSProperties
@@ -139,14 +137,14 @@ export const BaseOverlay = React.forwardRef(
 
 type ContainerProps = {
   anchorSide?: AnchorSide
-  ignoreClickRefs?: React.RefObject<HTMLElement>[]
-  initialFocusRef?: React.RefObject<HTMLElement>
+  ignoreClickRefs?: React.RefObject<HTMLElement | null>[]
+  initialFocusRef?: React.RefObject<HTMLElement | null>
   onClickOutside: (e: TouchOrMouseEvent) => void
   onEscape: (e: KeyboardEvent) => void
   portalContainerName?: string
   preventOverflow?: boolean
   preventFocusOnOpen?: boolean
-  returnFocusRef: React.RefObject<HTMLElement>
+  returnFocusRef: React.RefObject<HTMLElement | null>
 }
 
 type internalOverlayProps = Merge<OwnOverlayProps, ContainerProps>
@@ -189,12 +187,12 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
       ...props
     },
     forwardedRef,
-  ): ReactElement => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): ReactElement<any> => {
     const overlayRef = useRef<HTMLDivElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, overlayRef)
-    const {theme} = useTheme()
-    const slideAnimationDistance = parseInt(get('space.2')(theme).replace('px', ''))
-    const slideAnimationEasing = get('animation.easeOutCubic')(theme)
+    const slideAnimationDistance = 8 // var(--base-size-8), hardcoded to do some math
+    const slideAnimationEasing = 'cubic-bezier(0.33, 1, 0.68, 1)'
 
     useOverlay({
       overlayRef,
@@ -231,13 +229,12 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     // To be backwards compatible with the old Overlay, we need to set the left prop if x-position is not specified
     const leftPosition = left === undefined && right === undefined ? 0 : left
 
-    const overflowEnabled = useFeatureFlag('primer_react_overlay_overflow')
     return (
       <Portal containerName={portalContainerName}>
         <BaseOverlay
           role={role}
           width={width}
-          data-reflow-container={overflowEnabled || !preventOverflow ? true : undefined}
+          data-reflow-container={!preventOverflow ? true : undefined}
           ref={overlayRef}
           left={leftPosition}
           right={right}

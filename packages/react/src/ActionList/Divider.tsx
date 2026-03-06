@@ -1,24 +1,25 @@
 import type React from 'react'
-import type {SxProp} from '../sx'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
+import type {FCWithSlotMarker} from '../utils/types/Slots'
 
-export type ActionListDividerProps = SxProp & {
+export type ActionListDividerProps = {
   className?: string
+  style?: React.CSSProperties
 }
 
 /**
- * Visually separates `Item`s or `Group`s in an `ActionList`.
+ * Visually separates `Items` or `Groups` in an `ActionList`.
  */
-export const Divider: React.FC<React.PropsWithChildren<ActionListDividerProps>> = ({sx, className}) => {
+export const Divider: FCWithSlotMarker<React.PropsWithChildren<ActionListDividerProps>> = ({className, style}) => {
   return (
-    <BoxWithFallback
+    <li
       className={clsx(className, classes.Divider)}
-      as="li"
+      style={style}
       aria-hidden="true"
-      sx={sx}
       data-component="ActionList.Divider"
     />
   )
 }
+
+Divider.__SLOT__ = Symbol('ActionList.Divider')

@@ -3,6 +3,7 @@ import type {To} from 'history'
 import React from 'react'
 
 import styles from './SubNav.module.css'
+import type {WithSlotMarker} from '../utils/types'
 
 export type SubNavProps = React.ComponentProps<'nav'> & {
   actions?: React.ReactNode
@@ -57,4 +58,9 @@ const SubNavLink = React.forwardRef<HTMLAnchorElement, SubNavLinkProps>(
 
 SubNavLink.displayName = 'SubNav.Link'
 
-export default Object.assign(SubNav, {Link: SubNavLink, Links: SubNavLinks})
+export default Object.assign(SubNav, {
+  Link: SubNavLink as WithSlotMarker<typeof SubNavLink>,
+  Links: SubNavLinks,
+  __SLOT__: Symbol('SubNav'),
+})
+;(SubNavLink as WithSlotMarker<typeof SubNavLink>).__SLOT__ = Symbol('SubNav.Link')

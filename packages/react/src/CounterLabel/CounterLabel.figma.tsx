@@ -12,6 +12,6 @@ figma.connect(
       }),
       count: figma.textContent('text'),
     },
-    example: ({variant, count}) => <CounterLabel scheme={variant}>{count}</CounterLabel>,
+    example: ({variant, count}) => <CounterLabel variant={variant}>{count}</CounterLabel>,
   },
 )

@@ -4,6 +4,8 @@ import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {describe, expect, it, vi, beforeEach} from 'vitest'
 import classes from './TextArea.module.css'
+import {implementsClassName} from '../utils/testing'
+import textInputClasses from '../internal/components/TextInputWrapper.module.css'
 
 function getCSSRules(selector: string): Array<CSSStyleRule> {
   return Array.from(document.styleSheets).flatMap(sheet => {
@@ -17,12 +19,9 @@ function getCSSRules(selector: string): Array<CSSStyleRule> {
 }
 
 describe('Textarea', () => {
+  implementsClassName(Textarea, textInputClasses.TextInputBaseWrapper)
   beforeEach(() => {
     vi.resetAllMocks()
-  })
-
-  it('should support `className` on the outermost element', () => {
-    expect(render(<Textarea className={'test-class-name'} />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('renders a valid textarea input', () => {
@@ -149,5 +148,102 @@ describe('Textarea', () => {
 
     expect(style.minHeight).toBe(`${minHeight}px`)
     expect(style.maxHeight).toBe(`${maxHeight}px`)
+  })
+
+  describe('character counter', () => {
+    it('should render character counter when characterLimit is provided', () => {
+      const {container} = render(<Textarea characterLimit={100} />)
+      expect(container.textContent).toContain('100 characters remaining')
+    })
+
+    it('should update character count on input', async () => {
+      const user = userEvent.setup()
+      const {getByRole, container} = render(<Textarea characterLimit={100} />)
+      const textarea = getByRole('textbox')
+
+      await user.type(textarea, 'Hello World')
+      expect(container.textContent).toContain('89 characters remaining')
+    })
+
+    it('should show singular "character" when one character remains', async () => {
+      const user = userEvent.setup()
+      const {getByRole, container} = render(<Textarea characterLimit={5} />)
+      const textarea = getByRole('textbox')
+
+      await user.type(textarea, 'Test')
+      expect(container.textContent).toContain('1 character remaining')
+    })
+
+    it('should show error state when character limit is exceeded', async () => {
+      const user = userEvent.setup()
+      const {getByRole, container} = render(<Textarea characterLimit={10} />)
+      const textarea = getByRole('textbox')
+
+      await user.type(textarea, 'This is a very long text')
+      expect(container.textContent).toContain('characters over')
+      expect(textarea).toHaveAttribute('aria-invalid', 'true')
+    })
+
+    it('should show alert icon when character limit is exceeded', async () => {
+      const user = userEvent.setup()
+      const {getByRole, container} = render(<Textarea characterLimit={10} />)
+      const textarea = getByRole('textbox')
+
+      await user.type(textarea, 'This is too long')
+      const icon = container.querySelector('svg')
+      expect(icon).toBeInTheDocument()
+    })
+
+    it('should clear error state when back under limit', async () => {
+      const user = userEvent.setup()
+      const {getByRole, container} = render(<Textarea characterLimit={10} />)
+      const textarea = getByRole('textbox')
+
+      await user.type(textarea, 'This is a very long text')
+      expect(container.textContent).toContain('characters over')
+      expect(textarea).toHaveAttribute('aria-invalid', 'true')
+
+      await user.clear(textarea)
+      await user.type(textarea, 'Short text')
+
+      expect(container.textContent).toContain('characters remaining')
+      expect(textarea).toHaveAttribute('aria-invalid', 'false')
+    })
+
+    it('should have aria-describedby pointing to static message', () => {
+      const {getByRole, container} = render(<Textarea characterLimit={100} />)
+      const textarea = getByRole('textbox')
+      const describedBy = textarea.getAttribute('aria-describedby')
+      expect(describedBy).toBeTruthy()
+
+      const staticMessage = Array.from(container.querySelectorAll('[id]')).find(el =>
+        el.textContent.includes('You can enter up to'),
+      )
+      expect(staticMessage).toBeTruthy()
+      expect(describedBy).toContain(staticMessage?.id)
+    })
+
+    it('should have screen reader announcement element', () => {
+      const {container} = render(<Textarea characterLimit={100} />)
+      const srElement = container.querySelector('[aria-live="polite"]')
+      expect(srElement).toBeInTheDocument()
+      expect(srElement).toHaveAttribute('role', 'status')
+    })
+
+    it('should have static screen reader message', () => {
+      const {container} = render(<Textarea characterLimit={100} />)
+      expect(container.textContent).toContain('You can enter up to 100 characters')
+    })
+
+    it('should show singular character in static message when limit is 1', () => {
+      const {container} = render(<Textarea characterLimit={1} />)
+      expect(container.textContent).toContain('You can enter up to 1 character')
+    })
+
+    it('should not announce on initial load', () => {
+      const {container} = render(<Textarea characterLimit={100} defaultValue="Hello World" />)
+      const srElement = container.querySelector('[aria-live="polite"]')
+      expect(srElement?.textContent).toBe('')
+    })
   })
 })

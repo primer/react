@@ -187,7 +187,9 @@ export function getFirstElement(element: HTMLElement): HTMLElement | undefined {
 
 export function getLastElement(element: HTMLElement): HTMLElement | undefined {
   const root = element.closest('[role=tree]')
-  const items = Array.from(root?.querySelectorAll('[role=treeitem]') || [])
+  if (!root) return
+
+  const items = Array.from(root.querySelectorAll('[role=treeitem]'))
 
   // If there are no items, return undefined
   if (items.length === 0) return

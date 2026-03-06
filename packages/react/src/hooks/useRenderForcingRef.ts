@@ -1,5 +1,5 @@
 import type {MutableRefObject, RefObject} from 'react'
-import {useCallback, useRef, useState} from 'react'
+import {useCallback, useEffect, useRef, useState} from 'react'
 
 /**
  * There are certain situations where a ref might be set after the current render cycle for a
@@ -10,7 +10,6 @@ import {useCallback, useRef, useState} from 'react'
 export function useRenderForcingRef<TRef>(value?: TRef) {
   const [refCurrent, setRefCurrent] = useState<TRef | null>(value || null)
   const ref = useRef<TRef>(null) as MutableRefObject<TRef | null>
-  ref.current = refCurrent
 
   const setRef = useCallback(
     (newRef: TRef | null) => {
@@ -19,5 +18,10 @@ export function useRenderForcingRef<TRef>(value?: TRef) {
     },
     [ref],
   )
+
+  useEffect(() => {
+    ref.current = refCurrent
+  }, [refCurrent])
+
   return [ref as RefObject<TRef>, setRef] as const
 }

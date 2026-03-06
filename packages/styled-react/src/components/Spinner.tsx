@@ -1,9 +1,11 @@
-import {Box, Spinner as PrimerSpinner, type SpinnerProps as PrimerSpinnerProps} from '@primer/react'
-import React from 'react'
-import type {SxProp} from '../sx'
+import {Spinner as PrimerSpinner, type SpinnerProps as PrimerSpinnerProps} from '@primer/react'
+import {sx, type SxProp} from '../sx'
+import styled from 'styled-components'
 
 export type SpinnerProps = PrimerSpinnerProps & SxProp
 
-export function Spinner(props: SpinnerProps) {
-  return <Box as={PrimerSpinner} {...props} />
-}
+export const Spinner = styled(PrimerSpinner).withConfig({
+  shouldForwardProp: prop => (prop as keyof SpinnerProps) !== 'sx',
+})<SpinnerProps>`
+  ${sx}
+`

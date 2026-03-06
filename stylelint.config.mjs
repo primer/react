@@ -13,6 +13,7 @@ export default {
         message: '"%s" selector should be written in PascalCase or BEM format (e.g. block__element--modifier)',
       },
     ],
+    'layer-name-pattern': '^[a-z][a-zA-Z0-9.-]*$',
   },
   overrides: [
     {

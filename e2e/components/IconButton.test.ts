@@ -1,4 +1,4 @@
-import {test, expect, type Page} from '@playwright/test'
+import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
@@ -40,28 +40,6 @@ const stories = [
     id: 'components-iconbutton-features--small',
   },
   {
-    title: 'Keybinding Hint',
-    id: 'components-iconbutton-features--keybinding-hint',
-    disableAnimations: true,
-    async setup(page: Page) {
-      await page.keyboard.press('Tab') // focus on icon button
-      await page.getByText('Bold').waitFor({
-        state: 'visible',
-      })
-    },
-  },
-  {
-    title: 'Keybinding Hint on Description',
-    id: 'components-iconbutton-features--keybinding-hint-on-description',
-    disableAnimations: true,
-    async setup(page: Page) {
-      await page.keyboard.press('Tab') // focus on icon button
-      await page.getByText('You have unread notifications').waitFor({
-        state: 'visible',
-      })
-    },
-  },
-  {
     title: 'Flex',
     id: 'components-iconbutton-dev--icon-button-within-flex-container',
   },
@@ -79,10 +57,6 @@ test.describe('IconButton', () => {
                 colorScheme: theme,
               },
             })
-
-            if ('setup' in story) {
-              await story.setup(page)
-            }
 
             // Default state
             expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(

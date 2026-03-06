@@ -19,7 +19,7 @@
 
   @media (prefers-reduced-motion: no-preference) {
     &[data-animated='true'] {
-      mask-image: linear-gradient(75deg, #000 30%, rgba(0, 0, 0, 0.65) 80%);
+      mask-image: linear-gradient(75deg, #000 30%, rgb(0, 0, 0, 0.65) 80%);
       mask-size: 200%;
       animation-name: shimmer;
       animation-duration: 1s;
@@ -31,7 +31,6 @@
 .ProgressBarContainer {
   display: flex;
   overflow: hidden;
-  /* stylelint-disable-next-line primer/colors */
   background-color: var(--progressBar-track-bgColor);
   border-radius: var(--borderRadius-small);
   gap: 2px;

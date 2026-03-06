@@ -29,12 +29,6 @@
       "required": false,
       "description": "How to handle overflow when breadcrumbs don't fit in the container. 'wrap' allows items to wrap to new lines. 'menu' collapses items into an overflow menu. 'menu-with-root' also collapses items into an overflow menu but includes the root (first) breadcrumb in the menu so only the last items remain visible.",
       "defaultValue": "'wrap'"
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true,
-      "description": "System styles (deprecated, use CSS classes instead)"
     }
   ],
   "subcomponents": [
@@ -74,11 +68,6 @@
           "name": "as",
           "type": "React.ElementType",
           "defaultValue": "\"a\""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ],
       "passthrough": {

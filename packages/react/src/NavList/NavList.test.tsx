@@ -2,51 +2,26 @@ import {describe, it, expect, vi} from 'vitest'
 import {render, fireEvent, act} from '@testing-library/react'
 import React from 'react'
 import {NavList} from './NavList'
-import {FeatureFlags} from '../FeatureFlags'
 import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
+import {implementsClassName} from '../utils/testing'
 
 type NextJSLinkProps = {href: string; children: React.ReactNode}
 
 const NextJSLikeLink = React.forwardRef<HTMLAnchorElement, NextJSLinkProps>(
-  ({href, children}, ref): React.ReactElement => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ({href, children}, ref): React.ReactElement<any> => {
     const child = React.Children.only(children)
     const childProps = {
       ref,
       href,
     }
+    // eslint-disable-next-line react-hooks/refs
     return <>{React.isValidElement(child) ? React.cloneElement(child, childProps) : null}</>
   },
 )
 
 describe('NavList', () => {
-  it('renders a simple list', () => {
-    const {container} = render(
-      <NavList>
-        <NavList.Item href="/" aria-current="page">
-          Home
-        </NavList.Item>
-        <NavList.Item href="/about">About</NavList.Item>
-        <NavList.Item href="/contact">Contact</NavList.Item>
-      </NavList>,
-    )
-    expect(container).toMatchSnapshot()
-  })
-
-  it('renders with groups', () => {
-    const {container} = render(
-      <NavList>
-        <NavList.Group title="Overview">
-          <NavList.Item href="/getting-started" aria-current="page">
-            Getting started
-          </NavList.Item>
-        </NavList.Group>
-        <NavList.Group title="Components">
-          <NavList.Item href="/Avatar">Avatar</NavList.Item>
-        </NavList.Group>
-      </NavList>,
-    )
-    expect(container).toMatchSnapshot()
-  })
+  implementsClassName(NavList)
 
   it('supports TrailingAction', async () => {
     const {getByRole} = render(
@@ -64,6 +39,7 @@ describe('NavList', () => {
 })
 
 describe('NavList.Item', () => {
+  implementsClassName(NavList.Item)
   it('passes aria-current prop to the underlying link', () => {
     const {getByRole} = render(
       <NavList>
@@ -194,54 +170,6 @@ describe('NavList.Item with NavList.SubNav', () => {
     expect(queryByRole('list', {name: 'Item 2'})).toBeNull()
   })
 
-  it('has active styles if SubNav contains the current item and is closed', () => {
-    const {container, getByRole, queryByRole} = render(
-      <NavList>
-        <NavList.Item>
-          Item
-          <NavList.SubNav>
-            <NavList.Item href="#" aria-current="page">
-              Sub Item
-            </NavList.Item>
-          </NavList.SubNav>
-        </NavList.Item>
-      </NavList>,
-    )
-
-    const button = getByRole('button')
-
-    // Starts open
-    expect(queryByRole('list', {name: 'Item'})).toBeVisible()
-
-    // Click to close
-    fireEvent.click(button)
-    expect(queryByRole('list', {name: 'Item'})).toBeNull()
-
-    // Snapshot styles
-    expect(container).toMatchSnapshot()
-  })
-
-  it('does not have active styles if SubNav contains the current item and is open', () => {
-    const {container, queryByRole} = render(
-      <NavList>
-        <NavList.Item>
-          Item
-          <NavList.SubNav>
-            <NavList.Item href="#" aria-current="page">
-              Sub Item
-            </NavList.Item>
-          </NavList.SubNav>
-        </NavList.Item>
-      </NavList>,
-    )
-
-    // Starts open
-    expect(queryByRole('list', {name: 'Item'})).toBeVisible()
-
-    // Snapshot styles
-    expect(container).toMatchSnapshot()
-  })
-
   it('prevents more than 4 levels of nested SubNavs', () => {
     const consoleSpy = vi
       .spyOn(console, 'error')
@@ -326,21 +254,19 @@ describe('NavList.Item with NavList.SubNav', () => {
   describe('TrailingAction', () => {
     function NavListWithSubNavAndTrailingAction() {
       return (
-        <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
-          <NavList>
-            <NavList.Item href="#">
-              Item
-              <NavList.TrailingAction label="This should not be rendered" />
-              <NavList.SubNav>
-                <NavList.Item href="#">
-                  Sub Item 1
-                  <NavList.TrailingAction label="Trailing Action for Sub Item 1" />
-                </NavList.Item>
-                <NavList.Item href="#">Sub Item 2</NavList.Item>
-              </NavList.SubNav>
-            </NavList.Item>
-          </NavList>
-        </FeatureFlags>
+        <NavList>
+          <NavList.Item href="#">
+            Item
+            <NavList.TrailingAction label="This should not be rendered" />
+            <NavList.SubNav>
+              <NavList.Item href="#">
+                Sub Item 1
+                <NavList.TrailingAction label="Trailing Action for Sub Item 1" />
+              </NavList.Item>
+              <NavList.Item href="#">Sub Item 2</NavList.Item>
+            </NavList.SubNav>
+          </NavList.Item>
+        </NavList>
       )
     }
 

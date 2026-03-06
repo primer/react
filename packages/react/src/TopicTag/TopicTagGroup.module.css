@@ -1,0 +1,6 @@
+.TopicTagGroup {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--base-size-2);
+  row-gap: var(--base-size-8);
+}

@@ -1,10 +1,25 @@
 import {McpServer} from '@modelcontextprotocol/sdk/server/mcp.js'
 // eslint-disable-next-line import/no-namespace
 import * as cheerio from 'cheerio'
-import {z} from 'zod'
+// eslint-disable-next-line import/no-namespace
+import * as z from 'zod'
 import TurndownService from 'turndown'
 import {listComponents, listPatterns, listIcons} from './primer'
-import {tokens, serialize} from './primitives'
+import {
+  listTokenGroups,
+  loadAllTokensWithGuidelines,
+  loadDesignTokensGuide,
+  getDesignTokenSpecsText,
+  getTokenUsagePatternsText,
+  searchTokens,
+  formatBundle,
+  GROUP_ALIASES,
+  tokenMatchesGroup,
+  type TokenWithGuidelines,
+  getValidGroupsList,
+  groupHints,
+  runStylelint,
+} from './primitives'
 import packageJson from '../package.json' with {type: 'json'}
 
 const server = new McpServer({
@@ -14,38 +29,46 @@ const server = new McpServer({
 
 const turndownService = new TurndownService()
 
+// Load all tokens with guidelines from primitives
+const allTokensWithGuidelines: TokenWithGuidelines[] = loadAllTokensWithGuidelines()
+
 // -----------------------------------------------------------------------------
 // Project setup
 // -----------------------------------------------------------------------------
-server.tool('init', 'Setup or create a project that includes Primer React', async () => {
-  const url = new URL(`/product/getting-started/react`, 'https://primer.style')
-  const response = await fetch(url)
-  if (!response.ok) {
-    throw new Error(`Failed to fetch ${url}: ${response.statusText}`)
-  }
-
-  const html = await response.text()
-  if (!html) {
-    return {
-      content: [],
+server.registerTool(
+  'init',
+  {
+    description: 'Setup or create a project that includes Primer React',
+  },
+  async () => {
+    const url = new URL(`/product/getting-started/react`, 'https://primer.style')
+    const response = await fetch(url)
+    if (!response.ok) {
+      throw new Error(`Failed to fetch ${url}: ${response.statusText}`)
     }
-  }
 
-  const $ = cheerio.load(html)
-  const source = $('main').html()
-  if (!source) {
-    return {
-      content: [],
+    const html = await response.text()
+    if (!html) {
+      return {
+        content: [],
+      }
     }
-  }
 
-  const text = turndownService.turndown(source)
+    const $ = cheerio.load(html)
+    const source = $('main').html()
+    if (!source) {
+      return {
+        content: [],
+      }
+    }
 
-  return {
-    content: [
-      {
-        type: 'text',
-        text: `The getting started documentation for Primer React is included below. It's important that the project:
+    const text = turndownService.turndown(source)
+
+    return {
+      content: [
+        {
+          type: 'text',
+          text: `The getting started documentation for Primer React is included below. It's important that the project:
 
 - Is using a tool like Vite, Next.js, etc that supports TypeScript and React. If the project does not have support for that, generate an appropriate project scaffold
 - Installs the latest version of \`@primer/react\` from \`npm\`
@@ -58,37 +81,45 @@ server.tool('init', 'Setup or create a project that includes Primer React', asyn
 
 ${text}
 `,
-      },
-    ],
-  }
-})
+        },
+      ],
+    }
+  },
+)
 
 // -----------------------------------------------------------------------------
 // Components
 // -----------------------------------------------------------------------------
-server.tool('list_components', 'List all of the components available from Primer React', async () => {
-  const components = listComponents().map(component => {
-    return `- ${component.name}`
-  })
-  return {
-    content: [
-      {
-        type: 'text',
-        text: `The following components are available in the @primer/react in TypeScript projects:
+server.registerTool(
+  'list_components',
+  {description: 'List all of the components available from Primer React'},
+  async () => {
+    const components = listComponents().map(component => {
+      return `- ${component.name}`
+    })
+    return {
+      content: [
+        {
+          type: 'text',
+          text: `The following components are available in the @primer/react in TypeScript projects:
 
 ${components.join('\n')}
 
 You can use the \`get_component\` tool to get more information about a specific component. You can use these components from the @primer/react package.`,
-      },
-    ],
-  }
-})
+        },
+      ],
+    }
+  },
+)
 
-server.tool(
+server.registerTool(
   'get_component',
-  'Get a specific component by name',
   {
-    name: z.string().describe('The name of the component to retrieve'),
+    description:
+      'Retrieve documentation and usage details for a specific React component from the @primer/react package by its name. This tool provides the official Primer documentation for any listed component, making it easy to inspect, reuse, or integrate components in your project.',
+    inputSchema: {
+      name: z.string().describe('The name of the component to retrieve'),
+    },
   },
   async ({name}) => {
     const components = listComponents()
@@ -97,12 +128,27 @@ server.tool(
     })
     if (!match) {
       return {
-        content: [
-          {
-            type: 'text',
-            text: `There is no component named \`${name}\` in the @primer/react package. For a full list of components, use the \`get_components\` tool.`,
-          },
-        ],
+        isError: true,
+        errorMessage: `There is no component named \`${name}\` in the @primer/react package. For a full list of components, use the \`list_components\` tool.`,
+        content: [],
+      }
+    }
+
+    const llmsUrl = new URL(`/product/components/${match.slug}/llms.txt`, 'https://primer.style')
+    const llmsResponse = await fetch(llmsUrl)
+    if (llmsResponse.ok) {
+      try {
+        const llmsText = await llmsResponse.text()
+        return {
+          content: [
+            {
+              type: 'text',
+              text: llmsText,
+            },
+          ],
+        }
+      } catch (_: unknown) {
+        // If there's an error fetching or processing the llms.txt, we fall back to the regular documentation
       }
     }
 
@@ -141,11 +187,13 @@ ${text}`,
   },
 )
 
-server.tool(
+server.registerTool(
   'get_component_examples',
-  'Get examples for how to use a component from Primer React',
   {
-    name: z.string().describe('The name of the component to retrieve'),
+    description: 'Get examples for how to use a component from Primer React',
+    inputSchema: {
+      name: z.string().describe('The name of the component to retrieve'),
+    },
   },
   async ({name}) => {
     const components = listComponents()
@@ -199,11 +247,13 @@ ${text}`,
   },
 )
 
-server.tool(
+server.registerTool(
   'get_component_usage_guidelines',
-  'Get usage information for how to use a component from Primer',
   {
-    name: z.string().describe('The name of the component to retrieve'),
+    description: 'Get usage information for how to use a component from Primer',
+    inputSchema: {
+      name: z.string().describe('The name of the component to retrieve'),
+    },
   },
   async ({name}) => {
     const components = listComponents()
@@ -268,11 +318,14 @@ ${text}`,
   },
 )
 
-server.tool(
+server.registerTool(
   'get_component_accessibility_guidelines',
-  'Get accessibility information for how to use a component from Primer React',
   {
-    name: z.string().describe('The name of the component to retrieve'),
+    description:
+      'Retrieve accessibility guidelines and best practices for a specific component from the @primer/react package by its name. Use this tool to get official accessibility recommendations, usage tips, and requirements to ensure your UI components are inclusive and meet accessibility standards.',
+    inputSchema: {
+      name: z.string().describe('The name of the component to retrieve'),
+    },
   },
   async ({name}) => {
     const components = listComponents()
@@ -284,7 +337,7 @@ server.tool(
         content: [
           {
             type: 'text',
-            text: `There is no component named \`${name}\` in the @primer/react package. For a full list of components, use the \`get_components\` tool.`,
+            text: `There is no component named \`${name}\` in the @primer/react package. For a full list of components, use the \`list_components\` tool.`,
           },
         ],
       }
@@ -340,27 +393,33 @@ ${text}`,
 // -----------------------------------------------------------------------------
 // Patterns
 // -----------------------------------------------------------------------------
-server.tool('list_patterns', 'List all of the patterns available from Primer React', async () => {
-  const patterns = listPatterns().map(pattern => {
-    return `- ${pattern.name}`
-  })
-  return {
-    content: [
-      {
-        type: 'text',
-        text: `The following patterns are available in the @primer/react in TypeScript projects:
+server.registerTool(
+  'list_patterns',
+  {description: 'List all of the patterns available from Primer React'},
+  async () => {
+    const patterns = listPatterns().map(pattern => {
+      return `- ${pattern.name}`
+    })
+    return {
+      content: [
+        {
+          type: 'text',
+          text: `The following patterns are available in the @primer/react in TypeScript projects:
 
 ${patterns.join('\n')}`,
-      },
-    ],
-  }
-})
+        },
+      ],
+    }
+  },
+)
 
-server.tool(
+server.registerTool(
   'get_pattern',
-  'Get a specific pattern by name',
   {
-    name: z.string().describe('The name of the pattern to retrieve'),
+    description: 'Get a specific pattern by name',
+    inputSchema: {
+      name: z.string().describe('The name of the pattern to retrieve'),
+    },
   },
   async ({name}) => {
     const patterns = listPatterns()
@@ -417,127 +476,366 @@ ${text}`,
 // -----------------------------------------------------------------------------
 // Design Tokens
 // -----------------------------------------------------------------------------
-server.tool('list_tokens', 'List all of the design tokens available from Primer', async () => {
-  let text =
-    'Below is a list of all design tokens available from Primer. Tokens are used in CSS and CSS Modules. To refer to the CSS Custom Property for a design token, wrap it in var(--{name-of-token}). To learn how to use a specific token, use a corresponding usage tool for the category of the token. For example, if a token is a color token look for the get_color_usage tool. \n\n'
+server.registerTool(
+  'find_tokens',
+  {
+    description:
+      'Search for specific tokens. Tip: If you only provide a \'group\' and leave \'query\' empty, it returns all tokens in that category. Avoid property-by-property searching. COLOR RESOLUTION: If a user asks for "pink" or "blue", do not search for the color name. Use the semantic intent: blue->accent, red->danger, green->success. Always check both "emphasis" and "muted" variants for background colors. After identifying tokens and writing CSS, you MUST validate the result using lint_css.',
+    inputSchema: {
+      query: z
+        .string()
+        .optional()
+        .default('')
+        .describe('Search keywords (e.g., "danger border", "success background")'),
+      group: z.string().optional().describe('Filter by group (e.g., "fgColor", "border")'),
+      limit: z
+        .number()
+        .int()
+        .min(1)
+        .max(100)
+        .optional()
+        .default(15)
+        .describe('Maximum results to return to stay within context limits'),
+    },
+  },
+  async ({query, group, limit}) => {
+    // Resolve group via aliases
+    const resolvedGroup = group ? GROUP_ALIASES[group.toLowerCase().replace(/\s+/g, '')] || group : undefined
 
-  text += serialize(tokens)
+    // Split query into keywords and extract any that match a known group
+    const rawKeywords = query
+      .toLowerCase()
+      .split(/\s+/)
+      .filter(k => k.length > 0)
 
-  return {
-    content: [
-      {
-        type: 'text',
-        text,
-      },
-    ],
-  }
-})
+    let effectiveGroup = resolvedGroup
+    const filteredKeywords: string[] = []
+
+    for (const kw of rawKeywords) {
+      const normalized = kw.replace(/\s+/g, '')
+      const aliasMatch = GROUP_ALIASES[normalized]
+      if (aliasMatch && !effectiveGroup) {
+        effectiveGroup = aliasMatch
+      } else {
+        filteredKeywords.push(kw)
+      }
+    }
+
+    // Guard: no query and no group → ask user to provide at least one
+    if (filteredKeywords.length === 0 && !effectiveGroup) {
+      return {
+        content: [
+          {
+            type: 'text',
+            text: 'Please provide a query, a group, or both. Call `get_design_token_specs` to see available token groups.',
+          },
+        ],
+      }
+    }
+
+    // Group-only search: return all tokens in the group
+    const isGroupOnly = filteredKeywords.length === 0 && effectiveGroup
+    let results: TokenWithGuidelines[]
+
+    if (isGroupOnly) {
+      results = allTokensWithGuidelines.filter(token => tokenMatchesGroup(token, effectiveGroup!))
+    } else {
+      results = searchTokens(allTokensWithGuidelines, filteredKeywords.join(' '), effectiveGroup)
+    }
+
+    if (results.length === 0) {
+      const validGroups = getValidGroupsList(allTokensWithGuidelines)
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `No tokens found matching "${query}"${effectiveGroup ? ` in group "${effectiveGroup}"` : ''}. 
+
+### 💡 Available Groups:
+${validGroups}
+
+### Troubleshooting for AI:
+1. **Multi-word Queries**: Search keywords use 'AND' logic. If searching "text shorthand typography" fails, try a single keyword like "shorthand" within the "text" group.
+2. **Property Mismatch**: Do not search for CSS properties like "offset", "padding", or "font-size". Use semantic intent keywords: "danger", "muted", "emphasis".
+3. **Typography**: Remember that \`caption\`, \`display\`, and \`code\` groups do NOT support size suffixes. Use the base shorthand only.
+4. **Group Intent**: Use the \`group\` parameter instead of putting group names in the \`query\` string (e.g., use group: "stack" instead of query: "stack padding").`,
+          },
+        ],
+      }
+    }
+
+    const limitedResults = results.slice(0, limit)
+
+    let output: string
+
+    if (!query) {
+      output = `Found ${results.length} token(s). Showing top ${limitedResults.length}:\n\n`
+    } else {
+      output = `Found ${results.length} token(s) matching "${query}". Showing top ${limitedResults.length}:\n\n`
+    }
+    output += formatBundle(limitedResults)
+
+    if (results.length > limit) {
+      output += `\n\n*...and ${results.length - limit} more matches. Use more specific keywords to narrow the search.*`
+    }
+
+    return {
+      content: [{type: 'text', text: output}],
+    }
+  },
+)
+
+server.registerTool(
+  'get_token_group_bundle',
+  {
+    description:
+      "PREFERRED FOR COMPONENTS. Fetch all tokens for complex UI (e.g., Dialogs, Cards) in one call by providing an array of groups like ['overlay', 'shadow']. Use this instead of multiple find_tokens calls to save context.",
+    inputSchema: {
+      groups: z.array(z.string()).describe('Array of group names (e.g., ["overlay", "shadow", "focus"])'),
+    },
+  },
+  async ({groups}) => {
+    // Normalize and resolve aliases
+    const resolvedGroups = groups.map(g => {
+      const normalized = g.toLowerCase().replace(/\s+/g, '')
+      return GROUP_ALIASES[normalized] || g
+    })
+
+    // Filter tokens matching any of the resolved groups
+    const matched = allTokensWithGuidelines.filter(token => resolvedGroups.some(rg => tokenMatchesGroup(token, rg)))
+
+    if (matched.length === 0) {
+      const validGroups = getValidGroupsList(allTokensWithGuidelines)
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `No tokens found for groups: ${groups.join(', ')}.\n\n### Valid Groups:\n${validGroups}`,
+          },
+        ],
+      }
+    }
+
+    let text = `Found ${matched.length} token(s) across ${resolvedGroups.length} group(s):\n\n${formatBundle(matched)}`
+
+    const activeHints = resolvedGroups.map(g => groupHints[g]).filter(Boolean)
+
+    if (activeHints.length > 0) {
+      text += `\n\n### ⚠️ Usage Guidance:\n${activeHints.map(h => `- ${h}`).join('\n')}`
+    }
+
+    return {
+      content: [{type: 'text', text}],
+    }
+  },
+)
+
+server.registerTool(
+  'get_design_token_specs',
+  {
+    description:
+      'CRITICAL: CALL THIS FIRST. Provides the logic matrix and the list of valid group names. You cannot search accurately without this map.',
+  },
+  async () => {
+    const groups = listTokenGroups()
+    const customRules = getDesignTokenSpecsText(groups)
+    let text: string
+    try {
+      const upstreamGuide = loadDesignTokensGuide()
+      text = `${customRules}\n\n---\n\n${upstreamGuide}`
+    } catch {
+      text = customRules
+    }
+
+    return {
+      content: [{type: 'text', text}],
+    }
+  },
+)
+
+server.registerTool(
+  'get_token_usage_patterns',
+  {
+    description:
+      'Provides "Golden Example" CSS for core patterns: Button (Interactions) and Stack (Layout). Use this to understand how to apply the Logic Matrix, Motion, and Spacing scales.',
+  },
+  async () => {
+    const customPatterns = getTokenUsagePatternsText()
+    let text: string
+    try {
+      const guide = loadDesignTokensGuide()
+      const goldenExampleMatch = guide.match(/## Golden Example[\s\S]*?(?=\n## |$)/)
+      if (goldenExampleMatch) {
+        text = `${customPatterns}\n\n---\n\n${goldenExampleMatch[0].trim()}`
+      } else {
+        text = customPatterns
+      }
+    } catch {
+      text = customPatterns
+    }
+
+    return {
+      content: [{type: 'text', text}],
+    }
+  },
+)
+
+server.registerTool(
+  'lint_css',
+  {
+    description:
+      'REQUIRED FINAL STEP. Use this to validate your CSS. You cannot complete a task involving CSS without a successful run of this tool.',
+    inputSchema: {css: z.string()},
+  },
+  async ({css}) => {
+    try {
+      // --fix flag tells Stylelint to repair what it can
+      const {stdout} = await runStylelint(css)
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: stdout || '✅ Stylelint passed (or was successfully autofixed).',
+          },
+        ],
+      }
+    } catch (error: unknown) {
+      // If Stylelint still has errors it CANNOT fix, it will land here
+      const errorOutput =
+        error instanceof Error && 'stdout' in error ? (error as Error & {stdout: string}).stdout : String(error)
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `❌ Errors without autofix remaining:\n${errorOutput}`,
+          },
+        ],
+      }
+    }
+  },
+)
 
 // -----------------------------------------------------------------------------
 // Foundations
 // -----------------------------------------------------------------------------
-server.tool('get_color_usage', 'Get the guidelines for how to apply color to a user interface', async () => {
-  const url = new URL(`/product/getting-started/foundations/color-usage`, 'https://primer.style')
-  const response = await fetch(url)
-  if (!response.ok) {
-    throw new Error(`Failed to fetch ${url} - ${response.statusText}`)
-  }
-
-  const html = await response.text()
-  if (!html) {
-    return {
-      content: [],
+server.registerTool(
+  'get_color_usage',
+  {description: 'Get the guidelines for how to apply color to a user interface'},
+  async () => {
+    const url = new URL(`/product/getting-started/foundations/color-usage`, 'https://primer.style')
+    const response = await fetch(url)
+    if (!response.ok) {
+      throw new Error(`Failed to fetch ${url} - ${response.statusText}`)
     }
-  }
 
-  const $ = cheerio.load(html)
-  const source = $('main').html()
-  if (!source) {
-    return {
-      content: [],
+    const html = await response.text()
+    if (!html) {
+      return {
+        content: [],
+      }
     }
-  }
 
-  const text = turndownService.turndown(source)
-
-  return {
-    content: [
-      {
-        type: 'text',
-        text: `Here is the documentation for color usage in Primer:\n\n${text}`,
-      },
-    ],
-  }
-})
-
-server.tool('get_typography_usage', 'Get the guidelines for how to apply typography to a user interface', async () => {
-  const url = new URL(`/product/getting-started/foundations/typography`, 'https://primer.style')
-  const response = await fetch(url)
-  if (!response.ok) {
-    throw new Error(`Failed to fetch ${url} - ${response.statusText}`)
-  }
-
-  const html = await response.text()
-  if (!html) {
-    return {
-      content: [],
+    const $ = cheerio.load(html)
+    const source = $('main').html()
+    if (!source) {
+      return {
+        content: [],
+      }
     }
-  }
 
-  const $ = cheerio.load(html)
-  const source = $('main').html()
-  if (!source) {
+    const text = turndownService.turndown(source)
+
     return {
-      content: [],
+      content: [
+        {
+          type: 'text',
+          text: `Here is the documentation for color usage in Primer:\n\n${text}`,
+        },
+      ],
     }
-  }
+  },
+)
 
-  const text = turndownService.turndown(source)
+server.registerTool(
+  'get_typography_usage',
+  {description: 'Get the guidelines for how to apply typography to a user interface'},
+  async () => {
+    const url = new URL(`/product/getting-started/foundations/typography`, 'https://primer.style')
+    const response = await fetch(url)
+    if (!response.ok) {
+      throw new Error(`Failed to fetch ${url} - ${response.statusText}`)
+    }
 
-  return {
-    content: [
-      {
-        type: 'text',
-        text: `Here is the documentation for typography usage in Primer:\n\n${text}`,
-      },
-    ],
-  }
-})
+    const html = await response.text()
+    if (!html) {
+      return {
+        content: [],
+      }
+    }
+
+    const $ = cheerio.load(html)
+    const source = $('main').html()
+    if (!source) {
+      return {
+        content: [],
+      }
+    }
+
+    const text = turndownService.turndown(source)
+
+    return {
+      content: [
+        {
+          type: 'text',
+          text: `Here is the documentation for typography usage in Primer:\n\n${text}`,
+        },
+      ],
+    }
+  },
+)
 
 // -----------------------------------------------------------------------------
 // Icons
 // -----------------------------------------------------------------------------
-server.tool('list_icons', 'List all of the icons (octicons) available from Primer Octicons React', async () => {
-  const icons = listIcons().map(icon => {
-    const keywords = icon.keywords.map(keyword => {
-      return `<keyword>${keyword}</keyword>`
+server.registerTool(
+  'list_icons',
+  {description: 'List all of the icons (octicons) available from Primer Octicons React'},
+  async () => {
+    const icons = listIcons().map(icon => {
+      const keywords = icon.keywords.map(keyword => {
+        return `<keyword>${keyword}</keyword>`
+      })
+      const sizes = icon.heights.map(height => {
+        return `<size value="${height}"></size>`
+      })
+      return [`<icon name="${icon.name}">`, ...keywords, ...sizes, `</icon>`].join('\n')
     })
-    const sizes = icon.heights.map(height => {
-      return `<size value="${height}"></size>`
-    })
-    return [`<icon name="${icon.name}">`, ...keywords, ...sizes, `</icon>`].join('\n')
-  })
 
-  return {
-    content: [
-      {
-        type: 'text',
-        text: `The following icons are available in the @primer/octicons-react package in TypeScript projects:
+    return {
+      content: [
+        {
+          type: 'text',
+          text: `The following icons are available in the @primer/octicons-react package in TypeScript projects:
 
 ${icons.join('\n')}
 
 You can use the \`get_icon\` tool to get more information about a specific icon. You can use these components from the @primer/octicons-react package.`,
-      },
-    ],
-  }
-})
+        },
+      ],
+    }
+  },
+)
 
-server.tool(
+server.registerTool(
   'get_icon',
-  'Get a specific icon (octicon) by name from Primer',
   {
-    name: z.string().describe('The name of the icon to retrieve'),
-    size: z.string().optional().describe('The size of the icon to retrieve, e.g. "16"').default('16'),
+    description: 'Get a specific icon (octicon) by name from Primer',
+    inputSchema: {
+      name: z.string().describe('The name of the icon to retrieve'),
+      size: z.string().optional().describe('The size of the icon to retrieve, e.g. "16"').default('16'),
+    },
   },
   async ({name, size}) => {
     const icons = listIcons()
@@ -593,9 +891,9 @@ ${text}`,
 // -----------------------------------------------------------------------------
 // Coding guidelines
 // -----------------------------------------------------------------------------
-server.tool(
+server.registerTool(
   'primer_coding_guidelines',
-  'Get the guidelines when writing code that uses Primer or for UI code that you are creating',
+  {description: 'Get the guidelines when writing code that uses Primer or for UI code that you are creating'},
   async () => {
     return {
       content: [
@@ -605,7 +903,7 @@ server.tool(
 
 ## Design Tokens
 
-- Prefer design tokens over hard-coded values. For example, use \`var(--fgColor-default)\` instead of \`#24292f\`. Use the \`list_tokens\` tool to find the design token you need.
+- Prefer design tokens over hard-coded values. For example, use \`var(--fgColor-default)\` instead of \`#24292f\`. Use the \`find_tokens\` tool to search for a design token by keyword or group. Use \`get_design_token_specs\` to browse available token groups, and \`get_token_group_bundle\` to retrieve all tokens within a specific group.
 - Prefer recommending design tokens in the same group for related CSS properties. For example, when styling background and border color, use tokens from the same group/category
 
 ## Authoring & Using Components
@@ -643,19 +941,15 @@ The following list of coding guidelines must be followed:
  *
  *
  **/
-server.tool(
+server.registerTool(
   'review_alt_text',
-  'Evaluates image alt text against accessibility best practices and context relevance.',
   {
-    surroundingText: z.string().describe('Text surrounding the image, relevant to the image.'),
-    alt: z.string().describe('The alt text of the image being evaluated'),
-    image: z
-      .union([
-        z.instanceof(File).describe('The image src file being evaluated'),
-        z.string().url().describe('The URL of the image src being evaluated'),
-        z.string().describe('The file path of the image src being evaluated'),
-      ])
-      .describe('The image file, file path, or URL being evaluated'),
+    description: 'Evaluates image alt text against accessibility best practices and context relevance.',
+    inputSchema: {
+      surroundingText: z.string().describe('Text surrounding the image, relevant to the image.'),
+      alt: z.string().describe('The alt text of the image being evaluated'),
+      image: z.string().describe('The image URL or file path being evaluated'),
+    },
   },
   async ({surroundingText, alt, image}) => {
     // Call the LLM through MCP sampling

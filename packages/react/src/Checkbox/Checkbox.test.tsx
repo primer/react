@@ -2,15 +2,14 @@ import {describe, expect, it, vi, beforeEach} from 'vitest'
 import {render} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Checkbox from '../Checkbox'
+import {implementsClassName} from '../utils/testing'
+import classes from './Checkbox.module.css'
 
 describe('Checkbox', () => {
+  implementsClassName(Checkbox, classes.Checkbox)
+
   beforeEach(() => {
     vi.clearAllMocks()
-  })
-
-  it('should support `className` on the outermost element', () => {
-    const Element = () => <Checkbox className={'test-class-name'} />
-    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('renders a valid checkbox input', () => {

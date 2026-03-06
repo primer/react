@@ -1,5 +1,5 @@
-import React from 'react'
-import {ActionMenu, ActionList, Button, IconButton, FormControl, TextInput} from '../'
+import React, {useState, useCallback} from 'react'
+import {ActionMenu, ActionList, Button, IconButton, FormControl, TextInput, Dialog, Text} from '../'
 import {
   GearIcon,
   MilestoneIcon,
@@ -21,6 +21,7 @@ import {
 } from '@primer/octicons-react'
 import type {AnchorPosition, AnchorSide} from '@primer/behaviors'
 import classes from './ActionMenu.examples.stories.module.css'
+import {FeatureFlags} from '../FeatureFlags'
 
 export default {
   title: 'Components/ActionMenu/Examples',
@@ -195,6 +196,9 @@ export const ControlledMenu = () => {
 }
 
 export const ShortcutMenu = () => {
+  const [open, setOpen] = React.useState(false)
+  const triggerRef = React.useRef<HTMLButtonElement>(null)
+
   React.useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.shiftKey && (event.key === 'c' || event.key === 'C')) {
@@ -204,9 +208,6 @@ export const ShortcutMenu = () => {
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [])
-
-  const [open, setOpen] = React.useState(false)
-  const triggerRef = React.useRef<HTMLButtonElement>(null)
 
   return (
     <>
@@ -270,9 +271,7 @@ export const ContextMenu = () => {
       setOpen(true)
     }
 
-    // eslint-disable-next-line react-compiler/react-compiler
     const [open, setOpen] = React.useState(false)
-    // eslint-disable-next-line react-compiler/react-compiler
     const triggerRef = React.useRef<HTMLButtonElement>(null)
 
     return (
@@ -654,5 +653,109 @@ export const DynamicAnchorSides = () => {
         <span>Current Overlay Side: {currentSide}</span>
       </div>
     </>
+  )
+}
+
+export const InsideDialog = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+
+  const onDialogClose = useCallback(() => setIsDialogOpen(false), [])
+  const openDialog = useCallback(() => setIsDialogOpen(true), [])
+
+  // Create scrollable content with multiple paragraphs
+  const scrollableContent = Array.from({length: 50}, (_, index) => (
+    <Text key={index} as="p" style={{marginBottom: '12px'}}>
+      This is paragraph {index + 1}. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+      incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+      nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+      dolore eu fugiat nulla pariatur.
+    </Text>
+  ))
+
+  return (
+    <FeatureFlags flags={{primer_react_action_menu_display_in_viewport_inside_dialog: true}}>
+      <div style={{padding: '20px'}}>
+        {/* Main scrollable content */}
+        <div>
+          <Text as="h1" style={{marginBottom: '16px'}}>
+            Main Page Content
+          </Text>
+
+          <Button onClick={openDialog} style={{margin: '16px 0'}}>
+            Open Dialog with ActionMenu
+          </Button>
+
+          {/* Show more content after the button to make it scrollable */}
+          {scrollableContent}
+        </div>
+
+        {/* Dialog containing ActionMenu */}
+        {isDialogOpen && (
+          <Dialog title="Dialog with ActionMenu" onClose={onDialogClose} width="medium">
+            <Text as="p" style={{marginBottom: '12px'}}>
+              This dialog contains an ActionMenu. The main page content behind is long enough to be scrollable.
+            </Text>
+
+            <Text as="h3" style={{marginBottom: '8px', fontWeight: '600'}}>
+              Document Settings
+            </Text>
+
+            <Text as="p" style={{marginBottom: '16px', color: '#656d76'}}>
+              Configure the document properties and sharing settings. These options allow you to control how the
+              document is displayed and who has access to it.
+            </Text>
+
+            <ActionMenu>
+              <ActionMenu.Button>Actions</ActionMenu.Button>
+              <ActionMenu.Overlay width="medium">
+                <ActionList>
+                  <ActionList.Item onSelect={() => alert('Save clicked')}>
+                    Save
+                    <ActionList.TrailingVisual>⌘S</ActionList.TrailingVisual>
+                  </ActionList.Item>
+                  <ActionList.Item onSelect={() => alert('Save as clicked')}>
+                    Save as...
+                    <ActionList.TrailingVisual>⌘⇧S</ActionList.TrailingVisual>
+                  </ActionList.Item>
+                  <ActionList.Item onSelect={() => alert('Export clicked')}>
+                    Export
+                    <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
+                  </ActionList.Item>
+                  <ActionList.Item onSelect={() => alert('Print clicked')}>
+                    Print
+                    <ActionList.TrailingVisual>⌘P</ActionList.TrailingVisual>
+                  </ActionList.Item>
+                  <ActionList.Divider />
+                  <ActionList.Item onSelect={() => alert('Copy clicked')}>
+                    Copy
+                    <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+                  </ActionList.Item>
+                  <ActionList.Item onSelect={() => alert('Paste clicked')}>
+                    Paste
+                    <ActionList.TrailingVisual>⌘V</ActionList.TrailingVisual>
+                  </ActionList.Item>
+                  <ActionList.Item onSelect={() => alert('Duplicate clicked')}>
+                    Duplicate
+                    <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+                  </ActionList.Item>
+                  <ActionList.Divider />
+                  <ActionList.Item onSelect={() => alert('Share clicked')}>
+                    Share
+                    <ActionList.TrailingVisual>⌘⇧U</ActionList.TrailingVisual>
+                  </ActionList.Item>
+                  <ActionList.Item onSelect={() => alert('Share via email clicked')}>Share via email</ActionList.Item>
+                  <ActionList.Item onSelect={() => alert('Share via link clicked')}>Share via link</ActionList.Item>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+
+            <Text as="p" style={{marginTop: '12px'}}>
+              You can interact with the ActionMenu above while the main page content remains scrollable in the
+              background.
+            </Text>
+          </Dialog>
+        )}
+      </div>
+    </FeatureFlags>
   )
 }

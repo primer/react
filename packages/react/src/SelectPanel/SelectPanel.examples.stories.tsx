@@ -1,4 +1,4 @@
-import React, {useState, useMemo, useRef, useEffect} from 'react'
+import React, {useState, useMemo, useRef, useEffect, useCallback} from 'react'
 import type {Meta} from '@storybook/react-vite'
 import {Button} from '../Button'
 import type {ItemInput} from '../FilteredActionList'
@@ -10,6 +10,7 @@ import FormControl from '../FormControl'
 import {Stack} from '../Stack'
 import {Dialog} from '../experimental'
 import styles from './SelectPanel.examples.stories.module.css'
+import {useVirtualizer, type VirtualItem} from '@tanstack/react-virtual'
 import Checkbox from '../Checkbox'
 import Label from '../Label'
 
@@ -140,8 +141,8 @@ export const HeightInitialWithUnderflowingItemsAfterFetch = () => {
     <FormControl>
       <FormControl.Label>Labels</FormControl.Label>
       <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
             {children}
           </Button>
         )}
@@ -172,8 +173,8 @@ export const AboveTallBody = () => {
     <FormControl>
       <FormControl.Label>Labels</FormControl.Label>
       <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
             {children}
           </Button>
         )}
@@ -362,7 +363,6 @@ export const RepositionAfterLoading = () => {
         setLoading(false)
       }
     }, 2000)
-    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open])
 
@@ -370,7 +370,6 @@ export const RepositionAfterLoading = () => {
     if (!loading) {
       setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
     }
-    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter])
 
@@ -411,7 +410,6 @@ export const SelectPanelRepositionInsideDialog = () => {
         setLoading(false)
       }
     }, 2000)
-    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open])
 
@@ -419,7 +417,6 @@ export const SelectPanelRepositionInsideDialog = () => {
     if (!loading) {
       setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
     }
-    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter])
 
@@ -476,8 +473,16 @@ export const WithDefaultMessage = () => {
   )
 }
 
-const NUMBER_OF_ITEMS = 500
+const NUMBER_OF_ITEMS = 1800
 const lotsOfItems = Array.from({length: NUMBER_OF_ITEMS}, (_, index) => {
+  if (index === 5) {
+    return {
+      id: index,
+      text: `This is being used to show what would happen if you returned an item that needed text wrapping`,
+      description: `Description ${index}`,
+      leadingVisual: getColorCircle('#a2eeef'),
+    }
+  }
   return {
     id: index,
     text: `Item ${index}`,
@@ -585,5 +590,254 @@ export const RenderMoreOnScroll = () => {
         />
       </FormControl>
     </form>
+  )
+}
+
+const DEFAULT_VIRTUAL_ITEM_HEIGHT = 35
+
+export const VirtualizedConsumerSide = () => {
+  const [selected, setSelected] = useState<ItemInput[]>([])
+  const [open, setOpen] = useState(false)
+  const [renderSubset, setRenderSubset] = useState(true)
+
+  const [filter, setFilter] = useState('')
+  const [scrollContainer, setScrollContainer] = useState<HTMLDivElement | null>(null)
+  const filteredItems = lotsOfItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+
+  /* perf measurement logic start */
+  const timeBeforeOpen = useRef<number>()
+  const timeAfterOpen = useRef<number>()
+  const [timeTakenToOpen, setTimeTakenToOpen] = useState<number>()
+
+  const onOpenChange = () => {
+    if (!open) timeBeforeOpen.current = performance.now()
+    setOpen(!open)
+  }
+  useEffect(
+    function measureTimeAfterOpen() {
+      if (open) {
+        timeAfterOpen.current = performance.now()
+        if (timeBeforeOpen.current) setTimeTakenToOpen(timeAfterOpen.current - timeBeforeOpen.current)
+      }
+    },
+    [open],
+  )
+
+  const virtualizer = useVirtualizer({
+    count: filteredItems.length,
+    getScrollElement: () => scrollContainer ?? null,
+    estimateSize: () => DEFAULT_VIRTUAL_ITEM_HEIGHT,
+    overscan: 5,
+    enabled: renderSubset,
+    getItemKey: index => filteredItems[index].id,
+    measureElement: el => {
+      return (el as HTMLElement).scrollHeight
+    },
+  })
+
+  return (
+    <form>
+      <FormControl>
+        <FormControl.Label>Render subset of items on initial open</FormControl.Label>
+        <FormControl.Caption>
+          {renderSubset
+            ? 'Uses virtualization to render visible items efficiently'
+            : `Loads all ${NUMBER_OF_ITEMS} items at once without virtualization`}
+        </FormControl.Caption>
+        <Checkbox
+          checked={renderSubset}
+          onChange={() => {
+            setRenderSubset(!renderSubset)
+            setTimeTakenToOpen(undefined)
+          }}
+        />
+      </FormControl>
+      <p>
+        Time taken (ms) to render initial {renderSubset ? 50 : NUMBER_OF_ITEMS} items:{' '}
+        {timeTakenToOpen ? <Label>{timeTakenToOpen.toFixed(2)} ms</Label> : '(click "Select Labels" to open)'}
+      </p>
+      <FormControl>
+        <FormControl.Label>Labels</FormControl.Label>
+        <SelectPanel
+          title="Select labels"
+          placeholder="Select labels"
+          subtitle="Use labels to organize issues and pull requests"
+          renderAnchor={({children, ...anchorProps}) => (
+            <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+              {children}
+            </Button>
+          )}
+          open={open}
+          onOpenChange={onOpenChange}
+          items={
+            renderSubset
+              ? virtualizer.getVirtualItems().map((virtualItem: VirtualItem) => {
+                  const item = filteredItems[virtualItem.index]
+
+                  return {
+                    ...item,
+                    key: item.id,
+                    'data-index': virtualItem.index,
+                    ref: (node: Element | null) => {
+                      if (node && node.getAttribute('data-index')) {
+                        virtualizer.measureElement(node)
+                      }
+                    },
+                    style: {
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: `${virtualItem.size}px`,
+                      transform: `translateY(${virtualItem.start}px)`,
+                    },
+                  }
+                })
+              : filteredItems
+          }
+          selected={selected}
+          onSelectedChange={setSelected}
+          onFilterChange={setFilter}
+          width="medium"
+          height="large"
+          message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+          overlayProps={{
+            id: 'select-labels-panel-dialog',
+          }}
+          onActiveDescendantChanged={useCallback(
+            (newActivedescendant: HTMLElement | undefined) => {
+              const index = newActivedescendant?.getAttribute('data-index')
+              const range = virtualizer.range
+              if (newActivedescendant === undefined) return
+              if (index && range && (Number(index) < range.startIndex || Number(index) >= range.endIndex)) {
+                virtualizer.scrollToIndex(Number(newActivedescendant.getAttribute('data-index')), {align: 'auto'})
+              }
+            },
+            [virtualizer],
+          )}
+          focusOutBehavior="stop"
+          scrollContainerRef={node => setScrollContainer(node)}
+          actionListProps={{
+            style: renderSubset
+              ? {
+                  height: virtualizer.getTotalSize(),
+                  width: '100%',
+                  position: 'relative' as const,
+                }
+              : undefined,
+          }}
+        />
+      </FormControl>
+    </form>
+  )
+}
+
+export const VirtualizedBuiltIn = () => {
+  const [selectedA, setSelectedA] = useState<ItemInput[]>([])
+  const [selectedB, setSelectedB] = useState<ItemInput[]>([])
+  const [filterA, setFilterA] = useState('')
+  const [filterB, setFilterB] = useState('')
+
+  const filteredItemsA = lotsOfItems.filter(item => item.text.toLowerCase().startsWith(filterA.toLowerCase()))
+  const filteredItemsB = lotsOfItems.filter(item => item.text.toLowerCase().startsWith(filterB.toLowerCase()))
+
+  const [openA, setOpenA] = useState(false)
+  const [openB, setOpenB] = useState(false)
+
+  /* perf measurement: non-virtualized */
+  const timeBeforeOpenA = useRef<number>()
+  const timeAfterOpenA = useRef<number>()
+  const [timeTakenA, setTimeTakenA] = useState<number>()
+
+  const onOpenChangeA = () => {
+    if (!openA) timeBeforeOpenA.current = performance.now()
+    setOpenA(!openA)
+  }
+  useEffect(
+    function measureA() {
+      if (openA) {
+        timeAfterOpenA.current = performance.now()
+        if (timeBeforeOpenA.current) setTimeTakenA(timeAfterOpenA.current - timeBeforeOpenA.current)
+      }
+    },
+    [openA],
+  )
+
+  /* perf measurement: virtualized */
+  const timeBeforeOpenB = useRef<number>()
+  const timeAfterOpenB = useRef<number>()
+  const [timeTakenB, setTimeTakenB] = useState<number>()
+
+  const onOpenChangeB = () => {
+    if (!openB) timeBeforeOpenB.current = performance.now()
+    setOpenB(!openB)
+  }
+  useEffect(
+    function measureB() {
+      if (openB) {
+        timeAfterOpenB.current = performance.now()
+        if (timeBeforeOpenB.current) setTimeTakenB(timeAfterOpenB.current - timeBeforeOpenB.current)
+      }
+    },
+    [openB],
+  )
+
+  return (
+    <Stack direction="horizontal" gap="normal">
+      <form>
+        <h3>Without virtualization</h3>
+        <p>Time to open (ms): {timeTakenA ? <Label>{timeTakenA.toFixed(2)} ms</Label> : '(click to open)'}</p>
+        <FormControl>
+          <FormControl.Label>Labels ({NUMBER_OF_ITEMS} items)</FormControl.Label>
+          <SelectPanel
+            title="Select labels"
+            placeholder="Select labels"
+            subtitle={`${NUMBER_OF_ITEMS} items — no virtualization`}
+            renderAnchor={({children, ...anchorProps}) => (
+              <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+                {children}
+              </Button>
+            )}
+            open={openA}
+            onOpenChange={onOpenChangeA}
+            items={filteredItemsA}
+            selected={selectedA}
+            onSelectedChange={setSelectedA}
+            onFilterChange={setFilterA}
+            width="medium"
+            height="large"
+            message={filteredItemsA.length === 0 ? NoResultsMessage(filterA) : undefined}
+          />
+        </FormControl>
+      </form>
+
+      <form>
+        <h3>With virtualization</h3>
+        <p>Time to open (ms): {timeTakenB ? <Label>{timeTakenB.toFixed(2)} ms</Label> : '(click to open)'}</p>
+        <FormControl>
+          <FormControl.Label>Labels ({NUMBER_OF_ITEMS} items, virtualized)</FormControl.Label>
+          <SelectPanel
+            title="Select labels"
+            placeholder="Select labels"
+            subtitle={`${NUMBER_OF_ITEMS} items — virtualized`}
+            renderAnchor={({children, ...anchorProps}) => (
+              <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+                {children}
+              </Button>
+            )}
+            open={openB}
+            onOpenChange={onOpenChangeB}
+            items={filteredItemsB}
+            selected={selectedB}
+            onSelectedChange={setSelectedB}
+            onFilterChange={setFilterB}
+            virtualized
+            width="medium"
+            height="large"
+            message={filteredItemsB.length === 0 ? NoResultsMessage(filterB) : undefined}
+          />
+        </FormControl>
+      </form>
+    </Stack>
   )
 }

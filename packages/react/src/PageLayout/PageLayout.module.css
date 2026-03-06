@@ -1,13 +1,13 @@
-/* Maintain resize cursor while dragging */
-/* stylelint-disable-next-line selector-no-qualifying-type */
-body[data-page-layout-dragging='true'] {
-  cursor: col-resize;
-}
-
-/* Disable text selection while dragging */
-/* stylelint-disable-next-line selector-no-qualifying-type */
-body[data-page-layout-dragging='true'] * {
-  user-select: none;
+/* Exported values for JavaScript consumption */
+:export {
+  /* Breakpoint where --pane-max-width-diff changes (used in usePaneWidth.ts) */
+  paneMaxWidthDiffBreakpoint: 1280;
+  /* Default value for --pane-max-width-diff below the breakpoint */
+  paneMaxWidthDiffDefault: 511;
+  /* Default value for --sidebar-max-width-diff (constant across all viewports) */
+  sidebarMaxWidthDiffDefault: 256;
+  /* Value for --pane-max-width-diff at/above the breakpoint */
+  paneMaxWidthDiffWide: 959;
 }
 
 .PageLayoutRoot {
@@ -31,7 +31,10 @@ body[data-page-layout-dragging='true'] * {
   --pane-width-small: 100%;
   --pane-width-medium: 100%;
   --pane-width-large: 100%;
+  /* NOTE: This value is exported via :export for use in usePaneWidth.ts */
   --pane-max-width-diff: 511px;
+  /* Sidebar uses a smaller diff since it doesn't need to reserve space for a file tree pane */
+  --sidebar-max-width-diff: 256px;
 
   @media screen and (min-width: 768px) {
     --pane-width-small: 240px;
@@ -45,6 +48,7 @@ body[data-page-layout-dragging='true'] * {
     --pane-width-large: 320px;
   }
 
+  /* NOTE: This breakpoint value is exported via :export for use in usePaneWidth.ts */
   @media screen and (min-width: 1280px) {
     --pane-max-width-diff: 959px;
   }
@@ -70,6 +74,9 @@ body[data-page-layout-dragging='true'] * {
   margin-right: auto;
   margin-left: auto;
   flex-wrap: wrap;
+  /* the wrapper should match the Root's dimensions by default */
+  width: 100%;
+  height: 100%;
 
   &:where([data-width='medium']) {
     max-width: 768px;
@@ -93,6 +100,10 @@ body[data-page-layout-dragging='true'] * {
   flex: 1 1 100%;
   flex-wrap: wrap;
   max-width: 100%;
+
+  @media (--viewportRange-narrow) {
+    flex-direction: column;
+  }
 }
 
 .HorizontalDivider {
@@ -120,6 +131,78 @@ body[data-page-layout-dragging='true'] * {
       /* stylelint-disable-next-line primer/box-shadow */
       inset 0 -1px 0 0 var(--borderColor-default),
       inset 0 1px 0 0 var(--borderColor-default);
+  }
+
+  /* Narrow viewport */
+  @media (--viewportRange-narrow) {
+    &:where([data-variant-narrow='none']) {
+      display: none;
+    }
+
+    &:where([data-variant-narrow='line']) {
+      display: block;
+      height: 1px;
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--borderColor-default);
+    }
+
+    &:where([data-variant-narrow='filled']) {
+      display: block;
+      height: var(--base-size-8);
+      background-color: var(--bgColor-inset);
+      box-shadow:
+        /* stylelint-disable-next-line primer/box-shadow */
+        inset 0 -1px 0 0 var(--borderColor-default),
+        inset 0 1px 0 0 var(--borderColor-default);
+    }
+  }
+
+  /* Regular viewport */
+  @media (--viewportRange-regular) {
+    &:where([data-variant-regular='none']) {
+      display: none;
+    }
+
+    &:where([data-variant-regular='line']) {
+      display: block;
+      height: 1px;
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--borderColor-default);
+    }
+
+    &:where([data-variant-regular='filled']) {
+      display: block;
+      height: var(--base-size-8);
+      background-color: var(--bgColor-inset);
+      box-shadow:
+        /* stylelint-disable-next-line primer/box-shadow */
+        inset 0 -1px 0 0 var(--borderColor-default),
+        inset 0 1px 0 0 var(--borderColor-default);
+    }
+  }
+
+  /* Wide viewport */
+  @media (--viewportRange-wide) {
+    &:where([data-variant-wide='none']) {
+      display: none;
+    }
+
+    &:where([data-variant-wide='line']) {
+      display: block;
+      height: 1px;
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--borderColor-default);
+    }
+
+    &:where([data-variant-wide='filled']) {
+      display: block;
+      height: var(--base-size-8);
+      background-color: var(--bgColor-inset);
+      box-shadow:
+        /* stylelint-disable-next-line primer/box-shadow */
+        inset 0 -1px 0 0 var(--borderColor-default),
+        inset 0 1px 0 0 var(--borderColor-default);
+    }
   }
 
   @media screen and (min-width: 768px) {
@@ -152,12 +235,109 @@ body[data-page-layout-dragging='true'] * {
       inset -1px 0 0 0 var(--borderColor-default),
       inset 1px 0 0 0 var(--borderColor-default);
   }
+
+  /* Narrow viewport */
+  @media (--viewportRange-narrow) {
+    &:where([data-variant-narrow='none']) {
+      display: none;
+    }
+
+    &:where([data-variant-narrow='line']) {
+      display: block;
+      width: 1px;
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--borderColor-default);
+    }
+
+    &:where([data-variant-narrow='filled']) {
+      display: block;
+      width: var(--base-size-8);
+      background-color: var(--bgColor-inset);
+      box-shadow:
+        /* stylelint-disable-next-line primer/box-shadow */
+        inset -1px 0 0 0 var(--borderColor-default),
+        inset 1px 0 0 0 var(--borderColor-default);
+    }
+  }
+
+  /* Regular viewport */
+  @media (--viewportRange-regular) {
+    &:where([data-variant-regular='none']) {
+      display: none;
+    }
+
+    &:where([data-variant-regular='line']) {
+      display: block;
+      width: 1px;
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--borderColor-default);
+    }
+
+    &:where([data-variant-regular='filled']) {
+      display: block;
+      width: var(--base-size-8);
+      background-color: var(--bgColor-inset);
+      box-shadow:
+        /* stylelint-disable-next-line primer/box-shadow */
+        inset -1px 0 0 0 var(--borderColor-default),
+        inset 1px 0 0 0 var(--borderColor-default);
+    }
+  }
+
+  /* Wide viewport */
+  @media (--viewportRange-wide) {
+    &:where([data-variant-wide='none']) {
+      display: none;
+    }
+
+    &:where([data-variant-wide='line']) {
+      display: block;
+      width: 1px;
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--borderColor-default);
+    }
+
+    &:where([data-variant-wide='filled']) {
+      display: block;
+      width: var(--base-size-8);
+      background-color: var(--bgColor-inset);
+      box-shadow:
+        /* stylelint-disable-next-line primer/box-shadow */
+        inset -1px 0 0 0 var(--borderColor-default),
+        inset 1px 0 0 0 var(--borderColor-default);
+    }
+  }
 }
 
 .Header {
   width: 100%;
   /* stylelint-disable-next-line primer/spacing */
   margin-bottom: var(--spacing);
+
+  &:where([data-hidden='true']) {
+    display: none;
+  }
+
+  /* Narrow viewport */
+  @media (--viewportRange-narrow) {
+    &:where([data-hidden-narrow='true']) {
+      display: none;
+    }
+  }
+
+  /* Regular viewport */
+  @media (--viewportRange-regular) {
+    &:where([data-hidden-regular='true']) {
+      display: none;
+    }
+  }
+
+  /* Wide viewport */
+  @media (--viewportRange-wide) {
+    &:where([data-hidden-wide='true']) {
+      display: none;
+    }
+  }
 }
 
 .HeaderContent {
@@ -172,6 +352,7 @@ body[data-page-layout-dragging='true'] * {
 
 .ContentWrapper {
   display: flex;
+  width: 100%;
 
   /* Hack to prevent overflowing content from pushing the pane region to the next line */
   min-width: 1px;
@@ -187,6 +368,27 @@ body[data-page-layout-dragging='true'] * {
 
   &:where([data-is-hidden='true']) {
     display: none;
+  }
+
+  /* Narrow viewport */
+  @media (--viewportRange-narrow) {
+    &:where([data-is-hidden-narrow='true']) {
+      display: none;
+    }
+  }
+
+  /* Regular viewport */
+  @media (--viewportRange-regular) {
+    &:where([data-is-hidden-regular='true']) {
+      display: none;
+    }
+  }
+
+  /* Wide viewport */
+  @media (--viewportRange-wide) {
+    &:where([data-is-hidden-wide='true']) {
+      display: none;
+    }
   }
 }
 
@@ -226,21 +428,49 @@ body[data-page-layout-dragging='true'] * {
     display: none;
   }
 
-  &:where([data-position='end']) {
-    /* stylelint-disable-next-line primer/spacing */
-    margin-top: var(--spacing-row);
-    flex-direction: column;
-    order: var(--region-order-pane-end);
+  /* Narrow viewport */
+  @media (--viewportRange-narrow) {
+    &:where([data-is-hidden-narrow='true']) {
+      display: none;
+    }
+
+    &:where([data-position-narrow='end']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-top: var(--spacing-row);
+      flex-direction: column;
+      order: var(--region-order-pane-end);
+    }
+
+    &:where([data-position-narrow='start']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-bottom: var(--spacing-row);
+      flex-direction: column-reverse;
+      order: var(--region-order-pane-start);
+    }
   }
 
-  &:where([data-position='start']) {
-    /* stylelint-disable-next-line primer/spacing */
-    margin-bottom: var(--spacing-row);
-    flex-direction: column-reverse;
-    order: var(--region-order-pane-start);
+  /* Base position (non-responsive) - applies at narrow viewports only */
+  @media (--viewportRange-narrow) {
+    &:where([data-position='end']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-top: var(--spacing-row);
+      flex-direction: column;
+      order: var(--region-order-pane-end);
+    }
+
+    &:where([data-position='start']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-bottom: var(--spacing-row);
+      flex-direction: column-reverse;
+      order: var(--region-order-pane-start);
+    }
   }
 
   @media screen and (min-width: 768px) {
+    &:where([data-is-hidden-regular='true']) {
+      display: none;
+    }
+
     width: auto;
     margin-top: 0 !important;
     margin-bottom: 0 !important;
@@ -252,21 +482,59 @@ body[data-page-layout-dragging='true'] * {
       max-height: 100vh;
     }
 
+    /* Base position (non-responsive) - applies at regular+ viewports */
     &:where([data-position='end']) {
       /* stylelint-disable-next-line primer/spacing */
       margin-left: var(--spacing-column);
       flex-direction: row-reverse;
+      order: var(--region-order-pane-end);
     }
 
     &:where([data-position='start']) {
       /* stylelint-disable-next-line primer/spacing */
       margin-right: var(--spacing-column);
       flex-direction: row;
+      order: var(--region-order-pane-start);
+    }
+
+    &:where([data-position-regular='end']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-left: var(--spacing-column);
+      flex-direction: row-reverse;
+      order: var(--region-order-pane-end);
+    }
+
+    &:where([data-position-regular='start']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-right: var(--spacing-column);
+      flex-direction: row;
+      order: var(--region-order-pane-start);
+    }
+  }
+
+  @media (--viewportRange-wide) {
+    &:where([data-is-hidden-wide='true']) {
+      display: none;
+    }
+
+    &:where([data-position-wide='end']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-left: var(--spacing-column);
+      flex-direction: row-reverse;
+      order: var(--region-order-pane-end);
+    }
+
+    &:where([data-position-wide='start']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-right: var(--spacing-column);
+      flex-direction: row;
+      order: var(--region-order-pane-start);
     }
   }
 }
 
 .PaneVerticalDivider {
+  /* Base position (non-responsive) */
   &:where([data-position='start']) {
     /* stylelint-disable-next-line primer/spacing */
     margin-left: var(--spacing);
@@ -275,6 +543,49 @@ body[data-page-layout-dragging='true'] * {
   &:where([data-position='end']) {
     /* stylelint-disable-next-line primer/spacing */
     margin-right: var(--spacing);
+  }
+
+  /* Responsive position */
+  @media (--viewportRange-narrow) {
+    &:where([data-position-narrow='start']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-left: var(--spacing);
+      margin-right: 0;
+    }
+
+    &:where([data-position-narrow='end']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-right: var(--spacing);
+      margin-left: 0;
+    }
+  }
+
+  @media (--viewportRange-regular) {
+    &:where([data-position-regular='start']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-left: var(--spacing);
+      margin-right: 0;
+    }
+
+    &:where([data-position-regular='end']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-right: var(--spacing);
+      margin-left: 0;
+    }
+  }
+
+  @media (--viewportRange-wide) {
+    &:where([data-position-wide='start']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-left: var(--spacing);
+      margin-right: 0;
+    }
+
+    &:where([data-position-wide='end']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-right: var(--spacing);
+      margin-left: 0;
+    }
   }
 }
 
@@ -291,6 +602,10 @@ body[data-page-layout-dragging='true'] * {
     width: 100%;
 
     @media screen and (min-width: 768px) {
+      /*
+       * --pane-max-width is set by JS on mount and updated on resize (debounced).
+       * JS calculates viewport - margin to avoid scrollbar discrepancy with 100vw.
+       */
       width: clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width));
     }
   }
@@ -306,6 +621,49 @@ body[data-page-layout-dragging='true'] * {
     /* stylelint-disable-next-line primer/spacing */
     margin-bottom: var(--spacing);
   }
+
+  /* Responsive position */
+  @media (--viewportRange-narrow) {
+    &:where([data-position-narrow='start']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-top: var(--spacing);
+      margin-bottom: 0;
+    }
+
+    &:where([data-position-narrow='end']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-bottom: var(--spacing);
+      margin-top: 0;
+    }
+  }
+
+  @media (--viewportRange-regular) {
+    &:where([data-position-regular='start']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-top: var(--spacing);
+      margin-bottom: 0;
+    }
+
+    &:where([data-position-regular='end']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-bottom: var(--spacing);
+      margin-top: 0;
+    }
+  }
+
+  @media (--viewportRange-wide) {
+    &:where([data-position-wide='start']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-top: var(--spacing);
+      margin-bottom: 0;
+    }
+
+    &:where([data-position-wide='end']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-bottom: var(--spacing);
+      margin-top: 0;
+    }
+  }
 }
 
 .FooterWrapper {
@@ -314,6 +672,31 @@ body[data-page-layout-dragging='true'] * {
 
   /* stylelint-disable-next-line primer/spacing */
   margin-top: var(--spacing);
+
+  &:where([data-hidden='true']) {
+    display: none;
+  }
+
+  /* Narrow viewport */
+  @media (--viewportRange-narrow) {
+    &:where([data-hidden-narrow='true']) {
+      display: none;
+    }
+  }
+
+  /* Regular viewport */
+  @media (--viewportRange-regular) {
+    &:where([data-hidden-regular='true']) {
+      display: none;
+    }
+  }
+
+  /* Wide viewport */
+  @media (--viewportRange-wide) {
+    &:where([data-hidden-wide='true']) {
+      display: none;
+    }
+  }
 }
 
 .FooterHorizontalDivider {
@@ -326,22 +709,180 @@ body[data-page-layout-dragging='true'] * {
   padding: var(--spacing);
 }
 
+/**
+ * DraggableHandle - Interactive resize handle
+ */
 .DraggableHandle {
   position: absolute;
   inset: 0 -2px;
   cursor: col-resize;
-  background-color: transparent;
-  transition-delay: 0.1s;
+
+  /* Prevent touch scrolling and text selection during drag */
+  touch-action: none;
+  user-select: none;
 }
 
-.DraggableHandle:hover {
-  background-color: var(--bgColor-neutral-muted);
+.DraggableHandle::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* stylelint-disable-next-line primer/colors */
+  background-color: var(--draggable-handle--bg-color, var(--bgColor-neutral-muted));
+  opacity: var(--draggable-handle--drag-opacity, 0);
+  transition: var(--draggable-handle--transition, opacity 150ms ease); /* compositor-friendly, disabled during drag */
+  border-radius: inherit; /* optional if you need rounded corners */
 }
 
-.DraggableHandle[data-dragging='true'] {
-  background-color: var(--bgColor-accent-emphasis);
+/* Hover effect */
+.DraggableHandle:hover::before {
+  opacity: 1;
 }
 
-.DraggableHandle[data-dragging='true']:hover {
-  background-color: var(--bgColor-accent-emphasis);
+/**
+ * OPTIMIZATION: CSS containment during drag/resize
+ * Direct attribute selectors are O(1) - only the attributed element is invalidated
+ * (Unlike descendant selectors which require O(n) traversal)
+ */
+.Pane[data-dragging='true'],
+.ContentWrapper[data-dragging='true'] {
+  contain: layout style paint;
+  pointer-events: none;
+}
+
+/* Sidebar */
+.PageLayoutRoot:where([data-has-sidebar]) {
+  /* Note: Sidebar styles are only applied when the PageLayout has a Sidebar child
+    via `[data-has-sidebar`]` on the root element
+  */
+  display: flex;
+  /*
+    Current layout structure for Sidebar support:
+    -- [Sidebar] | [Header + Content + Footer] | [Sidebar] --
+  */
+  flex-direction: row;
+}
+
+:where([data-has-sidebar]) > .PageLayoutWrapper {
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.SidebarWrapper {
+  /* Current layout structure:
+    -- [Sidebar] | [Resizable Divider] --
+  */
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  height: 100%;
+
+  &:where([data-is-hidden='true']) {
+    display: none;
+  }
+
+  /* Position: start (left side) */
+  &:where([data-position='start']) {
+    order: -1;
+    /* stylelint-disable-next-line primer/spacing */
+    margin-right: var(--spacing-column);
+  }
+
+  /* Position: end (right side) */
+  &:where([data-position='end']) {
+    order: 1;
+    /* stylelint-disable-next-line primer/spacing */
+    margin-left: var(--spacing-column);
+  }
+
+  /* Sticky sidebar */
+  &:where([data-sticky]) {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+  }
+
+  /* Narrow viewport */
+  @media (--viewportRange-narrow) {
+    &:where([data-is-hidden-narrow='true']) {
+      display: none;
+    }
+
+    /* Fullscreen mode at narrow viewport */
+    &:where([data-responsive-variant='fullscreen']) {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      min-width: unset;
+      max-width: unset;
+      border-radius: 0;
+      z-index: 999;
+      background-color: var(--bgColor-default);
+    }
+  }
+
+  /* Regular viewport */
+  @media (--viewportRange-regular) {
+    &:where([data-is-hidden-regular='true']) {
+      display: none;
+    }
+  }
+
+  /* Wide viewport */
+  @media (--viewportRange-wide) {
+    &:where([data-is-hidden-wide='true']) {
+      display: none;
+    }
+  }
+}
+
+.Sidebar {
+  width: var(--pane-width-size);
+  height: 100%;
+  overflow: auto;
+
+  &:where([data-resizable]) {
+    width: 100%;
+
+    @media screen and (min-width: 768px) {
+      width: clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width));
+    }
+  }
+
+  /* In fullscreen mode at narrow, sidebar takes full available space */
+  @media (--viewportRange-narrow) {
+    :where([data-responsive-variant='fullscreen']) > & {
+      width: 100%;
+      height: 100%;
+      min-width: unset;
+      max-width: unset;
+    }
+  }
+}
+
+.SidebarVerticalDivider {
+  height: auto;
+  /* Base position (non-responsive) */
+  &:where([data-position='start']) {
+    /* stylelint-disable-next-line primer/spacing */
+    margin-left: var(--spacing-column);
+  }
+
+  &:where([data-position='end']) {
+    /* stylelint-disable-next-line primer/spacing */
+    margin-right: var(--spacing-column);
+  }
+
+  /* Hide divider in fullscreen mode at narrow viewport */
+  @media (--viewportRange-narrow) {
+    :where([data-responsive-variant='fullscreen']) > & {
+      display: none;
+    }
+  }
+}
+
+.Sidebar[data-dragging='true'] {
+  contain: layout style paint;
+  pointer-events: none;
 }

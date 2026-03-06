@@ -1,12 +1,11 @@
 import {describe, expect, it} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import Avatar from '../Avatar'
+import {implementsClassName} from '../utils/testing'
+import classes from './Avatar.module.css'
 
 describe('Avatar', () => {
-  it('should support `className` on the outermost element', () => {
-    const Element = () => <Avatar src="primer.png" className={'test-class-name'} />
-    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
+  implementsClassName(Avatar, classes.Avatar)
 
   it('renders small by default', () => {
     const size = 20

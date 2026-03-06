@@ -6,6 +6,7 @@ import {isElement} from 'react-is'
 import classes from './SegmentedControl.module.css'
 import {clsx} from 'clsx'
 import CounterLabel from '../CounterLabel'
+import type {FCWithSlotMarker} from '../utils/types'
 
 export type SegmentedControlButtonProps = {
   /** The visible label rendered in the button */
@@ -14,28 +15,46 @@ export type SegmentedControlButtonProps = {
   selected?: boolean
   /** Whether the segment is selected. This is used for uncontrolled `SegmentedControls` to pick one `SegmentedControlButton` that is selected on the initial render. */
   defaultSelected?: boolean
-  /** The leading icon comes before item label */
-  leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement
+  /** The leading visual comes before item label */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  leadingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement<any>
+  /** @deprecated Use `leadingVisual` instead. The leading icon comes before item label */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement<any>
+  /** Applies `aria-disabled` to the button. This will disable certain functionality, such as `onClick` events. */
+  disabled?: boolean
   /** Optional counter to display on the right side of the button */
   count?: number | string
 } & ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
-const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlButtonProps>> = ({
+const SegmentedControlButton: FCWithSlotMarker<React.PropsWithChildren<SegmentedControlButtonProps>> = ({
   children,
-  leadingIcon: LeadingIcon,
+  leadingVisual,
+  leadingIcon,
   selected,
   className,
+  disabled,
   // Note: this value is read in the `SegmentedControl` component to determine which button is selected but we do not need to apply it to an underlying element
   defaultSelected: _defaultSelected,
   count,
-  ...rest
+  ...props
 }) => {
+  const {'aria-disabled': ariaDisabled, ...rest} = props
+  // Use leadingVisual if provided, otherwise fall back to leadingIcon for backwards compatibility
+  const LeadingVisual = leadingVisual ?? leadingIcon
+
   return (
     <li className={clsx(classes.Item)} data-selected={selected ? '' : undefined}>
-      <button aria-current={selected} className={clsx(classes.Button, className)} type="button" {...rest}>
+      <button
+        aria-current={selected}
+        aria-disabled={disabled || ariaDisabled || undefined}
+        className={clsx(classes.Button, className)}
+        type="button"
+        {...rest}
+      >
         <span className={clsx(classes.Content, 'segmentedControl-content')}>
-          {LeadingIcon && (
-            <div className={classes.LeadingIcon}>{isElement(LeadingIcon) ? LeadingIcon : <LeadingIcon />}</div>
+          {LeadingVisual && (
+            <div className={classes.LeadingIcon}>{isElement(LeadingVisual) ? LeadingVisual : <LeadingVisual />}</div>
           )}
           <div className={clsx(classes.Text, 'segmentedControl-text')} data-text={children}>
             {children}
@@ -52,3 +71,5 @@ const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlB
 }
 
 export default SegmentedControlButton
+
+SegmentedControlButton.__SLOT__ = Symbol('SegmentedControl.Button')

@@ -1,5 +1,5 @@
 import type React from 'react'
-import {useCallback, useEffect} from 'react'
+import {useCallback, useEffect, type JSX} from 'react'
 import type {OverlayProps} from '../Overlay'
 import Overlay from '../Overlay'
 import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'
@@ -9,7 +9,7 @@ import {useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
 import {useId} from '../hooks/useId'
 import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
-import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveValue'
+import {type ResponsiveValue} from '../hooks/useResponsiveValue'
 import {IconButton, type IconButtonProps} from '../Button'
 import {XIcon} from '@primer/octicons-react'
 import classes from './AnchoredOverlay.module.css'
@@ -20,12 +20,14 @@ interface AnchoredOverlayPropsWithAnchor {
    * A custom function component used to render the anchor element.
    * Will receive the selected text as `children` prop when an item is activated.
    */
-  renderAnchor: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
+  renderAnchor: <T extends Omit<React.HTMLAttributes<HTMLElement>, 'aria-label' | 'aria-labelledby'>>(
+    props: T,
+  ) => JSX.Element
 
   /**
    * An override to the internal ref that will be spread on to the renderAnchor
    */
-  anchorRef?: React.RefObject<HTMLElement>
+  anchorRef?: React.RefObject<HTMLElement | null>
 
   /**
    * An override to the internal id that will be spread on to the renderAnchor
@@ -44,7 +46,7 @@ interface AnchoredOverlayPropsWithoutAnchor {
    * An override to the internal renderAnchor ref that will be used to position the overlay.
    * When renderAnchor is null this can be used to make an anchor that is detached from ActionMenu.
    */
-  anchorRef: React.RefObject<HTMLElement>
+  anchorRef: React.RefObject<HTMLElement | null>
   /**
    * An override to the internal id that will be spread on to the renderAnchor
    */
@@ -119,7 +121,7 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
   (AnchoredOverlayPropsWithAnchor | AnchoredOverlayPropsWithoutAnchor) &
-  Partial<Pick<PositionSettings, 'align' | 'side' | 'anchorOffset' | 'alignmentOffset'>>
+  Partial<Pick<PositionSettings, 'align' | 'side' | 'anchorOffset' | 'alignmentOffset' | 'displayInViewport'>>
 
 const defaultVariant = {
   regular: 'anchored',
@@ -149,6 +151,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   align = 'start',
   alignmentOffset,
   anchorOffset,
+  displayInViewport,
   className,
   pinPosition,
   variant = defaultVariant,
@@ -204,6 +207,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       align,
       alignmentOffset,
       anchorOffset,
+      displayInViewport,
       onPositionChange: positionChange,
     },
     [overlayRef.current],
@@ -222,8 +226,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     ...focusZoneSettings,
   })
   useFocusTrap({containerRef: overlayRef, disabled: !open || !position, ...focusTrapSettings})
-
-  const currentResponsiveVariant = useResponsiveValue(variant, 'anchored')
 
   const showXIcon = onClose && variant.narrow === 'fullscreen' && displayCloseButton
   const XButtonAriaLabelledBy = closeButtonProps['aria-labelledby']
@@ -247,19 +249,24 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           onClickOutside={onClickOutside}
           ignoreClickRefs={[anchorRef]}
           onEscape={onEscape}
-          ref={updateOverlayRef}
           role="none"
           visibility={position ? 'visible' : 'hidden'}
           height={height}
           width={width}
-          top={currentResponsiveVariant === 'anchored' ? position?.top || 0 : undefined}
-          left={currentResponsiveVariant === 'anchored' ? position?.left || 0 : undefined}
+          top={position?.top || 0}
+          left={position?.left || 0}
           responsiveVariant={variant.narrow === 'fullscreen' ? 'fullscreen' : undefined}
-          data-variant={currentResponsiveVariant}
           anchorSide={position?.anchorSide}
           className={className}
           preventOverflow={preventOverflow}
+          data-component="AnchoredOverlay"
           {...overlayProps}
+          ref={node => {
+            if (overlayProps?.ref) {
+              assignRef(overlayProps.ref, node)
+            }
+            updateOverlayRef(node)
+          }}
         >
           {showXIcon ? (
             <div className={classes.ResponsiveCloseButtonContainer}>
@@ -284,6 +291,17 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       ) : null}
     </>
   )
+}
+
+function assignRef<T>(
+  ref: React.MutableRefObject<T | null> | ((instance: T | null) => void) | null | undefined,
+  value: T | null,
+) {
+  if (typeof ref === 'function') {
+    ref(value)
+  } else if (ref) {
+    ref.current = value
+  }
 }
 
 AnchoredOverlay.displayName = 'AnchoredOverlay'

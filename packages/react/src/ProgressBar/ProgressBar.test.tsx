@@ -1,14 +1,12 @@
 import {describe, expect, it} from 'vitest'
 import {ProgressBar} from '..'
 import {render} from '@testing-library/react'
+import {implementsClassName} from '../utils/testing'
+import classes from './ProgressBar.module.css'
 
 describe('ProgressBar', () => {
-  it('should support `className` on the outermost element', () => {
-    const Element = () => (
-      <ProgressBar progress={80} barSize="small" aria-label="Upload test.png" className={'test-class-name'} />
-    )
-    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
+  implementsClassName(ProgressBar, classes.ProgressBarContainer)
+  implementsClassName(ProgressBar.Item, classes.ProgressBarItem)
 
   it('respects the "barSize" prop', () => {
     const barSizeSmall = render(<ProgressBar progress={80} barSize="small" aria-label="Upload test.png" />)

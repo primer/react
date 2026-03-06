@@ -3,6 +3,8 @@ import {render, screen, fireEvent} from '@testing-library/react'
 import {describe, it, expect, vi} from 'vitest'
 import React from 'react'
 import {IconButton, Button, LinkButton} from '../../Button'
+import classes from '../ButtonBase.module.css'
+import {implementsClassName} from '../../utils/testing'
 
 type StatefulLoadingButtonProps = {
   children?: React.ReactNode
@@ -21,24 +23,15 @@ const StatefulLoadingButton = (props: StatefulLoadingButtonProps) => {
 }
 
 describe('IconButton', () => {
-  it('should support `className` on the outermost element', () => {
-    const Element = () => <IconButton className={'test-class-name'} icon={SearchIcon} aria-label="Search button" />
-    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
+  implementsClassName(IconButton, classes.IconButton)
 })
 
 describe('LinkButton', () => {
-  it('should support `className` on the outermost element', () => {
-    const Element = () => <LinkButton className={'test-class-name'} />
-    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
+  implementsClassName(LinkButton, classes.ButtonBase)
 })
 
 describe('Button', () => {
-  it('should support `className` on the outermost element', () => {
-    const Element = () => <Button className={'test-class-name'} />
-    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
+  implementsClassName(Button, classes.ButtonBase)
 
   it('renders a <button>', () => {
     const container = render(<Button id="test-button">Default</Button>)
@@ -177,6 +170,8 @@ describe('Button', () => {
     )
     const buttonNode = container.getByRole('button')
 
+    fireEvent.click(buttonNode)
+
     expect(buttonNode.getAttribute('aria-describedby')).toBe(`${buttonId}-loading-announcement`)
 
     fireEvent.click(buttonNode)
@@ -199,6 +194,8 @@ describe('Button', () => {
     )
     const buttonNode = container.getByRole('button')
 
+    fireEvent.click(buttonNode)
+
     expect(buttonNode.getAttribute('aria-describedby')).toBe(`${buttonId}-loading-announcement`)
 
     fireEvent.click(buttonNode)
@@ -220,6 +217,10 @@ describe('Button', () => {
         <span>content</span>
       </StatefulLoadingButton>,
     )
+    const buttonNode = container.getByRole('button')
+
+    fireEvent.click(buttonNode)
+
     const buttonDescribedBy = container.getByRole('button').getAttribute('aria-describedby')
     const loadingAnnouncementId = `${buttonId}-loading-announcement`
 

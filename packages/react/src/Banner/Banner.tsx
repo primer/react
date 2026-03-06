@@ -4,10 +4,17 @@ import {AlertIcon, InfoIcon, StopIcon, CheckCircleIcon, XIcon} from '@primer/oct
 import {Button, IconButton, type ButtonProps} from '../Button'
 import {VisuallyHidden} from '../VisuallyHidden'
 import {useMergedRefs} from '../internal/hooks/useMergedRefs'
+import {useId} from '../hooks/useId'
 import classes from './Banner.module.css'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 export type BannerVariant = 'critical' | 'info' | 'success' | 'upsell' | 'warning'
+
+type BannerContextValue = {
+  titleId: string
+}
+
+const BannerContext = React.createContext<BannerContextValue | undefined>(undefined)
 
 export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
   /**
@@ -35,8 +42,14 @@ export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
 
   /**
    * Provide a custom icon for the Banner. This is only available when `variant` is `info` or `upsell`
+   * @deprecated Use `leadingVisual` instead
    */
   icon?: React.ReactNode
+
+  /**
+   * Provide a custom leading visual for the Banner. This is only available when `variant` is `info` or `upsell`
+   */
+  leadingVisual?: React.ReactNode
 
   /**
    * Optionally provide a handler to be called when the banner is dismissed.
@@ -69,6 +82,16 @@ export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
    * Specify the layout of the Banner. Compact layout will reduce the padding.
    */
   layout?: 'default' | 'compact'
+
+  /**
+   * Override the default actions layout behavior
+   */
+  actionsLayout?: 'inline' | 'stacked' | 'default'
+
+  /**
+   * Full width banner specifically for use within confined spaces, such as dialogs, tables, cards, or boxes where available space is limited.
+   */
+  flush?: boolean
 }
 
 const iconForVariant: Record<BannerVariant, React.ReactNode> = {
@@ -77,14 +100,6 @@ const iconForVariant: Record<BannerVariant, React.ReactNode> = {
   success: <CheckCircleIcon />,
   upsell: <InfoIcon />,
   warning: <AlertIcon />,
-}
-
-const labels: Record<BannerVariant, string> = {
-  critical: 'Critical',
-  info: 'Information',
-  success: 'Success',
-  upsell: 'Recommendation',
-  warning: 'Warning',
 }
 
 export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner(
@@ -96,11 +111,14 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
     description,
     hideTitle,
     icon,
+    leadingVisual,
     onDismiss,
     primaryAction,
     secondaryAction,
     title,
     variant = 'info',
+    actionsLayout = 'default',
+    flush = false,
     ...rest
   },
   forwardRef,
@@ -110,10 +128,12 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
   const bannerRef = React.useRef<HTMLElement>(null)
   const ref = useMergedRefs(forwardRef, bannerRef)
   const supportsCustomIcon = variant === 'info' || variant === 'upsell'
+  const titleId = useId()
+
+  const visual = leadingVisual ?? icon
 
   if (__DEV__) {
     // This hook is called consistently depending on the environment
-    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
       if (title) {
@@ -135,45 +155,49 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
   }
 
   return (
-    <section
-      {...rest}
-      aria-labelledby={labelledBy}
-      aria-label={labelledBy ? undefined : (label ?? labels[variant])}
-      className={clsx(className, classes.Banner)}
-      data-dismissible={onDismiss ? '' : undefined}
-      data-title-hidden={hideTitle ? '' : undefined}
-      data-variant={variant}
-      tabIndex={-1}
-      ref={ref}
-      data-layout={rest.layout || 'default'}
-    >
-      <div className={classes.BannerIcon}>{icon && supportsCustomIcon ? icon : iconForVariant[variant]}</div>
-      <div className={classes.BannerContainer}>
-        <div className={classes.BannerContent}>
-          {title ? (
-            hideTitle ? (
-              <VisuallyHidden>
+    <BannerContext.Provider value={{titleId}}>
+      <section
+        {...rest}
+        aria-labelledby={labelledBy ?? (label ? undefined : titleId)}
+        aria-label={labelledBy ? undefined : label}
+        className={clsx(className, classes.Banner)}
+        data-dismissible={onDismiss ? '' : undefined}
+        data-title-hidden={hideTitle ? '' : undefined}
+        data-variant={variant}
+        data-actions-layout={actionsLayout}
+        tabIndex={-1}
+        ref={ref}
+        data-layout={rest.layout || 'default'}
+        data-flush={flush ? '' : undefined}
+      >
+        <div className={classes.BannerIcon}>{visual && supportsCustomIcon ? visual : iconForVariant[variant]}</div>
+        <div className={classes.BannerContainer}>
+          <div className={classes.BannerContent}>
+            {title ? (
+              hideTitle ? (
+                <VisuallyHidden>
+                  <BannerTitle>{title}</BannerTitle>
+                </VisuallyHidden>
+              ) : (
                 <BannerTitle>{title}</BannerTitle>
-              </VisuallyHidden>
-            ) : (
-              <BannerTitle>{title}</BannerTitle>
-            )
-          ) : null}
-          {description ? <BannerDescription>{description}</BannerDescription> : null}
-          {children}
+              )
+            ) : null}
+            {description ? <BannerDescription>{description}</BannerDescription> : null}
+            {children}
+          </div>
+          {hasActions ? <BannerActions primaryAction={primaryAction} secondaryAction={secondaryAction} /> : null}
         </div>
-        {hasActions ? <BannerActions primaryAction={primaryAction} secondaryAction={secondaryAction} /> : null}
-      </div>
-      {dismissible ? (
-        <IconButton
-          aria-label="Dismiss banner"
-          onClick={onDismiss}
-          className={classes.BannerDismiss}
-          icon={XIcon}
-          variant="invisible"
-        />
-      ) : null}
-    </section>
+        {dismissible ? (
+          <IconButton
+            aria-label="Dismiss banner"
+            onClick={onDismiss}
+            className={classes.BannerDismiss}
+            icon={XIcon}
+            variant="invisible"
+          />
+        ) : null}
+      </section>
+    </BannerContext.Provider>
   )
 })
 
@@ -185,9 +209,12 @@ export type BannerTitleProps<As extends HeadingElement> = {
 } & React.ComponentPropsWithoutRef<As extends 'h2' ? 'h2' : As>
 
 export function BannerTitle<As extends HeadingElement>(props: BannerTitleProps<As>) {
-  const {as: Heading = 'h2', className, children, ...rest} = props
+  const {as: Heading = 'h2', className, children, id, ...rest} = props
+  const context = React.useContext(BannerContext)
+  const titleId = id ?? context?.titleId
+
   return (
-    <Heading {...rest} className={clsx(className, classes.BannerTitle)} data-banner-title="">
+    <Heading {...rest} id={titleId} className={clsx(className, classes.BannerTitle)} data-banner-title="">
       {children}
     </Heading>
   )
@@ -239,7 +266,7 @@ export type BannerSecondaryActionProps = Omit<ButtonProps, 'variant'>
 
 const BannerSecondaryAction = forwardRef(({children, className, ...rest}, forwardedRef) => {
   return (
-    <Button ref={forwardedRef} className={clsx('BannerPrimaryAction', className)} variant="link" {...rest}>
+    <Button ref={forwardedRef} className={clsx('BannerPrimaryAction', className)} variant="invisible" {...rest}>
       {children}
     </Button>
   )

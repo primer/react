@@ -1,4 +1,4 @@
-/* stylelint-disable max-nesting-depth, selector-max-specificity, selector-max-compound-selectors */
+/* stylelint-disable max-nesting-depth, selector-max-specificity */
 
 .ActionList {
   padding: 0;
@@ -121,7 +121,7 @@
     }
   }
 
-  &:not(:has([aria-disabled], [disabled]), [data-has-subitem='true']) {
+  &:not([data-is-disabled], [data-has-subitem='true']) {
     @media (hover: hover) {
       &:hover,
       &:active {
@@ -162,7 +162,9 @@
 
     /* danger */
     &:where([data-variant='danger']) {
-      & * :not([popover], .TrailingVisual) {
+      & .LeadingAction,
+      .LeadingVisual,
+      .ItemLabel {
         color: var(--control-danger-fgColor-rest);
       }
 
@@ -170,8 +172,15 @@
         &:hover {
           background: var(--control-danger-bgColor-hover);
 
-          & * :not([popover]) {
+          & .LeadingAction,
+          .LeadingVisual,
+          .ItemLabel {
             color: var(--control-danger-fgColor-hover);
+          }
+
+          & [data-kbd-chord] {
+            background-color: var(--bgColor-default);
+            transition: none;
           }
         }
       }
@@ -179,8 +188,15 @@
       &:active {
         background: var(--control-danger-bgColor-active);
 
-        & * :not([popover]) {
+        & .LeadingAction,
+        .LeadingVisual,
+        .ItemLabel {
           color: var(--control-danger-fgColor-hover);
+        }
+
+        & [data-kbd-chord] {
+          background-color: var(--bgColor-default);
+          transition: none;
         }
       }
     }
@@ -261,8 +277,13 @@
     }
 
     &:where([data-loading='true']),
-    &:has([data-loading='true']) {
-      & * {
+    & > [data-loading='true'] {
+      & .ItemLabel,
+      & .Description,
+      & .LeadingVisual,
+      & .TrailingVisual,
+      & .LeadingAction,
+      & .VisualWrap {
         color: var(--fgColor-muted);
       }
     }
@@ -309,7 +330,7 @@
   /* disabled */
 
   &[aria-disabled='true'],
-  &:has([aria-disabled='true'], [disabled]) {
+  &[data-is-disabled] {
     & .ActionListContent * {
       color: var(--control-fgColor-disabled);
     }
@@ -350,7 +371,7 @@
   }
 
   /* When TrailingAction is in loading state, keep labels and descriptions accessible */
-  &:has(.TrailingAction [data-loading='true']):not([aria-disabled='true']) {
+  &:has(.TrailingAction [data-loading='true']):not([data-is-disabled]) {
     /* Ensure labels and descriptions maintain accessibility contrast */
     & .ItemLabel {
       color: var(--fgColor-default);
@@ -520,12 +541,12 @@
       transform: scaleY(1);
     }
 
-    & + .SubGroup {
+    & ~ .SubGroup {
       display: none;
     }
 
     /* show active indicator on parent collapse if child is active */
-    &:has(+ .SubGroup [data-active='true']) {
+    &:has(~ .SubGroup [data-active='true']) {
       background: var(--control-transparent-bgColor-selected);
 
       & .ItemLabel {
@@ -588,6 +609,11 @@
 
 .TrailingAction {
   grid-area: trailingAction;
+
+  /* if child is loading button */
+  & > *[data-loading-wrapper] {
+    height: 100%;
+  }
 }
 
 /* wrapper span
@@ -689,6 +715,7 @@ span wrapping svg or text */
 .TrailingActionButton {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+  height: 100%;
 
   /* Preserve width consistency when loading state is active for text buttons only */
   &[data-loading='true']:has([data-component='buttonContent']) {

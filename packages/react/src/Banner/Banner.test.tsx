@@ -2,47 +2,53 @@ import {describe, expect, it, vi} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {Banner} from '../Banner'
+import {implementsClassName} from '../utils/testing'
+import classes from './Banner.module.css'
 
 describe('Banner', () => {
+  implementsClassName(props => <Banner title="test" {...props} />, classes.Banner)
+
   it('should render as a region element', () => {
     render(<Banner title="test" />)
-    expect(screen.getByRole('region', {name: 'Information'})).toBeInTheDocument()
+    expect(screen.getByRole('region', {name: 'test'})).toBeInTheDocument()
     expect(screen.getByRole('heading', {name: 'test'})).toBeInTheDocument()
   })
 
-  it('should support a custom `className` on the outermost element', () => {
-    const Element = () => <Banner title="test" className="test-class-name" />
-    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
+  it('should label the landmark element with the title by default', () => {
+    render(<Banner title="My Banner Title" />)
+    const region = screen.getByRole('region', {name: 'My Banner Title'})
+    expect(region).toHaveAttribute('aria-labelledby')
+    expect(region).not.toHaveAttribute('aria-label')
   })
 
-  it('should label the landmark element with the corresponding variant label text', () => {
-    render(<Banner title="test" />)
-    expect(screen.getByRole('region')).toEqual(screen.getByLabelText('Information'))
+  it('should use aria-labelledby to reference the title for the critical variant', () => {
+    render(<Banner title="Critical Issue" variant="critical" />)
+    const region = screen.getByRole('region', {name: 'Critical Issue'})
+    expect(region).toHaveAttribute('aria-labelledby')
   })
 
-  it('should label the landmark element with the label for the critical variant', () => {
-    render(<Banner title="test" variant="critical" />)
-    expect(screen.getByRole('region')).toEqual(screen.getByLabelText('Critical'))
+  it('should use aria-labelledby to reference the title for the info variant', () => {
+    render(<Banner title="Information" variant="info" />)
+    const region = screen.getByRole('region', {name: 'Information'})
+    expect(region).toHaveAttribute('aria-labelledby')
   })
 
-  it('should label the landmark element with the label for the info variant', () => {
-    render(<Banner title="test" variant="info" />)
-    expect(screen.getByRole('region')).toEqual(screen.getByLabelText('Information'))
+  it('should use aria-labelledby to reference the title for the success variant', () => {
+    render(<Banner title="Success Message" variant="success" />)
+    const region = screen.getByRole('region', {name: 'Success Message'})
+    expect(region).toHaveAttribute('aria-labelledby')
   })
 
-  it('should label the landmark element with the label for the success variant', () => {
-    render(<Banner title="test" variant="success" />)
-    expect(screen.getByRole('region')).toEqual(screen.getByLabelText('Success'))
+  it('should use aria-labelledby to reference the title for the upsell variant', () => {
+    render(<Banner title="Recommendation" variant="upsell" />)
+    const region = screen.getByRole('region', {name: 'Recommendation'})
+    expect(region).toHaveAttribute('aria-labelledby')
   })
 
-  it('should label the landmark element with the label for the upsell variant', () => {
-    render(<Banner title="test" variant="upsell" />)
-    expect(screen.getByRole('region')).toEqual(screen.getByLabelText('Recommendation'))
-  })
-
-  it('should label the landmark element with the label for the warning variant', () => {
-    render(<Banner title="test" variant="warning" />)
-    expect(screen.getByRole('region')).toEqual(screen.getByLabelText('Warning'))
+  it('should use aria-labelledby to reference the title for the warning variant', () => {
+    render(<Banner title="Warning" variant="warning" />)
+    const region = screen.getByRole('region', {name: 'Warning'})
+    expect(region).toHaveAttribute('aria-labelledby')
   })
 
   it('should support the `aria-label` prop to override the default label for the landmark', () => {
@@ -69,6 +75,30 @@ describe('Banner', () => {
     expect(region).not.toHaveAttribute('aria-labelledby')
   })
 
+  it('should use aria-labelledby to reference Banner.Title when provided as a child', () => {
+    render(
+      <Banner>
+        <Banner.Title>Custom Title Component</Banner.Title>
+      </Banner>,
+    )
+    const region = screen.getByRole('region', {name: 'Custom Title Component'})
+    const heading = screen.getByRole('heading', {name: 'Custom Title Component'})
+    expect(region).toHaveAttribute('aria-labelledby', heading.id)
+    expect(heading).toHaveAttribute('id')
+    expect(region).not.toHaveAttribute('aria-label')
+  })
+
+  it('should use aria-labelledby to reference Banner.Title with custom id', () => {
+    render(
+      <Banner aria-labelledby="custom-title-id">
+        <Banner.Title id="custom-title-id">Title with Custom ID</Banner.Title>
+      </Banner>,
+    )
+    const region = screen.getByRole('region', {name: 'Title with Custom ID'})
+    expect(region).toHaveAttribute('aria-labelledby', 'custom-title-id')
+    expect(screen.getByRole('heading')).toHaveAttribute('id', 'custom-title-id')
+  })
+
   it('should default the title to a h2', () => {
     render(<Banner title="test" />)
     expect(screen.getByRole('heading', {level: 2})).toBeInTheDocument()
@@ -86,7 +116,7 @@ describe('Banner', () => {
   it('should rendering a description with the `description` prop', () => {
     render(<Banner title="test" description="test-description" />)
     expect(screen.getByText('test-description')).toBeInTheDocument()
-    expect(screen.getByRole('region', {name: 'Information'})).toContainElement(screen.getByText('test-description'))
+    expect(screen.getByRole('region', {name: 'test'})).toContainElement(screen.getByText('test-description'))
   })
 
   it('should support a primary action', async () => {
@@ -186,6 +216,67 @@ describe('Banner', () => {
 
     rerender(<Banner title="test" description="test-description" variant="warning" icon={<CustomIcon />} />)
     expect(screen.queryByTestId('icon')).toBe(null)
+  })
+
+  it('should support a custom leadingVisual for info and upsell variants', () => {
+    const CustomIcon = vi.fn(() => <svg data-testid="leading-visual" aria-hidden="true" />)
+    const {rerender} = render(
+      <Banner title="test" description="test-description" variant="info" leadingVisual={<CustomIcon />} />,
+    )
+    expect(screen.getByTestId('leading-visual')).toBeInTheDocument()
+
+    rerender(<Banner title="test" description="test-description" variant="upsell" leadingVisual={<CustomIcon />} />)
+    expect(screen.getByTestId('leading-visual')).toBeInTheDocument()
+
+    rerender(<Banner title="test" description="test-description" variant="critical" leadingVisual={<CustomIcon />} />)
+    expect(screen.queryByTestId('leading-visual')).toBe(null)
+
+    rerender(<Banner title="test" description="test-description" variant="success" leadingVisual={<CustomIcon />} />)
+    expect(screen.queryByTestId('leading-visual')).toBe(null)
+
+    rerender(<Banner title="test" description="test-description" variant="warning" leadingVisual={<CustomIcon />} />)
+    expect(screen.queryByTestId('leading-visual')).toBe(null)
+  })
+
+  it('should prefer leadingVisual over icon when both are provided', () => {
+    const LeadingVisualIcon = () => <svg data-testid="leading-visual" aria-hidden="true" />
+    const DeprecatedIcon = () => <svg data-testid="deprecated-icon" aria-hidden="true" />
+    render(
+      <Banner
+        title="test"
+        description="test-description"
+        variant="info"
+        leadingVisual={<LeadingVisualIcon />}
+        icon={<DeprecatedIcon />}
+      />,
+    )
+    expect(screen.getByTestId('leading-visual')).toBeInTheDocument()
+    expect(screen.queryByTestId('deprecated-icon')).toBe(null)
+  })
+
+  it('should render data-actions-layout attribute with inline value', () => {
+    const {container} = render(<Banner title="test" actionsLayout="inline" />)
+    expect(container.firstChild).toHaveAttribute('data-actions-layout', 'inline')
+  })
+
+  it('should render data-actions-layout attribute with stacked value', () => {
+    const {container} = render(<Banner title="test" actionsLayout="stacked" />)
+    expect(container.firstChild).toHaveAttribute('data-actions-layout', 'stacked')
+  })
+
+  it('should render data-actions-layout attribute with default value when not specified', () => {
+    const {container} = render(<Banner title="test" />)
+    expect(container.firstChild).toHaveAttribute('data-actions-layout', 'default')
+  })
+
+  it('should render data-flush attribute when flush is true', () => {
+    const {container} = render(<Banner title="test" flush />)
+    expect(container.firstChild).toHaveAttribute('data-flush')
+  })
+
+  it('should not render data-flush attribute when flush is false', () => {
+    const {container} = render(<Banner title="test" />)
+    expect(container.firstChild).not.toHaveAttribute('data-flush')
   })
 
   describe('Banner.Title', () => {

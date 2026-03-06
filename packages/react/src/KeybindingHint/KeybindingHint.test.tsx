@@ -2,8 +2,11 @@ import {describe, expect, it} from 'vitest'
 import {render, screen} from '@testing-library/react'
 
 import {KeybindingHint, getAccessibleKeybindingHintString} from '../KeybindingHint'
+import {implementsClassName} from '../utils/testing'
 
 describe('KeybindingHint', () => {
+  implementsClassName(props => <KeybindingHint keys="Control" {...props} />)
+
   it('renders condensed keys by default', () => {
     render(<KeybindingHint keys="Shift+Control+Function+PageUp" />)
     for (const icon of ['⇧', '⌃', 'Fn', 'PgUp']) {

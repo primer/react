@@ -25,22 +25,34 @@ export type UnderlineNavItemProps = {
    * Primary content for an UnderlineNav
    */
   children?: React.ReactNode
+
   /**
    * Callback that will trigger both on click selection and keyboard selection.
    */
   onSelect?: (event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>) => void
+
   /**
    * Is `UnderlineNav.Item` current page?
    */
   'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | boolean
+
   /**
    *  Icon before the text
+   *  @deprecated Use the `leadingVisual` prop instead
    */
-  icon?: React.FunctionComponent<IconProps> | React.ReactElement
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  icon?: React.FunctionComponent<IconProps> | React.ReactElement<any>
+
+  /**
+   * Render a visual before the text
+   */
+  leadingVisual?: React.ReactElement
+
   /**
    * Renders `UnderlineNav.Item` as given component i.e. react-router's Link
    **/
   as?: React.ElementType | 'a'
+
   /**
    * Counter
    */
@@ -49,7 +61,17 @@ export type UnderlineNavItemProps = {
 
 export const UnderlineNavItem = forwardRef(
   (
-    {as: Component = 'a', href = '#', children, counter, onSelect, 'aria-current': ariaCurrent, icon: Icon, ...props},
+    {
+      as: Component = 'a',
+      href = '#',
+      children,
+      counter,
+      onSelect,
+      'aria-current': ariaCurrent,
+      icon: Icon,
+      leadingVisual,
+      ...props
+    },
     forwardedRef,
   ) => {
     const backupRef = useRef<HTMLElement>(null)
@@ -107,7 +129,7 @@ export const UnderlineNavItem = forwardRef(
           onKeyDown={keyDownHandler}
           onClick={clickHandler}
           counter={counter}
-          icon={Icon}
+          icon={leadingVisual ?? Icon}
           loadingCounters={loadingCounters}
           iconsVisible={iconsVisible}
           {...props}

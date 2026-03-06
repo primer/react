@@ -1,9 +1,7 @@
-import React, {forwardRef} from 'react'
+import React, {forwardRef, type JSX} from 'react'
 import type {IconButtonProps} from './types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {ButtonBase} from './ButtonBase'
-import {defaultSxProp} from '../utils/defaultSxProp'
-import {generateCustomSxProp} from './Button'
 import {TooltipContext, Tooltip} from '../TooltipV2/Tooltip'
 import {TooltipContext as TooltipContextV1} from '../Tooltip/Tooltip'
 import classes from './ButtonBase.module.css'
@@ -12,7 +10,6 @@ import {clsx} from 'clsx'
 const IconButton = forwardRef(
   (
     {
-      sx: sxProp = defaultSxProp,
       icon: Icon,
       'aria-label': ariaLabel,
       description,
@@ -27,19 +24,18 @@ const IconButton = forwardRef(
     },
     forwardedRef,
   ): JSX.Element => {
-    let sxStyles = sxProp
-    // grap the button props that have associated data attributes in the styles
-    const {size = 'medium'} = props
-
-    if (sxProp !== null && Object.keys(sxProp).length > 0) {
-      sxStyles = generateCustomSxProp({size}, sxProp)
-    }
-
     // If the icon button is already wrapped in a tooltip, do not add one.
     const {tooltipId} = React.useContext(TooltipContext) // Tooltip v2
     const {tooltipId: tooltipIdV1} = React.useContext(TooltipContextV1) // Tooltip v1
 
+    const {'aria-expanded': isExpanded, 'aria-haspopup': hasPopup} = props
+
     const hasExternalTooltip = tooltipId || tooltipIdV1
+
+    // If the button has an active "popup" (like a menu), we don't want to show the tooltip.
+    // This is mostly for `ActionMenu`, but could be applicable elsewhere.
+    const hasActivePopup = (isExpanded === true || isExpanded === 'true') && hasPopup === 'true'
+
     const withoutTooltip =
       unsafeDisableTooltip || disabled || ariaLabel === undefined || ariaLabel === '' || hasExternalTooltip
 
@@ -49,7 +45,6 @@ const IconButton = forwardRef(
           icon={Icon}
           className={clsx(className, classes.IconButton)}
           data-component="IconButton"
-          sx={sxStyles}
           type="button"
           aria-label={ariaLabel}
           disabled={disabled}
@@ -67,12 +62,12 @@ const IconButton = forwardRef(
           type={description ? undefined : 'label'}
           direction={tooltipDirection}
           keybindingHint={keybindingHint ?? keyshortcuts}
+          _privateDisableTooltip={hasActivePopup}
         >
           <ButtonBase
             icon={Icon}
             className={clsx(className, classes.IconButton)}
             data-component="IconButton"
-            sx={sxStyles}
             type="button"
             aria-keyshortcuts={keyshortcuts ?? undefined}
             // If description is provided, we will use the tooltip to describe the button, so we need to keep the aria-label to label the button.

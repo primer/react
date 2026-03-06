@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
 import {
   Autocomplete,
-  BaseStyles,
   Button,
   Checkbox,
   CheckboxGroup,
@@ -15,8 +14,6 @@ import {
   TextInput,
   TextInputWithTokens,
   Textarea,
-  ThemeProvider,
-  theme,
 } from '..'
 import {MarkGithubIcon, TriangleDownIcon} from '@primer/octicons-react'
 import type {ItemInput} from '../SelectPanel'
@@ -25,17 +22,6 @@ import classes from './FormControl.features.stories.module.css'
 
 export default {
   title: 'Components/FormControl/Features',
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider theme={theme}>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    },
-  ],
   argTypes: {
     disabled: {
       type: 'boolean',
@@ -132,7 +118,7 @@ const CustomCheckboxInput = (
     React.InputHTMLAttributes<HTMLInputElement>,
 ) => <input type="checkbox" {...props} />
 
-export const FormControlWithCustomInput = () => {
+export const WithCustomInput = () => {
   const [value, setValue] = React.useState('mona lisa')
   const [validationResult, setValidationResult] = React.useState('')
   const doesValueContainSpaces = (inputValue: string) => /\s/g.test(inputValue)
@@ -154,7 +140,7 @@ export const FormControlWithCustomInput = () => {
         <FormControl.Label htmlFor="custom-input">GitHub handle</FormControl.Label>
         <CustomTextInput
           id="custom-input"
-          aria-describedby="custom-input-caption custom-input-validation"
+          aria-describedby="custom-input-validation custom-input-caption"
           aria-invalid={validationResult === 'noSpaces'}
           onChange={handleInputChange}
         />

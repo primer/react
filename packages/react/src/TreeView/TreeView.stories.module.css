@@ -1,0 +1,28 @@
+.WidthContraintContainer {
+  max-width: 400px;
+}
+
+.TreeViewLeadingAction {
+  visibility: hidden;
+}
+
+.DraggableItemContainer .TreeViewItem:hover .TreeViewLeadingAction,
+.DraggableItemContainer .TreeViewItem:focus .TreeViewLeadingAction {
+  visibility: visible;
+}
+
+.SuccessIcon {
+  color: var(--fgColor-success);
+}
+
+.AttentionIcon {
+  color: var(--fgColor-attention);
+}
+
+.DoneIcon {
+  color: var(--fgColor-done);
+}
+
+.OpenIcon {
+  color: var(--fgColor-open);
+}

@@ -3,33 +3,35 @@ import userEvent from '@testing-library/user-event'
 import {render, fireEvent, screen} from '@testing-library/react'
 import {describe, it, expect, vi} from 'vitest'
 import React from 'react'
-import {TextInput} from '..'
+import TextInput from '../TextInput'
+import {implementsClassName} from '../utils/testing'
 
 describe('TextInput', () => {
-  it('should support `className` on the outermost element', () => {
-    const Element = () => <TextInput className={'test-class-name'} />
-    const {container} = render(<Element />)
-    expect(container.firstChild).toHaveClass('test-class-name')
-  })
+  implementsClassName(TextInput, 'TextInput-wrapper')
 
   it('renders', () => {
-    expect(render(<TextInput name="zipcode" />).container).toMatchSnapshot()
+    render(<TextInput name="zipcode" />)
+    expect(screen.getByRole('textbox')).toHaveAttribute('type', 'text')
+    expect(screen.getByRole('textbox')).toHaveAttribute('name', 'zipcode')
   })
 
   it('renders small', () => {
-    expect(render(<TextInput name="zipcode" size="small" />).container).toMatchSnapshot()
+    const {container} = render(<TextInput name="zipcode" size="small" />)
+    expect(container.firstElementChild).toHaveAttribute('data-size', 'small')
   })
 
   it('renders large', () => {
-    expect(render(<TextInput name="zipcode" size="large" />).container).toMatchSnapshot()
+    const {container} = render(<TextInput name="zipcode" size="large" />)
+    expect(container.firstElementChild).toHaveAttribute('data-size', 'large')
   })
 
   it('renders block', () => {
-    expect(render(<TextInput name="zipcode" block />).container).toMatchSnapshot()
+    const {container} = render(<TextInput name="zipcode" block />)
+    expect(container.firstElementChild).toHaveAttribute('data-block')
   })
 
   it('renders error', () => {
-    expect(render(<TextInput name="zipcode" validationStatus="error" />).container).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" validationStatus="error" value="" />).container).toMatchSnapshot()
   })
 
   it('renders sets aria-invalid="true" on error', () => {
@@ -38,116 +40,121 @@ describe('TextInput', () => {
   })
 
   it('renders contrast', () => {
-    expect(render(<TextInput name="zipcode" contrast />).container).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" contrast value="" />).container).toMatchSnapshot()
   })
 
   it('renders monospace', () => {
-    expect(render(<TextInput name="zipcode" monospace />).container).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" monospace value="" />).container).toMatchSnapshot()
   })
 
   it('renders placeholder', () => {
-    expect(render(<TextInput name="zipcode" placeholder={'560076'} />).container).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" placeholder={'560076'} value="" />).container).toMatchSnapshot()
   })
 
   it('renders leadingVisual', () => {
-    expect(
-      render(<TextInput name="search" placeholder={'Search'} leadingVisual={SearchIcon} />).container,
-    ).toMatchSnapshot()
-    expect(
-      render(<TextInput name="search" placeholder={'Search'} leadingVisual={<SearchIcon />} />).container,
-    ).toMatchSnapshot()
-    expect(
-      render(
+    function FunctionComponent() {
+      return <SearchIcon data-testid="function-component" />
+    }
+
+    render(
+      <>
+        <TextInput name="search" placeholder="Search" leadingVisual={FunctionComponent} />
+        <TextInput name="search" placeholder="Search" leadingVisual={<SearchIcon data-testid="jsx-element" />} />
         <TextInput
           name="search"
-          placeholder={'Search'}
+          placeholder="Search"
           leadingVisual={React.memo(() => (
-            <div>Trailing</div>
+            <div data-testid="memo">Trailing</div>
           ))}
-        />,
-      ).container,
-    ).toMatchSnapshot()
-    expect(
-      render(
+        />
         <TextInput
           name="search"
-          placeholder={'Search'}
+          placeholder="Search"
           leadingVisual={React.forwardRef(() => (
-            <div>Trailing</div>
+            <div data-testid="forward-ref">Trailing</div>
           ))}
-        />,
-      ).container,
-    ).toMatchSnapshot()
+        />
+      </>,
+    )
+
+    expect(screen.getByTestId('function-component')).toBeInTheDocument()
+    expect(screen.getByTestId('jsx-element')).toBeInTheDocument()
+    expect(screen.getByTestId('memo')).toBeInTheDocument()
+    expect(screen.getByTestId('forward-ref')).toBeInTheDocument()
   })
 
   it('renders trailingVisual', () => {
-    expect(render(<TextInput name="search" placeholder={'Search'} trailingVisual={SearchIcon} />)).toMatchSnapshot()
-    expect(render(<TextInput name="search" placeholder={'Search'} trailingVisual={<SearchIcon />} />)).toMatchSnapshot()
-    expect(
-      render(
+    function FunctionComponent() {
+      return <SearchIcon data-testid="function-component" />
+    }
+
+    render(
+      <>
+        <TextInput name="search" placeholder="Search" trailingVisual={FunctionComponent} />
+        <TextInput name="search" placeholder="Search" trailingVisual={<SearchIcon data-testid="jsx-element" />} />
         <TextInput
           name="search"
-          placeholder={'Search'}
+          placeholder="Search"
           trailingVisual={React.memo(() => (
-            <div>Trailing</div>
+            <div data-testid="memo">Trailing</div>
           ))}
-        />,
-      ).container,
-    ).toMatchSnapshot()
-    expect(
-      render(
+        />
         <TextInput
           name="search"
-          placeholder={'Search'}
+          placeholder="Search"
           trailingVisual={React.forwardRef(() => (
-            <div>Trailing</div>
+            <div data-testid="forward-ref">Trailing</div>
           ))}
-        />,
-      ).container,
-    ).toMatchSnapshot()
+        />
+      </>,
+    )
+
+    expect(screen.getByTestId('function-component')).toBeInTheDocument()
+    expect(screen.getByTestId('jsx-element')).toBeInTheDocument()
+    expect(screen.getByTestId('memo')).toBeInTheDocument()
+    expect(screen.getByTestId('forward-ref')).toBeInTheDocument()
   })
 
   it('renders trailingAction text button', () => {
     const handleAction = vi.fn()
-    expect(
-      render(
-        <TextInput
-          name="search"
-          placeholder={'Search'}
-          trailingAction={<TextInput.Action onClick={handleAction}>Clear</TextInput.Action>}
-        />,
-      ).container,
-    ).toMatchSnapshot()
+    render(
+      <TextInput
+        name="search"
+        placeholder={'Search'}
+        trailingAction={<TextInput.Action onClick={handleAction}>Clear</TextInput.Action>}
+      />,
+    )
+    expect(screen.getByRole('button', {name: 'Clear'})).toBeInTheDocument()
   })
 
   it('renders trailingAction text button with a tooltip', () => {
     const handleAction = vi.fn()
-    expect(
-      render(
-        <TextInput
-          name="search"
-          placeholder={'Search'}
-          trailingAction={
-            <TextInput.Action onClick={handleAction} aria-label="Clear input">
-              Clear
-            </TextInput.Action>
-          }
-        />,
-      ).container,
-    ).toMatchSnapshot()
+    render(
+      <TextInput
+        name="search"
+        placeholder="Search"
+        trailingAction={
+          <TextInput.Action onClick={handleAction} aria-label="Clear input">
+            Clear
+          </TextInput.Action>
+        }
+      />,
+    )
+
+    expect(screen.getByRole('button', {name: 'Clear'})).toBeInTheDocument()
   })
 
   it('renders trailingAction icon button', () => {
     const handleAction = vi.fn()
-    expect(
-      render(
-        <TextInput
-          name="search"
-          placeholder={'Search'}
-          trailingAction={<TextInput.Action onClick={handleAction} icon={SearchIcon} aria-label="Icon label" />}
-        />,
-      ).container,
-    ).toMatchSnapshot()
+    render(
+      <TextInput
+        name="search"
+        placeholder="Search"
+        trailingAction={<TextInput.Action onClick={handleAction} icon={SearchIcon} aria-label="Icon label" />}
+      />,
+    )
+
+    expect(screen.getByRole('button', {name: 'Icon label'})).toBeInTheDocument()
   })
 
   it('focuses the text input if you do not click the input element', () => {
@@ -163,44 +170,6 @@ describe('TextInput', () => {
     expect(getByLabelText('Search')).not.toEqual(document.activeElement)
     fireEvent.click(icon)
     expect(getByLabelText('Search')).toEqual(document.activeElement)
-  })
-
-  it('renders with a loading indicator', () => {
-    expect(
-      render(
-        <>
-          <TextInput loading />
-
-          <TextInput loading loaderPosition="leading" />
-
-          <TextInput loading loaderPosition="trailing" />
-
-          <TextInput loading leadingVisual={SearchIcon} />
-
-          <TextInput loading leadingVisual={SearchIcon} loaderPosition="leading" />
-
-          <TextInput loading leadingVisual={SearchIcon} loaderPosition="trailing" />
-
-          <TextInput loading trailingVisual={SearchIcon} />
-
-          <TextInput loading trailingVisual={SearchIcon} loaderPosition="leading" />
-
-          <TextInput loading trailingVisual={SearchIcon} loaderPosition="trailing" />
-
-          <TextInput loading size="small" leadingVisual={SearchIcon} trailingVisual={SearchIcon} />
-
-          <TextInput loading leadingVisual={SearchIcon} trailingVisual={SearchIcon} loaderPosition="leading" />
-
-          <TextInput
-            loading
-            size="large"
-            leadingVisual={SearchIcon}
-            trailingVisual={SearchIcon}
-            loaderPosition="trailing"
-          />
-        </>,
-      ).container,
-    ).toMatchSnapshot()
   })
 
   it('indicates a busy status to assistive technology', () => {
@@ -225,7 +194,7 @@ describe('TextInput', () => {
   })
 
   it('should render a password input', () => {
-    expect(render(<TextInput name="password" type="password" />).container).toMatchSnapshot()
+    expect(render(<TextInput name="password" type="password" value="" />).container).toMatchSnapshot()
   })
 
   it('should not override prop aria-invalid', () => {
@@ -300,5 +269,100 @@ describe('TextInput', () => {
   it('should not have an aria-describedby if there is no leadingVisual, trailingVisual, or loading indicator', () => {
     const {getByRole} = render(<TextInput />)
     expect(getByRole('textbox')).not.toHaveAttribute('aria-describedby')
+  })
+
+  describe('character counter', () => {
+    it('should render character counter when characterLimit is provided', () => {
+      const {container} = render(<TextInput characterLimit={20} />)
+      expect(container.textContent).toContain('20 characters remaining')
+    })
+
+    it('should update character count on input', async () => {
+      const user = userEvent.setup()
+      const {getByRole, container} = render(<TextInput characterLimit={20} />)
+      const input = getByRole('textbox')
+
+      await user.type(input, 'Hello')
+      expect(container.textContent).toContain('15 characters remaining')
+    })
+
+    it('should show singular "character" when one character remains', async () => {
+      const user = userEvent.setup()
+      const {getByRole, container} = render(<TextInput characterLimit={5} />)
+      const input = getByRole('textbox')
+
+      await user.type(input, 'Test')
+      expect(container.textContent).toContain('1 character remaining')
+    })
+
+    it('should show error state when character limit is exceeded', async () => {
+      const user = userEvent.setup()
+      const {getByRole, container} = render(<TextInput characterLimit={5} />)
+      const input = getByRole('textbox')
+
+      await user.type(input, 'Hello World')
+      expect(container.textContent).toContain('6 characters over')
+      expect(input).toHaveAttribute('aria-invalid', 'true')
+    })
+
+    it('should show alert icon when character limit is exceeded', async () => {
+      const user = userEvent.setup()
+      const {getByRole, container} = render(<TextInput characterLimit={5} />)
+      const input = getByRole('textbox')
+
+      await user.type(input, 'Hello World')
+      const icon = container.querySelector('svg')
+      expect(icon).toBeInTheDocument()
+    })
+
+    it('should clear error state when back under limit', async () => {
+      const user = userEvent.setup()
+      const {getByRole, container} = render(<TextInput characterLimit={10} defaultValue="Hello World!" />)
+      const input = getByRole('textbox')
+
+      expect(container.textContent).toContain('2 characters over')
+
+      await user.clear(input)
+      await user.type(input, 'Hello')
+
+      expect(container.textContent).toContain('5 characters remaining')
+      expect(input).not.toHaveAttribute('aria-invalid', 'true')
+    })
+
+    it('should have aria-describedby pointing to static message', () => {
+      const {getByRole, container} = render(<TextInput characterLimit={20} />)
+      const input = getByRole('textbox')
+      const describedBy = input.getAttribute('aria-describedby')
+      expect(describedBy).toBeTruthy()
+
+      const staticMessage = Array.from(container.querySelectorAll('[id]')).find(el =>
+        el.textContent.includes('You can enter up to'),
+      )
+      expect(staticMessage).toBeTruthy()
+      expect(describedBy).toContain(staticMessage?.id)
+    })
+
+    it('should have screen reader announcement element', () => {
+      const {container} = render(<TextInput characterLimit={20} />)
+      const srElement = container.querySelector('[aria-live="polite"]')
+      expect(srElement).toBeInTheDocument()
+      expect(srElement).toHaveAttribute('role', 'status')
+    })
+
+    it('should have static screen reader message', () => {
+      const {container} = render(<TextInput characterLimit={20} />)
+      expect(container.textContent).toContain('You can enter up to 20 characters')
+    })
+
+    it('should show singular character in static message when limit is 1', () => {
+      const {container} = render(<TextInput characterLimit={1} />)
+      expect(container.textContent).toContain('You can enter up to 1 character')
+    })
+
+    it('should not announce on initial load', () => {
+      const {container} = render(<TextInput characterLimit={20} defaultValue="Hello" />)
+      const srElement = container.querySelector('[aria-live="polite"]')
+      expect(srElement?.textContent).toBe('')
+    })
   })
 })

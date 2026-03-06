@@ -16,3 +16,15 @@
   max-height: 50vh;
   overflow: auto;
 }
+
+.SuccessIcon {
+  color: var(--fgColor-success);
+}
+
+.AttentionIcon {
+  color: var(--fgColor-attention);
+}
+
+.DangerIcon {
+  color: var(--fgColor-danger);
+}

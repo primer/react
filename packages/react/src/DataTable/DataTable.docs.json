@@ -100,6 +100,13 @@
       "defaultValue": ""
     },
     {
+      "name": "externalSorting",
+      "type": "boolean",
+      "required": false,
+      "description": "Indicate whether the sorting of the table is managed externally. When `true`, the table will not sort the data internally when a column header is clicked. The `onToggleSort` callback will still be invoked when a column header is clicked.",
+      "defaultValue": "false"
+    },
+    {
       "name": "onToggleSort",
       "type": "(columnId: ObjectPaths<Data> | string | number, direction: 'ASC' | 'DESC') => void",
       "required": false,

@@ -2,8 +2,15 @@ import {describe, it, expect, vi} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {ActionList} from '.'
+import {implementsClassName} from '../utils/testing'
+import classes from './ActionList.module.css'
 
 describe('ActionList', () => {
+  implementsClassName(ActionList, classes.ActionList)
+  implementsClassName(ActionList.LeadingVisual, classes.LeadingVisual)
+  implementsClassName(ActionList.TrailingVisual, classes.TrailingVisual)
+  implementsClassName(ActionList.TrailingAction, classes.TrailingAction)
+  implementsClassName(ActionList.Divider, classes.Divider)
   it('should warn when selected is provided without a selectionVariant on parent', async () => {
     // we expect console.warn to be called, so we spy on that in the test
     const spy = vi.spyOn(console, 'warn').mockImplementation(() => vi.fn())
@@ -57,17 +64,6 @@ describe('ActionList', () => {
 
     await userEvent.keyboard('{ArrowUp}')
     expect(document.activeElement).toHaveTextContent('Option 4')
-  })
-
-  it('should support a custom `className` on the outermost element', () => {
-    const Element = () => {
-      return (
-        <ActionList className="test-class-name">
-          <ActionList.Item>Item</ActionList.Item>
-        </ActionList>
-      )
-    }
-    expect(HTMLRender(<Element />).container.querySelector('ul')).toHaveClass('test-class-name')
   })
 
   it('divider should support a custom `className`', () => {
@@ -149,9 +145,39 @@ describe('ActionList', () => {
     expect(container.querySelector('li[aria-disabled="true"]')?.nextElementSibling).toHaveAttribute('tabindex', '0')
   })
 
-  it('sets title correctly for Description component', () => {
+  it('sets Description title for button-semantics items (tooltip path)', () => {
     const {container} = HTMLRender(
       <ActionList>
+        <ActionList.Item>
+          Option 1<ActionList.Description truncate>Simple string description</ActionList.Description>
+        </ActionList.Item>
+        <ActionList.Item>
+          Option 2
+          <ActionList.Description truncate>
+            <span>Complex</span> content
+          </ActionList.Description>
+        </ActionList.Item>
+        <ActionList.Item>
+          Option 3
+          <ActionList.Description>
+            <span>Non-truncated</span> content
+          </ActionList.Description>
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const descriptions = container.querySelectorAll('[data-component="ActionList.Description"]')
+
+    // For button-semantic items, the native title is suppressed in favor of
+    // a keyboard-accessible Tooltip rendered by the parent Item.
+    expect(descriptions[0]).toHaveAttribute('title', '')
+    expect(descriptions[1]).toHaveAttribute('title', '')
+    expect(descriptions[2]).not.toHaveAttribute('title')
+  })
+
+  it('sets Description title for list-semantics items (no truncation tooltip path)', () => {
+    const {container} = HTMLRender(
+      <ActionList role="listbox" selectionVariant="single">
         <ActionList.Item>
           Option 1<ActionList.Description truncate>Simple string description</ActionList.Description>
         </ActionList.Item>

@@ -58,27 +58,106 @@
     --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
   }
 
+  /* Responsive size variants */
+  @media (--viewportRange-narrow) {
+    &:has([data-component='TitleArea'][data-size-variant-narrow='large']) {
+      font-size: var(--custom-font-size, var(--text-title-size-large, 2rem));
+      font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
+      line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
+
+      --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
+    }
+
+    &:has([data-component='TitleArea'][data-size-variant-narrow='medium']) {
+      font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
+      font-weight: var(--custom-font-weight, var(--base-text-weight-semibold, 600));
+      line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+
+      --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+    }
+
+    &:has([data-component='TitleArea'][data-size-variant-narrow='subtitle']) {
+      font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
+      font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
+      line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+
+      --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+    }
+  }
+
+  @media (--viewportRange-regular) {
+    &:has([data-component='TitleArea'][data-size-variant-regular='large']) {
+      font-size: var(--custom-font-size, var(--text-title-size-large, 2rem));
+      font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
+      line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
+
+      --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
+    }
+
+    &:has([data-component='TitleArea'][data-size-variant-regular='medium']) {
+      font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
+      font-weight: var(--custom-font-weight, var(--base-text-weight-semibold, 600));
+      line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+
+      --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+    }
+
+    &:has([data-component='TitleArea'][data-size-variant-regular='subtitle']) {
+      font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
+      font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
+      line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+
+      --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+    }
+  }
+
+  @media (--viewportRange-wide) {
+    &:has([data-component='TitleArea'][data-size-variant-wide='large']) {
+      font-size: var(--custom-font-size, var(--text-title-size-large, 2rem));
+      font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
+      line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
+
+      --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-large, 1.5));
+    }
+
+    &:has([data-component='TitleArea'][data-size-variant-wide='medium']) {
+      font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
+      font-weight: var(--custom-font-weight, var(--base-text-weight-semibold, 600));
+      line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+
+      --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+    }
+
+    &:has([data-component='TitleArea'][data-size-variant-wide='subtitle']) {
+      font-size: var(--custom-font-size, var(--text-title-size-medium, 1.25rem));
+      font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
+      line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+
+      --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
+    }
+  }
+
   &[data-has-border='true']:has([data-component='PH_Navigation'][data-hidden-all]),
   &[data-has-border='true']:not(:has([data-component='PH_Navigation'])) {
     border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
     padding-block-end: var(--base-size-8);
   }
 
-  @media screen and (max-width: 768px) {
+  @media (--viewportRange-narrow) {
     &[data-has-border='true']:has([data-component='PH_Navigation'][data-hidden-narrow]) {
       border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
       padding-block-end: var(--base-size-8);
     }
   }
 
-  @media screen and (min-width: 768px) {
+  @media (--viewportRange-regular) {
     &[data-has-border='true']:has([data-component='PH_Navigation'][data-hidden-regular]) {
       border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
       padding-block-end: var(--base-size-8);
     }
   }
 
-  @media screen and (min-width: 1440px) {
+  @media (--viewportRange-wide) {
     &[data-has-border='true']:has([data-component='PH_Navigation'][data-hidden-wide]) {
       border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
       padding-block-end: var(--base-size-8);
@@ -98,19 +177,19 @@
   }
 
   & [data-hidden-narrow] {
-    @media screen and (max-width: 768px) {
+    @media (--viewportRange-narrow) {
       display: none;
     }
   }
 
   & [data-hidden-regular] {
-    @media screen and (min-width: 768px) {
+    @media (--viewportRange-regular) {
       display: none;
     }
   }
 
   & [data-hidden-wide] {
-    @media screen and (min-width: 1440px) {
+    @media (--viewportRange-wide) {
       display: none;
     }
   }

@@ -1,0 +1,65 @@
+import {Canvas, Meta} from '@storybook/addon-docs/blocks'
+
+import * as TabsStories from './Tabs.stories'
+import * as TabsExamples from './Tabs.examples.stories'
+
+<Meta of={TabsStories} />
+
+# Tabs
+
+The `Tabs` component is a headless component that provides the logic and state management for building tabbed interfaces. It allows users to switch between different views or sections of content within the same context.
+
+The primary responsibility of the `Tabs` component is to manage the active tab state, handle keyboard navigation, and ensure accessibility compliance. It does not include any styling or visual representation, allowing developers to customize the appearance according to their design requirements.
+
+<Canvas of={TabsStories.Default} />
+
+## Using `Tabs`
+
+To use the `Tabs` component, you need to import it along with its associated utility hooks: `useTabList`, `useTab`, and `useTabPanel`. These hooks help generate the props needed to create the necessary elements for the tabbed interface.
+
+Simply call these hooks and spread the returned props onto the elements of your choosing.
+
+```tsx
+import React from 'react'
+import {Tabs, useTabList, useTab, useTabPanel} from '@primer/react/experimental'
+
+function TabPanel({children, ...props}) {
+  const tabPanelProps = useTabPanel(props)
+  return <div {...tabPanelProps}>{children}</div>
+}
+
+function Tab({children, ...props}) {
+  const tabProps = useTab(props)
+  return <button {...tabProps}>{children}</button>
+}
+
+function TabList({children, ...props}) {
+  const tabListProps = useTabList(props)
+  return <div {...tabListProps}>{children}</div>
+}
+
+export function MyTabs() {
+  return (
+    <Tabs defaultValue="tab1">
+      <TabList>
+        <Tab value="tab1">Tab 1</Tab>
+        <Tab value="tab2">Tab 2</Tab>
+      </TabList>
+      <TabPanel value="tab1">
+        <p>This is the content for Tab 1.</p>
+      </TabPanel>
+      <TabPanel value="tab2">
+        <p>This is the content for Tab 2.</p>
+      </TabPanel>
+    </Tabs>
+  )
+}
+```
+
+All styling and layout is left up to you!
+
+This approach provides maximum flexibility, allowing you to create tabbed interfaces that fit seamlessly into your application's design while leveraging the robust functionality provided by the `Tabs` component.
+
+### Example: `ActionList`
+
+<Canvas of={TabsExamples.WithCustomComponents} />

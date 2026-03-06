@@ -70,6 +70,18 @@ const stories: Array<{title: string; id: string; viewports?: Array<keyof typeof 
     id: 'components-banner-examples--multiline',
     viewports: ['primer.breakpoint.xs', 'primer.breakpoint.sm'],
   },
+  {
+    title: 'ActionsInline',
+    id: 'components-banner-features--actions-layout-inline',
+  },
+  {
+    title: 'ActionsStacked',
+    id: 'components-banner-features--actions-layout-stacked',
+  },
+  {
+    title: 'FlushInsideDialog',
+    id: 'components-banner-features--flush-inside-dialog',
+  },
 ]
 
 test.describe('Banner', () => {

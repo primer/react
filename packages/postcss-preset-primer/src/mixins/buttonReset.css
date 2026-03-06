@@ -1,0 +1,18 @@
+@define-mixin buttonReset {
+  margin: 0;
+  display: inline-flex;
+  padding: 0;
+  border: 0;
+  appearance: none;
+  background: none;
+  cursor: pointer;
+  text-align: start;
+  font: inherit;
+  color: inherit;
+  align-items: center;
+
+  /* stylelint-disable-next-line nesting-selector-no-missing-scoping-root */
+  &::-moz-focus-inner {
+    border: 0;
+  }
+}

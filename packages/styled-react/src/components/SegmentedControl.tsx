@@ -25,9 +25,13 @@ const SegmentedControlImpl = (props: SegmentedControlProps) => {
 }
 
 const SegmentedControl = Object.assign(SegmentedControlImpl, {
+  __SLOT__: PrimerSegmentedControl.__SLOT__,
   Button: SegmentedControlButton,
   IconButton: SegmentedControlIconButton,
 })
+
+SegmentedControlButton.__SLOT__ = PrimerSegmentedControl.Button.__SLOT__
+SegmentedControlIconButton.__SLOT__ = PrimerSegmentedControl.IconButton.__SLOT__
 
 export {
   SegmentedControl,

@@ -1,8 +1,11 @@
 import {describe, it, expect, beforeEach, vi} from 'vitest'
 import {Radio} from '..'
 import {render, fireEvent} from '@testing-library/react'
+import {implementsClassName} from '../utils/testing'
+import classes from './Radio.module.css'
 
 describe('Radio', () => {
+  implementsClassName(Radio, classes.Radio)
   const defaultProps = {
     name: 'mock',
     value: 'mock value',
@@ -10,11 +13,6 @@ describe('Radio', () => {
 
   beforeEach(() => {
     vi.resetAllMocks()
-  })
-
-  it('should support `className` on the outermost element', () => {
-    const Element = () => <Radio {...defaultProps} className={'test-class-name'} />
-    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('renders a valid radio input', () => {

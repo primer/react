@@ -8,7 +8,7 @@ import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
  * typically appearing in a menu title, menu item, or the text of a button.
  */
 
-export const useMnemonics = (open: boolean, providedRef?: React.RefObject<HTMLElement>) => {
+export const useMnemonics = (open: boolean, providedRef?: React.RefObject<HTMLElement | null>) => {
   const containerRef = useProvidedRefOrCreate(providedRef)
 
   React.useEffect(

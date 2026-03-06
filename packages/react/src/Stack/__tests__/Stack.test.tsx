@@ -2,11 +2,11 @@ import {describe, expect, it, vi} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import type React from 'react'
 import {Stack} from '../Stack'
+import {implementsClassName} from '../../utils/testing'
+import classes from '../Stack.module.css'
 
 describe('Stack', () => {
-  it('should support `className` on the outermost element', () => {
-    expect(render(<Stack className={'test-class-name'} />).container.firstChild).toHaveClass('test-class-name')
-  })
+  implementsClassName(Stack, classes.Stack)
 
   it('should support rendering content through `children`', () => {
     render(
@@ -102,7 +102,7 @@ describe('Stack', () => {
 
   describe('gap', () => {
     // Fix when we have a better way to test this
-    it.skip('should set the default gap to `normal`', () => {
+    it.todo('should set the default gap to `normal`', () => {
       render(<Stack data-testid="stack" />)
       expect(screen.getByTestId('stack')).toHaveStyle('gap: var(--stack-gap,var(--stack-gap-normal,1rem));')
     })

@@ -1,34 +1,43 @@
-import {describe, it, expect, vi} from 'vitest'
+import {describe, it, expect} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
-import theme from '../theme'
+import BaseStyles from '../BaseStyles'
 import {ActionList} from '.'
-import {BaseStyles, ThemeProvider, ActionMenu} from '..'
+import {ActionMenu} from '..'
+import {implementsClassName} from '../utils/testing'
+import classes from './Group.module.css'
 
 describe('ActionList.Group', () => {
+  implementsClassName(
+    props => (
+      <ActionList>
+        <ActionList.Group {...props}>
+          <ActionList.Item>item</ActionList.Item>
+        </ActionList.Group>
+      </ActionList>
+    ),
+    classes.Group,
+  )
+  implementsClassName(ActionList.GroupHeading, classes.GroupHeading)
+
   it('should throw an error when ActionList.GroupHeading has an `as` prop when it is used within ActionMenu context', async () => {
-    const spy = vi.spyOn(console, 'error').mockImplementation(() => vi.fn())
     expect(() =>
       HTMLRender(
-        <ThemeProvider theme={theme}>
-          <BaseStyles>
-            <ActionMenu open={true}>
-              <ActionMenu.Button>Trigger</ActionMenu.Button>
-              <ActionMenu.Overlay>
-                <ActionList>
-                  <ActionList.Group>
-                    <ActionList.GroupHeading as="h2">Group Heading</ActionList.GroupHeading>
-                  </ActionList.Group>
-                </ActionList>
-              </ActionMenu.Overlay>
-            </ActionMenu>
-          </BaseStyles>
-        </ThemeProvider>,
+        <BaseStyles>
+          <ActionMenu open={true}>
+            <ActionMenu.Button>Trigger</ActionMenu.Button>
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Group>
+                  <ActionList.GroupHeading as="h2">Group Heading</ActionList.GroupHeading>
+                </ActionList.Group>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </BaseStyles>,
       ),
     ).toThrow(
       "Looks like you are trying to set a heading level to a menu role. Group headings for menu type action lists are for representational purposes, and rendered as divs. Therefore they don't need a heading level.",
     )
-    expect(spy).toHaveBeenCalled()
-    spy.mockRestore()
   })
 
   it('should render the ActionList.GroupHeading component as a heading with the given heading level', async () => {
@@ -45,7 +54,6 @@ describe('ActionList.Group', () => {
     expect(heading).toHaveTextContent('Group Heading')
   })
   it('should throw an error if ActionList.GroupHeading is used without an `as` prop when no role is specified (for list role)', async () => {
-    const spy = vi.spyOn(console, 'error').mockImplementation(() => vi.fn())
     expect(() =>
       HTMLRender(
         <ActionList>
@@ -59,8 +67,6 @@ describe('ActionList.Group', () => {
     ).toThrow(
       "You are setting a heading for a list, that requires a heading level. Please use 'as' prop to set a proper heading level.",
     )
-    expect(spy).toHaveBeenCalled()
-    spy.mockRestore()
   })
   it('should render the ActionList.GroupHeading component as a span (not a heading tag) when role is specified as listbox', async () => {
     const container = HTMLRender(
@@ -129,20 +135,5 @@ describe('ActionList.Group', () => {
     )
     const list = container.querySelector(`li[data-test-id='ActionList.Group'] > ul`)
     expect(list).toHaveAttribute('aria-label', 'Animals')
-  })
-
-  it('should support a custom `className` on the outermost element', () => {
-    const Element = () => {
-      return (
-        <ActionList>
-          <ActionList.Group>
-            <ActionList.GroupHeading as="h2" className="test-class-name">
-              Test
-            </ActionList.GroupHeading>
-          </ActionList.Group>
-        </ActionList>
-      )
-    }
-    expect(HTMLRender(<Element />).container.querySelector('h2')).toHaveClass('test-class-name')
   })
 })

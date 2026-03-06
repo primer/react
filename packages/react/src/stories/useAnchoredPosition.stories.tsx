@@ -1,25 +1,13 @@
 import React from 'react'
 import type {Meta} from '@storybook/react-vite'
-import {BaseStyles, ThemeProvider} from '..'
 import {useAnchoredPosition} from '../hooks'
 import type {AnchorSide} from '@primer/behaviors'
 import Portal, {registerPortalRoot} from '../Portal'
 import {Button} from '../Button'
-import classes from './AnchoredPositionStories.module.css'
+import classes from './AnchoredPosition.stories.module.css'
 
 export default {
   title: 'Hooks/useAnchoredPosition',
-  decorators: [
-    // Note: For some reason, if you use <BaseStyles><Story /></BaseStyles>,
-    // the component gets unmounted from the root every time a control changes!
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>{Story()}</BaseStyles>
-        </ThemeProvider>
-      )
-    },
-  ],
   argTypes: {
     anchorX: {
       control: {type: 'range', min: 0, max: 500},

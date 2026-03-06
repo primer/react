@@ -15,6 +15,10 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import {Tooltip} from '../TooltipV2/Tooltip'
 import styles from './ActionMenu.module.css'
 import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveValue'
+import {isSlot} from '../utils/is-slot'
+import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types/Slots'
+import {useFeatureFlag} from '../FeatureFlags'
+import {DialogContext} from '../Dialog/Dialog'
 
 export type MenuCloseHandler = (
   gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab' | 'item-select' | 'arrow-left' | 'close',
@@ -33,7 +37,8 @@ export type ActionMenuProps = {
   /**
    * Recommended: `ActionMenu.Button` or `ActionMenu.Anchor` with `ActionMenu.Overlay`
    */
-  children: React.ReactElement[] | React.ReactElement
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  children: React.ReactElement<any>[] | React.ReactElement<any>
 
   /**
    * If defined, will control the open/closed state of the overlay. Must be used in conjunction with `onOpenChange`.
@@ -71,7 +76,7 @@ const mergeAnchorHandlers = (anchorProps: React.HTMLAttributes<HTMLElement>, but
   return mergedAnchorProps
 }
 
-const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
+const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
   anchorRef: externalAnchorRef,
   open,
   onOpenChange,
@@ -99,7 +104,9 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   )
 
   const menuButtonChild = React.Children.toArray(children).find(
-    child => React.isValidElement<ActionMenuButtonProps>(child) && (child.type === MenuButton || child.type === Anchor),
+    child =>
+      React.isValidElement<ActionMenuButtonProps>(child) &&
+      (child.type === MenuButton || child.type === Anchor || isSlot(child, Anchor) || isSlot(child, MenuButton)),
   )
   const menuButtonChildId = React.isValidElement(menuButtonChild) ? menuButtonChild.props.id : undefined
 
@@ -112,11 +119,11 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   // 🚨 Accounting for Tooltip wrapping ActionMenu.Button or being a direct child of ActionMenu.Anchor.
   const contents = React.Children.map(children, child => {
     // Is ActionMenu.Button wrapped with Tooltip? If this is the case, our anchor is the tooltip's trigger (ActionMenu.Button's grandchild)
-    if (child.type === Tooltip) {
+    if (child.type === Tooltip || isSlot(child, Tooltip)) {
       // tooltip trigger
       const anchorChildren = child.props.children
-      if (anchorChildren.type === MenuButton) {
-        // eslint-disable-next-line react-compiler/react-compiler
+      if (anchorChildren.type === MenuButton || isSlot(anchorChildren, MenuButton)) {
+        // eslint-disable-next-line react-hooks/immutability
         renderAnchor = anchorProps => {
           // We need to attach the anchor props to the tooltip trigger (ActionMenu.Button's grandchild) not the tooltip itself.
           const triggerButton = React.cloneElement(
@@ -127,9 +134,10 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
         }
       }
       return null
-    } else if (child.type === Anchor) {
+    } else if (child.type === Anchor || isSlot(child, Anchor)) {
       const anchorChildren = child.props.children
-      const isWrappedWithTooltip = anchorChildren !== undefined ? anchorChildren.type === Tooltip : false
+      const isWrappedWithTooltip =
+        anchorChildren !== undefined ? anchorChildren.type === Tooltip || isSlot(anchorChildren, Tooltip) : false
       if (isWrappedWithTooltip) {
         if (anchorChildren.props.children !== null) {
           renderAnchor = anchorProps => {
@@ -148,7 +156,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
         renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
       }
       return null
-    } else if (child.type === MenuButton) {
+    } else if (child.type === MenuButton || isSlot(child, MenuButton)) {
       renderAnchor = anchorProps => React.cloneElement(child, mergeAnchorHandlers(anchorProps, child.props))
       return null
     } else {
@@ -174,8 +182,18 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   )
 }
 
-export type ActionMenuAnchorProps = {children: React.ReactElement; id?: string} & React.HTMLAttributes<HTMLElement>
-const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children: child, ...anchorProps}, anchorRef) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ActionMenuAnchorProps = {children: React.ReactElement<any>; id?: string} & React.HTMLAttributes<HTMLElement>
+const Anchor: WithSlotMarker<
+  React.ForwardRefExoticComponent<
+    {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      children: React.ReactElement<any>
+      id?: string
+    } & React.HTMLAttributes<HTMLElement> &
+      React.RefAttributes<HTMLElement>
+  >
+> = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children: child, ...anchorProps}, anchorRef) => {
   const {onOpen, isSubmenu} = React.useContext(MenuContext)
 
   const openSubmenuOnRightArrow: React.KeyboardEventHandler<HTMLElement> = useCallback(
@@ -240,18 +258,19 @@ const defaultVariant: ResponsiveValue<'anchored', 'anchored' | 'fullscreen'> = {
 }
 
 type MenuOverlayProps = Partial<OverlayProps> &
-  Pick<AnchoredOverlayProps, 'align' | 'side' | 'variant'> & {
+  Pick<AnchoredOverlayProps, 'align' | 'side' | 'variant' | 'displayInViewport'> & {
     /**
      * Recommended: `ActionList`
      */
     children: React.ReactNode
     onPositionChange?: ({position}: {position: AnchorPosition}) => void
   }
-const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
+const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
   children,
   align = 'start',
   side,
   onPositionChange,
+  displayInViewport,
   'aria-labelledby': ariaLabelledby,
   variant = defaultVariant,
   ...overlayProps
@@ -269,11 +288,24 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
   } = React.useContext(MenuContext) as MandateProps<MenuContextProps, 'anchorRef'>
 
   const containerRef = React.useRef<HTMLDivElement>(null)
-  useMenuKeyboardNavigation(open, onClose, containerRef, anchorRef, isSubmenu)
   const isNarrow = useResponsiveValue({narrow: true}, false)
-  const responsiveVariant = useResponsiveValue(variant, {regular: 'anchored', narrow: 'anchored'})
 
   const isNarrowFullscreen = !!isNarrow && variant.narrow === 'fullscreen'
+
+  const handleClose: MenuCloseHandler = React.useCallback(
+    gesture => {
+      // In narrow fullscreen mode, don't close on tab, let focus stay in the menu
+      if (isNarrowFullscreen && gesture === 'tab') {
+        return
+      }
+      onClose?.(gesture)
+    },
+    [isNarrowFullscreen, onClose],
+  )
+
+  useMenuKeyboardNavigation(open, handleClose, containerRef, anchorRef, isSubmenu)
+
+  const responsiveVariant = useResponsiveValue(variant, {regular: 'anchored', narrow: 'anchored'})
 
   // If the menu anchor is an icon button, we need to label the menu by tooltip that also labelled the anchor.
   const [anchorAriaLabelledby, setAnchorAriaLabelledby] = useState<null | string>(null)
@@ -288,6 +320,12 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
     }
   }, [anchorRef])
 
+  const featureFlagDisplayInViewportInsideDialog = useFeatureFlag(
+    'primer_react_action_menu_display_in_viewport_inside_dialog',
+  )
+
+  const isInsideDialog = useContext(DialogContext) !== undefined
+
   return (
     <AnchoredOverlay
       anchorRef={anchorRef}
@@ -295,15 +333,24 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
       anchorId={anchorId}
       open={open}
       onOpen={onOpen}
-      onClose={onClose}
+      onClose={handleClose}
       align={align}
       side={side ?? (isSubmenu ? 'outside-right' : 'outside-bottom')}
       overlayProps={overlayProps}
       focusZoneSettings={isNarrowFullscreen ? {disabled: true} : {focusOutBehavior: 'wrap'}}
       onPositionChange={onPositionChange}
       variant={variant}
+      displayInViewport={
+        displayInViewport !== undefined ? displayInViewport : featureFlagDisplayInViewportInsideDialog && isInsideDialog
+      }
     >
-      <div ref={containerRef} className={styles.ActionMenuContainer} data-variant={responsiveVariant}>
+      <div
+        ref={containerRef}
+        className={styles.ActionMenuContainer}
+        data-variant={responsiveVariant}
+        {...(overlayProps.overflow ? {[`data-overflow-${overlayProps.overflow}`]: ''} : {})}
+        {...(overlayProps.maxHeight ? {[`data-max-height-${overlayProps.maxHeight}`]: ''} : {})}
+      >
         <ActionListContainerContext.Provider
           value={{
             container: 'ActionMenu',
@@ -323,4 +370,10 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
 }
 
 Menu.displayName = 'ActionMenu'
+
+Menu.__SLOT__ = Symbol('ActionMenu')
+MenuButton.__SLOT__ = Symbol('ActionMenu.Button')
+Anchor.__SLOT__ = Symbol('ActionMenu.Anchor')
+Overlay.__SLOT__ = Symbol('ActionMenu.Overlay')
+
 export const ActionMenu = Object.assign(Menu, {Button: MenuButton, Anchor, Overlay, Divider})

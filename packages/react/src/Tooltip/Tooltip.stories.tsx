@@ -1,5 +1,5 @@
 import type {Meta} from '@storybook/react-vite'
-import {BaseStyles, ThemeProvider, Button} from '..'
+import {Button} from '..'
 import Link from '../Link'
 import {Banner} from '../Banner'
 import Tooltip from './Tooltip'
@@ -10,18 +10,6 @@ import classes from './Tooltip.stories.module.css'
 export default {
   title: 'Deprecated/Components/Tooltip',
   component: Tooltip,
-
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    },
-  ],
 } as Meta
 
 export const Default = () => (

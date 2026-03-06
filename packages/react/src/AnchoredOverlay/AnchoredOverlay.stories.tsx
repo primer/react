@@ -31,11 +31,11 @@ const hoverCard = (
     </Stack>
     <Text size="medium">Former beach cat and champion swimmer. Now your friendly octapus with a normal face.</Text>
     <Stack direction="horizontal" gap="none">
-      <Octicon color={'var(--fgColor-muted)'} icon={LocationIcon} />
+      <Octicon className={classes.Icon} icon={LocationIcon} />
       <Text className={classes.TextSmallMutedWithMargin}>Interwebs</Text>
     </Stack>
     <Stack direction="horizontal" gap="none">
-      <Octicon color={'var(--fgColor-muted)'} icon={RepoIcon} />
+      <Octicon className={classes.Icon} icon={RepoIcon} />
       <Text className={classes.TextSmallMutedWithMargin}>Owns this repository</Text>
     </Stack>
   </Stack>

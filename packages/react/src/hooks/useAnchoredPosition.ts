@@ -6,8 +6,8 @@ import {useResizeObserver} from './useResizeObserver'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 export interface AnchoredPositionHookSettings extends Partial<PositionSettings> {
-  floatingElementRef?: React.RefObject<Element>
-  anchorElementRef?: React.RefObject<Element>
+  floatingElementRef?: React.RefObject<Element | null>
+  anchorElementRef?: React.RefObject<Element | null>
   pinPosition?: boolean
   onPositionChange?: (position: AnchorPosition | undefined) => void
 }
@@ -25,8 +25,8 @@ export function useAnchoredPosition(
   settings?: AnchoredPositionHookSettings,
   dependencies: React.DependencyList = [],
 ): {
-  floatingElementRef: React.RefObject<Element>
-  anchorElementRef: React.RefObject<Element>
+  floatingElementRef: React.RefObject<Element | null>
+  anchorElementRef: React.RefObject<Element | null>
   position: AnchorPosition | undefined
 } {
   const floatingElementRef = useProvidedRefOrCreate(settings?.floatingElementRef)
@@ -87,7 +87,6 @@ export function useAnchoredPosition(
       }
       setPrevHeight(floatingElementRef.current?.clientHeight)
     },
-    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [floatingElementRef, anchorElementRef, ...dependencies],
   )
@@ -99,7 +98,7 @@ export function useAnchoredPosition(
   useLayoutEffect(updatePosition, [updatePosition])
 
   useResizeObserver(updatePosition) // watches for changes in window size
-  useResizeObserver(updatePosition, floatingElementRef as React.RefObject<HTMLElement>) // watches for changes in floating element size
+  useResizeObserver(updatePosition, floatingElementRef as React.RefObject<HTMLElement | null>) // watches for changes in floating element size
 
   return {
     floatingElementRef,

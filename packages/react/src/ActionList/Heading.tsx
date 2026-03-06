@@ -1,5 +1,4 @@
 import React, {forwardRef} from 'react'
-import type {SxProp} from '../sx'
 import {useRefObjectAsForwardedRef} from '../hooks'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {default as HeadingComponent} from '../Heading'
@@ -17,7 +16,8 @@ export type ActionListHeadingProps = {
   size?: HeadingVariants
   visuallyHidden?: boolean
   className?: string
-} & SxProp
+  style?: React.CSSProperties
+}
 
 export const Heading = forwardRef(({as, size, children, visuallyHidden = false, className, ...props}, forwardedRef) => {
   const innerRef = React.useRef<HTMLHeadingElement>(null)
@@ -51,3 +51,5 @@ export const Heading = forwardRef(({as, size, children, visuallyHidden = false, 
 }) as PolymorphicForwardRefComponent<HeadingLevels, ActionListHeadingProps>
 
 Heading.displayName = 'ActionList.Heading'
+
+Heading.__SLOT__ = Symbol('ActionList.Heading')

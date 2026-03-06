@@ -19,7 +19,7 @@ Playground.argTypes = {
     control: {
       type: 'radio',
     },
-    options: ['default', 'primary', 'danger', 'invisible', 'outline'],
+    options: ['default', 'primary', 'danger', 'invisible', 'outline', 'link'],
   },
   alignContent: {
     control: {
@@ -32,8 +32,8 @@ Playground.argTypes = {
       type: 'boolean',
     },
   },
-  leadingIcon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
-  trailingIcon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
+  leadingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
+  trailingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
   trailingAction: OcticonArgType([ChevronRightIcon]),
   href: {control: 'text'},
   loading: {
@@ -47,8 +47,8 @@ Playground.args = {
   size: 'medium',
   variant: 'default',
   alignContent: 'center',
-  trailingIcon: null,
-  leadingIcon: null,
+  trailingVisual: null,
+  leadingVisual: null,
   href: '#',
   loading: false,
 }

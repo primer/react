@@ -52,6 +52,13 @@ export type DataTableProps<Data extends UniqueRow> = {
   initialSortDirection?: Exclude<SortDirection, 'NONE'>
 
   /**
+   * When true, disables client-side sorting for all sortable columns in the
+   * table. Use this when sorting is handled server-side. The `onToggleSort`
+   * callback will still be fired when a sortable column header is clicked.
+   */
+  externalSorting?: boolean
+
+  /**
    * Provide a function to determine the unique identifier for each row.
    * This function allows you to customize the key used for the row.
    * By default, the table uses the `id` field from the data.
@@ -80,6 +87,7 @@ function DataTable<Data extends UniqueRow>({
   data,
   initialSortColumn,
   initialSortDirection,
+  externalSorting,
   getRowId = defaultGetRowId,
   onToggleSort,
 }: DataTableProps<Data>) {
@@ -89,6 +97,7 @@ function DataTable<Data extends UniqueRow>({
     initialSortColumn,
     initialSortDirection,
     getRowId,
+    externalSorting,
   })
 
   return (

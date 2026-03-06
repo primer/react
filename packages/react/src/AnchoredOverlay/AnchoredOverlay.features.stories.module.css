@@ -58,3 +58,7 @@
   color: var(--fgColor-muted);
   margin-left: var(--base-size-4);
 }
+
+.Icon {
+  color: var(--fgColor-muted);
+}

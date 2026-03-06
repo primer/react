@@ -43,11 +43,6 @@
       "required": false,
       "description": "URL of the avatar image.",
       "defaultValue": ""
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": []

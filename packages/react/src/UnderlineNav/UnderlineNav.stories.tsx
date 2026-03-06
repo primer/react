@@ -2,7 +2,7 @@ import type {Meta, StoryFn} from '@storybook/react-vite'
 import {UnderlineNav} from './index'
 import {UnderlineNavItem} from './UnderlineNavItem'
 
-const excludedControlKeys = ['sx', 'as', 'align', 'afterSelect']
+const excludedControlKeys = ['as', 'align', 'afterSelect']
 
 const meta: Meta<typeof UnderlineNav> = {
   title: 'Components/UnderlineNav',

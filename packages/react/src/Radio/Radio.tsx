@@ -4,6 +4,7 @@ import {RadioGroupContext} from '../RadioGroup/RadioGroup'
 import {clsx} from 'clsx'
 import sharedClasses from '../Checkbox/shared.module.css'
 import classes from './Radio.module.css'
+import type {WithSlotMarker} from '../utils/types'
 
 export type RadioProps = {
   /**
@@ -50,7 +51,8 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
       ...rest
     }: RadioProps,
     ref,
-  ): ReactElement => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): ReactElement<any> => {
     const radioGroupContext = useContext(RadioGroupContext)
     const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
       radioGroupContext?.onChange && radioGroupContext.onChange(e)
@@ -84,5 +86,6 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
 )
 
 Radio.displayName = 'Radio'
+;(Radio as WithSlotMarker<typeof Radio>).__SLOT__ = Symbol('Radio')
 
-export default Radio
+export default Radio as WithSlotMarker<typeof Radio>
