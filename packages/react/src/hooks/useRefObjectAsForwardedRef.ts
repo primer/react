@@ -23,20 +23,5 @@ const unset = Symbol()
  * ```
  */
 export function useRefObjectAsForwardedRef<T>(forwardedRef: ForwardedRef<T>, refObject: RefObject<T | null>): void {
-  const wrappedForwardedRef: ForwardedRef<T> = useMemo(() => {
-    if (typeof forwardedRef === 'function') {
-      let lastInstance: T | null | typeof unset = unset
-
-      return (instance: T | null) => {
-        if (instance !== lastInstance) {
-          lastInstance = instance
-          forwardedRef(instance)
-        }
-      }
-    }
-
-    return forwardedRef
-  }, [forwardedRef])
-
-  useImperativeHandle<T | null, T | null>(wrappedForwardedRef, () => refObject.current)
+  useImperativeHandle<T | null, T | null>(forwardedRef, () => refObject.current)
 }

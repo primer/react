@@ -122,7 +122,17 @@ function serialize(value: typeof tokens): string {
 }
 
 // Semantic group prefixes that apply to any element
-const SEMANTIC_PREFIXES = ['bgColor', 'fgColor', 'border', 'borderColor', 'shadow', 'focus', 'color']
+const SEMANTIC_PREFIXES = [
+  'bgColor',
+  'fgColor',
+  'border',
+  'borderColor',
+  'shadow',
+  'focus',
+  'color',
+  'animation',
+  'duration',
+]
 
 type TokenGroup = {
   name: string
@@ -423,6 +433,7 @@ function getDesignTokenSpecsText(groups: TokenGroups): string {
 
 ## 1. Core Rule & Enforcement
 * **Expert Mode**: CSS expert. NEVER use raw values (hex, px, etc.). Tokens only.
+* **Motion & Transitions:** Every interactive state change (Hover, Active) MUST include a transition. NEVER use raw values like 200ms or ease-in. Use var(--base-duration-...) and var(--base-easing-...).
 * **Shorthand**: MUST use \`font: var(...)\`. NEVER split size/weight. 
 * **Shorthand Fallback**: If no shorthand exists (e.g. Monospace), use individual tokens for font-size, family, and line-height. NEVER raw 1.5.
 * **States**: Define 5: Rest, Hover, Focus-visible, Active, Disabled.
@@ -448,10 +459,10 @@ function getDesignTokenSpecsText(groups: TokenGroups): string {
 
 ## 4. Optimization & Recipes (MANDATORY)
 **Strategy**: STOP property-by-property searching. Use \`get_token_group_bundle\` for these common patterns:
-- **Forms**: \`["control", "focus", "outline", "text", "borderRadius", "stack"]\`
-- **Modals/Cards**: \`["overlay", "shadow", "outline", "borderRadius", "bgColor", "stack"]\`
+- **Forms**: \`["control", "focus", "outline", "text", "borderRadius", "stack", "animation"]\`
+- **Modals/Cards**: \`["overlay", "shadow", "outline", "borderRadius", "bgColor", "stack", "animation"]\`
 - **Tables/Lists**: \`["stack", "borderColor", "text", "bgColor", "control"]\`
-- **Nav/Sidebars**: \`["control", "text", "accent", "stack", "focus"]\`
+- **Nav/Sidebars**: \`["control", "text", "accent", "stack", "focus", "animation"]\`
 - **Status/Badges**: \`["text", "success", "danger", "attention", "severe", "stack"]\`
 
 ## 5. Available Groups
@@ -720,6 +731,8 @@ const groupHints: Record<string, string> = {
   fgColor: 'Use `fgColor` for text. For borders, use `borderColor`.',
   borderWidth:
     '`borderWidth` only has sizing values (thin, thick, thicker). For border *colors*, use the `borderColor` or `border` group.',
+  animation:
+    'TRANSITION RULE: Apply duration and easing to the base class, not the :hover state. Standard pairing: `transition: background-color var(--base-duration-200) var(--base-easing-easeInOut);`',
 }
 
 // -----------------------------------------------------------------------------

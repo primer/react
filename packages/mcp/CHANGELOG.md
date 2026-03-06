@@ -1,5 +1,11 @@
 # @primer/mcp
 
+## 0.3.0
+
+### Minor Changes
+
+- [#7574](https://github.com/primer/react/pull/7574) [`14c5a6c`](https://github.com/primer/react/commit/14c5a6c70921e67f9704cd05ad15be9c8fdaa72d) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Replace design token tools with enhanced search and bundle system. The single `list_tokens` tool is replaced by `find_tokens`, `get_token_group_bundle`, `get_design_token_specs`, and `get_token_usage_patterns` for improved token discovery and usage guidance.
+
 ## 0.2.0
 
 ### Minor Changes

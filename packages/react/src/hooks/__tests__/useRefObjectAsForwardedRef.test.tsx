@@ -15,7 +15,7 @@ const Component = forwardRef<HTMLInputElement & HTMLButtonElement, {asButton?: b
 
 describe('useRefObjectAsForwardedRef', () => {
   describe('object refs', () => {
-    it('fowards the ref to the underlying element', async () => {
+    it('forwards the ref to the underlying element', async () => {
       const ref: InputOrButtonRef = {current: null}
 
       render(<Component ref={ref} />)
