@@ -36,17 +36,10 @@
 
     &:where([data-responsive='fullscreen']) {
       @media screen and (--viewportRange-narrow) {
-        top: 0;
-        left: 0;
+        top: 0 !important;
+        left: 0 !important;
       }
     }
-  }
-
-  &:not([data-anchor-position]):not([data-responsive='fullscreen']):not([data-variant]) {
-    /* stylelint-disable-next-line primer/spacing */
-    top: var(--top, auto);
-    /* stylelint-disable-next-line primer/spacing */
-    left: var(--left, auto);
   }
 
   &:focus {
