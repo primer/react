@@ -20,6 +20,13 @@ import {useSlots} from '../hooks/useSlots'
 /* Dialog Version 2 */
 
 /**
+ * Ref count for data-dialog-scroll-disabled attribute management.
+ * Tracks how many dialogs are currently open to know when to remove the attribute.
+ * This is client-only: it is only accessed inside useEffect, which never runs on the server.
+ */
+let dialogScrollDisabledCount = 0
+
+/**
  * Props that characterize a button to be rendered into the footer of
  * a Dialog.
  */
@@ -267,7 +274,6 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   const autoFocusedFooterButtonRef = useRef<HTMLButtonElement>(null)
   for (const footerButton of footerButtons) {
     if (footerButton.autoFocus) {
-      // eslint-disable-next-line react-hooks/immutability
       footerButton.ref = autoFocusedFooterButtonRef
     }
   }
@@ -308,29 +314,16 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
 
   React.useEffect(() => {
     const scrollbarWidth = window.innerWidth - document.body.clientWidth
-    const dialog = dialogRef.current
-    const usePerfOptimization = document.body.hasAttribute('data-dialog-scroll-optimized')
 
-    // Add DisableScroll class to this dialog (for legacy :has() selector path)
-    dialog?.classList.add(classes.DisableScroll)
+    dialogScrollDisabledCount++
     document.body.style.setProperty('--prc-dialog-scrollgutter', `${scrollbarWidth}px`)
-
-    if (usePerfOptimization) {
-      // Optimized path: set attribute on body for direct CSS targeting
-      document.body.setAttribute('data-dialog-scroll-disabled', '')
-    }
-    // Legacy path: no action needed - CSS :has(.Dialog.DisableScroll) handles it
+    document.body.setAttribute('data-dialog-scroll-disabled', '')
 
     return () => {
-      dialog?.classList.remove(classes.DisableScroll)
-
-      const remainingDialogs = document.querySelectorAll(`.${classes.DisableScroll}`)
-
-      if (remainingDialogs.length === 0) {
+      dialogScrollDisabledCount--
+      if (dialogScrollDisabledCount === 0) {
         document.body.style.removeProperty('--prc-dialog-scrollgutter')
-        if (usePerfOptimization) {
-          document.body.removeAttribute('data-dialog-scroll-disabled')
-        }
+        document.body.removeAttribute('data-dialog-scroll-disabled')
       }
     }
   }, [])
