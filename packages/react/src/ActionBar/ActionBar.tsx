@@ -304,22 +304,8 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
 
   const [menuItemIds, setMenuItemIds] = useState<Set<string>>(() => new Set())
   const [isInitialRender, setIsInitialRender] = useState(true)
-  const hasCalculatedRef = useRef(false)
 
   const navRef = useRef<HTMLDivElement>(null)
-  
-  // Fallback: ensure toolbar becomes visible after a short delay even if resize observer doesn't fire
-  useIsomorphicLayoutEffect(() => {
-    if (isInitialRender) {
-      const timeoutId = setTimeout(() => {
-        if (!hasCalculatedRef.current) {
-          hasCalculatedRef.current = true
-          setIsInitialRender(false)
-        }
-      }, 100) // Short delay to allow resize observer to fire first
-      return () => clearTimeout(timeoutId)
-    }
-  }, [isInitialRender])
   
   // measure gap after first render & whenever gap scale changes
   useIsomorphicLayoutEffect(() => {
@@ -338,12 +324,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     if (navWidth > 0) {
       const newMenuItemIds = getMenuItems(navWidth, moreMenuWidth, childRegistry, hasActiveMenu, computedGap)
       if (newMenuItemIds) setMenuItemIds(newMenuItemIds)
-      
-      // Remove visibility hidden after initial calculations
-      if (!hasCalculatedRef.current) {
-        hasCalculatedRef.current = true
-        setIsInitialRender(false)
-      }
+      setIsInitialRender(false)
     }
   }, navRef as RefObject<HTMLElement>)
 

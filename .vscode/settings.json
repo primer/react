@@ -23,15 +23,11 @@
   ],
   "json.schemas": [
     {
-      "fileMatch": [
-        "*.docs.json"
-      ],
+      "fileMatch": ["*.docs.json"],
       "url": "./packages/react/script/components-json/component.schema.json"
     },
     {
-      "fileMatch": [
-        "generated/components.json"
-      ],
+      "fileMatch": ["generated/components.json"],
       "url": "./packages/react/script/components-json/output.schema.json"
     }
   ],
@@ -46,7 +42,5 @@
     "node_modules/@primer/primitives/dist/css/functional/themes/light-high-contrast.css",
     "node_modules/@primer/primitives/dist/css/functional/themes/light-tritanopia.css"
   ],
-  "cssvar.files": [
-    "node_modules/@primer/primitives/dist/css/**/*.css"
-  ]
+  "cssvar.files": ["node_modules/@primer/primitives/dist/css/**/*.css"]
 }
