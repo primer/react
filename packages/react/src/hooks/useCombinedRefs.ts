@@ -26,7 +26,7 @@ import {useCallback, useEffect, useRef} from 'react'
  * // React 19
  * const Example = ({ref: externalRef}: {ref?: Ref<HTMLButtonElement>}) => {
  *  const ref = useRef<HTMLButtonElement>(null)
- *  const combinedRef = useCombinedRefs(forwardedRef, ref)
+ *  const combinedRef = useCombinedRefs(externalRef, ref)
  *
  *  return <button ref={combinedRef} />
  * }
