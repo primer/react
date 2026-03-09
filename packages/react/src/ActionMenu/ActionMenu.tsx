@@ -231,6 +231,7 @@ const Anchor: WithSlotMarker<
   const internalRef = useRef<HTMLElement | null>(null) as React.MutableRefObject<HTMLElement | null>
 
   useEffect(() => {
+    if (!__DEV__) return
     // Skip validation for submenu anchors, where ActionList.Item is a valid anchor
     if (isSubmenu) return
     if (!internalRef.current) return
