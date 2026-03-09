@@ -1,10 +1,13 @@
 import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
+import {viewports} from '../test-helpers/viewports'
 
 const stories: Array<{
   title: string
   id: string
+  viewport?: keyof typeof viewports
+  delay?: number
 }> = [
   // Default
   {
@@ -59,15 +62,18 @@ const stories: Array<{
   {
     title: 'Fullscreen Variant',
     id: 'components-anchoredoverlay-features--fullscreen-variant',
+    viewport: 'primer.breakpoint.xs',
   },
   // Dev
   {
     title: 'Reposition After Content Grows',
     id: 'components-anchoredoverlay-dev--reposition-after-content-grows',
+    delay: 2500,
   },
   {
     title: 'Reposition After Content Grows Within Dialog',
     id: 'components-anchoredoverlay-dev--reposition-after-content-grows-within-dialog',
+    delay: 2500,
   },
 ] as const
 
@@ -94,9 +100,20 @@ test.describe('AnchoredOverlay', () => {
                 },
               })
 
+              if (story.viewport) {
+                await page.setViewportSize({
+                  width: viewports[story.viewport],
+                  height: 667,
+                })
+              }
+
               // Open the overlay
-              await page.locator('button', {hasText: 'Button'}).waitFor()
-              await page.getByRole('button', {name: 'Button'}).click()
+              await page.locator('button', {hasText: 'Button'}).first().waitFor()
+              await page.getByRole('button', {name: 'Button'}).first().click()
+
+              if (story.delay) {
+                await page.waitForTimeout(story.delay)
+              }
 
               expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
                 `AnchoredOverlay.${story.title}.${theme}${namePostfix}.png`,
