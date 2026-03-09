@@ -20,6 +20,7 @@ import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types/Slots'
 import {useFeatureFlag} from '../FeatureFlags'
 import {DialogContext} from '../Dialog/Dialog'
 import {warning} from '../utils/warning'
+import {useMergedRefs} from '../internal/hooks/useMergedRefs'
 
 export type MenuCloseHandler = (
   gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab' | 'item-select' | 'arrow-left' | 'close',
@@ -228,7 +229,8 @@ const Anchor: WithSlotMarker<
   >
 > = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children: child, ...anchorProps}, anchorRef) => {
   const {onOpen, isSubmenu} = React.useContext(MenuContext)
-  const internalRef = useRef<HTMLElement | null>(null) as React.MutableRefObject<HTMLElement | null>
+  const internalRef = useRef<HTMLElement | null>(null)
+  const mergedRef = useMergedRefs(internalRef, anchorRef)
 
   useEffect(() => {
     if (!__DEV__) return
@@ -278,17 +280,9 @@ const Anchor: WithSlotMarker<
 
   return (
     <ActionListContainerContext.Provider value={thisActionListContext}>
-      {/* eslint-disable-next-line react-hooks/refs */}
       {React.cloneElement(child, {
         ...anchorProps,
-        ref: (node: HTMLElement | null) => {
-          internalRef.current = node
-          if (typeof anchorRef === 'function') {
-            anchorRef(node)
-          } else if (anchorRef) {
-            ;(anchorRef as React.MutableRefObject<HTMLElement | null>).current = node
-          }
-        },
+        ref: mergedRef,
         onClick: onButtonClick,
         onKeyDown: onButtonKeyDown,
       })}
