@@ -5,6 +5,7 @@ import {themes} from '../test-helpers/themes'
 const stories: Array<{
   title: string
   id: string
+  buttonName?: string
 }> = [
   // Default
   {
@@ -59,6 +60,7 @@ const stories: Array<{
   {
     title: 'Fullscreen Variant',
     id: 'components-anchoredoverlay-features--fullscreen-variant',
+    buttonName: 'Open Fullscreen on Narrow',
   },
   // Dev
   {
@@ -95,8 +97,9 @@ test.describe('AnchoredOverlay', () => {
               })
 
               // Open the overlay
-              await page.locator('button', {hasText: 'Button'}).waitFor()
-              await page.getByRole('button', {name: 'Button'}).click()
+              const buttonName = story.buttonName ?? 'Button'
+              await page.locator('button', {hasText: buttonName}).first().waitFor()
+              await page.getByRole('button', {name: buttonName}).first().click()
 
               expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
                 `AnchoredOverlay.${story.title}.${theme}${namePostfix}.png`,
