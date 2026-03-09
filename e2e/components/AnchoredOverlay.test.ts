@@ -1,6 +1,7 @@
 import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
+import {viewports} from '../test-helpers/viewports'
 
 const stories: Array<{
   title: string
@@ -56,10 +57,6 @@ const stories: Array<{
     title: 'Overlay Props Overrides',
     id: 'components-anchoredoverlay-features--overlay-props-overrides',
   },
-  {
-    title: 'Fullscreen Variant',
-    id: 'components-anchoredoverlay-features--fullscreen-variant',
-  },
   // Dev
   {
     title: 'Reposition After Content Grows',
@@ -107,4 +104,66 @@ test.describe('AnchoredOverlay', () => {
       }
     })
   }
+
+  test.describe('Fullscreen Variant', () => {
+    const story = {
+      title: 'Fullscreen Variant',
+      id: 'components-anchoredoverlay-features--fullscreen-variant',
+    }
+
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        for (const withCSSAnchorPositioning of featureFlagVariants) {
+          const namePostfix = withCSSAnchorPositioning ? '.css-anchor-positioning' : ''
+
+          test(`default @vrt${namePostfix ? ` ${namePostfix}` : ''}`, async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
+                ...(withCSSAnchorPositioning && {
+                  featureFlags: {
+                    primer_react_css_anchor_positioning: true,
+                  },
+                }),
+              },
+            })
+
+            // Open the overlay
+            await page.getByRole('button', {name: 'Open Fullscreen on Narrow'}).waitFor()
+            await page.getByRole('button', {name: 'Open Fullscreen on Narrow'}).click()
+
+            expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+              `AnchoredOverlay.${story.title}.${theme}${namePostfix}.png`,
+            )
+          })
+
+          test(`narrow viewport @vrt${namePostfix ? ` ${namePostfix}` : ''}`, async ({page}) => {
+            // Set narrow viewport (<768px) to trigger fullscreen behavior
+            await page.setViewportSize({width: viewports['primer.breakpoint.xs'], height: 768})
+
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
+                ...(withCSSAnchorPositioning && {
+                  featureFlags: {
+                    primer_react_css_anchor_positioning: true,
+                  },
+                }),
+              },
+            })
+
+            // Open the overlay
+            await page.getByRole('button', {name: 'Open Fullscreen on Narrow'}).waitFor()
+            await page.getByRole('button', {name: 'Open Fullscreen on Narrow'}).click()
+
+            expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+              `AnchoredOverlay.${story.title}.${theme}.narrow${namePostfix}.png`,
+            )
+          })
+        }
+      })
+    }
+  })
 })
