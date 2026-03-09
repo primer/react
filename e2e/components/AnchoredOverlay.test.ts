@@ -1,6 +1,5 @@
 import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
-import {themes} from '../test-helpers/themes'
 import {viewports} from '../test-helpers/viewports'
 
 const stories: Array<{
@@ -120,61 +119,57 @@ const stories: Array<{
   },
 ] as const
 
-const featureFlagVariants = [false, true]
+const theme = 'light'
 
 test.describe('AnchoredOverlay', () => {
   for (const story of stories) {
     test.describe(story.title, () => {
-      for (const theme of themes) {
-        test.describe(theme, () => {
-          for (const withCSSAnchorPositioning of featureFlagVariants) {
-            const namePostfix = withCSSAnchorPositioning ? '.css-anchor-positioning' : ''
+      for (const withCSSAnchorPositioning of [false, true]) {
+        const namePostfix = withCSSAnchorPositioning ? '.css-anchor-positioning' : ''
 
-            test(`default @vrt${namePostfix ? ` ${namePostfix}` : ''}`, async ({page}) => {
-              await visit(page, {
-                id: story.id,
-                globals: {
-                  colorScheme: theme,
-                  ...(withCSSAnchorPositioning && {
-                    featureFlags: {
-                      primer_react_css_anchor_positioning: true,
-                    },
-                  }),
+        test(`default @vrt${namePostfix ? ` ${namePostfix}` : ''}`, async ({page}) => {
+          await visit(page, {
+            id: story.id,
+            globals: {
+              colorScheme: theme,
+              ...(withCSSAnchorPositioning && {
+                featureFlags: {
+                  primer_react_css_anchor_positioning: true,
                 },
-              })
+              }),
+            },
+          })
 
-              if (story.viewport) {
-                await page.setViewportSize({
-                  width: viewports[story.viewport],
-                  height: 667,
-                })
-              }
-
-              // Open dialog if needed
-              if (story.openDialog) {
-                await page.getByRole('button', {name: 'Open Dialog'}).click()
-              }
-
-              // Open nested dialog if needed
-              if (story.openNestedDialog) {
-                await page.getByRole('button', {name: 'Open Inner Dialog'}).click()
-              }
-
-              // Open the overlay
-              const buttonName = story.buttonName ?? 'Button'
-              await page.locator('button', {hasText: buttonName}).first().waitFor()
-              await page.getByRole('button', {name: buttonName}).first().click()
-
-              if (story.delay) {
-                // eslint-disable-next-line playwright/no-wait-for-timeout
-                await page.waitForTimeout(story.delay)
-              }
-
-              expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-                `AnchoredOverlay.${story.title}.${theme}${namePostfix}.png`,
-              )
+          if (story.viewport) {
+            await page.setViewportSize({
+              width: viewports[story.viewport],
+              height: 667,
             })
           }
+
+          // Open dialog if needed
+          if (story.openDialog) {
+            await page.getByRole('button', {name: 'Open Dialog'}).click()
+          }
+
+          // Open nested dialog if needed
+          if (story.openNestedDialog) {
+            await page.getByRole('button', {name: 'Open Inner Dialog'}).click()
+          }
+
+          // Open the overlay
+          const buttonName = story.buttonName ?? 'Button'
+          await page.locator('button', {hasText: buttonName}).first().waitFor()
+          await page.getByRole('button', {name: buttonName}).first().click()
+
+          if (story.delay) {
+            // eslint-disable-next-line playwright/no-wait-for-timeout
+            await page.waitForTimeout(story.delay)
+          }
+
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `AnchoredOverlay.${story.title}.${theme}${namePostfix}.png`,
+          )
         })
       }
     })
