@@ -14,7 +14,7 @@ type StyledHeadingProps = {
 
 const Heading = forwardRef(({as: Component = 'h2', className, variant, ...props}, forwardedRef) => {
   const innerRef = React.useRef<HTMLHeadingElement>(null)
-  useCombinedRefs(forwardedRef, innerRef)
+  const combinedRef = useCombinedRefs(forwardedRef, innerRef)
 
   if (__DEV__) {
     /**
@@ -32,7 +32,7 @@ const Heading = forwardRef(({as: Component = 'h2', className, variant, ...props}
     }, [innerRef])
   }
 
-  return <Component className={clsx(className, classes.Heading)} data-variant={variant} {...props} ref={innerRef} />
+  return <Component className={clsx(className, classes.Heading)} data-variant={variant} {...props} ref={combinedRef} />
 }) as PolymorphicForwardRefComponent<HeadingLevels, StyledHeadingProps>
 
 Heading.displayName = 'Heading'

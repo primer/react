@@ -51,7 +51,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
   } = props
 
   const innerRef = React.useRef<HTMLButtonElement>(null)
-  useCombinedRefs(forwardedRef, innerRef)
+  const combinedRefs = useCombinedRefs(forwardedRef, innerRef)
 
   const uuid = useId(id)
   const loadingAnnouncementID = `${uuid}-loading-announcement`
@@ -87,8 +87,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
       <Component
         aria-disabled={loading ? true : undefined}
         {...rest}
-        // @ts-ignore temporary disable as we migrate to css modules, until we remove PolymorphicForwardRefComponent
-        ref={innerRef}
+        ref={combinedRefs}
         className={clsx(classes.ButtonBase, className)}
         data-block={block ? 'block' : null}
         data-inactive={inactive ? true : undefined}

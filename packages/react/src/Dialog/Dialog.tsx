@@ -288,7 +288,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   })
 
   const dialogRef = useRef<HTMLDivElement>(null)
-  useCombinedRefs(forwardedRef, dialogRef)
+  const combinedRef = useCombinedRefs(forwardedRef, dialogRef)
   const backdropRef = useRef<HTMLDivElement>(null)
 
   useFocusTrap({
@@ -361,7 +361,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           }}
         >
           <div
-            ref={dialogRef}
+            ref={combinedRef}
             role={role}
             aria-labelledby={dialogLabelId}
             aria-describedby={dialogDescriptionId}

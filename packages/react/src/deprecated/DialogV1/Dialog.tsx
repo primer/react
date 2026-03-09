@@ -48,7 +48,7 @@ const Dialog = forwardRef<HTMLDivElement, InternalDialogProps>(
   ) => {
     const overlayRef = useRef(null)
     const modalRef = useRef<HTMLDivElement>(null)
-    useCombinedRefs(forwardedRef, modalRef)
+    const combinedRef = useCombinedRefs(forwardedRef, modalRef)
     const closeButtonRef = useRef(null)
 
     const onCloseClick = () => {
@@ -73,7 +73,7 @@ const Dialog = forwardRef<HTMLDivElement, InternalDialogProps>(
         <span className={classes.Overlay} ref={overlayRef} />
         <Component
           tabIndex={-1}
-          ref={modalRef}
+          ref={combinedRef}
           role="dialog"
           aria-modal="true"
           {...props}
