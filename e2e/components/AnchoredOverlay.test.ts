@@ -8,6 +8,9 @@ const stories: Array<{
   id: string
   viewport?: keyof typeof viewports
   delay?: number
+  buttonName?: string
+  openDialog?: boolean
+  openNestedDialog?: boolean
 }> = [
   // Default
   {
@@ -64,6 +67,45 @@ const stories: Array<{
     id: 'components-anchoredoverlay-features--fullscreen-variant',
     viewport: 'primer.breakpoint.xs',
   },
+  {
+    title: 'Centered On Page',
+    id: 'components-anchoredoverlay-features--centered-on-page',
+    buttonName: 'Open Overlay',
+  },
+  {
+    title: 'Anchor Position Grid',
+    id: 'components-anchoredoverlay-features--anchor-position-grid',
+    buttonName: 'Anchor',
+  },
+  {
+    title: 'Scroll With Anchor',
+    id: 'components-anchoredoverlay-features--scroll-with-anchor',
+    buttonName: 'Open Overlay',
+  },
+  {
+    title: 'Within Dialog',
+    id: 'components-anchoredoverlay-features--within-dialog',
+    buttonName: 'Open Overlay',
+    openDialog: true,
+  },
+  {
+    title: 'Within Nested Dialog',
+    id: 'components-anchoredoverlay-features--within-nested-dialog',
+    buttonName: 'Open Overlay',
+    openDialog: true,
+    openNestedDialog: true,
+  },
+  {
+    title: 'Within Dialog Overflowing',
+    id: 'components-anchoredoverlay-features--within-dialog-overflowing',
+    buttonName: 'Open Overlay',
+    openDialog: true,
+  },
+  {
+    title: 'Within Sticky Element',
+    id: 'components-anchoredoverlay-features--within-sticky-element',
+    buttonName: 'Open Overlay',
+  },
   // Dev
   {
     title: 'Reposition After Content Grows',
@@ -107,11 +149,23 @@ test.describe('AnchoredOverlay', () => {
                 })
               }
 
+              // Open dialog if needed
+              if (story.openDialog) {
+                await page.getByRole('button', {name: 'Open Dialog'}).click()
+              }
+
+              // Open nested dialog if needed
+              if (story.openNestedDialog) {
+                await page.getByRole('button', {name: 'Open Inner Dialog'}).click()
+              }
+
               // Open the overlay
-              await page.locator('button', {hasText: 'Button'}).first().waitFor()
-              await page.getByRole('button', {name: 'Button'}).first().click()
+              const buttonName = story.buttonName ?? 'Button'
+              await page.locator('button', {hasText: buttonName}).first().waitFor()
+              await page.getByRole('button', {name: buttonName}).first().click()
 
               if (story.delay) {
+                // eslint-disable-next-line playwright/no-wait-for-timeout
                 await page.waitForTimeout(story.delay)
               }
 
