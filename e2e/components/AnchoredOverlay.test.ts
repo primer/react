@@ -1,6 +1,7 @@
 import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {viewports} from '../test-helpers/viewports'
+import {waitForImages} from '../test-helpers/waitForImages'
 
 const stories: Array<{
   title: string
@@ -166,6 +167,8 @@ test.describe('AnchoredOverlay', () => {
             // eslint-disable-next-line playwright/no-wait-for-timeout
             await page.waitForTimeout(story.delay)
           }
+
+          await waitForImages(page)
 
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `AnchoredOverlay.${story.title}.${theme}${namePostfix}.png`,
