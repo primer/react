@@ -1,4 +1,4 @@
-import React, {useEffect, useState, type MutableRefObject} from 'react'
+import React, {useEffect, useRef, useState, type MutableRefObject} from 'react'
 import {SearchIcon, XCircleFillIcon, XIcon, FilterRemoveIcon, AlertIcon, ArrowLeftIcon} from '@primer/octicons-react'
 
 import type {ButtonProps, TextInputProps, ActionListProps, LinkProps, CheckboxProps} from '../../index'
@@ -15,7 +15,7 @@ import {
 import Octicon from '../../Octicon'
 import {ActionListContainerContext} from '../../ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
-import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
+import {useId, useAnchoredPosition, useCombinedRefs} from '../../hooks'
 import type {OverlayProps} from '../../Overlay/Overlay'
 import {BaseOverlay, heightMap} from '../../Overlay/Overlay'
 import {InputLabel} from '../../internal/components/InputLabel'
@@ -118,7 +118,9 @@ const Panel: React.FC<SelectPanelProps> = ({
   // with additional props for accessibility
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let Anchor: React.ReactElement<any> | undefined
-  const anchorRef = useProvidedRefOrCreate(providedAnchorRef)
+
+  const anchorRef = useRef<HTMLButtonElement>(null)
+  const combinedRef = useCombinedRefs(providedAnchorRef, anchorRef)
 
   const onAnchorClick = () => {
     if (!internalOpen) setInternalOpen(true)
@@ -130,7 +132,7 @@ const Panel: React.FC<SelectPanelProps> = ({
       // eslint-disable-next-line react-hooks/immutability
       Anchor = React.cloneElement(child, {
         // @ts-ignore TODO
-        ref: anchorRef,
+        ref: combinedRef,
         onClick: child.props.onClick || onAnchorClick,
         'aria-haspopup': true,
         'aria-expanded': internalOpen,

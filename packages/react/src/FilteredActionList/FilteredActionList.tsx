@@ -9,7 +9,6 @@ import {ActionList, type ActionListProps} from '../ActionList'
 import type {GroupedListProps, ListPropsBase, ItemInput, RenderItemFn} from './'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
-import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
 import {VisuallyHidden} from '../VisuallyHidden'
@@ -22,6 +21,7 @@ import {isValidElementType} from 'react-is'
 import {useAnnouncements} from './useAnnouncements'
 import {clsx} from 'clsx'
 import {useVirtualizer} from '@tanstack/react-virtual'
+import {useCombinedRefs} from '../hooks'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -189,10 +189,11 @@ export function FilteredActionList({
   const inputAndListContainerRef = useRef<HTMLDivElement>(null)
   const listRef = useRef<HTMLUListElement>(null)
 
-  const scrollContainerRef = useProvidedRefOrCreate<HTMLDivElement>(
-    providedScrollContainerRef as React.RefObject<HTMLDivElement>,
-  )
-  const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const combinedScrollContainerRef = useCombinedRefs(scrollContainerRef, providedScrollContainerRef)
+
+  const inputRef = useRef<HTMLInputElement>(null)
+  const combinedInputRef = useCombinedRefs(inputRef, providedInputRef)
 
   const usingRovingTabindex = _PrivateFocusManagement === 'roving-tabindex'
   const [listContainerElement, setListContainerElement] = useState<HTMLUListElement | null>(null)
@@ -548,8 +549,7 @@ export function FilteredActionList({
     <div ref={inputAndListContainerRef} className={clsx(className, classes.Root)} data-testid="filtered-action-list">
       <div className={classes.Header}>
         <TextInput
-          // @ts-expect-error it needs a non nullable ref
-          ref={inputRef}
+          ref={combinedInputRef}
           block
           width="auto"
           color="fg.default"
@@ -585,8 +585,7 @@ export function FilteredActionList({
           </label>
         </div>
       )}
-      {/* @ts-expect-error div needs a non nullable ref */}
-      <div ref={scrollContainerRef} className={classes.Container}>
+      <div ref={combinedScrollContainerRef} className={classes.Container}>
         {getBodyContent()}
       </div>
     </div>

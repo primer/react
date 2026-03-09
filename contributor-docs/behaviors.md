@@ -44,7 +44,7 @@ Generic behaviors provide functionality that is not specific to any single compo
 
 ### Examples
 
-- `useProvidedRefOrCreate`
+- `useCombinedRefs`
 - `usePosition`
 - `useClickAway`
 - `useTypeAhead`
@@ -123,7 +123,7 @@ There are no restrictions on return values of generic behavior hooks. In fact, s
 
 - Often, a behavior will need to act on a real DOM element.
 - In this case, the hook should return a ref as part of the returned props for that element. The ref will get spread onto the element, giving the ref access to it.
-- Whenever you need a ref, it must be accepted as an optional setting to the hook. The hook then uses the `useProvidedRefOrCreate` hook to resolve a usable ref. Remember to return the resulting ref from the hook.
+- Whenever you need a ref, it must be accepted as an optional setting to the hook.
 
 ## Testing behaviors
 
