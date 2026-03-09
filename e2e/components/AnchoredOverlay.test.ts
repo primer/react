@@ -66,6 +66,7 @@ const stories: Array<{
     title: 'Fullscreen Variant',
     id: 'components-anchoredoverlay-features--fullscreen-variant',
     viewport: 'primer.breakpoint.xs',
+    buttonName: 'Open Fullscreen on Narrow',
   },
   {
     title: 'Centered On Page',
