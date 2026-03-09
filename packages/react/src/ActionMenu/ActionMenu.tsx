@@ -236,15 +236,8 @@ const Anchor: WithSlotMarker<
     if (!internalRef.current) return
     const anchorElement = internalRef.current
     const isAnchorInteractive = isInteractive(anchorElement)
-    const anchorChildren = anchorElement.childNodes
-    const hasInteractiveDescendant = Array.from(anchorChildren).some(child => {
-      return (
-        (child instanceof HTMLElement && isInteractive(child)) ||
-        Array.from(child.childNodes).some(grandChild => grandChild instanceof HTMLElement && isInteractive(grandChild))
-      )
-    })
     warning(
-      !isAnchorInteractive && !hasInteractiveDescendant,
+      !isAnchorInteractive,
       'The `ActionMenu.Anchor` expects a single interactive element that can act as a menu trigger. Consider using a `<button>` or an `IconButton` as the direct child of `ActionMenu.Anchor`, or use `ActionMenu.Button` or `ActionMenu.IconButton` instead.',
     )
   }, [isSubmenu])
