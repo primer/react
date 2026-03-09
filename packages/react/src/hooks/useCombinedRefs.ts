@@ -31,7 +31,7 @@ import {useCallback, useEffect, useRef} from 'react'
  *  return <button ref={combinedRef} />
  * }
  */
-export function useCombinedRefs<T>(refA: Ref<T>, refB: Ref<T>) {
+export function useCombinedRefs<T>(refA: Ref<T | null>, refB: Ref<T | null>) {
   const cleanupARef = useRef<CleanupFunction>()
   const cleanupBRef = useRef<CleanupFunction>()
 
