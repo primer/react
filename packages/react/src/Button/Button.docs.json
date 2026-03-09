@@ -87,7 +87,7 @@
   "props": [
     {
       "name": "alignContent",
-      "type": "'start' | 'center'",
+      "type": "'start' | 'center' | 'end'",
       "description": "Content alignment for when visuals are present."
     },
     {

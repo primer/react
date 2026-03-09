@@ -13,6 +13,7 @@ const componentProps = {
   alignContent: figma.enum('alignContent', {
     start: 'start',
     center: 'center',
+    end: 'end',
   }),
   variant: figma.enum('variant', {
     primary: 'primary',

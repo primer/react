@@ -45,7 +45,7 @@ Playground.argTypes = {
     control: {
       type: 'radio',
     },
-    options: ['center', 'start'],
+    options: ['center', 'start', 'end'],
   },
   block: {
     control: {

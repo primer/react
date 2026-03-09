@@ -6,7 +6,7 @@ export type VariantType = 'default' | 'primary' | 'invisible' | 'danger' | 'link
 
 export type Size = 'small' | 'medium' | 'large'
 
-export type AlignContent = 'start' | 'center'
+export type AlignContent = 'start' | 'center' | 'end'
 
 type ButtonA11yProps =
   | {'aria-label': string; 'aria-labelledby'?: undefined}

@@ -123,6 +123,10 @@
     &:where([data-align='start']) {
       justify-content: flex-start;
     }
+
+    &:where([data-align='end']) {
+      justify-content: flex-end;
+    }
   }
 
   & :where([data-component='leadingVisual']) {
