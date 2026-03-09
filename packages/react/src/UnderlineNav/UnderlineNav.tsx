@@ -130,17 +130,20 @@ export const UnderlineNav = forwardRef(
                           {...(menuItemProps as Omit<typeof menuItemProps, 'as'>)}
                         >
                           <span className={classes.OverflowMenuItemLabel}>{menuItemChildren}</span>
-                          <ActionList.TrailingVisual>
-                            {loadingCounters ? (
+
+                          {loadingCounters ? (
+                            <ActionList.TrailingVisual>
                               <LoadingCounter />
-                            ) : (
-                              counter !== undefined && (
+                            </ActionList.TrailingVisual>
+                          ) : (
+                            counter !== undefined && (
+                              <ActionList.TrailingVisual>
                                 <span data-component="counter">
                                   <CounterLabel>{counter}</CounterLabel>
                                 </span>
-                              )
-                            )}
-                          </ActionList.TrailingVisual>
+                              </ActionList.TrailingVisual>
+                            )
+                          )}
                         </ActionList.LinkItem>
                       )
                     })
