@@ -280,7 +280,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
   // we typecast anchorRef as required instead of optional
   // because we know that we're setting it in context in Menu
   const {
-    anchorRef,
+    anchorRef: contextAnchorRef,
     renderAnchor,
     anchorId,
     open,
@@ -288,6 +288,9 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
     onClose,
     isSubmenu = false,
   } = React.useContext(MenuContext) as MandateProps<MenuContextProps, 'anchorRef'>
+
+  const anchorRef = useRef<HTMLElement>(null)
+  const combinedAnchorRef = useCombinedRefs(anchorRef, contextAnchorRef)
 
   const containerRef = React.useRef<HTMLDivElement>(null)
   const isNarrow = useResponsiveValue({narrow: true}, false)
@@ -330,7 +333,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
 
   return (
     <AnchoredOverlay
-      anchorRef={anchorRef}
+      anchorRef={combinedAnchorRef}
       renderAnchor={renderAnchor}
       anchorId={anchorId}
       open={open}
