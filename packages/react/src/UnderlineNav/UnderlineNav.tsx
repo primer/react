@@ -28,13 +28,8 @@ export type UnderlineNavProps = {
    */
   variant?: 'inset' | 'flush'
 }
-// When page is loaded, we don't have ref for the more button as it is not on the DOM yet.
-// However, we need to calculate number of possible items when the more button present as well. So using the width of the more button as a constant.
-export const MORE_BTN_WIDTH = 86
-// The height is needed to make sure we don't have a layout shift when the more button is the only item in the nav.
-const MORE_BTN_HEIGHT = 32
 
-export const getValidChildren = (children: React.ReactNode) => {
+const getValidChildren = (children: React.ReactNode) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement<any>[]
 }
@@ -107,12 +102,7 @@ export const UnderlineNav = forwardRef(
             </UnderlineNavItemsRegistry.Provider>
           </UnderlineItemList>
 
-          <div
-            style={{
-              height: `${MORE_BTN_HEIGHT}px`,
-            }}
-            className={classes.MoreButtonContainer}
-          >
+          <div className={classes.MoreButtonContainer}>
             <div className={classes.MoreButtonDivider} />
 
             <ActionMenu>
