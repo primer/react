@@ -365,10 +365,10 @@ export const Tooltip: ForwardRefExoticComponent<
                 <span id={hasAriaLabel ? undefined : tooltipId}>
                   {text}
                   {/* There is a bug in Chrome browsers where `aria-hidden` text inside the target of an `aria-labelledby`
-               still gets included in the accessible label. `KeybindingHint` renders the symbols as `aria-hidden` text
-               and renders full key names as `VisuallyHidden` text. Due to the browser bug this causes the label text
-               to duplicate the symbols and key names. To work around this, we exclude the hint from being part of the
-               label and instead render the plain keybinding description string. */}
+                      still gets included in the accessible label. `KeybindingHint` renders the symbols as `aria-hidden` text
+                      and renders full key names as `VisuallyHidden` text. Due to the browser bug this causes the label text
+                      to duplicate the symbols and key names. To work around this, we exclude the hint from being part of the
+                      label and instead render the plain keybinding description string. */}
                   <VisuallyHidden>
                     ({keybindingHints.map(hint => getAccessibleKeybindingHintString(hint, isMacOS)).join(' or ')})
                   </VisuallyHidden>

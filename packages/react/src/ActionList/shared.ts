@@ -85,6 +85,7 @@ export type ItemContext = Pick<ActionListItemProps<React.ElementType>, 'variant'
   blockDescriptionId?: string
   trailingVisualId?: string
   inactive?: boolean
+  setTruncatedText?: (text: string | undefined) => void
 }
 
 export const ItemContext = React.createContext<ItemContext>({})
