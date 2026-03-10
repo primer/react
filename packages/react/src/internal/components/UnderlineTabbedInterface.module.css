@@ -58,7 +58,7 @@
   cursor: pointer;
   background-color: transparent;
   border: 0;
-  border-radius: var(--borderRadius-medium, var(--borderRadius-small));
+  border-radius: var(--borderRadius-medium);
   max-width: 100%;
   margin-bottom: var(--base-size-8);
   height: 32px;
