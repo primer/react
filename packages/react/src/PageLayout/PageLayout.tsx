@@ -77,7 +77,7 @@ export type PageLayoutProps = {
   style?: React.CSSProperties
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-useless-assignment
 const containerWidths = {
   full: '100%',
   medium: '768px',
@@ -646,7 +646,7 @@ export type PageLayoutContentProps = {
 }
 
 // TODO: Account for pane width when centering content
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-useless-assignment
 const contentWidths = {
   full: '100%',
   medium: '768px',
@@ -792,7 +792,7 @@ export type PageLayoutPaneProps = PageLayoutPaneBaseProps &
       }
   )
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-useless-assignment
 const panePositions = {
   start: REGION_ORDER.paneStart,
   end: REGION_ORDER.paneEnd,
