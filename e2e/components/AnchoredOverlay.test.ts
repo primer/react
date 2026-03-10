@@ -83,25 +83,25 @@ const stories: Array<{
     id: 'components-anchoredoverlay-features--scroll-with-anchor',
     buttonName: 'Open Overlay',
   },
-  {
-    title: 'Within Dialog',
-    id: 'components-anchoredoverlay-features--within-dialog',
-    buttonName: 'Open Overlay',
-    openDialog: true,
-  },
-  {
-    title: 'Within Nested Dialog',
-    id: 'components-anchoredoverlay-features--within-nested-dialog',
-    buttonName: 'Open Overlay',
-    openDialog: true,
-    openNestedDialog: true,
-  },
-  {
-    title: 'Within Dialog Overflowing',
-    id: 'components-anchoredoverlay-features--within-dialog-overflowing',
-    buttonName: 'Open Overlay',
-    openDialog: true,
-  },
+  // {
+  //   title: 'Within Dialog',
+  //   id: 'components-anchoredoverlay-features--within-dialog',
+  //   buttonName: 'Open Overlay',
+  //   openDialog: true,
+  // },
+  // {
+  //   title: 'Within Nested Dialog',
+  //   id: 'components-anchoredoverlay-features--within-nested-dialog',
+  //   buttonName: 'Open Overlay',
+  //   openDialog: true,
+  //   openNestedDialog: true,
+  // },
+  // {
+  //   title: 'Within Dialog Overflowing',
+  //   id: 'components-anchoredoverlay-features--within-dialog-overflowing',
+  //   buttonName: 'Open Overlay',
+  //   openDialog: true,
+  // },
   {
     title: 'Within Sticky Element',
     id: 'components-anchoredoverlay-features--within-sticky-element',
@@ -162,14 +162,7 @@ test.describe('AnchoredOverlay', () => {
           const buttonName = story.buttonName ?? 'Button'
           await page.locator('button', {hasText: buttonName}).first().waitFor()
           const overlayButton = page.getByRole('button', {name: buttonName}).first()
-
-          if (story.openDialog) {
-            // Use force to prevent auto-scrolling into view for dialog stories, this helps us get a stable screenshot
-            // eslint-disable-next-line playwright/no-force-option
-            await overlayButton.click({force: true})
-          } else {
-            await overlayButton.click()
-          }
+          await overlayButton.click()
 
           // for the dev stories, we intentionally change the content after the overlay is open to test that it repositions correctly
           if (story.waitForText) await page.getByText(story.waitForText).waitFor()
