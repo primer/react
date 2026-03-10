@@ -1,16 +1,9 @@
-import type {RefObject} from 'react'
 import React, {forwardRef, useEffect, useRef, useState} from 'react'
 import VisuallyHidden from '../_VisuallyHidden'
-import {ActionList} from '../ActionList'
-import {ActionMenu} from '../ActionMenu'
-import CounterLabel from '../CounterLabel'
-import {LoadingCounter, UnderlineItemList, UnderlineWrapper} from '../internal/components/UnderlineTabbedInterface'
+import {UnderlineItemList, UnderlineWrapper} from '../internal/components/UnderlineTabbedInterface'
 import {invariant} from '../utils/invariant'
 import classes from './UnderlineNav.module.css'
 import {UnderlineNavContext} from './UnderlineNavContext'
-import {UnderlineNavItemsRegistry, type UnderlineNavItemProps} from './UnderlineNavItem'
-import {SkeletonText} from '../SkeletonText'
-import {clsx} from 'clsx'
 
 export type UnderlineNavProps = {
   children: React.ReactNode
@@ -34,7 +27,7 @@ const getValidChildren = (children: React.ReactNode) => {
   return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement<any>[]
 }
 
-export const UnderlineNav = forwardRef(
+export const UnderlineNav = forwardRef<HTMLElement, UnderlineNavProps>(
   (
     {
       as = 'nav',
@@ -46,22 +39,6 @@ export const UnderlineNav = forwardRef(
     }: UnderlineNavProps,
     forwardedRef,
   ) => {
-    const backupRef = useRef<HTMLElement>(null)
-    const navRef = (forwardedRef ?? backupRef) as RefObject<HTMLElement>
-    const listRef = useRef<HTMLUListElement>(null)
-
-    /** Tracks whether any item has ever overflowed for the lifecycle of this component. Used to prevent flickering. */
-    const [hasEverOverflowed, setHasOverflowed] = useState(false)
-
-    const [registeredItems, setRegisteredItems] = UnderlineNavItemsRegistry.useRegistryState()
-
-    const menuItems = Array.from(registeredItems?.entries() ?? []).filter(
-      (entry): entry is [string, UnderlineNavItemProps] => entry[1] !== null,
-    )
-
-    const isOverflowing = menuItems.length > 0
-    if (isOverflowing && !hasEverOverflowed) setHasOverflowed(true)
-
     if (__DEV__) {
       const validChildren = getValidChildren(children)
 
@@ -77,6 +54,25 @@ export const UnderlineNav = forwardRef(
       })
     }
 
+    const [hideIcons, setHideIcons] = useState(false)
+
+    const scrollContainer = useRef<HTMLDivElement>(null)
+    useEffect(() => {
+      if (hideIcons || !scrollContainer.current) return
+
+      // Putting the resizeobserver on the list ensures it runs if the contents change;
+      // the container is fullwidth but the list is elastic
+      const list = scrollContainer.current.querySelector('ul')
+      if (!list) return
+
+      const observer = new ResizeObserver(() => {
+        if (scrollContainer.current!.scrollWidth > scrollContainer.current!.clientWidth) setHideIcons(true)
+      })
+      observer.observe(list)
+
+      return () => observer.disconnect()
+    }, [hideIcons])
+
     return (
       <UnderlineNavContext.Provider
         value={{
@@ -84,75 +80,19 @@ export const UnderlineNav = forwardRef(
         }}
       >
         {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
-        <UnderlineWrapper
-          as={as}
-          aria-label={ariaLabel}
-          className={clsx(classes.UnderlineWrapper, className)}
-          ref={navRef}
-          data-variant={variant}
-          data-overflow-mode="wrap"
-          // Force icons to stay hidden, avoiding flickering as icons create/remove overflow
-          data-hide-icons={hasEverOverflowed ? 'true' : 'false'}
-          // Ensure button is shown (after initial render) on browsers that don't support scroll-driven animations
-          data-has-overflow={isOverflowing ? 'true' : 'false'}
-        >
-          <UnderlineItemList ref={listRef} role="list" className={classes.ItemsList}>
-            <UnderlineNavItemsRegistry.Provider setRegistry={setRegisteredItems}>
-              {children}
-            </UnderlineNavItemsRegistry.Provider>
-          </UnderlineItemList>
-
-          <div className={classes.MoreButtonContainer}>
-            <div className={classes.MoreButtonDivider} />
-
-            <ActionMenu>
-              <ActionMenu.Button className={classes.MoreButton} data-component="overflow-menu-button">
-                <span>
-                  More<VisuallyHidden as="span"> items</VisuallyHidden>
-                </span>
-              </ActionMenu.Button>
-
-              <ActionMenu.Overlay>
-                <ActionList>
-                  {registeredItems === undefined ? (
-                    <ActionList.Item>
-                      <SkeletonText />
-                    </ActionList.Item>
-                  ) : (
-                    menuItems.map(([key, allProps]) => {
-                      const {children: menuItemChildren, counter, onSelect, ...menuItemProps} = allProps
-
-                      return (
-                        <ActionList.LinkItem
-                          key={key}
-                          className={classes.OverflowMenuItem}
-                          onClick={event => onSelect?.(event)}
-                          {...(menuItemProps as Omit<typeof menuItemProps, 'as'>)}
-                        >
-                          <span className={classes.OverflowMenuItemLabel}>{menuItemChildren}</span>
-
-                          {loadingCounters ? (
-                            <ActionList.TrailingVisual>
-                              <LoadingCounter />
-                            </ActionList.TrailingVisual>
-                          ) : (
-                            counter !== undefined && (
-                              <ActionList.TrailingVisual>
-                                <span data-component="counter">
-                                  <CounterLabel>{counter}</CounterLabel>
-                                </span>
-                              </ActionList.TrailingVisual>
-                            )
-                          )}
-                        </ActionList.LinkItem>
-                      )
-                    })
-                  )}
-                </ActionList>
-              </ActionMenu.Overlay>
-            </ActionMenu>
-          </div>
-        </UnderlineWrapper>
+        <div className={classes.ScrollContainer} data-hide-icons={hideIcons} ref={scrollContainer}>
+          <UnderlineWrapper
+            as={as}
+            aria-label={ariaLabel}
+            className={className}
+            ref={forwardedRef}
+            data-variant={variant}
+            data-overflow-mode="wrap"
+            style={{minWidth: 'fit-content'}}
+          >
+            <UnderlineItemList role="list">{children}</UnderlineItemList>
+          </UnderlineWrapper>
+        </div>
       </UnderlineNavContext.Provider>
     )
   },

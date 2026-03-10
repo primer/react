@@ -102,7 +102,7 @@ export const OverflowTemplate = ({initialSelectedIndex = 1}: {initialSelectedInd
 }
 
 export const OverflowOnNarrowScreen = () => {
-  return <OverflowTemplate initialSelectedIndex={1} />
+  return <OverflowTemplate initialSelectedIndex={items.length - 1} />
 }
 
 OverflowOnNarrowScreen.parameters = {

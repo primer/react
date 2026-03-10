@@ -5,6 +5,7 @@
   padding-inline: var(--stack-padding-normal);
   justify-content: flex-start;
   align-items: flex-start;
+  width: 100%;
 
   /* make space for the underline */
   min-height: var(--control-xlarge-size);
@@ -20,17 +21,6 @@
 
   &[data-hide-icons='true'] [data-component='icon'] {
     display: none;
-  }
-
-  &[data-overflow-mode='wrap'] {
-    /* Wrap items onto hidden next lines */
-    overflow: hidden;
-    max-height: var(--control-xlarge-size);
-
-    .UnderlineItemList {
-      flex-wrap: wrap;
-      overflow: hidden;
-    }
   }
 }
 
@@ -110,13 +100,6 @@
   color: var(--fgColor-muted);
   align-items: center;
   margin-inline-end: var(--base-size-8);
-}
-
-/* Truncate items if necessary (should only ever apply to the last item after everything else overflows) */
-.UnderlineItem [data-component='text'] {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .UnderlineItem [data-component='counter'] {
