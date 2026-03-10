@@ -170,14 +170,6 @@ test.describe('AnchoredOverlay', () => {
 
           await waitForImages(page)
 
-          // Reset scroll position in dialogs to ensure consistent screenshots
-          await page.evaluate(() => {
-            // eslint-disable-next-line github/array-foreach
-            document.querySelectorAll('[class*="DialogOverflowWrapper"], [class*="DialogBody"]').forEach(el => {
-              el.scrollTop = 0
-            })
-          })
-
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `AnchoredOverlay.${story.title}.${theme}${namePostfix}.png`,
           )
