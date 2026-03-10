@@ -69,11 +69,6 @@ const stories: Array<{
     buttonName: 'Open Fullscreen on Narrow',
   },
   {
-    title: 'Centered On Page',
-    id: 'components-anchoredoverlay-features--centered-on-page',
-    buttonName: 'Open Overlay',
-  },
-  {
     title: 'Anchor Position Grid',
     id: 'components-anchoredoverlay-features--anchor-position-grid',
     buttonName: 'Anchor',
