@@ -7,7 +7,7 @@ const stories: Array<{
   title: string
   id: string
   viewport?: keyof typeof viewports
-  delay?: number
+  waitForText?: string
   buttonName?: string
   openDialog?: boolean
   openNestedDialog?: boolean
@@ -111,12 +111,12 @@ const stories: Array<{
   {
     title: 'Reposition After Content Grows',
     id: 'components-anchoredoverlay-dev--reposition-after-content-grows',
-    delay: 2500,
+    waitForText: 'content with 300px height',
   },
   {
     title: 'Reposition After Content Grows Within Dialog',
     id: 'components-anchoredoverlay-dev--reposition-after-content-grows-within-dialog',
-    delay: 2500,
+    waitForText: 'content with 300px height',
   },
 ] as const
 
@@ -158,48 +158,22 @@ test.describe('AnchoredOverlay', () => {
             await page.getByRole('button', {name: 'Open Inner Dialog'}).click()
           }
 
-          // Scroll dialogs to top to ensure consistent positioning
-          await page.evaluate(() => {
-            // eslint-disable-next-line github/array-foreach
-            document.querySelectorAll('[class*="DialogOverflowWrapper"]').forEach(el => {
-              el.scrollTop = 0
-            })
-          })
-
           // Open the overlay
           const buttonName = story.buttonName ?? 'Button'
           await page.locator('button', {hasText: buttonName}).first().waitFor()
-          await page.getByRole('button', {name: buttonName}).first().click()
+          const overlayButton = page.getByRole('button', {name: buttonName}).first()
 
-          if (story.delay) {
-            // eslint-disable-next-line playwright/no-wait-for-timeout
-            await page.waitForTimeout(story.delay)
+          if (story.openDialog) {
+            // Use force to prevent auto-scrolling into view for dialog stories, this helps us get a stable screenshot
+            // eslint-disable-next-line playwright/no-force-option
+            await overlayButton.click({force: true})
+          } else {
+            await overlayButton.click()
           }
 
+          // for the dev stories, we intentionally change the content after the overlay is open to test that it repositions correctly
+          if (story.waitForText) await page.getByText(story.waitForText).waitFor()
           await waitForImages(page)
-
-          // Force scrollbars to always be visible for consistent screenshots
-          await page.addStyleTag({
-            content: `
-              [class*="DialogOverflowWrapper"] { overflow-y: scroll !important; }
-              ::-webkit-scrollbar { -webkit-appearance: none !important; width: 8px !important; }
-              ::-webkit-scrollbar-thumb { background-color: rgba(0, 0, 0, 0.3) !important; border-radius: 4px !important; }
-            `,
-          })
-
-          // Display scroll positions in dialog headers for debugging
-          await page.evaluate(() => {
-            const elements = document.querySelectorAll('[class*="DialogOverflowWrapper"]')
-            // eslint-disable-next-line github/array-foreach
-            elements.forEach(el => {
-              const dialog = el.closest('[role="dialog"]')
-              const header = dialog?.querySelector('[class*="DialogHeader"] h1, [class*="Dialog_title"]')
-              if (header) {
-                const scrollInfo = `[scroll: ${el.scrollTop}/${el.scrollHeight - el.clientHeight}]`
-                header.textContent = `${header.textContent} ${scrollInfo}`
-              }
-            })
-          })
 
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `AnchoredOverlay.${story.title}.${theme}${namePostfix}.png`,
