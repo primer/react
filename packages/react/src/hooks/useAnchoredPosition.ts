@@ -5,6 +5,27 @@ import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 import {useResizeObserver} from './useResizeObserver'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
+/**
+ * Returns all scrollable ancestor elements of the given element, plus the window.
+ * An element is scrollable if its computed overflow/overflow-x/overflow-y is
+ * 'auto', 'scroll', or 'overlay'.
+ */
+function getScrollableAncestors(element: Element): Array<Element | Window> {
+  const scrollables: Array<Element | Window> = []
+  let current = element.parentElement
+  while (current) {
+    const style = getComputedStyle(current)
+    const overflowY = style.overflowY
+    const overflowX = style.overflowX
+    if (/auto|scroll|overlay/.test(overflowY) || /auto|scroll|overlay/.test(overflowX)) {
+      scrollables.push(current)
+    }
+    current = current.parentElement
+  }
+  scrollables.push(window)
+  return scrollables
+}
+
 export interface AnchoredPositionHookSettings extends Partial<PositionSettings> {
   floatingElementRef?: React.RefObject<Element | null>
   anchorElementRef?: React.RefObject<Element | null>
@@ -99,6 +120,36 @@ export function useAnchoredPosition(
 
   useResizeObserver(updatePosition) // watches for changes in window size
   useResizeObserver(updatePosition, floatingElementRef as React.RefObject<HTMLElement | null>) // watches for changes in floating element size
+
+  // Recalculate position when any scrollable ancestor of the anchor scrolls.
+  // Uses requestAnimationFrame to avoid layout thrashing during scroll.
+  React.useEffect(() => {
+    const anchorEl = anchorElementRef.current
+    if (!anchorEl) return
+
+    let rafId: number | null = null
+    const handleScroll = () => {
+      if (rafId !== null) return
+      rafId = requestAnimationFrame(() => {
+        rafId = null
+        updatePosition()
+      })
+    }
+
+    const scrollables = getScrollableAncestors(anchorEl)
+    for (const scrollable of scrollables) {
+      scrollable.addEventListener('scroll', handleScroll, {passive: true})
+    }
+
+    return () => {
+      for (const scrollable of scrollables) {
+        scrollable.removeEventListener('scroll', handleScroll)
+      }
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId)
+      }
+    }
+  }, [anchorElementRef, updatePosition])
 
   return {
     floatingElementRef,
