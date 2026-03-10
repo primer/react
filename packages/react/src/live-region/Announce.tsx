@@ -64,17 +64,25 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
       return
     }
 
+    // PERFORMANCE: Check text content before getComputedStyle to avoid forcing
+    // a style recalculation when there's nothing to announce. getComputedStyle
+    // triggers a synchronous reflow that can cost hundreds of milliseconds on
+    // large DOM trees (e.g. TreeView with 14K+ nodes).
+    const textContent = getTextContent(element)
+    if (!textContent) {
+      return
+    }
+
+    if (textContent === previousAnnouncementText) {
+      return
+    }
+
     const style = window.getComputedStyle(element)
     if (style.display === 'none') {
       return
     }
 
     if (style.visibility === 'hidden') {
-      return
-    }
-
-    const textContent = getTextContent(element)
-    if (textContent === previousAnnouncementText) {
       return
     }
 

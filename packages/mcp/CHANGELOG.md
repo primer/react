@@ -1,5 +1,22 @@
 # @primer/mcp
 
+## 0.3.0
+
+### Minor Changes
+
+- [#7574](https://github.com/primer/react/pull/7574) [`14c5a6c`](https://github.com/primer/react/commit/14c5a6c70921e67f9704cd05ad15be9c8fdaa72d) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Replace design token tools with enhanced search and bundle system. The single `list_tokens` tool is replaced by `find_tokens`, `get_token_group_bundle`, `get_design_token_specs`, and `get_token_usage_patterns` for improved token discovery and usage guidance.
+
+## 0.2.0
+
+### Minor Changes
+
+- [#7495](https://github.com/primer/react/pull/7495) [`b69325f`](https://github.com/primer/react/commit/b69325fcb75261707f7cac01bb8f075fc13081f2) Thanks [@adierkens](https://github.com/adierkens)! - Adds support for fetching docs via the `/llms.txt` endpoint per-component
+
+### Patch Changes
+
+- Updated dependencies [[`3c160b2`](https://github.com/primer/react/commit/3c160b26bded975de6175ccf04272e8946cef54e), [`c87db98`](https://github.com/primer/react/commit/c87db981280090cdccc84d19c607d1462212d223), [`d86c970`](https://github.com/primer/react/commit/d86c970be94dc47da55d492dc978d63d3f9ca005)]:
+  - @primer/react@38.12.0
+
 ## 0.1.0
 
 ### Minor Changes
