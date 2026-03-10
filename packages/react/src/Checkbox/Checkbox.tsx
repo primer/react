@@ -53,7 +53,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
     const checkboxRef = useRef<HTMLInputElement>(null)
-    const combinedRef = useCombinedRefs(checkboxRef, ref as React.RefObject<HTMLInputElement>)
+    const combinedRef = useCombinedRefs(checkboxRef, ref)
     const checkboxGroupContext = useContext(CheckboxGroupContext)
     const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
       checkboxGroupContext.onChange && checkboxGroupContext.onChange(e)
