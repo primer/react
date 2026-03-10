@@ -5,6 +5,9 @@
   animation: detect-overflow linear;
   animation-timeline: scroll(self block);
 
+  --UnderlineNav_moreButton-visibility: hidden;
+  --UnderlineNav_icons-display: inline;
+
   &[data-hide-icons='true'] {
     --UnderlineNav_icons-display: none;
   }
@@ -23,12 +26,12 @@
 }
 
 .ItemsList [data-component='icon'] {
-  display: var(--UnderlineNav_icons-display, inline);
+  display: var(--UnderlineNav_icons-display);
 }
 
 .MoreButtonContainer {
   display: flex;
-  visibility: var(--UnderlineNav_moreButton-visibility, hidden);
+  visibility: var(--UnderlineNav_moreButton-visibility);
   align-items: center;
 }
 
