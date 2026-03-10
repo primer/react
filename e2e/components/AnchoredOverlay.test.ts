@@ -158,6 +158,14 @@ test.describe('AnchoredOverlay', () => {
             await page.getByRole('button', {name: 'Open Inner Dialog'}).click()
           }
 
+          // Scroll dialogs to top to ensure consistent positioning
+          await page.evaluate(() => {
+            // eslint-disable-next-line github/array-foreach
+            document.querySelectorAll('[class*="DialogOverflowWrapper"]').forEach(el => {
+              el.scrollTop = 0
+            })
+          })
+
           // Open the overlay
           const buttonName = story.buttonName ?? 'Button'
           await page.locator('button', {hasText: buttonName}).first().waitFor()
@@ -169,6 +177,29 @@ test.describe('AnchoredOverlay', () => {
           }
 
           await waitForImages(page)
+
+          // Force scrollbars to always be visible for consistent screenshots
+          await page.addStyleTag({
+            content: `
+              [class*="DialogOverflowWrapper"] { overflow-y: scroll !important; }
+              ::-webkit-scrollbar { -webkit-appearance: none !important; width: 8px !important; }
+              ::-webkit-scrollbar-thumb { background-color: rgba(0, 0, 0, 0.3) !important; border-radius: 4px !important; }
+            `,
+          })
+
+          // Display scroll positions in dialog headers for debugging
+          await page.evaluate(() => {
+            const elements = document.querySelectorAll('[class*="DialogOverflowWrapper"]')
+            // eslint-disable-next-line github/array-foreach
+            elements.forEach(el => {
+              const dialog = el.closest('[role="dialog"]')
+              const header = dialog?.querySelector('[class*="DialogHeader"] h1, [class*="Dialog_title"]')
+              if (header) {
+                const scrollInfo = `[scroll: ${el.scrollTop}/${el.scrollHeight - el.clientHeight}]`
+                header.textContent = `${header.textContent} ${scrollInfo}`
+              }
+            })
+          })
 
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `AnchoredOverlay.${story.title}.${theme}${namePostfix}.png`,
