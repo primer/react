@@ -5,7 +5,6 @@ import {UnderlineNavContext} from './UnderlineNavContext'
 import {UnderlineItem} from '../internal/components/UnderlineTabbedInterface'
 import classes from './UnderlineNavItem.module.css'
 import {createDescendantRegistry} from '../utils/descendant-registry'
-import {useRefObjectAsForwardedRef} from '../hooks'
 
 // adopted from React.AnchorHTMLAttributes
 export type LinkProps = {
@@ -75,8 +74,7 @@ export const UnderlineNavItem = forwardRef((allProps, forwardedRef) => {
     ...props
   } = allProps
 
-  const ref = useRef<HTMLAnchorElement>(null)
-  useRefObjectAsForwardedRef(forwardedRef, ref)
+  const ref = useRef<HTMLLIElement>(null)
 
   const {loadingCounters} = useContext(UnderlineNavContext)
 
@@ -119,9 +117,9 @@ export const UnderlineNavItem = forwardRef((allProps, forwardedRef) => {
   )
 
   return (
-    <li className={classes.UnderlineNavItem}>
+    <li className={classes.UnderlineNavItem} ref={ref} aria-hidden={isOverflowing ? true : allProps['aria-hidden']}>
       <UnderlineItem
-        ref={ref}
+        ref={forwardedRef}
         as={Component}
         href={href}
         aria-current={ariaCurrent}
@@ -131,7 +129,6 @@ export const UnderlineNavItem = forwardRef((allProps, forwardedRef) => {
         icon={leadingVisual ?? Icon}
         loadingCounters={loadingCounters}
         {...props}
-        aria-hidden={isOverflowing ? true : allProps['aria-hidden']}
         tabIndex={isOverflowing ? -1 : allProps.tabIndex}
       >
         {children}

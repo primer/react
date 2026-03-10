@@ -3,4 +3,10 @@
   flex-direction: column;
   align-items: center;
   overflow: hidden;
+
+  &[aria-hidden] {
+    /* Overflowing items will already be clipped out of view, but might as well
+    also hide them for performance and to ensure they can't accidentally appear */
+    visibility: hidden;
+  }
 }
