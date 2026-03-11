@@ -8,8 +8,28 @@
   margin-bottom: -1px;
   white-space: nowrap;
   list-style: none;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--actionbar-gap, var(--stack-gap-condensed));
+  overflow: hidden;
+  height: var(--actionbar-height);
+  animation: detect-overflow linear;
+  animation-timeline: scroll(self block);
+
+  --actionbar-height: var(--control-small-size);
+  --morebutton-display: none;
+
+  &[data-has-overflow='true'] {
+    /* Progressive enhancement: show overflow button on browsers that don't support scroll-driven animations */
+    --morebutton-display: block;
+  }
+
+  &[data-size='medium'] {
+    --actionbar-height: var(--control-medium-size);
+  }
+
+  &[data-size='large'] {
+    --actionbar-height: var(--control-large-size);
+  }
 
   /* Gap scale (mirrors Stack) */
   &:where([data-gap='none']) {
@@ -22,6 +42,13 @@
 
   &:where([data-gap='condensed']) {
     --actionbar-gap: var(--stack-gap-condensed);
+  }
+}
+
+@keyframes detect-overflow {
+  0%,
+  100% {
+    --morebutton-display: block;
   }
 }
 
@@ -58,17 +85,9 @@
   display: flex;
   flex-wrap: wrap;
   gap: inherit;
-  overflow: hidden;
-  height: var(--actionbar-height);
   justify-content: flex-end;
+}
 
-  --actionbar-height: var(--control-small-size);
-
-  &[data-size='medium'] {
-    --actionbar-height: var(--control-medium-size);
-  }
-
-  &[data-size='large'] {
-    --actionbar-height: var(--control-large-size);
-  }
+.MoreButton {
+  display: var(--morebutton-display);
 }
