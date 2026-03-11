@@ -44,10 +44,31 @@
     content: '';
     /* stylelint-disable-next-line primer/colors */
     background: var(--borderColor-muted);
+    /* stylelint-disable-next-line primer/spacing */
+    margin-top: calc((var(--actionbar-height) - var(--base-size-20)) / 2);
   }
 }
 
 .Group {
   display: flex;
   gap: inherit;
+}
+
+.OverflowContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: inherit;
+  overflow: hidden;
+  height: var(--actionbar-height);
+  justify-content: flex-end;
+
+  --actionbar-height: var(--control-small-size);
+
+  &[data-size='medium'] {
+    --actionbar-height: var(--control-medium-size);
+  }
+
+  &[data-size='large'] {
+    --actionbar-height: var(--control-large-size);
+  }
 }
