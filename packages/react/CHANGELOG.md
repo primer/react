@@ -1,5 +1,33 @@
 # @primer/react
 
+## 38.15.0
+
+### Minor Changes
+
+- [#7524](https://github.com/primer/react/pull/7524) [`f7bdd1c`](https://github.com/primer/react/commit/f7bdd1c04f8cbb17b6a913ba55f7d0855c8eebf1) Thanks [@francinelucca](https://github.com/francinelucca)! - chore: always render ActionMenu in viewport when inside Dialog under feature flag
+
+- [#7594](https://github.com/primer/react/pull/7594) [`1e54bdf`](https://github.com/primer/react/commit/1e54bdf72c9466f23c567cfdc73b7b5c243782a4) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Add `align` and `style` props to Dialog component
+
+### Patch Changes
+
+- [#7529](https://github.com/primer/react/pull/7529) [`7e108fe`](https://github.com/primer/react/commit/7e108fea1a9f92ce22f46ff1d55bfe4753d89ad8) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Add keyboard-accessible tooltip for truncated ActionList.Description
+
+- [#7585](https://github.com/primer/react/pull/7585) [`3dd2c78`](https://github.com/primer/react/commit/3dd2c78f768ad560ee0f37947af2c17ca8d7938c) Thanks [@iansan5653](https://github.com/iansan5653)! - - Fixes a bug where `ActionBar` menu items would be out of order if new items were mounted after the initial render
+
+  - Improves initial render performance for `ActionBar`
+
+- [#7624](https://github.com/primer/react/pull/7624) [`f6d4311`](https://github.com/primer/react/commit/f6d431194d217fbb7d456e58bcbbcbb434896fe1) Thanks [@llastflowers](https://github.com/llastflowers)! - Fix FormControl + SelectPanel accessible name to address SR issues
+
+- [#7617](https://github.com/primer/react/pull/7617) [`79c855a`](https://github.com/primer/react/commit/79c855abeb6f46d3fefafb236f00ea65dfcd1ed4) Thanks [@llastflowers](https://github.com/llastflowers)! - Push margin-top of TimelineBody +1px
+
+- [#7635](https://github.com/primer/react/pull/7635) [`74762e2`](https://github.com/primer/react/commit/74762e265a44b4fa46fcb4db8fd5194cb81b14c4) Thanks [@iansan5653](https://github.com/iansan5653)! - Fix(useRefObjectAsForwardedRef): fix ref failing to update when target changes
+
+- [#7550](https://github.com/primer/react/pull/7550) [`9585669`](https://github.com/primer/react/commit/958566907a580b54b484ff2339b32315b8a3b4b7) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(Spinner): replace Web Animations API with CSS animation-delay sync
+
+- [#7618](https://github.com/primer/react/pull/7618) [`17a103c`](https://github.com/primer/react/commit/17a103c0726ff2903e008a69dfd141461f99591f) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - TextInputWithTokens: announce selected token values for screen readers.
+
+- [#7588](https://github.com/primer/react/pull/7588) [`e649da3`](https://github.com/primer/react/commit/e649da3c89b38f477fb574acf5bb06a49b41ee9d) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - ToggleSwitch: Updated with a 1px space around the knob to work better with updated primitives.
+
 ## 38.14.0
 
 ### Minor Changes
