@@ -138,7 +138,7 @@ export function useAnchoredPosition(
 
     const scrollables = getScrollableAncestors(anchorEl)
     for (const scrollable of scrollables) {
-      scrollable.addEventListener('scroll', handleScroll, {passive: true})
+      scrollable.addEventListener('scroll', handleScroll)
     }
 
     return () => {
