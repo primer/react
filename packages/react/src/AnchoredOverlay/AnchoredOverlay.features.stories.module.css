@@ -62,3 +62,95 @@
 .Icon {
   color: var(--fgColor-muted);
 }
+
+.CenteredTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300vh;
+  /* stylelint-disable-next-line primer/responsive-widths -- intentionally large for scroll testing */
+  min-width: 300vw;
+}
+
+.AnchorGridContainer {
+  overflow: auto;
+  height: 100vh;
+  width: 100vw;
+}
+
+.AnchorGrid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200vh;
+  /* stylelint-disable-next-line primer/responsive-widths -- intentionally large for grid layout testing */
+  min-width: 200vw;
+}
+
+.AnchorGridCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* stylelint-disable-next-line primer/colors -- fallback value for borderColor-default */
+  border: var(--borderWidth-thin) solid var(--borderColor-default, #d1d9e0);
+  padding: var(--base-size-16);
+  position: relative;
+  height: 200px;
+}
+
+.AnchorGridLabel {
+  font-size: var(--text-body-size-small);
+  line-height: var(--text-body-lineHeight-small);
+  color: var(--fgColor-muted);
+  position: absolute;
+  top: var(--base-size-8);
+  left: var(--base-size-8);
+}
+
+.AnchorGridInner {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  width: 50%;
+  height: 50%;
+}
+
+.ScrollContainer {
+  height: 400px;
+  overflow: auto;
+  /* stylelint-disable-next-line primer/colors -- fallback value for borderColor-default */
+  border: var(--borderWidth-thin) solid var(--borderColor-default, #d1d9e0);
+  border-radius: var(--borderRadius-medium);
+  position: relative;
+}
+
+.ScrollContent {
+  height: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--base-size-16);
+}
+
+.StickyHeader {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--base-size-8) var(--base-size-16);
+  background-color: var(--bgColor-default);
+  /* stylelint-disable-next-line primer/colors -- fallback value for borderColor-default */
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default, #d1d9e0);
+}
+
+.StickyScrollArea {
+  height: 1200px;
+  padding: var(--base-size-16);
+}
+
+.DialogBody {
+  padding: var(--base-size-16);
+  height: 2000px;
+}

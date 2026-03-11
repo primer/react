@@ -59,32 +59,42 @@ const stories: Array<{
   },
 ] as const
 
+const featureFlagVariants = [
+  {flagEnabled: false, suffix: ''},
+  {flagEnabled: true, suffix: '.css-anchor-positioning'},
+] as const
+
 test.describe('ActionMenu', () => {
   for (const story of stories) {
     test.describe(story.title, () => {
       for (const theme of themes) {
         test.describe(theme, () => {
-          test('default @vrt', async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                colorScheme: theme,
-              },
+          for (const {flagEnabled, suffix} of featureFlagVariants) {
+            test(`default @vrt${suffix}`, async ({page}) => {
+              await visit(page, {
+                id: story.id,
+                globals: {
+                  colorScheme: theme,
+                  featureFlags: {
+                    primer_react_css_anchor_positioning: flagEnabled,
+                  },
+                },
+              })
+
+              const buttonName = story.buttonName ?? 'Open menu'
+
+              // Default state
+              // Open state
+
+              if (!story.skipOpen) {
+                await page.locator('button', {hasText: buttonName}).waitFor()
+                await page.getByRole('button', {name: buttonName}).click()
+              }
+              expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+                `ActionMenu.${story.title}.${theme}${suffix}.png`,
+              )
             })
-
-            const buttonName = story.buttonName ?? 'Open menu'
-
-            // Default state
-            // Open state
-
-            if (!story.skipOpen) {
-              await page.locator('button', {hasText: buttonName}).waitFor()
-              await page.getByRole('button', {name: buttonName}).click()
-            }
-            expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-              `ActionMenu.${story.title}.${theme}.png`,
-            )
-          })
+          }
         })
       }
     })
