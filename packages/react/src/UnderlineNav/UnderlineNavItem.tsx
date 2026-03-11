@@ -62,6 +62,26 @@ export type UnderlineNavItemProps = {
 /** Registry of currently-overflowing underline items. If an item is not overflowing, its value will be `null`. */
 export const UnderlineNavItemsRegistry = createDescendantRegistry<UnderlineNavItemProps | null>()
 
+function scrollIntoViewHorizontally(container: HTMLElement, descendant: HTMLElement): void {
+  // Walk up the offset parent chain to get the true left offset relative to `container`
+  let offsetLeft = 0
+  let el: HTMLElement | null = descendant
+  while (el && el !== container) {
+    offsetLeft += el.offsetLeft
+    el = el.offsetParent as HTMLElement | null
+  }
+
+  // scrollIntoView would be more convenient but would scroll the entire page unless we pass `options.container`,
+  // for which browser support is very limited
+  const descendantLeft = offsetLeft - container.scrollLeft
+  const descendantRight = descendantLeft + descendant.offsetWidth
+
+  const containerWidth = container.clientWidth
+
+  if (descendantLeft < 0) container.scrollLeft += descendantLeft
+  else if (descendantRight > containerWidth) container.scrollLeft += descendantRight - containerWidth
+}
+
 export const UnderlineNavItem = forwardRef((allProps, forwardedRef) => {
   const {
     as: Component = 'a',
@@ -98,7 +118,12 @@ export const UnderlineNavItem = forwardRef((allProps, forwardedRef) => {
   )
 
   useIsomorphicLayoutEffect(() => {
-    if (ariaCurrent && ariaCurrent !== 'false') ref.current?.scrollIntoView()
+    if (ariaCurrent && ariaCurrent !== 'false' && ref.current) {
+      const scrollContainer = ref.current.closest('[data-component="underlinenav-scrollcontainer"]')
+      if (!(scrollContainer instanceof HTMLElement)) return
+
+      scrollIntoViewHorizontally(scrollContainer, ref.current)
+    }
   }, [ariaCurrent])
 
   return (

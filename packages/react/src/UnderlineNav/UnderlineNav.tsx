@@ -80,7 +80,12 @@ export const UnderlineNav = forwardRef<HTMLElement, UnderlineNavProps>(
         }}
       >
         {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
-        <div className={classes.ScrollContainer} data-hide-icons={hideIcons} ref={scrollContainer}>
+        <div
+          className={classes.ScrollContainer}
+          data-hide-icons={hideIcons}
+          ref={scrollContainer}
+          data-component="underlinenav-scrollcontainer"
+        >
           <UnderlineWrapper
             as={as}
             aria-label={ariaLabel}
