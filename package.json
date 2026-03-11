@@ -99,9 +99,6 @@
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "^4.59.0"
   },
-  "overrides": {
-    "css-tree": "3.1.0"
-  },
   "prettier": "@github/prettier-config",
   "size-limit": [
     {
