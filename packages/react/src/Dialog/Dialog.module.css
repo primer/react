@@ -86,10 +86,40 @@
     justify-content: flex-end;
   }
 
+  /* align only applies when regular position is center (or absent).
+   * :where() zeroes out the :not() specificity so narrow-position rules (coming later)
+   * always win when data-position-narrow is bottom or fullscreen. */
+  &:where(:not([data-position-regular='left']):not([data-position-regular='right'])) {
+    &[data-align='top'] {
+      align-items: flex-start;
+    }
+
+    &[data-align='center'] {
+      align-items: center;
+    }
+
+    &[data-align='bottom'] {
+      align-items: flex-end;
+    }
+  }
+
   @media (max-width: 767px) {
     &[data-position-narrow='center'] {
       align-items: center;
       justify-content: center;
+
+      /* align still applies when narrow position is center */
+      &[data-align='top'] {
+        align-items: flex-start;
+      }
+
+      &[data-align='center'] {
+        align-items: center;
+      }
+
+      &[data-align='bottom'] {
+        align-items: flex-end;
+      }
     }
 
     &[data-position-narrow='bottom'] {
@@ -144,6 +174,15 @@
 
     @media screen and (prefers-reduced-motion: no-preference) {
       animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 1ms 1 normal none running;
+    }
+
+    /* align margins only apply when regular position is center */
+    &[data-align='top'] {
+      margin-top: var(--base-size-64);
+    }
+
+    &[data-align='bottom'] {
+      margin-bottom: var(--base-size-64);
     }
   }
 
@@ -214,6 +253,12 @@
       border-bottom-right-radius: 0;
       border-bottom-left-radius: 0;
 
+      /* reset align margins since position wins at narrow */
+      &[data-align] {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+
       @media screen and (prefers-reduced-motion: no-preference) {
         animation: Overlay--motion-slideUp 0.25s cubic-bezier(0.33, 1, 0.68, 1) 1ms 1 normal none running;
       }
@@ -226,6 +271,12 @@
       max-height: 100dvh;
       border-radius: unset !important;
       flex-grow: 1;
+
+      /* reset align margins since fullscreen wins at narrow */
+      &[data-align] {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
 
       @media screen and (prefers-reduced-motion: no-preference) {
         animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 1ms 1 normal none running;
