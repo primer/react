@@ -176,6 +176,8 @@
       max-height: none;
       margin: 0;
       border-radius: unset;
+      /* stylelint-disable-next-line primer/spacing */
+      padding-bottom: env(safe-area-inset-bottom);
 
       @supports (height: 100dvh) {
         /* fix for mobile safari (100vh clips the screen with the toolbar) */

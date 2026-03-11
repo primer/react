@@ -8,11 +8,6 @@
   height: inherit;
   max-height: inherit;
   flex-direction: column;
-
-  &:where([data-responsive-variant='fullscreen']) {
-    /* stylelint-disable-next-line primer/spacing */
-    padding-bottom: env(safe-area-inset-bottom);
-  }
 }
 
 .Header {
