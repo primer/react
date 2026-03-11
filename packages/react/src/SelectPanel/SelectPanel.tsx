@@ -874,7 +874,7 @@ function Panel({
         displayCloseButton={showXCloseIcon}
         closeButtonProps={{'aria-label': 'Cancel and close'}}
       >
-        <div className={classes.Wrapper} data-variant={variant}>
+        <div className={classes.Wrapper} data-variant={variant} data-responsive-variant={currentResponsiveVariant}>
           <div className={classes.Header} data-variant={currentResponsiveVariant}>
             <div>
               <Heading as="h1" id={titleId} className={classes.Title}>
