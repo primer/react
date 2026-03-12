@@ -415,7 +415,6 @@ export const ActionBarIconButton = forwardRef(
         {...props}
         variant="invisible"
         data-overflowing={isOverflowing}
-        aria-hidden={isOverflowing || props['aria-hidden']}
       />
     )
   },
@@ -435,7 +434,7 @@ export const ActionBarGroup = forwardRef(({children}: React.PropsWithChildren, f
 
   return (
     <ActionBarGroupContext.Provider value={{groupId: id}}>
-      <div className={styles.Group} ref={ref} data-overflowing={isOverflowing} aria-hidden={isOverflowing}>
+      <div className={styles.Group} ref={ref} data-overflowing={isOverflowing}>
         {children}
       </div>
     </ActionBarGroupContext.Provider>
@@ -475,7 +474,6 @@ export const ActionBarMenu = forwardRef(
             icon={icon}
             {...props}
             data-overflowing={isOverflowing}
-            aria-hidden={isOverflowing || props['aria-hidden']}
           />
         </ActionMenu.Anchor>
         <ActionMenu.Overlay {...(returnFocusRef && {returnFocusRef})}>

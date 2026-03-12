@@ -23,11 +23,11 @@
     --morebutton-display: block;
   }
 
-  &[data-size='medium'] {
+  &:where([data-size='medium']) {
     --actionbar-height: var(--control-medium-size);
   }
 
-  &[data-size='large'] {
+  &:where([data-size='large']) {
     --actionbar-height: var(--control-large-size);
   }
 
@@ -42,6 +42,13 @@
 
   &:where([data-gap='condensed']) {
     --actionbar-gap: var(--stack-gap-condensed);
+  }
+
+  [data-overflowing='true'] {
+    /* Hide overflowing items. Even though they are clipped by `overflow: hidden`, setting `visibility: hidden` ensures
+    they can't accidentally be shown and also hides them from screen readers / keyboard nav. `!important` prevents
+    consumers from unintentionally overriding this and breaking accessibility. */
+    visibility: hidden !important;
   }
 }
 
