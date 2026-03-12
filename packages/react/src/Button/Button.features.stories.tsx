@@ -6,6 +6,7 @@ import {announce} from '@primer/live-region-element'
 import {Tooltip} from '../TooltipV2/Tooltip'
 import {KeybindingHint} from '../KeybindingHint'
 import VisuallyHidden from '../_VisuallyHidden'
+
 export default {
   title: 'Components/Button/Features',
 }
@@ -129,7 +130,7 @@ export const Disabled = () => (
 )
 
 export const Inactive = () => (
-  <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
+  <div style={{display: 'flex', flexWrap: 'wrap', flexDirection: 'row', gap: '1rem'}}>
     <VisuallyHidden id="inactive-state">Inactive</VisuallyHidden>
     <Button inactive aria-describedby="inactive-state">
       Default
