@@ -114,10 +114,9 @@ describe('useCombinedRefs', () => {
       expect(refB).toHaveBeenCalledExactlyOnceWith('test')
     })
 
-    it('handles cleanup functions correctly and independently', () => {
+    it('handles React 18 null values correctly', () => {
       const refA = vi.fn()
-      const cleanupRefB = vi.fn()
-      const refB = vi.fn().mockReturnValue(cleanupRefB)
+      const refB = vi.fn()
 
       const combined = renderHook(() => useCombinedRefs(refA, refB))
 
@@ -125,12 +124,29 @@ describe('useCombinedRefs', () => {
       expect(refA).toHaveBeenCalledWith('test')
       expect(refB).toHaveBeenCalledWith('test')
 
+      // on React 18, cleanup fn will be ignored and ref will be called with null
       combined.result.current(null)
+
+      expect(refA).toHaveBeenCalledWith(null)
+      expect(refB).toHaveBeenCalledWith(null)
+    })
+
+    it('handles React 19 cleanup functions correctly and independently', () => {
+      const refA = vi.fn()
+      const cleanupRefB = vi.fn()
+      const refB = vi.fn().mockReturnValue(cleanupRefB)
+
+      const combined = renderHook(() => useCombinedRefs(refA, refB))
+
+      const cleanup = combined.result.current('test')
+      expect(refA).toHaveBeenCalledWith('test')
+      expect(refB).toHaveBeenCalledWith('test')
+
+      // React 19 will call cleanup function and not pass null
+      cleanup()
+
       expect(refA).toHaveBeenCalledWith(null)
       expect(refB).not.toHaveBeenCalledWith(null)
-      expect(cleanupRefB).not.toHaveBeenCalled()
-
-      combined.unmount()
       expect(cleanupRefB).toHaveBeenCalledOnce()
     })
   })
