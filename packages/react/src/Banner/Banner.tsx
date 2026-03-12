@@ -162,6 +162,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
         aria-label={labelledBy ? undefined : label}
         className={clsx(className, classes.Banner)}
         data-dismissible={onDismiss ? '' : undefined}
+        data-has-actions={hasActions ? '' : undefined}
         data-title-hidden={hideTitle ? '' : undefined}
         data-variant={variant}
         data-actions-layout={actionsLayout}
