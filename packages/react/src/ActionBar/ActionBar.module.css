@@ -12,6 +12,12 @@
   gap: var(--actionbar-gap, var(--stack-gap-condensed));
   overflow: hidden;
   height: var(--actionbar-height);
+
+  /* Scroll-based animations have no effect unless the container is scrollable (has overflow, even with overflow:hidden)
+  so we can use them to detect overflow. This allows us to use pure CSS to show/hide the menu button on suported
+  browsers, reducing layout shift and improving performance. On unsupported browsers we still rely on just JS via
+  `data-has-oveflow`. It would be cleaner to use scroll-state container queries for this, but browser support for
+  scroll-driven animations is slightly better. */
   animation: detect-overflow linear;
   animation-timeline: scroll(self block);
 
