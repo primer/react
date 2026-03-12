@@ -473,7 +473,7 @@ export const ActionBarMenu = forwardRef(
             aria-label={ariaLabel}
             icon={icon}
             {...props}
-            data-overflowing={isOverflowing}
+            data-overflowing={isOverflowing ? '' : undefined}
           />
         </ActionMenu.Anchor>
         <ActionMenu.Overlay {...(returnFocusRef && {returnFocusRef})}>
