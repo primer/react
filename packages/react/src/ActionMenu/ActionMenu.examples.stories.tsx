@@ -759,3 +759,95 @@ export const InsideDialog = () => {
     </FeatureFlags>
   )
 }
+
+export const CenteredOnPage = () => {
+  const [open, setOpen] = React.useState(false)
+
+  return (
+    <div className={classes.CustomPositionMiddle}>
+      <ActionMenu open={open} onOpenChange={setOpen}>
+        <ActionMenu.Button>Open menu</ActionMenu.Button>
+        <ActionMenu.Overlay width="medium">
+          <ActionList>
+            <ActionList.Item onSelect={() => alert('Copy link clicked')}>
+              Copy link
+              <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Quote reply clicked')}>
+              Quote reply
+              <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Edit comment clicked')}>
+              Edit comment
+              <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.Item variant="danger" onSelect={() => alert('Delete file clicked')}>
+              Delete file
+              <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+            </ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </div>
+  )
+}
+
+export const TwoActionMenus = () => {
+  return (
+    <div style={{display: 'flex', gap: '1rem', padding: '1rem'}}>
+      <ActionMenu>
+        <ActionMenu.Button className="Testing">First menu</ActionMenu.Button>
+        <ActionMenu.Overlay width="medium">
+          <ActionList>
+            <ActionList.Item onSelect={() => alert('Copy clicked')}>
+              <ActionList.LeadingVisual>
+                <CopyIcon />
+              </ActionList.LeadingVisual>
+              Copy
+              <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Archive clicked')}>
+              <ActionList.LeadingVisual>
+                <ArchiveIcon />
+              </ActionList.LeadingVisual>
+              Archive
+            </ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.Item variant="danger" onSelect={() => alert('Delete clicked')}>
+              Delete
+              <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+            </ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+
+      <ActionMenu>
+        <ActionMenu.Button leadingVisual={GearIcon}>Second menu</ActionMenu.Button>
+        <ActionMenu.Overlay width="medium">
+          <ActionList>
+            <ActionList.Item onSelect={() => alert('Settings clicked')}>
+              <ActionList.LeadingVisual>
+                <GearIcon />
+              </ActionList.LeadingVisual>
+              Settings
+            </ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>
+              <ActionList.LeadingVisual>
+                <WorkflowIcon />
+              </ActionList.LeadingVisual>
+              Workflows
+            </ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.LinkItem href="#">
+              <ActionList.LeadingVisual>
+                <BookIcon />
+              </ActionList.LeadingVisual>
+              Documentation
+            </ActionList.LinkItem>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </div>
+  )
+}
