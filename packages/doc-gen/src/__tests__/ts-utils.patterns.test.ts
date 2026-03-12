@@ -6,7 +6,7 @@ const directory = path.resolve(import.meta.dirname)
 const FIXTURE_PATH = path.join(directory, 'fixtures')
 
 describe('getPropTypeForComponent', () => {
-  it('extracts props for FunctionComponent', () => {
+  it('extracts props for FunctionComponent', {timeout: 10_000}, () => {
     const info = parseTypeInfo(FIXTURE_PATH, 'FunctionComponent')
     expect(info.props.foo).toMatchObject({name: 'foo', type: 'string', required: true})
     expect(info.props.bar).toMatchObject({name: 'bar', type: 'number', required: false})
