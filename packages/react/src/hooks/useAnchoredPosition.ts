@@ -138,6 +138,7 @@ export function useAnchoredPosition(
 
     const scrollables = getScrollableAncestors(anchorEl)
     for (const scrollable of scrollables) {
+      // eslint-disable-next-line github/prefer-observers -- IntersectionObserver cannot detect continuous scroll position changes needed for repositioning
       scrollable.addEventListener('scroll', handleScroll)
     }
 

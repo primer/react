@@ -65,7 +65,7 @@ export const ScrollRecalculation = () => {
   return (
     <div>
       <Stack gap="normal" style={{padding: '16px', marginBottom: '16px'}}>
-        <Text as="p" sx={{fontWeight: 'bold'}}>
+        <Text as="p" style={{fontWeight: 'bold'}}>
           How to test (scrollable container):
         </Text>
         <Text as="p">
@@ -93,7 +93,7 @@ export const ScrollRecalculation = () => {
       >
         {/* Spacer to push button below the fold */}
         <div style={{height: '600px', padding: '16px'}}>
-          <Text as="p" sx={{color: 'fg.muted'}}>
+          <Text as="p" style={{color: 'var(--fgColor-muted)'}}>
             ↓ Scroll down to find the trigger button
           </Text>
         </div>
@@ -131,7 +131,7 @@ export const WindowScrollRecalculation = () => {
   return (
     <div>
       <Stack gap="normal" style={{padding: '16px'}}>
-        <Text as="p" sx={{fontWeight: 'bold'}}>
+        <Text as="p" style={{fontWeight: 'bold'}}>
           How to test (window scroll):
         </Text>
         <Text as="p">
@@ -150,7 +150,7 @@ export const WindowScrollRecalculation = () => {
 
       {/* Spacer to push button below the fold */}
       <div style={{height: '120vh', padding: '16px'}}>
-        <Text as="p" sx={{color: 'fg.muted'}}>
+        <Text as="p" style={{color: 'var(--fgColor-muted)'}}>
           ↓ Scroll down to find the trigger button
         </Text>
       </div>
