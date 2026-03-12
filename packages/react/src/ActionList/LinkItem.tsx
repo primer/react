@@ -47,13 +47,19 @@ const LinkItemComponent = fixedForwardRef(
             onClick && onClick(event)
             props.onClick && props.onClick(event as React.MouseEvent<HTMLAnchorElement>)
           }
-          return inactiveText ? (
-            <span {...rest}>{children}</span>
-          ) : (
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            <Link as={Component} {...rest} {...(props as any)} onClick={clickHandler} ref={forwardedRef}>
+          if (inactiveText) {
+            return <span {...rest}>{children}</span>
+          }
+
+          // Type safety for the polymorphic `as` prop is enforced at the
+          // LinkItem boundary via fixedForwardRef. Internally we widen
+          // Link's type so TypeScript doesn't re-check the generic
+          // constraint across two polymorphic layers.
+          const InternalLink: React.ElementType = Link
+          return (
+            <InternalLink as={Component} {...rest} {...props} onClick={clickHandler} ref={forwardedRef}>
               {children}
-            </Link>
+            </InternalLink>
           )
         }}
       >
