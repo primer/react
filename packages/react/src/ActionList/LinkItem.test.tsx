@@ -3,8 +3,11 @@ import {render, screen, fireEvent} from '@testing-library/react'
 import React from 'react'
 import {ActionList} from '.'
 import Link from '../Link'
+import {implementsClassName} from '../utils/testing'
 
 describe('ActionList.LinkItem', () => {
+  implementsClassName(ActionList.LinkItem)
+
   it('renders as an anchor by default', () => {
     render(
       <ActionList>
