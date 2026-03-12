@@ -1,7 +1,8 @@
+import type React from 'react'
 import {useEffect, useRef, useState, type JSX} from 'react'
 import type {Args, Meta} from '@storybook/react-vite'
 import {FocusKeys} from '@primer/behaviors'
-import {Avatar, Link} from '..'
+import {Avatar, Dialog, Link, Text} from '..'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import Heading from '../Heading'
 import Octicon from '../Octicon'
@@ -383,5 +384,207 @@ export const FullscreenVariant = () => {
         </Stack>
       </div>
     </AnchoredOverlay>
+  )
+}
+
+export const CenteredOnPage = () => {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <div className={classes.CenteredTrigger}>
+      <AnchoredOverlay
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
+        renderAnchor={props => <Button {...props}>Open Overlay</Button>}
+        overlayProps={{
+          role: 'dialog',
+          'aria-modal': true,
+          'aria-label': 'Centered Overlay Demo',
+        }}
+        focusZoneSettings={{disabled: true}}
+        preventOverflow={false}
+      >
+        <div className={classes.FlexColFill}>{hoverCard}</div>
+      </AnchoredOverlay>
+    </div>
+  )
+}
+
+const gridPositions = [
+  {row: 'start', col: 'start'},
+  {row: 'start', col: 'center'},
+  {row: 'start', col: 'end'},
+  {row: 'center', col: 'start'},
+  {row: 'center', col: 'center'},
+  {row: 'center', col: 'end'},
+  {row: 'end', col: 'start'},
+  {row: 'end', col: 'center'},
+  {row: 'end', col: 'end'},
+]
+
+export const AnchorPositionGrid = () => {
+  const [openCell, setOpenCell] = useState<string | null>(null)
+
+  return (
+    <div className={classes.AnchorGridContainer}>
+      <div className={classes.AnchorGrid}>
+        <div className={classes.AnchorGridInner}>
+          {gridPositions.map(({row, col}) => {
+            const key = `${row}-${col}`
+            const isCenter = row === 'center' && col === 'center'
+
+            return (
+              <div key={key} className={classes.AnchorGridCell}>
+                <span className={classes.AnchorGridLabel}>
+                  {row} / {col}
+                </span>
+                {isCenter ? (
+                  <AnchoredOverlay
+                    open={openCell === key}
+                    onOpen={() => setOpenCell(key)}
+                    onClose={() => setOpenCell(null)}
+                    renderAnchor={props => <Button {...props}>Anchor</Button>}
+                    overlayProps={{
+                      role: 'dialog',
+                      'aria-modal': true,
+                      'aria-label': 'Anchor Position Grid Demo',
+                    }}
+                    focusZoneSettings={{disabled: true}}
+                    preventOverflow={false}
+                  >
+                    <div className={classes.FlexColFill}>{hoverCard}</div>
+                  </AnchoredOverlay>
+                ) : null}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const AnchorPositionOverlay = ({
+  children,
+  label = 'CSS Anchor Position Demo',
+}: {
+  children?: React.ReactNode
+  label?: string
+}) => {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <AnchoredOverlay
+      open={open}
+      onOpen={() => setOpen(true)}
+      onClose={() => setOpen(false)}
+      renderAnchor={props => <Button {...props}>Open Overlay</Button>}
+      overlayProps={{
+        role: 'dialog',
+        'aria-modal': true,
+        'aria-label': label,
+      }}
+      focusZoneSettings={{disabled: true}}
+      preventOverflow={false}
+    >
+      <div className={classes.FlexColFill}>{children ?? hoverCard}</div>
+    </AnchoredOverlay>
+  )
+}
+
+export const ScrollWithAnchor = () => {
+  return (
+    <div className={classes.ScrollContainer}>
+      <div className={classes.ScrollContent}>
+        <AnchorPositionOverlay label="Scroll With Anchor Demo" />
+      </div>
+    </div>
+  )
+}
+
+export const WithinDialog = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+
+  return (
+    <div>
+      <Button onClick={() => setIsDialogOpen(true)}>Open Dialog</Button>
+      {isDialogOpen && (
+        <Dialog title="Dialog with Anchored Overlay" onClose={() => setIsDialogOpen(false)} width="large">
+          <div className={classes.DialogBody}>
+            <Text as="p" style={{marginBottom: '16px'}}>
+              The overlay below uses CSS anchor positioning within a dialog.
+            </Text>
+            <AnchorPositionOverlay label="Within Dialog Demo" />
+          </div>
+        </Dialog>
+      )}
+    </div>
+  )
+}
+
+export const WithinNestedDialog = () => {
+  const [isOuterOpen, setIsOuterOpen] = useState(false)
+  const [isInnerOpen, setIsInnerOpen] = useState(false)
+
+  return (
+    <div>
+      <Button onClick={() => setIsOuterOpen(true)}>Open Dialog</Button>
+      {isOuterOpen && (
+        <Dialog title="Outer Dialog" onClose={() => setIsOuterOpen(false)} width="large">
+          <div className={classes.DialogBody}>
+            <Text as="p" style={{marginBottom: '16px'}}>
+              This is the outer dialog. Open the inner dialog to test nested anchor positioning.
+            </Text>
+            <Button onClick={() => setIsInnerOpen(true)}>Open Inner Dialog</Button>
+            {isInnerOpen && (
+              <Dialog title="Inner Dialog" onClose={() => setIsInnerOpen(false)} width="medium">
+                <div className={classes.DialogBody}>
+                  <Text as="p" style={{marginBottom: '16px'}}>
+                    The overlay below uses CSS anchor positioning inside a nested dialog.
+                  </Text>
+                  <AnchorPositionOverlay label="Nested Dialog Demo" />
+                </div>
+              </Dialog>
+            )}
+          </div>
+        </Dialog>
+      )}
+    </div>
+  )
+}
+
+export const WithinDialogOverflowing = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+
+  return (
+    <div>
+      <Button onClick={() => setIsDialogOpen(true)}>Open Dialog</Button>
+      {isDialogOpen && (
+        <Dialog title="Overflow Test" onClose={() => setIsDialogOpen(false)} width="small">
+          <div className={classes.DialogBody} style={{display: 'flex', justifyContent: 'flex-end'}}>
+            <Text as="p" style={{marginBottom: '16px'}}>
+              The anchor is positioned near the edge. The overlay should flip via position-try-fallbacks when it would
+              overflow the viewport.
+            </Text>
+            <AnchorPositionOverlay label="Dialog Overflow Demo" />
+          </div>
+        </Dialog>
+      )}
+    </div>
+  )
+}
+
+export const WithinStickyElement = () => {
+  return (
+    <div className={classes.ScrollContainer}>
+      <div className={classes.StickyHeader}>
+        <Heading as="h3">Sticky Header</Heading>
+        <AnchorPositionOverlay label="Sticky Element Demo" />
+      </div>
+      <div className={classes.StickyScrollArea}>
+        <Text as="p">Scroll down to test that the overlay stays anchored to the button in the sticky header.</Text>
+      </div>
+    </div>
   )
 }
