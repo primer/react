@@ -1,8 +1,10 @@
-import React from 'react'
-import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import type React from 'react'
+import type {ForwardedRef} from 'react'
+import type {WithSlotMarker} from '../utils/types/Slots'
 import Link from '../Link'
 import {Item} from './Item'
 import type {ActionListItemProps} from './shared'
+import {type PolymorphicProps, fixedForwardRef} from '../utils/modern-polymorphic'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -25,8 +27,13 @@ export type ActionListLinkItemProps = Pick<
 > &
   LinkProps
 
-export const LinkItem = React.forwardRef(
-  ({active, inactiveText, variant, size, as: Component, className, ...props}, forwardedRef) => {
+type LinkItemProps<As extends React.ElementType = 'a'> = PolymorphicProps<As, 'a', ActionListLinkItemProps>
+
+const LinkItemComponent = fixedForwardRef(
+  <As extends React.ElementType = 'a'>(
+    {active, inactiveText, variant, size, as: Component, className, ...props}: LinkItemProps<As>,
+    forwardedRef: ForwardedRef<unknown>,
+  ) => {
     return (
       <Item
         className={className}
@@ -43,7 +50,8 @@ export const LinkItem = React.forwardRef(
           return inactiveText ? (
             <span {...rest}>{children}</span>
           ) : (
-            <Link as={Component} {...rest} {...props} onClick={clickHandler} ref={forwardedRef}>
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            <Link as={Component} {...rest} {...(props as any)} onClick={clickHandler} ref={forwardedRef}>
               {children}
             </Link>
           )
@@ -53,8 +61,9 @@ export const LinkItem = React.forwardRef(
       </Item>
     )
   },
-) as PolymorphicForwardRefComponent<'a', ActionListLinkItemProps>
+)
 
-LinkItem.displayName = 'ActionList.LinkItem'
-
-LinkItem.__SLOT__ = Symbol('ActionList.LinkItem')
+export const LinkItem: WithSlotMarker<typeof LinkItemComponent> = Object.assign(LinkItemComponent, {
+  displayName: 'ActionList.LinkItem',
+  __SLOT__: Symbol('ActionList.LinkItem'),
+})

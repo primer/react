@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event'
 import {FeatureFlags} from '../../FeatureFlags'
 import {implementsClassName} from '../../utils/testing'
 import classes from '../Breadcrumbs.module.css'
+import Link from '../../Link'
 
 // Helper function to render with theme and feature flags
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -546,6 +547,40 @@ describe('Breadcrumbs', () => {
         {primer_react_breadcrumbs_overflow_menu: true},
       )
       expect(container.firstChild).toHaveAttribute('data-variant', 'spacious')
+    })
+  })
+
+  describe('as prop', () => {
+    it('supports polymorphic Breadcrumbs.Item with as prop', () => {
+      renderWithTheme(
+        <Breadcrumbs>
+          <Breadcrumbs.Item as="span">Home</Breadcrumbs.Item>
+          <Breadcrumbs.Item as="span" selected>
+            Docs
+          </Breadcrumbs.Item>
+        </Breadcrumbs>,
+        {primer_react_breadcrumbs_overflow_menu: true},
+      )
+
+      const homeItem = screen.getByText('Home')
+      const docsItem = screen.getByText('Docs')
+
+      expect(homeItem.nodeName).toEqual('SPAN')
+      expect(docsItem.nodeName).toEqual('SPAN')
+    })
+
+    it('passes through additional props to the element specified by as', () => {
+      renderWithTheme(
+        <Breadcrumbs>
+          <Breadcrumbs.Item as={Link} href="/home" data-testid="home-link" inline>
+            Home
+          </Breadcrumbs.Item>
+        </Breadcrumbs>,
+        {primer_react_breadcrumbs_overflow_menu: true},
+      )
+
+      const homeLink = screen.getByTestId('home-link')
+      expect(homeLink).toHaveAttribute('href', '/home')
     })
   })
 })

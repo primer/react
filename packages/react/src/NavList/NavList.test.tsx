@@ -4,6 +4,7 @@ import React from 'react'
 import {NavList} from './NavList'
 import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
 import {implementsClassName} from '../utils/testing'
+import Link from '../Link'
 
 type NextJSLinkProps = {href: string; children: React.ReactNode}
 
