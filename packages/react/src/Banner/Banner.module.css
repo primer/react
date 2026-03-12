@@ -45,6 +45,20 @@
     & .BannerActions :where([data-primary-action='leading']) {
       display: none;
     }
+
+    @media screen and (--viewportRange-narrow) {
+      & .BannerContainer {
+        flex-direction: column;
+      }
+
+      & .BannerActions :where([data-primary-action='trailing']) {
+        display: none;
+      }
+
+      & .BannerActions :where([data-primary-action='leading']) {
+        display: flex;
+      }
+    }
   }
 
   &[data-layout='compact'] {
