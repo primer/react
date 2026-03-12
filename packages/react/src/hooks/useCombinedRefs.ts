@@ -1,5 +1,5 @@
 import type {ForwardedRef, Ref as StandardRef, MutableRefObject} from 'react'
-import {useCallback, useEffect, useRef} from 'react'
+import {useCallback} from 'react'
 
 /**
  * Combine two refs of matching type (typically an external or forwarded ref and an internal `useRef` object or
@@ -32,24 +32,21 @@ import {useCallback, useEffect, useRef} from 'react'
  * }
  */
 export function useCombinedRefs<T>(refA: Ref<T | null>, refB: Ref<T | null>) {
-  const cleanupARef = useRef<CleanupFunction>()
-  const cleanupBRef = useRef<CleanupFunction>()
-
-  // Call React 19 cleanup ref callbacks only on unmount
-  useEffect(
-    () => () => {
-      cleanupARef.current?.()
-      cleanupBRef.current?.()
-    },
-    [],
-  )
-
   return useCallback(
     (value: T | null) => {
-      setRef(refA, value, cleanupARef)
-      setRef(refB, value, cleanupBRef)
+      const cleanupA = setRef(refA, value)
+      const cleanupB = setRef(refB, value)
 
-      // When we drop support for React 18 we can just handle cleanup here with a returned function
+      // Only works in React 19. In React 18, the cleanup function will be ignored and the ref will get called with
+      // `null` which will be passed to each ref as expected.
+      return () => {
+        // For object refs and callback refs that don't return cleanups, we still need to pass `null` on cleanup
+        if (cleanupA) cleanupA()
+        else setRef(refA, null)
+
+        if (cleanupB) cleanupB()
+        else setRef(refB, null)
+      }
     },
     [refA, refB],
   )
@@ -76,15 +73,9 @@ type React19RefCallback<T> = {
  */
 type Ref<T> = ForwardedRef<T> | React19RefCallback<T> | StandardRef<T> | undefined
 
-function setRef<T>(ref: Ref<T>, value: T, cleanupRef: MutableRefObject<CleanupFunction | undefined>) {
-  // NOTE: This is technically incorrect; in React 19 even with a callback ref it should be possible to call a ref with
-  // `null` if it happens before unmount. But there's no way for a React 18 ref to know whether this update is happening
-  // during unmount or not. Once we only need to support React 19, this can be corrected using a cleanup callback in
-  // our own combined ref.
-  if (value === null && cleanupRef.current) return
-
+function setRef<T>(ref: Ref<T>, value: T) {
   if (typeof ref === 'function') {
-    cleanupRef.current = ref(value) || undefined
+    return ref(value)
   } else if (ref) {
     // `React.Ref` is typed as immutable to protect consumers but it's OK to mutate it here. We could just change the
     // type to only accept mutable refs, but then it would be harder to accept refs as props in React 19 because we
