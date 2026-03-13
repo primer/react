@@ -77,11 +77,7 @@ const items: {navigation: string; icon: React.ReactElement; counter?: number | s
 export const OverflowTemplate = ({initialSelectedIndex = 1}: {initialSelectedIndex?: number}) => {
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(initialSelectedIndex)
   return (
-    <UnderlineNav
-      aria-label="Repository"
-      // @ts-ignore UnderlineNav does not take selectionVariant prop, but we need to pass it to the underlying ActionList so it doesn't show Selections.
-      selectionVariant={undefined}
-    >
+    <UnderlineNav aria-label="Repository">
       {items.map((item, index) => (
         <UnderlineNav.Item
           key={item.navigation}
@@ -106,7 +102,7 @@ export const OverflowTemplate = ({initialSelectedIndex = 1}: {initialSelectedInd
 }
 
 export const OverflowOnNarrowScreen = () => {
-  return <OverflowTemplate initialSelectedIndex={1} />
+  return <OverflowTemplate initialSelectedIndex={items.length - 1} />
 }
 
 OverflowOnNarrowScreen.parameters = {

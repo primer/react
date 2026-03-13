@@ -178,7 +178,7 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
       <UnderlineWrapper
         ref={wrapperRef}
         slot="tablist-wrapper"
-        data-icons-visible={iconsVisible}
+        data-hide-icons={!iconsVisible}
         className={clsx(className, classes.StyledUnderlineWrapper)}
         {...props}
       >
