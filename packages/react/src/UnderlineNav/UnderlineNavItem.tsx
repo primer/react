@@ -4,7 +4,6 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import {UnderlineNavContext} from './UnderlineNavContext'
 import {UnderlineItem} from '../internal/components/UnderlineTabbedInterface'
 import classes from './UnderlineNavItem.module.css'
-import {createDescendantRegistry} from '../utils/descendant-registry'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 // adopted from React.AnchorHTMLAttributes
@@ -58,9 +57,6 @@ export type UnderlineNavItemProps = {
    */
   counter?: number | string
 } & LinkProps
-
-/** Registry of currently-overflowing underline items. If an item is not overflowing, its value will be `null`. */
-export const UnderlineNavItemsRegistry = createDescendantRegistry<UnderlineNavItemProps | null>()
 
 function scrollIntoViewHorizontally(container: HTMLElement, descendant: HTMLElement): void {
   // Walk up the offset parent chain to get the true left offset relative to `container`
