@@ -11,6 +11,12 @@
       "id": "components-timeline-features--clip-sidebar"
     },
     {
+      "id": "components-timeline-features--clip-sidebar-start"
+    },
+    {
+      "id": "components-timeline-features--clip-sidebar-end"
+    },
+    {
       "id": "components-timeline-features--condensed-items"
     },
     {
@@ -24,8 +30,8 @@
   "props": [
     {
       "name": "clipSidebar",
-      "type": "boolean",
-      "description": "Hides the sidebar above the first Timeline.Item and below the last Timeline.Item."
+      "type": "| boolean | 'start' | 'end' | 'both'",
+      "description": "Controls which ends of the sidebar are clipped. When set to `true` or `'both'`, hides the sidebar above the first and below the last Timeline.Item. Use `'start'` to only clip the top or `'end'` to only clip the bottom."
     }
   ],
   "subcomponents": [

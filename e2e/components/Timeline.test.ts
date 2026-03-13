@@ -12,6 +12,14 @@ const stories = [
     id: 'components-timeline-features--clip-sidebar',
   },
   {
+    title: 'Clip Sidebar Start',
+    id: 'components-timeline-features--clip-sidebar-start',
+  },
+  {
+    title: 'Clip Sidebar End',
+    id: 'components-timeline-features--clip-sidebar-end',
+  },
+  {
     title: 'Condensed Items',
     id: 'components-timeline-features--condensed-items',
   },
