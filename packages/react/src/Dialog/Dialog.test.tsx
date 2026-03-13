@@ -40,6 +40,24 @@ describe('Dialog', () => {
     await waitFor(() => expect(getByRole('button', {name: 'Footer button'})).toHaveFocus())
   })
 
+  it('sets data-has-footer when footerButtons are provided', () => {
+    const {getByRole} = render(
+      <Dialog onClose={() => {}} footerButtons={[{buttonType: 'primary', content: 'OK'}]}>
+        Content
+      </Dialog>,
+    )
+    expect(getByRole('dialog')).toHaveAttribute('data-has-footer', '')
+  })
+
+  it('does not set data-has-footer when no footer is rendered', () => {
+    const {getByRole} = render(
+      <Dialog onClose={() => {}} renderFooter={() => null}>
+        Content
+      </Dialog>,
+    )
+    expect(getByRole('dialog')).not.toHaveAttribute('data-has-footer')
+  })
+
   it('calls `onClose` when clicking the close button', async () => {
     const user = userEvent.setup()
     const onClose = vi.fn()

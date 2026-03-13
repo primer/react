@@ -1,9 +1,18 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "rootDir": "./src",
     "outDir": "./dist",
     "declaration": true,
     "emitDeclarationOnly": true
   },
-  "exclude": ["vitest.config.ts", "vitest.config.browser.ts", "config", "**/*.test.ts", "**/*.test.tsx", "./.storybook/**/*.ts", "./.storybook/**/*.tsx"]
+  "exclude": [
+    "vitest.config.ts",
+    "vitest.config.browser.ts",
+    "config",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "./.storybook/**/*.ts",
+    "./.storybook/**/*.tsx"
+  ]
 }
