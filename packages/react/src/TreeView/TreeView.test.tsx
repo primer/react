@@ -103,21 +103,6 @@ describe('Markup', () => {
     expect(subtree).toBeNull()
   })
 
-  it('does not render collapsed subtree children in the DOM', () => {
-    const {queryByRole} = renderWithTheme(
-      <TreeView aria-label="Test tree">
-        <TreeView.Item id="parent">
-          Parent
-          <TreeView.SubTree>
-            <TreeView.Item id="child">Child</TreeView.Item>
-          </TreeView.SubTree>
-        </TreeView.Item>
-      </TreeView>,
-    )
-
-    expect(queryByRole('treeitem', {name: 'Child'})).toBeNull()
-  })
-
   it('uses aria-current', () => {
     const {getByRole} = renderWithTheme(
       <TreeView aria-label="Test tree">
