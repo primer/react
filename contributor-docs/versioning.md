@@ -7,17 +7,19 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
-- [Overview](#overview)
-- [Changes](#changes)
-- [Reference](#reference)
-  - [The type of a prop is broadened](#the-type-of-a-prop-is-broadened)
-  - [The type of a prop is narrowed](#the-type-of-a-prop-is-narrowed)
-  - [The `display` property used for the container of `children` is changed](#the-display-property-used-for-the-container-of-children-is-changed)
-  - [A component changes its usage of a CSS Custom Property](#a-component-changes-its-usage-of-a-css-custom-property)
-  - [A component includes a landmark role](#a-component-includes-a-landmark-role)
-  - [A component no longer includes a landmark role](#a-component-no-longer-includes-a-landmark-role)
-  - [The element onto which props are spread is changed](#the-element-onto-which-props-are-spread-is-changed)
-  - [The element type in an event handler becomes broader](#the-element-type-in-an-event-handler-becomes-broader)
+- [Versioning](#versioning)
+  - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Changes](#changes)
+  - [Reference](#reference)
+    - [The type of a prop is broadened](#the-type-of-a-prop-is-broadened)
+    - [The type of a prop is narrowed](#the-type-of-a-prop-is-narrowed)
+    - [The `display` property used for the container of `children` is changed](#the-display-property-used-for-the-container-of-children-is-changed)
+    - [A component changes its usage of a CSS Custom Property](#a-component-changes-its-usage-of-a-css-custom-property)
+    - [A component includes a landmark role](#a-component-includes-a-landmark-role)
+    - [A component no longer includes a landmark role](#a-component-no-longer-includes-a-landmark-role)
+    - [The element onto which props are spread is changed](#the-element-onto-which-props-are-spread-is-changed)
+    - [The element type in an event handler becomes broader](#the-element-type-in-an-event-handler-becomes-broader)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <!-- prettier-ignore-end -->
@@ -68,6 +70,10 @@ For a full list of releases, visit our [releases](https://github.com/primer/reac
 |               | [A component changes its usage of a CSS Custom Property](#a-component-changes-its-usage-of-a-css-custom-property)                             | potentially `major` |
 | Accessibility | [A component includes a landmark role](#a-component-includes-a-landmark-role)                                                                 | potentially `major` |
 |               | [A component no longer includes a landmark role](#a-component-no-longer-includes-a-landmark-role)                                             | potentially `major` |
+| Data attrs    | A `data-component` or `data-part` attribute is added ([ADR-023](./adrs/adr-023-data-component-api.md))                                        | `minor`             |
+|               | A `data-component` or `data-part` value is renamed, removed, or moved to a different element                                                  | `major`             |
+| Data attrs    | A `data-component` or `data-part` attribute is added ([ADR-023](./adrs/adr-023-data-component-api.md))                                        | `minor`             |
+|               | A `data-component` or `data-part` value is renamed, removed, or moved to a different element                                                  | `major`             |
 
 ## Reference
 
