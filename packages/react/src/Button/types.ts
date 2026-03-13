@@ -91,7 +91,7 @@ export type IconButtonProps = ButtonA11yProps & {
   tooltipDirection?: TooltipDirection
   /** @deprecated Use `keybindingHint` instead. */
   keyshortcuts?: string
-  keybindingHint?: string
+  keybindingHint?: string | string[]
 } & Omit<ButtonBaseProps, 'aria-label' | 'aria-labelledby'>
 
 // adopted from React.AnchorHTMLAttributes
