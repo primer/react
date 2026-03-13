@@ -4,6 +4,7 @@ import React from 'react'
 import {NavList} from './NavList'
 import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
 import {implementsClassName} from '../utils/testing'
+import Link from '../Link'
 
 type NextJSLinkProps = {href: string; children: React.ReactNode}
 
@@ -457,5 +458,36 @@ describe('NavList.ShowMoreItem with pages', () => {
     expect(queryByRole('link', {name: 'Item 5'})).toBeInTheDocument()
     expect(queryByRole('link', {name: 'Item 6'})).not.toBeInTheDocument()
     expect(queryByRole('link', {name: 'Item 7'})).not.toBeInTheDocument()
+  })
+
+  it('passes through as props to the link items', () => {
+    const {queryByRole} = render(
+      <NavList>
+        <NavList.Item as={Link} href="#item1" inline>
+          Item 1
+        </NavList.Item>
+        <NavList.Item as={Link} href="#item2" inline>
+          Item 2
+        </NavList.Item>
+        <NavList.GroupExpand
+          label="More"
+          items={[
+            {text: 'Item 3', href: '#item3'},
+            {text: 'Item 4', href: '#item4'},
+          ]}
+        />
+      </NavList>,
+    )
+
+    act(() => {
+      queryByRole('button', {name: 'More'})?.click()
+    })
+
+    expect(queryByRole('link', {name: 'Item 1'})).toHaveAttribute('href', '#item1')
+    expect(queryByRole('link', {name: 'Item 1'})).toHaveAttribute('data-inline', 'true')
+    expect(queryByRole('link', {name: 'Item 2'})).toHaveAttribute('href', '#item2')
+    expect(queryByRole('link', {name: 'Item 2'})).toHaveAttribute('data-inline', 'true')
+    expect(queryByRole('link', {name: 'Item 3'})).toHaveAttribute('href', '#item3')
+    expect(queryByRole('link', {name: 'Item 4'})).toHaveAttribute('href', '#item4')
   })
 })
