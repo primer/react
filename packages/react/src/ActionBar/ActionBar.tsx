@@ -245,7 +245,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
           aria-labelledby={ariaLabelledBy}
           data-gap={gap}
           data-size={size}
-          data-has-overflow={overflowItems.length > 0}
+          data-has-overflow={overflowItems.length > 0 ? '' : undefined}
         >
           <div className={styles.OverflowContainer}>
             <ActionBarItemsRegistry.Provider setRegistry={setChildRegistry}>{children}</ActionBarItemsRegistry.Provider>
@@ -370,7 +370,7 @@ function useActionBarItem(ref: React.RefObject<HTMLElement | null>, registryProp
 
   const id = ActionBarItemsRegistry.useRegisterDescendant(isOverflowing ? registryProps : null)
 
-  return {id, isOverflowing}
+  return {id, dataOverflowingAttr: isOverflowing ? '' : undefined}
 }
 
 export const ActionBarIconButton = forwardRef(
@@ -383,7 +383,7 @@ export const ActionBarIconButton = forwardRef(
 
     const {['aria-label']: ariaLabel, icon} = props
 
-    const {isOverflowing} = useActionBarItem(
+    const {dataOverflowingAttr} = useActionBarItem(
       ref,
       useMemo(
         (): ChildProps => ({
@@ -414,7 +414,7 @@ export const ActionBarIconButton = forwardRef(
         onClick={clickHandler}
         {...props}
         variant="invisible"
-        data-overflowing={isOverflowing}
+        data-overflowing={dataOverflowingAttr}
       />
     )
   },
@@ -427,14 +427,14 @@ const ActionBarGroupContext = React.createContext<{
 export const ActionBarGroup = forwardRef(({children}: React.PropsWithChildren, forwardedRef) => {
   const backupRef = useRef<HTMLDivElement>(null)
   const ref = (forwardedRef ?? backupRef) as RefObject<HTMLDivElement>
-  const {id, isOverflowing} = useActionBarItem(
+  const {id, dataOverflowingAttr} = useActionBarItem(
     ref,
     useMemo((): ChildProps => ({type: 'group'}), []),
   )
 
   return (
     <ActionBarGroupContext.Provider value={{groupId: id}}>
-      <div className={styles.Group} ref={ref} data-overflowing={isOverflowing}>
+      <div className={styles.Group} ref={ref} data-overflowing={dataOverflowingAttr}>
         {children}
       </div>
     </ActionBarGroupContext.Provider>
@@ -451,7 +451,7 @@ export const ActionBarMenu = forwardRef(
 
     const [menuOpen, setMenuOpen] = useState(false)
 
-    const {isOverflowing} = useActionBarItem(
+    const {dataOverflowingAttr} = useActionBarItem(
       ref,
       useMemo(
         (): ChildProps => ({
@@ -473,7 +473,7 @@ export const ActionBarMenu = forwardRef(
             aria-label={ariaLabel}
             icon={icon}
             {...props}
-            data-overflowing={isOverflowing ? '' : undefined}
+            data-overflowing={dataOverflowingAttr}
           />
         </ActionMenu.Anchor>
         <ActionMenu.Overlay {...(returnFocusRef && {returnFocusRef})}>
@@ -486,7 +486,7 @@ export const ActionBarMenu = forwardRef(
 
 export const VerticalDivider = () => {
   const ref = useRef<HTMLDivElement>(null)
-  const {isOverflowing} = useActionBarItem(
+  const {dataOverflowingAttr} = useActionBarItem(
     ref,
     useMemo((): ChildProps => ({type: 'divider'}), []),
   )
@@ -497,7 +497,7 @@ export const VerticalDivider = () => {
       data-component="ActionBar.VerticalDivider"
       aria-hidden="true"
       className={styles.Divider}
-      data-overflowing={isOverflowing}
+      data-overflowing={dataOverflowingAttr}
     />
   )
 }

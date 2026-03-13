@@ -24,7 +24,7 @@
   --actionbar-height: var(--control-small-size);
   --morebutton-display: none;
 
-  &[data-has-overflow='true'] {
+  &[data-has-overflow] {
     /* Progressive enhancement: show overflow button on browsers that don't support scroll-driven animations */
     --morebutton-display: block;
   }
