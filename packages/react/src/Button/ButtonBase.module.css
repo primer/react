@@ -2,7 +2,7 @@
 .ButtonBase {
   display: flex;
   min-width: max-content;
-  height: var(--control-medium-size);
+  min-height: var(--control-medium-size);
   /* stylelint-disable-next-line primer/spacing */
   padding: 0 var(--control-medium-paddingInline-normal);
   font-family: inherit;
@@ -146,7 +146,7 @@
   /* Size */
 
   &:where([data-size='small']) {
-    height: var(--control-small-size);
+    min-height: var(--control-small-size);
     /* stylelint-disable-next-line primer/spacing */
     padding: 0 var(--control-small-paddingInline-condensed);
     gap: var(--control-small-gap);
@@ -163,7 +163,7 @@
   }
 
   &:where([data-size='large']) {
-    height: var(--control-large-size);
+    min-height: var(--control-large-size);
     /* stylelint-disable-next-line primer/spacing */
     padding: 0 var(--control-large-paddingInline-spacious);
     gap: var(--control-large-gap);
@@ -188,8 +188,6 @@
 
   &:where([data-label-wrap='true']) {
     min-width: fit-content;
-    height: unset;
-    min-height: var(--control-medium-size);
 
     & .ButtonContent {
       flex: 1 1 auto;
@@ -205,9 +203,6 @@
     }
 
     &:where([data-size='small']) {
-      height: unset;
-      min-height: var(--control-small-size);
-
       & .ButtonContent {
         /* stylelint-disable-next-line primer/spacing */
         padding-block: calc(var(--control-small-paddingBlock) - var(--base-size-2));
@@ -215,8 +210,6 @@
     }
 
     &:where([data-size='large']) {
-      height: unset;
-      min-height: var(--control-large-size);
       /* stylelint-disable-next-line primer/spacing */
       padding-inline: var(--control-large-paddingInline-spacious);
 
@@ -542,7 +535,7 @@
   &:where([data-variant='link']) {
     display: inline-flex;
     min-width: fit-content;
-    height: unset;
+    min-height: unset;
     padding: 0;
     font-size: inherit;
     color: var(--fgColor-link);
