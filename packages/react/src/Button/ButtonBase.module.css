@@ -123,6 +123,7 @@
 
     &:where([data-align='start']) {
       justify-content: flex-start;
+      text-align: start;
     }
   }
 
