@@ -2,17 +2,24 @@ import {clsx} from 'clsx'
 import React from 'react'
 import classes from './Timeline.module.css'
 
-type StyledTimelineProps = {clipSidebar?: boolean; className?: string}
+type StyledTimelineProps = {clipSidebar?: boolean | 'start' | 'end' | 'both'; className?: string}
 
 export type TimelineProps = StyledTimelineProps & React.ComponentPropsWithoutRef<'div'>
 
+function resolveClipSidebar(clipSidebar: TimelineProps['clipSidebar']): string | undefined {
+  if (clipSidebar === true || clipSidebar === 'both') return 'both'
+  if (clipSidebar === 'start' || clipSidebar === 'end') return clipSidebar
+  return undefined
+}
+
 const Timeline = React.forwardRef<HTMLDivElement, TimelineProps>(({clipSidebar, className, ...props}, forwardRef) => {
+  const resolvedClipSidebar = resolveClipSidebar(clipSidebar)
   return (
     <div
       {...props}
       className={clsx(className, classes.Timeline)}
       ref={forwardRef}
-      data-clip-sidebar={clipSidebar ? '' : undefined}
+      data-clip-sidebar={resolvedClipSidebar}
     />
   )
 })

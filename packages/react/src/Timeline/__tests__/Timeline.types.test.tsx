@@ -12,6 +12,28 @@ export function shouldAcceptCallWithNoProps() {
   )
 }
 
+export function shouldAcceptClipSidebarValues() {
+  return (
+    <>
+      <Timeline clipSidebar />
+      <Timeline clipSidebar={true} />
+      <Timeline clipSidebar={false} />
+      <Timeline clipSidebar="start" />
+      <Timeline clipSidebar="end" />
+      <Timeline clipSidebar="both" />
+    </>
+  )
+}
+
+export function shouldNotAcceptInvalidClipSidebarValues() {
+  return (
+    <>
+      {/* @ts-expect-error invalid string value should not be accepted */}
+      <Timeline clipSidebar="invalid" />
+    </>
+  )
+}
+
 export function shouldNotAcceptSystemProps() {
   return (
     <>
