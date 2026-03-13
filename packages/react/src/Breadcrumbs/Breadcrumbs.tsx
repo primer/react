@@ -11,6 +11,7 @@ import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
 import {useFeatureFlag} from '../FeatureFlags'
+import {type PolymorphicProps, fixedForwardRef} from '../utils/modern-polymorphic'
 
 export type BreadcrumbsProps = React.PropsWithChildren<{
   /**
@@ -118,11 +119,14 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
         <div ref={menuContainerRef} className={classes.MenuOverlay}>
           <ActionList>
             {items.map((item, index) => {
-              const href = item.props.href
-              const children = item.props.children
-              const selected = item.props.selected
+              const {children, selected, as: Component, ...itemProps} = item.props
               return (
-                <ActionList.LinkItem key={index} href={href} aria-current={selected ? 'page' : undefined}>
+                <ActionList.LinkItem
+                  key={index}
+                  as={Component}
+                  {...itemProps}
+                  aria-current={selected ? 'page' : undefined}
+                >
                   {children}
                 </ActionList.LinkItem>
               )
@@ -360,41 +364,39 @@ const ItemSeparator = () => {
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type DistributiveOmit<T, TOmitted extends PropertyKey> = T extends any ? Omit<T, TOmitted> : never
+type StyledBreadcrumbsItemProps<As extends React.ElementType = 'a'> = PolymorphicProps<
+  As,
+  'a',
+  {
+    to?: To
+    selected?: boolean
+  }
+>
 
-type StyledBreadcrumbsItemProps<As extends React.ElementType> = {
-  as?: As
-  to?: To
-  selected?: boolean
-  className?: string
-  style?: React.CSSProperties
-} & DistributiveOmit<React.ComponentPropsWithRef<React.ElementType extends As ? 'a' : As>, 'as'>
-
-function BreadcrumbsItemComponent<As extends React.ElementType>(
-  props: StyledBreadcrumbsItemProps<As>,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ref: ForwardedRef<any>,
-) {
-  const {as: Component = 'a', selected, className, ...rest} = props
-  return (
-    <Component
-      className={clsx(className, classes.Item, selected && 'selected')}
-      aria-current={selected ? 'page' : undefined}
-      ref={ref}
-      {...rest}
-    />
-  )
-}
-
-BreadcrumbsItemComponent.displayName = 'Breadcrumbs.Item'
-
-const BreadcrumbsItem = React.forwardRef(BreadcrumbsItemComponent)
+const BreadcrumbsItem = fixedForwardRef(
+  <As extends React.ElementType = 'a'>(
+    props: StyledBreadcrumbsItemProps<As>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ref: ForwardedRef<any>,
+  ) => {
+    const {as: Component = 'a', selected, className, ...rest} = props
+    return (
+      <Component
+        className={clsx(className, classes.Item, selected && 'selected')}
+        aria-current={selected ? 'page' : undefined}
+        ref={ref}
+        {...rest}
+      />
+    )
+  },
+)
 
 Breadcrumbs.displayName = 'Breadcrumbs'
 
 export type BreadcrumbsItemProps<As extends React.ElementType = 'a'> = StyledBreadcrumbsItemProps<As>
-export default Object.assign(Breadcrumbs, {Item: BreadcrumbsItem})
+
+const BreadcrumbsItemWithDisplayName = Object.assign(BreadcrumbsItem, {displayName: 'Breadcrumbs.Item'})
+export default Object.assign(Breadcrumbs, {Item: BreadcrumbsItemWithDisplayName})
 
 /**
  * @deprecated Use the `Breadcrumbs` component instead (i.e. `<Breadcrumb>` → `<Breadcrumbs>`)
