@@ -1,5 +1,29 @@
 # @primer/react
 
+## 38.15.1
+
+### Patch Changes
+
+- [#7625](https://github.com/primer/react/pull/7625) [`2e8c707`](https://github.com/primer/react/commit/2e8c70702d5096551049c29c8e79749bf63a919f) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Banner: stack inline actions vertically on narrow viewports.
+
+- [#7554](https://github.com/primer/react/pull/7554) [`f34f0c3`](https://github.com/primer/react/commit/f34f0c37c2bb144e34b029696c580ee8104dbce6) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(ActionList): memoize context values, menuItemProps, and aria attributes
+
+- [#7598](https://github.com/primer/react/pull/7598) [`4b345db`](https://github.com/primer/react/commit/4b345db228997b66c381f7d03369f87ee25fdf02) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(Banner): replace `:has(.BannerActions)` with `[data-has-actions]` attribute selector
+
+- [#7597](https://github.com/primer/react/pull/7597) [`adadd38`](https://github.com/primer/react/commit/adadd380043c637d431e30643e910e7b4ec7fe03) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(Button): replace `:has(.Visual)` with `[data-no-visuals]` attribute selector in link variant styling
+
+- [#7599](https://github.com/primer/react/pull/7599) [`e6513c2`](https://github.com/primer/react/commit/e6513c2a8a5b99e61c9009e0e3c7112a7388a295) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(Dialog): replace `:has(.Footer)` with `[data-has-footer]` attribute selector for footer border detection
+
+- [#7620](https://github.com/primer/react/pull/7620) [`ec0b789`](https://github.com/primer/react/commit/ec0b7890b45ca939c24d6236d94a69d9006c3a64) Thanks [@hectahertz](https://github.com/hectahertz)! - Use stable object reference for DialogContext value to prevent unnecessary re-renders
+
+- [#7621](https://github.com/primer/react/pull/7621) [`235126a`](https://github.com/primer/react/commit/235126abbd271e0a6e1e95110f40d72c193c6d24) Thanks [@hectahertz](https://github.com/hectahertz)! - Memoize SelectPanel overlayProps, focusTrapSettings, and preventBubbling to reduce allocations on re-renders
+
+- [#7600](https://github.com/primer/react/pull/7600) [`0d7cc92`](https://github.com/primer/react/commit/0d7cc92b474185c7efa09871b42c6a97a9326be6) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(TextInput): skip redundant character counter updates
+
+- [#7654](https://github.com/primer/react/pull/7654) [`a09a60c`](https://github.com/primer/react/commit/a09a60cb8218adf8fe2ab71e46da76fbf8331bc6) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - SelectPanel: use `100dvh` and `env(safe-area-inset-bottom)` in fullscreen-on-narrow mode to prevent content from being obscured by iOS Safari's browser chrome.
+
+- [#7545](https://github.com/primer/react/pull/7545) [`17ec46f`](https://github.com/primer/react/commit/17ec46f77524f3ad5e1789102bdf2dbaf47eab49) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(TreeView): defer scrollIntoView to coalesce reflows during rapid navigation
+
 ## 38.15.0
 
 ### Minor Changes
