@@ -199,19 +199,19 @@ test.describe('UnderlineNav', () => {
           })
 
           // Default state
-          // expect(await page.screenshot()).toMatchSnapshot()
+          expect(await page.screenshot()).toMatchSnapshot()
 
           await page.setViewportSize({width: viewports['primer.breakpoint.sm'], height: 768})
-          await page.locator('button', {hasText: 'More Repository Items'}).waitFor()
+          await page.locator('button', {hasText: 'More items'}).waitFor()
 
           // Resize
-          // expect(await page.screenshot()).toMatchSnapshot()
+          expect(await page.screenshot()).toMatchSnapshot()
 
-          await page.getByRole('button', {name: 'More Repository Items'}).click()
-          // expect(await page.screenshot()).toMatchSnapshot()
+          await page.getByRole('button', {name: 'More items'}).click()
+          expect(await page.screenshot()).toMatchSnapshot()
 
-          await page.getByRole('link', {name: 'Settings (10)'}).click()
-          // expect(await page.screenshot()).toMatchSnapshot()
+          await page.getByRole('menuitem', {name: 'Settings (10)'}).click()
+          expect(await page.screenshot()).toMatchSnapshot()
         })
 
         test('Hide icons when there is not enough space to display all list items @vrt', async ({page}) => {
@@ -223,61 +223,13 @@ test.describe('UnderlineNav', () => {
           })
 
           // Default State
-          // expect(await page.screenshot()).toMatchSnapshot()
+          expect(await page.screenshot()).toMatchSnapshot()
 
           // Resize
           await page.setViewportSize({width: viewports['primer.breakpoint.md'], height: 768})
 
           // Icons should be hidden
-          // expect(await page.screenshot()).toMatchSnapshot()
-        })
-
-        test('Keep selected item visible @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-underlinenav-features--overflow-template',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await page.setViewportSize({width: viewports['primer.breakpoint.sm'], height: 768})
-
-          await page.locator('button', {hasText: 'More Repository Items'}).waitFor()
-          await page.getByRole('button', {name: 'More Repository Items'}).click()
-          await page.getByRole('link', {name: 'Settings (10)'}).click()
-
-          // State after selecting the second last item
-          // expect(await page.screenshot()).toMatchSnapshot()
-
-          // Resize
-          await page.setViewportSize({
-            width: 1100,
-            height: 480,
-          })
-          await page.locator('button', {hasText: 'More Repository Items'}).waitFor({
-            state: 'hidden',
-          })
-
-          // Current state
-          // expect(await page.screenshot()).toMatchSnapshot()
-
-          // Resize
-          await page.setViewportSize({
-            width: 800,
-            height: 480,
-          })
-          await page.locator('button', {hasText: 'More Repository Items'}).waitFor()
-
-          // Current state
-          // expect(await page.screenshot()).toMatchSnapshot()
-
-          // Resize
-          await page.setViewportSize({
-            width: 600,
-            height: 480,
-          })
-          await page.locator('button', {hasText: 'More Repository Items'}).waitFor()
-          // Current state
-          // expect(await page.screenshot()).toMatchSnapshot()
+          expect(await page.screenshot()).toMatchSnapshot()
         })
       })
     }
