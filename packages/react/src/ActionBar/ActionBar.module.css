@@ -23,7 +23,7 @@
   }
 
   /* After initial render, JS is used to control visibility which provides progressive enhancement for unsupported browsers */
-  &[data-has-overflow="true"] {
+  &[data-has-overflow='true'] {
     --morebutton-display: block;
   }
 
