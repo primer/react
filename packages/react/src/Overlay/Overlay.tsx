@@ -32,7 +32,7 @@ export const heightMap = {
   'fit-content': 'fit-content',
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-useless-assignment
 const widthMap = {
   small: '256px',
   medium: '320px',

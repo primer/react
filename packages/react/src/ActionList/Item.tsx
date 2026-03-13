@@ -1,5 +1,4 @@
 import React, {type JSX} from 'react'
-
 import {useId} from '../hooks/useId'
 import {useSlots} from '../hooks/useSlots'
 import {ActionListContainerContext} from './ActionListContainerContext'
@@ -16,10 +15,34 @@ import VisuallyHidden from '../_VisuallyHidden'
 import classes from './ActionList.module.css'
 import {clsx} from 'clsx'
 import {fixedForwardRef} from '../utils/modern-polymorphic'
+import {Tooltip} from '../TooltipV2'
+import {TooltipContext} from '../TooltipV2/Tooltip'
 
 type ActionListSubItemProps = {
   children?: React.ReactNode
 }
+
+/**
+ * Wraps button-semantic items with Tooltip, disabled when not truncated
+ * For non-button-semantic items, renders children directly.
+ */
+const ConditionalTooltip = React.forwardRef<
+  HTMLElement,
+  {
+    text: string | undefined
+    enabled: boolean
+    children: React.ReactElement
+  }
+>(function ConditionalTooltip({text, enabled, children}, forwardedRef) {
+  if (!enabled || !text) {
+    return children
+  }
+  return (
+    <Tooltip ref={forwardedRef} text={text || ''} direction="e" delay="medium">
+      {children}
+    </Tooltip>
+  )
+})
 
 export const SubItem: React.FC<ActionListSubItemProps> = ({children}) => {
   return <>{children}</>
@@ -47,6 +70,19 @@ const DivItemContainerNoBox = React.forwardRef<HTMLDivElement, React.HTMLAttribu
   },
 )
 
+const baseSlots = {
+  leadingVisual: LeadingVisual,
+  trailingVisual: TrailingVisual,
+  trailingAction: TrailingAction,
+  subItem: SubItem,
+}
+
+const slotsConfig = {...baseSlots, description: Description}
+
+// Pre-allocated array for selectableRoles check, avoids per-render allocation
+const selectableRoles = ['menuitemradio', 'menuitemcheckbox', 'option']
+const listRoleTypes = ['listbox', 'menu', 'list']
+
 const UnwrappedItem = <As extends React.ElementType = 'li'>(
   {
     variant = 'default',
@@ -69,14 +105,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   forwardedRef: React.Ref<any>,
 ): JSX.Element => {
-  const baseSlots = {
-    leadingVisual: LeadingVisual,
-    trailingVisual: TrailingVisual,
-    trailingAction: TrailingAction,
-    subItem: SubItem,
-  }
-
-  const [partialSlots, childrenWithoutSlots] = useSlots(props.children, {...baseSlots, description: Description})
+  const [partialSlots, childrenWithoutSlots] = useSlots(props.children, slotsConfig)
 
   const slots = {description: undefined, ...partialSlots}
 
@@ -150,7 +179,6 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
     itemRole === 'menuitemcheckbox' ||
     itemRole === 'tab'
 
-  const listRoleTypes = ['listbox', 'menu', 'list']
   const listSemantics = (listRole && listRoleTypes.includes(listRole)) || inactive || listItemSemantics
   const buttonSemantics = !listSemantics && !_PrivateItemWrapper
 
@@ -165,7 +193,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
   const keyPressHandler = React.useCallback(
     (event: React.KeyboardEvent<HTMLElement>) => {
       if (disabled || inactive || loading) return
-      if ([' ', 'Enter'].includes(event.key)) {
+      if (event.key === ' ' || event.key === 'Enter') {
         if (event.key === ' ') {
           event.preventDefault() // prevent scrolling on Space
           // immediately reset defaultPrevented once its job is done
@@ -185,45 +213,67 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
   const trailingVisualId = `${itemId}--trailing-visual`
   const inactiveWarningId = inactive && !showInactiveIndicator ? `${itemId}--warning-message` : undefined
 
+  const [truncatedText, setTruncatedText] = React.useState<string | undefined>(undefined)
+
   const DefaultItemWrapper = listSemantics ? DivItemContainerNoBox : ButtonItemContainerNoBox
 
   const ItemWrapper = _PrivateItemWrapper || DefaultItemWrapper
 
-  // only apply aria-selected and aria-checked to selectable items
-  const selectableRoles = ['menuitemradio', 'menuitemcheckbox', 'option']
   const includeSelectionAttribute = itemSelectionAttribute && itemRole && selectableRoles.includes(itemRole)
 
-  let focusable
-
-  if (showInactiveIndicator) {
-    focusable = true
-  }
+  const focusable = showInactiveIndicator ? true : undefined
 
   // Extract the variant prop value from the description slot component
   const descriptionVariant = slots.description?.props.variant ?? 'inline'
 
-  const menuItemProps = {
-    onClick: clickHandler,
-    onKeyPress: !buttonSemantics ? keyPressHandler : undefined,
-    'aria-disabled': disabled ? true : undefined,
-    'data-inactive': inactive ? true : undefined,
-    'data-loading': loading && !inactive ? true : undefined,
-    tabIndex: focusable ? undefined : 0,
-    'aria-labelledby': `${labelId} ${slots.trailingVisual ? trailingVisualId : ''} ${
-      slots.description && descriptionVariant === 'inline' ? inlineDescriptionId : ''
-    }`,
-    'aria-describedby':
-      [
-        slots.description && descriptionVariant === 'block' ? blockDescriptionId : undefined,
-        inactiveWarningId ?? undefined,
-      ]
-        .filter(String)
-        .join(' ')
-        .trim() || undefined,
-    ...(includeSelectionAttribute && {[itemSelectionAttribute]: selected}),
-    role: itemRole,
-    id: itemId,
-  }
+  const hasTrailingVisualSlot = Boolean(slots.trailingVisual)
+  const hasDescriptionSlot = Boolean(slots.description)
+
+  const ariaLabelledBy = React.useMemo(() => {
+    const parts = [labelId]
+    if (hasTrailingVisualSlot) parts.push(trailingVisualId)
+    if (hasDescriptionSlot && descriptionVariant === 'inline') parts.push(inlineDescriptionId)
+    return parts.join(' ')
+  }, [labelId, hasTrailingVisualSlot, trailingVisualId, hasDescriptionSlot, descriptionVariant, inlineDescriptionId])
+
+  const ariaDescribedBy = React.useMemo(() => {
+    const parts: string[] = []
+    if (hasDescriptionSlot && descriptionVariant === 'block') parts.push(blockDescriptionId)
+    if (inactiveWarningId) parts.push(inactiveWarningId)
+    return parts.length > 0 ? parts.join(' ') : undefined
+  }, [hasDescriptionSlot, descriptionVariant, blockDescriptionId, inactiveWarningId])
+
+  const menuItemProps = React.useMemo(
+    () => ({
+      onClick: clickHandler,
+      onKeyPress: !buttonSemantics ? keyPressHandler : undefined,
+      'aria-disabled': disabled ? true : undefined,
+      'data-inactive': inactive ? true : undefined,
+      'data-loading': loading && !inactive ? true : undefined,
+      tabIndex: focusable ? undefined : 0,
+      'aria-labelledby': ariaLabelledBy,
+      'aria-describedby': ariaDescribedBy,
+      ...(includeSelectionAttribute && {[itemSelectionAttribute]: selected}),
+      role: itemRole,
+      id: itemId,
+    }),
+    [
+      clickHandler,
+      buttonSemantics,
+      keyPressHandler,
+      disabled,
+      inactive,
+      loading,
+      focusable,
+      ariaLabelledBy,
+      ariaDescribedBy,
+      includeSelectionAttribute,
+      itemSelectionAttribute,
+      selected,
+      itemRole,
+      itemId,
+    ],
+  )
 
   const containerProps = _PrivateItemWrapper
     ? {role: itemRole ? 'none' : undefined, ...props}
@@ -238,18 +288,32 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
         ref: forwardedRef,
       }
 
+  const itemContextValue = React.useMemo(
+    () => ({
+      variant,
+      size,
+      disabled,
+      inactive: Boolean(inactiveText),
+      inlineDescriptionId,
+      blockDescriptionId,
+      trailingVisualId,
+      setTruncatedText: buttonSemantics ? setTruncatedText : undefined,
+    }),
+    [
+      variant,
+      size,
+      disabled,
+      inactiveText,
+      inlineDescriptionId,
+      blockDescriptionId,
+      trailingVisualId,
+      buttonSemantics,
+      setTruncatedText,
+    ],
+  )
+
   return (
-    <ItemContext.Provider
-      value={{
-        variant,
-        size,
-        disabled,
-        inactive: Boolean(inactiveText),
-        inlineDescriptionId,
-        blockDescriptionId,
-        trailingVisualId,
-      }}
-    >
+    <ItemContext.Provider value={itemContextValue}>
       <li
         {...containerProps}
         ref={listSemantics ? forwardedRef : null}
@@ -261,59 +325,65 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
         data-has-description={slots.description ? true : false}
         className={clsx(classes.ActionListItem, className)}
       >
-        <ItemWrapper
-          {...wrapperProps}
-          className={classes.ActionListContent}
-          data-size={size}
-          // @ts-ignore: ItemWrapper is polymorphic and the ref type depends on the rendered element ('button' or 'li')
-          ref={forwardedRef}
-        >
-          <span className={classes.Spacer} />
-          <Selection selected={selected} className={classes.LeadingAction} />
-          <VisualOrIndicator
-            inactiveText={showInactiveIndicator ? inactiveText : undefined}
-            itemHasLeadingVisual={Boolean(slots.leadingVisual)}
-            labelId={labelId}
-            loading={loading}
-            position="leading"
+        <ConditionalTooltip ref={forwardedRef} text={truncatedText} enabled={buttonSemantics}>
+          <ItemWrapper
+            {...wrapperProps}
+            className={classes.ActionListContent}
+            data-size={size}
+            // @ts-ignore: ItemWrapper is polymorphic and the ref type depends on the rendered element ('button' or 'li')
+            ref={forwardedRef}
           >
-            {slots.leadingVisual}
-          </VisualOrIndicator>
-          <span className={classes.ActionListSubContent} data-component="ActionList.Item--DividerContainer">
-            <ConditionalWrapper
-              if={!!slots.description}
-              className={classes.ItemDescriptionWrap}
-              data-description-variant={descriptionVariant}
-            >
-              <span id={labelId} className={classes.ItemLabel}>
-                {childrenWithoutSlots}
-                {/* Loading message needs to be in here so it is read with the label */}
-                {/* If the item is inactive, we do not simultaneously announce that it is loading */}
-                {loading === true && !inactive && <VisuallyHidden>Loading</VisuallyHidden>}
-              </span>
-              {slots.description}
-            </ConditionalWrapper>
-            <VisualOrIndicator
-              inactiveText={showInactiveIndicator ? inactiveText : undefined}
-              itemHasLeadingVisual={Boolean(slots.leadingVisual)}
-              labelId={labelId}
-              loading={loading}
-              position="trailing"
-            >
-              {trailingVisual}
-            </VisualOrIndicator>
+            {/* Reset TooltipContext so that child components don't detect
+                the ConditionalTooltip and suppress their own internal tooltips. */}
+            <TooltipContext.Provider value={{}}>
+              <span className={classes.Spacer} />
+              <Selection selected={selected} className={classes.LeadingAction} />
+              <VisualOrIndicator
+                inactiveText={showInactiveIndicator ? inactiveText : undefined}
+                itemHasLeadingVisual={Boolean(slots.leadingVisual)}
+                labelId={labelId}
+                loading={loading}
+                position="leading"
+              >
+                {slots.leadingVisual}
+              </VisualOrIndicator>
+              <span className={classes.ActionListSubContent} data-component="ActionList.Item--DividerContainer">
+                <ConditionalWrapper
+                  if={!!slots.description}
+                  className={classes.ItemDescriptionWrap}
+                  data-description-variant={descriptionVariant}
+                >
+                  <span id={labelId} className={classes.ItemLabel}>
+                    {childrenWithoutSlots}
+                    {/* Loading message needs to be in here so it is read with the label */}
+                    {/* If the item is inactive, we do not simultaneously announce that it is loading */}
+                    {loading === true && !inactive && <VisuallyHidden>Loading</VisuallyHidden>}
+                  </span>
+                  {slots.description}
+                </ConditionalWrapper>
+                <VisualOrIndicator
+                  inactiveText={showInactiveIndicator ? inactiveText : undefined}
+                  itemHasLeadingVisual={Boolean(slots.leadingVisual)}
+                  labelId={labelId}
+                  loading={loading}
+                  position="trailing"
+                >
+                  {trailingVisual}
+                </VisualOrIndicator>
 
-            {
-              // If the item is inactive, but it's not in an overlay (e.g. ActionMenu, SelectPanel),
-              // render the inactive warning message directly in the item.
-              !showInactiveIndicator && inactiveText ? (
-                <span className={classes.InactiveWarning} id={inactiveWarningId}>
-                  {inactiveText}
-                </span>
-              ) : null
-            }
-          </span>
-        </ItemWrapper>
+                {
+                  // If the item is inactive, but it's not in an overlay (e.g. ActionMenu, SelectPanel),
+                  // render the inactive warning message directly in the item.
+                  !showInactiveIndicator && inactiveText ? (
+                    <span className={classes.InactiveWarning} id={inactiveWarningId}>
+                      {inactiveText}
+                    </span>
+                  ) : null
+                }
+              </span>
+            </TooltipContext.Provider>
+          </ItemWrapper>
+        </ConditionalTooltip>
         {!inactive && !loading && !menuContext && Boolean(slots.trailingAction) && slots.trailingAction}
         {slots.subItem}
       </li>

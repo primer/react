@@ -1,4 +1,4 @@
-/* stylelint-disable max-nesting-depth, selector-max-specificity, selector-max-compound-selectors */
+/* stylelint-disable max-nesting-depth, selector-max-specificity */
 
 .ActionList {
   padding: 0;
@@ -541,12 +541,12 @@
       transform: scaleY(1);
     }
 
-    & + .SubGroup {
+    & ~ .SubGroup {
       display: none;
     }
 
     /* show active indicator on parent collapse if child is active */
-    &:has(+ .SubGroup [data-active='true']) {
+    &:has(~ .SubGroup [data-active='true']) {
       background: var(--control-transparent-bgColor-selected);
 
       & .ItemLabel {
