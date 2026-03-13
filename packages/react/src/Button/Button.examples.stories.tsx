@@ -1,8 +1,11 @@
 import React from 'react'
 import type {Meta} from '@storybook/react-vite'
 import {Button} from '.'
-import {DownloadIcon} from '@primer/octicons-react'
+import {DownloadIcon, ShieldIcon} from '@primer/octicons-react'
 import {Banner} from '../Banner'
+import BranchName from '../BranchName'
+import Label from '../Label'
+import Text from '../Text'
 import {AriaStatus, AriaAlert} from '../live-region'
 
 const meta: Meta<typeof Button> = {
@@ -81,3 +84,13 @@ export const LoadingStatusAnnouncementError = () => {
     </>
   )
 }
+
+export const TwoLineButton = () => (
+  <Button block variant="invisible" alignContent="start" leadingVisual={ShieldIcon}>
+    <span>
+      <BranchName>main</BranchName> <Label>default</Label>
+    </span>
+    <br />
+    <Text size="small">First detected 2 weeks ago</Text>
+  </Button>
+)
