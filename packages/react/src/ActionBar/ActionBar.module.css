@@ -6,10 +6,34 @@
   /* wonder why this is here */
   /* stylelint-disable-next-line primer/spacing */
   margin-bottom: -1px;
-  white-space: nowrap;
   list-style: none;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--actionbar-gap, var(--stack-gap-condensed));
+  overflow: hidden;
+  /* Explicit height is required to clip wrapped items */
+  height: var(--actionbar-height, var(--control-small-size));
+
+  /* Only apply scroll animation before overflow is calculated (for SSR/initial render) */
+  &:not([data-has-overflow]) {
+    /* Scroll-based animations have no effect unless the container is scrollable (has overflow, even with overflow:hidden)
+    so we can use them to detect overflow. It would be cleaner to use scroll-state container queries for this, but
+    browser support for scroll-driven animations is slightly better. */
+    animation: detect-overflow linear;
+    animation-timeline: scroll(self block);
+  }
+
+  /* After initial render, JS is used to control visibility which provides progressive enhancement for unsupported browsers */
+  &[data-has-overflow='true'] {
+    --morebutton-display: block;
+  }
+
+  &:where([data-size='medium']) {
+    --actionbar-height: var(--control-medium-size);
+  }
+
+  &:where([data-size='large']) {
+    --actionbar-height: var(--control-large-size);
+  }
 
   /* Gap scale (mirrors Stack) */
   &:where([data-gap='none']) {
@@ -22,6 +46,20 @@
 
   &:where([data-gap='condensed']) {
     --actionbar-gap: var(--stack-gap-condensed);
+  }
+
+  & [data-overflowing] {
+    /* Hide overflowing items. Even though they are clipped by `overflow: hidden`, setting `visibility: hidden` ensures
+    they can't accidentally be shown and also hides them from screen readers / keyboard nav. `!important` prevents
+    consumers from unintentionally overriding this and breaking accessibility. */
+    visibility: hidden !important;
+  }
+}
+
+@keyframes detect-overflow {
+  0%,
+  100% {
+    --morebutton-display: block;
   }
 }
 
@@ -44,10 +82,24 @@
     content: '';
     /* stylelint-disable-next-line primer/colors */
     background: var(--borderColor-muted);
+    /* stylelint-disable-next-line primer/spacing */
+    margin-top: calc((var(--actionbar-height) - var(--base-size-20)) / 2);
   }
 }
 
 .Group {
   display: flex;
   gap: inherit;
+}
+
+.OverflowContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: inherit;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.MoreButton {
+  display: var(--morebutton-display, none);
 }
