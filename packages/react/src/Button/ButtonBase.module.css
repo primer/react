@@ -69,6 +69,10 @@
   & :where(.VisualWrap) {
     display: flex;
     pointer-events: none;
+
+    &:not(:has(> svg)) {
+      align-self: center;
+    }
   }
 
   /* IconButton */
@@ -108,8 +112,8 @@
     display: grid;
     grid-template-areas: 'leadingVisual text trailingVisual';
     grid-template-columns: min-content minmax(0, auto) min-content;
-    align-items: center;
     align-content: center;
+    line-height: var(--text-body-lineHeight-medium);
 
     & > :not(:last-child) {
       margin-right: var(--base-size-8);
@@ -129,20 +133,31 @@
 
   & :where([data-component='leadingVisual']) {
     grid-area: leadingVisual;
+
+    & > svg {
+      height: 1lh;
+    }
   }
 
   & :where(.Label) {
-    line-height: var(--text-body-lineHeight-medium);
     white-space: nowrap;
     grid-area: text;
   }
 
   & :where([data-component='trailingVisual']) {
     grid-area: trailingVisual;
+
+    & > svg {
+      height: 1lh;
+    }
   }
 
   & :where([data-component='trailingAction']) {
     margin-right: calc(var(--base-size-4) * -1);
+
+    & > svg {
+      height: 1lh;
+    }
   }
 
   /* Size */
@@ -155,13 +170,13 @@
     gap: var(--control-small-gap);
     font-size: var(--text-body-size-small);
 
+    & .ButtonContent {
+      line-height: var(--text-body-lineHeight-small);
+    }
+
     & .ButtonContent > :not(:last-child) {
       /* stylelint-disable-next-line primer/spacing */
       margin-right: var(--control-small-gap);
-    }
-
-    & .Label {
-      line-height: var(--text-body-lineHeight-small);
     }
   }
 
