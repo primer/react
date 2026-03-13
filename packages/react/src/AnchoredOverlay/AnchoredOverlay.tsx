@@ -1,12 +1,12 @@
 import type React from 'react'
-import {useCallback, useEffect, type JSX} from 'react'
+import {useCallback, useEffect, useRef, type JSX} from 'react'
 import type {OverlayProps} from '../Overlay'
 import Overlay from '../Overlay'
 import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useFocusZone} from '../hooks/useFocusZone'
-import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
+import {useAnchoredPosition, useCombinedRefs, useRenderForcingRef} from '../hooks'
 import {useId} from '../hooks/useId'
 import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {type ResponsiveValue} from '../hooks/useResponsiveValue'
@@ -27,7 +27,7 @@ interface AnchoredOverlayPropsWithAnchor {
   /**
    * An override to the internal ref that will be spread on to the renderAnchor
    */
-  anchorRef?: React.RefObject<HTMLElement | null>
+  anchorRef?: React.Ref<HTMLElement | null>
 
   /**
    * An override to the internal id that will be spread on to the renderAnchor
@@ -46,7 +46,7 @@ interface AnchoredOverlayPropsWithoutAnchor {
    * An override to the internal renderAnchor ref that will be used to position the overlay.
    * When renderAnchor is null this can be used to make an anchor that is detached from ActionMenu.
    */
-  anchorRef: React.RefObject<HTMLElement | null>
+  anchorRef: React.Ref<HTMLElement | null>
   /**
    * An override to the internal id that will be spread on to the renderAnchor
    */
@@ -160,8 +160,12 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   displayCloseButton = true,
   closeButtonProps = defaultCloseButtonProps,
 }) => {
-  const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
+  const anchorRef = useRef<HTMLElement>(null)
+  const combinedRef = useCombinedRefs(anchorRef, externalAnchorRef)
+
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
+  const combinedOverlayRef = useCombinedRefs(updateOverlayRef, overlayProps?.ref)
+
   const anchorId = useId(externalAnchorId)
 
   const onClickOutside = useCallback(() => onClose?.('click-outside'), [onClose])
@@ -235,7 +239,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     <>
       {renderAnchor &&
         renderAnchor({
-          ref: anchorRef,
+          ref: combinedRef,
           id: anchorId,
           'aria-haspopup': 'true',
           'aria-expanded': open,
@@ -261,12 +265,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           preventOverflow={preventOverflow}
           data-component="AnchoredOverlay"
           {...overlayProps}
-          ref={node => {
-            if (overlayProps?.ref) {
-              assignRef(overlayProps.ref, node)
-            }
-            updateOverlayRef(node)
-          }}
+          ref={combinedOverlayRef}
         >
           {showXIcon ? (
             <div className={classes.ResponsiveCloseButtonContainer}>
@@ -291,17 +290,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       ) : null}
     </>
   )
-}
-
-function assignRef<T>(
-  ref: React.MutableRefObject<T | null> | ((instance: T | null) => void) | null | undefined,
-  value: T | null,
-) {
-  if (typeof ref === 'function') {
-    ref(value)
-  } else if (ref) {
-    ref.current = value
-  }
 }
 
 AnchoredOverlay.displayName = 'AnchoredOverlay'

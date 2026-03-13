@@ -1,5 +1,5 @@
-import React, {Children, useEffect, useRef, useState, useMemo, type ForwardRefExoticComponent} from 'react'
-import {useId, useProvidedRefOrCreate, useOnEscapePress, useIsMacOS} from '../hooks'
+import React, {Children, useEffect, useState, useMemo, type ForwardRefExoticComponent, useRef} from 'react'
+import {useId, useOnEscapePress, useIsMacOS, useCombinedRefs} from '../hooks'
 import {invariant} from '../utils/invariant'
 import {warning} from '../utils/warning'
 import {getAnchoredPosition} from '@primer/behaviors'
@@ -50,7 +50,7 @@ type TriggerPropsType = Pick<
   | 'onTouchCancel'
   | 'onTouchEnd'
 > & {
-  ref?: React.RefObject<HTMLElement>
+  ref?: React.Ref<HTMLElement>
 }
 
 // map tooltip direction to anchoredPosition props
@@ -124,7 +124,8 @@ export const Tooltip: ForwardRefExoticComponent<
   ) => {
     const tooltipId = useId(id)
     const child = Children.only(children)
-    const triggerRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
+    const triggerRef = useRef<HTMLElement>(null)
+    const combinedTriggerRef = useCombinedRefs(triggerRef, forwardedRef)
     const tooltipElRef = useRef<HTMLDivElement>(null)
 
     const [calculatedDirection, setCalculatedDirection] = useState<TooltipDirection>(direction)
@@ -279,8 +280,7 @@ export const Tooltip: ForwardRefExoticComponent<
           {React.isValidElement(child) &&
             // eslint-disable-next-line react-hooks/refs
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
-              // @ts-expect-error it needs a non nullable ref
-              ref: triggerRef,
+              ref: combinedTriggerRef,
               // If it is a type description, we use tooltip to describe the trigger
               'aria-describedby': (() => {
                 // If tooltip is not a description type, keep the original aria-describedby

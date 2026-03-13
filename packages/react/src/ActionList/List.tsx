@@ -1,11 +1,11 @@
-import React, {type JSX} from 'react'
+import React, {useRef, type JSX} from 'react'
 import {fixedForwardRef} from '../utils/modern-polymorphic'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {useSlots} from '../hooks/useSlots'
 import {Heading} from './Heading'
 import {useId} from '../hooks/useId'
 import {ListContext, type ActionListProps} from './shared'
-import {useProvidedRefOrCreate} from '../hooks'
+import {useCombinedRefs} from '../hooks'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
@@ -41,7 +41,8 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
 
   const ariaLabelledBy = slots.heading ? (slots.heading.props.id ?? headingId) : listLabelledBy
   const listRole = role || listRoleFromContainer
-  const listRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLUListElement>)
+  const listRef = useRef<HTMLElement>(null)
+  const combinedRef = useCombinedRefs(forwardedRef, listRef)
 
   let enableFocusZone = false
   if (enableFocusZoneFromContainer !== undefined) enableFocusZone = enableFocusZoneFromContainer
@@ -66,12 +67,11 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
       }}
     >
       {slots.heading}
-      {/* @ts-expect-error ref needs a non nullable ref */}
       <Component
         className={clsx(classes.ActionList, className)}
         role={listRole}
         aria-labelledby={ariaLabelledBy}
-        ref={listRef}
+        ref={combinedRef}
         data-dividers={showDividers}
         data-variant={variant}
         {...restProps}

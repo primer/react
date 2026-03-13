@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useRef} from 'react'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isResponsiveValue} from '../hooks/useResponsiveValue'
 import Heading from '../Heading'
@@ -10,7 +10,7 @@ import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {areAllValuesTheSame, haveRegularAndWideSameValue} from '../utils/getBreakpointDeclarations'
 import {warning} from '../utils/warning'
-import {useProvidedRefOrCreate} from '../hooks'
+import {useCombinedRefs} from '../hooks'
 import type {AriaRole, FCWithSlotMarker} from '../utils/types'
 import {clsx} from 'clsx'
 
@@ -49,7 +49,8 @@ export type PageHeaderProps = {
 
 const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeaderProps>>(
   ({children, className, as: BaseComponent = 'div', 'aria-label': ariaLabel, role, hasBorder}, forwardedRef) => {
-    const rootRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
+    const rootRef = useRef<HTMLDivElement>(null)
+    const combinedRef = useCombinedRefs(rootRef, forwardedRef)
 
     const isInteractive = (element: HTMLElement) => {
       return (
@@ -105,7 +106,7 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
 
     return (
       <BaseComponent
-        ref={rootRef}
+        ref={combinedRef}
         className={clsx(classes.PageHeader, className)}
         data-has-border={hasBorder ? 'true' : undefined}
         aria-label={ariaLabel}
@@ -205,12 +206,10 @@ export type TitleAreaProps = {
 
 const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<TitleAreaProps>>(
   ({children, className, hidden = false, variant = 'medium'}, forwardedRef) => {
-    const titleAreaRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
     return (
       <div
         className={clsx(classes.TitleArea, className)}
-        // @ts-expect-error it needs a non nullable ref
-        ref={titleAreaRef}
+        ref={forwardedRef}
         data-component="TitleArea"
         {...getResponsiveAttributes('size-variant', variant)}
         {...getHiddenDataAttributes(hidden)}

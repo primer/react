@@ -1,7 +1,7 @@
 import React from 'react'
 import {focusTrap} from '@primer/behaviors'
-import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 import {useOnOutsideClick} from './useOnOutsideClick'
+import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 
 export interface FocusTrapHookSettings {
   /**
@@ -53,8 +53,10 @@ export function useFocusTrap(
   dependencies: React.DependencyList = [],
 ): {containerRef: React.RefObject<HTMLElement | null>; initialFocusRef: React.RefObject<HTMLElement | null>} {
   const [outsideClicked, setOutsideClicked] = React.useState(false)
+
   const containerRef = useProvidedRefOrCreate(settings?.containerRef)
   const initialFocusRef = useProvidedRefOrCreate(settings?.initialFocusRef)
+
   const disabled = settings?.disabled
   const abortController = React.useRef<AbortController>()
   const previousFocusedElement = React.useRef<Element | null>(null)

@@ -3,13 +3,14 @@ import React, {
   useContext,
   useId,
   useMemo,
+  useRef,
   type AriaAttributes,
   type ElementRef,
   type PropsWithChildren,
 } from 'react'
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 import {useControllableState} from '../../hooks/useControllableState'
-import {useProvidedRefOrCreate} from '../../hooks'
+import {useCombinedRefs} from '../../hooks'
 
 /**
  * Props to be used when the Tabs component's state is controlled by the parent
@@ -114,13 +115,14 @@ function useTabList<T extends HTMLElement>(
     'aria-orientation': AriaAttributes['aria-orientation']
     'aria-label': AriaAttributes['aria-label']
     'aria-labelledby': AriaAttributes['aria-labelledby']
-    ref: React.RefObject<T | null>
+    ref: React.Ref<T>
     role: 'tablist'
   }
 } {
   const {'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, 'aria-orientation': ariaOrientation} = props
 
-  const ref = useProvidedRefOrCreate(props.ref)
+  const ref = useRef<T>(null)
+  const combinedRef = useCombinedRefs(ref, props.ref)
 
   const onKeyDown = (event: React.KeyboardEvent) => {
     const {current: tablist} = ref
@@ -172,7 +174,7 @@ function useTabList<T extends HTMLElement>(
 
   return {
     tabListProps: {
-      ref,
+      ref: combinedRef,
       'aria-label': ariaLabel,
       'aria-labelledby': ariaLabelledby,
       'aria-orientation': ariaOrientation ?? 'horizontal',
@@ -186,7 +188,6 @@ function TabList({children, ...rest}: TabListProps) {
   const {tabListProps} = useTabList<HTMLDivElement>(rest)
 
   return (
-    // @ts-expect-error it needs a non nullable ref
     <div {...rest} {...tabListProps}>
       {children}
     </div>

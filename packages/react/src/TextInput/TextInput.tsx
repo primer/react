@@ -7,7 +7,6 @@ import {AlertFillIcon} from '@primer/octicons-react'
 
 import classes from './TextInput.module.css'
 import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisualSlot'
-import {useProvidedRefOrCreate} from '../hooks'
 import type {Merge} from '../utils/types'
 import type {StyledWrapperProps} from '../internal/components/TextInputWrapper'
 import TextInputWrapper from '../internal/components/TextInputWrapper'
@@ -16,6 +15,7 @@ import UnstyledTextInput from '../internal/components/UnstyledTextInput'
 import VisuallyHidden from '../_VisuallyHidden'
 import {CharacterCounter} from '../utils/character-counter'
 import Text from '../Text'
+import {useCombinedRefs} from '../hooks'
 
 export type TextInputNonPassthroughProps = {
   /** @deprecated Use `leadingVisual` or `trailingVisual` prop instead */
@@ -103,7 +103,8 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     ref,
   ) => {
     const [isInputFocused, setIsInputFocused] = useState<boolean>(false)
-    const inputRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement | null>)
+    const inputRef = useRef<HTMLInputElement>(null)
+    const combinedRef = useCombinedRefs(inputRef, ref)
     const [characterCount, setCharacterCount] = useState<string>('')
     const [isOverLimit, setIsOverLimit] = useState<boolean>(false)
     const [screenReaderMessage, setScreenReaderMessage] = useState<string>('')
@@ -228,8 +229,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
             {typeof LeadingVisual !== 'string' && isValidElementType(LeadingVisual) ? <LeadingVisual /> : LeadingVisual}
           </TextInputInnerVisualSlot>
           <UnstyledTextInput
-            // @ts-expect-error it needs a non nullable ref
-            ref={inputRef}
+            ref={combinedRef}
             disabled={disabled}
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}

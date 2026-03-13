@@ -12,7 +12,7 @@ import type {ItemProps, ItemInput} from './'
 import {SelectPanelMessage} from './SelectPanelMessage'
 
 import {Button, IconButton, LinkButton} from '../Button'
-import {useProvidedRefOrCreate} from '../hooks'
+import {useCombinedRefs} from '../hooks'
 import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
@@ -511,7 +511,9 @@ function Panel({
     }
   }, [notice, open])
 
-  const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
+  const anchorRef = useRef<HTMLElement>(null)
+  const combinedAnchorRef = useCombinedRefs(anchorRef, externalAnchorRef)
+
   const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(
     (gesture: Parameters<Exclude<AnchoredOverlayProps['onOpen'], undefined>>[0]) => onOpenChange(true, gesture),
     [onOpenChange],
@@ -833,7 +835,7 @@ function Panel({
     <>
       <AnchoredOverlay
         renderAnchor={renderMenuAnchor}
-        anchorRef={anchorRef}
+        anchorRef={combinedAnchorRef}
         align={align}
         open={open}
         onOpen={onOpen}
