@@ -1,4 +1,4 @@
-import type {RefObject, MouseEventHandler} from 'react'
+import {type RefObject, type MouseEventHandler, useContext} from 'react'
 import React, {useState, useCallback, useRef, forwardRef, useMemo, useSyncExternalStore} from 'react'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {ActionList, type ActionListItemProps} from '../ActionList'
@@ -19,7 +19,6 @@ type ChildProps =
       disabled: boolean
       icon: ActionBarIconButtonProps['icon']
       onClick: MouseEventHandler
-      groupId?: string
     }
   | {type: 'divider' | 'group'}
   | {
@@ -221,19 +220,6 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     (entry): entry is [string, ChildProps] => entry[1] !== null,
   )
 
-  const groupedItems = React.useMemo(() => {
-    const groupedItemsMap = new Map<string, Array<[string, ChildProps]>>()
-
-    for (const [key, childProps] of childRegistry ?? []) {
-      if (childProps?.type === 'action' && childProps.groupId) {
-        const existingGroup = groupedItemsMap.get(childProps.groupId) || []
-        existingGroup.push([key, childProps])
-        groupedItemsMap.set(childProps.groupId, existingGroup)
-      }
-    }
-    return groupedItemsMap
-  }, [childRegistry])
-
   return (
     <ActionBarContext.Provider value={{size}}>
       <div ref={navRef} className={clsx(className, styles.Nav)} data-flush={flush}>
@@ -248,6 +234,8 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
           data-has-overflow={overflowItems.length > 0 ? '' : undefined}
         >
           <div className={styles.OverflowContainer}>
+            {/* An empty first element allows the real first item to wrap to the next line and get clipped. */}
+            <div />
             <ActionBarItemsRegistry.Provider setRegistry={setChildRegistry}>{children}</ActionBarItemsRegistry.Provider>
           </div>
           <ActionMenu>
@@ -306,38 +294,6 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                       </ActionMenu>
                     )
                   }
-
-                  // Use the memoized map instead of filtering each time
-                  const groupedMenuItems = groupedItems.get(id) || []
-
-                  // If we ever add additional types, this condition will be necessary
-                  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                  if (menuItem.type === 'group') {
-                    return (
-                      <React.Fragment key={id}>
-                        {groupedMenuItems.map(([key, childProps]) => {
-                          if (childProps.type === 'action') {
-                            const {onClick, icon: Icon, label, disabled} = childProps
-                            return (
-                              <ActionList.Item
-                                key={key}
-                                onSelect={event => {
-                                  typeof onClick === 'function' && onClick(event as React.MouseEvent<HTMLElement>)
-                                }}
-                                disabled={disabled}
-                              >
-                                <ActionList.LeadingVisual>
-                                  <Icon />
-                                </ActionList.LeadingVisual>
-                                {label}
-                              </ActionList.Item>
-                            )
-                          }
-                          return null
-                        })}
-                      </React.Fragment>
-                    )
-                  }
                 })}
               </ActionList>
             </ActionMenu.Overlay>
@@ -349,17 +305,25 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
 }
 
 function useActionBarItem(ref: React.RefObject<HTMLElement | null>, registryProps: ChildProps) {
-  const isOverflowing = useSyncExternalStore(
-    useCallback(
-      onChange => {
-        const observer = new IntersectionObserver(() => onChange(), {
-          threshold: 1,
-        })
-        if (ref.current) observer.observe(ref.current)
-        return () => observer.disconnect()
-      },
-      [ref],
-    ),
+  const isGroupOverflowing = useContext(ActionBarGroupContext)?.isOverflowing
+  const isInGroup = isGroupOverflowing !== undefined
+
+  const subscribeIntersectionObserver = useCallback(
+    (onChange: () => void) => {
+      // There's no need to register observers on items inside of a group
+      // since the entire group overflows at once
+      if (isInGroup) return () => {}
+
+      const observer = new IntersectionObserver(() => onChange(), {threshold: 1})
+
+      if (ref.current) observer.observe(ref.current)
+      return () => observer.disconnect()
+    },
+    [ref, isInGroup],
+  )
+
+  const isItemOverflowing = useSyncExternalStore(
+    subscribeIntersectionObserver,
     // Note: the IntersectionObserver is just being used as a trigger to re-check
     // `offsetTop > 0`; this is fast and simpler than checking visibility from
     // the observed entry. When an item wraps, it will move to the next row which
@@ -368,9 +332,11 @@ function useActionBarItem(ref: React.RefObject<HTMLElement | null>, registryProp
     () => false,
   )
 
-  const id = ActionBarItemsRegistry.useRegisterDescendant(isOverflowing ? registryProps : null)
+  const isOverflowing = isGroupOverflowing || isItemOverflowing
 
-  return {id, dataOverflowingAttr: isOverflowing ? '' : undefined}
+  ActionBarItemsRegistry.useRegisterDescendant(isOverflowing ? registryProps : null)
+
+  return {isOverflowing, dataOverflowingAttr: isOverflowing ? '' : undefined}
 }
 
 export const ActionBarIconButton = forwardRef(
@@ -379,7 +345,6 @@ export const ActionBarIconButton = forwardRef(
     useRefObjectAsForwardedRef(forwardedRef, ref)
 
     const {size} = React.useContext(ActionBarContext)
-    const {groupId} = React.useContext(ActionBarGroupContext)
 
     const {['aria-label']: ariaLabel, icon} = props
 
@@ -392,9 +357,8 @@ export const ActionBarIconButton = forwardRef(
           icon,
           disabled: !!disabled,
           onClick: onClick as MouseEventHandler,
-          groupId: groupId ?? undefined,
         }),
-        [ariaLabel, icon, disabled, onClick, groupId],
+        [ariaLabel, icon, disabled, onClick],
       ),
     )
 
@@ -421,19 +385,19 @@ export const ActionBarIconButton = forwardRef(
 )
 
 const ActionBarGroupContext = React.createContext<{
-  groupId: string | null
-}>({groupId: null})
+  isOverflowing: boolean
+} | null>(null)
 
 export const ActionBarGroup = forwardRef(({children}: React.PropsWithChildren, forwardedRef) => {
   const backupRef = useRef<HTMLDivElement>(null)
   const ref = (forwardedRef ?? backupRef) as RefObject<HTMLDivElement>
-  const {id, dataOverflowingAttr} = useActionBarItem(
+  const {dataOverflowingAttr, isOverflowing} = useActionBarItem(
     ref,
     useMemo((): ChildProps => ({type: 'group'}), []),
   )
 
   return (
-    <ActionBarGroupContext.Provider value={{groupId: id}}>
+    <ActionBarGroupContext.Provider value={{isOverflowing}}>
       <div className={styles.Group} ref={ref} data-overflowing={dataOverflowingAttr}>
         {children}
       </div>

@@ -99,6 +99,7 @@
   flex-wrap: wrap;
   gap: inherit;
   justify-content: flex-end;
+  overflow: hidden;
 }
 
 .MoreButton {
