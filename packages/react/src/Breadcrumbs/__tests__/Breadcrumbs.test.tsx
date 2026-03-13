@@ -581,6 +581,7 @@ describe('Breadcrumbs', () => {
 
       const homeLink = screen.getByTestId('home-link')
       expect(homeLink).toHaveAttribute('href', '/home')
+      expect(homeLink).toHaveAttribute('data-inline', 'true')
     })
 
     it('passes through additional props to the element specified by as in overflow menu', async () => {

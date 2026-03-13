@@ -37,25 +37,26 @@ describe('ActionList.LinkItem', () => {
 
   describe('as prop', () => {
     it('supports polymorphic LinkItem with as prop', () => {
-      const CustomLink = React.forwardRef<HTMLAnchorElement, React.AnchorHTMLAttributes<HTMLAnchorElement>>(
-        ({children, ...props}, ref) => (
-          <a ref={ref} data-custom-link {...props}>
-            {children}
-          </a>
-        ),
-      )
+      const CustomLink = React.forwardRef<
+        HTMLAnchorElement,
+        React.AnchorHTMLAttributes<HTMLAnchorElement> & {custom: boolean}
+      >(({children, custom, ...props}, ref) => (
+        <a ref={ref} data-custom-link={custom} {...props}>
+          {children}
+        </a>
+      ))
       CustomLink.displayName = 'CustomLink'
 
       render(
         <ActionList>
-          <ActionList.LinkItem as={CustomLink} href="#docs">
+          <ActionList.LinkItem as={CustomLink} href="#docs" custom={true}>
             Docs
           </ActionList.LinkItem>
         </ActionList>,
       )
 
       const link = screen.getByRole('link', {name: 'Docs'})
-      expect(link).toHaveAttribute('data-custom-link')
+      expect(link).toHaveAttribute('data-custom-link', 'true')
       expect(link).toHaveAttribute('href', '#docs')
     })
 
