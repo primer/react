@@ -1,0 +1,22 @@
+{
+  "name": "useCombinedRefs",
+  "importPath": "@primer/react",
+  "stories": [],
+  "parameters": [
+    {
+      "name": "refA",
+      "type": "Ref<T>",
+      "required": true,
+      "description": "First ref to combine."
+    },
+    {
+      "name": "refB",
+      "type": "Ref<T>",
+      "required": true,
+      "description": "Second ref to combine."
+    }
+  ],
+  "returns": {
+    "type": "RefCallback<T>"
+  }
+}
