@@ -46,7 +46,7 @@ Root.displayName = 'NavList'
 // ----------------------------------------------------------------------------
 // NavList.Item
 
-export type NavListItemProps<As extends React.ElementType = 'a'> = PolymorphicProps<
+export type NavListItemProps<As extends React.ElementType = React.ElementType> = PolymorphicProps<
   As,
   'a',
   {
