@@ -4,7 +4,8 @@
   min-width: max-content;
   min-height: var(--control-medium-size);
   /* stylelint-disable-next-line primer/spacing */
-  padding: 0 var(--control-medium-paddingInline-normal);
+  padding-block: var(--control-medium-paddingBlock-normal, var(--base-size-4));
+  padding-inline: var(--control-medium-paddingInline-normal);
   font-family: inherit;
   font-size: var(--text-body-size-medium);
   font-weight: var(--base-text-weight-medium);
@@ -148,7 +149,8 @@
   &:where([data-size='small']) {
     min-height: var(--control-small-size);
     /* stylelint-disable-next-line primer/spacing */
-    padding: 0 var(--control-small-paddingInline-condensed);
+    padding-block: var(--control-small-paddingBlock-condensed, var(--base-size-2));
+    padding-inline: var(--control-small-paddingInline-condensed);
     gap: var(--control-small-gap);
     font-size: var(--text-body-size-small);
 
@@ -165,7 +167,8 @@
   &:where([data-size='large']) {
     min-height: var(--control-large-size);
     /* stylelint-disable-next-line primer/spacing */
-    padding: 0 var(--control-large-paddingInline-spacious);
+    padding-block: var(--control-large-paddingBlock-spacious, var(--base-size-6));
+    padding-inline: var(--control-large-paddingInline-spacious);
     gap: var(--control-large-gap);
 
     & .ButtonContent > :not(:last-child) {
