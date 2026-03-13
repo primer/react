@@ -582,5 +582,35 @@ describe('Breadcrumbs', () => {
       const homeLink = screen.getByTestId('home-link')
       expect(homeLink).toHaveAttribute('href', '/home')
     })
+
+    it('passes through additional props to the element specified by as in overflow menu', async () => {
+      const user = userEvent.setup()
+
+      renderWithTheme(
+        <Breadcrumbs overflow="menu">
+          <Breadcrumbs.Item as={Link} href="/home" data-testid="home-link" inline>
+            Home
+          </Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/docs">Docs</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/components">Components</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/breadcrumbs">Breadcrumbs</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/examples">Examples</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/advanced" selected>
+            Advanced
+          </Breadcrumbs.Item>
+        </Breadcrumbs>,
+        {primer_react_breadcrumbs_overflow_menu: true},
+      )
+
+      // Open the overflow menu
+      const menuButton = screen.getByRole('button', {name: /more breadcrumb items/i})
+      await user.click(menuButton)
+
+      // Verify the custom link in the overflow menu has the correct href
+      await waitFor(() => {
+        const homeLink = screen.getByTestId('home-link')
+        expect(homeLink).toHaveAttribute('href', '/home')
+      })
+    })
   })
 })

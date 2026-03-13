@@ -119,11 +119,14 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
         <div ref={menuContainerRef} className={classes.MenuOverlay}>
           <ActionList>
             {items.map((item, index) => {
-              const href = item.props.href
-              const children = item.props.children
-              const selected = item.props.selected
+              const {children, selected, as: Component, ...itemProps} = item.props
               return (
-                <ActionList.LinkItem key={index} href={href} aria-current={selected ? 'page' : undefined}>
+                <ActionList.LinkItem
+                  key={index}
+                  as={Component}
+                  {...itemProps}
+                  aria-current={selected ? 'page' : undefined}
+                >
                   {children}
                 </ActionList.LinkItem>
               )
