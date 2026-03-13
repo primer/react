@@ -216,9 +216,9 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     focusOutBehavior: 'wrap',
   })
 
-  const overflowItems = Array.from(childRegistry?.entries() ?? []).filter(
-    (entry): entry is [string, ChildProps] => entry[1] !== null,
-  )
+  const overflowItems =
+    childRegistry &&
+    Array.from(childRegistry.entries()).filter((entry): entry is [string, ChildProps] => entry[1] !== null)
 
   return (
     <ActionBarContext.Provider value={{size}}>
@@ -231,7 +231,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
           aria-labelledby={ariaLabelledBy}
           data-gap={gap}
           data-size={size}
-          data-has-overflow={overflowItems.length > 0 ? '' : undefined}
+          data-has-overflow={overflowItems ? overflowItems.length > 0 : undefined}
         >
           <div className={styles.OverflowContainer}>
             {/* An empty first element allows the real first item to wrap to the next line and get clipped. */}
@@ -249,7 +249,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
             </ActionMenu.Anchor>
             <ActionMenu.Overlay>
               <ActionList>
-                {overflowItems.map(([id, menuItem]) => {
+                {overflowItems?.map(([id, menuItem]) => {
                   if (menuItem.type === 'divider') {
                     return <ActionList.Divider key={id} />
                   }
