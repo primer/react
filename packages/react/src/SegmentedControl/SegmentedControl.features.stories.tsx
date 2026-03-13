@@ -1,3 +1,4 @@
+import type React from 'react'
 import {useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
 import {SegmentedControl} from '.'
@@ -150,3 +151,32 @@ export const AssociatedWithALabelAndCaption = () => (
   </div>
 )
 AssociatedWithALabelAndCaption.storyName = '[Example] Associated with a label and caption'
+
+export const CustomCSSTokens = () => (
+  <div
+    style={
+      {
+        '--segmentedControl-bgColor': 'var(--bgColor-accent-muted)',
+        '--segmentedControl-borderColor': 'var(--borderColor-accent-emphasis)',
+        '--segmentedControl-selected-bgColor': 'var(--bgColor-accent-emphasis)',
+        '--segmentedControl-selected-borderColor': 'var(--borderColor-accent-emphasis)',
+        '--segmentedControl-selected-fgColor': 'var(--fgColor-onEmphasis)',
+        '--segmentedControl-selected-iconColor': 'var(--fgColor-onEmphasis)',
+        '--segmentedControl-bgColor-hover': 'color-mix(in srgb, var(--bgColor-accent-emphasis) 20%, transparent)',
+        '--segmentedControl-bgColor-active': 'color-mix(in srgb, var(--bgColor-accent-emphasis) 30%, transparent)',
+      } as React.CSSProperties
+    }
+  >
+    <SegmentedControl aria-label="File view">
+      <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingVisual={EyeIcon}>
+        Preview
+      </SegmentedControl.Button>
+      <SegmentedControl.Button aria-label={'Raw'} leadingVisual={FileCodeIcon}>
+        Raw
+      </SegmentedControl.Button>
+      <SegmentedControl.Button aria-label={'Blame'} leadingVisual={PeopleIcon}>
+        Blame
+      </SegmentedControl.Button>
+    </SegmentedControl>
+  </div>
+)
