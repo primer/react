@@ -1,6 +1,7 @@
 import {describe, it, expect, vi} from 'vitest'
 import {render, fireEvent, act} from '@testing-library/react'
 import React from 'react'
+import {renderToStaticMarkup} from 'react-dom/server'
 import {NavList} from './NavList'
 import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
 import {implementsClassName} from '../utils/testing'
@@ -146,6 +147,23 @@ describe('NavList.Item with NavList.SubNav', () => {
     const itemWithSubNav = getByRole('button', {name: 'Item 2'})
     fireEvent.click(itemWithSubNav)
     expect(queryByRole('list', {name: 'Item 2'})).toBeNull()
+  })
+
+  it('renders parent item expanded on initial static render when SubNav contains the current item', () => {
+    // intentionally suppress the expected React SSR useLayoutEffect warning
+    // this test focuses specifically on the initial SSR render
+    const container = document.createElement('div')
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => null)
+    try {
+      container.innerHTML = renderToStaticMarkup(<NavListWithCurrentSubNav />)
+    } finally {
+      consoleSpy.mockRestore()
+    }
+
+    const item2Button = container.querySelector('button[aria-expanded]')
+    expect(item2Button).not.toBeNull()
+    expect(item2Button).toHaveAttribute('aria-expanded', 'true')
+    expect(item2Button?.textContent).toBe('Item 2')
   })
 
   it('hides SubNav by default if SubNav does not contain the current item', () => {

@@ -123,23 +123,47 @@ const ItemWithSubNavContext = React.createContext<{buttonId: string; subNavId: s
   isOpen: false,
 })
 
+function hasCurrentNavItem(node: React.ReactNode): boolean {
+  if (
+    !isValidElement<{
+      children?: React.ReactNode
+      'aria-current'?: NavListItemProps['aria-current']
+    }>(node)
+  ) {
+    return false
+  }
+
+  const ariaCurrent = node.props['aria-current']
+  if (Boolean(ariaCurrent) && ariaCurrent !== 'false') {
+    return true
+  }
+
+  if (!node.props.children) {
+    return false
+  }
+
+  return React.Children.toArray(node.props.children).some(hasCurrentNavItem)
+}
+
 function ItemWithSubNav({children, subNav, depth: _depth, defaultOpen, style}: ItemWithSubNavProps) {
   const buttonId = useId()
   const subNavId = useId()
-  const [isOpen, setIsOpen] = React.useState((defaultOpen || null) ?? false)
-  const subNavRef = React.useRef<HTMLDivElement>(null)
-  const [containsCurrentItem, setContainsCurrentItem] = React.useState(false)
+
+  // We have to use recursion to check if the current nav item is part of the subnav before initial render
+  // which is why we can't use the querySelector on the ref as it will cause the parent item to blink during first render.
+  const hasCurrentItem = React.useMemo(() => hasCurrentNavItem(subNav), [subNav])
+  const [isOpen, setIsOpen] = React.useState((defaultOpen || null) ?? hasCurrentItem)
+  const subNavRef = React.useRef<HTMLUListElement>(null)
+  const [containsCurrentItem, setContainsCurrentItem] = React.useState(hasCurrentItem)
 
   useIsomorphicLayoutEffect(() => {
-    if (subNavRef.current) {
-      // Check if SubNav contains current item
-      // valid values: page, step, location, date, time, true and false
-      const currentItem = subNavRef.current.querySelector('[aria-current]:not([aria-current=false])')
+    // Check if SubNav contains current item
+    // valid values: page, step, location, date, time, true and false
+    const currentItem = hasCurrentNavItem(subNav)
+    setContainsCurrentItem(Boolean(currentItem))
 
-      if (currentItem) {
-        setContainsCurrentItem(true)
-        setIsOpen(true)
-      }
+    if (currentItem) {
+      setIsOpen(true)
     }
   }, [subNav, buttonId])
 
