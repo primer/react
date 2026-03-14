@@ -303,8 +303,10 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   const [childRegistry, setChildRegistry] = ActionBarItemsRegistry.useRegistryState()
 
   const [menuItemIds, setMenuItemIds] = useState<Set<string>>(() => new Set())
+  const [isInitialRender, setIsInitialRender] = useState(true)
 
   const navRef = useRef<HTMLDivElement>(null)
+  
   // measure gap after first render & whenever gap scale changes
   useIsomorphicLayoutEffect(() => {
     if (!listRef.current) return
@@ -322,6 +324,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     if (navWidth > 0) {
       const newMenuItemIds = getMenuItems(navWidth, moreMenuWidth, childRegistry, hasActiveMenu, computedGap)
       if (newMenuItemIds) setMenuItemIds(newMenuItemIds)
+      setIsInitialRender(false)
     }
   }, navRef as RefObject<HTMLElement>)
 
@@ -361,6 +364,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledBy}
           data-gap={gap}
+          style={isInitialRender ? {visibility: 'hidden'} : undefined}
         >
           <ActionBarItemsRegistry.Provider setRegistry={setChildRegistry}>{children}</ActionBarItemsRegistry.Provider>
           {menuItemIds.size > 0 && (
