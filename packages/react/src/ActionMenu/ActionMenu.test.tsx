@@ -837,6 +837,172 @@ describe('ActionMenu', () => {
     })
   })
 
+  describe('ActionMenu.IconButton', () => {
+    it('should open Menu on ActionMenu.IconButton click', async () => {
+      const component = HTMLRender(
+        <ActionMenu>
+          <ActionMenu.IconButton icon={KebabHorizontalIcon} aria-label="Open menu" />
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item>New file</ActionList.Item>
+              <ActionList.Item>Copy link</ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>,
+      )
+
+      const user = userEvent.setup()
+      const button = component.getByRole('button', {name: 'Open menu'})
+      await user.click(button)
+
+      expect(component.getByRole('menu')).toBeInTheDocument()
+    })
+
+    it('should close Menu on selecting an action when using ActionMenu.IconButton', async () => {
+      const component = HTMLRender(
+        <ActionMenu>
+          <ActionMenu.IconButton icon={KebabHorizontalIcon} aria-label="Open menu" />
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item>New file</ActionList.Item>
+              <ActionList.Item>Copy link</ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>,
+      )
+
+      const user = userEvent.setup()
+      const button = component.getByRole('button', {name: 'Open menu'})
+      await user.click(button)
+
+      const menuItems = component.getAllByRole('menuitem')
+      await user.click(menuItems[0])
+
+      expect(component.queryByRole('menu')).toBeNull()
+    })
+
+    it('should call onClick and onKeyDown passed to ActionMenu.IconButton', async () => {
+      const mockOnClick = vi.fn()
+      const mockOnKeyDown = vi.fn()
+
+      const component = HTMLRender(
+        <ActionMenu>
+          <ActionMenu.IconButton
+            icon={KebabHorizontalIcon}
+            aria-label="Open menu"
+            onClick={mockOnClick}
+            onKeyDown={mockOnKeyDown}
+          />
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item>New file</ActionList.Item>
+              <ActionList.Item>Copy link</ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>,
+      )
+
+      const user = userEvent.setup()
+      const button = component.getByRole('button')
+      await user.click(button)
+
+      expect(component.getByRole('menu')).toBeInTheDocument()
+      expect(mockOnClick).toHaveBeenCalledTimes(1)
+
+      // select and close menu
+      const menuItems = component.getAllByRole('menuitem')
+      await user.click(menuItems[0])
+      expect(component.queryByRole('menu')).toBeNull()
+
+      expect(button).toEqual(document.activeElement)
+      await user.keyboard('{Enter}')
+      expect(component.queryByRole('menu')).toBeInTheDocument()
+      expect(mockOnKeyDown).toHaveBeenCalledTimes(1)
+    })
+
+    it('should pass the "id" prop from ActionMenu.IconButton to the HTML button', async () => {
+      const buttonId = 'icon-button-custom-id'
+      const component = HTMLRender(
+        <ActionMenu>
+          <ActionMenu.IconButton id={buttonId} icon={KebabHorizontalIcon} aria-label="Open menu" />
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item>New file</ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>,
+      )
+      const button = component.getByRole('button')
+
+      expect(button.id).toBe(buttonId)
+    })
+  })
+
+  describe('ActionMenu.Anchor validation', () => {
+    it('should warn when ActionMenu.Anchor receives a non-interactive child', async () => {
+      const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      HTMLRender(
+        <ActionMenu>
+          <ActionMenu.Anchor>
+            <div>Not a button</div>
+          </ActionMenu.Anchor>
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item>New file</ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>,
+      )
+
+      expect(consoleSpy).toHaveBeenCalledWith('Warning:', expect.stringContaining('ActionMenu.Anchor'))
+
+      consoleSpy.mockRestore()
+    })
+
+    it('should not warn when ActionMenu.Anchor receives a Button child', async () => {
+      const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      HTMLRender(
+        <ActionMenu>
+          <ActionMenu.Anchor>
+            <Button>Toggle Menu</Button>
+          </ActionMenu.Anchor>
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item>New file</ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>,
+      )
+
+      expect(consoleSpy).not.toHaveBeenCalled()
+
+      consoleSpy.mockRestore()
+    })
+
+    it('should not warn when ActionMenu.Anchor receives an IconButton child', async () => {
+      const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      HTMLRender(
+        <ActionMenu>
+          <ActionMenu.Anchor>
+            <IconButton icon={KebabHorizontalIcon} aria-label="Open menu" />
+          </ActionMenu.Anchor>
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item>New file</ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>,
+      )
+
+      expect(consoleSpy).not.toHaveBeenCalled()
+
+      consoleSpy.mockRestore()
+    })
+  })
+
   describe('feature flag: primer_react_action_menu_display_in_viewport_inside_dialog', () => {
     const mockGetAnchoredPosition = vi.mocked(getAnchoredPosition)
 

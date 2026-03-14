@@ -66,7 +66,12 @@ export type {
   ActionListTrailingVisualProps,
 } from './ActionList'
 export {ActionMenu} from './ActionMenu'
-export type {ActionMenuProps, ActionMenuAnchorProps, ActionMenuButtonProps} from './ActionMenu'
+export type {
+  ActionMenuProps,
+  ActionMenuAnchorProps,
+  ActionMenuButtonProps,
+  ActionMenuIconButtonProps,
+} from './ActionMenu'
 export {AnchoredOverlay} from './AnchoredOverlay'
 export type {AnchoredOverlayProps} from './AnchoredOverlay'
 export {default as Autocomplete} from './Autocomplete'

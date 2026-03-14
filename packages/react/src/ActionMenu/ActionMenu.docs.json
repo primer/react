@@ -72,6 +72,14 @@
       }
     },
     {
+      "name": "ActionMenu.IconButton",
+      "props": [],
+      "passthrough": {
+        "element": "IconButton",
+        "url": "/react/IconButton"
+      }
+    },
+    {
       "name": "ActionMenu.Anchor",
       "props": [
         {

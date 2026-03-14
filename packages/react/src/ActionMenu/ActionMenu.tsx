@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useMemo, useEffect, useState} from 'react'
+import React, {useCallback, useContext, useMemo, useEffect, useRef, useState} from 'react'
 import {TriangleDownIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -6,9 +6,9 @@ import type {OverlayProps} from '../Overlay'
 import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuKeyboardNavigation} from '../hooks'
 import {Divider} from '../ActionList/Divider'
 import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
-import type {ButtonProps} from '../Button'
+import type {ButtonProps, IconButtonProps} from '../Button'
 import type {AnchorPosition} from '@primer/behaviors'
-import {Button} from '../Button'
+import {Button, IconButton} from '../Button'
 import {useId} from '../hooks/useId'
 import type {MandateProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
@@ -19,6 +19,8 @@ import {isSlot} from '../utils/is-slot'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types/Slots'
 import {useFeatureFlag} from '../FeatureFlags'
 import {DialogContext} from '../Dialog/Dialog'
+import {warning} from '../utils/warning'
+import {useMergedRefs} from '../internal/hooks/useMergedRefs'
 
 export type MenuCloseHandler = (
   gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab' | 'item-select' | 'arrow-left' | 'close',
@@ -106,7 +108,12 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
   const menuButtonChild = React.Children.toArray(children).find(
     child =>
       React.isValidElement<ActionMenuButtonProps>(child) &&
-      (child.type === MenuButton || child.type === Anchor || isSlot(child, Anchor) || isSlot(child, MenuButton)),
+      (child.type === MenuButton ||
+        child.type === MenuIconButton ||
+        child.type === Anchor ||
+        isSlot(child, Anchor) ||
+        isSlot(child, MenuButton) ||
+        isSlot(child, MenuIconButton)),
   )
   const menuButtonChildId = React.isValidElement(menuButtonChild) ? menuButtonChild.props.id : undefined
 
@@ -122,7 +129,12 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
     if (child.type === Tooltip || isSlot(child, Tooltip)) {
       // tooltip trigger
       const anchorChildren = child.props.children
-      if (anchorChildren.type === MenuButton || isSlot(anchorChildren, MenuButton)) {
+      if (
+        anchorChildren.type === MenuButton ||
+        isSlot(anchorChildren, MenuButton) ||
+        anchorChildren.type === MenuIconButton ||
+        isSlot(anchorChildren, MenuIconButton)
+      ) {
         // eslint-disable-next-line react-hooks/immutability
         renderAnchor = anchorProps => {
           // We need to attach the anchor props to the tooltip trigger (ActionMenu.Button's grandchild) not the tooltip itself.
@@ -156,7 +168,12 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
         renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
       }
       return null
-    } else if (child.type === MenuButton || isSlot(child, MenuButton)) {
+    } else if (
+      child.type === MenuButton ||
+      isSlot(child, MenuButton) ||
+      child.type === MenuIconButton ||
+      isSlot(child, MenuIconButton)
+    ) {
       renderAnchor = anchorProps => React.cloneElement(child, mergeAnchorHandlers(anchorProps, child.props))
       return null
     } else {
@@ -182,6 +199,23 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
   )
 }
 
+// The list is from GitHub's custom-axe-rules https://github.com/github/github/blob/master/app/assets/modules/github/axe-custom-rules.ts#L3
+const interactiveElements = [
+  'a[href]',
+  'button:not([disabled])',
+  'summary',
+  'select',
+  'input:not([type=hidden])',
+  'textarea',
+]
+
+const isInteractive = (element: HTMLElement) => {
+  return (
+    interactiveElements.some(selector => element.matches(selector)) ||
+    (element.hasAttribute('role') && element.getAttribute('role') === 'button')
+  )
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ActionMenuAnchorProps = {children: React.ReactElement<any>; id?: string} & React.HTMLAttributes<HTMLElement>
 const Anchor: WithSlotMarker<
@@ -195,6 +229,21 @@ const Anchor: WithSlotMarker<
   >
 > = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children: child, ...anchorProps}, anchorRef) => {
   const {onOpen, isSubmenu} = React.useContext(MenuContext)
+  const internalRef = useRef<HTMLElement | null>(null)
+  const mergedRef = useMergedRefs(internalRef, anchorRef)
+
+  useEffect(() => {
+    if (!__DEV__) return
+    // Skip validation for submenu anchors, where ActionList.Item is a valid anchor
+    if (isSubmenu) return
+    if (!internalRef.current) return
+    const anchorElement = internalRef.current
+    const isAnchorInteractive = isInteractive(anchorElement)
+    warning(
+      !isAnchorInteractive,
+      'The `ActionMenu.Anchor` expects a single interactive element that can act as a menu trigger. Consider using a `<button>` or an `IconButton` as the direct child of `ActionMenu.Anchor`, or use `ActionMenu.Button` or `ActionMenu.IconButton` instead.',
+    )
+  }, [isSubmenu])
 
   const openSubmenuOnRightArrow: React.KeyboardEventHandler<HTMLElement> = useCallback(
     event => {
@@ -233,7 +282,7 @@ const Anchor: WithSlotMarker<
     <ActionListContainerContext.Provider value={thisActionListContext}>
       {React.cloneElement(child, {
         ...anchorProps,
-        ref: anchorRef,
+        ref: mergedRef,
         onClick: onButtonClick,
         onKeyDown: onButtonKeyDown,
       })}
@@ -251,6 +300,17 @@ const MenuButton = React.forwardRef(({...props}, anchorRef) => {
     </Anchor>
   )
 }) as PolymorphicForwardRefComponent<'button', ActionMenuButtonProps>
+
+/** this component is syntactical sugar 🍭 */
+export type ActionMenuIconButtonProps = IconButtonProps
+
+const MenuIconButton = React.forwardRef(({...props}, anchorRef) => {
+  return (
+    <Anchor ref={anchorRef}>
+      <IconButton type="button" {...props} />
+    </Anchor>
+  )
+}) as PolymorphicForwardRefComponent<'button', ActionMenuIconButtonProps>
 
 const defaultVariant: ResponsiveValue<'anchored', 'anchored' | 'fullscreen'> = {
   regular: 'anchored',
@@ -373,7 +433,14 @@ Menu.displayName = 'ActionMenu'
 
 Menu.__SLOT__ = Symbol('ActionMenu')
 MenuButton.__SLOT__ = Symbol('ActionMenu.Button')
+MenuIconButton.__SLOT__ = Symbol('ActionMenu.IconButton')
 Anchor.__SLOT__ = Symbol('ActionMenu.Anchor')
 Overlay.__SLOT__ = Symbol('ActionMenu.Overlay')
 
-export const ActionMenu = Object.assign(Menu, {Button: MenuButton, Anchor, Overlay, Divider})
+export const ActionMenu = Object.assign(Menu, {
+  Button: MenuButton,
+  IconButton: MenuIconButton,
+  Anchor,
+  Overlay,
+  Divider,
+})
