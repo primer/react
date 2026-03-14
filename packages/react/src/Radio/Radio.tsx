@@ -5,6 +5,7 @@ import {clsx} from 'clsx'
 import sharedClasses from '../Checkbox/shared.module.css'
 import classes from './Radio.module.css'
 import type {WithSlotMarker} from '../utils/types'
+import {warning} from '../utils/warning'
 
 export type RadioProps = {
   /**
@@ -60,12 +61,10 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
     }
     const name = nameProp || radioGroupContext?.name
 
-    if (!name && !ariaHidden) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        'A radio input must have a `name` attribute. Pass `name` as a prop directly to each Radio, or nest them in a `RadioGroup` component with a `name` prop',
-      )
-    }
+    warning(
+      !name && !ariaHidden,
+      'A radio input must have a `name` attribute. Pass `name` as a prop directly to each Radio, or nest them in a `RadioGroup` component with a `name` prop',
+    )
 
     return (
       <input

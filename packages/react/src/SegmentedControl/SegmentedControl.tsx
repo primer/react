@@ -12,6 +12,7 @@ import {isElement} from 'react-is'
 import classes from './SegmentedControl.module.css'
 import {clsx} from 'clsx'
 import {isSlot} from '../utils/is-slot'
+import {warning} from '../utils/warning'
 
 export type SegmentedControlProps = {
   'aria-label'?: string
@@ -103,12 +104,10 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
     return React.isValidElement<SegmentedControlIconButtonProps>(childArg) ? childArg.props['aria-label'] : null
   }
 
-  if (!ariaLabel && !ariaLabelledby) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      'Use the `aria-label` or `aria-labelledby` prop to provide an accessible label for assistive technologies',
-    )
-  }
+  warning(
+    !ariaLabel && !ariaLabelledby,
+    'Use the `aria-label` or `aria-labelledby` prop to provide an accessible label for assistive technologies',
+  )
 
   // Check if dropdown variant is used at any breakpoint
   const responsiveVariant = typeof variant === 'object' ? variant : undefined
