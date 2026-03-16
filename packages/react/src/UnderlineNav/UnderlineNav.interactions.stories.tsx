@@ -73,11 +73,10 @@ KeyboardNavigation.play = async ({canvasElement}: {canvasElement: HTMLElement}) 
 
   // Click to navigate
   await delay()
-  let menuItem = canvas.getByRole('link', {name: 'Settings (10)'})
+  const menuItem = canvas.getByRole('link', {name: 'Settings (10)'})
   userEvent.click(menuItem)
 
   await delay()
-  menuItem = canvas.getByRole('link', {name: 'Settings (10)'})
 
   const lastListItem = canvas.getByRole('list').children[5]
   const menuListItem = canvas.getByText('Settings').closest('li') as HTMLLIElement
