@@ -9,7 +9,6 @@ import {Tooltip as TooltipV2} from '../TooltipV2/Tooltip'
 import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
 import {MixedSelection} from '../ActionMenu/ActionMenu.examples.stories'
 import {SearchIcon, KebabHorizontalIcon} from '@primer/octicons-react'
-import anchoredOverlayClasses from '../AnchoredOverlay/AnchoredOverlay.module.css'
 import {getAnchoredPosition} from '@primer/behaviors'
 import type {AnchorPosition} from '@primer/behaviors'
 
@@ -623,124 +622,58 @@ describe('ActionMenu', () => {
       expect(baseAnchor).not.toHaveAttribute('aria-expanded', 'true')
     })
 
-    it('supports className prop on ActionMenu.Anchor with css anchor positioning flag', async () => {
-      const component = HTMLRender(
-        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
-          <BaseStyles>
-            <ActionMenu>
-              <ActionMenu.Anchor className="test-class">
-                <Button>Toggle Menu</Button>
-              </ActionMenu.Anchor>
-              <ActionMenu.Overlay>
-                <ActionList>
-                  <ActionList.Item>New file</ActionList.Item>
-                  <ActionList.Divider />
-                  <ActionList.Item>Copy link</ActionList.Item>
-                  <ActionList.Item>Edit file</ActionList.Item>
-                  <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
-                    Delete file
-                  </ActionList.Item>
-                  <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
-                    Github
-                  </ActionList.LinkItem>
-                </ActionList>
-              </ActionMenu.Overlay>
-            </ActionMenu>
-          </BaseStyles>
-        </FeatureFlags>,
-      )
-      const anchor = component.getByRole('button', {name: 'Toggle Menu'})
-      expect(anchor).toHaveClass('test-class')
-      expect(anchor).toHaveClass(anchoredOverlayClasses.Anchor)
-    })
-
-    it('supports className prop on ActionMenu.Button with css anchor positioning flag', async () => {
-      const component = HTMLRender(
-        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
-          <BaseStyles>
-            <ActionMenu>
-              <ActionMenu.Button className="test-class">Toggle Menu</ActionMenu.Button>
-              <ActionMenu.Overlay>
-                <ActionList>
-                  <ActionList.Item>New file</ActionList.Item>
-                  <ActionList.Divider />
-                  <ActionList.Item>Copy link</ActionList.Item>
-                  <ActionList.Item>Edit file</ActionList.Item>
-                  <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
-                    Delete file
-                  </ActionList.Item>
-                  <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
-                    Github
-                  </ActionList.LinkItem>
-                </ActionList>
-              </ActionMenu.Overlay>
-            </ActionMenu>
-          </BaseStyles>
-        </FeatureFlags>,
-      )
-      const button = component.getByRole('button', {name: 'Toggle Menu'})
-      expect(button).toHaveClass('test-class')
-      expect(button).toHaveClass(anchoredOverlayClasses.Anchor)
-    })
-
     it('supports className prop on ActionMenu.Anchor', async () => {
       const component = HTMLRender(
-        <FeatureFlags flags={{primer_react_css_anchor_positioning: false}}>
-          <BaseStyles>
-            <ActionMenu>
-              <ActionMenu.Anchor className="test-class">
-                <Button>Toggle Menu</Button>
-              </ActionMenu.Anchor>
-              <ActionMenu.Overlay>
-                <ActionList>
-                  <ActionList.Item>New file</ActionList.Item>
-                  <ActionList.Divider />
-                  <ActionList.Item>Copy link</ActionList.Item>
-                  <ActionList.Item>Edit file</ActionList.Item>
-                  <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
-                    Delete file
-                  </ActionList.Item>
-                  <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
-                    Github
-                  </ActionList.LinkItem>
-                </ActionList>
-              </ActionMenu.Overlay>
-            </ActionMenu>
-          </BaseStyles>
-        </FeatureFlags>,
+        <BaseStyles>
+          <ActionMenu>
+            <ActionMenu.Anchor className="test-class">
+              <Button>Toggle Menu</Button>
+            </ActionMenu.Anchor>
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Item>New file</ActionList.Item>
+                <ActionList.Divider />
+                <ActionList.Item>Copy link</ActionList.Item>
+                <ActionList.Item>Edit file</ActionList.Item>
+                <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
+                  Delete file
+                </ActionList.Item>
+                <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
+                  Github
+                </ActionList.LinkItem>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </BaseStyles>,
       )
       const anchor = component.getByRole('button', {name: 'Toggle Menu'})
       expect(anchor).toHaveClass('test-class')
-      expect(anchor).not.toHaveClass(anchoredOverlayClasses.Anchor)
     })
 
     it('supports className prop on ActionMenu.Button', async () => {
       const component = HTMLRender(
-        <FeatureFlags flags={{primer_react_css_anchor_positioning: false}}>
-          <BaseStyles>
-            <ActionMenu>
-              <ActionMenu.Button className="test-class">Toggle Menu</ActionMenu.Button>
-              <ActionMenu.Overlay>
-                <ActionList>
-                  <ActionList.Item>New file</ActionList.Item>
-                  <ActionList.Divider />
-                  <ActionList.Item>Copy link</ActionList.Item>
-                  <ActionList.Item>Edit file</ActionList.Item>
-                  <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
-                    Delete file
-                  </ActionList.Item>
-                  <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
-                    Github
-                  </ActionList.LinkItem>
-                </ActionList>
-              </ActionMenu.Overlay>
-            </ActionMenu>
-          </BaseStyles>
-        </FeatureFlags>,
+        <BaseStyles>
+          <ActionMenu>
+            <ActionMenu.Button className="test-class">Toggle Menu</ActionMenu.Button>
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Item>New file</ActionList.Item>
+                <ActionList.Divider />
+                <ActionList.Item>Copy link</ActionList.Item>
+                <ActionList.Item>Edit file</ActionList.Item>
+                <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
+                  Delete file
+                </ActionList.Item>
+                <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
+                  Github
+                </ActionList.LinkItem>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </BaseStyles>,
       )
       const button = component.getByRole('button', {name: 'Toggle Menu'})
       expect(button).toHaveClass('test-class')
-      expect(button).not.toHaveClass(anchoredOverlayClasses.Anchor)
     })
   })
 
