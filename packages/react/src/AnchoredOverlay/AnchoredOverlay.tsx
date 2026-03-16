@@ -126,8 +126,12 @@ export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
 
 const applyAnchorPositioningPolyfill = async () => {
   if (typeof window !== 'undefined' && !('anchorName' in document.documentElement.style)) {
-    const {default: polyfill} = await import('@oddbird/css-anchor-positioning/fn')
-    polyfill()
+    try {
+      await import('@oddbird/css-anchor-positioning')
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.warn('Failed to load CSS anchor positioning polyfill:', e)
+    }
   }
 }
 
