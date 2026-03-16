@@ -16,7 +16,7 @@
     appearance: none;
   }
 
-  &:hover {
+  &:not(:where([data-inline='true'])):hover {
     text-decoration: underline;
   }
 
