@@ -641,7 +641,7 @@ describe('ActionMenu', () => {
                     Delete file
                   </ActionList.Item>
                   <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
-                    Github
+                    GitHub
                   </ActionList.LinkItem>
                 </ActionList>
               </ActionMenu.Overlay>
@@ -670,7 +670,7 @@ describe('ActionMenu', () => {
                     Delete file
                   </ActionList.Item>
                   <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
-                    Github
+                    GitHub
                   </ActionList.LinkItem>
                 </ActionList>
               </ActionMenu.Overlay>
@@ -701,7 +701,7 @@ describe('ActionMenu', () => {
                     Delete file
                   </ActionList.Item>
                   <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
-                    Github
+                    GitHub
                   </ActionList.LinkItem>
                 </ActionList>
               </ActionMenu.Overlay>
