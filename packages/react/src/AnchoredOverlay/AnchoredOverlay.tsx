@@ -1,5 +1,5 @@
 import type React from 'react'
-import {useCallback, useEffect, type JSX} from 'react'
+import {useCallback, useEffect, useRef, type JSX} from 'react'
 import type {OverlayProps} from '../Overlay'
 import Overlay from '../Overlay'
 import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'
@@ -222,14 +222,17 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     [overlayRef.current],
   )
 
+  const hasLoadedAnchorPositioningPolyfill = useRef(false)
+
   useEffect(() => {
     // ensure overlay ref gets cleared when closed, so position can reset between closing/re-opening
     if (!open && overlayRef.current) {
       updateOverlayRef(null)
     }
 
-    if (cssAnchorPositioning) {
+    if (cssAnchorPositioning && !hasLoadedAnchorPositioningPolyfill.current) {
       applyAnchorPositioningPolyfill()
+      hasLoadedAnchorPositioningPolyfill.current = true
     }
   }, [open, overlayRef, updateOverlayRef, cssAnchorPositioning])
 
