@@ -1,5 +1,5 @@
 import {clsx} from 'clsx'
-import {useCombinedRefs} from '../hooks'
+import {useMergedRefs} from '../hooks'
 import React, {
   useContext,
   useEffect,
@@ -53,7 +53,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
     const checkboxRef = useRef<HTMLInputElement>(null)
-    const combinedRef = useCombinedRefs(checkboxRef, ref)
+    const mergedRef = useMergedRefs(checkboxRef, ref)
     const checkboxGroupContext = useContext(CheckboxGroupContext)
     const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
       checkboxGroupContext.onChange && checkboxGroupContext.onChange(e)

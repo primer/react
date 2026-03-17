@@ -429,7 +429,7 @@ Footer.displayName = 'Dialog.Footer'
 
 const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
   const autoFocusRef = useRef<HTMLButtonElement>(null)
-  const combinedRef = useCombinedRefs(autoFocusRef, buttons.find(button => button.autoFocus)?.ref)
+  const mergedRef = useMergedRefs(autoFocusRef, buttons.find(button => button.autoFocus)?.ref)
   let autoFocusCount = 0
   const [hasRendered, setHasRendered] = useState(0)
   useEffect(() => {

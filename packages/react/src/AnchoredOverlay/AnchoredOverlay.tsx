@@ -6,7 +6,7 @@ import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useFocusZone} from '../hooks/useFocusZone'
-import {useAnchoredPosition, useCombinedRefs, useRenderForcingRef} from '../hooks'
+import {useAnchoredPosition, useMergedRefs, useRenderForcingRef} from '../hooks'
 import {useId} from '../hooks/useId'
 import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {type ResponsiveValue} from '../hooks/useResponsiveValue'
@@ -161,10 +161,10 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   closeButtonProps = defaultCloseButtonProps,
 }) => {
   const anchorRef = useRef<HTMLElement>(null)
-  const combinedRef = useCombinedRefs(anchorRef, externalAnchorRef)
+  const mergedRef = useMergedRefs(anchorRef, externalAnchorRef)
 
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
-  const combinedOverlayRef = useCombinedRefs(updateOverlayRef, overlayProps?.ref)
+  const combinedOverlayRef = useMergedRefs(updateOverlayRef, overlayProps?.ref)
 
   const anchorId = useId(externalAnchorId)
 

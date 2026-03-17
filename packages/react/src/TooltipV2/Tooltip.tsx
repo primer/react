@@ -1,5 +1,5 @@
 import React, {Children, useEffect, useState, useMemo, type ForwardRefExoticComponent, useRef} from 'react'
-import {useId, useOnEscapePress, useIsMacOS, useCombinedRefs} from '../hooks'
+import {useId, useOnEscapePress, useIsMacOS, useMergedRefs} from '../hooks'
 import {invariant} from '../utils/invariant'
 import {warning} from '../utils/warning'
 import {getAnchoredPosition} from '@primer/behaviors'
@@ -125,7 +125,7 @@ export const Tooltip: ForwardRefExoticComponent<
     const tooltipId = useId(id)
     const child = Children.only(children)
     const triggerRef = useRef<HTMLElement>(null)
-    const combinedTriggerRef = useCombinedRefs(triggerRef, forwardedRef)
+    const combinedTriggerRef = useMergedRefs(triggerRef, forwardedRef)
     const tooltipElRef = useRef<HTMLDivElement>(null)
 
     const [calculatedDirection, setCalculatedDirection] = useState<TooltipDirection>(direction)

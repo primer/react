@@ -21,7 +21,7 @@ import {isValidElementType} from 'react-is'
 import {useAnnouncements} from './useAnnouncements'
 import {clsx} from 'clsx'
 import {useVirtualizer} from '@tanstack/react-virtual'
-import {useCombinedRefs} from '../hooks'
+import {useMergedRefs} from '../hooks'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -190,10 +190,10 @@ export function FilteredActionList({
   const listRef = useRef<HTMLUListElement>(null)
 
   const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const combinedScrollContainerRef = useCombinedRefs(scrollContainerRef, providedScrollContainerRef)
+  const combinedScrollContainerRef = useMergedRefs(scrollContainerRef, providedScrollContainerRef)
 
   const inputRef = useRef<HTMLInputElement>(null)
-  const combinedInputRef = useCombinedRefs(inputRef, providedInputRef)
+  const combinedInputRef = useMergedRefs(inputRef, providedInputRef)
 
   const usingRovingTabindex = _PrivateFocusManagement === 'roving-tabindex'
   const [listContainerElement, setListContainerElement] = useState<HTMLUListElement | null>(null)

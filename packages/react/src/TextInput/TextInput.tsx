@@ -15,7 +15,7 @@ import UnstyledTextInput from '../internal/components/UnstyledTextInput'
 import VisuallyHidden from '../_VisuallyHidden'
 import {CharacterCounter} from '../utils/character-counter'
 import Text from '../Text'
-import {useCombinedRefs} from '../hooks'
+import {useMergedRefs} from '../hooks'
 
 export type TextInputNonPassthroughProps = {
   /** @deprecated Use `leadingVisual` or `trailingVisual` prop instead */
@@ -104,7 +104,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
   ) => {
     const [isInputFocused, setIsInputFocused] = useState<boolean>(false)
     const inputRef = useRef<HTMLInputElement>(null)
-    const combinedRef = useCombinedRefs(inputRef, ref)
+    const mergedRef = useMergedRefs(inputRef, ref)
     const [characterCount, setCharacterCount] = useState<string>('')
     const [isOverLimit, setIsOverLimit] = useState<boolean>(false)
     const [screenReaderMessage, setScreenReaderMessage] = useState<string>('')
@@ -259,7 +259,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
             {typeof LeadingVisual !== 'string' && isValidElementType(LeadingVisual) ? <LeadingVisual /> : LeadingVisual}
           </TextInputInnerVisualSlot>
           <UnstyledTextInput
-            ref={combinedRef}
+            ref={mergedRef}
             disabled={disabled}
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}

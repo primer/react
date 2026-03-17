@@ -2,7 +2,7 @@ import React, {useRef, type PropsWithChildren} from 'react'
 import classes from './ButtonGroup.module.css'
 import {clsx} from 'clsx'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
-import {useCombinedRefs} from '../hooks'
+import {useMergedRefs} from '../hooks'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 export type ButtonGroupProps = PropsWithChildren<{
@@ -18,7 +18,7 @@ const ButtonGroup = React.forwardRef(function ButtonGroup(
 ) {
   const buttons = React.Children.map(children, (child, index) => <div key={index}>{child}</div>)
   const buttonRef = useRef<HTMLDivElement>(null)
-  const combinedRef = useCombinedRefs(buttonRef, forwardRef)
+  const mergedRef = useMergedRefs(buttonRef, forwardRef)
 
   useFocusZone({
     containerRef: buttonRef,
@@ -28,7 +28,7 @@ const ButtonGroup = React.forwardRef(function ButtonGroup(
   })
 
   return (
-    <BaseComponent ref={combinedRef} className={clsx(className, classes.ButtonGroup)} role={role} {...rest}>
+    <BaseComponent ref={mergedRef} className={clsx(className, classes.ButtonGroup)} role={role} {...rest}>
       {buttons}
     </BaseComponent>
   )

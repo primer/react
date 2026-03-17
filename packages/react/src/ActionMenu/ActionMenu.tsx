@@ -3,7 +3,7 @@ import {TriangleDownIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {OverlayProps} from '../Overlay'
-import {useProvidedStateOrCreate, useMenuKeyboardNavigation, useCombinedRefs} from '../hooks'
+import {useProvidedStateOrCreate, useMenuKeyboardNavigation, useMergedRefs} from '../hooks'
 import {Divider} from '../ActionList/Divider'
 import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
 import type {ButtonProps} from '../Button'
@@ -111,7 +111,7 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
   const menuButtonChildId = React.isValidElement(menuButtonChild) ? menuButtonChild.props.id : undefined
 
   const anchorRef = useRef<HTMLElement>(null)
-  const combinedRef = useCombinedRefs(anchorRef, externalAnchorRef)
+  const mergedRef = useMergedRefs(anchorRef, externalAnchorRef)
 
   const anchorId = useId(menuButtonChildId)
   let renderAnchor: AnchoredOverlayProps['renderAnchor'] = null
@@ -290,7 +290,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
   } = React.useContext(MenuContext) as MandateProps<MenuContextProps, 'anchorRef'>
 
   const anchorRef = useRef<HTMLElement>(null)
-  const combinedAnchorRef = useCombinedRefs(anchorRef, contextAnchorRef)
+  const combinedAnchorRef = useMergedRefs(anchorRef, contextAnchorRef)
 
   const containerRef = React.useRef<HTMLDivElement>(null)
   const isNarrow = useResponsiveValue({narrow: true}, false)

@@ -5,7 +5,7 @@ import {useSlots} from '../hooks/useSlots'
 import {Heading} from './Heading'
 import {useId} from '../hooks/useId'
 import {ListContext, type ActionListProps} from './shared'
-import {useCombinedRefs} from '../hooks'
+import {useMergedRefs} from '../hooks'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
@@ -42,7 +42,7 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
   const ariaLabelledBy = slots.heading ? (slots.heading.props.id ?? headingId) : listLabelledBy
   const listRole = role || listRoleFromContainer
   const listRef = useRef<HTMLElement>(null)
-  const combinedRef = useCombinedRefs(forwardedRef, listRef)
+  const mergedRef = useMergedRefs(forwardedRef, listRef)
 
   let enableFocusZone = false
   if (enableFocusZoneFromContainer !== undefined) enableFocusZone = enableFocusZoneFromContainer
@@ -74,7 +74,7 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
         className={clsx(classes.ActionList, className)}
         role={listRole}
         aria-labelledby={ariaLabelledBy}
-        ref={combinedRef}
+        ref={mergedRef}
         data-dividers={showDividers}
         data-variant={variant}
         {...restProps}

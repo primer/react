@@ -10,7 +10,7 @@ import React, {
 } from 'react'
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 import {useControllableState} from '../../hooks/useControllableState'
-import {useCombinedRefs} from '../../hooks'
+import {useMergedRefs} from '../../hooks'
 
 /**
  * Props to be used when the Tabs component's state is controlled by the parent
@@ -122,7 +122,7 @@ function useTabList<T extends HTMLElement>(
   const {'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, 'aria-orientation': ariaOrientation} = props
 
   const ref = useRef<T>(null)
-  const combinedRef = useCombinedRefs(ref, props.ref)
+  const mergedRef = useMergedRefs(ref, props.ref)
 
   const onKeyDown = (event: React.KeyboardEvent) => {
     const {current: tablist} = ref

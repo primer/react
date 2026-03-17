@@ -15,7 +15,7 @@ import {
 import Octicon from '../../Octicon'
 import {ActionListContainerContext} from '../../ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
-import {useId, useAnchoredPosition, useCombinedRefs} from '../../hooks'
+import {useId, useAnchoredPosition, useMergedRefs} from '../../hooks'
 import type {OverlayProps} from '../../Overlay/Overlay'
 import {BaseOverlay, heightMap} from '../../Overlay/Overlay'
 import {InputLabel} from '../../internal/components/InputLabel'
@@ -120,7 +120,7 @@ const Panel: React.FC<SelectPanelProps> = ({
   let Anchor: React.ReactElement<any> | undefined
 
   const anchorRef = useRef<HTMLButtonElement>(null)
-  const combinedRef = useCombinedRefs(providedAnchorRef, anchorRef)
+  const mergedRef = useMergedRefs(providedAnchorRef, anchorRef)
 
   const onAnchorClick = () => {
     if (!internalOpen) setInternalOpen(true)

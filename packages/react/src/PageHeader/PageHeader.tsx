@@ -10,7 +10,7 @@ import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {areAllValuesTheSame, haveRegularAndWideSameValue} from '../utils/getBreakpointDeclarations'
 import {warning} from '../utils/warning'
-import {useCombinedRefs} from '../hooks'
+import {useMergedRefs} from '../hooks'
 import type {AriaRole, FCWithSlotMarker} from '../utils/types'
 import {clsx} from 'clsx'
 
@@ -50,7 +50,7 @@ export type PageHeaderProps = {
 const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeaderProps>>(
   ({children, className, as: BaseComponent = 'div', 'aria-label': ariaLabel, role, hasBorder}, forwardedRef) => {
     const rootRef = useRef<HTMLDivElement>(null)
-    const combinedRef = useCombinedRefs(rootRef, forwardedRef)
+    const mergedRef = useMergedRefs(rootRef, forwardedRef)
 
     const isInteractive = (element: HTMLElement) => {
       return (
@@ -106,7 +106,7 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
 
     return (
       <BaseComponent
-        ref={combinedRef}
+        ref={mergedRef}
         className={clsx(classes.PageHeader, className)}
         data-has-border={hasBorder ? 'true' : undefined}
         aria-label={ariaLabel}

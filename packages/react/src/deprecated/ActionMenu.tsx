@@ -10,7 +10,7 @@ import {useCallback, useMemo, useRef, type JSX} from 'react'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import type {OverlayProps} from '../Overlay'
-import {useCombinedRefs} from '../hooks'
+import {useMergedRefs} from '../hooks'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
 
 interface ActionMenuBaseProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
@@ -61,7 +61,7 @@ const ActionMenuBase = ({
 }: ActionMenuProps): JSX.Element => {
   const [combinedOpenState, setCombinedOpenState] = useProvidedStateOrCreate(open, setOpen, false)
   const anchorRef = useRef<HTMLElement>(null)
-  const combinedRef = useCombinedRefs(anchorRef, externalAnchorRef)
+  const mergedRef = useMergedRefs(anchorRef, externalAnchorRef)
   const onOpen = useCallback(() => setCombinedOpenState(true), [setCombinedOpenState])
   const onClose = useCallback(() => setCombinedOpenState(false), [setCombinedOpenState])
 
@@ -97,7 +97,7 @@ const ActionMenuBase = ({
   return (
     <AnchoredOverlay
       renderAnchor={renderMenuAnchor}
-      anchorRef={combinedRef}
+      anchorref={mergedRef}
       open={combinedOpenState}
       onOpen={onOpen}
       onClose={onClose}
