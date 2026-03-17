@@ -10,6 +10,7 @@ import type {AnchorSide} from '@primer/behaviors'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import classes from './Overlay.module.css'
 import {clsx} from 'clsx'
+import {useFeatureFlag} from '../FeatureFlags'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
@@ -189,6 +190,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     forwardedRef,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
+    const cssAnchorPositioning = useFeatureFlag('primer_react_css_anchor_positioning')
     const overlayRef = useRef<HTMLDivElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, overlayRef)
     const slideAnimationDistance = 8 // var(--base-size-8), hardcoded to do some math
@@ -229,22 +231,26 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     // To be backwards compatible with the old Overlay, we need to set the left prop if x-position is not specified
     const leftPosition = left === undefined && right === undefined ? 0 : left
 
-    return (
-      <Portal containerName={portalContainerName}>
-        <BaseOverlay
-          role={role}
-          width={width}
-          data-reflow-container={!preventOverflow ? true : undefined}
-          ref={overlayRef}
-          left={leftPosition}
-          right={right}
-          height={height}
-          visibility={visibility}
-          data-responsive={responsiveVariant}
-          {...props}
-        />
-      </Portal>
+    const overlayContent = (
+      <BaseOverlay
+        role={role}
+        width={width}
+        data-reflow-container={!preventOverflow ? true : undefined}
+        ref={overlayRef}
+        left={leftPosition}
+        right={right}
+        height={height}
+        visibility={visibility}
+        data-responsive={responsiveVariant}
+        {...props}
+      />
     )
+
+    if (cssAnchorPositioning) {
+      return overlayContent
+    }
+
+    return <Portal containerName={portalContainerName}>{overlayContent}</Portal>
   },
 ) as PolymorphicForwardRefComponent<'div', internalOverlayProps>
 
