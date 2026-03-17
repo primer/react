@@ -8,5 +8,19 @@ export default defineConfig({
       'packages/*/vitest.config.browser.ts',
       'packages/*/vitest.config.browser.mts',
     ],
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'html', 'json'],
+      include: ['packages/react/src/**/*.{ts,tsx}'],
+      exclude: [
+        '**/*.test.{ts,tsx}',
+        '**/*.stories.{ts,tsx}',
+        '**/*.types.test.{ts,tsx}',
+        '**/*.figma.tsx',
+        '**/test-helpers/**',
+        '**/__tests__/**',
+        '**/generated/**',
+      ],
+    },
   },
 })
