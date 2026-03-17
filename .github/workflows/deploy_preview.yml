@@ -15,9 +15,35 @@ jobs:
     if: ${{ github.event.pull_request.head.repo.full_name == 'primer/react' }}
     uses: ./.github/workflows/aat-reports.yml
 
+  coverage:
+    if: ${{ github.event.pull_request.head.repo.full_name == 'primer/react' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+      - name: Set up Node.js
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Run tests with coverage
+        uses: docker://mcr.microsoft.com/playwright:v1.56.1-jammy
+        with:
+          args: npx vitest --coverage --run
+      - name: Upload coverage report
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+        with:
+          name: coverage
+          path: coverage
+          retention-days: 1
+
   build:
     if: ${{ always() && github.event.pull_request.head.repo.full_name == 'primer/react' }}
-    needs: [vrt-reports, aat-reports]
+    needs: [vrt-reports, aat-reports, coverage]
     runs-on: ubuntu-latest
 
     steps:
@@ -42,6 +68,11 @@ jobs:
         with:
           name: aat
           path: docs/public/aat
+      - name: Download coverage report
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          name: coverage
+          path: docs/public/coverage
       - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b
         with:
           name: github-pages
