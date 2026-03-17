@@ -5,18 +5,18 @@
   "parameters": [
     {
       "name": "refA",
-      "type": "Ref<T>",
+      "type": "React.Ref<T> | undefined",
       "required": true,
       "description": "First ref to combine."
     },
     {
       "name": "refB",
-      "type": "Ref<T>",
+      "type": "React.Ref<T> | undefined",
       "required": true,
       "description": "Second ref to combine."
     }
   ],
   "returns": {
-    "type": "RefCallback<T>"
+    "type": "React.RefCallback<T>"
   }
 }
