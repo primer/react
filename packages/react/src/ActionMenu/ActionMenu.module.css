@@ -25,22 +25,43 @@
 
   /* Max-height size tokens (mirror Overlay sizes) */
   &:where([data-max-height-xsmall]) {
-    max-height: min(192px, 100dvh);
+    max-height: 192px;
   }
 
   &:where([data-max-height-small]) {
-    max-height: min(256px, 100dvh);
+    max-height: 256px;
   }
 
   &:where([data-max-height-medium]) {
-    max-height: min(320px, 100dvh);
+    max-height: 320px;
   }
 
   &:where([data-max-height-large]) {
-    max-height: min(432px, 100dvh);
+    max-height: 432px;
   }
 
   &:where([data-max-height-xlarge]) {
+    max-height: 600px;
+  }
+
+  /* Max-height size tokens clamped to viewport (enabled via feature flag) */
+  &:where([data-max-height-clamp-to-viewport][data-max-height-xsmall]) {
+    max-height: min(192px, 100dvh);
+  }
+
+  &:where([data-max-height-clamp-to-viewport][data-max-height-small]) {
+    max-height: min(256px, 100dvh);
+  }
+
+  &:where([data-max-height-clamp-to-viewport][data-max-height-medium]) {
+    max-height: min(320px, 100dvh);
+  }
+
+  &:where([data-max-height-clamp-to-viewport][data-max-height-large]) {
+    max-height: min(432px, 100dvh);
+  }
+
+  &:where([data-max-height-clamp-to-viewport][data-max-height-xlarge]) {
     max-height: min(600px, 100dvh);
   }
 
