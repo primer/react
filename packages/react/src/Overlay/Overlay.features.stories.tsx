@@ -635,7 +635,7 @@ export const SettingMaxHeight = ({open}: Args) => {
           onEscape={closeOverlay}
           onClickOutside={closeOverlay}
           width="medium"
-          maxHeight="small"
+          maxHeight="large"
           overflow="auto"
           role="dialog"
           aria-modal="true"
