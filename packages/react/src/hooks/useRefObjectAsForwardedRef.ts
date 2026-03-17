@@ -8,16 +8,16 @@ import {useImperativeHandle} from 'react'
  *
  * **NOTE**: The `refObject` should be passed to the underlying element, NOT the `forwardedRef`.
  *
- * @deprecated Migrate to `useCombinedRefs`. It's safer, faster, and easier to use:
+ * @deprecated Migrate to `useMergedRefs`. It's safer, faster, and easier to use:
  *
  * ```diff
  *   const ref = useRef(null)
  *
  * - useRefObjectAsForwardedRef(forwardedRef, ref)
- * + const combinedRef = useCombinedRefs(forwardedRef, ref)
+ * + const mergedRef = useMergedRefs(forwardedRef, ref)
  *
  * - return <div ref={ref} />
- * + return <div ref={combinedRef} />
+ * + return <div ref={mergedRef} />
  * ```
  */
 export function useRefObjectAsForwardedRef<T>(forwardedRef: ForwardedRef<T>, refObject: RefObject<T | null>): void {
