@@ -1,5 +1,11 @@
 # @primer/react
 
+## 38.16.0
+
+### Minor Changes
+
+- [#7661](https://github.com/primer/react/pull/7661) [`dceb79c`](https://github.com/primer/react/commit/dceb79c5e0f8ab5c25bbc9727bc3207fb77d520e) Thanks [@TylerJDev](https://github.com/TylerJDev)! - AnchoredOverlay: Add CSS Anchor Positioning to `AnchoredOverlay` (under a feature flag)
+
 ## 38.15.1
 
 ### Patch Changes
