@@ -5,7 +5,7 @@ import type {AriaRole, Merge} from '../utils/types'
 import type {TouchOrMouseEvent} from '../hooks'
 import {useOverlay} from '../hooks'
 import Portal from '../Portal'
-import {useCombinedRefs} from '../hooks/useCombinedRefs'
+import {useMergedRefs} from '../hooks/useMergedRefs'
 import type {AnchorSide} from '@primer/behaviors'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import classes from './Overlay.module.css'
@@ -192,7 +192,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
   ): ReactElement<any> => {
     const cssAnchorPositioning = useFeatureFlag('primer_react_css_anchor_positioning')
     const overlayRef = useRef<HTMLDivElement>(null)
-    const combinedRef = useCombinedRefs(forwardedRef, overlayRef)
+    const mergedRef = useMergedRefs(forwardedRef, overlayRef)
     const slideAnimationDistance = 8 // var(--base-size-8), hardcoded to do some math
     const slideAnimationEasing = 'cubic-bezier(0.33, 1, 0.68, 1)'
 
@@ -236,7 +236,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
         role={role}
         width={width}
         data-reflow-container={!preventOverflow ? true : undefined}
-        ref={combinedRef}
+        ref={mergedRef}
         left={leftPosition}
         right={right}
         height={height}

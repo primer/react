@@ -7,7 +7,7 @@ import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
 import Portal from '../Portal'
-import {useCombinedRefs} from '../hooks/useCombinedRefs'
+import {useMergedRefs} from '../hooks/useMergedRefs'
 import {useId} from '../hooks/useId'
 import {ScrollableRegion} from '../ScrollableRegion'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
@@ -289,7 +289,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   })
 
   const dialogRef = useRef<HTMLDivElement>(null)
-  const combinedRef = useCombinedRefs(forwardedRef, dialogRef)
+  const mergedRef = useMergedRefs(forwardedRef, dialogRef)
   const backdropRef = useRef<HTMLDivElement>(null)
 
   useFocusTrap({
@@ -362,7 +362,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           }}
         >
           <div
-            ref={combinedRef}
+            ref={mergedRef}
             role={role}
             aria-labelledby={dialogLabelId}
             aria-describedby={dialogDescriptionId}

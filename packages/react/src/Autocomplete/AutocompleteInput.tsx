@@ -3,7 +3,7 @@ import React, {useCallback, useContext, useEffect, useState} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {AutocompleteContext, AutocompleteInputContext} from './AutocompleteContext'
 import TextInput from '../TextInput'
-import {useCombinedRefs} from '../hooks/useCombinedRefs'
+import {useMergedRefs} from '../hooks/useMergedRefs'
 import type {ComponentProps} from '../utils/types'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 
@@ -43,7 +43,7 @@ const AutocompleteInput = React.forwardRef(
     }
     const {activeDescendantRef, id, inputRef, setInputValue, setShowMenu, showMenu} = autocompleteContext
     const {autocompleteSuggestion = '', inputValue = '', isMenuDirectlyActivated} = inputContext
-    const combinedRef = useCombinedRefs(forwardedRef, inputRef)
+    const mergedRef = useMergedRefs(forwardedRef, inputRef)
     const [highlightRemainingText, setHighlightRemainingText] = useState<boolean>(true)
     const {safeSetTimeout} = useSafeTimeout()
 
@@ -160,7 +160,7 @@ const AutocompleteInput = React.forwardRef(
         onKeyDown={handleInputKeyDown}
         onKeyPress={onInputKeyPress}
         onKeyUp={handleInputKeyUp}
-        ref={combinedRef}
+        ref={mergedRef}
         aria-controls={`${id}-listbox`}
         aria-autocomplete="both"
         role="combobox"

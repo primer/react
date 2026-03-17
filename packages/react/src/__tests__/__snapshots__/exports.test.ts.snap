@@ -211,7 +211,6 @@ exports[`@primer/react > should not update exports without a semver change 1`] =
   "type UnderlineNavProps",
   "useAnchoredPosition",
   "useColorSchemeVar",
-  "useCombinedRefs",
   "useConfirm",
   "useDetails",
   "useFocusTrap",
