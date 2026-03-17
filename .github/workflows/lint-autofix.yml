@@ -92,7 +92,7 @@ jobs:
 
       - name: Set up Node.js
         if: steps.check_jobs.outputs.should_fix == 'true' && steps.pr.outputs.head_ref != ''
-        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
