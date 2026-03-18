@@ -31,7 +31,7 @@
     flip-block flip-inline;
   position-visibility: anchors-visible;
   z-index: 100;
-  position: fixed;
+  position: fixed !important;
 
   &[popover] {
     inset: auto;
