@@ -7,6 +7,18 @@ import React from 'react'
  * This hook aims to encapsulate that logic, so the consumer doesn't need to be concerned with violating `rules-of-hooks`.
  * @param providedRef The ref to use - if undefined, will use the ref from a call to React.useRef
  * @type TRef The type of the RefObject which should be created.
+ *
+ * @deprecated This hook is incompatible with forwarded callback refs. Prefer `useMergedRefs` with an internally
+ * created ref instead.
+ *
+ * ```diff
+ * - const ref = useProvidedRefOrCreate(forwardedRef as RefObject<...>)
+ * + const ref = useRef(null)
+ * + const mergedRef = useMergedRefs(forwardedRef, ref)
+ *
+ * - return <div ref={ref} />
+ * + return <div ref={mergedRef} />
+ * ```
  */
 export function useProvidedRefOrCreate<TRef>(providedRef?: React.RefObject<TRef | null>): React.RefObject<TRef | null> {
   const createdRef = React.useRef<TRef>(null)
