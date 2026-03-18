@@ -266,7 +266,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           tabIndex: 0,
           onClick: onAnchorClick,
           onKeyDown: onAnchorKeyDown,
-          ...(cssAnchorPositioning ? {className: classes.Anchor, popovertarget: popoverId} : {}),
+          ...(cssAnchorPositioning ? {className: classes.Anchor, popoverTarget: popoverId} : {}),
         })}
       {open ? (
         <Overlay
