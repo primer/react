@@ -18,6 +18,7 @@ import classes from '../ActionList/ActionList.module.css'
 import navListClasses from './NavList.module.css'
 import {flushSync} from 'react-dom'
 import {isSlot} from '../utils/is-slot'
+import {fixedForwardRef, type PolymorphicProps} from '../utils/modern-polymorphic'
 
 // ----------------------------------------------------------------------------
 // NavList
@@ -45,16 +46,23 @@ Root.displayName = 'NavList'
 // ----------------------------------------------------------------------------
 // NavList.Item
 
-export type NavListItemProps = {
-  children: React.ReactNode
-  defaultOpen?: boolean
-  href?: string
-  'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | boolean
-  inactiveText?: string
-}
+export type NavListItemProps<As extends React.ElementType = React.ElementType> = PolymorphicProps<
+  As,
+  'a',
+  {
+    children: React.ReactNode
+    defaultOpen?: boolean
+    href?: string
+    'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | boolean
+    inactiveText?: string
+  }
+>
 
-const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
-  ({'aria-current': ariaCurrent, children, defaultOpen, ...props}, ref) => {
+const ItemComponent = fixedForwardRef(
+  <As extends React.ElementType = 'a'>(
+    {'aria-current': ariaCurrent, children, defaultOpen, as: Component, ...props}: NavListItemProps<As>,
+    ref: React.ForwardedRef<unknown>,
+  ) => {
     const {depth} = React.useContext(SubNavContext)
 
     // Get SubNav from children
@@ -90,21 +98,27 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
       )
     }
 
+    // Type safety for the polymorphic `as` prop is enforced at the
+    // Item boundary via fixedForwardRef. Internally we widen
+    // LinkItem's type so TypeScript doesn't re-check the generic
+    // constraint across two polymorphic layers.
+    const InternalLinkItem: React.ElementType = ActionList.LinkItem
     return (
-      <ActionList.LinkItem
+      <InternalLinkItem
         ref={ref}
+        as={Component}
         aria-current={ariaCurrent}
         active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
         style={{'--subitem-depth': depth} as React.CSSProperties}
         {...props}
       >
         {children}
-      </ActionList.LinkItem>
+      </InternalLinkItem>
     )
   },
-) as PolymorphicForwardRefComponent<'a', NavListItemProps>
+)
 
-Item.displayName = 'NavList.Item'
+const Item = Object.assign(ItemComponent, {displayName: 'NavList.Item'})
 
 // ----------------------------------------------------------------------------
 // ItemWithSubNav (internal)
