@@ -1,5 +1,5 @@
 import {SearchIcon, TriangleDownIcon, XIcon, type IconProps} from '@primer/octicons-react'
-import React, {useCallback, useEffect, useMemo, useRef, useState, type KeyboardEventHandler, type JSX} from 'react'
+import React, {useCallback, useEffect, useMemo, useRef, useState, type JSX} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
@@ -146,6 +146,8 @@ const focusZoneSettings: Partial<FocusZoneHookSettings> = {
   // Let FilteredActionList handle focus zone
   disabled: true,
 }
+
+const closeButtonProps = {'aria-label': 'Cancel and close'}
 
 const areItemsEqual = (itemA: ItemInput, itemB: ItemInput) => {
   // prefer checking equivality by item.id
@@ -708,9 +710,7 @@ function Panel({
     }
   }, [open, resetSort])
 
-  const focusTrapSettings = {
-    initialFocusRef: inputRef || undefined,
-  }
+  const focusTrapSettings = useMemo(() => ({initialFocusRef: inputRef || undefined}), [inputRef])
 
   const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
     return {
@@ -807,12 +807,11 @@ function Panel({
     'anchored',
   )
 
-  const preventBubbling =
-    (customOnKeyDown: KeyboardEventHandler<HTMLDivElement> | undefined) =>
+  const preventBubbling = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
-      // skip if a TextInput has focus
-      customOnKeyDown?.(event)
+      overlayProps?.onKeyDown?.(event as unknown as React.KeyboardEvent<HTMLDivElement>)
 
+      // skip if a TextInput has focus
       const activeElement = document.activeElement as HTMLElement
       if (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA') return
 
@@ -827,7 +826,35 @@ function Panel({
 
       // if this is a typeahead event, don't propagate outside of menu
       event.stopPropagation()
-    }
+    },
+    [overlayProps],
+  )
+
+  const mergedOverlayProps = useMemo(
+    () => ({
+      role: 'dialog' as const,
+      'aria-labelledby': titleId,
+      'aria-describedby': subtitle ? subtitleId : undefined,
+      ...overlayProps,
+      ...(variant === 'modal'
+        ? {
+            top: '50vh' as const,
+            left: '50vw' as const,
+            anchorSide: undefined,
+          }
+        : {}),
+      style: {
+        transform: variant === 'modal' ? 'translate(-50%, -50%)' : undefined,
+        ...(isKeyboardVisible
+          ? {
+              maxHeight: availablePanelHeight !== undefined ? `${availablePanelHeight}px` : 'auto',
+            }
+          : {}),
+      } as React.CSSProperties,
+      onKeyDown: preventBubbling,
+    }),
+    [titleId, subtitle, subtitleId, overlayProps, variant, isKeyboardVisible, availablePanelHeight, preventBubbling],
+  )
 
   return (
     <>
@@ -838,31 +865,7 @@ function Panel({
         open={open}
         onOpen={onOpen}
         onClose={onClose}
-        overlayProps={{
-          role: 'dialog',
-          'aria-labelledby': titleId,
-          'aria-describedby': subtitle ? subtitleId : undefined,
-          ...overlayProps,
-          ...(variant === 'modal'
-            ? {
-                /* override AnchoredOverlay position */
-                top: '50vh',
-                left: '50vw',
-                anchorSide: undefined,
-              }
-            : {}),
-          style: {
-            /* override AnchoredOverlay position */
-            transform: variant === 'modal' ? 'translate(-50%, -50%)' : undefined,
-            // set maxHeight based on calculated availablePanelHeight when keyboard is visible
-            ...(isKeyboardVisible
-              ? {
-                  maxHeight: availablePanelHeight !== undefined ? `${availablePanelHeight}px` : 'auto',
-                }
-              : {}),
-          } as React.CSSProperties,
-          onKeyDown: preventBubbling(overlayProps?.onKeyDown),
-        }}
+        overlayProps={mergedOverlayProps}
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}
         height={height}
@@ -872,7 +875,7 @@ function Panel({
         pinPosition={!height}
         className={classes.Overlay}
         displayCloseButton={showXCloseIcon}
-        closeButtonProps={{'aria-label': 'Cancel and close'}}
+        closeButtonProps={closeButtonProps}
       >
         <div className={classes.Wrapper} data-variant={variant}>
           <div className={classes.Header} data-variant={currentResponsiveVariant}>
