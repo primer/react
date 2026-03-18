@@ -334,7 +334,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
     'primer_react_action_menu_display_in_viewport_inside_dialog',
   )
 
-  const featureFlagMaxHeightClampToViewport = useFeatureFlag('primer_react_action_menu_max_height_clamp_to_viewport')
+  const featureFlagMaxHeightClampToViewport = useFeatureFlag('primer_react_overlay_max_height_clamp_to_viewport')
 
   const isInsideDialog = useContext(DialogContext) !== undefined
 
