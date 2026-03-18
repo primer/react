@@ -21,7 +21,14 @@ function renderWithTheme(
 Element.prototype.scrollIntoView = vi.fn()
 
 beforeEach(() => {
-  vi.useFakeTimers()
+  // Only fake timer APIs (setTimeout/setInterval/etc.) — do NOT fake
+  // requestAnimationFrame. In vitest browser mode (real Chromium), faking rAF
+  // causes `userEvent` interactions that focus a TreeView item to hang
+  // indefinitely: the item's onFocus handler schedules a fake rAF that never
+  // fires, preventing act() from resolving.
+  vi.useFakeTimers({
+    toFake: ['setTimeout', 'clearTimeout', 'setInterval', 'clearInterval', 'setImmediate', 'clearImmediate'],
+  })
 })
 
 afterEach(() => {
@@ -1518,7 +1525,9 @@ describe('Asynchronous loading', () => {
   })
 
   it('moves focus to parent item after closing error dialog', async () => {
-    vi.useFakeTimers()
+    vi.useFakeTimers({
+      toFake: ['setTimeout', 'clearTimeout', 'setInterval', 'clearInterval', 'setImmediate', 'clearImmediate'],
+    })
 
     function TestTree() {
       const [error, setError] = React.useState('Test error')
