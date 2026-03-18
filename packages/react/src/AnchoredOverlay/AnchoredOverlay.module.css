@@ -16,11 +16,11 @@
 .Wrapper {
   anchor-scope: --anchored-overlay-anchor;
   display: inline;
-}
 
-.Anchor {
-  /* Anchor name, this is currently tied to `renderAnchor` */
-  anchor-name: --anchored-overlay-anchor;
+  & [data-anchor] {
+    /* Anchor name, this is currently tied to `renderAnchor` */
+    anchor-name: --anchored-overlay-anchor;
+  }
 }
 
 .AnchoredOverlay {
