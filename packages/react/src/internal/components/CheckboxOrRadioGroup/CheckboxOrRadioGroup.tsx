@@ -107,7 +107,7 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
                 */
             <legend className={classes.GroupLegend} data-legend-visible={isLegendVisible ? '' : undefined}>
               {slots.label}
-              {required && <VisuallyHidden>Required</VisuallyHidden>}
+              {required && <VisuallyHidden>, required</VisuallyHidden>}
               {slots.caption}
               {React.isValidElement(slots.validation) && slots.validation.props.children && (
                 <VisuallyHidden>{slots.validation.props.children}</VisuallyHidden>
