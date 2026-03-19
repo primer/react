@@ -397,11 +397,12 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     const viewportHeight = backdropRef.current?.clientHeight ?? window.innerHeight
     const positionRegular = dialogElement.getAttribute('data-position-regular')
     const positionNarrow = dialogElement.getAttribute('data-position-narrow')
-    // fullscreen/left/right fill the full viewport; all others are capped at 100dvh - 64px
+    // fullscreen/left/right fill the full viewport; otherwise match CSS max-height gutter.
+    const gutter = viewportHeight <= 280 ? 12 : 64
     const dialogMaxHeight =
       positionNarrow === 'fullscreen' || positionRegular === 'left' || positionRegular === 'right'
         ? viewportHeight
-        : Math.max(0, viewportHeight - 64)
+        : Math.max(0, viewportHeight - gutter)
 
     const headerHeight = headerElement instanceof HTMLElement ? headerElement.offsetHeight : 0
     const wrappedFooterHeight = measureWrappedFooterHeight(footerElement)
