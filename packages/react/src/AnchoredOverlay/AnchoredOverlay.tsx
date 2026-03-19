@@ -1,5 +1,5 @@
 import type React from 'react'
-import {useCallback, useEffect, useRef, type JSX} from 'react'
+import {useCallback, useEffect, useLayoutEffect, useRef, type JSX} from 'react'
 import type {OverlayProps} from '../Overlay'
 import Overlay from '../Overlay'
 import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'
@@ -196,13 +196,18 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       if (event.defaultPrevented || event.button !== 0) {
         return
       }
+      // Prevent the browser's native popovertarget toggle so React
+      // stays the single source of truth for popover visibility.
+      if (cssAnchorPositioning) {
+        event.preventDefault()
+      }
       if (!open) {
         onOpen?.('anchor-click')
       } else {
         onClose?.('anchor-click')
       }
     },
-    [open, onOpen, onClose],
+    [open, onOpen, onClose, cssAnchorPositioning],
   )
 
   const positionChange = (position: AnchorPosition | undefined) => {
@@ -259,16 +264,17 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     }
   }, [isExternalAnchor, anchorRef])
 
-  useEffect(() => {
-    if (!cssAnchorPositioning || !open || !overlayRef.current || renderAnchor) return
-
+  useLayoutEffect(() => {
+    if (!cssAnchorPositioning || !open || !overlayRef.current) return
     const overlay = overlayRef.current
     try {
-      overlay.showPopover()
+      if (!overlay.matches(':popover-open')) {
+        overlay.showPopover()
+      }
     } catch {
       // Ignore if popover is already showing or not supported
     }
-  }, [cssAnchorPositioning, open, overlayRef, renderAnchor])
+  }, [cssAnchorPositioning, open, overlayRef])
 
   const showXIcon = onClose && variant.narrow === 'fullscreen' && displayCloseButton
   const XButtonAriaLabelledBy = closeButtonProps['aria-labelledby']
