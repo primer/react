@@ -57,6 +57,7 @@ describe('StateLabel', () => {
     const screen4 = HTMLRender(<StateLabel status="alertClosed">Closed</StateLabel>)
     expect(screen4.getByLabelText('Alert')).toBeInTheDocument() // svg
     expect(screen4.getByText('Closed')).toBeInTheDocument() // text
+    screen4.unmount()
 
     const screenArchived = HTMLRender(<StateLabel status="archived">Archived</StateLabel>)
     expect(screenArchived.getByLabelText('Archived')).toBeInTheDocument() // svg
