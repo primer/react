@@ -1151,11 +1151,7 @@ export const WithNoContent = () => {
 }
 
 export const WithOverflow = () => (
-  <div
-    style={{
-      width: 500,
-    }}
-  >
+  <div className={classes.WithOverflowWrapper}>
     <Table.Container>
       <Table.Title as="h2" id="repositories">
         Repositories

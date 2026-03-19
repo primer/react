@@ -32,7 +32,9 @@ describe('ActionList.Description', () => {
 
     const description = getByText('Item 1 description')
     expect(description.tagName).toBe('DIV')
-    expect(description).toHaveAttribute('title', 'Item 1 description')
+    // For button-semantic items, the native title is suppressed in favor of
+    // a keyboard-accessible Tooltip rendered by the parent Item.
+    expect(description).toHaveAttribute('title', '')
     expect(description).toHaveStyle('flex-basis: auto')
     expect(description).toHaveStyle('text-overflow: ellipsis')
     expect(description).toHaveStyle('overflow: hidden')

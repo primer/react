@@ -3,3 +3,14 @@
   align-items: center;
   gap: var(--base-size-4);
 }
+
+.WithOverflowWrapper {
+  /* stylelint-disable-next-line primer/responsive-widths */
+  width: 500px;
+}
+
+@media (max-width: 500px) {
+  .WithOverflowWrapper {
+    width: 100%;
+  }
+}

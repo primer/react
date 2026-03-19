@@ -48,9 +48,7 @@ const ActionListImpl = React.forwardRef(function ActionListImpl<As extends React
   return <StyledActionList ref={ref} {...rest} {...(as ? {forwardedAs: as} : {})} />
 })
 
-const StyledActionListLinkItem: ForwardRefComponent<'a', ActionListLinkItemProps> & SlotMarker = styled(
-  PrimerActionList.LinkItem,
-).withConfig<ActionListLinkItemProps>({
+const StyledActionListLinkItem = styled(PrimerActionList.LinkItem).withConfig<ActionListLinkItemProps>({
   shouldForwardProp: prop => prop !== 'sx',
 })`
   ${sx}

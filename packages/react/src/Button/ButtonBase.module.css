@@ -581,11 +581,11 @@
   }
 
   [data-a11y-link-underlines='true'] &:where([data-variant='link']) {
-    &:not(:has(.Visual)) {
+    &[data-no-visuals] {
       text-decoration: underline;
     }
 
-    &:has(.Visual) {
+    &:not([data-no-visuals]) {
       background-image: linear-gradient(to right, currentColor, currentColor);
       background-size: 100% 1.5px;
       background-position: 0 calc(100% - 2px);
@@ -598,12 +598,12 @@
   }
 
   [data-a11y-link-underlines='false'] &:where([data-variant='link']) {
-    &:not(:has(.Visual)) {
+    &[data-no-visuals] {
       text-decoration: none;
       background-image: none;
     }
 
-    &:has(.Visual) {
+    &:not([data-no-visuals]) {
       background-image: none;
     }
   }
