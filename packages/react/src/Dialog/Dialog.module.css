@@ -316,7 +316,6 @@ body[data-dialog-scroll-disabled] {
 
 .DialogOverflowWrapper {
   flex-grow: 1;
-  min-height: 0;
 }
 
 /*
@@ -394,8 +393,7 @@ Add a border between the body and footer if:
 
 .Dialog[data-footer-button-layout='scroll'] .Footer {
   flex-wrap: nowrap;
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow-x: scroll;
   flex-direction: row;
   justify-content: unset;
 }

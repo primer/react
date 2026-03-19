@@ -241,8 +241,10 @@ const defaultPosition = {
 
 const defaultFooterButtons: Array<DialogButtonProps> = []
 // Minimum room needed for body content before forcing footer buttons into horizontal scroll.
-const MIN_BODY_HEIGHT_FOR_WRAPPED_FOOTER = 56
+const MIN_BODY_HEIGHT = 56
 
+// Measures what the footer height would be in wrap mode by cloning it offscreen,
+// so we can decide layout without mutating the visible footer.
 function measureWrappedFooterHeight(footerElement: HTMLElement) {
   const measurementContainer = document.createElement('div')
   const measuredFooter = footerElement.cloneNode(true) as HTMLElement
@@ -408,7 +410,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     const wrappedFooterHeight = measureWrappedFooterHeight(footerElement)
     const visibleBodyHeightWithWrap = Math.max(0, dialogMaxHeight - headerHeight - wrappedFooterHeight)
 
-    setFooterButtonLayout(visibleBodyHeightWithWrap >= MIN_BODY_HEIGHT_FOR_WRAPPED_FOOTER ? 'wrap' : 'scroll')
+    setFooterButtonLayout(visibleBodyHeightWithWrap >= MIN_BODY_HEIGHT ? 'wrap' : 'scroll')
   }, [hasFooter])
 
   useResizeObserver(updateFooterButtonLayout, backdropRef)
