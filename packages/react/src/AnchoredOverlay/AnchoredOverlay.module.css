@@ -14,8 +14,11 @@
 }
 
 .Wrapper {
-  anchor-scope: --anchored-overlay-anchor;
   display: inline;
+
+  &:not([data-external-anchor]) {
+    anchor-scope: --anchored-overlay-anchor;
+  }
 
   & [data-anchor] {
     /* Anchor name, this is currently tied to `renderAnchor` */
@@ -24,7 +27,6 @@
 }
 
 .AnchoredOverlay {
-  /* Anchor position, this is currently tied to `<Overlay>` */
   position-anchor: --anchored-overlay-anchor;
   position-try-fallbacks:
     flip-block,

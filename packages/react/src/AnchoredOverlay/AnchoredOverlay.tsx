@@ -247,6 +247,29 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   })
   useFocusTrap({containerRef: overlayRef, disabled: !open || !position, ...focusTrapSettings})
 
+  const isExternalAnchor = cssAnchorPositioning && !renderAnchor
+  useEffect(() => {
+    if (!isExternalAnchor || !anchorRef.current) return
+
+    const anchor = anchorRef.current
+    anchor.style.setProperty('anchor-name', '--anchored-overlay-anchor')
+
+    return () => {
+      anchor.style.removeProperty('anchor-name')
+    }
+  }, [isExternalAnchor, anchorRef])
+
+  useEffect(() => {
+    if (!cssAnchorPositioning || !open || !overlayRef.current || renderAnchor) return
+
+    const overlay = overlayRef.current
+    try {
+      overlay.showPopover()
+    } catch {
+      // Ignore if popover is already showing or not supported
+    }
+  }, [cssAnchorPositioning, open, overlayRef, renderAnchor])
+
   const showXIcon = onClose && variant.narrow === 'fullscreen' && displayCloseButton
   const XButtonAriaLabelledBy = closeButtonProps['aria-labelledby']
   const XButtonAriaLabel = closeButtonProps['aria-label']
@@ -321,7 +344,11 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   )
 
   if (cssAnchorPositioning) {
-    return <div className={classes.Wrapper}>{innerContent}</div>
+    return (
+      <div className={classes.Wrapper} data-external-anchor={isExternalAnchor ? '' : undefined}>
+        {innerContent}
+      </div>
+    )
   }
 
   return innerContent
