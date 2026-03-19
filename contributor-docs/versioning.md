@@ -70,10 +70,12 @@ For a full list of releases, visit our [releases](https://github.com/primer/reac
 |               | [A component changes its usage of a CSS Custom Property](#a-component-changes-its-usage-of-a-css-custom-property)                             | potentially `major` |
 | Accessibility | [A component includes a landmark role](#a-component-includes-a-landmark-role)                                                                 | potentially `major` |
 |               | [A component no longer includes a landmark role](#a-component-no-longer-includes-a-landmark-role)                                             | potentially `major` |
-| Data attrs    | A `data-component` or `data-part` attribute is added ([ADR-023](./adrs/adr-023-data-component-api.md))                                        | `minor`             |
-|               | A `data-component` or `data-part` value is renamed, removed, or moved to a different element                                                  | `major`             |
-| Data attrs    | A `data-component` or `data-part` attribute is added ([ADR-023](./adrs/adr-023-data-component-api.md))                                        | `minor`             |
-|               | A `data-component` or `data-part` value is renamed, removed, or moved to a different element                                                  | `major`             |
+| Data attrs    | A `data-component` or `data-part` attribute is added to an element ([ADR-023](./adrs/adr-023-stable-selectors-api.md))                        | `minor`             |
+|               | A `data-component` or `data-part` value is renamed                                                                                            | `major`             |
+|               | A `data-component` or `data-part` attribute is removed                                                                                        | `major`             |
+|               | A `data-component` is changed to `data-part` or vice-versa                                                                                    | `major`             |
+|               | The DOM element an attribute is applied to changes                                                                                            | `minor`             |
+|               | Attributes, parents, or children of the element change                                                                                        | `patch/minor`       |
 
 ## Reference
 
