@@ -16,6 +16,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import classes from './Dialog.module.css'
 import {clsx} from 'clsx'
 import {useSlots} from '../hooks/useSlots'
+import {useResizeObserver} from '../hooks/useResizeObserver'
 
 /* Dialog Version 2 */
 
@@ -239,6 +240,39 @@ const defaultPosition = {
 }
 
 const defaultFooterButtons: Array<DialogButtonProps> = []
+// Minimum room needed for body content before forcing footer buttons into horizontal scroll.
+const MIN_BODY_HEIGHT_FOR_WRAPPED_FOOTER = 56
+
+function measureWrappedFooterHeight(footerElement: HTMLElement) {
+  const measurementContainer = document.createElement('div')
+  const measuredFooter = footerElement.cloneNode(true) as HTMLElement
+
+  Object.assign(measurementContainer.style, {
+    position: 'fixed',
+    top: '0',
+    left: '-99999px',
+    visibility: 'hidden',
+    pointerEvents: 'none',
+    contain: 'layout style size',
+  })
+
+  measuredFooter.style.width = `${footerElement.getBoundingClientRect().width}px`
+
+  Object.assign(measuredFooter.style, {
+    flexWrap: 'wrap',
+    overflowX: '',
+    overflowY: '',
+    justifyContent: '',
+  })
+
+  measurementContainer.appendChild(measuredFooter)
+  document.body.appendChild(measurementContainer)
+
+  const measuredHeight = measuredFooter.offsetHeight
+  measurementContainer.remove()
+
+  return measuredHeight
+}
 
 // useful to determine whether we're inside a Dialog from a nested component
 export const DialogContext = React.createContext<object | undefined>(undefined)
@@ -273,6 +307,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     }
   }
   const [lastMouseDownIsBackdrop, setLastMouseDownIsBackdrop] = useState<boolean>(false)
+  const [footerButtonLayout, setFooterButtonLayout] = useState<'scroll' | 'wrap'>('wrap')
   const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId}
   const onBackdropClick = useCallback(
     (e: SyntheticEvent) => {
@@ -339,6 +374,44 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   const header = slots.header ?? (renderHeader ?? DefaultHeader)(defaultedProps)
   const body = slots.body ?? (renderBody ?? DefaultBody)({...defaultedProps, children: childrenWithoutSlots})
   const footer = slots.footer ?? (renderFooter ?? DefaultFooter)(defaultedProps)
+  const hasFooter = footer != null
+
+  const updateFooterButtonLayout = useCallback(() => {
+    if (!hasFooter) {
+      setFooterButtonLayout('wrap')
+      return
+    }
+
+    const dialogElement = dialogRef.current
+    if (!(dialogElement instanceof HTMLElement)) {
+      return
+    }
+
+    const headerElement = dialogElement.querySelector(`.${classes.Header}`)
+    const footerElement = dialogElement.querySelector(`.${classes.Footer}`)
+
+    if (!(footerElement instanceof HTMLElement)) {
+      return
+    }
+
+    const viewportHeight = backdropRef.current?.clientHeight ?? window.innerHeight
+    const positionRegular = dialogElement.getAttribute('data-position-regular')
+    const positionNarrow = dialogElement.getAttribute('data-position-narrow')
+    // fullscreen/left/right fill the full viewport; all others are capped at 100dvh - 64px
+    const dialogMaxHeight =
+      positionNarrow === 'fullscreen' || positionRegular === 'left' || positionRegular === 'right'
+        ? viewportHeight
+        : Math.max(0, viewportHeight - 64)
+
+    const headerHeight = headerElement instanceof HTMLElement ? headerElement.offsetHeight : 0
+    const wrappedFooterHeight = measureWrappedFooterHeight(footerElement)
+    const visibleBodyHeightWithWrap = Math.max(0, dialogMaxHeight - headerHeight - wrappedFooterHeight)
+
+    setFooterButtonLayout(visibleBodyHeightWithWrap >= MIN_BODY_HEIGHT_FOR_WRAPPED_FOOTER ? 'wrap' : 'scroll')
+  }, [hasFooter])
+
+  useResizeObserver(updateFooterButtonLayout, backdropRef)
+
   const positionDataAttributes =
     typeof position === 'string'
       ? {'data-position-regular': position}
@@ -371,7 +444,8 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             {...(align && {'data-align': align})}
             data-width={width}
             data-height={height}
-            data-has-footer={footer != null ? '' : undefined}
+            data-has-footer={hasFooter ? '' : undefined}
+            data-footer-button-layout={hasFooter ? footerButtonLayout : undefined}
             className={clsx(className, classes.Dialog)}
             style={style}
           >
