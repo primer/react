@@ -1,5 +1,6 @@
 import type React from 'react'
-import {useCallback, useEffect, useLayoutEffect, useRef, type JSX} from 'react'
+import {useCallback, useEffect, useRef, type JSX} from 'react'
+import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import type {OverlayProps} from '../Overlay'
 import Overlay from '../Overlay'
 import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'
@@ -252,21 +253,30 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   })
   useFocusTrap({containerRef: overlayRef, disabled: !open || !position, ...focusTrapSettings})
 
+  const popoverId = useId()
+  const id = popoverId.replaceAll(':', '_') // popoverId can contain colons which are invalid in CSS custom property names, so we replace them with underscores
+
   const isExternalAnchor = cssAnchorPositioning && !renderAnchor
   useEffect(() => {
-    if (!isExternalAnchor || !anchorRef.current) return
+    if (!cssAnchorPositioning || !anchorRef.current) return
 
     const anchor = anchorRef.current
-    anchor.style.setProperty('anchor-name', '--anchored-overlay-anchor')
+    const overlay = overlayRef.current
+    anchor.style.setProperty('anchor-name', `--anchored-overlay-anchor-${id}`)
 
     return () => {
       anchor.style.removeProperty('anchor-name')
+      if (overlay) {
+        overlay.style.removeProperty('position-anchor')
+      }
     }
-  }, [isExternalAnchor, anchorRef])
+  }, [cssAnchorPositioning, anchorRef, overlayRef, id])
 
   useLayoutEffect(() => {
     if (!cssAnchorPositioning || !open || !overlayRef.current) return
     const overlay = overlayRef.current
+    overlay.style.setProperty('position-anchor', `--anchored-overlay-anchor-${id}`)
+
     try {
       if (!overlay.matches(':popover-open')) {
         overlay.showPopover()
@@ -274,15 +284,13 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     } catch {
       // Ignore if popover is already showing or not supported
     }
-  }, [cssAnchorPositioning, open, overlayRef])
+  }, [cssAnchorPositioning, open, overlayRef, id])
 
   const showXIcon = onClose && variant.narrow === 'fullscreen' && displayCloseButton
   const XButtonAriaLabelledBy = closeButtonProps['aria-labelledby']
   const XButtonAriaLabel = closeButtonProps['aria-label']
 
   const {className: overlayClassName, ...restOverlayProps} = overlayProps || {}
-
-  const popoverId = useId()
 
   const innerContent = (
     <>
