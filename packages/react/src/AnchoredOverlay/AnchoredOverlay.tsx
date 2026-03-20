@@ -1,5 +1,5 @@
 import type React from 'react'
-import {Fragment, useCallback, useEffect, useRef, type JSX} from 'react'
+import {useCallback, useEffect, useRef, type JSX} from 'react'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import type {OverlayProps} from '../Overlay'
 import Overlay from '../Overlay'
@@ -256,7 +256,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   const popoverId = useId()
   const id = popoverId.replaceAll(':', '_') // popoverId can contain colons which are invalid in CSS custom property names, so we replace them with underscores
 
-  const isExternalAnchor = cssAnchorPositioning && !renderAnchor
   useEffect(() => {
     if (!cssAnchorPositioning || !anchorRef.current) return
 
@@ -292,13 +291,8 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
   const {className: overlayClassName, ...restOverlayProps} = overlayProps || {}
 
-  const Wrapper = cssAnchorPositioning ? 'div' : Fragment
-  const wrapperProps = cssAnchorPositioning
-    ? {className: classes.Wrapper, 'data-external-anchor': isExternalAnchor ? '' : undefined}
-    : {}
-
   return (
-    <Wrapper {...wrapperProps}>
+    <>
       {renderAnchor &&
         renderAnchor({
           ref: anchorRef,
@@ -359,7 +353,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           {children}
         </Overlay>
       ) : null}
-    </Wrapper>
+    </>
   )
 }
 

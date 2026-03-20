@@ -13,10 +13,6 @@
   }
 }
 
-.Wrapper {
-  display: inline;
-}
-
 .AnchoredOverlay {
   position-try-fallbacks:
     flip-block,
