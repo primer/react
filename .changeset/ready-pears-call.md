@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-Add 'archived' status to StateLabel
+StateLabel: Add new type: `archived`
