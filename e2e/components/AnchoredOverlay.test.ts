@@ -98,6 +98,11 @@ const stories: Array<{
   //   openDialog: true,
   // },
   {
+    title: 'Multiple Overlays',
+    id: 'components-anchoredoverlay-features--multiple-overlays',
+    buttonName: 'renderAnchor 1',
+  },
+  {
     title: 'Within Sticky Element',
     id: 'components-anchoredoverlay-features--within-sticky-element',
     buttonName: 'Open Overlay',
