@@ -10,6 +10,8 @@ import githubPlugin from 'eslint-plugin-github'
 import storybook from 'eslint-plugin-storybook'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
+import reactCompiler from 'eslint-plugin-react-compiler'
+import {unsupportedPatterns as reactCompilerUnsupported} from './packages/react/script/react-compiler.mjs'
 import playwright from 'eslint-plugin-playwright'
 import prettierRecommended from 'eslint-plugin-prettier/recommended'
 import primerReact from 'eslint-plugin-primer-react'
@@ -58,15 +60,27 @@ const config = defineConfig([
 
   js.configs.recommended,
 
-  react.configs.flat.recommended,
-  react.configs.flat['jsx-runtime'],
+  ...fixupConfigRules([react.configs.flat.recommended, react.configs.flat['jsx-runtime']]),
   reactHooks.configs.flat['recommended-latest'],
 
-  github.browser,
-  github.recommended,
-  github.react,
+  // React Compiler
+  {
+    plugins: {'react-compiler': reactCompiler},
+    rules: {
+      'react-compiler/react-compiler': 'warn',
+    },
+  },
+  // Disable react-compiler rule for files not yet migrated
+  {
+    files: reactCompilerUnsupported.map(p => `packages/react/${p}`),
+    rules: {
+      'react-compiler/react-compiler': 'off',
+    },
+  },
 
-  prettierRecommended,
+  ...fixupConfigRules([github.browser, github.recommended, github.react]),
+
+  ...fixupConfigRules([prettierRecommended]),
 
   tseslint.configs.recommended,
   // @eslint-react/eslint-plugin
@@ -357,7 +371,7 @@ const config = defineConfig([
   },
 
   // Storybook stories
-  ...storybook.configs['flat/recommended'],
+  ...fixupConfigRules(storybook.configs['flat/recommended']),
 
   // packages/mcp
   {

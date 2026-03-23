@@ -133,6 +133,14 @@ export interface DialogProps {
   position?: 'center' | 'left' | 'right' | ResponsiveValue<'left' | 'right' | 'bottom' | 'fullscreen' | 'center'>
 
   /**
+   * The vertical alignment of the dialog. Only applies when position is 'center' (the default).
+   * top: positions the Dialog ~4rem from the top of the screen, horizontally centered
+   * center: (default) vertically centers the Dialog on the screen
+   * bottom: positions the Dialog near the bottom of the screen, horizontally centered
+   */
+  align?: 'top' | 'center' | 'bottom'
+
+  /**
    * Return focus to this element when the Dialog closes,
    * instead of the element that had focus immediately before the Dialog opened
    */
@@ -147,6 +155,10 @@ export interface DialogProps {
    * Additional class names to apply to the dialog
    */
   className?: string
+  /**
+   * Additional styles to apply to the dialog
+   */
+  style?: React.CSSProperties
 }
 
 /**
@@ -228,6 +240,10 @@ const defaultPosition = {
 
 const defaultFooterButtons: Array<DialogButtonProps> = []
 
+// useful to determine whether we're inside a Dialog from a nested component
+export const DialogContext = React.createContext<object | undefined>(undefined)
+const DIALOG_CONTEXT_VALUE = Object.freeze({})
+
 const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
   const {
     title = 'Dialog',
@@ -241,9 +257,11 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     height = 'auto',
     footerButtons = defaultFooterButtons,
     position = defaultPosition,
+    align,
     returnFocusRef,
     initialFocusRef,
     className,
+    style,
   } = props
   const dialogLabelId = useId()
   const dialogDescriptionId = useId()
@@ -331,12 +349,13 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
         )
 
   return (
-    <>
+    <DialogContext.Provider value={DIALOG_CONTEXT_VALUE}>
       <Portal>
         <div
           ref={backdropRef}
           className={classes.Backdrop}
           {...positionDataAttributes}
+          {...(align && {'data-align': align})}
           onClick={onBackdropClick}
           onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => {
             setLastMouseDownIsBackdrop(e.target === e.currentTarget)
@@ -349,9 +368,12 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             aria-describedby={dialogDescriptionId}
             aria-modal
             {...positionDataAttributes}
+            {...(align && {'data-align': align})}
             data-width={width}
             data-height={height}
+            data-has-footer={footer != null ? '' : undefined}
             className={clsx(className, classes.Dialog)}
+            style={style}
           >
             {header}
             <ScrollableRegion aria-labelledby={dialogLabelId} className={classes.DialogOverflowWrapper}>
@@ -361,7 +383,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           </div>
         </div>
       </Portal>
-    </>
+    </DialogContext.Provider>
   )
 })
 _Dialog.displayName = 'Dialog'

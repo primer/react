@@ -21,10 +21,6 @@ function idToSlug(id: string): string {
     return 'dialog'
   }
 
-  if (id.startsWith('skeleton')) {
-    return 'skeleton-loaders'
-  }
-
   return id.replaceAll('_', '-')
 }
 

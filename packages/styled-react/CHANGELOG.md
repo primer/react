@@ -1,5 +1,11 @@
 # @primer/styled-react
 
+## 1.0.3
+
+### Patch Changes
+
+- [#7499](https://github.com/primer/react/pull/7499) [`4f43e82`](https://github.com/primer/react/commit/4f43e8295c643780addfd01a8dcb011a59a5b6db) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Remove deprecated component exports from @primer/styled-react that no longer have usage tracked in primer query
+
 ## 1.0.2
 
 ### Patch Changes

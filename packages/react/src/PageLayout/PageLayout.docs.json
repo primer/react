@@ -30,6 +30,36 @@
     },
     {
       "id": "components-pagelayout-features--with-custom-pane-heading"
+    },
+    {
+      "id": "components-pagelayout-features--resizable-pane-without-persistence"
+    },
+    {
+      "id": "components-pagelayout-features--resizable-pane-with-custom-persistence"
+    },
+    {
+      "id": "components-pagelayout-features--resizable-pane-with-number-width"
+    },
+    {
+      "id": "components-pagelayout-features--resizable-pane-with-controlled-width"
+    },
+    {
+      "id": "components-pagelayout-features--sidebar-start"
+    },
+    {
+      "id": "components-pagelayout-features--sidebar-end"
+    },
+    {
+      "id": "components-pagelayout-features--resizable-sidebar"
+    },
+    {
+      "id": "components-pagelayout-features--sidebar-with-pane-resizable"
+    },
+    {
+      "id": "components-pagelayout-features--sticky-sidebar"
+    },
+    {
+      "id": "components-pagelayout-features--sidebar-fullscreen-responsive-variant"
     }
   ],
   "importPath": "@primer/react",
@@ -172,13 +202,23 @@
           "name": "resizable",
           "type": "boolean",
           "defaultValue": "false",
-          "description": "When true, the pane may be resized by the user."
+          "description": "When true, the pane may be resized by the user. Uses localStorage persistence by default. Note: with default persistence in SSR, the server-rendered width may differ from the stored client width, causing a brief layout shift on hydration. Use `onResizeEnd` with server-aware storage to avoid this."
+        },
+        {
+          "name": "currentWidth",
+          "type": "number | undefined",
+          "description": "Current/controlled width value in pixels. Required when `onResizeEnd` is provided. Pass `undefined` when the persisted value has not loaded yet. The `width` prop still defines the default used when resetting (e.g., double-click)."
+        },
+        {
+          "name": "onResizeEnd",
+          "type": "(width: number) => void",
+          "description": "Callback fired when a resize operation ends (drag release or keyboard key up). When provided, replaces localStorage persistence. Requires `currentWidth`."
         },
         {
           "name": "widthStorageKey",
           "type": "string",
           "defaultValue": "'paneWidth'",
-          "description": "Provide a key used by localStorage to persist the size of the pane on the client."
+          "description": "localStorage key used to persist the pane width across sessions. Only applies when `resizable` is `true` and no `onResizeEnd` callback is provided."
         },
         {
           "name": "sticky",
@@ -226,6 +266,75 @@
         {
           "name": "ref",
           "type": "React.RefObject<HTMLDivElement>"
+        }
+      ]
+    },
+    {
+      "name": "PageLayout.Sidebar",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "description": "A unique label for the sidebar region."
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string | undefined",
+          "description": "An id to an element which uniquely labels the sidebar region."
+        },
+        {
+          "name": "position",
+          "type": "'start' | 'end'",
+          "defaultValue": "'start'",
+          "description": "Position of the sidebar relative to the page layout. The sidebar spans the full height of the layout, adjacent to the header, content, and footer."
+        },
+        {
+          "name": "width",
+          "type": "| 'small' | 'medium' | 'large' | { min: string max: string default: string }",
+          "defaultValue": "'medium'",
+          "description": "The width of the sidebar. If using custom widths, provide an object with keys 'min', 'max' and 'default'."
+        },
+        {
+          "name": "minWidth",
+          "type": "number",
+          "defaultValue": "256",
+          "description": "Minimum width of the sidebar when resizable."
+        },
+        {
+          "name": "resizable",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "When true, the sidebar may be resized by the user. Width is persisted to localStorage by default."
+        },
+        {
+          "name": "padding",
+          "type": "| 'none' | 'condensed' | 'normal'",
+          "defaultValue": "'none'",
+          "description": "The amount of padding inside the sidebar."
+        },
+        {
+          "name": "divider",
+          "type": "| 'none' | 'line'",
+          "defaultValue": "'none'",
+          "description": "Divider style between the sidebar and the rest of the layout."
+        },
+        {
+          "name": "sticky",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Whether the sidebar sticks to the viewport when scrolling. When enabled, the sidebar uses position: sticky with top: 0 and height: 100vh."
+        },
+        {
+          "name": "responsiveVariant",
+          "type": "| 'default' | 'fullscreen'",
+          "defaultValue": "'default'",
+          "description": "Controls sidebar behavior at narrow viewport widths (below 768px). 'default' retains its normal inline layout. 'fullscreen' expands to cover the full viewport like a dialog overlay."
+        },
+        {
+          "name": "hidden",
+          "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
+          "defaultValue": "false",
+          "description": "Whether the sidebar is hidden."
         }
       ]
     },

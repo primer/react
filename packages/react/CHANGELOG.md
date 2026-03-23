@@ -1,5 +1,211 @@
 # @primer/react
 
+## 38.16.0
+
+### Minor Changes
+
+- [#7661](https://github.com/primer/react/pull/7661) [`dceb79c`](https://github.com/primer/react/commit/dceb79c5e0f8ab5c25bbc9727bc3207fb77d520e) Thanks [@TylerJDev](https://github.com/TylerJDev)! - AnchoredOverlay: Add CSS Anchor Positioning to `AnchoredOverlay` (under a feature flag)
+
+## 38.15.1
+
+### Patch Changes
+
+- [#7625](https://github.com/primer/react/pull/7625) [`2e8c707`](https://github.com/primer/react/commit/2e8c70702d5096551049c29c8e79749bf63a919f) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Banner: stack inline actions vertically on narrow viewports.
+
+- [#7554](https://github.com/primer/react/pull/7554) [`f34f0c3`](https://github.com/primer/react/commit/f34f0c37c2bb144e34b029696c580ee8104dbce6) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(ActionList): memoize context values, menuItemProps, and aria attributes
+
+- [#7598](https://github.com/primer/react/pull/7598) [`4b345db`](https://github.com/primer/react/commit/4b345db228997b66c381f7d03369f87ee25fdf02) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(Banner): replace `:has(.BannerActions)` with `[data-has-actions]` attribute selector
+
+- [#7597](https://github.com/primer/react/pull/7597) [`adadd38`](https://github.com/primer/react/commit/adadd380043c637d431e30643e910e7b4ec7fe03) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(Button): replace `:has(.Visual)` with `[data-no-visuals]` attribute selector in link variant styling
+
+- [#7599](https://github.com/primer/react/pull/7599) [`e6513c2`](https://github.com/primer/react/commit/e6513c2a8a5b99e61c9009e0e3c7112a7388a295) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(Dialog): replace `:has(.Footer)` with `[data-has-footer]` attribute selector for footer border detection
+
+- [#7620](https://github.com/primer/react/pull/7620) [`ec0b789`](https://github.com/primer/react/commit/ec0b7890b45ca939c24d6236d94a69d9006c3a64) Thanks [@hectahertz](https://github.com/hectahertz)! - Use stable object reference for DialogContext value to prevent unnecessary re-renders
+
+- [#7621](https://github.com/primer/react/pull/7621) [`235126a`](https://github.com/primer/react/commit/235126abbd271e0a6e1e95110f40d72c193c6d24) Thanks [@hectahertz](https://github.com/hectahertz)! - Memoize SelectPanel overlayProps, focusTrapSettings, and preventBubbling to reduce allocations on re-renders
+
+- [#7600](https://github.com/primer/react/pull/7600) [`0d7cc92`](https://github.com/primer/react/commit/0d7cc92b474185c7efa09871b42c6a97a9326be6) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(TextInput): skip redundant character counter updates
+
+- [#7654](https://github.com/primer/react/pull/7654) [`a09a60c`](https://github.com/primer/react/commit/a09a60cb8218adf8fe2ab71e46da76fbf8331bc6) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - SelectPanel: use `100dvh` and `env(safe-area-inset-bottom)` in fullscreen-on-narrow mode to prevent content from being obscured by iOS Safari's browser chrome.
+
+- [#7545](https://github.com/primer/react/pull/7545) [`17ec46f`](https://github.com/primer/react/commit/17ec46f77524f3ad5e1789102bdf2dbaf47eab49) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(TreeView): defer scrollIntoView to coalesce reflows during rapid navigation
+
+## 38.15.0
+
+### Minor Changes
+
+- [#7524](https://github.com/primer/react/pull/7524) [`f7bdd1c`](https://github.com/primer/react/commit/f7bdd1c04f8cbb17b6a913ba55f7d0855c8eebf1) Thanks [@francinelucca](https://github.com/francinelucca)! - chore: always render ActionMenu in viewport when inside Dialog under feature flag
+
+- [#7594](https://github.com/primer/react/pull/7594) [`1e54bdf`](https://github.com/primer/react/commit/1e54bdf72c9466f23c567cfdc73b7b5c243782a4) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Add `align` and `style` props to Dialog component
+
+### Patch Changes
+
+- [#7529](https://github.com/primer/react/pull/7529) [`7e108fe`](https://github.com/primer/react/commit/7e108fea1a9f92ce22f46ff1d55bfe4753d89ad8) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Add keyboard-accessible tooltip for truncated ActionList.Description
+
+- [#7585](https://github.com/primer/react/pull/7585) [`3dd2c78`](https://github.com/primer/react/commit/3dd2c78f768ad560ee0f37947af2c17ca8d7938c) Thanks [@iansan5653](https://github.com/iansan5653)! - - Fixes a bug where `ActionBar` menu items would be out of order if new items were mounted after the initial render
+
+  - Improves initial render performance for `ActionBar`
+
+- [#7624](https://github.com/primer/react/pull/7624) [`f6d4311`](https://github.com/primer/react/commit/f6d431194d217fbb7d456e58bcbbcbb434896fe1) Thanks [@llastflowers](https://github.com/llastflowers)! - Fix FormControl + SelectPanel accessible name to address SR issues
+
+- [#7617](https://github.com/primer/react/pull/7617) [`79c855a`](https://github.com/primer/react/commit/79c855abeb6f46d3fefafb236f00ea65dfcd1ed4) Thanks [@llastflowers](https://github.com/llastflowers)! - Push margin-top of TimelineBody +1px
+
+- [#7635](https://github.com/primer/react/pull/7635) [`74762e2`](https://github.com/primer/react/commit/74762e265a44b4fa46fcb4db8fd5194cb81b14c4) Thanks [@iansan5653](https://github.com/iansan5653)! - Fix(useRefObjectAsForwardedRef): fix ref failing to update when target changes
+
+- [#7550](https://github.com/primer/react/pull/7550) [`9585669`](https://github.com/primer/react/commit/958566907a580b54b484ff2339b32315b8a3b4b7) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(Spinner): replace Web Animations API with CSS animation-delay sync
+
+- [#7618](https://github.com/primer/react/pull/7618) [`17a103c`](https://github.com/primer/react/commit/17a103c0726ff2903e008a69dfd141461f99591f) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - TextInputWithTokens: announce selected token values for screen readers.
+
+- [#7588](https://github.com/primer/react/pull/7588) [`e649da3`](https://github.com/primer/react/commit/e649da3c89b38f477fb574acf5bb06a49b41ee9d) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - ToggleSwitch: Updated with a 1px space around the knob to work better with updated primitives.
+
+## 38.14.0
+
+### Minor Changes
+
+- [#7531](https://github.com/primer/react/pull/7531) [`0cfb938`](https://github.com/primer/react/commit/0cfb938704ec7589b6453a23ba8a9f2c8ab7d824) Thanks [@hectahertz](https://github.com/hectahertz)! - SelectPanel: Add built-in client-side list virtualization via a new `virtualized` prop. When enabled, only the visible items plus a small overscan buffer are rendered in the DOM, dramatically improving performance for large lists.
+
+### Patch Changes
+
+- [#7497](https://github.com/primer/react/pull/7497) [`931740b`](https://github.com/primer/react/commit/931740bc6d96dd3bb6f335ea98eedd4b64eb1859) Thanks [@hectahertz](https://github.com/hectahertz)! - Remove render phase setStates on SelectPanel
+
+- [#7532](https://github.com/primer/react/pull/7532) [`39a2151`](https://github.com/primer/react/commit/39a21512f71083649bdb00b1d3a6c05e40ec5bfb) Thanks [@hectahertz](https://github.com/hectahertz)! - **PageLayout**: Eliminate forced reflow (~614ms) on mount by replacing `getComputedStyle` call with a pure JS viewport width check for the `--pane-max-width-diff` CSS variable.
+
+- [#7555](https://github.com/primer/react/pull/7555) [`64c2243`](https://github.com/primer/react/commit/64c2243d07fc580a5565493b917b27081ef6a191) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(useSlots): short-circuit iteration and skip filled slots
+
+- [#7547](https://github.com/primer/react/pull/7547) [`4943d67`](https://github.com/primer/react/commit/4943d671ddb590461e59f9745e6093d47e770f7a) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(useScrollFlash): defer scroll read/write to requestAnimationFrame to avoid forced reflow
+
+- [#7497](https://github.com/primer/react/pull/7497) [`931740b`](https://github.com/primer/react/commit/931740bc6d96dd3bb6f335ea98eedd4b64eb1859) Thanks [@hectahertz](https://github.com/hectahertz)! - Improve SelectPanel performance
+
+- [#7551](https://github.com/primer/react/pull/7551) [`2fbfc49`](https://github.com/primer/react/commit/2fbfc49fad6f11edc51850e32e9c0b2ade8ca1f1) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(Text): remove unnecessary useRef and useImperativeHandle hooks
+
+- [#7571](https://github.com/primer/react/pull/7571) [`59ab235`](https://github.com/primer/react/commit/59ab235cb8089442652daca33746b11cea3e6a5f) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - AnchoredOverlay: changed `overflow` from `hidden` to `auto` to prevent content clipping at small viewports.
+
+- [#7553](https://github.com/primer/react/pull/7553) [`6225ba2`](https://github.com/primer/react/commit/6225ba231cfdbe6ef7fa41dd62734d5a970bdc7d) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(useRefObjectAsForwardedRef): add dependency array to useImperativeHandle
+
+## 38.13.0
+
+### Minor Changes
+
+- [#7099](https://github.com/primer/react/pull/7099) [`4720c2f`](https://github.com/primer/react/commit/4720c2f27cfacc7600244422ee22af9104b5aa09) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Banner: Use `aria-labelledby` to reference the title for the landmark region instead of generic variant labels.
+
+- [#7521](https://github.com/primer/react/pull/7521) [`12dda86`](https://github.com/primer/react/commit/12dda8654b07bffc33e6b8f29580914c95f3e8e2) Thanks [@TylerJDev](https://github.com/TylerJDev)! - PageLayout: Add `PageLayout.Sidebar` sub-component
+
+### Patch Changes
+
+- [#7537](https://github.com/primer/react/pull/7537) [`4fd987c`](https://github.com/primer/react/commit/4fd987c4194f51dc7e66f16895542a1e4678bde7) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(ActionList): enable React Compiler
+
+- [#7546](https://github.com/primer/react/pull/7546) [`86d6897`](https://github.com/primer/react/commit/86d68971a602be6c99535eb01227bf48dd87cfdc) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(Announce): skip getComputedStyle when there is no text content to announce
+
+- [#7568](https://github.com/primer/react/pull/7568) [`aa46098`](https://github.com/primer/react/commit/aa460989194e6bb2c0e15e16023a07cf7fc42dc0) Thanks [@HiroAgustin](https://github.com/HiroAgustin)! - Blankslate: Add `text-wrap: balance` to Heading and Description
+
+- [#7552](https://github.com/primer/react/pull/7552) [`551ec63`](https://github.com/primer/react/commit/551ec6338af5c45e3f549245d85a4dd5a708df47) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(Button): fix CounterLabel remount and remove conditional DEV hook
+
+- [#7504](https://github.com/primer/react/pull/7504) [`d91e78e`](https://github.com/primer/react/commit/d91e78e8d1e69915222354b95d09d93d269dbd8b) Thanks [@TylerJDev](https://github.com/TylerJDev)! - UnderlineNav: Adds `overflow: hidden` when the "More" button isn't present
+
+- [#7526](https://github.com/primer/react/pull/7526) [`0c2358a`](https://github.com/primer/react/commit/0c2358aa12a409f7cbcf15ce4fd41cbb9eee4b6c) Thanks [@hectahertz](https://github.com/hectahertz)! - Add `content-visibility: auto` to ActionList items to improve rendering performance for large lists by allowing the browser to skip layout and paint for off-screen items.
+
+- [#7556](https://github.com/primer/react/pull/7556) [`6dc1858`](https://github.com/primer/react/commit/6dc1858538e3b7ea66b78dd9d37c391c530d78ae) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(ActionList): replace `:has([aria-disabled])` child scan with `data-is-disabled` attribute for faster style recalculation
+
+- [#7548](https://github.com/primer/react/pull/7548) [`d4b32c3`](https://github.com/primer/react/commit/d4b32c3672d3d5421711324654c1028527dcdf38) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(useIsMacOS): replace useState+useEffect with useSyncExternalStore to eliminate unnecessary re-render
+
+## 38.12.0
+
+### Minor Changes
+
+- [#7348](https://github.com/primer/react/pull/7348) [`3c160b2`](https://github.com/primer/react/commit/3c160b26bded975de6175ccf04272e8946cef54e) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Add `currentWidth` and `onResizeEnd` props to PageLayout.Pane for controlled resizable width
+
+  The `PageLayout.Pane` component now supports controlled width:
+
+  - `onResizeEnd` — callback fired when a resize operation ends (pointer release or keyboard key up). Replaces localStorage persistence. Requires `currentWidth`.
+  - `currentWidth` — sets the current displayed width in pixels (`number | undefined`). Pass `undefined` when the persisted value hasn't loaded yet. Requires `onResizeEnd`.
+
+  Both props must be provided together (enforced by TypeScript). `resizable` remains a plain `boolean` prop.
+
+  These props are only meaningful when `resizable={true}` — without it, no drag handle renders so `onResizeEnd` never fires.
+
+  **New export:**
+
+  - `defaultPaneWidth` — Record of preset width values: `{small: 256, medium: 296, large: 320}`
+
+  **Example usage:**
+
+  ```tsx
+  import {PageLayout, defaultPaneWidth} from '@primer/react'
+
+  // Default behavior (unchanged) — localStorage persistence
+  <PageLayout.Pane resizable />
+
+  // Controlled width with custom persistence
+  const [width, setWidth] = useState(defaultPaneWidth.medium)
+  <PageLayout.Pane
+    resizable
+    currentWidth={width}
+    onResizeEnd={(newWidth) => {
+      setWidth(newWidth)
+      myStorage.save('pane-width', newWidth)
+    }}
+  />
+
+  // Async load — pass undefined until value is fetched
+  <PageLayout.Pane
+    resizable
+    currentWidth={savedWidth ?? undefined}
+    onResizeEnd={handleResizeEnd}
+  />
+  ```
+
+### Patch Changes
+
+- [#7527](https://github.com/primer/react/pull/7527) [`c87db98`](https://github.com/primer/react/commit/c87db981280090cdccc84d19c607d1462212d223) Thanks [@llastflowers](https://github.com/llastflowers)! - Update PageHeader story to have semantic headings
+
+- [#7535](https://github.com/primer/react/pull/7535) [`d86c970`](https://github.com/primer/react/commit/d86c970be94dc47da55d492dc978d63d3f9ca005) Thanks [@francinelucca](https://github.com/francinelucca)! - fix: ActionBar overflow menu not closing on select
+
+## 38.11.0
+
+### Minor Changes
+
+- [#7509](https://github.com/primer/react/pull/7509) [`2e563b4`](https://github.com/primer/react/commit/2e563b44ac9e671f3f7fbf4f51a9612deb019db9) Thanks [@francinelucca](https://github.com/francinelucca)! - feat: implement displayInViewport for ActionMenu and AnchoredOverlay
+
+### Patch Changes
+
+- [#7501](https://github.com/primer/react/pull/7501) [`81ab065`](https://github.com/primer/react/commit/81ab065b734a7d919fd9ce42cee1ced648160d12) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Fix PageLayout horizontal overflow by adding width constraint to ContentWrapper
+
+- [#7483](https://github.com/primer/react/pull/7483) [`fe999ca`](https://github.com/primer/react/commit/fe999ca362d21447506798a024ac8e1b8709399a) Thanks [@francinelucca](https://github.com/francinelucca)! - remove primer_react_overlay_overflow FF from the codebase
+
+## 38.10.0
+
+### Minor Changes
+
+- [#7488](https://github.com/primer/react/pull/7488) [`fe85519`](https://github.com/primer/react/commit/fe85519ff23c23294a524e2ddceef042eb3c3608) Thanks [@koesie10](https://github.com/koesie10)! - DataTable: Add `externalSorting` prop to disable client-side sorting
+
+## 38.9.0
+
+### Minor Changes
+
+- [#7472](https://github.com/primer/react/pull/7472) [`661d16f`](https://github.com/primer/react/commit/661d16f4a8afc46cae40e06299877d46864ea1c9) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - StateLabel: Add alert status variants (alertOpened, alertFixed, alertClosed, alertDismissed) with corresponding shield icons for displaying security alert states
+
+### Patch Changes
+
+- [#7471](https://github.com/primer/react/pull/7471) [`df4bd30`](https://github.com/primer/react/commit/df4bd30874275245f1300573f4f4694b0be78ad5) Thanks [@llastflowers](https://github.com/llastflowers)! - Add breakpoint to shrink gutter around dialog on very small screen heights
+
+- [#7468](https://github.com/primer/react/pull/7468) [`731fb71`](https://github.com/primer/react/commit/731fb718593ddd24cf1962c31c7746e3add54d6a) Thanks [@jonrohan](https://github.com/jonrohan)! - feat(ActionList): Optimizes CSS selector performance in ActionList by replacing expensive universal selectors (`*`) and broad `:has()` queries with targeted class selectors.
+
+## 38.8.0
+
+### Minor Changes
+
+- [#7455](https://github.com/primer/react/pull/7455) [`a86c183`](https://github.com/primer/react/commit/a86c183f5ea7add7584f895cff3027a7db35675e) Thanks [@HiroAgustin](https://github.com/HiroAgustin)! - Remove ConfirmationDialog custom renders to ensure visual parity with Dialog
+
+- [#7438](https://github.com/primer/react/pull/7438) [`160c1c4`](https://github.com/primer/react/commit/160c1c4cf1c5111dd46b68471d49733f47f524cc) Thanks [@francinelucca](https://github.com/francinelucca)! - feat: make Spinner's delay customizable
+
+- [#7436](https://github.com/primer/react/pull/7436) [`9a4e46c`](https://github.com/primer/react/commit/9a4e46cf902a5c2e046ca7771211536ae0bd08ed) Thanks [@TylerJDev](https://github.com/TylerJDev)! - FilteredActionList: Adds new prop `scrollBehavior` to allow customization of scroll behavior
+
+- [#7448](https://github.com/primer/react/pull/7448) [`838859d`](https://github.com/primer/react/commit/838859d8ee2afc2afca71a28114020a14a68b297) Thanks [@francinelucca](https://github.com/francinelucca)! - feat(SkeletonBox): add customizable delay
+
+### Patch Changes
+
+- [#7451](https://github.com/primer/react/pull/7451) [`0fc4523`](https://github.com/primer/react/commit/0fc45237ef3f912c86663817eb8983875b4c8d7e) Thanks [@daantosaurus](https://github.com/daantosaurus)! - UnderlineNav.Item: Fix layout issues when children contain React elements by extracting only direct text content for the `data-content` attribute.
+
 ## 38.7.1
 
 ### Patch Changes

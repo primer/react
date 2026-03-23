@@ -28,6 +28,7 @@
   remove button.
   This ensures the <a> or <button> receives the click no
   matter where on the token the user clicks. */
+/* stylelint-disable-next-line selector-max-type, selector-no-qualifying-type */
 .TokenTextContainer:is(a, button, [tabIndex='0']) {
   cursor: pointer;
 }
@@ -36,6 +37,7 @@
   remove button.
   This ensures the <a> or <button> receives the click no
   matter where on the token the user clicks. */
+/* stylelint-disable-next-line selector-max-type, selector-no-qualifying-type */
 .TokenTextContainer:is(a, button, [tabIndex='0'])::after {
   position: absolute;
   top: 0;

@@ -15,18 +15,33 @@
   min-width: 192px;
   height: auto;
   max-height: 100vh;
-  overflow: hidden;
+  overflow: auto;
   background-color: var(--overlay-bgColor);
   border-radius: var(--borderRadius-large);
   box-shadow: var(--shadow-floating-small);
-  /* stylelint-disable-next-line primer/spacing */
-  top: var(--top, auto);
-  /* stylelint-disable-next-line primer/spacing */
-  left: var(--left, auto);
-  /* stylelint-disable-next-line primer/spacing */
-  right: var(--right, auto);
-  /* stylelint-disable-next-line primer/spacing */
-  bottom: var(--bottom, auto);
+
+  &[data-anchor-position='false'],
+  &:not([data-anchor-position]):not([data-variant='modal']) {
+    /* stylelint-disable-next-line primer/spacing */
+    right: var(--right, auto);
+    /* stylelint-disable-next-line primer/spacing */
+    bottom: var(--bottom, auto);
+
+    /* stylelint-disable-next-line selector-max-specificity */
+    &[data-responsive='fullscreen']:not([data-variant]) {
+      @media screen and (--viewportRange-narrow) {
+        top: 0;
+        left: 0;
+      }
+    }
+
+    &:not([data-variant]) {
+      /* stylelint-disable-next-line primer/spacing */
+      top: var(--top, auto);
+      /* stylelint-disable-next-line primer/spacing */
+      left: var(--left, auto);
+    }
+  }
 
   &:focus {
     outline: none;
@@ -106,6 +121,27 @@
     max-height: 600px;
   }
 
+  /* Max-height size tokens clamped to viewport (enabled via feature flag) */
+  &:where([data-max-height-clamp-to-viewport][data-max-height-xsmall]) {
+    max-height: min(192px, 100dvh);
+  }
+
+  &:where([data-max-height-clamp-to-viewport][data-max-height-small]) {
+    max-height: min(256px, 100dvh);
+  }
+
+  &:where([data-max-height-clamp-to-viewport][data-max-height-medium]) {
+    max-height: min(320px, 100dvh);
+  }
+
+  &:where([data-max-height-clamp-to-viewport][data-max-height-large]) {
+    max-height: min(432px, 100dvh);
+  }
+
+  &:where([data-max-height-clamp-to-viewport][data-max-height-xlarge]) {
+    max-height: min(600px, 100dvh);
+  }
+
   &:where([data-max-height-fit-content]) {
     max-height: fit-content;
   }
@@ -176,6 +212,13 @@
       max-height: none;
       margin: 0;
       border-radius: unset;
+      /* stylelint-disable-next-line primer/spacing */
+      padding-bottom: env(safe-area-inset-bottom);
+
+      @supports (height: 100dvh) {
+        /* fix for mobile safari (100vh clips the screen with the toolbar) */
+        height: 100dvh;
+      }
     }
   }
 

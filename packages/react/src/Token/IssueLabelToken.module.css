@@ -9,16 +9,19 @@
   border-color: hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 25) * 1%), var(--border-alpha));
 
   /* Selected state */
+  /* stylelint-disable-next-line nesting-selector-no-missing-scoping-root */
   &:where([data-selected='true']) {
     background: hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 5) * 1%));
   }
 
+  /* stylelint-disable-next-line nesting-selector-no-missing-scoping-root */
   &:where([data-selected='true'])::after {
     /* stylelint-disable-next-line primer/box-shadow */
     box-shadow: 0 0 0 2px rgb(var(--label-r), var(--label-g), var(--label-b));
   }
 
   /* Interactive hover states */
+  /* stylelint-disable-next-line nesting-selector-no-missing-scoping-root */
   &:where([data-cursor-is-interactive='true']:hover) {
     background-image: linear-gradient(rgb(0, 0, 0, 0.15), rgb(0, 0, 0, 0.15)),
       linear-gradient(
@@ -45,6 +48,7 @@
   );
 
   /* Selected state */
+  /* stylelint-disable-next-line nesting-selector-no-missing-scoping-root */
   &:where([data-selected='true'])::after {
     /* stylelint-disable-next-line primer/box-shadow */
     box-shadow: 0 0 0 2px
@@ -52,6 +56,7 @@
   }
 
   /* Interactive hover states */
+  /* stylelint-disable-next-line nesting-selector-no-missing-scoping-root */
   &:where([data-cursor-is-interactive='true']:hover) {
     background: hsl(var(--label-h), calc(var(--label-s) * 1%), calc(calc(var(--label-l) + 10) * 1%), 0.3);
     box-shadow: var(--shadow-resting-medium);

@@ -40,6 +40,24 @@ describe('Dialog', () => {
     await waitFor(() => expect(getByRole('button', {name: 'Footer button'})).toHaveFocus())
   })
 
+  it('sets data-has-footer when footerButtons are provided', () => {
+    const {getByRole} = render(
+      <Dialog onClose={() => {}} footerButtons={[{buttonType: 'primary', content: 'OK'}]}>
+        Content
+      </Dialog>,
+    )
+    expect(getByRole('dialog')).toHaveAttribute('data-has-footer', '')
+  })
+
+  it('does not set data-has-footer when no footer is rendered', () => {
+    const {getByRole} = render(
+      <Dialog onClose={() => {}} renderFooter={() => null}>
+        Content
+      </Dialog>,
+    )
+    expect(getByRole('dialog')).not.toHaveAttribute('data-has-footer')
+  })
+
   it('calls `onClose` when clicking the close button', async () => {
     const user = userEvent.setup()
     const onClose = vi.fn()
@@ -134,6 +152,37 @@ describe('Dialog', () => {
     const {getByRole} = render(<Dialog onClose={() => {}} position={{narrow: 'bottom', regular: 'center'}} />)
     expect(getByRole('dialog')).toHaveAttribute('data-position-narrow', 'bottom')
     expect(getByRole('dialog')).toHaveAttribute('data-position-regular', 'center')
+  })
+
+  describe('align prop', () => {
+    it('sets data-align="top" on both dialog and backdrop', () => {
+      const {getByRole} = render(<Dialog onClose={() => {}} align="top" />)
+      const dialog = getByRole('dialog')
+      expect(dialog).toHaveAttribute('data-align', 'top')
+      expect(dialog.parentElement).toHaveAttribute('data-align', 'top')
+    })
+
+    it('sets data-align="bottom" when align is bottom', () => {
+      const {getByRole} = render(<Dialog onClose={() => {}} align="bottom" />)
+      expect(getByRole('dialog')).toHaveAttribute('data-align', 'bottom')
+    })
+
+    it('sets data-align="center" when align is center', () => {
+      const {getByRole} = render(<Dialog onClose={() => {}} align="center" />)
+      expect(getByRole('dialog')).toHaveAttribute('data-align', 'center')
+    })
+
+    it('omits data-align when align is not provided', () => {
+      const {getByRole} = render(<Dialog onClose={() => {}} />)
+      expect(getByRole('dialog')).not.toHaveAttribute('data-align')
+    })
+
+    it('emits data-align attribute even when position is non-center', () => {
+      const {getByRole} = render(<Dialog onClose={() => {}} position="left" align="top" />)
+      const dialog = getByRole('dialog')
+      expect(dialog).toHaveAttribute('data-position-regular', 'left')
+      expect(dialog).toHaveAttribute('data-align', 'top')
+    })
   })
 
   it('automatically returns focus to the trigger element when the dialog closes', async () => {

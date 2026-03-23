@@ -140,6 +140,10 @@ const stories = [
     title: 'All combinations',
     id: 'components-actionlist-examples--all-combinations',
   },
+  {
+    title: 'Text Wrap And Truncation',
+    id: 'components-actionlist-features--text-wrap-and-truncation',
+  },
 ] as const
 
 test.describe('ActionList', () => {
@@ -160,4 +164,46 @@ test.describe('ActionList', () => {
       }
     })
   }
+
+  test.describe('Truncated Description Tooltip', () => {
+    for (const theme of themes) {
+      test(`inline truncated tooltip on focus @vrt ${theme}`, async ({page}) => {
+        await visit(page, {
+          id: 'components-actionlist-features--text-wrap-and-truncation',
+          globals: {
+            colorScheme: theme,
+          },
+        })
+
+        // Focus the item with a simple truncated inline description
+        const inlineItem = page.getByRole('button', {name: /Inline Description/}).first()
+        await inlineItem.focus()
+
+        // Tooltip uses popover attribute; wait for it to become visible and finish animating
+        const tooltip = page.locator('[popover]:popover-open')
+        await expect(tooltip).toBeVisible()
+        await tooltip.evaluate(el => el.getAnimations().map(a => a.finish()))
+        await expect(page).toHaveScreenshot(`ActionList.Truncated Inline Tooltip.${theme}.png`)
+      })
+
+      test(`complex truncated tooltip on focus @vrt ${theme}`, async ({page}) => {
+        await visit(page, {
+          id: 'components-actionlist-features--text-wrap-and-truncation',
+          globals: {
+            colorScheme: theme,
+          },
+        })
+
+        // Focus the item with truncated description containing complex children (bold/italic)
+        const complexItem = page.getByRole('button', {name: /Description with truncation and complex children/})
+        await complexItem.focus()
+
+        // Wait for tooltip to become visible and finish animating
+        const tooltip = page.locator('[popover]:popover-open')
+        await expect(tooltip).toBeVisible()
+        await tooltip.evaluate(el => el.getAnimations().map(a => a.finish()))
+        await expect(page).toHaveScreenshot(`ActionList.Truncated Complex Tooltip.${theme}.png`)
+      })
+    }
+  })
 })
