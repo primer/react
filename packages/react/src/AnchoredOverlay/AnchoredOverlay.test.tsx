@@ -239,14 +239,36 @@ describe('AnchoredOverlay feature flag specific behavior', () => {
       expect(overlay).toHaveAttribute('data-visibility-visible', '')
     })
 
-    it('should not use portal when flag is enabled', () => {
-      const {baseElement, container} = render(
+    it('should use portal by default when flag is enabled', () => {
+      const {baseElement} = render(
         <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
           <AnchoredOverlayTestComponent initiallyOpen={true} />
         </FeatureFlags>,
       )
 
-      // The overlay should be inside the component tree, not in the portal root
+      const portalRoot = baseElement.querySelector('#__primerPortalRoot__')
+      const overlayInPortal = portalRoot?.querySelector('[data-component="AnchoredOverlay"]')
+      expect(overlayInPortal).toBeInTheDocument()
+    })
+
+    it('should not use portal when disablePortal is passed via overlayProps', () => {
+      const {baseElement, container} = render(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <BaseStyles>
+            <AnchoredOverlay
+              open={true}
+              onOpen={() => {}}
+              onClose={() => {}}
+              renderAnchor={props => <Button {...props}>Anchor Button</Button>}
+              overlayProps={{disablePortal: true}}
+            >
+              <button type="button">Focusable Child</button>
+            </AnchoredOverlay>
+          </BaseStyles>
+        </FeatureFlags>,
+      )
+
+      // The overlay should not be inside the portal root
       const portalRoot = baseElement.querySelector('#__primerPortalRoot__')
       const overlayInPortal = portalRoot?.querySelector('[data-component="AnchoredOverlay"]')
       expect(overlayInPortal).toBeNull()
