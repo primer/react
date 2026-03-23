@@ -335,6 +335,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           }}
           data-anchor-position={cssAnchorPositioning}
           data-side={cssAnchorPositioning ? side : position?.anchorSide}
+          disablePortal={true}
         >
           {showXIcon ? (
             <div className={classes.ResponsiveCloseButtonContainer}>
