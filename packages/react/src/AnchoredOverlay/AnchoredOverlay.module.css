@@ -33,6 +33,15 @@
   z-index: 100;
   position: fixed;
 
+  &[popover] {
+    inset: auto;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    max-height: none;
+    max-width: none;
+  }
+
   &[data-side='outside-bottom'] {
     /* stylelint-disable primer/spacing */
     top: calc(anchor(bottom) + var(--base-size-4));

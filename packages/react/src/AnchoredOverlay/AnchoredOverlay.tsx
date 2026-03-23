@@ -253,6 +253,8 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
   const {className: overlayClassName, ...restOverlayProps} = overlayProps || {}
 
+  const popoverId = useId()
+
   const innerContent = (
     <>
       {renderAnchor &&
@@ -264,7 +266,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           tabIndex: 0,
           onClick: onAnchorClick,
           onKeyDown: onAnchorKeyDown,
-          ...(cssAnchorPositioning ? {className: classes.Anchor} : {}),
+          ...(cssAnchorPositioning ? {className: classes.Anchor, popovertarget: popoverId} : {}),
         })}
       {open ? (
         <Overlay
@@ -284,6 +286,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           preventOverflow={preventOverflow}
           data-component="AnchoredOverlay"
           {...restOverlayProps}
+          id={cssAnchorPositioning ? popoverId : undefined}
           ref={node => {
             if (overlayProps?.ref) {
               assignRef(overlayProps.ref, node)

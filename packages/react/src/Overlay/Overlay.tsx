@@ -244,6 +244,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
         visibility={visibility}
         data-responsive={responsiveVariant}
         {...(featureFlagMaxHeightClampToViewport ? {'data-max-height-clamp-to-viewport': ''} : {})}
+        {...(cssAnchorPositioning && {popover: 'auto'})}
         {...props}
       />
     )
