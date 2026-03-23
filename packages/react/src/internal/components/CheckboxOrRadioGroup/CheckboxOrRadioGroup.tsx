@@ -66,6 +66,7 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
   const id = useId(idProp)
   const validationMessageId = validationChild ? `${id}-validationMessage` : undefined
   const captionId = captionChild ? `${id}-caption` : undefined
+  const requiredMessageId = required ? `${id}-requiredMessage` : undefined
 
   if (!labelChild && !ariaLabelledby) {
     // eslint-disable-next-line no-console
@@ -106,6 +107,7 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
                 */
             <legend className={classes.GroupLegend} data-legend-visible={isLegendVisible ? '' : undefined}>
               {slots.label}
+              {required && <VisuallyHidden>, required</VisuallyHidden>}
               {slots.caption}
               {React.isValidElement(slots.validation) && slots.validation.props.children && (
                 <VisuallyHidden>{slots.validation.props.children}</VisuallyHidden>
@@ -113,10 +115,13 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
             </legend>
           ) : (
             /*
-                  If CheckboxOrRadioGroup.Label wasn't passed as a child, we don't render a <legend>
-                  but we still want to render a caption
-                */
-            slots.caption
+              If CheckboxOrRadioGroup.Label wasn't passed as a child, we don't render a <legend>
+              but we still want to render a caption
+            */
+            <>
+              {slots.caption}
+              {required && requiredMessageId && <VisuallyHidden id={requiredMessageId}>Required</VisuallyHidden>}
+            </>
           )}
 
           <div
@@ -124,7 +129,7 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
             {...(!labelChild
               ? {
                   ['aria-labelledby']: ariaLabelledby,
-                  ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' '),
+                  ['aria-describedby']: [validationMessageId, captionId, requiredMessageId].filter(Boolean).join(' '),
                   as: 'div',
                   role: 'group',
                 }
