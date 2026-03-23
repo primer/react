@@ -15,6 +15,7 @@
 
 .Wrapper {
   anchor-scope: --anchored-overlay-anchor;
+  display: inline;
 }
 
 .Anchor {
