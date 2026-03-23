@@ -184,7 +184,7 @@ export const WithFeatureDisabled = () => <MyComponent />
 
 Storybook's global preview (`packages/react/.storybook/preview.jsx`) already wraps all stories in a `FeatureFlags` provider, using `DefaultFeatureFlags` as the source of default values and toolbar options. In most cases you only need to register your flag in `DefaultFeatureFlags.ts`; you do not need to manually add it to the `FeatureFlags` wrapper.
 
-To enable a flag globally via environment, add its exact flag name (for example, `primer_react_my_feature`) to the `featureFlagEnvList` set in `preview.jsx`, and set the corresponding env var to `1` (for example, `VITE_primer_react_my_feature=1`). The preview code reads `import.meta.env[\`VITE_${flag}\`]`, so the part after `VITE_` must match the flag string exactly.
+To enable a flag globally via environment, add its exact flag name (for example, `primer_react_my_feature`) to the `featureFlagEnvList` set in `preview.jsx`, and set the corresponding env var to `1` (for example, `VITE_primer_react_my_feature=1`). The preview code reads `import.meta.env[\`VITE*${flag}\`]`, so the part after `VITE*` must match the flag string exactly.
 
 ## Feature Flag Lifecycle
 
