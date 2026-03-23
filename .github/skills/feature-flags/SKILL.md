@@ -104,7 +104,7 @@ function ExampleComponent(props) {
 ```tsx
 function MyOverlay() {
   const enabled = useFeatureFlag('primer_react_my_feature')
-  return <div {...(enabled ? {'data-my-feature': ''} : {})} />
+  return <div data-my-feature={enabled ? '' : undefined} />
 }
 ```
 
@@ -150,7 +150,7 @@ render(
   </FeatureFlags>,
 )
 
-// Test with flag disabled (or omit the wrapper entirely — flags default to false)
+// Test with flag disabled (or omit the wrapper to use default values from DefaultFeatureFlags)
 render(
   <FeatureFlags flags={{primer_react_my_feature: false}}>
     <MyComponent />
@@ -182,9 +182,9 @@ export const WithFeatureDisabled = () => <MyComponent />
 
 ### Enable flag in all stories
 
-Add your flag to the `FeatureFlags` wrapper in `packages/react/.storybook/preview.jsx`. The preview already wraps all stories in a `FeatureFlags` provider using values from `DefaultFeatureFlags`.
+Storybook's global preview (`packages/react/.storybook/preview.jsx`) already wraps all stories in a `FeatureFlags` provider, using `DefaultFeatureFlags` as the source of default values and toolbar options. In most cases you only need to register your flag in `DefaultFeatureFlags.ts`; you do not need to manually add it to the `FeatureFlags` wrapper.
 
-To enable a flag globally via environment, add it to the `featureFlagEnvList` set in `preview.jsx` and set `VITE_<FLAG_NAME>=1`.
+To enable a flag globally via environment, add its exact flag name (for example, `primer_react_my_feature`) to the `featureFlagEnvList` set in `preview.jsx`, and set the corresponding env var to `1` (for example, `VITE_primer_react_my_feature=1`). The preview code reads `import.meta.env[\`VITE_${flag}\`]`, so the part after `VITE_` must match the flag string exactly.
 
 ## Feature Flag Lifecycle
 
