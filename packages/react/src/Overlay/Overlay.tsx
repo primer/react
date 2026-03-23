@@ -138,6 +138,7 @@ export const BaseOverlay = React.forwardRef(
 
 type ContainerProps = {
   anchorSide?: AnchorSide
+  disablePortal?: boolean
   ignoreClickRefs?: React.RefObject<HTMLElement | null>[]
   initialFocusRef?: React.RefObject<HTMLElement | null>
   onClickOutside: (e: TouchOrMouseEvent) => void
@@ -152,6 +153,7 @@ type internalOverlayProps = Merge<OwnOverlayProps, ContainerProps>
 
 /**
  * @param anchorSide If provided, the Overlay will slide into position from the side of the anchor with a brief animation
+ * @param disablePortal Optional. If true, the Overlay will not be rendered in a Portal. Defaults to false. When using CSS anchor positioning, popovers render in the browser's top layer which already escapes stacking contexts, so a Portal is not strictly necessary but still useful for style isolation.
  * @param height Sets the height of the `Overlay`, pick from our set list of heights, or pass `auto` to automatically set the height based on the content of the `Overlay`, or pass `initial` to set the height based on the initial content of the `Overlay` (i.e. ignoring content changes). `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`.
  * @param ignoreClickRefs Optional. An array of ref objects to ignore clicks on in the `onOutsideClick` behavior. This is often used to ignore clicking on the element that toggles the open/closed state for the `Overlay` to prevent the `Overlay` from being toggled twice.
  * @param initialFocusRef Optional. Ref for the element to focus when the `Overlay` is opened. If nothing is provided, the first focusable element in the `Overlay` body is focused.
@@ -170,6 +172,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
   (
     {
       anchorSide,
+      disablePortal,
       height = 'auto',
       ignoreClickRefs,
       initialFocusRef,
@@ -249,7 +252,13 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
       />
     )
 
-    if (cssAnchorPositioning) {
+    // disablePortal can be used to render the overlay without a Portal.
+    // When using CSS anchor positioning, popovers render in the browser's
+    // top layer which already escapes stacking contexts, so a Portal is
+    // not strictly necessary. However, Portal can still be useful for
+    // style isolation. Defaults to false (Portal enabled) for backwards
+    // compatibility.
+    if (disablePortal) {
       return overlayContent
     }
 

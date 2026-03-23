@@ -271,19 +271,23 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     }
   }, [cssAnchorPositioning, anchorRef, overlayRef, id])
 
+  // Track the overlay element so we can re-run the effect when it changes.
+  // This is necessary when using a Portal, as React re-renders can replace
+  // the DOM node, causing the popover to lose its :popover-open state.
+  const overlayElement = overlayRef.current
+
   useLayoutEffect(() => {
-    if (!cssAnchorPositioning || !open || !overlayRef.current) return
-    const overlay = overlayRef.current
-    overlay.style.setProperty('position-anchor', `--anchored-overlay-anchor-${id}`)
+    if (!cssAnchorPositioning || !open || !overlayElement) return
+    overlayElement.style.setProperty('position-anchor', `--anchored-overlay-anchor-${id}`)
 
     try {
-      if (!overlay.matches(':popover-open')) {
-        overlay.showPopover()
+      if (!overlayElement.matches(':popover-open')) {
+        overlayElement.showPopover()
       }
     } catch {
       // Ignore if popover is already showing or not supported
     }
-  }, [cssAnchorPositioning, open, overlayRef, id])
+  }, [cssAnchorPositioning, open, overlayElement, id])
 
   const showXIcon = onClose && variant.narrow === 'fullscreen' && displayCloseButton
   const XButtonAriaLabelledBy = closeButtonProps['aria-labelledby']
