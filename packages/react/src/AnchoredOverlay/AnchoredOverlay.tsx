@@ -277,17 +277,19 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   const overlayElement = overlayRef.current
 
   useLayoutEffect(() => {
-    if (!cssAnchorPositioning || !open || !overlayElement) return
-    overlayElement.style.setProperty('position-anchor', `--anchored-overlay-anchor-${id}`)
+    // Read ref inside effect to get the value after child refs are attached
+    const currentOverlay = overlayRef.current
 
+    if (!cssAnchorPositioning || !open || !currentOverlay) return
+    currentOverlay.style.setProperty('position-anchor', `--anchored-overlay-anchor-${id}`)
     try {
-      if (!overlayElement.matches(':popover-open')) {
-        overlayElement.showPopover()
+      if (!currentOverlay.matches(':popover-open')) {
+        currentOverlay.showPopover()
       }
     } catch {
       // Ignore if popover is already showing or not supported
     }
-  }, [cssAnchorPositioning, open, overlayElement, id])
+  }, [cssAnchorPositioning, open, overlayElement, id, overlayRef])
 
   const showXIcon = onClose && variant.narrow === 'fullscreen' && displayCloseButton
   const XButtonAriaLabelledBy = closeButtonProps['aria-labelledby']
