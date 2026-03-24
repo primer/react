@@ -1,4 +1,5 @@
 import React, {useCallback, useContext, useMemo, useEffect, useState} from 'react'
+import {clsx} from 'clsx'
 import {TriangleDownIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -71,6 +72,10 @@ const mergeAnchorHandlers = (anchorProps: React.HTMLAttributes<HTMLElement>, but
       anchorOnKeyDown?.(event)
     }
     mergedAnchorProps.onKeyDown = mergedOnAnchorKeyDown
+  }
+
+  if (buttonProps.className) {
+    mergedAnchorProps.className = clsx(anchorProps.className, buttonProps.className)
   }
 
   return mergedAnchorProps
@@ -153,7 +158,11 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
           }
         }
       } else {
-        renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
+        renderAnchor = anchorProps =>
+          React.cloneElement(child, {
+            ...anchorProps,
+            className: clsx(anchorProps.className, child.props.className),
+          })
       }
       return null
     } else if (child.type === MenuButton || isSlot(child, MenuButton)) {
@@ -234,6 +243,7 @@ const Anchor: WithSlotMarker<
       {React.cloneElement(child, {
         ...anchorProps,
         ref: anchorRef,
+        className: clsx(anchorProps.className, child.props.className),
         onClick: onButtonClick,
         onKeyDown: onButtonKeyDown,
       })}
@@ -324,6 +334,8 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
     'primer_react_action_menu_display_in_viewport_inside_dialog',
   )
 
+  const featureFlagMaxHeightClampToViewport = useFeatureFlag('primer_react_overlay_max_height_clamp_to_viewport')
+
   const isInsideDialog = useContext(DialogContext) !== undefined
 
   return (
@@ -348,6 +360,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
         ref={containerRef}
         className={styles.ActionMenuContainer}
         data-variant={responsiveVariant}
+        {...(featureFlagMaxHeightClampToViewport ? {'data-max-height-clamp-to-viewport': ''} : {})}
         {...(overlayProps.overflow ? {[`data-overflow-${overlayProps.overflow}`]: ''} : {})}
         {...(overlayProps.maxHeight ? {[`data-max-height-${overlayProps.maxHeight}`]: ''} : {})}
       >
