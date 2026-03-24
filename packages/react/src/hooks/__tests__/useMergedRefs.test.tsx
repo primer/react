@@ -1,5 +1,5 @@
 import {render, renderHook} from '@testing-library/react'
-import React, {forwardRef, type RefObject} from 'react'
+import React, {forwardRef, type RefObject, version} from 'react'
 import {describe, expect, it, vi} from 'vitest'
 import {useMergedRefs} from '../useMergedRefs'
 
@@ -114,7 +114,7 @@ describe('useMergedRefs', () => {
       expect(refB).toHaveBeenCalledExactlyOnceWith('test')
     })
 
-    it('handles React 18 null values correctly', () => {
+    it.runIf(version.startsWith('18'))('handles React 18 null values correctly', () => {
       const refA = vi.fn()
       const refB = vi.fn()
 
@@ -131,7 +131,7 @@ describe('useMergedRefs', () => {
       expect(refB).toHaveBeenCalledWith(null)
     })
 
-    it('handles React 19 cleanup functions correctly and independently', () => {
+    it.skipIf(version.startsWith('18'))('handles React 19 cleanup functions correctly and independently', () => {
       const refA = vi.fn()
       const cleanupRefB = vi.fn()
       const refB = vi.fn().mockReturnValue(cleanupRefB)
@@ -143,7 +143,7 @@ describe('useMergedRefs', () => {
       expect(refB).toHaveBeenCalledWith('test')
 
       // React 19 will call cleanup function and not pass null
-      cleanup()
+      cleanup!()
 
       expect(refA).toHaveBeenCalledWith(null)
       expect(refB).not.toHaveBeenCalledWith(null)
