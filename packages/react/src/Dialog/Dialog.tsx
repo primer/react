@@ -355,11 +355,20 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     if (!(dialogElement instanceof HTMLElement)) {
       return
     }
+    const bodyWrapper = dialogElement.querySelector(`.${classes.DialogOverflowWrapper}`)
+    if (!(bodyWrapper instanceof HTMLElement)) {
+      return
+    }
 
-    const scrollRegion = dialogRef.current?.querySelector<HTMLElement>(`.${classes.DialogOverflowWrapper}`)
-    const visibleHeight = scrollRegion?.clientHeight ?? 0
+    // We temporarily force "wrap" the footer layout so that the browser can calculate the body height -
+    // when the footer is wrapping. This is instantaneous with what we set below (`dialogElement.setAttribute('data-footer-button-layout', newLayout)`).
+    dialogElement.setAttribute('data-footer-button-layout', 'wrap')
+    const bodyHeight = bodyWrapper.clientHeight
 
-    setFooterButtonLayout(visibleHeight >= MIN_BODY_HEIGHT ? 'wrap' : 'scroll')
+    const newLayout = bodyHeight >= MIN_BODY_HEIGHT ? 'wrap' : 'scroll'
+    dialogElement.setAttribute('data-footer-button-layout', newLayout)
+
+    setFooterButtonLayout(newLayout)
   }, [hasFooter])
 
   useResizeObserver(updateFooterButtonLayout, backdropRef)
