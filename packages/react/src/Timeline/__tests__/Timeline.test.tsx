@@ -36,6 +36,16 @@ describe('Timeline', () => {
     const {container} = render(<Timeline />)
     expect(container.firstChild).not.toHaveAttribute('data-clip-sidebar')
   })
+
+  it('renders with clipSidebar="start"', () => {
+    const {container} = render(<Timeline clipSidebar="start" />)
+    expect(container.firstChild).toHaveAttribute('data-clip-sidebar', 'start')
+  })
+
+  it('renders with clipSidebar="end"', () => {
+    const {container} = render(<Timeline clipSidebar="end" />)
+    expect(container.firstChild).toHaveAttribute('data-clip-sidebar', 'end')
+  })
 })
 
 describe('Timeline.Item', () => {
@@ -53,6 +63,16 @@ describe('Timeline.Item', () => {
 
 describe('Timeline.Badge', () => {
   implementsClassName(Timeline.Badge, classes.TimelineBadge)
+
+  it('renders with variant prop', () => {
+    const {container} = render(<Timeline.Badge variant="done" />)
+    expect(container.querySelector(`.${classes.TimelineBadge}`)).toHaveAttribute('data-variant', 'done')
+  })
+
+  it('does not render data-variant for default variant', () => {
+    const {container} = render(<Timeline.Badge variant="default" />)
+    expect(container.querySelector(`.${classes.TimelineBadge}`)).not.toHaveAttribute('data-variant')
+  })
 })
 
 describe('Timeline.Body', () => {

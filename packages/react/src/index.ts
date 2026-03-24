@@ -177,6 +177,7 @@ export type {TextProps} from './Text'
 export {default as Timeline} from './Timeline'
 export type {
   TimelineProps,
+  TimelineBadgeVariant,
   TimelineBadgeProps,
   TimelineBodyProps,
   TimelineBreakProps,
