@@ -161,9 +161,10 @@ function useSystemColorMode() {
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (media) {
-      // just in case the preference changed before the event listener was attached
-      const isNight = media.matches
-      setSystemColorMode(matchesMediaToColorMode(isNight))
+      // Only update if preference changed between useState init and effect
+      const currentMode = matchesMediaToColorMode(media.matches)
+      setSystemColorMode(prev => (prev === currentMode ? prev : currentMode))
+
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (media.addEventListener !== undefined) {
         media.addEventListener('change', handleChange)
