@@ -347,7 +347,6 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
 
   const updateFooterButtonLayout = useCallback(() => {
     if (!hasFooter) {
-      setFooterButtonLayout('wrap')
       return
     }
 
