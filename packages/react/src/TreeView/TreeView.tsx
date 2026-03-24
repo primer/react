@@ -40,9 +40,11 @@ const RootContext = React.createContext<{
   // across remounts. This is necessary because we unmount tree items
   // when their parent is collapsed.
   expandedStateCache: React.RefObject<Map<string, boolean> | null>
+  scrollElementIntoView: (element: Element | null | undefined) => void
 }>({
   announceUpdate: () => {},
   expandedStateCache: {current: new Map()},
+  scrollElementIntoView: () => {},
 })
 
 const ItemContext = React.createContext<{
@@ -131,6 +133,32 @@ const Root: React.FC<TreeViewProps> = ({
     },
   })
 
+  // Deferred scroll-into-view: coalesces multiple scroll requests within
+  // the same animation frame so that rapid keyboard navigation (held key)
+  // only triggers one scrollIntoView + reflow per frame instead of per keystroke.
+  const pendingScrollRef = React.useRef<number | null>(null)
+  const scrollElementIntoView = useCallback((element: Element | null | undefined) => {
+    if (!element) return
+
+    if (pendingScrollRef.current !== null) {
+      cancelAnimationFrame(pendingScrollRef.current)
+    }
+
+    pendingScrollRef.current = requestAnimationFrame(() => {
+      pendingScrollRef.current = null
+      if (!element.isConnected) return
+      element.scrollIntoView({block: 'nearest', inline: 'nearest'})
+    })
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      if (pendingScrollRef.current !== null) {
+        cancelAnimationFrame(pendingScrollRef.current)
+      }
+    }
+  }, [])
+
   const expandedStateCache = React.useRef<Map<string, boolean> | null>(null)
 
   if (expandedStateCache.current === null) {
@@ -142,6 +170,7 @@ const Root: React.FC<TreeViewProps> = ({
       value={{
         announceUpdate,
         expandedStateCache,
+        scrollElementIntoView,
       }}
     >
       <>
@@ -209,7 +238,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
     })
-    const {expandedStateCache} = React.useContext(RootContext)
+    const {expandedStateCache, scrollElementIntoView} = React.useContext(RootContext)
     const labelId = useId()
     const leadingVisualId = useId()
     const trailingVisualId = useId()
@@ -344,8 +373,9 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           data-has-leading-action={slots.leadingAction ? true : undefined}
           onKeyDown={handleKeyDown}
           onFocus={event => {
-            // Scroll the first child into view when the item receives focus
-            event.currentTarget.firstElementChild?.scrollIntoView({block: 'nearest', inline: 'nearest'})
+            // Defer scroll to the next animation frame so that rapid keyboard
+            // navigation (held key) coalesces into a single reflow per frame
+            scrollElementIntoView(event.currentTarget.firstElementChild)
 
             // Set the focused state
             setIsFocused(true)
