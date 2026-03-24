@@ -62,7 +62,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     const inputProps = {
       type: 'checkbox',
       disabled,
-      ref: combinedRef,
+      ref: mergedRef,
       checked: indeterminate ? false : checked,
       defaultChecked,
       required,

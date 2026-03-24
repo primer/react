@@ -174,7 +174,7 @@ function useTabList<T extends HTMLElement>(
 
   return {
     tabListProps: {
-      ref: combinedRef,
+      ref: mergedRef,
       'aria-label': ariaLabel,
       'aria-labelledby': ariaLabelledby,
       'aria-orientation': ariaOrientation ?? 'horizontal',

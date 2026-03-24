@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useRef, useState, type SyntheticEvent} from 'react'
 import type {ButtonProps} from '../Button'
 import {Button, IconButton} from '../Button'
-import {useOnEscapePress} from '../hooks'
+import {useMergedRefs, useOnEscapePress} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
@@ -451,7 +451,7 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
             {...buttonProps}
             // 'normal' value is equivalent to 'default', this is used for backwards compatibility
             variant={buttonType === 'normal' ? 'default' : buttonType}
-            ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, combinedRef) : null}
+            ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, mergedRef) : null}
           >
             {content}
           </Button>

@@ -131,8 +131,7 @@ const Panel: React.FC<SelectPanelProps> = ({
     if (React.isValidElement(child) && (child.type === SelectPanelButton || isSlot(child, SelectPanelButton))) {
       // eslint-disable-next-line react-hooks/immutability
       Anchor = React.cloneElement(child, {
-        // @ts-ignore TODO
-        ref: combinedRef,
+        ref: mergedRef,
         onClick: child.props.onClick || onAnchorClick,
         'aria-haspopup': true,
         'aria-expanded': internalOpen,
