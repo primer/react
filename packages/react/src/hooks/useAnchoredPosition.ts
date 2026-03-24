@@ -31,6 +31,12 @@ export interface AnchoredPositionHookSettings extends Partial<PositionSettings> 
   anchorElementRef?: React.RefObject<Element | null>
   pinPosition?: boolean
   onPositionChange?: (position: AnchorPosition | undefined) => void
+  /**
+   * When false, scroll listeners are not attached. Useful for skipping
+   * scroll-based repositioning when the overlay is closed.
+   * @default true
+   */
+  enabled?: boolean
 }
 
 /**
@@ -123,7 +129,10 @@ export function useAnchoredPosition(
 
   // Recalculate position when any scrollable ancestor of the anchor scrolls.
   // Uses requestAnimationFrame to avoid layout thrashing during scroll.
+  const enabled = settings?.enabled ?? true
   React.useEffect(() => {
+    if (!enabled) return
+
     const anchorEl = anchorElementRef.current
     if (!anchorEl) return
 
@@ -150,7 +159,7 @@ export function useAnchoredPosition(
         cancelAnimationFrame(rafId)
       }
     }
-  }, [anchorElementRef, updatePosition])
+  }, [anchorElementRef, updatePosition, enabled])
 
   return {
     floatingElementRef,

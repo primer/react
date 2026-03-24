@@ -45,8 +45,6 @@ describe('scroll recalculation', () => {
       expect(cb).toHaveBeenCalledTimes(2)
     })
 
-    // Wait a tick to let any pending effects settle
-    await new Promise(resolve => setTimeout(resolve, 50))
     const callCountBefore = cb.mock.calls.length
 
     // Simulate a window scroll event
@@ -55,9 +53,9 @@ describe('scroll recalculation', () => {
     })
 
     // Wait for rAF-throttled handler to fire and trigger re-render
-    await new Promise(resolve => setTimeout(resolve, 50))
-
-    expect(cb.mock.calls.length).toBeGreaterThan(callCountBefore)
+    await waitFor(() => {
+      expect(cb.mock.calls.length).toBeGreaterThan(callCountBefore)
+    })
   })
 
   it('should recalculate position when a scrollable ancestor scrolls', async () => {
@@ -89,8 +87,6 @@ describe('scroll recalculation', () => {
       expect(cb).toHaveBeenCalledTimes(2)
     })
 
-    // Wait a tick to let any pending effects settle
-    await new Promise(resolve => setTimeout(resolve, 50))
     const callCountBefore = cb.mock.calls.length
     const scrollContainer = container.firstElementChild!
 
@@ -100,8 +96,43 @@ describe('scroll recalculation', () => {
     })
 
     // Wait for rAF-throttled handler to fire and trigger re-render
-    await new Promise(resolve => setTimeout(resolve, 50))
+    await waitFor(() => {
+      expect(cb.mock.calls.length).toBeGreaterThan(callCountBefore)
+    })
+  })
 
-    expect(cb.mock.calls.length).toBeGreaterThan(callCountBefore)
+  it('should not attach scroll listeners when enabled is false', async () => {
+    const addEventListenerSpy = vi.spyOn(window, 'addEventListener')
+
+    const DisabledComponent = ({
+      callback,
+    }: {
+      callback: (hookReturnValue: ReturnType<typeof useAnchoredPosition>) => void
+    }) => {
+      const floatingElementRef = React.useRef<HTMLDivElement>(null)
+      const anchorElementRef = React.useRef<HTMLDivElement>(null)
+      callback(useAnchoredPosition({floatingElementRef, anchorElementRef, enabled: false}))
+      return (
+        <div style={{position: 'absolute'}}>
+          <div
+            style={{position: 'absolute', top: '20px', left: '20px', height: '50px', width: '50px'}}
+            ref={floatingElementRef}
+          />
+          <div ref={anchorElementRef} />
+        </div>
+      )
+    }
+
+    const cb = vi.fn()
+    render(<DisabledComponent callback={cb} />)
+
+    await waitFor(() => {
+      expect(cb).toHaveBeenCalled()
+    })
+
+    const scrollListeners = addEventListenerSpy.mock.calls.filter(([event]) => event === 'scroll')
+    expect(scrollListeners).toHaveLength(0)
+
+    addEventListenerSpy.mockRestore()
   })
 })
