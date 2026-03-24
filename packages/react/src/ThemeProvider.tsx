@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import defaultTheme from './theme'
 import deepmerge from 'deepmerge'
 import {useId} from './hooks'
@@ -62,63 +61,61 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
   const theme = fallbackTheme ?? defaultTheme
 
   const uniqueDataId = useId()
-  const {resolvedServerColorMode} = getServerHandoff(uniqueDataId)
-  const resolvedColorModePassthrough = React.useRef(resolvedServerColorMode)
+  // Lazy initializer reads DOM + parses JSON once instead of every render
+  const [serverColorMode, setServerColorMode] = React.useState<ColorMode | undefined>(
+    () => getServerHandoff(uniqueDataId).resolvedServerColorMode,
+  )
 
   const [colorMode, setColorMode] = useSyncedState(props.colorMode ?? fallbackColorMode ?? defaultColorMode)
   const [dayScheme, setDayScheme] = useSyncedState(props.dayScheme ?? fallbackDayScheme ?? defaultDayScheme)
   const [nightScheme, setNightScheme] = useSyncedState(props.nightScheme ?? fallbackNightScheme ?? defaultNightScheme)
   const systemColorMode = useSystemColorMode()
-  // eslint-disable-next-line react-hooks/refs
-  const resolvedColorMode = resolvedColorModePassthrough.current || resolveColorMode(colorMode, systemColorMode)
+  const resolvedColorMode = serverColorMode ?? resolveColorMode(colorMode, systemColorMode)
   const colorScheme = chooseColorScheme(resolvedColorMode, dayScheme, nightScheme)
   const {resolvedTheme, resolvedColorScheme} = React.useMemo(
     () => applyColorScheme(theme, colorScheme),
     [theme, colorScheme],
   )
 
-  // this effect will only run on client
+  // After hydration, clear the server passthrough so client-side color mode takes over
   React.useEffect(
-    function updateColorModeAfterServerPassthrough() {
-      const resolvedColorModeOnClient = resolveColorMode(colorMode, systemColorMode)
-
-      if (resolvedColorModePassthrough.current) {
-        // if the resolved color mode passed on from the server is not the resolved color mode on client, change it!
-        if (resolvedColorModePassthrough.current !== resolvedColorModeOnClient) {
-          window.setTimeout(() => {
-            // use ReactDOM.flushSync to prevent automatic batching of state updates since React 18
-            // ref: https://github.com/reactwg/react-18/discussions/21
-            ReactDOM.flushSync(() => {
-              // override colorMode to whatever is resolved on the client to get a re-render
-              setColorMode(resolvedColorModeOnClient)
-            })
-
-            // immediately after that, set the colorMode to what the user passed to respond to system color mode changes
-            setColorMode(colorMode)
-          })
-        }
-
-        resolvedColorModePassthrough.current = null
+    function clearServerPassthrough() {
+      if (serverColorMode !== undefined) {
+        setServerColorMode(undefined)
       }
     },
-    [colorMode, systemColorMode, setColorMode],
+    [serverColorMode],
+  )
+
+  const contextValue = React.useMemo(
+    () => ({
+      theme: resolvedTheme,
+      colorScheme,
+      colorMode,
+      resolvedColorMode,
+      resolvedColorScheme,
+      dayScheme,
+      nightScheme,
+      setColorMode,
+      setDayScheme,
+      setNightScheme,
+    }),
+    [
+      resolvedTheme,
+      colorScheme,
+      colorMode,
+      resolvedColorMode,
+      resolvedColorScheme,
+      dayScheme,
+      nightScheme,
+      setColorMode,
+      setDayScheme,
+      setNightScheme,
+    ],
   )
 
   return (
-    <ThemeContext.Provider
-      value={{
-        theme: resolvedTheme,
-        colorScheme,
-        colorMode,
-        resolvedColorMode,
-        resolvedColorScheme,
-        dayScheme,
-        nightScheme,
-        setColorMode,
-        setDayScheme,
-        setNightScheme,
-      }}
-    >
+    <ThemeContext.Provider value={contextValue}>
       <div
         data-color-mode={colorMode === 'auto' ? 'auto' : colorScheme.includes('dark') ? 'dark' : 'light'}
         data-light-theme={dayScheme}
