@@ -112,8 +112,8 @@ data-part="PartName"               → inner part within a component
    <span data-part="LeadingVisual"><img /></span>
    ```
 
-   Slot names are **scoped to their parent component** — a `Label` slot inside
-   `ActionList.Item` is distinct from a `Label` slot inside `Button` because
+   `data-part` names are **scoped to their parent component** — a `Label` part inside
+   `ActionList.Item` is distinct from a `Label` part inside `Button` because
    they exist within different `data-component` boundaries.
 
 4. **State and modifier attributes remain separate.** `data-component` and
@@ -127,10 +127,10 @@ data-part="PartName"               → inner part within a component
    </li>
    ```
 
-#### `data-component` and `data-part` on all components and slots
+#### `data-component` and `data-part` on all components and appropriate internals
 
 All Primer components will receive a `data-component` attribute on their root
-element, and all meaningful slots will receive a `data-part` attribute. These
+element, and all meaningful internal components will receive a `data-part` attribute. These
 attributes serve as the stable identifiers that consumers can use for targeting,
 ensuring full coverage across the library.
 
@@ -194,11 +194,11 @@ selectors are intended for and what they are not intended for.
 
 **Intended use cases:**
 
-- **Unit tests** — targeting components and slots in test assertions
+- **Unit tests** — targeting components and internals in test assertions
   (e.g., `getByAttribute('data-component', 'ActionList.Item')`)
 - **End-to-end testing** — using stable selectors in Playwright or Cypress
   locators instead of brittle class names or DOM structure
-- **Simple CSS selectors** — directly targeting a component or slot for style
+- **Simple CSS selectors** — directly targeting a component or part for style
   overrides (e.g., `[data-component="Button"] { border-radius: 8px; }`)
 
 **Not intended for:**
@@ -251,7 +251,7 @@ Example of a simple, supported override:
 
 The **only** guarantee provided for `data-component` and `data-part` attributes is
 that they **exist** and are **tied to the most relevant DOM element** for each
-component and its slots.
+component and its internals.
 
 The following aspects are **not** part of the public API and may change at any
 time without notice or a major semver bump:
@@ -329,7 +329,7 @@ Components that currently have no attributes on key parts must also be updated.
   the DOM self-documenting and avoids overloading a single attribute.
 - **Consistent naming.** A single convention replaces four inconsistent patterns,
   making the codebase easier to learn and maintain.
-- **Scoped slot names.** Because `data-part` values are scoped to their parent
+- **Scoped part names.** Because `data-part` values are scoped to their parent
   `data-component`, names like `Label` or `LeadingVisual` can be reused across
   components without ambiguity.
 - **Supports CSS overrides.** Consumers who need to
