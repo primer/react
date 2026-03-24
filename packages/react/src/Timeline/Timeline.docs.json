@@ -53,7 +53,7 @@
       "props": [
         {
           "name": "variant",
-          "type": "'default' | 'accent' | 'success' | 'attention' | 'severe' | 'danger' | 'done' | 'open' | 'closed' | 'sponsors'",
+          "type": "'accent' | 'success' | 'attention' | 'severe' | 'danger' | 'done' | 'open' | 'closed' | 'sponsors'",
           "description": "The color variant of the badge."
         }
       ]

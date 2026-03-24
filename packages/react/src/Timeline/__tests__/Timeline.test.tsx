@@ -69,8 +69,8 @@ describe('Timeline.Badge', () => {
     expect(container.querySelector(`.${classes.TimelineBadge}`)).toHaveAttribute('data-variant', 'done')
   })
 
-  it('does not render data-variant for default variant', () => {
-    const {container} = render(<Timeline.Badge variant="default" />)
+  it('does not render data-variant when variant is omitted', () => {
+    const {container} = render(<Timeline.Badge />)
     expect(container.querySelector(`.${classes.TimelineBadge}`)).not.toHaveAttribute('data-variant')
   })
 })

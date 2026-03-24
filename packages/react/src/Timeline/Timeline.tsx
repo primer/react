@@ -51,7 +51,6 @@ const TimelineItem = React.forwardRef<HTMLDivElement, TimelineItemProps>(
 TimelineItem.displayName = 'TimelineItem'
 
 export type TimelineBadgeVariant =
-  | 'default'
   | 'accent'
   | 'success'
   | 'attention'
@@ -72,11 +71,7 @@ export type TimelineBadgeProps = {
 const TimelineBadge = ({className, variant, ...props}: TimelineBadgeProps) => {
   return (
     <div className={classes.TimelineBadgeWrapper}>
-      <div
-        {...props}
-        className={clsx(className, classes.TimelineBadge)}
-        data-variant={variant !== 'default' ? variant : undefined}
-      />
+      <div {...props} className={clsx(className, classes.TimelineBadge)} data-variant={variant} />
     </div>
   )
 }
