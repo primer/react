@@ -6,7 +6,7 @@ import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useFocusZone} from '../hooks/useFocusZone'
-import {useAnchoredPosition, useMergedRefs, useRenderForcingRef} from '../hooks'
+import {useAnchoredPosition, useMergedRefs, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
 import {useId} from '../hooks/useId'
 import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {type ResponsiveValue} from '../hooks/useResponsiveValue'
@@ -28,7 +28,7 @@ interface AnchoredOverlayPropsWithAnchor {
   /**
    * An override to the internal ref that will be spread on to the renderAnchor
    */
-  anchorRef?: React.Ref<HTMLElement | null>
+  anchorRef?: React.RefObject<HTMLElement | null>
 
   /**
    * An override to the internal id that will be spread on to the renderAnchor
@@ -47,7 +47,7 @@ interface AnchoredOverlayPropsWithoutAnchor {
    * An override to the internal renderAnchor ref that will be used to position the overlay.
    * When renderAnchor is null this can be used to make an anchor that is detached from ActionMenu.
    */
-  anchorRef: React.Ref<HTMLElement | null>
+  anchorRef: React.RefObject<HTMLElement | null>
   /**
    * An override to the internal id that will be spread on to the renderAnchor
    */
@@ -173,12 +173,9 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   closeButtonProps = defaultCloseButtonProps,
 }) => {
   const cssAnchorPositioning = useFeatureFlag('primer_react_css_anchor_positioning')
-  const anchorRef = useRef<HTMLElement>(null)
-  const mergedRef = useMergedRefs(anchorRef, externalAnchorRef)
-
+  const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const mergedOverlayRef = useMergedRefs(updateOverlayRef, overlayProps?.ref)
-
   const anchorId = useId(externalAnchorId)
 
   const onClickOutside = useCallback(() => onClose?.('click-outside'), [onClose])
@@ -261,7 +258,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     <>
       {renderAnchor &&
         renderAnchor({
-          ref: mergedRef,
+          ref: anchorRef,
           id: anchorId,
           'aria-haspopup': 'true',
           'aria-expanded': open,

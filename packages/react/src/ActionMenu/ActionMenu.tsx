@@ -1,10 +1,10 @@
-import React, {useCallback, useContext, useMemo, useEffect, useState, useRef} from 'react'
+import React, {useCallback, useContext, useMemo, useEffect, useState} from 'react'
 import {clsx} from 'clsx'
 import {TriangleDownIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {OverlayProps} from '../Overlay'
-import {useProvidedStateOrCreate, useMenuKeyboardNavigation, useMergedRefs} from '../hooks'
+import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuKeyboardNavigation} from '../hooks'
 import {Divider} from '../ActionList/Divider'
 import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
 import type {ButtonProps} from '../Button'
@@ -115,9 +115,7 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
   )
   const menuButtonChildId = React.isValidElement(menuButtonChild) ? menuButtonChild.props.id : undefined
 
-  const anchorRef = useRef<HTMLElement>(null)
-  const mergedRef = useMergedRefs(anchorRef, externalAnchorRef)
-
+  const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const anchorId = useId(menuButtonChildId)
   let renderAnchor: AnchoredOverlayProps['renderAnchor'] = null
   // 🚨 Hack for good API!
@@ -137,7 +135,7 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
             anchorChildren,
             mergeAnchorHandlers({...anchorProps}, anchorChildren.props),
           )
-          return React.cloneElement(child, {children: triggerButton, ref: mergedRef})
+          return React.cloneElement(child, {children: triggerButton, ref: anchorRef})
         }
       }
       return null
@@ -156,7 +154,7 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
               mergeAnchorHandlers({...anchorProps}, tooltipTrigger.props),
             )
             const tooltip = React.cloneElement(anchorChildren, {children: tooltipTriggerEl})
-            return React.cloneElement(child, {children: tooltip, ref: mergedRef})
+            return React.cloneElement(child, {children: tooltip, ref: anchorRef})
           }
         }
       } else {
@@ -290,7 +288,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
   // we typecast anchorRef as required instead of optional
   // because we know that we're setting it in context in Menu
   const {
-    anchorRef: contextAnchorRef,
+    anchorRef,
     renderAnchor,
     anchorId,
     open,
@@ -298,9 +296,6 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
     onClose,
     isSubmenu = false,
   } = React.useContext(MenuContext) as MandateProps<MenuContextProps, 'anchorRef'>
-
-  const anchorRef = useRef<HTMLElement>(null)
-  const mergedAnchorRef = useMergedRefs(anchorRef, contextAnchorRef)
 
   const containerRef = React.useRef<HTMLDivElement>(null)
   const isNarrow = useResponsiveValue({narrow: true}, false)
@@ -345,7 +340,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
 
   return (
     <AnchoredOverlay
-      anchorRef={mergedAnchorRef}
+      anchorRef={anchorRef}
       renderAnchor={renderAnchor}
       anchorId={anchorId}
       open={open}
