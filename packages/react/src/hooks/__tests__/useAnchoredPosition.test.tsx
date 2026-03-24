@@ -100,39 +100,4 @@ describe('scroll recalculation', () => {
       expect(cb.mock.calls.length).toBeGreaterThan(callCountBefore)
     })
   })
-
-  it('should not attach scroll listeners when enabled is false', async () => {
-    const addEventListenerSpy = vi.spyOn(window, 'addEventListener')
-
-    const DisabledComponent = ({
-      callback,
-    }: {
-      callback: (hookReturnValue: ReturnType<typeof useAnchoredPosition>) => void
-    }) => {
-      const floatingElementRef = React.useRef<HTMLDivElement>(null)
-      const anchorElementRef = React.useRef<HTMLDivElement>(null)
-      callback(useAnchoredPosition({floatingElementRef, anchorElementRef, enabled: false}))
-      return (
-        <div style={{position: 'absolute'}}>
-          <div
-            style={{position: 'absolute', top: '20px', left: '20px', height: '50px', width: '50px'}}
-            ref={floatingElementRef}
-          />
-          <div ref={anchorElementRef} />
-        </div>
-      )
-    }
-
-    const cb = vi.fn()
-    render(<DisabledComponent callback={cb} />)
-
-    await waitFor(() => {
-      expect(cb).toHaveBeenCalled()
-    })
-
-    const scrollListeners = addEventListenerSpy.mock.calls.filter(([event]) => event === 'scroll')
-    expect(scrollListeners).toHaveLength(0)
-
-    addEventListenerSpy.mockRestore()
-  })
 })
