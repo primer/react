@@ -12,7 +12,7 @@ import {ActionMenu} from '../ActionMenu'
 import {useFocusZone, FocusKeys} from '../hooks/useFocusZone'
 import styles from './ActionBar.module.css'
 import {clsx} from 'clsx'
-import {useRefObjectAsForwardedRef} from '../hooks'
+import {useMergedRefs} from '../hooks'
 import {createDescendantRegistry} from '../utils/descendant-registry'
 
 const ACTIONBAR_ITEM_GAP = 8
@@ -470,7 +470,7 @@ function useWidth(ref: React.RefObject<HTMLElement | null>) {
 export const ActionBarIconButton = forwardRef(
   ({disabled, onClick, ...props}: ActionBarIconButtonProps, forwardedRef) => {
     const ref = useRef<HTMLButtonElement>(null)
-    useRefObjectAsForwardedRef(forwardedRef, ref)
+    const mergedRef = useMergedRefs(ref, forwardedRef)
 
     const {size, isVisibleChild} = React.useContext(ActionBarContext)
     const {groupId} = React.useContext(ActionBarGroupContext)
@@ -507,7 +507,7 @@ export const ActionBarIconButton = forwardRef(
     return (
       <IconButton
         aria-disabled={disabled}
-        ref={ref}
+        ref={mergedRef}
         size={size}
         onClick={clickHandler}
         {...props}
