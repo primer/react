@@ -243,39 +243,6 @@ const defaultFooterButtons: Array<DialogButtonProps> = []
 // Minimum room needed for body content before forcing footer buttons into horizontal scroll.
 const MIN_BODY_HEIGHT = 56
 
-// Measures what the footer height would be in wrap mode by cloning it offscreen,
-// so we can decide layout without mutating the visible footer.
-function measureWrappedFooterHeight(footerElement: HTMLElement) {
-  const measurementContainer = document.createElement('div')
-  const measuredFooter = footerElement.cloneNode(true) as HTMLElement
-
-  Object.assign(measurementContainer.style, {
-    position: 'fixed',
-    top: '0',
-    left: '-99999px',
-    visibility: 'hidden',
-    pointerEvents: 'none',
-    contain: 'layout style size',
-  })
-
-  measuredFooter.style.width = `${footerElement.getBoundingClientRect().width}px`
-
-  Object.assign(measuredFooter.style, {
-    flexWrap: 'wrap',
-    overflowX: '',
-    overflowY: '',
-    justifyContent: '',
-  })
-
-  measurementContainer.appendChild(measuredFooter)
-  document.body.appendChild(measurementContainer)
-
-  const measuredHeight = measuredFooter.offsetHeight
-  measurementContainer.remove()
-
-  return measuredHeight
-}
-
 // useful to determine whether we're inside a Dialog from a nested component
 export const DialogContext = React.createContext<object | undefined>(undefined)
 const DIALOG_CONTEXT_VALUE = Object.freeze({})
@@ -389,28 +356,10 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
       return
     }
 
-    const headerElement = dialogElement.querySelector(`.${classes.Header}`)
-    const footerElement = dialogElement.querySelector(`.${classes.Footer}`)
+    const scrollRegion = dialogRef.current?.querySelector<HTMLElement>(`.${classes.DialogOverflowWrapper}`)
+    const visibleHeight = scrollRegion?.clientHeight ?? 0
 
-    if (!(footerElement instanceof HTMLElement)) {
-      return
-    }
-
-    const viewportHeight = backdropRef.current?.clientHeight ?? window.innerHeight
-    const positionRegular = dialogElement.getAttribute('data-position-regular')
-    const positionNarrow = dialogElement.getAttribute('data-position-narrow')
-    // fullscreen/left/right fill the full viewport; otherwise match CSS max-height gutter.
-    const gutter = viewportHeight <= 280 ? 12 : 64
-    const dialogMaxHeight =
-      positionNarrow === 'fullscreen' || positionRegular === 'left' || positionRegular === 'right'
-        ? viewportHeight
-        : Math.max(0, viewportHeight - gutter)
-
-    const headerHeight = headerElement instanceof HTMLElement ? headerElement.offsetHeight : 0
-    const wrappedFooterHeight = measureWrappedFooterHeight(footerElement)
-    const visibleBodyHeightWithWrap = Math.max(0, dialogMaxHeight - headerHeight - wrappedFooterHeight)
-
-    setFooterButtonLayout(visibleBodyHeightWithWrap >= MIN_BODY_HEIGHT ? 'wrap' : 'scroll')
+    setFooterButtonLayout(visibleHeight >= MIN_BODY_HEIGHT ? 'wrap' : 'scroll')
   }, [hasFooter])
 
   useResizeObserver(updateFooterButtonLayout, backdropRef)
