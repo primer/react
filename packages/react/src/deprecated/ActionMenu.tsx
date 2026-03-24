@@ -97,7 +97,7 @@ const ActionMenuBase = ({
   return (
     <AnchoredOverlay
       renderAnchor={renderMenuAnchor}
-      anchorref={mergedRef}
+      anchorRef={mergedRef}
       open={combinedOpenState}
       onOpen={onOpen}
       onClose={onClose}
