@@ -68,6 +68,7 @@ details-dialog:focus:not(:focus-visible):not(:global(.focus-visible)) {
    */
 
   /* Low-specificity default link styling */
+  /* stylelint-disable-next-line selector-no-qualifying-type */
   :where(a:not([class*='prc-']):not([class*='PRC-']):not([class*='Primer_Brand__'])) {
     color: var(--fgColor-accent, var(--color-accent-fg));
     text-decoration: none;

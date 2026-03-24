@@ -576,3 +576,43 @@ export const LoadingCustomFooterButtonsCould = () => {
     </>
   )
 }
+
+export const AlignTop = () => {
+  const [isOpen, setIsOpen] = useState(true)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const onDialogClose = useCallback(() => setIsOpen(false), [])
+
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
+        Show dialog
+      </Button>
+      {isOpen && (
+        <Dialog title="My Dialog" onClose={onDialogClose} align="top">
+          {bodyContent}
+        </Dialog>
+      )}
+    </>
+  )
+}
+AlignTop.storyName = '[Align] Top'
+
+export const AlignBottom = () => {
+  const [isOpen, setIsOpen] = useState(true)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const onDialogClose = useCallback(() => setIsOpen(false), [])
+
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
+        Show dialog
+      </Button>
+      {isOpen && (
+        <Dialog title="My Dialog" onClose={onDialogClose} align="bottom">
+          {bodyContent}
+        </Dialog>
+      )}
+    </>
+  )
+}
+AlignBottom.storyName = '[Align] Bottom'

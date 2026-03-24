@@ -18,6 +18,7 @@ import {
   type TokenWithGuidelines,
   getValidGroupsList,
   groupHints,
+  runStylelint,
 } from './primitives'
 import packageJson from '../package.json' with {type: 'json'}
 
@@ -479,7 +480,7 @@ server.registerTool(
   'find_tokens',
   {
     description:
-      "Search for specific tokens. Tip: If you only provide a 'group' and leave 'query' empty, it returns all tokens in that category. Avoid property-by-property searching.",
+      'Search for specific tokens. Tip: If you only provide a \'group\' and leave \'query\' empty, it returns all tokens in that category. Avoid property-by-property searching. COLOR RESOLUTION: If a user asks for "pink" or "blue", do not search for the color name. Use the semantic intent: blue->accent, red->danger, green->success. Always check both "emphasis" and "muted" variants for background colors. After identifying tokens and writing CSS, you MUST validate the result using lint_css.',
     inputSchema: {
       query: z
         .string()
@@ -676,6 +677,42 @@ server.registerTool(
 
     return {
       content: [{type: 'text', text}],
+    }
+  },
+)
+
+server.registerTool(
+  'lint_css',
+  {
+    description:
+      'REQUIRED FINAL STEP. Use this to validate your CSS. You cannot complete a task involving CSS without a successful run of this tool.',
+    inputSchema: {css: z.string()},
+  },
+  async ({css}) => {
+    try {
+      // --fix flag tells Stylelint to repair what it can
+      const {stdout} = await runStylelint(css)
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: stdout || '✅ Stylelint passed (or was successfully autofixed).',
+          },
+        ],
+      }
+    } catch (error: unknown) {
+      // If Stylelint still has errors it CANNOT fix, it will land here
+      const errorOutput =
+        error instanceof Error && 'stdout' in error ? (error as Error & {stdout: string}).stdout : String(error)
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `❌ Errors without autofix remaining:\n${errorOutput}`,
+          },
+        ],
+      }
     }
   },
 )

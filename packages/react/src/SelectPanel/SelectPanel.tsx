@@ -1,5 +1,5 @@
 import {SearchIcon, TriangleDownIcon, XIcon, type IconProps} from '@primer/octicons-react'
-import React, {useCallback, useEffect, useMemo, useRef, useState, type KeyboardEventHandler, type JSX} from 'react'
+import React, {useCallback, useEffect, useMemo, useRef, useState, type JSX} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
@@ -28,6 +28,7 @@ import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import type {ButtonProps, LinkButtonProps} from '../Button/types'
 import {Banner} from '../Banner'
 import {isAlphabetKey} from '../hooks/useMnemonics'
+import {useFormControlContext} from '../FormControl/_FormControlContext'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const SHORT_DELAY_MS = 500
@@ -146,6 +147,8 @@ const focusZoneSettings: Partial<FocusZoneHookSettings> = {
   disabled: true,
 }
 
+const closeButtonProps = {'aria-label': 'Cancel and close'}
+
 const areItemsEqual = (itemA: ItemInput, itemB: ItemInput) => {
   // prefer checking equivality by item.id
   if (typeof itemA.id !== 'undefined') return itemA.id === itemB.id
@@ -227,6 +230,8 @@ function Panel({
   const usingFullScreenOnNarrow = disableFullscreenOnNarrow ? false : featureFlagFullScreenOnNarrow
   const shouldOrderSelectedFirst =
     useFeatureFlag('primer_react_select_panel_order_selected_at_top') && showSelectedOptionsFirst
+  const {isReferenced, labelId} = useFormControlContext()
+  const selectedValueId = id ? `${id}-selected-value` : undefined
 
   // Single select modals work differently, they have an intermediate state where the user has selected an item but
   // has not yet confirmed the selection. This is the only time the user can cancel the selection.
@@ -542,14 +547,21 @@ function Panel({
     }
 
     const selectedItems = Array.isArray(selected) ? selected : [...(selected ? [selected] : [])]
+    const selectedValueText = selectedItems.length ? selectedItems.map(item => item.text).join(', ') : placeholder
+    const shouldAutoWireLabel = isReferenced === false && Boolean(labelId) && Boolean(selectedValueId)
 
     return <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
       return renderAnchor({
         ...props,
-        children: selectedItems.length ? selectedItems.map(item => item.text).join(', ') : placeholder,
+        ...(shouldAutoWireLabel
+          ? {
+              'aria-labelledby': [labelId, selectedValueId].filter(Boolean).join(' '),
+            }
+          : {}),
+        children: shouldAutoWireLabel ? <span id={selectedValueId}>{selectedValueText}</span> : selectedValueText,
       })
     }
-  }, [placeholder, renderAnchor, selected])
+  }, [placeholder, renderAnchor, selected, isReferenced, labelId, selectedValueId])
 
   // Pre-compute a Set of selected item IDs/references for O(1) lookups
   // This optimizes isItemCurrentlySelected from O(m) to O(1) per call
@@ -698,9 +710,7 @@ function Panel({
     }
   }, [open, resetSort])
 
-  const focusTrapSettings = {
-    initialFocusRef: inputRef || undefined,
-  }
+  const focusTrapSettings = useMemo(() => ({initialFocusRef: inputRef || undefined}), [inputRef])
 
   const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
     return {
@@ -797,12 +807,11 @@ function Panel({
     'anchored',
   )
 
-  const preventBubbling =
-    (customOnKeyDown: KeyboardEventHandler<HTMLDivElement> | undefined) =>
+  const preventBubbling = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
-      // skip if a TextInput has focus
-      customOnKeyDown?.(event)
+      overlayProps?.onKeyDown?.(event as unknown as React.KeyboardEvent<HTMLDivElement>)
 
+      // skip if a TextInput has focus
       const activeElement = document.activeElement as HTMLElement
       if (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA') return
 
@@ -817,7 +826,35 @@ function Panel({
 
       // if this is a typeahead event, don't propagate outside of menu
       event.stopPropagation()
-    }
+    },
+    [overlayProps],
+  )
+
+  const mergedOverlayProps = useMemo(
+    () => ({
+      role: 'dialog' as const,
+      'aria-labelledby': titleId,
+      'aria-describedby': subtitle ? subtitleId : undefined,
+      ...overlayProps,
+      ...(variant === 'modal'
+        ? {
+            top: '50vh' as const,
+            left: '50vw' as const,
+            anchorSide: undefined,
+          }
+        : {}),
+      style: {
+        transform: variant === 'modal' ? 'translate(-50%, -50%)' : undefined,
+        ...(isKeyboardVisible
+          ? {
+              maxHeight: availablePanelHeight !== undefined ? `${availablePanelHeight}px` : 'auto',
+            }
+          : {}),
+      } as React.CSSProperties,
+      onKeyDown: preventBubbling,
+    }),
+    [titleId, subtitle, subtitleId, overlayProps, variant, isKeyboardVisible, availablePanelHeight, preventBubbling],
+  )
 
   return (
     <>
@@ -828,31 +865,7 @@ function Panel({
         open={open}
         onOpen={onOpen}
         onClose={onClose}
-        overlayProps={{
-          role: 'dialog',
-          'aria-labelledby': titleId,
-          'aria-describedby': subtitle ? subtitleId : undefined,
-          ...overlayProps,
-          ...(variant === 'modal'
-            ? {
-                /* override AnchoredOverlay position */
-                top: '50vh',
-                left: '50vw',
-                anchorSide: undefined,
-              }
-            : {}),
-          style: {
-            /* override AnchoredOverlay position */
-            transform: variant === 'modal' ? 'translate(-50%, -50%)' : undefined,
-            // set maxHeight based on calculated availablePanelHeight when keyboard is visible
-            ...(isKeyboardVisible
-              ? {
-                  maxHeight: availablePanelHeight !== undefined ? `${availablePanelHeight}px` : 'auto',
-                }
-              : {}),
-          } as React.CSSProperties,
-          onKeyDown: preventBubbling(overlayProps?.onKeyDown),
-        }}
+        overlayProps={mergedOverlayProps}
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}
         height={height}
@@ -862,7 +875,7 @@ function Panel({
         pinPosition={!height}
         className={classes.Overlay}
         displayCloseButton={showXCloseIcon}
-        closeButtonProps={{'aria-label': 'Cancel and close'}}
+        closeButtonProps={closeButtonProps}
       >
         <div className={classes.Wrapper} data-variant={variant}>
           <div className={classes.Header} data-variant={currentResponsiveVariant}>

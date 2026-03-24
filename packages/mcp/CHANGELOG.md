@@ -1,5 +1,22 @@
 # @primer/mcp
 
+## 0.3.1
+
+### Patch Changes
+
+- [#7632](https://github.com/primer/react/pull/7632) [`49d32f2`](https://github.com/primer/react/commit/49d32f26aa42d788d94a4962b0695c2b611037e1) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Add motion and animation token support to MCP design token search, including `animation` and `duration` semantic prefixes, transition usage hints, and updated optimization recipes
+
+- [#7601](https://github.com/primer/react/pull/7601) [`e103951`](https://github.com/primer/react/commit/e10395113bae756edae8143fc51d39b7b519aa7b) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Expose lineHeight tokens in design token search results, added color name to token conversion and `lint_css` tool for self-check loop
+
+- Updated dependencies [[`7e108fe`](https://github.com/primer/react/commit/7e108fea1a9f92ce22f46ff1d55bfe4753d89ad8), [`3dd2c78`](https://github.com/primer/react/commit/3dd2c78f768ad560ee0f37947af2c17ca8d7938c), [`f6d4311`](https://github.com/primer/react/commit/f6d431194d217fbb7d456e58bcbbcbb434896fe1), [`79c855a`](https://github.com/primer/react/commit/79c855abeb6f46d3fefafb236f00ea65dfcd1ed4), [`74762e2`](https://github.com/primer/react/commit/74762e265a44b4fa46fcb4db8fd5194cb81b14c4), [`9585669`](https://github.com/primer/react/commit/958566907a580b54b484ff2339b32315b8a3b4b7), [`f7bdd1c`](https://github.com/primer/react/commit/f7bdd1c04f8cbb17b6a913ba55f7d0855c8eebf1), [`17a103c`](https://github.com/primer/react/commit/17a103c0726ff2903e008a69dfd141461f99591f), [`e649da3`](https://github.com/primer/react/commit/e649da3c89b38f477fb574acf5bb06a49b41ee9d), [`1e54bdf`](https://github.com/primer/react/commit/1e54bdf72c9466f23c567cfdc73b7b5c243782a4)]:
+  - @primer/react@38.15.0
+
+## 0.3.0
+
+### Minor Changes
+
+- [#7574](https://github.com/primer/react/pull/7574) [`14c5a6c`](https://github.com/primer/react/commit/14c5a6c70921e67f9704cd05ad15be9c8fdaa72d) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Replace design token tools with enhanced search and bundle system. The single `list_tokens` tool is replaced by `find_tokens`, `get_token_group_bundle`, `get_design_token_specs`, and `get_token_usage_patterns` for improved token discovery and usage guidance.
+
 ## 0.2.0
 
 ### Minor Changes
