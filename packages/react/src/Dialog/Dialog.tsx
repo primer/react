@@ -241,7 +241,7 @@ const defaultPosition = {
 
 const defaultFooterButtons: Array<DialogButtonProps> = []
 // Minimum room needed for body content before forcing footer buttons into horizontal scroll.
-const MIN_BODY_HEIGHT = 56
+const MIN_BODY_HEIGHT = 48
 
 // useful to determine whether we're inside a Dialog from a nested component
 export const DialogContext = React.createContext<object | undefined>(undefined)
