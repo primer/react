@@ -127,7 +127,7 @@ export const Tooltip: ForwardRefExoticComponent<
     const tooltipId = useId(id)
     const child = Children.only(children)
     const triggerRef = useRef<HTMLElement>(null)
-    const combinedTriggerRef = useMergedRefs(triggerRef, forwardedRef)
+    const mergedTriggerRef = useMergedRefs(triggerRef, forwardedRef)
     const tooltipElRef = useRef<HTMLDivElement>(null)
 
     const [calculatedDirection, setCalculatedDirection] = useState<TooltipDirection>(direction)
@@ -285,7 +285,7 @@ export const Tooltip: ForwardRefExoticComponent<
           {React.isValidElement(child) &&
             // eslint-disable-next-line react-hooks/refs
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
-              ref: combinedTriggerRef,
+              ref: mergedTriggerRef,
               // If it is a type description, we use tooltip to describe the trigger
               'aria-describedby': (() => {
                 // If tooltip is not a description type, keep the original aria-describedby

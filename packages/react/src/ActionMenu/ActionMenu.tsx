@@ -300,7 +300,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
   } = React.useContext(MenuContext) as MandateProps<MenuContextProps, 'anchorRef'>
 
   const anchorRef = useRef<HTMLElement>(null)
-  const combinedAnchorRef = useMergedRefs(anchorRef, contextAnchorRef)
+  const mergedAnchorRef = useMergedRefs(anchorRef, contextAnchorRef)
 
   const containerRef = React.useRef<HTMLDivElement>(null)
   const isNarrow = useResponsiveValue({narrow: true}, false)
@@ -345,7 +345,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
 
   return (
     <AnchoredOverlay
-      anchorRef={combinedAnchorRef}
+      anchorRef={mergedAnchorRef}
       renderAnchor={renderAnchor}
       anchorId={anchorId}
       open={open}

@@ -514,7 +514,7 @@ function Panel({
   }, [notice, open])
 
   const anchorRef = useRef<HTMLElement>(null)
-  const combinedAnchorRef = useMergedRefs(anchorRef, externalAnchorRef)
+  const mergedAnchorRef = useMergedRefs(anchorRef, externalAnchorRef)
 
   const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(
     (gesture: Parameters<Exclude<AnchoredOverlayProps['onOpen'], undefined>>[0]) => onOpenChange(true, gesture),
@@ -862,7 +862,7 @@ function Panel({
     <>
       <AnchoredOverlay
         renderAnchor={renderMenuAnchor}
-        anchorRef={combinedAnchorRef}
+        anchorRef={mergedAnchorRef}
         align={align}
         open={open}
         onOpen={onOpen}
