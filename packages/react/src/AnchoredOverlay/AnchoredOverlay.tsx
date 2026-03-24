@@ -295,7 +295,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   const XButtonAriaLabelledBy = closeButtonProps['aria-labelledby']
   const XButtonAriaLabel = closeButtonProps['aria-label']
 
-  const {className: overlayClassName, ...restOverlayProps} = overlayProps || {}
+  const {className: overlayClassName, disablePortal, ...restOverlayProps} = overlayProps || {}
 
   return (
     <>
@@ -327,6 +327,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           className={clsx(className, overlayClassName, cssAnchorPositioning ? classes.AnchoredOverlay : undefined)}
           preventOverflow={preventOverflow}
           data-component="AnchoredOverlay"
+          disablePortal={disablePortal}
           {...restOverlayProps}
           id={cssAnchorPositioning ? popoverId : undefined}
           ref={node => {
@@ -337,7 +338,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           }}
           data-anchor-position={cssAnchorPositioning}
           data-side={cssAnchorPositioning ? side : position?.anchorSide}
-          disablePortal={cssAnchorPositioning ? true : false}
         >
           {showXIcon ? (
             <div className={classes.ResponsiveCloseButtonContainer}>

@@ -11,6 +11,7 @@ import {FeatureFlags} from '../FeatureFlags'
 
 import overlayClasses from '../Overlay/Overlay.module.css'
 import anchoredOverlayClasses from './AnchoredOverlay.module.css'
+import type {OverlayProps} from '../Overlay'
 
 type TestComponentSettings = {
   initiallyOpen?: boolean
@@ -19,6 +20,7 @@ type TestComponentSettings = {
   onPositionChange?: ({position}: {position: AnchorPosition}) => void
   className?: string
   withCSSAnchorPositioningFeatureFlag?: boolean
+  overlayProps?: Pick<OverlayProps, 'disablePortal'>
 }
 
 const AnchoredOverlayTestComponent = ({
@@ -28,6 +30,7 @@ const AnchoredOverlayTestComponent = ({
   onPositionChange,
   className,
   withCSSAnchorPositioningFeatureFlag,
+  overlayProps,
 }: TestComponentSettings = {}) => {
   const [open, setOpen] = useState(initiallyOpen)
   const onOpen = useCallback(
@@ -54,6 +57,7 @@ const AnchoredOverlayTestComponent = ({
         renderAnchor={props => <Button {...props}>Anchor Button</Button>}
         onPositionChange={onPositionChange}
         className={className}
+        {...overlayProps}
       >
         <button type="button">Focusable Child</button>
       </AnchoredOverlay>
@@ -239,10 +243,10 @@ describe('AnchoredOverlay feature flag specific behavior', () => {
       expect(overlay).toHaveAttribute('data-visibility-visible', '')
     })
 
-    it('should use portal by default when flag is enabled', () => {
+    it('should use portal when flag is enabled', () => {
       const {baseElement} = render(
         <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
-          <AnchoredOverlayTestComponent initiallyOpen={true} />
+          <AnchoredOverlayTestComponent initiallyOpen={true} overlayProps={{disablePortal: false}} />
         </FeatureFlags>,
       )
 
