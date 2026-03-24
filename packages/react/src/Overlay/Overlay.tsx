@@ -193,7 +193,6 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     forwardedRef,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
-    const cssAnchorPositioning = useFeatureFlag('primer_react_css_anchor_positioning')
     const featureFlagMaxHeightClampToViewport = useFeatureFlag('primer_react_overlay_max_height_clamp_to_viewport')
     const overlayRef = useRef<HTMLDivElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, overlayRef)
@@ -247,7 +246,6 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
         visibility={visibility}
         data-responsive={responsiveVariant}
         {...(featureFlagMaxHeightClampToViewport ? {'data-max-height-clamp-to-viewport': ''} : {})}
-        {...(cssAnchorPositioning && {popover: 'manual'})}
         {...props}
       />
     )
