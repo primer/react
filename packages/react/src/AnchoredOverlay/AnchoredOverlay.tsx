@@ -14,6 +14,7 @@ import {IconButton, type IconButtonProps} from '../Button'
 import {XIcon} from '@primer/octicons-react'
 import classes from './AnchoredOverlay.module.css'
 import {clsx} from 'clsx'
+import {useFeatureFlag} from '../FeatureFlags'
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
@@ -123,6 +124,17 @@ export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
   (AnchoredOverlayPropsWithAnchor | AnchoredOverlayPropsWithoutAnchor) &
   Partial<Pick<PositionSettings, 'align' | 'side' | 'anchorOffset' | 'alignmentOffset' | 'displayInViewport'>>
 
+const applyAnchorPositioningPolyfill = async () => {
+  if (typeof window !== 'undefined' && !('anchorName' in document.documentElement.style)) {
+    try {
+      await import('@oddbird/css-anchor-positioning')
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.warn('Failed to load CSS anchor positioning polyfill:', e)
+    }
+  }
+}
+
 const defaultVariant = {
   regular: 'anchored',
   narrow: 'anchored',
@@ -160,11 +172,12 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   displayCloseButton = true,
   closeButtonProps = defaultCloseButtonProps,
 }) => {
+  const cssAnchorPositioning = useFeatureFlag('primer_react_css_anchor_positioning')
   const anchorRef = useRef<HTMLElement>(null)
   const mergedRef = useMergedRefs(anchorRef, externalAnchorRef)
 
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
-  const combinedOverlayRef = useMergedRefs(updateOverlayRef, overlayProps?.ref)
+  const mergedOverlayRef = useMergedRefs(updateOverlayRef, overlayProps?.ref)
 
   const anchorId = useId(externalAnchorId)
 
@@ -217,12 +230,19 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     [overlayRef.current],
   )
 
+  const hasLoadedAnchorPositioningPolyfill = useRef(false)
+
   useEffect(() => {
     // ensure overlay ref gets cleared when closed, so position can reset between closing/re-opening
     if (!open && overlayRef.current) {
       updateOverlayRef(null)
     }
-  }, [open, overlayRef, updateOverlayRef])
+
+    if (cssAnchorPositioning && !hasLoadedAnchorPositioningPolyfill.current) {
+      applyAnchorPositioningPolyfill()
+      hasLoadedAnchorPositioningPolyfill.current = true
+    }
+  }, [open, overlayRef, updateOverlayRef, cssAnchorPositioning])
 
   useFocusZone({
     containerRef: overlayRef,
@@ -235,17 +255,20 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   const XButtonAriaLabelledBy = closeButtonProps['aria-labelledby']
   const XButtonAriaLabel = closeButtonProps['aria-label']
 
-  return (
+  const {className: overlayClassName, ...restOverlayProps} = overlayProps || {}
+
+  const innerContent = (
     <>
       {renderAnchor &&
         renderAnchor({
-          ref: combinedRef,
+          ref: mergedRef,
           id: anchorId,
           'aria-haspopup': 'true',
           'aria-expanded': open,
           tabIndex: 0,
           onClick: onAnchorClick,
           onKeyDown: onAnchorKeyDown,
+          ...(cssAnchorPositioning ? {className: classes.Anchor} : {}),
         })}
       {open ? (
         <Overlay
@@ -254,18 +277,20 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           ignoreClickRefs={[anchorRef]}
           onEscape={onEscape}
           role="none"
-          visibility={position ? 'visible' : 'hidden'}
+          visibility={cssAnchorPositioning || position ? 'visible' : 'hidden'}
           height={height}
           width={width}
-          top={position?.top || 0}
-          left={position?.left || 0}
+          top={cssAnchorPositioning ? undefined : position?.top || 0}
+          left={cssAnchorPositioning ? undefined : position?.left || 0}
           responsiveVariant={variant.narrow === 'fullscreen' ? 'fullscreen' : undefined}
-          anchorSide={position?.anchorSide}
-          className={className}
+          anchorSide={cssAnchorPositioning ? undefined : position?.anchorSide}
+          className={clsx(className, overlayClassName, cssAnchorPositioning ? classes.AnchoredOverlay : undefined)}
           preventOverflow={preventOverflow}
           data-component="AnchoredOverlay"
-          {...overlayProps}
-          ref={combinedOverlayRef}
+          {...restOverlayProps}
+          ref={mergedOverlayRef}
+          data-anchor-position={cssAnchorPositioning}
+          data-side={cssAnchorPositioning ? side : position?.anchorSide}
         >
           {showXIcon ? (
             <div className={classes.ResponsiveCloseButtonContainer}>
@@ -290,6 +315,12 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       ) : null}
     </>
   )
+
+  if (cssAnchorPositioning) {
+    return <div className={classes.Wrapper}>{innerContent}</div>
+  }
+
+  return innerContent
 }
 
 AnchoredOverlay.displayName = 'AnchoredOverlay'

@@ -10,9 +10,9 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@primer/react": "38.15.1",
+    "@primer/react": "38.16.0",
     "@primer/styled-react": "1.0.3",
-    "next": "^16.1.5",
+    "next": "^16.1.7",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "typescript": "^5.9.2"
