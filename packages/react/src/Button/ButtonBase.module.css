@@ -583,6 +583,10 @@
   [data-a11y-link-underlines='true'] &:where([data-variant='link']) {
     &[data-no-visuals] {
       text-decoration: underline;
+
+      &:hover {
+        text-decoration: none;
+      }
     }
 
     &:not([data-no-visuals]) {
