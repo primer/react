@@ -39,7 +39,10 @@ const ThemeContext = React.createContext<{
 
 // inspired from __NEXT_DATA__, we use application/json to avoid CSRF policy with inline scripts
 const serverHandoffCache = new Map<string, Record<string, unknown>>()
+const emptyHandoff: Record<string, unknown> = {}
 const getServerHandoff = (id: string) => {
+  if (typeof document === 'undefined') return emptyHandoff
+
   const cached = serverHandoffCache.get(id)
   if (cached !== undefined) return cached
 
