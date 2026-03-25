@@ -1,4 +1,6 @@
 import babel from '@rollup/plugin-babel'
+import commonjs from '@rollup/plugin-commonjs'
+import nodeResolve from '@rollup/plugin-node-resolve'
 import {defineConfig} from 'rollup'
 import typescript from 'rollup-plugin-typescript2'
 import packageJson from './package.json' with {type: 'json'}
@@ -18,6 +20,8 @@ export default defineConfig({
   input: ['src/index.tsx', 'src/experimental.tsx', 'src/deprecated.tsx'],
   external: dependencies.map(createPackageRegex),
   plugins: [
+    nodeResolve({extensions: ['.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs']}),
+    commonjs(),
     typescript({
       tsconfig: 'tsconfig.build.json',
     }),
