@@ -38,15 +38,28 @@ const ThemeContext = React.createContext<{
 })
 
 // inspired from __NEXT_DATA__, we use application/json to avoid CSRF policy with inline scripts
+const serverHandoffCache = new Map<string, Record<string, unknown>>()
 const getServerHandoff = (id: string) => {
+  const cached = serverHandoffCache.get(id)
+  if (cached !== undefined) return cached
+
   try {
     const serverData = document.getElementById(`__PRIMER_DATA_${id}__`)?.textContent
-    if (serverData) return JSON.parse(serverData)
+    if (serverData) {
+      const parsed = JSON.parse(serverData)
+      serverHandoffCache.set(id, parsed)
+      return parsed
+    }
   } catch (_error) {
     // if document/element does not exist or JSON is invalid, supress error
   }
-  return {}
+
+  const empty = {}
+  serverHandoffCache.set(id, empty)
+  return empty
 }
+
+const emptySubscribe = () => () => {}
 
 export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>> = ({children, ...props}) => {
   // Get fallback values from parent ThemeProvider (if exists)
@@ -61,30 +74,23 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
   const theme = props.theme ?? fallbackTheme ?? defaultTheme
 
   const uniqueDataId = useId()
-  // Lazy initializer reads DOM + parses JSON once instead of every render
-  const [serverColorMode, setServerColorMode] = React.useState<ColorMode | undefined>(
-    () => getServerHandoff(uniqueDataId).resolvedServerColorMode,
-  )
 
   const [colorMode, setColorMode] = useSyncedState(props.colorMode ?? fallbackColorMode ?? defaultColorMode)
   const [dayScheme, setDayScheme] = useSyncedState(props.dayScheme ?? fallbackDayScheme ?? defaultDayScheme)
   const [nightScheme, setNightScheme] = useSyncedState(props.nightScheme ?? fallbackNightScheme ?? defaultNightScheme)
   const systemColorMode = useSystemColorMode()
-  const resolvedColorMode = serverColorMode ?? resolveColorMode(colorMode, systemColorMode)
+  const clientColorMode = resolveColorMode(colorMode, systemColorMode)
+  // During SSR/hydration, use the server-rendered color mode from the handoff script tag
+  // to avoid mismatches. After hydration, resolve from client state.
+  const resolvedColorMode = React.useSyncExternalStore(
+    emptySubscribe,
+    () => clientColorMode,
+    () => getServerHandoff(uniqueDataId).resolvedServerColorMode ?? clientColorMode,
+  )
   const colorScheme = chooseColorScheme(resolvedColorMode, dayScheme, nightScheme)
   const {resolvedTheme, resolvedColorScheme} = React.useMemo(
     () => applyColorScheme(theme, colorScheme),
     [theme, colorScheme],
-  )
-
-  // After hydration, clear the server passthrough so client-side color mode takes over
-  React.useEffect(
-    function clearServerPassthrough() {
-      if (serverColorMode !== undefined) {
-        setServerColorMode(undefined)
-      }
-    },
-    [serverColorMode],
   )
 
   const contextValue = React.useMemo(
@@ -139,55 +145,22 @@ export function useColorSchemeVar(values: Partial<Record<string, string>>, fallb
   return values[colorScheme] ?? fallback
 }
 
+function subscribeToSystemColorMode(callback: () => void) {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  const media = window?.matchMedia?.('(prefers-color-scheme: dark)')
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  media?.addEventListener('change', callback)
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  return () => media?.removeEventListener('change', callback)
+}
+
 function useSystemColorMode() {
-  const [systemColorMode, setSystemColorMode] = React.useState(getSystemColorMode)
-
-  React.useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    const media = window?.matchMedia?.('(prefers-color-scheme: dark)')
-
-    function matchesMediaToColorMode(matches: boolean) {
-      return matches ? 'night' : 'day'
-    }
-
-    function handleChange(event: MediaQueryListEvent) {
-      const isNight = event.matches
-      setSystemColorMode(matchesMediaToColorMode(isNight))
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (media) {
-      // Only update if preference changed between useState init and effect
-      const currentMode = matchesMediaToColorMode(media.matches)
-      setSystemColorMode(prev => (prev === currentMode ? prev : currentMode))
-
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      if (media.addEventListener !== undefined) {
-        media.addEventListener('change', handleChange)
-        return function cleanup() {
-          media.removeEventListener('change', handleChange)
-        }
-      }
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      else if (media.addListener !== undefined) {
-        media.addListener(handleChange)
-        return function cleanup() {
-          media.removeListener(handleChange)
-        }
-      }
-    }
-  }, [])
-
-  return systemColorMode
+  return React.useSyncExternalStore<ColorMode>(subscribeToSystemColorMode, getSystemColorMode, () => 'day')
 }
 
 function getSystemColorMode(): ColorMode {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (typeof window !== 'undefined' && window.matchMedia?.('(prefers-color-scheme: dark)')?.matches) {
-    return 'night'
-  }
-
-  return 'day'
+  return window?.matchMedia?.('(prefers-color-scheme: dark)')?.matches ? 'night' : 'day'
 }
 
 function resolveColorMode(colorMode: ColorModeWithAuto, systemColorMode: ColorMode) {
