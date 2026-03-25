@@ -191,6 +191,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
     const cssAnchorPositioning = useFeatureFlag('primer_react_css_anchor_positioning')
+    const featureFlagMaxHeightClampToViewport = useFeatureFlag('primer_react_overlay_max_height_clamp_to_viewport')
     const overlayRef = useRef<HTMLDivElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, overlayRef)
     const slideAnimationDistance = 8 // var(--base-size-8), hardcoded to do some math
@@ -242,6 +243,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
         height={height}
         visibility={visibility}
         data-responsive={responsiveVariant}
+        {...(featureFlagMaxHeightClampToViewport ? {'data-max-height-clamp-to-viewport': ''} : {})}
         {...props}
       />
     )
