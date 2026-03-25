@@ -96,6 +96,9 @@
     "typescript-eslint": "^8.57.0",
     "vitest": "^4.0.15"
   },
+  "overrides": {
+    "zod-validation-error": "^4.0.0"
+  },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "^4.59.0"
   },
