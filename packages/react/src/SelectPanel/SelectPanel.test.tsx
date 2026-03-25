@@ -11,7 +11,7 @@ import {ArrowLeftIcon} from '@primer/octicons-react'
 import classes from './SelectPanel.test.module.css'
 import {implementsClassName} from '../utils/testing'
 import {getAnchoredPosition} from '@primer/behaviors'
-import type {AnchorPosition} from '@primer/behaviors'
+import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 
 // Mock getAnchoredPosition to verify displayInViewport is forwarded
 vi.mock('@primer/behaviors', async () => {
@@ -19,11 +19,7 @@ vi.mock('@primer/behaviors', async () => {
   return {
     ...actual,
     getAnchoredPosition: vi.fn(
-      (
-        _floatingElement: Element,
-        _anchorElement: Element | DOMRect,
-        _settings?: Partial<{displayInViewport?: boolean}>,
-      ) =>
+      (_floatingElement: Element, _anchorElement: Element | DOMRect, _settings?: Partial<PositionSettings>) =>
         ({
           top: 100,
           left: 100,
@@ -1800,6 +1796,6 @@ describe('SelectPanel displayInViewport prop', () => {
 
     const calls = mockGetAnchoredPosition.mock.calls
     const lastCall = calls[calls.length - 1]
-    expect(lastCall[2]?.displayInViewport).not.toBe(true)
+    expect(lastCall[2]?.displayInViewport).toBeUndefined()
   })
 })
