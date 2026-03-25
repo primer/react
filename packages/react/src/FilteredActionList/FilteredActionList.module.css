@@ -23,6 +23,13 @@
     content-visibility: auto;
     contain-intrinsic-size: auto 32px;
   }
+
+  /* When showDividers is enabled, divider ::before pseudo-elements on ActionListSubContent are
+     positioned outside the item bounds (top: -7px). content-visibility: auto applies paint containment
+     which clips these, so we must disable it for items in lists with dividers. */
+  & [data-dividers='true'] .ActionListItem {
+    content-visibility: visible;
+  }
 }
 
 .ActionList {
