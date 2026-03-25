@@ -157,3 +157,7 @@ npm run lint:fix        # Auto-fix linting issues
 - Storybook startup: ~3 seconds
 
 **CRITICAL**: NEVER CANCEL builds, tests, or long-running commands. They may take significantly longer in CI environments. Always set appropriate timeouts (90+ minutes for builds/tests).
+
+## Pull Request Creation
+
+When creating a pull request, you MUST use the template in `.github/pull_request_template.md` to structure the PR description. Read the template file, fill in all sections appropriately, and include it in the PR body.
