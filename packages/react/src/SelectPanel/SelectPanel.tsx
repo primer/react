@@ -131,7 +131,7 @@ type SelectPanelVariantProps = {variant?: 'anchored'; onCancel?: () => void} | {
 
 export type SelectPanelProps = SelectPanelBaseProps &
   Omit<FilteredActionListProps, 'selectionVariant' | 'variant' | 'message'> &
-  Pick<AnchoredOverlayProps, 'open' | 'height' | 'width' | 'align'> &
+  Pick<AnchoredOverlayProps, 'open' | 'height' | 'width' | 'align' | 'displayInViewport'> &
   AnchoredOverlayWrapperAnchorProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection) &
   SelectPanelVariantProps
@@ -203,6 +203,7 @@ function Panel({
   showSelectAll = false,
   focusPrependedElements,
   virtualized,
+  displayInViewport,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -876,6 +877,7 @@ function Panel({
         className={classes.Overlay}
         displayCloseButton={showXCloseIcon}
         closeButtonProps={closeButtonProps}
+        displayInViewport={displayInViewport}
       >
         <div className={classes.Wrapper} data-variant={variant}>
           <div className={classes.Header} data-variant={currentResponsiveVariant}>
