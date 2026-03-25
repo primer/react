@@ -330,7 +330,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           disablePortal={disablePortal}
           {...(cssAnchorPositioning ? {popover: 'manual'} : {})}
           {...restOverlayProps}
-          id={cssAnchorPositioning ? popoverId : undefined}
+          {...(cssAnchorPositioning ? {id: popoverId} : {})}
           ref={node => {
             if (overlayProps?.ref) {
               assignRef(overlayProps.ref, node)
