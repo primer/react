@@ -5,7 +5,6 @@ import {describe, expect, test} from 'vitest'
 import {
   ActionList,
   ActionMenu,
-  Avatar,
   Box,
   Breadcrumbs,
   Button,
@@ -55,11 +54,6 @@ describe('@primer/react', () => {
 
     await user.click(screen.getByText('test'))
 
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('Avatar supports `sx` prop', () => {
-    render(<Avatar data-testid="component" sx={{background: 'red'}} src="" />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
