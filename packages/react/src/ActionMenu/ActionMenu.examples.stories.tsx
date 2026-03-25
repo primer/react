@@ -21,7 +21,6 @@ import {
 } from '@primer/octicons-react'
 import type {AnchorPosition, AnchorSide} from '@primer/behaviors'
 import classes from './ActionMenu.examples.stories.module.css'
-import {FeatureFlags} from '../FeatureFlags'
 
 export default {
   title: 'Components/ActionMenu/Examples',
