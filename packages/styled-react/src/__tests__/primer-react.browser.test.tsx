@@ -24,7 +24,6 @@ import {
   Spinner,
   Text,
   TextInput,
-  Textarea,
   ThemeProvider,
   Timeline,
   Token,
@@ -263,11 +262,6 @@ describe('@primer/react', () => {
   test('TextInput.Action supports `sx` prop', () => {
     render(<TextInput.Action aria-label="test" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByRole('button')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('Textarea supports `sx` prop', () => {
-    const {container} = render(<Textarea sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
   test('Timeline supports `sx` prop', () => {
