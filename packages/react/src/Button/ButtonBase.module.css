@@ -658,6 +658,10 @@
   display: block;
 }
 
+.ConditionalWrapperLink {
+  display: inline-flex;
+}
+
 [data-kbd-chord] {
   transition: 80ms ease-in;
   transition-property: color, background-color, border-color;

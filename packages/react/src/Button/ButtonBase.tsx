@@ -81,7 +81,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
       // when `loading` is `false`.
       // Then, the component re-renders in a way that the button will lose focus when switching between loading states.
       if={typeof loading !== 'undefined'}
-      className={block ? classes.ConditionalWrapper : undefined}
+      className={block ? classes.ConditionalWrapper : variant === 'link' ? classes.ConditionalWrapperLink : undefined}
       data-loading-wrapper
     >
       <Component
