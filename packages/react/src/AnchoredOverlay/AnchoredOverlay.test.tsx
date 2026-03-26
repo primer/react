@@ -20,7 +20,7 @@ type TestComponentSettings = {
   onPositionChange?: ({position}: {position: AnchorPosition}) => void
   className?: string
   withCSSAnchorPositioningFeatureFlag?: boolean
-  overlayProps?: Pick<OverlayProps, 'disablePortal'>
+  overlayProps?: Pick<OverlayProps, '_PrivateDisablePortal'>
 }
 
 const AnchoredOverlayTestComponent = ({
@@ -246,7 +246,7 @@ describe('AnchoredOverlay feature flag specific behavior', () => {
     it('should use portal when flag is enabled', () => {
       const {baseElement} = render(
         <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
-          <AnchoredOverlayTestComponent initiallyOpen={true} overlayProps={{disablePortal: false}} />
+          <AnchoredOverlayTestComponent initiallyOpen={true} overlayProps={{_PrivateDisablePortal: false}} />
         </FeatureFlags>,
       )
 
@@ -255,7 +255,7 @@ describe('AnchoredOverlay feature flag specific behavior', () => {
       expect(overlayInPortal).toBeInTheDocument()
     })
 
-    it('should not use portal when disablePortal is passed via overlayProps', () => {
+    it('should not use portal when _PrivateDisablePortal is passed via overlayProps', () => {
       const {baseElement, container} = render(
         <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
           <BaseStyles>
@@ -264,7 +264,7 @@ describe('AnchoredOverlay feature flag specific behavior', () => {
               onOpen={() => {}}
               onClose={() => {}}
               renderAnchor={props => <Button {...props}>Anchor Button</Button>}
-              overlayProps={{disablePortal: true}}
+              overlayProps={{_PrivateDisablePortal: true}}
             >
               <button type="button">Focusable Child</button>
             </AnchoredOverlay>
