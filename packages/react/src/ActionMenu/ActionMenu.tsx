@@ -330,10 +330,6 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
     }
   }, [anchorRef])
 
-  const featureFlagDisplayInViewportInsideDialog = useFeatureFlag(
-    'primer_react_action_menu_display_in_viewport_inside_dialog',
-  )
-
   const featureFlagMaxHeightClampToViewport = useFeatureFlag('primer_react_overlay_max_height_clamp_to_viewport')
 
   const isInsideDialog = useContext(DialogContext) !== undefined
@@ -352,9 +348,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
       focusZoneSettings={isNarrowFullscreen ? {disabled: true} : {focusOutBehavior: 'wrap'}}
       onPositionChange={onPositionChange}
       variant={variant}
-      displayInViewport={
-        displayInViewport !== undefined ? displayInViewport : featureFlagDisplayInViewportInsideDialog && isInsideDialog
-      }
+      displayInViewport={displayInViewport !== undefined ? displayInViewport : isInsideDialog}
     >
       <div
         ref={containerRef}

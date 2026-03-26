@@ -72,3 +72,10 @@ Playground.args = {
   clipSidebar: false,
   condensed: false,
 }
+
+Playground.argTypes = {
+  clipSidebar: {
+    control: {type: 'select'},
+    options: [false, true, 'start', 'end', 'both'],
+  },
+}
