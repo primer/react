@@ -259,6 +259,18 @@ describe('Button', () => {
     expect(container.getByRole('button')).toHaveAccessibleName('content')
   })
 
+  it('should apply inline-flex display to loading wrapper when variant is link', () => {
+    const {container} = render(
+      <Button variant="link" loading>
+        content
+      </Button>,
+    )
+
+    const wrapper = container.querySelector('[data-loading-wrapper]')
+    expect(wrapper).toBeInTheDocument()
+    expect(wrapper).toHaveClass(classes.ConditionalWrapperLink)
+  })
+
   it('should render tooltip on an icon button when unsafeDisableTooltip prop is passed as false', () => {
     const {getByRole, getByText} = render(<IconButton icon={HeartIcon} aria-label="Heart" />)
     const triggerEL = getByRole('button')
