@@ -18,7 +18,7 @@ export const UnwrappedLink = <As extends React.ElementType = 'a'>(
   props: PolymorphicProps<As, 'a', StyledLinkProps>,
   ref: ForwardedRef<unknown>,
 ) => {
-  const {as: Component = 'a', className, inline, hoverColor, ...restProps} = props
+  const {as: Component = 'a', className, inline, muted, hoverColor, ...restProps} = props
   const innerRef = React.useRef<ElementRef<As>>(null)
   useRefObjectAsForwardedRef(ref, innerRef)
 
@@ -49,7 +49,7 @@ export const UnwrappedLink = <As extends React.ElementType = 'a'>(
   return (
     <Component
       className={clsx(className, classes.Link)}
-      data-muted={restProps.muted}
+      data-muted={muted}
       data-inline={inline}
       data-hover-color={hoverColor}
       {...restProps}
