@@ -67,20 +67,11 @@ jobs:
           private-key: ${{ secrets.PRIMER_APP_PRIVATE_KEY_SHARED }}
       - name: Unlock main branch
         run: |
-          # Unlock branch and remove push restrictions
+          # Delete the branch protection rule entirely
           gh api \
-            --method PUT \
+            --method DELETE \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            /repos/primer/react/branches/main/protection \
-            --input - <<EOF
-          {
-            "lock_branch": false,
-            "restrictions": null,
-            "required_status_checks": null,
-            "enforce_admins": false,
-            "required_pull_request_reviews": null
-          }
-          EOF
+            /repos/primer/react/branches/main/protection
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
