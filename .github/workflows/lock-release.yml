@@ -67,7 +67,9 @@ jobs:
           private-key: ${{ secrets.PRIMER_APP_PRIVATE_KEY_SHARED }}
       - name: Unlock main branch
         run: |
-          # Delete the branch protection rule entirely
+          # Delete the branch protection rule entirely.
+          # Note: This workflow is the only thing using legacy branch protection.
+          # All other branch rules use rulesets, which are unaffected by this delete.
           gh api \
             --method DELETE \
             -H "Accept: application/vnd.github+json" \
