@@ -85,4 +85,3 @@ tool_search_tool_regex pattern: "mcp_primer-storyb"
 - **Always** call `list-all-documentation` before `get-documentation` — never guess or derive an ID from a component name. Only use `id` values returned by this list.
 - **Never invent props or variants** not present in the documentation. Only use properties explicitly documented or shown in example stories — do not assume properties based on naming conventions or patterns from other libraries. If a property isn't documented, report it as not found and check back with the user.
 - Before writing or editing stories, always call `get-storybook-story-instructions` — treat its output as the source of truth.
-- Check your work by running `run-story-tests`.
