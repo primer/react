@@ -272,8 +272,8 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   }, [cssAnchorPositioning, anchorRef, overlayRef, id])
 
   // Track the overlay element so we can re-run the effect when it changes.
-  // This is necessary when using a Portal, as React re-renders can replace
-  // the DOM node, causing the popover to lose its :popover-open state.
+  // The overlay unmounts when closed, so each open creates a new DOM node -
+  // that needs showPopover() called.
   const overlayElement = overlayRef.current
 
   useLayoutEffect(() => {
@@ -308,7 +308,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           tabIndex: 0,
           onClick: onAnchorClick,
           onKeyDown: onAnchorKeyDown,
-          ...(cssAnchorPositioning ? {'data-anchor': '', popoverTarget: popoverId} : {}),
+          ...(cssAnchorPositioning ? {popoverTarget: popoverId} : {}),
         })}
       {open ? (
         <Overlay
