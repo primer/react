@@ -10,6 +10,29 @@ import {IconButton} from '../Button'
 import {ArrowLeftIcon} from '@primer/octicons-react'
 import classes from './SelectPanel.test.module.css'
 import {implementsClassName} from '../utils/testing'
+import {getAnchoredPosition} from '@primer/behaviors'
+import type {AnchorPosition} from '@primer/behaviors'
+
+// Mock getAnchoredPosition to verify displayInViewport is forwarded
+vi.mock('@primer/behaviors', async () => {
+  const actual = await vi.importActual('@primer/behaviors')
+  return {
+    ...actual,
+    getAnchoredPosition: vi.fn(
+      (
+        _floatingElement: Element,
+        _anchorElement: Element | DOMRect,
+        _settings?: Partial<{displayInViewport?: boolean}>,
+      ) =>
+        ({
+          top: 100,
+          left: 100,
+          anchorSide: 'outside-bottom',
+          anchorAlign: 'start',
+        }) as AnchorPosition,
+    ),
+  }
+})
 
 // Instead of importing from live-region/__tests__/test-helpers.ts, we define our own getLiveRegion function
 export function getLiveRegion(): LiveRegionElement {
@@ -1734,3 +1757,49 @@ for (const usingRemoveActiveDescendant of [false, true]) {
     })
   })
 }
+
+describe('SelectPanel displayInViewport prop', () => {
+  const mockGetAnchoredPosition = vi.mocked(getAnchoredPosition)
+
+  beforeEach(() => {
+    mockGetAnchoredPosition.mockClear()
+  })
+
+  it('should forward displayInViewport={true} to getAnchoredPosition', async () => {
+    const user = userEvent.setup()
+    render(<BasicSelectPanel displayInViewport={true} />)
+
+    await user.click(screen.getByRole('button', {name: 'Select items'}))
+
+    await waitFor(() => {
+      expect(screen.getByRole('listbox')).toBeInTheDocument()
+    })
+
+    await waitFor(() => {
+      expect(mockGetAnchoredPosition).toHaveBeenCalled()
+    })
+
+    const calls = mockGetAnchoredPosition.mock.calls
+    const lastCall = calls[calls.length - 1]
+    expect(lastCall[2]?.displayInViewport).toBe(true)
+  })
+
+  it('should not set displayInViewport when prop is not provided', async () => {
+    const user = userEvent.setup()
+    render(<BasicSelectPanel />)
+
+    await user.click(screen.getByRole('button', {name: 'Select items'}))
+
+    await waitFor(() => {
+      expect(screen.getByRole('listbox')).toBeInTheDocument()
+    })
+
+    await waitFor(() => {
+      expect(mockGetAnchoredPosition).toHaveBeenCalled()
+    })
+
+    const calls = mockGetAnchoredPosition.mock.calls
+    const lastCall = calls[calls.length - 1]
+    expect(lastCall[2]?.displayInViewport).not.toBe(true)
+  })
+})
