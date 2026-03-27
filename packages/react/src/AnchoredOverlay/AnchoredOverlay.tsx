@@ -141,17 +141,16 @@ const applyAnchorPositioningPolyfill = async () => {
 }
 
 // Helper to set CSS anchor properties in a way that works with the polyfill.
-// When native support exists, use setProperty (cleaner). When using the polyfill,
-// we must use cssText because setProperty silently fails for unknown properties.
-// TODO: Remove cssText path when we drop polyfill support.
+// When native support exists, use setProperty (cleaner).
+// TODO: Remove setAttribute path when we drop polyfill support.
 function setAnchorStyle(el: HTMLElement, property: 'anchor-name' | 'position-anchor', value: string) {
   if (supportsNativeAnchorPositioning()) {
     el.style.setProperty(property, value)
   } else {
-    // Polyfill path: append to cssText to bypass browser validation
-    if (!el.style.cssText.includes(`${property}:`)) {
-      console.log('Setting anchor style via cssText for polyfill:', property, value, el)
-      el.style.cssText += `; ${property}: ${value}`
+    // Polyfill path: use setAttribute to bypass browser CSS parsing
+    const existingStyle = el.getAttribute('style') || ''
+    if (!existingStyle.includes(`${property}:`)) {
+      el.setAttribute('style', `${existingStyle}; ${property}: ${value}`.replace(/^;\s*/, ''))
     }
   }
 }
@@ -160,8 +159,10 @@ function removeAnchorStyle(el: HTMLElement, property: 'anchor-name' | 'position-
   if (supportsNativeAnchorPositioning()) {
     el.style.removeProperty(property)
   } else {
-    // Polyfill path: remove from cssText via regex
-    el.style.cssText = el.style.cssText.replace(new RegExp(`\\s*;?\\s*${property}:[^;]*;?`, 'gi'), '')
+    // Polyfill path: remove from style attribute via regex
+    const existingStyle = el.getAttribute('style') || ''
+    const newStyle = existingStyle.replace(new RegExp(`\\s*;?\\s*${property}:[^;]*;?`, 'gi'), '')
+    el.setAttribute('style', newStyle.replace(/^;\s*/, '').replace(/;\s*$/, ''))
   }
 }
 
