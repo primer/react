@@ -9,7 +9,6 @@ css/
 .DS_Store
 *.swp
 .idea
-.vscode
 .tool-versions
 
 # Environment
