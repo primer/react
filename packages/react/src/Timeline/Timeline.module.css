@@ -2,7 +2,8 @@
   display: flex;
   flex-direction: column;
 
-  &:where([data-clip-sidebar]) {
+  &:where([data-clip-sidebar='start']),
+  &:where([data-clip-sidebar='both']) {
     .TimelineItem:first-child {
       padding-top: 0;
 
@@ -10,7 +11,10 @@
         top: var(--base-size-12);
       }
     }
+  }
 
+  &:where([data-clip-sidebar='end']),
+  &:where([data-clip-sidebar='both']) {
     .TimelineItem:last-child {
       padding-bottom: 0;
 
