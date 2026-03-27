@@ -471,7 +471,7 @@
       display: none;
     }
 
-    width: var(--pane-width-size);
+    width: var(--pane-width);
     margin-top: 0 !important;
     margin-bottom: 0 !important;
 
@@ -495,6 +495,7 @@
       margin-right: var(--spacing-column);
       flex-direction: row;
       order: var(--region-order-pane-start);
+      width: calc(var(--pane-width) + var(--spacing-column) + 1px);
     }
 
     &:where([data-position-regular='end']) {
