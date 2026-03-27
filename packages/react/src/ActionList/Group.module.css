@@ -1,5 +1,3 @@
-/* stylelint-disable selector-pseudo-class-disallowed-list -- :has() scoped to CSS Module, audited for Safari perf (github/github-ui#17224) */
-
 .Group {
   list-style: none;
 
@@ -7,7 +5,7 @@
     margin-block-start: var(--base-size-8);
 
     /* If somebody tries to pass the `title` prop AND a `NavList.GroupHeading` as a child, hide the `ActionList.GroupHeading */
-    /* stylelint-disable-next-line selector-max-specificity */
+    /* stylelint-disable-next-line selector-max-specificity, selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
     &:has(.GroupHeadingWrap + ul > .GroupHeadingWrap) {
       /* stylelint-disable-next-line selector-max-specificity */
       & > .GroupHeadingWrap {

@@ -1,5 +1,3 @@
-/* stylelint-disable selector-pseudo-class-disallowed-list -- :has() scoped to CSS Module, audited for Safari perf (github/github-ui#17224) */
-
 .Timeline {
   display: flex;
   flex-direction: column;
@@ -112,6 +110,7 @@
   border: 0;
   border-top: var(--borderWidth-thicker) solid var(--borderColor-default);
 
+  /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
   &:has(+ [data-condensed]) {
     margin-bottom: calc(-1 * var(--base-size-12));
   }

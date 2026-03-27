@@ -1,5 +1,3 @@
-/* stylelint-disable selector-pseudo-class-disallowed-list -- :has() scoped to CSS Module, audited for Safari perf (github/github-ui#17224) */
-
 .ButtonGroup {
   display: inline-flex;
   vertical-align: middle;
@@ -40,6 +38,7 @@
   }
 
   /* this is a workaround until portal based tooltips are fully removed from dotcom */
+  /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
   &:has(div:last-child:empty) {
     button,
     a {

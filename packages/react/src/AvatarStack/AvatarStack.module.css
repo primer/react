@@ -1,4 +1,4 @@
-/* stylelint-disable selector-max-specificity, selector-pseudo-class-disallowed-list -- :has() scoped to CSS Module, audited for Safari perf (github/github-ui#17224) */
+/* stylelint-disable selector-max-specificity */
 .AvatarStack {
   --avatar-border-width: 1px;
   --mask-size: calc(100% + (var(--avatar-border-width) * 2));
@@ -144,6 +144,7 @@
     box-shadow: 0 0 0 var(--avatar-border-width) transparent;
   }
 
+  /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
   &:not([data-component='Avatar']):not(:has([data-square])) {
     border-radius: 50%;
   }

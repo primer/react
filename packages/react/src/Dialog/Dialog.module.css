@@ -1,5 +1,3 @@
-/* stylelint-disable selector-pseudo-class-disallowed-list -- :has() on body guarded by feature flag negation, audited for Safari perf (github/github-ui#17224) */
-
 /* The --prc-dialog-scrollgutter property is used only on the body element to
  * simulate scrollbar-gutter:stable. This property is not and should not
  * be used elsewhere in the DOM. There is a performance penalty to
@@ -286,6 +284,7 @@
     }
   }
 }
+
 
 /*
  * PERFORMANCE OPTIMIZATION: Direct attribute on body - O(1) lookup

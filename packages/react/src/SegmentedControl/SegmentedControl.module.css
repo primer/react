@@ -1,5 +1,3 @@
-/* stylelint-disable selector-pseudo-class-disallowed-list -- :has() scoped to CSS Module, audited for Safari perf (github/github-ui#17224) */
-
 .SegmentedControl {
   /* TODO: use primitive `control.medium.size` when it is available instead of '32px' */
   --segmented-control-icon-width: 32px;
@@ -183,12 +181,14 @@
       background-color: var(--borderColor-default);
     }
 
+    /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
     &:has(+ [data-selected])::after,
     &:where([data-selected])::after {
       background-color: transparent;
     }
   }
 
+  /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
   &:focus-within:has(:focus-visible) {
     background-color: transparent;
   }

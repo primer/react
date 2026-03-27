@@ -22,7 +22,7 @@ export default {
       {
         severity: 'error',
         message:
-          ':has() selectors can cause severe Safari performance issues (github/github-ui#17224). Verify the selector is scoped (CSS Modules) and does not match broadly, then add a stylelint-disable comment.',
+          ':has() selectors can cause severe Safari performance issues (github/github-ui#17224). Verify the selector is scoped (CSS Modules) and does not match broadly, then add a scoped stylelint disable (e.g. "stylelint-disable-next-line" or a minimal "stylelint-disable"/"stylelint-enable" block), not a file-level disable.',
       },
     ],
   },
