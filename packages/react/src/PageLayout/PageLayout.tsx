@@ -868,6 +868,11 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             '--offset-header': typeof offsetHeader === 'number' ? `${offsetHeader}px` : offsetHeader,
             '--spacing-row': `var(--spacing-${rowGap})`,
             '--spacing-column': `var(--spacing-${columnGap})`,
+            '--pane-min-width': isCustomWidthOptions(width) ? width.min : `${minWidth}px`,
+            '--pane-max-width': isCustomWidthOptions(width) ? width.max : `calc(100vw - var(--pane-max-width-diff))`,
+            '--pane-width-custom': isCustomWidthOptions(width) ? width.default : undefined,
+            '--pane-width-size': `var(--pane-width-${isPaneWidth(width) ? width : 'custom'})`,
+            '--pane-width': `${currentWidth}px`,
             ...style,
           } as React.CSSProperties
         }
@@ -900,11 +905,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           style={
             {
               '--spacing': `var(--spacing-${padding})`,
-              '--pane-min-width': isCustomWidthOptions(width) ? width.min : `${minWidth}px`,
-              '--pane-max-width': isCustomWidthOptions(width) ? width.max : `calc(100vw - var(--pane-max-width-diff))`,
-              '--pane-width-custom': isCustomWidthOptions(width) ? width.default : undefined,
-              '--pane-width-size': `var(--pane-width-${isPaneWidth(width) ? width : 'custom'})`,
-              '--pane-width': `${currentWidth}px`,
             } as React.CSSProperties
           }
         >
