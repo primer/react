@@ -125,14 +125,42 @@ export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
   (AnchoredOverlayPropsWithAnchor | AnchoredOverlayPropsWithoutAnchor) &
   Partial<Pick<PositionSettings, 'align' | 'side' | 'anchorOffset' | 'alignmentOffset' | 'displayInViewport'>>
 
+// Check if native CSS anchor positioning is supported
+const supportsNativeAnchorPositioning = () =>
+  typeof window !== 'undefined' && 'anchorName' in document.documentElement.style
+
 const applyAnchorPositioningPolyfill = async () => {
-  if (typeof window !== 'undefined' && !('anchorName' in document.documentElement.style)) {
+  if (!supportsNativeAnchorPositioning()) {
     try {
       await import('@oddbird/css-anchor-positioning')
     } catch (e) {
       // eslint-disable-next-line no-console
       console.warn('Failed to load CSS anchor positioning polyfill:', e)
     }
+  }
+}
+
+// Helper to set CSS anchor properties in a way that works with the polyfill.
+// When native support exists, use setProperty (cleaner). When using the polyfill,
+// we must use cssText because setProperty silently fails for unknown properties.
+// TODO: Remove cssText path when we drop polyfill support.
+function setAnchorStyle(el: HTMLElement, property: 'anchor-name' | 'position-anchor', value: string) {
+  if (supportsNativeAnchorPositioning()) {
+    el.style.setProperty(property, value)
+  } else {
+    // Polyfill path: append to cssText to bypass browser validation
+    if (!el.style.cssText.includes(`${property}:`)) {
+      el.style.cssText += `; ${property}: ${value}`
+    }
+  }
+}
+
+function removeAnchorStyle(el: HTMLElement, property: 'anchor-name' | 'position-anchor') {
+  if (supportsNativeAnchorPositioning()) {
+    el.style.removeProperty(property)
+  } else {
+    // Polyfill path: remove from cssText via regex
+    el.style.cssText = el.style.cssText.replace(new RegExp(`\\s*;?\\s*${property}:[^;]*;?`, 'gi'), '')
   }
 }
 
@@ -261,12 +289,12 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
     const anchor = anchorRef.current
     const overlay = overlayRef.current
-    anchor.style.setProperty('anchor-name', `--anchored-overlay-anchor-${id}`)
+    setAnchorStyle(anchor, 'anchor-name', `--anchored-overlay-anchor-${id}`)
 
     return () => {
-      anchor.style.removeProperty('anchor-name')
+      removeAnchorStyle(anchor, 'anchor-name')
       if (overlay) {
-        overlay.style.removeProperty('position-anchor')
+        removeAnchorStyle(overlay, 'position-anchor')
       }
     }
   }, [cssAnchorPositioning, anchorRef, overlayRef, id])
@@ -281,7 +309,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     const currentOverlay = overlayRef.current
 
     if (!cssAnchorPositioning || !open || !currentOverlay) return
-    currentOverlay.style.setProperty('position-anchor', `--anchored-overlay-anchor-${id}`)
+    setAnchorStyle(currentOverlay, 'position-anchor', `--anchored-overlay-anchor-${id}`)
     try {
       if (!currentOverlay.matches(':popover-open')) {
         currentOverlay.showPopover()
