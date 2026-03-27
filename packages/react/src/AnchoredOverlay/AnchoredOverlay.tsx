@@ -150,6 +150,7 @@ function setAnchorStyle(el: HTMLElement, property: 'anchor-name' | 'position-anc
   } else {
     // Polyfill path: append to cssText to bypass browser validation
     if (!el.style.cssText.includes(`${property}:`)) {
+      console.log('Setting anchor style via cssText for polyfill:', property, value, el)
       el.style.cssText += `; ${property}: ${value}`
     }
   }
