@@ -1,4 +1,4 @@
-/* stylelint-disable max-nesting-depth, selector-max-specificity */
+/* stylelint-disable max-nesting-depth, selector-max-specificity, selector-pseudo-class-disallowed-list -- :has() scoped to CSS Module, audited for Safari perf (github/github-ui#17224) */
 
 .ActionList {
   padding: 0;

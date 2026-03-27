@@ -1,3 +1,5 @@
+/* stylelint-disable selector-pseudo-class-disallowed-list -- :has() scoped to CSS Module, audited for Safari perf (github/github-ui#17224) */
+
 .ButtonGroup {
   display: inline-flex;
   vertical-align: middle;

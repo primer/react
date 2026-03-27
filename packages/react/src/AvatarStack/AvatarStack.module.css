@@ -1,4 +1,4 @@
-/* stylelint-disable selector-max-specificity */
+/* stylelint-disable selector-max-specificity, selector-pseudo-class-disallowed-list -- :has() scoped to CSS Module, audited for Safari perf (github/github-ui#17224) */
 .AvatarStack {
   --avatar-border-width: 1px;
   --mask-size: calc(100% + (var(--avatar-border-width) * 2));
