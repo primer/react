@@ -257,9 +257,8 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   const id = popoverId.replaceAll(':', '_') // popoverId can contain colons which are invalid in CSS custom property names, so we replace them with underscores
 
   useEffect(() => {
-    if (!cssAnchorPositioning || !anchorRef.current) {
-      return
-    }
+    if (!cssAnchorPositioning || !anchorRef.current) return
+
     const anchor = anchorRef.current
     const overlay = overlayRef.current
     anchor.style.setProperty('anchor-name', `--anchored-overlay-anchor-${id}`)
