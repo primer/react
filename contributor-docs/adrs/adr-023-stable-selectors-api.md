@@ -6,7 +6,7 @@
 
 | Stage          | State       |
 | -------------- | ----------- |
-| Status         | Proposed ❓ |
+| Status         | Accepted ✅ |
 | Implementation | Pending ⚠️  |
 
 ## Context
@@ -49,17 +49,16 @@ without notice and coverage is incomplete — many component parts have no
 
 ## Decision
 
-Establish two **public, stable data attributes** that act as reliable
-identifiers for Primer components and their parts in the DOM. Think of these as
-built-in test IDs — stable, predictable anchors that consumers can use for
+Establish a **public, stable data attribute** that acts as a reliable
+identifier for Primer components in the DOM. Think of this as
+a built-in test ID — a stable, predictable anchor that consumers can use for
 testing, tracking, monitoring, and querying without coupling to internal DOM
 structure.
 
-- **`data-component`** — identifies the root element of a component or
-  sub-component.
-- **`data-part`** — identifies an inner structural part within a component.
+- **`data-component`** — identifies the root element of a component,
+  sub-component, or internal part.
 
-These attributes are primarily intended for:
+This attribute is primarily intended for:
 
 1. **Testing** — use them as locators in unit tests, integration tests, and
    end-to-end tests instead of brittle class names or DOM paths.
@@ -75,11 +74,10 @@ These attributes are primarily intended for:
 
 #### Naming convention
 
-All values use PascalCase. The two attributes serve distinct roles:
+All values use PascalCase:
 
 ```
-data-component="ComponentName"     → root element of a component or sub-component
-data-part="PartName"               → inner part within a component
+data-component="ComponentName"     → root element of a component, sub-component, or internal part
 ```
 
 ##### Rules
@@ -98,58 +96,44 @@ data-part="PartName"               → inner part within a component
    <li data-component="ActionList.Item"></li>
    ```
 
-   Note: a sub-component root uses `data-component`, not `data-part`, because it
-   is itself a component — it has its own props, its own identity, and may
-   contain its own slots.
-
 3. **Inner structural parts** (DOM elements that are not exposed as a
    sub-component but represent a meaningful part of the structure) get
-   `data-part` with a PascalCase name describing the part.
+   `data-component` with the parent component name and a PascalCase part name.
 
    ```html
-   <span data-part="Label">monalisa</span>
-   <span data-part="Content">...</span>
-   <span data-part="LeadingVisual"><img /></span>
+   <span data-component="ActionList.Item.Label">monalisa</span>
+   <span data-component="ActionList.Item.Content">...</span>
+   <span data-component="ActionList.Item.LeadingVisual"><img /></span>
    ```
 
-   `data-part` names are **scoped to their parent component** — a `Label` part inside
-   `ActionList.Item` is distinct from a `Label` part inside `Button` because
-   they exist within different `data-component` boundaries.
+   Part names are scoped to their parent component via the naming convention —
+   `ActionList.Item.Label` is distinct from `Button.Label`.
 
-4. **State and modifier attributes remain separate.** `data-component` and
-   `data-part` identify _what_ an element is. Existing attributes like
+4. **State and modifier attributes remain separate.** `data-component`
+   identifies _what_ an element is. Existing attributes like
    `data-variant`, `data-size`, and `data-loading` describe the _state_ of that
    element. These concerns must not be mixed.
 
    ```html
    <li data-component="ActionList.Item" data-variant="danger" data-active="true">
-     <span data-part="Label">Delete file</span>
+     <span data-component="ActionList.Item.Label">Delete file</span>
    </li>
    ```
 
-#### `data-component` and `data-part` on all components and appropriate internals
+#### `data-component` on all components and appropriate internals
 
-All Primer components will receive a `data-component` attribute on their root
-element, and all meaningful internal components will receive a `data-part` attribute. These
-attributes serve as the stable identifiers that consumers can use for targeting,
+All Primer components, slots and meaningful parts will receive a `data-component` attribute on their root. This
+attribute serves as the stable identifier that consumers can use for targeting,
 ensuring full coverage across the library.
 
-Every component must provide:
-
-- **`data-component`** on the root element of every component and public
-  sub-component
-- **`data-part`** on every internal structural element that a consumer might
-  reasonably need to target (labels, content wrappers, visual slots, action
-  slots)
-
 Elements that are purely for layout and have no semantic meaning (spacers,
-wrappers that exist only for CSS grid/flex layout) do not require either
+wrappers that exist only for CSS grid/flex layout) do not require this
 attribute.
 
 #### ESLint rule in `eslint-plugin-primer-react`
 
 A new ESLint rule will be added to `eslint-plugin-primer-react` that **warns**
-whenever a `data-component` or `data-part` selector is used in consumer code. The warning will
+whenever a `data-component` selector is used in consumer code. The warning will
 inform consumers of the implications of relying on these selectors — namely that
 the surrounding DOM structure, attributes, parents, and children of the targeted
 element are not guaranteed to be stable.
@@ -168,20 +152,20 @@ component's DOM.
 
 #### Internal CSS usage
 
-Components may use `data-part` selectors in their own CSS Modules for targeting
+Components may use `data-component` selectors in their own CSS Modules for targeting
 child parts. This replaces ad-hoc patterns like bare `[data-component='text']`
 with the standardized naming:
 
 ```css
 /* ButtonBase.module.css */
-& :where([data-part='LeadingVisual']) {
+& :where([data-component='Button.LeadingVisual']) {
   color: var(--button-leadingVisual-fgColor);
 }
 ```
 
 #### Testing requirements
 
-The presence and values of `data-component` and `data-part` attributes must be
+The presence and values of `data-component` attributes must be
 covered by tests. This can be achieved through:
 
 - Unit tests that assert the attributes are present on rendered elements
@@ -221,17 +205,17 @@ accept a contribution!
 
 ### Relationship to CSS Modules and CSS Layers
 
-While the primary purpose of `data-component` and `data-part` is identification
-(testing, tracking, querying), they also serve as stable selectors for CSS
+While the primary purpose of `data-component` is identification
+(testing, tracking, querying), it also serves as a stable selector for CSS
 overrides when consumers need to customize appearance.
 
-In that context, they complement the existing styling architecture:
+In that context, it complements the existing styling architecture:
 
 - **CSS Modules** provide scoped class names for internal styling. Components
   continue to use CSS Module classes for their own styles.
 - **CSS Layers** ([ADR-021](./adr-021-css-layers.md)) ensure that consumer
   overrides take precedence over component styles regardless of specificity.
-- **`data-component` and `data-part`** provide the stable selectors that
+- **`data-component`** provides the stable selectors that
   consumers can use to target components and their parts within those overrides.
 
 Example of a simple, supported override:
@@ -249,14 +233,14 @@ Example of a simple, supported override:
 
 ### Versioning and breaking changes
 
-The **only** guarantee provided for `data-component` and `data-part` attributes is
+The **only** guarantee provided for `data-component` attributes is
 that they **exist** and are **tied to the most relevant DOM element** for each
 component and its internals.
 
 The following aspects are **not** part of the public API and may change at any
 time without notice or a major semver bump:
 
-- The specific DOM element a `data-component` or `data-part` attribute is
+- The specific DOM element a `data-component` attribute is
   applied to
 - The attributes, parent, or children of that element
 
@@ -265,51 +249,49 @@ these selectors (e.g., `[data-component="ActionList.Item"]`). Chaining
 selectors that depend on DOM structure — such as parent, child, or sibling
 selectors — is **not supported** and may break without warning.
 
-| Change                                                             | semver bump   |
-| ------------------------------------------------------------------ | ------------- |
-| A `data-component` or `data-part` attribute is added to an element | `minor`       |
-| A `data-component` or `data-part` value is renamed                 | `major`       |
-| A `data-component` or `data-part` attribute is removed             | `major`       |
-| A `data-component` is changed to `data-part` or vice-versa         | `major`       |
-| The DOM element an attribute is applied to changes                 | `minor`       |
-| Attributes, parents, or children of the element change             | `patch/minor` |
+| Change                                                 | semver bump   |
+| ------------------------------------------------------ | ------------- |
+| A `data-component` attribute is added to an element    | `minor`       |
+| A `data-component` value is renamed                    | `major`       |
+| A `data-component` attribute is removed                | `major`       |
+| The DOM element an attribute is applied to changes     | `minor`       |
+| Attributes, parents, or children of the element change | `patch/minor` |
 
 The [Migration](#migration) table below captures the full set of renames
 planned for the next major release.
 
 ### Migration
 
-Existing `data-component` values must be migrated to the new convention. Inner
-parts move from `data-component` to `data-part` with simplified names (since
-they are scoped to their parent component). This migration is a breaking change
-and should be coordinated as part of a major release.
+Existing `data-component` values must be migrated to the new convention. This
+migration is a breaking change and should be coordinated as part of a major
+release.
 
-| Current attr     | Current value                           | New attr         | New value                   |
-| ---------------- | --------------------------------------- | ---------------- | --------------------------- |
-| `data-component` | `buttonContent`                         | `data-part`      | `Content`                   |
-| `data-component` | `text` (in Button)                      | `data-part`      | `Label`                     |
-| `data-component` | `leadingVisual` (in Button)             | `data-part`      | `LeadingVisual`             |
-| `data-component` | `trailingVisual` (in Button)            | `data-part`      | `TrailingVisual`            |
-| `data-component` | `trailingAction` (in Button)            | `data-part`      | `TrailingAction`            |
-| `data-component` | `ButtonCounter`                         | `data-part`      | `Counter`                   |
-| `data-component` | `PH_LeadingAction`                      | `data-part`      | `LeadingAction`             |
-| `data-component` | `PH_Breadcrumbs`                        | `data-part`      | `Breadcrumbs`               |
-| `data-component` | `PH_LeadingVisual`                      | `data-part`      | `LeadingVisual`             |
-| `data-component` | `PH_Title`                              | `data-part`      | `Title`                     |
-| `data-component` | `PH_TrailingVisual`                     | `data-part`      | `TrailingVisual`            |
-| `data-component` | `PH_TrailingAction`                     | `data-part`      | `TrailingAction`            |
-| `data-component` | `PH_Actions`                            | `data-part`      | `Actions`                   |
-| `data-component` | `PH_Navigation`                         | `data-part`      | `Navigation`                |
-| `data-component` | `TitleArea`                             | `data-part`      | `TitleArea`                 |
-| `data-component` | `GroupHeadingWrap`                      | `data-component` | `ActionList.GroupHeading`   |
-| `data-component` | `ActionList.Item--DividerContainer`     | `data-part`      | `SubContent`                |
-| `data-component` | `icon` (in UnderlineTabbedInterface)    | `data-part`      | `Icon`                      |
-| `data-component` | `text` (in UnderlineTabbedInterface)    | `data-part`      | `Label`                     |
-| `data-component` | `counter` (in UnderlineTabbedInterface) | `data-part`      | `Counter`                   |
-| `data-component` | `multilineContainer`                    | `data-part`      | `Container`                 |
-| `data-component` | `input` (in TextInput)                  | `data-part`      | `Input`                     |
-| `data-component` | `AnchoredOverlay`                       | `data-component` | `AnchoredOverlay`           |
-| `data-component` | `ActionBar.VerticalDivider`             | `data-component` | `ActionBar.VerticalDivider` |
+| Current value                           | New value                    |
+| --------------------------------------- | ---------------------------- |
+| `buttonContent`                         | `Button.Content`             |
+| `text` (in Button)                      | `Button.Label`               |
+| `leadingVisual` (in Button)             | `Button.LeadingVisual`       |
+| `trailingVisual` (in Button)            | `Button.TrailingVisual`      |
+| `trailingAction` (in Button)            | `Button.TrailingAction`      |
+| `ButtonCounter`                         | `Button.Counter`             |
+| `PH_LeadingAction`                      | `PageHeader.LeadingAction`   |
+| `PH_Breadcrumbs`                        | `PageHeader.Breadcrumbs`     |
+| `PH_LeadingVisual`                      | `PageHeader.LeadingVisual`   |
+| `PH_Title`                              | `PageHeader.Title`           |
+| `PH_TrailingVisual`                     | `PageHeader.TrailingVisual`  |
+| `PH_TrailingAction`                     | `PageHeader.TrailingAction`  |
+| `PH_Actions`                            | `PageHeader.Actions`         |
+| `PH_Navigation`                         | `PageHeader.Navigation`      |
+| `TitleArea`                             | `PageHeader.TitleArea`       |
+| `GroupHeadingWrap`                      | `ActionList.GroupHeading`    |
+| `ActionList.Item--DividerContainer`     | `ActionList.Item.SubContent` |
+| `icon` (in UnderlineTabbedInterface)    | `UnderlineNav.Item.Icon`     |
+| `text` (in UnderlineTabbedInterface)    | `UnderlineNav.Item.Label`    |
+| `counter` (in UnderlineTabbedInterface) | `UnderlineNav.Item.Counter`  |
+| `multilineContainer`                    | `TextInput.Container`        |
+| `input` (in TextInput)                  | `TextInput.Input`            |
+| `AnchoredOverlay`                       | `AnchoredOverlay`            |
+| `ActionBar.VerticalDivider`             | `ActionBar.VerticalDivider`  |
 
 Components that currently have no attributes on key parts must also be updated.
 
@@ -317,21 +299,18 @@ Components that currently have no attributes on key parts must also be updated.
 
 ### Positive
 
-- **Stable identifiers for testing.** Consumers can use `data-component` and
-  `data-part` as reliable locators in unit tests, integration tests, and
+- **Stable identifiers for testing.** Consumers can use `data-component`
+  as reliable locators in unit tests, integration tests, and
   end-to-end tests — no more coupling to CSS Module hashes or DOM structure.
 - **Enables tracking and monitoring.** Consumers can query the DOM for component
   usage metrics and observability without relying on implementation details.
 - **Enables JavaScript queries.** Consumers and tests can use
   `querySelectorAll('[data-component="ActionList.Item"]')` reliably.
-- **Clear separation.** `data-component` answers "which component is this?"
-  while `data-part` answers "which part of the component is this?" This makes
-  the DOM self-documenting and avoids overloading a single attribute.
 - **Consistent naming.** A single convention replaces four inconsistent patterns,
   making the codebase easier to learn and maintain.
-- **Scoped part names.** Because `data-part` values are scoped to their parent
-  `data-component`, names like `Label` or `LeadingVisual` can be reused across
-  components without ambiguity.
+- **Unified approach.** All elements — whether root components, sub-components,
+  or internal parts — use `data-component`, providing a simple and consistent
+  mental model.
 - **Supports CSS overrides.** Consumers who need to
   customize styles have stable selectors to target, complementing CSS Layers
   (ADR-021) for a complete override path.
