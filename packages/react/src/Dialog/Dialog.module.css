@@ -324,7 +324,7 @@ Add a border between the body and footer if:
 - the dialog has a body that can scroll
 - the browser supports the `animation-timeline` property and its `scroll()` function
 */
-.Dialog:has(.Footer) {
+.Dialog[data-has-footer] {
   --can-scroll: 0;
 
   .DialogOverflowWrapper {
@@ -389,11 +389,11 @@ Add a border between the body and footer if:
   padding: var(--base-size-16);
   gap: var(--base-size-8);
   flex-shrink: 0;
+}
 
-  @media (max-height: 325px) {
-    flex-wrap: nowrap;
-    overflow-x: scroll;
-    flex-direction: row;
-    justify-content: unset;
-  }
+.Dialog[data-footer-button-layout='scroll'] .Footer {
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  flex-direction: row;
+  justify-content: unset;
 }
