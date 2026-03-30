@@ -29,26 +29,23 @@ jobs:
           owner: primer
           repositories: react
           private-key: ${{ secrets.PRIMER_APP_PRIVATE_KEY_SHARED }}
-      - name: Lock main branch
+      - name: Toggle rulesets
         run: |
-          # Lock main but allow react-release-conductor team to push
+          # Allow react-release-conductor to bypass merge queue
           gh api \
             --method PUT \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            /repos/primer/react/branches/main/protection \
-            --input - <<EOF
-          {
-            "lock_branch": true,
-            "restrictions": {
-              "teams": ["react-release-conductor"],
-              "users": []
-            },
-            "required_status_checks": null,
-            "enforce_admins": true,
-            "required_pull_request_reviews": null
-          }
-          EOF
+            /repos/primer/react/rulesets/4089335 \
+            -F "bypass_actors[][actor_id]=12276524" \
+            -f "bypass_actors[][actor_type]=Team" \
+            -f "bypass_actors[][bypass_mode]=always"
+          gh api \
+            --method PUT \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/primer/react/rulesets/3801256 \
+            -f "enforcement=active"
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
@@ -65,15 +62,32 @@ jobs:
           owner: primer
           repositories: react
           private-key: ${{ secrets.PRIMER_APP_PRIVATE_KEY_SHARED }}
-      - name: Unlock main branch
+      - name: Toggle rulesets
         run: |
-          # Delete the branch protection rule entirely.
-          # Note: This workflow is the only thing using legacy branch protection.
-          # All other branch rules use rulesets, which are unaffected by this delete.
           gh api \
-            --method DELETE \
+            --method PUT \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            /repos/primer/react/branches/main/protection
+            /repos/primer/react/rulesets/4089335 \
+            -F "bypass_actors[]"
+          gh api \
+            --method PUT \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/primer/react/rulesets/3801256 \
+            -f "enforcement=disabled"
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+      - name: Update all PRs that are toggled merge when ready
+        run: |
+          PR_NUMBERS=$(gh pr list -L 100 -R primer/react --state open --json number,baseRefName,autoMergeRequest,reviewDecision -q '.[] | select(.autoMergeRequest != null) | select(.baseRefName == "main") | select(.reviewDecision == "APPROVED") | .number')
+          if [ -n "$PR_NUMBERS" ]; then
+            echo "Updating $PR_NUMBERS"
+            for pr in $PR_NUMBERS; do
+              gh pr update-branch -R primer/react "$pr" || echo "Warning: failed to update PR #$pr (likely has conflicts)"
+            done
+          else
+            echo "No PRs to update."
+          fi
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
