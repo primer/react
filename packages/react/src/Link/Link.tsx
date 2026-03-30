@@ -23,6 +23,31 @@ export const UnwrappedLink = <As extends React.ElementType = 'a'>(
   const innerRef = React.useRef<ElementRef<As>>(null)
   const mergedRef = useMergedRefs(ref, innerRef)
 
+  if (__DEV__) {
+    /**
+     * The Linter yells because it thinks this conditionally calls an effect,
+     * but since this is a compile-time flag and not a runtime conditional
+     * this is safe, and ensures the entire effect is kept out of prod builds
+     * shaving precious bytes from the output, and avoiding mounting a noop effect
+     */
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(() => {
+      if (
+        innerRef.current &&
+        !(innerRef.current instanceof HTMLButtonElement) &&
+        !(innerRef.current instanceof HTMLAnchorElement)
+      ) {
+        // eslint-disable-next-line no-console
+        console.error(
+          'Error: Found `Link` component that renders an inaccessible element',
+          innerRef.current,
+          'Please ensure `Link` always renders as <a> or <button>',
+        )
+      }
+    }, [innerRef])
+  }
+  const mergedRef = useMergedRefs(ref, innerRef)
+
   useDevOnlyEffect(() => {
     if (
       innerRef.current &&
@@ -46,8 +71,7 @@ export const UnwrappedLink = <As extends React.ElementType = 'a'>(
       data-inline={inline}
       data-hover-color={hoverColor}
       {...restProps}
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ref={mergedRef as any}
+      ref={mergedRef}
     />
   )
 }

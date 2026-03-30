@@ -2,6 +2,7 @@ import React, {forwardRef, type JSX} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import type {ButtonProps} from './types'
 import {useMergedRefs} from '../hooks/useMergedRefs'
+import {useMergedRefs} from '../hooks/useMergedRefs'
 import {VisuallyHidden} from '../VisuallyHidden'
 import Spinner from '../Spinner'
 import CounterLabel from '../CounterLabel'
@@ -51,7 +52,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
   } = props
 
   const innerRef = React.useRef<HTMLButtonElement>(null)
-  const mergedRef = useMergedRefs(forwardedRef, innerRef)
+  const combinedRefs = useMergedRefs(forwardedRef, innerRef)
 
   const uuid = useId(id)
   const loadingAnnouncementID = `${uuid}-loading-announcement`
@@ -88,8 +89,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
         aria-disabled={loading ? true : undefined}
         data-component="Button"
         {...rest}
-        // @ts-ignore temporary disable as we migrate to css modules, until we remove PolymorphicForwardRefComponent
-        ref={mergedRef}
+        ref={combinedRefs}
         className={clsx(classes.ButtonBase, className)}
         data-block={block ? 'block' : null}
         data-inactive={inactive ? true : undefined}
