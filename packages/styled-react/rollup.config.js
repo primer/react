@@ -1,4 +1,5 @@
 import babel from '@rollup/plugin-babel'
+import nodeResolve from '@rollup/plugin-node-resolve'
 import {defineConfig} from 'rollup'
 import typescript from 'rollup-plugin-typescript2'
 import packageJson from './package.json' with {type: 'json'}
@@ -21,6 +22,7 @@ export default defineConfig({
     typescript({
       tsconfig: 'tsconfig.build.json',
     }),
+    nodeResolve({extensions: ['.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs']}),
     babel({
       presets: ['@babel/preset-typescript', ['@babel/preset-react', {runtime: 'automatic'}]],
       plugins: ['babel-plugin-styled-components'],
@@ -133,5 +135,6 @@ export default defineConfig({
     dir: 'dist',
     format: 'esm',
     preserveModules: true,
+    preserveModulesRoot: 'src',
   },
 })

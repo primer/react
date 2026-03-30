@@ -2,7 +2,7 @@ import React, {forwardRef, useRef, type HTMLAttributes} from 'react'
 import {IconButton} from '../../Button'
 import useDialog from '../../hooks/useDialog'
 import type {ComponentProps} from '../../utils/types'
-import {useRefObjectAsForwardedRef} from '../../hooks/useRefObjectAsForwardedRef'
+import {useMergedRefs} from '../../hooks/useMergedRefs'
 import {XIcon} from '@primer/octicons-react'
 import {clsx} from 'clsx'
 import classes from './Dialog.module.css'
@@ -48,7 +48,7 @@ const Dialog = forwardRef<HTMLDivElement, InternalDialogProps>(
   ) => {
     const overlayRef = useRef(null)
     const modalRef = useRef<HTMLDivElement>(null)
-    useRefObjectAsForwardedRef(forwardedRef, modalRef)
+    const mergedRef = useMergedRefs(forwardedRef, modalRef)
     const closeButtonRef = useRef(null)
 
     const onCloseClick = () => {
@@ -73,7 +73,7 @@ const Dialog = forwardRef<HTMLDivElement, InternalDialogProps>(
         <span className={classes.Overlay} ref={overlayRef} />
         <Component
           tabIndex={-1}
-          ref={modalRef}
+          ref={mergedRef}
           role="dialog"
           aria-modal="true"
           {...props}
