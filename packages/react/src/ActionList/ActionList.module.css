@@ -87,7 +87,7 @@
   }
 
   /* if a list has a mix of items with and without descriptions, reset the label font-weight to normal */
-  &:has([data-has-description='true']):has([data-has-description='false']) {
+  &[data-mixed-descriptions='true'] {
     & .ItemLabel {
       font-weight: var(--base-text-weight-normal);
     }
