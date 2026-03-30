@@ -9,6 +9,7 @@ import {useProvidedRefOrCreate} from '../hooks'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
+import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 const UnwrappedList = <As extends React.ElementType = 'ul'>(
   props: ActionListProps<As>,
@@ -80,12 +81,18 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
   //
   // Two querySelector calls after render is trivially cheap compared to what the browser
   // was doing on every DOM mutation with `:has()`.
-  React.useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const list = listRef.current
     if (!list) return
-    const hasWithDescription = list.querySelector('[data-has-description="true"]') !== null
-    const hasWithoutDescription = list.querySelector('[data-has-description="false"]') !== null
-    list.setAttribute('data-mixed-descriptions', String(hasWithDescription && hasWithoutDescription))
+    const hasMixed =
+      list.querySelector('[data-has-description="true"]') !== null &&
+      list.querySelector('[data-has-description="false"]') !== null
+    const current = list.getAttribute('data-mixed-descriptions')
+    if (hasMixed && current !== 'true') {
+      list.setAttribute('data-mixed-descriptions', 'true')
+    } else if (!hasMixed && current !== null) {
+      list.removeAttribute('data-mixed-descriptions')
+    }
   })
 
   return (
