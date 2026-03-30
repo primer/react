@@ -33,17 +33,7 @@ The primary workspace is `packages/react` which contains the `@primer/react` pac
 
 **Development workflow:**
 
-- `npm start` -- starts Storybook dev server on http://localhost:6006. Takes ~3 seconds to start.
 - Main component development happens in `packages/react/src/[ComponentName]/`
-- Stories are in component directories as `ComponentName.stories.tsx`
-
-**Visual Regression and Accessibility Testing:**
-
-- Install Playwright: `npx playwright install --with-deps` -- takes ~3 seconds
-- Start Storybook first: `npm start` (must be running on port 6006)
-- Run VRT: `script/test-e2e --grep @vrt` -- runs visual regression tests against Storybook components
-- Run AVT: `script/test-e2e --grep @avt` -- runs accessibility verification tests using axe
-- **WARNING**: E2E tests require Storybook running and can take 15+ minutes. NEVER CANCEL. Set timeout to 30+ minutes.
 
 **Linting and formatting:**
 
@@ -141,6 +131,10 @@ npm run format:diff     # ~2 seconds - format checking
 npm run format          # Fix formatting
 npm run lint:fix        # Auto-fix linting issues
 ```
+
+## Storybook
+
+When working on UI components, always use the `primer-storybook` MCP tools to access Storybook's component and documentation knowledge before answering or taking any action. Reference the `.github/skills/storybook/SKILL.md` file for detailed instructions on using the Storybook MCP effectively and accurately.
 
 ## Known Issues and Workarounds
 
