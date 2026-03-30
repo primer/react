@@ -108,7 +108,6 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
 
   const ref = useRef<HTMLInputElement>(null)
   const mergedRef = useMergedRefs(forwardedRef, ref)
-
   const selectedValuesDescriptionId = useId()
   const mergedRef = useMergedRefs(forwardedRef, ref)
   const [selectedTokenIndex, setSelectedTokenIndex] = useState<number | undefined>()
