@@ -1,5 +1,13 @@
 # @primer/styled-react
 
+## 1.0.4
+
+### Patch Changes
+
+- [#7684](https://github.com/primer/react/pull/7684) [`ced0a71`](https://github.com/primer/react/commit/ced0a7194221bef332131cec40cd1ba2fd190cac) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove Textarea from `@primer/styled-react`
+
+- [#7685](https://github.com/primer/react/pull/7685) [`1c7c598`](https://github.com/primer/react/commit/1c7c59850d0fe26c27d1866799eac04062204b7b) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove Avatar component from @primer/styled-react
+
 ## 1.0.3
 
 ### Patch Changes

@@ -43,6 +43,7 @@ figma.connect(
         merged: 'pullMerged',
         queued: 'pullQueued',
         unavailable: 'unavailable',
+        archived: 'archived',
       }),
       text: figma.textContent('Label'),
     },
