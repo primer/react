@@ -1,0 +1,26 @@
+{
+  "servers": {
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp"
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@microsoft/mcp-server-playwright"
+      ]
+    },
+    "primer": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "@primer/mcp@latest"
+      ]
+    },
+    "primer-storybook": {
+      "type": "http",
+      "url": "http://localhost:6006/mcp"
+    }
+  }
+}

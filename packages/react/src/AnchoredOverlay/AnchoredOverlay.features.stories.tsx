@@ -575,6 +575,95 @@ export const WithinDialogOverflowing = () => {
   )
 }
 
+export const MultipleOverlays = () => {
+  const [openOverlay, setOpenOverlay] = useState<string | null>(null)
+  const externalAnchorRefA = useRef<HTMLButtonElement>(null)
+  const externalAnchorRefB = useRef<HTMLButtonElement>(null)
+
+  const open = (key: string) => () => setOpenOverlay(key)
+  const close = () => setOpenOverlay(null)
+
+  return (
+    <Stack direction="horizontal" gap="normal" align="start" style={{padding: '16px'}}>
+      <AnchoredOverlay
+        open={openOverlay === 'render-1'}
+        onOpen={open('render-1')}
+        onClose={close}
+        renderAnchor={props => <Button {...props}>renderAnchor 1</Button>}
+        overlayProps={{
+          role: 'dialog',
+          'aria-modal': true,
+          'aria-label': 'Overlay 1',
+        }}
+        focusZoneSettings={{disabled: true}}
+        preventOverflow={false}
+      >
+        <div className={classes.FlexColFill}>{hoverCard}</div>
+      </AnchoredOverlay>
+
+      <Button
+        ref={externalAnchorRefA}
+        onClick={() => setOpenOverlay(openOverlay === 'external-1' ? null : 'external-1')}
+      >
+        External anchor 1
+      </Button>
+      <AnchoredOverlay
+        open={openOverlay === 'external-1'}
+        onClose={close}
+        renderAnchor={null}
+        anchorRef={externalAnchorRefA}
+        overlayProps={{
+          role: 'dialog',
+          'aria-modal': true,
+          'aria-label': 'Overlay 2',
+        }}
+        focusZoneSettings={{disabled: true}}
+        preventOverflow={false}
+      >
+        <div className={classes.FlexColFill}>{hoverCard}</div>
+      </AnchoredOverlay>
+
+      <AnchoredOverlay
+        open={openOverlay === 'render-2'}
+        onOpen={open('render-2')}
+        onClose={close}
+        renderAnchor={props => <Button {...props}>renderAnchor 2</Button>}
+        overlayProps={{
+          role: 'dialog',
+          'aria-modal': true,
+          'aria-label': 'Overlay 3',
+        }}
+        focusZoneSettings={{disabled: true}}
+        preventOverflow={false}
+      >
+        <div className={classes.FlexColFill}>{hoverCard}</div>
+      </AnchoredOverlay>
+
+      <Button
+        ref={externalAnchorRefB}
+        onClick={() => setOpenOverlay(openOverlay === 'external-2' ? null : 'external-2')}
+      >
+        External anchor 2
+      </Button>
+      <AnchoredOverlay
+        open={openOverlay === 'external-2'}
+        onClose={close}
+        renderAnchor={null}
+        anchorRef={externalAnchorRefB}
+        overlayProps={{
+          role: 'dialog',
+          'aria-modal': true,
+          'aria-label': 'Overlay 4',
+        }}
+        focusZoneSettings={{disabled: true}}
+        preventOverflow={false}
+      >
+        <div className={classes.FlexColFill}>{hoverCard}</div>
+      </AnchoredOverlay>
+    </Stack>
+  )
+}
+
 export const WithinStickyElement = () => {
   return (
     <div className={classes.ScrollContainer}>

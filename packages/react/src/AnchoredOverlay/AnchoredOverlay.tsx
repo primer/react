@@ -1,5 +1,6 @@
 import type React from 'react'
 import {useCallback, useEffect, useRef, type JSX} from 'react'
+import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import type {OverlayProps} from '../Overlay'
 import Overlay from '../Overlay'
 import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'
@@ -196,13 +197,18 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       if (event.defaultPrevented || event.button !== 0) {
         return
       }
+      // Prevent the browser's native popovertarget toggle so React
+      // stays the single source of truth for popover visibility.
+      if (cssAnchorPositioning) {
+        event.preventDefault()
+      }
       if (!open) {
         onOpen?.('anchor-click')
       } else {
         onClose?.('anchor-click')
       }
     },
-    [open, onOpen, onClose],
+    [open, onOpen, onClose, cssAnchorPositioning],
   )
 
   const positionChange = (position: AnchorPosition | undefined) => {
@@ -247,13 +253,51 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   })
   useFocusTrap({containerRef: overlayRef, disabled: !open || !position, ...focusTrapSettings})
 
+  const popoverId = useId()
+  const id = popoverId.replaceAll(':', '_') // popoverId can contain colons which are invalid in CSS custom property names, so we replace them with underscores
+
+  useEffect(() => {
+    if (!cssAnchorPositioning || !anchorRef.current) return
+
+    const anchor = anchorRef.current
+    const overlay = overlayRef.current
+    anchor.style.setProperty('anchor-name', `--anchored-overlay-anchor-${id}`)
+
+    return () => {
+      anchor.style.removeProperty('anchor-name')
+      if (overlay) {
+        overlay.style.removeProperty('position-anchor')
+      }
+    }
+  }, [cssAnchorPositioning, anchorRef, overlayRef, id])
+
+  // Track the overlay element so we can re-run the effect when it changes.
+  // The overlay unmounts when closed, so each open creates a new DOM node -
+  // that needs showPopover() called.
+  const overlayElement = overlayRef.current
+
+  useLayoutEffect(() => {
+    // Read ref inside effect to get the value after child refs are attached
+    const currentOverlay = overlayRef.current
+
+    if (!cssAnchorPositioning || !open || !currentOverlay) return
+    currentOverlay.style.setProperty('position-anchor', `--anchored-overlay-anchor-${id}`)
+    try {
+      if (!currentOverlay.matches(':popover-open')) {
+        currentOverlay.showPopover()
+      }
+    } catch {
+      // Ignore if popover is already showing or not supported
+    }
+  }, [cssAnchorPositioning, open, overlayElement, id, overlayRef])
+
   const showXIcon = onClose && variant.narrow === 'fullscreen' && displayCloseButton
   const XButtonAriaLabelledBy = closeButtonProps['aria-labelledby']
   const XButtonAriaLabel = closeButtonProps['aria-label']
 
-  const {className: overlayClassName, ...restOverlayProps} = overlayProps || {}
+  const {className: overlayClassName, _PrivateDisablePortal, ...restOverlayProps} = overlayProps || {}
 
-  const innerContent = (
+  return (
     <>
       {renderAnchor &&
         renderAnchor({
@@ -264,7 +308,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           tabIndex: 0,
           onClick: onAnchorClick,
           onKeyDown: onAnchorKeyDown,
-          ...(cssAnchorPositioning ? {className: classes.Anchor} : {}),
+          ...(cssAnchorPositioning ? {popoverTarget: popoverId} : {}),
         })}
       {open ? (
         <Overlay
@@ -283,7 +327,10 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           className={clsx(className, overlayClassName, cssAnchorPositioning ? classes.AnchoredOverlay : undefined)}
           preventOverflow={preventOverflow}
           data-component="AnchoredOverlay"
+          _PrivateDisablePortal={_PrivateDisablePortal}
+          {...(cssAnchorPositioning ? {popover: 'manual'} : {})}
           {...restOverlayProps}
+          {...(cssAnchorPositioning ? {id: popoverId} : {})}
           ref={node => {
             if (overlayProps?.ref) {
               assignRef(overlayProps.ref, node)
@@ -316,12 +363,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       ) : null}
     </>
   )
-
-  if (cssAnchorPositioning) {
-    return <div className={classes.Wrapper}>{innerContent}</div>
-  }
-
-  return innerContent
 }
 
 function assignRef<T>(
