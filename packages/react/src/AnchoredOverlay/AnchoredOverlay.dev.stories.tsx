@@ -65,10 +65,8 @@ export const ScrollRecalculation = () => {
   return (
     <div>
       <Stack gap="normal" style={{padding: '16px', marginBottom: '16px'}}>
-        <Text as="p" style={{fontWeight: 'bold'}}>
-          How to test (scrollable container):
-        </Text>
-        <Text as="p">
+        <p style={{fontWeight: 'bold'}}>How to test (scrollable container):</p>
+        <p>
           1. Scroll down inside the bordered box until you see the &quot;Open overlay&quot; button
           <br />
           2. Click the button to open the overlay
@@ -79,7 +77,7 @@ export const ScrollRecalculation = () => {
           <br />
           5. <strong>Bug (without fix):</strong> the overlay stays at its initial absolute position and detaches from
           the button
-        </Text>
+        </p>
       </Stack>
 
       <div
@@ -93,9 +91,7 @@ export const ScrollRecalculation = () => {
       >
         {/* Spacer to push button below the fold */}
         <div style={{height: '600px', padding: '16px'}}>
-          <Text as="p" style={{color: 'var(--fgColor-muted)'}}>
-            ↓ Scroll down to find the trigger button
-          </Text>
+          <p style={{color: 'var(--fgColor-muted)'}}>↓ Scroll down to find the trigger button</p>
         </div>
 
         <div style={{padding: '16px'}}>
@@ -113,7 +109,7 @@ export const ScrollRecalculation = () => {
             preventOverflow={false}
           >
             <div style={{padding: '16px', width: '240px'}}>
-              <Text as="p">This overlay should stay attached to the button as you scroll.</Text>
+              <p>This overlay should stay attached to the button as you scroll.</p>
             </div>
           </AnchoredOverlay>
         </div>
@@ -131,10 +127,8 @@ export const WindowScrollRecalculation = () => {
   return (
     <div>
       <Stack gap="normal" style={{padding: '16px'}}>
-        <Text as="p" style={{fontWeight: 'bold'}}>
-          How to test (window scroll):
-        </Text>
-        <Text as="p">
+        <p style={{fontWeight: 'bold'}}>How to test (window scroll):</p>
+        <p>
           1. Scroll down the page until you see the &quot;Open overlay&quot; button
           <br />
           2. Click the button to open the overlay
@@ -145,14 +139,12 @@ export const WindowScrollRecalculation = () => {
           <br />
           5. <strong>Bug (without fix):</strong> the overlay stays at its initial absolute position and detaches from
           the button
-        </Text>
+        </p>
       </Stack>
 
       {/* Spacer to push button below the fold */}
       <div style={{height: '120vh', padding: '16px'}}>
-        <Text as="p" style={{color: 'var(--fgColor-muted)'}}>
-          ↓ Scroll down to find the trigger button
-        </Text>
+        <p style={{color: 'var(--fgColor-muted)'}}>↓ Scroll down to find the trigger button</p>
       </div>
 
       <div style={{padding: '16px'}}>
@@ -170,7 +162,7 @@ export const WindowScrollRecalculation = () => {
           preventOverflow={false}
         >
           <div style={{padding: '16px', width: '240px'}}>
-            <Text as="p">This overlay should stay attached to the button as you scroll the page.</Text>
+            <p>This overlay should stay attached to the button as you scroll the page.</p>
           </div>
         </AnchoredOverlay>
       </div>
