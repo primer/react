@@ -1,4 +1,5 @@
 import {
+  ArchiveIcon,
   GitMergeIcon,
   GitPullRequestIcon,
   GitPullRequestClosedIcon,
@@ -37,9 +38,13 @@ const octiconMap = {
   alertClosed: ShieldXIcon,
   open: null,
   closed: null,
+  archived: ArchiveIcon,
 }
 
-const labelMap: Record<keyof typeof octiconMap, 'Issue' | 'Issue, not planned' | 'Pull request' | 'Alert' | ''> = {
+const labelMap: Record<
+  keyof typeof octiconMap,
+  'Issue' | 'Issue, not planned' | 'Pull request' | 'Alert' | 'Archived' | ''
+> = {
   issueOpened: 'Issue',
   pullOpened: 'Pull request',
   issueClosed: 'Issue',
@@ -54,6 +59,7 @@ const labelMap: Record<keyof typeof octiconMap, 'Issue' | 'Issue, not planned' |
   alertFixed: 'Alert',
   alertDismissed: 'Alert',
   alertClosed: 'Alert',
+  archived: 'Archived',
   open: '',
   closed: '',
 }
