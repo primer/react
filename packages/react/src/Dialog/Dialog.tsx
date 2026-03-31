@@ -7,7 +7,7 @@ import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
 import Portal from '../Portal'
-import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
+import {useMergedRefs} from '../hooks/useMergedRefs'
 import {useId} from '../hooks/useId'
 import {ScrollableRegion} from '../ScrollableRegion'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
@@ -16,6 +16,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import classes from './Dialog.module.css'
 import {clsx} from 'clsx'
 import {useSlots} from '../hooks/useSlots'
+import {useResizeObserver} from '../hooks/useResizeObserver'
 
 /* Dialog Version 2 */
 
@@ -239,6 +240,8 @@ const defaultPosition = {
 }
 
 const defaultFooterButtons: Array<DialogButtonProps> = []
+// Minimum room needed for body content before forcing footer buttons into horizontal scroll.
+const MIN_BODY_HEIGHT = 48
 
 // useful to determine whether we're inside a Dialog from a nested component
 export const DialogContext = React.createContext<object | undefined>(undefined)
@@ -273,6 +276,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     }
   }
   const [lastMouseDownIsBackdrop, setLastMouseDownIsBackdrop] = useState<boolean>(false)
+  const [footerButtonLayout, setFooterButtonLayout] = useState<'scroll' | 'wrap'>('wrap')
   const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId}
   const onBackdropClick = useCallback(
     (e: SyntheticEvent) => {
@@ -289,7 +293,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   })
 
   const dialogRef = useRef<HTMLDivElement>(null)
-  useRefObjectAsForwardedRef(forwardedRef, dialogRef)
+  const mergedRef = useMergedRefs(forwardedRef, dialogRef)
   const backdropRef = useRef<HTMLDivElement>(null)
 
   useFocusTrap({
@@ -339,6 +343,35 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   const header = slots.header ?? (renderHeader ?? DefaultHeader)(defaultedProps)
   const body = slots.body ?? (renderBody ?? DefaultBody)({...defaultedProps, children: childrenWithoutSlots})
   const footer = slots.footer ?? (renderFooter ?? DefaultFooter)(defaultedProps)
+  const hasFooter = footer != null
+
+  const updateFooterButtonLayout = useCallback(() => {
+    if (!hasFooter) {
+      return
+    }
+
+    const dialogElement = dialogRef.current
+    if (!(dialogElement instanceof HTMLElement)) {
+      return
+    }
+    const bodyWrapper = dialogElement.querySelector(`.${classes.DialogOverflowWrapper}`)
+    if (!(bodyWrapper instanceof HTMLElement)) {
+      return
+    }
+
+    // We temporarily force "wrap" the footer layout so that the browser can calculate the body height -
+    // when the footer is wrapping. This is instantaneous with what we set below (`dialogElement.setAttribute('data-footer-button-layout', newLayout)`).
+    dialogElement.setAttribute('data-footer-button-layout', 'wrap')
+    const bodyHeight = bodyWrapper.clientHeight
+
+    const newLayout = bodyHeight >= MIN_BODY_HEIGHT ? 'wrap' : 'scroll'
+    dialogElement.setAttribute('data-footer-button-layout', newLayout)
+
+    setFooterButtonLayout(newLayout)
+  }, [hasFooter])
+
+  useResizeObserver(updateFooterButtonLayout, backdropRef)
+
   const positionDataAttributes =
     typeof position === 'string'
       ? {'data-position-regular': position}
@@ -362,7 +395,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           }}
         >
           <div
-            ref={dialogRef}
+            ref={mergedRef}
             role={role}
             aria-labelledby={dialogLabelId}
             aria-describedby={dialogDescriptionId}
@@ -371,7 +404,8 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             {...(align && {'data-align': align})}
             data-width={width}
             data-height={height}
-            data-has-footer={footer != null ? '' : undefined}
+            data-has-footer={hasFooter ? '' : undefined}
+            data-footer-button-layout={hasFooter ? footerButtonLayout : undefined}
             className={clsx(className, classes.Dialog)}
             style={style}
           >

@@ -1,5 +1,46 @@
 # @primer/react
 
+## 38.18.0
+
+### Minor Changes
+
+- [#7700](https://github.com/primer/react/pull/7700) [`91bf343`](https://github.com/primer/react/commit/91bf343210483be373f7ec5ce1ba652518a9ce4c) Thanks [@francinelucca](https://github.com/francinelucca)! - ActionMenu: Graduate `primer_react_action_menu_display_in_viewport_inside_dialog` feature flag. ActionMenu now automatically uses `displayInViewport` when rendered inside a Dialog, without requiring the feature flag.
+
+- [#7699](https://github.com/primer/react/pull/7699) [`1505d9b`](https://github.com/primer/react/commit/1505d9b06bbcbb1d6bf87b4d21461d79b71eff10) Thanks [@francinelucca](https://github.com/francinelucca)! - SelectPanel: Add `displayInViewport` prop
+
+- [#7662](https://github.com/primer/react/pull/7662) [`39c8cf3`](https://github.com/primer/react/commit/39c8cf30254268d770422b9d890d96da51d35d89) Thanks [@HiroAgustin](https://github.com/HiroAgustin)! - Timeline: Update `clipSidebar` prop to accept `'start'`, `'end'`, or `'both'` in addition to `boolean`. Use `'start'` to only clip the top, `'end'` to only clip the bottom, or `'both'`/`true` to clip both ends.
+
+### Patch Changes
+
+- [#7690](https://github.com/primer/react/pull/7690) [`b492cc8`](https://github.com/primer/react/commit/b492cc82efdb68189a070dfa7fcd88f18cc9d7b4) Thanks [@HiroAgustin](https://github.com/HiroAgustin)! - fix(Button): Apply inline-flex display to loading wrapper for link variant buttons
+
+- [#7696](https://github.com/primer/react/pull/7696) [`1acb7d3`](https://github.com/primer/react/commit/1acb7d3dc416094e481ac9b45d3fa45ebd527c86) Thanks [@francinelucca](https://github.com/francinelucca)! - Fix item dividers not visible in SelectPanel and FilteredActionList when `showItemDividers` is enabled, caused by `content-visibility: auto` clipping the absolutely-positioned divider pseudo-elements.
+
+- [#7683](https://github.com/primer/react/pull/7683) [`f05fcac`](https://github.com/primer/react/commit/f05fcacedafe8a9a1af9caa6a762403d47851250) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Dialog: dynamically switch footer button layout based on available height.
+
+- [#7676](https://github.com/primer/react/pull/7676) [`35ca056`](https://github.com/primer/react/commit/35ca05690910ffb8286a2aeef01c043af377a6c2) Thanks [@HiroAgustin](https://github.com/HiroAgustin)! - Remove link underline effect on hover for both Link (inline) and Button with variant link (no visuals)
+
+- [#7631](https://github.com/primer/react/pull/7631) [`0ecaf6f`](https://github.com/primer/react/commit/0ecaf6f64c50235081416515b7d5b6b2e364b33f) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Add test to validate that the `muted` prop is not leaked as a bare DOM attribute on `Link`
+
+## 38.17.0
+
+### Minor Changes
+
+- [#7658](https://github.com/primer/react/pull/7658) [`259fdff`](https://github.com/primer/react/commit/259fdff67550e328b851129a78e87413ddb07229) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - fix(polymorphic): Improve prop passthrough for ActionList.LinkItem and Breadcrumbs.Item
+
+- [#7672](https://github.com/primer/react/pull/7672) [`77735f9`](https://github.com/primer/react/commit/77735f975c71b267130899fc1fd7b47bcb5f062d) Thanks [@iansan5653](https://github.com/iansan5653)! - - New: Exposes new `useMergedRefs` hook that can merge two refs into a single combined ref
+
+  - Deprecates `useRefObjectAsForwardedRef`; see doc comment for migration instructions
+  - Deprecates `useProvidedRefOrCreate`; see doc comment for migration instructions
+
+- [#7623](https://github.com/primer/react/pull/7623) [`42847d1`](https://github.com/primer/react/commit/42847d1bb943c2db6d2309dfd604e8d3ab55d387) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - `IconButton`: `keybindingHint` now accepts `string[]` in addition to `string`. Multiple hints are rendered joined with "or".
+
+### Patch Changes
+
+- [#7510](https://github.com/primer/react/pull/7510) [`8fa988b`](https://github.com/primer/react/commit/8fa988ba613117874657af722ef6de768b0e0eb8) Thanks [@francinelucca](https://github.com/francinelucca)! - chore: ensure max-height does not surpass viewport height in Overlay, ActionMenu under feature flag
+
+- [#7682](https://github.com/primer/react/pull/7682) [`8aed331`](https://github.com/primer/react/commit/8aed331f9dcb8c51d86bf531f7e331a6ccd23d9a) Thanks [@llastflowers](https://github.com/llastflowers)! - Update CheckboxOrRadioGroup.tsx to add `required` announcement
+
 ## 38.16.0
 
 ### Minor Changes

@@ -13,25 +13,23 @@
   }
 }
 
-.Wrapper {
-  anchor-scope: --anchored-overlay-anchor;
-}
-
-.Anchor {
-  /* Anchor name, this is currently tied to `renderAnchor` */
-  anchor-name: --anchored-overlay-anchor;
-}
-
 .AnchoredOverlay {
-  /* Anchor position, this is currently tied to `<Overlay>` */
-  position-anchor: --anchored-overlay-anchor;
   position-try-fallbacks:
     flip-block,
     flip-inline,
     flip-block flip-inline;
   position-visibility: anchors-visible;
   z-index: 100;
-  position: fixed;
+  position: fixed !important;
+
+  &[popover] {
+    inset: auto;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    max-height: none;
+    max-width: none;
+  }
 
   &[data-side='outside-bottom'] {
     /* stylelint-disable primer/spacing */

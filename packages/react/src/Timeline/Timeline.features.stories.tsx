@@ -34,6 +34,40 @@ export const ClipSidebar = () => (
   </Timeline>
 )
 
+export const ClipSidebarStart = () => (
+  <Timeline clipSidebar="start">
+    <Timeline.Item>
+      <Timeline.Badge>
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
+      </Timeline.Badge>
+      <Timeline.Body>This is a message</Timeline.Body>
+    </Timeline.Item>
+    <Timeline.Item>
+      <Timeline.Badge>
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
+      </Timeline.Badge>
+      <Timeline.Body>This is a message</Timeline.Body>
+    </Timeline.Item>
+  </Timeline>
+)
+
+export const ClipSidebarEnd = () => (
+  <Timeline clipSidebar="end">
+    <Timeline.Item>
+      <Timeline.Badge>
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
+      </Timeline.Badge>
+      <Timeline.Body>This is a message</Timeline.Body>
+    </Timeline.Item>
+    <Timeline.Item>
+      <Timeline.Badge>
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
+      </Timeline.Badge>
+      <Timeline.Body>This is a message</Timeline.Body>
+    </Timeline.Item>
+  </Timeline>
+)
+
 export const CondensedItems = () => (
   <Timeline>
     <Timeline.Item condensed>
