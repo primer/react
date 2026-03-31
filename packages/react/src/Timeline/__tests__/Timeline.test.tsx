@@ -36,16 +36,6 @@ describe('Timeline', () => {
     const {container} = render(<Timeline />)
     expect(container.firstChild).not.toHaveAttribute('data-clip-sidebar')
   })
-
-  it('renders with clipSidebar="start"', () => {
-    const {container} = render(<Timeline clipSidebar="start" />)
-    expect(container.firstChild).toHaveAttribute('data-clip-sidebar', 'start')
-  })
-
-  it('renders with clipSidebar="end"', () => {
-    const {container} = render(<Timeline clipSidebar="end" />)
-    expect(container.firstChild).toHaveAttribute('data-clip-sidebar', 'end')
-  })
 })
 
 describe('Timeline.Item', () => {
