@@ -106,9 +106,13 @@ export async function retrieveContext(question: string): Promise<RetrievedContex
     }
   }
 
-  const componentList = listComponents()
-    .map(c => c.name)
-    .join(', ')
+  // Only include the full component list if we haven't found any relevant component docs
+  let componentList = ''
+  if (componentDocs.length === 0) {
+    componentList = listComponents()
+      .map(c => c.name)
+      .join(', ')
+  }
 
   return {componentDocs, componentList}
 }
@@ -119,7 +123,9 @@ export async function retrieveContext(question: string): Promise<RetrievedContex
 export function formatContext(ctx: RetrievedContext): string {
   const sections: string[] = []
 
-  sections.push(`Available Primer React components: ${ctx.componentList}`)
+  if (ctx.componentList) {
+    sections.push(`Available Primer React components: ${ctx.componentList}`)
+  }
 
   for (const {name, docs} of ctx.componentDocs) {
     const truncated = docs.length > 4000 ? `${docs.slice(0, 4000)}\n...(truncated)` : docs

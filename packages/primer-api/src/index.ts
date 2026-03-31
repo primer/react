@@ -6,8 +6,18 @@ const config = loadConfig()
 
 function readBody(req: IncomingMessage): Promise<string> {
   return new Promise((resolve, reject) => {
+    const MAX_SIZE = 100 * 1024 // 100KB
+    let size = 0
     const chunks: Uint8Array[] = []
-    req.on('data', (chunk: Uint8Array) => chunks.push(chunk))
+    req.on('data', (chunk: Uint8Array) => {
+      size += chunk.length
+      if (size > MAX_SIZE) {
+        req.destroy()
+        reject(new Error('Request body too large'))
+        return
+      }
+      chunks.push(chunk)
+    })
     req.on('end', () => resolve(Buffer.concat(chunks).toString()))
     req.on('error', reject)
   })
@@ -74,9 +84,9 @@ const server = createServer(async (req, res) => {
   json(res, 404, {error: 'Not found'})
 })
 
-server.listen(config.port, () => {
+server.listen(config.port, '127.0.0.1', () => {
   // eslint-disable-next-line no-console
-  console.log(`Primer API running on http://localhost:${config.port}`)
+  console.log(`Primer API running on http://127.0.0.1:${config.port}`)
   // eslint-disable-next-line no-console
   console.log('POST /ask - Ask a question about Primer')
   // eslint-disable-next-line no-console

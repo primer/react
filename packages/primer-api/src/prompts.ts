@@ -15,11 +15,11 @@ Rules:
 You will receive relevant context from the Primer documentation to help answer questions. Base your answers on this context.`
 
 export function buildUserPrompt(question: string, context: string): string {
-  return `## Context from Primer documentation
+  return `Context from Primer documentation:
 
 ${context}
 
-## Question
+Question:
 
 ${question}`
 }

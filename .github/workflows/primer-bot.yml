@@ -9,7 +9,8 @@ on:
         description: 'Question to ask the Primer bot'
         required: true
 
-permissions: {}
+permissions:
+  contents: read
 
 jobs:
   answer:

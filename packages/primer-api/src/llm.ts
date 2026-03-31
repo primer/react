@@ -24,7 +24,7 @@ export interface AskResult {
 export async function ask(question: string, config: Config): Promise<AskResult> {
   const openai = getClient(config)
 
-  // Retrieve relevant context from MCP data layer
+  // Retrieve relevant Primer docs and component metadata for the question
   const context = await retrieveContext(question)
   const formattedContext = formatContext(context)
 

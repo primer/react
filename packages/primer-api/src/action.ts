@@ -3,7 +3,7 @@
  *
  * Triggered by repository_dispatch with event_type 'primer-bot-question'.
  * Reads the question from the payload, generates an answer using the LLM,
- * and posts it back to Slack via incoming webhook.
+ * and posts it back to Slack using the Slack Web API (chat.postMessage) with a bot token.
  */
 import {loadConfig} from './config'
 import {ask} from './llm'
