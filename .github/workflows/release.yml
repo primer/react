@@ -7,6 +7,8 @@ on:
       - 'gh-readonly-queue/**'
     tags-ignore:
       - '**'
+  pull_request:
+    types: [labeled, synchronize]
   workflow_dispatch:
 
 concurrency:
@@ -21,7 +23,7 @@ permissions:
 
 jobs:
   release-main:
-    if: github.ref_name == 'main'
+    if: github.event_name != 'pull_request' && github.ref_name == 'main'
     name: Main
     runs-on: ubuntu-latest
     steps:
@@ -64,7 +66,7 @@ jobs:
         uses: primer/.github/.github/actions/upload-versions@v2.4.0
 
   release-candidate:
-    if: github.ref_name == 'changeset-release/main'
+    if: github.event_name != 'pull_request' && github.ref_name == 'changeset-release/main'
     name: Candidate (@next)
     runs-on: ubuntu-latest
     steps:
@@ -110,12 +112,19 @@ jobs:
 
   release-canary:
     name: Canary
-    if: github.ref_name != 'main' && github.ref_name != 'changeset-release/main'
+    if: >
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      (
+        (github.event.action == 'labeled' && github.event.label.name == 'Canary Release') ||
+        (github.event.action == 'synchronize' && contains(github.event.pull_request.labels.*.name, 'Canary Release'))
+      )
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
+          ref: ${{ github.event.pull_request.head.sha }}
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
       - name: Set up Node
