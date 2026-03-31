@@ -1,3 +1,4 @@
+// This file has been automatically migrated to valid ESM format by Storybook.
 import {createRequire} from 'node:module'
 import path from 'node:path'
 import react from '@vitejs/plugin-react'
@@ -21,6 +22,7 @@ const config: StorybookConfig = {
     getAbsolutePath('@storybook/addon-links'),
     getAbsolutePath('@storybook/addon-docs'),
     '@github-ui/storybook-addon-performance-panel',
+    getAbsolutePath('@storybook/addon-mcp'),
   ],
 
   framework: {
@@ -83,6 +85,7 @@ const config: StorybookConfig = {
 
   features: {
     backgrounds: false,
+    componentsManifest: true,
   },
 }
 

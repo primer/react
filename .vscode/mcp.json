@@ -17,6 +17,10 @@
       "args": [
         "@primer/mcp@latest"
       ]
+    },
+    "primer-storybook": {
+      "type": "http",
+      "url": "http://localhost:6006/mcp"
     }
   }
 }
