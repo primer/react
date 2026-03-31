@@ -306,7 +306,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   const [isInitialRender, setIsInitialRender] = useState(true)
 
   const navRef = useRef<HTMLDivElement>(null)
-  
+
   // measure gap after first render & whenever gap scale changes
   useIsomorphicLayoutEffect(() => {
     if (!listRef.current) return
