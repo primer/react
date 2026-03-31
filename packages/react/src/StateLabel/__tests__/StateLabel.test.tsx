@@ -17,6 +17,7 @@ describe('StateLabel', () => {
     expect(HTMLRender(<StateLabel status="alertFixed" />).container).toMatchSnapshot()
     expect(HTMLRender(<StateLabel status="alertDismissed" />).container).toMatchSnapshot()
     expect(HTMLRender(<StateLabel status="alertClosed" />).container).toMatchSnapshot()
+    expect(HTMLRender(<StateLabel status="archived" />).container).toMatchSnapshot()
   })
 
   it('respects the deprecated variant prop', () => {
@@ -56,6 +57,12 @@ describe('StateLabel', () => {
     const screen4 = HTMLRender(<StateLabel status="alertClosed">Closed</StateLabel>)
     expect(screen4.getByLabelText('Alert')).toBeInTheDocument() // svg
     expect(screen4.getByText('Closed')).toBeInTheDocument() // text
+    screen4.unmount()
+
+    const screenArchived = HTMLRender(<StateLabel status="archived">Archived</StateLabel>)
+    expect(screenArchived.getByLabelText('Archived')).toBeInTheDocument() // svg
+    expect(screenArchived.getByText('Archived')).toBeInTheDocument() // text
+    screenArchived.unmount()
   })
   it('renders open status without an icon', () => {
     const screen = HTMLRender(<StateLabel status="open">Open</StateLabel>)
