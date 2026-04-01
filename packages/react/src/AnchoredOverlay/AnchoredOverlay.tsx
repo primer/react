@@ -137,7 +137,7 @@ const applyAnchorPositioningPolyfill = async (element: HTMLElement) => {
       polyfill({
         elements: [element],
         excludeInlineStyles: false,
-        useAnimationFrame: false,
+        useAnimationFrame: true,
       })
     } catch (e) {
       // eslint-disable-next-line no-console
