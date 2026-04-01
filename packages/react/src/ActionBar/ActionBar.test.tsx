@@ -7,6 +7,22 @@ import {BoldIcon, ItalicIcon, CodeIcon} from '@primer/octicons-react'
 import {implementsClassName} from '../utils/testing'
 import classes from './ActionBar.module.css'
 
+// Mock ResizeObserver to trigger callback immediately with a positive width
+// This ensures isInitialRender becomes false and the toolbar is visible
+const mockUnobserve = vi.fn()
+const mockDisconnect = vi.fn()
+
+globalThis.ResizeObserver = vi.fn().mockImplementation(function (callback) {
+  return {
+    observe: vi.fn().mockImplementation(() => {
+      // Trigger the callback synchronously when observe is called
+      callback([{contentRect: {width: 500, height: 40}} as ResizeObserverEntry])
+    }),
+    unobserve: mockUnobserve,
+    disconnect: mockDisconnect,
+  }
+})
+
 describe('ActionBar', () => {
   implementsClassName(ActionBar, classes.Nav)
   afterEach(() => {
