@@ -59,6 +59,120 @@ export const RepositionAfterContentGrows = () => {
   )
 }
 
+export const ScrollRecalculation = () => {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <div>
+      <Stack gap="normal" style={{padding: '16px', marginBottom: '16px'}}>
+        <p style={{fontWeight: 'bold'}}>How to test (scrollable container):</p>
+        <p>
+          1. Scroll down inside the bordered box until you see the &quot;Open overlay&quot; button
+          <br />
+          2. Click the button to open the overlay
+          <br />
+          3. Scroll inside the box again
+          <br />
+          4. <strong>Expected:</strong> the overlay stays visually attached to the button
+          <br />
+          5. <strong>Bug (without fix):</strong> the overlay stays at its initial absolute position and detaches from
+          the button
+        </p>
+      </Stack>
+
+      <div
+        style={{
+          height: '400px',
+          overflow: 'auto',
+          border: '1px solid var(--borderColor-default, #d1d9e0)',
+          borderRadius: 'var(--borderRadius-medium)',
+          position: 'relative',
+        }}
+      >
+        {/* Spacer to push button below the fold */}
+        <div style={{height: '600px', padding: '16px'}}>
+          <p style={{color: 'var(--fgColor-muted)'}}>↓ Scroll down to find the trigger button</p>
+        </div>
+
+        <div style={{padding: '16px'}}>
+          <AnchoredOverlay
+            open={open}
+            onOpen={() => setOpen(true)}
+            onClose={() => setOpen(false)}
+            renderAnchor={props => <Button {...props}>Open overlay</Button>}
+            overlayProps={{
+              role: 'dialog',
+              'aria-modal': true,
+              'aria-label': 'Scroll recalculation demo',
+            }}
+            focusZoneSettings={{disabled: true}}
+            preventOverflow={false}
+          >
+            <div style={{padding: '16px', width: '240px'}}>
+              <p>This overlay should stay attached to the button as you scroll.</p>
+            </div>
+          </AnchoredOverlay>
+        </div>
+
+        {/* Spacer below the button so there's room to scroll further */}
+        <div style={{height: '800px'}} />
+      </div>
+    </div>
+  )
+}
+
+export const WindowScrollRecalculation = () => {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <div>
+      <Stack gap="normal" style={{padding: '16px'}}>
+        <p style={{fontWeight: 'bold'}}>How to test (window scroll):</p>
+        <p>
+          1. Scroll down the page until you see the &quot;Open overlay&quot; button
+          <br />
+          2. Click the button to open the overlay
+          <br />
+          3. Scroll the page again
+          <br />
+          4. <strong>Expected:</strong> the overlay stays visually attached to the button
+          <br />
+          5. <strong>Bug (without fix):</strong> the overlay stays at its initial absolute position and detaches from
+          the button
+        </p>
+      </Stack>
+
+      {/* Spacer to push button below the fold */}
+      <div style={{height: '120vh', padding: '16px'}}>
+        <p style={{color: 'var(--fgColor-muted)'}}>↓ Scroll down to find the trigger button</p>
+      </div>
+
+      <div style={{padding: '16px'}}>
+        <AnchoredOverlay
+          open={open}
+          onOpen={() => setOpen(true)}
+          onClose={() => setOpen(false)}
+          renderAnchor={props => <Button {...props}>Open overlay</Button>}
+          overlayProps={{
+            role: 'dialog',
+            'aria-modal': true,
+            'aria-label': 'Window scroll recalculation demo',
+          }}
+          focusZoneSettings={{disabled: true}}
+          preventOverflow={false}
+        >
+          <div style={{padding: '16px', width: '240px'}}>
+            <p>This overlay should stay attached to the button as you scroll the page.</p>
+          </div>
+        </AnchoredOverlay>
+      </div>
+
+      {/* Spacer below the button so there's room to scroll further */}
+      <div style={{height: '120vh'}} />
+    </div>
+  )
+}
+
 export const RepositionAfterContentGrowsWithinDialog = () => {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(true)
