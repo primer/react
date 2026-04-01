@@ -26,7 +26,7 @@ export const WithImage = () => {
   return (
     <div style={{maxWidth: '400px'}}>
       <Card>
-        <Card.Image src="https://via.placeholder.com/400x200" alt="Placeholder" />
+        <Card.Image src="https://github.com/octocat.png" alt="Octocat" />
         <Card.Heading>Card with Image</Card.Heading>
         <Card.Description>This card uses an edge-to-edge image instead of an icon.</Card.Description>
       </Card>
