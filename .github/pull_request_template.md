@@ -32,6 +32,7 @@ Closes #
 ### Testing & Reviewing
 
 <!-- Describe any specific details to help reviewers test or review this Pull Request -->
+<!-- To publish a canary release for integration testing, apply the "Canary Release" label to this PR -->
 
 ### Merge checklist
 
