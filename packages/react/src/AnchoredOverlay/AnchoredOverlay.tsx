@@ -291,15 +291,15 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
     const anchor = anchorRef.current
     const overlay = overlayRef.current
-    setAnchorStyle(anchor, 'anchor-name', `--anchored-overlay-anchor-${id}`)
+    anchor.style.setProperty('anchor-name', `--anchored-overlay-anchor-${id}`)
 
     return () => {
-      removeAnchorStyle(anchor, 'anchor-name')
+      anchor.style.removeProperty('anchor-name')
       if (overlay) {
-        removeAnchorStyle(overlay, 'position-anchor')
+        overlay.style.removeProperty('position-anchor')
       }
     }
-  }, [cssAnchorPositioning, anchorRef, overlayRef, id])
+  }, [cssAnchorPositioning, anchorRef, overlayRef, id, open])
 
   // Track the overlay element so we can re-run the effect when it changes.
   // The overlay unmounts when closed, so each open creates a new DOM node -
@@ -311,7 +311,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     const currentOverlay = overlayRef.current
 
     if (!cssAnchorPositioning || !open || !currentOverlay) return
-    setAnchorStyle(currentOverlay, 'position-anchor', `--anchored-overlay-anchor-${id}`)
+    currentOverlay.style.setProperty('position-anchor', `--anchored-overlay-anchor-${id}`)
     try {
       if (!currentOverlay.matches(':popover-open')) {
         currentOverlay.showPopover()

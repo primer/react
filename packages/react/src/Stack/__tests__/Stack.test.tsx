@@ -110,12 +110,16 @@ describe('Stack', () => {
     it('should support specifying the stack gap with the `gap` prop', () => {
       render(
         <>
+          <Stack data-testid="tight" gap="tight" />
           <Stack data-testid="condensed" gap="condensed" />
+          <Stack data-testid="cozy" gap="cozy" />
           <Stack data-testid="normal" gap="normal" />
           <Stack data-testid="spacious" gap="spacious" />
         </>,
       )
+      expect(screen.getByTestId('tight')).toHaveAttribute('data-gap', 'tight')
       expect(screen.getByTestId('condensed')).toHaveAttribute('data-gap', 'condensed')
+      expect(screen.getByTestId('cozy')).toHaveAttribute('data-gap', 'cozy')
       expect(screen.getByTestId('normal')).toHaveAttribute('data-gap', 'normal')
       expect(screen.getByTestId('spacious')).toHaveAttribute('data-gap', 'spacious')
     })
@@ -177,12 +181,16 @@ describe('Stack', () => {
     it('should support specifying the stack padding with the `padding` prop', () => {
       render(
         <>
+          <Stack data-testid="tight" padding="tight" />
           <Stack data-testid="condensed" padding="condensed" />
+          <Stack data-testid="cozy" padding="cozy" />
           <Stack data-testid="normal" padding="normal" />
           <Stack data-testid="spacious" padding="spacious" />
         </>,
       )
+      expect(screen.getByTestId('tight')).toHaveAttribute('data-padding', 'tight')
       expect(screen.getByTestId('condensed')).toHaveAttribute('data-padding', 'condensed')
+      expect(screen.getByTestId('cozy')).toHaveAttribute('data-padding', 'cozy')
       expect(screen.getByTestId('normal')).toHaveAttribute('data-padding', 'normal')
       expect(screen.getByTestId('spacious')).toHaveAttribute('data-padding', 'spacious')
     })
@@ -201,6 +209,83 @@ describe('Stack', () => {
       expect(screen.getByTestId('responsive')).toHaveAttribute('data-padding-narrow', 'none')
       expect(screen.getByTestId('responsive')).toHaveAttribute('data-padding-regular', 'condensed')
       expect(screen.getByTestId('responsive')).toHaveAttribute('data-padding-wide', 'spacious')
+    })
+
+    it('should render both padding and paddingBlock/paddingInline attributes when combined', () => {
+      render(<Stack data-testid="combined" padding="normal" paddingBlock="condensed" paddingInline="spacious" />)
+      expect(screen.getByTestId('combined')).toHaveAttribute('data-padding', 'normal')
+      expect(screen.getByTestId('combined')).toHaveAttribute('data-padding-block', 'condensed')
+      expect(screen.getByTestId('combined')).toHaveAttribute('data-padding-inline', 'spacious')
+    })
+  })
+
+  describe('paddingBlock', () => {
+    it('should support specifying the block padding with the `paddingBlock` prop', () => {
+      render(
+        <>
+          <Stack data-testid="tight" paddingBlock="tight" />
+          <Stack data-testid="condensed" paddingBlock="condensed" />
+          <Stack data-testid="cozy" paddingBlock="cozy" />
+          <Stack data-testid="normal" paddingBlock="normal" />
+          <Stack data-testid="spacious" paddingBlock="spacious" />
+        </>,
+      )
+      expect(screen.getByTestId('tight')).toHaveAttribute('data-padding-block', 'tight')
+      expect(screen.getByTestId('condensed')).toHaveAttribute('data-padding-block', 'condensed')
+      expect(screen.getByTestId('cozy')).toHaveAttribute('data-padding-block', 'cozy')
+      expect(screen.getByTestId('normal')).toHaveAttribute('data-padding-block', 'normal')
+      expect(screen.getByTestId('spacious')).toHaveAttribute('data-padding-block', 'spacious')
+    })
+
+    it('should support responsive `paddingBlock` values', () => {
+      render(
+        <Stack
+          data-testid="responsive"
+          paddingBlock={{
+            narrow: 'none',
+            regular: 'condensed',
+            wide: 'spacious',
+          }}
+        />,
+      )
+      expect(screen.getByTestId('responsive')).toHaveAttribute('data-padding-block-narrow', 'none')
+      expect(screen.getByTestId('responsive')).toHaveAttribute('data-padding-block-regular', 'condensed')
+      expect(screen.getByTestId('responsive')).toHaveAttribute('data-padding-block-wide', 'spacious')
+    })
+  })
+
+  describe('paddingInline', () => {
+    it('should support specifying the inline padding with the `paddingInline` prop', () => {
+      render(
+        <>
+          <Stack data-testid="tight" paddingInline="tight" />
+          <Stack data-testid="condensed" paddingInline="condensed" />
+          <Stack data-testid="cozy" paddingInline="cozy" />
+          <Stack data-testid="normal" paddingInline="normal" />
+          <Stack data-testid="spacious" paddingInline="spacious" />
+        </>,
+      )
+      expect(screen.getByTestId('tight')).toHaveAttribute('data-padding-inline', 'tight')
+      expect(screen.getByTestId('condensed')).toHaveAttribute('data-padding-inline', 'condensed')
+      expect(screen.getByTestId('cozy')).toHaveAttribute('data-padding-inline', 'cozy')
+      expect(screen.getByTestId('normal')).toHaveAttribute('data-padding-inline', 'normal')
+      expect(screen.getByTestId('spacious')).toHaveAttribute('data-padding-inline', 'spacious')
+    })
+
+    it('should support responsive `paddingInline` values', () => {
+      render(
+        <Stack
+          data-testid="responsive"
+          paddingInline={{
+            narrow: 'tight',
+            regular: 'normal',
+            wide: 'spacious',
+          }}
+        />,
+      )
+      expect(screen.getByTestId('responsive')).toHaveAttribute('data-padding-inline-narrow', 'tight')
+      expect(screen.getByTestId('responsive')).toHaveAttribute('data-padding-inline-regular', 'normal')
+      expect(screen.getByTestId('responsive')).toHaveAttribute('data-padding-inline-wide', 'spacious')
     })
   })
 
