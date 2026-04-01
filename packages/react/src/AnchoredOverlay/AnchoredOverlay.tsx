@@ -129,10 +129,16 @@ export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
 const supportsNativeAnchorPositioning = () =>
   typeof window !== 'undefined' && 'anchorName' in document.documentElement.style
 
-const applyAnchorPositioningPolyfill = async () => {
+const applyAnchorPositioningPolyfill = async (element: HTMLElement) => {
   if (!supportsNativeAnchorPositioning()) {
     try {
-      await import('@oddbird/css-anchor-positioning')
+      const {default: polyfill} = await import('@oddbird/css-anchor-positioning/fn')
+
+      polyfill({
+        elements: [element],
+        excludeInlineStyles: false,
+        useAnimationFrame: false,
+      })
     } catch (e) {
       // eslint-disable-next-line no-console
       console.warn('Failed to load CSS anchor positioning polyfill:', e)
@@ -150,7 +156,10 @@ function setAnchorStyle(el: HTMLElement, property: 'anchor-name' | 'position-anc
     // Polyfill path: use setAttribute to bypass browser CSS parsing
     const existingStyle = el.getAttribute('style') || ''
     if (!existingStyle.includes(`${property}:`)) {
-      el.setAttribute('style', `${existingStyle}; ${property}: ${value}`.replace(/^;\s*/, ''))
+      // Trim trailing semicolons/whitespace to avoid double semicolons
+      const trimmedStyle = existingStyle.replace(/;\s*$/, '')
+      const newStyle = trimmedStyle ? `${trimmedStyle}; ${property}: ${value}` : `${property}: ${value}`
+      el.setAttribute('style', newStyle)
     }
   }
 }
@@ -262,19 +271,12 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     [overlayRef.current],
   )
 
-  const hasLoadedAnchorPositioningPolyfill = useRef(false)
-
   useEffect(() => {
     // ensure overlay ref gets cleared when closed, so position can reset between closing/re-opening
     if (!open && overlayRef.current) {
       updateOverlayRef(null)
     }
-
-    if (cssAnchorPositioning && !hasLoadedAnchorPositioningPolyfill.current) {
-      applyAnchorPositioningPolyfill()
-      hasLoadedAnchorPositioningPolyfill.current = true
-    }
-  }, [open, overlayRef, updateOverlayRef, cssAnchorPositioning])
+  }, [open, overlayRef, updateOverlayRef])
 
   useFocusZone({
     containerRef: overlayRef,
@@ -291,12 +293,12 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
     const anchor = anchorRef.current
     const overlay = overlayRef.current
-    anchor.style.setProperty('anchor-name', `--anchored-overlay-anchor-${id}`)
+    setAnchorStyle(anchor, 'anchor-name', `--anchored-overlay-anchor-${id}`)
 
     return () => {
-      anchor.style.removeProperty('anchor-name')
+      removeAnchorStyle(anchor, 'anchor-name')
       if (overlay) {
-        overlay.style.removeProperty('position-anchor')
+        removeAnchorStyle(overlay, 'position-anchor')
       }
     }
   }, [cssAnchorPositioning, anchorRef, overlayRef, id, open])
@@ -311,7 +313,11 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     const currentOverlay = overlayRef.current
 
     if (!cssAnchorPositioning || !open || !currentOverlay) return
-    currentOverlay.style.setProperty('position-anchor', `--anchored-overlay-anchor-${id}`)
+    setAnchorStyle(currentOverlay, 'position-anchor', `--anchored-overlay-anchor-${id}`)
+
+    // Apply polyfill for browsers that don't support native anchor positioning
+    applyAnchorPositioningPolyfill(currentOverlay)
+
     try {
       if (!currentOverlay.matches(':popover-open')) {
         currentOverlay.showPopover()
