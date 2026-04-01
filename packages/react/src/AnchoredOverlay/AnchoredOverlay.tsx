@@ -363,7 +363,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           className={clsx(className, overlayClassName, cssAnchorPositioning ? classes.AnchoredOverlay : undefined)}
           preventOverflow={preventOverflow}
           data-component="AnchoredOverlay"
-          _PrivateDisablePortal={_PrivateDisablePortal}
+          _PrivateDisablePortal={true}
           {...(cssAnchorPositioning ? {popover: 'manual'} : {})}
           {...restOverlayProps}
           {...(cssAnchorPositioning ? {id: popoverId} : {})}
