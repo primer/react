@@ -13,7 +13,9 @@
   display: block;
   width: 100%;
   height: auto;
-  padding: var(--base-size-24) var(--base-size-24) var(--base-size-16) var(--base-size-24);
+  /* stylelint-disable-next-line primer/spacing */
+  padding: var(--stack-padding-spacious) var(--stack-padding-spacious) var(--stack-padding-normal)
+    var(--stack-padding-spacious);
 }
 
 .CardHeaderEdgeToEdge {
@@ -41,7 +43,8 @@
 .CardBody {
   display: grid;
   gap: var(--base-size-16);
-  padding: 0 var(--base-size-24) var(--base-size-24) var(--base-size-24);
+  /* stylelint-disable-next-line primer/spacing */
+  padding: 0 var(--stack-padding-spacious) var(--stack-padding-spacious) var(--stack-padding-spacious);
 }
 
 .CardContent {
