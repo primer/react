@@ -214,6 +214,23 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     containerRef: listRef,
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
     focusOutBehavior: 'wrap',
+    getNextFocusable: (direction, from) => {
+      const items = Array.from(
+        listRef.current?.querySelectorAll<HTMLElement>('button, a, input, [tabindex]') ?? [],
+      ).filter(item => !item.hasAttribute('data-overflowing') && !item.hasAttribute('disabled'))
+      const fromIndex = from ? items.indexOf(from as HTMLElement) : -1
+
+      switch (direction) {
+        case 'start':
+          return items[0]
+        case 'end':
+          return items.at(-1)
+        case 'next':
+          return items[fromIndex + 1] ?? items[0]
+        case 'previous':
+          return items[fromIndex - 1] ?? items.at(-1)
+      }
+    },
   })
 
   const overflowItems =
