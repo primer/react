@@ -24,7 +24,8 @@ export class CharacterCounter {
    */
   updateCharacterCount(currentLength: number, maxLength: number): void {
     const charactersRemaining = maxLength - currentLength
-    let message = ''
+    // eslint-disable-next-line no-useless-assignment
+    let message: string = ''
 
     if (charactersRemaining >= 0) {
       const characterText = charactersRemaining === 1 ? 'character' : 'characters'

@@ -1,7 +1,7 @@
 import React, {memo, useRef} from 'react'
 import {clsx} from 'clsx'
 import {useId} from '../hooks/useId'
-import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
+import {useMergedRefs} from '../hooks/useMergedRefs'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isResponsiveValue} from '../hooks/useResponsiveValue'
 import {useSlots} from '../hooks/useSlots'
@@ -22,14 +22,6 @@ import {
   type CustomWidthOptions,
 } from './usePaneWidth'
 import {setDraggingStyles, removeDraggingStyles} from './paneUtils'
-
-const REGION_ORDER = {
-  header: 0,
-  paneStart: 1,
-  content: 2,
-  paneEnd: 3,
-  footer: 4,
-}
 
 const isArrowKey = (key: string) =>
   key === 'ArrowLeft' || key === 'ArrowRight' || key === 'ArrowUp' || key === 'ArrowDown'
@@ -65,7 +57,7 @@ const PageLayoutContext = React.createContext<{
 
 export type PageLayoutProps = {
   /** The maximum width of the page container */
-  containerWidth?: keyof typeof containerWidths
+  containerWidth?: 'full' | 'medium' | 'large' | 'xlarge'
   /** The spacing between the outer edges of the page container and the viewport */
   padding?: keyof typeof SPACING_MAP
   rowGap?: keyof typeof SPACING_MAP
@@ -75,14 +67,6 @@ export type PageLayoutProps = {
   _slotsConfig?: Record<'header' | 'footer' | 'sidebar', React.ElementType>
   className?: string
   style?: React.CSSProperties
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const containerWidths = {
-  full: '100%',
-  medium: '768px',
-  large: '1012px',
-  xlarge: '1280px',
 }
 
 // TODO: refs
@@ -163,7 +147,7 @@ type DividerProps = {
   variant?: 'none' | 'line' | 'filled' | ResponsiveValue<'none' | 'line' | 'filled'>
   className?: string
   style?: React.CSSProperties
-  position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
+  position?: 'start' | 'end' | ResponsiveValue<'start' | 'end'>
 }
 
 const HorizontalDivider = memo<React.PropsWithChildren<DividerProps>>(
@@ -638,7 +622,7 @@ export type PageLayoutContentProps = {
    * An id to an element which uniquely labels the rendered main landmark
    */
   'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
-  width?: keyof typeof contentWidths
+  width?: 'full' | 'medium' | 'large' | 'xlarge'
   padding?: keyof typeof SPACING_MAP
   hidden?: boolean | ResponsiveValue<boolean>
   className?: string
@@ -646,14 +630,6 @@ export type PageLayoutContentProps = {
 }
 
 // TODO: Account for pane width when centering content
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const contentWidths = {
-  full: '100%',
-  medium: '768px',
-  large: '1012px',
-  xlarge: '1280px',
-}
-
 const Content: FCWithSlotMarker<React.PropsWithChildren<PageLayoutContentProps>> = ({
   as = 'main',
   'aria-label': label,
@@ -697,7 +673,7 @@ Content.displayName = 'PageLayout.Content'
 // PageLayout.Pane
 
 export type PageLayoutPaneBaseProps = {
-  position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
+  position?: 'start' | 'end' | ResponsiveValue<'start' | 'end'>
   /**
    * @deprecated Use the `position` prop with a responsive value instead.
    *
@@ -712,7 +688,7 @@ export type PageLayoutPaneBaseProps = {
    * position={{regular: 'start', narrow: 'end'}}
    * ```
    */
-  positionWhenNarrow?: 'inherit' | keyof typeof panePositions
+  positionWhenNarrow?: 'inherit' | 'start' | 'end'
   'aria-labelledby'?: string
   'aria-label'?: string
   /**
@@ -792,12 +768,6 @@ export type PageLayoutPaneProps = PageLayoutPaneBaseProps &
       }
   )
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const panePositions = {
-  start: REGION_ORDER.paneStart,
-  end: REGION_ORDER.paneEnd,
-}
-
 const overflowProps = {tabIndex: 0, role: 'region'}
 
 const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutPaneProps>>(
@@ -868,7 +838,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         currentWidth: controlledWidth,
       })
 
-    useRefObjectAsForwardedRef(forwardRef, paneRef)
+    const mergedRef = useMergedRefs(forwardRef, paneRef)
 
     const hasOverflow = useOverflow(paneRef)
 
@@ -917,7 +887,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           position={positionProp}
         />
         <div
-          ref={paneRef}
+          ref={mergedRef}
           // Suppress hydration mismatch for --pane-width when localStorage
           // provides a width that differs from the server-rendered default.
           // Not needed when onResizeEnd is provided (localStorage isn't read).
@@ -1166,7 +1136,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
         constrainToViewport: true,
       })
 
-    useRefObjectAsForwardedRef(forwardRef, sidebarRef)
+    const mergedRef = useMergedRefs(forwardRef, sidebarRef)
 
     const hasOverflow = useOverflow(sidebarRef)
 
@@ -1222,7 +1192,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
           />
         )}
         <div
-          ref={sidebarRef}
+          ref={mergedRef}
           // Suppress hydration mismatch for --pane-width when localStorage
           // provides a width that differs from the server-rendered default.
           suppressHydrationWarning={resizable === true && !!widthStorageKey}
