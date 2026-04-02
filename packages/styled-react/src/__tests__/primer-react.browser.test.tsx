@@ -19,7 +19,6 @@ import {
   Link,
   LinkButton,
   Overlay,
-  PageHeader,
   SegmentedControl,
   Spinner,
   Text,
@@ -195,22 +194,6 @@ describe('@primer/react', () => {
     )
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
     expect(screen.getByTestId('component')).toHaveAttribute('role', 'dialog')
-  })
-
-  test('PageHeader supports `sx` prop', () => {
-    const {container} = render(<PageHeader as="div" data-testid="component" sx={{background: 'red'}} role="article" />)
-    expect(container.firstElementChild!).toHaveAttribute('role', 'article')
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('PageHeader.Actions supports `sx` prop', () => {
-    const {container} = render(<PageHeader.Actions data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('PageHeader.Title supports `sx` prop', () => {
-    const {container} = render(<PageHeader.Title data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
   test('SegmentedControl supports `sx` prop', () => {

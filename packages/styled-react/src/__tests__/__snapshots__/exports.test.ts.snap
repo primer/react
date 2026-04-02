@@ -21,7 +21,6 @@ exports[`@primer/styled-react exports 1`] = `
   "LinkButton",
   "merge",
   "Overlay",
-  "PageHeader",
   "SegmentedControl",
   "Spinner",
   "sx",
@@ -54,7 +53,6 @@ exports[`@primer/styled-react/deprecated exports 1`] = `
 exports[`@primer/styled-react/experimental exports 1`] = `
 [
   "Dialog",
-  "PageHeader",
   "Table",
   "Tooltip",
 ]
