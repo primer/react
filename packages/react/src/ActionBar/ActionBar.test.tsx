@@ -441,7 +441,7 @@ describe('ActionBar data-component attributes', () => {
     expect(iconButton).toHaveAttribute('data-component', 'ActionBar.IconButton')
   })
 
-  it('renders ActionBar.Divider with data-component attribute', () => {
+  it('renders ActionBar.VerticalDivider with data-component attribute', () => {
     const {container} = render(
       <ActionBar aria-label="Toolbar">
         <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
@@ -450,7 +450,7 @@ describe('ActionBar data-component attributes', () => {
       </ActionBar>,
     )
 
-    const divider = container.querySelector('[data-component="ActionBar.Divider"]')
+    const divider = container.querySelector('[data-component="ActionBar.VerticalDivider"]')
     expect(divider).toBeInTheDocument()
   })
 
