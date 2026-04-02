@@ -10,7 +10,13 @@ export type CardProps = React.ComponentPropsWithoutRef<'div'> & {
   className?: string
 }
 
+type HeadingLevel = 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+
 type HeadingProps = React.ComponentPropsWithoutRef<'h3'> & {
+  /**
+   * The heading level to render. Defaults to 'h3'.
+   */
+  as?: HeadingLevel
   children: React.ReactNode
 }
 
@@ -105,13 +111,13 @@ const CardImage = ({src, alt = '', className, ...rest}: ImageProps) => {
 CardImage.displayName = 'Card.Image'
 
 const CardHeading = forwardRef<HTMLHeadingElement, HeadingProps>(function CardHeading(
-  {children, className, ...rest},
+  {as: Component = 'h3', children, className, ...rest},
   ref,
 ) {
   return (
-    <h3 ref={ref} className={clsx(classes.CardHeading, className)} {...rest}>
+    <Component ref={ref} className={clsx(classes.CardHeading, className)} {...rest}>
       {children}
-    </h3>
+    </Component>
   )
 })
 
