@@ -222,8 +222,6 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
       )
       const fromIndex = from ? items.indexOf(from as HTMLElement) : -1
 
-      console.log(items, items[items.length - 1], items.at(-1))
-
       switch (direction) {
         case 'start':
           return items[0]
