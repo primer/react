@@ -35,23 +35,27 @@
     /* stylelint-disable primer/spacing */
     top: calc(anchor(bottom) + var(--base-size-4));
     left: anchor(left);
+    max-height: calc(100dvh - anchor(bottom) - var(--base-size-4));
   }
 
   &[data-side='outside-top'] {
     margin-bottom: var(--base-size-4);
     bottom: anchor(top);
     left: anchor(left);
+    max-height: calc(anchor(top) - var(--base-size-4));
   }
 
   &[data-side='outside-left'] {
     right: anchor(left);
     top: anchor(top);
     margin-right: var(--base-size-4);
+    max-height: calc(100dvh - anchor(top));
   }
 
   &[data-side='outside-right'] {
     left: anchor(right);
     top: anchor(top);
     margin-left: var(--base-size-4);
+    max-height: calc(100dvh - anchor(top));
   }
 }
