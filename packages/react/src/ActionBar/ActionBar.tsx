@@ -216,7 +216,9 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     focusOutBehavior: 'wrap',
     getNextFocusable: (direction, from) => {
       const items = Array.from(
-        listRef.current?.querySelectorAll<HTMLElement>(':is(button, a, input, [tabindex]):not([data-overflowing]):not(:disabled)') ?? [],
+        listRef.current?.querySelectorAll<HTMLElement>(
+          ':is(button, a, input, [tabindex]):not([data-overflowing]):not(:disabled)',
+        ) ?? [],
       )
       const fromIndex = from ? items.indexOf(from as HTMLElement) : -1
 
