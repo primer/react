@@ -125,17 +125,6 @@ export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
   (AnchoredOverlayPropsWithAnchor | AnchoredOverlayPropsWithoutAnchor) &
   Partial<Pick<PositionSettings, 'align' | 'side' | 'anchorOffset' | 'alignmentOffset' | 'displayInViewport'>>
 
-const applyAnchorPositioningPolyfill = async () => {
-  if (typeof window !== 'undefined' && !('anchorName' in document.documentElement.style)) {
-    try {
-      await import('@oddbird/css-anchor-positioning')
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.warn('Failed to load CSS anchor positioning polyfill:', e)
-    }
-  }
-}
-
 const defaultVariant = {
   regular: 'anchored',
   narrow: 'anchored',
@@ -173,7 +162,9 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   displayCloseButton = true,
   closeButtonProps = defaultCloseButtonProps,
 }) => {
-  const cssAnchorPositioning = useFeatureFlag('primer_react_css_anchor_positioning')
+  const cssAnchorPositioningFlag = useFeatureFlag('primer_react_css_anchor_positioning')
+  const supportsNativeCSSAnchorPositioning = useRef(false)
+  const cssAnchorPositioning = cssAnchorPositioningFlag && supportsNativeCSSAnchorPositioning.current
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const anchorId = useId(externalAnchorId)
@@ -232,19 +223,14 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     [overlayRef.current],
   )
 
-  const hasLoadedAnchorPositioningPolyfill = useRef(false)
-
   useEffect(() => {
+    supportsNativeCSSAnchorPositioning.current = 'anchorName' in document.documentElement.style
+
     // ensure overlay ref gets cleared when closed, so position can reset between closing/re-opening
     if (!open && overlayRef.current) {
       updateOverlayRef(null)
     }
-
-    if (cssAnchorPositioning && !hasLoadedAnchorPositioningPolyfill.current) {
-      applyAnchorPositioningPolyfill()
-      hasLoadedAnchorPositioningPolyfill.current = true
-    }
-  }, [open, overlayRef, updateOverlayRef, cssAnchorPositioning])
+  }, [open, overlayRef, updateOverlayRef])
 
   useFocusZone({
     containerRef: overlayRef,
