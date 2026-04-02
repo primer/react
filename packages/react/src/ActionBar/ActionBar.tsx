@@ -353,7 +353,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
 
   return (
     <ActionBarContext.Provider value={{size, isVisibleChild}}>
-      <div ref={navRef} className={clsx(className, styles.Nav)} data-flush={flush}>
+      <div ref={navRef} className={clsx(className, styles.Nav)} data-component="ActionBar" data-flush={flush}>
         <div
           ref={listRef}
           role="toolbar"
@@ -511,6 +511,8 @@ export const ActionBarIconButton = forwardRef(
         size={size}
         onClick={clickHandler}
         {...props}
+        // TODO: does this make sense? it'll override IconButton's data-component
+        data-component="ActionBar.IconButton"
         variant="invisible"
       />
     )
@@ -532,7 +534,7 @@ export const ActionBarGroup = forwardRef(({children}: React.PropsWithChildren, f
 
   return (
     <ActionBarGroupContext.Provider value={{groupId: id}}>
-      <div className={styles.Group} ref={ref}>
+      <div className={styles.Group} data-component="ActionBar.Group" ref={ref}>
         {children}
       </div>
     </ActionBarGroupContext.Provider>
@@ -571,7 +573,14 @@ export const ActionBarMenu = forwardRef(
     return (
       <ActionMenu anchorRef={ref} open={menuOpen} onOpenChange={setMenuOpen}>
         <ActionMenu.Anchor>
-          <IconButton variant="invisible" aria-label={ariaLabel} icon={icon} {...props} />
+          <IconButton
+            variant="invisible"
+            aria-label={ariaLabel}
+            icon={icon}
+            {...props}
+            // TODO: does this make sense? it'll override IconButton's data-component
+            data-component="ActionBar.Menu"
+          />
         </ActionMenu.Anchor>
         <ActionMenu.Overlay {...(returnFocusRef && {returnFocusRef})}>
           <ActionList>{items.map((item, index) => renderMenuItem(item, index))}</ActionList>

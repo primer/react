@@ -417,3 +417,65 @@ describe('ActionBar.Menu returnFocusRef', () => {
     expect(document.activeElement).toEqual(menuButton)
   })
 })
+
+describe('ActionBar data-component attributes', () => {
+  it('renders ActionBar with data-component attribute', () => {
+    const {container} = render(
+      <ActionBar aria-label="Toolbar">
+        <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
+      </ActionBar>,
+    )
+
+    const actionBar = container.querySelector('[data-component="ActionBar"]')
+    expect(actionBar).toBeInTheDocument()
+  })
+
+  it('renders ActionBar.IconButton with data-component attribute', () => {
+    render(
+      <ActionBar aria-label="Toolbar">
+        <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
+      </ActionBar>,
+    )
+
+    const iconButton = screen.getByRole('button', {name: 'Bold'})
+    expect(iconButton).toHaveAttribute('data-component', 'ActionBar.IconButton')
+  })
+
+  it('renders ActionBar.Divider with data-component attribute', () => {
+    const {container} = render(
+      <ActionBar aria-label="Toolbar">
+        <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
+        <ActionBar.Divider />
+        <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic" />
+      </ActionBar>,
+    )
+
+    const divider = container.querySelector('[data-component="ActionBar.Divider"]')
+    expect(divider).toBeInTheDocument()
+  })
+
+  it('renders ActionBar.Group with data-component attribute', () => {
+    const {container} = render(
+      <ActionBar aria-label="Toolbar">
+        <ActionBar.Group>
+          <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
+          <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic" />
+        </ActionBar.Group>
+      </ActionBar>,
+    )
+
+    const group = container.querySelector('[data-component="ActionBar.Group"]')
+    expect(group).toBeInTheDocument()
+  })
+
+  it('renders ActionBar.Menu with data-component attribute', () => {
+    render(
+      <ActionBar aria-label="Toolbar">
+        <ActionBar.Menu aria-label="More options" icon={BoldIcon} items={[{label: 'Option 1', onClick: vi.fn()}]} />
+      </ActionBar>,
+    )
+
+    const menuButton = screen.getByRole('button', {name: 'More options'})
+    expect(menuButton).toHaveAttribute('data-component', 'ActionBar.Menu')
+  })
+})
