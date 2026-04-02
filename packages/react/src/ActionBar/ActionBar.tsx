@@ -217,7 +217,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     getNextFocusable: (direction, from) => {
       const items = Array.from(
         listRef.current?.querySelectorAll<HTMLElement>(
-          ':is(button, a, input, [tabindex]):not(:disabled):not([data-overflowing]):not([data-inactive])',
+          ':is(button, a, input, [tabindex]):not(:disabled):not([data-overflowing]):not([data-more-button-inactive])',
         ) ?? [],
       )
       const fromIndex = from ? items.indexOf(from as HTMLElement) : -1
@@ -261,10 +261,10 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
             <ActionMenu.Anchor>
               <IconButton
                 variant="invisible"
-                aria-label={`More ${ariaLabel} items`}
+                aria-label={`More ${ariaLabel} items ${overflowItems?.length}`}
                 icon={KebabHorizontalIcon}
                 className={styles.MoreButton}
-                data-inactive={overflowItems?.length ? undefined : true}
+                data-more-button-inactive={overflowItems?.length ? undefined : true}
               />
             </ActionMenu.Anchor>
             <ActionMenu.Overlay>
