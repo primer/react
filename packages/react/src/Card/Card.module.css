@@ -13,9 +13,10 @@
   display: block;
   width: 100%;
   height: auto;
-  /* stylelint-disable-next-line primer/spacing */
+  /* stylelint-disable primer/spacing */
   padding: var(--stack-padding-spacious) var(--stack-padding-spacious) var(--stack-padding-normal)
     var(--stack-padding-spacious);
+  /* stylelint-enable primer/spacing */
 }
 
 .CardHeaderEdgeToEdge {
