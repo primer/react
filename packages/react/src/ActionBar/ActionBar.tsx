@@ -216,9 +216,13 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     focusOutBehavior: 'wrap',
     getNextFocusable: (direction, from) => {
       const items = Array.from(
-        listRef.current?.querySelectorAll<HTMLElement>(':is(button, a, input, [tabindex]):not([data-overflowing]):not(:disabled)') ?? [],
+        listRef.current?.querySelectorAll<HTMLElement>(
+          ':is(button, a, input, [tabindex]):not(:disabled):not([data-overflowing]):not([data-inactive])',
+        ) ?? [],
       )
       const fromIndex = from ? items.indexOf(from as HTMLElement) : -1
+
+      console.log(items, items[items.length - 1], items.at(-1))
 
       switch (direction) {
         case 'start':
@@ -262,6 +266,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                 aria-label={`More ${ariaLabel} items`}
                 icon={KebabHorizontalIcon}
                 className={styles.MoreButton}
+                data-inactive={overflowItems?.length ? undefined : true}
               />
             </ActionMenu.Anchor>
             <ActionMenu.Overlay>
