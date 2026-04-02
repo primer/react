@@ -7,7 +7,7 @@ import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
 import Portal from '../Portal'
-import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
+import {useMergedRefs} from '../hooks/useMergedRefs'
 import {useId} from '../hooks/useId'
 import {ScrollableRegion} from '../ScrollableRegion'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
@@ -16,8 +16,16 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import classes from './Dialog.module.css'
 import {clsx} from 'clsx'
 import {useSlots} from '../hooks/useSlots'
+import {useResizeObserver} from '../hooks/useResizeObserver'
 
 /* Dialog Version 2 */
+
+/**
+ * Ref count for data-dialog-scroll-disabled attribute management.
+ * Tracks how many dialogs are currently open to know when to remove the attribute.
+ * This is client-only: it is only accessed inside useEffect, which never runs on the server.
+ */
+let dialogScrollDisabledCount = 0
 
 /**
  * Props that characterize a button to be rendered into the footer of
@@ -239,9 +247,12 @@ const defaultPosition = {
 }
 
 const defaultFooterButtons: Array<DialogButtonProps> = []
+// Minimum room needed for body content before forcing footer buttons into horizontal scroll.
+const MIN_BODY_HEIGHT = 48
 
 // useful to determine whether we're inside a Dialog from a nested component
 export const DialogContext = React.createContext<object | undefined>(undefined)
+const DIALOG_CONTEXT_VALUE = Object.freeze({})
 
 const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
   const {
@@ -267,11 +278,11 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   const autoFocusedFooterButtonRef = useRef<HTMLButtonElement>(null)
   for (const footerButton of footerButtons) {
     if (footerButton.autoFocus) {
-      // eslint-disable-next-line react-hooks/immutability
       footerButton.ref = autoFocusedFooterButtonRef
     }
   }
   const [lastMouseDownIsBackdrop, setLastMouseDownIsBackdrop] = useState<boolean>(false)
+  const [footerButtonLayout, setFooterButtonLayout] = useState<'scroll' | 'wrap'>('wrap')
   const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId}
   const onBackdropClick = useCallback(
     (e: SyntheticEvent) => {
@@ -288,7 +299,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   })
 
   const dialogRef = useRef<HTMLDivElement>(null)
-  useRefObjectAsForwardedRef(forwardedRef, dialogRef)
+  const mergedRef = useMergedRefs(forwardedRef, dialogRef)
   const backdropRef = useRef<HTMLDivElement>(null)
 
   useFocusTrap({
@@ -308,29 +319,16 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
 
   React.useEffect(() => {
     const scrollbarWidth = window.innerWidth - document.body.clientWidth
-    const dialog = dialogRef.current
-    const usePerfOptimization = document.body.hasAttribute('data-dialog-scroll-optimized')
 
-    // Add DisableScroll class to this dialog (for legacy :has() selector path)
-    dialog?.classList.add(classes.DisableScroll)
+    dialogScrollDisabledCount++
     document.body.style.setProperty('--prc-dialog-scrollgutter', `${scrollbarWidth}px`)
-
-    if (usePerfOptimization) {
-      // Optimized path: set attribute on body for direct CSS targeting
-      document.body.setAttribute('data-dialog-scroll-disabled', '')
-    }
-    // Legacy path: no action needed - CSS :has(.Dialog.DisableScroll) handles it
+    document.body.setAttribute('data-dialog-scroll-disabled', '')
 
     return () => {
-      dialog?.classList.remove(classes.DisableScroll)
-
-      const remainingDialogs = document.querySelectorAll(`.${classes.DisableScroll}`)
-
-      if (remainingDialogs.length === 0) {
+      dialogScrollDisabledCount--
+      if (dialogScrollDisabledCount === 0) {
         document.body.style.removeProperty('--prc-dialog-scrollgutter')
-        if (usePerfOptimization) {
-          document.body.removeAttribute('data-dialog-scroll-disabled')
-        }
+        document.body.removeAttribute('data-dialog-scroll-disabled')
       }
     }
   }, [])
@@ -338,6 +336,35 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   const header = slots.header ?? (renderHeader ?? DefaultHeader)(defaultedProps)
   const body = slots.body ?? (renderBody ?? DefaultBody)({...defaultedProps, children: childrenWithoutSlots})
   const footer = slots.footer ?? (renderFooter ?? DefaultFooter)(defaultedProps)
+  const hasFooter = footer != null
+
+  const updateFooterButtonLayout = useCallback(() => {
+    if (!hasFooter) {
+      return
+    }
+
+    const dialogElement = dialogRef.current
+    if (!(dialogElement instanceof HTMLElement)) {
+      return
+    }
+    const bodyWrapper = dialogElement.querySelector(`.${classes.DialogOverflowWrapper}`)
+    if (!(bodyWrapper instanceof HTMLElement)) {
+      return
+    }
+
+    // We temporarily force "wrap" the footer layout so that the browser can calculate the body height -
+    // when the footer is wrapping. This is instantaneous with what we set below (`dialogElement.setAttribute('data-footer-button-layout', newLayout)`).
+    dialogElement.setAttribute('data-footer-button-layout', 'wrap')
+    const bodyHeight = bodyWrapper.clientHeight
+
+    const newLayout = bodyHeight >= MIN_BODY_HEIGHT ? 'wrap' : 'scroll'
+    dialogElement.setAttribute('data-footer-button-layout', newLayout)
+
+    setFooterButtonLayout(newLayout)
+  }, [hasFooter])
+
+  useResizeObserver(updateFooterButtonLayout, backdropRef)
+
   const positionDataAttributes =
     typeof position === 'string'
       ? {'data-position-regular': position}
@@ -348,7 +375,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
         )
 
   return (
-    <DialogContext.Provider value={{}}>
+    <DialogContext.Provider value={DIALOG_CONTEXT_VALUE}>
       <Portal>
         <div
           ref={backdropRef}
@@ -361,7 +388,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           }}
         >
           <div
-            ref={dialogRef}
+            ref={mergedRef}
             role={role}
             aria-labelledby={dialogLabelId}
             aria-describedby={dialogDescriptionId}
@@ -370,6 +397,8 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             {...(align && {'data-align': align})}
             data-width={width}
             data-height={height}
+            data-has-footer={hasFooter ? '' : undefined}
+            data-footer-button-layout={hasFooter ? footerButtonLayout : undefined}
             className={clsx(className, classes.Dialog)}
             style={style}
           >

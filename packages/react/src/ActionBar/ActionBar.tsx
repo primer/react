@@ -9,7 +9,7 @@ import {ActionMenu} from '../ActionMenu'
 import {useFocusZone, FocusKeys} from '../hooks/useFocusZone'
 import styles from './ActionBar.module.css'
 import {clsx} from 'clsx'
-import {useRefObjectAsForwardedRef} from '../hooks'
+import {useMergedRefs} from '../hooks'
 import {createDescendantRegistry} from '../utils/descendant-registry'
 
 type ChildProps =
@@ -359,7 +359,7 @@ function useActionBarItem(ref: React.RefObject<HTMLElement | null>, registryProp
 export const ActionBarIconButton = forwardRef(
   ({disabled, onClick, ...props}: ActionBarIconButtonProps, forwardedRef) => {
     const ref = useRef<HTMLButtonElement>(null)
-    useRefObjectAsForwardedRef(forwardedRef, ref)
+    const mergedRef = useMergedRefs(ref, forwardedRef)
 
     const {size} = React.useContext(ActionBarContext)
 
@@ -390,7 +390,7 @@ export const ActionBarIconButton = forwardRef(
     return (
       <IconButton
         aria-disabled={disabled}
-        ref={ref}
+        ref={mergedRef}
         size={size}
         onClick={clickHandler}
         {...props}

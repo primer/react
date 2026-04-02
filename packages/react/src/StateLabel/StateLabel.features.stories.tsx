@@ -24,6 +24,7 @@ export const AlertOpened = () => <StateLabel status="alertOpened">Open</StateLab
 export const AlertFixed = () => <StateLabel status="alertFixed">Fixed</StateLabel>
 export const AlertDismissed = () => <StateLabel status="alertDismissed">Dismissed</StateLabel>
 export const AlertClosed = () => <StateLabel status="alertClosed">Closed</StateLabel>
+export const Archived = () => <StateLabel status="archived">Archived</StateLabel>
 
 export const Open = () => (
   <StateLabel status="open">

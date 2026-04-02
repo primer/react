@@ -2,7 +2,7 @@ import React, {useEffect, type ComponentPropsWithoutRef, type ReactElement} from
 import {warning} from '../utils/warning'
 import {clsx} from 'clsx'
 import classes from './Details.module.css'
-import {useMergedRefs} from '../internal/hooks/useMergedRefs'
+import {useMergedRefs} from '../hooks/useMergedRefs'
 
 const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -6,7 +6,7 @@ import classes from './Stack.module.css'
 import {clsx} from 'clsx'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
-type GapScale = 'none' | 'condensed' | 'normal' | 'spacious'
+type GapScale = 'none' | 'tight' | 'condensed' | 'cozy' | 'normal' | 'spacious'
 type Gap = GapScale | ResponsiveValue<GapScale>
 
 type DirectionScale = 'horizontal' | 'vertical'
@@ -21,7 +21,7 @@ type Wrap = WrapScale | ResponsiveValue<WrapScale>
 type JustifyScale = 'start' | 'center' | 'end' | 'space-between' | 'space-evenly'
 type Justify = JustifyScale | ResponsiveValue<JustifyScale>
 
-type PaddingScale = 'none' | 'condensed' | 'normal' | 'spacious'
+type PaddingScale = 'none' | 'tight' | 'condensed' | 'cozy' | 'normal' | 'spacious'
 type Padding = PaddingScale | ResponsiveValue<PaddingScale>
 
 type StackProps<As> = React.PropsWithChildren<{
@@ -64,6 +64,19 @@ type StackProps<As> = React.PropsWithChildren<{
    * @default none
    */
   padding?: Padding
+
+  /**
+   * Specify the block (vertical) padding of the stack container.
+   * Overrides the block axis of `padding` when both are set.
+   */
+  paddingBlock?: Padding
+
+  /**
+   * Specify the inline (horizontal) padding of the stack container.
+   * Overrides the inline axis of `padding` when both are set.
+   */
+  paddingInline?: Padding
+
   className?: string
 }>
 
@@ -77,6 +90,8 @@ const Stack = forwardRef(
       gap,
       justify = 'start',
       padding = 'none',
+      paddingBlock,
+      paddingInline,
       wrap = 'nowrap',
       className,
       ...rest
@@ -94,6 +109,8 @@ const Stack = forwardRef(
         {...getResponsiveAttributes('wrap', wrap)}
         {...getResponsiveAttributes('justify', justify)}
         {...getResponsiveAttributes('padding', padding)}
+        {...getResponsiveAttributes('padding-block', paddingBlock)}
+        {...getResponsiveAttributes('padding-inline', paddingInline)}
       >
         {children}
       </Component>

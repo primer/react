@@ -1,7 +1,7 @@
 import React, {forwardRef, type JSX} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import type {ButtonProps} from './types'
-import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
+import {useMergedRefs} from '../hooks/useMergedRefs'
 import {VisuallyHidden} from '../VisuallyHidden'
 import Spinner from '../Spinner'
 import CounterLabel from '../CounterLabel'
@@ -51,7 +51,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
   } = props
 
   const innerRef = React.useRef<HTMLButtonElement>(null)
-  useRefObjectAsForwardedRef(forwardedRef, innerRef)
+  const combinedRefs = useMergedRefs(forwardedRef, innerRef)
 
   const uuid = useId(id)
   const loadingAnnouncementID = `${uuid}-loading-announcement`
@@ -81,14 +81,13 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
       // when `loading` is `false`.
       // Then, the component re-renders in a way that the button will lose focus when switching between loading states.
       if={typeof loading !== 'undefined'}
-      className={block ? classes.ConditionalWrapper : undefined}
+      className={block ? classes.ConditionalWrapper : variant === 'link' ? classes.ConditionalWrapperLink : undefined}
       data-loading-wrapper
     >
       <Component
         aria-disabled={loading ? true : undefined}
         {...rest}
-        // @ts-ignore temporary disable as we migrate to css modules, until we remove PolymorphicForwardRefComponent
-        ref={innerRef}
+        ref={combinedRefs}
         className={clsx(classes.ButtonBase, className)}
         data-block={block ? 'block' : null}
         data-inactive={inactive ? true : undefined}

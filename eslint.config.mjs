@@ -60,8 +60,7 @@ const config = defineConfig([
 
   js.configs.recommended,
 
-  react.configs.flat.recommended,
-  react.configs.flat['jsx-runtime'],
+  ...fixupConfigRules([react.configs.flat.recommended, react.configs.flat['jsx-runtime']]),
   reactHooks.configs.flat['recommended-latest'],
 
   // React Compiler
@@ -79,11 +78,9 @@ const config = defineConfig([
     },
   },
 
-  github.browser,
-  github.recommended,
-  github.react,
+  ...fixupConfigRules([github.browser, github.recommended, github.react]),
 
-  prettierRecommended,
+  ...fixupConfigRules([prettierRecommended]),
 
   tseslint.configs.recommended,
   // @eslint-react/eslint-plugin
@@ -374,7 +371,7 @@ const config = defineConfig([
   },
 
   // Storybook stories
-  ...storybook.configs['flat/recommended'],
+  ...fixupConfigRules(storybook.configs['flat/recommended']),
 
   // packages/mcp
   {
