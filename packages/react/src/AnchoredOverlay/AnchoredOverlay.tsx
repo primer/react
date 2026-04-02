@@ -269,7 +269,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
         overlay.style.removeProperty('position-anchor')
       }
     }
-  }, [cssAnchorPositioning, anchorRef, overlayRef, id])
+  }, [cssAnchorPositioning, anchorRef, overlayRef, id, open])
 
   // Track the overlay element so we can re-run the effect when it changes.
   // The overlay unmounts when closed, so each open creates a new DOM node -
