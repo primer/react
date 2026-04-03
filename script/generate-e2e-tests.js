@@ -290,6 +290,25 @@ const components = new Map([
     },
   ],
   [
+    'Card',
+    {
+      stories: [
+        {
+          id: 'components-card--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-card--with-image',
+          name: 'With Image',
+        },
+        {
+          id: 'components-card--with-metadata',
+          name: 'With Metadata',
+        },
+      ],
+    },
+  ],
+  [
     'Checkbox',
     {
       stories: [

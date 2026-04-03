@@ -71,7 +71,7 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   line-clamp: 2;
-  margin-bottom: 0;
+  margin: 0;
 }
 
 .CardMetadataContainer {
