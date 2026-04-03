@@ -16,7 +16,7 @@
 
 - [#7638](https://github.com/primer/react/pull/7638) [`f04e85d`](https://github.com/primer/react/commit/f04e85df536cd6e8047f70b070bd3cf7c0961f92) Thanks [@iansan5653](https://github.com/iansan5653)! - Update internal implementations of combined refs to improve performance and add support for React 19 callback refs
 
-- [#7633](https://github.com/primer/react/pull/7633) [`a107d39`](https://github.com/primer/react/commit/a107d398e0574b5f8085485c96b27a168061eb50) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Graduate `primer_react_css_has_selector_perf` feature flag: the CSS `:has()` performance optimization (`body[data-dialog-scroll-disabled]`) is now the default behavior for Dialog scroll disabling
+- [#7633](https://github.com/primer/react/pull/7633) [`a107d39`](https://github.com/primer/react/commit/a107d398e0574b5f8085485c96b27a168061eb50) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Graduate `primer_react_css_has_selector_perf` feature flag: the CSS `:has()` performance optimization (`body[data-dialog-scroll-disabled]`) is now the default behavior for Dialog scroll disabling
 
 - [#7695](https://github.com/primer/react/pull/7695) [`780fc3d`](https://github.com/primer/react/commit/780fc3d7b52fd0f9b63f313af6355398180a0118) Thanks [@mattcosta7](https://github.com/mattcosta7)! - perf(ThemeProvider): Reduce unnecessary renders and effect cascades
 
