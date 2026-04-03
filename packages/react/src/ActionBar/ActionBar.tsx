@@ -214,6 +214,9 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     containerRef: listRef,
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
     focusOutBehavior: 'wrap',
+    // useFocusZone seems to have a bug where if you define getNextFocusable and there's only a single item, it doesn't
+    // allow focusing at all. So we disable it when every item is overflowed (meaning there's only the overflow menu anchor)
+    disabled: childRegistry?.values().every(v => v !== null),
     getNextFocusable: (direction, from) => {
       const items = Array.from(
         listRef.current?.querySelectorAll<HTMLElement>(
