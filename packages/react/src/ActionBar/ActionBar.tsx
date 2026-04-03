@@ -265,6 +265,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                 icon={KebabHorizontalIcon}
                 className={styles.MoreButton}
                 data-more-button-inactive={overflowItems?.length ? undefined : true}
+                size={size}
               />
             </ActionMenu.Anchor>
             <ActionMenu.Overlay>
