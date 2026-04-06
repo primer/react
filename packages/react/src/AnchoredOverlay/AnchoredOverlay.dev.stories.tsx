@@ -4,7 +4,7 @@ import React, {useState, useRef} from 'react'
 import {Button} from '../Button'
 import {AnchoredOverlay} from '.'
 import {Stack} from '../Stack'
-import {Dialog, Spinner, ActionList, ActionMenu} from '..'
+import {Dialog, Spinner, ActionList, ActionMenu, Text} from '..'
 
 const meta = {
   title: 'Components/AnchoredOverlay/Dev',
@@ -305,6 +305,53 @@ export const WithActionMenu = {
     docs: {
       description: {
         story: 'Uses ActionMenu but lazily loads the menu items on first open.',
+      },
+    },
+  },
+}
+
+export const SmallViewportRightAligned = {
+  render: () => {
+    const [open, setOpen] = useState(false)
+
+    return (
+      <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+        <AnchoredOverlay
+          open={open}
+          onOpen={() => setOpen(true)}
+          onClose={() => setOpen(false)}
+          renderAnchor={props => <Button {...props}>Button</Button>}
+          overlayProps={{
+            role: 'dialog',
+            'aria-modal': true,
+            'aria-label': 'Small viewport positioning test',
+            style: {minWidth: '320px'},
+          }}
+          width="xlarge"
+          focusZoneSettings={{disabled: true}}
+          preventOverflow={false}
+        >
+          <div style={{padding: '16px', width: '100%', height: '400px'}}>
+            <Stack gap="condensed">
+              <Text weight="medium">Overlay content</Text>
+              <Text>
+                This overlay is wider than the available space to the left of the anchor. It should reposition to avoid
+                overflowing the viewport.
+              </Text>
+            </Stack>
+          </div>
+        </AnchoredOverlay>
+      </div>
+    )
+  },
+  parameters: {
+    viewport: {
+      defaultViewport: 'small',
+    },
+    docs: {
+      description: {
+        story:
+          'Tests overlay positioning when the trigger button is right-aligned on a small viewport. The overlay is wider than the space to the left of the anchor.',
       },
     },
   },
