@@ -19,6 +19,7 @@
     flip-inline,
     flip-block flip-inline;
   position-visibility: anchors-visible;
+  position-try-order: most-inline-size;
   z-index: 100;
   position: fixed !important;
 
@@ -36,6 +37,11 @@
     top: calc(anchor(bottom) + var(--base-size-4));
     left: anchor(left);
     max-height: calc(100dvh - anchor(bottom) - var(--base-size-4));
+
+    &[data-align='left'] {
+      left: auto;
+      right: anchor(right);
+    }
   }
 
   &[data-side='outside-top'] {
@@ -43,6 +49,11 @@
     bottom: anchor(top);
     left: anchor(left);
     max-height: calc(anchor(top) - var(--base-size-4));
+
+    &[data-align='left'] {
+      left: auto;
+      right: anchor(right);
+    }
   }
 
   &[data-side='outside-left'] {

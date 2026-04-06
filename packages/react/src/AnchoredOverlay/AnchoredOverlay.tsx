@@ -268,6 +268,13 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
     if (!cssAnchorPositioning || !open || !currentOverlay) return
     currentOverlay.style.setProperty('position-anchor', `--anchored-overlay-anchor-${id}`)
+
+    const anchorElement = anchorRef.current
+    if (anchorElement) {
+      const {horizontal} = getDefaultPosition(anchorElement)
+      currentOverlay.setAttribute('data-align', horizontal)
+    }
+
     try {
       if (!currentOverlay.matches(':popover-open')) {
         currentOverlay.showPopover()
@@ -275,7 +282,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     } catch {
       // Ignore if popover is already showing or not supported
     }
-  }, [cssAnchorPositioning, open, overlayElement, id, overlayRef])
+  }, [cssAnchorPositioning, open, overlayElement, id, overlayRef, anchorRef])
 
   const showXIcon = onClose && variant.narrow === 'fullscreen' && displayCloseButton
   const XButtonAriaLabelledBy = closeButtonProps['aria-labelledby']
@@ -349,6 +356,23 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       ) : null}
     </>
   )
+}
+
+function getDefaultPosition(anchorElement: HTMLElement): {vertical: 'top' | 'bottom'; horizontal: 'left' | 'right'} {
+  const rect = anchorElement.getBoundingClientRect()
+  const {innerWidth: vw, innerHeight: vh} = window
+
+  const space = {
+    top: rect.top,
+    bottom: vh - rect.bottom,
+    left: rect.left,
+    right: vw - rect.right,
+  }
+
+  const vertical = space.bottom >= space.top ? 'bottom' : 'top'
+  const horizontal = space.right >= space.left ? 'right' : 'left'
+
+  return {vertical, horizontal}
 }
 
 function assignRef<T>(
