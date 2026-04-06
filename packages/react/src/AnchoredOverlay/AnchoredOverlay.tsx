@@ -272,15 +272,12 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
     const anchorElement = anchorRef.current
     if (anchorElement) {
-      const {horizontal} = getDefaultPosition(anchorElement)
-      const {left} = anchorElement.getBoundingClientRect()
-      const placeholderWidth = width ? parseInt(widthMap[width]) : null
+      const overlayWidth = width ? parseInt(widthMap[width]) : null
+      const result = getDefaultPosition(anchorElement, overlayWidth)
 
-      if (placeholderWidth && left < placeholderWidth) {
-        const offset = placeholderWidth - left
-
-        currentOverlay.setAttribute('data-align', horizontal)
-        currentOverlay.style.setProperty('--anchored-overlay-anchor-offset-left', `${offset}px`)
+      if (result) {
+        currentOverlay.setAttribute('data-align', result.horizontal)
+        currentOverlay.style.setProperty('--anchored-overlay-anchor-offset-left', `${result.offset}px`)
       }
     }
 
@@ -367,21 +364,19 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   )
 }
 
-function getDefaultPosition(anchorElement: HTMLElement): {vertical: 'top' | 'bottom'; horizontal: 'left' | 'right'} {
+function getDefaultPosition(
+  anchorElement: HTMLElement,
+  overlayWidth: number | null,
+): {horizontal: 'left' | 'right'; offset: number} | null {
   const rect = anchorElement.getBoundingClientRect()
-  const {innerWidth: vw, innerHeight: vh} = window
+  const vw = window.innerWidth
 
-  const space = {
-    top: rect.top,
-    bottom: vh - rect.bottom,
-    left: rect.left,
-    right: vw - rect.right,
-  }
+  if (!overlayWidth || rect.left >= overlayWidth) return null
 
-  const vertical = space.bottom >= space.top ? 'bottom' : 'top'
-  const horizontal = space.right >= space.left ? 'right' : 'left'
+  const horizontal = vw - rect.right >= rect.left ? 'right' : 'left'
+  const offset = overlayWidth - rect.left
 
-  return {vertical, horizontal}
+  return {horizontal, offset}
 }
 
 function assignRef<T>(
