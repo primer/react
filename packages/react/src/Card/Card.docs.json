@@ -9,10 +9,10 @@
       "id": "components-card--default"
     },
     {
-      "id": "components-card--with-image"
+      "id": "components-card-features--with-image"
     },
     {
-      "id": "components-card--with-metadata"
+      "id": "components-card-features--with-metadata"
     }
   ],
   "props": [

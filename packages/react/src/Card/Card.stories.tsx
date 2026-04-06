@@ -22,36 +22,6 @@ export const Default = () => {
   )
 }
 
-export const WithImage = () => {
-  return (
-    <div style={{maxWidth: '400px'}}>
-      <Card>
-        <Card.Image src="https://github.com/octocat.png" alt="Octocat" />
-        <Card.Heading>Card with Image</Card.Heading>
-        <Card.Description>This card uses an edge-to-edge image instead of an icon.</Card.Description>
-      </Card>
-    </div>
-  )
-}
-
-export const WithMetadata = () => {
-  return (
-    <div style={{maxWidth: '400px'}}>
-      <Card>
-        <Card.Icon icon={RepoIcon} />
-        <Card.Heading>primer/react</Card.Heading>
-        <Card.Description>
-          {"GitHub's design system implemented as React components for building consistent user interfaces."}
-        </Card.Description>
-        <Card.Metadata>
-          <StarIcon size={16} />
-          1.2k stars
-        </Card.Metadata>
-      </Card>
-    </div>
-  )
-}
-
 export const Playground = {
   render: () => (
     <div style={{maxWidth: '400px'}}>

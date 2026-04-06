@@ -298,11 +298,11 @@ const components = new Map([
           name: 'Default',
         },
         {
-          id: 'components-card--with-image',
+          id: 'components-card-features--with-image',
           name: 'With Image',
         },
         {
-          id: 'components-card--with-metadata',
+          id: 'components-card-features--with-metadata',
           name: 'With Metadata',
         },
       ],
