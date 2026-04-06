@@ -81,7 +81,9 @@ const CardImpl = forwardRef<HTMLDivElement, CardProps>(function Card({children, 
 
   return (
     <div ref={ref} className={clsx(classes.Card, className)} {...rest}>
-      <div className={clsx(classes.CardHeader, image && classes.CardHeaderEdgeToEdge)}>{image || icon}</div>
+      {(image || icon) && (
+        <div className={clsx(classes.CardHeader, image && classes.CardHeaderEdgeToEdge)}>{image || icon}</div>
+      )}
       <div className={classes.CardBody}>
         <div className={classes.CardContent}>
           {heading}
