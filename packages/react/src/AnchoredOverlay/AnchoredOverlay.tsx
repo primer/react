@@ -16,6 +16,7 @@ import {XIcon} from '@primer/octicons-react'
 import classes from './AnchoredOverlay.module.css'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
+import {widthMap} from '../Overlay/Overlay'
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
@@ -272,7 +273,15 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     const anchorElement = anchorRef.current
     if (anchorElement) {
       const {horizontal} = getDefaultPosition(anchorElement)
-      currentOverlay.setAttribute('data-align', horizontal)
+      const {left} = anchorElement.getBoundingClientRect()
+      const placeholderWidth = width ? parseInt(widthMap[width]) : null
+
+      if (placeholderWidth && left < placeholderWidth) {
+        const offset = placeholderWidth - left
+
+        currentOverlay.setAttribute('data-align', horizontal)
+        currentOverlay.style.setProperty('--anchored-overlay-anchor-offset-left', `${offset}px`)
+      }
     }
 
     try {
@@ -282,7 +291,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     } catch {
       // Ignore if popover is already showing or not supported
     }
-  }, [cssAnchorPositioning, open, overlayElement, id, overlayRef, anchorRef])
+  }, [cssAnchorPositioning, open, overlayElement, id, overlayRef, anchorRef, width])
 
   const showXIcon = onClose && variant.narrow === 'fullscreen' && displayCloseButton
   const XButtonAriaLabelledBy = closeButtonProps['aria-labelledby']

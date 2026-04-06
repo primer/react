@@ -40,7 +40,7 @@
 
     &[data-align='left'] {
       left: auto;
-      right: anchor(right);
+      right: calc(anchor(right) - var(--anchored-overlay-anchor-offset-left));
     }
   }
 
