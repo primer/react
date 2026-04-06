@@ -1,5 +1,5 @@
 import type {Meta} from '@storybook/react-vite'
-import {RocketIcon, RepoIcon, StarIcon} from '@primer/octicons-react'
+import {RocketIcon} from '@primer/octicons-react'
 import {Card} from './index'
 
 const meta = {
