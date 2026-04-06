@@ -57,20 +57,12 @@
   font-size: var(--text-body-size-large);
   font-weight: var(--base-text-weight-semibold);
   color: var(--fgColor-default);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   margin: 0;
 }
 
 .CardDescription {
   font-size: var(--text-body-size-medium);
   color: var(--fgColor-muted);
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
   margin: 0;
 }
 

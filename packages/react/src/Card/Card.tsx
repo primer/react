@@ -29,6 +29,10 @@ type IconProps = {
    * An Octicon or custom SVG icon to render
    */
   icon: React.ElementType
+  /**
+   * Accessible label for the icon. When omitted, the icon is treated as decorative.
+   */
+  'aria-label'?: string
   className?: string
 }
 
@@ -96,9 +100,14 @@ const CardImpl = forwardRef<HTMLDivElement, CardProps>(function Card({children, 
   )
 })
 
-const CardIcon = ({icon: IconComponent, className}: IconProps) => {
+const CardIcon = ({icon: IconComponent, 'aria-label': ariaLabel, className}: IconProps) => {
   return (
-    <span className={clsx(classes.CardIcon, className)}>
+    <span
+      className={clsx(classes.CardIcon, className)}
+      role={ariaLabel ? 'img' : undefined}
+      aria-label={ariaLabel}
+      aria-hidden={!ariaLabel}
+    >
       <IconComponent />
     </span>
   )

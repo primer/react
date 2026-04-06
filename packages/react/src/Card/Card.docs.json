@@ -1,0 +1,81 @@
+{
+  "id": "card",
+  "name": "Card",
+  "status": "draft",
+  "a11yReviewed": false,
+  "importPath": "@primer/react",
+  "stories": [
+    {
+      "id": "components-card--default"
+    },
+    {
+      "id": "components-card--with-image"
+    },
+    {
+      "id": "components-card--with-metadata"
+    }
+  ],
+  "props": [
+    {
+      "name": "className",
+      "type": "string",
+      "description": "CSS class name(s) for custom styling."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Card.Icon",
+      "props": [
+        {
+          "name": "icon",
+          "type": "React.ElementType",
+          "description": "An Octicon or custom SVG icon to render."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "Accessible label for the icon. When omitted, the icon is treated as decorative."
+        }
+      ]
+    },
+    {
+      "name": "Card.Image",
+      "props": [
+        {
+          "name": "src",
+          "type": "string",
+          "description": "The image source URL."
+        },
+        {
+          "name": "alt",
+          "type": "string",
+          "defaultValue": "\"\"",
+          "description": "Alt text for accessibility. Defaults to empty string (decorative)."
+        }
+      ]
+    },
+    {
+      "name": "Card.Heading",
+      "props": [
+        {
+          "name": "as",
+          "type": "'h2' | 'h3' | 'h4' | 'h5' | 'h6'",
+          "defaultValue": "'h3'",
+          "description": "The heading level to render."
+        }
+      ]
+    },
+    {
+      "name": "Card.Description",
+      "props": []
+    },
+    {
+      "name": "Card.Menu",
+      "props": []
+    },
+    {
+      "name": "Card.Metadata",
+      "props": []
+    }
+  ]
+}
