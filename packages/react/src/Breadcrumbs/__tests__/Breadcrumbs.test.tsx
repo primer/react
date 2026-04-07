@@ -616,7 +616,7 @@ describe('Breadcrumbs', () => {
   })
 
   describe('narrowVisibleItems prop', () => {
-    it('adds data-narrow-hidden to all items except the last by default', () => {
+    it('shows only the previous (parent) breadcrumb on narrow by default', () => {
       const {container} = renderWithTheme(
         <Breadcrumbs>
           <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
@@ -628,11 +628,12 @@ describe('Breadcrumbs', () => {
       )
 
       const items = container.querySelectorAll('li')
-      // First two items should have data-narrow-hidden
+      // Home: hidden on narrow
       expect(items[0]).toHaveAttribute('data-narrow-hidden')
-      expect(items[1]).toHaveAttribute('data-narrow-hidden')
-      // Last item should NOT have data-narrow-hidden
-      expect(items[2]).not.toHaveAttribute('data-narrow-hidden')
+      // Docs (previous/parent): visible on narrow
+      expect(items[1]).not.toHaveAttribute('data-narrow-hidden')
+      // Components (current page): hidden on narrow
+      expect(items[2]).toHaveAttribute('data-narrow-hidden')
     })
 
     it('respects custom narrowVisibleItems value', () => {
@@ -648,15 +649,17 @@ describe('Breadcrumbs', () => {
       )
 
       const items = container.querySelectorAll('li')
-      // First two items should have data-narrow-hidden
+      // Home: hidden on narrow
       expect(items[0]).toHaveAttribute('data-narrow-hidden')
-      expect(items[1]).toHaveAttribute('data-narrow-hidden')
-      // Last two items should NOT have data-narrow-hidden
+      // Docs (2nd before last): visible on narrow
+      expect(items[1]).not.toHaveAttribute('data-narrow-hidden')
+      // Components (1st before last): visible on narrow
       expect(items[2]).not.toHaveAttribute('data-narrow-hidden')
-      expect(items[3]).not.toHaveAttribute('data-narrow-hidden')
+      // Breadcrumbs (current page): hidden on narrow
+      expect(items[3]).toHaveAttribute('data-narrow-hidden')
     })
 
-    it('clamps narrowVisibleItems to the number of children', () => {
+    it('clamps narrowVisibleItems to the number of non-current children', () => {
       const {container} = renderWithTheme(
         <Breadcrumbs narrowVisibleItems={10}>
           <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
@@ -667,9 +670,10 @@ describe('Breadcrumbs', () => {
       )
 
       const items = container.querySelectorAll('li')
-      // No items should have data-narrow-hidden since narrowVisibleItems > children count
+      // Home (previous): visible on narrow
       expect(items[0]).not.toHaveAttribute('data-narrow-hidden')
-      expect(items[1]).not.toHaveAttribute('data-narrow-hidden')
+      // Docs (current page): hidden on narrow
+      expect(items[1]).toHaveAttribute('data-narrow-hidden')
     })
 
     it('adds data-narrow-hidden in menu mode with feature flag', () => {
@@ -685,11 +689,12 @@ describe('Breadcrumbs', () => {
       )
 
       const items = container.querySelectorAll('li')
-      // First two items should have data-narrow-hidden
+      // Home: hidden on narrow
       expect(items[0]).toHaveAttribute('data-narrow-hidden')
-      expect(items[1]).toHaveAttribute('data-narrow-hidden')
-      // Last item should NOT have data-narrow-hidden
-      expect(items[2]).not.toHaveAttribute('data-narrow-hidden')
+      // Docs (previous/parent): visible on narrow
+      expect(items[1]).not.toHaveAttribute('data-narrow-hidden')
+      // Components (current page): hidden on narrow
+      expect(items[2]).toHaveAttribute('data-narrow-hidden')
     })
   })
 })

@@ -169,4 +169,11 @@
   .ItemWrapper[data-narrow-hidden] {
     display: none;
   }
+
+  /* Hide the trailing separator on the last visible item on narrow */
+  .ItemWrapper[data-narrow-last] {
+    &::after {
+      content: none;
+    }
+  }
 }

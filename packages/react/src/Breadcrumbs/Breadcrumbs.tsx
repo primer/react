@@ -37,7 +37,8 @@ export type BreadcrumbsProps = React.PropsWithChildren<{
   style?: React.CSSProperties
   /**
    * The number of breadcrumb items to keep visible on narrow viewports.
-   * Items beyond this count (from the end) are hidden via CSS on small screens.
+   * On small screens, only the N items immediately before the current page
+   * are shown (as back-navigation links). The current page itself is hidden.
    * @default 1
    */
   narrowVisibleItems?: number
@@ -162,19 +163,25 @@ function Breadcrumbs({
   const overflowMenuEnabled = useFeatureFlag('primer_react_breadcrumbs_overflow_menu')
   const containerRef = useRef<HTMLElement>(null)
   const childArray = useMemo(() => getValidChildren(children), [children])
-  const clampedNarrowVisible = Math.max(1, Math.min(narrowVisibleItems, childArray.length))
+  const clampedNarrowVisible = Math.max(1, Math.min(narrowVisibleItems, childArray.length - 1))
 
   const wrappedChildren = React.Children.toArray(children)
     .filter(child => React.isValidElement(child))
-    .map((child, index, arr) => (
-      <li
-        className={classes.ItemWrapper}
-        key={index}
-        data-narrow-hidden={index < arr.length - clampedNarrowVisible ? '' : undefined}
-      >
-        {child}
-      </li>
-    ))
+    .map((child, index, arr) => {
+      const isLast = index === arr.length - 1
+      const isInNarrowRange = index >= arr.length - 1 - clampedNarrowVisible && !isLast
+      const isNarrowLast = index === arr.length - 2
+      return (
+        <li
+          className={classes.ItemWrapper}
+          key={index}
+          data-narrow-hidden={isInNarrowRange ? undefined : ''}
+          data-narrow-last={isNarrowLast ? '' : undefined}
+        >
+          {child}
+        </li>
+      )
+    })
 
   const measureMenuButton = useCallback((element: HTMLDetailsElement | null) => {
     if (element) {
@@ -314,15 +321,21 @@ function Breadcrumbs({
     if (overflowMenuEnabled) {
       if (overflow === 'wrap' || menuItems.length === 0) {
         const validChildren = React.Children.toArray(children).filter(child => React.isValidElement(child))
-        return validChildren.map((child, index) => (
-          <li
-            className={classes.ItemWrapper}
-            key={index}
-            data-narrow-hidden={index < validChildren.length - clampedNarrowVisible ? '' : undefined}
-          >
-            {child}
-          </li>
-        ))
+        return validChildren.map((child, index) => {
+          const isLast = index === validChildren.length - 1
+          const isInNarrowRange = index >= validChildren.length - 1 - clampedNarrowVisible && !isLast
+          const isNarrowLast = index === validChildren.length - 2
+          return (
+            <li
+              className={classes.ItemWrapper}
+              key={index}
+              data-narrow-hidden={isInNarrowRange ? undefined : ''}
+              data-narrow-last={isNarrowLast ? '' : undefined}
+            >
+              {child}
+            </li>
+          )
+        })
       }
 
       let effectiveMenuItems = [...menuItems]
