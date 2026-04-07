@@ -285,18 +285,34 @@ export function SelectPanelNext({
     }
   }, [isReferenced, labelId, placeholder, renderAnchor, selected, selectedValueId])
 
-  const modeConfig = useMemo(() => {
+  const modeModel = useMemo(() => {
     if (mode === 'multi') {
-      return getSelectPanelNextMultiModeConfig({
+      const multiModeConfig = getSelectPanelNextMultiModeConfig({
         items,
         onSelectedChange,
         selected,
         selectedOnSort: state.selectedOnSort,
         shouldOrderSelectedFirst,
       })
+
+      return {
+        ...multiModeConfig,
+        onSave: () => {
+          onClose(variant === 'modal' ? 'selection' : 'click-outside')
+        },
+        onSelectAllChange: (checked: boolean) => {
+          handleSelectAllChange({
+            checked,
+            items,
+            itemsInViewSet,
+            onSelectedChange,
+            selected,
+          })
+        },
+      }
     }
 
-    return getSelectPanelNextSingleModeConfig({
+    const singleModeConfig = getSelectPanelNextSingleModeConfig({
       intermediateSelected,
       isSingleSelectModal,
       items,
@@ -309,6 +325,20 @@ export function SelectPanelNext({
       selectedOnSort: state.selectedOnSort,
       shouldOrderSelectedFirst,
     })
+
+    return {
+      ...singleModeConfig,
+      onSave: () => {
+        handleSingleModeSave({
+          intermediateSelected,
+          isSingleSelectModal,
+          onClose,
+          onSelectedChange,
+          variant,
+        })
+      },
+      onSelectAllChange: undefined,
+    }
   }, [
     intermediateSelected,
     isSingleSelectModal,
@@ -319,24 +349,9 @@ export function SelectPanelNext({
     selected,
     shouldOrderSelectedFirst,
     state.selectedOnSort,
+    variant,
+    itemsInViewSet,
   ])
-
-  const onSelectAllChange = useCallback(
-    (checked: boolean) => {
-      if (mode !== 'multi') {
-        return
-      }
-
-      handleSelectAllChange({
-        checked,
-        items,
-        itemsInViewSet,
-        onSelectedChange,
-        selected,
-      })
-    },
-    [items, itemsInViewSet, mode, onSelectedChange, selected],
-  )
 
   const prevItemsLengthRef = useRef(items.length)
   useEffect(() => {
@@ -385,30 +400,15 @@ export function SelectPanelNext({
     footer,
     hasOnCancel: onCancel !== undefined,
     hasSecondaryAction: secondaryAction !== undefined,
-    isMultiSelect: modeConfig.isMultiSelect,
+    isMultiSelect: modeModel.isMultiSelect,
     usingFullScreenOnNarrow,
     variant,
   })
 
-  const showXCloseIcon = (onCancel !== undefined || !modeConfig.isMultiSelect) && usingFullScreenOnNarrow
+  const showXCloseIcon = (onCancel !== undefined || !modeModel.isMultiSelect) && usingFullScreenOnNarrow
 
   const shouldShowInitialControlledEmptyState =
     externalFilterValue !== undefined && !state.dataLoadedOnce && items.length === 0
-
-  const onSave = useCallback(() => {
-    if (mode === 'single') {
-      handleSingleModeSave({
-        intermediateSelected,
-        isSingleSelectModal,
-        onClose,
-        onSelectedChange,
-        variant,
-      })
-      return
-    }
-
-    onClose(variant === 'modal' ? 'selection' : 'click-outside')
-  }, [intermediateSelected, isSingleSelectModal, mode, onClose, onSelectedChange, variant])
 
   const preventBubbling = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -485,7 +485,7 @@ export function SelectPanelNext({
       fullScreenOnNarrow={usingFullScreenOnNarrow}
       height={height}
       isNarrowScreenSize={isNarrowScreenSize}
-      itemsToRender={modeConfig.itemsToRender}
+      itemsToRender={modeModel.itemsToRender}
       listProps={listProps}
       loading={Boolean(loading) || (state.internalLoading && !message && !shouldShowInitialControlledEmptyState)}
       loadingType={loadingType}
@@ -500,15 +500,15 @@ export function SelectPanelNext({
       onInputRefChanged={onInputRefChanged}
       onListContainerRefChanged={onListContainerRefChanged}
       onOpen={onOpen}
-      onSave={onSave}
-      onSelectAllChange={showSelectAll && modeConfig.isMultiSelect ? onSelectAllChange : undefined}
+      onSave={modeModel.onSave}
+      onSelectAllChange={showSelectAll && modeModel.isMultiSelect ? modeModel.onSelectAllChange : undefined}
       open={open}
       placeholderText={placeholderText}
       renderAnchor={renderMenuAnchor}
       renderedMessage={renderedMessage}
       responsiveOverlayVariant={responsiveOverlayVariant}
       secondaryAction={secondaryAction}
-      selectionVariant={modeConfig.selectionVariant}
+      selectionVariant={modeModel.selectionVariant}
       showXCloseIcon={showXCloseIcon}
       subtitle={subtitle}
       subtitleId={subtitleId}
