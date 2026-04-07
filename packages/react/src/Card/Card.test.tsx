@@ -114,4 +114,16 @@ describe('Card', () => {
     )
     expect(ref.current).toBeInstanceOf(HTMLDivElement)
   })
+
+  it('should render arbitrary custom content when no subcomponents are used', () => {
+    render(
+      <Card>
+        <div data-testid="custom-content">
+          <p>Custom paragraph</p>
+        </div>
+      </Card>,
+    )
+    expect(screen.getByTestId('custom-content')).toBeInTheDocument()
+    expect(screen.getByText('Custom paragraph')).toBeInTheDocument()
+  })
 })

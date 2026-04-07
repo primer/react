@@ -83,6 +83,16 @@ const CardImpl = forwardRef<HTMLDivElement, CardProps>(function Card({children, 
     }
   }
 
+  const hasSlotChildren = icon || image || heading || description || metadata || menu
+
+  if (!hasSlotChildren) {
+    return (
+      <div ref={ref} className={clsx(classes.Card, className)} {...rest}>
+        {children}
+      </div>
+    )
+  }
+
   return (
     <div ref={ref} className={clsx(classes.Card, className)} {...rest}>
       {(image || icon) && (
