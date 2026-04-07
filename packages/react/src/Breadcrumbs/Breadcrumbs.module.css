@@ -163,3 +163,10 @@
     }
   }
 }
+
+/* On narrow viewports, hide breadcrumb items marked for narrow hiding */
+@media screen and (max-width: 543.98px) {
+  .ItemWrapper[data-narrow-hidden] {
+    display: none;
+  }
+}

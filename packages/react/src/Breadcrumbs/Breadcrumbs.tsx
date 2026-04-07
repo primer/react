@@ -35,6 +35,12 @@ export type BreadcrumbsProps = React.PropsWithChildren<{
    * Allows passing of CSS custom properties to the breadcrumbs container.
    */
   style?: React.CSSProperties
+  /**
+   * The number of breadcrumb items to keep visible on narrow viewports.
+   * Items beyond this count (from the end) are hidden via CSS on small screens.
+   * @default 1
+   */
+  narrowVisibleItems?: number
 }>
 
 const BreadcrumbsList = ({children}: React.PropsWithChildren) => {
@@ -145,10 +151,30 @@ const getValidChildren = (children: React.ReactNode) => {
   return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement<any>[]
 }
 
-function Breadcrumbs({className, children, style, overflow = 'wrap', variant = 'normal'}: BreadcrumbsProps) {
+function Breadcrumbs({
+  className,
+  children,
+  style,
+  overflow = 'wrap',
+  variant = 'normal',
+  narrowVisibleItems = 1,
+}: BreadcrumbsProps) {
   const overflowMenuEnabled = useFeatureFlag('primer_react_breadcrumbs_overflow_menu')
-  const wrappedChildren = React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
   const containerRef = useRef<HTMLElement>(null)
+  const childArray = useMemo(() => getValidChildren(children), [children])
+  const clampedNarrowVisible = Math.max(1, Math.min(narrowVisibleItems, childArray.length))
+
+  const wrappedChildren = React.Children.toArray(children)
+    .filter(child => React.isValidElement(child))
+    .map((child, index, arr) => (
+      <li
+        className={classes.ItemWrapper}
+        key={index}
+        data-narrow-hidden={index < arr.length - clampedNarrowVisible ? '' : undefined}
+      >
+        {child}
+      </li>
+    ))
 
   const measureMenuButton = useCallback((element: HTMLDetailsElement | null) => {
     if (element) {
@@ -163,7 +189,6 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
 
   const hideRoot = !(overflow === 'menu-with-root')
   const [effectiveHideRoot, setEffectiveHideRoot] = useState<boolean>(hideRoot)
-  const childArray = useMemo(() => getValidChildren(children), [children])
 
   const rootItem = childArray[0]
 
@@ -288,7 +313,16 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
   const finalChildren = React.useMemo(() => {
     if (overflowMenuEnabled) {
       if (overflow === 'wrap' || menuItems.length === 0) {
-        return React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
+        const validChildren = React.Children.toArray(children).filter(child => React.isValidElement(child))
+        return validChildren.map((child, index) => (
+          <li
+            className={classes.ItemWrapper}
+            key={index}
+            data-narrow-hidden={index < validChildren.length - clampedNarrowVisible ? '' : undefined}
+          >
+            {child}
+          </li>
+        ))
       }
 
       let effectiveMenuItems = [...menuItems]
@@ -329,7 +363,17 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
         return [rootElement, menuElement, ...visibleElements]
       }
     }
-  }, [overflowMenuEnabled, overflow, menuItems, effectiveHideRoot, measureMenuButton, visibleItems, rootItem, children])
+  }, [
+    overflowMenuEnabled,
+    overflow,
+    menuItems,
+    effectiveHideRoot,
+    measureMenuButton,
+    visibleItems,
+    rootItem,
+    children,
+    clampedNarrowVisible,
+  ])
 
   return overflowMenuEnabled ? (
     <nav

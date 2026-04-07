@@ -614,4 +614,82 @@ describe('Breadcrumbs', () => {
       })
     })
   })
+
+  describe('narrowVisibleItems prop', () => {
+    it('adds data-narrow-hidden to all items except the last by default', () => {
+      const {container} = renderWithTheme(
+        <Breadcrumbs>
+          <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/docs">Docs</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/components" selected>
+            Components
+          </Breadcrumbs.Item>
+        </Breadcrumbs>,
+      )
+
+      const items = container.querySelectorAll('li')
+      // First two items should have data-narrow-hidden
+      expect(items[0]).toHaveAttribute('data-narrow-hidden')
+      expect(items[1]).toHaveAttribute('data-narrow-hidden')
+      // Last item should NOT have data-narrow-hidden
+      expect(items[2]).not.toHaveAttribute('data-narrow-hidden')
+    })
+
+    it('respects custom narrowVisibleItems value', () => {
+      const {container} = renderWithTheme(
+        <Breadcrumbs narrowVisibleItems={2}>
+          <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/docs">Docs</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/components">Components</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/breadcrumbs" selected>
+            Breadcrumbs
+          </Breadcrumbs.Item>
+        </Breadcrumbs>,
+      )
+
+      const items = container.querySelectorAll('li')
+      // First two items should have data-narrow-hidden
+      expect(items[0]).toHaveAttribute('data-narrow-hidden')
+      expect(items[1]).toHaveAttribute('data-narrow-hidden')
+      // Last two items should NOT have data-narrow-hidden
+      expect(items[2]).not.toHaveAttribute('data-narrow-hidden')
+      expect(items[3]).not.toHaveAttribute('data-narrow-hidden')
+    })
+
+    it('clamps narrowVisibleItems to the number of children', () => {
+      const {container} = renderWithTheme(
+        <Breadcrumbs narrowVisibleItems={10}>
+          <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/docs" selected>
+            Docs
+          </Breadcrumbs.Item>
+        </Breadcrumbs>,
+      )
+
+      const items = container.querySelectorAll('li')
+      // No items should have data-narrow-hidden since narrowVisibleItems > children count
+      expect(items[0]).not.toHaveAttribute('data-narrow-hidden')
+      expect(items[1]).not.toHaveAttribute('data-narrow-hidden')
+    })
+
+    it('adds data-narrow-hidden in menu mode with feature flag', () => {
+      const {container} = renderWithTheme(
+        <Breadcrumbs overflow="menu">
+          <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/docs">Docs</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/components" selected>
+            Components
+          </Breadcrumbs.Item>
+        </Breadcrumbs>,
+        {primer_react_breadcrumbs_overflow_menu: true},
+      )
+
+      const items = container.querySelectorAll('li')
+      // First two items should have data-narrow-hidden
+      expect(items[0]).toHaveAttribute('data-narrow-hidden')
+      expect(items[1]).toHaveAttribute('data-narrow-hidden')
+      // Last item should NOT have data-narrow-hidden
+      expect(items[2]).not.toHaveAttribute('data-narrow-hidden')
+    })
+  })
 })
