@@ -1,0 +1,47 @@
+{
+  "id": "data_action_list",
+  "name": "DataActionList",
+  "status": "alpha",
+  "a11yReviewed": "",
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "rows",
+      "type": "DataActionListRow[]",
+      "defaultValue": "",
+      "required": true,
+      "description": "Typed rows rendered deterministically as item, link, group, or divider entries. Link rows support router-style composition through `as` and `linkProps`."
+    },
+    {
+      "name": "variant",
+      "type": "'inset' | 'horizontal-inset' | 'full'",
+      "defaultValue": "'inset'",
+      "description": "List spacing variant."
+    },
+    {
+      "name": "selectionVariant",
+      "type": "'single' | 'radio' | 'multiple'",
+      "defaultValue": "",
+      "description": "Selection behavior for list items."
+    },
+    {
+      "name": "showDividers",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Display dividers above items when appropriate."
+    },
+    {
+      "name": "role",
+      "type": "AriaRole",
+      "defaultValue": "",
+      "description": "ARIA role describing list semantics such as listbox or menu."
+    },
+    {
+      "name": "heading",
+      "type": "DataActionListHeading",
+      "defaultValue": "",
+      "description": "Optional heading model for the list title."
+    }
+  ]
+}
