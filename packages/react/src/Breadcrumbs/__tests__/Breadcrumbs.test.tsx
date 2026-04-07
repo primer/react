@@ -615,7 +615,7 @@ describe('Breadcrumbs', () => {
     })
   })
 
-  describe('narrowVisibleItems prop', () => {
+  describe('visibleItemsOnNarrow prop', () => {
     it('shows only the previous (parent) breadcrumb on narrow by default', () => {
       const {container} = renderWithTheme(
         <Breadcrumbs>
@@ -636,9 +636,9 @@ describe('Breadcrumbs', () => {
       expect(items[2]).toHaveAttribute('data-narrow-hidden')
     })
 
-    it('respects custom narrowVisibleItems value', () => {
+    it('respects custom visibleOnNarrow value', () => {
       const {container} = renderWithTheme(
-        <Breadcrumbs narrowVisibleItems={2}>
+        <Breadcrumbs visibleItemsOnNarrow={2}>
           <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
           <Breadcrumbs.Item href="/docs">Docs</Breadcrumbs.Item>
           <Breadcrumbs.Item href="/components">Components</Breadcrumbs.Item>
@@ -659,9 +659,9 @@ describe('Breadcrumbs', () => {
       expect(items[3]).toHaveAttribute('data-narrow-hidden')
     })
 
-    it('clamps narrowVisibleItems to the number of non-current children', () => {
+    it('clamps visibleOnNarrow to the number of non-current children', () => {
       const {container} = renderWithTheme(
-        <Breadcrumbs narrowVisibleItems={10}>
+        <Breadcrumbs visibleItemsOnNarrow={10}>
           <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
           <Breadcrumbs.Item href="/docs" selected>
             Docs

@@ -41,7 +41,7 @@ export type BreadcrumbsProps = React.PropsWithChildren<{
    * are shown (as back-navigation links). The current page itself is hidden.
    * @default 1
    */
-  narrowVisibleItems?: number
+  visibleItemsOnNarrow?: number
 }>
 
 const BreadcrumbsList = ({children}: React.PropsWithChildren) => {
@@ -158,25 +158,25 @@ function Breadcrumbs({
   style,
   overflow = 'wrap',
   variant = 'normal',
-  narrowVisibleItems = 1,
+  visibleItemsOnNarrow = 1,
 }: BreadcrumbsProps) {
   const overflowMenuEnabled = useFeatureFlag('primer_react_breadcrumbs_overflow_menu')
   const containerRef = useRef<HTMLElement>(null)
   const childArray = useMemo(() => getValidChildren(children), [children])
-  const clampedNarrowVisible = Math.max(1, Math.min(narrowVisibleItems, childArray.length - 1))
+  const visibleCountOnNarrow = Math.max(1, Math.min(visibleItemsOnNarrow, childArray.length - 1))
 
   const wrappedChildren = React.Children.toArray(children)
     .filter(child => React.isValidElement(child))
     .map((child, index, arr) => {
       const isLast = index === arr.length - 1
-      const isInNarrowRange = index >= arr.length - 1 - clampedNarrowVisible && !isLast
-      const isNarrowLast = index === arr.length - 2
+      const isVisibleOnNarrow = index >= arr.length - 1 - visibleCountOnNarrow && !isLast
+      const isLastVisibleOnNarrow = index === arr.length - 2
       return (
         <li
           className={classes.ItemWrapper}
           key={index}
-          data-narrow-hidden={isInNarrowRange ? undefined : ''}
-          data-narrow-last={isNarrowLast ? '' : undefined}
+          data-narrow-hidden={isVisibleOnNarrow ? undefined : ''}
+          data-narrow-last={isLastVisibleOnNarrow ? '' : undefined}
         >
           {child}
         </li>
@@ -323,14 +323,14 @@ function Breadcrumbs({
         const validChildren = React.Children.toArray(children).filter(child => React.isValidElement(child))
         return validChildren.map((child, index) => {
           const isLast = index === validChildren.length - 1
-          const isInNarrowRange = index >= validChildren.length - 1 - clampedNarrowVisible && !isLast
-          const isNarrowLast = index === validChildren.length - 2
+          const isVisibleOnNarrow = index >= validChildren.length - 1 - visibleCountOnNarrow && !isLast
+          const isLastVisibleOnNarrow = index === validChildren.length - 2
           return (
             <li
               className={classes.ItemWrapper}
               key={index}
-              data-narrow-hidden={isInNarrowRange ? undefined : ''}
-              data-narrow-last={isNarrowLast ? '' : undefined}
+              data-narrow-hidden={isVisibleOnNarrow ? undefined : ''}
+              data-narrow-last={isLastVisibleOnNarrow ? '' : undefined}
             >
               {child}
             </li>
@@ -385,7 +385,7 @@ function Breadcrumbs({
     visibleItems,
     rootItem,
     children,
-    clampedNarrowVisible,
+    visibleCountOnNarrow,
   ])
 
   return overflowMenuEnabled ? (

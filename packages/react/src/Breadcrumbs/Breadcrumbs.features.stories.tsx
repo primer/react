@@ -126,7 +126,7 @@ export const NarrowVisibleItemsDefault = () => (
 )
 
 export const NarrowVisibleItemsCustom = () => (
-  <Breadcrumbs narrowVisibleItems={3}>
+  <Breadcrumbs visibleItemsOnNarrow={3}>
     <Breadcrumbs.Item href="#">Home</Breadcrumbs.Item>
     <Breadcrumbs.Item href="#">Products</Breadcrumbs.Item>
     <Breadcrumbs.Item href="#">Category</Breadcrumbs.Item>
