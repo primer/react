@@ -14,7 +14,8 @@ const transformChildren = (children: React.ReactNode, shape: AvatarStackProps['s
     return React.cloneElement(child, {
       ...child.props,
       square: (shape === 'square' ? true : undefined) || child.props.square,
-      className: clsx(child.props.className, 'pc-AvatarItem', classes.AvatarItem),
+      'data-component': 'AvatarStack.Item',
+      className: clsx(child.props.className, classes.AvatarItem),
     })
   })
 }
@@ -42,6 +43,7 @@ const AvatarStackBody = ({
 } & React.ComponentPropsWithoutRef<'div'>) => {
   return (
     <div
+      data-component="AvatarStack.Body"
       data-disable-expand={disableExpand ? '' : undefined}
       className={clsx(
         {
@@ -158,6 +160,7 @@ const AvatarStack = ({
 
   return (
     <span
+      data-component="AvatarStack"
       data-variant={variant}
       data-shape={shape}
       data-avatar-count={count > 3 ? '3+' : count}
