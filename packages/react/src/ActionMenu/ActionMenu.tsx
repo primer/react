@@ -18,7 +18,6 @@ import styles from './ActionMenu.module.css'
 import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isSlot} from '../utils/is-slot'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types/Slots'
-import {useFeatureFlag} from '../FeatureFlags'
 import {DialogContext} from '../Dialog/Dialog'
 
 export type MenuCloseHandler = (
