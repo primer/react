@@ -24,7 +24,11 @@
 
   /* After initial render, JS is used to control visibility which provides progressive enhancement for unsupported browsers */
   &[data-has-overflow='true'] {
-    --morebutton-display: block;
+    --morebutton-display: flex;
+  }
+
+  &:where([data-size='small']) {
+    --actionbar-height: var(--control-small-size);
   }
 
   &:where([data-size='medium']) {
@@ -59,7 +63,7 @@
 @keyframes detect-overflow {
   0%,
   100% {
-    --morebutton-display: block;
+    --morebutton-display: flex;
   }
 }
 
