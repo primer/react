@@ -15,7 +15,7 @@ const transformChildren = (children: React.ReactNode, shape: AvatarStackProps['s
       ...child.props,
       square: (shape === 'square' ? true : undefined) || child.props.square,
       'data-component': 'AvatarStack.Item',
-      className: clsx(child.props.className, classes.AvatarItem),
+      className: clsx(child.props.className, 'pc-AvatarItem', classes.AvatarItem),
     })
   })
 }
