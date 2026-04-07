@@ -126,4 +126,31 @@ describe('Card', () => {
     expect(screen.getByTestId('custom-content')).toBeInTheDocument()
     expect(screen.getByText('Custom paragraph')).toBeInTheDocument()
   })
+
+  it('should set data-padding to normal by default', () => {
+    const {container} = render(
+      <Card>
+        <Card.Heading>Padded</Card.Heading>
+      </Card>,
+    )
+    expect(container.firstChild).toHaveAttribute('data-padding', 'normal')
+  })
+
+  it('should set data-padding to none when padding="none"', () => {
+    const {container} = render(
+      <Card padding="none">
+        <Card.Heading>No Padding</Card.Heading>
+      </Card>,
+    )
+    expect(container.firstChild).toHaveAttribute('data-padding', 'none')
+  })
+
+  it('should set data-padding on custom content cards', () => {
+    const {container} = render(
+      <Card padding="none">
+        <p>Custom</p>
+      </Card>,
+    )
+    expect(container.firstChild).toHaveAttribute('data-padding', 'none')
+  })
 })

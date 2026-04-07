@@ -38,3 +38,19 @@ export const WithMetadata = () => {
     </div>
   )
 }
+
+export const CustomContent = () => (
+  <div style={{maxWidth: '400px'}}>
+    <Card>
+      <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
+        <strong>Custom Content Card</strong>
+        <p style={{margin: 0}}>This card uses arbitrary custom content instead of the built-in subcomponents.</p>
+        <ul style={{margin: 0, paddingLeft: '16px'}}>
+          <li>Item one</li>
+          <li>Item two</li>
+          <li>Item three</li>
+        </ul>
+      </div>
+    </Card>
+  </div>
+)

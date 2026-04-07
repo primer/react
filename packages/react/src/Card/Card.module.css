@@ -7,21 +7,31 @@
   border: var(--borderWidth-thin) solid var(--borderColor-default);
   box-shadow: var(--shadow-resting-small);
   background-color: var(--bgColor-default);
+  gap: var(--stack-gap-normal);
+
+  &[data-padding='normal'] {
+    /* stylelint-disable-next-line primer/spacing */
+    padding: var(--stack-padding-spacious);
+  }
+
+  &[data-padding='none'] {
+    padding: 0;
+  }
 }
 
 .CardHeader {
   display: block;
   width: 100%;
   height: auto;
-  /* stylelint-disable primer/spacing */
-  padding: var(--stack-padding-spacious) var(--stack-padding-spacious) var(--stack-padding-normal)
-    var(--stack-padding-spacious);
-  /* stylelint-enable primer/spacing */
 }
 
 .CardHeaderEdgeToEdge {
-  padding: 0;
-  margin-bottom: var(--base-size-16);
+  /* stylelint-disable primer/spacing */
+  margin-top: calc(-1 * var(--stack-padding-spacious));
+  margin-right: calc(-1 * var(--stack-padding-spacious));
+  margin-left: calc(-1 * var(--stack-padding-spacious));
+  width: calc(100% + 2 * var(--stack-padding-spacious));
+  /* stylelint-enable primer/spacing */
 }
 
 .CardImage {
@@ -43,25 +53,22 @@
 
 .CardBody {
   display: grid;
-  gap: var(--base-size-16);
-  /* stylelint-disable-next-line primer/spacing */
-  padding: 0 var(--stack-padding-spacious) var(--stack-padding-spacious) var(--stack-padding-spacious);
+  gap: var(--stack-gap-normal);
 }
 
 .CardContent {
   display: grid;
-  gap: var(--base-size-8);
+  gap: var(--stack-gap-condensed);
 }
 
 .CardHeading {
-  font-size: var(--text-body-size-large);
-  font-weight: var(--base-text-weight-semibold);
+  font: var(--text-title-shorthand-small);
   color: var(--fgColor-default);
   margin: 0;
 }
 
 .CardDescription {
-  font-size: var(--text-body-size-medium);
+  font: var(--text-body-shorthand-medium);
   color: var(--fgColor-muted);
   margin: 0;
 }
@@ -69,15 +76,15 @@
 .CardMetadataContainer {
   display: flex;
   align-items: center;
-  gap: var(--base-size-16);
-  font-size: var(--text-body-size-medium);
+  gap: var(--stack-gap-normal);
+  font: var(--text-body-shorthand-medium);
   color: var(--fgColor-muted);
 }
 
 .CardMetadataItem {
   display: flex;
   align-items: center;
-  gap: var(--base-size-8);
+  gap: var(--stack-gap-condensed);
   font: var(--text-body-shorthand-small);
 }
 

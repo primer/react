@@ -25,11 +25,12 @@ export const Default = () => {
 type PlaygroundArgs = {
   showIcon: boolean
   showMetadata: boolean
+  padding: 'normal' | 'none'
 }
 
-export const Playground: StoryFn<PlaygroundArgs> = ({showIcon, showMetadata}) => (
+export const Playground: StoryFn<PlaygroundArgs> = ({showIcon, showMetadata, padding}) => (
   <div style={{maxWidth: '400px'}}>
-    <Card>
+    <Card padding={padding}>
       {showIcon && <Card.Icon icon={RocketIcon} />}
       <Card.Heading>Playground Card</Card.Heading>
       <Card.Description>Experiment with the Card component and its subcomponents.</Card.Description>
@@ -41,6 +42,7 @@ export const Playground: StoryFn<PlaygroundArgs> = ({showIcon, showMetadata}) =>
 Playground.args = {
   showIcon: true,
   showMetadata: true,
+  padding: 'normal',
 }
 
 Playground.argTypes = {
@@ -52,20 +54,9 @@ Playground.argTypes = {
     control: {type: 'boolean'},
     description: 'Show or hide the Card.Metadata subcomponent',
   },
+  padding: {
+    control: {type: 'radio'},
+    options: ['normal', 'none'],
+    description: 'Controls the internal padding of the Card',
+  },
 }
-
-export const CustomContent = () => (
-  <div style={{maxWidth: '400px'}}>
-    <Card>
-      <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-        <strong>Custom Content Card</strong>
-        <p style={{margin: 0}}>This card uses arbitrary custom content instead of the built-in subcomponents.</p>
-        <ul style={{margin: 0, paddingLeft: '16px'}}>
-          <li>Item one</li>
-          <li>Item two</li>
-          <li>Item three</li>
-        </ul>
-      </div>
-    </Card>
-  </div>
-)

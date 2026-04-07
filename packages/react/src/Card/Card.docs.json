@@ -20,6 +20,12 @@
       "name": "className",
       "type": "string",
       "description": "CSS class name(s) for custom styling."
+    },
+    {
+      "name": "padding",
+      "type": "'normal' | 'none'",
+      "defaultValue": "'normal'",
+      "description": "Controls the internal padding of the Card."
     }
   ],
   "subcomponents": [

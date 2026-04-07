@@ -8,6 +8,12 @@ export type CardProps = React.ComponentPropsWithoutRef<'div'> & {
    * the Card
    */
   className?: string
+
+  /**
+   * Controls the internal padding of the Card.
+   * @default 'normal'
+   */
+  padding?: 'normal' | 'none'
 }
 
 type HeadingLevel = 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
@@ -55,7 +61,10 @@ type MetadataProps = React.ComponentPropsWithoutRef<'div'> & {
   children: React.ReactNode
 }
 
-const CardImpl = forwardRef<HTMLDivElement, CardProps>(function Card({children, className, ...rest}, ref) {
+const CardImpl = forwardRef<HTMLDivElement, CardProps>(function Card(
+  {children, className, padding = 'normal', ...rest},
+  ref,
+) {
   let icon: React.ReactNode = null
   let image: React.ReactNode = null
   let heading: React.ReactNode = null
@@ -87,14 +96,14 @@ const CardImpl = forwardRef<HTMLDivElement, CardProps>(function Card({children, 
 
   if (!hasSlotChildren) {
     return (
-      <div ref={ref} className={clsx(classes.Card, className)} {...rest}>
+      <div ref={ref} className={clsx(classes.Card, className)} data-padding={padding} {...rest}>
         {children}
       </div>
     )
   }
 
   return (
-    <div ref={ref} className={clsx(classes.Card, className)} {...rest}>
+    <div ref={ref} className={clsx(classes.Card, className)} data-padding={padding} {...rest}>
       {(image || icon) && (
         <div className={clsx(classes.CardHeader, image && classes.CardHeaderEdgeToEdge)}>{image || icon}</div>
       )}
