@@ -148,6 +148,10 @@ export type SelectPanelNextMultiProps = SelectPanelPropsWithoutSelection &
 
 export type SelectPanelNextProps = SelectPanelNextSingleProps | SelectPanelNextMultiProps
 
+export function isMultiSelectProps(props: SelectPanelProps): props is SelectPanelProps & SelectPanelMultiSelection {
+  return isMultiSelectVariant(props.selected)
+}
+
 export function isMultiSelectVariant(
   selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected'],
 ): selected is SelectPanelMultiSelection['selected'] {

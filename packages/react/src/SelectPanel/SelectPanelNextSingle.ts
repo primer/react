@@ -4,7 +4,6 @@ import type {SelectPanelProps} from './SelectPanel.shared'
 import {buildSingleItemsToRender} from './SelectPanelNext.single.utils'
 
 export interface SelectPanelNextSingleModeConfig {
-  ariaMultiselectable: 'false'
   isMultiSelect: false
   itemsToRender: ItemProps[]
   selectionVariant: 'single' | 'radio'
@@ -32,7 +31,6 @@ export function getSelectPanelNextSingleModeConfig({
   shouldOrderSelectedFirst: boolean
 }): SelectPanelNextSingleModeConfig {
   return {
-    ariaMultiselectable: 'false',
     isMultiSelect: false,
     selectionVariant: isSingleSelectModal ? 'radio' : 'single',
     itemsToRender: buildSingleItemsToRender({

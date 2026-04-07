@@ -6,6 +6,8 @@ import {describe, expect, it, vi} from 'vitest'
 import {FeatureFlags} from '../FeatureFlags'
 import FormControl from '../FormControl'
 import {SelectPanel, type ItemInput} from '../SelectPanel'
+import {getSelectPanelNextMultiModeConfig, handleSelectAllChange} from './SelectPanelNextMulti'
+import {getSelectPanelNextSingleModeConfig, handleSingleModeSave} from './SelectPanelNextSingle'
 import {createInitialSelectPanelNextState, selectPanelNextReducer} from './SelectPanelNext.state'
 import {getFooterLayout} from './SelectPanelNext.utils'
 
@@ -66,6 +68,68 @@ describe('SelectPanelNext', () => {
       showCancelAndSave: false,
       showSaveAndClose: true,
     })
+  })
+
+  it('builds mode-specific configuration for single and multi controllers', () => {
+    const onIntermediateSelectedChange = vi.fn()
+    const onSingleSelectedChange = vi.fn()
+    const onSelectionClose = vi.fn()
+
+    const singleModeConfig = getSelectPanelNextSingleModeConfig({
+      intermediateSelected: items[0],
+      isSingleSelectModal: true,
+      items,
+      onIntermediateSelectedChange,
+      onSelectedChange: onSingleSelectedChange,
+      onSelectionClose,
+      selected: items[0],
+      selectedOnSort: [items[0]],
+      shouldOrderSelectedFirst: true,
+    })
+
+    expect(singleModeConfig.selectionVariant).toBe('radio')
+    expect(singleModeConfig.itemsToRender).toHaveLength(items.length)
+
+    const onMultiSelectedChange = vi.fn()
+    const multiModeConfig = getSelectPanelNextMultiModeConfig({
+      items,
+      onSelectedChange: onMultiSelectedChange,
+      selected: [items[0]],
+      selectedOnSort: [items[0]],
+      shouldOrderSelectedFirst: true,
+    })
+
+    expect(multiModeConfig.selectionVariant).toBe('multiple')
+    expect(multiModeConfig.itemsToRender[0]).toMatchObject({selected: true})
+  })
+
+  it('routes controller actions for Save and Select all', () => {
+    const onSingleClose = vi.fn()
+    const onSingleSelectedChange = vi.fn()
+
+    handleSingleModeSave({
+      intermediateSelected: items[1],
+      isSingleSelectModal: true,
+      onClose: onSingleClose,
+      onSelectedChange: onSingleSelectedChange,
+      variant: 'modal',
+    })
+
+    expect(onSingleSelectedChange).toHaveBeenCalledWith(items[1])
+    expect(onSingleClose).toHaveBeenCalledWith('selection')
+
+    const onMultiSelectedChange = vi.fn()
+    const itemsInViewSet = new Set<string | number | ItemInput>([1, 2])
+
+    handleSelectAllChange({
+      checked: true,
+      items: [items[0], items[1]],
+      itemsInViewSet,
+      onSelectedChange: onMultiSelectedChange,
+      selected: [items[2]],
+    })
+
+    expect(onMultiSelectedChange).toHaveBeenCalledWith([items[2], items[0], items[1]])
   })
 
   it('defers single-select modal commits until Save and discards them on Cancel', async () => {

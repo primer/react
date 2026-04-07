@@ -8,7 +8,6 @@ import {
 } from './SelectPanelNext.multi.utils'
 
 export interface SelectPanelNextMultiModeConfig {
-  ariaMultiselectable: 'true'
   isMultiSelect: true
   itemsToRender: ItemProps[]
   selectionVariant: 'multiple'
@@ -30,7 +29,6 @@ export function getSelectPanelNextMultiModeConfig({
   const selectedItemsSet = getSelectedItemsSet(selected)
 
   return {
-    ariaMultiselectable: 'true',
     isMultiSelect: true,
     selectionVariant: 'multiple',
     itemsToRender: buildMultiItemsToRender({
