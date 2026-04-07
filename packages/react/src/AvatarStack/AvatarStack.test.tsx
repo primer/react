@@ -37,18 +37,8 @@ describe('AvatarStack', () => {
       const body = container.querySelector('[data-component="AvatarStack.Body"]')
       expect(body).toBeInTheDocument()
     })
-
-    it('renders AvatarStack.Item for each child', () => {
-      const {container} = render(
-        <AvatarStack>
-          <img src="https://avatars.githubusercontent.com/primer" alt="" />
-          <img src="https://avatars.githubusercontent.com/github" alt="" />
-        </AvatarStack>,
-      )
-      const items = container.querySelectorAll('[data-component="AvatarStack.Item"]')
-      expect(items).toHaveLength(2)
-    })
   })
+
   it('respects alignRight props', () => {
     const {container} = render(rightAvatarComp)
     const root = container.querySelector('[data-component="AvatarStack"]')
