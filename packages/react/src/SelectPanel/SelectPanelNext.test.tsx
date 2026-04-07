@@ -6,6 +6,7 @@ import {describe, expect, it, vi} from 'vitest'
 import {FeatureFlags} from '../FeatureFlags'
 import FormControl from '../FormControl'
 import {SelectPanel, type ItemInput} from '../SelectPanel'
+import {implementsClassName} from '../utils/testing'
 import {getSelectPanelNextMultiModeConfig, handleSelectAllChange} from './SelectPanelNextMulti'
 import {getSelectPanelNextSingleModeConfig, handleSingleModeSave} from './SelectPanelNextSingle'
 import {createInitialSelectPanelNextState, selectPanelNextReducer} from './SelectPanelNext.state'
@@ -22,6 +23,22 @@ function renderWithNextFlag(element: React.ReactElement) {
 }
 
 describe('SelectPanelNext', () => {
+  implementsClassName(props => (
+    <FeatureFlags flags={{primer_react_select_panel_next: true}}>
+      <SelectPanel
+        title="Select items"
+        placeholder="Select items"
+        items={items}
+        selected={[]}
+        onSelectedChange={() => {}}
+        open={true}
+        onOpenChange={() => {}}
+        onFilterChange={() => {}}
+        {...props}
+      />
+    </FeatureFlags>
+  ))
+
   it('tracks reducer transitions for loading, sorting, and modal selection state', () => {
     const initialState = createInitialSelectPanelNextState({selected: items[0]})
 
