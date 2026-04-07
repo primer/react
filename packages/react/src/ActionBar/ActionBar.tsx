@@ -143,6 +143,9 @@ export type ActionBarMenuProps = {
 
 const ActionBarItemsRegistry = createDescendantRegistry<ChildProps | null>()
 
+const FOCUSABLE_ITEM_SELECTOR =
+  ':is(button, a, input, [tabindex]):not(:disabled):not([data-overflowing]):not([data-more-button-inactive])'
+
 const renderMenuItem = (item: ActionBarMenuItemProps, index: number): React.ReactNode => {
   if (item.type === 'divider') {
     return <ActionList.Divider key={index} />
@@ -218,11 +221,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     // allow focusing at all. So we disable it when every item is overflowed (meaning there's only the overflow menu anchor)
     disabled: childRegistry?.values().every(v => v !== null),
     getNextFocusable: (direction, from) => {
-      const items = Array.from(
-        listRef.current?.querySelectorAll<HTMLElement>(
-          ':is(button, a, input, [tabindex]):not(:disabled):not([data-overflowing]):not([data-more-button-inactive])',
-        ) ?? [],
-      )
+      const items = Array.from(listRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE_ITEM_SELECTOR) ?? [])
       const fromIndex = from ? items.indexOf(from as HTMLElement) : -1
 
       switch (direction) {
@@ -235,6 +234,11 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
         case 'previous':
           return items[fromIndex - 1] ?? items.at(-1)
       }
+    },
+    focusInStrategy: previous => {
+      // If the last focused item has overflowed, focus the first item in the toolbar instead
+      if (previous.matches(FOCUSABLE_ITEM_SELECTOR) && previous instanceof HTMLElement) return previous
+      return listRef.current?.querySelector(FOCUSABLE_ITEM_SELECTOR) ?? undefined
     },
   })
 
