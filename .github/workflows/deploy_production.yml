@@ -5,6 +5,12 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      force_deploy:
+        description: 'Force deployment (bypass changeset guard)'
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -17,8 +23,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       # To avoid deploying documentation for unrelease changes, we check the number of changeset files.
-      # If it's 0, we deploy.
-      should_deploy: ${{ steps.changeset-count.outputs.change_count == 0 && steps.has-pages.outputs.pages == 1 }}
+      # If it's 0, we deploy. Can be bypassed with force_deploy input.
+      should_deploy: ${{ inputs.force_deploy == true || (steps.changeset-count.outputs.change_count == 0 && steps.has-pages.outputs.pages == 1) }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
 
