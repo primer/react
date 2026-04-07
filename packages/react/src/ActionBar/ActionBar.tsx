@@ -511,8 +511,6 @@ export const ActionBarIconButton = forwardRef(
         size={size}
         onClick={clickHandler}
         {...props}
-        // TODO: does this make sense? it'll override IconButton's data-component
-        data-component="ActionBar.IconButton"
         variant="invisible"
       />
     )
@@ -578,8 +576,8 @@ export const ActionBarMenu = forwardRef(
             aria-label={ariaLabel}
             icon={icon}
             {...props}
-            // TODO: does this make sense? it'll override IconButton's data-component
-            data-component="ActionBar.Menu"
+            // overriding IconButton's data-component so that the ActionBar's "More Menu" Icon can be targetted specifically
+            data-component="ActionBar.Menu.IconButton"
           />
         </ActionMenu.Anchor>
         <ActionMenu.Overlay {...(returnFocusRef && {returnFocusRef})}>

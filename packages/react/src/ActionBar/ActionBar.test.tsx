@@ -438,7 +438,7 @@ describe('ActionBar data-component attributes', () => {
     )
 
     const iconButton = screen.getByRole('button', {name: 'Bold'})
-    expect(iconButton).toHaveAttribute('data-component', 'ActionBar.IconButton')
+    expect(iconButton).toHaveAttribute('data-component', 'IconButton')
   })
 
   it('renders ActionBar.VerticalDivider with data-component attribute', () => {
@@ -476,6 +476,6 @@ describe('ActionBar data-component attributes', () => {
     )
 
     const menuButton = screen.getByRole('button', {name: 'More options'})
-    expect(menuButton).toHaveAttribute('data-component', 'ActionBar.Menu')
+    expect(menuButton).toHaveAttribute('data-component', 'ActionBar.Menu.IconButton')
   })
 })
