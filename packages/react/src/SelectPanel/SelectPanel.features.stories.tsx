@@ -1,6 +1,7 @@
 import React, {useState, useRef, useEffect} from 'react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Button} from '../Button'
+import {FeatureFlags} from '../FeatureFlags'
 import type {ItemInput, GroupedListProps} from '.'
 import Link from '../Link'
 import {SelectPanel, type SelectPanelProps} from './SelectPanel'
@@ -330,6 +331,42 @@ export const WithSecondaryActionLink = () => {
         message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
+  )
+}
+
+export const NextArchitecturePreview = () => {
+  const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
+  const [filter, setFilter] = useState('')
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+
+  return (
+    <FeatureFlags flags={{primer_react_select_panel_next: true}}>
+      <FormControl>
+        <FormControl.Label>Labels</FormControl.Label>
+        <SelectPanel
+          title="Select labels"
+          subtitle="Preview the new SelectPanel architecture behind its feature flag"
+          placeholder="Select labels"
+          renderAnchor={({children, ...anchorProps}) => (
+            <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+              {children}
+            </Button>
+          )}
+          open={open}
+          onOpenChange={setOpen}
+          items={filteredItems}
+          selected={selected}
+          onSelectedChange={setSelected}
+          onFilterChange={setFilter}
+          width="medium"
+          onCancel={() => setOpen(false)}
+          secondaryAction={<SelectPanel.SecondaryActionButton>Edit labels</SelectPanel.SecondaryActionButton>}
+          notice={{text: 'This story is rendered with primer_react_select_panel_next enabled.', variant: 'info'}}
+          message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+        />
+      </FormControl>
+    </FeatureFlags>
   )
 }
 
