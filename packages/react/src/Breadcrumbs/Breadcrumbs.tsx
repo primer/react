@@ -168,14 +168,15 @@ function Breadcrumbs({
   const wrappedChildren = React.Children.toArray(children)
     .filter(child => React.isValidElement(child))
     .map((child, index, arr) => {
+      const applyNarrow = arr.length > 1
       const isLast = index === arr.length - 1
-      const isVisibleOnNarrow = index >= arr.length - 1 - visibleCountOnNarrow && !isLast
-      const isLastVisibleOnNarrow = index === arr.length - 2
+      const isVisibleOnNarrow = applyNarrow && index >= arr.length - 1 - visibleCountOnNarrow && !isLast
+      const isLastVisibleOnNarrow = applyNarrow && index === arr.length - 2
       return (
         <li
           className={classes.ItemWrapper}
           key={index}
-          data-narrow-hidden={isVisibleOnNarrow ? undefined : ''}
+          data-narrow-hidden={isVisibleOnNarrow ? undefined : applyNarrow ? '' : undefined}
           data-narrow-last={isLastVisibleOnNarrow ? '' : undefined}
         >
           {child}
@@ -322,14 +323,15 @@ function Breadcrumbs({
       if (overflow === 'wrap' || menuItems.length === 0) {
         const validChildren = React.Children.toArray(children).filter(child => React.isValidElement(child))
         return validChildren.map((child, index) => {
+          const applyNarrow = validChildren.length > 1
           const isLast = index === validChildren.length - 1
-          const isVisibleOnNarrow = index >= validChildren.length - 1 - visibleCountOnNarrow && !isLast
-          const isLastVisibleOnNarrow = index === validChildren.length - 2
+          const isVisibleOnNarrow = applyNarrow && index >= validChildren.length - 1 - visibleCountOnNarrow && !isLast
+          const isLastVisibleOnNarrow = applyNarrow && index === validChildren.length - 2
           return (
             <li
               className={classes.ItemWrapper}
               key={index}
-              data-narrow-hidden={isVisibleOnNarrow ? undefined : ''}
+              data-narrow-hidden={isVisibleOnNarrow ? undefined : applyNarrow ? '' : undefined}
               data-narrow-last={isLastVisibleOnNarrow ? '' : undefined}
             >
               {child}

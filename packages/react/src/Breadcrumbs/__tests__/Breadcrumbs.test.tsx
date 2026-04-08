@@ -696,5 +696,18 @@ describe('Breadcrumbs', () => {
       // Components (current page): hidden on narrow
       expect(items[2]).toHaveAttribute('data-narrow-hidden')
     })
+
+    it('does not hide the only item when there is a single breadcrumb', () => {
+      const {container} = renderWithTheme(
+        <Breadcrumbs>
+          <Breadcrumbs.Item href="/alerts">Alerts</Breadcrumbs.Item>
+        </Breadcrumbs>,
+      )
+
+      const items = container.querySelectorAll('li')
+      expect(items).toHaveLength(1)
+      // Single item should NOT be hidden on narrow
+      expect(items[0]).not.toHaveAttribute('data-narrow-hidden')
+    })
   })
 })
