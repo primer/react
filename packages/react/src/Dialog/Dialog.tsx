@@ -1,13 +1,12 @@
 import React, {useCallback, useEffect, useRef, useState, type SyntheticEvent} from 'react'
 import type {ButtonProps} from '../Button'
 import {Button, IconButton} from '../Button'
-import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
+import {useMergedRefs, useOnEscapePress} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
 import Portal from '../Portal'
-import {useMergedRefs} from '../hooks/useMergedRefs'
 import {useId} from '../hooks/useId'
 import {ScrollableRegion} from '../ScrollableRegion'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
@@ -455,7 +454,8 @@ const Footer = React.forwardRef<HTMLDivElement, StyledFooterProps>(function Foot
 Footer.displayName = 'Dialog.Footer'
 
 const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
-  const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
+  const autoFocusRef = useRef<HTMLButtonElement>(null)
+  const mergedRef = useMergedRefs(autoFocusRef, buttons.find(button => button.autoFocus)?.ref)
   let autoFocusCount = 0
   const [hasRendered, setHasRendered] = useState(0)
   useEffect(() => {
@@ -477,8 +477,7 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
             {...buttonProps}
             // 'normal' value is equivalent to 'default', this is used for backwards compatibility
             variant={buttonType === 'normal' ? 'default' : buttonType}
-            // @ts-expect-error it needs a non nullable ref
-            ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
+            ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, mergedRef) : null}
           >
             {content}
           </Button>

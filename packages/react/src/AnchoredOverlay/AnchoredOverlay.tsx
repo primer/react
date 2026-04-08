@@ -7,7 +7,7 @@ import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useFocusZone} from '../hooks/useFocusZone'
-import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
+import {useAnchoredPosition, useMergedRefs, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
 import {useId} from '../hooks/useId'
 import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {type ResponsiveValue} from '../hooks/useResponsiveValue'
@@ -176,6 +176,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   const cssAnchorPositioning = useFeatureFlag('primer_react_css_anchor_positioning')
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
+  const mergedOverlayRef = useMergedRefs(updateOverlayRef, overlayProps?.ref)
   const anchorId = useId(externalAnchorId)
 
   const onClickOutside = useCallback(() => onClose?.('click-outside'), [onClose])
@@ -331,12 +332,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           {...(cssAnchorPositioning ? {popover: 'manual'} : {})}
           {...restOverlayProps}
           {...(cssAnchorPositioning ? {id: popoverId} : {})}
-          ref={node => {
-            if (overlayProps?.ref) {
-              assignRef(overlayProps.ref, node)
-            }
-            updateOverlayRef(node)
-          }}
+          ref={mergedOverlayRef}
           data-anchor-position={cssAnchorPositioning}
           data-side={cssAnchorPositioning ? side : position?.anchorSide}
         >
@@ -363,17 +359,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       ) : null}
     </>
   )
-}
-
-function assignRef<T>(
-  ref: React.MutableRefObject<T | null> | ((instance: T | null) => void) | null | undefined,
-  value: T | null,
-) {
-  if (typeof ref === 'function') {
-    ref(value)
-  } else if (ref) {
-    ref.current = value
-  }
 }
 
 AnchoredOverlay.displayName = 'AnchoredOverlay'
