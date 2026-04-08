@@ -317,6 +317,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
       <li
         {...containerProps}
         ref={listSemantics ? forwardedRef : null}
+        data-component="ActionList.Item"
         data-variant={variant === 'danger' ? variant : undefined}
         data-active={active ? true : undefined}
         data-inactive={inactiveText ? true : undefined}
@@ -347,13 +348,14 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
               >
                 {slots.leadingVisual}
               </VisualOrIndicator>
+              {/* TODO: next-major: change to data-component="ActionList.Item.DividerContainer" next major version */}
               <span className={classes.ActionListSubContent} data-component="ActionList.Item--DividerContainer">
                 <ConditionalWrapper
                   if={!!slots.description}
                   className={classes.ItemDescriptionWrap}
                   data-description-variant={descriptionVariant}
                 >
-                  <span id={labelId} className={classes.ItemLabel}>
+                  <span id={labelId} className={classes.ItemLabel} data-component="ActionList.Item.Label">
                     {childrenWithoutSlots}
                     {/* Loading message needs to be in here so it is read with the label */}
                     {/* If the item is inactive, we do not simultaneously announce that it is loading */}
