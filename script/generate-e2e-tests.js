@@ -294,15 +294,15 @@ const components = new Map([
     {
       stories: [
         {
-          id: 'components-card--default',
+          id: 'experimental-components-card--default',
           name: 'Default',
         },
         {
-          id: 'components-card-features--with-image',
+          id: 'experimental-components-card-features--with-image',
           name: 'With Image',
         },
         {
-          id: 'components-card-features--with-metadata',
+          id: 'experimental-components-card-features--with-metadata',
           name: 'With Metadata',
         },
       ],

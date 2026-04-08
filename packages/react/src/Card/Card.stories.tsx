@@ -3,7 +3,7 @@ import {RocketIcon} from '@primer/octicons-react'
 import {Card} from './index'
 
 const meta = {
-  title: 'Components/Card',
+  title: 'Experimental/Components/Card',
   component: Card,
 } satisfies Meta<typeof Card>
 

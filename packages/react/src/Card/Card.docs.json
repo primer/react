@@ -6,13 +6,13 @@
   "importPath": "@primer/react/experimental",
   "stories": [
     {
-      "id": "components-card--default"
+      "id": "experimental-components-card--default"
     },
     {
-      "id": "components-card-features--with-image"
+      "id": "experimental-components-card-features--with-image"
     },
     {
-      "id": "components-card-features--with-metadata"
+      "id": "experimental-components-card-features--with-metadata"
     }
   ],
   "props": [

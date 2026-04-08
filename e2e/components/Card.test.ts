@@ -8,7 +8,7 @@ test.describe('Card', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-card--default',
+            id: 'experimental-components-card--default',
             globals: {
               colorScheme: theme,
             },
@@ -26,7 +26,7 @@ test.describe('Card', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-card-features--with-image',
+            id: 'experimental-components-card-features--with-image',
             globals: {
               colorScheme: theme,
             },
@@ -44,7 +44,7 @@ test.describe('Card', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-card-features--with-metadata',
+            id: 'experimental-components-card-features--with-metadata',
             globals: {
               colorScheme: theme,
             },
