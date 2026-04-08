@@ -150,7 +150,6 @@ describe('Autocomplete', () => {
       const inputNode = getByLabelText(AUTOCOMPLETE_LABEL)
 
       expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
-      inputNode.focus()
       fireEvent.click(inputNode)
       fireEvent.keyDown(inputNode, {key: 'ArrowDown'})
 

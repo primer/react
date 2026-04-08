@@ -8,9 +8,9 @@ type InputOrButtonRef = RefObject<HTMLInputElement & HTMLButtonElement>
 const Component = forwardRef<HTMLInputElement & HTMLButtonElement, {asButton?: boolean}>(({asButton}, forwardedRef) => {
   const ref: InputOrButtonRef = React.useRef(null)
 
-  const mergedRef = useMergedRefs(forwardedRef, ref)
+  const combinedRef = useMergedRefs(forwardedRef, ref)
 
-  return asButton ? <button type="button" ref={mergedRef} /> : <input ref={mergedRef} />
+  return asButton ? <button type="button" ref={combinedRef} /> : <input ref={combinedRef} />
 })
 
 describe('useMergedRefs', () => {
