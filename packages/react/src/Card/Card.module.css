@@ -14,6 +14,11 @@
     padding: var(--stack-padding-spacious);
   }
 
+  &[data-padding='condensed'] {
+    /* stylelint-disable-next-line primer/spacing */
+    padding: var(--stack-padding-condensed);
+  }
+
   &[data-padding='none'] {
     padding: 0;
   }

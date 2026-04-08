@@ -3,7 +3,7 @@
   "name": "Card",
   "status": "draft",
   "a11yReviewed": false,
-  "importPath": "@primer/react",
+  "importPath": "@primer/react/experimental",
   "stories": [
     {
       "id": "components-card--default"
@@ -23,7 +23,7 @@
     },
     {
       "name": "padding",
-      "type": "'normal' | 'none'",
+      "type": "'none' | 'condensed' | 'normal'",
       "defaultValue": "'normal'",
       "description": "Controls the internal padding of the Card."
     }

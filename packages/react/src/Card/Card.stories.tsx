@@ -56,7 +56,7 @@ Playground.argTypes = {
   },
   padding: {
     control: {type: 'radio'},
-    options: ['normal', 'none'],
+    options: ['none', 'condensed', 'normal'],
     description: 'Controls the internal padding of the Card',
   },
 }

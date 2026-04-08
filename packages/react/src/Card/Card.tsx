@@ -13,7 +13,7 @@ export type CardProps = React.ComponentPropsWithoutRef<'div'> & {
    * Controls the internal padding of the Card.
    * @default 'normal'
    */
-  padding?: 'normal' | 'none'
+  padding?: 'none' | 'condensed' | 'normal'
 }
 
 type HeadingLevel = 'h2' | 'h3' | 'h4' | 'h5' | 'h6'

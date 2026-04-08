@@ -78,16 +78,6 @@ export {default as AvatarStack} from './AvatarStack'
 export type {AvatarStackProps} from './AvatarStack'
 export {Banner} from './Banner'
 export type {BannerProps} from './Banner'
-export {Card} from './Card'
-export type {
-  CardProps,
-  CardIconProps,
-  CardImageProps,
-  CardHeadingProps,
-  CardDescriptionProps,
-  CardMenuProps,
-  CardMetadataProps,
-} from './Card'
 
 export {default as BranchName} from './BranchName'
 export type {BranchNameProps} from './BranchName'
