@@ -217,9 +217,9 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     containerRef: listRef,
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
     focusOutBehavior: 'wrap',
-    // useFocusZone seems to have a bug where if you define getNextFocusable and there's only a single item, it doesn't
-    // allow focusing at all. So we disable it when every item is overflowed (meaning there's only the overflow menu anchor)
-    disabled: childRegistry?.values().every(v => v !== null),
+    // Ensure that hidden (overflowing) items are excluded from the elements list
+    strict: true,
+    // Even with strict: true, the focus zone still gets confused when there's hidden items, so we have to define our own `getNextFocusable`
     getNextFocusable: (direction, from) => {
       const items = Array.from(listRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE_ITEM_SELECTOR) ?? [])
       const fromIndex = from ? items.indexOf(from as HTMLElement) : -1
@@ -234,11 +234,6 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
         case 'previous':
           return items[fromIndex - 1] ?? items.at(-1)
       }
-    },
-    focusInStrategy: previous => {
-      // If the last focused item has overflowed, focus the first item in the toolbar instead
-      if (previous.matches(FOCUSABLE_ITEM_SELECTOR) && previous instanceof HTMLElement) return previous
-      return listRef.current?.querySelector(FOCUSABLE_ITEM_SELECTOR) ?? undefined
     },
   })
 
