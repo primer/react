@@ -48,11 +48,7 @@ const LinkItemComponent = fixedForwardRef(
             props.onClick && props.onClick(event as React.MouseEvent<HTMLAnchorElement>)
           }
           if (inactiveText) {
-            return (
-              <span {...rest} data-component="ActionList.LinkItem">
-                {children}
-              </span>
-            )
+            return <span {...rest}>{children}</span>
           }
 
           // Type safety for the polymorphic `as` prop is enforced at the
@@ -61,14 +57,7 @@ const LinkItemComponent = fixedForwardRef(
           // constraint across two polymorphic layers.
           const InternalLink: React.ElementType = Link
           return (
-            <InternalLink
-              as={Component}
-              {...rest}
-              {...props}
-              onClick={clickHandler}
-              ref={forwardedRef}
-              data-component="ActionList.LinkItem"
-            >
+            <InternalLink as={Component} {...rest} {...props} onClick={clickHandler} ref={forwardedRef}>
               {children}
             </InternalLink>
           )

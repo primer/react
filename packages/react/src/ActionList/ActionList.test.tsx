@@ -282,6 +282,17 @@ describe('ActionList data-component attributes', () => {
     expect(item).toBeInTheDocument()
   })
 
+  it('renders ActionList.Item.Wrapper with data-component attribute', () => {
+    const {container} = HTMLRender(
+      <ActionList aria-label="List">
+        <ActionList.Item>Item</ActionList.Item>
+      </ActionList>,
+    )
+
+    const wrapper = container.querySelector('[data-component="ActionList.Item.Wrapper"]')
+    expect(wrapper).toBeInTheDocument()
+  })
+
   it('renders ActionList.Item.Label with data-component attribute', () => {
     const {container} = HTMLRender(
       <ActionList aria-label="List">
@@ -316,20 +327,6 @@ describe('ActionList data-component attributes', () => {
 
     const group = container.querySelector('[data-component="ActionList.Group"]')
     expect(group).toBeInTheDocument()
-  })
-
-  it('renders ActionList.GroupHeading with data-component attribute', () => {
-    const {container} = HTMLRender(
-      <ActionList aria-label="List">
-        <ActionList.Group>
-          <ActionList.GroupHeading as="h3">Group</ActionList.GroupHeading>
-          <ActionList.Item>Item</ActionList.Item>
-        </ActionList.Group>
-      </ActionList>,
-    )
-
-    const headingWrap = container.querySelector('[data-component="ActionList.GroupHeading"]')
-    expect(headingWrap).toBeInTheDocument()
   })
 
   it('renders ActionList.GroupHeading with data-component attribute', () => {
@@ -436,16 +433,5 @@ describe('ActionList data-component attributes', () => {
 
     const trailingAction = container.querySelector('[data-component="ActionList.TrailingAction"]')
     expect(trailingAction).toBeInTheDocument()
-  })
-
-  it('renders ActionList.LinkItem with data-component attribute', () => {
-    const {container} = HTMLRender(
-      <ActionList aria-label="List">
-        <ActionList.LinkItem href="//github.com">Link Item</ActionList.LinkItem>
-      </ActionList>,
-    )
-
-    const linkItem = container.querySelector('[data-component="ActionList.LinkItem"]')
-    expect(linkItem).toBeInTheDocument()
   })
 })
