@@ -431,14 +431,14 @@ describe('ActionBar data-component attributes', () => {
   })
 
   it('renders ActionBar.IconButton with data-component attribute', () => {
-    render(
+    const {container} = render(
       <ActionBar aria-label="Toolbar">
         <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
       </ActionBar>,
     )
 
-    const iconButton = screen.getByRole('button', {name: 'Bold'})
-    expect(iconButton).toHaveAttribute('data-component', 'IconButton')
+    const iconButton = container.querySelector('[data-component="ActionBar"] [data-component="IconButton"]')
+    expect(iconButton).toBeInTheDocument()
   })
 
   it('renders ActionBar.VerticalDivider with data-component attribute', () => {
@@ -468,7 +468,7 @@ describe('ActionBar data-component attributes', () => {
     expect(group).toBeInTheDocument()
   })
 
-  it('renders ActionBar.Menu with data-component attribute', () => {
+  it('renders ActionBar.Menu.IconButton with data-component attribute', () => {
     render(
       <ActionBar aria-label="Toolbar">
         <ActionBar.Menu aria-label="More options" icon={BoldIcon} items={[{label: 'Option 1', onClick: vi.fn()}]} />
