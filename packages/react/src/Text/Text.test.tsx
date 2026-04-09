@@ -114,4 +114,17 @@ describe('Text', () => {
     expect(textElement).toBeInTheDocument()
     expect(textElement).toHaveClass(testClasses.ResponsiveLine)
   })
+
+  it('applies data-white-space attribute when whiteSpace prop is provided', () => {
+    const values = ['pre', 'normal', 'nowrap', 'pre-wrap', 'pre-line'] as const
+    for (const value of values) {
+      const {container} = render(<Text whiteSpace={value}>Text</Text>)
+      expect(container.firstChild).toHaveAttribute('data-white-space', value)
+    }
+  })
+
+  it('does not set data-white-space attribute when whiteSpace prop is omitted', () => {
+    const {container} = render(<Text>Text</Text>)
+    expect(container.firstChild).not.toHaveAttribute('data-white-space')
+  })
 })

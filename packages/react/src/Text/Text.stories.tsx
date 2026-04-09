@@ -14,6 +14,7 @@ Playground.args = {
   as: 'span',
   size: 'medium',
   weight: 'normal',
+  whiteSpace: 'normal',
 }
 
 Playground.argTypes = {
@@ -37,5 +38,11 @@ Playground.argTypes = {
       type: 'radio',
     },
     options: ['light', 'normal', 'medium', 'semibold'],
+  },
+  whiteSpace: {
+    control: {
+      type: 'radio',
+    },
+    options: ['pre', 'normal', 'nowrap', 'pre-wrap', 'pre-line'],
   },
 }
