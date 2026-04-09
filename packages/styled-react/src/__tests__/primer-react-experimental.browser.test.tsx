@@ -1,17 +1,11 @@
 import {render, screen} from '@testing-library/react'
 import {describe, expect, test} from 'vitest'
-import {Dialog, PageHeader, Table, Tooltip} from '../experimental'
+import {Dialog, Table, Tooltip} from '../experimental'
 
 describe('@primer/react/experimental', () => {
   test('Dialog supports `sx` prop', () => {
     render(<Dialog data-testid="component" onClose={() => {}} sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByRole('dialog')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('PageHeader supports `sx` prop', () => {
-    const {container} = render(<PageHeader as="div" data-testid="component" sx={{background: 'red'}} role="article" />)
-    expect(container.firstElementChild!).toHaveAttribute('role', 'article')
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
   test('Table.Container', () => {
