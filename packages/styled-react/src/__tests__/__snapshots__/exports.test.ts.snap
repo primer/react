@@ -28,8 +28,6 @@ exports[`@primer/styled-react exports 1`] = `
   "ThemeProvider",
   "Timeline",
   "ToggleSwitch",
-  "Token",
-  "Tooltip",
   "Truncate",
   "UnderlineNav",
   "useColorSchemeVar",
@@ -43,7 +41,6 @@ exports[`@primer/styled-react/deprecated exports 1`] = `
   "Dialog",
   "Octicon",
   "TabNav",
-  "Tooltip",
 ]
 `;
 
@@ -51,6 +48,5 @@ exports[`@primer/styled-react/experimental exports 1`] = `
 [
   "Dialog",
   "Table",
-  "Tooltip",
 ]
 `;
