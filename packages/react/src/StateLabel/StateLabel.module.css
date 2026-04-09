@@ -120,6 +120,12 @@
   box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-closed-emphasis, transparent);
 }
 
+.StateLabel:where([data-status='archived']) {
+  background-color: var(--bgColor-neutral-emphasis);
+  color: var(--fgColor-onEmphasis);
+  box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-neutral-emphasis, transparent);
+}
+
 .Icon {
   margin-right: var(--base-size-4);
 }

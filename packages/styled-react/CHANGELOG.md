@@ -1,5 +1,24 @@
 # @primer/styled-react
 
+## 1.0.5
+
+### Patch Changes
+
+- [#7695](https://github.com/primer/react/pull/7695) [`780fc3d`](https://github.com/primer/react/commit/780fc3d7b52fd0f9b63f313af6355398180a0118) Thanks [@mattcosta7](https://github.com/mattcosta7)! - perf(ThemeProvider): Reduce unnecessary renders and effect cascades
+
+  - Replace `useState` + `useEffect` SSR hydration handoff with `useSyncExternalStore` — eliminates post-hydration re-render
+  - Replace `useState` + `useEffect` in `useSystemColorMode` with `useSyncExternalStore` — eliminates effect gap and stale-then-update flicker
+  - Cache `getServerHandoff` DOM read + JSON.parse per ID (runs once, not on every call)
+  - Memoize context value object to prevent unnecessary re-renders of all consumers
+
+## 1.0.4
+
+### Patch Changes
+
+- [#7684](https://github.com/primer/react/pull/7684) [`ced0a71`](https://github.com/primer/react/commit/ced0a7194221bef332131cec40cd1ba2fd190cac) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove Textarea from `@primer/styled-react`
+
+- [#7685](https://github.com/primer/react/pull/7685) [`1c7c598`](https://github.com/primer/react/commit/1c7c59850d0fe26c27d1866799eac04062204b7b) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove Avatar component from @primer/styled-react
+
 ## 1.0.3
 
 ### Patch Changes

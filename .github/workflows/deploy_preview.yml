@@ -74,7 +74,7 @@ jobs:
       deployments: write
     runs-on: ubuntu-latest
     steps:
-      - uses: chrnorm/deployment-action@55729fcebec3d284f60f5bcabbd8376437d696b1
+      - uses: chrnorm/deployment-action@500aa6a23c81ffa1acf71072aee3cfa2cc2e556a
         name: Create GitHub deployment for storybook
         id: storybook
         with:
