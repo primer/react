@@ -18,7 +18,7 @@ export const ActionMenu: typeof PrimerActionMenu & {
   Anchor: typeof PrimerActionMenu.Anchor
   Overlay: typeof ActionMenuOverlay
   Divider: typeof PrimerActionMenu.Divider
-} = Object.assign(PrimerActionMenu, {
+} = Object.assign({}, PrimerActionMenu, {
   Button: PrimerActionMenu.Button,
   Anchor: PrimerActionMenu.Anchor,
   Overlay: ActionMenuOverlay,
