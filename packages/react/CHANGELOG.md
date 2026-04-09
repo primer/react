@@ -1,5 +1,30 @@
 # @primer/react
 
+## 38.19.0
+
+### Minor Changes
+
+- [#7677](https://github.com/primer/react/pull/7677) [`c1a81b1`](https://github.com/primer/react/commit/c1a81b178742ba547b85a3df3ed3c27bcff6b7c5) Thanks [@TylerJDev](https://github.com/TylerJDev)! - AnchoredOverlay: Add Popover API to AnchoredOverlay (behind `primer_react_css_anchor_positioning` feature flag)
+
+- [#7697](https://github.com/primer/react/pull/7697) [`990ce7b`](https://github.com/primer/react/commit/990ce7b625bcf90ef3867e93086d0c74835a9068) Thanks [@hectahertz](https://github.com/hectahertz)! - **Stack**: Add `tight` (4px) and `cozy` (12px) spacing values to `gap` and `padding` props. Add `paddingBlock` and `paddingInline` props for directional padding control.
+
+### Patch Changes
+
+- [#7652](https://github.com/primer/react/pull/7652) [`5d19e2b`](https://github.com/primer/react/commit/5d19e2bb5bbd444f2e82d98eef300c221863941c) Thanks [@owenniblock](https://github.com/owenniblock)! - useAnchoredPosition: recalculate overlay position when any scrollable ancestor (or the window) is scrolled.
+
+- [#7707](https://github.com/primer/react/pull/7707) [`6431bfe`](https://github.com/primer/react/commit/6431bfecd72e24db1dfa90b02f8a42834e63843b) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Fix anchor-name not being set on the anchor element when SelectPanel is opened in Copilot code agent.
+
+- [#7633](https://github.com/primer/react/pull/7633) [`a107d39`](https://github.com/primer/react/commit/a107d398e0574b5f8085485c96b27a168061eb50) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Graduate `primer_react_css_has_selector_perf` feature flag: the CSS `:has()` performance optimization (`body[data-dialog-scroll-disabled]`) is now the default behavior for Dialog scroll disabling
+
+- [#7695](https://github.com/primer/react/pull/7695) [`780fc3d`](https://github.com/primer/react/commit/780fc3d7b52fd0f9b63f313af6355398180a0118) Thanks [@mattcosta7](https://github.com/mattcosta7)! - perf(ThemeProvider): Reduce unnecessary renders and effect cascades
+
+  - Replace `useState` + `useEffect` SSR hydration handoff with `useSyncExternalStore` — eliminates post-hydration re-render
+  - Replace `useState` + `useEffect` in `useSystemColorMode` with `useSyncExternalStore` — eliminates effect gap and stale-then-update flicker
+  - Cache `getServerHandoff` DOM read + JSON.parse per ID (runs once, not on every call)
+  - Memoize context value object to prevent unnecessary re-renders of all consumers
+
+- [#7706](https://github.com/primer/react/pull/7706) [`fd8910a`](https://github.com/primer/react/commit/fd8910abff851f43d19805ceaa439a9a18c4f226) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - ActionList.Item: fix inline descriptions being referenced via `aria-labelledby` instead of `aria-describedby`
+
 ## 38.18.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 import {clsx} from 'clsx'
 import React, {useEffect, type ForwardedRef, type ElementRef} from 'react'
-import {useMergedRefs} from '../hooks'
+import {useRefObjectAsForwardedRef} from '../hooks'
 import classes from './Link.module.css'
 import type {ComponentProps} from '../utils/types'
 import {type PolymorphicProps, fixedForwardRef} from '../utils/modern-polymorphic'
@@ -20,7 +20,7 @@ export const UnwrappedLink = <As extends React.ElementType = 'a'>(
 ) => {
   const {as: Component = 'a', className, inline, muted, hoverColor, ...restProps} = props
   const innerRef = React.useRef<ElementRef<As>>(null)
-  const mergedRef = useMergedRefs(ref, innerRef)
+  useRefObjectAsForwardedRef(ref, innerRef)
 
   if (__DEV__) {
     /**
@@ -53,7 +53,8 @@ export const UnwrappedLink = <As extends React.ElementType = 'a'>(
       data-inline={inline}
       data-hover-color={hoverColor}
       {...restProps}
-      ref={mergedRef}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ref={innerRef as any}
     />
   )
 }
