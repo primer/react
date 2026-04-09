@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@primer/octicons-react": "^19.21.0",
-    "@primer/react": "38.18.0",
-    "@primer/styled-react": "1.0.4",
+    "@primer/react": "38.19.0",
+    "@primer/styled-react": "1.0.5",
     "clsx": "^2.1.1",
     "next": "^16.1.7",
     "react": "^19.2.0",
