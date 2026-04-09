@@ -1,7 +1,7 @@
 import {Table as PrimerDataTable, type TableContainerProps, type TableProps} from '@primer/react/experimental'
 import {sx, type SxProp} from '../sx'
 import styled from 'styled-components'
-import type React from 'react'
+import React from 'react'
 
 const {Container: PrimerDataTableContainer, ...rest} = PrimerDataTable
 
@@ -22,9 +22,9 @@ function DataTableContainer<As extends React.ElementType = 'div'>({as, ...rest}:
 }
 
 // Create a wrapper component to avoid mutating the original PrimerDataTable
-function TableRoot(props: TableProps) {
-  return <PrimerDataTable {...props} />
-}
+const TableRoot = React.forwardRef<HTMLTableElement, TableProps>(function TableRoot(props, ref) {
+  return <PrimerDataTable {...props} ref={ref} />
+})
 ;(TableRoot as typeof TableRoot & {__SLOT__?: symbol}).__SLOT__ = (
   PrimerDataTable as typeof PrimerDataTable & {__SLOT__?: symbol}
 ).__SLOT__
