@@ -374,7 +374,8 @@ function getDefaultPosition(
   if (!overlayWidth || rect.left >= overlayWidth) return null
 
   const horizontal = vw - rect.right >= rect.left ? 'right' : 'left'
-  const offset = overlayWidth - rect.left
+  const viewportMargin = 8
+  const offset = Math.max(0, overlayWidth - rect.right + viewportMargin)
 
   return {horizontal, offset}
 }
