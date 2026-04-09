@@ -19,7 +19,6 @@
     flip-inline,
     flip-block flip-inline;
   position-visibility: anchors-visible;
-  position-try-order: most-inline-size;
   z-index: 100;
   position: fixed !important;
 
@@ -57,11 +56,31 @@
     right: anchor(left);
     top: anchor(top);
     margin-right: var(--base-size-4);
+    position-try-fallbacks: flip-inline, flip-block, flip-start, --outside-left-to-bottom;
   }
 
   &[data-side='outside-right'] {
     left: anchor(right);
     top: anchor(top);
     margin-left: var(--base-size-4);
+    position-try-fallbacks: flip-inline, flip-block, flip-start, --outside-right-to-bottom;
+
+    &[data-align='right'] {
+      left: calc(anchor(right) - var(--anchored-overlay-anchor-offset-right));
+    }
   }
+}
+
+@position-try --outside-left-to-bottom {
+  right: anchor(right);
+  top: calc(anchor(bottom) + var(--base-size-4));
+  margin: 0;
+  width: auto;
+}
+
+@position-try --outside-right-to-bottom {
+  left: anchor(left);
+  top: calc(anchor(bottom) + var(--base-size-4));
+  margin: 0;
+  width: auto;
 }

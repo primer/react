@@ -276,8 +276,12 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       const result = getDefaultPosition(anchorElement, overlayWidth)
 
       if (result) {
-        currentOverlay.setAttribute('data-align', result.horizontal)
-        currentOverlay.style.setProperty('--anchored-overlay-anchor-offset-left', `${result.offset}px`)
+        const {leftOffset, rightOffset} = result
+        const align = leftOffset > 0 ? 'left' : rightOffset > 0 ? 'right' : null
+        if (align) {
+          currentOverlay.setAttribute('data-align', align)
+          currentOverlay.style.setProperty(`--anchored-overlay-anchor-offset-${align}`, `${result[`${align}Offset`]}px`)
+        }
       }
     }
 
@@ -367,7 +371,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 function getDefaultPosition(
   anchorElement: HTMLElement,
   overlayWidth: number | null,
-): {horizontal: 'left' | 'right'; offset: number} | null {
+): {horizontal: 'left' | 'right'; leftOffset: number; rightOffset: number} | null {
   const rect = anchorElement.getBoundingClientRect()
   const vw = window.innerWidth
 
@@ -375,9 +379,10 @@ function getDefaultPosition(
 
   const horizontal = vw - rect.right >= rect.left ? 'right' : 'left'
   const viewportMargin = 8
-  const offset = Math.max(0, overlayWidth - rect.right + viewportMargin)
+  const leftOffset = Math.max(0, overlayWidth - rect.right + viewportMargin)
+  const rightOffset = Math.max(0, rect.right + overlayWidth - vw + viewportMargin)
 
-  return {horizontal, offset}
+  return {horizontal, leftOffset, rightOffset}
 }
 
 function assignRef<T>(
