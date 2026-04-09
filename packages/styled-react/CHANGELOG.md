@@ -1,5 +1,16 @@
 # @primer/styled-react
 
+## 1.0.5
+
+### Patch Changes
+
+- [#7695](https://github.com/primer/react/pull/7695) [`780fc3d`](https://github.com/primer/react/commit/780fc3d7b52fd0f9b63f313af6355398180a0118) Thanks [@mattcosta7](https://github.com/mattcosta7)! - perf(ThemeProvider): Reduce unnecessary renders and effect cascades
+
+  - Replace `useState` + `useEffect` SSR hydration handoff with `useSyncExternalStore` — eliminates post-hydration re-render
+  - Replace `useState` + `useEffect` in `useSystemColorMode` with `useSyncExternalStore` — eliminates effect gap and stale-then-update flicker
+  - Cache `getServerHandoff` DOM read + JSON.parse per ID (runs once, not on every call)
+  - Memoize context value object to prevent unnecessary re-renders of all consumers
+
 ## 1.0.4
 
 ### Patch Changes

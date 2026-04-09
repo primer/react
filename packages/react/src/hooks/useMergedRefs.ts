@@ -17,18 +17,18 @@ import {useCallback} from 'react'
  * // React 18
  * const Example = forwardRef<HTMLButtonElement, {}>((props, forwardedRef) => {
  *  const ref = useRef<HTMLButtonElement>(null)
- *  const mergedRef = useMergedRefs(forwardedRef, ref)
+ *  const combinedRef = useMergedRefs(forwardedRef, ref)
  *
- *  return <button ref={mergedRef} />
+ *  return <button ref={combinedRef} />
  * })
  *
  * @example
  * // React 19
  * const Example = ({ref: externalRef}: {ref?: Ref<HTMLButtonElement>}) => {
  *  const ref = useRef<HTMLButtonElement>(null)
- *  const mergedRef = useMergedRefs(externalRef, ref)
+ *  const combinedRef = useMergedRefs(externalRef, ref)
  *
- *  return <button ref={mergedRef} />
+ *  return <button ref={combinedRef} />
  * }
  */
 export function useMergedRefs<T>(refA: Ref<T | null>, refB: Ref<T | null>) {
