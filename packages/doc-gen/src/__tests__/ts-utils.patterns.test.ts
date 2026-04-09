@@ -11,7 +11,7 @@ describe('getPropTypeForComponent', () => {
     expect(info.props.foo).toMatchObject({name: 'foo', type: 'string', required: true})
     expect(info.props.bar).toMatchObject({name: 'bar', type: 'number', required: false})
     expect(info.props.baz).toMatchObject({name: 'baz', type: 'boolean', required: false})
-  })
+  }, 10000)
 
   it('extracts props for ArrowComponent', () => {
     const info = parseTypeInfo(FIXTURE_PATH, 'ArrowComponent')

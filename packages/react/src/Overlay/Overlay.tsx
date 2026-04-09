@@ -138,6 +138,7 @@ export const BaseOverlay = React.forwardRef(
 
 type ContainerProps = {
   anchorSide?: AnchorSide
+  _PrivateDisablePortal?: boolean
   ignoreClickRefs?: React.RefObject<HTMLElement | null>[]
   initialFocusRef?: React.RefObject<HTMLElement | null>
   onClickOutside: (e: TouchOrMouseEvent) => void
@@ -170,6 +171,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
   (
     {
       anchorSide,
+      _PrivateDisablePortal,
       height = 'auto',
       ignoreClickRefs,
       initialFocusRef,
@@ -190,12 +192,12 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     forwardedRef,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
-    const cssAnchorPositioning = useFeatureFlag('primer_react_css_anchor_positioning')
     const featureFlagMaxHeightClampToViewport = useFeatureFlag('primer_react_overlay_max_height_clamp_to_viewport')
     const overlayRef = useRef<HTMLDivElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, overlayRef)
     const slideAnimationDistance = 8 // var(--base-size-8), hardcoded to do some math
     const slideAnimationEasing = 'cubic-bezier(0.33, 1, 0.68, 1)'
+    const cssAnchorPositioning = useFeatureFlag('primer_react_css_anchor_positioning')
 
     useOverlay({
       overlayRef,
@@ -248,7 +250,13 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
       />
     )
 
-    if (cssAnchorPositioning) {
+    // _PrivateDisablePortal can be used to render the overlay without a Portal.
+    // When using CSS anchor positioning, popovers render in the browser's
+    // top layer which already escapes stacking contexts, so a Portal is
+    // not strictly necessary. However, Portal can still be useful for
+    // style isolation. Defaults to false (Portal enabled) for backwards
+    // compatibility.
+    if (_PrivateDisablePortal && cssAnchorPositioning) {
       return overlayContent
     }
 
