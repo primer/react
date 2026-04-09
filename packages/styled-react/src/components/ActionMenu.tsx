@@ -2,7 +2,7 @@ import {ActionMenu as PrimerActionMenu, type SlotMarker} from '@primer/react'
 import {sx, type SxProp} from '../sx'
 import styled from 'styled-components'
 import type {ComponentProps} from 'react'
-import React from 'react'
+import type React from 'react'
 
 type ActionMenuOverlayProps = ComponentProps<typeof PrimerActionMenu.Overlay> & SxProp
 

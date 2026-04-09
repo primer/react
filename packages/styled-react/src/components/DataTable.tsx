@@ -1,7 +1,7 @@
 import {Table as PrimerDataTable, type TableContainerProps, type TableProps} from '@primer/react/experimental'
 import {sx, type SxProp} from '../sx'
 import styled from 'styled-components'
-import React from 'react'
+import type React from 'react'
 
 const {Container: PrimerDataTableContainer, ...rest} = PrimerDataTable
 
