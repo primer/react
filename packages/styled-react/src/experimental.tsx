@@ -17,32 +17,6 @@ export {
    * @deprecated Usage of the `sx` prop with this component is no longer
    * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
-  PageHeader,
-
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  type PageHeaderProps,
-
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  type PageHeaderActionsProps,
-
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  type PageHeaderTitleProps,
-} from './components/PageHeader'
-
-export {
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
   Tooltip,
 
   /**
