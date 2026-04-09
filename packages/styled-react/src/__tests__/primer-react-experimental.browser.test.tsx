@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react'
 import {describe, expect, test} from 'vitest'
-import {Dialog, Table, Tooltip} from '../experimental'
+import {Dialog, Table} from '../experimental'
 
 describe('@primer/react/experimental', () => {
   test('Dialog supports `sx` prop', () => {

@@ -19,8 +19,6 @@ import {
   Text,
   TextInput,
   Timeline,
-  Token,
-  Tooltip,
   Truncate,
   UnderlineNav,
 } from '../'

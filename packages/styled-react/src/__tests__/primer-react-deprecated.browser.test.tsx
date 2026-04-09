@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react'
 import {describe, expect, test} from 'vitest'
-import {Dialog, Octicon, TabNav, Tooltip} from '../deprecated'
+import {Dialog, Octicon, TabNav} from '../deprecated'
 import {Button} from '../index'
 
 describe('@primer/react/deprecated', () => {
