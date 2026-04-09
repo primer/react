@@ -51,9 +51,9 @@ test.describe('Breadcrumbs', () => {
       const items = page.locator('li')
 
       // "Home" should be hidden, "About" (previous) visible, "Team" (current) hidden
-      await expect(items.nth(0)).not.toBeVisible()
+      await expect(items.nth(0)).toBeHidden()
       await expect(items.nth(1)).toBeVisible()
-      await expect(items.nth(2)).not.toBeVisible()
+      await expect(items.nth(2)).toBeHidden()
     })
 
     test('shows all items on wide viewport @avt', async ({page}) => {
