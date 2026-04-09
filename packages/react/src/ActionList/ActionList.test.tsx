@@ -203,6 +203,42 @@ describe('ActionList', () => {
     expect(descriptions[2]).not.toHaveAttribute('title')
   })
 
+  it('references inline description via aria-describedby', () => {
+    const {container} = HTMLRender(
+      <ActionList role="listbox" selectionVariant="single" aria-label="List">
+        <ActionList.Item role="option">
+          Item label
+          <ActionList.Description>Inline description</ActionList.Description>
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const item = container.querySelector('[role="option"]')!
+    const descriptionEl = container.querySelector('[data-component="ActionList.Description"]')!
+    const descriptionId = descriptionEl.getAttribute('id')!
+
+    expect(item.getAttribute('aria-describedby')).toContain(descriptionId)
+    expect(item.getAttribute('aria-labelledby')).not.toContain(descriptionId)
+  })
+
+  it('references block description via aria-describedby', () => {
+    const {container} = HTMLRender(
+      <ActionList role="listbox" selectionVariant="single" aria-label="List">
+        <ActionList.Item role="option">
+          Item label
+          <ActionList.Description variant="block">Block description</ActionList.Description>
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const item = container.querySelector('[role="option"]')!
+    const descriptionEl = container.querySelector('[data-component="ActionList.Description"]')!
+    const descriptionId = descriptionEl.getAttribute('id')!
+
+    expect(item.getAttribute('aria-describedby')).toContain(descriptionId)
+    expect(item.getAttribute('aria-labelledby')).not.toContain(descriptionId)
+  })
+
   it('should support size prop on LinkItem', () => {
     const {container} = HTMLRender(
       <ActionList>
