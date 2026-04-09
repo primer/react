@@ -111,8 +111,8 @@ export const SpaciousVariantWithOverflowWrap = () => (
   </Breadcrumbs>
 )
 
-export const NarrowVisibleItemsDefault = () => (
-  <Breadcrumbs>
+export const NarrowVisibleItemsCustom = (args: {visibleItemsOnNarrow: number}) => (
+  <Breadcrumbs visibleItemsOnNarrow={args.visibleItemsOnNarrow}>
     <Breadcrumbs.Item href="#">Home</Breadcrumbs.Item>
     <Breadcrumbs.Item href="#">Products</Breadcrumbs.Item>
     <Breadcrumbs.Item href="#">Category</Breadcrumbs.Item>
@@ -125,16 +125,12 @@ export const NarrowVisibleItemsDefault = () => (
   </Breadcrumbs>
 )
 
-export const NarrowVisibleItemsCustom = () => (
-  <Breadcrumbs visibleItemsOnNarrow={3}>
-    <Breadcrumbs.Item href="#">Home</Breadcrumbs.Item>
-    <Breadcrumbs.Item href="#">Products</Breadcrumbs.Item>
-    <Breadcrumbs.Item href="#">Category</Breadcrumbs.Item>
-    <Breadcrumbs.Item href="#">Subcategory</Breadcrumbs.Item>
-    <Breadcrumbs.Item href="#">Item</Breadcrumbs.Item>
-    <Breadcrumbs.Item href="#">Details</Breadcrumbs.Item>
-    <Breadcrumbs.Item href="#" selected>
-      Current Page
-    </Breadcrumbs.Item>
-  </Breadcrumbs>
-)
+NarrowVisibleItemsCustom.args = {
+  visibleItemsOnNarrow: 3,
+}
+
+NarrowVisibleItemsCustom.argTypes = {
+  visibleItemsOnNarrow: {
+    control: {type: 'number', min: 1, max: 6},
+  },
+}

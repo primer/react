@@ -152,6 +152,26 @@ const getValidChildren = (children: React.ReactNode) => {
   return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement<any>[]
 }
 
+function wrapItemsWithNarrowAttrs(children: React.ReactNode, visibleCountOnNarrow: number) {
+  const validChildren = React.Children.toArray(children).filter(child => React.isValidElement(child))
+  return validChildren.map((child, index) => {
+    const applyNarrow = validChildren.length > 1
+    const isLast = index === validChildren.length - 1
+    const isVisibleOnNarrow = applyNarrow && index >= validChildren.length - 1 - visibleCountOnNarrow && !isLast
+    const isLastVisibleOnNarrow = applyNarrow && index === validChildren.length - 2
+    return (
+      <li
+        className={classes.ItemWrapper}
+        key={index}
+        data-narrow-hidden={isVisibleOnNarrow ? undefined : applyNarrow ? '' : undefined}
+        data-narrow-last={isLastVisibleOnNarrow ? '' : undefined}
+      >
+        {child}
+      </li>
+    )
+  })
+}
+
 function Breadcrumbs({
   className,
   children,
@@ -165,24 +185,7 @@ function Breadcrumbs({
   const childArray = useMemo(() => getValidChildren(children), [children])
   const visibleCountOnNarrow = Math.max(1, Math.min(visibleItemsOnNarrow, childArray.length - 1))
 
-  const wrappedChildren = React.Children.toArray(children)
-    .filter(child => React.isValidElement(child))
-    .map((child, index, arr) => {
-      const applyNarrow = arr.length > 1
-      const isLast = index === arr.length - 1
-      const isVisibleOnNarrow = applyNarrow && index >= arr.length - 1 - visibleCountOnNarrow && !isLast
-      const isLastVisibleOnNarrow = applyNarrow && index === arr.length - 2
-      return (
-        <li
-          className={classes.ItemWrapper}
-          key={index}
-          data-narrow-hidden={isVisibleOnNarrow ? undefined : applyNarrow ? '' : undefined}
-          data-narrow-last={isLastVisibleOnNarrow ? '' : undefined}
-        >
-          {child}
-        </li>
-      )
-    })
+  const wrappedChildren = wrapItemsWithNarrowAttrs(children, visibleCountOnNarrow)
 
   const measureMenuButton = useCallback((element: HTMLDetailsElement | null) => {
     if (element) {
@@ -321,23 +324,7 @@ function Breadcrumbs({
   const finalChildren = React.useMemo(() => {
     if (overflowMenuEnabled) {
       if (overflow === 'wrap' || menuItems.length === 0) {
-        const validChildren = React.Children.toArray(children).filter(child => React.isValidElement(child))
-        return validChildren.map((child, index) => {
-          const applyNarrow = validChildren.length > 1
-          const isLast = index === validChildren.length - 1
-          const isVisibleOnNarrow = applyNarrow && index >= validChildren.length - 1 - visibleCountOnNarrow && !isLast
-          const isLastVisibleOnNarrow = applyNarrow && index === validChildren.length - 2
-          return (
-            <li
-              className={classes.ItemWrapper}
-              key={index}
-              data-narrow-hidden={isVisibleOnNarrow ? undefined : applyNarrow ? '' : undefined}
-              data-narrow-last={isLastVisibleOnNarrow ? '' : undefined}
-            >
-              {child}
-            </li>
-          )
-        })
+        return wrapItemsWithNarrowAttrs(children, visibleCountOnNarrow)
       }
 
       let effectiveMenuItems = [...menuItems]
