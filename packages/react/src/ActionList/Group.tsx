@@ -182,7 +182,8 @@ export const GroupHeading: FCWithSlotMarker<React.PropsWithChildren<ActionListGr
           className={groupClasses.GroupHeadingWrap}
           aria-hidden="true"
           data-variant={variant}
-          data-component="ActionList.GroupHeading"
+          // TODO: switch for data-component="ActionList.GroupHeading" next major
+          data-component="GroupHeadingWrap"
           as={headingWrapElement}
           {...props}
         >
@@ -197,7 +198,8 @@ export const GroupHeading: FCWithSlotMarker<React.PropsWithChildren<ActionListGr
           className={groupClasses.GroupHeadingWrap}
           data-variant={variant}
           as={headingWrapElement}
-          data-component="ActionList.GroupHeading"
+          // TODO: switch for data-component="ActionList.GroupHeading" next major
+          data-component="GroupHeadingWrap"
         >
           <Heading
             className={clsx(className, groupClasses.GroupHeading)}

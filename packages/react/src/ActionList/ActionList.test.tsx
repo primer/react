@@ -339,7 +339,7 @@ describe('ActionList data-component attributes', () => {
       </ActionList>,
     )
 
-    const groupHeading = container.querySelector('[data-component="ActionList.GroupHeading"]')
+    const groupHeading = container.querySelector('[data-component="GroupHeadingWrap"]')
     expect(groupHeading).toBeInTheDocument()
   })
 
