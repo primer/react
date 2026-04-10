@@ -132,14 +132,6 @@ export {
    * @deprecated Usage of the `sx` prop with this component is no longer
    * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
-  ActionMenu,
-} from './components/ActionMenu'
-
-export {
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
   Breadcrumbs,
 
   /**
@@ -174,20 +166,6 @@ export {
    */
   type ButtonComponentProps as ButtonProps,
 } from './components/Button'
-
-export {
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  CounterLabel,
-
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  type CounterLabelProps,
-} from './components/CounterLabel'
 
 export {
   /**
@@ -302,14 +280,6 @@ export {
    */
   type LinkButtonProps,
 } from './components/LinkButton'
-
-export {
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  Overlay,
-} from './components/Overlay'
 
 export {
   /**

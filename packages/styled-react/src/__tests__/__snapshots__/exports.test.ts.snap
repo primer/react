@@ -3,13 +3,11 @@
 exports[`@primer/styled-react exports 1`] = `
 [
   "ActionList",
-  "ActionMenu",
   "BaseStyles",
   "Box",
   "Breadcrumb",
   "Breadcrumbs",
   "Button",
-  "CounterLabel",
   "Dialog",
   "Flash",
   "FormControl",
@@ -20,7 +18,6 @@ exports[`@primer/styled-react exports 1`] = `
   "Link",
   "LinkButton",
   "merge",
-  "Overlay",
   "SegmentedControl",
   "Spinner",
   "sx",
