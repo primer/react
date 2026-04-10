@@ -374,11 +374,13 @@ function getDefaultPosition(
 ): {horizontal: 'left' | 'right'; leftOffset: number; rightOffset: number} | null {
   const rect = anchorElement.getBoundingClientRect()
   const vw = window.innerWidth
+  const viewportMargin = 8
 
-  if (!overlayWidth || rect.left >= overlayWidth) return null
+  // If there's no explicit overlay width, or the viewport is wide enough
+  // to contain the overlay, let CSS position-try-fallbacks handle positioning
+  if (!overlayWidth || vw >= overlayWidth + viewportMargin * 2) return null
 
   const horizontal = vw - rect.right >= rect.left ? 'right' : 'left'
-  const viewportMargin = 8
   const leftOffset = Math.max(0, overlayWidth - rect.right + viewportMargin)
   const rightOffset = Math.max(0, rect.right + overlayWidth - vw + viewportMargin)
 
