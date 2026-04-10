@@ -193,7 +193,6 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
         </div>
         {dismissible ? (
           <IconButton
-            data-component="Banner.Dismiss"
             aria-label="Dismiss banner"
             onClick={onDismiss}
             className={classes.BannerDismiss}
