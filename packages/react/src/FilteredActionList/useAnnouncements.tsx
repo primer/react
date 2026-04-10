@@ -105,40 +105,44 @@ export const useAnnouncements = (
     function announceListUpdates() {
       if (isFirstRender) return // ignore on first render as announceInitialFocus will also announce
 
-      liveRegion?.clear() // clear previous announcements
+      const timeoutId = window.setTimeout(() => {
+        liveRegion?.clear() // clear previous announcements
 
-      if (items.length === 0 && !loading) {
-        announce(`${message?.title}. ${message?.description}`, {delayMs})
-        return
-      }
+        if (items.length === 0 && !loading) {
+          announce(`${message?.title}. ${message?.description}`, {delayMs})
+          return
+        }
 
-      if (usingRovingTabindex) {
-        const announcementText = `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
-
-        announce(announcementText, {
-          delayMs,
-          from: liveRegion ? liveRegion : undefined,
-        })
-      } else {
-        // give @primer/behaviors a moment to update active-descendant
-        window.requestAnimationFrame(() => {
-          const activeItem = getItemWithActiveDescendant(listContainerRef, items)
-          if (!activeItem) return
-          const {index, text, selected} = activeItem
-
-          const announcementText = [
-            `List updated`,
-            `Focused item: ${text}`,
-            `${selected ? 'selected' : 'not selected'}`,
-            `${index + 1} of ${items.length}`,
-          ].join(', ')
+        if (usingRovingTabindex) {
+          const announcementText = `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
 
           announce(announcementText, {
             delayMs,
-            from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+            from: liveRegion ? liveRegion : undefined,
           })
-        })
-      }
+        } else {
+          // give @primer/behaviors a moment to update active-descendant
+          window.requestAnimationFrame(() => {
+            const activeItem = getItemWithActiveDescendant(listContainerRef, items)
+            if (!activeItem) return
+            const {index, text, selected} = activeItem
+
+            const announcementText = [
+              `List updated`,
+              `Focused item: ${text}`,
+              `${selected ? 'selected' : 'not selected'}`,
+              `${index + 1} of ${items.length}`,
+            ].join(', ')
+
+            announce(announcementText, {
+              delayMs,
+              from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+            })
+          })
+        }
+      }, delayMs)
+
+      return () => window.clearTimeout(timeoutId)
     },
     [
       announce,
