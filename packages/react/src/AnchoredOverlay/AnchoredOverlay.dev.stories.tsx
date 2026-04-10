@@ -4,7 +4,7 @@ import React, {useState, useRef} from 'react'
 import {Button} from '../Button'
 import {AnchoredOverlay} from '.'
 import {Stack} from '../Stack'
-import {Dialog, Spinner, ActionList, ActionMenu} from '..'
+import {Dialog, Spinner, ActionList, ActionMenu, Text} from '..'
 
 const meta = {
   title: 'Components/AnchoredOverlay/Dev',
@@ -305,6 +305,197 @@ export const WithActionMenu = {
     docs: {
       description: {
         story: 'Uses ActionMenu but lazily loads the menu items on first open.',
+      },
+    },
+  },
+}
+
+export const SmallViewportRightAligned = {
+  render: () => {
+    const [open, setOpen] = useState(false)
+
+    return (
+      <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+        <AnchoredOverlay
+          open={open}
+          onOpen={() => setOpen(true)}
+          onClose={() => setOpen(false)}
+          renderAnchor={props => <Button {...props}>Button</Button>}
+          overlayProps={{
+            role: 'dialog',
+            'aria-modal': true,
+            'aria-label': 'Small viewport positioning test',
+            style: {minWidth: '320px'},
+          }}
+          width="xlarge"
+          focusZoneSettings={{disabled: true}}
+          preventOverflow={false}
+        >
+          <div style={{padding: '16px', width: '100%', height: '400px'}}>
+            <Stack gap="condensed">
+              <Text weight="medium">Overlay content</Text>
+              <Text>
+                This overlay is wider than the available space to the left of the anchor. It should reposition to avoid
+                overflowing the viewport.
+              </Text>
+            </Stack>
+          </div>
+        </AnchoredOverlay>
+      </div>
+    )
+  },
+  parameters: {
+    viewport: {
+      defaultViewport: 'small',
+    },
+    docs: {
+      description: {
+        story:
+          'Tests overlay positioning when the trigger button is right-aligned on a small viewport. The overlay is wider than the space to the left of the anchor.',
+      },
+    },
+  },
+}
+
+export const SmallViewportOutsideTop = {
+  render: () => {
+    const [open, setOpen] = useState(false)
+
+    return (
+      <div style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end', height: '100vh'}}>
+        <AnchoredOverlay
+          open={open}
+          onOpen={() => setOpen(true)}
+          onClose={() => setOpen(false)}
+          renderAnchor={props => <Button {...props}>Button</Button>}
+          side="outside-top"
+          overlayProps={{
+            role: 'dialog',
+            'aria-modal': true,
+            'aria-label': 'Small viewport outside-top positioning test',
+            style: {minWidth: '320px'},
+          }}
+          width="xlarge"
+          focusZoneSettings={{disabled: true}}
+          preventOverflow={false}
+        >
+          <div style={{padding: '16px', width: '100%', height: '400px'}}>
+            <Stack gap="condensed">
+              <Text weight="medium">Overlay content (outside-top)</Text>
+              <Text>
+                This overlay opens above the anchor on a small viewport. It should reposition to avoid overflowing the
+                viewport.
+              </Text>
+            </Stack>
+          </div>
+        </AnchoredOverlay>
+      </div>
+    )
+  },
+  parameters: {
+    viewport: {
+      defaultViewport: 'small',
+    },
+    docs: {
+      description: {
+        story:
+          'Tests overlay positioning with side="outside-top" when the trigger button is right-aligned at the bottom of a small viewport.',
+      },
+    },
+  },
+}
+
+export const SmallViewportOutsideRight = {
+  render: () => {
+    const [open, setOpen] = useState(false)
+
+    return (
+      <div style={{display: 'flex', justifyContent: 'flex-start'}}>
+        <AnchoredOverlay
+          open={open}
+          onOpen={() => setOpen(true)}
+          onClose={() => setOpen(false)}
+          renderAnchor={props => <Button {...props}>Button</Button>}
+          side="outside-right"
+          overlayProps={{
+            role: 'dialog',
+            'aria-modal': true,
+            'aria-label': 'Small viewport outside-right positioning test',
+            style: {minWidth: '320px'},
+          }}
+          width="xlarge"
+          focusZoneSettings={{disabled: true}}
+          preventOverflow={false}
+        >
+          <div style={{padding: '16px', width: '100%', height: '400px'}}>
+            <Stack gap="condensed">
+              <Text weight="medium">Overlay content (outside-right)</Text>
+              <Text>
+                This overlay opens to the right of the anchor on a small viewport. It should reposition to avoid
+                overflowing the viewport.
+              </Text>
+            </Stack>
+          </div>
+        </AnchoredOverlay>
+      </div>
+    )
+  },
+  parameters: {
+    viewport: {
+      defaultViewport: 'small',
+    },
+    docs: {
+      description: {
+        story:
+          'Tests overlay positioning with side="outside-right" when the trigger button is left-aligned on a small viewport.',
+      },
+    },
+  },
+}
+
+export const SmallViewportOutsideLeft = {
+  render: () => {
+    const [open, setOpen] = useState(false)
+
+    return (
+      <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+        <AnchoredOverlay
+          open={open}
+          onOpen={() => setOpen(true)}
+          onClose={() => setOpen(false)}
+          renderAnchor={props => <Button {...props}>Button</Button>}
+          side="outside-left"
+          overlayProps={{
+            role: 'dialog',
+            'aria-modal': true,
+            'aria-label': 'Small viewport outside-left positioning test',
+            style: {minWidth: '320px'},
+          }}
+          width="xlarge"
+          focusZoneSettings={{disabled: true}}
+          preventOverflow={false}
+        >
+          <div style={{padding: '16px', width: '100%', height: '400px'}}>
+            <Stack gap="condensed">
+              <Text weight="medium">Overlay content (outside-left)</Text>
+              <Text>
+                This overlay opens to the left of the anchor on a small viewport. It should reposition to avoid
+                overflowing the viewport.
+              </Text>
+            </Stack>
+          </div>
+        </AnchoredOverlay>
+      </div>
+    )
+  },
+  parameters: {
+    viewport: {
+      defaultViewport: 'small',
+    },
+    docs: {
+      description: {
+        story:
+          'Tests overlay positioning with side="outside-left" when the trigger button is right-aligned on a small viewport.',
       },
     },
   },
