@@ -37,6 +37,13 @@ describe('Banner', () => {
     expect(container.querySelector('[data-component="Banner.Description"]')).toBeInTheDocument()
   })
 
+  it('renders Banner dismiss IconButton with data-component attribute', () => {
+    const {container} = render(<Banner title="test" onDismiss={() => {}} />)
+
+    const dismissButton = container.querySelector('[data-component="Banner"] [data-component="IconButton"]')
+    expect(dismissButton).toBeInTheDocument()
+  })
+
   it('should label the landmark element with the title by default', () => {
     render(<Banner title="My Banner Title" />)
     const region = screen.getByRole('region', {name: 'My Banner Title'})
