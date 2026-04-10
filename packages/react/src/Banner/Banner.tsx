@@ -175,7 +175,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
         <div data-component="Banner.Icon" className={classes.BannerIcon}>
           {visual && supportsCustomIcon ? visual : iconForVariant[variant]}
         </div>
-        <div data-component="Banner.Container" className={classes.BannerContainer}>
+        <div className={classes.BannerContainer}>
           <div data-component="Banner.Content" className={classes.BannerContent}>
             {title ? (
               hideTitle ? (
