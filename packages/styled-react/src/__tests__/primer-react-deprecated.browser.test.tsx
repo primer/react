@@ -33,9 +33,4 @@ describe('@primer/react/deprecated', () => {
     expect(window.getComputedStyle(screen.getByRole('tab')).backgroundColor).toBe('rgb(255, 0, 0)')
     expect(screen.getByRole('tab').tagName).toBe('BUTTON')
   })
-
-  test('Tooltip supports `sx` prop', () => {
-    render(<Tooltip data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
 })

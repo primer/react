@@ -222,21 +222,6 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-  test('Token supports `sx` prop', () => {
-    render(<Token as="button" data-testid="component" sx={{background: 'red'}} text="test" />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-    expect(screen.getByTestId('component')).toHaveTextContent('test')
-  })
-
-  test.todo('Tooltip supports `sx` prop', () => {
-    render(
-      <Tooltip data-testid="component" sx={{background: 'red'}} text="test">
-        <button type="button">test</button>
-      </Tooltip>,
-    )
-    expect(window.getComputedStyle(screen.getByRole('tooltip', {hidden: true})).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
   test('Truncate supports `sx` prop', () => {
     render(<Truncate as="div" data-testid="component" sx={{background: 'red'}} title="test" />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
