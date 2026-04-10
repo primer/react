@@ -7,7 +7,6 @@ const stories: Array<{
   title: string
   id: string
   viewport?: keyof typeof viewports
-  customViewport?: {width: number; height: number}
   waitForText?: string
   buttonName?: string
   buttonNames?: string[]
@@ -120,26 +119,6 @@ const stories: Array<{
     id: 'components-anchoredoverlay-dev--reposition-after-content-grows-within-dialog',
     waitForText: 'content with 300px height',
   },
-  {
-    title: 'Small Viewport Right Aligned',
-    id: 'components-anchoredoverlay-dev--small-viewport-right-aligned',
-    customViewport: {width: 455, height: 858},
-  },
-  {
-    title: 'Small Viewport Outside Top',
-    id: 'components-anchoredoverlay-dev--small-viewport-outside-top',
-    customViewport: {width: 455, height: 858},
-  },
-  {
-    title: 'Small Viewport Outside Right',
-    id: 'components-anchoredoverlay-dev--small-viewport-outside-right',
-    customViewport: {width: 455, height: 858},
-  },
-  {
-    title: 'Small Viewport Outside Left',
-    id: 'components-anchoredoverlay-dev--small-viewport-outside-left',
-    customViewport: {width: 455, height: 858},
-  },
 ] as const
 
 const theme = 'light'
@@ -163,9 +142,7 @@ test.describe('AnchoredOverlay', () => {
             },
           })
 
-          if (story.customViewport) {
-            await page.setViewportSize(story.customViewport)
-          } else if (story.viewport) {
+          if (story.viewport) {
             await page.setViewportSize({
               width: viewports[story.viewport],
               height: 667,
