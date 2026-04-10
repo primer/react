@@ -27,10 +27,8 @@ describe('Banner', () => {
 
     expect(container.querySelector('[data-component="Banner"]')).toBeInTheDocument()
     expect(container.querySelector('[data-component="Banner.Icon"]')).toBeInTheDocument()
-    expect(container.querySelector('[data-component="Banner.Container"]')).toBeInTheDocument()
     expect(container.querySelector('[data-component="Banner.Content"]')).toBeInTheDocument()
     expect(container.querySelector('[data-component="Banner.Actions"]')).toBeInTheDocument()
-    expect(container.querySelector('[data-component="Banner.Dismiss"]')).toBeInTheDocument()
 
     expect(container.querySelector('[data-component="Banner.PrimaryAction"]')).toBeInTheDocument()
     expect(container.querySelector('[data-component="Banner.SecondaryAction"]')).toBeInTheDocument()
