@@ -5,8 +5,7 @@
   margin: 0;
   overflow: hidden;
   font: inherit;
-  /* stylelint-disable-next-line primer/typography */
-  line-height: normal;
+  line-height: var(--base-text-lineHeight-normal);
   color: inherit;
 
   /* reset anchor styles */
