@@ -8,6 +8,7 @@ import type {ItemInput} from '../SelectPanel'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const delayMs = 500
+const debounceMs = 300
 
 const useFirstRender = () => {
   const firstRender = useRef(true)
@@ -140,7 +141,7 @@ export const useAnnouncements = (
             })
           })
         }
-      }, delayMs)
+      }, debounceMs)
 
       return () => window.clearTimeout(timeoutId)
     },
