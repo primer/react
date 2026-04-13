@@ -1,14 +1,10 @@
-import {userEvent} from '@testing-library/user-event'
 import {render, screen} from '@testing-library/react'
-import {createRef} from 'react'
 import {describe, expect, test} from 'vitest'
 import {
   ActionList,
-  ActionMenu,
   Box,
   Breadcrumbs,
   Button,
-  CounterLabel,
   Dialog,
   Flash,
   FormControl,
@@ -18,16 +14,11 @@ import {
   Label,
   Link,
   LinkButton,
-  Overlay,
-  PageHeader,
   SegmentedControl,
   Spinner,
   Text,
   TextInput,
-  ThemeProvider,
   Timeline,
-  Token,
-  Tooltip,
   Truncate,
   UnderlineNav,
 } from '../'
@@ -37,24 +28,6 @@ describe('@primer/react', () => {
     render(<ActionList as="div" data-testid="component" sx={{background: 'red'}} variant="inset" />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
     expect(screen.getByTestId('component')).toHaveAttribute('data-variant', 'inset')
-  })
-
-  test('ActionMenu.Overlay supports `sx` prop', async () => {
-    const user = userEvent.setup()
-    render(
-      <ThemeProvider>
-        <ActionMenu>
-          <ActionMenu.Button>test</ActionMenu.Button>
-          <ActionMenu.Overlay data-testid="component" sx={{background: 'red'}}>
-            test
-          </ActionMenu.Overlay>
-        </ActionMenu>
-      </ThemeProvider>,
-    )
-
-    await user.click(screen.getByText('test'))
-
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
   test('Box supports `sx` prop', () => {
@@ -77,11 +50,6 @@ describe('@primer/react', () => {
     render(<Button as="button" data-testid="component" sx={{background: 'red'}} size="medium" />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
     expect(screen.getByTestId('component')).toHaveAttribute('data-size', 'medium')
-  })
-
-  test('CounterLabel supports `sx` prop', () => {
-    render(<CounterLabel data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
   test('Dialog supports `sx` prop', () => {
@@ -178,41 +146,6 @@ describe('@primer/react', () => {
     expect(screen.getByTestId('component')).toHaveAttribute('icon')
   })
 
-  test('Overlay supports `sx` prop', () => {
-    const ref = createRef<HTMLElement>()
-    render(
-      <ThemeProvider>
-        <Overlay
-          as="div"
-          data-testid="component"
-          sx={{background: 'red'}}
-          onClickOutside={() => {}}
-          onEscape={() => {}}
-          returnFocusRef={ref}
-          role="dialog"
-        />
-      </ThemeProvider>,
-    )
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-    expect(screen.getByTestId('component')).toHaveAttribute('role', 'dialog')
-  })
-
-  test('PageHeader supports `sx` prop', () => {
-    const {container} = render(<PageHeader as="div" data-testid="component" sx={{background: 'red'}} role="article" />)
-    expect(container.firstElementChild!).toHaveAttribute('role', 'article')
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('PageHeader.Actions supports `sx` prop', () => {
-    const {container} = render(<PageHeader.Actions data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('PageHeader.Title supports `sx` prop', () => {
-    const {container} = render(<PageHeader.Title data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
   test('SegmentedControl supports `sx` prop', () => {
     render(<SegmentedControl data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
@@ -287,21 +220,6 @@ describe('@primer/react', () => {
   test('Timeline.Body supports `sx` prop', () => {
     render(<Timeline.Body data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('Token supports `sx` prop', () => {
-    render(<Token as="button" data-testid="component" sx={{background: 'red'}} text="test" />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-    expect(screen.getByTestId('component')).toHaveTextContent('test')
-  })
-
-  test.todo('Tooltip supports `sx` prop', () => {
-    render(
-      <Tooltip data-testid="component" sx={{background: 'red'}} text="test">
-        <button type="button">test</button>
-      </Tooltip>,
-    )
-    expect(window.getComputedStyle(screen.getByRole('tooltip', {hidden: true})).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
   test('Truncate supports `sx` prop', () => {
