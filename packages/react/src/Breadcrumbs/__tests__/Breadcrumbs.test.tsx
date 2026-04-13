@@ -64,7 +64,7 @@ describe('Breadcrumbs', () => {
     expect(selectedItem).toHaveAttribute('aria-current', 'page')
   })
 
-  it('sets data-overflow attribute when overflow is menu with feature flag', () => {
+  it('sets data-overflow attribute when overflow is menu', () => {
     const {container} = renderWithTheme(
       <Breadcrumbs overflow="menu">
         <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
@@ -509,7 +509,7 @@ describe('Breadcrumbs', () => {
     })
   })
 
-  describe('variant prop (feature flag on)', () => {
+  describe('variant prop', () => {
     it('sets data-variant="normal" by default', () => {
       const {container} = renderWithTheme(
         <Breadcrumbs overflow="menu">
