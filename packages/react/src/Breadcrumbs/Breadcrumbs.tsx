@@ -266,7 +266,7 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
     if ((overflow === 'menu' || overflow === 'menu-with-root') && childArray.length > 5 && menuItems.length === 0) {
       const containerWidth = containerRef.current?.offsetWidth || 800
       const result = calculateOverflow(containerWidth)
-      // eslint-disable-next-line react-hooks/set-state-in-effect
+
       setVisibleItems(result.visibleItems)
 
       setMenuItems(result.menuItems)
