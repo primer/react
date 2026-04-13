@@ -411,7 +411,6 @@ describe('Breadcrumbs', () => {
             </Breadcrumbs.Item>
           </Breadcrumbs>
         </div>,
-        {primer_react_breadcrumbs_overflow_menu: true},
       )
 
       // Open the overflow menu
