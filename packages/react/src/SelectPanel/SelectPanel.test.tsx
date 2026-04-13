@@ -2020,6 +2020,65 @@ for (const usingRemoveActiveDescendant of [false, true]) {
           screen.getByRole('dialog').querySelector('[data-component="SelectPanel.MessageAction"]'),
         ).toBeInTheDocument()
       })
+
+      it('allows accessing nested ActionList data-component attributes from SelectPanel', async () => {
+        const user = userEvent.setup()
+
+        const itemsWithLeadingVisual = [
+          {text: 'item one', leadingVisual: () => <span>Icon</span>},
+          {text: 'item two', leadingVisual: () => <span>Icon</span>},
+        ]
+
+        function SelectPanelWithLeadingVisuals() {
+          const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+          const [filter, setFilter] = React.useState('')
+          const [open, setOpen] = React.useState(false)
+
+          return (
+            <SelectPanel
+              title="test title"
+              subtitle="test subtitle"
+              items={itemsWithLeadingVisual}
+              placeholder="Select items"
+              placeholderText="Filter items"
+              selected={selected}
+              onSelectedChange={setSelected}
+              filterValue={filter}
+              onFilterChange={setFilter}
+              open={open}
+              onOpenChange={setOpen}
+            />
+          )
+        }
+
+        renderWithProp(<SelectPanelWithLeadingVisuals />, usingRemoveActiveDescendant)
+
+        await user.click(screen.getByText('Select items'))
+
+        // Test that you can query for ActionList primitives nested within SelectPanel
+        expect(
+          screen.getByRole('dialog').querySelector('[data-component="SelectPanel"] [data-component="ActionList.Item"]'),
+        ).toBeInTheDocument()
+
+        expect(
+          screen
+            .getByRole('dialog')
+            .querySelector('[data-component="SelectPanel"] [data-component="ActionList.LeadingVisual"]'),
+        ).toBeInTheDocument()
+
+        expect(
+          screen
+            .getByRole('dialog')
+            .querySelector('[data-component="SelectPanel"] [data-component="ActionList.Item.Label"]'),
+        ).toBeInTheDocument()
+
+        // Test that you can query for the TextInput nested within SelectPanel
+        expect(
+          screen
+            .getByRole('dialog')
+            .querySelector('[data-component="SelectPanel"] [data-component="TextInput"] [data-component="input"]'),
+        ).toBeInTheDocument()
+      })
     })
   })
 

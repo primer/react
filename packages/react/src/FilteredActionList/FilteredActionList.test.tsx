@@ -37,6 +37,35 @@ describe('FilteredActionList', () => {
 
       expect(container.querySelector('[data-component="FilteredActionList.SelectAll"]')).not.toBeInTheDocument()
     })
+
+    it('allows accessing nested ActionList data-component attributes from FilteredActionList', () => {
+      const itemsWithLeadingVisual = [
+        {text: 'Item 1', id: 1, leadingVisual: () => <span>Icon</span>},
+        {text: 'Item 2', id: 2, leadingVisual: () => <span>Icon</span>},
+      ]
+
+      const {container} = render(<FilteredActionList items={itemsWithLeadingVisual} onFilterChange={vi.fn()} />)
+
+      // Test that you can query for ActionList primitives nested within FilteredActionList
+      expect(
+        container.querySelector('[data-component="FilteredActionList"] [data-component="ActionList.Item"]'),
+      ).toBeInTheDocument()
+
+      expect(
+        container.querySelector('[data-component="FilteredActionList"] [data-component="ActionList.LeadingVisual"]'),
+      ).toBeInTheDocument()
+
+      expect(
+        container.querySelector('[data-component="FilteredActionList"] [data-component="ActionList.Item.Label"]'),
+      ).toBeInTheDocument()
+
+      // Test that you can query for the TextInput nested within FilteredActionList
+      expect(
+        container.querySelector(
+          '[data-component="FilteredActionList"] [data-component="TextInput"] [data-component="input"]',
+        ),
+      ).toBeInTheDocument()
+    })
   })
 })
 
