@@ -275,14 +275,11 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       const overlayWidth = width ? parseInt(widthMap[width]) : null
       const result = getDefaultPosition(anchorElement, overlayWidth)
 
-      if (result) {
-        const {leftOffset, rightOffset} = result
-        const align = leftOffset > 0 ? 'left' : rightOffset > 0 ? 'right' : null
-        if (align) {
-          currentOverlay.setAttribute('data-align', align)
-          currentOverlay.style.setProperty(`--anchored-overlay-anchor-offset-${align}`, `${result[`${align}Offset`]}px`)
-        }
-      }
+      currentOverlay.setAttribute('data-align', result.horizontal)
+
+      // Apply offset only when viewport is too narrow
+      const offset = result.horizontal === 'left' ? result.leftOffset : result.rightOffset
+      currentOverlay.style.setProperty(`--anchored-overlay-anchor-offset-${result.horizontal}`, `${offset || 0}px`)
     }
 
     try {
@@ -371,16 +368,18 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 function getDefaultPosition(
   anchorElement: HTMLElement,
   overlayWidth: number | null,
-): {horizontal: 'left' | 'right'; leftOffset: number; rightOffset: number} | null {
+): {horizontal: 'left' | 'right'; leftOffset?: number; rightOffset?: number} {
   const rect = anchorElement.getBoundingClientRect()
   const vw = window.innerWidth
   const viewportMargin = 8
+  const horizontal = vw - rect.right >= rect.left ? 'right' : 'left'
 
   // If there's no explicit overlay width, or the viewport is wide enough
   // to contain the overlay, let CSS position-try-fallbacks handle positioning
-  if (!overlayWidth || vw >= overlayWidth + viewportMargin * 2) return null
+  if (!overlayWidth || vw >= overlayWidth + viewportMargin * 2) {
+    return {horizontal}
+  }
 
-  const horizontal = vw - rect.right >= rect.left ? 'right' : 'left'
   const leftOffset = Math.max(0, overlayWidth - rect.right + viewportMargin)
   const rightOffset = Math.max(0, rect.right + overlayWidth - vw + viewportMargin)
 
