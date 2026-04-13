@@ -1,7 +1,7 @@
 import React, {memo, useRef} from 'react'
 import {clsx} from 'clsx'
 import {useId} from '../hooks/useId'
-import {useMergedRefs} from '../hooks/useMergedRefs'
+import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isResponsiveValue} from '../hooks/useResponsiveValue'
 import {useSlots} from '../hooks/useSlots'
@@ -838,7 +838,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         currentWidth: controlledWidth,
       })
 
-    const mergedRef = useMergedRefs(forwardRef, paneRef)
+    useRefObjectAsForwardedRef(forwardRef, paneRef)
 
     const hasOverflow = useOverflow(paneRef)
 
@@ -887,7 +887,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           position={positionProp}
         />
         <div
-          ref={mergedRef}
+          ref={paneRef}
           // Suppress hydration mismatch for --pane-width when localStorage
           // provides a width that differs from the server-rendered default.
           // Not needed when onResizeEnd is provided (localStorage isn't read).
@@ -1136,7 +1136,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
         constrainToViewport: true,
       })
 
-    const mergedRef = useMergedRefs(forwardRef, sidebarRef)
+    useRefObjectAsForwardedRef(forwardRef, sidebarRef)
 
     const hasOverflow = useOverflow(sidebarRef)
 
@@ -1192,7 +1192,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
           />
         )}
         <div
-          ref={mergedRef}
+          ref={sidebarRef}
           // Suppress hydration mismatch for --pane-width when localStorage
           // provides a width that differs from the server-rendered default.
           suppressHydrationWarning={resizable === true && !!widthStorageKey}
