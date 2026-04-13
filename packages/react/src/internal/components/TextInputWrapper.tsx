@@ -78,6 +78,7 @@ export const TextInputBaseWrapper = React.forwardRef<HTMLElement, StyledTextInpu
         data-validation={validationStatus || undefined}
         data-variant={variant || undefined}
         style={memoizedStyle}
+        data-component="TextInput"
         {...restProps}
       />
     )

@@ -1673,6 +1673,354 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         expect(input.getAttribute('aria-activedescendant')).toBe(options[1].id)
       })
     })
+
+    describe('data-component attributes', () => {
+      it('renders SelectPanel with data-component attribute', async () => {
+        const user = userEvent.setup()
+
+        renderWithProp(<BasicSelectPanel />, usingRemoveActiveDescendant)
+
+        await user.click(screen.getByText('Select items'))
+
+        expect(screen.getByRole('dialog').querySelector('[data-component="SelectPanel"]')).toBeInTheDocument()
+      })
+
+      it('renders SelectPanel.Header with data-component attribute', async () => {
+        const user = userEvent.setup()
+
+        renderWithProp(<BasicSelectPanel />, usingRemoveActiveDescendant)
+
+        await user.click(screen.getByText('Select items'))
+
+        expect(screen.getByRole('dialog').querySelector('[data-component="SelectPanel.Header"]')).toBeInTheDocument()
+      })
+
+      it('renders SelectPanel.Title with data-component attribute', async () => {
+        const user = userEvent.setup()
+
+        renderWithProp(<BasicSelectPanel />, usingRemoveActiveDescendant)
+
+        await user.click(screen.getByText('Select items'))
+
+        expect(screen.getByRole('dialog').querySelector('[data-component="SelectPanel.Title"]')).toBeInTheDocument()
+      })
+
+      it('renders SelectPanel.Subtitle with data-component attribute', async () => {
+        const user = userEvent.setup()
+
+        renderWithProp(<BasicSelectPanel />, usingRemoveActiveDescendant)
+
+        await user.click(screen.getByText('Select items'))
+
+        expect(screen.getByRole('dialog').querySelector('[data-component="SelectPanel.Subtitle"]')).toBeInTheDocument()
+      })
+
+      it('renders SelectPanel.Footer with data-component attribute when using deprecated footer prop', async () => {
+        const user = userEvent.setup()
+
+        function SelectPanelWithFooter() {
+          const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+          const [filter, setFilter] = React.useState('')
+          const [open, setOpen] = React.useState(false)
+
+          return (
+            <SelectPanel
+              title="test title"
+              subtitle="test subtitle"
+              footer={<div>test footer</div>}
+              items={items}
+              placeholder="Select items"
+              placeholderText="Filter items"
+              selected={selected}
+              onSelectedChange={setSelected}
+              filterValue={filter}
+              onFilterChange={setFilter}
+              open={open}
+              onOpenChange={setOpen}
+            />
+          )
+        }
+
+        renderWithProp(<SelectPanelWithFooter />, usingRemoveActiveDescendant)
+
+        await user.click(screen.getByText('Select items'))
+
+        expect(screen.getByRole('dialog').querySelector('[data-component="SelectPanel.Footer"]')).toBeInTheDocument()
+      })
+
+      it('renders SelectPanel.Footer with data-component attribute when using modal variant', async () => {
+        const user = userEvent.setup()
+
+        renderWithProp(<BasicSelectPanel variant="modal" onCancel={() => {}} />, usingRemoveActiveDescendant)
+
+        await user.click(screen.getByText('Select items'))
+
+        expect(screen.getByRole('dialog').querySelector('[data-component="SelectPanel.Footer"]')).toBeInTheDocument()
+      })
+
+      it('renders SelectPanel.CancelButton with data-component attribute', async () => {
+        const user = userEvent.setup()
+
+        renderWithProp(<BasicSelectPanel variant="modal" onCancel={() => {}} />, usingRemoveActiveDescendant)
+
+        await user.click(screen.getByText('Select items'))
+
+        expect(
+          screen.getByRole('dialog').querySelector('[data-component="SelectPanel.CancelButton"]'),
+        ).toBeInTheDocument()
+      })
+
+      it('renders SelectPanel.SaveButton with data-component attribute', async () => {
+        const user = userEvent.setup()
+
+        renderWithProp(<BasicSelectPanel variant="modal" onCancel={() => {}} />, usingRemoveActiveDescendant)
+
+        await user.click(screen.getByText('Select items'))
+
+        expect(
+          screen.getByRole('dialog').querySelector('[data-component="SelectPanel.SaveButton"]'),
+        ).toBeInTheDocument()
+      })
+
+      // Note: SelectPanel.CloseButton is only rendered on non-narrow screens in modal variant.
+      // On narrow screens, AnchoredOverlay handles the close button display.
+
+      it('renders SelectPanel.Backdrop with data-component attribute in modal variant', async () => {
+        const user = userEvent.setup()
+
+        renderWithProp(<BasicSelectPanel variant="modal" onCancel={() => {}} />, usingRemoveActiveDescendant)
+
+        await user.click(screen.getByText('Select items'))
+
+        expect(document.querySelector('[data-component="SelectPanel.Backdrop"]')).toBeInTheDocument()
+      })
+
+      it('renders SelectPanel.SecondaryAction with data-component attribute', async () => {
+        const user = userEvent.setup()
+
+        function SelectPanelWithSecondaryAction() {
+          const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+          const [filter, setFilter] = React.useState('')
+          const [open, setOpen] = React.useState(false)
+
+          return (
+            <SelectPanel
+              title="test title"
+              subtitle="test subtitle"
+              secondaryAction={<SelectPanel.SecondaryActionButton>Action</SelectPanel.SecondaryActionButton>}
+              items={items}
+              placeholder="Select items"
+              placeholderText="Filter items"
+              selected={selected}
+              onSelectedChange={setSelected}
+              filterValue={filter}
+              onFilterChange={setFilter}
+              open={open}
+              onOpenChange={setOpen}
+              variant="modal"
+              onCancel={() => {}}
+            />
+          )
+        }
+
+        renderWithProp(<SelectPanelWithSecondaryAction />, usingRemoveActiveDescendant)
+
+        await user.click(screen.getByText('Select items'))
+
+        expect(
+          screen.getByRole('dialog').querySelector('[data-component="SelectPanel.SecondaryAction"]'),
+        ).toBeInTheDocument()
+      })
+
+      it('renders SelectPanel.SecondaryActionButton with data-component attribute', async () => {
+        const user = userEvent.setup()
+
+        function SelectPanelWithSecondaryActionButton() {
+          const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+          const [filter, setFilter] = React.useState('')
+          const [open, setOpen] = React.useState(false)
+
+          return (
+            <SelectPanel
+              title="test title"
+              subtitle="test subtitle"
+              secondaryAction={<SelectPanel.SecondaryActionButton>Action</SelectPanel.SecondaryActionButton>}
+              items={items}
+              placeholder="Select items"
+              placeholderText="Filter items"
+              selected={selected}
+              onSelectedChange={setSelected}
+              filterValue={filter}
+              onFilterChange={setFilter}
+              open={open}
+              onOpenChange={setOpen}
+              variant="modal"
+              onCancel={() => {}}
+            />
+          )
+        }
+
+        renderWithProp(<SelectPanelWithSecondaryActionButton />, usingRemoveActiveDescendant)
+
+        await user.click(screen.getByText('Select items'))
+
+        expect(
+          screen.getByRole('dialog').querySelector('[data-component="SelectPanel.SecondaryActionButton"]'),
+        ).toBeInTheDocument()
+      })
+
+      it('renders SelectPanel.SecondaryActionLink with data-component attribute', async () => {
+        const user = userEvent.setup()
+
+        function SelectPanelWithSecondaryActionLink() {
+          const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+          const [filter, setFilter] = React.useState('')
+          const [open, setOpen] = React.useState(false)
+
+          return (
+            <SelectPanel
+              title="test title"
+              subtitle="test subtitle"
+              secondaryAction={<SelectPanel.SecondaryActionLink href="#">Link</SelectPanel.SecondaryActionLink>}
+              items={items}
+              placeholder="Select items"
+              placeholderText="Filter items"
+              selected={selected}
+              onSelectedChange={setSelected}
+              filterValue={filter}
+              onFilterChange={setFilter}
+              open={open}
+              onOpenChange={setOpen}
+              variant="modal"
+              onCancel={() => {}}
+            />
+          )
+        }
+
+        renderWithProp(<SelectPanelWithSecondaryActionLink />, usingRemoveActiveDescendant)
+
+        await user.click(screen.getByText('Select items'))
+
+        expect(
+          screen.getByRole('dialog').querySelector('[data-component="SelectPanel.SecondaryActionLink"]'),
+        ).toBeInTheDocument()
+      })
+
+      it('renders SelectPanel.Notice with data-component attribute', async () => {
+        const user = userEvent.setup()
+
+        function SelectPanelWithNotice() {
+          const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+          const [filter, setFilter] = React.useState('')
+          const [open, setOpen] = React.useState(false)
+
+          return (
+            <SelectPanel
+              title="test title"
+              subtitle="test subtitle"
+              notice={{text: 'This is a notice', variant: 'info'}}
+              items={items}
+              placeholder="Select items"
+              placeholderText="Filter items"
+              selected={selected}
+              onSelectedChange={setSelected}
+              filterValue={filter}
+              onFilterChange={setFilter}
+              open={open}
+              onOpenChange={setOpen}
+            />
+          )
+        }
+
+        renderWithProp(<SelectPanelWithNotice />, usingRemoveActiveDescendant)
+
+        await user.click(screen.getByText('Select items'))
+
+        expect(screen.getByRole('dialog').querySelector('[data-component="SelectPanel.Notice"]')).toBeInTheDocument()
+      })
+
+      it('renders SelectPanel.Message with data-component attribute when message is shown', async () => {
+        const user = userEvent.setup()
+
+        function SelectPanelWithMessage() {
+          const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+          const [filter, setFilter] = React.useState('')
+          const [open, setOpen] = React.useState(false)
+
+          return (
+            <SelectPanel
+              title="test title"
+              subtitle="test subtitle"
+              message={{title: 'Message title', body: 'Message body', variant: 'warning'}}
+              items={[]}
+              placeholder="Select items"
+              placeholderText="Filter items"
+              selected={selected}
+              onSelectedChange={setSelected}
+              filterValue={filter}
+              onFilterChange={setFilter}
+              open={open}
+              onOpenChange={setOpen}
+            />
+          )
+        }
+
+        renderWithProp(<SelectPanelWithMessage />, usingRemoveActiveDescendant)
+
+        await user.click(screen.getByText('Select items'))
+
+        expect(screen.getByRole('dialog').querySelector('[data-component="SelectPanel.Message"]')).toBeInTheDocument()
+        expect(
+          screen.getByRole('dialog').querySelector('[data-component="SelectPanel.MessageIcon"]'),
+        ).toBeInTheDocument()
+        expect(
+          screen.getByRole('dialog').querySelector('[data-component="SelectPanel.MessageTitle"]'),
+        ).toBeInTheDocument()
+        expect(
+          screen.getByRole('dialog').querySelector('[data-component="SelectPanel.MessageBody"]'),
+        ).toBeInTheDocument()
+      })
+
+      it('renders SelectPanel.MessageAction with data-component attribute when action is provided', async () => {
+        const user = userEvent.setup()
+
+        function SelectPanelWithMessageAction() {
+          const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+          const [filter, setFilter] = React.useState('')
+          const [open, setOpen] = React.useState(false)
+
+          return (
+            <SelectPanel
+              title="test title"
+              subtitle="test subtitle"
+              message={{
+                title: 'Error',
+                body: 'Something went wrong',
+                variant: 'error',
+                action: <button type="button">Retry</button>,
+              }}
+              items={[]}
+              placeholder="Select items"
+              placeholderText="Filter items"
+              selected={selected}
+              onSelectedChange={setSelected}
+              filterValue={filter}
+              onFilterChange={setFilter}
+              open={open}
+              onOpenChange={setOpen}
+            />
+          )
+        }
+
+        renderWithProp(<SelectPanelWithMessageAction />, usingRemoveActiveDescendant)
+
+        await user.click(screen.getByText('Select items'))
+
+        expect(
+          screen.getByRole('dialog').querySelector('[data-component="SelectPanel.MessageAction"]'),
+        ).toBeInTheDocument()
+      })
+    })
   })
 
   describe('Event propagation', () => {
