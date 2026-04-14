@@ -1,5 +1,6 @@
 import {render, screen, waitFor} from '@testing-library/react'
 import {describe, expect, it, beforeEach, vi} from 'vitest'
+import {page} from 'vitest/browser'
 import React from 'react'
 import {SelectPanel, type SelectPanelProps, type ItemInput, type GroupedListProps} from '../SelectPanel'
 import {userEvent} from '@testing-library/user-event'
@@ -2077,6 +2078,56 @@ for (const usingRemoveActiveDescendant of [false, true]) {
           screen
             .getByRole('dialog')
             .querySelector('[data-component="SelectPanel"] [data-component="TextInput"] [data-component="input"]'),
+        ).toBeInTheDocument()
+      })
+
+      it('renders SelectPanel.CloseButton with data-component attribute on wide viewports in modal variant', async () => {
+        await page.viewport(1400, 728)
+        const user = userEvent.setup()
+
+        renderWithProp(<BasicSelectPanel variant="modal" onCancel={() => {}} />, usingRemoveActiveDescendant)
+
+        await user.click(screen.getByText('Select items'))
+
+        expect(
+          screen.getByRole('dialog').querySelector('[data-component="SelectPanel.CloseButton"]'),
+        ).toBeInTheDocument()
+      })
+
+      it('renders SelectPanel.SaveAndCloseButton with data-component attribute on narrow viewports', async () => {
+        await page.viewport(320, 568)
+        const user = userEvent.setup()
+
+        function MultiSelectPanelWithoutCancel() {
+          const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+          const [filter, setFilter] = React.useState('')
+          const [open, setOpen] = React.useState(false)
+
+          return (
+            <FeatureFlags flags={{primer_react_select_panel_fullscreen_on_narrow: true}}>
+              <SelectPanel
+                title="test title"
+                subtitle="test subtitle"
+                items={items}
+                placeholder="Select items"
+                placeholderText="Filter items"
+                selected={selected}
+                onSelectedChange={setSelected}
+                filterValue={filter}
+                onFilterChange={setFilter}
+                open={open}
+                onOpenChange={setOpen}
+              />
+            </FeatureFlags>
+          )
+        }
+
+        render(<MultiSelectPanelWithoutCancel />)
+
+        await user.click(screen.getByText('Select items'))
+
+        expect(
+          screen.getByRole('dialog').querySelector('[data-component="SelectPanel.SaveAndCloseButton"]'),
         ).toBeInTheDocument()
       })
     })
