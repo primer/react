@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-CSS Anchor Positioning: Remove polyfill, add extra CSS rules to ensure overlays take available space
+AnchoredOverlay: Remove polyfill for CSS Anchor Positioning, use primer/behaviors as fallback. Ensure overlays take available space.
