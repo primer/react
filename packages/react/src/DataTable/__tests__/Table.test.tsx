@@ -379,6 +379,43 @@ describe('Table', () => {
       expect(container.querySelector('[data-component="Table.SortHeader"]')).toBeInTheDocument()
     })
 
+    it('should allow querying nested Button inside Table.SortHeader', () => {
+      const {container} = render(
+        <DataTable
+          data={[{id: 1, value: 'test'}]}
+          columns={[
+            {
+              header: 'Value',
+              field: 'value',
+              sortBy: true,
+            },
+          ]}
+        />,
+      )
+      expect(
+        container.querySelector('[data-component="Table.SortHeader"] [data-component="Button"]'),
+      ).toBeInTheDocument()
+    })
+
+    // need Octicon update for this to work
+    it.skip('should allow querying sort icons inside Table.SortHeader', () => {
+      const {container} = render(
+        <DataTable
+          data={[{id: 1, value: 'test'}]}
+          columns={[
+            {
+              header: 'Value',
+              field: 'value',
+              sortBy: true,
+            },
+          ]}
+        />,
+      )
+      expect(
+        container.querySelector('[data-component="Table.SortHeader"] [data-component="Octicon"]'),
+      ).toBeInTheDocument()
+    })
+
     it('should have data-component="Table.Cell" on cells', () => {
       const {container} = render(
         <Table>
