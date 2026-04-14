@@ -163,3 +163,14 @@
     }
   }
 }
+
+/* On narrow viewports, show only the last breadcrumb and the overflow menu */
+@media screen and (max-width: 543.98px) {
+  [data-overflow='menu'] .BreadcrumbsItem:not(:last-child):not(:has(.MenuDetails)) {
+    display: none;
+  }
+
+  [data-overflow='menu'] .ItemWrapper:not(:last-child) {
+    display: none;
+  }
+}
