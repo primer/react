@@ -202,7 +202,7 @@
   }
 
   &:where([data-responsive='fullscreen']),
-  &[data-responsive='fullscreen'][data-anchor-position] {
+  &[data-responsive='fullscreen'][data-anchor-position='true'] {
     @media screen and (--viewportRange-narrow) {
       position: fixed;
       top: 0;
