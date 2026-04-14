@@ -64,7 +64,6 @@
     top: anchor(top);
     margin-left: var(--base-size-4);
     position-try-fallbacks: flip-inline, flip-block, flip-start, --outside-right-to-bottom;
-
   }
 }
 
