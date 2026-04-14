@@ -32,10 +32,38 @@ describe('FilteredActionList', () => {
       expect(container.querySelector('[data-component="FilteredActionList.SelectAll"]')).toBeInTheDocument()
     })
 
+    it('renders FilteredActionList.SelectAllCheckbox with data-component attribute when onSelectAllChange is provided', () => {
+      const {container} = render(
+        <FilteredActionList items={items} onFilterChange={vi.fn()} onSelectAllChange={vi.fn()} />,
+      )
+
+      expect(container.querySelector('[data-component="FilteredActionList.SelectAllCheckbox"]')).toBeInTheDocument()
+    })
+
+    it('renders FilteredActionList.SelectAllLabel with data-component attribute when onSelectAllChange is provided', () => {
+      const {container} = render(
+        <FilteredActionList items={items} onFilterChange={vi.fn()} onSelectAllChange={vi.fn()} />,
+      )
+
+      expect(container.querySelector('[data-component="FilteredActionList.SelectAllLabel"]')).toBeInTheDocument()
+    })
+
     it('does not render FilteredActionList.SelectAll when onSelectAllChange is not provided', () => {
       const {container} = render(<FilteredActionList items={items} onFilterChange={vi.fn()} />)
 
       expect(container.querySelector('[data-component="FilteredActionList.SelectAll"]')).not.toBeInTheDocument()
+    })
+
+    it('does not render FilteredActionList.SelectAllCheckbox when onSelectAllChange is not provided', () => {
+      const {container} = render(<FilteredActionList items={items} onFilterChange={vi.fn()} />)
+
+      expect(container.querySelector('[data-component="FilteredActionList.SelectAllCheckbox"]')).not.toBeInTheDocument()
+    })
+
+    it('does not render FilteredActionList.SelectAllLabel when onSelectAllChange is not provided', () => {
+      const {container} = render(<FilteredActionList items={items} onFilterChange={vi.fn()} />)
+
+      expect(container.querySelector('[data-component="FilteredActionList.SelectAllLabel"]')).not.toBeInTheDocument()
     })
 
     it('allows accessing nested ActionList data-component attributes from FilteredActionList', () => {

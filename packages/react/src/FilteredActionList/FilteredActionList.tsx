@@ -584,8 +584,13 @@ export function FilteredActionList({
             checked={selectAllChecked}
             indeterminate={selectAllIndeterminate}
             onChange={handleSelectAllChange}
+            data-component="FilteredActionList.SelectAllCheckbox"
           />
-          <label className={classes.SelectAllLabel} htmlFor="select-all-checkbox">
+          <label
+            className={classes.SelectAllLabel}
+            htmlFor="select-all-checkbox"
+            data-component="FilteredActionList.SelectAllLabel"
+          >
             {selectAllLabelText}
           </label>
         </div>
