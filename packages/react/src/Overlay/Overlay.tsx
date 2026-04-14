@@ -5,7 +5,7 @@ import type {AriaRole, Merge} from '../utils/types'
 import type {TouchOrMouseEvent} from '../hooks'
 import {useOverlay} from '../hooks'
 import Portal from '../Portal'
-import {useMergedRefs} from '../hooks/useMergedRefs'
+import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import type {AnchorSide} from '@primer/behaviors'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import classes from './Overlay.module.css'
@@ -33,8 +33,7 @@ export const heightMap = {
   'fit-content': 'fit-content',
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-useless-assignment
-const widthMap = {
+export const widthMap = {
   small: '256px',
   medium: '320px',
   large: '480px',
@@ -70,6 +69,7 @@ type BaseOverlayProps = {
   children?: React.ReactNode
   className?: string
   responsiveVariant?: 'fullscreen' // we only support fullscreen today but we might add bottomsheet in the future
+  popover?: 'auto' | 'manual'
 }
 
 type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
@@ -139,6 +139,7 @@ export const BaseOverlay = React.forwardRef(
 type ContainerProps = {
   anchorSide?: AnchorSide
   _PrivateDisablePortal?: boolean
+  _PrivateSkipPopoverLogic?: boolean
   ignoreClickRefs?: React.RefObject<HTMLElement | null>[]
   initialFocusRef?: React.RefObject<HTMLElement | null>
   onClickOutside: (e: TouchOrMouseEvent) => void
@@ -172,6 +173,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     {
       anchorSide,
       _PrivateDisablePortal,
+      _PrivateSkipPopoverLogic,
       height = 'auto',
       ignoreClickRefs,
       initialFocusRef,
@@ -187,14 +189,14 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
       visibility = 'visible',
       width = 'auto',
       responsiveVariant,
+      popover,
       ...props
     },
     forwardedRef,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
-    const featureFlagMaxHeightClampToViewport = useFeatureFlag('primer_react_overlay_max_height_clamp_to_viewport')
     const overlayRef = useRef<HTMLDivElement>(null)
-    const mergedRef = useMergedRefs(forwardedRef, overlayRef)
+    useRefObjectAsForwardedRef(forwardedRef, overlayRef)
     const slideAnimationDistance = 8 // var(--base-size-8), hardcoded to do some math
     const slideAnimationEasing = 'cubic-bezier(0.33, 1, 0.68, 1)'
     const cssAnchorPositioning = useFeatureFlag('primer_react_css_anchor_positioning')
@@ -231,6 +233,19 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
       )
     }, [anchorSide, slideAnimationDistance, slideAnimationEasing, visibility])
 
+    // Show popover when using the Popover API
+    useLayoutEffect(() => {
+      if (!popover || !overlayRef.current || _PrivateSkipPopoverLogic) return
+
+      try {
+        if (!overlayRef.current.matches(':popover-open')) {
+          overlayRef.current.showPopover()
+        }
+      } catch {
+        // Ignore if popover is already showing or not supported
+      }
+    }, [popover, _PrivateSkipPopoverLogic])
+
     // To be backwards compatible with the old Overlay, we need to set the left prop if x-position is not specified
     const leftPosition = left === undefined && right === undefined ? 0 : left
 
@@ -239,13 +254,13 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
         role={role}
         width={width}
         data-reflow-container={!preventOverflow ? true : undefined}
-        ref={mergedRef}
+        ref={overlayRef}
         left={leftPosition}
         right={right}
         height={height}
         visibility={visibility}
         data-responsive={responsiveVariant}
-        {...(featureFlagMaxHeightClampToViewport ? {'data-max-height-clamp-to-viewport': ''} : {})}
+        popover={popover}
         {...props}
       />
     )

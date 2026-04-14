@@ -5,6 +5,7 @@ import {Button} from '../Button'
 import {AnchoredOverlay} from '.'
 import {Stack} from '../Stack'
 import {Dialog, Spinner, ActionList, ActionMenu} from '..'
+import Overlay from '../Overlay'
 
 const meta = {
   title: 'Components/AnchoredOverlay/Dev',
@@ -308,4 +309,49 @@ export const WithActionMenu = {
       },
     },
   },
+}
+
+export const NestedOverlay = () => {
+  const [anchoredOpen, setAnchoredOpen] = useState(false)
+  const [overlayOpen, setOverlayOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+
+  return (
+    <div style={{padding: '100px'}}>
+      <AnchoredOverlay
+        open={anchoredOpen}
+        onOpen={() => setAnchoredOpen(true)}
+        onClose={() => {
+          setAnchoredOpen(false)
+          setOverlayOpen(false)
+        }}
+        renderAnchor={props => <Button {...props}>Open AnchoredOverlay</Button>}
+        focusZoneSettings={{disabled: true}}
+        height="large"
+        width="large"
+      >
+        <div style={{padding: '16px', width: '300px'}}>
+          <p style={{marginBottom: '16px'}}>This is the AnchoredOverlay content.</p>
+          <Button ref={buttonRef} onClick={() => setOverlayOpen(!overlayOpen)}>
+            {overlayOpen ? 'Close' : 'Open'} nested Overlay
+          </Button>
+          {overlayOpen && (
+            <Overlay
+              returnFocusRef={buttonRef}
+              onClickOutside={() => setOverlayOpen(false)}
+              onEscape={() => setOverlayOpen(false)}
+              top={60}
+              left={0}
+              width="small"
+              popover="manual"
+            >
+              <div style={{padding: '16px'}}>
+                <p>This is a nested Overlay inside the AnchoredOverlay.</p>
+              </div>
+            </Overlay>
+          )}
+        </div>
+      </AnchoredOverlay>
+    </div>
+  )
 }
