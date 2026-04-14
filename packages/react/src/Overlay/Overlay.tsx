@@ -234,7 +234,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     // Show popover when using the Popover API
     // Skip if CSS anchor positioning is enabled (handled by AnchoredOverlay)
     useLayoutEffect(() => {
-      if (!popover || !overlayRef.current || cssAnchorPositioning) return
+      if (!popover || !overlayRef.current || !cssAnchorPositioning) return
 
       try {
         if (!overlayRef.current.matches(':popover-open')) {
@@ -259,7 +259,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
         height={height}
         visibility={visibility}
         data-responsive={responsiveVariant}
-        popover={popover}
+        popover={cssAnchorPositioning ? popover : undefined}
         {...props}
       />
     )
