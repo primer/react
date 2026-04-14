@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 import {render, screen} from '@testing-library/react'
-import {Table} from '../../DataTable'
+import {DataTable, Table} from '../../DataTable'
 import {createColumnHelper} from '../column'
 import type {TableProps} from '../Table'
 import {implementsClassName} from '../../utils/testing'
@@ -361,6 +361,22 @@ describe('Table', () => {
         </Table>,
       )
       expect(container.querySelector('[data-component="Table.Header"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="Table.SortHeader" on sortable header cells', () => {
+      const {container} = render(
+        <DataTable
+          data={[{id: 1, value: 'test'}]}
+          columns={[
+            {
+              header: 'Value',
+              field: 'value',
+              sortBy: true,
+            },
+          ]}
+        />,
+      )
+      expect(container.querySelector('[data-component="Table.SortHeader"]')).toBeInTheDocument()
     })
 
     it('should have data-component="Table.Cell" on cells', () => {

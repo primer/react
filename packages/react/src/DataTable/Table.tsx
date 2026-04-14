@@ -111,12 +111,12 @@ export type TableHeaderProps = Omit<React.ComponentPropsWithoutRef<'th'>, 'align
 function TableHeader({align, children, ...rest}: TableHeaderProps) {
   return (
     <th
+      data-component="Table.Header"
       {...rest}
       className={clsx('TableHeader', classes.TableHeader)}
       role="columnheader"
       scope="col"
       data-cell-align={align}
-      data-component="Table.Header"
     >
       {children}
     </th>
