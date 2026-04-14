@@ -317,7 +317,7 @@ export const NestedOverlay = () => {
   const buttonRef = useRef<HTMLButtonElement>(null)
 
   return (
-    <div style={{padding: '100px'}}>
+    <div>
       <AnchoredOverlay
         open={anchoredOpen}
         onOpen={() => setAnchoredOpen(true)}
@@ -340,8 +340,8 @@ export const NestedOverlay = () => {
               returnFocusRef={buttonRef}
               onClickOutside={() => setOverlayOpen(false)}
               onEscape={() => setOverlayOpen(false)}
-              top={60}
-              left={0}
+              top={200}
+              left={100}
               width="small"
               popover="manual"
             >

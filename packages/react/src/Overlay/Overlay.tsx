@@ -139,7 +139,6 @@ export const BaseOverlay = React.forwardRef(
 type ContainerProps = {
   anchorSide?: AnchorSide
   _PrivateDisablePortal?: boolean
-  _PrivateSkipPopoverLogic?: boolean
   ignoreClickRefs?: React.RefObject<HTMLElement | null>[]
   initialFocusRef?: React.RefObject<HTMLElement | null>
   onClickOutside: (e: TouchOrMouseEvent) => void
@@ -173,7 +172,6 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     {
       anchorSide,
       _PrivateDisablePortal,
-      _PrivateSkipPopoverLogic,
       height = 'auto',
       ignoreClickRefs,
       initialFocusRef,
@@ -234,8 +232,9 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     }, [anchorSide, slideAnimationDistance, slideAnimationEasing, visibility])
 
     // Show popover when using the Popover API
+    // Skip if CSS anchor positioning is enabled (handled by AnchoredOverlay)
     useLayoutEffect(() => {
-      if (!popover || !overlayRef.current || _PrivateSkipPopoverLogic) return
+      if (!popover || !overlayRef.current || cssAnchorPositioning) return
 
       try {
         if (!overlayRef.current.matches(':popover-open')) {
@@ -244,7 +243,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
       } catch {
         // Ignore if popover is already showing or not supported
       }
-    }, [popover, _PrivateSkipPopoverLogic])
+    }, [popover, cssAnchorPositioning])
 
     // To be backwards compatible with the old Overlay, we need to set the left prop if x-position is not specified
     const leftPosition = left === undefined && right === undefined ? 0 : left

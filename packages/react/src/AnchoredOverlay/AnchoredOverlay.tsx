@@ -328,7 +328,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           preventOverflow={preventOverflow}
           data-component="AnchoredOverlay"
           _PrivateDisablePortal={_PrivateDisablePortal}
-          _PrivateSkipPopoverLogic={cssAnchorPositioning}
           {...(cssAnchorPositioning ? {popover: 'manual'} : {})}
           {...restOverlayProps}
           {...(cssAnchorPositioning ? {id: popoverId} : {})}
