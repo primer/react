@@ -1,0 +1,101 @@
+.Card {
+  display: grid;
+  position: relative;
+  border-radius: var(--borderRadius-large);
+  overflow: hidden;
+  grid-auto-rows: max-content auto;
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  box-shadow: var(--shadow-resting-small);
+  background-color: var(--bgColor-default);
+  gap: var(--stack-gap-normal);
+
+  &[data-padding='normal'] {
+    /* stylelint-disable-next-line primer/spacing */
+    padding: var(--stack-padding-spacious);
+  }
+
+  &[data-padding='condensed'] {
+    /* stylelint-disable-next-line primer/spacing */
+    padding: var(--stack-padding-condensed);
+  }
+
+  &[data-padding='none'] {
+    padding: 0;
+  }
+}
+
+.CardHeader {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.CardHeaderEdgeToEdge {
+  /* stylelint-disable primer/spacing */
+  margin-top: calc(-1 * var(--stack-padding-spacious));
+  margin-right: calc(-1 * var(--stack-padding-spacious));
+  margin-left: calc(-1 * var(--stack-padding-spacious));
+  width: calc(100% + 2 * var(--stack-padding-spacious));
+  /* stylelint-enable primer/spacing */
+}
+
+.CardImage {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.CardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--base-size-32);
+  height: var(--base-size-32);
+  border-radius: var(--borderRadius-medium);
+  background-color: var(--bgColor-muted);
+  color: var(--fgColor-muted);
+}
+
+.CardBody {
+  display: grid;
+  gap: var(--stack-gap-normal);
+}
+
+.CardContent {
+  display: grid;
+  gap: var(--stack-gap-condensed);
+}
+
+.CardHeading {
+  font: var(--text-title-shorthand-small);
+  color: var(--fgColor-default);
+  margin: 0;
+}
+
+.CardDescription {
+  font: var(--text-body-shorthand-medium);
+  color: var(--fgColor-muted);
+  margin: 0;
+}
+
+.CardMetadataContainer {
+  display: flex;
+  align-items: center;
+  gap: var(--stack-gap-normal);
+  font: var(--text-body-shorthand-medium);
+  color: var(--fgColor-muted);
+}
+
+.CardMetadataItem {
+  display: flex;
+  align-items: center;
+  gap: var(--stack-gap-condensed);
+  font: var(--text-body-shorthand-small);
+}
+
+.CardMenu {
+  position: absolute;
+  top: var(--base-size-16);
+  right: var(--base-size-16);
+  z-index: 1;
+}

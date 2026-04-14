@@ -9429,6 +9429,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 class="prc-components-SpinnerVisible-FH5pT prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="16px"
+                style="animation-delay: 0ms;"
                 viewBox="0 0 16 16"
                 width="16px"
               >
@@ -9472,6 +9473,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 class="prc-components-SpinnerVisible-FH5pT prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="16px"
+                style="animation-delay: 0ms;"
                 viewBox="0 0 16 16"
                 width="16px"
               >
@@ -9884,6 +9886,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 class="prc-components-SpinnerHidden-c-Wb6 prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="16px"
+                style="animation-delay: 0ms;"
                 viewBox="0 0 16 16"
                 width="16px"
               >
@@ -10302,6 +10305,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 class="prc-components-SpinnerVisible-FH5pT prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="16px"
+                style="animation-delay: 0ms;"
                 viewBox="0 0 16 16"
                 width="16px"
               >
@@ -10365,6 +10369,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="32px"
+                style="animation-delay: 0ms;"
                 viewBox="0 0 16 16"
                 width="32px"
               >
@@ -10777,6 +10782,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 class="prc-components-SpinnerHidden-c-Wb6 prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="16px"
+                style="animation-delay: 0ms;"
                 viewBox="0 0 16 16"
                 width="16px"
               >
@@ -10840,6 +10846,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="32px"
+                style="animation-delay: 0ms;"
                 viewBox="0 0 16 16"
                 width="32px"
               >
@@ -11252,6 +11259,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 class="prc-components-SpinnerHidden-c-Wb6 prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="16px"
+                style="animation-delay: 0ms;"
                 viewBox="0 0 16 16"
                 width="16px"
               >
@@ -11316,6 +11324,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="32px"
+                style="animation-delay: 0ms;"
                 viewBox="0 0 16 16"
                 width="32px"
               >
@@ -11728,6 +11737,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 class="prc-components-SpinnerVisible-FH5pT prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="16px"
+                style="animation-delay: 0ms;"
                 viewBox="0 0 16 16"
                 width="16px"
               >
@@ -12166,6 +12176,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="32px"
+                style="animation-delay: 0ms;"
                 viewBox="0 0 16 16"
                 width="32px"
               >
@@ -12210,6 +12221,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 class="prc-components-SpinnerVisible-FH5pT prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="16px"
+                style="animation-delay: 0ms;"
                 viewBox="0 0 16 16"
                 width="16px"
               >
@@ -12642,6 +12654,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="32px"
+                style="animation-delay: 0ms;"
                 viewBox="0 0 16 16"
                 width="32px"
               >
@@ -13080,6 +13093,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="32px"
+                style="animation-delay: 0ms;"
                 viewBox="0 0 16 16"
                 width="32px"
               >
@@ -13144,6 +13158,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="32px"
+                style="animation-delay: 0ms;"
                 viewBox="0 0 16 16"
                 width="32px"
               >
@@ -13576,6 +13591,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="32px"
+                style="animation-delay: 0ms;"
                 viewBox="0 0 16 16"
                 width="32px"
               >
@@ -13640,6 +13656,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="32px"
+                style="animation-delay: 0ms;"
                 viewBox="0 0 16 16"
                 width="32px"
               >
@@ -14072,6 +14089,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="32px"
+                style="animation-delay: 0ms;"
                 viewBox="0 0 16 16"
                 width="32px"
               >
@@ -14136,6 +14154,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="32px"
+                style="animation-delay: 0ms;"
                 viewBox="0 0 16 16"
                 width="32px"
               >
@@ -14568,6 +14587,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
                 fill="none"
                 height="32px"
+                style="animation-delay: 0ms;"
                 viewBox="0 0 16 16"
                 width="32px"
               >
@@ -14989,6 +15009,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               class="prc-components-SpinnerVisible-FH5pT prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="16px"
+              style="animation-delay: 0ms;"
               viewBox="0 0 16 16"
               width="16px"
             >
@@ -15032,6 +15053,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               class="prc-components-SpinnerVisible-FH5pT prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="16px"
+              style="animation-delay: 0ms;"
               viewBox="0 0 16 16"
               width="16px"
             >
@@ -15444,6 +15466,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               class="prc-components-SpinnerHidden-c-Wb6 prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="16px"
+              style="animation-delay: 0ms;"
               viewBox="0 0 16 16"
               width="16px"
             >
@@ -15862,6 +15885,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               class="prc-components-SpinnerVisible-FH5pT prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="16px"
+              style="animation-delay: 0ms;"
               viewBox="0 0 16 16"
               width="16px"
             >
@@ -15925,6 +15949,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="32px"
+              style="animation-delay: 0ms;"
               viewBox="0 0 16 16"
               width="32px"
             >
@@ -16337,6 +16362,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               class="prc-components-SpinnerHidden-c-Wb6 prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="16px"
+              style="animation-delay: 0ms;"
               viewBox="0 0 16 16"
               width="16px"
             >
@@ -16400,6 +16426,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="32px"
+              style="animation-delay: 0ms;"
               viewBox="0 0 16 16"
               width="32px"
             >
@@ -16812,6 +16839,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               class="prc-components-SpinnerHidden-c-Wb6 prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="16px"
+              style="animation-delay: 0ms;"
               viewBox="0 0 16 16"
               width="16px"
             >
@@ -16876,6 +16904,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="32px"
+              style="animation-delay: 0ms;"
               viewBox="0 0 16 16"
               width="32px"
             >
@@ -17288,6 +17317,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               class="prc-components-SpinnerVisible-FH5pT prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="16px"
+              style="animation-delay: 0ms;"
               viewBox="0 0 16 16"
               width="16px"
             >
@@ -17726,6 +17756,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="32px"
+              style="animation-delay: 0ms;"
               viewBox="0 0 16 16"
               width="32px"
             >
@@ -17770,6 +17801,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               class="prc-components-SpinnerVisible-FH5pT prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="16px"
+              style="animation-delay: 0ms;"
               viewBox="0 0 16 16"
               width="16px"
             >
@@ -18202,6 +18234,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="32px"
+              style="animation-delay: 0ms;"
               viewBox="0 0 16 16"
               width="32px"
             >
@@ -18640,6 +18673,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="32px"
+              style="animation-delay: 0ms;"
               viewBox="0 0 16 16"
               width="32px"
             >
@@ -18704,6 +18738,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="32px"
+              style="animation-delay: 0ms;"
               viewBox="0 0 16 16"
               width="32px"
             >
@@ -19136,6 +19171,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="32px"
+              style="animation-delay: 0ms;"
               viewBox="0 0 16 16"
               width="32px"
             >
@@ -19200,6 +19236,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="32px"
+              style="animation-delay: 0ms;"
               viewBox="0 0 16 16"
               width="32px"
             >
@@ -19632,6 +19669,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="32px"
+              style="animation-delay: 0ms;"
               viewBox="0 0 16 16"
               width="32px"
             >
@@ -19696,6 +19734,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="32px"
+              style="animation-delay: 0ms;"
               viewBox="0 0 16 16"
               width="32px"
             >
@@ -20128,6 +20167,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
               fill="none"
               height="32px"
+              style="animation-delay: 0ms;"
               viewBox="0 0 16 16"
               width="32px"
             >

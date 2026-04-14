@@ -232,16 +232,16 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
   const ariaLabelledBy = React.useMemo(() => {
     const parts = [labelId]
     if (hasTrailingVisualSlot) parts.push(trailingVisualId)
-    if (hasDescriptionSlot && descriptionVariant === 'inline') parts.push(inlineDescriptionId)
     return parts.join(' ')
-  }, [labelId, hasTrailingVisualSlot, trailingVisualId, hasDescriptionSlot, descriptionVariant, inlineDescriptionId])
+  }, [labelId, hasTrailingVisualSlot, trailingVisualId])
 
   const ariaDescribedBy = React.useMemo(() => {
     const parts: string[] = []
     if (hasDescriptionSlot && descriptionVariant === 'block') parts.push(blockDescriptionId)
+    if (hasDescriptionSlot && descriptionVariant === 'inline') parts.push(inlineDescriptionId)
     if (inactiveWarningId) parts.push(inactiveWarningId)
     return parts.length > 0 ? parts.join(' ') : undefined
-  }, [hasDescriptionSlot, descriptionVariant, blockDescriptionId, inactiveWarningId])
+  }, [hasDescriptionSlot, descriptionVariant, blockDescriptionId, inlineDescriptionId, inactiveWarningId])
 
   const menuItemProps = React.useMemo(
     () => ({
