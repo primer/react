@@ -1203,7 +1203,9 @@ for (const usingRemoveActiveDescendant of [false, true]) {
 
         await user.click(screen.getByText('Select items'))
 
-        expect(document.body.style.overflow).toBe('hidden')
+        await waitFor(() => {
+          expect(document.body.style.overflow).toBe('hidden')
+        })
       })
 
       it('restores body scroll when modal is closed', async () => {
@@ -1212,10 +1214,14 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         renderWithProp(<BasicSelectPanel variant="modal" onCancel={() => {}} />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
-        expect(document.body.style.overflow).toBe('hidden')
+        await waitFor(() => {
+          expect(document.body.style.overflow).toBe('hidden')
+        })
 
         await user.click(screen.getByRole('button', {name: 'Cancel'}))
-        expect(document.body.style.overflow).not.toBe('hidden')
+        await waitFor(() => {
+          expect(document.body.style.overflow).not.toBe('hidden')
+        })
       })
     })
 
