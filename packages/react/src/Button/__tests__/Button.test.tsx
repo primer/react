@@ -359,7 +359,7 @@ describe('data-component attributes', () => {
 
   describe('IconButton', () => {
     it('should have data-component="IconButton" on the button element', () => {
-      const {container} = render(<IconButton icon={SearchIcon} aria-label="Search" unsafeDisableTooltip />)
+      const {container} = render(<IconButton icon={SearchIcon} aria-label="Search" />)
       expect(container.querySelector('[data-component="IconButton"]')).toBeInTheDocument()
     })
   })
