@@ -65,9 +65,6 @@
     margin-left: var(--base-size-4);
     position-try-fallbacks: flip-inline, flip-block, flip-start, --outside-right-to-bottom;
 
-    &[data-align='right'] {
-      left: calc(anchor(right) - var(--anchored-overlay-anchor-offset-right));
-    }
   }
 }
 

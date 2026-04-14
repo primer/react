@@ -382,6 +382,8 @@ function getDefaultPosition(
     return {horizontal}
   }
 
+  // If the viewport is too narrow to fit the overlay on either side, calculate offsets to prevent overflow
+  // leftOffset is how much to shift the overlay to the right, rightOffset is how much to shift the overlay to the left
   const leftOffset = Math.max(0, overlayWidth - rect.right + viewportMargin)
   const rightOffset = Math.max(0, rect.left + overlayWidth - vw + viewportMargin)
 
