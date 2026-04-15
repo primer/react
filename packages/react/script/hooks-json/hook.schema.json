@@ -80,7 +80,7 @@
     },
     "status": {
       "type": "string",
-      "enum": ["deprecated"],
+      "enum": ["ready", "deprecated"],
       "description": "The status of the hook."
     },
     "importPath": {
