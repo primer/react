@@ -1,7 +1,7 @@
 import {render, waitFor, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React, {useRef, useState} from 'react'
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi, beforeEach, afterEach} from 'vitest'
 import {Button} from '../Button'
 import Overlay from '../Overlay'
 import Text from '../Text'
@@ -9,6 +9,7 @@ import BaseStyles from '../BaseStyles'
 import {NestedOverlays, MemexNestedOverlays, MemexIssueOverlay, PositionedOverlays} from './Overlay.features.stories'
 import {implementsClassName} from '../utils/testing'
 import classes from './Overlay.module.css'
+import {FeatureFlags} from '../FeatureFlags'
 
 type TestComponentSettings = {
   initialFocus?: 'button'
@@ -350,5 +351,104 @@ describe('Overlay', () => {
 
     const container = getByRole('dialog')
     expect(container).not.toHaveAttribute('data-reflow-container')
+  })
+})
+
+describe('Overlay popover behavior', () => {
+  let showPopoverSpy: ReturnType<typeof vi.spyOn>
+  let matchesSpy: ReturnType<typeof vi.spyOn>
+
+  beforeEach(() => {
+    showPopoverSpy = vi.spyOn(HTMLElement.prototype, 'showPopover').mockImplementation(() => {})
+    matchesSpy = vi.spyOn(HTMLElement.prototype, 'matches').mockReturnValue(false)
+  })
+
+  afterEach(() => {
+    showPopoverSpy.mockRestore()
+    matchesSpy.mockRestore()
+  })
+
+  const PopoverTestComponent = ({popover}: {popover?: 'auto' | 'manual'}) => {
+    const buttonRef = useRef<HTMLButtonElement>(null)
+    return (
+      <BaseStyles>
+        <Button ref={buttonRef}>trigger</Button>
+        <Overlay
+          returnFocusRef={buttonRef}
+          onEscape={() => {}}
+          onClickOutside={() => {}}
+          popover={popover}
+          role="dialog"
+        >
+          <div>Overlay content</div>
+        </Overlay>
+      </BaseStyles>
+    )
+  }
+
+  it('should call showPopover when popover prop is provided and feature flag is enabled', () => {
+    render(
+      <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+        <PopoverTestComponent popover="manual" />
+      </FeatureFlags>,
+    )
+
+    expect(showPopoverSpy).toHaveBeenCalled()
+  })
+
+  it('should not call showPopover when feature flag is disabled', () => {
+    render(
+      <FeatureFlags flags={{primer_react_css_anchor_positioning: false}}>
+        <PopoverTestComponent popover="manual" />
+      </FeatureFlags>,
+    )
+
+    expect(showPopoverSpy).not.toHaveBeenCalled()
+  })
+
+  it('should not call showPopover when popover prop is not provided', () => {
+    render(
+      <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+        <PopoverTestComponent />
+      </FeatureFlags>,
+    )
+
+    expect(showPopoverSpy).not.toHaveBeenCalled()
+  })
+
+  it('should not call showPopover if already open', () => {
+    matchesSpy.mockReturnValue(true)
+
+    render(
+      <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+        <PopoverTestComponent popover="manual" />
+      </FeatureFlags>,
+    )
+
+    expect(showPopoverSpy).not.toHaveBeenCalled()
+  })
+
+  it('should apply popover attribute when feature flag is enabled', () => {
+    const {baseElement} = render(
+      <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+        <PopoverTestComponent popover="manual" />
+      </FeatureFlags>,
+    )
+
+    // Use querySelector since popover elements are hidden by default until showPopover() is called
+    const overlay = baseElement.querySelector('[role="dialog"]')
+    expect(overlay).toHaveAttribute('popover', 'manual')
+  })
+
+  it('should not apply popover attribute when feature flag is disabled', () => {
+    const {getByRole} = render(
+      <FeatureFlags flags={{primer_react_css_anchor_positioning: false}}>
+        <PopoverTestComponent popover="manual" />
+      </FeatureFlags>,
+    )
+
+    // When feature flag is disabled, popover attribute is not applied so element is visible
+    const overlay = getByRole('dialog')
+    expect(overlay).not.toHaveAttribute('popover')
   })
 })
