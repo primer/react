@@ -191,7 +191,13 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
       const MENU_BUTTON_WIDTH = menuButtonWidth
       const NARROW_BREAKPOINT = 544
       const isNarrow = availableWidth < NARROW_BREAKPOINT
-      const MIN_VISIBLE_ITEMS = isNarrow && eHideRoot ? 1 : !eHideRoot ? 3 : 4
+
+      let MIN_VISIBLE_ITEMS = 4
+      if (!eHideRoot) {
+        MIN_VISIBLE_ITEMS = 3
+      } else if (isNarrow) {
+        MIN_VISIBLE_ITEMS = 1
+      }
 
       const calculateVisibleItemsWidth = (w: number[]) => {
         const widths = w.reduce((sum, width) => sum + width + 16, 0)
