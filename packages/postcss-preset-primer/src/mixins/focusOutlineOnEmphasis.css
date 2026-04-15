@@ -1,5 +1,6 @@
 /* outline with fg box-shadow for buttons */
-@define-mixin focusOutlineOnEmphasis $outlineOffset: -2px, $outlineColor: var(--focus-outlineColor) {
+@define-mixin focusOutlineOnEmphasis $outlineOffset: -2px,
+  $outlineColor: var(--focus-outline-color, var(--focus-outlineColor)) {
   outline: 2px solid $outlineColor;
   outline-offset: $outlineOffset;
   /* stylelint-disable-next-line primer/box-shadow */
