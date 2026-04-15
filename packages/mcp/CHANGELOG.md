@@ -1,5 +1,14 @@
 # @primer/mcp
 
+## 0.3.2
+
+### Patch Changes
+
+- [#7710](https://github.com/primer/react/pull/7710) [`e15db4c`](https://github.com/primer/react/commit/e15db4c29a0852524741c62dce694703dc48b6fd) Thanks [@adierkens](https://github.com/adierkens)! - Removes fallback for legacy documentation for components using `get_component`
+
+- Updated dependencies [[`ec6c88f`](https://github.com/primer/react/commit/ec6c88fe3eb3ef349500617c90378712f802376d), [`f5f2869`](https://github.com/primer/react/commit/f5f28691d9e5c9f8495e8c592635d2b616f7cb49), [`d7b9313`](https://github.com/primer/react/commit/d7b9313b53e370e258c152084ac1f0402d64b77f), [`b7dfb78`](https://github.com/primer/react/commit/b7dfb78079c50c6798aa4e09212aede701bf6c56), [`d7380a7`](https://github.com/primer/react/commit/d7380a7616a6c0cf861b5fe3dd9bd8d76470ca2e), [`b9211db`](https://github.com/primer/react/commit/b9211db173841c9d9a531c777c5ce2c0cd8af60f), [`efa7af8`](https://github.com/primer/react/commit/efa7af8d1e628cddc2f0356de83e7af5568ff358), [`30206c4`](https://github.com/primer/react/commit/30206c4fab92de8888f3f103f9b05bff96fdc1b9), [`5c34ab4`](https://github.com/primer/react/commit/5c34ab45c8744d7d038d63773adff324015f5643)]:
+  - @primer/react@38.20.0
+
 ## 0.3.1
 
 ### Patch Changes
