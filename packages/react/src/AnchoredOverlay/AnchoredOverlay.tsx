@@ -7,7 +7,7 @@ import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useFocusZone} from '../hooks/useFocusZone'
-import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
+import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef, useAnchorVisibility} from '../hooks'
 import {useId} from '../hooks/useId'
 import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {type ResponsiveValue} from '../hooks/useResponsiveValue'
@@ -120,6 +120,13 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
    * Props to be spread on the close button in the overlay.
    */
   closeButtonProps?: Partial<IconButtonProps>
+  /**
+   * When enabled (and CSS anchor positioning feature flag is on), hides the overlay
+   * when the anchor element scrolls out of the viewport. This uses IntersectionObserver
+   * to track anchor visibility.
+   * @default false
+   */
+  hideOnAnchorHidden?: boolean
 }
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
@@ -162,6 +169,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   onPositionChange,
   displayCloseButton = true,
   closeButtonProps = defaultCloseButtonProps,
+  hideOnAnchorHidden = false,
 }) => {
   const cssAnchorPositioningFlag = useFeatureFlag('primer_react_css_anchor_positioning')
   const supportsNativeCSSAnchorPositioning = useRef(false)
@@ -169,6 +177,12 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const anchorId = useId(externalAnchorId)
+
+  // Track anchor visibility to hide overlay when anchor scrolls out of viewport.
+  // This provides a JS fallback for CSS `position-visibility: anchors-visible`
+  // which only considers overflow clipping, not viewport visibility.
+  // Only enabled when both CSS anchor positioning is active AND hideOnAnchorHidden prop is true.
+  const isAnchorVisible = useAnchorVisibility(anchorRef, cssAnchorPositioning && open && hideOnAnchorHidden)
 
   const onClickOutside = useCallback(() => onClose?.('click-outside'), [onClose])
   const onEscape = useCallback(() => onClose?.('escape'), [onClose])
@@ -317,7 +331,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           ignoreClickRefs={[anchorRef]}
           onEscape={onEscape}
           role="none"
-          visibility={cssAnchorPositioning || position ? 'visible' : 'hidden'}
+          visibility={cssAnchorPositioning ? (isAnchorVisible ? 'visible' : 'hidden') : position ? 'visible' : 'hidden'}
           height={height}
           width={width}
           top={cssAnchorPositioning ? undefined : position?.top || 0}
