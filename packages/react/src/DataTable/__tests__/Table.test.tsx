@@ -397,8 +397,7 @@ describe('Table', () => {
       ).toBeInTheDocument()
     })
 
-    // need Octicon update for this to work
-    it.skip('should allow querying sort icons inside Table.SortHeader', () => {
+    it('should allow querying sort icons inside Table.SortHeader', () => {
       const {container} = render(
         <DataTable
           data={[{id: 1, value: 'test'}]}
