@@ -99,7 +99,7 @@ export {FeatureFlags, DefaultFeatureFlags, useFeatureFlag} from '../FeatureFlags
 export type {FeatureFlagsProps} from '../FeatureFlags'
 
 export {FilteredActionList} from '../FilteredActionList'
-export type {FilteredActionListProps} from '../FilteredActionList'
+export type {FilteredActionListProps, FilteredActionListLoadingTypes} from '../FilteredActionList'
 export {IssueLabel} from './IssueLabel'
 export type {IssueLabelProps} from './IssueLabel'
 
