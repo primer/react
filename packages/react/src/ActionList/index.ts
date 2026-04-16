@@ -5,7 +5,7 @@ import {LinkItem} from './LinkItem'
 import {Divider} from './Divider'
 import {Description} from './Description'
 import {TrailingAction} from './TrailingAction'
-import {LeadingVisual, TrailingVisual} from './Visuals'
+import {LeadingVisual, TrailingVisual, VisualContainer} from './Visuals'
 import {Heading} from './Heading'
 import {Selection} from './Selection'
 
@@ -55,4 +55,7 @@ export const ActionList = Object.assign(List, {
 
   /** Selection state for `Item`s in an `ActionList`. */
   Selection,
+
+  /** Container for leading and trailing visuals in an `ActionList.Item`. */
+  VisualContainer,
 })
