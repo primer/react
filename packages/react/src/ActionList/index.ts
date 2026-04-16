@@ -1,5 +1,5 @@
 import {List} from './List'
-import {Group, GroupHeading} from './Group'
+import {Group, GroupHeading, GroupContext} from './Group'
 import {Item} from './Item'
 import {LinkItem} from './LinkItem'
 import {Divider} from './Divider'
@@ -46,6 +46,9 @@ export const ActionList = Object.assign(List, {
 
   /** Heading for an `ActionList`. */
   Heading,
+
+  /** Context for `ActionList.Group` */
+  GroupContext,
 
   /** Heading for `ActionList.Group` */
   GroupHeading,
