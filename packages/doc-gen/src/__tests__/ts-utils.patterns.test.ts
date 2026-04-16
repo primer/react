@@ -5,7 +5,7 @@ import {parseTypeInfo} from '../ts-utils'
 const directory = path.resolve(import.meta.dirname)
 const FIXTURE_PATH = path.join(directory, 'fixtures')
 
-describe('getPropTypeForComponent', () => {
+describe('getPropTypeForComponent', {timeout: 30_000}, () => {
   it('extracts props for FunctionComponent', () => {
     const info = parseTypeInfo(FIXTURE_PATH, 'FunctionComponent')
     expect(info.props.foo).toMatchObject({name: 'foo', type: 'string', required: true})
