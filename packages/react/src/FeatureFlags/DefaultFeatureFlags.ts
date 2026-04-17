@@ -1,7 +1,6 @@
 import {FeatureFlagScope} from './FeatureFlagScope'
 
 export const DefaultFeatureFlags = FeatureFlagScope.create({
-  primer_react_breadcrumbs_overflow_menu: false,
   primer_react_css_anchor_positioning: false,
   primer_react_select_panel_fullscreen_on_narrow: false,
   primer_react_select_panel_order_selected_at_top: false,
