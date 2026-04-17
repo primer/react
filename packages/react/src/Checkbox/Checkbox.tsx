@@ -52,6 +52,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       },
       // `checked` is intentionally included: browsers clear the indeterminate state
       // when checked changes, so we need the callback to re-run to restore it.
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       [indeterminate, checked],
     )
     const mergedRef = useMergedRefs(ref, setIndeterminate)
