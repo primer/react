@@ -122,11 +122,8 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
   closeButtonProps?: Partial<IconButtonProps>
   /**
    * When enabled (and CSS anchor positioning feature flag is on), uses the Popover API
-   * to render the overlay in the browser's top layer. This helps the overlay escape
-   * stacking contexts and appear above other elements like sticky headers.
-   * @default false
    */
-  usePopoverApi?: boolean
+  usePopover?: boolean
 }
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
@@ -169,13 +166,13 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   onPositionChange,
   displayCloseButton = true,
   closeButtonProps = defaultCloseButtonProps,
-  usePopoverApi = false,
+  usePopover = false,
 }) => {
   const cssAnchorPositioningFlag = useFeatureFlag('primer_react_css_anchor_positioning')
   const supportsNativeCSSAnchorPositioning = useRef(false)
   const cssAnchorPositioning = cssAnchorPositioningFlag && supportsNativeCSSAnchorPositioning.current
-  // Only use Popover API when both CSS anchor positioning is enabled AND usePopoverApi is true
-  const shouldUsePopover = cssAnchorPositioning && usePopoverApi
+  // Only use Popover API when both CSS anchor positioning is enabled AND usePopover is true
+  const shouldUsePopover = cssAnchorPositioning && usePopover
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const anchorId = useId(externalAnchorId)
@@ -292,7 +289,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       currentOverlay.style.setProperty(`--anchored-overlay-anchor-offset-${result.horizontal}`, `${offset || 0}px`)
     }
 
-    // Only call showPopover when usePopoverApi is enabled
+    // Only call showPopover when usePopover is enabled
     if (shouldUsePopover) {
       try {
         if (!currentOverlay.matches(':popover-open')) {
