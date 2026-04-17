@@ -1,7 +1,3 @@
-.BadgeWithDoneBackground {
-  background-color: var(--bgColor-done-emphasis);
-}
-
 .LinkWithBoldStyle {
   font-weight: var(--base-text-weight-semibold);
   color: var(--fgColor-default);
@@ -10,8 +6,4 @@
 
 .LinkWithBoldStyle:hover {
   color: var(--fgColor-accent);
-}
-
-.GitMergeIcon {
-  color: var(--fgColor-onEmphasis);
 }

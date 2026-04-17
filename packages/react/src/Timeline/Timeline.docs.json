@@ -23,6 +23,9 @@
       "id": "components-timeline-features--timeline-break"
     },
     {
+      "id": "components-timeline-features--badge-variants"
+    },
+    {
       "id": "components-timeline-features--with-inline-links"
     }
   ],
@@ -47,7 +50,13 @@
     },
     {
       "name": "Timeline.Badge",
-      "props": []
+      "props": [
+        {
+          "name": "variant",
+          "type": "'accent' | 'success' | 'attention' | 'severe' | 'danger' | 'done' | 'open' | 'closed' | 'sponsors'",
+          "description": "The color variant of the badge."
+        }
+      ]
     },
     {
       "name": "Timeline.Body",

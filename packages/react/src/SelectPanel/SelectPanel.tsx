@@ -362,9 +362,9 @@ function Panel({
     [items, itemsInViewSet, onSelectedChange, selected],
   )
 
-  // disable body scroll when the panel is open on narrow screens
+  // disable body scroll when the panel is open in modal mode or on narrow screens
   useEffect(() => {
-    if (open && isNarrowScreenSize && usingFullScreenOnNarrow) {
+    if (open && (variant === 'modal' || (isNarrowScreenSize && usingFullScreenOnNarrow))) {
       const bodyOverflowStyle = document.body.style.overflow || ''
       // If the body is already set to overflow: hidden, it likely means
       // that there is already a modal open. In that case, we should bail
@@ -379,7 +379,7 @@ function Panel({
         document.body.style.overflow = bodyOverflowStyle
       }
     }
-  }, [isNarrowScreenSize, open, usingFullScreenOnNarrow])
+  }, [isNarrowScreenSize, open, usingFullScreenOnNarrow, variant])
 
   useEffect(() => {
     if (open) {
