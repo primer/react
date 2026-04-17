@@ -2,7 +2,7 @@ import {FilteredActionList as FilteredList} from './FilteredActionList'
 import {FilteredActionListBodyLoader} from './FilteredActionListLoaders'
 
 export type {FilteredActionListProps} from './FilteredActionList'
-export type {FilteredActionListLoadingTypes} from './FilteredActionListLoaders'
+export {FilteredActionListLoadingTypes} from './FilteredActionListLoaders'
 
 export type {
   FilteredActionListItemProps as ItemProps,
