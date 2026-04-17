@@ -1,7 +1,6 @@
 import {clsx} from 'clsx'
-import {useProvidedRefOrCreate} from '../hooks'
-import React, {useContext, useEffect, type ChangeEventHandler, type InputHTMLAttributes, type ReactElement} from 'react'
-import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import {useMergedRefs} from '../hooks'
+import React, {useContext, type ChangeEventHandler, type InputHTMLAttributes, type ReactElement} from 'react'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import {CheckboxGroupContext} from '../CheckboxGroup/CheckboxGroupContext'
 import classes from './Checkbox.module.css'
@@ -45,7 +44,18 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     ref,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
-    const checkboxRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
+    const setIndeterminate = React.useCallback(
+      (node: HTMLInputElement | null) => {
+        if (node) {
+          node.indeterminate = indeterminate || false
+        }
+      },
+      // `checked` is intentionally included: browsers clear the indeterminate state
+      // when checked changes, so we need the callback to re-run to restore it.
+      [indeterminate, checked],
+    )
+    const mergedRef = useMergedRefs(ref, setIndeterminate)
+
     const checkboxGroupContext = useContext(CheckboxGroupContext)
     const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
       checkboxGroupContext.onChange && checkboxGroupContext.onChange(e)
@@ -54,37 +64,19 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     const inputProps = {
       type: 'checkbox',
       disabled,
-      ref: checkboxRef,
+      ref: mergedRef,
       checked: indeterminate ? false : checked,
       defaultChecked,
       required,
       ['aria-required']: required ? ('true' as const) : ('false' as const),
       ['aria-invalid']: validationStatus === 'error' ? ('true' as const) : ('false' as const),
+      ['aria-checked']: indeterminate ? ('mixed' as const) : undefined,
       onChange: handleOnChange,
       value,
       name: value,
       ...rest,
     }
 
-    useLayoutEffect(() => {
-      if (checkboxRef.current) {
-        checkboxRef.current.indeterminate = indeterminate || false
-      }
-    }, [indeterminate, checked, checkboxRef])
-
-    useEffect(() => {
-      const {current: checkbox} = checkboxRef
-      if (!checkbox) {
-        return
-      }
-
-      if (indeterminate) {
-        checkbox.setAttribute('aria-checked', 'mixed')
-      } else {
-        checkbox.setAttribute('aria-checked', checkbox.checked ? 'true' : 'false')
-      }
-    })
-    // @ts-expect-error inputProp needs a non nullable ref
     return <input {...inputProps} className={clsx(className, sharedClasses.Input, classes.Checkbox)} />
   },
 )
