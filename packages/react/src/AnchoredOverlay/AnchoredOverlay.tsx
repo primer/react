@@ -124,7 +124,7 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
    * When `true`, uses the Popover API only if the CSS anchor positioning feature flag is enabled
    * and the browser supports native CSS anchor positioning. Has no effect otherwise. Defaults to `false`.
    */
-  usePopover?: boolean
+  renderAs?: 'portal' | 'popover'
 }
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
@@ -167,13 +167,13 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   onPositionChange,
   displayCloseButton = true,
   closeButtonProps = defaultCloseButtonProps,
-  usePopover = false,
+  renderAs = 'portal',
 }) => {
   const cssAnchorPositioningFlag = useFeatureFlag('primer_react_css_anchor_positioning')
   const supportsNativeCSSAnchorPositioning = useRef(false)
   const cssAnchorPositioning = cssAnchorPositioningFlag && supportsNativeCSSAnchorPositioning.current
-  // Only use Popover API when both CSS anchor positioning is enabled AND usePopover is true
-  const shouldUsePopover = cssAnchorPositioning && usePopover
+  // Only use Popover API when both CSS anchor positioning is enabled AND renderAs is true
+  const shouldRenderAs = cssAnchorPositioning && renderAs === 'popover'
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const anchorId = useId(externalAnchorId)
@@ -290,8 +290,8 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       currentOverlay.style.setProperty(`--anchored-overlay-anchor-offset-${result.horizontal}`, `${offset || 0}px`)
     }
 
-    // Only call showPopover when usePopover is enabled
-    if (shouldUsePopover) {
+    // Only call showPopover when renderAs is enabled
+    if (shouldRenderAs) {
       try {
         if (!currentOverlay.matches(':popover-open')) {
           currentOverlay.showPopover()
@@ -300,7 +300,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
         // Ignore if popover is already showing or not supported
       }
     }
-  }, [cssAnchorPositioning, shouldUsePopover, open, overlayElement, id, overlayRef, anchorRef, width])
+  }, [cssAnchorPositioning, shouldRenderAs, open, overlayElement, id, overlayRef, anchorRef, width])
 
   const showXIcon = onClose && variant.narrow === 'fullscreen' && displayCloseButton
   const XButtonAriaLabelledBy = closeButtonProps['aria-labelledby']
@@ -319,7 +319,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           tabIndex: 0,
           onClick: onAnchorClick,
           onKeyDown: onAnchorKeyDown,
-          ...(shouldUsePopover ? {popoverTarget: popoverId} : {}),
+          ...(shouldRenderAs ? {popoverTarget: popoverId} : {}),
         })}
       {open ? (
         <Overlay
@@ -339,9 +339,9 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           preventOverflow={preventOverflow}
           data-component="AnchoredOverlay"
           _PrivateDisablePortal={_PrivateDisablePortal}
-          {...(shouldUsePopover ? {popover: 'manual'} : {})}
+          {...(shouldRenderAs ? {popover: 'manual'} : {})}
           {...restOverlayProps}
-          {...(shouldUsePopover ? {id: popoverId} : {})}
+          {...(shouldRenderAs ? {id: popoverId} : {})}
           ref={node => {
             if (overlayProps?.ref) {
               assignRef(overlayProps.ref, node)
