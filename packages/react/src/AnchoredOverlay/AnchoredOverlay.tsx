@@ -121,7 +121,8 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
    */
   closeButtonProps?: Partial<IconButtonProps>
   /**
-   * When enabled (and CSS anchor positioning feature flag is on), uses the Popover API
+   * When `true`, uses the Popover API only if the CSS anchor positioning feature flag is enabled
+   * and the browser supports native CSS anchor positioning. Has no effect otherwise. Defaults to `false`.
    */
   usePopover?: boolean
 }
