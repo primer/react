@@ -437,7 +437,7 @@ function getDesignTokenSpecsText(groups: TokenGroups): string {
 * **Shorthand**: MUST use \`font: var(...)\`. NEVER split size/weight. 
 * **Shorthand Fallback**: If no shorthand exists (e.g. Monospace), use individual tokens for font-size, family, and line-height. NEVER raw 1.5.
 * **States**: Define 5: Rest, Hover, Focus-visible, Active, Disabled.
-* **Focus**: \`:focus-visible\` MUST use \`outline: var(--focus-outline)\` AND \`outline-offset: var(--outline-focus-offset)\`.
+* **Focus**: \`:focus-visible\` MUST use \`outline: var(--focus-outline)\` AND \`outline-offset: var(--focus-outline-offset, var(--outline-focus-offset))\`.
 * **Validation**: CALL \`lint_css\` after any CSS change. Task is incomplete without a success message.
 * **Self-Correction**: Adopt autofixes immediately. Report unfixable errors to the user.
 
@@ -508,7 +508,7 @@ function getTokenUsagePatternsText(): string {
 
 .btn-primary:focus-visible {
   outline: var(--focus-outline);
-  outline-offset: var(--outline-focus-offset);
+  outline-offset: var(--focus-outline-offset, var(--outline-focus-offset));
 }
 
 .btn-primary:active {
