@@ -37,9 +37,14 @@
           "description": "The view title rendered as an h2."
         },
         {
+          "name": "primaryAction",
+          "type": "React.ReactNode",
+          "description": "Dedicated slot for the view's primary action. Render a single primary Button (or LinkButton)."
+        },
+        {
           "name": "actions",
           "type": "React.ReactNode",
-          "description": "Primary action(s) rendered to the right of the title."
+          "description": "Slot for additional secondary actions, rendered to the right of primaryAction."
         },
         {
           "name": "className",

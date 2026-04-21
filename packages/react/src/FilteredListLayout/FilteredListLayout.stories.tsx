@@ -22,6 +22,7 @@ const meta: Meta = {
     'Results placeholder height': 552,
     'Footer placeholder height': 64,
     'ViewHeader.title': 'Assigned to you',
+    'ViewHeader.primaryAction': true,
     'ViewHeader.actions': true,
     'Pane.position': 'start',
     'Pane.divider': 'line',
@@ -49,6 +50,10 @@ const meta: Meta = {
     'ViewHeader.title': {
       type: 'string',
       control: {type: 'text'},
+      table: {category: 'ViewHeader props'},
+    },
+    'ViewHeader.primaryAction': {
+      type: 'boolean',
       table: {category: 'ViewHeader props'},
     },
     'ViewHeader.actions': {
@@ -130,12 +135,12 @@ export const Default: StoryFn = args => (
       {args['Render view header?'] ? (
         <FilteredListLayout.ViewHeader
           title={args['ViewHeader.title']}
+          primaryAction={
+            args['ViewHeader.primaryAction'] ? <Button variant="primary">New issue</Button> : undefined
+          }
           actions={
             args['ViewHeader.actions'] ? (
-              <>
-                <Button variant="primary">New issue</Button>
-                <IconButton icon={KebabHorizontalIcon} aria-label="More options" />
-              </>
+              <IconButton icon={KebabHorizontalIcon} aria-label="More options" />
             ) : undefined
           }
         />

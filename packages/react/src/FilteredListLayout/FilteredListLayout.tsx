@@ -107,11 +107,27 @@ Content.displayName = 'FilteredListLayout.Content'
 
 export type FilteredListLayoutViewHeaderProps = {
   title: React.ReactNode
+  /**
+   * Dedicated slot for the view's primary action. Render a single primary
+   * Button (or LinkButton). Sits to the right of the title, before any
+   * additional `actions`.
+   */
+  primaryAction?: React.ReactNode
+  /**
+   * Slot for additional secondary actions (overflow menus, icon buttons,
+   * filter toggles, etc.). Rendered to the right of `primaryAction`.
+   */
   actions?: React.ReactNode
   className?: string
 }
 
-export const ViewHeader: React.FC<FilteredListLayoutViewHeaderProps> = ({title, actions, className}) => {
+export const ViewHeader: React.FC<FilteredListLayoutViewHeaderProps> = ({
+  title,
+  primaryAction,
+  actions,
+  className,
+}) => {
+  const hasTrailing = primaryAction || actions
   return (
     <div
       className={className}
@@ -126,8 +142,11 @@ export const ViewHeader: React.FC<FilteredListLayoutViewHeaderProps> = ({title, 
       <Heading as="h2" sx={{fontSize: 3}}>
         {title}
       </Heading>
-      {actions ? (
-        <div style={{display: 'flex', alignItems: 'center', gap: 'var(--stack-gap-condensed, 8px)'}}>{actions}</div>
+      {hasTrailing ? (
+        <div style={{display: 'flex', alignItems: 'center', gap: 'var(--stack-gap-condensed, 8px)'}}>
+          {primaryAction}
+          {actions}
+        </div>
       ) : null}
     </div>
   )
