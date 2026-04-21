@@ -14,6 +14,17 @@ export type {BlankslateProps} from '../Blankslate'
 export {ButtonBase} from '../Button'
 export type {ButtonBaseProps} from '../Button'
 
+export {Card} from '../Card'
+export type {
+  CardProps,
+  CardIconProps,
+  CardImageProps,
+  CardHeadingProps,
+  CardDescriptionProps,
+  CardMenuProps,
+  CardMetadataProps,
+} from '../Card'
+
 export {DataTable, Table, createColumnHelper} from '../DataTable'
 export type {
   DataTableProps,

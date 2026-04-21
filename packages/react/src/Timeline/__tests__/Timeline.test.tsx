@@ -53,6 +53,16 @@ describe('Timeline.Item', () => {
 
 describe('Timeline.Badge', () => {
   implementsClassName(Timeline.Badge, classes.TimelineBadge)
+
+  it('renders with variant prop', () => {
+    const {container} = render(<Timeline.Badge variant="done" />)
+    expect(container.querySelector(`.${classes.TimelineBadge}`)).toHaveAttribute('data-variant', 'done')
+  })
+
+  it('does not render data-variant when variant is omitted', () => {
+    const {container} = render(<Timeline.Badge />)
+    expect(container.querySelector(`.${classes.TimelineBadge}`)).not.toHaveAttribute('data-variant')
+  })
 })
 
 describe('Timeline.Body', () => {

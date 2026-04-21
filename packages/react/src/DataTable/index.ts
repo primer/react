@@ -16,8 +16,25 @@ import {
   TableSkeleton,
 } from './Table'
 import {Pagination} from './Pagination'
+import type {SlotMarker} from '../utils/types/Slots'
 
-const Table = Object.assign(TableImpl, {
+const Table: typeof TableImpl &
+  SlotMarker & {
+    Container: typeof TableContainer
+    Title: typeof TableTitle
+    Subtitle: typeof TableSubtitle
+    Actions: typeof TableActions
+    Divider: typeof TableDivider
+    Skeleton: typeof TableSkeleton
+    Head: typeof TableHead
+    Body: typeof TableBody
+    Header: typeof TableHeader
+    Row: typeof TableRow
+    Cell: typeof TableCell
+    CellPlaceholder: typeof TableCellPlaceholder
+    Pagination: typeof Pagination
+    ErrorDialog: typeof ErrorDialog
+  } = Object.assign(TableImpl, {
   Container: TableContainer,
   Title: TableTitle,
   Subtitle: TableSubtitle,
@@ -33,6 +50,8 @@ const Table = Object.assign(TableImpl, {
   Pagination,
   ErrorDialog,
 })
+
+Table.__SLOT__ = Symbol('Table')
 
 export {DataTable, Table}
 export type {DataTableProps} from './DataTable'

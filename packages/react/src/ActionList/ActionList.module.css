@@ -649,9 +649,6 @@ default block */
     }
 
     & .Description {
-      /* adjust line-height for baseline alignment */
-
-      /* line-height: calc(var(--control-medium-lineBoxHeight) - var(--base-size-2)); */
       /* stylelint-disable-next-line primer/typography */
       line-height: 16px;
     }
@@ -676,7 +673,7 @@ span wrapping svg or text */
 .VisualWrap {
   display: flex;
   min-width: max-content;
-  min-height: var(--control-medium-lineBoxHeight);
+  min-height: var(--base-size-20);
   /* stylelint-disable-next-line primer/typography */
   line-height: 20px;
   /* temporary until we fix line-height rounding in primitives */

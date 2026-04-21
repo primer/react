@@ -16,6 +16,6 @@
 
 .CustomActionListItem[data-is-active-descendant='activated-directly'] {
   background-color: transparent;
-  outline: 2px solid var(--focus-outlineColor, var(--color-accent-emphasis));
+  outline: var(--focus-outline);
   outline-offset: -2px;
 }
