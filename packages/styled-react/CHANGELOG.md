@@ -1,5 +1,17 @@
 # @primer/styled-react
 
+## 1.0.6
+
+### Patch Changes
+
+- [#7738](https://github.com/primer/react/pull/7738) [`f5f2869`](https://github.com/primer/react/commit/f5f28691d9e5c9f8495e8c592635d2b616f7cb49) Thanks [@francinelucca](https://github.com/francinelucca)! - ActionMenu, Table: Fix component mutation issue where `Object.assign` was modifying original `@primer/react` components. Now uses wrapper components to avoid side effects.
+
+- [#7728](https://github.com/primer/react/pull/7728) [`6eb03b5`](https://github.com/primer/react/commit/6eb03b5a1d8332878e54bf3f2aa3daf6cccc6e44) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove Overlay, CounterLabel, and ActionMenu from styled-react package
+
+- [#7743](https://github.com/primer/react/pull/7743) [`8550be3`](https://github.com/primer/react/commit/8550be3fee9cc7cdf85ff99fe7850ed42b19452b) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove Token and Tooltip from `@primer/styled-react`
+
+- [#7726](https://github.com/primer/react/pull/7726) [`2edb05a`](https://github.com/primer/react/commit/2edb05a610c4f6d8fc1bcf759a849263e63347aa) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Remove PageHeader from @primer/styled-react
+
 ## 1.0.5
 
 ### Patch Changes

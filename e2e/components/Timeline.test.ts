@@ -27,6 +27,10 @@ const stories = [
     title: 'Timeline Break',
     id: 'components-timeline-features--timeline-break',
   },
+  {
+    title: 'Badge Variants',
+    id: 'components-timeline-features--badge-variants',
+  },
 ] as const
 
 test.describe('Timeline', () => {
