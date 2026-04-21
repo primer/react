@@ -1,0 +1,35 @@
+{
+  "id": "filtered_list_layout",
+  "name": "FilteredListLayout",
+  "status": "alpha",
+  "stories": [
+    {
+      "id": "components-filteredlistlayout--default"
+    }
+  ],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "className",
+      "type": "string"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "FilteredListLayout.Header",
+      "props": []
+    },
+    {
+      "name": "FilteredListLayout.Sidebar",
+      "props": []
+    },
+    {
+      "name": "FilteredListLayout.Content",
+      "props": []
+    },
+    {
+      "name": "FilteredListLayout.Footer",
+      "props": []
+    }
+  ]
+}

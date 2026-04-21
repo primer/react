@@ -24,6 +24,14 @@ export type {
   SplitPageLayoutPaneProps,
   SplitPageLayoutFooterProps,
 } from './SplitPageLayout'
+export {FilteredListLayout} from './FilteredListLayout'
+export type {
+  FilteredListLayoutProps,
+  FilteredListLayoutHeaderProps,
+  FilteredListLayoutContentProps,
+  FilteredListLayoutSidebarProps,
+  FilteredListLayoutFooterProps,
+} from './FilteredListLayout'
 
 // Hooks
 export {default as useDetails} from './hooks/useDetails'
