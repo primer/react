@@ -16,7 +16,11 @@
   ],
   "subcomponents": [
     {
-      "name": "FilteredListLayout.Sidebar",
+      "name": "FilteredListLayout.Header",
+      "props": []
+    },
+    {
+      "name": "FilteredListLayout.Pane",
       "props": []
     },
     {
@@ -24,13 +28,13 @@
       "props": []
     },
     {
-      "name": "FilteredListLayout.Header",
+      "name": "FilteredListLayout.ViewHeader",
       "props": [
         {
           "name": "title",
           "type": "React.ReactNode",
           "required": true,
-          "description": "The page title rendered as an h2."
+          "description": "The view title rendered as an h2."
         },
         {
           "name": "actions",

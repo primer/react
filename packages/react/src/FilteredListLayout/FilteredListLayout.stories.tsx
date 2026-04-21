@@ -14,11 +14,14 @@ export default {
 
 export const Default: StoryFn = () => (
   <FilteredListLayout>
-    <FilteredListLayout.Sidebar position="start" aria-label="Sidebar">
-      <Placeholder label="Sidebar" height={400} />
-    </FilteredListLayout.Sidebar>
+    <FilteredListLayout.Header>
+      <Placeholder label="Header" height={64} />
+    </FilteredListLayout.Header>
+    <FilteredListLayout.Pane position="start" aria-label="Sidebar">
+      <Placeholder label="Pane" height={400} />
+    </FilteredListLayout.Pane>
     <FilteredListLayout.Content>
-      <FilteredListLayout.Header
+      <FilteredListLayout.ViewHeader
         title="Assigned to you"
         actions={
           <>

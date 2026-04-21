@@ -1,6 +1,11 @@
 import type React from 'react'
 import Heading from '../Heading'
-import type {PageLayoutContentProps, PageLayoutFooterProps, PageLayoutPaneProps} from '../PageLayout'
+import type {
+  PageLayoutContentProps,
+  PageLayoutFooterProps,
+  PageLayoutHeaderProps,
+  PageLayoutPaneProps,
+} from '../PageLayout'
 import {PageLayout} from '../PageLayout'
 
 // ----------------------------------------------------------------------------
@@ -24,6 +29,7 @@ export const Root: React.FC<React.PropsWithChildren<FilteredListLayoutProps>> = 
       columnGap="none"
       rowGap="none"
       _slotsConfig={{
+        header: Header,
         footer: Footer,
       }}
       {...props}
@@ -34,32 +40,44 @@ export const Root: React.FC<React.PropsWithChildren<FilteredListLayoutProps>> = 
 Root.displayName = 'FilteredListLayout'
 
 // ----------------------------------------------------------------------------
-// FilteredListLayout.Sidebar
+// FilteredListLayout.Header
+//
+// Top-of-page header row. Wraps PageLayout.Header. Use for the global page
+// header (e.g. breadcrumbs, page-level title). Optional — not all filtered
+// list pages need a top header above the sidebar/content split.
+
+export type FilteredListLayoutHeaderProps = PageLayoutHeaderProps
+
+export const Header: React.FC<React.PropsWithChildren<FilteredListLayoutHeaderProps>> = ({
+  padding = 'normal',
+  divider = 'line',
+  ...props
+}) => {
+  // eslint-disable-next-line primer-react/direct-slot-children
+  return <PageLayout.Header padding={padding} divider={divider} {...props} />
+}
+
+Header.displayName = 'FilteredListLayout.Header'
+
+// ----------------------------------------------------------------------------
+// FilteredListLayout.Pane
 //
 // Wraps PageLayout.Pane with defaults appropriate for a filtered-list sidebar.
 // Future: hide affordance at the bottom (per epic #2156 DoD).
 
-export type FilteredListLayoutSidebarProps = PageLayoutPaneProps
+export type FilteredListLayoutPaneProps = PageLayoutPaneProps
 
-export const Sidebar: React.FC<React.PropsWithChildren<FilteredListLayoutSidebarProps>> = ({
+export const Pane: React.FC<React.PropsWithChildren<FilteredListLayoutPaneProps>> = ({
   position = 'start',
   sticky = true,
   padding = 'normal',
   divider = 'line',
   ...props
 }) => {
-  return (
-    <PageLayout.Pane
-      position={position}
-      sticky={sticky}
-      padding={padding}
-      divider={divider}
-      {...props}
-    />
-  )
+  return <PageLayout.Pane position={position} sticky={sticky} padding={padding} divider={divider} {...props} />
 }
 
-Sidebar.displayName = 'FilteredListLayout.Sidebar'
+Pane.displayName = 'FilteredListLayout.Pane'
 
 // ----------------------------------------------------------------------------
 // FilteredListLayout.Content
@@ -80,20 +98,20 @@ export const Content: React.FC<React.PropsWithChildren<FilteredListLayoutContent
 Content.displayName = 'FilteredListLayout.Content'
 
 // ----------------------------------------------------------------------------
-// FilteredListLayout.Header
+// FilteredListLayout.ViewHeader
 //
-// Lives inside FilteredListLayout.Content as the top row: page title on the
+// Lives inside FilteredListLayout.Content as the top row: view title on the
 // left, primary action(s) on the right. Mirrors the Application template
-// pattern from github-ui (title is an h2 inside the content region, not the
-// global page title — that's PageLayout.Header territory and not used here).
+// pattern from github-ui (title is an h2 inside the content region, distinct
+// from the global page header above).
 
-export type FilteredListLayoutHeaderProps = {
+export type FilteredListLayoutViewHeaderProps = {
   title: React.ReactNode
   actions?: React.ReactNode
   className?: string
 }
 
-export const Header: React.FC<FilteredListLayoutHeaderProps> = ({title, actions, className}) => {
+export const ViewHeader: React.FC<FilteredListLayoutViewHeaderProps> = ({title, actions, className}) => {
   return (
     <div
       className={className}
@@ -115,7 +133,7 @@ export const Header: React.FC<FilteredListLayoutHeaderProps> = ({title, actions,
   )
 }
 
-Header.displayName = 'FilteredListLayout.Header'
+ViewHeader.displayName = 'FilteredListLayout.ViewHeader'
 
 // ----------------------------------------------------------------------------
 // FilteredListLayout.FilterBar
@@ -182,9 +200,10 @@ Footer.displayName = 'FilteredListLayout.Footer'
 // Export
 
 export const FilteredListLayout = Object.assign(Root, {
-  Sidebar,
-  Content,
   Header,
+  Pane,
+  Content,
+  ViewHeader,
   FilterBar,
   Results,
   Footer,
