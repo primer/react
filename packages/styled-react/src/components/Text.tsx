@@ -9,6 +9,7 @@ import type {ForwardRefComponent} from '../polymorphic'
 type BaseTextProps = {
   size?: 'large' | 'medium' | 'small'
   weight?: 'light' | 'normal' | 'medium' | 'semibold'
+  whiteSpace?: 'pre' | 'normal' | 'nowrap' | 'pre-wrap' | 'pre-line'
   className?: string
   children?: React.ReactNode
   as?: React.ElementType
