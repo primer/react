@@ -1,5 +1,56 @@
 # @primer/react
 
+## 38.20.0
+
+### Minor Changes
+
+- [#7723](https://github.com/primer/react/pull/7723) [`ec6c88f`](https://github.com/primer/react/commit/ec6c88fe3eb3ef349500617c90378712f802376d) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Add Card component with subcomponents: Card.Icon, Card.Image, Card.Heading, Card.Description, Card.Menu, and Card.Metadata
+
+- [#7725](https://github.com/primer/react/pull/7725) [`d7b9313`](https://github.com/primer/react/commit/d7b9313b53e370e258c152084ac1f0402d64b77f) Thanks [@TylerJDev](https://github.com/TylerJDev)! - AnchoredOverlay: Remove polyfill for CSS Anchor Positioning, use primer/behaviors as fallback. Ensure overlays take available space.
+
+- [#7752](https://github.com/primer/react/pull/7752) [`d7380a7`](https://github.com/primer/react/commit/d7380a7616a6c0cf861b5fe3dd9bd8d76470ca2e) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Breadcrumbs: Graduate `primer_react_breadcrumbs_overflow_menu` feature flag, making the overflow menu behavior always-on.
+
+- [#7733](https://github.com/primer/react/pull/7733) [`b9211db`](https://github.com/primer/react/commit/b9211db173841c9d9a531c777c5ce2c0cd8af60f) Thanks [@francinelucca](https://github.com/francinelucca)! - Overlay: Graduate `primer_react_overlay_max_height_clamp_to_viewport` feature flag
+
+  The max-height of overlays is now clamped to the viewport height by default using `min(size, 100dvh)`. This prevents overlays from extending beyond the viewport on smaller screens.
+
+- [#7698](https://github.com/primer/react/pull/7698) [`5c34ab4`](https://github.com/primer/react/commit/5c34ab45c8744d7d038d63773adff324015f5643) Thanks [@hectahertz](https://github.com/hectahertz)! - Timeline: add `variant` prop to `Timeline.Badge` for built-in color schemes (`accent`, `success`, `attention`, `severe`, `danger`, `done`, `open`, `closed`, `sponsors`)
+
+### Patch Changes
+
+- [#7738](https://github.com/primer/react/pull/7738) [`f5f2869`](https://github.com/primer/react/commit/f5f28691d9e5c9f8495e8c592635d2b616f7cb49) Thanks [@francinelucca](https://github.com/francinelucca)! - ActionMenu, Table: Fix component mutation issue where `Object.assign` was modifying original `@primer/react` components. Now uses wrapper components to avoid side effects.
+
+- [#7747](https://github.com/primer/react/pull/7747) [`b7dfb78`](https://github.com/primer/react/commit/b7dfb78079c50c6798aa4e09212aede701bf6c56) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Fix IssueLabelToken text contrast in light theme by updating the lightness-switch formula to use a division-based approach that properly produces a binary switch value for selecting black vs white text
+
+- [#7739](https://github.com/primer/react/pull/7739) [`efa7af8`](https://github.com/primer/react/commit/efa7af8d1e628cddc2f0356de83e7af5568ff358) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Spinner: Remove feature flag `primer_react_spinner_synchronize_animations`, treat it as always enabled.
+
+- [#7746](https://github.com/primer/react/pull/7746) [`30206c4`](https://github.com/primer/react/commit/30206c4fab92de8888f3f103f9b05bff96fdc1b9) Thanks [@jonrohan](https://github.com/jonrohan)! - Update TokenTextContainer `line-height` to use primer primitives CSS variable `var(--base-text-lineHeight-normal)`
+
+## 38.19.0
+
+### Minor Changes
+
+- [#7677](https://github.com/primer/react/pull/7677) [`c1a81b1`](https://github.com/primer/react/commit/c1a81b178742ba547b85a3df3ed3c27bcff6b7c5) Thanks [@TylerJDev](https://github.com/TylerJDev)! - AnchoredOverlay: Add Popover API to AnchoredOverlay (behind `primer_react_css_anchor_positioning` feature flag)
+
+- [#7697](https://github.com/primer/react/pull/7697) [`990ce7b`](https://github.com/primer/react/commit/990ce7b625bcf90ef3867e93086d0c74835a9068) Thanks [@hectahertz](https://github.com/hectahertz)! - **Stack**: Add `tight` (4px) and `cozy` (12px) spacing values to `gap` and `padding` props. Add `paddingBlock` and `paddingInline` props for directional padding control.
+
+### Patch Changes
+
+- [#7652](https://github.com/primer/react/pull/7652) [`5d19e2b`](https://github.com/primer/react/commit/5d19e2bb5bbd444f2e82d98eef300c221863941c) Thanks [@owenniblock](https://github.com/owenniblock)! - useAnchoredPosition: recalculate overlay position when any scrollable ancestor (or the window) is scrolled.
+
+- [#7707](https://github.com/primer/react/pull/7707) [`6431bfe`](https://github.com/primer/react/commit/6431bfecd72e24db1dfa90b02f8a42834e63843b) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Fix anchor-name not being set on the anchor element when SelectPanel is opened in Copilot code agent.
+
+- [#7633](https://github.com/primer/react/pull/7633) [`a107d39`](https://github.com/primer/react/commit/a107d398e0574b5f8085485c96b27a168061eb50) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Graduate `primer_react_css_has_selector_perf` feature flag: the CSS `:has()` performance optimization (`body[data-dialog-scroll-disabled]`) is now the default behavior for Dialog scroll disabling
+
+- [#7695](https://github.com/primer/react/pull/7695) [`780fc3d`](https://github.com/primer/react/commit/780fc3d7b52fd0f9b63f313af6355398180a0118) Thanks [@mattcosta7](https://github.com/mattcosta7)! - perf(ThemeProvider): Reduce unnecessary renders and effect cascades
+
+  - Replace `useState` + `useEffect` SSR hydration handoff with `useSyncExternalStore` — eliminates post-hydration re-render
+  - Replace `useState` + `useEffect` in `useSystemColorMode` with `useSyncExternalStore` — eliminates effect gap and stale-then-update flicker
+  - Cache `getServerHandoff` DOM read + JSON.parse per ID (runs once, not on every call)
+  - Memoize context value object to prevent unnecessary re-renders of all consumers
+
+- [#7706](https://github.com/primer/react/pull/7706) [`fd8910a`](https://github.com/primer/react/commit/fd8910abff851f43d19805ceaa439a9a18c4f226) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - ActionList.Item: fix inline descriptions being referenced via `aria-labelledby` instead of `aria-describedby`
+
 ## 38.18.0
 
 ### Minor Changes

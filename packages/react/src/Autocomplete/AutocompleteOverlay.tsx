@@ -5,7 +5,7 @@ import type {OverlayProps} from '../Overlay'
 import Overlay from '../Overlay'
 import type {ComponentProps} from '../utils/types'
 import {AutocompleteContext} from './AutocompleteContext'
-import {useMergedRefs} from '../hooks/useMergedRefs'
+import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import VisuallyHidden from '../_VisuallyHidden'
 
 import classes from './AutocompleteOverlay.module.css'
@@ -57,7 +57,7 @@ function AutocompleteOverlay({
     [showMenu, selectedItemLength],
   )
 
-  const mergedRef = useMergedRefs(scrollContainerRef, floatingElementRef)
+  useRefObjectAsForwardedRef(scrollContainerRef, floatingElementRef)
 
   const closeOptionList = useCallback(() => {
     setShowMenu(false)
@@ -73,7 +73,7 @@ function AutocompleteOverlay({
       preventFocusOnOpen={true}
       onClickOutside={closeOptionList}
       onEscape={closeOptionList}
-      ref={mergedRef}
+      ref={floatingElementRef as React.RefObject<HTMLDivElement>}
       top={position?.top}
       left={position?.left}
       className={clsx(classes.Overlay, className)}

@@ -1193,6 +1193,36 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         expect(screen.getByRole('button', {name: 'Save'})).toBeInTheDocument()
         expect(screen.getByRole('button', {name: 'Cancel'})).toBeInTheDocument()
       })
+
+      it('locks body scroll when modal is open', async () => {
+        const user = userEvent.setup()
+
+        renderWithProp(<BasicSelectPanel variant="modal" onCancel={() => {}} />, usingRemoveActiveDescendant)
+
+        expect(document.body.style.overflow).not.toBe('hidden')
+
+        await user.click(screen.getByText('Select items'))
+
+        await waitFor(() => {
+          expect(document.body.style.overflow).toBe('hidden')
+        })
+      })
+
+      it('restores body scroll when modal is closed', async () => {
+        const user = userEvent.setup()
+
+        renderWithProp(<BasicSelectPanel variant="modal" onCancel={() => {}} />, usingRemoveActiveDescendant)
+
+        await user.click(screen.getByText('Select items'))
+        await waitFor(() => {
+          expect(document.body.style.overflow).toBe('hidden')
+        })
+
+        await user.click(screen.getByRole('button', {name: 'Cancel'}))
+        await waitFor(() => {
+          expect(document.body.style.overflow).not.toBe('hidden')
+        })
+      })
     })
 
     describe('sorting', () => {

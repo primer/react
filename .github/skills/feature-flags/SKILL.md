@@ -110,14 +110,6 @@ function MyOverlay() {
 
 ## Real Codebase Examples
 
-### Spinner animation sync (`packages/react/src/Spinner/Spinner.tsx`)
-
-```tsx
-const syncAnimationsEnabled = useFeatureFlag('primer_react_spinner_synchronize_animations')
-const shouldSync = syncAnimationsEnabled && noMotionPreference
-const mergedStyle = shouldSync ? {...style, animationDelay: `${syncDelay}ms`} : style
-```
-
 ### CSS anchor positioning (`packages/react/src/AnchoredOverlay/AnchoredOverlay.tsx`)
 
 ```tsx

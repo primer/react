@@ -6,7 +6,6 @@ import type {HTMLDataAttributes} from '../internal/internal-types'
 import {useId} from '../hooks'
 import classes from './Spinner.module.css'
 import {useMedia} from '../hooks/useMedia'
-import {useFeatureFlag} from '../FeatureFlags'
 
 const ANIMATION_DURATION_MS = 1000
 
@@ -38,7 +37,6 @@ function Spinner({
   delay = false,
   ...props
 }: SpinnerProps) {
-  const syncAnimationsEnabled = useFeatureFlag('primer_react_spinner_synchronize_animations')
   const noMotionPreference = useMedia('(prefers-reduced-motion: no-preference)', false)
   const size = sizeMap[sizeKey]
   const hasHiddenLabel = srText !== null && ariaLabel === undefined
@@ -64,8 +62,7 @@ function Spinner({
     return null
   }
 
-  const shouldSync = syncAnimationsEnabled && noMotionPreference
-  const mergedStyle = shouldSync ? {...style, animationDelay: `${syncDelay}ms`} : style
+  const mergedStyle = noMotionPreference ? {...style, animationDelay: `${syncDelay}ms`} : style
 
   return (
     /* inline-flex removes the extra line height */
