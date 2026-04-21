@@ -27,9 +27,11 @@ export type {
 export {FilteredListLayout} from './FilteredListLayout'
 export type {
   FilteredListLayoutProps,
-  FilteredListLayoutHeaderProps,
   FilteredListLayoutContentProps,
   FilteredListLayoutSidebarProps,
+  FilteredListLayoutHeaderProps,
+  FilteredListLayoutFilterBarProps,
+  FilteredListLayoutResultsProps,
   FilteredListLayoutFooterProps,
 } from './FilteredListLayout'
 

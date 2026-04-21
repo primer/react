@@ -16,16 +16,58 @@
   ],
   "subcomponents": [
     {
-      "name": "FilteredListLayout.Header",
-      "props": []
-    },
-    {
       "name": "FilteredListLayout.Sidebar",
       "props": []
     },
     {
       "name": "FilteredListLayout.Content",
       "props": []
+    },
+    {
+      "name": "FilteredListLayout.Header",
+      "props": [
+        {
+          "name": "title",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "The page title rendered as an h2."
+        },
+        {
+          "name": "actions",
+          "type": "React.ReactNode",
+          "description": "Primary action(s) rendered to the right of the title."
+        },
+        {
+          "name": "className",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "FilteredListLayout.FilterBar",
+      "props": [
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "aria-label",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "FilteredListLayout.Results",
+      "props": [
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "aria-label",
+          "type": "string"
+        }
+      ]
     },
     {
       "name": "FilteredListLayout.Footer",
