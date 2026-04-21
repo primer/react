@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react'
 import {describe, expect, test} from 'vitest'
-import {Dialog, Octicon, TabNav, Tooltip} from '../deprecated'
+import {Dialog, Octicon, TabNav} from '../deprecated'
 import {Button} from '../index'
 
 describe('@primer/react/deprecated', () => {
@@ -32,10 +32,5 @@ describe('@primer/react/deprecated', () => {
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
     expect(window.getComputedStyle(screen.getByRole('tab')).backgroundColor).toBe('rgb(255, 0, 0)')
     expect(screen.getByRole('tab').tagName).toBe('BUTTON')
-  })
-
-  test('Tooltip supports `sx` prop', () => {
-    render(<Tooltip data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 })

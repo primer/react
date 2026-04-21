@@ -63,7 +63,7 @@ const postcssPresetPrimer = () => {
             let customProperties = {}
             const filePaths = globSync(['dist/fallbacks/**/*.json', 'dist/docs/functional/themes/light.json'], {
               cwd: primitivesPath,
-              ignore: ['fallbacks/color-fallbacks.json'],
+              ignore: ['dist/fallbacks/color-fallbacks.json'],
             })
 
             for (const filePath of filePaths) {

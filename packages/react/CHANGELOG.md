@@ -1,5 +1,31 @@
 # @primer/react
 
+## 38.20.0
+
+### Minor Changes
+
+- [#7723](https://github.com/primer/react/pull/7723) [`ec6c88f`](https://github.com/primer/react/commit/ec6c88fe3eb3ef349500617c90378712f802376d) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Add Card component with subcomponents: Card.Icon, Card.Image, Card.Heading, Card.Description, Card.Menu, and Card.Metadata
+
+- [#7725](https://github.com/primer/react/pull/7725) [`d7b9313`](https://github.com/primer/react/commit/d7b9313b53e370e258c152084ac1f0402d64b77f) Thanks [@TylerJDev](https://github.com/TylerJDev)! - AnchoredOverlay: Remove polyfill for CSS Anchor Positioning, use primer/behaviors as fallback. Ensure overlays take available space.
+
+- [#7752](https://github.com/primer/react/pull/7752) [`d7380a7`](https://github.com/primer/react/commit/d7380a7616a6c0cf861b5fe3dd9bd8d76470ca2e) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Breadcrumbs: Graduate `primer_react_breadcrumbs_overflow_menu` feature flag, making the overflow menu behavior always-on.
+
+- [#7733](https://github.com/primer/react/pull/7733) [`b9211db`](https://github.com/primer/react/commit/b9211db173841c9d9a531c777c5ce2c0cd8af60f) Thanks [@francinelucca](https://github.com/francinelucca)! - Overlay: Graduate `primer_react_overlay_max_height_clamp_to_viewport` feature flag
+
+  The max-height of overlays is now clamped to the viewport height by default using `min(size, 100dvh)`. This prevents overlays from extending beyond the viewport on smaller screens.
+
+- [#7698](https://github.com/primer/react/pull/7698) [`5c34ab4`](https://github.com/primer/react/commit/5c34ab45c8744d7d038d63773adff324015f5643) Thanks [@hectahertz](https://github.com/hectahertz)! - Timeline: add `variant` prop to `Timeline.Badge` for built-in color schemes (`accent`, `success`, `attention`, `severe`, `danger`, `done`, `open`, `closed`, `sponsors`)
+
+### Patch Changes
+
+- [#7738](https://github.com/primer/react/pull/7738) [`f5f2869`](https://github.com/primer/react/commit/f5f28691d9e5c9f8495e8c592635d2b616f7cb49) Thanks [@francinelucca](https://github.com/francinelucca)! - ActionMenu, Table: Fix component mutation issue where `Object.assign` was modifying original `@primer/react` components. Now uses wrapper components to avoid side effects.
+
+- [#7747](https://github.com/primer/react/pull/7747) [`b7dfb78`](https://github.com/primer/react/commit/b7dfb78079c50c6798aa4e09212aede701bf6c56) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Fix IssueLabelToken text contrast in light theme by updating the lightness-switch formula to use a division-based approach that properly produces a binary switch value for selecting black vs white text
+
+- [#7739](https://github.com/primer/react/pull/7739) [`efa7af8`](https://github.com/primer/react/commit/efa7af8d1e628cddc2f0356de83e7af5568ff358) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Spinner: Remove feature flag `primer_react_spinner_synchronize_animations`, treat it as always enabled.
+
+- [#7746](https://github.com/primer/react/pull/7746) [`30206c4`](https://github.com/primer/react/commit/30206c4fab92de8888f3f103f9b05bff96fdc1b9) Thanks [@jonrohan](https://github.com/jonrohan)! - Update TokenTextContainer `line-height` to use primer primitives CSS variable `var(--base-text-lineHeight-normal)`
+
 ## 38.19.0
 
 ### Minor Changes
