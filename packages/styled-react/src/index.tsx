@@ -132,14 +132,6 @@ export {
    * @deprecated Usage of the `sx` prop with this component is no longer
    * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
-  ActionMenu,
-} from './components/ActionMenu'
-
-export {
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
   Breadcrumbs,
 
   /**
@@ -174,20 +166,6 @@ export {
    */
   type ButtonComponentProps as ButtonProps,
 } from './components/Button'
-
-export {
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  CounterLabel,
-
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  type CounterLabelProps,
-} from './components/CounterLabel'
 
 export {
   /**
@@ -302,40 +280,6 @@ export {
    */
   type LinkButtonProps,
 } from './components/LinkButton'
-
-export {
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  Overlay,
-} from './components/Overlay'
-
-export {
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  PageHeader,
-
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  type PageHeaderProps,
-
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  type PageHeaderActionsProps,
-
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  type PageHeaderTitleProps,
-} from './components/PageHeader'
 
 export {
   /**
@@ -462,34 +406,6 @@ export {
    */
   type ToggleSwitchProps,
 } from './components/ToggleSwitch'
-
-export {
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  Tooltip,
-
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  type TooltipProps,
-} from './components/Tooltip'
-
-export {
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  Token,
-
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  type TokenProps,
-} from './components/Token'
 
 export {
   /**
