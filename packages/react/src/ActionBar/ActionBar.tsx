@@ -195,57 +195,38 @@ const renderMenuItem = (item: ActionBarMenuItemProps, index: number): React.Reac
   )
 }
 
-export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = props => {
-  const {
-    size = 'medium',
-    children,
-    'aria-label': ariaLabel,
-    'aria-labelledby': ariaLabelledBy,
-    flush = false,
-    className,
-    gap = 'condensed',
-  } = props
-
-  // We derive the numeric gap from computed style so layout math stays in sync with CSS
-  const listRef = useRef<HTMLDivElement>(null)
-
+export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = ({
+  size = 'medium',
+  children,
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledBy,
+  flush = false,
+  className,
+  gap = 'condensed',
+}) => {
   const [childRegistry, setChildRegistry] = ActionBarItemsRegistry.useRegistryState()
 
-  const navRef = useRef<HTMLDivElement>(null)
+  const overflowItems = useMemo(
+    () =>
+      childRegistry &&
+      Array.from(childRegistry.entries()).filter((entry): entry is [string, ChildProps] => entry[1] !== null),
+    [childRegistry],
+  )
 
-  useFocusZone({
-    containerRef: listRef,
-    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
-    focusOutBehavior: 'wrap',
-    // Ensure that hidden (overflowing) items are excluded from the elements list
-    strict: true,
-    // Even with strict: true, the focus zone still gets confused when there's hidden items, so we have to define our own `getNextFocusable`
-    getNextFocusable: (direction, from) => {
-      const items = Array.from(listRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE_ITEM_SELECTOR) ?? [])
-      const fromIndex = from ? items.indexOf(from as HTMLElement) : -1
-
-      switch (direction) {
-        case 'start':
-          return items[0]
-        case 'end':
-          return items.at(-1)
-        case 'next':
-          return items[fromIndex + 1] ?? items[0]
-        case 'previous':
-          return items[fromIndex - 1] ?? items.at(-1)
-      }
+  const {containerRef} = useFocusZone(
+    {
+      bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
+      focusOutBehavior: 'wrap',
+      focusableElementFilter: element => element.matches(FOCUSABLE_ITEM_SELECTOR),
     },
-  })
-
-  const overflowItems =
-    childRegistry &&
-    Array.from(childRegistry.entries()).filter((entry): entry is [string, ChildProps] => entry[1] !== null)
+    [overflowItems],
+  )
 
   return (
     <ActionBarContext.Provider value={{size}}>
-      <div ref={navRef} className={clsx(className, styles.Nav)} data-flush={flush}>
+      <div className={clsx(className, styles.Nav)} data-flush={flush}>
         <div
-          ref={listRef}
+          ref={containerRef as RefObject<HTMLDivElement>}
           role="toolbar"
           className={styles.List}
           aria-label={ariaLabel}
