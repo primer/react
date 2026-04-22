@@ -35,6 +35,37 @@ it('should should return a position', async () => {
   })
 })
 
+it('should not trigger cascading setState in useLayoutEffect when overlay is closed on mount', async () => {
+  // When no floating element is present (overlay closed), the initial
+  // updatePosition call is deferred to useEffect so it does not produce
+  // synchronous cascading re-renders that block paint.
+  const ClosedOverlayComponent = ({
+    callback,
+  }: {
+    callback: (hookReturnValue: ReturnType<typeof useAnchoredPosition>) => void
+  }) => {
+    // Refs that are never attached to DOM elements – simulates a closed overlay
+    const floatingElementRef = React.useRef<HTMLDivElement>(null)
+    const anchorElementRef = React.useRef<HTMLDivElement>(null)
+    callback(useAnchoredPosition({floatingElementRef, anchorElementRef}))
+    return <div />
+  }
+
+  const cb = vi.fn()
+  render(<ClosedOverlayComponent callback={cb} />)
+
+  // With the deferred pattern the component should render exactly once
+  // synchronously (no cascading setState from useLayoutEffect).
+  // The useEffect fires after paint and is a no-op (position is already
+  // undefined), so the callback count should stay at 1.
+  await waitFor(() => {
+    expect(cb).toHaveBeenCalledTimes(1)
+  })
+
+  // Position should remain undefined since overlay is closed
+  expect(cb.mock.calls[0][0]['position']).toBeUndefined()
+})
+
 describe('scroll recalculation', () => {
   it('should recalculate position when window scrolls', async () => {
     const cb = vi.fn()
