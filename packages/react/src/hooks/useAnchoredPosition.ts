@@ -3,7 +3,7 @@ import {getAnchoredPosition} from '@primer/behaviors'
 import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 import {useResizeObserver} from './useResizeObserver'
-import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 /**
  * Returns all scrollable ancestor elements of the given element, plus the window.
@@ -112,7 +112,7 @@ export function useAnchoredPosition(
     [floatingElementRef, anchorElementRef, ...dependencies],
   )
 
-  useIsomorphicLayoutEffect(() => {
+  useLayoutEffect(() => {
     savedOnPositionChange.current = settings?.onPositionChange
   }, [settings?.onPositionChange])
 
@@ -121,7 +121,7 @@ export function useAnchoredPosition(
   // open on mount, run synchronously in useLayoutEffect to prevent a flash.
   // After mount, all updates use useLayoutEffect.
   const hasMountedRef = React.useRef(false)
-  useIsomorphicLayoutEffect(() => {
+  useLayoutEffect(() => {
     if (hasMountedRef.current) {
       updatePosition()
     } else if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
