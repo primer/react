@@ -153,4 +153,22 @@ describe('Card', () => {
     )
     expect(container.firstChild).toHaveAttribute('data-padding', 'none')
   })
+
+  it('should set data-border-radius to large by default', () => {
+    const {container} = render(
+      <Card>
+        <Card.Heading>Default Radius</Card.Heading>
+      </Card>,
+    )
+    expect(container.firstChild).toHaveAttribute('data-border-radius', 'large')
+  })
+
+  it('should set data-border-radius to medium when borderRadius="medium"', () => {
+    const {container} = render(
+      <Card borderRadius="medium">
+        <Card.Heading>Medium Radius</Card.Heading>
+      </Card>,
+    )
+    expect(container.firstChild).toHaveAttribute('data-border-radius', 'medium')
+  })
 })
