@@ -11,7 +11,8 @@ When Primer maintainers are to deprecate a component, they will issue `@deprecat
 Issuing a `@deprecated` notice in a minor/patch release includes:
 
 - [ ] Adding a `@deprecated` annotation in the component's source code.
-- [ ] Adding a `Deprecation` section to the documentation of the component with the link of the recommended component and provide a diff. See [deprecated ActionList docs](https://primer.style/react/deprecated/ActionList#deprecation) as an example.
+- [ ] Marking the component or hook docs metadata as deprecated with `"status": "deprecated"` in the relevant `*.docs.json` or `*.hookDocs.json` file.
+- [ ] If the component has a docs page, adding a `Deprecation` section to the documentation with the link of the recommended component and provide a diff. See [deprecated ActionList docs](https://primer.style/react/deprecated/ActionList#deprecation) as an example.
 
 ## Developing a replacement component
 
