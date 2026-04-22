@@ -15,7 +15,6 @@ const NextJSLikeLink = React.forwardRef<HTMLAnchorElement, NextJSLinkProps>(
       ref,
       href,
     }
-
     return <>{React.isValidElement(child) ? React.cloneElement(child, childProps) : null}</>
   },
 )

@@ -90,7 +90,6 @@ export const WithPortalContext = () => {
     if (customContainerRef.current instanceof HTMLElement && overrideContainerRef.current instanceof HTMLElement) {
       registerPortalRoot(customContainerRef.current, 'custom-portal')
       registerPortalRoot(overrideContainerRef.current, 'override-portal')
-
       setMounted(true)
     }
   }, [])

@@ -355,7 +355,6 @@ const NextJSLikeLink = forwardRef(
       ref,
       href,
     }
-
     return <>{React.isValidElement(child) ? React.cloneElement(child, childProps) : null}</>
   },
 )
