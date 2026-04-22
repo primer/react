@@ -392,9 +392,7 @@ describe('Table', () => {
           ]}
         />,
       )
-      expect(
-        container.querySelector('[data-component="Table.SortHeader"] [data-component="Button"]'),
-      ).toBeInTheDocument()
+      expect(container.querySelector('[data-component="Table.SortHeader.Button"]')).toBeInTheDocument()
     })
 
     it('should allow querying sort icons inside Table.SortHeader', () => {

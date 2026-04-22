@@ -144,6 +144,7 @@ function TableSortHeader({align, children, direction, onToggleSort, ...rest}: Ta
       <Button
         type="button"
         className={clsx('TableSortButton', classes.TableSortButton)}
+        data-component="Table.SortHeader.Button"
         onClick={() => {
           onToggleSort()
         }}
