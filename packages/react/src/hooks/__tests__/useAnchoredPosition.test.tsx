@@ -35,35 +35,45 @@ it('should should return a position', async () => {
   })
 })
 
-it('should not trigger cascading setState in useLayoutEffect when overlay is closed on mount', async () => {
+it('should defer initial updatePosition to useEffect when overlay is closed on mount', async () => {
   // When no floating element is present (overlay closed), the initial
-  // updatePosition call is deferred to useEffect so it does not produce
-  // synchronous cascading re-renders that block paint.
+  // updatePosition call should be deferred from useLayoutEffect to useEffect.
+  // We verify this by checking that onPositionChange has NOT been called by
+  // the time the component's own useLayoutEffect runs (which fires after the
+  // hook's useLayoutEffect in declaration order).
+  const onPositionChange = vi.fn()
+  const layoutPhaseCheck = vi.fn()
+
   const ClosedOverlayComponent = ({
-    callback,
+    onPositionChangeProp,
+    onLayoutEffect,
   }: {
-    callback: (hookReturnValue: ReturnType<typeof useAnchoredPosition>) => void
+    onPositionChangeProp: typeof onPositionChange
+    onLayoutEffect: (calledDuringLayout: boolean) => void
   }) => {
-    // Refs that are never attached to DOM elements – simulates a closed overlay
     const floatingElementRef = React.useRef<HTMLDivElement>(null)
     const anchorElementRef = React.useRef<HTMLDivElement>(null)
-    callback(useAnchoredPosition({floatingElementRef, anchorElementRef}))
+    useAnchoredPosition({floatingElementRef, anchorElementRef, onPositionChange: onPositionChangeProp})
+
+    // This layout effect runs after the hook's layout effects (declaration order).
+    // With the fix, onPositionChange should NOT have been called yet because
+    // the initial updatePosition is deferred to useEffect.
+    React.useLayoutEffect(() => {
+      onLayoutEffect(onPositionChangeProp.mock.calls.length > 0)
+    }, [onPositionChangeProp, onLayoutEffect])
+
     return <div />
   }
 
-  const cb = vi.fn()
-  render(<ClosedOverlayComponent callback={cb} />)
+  render(<ClosedOverlayComponent onPositionChangeProp={onPositionChange} onLayoutEffect={layoutPhaseCheck} />)
 
-  // With the deferred pattern the component should render exactly once
-  // synchronously (no cascading setState from useLayoutEffect).
-  // The useEffect fires after paint and is a no-op (position is already
-  // undefined), so the callback count should stay at 1.
+  // onPositionChange should not have fired during the layout phase
+  expect(layoutPhaseCheck).toHaveBeenCalledWith(false)
+
+  // After effects run, onPositionChange should have been called with undefined
   await waitFor(() => {
-    expect(cb).toHaveBeenCalledTimes(1)
+    expect(onPositionChange).toHaveBeenCalledWith(undefined)
   })
-
-  // Position should remain undefined since overlay is closed
-  expect(cb.mock.calls[0][0]['position']).toBeUndefined()
 })
 
 describe('scroll recalculation', () => {
