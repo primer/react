@@ -165,6 +165,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 }) => {
   const cssAnchorPositioningFlag = useFeatureFlag('primer_react_css_anchor_positioning')
   const supportsNativeCSSAnchorPositioning = useRef(false)
+  // eslint-disable-next-line react-hooks/refs
   const cssAnchorPositioning = cssAnchorPositioningFlag && supportsNativeCSSAnchorPositioning.current
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
@@ -221,6 +222,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       displayInViewport,
       onPositionChange: positionChange,
     },
+    // eslint-disable-next-line react-hooks/refs
     [overlayRef.current],
   )
 
@@ -256,11 +258,13 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
         overlay.style.removeProperty('position-anchor')
       }
     }
+    // eslint-disable-next-line react-hooks/refs
   }, [cssAnchorPositioning, anchorRef, overlayRef, id, open])
 
   // Track the overlay element so we can re-run the effect when it changes.
   // The overlay unmounts when closed, so each open creates a new DOM node -
   // that needs showPopover() called.
+  // eslint-disable-next-line react-hooks/refs
   const overlayElement = overlayRef.current
 
   useLayoutEffect(() => {
@@ -289,6 +293,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     } catch {
       // Ignore if popover is already showing or not supported
     }
+    // eslint-disable-next-line react-hooks/refs
   }, [cssAnchorPositioning, open, overlayElement, id, overlayRef, anchorRef, width])
 
   const showXIcon = onClose && variant.narrow === 'fullscreen' && displayCloseButton
@@ -300,6 +305,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   return (
     <>
       {renderAnchor &&
+        // eslint-disable-next-line react-hooks/refs
         renderAnchor({
           ref: anchorRef,
           id: anchorId,
