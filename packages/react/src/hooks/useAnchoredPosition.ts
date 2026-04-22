@@ -3,7 +3,7 @@ import {getAnchoredPosition} from '@primer/behaviors'
 import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 import {useResizeObserver} from './useResizeObserver'
-import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 /**
  * Returns all scrollable ancestor elements of the given element, plus the window.
@@ -112,11 +112,28 @@ export function useAnchoredPosition(
     [floatingElementRef, anchorElementRef, ...dependencies],
   )
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     savedOnPositionChange.current = settings?.onPositionChange
   }, [settings?.onPositionChange])
 
-  useLayoutEffect(updatePosition, [updatePosition])
+  // Defer the initial position calculation from useLayoutEffect to useEffect.
+  // On mount the overlay is typically closed, so calling setState in a
+  // useLayoutEffect would trigger synchronous cascading re-renders that block
+  // paint for no visual benefit. After the first mount we switch to
+  // useLayoutEffect so that repositioning on open/resize stays glitch-free.
+  const hasMountedRef = React.useRef(false)
+  useIsomorphicLayoutEffect(() => {
+    if (hasMountedRef.current) {
+      updatePosition()
+    }
+  }, [updatePosition])
+
+  React.useEffect(() => {
+    if (!hasMountedRef.current) {
+      hasMountedRef.current = true
+      updatePosition()
+    }
+  }, [updatePosition])
 
   useResizeObserver(updatePosition) // watches for changes in window size
   useResizeObserver(updatePosition, floatingElementRef as React.RefObject<HTMLElement | null>) // watches for changes in floating element size
