@@ -243,6 +243,7 @@ function Panel({
 
   // Reset the intermediate selected item when the panel is open/closed
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIntermediateSelected(isSingleSelectModal ? selected : undefined)
   }, [isSingleSelectModal, open, selected])
 
@@ -385,6 +386,7 @@ function Panel({
     if (open) {
       if (items.length === 0 && !(isLoading || loading)) {
         // we need to wait for the listContainerElement to disappear before announcing no items, otherwise it will be interrupted
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setNeedsNoItemsAnnouncement(true)
       }
     }
@@ -452,6 +454,7 @@ function Panel({
       // Only trigger filter change event if there are no items
       if (items.length === 0) {
         // Trigger filter event to populate panel on first open
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         onFilterChange(filterValue, null)
       }
     }
