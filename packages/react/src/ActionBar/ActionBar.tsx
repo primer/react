@@ -576,7 +576,7 @@ export const ActionBarMenu = forwardRef(
             aria-label={ariaLabel}
             icon={icon}
             {...props}
-            // overriding IconButton's data-component so that the ActionBar's "More Menu" Icon can be targetted specifically
+            // overriding IconButton's data-component so that the ActionBar's "More Menu" Icon can be targeted specifically
             data-component="ActionBar.Menu.IconButton"
           />
         </ActionMenu.Anchor>
