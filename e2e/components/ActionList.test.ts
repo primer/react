@@ -186,6 +186,7 @@ test.describe('ActionList', () => {
         await expect(page).toHaveScreenshot(`ActionList.Truncated Inline Tooltip.${theme}.png`)
       })
 
+      // eslint-disable-next-line playwright/no-skipped-test
       test.skip(`complex truncated tooltip on focus @vrt ${theme}`, async ({page}) => {
         await visit(page, {
           id: 'components-actionlist-features--text-wrap-and-truncation',
