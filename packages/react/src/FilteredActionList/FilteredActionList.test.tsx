@@ -3,6 +3,8 @@ import {describe, expect, it, vi} from 'vitest'
 import React from 'react'
 import {FilteredActionList} from '../FilteredActionList'
 import {FilteredActionListBodyLoader, FilteredActionListLoadingTypes} from './FilteredActionListLoaders'
+import {implementsClassName} from '../utils/testing'
+import classes from './FilteredActionList.module.css'
 
 const items = [
   {text: 'Item 1', id: 1},
@@ -11,6 +13,8 @@ const items = [
 ]
 
 describe('FilteredActionList', () => {
+  implementsClassName(props => <FilteredActionList items={items} onFilterChange={vi.fn()} {...props} />, classes.Root)
+
   describe('data-component attributes', () => {
     it('renders FilteredActionList with data-component attribute', () => {
       const {container} = render(<FilteredActionList items={items} onFilterChange={vi.fn()} />)
