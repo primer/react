@@ -140,10 +140,12 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   // and save on reflows caused by measuring DOM nodes.
   const overlayWidth =
     hiddenItemIds.length && overflowStyle === 'overlay'
-      ? getOverlayWidth(buttonClientRect, containerRef, overlayPaddingPx)
+      ? // eslint-disable-next-line react-hooks/refs
+        getOverlayWidth(buttonClientRect, containerRef, overlayPaddingPx)
       : undefined
 
   const expandButtonRef: React.RefCallback<HTMLButtonElement> = React.useCallback(
+    // eslint-disable-next-line react-hooks/immutability
     node => {
       if (node !== null) {
         const nodeClientRect = node.getBoundingClientRect()
@@ -244,6 +246,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
     }
     // We're not auto truncating, so we need to hide children after the given `visibleChildCount`.
     else {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       hideChildrenAfterIndex(visibleChildCount)
     }
   }, [buttonClientRect, visibleChildCount, hideChildrenAfterIndex, isOverflowShown])
