@@ -882,14 +882,14 @@ function Panel({
         closeButtonProps={closeButtonProps}
         displayInViewport={displayInViewport}
       >
-        <div className={classes.Wrapper} data-variant={variant}>
-          <div className={classes.Header} data-variant={currentResponsiveVariant}>
+        <div className={classes.Wrapper} data-variant={variant} data-component="SelectPanel">
+          <div className={classes.Header} data-variant={currentResponsiveVariant} data-component="SelectPanel.Header">
             <div>
-              <Heading as="h1" id={titleId} className={classes.Title}>
+              <Heading as="h1" id={titleId} className={classes.Title} data-component="SelectPanel.Title">
                 {title}
               </Heading>
               {subtitle ? (
-                <div id={subtitleId} className={classes.Subtitle}>
+                <div id={subtitleId} className={classes.Subtitle} data-component="SelectPanel.Subtitle">
                   {subtitle}
                 </div>
               ) : null}
@@ -902,6 +902,7 @@ function Panel({
                 icon={XIcon}
                 aria-label="Cancel and close"
                 className={classes.ResponsiveCloseButton}
+                data-component="SelectPanel.CloseButton"
                 onClick={() => {
                   onCancel?.()
                   onCancelRequested()
@@ -910,7 +911,7 @@ function Panel({
             ) : null}
           </div>
           {notice && (
-            <div ref={noticeRef}>
+            <div ref={noticeRef} data-component="SelectPanel.Notice">
               <Banner
                 variant={notice.variant === 'error' ? 'critical' : notice.variant}
                 description={notice.text}
@@ -956,15 +957,22 @@ function Panel({
             virtualized={virtualized}
           />
           {footer ? (
-            <div className={classes.Footer}>{footer}</div>
+            <div className={classes.Footer} data-component="SelectPanel.Footer">
+              {footer}
+            </div>
           ) : renderFooter ? (
             <div
               data-display-footer={displayFooter}
               data-stretch-secondary-action={stretchSecondaryAction}
               data-stretch-save-button={stretchSaveButton}
               className={clsx(classes.Footer, classes.ResponsiveFooter)}
+              data-component="SelectPanel.Footer"
             >
-              <div data-stretch-secondary-action={stretchSecondaryAction} className={classes.SecondaryAction}>
+              <div
+                data-stretch-secondary-action={stretchSecondaryAction}
+                className={classes.SecondaryAction}
+                data-component="SelectPanel.SecondaryAction"
+              >
                 {secondaryAction}
               </div>
               {showPermanentCancelSaveButtons || showResponsiveCancelSaveButtons ? (
@@ -976,6 +984,7 @@ function Panel({
                 >
                   <Button
                     size="medium"
+                    data-component="SelectPanel.CancelButton"
                     onClick={() => {
                       onCancel?.()
                       onCancelRequested()
@@ -987,6 +996,7 @@ function Panel({
                     block={onCancel === undefined}
                     variant="primary"
                     size="medium"
+                    data-component="SelectPanel.SaveButton"
                     onClick={() => {
                       if (isSingleSelectModal) {
                         const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
@@ -1005,6 +1015,7 @@ function Panel({
                     block
                     variant="primary"
                     size="medium"
+                    data-component="SelectPanel.SaveAndCloseButton"
                     onClick={() => {
                       onClose('click-outside')
                     }}
@@ -1017,14 +1028,14 @@ function Panel({
           ) : null}
         </div>
       </AnchoredOverlay>
-      {variant === 'modal' && open ? <div className={classes.Backdrop} /> : null}
+      {variant === 'modal' && open ? <div className={classes.Backdrop} data-component="SelectPanel.Backdrop" /> : null}
     </>
   )
 }
 
 const SecondaryButton: React.FC<ButtonProps> = props => {
   return (
-    <Button block {...props}>
+    <Button block data-component="SelectPanel.SecondaryActionButton" {...props}>
       {props.children}
     </Button>
   )
@@ -1032,7 +1043,7 @@ const SecondaryButton: React.FC<ButtonProps> = props => {
 
 const SecondaryLink: React.FC<LinkButtonProps & ButtonProps> = props => {
   return (
-    <LinkButton {...props} variant="invisible" block>
+    <LinkButton {...props} variant="invisible" block data-component="SelectPanel.SecondaryActionLink">
       {props.children}
     </LinkButton>
   )
