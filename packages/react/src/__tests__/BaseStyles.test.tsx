@@ -6,6 +6,12 @@ import {implementsClassName} from '../utils/testing'
 
 describe('BaseStyles', () => {
   implementsClassName(BaseStyles, classes.BaseStyles)
+
+  it('renders BaseStyles with data-component attribute', () => {
+    const {container} = render(<BaseStyles>Hello</BaseStyles>)
+    expect(container.firstElementChild).toHaveAttribute('data-component', 'BaseStyles')
+  })
+
   it('has default styles', () => {
     const {container} = render(<BaseStyles>Hello</BaseStyles>)
     expect(container).toMatchSnapshot()
