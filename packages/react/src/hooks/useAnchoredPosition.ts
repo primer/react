@@ -116,17 +116,24 @@ export function useAnchoredPosition(
     savedOnPositionChange.current = settings?.onPositionChange
   }, [settings?.onPositionChange])
 
-  // Defer the initial position calculation from useLayoutEffect to useEffect.
-  // On mount the overlay is typically closed, so calling setState in a
-  // useLayoutEffect would trigger synchronous cascading re-renders that block
-  // paint for no visual benefit. After the first mount we switch to
-  // useLayoutEffect so that repositioning on open/resize stays glitch-free.
+  // On initial mount, if the overlay is closed (floating element not in the
+  // DOM), defer updatePosition to useEffect so the no-op setState calls don't
+  // trigger synchronous cascading re-renders that block paint. When the overlay
+  // is already open on mount (both refs attached), run in useLayoutEffect to
+  // avoid a first-paint misposition. After mount, all updates run in
+  // useLayoutEffect so repositioning on open/resize stays glitch-free.
   const hasMountedRef = React.useRef(false)
   useIsomorphicLayoutEffect(() => {
-    if (hasMountedRef.current) {
-      updatePosition()
+    if (!hasMountedRef.current) {
+      // First mount: only run synchronously if the overlay is actually open
+      if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
+        hasMountedRef.current = true
+        updatePosition()
+      }
+      return
     }
-  }, [updatePosition])
+    updatePosition()
+  }, [updatePosition, floatingElementRef, anchorElementRef])
 
   React.useEffect(() => {
     if (!hasMountedRef.current) {
