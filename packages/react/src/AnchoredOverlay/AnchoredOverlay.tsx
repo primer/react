@@ -173,7 +173,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   const supportsNativeCSSAnchorPositioning = useRef(false)
   const cssAnchorPositioning = cssAnchorPositioningFlag && supportsNativeCSSAnchorPositioning.current
   // Only use Popover API when both CSS anchor positioning is enabled AND renderAs is true
-  const shouldRenderAs = cssAnchorPositioning && renderAs === 'popover'
+  const shouldRenderAsPopover = cssAnchorPositioning && renderAs === 'popover'
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const anchorId = useId(externalAnchorId)
