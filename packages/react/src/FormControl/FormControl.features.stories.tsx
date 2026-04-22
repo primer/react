@@ -128,6 +128,7 @@ export const WithCustomInput = () => {
 
   React.useEffect(() => {
     if (doesValueContainSpaces(value)) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setValidationResult('noSpaces')
     } else if (value) {
       setValidationResult('validName')
@@ -240,6 +241,7 @@ export const ValidationExample = () => {
 
   React.useEffect(() => {
     if (doesValueContainSpaces(value)) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setValidationResult('noSpaces')
     } else if (value) {
       setValidationResult('validName')

@@ -233,6 +233,7 @@ const Panel: React.FC<SelectPanelProps> = ({
       align: 'start',
       ...anchoredPositionSettings,
     },
+    // eslint-disable-next-line react-hooks/refs
     [internalOpen, anchorRef.current, dialogRef.current],
   )
 
@@ -326,6 +327,7 @@ const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((prop
   useEffect(() => {
     const label = document.querySelector(`[for='${inputProps.id}']`)
     if (label?.textContent) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLabelText(label.textContent)
     }
   }, [inputProps.id])
