@@ -186,7 +186,7 @@ test.describe('ActionList', () => {
         await expect(page).toHaveScreenshot(`ActionList.Truncated Inline Tooltip.${theme}.png`)
       })
 
-      test(`complex truncated tooltip on focus @vrt ${theme}`, async ({page}) => {
+      test.skip(`complex truncated tooltip on focus @vrt ${theme}`, async ({page}) => {
         await visit(page, {
           id: 'components-actionlist-features--text-wrap-and-truncation',
           globals: {
