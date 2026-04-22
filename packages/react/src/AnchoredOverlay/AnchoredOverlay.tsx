@@ -295,7 +295,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     }
 
     // Only call showPopover when renderAs is enabled
-    if (shouldRenderAs) {
+    if (shouldRenderAsPopover) {
       try {
         if (!currentOverlay.matches(':popover-open')) {
           currentOverlay.showPopover()
@@ -304,7 +304,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
         // Ignore if popover is already showing or not supported
       }
     }
-  }, [cssAnchorPositioning, shouldRenderAs, open, overlayElement, id, overlayRef, anchorRef, width])
+  }, [cssAnchorPositioning, shouldRenderAsPopover, open, overlayElement, id, overlayRef, anchorRef, width])
 
   const showXIcon = onClose && variant.narrow === 'fullscreen' && displayCloseButton
   const XButtonAriaLabelledBy = closeButtonProps['aria-labelledby']
@@ -324,7 +324,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           tabIndex: 0,
           onClick: onAnchorClick,
           onKeyDown: onAnchorKeyDown,
-          ...(shouldRenderAs ? {popoverTarget: popoverId} : {}),
+          ...(shouldRenderAsPopover ? {popoverTarget: popoverId} : {}),
         })}
       {open ? (
         <Overlay
@@ -344,9 +344,9 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           preventOverflow={preventOverflow}
           data-component="AnchoredOverlay"
           _PrivateDisablePortal={_PrivateDisablePortal}
-          {...(shouldRenderAs ? {popover: 'manual'} : {})}
+          {...(shouldRenderAsPopover ? {popover: 'manual'} : {})}
           {...restOverlayProps}
-          {...(shouldRenderAs ? {id: popoverId} : {})}
+          {...(shouldRenderAsPopover ? {id: popoverId} : {})}
           ref={node => {
             if (overlayProps?.ref) {
               assignRef(overlayProps.ref, node)
