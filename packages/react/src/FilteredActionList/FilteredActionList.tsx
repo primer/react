@@ -289,6 +289,7 @@ export function FilteredActionList({
   // initial total-height estimate before items scroll into view.
   const DEFAULT_VIRTUAL_ITEM_HEIGHT = 32
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const virtualizer = useVirtualizer({
     count: items.length,
     getScrollElement: () => scrollContainerRef.current,

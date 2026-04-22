@@ -544,6 +544,7 @@ export const WithFilterButtons = () => {
 
   React.useEffect(
     function updateSearchResults() {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSearchResults(query, selectedFilter)
     },
     [query, selectedFilter],
