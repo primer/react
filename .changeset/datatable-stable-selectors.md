@@ -14,7 +14,7 @@ Add stable `data-component` selectors to multiple components following ADR-023:
 - **SelectPanel** and friends
 - **Table** and friends
 - **TextInput**
-- **TextInputwithTokens**
+- **TextInputWithTokens**
 - **TooltipV2**
 
 This enables consumers to query and test components using stable selectors like `[data-component="Table.Row"]`.
