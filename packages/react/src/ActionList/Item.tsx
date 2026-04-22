@@ -53,13 +53,7 @@ SubItem.displayName = 'ActionList.SubItem'
 const ButtonItemContainer = React.forwardRef<HTMLButtonElement, React.HTMLAttributes<HTMLButtonElement>>(
   ({children, style, ...props}, forwardedRef) => {
     return (
-      <button
-        type="button"
-        ref={forwardedRef as React.Ref<HTMLButtonElement>}
-        style={style}
-        data-component="ActionList.Item.Wrapper"
-        {...props}
-      >
+      <button type="button" ref={forwardedRef as React.Ref<HTMLButtonElement>} style={style} {...props}>
         {children}
       </button>
     )
@@ -69,7 +63,7 @@ const ButtonItemContainer = React.forwardRef<HTMLButtonElement, React.HTMLAttrib
 const DivItemContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({children, ...props}, forwardedRef) => {
     return (
-      <div ref={forwardedRef as React.Ref<HTMLDivElement>} data-component="ActionList.Item.Wrapper" {...props}>
+      <div ref={forwardedRef as React.Ref<HTMLDivElement>} {...props}>
         {children}
       </div>
     )
@@ -337,7 +331,6 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
             {...wrapperProps}
             className={classes.ActionListContent}
             data-size={size}
-            data-component="ActionList.Item.Wrapper"
             // @ts-ignore: ItemWrapper is polymorphic and the ref type depends on the rendered element ('button' or 'li')
             ref={forwardedRef}
           >

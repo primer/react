@@ -282,17 +282,6 @@ describe('ActionList data-component attributes', () => {
     expect(item).toBeInTheDocument()
   })
 
-  it('renders ActionList.Item.Wrapper with data-component attribute', () => {
-    const {container} = HTMLRender(
-      <ActionList aria-label="List">
-        <ActionList.Item>Item</ActionList.Item>
-      </ActionList>,
-    )
-
-    const wrapper = container.querySelector('[data-component="ActionList.Item.Wrapper"]')
-    expect(wrapper).toBeInTheDocument()
-  })
-
   it('renders ActionList.Item.Label with data-component attribute', () => {
     const {container} = HTMLRender(
       <ActionList aria-label="List">
