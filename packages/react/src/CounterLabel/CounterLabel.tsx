@@ -29,7 +29,7 @@ const CounterLabel = forwardRef<HTMLSpanElement, CounterLabelProps>(
 
     return (
       <>
-        <span {...counterProps} className={clsx(className, classes.CounterLabel)}>
+        <span {...counterProps} data-component="CounterLabel" className={clsx(className, classes.CounterLabel)}>
           {children}
         </span>
         {label}
