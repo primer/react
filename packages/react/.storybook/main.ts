@@ -1,4 +1,5 @@
 // This file has been automatically migrated to valid ESM format by Storybook.
+import {fileURLToPath} from 'node:url'
 import {createRequire} from 'node:module'
 import path from 'node:path'
 import react from '@vitejs/plugin-react'
@@ -11,7 +12,7 @@ const require = createRequire(import.meta.url)
 const {DEPLOY_ENV = 'development'} = process.env
 
 const config: StorybookConfig = {
-  staticDirs: ['.storybook/public'],
+  staticDirs: [path.join(path.dirname(fileURLToPath(import.meta.url)), 'public')],
 
   stories:
     DEPLOY_ENV === 'development'
