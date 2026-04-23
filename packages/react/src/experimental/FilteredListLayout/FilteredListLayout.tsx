@@ -226,8 +226,8 @@ Sidebar.displayName = 'FilteredListLayout.Sidebar'
 // ----------------------------------------------------------------------------
 // FilteredListLayout.Content
 //
-// Hosts the FilterBar + Results regions. Thin wrapper around PageLayout.Content
-// with FilteredListLayout's preferred defaults.
+// Hosts the Results region. Thin wrapper around PageLayout.Content with
+// FilteredListLayout's preferred defaults.
 
 export type FilteredListLayoutContentProps = PageLayoutContentProps
 
