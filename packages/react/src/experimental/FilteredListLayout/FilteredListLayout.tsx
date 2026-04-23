@@ -1,6 +1,6 @@
 import type React from 'react'
 import {createContext, useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react'
-import {SidebarCollapseIcon} from '@primer/octicons-react'
+import {SidebarCollapseIcon, SidebarExpandIcon} from '@primer/octicons-react'
 import {IconButton} from '../../Button'
 import {Hidden} from '../../Hidden'
 import type {
@@ -224,7 +224,20 @@ export const Sidebar: React.FC<React.PropsWithChildren<FilteredListLayoutSidebar
       aria-label={ariaLabel}
       {...props}
     >
-      <div style={{padding: `var(--spacing-${padding})`}}>{children}</div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          minBlockSize: '100%',
+          padding: `var(--spacing-${padding})`,
+        }}
+      >
+        <div>{children}</div>
+        {/* Visual affordance only for v1 — collapse behaviour is not yet wired. */}
+        <div style={{marginBlockStart: 'auto', paddingBlockStart: 'var(--stack-gap-normal, 16px)'}}>
+          <IconButton icon={SidebarExpandIcon} aria-label="Collapse sidebar" variant="invisible" size="small" />
+        </div>
+      </div>
     </PageLayout.Sidebar>
   )
 }
