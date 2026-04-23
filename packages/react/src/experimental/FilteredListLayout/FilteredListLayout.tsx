@@ -154,7 +154,7 @@ export const Header: React.FC<React.PropsWithChildren<FilteredListLayoutHeaderPr
         <Dialog
           title={ctx.sidebar.ariaLabel ?? ctx.sidebar.triggerLabel}
           onClose={onClose}
-          position={{narrow: 'left'}}
+          position="left"
           returnFocusRef={triggerRef}
         >
           {ctx.sidebar.content}
