@@ -1,13 +1,20 @@
 .Card {
   display: grid;
   position: relative;
-  border-radius: var(--borderRadius-large);
   overflow: hidden;
   grid-auto-rows: max-content auto;
   border: var(--borderWidth-thin) solid var(--borderColor-default);
   box-shadow: var(--shadow-resting-small);
   background-color: var(--bgColor-default);
   gap: var(--stack-gap-normal);
+
+  &[data-border-radius='large'] {
+    border-radius: var(--borderRadius-large);
+  }
+
+  &[data-border-radius='medium'] {
+    border-radius: var(--borderRadius-medium);
+  }
 
   &[data-padding='normal'] {
     /* stylelint-disable-next-line primer/spacing */
