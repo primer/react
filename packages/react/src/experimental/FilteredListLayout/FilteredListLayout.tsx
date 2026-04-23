@@ -1,6 +1,6 @@
 import type React from 'react'
 import {createContext, useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react'
-import {SidebarExpandIcon} from '@primer/octicons-react'
+import {SidebarCollapseIcon, SidebarExpandIcon} from '@primer/octicons-react'
 import {IconButton, Button} from '../../Button'
 import {Hidden} from '../../Hidden'
 import type {
