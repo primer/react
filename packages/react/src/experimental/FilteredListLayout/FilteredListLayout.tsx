@@ -139,7 +139,13 @@ export const Header: React.FC<React.PropsWithChildren<FilteredListLayoutHeaderPr
       {ctx?.sidebar ? (
         <Hidden when={['regular', 'wide']}>
           <div style={{marginBlockEnd: 'var(--stack-gap-condensed, 8px)'}}>
-            <Button ref={triggerRef} trailingVisual={TriangleDownIcon} onClick={ctx.openSheet}>
+            <Button
+              ref={triggerRef}
+              trailingVisual={TriangleDownIcon}
+              onClick={ctx.openSheet}
+              aria-haspopup="dialog"
+              aria-expanded={ctx.isSheetOpen}
+            >
               {ctx.sidebar.triggerLabel}
             </Button>
           </div>
