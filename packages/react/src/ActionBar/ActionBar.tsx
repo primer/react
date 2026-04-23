@@ -224,7 +224,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = ({
 
   return (
     <ActionBarContext.Provider value={{size}}>
-      <div className={clsx(className, styles.Nav)} data-flush={flush}>
+      <div className={clsx(className, styles.Nav)} data-component="ActionBar" data-flush={flush}>
         <div
           ref={containerRef as RefObject<HTMLDivElement>}
           role="toolbar"
@@ -402,7 +402,7 @@ export const ActionBarGroup = forwardRef(({children}: React.PropsWithChildren, f
 
   return (
     <ActionBarGroupContext.Provider value={{isOverflowing}}>
-      <div className={styles.Group} ref={ref} data-overflowing={dataOverflowingAttr}>
+      <div className={styles.Group} data-component="ActionBar.Group" ref={ref} data-overflowing={dataOverflowingAttr}>
         {children}
       </div>
     </ActionBarGroupContext.Provider>
@@ -442,6 +442,8 @@ export const ActionBarMenu = forwardRef(
             icon={icon}
             {...props}
             data-overflowing={dataOverflowingAttr}
+            // overriding IconButton's data-component so that the ActionBar's "More Menu" Icon can be targeted specifically
+            data-component="ActionBar.Menu.IconButton"
           />
         </ActionMenu.Anchor>
         <ActionMenu.Overlay {...(returnFocusRef && {returnFocusRef})}>

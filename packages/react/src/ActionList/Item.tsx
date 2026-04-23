@@ -50,7 +50,7 @@ export const SubItem: React.FC<ActionListSubItemProps> = ({children}) => {
 
 SubItem.displayName = 'ActionList.SubItem'
 
-const ButtonItemContainerNoBox = React.forwardRef<HTMLButtonElement, React.HTMLAttributes<HTMLButtonElement>>(
+const ButtonItemContainer = React.forwardRef<HTMLButtonElement, React.HTMLAttributes<HTMLButtonElement>>(
   ({children, style, ...props}, forwardedRef) => {
     return (
       <button type="button" ref={forwardedRef as React.Ref<HTMLButtonElement>} style={style} {...props}>
@@ -60,7 +60,7 @@ const ButtonItemContainerNoBox = React.forwardRef<HTMLButtonElement, React.HTMLA
   },
 )
 
-const DivItemContainerNoBox = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+const DivItemContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({children, ...props}, forwardedRef) => {
     return (
       <div ref={forwardedRef as React.Ref<HTMLDivElement>} {...props}>
@@ -215,7 +215,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
 
   const [truncatedText, setTruncatedText] = React.useState<string | undefined>(undefined)
 
-  const DefaultItemWrapper = listSemantics ? DivItemContainerNoBox : ButtonItemContainerNoBox
+  const DefaultItemWrapper = listSemantics ? DivItemContainer : ButtonItemContainer
 
   const ItemWrapper = _PrivateItemWrapper || DefaultItemWrapper
 
@@ -317,6 +317,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
       <li
         {...containerProps}
         ref={listSemantics ? forwardedRef : null}
+        data-component="ActionList.Item"
         data-variant={variant === 'danger' ? variant : undefined}
         data-active={active ? true : undefined}
         data-inactive={inactiveText ? true : undefined}
@@ -347,13 +348,14 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
               >
                 {slots.leadingVisual}
               </VisualOrIndicator>
+              {/* TODO: next-major: change to data-component="ActionList.Item.DividerContainer" next major version */}
               <span className={classes.ActionListSubContent} data-component="ActionList.Item--DividerContainer">
                 <ConditionalWrapper
                   if={!!slots.description}
                   className={classes.ItemDescriptionWrap}
                   data-description-variant={descriptionVariant}
                 >
-                  <span id={labelId} className={classes.ItemLabel}>
+                  <span id={labelId} className={classes.ItemLabel} data-component="ActionList.Item.Label">
                     {childrenWithoutSlots}
                     {/* Loading message needs to be in here so it is read with the label */}
                     {/* If the item is inactive, we do not simultaneously announce that it is loading */}

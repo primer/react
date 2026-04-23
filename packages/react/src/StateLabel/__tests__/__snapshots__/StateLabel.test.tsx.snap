@@ -10,6 +10,7 @@ exports[`StateLabel > prefers the size prop over deprecated variant prop 1`] = `
     <svg
       aria-label="Issue"
       class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
+      data-component="Octicon"
       data-size-small=""
       display="inline-block"
       fill="currentColor"
@@ -42,6 +43,7 @@ exports[`StateLabel > renders children 1`] = `
     <svg
       aria-label="Issue"
       class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
+      data-component="Octicon"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -74,6 +76,7 @@ exports[`StateLabel > respects the deprecated variant prop 1`] = `
     <svg
       aria-label="Issue"
       class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
+      data-component="Octicon"
       data-size-small=""
       display="inline-block"
       fill="currentColor"
@@ -106,6 +109,7 @@ exports[`StateLabel > respects the deprecated variant prop 2`] = `
     <svg
       aria-label="Issue"
       class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
+      data-component="Octicon"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -137,6 +141,7 @@ exports[`StateLabel > respects the size prop 1`] = `
     <svg
       aria-label="Issue"
       class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
+      data-component="Octicon"
       data-size-small=""
       display="inline-block"
       fill="currentColor"
@@ -169,6 +174,7 @@ exports[`StateLabel > respects the size prop 2`] = `
     <svg
       aria-label="Issue"
       class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
+      data-component="Octicon"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -200,6 +206,7 @@ exports[`StateLabel > respects the status prop 1`] = `
     <svg
       aria-label="Issue"
       class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
+      data-component="Octicon"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -231,6 +238,7 @@ exports[`StateLabel > respects the status prop 2`] = `
     <svg
       aria-label="Issue"
       class="octicon octicon-issue-closed prc-StateLabel-Icon-UdR1Y"
+      data-component="Octicon"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -262,6 +270,7 @@ exports[`StateLabel > respects the status prop 3`] = `
     <svg
       aria-label="Issue, not planned"
       class="octicon octicon-skip prc-StateLabel-Icon-UdR1Y"
+      data-component="Octicon"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -290,6 +299,7 @@ exports[`StateLabel > respects the status prop 4`] = `
     <svg
       aria-label="Pull request"
       class="octicon octicon-git-merge prc-StateLabel-Icon-UdR1Y"
+      data-component="Octicon"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -318,6 +328,7 @@ exports[`StateLabel > respects the status prop 5`] = `
     <svg
       aria-label="Pull request"
       class="octicon octicon-git-merge-queue prc-StateLabel-Icon-UdR1Y"
+      data-component="Octicon"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -346,6 +357,7 @@ exports[`StateLabel > respects the status prop 6`] = `
     <svg
       aria-label="Alert"
       class="octicon octicon-shield prc-StateLabel-Icon-UdR1Y"
+      data-component="Octicon"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -374,6 +386,7 @@ exports[`StateLabel > respects the status prop 7`] = `
     <svg
       aria-label="Alert"
       class="octicon octicon-shield-check prc-StateLabel-Icon-UdR1Y"
+      data-component="Octicon"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -402,6 +415,7 @@ exports[`StateLabel > respects the status prop 8`] = `
     <svg
       aria-label="Alert"
       class="octicon octicon-shield-slash prc-StateLabel-Icon-UdR1Y"
+      data-component="Octicon"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -430,6 +444,7 @@ exports[`StateLabel > respects the status prop 9`] = `
     <svg
       aria-label="Alert"
       class="octicon octicon-shield-x prc-StateLabel-Icon-UdR1Y"
+      data-component="Octicon"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -458,6 +473,7 @@ exports[`StateLabel > respects the status prop 10`] = `
     <svg
       aria-label="Archived"
       class="octicon octicon-archive prc-StateLabel-Icon-UdR1Y"
+      data-component="Octicon"
       display="inline-block"
       fill="currentColor"
       focusable="false"

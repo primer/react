@@ -5,6 +5,7 @@ exports[`TextInput > renders contrast 1`] = `
   <span
     aria-busy="false"
     class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-component="TextInput"
     data-contrast="true"
   >
     <input
@@ -23,6 +24,7 @@ exports[`TextInput > renders error 1`] = `
   <span
     aria-busy="false"
     class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-component="TextInput"
     data-validation="error"
   >
     <input
@@ -42,6 +44,7 @@ exports[`TextInput > renders monospace 1`] = `
   <span
     aria-busy="false"
     class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-component="TextInput"
     data-monospace="true"
   >
     <input
@@ -60,6 +63,7 @@ exports[`TextInput > renders placeholder 1`] = `
   <span
     aria-busy="false"
     class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-component="TextInput"
   >
     <input
       class="prc-components-Input-sKHcw"
@@ -78,6 +82,7 @@ exports[`TextInput > should render a password input 1`] = `
   <span
     aria-busy="false"
     class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-component="TextInput"
   >
     <input
       class="prc-components-Input-sKHcw"

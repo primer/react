@@ -403,6 +403,44 @@ describe('Table.Pagination', () => {
     const pageNumbers = getPages().map(p => p.textContent.replace(/\D/g, ''))
     expect(pageNumbers).toEqual(['1', '2', '3', '4', '5', '6', '7'])
   })
+
+  describe('data-component attributes', () => {
+    it('should have data-component="Table.Pagination" on the nav element', () => {
+      const {container} = render(<Pagination aria-label="Pagination" totalCount={100} />)
+      expect(container.querySelector('[data-component="Table.Pagination"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="Table.Pagination.Range" on the range element', () => {
+      const {container} = render(<Pagination aria-label="Pagination" totalCount={100} />)
+      expect(container.querySelector('[data-component="Table.Pagination.Range"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="Table.Pagination.PreviousPageButton" on the previous button', () => {
+      const {container} = render(<Pagination aria-label="Pagination" totalCount={100} />)
+      expect(container.querySelector('[data-component="Table.Pagination.PreviousPageButton"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="Table.Pagination.NextPageButton" on the next button', () => {
+      const {container} = render(<Pagination aria-label="Pagination" totalCount={100} />)
+      expect(container.querySelector('[data-component="Table.Pagination.NextPageButton"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="Table.Pagination.Page" on page buttons', () => {
+      const {container} = render(<Pagination aria-label="Pagination" showPages={true} totalCount={100} />)
+      expect(container.querySelector('[data-component="Table.Pagination.Page"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="Table.Pagination.Step" on step elements', () => {
+      const {container} = render(<Pagination aria-label="Pagination" showPages={true} totalCount={100} />)
+      expect(container.querySelector('[data-component="Table.Pagination.Step"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="Table.Pagination.TruncationStep" on truncation elements', () => {
+      // Need enough pages to show truncation (more than 7 pages)
+      const {container} = render(<Pagination aria-label="Pagination" showPages={true} pageSize={10} totalCount={100} />)
+      expect(container.querySelector('[data-component="Table.Pagination.TruncationStep"]')).toBeInTheDocument()
+    })
+  })
 })
 
 function getPages() {
