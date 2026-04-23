@@ -1,7 +1,7 @@
 import type {Meta, StoryFn} from '@storybook/react-vite'
 import {
   ArrowUpRightIcon,
-  BookmarkFillIcon,
+  BookmarkIcon,
   ClockIcon,
   EyeIcon,
   GitMergeIcon,
@@ -95,8 +95,8 @@ const issuesCustomViews: View[] = [
   {key: 'mentioned-custom', label: 'Mentioned', icon: EyeIcon},
   {key: 'assigned-custom', label: 'Assigned', icon: ToolsIcon},
   {key: 'a11y-design', label: 'Not on the A11y Design …', icon: PeopleIcon},
-  {key: 'test-view', label: 'Test View', icon: BookmarkFillIcon},
-  {key: 'second-test', label: 'Second test view', icon: BookmarkFillIcon},
+  {key: 'test-view', label: 'Test View', icon: BookmarkIcon},
+  {key: 'second-test', label: 'Second test view', icon: BookmarkIcon},
 ]
 
 const ViewsItem = ({view}: {view: View}) => {
