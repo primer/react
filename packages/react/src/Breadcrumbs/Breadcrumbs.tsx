@@ -285,7 +285,11 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
 
   const finalChildren = React.useMemo(() => {
     if (overflow === 'wrap' || menuItems.length === 0) {
-      return React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
+      return React.Children.map(children, child => (
+        <li className={classes.ItemWrapper} data-component="Breadcrumbs.ItemWrapper">
+          {child}
+        </li>
+      ))
     }
 
     let effectiveMenuItems = [...menuItems]
@@ -335,6 +339,7 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
       ref={containerRef}
       data-overflow={overflow}
       data-variant={variant}
+      data-component="Breadcrumbs"
     >
       <BreadcrumbsList>{finalChildren}</BreadcrumbsList>
     </nav>
@@ -372,6 +377,7 @@ const BreadcrumbsItem = fixedForwardRef(
         className={clsx(className, classes.Item, selected && 'selected')}
         aria-current={selected ? 'page' : undefined}
         ref={ref}
+        data-component="Breadcrumbs.Item"
         {...rest}
       />
     )
