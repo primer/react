@@ -1,5 +1,6 @@
 import type {Meta, StoryFn} from '@storybook/react-vite'
 import {
+  ArrowUpRightIcon,
   ClockIcon,
   GitMergeIcon,
   GitPullRequestClosedIcon,
@@ -113,9 +114,20 @@ export const Issues: StoryFn = () => (
           <ViewsItem key={view.key} view={view} />
         ))}
         <NavList.Group title="Shortcuts">
-          {issuesShortcuts.map(view => (
-            <ViewsItem key={view.key} view={view} />
-          ))}
+          {issuesShortcuts.map(view => {
+            const Icon = view.icon
+            return (
+              <NavList.Item key={view.key} href={`#${view.key}`}>
+                <NavList.LeadingVisual>
+                  <Icon />
+                </NavList.LeadingVisual>
+                {view.label}
+                <NavList.TrailingVisual>
+                  <ArrowUpRightIcon />
+                </NavList.TrailingVisual>
+              </NavList.Item>
+            )
+          })}
         </NavList.Group>
       </NavList>
     </FilteredListLayout.Sidebar>
