@@ -391,3 +391,64 @@ describe('AnchoredOverlay feature flag specific behavior', () => {
     })
   })
 })
+
+describe('AnchoredOverlay anchor element replacement', () => {
+  it('should re-apply anchor-name to a new anchor DOM element when the overlay reopens', () => {
+    function TestComponent() {
+      const anchorRef = useRef<HTMLButtonElement>(null)
+      const [open, setOpen] = useState(true)
+      const [anchorKey, setAnchorKey] = useState(0)
+
+      return (
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <button type="button" data-testid="switch" onClick={() => setAnchorKey(k => k + 1)}>
+            Switch
+          </button>
+          <button type="button" data-testid="toggle" onClick={() => setOpen(o => !o)}>
+            Toggle
+          </button>
+          <button key={anchorKey} ref={anchorRef} type="button" data-testid="anchor">
+            Anchor
+          </button>
+          <AnchoredOverlay
+            open={open}
+            onOpen={() => setOpen(true)}
+            onClose={() => setOpen(false)}
+            renderAnchor={null}
+            anchorRef={anchorRef}
+          >
+            <div>content</div>
+          </AnchoredOverlay>
+        </FeatureFlags>
+      )
+    }
+
+    const {baseElement} = render(<TestComponent />)
+
+    // Verify anchor-name is set on the initial anchor element
+    const initialAnchor = baseElement.querySelector('[data-testid="anchor"]') as HTMLElement
+    expect(initialAnchor.style.getPropertyValue('anchor-name')).not.toBe('')
+    const anchorName = initialAnchor.style.getPropertyValue('anchor-name')
+
+    // Close the overlay
+    const toggleButton = baseElement.querySelector('[data-testid="toggle"]') as HTMLElement
+    act(() => {
+      toggleButton.click()
+    })
+
+    // Replace the anchor DOM element by changing its key while overlay is closed
+    const switchButton = baseElement.querySelector('[data-testid="switch"]') as HTMLElement
+    act(() => {
+      switchButton.click()
+    })
+
+    // Reopen the overlay — the new anchor should get anchor-name before paint
+    act(() => {
+      toggleButton.click()
+    })
+
+    const newAnchor = baseElement.querySelector('[data-testid="anchor"]') as HTMLElement
+    expect(newAnchor).not.toBe(initialAnchor)
+    expect(newAnchor.style.getPropertyValue('anchor-name')).toBe(anchorName)
+  })
+})
