@@ -235,7 +235,7 @@ export const Sidebar: React.FC<React.PropsWithChildren<FilteredListLayoutSidebar
         <div>{children}</div>
         {/* Visual affordance only for v1 — collapse behaviour is not yet wired. */}
         <div style={{marginBlockStart: 'auto', paddingBlockStart: 'var(--stack-gap-normal, 16px)'}}>
-          <IconButton icon={SidebarExpandIcon} aria-label="Collapse sidebar" variant="invisible" size="small" />
+          <IconButton icon={SidebarExpandIcon} aria-label="Expand sidebar" variant="invisible" size="small" />
         </div>
       </div>
     </PageLayout.Sidebar>
