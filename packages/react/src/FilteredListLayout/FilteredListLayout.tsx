@@ -1,5 +1,4 @@
 import type React from 'react'
-import Heading from '../Heading'
 import type {
   PageLayoutContentProps,
   PageLayoutFooterProps,
@@ -43,61 +42,19 @@ Root.displayName = 'FilteredListLayout'
 // ----------------------------------------------------------------------------
 // FilteredListLayout.Header
 //
-// Renders inside PageLayout.Header. Title (h2) on the left, primary action and
-// optional secondary actions on the right. v1 is opinionated about layout;
-// consumers control the title node and action nodes.
+// Thin wrapper around PageLayout.Header with FilteredListLayout's preferred
+// defaults. Consumers compose the header contents themselves for v1; an
+// opinionated title/actions API may return in a future revision.
 
-export type FilteredListLayoutHeaderProps = {
-  title: React.ReactNode
-  /**
-   * Dedicated slot for the view's primary action. Render a single primary
-   * Button (or LinkButton). Sits to the right of the title, before any
-   * additional `actions`.
-   */
-  primaryAction?: React.ReactNode
-  /**
-   * Slot for additional secondary actions (overflow menus, icon buttons, etc.)
-   * rendered to the right of `primaryAction`.
-   */
-  actions?: React.ReactNode
-  padding?: PageLayoutHeaderProps['padding']
-  divider?: PageLayoutHeaderProps['divider']
-  className?: string
-}
+export type FilteredListLayoutHeaderProps = PageLayoutHeaderProps
 
-export const Header: React.FC<FilteredListLayoutHeaderProps> = ({
-  title,
-  primaryAction,
-  actions,
+export const Header: React.FC<React.PropsWithChildren<FilteredListLayoutHeaderProps>> = ({
   padding = 'normal',
-  divider = 'line',
-  className,
+  divider = 'none',
+  ...props
 }) => {
-  const hasTrailing = primaryAction || actions
-  return (
-    // eslint-disable-next-line primer-react/direct-slot-children
-    <PageLayout.Header padding={padding} divider={divider}>
-      <div
-        className={className}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: 'var(--stack-gap-condensed, 8px)',
-        }}
-      >
-        <Heading as="h2" variant="small">
-          {title}
-        </Heading>
-        {hasTrailing ? (
-          <div style={{display: 'flex', alignItems: 'center', gap: 'var(--stack-gap-condensed, 8px)'}}>
-            {primaryAction}
-            {actions}
-          </div>
-        ) : null}
-      </div>
-    </PageLayout.Header>
-  )
+  // eslint-disable-next-line primer-react/direct-slot-children
+  return <PageLayout.Header padding={padding} divider={divider} {...props} />
 }
 
 Header.displayName = 'FilteredListLayout.Header'

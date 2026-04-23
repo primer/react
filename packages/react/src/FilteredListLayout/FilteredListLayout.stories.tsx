@@ -13,6 +13,7 @@ import {
 import {NavList} from '../NavList'
 import {Placeholder} from '../Placeholder'
 import {FilteredListLayout} from '../FilteredListLayout'
+import Heading from '../Heading'
 
 const sidebarViews = [
   {key: 'open', label: 'Open issues', icon: IssueOpenedIcon, count: 142, selected: true},
@@ -43,7 +44,7 @@ const meta: Meta = {
     'Header.primaryAction': true,
     'Header.actions': true,
     'Header.padding': 'normal',
-    'Header.divider': 'line',
+    'Header.divider': 'none',
     'Sidebar.position': 'start',
     'Sidebar.divider': 'line',
     'Sidebar.padding': 'condensed',
@@ -131,15 +132,26 @@ const meta: Meta = {
 export const Default: StoryFn = args => (
   <FilteredListLayout>
     {args['Render header?'] ? (
-      <FilteredListLayout.Header
-        padding={args['Header.padding']}
-        divider={args['Header.divider']}
-        title={args['Header.title']}
-        primaryAction={args['Header.primaryAction'] ? <Button variant="primary">New issue</Button> : undefined}
-        actions={
-          args['Header.actions'] ? <IconButton icon={KebabHorizontalIcon} aria-label="More options" /> : undefined
-        }
-      />
+      <FilteredListLayout.Header padding={args['Header.padding']} divider={args['Header.divider']}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 'var(--stack-gap-condensed, 8px)',
+          }}
+        >
+          <Heading as="h2" variant="small">
+            {args['Header.title']}
+          </Heading>
+          {args['Header.primaryAction'] || args['Header.actions'] ? (
+            <div style={{display: 'flex', alignItems: 'center', gap: 'var(--stack-gap-condensed, 8px)'}}>
+              {args['Header.primaryAction'] ? <Button variant="primary">New issue</Button> : null}
+              {args['Header.actions'] ? <IconButton icon={KebabHorizontalIcon} aria-label="More options" /> : null}
+            </div>
+          ) : null}
+        </div>
+      </FilteredListLayout.Header>
     ) : null}
     {args['Render sidebar?'] ? (
       <FilteredListLayout.Sidebar

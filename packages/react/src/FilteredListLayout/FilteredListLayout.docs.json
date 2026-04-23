@@ -19,24 +19,8 @@
       "name": "FilteredListLayout.Header",
       "props": [
         {
-          "name": "title",
-          "type": "React.ReactNode",
-          "required": true,
-          "description": "The view title rendered as an h2 inside PageLayout.Header."
-        },
-        {
-          "name": "primaryAction",
-          "type": "React.ReactNode",
-          "description": "Dedicated slot for the view's primary action. Render a single primary Button (or LinkButton)."
-        },
-        {
-          "name": "actions",
-          "type": "React.ReactNode",
-          "description": "Slot for additional secondary actions, rendered to the right of primaryAction."
-        },
-        {
           "name": "padding",
-          "type": "'none' | 'condensed' | 'normal' | ResponsiveValue<...>"
+          "type": "'none' | 'condensed' | 'normal'"
         },
         {
           "name": "divider",
