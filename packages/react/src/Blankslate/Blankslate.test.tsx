@@ -23,6 +23,38 @@ describe('Blankslate', () => {
     expect(container.firstChild!.firstChild).toHaveAttribute('data-spacious', '')
   })
 
+  it('renders data-component attributes', () => {
+    const {container} = render(
+      <Blankslate>
+        <Blankslate.Visual>
+          <svg aria-hidden="true" data-testid="test-icon" />
+        </Blankslate.Visual>
+        <Blankslate.Heading>Test Heading</Blankslate.Heading>
+        <Blankslate.Description>Test description</Blankslate.Description>
+        <Blankslate.PrimaryAction>Primary action</Blankslate.PrimaryAction>
+        <Blankslate.SecondaryAction href="https://example.com">Secondary action</Blankslate.SecondaryAction>
+      </Blankslate>,
+    )
+
+    expect(container.querySelector('[data-component="Blankslate"]')).toBeInTheDocument()
+
+    expect(
+      container.querySelector('[data-component="Blankslate"] [data-component="Blankslate.Visual"]'),
+    ).toBeInTheDocument()
+    expect(
+      container.querySelector('[data-component="Blankslate"] [data-component="Blankslate.Heading"]'),
+    ).toBeInTheDocument()
+    expect(
+      container.querySelector('[data-component="Blankslate"] [data-component="Blankslate.Description"]'),
+    ).toBeInTheDocument()
+    expect(
+      container.querySelector('[data-component="Blankslate"] [data-component="Blankslate.PrimaryAction"]'),
+    ).toBeInTheDocument()
+    expect(
+      container.querySelector('[data-component="Blankslate"] [data-component="Blankslate.SecondaryAction"]'),
+    ).toBeInTheDocument()
+  })
+
   describe('Blankslate.Visual', () => {
     it('should render a visual element', () => {
       render(
