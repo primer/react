@@ -17,24 +17,12 @@
   "subcomponents": [
     {
       "name": "FilteredListLayout.Header",
-      "props": []
-    },
-    {
-      "name": "FilteredListLayout.Pane",
-      "props": []
-    },
-    {
-      "name": "FilteredListLayout.Content",
-      "props": []
-    },
-    {
-      "name": "FilteredListLayout.ViewHeader",
       "props": [
         {
           "name": "title",
           "type": "React.ReactNode",
           "required": true,
-          "description": "The view title rendered as an h2."
+          "description": "The view title rendered as an h2 inside PageLayout.Header."
         },
         {
           "name": "primaryAction",
@@ -47,10 +35,26 @@
           "description": "Slot for additional secondary actions, rendered to the right of primaryAction."
         },
         {
+          "name": "padding",
+          "type": "'none' | 'condensed' | 'normal' | ResponsiveValue<...>"
+        },
+        {
+          "name": "divider",
+          "type": "'none' | 'line' | ResponsiveValue<...>"
+        },
+        {
           "name": "className",
           "type": "string"
         }
       ]
+    },
+    {
+      "name": "FilteredListLayout.Pane",
+      "props": []
+    },
+    {
+      "name": "FilteredListLayout.Content",
+      "props": []
     },
     {
       "name": "FilteredListLayout.FilterBar",

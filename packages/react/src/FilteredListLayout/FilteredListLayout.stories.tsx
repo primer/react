@@ -11,25 +11,23 @@ const meta: Meta = {
     controls: {expanded: true},
   },
   args: {
-    'Render header?': false,
+    'Render header?': true,
     'Render pane?': true,
-    'Render view header?': true,
     'Render filter bar?': true,
     'Render footer?': false,
-    'Header placeholder height': 64,
     'Pane placeholder height': 400,
     'Filter bar placeholder height': 48,
     'Results placeholder height': 552,
     'Footer placeholder height': 64,
-    'ViewHeader.title': 'Assigned to you',
-    'ViewHeader.primaryAction': true,
-    'ViewHeader.actions': true,
+    'Header.title': 'Assigned to you',
+    'Header.primaryAction': true,
+    'Header.actions': true,
+    'Header.padding': 'normal',
+    'Header.divider': 'line',
     'Pane.position': 'start',
     'Pane.divider': 'line',
     'Pane.padding': 'normal',
     'Pane.sticky': true,
-    'Header.padding': 'normal',
-    'Header.divider': 'line',
     'Content.width': 'xlarge',
     'Content.padding': 'normal',
     'Footer.padding': 'normal',
@@ -38,29 +36,26 @@ const meta: Meta = {
   argTypes: {
     'Render header?': {type: 'boolean', table: {category: 'Debug'}},
     'Render pane?': {type: 'boolean', table: {category: 'Debug'}},
-    'Render view header?': {type: 'boolean', table: {category: 'Debug'}},
     'Render filter bar?': {type: 'boolean', table: {category: 'Debug'}},
     'Render footer?': {type: 'boolean', table: {category: 'Debug'}},
-    'Header placeholder height': {type: 'number', table: {category: 'Debug'}},
     'Pane placeholder height': {type: 'number', table: {category: 'Debug'}},
     'Filter bar placeholder height': {type: 'number', table: {category: 'Debug'}},
     'Results placeholder height': {type: 'number', table: {category: 'Debug'}},
     'Footer placeholder height': {type: 'number', table: {category: 'Debug'}},
 
-    'ViewHeader.title': {
+    'Header.title': {
       type: 'string',
       control: {type: 'text'},
-      table: {category: 'ViewHeader props'},
+      table: {category: 'Header props'},
     },
-    'ViewHeader.primaryAction': {
+    'Header.primaryAction': {
       type: 'boolean',
-      table: {category: 'ViewHeader props'},
+      table: {category: 'Header props'},
     },
-    'ViewHeader.actions': {
+    'Header.actions': {
       type: 'boolean',
-      table: {category: 'ViewHeader props'},
+      table: {category: 'Header props'},
     },
-
     'Header.padding': {
       type: {name: 'enum', value: ['none', 'condensed', 'normal']},
       control: {type: 'radio'},
@@ -116,9 +111,15 @@ const meta: Meta = {
 export const Default: StoryFn = args => (
   <FilteredListLayout>
     {args['Render header?'] ? (
-      <FilteredListLayout.Header padding={args['Header.padding']} divider={args['Header.divider']}>
-        <Placeholder label="Header" height={args['Header placeholder height']} />
-      </FilteredListLayout.Header>
+      <FilteredListLayout.Header
+        padding={args['Header.padding']}
+        divider={args['Header.divider']}
+        title={args['Header.title']}
+        primaryAction={args['Header.primaryAction'] ? <Button variant="primary">New issue</Button> : undefined}
+        actions={
+          args['Header.actions'] ? <IconButton icon={KebabHorizontalIcon} aria-label="More options" /> : undefined
+        }
+      />
     ) : null}
     {args['Render pane?'] ? (
       <FilteredListLayout.Pane
@@ -132,19 +133,6 @@ export const Default: StoryFn = args => (
       </FilteredListLayout.Pane>
     ) : null}
     <FilteredListLayout.Content width={args['Content.width']} padding={args['Content.padding']}>
-      {args['Render view header?'] ? (
-        <FilteredListLayout.ViewHeader
-          title={args['ViewHeader.title']}
-          primaryAction={
-            args['ViewHeader.primaryAction'] ? <Button variant="primary">New issue</Button> : undefined
-          }
-          actions={
-            args['ViewHeader.actions'] ? (
-              <IconButton icon={KebabHorizontalIcon} aria-label="More options" />
-            ) : undefined
-          }
-        />
-      ) : null}
       {args['Render filter bar?'] ? (
         <FilteredListLayout.FilterBar aria-label="Filters">
           <Placeholder label="Filter bar" height={args['Filter bar placeholder height']} />

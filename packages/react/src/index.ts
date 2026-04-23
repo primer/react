@@ -30,7 +30,6 @@ export type {
   FilteredListLayoutHeaderProps,
   FilteredListLayoutPaneProps,
   FilteredListLayoutContentProps,
-  FilteredListLayoutViewHeaderProps,
   FilteredListLayoutFilterBarProps,
   FilteredListLayoutResultsProps,
   FilteredListLayoutFooterProps,

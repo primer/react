@@ -42,19 +42,61 @@ Root.displayName = 'FilteredListLayout'
 // ----------------------------------------------------------------------------
 // FilteredListLayout.Header
 //
-// Top-of-page header row. Wraps PageLayout.Header. Use for the global page
-// header (e.g. breadcrumbs, page-level title). Optional — not all filtered
-// list pages need a top header above the sidebar/content split.
+// Renders inside PageLayout.Header. Title (h2) on the left, primary action and
+// optional secondary actions on the right. v1 is opinionated about layout;
+// consumers control the title node and action nodes.
 
-export type FilteredListLayoutHeaderProps = PageLayoutHeaderProps
+export type FilteredListLayoutHeaderProps = {
+  title: React.ReactNode
+  /**
+   * Dedicated slot for the view's primary action. Render a single primary
+   * Button (or LinkButton). Sits to the right of the title, before any
+   * additional `actions`.
+   */
+  primaryAction?: React.ReactNode
+  /**
+   * Slot for additional secondary actions (overflow menus, icon buttons, etc.)
+   * rendered to the right of `primaryAction`.
+   */
+  actions?: React.ReactNode
+  padding?: PageLayoutHeaderProps['padding']
+  divider?: PageLayoutHeaderProps['divider']
+  className?: string
+}
 
-export const Header: React.FC<React.PropsWithChildren<FilteredListLayoutHeaderProps>> = ({
+export const Header: React.FC<FilteredListLayoutHeaderProps> = ({
+  title,
+  primaryAction,
+  actions,
   padding = 'normal',
   divider = 'line',
-  ...props
+  className,
 }) => {
-  // eslint-disable-next-line primer-react/direct-slot-children
-  return <PageLayout.Header padding={padding} divider={divider} {...props} />
+  const hasTrailing = primaryAction || actions
+  return (
+    // eslint-disable-next-line primer-react/direct-slot-children
+    <PageLayout.Header padding={padding} divider={divider}>
+      <div
+        className={className}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 'var(--stack-gap-condensed, 8px)',
+        }}
+      >
+        <Heading as="h2" sx={{fontSize: 3}}>
+          {title}
+        </Heading>
+        {hasTrailing ? (
+          <div style={{display: 'flex', alignItems: 'center', gap: 'var(--stack-gap-condensed, 8px)'}}>
+            {primaryAction}
+            {actions}
+          </div>
+        ) : null}
+      </div>
+    </PageLayout.Header>
+  )
 }
 
 Header.displayName = 'FilteredListLayout.Header'
@@ -96,63 +138,6 @@ export const Content: React.FC<React.PropsWithChildren<FilteredListLayoutContent
 }
 
 Content.displayName = 'FilteredListLayout.Content'
-
-// ----------------------------------------------------------------------------
-// FilteredListLayout.ViewHeader
-//
-// Lives inside FilteredListLayout.Content as the top row: view title on the
-// left, primary action(s) on the right. Mirrors the Application template
-// pattern from github-ui (title is an h2 inside the content region, distinct
-// from the global page header above).
-
-export type FilteredListLayoutViewHeaderProps = {
-  title: React.ReactNode
-  /**
-   * Dedicated slot for the view's primary action. Render a single primary
-   * Button (or LinkButton). Sits to the right of the title, before any
-   * additional `actions`.
-   */
-  primaryAction?: React.ReactNode
-  /**
-   * Slot for additional secondary actions (overflow menus, icon buttons,
-   * filter toggles, etc.). Rendered to the right of `primaryAction`.
-   */
-  actions?: React.ReactNode
-  className?: string
-}
-
-export const ViewHeader: React.FC<FilteredListLayoutViewHeaderProps> = ({
-  title,
-  primaryAction,
-  actions,
-  className,
-}) => {
-  const hasTrailing = primaryAction || actions
-  return (
-    <div
-      className={className}
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        gap: 'var(--stack-gap-condensed, 8px)',
-        marginBlockEnd: 'var(--stack-gap-normal, 16px)',
-      }}
-    >
-      <Heading as="h2" sx={{fontSize: 3}}>
-        {title}
-      </Heading>
-      {hasTrailing ? (
-        <div style={{display: 'flex', alignItems: 'center', gap: 'var(--stack-gap-condensed, 8px)'}}>
-          {primaryAction}
-          {actions}
-        </div>
-      ) : null}
-    </div>
-  )
-}
-
-ViewHeader.displayName = 'FilteredListLayout.ViewHeader'
 
 // ----------------------------------------------------------------------------
 // FilteredListLayout.FilterBar
@@ -222,7 +207,6 @@ export const FilteredListLayout = Object.assign(Root, {
   Header,
   Pane,
   Content,
-  ViewHeader,
   FilterBar,
   Results,
   Footer,
