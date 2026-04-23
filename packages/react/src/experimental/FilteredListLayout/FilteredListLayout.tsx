@@ -244,8 +244,8 @@ Content.displayName = 'FilteredListLayout.Content'
 // ----------------------------------------------------------------------------
 // FilteredListLayout.FilterBar
 //
-// Slot for filter input UI. Lives inside FilteredListLayout.Content, above the
-// results region. v1 is a thin wrapper — consumers bring their own filter UI.
+// Slot for filter input UI. Lives inside FilteredListLayout.Header, below the
+// heading row. v1 is a thin wrapper — consumers bring their own filter UI.
 // Conventions for spacing, sticky behaviour, etc. can be added here later
 // without changing the consumer-facing API.
 
@@ -255,7 +255,11 @@ export type FilteredListLayoutFilterBarProps = {
 }
 
 export const FilterBar: React.FC<React.PropsWithChildren<FilteredListLayoutFilterBarProps>> = ({children, ...rest}) => {
-  return <div {...rest}>{children}</div>
+  return (
+    <div style={{marginBlockStart: 'var(--stack-gap-condensed, 8px)'}} {...rest}>
+      {children}
+    </div>
+  )
 }
 
 FilterBar.displayName = 'FilteredListLayout.FilterBar'
@@ -264,9 +268,9 @@ FilterBar.displayName = 'FilteredListLayout.FilterBar'
 // FilteredListLayout.Results
 //
 // Slot for the actual filtered results (issue list, PR list, etc). Lives
-// inside FilteredListLayout.Content, below FilterBar. Thin wrapper for v1 so
-// we can hang spacing / virtualization conventions on it later without
-// changing the consumer-facing API.
+// inside FilteredListLayout.Content. Thin wrapper for v1 so we can hang
+// spacing / virtualization conventions on it later without changing the
+// consumer-facing API.
 
 export type FilteredListLayoutResultsProps = {
   className?: string
@@ -274,11 +278,7 @@ export type FilteredListLayoutResultsProps = {
 }
 
 export const Results: React.FC<React.PropsWithChildren<FilteredListLayoutResultsProps>> = ({children, ...rest}) => {
-  return (
-    <div style={{marginBlockStart: 'var(--stack-gap-normal, 16px)'}} {...rest}>
-      {children}
-    </div>
-  )
+  return <div {...rest}>{children}</div>
 }
 
 Results.displayName = 'FilteredListLayout.Results'

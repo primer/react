@@ -168,6 +168,11 @@ export const Default: StoryFn = args => (
             </div>
           ) : null}
         </div>
+        {args['Render filter bar?'] ? (
+          <FilteredListLayout.FilterBar aria-label="Filters">
+            <Placeholder label="Filter bar" height={args['Filter bar placeholder height']} />
+          </FilteredListLayout.FilterBar>
+        ) : null}
       </FilteredListLayout.Header>
     ) : null}
     {args['Render sidebar?'] ? (
@@ -182,11 +187,6 @@ export const Default: StoryFn = args => (
       </FilteredListLayout.Sidebar>
     ) : null}
     <FilteredListLayout.Content width={args['Content.width']} padding={args['Content.padding']}>
-      {args['Render filter bar?'] ? (
-        <FilteredListLayout.FilterBar aria-label="Filters">
-          <Placeholder label="Filter bar" height={args['Filter bar placeholder height']} />
-        </FilteredListLayout.FilterBar>
-      ) : null}
       <FilteredListLayout.Results aria-label="Results">
         <Placeholder label="Content" height={args['Results placeholder height']} />
       </FilteredListLayout.Results>
