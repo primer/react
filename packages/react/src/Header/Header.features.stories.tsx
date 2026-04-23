@@ -50,7 +50,7 @@ export const WithManyItems = () => (
     <Header.Item>Item</Header.Item>
     <Header.Item>Item</Header.Item>
     <Header.Item className={classes.LastItem}>
-      <Avatar src="https://github.com/octocat.png" size={20} square alt="@octocat" />
+      <Avatar src="/avatars/octocat.png" size={20} square alt="@octocat" />
     </Header.Item>
   </Header>
 )

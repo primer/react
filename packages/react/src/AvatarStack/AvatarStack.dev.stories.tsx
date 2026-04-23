@@ -11,16 +11,16 @@ export default {
 export const WithLinkWrappers = () => (
   <AvatarStack>
     <Link aria-label="Primer is assigned" href="#" className="pc-AvatarItem" data-hovercard-url="/primer">
-      <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/primer" />
+      <Avatar alt="Primer logo" src="/avatars/primer.png" />
     </Link>
     <Link aria-label="GitHub is assigned" href="#" className="pc-AvatarItem" data-hovercard-url="/primer">
-      <Avatar alt="GitHub logo" src="https://avatars.githubusercontent.com/github" />
+      <Avatar alt="GitHub logo" src="/avatars/github.png" />
     </Link>
     <Link aria-label="Atom is assigned" href="#" className="pc-AvatarItem" data-hovercard-url="/primer">
-      <Avatar alt="Atom logo" src="https://avatars.githubusercontent.com/atom" />
+      <Avatar alt="Atom logo" src="/avatars/atom.png" />
     </Link>
     <Link aria-label="GitHub Desktop is assigned" href="#" className="pc-AvatarItem" data-hovercard-url="/primer">
-      <Avatar alt="GitHub Desktop logo" src="https://avatars.githubusercontent.com/desktop" />
+      <Avatar alt="GitHub Desktop logo" src="/avatars/desktop.png" />
     </Link>
   </AvatarStack>
 )

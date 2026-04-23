@@ -3,6 +3,7 @@ import {SelectPanel} from './SelectPanel'
 import {ActionList, Avatar, Button, Link, SegmentedControl, ToggleSwitch, useResponsiveValue} from '../../index'
 import {TagIcon, GearIcon, ArrowBothIcon} from '@primer/octicons-react'
 import data from './mock-story-data'
+import {avatarUrl} from '../../utils/story-helpers'
 import sharedClasses from './SelectPanel2.stories.module.css'
 import classes from './SelectPanel.features.stories.module.css'
 
@@ -141,7 +142,7 @@ export const WithWarning = () => {
                 disabled={selectedAssigneeIds.length >= MAX_LIMIT && !selectedAssigneeIds.includes(collaborator.id)}
               >
                 <ActionList.LeadingVisual>
-                  <Avatar src={`https://github.com/${collaborator.login}.png`} />
+                  <Avatar src={avatarUrl(collaborator.login)} />
                 </ActionList.LeadingVisual>
                 {collaborator.login}
                 <ActionList.Description>{collaborator.login}</ActionList.Description>
@@ -290,7 +291,7 @@ export const WithErrors = () => {
                     selected={selectedAssigneeIds.includes(collaborator.id)}
                   >
                     <ActionList.LeadingVisual>
-                      <Avatar src={`https://github.com/${collaborator.login}.png`} />
+                      <Avatar src={avatarUrl(collaborator.login)} />
                     </ActionList.LeadingVisual>
                     {collaborator.login}
                     <ActionList.Description>{collaborator.login}</ActionList.Description>
@@ -528,7 +529,7 @@ export const ResponsiveVariants = () => {
                 selected={selectedAssigneeIds.includes(collaborator.id)}
               >
                 <ActionList.LeadingVisual>
-                  <Avatar src={`https://github.com/${collaborator.login}.png`} />
+                  <Avatar src={avatarUrl(collaborator.login)} />
                 </ActionList.LeadingVisual>
                 {collaborator.login}
                 <ActionList.Description>{collaborator.login}</ActionList.Description>

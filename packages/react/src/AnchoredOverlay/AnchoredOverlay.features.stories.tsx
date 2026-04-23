@@ -21,7 +21,7 @@ export default {
 const hoverCard = (
   <Stack gap="condensed" style={{padding: '16px'}}>
     <Stack direction="horizontal" gap="condensed" justify="space-between">
-      <Avatar src="https://avatars.githubusercontent.com/u/7143434?v=4" size={48} />
+      <Avatar src="/avatars/mona.png" size={48} />
       <Button size="small">Follow</Button>
     </Stack>
     <Stack direction="horizontal" gap="none">

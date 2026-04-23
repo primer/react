@@ -19,7 +19,7 @@ export const Default = () => (
     </Header.Item>
     <Header.Item full>Menu</Header.Item>
     <Header.Item className={classes.AvatarContainer}>
-      <Avatar src="https://github.com/octocat.png" size={20} square alt="@octocat" />
+      <Avatar src="/avatars/octocat.png" size={20} square alt="@octocat" />
     </Header.Item>
   </Header>
 )
@@ -34,7 +34,7 @@ export const Playground: StoryFn<typeof Header> = args => (
     </Header.Item>
     <Header.Item full>Menu</Header.Item>
     <Header.Item className={classes.AvatarContainer}>
-      <Avatar src="https://github.com/octocat.png" size={20} square alt="@octocat" />
+      <Avatar src="/avatars/octocat.png" size={20} square alt="@octocat" />
     </Header.Item>
   </Header>
 )

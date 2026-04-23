@@ -16,6 +16,7 @@ import {
   PlusCircleIcon,
 } from '@primer/octicons-react'
 import data from './mock-story-data'
+import {avatarUrl} from '../../utils/story-helpers'
 import sharedClasses from './SelectPanel2.stories.module.css'
 import classes from './SelectPanel.examples.stories.module.css'
 
@@ -174,7 +175,7 @@ export const WithGroups = () => {
                     selected={selectedAssigneeIds.includes(collaborator.id)}
                   >
                     <ActionList.LeadingVisual>
-                      <Avatar src={`https://github.com/${collaborator.login}.png`} />
+                      <Avatar src={avatarUrl(collaborator.login)} />
                     </ActionList.LeadingVisual>
                     {collaborator.login}
                     <ActionList.Description>{collaborator.login}</ActionList.Description>
@@ -192,7 +193,7 @@ export const WithGroups = () => {
                     selected={selectedAssigneeIds.includes(collaborator.id)}
                   >
                     <ActionList.LeadingVisual>
-                      <Avatar src={`https://github.com/${collaborator.login}.png`} />
+                      <Avatar src={avatarUrl(collaborator.login)} />
                     </ActionList.LeadingVisual>
                     {collaborator.login}
                     <ActionList.Description>{collaborator.login}</ActionList.Description>
@@ -338,7 +339,7 @@ const SearchableUserList: React.FC<{
           selected={selectedUserIds.includes(user.id)}
         >
           <ActionList.LeadingVisual>
-            <Avatar src={`https://github.com/${user.login}.png`} />
+            <Avatar src={avatarUrl(user.login)} />
           </ActionList.LeadingVisual>
           {user.login}
           <ActionList.Description>{user.name}</ActionList.Description>
@@ -805,7 +806,7 @@ export const NestedSelection = () => {
               className={classes.HideActionListSelection}
             >
               <ActionList.LeadingVisual>
-                <Avatar src={`https://github.com/${repo.org}.png`} />
+                <Avatar src={avatarUrl(repo.org)} />
               </ActionList.LeadingVisual>
               {repo.org}/{repo.name}
               <ActionList.Description>{repo.description}</ActionList.Description>

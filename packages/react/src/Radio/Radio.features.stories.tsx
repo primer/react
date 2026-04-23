@@ -18,7 +18,7 @@ export const WithLeadingVisual = () => {
       </FormControl>
       <FormControl>
         <FormControl.LeadingVisual>
-          <Avatar src={`https://github.com/lukasoppermann.png`} />
+          <Avatar src="/avatars/lukasoppermann.png" />
         </FormControl.LeadingVisual>
         <Radio value="default" name="default-radio-name" />
         <FormControl.Label>Default label</FormControl.Label>

@@ -21,7 +21,7 @@ export const WithCss = () => (
     </Header.Item>
     <Header.Item full>Menu</Header.Item>
     <Header.Item className={classes.HeaderDevItem}>
-      <Avatar src="https://github.com/octocat.png" size={20} square alt="@octocat" />
+      <Avatar src="/avatars/octocat.png" size={20} square alt="@octocat" />
     </Header.Item>
   </Header>
 )

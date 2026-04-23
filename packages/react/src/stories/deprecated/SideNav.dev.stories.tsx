@@ -34,7 +34,7 @@ export const FullVariant = () => (
       <Text>Text Only</Text>
     </SideNav.Link>
     <SideNav.Link href="#url">
-      <Avatar size={16} src="https://avatars.githubusercontent.com/hubot?s=32" />
+      <Avatar size={16} src="/avatars/hubot.png" />
       <Text>With an avatar</Text>
     </SideNav.Link>
     <SideNav.Link href="#url">

@@ -25,6 +25,7 @@ import {Button, Avatar, ActionMenu, IconButton, ActionList, Textarea} from '..'
 import {Dialog} from '../deprecated/DialogV1'
 import {Divider} from '../deprecated/ActionList/Divider'
 import mockData from '../experimental/SelectPanel2/mock-story-data'
+import {avatarUrl} from '../utils/story-helpers'
 import classes from './ActionBar.examples.stories.module.css'
 import type {ActionBarMenuItemProps} from './ActionBar'
 
@@ -201,7 +202,7 @@ export const ActionbarToggle = () => {
     <div className={classes.ActionBarToggleContainer}>
       <div className={classes.ActionBarToggleTop}>
         <div>
-          <Avatar src={`https://github.com/${loginName}.png`} size={30} />
+          <Avatar src={avatarUrl(loginName)} size={30} />
           <Text as="strong" className={classes.ActionBarToggleUser}>
             {loginName}
           </Text>

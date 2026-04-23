@@ -134,7 +134,7 @@ export const ProfilePage = () => {
       </div>
       <div className={classes.ProfileContainer}>
         <div className={classes.ProfileSidebar}>
-          <Avatar size={256} src="https://avatars.githubusercontent.com/u/7143434?v=4" alt="mona user avatar" />
+          <Avatar size={256} src="/avatars/mona.png" alt="mona user avatar" />
           <div>
             {/* Initial bio info */}
             <div className={classes.ProfileBioInfo}>
