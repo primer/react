@@ -98,6 +98,35 @@ const issuesCustomViews: View[] = [
   {key: 'second-test', label: 'Second test view', icon: BookmarkIcon},
 ]
 
+const IssuesSidebar = ({selectedKey, customViews = issuesCustomViews}: {selectedKey: string; customViews?: View[]}) => (
+  <NavList aria-label="Issues">
+    {issuesViews.map(view => (
+      <ViewsItem key={view.key} view={{...view, selected: view.key === selectedKey}} />
+    ))}
+    <NavList.Group title="Custom views">
+      {customViews.map(view => (
+        <ViewsItem key={view.key} view={{...view, selected: view.key === selectedKey}} />
+      ))}
+    </NavList.Group>
+    <NavList.Group title="Shortcuts">
+      {issuesShortcuts.map(view => {
+        const Icon = view.icon
+        return (
+          <NavList.Item key={view.key} href={`#${view.key}`}>
+            <NavList.LeadingVisual>
+              <Icon />
+            </NavList.LeadingVisual>
+            {view.label}
+            <NavList.TrailingVisual>
+              <ArrowUpRightIcon />
+            </NavList.TrailingVisual>
+          </NavList.Item>
+        )
+      })}
+    </NavList.Group>
+  </NavList>
+)
+
 const ViewsItem = ({view}: {view: View}) => {
   const Icon = view.icon
   return (
@@ -119,32 +148,7 @@ export const Issues: StoryFn = () => (
       </FilteredListLayout.FilterBar>
     </FilteredListLayout.Header>
     <FilteredListLayout.Sidebar aria-label="Issues">
-      <NavList aria-label="Issues">
-        {issuesViews.map(view => (
-          <ViewsItem key={view.key} view={view} />
-        ))}
-        <NavList.Group title="Custom views">
-          {issuesCustomViews.map(view => (
-            <ViewsItem key={view.key} view={view} />
-          ))}
-        </NavList.Group>
-        <NavList.Group title="Shortcuts">
-          {issuesShortcuts.map(view => {
-            const Icon = view.icon
-            return (
-              <NavList.Item key={view.key} href={`#${view.key}`}>
-                <NavList.LeadingVisual>
-                  <Icon />
-                </NavList.LeadingVisual>
-                {view.label}
-                <NavList.TrailingVisual>
-                  <ArrowUpRightIcon />
-                </NavList.TrailingVisual>
-              </NavList.Item>
-            )
-          })}
-        </NavList.Group>
-      </NavList>
+      <IssuesSidebar selectedKey="issues" />
     </FilteredListLayout.Sidebar>
     <FilteredListLayout.Content>
       <FilteredListLayout.Results aria-label="Issue results">
@@ -153,6 +157,28 @@ export const Issues: StoryFn = () => (
     </FilteredListLayout.Content>
   </FilteredListLayout>
 )
+
+export const IssuesWithCustomViewSelected: StoryFn = () => {
+  const customViews: View[] = [{key: 'important', label: 'Important', icon: BookmarkIcon}, ...issuesCustomViews]
+  return (
+    <FilteredListLayout>
+      <FilteredListLayout.Header>
+        <HeaderRow title="Important" primaryActionLabel="New issue" />
+        <FilteredListLayout.FilterBar aria-label="Filter issues">
+          <Placeholder label="Filter issues" height={48} />
+        </FilteredListLayout.FilterBar>
+      </FilteredListLayout.Header>
+      <FilteredListLayout.Sidebar aria-label="Issues">
+        <IssuesSidebar selectedKey="important" customViews={customViews} />
+      </FilteredListLayout.Sidebar>
+      <FilteredListLayout.Content>
+        <FilteredListLayout.Results aria-label="Issue results">
+          <Placeholder label="Issue list" height={552} />
+        </FilteredListLayout.Results>
+      </FilteredListLayout.Content>
+    </FilteredListLayout>
+  )
+}
 
 // ---------------------------------------------------------------------------
 // Pull requests
