@@ -1,5 +1,5 @@
 import type React from 'react'
-import {createContext, useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react'
+import {createContext, useCallback, useContext, useEffect, useId, useMemo, useRef, useState} from 'react'
 import {SidebarCollapseIcon} from '@primer/octicons-react'
 import {IconButton, Button} from '../../Button'
 import {Hidden} from '../../Hidden'
@@ -193,12 +193,15 @@ export const Sidebar: React.FC<React.PropsWithChildren<FilteredListLayoutSidebar
   divider = 'line',
   hidden = SIDEBAR_HIDDEN_DEFAULT,
   triggerLabel = 'Open sidebar',
+  id,
   children,
   'aria-label': ariaLabel,
   ...props
 }) => {
   const ctx = useFilteredListLayoutContext()
   const registerSidebar = ctx?.registerSidebar
+  const generatedId = useId()
+  const sidebarId = id ?? generatedId
 
   // Register sidebar contents with the layout so Header can render them in a
   // side-sheet Dialog at narrow viewports. registerSidebar is stable and
@@ -222,6 +225,7 @@ export const Sidebar: React.FC<React.PropsWithChildren<FilteredListLayoutSidebar
       divider={divider}
       hidden={hidden}
       aria-label={ariaLabel}
+      id={sidebarId}
       {...props}
     >
       <div
@@ -235,7 +239,14 @@ export const Sidebar: React.FC<React.PropsWithChildren<FilteredListLayoutSidebar
         <div>{children}</div>
         {/* Visual affordance only for v1 — collapse behaviour is not yet wired. */}
         <div style={{marginBlockStart: 'auto', paddingBlockStart: 'var(--stack-gap-normal, 16px)'}}>
-          <Button leadingVisual={SidebarCollapseIcon} variant="invisible" block alignContent="start">
+          <Button
+            leadingVisual={SidebarCollapseIcon}
+            variant="invisible"
+            block
+            alignContent="start"
+            aria-expanded={true}
+            aria-controls={sidebarId}
+          >
             Expand sidebar
           </Button>
         </div>
