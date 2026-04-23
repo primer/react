@@ -12,7 +12,6 @@ import {
   MentionIcon,
   MilestoneIcon,
   PeopleIcon,
-  PlusIcon,
   ProjectIcon,
   ProjectRoadmapIcon,
   ProjectTemplateIcon,
@@ -22,7 +21,7 @@ import {
   TableIcon,
   ToolsIcon,
 } from '@primer/octicons-react'
-import {Button, IconButton} from '../../Button'
+import {Button} from '../../Button'
 import Heading from '../../Heading'
 import {NavList} from '../../NavList'
 import {Placeholder} from '../../Placeholder'
@@ -125,19 +124,7 @@ export const Issues: StoryFn = () => (
         {issuesViews.map(view => (
           <ViewsItem key={view.key} view={view} />
         ))}
-        <NavList.Group>
-          <NavList.GroupHeading
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: 'var(--stack-gap-condensed, 8px)',
-              paddingInlineEnd: 0,
-            }}
-          >
-            Views
-            <IconButton icon={PlusIcon} aria-label="Create view" variant="invisible" size="small" />
-          </NavList.GroupHeading>
+        <NavList.Group title="Views">
           {issuesCustomViews.map(view => (
             <ViewsItem key={view.key} view={view} />
           ))}
