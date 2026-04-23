@@ -168,12 +168,12 @@ export const Default: StoryFn = args => (
             </div>
           ) : null}
         </div>
+        {args['Render filter bar?'] ? (
+          <FilteredListLayout.FilterBar aria-label="Filters">
+            <Placeholder label="Filter bar" height={args['Filter bar placeholder height']} />
+          </FilteredListLayout.FilterBar>
+        ) : null}
       </FilteredListLayout.Header>
-    ) : null}
-    {args['Render filter bar?'] ? (
-      <FilteredListLayout.FilterBar aria-label="Filters">
-        <Placeholder label="Filter bar" height={args['Filter bar placeholder height']} />
-      </FilteredListLayout.FilterBar>
     ) : null}
     {args['Render sidebar?'] ? (
       <FilteredListLayout.Sidebar

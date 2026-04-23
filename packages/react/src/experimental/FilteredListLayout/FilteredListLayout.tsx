@@ -1,4 +1,5 @@
-import React, {createContext, useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react'
+import type React from 'react'
+import {createContext, useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {Button} from '../../Button'
 import {Hidden} from '../../Hidden'
@@ -37,17 +38,9 @@ type SidebarRegistration = {
   triggerLabel: string
 }
 
-type FilterBarRegistration = {
-  content: React.ReactNode
-  ariaLabel?: string
-  className?: string
-}
-
 type FilteredListLayoutContextValue = {
   registerSidebar: (registration: SidebarRegistration | null) => void
   sidebar: SidebarRegistration | null
-  registerFilterBar: (registration: FilterBarRegistration | null) => void
-  filterBar: FilterBarRegistration | null
   isSheetOpen: boolean
   openSheet: () => void
   closeSheet: () => void
@@ -64,7 +57,6 @@ export type FilteredListLayoutProps = {className?: string}
 
 export const Root: React.FC<React.PropsWithChildren<FilteredListLayoutProps>> = props => {
   const [sidebar, setSidebar] = useState<SidebarRegistration | null>(null)
-  const [filterBar, setFilterBar] = useState<FilterBarRegistration | null>(null)
   const [isSheetOpen, setIsSheetOpen] = useState(false)
 
   // Bail out when the next registration is shallow-equal to the current one.
@@ -87,22 +79,6 @@ export const Root: React.FC<React.PropsWithChildren<FilteredListLayoutProps>> = 
     })
   }, [])
 
-  const registerFilterBar = useCallback((next: FilterBarRegistration | null) => {
-    setFilterBar(prev => {
-      if (prev === next) return prev
-      if (
-        prev &&
-        next &&
-        prev.content === next.content &&
-        prev.ariaLabel === next.ariaLabel &&
-        prev.className === next.className
-      ) {
-        return prev
-      }
-      return next
-    })
-  }, [])
-
   const openSheet = useCallback(() => setIsSheetOpen(true), [])
   const closeSheet = useCallback(() => setIsSheetOpen(false), [])
 
@@ -110,13 +86,11 @@ export const Root: React.FC<React.PropsWithChildren<FilteredListLayoutProps>> = 
     () => ({
       registerSidebar,
       sidebar,
-      registerFilterBar,
-      filterBar,
       isSheetOpen,
       openSheet,
       closeSheet,
     }),
-    [registerSidebar, sidebar, registerFilterBar, filterBar, isSheetOpen, openSheet, closeSheet],
+    [registerSidebar, sidebar, isSheetOpen, openSheet, closeSheet],
   )
 
   return (
@@ -183,15 +157,6 @@ export const Header: React.FC<React.PropsWithChildren<FilteredListLayoutHeaderPr
         </Dialog>
       ) : null}
       {children}
-      {ctx?.filterBar ? (
-        <div
-          aria-label={ctx.filterBar.ariaLabel}
-          className={ctx.filterBar.className}
-          style={{marginBlockStart: 'var(--stack-gap-condensed, 8px)'}}
-        >
-          {ctx.filterBar.content}
-        </div>
-      ) : null}
     </PageLayout.Header>
   )
 }
@@ -214,12 +179,14 @@ export type FilteredListLayoutSidebarProps = PageLayoutSidebarProps & {
   triggerLabel?: string
 }
 
+const SIDEBAR_HIDDEN_DEFAULT = {narrow: true, regular: false, wide: false} as const
+
 export const Sidebar: React.FC<React.PropsWithChildren<FilteredListLayoutSidebarProps>> = ({
   position = 'start',
   sticky = true,
   padding = 'condensed',
   divider = 'line',
-  hidden = {narrow: true, regular: false, wide: false},
+  hidden = SIDEBAR_HIDDEN_DEFAULT,
   triggerLabel = 'Views',
   children,
   'aria-label': ariaLabel,
@@ -280,40 +247,22 @@ Content.displayName = 'FilteredListLayout.Content'
 // ----------------------------------------------------------------------------
 // FilteredListLayout.FilterBar
 //
-// Slot for filter input UI. Registers its children with the layout so they're
-// rendered in a known position inside FilteredListLayout.Header (below the
-// heading row) regardless of where in the JSX tree FilterBar appears. v1 is
-// a thin wrapper — consumers bring their own filter UI.
+// Slot for filter input UI. v1 is a thin wrapper that applies a top margin
+// so it sits visually below the heading row. Must be placed inside
+// FilteredListLayout.Header.
 
-export type FilteredListLayoutFilterBarProps = {
-  className?: string
-  'aria-label'?: string
-}
+export type FilteredListLayoutFilterBarProps = React.HTMLAttributes<HTMLDivElement>
 
 export const FilterBar: React.FC<React.PropsWithChildren<FilteredListLayoutFilterBarProps>> = ({
   children,
-  className,
-  'aria-label': ariaLabel,
+  style,
+  ...rest
 }) => {
-  const ctx = useFilteredListLayoutContext()
-  const registerFilterBar = ctx?.registerFilterBar
-
-  useEffect(() => {
-    if (!registerFilterBar) {
-      if (process.env.NODE_ENV !== 'production') {
-        // eslint-disable-next-line no-console
-        console.warn(
-          'FilteredListLayout.FilterBar must be rendered inside <FilteredListLayout>. The filter bar will not appear.',
-        )
-      }
-      return
-    }
-    registerFilterBar({content: children, ariaLabel, className})
-    return () => registerFilterBar(null)
-  }, [registerFilterBar, children, ariaLabel, className])
-
-  // Renders nothing in place; Header renders the registered content.
-  return null
+  return (
+    <div style={{marginBlockStart: 'var(--stack-gap-condensed, 8px)', ...style}} {...rest}>
+      {children}
+    </div>
+  )
 }
 
 FilterBar.displayName = 'FilteredListLayout.FilterBar'
