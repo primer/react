@@ -124,7 +124,7 @@ export const Issues: StoryFn = () => (
         {issuesViews.map(view => (
           <ViewsItem key={view.key} view={view} />
         ))}
-        <NavList.Group title="Views">
+        <NavList.Group title="Custom views">
           {issuesCustomViews.map(view => (
             <ViewsItem key={view.key} view={view} />
           ))}
