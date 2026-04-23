@@ -115,11 +115,20 @@ export type FilteredListLayoutSidebarProps = PageLayoutSidebarProps
 export const Sidebar: React.FC<React.PropsWithChildren<FilteredListLayoutSidebarProps>> = ({
   position = 'start',
   sticky = true,
-  padding = 'normal',
+  padding = 'condensed',
   divider = 'line',
+  children,
   ...props
 }) => {
-  return <PageLayout.Sidebar position={position} sticky={sticky} padding={padding} divider={divider} {...props} />
+  // Note: PageLayout.Sidebar's `padding` prop sets a CSS variable but its
+  // stylesheet does not currently consume it, so we apply padding ourselves
+  // via a wrapper element. We still forward `padding` to PageLayout.Sidebar
+  // for forward-compatibility once the upstream styles consume it.
+  return (
+    <PageLayout.Sidebar position={position} sticky={sticky} padding={padding} divider={divider} {...props}>
+      <div style={{padding: `var(--spacing-${padding})`}}>{children}</div>
+    </PageLayout.Sidebar>
+  )
 }
 
 Sidebar.displayName = 'FilteredListLayout.Sidebar'
@@ -155,10 +164,7 @@ export type FilteredListLayoutFilterBarProps = {
   'aria-label'?: string
 }
 
-export const FilterBar: React.FC<React.PropsWithChildren<FilteredListLayoutFilterBarProps>> = ({
-  children,
-  ...rest
-}) => {
+export const FilterBar: React.FC<React.PropsWithChildren<FilteredListLayoutFilterBarProps>> = ({children, ...rest}) => {
   return <div {...rest}>{children}</div>
 }
 

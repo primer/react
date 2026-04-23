@@ -46,7 +46,7 @@ const meta: Meta = {
     'Header.divider': 'line',
     'Sidebar.position': 'start',
     'Sidebar.divider': 'line',
-    'Sidebar.padding': 'normal',
+    'Sidebar.padding': 'condensed',
     'Sidebar.sticky': true,
     'Content.width': 'xlarge',
     'Content.padding': 'normal',
