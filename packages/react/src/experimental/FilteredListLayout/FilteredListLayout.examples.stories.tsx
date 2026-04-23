@@ -87,30 +87,17 @@ const issuesShortcuts: View[] = [
   {key: 'labels', label: 'Labels', icon: TagIcon},
 ]
 
-const ShortcutsCard = ({label, items}: {label: string; items: View[]}) => (
-  <div
-    style={{
-      marginBlockStart: 'var(--stack-gap-normal, 16px)',
-      padding: 'var(--base-size-8, 8px)',
-      backgroundColor: 'var(--bgColor-muted)',
-      borderRadius: 'var(--borderRadius-medium, 6px)',
-    }}
-  >
-    <Heading
-      as="h3"
-      style={{
-        font: 'var(--text-caption-shorthand)',
-        color: 'var(--fgColor-muted)',
-        paddingInline: 'var(--base-size-8, 8px)',
-        paddingBlockStart: 'var(--base-size-4, 4px)',
-        paddingBlockEnd: 'var(--base-size-4, 4px)',
-      }}
-    >
-      Shortcuts
-    </Heading>
-    <ViewsNavList label={label} views={items} />
-  </div>
-)
+const ViewsItem = ({view}: {view: View}) => {
+  const Icon = view.icon
+  return (
+    <NavList.Item href={`#${view.key}`} aria-current={view.selected ? 'page' : undefined}>
+      <NavList.LeadingVisual>
+        <Icon />
+      </NavList.LeadingVisual>
+      {view.label}
+    </NavList.Item>
+  )
+}
 
 export const Issues: StoryFn = () => (
   <FilteredListLayout>
@@ -121,8 +108,16 @@ export const Issues: StoryFn = () => (
       </FilteredListLayout.FilterBar>
     </FilteredListLayout.Header>
     <FilteredListLayout.Sidebar aria-label="Issues">
-      <ViewsNavList label="Issue views" views={issuesViews} />
-      <ShortcutsCard label="Shortcuts" items={issuesShortcuts} />
+      <NavList aria-label="Issues">
+        {issuesViews.map(view => (
+          <ViewsItem key={view.key} view={view} />
+        ))}
+        <NavList.Group title="Shortcuts">
+          {issuesShortcuts.map(view => (
+            <ViewsItem key={view.key} view={view} />
+          ))}
+        </NavList.Group>
+      </NavList>
     </FilteredListLayout.Sidebar>
     <FilteredListLayout.Content>
       <FilteredListLayout.Results aria-label="Issue results">
