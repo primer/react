@@ -27,7 +27,7 @@ import {Dialog} from '../../Dialog'
 // Internal context
 //
 // Powers the responsive-by-default behaviour: on narrow viewports the inline
-// Sidebar is hidden, and a trigger button + bottom-sheet Dialog rendered by
+// Sidebar is hidden, and a trigger button + side-sheet Dialog rendered by
 // Content takes its place. Sidebar registers its children into this context
 // so the same NavList (or other content) renders in both places without the
 // consumer having to author it twice.
@@ -154,7 +154,7 @@ export const Header: React.FC<React.PropsWithChildren<FilteredListLayoutHeaderPr
         <Dialog
           title={ctx.sidebar.ariaLabel ?? ctx.sidebar.triggerLabel}
           onClose={onClose}
-          position={{narrow: 'bottom'}}
+          position={{narrow: 'left'}}
           returnFocusRef={triggerRef}
         >
           {ctx.sidebar.content}
@@ -172,13 +172,13 @@ Header.displayName = 'FilteredListLayout.Header'
 //
 // Wraps PageLayout.Sidebar so the filtered-list sidebar runs full height on
 // the start side of the page, sticky by default. Hidden on narrow viewports;
-// its contents are surfaced in a bottom-sheet Dialog opened by a trigger
+// its contents are surfaced in a side-sheet Dialog opened by a trigger
 // button rendered by FilteredListLayout.Content.
 
 export type FilteredListLayoutSidebarProps = PageLayoutSidebarProps & {
   /**
    * Accessible label for the narrow-viewport trigger button that opens
-   * the sidebar contents in a bottom sheet, and the title shown above
+   * the sidebar contents in a side sheet, and the title shown above
    * the sheet. Defaults to "Open sidebar".
    */
   triggerLabel?: string
@@ -201,7 +201,7 @@ export const Sidebar: React.FC<React.PropsWithChildren<FilteredListLayoutSidebar
   const registerSidebar = ctx?.registerSidebar
 
   // Register sidebar contents with the layout so Header can render them in a
-  // bottom-sheet Dialog at narrow viewports. registerSidebar is stable and
+  // side-sheet Dialog at narrow viewports. registerSidebar is stable and
   // performs its own shallow-equal bail-out, so this safely re-runs on every
   // render without causing an update loop.
   useEffect(() => {
