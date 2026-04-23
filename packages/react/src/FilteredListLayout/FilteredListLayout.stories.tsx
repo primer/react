@@ -12,10 +12,10 @@ const meta: Meta = {
   },
   args: {
     'Render header?': true,
-    'Render pane?': true,
+    'Render sidebar?': true,
     'Render filter bar?': true,
     'Render footer?': false,
-    'Pane placeholder height': 400,
+    'Sidebar placeholder height': 400,
     'Filter bar placeholder height': 48,
     'Results placeholder height': 552,
     'Footer placeholder height': 64,
@@ -24,10 +24,10 @@ const meta: Meta = {
     'Header.actions': true,
     'Header.padding': 'normal',
     'Header.divider': 'line',
-    'Pane.position': 'start',
-    'Pane.divider': 'line',
-    'Pane.padding': 'normal',
-    'Pane.sticky': true,
+    'Sidebar.position': 'start',
+    'Sidebar.divider': 'line',
+    'Sidebar.padding': 'normal',
+    'Sidebar.sticky': true,
     'Content.width': 'xlarge',
     'Content.padding': 'normal',
     'Footer.padding': 'normal',
@@ -35,10 +35,10 @@ const meta: Meta = {
   },
   argTypes: {
     'Render header?': {type: 'boolean', table: {category: 'Debug'}},
-    'Render pane?': {type: 'boolean', table: {category: 'Debug'}},
+    'Render sidebar?': {type: 'boolean', table: {category: 'Debug'}},
     'Render filter bar?': {type: 'boolean', table: {category: 'Debug'}},
     'Render footer?': {type: 'boolean', table: {category: 'Debug'}},
-    'Pane placeholder height': {type: 'number', table: {category: 'Debug'}},
+    'Sidebar placeholder height': {type: 'number', table: {category: 'Debug'}},
     'Filter bar placeholder height': {type: 'number', table: {category: 'Debug'}},
     'Results placeholder height': {type: 'number', table: {category: 'Debug'}},
     'Footer placeholder height': {type: 'number', table: {category: 'Debug'}},
@@ -67,22 +67,22 @@ const meta: Meta = {
       table: {category: 'Header props'},
     },
 
-    'Pane.position': {
+    'Sidebar.position': {
       type: {name: 'enum', value: ['start', 'end']},
       control: {type: 'radio'},
-      table: {category: 'Pane props'},
+      table: {category: 'Sidebar props'},
     },
-    'Pane.divider': {
+    'Sidebar.divider': {
       type: {name: 'enum', value: ['none', 'line']},
       control: {type: 'radio'},
-      table: {category: 'Pane props'},
+      table: {category: 'Sidebar props'},
     },
-    'Pane.padding': {
+    'Sidebar.padding': {
       type: {name: 'enum', value: ['none', 'condensed', 'normal']},
       control: {type: 'radio'},
-      table: {category: 'Pane props'},
+      table: {category: 'Sidebar props'},
     },
-    'Pane.sticky': {type: 'boolean', table: {category: 'Pane props'}},
+    'Sidebar.sticky': {type: 'boolean', table: {category: 'Sidebar props'}},
 
     'Content.width': {
       type: {name: 'enum', value: ['full', 'medium', 'large', 'xlarge']},
@@ -121,16 +121,16 @@ export const Default: StoryFn = args => (
         }
       />
     ) : null}
-    {args['Render pane?'] ? (
-      <FilteredListLayout.Pane
-        position={args['Pane.position']}
-        divider={args['Pane.divider']}
-        padding={args['Pane.padding']}
-        sticky={args['Pane.sticky']}
+    {args['Render sidebar?'] ? (
+      <FilteredListLayout.Sidebar
+        position={args['Sidebar.position']}
+        divider={args['Sidebar.divider']}
+        padding={args['Sidebar.padding']}
+        sticky={args['Sidebar.sticky']}
         aria-label="Sidebar"
       >
-        <Placeholder label="Pane" height={args['Pane placeholder height']} />
-      </FilteredListLayout.Pane>
+        <Placeholder label="Sidebar" height={args['Sidebar placeholder height']} />
+      </FilteredListLayout.Sidebar>
     ) : null}
     <FilteredListLayout.Content width={args['Content.width']} padding={args['Content.padding']}>
       {args['Render filter bar?'] ? (

@@ -4,7 +4,7 @@ import type {
   PageLayoutContentProps,
   PageLayoutFooterProps,
   PageLayoutHeaderProps,
-  PageLayoutPaneProps,
+  PageLayoutSidebarProps,
 } from '../PageLayout'
 import {PageLayout} from '../PageLayout'
 
@@ -31,6 +31,7 @@ export const Root: React.FC<React.PropsWithChildren<FilteredListLayoutProps>> = 
       _slotsConfig={{
         header: Header,
         footer: Footer,
+        sidebar: Sidebar,
       }}
       {...props}
     />
@@ -102,24 +103,26 @@ export const Header: React.FC<FilteredListLayoutHeaderProps> = ({
 Header.displayName = 'FilteredListLayout.Header'
 
 // ----------------------------------------------------------------------------
-// FilteredListLayout.Pane
+// FilteredListLayout.Sidebar
 //
-// Wraps PageLayout.Pane with defaults appropriate for a filtered-list sidebar.
-// Future: hide affordance at the bottom (per epic #2156 DoD).
+// Wraps PageLayout.Sidebar so the filtered-list sidebar runs full height on
+// the left of the page (above and below Header/Content/Footer), with sticky
+// behaviour by default. Future: hide affordance at the bottom (per epic
+// #2156 DoD).
 
-export type FilteredListLayoutPaneProps = PageLayoutPaneProps
+export type FilteredListLayoutSidebarProps = PageLayoutSidebarProps
 
-export const Pane: React.FC<React.PropsWithChildren<FilteredListLayoutPaneProps>> = ({
+export const Sidebar: React.FC<React.PropsWithChildren<FilteredListLayoutSidebarProps>> = ({
   position = 'start',
   sticky = true,
   padding = 'normal',
   divider = 'line',
   ...props
 }) => {
-  return <PageLayout.Pane position={position} sticky={sticky} padding={padding} divider={divider} {...props} />
+  return <PageLayout.Sidebar position={position} sticky={sticky} padding={padding} divider={divider} {...props} />
 }
 
-Pane.displayName = 'FilteredListLayout.Pane'
+Sidebar.displayName = 'FilteredListLayout.Sidebar'
 
 // ----------------------------------------------------------------------------
 // FilteredListLayout.Content
@@ -205,7 +208,7 @@ Footer.displayName = 'FilteredListLayout.Footer'
 
 export const FilteredListLayout = Object.assign(Root, {
   Header,
-  Pane,
+  Sidebar,
   Content,
   FilterBar,
   Results,
