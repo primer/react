@@ -108,3 +108,14 @@ export * from './Tabs'
 
 export {TopicTag} from '../TopicTag'
 export type {TopicTagProps, TopicTagGroupProps} from '../TopicTag'
+
+export {FilteredListLayout} from './FilteredListLayout'
+export type {
+  FilteredListLayoutProps,
+  FilteredListLayoutHeaderProps,
+  FilteredListLayoutSidebarProps,
+  FilteredListLayoutContentProps,
+  FilteredListLayoutFilterBarProps,
+  FilteredListLayoutResultsProps,
+  FilteredListLayoutFooterProps,
+} from './FilteredListLayout'

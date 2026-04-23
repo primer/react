@@ -1,5 +1,5 @@
 import type {Meta, StoryFn} from '@storybook/react-vite'
-import {Button, IconButton} from '../Button'
+import {Button, IconButton} from '../../Button'
 import {
   CheckIcon,
   CommentIcon,
@@ -10,10 +10,10 @@ import {
   PersonIcon,
   TagIcon,
 } from '@primer/octicons-react'
-import {NavList} from '../NavList'
-import {Placeholder} from '../Placeholder'
+import {NavList} from '../../NavList'
+import {Placeholder} from '../../Placeholder'
 import {FilteredListLayout} from '../FilteredListLayout'
-import Heading from '../Heading'
+import Heading from '../../Heading'
 
 const sidebarViews = [
   {key: 'open', label: 'Open issues', icon: IssueOpenedIcon, count: 142, selected: true},
@@ -26,7 +26,7 @@ const sidebarViews = [
 ]
 
 const meta: Meta = {
-  title: 'Components/FilteredListLayout',
+  title: 'Experimental/Components/FilteredListLayout',
   parameters: {
     layout: 'fullscreen',
     controls: {expanded: true},

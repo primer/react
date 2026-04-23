@@ -4,8 +4,8 @@ import type {
   PageLayoutFooterProps,
   PageLayoutHeaderProps,
   PageLayoutSidebarProps,
-} from '../PageLayout'
-import {PageLayout} from '../PageLayout'
+} from '../../PageLayout'
+import {PageLayout} from '../../PageLayout'
 
 // ----------------------------------------------------------------------------
 // FilteredListLayout

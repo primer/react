@@ -4,10 +4,10 @@
   "status": "alpha",
   "stories": [
     {
-      "id": "components-filteredlistlayout--default"
+      "id": "experimental-components-filteredlistlayout--default"
     }
   ],
-  "importPath": "@primer/react",
+  "importPath": "@primer/react/experimental",
   "props": [
     {
       "name": "className",
