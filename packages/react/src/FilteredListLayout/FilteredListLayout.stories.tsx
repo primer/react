@@ -1,8 +1,28 @@
 import type {Meta, StoryFn} from '@storybook/react-vite'
 import {Button, IconButton} from '../Button'
-import {KebabHorizontalIcon} from '@primer/octicons-react'
+import {
+  CheckIcon,
+  CommentIcon,
+  EyeIcon,
+  IssueOpenedIcon,
+  KebabHorizontalIcon,
+  MentionIcon,
+  PersonIcon,
+  TagIcon,
+} from '@primer/octicons-react'
+import {NavList} from '../NavList'
 import {Placeholder} from '../Placeholder'
 import {FilteredListLayout} from '../FilteredListLayout'
+
+const sidebarViews = [
+  {key: 'open', label: 'Open issues', icon: IssueOpenedIcon, count: 142, selected: true},
+  {key: 'assigned', label: 'Assigned to you', icon: PersonIcon, count: 8},
+  {key: 'created', label: 'Created by you', icon: CheckIcon, count: 23},
+  {key: 'mentioned', label: 'Mentions you', icon: MentionIcon, count: 4},
+  {key: 'commented', label: 'Recently commented', icon: CommentIcon, count: 12},
+  {key: 'subscribed', label: 'Subscribed', icon: EyeIcon, count: 31},
+  {key: 'labeled', label: 'Labeled bug', icon: TagIcon, count: 17},
+]
 
 const meta: Meta = {
   title: 'Components/FilteredListLayout',
@@ -129,7 +149,20 @@ export const Default: StoryFn = args => (
         sticky={args['Sidebar.sticky']}
         aria-label="Sidebar"
       >
-        <Placeholder label="Sidebar" height={args['Sidebar placeholder height']} />
+        <NavList aria-label="Issue views">
+          {sidebarViews.map(view => {
+            const Icon = view.icon
+            return (
+              <NavList.Item key={view.key} href={`#${view.key}`} aria-current={view.selected ? 'page' : undefined}>
+                <NavList.LeadingVisual>
+                  <Icon />
+                </NavList.LeadingVisual>
+                {view.label}
+                <NavList.TrailingVisual>{view.count}</NavList.TrailingVisual>
+              </NavList.Item>
+            )
+          })}
+        </NavList>
       </FilteredListLayout.Sidebar>
     ) : null}
     <FilteredListLayout.Content width={args['Content.width']} padding={args['Content.padding']}>
