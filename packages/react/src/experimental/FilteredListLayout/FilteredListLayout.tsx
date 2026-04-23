@@ -1,7 +1,7 @@
 import type React from 'react'
 import {createContext, useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react'
-import {TriangleDownIcon} from '@primer/octicons-react'
-import {Button} from '../../Button'
+import {SidebarExpandIcon} from '@primer/octicons-react'
+import {IconButton} from '../../Button'
 import {Hidden} from '../../Hidden'
 import type {
   PageLayoutContentProps,
@@ -139,22 +139,20 @@ export const Header: React.FC<React.PropsWithChildren<FilteredListLayoutHeaderPr
       {ctx?.sidebar ? (
         <Hidden when={['regular', 'wide']}>
           <div style={{marginBlockEnd: 'var(--stack-gap-condensed, 8px)'}}>
-            <Button
+            <IconButton
               ref={triggerRef}
-              trailingVisual={TriangleDownIcon}
+              icon={SidebarExpandIcon}
+              aria-label={ctx.sidebar.triggerLabel}
               onClick={ctx.openSheet}
               aria-haspopup="dialog"
               aria-expanded={ctx.isSheetOpen}
-            >
-              {ctx.sidebar.triggerLabel}
-            </Button>
+            />
           </div>
         </Hidden>
       ) : null}
       {ctx?.sidebar && ctx.isSheetOpen ? (
         <Dialog
-          title={ctx.sidebar.triggerLabel}
-          aria-label={ctx.sidebar.ariaLabel}
+          title={ctx.sidebar.ariaLabel ?? ctx.sidebar.triggerLabel}
           onClose={onClose}
           position={{narrow: 'bottom'}}
           returnFocusRef={triggerRef}
@@ -179,8 +177,9 @@ Header.displayName = 'FilteredListLayout.Header'
 
 export type FilteredListLayoutSidebarProps = PageLayoutSidebarProps & {
   /**
-   * Label for the narrow-viewport trigger button that opens the sidebar
-   * contents in a bottom sheet. Defaults to "Views".
+   * Accessible label for the narrow-viewport trigger button that opens
+   * the sidebar contents in a bottom sheet, and the title shown above
+   * the sheet. Defaults to "Open sidebar".
    */
   triggerLabel?: string
 }
@@ -193,7 +192,7 @@ export const Sidebar: React.FC<React.PropsWithChildren<FilteredListLayoutSidebar
   padding = 'condensed',
   divider = 'line',
   hidden = SIDEBAR_HIDDEN_DEFAULT,
-  triggerLabel = 'Views',
+  triggerLabel = 'Open sidebar',
   children,
   'aria-label': ariaLabel,
   ...props
