@@ -1,11 +1,10 @@
 import type {Meta, StoryFn} from '@storybook/react-vite'
-import {Button, IconButton} from '../../Button'
+import {Button} from '../../Button'
 import {
   CheckIcon,
   CommentIcon,
   EyeIcon,
   IssueOpenedIcon,
-  KebabHorizontalIcon,
   MentionIcon,
   PersonIcon,
   TagIcon,
@@ -59,7 +58,6 @@ const meta: Meta = {
     'Footer placeholder height': 64,
     'Header.title': 'Assigned to you',
     'Header.primaryAction': true,
-    'Header.actions': true,
     'Header.padding': 'normal',
     'Header.divider': 'none',
     'Sidebar.position': 'start',
@@ -87,10 +85,6 @@ const meta: Meta = {
       table: {category: 'Header props'},
     },
     'Header.primaryAction': {
-      type: 'boolean',
-      table: {category: 'Header props'},
-    },
-    'Header.actions': {
       type: 'boolean',
       table: {category: 'Header props'},
     },
@@ -161,10 +155,9 @@ export const Default: StoryFn = args => (
           <Heading as="h2" variant="small">
             {args['Header.title']}
           </Heading>
-          {args['Header.primaryAction'] || args['Header.actions'] ? (
+          {args['Header.primaryAction'] ? (
             <div style={{display: 'flex', alignItems: 'center', gap: 'var(--stack-gap-condensed, 8px)'}}>
-              {args['Header.primaryAction'] ? <Button variant="primary">New issue</Button> : null}
-              {args['Header.actions'] ? <IconButton icon={KebabHorizontalIcon} aria-label="More options" /> : null}
+              <Button variant="primary">New issue</Button>
             </div>
           ) : null}
         </div>
