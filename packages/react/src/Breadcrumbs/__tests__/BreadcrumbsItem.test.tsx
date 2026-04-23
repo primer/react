@@ -6,9 +6,15 @@ import {implementsClassName} from '../../utils/testing'
 
 describe('Breadcrumbs.Item', () => {
   implementsClassName(Breadcrumbs.Item, classes.Item)
+
   it('renders an <a> by default', () => {
     const {container} = HTMLRender(<Breadcrumbs.Item />)
     expect(container.firstChild?.nodeName).toEqual('A')
+  })
+
+  it('renders data-component attribute', () => {
+    const {container} = HTMLRender(<Breadcrumbs.Item />)
+    expect(container.querySelector('[data-component="Breadcrumbs.Item"]')).toBeInTheDocument()
   })
 
   it('respects the "selected" prop', () => {

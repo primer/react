@@ -24,7 +24,6 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
           <svg
             aria-hidden="true"
             class="octicon octicon-mark-github"
-            data-component="Octicon"
             display="inline-block"
             fill="currentColor"
             focusable="false"
@@ -35,7 +34,7 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
             width="16"
           >
             <path
-              d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+              d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
             />
           </svg>
         </span>
@@ -85,7 +84,6 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -132,7 +130,6 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -179,7 +176,6 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -226,7 +222,6 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -273,7 +268,6 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -320,7 +314,6 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -367,7 +360,6 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -414,7 +406,6 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -439,7 +430,6 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
           <svg
             aria-hidden="true"
             class="octicon octicon-mark-github"
-            data-component="Octicon"
             display="inline-block"
             fill="currentColor"
             focusable="false"
@@ -450,7 +440,7 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
             width="16"
           >
             <path
-              d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+              d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
             />
           </svg>
         </span>
@@ -473,7 +463,6 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
         <svg
           aria-hidden="true"
           class="octicon octicon-mark-github"
-          data-component="Octicon"
           display="inline-block"
           fill="currentColor"
           focusable="false"
@@ -484,7 +473,7 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
           width="16"
         >
           <path
-            d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+            d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
           />
         </svg>
       </span>
@@ -534,7 +523,6 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -581,7 +569,6 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -628,7 +615,6 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -675,7 +661,6 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -722,7 +707,6 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -769,7 +753,6 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -816,7 +799,6 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -863,7 +845,6 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -888,7 +869,6 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
         <svg
           aria-hidden="true"
           class="octicon octicon-mark-github"
-          data-component="Octicon"
           display="inline-block"
           fill="currentColor"
           focusable="false"
@@ -899,7 +879,7 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
           width="16"
         >
           <path
-            d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+            d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
           />
         </svg>
       </span>
@@ -1019,7 +999,6 @@ exports[`TextInputWithTokens > renders a truncated set of tokens 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -1066,7 +1045,6 @@ exports[`TextInputWithTokens > renders a truncated set of tokens 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -1145,7 +1123,6 @@ exports[`TextInputWithTokens > renders a truncated set of tokens 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -1192,7 +1169,6 @@ exports[`TextInputWithTokens > renders a truncated set of tokens 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -1447,7 +1423,6 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -1494,7 +1469,6 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -1541,7 +1515,6 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -1588,7 +1561,6 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -1635,7 +1607,6 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -1682,7 +1653,6 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -1729,7 +1699,6 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -1776,7 +1745,6 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -1850,7 +1818,6 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -1897,7 +1864,6 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -1944,7 +1910,6 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -1991,7 +1956,6 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -2038,7 +2002,6 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -2085,7 +2048,6 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -2132,7 +2094,6 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -2179,7 +2140,6 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -2312,7 +2272,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -2359,7 +2318,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -2406,7 +2364,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -2453,7 +2410,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -2500,7 +2456,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -2547,7 +2502,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -2594,7 +2548,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -2641,7 +2594,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -2713,7 +2665,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -2760,7 +2711,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -2807,7 +2757,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -2854,7 +2803,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -2901,7 +2849,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -2948,7 +2895,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -2995,7 +2941,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -3042,7 +2987,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -3175,7 +3119,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -3222,7 +3165,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -3269,7 +3211,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -3316,7 +3257,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -3363,7 +3303,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -3410,7 +3349,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -3457,7 +3395,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -3504,7 +3441,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -3575,7 +3511,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -3622,7 +3557,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -3669,7 +3603,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -3716,7 +3649,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -3763,7 +3695,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -3810,7 +3741,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -3857,7 +3787,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -3904,7 +3833,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -3976,7 +3904,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -4023,7 +3950,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -4070,7 +3996,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -4117,7 +4042,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -4164,7 +4088,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -4211,7 +4134,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -4258,7 +4180,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -4305,7 +4226,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -4438,7 +4358,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -4485,7 +4404,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -4532,7 +4450,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -4579,7 +4496,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -4626,7 +4542,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -4673,7 +4588,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -4720,7 +4634,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -4767,7 +4680,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -4838,7 +4750,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -4885,7 +4796,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -4932,7 +4842,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -4979,7 +4888,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -5026,7 +4934,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -5073,7 +4980,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -5120,7 +5026,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -5167,7 +5072,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -5238,7 +5142,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -5285,7 +5188,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -5332,7 +5234,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -5379,7 +5280,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -5426,7 +5326,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -5473,7 +5372,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -5520,7 +5418,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -5567,7 +5464,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -5639,7 +5535,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -5686,7 +5581,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -5733,7 +5627,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -5780,7 +5673,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -5827,7 +5719,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -5874,7 +5765,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -5921,7 +5811,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -5968,7 +5857,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -6101,7 +5989,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -6148,7 +6035,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -6195,7 +6081,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -6242,7 +6127,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -6289,7 +6173,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -6336,7 +6219,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -6383,7 +6265,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -6430,7 +6311,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -6501,7 +6381,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -6548,7 +6427,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -6595,7 +6473,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -6642,7 +6519,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -6689,7 +6565,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -6736,7 +6611,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -6783,7 +6657,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -6830,7 +6703,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -6901,7 +6773,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -6948,7 +6819,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -6995,7 +6865,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -7042,7 +6911,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -7089,7 +6957,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -7136,7 +7003,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -7183,7 +7049,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -7230,7 +7095,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -7301,7 +7165,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -7348,7 +7211,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -7395,7 +7257,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -7442,7 +7303,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -7489,7 +7349,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -7536,7 +7395,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -7583,7 +7441,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -7630,7 +7487,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -7702,7 +7558,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -7749,7 +7604,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -7796,7 +7650,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -7843,7 +7696,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -7890,7 +7742,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -7937,7 +7788,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -7984,7 +7834,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -8031,7 +7880,6 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -8165,7 +8013,6 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -8212,7 +8059,6 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -8259,7 +8105,6 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -8306,7 +8151,6 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -8353,7 +8197,6 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -8400,7 +8243,6 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -8447,7 +8289,6 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -8494,7 +8335,6 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -8567,7 +8407,6 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -8614,7 +8453,6 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -8661,7 +8499,6 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -8708,7 +8545,6 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -8755,7 +8591,6 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -8802,7 +8637,6 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -8849,7 +8683,6 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -8896,7 +8729,6 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -9493,7 +9325,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -9540,7 +9371,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -9587,7 +9417,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -9634,7 +9463,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -9681,7 +9509,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -9728,7 +9555,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -9775,7 +9601,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -9822,7 +9647,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -9970,7 +9794,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -10017,7 +9840,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -10064,7 +9886,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -10111,7 +9932,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -10158,7 +9978,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -10205,7 +10024,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -10252,7 +10070,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -10299,7 +10116,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -10408,7 +10224,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -10455,7 +10270,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -10502,7 +10316,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -10549,7 +10362,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -10596,7 +10408,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -10643,7 +10454,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -10690,7 +10500,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -10737,7 +10546,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -10813,7 +10621,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-mark-github"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -10824,7 +10631,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 width="16"
               >
                 <path
-                  d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+                  d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
                 />
               </svg>
             </div>
@@ -10906,7 +10713,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -10953,7 +10759,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -11000,7 +10805,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -11047,7 +10851,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -11094,7 +10897,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -11141,7 +10943,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -11188,7 +10989,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -11235,7 +11035,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -11311,7 +11110,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-mark-github"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -11322,7 +11120,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 width="16"
               >
                 <path
-                  d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+                  d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
                 />
               </svg>
             </div>
@@ -11404,7 +11202,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -11451,7 +11248,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -11498,7 +11294,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -11545,7 +11340,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -11592,7 +11386,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -11639,7 +11432,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -11686,7 +11478,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -11733,7 +11524,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -11810,7 +11600,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-mark-github"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -11821,7 +11610,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 width="16"
               >
                 <path
-                  d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+                  d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
                 />
               </svg>
             </div>
@@ -11903,7 +11692,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -11950,7 +11738,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -11997,7 +11784,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -12044,7 +11830,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -12091,7 +11876,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -12138,7 +11922,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -12185,7 +11968,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -12232,7 +12014,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -12341,7 +12122,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -12388,7 +12168,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -12435,7 +12214,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -12482,7 +12260,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -12529,7 +12306,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -12576,7 +12352,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -12623,7 +12398,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -12670,7 +12444,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -12700,7 +12473,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-mark-github"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -12711,7 +12483,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 width="16"
               >
                 <path
-                  d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+                  d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
                 />
               </svg>
             </div>
@@ -12840,7 +12612,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -12887,7 +12658,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -12934,7 +12704,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -12981,7 +12750,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -13028,7 +12796,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -13075,7 +12842,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -13122,7 +12888,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -13169,7 +12934,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -13199,7 +12963,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-mark-github"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -13210,7 +12973,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 width="16"
               >
                 <path
-                  d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+                  d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
                 />
               </svg>
             </div>
@@ -13299,7 +13062,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -13346,7 +13108,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -13393,7 +13154,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -13440,7 +13200,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -13487,7 +13246,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -13534,7 +13292,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -13581,7 +13338,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -13628,7 +13384,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -13658,7 +13413,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-mark-github"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -13669,7 +13423,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 width="16"
               >
                 <path
-                  d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+                  d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
                 />
               </svg>
             </div>
@@ -13726,7 +13480,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-mark-github"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -13737,7 +13490,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 width="16"
               >
                 <path
-                  d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+                  d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
                 />
               </svg>
             </div>
@@ -13819,7 +13572,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -13866,7 +13618,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -13913,7 +13664,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -13960,7 +13710,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -14007,7 +13756,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -14054,7 +13802,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -14101,7 +13848,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -14148,7 +13894,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -14178,7 +13923,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-mark-github"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -14189,7 +13933,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 width="16"
               >
                 <path
-                  d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+                  d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
                 />
               </svg>
             </div>
@@ -14246,7 +13990,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-mark-github"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -14257,7 +14000,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 width="16"
               >
                 <path
-                  d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+                  d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
                 />
               </svg>
             </div>
@@ -14339,7 +14082,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -14386,7 +14128,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -14433,7 +14174,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -14480,7 +14220,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -14527,7 +14266,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -14574,7 +14312,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -14621,7 +14358,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -14668,7 +14404,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -14698,7 +14433,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-mark-github"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -14709,7 +14443,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 width="16"
               >
                 <path
-                  d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+                  d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
                 />
               </svg>
             </div>
@@ -14766,7 +14500,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-mark-github"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -14777,7 +14510,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 width="16"
               >
                 <path
-                  d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+                  d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
                 />
               </svg>
             </div>
@@ -14859,7 +14592,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -14906,7 +14638,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -14953,7 +14684,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -15000,7 +14730,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -15047,7 +14776,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -15094,7 +14822,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -15141,7 +14868,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -15188,7 +14914,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -15218,7 +14943,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-mark-github"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -15229,7 +14953,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
                 width="16"
               >
                 <path
-                  d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+                  d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
                 />
               </svg>
             </div>
@@ -15321,7 +15045,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -15368,7 +15091,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -15415,7 +15137,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -15462,7 +15183,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -15509,7 +15229,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -15556,7 +15275,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -15603,7 +15321,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -15650,7 +15367,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -15798,7 +15514,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -15845,7 +15560,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -15892,7 +15606,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -15939,7 +15652,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -15986,7 +15698,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -16033,7 +15744,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -16080,7 +15790,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -16127,7 +15836,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -16236,7 +15944,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -16283,7 +15990,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -16330,7 +16036,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -16377,7 +16082,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -16424,7 +16128,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -16471,7 +16174,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -16518,7 +16220,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -16565,7 +16266,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -16641,7 +16341,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-mark-github"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -16652,7 +16351,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               width="16"
             >
               <path
-                d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+                d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
               />
             </svg>
           </div>
@@ -16734,7 +16433,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -16781,7 +16479,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -16828,7 +16525,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -16875,7 +16571,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -16922,7 +16617,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -16969,7 +16663,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -17016,7 +16709,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -17063,7 +16755,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -17139,7 +16830,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-mark-github"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -17150,7 +16840,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               width="16"
             >
               <path
-                d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+                d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
               />
             </svg>
           </div>
@@ -17232,7 +16922,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -17279,7 +16968,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -17326,7 +17014,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -17373,7 +17060,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -17420,7 +17106,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -17467,7 +17152,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -17514,7 +17198,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -17561,7 +17244,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -17638,7 +17320,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-mark-github"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -17649,7 +17330,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               width="16"
             >
               <path
-                d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+                d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
               />
             </svg>
           </div>
@@ -17731,7 +17412,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -17778,7 +17458,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -17825,7 +17504,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -17872,7 +17550,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -17919,7 +17596,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -17966,7 +17642,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -18013,7 +17688,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -18060,7 +17734,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -18169,7 +17842,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -18216,7 +17888,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -18263,7 +17934,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -18310,7 +17980,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -18357,7 +18026,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -18404,7 +18072,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -18451,7 +18118,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -18498,7 +18164,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -18528,7 +18193,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-mark-github"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -18539,7 +18203,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               width="16"
             >
               <path
-                d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+                d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
               />
             </svg>
           </div>
@@ -18668,7 +18332,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -18715,7 +18378,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -18762,7 +18424,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -18809,7 +18470,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -18856,7 +18516,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -18903,7 +18562,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -18950,7 +18608,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -18997,7 +18654,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -19027,7 +18683,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-mark-github"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -19038,7 +18693,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               width="16"
             >
               <path
-                d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+                d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
               />
             </svg>
           </div>
@@ -19127,7 +18782,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -19174,7 +18828,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -19221,7 +18874,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -19268,7 +18920,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -19315,7 +18966,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -19362,7 +19012,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -19409,7 +19058,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -19456,7 +19104,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -19486,7 +19133,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-mark-github"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -19497,7 +19143,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               width="16"
             >
               <path
-                d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+                d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
               />
             </svg>
           </div>
@@ -19554,7 +19200,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-mark-github"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -19565,7 +19210,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               width="16"
             >
               <path
-                d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+                d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
               />
             </svg>
           </div>
@@ -19647,7 +19292,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -19694,7 +19338,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -19741,7 +19384,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -19788,7 +19430,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -19835,7 +19476,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -19882,7 +19522,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -19929,7 +19568,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -19976,7 +19614,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -20006,7 +19643,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-mark-github"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -20017,7 +19653,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               width="16"
             >
               <path
-                d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+                d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
               />
             </svg>
           </div>
@@ -20074,7 +19710,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-mark-github"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -20085,7 +19720,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               width="16"
             >
               <path
-                d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+                d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
               />
             </svg>
           </div>
@@ -20167,7 +19802,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -20214,7 +19848,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -20261,7 +19894,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -20308,7 +19940,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -20355,7 +19986,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -20402,7 +20032,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -20449,7 +20078,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -20496,7 +20124,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -20526,7 +20153,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-mark-github"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -20537,7 +20163,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               width="16"
             >
               <path
-                d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+                d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
               />
             </svg>
           </div>
@@ -20594,7 +20220,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-mark-github"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -20605,7 +20230,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               width="16"
             >
               <path
-                d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+                d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
               />
             </svg>
           </div>
@@ -20687,7 +20312,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -20734,7 +20358,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -20781,7 +20404,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -20828,7 +20450,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -20875,7 +20496,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -20922,7 +20542,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -20969,7 +20588,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -21016,7 +20634,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -21046,7 +20663,6 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-mark-github"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -21057,7 +20673,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
               width="16"
             >
               <path
-                d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"
+                d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
               />
             </svg>
           </div>
@@ -21209,7 +20825,6 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -21256,7 +20871,6 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -21303,7 +20917,6 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -21350,7 +20963,6 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -21397,7 +21009,6 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -21444,7 +21055,6 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -21491,7 +21101,6 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -21538,7 +21147,6 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -21610,7 +21218,6 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -21657,7 +21264,6 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -21704,7 +21310,6 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -21751,7 +21356,6 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -21798,7 +21402,6 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -21845,7 +21448,6 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -21892,7 +21494,6 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -21939,7 +21540,6 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -22068,7 +21668,6 @@ exports[`TextInputWithTokens > renders with tokens using a custom token componen
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -22111,7 +21710,6 @@ exports[`TextInputWithTokens > renders with tokens using a custom token componen
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -22154,7 +21752,6 @@ exports[`TextInputWithTokens > renders with tokens using a custom token componen
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -22197,7 +21794,6 @@ exports[`TextInputWithTokens > renders with tokens using a custom token componen
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -22240,7 +21836,6 @@ exports[`TextInputWithTokens > renders with tokens using a custom token componen
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -22283,7 +21878,6 @@ exports[`TextInputWithTokens > renders with tokens using a custom token componen
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -22326,7 +21920,6 @@ exports[`TextInputWithTokens > renders with tokens using a custom token componen
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -22369,7 +21962,6 @@ exports[`TextInputWithTokens > renders with tokens using a custom token componen
               <svg
                 aria-hidden="true"
                 class="octicon octicon-x"
-                data-component="Octicon"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -22437,7 +22029,6 @@ exports[`TextInputWithTokens > renders with tokens using a custom token componen
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -22480,7 +22071,6 @@ exports[`TextInputWithTokens > renders with tokens using a custom token componen
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -22523,7 +22113,6 @@ exports[`TextInputWithTokens > renders with tokens using a custom token componen
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -22566,7 +22155,6 @@ exports[`TextInputWithTokens > renders with tokens using a custom token componen
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -22609,7 +22197,6 @@ exports[`TextInputWithTokens > renders with tokens using a custom token componen
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -22652,7 +22239,6 @@ exports[`TextInputWithTokens > renders with tokens using a custom token componen
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -22695,7 +22281,6 @@ exports[`TextInputWithTokens > renders with tokens using a custom token componen
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
@@ -22738,7 +22323,6 @@ exports[`TextInputWithTokens > renders with tokens using a custom token componen
             <svg
               aria-hidden="true"
               class="octicon octicon-x"
-              data-component="Octicon"
               display="inline-block"
               fill="currentColor"
               focusable="false"
