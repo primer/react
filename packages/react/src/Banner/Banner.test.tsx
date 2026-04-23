@@ -14,6 +14,36 @@ describe('Banner', () => {
     expect(screen.getByRole('heading', {name: 'test'})).toBeInTheDocument()
   })
 
+  it('renders data-component attributes', () => {
+    const {container} = render(
+      <Banner
+        title="test"
+        description="test-description"
+        primaryAction={<Banner.PrimaryAction>test primary action</Banner.PrimaryAction>}
+        secondaryAction={<Banner.SecondaryAction>test secondary action</Banner.SecondaryAction>}
+        onDismiss={() => {}}
+      />,
+    )
+
+    expect(container.querySelector('[data-component="Banner"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="Banner.Icon"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="Banner.Content"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="Banner.Actions"]')).toBeInTheDocument()
+
+    expect(container.querySelector('[data-component="Banner.PrimaryAction"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="Banner.SecondaryAction"]')).toBeInTheDocument()
+
+    expect(container.querySelector('[data-component="Banner.Title"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="Banner.Description"]')).toBeInTheDocument()
+  })
+
+  it('renders Banner dismiss IconButton with data-component attribute', () => {
+    const {container} = render(<Banner title="test" onDismiss={() => {}} />)
+
+    const dismissButton = container.querySelector('[data-component="Banner"] [data-component="IconButton"]')
+    expect(dismissButton).toBeInTheDocument()
+  })
+
   it('should label the landmark element with the title by default', () => {
     render(<Banner title="My Banner Title" />)
     const region = screen.getByRole('region', {name: 'My Banner Title'})

@@ -289,6 +289,7 @@ export function FilteredActionList({
   // initial total-height estimate before items scroll into view.
   const DEFAULT_VIRTUAL_ITEM_HEIGHT = 32
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const virtualizer = useVirtualizer({
     count: items.length,
     getScrollElement: () => scrollContainerRef.current,
@@ -545,8 +546,13 @@ export function FilteredActionList({
   const {className: textInputClassName, ...restTextInputProps} = textInputProps || {}
 
   return (
-    <div ref={inputAndListContainerRef} className={clsx(className, classes.Root)} data-testid="filtered-action-list">
-      <div className={classes.Header}>
+    <div
+      ref={inputAndListContainerRef}
+      className={clsx(className, classes.Root)}
+      data-testid="filtered-action-list"
+      data-component="FilteredActionList"
+    >
+      <div className={classes.Header} data-component="FilteredActionList.Header">
         <TextInput
           // @ts-expect-error it needs a non nullable ref
           ref={inputRef}
@@ -572,15 +578,20 @@ export function FilteredActionList({
       </div>
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
       {onSelectAllChange !== undefined && (
-        <div className={classes.SelectAllContainer}>
+        <div className={classes.SelectAllContainer} data-component="FilteredActionList.SelectAll">
           <Checkbox
             id="select-all-checkbox"
             className={classes.SelectAllCheckbox}
             checked={selectAllChecked}
             indeterminate={selectAllIndeterminate}
             onChange={handleSelectAllChange}
+            data-component="FilteredActionList.SelectAllCheckbox"
           />
-          <label className={classes.SelectAllLabel} htmlFor="select-all-checkbox">
+          <label
+            className={classes.SelectAllLabel}
+            htmlFor="select-all-checkbox"
+            data-component="FilteredActionList.SelectAllLabel"
+          >
             {selectAllLabelText}
           </label>
         </div>

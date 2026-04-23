@@ -25,9 +25,24 @@ const rightAvatarComp = (
 describe('AvatarStack', () => {
   implementsClassName(AvatarStack, classes.AvatarStack)
 
+  describe('AvatarStack data-component attributes', () => {
+    it('renders AvatarStack with data-component attribute', () => {
+      const {container} = render(avatarComp)
+      const root = container.querySelector('[data-component="AvatarStack"]')
+      expect(root).toBeInTheDocument()
+    })
+
+    it('renders AvatarStack.Body with data-component attribute', () => {
+      const {container} = render(avatarComp)
+      const body = container.querySelector('[data-component="AvatarStack.Body"]')
+      expect(body).toBeInTheDocument()
+    })
+  })
+
   it('respects alignRight props', () => {
     const {container} = render(rightAvatarComp)
-    expect(container.firstChild).toMatchSnapshot()
+    const root = container.querySelector('[data-component="AvatarStack"]')
+    expect(root).toHaveAttribute('data-align-right', '')
   })
 
   it('should have a tabindex of 0 if there are no interactive children', () => {
