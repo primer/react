@@ -12,6 +12,11 @@ describe('CounterLabel', () => {
     expect(container.firstChild?.nodeName).toEqual('SPAN')
   })
 
+  it('renders data-component attribute', () => {
+    const {container} = HTMLRender(<CounterLabel>1234</CounterLabel>)
+    expect(container.querySelector('[data-component="CounterLabel"]')).toBeInTheDocument()
+  })
+
   it('renders the counter correctly', () => {
     const {container} = HTMLRender(<CounterLabel>12K</CounterLabel>)
     expect(container.firstChild).toHaveTextContent('12K')
