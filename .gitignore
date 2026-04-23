@@ -19,6 +19,9 @@ node_modules
 
 # Gatsby
 public/
+# Allow Storybook's static assets directory
+!packages/react/.storybook/public/
+!packages/react/.storybook/public/**
 
 # Storybook
 storybook-static

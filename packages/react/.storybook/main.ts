@@ -11,7 +11,7 @@ const require = createRequire(import.meta.url)
 const {DEPLOY_ENV = 'development'} = process.env
 
 const config: StorybookConfig = {
-  staticDirs: ['../public'],
+  staticDirs: ['.storybook/public'],
 
   stories:
     DEPLOY_ENV === 'development'
