@@ -236,7 +236,7 @@ export const Sidebar: React.FC<React.PropsWithChildren<FilteredListLayoutSidebar
         {/* Visual affordance only for v1 — collapse behaviour is not yet wired. */}
         {/* aria-expanded / aria-controls will be added when the toggle becomes functional. */}
         <div style={{marginBlockStart: 'auto', paddingBlockStart: 'var(--stack-gap-normal, 16px)'}}>
-          <Button leadingVisual={SidebarCollapseIcon} variant="invisible" block alignContent="start">
+          <Button leadingVisual={SidebarCollapseIcon} variant="invisible" size="large" block alignContent="start">
             Expand sidebar
           </Button>
         </div>
