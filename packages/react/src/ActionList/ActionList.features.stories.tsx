@@ -30,7 +30,6 @@ import {
   ProjectIcon,
 } from '@primer/octicons-react'
 import {KeybindingHint} from '../KeybindingHint'
-import {avatarUrl, teamAvatarUrl} from '../utils/story-helpers'
 import classes from './ActionList.features.stories.module.css'
 
 export default {
@@ -195,7 +194,7 @@ export const WithAvatars = () => (
     {users.map(user => (
       <ActionList.Item key={user.login}>
         <ActionList.LeadingVisual>
-          <Avatar src={avatarUrl(user.login)} />
+          <Avatar src={`/avatars/${user.login}.png`} />
         </ActionList.LeadingVisual>
         {user.login}
       </ActionList.Item>
@@ -226,7 +225,7 @@ export const InlineDescription = () => (
     {users.map(user => (
       <ActionList.Item key={user.login}>
         <ActionList.LeadingVisual>
-          <Avatar src={avatarUrl(user.login)} />
+          <Avatar src={`/avatars/${user.login}.png`} />
         </ActionList.LeadingVisual>
         {user.login}
         <ActionList.Description>{user.name}</ActionList.Description>
@@ -240,7 +239,7 @@ export const BlockDescription = () => (
     {users.map(user => (
       <ActionList.Item key={user.login}>
         <ActionList.LeadingVisual>
-          <Avatar src={avatarUrl(user.login)} />
+          <Avatar src={`/avatars/${user.login}.png`} />
         </ActionList.LeadingVisual>
         {user.login}
         <ActionList.Description variant="block">{user.name}</ActionList.Description>
@@ -645,9 +644,9 @@ export const ConditionalChildren = () => {
         <ActionList.Item key={index}>
           <ActionList.LeadingVisual>
             {reviewer.type === 'team' ? (
-              <Avatar src={teamAvatarUrl(reviewer.id!)} />
+              <Avatar src={`/avatars/t-${reviewer.id!}.png`} />
             ) : (
-              <Avatar src={avatarUrl(reviewer.login!)} />
+              <Avatar src={`/avatars/${reviewer.login!}.png`} />
             )}
           </ActionList.LeadingVisual>
           {reviewer.login || reviewer.slug}
@@ -688,7 +687,7 @@ export const ChildWithSideEffects = () => {
     <ActionList selectionVariant="multiple" role="listbox" aria-label="Assignees">
       <ActionList.Item selected={selected} onSelect={() => setSelected(!selected)} role="option">
         <ActionList.LeadingVisual>
-          <Avatar src={avatarUrl(user.login)} />
+          <Avatar src={`/avatars/${user.login}.png`} />
         </ActionList.LeadingVisual>
         {user.login}
         <ActionList.Description>
@@ -759,7 +758,7 @@ export const GroupWithSubtleTitle = () => {
             onSelect={() => toggleAssignee(user)}
           >
             <ActionList.LeadingVisual>
-              <Avatar src={avatarUrl(user.login)} />
+              <Avatar src={`/avatars/${user.login}.png`} />
             </ActionList.LeadingVisual>
             {user.login}
             <ActionList.Description>{user.name}</ActionList.Description>
@@ -793,7 +792,7 @@ export const GroupWithFilledTitle = () => {
             onSelect={() => toggleAssignee(user)}
           >
             <ActionList.LeadingVisual>
-              <Avatar src={avatarUrl(user.login)} />
+              <Avatar src={`/avatars/${user.login}.png`} />
             </ActionList.LeadingVisual>
             {user.login}
             <ActionList.Description>{user.name}</ActionList.Description>

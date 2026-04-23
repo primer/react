@@ -253,22 +253,6 @@ export const getFormControlArgsByChildComponent = ({
   validationArgs: {children: validationChildren, variant},
 })
 
-/**
- * Returns a local static avatar URL for use in Storybook stories.
- * Images are served from the Storybook static directory (`public/avatars/`)
- * instead of external sources to avoid unexpected breakages when remote images change.
- */
-export function avatarUrl(login: string): string {
-  return `/avatars/${login}.png`
-}
-
-/**
- * Returns a local static team avatar URL for use in Storybook stories.
- */
-export function teamAvatarUrl(id: string): string {
-  return `/avatars/t-${id}.png`
-}
-
 // Use this function for icon options in the controls. Desired icons are passed in as an array of Octicons
 export const OcticonArgType = (iconList: Icon[]) => {
   const icons = iconList.reduce<Record<string, Icon>>((obj, icon) => {

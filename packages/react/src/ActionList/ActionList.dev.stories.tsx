@@ -10,7 +10,6 @@ import Avatar from '../Avatar'
 import {FileDirectoryIcon, HeartFillIcon} from '@primer/octicons-react'
 import {Stack} from '../Stack'
 import {AnchoredOverlay} from '../AnchoredOverlay'
-import {avatarUrl} from '../utils/story-helpers'
 
 export default {
   title: 'Components/ActionList/Dev',
@@ -56,7 +55,7 @@ export const GroupWithSubtleTitleOldAPI = () => {
               onSelect={() => toggleAssignee(user)}
             >
               <ActionList.LeadingVisual>
-                <Avatar src={avatarUrl(user.login)} />
+                <Avatar src={`/avatars/${user.login}.png`} />
               </ActionList.LeadingVisual>
               {user.login}
               <ActionList.Description>{user.name}</ActionList.Description>
@@ -96,7 +95,7 @@ export const GroupWithFilledTitleOldAPI = () => {
               onSelect={() => toggleAssignee(user)}
             >
               <ActionList.LeadingVisual>
-                <Avatar src={avatarUrl(user.login)} />
+                <Avatar src={`/avatars/${user.login}.png`} />
               </ActionList.LeadingVisual>
               {user.login}
               <ActionList.Description>{user.name}</ActionList.Description>
