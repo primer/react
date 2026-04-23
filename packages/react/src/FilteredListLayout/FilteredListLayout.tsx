@@ -86,7 +86,7 @@ export const Header: React.FC<FilteredListLayoutHeaderProps> = ({
           gap: 'var(--stack-gap-condensed, 8px)',
         }}
       >
-        <Heading as="h2" sx={{fontSize: 3}}>
+        <Heading as="h2" variant="small">
           {title}
         </Heading>
         {hasTrailing ? (
