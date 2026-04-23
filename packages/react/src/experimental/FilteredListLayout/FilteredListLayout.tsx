@@ -1,6 +1,6 @@
 import type React from 'react'
 import {createContext, useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react'
-import {SidebarCollapseIcon} from '@primer/octicons-react'
+import {SidebarExpandIcon} from '@primer/octicons-react'
 import {IconButton, Button} from '../../Button'
 import {Hidden} from '../../Hidden'
 import type {
@@ -236,8 +236,8 @@ export const Sidebar: React.FC<React.PropsWithChildren<FilteredListLayoutSidebar
         {/* Visual affordance only for v1 — collapse behaviour is not yet wired. */}
         {/* aria-expanded / aria-controls will be added when the toggle becomes functional. */}
         <div style={{marginBlockStart: 'auto', paddingBlockStart: 'var(--stack-gap-normal, 16px)'}}>
-          <Button leadingVisual={SidebarCollapseIcon} variant="invisible" size="large" block alignContent="start">
-            Expand sidebar
+          <Button leadingVisual={SidebarExpandIcon} variant="invisible" size="large" block alignContent="start">
+            Collapse sidebar
           </Button>
         </div>
       </div>
