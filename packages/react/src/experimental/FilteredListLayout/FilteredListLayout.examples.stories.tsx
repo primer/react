@@ -7,13 +7,9 @@ import {
   GitPullRequestIcon,
   IssueOpenedIcon,
   MentionIcon,
-  MilestoneIcon,
   PeopleIcon,
   ProjectIcon,
-  ProjectRoadmapIcon,
-  ProjectTemplateIcon,
   SmileyIcon,
-  StarIcon,
 } from '@primer/octicons-react'
 import {Button} from '../../Button'
 import Heading from '../../Heading'
@@ -132,11 +128,11 @@ export const PullRequests: StoryFn = () => (
 // Projects
 
 const projectViews: View[] = [
-  {key: 'all', label: 'All projects', icon: ProjectIcon, selected: true},
-  {key: 'starred', label: 'Starred', icon: StarIcon},
-  {key: 'roadmaps', label: 'Roadmaps', icon: ProjectRoadmapIcon},
-  {key: 'templates', label: 'Templates', icon: ProjectTemplateIcon},
-  {key: 'milestones', label: 'Milestones', icon: MilestoneIcon},
+  {key: 'projects', label: 'Projects', icon: ProjectIcon, selected: true},
+  {key: 'assigned', label: 'Assigned to me', icon: PeopleIcon},
+  {key: 'created', label: 'Created by me', icon: SmileyIcon},
+  {key: 'mentioned', label: 'Mentioned', icon: MentionIcon},
+  {key: 'recent', label: 'Recent activity', icon: ClockIcon},
 ]
 
 export const Projects: StoryFn = () => (
