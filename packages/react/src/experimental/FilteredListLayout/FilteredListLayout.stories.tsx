@@ -1,27 +1,17 @@
 import type {Meta, StoryFn} from '@storybook/react-vite'
 import {Button} from '../../Button'
-import {
-  CheckIcon,
-  CommentIcon,
-  EyeIcon,
-  IssueOpenedIcon,
-  MentionIcon,
-  PersonIcon,
-  TagIcon,
-} from '@primer/octicons-react'
+import {ClockIcon, IssueOpenedIcon, MentionIcon, PeopleIcon, SmileyIcon} from '@primer/octicons-react'
 import {NavList} from '../../NavList'
 import {Placeholder} from '../../Placeholder'
 import {FilteredListLayout} from '../FilteredListLayout'
 import Heading from '../../Heading'
 
 const sidebarViews = [
-  {key: 'open', label: 'Open issues', icon: IssueOpenedIcon, count: 142, selected: true},
-  {key: 'assigned', label: 'Assigned to you', icon: PersonIcon, count: 8},
-  {key: 'created', label: 'Created by you', icon: CheckIcon, count: 23},
-  {key: 'mentioned', label: 'Mentions you', icon: MentionIcon, count: 4},
-  {key: 'commented', label: 'Recently commented', icon: CommentIcon, count: 12},
-  {key: 'subscribed', label: 'Subscribed', icon: EyeIcon, count: 31},
-  {key: 'labeled', label: 'Labeled bug', icon: TagIcon, count: 17},
+  {key: 'issues', label: 'Issues', icon: IssueOpenedIcon, selected: true},
+  {key: 'assigned', label: 'Assigned to me', icon: PeopleIcon},
+  {key: 'created', label: 'Created by me', icon: SmileyIcon},
+  {key: 'mentioned', label: 'Mentioned', icon: MentionIcon},
+  {key: 'recent', label: 'Recent activity', icon: ClockIcon},
 ]
 
 const IssueViewsNavList = () => (
@@ -34,7 +24,6 @@ const IssueViewsNavList = () => (
             <Icon />
           </NavList.LeadingVisual>
           {view.label}
-          <NavList.TrailingVisual>{view.count}</NavList.TrailingVisual>
         </NavList.Item>
       )
     })}
@@ -56,7 +45,7 @@ const meta: Meta = {
     'Filter bar placeholder height': 48,
     'Results placeholder height': 552,
     'Footer placeholder height': 64,
-    'Header.title': 'Assigned to you',
+    'Header.title': 'Issues',
     'Header.primaryAction': true,
     'Header.padding': 'normal',
     'Header.divider': 'none',
