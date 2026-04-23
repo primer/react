@@ -84,8 +84,14 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         checkbox.setAttribute('aria-checked', checkbox.checked ? 'true' : 'false')
       }
     })
-    // @ts-expect-error inputProp needs a non nullable ref
-    return <input {...inputProps} className={clsx(className, sharedClasses.Input, classes.Checkbox)} />
+    return (
+      // @ts-expect-error inputProp needs a non nullable ref
+      <input
+        data-component="Checkbox"
+        {...inputProps}
+        className={clsx(className, sharedClasses.Input, classes.Checkbox)}
+      />
+    )
   },
 )
 
