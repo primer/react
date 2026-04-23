@@ -1,7 +1,9 @@
 import type {Meta, StoryFn} from '@storybook/react-vite'
 import {
   ArrowUpRightIcon,
+  BookmarkFillIcon,
   ClockIcon,
+  EyeIcon,
   GitMergeIcon,
   GitPullRequestClosedIcon,
   GitPullRequestDraftIcon,
@@ -10,6 +12,7 @@ import {
   MentionIcon,
   MilestoneIcon,
   PeopleIcon,
+  PlusIcon,
   ProjectIcon,
   ProjectRoadmapIcon,
   ProjectTemplateIcon,
@@ -17,8 +20,9 @@ import {
   StarIcon,
   TagIcon,
   TableIcon,
+  ToolsIcon,
 } from '@primer/octicons-react'
-import {Button} from '../../Button'
+import {Button, IconButton} from '../../Button'
 import Heading from '../../Heading'
 import {NavList} from '../../NavList'
 import {Placeholder} from '../../Placeholder'
@@ -88,6 +92,14 @@ const issuesShortcuts: View[] = [
   {key: 'labels', label: 'Labels', icon: TagIcon},
 ]
 
+const issuesCustomViews: View[] = [
+  {key: 'mentioned-custom', label: 'Mentioned', icon: EyeIcon},
+  {key: 'assigned-custom', label: 'Assigned', icon: ToolsIcon},
+  {key: 'a11y-design', label: 'Not on the A11y Design …', icon: PeopleIcon},
+  {key: 'test-view', label: 'Test View', icon: BookmarkFillIcon},
+  {key: 'second-test', label: 'Second test view', icon: BookmarkFillIcon},
+]
+
 const ViewsItem = ({view}: {view: View}) => {
   const Icon = view.icon
   return (
@@ -113,6 +125,23 @@ export const Issues: StoryFn = () => (
         {issuesViews.map(view => (
           <ViewsItem key={view.key} view={view} />
         ))}
+        <NavList.Group>
+          <NavList.GroupHeading
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: 'var(--stack-gap-condensed, 8px)',
+              paddingInlineEnd: 0,
+            }}
+          >
+            Views
+            <IconButton icon={PlusIcon} aria-label="Create view" variant="invisible" size="small" />
+          </NavList.GroupHeading>
+          {issuesCustomViews.map(view => (
+            <ViewsItem key={view.key} view={view} />
+          ))}
+        </NavList.Group>
         <NavList.Group title="Shortcuts">
           {issuesShortcuts.map(view => {
             const Icon = view.icon
