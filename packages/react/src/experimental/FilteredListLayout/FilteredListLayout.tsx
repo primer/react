@@ -1,4 +1,7 @@
-import type React from 'react'
+import React, {createContext, useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react'
+import {TriangleDownIcon} from '@primer/octicons-react'
+import {Button} from '../../Button'
+import {Hidden} from '../../Hidden'
 import type {
   PageLayoutContentProps,
   PageLayoutFooterProps,
@@ -6,6 +9,7 @@ import type {
   PageLayoutSidebarProps,
 } from '../../PageLayout'
 import {PageLayout} from '../../PageLayout'
+import {Dialog} from '../../Dialog'
 
 // ----------------------------------------------------------------------------
 // FilteredListLayout
@@ -18,22 +22,91 @@ import {PageLayout} from '../../PageLayout'
 // specific behaviour (sidebar hide affordance, primary action slot, filter
 // bar / results sub-regions) without re-litigating SplitPageLayout's API.
 
+// ----------------------------------------------------------------------------
+// Internal context
+//
+// Powers the responsive-by-default behaviour: on narrow viewports the inline
+// Sidebar is hidden, and a trigger button + bottom-sheet Dialog rendered by
+// Content takes its place. Sidebar registers its children into this context
+// so the same NavList (or other content) renders in both places without the
+// consumer having to author it twice.
+
+type SidebarRegistration = {
+  content: React.ReactNode
+  ariaLabel?: string
+  triggerLabel: string
+}
+
+type FilteredListLayoutContextValue = {
+  registerSidebar: (registration: SidebarRegistration | null) => void
+  sidebar: SidebarRegistration | null
+  isSheetOpen: boolean
+  openSheet: () => void
+  closeSheet: () => void
+}
+
+const FilteredListLayoutContext = createContext<FilteredListLayoutContextValue | null>(null)
+
+const useFilteredListLayoutContext = () => useContext(FilteredListLayoutContext)
+
+// ----------------------------------------------------------------------------
+// FilteredListLayout (Root)
+
 export type FilteredListLayoutProps = {className?: string}
 
 export const Root: React.FC<React.PropsWithChildren<FilteredListLayoutProps>> = props => {
+  const [sidebar, setSidebar] = useState<SidebarRegistration | null>(null)
+  const [isSheetOpen, setIsSheetOpen] = useState(false)
+
+  // Bail out when the next registration is shallow-equal to the current one.
+  // Sidebar re-runs its registration effect on every render (because `children`
+  // is a fresh ReactNode each render), so without this guard we'd thrash state
+  // and trigger an infinite render loop.
+  const registerSidebar = useCallback((next: SidebarRegistration | null) => {
+    setSidebar(prev => {
+      if (prev === next) return prev
+      if (
+        prev &&
+        next &&
+        prev.content === next.content &&
+        prev.ariaLabel === next.ariaLabel &&
+        prev.triggerLabel === next.triggerLabel
+      ) {
+        return prev
+      }
+      return next
+    })
+  }, [])
+
+  const openSheet = useCallback(() => setIsSheetOpen(true), [])
+  const closeSheet = useCallback(() => setIsSheetOpen(false), [])
+
+  const value = useMemo<FilteredListLayoutContextValue>(
+    () => ({
+      registerSidebar,
+      sidebar,
+      isSheetOpen,
+      openSheet,
+      closeSheet,
+    }),
+    [registerSidebar, sidebar, isSheetOpen, openSheet, closeSheet],
+  )
+
   return (
-    <PageLayout
-      containerWidth="full"
-      padding="none"
-      columnGap="none"
-      rowGap="none"
-      _slotsConfig={{
-        header: Header,
-        footer: Footer,
-        sidebar: Sidebar,
-      }}
-      {...props}
-    />
+    <FilteredListLayoutContext.Provider value={value}>
+      <PageLayout
+        containerWidth="full"
+        padding="none"
+        columnGap="none"
+        rowGap="none"
+        _slotsConfig={{
+          header: Header,
+          footer: Footer,
+          sidebar: Sidebar,
+        }}
+        {...props}
+      />
+    </FilteredListLayoutContext.Provider>
   )
 }
 
@@ -43,18 +116,48 @@ Root.displayName = 'FilteredListLayout'
 // FilteredListLayout.Header
 //
 // Thin wrapper around PageLayout.Header with FilteredListLayout's preferred
-// defaults. Consumers compose the header contents themselves for v1; an
-// opinionated title/actions API may return in a future revision.
+// defaults. On narrow viewports it also renders the trigger button + bottom
+// sheet that surface the Sidebar's contents, so the responsive affordance
+// always appears above the consumer-authored heading row.
 
 export type FilteredListLayoutHeaderProps = PageLayoutHeaderProps
 
 export const Header: React.FC<React.PropsWithChildren<FilteredListLayoutHeaderProps>> = ({
   padding = 'normal',
   divider = 'none',
+  children,
   ...props
 }) => {
-  // eslint-disable-next-line primer-react/direct-slot-children
-  return <PageLayout.Header padding={padding} divider={divider} {...props} />
+  const ctx = useFilteredListLayoutContext()
+  const triggerRef = useRef<HTMLButtonElement>(null)
+  const onClose = useCallback(() => ctx?.closeSheet(), [ctx])
+
+  return (
+    // eslint-disable-next-line primer-react/direct-slot-children
+    <PageLayout.Header padding={padding} divider={divider} {...props}>
+      {ctx?.sidebar ? (
+        <Hidden when={['regular', 'wide']}>
+          <div style={{marginBlockEnd: 'var(--stack-gap-condensed, 8px)'}}>
+            <Button ref={triggerRef} trailingVisual={TriangleDownIcon} onClick={ctx.openSheet}>
+              {ctx.sidebar.triggerLabel}
+            </Button>
+          </div>
+        </Hidden>
+      ) : null}
+      {ctx?.sidebar && ctx.isSheetOpen ? (
+        <Dialog
+          title={ctx.sidebar.triggerLabel}
+          aria-label={ctx.sidebar.ariaLabel}
+          onClose={onClose}
+          position={{narrow: 'bottom'}}
+          returnFocusRef={triggerRef}
+        >
+          {ctx.sidebar.content}
+        </Dialog>
+      ) : null}
+      {children}
+    </PageLayout.Header>
+  )
 }
 
 Header.displayName = 'FilteredListLayout.Header'
@@ -63,26 +166,56 @@ Header.displayName = 'FilteredListLayout.Header'
 // FilteredListLayout.Sidebar
 //
 // Wraps PageLayout.Sidebar so the filtered-list sidebar runs full height on
-// the left of the page (above and below Header/Content/Footer), with sticky
-// behaviour by default. Future: hide affordance at the bottom (per epic
-// #2156 DoD).
+// the start side of the page, sticky by default. Hidden on narrow viewports;
+// its contents are surfaced in a bottom-sheet Dialog opened by a trigger
+// button rendered by FilteredListLayout.Content.
 
-export type FilteredListLayoutSidebarProps = PageLayoutSidebarProps
+export type FilteredListLayoutSidebarProps = PageLayoutSidebarProps & {
+  /**
+   * Label for the narrow-viewport trigger button that opens the sidebar
+   * contents in a bottom sheet. Defaults to "Views".
+   */
+  triggerLabel?: string
+}
 
 export const Sidebar: React.FC<React.PropsWithChildren<FilteredListLayoutSidebarProps>> = ({
   position = 'start',
   sticky = true,
   padding = 'condensed',
   divider = 'line',
+  hidden = {narrow: true, regular: false, wide: false},
+  triggerLabel = 'Views',
   children,
+  'aria-label': ariaLabel,
   ...props
 }) => {
+  const ctx = useFilteredListLayoutContext()
+  const registerSidebar = ctx?.registerSidebar
+
+  // Register sidebar contents with the layout so Header can render them in a
+  // bottom-sheet Dialog at narrow viewports. registerSidebar is stable and
+  // performs its own shallow-equal bail-out, so this safely re-runs on every
+  // render without causing an update loop.
+  useEffect(() => {
+    if (!registerSidebar) return
+    registerSidebar({content: children, ariaLabel, triggerLabel})
+    return () => registerSidebar(null)
+  }, [registerSidebar, children, ariaLabel, triggerLabel])
+
   // Note: PageLayout.Sidebar's `padding` prop sets a CSS variable but its
   // stylesheet does not currently consume it, so we apply padding ourselves
   // via a wrapper element. We still forward `padding` to PageLayout.Sidebar
   // for forward-compatibility once the upstream styles consume it.
   return (
-    <PageLayout.Sidebar position={position} sticky={sticky} padding={padding} divider={divider} {...props}>
+    <PageLayout.Sidebar
+      position={position}
+      sticky={sticky}
+      padding={padding}
+      divider={divider}
+      hidden={hidden}
+      aria-label={ariaLabel}
+      {...props}
+    >
       <div style={{padding: `var(--spacing-${padding})`}}>{children}</div>
     </PageLayout.Sidebar>
   )
@@ -93,8 +226,8 @@ Sidebar.displayName = 'FilteredListLayout.Sidebar'
 // ----------------------------------------------------------------------------
 // FilteredListLayout.Content
 //
-// Hosts the filter bar and results region. v1 is a single slot; future versions
-// may introduce FilterBar and Results sub-components for opinionated layout.
+// Hosts the FilterBar + Results regions. Thin wrapper around PageLayout.Content
+// with FilteredListLayout's preferred defaults.
 
 export type FilteredListLayoutContentProps = PageLayoutContentProps
 

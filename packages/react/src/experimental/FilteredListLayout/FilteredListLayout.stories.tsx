@@ -25,6 +25,23 @@ const sidebarViews = [
   {key: 'labeled', label: 'Labeled bug', icon: TagIcon, count: 17},
 ]
 
+const IssueViewsNavList = () => (
+  <NavList aria-label="Issue views">
+    {sidebarViews.map(view => {
+      const Icon = view.icon
+      return (
+        <NavList.Item key={view.key} href={`#${view.key}`} aria-current={view.selected ? 'page' : undefined}>
+          <NavList.LeadingVisual>
+            <Icon />
+          </NavList.LeadingVisual>
+          {view.label}
+          <NavList.TrailingVisual>{view.count}</NavList.TrailingVisual>
+        </NavList.Item>
+      )
+    })}
+  </NavList>
+)
+
 const meta: Meta = {
   title: 'Experimental/Components/FilteredListLayout',
   parameters: {
@@ -161,20 +178,7 @@ export const Default: StoryFn = args => (
         sticky={args['Sidebar.sticky']}
         aria-label="Sidebar"
       >
-        <NavList aria-label="Issue views">
-          {sidebarViews.map(view => {
-            const Icon = view.icon
-            return (
-              <NavList.Item key={view.key} href={`#${view.key}`} aria-current={view.selected ? 'page' : undefined}>
-                <NavList.LeadingVisual>
-                  <Icon />
-                </NavList.LeadingVisual>
-                {view.label}
-                <NavList.TrailingVisual>{view.count}</NavList.TrailingVisual>
-              </NavList.Item>
-            )
-          })}
-        </NavList>
+        <IssueViewsNavList />
       </FilteredListLayout.Sidebar>
     ) : null}
     <FilteredListLayout.Content width={args['Content.width']} padding={args['Content.padding']}>
