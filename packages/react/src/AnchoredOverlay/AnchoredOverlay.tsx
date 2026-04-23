@@ -271,26 +271,28 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   useEffect(() => {
     if (!cssAnchorPositioning || !anchorElement) return
 
+    const currentOverlay = overlayRef.current
+
     // Link the anchor and the overlay (when present) via CSS anchor positioning.
     anchorElement.style.setProperty('anchor-name', `--anchored-overlay-anchor-${id}`)
 
-    if (open && overlayElement) {
-      overlayElement.style.setProperty('position-anchor', `--anchored-overlay-anchor-${id}`)
+    if (open && currentOverlay) {
+      currentOverlay.style.setProperty('position-anchor', `--anchored-overlay-anchor-${id}`)
 
       const overlayWidth = width ? parseInt(widthMap[width]) : null
       const result = getDefaultPosition(anchorElement, overlayWidth)
 
-      overlayElement.setAttribute('data-align', result.horizontal)
+      currentOverlay.setAttribute('data-align', result.horizontal)
 
       // Apply offset only when viewport is too narrow
       const offset = result.horizontal === 'left' ? result.leftOffset : result.rightOffset
-      overlayElement.style.setProperty(`--anchored-overlay-anchor-offset-${result.horizontal}`, `${offset || 0}px`)
+      currentOverlay.style.setProperty(`--anchored-overlay-anchor-offset-${result.horizontal}`, `${offset || 0}px`)
 
       // Only call showPopover when shouldRenderAsPopover is enabled
       if (shouldRenderAsPopover) {
         try {
-          if (!overlayElement.matches(':popover-open')) {
-            overlayElement.showPopover()
+          if (!currentOverlay.matches(':popover-open')) {
+            currentOverlay.showPopover()
           }
         } catch {
           // Ignore if popover is already showing or not supported
@@ -300,11 +302,11 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
     return () => {
       anchorElement.style.removeProperty('anchor-name')
-      if (overlayElement) {
-        overlayElement.style.removeProperty('position-anchor')
+      if (currentOverlay) {
+        currentOverlay.style.removeProperty('position-anchor')
       }
     }
-  }, [cssAnchorPositioning, shouldRenderAsPopover, open, anchorElement, overlayElement, id, width])
+  }, [cssAnchorPositioning, shouldRenderAsPopover, open, anchorElement, overlayElement, overlayRef, id, width])
 
   const showXIcon = onClose && variant.narrow === 'fullscreen' && displayCloseButton
   const XButtonAriaLabelledBy = closeButtonProps['aria-labelledby']
