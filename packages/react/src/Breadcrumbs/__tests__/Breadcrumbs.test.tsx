@@ -330,6 +330,9 @@ describe('Breadcrumbs', () => {
 
     // Close menu by clicking outside
     await user.click(document.body)
+    await waitFor(() => {
+      expect
+    })
 
     // Simulate a very narrow container resize that would affect overflow calculation
     if (resizeCallback) {
