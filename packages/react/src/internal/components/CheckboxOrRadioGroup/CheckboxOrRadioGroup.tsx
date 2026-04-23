@@ -11,7 +11,7 @@ import classes from './CheckboxOrRadioGroup.module.css'
 import {clsx} from 'clsx'
 import {isSlot} from '../../../utils/is-slot'
 
-export type CheckboxOrRadioGroupProps = {
+export type CheckboxOrRadioGroupProps = React.HTMLAttributes<HTMLElement> & {
   /** Class name for custom styling */
   className?: string
   /**
@@ -40,6 +40,7 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
   id: idProp,
   required = false,
   className,
+  ...restProps
 }) => {
   const [slots, rest] = useSlots(children, {
     caption: CheckboxOrRadioGroupCaption,
@@ -90,6 +91,7 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
     >
       <div>
         <Component
+          {...restProps}
           className={clsx(className, classes.GroupFieldset)}
           data-validation={validationChild ? '' : undefined}
           {...(labelChild

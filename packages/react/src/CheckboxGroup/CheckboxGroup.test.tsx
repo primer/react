@@ -19,6 +19,21 @@ describe('CheckboxGroup', () => {
     vi.restoreAllMocks()
   })
 
+  it('renders data-component attribute', () => {
+    const {getByRole} = render(
+      <CheckboxGroup>
+        <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
+        <FormControl>
+          <Checkbox value="one" />
+          <FormControl.Label>Choice one</FormControl.Label>
+        </FormControl>
+      </CheckboxGroup>,
+    )
+
+    // CheckboxGroup's DOM root is the underlying fieldset rendered by CheckboxOrRadioGroup
+    expect(getByRole('group')).toHaveAttribute('data-component', 'CheckboxGroup')
+  })
+
   it('renders a disabled group of inputs', () => {
     const {getAllByRole, getByRole} = render(
       <CheckboxGroup disabled>
