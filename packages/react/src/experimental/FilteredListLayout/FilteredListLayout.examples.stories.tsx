@@ -14,6 +14,8 @@ import {
   ProjectTemplateIcon,
   SmileyIcon,
   StarIcon,
+  TagIcon,
+  TableIcon,
 } from '@primer/octicons-react'
 import {Button} from '../../Button'
 import Heading from '../../Heading'
@@ -79,6 +81,37 @@ const issuesViews: View[] = [
   {key: 'recent', label: 'Recent activity', icon: ClockIcon},
 ]
 
+const issuesShortcuts: View[] = [
+  {key: 'projects', label: 'Projects', icon: TableIcon},
+  {key: 'milestones', label: 'Milestones', icon: MilestoneIcon},
+  {key: 'labels', label: 'Labels', icon: TagIcon},
+]
+
+const ShortcutsCard = ({label, items}: {label: string; items: View[]}) => (
+  <div
+    style={{
+      marginBlockStart: 'var(--stack-gap-normal, 16px)',
+      padding: 'var(--base-size-8, 8px)',
+      backgroundColor: 'var(--bgColor-muted)',
+      borderRadius: 'var(--borderRadius-medium, 6px)',
+    }}
+  >
+    <Heading
+      as="h3"
+      style={{
+        font: 'var(--text-caption-shorthand)',
+        color: 'var(--fgColor-muted)',
+        paddingInline: 'var(--base-size-8, 8px)',
+        paddingBlockStart: 'var(--base-size-4, 4px)',
+        paddingBlockEnd: 'var(--base-size-4, 4px)',
+      }}
+    >
+      Shortcuts
+    </Heading>
+    <ViewsNavList label={label} views={items} />
+  </div>
+)
+
 export const Issues: StoryFn = () => (
   <FilteredListLayout>
     <FilteredListLayout.Header>
@@ -89,6 +122,7 @@ export const Issues: StoryFn = () => (
     </FilteredListLayout.Header>
     <FilteredListLayout.Sidebar aria-label="Issues">
       <ViewsNavList label="Issue views" views={issuesViews} />
+      <ShortcutsCard label="Shortcuts" items={issuesShortcuts} />
     </FilteredListLayout.Sidebar>
     <FilteredListLayout.Content>
       <FilteredListLayout.Results aria-label="Issue results">
