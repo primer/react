@@ -163,7 +163,7 @@ export const Default: StoryFn = args => (
         divider={args['Sidebar.divider']}
         padding={args['Sidebar.padding']}
         sticky={args['Sidebar.sticky']}
-        aria-label="Sidebar"
+        aria-label="Issues"
       >
         <IssueViewsNavList />
       </FilteredListLayout.Sidebar>
