@@ -1,6 +1,6 @@
 import type React from 'react'
 import {createContext, useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react'
-import {SidebarExpandIcon} from '@primer/octicons-react'
+import {SidebarCollapseIcon} from '@primer/octicons-react'
 import {IconButton} from '../../Button'
 import {Hidden} from '../../Hidden'
 import type {
@@ -141,7 +141,7 @@ export const Header: React.FC<React.PropsWithChildren<FilteredListLayoutHeaderPr
           <div style={{marginBlockEnd: 'var(--stack-gap-condensed, 8px)'}}>
             <IconButton
               ref={triggerRef}
-              icon={SidebarExpandIcon}
+              icon={SidebarCollapseIcon}
               aria-label={ctx.sidebar.triggerLabel}
               onClick={ctx.openSheet}
               aria-haspopup="dialog"
