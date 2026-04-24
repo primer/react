@@ -1,5 +1,5 @@
 import type React from 'react'
-import {useCallback, useEffect, useRef, useState, type JSX} from 'react'
+import {useCallback, useEffect, useState, type JSX} from 'react'
 import type {OverlayProps} from '../Overlay'
 import Overlay from '../Overlay'
 import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'
@@ -169,9 +169,13 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   renderAs = 'portal',
 }) => {
   const cssAnchorPositioningFlag = useFeatureFlag('primer_react_css_anchor_positioning')
-  const supportsNativeCSSAnchorPositioning = useRef(false)
+  // Lazy initial state so feature detection runs once per mount on the client.
+  // Guarded for SSR where `document` is undefined.
+  const [supportsNativeCSSAnchorPositioning] = useState(
+    () => typeof document !== 'undefined' && 'anchorName' in document.documentElement.style,
+  )
 
-  const cssAnchorPositioning = cssAnchorPositioningFlag && supportsNativeCSSAnchorPositioning.current
+  const cssAnchorPositioning = cssAnchorPositioningFlag && supportsNativeCSSAnchorPositioning
   // Only use Popover API when both CSS anchor positioning is enabled AND renderAs is true
   const shouldRenderAsPopover = cssAnchorPositioning && renderAs === 'popover'
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
@@ -179,9 +183,13 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   // its identity (e.g. applying `anchor-name` for CSS anchor positioning) re-run
   // when a consumer remounts/replaces the anchor element while keeping the same
   // `anchorRef` object. Refs alone don't notify React when `.current` changes.
-  const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(anchorRef.current)
+  const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null)
   // Detect when `anchorRef.current` has been mutated by a consumer (e.g. via
   // their own `ref={anchorRef}`) without React's ref system notifying us.
+  // Reading the ref during render and conditionally calling setState is the
+  // documented React pattern for syncing external mutable state, but the
+  // react-hooks/refs lint rule is conservative and disallows it.
+  // eslint-disable-next-line react-hooks/refs
   if (anchorRef.current !== anchorElement) {
     setAnchorElement(anchorRef.current)
   }
@@ -241,12 +249,10 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       onPositionChange: positionChange,
     },
 
-    [overlayRef.current],
+    [overlayElement],
   )
 
   useEffect(() => {
-    supportsNativeCSSAnchorPositioning.current = 'anchorName' in document.documentElement.style
-
     // ensure overlay ref gets cleared when closed, so position can reset between closing/re-opening
     if (!open && overlayRef.current) {
       updateOverlayRef(null)
@@ -302,7 +308,9 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
         currentOverlay.style.removeProperty('position-anchor')
       }
     }
-  }, [cssAnchorPositioning, shouldRenderAsPopover, open, anchorElement, overlayElement, overlayRef, id, width])
+    // overlayRef is a stable ref object; including it in deps is unnecessary.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cssAnchorPositioning, shouldRenderAsPopover, open, anchorElement, overlayElement, id, width])
 
   const showXIcon = onClose && variant.narrow === 'fullscreen' && displayCloseButton
   const XButtonAriaLabelledBy = closeButtonProps['aria-labelledby']
@@ -313,6 +321,9 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   return (
     <>
       {renderAnchor &&
+        // anchorRef is a ref object passed as a JSX `ref` prop on the rendered
+        // anchor; React writes to it at commit time, it is not read during render.
+        // eslint-disable-next-line react-hooks/refs
         renderAnchor({
           ref: anchorRef,
           id: anchorId,
