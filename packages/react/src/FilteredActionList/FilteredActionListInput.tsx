@@ -34,7 +34,7 @@ export function FilteredActionListInput({
   ...restTextInputProps
 }: FilteredActionLsitInputProps): React.JSX.Element {
   return (
-    <div className={classes.Header}>
+    <div className={classes.Header} data-component="FilteredActionList.Header">
       <TextInput
         // @ts-expect-error it needs a non nullable ref
         ref={inputRef}
