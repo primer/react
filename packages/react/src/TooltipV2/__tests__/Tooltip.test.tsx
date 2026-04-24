@@ -202,3 +202,17 @@ describe('Tooltip', () => {
     expect(describedBy).toContain(tooltipEl.id)
   })
 })
+
+describe('Tooltip data-component attributes', () => {
+  it('renders Tooltip with data-component attribute', () => {
+    const {getByText} = HTMLRender(<TooltipComponent />)
+    const tooltip = getByText('Tooltip text')
+    expect(tooltip).toHaveAttribute('data-component', 'Tooltip')
+  })
+
+  it('renders Tooltip.KeybindingHintContainer with data-component attribute when keybindingHint is provided', () => {
+    const {container} = HTMLRender(<TooltipComponent keybindingHint="Control+K" />)
+    const keybindingHintContainer = container.querySelector('[data-component="Tooltip.KeybindingHintContainer"]')
+    expect(keybindingHintContainer).toBeInTheDocument()
+  })
+})

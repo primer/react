@@ -353,7 +353,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
 
   return (
     <ActionBarContext.Provider value={{size, isVisibleChild}}>
-      <div ref={navRef} className={clsx(className, styles.Nav)} data-flush={flush}>
+      <div ref={navRef} className={clsx(className, styles.Nav)} data-component="ActionBar" data-flush={flush}>
         <div
           ref={listRef}
           role="toolbar"
@@ -532,7 +532,7 @@ export const ActionBarGroup = forwardRef(({children}: React.PropsWithChildren, f
 
   return (
     <ActionBarGroupContext.Provider value={{groupId: id}}>
-      <div className={styles.Group} ref={ref}>
+      <div className={styles.Group} data-component="ActionBar.Group" ref={ref}>
         {children}
       </div>
     </ActionBarGroupContext.Provider>
@@ -571,7 +571,14 @@ export const ActionBarMenu = forwardRef(
     return (
       <ActionMenu anchorRef={ref} open={menuOpen} onOpenChange={setMenuOpen}>
         <ActionMenu.Anchor>
-          <IconButton variant="invisible" aria-label={ariaLabel} icon={icon} {...props} />
+          <IconButton
+            variant="invisible"
+            aria-label={ariaLabel}
+            icon={icon}
+            {...props}
+            // overriding IconButton's data-component so that the ActionBar's "More Menu" Icon can be targeted specifically
+            data-component="ActionBar.Menu.IconButton"
+          />
         </ActionMenu.Anchor>
         <ActionMenu.Overlay {...(returnFocusRef && {returnFocusRef})}>
           <ActionList>{items.map((item, index) => renderMenuItem(item, index))}</ActionList>
