@@ -559,7 +559,7 @@ export function FilteredActionList({
         placeholderText={placeholderText}
         listId={listId}
         inputDescriptionTextId={inputDescriptionTextId}
-        loading={loading && loadingType.appearsInBody}
+        loading={loading && !loadingType.appearsInBody}
         fullScreenOnNarrow={fullScreenOnNarrow}
         {...textInputProps}
       />
