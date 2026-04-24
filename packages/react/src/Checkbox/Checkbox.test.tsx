@@ -103,12 +103,11 @@ describe('Checkbox', () => {
 
     const checkbox = getByRole('checkbox') as HTMLInputElement
 
-    // Non-indeterminate checkboxes rely on native checked state for accessibility
-    expect(checkbox.checked).toEqual(false)
+    expect(checkbox).toHaveAttribute('aria-checked', 'false')
 
     rerender(<Checkbox checked={true} onChange={handleChange} />)
 
-    expect(checkbox.checked).toEqual(true)
+    expect(checkbox).toHaveAttribute('aria-checked', 'true')
 
     rerender(<Checkbox indeterminate checked onChange={handleChange} />)
 
