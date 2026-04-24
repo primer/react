@@ -71,7 +71,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       required,
       ['aria-required']: required ? ('true' as const) : ('false' as const),
       ['aria-invalid']: validationStatus === 'error' ? ('true' as const) : ('false' as const),
-      ['aria-checked']: indeterminate ? ('mixed' as const) : (checked ? ('true' as const) : ('false' as const)),
+      ['aria-checked']: indeterminate ? ('mixed' as const) : checked ? ('true' as const) : ('false' as const),
       onChange: handleOnChange,
       value,
       name: value,
