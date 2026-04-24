@@ -120,6 +120,11 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
    * Props to be spread on the close button in the overlay.
    */
   closeButtonProps?: Partial<IconButtonProps>
+  /**
+   * When `"popover"`, uses the Popover API only if the CSS anchor positioning feature flag is enabled
+   * and the browser supports native CSS anchor positioning. Has no effect otherwise. Defaults to `"portal"`.
+   */
+  renderAs?: 'portal' | 'popover'
 }
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
@@ -162,10 +167,14 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   onPositionChange,
   displayCloseButton = true,
   closeButtonProps = defaultCloseButtonProps,
+  renderAs = 'portal',
 }) => {
   const cssAnchorPositioningFlag = useFeatureFlag('primer_react_css_anchor_positioning')
   const supportsNativeCSSAnchorPositioning = useRef(false)
+  // eslint-disable-next-line react-hooks/refs
   const cssAnchorPositioning = cssAnchorPositioningFlag && supportsNativeCSSAnchorPositioning.current
+  // Only use Popover API when both CSS anchor positioning is enabled AND renderAs is true
+  const shouldRenderAsPopover = cssAnchorPositioning && renderAs === 'popover'
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const anchorId = useId(externalAnchorId)
@@ -221,6 +230,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       displayInViewport,
       onPositionChange: positionChange,
     },
+    // eslint-disable-next-line react-hooks/refs
     [overlayRef.current],
   )
 
@@ -256,11 +266,13 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
         overlay.style.removeProperty('position-anchor')
       }
     }
+    // eslint-disable-next-line react-hooks/refs
   }, [cssAnchorPositioning, anchorRef, overlayRef, id, open])
 
   // Track the overlay element so we can re-run the effect when it changes.
   // The overlay unmounts when closed, so each open creates a new DOM node -
   // that needs showPopover() called.
+  // eslint-disable-next-line react-hooks/refs
   const overlayElement = overlayRef.current
 
   useLayoutEffect(() => {
@@ -282,14 +294,18 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       currentOverlay.style.setProperty(`--anchored-overlay-anchor-offset-${result.horizontal}`, `${offset || 0}px`)
     }
 
-    try {
-      if (!currentOverlay.matches(':popover-open')) {
-        currentOverlay.showPopover()
+    // Only call showPopover when renderAs is enabled
+    if (shouldRenderAsPopover) {
+      try {
+        if (!currentOverlay.matches(':popover-open')) {
+          currentOverlay.showPopover()
+        }
+      } catch {
+        // Ignore if popover is already showing or not supported
       }
-    } catch {
-      // Ignore if popover is already showing or not supported
     }
-  }, [cssAnchorPositioning, open, overlayElement, id, overlayRef, anchorRef, width])
+    // eslint-disable-next-line react-hooks/refs
+  }, [cssAnchorPositioning, shouldRenderAsPopover, open, overlayElement, id, overlayRef, anchorRef, width])
 
   const showXIcon = onClose && variant.narrow === 'fullscreen' && displayCloseButton
   const XButtonAriaLabelledBy = closeButtonProps['aria-labelledby']
@@ -300,6 +316,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   return (
     <>
       {renderAnchor &&
+        // eslint-disable-next-line react-hooks/refs
         renderAnchor({
           ref: anchorRef,
           id: anchorId,
@@ -308,7 +325,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           tabIndex: 0,
           onClick: onAnchorClick,
           onKeyDown: onAnchorKeyDown,
-          ...(cssAnchorPositioning ? {popoverTarget: popoverId} : {}),
+          ...(shouldRenderAsPopover ? {popoverTarget: popoverId} : {}),
         })}
       {open ? (
         <Overlay
@@ -328,9 +345,9 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           preventOverflow={preventOverflow}
           data-component="AnchoredOverlay"
           _PrivateDisablePortal={_PrivateDisablePortal}
-          {...(cssAnchorPositioning ? {popover: 'manual'} : {})}
+          {...(shouldRenderAsPopover ? {popover: 'manual'} : {})}
           {...restOverlayProps}
-          {...(cssAnchorPositioning ? {id: popoverId} : {})}
+          {...(shouldRenderAsPopover ? {id: popoverId} : {})}
           ref={node => {
             if (overlayProps?.ref) {
               assignRef(overlayProps.ref, node)

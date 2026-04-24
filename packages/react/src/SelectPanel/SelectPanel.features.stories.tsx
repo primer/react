@@ -753,6 +753,7 @@ export const WithOnCancel = () => {
 
   const [open, setOpen] = useState(false)
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (!open) setInitialSelection(selected) // set initialSelection for next time
   }, [open, selected])
 
@@ -791,6 +792,7 @@ export const MultiSelectModal = () => {
   React.useEffect(() => {
     // Sync initialSelection with the last committed selection after the modal closes.
     // onCancel uses initialSelection to discard unsaved changes made while the modal is open.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (!open) setInitialSelection(selected)
   }, [open, selected])
 

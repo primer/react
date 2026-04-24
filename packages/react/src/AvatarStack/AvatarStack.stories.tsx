@@ -26,7 +26,13 @@ export const Default = () => (
 )
 
 export const Playground: StoryFn<Args> = args => (
-  <AvatarStack size={parseSizeFromArgs(args)} alignRight={args.alignRight} disableExpand={args.disableExpand}>
+  <AvatarStack
+    size={parseSizeFromArgs(args)}
+    alignRight={args.alignRight}
+    disableExpand={args.disableExpand}
+    variant={args.variant}
+    shape={args.shape}
+  >
     <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/primer" />
     <Avatar alt="GitHub logo" src="https://avatars.githubusercontent.com/github" />
     <Avatar alt="Atom logo" src="https://avatars.githubusercontent.com/atom" />

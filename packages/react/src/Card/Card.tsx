@@ -14,6 +14,12 @@ export type CardProps = React.ComponentPropsWithoutRef<'div'> & {
    * @default 'normal'
    */
   padding?: 'none' | 'condensed' | 'normal'
+
+  /**
+   * Controls the border radius of the Card.
+   * @default 'large'
+   */
+  borderRadius?: 'medium' | 'large'
 }
 
 type HeadingLevel = 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
@@ -62,7 +68,7 @@ type MetadataProps = React.ComponentPropsWithoutRef<'div'> & {
 }
 
 const CardImpl = forwardRef<HTMLDivElement, CardProps>(function Card(
-  {children, className, padding = 'normal', ...rest},
+  {children, className, padding = 'normal', borderRadius = 'large', ...rest},
   ref,
 ) {
   let icon: React.ReactNode = null
@@ -96,14 +102,26 @@ const CardImpl = forwardRef<HTMLDivElement, CardProps>(function Card(
 
   if (!hasSlotChildren) {
     return (
-      <div ref={ref} className={clsx(classes.Card, className)} data-padding={padding} {...rest}>
+      <div
+        ref={ref}
+        className={clsx(classes.Card, className)}
+        data-padding={padding}
+        data-border-radius={borderRadius}
+        {...rest}
+      >
         {children}
       </div>
     )
   }
 
   return (
-    <div ref={ref} className={clsx(classes.Card, className)} data-padding={padding} {...rest}>
+    <div
+      ref={ref}
+      className={clsx(classes.Card, className)}
+      data-padding={padding}
+      data-border-radius={borderRadius}
+      {...rest}
+    >
       {(image || icon) && (
         <div className={clsx(classes.CardHeader, image && classes.CardHeaderEdgeToEdge)}>{image || icon}</div>
       )}

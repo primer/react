@@ -59,6 +59,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
         role="table"
         ref={ref}
         style={{'--grid-template-columns': gridTemplateColumns} as React.CSSProperties}
+        data-component="Table"
       />
     </ScrollableRegion>
   )
@@ -74,7 +75,7 @@ function TableHead({children}: TableHeadProps) {
   return (
     // We need to explicitly pass this role because some ATs and browsers drop table semantics
     // when we use `display: contents` or `display: grid` in the table
-    <thead className={clsx('TableHead', classes.TableHead)} role="rowgroup">
+    <thead className={clsx('TableHead', classes.TableHead)} role="rowgroup" data-component="Table.Head">
       {children}
     </thead>
   )
@@ -90,7 +91,7 @@ function TableBody({children}: TableBodyProps) {
   return (
     // We need to explicitly pass this role because some ATs and browsers drop table semantics
     // when we use `display: contents` or `display: grid` in the table
-    <tbody className={clsx('TableBody', classes.TableBody)} role="rowgroup">
+    <tbody className={clsx('TableBody', classes.TableBody)} role="rowgroup" data-component="Table.Body">
       {children}
     </tbody>
   )
@@ -110,6 +111,7 @@ export type TableHeaderProps = Omit<React.ComponentPropsWithoutRef<'th'>, 'align
 function TableHeader({align, children, ...rest}: TableHeaderProps) {
   return (
     <th
+      data-component="Table.Header"
       {...rest}
       className={clsx('TableHeader', classes.TableHeader)}
       role="columnheader"
@@ -138,10 +140,11 @@ function TableSortHeader({align, children, direction, onToggleSort, ...rest}: Ta
   const ariaSort = direction === 'DESC' ? 'descending' : direction === 'ASC' ? 'ascending' : undefined
 
   return (
-    <TableHeader {...rest} aria-sort={ariaSort} align={align}>
+    <TableHeader {...rest} aria-sort={ariaSort} align={align} data-component="Table.SortHeader">
       <Button
         type="button"
         className={clsx('TableSortButton', classes.TableSortButton)}
+        data-component="Table.SortHeader.Button"
         onClick={() => {
           onToggleSort()
         }}
@@ -183,7 +186,7 @@ export type TableRowProps = React.ComponentPropsWithoutRef<'tr'>
 
 function TableRow({children, ...rest}: TableRowProps) {
   return (
-    <tr {...rest} className={clsx('TableRow', classes.TableRow)} role="row">
+    <tr {...rest} className={clsx('TableRow', classes.TableRow)} role="row" data-component="Table.Row">
       {children}
     </tr>
   )
@@ -217,6 +220,7 @@ function TableCell({align, className, children, scope, ...rest}: TableCellProps)
       scope={scope}
       role={role}
       data-cell-align={align}
+      data-component="Table.Cell"
     >
       {children}
     </BaseComponent>
@@ -226,7 +230,11 @@ function TableCell({align, className, children, scope, ...rest}: TableCellProps)
 type TableCellPlaceholderProps = React.PropsWithChildren
 
 function TableCellPlaceholder({children}: TableCellPlaceholderProps) {
-  return <Text className={classes.PlaceholderText}>{children}</Text>
+  return (
+    <Text className={classes.PlaceholderText} data-component="Table.CellPlaceholder">
+      {children}
+    </Text>
+  )
 }
 
 // ----------------------------------------------------------------------------
@@ -243,7 +251,7 @@ function TableContainer<As extends React.ElementType = 'div'>({
 }: TableContainerProps<As>) {
   const Component = as || 'div'
   return (
-    <Component {...rest} className={clsx(className, classes.TableContainer)}>
+    <Component {...rest} className={clsx(className, classes.TableContainer)} data-component="Table.Container">
       {children}
     </Component>
   )
@@ -273,7 +281,7 @@ const TableTitle = React.forwardRef<HTMLElement, TableTitleProps>(function Table
 ) {
   const BaseComponent = Component as React.ElementType
   return (
-    <BaseComponent className={clsx('TableTitle', classes.TableTitle)} id={id} ref={ref}>
+    <BaseComponent className={clsx('TableTitle', classes.TableTitle)} id={id} ref={ref} data-component="Table.Title">
       {children}
     </BaseComponent>
   )
@@ -298,20 +306,26 @@ export type TableSubtitleProps = React.PropsWithChildren<
 
 function TableSubtitle({as: BaseComponent = 'div', children, id}: TableSubtitleProps) {
   return (
-    <BaseComponent className={clsx('TableSubtitle', classes.TableSubtitle)} id={id}>
+    <BaseComponent className={clsx('TableSubtitle', classes.TableSubtitle)} id={id} data-component="Table.Subtitle">
       {children}
     </BaseComponent>
   )
 }
 
 function TableDivider() {
-  return <div className={clsx('TableDivider', classes.TableDivider)} role="presentation" />
+  return (
+    <div className={clsx('TableDivider', classes.TableDivider)} role="presentation" data-component="Table.Divider" />
+  )
 }
 
 export type TableActionsProps = React.PropsWithChildren
 
 function TableActions({children}: TableActionsProps) {
-  return <div className={clsx('TableActions', classes.TableActions)}>{children}</div>
+  return (
+    <div className={clsx('TableActions', classes.TableActions)} data-component="Table.Actions">
+      {children}
+    </div>
+  )
 }
 
 // ----------------------------------------------------------------------------
