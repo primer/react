@@ -186,6 +186,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     setAnchorElement(anchorRef.current)
   }
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
+  const [overlayElement, setOverlayElement] = useState<HTMLDivElement | null>(null)
   const anchorId = useId(externalAnchorId)
 
   const onClickOutside = useCallback(() => onClose?.('click-outside'), [onClose])
@@ -261,12 +262,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
   const popoverId = useId()
   const id = popoverId.replaceAll(':', '_') // popoverId can contain colons which are invalid in CSS custom property names, so we replace them with underscores
-
-  // Track the overlay element so we can re-run the effect when it changes.
-  // The overlay unmounts when closed, so each open creates a new DOM node -
-  // that needs showPopover() called.
-  // eslint-disable-next-line react-hooks/refs
-  const overlayElement = overlayRef.current
 
   useEffect(() => {
     if (!cssAnchorPositioning || !anchorElement) return
@@ -354,6 +349,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
               assignRef(overlayProps.ref, node)
             }
             updateOverlayRef(node)
+            setOverlayElement(node)
           }}
           data-anchor-position={cssAnchorPositioning}
           data-side={cssAnchorPositioning ? side : position?.anchorSide}
