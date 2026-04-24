@@ -546,11 +546,10 @@ export function FilteredActionList({
     <div ref={inputAndListContainerRef} className={clsx(className, classes.Root)} data-testid="filtered-action-list">
       <FilteredActionListInput
         inputRef={inputRef}
-        filterValue={filterValue}
+        value={filterValue}
         onInputChange={onInputChange}
         onInputKeyPress={onInputKeyPress}
-        onInputKeyDown={onInputKeyDown}
-        usingRovingTabindex={usingRovingTabindex}
+        onInputKeyDown={usingRovingTabindex ? onInputKeyDown : undefined}
         placeholderText={placeholderText}
         listId={listId}
         inputDescriptionTextId={inputDescriptionTextId}

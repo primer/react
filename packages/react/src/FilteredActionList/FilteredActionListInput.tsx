@@ -6,11 +6,9 @@ import classes from './FilteredActionList.module.css'
 
 export interface FilteredActionLsitInputProps extends Partial<Omit<TextInputProps, 'onChange'>> {
   inputRef: React.RefObject<HTMLInputElement | null>
-  filterValue: string
-  onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  onInputKeyPress: React.KeyboardEventHandler<HTMLInputElement>
-  onInputKeyDown: React.KeyboardEventHandler<HTMLInputElement>
-  usingRovingTabindex: boolean
+  onInputChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onInputKeyPress?: React.KeyboardEventHandler<HTMLInputElement>
+  onInputKeyDown?: React.KeyboardEventHandler<HTMLInputElement>
   placeholderText?: string
   listId: string
   inputDescriptionTextId: string
@@ -20,11 +18,10 @@ export interface FilteredActionLsitInputProps extends Partial<Omit<TextInputProp
 
 export function FilteredActionListInput({
   inputRef,
-  filterValue,
+  value,
   onInputChange,
   onInputKeyPress,
   onInputKeyDown,
-  usingRovingTabindex,
   placeholderText,
   listId,
   inputDescriptionTextId,
@@ -41,10 +38,10 @@ export function FilteredActionListInput({
         block
         width="auto"
         color="fg.default"
-        value={filterValue}
+        value={value}
         onChange={onInputChange}
         onKeyPress={onInputKeyPress}
-        onKeyDown={usingRovingTabindex ? onInputKeyDown : undefined}
+        onKeyDown={onInputKeyDown}
         placeholder={placeholderText}
         role="combobox"
         aria-expanded="true"
