@@ -50,8 +50,12 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           node.indeterminate = indeterminate || false
         }
       },
-      // `checked` is intentionally included: browsers clear the indeterminate state
-      // when checked changes, so we need the callback to re-run to restore it.
+      // `checked` is intentionally included even though it is not used inside
+      // the callback: browsers silently clear the `indeterminate` property
+      // whenever the checked state changes, so the callback must re-run to
+      // restore it. The exhaustive-deps rule flags this as an unnecessary
+      // dependency (because `checked` isn't referenced in the body), hence the
+      // suppression below.
       // eslint-disable-next-line react-hooks/exhaustive-deps
       [indeterminate, checked],
     )
@@ -62,6 +66,10 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       checkboxGroupContext.onChange && checkboxGroupContext.onChange(e)
       onChange && onChange(e)
     }
+
+    // aria-checked must reflect three states: mixed (indeterminate), true, or false.
+    const ariaChecked = indeterminate ? ('mixed' as const) : checked ? ('true' as const) : ('false' as const)
+
     const inputProps = {
       type: 'checkbox',
       disabled,
@@ -71,7 +79,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       required,
       ['aria-required']: required ? ('true' as const) : ('false' as const),
       ['aria-invalid']: validationStatus === 'error' ? ('true' as const) : ('false' as const),
-      ['aria-checked']: indeterminate ? ('mixed' as const) : checked ? ('true' as const) : ('false' as const),
+      ['aria-checked']: ariaChecked,
       onChange: handleOnChange,
       value,
       name: value,
