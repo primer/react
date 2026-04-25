@@ -49,6 +49,7 @@ export const UnwrappedLink = <As extends React.ElementType = 'a'>(
   return (
     <Component
       className={clsx(className, classes.Link)}
+      data-component="Link"
       data-muted={muted}
       data-inline={inline}
       data-hover-color={hoverColor}

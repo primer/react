@@ -31,7 +31,11 @@ export type ActionListTrailingActionProps = ElementProps & {
 export const TrailingAction = forwardRef(
   ({as = 'button', icon, label, href = null, className, style, loading, ...props}, forwardedRef) => {
     return (
-      <span className={clsx(className, classes.TrailingAction)} style={style}>
+      <span
+        className={clsx(className, classes.TrailingAction)}
+        data-component="ActionList.TrailingAction"
+        style={style}
+      >
         {icon ? (
           <IconButton
             as={as}

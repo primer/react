@@ -45,7 +45,7 @@ export function FilteredActionListBodyLoader({
 
 function LoadingSpinner({...props}): JSX.Element {
   return (
-    <div className={classes.LoadingSpinner}>
+    <div className={classes.LoadingSpinner} data-component="FilteredActionList.Spinner">
       <Spinner {...props} />
     </div>
   )
@@ -53,7 +53,7 @@ function LoadingSpinner({...props}): JSX.Element {
 
 function LoadingSkeleton({rows = 10, ...props}: {rows: number}): JSX.Element {
   return (
-    <div className={classes.LoadingSkeletonContainer}>
+    <div className={classes.LoadingSkeletonContainer} data-component="FilteredActionList.Skeleton">
       <Stack direction="vertical" justify="center" gap="condensed" {...props}>
         {Array.from({length: rows}, (_, i) => (
           <Stack key={i} direction="horizontal" gap="condensed" align="center">

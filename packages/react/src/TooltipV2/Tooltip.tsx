@@ -282,7 +282,6 @@ export const Tooltip: ForwardRefExoticComponent<
       <TooltipContext.Provider value={value}>
         <>
           {React.isValidElement(child) &&
-            // eslint-disable-next-line react-hooks/refs
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
               // @ts-expect-error it needs a non nullable ref
               ref: triggerRef,
@@ -349,6 +348,7 @@ export const Tooltip: ForwardRefExoticComponent<
             className={clsx(className, classes.Tooltip)}
             ref={tooltipElRef}
             data-direction={calculatedDirection}
+            data-component="Tooltip"
             {...rest}
             // Only need tooltip role if the tooltip is a description for supplementary information
             role={type === 'description' ? 'tooltip' : undefined}
@@ -380,6 +380,7 @@ export const Tooltip: ForwardRefExoticComponent<
                     keybindingHints.length > 1 && classes.HasMultipleHints,
                   )}
                   aria-hidden
+                  data-component="Tooltip.KeybindingHintContainer"
                 >
                   {keybindingHints.map((hint, i) => (
                     <React.Fragment key={`${i}-${hint}`}>

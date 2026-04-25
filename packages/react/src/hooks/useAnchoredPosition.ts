@@ -108,7 +108,7 @@ export function useAnchoredPosition(
       }
       setPrevHeight(floatingElementRef.current?.clientHeight)
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/use-memo
     [floatingElementRef, anchorElementRef, ...dependencies],
   )
 
