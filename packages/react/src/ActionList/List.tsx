@@ -104,6 +104,7 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
         role={listRole}
         aria-labelledby={ariaLabelledBy}
         ref={listRef}
+        data-component="ActionList"
         data-dividers={showDividers}
         data-variant={variant}
         {...restProps}

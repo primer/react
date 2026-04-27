@@ -258,3 +258,169 @@ describe('ActionList', () => {
     expect(linkElements[2]).toHaveAttribute('data-size', 'medium') // default should be medium
   })
 })
+
+describe('ActionList data-component attributes', () => {
+  it('renders ActionList with data-component attribute', () => {
+    const {container} = HTMLRender(
+      <ActionList aria-label="List">
+        <ActionList.Item>Item</ActionList.Item>
+      </ActionList>,
+    )
+
+    const actionList = container.querySelector('[data-component="ActionList"]')
+    expect(actionList).toBeInTheDocument()
+  })
+
+  it('renders ActionList.Item with data-component attribute', () => {
+    const {container} = HTMLRender(
+      <ActionList aria-label="List">
+        <ActionList.Item>Item</ActionList.Item>
+      </ActionList>,
+    )
+
+    const item = container.querySelector('[data-component="ActionList.Item"]')
+    expect(item).toBeInTheDocument()
+  })
+
+  it('renders ActionList.Item.Label with data-component attribute', () => {
+    const {container} = HTMLRender(
+      <ActionList aria-label="List">
+        <ActionList.Item>Item</ActionList.Item>
+      </ActionList>,
+    )
+
+    const label = container.querySelector('[data-component="ActionList.Item.Label"]')
+    expect(label).toBeInTheDocument()
+  })
+
+  it('renders ActionList.Item--DividerContainer with data-component attribute', () => {
+    const {container} = HTMLRender(
+      <ActionList aria-label="List">
+        <ActionList.Item>Item</ActionList.Item>
+      </ActionList>,
+    )
+
+    const dividerContainer = container.querySelector('[data-component="ActionList.Item--DividerContainer"]')
+    expect(dividerContainer).toBeInTheDocument()
+  })
+
+  it('renders ActionList.Group with data-component attribute', () => {
+    const {container} = HTMLRender(
+      <ActionList aria-label="List">
+        <ActionList.Group>
+          <ActionList.GroupHeading as="h3">Group</ActionList.GroupHeading>
+          <ActionList.Item>Item</ActionList.Item>
+        </ActionList.Group>
+      </ActionList>,
+    )
+
+    const group = container.querySelector('[data-component="ActionList.Group"]')
+    expect(group).toBeInTheDocument()
+  })
+
+  it('renders ActionList.GroupHeading with data-component attribute', () => {
+    const {container} = HTMLRender(
+      <ActionList aria-label="List">
+        <ActionList.Group>
+          <ActionList.GroupHeading as="h3">Group Heading</ActionList.GroupHeading>
+          <ActionList.Item>Item</ActionList.Item>
+        </ActionList.Group>
+      </ActionList>,
+    )
+
+    const groupHeading = container.querySelector('[data-component="GroupHeadingWrap"]')
+    expect(groupHeading).toBeInTheDocument()
+  })
+
+  it('renders ActionList.Divider with data-component attribute', () => {
+    const {container} = HTMLRender(
+      <ActionList aria-label="List">
+        <ActionList.Item>Item 1</ActionList.Item>
+        <ActionList.Divider />
+        <ActionList.Item>Item 2</ActionList.Item>
+      </ActionList>,
+    )
+
+    const divider = container.querySelector('[data-component="ActionList.Divider"]')
+    expect(divider).toBeInTheDocument()
+  })
+
+  it('renders ActionList.Description with data-component attribute', () => {
+    const {container} = HTMLRender(
+      <ActionList aria-label="List">
+        <ActionList.Item>
+          Item
+          <ActionList.Description>Description</ActionList.Description>
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const description = container.querySelector('[data-component="ActionList.Description"]')
+    expect(description).toBeInTheDocument()
+  })
+
+  it('renders ActionList.LeadingVisual with data-component attribute', () => {
+    const {container} = HTMLRender(
+      <ActionList aria-label="List">
+        <ActionList.Item>
+          <ActionList.LeadingVisual>Icon</ActionList.LeadingVisual>
+          Item
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const leadingVisual = container.querySelector('[data-component="ActionList.LeadingVisual"]')
+    expect(leadingVisual).toBeInTheDocument()
+  })
+
+  it('renders ActionList.TrailingVisual with data-component attribute', () => {
+    const {container} = HTMLRender(
+      <ActionList aria-label="List">
+        <ActionList.Item>
+          Item
+          <ActionList.TrailingVisual>Icon</ActionList.TrailingVisual>
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const trailingVisual = container.querySelector('[data-component="ActionList.TrailingVisual"]')
+    expect(trailingVisual).toBeInTheDocument()
+  })
+
+  it('renders ActionList.Selection with data-component attribute', () => {
+    const {container} = HTMLRender(
+      <ActionList selectionVariant="single" aria-label="List">
+        <ActionList.Item selected>Item</ActionList.Item>
+      </ActionList>,
+    )
+
+    const selection = container.querySelector('[data-component="ActionList.Selection"]')
+    expect(selection).toBeInTheDocument()
+  })
+
+  it('renders ActionList.Heading with data-component attribute', () => {
+    const {container} = HTMLRender(
+      <ActionList aria-label="List">
+        <ActionList.Heading as="h2">Heading</ActionList.Heading>
+        <ActionList.Item>Item</ActionList.Item>
+      </ActionList>,
+    )
+
+    const heading = container.querySelector('[data-component="ActionList.Heading"]')
+    expect(heading).toBeInTheDocument()
+  })
+
+  it('renders ActionList.TrailingAction with data-component attribute', () => {
+    const {container} = HTMLRender(
+      <ActionList aria-label="List">
+        <ActionList.Item>
+          Item
+          <ActionList.TrailingAction label="Action" />
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const trailingAction = container.querySelector('[data-component="ActionList.TrailingAction"]')
+    expect(trailingAction).toBeInTheDocument()
+  })
+})
