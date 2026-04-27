@@ -3,11 +3,13 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "dist/**", "lib/**", "lib-esm/**", "generated/**"]
+      "outputs": [".next/**", "dist/**", "lib/**", "lib-esm/**", "generated/**"],
+      "env": ["BABEL_MODULE", "NODE_ENV"]
     },
     "build:storybook": {
       "dependsOn": ["^build"],
-      "outputs": ["storybook-static/**"]
+      "outputs": ["storybook-static/**"],
+      "env": ["DEPLOY_ENV", "VITE_*"]
     },
     "lint:npm": {
       "dependsOn": ["^build", "build"],
@@ -17,5 +19,6 @@
       "dependsOn": ["^build"],
       "outputs": []
     }
-  }
+  },
+  "globalDependencies": [".nvmrc", "tsconfig.base.json"]
 }
