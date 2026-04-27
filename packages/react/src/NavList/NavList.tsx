@@ -171,10 +171,12 @@ function ItemWithSubNav({children, subNav, depth: _depth, defaultOpen, style}: I
   const [containsCurrentItem, setContainsCurrentItem] = React.useState(hasCurrentItem)
 
   useIsomorphicLayoutEffect(() => {
-    // Check if SubNav contains current item
+    // The React tree check handles the initial render before refs exist. The DOM fallback handles custom link
+    // components that compute aria-current internally instead of receiving it as a prop.
     // valid values: page, step, location, date, time, true and false
-    const currentItem = hasCurrentNavItem(subNav)
-    setContainsCurrentItem(Boolean(currentItem))
+    const currentItem =
+      hasCurrentNavItem(subNav) || Boolean(subNavRef.current?.querySelector('[aria-current]:not([aria-current=false])'))
+    setContainsCurrentItem(currentItem)
 
     if (currentItem) {
       setIsOpen(true)
