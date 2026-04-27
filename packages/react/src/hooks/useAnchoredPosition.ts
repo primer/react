@@ -116,7 +116,25 @@ export function useAnchoredPosition(
     savedOnPositionChange.current = settings?.onPositionChange
   }, [settings?.onPositionChange])
 
-  useLayoutEffect(updatePosition, [updatePosition])
+  // Defer the first updatePosition to useEffect when the overlay is closed on
+  // mount, avoiding paint-blocking cascading setState. If the overlay is already
+  // open on mount, run synchronously in useLayoutEffect to prevent a flash.
+  // After mount (including Suspense reappear), only call updatePosition when
+  // both refs are attached — skipping closed overlays avoids unnecessary setState.
+  const hasMountedRef = React.useRef(false)
+  useLayoutEffect(() => {
+    if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
+      hasMountedRef.current = true
+      updatePosition()
+    }
+  }, [updatePosition, floatingElementRef, anchorElementRef])
+
+  React.useEffect(() => {
+    if (!hasMountedRef.current) {
+      hasMountedRef.current = true
+      updatePosition()
+    }
+  }, [updatePosition])
 
   useResizeObserver(updatePosition) // watches for changes in window size
   useResizeObserver(updatePosition, floatingElementRef as React.RefObject<HTMLElement | null>) // watches for changes in floating element size
