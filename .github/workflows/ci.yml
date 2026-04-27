@@ -28,7 +28,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Check for unformatted files
-        run: npm run format:diff
+        run: npx turbo run //#format:diff
 
   lint:
     runs-on: ubuntu-latest
@@ -42,16 +42,8 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
-      - name: Lint JavaScript
-        run: npm run lint
-      - name: Lint CSS
-        run: npm run lint:css
-      - name: Lint markdown
-        run: npm run lint:md
-      - name: Lint npm packages
-        run: npx turbo lint:npm
-      - name: Check className test coverage
-        run: npm run test:classname-coverage
+      - name: Run lint checks
+        run: npx turbo run //#lint //#lint:css //#lint:md lint:npm //#test:classname-coverage
 
   test:
     runs-on: ubuntu-latest

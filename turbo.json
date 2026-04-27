@@ -42,6 +42,21 @@
     "type-check": {
       "dependsOn": ["^build"],
       "outputs": []
+    },
+    "//#format:diff": {
+      "outputs": []
+    },
+    "//#lint": {
+      "outputs": []
+    },
+    "//#lint:css": {
+      "outputs": []
+    },
+    "//#lint:md": {
+      "outputs": []
+    },
+    "//#test:classname-coverage": {
+      "outputs": []
     }
   },
   "globalDependencies": [".nvmrc", "tsconfig.base.json"]
