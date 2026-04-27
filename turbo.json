@@ -3,7 +3,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "dist/**", "lib/**", "lib-esm/**", "generated/**"],
+      "outputs": ["dist/**", "lib/**", "lib-esm/**"],
       "inputs": [
         "$TURBO_DEFAULT$",
         "!README.md",
