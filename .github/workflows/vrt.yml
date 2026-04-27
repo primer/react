@@ -25,8 +25,42 @@ jobs:
           path: ./PR
           retention-days: 1
 
-  upload-snapshots:
+  build-storybooks:
     needs: update-snapshots
+    runs-on: ubuntu-latest-8-cores
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+      - name: Set up Node.js
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - name: Set up turbo cache
+        uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb
+        with:
+          path: .turbo
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
+      - name: Install dependencies
+        run: npm ci
+      - name: Build storybooks
+        run: npx turbo build:storybook
+      - name: Upload react storybook
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+        with:
+          name: react-storybook-static
+          path: packages/react/storybook-static
+          retention-days: 1
+      - name: Upload styled-react storybook
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+        with:
+          name: styled-react-storybook-static
+          path: packages/styled-react/storybook-static
+          retention-days: 1
+
+  upload-snapshots:
+    needs: build-storybooks
     runs-on: ubuntu-latest-8-cores
     strategy:
       fail-fast: true
@@ -41,8 +75,16 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
-      - name: Build storybook
-        run: npx turbo build:storybook
+      - name: Download react storybook
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          name: react-storybook-static
+          path: packages/react/storybook-static
+      - name: Download styled-react storybook
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          name: styled-react-storybook-static
+          path: packages/styled-react/storybook-static
       - name: Run storybook
         id: storybook
         run: |

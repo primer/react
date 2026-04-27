@@ -10,12 +10,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  vrt-runner:
-    runs-on: vrt-runner
-    strategy:
-      fail-fast: false
-      matrix:
-        shard: [1, 2, 3, 4, 5, 6, 7, 8]
+  build-storybooks:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
       - name: Set up Node.js
@@ -32,8 +28,47 @@ jobs:
             ${{ runner.os }}-turbo-
       - name: Install dependencies
         run: npm ci
-      - name: Build storybook
+      - name: Build storybooks
         run: npx turbo build:storybook
+      - name: Upload react storybook
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+        with:
+          name: react-storybook-static
+          path: packages/react/storybook-static
+          retention-days: 1
+      - name: Upload styled-react storybook
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+        with:
+          name: styled-react-storybook-static
+          path: packages/styled-react/storybook-static
+          retention-days: 1
+
+  vrt-runner:
+    needs: build-storybooks
+    runs-on: vrt-runner
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4, 5, 6, 7, 8]
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+      - name: Set up Node.js
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Download react storybook
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          name: react-storybook-static
+          path: packages/react/storybook-static
+      - name: Download styled-react storybook
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          name: styled-react-storybook-static
+          path: packages/styled-react/storybook-static
       - name: Run storybook
         id: storybook
         working-directory: packages/react
