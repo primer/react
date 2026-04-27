@@ -78,6 +78,7 @@ const config = defineConfig([
   eslintReact.configs['recommended-typescript'],
   {
     rules: {
+      '@eslint-react/component-hook-factories': 'off',
       '@eslint-react/dom-no-dangerously-set-innerhtml': 'off',
       '@eslint-react/dom-no-flush-sync': 'off',
       '@eslint-react/dom-no-missing-button-type': 'off',
