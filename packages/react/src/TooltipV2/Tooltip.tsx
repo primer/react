@@ -277,7 +277,9 @@ export const Tooltip: ForwardRefExoticComponent<
 
     // Normalize keybindingHint to an array for uniform rendering
     const keybindingHints = Array.isArray(keybindingHint) ? keybindingHint : [keybindingHint]
-    const childAriaDescribedBy = child.props['aria-describedby']
+    const childAriaDescribedBy = React.isValidElement<TriggerPropsType>(child)
+      ? child.props['aria-describedby']
+      : undefined
     const ariaDescribedBy =
       type === 'description'
         ? [childAriaDescribedBy, tooltipId].filter(Boolean).join(' ') || undefined

@@ -104,7 +104,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
         // We only set it when the button is in a loading state because it will supersede the aria-label when the screen
         // reader announces the button name.
         aria-labelledby={
-          loading ? [`${uuid}-label`, ariaLabelledBy].filter(labelID => Boolean(labelID)).join(' ') : ariaLabelledBy
+          loading ? [`${buttonId}-label`, ariaLabelledBy].filter(labelID => Boolean(labelID)).join(' ') : ariaLabelledBy
         }
         id={id}
         // @ts-ignore temporary disable as we migrate to css modules, until we remove PolymorphicForwardRefComponent
@@ -137,7 +137,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
                 LeadingVisual && renderModuleVisual(LeadingVisual, Boolean(loading), 'leadingVisual', false)
               }
               {children && (
-                <span data-component="text" className={classes.Label} id={loading ? `${uuid}-label` : undefined}>
+                <span data-component="text" className={classes.Label} id={loading ? `${buttonId}-label` : undefined}>
                   {children}
                 </span>
               )}
