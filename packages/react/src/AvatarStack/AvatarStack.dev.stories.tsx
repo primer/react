@@ -20,7 +20,7 @@ export const WithLinkWrappers = () => (
       <Avatar alt="Atom logo" src="https://avatars.githubusercontent.com/atom" />
     </Link>
     <Link aria-label="GitHub Desktop is assigned" href="#" className="pc-AvatarItem" data-hovercard-url="/primer">
-      <Avatar alt="GitHub Desktop logo" src="https://avatars.githubusercontent.com/desktop" />
+      <Avatar alt="GitHub Desktop logo" src="https://avatars.githubusercontent.com/u/13171334?v=4" />
     </Link>
   </AvatarStack>
 )
