@@ -35,6 +35,13 @@
       ],
       "env": ["DEPLOY_ENV", "VITE_*"]
     },
+    "build:components.json:storybook": {
+      "dependsOn": ["build:storybook"],
+      "outputs": ["generated/components.json"]
+    },
+    "build:hooks.json": {
+      "outputs": ["generated/hooks.json"]
+    },
     "lint:npm": {
       "dependsOn": ["^build", "build"],
       "outputs": []
