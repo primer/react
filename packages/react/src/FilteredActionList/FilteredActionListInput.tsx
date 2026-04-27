@@ -4,7 +4,7 @@ import TextInput from '../TextInput'
 import type {TextInputProps} from '../TextInput'
 import classes from './FilteredActionList.module.css'
 
-export interface FilteredActionListInputProps extends Partial<Omit<TextInputProps, 'onChange'>> {
+export interface FilteredActionListInputProps extends Partial<Omit<TextInputProps, 'onChange' | 'onKeyDown'>> {
   inputRef: React.RefObject<HTMLInputElement | null>
   onInputChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   onInputKeyPress?: React.KeyboardEventHandler<HTMLInputElement>

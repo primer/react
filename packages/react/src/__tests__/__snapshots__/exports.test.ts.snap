@@ -311,6 +311,7 @@ exports[`@primer/react/experimental > should not update exports without a semver
   "FeatureFlags",
   "type FeatureFlagsProps",
   "FilteredActionList",
+  "type FilteredActionListInputProps",
   "FilteredActionListLoadingTypes",
   "type FilteredActionListProps",
   "getAccessibleKeybindingHintString",
