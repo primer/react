@@ -18,12 +18,10 @@ export const Playground = ({
   variant,
 }: CheckboxOrRadioGroupArgs) => {
   const parentArgs = {disabled, required}
-  const labelArgs = {children: labelChildren, visuallyHidden}
-  const validationArgs = {children: validationChildren, variant}
 
   return (
     <RadioGroup {...parentArgs} name="defaultRadioGroup">
-      {labelArgs.children && <RadioGroup.Label {...labelArgs} />}
+      {labelChildren && <RadioGroup.Label visuallyHidden={visuallyHidden}>{labelChildren}</RadioGroup.Label>}
       {captionChildren && <RadioGroup.Caption>{captionChildren}</RadioGroup.Caption>}
       <FormControl>
         <Radio value="one" />
@@ -37,7 +35,7 @@ export const Playground = ({
         <Radio value="three" />
         <FormControl.Label>Choice three</FormControl.Label>
       </FormControl>
-      {validationArgs.children && <RadioGroup.Validation {...validationArgs} />}
+      {validationChildren && <RadioGroup.Validation variant={variant}>{validationChildren}</RadioGroup.Validation>}
     </RadioGroup>
   )
 }
