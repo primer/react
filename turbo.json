@@ -4,11 +4,35 @@
     "build": {
       "dependsOn": ["^build"],
       "outputs": [".next/**", "dist/**", "lib/**", "lib-esm/**", "generated/**"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!README.md",
+        "!CHANGELOG.md",
+        "!ARCHITECTURE.md",
+        "!src/**/*.test.*",
+        "!src/**/*.browser.test.*",
+        "!src/**/__tests__/**",
+        "!src/**/__snapshots__/**",
+        "!config/vitest/**",
+        "!vitest.config.*"
+      ],
       "env": ["BABEL_MODULE", "NODE_ENV"]
     },
     "build:storybook": {
       "dependsOn": ["^build"],
       "outputs": ["storybook-static/**"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!README.md",
+        "!CHANGELOG.md",
+        "!ARCHITECTURE.md",
+        "!src/**/*.test.*",
+        "!src/**/*.browser.test.*",
+        "!src/**/__tests__/**",
+        "!src/**/__snapshots__/**",
+        "!config/vitest/**",
+        "!vitest.config.*"
+      ],
       "env": ["DEPLOY_ENV", "VITE_*"]
     },
     "lint:npm": {
