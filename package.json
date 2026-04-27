@@ -91,7 +91,7 @@
     "storybook": "^10.3.3",
     "stylelint": "17.4.0",
     "turbo": "^2.6.3",
-    "typescript": "^5.9.2",
+    "typescript": "^6.0.3",
     "typescript-eslint": "^8.57.0",
     "vitest": "^4.0.15"
   },
