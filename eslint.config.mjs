@@ -101,6 +101,7 @@ const config = defineConfig([
       '@eslint-react/rules-of-hooks': 'off',
       '@eslint-react/set-state-in-effect': 'off',
       '@eslint-react/use-state': 'off',
+      '@eslint-react/web-api-no-leaked-timeout': 'off',
     },
   },
 
