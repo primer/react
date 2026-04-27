@@ -96,6 +96,7 @@ const config = defineConfig([
       '@eslint-react/no-unnecessary-use-prefix': 'off',
       '@eslint-react/no-unstable-context-value': 'off',
       '@eslint-react/no-unstable-default-props': 'error',
+      '@eslint-react/rules-of-hooks': 'off',
       '@eslint-react/set-state-in-effect': 'off',
     },
   },
