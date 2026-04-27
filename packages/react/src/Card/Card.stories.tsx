@@ -25,12 +25,13 @@ export const Default = () => {
 type PlaygroundArgs = {
   showIcon: boolean
   showMetadata: boolean
-  padding: 'normal' | 'none'
+  padding: 'none' | 'condensed' | 'normal'
+  borderRadius: 'medium' | 'large'
 }
 
-export const Playground: StoryFn<PlaygroundArgs> = ({showIcon, showMetadata, padding}) => (
+export const Playground: StoryFn<PlaygroundArgs> = ({showIcon, showMetadata, padding, borderRadius}) => (
   <div style={{maxWidth: '400px'}}>
-    <Card padding={padding}>
+    <Card padding={padding} borderRadius={borderRadius}>
       {showIcon && <Card.Icon icon={RocketIcon} />}
       <Card.Heading>Playground Card</Card.Heading>
       <Card.Description>Experiment with the Card component and its subcomponents.</Card.Description>
@@ -43,6 +44,7 @@ Playground.args = {
   showIcon: true,
   showMetadata: true,
   padding: 'normal',
+  borderRadius: 'large',
 }
 
 Playground.argTypes = {
@@ -58,5 +60,10 @@ Playground.argTypes = {
     control: {type: 'radio'},
     options: ['none', 'condensed', 'normal'],
     description: 'Controls the internal padding of the Card',
+  },
+  borderRadius: {
+    control: {type: 'radio'},
+    options: ['medium', 'large'],
+    description: 'Controls the border radius of the Card',
   },
 }

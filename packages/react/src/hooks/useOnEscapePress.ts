@@ -54,7 +54,7 @@ export const useOnEscapePress = (
   onEscape: (e: KeyboardEvent) => void,
   callbackDependencies: React.DependencyList = [onEscape],
 ): void => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/use-memo
   const escapeCallback = useCallback(onEscape, callbackDependencies)
 
   const handler = useCallback<KeyboardEventCallback>(

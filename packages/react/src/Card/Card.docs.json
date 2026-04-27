@@ -26,6 +26,12 @@
       "type": "'none' | 'condensed' | 'normal'",
       "defaultValue": "'normal'",
       "description": "Controls the internal padding of the Card."
+    },
+    {
+      "name": "borderRadius",
+      "type": "'medium' | 'large'",
+      "defaultValue": "'large'",
+      "description": "Controls the border radius of the Card."
     }
   ],
   "subcomponents": [

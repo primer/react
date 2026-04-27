@@ -520,6 +520,7 @@ const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children
     const parentElement = document.getElementById(itemId)
     if (!parentElement) return
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSubTreeLabel(getAccessibleName(parentElement))
     if (previousState === 'loading' && state === 'done') {
       // Announce update to screen readers

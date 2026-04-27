@@ -560,15 +560,20 @@ export function FilteredActionList({
       />
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
       {onSelectAllChange !== undefined && (
-        <div className={classes.SelectAllContainer}>
+        <div className={classes.SelectAllContainer} data-component="FilteredActionList.SelectAll">
           <Checkbox
             id="select-all-checkbox"
             className={classes.SelectAllCheckbox}
             checked={selectAllChecked}
             indeterminate={selectAllIndeterminate}
             onChange={handleSelectAllChange}
+            data-component="FilteredActionList.SelectAllCheckbox"
           />
-          <label className={classes.SelectAllLabel} htmlFor="select-all-checkbox">
+          <label
+            className={classes.SelectAllLabel}
+            htmlFor="select-all-checkbox"
+            data-component="FilteredActionList.SelectAllLabel"
+          >
             {selectAllLabelText}
           </label>
         </div>
