@@ -28,11 +28,13 @@ function virtualEntry(id, code) {
       if (source === id) {
         return id
       }
+      return null
     },
     load(source) {
       if (source === id) {
         return code
       }
+      return null
     },
   }
 }
