@@ -1,8 +1,11 @@
+import {builtinModules} from 'node:module'
 import {defineConfig} from 'rolldown'
 import babel from '@rolldown/plugin-babel'
 import packageJson from './package.json' with {type: 'json'}
 
+const nodeBuiltins = builtinModules.flatMap(name => [name, `node:${name}`])
 const external = [
+  ...nodeBuiltins,
   ...Object.keys(packageJson.peerDependencies ?? {}),
   ...Object.keys(packageJson.dependencies ?? {}),
   ...Object.keys(packageJson.devDependencies ?? {}),

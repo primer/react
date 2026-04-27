@@ -1,6 +1,7 @@
+import {builtinModules} from 'node:module'
 import path from 'node:path'
 import babel from '@rolldown/plugin-babel'
-import {importCSS} from 'rollup-plugin-import-css'
+import {importCSS} from 'rolldown-plugin-import-css'
 import postcssPresetPrimer from 'postcss-preset-primer'
 import MagicString from 'magic-string'
 import {isSupported} from './script/react-compiler.mjs'
@@ -30,7 +31,9 @@ function getEntrypointsFromInput(input) {
   )
 }
 
+const nodeBuiltins = builtinModules.flatMap(name => [name, `node:${name}`])
 const dependencies = [
+  ...nodeBuiltins,
   ...Object.keys(packageJson.peerDependencies ?? {}),
   ...Object.keys(packageJson.dependencies ?? {}),
   ...Object.keys(packageJson.devDependencies ?? {}),

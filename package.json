@@ -2,7 +2,7 @@
   "name": "primer",
   "private": true,
   "workspaces": [
-    "packages/rollup-plugin-import-css",
+    "packages/rolldown-plugin-import-css",
     "packages/react",
     "packages/mcp",
     "packages/*",
