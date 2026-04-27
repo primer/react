@@ -123,6 +123,32 @@ const dialog = useDialogFoundation({open, onClose})
 - Parts use Foundations internally — they call `useComponentFoundation()` and spread prop-getters
 - Parts add Primer design tokens, CSS modules, and layout opinions
 - Parts are the building blocks for Ready-made (Layer 1)
+- All Parts must include `data-component` attributes per [ADR-023](./adr-023-stable-selectors-api.md)
+
+### Stable selectors (ADR-023)
+
+All Layer 2 Parts and Layer 1 Ready-made components must include `data-component` attributes as defined in [ADR-023](./adr-023-stable-selectors-api.md).
+
+**Rules:**
+- Root component: `data-component="ComponentName"` (e.g., `data-component="Dialog"`)
+- Sub-components match the React API: `data-component="ComponentName.PartName"` (e.g., `data-component="Dialog.Header"`)
+- State and modifier attributes (`data-width`, `data-size`, `data-variant`) remain separate — they describe state, not identity
+- Layer 3 (Foundations) does NOT add `data-component` — the consumer owns all markup
+- Internal CSS may target `data-component` selectors using `:where()` for zero specificity
+
+```html
+<!-- Layer 2 example: all parts have stable identifiers -->
+<dialog data-component="Dialog">
+  <div data-component="Dialog.Content" data-width="large" data-position-regular="center">
+    <header data-component="Dialog.Header">
+      <h2 data-component="Dialog.Title">Title</h2>
+      <button data-component="Dialog.CloseButton">✕</button>
+    </header>
+    <div data-component="Dialog.Body">Content</div>
+    <footer data-component="Dialog.Footer">...</footer>
+  </div>
+</dialog>
+```
 
 ### Layer 1 — Ready-made
 

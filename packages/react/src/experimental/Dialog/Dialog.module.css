@@ -52,11 +52,11 @@
   color: inherit;
 
   /* Sheet positions: override native <dialog> centering (margin: auto) */
-  &:has(> [data-position-regular='right']) {
+  &:has(> [data-component='Dialog.Content'][data-position-regular='right']) {
     margin-right: 0;
   }
 
-  &:has(> [data-position-regular='left']) {
+  &:has(> [data-component='Dialog.Content'][data-position-regular='left']) {
     margin-left: 0;
   }
 

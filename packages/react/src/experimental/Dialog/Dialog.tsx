@@ -59,7 +59,7 @@ const Root = React.forwardRef<HTMLDialogElement, DialogRootProps>(function Dialo
 
   return (
     <DialogContext.Provider value={ctx}>
-      <dialog {...dialogProps} ref={mergedRef} className={clsx(className, classes.Root)}>
+      <dialog {...dialogProps} ref={mergedRef} className={clsx(className, classes.Root)} data-component="Dialog">
         {children}
       </dialog>
     </DialogContext.Provider>
@@ -91,6 +91,7 @@ function Content({
   return (
     <div
       className={clsx(className, classes.Content)}
+      data-component="Dialog.Content"
       data-width={width}
       data-height={height}
       {...(align && {'data-align': align})}
@@ -104,7 +105,7 @@ Content.displayName = 'Dialog.Content'
 // --- Dialog.Header ---
 
 function Header({className, ...props}: React.ComponentProps<'header'>) {
-  return <header className={clsx(className, classes.Header)} {...props} />
+  return <header className={clsx(className, classes.Header)} data-component="Dialog.Header" {...props} />
 }
 Header.displayName = 'Dialog.Header'
 
@@ -114,7 +115,7 @@ function Title({className, ...props}: React.ComponentProps<'h2'>) {
   const {foundation} = useDialogContext()
   const titleProps = foundation.getTitleProps()
 
-  return <h2 {...titleProps} className={clsx(className, classes.Title)} {...props} />
+  return <h2 {...titleProps} className={clsx(className, classes.Title)} data-component="Dialog.Title" {...props} />
 }
 Title.displayName = 'Dialog.Title'
 
@@ -124,7 +125,7 @@ function Subtitle({className, ...props}: React.ComponentProps<'p'>) {
   const {foundation} = useDialogContext()
   const descriptionProps = foundation.getDescriptionProps()
 
-  return <p {...descriptionProps} className={clsx(className, classes.Subtitle)} {...props} />
+  return <p {...descriptionProps} className={clsx(className, classes.Subtitle)} data-component="Dialog.Subtitle" {...props} />
 }
 Subtitle.displayName = 'Dialog.Subtitle'
 
@@ -134,14 +135,14 @@ function Body({className, ...props}: React.ComponentProps<'div'>) {
   const {foundation} = useDialogContext()
   const bodyProps = foundation.getBodyProps()
 
-  return <div {...bodyProps} className={clsx(className, classes.Body)} {...props} />
+  return <div {...bodyProps} className={clsx(className, classes.Body)} data-component="Dialog.Body" {...props} />
 }
 Body.displayName = 'Dialog.Body'
 
 // --- Dialog.Footer ---
 
 function Footer({className, ...props}: React.ComponentProps<'footer'>) {
-  return <footer className={clsx(className, classes.Footer)} {...props} />
+  return <footer className={clsx(className, classes.Footer)} data-component="Dialog.Footer" {...props} />
 }
 Footer.displayName = 'Dialog.Footer'
 
@@ -162,6 +163,7 @@ function CloseButton({className}: DialogCloseButtonProps) {
       variant="invisible"
       onClick={closeProps.onClick}
       className={className}
+      data-component="Dialog.CloseButton"
     />
   )
 }
