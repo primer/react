@@ -11,7 +11,7 @@ export default {
 export const WithLinkWrappers = () => (
   <AvatarStack>
     <Link aria-label="Primer is assigned" href="#" className="pc-AvatarItem" data-hovercard-url="/primer">
-      <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/primer" />
+      <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/u/7143434?v=4" />
     </Link>
     <Link aria-label="GitHub is assigned" href="#" className="pc-AvatarItem" data-hovercard-url="/primer">
       <Avatar alt="GitHub logo" src="https://avatars.githubusercontent.com/github" />
