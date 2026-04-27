@@ -9,4 +9,4 @@ declare module '*.module.css' {
   export default classes
 }
 
-declare module '*.css'
+declare module '*.css' {}
