@@ -277,6 +277,11 @@ export const Tooltip: ForwardRefExoticComponent<
 
     // Normalize keybindingHint to an array for uniform rendering
     const keybindingHints = Array.isArray(keybindingHint) ? keybindingHint : [keybindingHint]
+    const childAriaDescribedBy = child.props['aria-describedby']
+    const ariaDescribedBy =
+      type === 'description'
+        ? [childAriaDescribedBy, tooltipId].filter(Boolean).join(' ') || undefined
+        : childAriaDescribedBy
 
     return (
       <TooltipContext.Provider value={value}>
@@ -286,21 +291,7 @@ export const Tooltip: ForwardRefExoticComponent<
               // @ts-expect-error it needs a non nullable ref
               ref: triggerRef,
               // If it is a type description, we use tooltip to describe the trigger
-              'aria-describedby': (() => {
-                // If tooltip is not a description type, keep the original aria-describedby
-                if (type !== 'description') {
-                  return child.props['aria-describedby']
-                }
-
-                // If tooltip is a description type, append our tooltipId
-                const existingDescribedBy = child.props['aria-describedby']
-                if (existingDescribedBy) {
-                  return `${existingDescribedBy} ${tooltipId}`
-                }
-
-                // If no existing aria-describedby, use our tooltipId
-                return tooltipId
-              })(),
+              'aria-describedby': ariaDescribedBy,
               // If it is a label type, we use tooltip to label the trigger
               'aria-labelledby': type === 'label' ? tooltipId : child.props['aria-labelledby'],
               onBlur: (event: React.FocusEvent) => {
