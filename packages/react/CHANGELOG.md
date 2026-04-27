@@ -1,5 +1,42 @@
 # @primer/react
 
+## 38.21.0
+
+### Minor Changes
+
+- [#7760](https://github.com/primer/react/pull/7760) [`b2e0efd`](https://github.com/primer/react/commit/b2e0efd04c61e526d8e7db6bc773f9b4ab155d72) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Deprecate the `useResponsiveValue` hook.
+
+- [#7724](https://github.com/primer/react/pull/7724) [`d813099`](https://github.com/primer/react/commit/d813099b7377be4eed329b4276e8b231054326c8) Thanks [@francinelucca](https://github.com/francinelucca)! - Add stable `data-component` selectors to multiple components following ADR-023:
+
+  - **ActionBar**
+  - **ActionList** and friends
+  - **Button**
+  - **FilteredActionList** and friends
+  - **Link**
+  - **LinkButton**
+  - **Pagination**
+  - **SelectPanel** and friends
+  - **Table** and friends
+  - **TextInput**
+  - **TextInputWithTokens**
+  - **TooltipV2**
+
+  This enables consumers to query and test components using stable selectors like `[data-component="Table.Row"]`.
+
+- [#7766](https://github.com/primer/react/pull/7766) [`b3f06f1`](https://github.com/primer/react/commit/b3f06f1e2c91125c7b6b035bd019f534219d358f) Thanks [@TylerJDev](https://github.com/TylerJDev)! - AnchoredOverlay: (Behind feature flag) Make popover API usage opt-in
+
+- [#7763](https://github.com/primer/react/pull/7763) [`b288d6e`](https://github.com/primer/react/commit/b288d6e2dc9d1eef345ef4d16f6b0fba4f165955) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Add borderRadius prop to Card component.
+
+### Patch Changes
+
+- [#7714](https://github.com/primer/react/pull/7714) [`e974d9f`](https://github.com/primer/react/commit/e974d9f6d156805dbda9639a3fe6091a02a1a754) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(ActionList): replace :has() selector with JS-computed attribute
+
+- [#7754](https://github.com/primer/react/pull/7754) [`9e3fe4b`](https://github.com/primer/react/commit/9e3fe4b501ce5affb558bf92697e5c79341903ca) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Breadcrumbs: On narrow viewports, only show the current page breadcrumb and the overflow menu when `overflow="menu"` is set.
+
+- [#7757](https://github.com/primer/react/pull/7757) [`ed82a1e`](https://github.com/primer/react/commit/ed82a1e0399b98428d4b794239bb37649806b5cc) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - SelectPanel: Lock body scroll when modal variant is on.
+
+- [#7734](https://github.com/primer/react/pull/7734) [`421ebf0`](https://github.com/primer/react/commit/421ebf0a54558a29f1efbe1850036f80b1bbe126) Thanks [@llastflowers](https://github.com/llastflowers)! - add data-component attributes for Avatar, AvatarStack, Banner, & BaseStyles
+
 ## 38.20.0
 
 ### Minor Changes

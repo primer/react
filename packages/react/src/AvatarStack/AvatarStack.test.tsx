@@ -6,18 +6,18 @@ import classes from './AvatarStack.module.css'
 
 const avatarComp = (
   <AvatarStack>
-    <img src="https://avatars.githubusercontent.com/primer" alt="" />
+    <img src="https://avatars.githubusercontent.com/u/7143434?v=4" alt="" />
     <img src="https://avatars.githubusercontent.com/github" alt="" />
-    <img src="https://avatars.githubusercontent.com/primer" alt="" />
+    <img src="https://avatars.githubusercontent.com/u/7143434?v=4" alt="" />
     <img src="https://avatars.githubusercontent.com/github" alt="" />
   </AvatarStack>
 )
 
 const rightAvatarComp = (
   <AvatarStack alignRight>
-    <img src="https://avatars.githubusercontent.com/primer" alt="" />
+    <img src="https://avatars.githubusercontent.com/u/7143434?v=4" alt="" />
     <img src="https://avatars.githubusercontent.com/github" alt="" />
-    <img src="https://avatars.githubusercontent.com/primer" alt="" />
+    <img src="https://avatars.githubusercontent.com/u/7143434?v=4" alt="" />
     <img src="https://avatars.githubusercontent.com/github" alt="" />
   </AvatarStack>
 )
@@ -62,7 +62,7 @@ describe('AvatarStack', () => {
   it('should not have a tabindex if disableExpand is true', () => {
     const {container} = render(
       <AvatarStack disableExpand>
-        <img src="https://avatars.githubusercontent.com/primer" alt="" />
+        <img src="https://avatars.githubusercontent.com/u/7143434?v=4" alt="" />
         <img src="https://avatars.githubusercontent.com/github" alt="" />
       </AvatarStack>,
     )
@@ -73,7 +73,7 @@ describe('AvatarStack', () => {
     const style = {backgroundColor: 'red'}
     const {container} = render(
       <AvatarStack style={style}>
-        <img src="https://avatars.githubusercontent.com/primer" alt="" />
+        <img src="https://avatars.githubusercontent.com/u/7143434?v=4" alt="" />
         <img src="https://avatars.githubusercontent.com/github" alt="" />
       </AvatarStack>,
     )
