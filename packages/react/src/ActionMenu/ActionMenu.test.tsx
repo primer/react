@@ -2,6 +2,7 @@ import {describe, expect, it, vi, beforeEach} from 'vitest'
 import {render as HTMLRender, waitFor, act, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import type React from 'react'
+import {useRef, useState} from 'react'
 import BaseStyles from '../BaseStyles'
 import {ActionMenu, ActionList, Button, IconButton, Dialog} from '..'
 import Tooltip from '../Tooltip'
@@ -91,6 +92,38 @@ function ExampleWithTooltipV2(actionMenuTrigger: React.ReactElement<any>): JSX.E
         </ActionMenu.Overlay>
       </ActionMenu>
     </BaseStyles>
+  )
+}
+
+function ExampleWithReplaceableAnchor(): JSX.Element {
+  const anchorRef = useRef<HTMLButtonElement>(null)
+  const [open, setOpen] = useState(false)
+  const [anchorKey, setAnchorKey] = useState(0)
+
+  return (
+    <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+      <BaseStyles>
+        <Button key={anchorKey} ref={anchorRef} onClick={() => setOpen(o => !o)}>
+          Open menu
+        </Button>
+        <ActionMenu anchorRef={anchorRef} open={open} onOpenChange={setOpen}>
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item
+                onSelect={event => {
+                  // Prevent the menu from closing so the overlay stays mounted
+                  event.preventDefault()
+                  setAnchorKey(k => k + 1)
+                }}
+              >
+                Switch anchor
+              </ActionList.Item>
+              <ActionList.Item>Item one</ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+      </BaseStyles>
+    </FeatureFlags>
   )
 }
 
@@ -736,6 +769,35 @@ describe('ActionMenu', () => {
       )
       const button = component.getByRole('button', {name: 'Toggle Menu'})
       expect(button).toHaveClass('test-class')
+    })
+
+    it('keeps anchor-name and position-anchor linked when the anchor is replaced while the menu is open', async () => {
+      const user = userEvent.setup()
+      const component = HTMLRender(<ExampleWithReplaceableAnchor />)
+
+      const initialAnchor = component.getByRole('button', {name: 'Open menu'})
+      await user.click(initialAnchor)
+
+      const overlay = component.baseElement.querySelector('[data-component="AnchoredOverlay"]') as HTMLElement
+      expect(overlay).not.toBeNull()
+
+      const initialAnchorName = initialAnchor.style.getPropertyValue('anchor-name')
+      const initialPositionAnchor = overlay.style.getPropertyValue('position-anchor')
+      expect(initialAnchorName).not.toBe('')
+      expect(initialPositionAnchor).not.toBe('')
+      expect(initialPositionAnchor).toBe(initialAnchorName)
+
+      // Click the item that remounts the anchor while keeping the menu open
+      const switchItem = component.getByRole('menuitem', {name: 'Switch anchor'})
+      await user.click(switchItem)
+
+      const newAnchor = component.getByRole('button', {name: 'Open menu'})
+      expect(newAnchor).not.toBe(initialAnchor)
+
+      // The new anchor should have the same anchor-name re-applied, and the
+      // overlay should still reference it via position-anchor.
+      expect(newAnchor.style.getPropertyValue('anchor-name')).toBe(initialAnchorName)
+      expect(overlay.style.getPropertyValue('position-anchor')).toBe(initialPositionAnchor)
     })
   })
 

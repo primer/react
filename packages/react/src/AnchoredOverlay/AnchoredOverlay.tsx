@@ -247,6 +247,10 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       anchorOffset,
       displayInViewport,
       onPositionChange: positionChange,
+      // When native CSS anchor positioning is active, skip JS-based position
+      // computation, scroll listeners, and resize observers since the browser
+      // handles repositioning natively.
+      enabled: !cssAnchorPositioning,
     },
 
     [overlayElement],
@@ -261,10 +265,14 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
   useFocusZone({
     containerRef: overlayRef,
-    disabled: !open || !position,
+    disabled: !open || (!position && !cssAnchorPositioning),
     ...focusZoneSettings,
   })
-  useFocusTrap({containerRef: overlayRef, disabled: !open || !position, ...focusTrapSettings})
+  useFocusTrap({
+    containerRef: overlayRef,
+    disabled: !open || (!position && !cssAnchorPositioning),
+    ...focusTrapSettings,
+  })
 
   const popoverId = useId()
   const id = popoverId.replaceAll(':', '_') // popoverId can contain colons which are invalid in CSS custom property names, so we replace them with underscores
@@ -277,17 +285,25 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     // Link the anchor and the overlay (when present) via CSS anchor positioning.
     anchorElement.style.setProperty('anchor-name', `--anchored-overlay-anchor-${id}`)
 
+    let rafId: number | null = null
     if (open && currentOverlay) {
       currentOverlay.style.setProperty('position-anchor', `--anchored-overlay-anchor-${id}`)
 
-      const overlayWidth = width ? parseInt(widthMap[width]) : null
-      const result = getDefaultPosition(anchorElement, overlayWidth)
+      // Defer the getBoundingClientRect read into a rAF so the style write above
+      // does not force a synchronous layout. This matters when many overlays open
+      // simultaneously: each effect would otherwise trigger a full-document layout
+      // immediately after writing `anchor-name`/`position-anchor`.
+      rafId = requestAnimationFrame(() => {
+        rafId = null
+        const overlayWidth = width ? parseInt(widthMap[width]) : null
+        const result = getDefaultPosition(anchorElement, overlayWidth)
 
-      currentOverlay.setAttribute('data-align', result.horizontal)
+        currentOverlay.setAttribute('data-align', result.horizontal)
 
-      // Apply offset only when viewport is too narrow
-      const offset = result.horizontal === 'left' ? result.leftOffset : result.rightOffset
-      currentOverlay.style.setProperty(`--anchored-overlay-anchor-offset-${result.horizontal}`, `${offset || 0}px`)
+        // Apply offset only when viewport is too narrow
+        const offset = result.horizontal === 'left' ? result.leftOffset : result.rightOffset
+        currentOverlay.style.setProperty(`--anchored-overlay-anchor-offset-${result.horizontal}`, `${offset || 0}px`)
+      })
 
       // Only call showPopover when shouldRenderAsPopover is enabled
       if (shouldRenderAsPopover) {
@@ -302,6 +318,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     }
 
     return () => {
+      if (rafId !== null) cancelAnimationFrame(rafId)
       anchorElement.style.removeProperty('anchor-name')
       // The overlay may no longer be in the DOM at this point, so we need to check for its presence before trying to update it.
       if (currentOverlay) {

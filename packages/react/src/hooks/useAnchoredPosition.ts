@@ -31,6 +31,12 @@ export interface AnchoredPositionHookSettings extends Partial<PositionSettings> 
   anchorElementRef?: React.RefObject<Element | null>
   pinPosition?: boolean
   onPositionChange?: (position: AnchorPosition | undefined) => void
+  /**
+   * When false, skips position computation, scroll listeners, and resize
+   * observers. Useful when an external mechanism (e.g. native CSS anchor
+   * positioning) is handling positioning instead. Defaults to true.
+   */
+  enabled?: boolean
 }
 
 /**
@@ -52,6 +58,7 @@ export function useAnchoredPosition(
 } {
   const floatingElementRef = useProvidedRefOrCreate(settings?.floatingElementRef)
   const anchorElementRef = useProvidedRefOrCreate(settings?.anchorElementRef)
+  const enabled = settings?.enabled ?? true
   const savedOnPositionChange = React.useRef(settings?.onPositionChange)
   const [position, setPosition] = React.useState<AnchorPosition | undefined>(undefined)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -83,6 +90,7 @@ export function useAnchoredPosition(
 
   const updatePosition = React.useCallback(
     () => {
+      if (!enabled) return
       if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
         const newPosition = getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings)
         setPosition(prev => {
@@ -109,7 +117,7 @@ export function useAnchoredPosition(
       setPrevHeight(floatingElementRef.current?.clientHeight)
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/use-memo
-    [floatingElementRef, anchorElementRef, ...dependencies],
+    [floatingElementRef, anchorElementRef, enabled, ...dependencies],
   )
 
   useLayoutEffect(() => {
@@ -124,6 +132,7 @@ export function useAnchoredPosition(
   // Recalculate position when any scrollable ancestor of the anchor scrolls.
   // Uses requestAnimationFrame to avoid layout thrashing during scroll.
   React.useEffect(() => {
+    if (!enabled) return
     const anchorEl = anchorElementRef.current
     if (!anchorEl) return
 
@@ -150,7 +159,7 @@ export function useAnchoredPosition(
         cancelAnimationFrame(rafId)
       }
     }
-  }, [anchorElementRef, updatePosition])
+  }, [anchorElementRef, updatePosition, enabled])
 
   return {
     floatingElementRef,
