@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useMemo} from 'react'
+import React, {createContext, useCallback, useContext, useMemo} from 'react'
 import {clsx} from 'clsx'
 import {
   useDialogFoundation,
@@ -36,16 +36,30 @@ interface DialogRootProps extends UseDialogFoundationOptions {
 
 const Root = React.forwardRef<HTMLDialogElement, DialogRootProps>(function DialogRoot(
   {children, className, ...options},
-  _forwardedRef,
+  forwardedRef,
 ) {
   const foundation = useDialogFoundation(options)
   const dialogProps = foundation.getDialogProps()
+
+  // Merge the foundation ref callback with the consumer's forwarded ref
+  const foundationRef = dialogProps.ref
+  const mergedRef = useCallback(
+    (node: HTMLDialogElement | null) => {
+      foundationRef(node)
+      if (typeof forwardedRef === 'function') {
+        forwardedRef(node)
+      } else if (forwardedRef) {
+        forwardedRef.current = node
+      }
+    },
+    [foundationRef, forwardedRef],
+  )
 
   const ctx = useMemo(() => ({foundation}), [foundation])
 
   return (
     <DialogContext.Provider value={ctx}>
-      <dialog {...dialogProps} className={clsx(className, classes.Root)}>
+      <dialog {...dialogProps} ref={mergedRef} className={clsx(className, classes.Root)}>
         {children}
       </dialog>
     </DialogContext.Provider>

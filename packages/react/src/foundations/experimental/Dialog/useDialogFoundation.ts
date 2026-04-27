@@ -149,9 +149,22 @@ export function useDialogFoundation(options: UseDialogFoundationOptions): UseDia
       onClose('escape')
     }
 
+    // Guard: if native close happens without going through onClose
+    // (e.g. dialog.close() called directly), re-sync state.
+    const handleClose = () => {
+      if (open && !dialog.open) {
+        // Native dialog was closed externally — re-open to maintain controlled contract
+        dialog.showModal()
+      }
+    }
+
     dialog.addEventListener('cancel', handleCancel)
-    return () => dialog.removeEventListener('cancel', handleCancel)
-  }, [onClose])
+    dialog.addEventListener('close', handleClose)
+    return () => {
+      dialog.removeEventListener('cancel', handleCancel)
+      dialog.removeEventListener('close', handleClose)
+    }
+  }, [onClose, open])
 
   // Backdrop click detection
   const handleClick = useCallback(
