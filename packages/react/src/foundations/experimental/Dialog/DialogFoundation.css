@@ -1,8 +1,8 @@
 /* Foundation reset — no visual opinion.
  * Removes browser defaults that interfere with correct behavior.
- * Consumers must provide their own styling including backdrop. */
+ * Uses :where() for zero specificity so Layer 2 styles always win. */
 
-dialog[data-dialog-foundation] {
+:where(dialog[data-dialog-foundation]) {
   border: none;
   padding: 0;
   background: transparent;
@@ -11,6 +11,6 @@ dialog[data-dialog-foundation] {
   color: inherit;
 }
 
-dialog[data-dialog-foundation]::backdrop {
+:where(dialog[data-dialog-foundation])::backdrop {
   background: transparent;
 }
