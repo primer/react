@@ -1,18 +1,18 @@
 import {useState, useRef, useCallback} from 'react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
-import {ReadyMadeDialog} from './ReadyMadeDialog'
+import {Dialog} from './ReadyMadeDialog'
 import {Button} from '../../Button'
 import Text from '../../Text'
 
 /**
  * Layer 1 — Ready-made Dialog stories.
  *
- * The simplest API: a single `<ReadyMadeDialog>` component with props for
+ * The simplest API: a single `<Dialog>` component with props for
  * title, subtitle, footer buttons, and children as body content.
  */
-const meta: Meta<typeof ReadyMadeDialog> = {
+const meta: Meta<typeof Dialog> = {
   title: 'Experimental/Dialog/ReadyMade',
-  component: ReadyMadeDialog,
+  component: Dialog,
   parameters: {
     controls: {expanded: true},
   },
@@ -34,7 +34,7 @@ export const Default: StoryObj = {
           Open dialog
         </Button>
 
-        <ReadyMadeDialog
+        <Dialog
           open={open}
           onClose={onClose}
           title="Ready-made Dialog"
@@ -48,7 +48,7 @@ export const Default: StoryObj = {
           <Text as="p">
             This dialog is built with a single component. Title, subtitle, and footer buttons are all props.
           </Text>
-        </ReadyMadeDialog>
+        </Dialog>
       </>
     )
   },
@@ -68,7 +68,7 @@ export const Alert: StoryObj = {
           Delete repository
         </Button>
 
-        <ReadyMadeDialog
+        <Dialog
           open={open}
           onClose={onClose}
           title="Delete this repository?"
@@ -83,7 +83,7 @@ export const Alert: StoryObj = {
           <Text as="p">
             Once deleted, all data including issues, pull requests, and actions will be permanently removed.
           </Text>
-        </ReadyMadeDialog>
+        </Dialog>
       </>
     )
   },
@@ -101,9 +101,9 @@ export const NoFooter: StoryObj = {
       <>
         <Button onClick={() => setOpen(true)}>Open info dialog</Button>
 
-        <ReadyMadeDialog open={open} onClose={onClose} title="Information">
+        <Dialog open={open} onClose={onClose} title="Information">
           <Text as="p">This dialog has no footer buttons. Close it with the X button or press Escape.</Text>
-        </ReadyMadeDialog>
+        </Dialog>
       </>
     )
   },
@@ -121,7 +121,7 @@ export const SideSheet: StoryObj = {
       <>
         <Button onClick={() => setOpen(true)}>Open side sheet</Button>
 
-        <ReadyMadeDialog
+        <Dialog
           open={open}
           onClose={onClose}
           title="Settings"
@@ -131,7 +131,7 @@ export const SideSheet: StoryObj = {
           footerButtons={[{buttonType: 'primary', content: 'Done', onClick: onClose}]}
         >
           <Text as="p">A side sheet that slides in from the right. Click the backdrop to dismiss.</Text>
-        </ReadyMadeDialog>
+        </Dialog>
       </>
     )
   },
@@ -149,7 +149,7 @@ export const AutoFocusButton: StoryObj = {
       <>
         <Button onClick={() => setOpen(true)}>Confirm action</Button>
 
-        <ReadyMadeDialog
+        <Dialog
           open={open}
           onClose={onClose}
           title="Confirm"
@@ -160,7 +160,7 @@ export const AutoFocusButton: StoryObj = {
           ]}
         >
           <Text as="p">The &ldquo;Confirm&rdquo; button receives focus automatically.</Text>
-        </ReadyMadeDialog>
+        </Dialog>
       </>
     )
   },

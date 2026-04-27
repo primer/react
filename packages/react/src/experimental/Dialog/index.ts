@@ -1,4 +1,4 @@
-export {Dialog} from './Dialog'
+export {DialogParts} from './Dialog'
 export type {DialogRootProps, DialogContentProps} from './Dialog'
-export {ReadyMadeDialog} from './ReadyMadeDialog'
-export type {ReadyMadeDialogProps, DialogButtonProps} from './ReadyMadeDialog'
+export {Dialog} from './ReadyMadeDialog'
+export type {DialogProps, DialogButtonProps} from './ReadyMadeDialog'

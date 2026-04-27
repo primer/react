@@ -162,7 +162,7 @@ CloseButton.displayName = 'Dialog.CloseButton'
 
 // --- Compose ---
 
-export const Dialog = Object.assign(Root, {
+export const DialogParts = Object.assign(Root, {
   Content,
   Header,
   Title,

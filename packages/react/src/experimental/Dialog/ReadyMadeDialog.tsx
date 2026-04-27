@@ -2,7 +2,7 @@ import React, {useCallback, useRef} from 'react'
 import type {ButtonProps} from '../../Button'
 import {Button} from '../../Button'
 import type {ResponsiveValue} from '../../hooks/useResponsiveValue'
-import {Dialog as DialogParts} from './Dialog'
+import {DialogParts} from './Dialog'
 
 // --- Types ---
 
@@ -18,7 +18,7 @@ export type DialogButtonProps = Omit<ButtonProps, 'content'> & {
   autoFocus?: boolean
 }
 
-export interface ReadyMadeDialogProps {
+export interface DialogProps {
   /** Whether the dialog is open */
   open: boolean
 
@@ -73,7 +73,7 @@ const buttonTypeToVariant: Record<string, ButtonProps['variant']> = {
   danger: 'danger',
 }
 
-export const ReadyMadeDialog = React.forwardRef<HTMLDialogElement, ReadyMadeDialogProps>(function ReadyMadeDialog(
+export const Dialog = React.forwardRef<HTMLDialogElement, DialogProps>(function Dialog(
   {
     open,
     title,
@@ -140,4 +140,4 @@ export const ReadyMadeDialog = React.forwardRef<HTMLDialogElement, ReadyMadeDial
   )
 })
 
-ReadyMadeDialog.displayName = 'ReadyMadeDialog'
+Dialog.displayName = 'Dialog'
