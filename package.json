@@ -90,7 +90,7 @@
     "size-limit": "11.2.0",
     "storybook": "^10.3.3",
     "stylelint": "17.4.0",
-    "turbo": "^2.6.3",
+    "turbo": "^2.9.6",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.57.0",
     "vitest": "^4.0.15"
