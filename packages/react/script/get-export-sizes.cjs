@@ -3,12 +3,8 @@
 const fs = require('node:fs/promises')
 const path = require('node:path')
 const core = require('@actions/core')
-const commonjs = require('@rollup/plugin-commonjs')
-const {nodeResolve} = require('@rollup/plugin-node-resolve')
-const virtual = require('@rollup/plugin-virtual')
-const json = require('@rollup/plugin-json')
 const {filesize} = require('filesize')
-const {rollup} = require('rollup')
+const {rolldown} = require('rolldown')
 const {minify} = require('terser')
 const gzipSize = require('gzip-size')
 
@@ -23,6 +19,22 @@ const noopCSSModules = {
       code: `export default {}`,
     }
   },
+}
+
+function virtualEntry(id, code) {
+  return {
+    name: 'virtual-entry',
+    resolveId(source) {
+      if (source === id) {
+        return id
+      }
+    },
+    load(source) {
+      if (source === id) {
+        return code
+      }
+    },
+  }
 }
 
 async function main() {
@@ -47,17 +59,10 @@ async function main() {
     core.info(`Analyzing entrypoint:  ${entrypoint.entrypoint}`)
 
     const filepath = path.resolve(rootDirectory, entrypoint.filepath)
-    const bundle = await rollup({
+    const bundle = await rolldown({
       input: filepath,
       external,
-      plugins: [
-        nodeResolve(),
-        commonjs({
-          include: [/node_modules/],
-        }),
-        json(),
-        noopCSSModules,
-      ],
+      plugins: [noopCSSModules],
       onwarn: () => {},
     })
     const {output} = await bundle.generate({
@@ -71,20 +76,10 @@ async function main() {
     for (const identifier of output[0].exports) {
       core.info(`Analyzing export: ${identifier}`)
 
-      const reexport = await rollup({
+      const reexport = await rolldown({
         input: '__entrypoint__',
         external,
-        plugins: [
-          nodeResolve(),
-          commonjs({
-            include: /node_modules/,
-          }),
-          noopCSSModules,
-          json(),
-          virtual({
-            __entrypoint__: `export { ${identifier} } from '${filepath}';`,
-          }),
-        ],
+        plugins: [noopCSSModules, virtualEntry('__entrypoint__', `export { ${identifier} } from '${filepath}';`)],
         onwarn: () => {},
       })
       const {output} = await reexport.generate({

@@ -1,9 +1,34 @@
-import babel from '@rollup/plugin-babel'
-import nodeResolve from '@rollup/plugin-node-resolve'
-import {defineConfig} from 'rollup'
-import typescript from 'rollup-plugin-typescript2'
-import packageJson from './package.json' with {type: 'json'}
+import path from 'node:path'
+import babel from '@rolldown/plugin-babel'
+import {importCSS} from 'rollup-plugin-import-css'
+import postcssPresetPrimer from 'postcss-preset-primer'
 import MagicString from 'magic-string'
+import {isSupported} from './script/react-compiler.mjs'
+import packageJson from './package.json' with {type: 'json'}
+
+const input = new Set([
+  // "exports"
+  // "."
+  'src/index.ts',
+
+  // "./experimental"
+  'src/experimental/index.ts',
+
+  // "./deprecated"
+  'src/deprecated/index.ts',
+
+  // "./next"
+  'src/next/index.ts',
+])
+
+function getEntrypointsFromInput(input) {
+  return Object.fromEntries(
+    Array.from(input).map(value => {
+      const relativePath = path.relative('src', value)
+      return [path.join(path.dirname(relativePath), path.basename(relativePath, path.extname(relativePath))), value]
+    }),
+  )
+}
 
 const dependencies = [
   ...Object.keys(packageJson.peerDependencies ?? {}),
@@ -15,22 +40,62 @@ function createPackageRegex(name) {
   return new RegExp(`^${name}(/.*)?`)
 }
 
-export default defineConfig({
-  input: ['src/index.tsx', 'src/experimental.tsx', 'src/deprecated.tsx'],
-  external: dependencies.map(createPackageRegex),
+const postcssModulesOptions = {
+  generateScopedName: 'prc-[folder]-[local]-[hash:base64:5]',
+}
+
+const baseConfig = {
+  input: {
+    ...getEntrypointsFromInput(input),
+    // "./test-helpers"
+    'test-helpers': 'src/utils/test-helpers.tsx',
+  },
   plugins: [
-    typescript({
-      tsconfig: 'tsconfig.build.json',
-    }),
-    nodeResolve({extensions: ['.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs']}),
     babel({
-      presets: ['@babel/preset-typescript', ['@babel/preset-react', {runtime: 'automatic'}]],
-      plugins: ['babel-plugin-styled-components'],
-      extensions: ['.ts', '.tsx'],
-      babelHelpers: 'bundled',
+      include: /\.[cm]?[jt]sx?$/,
+      exclude: /node_modules/,
+      presets: [
+        '@babel/preset-typescript',
+        [
+          '@babel/preset-react',
+          {
+            modules: false,
+            runtime: 'automatic',
+          },
+        ],
+      ],
+      plugins: [
+        [
+          'babel-plugin-react-compiler',
+          {
+            target: '18',
+            sources: filepath => isSupported(filepath),
+          },
+        ],
+        'macros',
+        'add-react-displayname',
+        'dev-expression',
+        'babel-plugin-styled-components',
+        '@babel/plugin-proposal-nullish-coalescing-operator',
+        '@babel/plugin-proposal-optional-chaining',
+        [
+          'babel-plugin-transform-replace-expressions',
+          {
+            replace: {
+              __DEV__: "process.env.NODE_ENV !== 'production'",
+            },
+          },
+        ],
+      ],
     }),
+    importCSS({
+      modulesRoot: 'src',
+      postcssPlugins: [postcssPresetPrimer()],
+      postcssModulesOptions,
+    }),
+
     /**
-     * This custom rollup plugin allows us to preserve directives in source
+     * This custom Rolldown plugin allows us to preserve directives in source
      * code, such as "use client", in order to support React Server Components.
      *
      * The source for this plugin is inspired by:
@@ -131,10 +196,18 @@ export default defineConfig({
 
     defaultHandler(warning)
   },
-  output: {
-    dir: 'dist',
-    format: 'esm',
-    preserveModules: true,
-    preserveModulesRoot: 'src',
+}
+
+export default [
+  // ESM
+  {
+    ...baseConfig,
+    external: dependencies.map(createPackageRegex),
+    output: {
+      dir: 'dist',
+      format: 'esm',
+      preserveModules: true,
+      preserveModulesRoot: 'src',
+    },
   },
-})
+]
