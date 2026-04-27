@@ -1,20 +1,19 @@
 # Dialog — 4-Layer Component Spec
 
 > **Status:** Draft
-> **Issue:** [core-ux#2267](https://github.com/github/core-ux/issues/2267)
-> **Authors:** Lukas Oppermann
+> **Issue:** [core-ux#2267](https://github.com/github/core-ux/issues/2267) > **Authors:** Lukas Oppermann
 > **Last updated:** 2026-04-27
 
 ## Overview
 
 This document defines the Dialog component across all four layers of the [modular component architecture](https://github.com/github/primer/issues/6546):
 
-| Layer | Name | What it provides |
-|-------|------|-----------------|
-| 4 | **Hooks** | Behavioral primitives — state, keyboard, focus, ARIA attributes |
-| 3 | **Foundations** | Compound hook with prop-getters — consumer controls markup, foundation wires a11y |
-| 2 | **Parts** | Primer-styled compositional components |
-| 1 | **Ready-made** | Props-based API — drop in and go |
+| Layer | Name            | What it provides                                                                  |
+| ----- | --------------- | --------------------------------------------------------------------------------- |
+| 4     | **Hooks**       | Behavioral primitives — state, keyboard, focus, ARIA attributes                   |
+| 3     | **Foundations** | Compound hook with prop-getters — consumer controls markup, foundation wires a11y |
+| 2     | **Parts**       | Primer-styled compositional components                                            |
+| 1     | **Ready-made**  | Props-based API — drop in and go                                                  |
 
 Each layer builds on the one below. Most consumers use Layer 1. Teams needing custom layouts use Layer 2. Teams needing custom visuals use Layer 3. Teams needing full control over markup use Layer 4.
 
@@ -30,18 +29,18 @@ The spec is grounded in two web standards. Where we follow them, we don't need t
 
 The native `<dialog>` element ([MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)) provides significant built-in behavior when used with `showModal()`:
 
-| Capability | How it works |
-|-----------|-------------|
-| **Modal behavior** | Background becomes inert — no interaction possible outside the dialog |
-| **Focus trapping** | Tab/Shift+Tab cycle within the dialog automatically |
-| **Escape to close** | Fires a `cancel` event, closes the dialog |
-| **Top layer rendering** | Rendered above all other content, no z-index management needed |
-| **`::backdrop` pseudo-element** | Styleable backdrop behind the modal |
-| **`autofocus` attribute** | Focuses the marked element when the dialog opens |
-| **Focus restoration** | Returns focus to the previously-focused element on close |
-| **`closedby` attribute** | Controls which gestures can close the dialog (`any`, `closerequest`, `none`) |
-| **Form integration** | `<form method="dialog">` closes the dialog on submit, sets `returnValue` |
-| **`returnValue`** | String value set when the dialog is closed via form submission |
+| Capability                      | How it works                                                                 |
+| ------------------------------- | ---------------------------------------------------------------------------- |
+| **Modal behavior**              | Background becomes inert — no interaction possible outside the dialog        |
+| **Focus trapping**              | Tab/Shift+Tab cycle within the dialog automatically                          |
+| **Escape to close**             | Fires a `cancel` event, closes the dialog                                    |
+| **Top layer rendering**         | Rendered above all other content, no z-index management needed               |
+| **`::backdrop` pseudo-element** | Styleable backdrop behind the modal                                          |
+| **`autofocus` attribute**       | Focuses the marked element when the dialog opens                             |
+| **Focus restoration**           | Returns focus to the previously-focused element on close                     |
+| **`closedby` attribute**        | Controls which gestures can close the dialog (`any`, `closerequest`, `none`) |
+| **Form integration**            | `<form method="dialog">` closes the dialog on submit, sets `returnValue`     |
+| **`returnValue`**               | String value set when the dialog is closed via form submission               |
 
 **Browser support:** `<dialog>` and `showModal()` are supported in all evergreen browsers. The `closedby` attribute is newer (Chrome 134+, Firefox 137+) — may need a polyfill or fallback for older browsers.
 
@@ -51,20 +50,20 @@ The [APG dialog-modal pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-m
 
 #### Roles, States, and Properties
 
-| Requirement | Details |
-|------------|---------|
-| Container has `role="dialog"` | Native `<dialog>` provides this implicitly |
-| `aria-modal="true"` | Set on the dialog container. Native `showModal()` sets this implicitly |
-| `aria-labelledby` or `aria-label` | References a visible title element, or provides a direct label |
-| `aria-describedby` (optional) | References content describing the dialog's purpose. Omit when content has complex semantic structure (lists, tables) — screen readers announce it as a flat string |
+| Requirement                       | Details                                                                                                                                                            |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Container has `role="dialog"`     | Native `<dialog>` provides this implicitly                                                                                                                         |
+| `aria-modal="true"`               | Set on the dialog container. Native `showModal()` sets this implicitly                                                                                             |
+| `aria-labelledby` or `aria-label` | References a visible title element, or provides a direct label                                                                                                     |
+| `aria-describedby` (optional)     | References content describing the dialog's purpose. Omit when content has complex semantic structure (lists, tables) — screen readers announce it as a flat string |
 
 #### Keyboard Interaction
 
-| Key | Behavior |
-|-----|----------|
-| **Tab** | Moves focus to the next tabbable element inside the dialog. Wraps from last to first. |
-| **Shift+Tab** | Moves focus to the previous tabbable element. Wraps from first to last. |
-| **Escape** | Closes the dialog. |
+| Key           | Behavior                                                                              |
+| ------------- | ------------------------------------------------------------------------------------- |
+| **Tab**       | Moves focus to the next tabbable element inside the dialog. Wraps from last to first. |
+| **Shift+Tab** | Moves focus to the previous tabbable element. Wraps from first to last.               |
+| **Escape**    | Closes the dialog.                                                                    |
 
 #### Focus Management
 
@@ -171,6 +170,7 @@ function useDialog(options: UseDialogOptions): UseDialogReturn
 ```
 
 **Behavior:**
+
 - Calls `dialogRef.current.showModal()` when `open` transitions to `true`
 - Calls `dialogRef.current.close()` when `open` transitions to `false`
 - Intercepts the native `cancel` event (Escape key): calls `preventDefault()` to prevent the browser from closing the dialog, then calls `onClose('escape')`. The dialog only closes when the consumer sets `open` to `false`. This is the **controlled close contract** — React state is the single source of truth.
@@ -182,6 +182,7 @@ function useDialog(options: UseDialogOptions): UseDialogReturn
 **Controlled close contract:**
 
 The dialog is fully controlled by the `open` prop. Native close paths are intercepted:
+
 - **`cancel` event (Escape):** Intercepted with `preventDefault()`, routed to `onClose('escape')`
 - **`close` event:** Should only fire as a result of our `dialogRef.close()` call when `open` becomes `false`
 - **`<form method="dialog">`:** Not supported in this API. Forms inside the dialog should use standard submit handlers and call `onClose` explicitly. This avoids the dialog closing outside React's control.
@@ -191,6 +192,7 @@ The dialog is fully controlled by the `open` prop. Native close paths are interc
 **Why not just use native `<dialog>` directly?**
 
 Native `<dialog>` handles most of this, but the hook adds:
+
 - Controlled open/close state (React-managed, not imperative) with cancel event interception
 - `initialFocusRef` / `returnFocusRef` for precise focus control beyond what `autofocus` offers
 - Scroll lock on body (native makes background inert but doesn't prevent scroll)
@@ -242,6 +244,7 @@ function useScrollLock(options: UseScrollLockOptions): void
 ```
 
 **Behavior:**
+
 - Sets `overflow: hidden` on `document.body`
 - Compensates for scrollbar removal to prevent layout shift (sets `padding-right` equal to scrollbar width)
 - Cleans up when disabled or unmounted
@@ -343,7 +346,9 @@ function MyCustomDialog({open, onClose}) {
       <header>
         <h2 {...dialog.getTitleProps()}>Confirm changes</h2>
         <p {...dialog.getDescriptionProps()}>This action cannot be undone.</p>
-        <button {...dialog.getCloseProps()} aria-label="Close">✕</button>
+        <button {...dialog.getCloseProps()} aria-label="Close">
+          ✕
+        </button>
       </header>
       <div {...dialog.getBodyProps()}>
         <p>Are you sure you want to proceed?</p>
@@ -369,11 +374,13 @@ function MyCustomDialog({open, onClose}) {
 ### Accessible name contract
 
 Every dialog MUST have an accessible name:
+
 - If `getTitleProps()` is spread onto an element → `aria-labelledby` is auto-wired (preferred)
 - If no title → `aria-label` option is required
 - A dev-mode warning fires if neither is provided
 
 > **Deviation from current implementation:** The current Dialog uses `<div role="dialog">` rendered inside a Portal. Foundations switch to native `<dialog>` because:
+>
 > 1. Native `<dialog>` with `showModal()` renders in the top layer — no Portal or z-index needed
 > 2. Background is automatically inert — no manual `aria-hidden` management
 > 3. Focus trapping is built in — less JS, fewer edge cases
@@ -479,22 +486,23 @@ function MyDialog({open, onClose}) {
 
 Parts use Primer design tokens via CSS modules:
 
-| Token area | Applied to |
-|-----------|-----------|
-| `--overlay-bgColor` | Dialog.Content background |
-| `--overlay-backdrop-bgColor` | `::backdrop` background |
-| `--shadow-floating-small` | Dialog.Content box-shadow |
-| `--borderRadius-large` | Dialog.Content border-radius |
-| `--borderColor-default` | Header/body divider, body/footer scroll border |
-| `--text-body-size-medium` | Dialog.Title font-size |
-| `--text-title-weight-large` | Dialog.Title font-weight |
-| `--text-body-size-small` | Dialog.Subtitle font-size |
-| `--fgColor-muted` | Dialog.Subtitle color |
-| `--base-size-*` | Padding, gaps |
+| Token area                   | Applied to                                     |
+| ---------------------------- | ---------------------------------------------- |
+| `--overlay-bgColor`          | Dialog.Content background                      |
+| `--overlay-backdrop-bgColor` | `::backdrop` background                        |
+| `--shadow-floating-small`    | Dialog.Content box-shadow                      |
+| `--borderRadius-large`       | Dialog.Content border-radius                   |
+| `--borderColor-default`      | Header/body divider, body/footer scroll border |
+| `--text-body-size-medium`    | Dialog.Title font-size                         |
+| `--text-title-weight-large`  | Dialog.Title font-weight                       |
+| `--text-body-size-small`     | Dialog.Subtitle font-size                      |
+| `--fgColor-muted`            | Dialog.Subtitle color                          |
+| `--base-size-*`              | Padding, gaps                                  |
 
 ### Animations
 
 Parts include open/close animations using the same keyframes as the current Dialog:
+
 - **Center:** Scale fade (`scale(0.5)` → `scale(1)` + opacity)
 - **Left/Right:** Slide in from edge
 - **Bottom (narrow):** Slide up
@@ -574,6 +582,7 @@ function Dialog({ title, subtitle, onClose, children, footerButtons, width, heig
 ### Migration
 
 The Ready-made API should remain backward-compatible with the current `Dialog`. Key differences:
+
 - Underlying implementation changes from `<div role="dialog">` + Portal to native `<dialog>` + `showModal()`
 - Scroll lock mechanism changes (same visible behavior, different implementation)
 - `renderHeader`/`renderBody`/`renderFooter` custom renderers continue to work but consumers are encouraged to use Layer 2 Parts for custom layouts instead
@@ -586,27 +595,27 @@ Consolidated requirements that all layers must satisfy:
 
 ### Must have
 
-| Requirement | Layer 4 (Hooks) | Layer 3 (Foundations) | Layer 2 (Parts) | Layer 1 (Ready-made) |
-|------------|----------------|----------------------|-----------------|---------------------|
-| `role="dialog"` or `role="alertdialog"` | Returns in `dialogProps` | Set on `<dialog>` | Inherited | Inherited |
-| `aria-modal="true"` | Returns in `dialogProps` | Implicit from `showModal()` | Inherited | Inherited |
-| `aria-labelledby` → title | Consumer wires | Auto-wired via context | Auto-wired | Auto-wired from `title` prop |
-| `aria-describedby` → description | Consumer wires | Auto-wired if `DialogDescription` present | Auto-wired | Auto-wired from `subtitle` prop |
-| Focus trap (Tab/Shift+Tab) | Consumer implements or uses `useFocusTrap` | Native `showModal()` | Inherited | Inherited |
-| Escape closes dialog | Consumer handles | Native `cancel` event | Inherited | Inherited |
-| Focus moves into dialog on open | `useDialog` manages | Managed by `DialogRoot` | Inherited | Inherited |
-| Focus returns on close | `useDialog` manages | Managed by `DialogRoot` | Inherited | Inherited |
-| Visible close button | Consumer provides | `DialogClose` component | `Dialog.CloseButton` | Built-in (X icon) |
-| Background inert | Consumer manages | Native `showModal()` | Inherited | Inherited |
-| Scroll lock | `useScrollLock` hook | Managed by `DialogRoot` | Inherited | Inherited |
+| Requirement                             | Layer 4 (Hooks)                            | Layer 3 (Foundations)                     | Layer 2 (Parts)      | Layer 1 (Ready-made)            |
+| --------------------------------------- | ------------------------------------------ | ----------------------------------------- | -------------------- | ------------------------------- |
+| `role="dialog"` or `role="alertdialog"` | Returns in `dialogProps`                   | Set on `<dialog>`                         | Inherited            | Inherited                       |
+| `aria-modal="true"`                     | Returns in `dialogProps`                   | Implicit from `showModal()`               | Inherited            | Inherited                       |
+| `aria-labelledby` → title               | Consumer wires                             | Auto-wired via context                    | Auto-wired           | Auto-wired from `title` prop    |
+| `aria-describedby` → description        | Consumer wires                             | Auto-wired if `DialogDescription` present | Auto-wired           | Auto-wired from `subtitle` prop |
+| Focus trap (Tab/Shift+Tab)              | Consumer implements or uses `useFocusTrap` | Native `showModal()`                      | Inherited            | Inherited                       |
+| Escape closes dialog                    | Consumer handles                           | Native `cancel` event                     | Inherited            | Inherited                       |
+| Focus moves into dialog on open         | `useDialog` manages                        | Managed by `DialogRoot`                   | Inherited            | Inherited                       |
+| Focus returns on close                  | `useDialog` manages                        | Managed by `DialogRoot`                   | Inherited            | Inherited                       |
+| Visible close button                    | Consumer provides                          | `DialogClose` component                   | `Dialog.CloseButton` | Built-in (X icon)               |
+| Background inert                        | Consumer manages                           | Native `showModal()`                      | Inherited            | Inherited                       |
+| Scroll lock                             | `useScrollLock` hook                       | Managed by `DialogRoot`                   | Inherited            | Inherited                       |
 
 ### Keyboard
 
-| Key | Behavior | Layer that implements |
-|-----|----------|---------------------|
-| Tab | Next focusable element (wraps) | Native `<dialog>` (L3+) or `useFocusTrap` (L4) |
-| Shift+Tab | Previous focusable element (wraps) | Native `<dialog>` (L3+) or `useFocusTrap` (L4) |
-| Escape | Closes dialog | Native `cancel` event (L3+) or `useDialog` (L4) |
+| Key       | Behavior                           | Layer that implements                           |
+| --------- | ---------------------------------- | ----------------------------------------------- |
+| Tab       | Next focusable element (wraps)     | Native `<dialog>` (L3+) or `useFocusTrap` (L4)  |
+| Shift+Tab | Previous focusable element (wraps) | Native `<dialog>` (L3+) or `useFocusTrap` (L4)  |
+| Escape    | Closes dialog                      | Native `cancel` event (L3+) or `useDialog` (L4) |
 
 ### Focus management rules
 
@@ -624,38 +633,38 @@ We use native `<dialog>` with `showModal()` as the foundation. This is the stand
 
 ### Scroll lock on body
 
-| Standard behavior | Our behavior | Why |
-|------------------|-------------|-----|
+| Standard behavior                                                                                                               | Our behavior                                                                              | Why                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
 | `showModal()` makes background inert (no interaction) but scroll position may still respond to scroll gestures in some browsers | We explicitly set `overflow: hidden` on `document.body` with scrollbar width compensation | Consistent behavior across browsers. Users scrolling with a trackpad/mouse wheel should not see the background move behind the dialog. |
 
 ### Controlled open/close state
 
-| Standard behavior | Our behavior | Why |
-|------------------|-------------|-----|
+| Standard behavior                                 | Our behavior                                                        | Why                                                                                                                                                                                                        |
+| ------------------------------------------------- | ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `showModal()` / `close()` are imperative DOM APIs | We use a controlled `open` prop that calls these methods internally | React's model is declarative. A controlled prop integrates with React state management, conditional rendering, and transitions. Imperative `showModal()` doesn't compose with React's rendering lifecycle. |
 
 ### `initialFocusRef` / `returnFocusRef`
 
-| Standard behavior | Our behavior | Why |
-|------------------|-------------|-----|
+| Standard behavior                                                                            | Our behavior                                 | Why                                                                                                                                                                                                                                                                                                                                       |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `autofocus` attribute on the target element; focus returns to the previously-focused element | `initialFocusRef` and `returnFocusRef` props | `autofocus` requires modifying the target element's markup. Ref-based focus control is more flexible in React — the parent component can decide where focus goes without the child knowing. `returnFocusRef` enables workflow-based focus restoration (e.g., after a delete dialog, focus moves to the next item, not the delete button). |
 
 ### Backdrop click handling
 
-| Standard behavior | Our behavior | Why |
-|------------------|-------------|-----|
+| Standard behavior                                                                                                               | Our behavior                                                                                                                                                                                                     | Why                                                                                                                                                                                                                                                                                     |
+| ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `closedby="any"` attribute enables light dismiss. Clicking the backdrop fires a `click` event on the `<dialog>` element itself. | We detect backdrop clicks by comparing `event.target === event.currentTarget` on the backdrop/dialog, with mousedown tracking to prevent false positives from drags. `closeOnBackdropClick` defaults to `false`. | The native `closedby` attribute is too new for reliable cross-browser use (Chrome 134+, Firefox 137+). Our approach works everywhere and avoids accidental dismissal — important for data-loss-prevention dialogs. Defaulting to `false` follows the principle of not losing user work. |
 
 ### Portal rendering (Layer 2+, removed in Layer 3)
 
-| Standard behavior | Our behavior | Why |
-|------------------|-------------|-----|
+| Standard behavior                      | Our behavior                                                                                                  | Why                                                                                                                                                                                                                                   |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `showModal()` renders in the top layer | Layer 3 uses native top layer. Layer 2 may optionally use Portal for backward compatibility during migration. | Top layer is the correct solution. Portal was needed before `<dialog>` had broad support. During migration, Layer 2 may retain Portal support for consumers with z-index dependencies, but new usage should rely on native top layer. |
 
 ### Heading level (`<h2>` instead of `<h1>`)
 
-| Standard behavior | Our behavior | Why |
-|------------------|-------------|-----|
+| Standard behavior                    | Our behavior                                               | Why                                                                                                                                                                                                                                                           |
+| ------------------------------------ | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | No spec requirement on heading level | Foundation uses `<h2>`, current implementation uses `<h1>` | Dialogs are overlays on pages that already have an `<h1>`. Using `<h1>` in a dialog breaks the document outline hierarchy. `<h2>` correctly positions the dialog title as a sub-section. Screen reader users navigating by headings get a coherent structure. |
 
 ---

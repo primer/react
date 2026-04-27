@@ -1,4 +1,5 @@
-import React, {useRef} from 'react'
+import type React from 'react'
+import {useRef} from 'react'
 import {render, fireEvent, screen} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vitest'
 import {useDialogFoundation, type UseDialogFoundationOptions} from '../../../foundations/experimental/Dialog'

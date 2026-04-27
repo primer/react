@@ -75,7 +75,14 @@ interface DialogContentProps extends React.ComponentProps<'div'> {
   align?: 'top' | 'center' | 'bottom'
 }
 
-function Content({width = 'xlarge', height = 'auto', position = 'center', align, className, ...props}: DialogContentProps) {
+function Content({
+  width = 'xlarge',
+  height = 'auto',
+  position = 'center',
+  align,
+  className,
+  ...props
+}: DialogContentProps) {
   const positionDataAttributes =
     typeof position === 'string'
       ? {'data-position-regular': position}

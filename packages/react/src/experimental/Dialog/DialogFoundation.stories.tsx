@@ -123,7 +123,10 @@ export const AlertDialog: StoryObj = {
             </p>
             <div style={{display: 'flex', gap: 8, justifyContent: 'flex-end'}}>
               <button onClick={() => setOpen(false)}>Cancel</button>
-              <button onClick={() => setOpen(false)} style={{background: '#cf222e', color: 'white', border: 'none', borderRadius: 6, padding: '5px 16px'}}>
+              <button
+                onClick={() => setOpen(false)}
+                style={{background: '#cf222e', color: 'white', border: 'none', borderRadius: 6, padding: '5px 16px'}}
+              >
                 Delete
               </button>
             </div>
@@ -142,13 +145,10 @@ export const WithBackdropClick: StoryObj = {
     const [lastGesture, setLastGesture] = useState<string>('')
     const buttonRef = useRef<HTMLButtonElement>(null)
 
-    const onClose = useCallback(
-      (gesture: string) => {
-        setLastGesture(gesture)
-        setOpen(false)
-      },
-      [],
-    )
+    const onClose = useCallback((gesture: string) => {
+      setLastGesture(gesture)
+      setOpen(false)
+    }, [])
 
     const foundation = useDialogFoundation({
       open,
@@ -168,7 +168,11 @@ export const WithBackdropClick: StoryObj = {
           <button ref={buttonRef} onClick={() => setOpen(true)}>
             Open dialog (backdrop click enabled)
           </button>
-          {lastGesture && <p>Last close gesture: <code>{lastGesture}</code></p>}
+          {lastGesture && (
+            <p>
+              Last close gesture: <code>{lastGesture}</code>
+            </p>
+          )}
         </div>
 
         <dialog {...dialogProps} style={overlayStyle}>
