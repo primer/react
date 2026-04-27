@@ -42,7 +42,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
-        run: npx turbo build:storybook
+        run: npx turbo run build:storybook
       - name: Run storybook
         id: storybook
         run: |
