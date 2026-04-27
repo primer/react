@@ -70,7 +70,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       if (checkboxRef.current) {
         checkboxRef.current.indeterminate = indeterminate || false
       }
-    }, [indeterminate, checked, checkboxRef])
+    })
 
     useEffect(() => {
       const {current: checkbox} = checkboxRef
