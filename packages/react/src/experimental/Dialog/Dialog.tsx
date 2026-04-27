@@ -125,7 +125,14 @@ function Subtitle({className, ...props}: React.ComponentProps<'p'>) {
   const {foundation} = useDialogContext()
   const descriptionProps = foundation.getDescriptionProps()
 
-  return <p {...descriptionProps} className={clsx(className, classes.Subtitle)} data-component="Dialog.Subtitle" {...props} />
+  return (
+    <p
+      {...descriptionProps}
+      className={clsx(className, classes.Subtitle)}
+      data-component="Dialog.Subtitle"
+      {...props}
+    />
+  )
 }
 Subtitle.displayName = 'Dialog.Subtitle'
 

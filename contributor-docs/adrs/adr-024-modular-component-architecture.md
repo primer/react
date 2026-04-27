@@ -130,6 +130,7 @@ const dialog = useDialogFoundation({open, onClose})
 All Layer 2 Parts and Layer 1 Ready-made components must include `data-component` attributes as defined in [ADR-023](./adr-023-stable-selectors-api.md).
 
 **Rules:**
+
 - Root component: `data-component="ComponentName"` (e.g., `data-component="Dialog"`)
 - Sub-components match the React API: `data-component="ComponentName.PartName"` (e.g., `data-component="Dialog.Header"`)
 - State and modifier attributes (`data-width`, `data-size`, `data-variant`) remain separate — they describe state, not identity
