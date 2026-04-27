@@ -66,5 +66,9 @@
       "outputs": []
     }
   },
+  "futureFlags": {
+    "affectedUsingTaskInputs": true,
+    "filterUsingTasks": true
+  },
   "globalDependencies": [".nvmrc", "tsconfig.base.json"]
 }
