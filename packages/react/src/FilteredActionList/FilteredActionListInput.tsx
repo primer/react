@@ -4,7 +4,7 @@ import TextInput from '../TextInput'
 import type {TextInputProps} from '../TextInput'
 import classes from './FilteredActionList.module.css'
 
-export interface FilteredActionLsitInputProps extends Partial<Omit<TextInputProps, 'onChange'>> {
+export interface FilteredActionListInputProps extends Partial<Omit<TextInputProps, 'onChange'>> {
   inputRef: React.RefObject<HTMLInputElement | null>
   onInputChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   onInputKeyPress?: React.KeyboardEventHandler<HTMLInputElement>
@@ -29,7 +29,7 @@ export function FilteredActionListInput({
   fullScreenOnNarrow,
   className,
   ...restTextInputProps
-}: FilteredActionLsitInputProps): React.JSX.Element {
+}: FilteredActionListInputProps): React.JSX.Element {
   return (
     <div className={classes.Header} data-component="FilteredActionList.Header">
       <TextInput
