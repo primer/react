@@ -12,7 +12,7 @@ This document defines the Dialog component across all four layers of the [modula
 | Layer | Name | What it provides |
 |-------|------|-----------------|
 | 4 | **Hooks** | Behavioral primitives — state, keyboard, focus, ARIA attributes |
-| 3 | **Foundations** | Unstyled, accessible components — semantic markup with zero visual opinion |
+| 3 | **Foundations** | Compound hook with prop-getters — consumer controls markup, foundation wires a11y |
 | 2 | **Parts** | Primer-styled compositional components |
 | 1 | **Ready-made** | Props-based API — drop in and go |
 
@@ -253,43 +253,26 @@ function useScrollLock(options: UseScrollLockOptions): void
 
 ## Layer 3: Foundations
 
-Unstyled, accessible components with semantic markup. These provide the correct DOM structure, ARIA attributes, and keyboard behavior with zero visual opinion (CSS reset only).
+A compound hook returning prop-getters. The consumer controls all markup — the foundation wires up ARIA relationships, focus management, and keyboard behavior.
 
-**Import:** `@primer/react/foundations`
+Per [core-ux#2272](https://github.com/github/core-ux/issues/2272): prop-getters are the public API; context is an internal implementation detail only.
 
-### Component tree
+**Import:** `@primer/react/foundations/experimental`
 
-```
-DialogRoot          ← <dialog> element, manages open/close lifecycle
-├── DialogBackdrop  ← ::backdrop pseudo-element (CSS only, not a component)
-├── DialogContent   ← Container for all dialog content, manages layout
-│   ├── DialogHeader    ← Landmark for title + close button
-│   │   ├── DialogTitle       ← Connected to aria-labelledby
-│   │   ├── DialogDescription ← Connected to aria-describedby (optional)
-│   │   └── DialogClose       ← Close button
-│   ├── DialogBody      ← Scrollable content area
-│   └── DialogFooter    ← Action buttons area
-```
+### `useDialogFoundation`
 
-### `DialogRoot`
-
-The root component. Renders a native `<dialog>` element.
-
-```tsx
-interface DialogRootProps {
+```ts
+interface UseDialogFoundationOptions {
   /** Whether the dialog is open */
   open: boolean
 
-  /** Called when the dialog requests to close */
+  /** Called when the dialog requests to close (controlled — dialog stays open until `open` becomes false) */
   onClose: (gesture: 'escape' | 'close-button' | 'backdrop') => void
 
-  /** ARIA role — 'dialog' (default) or 'alertdialog' */
+  /** ARIA role */
   role?: 'dialog' | 'alertdialog'
 
-  /**
-   * Accessible label for the dialog. Required if no DialogTitle is provided.
-   * When DialogTitle is present, aria-labelledby is auto-wired and this is not needed.
-   */
+  /** Accessible label when no visible title is used */
   'aria-label'?: string
 
   /** Element to focus when the dialog opens */
@@ -300,34 +283,97 @@ interface DialogRootProps {
 
   /** Whether clicking the backdrop closes the dialog. @default false */
   closeOnBackdropClick?: boolean
+}
 
-  children: React.ReactNode
+interface UseDialogFoundationReturn {
+  /** Props for the <dialog> element */
+  getDialogProps: () => {
+    ref: React.RefCallback<HTMLDialogElement>
+    role: 'dialog' | 'alertdialog'
+    'aria-modal': true
+    'aria-labelledby'?: string
+    'aria-label'?: string
+    'aria-describedby'?: string
+    onClick: (e: React.MouseEvent) => void
+  }
+
+  /** Props for the title element (auto-wires aria-labelledby) */
+  getTitleProps: () => {
+    id: string
+  }
+
+  /** Props for the description element (auto-wires aria-describedby). Only call if description is present. */
+  getDescriptionProps: () => {
+    id: string
+  }
+
+  /** Props for the close button */
+  getCloseProps: () => {
+    type: 'button'
+    onClick: () => void
+  }
+
+  /** Props for a scrollable body region */
+  getBodyProps: () => {
+    'aria-labelledby': string
+    tabIndex: 0
+    role: 'region'
+  }
+
+  /** Whether the dialog is currently open (reflects DOM state) */
+  isOpen: boolean
+
+  /** Programmatically request close */
+  close: (gesture: 'escape' | 'close-button' | 'backdrop') => void
+}
+
+function useDialogFoundation(options: UseDialogFoundationOptions): UseDialogFoundationReturn
+```
+
+### Usage
+
+```tsx
+import {useDialogFoundation} from '@primer/react/foundations/experimental'
+
+function MyCustomDialog({open, onClose}) {
+  const dialog = useDialogFoundation({open, onClose})
+
+  return (
+    <dialog {...dialog.getDialogProps()}>
+      <header>
+        <h2 {...dialog.getTitleProps()}>Confirm changes</h2>
+        <p {...dialog.getDescriptionProps()}>This action cannot be undone.</p>
+        <button {...dialog.getCloseProps()} aria-label="Close">✕</button>
+      </header>
+      <div {...dialog.getBodyProps()}>
+        <p>Are you sure you want to proceed?</p>
+      </div>
+      <footer>
+        <button onClick={() => onClose('close-button')}>Cancel</button>
+        <button>Delete</button>
+      </footer>
+    </dialog>
+  )
 }
 ```
 
-**Renders:**
-```html
-<dialog
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="{auto-generated-id}"  <!-- set when DialogTitle is present -->
-  aria-label="{from prop}"               <!-- set when no DialogTitle, aria-label prop required -->
-  aria-describedby="{auto-generated-id}"  <!-- only if DialogDescription is present -->
->
-  {children}
-</dialog>
-```
+### Behavior
 
-**Accessible name contract:** Every dialog MUST have an accessible name. `DialogRoot` enforces this:
-- If a `DialogTitle` child is present → `aria-labelledby` is auto-wired (preferred)
-- If no `DialogTitle` → `aria-label` prop is required
+- Internally uses Layer 4 hooks: `useScrollLock` for scroll lock, native `<dialog>` for focus trapping + Escape
+- Intercepts the native `cancel` event (`preventDefault()`) to maintain controlled close contract
+- Auto-generates stable IDs for `aria-labelledby` and `aria-describedby` wiring
+- `getDialogProps()` returns a ref callback that manages `showModal()`/`close()` based on `open` prop
+- `getBodyProps()` returns `tabIndex: 0` and `role: "region"` so the scrollable body is keyboard-accessible and announced
+- Backdrop click detection via `onClick` on the `<dialog>` element (comparing click coordinates to dialog bounds)
+
+### Accessible name contract
+
+Every dialog MUST have an accessible name:
+- If `getTitleProps()` is spread onto an element → `aria-labelledby` is auto-wired (preferred)
+- If no title → `aria-label` option is required
 - A dev-mode warning fires if neither is provided
 
-**Uses:** `useDialog` (Layer 4) internally.
-
-**Why native `<dialog>`:** This is the foundation layer — we want to build on web standards, not around them. Using `<dialog>` gives us focus trapping, Escape handling, top layer rendering, `::backdrop`, and inert background for free. We only add what the platform doesn't provide.
-
-> **Deviation from current implementation:** The current Dialog uses `<div role="dialog">` rendered inside a Portal. The foundation layer switches to native `<dialog>` because:
+> **Deviation from current implementation:** The current Dialog uses `<div role="dialog">` rendered inside a Portal. Foundations switch to native `<dialog>` because:
 > 1. Native `<dialog>` with `showModal()` renders in the top layer — no Portal or z-index needed
 > 2. Background is automatically inert — no manual `aria-hidden` management
 > 3. Focus trapping is built in — less JS, fewer edge cases
@@ -335,152 +381,26 @@ interface DialogRootProps {
 >
 > The Portal approach was necessary before native `<dialog>` had broad support. That's no longer the case.
 
-### `DialogContent`
-
-Wraps all dialog content. Provides the layout container inside the `<dialog>`.
-
-```tsx
-interface DialogContentProps extends React.ComponentProps<'div'> {
-  children: React.ReactNode
-}
-```
-
-**Renders:** `<div>{children}</div>`
-
-**Purpose:** Separates the content container from the `<dialog>` element itself. This is needed because:
-- `<dialog>` dimensions include the `::backdrop` in some layout scenarios
-- Animations should target the content, not the `<dialog>` element
-- Consumers may need to style the content container independently
-
-### `DialogHeader`
-
-Container for the dialog title, description, and close button.
-
-```tsx
-interface DialogHeaderProps extends React.ComponentProps<'header'> {
-  children: React.ReactNode
-}
-```
-
-**Renders:** `<header>{children}</header>`
-
-### `DialogTitle`
-
-The dialog's title. Automatically connected to `aria-labelledby` on `DialogRoot`.
-
-```tsx
-interface DialogTitleProps extends React.ComponentProps<'h2'> {
-  children: React.ReactNode
-}
-```
-
-**Renders:** `<h2 id="{auto-connected-to-aria-labelledby}">{children}</h2>`
-
-> **Deviation from current implementation:** Current uses `<h1>`. We use `<h2>` because dialogs are overlays on a page that already has an `<h1>`. The heading level should reflect the dialog's position in the document outline, not assert top-level importance. This follows ARIA authoring best practices.
-
-### `DialogDescription`
-
-Optional description. Automatically connected to `aria-describedby` on `DialogRoot`.
-
-```tsx
-interface DialogDescriptionProps extends React.ComponentProps<'p'> {
-  children: React.ReactNode
-}
-```
-
-**Renders:** `<p id="{auto-connected-to-aria-describedby}">{children}</p>`
-
-**When to omit:** Per ARIA APG, omit `aria-describedby` when dialog content has complex semantic structure (lists, tables, multiple paragraphs). The description is announced as a flat string, which can be confusing for complex content.
-
-### `DialogBody`
-
-Scrollable content area.
-
-```tsx
-interface DialogBodyProps extends React.ComponentProps<'div'> {
-  children: React.ReactNode
-}
-```
-
-**Renders:** `<div>{children}</div>`
-
-**Accessibility:** When content overflows, the body becomes a scrollable region. It must be:
-- Labeled via `aria-labelledby` pointing to `DialogTitle`
-- Focusable (`tabindex="0"`) so keyboard users can scroll without a mouse
-- Announced as a scrollable region (`role="region"` when scrollable)
-
-This mirrors the behavior of the existing `ScrollableRegion` component in primer/react.
-
-### `DialogFooter`
-
-Container for action buttons.
-
-```tsx
-interface DialogFooterProps extends React.ComponentProps<'footer'> {
-  children: React.ReactNode
-}
-```
-
-**Renders:** `<footer>{children}</footer>`
-
-### `DialogClose`
-
-A button that closes the dialog. Calls `onClose('close-button')` from the nearest `DialogRoot`.
-
-```tsx
-interface DialogCloseProps extends React.ComponentProps<'button'> {
-  /** Content for the close button. Required at Foundation level — Foundations have no visual opinion, so consumers must provide visible content. */
-  children: React.ReactNode
-}
-```
-
-**Renders:** `<button type="button">{children}</button>`
-
-**Behavior:** Accesses `onClose` from `DialogRoot` via React context. Consumers must provide visible content (text, icon, etc.) and an accessible label (`aria-label` or visible text). Layer 2 Parts provide a default icon-only close button.
-
-### Context
-
-Foundations use React context to wire ARIA relationships:
-
-```tsx
-interface DialogContextValue {
-  /** ID for aria-labelledby */
-  titleId: string
-  /** ID for aria-describedby (undefined if no DialogDescription) */
-  descriptionId: string | undefined
-  /** Close handler from DialogRoot */
-  onClose: (gesture: 'escape' | 'close-button' | 'backdrop') => void
-  /** Whether the dialog is open */
-  isOpen: boolean
-}
-```
-
-`DialogRoot` provides this context. `DialogTitle`, `DialogDescription`, and `DialogClose` consume it to auto-wire IDs and handlers.
-
 ### Minimal CSS reset
 
-Foundation components ship with a minimal CSS reset — only what's needed to remove browser default styling that would interfere with correct behavior:
+Foundations ship with a minimal CSS reset — only what's needed to remove browser default styling:
 
 ```css
 /* Foundation reset — no visual opinion */
-dialog.DialogRoot {
-  /* Remove default <dialog> border and padding */
+dialog[data-dialog-foundation] {
   border: none;
   padding: 0;
-  /* Remove default <dialog> background */
   background: transparent;
-  /* Ensure the dialog doesn't have a max-width by default */
   max-width: unset;
   max-height: unset;
 }
 
-dialog.DialogRoot::backdrop {
-  /* Reset backdrop to transparent — consumers must style it */
+dialog[data-dialog-foundation]::backdrop {
   background: transparent;
 }
 ```
 
-> **Important:** A Foundation-level dialog with a transparent backdrop is semantically modal (background is inert) but visually non-modal. Per ARIA APG, `aria-modal="true"` should only be set when background content is **both** non-interactive and visually obscured. Consumers using Foundation components directly **must** provide visible backdrop styling to meet this requirement. Layer 2 Parts handle this automatically with Primer's `--overlay-backdrop-bgColor` token.
+> **Important:** A Foundation-level dialog with a transparent backdrop is semantically modal (background is inert) but visually non-modal. Per ARIA APG, `aria-modal="true"` should only be set when background content is **both** non-interactive and visually obscured. Consumers using Foundations directly **must** provide visible backdrop styling to meet this requirement. Layer 2 Parts handle this automatically with Primer's `--overlay-backdrop-bgColor` token.
 
 ---
 
