@@ -140,7 +140,11 @@ Footer.displayName = 'Dialog.Footer'
 
 // --- Dialog.CloseButton ---
 
-function CloseButton({className, ...props}: Omit<React.ComponentProps<typeof IconButton>, 'icon' | 'aria-label'>) {
+interface DialogCloseButtonProps {
+  className?: string
+}
+
+function CloseButton({className}: DialogCloseButtonProps) {
   const {foundation} = useDialogContext()
   const closeProps = foundation.getCloseProps()
 
@@ -151,7 +155,6 @@ function CloseButton({className, ...props}: Omit<React.ComponentProps<typeof Ico
       variant="invisible"
       onClick={closeProps.onClick}
       className={className}
-      {...props}
     />
   )
 }
