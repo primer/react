@@ -53,8 +53,8 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
   const innerRef = React.useRef<HTMLButtonElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
-  const uuid = useId(id)
-  const loadingAnnouncementID = `${uuid}-loading-announcement`
+  const buttonId = useId(id)
+  const loadingAnnouncementID = `${buttonId}-loading-announcement`
 
   // Only include the loading aria-describedby if there is a loading state
   const ariaDescribedByIds = loading ? [loadingAnnouncementID, ariaDescribedBy] : [ariaDescribedBy]
