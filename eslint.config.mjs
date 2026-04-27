@@ -78,12 +78,10 @@ const config = defineConfig([
   eslintReact.configs['recommended-typescript'],
   {
     rules: {
-      '@eslint-react/dom/no-dangerously-set-innerhtml': 'off',
-      '@eslint-react/dom/no-flush-sync': 'off',
-      '@eslint-react/dom/no-missing-button-type': 'off',
-      '@eslint-react/hooks-extra/no-direct-set-state-in-use-effect': 'off',
-      '@eslint-react/hooks-extra/no-unnecessary-use-prefix': 'off',
-      '@eslint-react/jsx-key-before-spread': 'off',
+      '@eslint-react/dom-no-dangerously-set-innerhtml': 'off',
+      '@eslint-react/dom-no-flush-sync': 'off',
+      '@eslint-react/dom-no-missing-button-type': 'off',
+      '@eslint-react/jsx-no-key-after-spread': 'off',
       '@eslint-react/no-array-index-key': 'off',
       '@eslint-react/no-children-count': 'off',
       '@eslint-react/no-children-for-each': 'off',
@@ -93,10 +91,10 @@ const config = defineConfig([
       '@eslint-react/no-clone-element': 'off',
       '@eslint-react/no-create-ref': 'off',
       '@eslint-react/no-nested-component-definitions': 'off',
-      '@eslint-react/no-prop-types': 'error',
+      '@eslint-react/no-unnecessary-use-prefix': 'off',
       '@eslint-react/no-unstable-context-value': 'off',
       '@eslint-react/no-unstable-default-props': 'error',
-      '@eslint-react/no-useless-forward-ref': 'error',
+      '@eslint-react/set-state-in-effect': 'off',
     },
   },
 
@@ -265,7 +263,6 @@ const config = defineConfig([
     files: ['**/*.test.{ts,tsx}'],
     rules: {
       '@eslint-react/no-unstable-default-props': 'off',
-      '@eslint-react/no-useless-forward-ref': 'off',
     },
   },
 
@@ -314,7 +311,6 @@ const config = defineConfig([
   {
     files: ['**/*.types.test.{ts,tsx}'],
     rules: {
-      '@eslint-react/no-useless-forward-ref': 'off',
       // We often use assertions that are not used in type tests
       '@typescript-eslint/no-unused-vars': 'off',
     },
