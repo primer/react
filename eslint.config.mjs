@@ -83,7 +83,6 @@ const config = defineConfig([
       '@eslint-react/dom/no-missing-button-type': 'off',
       '@eslint-react/hooks-extra/no-direct-set-state-in-use-effect': 'off',
       '@eslint-react/jsx-key-before-spread': 'off',
-      '@eslint-react/naming-convention/id-name': 'off',
       '@eslint-react/naming-convention/ref-name': 'off',
       '@eslint-react/naming-convention/use-state': 'off',
       '@eslint-react/no-array-index-key': 'off',
