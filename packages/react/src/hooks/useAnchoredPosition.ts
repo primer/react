@@ -54,8 +54,7 @@ export function useAnchoredPosition(
   const anchorElementRef = useProvidedRefOrCreate(settings?.anchorElementRef)
   const savedOnPositionChange = React.useRef(settings?.onPositionChange)
   const [position, setPosition] = React.useState<AnchorPosition | undefined>(undefined)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setPrevHeight] = React.useState<number | undefined>(undefined)
+  const [, setPrevHeight] = React.useState<number | undefined>(undefined)
 
   const topPositionChanged = (prevPosition: AnchorPosition | undefined, newPosition: AnchorPosition) => {
     return (

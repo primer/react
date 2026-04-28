@@ -10,10 +10,10 @@ export default {
 }
 
 export const Controlled = () => {
-  const [isChecked, setChecked] = useState<boolean>(false)
+  const [isChecked, setIsChecked] = useState<boolean>(false)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked)
+    setIsChecked(event.target.checked)
     action('Change event triggered')()
   }
 

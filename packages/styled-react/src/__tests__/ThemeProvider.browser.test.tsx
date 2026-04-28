@@ -283,10 +283,10 @@ it('inherits colorMode from parent', async () => {
   const user = userEvent.setup()
 
   function App() {
-    const [colorMode, setcolorMode] = React.useState<'day' | 'night'>('day')
+    const [colorMode, setColorMode] = React.useState<'day' | 'night'>('day')
     return (
       <ThemeProvider theme={exampleTheme} colorMode={colorMode}>
-        <button type="button" onClick={() => setcolorMode(colorMode === 'day' ? 'night' : 'day')}>
+        <button type="button" onClick={() => setColorMode(colorMode === 'day' ? 'night' : 'day')}>
           Toggle
         </button>
         <ThemeProvider>

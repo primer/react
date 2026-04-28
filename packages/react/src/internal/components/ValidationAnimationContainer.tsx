@@ -7,15 +7,15 @@ interface Props extends HTMLProps<HTMLDivElement> {
   show?: boolean
 }
 const ValidationAnimationContainer: React.FC<React.PropsWithChildren<Props>> = ({show, children}) => {
-  const [shouldRender, setRender] = useState(show)
+  const [shouldRender, setShouldRender] = useState(show)
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (show) setRender(true)
+    if (show) setShouldRender(true)
   }, [show])
 
   const onAnimationEnd = () => {
-    if (!show) setRender(false)
+    if (!show) setShouldRender(false)
   }
 
   return shouldRender ? (

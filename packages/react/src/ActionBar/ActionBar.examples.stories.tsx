@@ -186,7 +186,7 @@ export const ActionBarWithMenuTrigger = () => {
 
 export const ActionbarToggle = () => {
   const loginName = mockData.collaborators[1].login
-  const [showEditView, setEditView] = React.useState(false)
+  const [showEditView, setShowEditView] = React.useState(false)
   const [description /*, setDescription*/] = React.useState('')
   const anchorRef = React.useRef(null)
   return (
@@ -219,7 +219,7 @@ export const ActionbarToggle = () => {
                   Quote reply
                 </ActionList.Item>
                 <ActionList.Divider />
-                <ActionList.Item onSelect={() => setEditView(true)}>
+                <ActionList.Item onSelect={() => setShowEditView(true)}>
                   <ActionList.LeadingVisual>
                     <PencilIcon />
                   </ActionList.LeadingVisual>
@@ -238,12 +238,12 @@ export const ActionbarToggle = () => {
               <Button
                 variant="primary"
                 onClick={() => {
-                  setEditView(false)
+                  setShowEditView(false)
                 }}
               >
                 Save
               </Button>
-              <Button variant="danger" onClick={() => setEditView(false)}>
+              <Button variant="danger" onClick={() => setShowEditView(false)}>
                 Cancel
               </Button>
             </div>

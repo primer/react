@@ -138,8 +138,8 @@ export const FullScreen = () => {
 }
 
 export const ControlledMenu = () => {
-  const [actionFired, fireAction] = React.useState('')
-  const onSelect = (name: string) => fireAction(name)
+  const [actionFired, setActionFired] = React.useState('')
+  const onSelect = (name: string) => setActionFired(name)
 
   const [open, setOpen] = React.useState(false)
   const triggerRef = React.useRef<HTMLButtonElement>(null)

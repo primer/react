@@ -84,7 +84,6 @@ const config = defineConfig([
       '@eslint-react/hooks-extra/no-direct-set-state-in-use-effect': 'off',
       '@eslint-react/jsx-key-before-spread': 'off',
       '@eslint-react/naming-convention/ref-name': 'off',
-      '@eslint-react/naming-convention/use-state': 'off',
       '@eslint-react/no-array-index-key': 'off',
       '@eslint-react/no-children-count': 'off',
       '@eslint-react/no-children-for-each': 'off',
