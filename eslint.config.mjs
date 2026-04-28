@@ -82,6 +82,7 @@ const config = defineConfig([
       '@eslint-react/dom-no-flush-sync': 'off',
       '@eslint-react/dom-no-missing-button-type': 'off',
       '@eslint-react/dom-no-string-style-prop': 'error',
+      '@eslint-react/dom-no-unknown-property': 'error',
       '@eslint-react/component-hook-factories': 'off',
       '@eslint-react/exhaustive-deps': 'off',
       '@eslint-react/jsx-no-key-after-spread': 'off',
