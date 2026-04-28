@@ -1,4 +1,4 @@
-import {act, createRef, useCallback, useRef, useState} from 'react'
+import {act, useCallback, useRef, useState} from 'react'
 import {describe, expect, it, vi} from 'vitest'
 import {render} from '@testing-library/react'
 import {userEvent} from 'vitest/browser'
@@ -200,7 +200,7 @@ describe.each([true, false])(
     })
 
     it('should support a `ref` through `overlayProps` on the overlay element', () => {
-      const ref = createRef<HTMLDivElement>()
+      const ref = {current: null} as React.RefObject<HTMLDivElement | null>
 
       function Test() {
         const anchorRef = useRef(null)

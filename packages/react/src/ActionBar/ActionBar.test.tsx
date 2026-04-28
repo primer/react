@@ -1,7 +1,8 @@
 import {describe, expect, it, afterEach, vi} from 'vitest'
 import {render, screen, act} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React, {createRef, useState} from 'react'
+import type React from 'react'
+import {useState} from 'react'
 import ActionBar from './'
 import {BoldIcon, ItalicIcon, CodeIcon} from '@primer/octicons-react'
 import {implementsClassName} from '../utils/testing'
@@ -304,7 +305,7 @@ describe('ActionBar gap prop', () => {
 
 describe('ActionBar.Menu returnFocusRef', () => {
   it('accepts returnFocusRef prop', () => {
-    const returnFocusRef = createRef<HTMLButtonElement>()
+    const returnFocusRef = {current: null} as React.RefObject<HTMLButtonElement | null>
     render(
       <div>
         <button ref={returnFocusRef} type="button">
@@ -326,7 +327,7 @@ describe('ActionBar.Menu returnFocusRef', () => {
 
   it('returns focus to returnFocusRef when menu is closed', async () => {
     const user = userEvent.setup()
-    const returnFocusRef = createRef<HTMLButtonElement>()
+    const returnFocusRef = {current: null} as React.RefObject<HTMLButtonElement | null>
 
     render(
       <div>
@@ -362,7 +363,7 @@ describe('ActionBar.Menu returnFocusRef', () => {
 
   it('returns focus to returnFocusRef when menu item is selected', async () => {
     const user = userEvent.setup()
-    const returnFocusRef = createRef<HTMLButtonElement>()
+    const returnFocusRef = {current: null} as React.RefObject<HTMLButtonElement | null>
     const onClick = vi.fn()
 
     render(

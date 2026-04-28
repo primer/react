@@ -277,7 +277,7 @@ describe('Dialog', () => {
 })
 
 it('automatically focuses the element that is specified as initialFocusRef', () => {
-  const initialFocusRef = React.createRef<HTMLAnchorElement>()
+  const initialFocusRef = {current: null} as React.RefObject<HTMLAnchorElement | null>
   const {getByRole} = render(
     <Dialog
       initialFocusRef={initialFocusRef}

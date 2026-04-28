@@ -426,7 +426,7 @@ const SelectPanelSearchInput: FCWithSlotMarker<TextInputProps> = ({
   ...props
 }) => {
   // TODO: use forwardedRef
-  const inputRef = React.createRef<HTMLInputElement>()
+  const inputRef = React.useRef<HTMLInputElement>(null)
 
   const {setSearchQuery, moveFocusToList} = React.useContext(SelectPanelContext)
 
