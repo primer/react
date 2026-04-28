@@ -87,6 +87,47 @@
   border-radius: 50%;
   align-items: center;
   justify-content: center;
+
+  &:where([data-variant]) {
+    color: var(--fgColor-onEmphasis);
+    border-color: transparent;
+  }
+
+  &:where([data-variant='accent']) {
+    background-color: var(--bgColor-accent-emphasis);
+  }
+
+  &:where([data-variant='success']) {
+    background-color: var(--bgColor-success-emphasis);
+  }
+
+  &:where([data-variant='attention']) {
+    background-color: var(--bgColor-attention-emphasis);
+  }
+
+  &:where([data-variant='severe']) {
+    background-color: var(--bgColor-severe-emphasis);
+  }
+
+  &:where([data-variant='danger']) {
+    background-color: var(--bgColor-danger-emphasis);
+  }
+
+  &:where([data-variant='done']) {
+    background-color: var(--bgColor-done-emphasis);
+  }
+
+  &:where([data-variant='open']) {
+    background-color: var(--bgColor-open-emphasis);
+  }
+
+  &:where([data-variant='closed']) {
+    background-color: var(--bgColor-closed-emphasis);
+  }
+
+  &:where([data-variant='sponsors']) {
+    background-color: var(--bgColor-sponsors-emphasis);
+  }
 }
 
 .TimelineBody {

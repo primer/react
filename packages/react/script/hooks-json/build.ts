@@ -8,6 +8,7 @@ import Ajv from 'ajv'
 // Only includes fields we use in this script
 type Hook = {
   name: string
+  status?: 'deprecated'
   importPath: '@primer/react' | '@primer/react/experimental'
   stories: Array<{id: string}>
 }

@@ -126,6 +126,7 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
       child => isValidElement(child) && (child.type === Panel || isSlot(child, Panel)),
     )
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTabs(newTabs)
     setTabPanels(newTabPanels)
   }, [children, parentId, loadingCounters, iconsVisible])
