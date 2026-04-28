@@ -81,7 +81,8 @@ const config = defineConfig([
       '@eslint-react/dom/no-dangerously-set-innerhtml': 'off',
       '@eslint-react/dom/no-flush-sync': 'off',
       '@eslint-react/dom/no-missing-button-type': 'off',
-      '@eslint-react/hooks-extra/no-direct-set-state-in-use-effect': 'off',
+      '@eslint-react/component-hook-factories': 'off',
+      '@eslint-react/exhaustive-deps': 'off',
       '@eslint-react/jsx-key-before-spread': 'off',
       '@eslint-react/naming-convention/ref-name': 'off',
       '@eslint-react/no-array-index-key': 'off',
@@ -93,11 +94,14 @@ const config = defineConfig([
       '@eslint-react/no-clone-element': 'off',
       '@eslint-react/no-create-ref': 'off',
       '@eslint-react/no-nested-component-definitions': 'off',
-      '@eslint-react/no-prop-types': 'error',
       '@eslint-react/no-unnecessary-use-prefix': 'off',
       '@eslint-react/no-unstable-context-value': 'off',
       '@eslint-react/no-unstable-default-props': 'error',
-      '@eslint-react/no-useless-forward-ref': 'error',
+      '@eslint-react/purity': 'off',
+      '@eslint-react/rules-of-hooks': 'off',
+      '@eslint-react/set-state-in-effect': 'off',
+      '@eslint-react/unsupported-syntax': 'off',
+      '@eslint-react/use-state': 'off',
       '@eslint-react/web-api/no-leaked-timeout': 'off',
     },
   },
@@ -267,7 +271,6 @@ const config = defineConfig([
     files: ['**/*.test.{ts,tsx}'],
     rules: {
       '@eslint-react/no-unstable-default-props': 'off',
-      '@eslint-react/no-useless-forward-ref': 'off',
     },
   },
 
@@ -316,7 +319,6 @@ const config = defineConfig([
   {
     files: ['**/*.types.test.{ts,tsx}'],
     rules: {
-      '@eslint-react/no-useless-forward-ref': 'off',
       // We often use assertions that are not used in type tests
       '@typescript-eslint/no-unused-vars': 'off',
     },
