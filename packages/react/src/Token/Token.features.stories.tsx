@@ -14,7 +14,7 @@ export const InteractiveToken = () => {
   return (
     <div className={classes.TokenRow}>
       <Token as="a" href="/?path=/story/components-token-features--issue-label-token-custom-colors" text="Link" />
-      <Token as="button" onClick={action('clicked')} text="Button" />
+      <Token as="button" type="button" onClick={action('clicked')} text="Button" />
     </div>
   )
 }
@@ -34,7 +34,14 @@ export const TokenWithOnRemoveFn = ({...args}) => {
         text="Link"
         {...args}
       />
-      <Token as="button" onClick={action('clicked')} onRemove={action('remove me')} text="Button" {...args} />
+      <Token
+        as="button"
+        type="button"
+        onClick={action('clicked')}
+        onRemove={action('remove me')}
+        text="Button"
+        {...args}
+      />
     </div>
   )
 }
@@ -65,7 +72,7 @@ export const InteractiveIssueLabelToken = () => {
         href="/?path=/story/components-token-features--issue-label-token-custom-colors"
         text="Link"
       />
-      <IssueLabelToken as="button" onClick={action('clicked')} text="Button" />
+      <IssueLabelToken as="button" type="button" onClick={action('clicked')} text="Button" />
     </div>
   )
 }
@@ -82,7 +89,13 @@ export const IssueLabelTokenWithOnRemoveFn = () => {
         onRemove={action('remove me')}
         text="Link"
       />
-      <IssueLabelToken as="button" onClick={action('clicked')} onRemove={action('remove me')} text="Button" />
+      <IssueLabelToken
+        as="button"
+        type="button"
+        onClick={action('clicked')}
+        onRemove={action('remove me')}
+        text="Button"
+      />
     </div>
   )
 }
@@ -104,7 +117,7 @@ export const IssueLabelTokenCustomColors = () => {
           text="Link"
           fillColor="#0366d6"
         />
-        <IssueLabelToken as="button" onClick={action('clicked')} text="Button" fillColor="lightpink" />
+        <IssueLabelToken as="button" type="button" onClick={action('clicked')} text="Button" fillColor="lightpink" />
       </div>
       <h3>Color examples</h3>
       <div className={classes.TokenWrapRow}>

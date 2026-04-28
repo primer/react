@@ -18,7 +18,7 @@ describe('Link', () => {
   })
 
   it('applies button styles when rendering a button element', () => {
-    const {container} = render(<Link as="button" />)
+    const {container} = render(<Link as="button" type="button" />)
     expect((container.firstChild as Element).tagName).toBe('BUTTON')
   })
 

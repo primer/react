@@ -20,7 +20,7 @@ const testTokenComponent = (Component: React.ComponentType<React.PropsWithChildr
 
   it('renders button inside the token when the token also has a remove button', () => {
     const onRemoveMock = vi.fn()
-    const {getByText} = HTMLRender(<Component as="button" text="token" onRemove={onRemoveMock} />)
+    const {getByText} = HTMLRender(<Component as="button" type="button" text="token" onRemove={onRemoveMock} />)
 
     expect(getByText('token').tagName.toLowerCase()).toEqual('button')
   })
@@ -71,7 +71,7 @@ const testTokenComponent = (Component: React.ComponentType<React.PropsWithChildr
   })
 
   it('renders with correct data-cursor-is-interactive attribute for button element', () => {
-    const {getByText} = HTMLRender(<Component as="button" text="token" />)
+    const {getByText} = HTMLRender(<Component as="button" type="button" text="token" />)
     const domNode = getByText('token')
 
     expect(domNode.parentElement).toHaveAttribute('data-cursor-is-interactive', 'true')

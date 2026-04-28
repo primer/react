@@ -42,22 +42,22 @@ export const TruncateAuto: StoryFn = () => (
 export const TruncateAutoWithInteractiveTokens: StoryFn = () => (
   <ResizableContainer>
     <LabelGroup visibleChildCount="auto">
-      <Token as="button" text="One" />
-      <Token as="button" text="Two" />
-      <Token as="button" text="Three" />
-      <Token as="button" text="Four" />
-      <Token as="button" text="Five" />
-      <Token as="button" text="Six" />
-      <Token as="button" text="Seven" />
-      <Token as="button" text="Eight" />
-      <Token as="button" text="Nine" />
-      <Token as="button" text="Ten" />
-      <Token as="button" text="Eleven" />
-      <Token as="button" text="Twelve" />
-      <Token as="button" text="Thirteen" />
-      <Token as="button" text="Fourteen" />
-      <Token as="button" text="Fifteen" />
-      <Token as="button" text="Sixteen" />
+      <Token as="button" type="button" text="One" />
+      <Token as="button" type="button" text="Two" />
+      <Token as="button" type="button" text="Three" />
+      <Token as="button" type="button" text="Four" />
+      <Token as="button" type="button" text="Five" />
+      <Token as="button" type="button" text="Six" />
+      <Token as="button" type="button" text="Seven" />
+      <Token as="button" type="button" text="Eight" />
+      <Token as="button" type="button" text="Nine" />
+      <Token as="button" type="button" text="Ten" />
+      <Token as="button" type="button" text="Eleven" />
+      <Token as="button" type="button" text="Twelve" />
+      <Token as="button" type="button" text="Thirteen" />
+      <Token as="button" type="button" text="Fourteen" />
+      <Token as="button" type="button" text="Fifteen" />
+      <Token as="button" type="button" text="Sixteen" />
     </LabelGroup>
   </ResizableContainer>
 )
@@ -109,22 +109,22 @@ export const TruncateAutoExpandInline: StoryFn = () => (
 export const TruncateAutoExpandInlineWithInteractiveTokens: StoryFn = () => (
   <ResizableContainer>
     <LabelGroup visibleChildCount="auto" overflowStyle="inline">
-      <Token as="button" text="One" />
-      <Token as="button" text="Two" />
-      <Token as="button" text="Three" />
-      <Token as="button" text="Four" />
-      <Token as="button" text="Five" />
-      <Token as="button" text="Six" />
-      <Token as="button" text="Seven" />
-      <Token as="button" text="Eight" />
-      <Token as="button" text="Nine" />
-      <Token as="button" text="Ten" />
-      <Token as="button" text="Eleven" />
-      <Token as="button" text="Twelve" />
-      <Token as="button" text="Thirteen" />
-      <Token as="button" text="Fourteen" />
-      <Token as="button" text="Fifteen" />
-      <Token as="button" text="Sixteen" />
+      <Token as="button" type="button" text="One" />
+      <Token as="button" type="button" text="Two" />
+      <Token as="button" type="button" text="Three" />
+      <Token as="button" type="button" text="Four" />
+      <Token as="button" type="button" text="Five" />
+      <Token as="button" type="button" text="Six" />
+      <Token as="button" type="button" text="Seven" />
+      <Token as="button" type="button" text="Eight" />
+      <Token as="button" type="button" text="Nine" />
+      <Token as="button" type="button" text="Ten" />
+      <Token as="button" type="button" text="Eleven" />
+      <Token as="button" type="button" text="Twelve" />
+      <Token as="button" type="button" text="Thirteen" />
+      <Token as="button" type="button" text="Fourteen" />
+      <Token as="button" type="button" text="Fifteen" />
+      <Token as="button" type="button" text="Sixteen" />
     </LabelGroup>
   </ResizableContainer>
 )

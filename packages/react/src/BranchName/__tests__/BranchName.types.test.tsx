@@ -14,6 +14,7 @@ export function shouldAcceptAs() {
   return (
     <BranchName
       as="button"
+      type="button"
       onClick={event => {
         type test = Expect<Equal<typeof event, React.MouseEvent<HTMLButtonElement, MouseEvent>>>
       }}
@@ -36,6 +37,7 @@ export function ShouldAcceptRef() {
   return (
     <BranchName
       as="button"
+      type="button"
       ref={ref}
       onClick={event => {
         type test = Expect<Equal<typeof event, React.MouseEvent<HTMLButtonElement, MouseEvent>>>

@@ -530,8 +530,13 @@ export const IssuesPage = () => {
               Labels
             </Heading>
             <div className={classes.LabelTokenStack}>
-              <Token as="button" onClick={() => alert('react token is selected')} text="react" />
-              <Token as="button" onClick={() => alert('accessibility token is selected')} text="accessibility" />
+              <Token as="button" type="button" onClick={() => alert('react token is selected')} text="react" />
+              <Token
+                as="button"
+                type="button"
+                onClick={() => alert('accessibility token is selected')}
+                text="accessibility"
+              />
             </div>
           </div>
         </div>

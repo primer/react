@@ -7,7 +7,11 @@ export default {
   component: TopicTag,
 } satisfies Meta<typeof TopicTag>
 
-export const AsButton = () => <TopicTag as="button">react</TopicTag>
+export const AsButton = () => (
+  <TopicTag as="button" type="button">
+    react
+  </TopicTag>
+)
 
 export const AsGroup = () => {
   const tags = [

@@ -360,6 +360,7 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
         {currentPage < pages || currentPage === 0 ? (
           <ActionList.Item
             as="button"
+            type="button"
             aria-expanded="false"
             ref={forwardedRef}
             onSelect={() => {

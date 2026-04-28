@@ -14,10 +14,10 @@ describe('TopicTag', () => {
     expect(screen.getByRole('link', {name: 'test'})).toBeInTheDocument()
   })
 
-  test('support <button> semantics through `as` prop', async () => {
+  test('support <button type="button"> semantics through `as` prop', async () => {
     const onClick = vi.fn()
     render(
-      <TopicTag as="button" onClick={onClick}>
+      <TopicTag as="button" type="button" onClick={onClick}>
         test
       </TopicTag>,
     )

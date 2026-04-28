@@ -20,7 +20,7 @@ export function shouldNotAcceptSystemProps() {
 export function acceptsAsProps() {
   return (
     <>
-      <Token as="button" text="Token test" />
+      <Token as="button" type="button" text="Token test" />
       <Token as="a" text="Token test" />
       <Token as="span" text="Token test" />
     </>
@@ -76,7 +76,7 @@ export function hasReasonableEventsForTargets() {
   const handleSpanClick: React.MouseEventHandler<HTMLSpanElement> = _event => {}
   return (
     <>
-      <Token text="Token test" as="button" onClick={handleButtonClick} />
+      <Token text="Token test" as="button" type="button" onClick={handleButtonClick} />
       <Token text="Token test" as="a" onClick={handleAnchorClick} />
       <Token text="Token test" as="span" onClick={handleSpanClick} />
     </>
