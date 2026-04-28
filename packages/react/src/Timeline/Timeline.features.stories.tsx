@@ -2,7 +2,18 @@ import type {Meta} from '@storybook/react-vite'
 import type {ComponentProps} from '../utils/types'
 import Timeline from './Timeline'
 import Octicon from '../Octicon'
-import {GitBranchIcon, GitCommitIcon, GitMergeIcon} from '@primer/octicons-react'
+import {
+  FlameIcon,
+  GitBranchIcon,
+  GitCommitIcon,
+  GitMergeIcon,
+  GitPullRequestIcon,
+  HeartIcon,
+  IssueClosedIcon,
+  IssueOpenedIcon,
+  SkipIcon,
+  XIcon,
+} from '@primer/octicons-react'
 import Link from '../Link'
 import classes from './Timeline.features.stories.module.css'
 
@@ -101,8 +112,8 @@ export const CondensedItems = () => (
 export const TimelineBreak = () => (
   <Timeline>
     <Timeline.Item>
-      <Timeline.Badge className={classes.BadgeWithDoneBackground}>
-        <Octicon icon={GitMergeIcon} className={classes.GitMergeIcon} aria-label="Merged" />
+      <Timeline.Badge variant="done">
+        <Octicon icon={GitMergeIcon} aria-label="Merged" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
@@ -112,6 +123,65 @@ export const TimelineBreak = () => (
         <Octicon icon={GitBranchIcon} aria-label="Branch" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
+    </Timeline.Item>
+  </Timeline>
+)
+
+export const BadgeVariants = () => (
+  <Timeline>
+    <Timeline.Item>
+      <Timeline.Badge variant="accent">
+        <Octicon icon={GitPullRequestIcon} aria-label="Pull request" />
+      </Timeline.Badge>
+      <Timeline.Body>Accent</Timeline.Body>
+    </Timeline.Item>
+    <Timeline.Item>
+      <Timeline.Badge variant="success">
+        <Octicon icon={IssueClosedIcon} aria-label="Closed" />
+      </Timeline.Badge>
+      <Timeline.Body>Success</Timeline.Body>
+    </Timeline.Item>
+    <Timeline.Item>
+      <Timeline.Badge variant="attention">
+        <Octicon icon={FlameIcon} aria-label="Attention" />
+      </Timeline.Badge>
+      <Timeline.Body>Attention</Timeline.Body>
+    </Timeline.Item>
+    <Timeline.Item>
+      <Timeline.Badge variant="severe">
+        <Octicon icon={SkipIcon} aria-label="Severe" />
+      </Timeline.Badge>
+      <Timeline.Body>Severe</Timeline.Body>
+    </Timeline.Item>
+    <Timeline.Item>
+      <Timeline.Badge variant="danger">
+        <Octicon icon={XIcon} aria-label="Danger" />
+      </Timeline.Badge>
+      <Timeline.Body>Danger</Timeline.Body>
+    </Timeline.Item>
+    <Timeline.Item>
+      <Timeline.Badge variant="done">
+        <Octicon icon={GitMergeIcon} aria-label="Merged" />
+      </Timeline.Badge>
+      <Timeline.Body>Done</Timeline.Body>
+    </Timeline.Item>
+    <Timeline.Item>
+      <Timeline.Badge variant="open">
+        <Octicon icon={IssueOpenedIcon} aria-label="Open" />
+      </Timeline.Badge>
+      <Timeline.Body>Open</Timeline.Body>
+    </Timeline.Item>
+    <Timeline.Item>
+      <Timeline.Badge variant="closed">
+        <Octicon icon={IssueClosedIcon} aria-label="Closed" />
+      </Timeline.Badge>
+      <Timeline.Body>Closed</Timeline.Body>
+    </Timeline.Item>
+    <Timeline.Item>
+      <Timeline.Badge variant="sponsors">
+        <Octicon icon={HeartIcon} aria-label="Sponsors" />
+      </Timeline.Badge>
+      <Timeline.Body>Sponsors</Timeline.Body>
     </Timeline.Item>
   </Timeline>
 )

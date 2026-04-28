@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 import {render, screen} from '@testing-library/react'
-import {Table} from '../../DataTable'
+import {DataTable, Table} from '../../DataTable'
 import {createColumnHelper} from '../column'
 import type {TableProps} from '../Table'
 import {implementsClassName} from '../../utils/testing'
@@ -289,6 +289,171 @@ describe('Table', () => {
       for (const cell of screen.getAllByRole('cell')) {
         expect(cell).toHaveTextContent('Loading')
       }
+    })
+  })
+
+  describe('data-component attributes', () => {
+    it('should have data-component="Table" on the table element', () => {
+      const {container} = render(
+        <Table>
+          <Table.Head>
+            <Table.Row>
+              <Table.Header>Column</Table.Header>
+            </Table.Row>
+          </Table.Head>
+        </Table>,
+      )
+      expect(container.querySelector('[data-component="Table"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="Table.Head" on the thead element', () => {
+      const {container} = render(
+        <Table>
+          <Table.Head>
+            <Table.Row>
+              <Table.Header>Column</Table.Header>
+            </Table.Row>
+          </Table.Head>
+        </Table>,
+      )
+      expect(container.querySelector('[data-component="Table.Head"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="Table.Body" on the tbody element', () => {
+      const {container} = render(
+        <Table>
+          <Table.Head>
+            <Table.Row>
+              <Table.Header>Column</Table.Header>
+            </Table.Row>
+          </Table.Head>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>Cell</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table>,
+      )
+      expect(container.querySelector('[data-component="Table.Body"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="Table.Row" on row elements', () => {
+      const {container} = render(
+        <Table>
+          <Table.Head>
+            <Table.Row>
+              <Table.Header>Column</Table.Header>
+            </Table.Row>
+          </Table.Head>
+        </Table>,
+      )
+      expect(container.querySelector('[data-component="Table.Row"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="Table.Header" on header cells', () => {
+      const {container} = render(
+        <Table>
+          <Table.Head>
+            <Table.Row>
+              <Table.Header>Column</Table.Header>
+            </Table.Row>
+          </Table.Head>
+        </Table>,
+      )
+      expect(container.querySelector('[data-component="Table.Header"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="Table.SortHeader" on sortable header cells', () => {
+      const {container} = render(
+        <DataTable
+          data={[{id: 1, value: 'test'}]}
+          columns={[
+            {
+              header: 'Value',
+              field: 'value',
+              sortBy: true,
+            },
+          ]}
+        />,
+      )
+      expect(container.querySelector('[data-component="Table.SortHeader"]')).toBeInTheDocument()
+    })
+
+    it('should allow querying nested Button inside Table.SortHeader', () => {
+      const {container} = render(
+        <DataTable
+          data={[{id: 1, value: 'test'}]}
+          columns={[
+            {
+              header: 'Value',
+              field: 'value',
+              sortBy: true,
+            },
+          ]}
+        />,
+      )
+      expect(container.querySelector('[data-component="Table.SortHeader.Button"]')).toBeInTheDocument()
+    })
+
+    it('should allow querying sort icons inside Table.SortHeader', () => {
+      const {container} = render(
+        <DataTable
+          data={[{id: 1, value: 'test'}]}
+          columns={[
+            {
+              header: 'Value',
+              field: 'value',
+              sortBy: true,
+            },
+          ]}
+        />,
+      )
+      expect(
+        container.querySelector('[data-component="Table.SortHeader"] [data-component="Octicon"]'),
+      ).toBeInTheDocument()
+    })
+
+    it('should have data-component="Table.Cell" on cells', () => {
+      const {container} = render(
+        <Table>
+          <Table.Head>
+            <Table.Row>
+              <Table.Header>Column</Table.Header>
+            </Table.Row>
+          </Table.Head>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>Cell</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table>,
+      )
+      expect(container.querySelector('[data-component="Table.Cell"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="Table.Container" on container element', () => {
+      const {container} = render(<Table.Container>Content</Table.Container>)
+      expect(container.querySelector('[data-component="Table.Container"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="Table.Title" on title element', () => {
+      const {container} = render(<Table.Title id="test">Title</Table.Title>)
+      expect(container.querySelector('[data-component="Table.Title"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="Table.Subtitle" on subtitle element', () => {
+      const {container} = render(<Table.Subtitle id="test">Subtitle</Table.Subtitle>)
+      expect(container.querySelector('[data-component="Table.Subtitle"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="Table.Divider" on divider element', () => {
+      const {container} = render(<Table.Divider />)
+      expect(container.querySelector('[data-component="Table.Divider"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="Table.Actions" on actions element', () => {
+      const {container} = render(<Table.Actions>Actions</Table.Actions>)
+      expect(container.querySelector('[data-component="Table.Actions"]')).toBeInTheDocument()
     })
   })
 })

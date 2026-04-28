@@ -29,6 +29,8 @@ export type PageProps = {
   number: number
   /* Default styles for the page number */
   className: string
+  /* Stable selector for testing and styling */
+  'data-component': 'Pagination.Page'
 } & Omit<PageDataProps['props'], 'as' | 'role'>
 
 type UsePaginationPagesParameters = {
@@ -49,9 +51,9 @@ type PageLabelProps = {
 
 const PageLabel = ({children, direction}: PageLabelProps) => (
   <>
-    {direction === 'page-prev' ? <ChevronLeftIcon /> : null}
+    {direction === 'page-prev' ? <ChevronLeftIcon data-component="Pagination.PreviousPageIcon" /> : null}
     {children}
-    {direction === 'page-next' ? <ChevronRightIcon /> : null}
+    {direction === 'page-next' ? <ChevronRightIcon data-component="Pagination.NextPageIcon" /> : null}
   </>
 )
 
@@ -80,14 +82,22 @@ function usePaginationPages({
           children: <PageLabel direction={key}>{content}</PageLabel>,
           number: page.num,
           className: classes.Page,
+          'data-component': 'Pagination.Page',
           ...props,
         })
       }
       const Component = props.as || 'a'
 
+      const dataComponentAttribute =
+        props.rel === 'prev'
+          ? 'Pagination.PreviousPage'
+          : props.rel === 'next'
+            ? 'Pagination.NextPage'
+            : 'Pagination.Page'
+
       return (
         // @ts-ignore giving me grief about children and "as" props
-        <Component key={key} className={clsx(classes.Page)} {...props}>
+        <Component key={key} className={clsx(classes.Page)} data-component={dataComponentAttribute} {...props}>
           <PageLabel direction={key}>{content}</PageLabel>
         </Component>
       )
@@ -133,7 +143,12 @@ function Pagination({
   })
 
   return (
-    <nav className={clsx(classes.PaginationContainer, className)} aria-label="Pagination" {...rest}>
+    <nav
+      className={clsx(classes.PaginationContainer, className)}
+      aria-label="Pagination"
+      data-component="Pagination"
+      {...rest}
+    >
       <div
         className={classes.TablePaginationSteps}
         data-hidden-viewport-ranges={getViewportRangesToHidePages(showPages).join(' ')}

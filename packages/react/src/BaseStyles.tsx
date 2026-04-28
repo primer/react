@@ -21,6 +21,7 @@ function BaseStyles({children, color, className, as: Component = 'div', style, .
 
   return (
     <Component
+      data-component="BaseStyles"
       className={newClassName}
       data-portal-root
       style={{
