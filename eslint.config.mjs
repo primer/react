@@ -91,7 +91,7 @@ const config = defineConfig([
       '@eslint-react/no-children-count': 'error',
       '@eslint-react/no-children-for-each': 'error',
       '@eslint-react/no-children-map': 'off',
-      '@eslint-react/no-children-only': 'off',
+      '@eslint-react/no-children-only': 'error',
       '@eslint-react/no-children-to-array': 'off',
       '@eslint-react/no-clone-element': 'off',
       '@eslint-react/no-create-ref': 'off',

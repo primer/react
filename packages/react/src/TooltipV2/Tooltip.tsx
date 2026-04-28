@@ -1,4 +1,4 @@
-import React, {Children, useEffect, useRef, useState, useMemo, type ForwardRefExoticComponent} from 'react'
+import React, {useEffect, useRef, useState, useMemo, type ForwardRefExoticComponent} from 'react'
 import {useId, useProvidedRefOrCreate, useOnEscapePress, useIsMacOS} from '../hooks'
 import {invariant} from '../utils/invariant'
 import {warning} from '../utils/warning'
@@ -125,7 +125,7 @@ export const Tooltip: ForwardRefExoticComponent<
     forwardedRef,
   ) => {
     const tooltipId = useId(id)
-    const child = Children.only(children)
+    const child = children
     const triggerRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
     const tooltipElRef = useRef<HTMLDivElement>(null)
 
