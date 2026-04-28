@@ -72,7 +72,8 @@ const AvatarStack = ({
   const [hasInteractiveChildren, setHasInteractiveChildren] = useState<boolean | undefined>(false)
   const stackContainer = useRef<HTMLDivElement>(null)
 
-  const count = React.Children.count(children)
+  const childArray = React.Children.toArray(children)
+  const count = childArray.length
 
   const getAvatarChildSizes = () => {
     const avatarSizeMap: Record<WidthOnlyViewportRangeKeys, number[]> = {
@@ -81,7 +82,7 @@ const AvatarStack = ({
       wide: [],
     }
 
-    return React.Children.toArray(children).reduce<Record<WidthOnlyViewportRangeKeys, number>>(
+    return childArray.reduce<Record<WidthOnlyViewportRangeKeys, number>>(
       (acc, child) => {
         // if child is not an Avatar, return the default avatar sizes from the accumulator
         if (!React.isValidElement<AvatarProps>(child)) return acc

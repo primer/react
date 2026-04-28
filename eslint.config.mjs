@@ -88,7 +88,7 @@ const config = defineConfig([
       '@eslint-react/jsx-no-key-after-spread': 'error',
       '@eslint-react/naming-convention-ref-name': 'off',
       '@eslint-react/no-array-index-key': 'off',
-      '@eslint-react/no-children-count': 'off',
+      '@eslint-react/no-children-count': 'error',
       '@eslint-react/no-children-for-each': 'off',
       '@eslint-react/no-children-map': 'off',
       '@eslint-react/no-children-only': 'off',
