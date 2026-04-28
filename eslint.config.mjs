@@ -95,7 +95,7 @@ const config = defineConfig([
       '@eslint-react/no-children-to-array': 'off',
       '@eslint-react/no-clone-element': 'off',
       '@eslint-react/no-create-ref': 'off',
-      '@eslint-react/no-nested-component-definitions': 'off',
+      '@eslint-react/no-nested-component-definitions': 'error',
       '@eslint-react/no-unnecessary-use-prefix': 'off',
       '@eslint-react/no-unstable-context-value': 'off',
       '@eslint-react/no-unstable-default-props': 'error',

@@ -384,6 +384,51 @@ type CustomItemProps = {
   trailingVisual?: Icon | string
 }
 
+const OcticonNavListItem = ({leadingVisual, text, trailingVisual, ...rest}: CustomItemProps) => {
+  return (
+    <NavList.Item key={text} onClick={() => {}} href="#" {...rest}>
+      {leadingVisual ? (
+        <NavList.LeadingVisual>
+          <Octicon icon={leadingVisual} />
+        </NavList.LeadingVisual>
+      ) : null}
+      {text}
+
+      {trailingVisual ? (
+        <NavList.TrailingVisual>
+          {typeof trailingVisual === 'string' ? trailingVisual : <Octicon icon={trailingVisual as React.ElementType} />}
+          <VisuallyHidden>results</VisuallyHidden>
+        </NavList.TrailingVisual>
+      ) : null}
+    </NavList.Item>
+  )
+}
+
+const CustomNavListItem = ({
+  leadingVisual: LeadingVisual,
+  text,
+  trailingVisual: TrailingVisual,
+  ...rest
+}: CustomItemProps) => {
+  return (
+    <NavList.Item onClick={() => {}} href="#" {...rest} key={text}>
+      {LeadingVisual ? (
+        <NavList.LeadingVisual>
+          <LeadingVisual />
+        </NavList.LeadingVisual>
+      ) : null}
+      {text}
+
+      {TrailingVisual ? (
+        <NavList.TrailingVisual>
+          {typeof TrailingVisual === 'string' ? TrailingVisual : <TrailingVisual />}
+          <VisuallyHidden>results</VisuallyHidden>
+        </NavList.TrailingVisual>
+      ) : null}
+    </NavList.Item>
+  )
+}
+
 export const ExpandWithCustomItems: StoryFn = () => {
   const items: {href: string; text: string; 'aria-current'?: 'page'}[] = [
     {href: '#', text: 'Item 4', 'aria-current': 'page'},
@@ -394,30 +439,6 @@ export const ExpandWithCustomItems: StoryFn = () => {
     {href: '#', text: 'Item 9'},
   ]
 
-  const Item = ({leadingVisual, text, trailingVisual, ...rest}: CustomItemProps) => {
-    return (
-      <NavList.Item key={text} onClick={() => {}} href="#" {...rest}>
-        {leadingVisual ? (
-          <NavList.LeadingVisual>
-            <Octicon icon={leadingVisual} />
-          </NavList.LeadingVisual>
-        ) : null}
-        {text}
-
-        {trailingVisual ? (
-          <NavList.TrailingVisual>
-            {typeof trailingVisual === 'string' ? (
-              trailingVisual
-            ) : (
-              <Octicon icon={trailingVisual as React.ElementType} />
-            )}
-            <VisuallyHidden>results</VisuallyHidden>
-          </NavList.TrailingVisual>
-        ) : null}
-      </NavList.Item>
-    )
-  }
-
   return (
     <PageLayout>
       <PageLayout.Pane position="start">
@@ -425,7 +446,7 @@ export const ExpandWithCustomItems: StoryFn = () => {
           <NavList.Item href="#">Item 1</NavList.Item>
           <NavList.Item href="#">Item 2</NavList.Item>
           <NavList.Item href="#">Item 3</NavList.Item>
-          <NavList.GroupExpand label="Show more" items={items} renderItem={Item} />
+          <NavList.GroupExpand label="Show more" items={items} renderItem={OcticonNavListItem} />
         </NavList>
       </PageLayout.Pane>
       <PageLayout.Content></PageLayout.Content>
@@ -497,26 +518,6 @@ export const WithGroupExpand = () => {
 }
 
 export const GroupWithExpandAndCustomItems = () => {
-  const Item = ({leadingVisual: LeadingVisual, text, trailingVisual: TrailingVisual, ...rest}: CustomItemProps) => {
-    return (
-      <NavList.Item onClick={() => {}} href="#" {...rest} key={text}>
-        {LeadingVisual ? (
-          <NavList.LeadingVisual>
-            <LeadingVisual />
-          </NavList.LeadingVisual>
-        ) : null}
-        {text}
-
-        {TrailingVisual ? (
-          <NavList.TrailingVisual>
-            {typeof TrailingVisual === 'string' ? TrailingVisual : <TrailingVisual />}
-            <VisuallyHidden>results</VisuallyHidden>
-          </NavList.TrailingVisual>
-        ) : null}
-      </NavList.Item>
-    )
-  }
-
   const items = [
     {href: '#', text: 'Commits', leadingVisual: GitCommitIcon, trailingVisual: '32k'},
     {href: '#', text: 'Packages', leadingVisual: PackageIcon, trailingVisual: '1k'},
@@ -570,7 +571,7 @@ export const GroupWithExpandAndCustomItems = () => {
           Users
           <NavList.TrailingVisual>10k</NavList.TrailingVisual>
         </NavList.Item>
-        <NavList.GroupExpand items={items} renderItem={Item} />
+        <NavList.GroupExpand items={items} renderItem={CustomNavListItem} />
       </NavList.Group>
     </NavList>
   )

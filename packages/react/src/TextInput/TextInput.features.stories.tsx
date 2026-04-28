@@ -12,6 +12,8 @@ export default {
   title: 'Components/TextInput/Features',
 }
 
+const Checkmark = () => <CheckIcon aria-label="Checkmark" />
+
 export const Disabled = () => (
   <form>
     <FormControl>
@@ -101,8 +103,6 @@ export const Required = () => (
 )
 
 export const WithLeadingVisual = () => {
-  const Checkmark = () => <CheckIcon aria-label="Checkmark" />
-
   return (
     <form>
       <FormControl>
@@ -118,8 +118,6 @@ export const WithLeadingVisual = () => {
 }
 
 export const WithTrailingIcon = () => {
-  const Checkmark = () => <CheckIcon aria-label="Checkmark" />
-
   return (
     <div>
       <FormControl>

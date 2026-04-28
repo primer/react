@@ -24,6 +24,30 @@ beforeEach(() => {
   vi.useFakeTimers()
 })
 
+function ErrorDialogTestTree() {
+  const [error, setError] = React.useState('Test error')
+
+  return (
+    <TreeView aria-label="Test tree">
+      <TreeView.Item id="parent" defaultExpanded>
+        Parent
+        <TreeView.SubTree>
+          {error ? (
+            <TreeView.ErrorDialog
+              onRetry={() => {
+                setError('')
+              }}
+              onDismiss={() => setError('')}
+            >
+              {error}
+            </TreeView.ErrorDialog>
+          ) : null}
+        </TreeView.SubTree>
+      </TreeView.Item>
+    </TreeView>
+  )
+}
+
 afterEach(() => {
   vi.useRealTimers()
 })
@@ -1520,31 +1544,7 @@ describe('Asynchronous loading', () => {
   it('moves focus to parent item after closing error dialog', async () => {
     vi.useFakeTimers()
 
-    function TestTree() {
-      const [error, setError] = React.useState('Test error')
-
-      return (
-        <TreeView aria-label="Test tree">
-          <TreeView.Item id="parent" defaultExpanded>
-            Parent
-            <TreeView.SubTree>
-              {error ? (
-                <TreeView.ErrorDialog
-                  onRetry={() => {
-                    setError('')
-                  }}
-                  onDismiss={() => setError('')}
-                >
-                  {error}
-                </TreeView.ErrorDialog>
-              ) : null}
-            </TreeView.SubTree>
-          </TreeView.Item>
-        </TreeView>
-      )
-    }
-
-    const {getByRole} = renderWithTheme(<TestTree />)
+    const {getByRole} = renderWithTheme(<ErrorDialogTestTree />)
     const dialog = getByRole('alertdialog')
     const parentItem = getByRole('treeitem', {name: 'Parent'})
 
