@@ -85,7 +85,7 @@ const config = defineConfig([
       '@eslint-react/dom-no-unknown-property': 'error',
       '@eslint-react/component-hook-factories': 'off',
       '@eslint-react/exhaustive-deps': 'off',
-      '@eslint-react/jsx-no-key-after-spread': 'off',
+      '@eslint-react/jsx-no-key-after-spread': 'error',
       '@eslint-react/naming-convention-ref-name': 'off',
       '@eslint-react/no-array-index-key': 'off',
       '@eslint-react/no-children-count': 'off',
