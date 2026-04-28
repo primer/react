@@ -109,6 +109,6 @@ const useMoveFocusToMenuItem = (
     }
 
     anchor?.addEventListener('keydown', handler)
-    return () => anchor?.addEventListener('keydown', handler)
+    return () => anchor?.removeEventListener('keydown', handler)
   }, [open, containerRef, anchorRef])
 }

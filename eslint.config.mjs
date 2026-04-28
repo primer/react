@@ -99,7 +99,6 @@ const config = defineConfig([
       '@eslint-react/no-unstable-context-value': 'off',
       '@eslint-react/no-unstable-default-props': 'error',
       '@eslint-react/no-useless-forward-ref': 'error',
-      '@eslint-react/web-api/no-leaked-event-listener': 'off',
       '@eslint-react/web-api/no-leaked-timeout': 'off',
     },
   },
