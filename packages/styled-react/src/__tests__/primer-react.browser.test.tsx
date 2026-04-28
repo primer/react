@@ -6,14 +6,10 @@ import {
   Button,
   Dialog,
   Flash,
-  FormControl,
-  Header,
   Heading,
   IconButton,
   Label,
   Link,
-  LinkButton,
-  SegmentedControl,
   Spinner,
   Text,
   TextInput,
@@ -76,20 +72,6 @@ describe('@primer/react', () => {
     expect(screen.getByTestId('component')).toHaveAttribute('variant', 'success')
   })
 
-  test('FormControl supports `sx` prop', () => {
-    const {container} = render(
-      <FormControl sx={{background: 'red'}}>
-        <FormControl.Label>label</FormControl.Label>
-      </FormControl>,
-    )
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('Header supports `sx` prop', () => {
-    render(<Header as="header" data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
   test('Heading supports `sx` prop', () => {
     render(<Heading data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
@@ -124,41 +106,6 @@ describe('@primer/react', () => {
     render(<Link as="a" data-testid="component" sx={{background: 'red'}} inline />)
     expect(screen.getByTestId('component')).toHaveAttribute('data-inline', 'true')
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('LinkButton supports `sx` prop', () => {
-    render(<LinkButton as="a" data-testid="component" sx={{background: 'red'}} icon={<svg />} />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-    expect(screen.getByTestId('component')).toHaveAttribute('icon')
-  })
-
-  test('SegmentedControl supports `sx` prop', () => {
-    render(<SegmentedControl data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('SegmentedControl.Button supports `sx` prop', () => {
-    render(
-      <SegmentedControl>
-        <SegmentedControl.Button data-testid="component" sx={{background: 'red'}}>
-          test
-        </SegmentedControl.Button>
-      </SegmentedControl>,
-    )
-    const buttonElement = screen.getByTestId('component')
-    expect(window.getComputedStyle(buttonElement).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('SegmentedControl.IconButton supports `sx` prop', () => {
-    const {container} = render(
-      <SegmentedControl.IconButton
-        data-testid="component"
-        sx={{background: 'red'}}
-        aria-label="test"
-        icon={() => <svg />}
-      />,
-    )
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
   test('Spinner supports `sx` prop', () => {

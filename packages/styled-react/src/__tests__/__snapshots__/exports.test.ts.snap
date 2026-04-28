@@ -8,15 +8,11 @@ exports[`@primer/styled-react exports 1`] = `
   "Button",
   "Dialog",
   "Flash",
-  "FormControl",
-  "Header",
   "Heading",
   "IconButton",
   "Label",
   "Link",
-  "LinkButton",
   "merge",
-  "SegmentedControl",
   "Spinner",
   "sx",
   "Text",
@@ -36,7 +32,6 @@ exports[`@primer/styled-react/deprecated exports 1`] = `
   "ActionList",
   "Dialog",
   "Octicon",
-  "TabNav",
 ]
 `;
 
