@@ -650,9 +650,10 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         document.body.appendChild(liveRegion)
       })
 
+      const defaultItems: SelectPanelProps['items'] = []
       function LoadingSelectPanel({
         initialLoadingType = 'spinner',
-        items = [],
+        items = defaultItems,
       }: {
         initialLoadingType?: InitialLoadingType
         items?: SelectPanelProps['items']

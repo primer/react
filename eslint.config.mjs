@@ -266,14 +266,6 @@ const config = defineConfig([
     },
   },
 
-  // Tests
-  {
-    files: ['**/*.test.{ts,tsx}'],
-    rules: {
-      '@eslint-react/no-unstable-default-props': 'off',
-    },
-  },
-
   // eslint-plugin-vitest
   {
     files: ['**/*.test.{ts,tsx}'],

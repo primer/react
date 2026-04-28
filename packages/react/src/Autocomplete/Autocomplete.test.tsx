@@ -24,8 +24,9 @@ const mockItems = [
 ]
 
 const AUTOCOMPLETE_LABEL = 'Autocomplete field'
+const defaultInputProps = {}
 const LabelledAutocomplete = <T extends AutocompleteMenuItem>({
-  inputProps = {},
+  inputProps = defaultInputProps,
   menuProps,
 }: {
   inputProps?: AutocompleteInputProps
