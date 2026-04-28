@@ -78,13 +78,14 @@ const config = defineConfig([
   eslintReact.configs['recommended-typescript'],
   {
     rules: {
-      '@eslint-react/dom/no-dangerously-set-innerhtml': 'off',
-      '@eslint-react/dom/no-flush-sync': 'off',
-      '@eslint-react/dom/no-missing-button-type': 'off',
+      '@eslint-react/dom-no-dangerously-set-innerhtml': 'off',
+      '@eslint-react/dom-no-flush-sync': 'off',
+      '@eslint-react/dom-no-missing-button-type': 'off',
       '@eslint-react/component-hook-factories': 'off',
       '@eslint-react/exhaustive-deps': 'off',
-      '@eslint-react/jsx-key-before-spread': 'off',
-      '@eslint-react/naming-convention/ref-name': 'off',
+      '@eslint-react/jsx-no-children-prop': 'off',
+      '@eslint-react/jsx-no-key-after-spread': 'off',
+      '@eslint-react/naming-convention-ref-name': 'off',
       '@eslint-react/no-array-index-key': 'off',
       '@eslint-react/no-children-count': 'off',
       '@eslint-react/no-children-for-each': 'off',
@@ -100,7 +101,7 @@ const config = defineConfig([
       '@eslint-react/purity': 'off',
       '@eslint-react/rules-of-hooks': 'off',
       '@eslint-react/set-state-in-effect': 'off',
-      '@eslint-react/web-api/no-leaked-timeout': 'off',
+      '@eslint-react/web-api-no-leaked-timeout': 'off',
     },
   },
 
