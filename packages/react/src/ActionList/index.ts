@@ -7,6 +7,7 @@ import {Description} from './Description'
 import {TrailingAction} from './TrailingAction'
 import {LeadingVisual, TrailingVisual} from './Visuals'
 import {Heading} from './Heading'
+import {Selection} from './Selection'
 
 export type {ActionListProps} from './shared'
 export type {ActionListGroupProps, ActionListGroupHeadingProps} from './Group'
@@ -17,7 +18,7 @@ export type {ActionListDescriptionProps} from './Description'
 export type {ActionListLeadingVisualProps, ActionListTrailingVisualProps} from './Visuals'
 export type {ActionListHeadingProps} from './Heading'
 export type {ActionListTrailingActionProps} from './TrailingAction'
-
+export type {ActionListSelectionProps} from './Selection'
 /**
  * Collection of list-related components.
  */
@@ -51,6 +52,9 @@ export const ActionList = Object.assign(List, {
 
   /** Heading for `ActionList.Group` */
   GroupHeading,
+
+  /** Selection state for multi-select items */
+  Selection,
 
   /** Secondary action */
   TrailingAction,

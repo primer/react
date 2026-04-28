@@ -65,6 +65,7 @@ export type {
   ActionListDividerProps,
   ActionListDescriptionProps,
   ActionListLeadingVisualProps,
+  ActionListSelectionProps,
   ActionListTrailingVisualProps,
   ActionListTrailingActionProps,
 } from './ActionList'
