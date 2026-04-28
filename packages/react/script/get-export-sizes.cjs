@@ -17,6 +17,7 @@ const noopCSSModules = {
     }
     return {
       code: `export default {}`,
+      moduleType: 'js',
     }
   },
 }
