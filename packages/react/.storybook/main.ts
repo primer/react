@@ -17,6 +17,8 @@ const config: StorybookConfig = {
       : // Don't include dev stories in production
         ['../src/**/*.mdx', '../src/**/!(*.dev).stories.@(js|jsx|ts|tsx)'],
 
+  staticDirs: ['../static'],
+
   addons: [
     getAbsolutePath('@storybook/addon-a11y'),
     getAbsolutePath('@storybook/addon-links'),
