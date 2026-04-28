@@ -3,15 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "exports": {
-    "types": "./dist/index.d.ts",
-    "default": "./dist/index.js"
-  },
+  "exports": "./src/index.ts",
   "scripts": {
-    "build": "rolldown -c && tsc --project tsconfig.build.json",
-    "clean": "rimraf dist",
-    "type-check": "tsc --noEmit",
-    "watch": "rolldown -c -w"
+    "type-check": "tsc --noEmit"
   },
   "peerDependencies": {
     "postcss": "^8.4.38",
