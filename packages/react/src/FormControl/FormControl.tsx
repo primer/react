@@ -10,7 +10,7 @@ import TextInputWithTokens from '../TextInputWithTokens'
 import Textarea from '../Textarea'
 import {CheckboxOrRadioGroupContext} from '../internal/components/CheckboxOrRadioGroup'
 import ValidationAnimationContainer from '../internal/components/ValidationAnimationContainer'
-import {useSlots} from '../hooks/useSlots'
+import {getSlots} from '../hooks/getSlots'
 import {useId} from '../hooks/useId'
 import {FormControlCaption} from './FormControlCaption'
 import FormControlLabel from './FormControlLabel'
@@ -46,7 +46,7 @@ export type FormControlProps = {
 
 const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
   ({children, disabled: disabledProp, layout = 'vertical', id: idProp, required, className, style}, ref) => {
-    const [slots, childrenWithoutSlots] = useSlots(children, {
+    const [slots, childrenWithoutSlots] = getSlots(children, {
       caption: FormControlCaption,
       label: FormControlLabel,
       leadingVisual: FormControlLeadingVisual,

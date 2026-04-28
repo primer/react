@@ -1,7 +1,7 @@
 import {render} from '@testing-library/react'
 import {expect, test, vi} from 'vitest'
 import type React from 'react'
-import {useSlots} from '../useSlots'
+import {getSlots} from '../getSlots'
 
 type TestComponentAProps = React.PropsWithChildren<{variant?: 'a' | 'b'}>
 
@@ -54,7 +54,7 @@ const WrappedTestComponentWithSlotVariant = (props: TestComponentAProps) => (
 WrappedTestComponentWithSlotVariant.__SLOT__ = TestComponentWithSlotVariant.__SLOT__
 
 test('extracts elements based on config object', () => {
-  const calls: Array<ReturnType<typeof useSlots>> = []
+  const calls: Array<ReturnType<typeof getSlots>> = []
   const children = [<TestComponentA key="a" />, <TestComponentB key="b" />, <div key="hello">Hello World</div>]
   const slotsConfig = {
     a: TestComponentA,
@@ -62,7 +62,7 @@ test('extracts elements based on config object', () => {
   }
 
   function TestComponent(_props: {children: React.ReactNode}) {
-    calls.push(useSlots(children, slotsConfig))
+    calls.push(getSlots(children, slotsConfig))
     return null
   }
 
@@ -86,12 +86,12 @@ test('extracts elements based on config object', () => {
 })
 
 test('handles empty config object', () => {
-  const calls: Array<ReturnType<typeof useSlots>> = []
+  const calls: Array<ReturnType<typeof getSlots>> = []
   const children = [<TestComponentA key="a" />, <TestComponentB key="b" />, <div key="hello">Hello World</div>]
   const slotsConfig = {}
 
   function TestComponent(_props: {children: React.ReactNode}) {
-    calls.push(useSlots(children, slotsConfig))
+    calls.push(getSlots(children, slotsConfig))
     return null
   }
 
@@ -114,7 +114,7 @@ test('handles empty config object', () => {
 })
 
 test('handles empty children', () => {
-  const calls: Array<ReturnType<typeof useSlots>> = []
+  const calls: Array<ReturnType<typeof getSlots>> = []
   const children: React.ReactNode = []
   const slotsConfig = {
     a: TestComponentA,
@@ -122,7 +122,7 @@ test('handles empty children', () => {
   }
 
   function TestComponent(_props: {children: React.ReactNode}) {
-    calls.push(useSlots(children, slotsConfig))
+    calls.push(getSlots(children, slotsConfig))
     return null
   }
 
@@ -141,7 +141,7 @@ test('handles empty children', () => {
 })
 
 test('ignores nested slots', () => {
-  const calls: Array<ReturnType<typeof useSlots>> = []
+  const calls: Array<ReturnType<typeof getSlots>> = []
   const children = [
     <TestComponentA key="a" />,
     <div key="b">
@@ -154,7 +154,7 @@ test('ignores nested slots', () => {
   }
 
   function TestComponent(_props: {children: React.ReactNode}) {
-    calls.push(useSlots(children, slotsConfig))
+    calls.push(getSlots(children, slotsConfig))
     return null
   }
 
@@ -178,7 +178,7 @@ test('ignores nested slots', () => {
 })
 
 test('warns about duplicate slots', () => {
-  const calls: Array<ReturnType<typeof useSlots>> = []
+  const calls: Array<ReturnType<typeof getSlots>> = []
   const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
   const children = [<TestComponentA key="a1">A1</TestComponentA>, <TestComponentA key="a2">A2</TestComponentA>]
   const slotsConfig = {
@@ -186,7 +186,7 @@ test('warns about duplicate slots', () => {
   }
 
   function TestComponent(_props: {children: React.ReactNode}) {
-    calls.push(useSlots(children, slotsConfig))
+    calls.push(getSlots(children, slotsConfig))
     return null
   }
 
@@ -208,7 +208,7 @@ test('warns about duplicate slots', () => {
 })
 
 test('extracts elements based on condition in config object', () => {
-  const calls: Array<ReturnType<typeof useSlots>> = []
+  const calls: Array<ReturnType<typeof getSlots>> = []
   const children = [
     <TestComponentA key="a" variant="a" />,
     <TestComponentA key="b" variant="b" />,
@@ -217,7 +217,7 @@ test('extracts elements based on condition in config object', () => {
 
   function TestComponent(_props: {children: React.ReactNode}) {
     calls.push(
-      useSlots(children, {
+      getSlots(children, {
         a: [TestComponentA, (props: TestComponentAProps) => props.variant === 'a'],
         b: [TestComponentA, (props: TestComponentAProps) => props.variant === 'b'],
       }),
@@ -249,7 +249,7 @@ test('extracts elements based on condition in config object', () => {
 })
 
 test('extracts components using slot symbols', () => {
-  const calls: Array<ReturnType<typeof useSlots>> = []
+  const calls: Array<ReturnType<typeof getSlots>> = []
   const children = [
     <TestComponentWithSlot key="slot">Slot content</TestComponentWithSlot>,
     <TestComponentB key="b">Regular B</TestComponentB>,
@@ -261,7 +261,7 @@ test('extracts components using slot symbols', () => {
   }
 
   function TestComponent(_props: {children: React.ReactNode}) {
-    calls.push(useSlots(children, slotsConfig))
+    calls.push(getSlots(children, slotsConfig))
     return null
   }
 
@@ -289,7 +289,7 @@ test('extracts components using slot symbols', () => {
 })
 
 test('extracts wrapped components using slot symbols', () => {
-  const calls: Array<ReturnType<typeof useSlots>> = []
+  const calls: Array<ReturnType<typeof getSlots>> = []
   const children = [
     <WrappedTestComponentWithSlot key="wrapped" />,
     <TestComponentB key="b">Regular B</TestComponentB>,
@@ -301,7 +301,7 @@ test('extracts wrapped components using slot symbols', () => {
   }
 
   function TestComponent(_props: {children: React.ReactNode}) {
-    calls.push(useSlots(children, slotsConfig))
+    calls.push(getSlots(children, slotsConfig))
     return null
   }
 
@@ -327,7 +327,7 @@ test('extracts wrapped components using slot symbols', () => {
 })
 
 test('extracts wrapped components with slot symbols and conditions', () => {
-  const calls: Array<ReturnType<typeof useSlots>> = []
+  const calls: Array<ReturnType<typeof getSlots>> = []
   const children = [
     <WrappedTestComponentWithSlotVariant key="variant-a" variant="a" />,
     <WrappedTestComponentWithSlotVariant key="variant-b" variant="b" />,
@@ -336,7 +336,7 @@ test('extracts wrapped components with slot symbols and conditions', () => {
 
   function TestComponent(_props: {children: React.ReactNode}) {
     calls.push(
-      useSlots(children, {
+      getSlots(children, {
         variantA: [TestComponentWithSlotVariant, (props: TestComponentAProps) => props.variant === 'a'],
         variantB: [TestComponentWithSlotVariant, (props: TestComponentAProps) => props.variant === 'b'],
       }),
@@ -368,7 +368,7 @@ test('extracts wrapped components with slot symbols and conditions', () => {
 })
 
 test('prefers direct component type match over slot symbol match', () => {
-  const calls: Array<ReturnType<typeof useSlots>> = []
+  const calls: Array<ReturnType<typeof getSlots>> = []
   const children = [
     <TestComponentWithSlot key="direct">Direct component</TestComponentWithSlot>,
     <WrappedTestComponentWithSlot key="wrapped" />,
@@ -379,7 +379,7 @@ test('prefers direct component type match over slot symbol match', () => {
   }
 
   function TestComponent(_props: {children: React.ReactNode}) {
-    calls.push(useSlots(children, slotsConfig))
+    calls.push(getSlots(children, slotsConfig))
     return null
   }
 
@@ -404,7 +404,7 @@ test('prefers direct component type match over slot symbol match', () => {
 })
 
 test('handles components without slot symbols in mixed scenarios', () => {
-  const calls: Array<ReturnType<typeof useSlots>> = []
+  const calls: Array<ReturnType<typeof getSlots>> = []
   const children = [
     <TestComponentA key="a">Component A</TestComponentA>,
     <WrappedTestComponentA key="wrapped" />,
@@ -417,7 +417,7 @@ test('handles components without slot symbols in mixed scenarios', () => {
   }
 
   function TestComponent(_props: {children: React.ReactNode}) {
-    calls.push(useSlots(children, slotsConfig))
+    calls.push(getSlots(children, slotsConfig))
     return null
   }
 
@@ -445,7 +445,7 @@ test('handles components without slot symbols in mixed scenarios', () => {
 })
 
 test('handles slot symbol matching with duplicate detection', () => {
-  const calls: Array<ReturnType<typeof useSlots>> = []
+  const calls: Array<ReturnType<typeof getSlots>> = []
   const warnSpy = vi
     .spyOn(console, 'warn')
     .mockClear()
@@ -460,7 +460,7 @@ test('handles slot symbol matching with duplicate detection', () => {
   }
 
   function TestComponent(_props: {children: React.ReactNode}) {
-    calls.push(useSlots(children, slotsConfig))
+    calls.push(getSlots(children, slotsConfig))
     return null
   }
 
@@ -490,7 +490,7 @@ test('handles slot symbol matching with duplicate detection', () => {
 })
 
 test('handles empty slot symbols gracefully', () => {
-  const calls: Array<ReturnType<typeof useSlots>> = []
+  const calls: Array<ReturnType<typeof getSlots>> = []
 
   // Component without __SLOT__ property
   function ComponentWithoutSlot(props: React.PropsWithChildren<unknown>) {
@@ -508,7 +508,7 @@ test('handles empty slot symbols gracefully', () => {
   }
 
   function TestComponent(_props: {children: React.ReactNode}) {
-    calls.push(useSlots(children, slotsConfig))
+    calls.push(getSlots(children, slotsConfig))
     return null
   }
 
@@ -536,7 +536,7 @@ test('handles empty slot symbols gracefully', () => {
 })
 
 test('children after all slots are filled go to rest', () => {
-  const calls: Array<ReturnType<typeof useSlots>> = []
+  const calls: Array<ReturnType<typeof getSlots>> = []
   const children = [
     <TestComponentA key="a">Slot A</TestComponentA>,
     <div key="extra1">Extra 1</div>,
@@ -548,7 +548,7 @@ test('children after all slots are filled go to rest', () => {
   }
 
   function TestComponent(_props: {children: React.ReactNode}) {
-    calls.push(useSlots(children, slotsConfig))
+    calls.push(getSlots(children, slotsConfig))
     return null
   }
 
@@ -579,7 +579,7 @@ test('children after all slots are filled go to rest', () => {
 })
 
 test('non-element children are placed in rest', () => {
-  const calls: Array<ReturnType<typeof useSlots>> = []
+  const calls: Array<ReturnType<typeof getSlots>> = []
   const children = [
     'plain text',
     null,
@@ -593,7 +593,7 @@ test('non-element children are placed in rest', () => {
   }
 
   function TestComponent(_props: {children: React.ReactNode}) {
-    calls.push(useSlots(children, slotsConfig))
+    calls.push(getSlots(children, slotsConfig))
     return null
   }
 
@@ -617,7 +617,7 @@ test('non-element children are placed in rest', () => {
 })
 
 test('slots match regardless of child order', () => {
-  const calls: Array<ReturnType<typeof useSlots>> = []
+  const calls: Array<ReturnType<typeof getSlots>> = []
   const children = [
     <div key="text">Text content</div>,
     <TestComponentB key="b">B</TestComponentB>,
@@ -629,7 +629,7 @@ test('slots match regardless of child order', () => {
   }
 
   function TestComponent(_props: {children: React.ReactNode}) {
-    calls.push(useSlots(children, slotsConfig))
+    calls.push(getSlots(children, slotsConfig))
     return null
   }
 
@@ -657,7 +657,7 @@ test('slots match regardless of child order', () => {
 })
 
 test('single slot config short-circuits after first match', () => {
-  const calls: Array<ReturnType<typeof useSlots>> = []
+  const calls: Array<ReturnType<typeof getSlots>> = []
   const children = [
     <TestComponentA key="a">Match</TestComponentA>,
     <div key="1">One</div>,
@@ -670,7 +670,7 @@ test('single slot config short-circuits after first match', () => {
   }
 
   function TestComponent(_props: {children: React.ReactNode}) {
-    calls.push(useSlots(children, slotsConfig))
+    calls.push(getSlots(children, slotsConfig))
     return null
   }
 

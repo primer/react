@@ -4,7 +4,7 @@ import {useId} from '../hooks/useId'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isResponsiveValue} from '../hooks/useResponsiveValue'
-import {useSlots} from '../hooks/useSlots'
+import {getSlots} from '../hooks/getSlots'
 import {useOverflow} from '../hooks/useOverflow'
 import {warning} from '../utils/warning'
 import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes'
@@ -85,7 +85,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   const sidebarRef = useRef<HTMLDivElement>(null)
   const sidebarContentWrapperRef = useRef<HTMLDivElement>(null)
 
-  const [slots, rest] = useSlots(children, slotsConfig ?? {header: Header, footer: Footer, sidebar: Sidebar})
+  const [slots, rest] = getSlots(children, slotsConfig ?? {header: Header, footer: Footer, sidebar: Sidebar})
 
   const memoizedContextValue = React.useMemo(() => {
     return {

@@ -2,7 +2,7 @@ import React from 'react'
 import {useId} from '../hooks/useId'
 import {ListContext, type ActionListProps} from './shared'
 import type {ActionListHeadingProps} from './Heading'
-import {useSlots} from '../hooks/useSlots'
+import {getSlots} from '../hooks/getSlots'
 import {invariant} from '../utils/invariant'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
@@ -81,7 +81,7 @@ export const Group: FCWithSlotMarker<React.PropsWithChildren<ActionListGroupProp
   const id = useId()
   const {role: listRole} = React.useContext(ListContext)
 
-  const [slots, childrenWithoutSlots] = useSlots(props.children, {
+  const [slots, childrenWithoutSlots] = getSlots(props.children, {
     groupHeading: GroupHeading,
   })
 

@@ -121,7 +121,7 @@ const listStyles: React.CSSProperties = {
  * Returns style objects for `List` children matching the given `List` style variation.
  * @param variant `List` style variation.
  */
-function useListVariant(variant: ListProps['variant'] = 'inset'): {
+function getListVariant(variant: ListProps['variant'] = 'inset'): {
   firstGroupStyle?: React.CSSProperties
   lastGroupStyle?: React.CSSProperties
   headerStyle?: React.CSSProperties
@@ -149,7 +149,7 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
   // Extract style prop to avoid conflicts with BoxWithFallback
   const {style, ...restProps} = props as ListProps & {style?: React.CSSProperties}
   // Get style objects for `List` children matching the given `List` style variation.
-  const {firstGroupStyle, lastGroupStyle, headerStyle, itemStyle} = useListVariant(restProps.variant)
+  const {firstGroupStyle, lastGroupStyle, headerStyle, itemStyle} = getListVariant(restProps.variant)
 
   /**
    * Render a `Group` using the first of the following renderers that is defined:

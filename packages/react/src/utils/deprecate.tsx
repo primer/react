@@ -31,7 +31,7 @@ if (__DEV__) {
   }
 } else {
   useDeprecation = () => {
-    return noop
+    return useCallback(noop, [])
   }
 }
 

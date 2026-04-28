@@ -133,7 +133,7 @@ export const CommentsLoadingWithSuspense = () => {
 }
 
 const SuspendedCommentCardContent = ({promise}: {promise: Promise<typeof mockData>}) => {
-  const fetchedData = use(promise)
+  const fetchedData = readPromise(promise)
 
   return (
     <>
@@ -167,7 +167,7 @@ const fetchData = async (delay: number) => {
 
 /* lifted from the examples at https://react.dev/reference/react/Suspense */
 // @ts-ignore copied from untyped example
-function use(promise) {
+function readPromise(promise) {
   if (promise.status === 'fulfilled') {
     return promise.value
   } else if (promise.status === 'rejected') {

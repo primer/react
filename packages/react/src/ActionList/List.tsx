@@ -1,7 +1,7 @@
 import React, {type JSX} from 'react'
 import {fixedForwardRef} from '../utils/modern-polymorphic'
 import {ActionListContainerContext} from './ActionListContainerContext'
-import {useSlots} from '../hooks/useSlots'
+import {getSlots} from '../hooks/getSlots'
 import {Heading} from './Heading'
 import {useId} from '../hooks/useId'
 import {ListContext, type ActionListProps} from './shared'
@@ -25,7 +25,7 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
     className,
     ...restProps
   } = props
-  const [slots, childrenWithoutSlots] = useSlots(restProps.children, {
+  const [slots, childrenWithoutSlots] = getSlots(restProps.children, {
     heading: Heading,
   })
 
@@ -71,7 +71,7 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
   // style recalculation on every DOM mutation (~674ms on 100 items, 10-20s freezes on Safari).
   //
   // Ideally we'd derive this from children during render, but each Item's description is
-  // detected via `useSlots` at render time, so the List can't know which Items have
+  // detected via `getSlots` at render time, so the List can't know which Items have
   // descriptions without duplicating slot detection or deeply inspecting children trees
   // (fragile with Groups, conditional rendering, wrapper components, etc.).
   //

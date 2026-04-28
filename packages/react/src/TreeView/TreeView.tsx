@@ -15,7 +15,7 @@ import VisuallyHidden from '../_VisuallyHidden'
 import {useControllableState} from '../hooks/useControllableState'
 import {useId} from '../hooks/useId'
 import useSafeTimeout from '../hooks/useSafeTimeout'
-import {useSlots} from '../hooks/useSlots'
+import {getSlots} from '../hooks/getSlots'
 import {getAccessibleName} from './shared'
 import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
@@ -233,7 +233,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
     },
     ref,
   ) => {
-    const [slots, rest] = useSlots(children, {
+    const [slots, rest] = getSlots(children, {
       leadingAction: LeadingAction,
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,

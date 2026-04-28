@@ -3,7 +3,7 @@ import {useForceUpdate} from '../../utils/use-force-update'
 import useLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 
 /**
- * @deprecated Use the `useSlots` hook instead.
+ * @deprecated Use the `getSlots` hook instead.
  *
  * createSlots is a factory that can create a
  *  typesafe Slots + Slot pair to use in a component definition

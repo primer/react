@@ -1,2 +1,2 @@
-export * from '../../hooks/useSlots'
+export * from '../../hooks/getSlots'
 export {useOverflow} from '../../hooks/useOverflow'

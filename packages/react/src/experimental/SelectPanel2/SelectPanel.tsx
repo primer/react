@@ -14,7 +14,7 @@ import {
 } from '../../index'
 import Octicon from '../../Octicon'
 import {ActionListContainerContext} from '../../ActionList/ActionListContainerContext'
-import {useSlots} from '../../hooks/useSlots'
+import {getSlots} from '../../hooks/getSlots'
 import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
 import type {OverlayProps} from '../../Overlay/Overlay'
 import {BaseOverlay, heightMap} from '../../Overlay/Overlay'
@@ -173,7 +173,7 @@ const Panel: React.FC<SelectPanelProps> = ({
 
   /* Panel plumbing */
   const panelId = useId(id)
-  const [slots, childrenInBody] = useSlots(contents, {header: SelectPanelHeader, footer: SelectPanelFooter})
+  const [slots, childrenInBody] = getSlots(contents, {header: SelectPanelHeader, footer: SelectPanelFooter})
 
   // used in SelectPanel.SearchInput
   const moveFocusToList = () => {
@@ -354,7 +354,7 @@ const SelectPanelHeader: FCWithSlotMarker<React.ComponentPropsWithoutRef<'div'> 
   className,
   ...props
 }) => {
-  const [slots, childrenWithoutSlots] = useSlots(children, {
+  const [slots, childrenWithoutSlots] = getSlots(children, {
     searchInput: SelectPanelSearchInput,
   })
 

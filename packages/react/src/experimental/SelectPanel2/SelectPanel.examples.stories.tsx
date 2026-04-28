@@ -246,7 +246,7 @@ export const AsyncWithSuspendedList = () => {
 }
 
 const SuspendedActionList: React.FC<{query: string}> = ({query}) => {
-  const fetchedData: typeof data = use(getData({key: 'suspended-action-list'}))
+  const fetchedData: typeof data = readPromise(getData({key: 'suspended-action-list'}))
 
   /* Selection */
   const initialSelectedLabels: string[] = fetchedData.issue.labelIds
@@ -313,7 +313,7 @@ const SearchableUserList: React.FC<{
   const repository = {collaborators: data.collaborators}
 
   /* Filtering */
-  const filteredUsers: typeof data.users = query ? use(queryUsers({query})) : []
+  const filteredUsers: typeof data.users = query ? readPromise(queryUsers({query})) : []
 
   if (showLoading) return <SelectPanel.Loading>Search for users...</SelectPanel.Loading>
 
@@ -1128,7 +1128,7 @@ const fetchUsers = async (query: string, delay: number) => {
 
 /* lifted from the examples at https://react.dev/reference/react/Suspense */
 // @ts-ignore copied from untyped example
-function use(promise) {
+function readPromise(promise) {
   if (promise.status === 'fulfilled') {
     return promise.value
   } else if (promise.status === 'rejected') {

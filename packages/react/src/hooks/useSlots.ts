@@ -4,7 +4,7 @@ import {isSlot} from '../utils/is-slot'
 import type {SlotMarker} from '../utils/types'
 
 /**
- * useSlots - Extract slot components from children for SSR-compatible slot APIs.
+ * getSlots - Extract slot components from children for SSR-compatible slot APIs.
  *
  * Given a list of children and a config mapping slot names to component types,
  * separates children into two groups: matched slots and the rest.
@@ -89,7 +89,7 @@ function childMatchesSlot(child: React.ReactElement, slotValue: ComponentMatcher
 // --- Hook ---
 
 /** Extract slot components from children. See file header for details. */
-export function useSlots<Config extends SlotConfig>(
+export function getSlots<Config extends SlotConfig>(
   children: React.ReactNode,
   config: Config,
 ): [Partial<SlotElements<Config>>, React.ReactNode[]] {

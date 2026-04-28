@@ -1,6 +1,6 @@
 import React, {type JSX} from 'react'
 import {useId} from '../hooks/useId'
-import {useSlots} from '../hooks/useSlots'
+import {getSlots} from '../hooks/getSlots'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {Description} from './Description'
 import {GroupContext} from './Group'
@@ -105,7 +105,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   forwardedRef: React.Ref<any>,
 ): JSX.Element => {
-  const [partialSlots, childrenWithoutSlots] = useSlots(props.children, slotsConfig)
+  const [partialSlots, childrenWithoutSlots] = getSlots(props.children, slotsConfig)
 
   const slots = {description: undefined, ...partialSlots}
 

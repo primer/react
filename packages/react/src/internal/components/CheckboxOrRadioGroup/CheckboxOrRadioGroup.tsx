@@ -6,7 +6,7 @@ import CheckboxOrRadioGroupLabel from './CheckboxOrRadioGroupLabel'
 import CheckboxOrRadioGroupValidation from './CheckboxOrRadioGroupValidation'
 import CheckboxOrRadioGroupContext from './CheckboxOrRadioGroupContext'
 import VisuallyHidden from '../../../_VisuallyHidden'
-import {useSlots} from '../../../hooks/useSlots'
+import {getSlots} from '../../../hooks/getSlots'
 import classes from './CheckboxOrRadioGroup.module.css'
 import {clsx} from 'clsx'
 import {isSlot} from '../../../utils/is-slot'
@@ -41,7 +41,7 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
   required = false,
   className,
 }) => {
-  const [slots, rest] = useSlots(children, {
+  const [slots, rest] = getSlots(children, {
     caption: CheckboxOrRadioGroupCaption,
     label: CheckboxOrRadioGroupLabel,
     validation: CheckboxOrRadioGroupValidation,

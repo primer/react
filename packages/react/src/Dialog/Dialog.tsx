@@ -15,7 +15,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 
 import classes from './Dialog.module.css'
 import {clsx} from 'clsx'
-import {useSlots} from '../hooks/useSlots'
+import {getSlots} from '../hooks/getSlots'
 import {useResizeObserver} from '../hooks/useResizeObserver'
 
 /* Dialog Version 2 */
@@ -293,7 +293,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     },
     [onClose, lastMouseDownIsBackdrop],
   )
-  const [slots, childrenWithoutSlots] = useSlots(props.children, {
+  const [slots, childrenWithoutSlots] = getSlots(props.children, {
     body: Dialog.Body,
     header: Dialog.Header,
     footer: Dialog.Footer,

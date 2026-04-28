@@ -6,7 +6,7 @@ import VisuallyHidden from '../_VisuallyHidden'
 import type {Column, CellAlignment} from './column'
 import type {UniqueRow} from './row'
 import {SortDirection} from './sorting'
-import {useTableLayout} from './useTable'
+import {getTableLayout} from './useTable'
 import {SkeletonText} from '../SkeletonText'
 import {ScrollableRegion} from '../ScrollableRegion'
 import {Button} from '../internal/components/ButtonReset'
@@ -352,7 +352,7 @@ export type TableSkeletonProps<Data extends UniqueRow> = React.ComponentPropsWit
 }
 
 function TableSkeleton<Data extends UniqueRow>({cellPadding, columns, rows = 10, ...rest}: TableSkeletonProps<Data>) {
-  const {gridTemplateColumns} = useTableLayout(columns)
+  const {gridTemplateColumns} = getTableLayout(columns)
   return (
     <Table {...rest} cellPadding={cellPadding} gridTemplateColumns={gridTemplateColumns}>
       <TableHead>
