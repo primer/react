@@ -128,11 +128,9 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
       <SCThemeProvider theme={resolvedTheme}>
         {children}
         {props.preventSSRMismatch ? (
-          <script
-            type="application/json"
-            id={`__PRIMER_DATA_${uniqueDataId}__`}
-            dangerouslySetInnerHTML={{__html: JSON.stringify({resolvedServerColorMode: resolvedColorMode})}}
-          />
+          <script type="application/json" id={`__PRIMER_DATA_${uniqueDataId}__`}>
+            {JSON.stringify({resolvedServerColorMode: resolvedColorMode})}
+          </script>
         ) : null}
       </SCThemeProvider>
     </ThemeContext.Provider>

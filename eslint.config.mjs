@@ -78,7 +78,7 @@ const config = defineConfig([
   eslintReact.configs['recommended-typescript'],
   {
     rules: {
-      '@eslint-react/dom-no-dangerously-set-innerhtml': 'off',
+      '@eslint-react/dom-no-dangerously-set-innerhtml': 'error',
       '@eslint-react/dom-no-flush-sync': 'error',
       '@eslint-react/dom-no-missing-button-type': 'off',
       '@eslint-react/dom-no-string-style-prop': 'error',
