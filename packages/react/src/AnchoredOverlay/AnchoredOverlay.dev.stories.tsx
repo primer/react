@@ -18,9 +18,10 @@ export const RepositionAfterContentGrows = () => {
   const [loading, setLoading] = useState(true)
 
   React.useEffect(() => {
-    window.setTimeout(() => {
+    const timeoutId = window.setTimeout(() => {
       if (open) setLoading(false)
     }, 2000)
+    return () => window.clearTimeout(timeoutId)
   }, [open])
 
   return (
@@ -178,9 +179,10 @@ export const RepositionAfterContentGrowsWithinDialog = () => {
   const [loading, setLoading] = useState(true)
 
   React.useEffect(() => {
-    window.setTimeout(() => {
+    const timeoutId = window.setTimeout(() => {
       if (open) setLoading(false)
     }, 2000)
+    return () => window.clearTimeout(timeoutId)
   }, [open])
 
   return (

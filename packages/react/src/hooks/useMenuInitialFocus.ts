@@ -49,24 +49,32 @@ export const useMenuInitialFocus = (
       if (!open || !containerRef?.current) return // wait till the menu is open
 
       const iterable = iterateFocusableElements(containerRef.current)
+      let timeoutId: ReturnType<typeof setTimeout> | undefined
+      const focusAfterReactBatch = (element: HTMLElement | undefined) => {
+        /** We push imperative focus to the next tick to prevent React's batching */
+        timeoutId = setTimeout(() => element?.focus())
+      }
 
       if (openingGesture === 'mouse-click') {
         if (anchorRef?.current) anchorRef.current.focus()
         else throw new Error('For focus management, please attach anchorRef')
       } else if (openingGesture && ['ArrowDown', 'Space', 'Enter'].includes(openingGesture)) {
         const firstElement = iterable.next().value
-        /** We push imperative focus to the next tick to prevent React's batching */
-        setTimeout(() => firstElement?.focus())
+        focusAfterReactBatch(firstElement)
       } else if ('ArrowUp' === openingGesture) {
         const elements = [...iterable]
         const lastElement = elements[elements.length - 1]
-        setTimeout(() => lastElement.focus())
+        focusAfterReactBatch(lastElement)
       } else {
         /** if the menu was not opened with the anchor, we default to the first element
          *  for example: with keyboard shortcut (see stories/fixtures)
          */
         const firstElement = iterable.next().value
-        setTimeout(() => firstElement?.focus())
+        focusAfterReactBatch(firstElement)
+      }
+
+      return () => {
+        if (timeoutId) clearTimeout(timeoutId)
       }
     },
     // we don't want containerRef in dependencies

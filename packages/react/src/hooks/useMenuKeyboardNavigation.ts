@@ -87,6 +87,16 @@ const useMoveFocusToMenuItem = (
   React.useEffect(() => {
     const container = containerRef?.current
     const anchor = anchorRef?.current
+    const timeoutIds = new Set<ReturnType<typeof setTimeout>>()
+
+    const focusAfterReactBatch = (element: HTMLElement | undefined) => {
+      /** We push imperative focus to the next tick to prevent React's batching */
+      const timeoutId = setTimeout(() => {
+        timeoutIds.delete(timeoutId)
+        element?.focus()
+      })
+      timeoutIds.add(timeoutId)
+    }
 
     const handler = (event: KeyboardEvent) => {
       if (!open || !container) return
@@ -97,18 +107,20 @@ const useMoveFocusToMenuItem = (
         // TODO: does commenting this out break anything?
         // event.preventDefault() // prevent scroll event
         const firstElement = iterable.next().value
-        /** We push imperative focus to the next tick to prevent React's batching */
-        setTimeout(() => firstElement?.focus())
+        focusAfterReactBatch(firstElement)
       } else if (event.key === 'ArrowUp') {
         // TODO: does commenting this out break anything?
         // event.preventDefault() // prevent scroll event
         const elements = [...iterable]
         const lastElement = elements[elements.length - 1]
-        setTimeout(() => lastElement.focus())
+        focusAfterReactBatch(lastElement)
       }
     }
 
     anchor?.addEventListener('keydown', handler)
-    return () => anchor?.removeEventListener('keydown', handler)
+    return () => {
+      anchor?.removeEventListener('keydown', handler)
+      for (const timeoutId of timeoutIds) clearTimeout(timeoutId)
+    }
   }, [open, containerRef, anchorRef])
 }

@@ -358,12 +358,13 @@ export const RepositionAfterLoading = () => {
   React.useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     if (!open) setLoading(true)
-    window.setTimeout(() => {
+    const timeoutId = window.setTimeout(() => {
       if (open) {
         setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
         setLoading(false)
       }
     }, 2000)
+    return () => window.clearTimeout(timeoutId)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open])
 
@@ -407,12 +408,13 @@ export const SelectPanelRepositionInsideDialog = () => {
   React.useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     if (!open) setLoading(true)
-    window.setTimeout(() => {
+    const timeoutId = window.setTimeout(() => {
       if (open) {
         setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
         setLoading(false)
       }
     }, 2000)
+    return () => window.clearTimeout(timeoutId)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open])
 
