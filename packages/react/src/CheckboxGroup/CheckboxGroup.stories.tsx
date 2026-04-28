@@ -18,12 +18,9 @@ export const Playground = ({
   variant,
 }: CheckboxOrRadioGroupArgs) => {
   const parentArgs = {disabled, required}
-  const labelArgs = {children: labelChildren, visuallyHidden}
-  const validationArgs = {children: validationChildren, variant}
-
   return (
     <CheckboxGroup {...parentArgs}>
-      {labelArgs.children && <CheckboxGroup.Label {...labelArgs} />}
+      {labelChildren && <CheckboxGroup.Label visuallyHidden={visuallyHidden}>{labelChildren}</CheckboxGroup.Label>}
       {captionChildren && <CheckboxGroup.Caption>{captionChildren}</CheckboxGroup.Caption>}
       <FormControl>
         <Checkbox value="one" defaultChecked />
@@ -37,7 +34,9 @@ export const Playground = ({
         <Checkbox value="three" />
         <FormControl.Label>Choice three</FormControl.Label>
       </FormControl>
-      {validationArgs.children && <CheckboxGroup.Validation {...validationArgs} />}
+      {validationChildren && (
+        <CheckboxGroup.Validation variant={variant}>{validationChildren}</CheckboxGroup.Validation>
+      )}
     </CheckboxGroup>
   )
 }
