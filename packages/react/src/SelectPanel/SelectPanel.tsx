@@ -212,7 +212,7 @@ function Panel({
   const [isLoading, setIsLoading] = useState(false)
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
   const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
-  const loadingDelayTimeoutId = useRef<number | null>(null)
+  const loadingDelayTimeoutIdRef = useRef<number | null>(null)
   const loadingManagedInternally = loading === undefined
   const loadingManagedExternally = !loadingManagedInternally
   const [inputRef, setInputRef] = React.useState<React.RefObject<HTMLInputElement> | null>(null)
@@ -277,8 +277,8 @@ function Panel({
   const onFilterChange: FilteredActionListProps['onFilterChange'] = useCallback(
     (value, e) => {
       if (loadingManagedInternally) {
-        if (loadingDelayTimeoutId.current) {
-          safeClearTimeout(loadingDelayTimeoutId.current)
+        if (loadingDelayTimeoutIdRef.current) {
+          safeClearTimeout(loadingDelayTimeoutIdRef.current)
         }
 
         if (dataLoadedOnce) {
@@ -286,7 +286,7 @@ function Panel({
           // not show and then immediately hide the spinner if items are loaded quickly, i.e.
           // not async.
 
-          loadingDelayTimeoutId.current = safeSetTimeout(() => {
+          loadingDelayTimeoutIdRef.current = safeSetTimeout(() => {
             setIsLoading(true)
             announceLoading()
           }, LONG_DELAY_MS)
@@ -299,7 +299,7 @@ function Panel({
           }
 
           // We still want to announce if loading is taking too long
-          loadingDelayTimeoutId.current = safeSetTimeout(() => {
+          loadingDelayTimeoutIdRef.current = safeSetTimeout(() => {
             announceLoading()
           }, LONG_DELAY_MS)
         }
@@ -404,8 +404,8 @@ function Panel({
       setDataLoadedOnce(true)
     }
 
-    if (loadingDelayTimeoutId.current) {
-      safeClearTimeout(loadingDelayTimeoutId.current)
+    if (loadingDelayTimeoutIdRef.current) {
+      safeClearTimeout(loadingDelayTimeoutIdRef.current)
     }
 
     // Only fire this effect if items have changed
@@ -430,13 +430,13 @@ function Panel({
     if (loadingManagedExternally) {
       if (isLoading) {
         // Delay the announcement a bit, just in case the loading is quick
-        loadingDelayTimeoutId.current = safeSetTimeout(() => {
+        loadingDelayTimeoutIdRef.current = safeSetTimeout(() => {
           announceLoading()
         }, LONG_DELAY_MS)
       } else {
         // If loading is done, we can clear the loading announcement
-        if (loadingDelayTimeoutId.current) {
-          safeClearTimeout(loadingDelayTimeoutId.current)
+        if (loadingDelayTimeoutIdRef.current) {
+          safeClearTimeout(loadingDelayTimeoutIdRef.current)
         }
       }
     }

@@ -15,10 +15,10 @@ export function useResizeObserver<T extends HTMLElement>(
   depsArray: unknown[] = [],
 ) {
   const [targetClientRect, setTargetClientRect] = useState<DOMRect | null>(null)
-  const savedCallback = useRef(callback)
+  const savedCallbackRef = useRef(callback)
 
   useLayoutEffect(() => {
-    savedCallback.current = callback
+    savedCallbackRef.current = callback
   })
 
   useLayoutEffect(() => {
@@ -29,7 +29,7 @@ export function useResizeObserver<T extends HTMLElement>(
 
     if (typeof ResizeObserver === 'function') {
       const observer = new ResizeObserver(entries => {
-        savedCallback.current(entries)
+        savedCallbackRef.current(entries)
       })
 
       observer.observe(targetEl)
@@ -42,7 +42,7 @@ export function useResizeObserver<T extends HTMLElement>(
         const currTargetRect = targetEl.getBoundingClientRect()
 
         if (currTargetRect.width !== targetClientRect?.width || currTargetRect.height !== targetClientRect.height) {
-          savedCallback.current([
+          savedCallbackRef.current([
             {
               contentRect: currTargetRect,
             },

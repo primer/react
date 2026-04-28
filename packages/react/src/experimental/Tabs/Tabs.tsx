@@ -72,20 +72,20 @@ function Tabs(props: TabsProps) {
     value: props.value,
   })
 
-  const savedOnValueChange = React.useRef(onValueChange)
+  const savedOnValueChangeRef = React.useRef(onValueChange)
   const contextValue: TabsContextValue = useMemo(() => {
     return {
       groupId,
       selectedValue,
       selectTab(value: string) {
         setSelectedValue(value)
-        savedOnValueChange.current?.({value})
+        savedOnValueChangeRef.current?.({value})
       },
     }
   }, [groupId, selectedValue, setSelectedValue])
 
   useIsomorphicLayoutEffect(() => {
-    savedOnValueChange.current = onValueChange
+    savedOnValueChangeRef.current = onValueChange
   }, [onValueChange])
 
   return <TabsContext.Provider value={contextValue}>{children}</TabsContext.Provider>

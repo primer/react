@@ -12,12 +12,12 @@ type ControllableStateOptions<T> = {
    * */
   defaultValue: T | (() => T)
   /**
-   * A controlled value. Omitting this means that the state is uncontrolled.
+   * A controlledRef value. Omitting this means that the state is uncontrolled.
    */
   value?: T
   /**
    * An optional function that is called when the value of the state changes.
-   * This is useful for communicating to parents of controlled components
+   * This is useful for communicating to parents of controlledRef components
    * that the value is requesting to be changed.
    */
   onChange?: (value: T) => void
@@ -25,12 +25,12 @@ type ControllableStateOptions<T> = {
 
 /**
  * This custom hook simplifies the behavior of a component if it has state that
- * can be both controlled and uncontrolled. It functions identical to a
+ * can be both controlledRef and uncontrolled. It functions identical to a
  * useState() hook and provides [state, setState] for you to use. You can use
  * the `onChange` argument to allow updates to the `state` to be communicated to
- * owners of controlled components.
+ * owners of controlledRef components.
  *
- * Note: This hook will warn if a component is switching from controlled to
+ * Note: This hook will warn if a component is switching from controlledRef to
  * uncontrolled, or vice-versa.
  */
 export function useControllableState<T>({
@@ -40,15 +40,15 @@ export function useControllableState<T>({
   onChange,
 }: ControllableStateOptions<T>): [T, React.Dispatch<React.SetStateAction<T>>] {
   const [internalState, setInternalState] = React.useState(value ?? defaultValue)
-  const controlled = React.useRef<boolean | null>(null)
-  const stableOnChange = React.useRef(onChange)
+  const controlledRef = React.useRef<boolean | null>(null)
+  const stableOnChangeRef = React.useRef(onChange)
 
   React.useEffect(() => {
-    stableOnChange.current = onChange
+    stableOnChangeRef.current = onChange
   })
 
-  if (controlled.current === null) {
-    controlled.current = value !== undefined
+  if (controlledRef.current === null) {
+    controlledRef.current = value !== undefined
   }
 
   const setState = React.useCallback(
@@ -59,11 +59,11 @@ export function useControllableState<T>({
             stateOrUpdater(internalState)
           : stateOrUpdater
 
-      if (controlled.current === false) {
+      if (controlledRef.current === false) {
         setInternalState(value)
       }
 
-      stableOnChange.current?.(value)
+      stableOnChangeRef.current?.(value)
     },
     [internalState],
   )
@@ -73,35 +73,35 @@ export function useControllableState<T>({
 
     // Uncontrolled -> Controlled
     // If the component prop is uncontrolled, the prop value should be undefined
-    if (controlled.current === false && controlledValue) {
+    if (controlledRef.current === false && controlledValue) {
       warning(
         true,
-        'A component is changing an uncontrolled %s component to be controlled. ' +
+        'A component is changing an uncontrolled %s component to be controlledRef. ' +
           'This is likely caused by the value changing to a defined value ' +
-          'from undefined. Decide between using a controlled or uncontrolled ' +
+          'from undefined. Decide between using a controlledRef or uncontrolled ' +
           'value for the lifetime of the component. ' +
-          'More info: https://reactjs.org/link/controlled-components',
+          'More info: https://reactjs.org/link/controlledRef-components',
         name,
       )
     }
 
     // Controlled -> Uncontrolled
-    // If the component prop is controlled, the prop value should be defined
-    if (controlled.current === true && !controlledValue) {
+    // If the component prop is controlledRef, the prop value should be defined
+    if (controlledRef.current === true && !controlledValue) {
       warning(
         true,
-        'A component is changing a controlled %s component to be uncontrolled. ' +
+        'A component is changing a controlledRef %s component to be uncontrolled. ' +
           'This is likely caused by the value changing to an undefined value ' +
-          'from a defined one. Decide between using a controlled or ' +
+          'from a defined one. Decide between using a controlledRef or ' +
           'uncontrolled value for the lifetime of the component. ' +
-          'More info: https://reactjs.org/link/controlled-components',
+          'More info: https://reactjs.org/link/controlledRef-components',
         name,
       )
     }
   }, [name, value])
 
   // eslint-disable-next-line react-hooks/refs
-  if (controlled.current === true) {
+  if (controlledRef.current === true) {
     return [value as T, setState]
   }
 

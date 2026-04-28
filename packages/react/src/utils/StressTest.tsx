@@ -22,33 +22,33 @@ export const StressTest: React.FC<StressTestProps> = ({
   totalIterations,
   renderIteration,
 }) => {
-  const startTime = useRef<number>()
+  const startTimeRef = useRef<number>()
   const [count, setCount] = useState(0)
   const [median, setMedian] = useState<undefined | number>(undefined)
   const [average, setAverage] = useState<undefined | number>(undefined)
   const [min, setMin] = useState<undefined | number>(undefined)
   const [max, setMax] = useState<undefined | number>(undefined)
 
-  // Initialize the observer to log performance metrics, stored in a ref and initialized only once
-  const observer = useRef<{observer: PerformanceObserver; data: number[]} | null>(null)
+  // Initialize the observerRef to log performance metrics, stored in a ref and initialized only once
+  const observerRef = useRef<{observerRef: PerformanceObserver; data: number[]} | null>(null)
 
   useEffect(() => {
-    // Initialize the observer when the component mounts
-    if (!observer.current) {
-      observer.current = initializeObserver()
+    // Initialize the observerRef when the component mounts
+    if (!observerRef.current) {
+      observerRef.current = initializeObserver()
     }
-    // Cleanup the observer when the component unmounts
+    // Cleanup the observerRef when the component unmounts
     return () => {
-      if (observer.current) {
-        observer.current.observer.disconnect()
-        observer.current = null
+      if (observerRef.current) {
+        observerRef.current.observerRef.disconnect()
+        observerRef.current = null
       }
     }
   }, [])
 
   const onClick = () => {
     setCount(0)
-    startTime.current = performance.now()
+    startTimeRef.current = performance.now()
     let count = 0
     const interval = setInterval(() => {
       if (count < totalIterations - 1) {
@@ -69,7 +69,7 @@ export const StressTest: React.FC<StressTestProps> = ({
   useEffect(() => {
     if (count === totalIterations - 1) {
       // Get the median of the duration when the test is done
-      const durations = observer.current?.data ?? []
+      const durations = observerRef.current?.data ?? []
       setMedian(durations.sort((a, b) => a - b)[Math.floor(durations.length / 2)])
       setAverage(durations.reduce((a, b) => a + b, 0) / durations.length)
       setMin(Math.min(...durations))
@@ -128,7 +128,7 @@ export const StressTest: React.FC<StressTestProps> = ({
               </>
             ) : (
               // eslint-disable-next-line react-hooks/purity, react-hooks/refs
-              `Step ${count}/${totalIterations} — ${((performance.now() - (startTime.current ?? 0)) / 1000).toFixed(
+              `Step ${count}/${totalIterations} — ${((performance.now() - (startTimeRef.current ?? 0)) / 1000).toFixed(
                 0,
               )}s`
             )}
@@ -152,7 +152,7 @@ function measureInteraction() {
 const initializeObserver = () => {
   const duration: number[] = []
 
-  const observer = new PerformanceObserver(function perfObserver(list, _observer) {
+  const observerRef = new PerformanceObserver(function perfObserver(list, _observer) {
     for (const entry of list.getEntries()) {
       if (entry.entryType === 'measure') {
         duration.push(entry.duration)
@@ -160,6 +160,6 @@ const initializeObserver = () => {
     }
   })
 
-  observer.observe({entryTypes: ['measure']})
-  return {data: duration, observer}
+  observerRef.observe({entryTypes: ['measure']})
+  return {data: duration, observerRef}
 }

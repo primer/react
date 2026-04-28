@@ -53,7 +53,7 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
   } = props
   const ref = useRef<ElementRef<'div'>>(null)
   const [previousAnnouncementText, setPreviousAnnouncementText] = useState<string | null>(null)
-  const savedAnnouncement = useRef<ReturnType<typeof announceFromElement> | null>(null)
+  const savedAnnouncementRef = useRef<ReturnType<typeof announceFromElement> | null>(null)
   const announce = useEffectCallback(() => {
     const {current: element} = ref
     if (!element) {
@@ -86,8 +86,8 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
       return
     }
 
-    savedAnnouncement.current?.cancel()
-    savedAnnouncement.current = announceFromElement(
+    savedAnnouncementRef.current?.cancel()
+    savedAnnouncementRef.current = announceFromElement(
       element,
       politeness === 'assertive'
         ? {
@@ -133,9 +133,9 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
 
   useEffect(() => {
     return () => {
-      if (savedAnnouncement.current !== null) {
-        savedAnnouncement.current.cancel()
-        savedAnnouncement.current = null
+      if (savedAnnouncementRef.current !== null) {
+        savedAnnouncementRef.current.cancel()
+        savedAnnouncementRef.current = null
       }
     }
   }, [])

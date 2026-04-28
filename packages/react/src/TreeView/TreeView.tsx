@@ -39,11 +39,11 @@ const RootContext = React.createContext<{
   // We cache the expanded state of tree items so we can preserve the state
   // across remounts. This is necessary because we unmount tree items
   // when their parent is collapsed.
-  expandedStateCache: React.RefObject<Map<string, boolean> | null>
+  expandedStateCacheRef: React.RefObject<Map<string, boolean> | null>
   scrollElementIntoView: (element: Element | null | undefined) => void
 }>({
   announceUpdate: () => {},
-  expandedStateCache: {current: new Map()},
+  expandedStateCacheRef: {current: new Map()},
   scrollElementIntoView: () => {},
 })
 
@@ -159,17 +159,17 @@ const Root: React.FC<TreeViewProps> = ({
     }
   }, [])
 
-  const expandedStateCache = React.useRef<Map<string, boolean> | null>(null)
+  const expandedStateCacheRef = React.useRef<Map<string, boolean> | null>(null)
 
-  if (expandedStateCache.current === null) {
-    expandedStateCache.current = new Map()
+  if (expandedStateCacheRef.current === null) {
+    expandedStateCacheRef.current = new Map()
   }
 
   return (
     <RootContext.Provider
       value={{
         announceUpdate,
-        expandedStateCache,
+        expandedStateCacheRef,
         scrollElementIntoView,
       }}
     >
@@ -238,7 +238,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
     })
-    const {expandedStateCache, scrollElementIntoView} = React.useContext(RootContext)
+    const {expandedStateCacheRef, scrollElementIntoView} = React.useContext(RootContext)
     const labelId = useId()
     const leadingVisualId = useId()
     const trailingVisualId = useId()
@@ -250,7 +250,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       // We check the cache first, and then fall back to the defaultExpanded prop.
       // If defaultExpanded is not provided, we default to false unless the item
       // is the current item, in which case we default to true.
-      defaultValue: () => expandedStateCache.current?.get(itemId) ?? defaultExpanded ?? isCurrentItem,
+      defaultValue: () => expandedStateCacheRef.current?.get(itemId) ?? defaultExpanded ?? isCurrentItem,
       value: expanded === null ? false : expanded,
       onChange: onExpandedChange,
     })
@@ -263,12 +263,11 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
 
     // Set the expanded state and cache it
     const setIsExpandedWithCache = React.useCallback(
-      // eslint-disable-next-line react-hooks/preserve-manual-memoization
       (newIsExpanded: boolean) => {
         setIsExpanded(newIsExpanded)
-        expandedStateCache.current?.set(itemId, newIsExpanded)
+        expandedStateCacheRef.current?.set(itemId, newIsExpanded)
       },
-      [itemId, setIsExpanded, expandedStateCache],
+      [itemId, setIsExpanded, expandedStateCacheRef],
     )
 
     // Expand or collapse the subtree

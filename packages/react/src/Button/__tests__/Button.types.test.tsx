@@ -7,10 +7,10 @@ export function shouldAcceptOnlyAChildProp() {
 }
 
 export function ShouldAcceptKnownButtonPropsAndDomProps() {
-  const buttonEl = useRef<HTMLButtonElement | null>(null)
+  const buttonElRef = useRef<HTMLButtonElement | null>(null)
   return (
     <Button
-      ref={buttonEl}
+      ref={buttonElRef}
       leadingVisual={() => <></>}
       trailingVisual={() => <></>}
       size="medium"
@@ -19,7 +19,7 @@ export function ShouldAcceptKnownButtonPropsAndDomProps() {
       aria-label="Test label"
       onClick={e => {
         // current target is assignable to HTMLButtonElement
-        buttonEl.current = e.currentTarget
+        buttonElRef.current = e.currentTarget
       }}
     >
       Child

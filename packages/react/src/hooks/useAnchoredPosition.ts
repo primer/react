@@ -52,7 +52,7 @@ export function useAnchoredPosition(
 } {
   const floatingElementRef = useProvidedRefOrCreate(settings?.floatingElementRef)
   const anchorElementRef = useProvidedRefOrCreate(settings?.anchorElementRef)
-  const savedOnPositionChange = React.useRef(settings?.onPositionChange)
+  const savedOnPositionChangeRef = React.useRef(settings?.onPositionChange)
   const [position, setPosition] = React.useState<AnchorPosition | undefined>(undefined)
   const prevHeightRef = React.useRef<number | undefined>(undefined)
 
@@ -94,14 +94,14 @@ export function useAnchoredPosition(
 
           if (prev && prev.anchorSide === newPosition.anchorSide) {
             // if the position hasn't changed, don't update
-            savedOnPositionChange.current?.(newPosition)
+            savedOnPositionChangeRef.current?.(newPosition)
           }
 
           return newPosition
         })
       } else {
         setPosition(undefined)
-        savedOnPositionChange.current?.(undefined)
+        savedOnPositionChangeRef.current?.(undefined)
       }
       prevHeightRef.current = floatingElementRef.current?.clientHeight
     },
@@ -110,7 +110,7 @@ export function useAnchoredPosition(
   )
 
   useLayoutEffect(() => {
-    savedOnPositionChange.current = settings?.onPositionChange
+    savedOnPositionChangeRef.current = settings?.onPositionChange
   }, [settings?.onPositionChange])
 
   // Defer the first updatePosition to useEffect when the overlay is closed on

@@ -577,8 +577,8 @@ export const WithinDialogOverflowing = () => {
 
 export const MultipleOverlays = () => {
   const [openOverlay, setOpenOverlay] = useState<string | null>(null)
-  const externalAnchorRefA = useRef<HTMLButtonElement>(null)
-  const externalAnchorRefB = useRef<HTMLButtonElement>(null)
+  const externalAnchorARef = useRef<HTMLButtonElement>(null)
+  const externalAnchorBRef = useRef<HTMLButtonElement>(null)
 
   const open = (key: string) => () => setOpenOverlay(key)
   const close = () => setOpenOverlay(null)
@@ -602,7 +602,7 @@ export const MultipleOverlays = () => {
       </AnchoredOverlay>
 
       <Button
-        ref={externalAnchorRefA}
+        ref={externalAnchorARef}
         onClick={() => setOpenOverlay(openOverlay === 'external-1' ? null : 'external-1')}
       >
         External anchor 1
@@ -611,7 +611,7 @@ export const MultipleOverlays = () => {
         open={openOverlay === 'external-1'}
         onClose={close}
         renderAnchor={null}
-        anchorRef={externalAnchorRefA}
+        anchorRef={externalAnchorARef}
         overlayProps={{
           role: 'dialog',
           'aria-modal': true,
@@ -640,7 +640,7 @@ export const MultipleOverlays = () => {
       </AnchoredOverlay>
 
       <Button
-        ref={externalAnchorRefB}
+        ref={externalAnchorBRef}
         onClick={() => setOpenOverlay(openOverlay === 'external-2' ? null : 'external-2')}
       >
         External anchor 2
@@ -649,7 +649,7 @@ export const MultipleOverlays = () => {
         open={openOverlay === 'external-2'}
         onClose={close}
         renderAnchor={null}
-        anchorRef={externalAnchorRefB}
+        anchorRef={externalAnchorBRef}
         overlayProps={{
           role: 'dialog',
           'aria-modal': true,

@@ -9,15 +9,15 @@ type ComponentProps = {
 }
 const Component = ({callback}: ComponentProps) => {
   const containerRef = useRef<HTMLDivElement>(null)
-  const outerButton = useRef<HTMLButtonElement>(null)
-  const secondButton = useRef<HTMLButtonElement>(null)
-  useOnOutsideClick({ignoreClickRefs: [secondButton], containerRef, onClickOutside: callback})
+  const outerButtonRef = useRef<HTMLButtonElement>(null)
+  const secondButtonRef = useRef<HTMLButtonElement>(null)
+  useOnOutsideClick({ignoreClickRefs: [secondButtonRef], containerRef, onClickOutside: callback})
   return (
     <div>
-      <button ref={outerButton} type="button">
+      <button ref={outerButtonRef} type="button">
         button
       </button>
-      <button ref={secondButton} type="button">
+      <button ref={secondButtonRef} type="button">
         button two
       </button>
       <div ref={containerRef}>content</div>

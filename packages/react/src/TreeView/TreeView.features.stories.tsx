@@ -578,13 +578,13 @@ AsyncError.args = {
 
 export const EmptyDirectories: StoryFn = () => {
   const [state, setState] = React.useState<SubTreeState>('initial')
-  const timeoutId = React.useRef<ReturnType<typeof setTimeout> | null>(null)
+  const timeoutIdRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
 
   React.useEffect(() => {
     return () => {
-      if (timeoutId.current) {
-        clearTimeout(timeoutId.current)
-        timeoutId.current = null
+      if (timeoutIdRef.current) {
+        clearTimeout(timeoutIdRef.current)
+        timeoutIdRef.current = null
       }
     }
   }, [])
@@ -596,9 +596,9 @@ export const EmptyDirectories: StoryFn = () => {
         onExpandedChange={expanded => {
           setState('loading')
           if (expanded) {
-            timeoutId.current = setTimeout(() => {
+            timeoutIdRef.current = setTimeout(() => {
               setState('done')
-              timeoutId.current = null
+              timeoutIdRef.current = null
             }, 2000)
           }
         }}

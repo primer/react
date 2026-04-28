@@ -33,12 +33,12 @@ export type AvatarStackProps = {
 const AvatarStackBody = ({
   disableExpand,
   hasInteractiveChildren,
-  stackContainer,
+  stackContainerRef,
   children,
 }: {
   disableExpand: boolean | undefined
   hasInteractiveChildren: boolean | undefined
-  stackContainer: React.RefObject<HTMLDivElement>
+  stackContainerRef: React.RefObject<HTMLDivElement>
 } & React.ComponentPropsWithoutRef<'div'>) => {
   return (
     <div
@@ -52,7 +52,7 @@ const AvatarStackBody = ({
         classes.AvatarStackBody,
       )}
       tabIndex={!hasInteractiveChildren && !disableExpand ? 0 : undefined}
-      ref={stackContainer}
+      ref={stackContainerRef}
     >
       {children}
     </div>
@@ -70,7 +70,7 @@ const AvatarStack = ({
   style,
 }: AvatarStackProps) => {
   const [hasInteractiveChildren, setHasInteractiveChildren] = useState<boolean | undefined>(false)
-  const stackContainer = useRef<HTMLDivElement>(null)
+  const stackContainerRef = useRef<HTMLDivElement>(null)
 
   const childArray = React.Children.toArray(children)
   const count = childArray.length
@@ -117,14 +117,14 @@ const AvatarStack = ({
   const childSizes = getAvatarChildSizes()
 
   useEffect(() => {
-    if (stackContainer.current) {
+    if (stackContainerRef.current) {
       const interactiveChildren = () => {
-        setHasInteractiveChildren(hasInteractiveNodes(stackContainer.current))
+        setHasInteractiveChildren(hasInteractiveNodes(stackContainerRef.current))
       }
 
       const observer = new MutationObserver(interactiveChildren)
 
-      observer.observe(stackContainer.current, {childList: true})
+      observer.observe(stackContainerRef.current, {childList: true})
 
       // Call on initial render, then call it again only if there's a mutation
       interactiveChildren()
@@ -183,7 +183,7 @@ const AvatarStack = ({
       <AvatarStackBody
         disableExpand={disableExpand}
         hasInteractiveChildren={hasInteractiveChildren}
-        stackContainer={stackContainer}
+        stackContainerRef={stackContainerRef}
       >
         {' '}
         {transformChildren(children, shape)}

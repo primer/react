@@ -334,19 +334,19 @@ export const LotsOfItems = () => {
   const [filter, setFilter] = useState('')
   const filteredItems = lotsOfItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   const [open, setOpen] = useState(false)
-  const timeBeforeOpen = useRef<number>()
-  const timeAfterOpen = useRef<number>()
+  const timeBeforeOpenRef = useRef<number>()
+  const timeAfterOpenRef = useRef<number>()
   const [timeTakenToOpen, setTimeTakenToOpen] = useState<number>()
 
   const onOpenChange = () => {
-    timeBeforeOpen.current = performance.now()
+    timeBeforeOpenRef.current = performance.now()
     setOpen(!open)
   }
 
   useEffect(() => {
     if (open) {
-      timeAfterOpen.current = performance.now()
-      if (timeBeforeOpen.current) setTimeTakenToOpen(timeAfterOpen.current - timeBeforeOpen.current)
+      timeAfterOpenRef.current = performance.now()
+      if (timeBeforeOpenRef.current) setTimeTakenToOpen(timeAfterOpenRef.current - timeBeforeOpenRef.current)
     }
   }, [open])
 

@@ -1,15 +1,15 @@
 import {useEffect, useRef} from 'react'
 
 export function useEffectOnce(callback: () => void) {
-  const savedCallback = useRef(callback)
-  const called = useRef(false)
+  const savedCallbackRef = useRef(callback)
+  const calledRef = useRef(false)
 
   useEffect(() => {
-    if (called.current === true) {
+    if (calledRef.current === true) {
       return
     }
 
-    called.current = true
-    savedCallback.current()
+    calledRef.current = true
+    savedCallbackRef.current()
   }, [])
 }

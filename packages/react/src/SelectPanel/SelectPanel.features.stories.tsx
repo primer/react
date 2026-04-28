@@ -549,26 +549,26 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
     const [selected, setSelected] = React.useState<ItemInput[]>([])
     const [filteredItems, setFilteredItems] = React.useState<ItemInput[]>([])
     const [open, setOpen] = useState(false)
-    const filterTimerId = useRef<number | null>(null)
+    const filterTimerIdRef = useRef<number | null>(null)
     const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
     const [loading, setLoading] = useState(true)
     const [query, setQuery] = useState('')
 
     const fetchItems = (query: string) => {
-      if (filterTimerId.current) {
-        safeClearTimeout(filterTimerId.current)
+      if (filterTimerIdRef.current) {
+        safeClearTimeout(filterTimerIdRef.current)
         setQuery(query)
       }
 
       setLoading(true)
-      filterTimerId.current = safeSetTimeout(() => {
+      filterTimerIdRef.current = safeSetTimeout(() => {
         setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(query.toLowerCase())))
         setLoading(false)
       }, 2000) as unknown as number
     }
 
     useEffect(() => {
-      filterTimerId.current = safeSetTimeout(() => {
+      filterTimerIdRef.current = safeSetTimeout(() => {
         setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(query.toLowerCase())))
         setLoading(false)
       }, 2000) as unknown as number
@@ -679,24 +679,24 @@ export const CustomisedNoResults: StoryObj<typeof SelectPanel> = {
     const [filteredItems, setFilteredItems] = React.useState<ItemInput[]>([])
     const [filterValue, setFilterValue] = React.useState<string>('')
     const [open, setOpen] = useState(false)
-    const filterTimerId = useRef<number | null>(null)
+    const filterTimerIdRef = useRef<number | null>(null)
     const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
     const [loading, setLoading] = useState(true)
     const onFilterChange = (value: string) => {
       setFilterValue(value)
-      if (filterTimerId.current) {
-        safeClearTimeout(filterTimerId.current)
+      if (filterTimerIdRef.current) {
+        safeClearTimeout(filterTimerIdRef.current)
       }
 
       setLoading(true)
-      filterTimerId.current = safeSetTimeout(() => {
+      filterTimerIdRef.current = safeSetTimeout(() => {
         setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(value.toLowerCase())))
         setLoading(false)
       }, 2000) as unknown as number
     }
 
     useEffect(() => {
-      filterTimerId.current = safeSetTimeout(() => {
+      filterTimerIdRef.current = safeSetTimeout(() => {
         setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filterValue.toLowerCase())))
         setLoading(false)
       }, 2000) as unknown as number

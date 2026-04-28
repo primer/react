@@ -335,13 +335,13 @@ const DragHandle = memo<DragHandleProps>(function DragHandle({
   'aria-valuemax': ariaValueMax,
   'aria-valuenow': ariaValueNow,
 }) {
-  const stableOnDragStart = React.useRef(onDragStart)
-  const stableOnDrag = React.useRef(onDrag)
-  const stableOnDragEnd = React.useRef(onDragEnd)
+  const stableOnDragStartRef = React.useRef(onDragStart)
+  const stableOnDragRef = React.useRef(onDrag)
+  const stableOnDragEndRef = React.useRef(onDragEnd)
   React.useEffect(() => {
-    stableOnDragStart.current = onDragStart
-    stableOnDrag.current = onDrag
-    stableOnDragEnd.current = onDragEnd
+    stableOnDragStartRef.current = onDragStart
+    stableOnDragRef.current = onDrag
+    stableOnDragEndRef.current = onDragEnd
   })
 
   const {paneRef, contentWrapperRef} = React.useContext(PageLayoutContext)
@@ -385,7 +385,7 @@ const DragHandle = memo<DragHandleProps>(function DragHandle({
       } catch {
         // Ignore - pointer capture is a nice-to-have for dragging outside the element
       }
-      stableOnDragStart.current(event.clientX)
+      stableOnDragStartRef.current(event.clientX)
       startDragging()
     },
     [startDragging],
@@ -412,7 +412,7 @@ const DragHandle = memo<DragHandleProps>(function DragHandle({
       rafIdRef.current = requestAnimationFrame(() => {
         rafIdRef.current = null
         if (pendingClientXRef.current !== null) {
-          stableOnDrag.current(pendingClientXRef.current, false)
+          stableOnDragRef.current(pendingClientXRef.current, false)
           pendingClientXRef.current = null
         }
       })
@@ -442,7 +442,7 @@ const DragHandle = memo<DragHandleProps>(function DragHandle({
       pendingClientXRef.current = null
     }
     endDragging()
-    stableOnDragEnd.current()
+    stableOnDragEndRef.current()
   }, [endDragging])
 
   /**
@@ -464,7 +464,7 @@ const DragHandle = memo<DragHandleProps>(function DragHandle({
       if (!isDraggingRef.current) {
         startDragging()
       }
-      stableOnDrag.current(delta, true)
+      stableOnDragRef.current(delta, true)
     },
     [startDragging],
   )
@@ -474,7 +474,7 @@ const DragHandle = memo<DragHandleProps>(function DragHandle({
       if (!isArrowKey(event.key)) return
       event.preventDefault()
       endDragging()
-      stableOnDragEnd.current()
+      stableOnDragEndRef.current()
     },
     [endDragging],
   )

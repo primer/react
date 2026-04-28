@@ -10,12 +10,12 @@ import type {ItemInput} from '../SelectPanel'
 const delayMs = 500
 
 const useFirstRender = () => {
-  const firstRender = useRef(true)
+  const firstRenderRef = useRef(true)
   useEffect(() => {
-    firstRender.current = false
+    firstRenderRef.current = false
   }, [])
   // eslint-disable-next-line react-hooks/refs
-  return firstRender.current
+  return firstRenderRef.current
 }
 
 const getItemWithActiveDescendant = (

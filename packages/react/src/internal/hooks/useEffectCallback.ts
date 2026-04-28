@@ -8,13 +8,13 @@ import {useCallback, useEffect, useRef} from 'react'
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function useEffectCallback<T extends (...args: any) => any>(callback: T) {
-  const savedCallback = useRef<T>(callback)
+  const savedCallbackRef = useRef<T>(callback)
 
   useEffect(() => {
-    savedCallback.current = callback
+    savedCallbackRef.current = callback
   }, [callback])
 
   return useCallback((...args: Parameters<T>): ReturnType<T> => {
-    return savedCallback.current(...args)
+    return savedCallbackRef.current(...args)
   }, [])
 }

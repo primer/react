@@ -147,11 +147,11 @@ export const OverlayOnTopOfOverlay = ({anchorSide, role, open}: Args) => {
   const items = ['🔵 Cyan', '🔴 Magenta', '🟡 Yellow']
   const [selectedItem, setSelectedItem] = React.useState(items[0])
 
-  const primaryContainer = useRef<HTMLDivElement>(null)
-  const secondaryContainer = useRef<HTMLDivElement>(null)
+  const primaryContainerRef = useRef<HTMLDivElement>(null)
+  const secondaryContainerRef = useRef<HTMLDivElement>(null)
 
   useFocusTrap({
-    containerRef: !isSecondaryOpen ? primaryContainer : secondaryContainer,
+    containerRef: !isSecondaryOpen ? primaryContainerRef : secondaryContainerRef,
     disabled: !isOpen,
   })
 
@@ -173,7 +173,7 @@ export const OverlayOnTopOfOverlay = ({anchorSide, role, open}: Args) => {
           role={role}
           aria-modal={role === 'dialog' ? 'true' : undefined}
           aria-label={role === 'dialog' ? 'Open overlay' : undefined}
-          ref={primaryContainer}
+          ref={primaryContainerRef}
           preventOverflow={false}
         >
           <Button ref={secondaryButtonRef} onClick={() => setIsSecondaryOpen(!isSecondaryOpen)}>
@@ -191,7 +191,7 @@ export const OverlayOnTopOfOverlay = ({anchorSide, role, open}: Args) => {
               role={role}
               aria-modal={role === 'dialog' ? 'true' : undefined}
               aria-label={role === 'dialog' ? 'Options' : undefined}
-              ref={secondaryContainer}
+              ref={secondaryContainerRef}
               preventOverflow={false}
             >
               <div className={classes.SelectOptionsContent}>
@@ -293,11 +293,11 @@ export const NestedOverlays = ({role, open}: Args) => {
 
   const buttonRef = useRef<HTMLButtonElement>(null)
   const secondaryButtonRef = useRef<HTMLButtonElement>(null)
-  const primaryContainer = useRef<HTMLDivElement>(null)
-  const secondaryContainer = useRef<HTMLDivElement>(null)
+  const primaryContainerRef = useRef<HTMLDivElement>(null)
+  const secondaryContainerRef = useRef<HTMLDivElement>(null)
 
   useFocusTrap({
-    containerRef: !createListOverlayOpen ? primaryContainer : secondaryContainer,
+    containerRef: !createListOverlayOpen ? primaryContainerRef : secondaryContainerRef,
     disabled: !listOverlayOpen,
   })
 
@@ -333,7 +333,7 @@ export const NestedOverlays = ({role, open}: Args) => {
           top={100}
           left={16}
           preventOverflow={false}
-          ref={primaryContainer}
+          ref={primaryContainerRef}
           role={role}
           aria-modal={role === 'dialog' ? 'true' : undefined}
           aria-label={role === 'dialog' ? 'Sample list' : undefined}
@@ -385,7 +385,7 @@ export const NestedOverlays = ({role, open}: Args) => {
               role={role}
               aria-modal={role === 'dialog' ? 'true' : undefined}
               aria-label={role === 'dialog' ? 'Create a list' : undefined}
-              ref={secondaryContainer}
+              ref={secondaryContainerRef}
             >
               <form className={classes.CreateFormContent} aria-label="Set Duration Form">
                 <Text className={classes.MediumTextWithMargin}>

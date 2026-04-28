@@ -170,9 +170,9 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   renderAs = 'portal',
 }) => {
   const cssAnchorPositioningFlag = useFeatureFlag('primer_react_css_anchor_positioning')
-  const supportsNativeCSSAnchorPositioning = useRef(false)
+  const supportsNativeCSSAnchorPositioningRef = useRef(false)
   // eslint-disable-next-line react-hooks/refs
-  const cssAnchorPositioning = cssAnchorPositioningFlag && supportsNativeCSSAnchorPositioning.current
+  const cssAnchorPositioning = cssAnchorPositioningFlag && supportsNativeCSSAnchorPositioningRef.current
   // Only use Popover API when both CSS anchor positioning is enabled AND renderAs is true
   const shouldRenderAsPopover = cssAnchorPositioning && renderAs === 'popover'
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
@@ -235,7 +235,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   )
 
   useEffect(() => {
-    supportsNativeCSSAnchorPositioning.current = 'anchorName' in document.documentElement.style
+    supportsNativeCSSAnchorPositioningRef.current = 'anchorName' in document.documentElement.style
 
     // ensure overlay ref gets cleared when closed, so position can reset between closing/re-opening
     if (!open && overlayRef.current) {

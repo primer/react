@@ -9,7 +9,7 @@ type TypeaheadOptions = {
 }
 
 export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
-  const searchValue = React.useRef('')
+  const searchValueRef = React.useRef('')
   const timeoutRef = React.useRef(0)
   const onFocusChangeRef = React.useRef(onFocusChange)
   const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
@@ -22,9 +22,9 @@ export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
 
   // Focus the closest element that matches the search value
   const focusSearchValue = React.useCallback(
-    (searchValue: string) => {
+    (searchValueRef: string) => {
       // Don't change focus if the search value is empty
-      if (!searchValue) return
+      if (!searchValueRef) return
 
       if (!containerRef.current) return
 
@@ -39,14 +39,14 @@ export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
 
       // Remove the active descendant from the beginning of the array
       // when the user initiates a new search
-      if (searchValue.length === 1) {
+      if (searchValueRef.length === 1) {
         sortedElements = sortedElements.slice(1)
       }
 
       // Find the first element that matches the search value
       const nextElement = sortedElements.find(element => {
         const name = getAccessibleName(element).toLowerCase()
-        return name.startsWith(searchValue.toLowerCase())
+        return name.startsWith(searchValueRef.toLowerCase())
       })
 
       // If a match is found, focus it
@@ -70,12 +70,12 @@ export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
       if (event.ctrlKey || event.altKey || event.metaKey) return
 
       // Update the existing search value with the new key press
-      searchValue.current += event.key
-      focusSearchValue(searchValue.current)
+      searchValueRef.current += event.key
+      focusSearchValue(searchValueRef.current)
 
       // Reset the timeout
       safeClearTimeout(timeoutRef.current)
-      timeoutRef.current = safeSetTimeout(() => (searchValue.current = ''), 300)
+      timeoutRef.current = safeSetTimeout(() => (searchValueRef.current = ''), 300)
 
       // Prevent default behavior
       event.preventDefault()

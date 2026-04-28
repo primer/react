@@ -99,11 +99,11 @@ export function useQuery<T>(
   const [loading, setLoading] = React.useState(true)
   const [error, setError] = React.useState<Error | null>(null)
   const [data, setData] = React.useState<T | null>(null)
-  const savedQueryFn = React.useRef(queryFn)
+  const savedQueryFnRef = React.useRef(queryFn)
   const key = Array.isArray(queryKey) ? queryKey.join('.') : queryKey
 
   React.useEffect(() => {
-    savedQueryFn.current = queryFn
+    savedQueryFnRef.current = queryFn
   })
 
   React.useEffect(() => {
@@ -114,7 +114,7 @@ export function useQuery<T>(
     setError(null)
     setData(null)
 
-    savedQueryFn
+    savedQueryFnRef
       .current({signal: controller.signal})
       // eslint-disable-next-line github/no-then
       .then(data => {

@@ -56,28 +56,28 @@ export function useFocusTrap(
   const containerRef = useProvidedRefOrCreate(settings?.containerRef)
   const initialFocusRef = useProvidedRefOrCreate(settings?.initialFocusRef)
   const disabled = settings?.disabled
-  const abortController = React.useRef<AbortController>()
-  const previousFocusedElement = React.useRef<Element | null>(null)
+  const abortControllerRef = React.useRef<AbortController>()
+  const previousFocusedElementRef = React.useRef<Element | null>(null)
 
   // If we are enabling a focus trap and haven't already stored the previously focused element
   // go ahead an do that so we can restore later when the trap is disabled.
   // eslint-disable-next-line react-hooks/refs
-  if (!previousFocusedElement.current && !disabled) {
-    previousFocusedElement.current = document.activeElement
+  if (!previousFocusedElementRef.current && !disabled) {
+    previousFocusedElementRef.current = document.activeElement
   }
 
   // This function removes the event listeners that enable the focus trap and restores focus
   // to the previously-focused element (if necessary).
   function disableTrap() {
-    abortController.current?.abort()
+    abortControllerRef.current?.abort()
     if (settings?.allowOutsideClick && outsideClicked) {
       return
     }
     if (settings?.returnFocusRef && settings.returnFocusRef.current instanceof HTMLElement) {
       settings.returnFocusRef.current.focus()
-    } else if (settings?.restoreFocusOnCleanUp && previousFocusedElement.current instanceof HTMLElement) {
-      previousFocusedElement.current.focus()
-      previousFocusedElement.current = null
+    } else if (settings?.restoreFocusOnCleanUp && previousFocusedElementRef.current instanceof HTMLElement) {
+      previousFocusedElementRef.current.focus()
+      previousFocusedElementRef.current = null
     }
   }
 
@@ -85,7 +85,7 @@ export function useFocusTrap(
     () => {
       if (containerRef.current instanceof HTMLElement) {
         if (!disabled) {
-          abortController.current = focusTrap(containerRef.current, initialFocusRef.current ?? undefined)
+          abortControllerRef.current = focusTrap(containerRef.current, initialFocusRef.current ?? undefined)
           return () => {
             disableTrap()
           }
@@ -105,7 +105,7 @@ export function useFocusTrap(
         // eslint-disable-next-line react-hooks/immutability
         if (settings.returnFocusRef) settings.returnFocusRef = undefined
         settings.restoreFocusOnCleanUp = false
-        abortController.current?.abort()
+        abortControllerRef.current?.abort()
       }
     },
   })

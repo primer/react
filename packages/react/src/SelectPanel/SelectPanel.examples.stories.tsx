@@ -525,20 +525,20 @@ export const RenderMoreOnScroll = () => {
   })
 
   /* perf measurement logic start */
-  const timeBeforeOpen = useRef<number>()
-  const timeAfterOpen = useRef<number>()
+  const timeBeforeOpenRef = useRef<number>()
+  const timeAfterOpenRef = useRef<number>()
   const [timeTakenToOpen, setTimeTakenToOpen] = useState<number>()
 
   const onOpenChange = () => {
-    if (!open) timeBeforeOpen.current = performance.now()
+    if (!open) timeBeforeOpenRef.current = performance.now()
     setOpen(!open)
   }
 
   useEffect(
     function measureTimeAfterOpen() {
       if (open) {
-        timeAfterOpen.current = performance.now()
-        if (timeBeforeOpen.current) setTimeTakenToOpen(timeAfterOpen.current - timeBeforeOpen.current)
+        timeAfterOpenRef.current = performance.now()
+        if (timeBeforeOpenRef.current) setTimeTakenToOpen(timeAfterOpenRef.current - timeBeforeOpenRef.current)
       }
     },
     [open],
@@ -611,19 +611,19 @@ export const VirtualizedConsumerSide = () => {
   const filteredItems = lotsOfItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
 
   /* perf measurement logic start */
-  const timeBeforeOpen = useRef<number>()
-  const timeAfterOpen = useRef<number>()
+  const timeBeforeOpenRef = useRef<number>()
+  const timeAfterOpenRef = useRef<number>()
   const [timeTakenToOpen, setTimeTakenToOpen] = useState<number>()
 
   const onOpenChange = () => {
-    if (!open) timeBeforeOpen.current = performance.now()
+    if (!open) timeBeforeOpenRef.current = performance.now()
     setOpen(!open)
   }
   useEffect(
     function measureTimeAfterOpen() {
       if (open) {
-        timeAfterOpen.current = performance.now()
-        if (timeBeforeOpen.current) setTimeTakenToOpen(timeAfterOpen.current - timeBeforeOpen.current)
+        timeAfterOpenRef.current = performance.now()
+        if (timeBeforeOpenRef.current) setTimeTakenToOpen(timeAfterOpenRef.current - timeBeforeOpenRef.current)
       }
     },
     [open],
@@ -752,38 +752,38 @@ export const VirtualizedBuiltIn = () => {
   const [openB, setOpenB] = useState(false)
 
   /* perf measurement: non-virtualized */
-  const timeBeforeOpenA = useRef<number>()
-  const timeAfterOpenA = useRef<number>()
+  const timeBeforeOpenARef = useRef<number>()
+  const timeAfterOpenARef = useRef<number>()
   const [timeTakenA, setTimeTakenA] = useState<number>()
 
   const onOpenChangeA = () => {
-    if (!openA) timeBeforeOpenA.current = performance.now()
+    if (!openA) timeBeforeOpenARef.current = performance.now()
     setOpenA(!openA)
   }
   useEffect(
     function measureA() {
       if (openA) {
-        timeAfterOpenA.current = performance.now()
-        if (timeBeforeOpenA.current) setTimeTakenA(timeAfterOpenA.current - timeBeforeOpenA.current)
+        timeAfterOpenARef.current = performance.now()
+        if (timeBeforeOpenARef.current) setTimeTakenA(timeAfterOpenARef.current - timeBeforeOpenARef.current)
       }
     },
     [openA],
   )
 
   /* perf measurement: virtualized */
-  const timeBeforeOpenB = useRef<number>()
-  const timeAfterOpenB = useRef<number>()
+  const timeBeforeOpenBRef = useRef<number>()
+  const timeAfterOpenBRef = useRef<number>()
   const [timeTakenB, setTimeTakenB] = useState<number>()
 
   const onOpenChangeB = () => {
-    if (!openB) timeBeforeOpenB.current = performance.now()
+    if (!openB) timeBeforeOpenBRef.current = performance.now()
     setOpenB(!openB)
   }
   useEffect(
     function measureB() {
       if (openB) {
-        timeAfterOpenB.current = performance.now()
-        if (timeBeforeOpenB.current) setTimeTakenB(timeAfterOpenB.current - timeBeforeOpenB.current)
+        timeAfterOpenBRef.current = performance.now()
+        if (timeBeforeOpenBRef.current) setTimeTakenB(timeAfterOpenBRef.current - timeBeforeOpenBRef.current)
       }
     },
     [openB],

@@ -1607,13 +1607,13 @@ describe('Asynchronous loading', () => {
   it('should update `aria-expanded` if no content is loaded in', async () => {
     function Example() {
       const [state, setState] = React.useState<SubTreeState>('loading')
-      const timeoutId = React.useRef<ReturnType<typeof setTimeout> | null>(null)
+      const timeoutIdRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
 
       React.useEffect(() => {
         return () => {
-          if (timeoutId.current) {
-            clearTimeout(timeoutId.current)
-            timeoutId.current = null
+          if (timeoutIdRef.current) {
+            clearTimeout(timeoutIdRef.current)
+            timeoutIdRef.current = null
           }
         }
       }, [])
@@ -1624,7 +1624,7 @@ describe('Asynchronous loading', () => {
             id="item-1"
             onExpandedChange={expanded => {
               if (expanded) {
-                timeoutId.current = setTimeout(() => {
+                timeoutIdRef.current = setTimeout(() => {
                   setState('done')
                 }, 1000)
               }
