@@ -107,7 +107,7 @@ export function useSlots<Config extends SlotConfig>(
   let slotsFound = 0
 
   // eslint-disable-next-line github/array-foreach
-  React.Children.forEach(children, child => {
+  React.Children.toArray(children).forEach(child => {
     if (!React.isValidElement(child)) {
       rest.push(child)
       return
