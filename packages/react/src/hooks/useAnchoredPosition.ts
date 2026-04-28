@@ -54,7 +54,7 @@ export function useAnchoredPosition(
   const anchorElementRef = useProvidedRefOrCreate(settings?.anchorElementRef)
   const savedOnPositionChange = React.useRef(settings?.onPositionChange)
   const [position, setPosition] = React.useState<AnchorPosition | undefined>(undefined)
-  const [, setPrevHeight] = React.useState<number | undefined>(undefined)
+  const prevHeightRef = React.useRef<number | undefined>(undefined)
 
   const topPositionChanged = (prevPosition: AnchorPosition | undefined, newPosition: AnchorPosition) => {
     return (
@@ -67,16 +67,14 @@ export function useAnchoredPosition(
 
   const updateElementHeight = () => {
     let heightUpdated = false
-    setPrevHeight(prevHeight => {
-      // if the element is trying to shrink in height, restore to old height to prevent it from jumping
-      if (prevHeight && prevHeight > (floatingElementRef.current?.clientHeight ?? 0)) {
-        requestAnimationFrame(() => {
-          ;(floatingElementRef.current as HTMLElement).style.height = `${prevHeight}px`
-        })
-        heightUpdated = true
-      }
-      return prevHeight
-    })
+    const prevHeight = prevHeightRef.current
+    // if the element is trying to shrink in height, restore to old height to prevent it from jumping
+    if (prevHeight && prevHeight > (floatingElementRef.current?.clientHeight ?? 0)) {
+      requestAnimationFrame(() => {
+        ;(floatingElementRef.current as HTMLElement).style.height = `${prevHeight}px`
+      })
+      heightUpdated = true
+    }
     return heightUpdated
   }
 
@@ -105,7 +103,7 @@ export function useAnchoredPosition(
         setPosition(undefined)
         savedOnPositionChange.current?.(undefined)
       }
-      setPrevHeight(floatingElementRef.current?.clientHeight)
+      prevHeightRef.current = floatingElementRef.current?.clientHeight
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/use-memo
     [floatingElementRef, anchorElementRef, ...dependencies],

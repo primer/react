@@ -58,7 +58,8 @@ export function createDescendantRegistry<T>() {
    */
   function useRegistryState() {
     // We could do this inside of `Provider`, but then it would be difficult for the parent itself to access the state value
-    return useState<ReadonlyMap<string, T>>()
+    const [registryState, setRegistryState] = useState<ReadonlyMap<string, T>>()
+    return [registryState, setRegistryState] as const
   }
 
   /** Register a descendant component with the registry. */
