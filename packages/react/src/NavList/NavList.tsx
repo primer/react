@@ -16,7 +16,6 @@ import {useId} from '../hooks/useId'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import classes from '../ActionList/ActionList.module.css'
 import navListClasses from './NavList.module.css'
-import {flushSync} from 'react-dom'
 import {isSlot} from '../utils/is-slot'
 import {fixedForwardRef, type PolymorphicProps} from '../utils/modern-polymorphic'
 
@@ -296,10 +295,24 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
   ({label = 'Show more', pages = 0, items, renderItem, ...props}, forwardedRef) => {
     const [currentPage, setCurrentPage] = React.useState(0)
     const groupId = useId()
+    const shouldFocusExpandedItemRef = React.useRef(false)
 
     const itemsPerPage = items.length / pages
     const amountToShow = pages === 0 ? items.length : Math.ceil(itemsPerPage * currentPage)
     const focusTargetIndex = currentPage === 1 ? 0 : amountToShow - Math.floor(itemsPerPage)
+
+    useIsomorphicLayoutEffect(() => {
+      if (!shouldFocusExpandedItemRef.current) return
+
+      shouldFocusExpandedItemRef.current = false
+      const focusTarget: HTMLElement[] = Array.from(
+        document.querySelectorAll(`[data-expand-focus-target="${groupId}"]`),
+      )
+
+      if (focusTarget.length > 0) {
+        focusTarget[focusTarget.length - 1].focus()
+      }
+    }, [currentPage, groupId])
 
     return (
       <>
@@ -350,16 +363,8 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
             aria-expanded="false"
             ref={forwardedRef}
             onSelect={() => {
-              flushSync(() => {
-                setCurrentPage(currentPage + 1)
-              })
-              const focusTarget: HTMLElement[] | null = Array.from(
-                document.querySelectorAll(`[data-expand-focus-target="${groupId}"]`),
-              )
-
-              if (focusTarget.length > 0) {
-                focusTarget[focusTarget.length - 1].focus()
-              }
+              shouldFocusExpandedItemRef.current = true
+              setCurrentPage(currentPage + 1)
             }}
             {...props}
           >

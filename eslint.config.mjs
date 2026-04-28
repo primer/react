@@ -79,7 +79,7 @@ const config = defineConfig([
   {
     rules: {
       '@eslint-react/dom-no-dangerously-set-innerhtml': 'off',
-      '@eslint-react/dom-no-flush-sync': 'off',
+      '@eslint-react/dom-no-flush-sync': 'error',
       '@eslint-react/dom-no-missing-button-type': 'off',
       '@eslint-react/dom-no-string-style-prop': 'error',
       '@eslint-react/dom-no-unknown-property': 'error',
