@@ -1,3 +1,5 @@
+import {formatComponentInfo, formatComponentList, getComponentInfo, listComponents} from './components.js'
+
 interface Command {
   readonly name: string
   readonly usage: string
@@ -10,13 +12,32 @@ const commands: readonly Command[] = [
     name: 'components list',
     usage: 'primer components list',
     description: 'List components in the Primer design system.',
-    run: notImplemented('components list'),
+    run: () => {
+      writeOutput(formatComponentList(listComponents()))
+      return 0
+    },
   },
   {
     name: 'components get',
     usage: 'primer components get <name>',
     description: 'Get usage docs, source, and API info for a component.',
-    run: notImplemented('components get'),
+    run: async args => {
+      const name = args.join(' ')
+      if (!name) {
+        writeError('Usage: primer components get <name>')
+        return 1
+      }
+
+      const info = await getComponentInfo(name)
+      if (!info) {
+        writeError(`Unable to find a Primer component named "${name}".`)
+        writeError('Run `primer components list` for a list of components.')
+        return 1
+      }
+
+      writeOutput(formatComponentInfo(info))
+      return 0
+    },
   },
   {
     name: 'tokens list',

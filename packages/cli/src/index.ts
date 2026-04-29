@@ -1,1 +1,1 @@
-export {run} from './cli'
+export {run} from './cli.js'
