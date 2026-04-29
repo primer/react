@@ -1,5 +1,5 @@
 import {List} from './List'
-import {Group, GroupHeading, GroupContext} from './Group'
+import {Group, GroupHeading} from './Group'
 import {Item} from './Item'
 import {LinkItem} from './LinkItem'
 import {Divider} from './Divider'
