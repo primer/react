@@ -71,20 +71,19 @@ async function getComponentInfo(name: string): Promise<ComponentInfo | null> {
     return null
   }
 
-  const docsUrl = new URL(`/product/components/${idToSlug(component.id)}`, 'https://primer.style')
-  const llmsUrl = new URL(`${docsUrl.pathname}/llms.txt`, docsUrl)
+  const docsUrl = new URL(`/product/components/${idToSlug(component.id)}/llms.txt`, 'https://primer.style')
   let usageDocs = `Usage documentation is available at ${docsUrl.toString()}`
 
   try {
-    const response = await fetch(llmsUrl)
+    const response = await fetch(docsUrl)
     if (response.ok) {
       usageDocs = await response.text()
     } else {
-      usageDocs = `Unable to fetch ${llmsUrl.toString()} (${response.status} ${response.statusText}). ${usageDocs}`
+      usageDocs = `Unable to fetch ${docsUrl.toString()} (${response.status} ${response.statusText}). ${usageDocs}`
     }
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : String(error)
-    usageDocs = `Unable to fetch ${llmsUrl.toString()} (${message}). ${usageDocs}`
+    usageDocs = `Unable to fetch ${docsUrl.toString()} (${message}). ${usageDocs}`
   }
 
   return {
