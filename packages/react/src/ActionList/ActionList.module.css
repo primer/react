@@ -357,7 +357,7 @@
     }
 
     &[aria-checked='true'],
-    &[aria-selected='true'] &[aria-checked='mixed'] {
+    &[aria-selected='true'] {
       & .MultiSelectCheckbox {
         background-color: var(--control-checked-bgColor-disabled);
         /* stylelint-disable-next-line primer/colors */
@@ -438,8 +438,7 @@
   }
 
   &[aria-checked='true'],
-  &[aria-selected='true'],
-  &[aria-checked='mixed'] {
+  &[aria-selected='true'] {
     & .MultiSelectCheckbox {
       background-color: var(--control-checked-bgColor-rest);
       border-color: var(--control-checked-borderColor-rest);
@@ -464,17 +463,6 @@
 
     & .SingleSelectCheckmark {
       visibility: visible;
-    }
-  }
-
-  &[aria-checked='mixed'] {
-    & .MultiSelectCheckbox {
-      background: var(--control-checked-bgColor-rest);
-
-      &::before {
-        mask-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMiIgdmlld0JveD0iMCAwIDEwIDIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMCAxQzAgMC40NDc3MTUgMC40NDc3MTUgMCAxIDBIOUM5LjU1MjI5IDAgMTAgMC40NDc3MTUgMTAgMUMxMCAxLjU1MjI4IDkuNTUyMjkgMiA5IDJIMUMwLjQ0NzcxNSAyIDAgMS41NTIyOCAwIDFaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K');
-        visibility: visible;
-      }
     }
   }
 
