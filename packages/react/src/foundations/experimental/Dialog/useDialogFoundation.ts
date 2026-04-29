@@ -113,10 +113,9 @@ export function useDialogFoundation(options: UseDialogFoundationOptions): UseDia
     if (!dialog) return
 
     if (open) {
-      // Store the element that had focus before opening
-      previousFocusRef.current = document.activeElement
-
       if (!dialog.open) {
+        // Store the element that had focus before opening
+        previousFocusRef.current = document.activeElement
         dialog.showModal()
       }
 
