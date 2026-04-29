@@ -41,6 +41,8 @@ export const WithCss = () => (
  * Reproduces a bug where switching the anchor DOM element (via unmount/remount)
  * causes the CSS anchor positioning to break because `anchor-name` is never
  * re-applied to the new element.
+ *
+ * https://github.com/github/primer/issues/6616
  */
 export const AnchorElementReplacement = () => {
   const anchorRef = useRef<HTMLButtonElement>(null)

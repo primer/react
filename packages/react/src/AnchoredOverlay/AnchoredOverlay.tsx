@@ -179,16 +179,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   // Only use Popover API when both CSS anchor positioning is enabled AND renderAs is true
   const shouldRenderAsPopover = cssAnchorPositioning && renderAs === 'popover'
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
-  // Track the current anchor DOM element in state so that effects depending on
-  // its identity (e.g. applying `anchor-name` for CSS anchor positioning) re-run
-  // when a consumer remounts/replaces the anchor element while keeping the same
-  // `anchorRef` object. Refs alone don't notify React when `.current` changes.
   const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null)
-  // Detect when `anchorRef.current` has been mutated by a consumer (e.g. via
-  // their own `ref={anchorRef}`) without React's ref system notifying us.
-  // Reading the ref during render and conditionally calling setState is the
-  // documented React pattern for syncing external mutable state, but the
-  // react-hooks/refs lint rule is conservative and disallows it.
   // eslint-disable-next-line react-hooks/refs
   if (anchorRef.current !== anchorElement) {
     setAnchorElement(anchorRef.current)
@@ -338,8 +329,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   return (
     <>
       {renderAnchor &&
-        // anchorRef is a ref object passed as a JSX `ref` prop on the rendered
-        // anchor; React writes to it at commit time, it is not read during render.
         // eslint-disable-next-line react-hooks/refs
         renderAnchor({
           ref: anchorRef,
