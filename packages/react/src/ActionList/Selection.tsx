@@ -8,7 +8,7 @@ import classes from './ActionList.module.css'
 import Radio from '../Radio'
 import {warning} from '../utils/warning'
 
-export type SelectionProps = Pick<ActionListItemProps, 'selected' | 'className'>
+type SelectionProps = Pick<ActionListItemProps, 'selected' | 'className'>
 export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({selected, className}) => {
   const {selectionVariant: listSelectionVariant, role: listRole} = React.useContext(ListContext)
   const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
