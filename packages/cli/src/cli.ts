@@ -1,4 +1,5 @@
 import {formatComponentInfo, formatComponentList, getComponentInfo, listComponents} from './components.js'
+import {formatTokenInfo, formatTokenList, getTokenInfo, listTokens} from './tokens.js'
 
 interface Command {
   readonly name: string
@@ -41,23 +42,63 @@ const commands: readonly Command[] = [
   },
   {
     name: 'tokens list',
-    usage: 'primer tokens list',
+    usage: 'primer tokens list [--group <group>]',
     description: 'List design tokens in the Primer design system.',
-    run: notImplemented('tokens list'),
+    run: args => {
+      const options = parseTokenListOptions(args)
+      if (!options) {
+        writeError('Usage: primer tokens list [--group <group>]')
+        return 1
+      }
+
+      writeOutput(formatTokenList(listTokens(options)))
+      return 0
+    },
   },
   {
     name: 'tokens get',
     usage: 'primer tokens get <name>',
     description: 'Get guidance for when to use a design token.',
-    run: notImplemented('tokens get'),
+    run: args => {
+      const name = args.join(' ')
+      if (!name) {
+        writeError('Usage: primer tokens get <name>')
+        return 1
+      }
+
+      const info = getTokenInfo(name)
+      if (!info) {
+        writeError(`Unable to find a Primer design token named "${name}".`)
+        writeError('Run `primer tokens list` for a list of tokens.')
+        return 1
+      }
+
+      writeOutput(formatTokenInfo(info))
+      return 0
+    },
   },
 ]
 
-function notImplemented(name: string): () => number {
-  return () => {
-    writeError(`The "${name}" command is not implemented yet.`)
-    return 1
+function parseTokenListOptions(args: readonly string[]): {group?: string} | null {
+  const options: {group?: string} = {}
+
+  for (let index = 0; index < args.length; index++) {
+    const arg = args[index]
+    if (arg === '--group') {
+      const group = args[index + 1]
+      if (!group) {
+        return null
+      }
+
+      options.group = group
+      index++
+      continue
+    }
+
+    return null
   }
+
+  return options
 }
 
 function formatHelp(): string {
