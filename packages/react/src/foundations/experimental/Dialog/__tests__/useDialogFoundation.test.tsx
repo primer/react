@@ -1,5 +1,4 @@
-import type React from 'react'
-import {useRef} from 'react'
+import React, {useRef} from 'react'
 import {render, fireEvent, screen} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vitest'
 import {useDialogFoundation, type UseDialogFoundationOptions} from '..'
@@ -128,5 +127,128 @@ describe('useDialogFoundation', () => {
 
     render(<DialogWithInitialFocus />)
     expect(screen.getByTestId('focus-target')).toHaveFocus()
+  })
+
+  it('restores focus to returnFocusRef on close', () => {
+    function DialogWithReturnFocus() {
+      const [open, setOpen] = React.useState(false)
+      const buttonRef = useRef<HTMLButtonElement>(null)
+
+      return (
+        <>
+          <button ref={buttonRef} onClick={() => setOpen(true)} data-testid="trigger">
+            Open
+          </button>
+          <TestDialog open={open} onClose={() => setOpen(false)} returnFocusRef={buttonRef} />
+        </>
+      )
+    }
+
+    render(<DialogWithReturnFocus />)
+    fireEvent.click(screen.getByTestId('trigger'))
+    expect(screen.getByRole('dialog')).toBeInTheDocument()
+
+    fireEvent.click(screen.getByText('Close'))
+    expect(screen.getByTestId('trigger')).toHaveFocus()
+  })
+
+  it('restores focus to previously-focused element when no returnFocusRef', () => {
+    function DialogWithAutoRestore() {
+      const [open, setOpen] = React.useState(false)
+
+      return (
+        <>
+          <button onClick={() => setOpen(true)} data-testid="trigger">
+            Open
+          </button>
+          <TestDialog open={open} onClose={() => setOpen(false)} />
+        </>
+      )
+    }
+
+    render(<DialogWithAutoRestore />)
+    const trigger = screen.getByTestId('trigger')
+    trigger.focus()
+    fireEvent.click(trigger)
+    expect(screen.getByRole('dialog')).toBeInTheDocument()
+
+    fireEvent.click(screen.getByText('Close'))
+    expect(trigger).toHaveFocus()
+  })
+
+  it('applies scroll lock when open', () => {
+    const {unmount} = render(<TestDialog open={true} onClose={() => {}} />)
+    expect(document.body.style.overflow).toBe('hidden')
+
+    unmount()
+    expect(document.body.style.overflow).toBe('')
+  })
+
+  it('handles nested scroll locks correctly', () => {
+    function NestedDialogs() {
+      return (
+        <>
+          <TestDialog open={true} onClose={() => {}} />
+          <TestDialog open={true} onClose={() => {}} />
+        </>
+      )
+    }
+
+    const {unmount} = render(<NestedDialogs />)
+    expect(document.body.style.overflow).toBe('hidden')
+
+    // Unmounting removes both — scroll lock should be released
+    unmount()
+    expect(document.body.style.overflow).toBe('')
+  })
+
+  it('closes and reopens correctly', () => {
+    function ReopenDialog() {
+      const [open, setOpen] = React.useState(true)
+      const buttonRef = useRef<HTMLButtonElement>(null)
+
+      return (
+        <>
+          <button ref={buttonRef} onClick={() => setOpen(true)} data-testid="trigger">
+            Open
+          </button>
+          <TestDialog open={open} onClose={() => setOpen(false)} returnFocusRef={buttonRef} />
+        </>
+      )
+    }
+
+    const {rerender} = render(<ReopenDialog />)
+    expect(screen.getByRole('dialog')).toHaveAttribute('open')
+
+    // Close
+    fireEvent.click(screen.getByText('Close'))
+
+    // Reopen
+    fireEvent.click(screen.getByTestId('trigger'))
+    expect(screen.getByRole('dialog')).toHaveAttribute('open')
+  })
+
+  it('warns in dev mode when no accessible name is provided', async () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+    function NoNameDialog() {
+      const foundation = useDialogFoundation({
+        open: true,
+        onClose: () => {},
+      })
+      const dialogProps = foundation.getDialogProps()
+      return <dialog {...dialogProps}>Content</dialog>
+    }
+
+    render(<NoNameDialog />)
+
+    // Wait for the queueMicrotask to flush
+    await new Promise(resolve => setTimeout(resolve, 10))
+
+    expect(warnSpy).toHaveBeenCalledWith(
+      expect.stringContaining('No accessible name provided'),
+    )
+
+    warnSpy.mockRestore()
   })
 })
