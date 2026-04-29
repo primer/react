@@ -174,7 +174,9 @@ describe.each([true, false])(
       expect(mockCloseCallback).toHaveBeenCalledWith('escape')
     })
 
-    it('should call onPositionChange when provided', async () => {
+    // onPositionChange is not supported when the CSS anchor positioning flag is enabled,
+    // because positioning is handled by the browser rather than `useAnchoredPosition`.
+    it.skipIf(withCSSAnchorPositioningFeatureFlag)('should call onPositionChange when provided', async () => {
       const mockPositionChangeCallback = vi.fn(({position}: {position: AnchorPosition}) => position)
       render(
         <AnchoredOverlayTestComponent
