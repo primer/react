@@ -276,16 +276,14 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     // Link the anchor and the overlay (when present) via CSS anchor positioning.
     anchorElement.style.setProperty('anchor-name', `--anchored-overlay-anchor-${id}`)
 
-    let rafId: number | null = null
+    let pendingPositionFrame: number | null = null
     if (open && currentOverlay) {
       currentOverlay.style.setProperty('position-anchor', `--anchored-overlay-anchor-${id}`)
 
-      // Defer the getBoundingClientRect read into a rAF so the style write above
-      // does not force a synchronous layout. This matters when many overlays open
-      // simultaneously: each effect would otherwise trigger a full-document layout
-      // immediately after writing `anchor-name`/`position-anchor`.
-      rafId = requestAnimationFrame(() => {
-        rafId = null
+      // Defer the getBoundingClientRect read into a `requestAnimationFrame` so the style write above
+      // does not force a synchronous layout.
+      pendingPositionFrame = requestAnimationFrame(() => {
+        pendingPositionFrame = null
         const overlayWidth = width ? parseInt(widthMap[width]) : null
         const result = getDefaultPosition(anchorElement, overlayWidth)
 
@@ -309,7 +307,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     }
 
     return () => {
-      if (rafId !== null) cancelAnimationFrame(rafId)
+      if (pendingPositionFrame !== null) cancelAnimationFrame(pendingPositionFrame)
       anchorElement.style.removeProperty('anchor-name')
       // The overlay may no longer be in the DOM at this point, so we need to check for its presence before trying to update it.
       if (currentOverlay) {
