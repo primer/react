@@ -4,7 +4,6 @@ import type {KeyboardEventHandler, JSX} from 'react'
 import type React from 'react'
 import {forwardRef, useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import type {TextInputProps} from '../TextInput'
-import TextInput from '../TextInput'
 import {ActionList, type ActionListProps} from '../ActionList'
 import type {GroupedListProps, ListPropsBase, ItemInput, RenderItemFn} from './'
 import {useFocusZone} from '../hooks/useFocusZone'
@@ -22,6 +21,7 @@ import {isValidElementType} from 'react-is'
 import {useAnnouncements} from './useAnnouncements'
 import {clsx} from 'clsx'
 import {useVirtualizer} from '@tanstack/react-virtual'
+import {FilteredActionListInput} from './FilteredActionListInput'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -543,8 +543,6 @@ export function FilteredActionList({
     }
   }
 
-  const {className: textInputClassName, ...restTextInputProps} = textInputProps || {}
-
   return (
     <div
       ref={inputAndListContainerRef}
@@ -552,30 +550,19 @@ export function FilteredActionList({
       data-testid="filtered-action-list"
       data-component="FilteredActionList"
     >
-      <div className={classes.Header} data-component="FilteredActionList.Header">
-        <TextInput
-          // @ts-expect-error it needs a non nullable ref
-          ref={inputRef}
-          block
-          width="auto"
-          color="fg.default"
-          value={filterValue}
-          onChange={onInputChange}
-          onKeyPress={onInputKeyPress}
-          onKeyDown={usingRovingTabindex ? onInputKeyDown : () => {}}
-          placeholder={placeholderText}
-          role="combobox"
-          aria-expanded="true"
-          aria-autocomplete="list"
-          aria-controls={listId}
-          aria-label={placeholderText}
-          aria-describedby={inputDescriptionTextId}
-          loaderPosition={'leading'}
-          loading={loading && !loadingType.appearsInBody}
-          className={clsx(textInputClassName, {[classes.FullScreenTextInput]: fullScreenOnNarrow})}
-          {...restTextInputProps}
-        />
-      </div>
+      <FilteredActionListInput
+        inputRef={inputRef}
+        value={filterValue}
+        onInputChange={onInputChange}
+        onInputKeyPress={onInputKeyPress}
+        onInputKeyDown={usingRovingTabindex ? onInputKeyDown : undefined}
+        placeholderText={placeholderText}
+        listId={listId}
+        inputDescriptionTextId={inputDescriptionTextId}
+        loading={loading && !loadingType.appearsInBody}
+        fullScreenOnNarrow={fullScreenOnNarrow}
+        {...textInputProps}
+      />
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
       {onSelectAllChange !== undefined && (
         <div className={classes.SelectAllContainer} data-component="FilteredActionList.SelectAll">

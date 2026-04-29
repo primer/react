@@ -1,5 +1,11 @@
 # @primer/react
 
+## 38.21.1
+
+### Patch Changes
+
+- [#7770](https://github.com/primer/react/pull/7770) [`619175c`](https://github.com/primer/react/commit/619175c00dece144573fe5afbe4cd51e524a6c3d) Thanks [@LisaKr](https://github.com/LisaKr)! - Defer `useAnchoredPosition` initial mount setState from useLayoutEffect to useEffect when overlay is closed, eliminating unnecessary cascading re-renders that block paint.
+
 ## 38.21.0
 
 ### Minor Changes

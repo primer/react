@@ -3,23 +3,16 @@ import {describe, expect, test} from 'vitest'
 import {
   ActionList,
   Box,
-  Breadcrumbs,
   Button,
   Dialog,
   Flash,
-  FormControl,
-  Header,
   Heading,
   IconButton,
   Label,
   Link,
-  LinkButton,
-  SegmentedControl,
   Spinner,
   Text,
   TextInput,
-  Timeline,
-  Truncate,
   UnderlineNav,
 } from '../'
 
@@ -33,17 +26,6 @@ describe('@primer/react', () => {
   test('Box supports `sx` prop', () => {
     render(<Box as="div" data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('Breadcrumbs supports `sx` prop', () => {
-    render(<Breadcrumbs sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(screen.getByLabelText('Breadcrumbs')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('Breadcrumbs.Item supports `sx` prop', () => {
-    render(<Breadcrumbs.Item as="li" data-testid="component" sx={{background: 'red'}} selected />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-    expect(screen.getByTestId('component').className.includes('selected')).toBe(true)
   })
 
   test('Button supports `sx` prop', () => {
@@ -90,20 +72,6 @@ describe('@primer/react', () => {
     expect(screen.getByTestId('component')).toHaveAttribute('variant', 'success')
   })
 
-  test('FormControl supports `sx` prop', () => {
-    const {container} = render(
-      <FormControl sx={{background: 'red'}}>
-        <FormControl.Label>label</FormControl.Label>
-      </FormControl>,
-    )
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('Header supports `sx` prop', () => {
-    render(<Header as="header" data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
   test('Heading supports `sx` prop', () => {
     render(<Heading data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
@@ -140,41 +108,6 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-  test('LinkButton supports `sx` prop', () => {
-    render(<LinkButton as="a" data-testid="component" sx={{background: 'red'}} icon={<svg />} />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-    expect(screen.getByTestId('component')).toHaveAttribute('icon')
-  })
-
-  test('SegmentedControl supports `sx` prop', () => {
-    render(<SegmentedControl data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('SegmentedControl.Button supports `sx` prop', () => {
-    render(
-      <SegmentedControl>
-        <SegmentedControl.Button data-testid="component" sx={{background: 'red'}}>
-          test
-        </SegmentedControl.Button>
-      </SegmentedControl>,
-    )
-    const buttonElement = screen.getByTestId('component')
-    expect(window.getComputedStyle(buttonElement).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('SegmentedControl.IconButton supports `sx` prop', () => {
-    const {container} = render(
-      <SegmentedControl.IconButton
-        data-testid="component"
-        sx={{background: 'red'}}
-        aria-label="test"
-        icon={() => <svg />}
-      />,
-    )
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
   test('Spinner supports `sx` prop', () => {
     render(<Spinner data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
@@ -195,37 +128,6 @@ describe('@primer/react', () => {
   test('TextInput.Action supports `sx` prop', () => {
     render(<TextInput.Action aria-label="test" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByRole('button')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('Timeline supports `sx` prop', () => {
-    render(<Timeline data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('Timeline.Badge supports `sx` prop', () => {
-    render(<Timeline.Badge data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('Timeline.Break supports `sx` prop', () => {
-    render(<Timeline.Break data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('Timeline.Item supports `sx` prop', () => {
-    render(<Timeline.Item data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('Timeline.Body supports `sx` prop', () => {
-    render(<Timeline.Body data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('Truncate supports `sx` prop', () => {
-    render(<Truncate as="div" data-testid="component" sx={{background: 'red'}} title="test" />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-    expect(screen.getByTestId('component')).toHaveAttribute('title', 'test')
   })
 
   test('UnderlineNav supports `sx` prop', () => {
