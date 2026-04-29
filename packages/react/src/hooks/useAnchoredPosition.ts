@@ -31,11 +31,6 @@ export interface AnchoredPositionHookSettings extends Partial<PositionSettings> 
   anchorElementRef?: React.RefObject<Element | null>
   pinPosition?: boolean
   onPositionChange?: (position: AnchorPosition | undefined) => void
-  /**
-   * When false, skips position computation, scroll listeners, and resize
-   * observers. Useful when an external mechanism (e.g. native CSS anchor
-   * positioning) is handling positioning instead. Defaults to true.
-   */
   enabled?: boolean
 }
 
@@ -126,8 +121,8 @@ export function useAnchoredPosition(
 
   useLayoutEffect(updatePosition, [updatePosition])
 
-  useResizeObserver(updatePosition) // watches for changes in window size
-  useResizeObserver(updatePosition, floatingElementRef as React.RefObject<HTMLElement | null>) // watches for changes in floating element size
+  useResizeObserver(updatePosition, undefined, [], enabled) // watches for changes in window size
+  useResizeObserver(updatePosition, floatingElementRef as React.RefObject<HTMLElement | null>, [], enabled) // watches for changes in floating element size
 
   // Recalculate position when any scrollable ancestor of the anchor scrolls.
   // Uses requestAnimationFrame to avoid layout thrashing during scroll.
