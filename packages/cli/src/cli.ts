@@ -1,11 +1,20 @@
 import {formatComponentInfo, formatComponentList, getComponentInfo, listComponents} from './components.js'
 import {formatTokenInfo, formatTokenList, getTokenInfo, listTokens} from './tokens.js'
 
+interface GlobalOptions {
+  readonly json: boolean
+}
+
+interface ParsedGlobalOptions {
+  readonly args: readonly string[]
+  readonly options: GlobalOptions
+}
+
 interface Command {
   readonly name: string
   readonly usage: string
   readonly description: string
-  readonly run: (args: readonly string[]) => Promise<number> | number
+  readonly run: (args: readonly string[], options: GlobalOptions) => Promise<number> | number
 }
 
 const commands: readonly Command[] = [
@@ -13,8 +22,9 @@ const commands: readonly Command[] = [
     name: 'components list',
     usage: 'primer components list',
     description: 'List components in the Primer design system.',
-    run: () => {
-      writeOutput(formatComponentList(listComponents()))
+    run: (_args, options) => {
+      const components = listComponents()
+      writeOutput(options.json ? formatJson(components) : formatComponentList(components))
       return 0
     },
   },
@@ -22,7 +32,7 @@ const commands: readonly Command[] = [
     name: 'components get',
     usage: 'primer components get <name>',
     description: 'Get usage docs, source, and API info for a component.',
-    run: async args => {
+    run: async (args, options) => {
       const name = args.join(' ')
       if (!name) {
         writeError('Usage: primer components get <name>')
@@ -36,7 +46,7 @@ const commands: readonly Command[] = [
         return 1
       }
 
-      writeOutput(formatComponentInfo(info))
+      writeOutput(options.json ? formatJson(info) : formatComponentInfo(info))
       return 0
     },
   },
@@ -44,14 +54,15 @@ const commands: readonly Command[] = [
     name: 'tokens list',
     usage: 'primer tokens list [--group <group>]',
     description: 'List design tokens in the Primer design system.',
-    run: args => {
-      const options = parseTokenListOptions(args)
-      if (!options) {
+    run: (args, options) => {
+      const tokenOptions = parseTokenListOptions(args)
+      if (!tokenOptions) {
         writeError('Usage: primer tokens list [--group <group>]')
         return 1
       }
 
-      writeOutput(formatTokenList(listTokens(options)))
+      const tokens = listTokens(tokenOptions)
+      writeOutput(options.json ? formatJson(tokens) : formatTokenList(tokens))
       return 0
     },
   },
@@ -59,7 +70,7 @@ const commands: readonly Command[] = [
     name: 'tokens get',
     usage: 'primer tokens get <name>',
     description: 'Get guidance for when to use a design token.',
-    run: args => {
+    run: (args, options) => {
       const name = args.join(' ')
       if (!name) {
         writeError('Usage: primer tokens get <name>')
@@ -73,7 +84,7 @@ const commands: readonly Command[] = [
         return 1
       }
 
-      writeOutput(formatTokenInfo(info))
+      writeOutput(options.json ? formatJson(info) : formatTokenInfo(info))
       return 0
     },
   },
@@ -112,11 +123,38 @@ function formatHelp(): string {
 
 Usage:
   primer --help
-  primer <command>
+  primer [--json] <command>
 
 Commands:
 ${commandList}
 `
+}
+
+function parseGlobalOptions(args: readonly string[]): ParsedGlobalOptions {
+  return args.reduce<ParsedGlobalOptions>(
+    (parsed, arg) => {
+      if (arg === '--json') {
+        return {
+          args: parsed.args,
+          options: {
+            ...parsed.options,
+            json: true,
+          },
+        }
+      }
+
+      return {
+        ...parsed,
+        args: [...parsed.args, arg],
+      }
+    },
+    {
+      args: [],
+      options: {
+        json: false,
+      },
+    },
+  )
 }
 
 function findCommand(args: readonly string[]): {command: Command; rest: readonly string[]} | null {
@@ -138,19 +176,25 @@ function findCommand(args: readonly string[]): {command: Command; rest: readonly
 }
 
 async function run(args: readonly string[]): Promise<number> {
-  if (args.length === 0 || args.includes('--help') || args.includes('-h')) {
+  const parsed = parseGlobalOptions(args)
+
+  if (parsed.args.length === 0 || parsed.args.includes('--help') || parsed.args.includes('-h')) {
     writeOutput(formatHelp())
     return 0
   }
 
-  const match = findCommand(args)
+  const match = findCommand(parsed.args)
   if (!match) {
-    writeError(`Unknown command: ${args.join(' ')}`)
+    writeError(`Unknown command: ${parsed.args.join(' ')}`)
     writeError('Run `primer --help` for a list of commands.')
     return 1
   }
 
-  return match.command.run(match.rest)
+  return match.command.run(match.rest, parsed.options)
+}
+
+function formatJson(value: unknown): string {
+  return JSON.stringify(value, null, 2)
 }
 
 function writeOutput(message: string): void {

@@ -2,6 +2,7 @@ import {existsSync, readdirSync, readFileSync} from 'node:fs'
 import {createRequire} from 'node:module'
 import path from 'node:path'
 import {fileURLToPath} from 'node:url'
+import {formatKeyValueTable, formatTable} from './table.js'
 
 interface ComponentProp {
   readonly name: string
@@ -94,45 +95,63 @@ async function getComponentInfo(name: string): Promise<ComponentInfo | null> {
 }
 
 function formatComponentList(components: readonly Component[]): string {
-  return components
-    .map(component => {
-      const status = component.status ? ` ${component.status}` : ''
-      return `${component.name} (${component.id}) - ${component.importPath}${status}`
-    })
-    .join('\n')
+  return formatTable(components, [
+    {
+      header: 'Name',
+      getValue: component => component.name,
+    },
+    {
+      header: 'ID',
+      getValue: component => component.id,
+    },
+    {
+      header: 'Import path',
+      getValue: component => component.importPath,
+    },
+    {
+      header: 'Status',
+      getValue: component => component.status,
+    },
+  ])
 }
 
 function formatComponentInfo(info: ComponentInfo): string {
   const {component} = info
   const props = component.props ?? []
   const stories = component.stories ?? []
-  const metadata = [
-    `Import: \`${component.importPath}\``,
-    component.status ? `Status: ${component.status}` : null,
-    component.source ? `Source: ${component.source}` : null,
-    `Docs: ${info.docsUrl}`,
-    component.passthrough
-      ? `Passthrough element: ${component.passthrough.element} (${component.passthrough.url})`
-      : null,
-  ].filter(Boolean)
+  const metadata = formatKeyValueTable([
+    ['Name', component.name],
+    ['ID', component.id],
+    ['Import path', component.importPath],
+    ['Status', component.status],
+    ['Source', component.source],
+    ['Docs', info.docsUrl],
+    [
+      'Passthrough element',
+      component.passthrough ? `${component.passthrough.element} (${component.passthrough.url})` : undefined,
+    ],
+  ])
 
   const api = props.length > 0 ? formatProps(props) : 'No API metadata is available for this component.'
   const storyList =
     stories.length > 0
-      ? stories
-          .map(story => {
-            return `- ${story.id}`
-          })
-          .join('\n')
+      ? formatTable(stories, [
+          {
+            header: 'Story',
+            getValue: story => story.id,
+          },
+        ])
       : 'No Storybook story metadata is available for this component.'
 
   return `# ${component.name}
 
-${metadata.join('\n')}
+## Component
+
+${metadata}
 
 ## Usage docs
 
-${info.usageDocs}
+${formatKeyValueTable([['Usage docs', info.usageDocs]])}
 
 ## API
 
@@ -145,15 +164,32 @@ ${storyList}
 }
 
 function formatProps(props: readonly ComponentProp[]): string {
-  return props
-    .map(prop => {
-      const labels = [prop.required ? 'required' : null, prop.deprecated ? 'deprecated' : null].filter(Boolean)
-      const suffix = labels.length > 0 ? ` (${labels.join(', ')})` : ''
-      const defaultValue = prop.defaultValue ? ` Default: \`${prop.defaultValue}\`.` : ''
-      const description = prop.description ? ` ${prop.description}` : ''
-      return `- \`${prop.name}\`${suffix}: ${prop.type ?? 'unknown'}.${defaultValue}${description}`
-    })
-    .join('\n')
+  return formatTable(props, [
+    {
+      header: 'Prop',
+      getValue: prop => prop.name,
+    },
+    {
+      header: 'Type',
+      getValue: prop => prop.type,
+    },
+    {
+      header: 'Required',
+      getValue: prop => (prop.required ? 'Yes' : 'No'),
+    },
+    {
+      header: 'Deprecated',
+      getValue: prop => (prop.deprecated ? 'Yes' : 'No'),
+    },
+    {
+      header: 'Default',
+      getValue: prop => prop.defaultValue,
+    },
+    {
+      header: 'Description',
+      getValue: prop => prop.description,
+    },
+  ])
 }
 
 function loadComponentsData(): ComponentsData {

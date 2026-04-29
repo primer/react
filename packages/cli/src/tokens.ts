@@ -1,6 +1,7 @@
 import {existsSync, readdirSync, readFileSync} from 'node:fs'
 import {createRequire} from 'node:module'
 import path from 'node:path'
+import {formatKeyValueTable, formatTable} from './table.js'
 
 interface PrimitiveToken {
   readonly name: string
@@ -59,11 +60,24 @@ function getTokenInfo(name: string): TokenInfo | null {
 }
 
 function formatTokenList(tokens: readonly PrimitiveToken[]): string {
-  return tokens
-    .map(token => {
-      return `${token.name} - ${formatValue(token.value)} (${token.type ?? 'unknown'})`
-    })
-    .join('\n')
+  return formatTable(tokens, [
+    {
+      header: 'Name',
+      getValue: token => token.name,
+    },
+    {
+      header: 'Value',
+      getValue: token => formatValue(token.value),
+    },
+    {
+      header: 'Type',
+      getValue: token => token.type,
+    },
+    {
+      header: 'Group',
+      getValue: token => token.group,
+    },
+  ])
 }
 
 function formatTokenInfo(info: TokenInfo): string {
@@ -71,20 +85,14 @@ function formatTokenInfo(info: TokenInfo): string {
   const whenToUse = guidance?.useCase ?? token.description ?? guidance?.description ?? 'No usage guidance is available.'
   const rules = guidance?.rules ?? 'No token-specific rules are available.'
 
-  return `# ${token.name}
-
-Value: \`${formatValue(token.value)}\`
-Type: ${token.type ?? 'unknown'}
-Group: ${token.group}
-
-## When to use
-
-${whenToUse}
-
-## Rules
-
-${rules}
-`
+  return formatKeyValueTable([
+    ['Name', token.name],
+    ['Value', formatValue(token.value)],
+    ['Type', token.type],
+    ['Group', token.group],
+    ['When to use', whenToUse],
+    ['Rules', rules],
+  ])
 }
 
 function loadTokens(): readonly PrimitiveToken[] {
