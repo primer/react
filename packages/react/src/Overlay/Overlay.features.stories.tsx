@@ -668,3 +668,33 @@ export const SettingMaxHeight = ({open}: Args) => {
     </div>
   )
 }
+
+export const OpenByDefault = () => {
+  const [isOpen, setIsOpen] = useState(true)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+        {isOpen ? 'Close' : 'Open'} overlay
+      </Button>
+      {isOpen ? (
+        <Overlay
+          returnFocusRef={buttonRef}
+          height="auto"
+          width="small"
+          ignoreClickRefs={[buttonRef]}
+          onEscape={() => setIsOpen(false)}
+          onClickOutside={() => setIsOpen(false)}
+          role="dialog"
+          aria-label="Open by default overlay"
+          popover="manual"
+        >
+          <div style={{padding: '16px'}}>
+            <Text as="p">This overlay is open by default when the story loads.</Text>
+          </div>
+        </Overlay>
+      ) : null}
+    </>
+  )
+}

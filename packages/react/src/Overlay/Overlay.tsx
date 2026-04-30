@@ -69,6 +69,7 @@ type BaseOverlayProps = {
   children?: React.ReactNode
   className?: string
   responsiveVariant?: 'fullscreen' // we only support fullscreen today but we might add bottomsheet in the future
+  popover?: 'auto' | 'manual'
 }
 
 type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
@@ -186,6 +187,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
       visibility = 'visible',
       width = 'auto',
       responsiveVariant,
+      popover,
       ...props
     },
     forwardedRef,
@@ -229,6 +231,20 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
       )
     }, [anchorSide, slideAnimationDistance, slideAnimationEasing, visibility])
 
+    // Show popover when using the Popover API
+    // Skip if CSS anchor positioning is enabled (handled by AnchoredOverlay)
+    useLayoutEffect(() => {
+      if (!popover || !overlayRef.current || !cssAnchorPositioning) return
+
+      try {
+        if (!overlayRef.current.matches(':popover-open')) {
+          overlayRef.current.showPopover()
+        }
+      } catch {
+        // Ignore if popover is already showing or not supported
+      }
+    }, [popover, cssAnchorPositioning])
+
     // To be backwards compatible with the old Overlay, we need to set the left prop if x-position is not specified
     const leftPosition = left === undefined && right === undefined ? 0 : left
 
@@ -243,6 +259,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
         height={height}
         visibility={visibility}
         data-responsive={responsiveVariant}
+        popover={cssAnchorPositioning ? popover : undefined}
         {...props}
       />
     )

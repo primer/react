@@ -200,6 +200,14 @@
     visibility: hidden;
   }
 
+  &[popover]:not([data-anchor-position]) {
+    inset: auto;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    max-width: none;
+  }
+
   &:where([data-responsive='fullscreen']),
   &[data-responsive='fullscreen'][data-anchor-position='true'] {
     @media screen and (--viewportRange-narrow) {

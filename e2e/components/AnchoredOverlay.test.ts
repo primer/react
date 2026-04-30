@@ -12,6 +12,7 @@ const stories: Array<{
   buttonNames?: string[]
   openDialog?: boolean
   openNestedDialog?: boolean
+  nestedButtonName?: string
 }> = [
   // Default
   {
@@ -119,6 +120,12 @@ const stories: Array<{
     id: 'components-anchoredoverlay-dev--reposition-after-content-grows-within-dialog',
     waitForText: 'content with 300px height',
   },
+  {
+    title: 'Nested Overlay',
+    id: 'components-anchoredoverlay-dev--nested-overlay',
+    buttonName: 'Open AnchoredOverlay',
+    nestedButtonName: 'Open nested Overlay',
+  },
 ] as const
 
 const theme = 'light'
@@ -180,6 +187,11 @@ test.describe('AnchoredOverlay', () => {
             await page.locator('button', {hasText: buttonName}).first().waitFor()
             const overlayButton = page.getByRole('button', {name: buttonName}).first()
             await overlayButton.click()
+
+            // Open nested overlay if needed
+            if (story.nestedButtonName) {
+              await page.getByRole('button', {name: story.nestedButtonName}).click()
+            }
 
             // for the dev stories, we intentionally change the content after the overlay is open to test that it repositions correctly
             if (story.waitForText) await page.getByText(story.waitForText).waitFor()

@@ -35,6 +35,7 @@
     top: calc(anchor(bottom) + var(--base-size-4));
     left: anchor(left);
 
+    /* Flips to the opposite side of the anchor if there's more space left of the anchor than right of it. */
     &[data-align='left'] {
       left: auto;
       right: calc(anchor(right) - var(--anchored-overlay-anchor-offset-left));
