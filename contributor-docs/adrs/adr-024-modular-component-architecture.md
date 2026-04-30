@@ -130,23 +130,23 @@ const dialog = useDialog({open, onClose})
 
 ```tsx
 // Parts consumer — Primer-styled, compositional
-<Dialog.Root open={open} onClose={onClose}>
-  <Dialog.Content width="large">
-    <Dialog.Header>
-      <Dialog.Title>Title</Dialog.Title>
-      <Dialog.CloseButton />
-    </Dialog.Header>
-    <Dialog.Body>Content</Dialog.Body>
-    <Dialog.Footer>
+<DialogRoot open={open} onClose={onClose}>
+  <DialogContent width="large">
+    <DialogHeader>
+      <DialogTitle>Title</DialogTitle>
+      <DialogClose />
+    </DialogHeader>
+    <DialogBody>Content</DialogBody>
+    <DialogFooter>
       <Button>Cancel</Button>
-    </Dialog.Footer>
-  </Dialog.Content>
-</Dialog.Root>
+    </DialogFooter>
+  </DialogContent>
+</DialogRoot>
 ```
 
 **Rules:**
 
-- Parts use Foundations internally — they wrap the unstyled components and add Primer design tokens, CSS modules, and layout opinions
+- Parts wrap Layer 3 unstyled components and add Primer design tokens, CSS modules, and layout opinions
 - Parts are the building blocks for Ready-made (Layer 1)
 - All Parts must include `data-component` attributes per [ADR-023](./adr-023-stable-selectors-api.md)
 
@@ -199,11 +199,10 @@ All Layer 2 Parts and Layer 1 Ready-made components must include `data-component
 
 **Rules:**
 
-- Ready-made is a thin wrapper over Parts — it composes `<Component.Root>`, `<Component.Header>`, etc.
+- Ready-made is a thin wrapper over Parts — it composes `<DialogRoot>`, `<DialogHeader>`, etc.
 - Props map directly to Parts children — no new behavior at this layer
 - This is the default recommendation for most consumers
-
-> **Open question:** Not every component may benefit from a Ready-made layer. Config-based APIs can lead to unwieldy types (e.g., SelectPanel). The Ready-made layer should capture the 80% use case — if a component's common usage is inherently compositional, Layer 2 Parts may be the right default. To be resolved per component.
+- **Not every component needs a Ready-made layer.** Config-based APIs can lead to unwieldy types (e.g., SelectPanel). The Ready-made layer should capture the 80% use case. If a component's common usage is inherently compositional, Layer 2 may be the right default and Layer 1 adds complexity without benefit. Decide per component.
 
 ## Accessibility contract by layer
 
@@ -253,10 +252,14 @@ Each layer shifts accessibility responsibility to the consumer differently. This
 | ----- | -------------------------- | ---------------------------------------- |
 | 4     | `use<Behavior>`            | `useScrollLock`, `useFocusTrap`          |
 | 3     | `use<Component>`           | `useDialog`                              |
-| 2     | `<Component>.<Part>`       | `Dialog.Root`, `Dialog.Header`           |
+| 2     | `<Component><Part>`        | `DialogRoot`, `DialogHeader`             |
 | 1     | `<Component>`              | `Dialog`                                 |
 
-> **Open question — sub-component naming:** Flat imports (`DialogHeader`) vs namespaced (`Dialog.Header`) vs wildcard (`import * as Dialog from '...'`). Flat imports work better with Next.js/RSC. Namespaced imports are more discoverable. Wildcard imports offer a compromise. See [core-ux#2269](https://github.com/github/core-ux/issues/2269) and the Slack discussion with Primer Engineering. To be resolved.
+**Sub-component naming: flat exports.** All Layer 2 and Layer 3 sub-components use flat named exports (`DialogRoot`, `DialogHeader`, `DialogTitle`, etc.) rather than dot-notation (`Dialog.Root`, `Dialog.Header`). This is required for RSC compatibility — the `Object.assign` pattern creates dot-notation sub-components that break in React Server Components (property access on a client reference returns `undefined`). Flat imports are already the pattern Tabs uses in Primer.
+
+Layer 2 and Layer 3 share the same component names. The entry point determines which you get:
+- `import { DialogRoot } from '@primer/react'` → Primer-styled (Layer 2)
+- `import { DialogRoot } from '@primer/react/foundations'` → unstyled (Layer 3)
 
 ### Rules
 
