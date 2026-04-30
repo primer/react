@@ -245,9 +245,7 @@ describe('useDialogFoundation', () => {
     // Wait for the queueMicrotask to flush
     await new Promise(resolve => setTimeout(resolve, 10))
 
-    expect(warnSpy).toHaveBeenCalledWith(
-      expect.stringContaining('No accessible name provided'),
-    )
+    expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('No accessible name provided'))
 
     warnSpy.mockRestore()
   })

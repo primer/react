@@ -102,13 +102,10 @@ export const Default: StoryObj = {
     const [lastGesture, setLastGesture] = useState<string>('(none)')
     const buttonRef = useRef<HTMLButtonElement>(null)
 
-    const onClose = useCallback(
-      (gesture: string) => {
-        setLastGesture(gesture)
-        setOpen(false)
-      },
-      [],
-    )
+    const onClose = useCallback((gesture: string) => {
+      setLastGesture(gesture)
+      setOpen(false)
+    }, [])
 
     const foundation = useDialogFoundation({
       open,
@@ -179,10 +176,12 @@ export const AriaLabelFallback: StoryObj = {
 
         <dialog {...dialogProps} style={overlayStyle}>
           <div style={{padding: 16}}>
-            <p>This dialog has no visible title — it uses <code>aria-label</code> instead.</p>
+            <p>
+              This dialog has no visible title — it uses <code>aria-label</code> instead.
+            </p>
             <p style={{fontSize: 12, color: '#656d76'}}>
-              Check the inspector: <code>aria-label</code> is set, <code>aria-labelledby</code> still
-              points to a generated ID but no element uses it.
+              Check the inspector: <code>aria-label</code> is set, <code>aria-labelledby</code> still points to a
+              generated ID but no element uses it.
             </p>
             <button {...closeProps}>Close</button>
           </div>
