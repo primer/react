@@ -1,6 +1,7 @@
 # Modular Component Architecture
 
 📆 Date: 2026-04-27
+📝 Updated: 2026-04-30
 
 ## Status
 
@@ -37,11 +38,13 @@ Every modular component is decomposed into four layers. Each layer builds on the
 | Layer | Name        | Responsibility                                        | Styled?                      |
 | ----- | ----------- | ----------------------------------------------------- | ---------------------------- |
 | 4     | Hooks       | Individual, single-purpose behavior                   | ❌ No markup or styles       |
-| 3     | Foundations | Component-specific ARIA wiring + behavior composition | ❌ Unstyled (CSS reset only) |
+| 3     | Foundations | Unstyled accessible components + compound hook        | ❌ Unstyled (CSS reset only) |
 | 2     | Parts       | Primer-styled JSX composition                         | ✅ Full Primer styles        |
 | 1     | Ready-made  | Props-based convenience wrapper                       | ✅ Full Primer styles        |
 
 Ready-made (L1) uses Parts (L2), Parts use Foundations (L3), Foundations use Hooks (L4).
+
+> **Open question — layer naming:** "Foundations" and "Parts" may not be the most intuitive names. Hooks (L4) and Ready-made (L1) are clear. Layer 3 candidates: primitives (conflicts with `primer/primitives` token package), base, headless, core. Layer 2 candidates: blocks, components, kit. To be resolved — good workshop topic.
 
 ### Layer 4 — Hooks
 
@@ -63,13 +66,40 @@ const {containerRef} = useFocusZone({bindKeys: FocusKeys.ArrowVertical})
 
 ### Layer 3 — Foundations
 
-**Compound hooks returning prop-getters.** Component-specific. Wires up ARIA relationships, composes Layer 4 hooks, manages component lifecycle.
+Layer 3 provides two complementary APIs:
 
-**Key rule:** Prop-getters are the public API. Context is an implementation detail only — consumers never call `useContext()` directly.
+1. **Unstyled components** — React components with no visual styling that enforce structural accessibility constraints. Similar to [Base UI](https://base-ui.com/) or [Radix Primitives](https://www.radix-ui.com/primitives). These handle ARIA wiring, focus management, and keyboard interaction whilst letting consumers bring their own styles.
+
+2. **Compound hook with prop-getters** — For consumers who need full markup control beyond what unstyled components offer. The hook returns prop-getter functions that consumers spread onto their own elements.
+
+#### Unstyled components (primary Layer 3 API)
 
 ```tsx
-// Foundation consumer — owns all markup
-const dialog = useDialogFoundation({open, onClose})
+// Foundation consumer — unstyled, bring your own CSS
+<Dialog.Root open={open} onClose={onClose}>
+  <Dialog.Content className={styles.popup}>
+    <Dialog.Title className={styles.title}>Title</Dialog.Title>
+    <Dialog.Description className={styles.desc}>Subtitle</Dialog.Description>
+    <Dialog.Body className={styles.body}>Content</Dialog.Body>
+    <Dialog.Close className={styles.close}>✕</Dialog.Close>
+  </Dialog.Content>
+</Dialog.Root>
+```
+
+Unstyled components enforce structural constraints that prop-getters cannot:
+- Title must be a descendant of the dialog
+- Close button is present and accessible
+- ARIA relationships are wired automatically via context
+
+**Foundation CSS:** Each foundation ships a minimal CSS reset that removes browser defaults without adding visual opinion. This can be implemented via CSS cascade layers (preferred — clearer intent) or `:where()` selectors (zero specificity fallback). Consumer styles always win regardless of approach.
+
+#### Compound hook (escape hatch)
+
+For consumers who need full control over every rendered element — no component tree imposed.
+
+```tsx
+// Hook consumer — owns all markup
+const dialog = useDialog({open, onClose})
 
 <dialog {...dialog.getDialogProps()}>
   <h2 {...dialog.getTitleProps()}>Title</h2>
@@ -79,17 +109,13 @@ const dialog = useDialogFoundation({open, onClose})
 </dialog>
 ```
 
-**Why prop-getters over components:**
+**Why both approaches:**
 
-- Full markup ownership — consumer chooses every element
-- Composable with any component system (Radix, custom, etc.)
-- Multi-element wiring is natural (`getTitleProps()`, `getBodyProps()`)
-- TypeScript return types are explicit and statically known
-- No imposed component tree
+- Unstyled components cover the common case: "I want Primer's accessibility, but my own styles." They enforce a11y constraints and are self-documenting in JSX.
+- The compound hook covers the advanced case: "I need full markup control." Useful for integrating with other component systems (MUI, custom libraries) or building non-standard layouts.
+- This matches the industry standard: Base UI and React Aria ship unstyled components, with hooks as the lower-level escape hatch.
 
-**Foundation CSS:** Each foundation may ship a minimal CSS reset that removes browser defaults without adding visual opinion. Use `:where()` for zero specificity so consumer styles always win.
-
-**Context** is allowed internally for ARIA cross-wiring (e.g., `aria-labelledby` pointing title ID to dialog) but is never exposed to consumers.
+**Context** is used internally within unstyled components for ARIA cross-wiring (e.g., `aria-labelledby` pointing title ID to dialog) but is never exposed to consumers.
 
 ### Layer 2 — Parts (Composition)
 
@@ -104,24 +130,23 @@ const dialog = useDialogFoundation({open, onClose})
 
 ```tsx
 // Parts consumer — Primer-styled, compositional
-<DialogParts.Root open={open} onClose={onClose}>
-  <DialogParts.Content width="large">
-    <DialogParts.Header>
-      <DialogParts.Title>Title</DialogParts.Title>
-      <DialogParts.CloseButton />
-    </DialogParts.Header>
-    <DialogParts.Body>Content</DialogParts.Body>
-    <DialogParts.Footer>
+<Dialog.Root open={open} onClose={onClose}>
+  <Dialog.Content width="large">
+    <Dialog.Header>
+      <Dialog.Title>Title</Dialog.Title>
+      <Dialog.CloseButton />
+    </Dialog.Header>
+    <Dialog.Body>Content</Dialog.Body>
+    <Dialog.Footer>
       <Button>Cancel</Button>
-    </DialogParts.Footer>
-  </DialogParts.Content>
-</DialogParts.Root>
+    </Dialog.Footer>
+  </Dialog.Content>
+</Dialog.Root>
 ```
 
 **Rules:**
 
-- Parts use Foundations internally — they call `useComponentFoundation()` and spread prop-getters
-- Parts add Primer design tokens, CSS modules, and layout opinions
+- Parts use Foundations internally — they wrap the unstyled components and add Primer design tokens, CSS modules, and layout opinions
 - Parts are the building blocks for Ready-made (Layer 1)
 - All Parts must include `data-component` attributes per [ADR-023](./adr-023-stable-selectors-api.md)
 
@@ -134,8 +159,10 @@ All Layer 2 Parts and Layer 1 Ready-made components must include `data-component
 - Root component: `data-component="ComponentName"` (e.g., `data-component="Dialog"`)
 - Sub-components match the React API: `data-component="ComponentName.PartName"` (e.g., `data-component="Dialog.Header"`)
 - State and modifier attributes (`data-width`, `data-size`, `data-variant`) remain separate — they describe state, not identity
-- Layer 3 (Foundations) does NOT add `data-component` — the consumer owns all markup
+- Layer 3 (Foundations) does NOT add `data-component` — the consumer owns styling and may choose their own selectors
 - Internal CSS may target `data-component` selectors using `:where()` for zero specificity
+
+> **Open question:** With compositional parts available, is `data-component` still necessary at Layer 2, or is `className` sufficient? `data-component` serves testing and agent selectors (stable across refactors), which is a different concern from styling. To be resolved.
 
 ```html
 <!-- Layer 2 example: all parts have stable identifiers -->
@@ -176,9 +203,40 @@ All Layer 2 Parts and Layer 1 Ready-made components must include `data-component
 - Props map directly to Parts children — no new behavior at this layer
 - This is the default recommendation for most consumers
 
+> **Open question:** Not every component may benefit from a Ready-made layer. Config-based APIs can lead to unwieldy types (e.g., SelectPanel). The Ready-made layer should capture the 80% use case — if a component's common usage is inherently compositional, Layer 2 Parts may be the right default. To be resolved per component.
+
+## Accessibility contract by layer
+
+Each layer shifts accessibility responsibility to the consumer differently. This table defines what each layer handles automatically and what the consumer must provide.
+
+| Requirement | L4 (Hooks) | L3 (Foundations) | L2 (Parts) | L1 (Ready-made) |
+|---|---|---|---|---|
+| `role="dialog"` / `role="alertdialog"` | Consumer sets | ✅ Automatic | ✅ Inherited | ✅ Inherited |
+| `aria-modal="true"` | Consumer sets | ✅ Automatic | ✅ Inherited | ✅ Inherited |
+| `aria-labelledby` → title | Consumer wires | ✅ Auto-wired via context | ✅ Inherited | ✅ From `title` prop |
+| `aria-describedby` → description | Consumer wires | ✅ Auto-wired if Description used | ✅ Inherited | ✅ From `subtitle` prop |
+| Focus trapping | Consumer implements | ✅ Native `showModal()` | ✅ Inherited | ✅ Inherited |
+| Escape closes dialog | Consumer handles | ✅ Automatic | ✅ Inherited | ✅ Inherited |
+| Focus moves into dialog | Consumer manages | ✅ Automatic | ✅ Inherited | ✅ Inherited |
+| Focus returns on close | Consumer manages | ✅ Automatic | ✅ Inherited | ✅ Inherited |
+| Visible close button | Consumer provides | ✅ Enforced by component structure | ✅ Built-in | ✅ Built-in |
+| Background inert | Consumer manages | ✅ Native `showModal()` | ✅ Inherited | ✅ Inherited |
+| Scroll lock | `useScrollLock` hook | ✅ Automatic | ✅ Inherited | ✅ Inherited |
+| Visible backdrop | Consumer provides | ⚠️ Consumer must style | ✅ Primer token | ✅ Primer token |
+| Appropriate heading level | Consumer chooses | ⚠️ Consumer must choose | ✅ `<h2>` default | ✅ `<h2>` default |
+| Colour contrast | Consumer responsible | ⚠️ Consumer must ensure | ✅ Primer tokens | ✅ Primer tokens |
+
+> **Important:** At Layer 3, the foundation ships a transparent backdrop by default. Per ARIA APG, `aria-modal="true"` should only be set when background content is **both** non-interactive and visually obscured. Consumers using Layer 3 foundations **must** provide visible backdrop styling to meet this requirement. Layer 2 Parts handle this automatically.
+
+**`aria-describedby` guidance:** Per ARIA APG, omit `aria-describedby` when dialog content has complex semantic structure (lists, tables, multiple paragraphs) — screen readers announce it as a flat string. At Layer 3+, don't render the Description component if content is complex. At Layer 4, don't call `getDescriptionProps()`.
+
+**Initial focus guidance:** For dialogs with complex semantic content, set `initialFocusRef` to a static element at the top with `tabIndex={-1}` so assistive technology users can navigate the structure. For destructive actions, focus the least destructive button. See the [ARIA APG dialog pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/) for full guidance.
+
 ## Export & package structure
 
 ### Entry points
+
+> **Open question — entry point strategy:** An alternative to separate entry points (`/foundations`, `/hooks`) is using an `unstable_` prefix convention and importing from the same package entry point. This is simpler for consumers — fewer paths to remember. To be resolved with Primer Engineering.
 
 | Layer           | Stable import               | Experimental import                      |
 | --------------- | --------------------------- | ---------------------------------------- |
@@ -189,18 +247,22 @@ All Layer 2 Parts and Layer 1 Ready-made components must include `data-component
 
 ### Naming conventions
 
+> **Open question — hook naming:** Layer 3 hooks should be named by their role, not their layer. `useDialog` rather than `useDialogFoundation`. The "Foundation" suffix is an internal architectural concept, not a consumer-facing concern.
+
 | Layer | Convention                 | Example                                  |
 | ----- | -------------------------- | ---------------------------------------- |
 | 4     | `use<Behavior>`            | `useScrollLock`, `useFocusTrap`          |
-| 3     | `use<Component>Foundation` | `useDialogFoundation`                    |
-| 2     | `<Component>Parts.<Part>`  | `DialogParts.Root`, `DialogParts.Header` |
+| 3     | `use<Component>`           | `useDialog`                              |
+| 2     | `<Component>.<Part>`       | `Dialog.Root`, `Dialog.Header`           |
 | 1     | `<Component>`              | `Dialog`                                 |
+
+> **Open question — sub-component naming:** Flat imports (`DialogHeader`) vs namespaced (`Dialog.Header`) vs wildcard (`import * as Dialog from '...'`). Flat imports work better with Next.js/RSC. Namespaced imports are more discoverable. Wildcard imports offer a compromise. See [core-ux#2269](https://github.com/github/core-ux/issues/2269) and the Slack discussion with Primer Engineering. To be resolved.
 
 ### Rules
 
 - `@primer/react` does NOT re-export Foundations or Hooks — each layer is opt-in via its own entry point
 - All layers ship in one package version
-- Stability is per-component — `useDialogFoundation` can graduate while others remain experimental
+- Stability is per-component — `useDialog` can graduate while others remain experimental
 - Graduation = one-time import path change (`/experimental` → stable)
 
 ### Source folder structure
@@ -214,7 +276,9 @@ packages/react/src/
 ├── foundations/               # Layer 3
 │   └── experimental/
 │       └── <Component>/
-│           ├── use<Component>Foundation.ts
+│           ├── <Component>.tsx           # Unstyled components
+│           ├── use<Component>.ts         # Compound hook (prop-getters)
+│           ├── <Component>Foundation.css  # Minimal CSS reset
 │           └── index.ts
 ├── experimental/              # Layer 2 + Layer 1 (while experimental)
 │   └── <Component>/
@@ -244,13 +308,14 @@ packages/react/src/
 
 ## Alternatives considered
 
-### Components instead of prop-getters for Layer 3
+### Prop-getters only for Layer 3 (no unstyled components)
 
-We considered shipping unstyled React components (like Radix primitives) at Layer 3. This was rejected because:
+Initially considered shipping only compound hooks with prop-getters at Layer 3 (inspired by [Downshift](https://www.downshift-js.com/)). This was revised because:
 
-- It imposes a component tree — consumers must nest `<DialogTitle>` inside `<DialogRoot>`
-- Harder to compose with non-React systems or existing component libraries
-- Prop-getters give the consumer full control over every rendered element
+- It creates too large a gap between Layer 2 (fully styled components) and Layer 3 (raw hook, build all JSX from scratch)
+- Prop-getters cannot enforce structural accessibility constraints (e.g., title must be a descendant of the dialog)
+- The industry standard for this layer (Base UI, Radix Primitives, React Aria Components) ships unstyled components, with hooks as a lower-level escape hatch
+- The compound hook is retained alongside unstyled components for consumers who need full markup control
 
 ### Context as public API
 
@@ -258,7 +323,7 @@ We considered exposing React Context for ARIA wiring (e.g., `useDialogContext()`
 
 - It leaks implementation details and couples consumers to our component tree
 - Prop-getters achieve the same wiring without requiring a specific provider hierarchy
-- Context is still used internally — just not exposed to consumers
+- Context is still used internally within Layer 3 unstyled components — just not exposed to consumers
 
 ### Render props for Layer 2 composition
 
@@ -275,3 +340,4 @@ Render props were considered for Layer 2 but rejected:
 - Consumers get predictable, documented layers to adopt at their comfort level
 - Breaking changes can be scoped to individual layers rather than entire components
 - The first component through this architecture is Dialog — it serves as the reference implementation
+- Each layer requires an accessibility checklist documenting what the consumer is responsible for
