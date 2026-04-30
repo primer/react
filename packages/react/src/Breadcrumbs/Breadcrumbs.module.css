@@ -117,6 +117,7 @@
   list-style: none;
 
   /* allow menu items to wrap line */
+  /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
   &:has(.MenuOverlay) {
     white-space: normal;
   }

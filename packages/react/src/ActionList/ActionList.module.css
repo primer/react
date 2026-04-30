@@ -103,6 +103,7 @@
   border-radius: var(--borderRadius-medium);
 
   /* apply flex if trailing action exists as an immediate child */
+  /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
   &:has(> .TrailingAction) {
     display: flex;
     flex-wrap: nowrap;
@@ -371,6 +372,7 @@
   }
 
   /* When TrailingAction is in loading state, keep labels and descriptions accessible */
+  /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
   &:has(.TrailingAction [data-loading='true']):not([data-is-disabled]) {
     /* Ensure labels and descriptions maintain accessibility contrast */
     & .ItemLabel {
@@ -546,6 +548,7 @@
     }
 
     /* show active indicator on parent collapse if child is active */
+    /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
     &:has(~ .SubGroup [data-active='true']) {
       background: var(--control-transparent-bgColor-selected);
 
@@ -642,6 +645,7 @@ default block */
       word-break: normal;
     }
 
+    /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
     &:has([data-truncate='true']) {
       & .ItemLabel {
         flex: 1 0 auto;
@@ -715,6 +719,7 @@ span wrapping svg or text */
   height: 100%;
 
   /* Preserve width consistency when loading state is active for text buttons only */
+  /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
   &[data-loading='true']:has([data-component='buttonContent']) {
     /* Double the left padding to compensate for missing right padding */
     padding: 0 0 0 calc(var(--base-size-12) * 2);
@@ -734,10 +739,12 @@ span wrapping svg or text */
 }
 
 .InactiveButtonWrap {
+  /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
   &:has(.TrailingVisual) {
     grid-area: trailingVisual;
   }
 
+  /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
   &:has(.LeadingVisual) {
     grid-area: leadingVisual;
   }

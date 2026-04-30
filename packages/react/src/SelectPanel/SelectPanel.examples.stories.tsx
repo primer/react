@@ -563,10 +563,7 @@ export const RenderMoreOnScroll = () => {
         Time taken (ms) to render initial {renderSubset ? 50 : NUMBER_OF_ITEMS} items:{' '}
         {timeTakenToOpen ? <Label>{timeTakenToOpen.toFixed(2)} ms</Label> : '(click "Select Labels" to open)'}
       </p>
-      <p>
-        Known bug: Scroll resets to top when the items change. Works well with feature flag{' '}
-        <Label>primer_react_select_panel_remove_active_descendant</Label>
-      </p>
+      <p>Known bug: Scroll resets to top when the items change.</p>
 
       <FormControl>
         <FormControl.Label>Labels</FormControl.Label>

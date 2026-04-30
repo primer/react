@@ -1,7 +1,6 @@
 import {render, screen} from '@testing-library/react'
 import {describe, expect, test} from 'vitest'
-import {Dialog, Octicon, TabNav} from '../deprecated'
-import {Button} from '../index'
+import {Dialog, Octicon} from '../deprecated'
 
 describe('@primer/react/deprecated', () => {
   test('Dialog supports `sx` prop', () => {
@@ -19,18 +18,5 @@ describe('@primer/react/deprecated', () => {
   test('Octicon supports `sx` prop', () => {
     render(<Octicon data-testid="component" as="button" icon={props => <svg {...props} />} sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('TabNav supports `sx` prop', () => {
-    render(<TabNav data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('TabNav.Link supports `sx` prop', () => {
-    render(<TabNav.Link data-testid="component" sx={{background: 'red'}} as={Button} />)
-    expect(screen.getByTestId('component')).toHaveAttribute('role', 'tab')
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-    expect(window.getComputedStyle(screen.getByRole('tab')).backgroundColor).toBe('rgb(255, 0, 0)')
-    expect(screen.getByRole('tab').tagName).toBe('BUTTON')
   })
 })

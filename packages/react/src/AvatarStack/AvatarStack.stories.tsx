@@ -18,10 +18,10 @@ type Args = {
 
 export const Default = () => (
   <AvatarStack>
-    <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/primer" />
+    <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/u/7143434?v=4" />
     <Avatar alt="GitHub logo" src="https://avatars.githubusercontent.com/github" />
     <Avatar alt="Atom logo" src="https://avatars.githubusercontent.com/atom" />
-    <Avatar alt="GitHub Desktop logo" src="https://avatars.githubusercontent.com/desktop" />
+    <Avatar alt="GitHub Desktop logo" src="https://avatars.githubusercontent.com/u/13171334?v=4" />
   </AvatarStack>
 )
 
@@ -33,10 +33,10 @@ export const Playground: StoryFn<Args> = args => (
     variant={args.variant}
     shape={args.shape}
   >
-    <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/primer" />
+    <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/u/7143434?v=4" />
     <Avatar alt="GitHub logo" src="https://avatars.githubusercontent.com/github" />
     <Avatar alt="Atom logo" src="https://avatars.githubusercontent.com/atom" />
-    <Avatar alt="GitHub Desktop logo" src="https://avatars.githubusercontent.com/desktop" />
+    <Avatar alt="GitHub Desktop logo" src="https://avatars.githubusercontent.com/u/13171334?v=4" />
   </AvatarStack>
 )
 
