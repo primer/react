@@ -35,16 +35,16 @@ We need a layered architecture where each layer has a clear responsibility, a st
 
 Every modular component is decomposed into four layers. Each layer builds on the one below.
 
-| Layer | Name        | Responsibility                                        | Styled?                      |
-| ----- | ----------- | ----------------------------------------------------- | ---------------------------- |
-| 4     | Hooks       | Individual, single-purpose behavior                   | ❌ No markup or styles       |
-| 3     | Foundations | Unstyled accessible components + compound hook        | ❌ Unstyled (CSS reset only) |
-| 2     | Parts       | Primer-styled JSX composition                         | ✅ Full Primer styles        |
-| 1     | Ready-made  | Props-based convenience wrapper                       | ✅ Full Primer styles        |
+| Layer | Name        | Responsibility                                 | Styled?                      |
+| ----- | ----------- | ---------------------------------------------- | ---------------------------- |
+| 4     | Hooks       | Individual, single-purpose behavior            | ❌ No markup or styles       |
+| 3     | Foundations | Unstyled accessible components + compound hook | ❌ Unstyled (CSS reset only) |
+| 2     | Parts       | Primer-styled JSX composition                  | ✅ Full Primer styles        |
+| 1     | Ready-made  | Props-based convenience wrapper                | ✅ Full Primer styles        |
 
 Ready-made (L1) uses Parts (L2), Parts use Foundations (L3), Foundations use Hooks (L4).
 
-> **Open question — layer naming:** "Foundations" and "Parts" may not be the most intuitive names. Hooks (L4) and Ready-made (L1) are clear. Layer 3 candidates: primitives (conflicts with `primer/primitives` token package), base, headless, core. Layer 2 candidates: blocks, components, kit. To be resolved — good workshop topic.
+> **Open question — layer naming:** "Foundations" and "Parts" may not be the most intuitive names. Hooks (L4) and Ready-made (L1) are clear. Layer 3 candidates: primitives (conflicts with `primer/primitives` token package), base, headless, core. Layer 2 candidates: blocks, components, kit. To be resolved
 
 ### Layer 4 — Hooks
 
@@ -87,6 +87,7 @@ Layer 3 provides two complementary APIs:
 ```
 
 Unstyled components enforce structural constraints that prop-getters cannot:
+
 - Title must be a descendant of the dialog
 - Close button is present and accessible
 - ARIA relationships are wired automatically via context
@@ -208,22 +209,22 @@ All Layer 2 Parts and Layer 1 Ready-made components must include `data-component
 
 Each layer shifts accessibility responsibility to the consumer differently. This table defines what each layer handles automatically and what the consumer must provide.
 
-| Requirement | L4 (Hooks) | L3 (Foundations) | L2 (Parts) | L1 (Ready-made) |
-|---|---|---|---|---|
-| `role="dialog"` / `role="alertdialog"` | Consumer sets | ✅ Automatic | ✅ Inherited | ✅ Inherited |
-| `aria-modal="true"` | Consumer sets | ✅ Automatic | ✅ Inherited | ✅ Inherited |
-| `aria-labelledby` → title | Consumer wires | ✅ Auto-wired via context | ✅ Inherited | ✅ From `title` prop |
-| `aria-describedby` → description | Consumer wires | ✅ Auto-wired if Description used | ✅ Inherited | ✅ From `subtitle` prop |
-| Focus trapping | Consumer implements | ✅ Native `showModal()` | ✅ Inherited | ✅ Inherited |
-| Escape closes dialog | Consumer handles | ✅ Automatic | ✅ Inherited | ✅ Inherited |
-| Focus moves into dialog | Consumer manages | ✅ Automatic | ✅ Inherited | ✅ Inherited |
-| Focus returns on close | Consumer manages | ✅ Automatic | ✅ Inherited | ✅ Inherited |
-| Visible close button | Consumer provides | ✅ Enforced by component structure | ✅ Built-in | ✅ Built-in |
-| Background inert | Consumer manages | ✅ Native `showModal()` | ✅ Inherited | ✅ Inherited |
-| Scroll lock | `useScrollLock` hook | ✅ Automatic | ✅ Inherited | ✅ Inherited |
-| Visible backdrop | Consumer provides | ⚠️ Consumer must style | ✅ Primer token | ✅ Primer token |
-| Appropriate heading level | Consumer chooses | ⚠️ Consumer must choose | ✅ `<h2>` default | ✅ `<h2>` default |
-| Colour contrast | Consumer responsible | ⚠️ Consumer must ensure | ✅ Primer tokens | ✅ Primer tokens |
+| Requirement                            | L4 (Hooks)           | L3 (Foundations)                   | L2 (Parts)        | L1 (Ready-made)         |
+| -------------------------------------- | -------------------- | ---------------------------------- | ----------------- | ----------------------- |
+| `role="dialog"` / `role="alertdialog"` | Consumer sets        | ✅ Automatic                       | ✅ Inherited      | ✅ Inherited            |
+| `aria-modal="true"`                    | Consumer sets        | ✅ Automatic                       | ✅ Inherited      | ✅ Inherited            |
+| `aria-labelledby` → title              | Consumer wires       | ✅ Auto-wired via context          | ✅ Inherited      | ✅ From `title` prop    |
+| `aria-describedby` → description       | Consumer wires       | ✅ Auto-wired if Description used  | ✅ Inherited      | ✅ From `subtitle` prop |
+| Focus trapping                         | Consumer implements  | ✅ Native `showModal()`            | ✅ Inherited      | ✅ Inherited            |
+| Escape closes dialog                   | Consumer handles     | ✅ Automatic                       | ✅ Inherited      | ✅ Inherited            |
+| Focus moves into dialog                | Consumer manages     | ✅ Automatic                       | ✅ Inherited      | ✅ Inherited            |
+| Focus returns on close                 | Consumer manages     | ✅ Automatic                       | ✅ Inherited      | ✅ Inherited            |
+| Visible close button                   | Consumer provides    | ✅ Enforced by component structure | ✅ Built-in       | ✅ Built-in             |
+| Background inert                       | Consumer manages     | ✅ Native `showModal()`            | ✅ Inherited      | ✅ Inherited            |
+| Scroll lock                            | `useScrollLock` hook | ✅ Automatic                       | ✅ Inherited      | ✅ Inherited            |
+| Visible backdrop                       | Consumer provides    | ⚠️ Consumer must style             | ✅ Primer token   | ✅ Primer token         |
+| Appropriate heading level              | Consumer chooses     | ⚠️ Consumer must choose            | ✅ `<h2>` default | ✅ `<h2>` default       |
+| Colour contrast                        | Consumer responsible | ⚠️ Consumer must ensure            | ✅ Primer tokens  | ✅ Primer tokens        |
 
 > **Important:** At Layer 3, the foundation ships a transparent backdrop by default. Per ARIA APG, `aria-modal="true"` should only be set when background content is **both** non-interactive and visually obscured. Consumers using Layer 3 foundations **must** provide visible backdrop styling to meet this requirement. Layer 2 Parts handle this automatically.
 
@@ -248,16 +249,17 @@ Each layer shifts accessibility responsibility to the consumer differently. This
 
 > **Open question — hook naming:** Layer 3 hooks should be named by their role, not their layer. `useDialog` rather than `useDialogFoundation`. The "Foundation" suffix is an internal architectural concept, not a consumer-facing concern.
 
-| Layer | Convention                 | Example                                  |
-| ----- | -------------------------- | ---------------------------------------- |
-| 4     | `use<Behavior>`            | `useScrollLock`, `useFocusTrap`          |
-| 3     | `use<Component>`           | `useDialog`                              |
-| 2     | `<Component><Part>`        | `DialogRoot`, `DialogHeader`             |
-| 1     | `<Component>`              | `Dialog`                                 |
+| Layer | Convention          | Example                         |
+| ----- | ------------------- | ------------------------------- |
+| 4     | `use<Behavior>`     | `useScrollLock`, `useFocusTrap` |
+| 3     | `use<Component>`    | `useDialog`                     |
+| 2     | `<Component><Part>` | `DialogRoot`, `DialogHeader`    |
+| 1     | `<Component>`       | `Dialog`                        |
 
 **Sub-component naming: flat exports.** All Layer 2 and Layer 3 sub-components use flat named exports (`DialogRoot`, `DialogHeader`, `DialogTitle`, etc.) rather than dot-notation (`Dialog.Root`, `Dialog.Header`). This is required for RSC compatibility — the `Object.assign` pattern creates dot-notation sub-components that break in React Server Components (property access on a client reference returns `undefined`). Flat imports are already the pattern Tabs uses in Primer.
 
 Layer 2 and Layer 3 share the same component names. The entry point determines which you get:
+
 - `import { DialogRoot } from '@primer/react'` → Primer-styled (Layer 2)
 - `import { DialogRoot } from '@primer/react/foundations'` → unstyled (Layer 3)
 
