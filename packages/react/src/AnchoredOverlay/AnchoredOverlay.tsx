@@ -267,18 +267,31 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
   const popoverId = useId()
   const id = popoverId.replaceAll(':', '_') // popoverId can contain colons which are invalid in CSS custom property names, so we replace them with underscores
+  const anchorName = `--anchored-overlay-anchor-${id}`
+
+  // Manage `anchor-name` on the anchor independently of `open`/`width` so a
+  // parent re-render that re-runs the positioning effect below doesn't
+  // briefly flicker the anchor link off and back on.
+  useEffect(() => {
+    if (!cssAnchorPositioning || !anchorElement) return
+    if (anchorElement.style.getPropertyValue('anchor-name')) return
+    anchorElement.style.setProperty('anchor-name', anchorName)
+    return () => {
+      if (anchorElement.style.getPropertyValue('anchor-name') === anchorName) {
+        anchorElement.style.removeProperty('anchor-name')
+      }
+    }
+  }, [cssAnchorPositioning, anchorElement, anchorName])
 
   useEffect(() => {
     if (!cssAnchorPositioning || !anchorElement) return
 
     const currentOverlay = overlayRef.current
-
-    // Link the anchor and the overlay (when present) via CSS anchor positioning.
-    anchorElement.style.setProperty('anchor-name', `--anchored-overlay-anchor-${id}`)
+    const resolvedAnchorName = anchorElement.style.getPropertyValue('anchor-name') || anchorName
 
     let pendingPositionFrame: number | null = null
     if (open && currentOverlay) {
-      currentOverlay.style.setProperty('position-anchor', `--anchored-overlay-anchor-${id}`)
+      currentOverlay.style.setProperty('position-anchor', resolvedAnchorName)
 
       // Defer the getBoundingClientRect read into a `requestAnimationFrame` so the style write above
       // does not force a synchronous layout.
@@ -312,7 +325,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
     return () => {
       if (pendingPositionFrame !== null) cancelAnimationFrame(pendingPositionFrame)
-      anchorElement.style.removeProperty('anchor-name')
       // The overlay may no longer be in the DOM at this point, so we need to check for its presence before trying to update it.
       if (currentOverlay) {
         currentOverlay.style.removeProperty('position-anchor')
