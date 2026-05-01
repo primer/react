@@ -284,12 +284,16 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       // does not force a synchronous layout.
       pendingPositionFrame = requestAnimationFrame(() => {
         pendingPositionFrame = null
-        const overlayWidth = width ? parseInt(widthMap[width]) : null
-        const result = getDefaultPosition(anchorElement, overlayWidth)
+        const fallbackWidth = width ? parseInt(widthMap[width]) : parseInt(widthMap.small)
+        const result = getDefaultPosition(anchorElement, currentOverlay, fallbackWidth)
 
         currentOverlay.setAttribute('data-align', result.horizontal)
+        // Imperatively override `data-side` (set on the JSX from `side`) when
+        // the overlay overflows both axes, so CSS can flip without a re-render.
+        if (result.suggestedSide) {
+          currentOverlay.setAttribute('data-side', result.suggestedSide)
+        }
 
-        // Apply offset only when viewport is too narrow
         const offset = result.horizontal === 'left' ? result.leftOffset : result.rightOffset
         currentOverlay.style.setProperty(`--anchored-overlay-anchor-offset-${result.horizontal}`, `${offset || 0}px`)
       })
@@ -396,27 +400,40 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
 function getDefaultPosition(
   anchorElement: HTMLElement,
-  overlayWidth: number | null,
-): {horizontal: 'left' | 'right'; leftOffset?: number; rightOffset?: number} {
-  const rect = anchorElement.getBoundingClientRect()
+  overlayElement: HTMLElement,
+  fallbackWidth: number,
+): {
+  horizontal: 'left' | 'right'
+  leftOffset?: number
+  rightOffset?: number
+  suggestedSide?: 'outside-left' | 'outside-right'
+} {
+  const anchorRect = anchorElement.getBoundingClientRect()
+  const overlayRect = overlayElement.getBoundingClientRect()
   const vw = window.innerWidth
-  const viewportMargin = 8
-  const spaceLeft = rect.left
-  const spaceRight = vw - rect.right
+  const vh = window.innerHeight
+  const margin = 8
+  const overlayWidth = overlayRect.width || fallbackWidth
+  const spaceLeft = anchorRect.left
+  const spaceRight = vw - anchorRect.right
   const horizontal: 'left' | 'right' = spaceLeft > spaceRight ? 'left' : 'right'
 
-  // If there's no explicit overlay width, or either side has enough space
-  // to contain the overlay, let CSS position-try-fallbacks handle positioning
-  if (!overlayWidth || spaceLeft >= overlayWidth + viewportMargin || spaceRight >= overlayWidth + viewportMargin) {
-    return {horizontal}
+  // Suggest flipping to the side of the anchor with more room when the
+  // overlay is currently overflowing both axes.
+  const overflowsX = overlayRect.right > vw || overlayRect.left < 0
+  const overflowsY = overlayRect.bottom > vh || overlayRect.top < 0
+  const suggestedSide =
+    overflowsX && overflowsY ? (spaceLeft > spaceRight ? 'outside-left' : 'outside-right') : undefined
+
+  // If the viewport is too narrow to fit the overlay on either side, calculate offsets to prevent overflow.
+  let leftOffset: number | undefined
+  let rightOffset: number | undefined
+  if (spaceLeft < overlayWidth + margin && spaceRight < overlayWidth + margin) {
+    leftOffset = Math.max(0, overlayWidth - anchorRect.right + margin)
+    rightOffset = Math.max(0, anchorRect.left + overlayWidth - vw + margin)
   }
 
-  // If the viewport is too narrow to fit the overlay on either side, calculate offsets to prevent overflow
-  // leftOffset is how much to shift the overlay to the right, rightOffset is how much to shift the overlay to the left
-  const leftOffset = Math.max(0, overlayWidth - rect.right + viewportMargin)
-  const rightOffset = Math.max(0, rect.left + overlayWidth - vw + viewportMargin)
-
-  return {horizontal, leftOffset, rightOffset}
+  return {horizontal, leftOffset, rightOffset, suggestedSide}
 }
 
 function assignRef<T>(
