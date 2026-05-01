@@ -406,7 +406,7 @@ function getDefaultPosition(
   horizontal: 'left' | 'right'
   leftOffset?: number
   rightOffset?: number
-  suggestedSide?: 'outside-left' | 'outside-right'
+  suggestedSide?: 'outside-left' | 'outside-right' | 'outside-bottom'
 } {
   const anchorRect = anchorElement.getBoundingClientRect()
   const overlayRect = overlayElement.getBoundingClientRect()
@@ -418,12 +418,21 @@ function getDefaultPosition(
   const spaceRight = vw - anchorRect.right
   const horizontal: 'left' | 'right' = spaceLeft > spaceRight ? 'left' : 'right'
 
-  // Suggest flipping to the side of the anchor with more room when the
-  // overlay is currently overflowing both axes.
+  // Suggest a flip when the overlay is currently overflowing both axes:
+  // prefer the side of the anchor with enough room, otherwise fall back to
+  // outside-bottom and let the offsets keep it inside the viewport.
   const overflowsX = overlayRect.right > vw || overlayRect.left < 0
   const overflowsY = overlayRect.bottom > vh || overlayRect.top < 0
-  const suggestedSide =
-    overflowsX && overflowsY ? (spaceLeft > spaceRight ? 'outside-left' : 'outside-right') : undefined
+  let suggestedSide: 'outside-left' | 'outside-right' | 'outside-bottom' | undefined
+  if (overflowsX && overflowsY) {
+    if (spaceLeft >= overlayWidth + margin) {
+      suggestedSide = 'outside-left'
+    } else if (spaceRight >= overlayWidth + margin) {
+      suggestedSide = 'outside-right'
+    } else {
+      suggestedSide = 'outside-bottom'
+    }
+  }
 
   // If the viewport is too narrow to fit the overlay on either side, calculate offsets to prevent overflow.
   let leftOffset: number | undefined
