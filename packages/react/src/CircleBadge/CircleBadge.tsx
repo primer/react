@@ -39,11 +39,7 @@ const CircleBadge = <As extends React.ElementType>({as: Component = 'div', ...pr
 )
 
 const CircleBadgeIcon = (props: OcticonProps) => (
-  <Octicon
-    {...props}
-    data-component="CircleBadge.Icon"
-    className={clsx(styles.CircleBadgeIcon, props.className)}
-  />
+  <Octicon {...props} data-component="CircleBadge.Icon" className={clsx(styles.CircleBadgeIcon, props.className)} />
 )
 
 CircleBadgeIcon.displayName = 'CircleBadge.Icon'
