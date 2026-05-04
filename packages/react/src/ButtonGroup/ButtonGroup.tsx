@@ -32,8 +32,8 @@ const ButtonGroup = React.forwardRef(function ButtonGroup(
       ref={buttonRef}
       className={clsx(className, classes.ButtonGroup)}
       role={role}
-      data-component="ButtonGroup"
       {...rest}
+      data-component="ButtonGroup"
     >
       {buttons}
     </BaseComponent>
