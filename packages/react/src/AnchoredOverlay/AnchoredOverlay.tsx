@@ -317,6 +317,14 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
         const settledRect = currentOverlay.getBoundingClientRect()
         const availableHeight = Math.max(0, window.innerHeight - settledRect.top - 8)
         currentOverlay.style.setProperty('--anchored-overlay-max-height', `${availableHeight}px`)
+
+        const overflowBottom = settledRect.bottom - window.innerHeight
+        if (overflowBottom > 0) {
+          const clampedTop = Math.max(0, settledRect.top - overflowBottom - 8)
+          currentOverlay.style.setProperty('--anchored-overlay-top-override', `${clampedTop}px`)
+        } else {
+          currentOverlay.style.removeProperty('--anchored-overlay-top-override')
+        }
       })
 
       // Only call showPopover when shouldRenderAsPopover is enabled
