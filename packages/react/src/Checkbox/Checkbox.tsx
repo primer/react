@@ -92,8 +92,8 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     return (
       // @ts-expect-error inputProp needs a non nullable ref
       <input
-        data-component="Checkbox"
         {...inputProps}
+        data-component="Checkbox"
         className={clsx(className, sharedClasses.Input, classes.Checkbox)}
       />
     )
