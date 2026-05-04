@@ -309,6 +309,14 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
         const offset = result.horizontal === 'left' ? result.leftOffset : result.rightOffset
         currentOverlay.style.setProperty(`--anchored-overlay-anchor-offset-${result.horizontal}`, `${offset || 0}px`)
+
+        // Compute the available height from the overlay's settled top edge so
+        // tall content scrolls inside the Overlay instead of overflowing the
+        // viewport. `anchor()` cannot be used in `max-height` so we drive this
+        // from JS via a CSS variable.
+        const settledRect = currentOverlay.getBoundingClientRect()
+        const availableHeight = Math.max(0, window.innerHeight - settledRect.top - 8)
+        currentOverlay.style.setProperty('--anchored-overlay-max-height', `${availableHeight}px`)
       })
 
       // Only call showPopover when shouldRenderAsPopover is enabled
@@ -449,6 +457,7 @@ function getDefaultPosition(
   // If the viewport is too narrow to fit the overlay on either side, calculate offsets to prevent overflow.
   let leftOffset: number | undefined
   let rightOffset: number | undefined
+
   if (spaceLeft < overlayWidth + margin && spaceRight < overlayWidth + margin) {
     leftOffset = Math.max(0, overlayWidth - anchorRect.right + margin)
     rightOffset = Math.max(0, anchorRect.left + overlayWidth - vw + margin)
