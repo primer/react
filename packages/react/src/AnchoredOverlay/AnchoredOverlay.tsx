@@ -308,11 +308,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
         const offset = result.horizontal === 'left' ? result.leftOffset : result.rightOffset
         currentOverlay.style.setProperty(`--anchored-overlay-anchor-offset-${result.horizontal}`, `${offset || 0}px`)
 
-        // Mirror the JS anchored-positioning final clamp: if the overlay
-        // overflows the viewport's bottom edge, lift its top so the bottom
-        // edge stays on screen. CSS `anchor()` cannot express this, so we
-        // drive it from JS via a CSS variable that falls back to
-        // `anchor(top)` when unset.
+        // Set y-axis offset to prevent overflow if needed.
         const settledRect = currentOverlay.getBoundingClientRect()
         const overflowBottom = settledRect.bottom - window.innerHeight
         if (overflowBottom > 0) {
