@@ -341,6 +341,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
     return () => {
       if (pendingPositionFrame !== null) cancelAnimationFrame(pendingPositionFrame)
+      anchorElement.style.removeProperty('anchor-name')
       // The overlay may no longer be in the DOM at this point, so we need to check for its presence before trying to update it.
       if (currentOverlay) {
         currentOverlay.style.removeProperty('position-anchor')
