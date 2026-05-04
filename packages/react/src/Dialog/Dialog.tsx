@@ -58,7 +58,11 @@ export type DialogButtonProps = Omit<ButtonProps, 'content'> & {
 /**
  * Props to customize the rendering of the Dialog.
  */
-export interface DialogProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
+export interface DialogProps
+  extends Omit<
+    React.HTMLAttributes<HTMLDivElement>,
+    'title' | 'role' | 'aria-labelledby' | 'aria-describedby' | 'aria-modal' | 'aria-label'
+  > {
   /**
    * Title of the Dialog. Also serves as the aria-label for this Dialog.
    */
@@ -392,11 +396,11 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
         >
           <div
             ref={dialogRef}
+            {...restProps}
             role={role}
             aria-labelledby={dialogLabelId}
             aria-describedby={dialogDescriptionId}
             aria-modal
-            {...restProps}
             {...positionDataAttributes}
             {...(align && {'data-align': align})}
             data-width={width}
