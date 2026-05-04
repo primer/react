@@ -6,6 +6,13 @@ interface FormControlContext extends Pick<FormControlProps, 'disabled' | 'id' | 
   captionId?: string
   validationMessageId?: string
   validationStatus?: FormValidationStatus
+
+  /**
+   * Determines whether the label is referenced by a form control.
+   * This is used to determine whether the `htmlFor` attribute should be set on the label.
+   */
+  isReferenced?: boolean
+  labelId?: string
 }
 
 const FormControlContext = createContext<FormControlContext | null>(null)

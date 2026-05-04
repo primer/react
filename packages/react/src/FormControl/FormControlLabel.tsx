@@ -18,7 +18,8 @@ export type Props = {
 const FormControlLabel: FCWithSlotMarker<
   React.PropsWithChildren<{htmlFor?: string} & React.ComponentProps<typeof InputLabel> & Props>
 > = ({as, children, htmlFor, id, visuallyHidden, requiredIndicator = true, requiredText, className, ...props}) => {
-  const {disabled, id: formControlId, required} = useFormControlContext()
+  const {disabled, id: formControlId, required, isReferenced, labelId} = useFormControlContext()
+  const resolvedId = id ?? labelId
 
   /**
    * Ensure we can pass through props correctly, since legend/span accept no defined 'htmlFor'
@@ -27,7 +28,7 @@ const FormControlLabel: FCWithSlotMarker<
     as === 'legend' || as === 'span'
       ? {
           as,
-          id,
+          id: resolvedId,
           className,
           visuallyHidden,
           required,
@@ -38,10 +39,10 @@ const FormControlLabel: FCWithSlotMarker<
         }
       : {
           as,
-          id,
+          id: resolvedId,
           className,
           visuallyHidden,
-          htmlFor: htmlFor || formControlId,
+          htmlFor: isReferenced === false ? undefined : htmlFor || formControlId,
           required,
           requiredText,
           requiredIndicator,

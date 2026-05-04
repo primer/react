@@ -7,9 +7,19 @@ import {useImperativeHandle} from 'react'
  * instance with `.current`.
  *
  * **NOTE**: The `refObject` should be passed to the underlying element, NOT the `forwardedRef`.
+ *
+ * @deprecated Migrate to `useMergedRefs`. It's safer, faster, and easier to use:
+ *
+ * ```diff
+ *   const ref = useRef(null)
+ *
+ * - useRefObjectAsForwardedRef(forwardedRef, ref)
+ * + const mergedRef = useMergedRefs(forwardedRef, ref)
+ *
+ * - return <div ref={ref} />
+ * + return <div ref={mergedRef} />
+ * ```
  */
 export function useRefObjectAsForwardedRef<T>(forwardedRef: ForwardedRef<T>, refObject: RefObject<T | null>): void {
-  // The ref object is stable (from useRef), so this factory only needs to run once.
-  // Without the dependency array, useImperativeHandle re-runs the factory every render.
-  useImperativeHandle<T | null, T | null>(forwardedRef, () => refObject.current, [refObject])
+  useImperativeHandle<T | null, T | null>(forwardedRef, () => refObject.current)
 }

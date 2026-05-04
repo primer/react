@@ -12,12 +12,24 @@ const stories = [
     id: 'components-timeline-features--clip-sidebar',
   },
   {
+    title: 'Clip Sidebar Start',
+    id: 'components-timeline-features--clip-sidebar-start',
+  },
+  {
+    title: 'Clip Sidebar End',
+    id: 'components-timeline-features--clip-sidebar-end',
+  },
+  {
     title: 'Condensed Items',
     id: 'components-timeline-features--condensed-items',
   },
   {
     title: 'Timeline Break',
     id: 'components-timeline-features--timeline-break',
+  },
+  {
+    title: 'Badge Variants',
+    id: 'components-timeline-features--badge-variants',
   },
 ] as const
 

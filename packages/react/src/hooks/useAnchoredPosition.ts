@@ -5,6 +5,27 @@ import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 import {useResizeObserver} from './useResizeObserver'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
+/**
+ * Returns all scrollable ancestor elements of the given element, plus the window.
+ * An element is scrollable if its computed overflow/overflow-x/overflow-y is
+ * 'auto', 'scroll', or 'overlay'.
+ */
+function getScrollableAncestors(element: Element): Array<Element | Window> {
+  const scrollables: Array<Element | Window> = []
+  let current = element.parentElement
+  while (current) {
+    const style = getComputedStyle(current)
+    const overflowY = style.overflowY
+    const overflowX = style.overflowX
+    if (/auto|scroll|overlay/.test(overflowY) || /auto|scroll|overlay/.test(overflowX)) {
+      scrollables.push(current)
+    }
+    current = current.parentElement
+  }
+  scrollables.push(window)
+  return scrollables
+}
+
 export interface AnchoredPositionHookSettings extends Partial<PositionSettings> {
   floatingElementRef?: React.RefObject<Element | null>
   anchorElementRef?: React.RefObject<Element | null>
@@ -87,7 +108,7 @@ export function useAnchoredPosition(
       }
       setPrevHeight(floatingElementRef.current?.clientHeight)
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/use-memo
     [floatingElementRef, anchorElementRef, ...dependencies],
   )
 
@@ -95,10 +116,59 @@ export function useAnchoredPosition(
     savedOnPositionChange.current = settings?.onPositionChange
   }, [settings?.onPositionChange])
 
-  useLayoutEffect(updatePosition, [updatePosition])
+  // Defer the first updatePosition to useEffect when the overlay is closed on
+  // mount, avoiding paint-blocking cascading setState. If the overlay is already
+  // open on mount, run synchronously in useLayoutEffect to prevent a flash.
+  // After mount (including Suspense reappear), only call updatePosition when
+  // both refs are attached — skipping closed overlays avoids unnecessary setState.
+  const hasMountedRef = React.useRef(false)
+  useLayoutEffect(() => {
+    if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
+      hasMountedRef.current = true
+      updatePosition()
+    }
+  }, [updatePosition, floatingElementRef, anchorElementRef])
+
+  React.useEffect(() => {
+    if (!hasMountedRef.current) {
+      hasMountedRef.current = true
+      updatePosition()
+    }
+  }, [updatePosition])
 
   useResizeObserver(updatePosition) // watches for changes in window size
   useResizeObserver(updatePosition, floatingElementRef as React.RefObject<HTMLElement | null>) // watches for changes in floating element size
+
+  // Recalculate position when any scrollable ancestor of the anchor scrolls.
+  // Uses requestAnimationFrame to avoid layout thrashing during scroll.
+  React.useEffect(() => {
+    const anchorEl = anchorElementRef.current
+    if (!anchorEl) return
+
+    let rafId: number | null = null
+    const handleScroll = () => {
+      if (rafId !== null) return
+      rafId = requestAnimationFrame(() => {
+        rafId = null
+        updatePosition()
+      })
+    }
+
+    const scrollables = getScrollableAncestors(anchorEl)
+    for (const scrollable of scrollables) {
+      // eslint-disable-next-line github/prefer-observers -- IntersectionObserver cannot detect continuous scroll position changes needed for repositioning
+      scrollable.addEventListener('scroll', handleScroll)
+    }
+
+    return () => {
+      for (const scrollable of scrollables) {
+        scrollable.removeEventListener('scroll', handleScroll)
+      }
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId)
+      }
+    }
+  }, [anchorElementRef, updatePosition])
 
   return {
     floatingElementRef,

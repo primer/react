@@ -1,5 +1,5 @@
 import {SearchIcon, TriangleDownIcon, XIcon, type IconProps} from '@primer/octicons-react'
-import React, {useCallback, useEffect, useMemo, useRef, useState, type KeyboardEventHandler, type JSX} from 'react'
+import React, {useCallback, useEffect, useMemo, useRef, useState, type JSX} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
@@ -28,6 +28,7 @@ import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import type {ButtonProps, LinkButtonProps} from '../Button/types'
 import {Banner} from '../Banner'
 import {isAlphabetKey} from '../hooks/useMnemonics'
+import {useFormControlContext} from '../FormControl/_FormControlContext'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const SHORT_DELAY_MS = 500
@@ -130,7 +131,7 @@ type SelectPanelVariantProps = {variant?: 'anchored'; onCancel?: () => void} | {
 
 export type SelectPanelProps = SelectPanelBaseProps &
   Omit<FilteredActionListProps, 'selectionVariant' | 'variant' | 'message'> &
-  Pick<AnchoredOverlayProps, 'open' | 'height' | 'width' | 'align'> &
+  Pick<AnchoredOverlayProps, 'open' | 'height' | 'width' | 'align' | 'displayInViewport'> &
   AnchoredOverlayWrapperAnchorProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection) &
   SelectPanelVariantProps
@@ -145,6 +146,8 @@ const focusZoneSettings: Partial<FocusZoneHookSettings> = {
   // Let FilteredActionList handle focus zone
   disabled: true,
 }
+
+const closeButtonProps = {'aria-label': 'Cancel and close'}
 
 const areItemsEqual = (itemA: ItemInput, itemB: ItemInput) => {
   // prefer checking equivality by item.id
@@ -200,6 +203,7 @@ function Panel({
   showSelectAll = false,
   focusPrependedElements,
   virtualized,
+  displayInViewport,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -227,6 +231,8 @@ function Panel({
   const usingFullScreenOnNarrow = disableFullscreenOnNarrow ? false : featureFlagFullScreenOnNarrow
   const shouldOrderSelectedFirst =
     useFeatureFlag('primer_react_select_panel_order_selected_at_top') && showSelectedOptionsFirst
+  const {isReferenced, labelId} = useFormControlContext()
+  const selectedValueId = id ? `${id}-selected-value` : undefined
 
   // Single select modals work differently, they have an intermediate state where the user has selected an item but
   // has not yet confirmed the selection. This is the only time the user can cancel the selection.
@@ -237,6 +243,7 @@ function Panel({
 
   // Reset the intermediate selected item when the panel is open/closed
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIntermediateSelected(isSingleSelectModal ? selected : undefined)
   }, [isSingleSelectModal, open, selected])
 
@@ -356,9 +363,9 @@ function Panel({
     [items, itemsInViewSet, onSelectedChange, selected],
   )
 
-  // disable body scroll when the panel is open on narrow screens
+  // disable body scroll when the panel is open in modal mode or on narrow screens
   useEffect(() => {
-    if (open && isNarrowScreenSize && usingFullScreenOnNarrow) {
+    if (open && (variant === 'modal' || (isNarrowScreenSize && usingFullScreenOnNarrow))) {
       const bodyOverflowStyle = document.body.style.overflow || ''
       // If the body is already set to overflow: hidden, it likely means
       // that there is already a modal open. In that case, we should bail
@@ -373,12 +380,13 @@ function Panel({
         document.body.style.overflow = bodyOverflowStyle
       }
     }
-  }, [isNarrowScreenSize, open, usingFullScreenOnNarrow])
+  }, [isNarrowScreenSize, open, usingFullScreenOnNarrow, variant])
 
   useEffect(() => {
     if (open) {
       if (items.length === 0 && !(isLoading || loading)) {
         // we need to wait for the listContainerElement to disappear before announcing no items, otherwise it will be interrupted
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setNeedsNoItemsAnnouncement(true)
       }
     }
@@ -446,6 +454,7 @@ function Panel({
       // Only trigger filter change event if there are no items
       if (items.length === 0) {
         // Trigger filter event to populate panel on first open
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         onFilterChange(filterValue, null)
       }
     }
@@ -542,14 +551,21 @@ function Panel({
     }
 
     const selectedItems = Array.isArray(selected) ? selected : [...(selected ? [selected] : [])]
+    const selectedValueText = selectedItems.length ? selectedItems.map(item => item.text).join(', ') : placeholder
+    const shouldAutoWireLabel = isReferenced === false && Boolean(labelId) && Boolean(selectedValueId)
 
     return <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
       return renderAnchor({
         ...props,
-        children: selectedItems.length ? selectedItems.map(item => item.text).join(', ') : placeholder,
+        ...(shouldAutoWireLabel
+          ? {
+              'aria-labelledby': [labelId, selectedValueId].filter(Boolean).join(' '),
+            }
+          : {}),
+        children: shouldAutoWireLabel ? <span id={selectedValueId}>{selectedValueText}</span> : selectedValueText,
       })
     }
-  }, [placeholder, renderAnchor, selected])
+  }, [placeholder, renderAnchor, selected, isReferenced, labelId, selectedValueId])
 
   // Pre-compute a Set of selected item IDs/references for O(1) lookups
   // This optimizes isItemCurrentlySelected from O(m) to O(1) per call
@@ -698,9 +714,7 @@ function Panel({
     }
   }, [open, resetSort])
 
-  const focusTrapSettings = {
-    initialFocusRef: inputRef || undefined,
-  }
+  const focusTrapSettings = useMemo(() => ({initialFocusRef: inputRef || undefined}), [inputRef])
 
   const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
     return {
@@ -797,12 +811,11 @@ function Panel({
     'anchored',
   )
 
-  const preventBubbling =
-    (customOnKeyDown: KeyboardEventHandler<HTMLDivElement> | undefined) =>
+  const preventBubbling = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
-      // skip if a TextInput has focus
-      customOnKeyDown?.(event)
+      overlayProps?.onKeyDown?.(event as unknown as React.KeyboardEvent<HTMLDivElement>)
 
+      // skip if a TextInput has focus
       const activeElement = document.activeElement as HTMLElement
       if (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA') return
 
@@ -817,7 +830,35 @@ function Panel({
 
       // if this is a typeahead event, don't propagate outside of menu
       event.stopPropagation()
-    }
+    },
+    [overlayProps],
+  )
+
+  const mergedOverlayProps = useMemo(
+    () => ({
+      role: 'dialog' as const,
+      'aria-labelledby': titleId,
+      'aria-describedby': subtitle ? subtitleId : undefined,
+      ...overlayProps,
+      ...(variant === 'modal'
+        ? {
+            top: '50vh' as const,
+            left: '50vw' as const,
+            anchorSide: undefined,
+          }
+        : {}),
+      style: {
+        transform: variant === 'modal' ? 'translate(-50%, -50%)' : undefined,
+        ...(isKeyboardVisible
+          ? {
+              maxHeight: availablePanelHeight !== undefined ? `${availablePanelHeight}px` : 'auto',
+            }
+          : {}),
+      } as React.CSSProperties,
+      onKeyDown: preventBubbling,
+    }),
+    [titleId, subtitle, subtitleId, overlayProps, variant, isKeyboardVisible, availablePanelHeight, preventBubbling],
+  )
 
   return (
     <>
@@ -828,31 +869,7 @@ function Panel({
         open={open}
         onOpen={onOpen}
         onClose={onClose}
-        overlayProps={{
-          role: 'dialog',
-          'aria-labelledby': titleId,
-          'aria-describedby': subtitle ? subtitleId : undefined,
-          ...overlayProps,
-          ...(variant === 'modal'
-            ? {
-                /* override AnchoredOverlay position */
-                top: '50vh',
-                left: '50vw',
-                anchorSide: undefined,
-              }
-            : {}),
-          style: {
-            /* override AnchoredOverlay position */
-            transform: variant === 'modal' ? 'translate(-50%, -50%)' : undefined,
-            // set maxHeight based on calculated availablePanelHeight when keyboard is visible
-            ...(isKeyboardVisible
-              ? {
-                  maxHeight: availablePanelHeight !== undefined ? `${availablePanelHeight}px` : 'auto',
-                }
-              : {}),
-          } as React.CSSProperties,
-          onKeyDown: preventBubbling(overlayProps?.onKeyDown),
-        }}
+        overlayProps={mergedOverlayProps}
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}
         height={height}
@@ -862,16 +879,17 @@ function Panel({
         pinPosition={!height}
         className={classes.Overlay}
         displayCloseButton={showXCloseIcon}
-        closeButtonProps={{'aria-label': 'Cancel and close'}}
+        closeButtonProps={closeButtonProps}
+        displayInViewport={displayInViewport}
       >
-        <div className={classes.Wrapper} data-variant={variant}>
-          <div className={classes.Header} data-variant={currentResponsiveVariant}>
+        <div className={classes.Wrapper} data-variant={variant} data-component="SelectPanel">
+          <div className={classes.Header} data-variant={currentResponsiveVariant} data-component="SelectPanel.Header">
             <div>
-              <Heading as="h1" id={titleId} className={classes.Title}>
+              <Heading as="h1" id={titleId} className={classes.Title} data-component="SelectPanel.Title">
                 {title}
               </Heading>
               {subtitle ? (
-                <div id={subtitleId} className={classes.Subtitle}>
+                <div id={subtitleId} className={classes.Subtitle} data-component="SelectPanel.Subtitle">
                   {subtitle}
                 </div>
               ) : null}
@@ -884,6 +902,7 @@ function Panel({
                 icon={XIcon}
                 aria-label="Cancel and close"
                 className={classes.ResponsiveCloseButton}
+                data-component="SelectPanel.CloseButton"
                 onClick={() => {
                   onCancel?.()
                   onCancelRequested()
@@ -892,7 +911,7 @@ function Panel({
             ) : null}
           </div>
           {notice && (
-            <div ref={noticeRef}>
+            <div ref={noticeRef} data-component="SelectPanel.Notice">
               <Banner
                 variant={notice.variant === 'error' ? 'critical' : notice.variant}
                 description={notice.text}
@@ -938,15 +957,22 @@ function Panel({
             virtualized={virtualized}
           />
           {footer ? (
-            <div className={classes.Footer}>{footer}</div>
+            <div className={classes.Footer} data-component="SelectPanel.Footer">
+              {footer}
+            </div>
           ) : renderFooter ? (
             <div
               data-display-footer={displayFooter}
               data-stretch-secondary-action={stretchSecondaryAction}
               data-stretch-save-button={stretchSaveButton}
               className={clsx(classes.Footer, classes.ResponsiveFooter)}
+              data-component="SelectPanel.Footer"
             >
-              <div data-stretch-secondary-action={stretchSecondaryAction} className={classes.SecondaryAction}>
+              <div
+                data-stretch-secondary-action={stretchSecondaryAction}
+                className={classes.SecondaryAction}
+                data-component="SelectPanel.SecondaryAction"
+              >
                 {secondaryAction}
               </div>
               {showPermanentCancelSaveButtons || showResponsiveCancelSaveButtons ? (
@@ -958,6 +984,7 @@ function Panel({
                 >
                   <Button
                     size="medium"
+                    data-component="SelectPanel.CancelButton"
                     onClick={() => {
                       onCancel?.()
                       onCancelRequested()
@@ -969,6 +996,7 @@ function Panel({
                     block={onCancel === undefined}
                     variant="primary"
                     size="medium"
+                    data-component="SelectPanel.SaveButton"
                     onClick={() => {
                       if (isSingleSelectModal) {
                         const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
@@ -987,6 +1015,7 @@ function Panel({
                     block
                     variant="primary"
                     size="medium"
+                    data-component="SelectPanel.SaveAndCloseButton"
                     onClick={() => {
                       onClose('click-outside')
                     }}
@@ -999,14 +1028,14 @@ function Panel({
           ) : null}
         </div>
       </AnchoredOverlay>
-      {variant === 'modal' && open ? <div className={classes.Backdrop} /> : null}
+      {variant === 'modal' && open ? <div className={classes.Backdrop} data-component="SelectPanel.Backdrop" /> : null}
     </>
   )
 }
 
 const SecondaryButton: React.FC<ButtonProps> = props => {
   return (
-    <Button block {...props}>
+    <Button block data-component="SelectPanel.SecondaryActionButton" {...props}>
       {props.children}
     </Button>
   )
@@ -1014,7 +1043,7 @@ const SecondaryButton: React.FC<ButtonProps> = props => {
 
 const SecondaryLink: React.FC<LinkButtonProps & ButtonProps> = props => {
   return (
-    <LinkButton {...props} variant="invisible" block>
+    <LinkButton {...props} variant="invisible" block data-component="SelectPanel.SecondaryActionLink">
       {props.children}
     </LinkButton>
   )
@@ -1024,4 +1053,5 @@ export const SelectPanel = Object.assign(Panel, {
   __SLOT__: Symbol('SelectPanel'),
   SecondaryActionButton: SecondaryButton,
   SecondaryActionLink: SecondaryLink,
+  Message: SelectPanelMessage,
 })

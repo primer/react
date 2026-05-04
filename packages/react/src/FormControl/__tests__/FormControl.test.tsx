@@ -9,6 +9,7 @@ import Select from '../../Select'
 import Textarea from '../../Textarea'
 import TextInput from '../../TextInput'
 import TextInputWithTokens from '../../TextInputWithTokens'
+import {SelectPanel} from '../../SelectPanel'
 import {MarkGithubIcon} from '@primer/octicons-react'
 import type {FCWithSlotMarker} from '../../utils/types'
 import {implementsClassName} from '../../utils/testing'
@@ -292,6 +293,67 @@ describe('FormControl', () => {
 
         expect(validationNode.getAttribute('id')).toBe(`${fieldId}-validationMessage`)
         expect(inputNode.getAttribute('aria-describedby')).toBe(`${fieldId}-validationMessage`)
+      })
+
+      it('does not wire htmlFor for SelectPanel, and composes aria-labelledby from label + selected value', () => {
+        const fieldId = 'select-panel-field'
+
+        const {container, getByRole, getByText} = render(
+          <FormControl id={fieldId}>
+            <FormControl.Label>Labels</FormControl.Label>
+            <SelectPanel
+              open={false}
+              onOpenChange={() => {}}
+              items={[]}
+              selected={[{id: 1, text: 'bug'}]}
+              onSelectedChange={() => {}}
+              onFilterChange={() => {}}
+            />
+          </FormControl>,
+        )
+
+        const labelEl = container.querySelector('label')
+        expect(labelEl).not.toBeNull()
+        expect(labelEl).not.toHaveAttribute('for')
+
+        const button = getByRole('button')
+        expect(button).toHaveAttribute('aria-labelledby')
+        const labelledBy = button.getAttribute('aria-labelledby') ?? ''
+
+        expect(labelledBy.split(' ')).toEqual(expect.arrayContaining([`${fieldId}-label`, `${fieldId}-selected-value`]))
+
+        expect(container.querySelector(`#${fieldId}-selected-value`)).not.toBeNull()
+
+        expect(getByText('bug')).toBeDefined()
+      })
+
+      it('uses a custom FormControl.Label id in SelectPanel aria-labelledby', () => {
+        const fieldId = 'select-panel-field'
+        const customLabelId = 'my-custom-label-id'
+
+        const {container, getByRole} = render(
+          <FormControl id={fieldId}>
+            <FormControl.Label id={customLabelId}>Labels</FormControl.Label>
+            <SelectPanel
+              open={false}
+              onOpenChange={() => {}}
+              items={[]}
+              selected={[{id: 1, text: 'bug'}]}
+              onSelectedChange={() => {}}
+              onFilterChange={() => {}}
+            />
+          </FormControl>,
+        )
+
+        const labelEl = container.querySelector('label')
+        expect(labelEl).not.toBeNull()
+        expect(labelEl).toHaveAttribute('id', customLabelId)
+        expect(labelEl).not.toHaveAttribute('for')
+
+        const button = getByRole('button')
+        const labelledBy = button.getAttribute('aria-labelledby') ?? ''
+
+        expect(labelledBy.split(' ')).toEqual(expect.arrayContaining([customLabelId, `${fieldId}-selected-value`]))
       })
     })
 

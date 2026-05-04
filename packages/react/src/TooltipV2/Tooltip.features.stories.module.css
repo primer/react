@@ -18,11 +18,13 @@
 .AllDirectionsRow {
   padding: var(--base-size-32);
   display: flex;
+  flex-wrap: wrap;
   gap: var(--base-size-8);
 }
 
 .ActionMenuRow {
   display: flex;
+  flex-wrap: wrap;
   padding: var(--base-size-32);
   gap: var(--base-size-8);
 }

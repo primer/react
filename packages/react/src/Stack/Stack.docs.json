@@ -8,7 +8,7 @@
   "props": [
     {
       "name": "gap",
-      "type": "'none' | 'condensed' | 'normal' | 'spacious' | ResponsiveValue<'none' | 'condensed' | 'normal' | 'spacious'>",
+      "type": "'none' | 'tight' | 'condensed' | 'cozy' | 'normal' | 'spacious' | ResponsiveValue<'none' | 'tight' | 'condensed' | 'cozy' | 'normal' | 'spacious'>",
       "description": "Specify the gap between children elements in the stack."
     },
     {
@@ -33,8 +33,18 @@
     },
     {
       "name": "padding",
-      "type": "'none' | 'condensed' | 'normal' | 'spacious' | ResponsiveValue<'none' | 'condensed' | 'normal' | 'spacious'>",
+      "type": "'none' | 'tight' | 'condensed' | 'cozy' | 'normal' | 'spacious' | ResponsiveValue<'none' | 'tight' | 'condensed' | 'cozy' | 'normal' | 'spacious'>",
       "description": "Specify the padding of the stack container."
+    },
+    {
+      "name": "paddingBlock",
+      "type": "'none' | 'tight' | 'condensed' | 'cozy' | 'normal' | 'spacious' | ResponsiveValue<'none' | 'tight' | 'condensed' | 'cozy' | 'normal' | 'spacious'>",
+      "description": "Specify the block (vertical) padding of the stack container. Overrides the block axis of padding when both are set."
+    },
+    {
+      "name": "paddingInline",
+      "type": "'none' | 'tight' | 'condensed' | 'cozy' | 'normal' | 'spacious' | ResponsiveValue<'none' | 'tight' | 'condensed' | 'cozy' | 'normal' | 'spacious'>",
+      "description": "Specify the inline (horizontal) padding of the stack container. Overrides the inline axis of padding when both are set."
     },
     {
       "name": "className",

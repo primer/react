@@ -1,5 +1,6 @@
 {
   "name": "useResponsiveValue",
+  "status": "deprecated",
   "importPath": "@primer/react",
   "stories": [],
   "parameters": [

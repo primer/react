@@ -7,9 +7,34 @@ import classes from '../Timeline.module.css'
 describe('Timeline', () => {
   implementsClassName(Timeline, classes.Timeline)
 
-  it('renders with clipSidebar prop', () => {
+  it('renders with clipSidebar prop (boolean)', () => {
     const {container} = render(<Timeline clipSidebar />)
-    expect(container).toMatchSnapshot()
+    expect(container.firstChild).toHaveAttribute('data-clip-sidebar', 'both')
+  })
+
+  it('renders with clipSidebar="both"', () => {
+    const {container} = render(<Timeline clipSidebar="both" />)
+    expect(container.firstChild).toHaveAttribute('data-clip-sidebar', 'both')
+  })
+
+  it('renders with clipSidebar="start"', () => {
+    const {container} = render(<Timeline clipSidebar="start" />)
+    expect(container.firstChild).toHaveAttribute('data-clip-sidebar', 'start')
+  })
+
+  it('renders with clipSidebar="end"', () => {
+    const {container} = render(<Timeline clipSidebar="end" />)
+    expect(container.firstChild).toHaveAttribute('data-clip-sidebar', 'end')
+  })
+
+  it('does not render data-clip-sidebar when clipSidebar is false', () => {
+    const {container} = render(<Timeline clipSidebar={false} />)
+    expect(container.firstChild).not.toHaveAttribute('data-clip-sidebar')
+  })
+
+  it('does not render data-clip-sidebar when clipSidebar is not provided', () => {
+    const {container} = render(<Timeline />)
+    expect(container.firstChild).not.toHaveAttribute('data-clip-sidebar')
   })
 })
 
@@ -28,6 +53,16 @@ describe('Timeline.Item', () => {
 
 describe('Timeline.Badge', () => {
   implementsClassName(Timeline.Badge, classes.TimelineBadge)
+
+  it('renders with variant prop', () => {
+    const {container} = render(<Timeline.Badge variant="done" />)
+    expect(container.querySelector(`.${classes.TimelineBadge}`)).toHaveAttribute('data-variant', 'done')
+  })
+
+  it('does not render data-variant when variant is omitted', () => {
+    const {container} = render(<Timeline.Badge />)
+    expect(container.querySelector(`.${classes.TimelineBadge}`)).not.toHaveAttribute('data-variant')
+  })
 })
 
 describe('Timeline.Body', () => {

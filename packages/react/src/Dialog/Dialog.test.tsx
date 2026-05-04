@@ -1,19 +1,13 @@
 import React from 'react'
 import {render, fireEvent, waitFor} from '@testing-library/react'
-import {describe, expect, it, vi, beforeEach} from 'vitest'
+import {describe, expect, it, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
 import {Dialog} from './Dialog'
 import {Button} from '../Button'
 import {implementsClassName} from '../utils/testing'
 import classes from './Dialog.module.css'
-import {FeatureFlags} from '../FeatureFlags'
-import {__resetDialogScrollOptimizedCount} from '../FeatureFlags/FeatureFlags'
 
 describe('Dialog', () => {
-  beforeEach(() => {
-    __resetDialogScrollOptimizedCount()
-  })
-
   implementsClassName(Dialog, classes.Dialog)
   it('renders with role "dialog" by default', () => {
     const {getByRole} = render(<Dialog onClose={() => {}}>Pay attention to me</Dialog>)
@@ -38,6 +32,24 @@ describe('Dialog', () => {
     )
 
     await waitFor(() => expect(getByRole('button', {name: 'Footer button'})).toHaveFocus())
+  })
+
+  it('sets data-has-footer when footerButtons are provided', () => {
+    const {getByRole} = render(
+      <Dialog onClose={() => {}} footerButtons={[{buttonType: 'primary', content: 'OK'}]}>
+        Content
+      </Dialog>,
+    )
+    expect(getByRole('dialog')).toHaveAttribute('data-has-footer', '')
+  })
+
+  it('does not set data-has-footer when no footer is rendered', () => {
+    const {getByRole} = render(
+      <Dialog onClose={() => {}} renderFooter={() => null}>
+        Content
+      </Dialog>,
+    )
+    expect(getByRole('dialog')).not.toHaveAttribute('data-has-footer')
   })
 
   it('calls `onClose` when clicking the close button', async () => {
@@ -134,6 +146,37 @@ describe('Dialog', () => {
     const {getByRole} = render(<Dialog onClose={() => {}} position={{narrow: 'bottom', regular: 'center'}} />)
     expect(getByRole('dialog')).toHaveAttribute('data-position-narrow', 'bottom')
     expect(getByRole('dialog')).toHaveAttribute('data-position-regular', 'center')
+  })
+
+  describe('align prop', () => {
+    it('sets data-align="top" on both dialog and backdrop', () => {
+      const {getByRole} = render(<Dialog onClose={() => {}} align="top" />)
+      const dialog = getByRole('dialog')
+      expect(dialog).toHaveAttribute('data-align', 'top')
+      expect(dialog.parentElement).toHaveAttribute('data-align', 'top')
+    })
+
+    it('sets data-align="bottom" when align is bottom', () => {
+      const {getByRole} = render(<Dialog onClose={() => {}} align="bottom" />)
+      expect(getByRole('dialog')).toHaveAttribute('data-align', 'bottom')
+    })
+
+    it('sets data-align="center" when align is center', () => {
+      const {getByRole} = render(<Dialog onClose={() => {}} align="center" />)
+      expect(getByRole('dialog')).toHaveAttribute('data-align', 'center')
+    })
+
+    it('omits data-align when align is not provided', () => {
+      const {getByRole} = render(<Dialog onClose={() => {}} />)
+      expect(getByRole('dialog')).not.toHaveAttribute('data-align')
+    })
+
+    it('emits data-align attribute even when position is non-center', () => {
+      const {getByRole} = render(<Dialog onClose={() => {}} position="left" align="top" />)
+      const dialog = getByRole('dialog')
+      expect(dialog).toHaveAttribute('data-position-regular', 'left')
+      expect(dialog).toHaveAttribute('data-align', 'top')
+    })
   })
 
   it('automatically returns focus to the trigger element when the dialog closes', async () => {
@@ -345,126 +388,32 @@ describe('Footer button loading states', () => {
     expect(deleteButton).not.toHaveAttribute('data-loading', 'true')
   })
 
-  describe('primer_react_css_has_selector_perf feature flag', () => {
-    it('does not add data-dialog-scroll-optimized or data-dialog-scroll-disabled when flag is OFF', () => {
-      const {unmount} = render(
-        <FeatureFlags flags={{primer_react_css_has_selector_perf: false}}>
-          <Dialog onClose={() => {}}>Dialog content</Dialog>
-        </FeatureFlags>,
-      )
+  describe('scroll disable behavior', () => {
+    it('sets data-dialog-scroll-disabled on body when dialog mounts', () => {
+      const {unmount} = render(<Dialog onClose={() => {}}>Dialog content</Dialog>)
 
-      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false)
-      expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(false)
-
-      unmount()
-
-      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false)
-      expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(false)
-    })
-
-    it('adds data-dialog-scroll-optimized at provider level and data-dialog-scroll-disabled when dialog mounts', () => {
-      const {unmount} = render(
-        <FeatureFlags flags={{primer_react_css_has_selector_perf: true}}>
-          <Dialog onClose={() => {}}>Dialog content</Dialog>
-        </FeatureFlags>,
-      )
-
-      // Provider sets data-dialog-scroll-optimized, Dialog sets data-dialog-scroll-disabled
-      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(true)
       expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(true)
 
       unmount()
 
-      // Both should be removed on unmount
-      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false)
       expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(false)
     })
 
-    it('sets data-dialog-scroll-optimized even when no dialogs are open', () => {
-      const {unmount} = render(
-        <FeatureFlags flags={{primer_react_css_has_selector_perf: true}}>
-          <div>No dialogs here</div>
-        </FeatureFlags>,
-      )
+    it('handles multiple dialogs with ref counting', () => {
+      const {unmount: unmount1} = render(<Dialog onClose={() => {}}>Dialog 1</Dialog>)
 
-      // Provider sets the attribute even without dialogs
-      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(true)
-      expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(false)
-
-      unmount()
-
-      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false)
-    })
-
-    it('handles multiple dialogs with ref counting when flag is ON', () => {
-      const {unmount: unmount1} = render(
-        <FeatureFlags flags={{primer_react_css_has_selector_perf: true}}>
-          <Dialog onClose={() => {}}>Dialog 1</Dialog>
-        </FeatureFlags>,
-      )
-
-      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(true)
       expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(true)
 
-      // Render second dialog
-      const {unmount: unmount2} = render(
-        <FeatureFlags flags={{primer_react_css_has_selector_perf: true}}>
-          <Dialog onClose={() => {}}>Dialog 2</Dialog>
-        </FeatureFlags>,
-      )
+      const {unmount: unmount2} = render(<Dialog onClose={() => {}}>Dialog 2</Dialog>)
 
-      // Attributes should still be present
-      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(true)
       expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(true)
 
-      // Unmount first dialog
+      // Unmount first dialog - attribute should still be present
       unmount1()
-
-      // Attributes should still be present (second dialog and provider are still mounted)
-      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(true)
       expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(true)
 
-      // Unmount second dialog
+      // Unmount second dialog - attribute should be removed
       unmount2()
-
-      // Now both should be removed
-      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false)
-      expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(false)
-    })
-
-    it('handles multiple dialogs correctly when flag is OFF', () => {
-      const {unmount: unmount1} = render(
-        <FeatureFlags flags={{primer_react_css_has_selector_perf: false}}>
-          <Dialog onClose={() => {}}>Dialog 1</Dialog>
-        </FeatureFlags>,
-      )
-
-      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false)
-      expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(false)
-
-      // Render second dialog
-      const {unmount: unmount2} = render(
-        <FeatureFlags flags={{primer_react_css_has_selector_perf: false}}>
-          <Dialog onClose={() => {}}>Dialog 2</Dialog>
-        </FeatureFlags>,
-      )
-
-      // Attributes should not be present
-      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false)
-      expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(false)
-
-      // Unmount first dialog
-      unmount1()
-
-      // Attributes should still not be present
-      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false)
-      expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(false)
-
-      // Unmount second dialog
-      unmount2()
-
-      // Attributes should still not be present
-      expect(document.body.hasAttribute('data-dialog-scroll-optimized')).toBe(false)
       expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(false)
     })
   })

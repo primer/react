@@ -3,6 +3,7 @@ import {render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React, {type JSX} from 'react'
 import {ActionList} from '.'
+import {AnchoredOverlay} from '../AnchoredOverlay'
 import {BookIcon} from '@primer/octicons-react'
 import {implementsClassName} from '../utils/testing'
 import classes from './ActionList.module.css'
@@ -384,5 +385,50 @@ describe('ActionList.Item', () => {
     expect(tabs[0]).toBeInTheDocument()
     expect(tabs[0].nodeType).toBe(Node.ELEMENT_NODE)
     expect(tabs).toHaveLength(3)
+  })
+
+  it('should preserve consumer ref when tooltip wraps trigger', async () => {
+    const user = userEvent.setup()
+
+    function TestComponent() {
+      const anchorRef = React.useRef<HTMLLIElement>(null)
+      const [open, setOpen] = React.useState(false)
+      return (
+        <>
+          <ActionList aria-label="Actions">
+            <ActionList.Item
+              ref={anchorRef}
+              onSelect={() => {
+                setOpen(!open)
+              }}
+            >
+              Convert to issue
+              <ActionList.Description truncate>
+                This description gets truncated because it is inline with truncation
+              </ActionList.Description>
+            </ActionList.Item>
+          </ActionList>
+          <AnchoredOverlay open={open} renderAnchor={null} anchorRef={anchorRef} onClose={() => setOpen(false)}>
+            <ActionList role="menu" aria-label="Convert to issue menu">
+              <ActionList.Item role="menuitem">Choose repository</ActionList.Item>
+              <ActionList.Item role="menuitem">Create issue</ActionList.Item>
+            </ActionList>
+          </AnchoredOverlay>
+        </>
+      )
+    }
+
+    const {getByText, queryByRole} = HTMLRender(<TestComponent />)
+
+    // Overlay should not be visible initially
+    expect(queryByRole('menu')).not.toBeInTheDocument()
+
+    // Click the item to open the anchored overlay
+    await user.click(getByText('Convert to issue'))
+
+    // The overlay should open — this fails if Tooltip overwrites the consumer ref
+    await waitFor(() => {
+      expect(queryByRole('menu')).toBeInTheDocument()
+    })
   })
 })

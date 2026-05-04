@@ -1,6 +1,7 @@
 import {describe, it, expect, vi} from 'vitest'
 import {render, fireEvent, act} from '@testing-library/react'
 import React from 'react'
+import {renderToStaticMarkup} from 'react-dom/server'
 import {NavList} from './NavList'
 import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
 import {implementsClassName} from '../utils/testing'
@@ -15,7 +16,6 @@ const NextJSLikeLink = React.forwardRef<HTMLAnchorElement, NextJSLinkProps>(
       ref,
       href,
     }
-    // eslint-disable-next-line react-hooks/refs
     return <>{React.isValidElement(child) ? React.cloneElement(child, childProps) : null}</>
   },
 )
@@ -146,6 +146,23 @@ describe('NavList.Item with NavList.SubNav', () => {
     const itemWithSubNav = getByRole('button', {name: 'Item 2'})
     fireEvent.click(itemWithSubNav)
     expect(queryByRole('list', {name: 'Item 2'})).toBeNull()
+  })
+
+  it('renders parent item expanded on initial static render when SubNav contains the current item', () => {
+    // intentionally suppress the expected React SSR useLayoutEffect warning
+    // this test focuses specifically on the initial SSR render
+    const container = document.createElement('div')
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => null)
+    try {
+      container.innerHTML = renderToStaticMarkup(<NavListWithCurrentSubNav />)
+    } finally {
+      consoleSpy.mockRestore()
+    }
+
+    const item2Button = container.querySelector('button[aria-expanded]')
+    expect(item2Button).not.toBeNull()
+    expect(item2Button).toHaveAttribute('aria-expanded', 'true')
+    expect(item2Button?.textContent).toBe('Item 2')
   })
 
   it('hides SubNav by default if SubNav does not contain the current item', () => {
@@ -457,5 +474,46 @@ describe('NavList.ShowMoreItem with pages', () => {
     expect(queryByRole('link', {name: 'Item 5'})).toBeInTheDocument()
     expect(queryByRole('link', {name: 'Item 6'})).not.toBeInTheDocument()
     expect(queryByRole('link', {name: 'Item 7'})).not.toBeInTheDocument()
+  })
+
+  it('passes through as props to the link items', () => {
+    const CustomLink = React.forwardRef<
+      HTMLAnchorElement,
+      React.AnchorHTMLAttributes<HTMLAnchorElement> & {custom: boolean}
+    >(({children, custom, ...props}, ref) => (
+      <a ref={ref} data-custom-link={custom} {...props}>
+        {children}
+      </a>
+    ))
+    CustomLink.displayName = 'CustomLink'
+
+    const {queryByRole} = render(
+      <NavList>
+        <NavList.Item as={CustomLink} href="#item1" custom={true}>
+          Item 1
+        </NavList.Item>
+        <NavList.Item as={CustomLink} href="#item2" custom={false}>
+          Item 2
+        </NavList.Item>
+        <NavList.GroupExpand
+          label="More"
+          items={[
+            {text: 'Item 3', href: '#item3'},
+            {text: 'Item 4', href: '#item4'},
+          ]}
+        />
+      </NavList>,
+    )
+
+    act(() => {
+      queryByRole('button', {name: 'More'})?.click()
+    })
+
+    expect(queryByRole('link', {name: 'Item 1'})).toHaveAttribute('href', '#item1')
+    expect(queryByRole('link', {name: 'Item 1'})).toHaveAttribute('data-custom-link', 'true')
+    expect(queryByRole('link', {name: 'Item 2'})).toHaveAttribute('href', '#item2')
+    expect(queryByRole('link', {name: 'Item 2'})).toHaveAttribute('data-custom-link', 'false')
+    expect(queryByRole('link', {name: 'Item 3'})).toHaveAttribute('href', '#item3')
+    expect(queryByRole('link', {name: 'Item 4'})).toHaveAttribute('href', '#item4')
   })
 })

@@ -7,6 +7,8 @@ on:
       - 'gh-readonly-queue/**'
     tags-ignore:
       - '**'
+  pull_request:
+    types: [labeled, synchronize]
   workflow_dispatch:
 
 concurrency:
@@ -21,7 +23,7 @@ permissions:
 
 jobs:
   release-main:
-    if: github.ref_name == 'main'
+    if: github.event_name != 'pull_request' && github.ref_name == 'main'
     name: Main
     runs-on: ubuntu-latest
     steps:
@@ -33,7 +35,7 @@ jobs:
           persist-credentials: false
 
       - name: Set up Node
-        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -41,7 +43,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf
+      - uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859
         id: app-token
         with:
           app-id: ${{ vars.PRIMER_APP_ID_SHARED }}
@@ -64,7 +66,7 @@ jobs:
         uses: primer/.github/.github/actions/upload-versions@v2.4.0
 
   release-candidate:
-    if: github.ref_name == 'changeset-release/main'
+    if: github.event_name != 'pull_request' && github.ref_name == 'changeset-release/main'
     name: Candidate (@next)
     runs-on: ubuntu-latest
     steps:
@@ -75,7 +77,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set up Node
-        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -92,7 +94,7 @@ jobs:
             npx changeset pre exit
             npx changeset version --snapshot
           else
-            for pkg_json_path in packages/react/package.json packages/styled-react/package.json; do
+            for pkg_json_path in packages/react/package.json packages/styled-react/package.json packages/mcp/package.json; do
               version=$(jq -r .version $pkg_json_path)
               echo "$( jq ".version = \"$(echo $version)-rc.$(git rev-parse --short HEAD)\"" $pkg_json_path )" > $pkg_json_path
             done
@@ -110,16 +112,23 @@ jobs:
 
   release-canary:
     name: Canary
-    if: github.ref_name != 'main' && github.ref_name != 'changeset-release/main'
+    if: >
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      (
+        (github.event.action == 'labeled' && github.event.label.name == 'Canary Release') ||
+        (github.event.action == 'synchronize' && contains(github.event.pull_request.labels.*.name, 'Canary Release'))
+      )
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
+          ref: ${{ github.event.pull_request.head.sha }}
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
       - name: Set up Node
-        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'

@@ -133,11 +133,10 @@ server.registerTool(
         content: [],
       }
     }
-
-    const llmsUrl = new URL(`/product/components/${match.slug}/llms.txt`, 'https://primer.style')
-    const llmsResponse = await fetch(llmsUrl)
-    if (llmsResponse.ok) {
-      try {
+    try {
+      const llmsUrl = new URL(`/product/components/${match.slug}/llms.txt`, 'https://primer.style')
+      const llmsResponse = await fetch(llmsUrl)
+      if (llmsResponse.ok) {
         const llmsText = await llmsResponse.text()
         return {
           content: [
@@ -147,42 +146,15 @@ server.registerTool(
             },
           ],
         }
-      } catch (_: unknown) {
-        // If there's an error fetching or processing the llms.txt, we fall back to the regular documentation
       }
+    } catch (_: unknown) {
+      // If there's an error fetching or processing the llms.txt, we fall back to a generic error message.
     }
-
-    const url = new URL(`/product/components/${match.slug}`, 'https://primer.style')
-    const response = await fetch(url)
-    if (!response.ok) {
-      throw new Error(`Failed to fetch ${url}: ${response.statusText}`)
-    }
-
-    const html = await response.text()
-    if (!html) {
-      return {
-        content: [],
-      }
-    }
-
-    const $ = cheerio.load(html)
-    const source = $('main').html()
-    if (!source) {
-      return {
-        content: [],
-      }
-    }
-
-    const text = turndownService.turndown(source)
 
     return {
-      content: [
-        {
-          type: 'text',
-          text: `Here is the documentation for the \`${name}\` component from the @primer/react package:
-${text}`,
-        },
-      ],
+      isError: true,
+      errorMessage: `There was an error fetching documentation for ${name}. Ensure the component exists.`,
+      content: [],
     }
   },
 )
