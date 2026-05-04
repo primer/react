@@ -301,8 +301,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
         const result = getDefaultPosition(anchorElement, currentOverlay, fallbackWidth)
 
         currentOverlay.setAttribute('data-align', result.horizontal)
-        // Imperatively override `data-side` (set on the JSX from `side`) when
-        // the overlay overflows both axes, so CSS can flip without a re-render.
         if (result.suggestedSide) {
           currentOverlay.setAttribute('data-side', result.suggestedSide)
         }
@@ -310,14 +308,12 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
         const offset = result.horizontal === 'left' ? result.leftOffset : result.rightOffset
         currentOverlay.style.setProperty(`--anchored-overlay-anchor-offset-${result.horizontal}`, `${offset || 0}px`)
 
-        // Compute the available height from the overlay's settled top edge so
-        // tall content scrolls inside the Overlay instead of overflowing the
-        // viewport. `anchor()` cannot be used in `max-height` so we drive this
-        // from JS via a CSS variable.
+        // Mirror the JS anchored-positioning final clamp: if the overlay
+        // overflows the viewport's bottom edge, lift its top so the bottom
+        // edge stays on screen. CSS `anchor()` cannot express this, so we
+        // drive it from JS via a CSS variable that falls back to
+        // `anchor(top)` when unset.
         const settledRect = currentOverlay.getBoundingClientRect()
-        const availableHeight = Math.max(0, window.innerHeight - settledRect.top - 8)
-        currentOverlay.style.setProperty('--anchored-overlay-max-height', `${availableHeight}px`)
-
         const overflowBottom = settledRect.bottom - window.innerHeight
         if (overflowBottom > 0) {
           const clampedTop = Math.max(0, settledRect.top - overflowBottom - 8)
