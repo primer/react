@@ -309,3 +309,39 @@ export const WithActionMenu = {
     },
   },
 }
+
+const ManyOverlaysItem = ({index}: {index: number}) => {
+  const [open, setOpen] = useState(false)
+  return (
+    <AnchoredOverlay
+      open={open}
+      onOpen={() => setOpen(true)}
+      onClose={() => setOpen(false)}
+      renderAnchor={props => <Button {...props}>Trigger {index}</Button>}
+      overlayProps={{role: 'dialog', 'aria-label': `Overlay ${index}`}}
+      focusZoneSettings={{disabled: true}}
+    >
+      <div style={{padding: '8px', width: '160px'}}>Overlay #{index}</div>
+    </AnchoredOverlay>
+  )
+}
+
+export const ManyOverlays = () => {
+  const count = 50
+  const items = Array.from({length: count}, (_, i) => i)
+  return (
+    <div style={{padding: '16px'}}>
+      <p>
+        Renders {count} <code>AnchoredOverlay</code> instances. Use the per-trigger button to open any subset, or open
+        all via <code>document.querySelectorAll(&apos;[aria-haspopup=true]&apos;).forEach(b =&gt; b.click())</code>.
+      </p>
+      <div style={{display: 'grid', gridTemplateColumns: 'repeat(5, max-content)', gap: '12px'}}>
+        {items.map(i => (
+          <ManyOverlaysItem key={i} index={i} />
+        ))}
+      </div>
+      {/* Spacer so the page is scrollable */}
+      <div style={{height: '120vh'}} />
+    </div>
+  )
+}
