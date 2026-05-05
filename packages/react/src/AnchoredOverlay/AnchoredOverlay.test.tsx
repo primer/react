@@ -1,6 +1,6 @@
 import {act, createRef, useCallback, useRef, useState} from 'react'
 import {describe, expect, it, vi} from 'vitest'
-import {render} from '@testing-library/react'
+import {render, waitFor} from '@testing-library/react'
 import {userEvent} from 'vitest/browser'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'
@@ -390,6 +390,115 @@ describe('AnchoredOverlay feature flag specific behavior', () => {
 
       const overlay = baseElement.querySelector('[data-component="AnchoredOverlay"]')
       expect(overlay).not.toHaveAttribute('popover')
+    })
+  })
+})
+
+describe('AnchoredOverlay CSS anchor positioning viewport handling', () => {
+  it('should set --anchored-overlay-top-override when the overlay would overflow the viewport bottom', async () => {
+    function TestComponent() {
+      const ref = useRef<HTMLButtonElement>(null)
+      return (
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <BaseStyles>
+            <button type="button" ref={ref} style={{position: 'fixed', left: 0, top: 0}} data-testid="anchor">
+              Anchor
+            </button>
+            <AnchoredOverlay
+              open
+              onOpen={() => {}}
+              onClose={() => {}}
+              renderAnchor={null}
+              anchorRef={ref}
+              side="outside-bottom"
+            >
+              {/* Make the overlay taller than the viewport so it overflows */}
+              <div style={{height: `${window.innerHeight + 200}px`, width: '120px'}}>tall content</div>
+            </AnchoredOverlay>
+          </BaseStyles>
+        </FeatureFlags>
+      )
+    }
+
+    const {baseElement} = render(<TestComponent />)
+    const overlay = baseElement.querySelector('[data-component="AnchoredOverlay"]') as HTMLElement
+
+    await waitFor(() => {
+      expect(overlay.style.getPropertyValue('--anchored-overlay-top-override')).not.toBe('')
+    })
+
+    // The override should clamp top to keep the bottom edge on screen.
+    const value = overlay.style.getPropertyValue('--anchored-overlay-top-override')
+    expect(value.endsWith('px')).toBe(true)
+    expect(parseFloat(value)).toBeGreaterThanOrEqual(0)
+  })
+
+  it('should not set --anchored-overlay-top-override when the overlay fits in the viewport', async () => {
+    function TestComponent() {
+      const ref = useRef<HTMLButtonElement>(null)
+      return (
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <BaseStyles>
+            <button type="button" ref={ref} style={{position: 'fixed', left: 0, top: 0}}>
+              Anchor
+            </button>
+            <AnchoredOverlay open onOpen={() => {}} onClose={() => {}} renderAnchor={null} anchorRef={ref}>
+              <div style={{height: '40px', width: '120px'}}>short content</div>
+            </AnchoredOverlay>
+          </BaseStyles>
+        </FeatureFlags>
+      )
+    }
+
+    const {baseElement} = render(<TestComponent />)
+    const overlay = baseElement.querySelector('[data-component="AnchoredOverlay"]') as HTMLElement
+
+    // Wait two frames so the rAF positioning callback has run.
+    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve(null))))
+
+    expect(overlay.style.getPropertyValue('--anchored-overlay-top-override')).toBe('')
+  })
+
+  it('should set data-side to a suggested side when the overlay overflows both axes', async () => {
+    function TestComponent() {
+      const ref = useRef<HTMLButtonElement>(null)
+      // Anchor pinned to the bottom-right corner so an outside-bottom + start
+      // overlay overflows both the right and bottom edges of the viewport.
+      return (
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <BaseStyles>
+            <button
+              type="button"
+              ref={ref}
+              style={{position: 'fixed', right: 0, bottom: 0, width: '40px', height: '20px'}}
+              data-testid="anchor"
+            >
+              A
+            </button>
+            <AnchoredOverlay
+              open
+              onOpen={() => {}}
+              onClose={() => {}}
+              renderAnchor={null}
+              anchorRef={ref}
+              side="outside-bottom"
+              width="medium"
+            >
+              <div style={{height: `${window.innerHeight + 200}px`}}>tall content</div>
+            </AnchoredOverlay>
+          </BaseStyles>
+        </FeatureFlags>
+      )
+    }
+
+    const {baseElement} = render(<TestComponent />)
+    const overlay = baseElement.querySelector('[data-component="AnchoredOverlay"]') as HTMLElement
+
+    await waitFor(() => {
+      // The JS should suggest a flip because the overlay overflows both axes.
+      // In this layout there is enough room to the left of the anchor, so the
+      // suggested side should flip to outside-left.
+      expect(overlay.getAttribute('data-side')).toBe('outside-left')
     })
   })
 })
