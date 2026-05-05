@@ -175,7 +175,8 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     () => typeof document !== 'undefined' && 'anchorName' in document.documentElement.style,
   )
 
-  const cssAnchorPositioning = cssAnchorPositioningFlag && supportsNativeCSSAnchorPositioning
+  const cssAnchorPositioning =
+    cssAnchorPositioningFlag && supportsNativeCSSAnchorPositioning && !overlayProps?.portalContainerName
   // Only use Popover API when both CSS anchor positioning is enabled AND renderAs is true
   const shouldRenderAsPopover = cssAnchorPositioning && renderAs === 'popover'
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
