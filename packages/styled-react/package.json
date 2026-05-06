@@ -7,14 +7,6 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
-    "./deprecated": {
-      "types": "./dist/deprecated.d.ts",
-      "default": "./dist/deprecated.js"
-    },
-    "./experimental": {
-      "types": "./dist/experimental.d.ts",
-      "default": "./dist/experimental.js"
-    },
     "./components.json": "./dist/components.json"
   },
   "files": [
