@@ -1,6 +1,6 @@
 import {fireEvent, render, act, screen} from '@testing-library/react'
 import {userEvent} from 'vitest/browser'
-import {beforeEach, afterEach, describe, it, expect, vi} from 'vitest'
+import {afterEach, describe, it, expect, vi} from 'vitest'
 import React from 'react'
 import type {SubTreeState} from './TreeView'
 import {TreeView} from './TreeView'
@@ -19,10 +19,6 @@ function renderWithTheme(
 
 // Mock `scrollIntoView` because it's not implemented in JSDOM
 Element.prototype.scrollIntoView = vi.fn()
-
-beforeEach(() => {
-  vi.useFakeTimers()
-})
 
 afterEach(() => {
   vi.useRealTimers()
@@ -1405,6 +1401,8 @@ describe('Asynchronous loading', () => {
   })
 
   it('updates aria live region when loading is done', async () => {
+    vi.useFakeTimers()
+
     function TestTree() {
       const [state, setState] = React.useState<SubTreeState>('initial')
 
@@ -1465,6 +1463,8 @@ describe('Asynchronous loading', () => {
   })
 
   it('moves focus from loading item to first child', async () => {
+    vi.useFakeTimers()
+
     function TestTree() {
       const [state, setState] = React.useState<SubTreeState>('loading')
 
@@ -1605,6 +1605,8 @@ describe('Asynchronous loading', () => {
   })
 
   it('should update `aria-expanded` if no content is loaded in', async () => {
+    vi.useFakeTimers()
+
     function Example() {
       const [state, setState] = React.useState<SubTreeState>('loading')
       const timeoutId = React.useRef<ReturnType<typeof setTimeout> | null>(null)
