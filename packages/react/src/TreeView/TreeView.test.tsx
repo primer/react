@@ -1,6 +1,6 @@
 import {fireEvent, render, act, screen} from '@testing-library/react'
 import {userEvent} from 'vitest/browser'
-import {afterEach, beforeEach, describe, it, expect, vi} from 'vitest'
+import {afterEach, describe, it, expect, vi} from 'vitest'
 import React from 'react'
 import type {SubTreeState} from './TreeView'
 import {TreeView} from './TreeView'
@@ -20,12 +20,13 @@ function renderWithTheme(
 // Mock `scrollIntoView` because it's not implemented in JSDOM
 Element.prototype.scrollIntoView = vi.fn()
 
-beforeEach(() => {
+afterEach(async () => {
   vi.useRealTimers()
-})
-
-afterEach(() => {
-  vi.useRealTimers()
+  // Flush any pending React state updates (e.g. from programmatic focus calls
+  // triggered via keyboard navigation) before cleanup runs. Without this,
+  // React 19's concurrent scheduler can leave deferred work in the queue that
+  // interferes with the next test's initial render.
+  await act(async () => {})
 })
 
 describe('Markup', () => {
