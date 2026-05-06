@@ -11,7 +11,7 @@ import classes from './CheckboxOrRadioGroup.module.css'
 import {clsx} from 'clsx'
 import {isSlot} from '../../../utils/is-slot'
 
-export type CheckboxOrRadioGroupProps = React.HTMLAttributes<HTMLElement> & {
+export type CheckboxOrRadioGroupProps = Omit<React.HTMLAttributes<HTMLElement>, 'onChange'> & {
   /** Class name for custom styling */
   className?: string
   /**
