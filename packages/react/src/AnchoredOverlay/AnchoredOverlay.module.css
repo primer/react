@@ -57,7 +57,11 @@
     /* Falls back to `anchor(top)` when JS hasn't overridden it. JS sets the
        override when the overlay's bottom would overflow the viewport so we
        can lift it up to keep the bottom edge on screen, mirroring the JS
-       anchored-positioning code path. */
+       anchored-positioning code path.
+
+       This override only applies when CSS cannot find space using the default position -
+       or any of its defined fallbacks.
+    */
     top: var(--anchored-overlay-top-override, anchor(top));
     margin-right: var(--base-size-4);
     position-try-fallbacks: flip-inline, flip-block, flip-start, --outside-left-to-bottom;
