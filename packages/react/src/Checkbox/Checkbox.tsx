@@ -50,6 +50,11 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
       checkboxGroupContext.onChange && checkboxGroupContext.onChange(e)
       onChange && onChange(e)
+
+      if (indeterminate && checkboxRef.current) {
+        checkboxRef.current.indeterminate = true
+        checkboxRef.current.setAttribute('aria-checked', 'mixed')
+      }
     }
     const inputProps = {
       type: 'checkbox',

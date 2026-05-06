@@ -34,6 +34,7 @@
     --custom-font-size, --custom-line-height, --custom-font-weight are custom properties that can be used to override the below values.
     We don't want these values to be overridden but still want to allow consumers to override them if needed.
   */
+  /* stylelint-disable selector-pseudo-class-disallowed-list -- :has() scoped to CSS Module, audited (github/github-ui#17224) */
   &:has([data-component='TitleArea'][data-size-variant='large']) {
     font-size: var(--custom-font-size, var(--text-title-size-large, 2rem));
     font-weight: var(--custom-font-weight, var(--base-text-weight-normal, 400));
@@ -163,6 +164,7 @@
       padding-block-end: var(--base-size-8);
     }
   }
+  /* stylelint-enable selector-pseudo-class-disallowed-list */
 
   & [data-component='PH_LeadingAction'],
   & [data-component='PH_TrailingAction'],

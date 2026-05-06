@@ -36,7 +36,7 @@ export {useOverlay} from './hooks/useOverlay'
 export {useConfirm} from './ConfirmationDialog/ConfirmationDialog'
 export {useFocusTrap} from './hooks/useFocusTrap'
 export type {FocusTrapHookSettings} from './hooks/useFocusTrap'
-export {useFocusZone} from './hooks/useFocusZone'
+export {FocusKeys, useFocusZone} from './hooks/useFocusZone'
 export type {FocusZoneHookSettings} from './hooks/useFocusZone'
 export {useRefObjectAsForwardedRef} from './hooks/useRefObjectAsForwardedRef'
 export {useMergedRefs} from './hooks/useMergedRefs'
@@ -59,6 +59,7 @@ export {ActionList} from './ActionList'
 export type {
   ActionListProps,
   ActionListGroupProps,
+  ActionListGroupHeadingProps,
   ActionListItemProps,
   ActionListLinkItemProps,
   ActionListDividerProps,
