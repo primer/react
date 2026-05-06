@@ -99,7 +99,12 @@ export function Pagination({
   }, [pageCount, pageIndex, showPages])
 
   return (
-    <nav aria-label={label} className={clsx('TablePagination', classes.TablePagination)} id={id}>
+    <nav
+      aria-label={label}
+      className={clsx('TablePagination', classes.TablePagination)}
+      id={id}
+      data-component="Table.Pagination"
+    >
       <Range pageStart={pageStart} pageEnd={pageEnd} totalCount={totalCount} />
       <ol
         className={clsx('TablePaginationSteps', classes.TablePaginationSteps)}
@@ -111,6 +116,7 @@ export function Pagination({
             type="button"
             data-has-page={hasPreviousPage ? true : undefined}
             aria-disabled={!hasPreviousPage ? true : undefined}
+            data-component="Table.Pagination.PreviousPageButton"
             onClick={() => {
               if (!hasPreviousPage) {
                 return
@@ -148,6 +154,7 @@ export function Pagination({
             type="button"
             data-has-page={hasNextPage ? true : undefined}
             aria-disabled={!hasNextPage ? true : undefined}
+            data-component="Table.Pagination.NextPageButton"
             onClick={() => {
               if (!hasNextPage) {
                 return
@@ -181,7 +188,7 @@ function Range({pageStart, pageEnd, totalCount}: RangeProps) {
           Showing {start} through {end} of {totalCount}
         </AriaStatus>
       </VisuallyHidden>
-      <p className={clsx('TablePaginationRange', classes.TablePaginationRange)}>
+      <p className={clsx('TablePaginationRange', classes.TablePaginationRange)} data-component="Table.Pagination.Range">
         {start}
         <VisuallyHidden>&nbsp;through&nbsp;</VisuallyHidden>
         <span aria-hidden="true">‒</span>
@@ -193,14 +200,22 @@ function Range({pageStart, pageEnd, totalCount}: RangeProps) {
 
 function TruncationStep() {
   return (
-    <li aria-hidden="true" className={clsx('TablePaginationTruncationStep', classes.TablePaginationTruncationStep)}>
+    <li
+      aria-hidden="true"
+      className={clsx('TablePaginationTruncationStep', classes.TablePaginationTruncationStep)}
+      data-component="Table.Pagination.TruncationStep"
+    >
       …
     </li>
   )
 }
 
 function Step({children}: React.PropsWithChildren) {
-  return <li className={clsx('TablePaginationStep', classes.TablePaginationStep)}>{children}</li>
+  return (
+    <li className={clsx('TablePaginationStep', classes.TablePaginationStep)} data-component="Table.Pagination.Step">
+      {children}
+    </li>
+  )
 }
 
 type PageProps = React.PropsWithChildren<{
@@ -216,6 +231,7 @@ function Page({active, children, onClick}: PageProps) {
       data-active={active ? true : undefined}
       aria-current={active ? true : undefined}
       onClick={onClick}
+      data-component="Table.Pagination.Page"
     >
       <VisuallyHidden>Page&nbsp;</VisuallyHidden>
       {children}

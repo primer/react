@@ -1,5 +1,5 @@
 import {List} from './List'
-import {Group, GroupHeading} from './Group'
+import {Group, GroupContext, GroupHeading} from './Group'
 import {Item} from './Item'
 import {LinkItem} from './LinkItem'
 import {Divider} from './Divider'
@@ -45,6 +45,9 @@ export const ActionList = Object.assign(List, {
 
   /** Heading for an `ActionList`. */
   Heading,
+
+  /** Context for `ActionList.Group` to propagate selectionVariant and other group-level props. */
+  GroupContext,
 
   /** Heading for `ActionList.Group` */
   GroupHeading,

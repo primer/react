@@ -365,4 +365,50 @@ describe('TextInput', () => {
       expect(srElement?.textContent).toBe('')
     })
   })
+
+  describe('data-component attributes', () => {
+    it('renders TextInput with data-component attribute', () => {
+      const {container} = render(<TextInput name="test" />)
+
+      expect(container.querySelector('[data-component="TextInput"]')).toBeInTheDocument()
+    })
+
+    it('renders input with data-component attribute', () => {
+      const {container} = render(<TextInput name="test" />)
+
+      expect(container.querySelector('[data-component="input"]')).toBeInTheDocument()
+    })
+
+    it('renders TextInput.LeadingVisual with data-component attribute', () => {
+      const {container} = render(<TextInput name="test" leadingVisual={SearchIcon} />)
+
+      expect(container.querySelector('[data-component="TextInput.LeadingVisual"]')).toBeInTheDocument()
+    })
+
+    it('renders TextInput.TrailingVisual with data-component attribute', () => {
+      const {container} = render(<TextInput name="test" trailingVisual={SearchIcon} />)
+
+      expect(container.querySelector('[data-component="TextInput.TrailingVisual"]')).toBeInTheDocument()
+    })
+
+    it('renders TextInput.Action with data-component attribute', () => {
+      const {container} = render(
+        <TextInput name="test" trailingAction={<TextInput.Action aria-label="Clear">Clear</TextInput.Action>} />,
+      )
+
+      expect(container.querySelector('[data-component="TextInput.Action"]')).toBeInTheDocument()
+    })
+
+    it('renders TextInput.Icon with data-component attribute', () => {
+      const {container} = render(<TextInput name="test" icon={SearchIcon} />)
+
+      expect(container.querySelector('[data-component="TextInput.Icon"]')).toBeInTheDocument()
+    })
+
+    it('renders TextInput.CharacterCounter with data-component attribute', () => {
+      const {container} = render(<TextInput name="test" characterLimit={100} />)
+
+      expect(container.querySelector('[data-component="TextInput.CharacterCounter"]')).toBeInTheDocument()
+    })
+  })
 })

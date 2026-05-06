@@ -13,6 +13,7 @@ export function useResizeObserver<T extends HTMLElement>(
   callback: ResizeObserverCallback,
   target?: RefObject<T | null>,
   depsArray: unknown[] = [],
+  enabled: boolean = true,
 ) {
   const [targetClientRect, setTargetClientRect] = useState<DOMRect | null>(null)
   const savedCallback = useRef(callback)
@@ -22,6 +23,9 @@ export function useResizeObserver<T extends HTMLElement>(
   })
 
   useLayoutEffect(() => {
+    if (!enabled) {
+      return
+    }
     const targetEl = target && 'current' in target ? target.current : document.documentElement
     if (!targetEl) {
       return
@@ -59,5 +63,5 @@ export function useResizeObserver<T extends HTMLElement>(
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [target?.current, ...depsArray])
+  }, [target?.current, enabled, ...depsArray])
 }

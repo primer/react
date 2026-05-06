@@ -36,4 +36,11 @@ describe('Link', () => {
 
     consoleSpy.mockRestore()
   })
+
+  describe('data-component attributes', () => {
+    it('should have data-component="Link" on the link element', () => {
+      const {container} = render(<Link href="#">Test</Link>)
+      expect(container.querySelector('[data-component="Link"]')).toBeInTheDocument()
+    })
+  })
 })
