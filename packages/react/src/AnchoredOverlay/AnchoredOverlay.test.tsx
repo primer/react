@@ -21,6 +21,7 @@ type TestComponentSettings = {
   className?: string
   withCSSAnchorPositioningFeatureFlag?: boolean
   overlayProps?: Pick<OverlayProps, '_PrivateDisablePortal'>
+  renderAs?: 'portal' | 'popover'
 }
 
 const AnchoredOverlayTestComponent = ({
@@ -31,6 +32,7 @@ const AnchoredOverlayTestComponent = ({
   className,
   withCSSAnchorPositioningFeatureFlag,
   overlayProps,
+  renderAs,
 }: TestComponentSettings = {}) => {
   const [open, setOpen] = useState(initiallyOpen)
   const onOpen = useCallback(
@@ -57,6 +59,7 @@ const AnchoredOverlayTestComponent = ({
         renderAnchor={props => <Button {...props}>Anchor Button</Button>}
         onPositionChange={onPositionChange}
         className={className}
+        renderAs={renderAs}
         {...overlayProps}
       >
         <button type="button">Focusable Child</button>
@@ -171,7 +174,9 @@ describe.each([true, false])(
       expect(mockCloseCallback).toHaveBeenCalledWith('escape')
     })
 
-    it('should call onPositionChange when provided', async () => {
+    // onPositionChange is not supported when the CSS anchor positioning flag is enabled,
+    // because positioning is handled by the browser rather than `useAnchoredPosition`.
+    it.skipIf(withCSSAnchorPositioningFeatureFlag)('should call onPositionChange when provided', async () => {
       const mockPositionChangeCallback = vi.fn(({position}: {position: AnchorPosition}) => position)
       render(
         <AnchoredOverlayTestComponent
@@ -303,6 +308,52 @@ describe('AnchoredOverlay feature flag specific behavior', () => {
       const overlay = baseElement.querySelector('[data-component="AnchoredOverlay"]')
       expect(overlay).toHaveAttribute('data-anchor-position', 'true')
     })
+
+    it('should set popover="manual" on overlay when renderAs is "popover"', () => {
+      const {baseElement} = render(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <AnchoredOverlayTestComponent initiallyOpen={true} renderAs="popover" />
+        </FeatureFlags>,
+      )
+
+      const overlay = baseElement.querySelector('[data-component="AnchoredOverlay"]')
+      expect(overlay).toHaveAttribute('popover', 'manual')
+    })
+
+    it('should set popovertarget on anchor when renderAs is "popover"', () => {
+      const {baseElement} = render(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <AnchoredOverlayTestComponent initiallyOpen={true} renderAs="popover" />
+        </FeatureFlags>,
+      )
+
+      const anchor = baseElement.querySelector('[aria-haspopup="true"]')
+      const overlay = baseElement.querySelector('[data-component="AnchoredOverlay"]')
+      expect(anchor).toHaveAttribute('popovertarget')
+      expect(anchor!.getAttribute('popovertarget')).toBe(overlay!.getAttribute('id'))
+    })
+
+    it('should not set popover attribute on overlay when renderAs is "portal"', () => {
+      const {baseElement} = render(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <AnchoredOverlayTestComponent initiallyOpen={true} renderAs="portal" />
+        </FeatureFlags>,
+      )
+
+      const overlay = baseElement.querySelector('[data-component="AnchoredOverlay"]')
+      expect(overlay).not.toHaveAttribute('popover')
+    })
+
+    it('should not set popover attribute on overlay when renderAs defaults to "portal"', () => {
+      const {baseElement} = render(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <AnchoredOverlayTestComponent initiallyOpen={true} />
+        </FeatureFlags>,
+      )
+
+      const overlay = baseElement.querySelector('[data-component="AnchoredOverlay"]')
+      expect(overlay).not.toHaveAttribute('popover')
+    })
   })
 
   describe('with primer_react_css_anchor_positioning feature flag disabled', () => {
@@ -329,5 +380,77 @@ describe('AnchoredOverlay feature flag specific behavior', () => {
       const overlay = baseElement.querySelector('[data-component="AnchoredOverlay"]')
       expect(overlay).toHaveAttribute('data-anchor-position', 'false')
     })
+
+    it('should not set popover attribute on overlay when renderAs is "popover" but flag is disabled', () => {
+      const {baseElement} = render(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: false}}>
+          <AnchoredOverlayTestComponent initiallyOpen={true} renderAs="popover" />
+        </FeatureFlags>,
+      )
+
+      const overlay = baseElement.querySelector('[data-component="AnchoredOverlay"]')
+      expect(overlay).not.toHaveAttribute('popover')
+    })
+  })
+})
+
+describe('AnchoredOverlay anchor element replacement', () => {
+  it('should re-apply anchor-name to a new anchor DOM element when the overlay reopens', () => {
+    function TestComponent() {
+      const anchorRef = useRef<HTMLButtonElement>(null)
+      const [open, setOpen] = useState(true)
+      const [anchorKey, setAnchorKey] = useState(0)
+
+      return (
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <button type="button" data-testid="switch" onClick={() => setAnchorKey(k => k + 1)}>
+            Switch
+          </button>
+          <button type="button" data-testid="toggle" onClick={() => setOpen(o => !o)}>
+            Toggle
+          </button>
+          <button key={anchorKey} ref={anchorRef} type="button" data-testid="anchor">
+            Anchor
+          </button>
+          <AnchoredOverlay
+            open={open}
+            onOpen={() => setOpen(true)}
+            onClose={() => setOpen(false)}
+            renderAnchor={null}
+            anchorRef={anchorRef}
+          >
+            <div>content</div>
+          </AnchoredOverlay>
+        </FeatureFlags>
+      )
+    }
+
+    const {baseElement} = render(<TestComponent />)
+
+    // Verify anchor-name is set on the initial anchor element
+    const initialAnchor = baseElement.querySelector('[data-testid="anchor"]') as HTMLElement
+    expect(initialAnchor.style.getPropertyValue('anchor-name')).not.toBe('')
+    const anchorName = initialAnchor.style.getPropertyValue('anchor-name')
+
+    // Close the overlay
+    const toggleButton = baseElement.querySelector('[data-testid="toggle"]') as HTMLElement
+    act(() => {
+      toggleButton.click()
+    })
+
+    // Replace the anchor DOM element by changing its key while overlay is closed
+    const switchButton = baseElement.querySelector('[data-testid="switch"]') as HTMLElement
+    act(() => {
+      switchButton.click()
+    })
+
+    // Reopen the overlay — the new anchor should get anchor-name before paint
+    act(() => {
+      toggleButton.click()
+    })
+
+    const newAnchor = baseElement.querySelector('[data-testid="anchor"]') as HTMLElement
+    expect(newAnchor).not.toBe(initialAnchor)
+    expect(newAnchor.style.getPropertyValue('anchor-name')).toBe(anchorName)
   })
 })

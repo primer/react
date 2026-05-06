@@ -35,6 +35,47 @@ it('should should return a position', async () => {
   })
 })
 
+it('should defer initial updatePosition to useEffect when overlay is closed on mount', async () => {
+  // When no floating element is present (overlay closed), the initial
+  // updatePosition call should be deferred from useLayoutEffect to useEffect.
+  // We verify this by checking that onPositionChange has NOT been called by
+  // the time the component's own useLayoutEffect runs (which fires after the
+  // hook's useLayoutEffect in declaration order).
+  const onPositionChange = vi.fn()
+  const layoutPhaseCheck = vi.fn()
+
+  const ClosedOverlayComponent = ({
+    onPositionChangeProp,
+    onLayoutEffect,
+  }: {
+    onPositionChangeProp: typeof onPositionChange
+    onLayoutEffect: (calledDuringLayout: boolean) => void
+  }) => {
+    const floatingElementRef = React.useRef<HTMLDivElement>(null)
+    const anchorElementRef = React.useRef<HTMLDivElement>(null)
+    useAnchoredPosition({floatingElementRef, anchorElementRef, onPositionChange: onPositionChangeProp})
+
+    // This layout effect runs after the hook's layout effects (declaration order).
+    // With the fix, onPositionChange should NOT have been called yet because
+    // the initial updatePosition is deferred to useEffect.
+    React.useLayoutEffect(() => {
+      onLayoutEffect(onPositionChangeProp.mock.calls.length > 0)
+    }, [onPositionChangeProp, onLayoutEffect])
+
+    return <div />
+  }
+
+  render(<ClosedOverlayComponent onPositionChangeProp={onPositionChange} onLayoutEffect={layoutPhaseCheck} />)
+
+  // onPositionChange should not have fired during the layout phase
+  expect(layoutPhaseCheck).toHaveBeenCalledWith(false)
+
+  // After effects run, onPositionChange should have been called with undefined
+  await waitFor(() => {
+    expect(onPositionChange).toHaveBeenCalledWith(undefined)
+  })
+})
+
 describe('scroll recalculation', () => {
   it('should recalculate position when window scrolls', async () => {
     const cb = vi.fn()

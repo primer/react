@@ -278,6 +278,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   const autoFocusedFooterButtonRef = useRef<HTMLButtonElement>(null)
   for (const footerButton of footerButtons) {
     if (footerButton.autoFocus) {
+      // eslint-disable-next-line react-hooks/immutability
       footerButton.ref = autoFocusedFooterButtonRef
     }
   }
@@ -305,6 +306,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   useFocusTrap({
     containerRef: dialogRef,
     initialFocusRef: initialFocusRef ?? autoFocusedFooterButtonRef,
+    // eslint-disable-next-line react-hooks/refs
     restoreFocusOnCleanUp: returnFocusRef?.current ? false : true,
     returnFocusRef,
   })
@@ -463,6 +465,7 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
     if (hasRendered === 1) {
       autoFocusRef.current?.focus()
     } else {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setHasRendered(hasRendered + 1)
     }
   }, [autoFocusRef, hasRendered])

@@ -78,4 +78,32 @@ test.describe('Breadcrumbs', () => {
       await expect(page).toHaveScreenshot('Breadcrumbs.OverflowMenuWithRoot.narrow.png')
     })
   })
+
+  test.describe('Two Items With Overflow Menu', () => {
+    test('narrow viewport @vrt', async ({page}) => {
+      await visit(page, {
+        id: 'components-breadcrumbs-features--two-items-with-overflow-menu',
+        globals: {
+          colorScheme: 'light',
+        },
+      })
+
+      await page.setViewportSize({width: viewports['primer.breakpoint.xs'] - 1, height: 768})
+      await expect(page).toHaveScreenshot('Breadcrumbs.TwoItemsOverflowMenu.narrow.png')
+    })
+  })
+
+  test.describe('Two Items With Overflow Menu With Root', () => {
+    test('narrow viewport @vrt', async ({page}) => {
+      await visit(page, {
+        id: 'components-breadcrumbs-features--two-items-with-overflow-menu-with-root',
+        globals: {
+          colorScheme: 'light',
+        },
+      })
+
+      await page.setViewportSize({width: viewports['primer.breakpoint.xs'] - 1, height: 768})
+      await expect(page).toHaveScreenshot('Breadcrumbs.TwoItemsOverflowMenuWithRoot.narrow.png')
+    })
+  })
 })

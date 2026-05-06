@@ -3,26 +3,6 @@ export {
    * @deprecated Usage of the `sx` prop with this component is no longer
    * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
-  TabNav,
-
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  type TabNavProps,
-
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
-  type TabNavLinkProps,
-} from './components/deprecated/TabNav'
-
-export {
-  /**
-   * @deprecated Usage of the `sx` prop with this component is no longer
-   * supported. Use the component from `@primer/react` with CSS Modules instead.
-   */
   Dialog,
 
   /**

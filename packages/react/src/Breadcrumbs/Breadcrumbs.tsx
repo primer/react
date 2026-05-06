@@ -195,7 +195,7 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
       let MIN_VISIBLE_ITEMS = 4
       if (!eHideRoot) {
         MIN_VISIBLE_ITEMS = 3
-      } else if (isNarrow) {
+      } else if (isNarrow && childArray.length > 2) {
         MIN_VISIBLE_ITEMS = 1
       }
 

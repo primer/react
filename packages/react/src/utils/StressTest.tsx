@@ -127,6 +127,7 @@ export const StressTest: React.FC<StressTestProps> = ({
                 {`Max: ${max?.toFixed(2)}ms`}
               </>
             ) : (
+              // eslint-disable-next-line react-hooks/purity, react-hooks/refs
               `Step ${count}/${totalIterations} — ${((performance.now() - (startTime.current ?? 0)) / 1000).toFixed(
                 0,
               )}s`
