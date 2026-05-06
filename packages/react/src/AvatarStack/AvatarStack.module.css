@@ -144,6 +144,7 @@
     box-shadow: 0 0 0 var(--avatar-border-width) transparent;
   }
 
+  /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
   &:not([data-component='Avatar']):not(:has([data-square])) {
     border-radius: 50%;
   }

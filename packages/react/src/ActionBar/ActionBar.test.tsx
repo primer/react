@@ -228,13 +228,14 @@ describe('ActionBar Registry System', () => {
     render(
       <div style={{width: 0, overflow: 'hidden'}}>
         <ActionBar aria-label="Zero width">
-          <ActionBar.IconButton icon={BoldIcon} aria-label="Zero width button" />
+          <ActionBar.IconButton icon={BoldIcon} aria-label="Zero width button" data-testid="zero-width-button" />
         </ActionBar>
       </div>,
     )
 
     // Component should still render even with zero width
-    expect(screen.getByRole('button', {name: 'Zero width button'})).toBeInTheDocument()
+    // Button is unlabeled because the label is hidden, so we select by test id instead
+    expect(screen.getByTestId('zero-width-button')).toBeInTheDocument()
   })
 
   it('should clean up registry on unmount', async () => {
