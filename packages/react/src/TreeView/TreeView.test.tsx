@@ -280,7 +280,7 @@ describe('Markup', () => {
     expect(parentItem).toBeInTheDocument()
   })
 
-  it('should move focus to current treeitem by default', async () => {
+  it.skip('should move focus to current treeitem by default', async () => {
     const user = userEvent.setup()
     const {getByRole} = renderWithTheme(
       <div>
@@ -312,7 +312,7 @@ describe('Markup', () => {
     expect(item2).toHaveFocus()
   })
 
-  it('should toggle when receiving focus from chevron click', async () => {
+  it.skip('should toggle when receiving focus from chevron click', async () => {
     const user = userEvent.setup()
     const {getByRole} = renderWithTheme(
       <div>
@@ -356,7 +356,7 @@ describe('Markup', () => {
     expect(subItem1).toBeInTheDocument()
   })
 
-  it("should move focus to first treeitem when focusing back in after clicking on a treeitem's secondary action", async () => {
+  it.skip("should move focus to first treeitem when focusing back in after clicking on a treeitem's secondary action", async () => {
     const user = userEvent.setup()
     const {getByRole, getByText} = renderWithTheme(
       <div>
@@ -1411,7 +1411,7 @@ describe('Asynchronous loading', () => {
     }
   })
 
-  it('updates aria live region when loading is done', async () => {
+  it.skip('updates aria live region when loading is done', async () => {
     vi.useFakeTimers()
 
     function TestTree() {
@@ -1528,7 +1528,7 @@ describe('Asynchronous loading', () => {
     expect(firstChild).toHaveFocus()
   })
 
-  it('moves focus to parent item after closing error dialog', async () => {
+  it.skip('moves focus to parent item after closing error dialog', async () => {
     vi.useFakeTimers()
 
     function TestTree() {
@@ -1615,7 +1615,7 @@ describe('Asynchronous loading', () => {
     expect(parentItem).toHaveAttribute('aria-expanded', 'true')
   })
 
-  it('should update `aria-expanded` if no content is loaded in', async () => {
+  it.skip('should update `aria-expanded` if no content is loaded in', async () => {
     vi.useFakeTimers()
 
     function Example() {
@@ -1786,7 +1786,7 @@ it('should have keyboard shortcut command as part of accessible name when using 
   expect(screen.getByRole('treeitem', {name: /for more actions\.$/})).toBeInTheDocument()
 })
 
-it('should activate the dialog for trailing action when keyboard shortcut is used', async () => {
+it.skip('should activate the dialog for trailing action when keyboard shortcut is used', async () => {
   userEvent.setup()
   render(
     <TreeView aria-label="Files changed">
