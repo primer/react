@@ -1,6 +1,6 @@
 import {fireEvent, render, act, screen} from '@testing-library/react'
 import {userEvent} from 'vitest/browser'
-import {afterEach, describe, it, expect, vi} from 'vitest'
+import {afterEach, beforeEach, describe, it, expect, vi} from 'vitest'
 import React from 'react'
 import type {SubTreeState} from './TreeView'
 import {TreeView} from './TreeView'
@@ -19,6 +19,10 @@ function renderWithTheme(
 
 // Mock `scrollIntoView` because it's not implemented in JSDOM
 Element.prototype.scrollIntoView = vi.fn()
+
+beforeEach(() => {
+  vi.useRealTimers()
+})
 
 afterEach(() => {
   vi.useRealTimers()
