@@ -52,6 +52,20 @@ describe('Dialog', () => {
     expect(getByRole('dialog')).not.toHaveAttribute('data-has-footer')
   })
 
+  it('renders data-component attribute', () => {
+    const {getByRole} = render(<Dialog onClose={() => {}}>Content</Dialog>)
+    expect(getByRole('dialog')).toHaveAttribute('data-component', 'Dialog')
+  })
+
+  it('allows overriding the root data-component attribute', () => {
+    const {getByRole} = render(
+      <Dialog data-component="ConfirmationDialog" onClose={() => {}}>
+        Content
+      </Dialog>,
+    )
+    expect(getByRole('dialog')).toHaveAttribute('data-component', 'ConfirmationDialog')
+  })
+
   it('calls `onClose` when clicking the close button', async () => {
     const user = userEvent.setup()
     const onClose = vi.fn()
