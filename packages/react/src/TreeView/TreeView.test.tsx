@@ -1606,6 +1606,8 @@ describe('Asynchronous loading', () => {
   })
 
   it('should update `aria-expanded` if no content is loaded in', async () => {
+    vi.useFakeTimers()
+
     function Example() {
       const [state, setState] = React.useState<SubTreeState>('loading')
       const timeoutId = React.useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -1649,10 +1651,12 @@ describe('Asynchronous loading', () => {
 
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
 
-    await waitFor(() => {
-      expect(treeitem).toHaveAttribute('aria-expanded', 'true')
-      expect(screen.getByLabelText('No items found')).toBeInTheDocument()
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(1000)
     })
+
+    expect(treeitem).toHaveAttribute('aria-expanded', 'true')
+    expect(screen.getByLabelText('No items found')).toBeInTheDocument()
   })
 
   it('should have `aria-expanded` when directory is empty', async () => {
