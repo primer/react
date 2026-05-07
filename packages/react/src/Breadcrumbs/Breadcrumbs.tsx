@@ -112,7 +112,7 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
           variant="invisible"
           size="small"
           icon={KebabHorizontalIcon}
-          tooltipDirection="e"
+          unsafeDisableTooltip
           {...rest}
         />
         <div ref={menuContainerRef} className={classes.MenuOverlay}>

@@ -1,5 +1,5 @@
 import {describe, expect, it, afterEach, vi} from 'vitest'
-import {render, screen, act} from '@testing-library/react'
+import {render, screen, act, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React, {createRef, useState} from 'react'
 import ActionBar from './'
@@ -81,6 +81,10 @@ describe('ActionBar', () => {
     expect(onClick).toHaveBeenCalled()
   })
 })
+
+const waitForActionBarEffects = async () => {
+  await act(async () => {})
+}
 
 describe('ActionBar Registry System', () => {
   it('should preserve order with deep nesting', () => {
@@ -221,7 +225,9 @@ describe('ActionBar Registry System', () => {
       await user.click(screen.getByText('Increment'))
     }
 
-    expect(screen.getByRole('button', {name: 'Button 10'})).toBeInTheDocument()
+    await waitFor(() => {
+      expect(screen.getByRole('button', {name: 'Button 10'})).toBeInTheDocument()
+    })
   })
 
   it('should handle zero-width scenarios gracefully', () => {
@@ -356,7 +362,9 @@ describe('ActionBar.Menu returnFocusRef', () => {
 
     // Verify focus is returned to the returnFocusRef element
     const returnFocusTarget = screen.getByTestId('return-focus-target')
-    expect(document.activeElement).toEqual(returnFocusTarget)
+    await waitFor(() => {
+      expect(document.activeElement).toEqual(returnFocusTarget)
+    })
   })
 
   it('returns focus to returnFocusRef when menu item is selected', async () => {
@@ -390,7 +398,9 @@ describe('ActionBar.Menu returnFocusRef', () => {
 
     // Verify focus is returned to the returnFocusRef element
     const returnFocusTarget = screen.getByTestId('return-focus-target')
-    expect(document.activeElement).toEqual(returnFocusTarget)
+    await waitFor(() => {
+      expect(document.activeElement).toEqual(returnFocusTarget)
+    })
   })
 
   it('returns focus to anchor button when returnFocusRef is not provided', async () => {
@@ -414,34 +424,46 @@ describe('ActionBar.Menu returnFocusRef', () => {
     await user.keyboard('{Escape}')
 
     // Verify focus returns to the menu button (default behavior)
-    expect(document.activeElement).toEqual(menuButton)
+    await waitFor(() => {
+      expect(document.activeElement).toEqual(menuButton)
+    })
   })
 })
 
 describe('ActionBar data-component attributes', () => {
-  it('renders ActionBar with data-component attribute', () => {
+  it('renders ActionBar with data-component attribute', async () => {
     const {container} = render(
       <ActionBar aria-label="Toolbar">
         <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
       </ActionBar>,
     )
+
+    await waitFor(() => {
+      expect(screen.getByRole('toolbar')).toBeInTheDocument()
+    })
+    await waitForActionBarEffects()
 
     const actionBar = container.querySelector('[data-component="ActionBar"]')
     expect(actionBar).toBeInTheDocument()
   })
 
-  it('renders ActionBar.IconButton with data-component attribute', () => {
+  it('renders ActionBar.IconButton with data-component attribute', async () => {
     const {container} = render(
       <ActionBar aria-label="Toolbar">
         <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
       </ActionBar>,
     )
 
+    await waitFor(() => {
+      expect(screen.getByRole('toolbar')).toBeInTheDocument()
+    })
+    await waitForActionBarEffects()
+
     const iconButton = container.querySelector('[data-component="ActionBar"] [data-component="IconButton"]')
     expect(iconButton).toBeInTheDocument()
   })
 
-  it('renders ActionBar.VerticalDivider with data-component attribute', () => {
+  it('renders ActionBar.VerticalDivider with data-component attribute', async () => {
     const {container} = render(
       <ActionBar aria-label="Toolbar">
         <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
@@ -450,11 +472,16 @@ describe('ActionBar data-component attributes', () => {
       </ActionBar>,
     )
 
+    await waitFor(() => {
+      expect(screen.getByRole('toolbar')).toBeInTheDocument()
+    })
+    await waitForActionBarEffects()
+
     const divider = container.querySelector('[data-component="ActionBar.VerticalDivider"]')
     expect(divider).toBeInTheDocument()
   })
 
-  it('renders ActionBar.Group with data-component attribute', () => {
+  it('renders ActionBar.Group with data-component attribute', async () => {
     const {container} = render(
       <ActionBar aria-label="Toolbar">
         <ActionBar.Group>
@@ -464,16 +491,26 @@ describe('ActionBar data-component attributes', () => {
       </ActionBar>,
     )
 
+    await waitFor(() => {
+      expect(screen.getByRole('toolbar')).toBeInTheDocument()
+    })
+    await waitForActionBarEffects()
+
     const group = container.querySelector('[data-component="ActionBar.Group"]')
     expect(group).toBeInTheDocument()
   })
 
-  it('renders ActionBar.Menu.IconButton with data-component attribute', () => {
+  it('renders ActionBar.Menu.IconButton with data-component attribute', async () => {
     render(
       <ActionBar aria-label="Toolbar">
         <ActionBar.Menu aria-label="More options" icon={BoldIcon} items={[{label: 'Option 1', onClick: vi.fn()}]} />
       </ActionBar>,
     )
+
+    await waitFor(() => {
+      expect(screen.getByRole('toolbar')).toBeInTheDocument()
+    })
+    await waitForActionBarEffects()
 
     const menuButton = screen.getByRole('button', {name: 'More options'})
     expect(menuButton).toHaveAttribute('data-component', 'ActionBar.Menu.IconButton')

@@ -180,13 +180,11 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   // Only use Popover API when both CSS anchor positioning is enabled AND renderAs is true
   const shouldRenderAsPopover = cssAnchorPositioning && renderAs === 'popover'
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
-  const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null)
-  // eslint-disable-next-line react-hooks/refs
-  if (anchorRef.current !== anchorElement) {
-    setAnchorElement(anchorRef.current)
-  }
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
-  const [overlayElement, setOverlayElement] = useState<HTMLDivElement | null>(null)
+  // eslint-disable-next-line react-hooks/refs
+  const anchorElement = anchorRef.current
+  // eslint-disable-next-line react-hooks/refs
+  const overlayElement = overlayRef.current
   const anchorId = useId(externalAnchorId)
 
   const onClickOutside = useCallback(() => onClose?.('click-outside'), [onClose])
@@ -389,7 +387,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
               assignRef(overlayProps.ref, node)
             }
             updateOverlayRef(node)
-            setOverlayElement(node)
           }}
           data-anchor-position={cssAnchorPositioning}
           data-side={cssAnchorPositioning ? side : position?.anchorSide}

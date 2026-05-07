@@ -94,6 +94,11 @@ describe('LabelGroup', () => {
     await waitFor(() => getByLabelText('Close'))
 
     expect(document.activeElement).toBe(getByLabelText('Close'))
+
+    await user.click(getByLabelText('Close'))
+    await waitFor(() => {
+      expect(getByText('+2').closest('button')).toHaveFocus()
+    })
   })
 
   it('should expand all tokens in place when overflowStyle="inline"', async () => {

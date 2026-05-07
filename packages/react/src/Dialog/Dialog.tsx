@@ -283,7 +283,6 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     }
   }
   const [lastMouseDownIsBackdrop, setLastMouseDownIsBackdrop] = useState<boolean>(false)
-  const [footerButtonLayout, setFooterButtonLayout] = useState<'scroll' | 'wrap'>('wrap')
   const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId}
   const onBackdropClick = useCallback(
     (e: SyntheticEvent) => {
@@ -361,8 +360,6 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
 
     const newLayout = bodyHeight >= MIN_BODY_HEIGHT ? 'wrap' : 'scroll'
     dialogElement.setAttribute('data-footer-button-layout', newLayout)
-
-    setFooterButtonLayout(newLayout)
   }, [hasFooter])
 
   useResizeObserver(updateFooterButtonLayout, backdropRef)
@@ -400,7 +397,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             data-width={width}
             data-height={height}
             data-has-footer={hasFooter ? '' : undefined}
-            data-footer-button-layout={hasFooter ? footerButtonLayout : undefined}
+            data-footer-button-layout={hasFooter ? 'wrap' : undefined}
             className={clsx(className, classes.Dialog)}
             style={style}
           >

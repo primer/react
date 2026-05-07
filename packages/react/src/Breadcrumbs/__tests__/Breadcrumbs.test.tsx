@@ -498,7 +498,9 @@ describe('Breadcrumbs', () => {
       const menuButton = screen.getByRole('button', {name: /more breadcrumb items/i})
 
       // Focus the menu button
-      menuButton.focus()
+      act(() => {
+        menuButton.focus()
+      })
       expect(menuButton).toHaveFocus()
 
       // Open menu with Enter key
@@ -513,7 +515,9 @@ describe('Breadcrumbs', () => {
       await user.keyboard('{Escape}')
 
       // Verify focus returns to button
-      expect(menuButton).toHaveFocus()
+      await waitFor(() => {
+        expect(menuButton).toHaveFocus()
+      })
     })
   })
 
