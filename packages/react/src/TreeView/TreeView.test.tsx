@@ -200,7 +200,7 @@ describe('Markup', () => {
     expect(noDescription).not.toHaveAttribute('aria-describedby')
   })
 
-  it.skip('should include `aria-expanded` when a SubTree contains content', async () => {
+  it('should include `aria-expanded` when a SubTree contains content', async () => {
     const user = userEvent.setup()
     render(
       <TreeView aria-label="Test tree">
@@ -258,7 +258,7 @@ describe('Markup', () => {
     expect(parentItem).toBeInTheDocument()
   })
 
-  it.skip('should move focus to current treeitem by default', async () => {
+  it('should move focus to current treeitem by default', async () => {
     const user = userEvent.setup()
     render(
       <div>
@@ -290,7 +290,7 @@ describe('Markup', () => {
     expect(item2).toHaveFocus()
   })
 
-  it.skip('should toggle when receiving focus from chevron click', async () => {
+  it('should toggle when receiving focus from chevron click', async () => {
     const user = userEvent.setup()
     render(
       <div>
@@ -334,7 +334,7 @@ describe('Markup', () => {
     expect(subItem1).toBeInTheDocument()
   })
 
-  it.skip("should move focus to first treeitem when focusing back in after clicking on a treeitem's secondary action", async () => {
+  it("should move focus to first treeitem when focusing back in after clicking on a treeitem's secondary action", async () => {
     const user = userEvent.setup()
     render(
       <div>
@@ -708,7 +708,7 @@ describe('Keyboard interactions', () => {
       expect(subtree).toBeVisible()
     })
 
-    it.skip('moves focus to first child of an expanded item', async () => {
+    it('moves focus to first child of an expanded item', async () => {
       const user = userEvent.setup()
 
       render(
@@ -727,10 +727,14 @@ describe('Keyboard interactions', () => {
       // aria-expanded should be true
       expect(parentItem).toHaveAttribute('aria-expanded', 'true')
 
-      await user.keyboard('{Tab}')
+      await act(async () => {
+        await user.keyboard('{Tab}')
+      })
       expect(parentItem).toHaveFocus()
 
-      await user.keyboard('{ArrowRight}')
+      await act(async () => {
+        await user.keyboard('{ArrowRight}')
+      })
 
       const childItem = screen.getByRole('treeitem', {name: 'Child'})
 
@@ -1505,7 +1509,10 @@ describe('Asynchronous loading', () => {
     expect(firstChild).toHaveFocus()
   })
 
-  it.skip('moves focus to parent item after closing error dialog', async () => {
+  it('moves focus to parent item after closing error dialog', async () => {
+    vi.useFakeTimers()
+    const user = userEvent.setup()
+
     function TestTree() {
       const [error, setError] = React.useState('Test error')
 
@@ -1544,22 +1551,21 @@ describe('Asynchronous loading', () => {
 
     // Press esc to close error dialog
     await act(async () => {
-      await userEvent.keyboard('{Escape}')
+      await user.keyboard('{Escape}')
     })
 
     // Dialog should not be visible
     expect(dialog).not.toBeVisible()
 
-    // console.log(vi.getTimerCount())
-    act(() => {
-      // vi.runAllTimers()
+    await act(async () => {
+      await vi.runAllTimersAsync()
     })
 
     // Parent item should be focused
     expect(parentItem).toHaveFocus()
   })
 
-  it.skip('ignores arrow keys when error dialog is open', async () => {
+  it('ignores arrow keys when error dialog is open', async () => {
     const user = userEvent.setup()
 
     render(
@@ -1583,13 +1589,17 @@ describe('Asynchronous loading', () => {
     expect(retryButton).toHaveFocus()
 
     // Press ←
-    await user.keyboard('{ArrowLeft}')
+    await act(async () => {
+      await user.keyboard('{ArrowLeft}')
+    })
 
     // Parent item should still be expanded
     expect(parentItem).toHaveAttribute('aria-expanded', 'true')
 
     // Press Backspace
-    await user.keyboard('{Backspace}')
+    await act(async () => {
+      await user.keyboard('{Backspace}')
+    })
 
     // Parent item should still be expanded
     expect(parentItem).toHaveAttribute('aria-expanded', 'true')
