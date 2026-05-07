@@ -39,7 +39,7 @@ export {
    * `@primer/primitives` and CSS Modules instead.
    */
   type ThemeProviderProps,
-} from './components/ThemeProvider'
+} from './components/FeatureFlaggedTheming'
 
 export {
   /**
@@ -53,7 +53,7 @@ export {
    * supported. Use the component from `@primer/react` with CSS Modules instead.
    */
   type BaseStylesProps,
-} from './components/BaseStyles'
+} from './components/FeatureFlaggedTheming'
 
 export {
   /**
