@@ -56,6 +56,14 @@ export const WithGroups = () => (
   </ActionBar>
 )
 
+export const TextLabels = () => (
+  <ActionBar aria-label="Toolbar">
+    <Button>Edit</Button>
+    <Button>Duplicate</Button>
+    <Button>Export to CSV</Button>
+  </ActionBar>
+)
+
 export const SmallActionBar = () => (
   <ActionBar size="small" aria-label="Toolbar">
     <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
