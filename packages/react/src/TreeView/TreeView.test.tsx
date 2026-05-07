@@ -250,17 +250,24 @@ describe('Markup', () => {
     let treeitem = getByLabelText(/Item 1/)
     expect(treeitem).toHaveAttribute('aria-expanded', 'false')
 
+    console.log('========== DEBUG STATEMENT #1 ==========')
+
     await act(async () => {
       await user.click(getByText(/Item 1/))
     })
+
+    console.log('========== DEBUG STATEMENT #2 ==========')
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
 
     treeitem = getByLabelText(/Item 2/)
     expect(treeitem).not.toHaveAttribute('aria-expanded')
+    console.log('========== DEBUG STATEMENT #3 ==========')
 
     await act(async () => {
       await user.click(getByText(/Item 2/))
     })
+
+    console.log('========== DEBUG STATEMENT #4 ==========')
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
   })
 
