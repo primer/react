@@ -103,6 +103,8 @@ export interface Use<Component>Options {
   'aria-label'?: string
   initialFocusRef?: React.RefObject<HTMLElement | null>
   returnFocusRef?: React.RefObject<HTMLElement | null>
+  /** Whether clicking the backdrop closes the component. @default false */
+  closeOnBackdropClick?: boolean
 }
 
 export interface Use<Component>Return {
@@ -162,6 +164,35 @@ const getCloseProps = useCallback((): CloseProps => {
     onClick: () => onClose('close-button'),
   }
 }, [onClose])
+
+const getBodyProps = useCallback((): BodyProps => {
+  return {
+    'aria-labelledby': titleId,
+    tabIndex: 0,
+    role: 'region',
+  }
+}, [titleId])
+```
+
+**Body region:** The body/content area should have `role="region"` and `aria-labelledby` pointing to the title ID. This makes the scrollable content area navigable as a landmark for assistive technology users. Always include `tabIndex: 0` so keyboard users can scroll the body.
+
+**Root prop-getter:** Must include `aria-label` passthrough when provided (for components without a visible title):
+
+```tsx
+const getRootProps = useCallback(() => {
+  const props = {
+    ref: refCallback,
+    role,
+    'aria-modal': true,
+    'aria-labelledby': titleId,
+    'aria-describedby': descriptionId,
+    onClick: handleClick,
+  }
+  if (ariaLabel) {
+    props['aria-label'] = ariaLabel
+  }
+  return props
+}, [refCallback, role, titleId, descriptionId, handleClick, ariaLabel])
 ```
 
 #### Consumer usage
@@ -424,6 +455,68 @@ When targeting `data-component` or state attributes in CSS, use `:where()`:
 
 /* Avoid — unnecessarily high specificity */
 &[data-width='small'] { width: 296px; }
+```
+
+### Sub-component composability
+
+Sub-components must be independently composable — never bake one sub-component into another. For example:
+
+```tsx
+// ✅ Good — Header accepts children, consumer controls layout
+<DialogParts.Header>
+  <DialogParts.Title>Title</DialogParts.Title>
+  <DialogParts.CloseButton />
+</DialogParts.Header>
+
+// ❌ Bad — Header renders CloseButton internally
+function Header({children}) {
+  return (
+    <header>
+      {children}
+      <CloseButton />  {/* Don't do this */}
+    </header>
+  )
+}
+```
+
+This lets consumers control placement, omission, and ordering of sub-components.
+
+### Use existing Primer components
+
+Layer 2 Parts and Layer 1 Ready-made should use existing Primer components wherever appropriate:
+
+- **Buttons:** Use `Button` from `../../Button` (not plain `<button>`). Use the `variant` prop (`'default' | 'primary' | 'danger'`).
+- **Close button:** Use `IconButton` from `../../Button` with `XIcon` from `@primer/octicons-react` (not an inline SVG).
+- **Text:** Use `Text` from `../../Text` where appropriate.
+- **Layout:** Use Primer layout components where they fit.
+
+This ensures consistent styling, theming, and behaviour across the design system.
+
+### Responsive props
+
+For components that support multiple positions or sizes, use responsive value types:
+
+```tsx
+import type {ResponsiveValue} from '../../hooks/useResponsiveValue'
+
+interface ContentProps {
+  width?: 'small' | 'medium' | 'large' | 'xlarge'
+  height?: 'small' | 'large' | 'auto'
+  position?: 'center' | 'left' | 'right' | ResponsiveValue<'left' | 'right' | 'bottom' | 'fullscreen' | 'center'>
+  align?: 'top' | 'center' | 'bottom'
+}
+```
+
+Map responsive values to `data-position-{breakpoint}` attributes and style them with CSS media queries:
+
+```css
+@media (max-width: 767px) {
+  &[data-position-narrow='fullscreen'] {
+    width: 100%;
+    height: 100%;
+    border-radius: unset;
+  }
+}
 ```
 
 ---

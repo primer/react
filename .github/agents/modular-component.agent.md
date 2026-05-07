@@ -85,12 +85,22 @@ A single hook that composes all the Layer 4 hooks and returns prop-getter functi
 
 **Naming:** `use<Component>` — e.g., `useDialog`, `useTabs`
 
+**Important:** Before naming the compound hook, search the repo for existing hooks with the same name. primer/react has legacy hooks (e.g., `src/hooks/useDialog.ts`) that may conflict. The foundation hook lives at a different path (`foundations/experimental/`) and uses different imports, but name collisions can cause confusion. If a conflict exists, the foundation hook takes the `use<Component>` name and the legacy hook should be documented as deprecated.
+
 The hook:
 - Takes an options object with the component's behavioural configuration
 - Returns prop-getter functions that consumers spread onto their own elements (`getDialogProps()`, `getTitleProps()`, etc.)
 - Handles all ARIA wiring internally (generating IDs, cross-referencing `aria-labelledby`/`aria-describedby`)
 - Manages lifecycle (open/close, focus management, scroll lock)
 - Fires a dev-mode warning if required accessibility attributes are missing
+- Passes through `aria-label` when provided (for dialogs without a visible title)
+
+**Important options to include:**
+- `open` / `onClose` — controlled component contract
+- `role` — e.g., `'dialog' | 'alertdialog'`
+- `aria-label` — accessible name when no visible title is used
+- `initialFocusRef` / `returnFocusRef` — focus management
+- `closeOnBackdropClick` — opt-in backdrop dismiss (default `false`). Always require explicit opt-in — accidental dismissal of complex forms is a poor UX.
 
 #### 2b: Unstyled components (optional)
 
@@ -122,6 +132,8 @@ Styled JSX components for Primer-opinionated composition. Parts wrap Layer 3 fou
   - Sub-components: `data-component="ComponentName.PartName"`
 - Use CSS Modules (`.module.css`) with Primer design tokens for all styling
 - Use `clsx` for className merging
+- Use existing Primer components where appropriate (e.g., `Button` from `../../Button`, `IconButton`, Octicons) — don't re-implement HTML buttons with custom styling when Primer already has the component
+- Keep sub-components composable — don't bake one sub-component into another. For example, `Header` should accept `Title` and `CloseButton` as children, not render `CloseButton` internally. This lets consumers control placement and omission.
 
 **Sub-component naming:** Flat exports — `DialogRoot`, `DialogHeader`, `DialogTitle` — are the goal for React Server Components compatibility. The `Object.assign` pattern for dot-notation breaks in RSC (property access on a client reference returns `undefined`). However, the current convention in the repo is a composed export using `Object.assign`:
 
@@ -159,6 +171,8 @@ A props-based convenience wrapper. The simplest way to use the component — pas
 - Ready-made must not implement behaviour itself, but it **may translate convenience props into existing lower-layer behavioural options**. Example: Dialog maps `footerButtons[].autoFocus` to the foundation's `initialFocusRef` via a ref forwarded to the rendered button.
 - The `children` prop maps to the Body/Content slot
 - Config props (like `footerButtons`) render as Parts children internally
+- Forward all behavioural props from the foundation (e.g., `returnFocusRef`, `closeOnBackdropClick`) — don't silently drop options that the lower layers support
+- Use existing Primer components (e.g., `Button`) for rendering footer buttons — match the `variant` prop to Primer's button API
 
 **File location:** Same directory as Parts:
 ```
