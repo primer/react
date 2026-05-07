@@ -13,14 +13,11 @@
   /* Explicit height is required to clip wrapped items */
   height: var(--actionbar-height, var(--control-small-size));
 
-  /* Only apply scroll animation before overflow is calculated (for SSR/initial render) */
-  &:not([data-has-overflow]) {
-    /* Scroll-based animations have no effect unless the container is scrollable (has overflow, even with overflow:hidden)
-    so we can use them to detect overflow. It would be cleaner to use scroll-state container queries for this, but
-    browser support for scroll-driven animations is slightly better. */
-    animation: detect-overflow linear;
-    animation-timeline: scroll(self block);
-  }
+  /* Scroll-based animations have no effect unless the container is scrollable (has overflow, even with overflow:hidden)
+  so we can use them to detect overflow. It would be cleaner to use scroll-state container queries for this, but
+  browser support for scroll-driven animations is slightly better. */
+  animation: detect-overflow linear;
+  animation-timeline: scroll(self block);
 
   /* After initial render, JS is used to control visibility which provides progressive enhancement for unsupported browsers */
   &[data-has-overflow='true'] {
