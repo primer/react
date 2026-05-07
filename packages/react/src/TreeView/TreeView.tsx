@@ -501,7 +501,14 @@ const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children
   const previousState = usePreviousValue(state)
   const {safeSetTimeout} = useSafeTimeout()
 
+  console.log('SubTree#render')
+  console.log({
+    state,
+    isSubTreeEmpty,
+  })
+
   React.useEffect(() => {
+    console.log('effect one')
     // If `state` is undefined, we're working in a synchronous context and need
     // to detect if the sub-tree has content. If `state === 'done` then we're
     // working in an asynchronous context and need to see if there is content
@@ -517,12 +524,16 @@ const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children
 
   // Handle transition from loading to done state
   React.useEffect(() => {
+    console.log('effect two')
     const parentElement = document.getElementById(itemId)
     if (!parentElement) return
+
+    console.log('a')
 
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setSubTreeLabel(getAccessibleName(parentElement))
     if (previousState === 'loading' && state === 'done') {
+      console.log('b')
       // Announce update to screen readers
       const parentName = getAccessibleName(parentElement)
 
@@ -535,13 +546,16 @@ const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children
       // Move focus to the first child if the loading indicator
       // was focused when the async items finished loading
       if (loadingFocused) {
+        console.log('b1')
         const firstChild = getFirstChildElement(parentElement)
 
         if (firstChild) {
+          console.log('b2')
           safeSetTimeout(() => {
             firstChild.focus()
           })
         } else {
+          console.log('b3')
           safeSetTimeout(() => {
             parentElement.focus()
           })
@@ -550,6 +564,7 @@ const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children
         setLoadingFocused(false)
       }
     } else if (state === 'loading') {
+      console.log('c')
       const parentName = getAccessibleName(parentElement)
       announceUpdate(`${parentName} content loading`)
     }
@@ -557,6 +572,7 @@ const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children
 
   // Track focus on the loading indicator
   React.useEffect(() => {
+    console.log('effect three')
     function handleFocus() {
       setLoadingFocused(true)
     }
