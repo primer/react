@@ -19,13 +19,15 @@ function createCSSModulesCollector(cssModules, cssImportsByImporter) {
 
     resolveId(source, importer) {
       if (!source.endsWith('.css') || !importer) {
-        return
+        return null
       }
 
       const id = path.resolve(path.dirname(importer), source)
       const imports = cssImportsByImporter.get(importer) ?? new Set()
       imports.add(id)
       cssImportsByImporter.set(importer, imports)
+
+      return null
     },
 
     async transform(_code, id) {
@@ -257,9 +259,7 @@ async function getCSSInfo(cssModules, cssImportsByImporter, chunk) {
     }
   }
 
-  const code = Array.from(cssModuleIds, id => {
-    return cssModules.get(id)
-  }).join('\n')
+  const code = Array.from(cssModuleIds, id => cssModules.get(id)).join('\n')
 
   if (code.length === 0) {
     return {
