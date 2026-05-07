@@ -8,6 +8,7 @@ import BaseStyles from '../BaseStyles'
 import type {AnchorPosition} from '@primer/behaviors'
 import {implementsClassName} from '../utils/testing'
 import {FeatureFlags} from '../FeatureFlags'
+import {registerPortalRoot} from '../Portal'
 
 import overlayClasses from '../Overlay/Overlay.module.css'
 import anchoredOverlayClasses from './AnchoredOverlay.module.css'
@@ -174,8 +175,6 @@ describe.each([true, false])(
       expect(mockCloseCallback).toHaveBeenCalledWith('escape')
     })
 
-    // onPositionChange is not supported when the CSS anchor positioning flag is enabled,
-    // because positioning is handled by the browser rather than `useAnchoredPosition`.
     it.skipIf(withCSSAnchorPositioningFeatureFlag)('should call onPositionChange when provided', async () => {
       const mockPositionChangeCallback = vi.fn(({position}: {position: AnchorPosition}) => position)
       render(
@@ -353,6 +352,67 @@ describe('AnchoredOverlay feature flag specific behavior', () => {
 
       const overlay = baseElement.querySelector('[data-component="AnchoredOverlay"]')
       expect(overlay).not.toHaveAttribute('popover')
+    })
+
+    describe('when overlayProps.portalContainerName is provided', () => {
+      it('should fall back to JS positioning (data-anchor-position="false") even with the flag enabled', () => {
+        const portalRoot = document.createElement('div')
+        document.body.appendChild(portalRoot)
+        registerPortalRoot(portalRoot, 'anchoredOverlayTestPortal')
+
+        const {baseElement} = render(
+          <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+            <BaseStyles>
+              <AnchoredOverlay
+                open={true}
+                onOpen={() => {}}
+                onClose={() => {}}
+                renderAnchor={props => <Button {...props}>Anchor Button</Button>}
+                overlayProps={{portalContainerName: 'anchoredOverlayTestPortal'}}
+              >
+                <button type="button">Focusable Child</button>
+              </AnchoredOverlay>
+            </BaseStyles>
+          </FeatureFlags>,
+        )
+
+        const overlay = baseElement.querySelector('[data-component="AnchoredOverlay"]')
+        expect(overlay).toHaveAttribute('data-anchor-position', 'false')
+        expect(overlay).not.toHaveClass(anchoredOverlayClasses.AnchoredOverlay)
+
+        portalRoot.remove()
+      })
+
+      it('should not opt into the Popover API even when renderAs="popover"', () => {
+        const portalRoot = document.createElement('div')
+        document.body.appendChild(portalRoot)
+        registerPortalRoot(portalRoot, 'anchoredOverlayTestPortalPopover')
+
+        const {baseElement} = render(
+          <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+            <BaseStyles>
+              <AnchoredOverlay
+                open={true}
+                onOpen={() => {}}
+                onClose={() => {}}
+                renderAnchor={props => <Button {...props}>Anchor Button</Button>}
+                renderAs="popover"
+                overlayProps={{portalContainerName: 'anchoredOverlayTestPortalPopover'}}
+              >
+                <button type="button">Focusable Child</button>
+              </AnchoredOverlay>
+            </BaseStyles>
+          </FeatureFlags>,
+        )
+
+        const overlay = baseElement.querySelector('[data-component="AnchoredOverlay"]')
+        expect(overlay).not.toHaveAttribute('popover')
+
+        const anchor = baseElement.querySelector('[aria-haspopup="true"]')
+        expect(anchor).not.toHaveAttribute('popovertarget')
+
+        portalRoot.remove()
+      })
     })
   })
 
