@@ -120,8 +120,13 @@ export const CommentBox = (props: CommentBoxProps) => {
   return (
     <div className={classes.CommentBoxContainer}>
       <header className={classes.CommentBoxHeader}>
-        <div className={classes.CommentBoxHeaderLeft}>
-          <ActionBar aria-label={toolBarLabel}>
+        <div className={classes.CommentBoxHeaderViewSwitch}>
+          <Button variant="invisible">Write</Button>
+          <Button variant="invisible">Preview</Button>
+        </div>
+
+        <div className={classes.CommentBoxHeaderToolbar}>
+          <ActionBar aria-label={toolBarLabel} className={classes.CommentBoxHeaderActionBar} gap="none">
             <ActionBar.IconButton icon={HeadingIcon} aria-label="Heading"></ActionBar.IconButton>
             <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
             <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
@@ -139,10 +144,6 @@ export const CommentBox = (props: CommentBoxProps) => {
               aria-label="Saved Replies"
             ></ActionBar.IconButton>
           </ActionBar>
-        </div>
-        <div className={classes.CommentBoxHeaderRight}>
-          <Button variant="invisible">Write</Button>
-          <Button variant="invisible">Preview</Button>
         </div>
       </header>
       <Textarea value={value} onChange={e => setValue(e.target.value)} id="markdowninput" aria-label="Markdown value" />
