@@ -318,7 +318,11 @@ function useActionBarItem(ref: React.RefObject<HTMLElement | null>, registryProp
       // since the entire group overflows at once
       if (isInGroup) return () => {}
 
-      const observer = new IntersectionObserver(() => onChange(), {threshold: 1})
+      // Technically 1 should work as the threshold, but in some scenarios that
+      // doesn't seem to trigger correctly - probably because the browser still
+      // thinks a tiny bit of the button is not visible, since the container
+      // height is exactly the button height. So 75% should be more reliable.
+      const observer = new IntersectionObserver(() => onChange(), {threshold: 0.75})
 
       if (ref.current) observer.observe(ref.current)
       return () => observer.disconnect()
