@@ -5,7 +5,7 @@
 .ScrollContainer {
   height: 400px;
   overflow: auto;
-  border: 1px solid var(--borderColor-default);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
   border-radius: var(--borderRadius-medium);
   position: relative;
 }
