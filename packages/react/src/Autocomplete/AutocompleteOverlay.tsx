@@ -86,7 +86,7 @@ function AutocompleteOverlay({
       top={cssAnchorPositioning ? undefined : position?.top}
       left={cssAnchorPositioning ? undefined : position?.left}
       visibility={cssAnchorPositioning || position ? 'visible' : 'hidden'}
-      className={clsx(classes.Overlay, cssAnchorPositioning && classes.AnchoredOverlay, className)}
+      className={clsx(classes.Overlay, className)}
       data-side={cssAnchorPositioning ? 'outside-bottom' : undefined}
       data-anchor-position={cssAnchorPositioning ? true : undefined}
       {...overlayProps}

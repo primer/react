@@ -1,33 +1,3 @@
 .Overlay {
   overflow: auto;
 }
-
-.AnchoredOverlay {
-  position-try-fallbacks:
-    flip-block,
-    flip-inline,
-    flip-block flip-inline;
-  position-visibility: anchors-visible;
-  z-index: 100;
-  position: fixed !important;
-
-  &[popover] {
-    inset: auto;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    max-width: none;
-  }
-
-  &[data-side='outside-bottom'] {
-    /* stylelint-disable primer/spacing */
-    top: calc(anchor(bottom) + var(--base-size-4));
-    left: anchor(left);
-  }
-
-  &[data-side='outside-top'] {
-    margin-bottom: var(--base-size-4);
-    bottom: anchor(top);
-    left: anchor(left);
-  }
-}

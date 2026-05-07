@@ -1,0 +1,26 @@
+.FormPadding {
+  padding: var(--base-size-16);
+}
+
+.ScrollContainer {
+  height: 400px;
+  overflow: auto;
+  border: 1px solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+  position: relative;
+}
+
+.ScrollSpacer {
+  padding: var(--base-size-16);
+}
+
+.ScrollHint {
+  color: var(--fgColor-muted);
+}
+
+.BottomAligned {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: calc(100vh - 200px);
+}
