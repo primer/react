@@ -82,3 +82,61 @@ export const AnchorElementReplacement = () => {
     </div>
   )
 }
+
+export const RightAlignedWithLargeSubmenus = () => {
+  const submenuItems = Array.from({length: 30}, (_, i) => `Item ${i + 1}`)
+
+  return (
+    <div style={{position: 'fixed', top: '15px', right: '15px'}}>
+      <ActionMenu>
+        <ActionMenu.Button>Open menu</ActionMenu.Button>
+        <ActionMenu.Overlay align="end">
+          <ActionList>
+            <ActionMenu>
+              <ActionMenu.Anchor>
+                <ActionList.Item>First submenu (outside bottom)</ActionList.Item>
+              </ActionMenu.Anchor>
+              <ActionMenu.Overlay side="outside-bottom">
+                <ActionList>
+                  {submenuItems.map(item => (
+                    <ActionList.Item key={item} onSelect={() => alert(`${item} clicked`)}>
+                      {item}
+                    </ActionList.Item>
+                  ))}
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+            <ActionMenu>
+              <ActionMenu.Anchor>
+                <ActionList.Item>Second submenu (outside left)</ActionList.Item>
+              </ActionMenu.Anchor>
+              <ActionMenu.Overlay side="outside-left">
+                <ActionList>
+                  {submenuItems.map(item => (
+                    <ActionList.Item key={item} onSelect={() => alert(`${item} clicked`)}>
+                      {item}
+                    </ActionList.Item>
+                  ))}
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+            <ActionMenu>
+              <ActionMenu.Anchor>
+                <ActionList.Item>Third submenu</ActionList.Item>
+              </ActionMenu.Anchor>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  {submenuItems.map(item => (
+                    <ActionList.Item key={item} onSelect={() => alert(`${item} clicked`)}>
+                      {item}
+                    </ActionList.Item>
+                  ))}
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </div>
+  )
+}

@@ -61,6 +61,7 @@
     "@prettier/sync": "0.5.5",
     "@primer/stylelint-config": "13.5.0",
     "@size-limit/preset-big-lib": "11.2.0",
+    "@types/node": "20.12.11",
     "@types/semver": "^7.7.1",
     "@vitest/browser": "^4.1.5",
     "@vitest/browser-playwright": "^4.1.5",
@@ -91,8 +92,8 @@
     "storybook": "^10.3.3",
     "stylelint": "17.4.0",
     "turbo": "^2.6.3",
-    "typescript": "^5.9.2",
-    "typescript-eslint": "^8.57.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.59.1",
     "vitest": "^4.1.5"
   },
   "overrides": {

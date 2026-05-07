@@ -16,7 +16,7 @@
     "postcss": "^8.4.38",
     "postcss-modules": "^6.0.0",
     "rimraf": "^5.0.7",
-    "typescript": "^5.9.2"
+    "typescript": "^6.0.3"
   },
   "sideEffects": false
 }
