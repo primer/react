@@ -7,6 +7,7 @@ export default defineConfig({
   plugins: [react()],
   define: {
     __DEV__: true,
+    'process.env.CI': JSON.stringify(process.env.CI),
   },
   resolve: {
     alias: [

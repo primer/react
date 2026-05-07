@@ -1,5 +1,5 @@
 import {render, renderHook} from '@testing-library/react'
-import React, {forwardRef, type RefObject} from 'react'
+import React, {forwardRef, version as reactVersion, type RefObject} from 'react'
 import {describe, expect, it, vi} from 'vitest'
 import {useMergedRefs} from '../useMergedRefs'
 
@@ -142,12 +142,22 @@ describe('useMergedRefs', () => {
       expect(refA).toHaveBeenCalledWith('test')
       expect(refB).toHaveBeenCalledWith('test')
 
-      // React 19 will call cleanup function and not pass null
-      cleanup()
+      if (Number.parseInt(reactVersion, 10) >= 19) {
+        // React 19 will call cleanup function and not pass null
+        cleanup()
 
-      expect(refA).toHaveBeenCalledWith(null)
-      expect(refB).not.toHaveBeenCalledWith(null)
-      expect(cleanupRefB).toHaveBeenCalledOnce()
+        expect(refA).toHaveBeenCalledWith(null)
+        expect(refB).not.toHaveBeenCalledWith(null)
+        expect(cleanupRefB).toHaveBeenCalledOnce()
+      } else {
+        // React 18 ignores callback ref cleanups and calls the ref with null instead
+        expect(cleanup).toBeUndefined()
+        combined.result.current(null)
+
+        expect(refA).toHaveBeenCalledWith(null)
+        expect(refB).toHaveBeenCalledWith(null)
+        expect(cleanupRefB).not.toHaveBeenCalled()
+      }
     })
   })
 })

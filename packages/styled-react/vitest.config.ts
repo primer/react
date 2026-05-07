@@ -5,5 +5,6 @@ export default defineConfig({
     name: '@primer/styled-react (node)',
     environment: 'node',
     exclude: ['src/**/*.browser.test.?(c|m)[jt]s?(x)'],
+    setupFiles: ['../../script/vitest/setup.ts'],
   },
 })

@@ -1,5 +1,7 @@
 import type {ForwardedRef, Ref as StandardRef, MutableRefObject} from 'react'
-import {useCallback} from 'react'
+import {useCallback, version as reactVersion} from 'react'
+
+const supportsCallbackRefCleanup = Number.parseInt(reactVersion, 10) >= 19
 
 /**
  * Combine two refs of matching type (typically an external or forwarded ref and an internal `useRef` object or
@@ -37,15 +39,15 @@ export function useMergedRefs<T>(refA: Ref<T | null>, refB: Ref<T | null>) {
       const cleanupA = setRef(refA, value)
       const cleanupB = setRef(refB, value)
 
-      // Only works in React 19. In React 18, the cleanup function will be ignored and the ref will get called with
-      // `null` which will be passed to each ref as expected.
-      return () => {
-        // For object refs and callback refs that don't return cleanups, we still need to pass `null` on cleanup
-        if (cleanupA) cleanupA()
-        else setRef(refA, null)
+      if (supportsCallbackRefCleanup) {
+        return () => {
+          // For object refs and callback refs that don't return cleanups, we still need to pass `null` on cleanup
+          if (cleanupA) cleanupA()
+          else setRef(refA, null)
 
-        if (cleanupB) cleanupB()
-        else setRef(refB, null)
+          if (cleanupB) cleanupB()
+          else setRef(refB, null)
+        }
       }
     },
     [refA, refB],

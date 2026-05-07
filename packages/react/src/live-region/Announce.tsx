@@ -1,6 +1,6 @@
 import {announceFromElement} from '@primer/live-region-element'
 import type React from 'react'
-import {useEffect, useRef, useState, type ElementRef} from 'react'
+import {useEffect, useRef, type ElementRef} from 'react'
 import {useEffectOnce} from '../internal/hooks/useEffectOnce'
 import {useEffectCallback} from '../internal/hooks/useEffectCallback'
 import type {PolymorphicProps} from '../utils/modern-polymorphic'
@@ -52,7 +52,7 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
     ...rest
   } = props
   const ref = useRef<ElementRef<'div'>>(null)
-  const [previousAnnouncementText, setPreviousAnnouncementText] = useState<string | null>(null)
+  const previousAnnouncementText = useRef<string | null>(null)
   const savedAnnouncement = useRef<ReturnType<typeof announceFromElement> | null>(null)
   const announce = useEffectCallback(() => {
     const {current: element} = ref
@@ -73,7 +73,7 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
       return
     }
 
-    if (textContent === previousAnnouncementText) {
+    if (textContent === previousAnnouncementText.current) {
       return
     }
 
@@ -98,7 +98,7 @@ export function Announce<As extends React.ElementType = 'div'>(props: AnnouncePr
             delayMs,
           },
     )
-    setPreviousAnnouncementText(textContent)
+    previousAnnouncementText.current = textContent
   })
 
   // Announce the initial message, this is wrapped in `useEffectOnce` so that it

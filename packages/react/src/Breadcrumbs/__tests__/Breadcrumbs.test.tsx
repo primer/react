@@ -1,5 +1,5 @@
 import Breadcrumbs from '..'
-import {render as HTMLRender, screen, waitFor, within} from '@testing-library/react'
+import {act, render as HTMLRender, screen, waitFor, within} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
 import {FeatureFlags} from '../../FeatureFlags'
@@ -233,11 +233,13 @@ describe('Breadcrumbs', () => {
 
     // Simulate a wide container resize
     if (resizeCallback) {
-      resizeCallback([
-        {
-          contentRect: {width: 800, height: 40},
-        } as ResizeObserverEntry,
-      ])
+      act(() => {
+        resizeCallback([
+          {
+            contentRect: {width: 800, height: 40},
+          } as ResizeObserverEntry,
+        ])
+      })
     }
 
     // Should still have overflow menu for 6 items (>5 rule)
@@ -245,11 +247,13 @@ describe('Breadcrumbs', () => {
 
     // Simulate a narrow container resize
     if (resizeCallback) {
-      resizeCallback([
-        {
-          contentRect: {width: 250, height: 40},
-        } as ResizeObserverEntry,
-      ])
+      act(() => {
+        resizeCallback([
+          {
+            contentRect: {width: 250, height: 40},
+          } as ResizeObserverEntry,
+        ])
+      })
     }
 
     // Should maintain overflow menu for narrow container
@@ -316,11 +320,13 @@ describe('Breadcrumbs', () => {
 
     // Simulate a very narrow container resize that would affect overflow calculation
     if (resizeCallback) {
-      resizeCallback([
-        {
-          contentRect: {width: 200, height: 40},
-        } as ResizeObserverEntry,
-      ])
+      act(() => {
+        resizeCallback([
+          {
+            contentRect: {width: 200, height: 40},
+          } as ResizeObserverEntry,
+        ])
+      })
     }
 
     // Menu button should still be present
@@ -328,11 +334,13 @@ describe('Breadcrumbs', () => {
 
     // Simulate a very wide container resize
     if (resizeCallback) {
-      resizeCallback([
-        {
-          contentRect: {width: 1200, height: 40},
-        } as ResizeObserverEntry,
-      ])
+      act(() => {
+        resizeCallback([
+          {
+            contentRect: {width: 1200, height: 40},
+          } as ResizeObserverEntry,
+        ])
+      })
     }
 
     // Menu button should still be present (7 items > 5)

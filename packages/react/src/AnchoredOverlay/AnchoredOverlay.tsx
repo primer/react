@@ -361,7 +361,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           tabIndex: 0,
           onClick: onAnchorClick,
           onKeyDown: onAnchorKeyDown,
-          ...(shouldRenderAsPopover ? {popoverTarget: popoverId} : {}),
+          ...(shouldRenderAsPopover ? {popovertarget: popoverId} : {}),
         })}
       {open ? (
         <Overlay
