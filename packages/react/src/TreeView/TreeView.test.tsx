@@ -9,6 +9,10 @@ import {getLiveRegion} from '../live-region/__tests__/test-helpers'
 import {implementsClassName} from '../utils/testing'
 import classes from './TreeView.module.css'
 
+afterEach(() => {
+  vi.useRealTimers()
+})
+
 describe('Markup', () => {
   implementsClassName(TreeView, classes.TreeViewRootUlStyles)
   implementsClassName(TreeView.Item, classes.TreeViewItem)
@@ -1384,7 +1388,7 @@ describe('Asynchronous loading', () => {
     }
   })
 
-  it.skip('updates aria live region when loading is done', async () => {
+  it('updates aria live region when loading is done', async () => {
     function TestTree() {
       const [state, setState] = React.useState<SubTreeState>('initial')
 
@@ -1416,6 +1420,7 @@ describe('Asynchronous loading', () => {
         </div>
       )
     }
+
     const user = userEvent.setup()
     render(<TestTree />)
 
@@ -1436,15 +1441,15 @@ describe('Asynchronous loading', () => {
       await user.click(doneButton)
     })
 
-    act(() => {
-      // vi.runAllTimers()
+    await waitFor(() => {
+      // Live region should be updated
+      expect(liveRegion.getMessage('polite')).toBe('Parent content loaded')
     })
-
-    // Live region should be updated
-    expect(liveRegion.getMessage('polite')).toBe('Parent content loaded')
   })
 
-  it.skip('moves focus from loading item to first child', async () => {
+  it('moves focus from loading item to first child', async () => {
+    vi.useFakeTimers()
+
     function TestTree() {
       const [state, setState] = React.useState<SubTreeState>('loading')
 
@@ -1466,6 +1471,7 @@ describe('Asynchronous loading', () => {
       )
     }
 
+    const user = userEvent.setup()
     render(<TestTree />)
 
     const parentItem = screen.getByRole('treeitem', {name: 'Parent'})
@@ -1477,21 +1483,23 @@ describe('Asynchronous loading', () => {
     })
 
     // Press ↓ to move focus to loading item
-    fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+    await act(async () => {
+      await user.keyboard('{ArrowDown}')
+    })
 
     // Loading item should be focused
     expect(loadingItem).toHaveFocus()
 
-    act(() => {
-      // vi.runAllTimers()
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(400)
+    })
+
+    await act(async () => {
+      await vi.runAllTimersAsync()
     })
 
     // Wait for async loading to complete
     const firstChild = screen.getByRole('treeitem', {name: 'Child 1'})
-
-    act(() => {
-      // vi.runAllTimers()
-    })
 
     // First child should be focused
     expect(firstChild).toHaveFocus()
@@ -1756,7 +1764,8 @@ it('should have keyboard shortcut command as part of accessible name when using 
 })
 
 it('should activate the dialog for trailing action when keyboard shortcut is used', async () => {
-  userEvent.setup()
+  const user = userEvent.setup()
+
   render(
     <TreeView aria-label="Files changed">
       <TreeView.Item
@@ -1788,12 +1797,17 @@ it('should activate the dialog for trailing action when keyboard shortcut is use
   const treeItem = screen.getByRole('treeitem', {
     name: /for more actions\.$/,
   })
-  treeItem.focus()
+
+  act(() => {
+    treeItem.focus()
+  })
   expect(treeItem).toHaveFocus()
 
   expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
 
-  fireEvent.keyDown(treeItem, {key: 'u', metaKey: true, shiftKey: true})
+  await act(async () => {
+    await user.keyboard('{Meta>}{Shift>}u{/Shift}{/Meta}')
+  })
 
   expect(screen.getByRole('dialog')).toBeInTheDocument()
 })
