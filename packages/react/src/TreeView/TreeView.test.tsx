@@ -1,6 +1,6 @@
 import {fireEvent, render, act, screen} from '@testing-library/react'
 import {userEvent} from 'vitest/browser'
-import {afterEach, describe, it, expect, vi} from 'vitest'
+import {beforeEach, afterEach, describe, it, expect, vi} from 'vitest'
 import React from 'react'
 import type {SubTreeState} from './TreeView'
 import {TreeView} from './TreeView'
@@ -19,6 +19,10 @@ function renderWithTheme(
 
 // Mock `scrollIntoView` because it's not implemented in JSDOM
 Element.prototype.scrollIntoView = vi.fn()
+
+beforeEach(() => {
+  vi.useFakeTimers()
+})
 
 afterEach(() => {
   vi.useRealTimers()
@@ -222,7 +226,7 @@ describe('Markup', () => {
     expect(noDescription).not.toHaveAttribute('aria-describedby')
   })
 
-  it.skip('should include `aria-expanded` when a SubTree contains content', async () => {
+  it('should include `aria-expanded` when a SubTree contains content', async () => {
     const user = userEvent.setup()
     const {getByLabelText, getByText} = renderWithTheme(
       <TreeView aria-label="Test tree">
@@ -240,6 +244,8 @@ describe('Markup', () => {
         </TreeView.Item>
       </TreeView>,
     )
+
+    screen.debug()
 
     let treeitem = getByLabelText(/Item 1/)
     expect(treeitem).toHaveAttribute('aria-expanded', 'false')
