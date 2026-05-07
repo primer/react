@@ -199,6 +199,7 @@ export {default as Textarea} from './Textarea'
 export type {TextareaProps} from './Textarea'
 
 export {TreeView} from './TreeView'
+export {useRovingTabIndex} from './TreeView/useRovingTabIndex'
 export type {
   TreeViewProps,
   TreeViewItemProps,

@@ -2,80 +2,103 @@ import type React from 'react'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 import {getScrollContainer} from '../utils/scroll'
 
-export function useRovingTabIndex({
-  containerRef,
-  mouseDownRef,
-}: {
-  containerRef: React.RefObject<HTMLElement>
-  mouseDownRef: React.RefObject<boolean>
-}) {
-  // TODO: Initialize focus to the aria-current item if it exists
-  useFocusZone({
+export function useRovingTabIndex(
+  {
     containerRef,
-    bindKeys:
-      FocusKeys.ArrowVertical |
-      FocusKeys.ArrowHorizontal |
-      FocusKeys.HomeAndEnd |
-      FocusKeys.Backspace |
-      FocusKeys.PageUpDown,
-    preventScroll: true,
-    getNextFocusable: (direction, from, event) => {
-      if (!(from instanceof HTMLElement)) return
+    mouseDownRef,
+    focusOutBehavior,
+    wrapAround = false,
+  }: {
+    containerRef: React.RefObject<HTMLElement | null>
+    mouseDownRef?: React.RefObject<boolean>
+    preventScroll?: boolean
+    focusOutBehavior?: 'stop' | 'wrap'
+    wrapAround?: boolean
+  },
+  dependencies: React.DependencyList = [],
+) {
+  // TODO: Initialize focus to the aria-current item if it exists
+  useFocusZone(
+    {
+      containerRef,
+      bindKeys:
+        FocusKeys.ArrowVertical |
+        FocusKeys.ArrowHorizontal |
+        FocusKeys.HomeAndEnd |
+        FocusKeys.Backspace |
+        FocusKeys.PageUpDown,
+      preventScroll: true,
+      getNextFocusable: (direction, from, event) => {
+        if (!(from instanceof HTMLElement)) return
 
-      // Skip elements within a modal dialog
-      // This need to be in a try/catch to avoid errors in
-      // non-supported browsers
-      try {
-        if (from.closest('dialog:modal')) {
-          return
+        // Skip elements within a modal dialog
+        // This need to be in a try/catch to avoid errors in
+        // non-supported browsers
+        try {
+          if (from.closest('dialog:modal')) {
+            return
+          }
+        } catch {
+          // Don't return
         }
-      } catch {
-        // Don't return
-      }
 
-      return getNextFocusableElement(from, event) ?? from
+        return getNextFocusableElement(from, event, wrapAround) ?? from
+      },
+      ...(focusOutBehavior ? {focusOutBehavior} : {}),
+      focusInStrategy: () => {
+        // Don't try to execute the focusInStrategy if focus is coming from a click.
+        // The clicked row will receive focus correctly by default.
+        // If a chevron is clicked, setting the focus through the focuszone will prevent its toggle.
+        if (mouseDownRef?.current) {
+          return undefined
+        }
+
+        const currentItem = containerRef.current?.querySelector('[aria-current]')
+        const firstItem = containerRef.current?.querySelector('[role="treeitem"]')
+
+        // Focus the aria-current item if it exists
+        if (currentItem instanceof HTMLElement) {
+          return currentItem
+        }
+
+        // Otherwise, focus the activeElement if it's a treeitem
+        if (
+          document.activeElement instanceof HTMLElement &&
+          containerRef.current?.contains(document.activeElement) &&
+          document.activeElement.getAttribute('role') === 'treeitem'
+        ) {
+          return document.activeElement
+        }
+
+        // Otherwise, focus the first treeitem
+        return firstItem instanceof HTMLElement ? firstItem : undefined
+      },
     },
-    focusInStrategy: () => {
-      // Don't try to execute the focusInStrategy if focus is coming from a click.
-      // The clicked row will receive focus correctly by default.
-      // If a chevron is clicked, setting the focus through the focuszone will prevent its toggle.
-      if (mouseDownRef.current) {
-        return undefined
-      }
-
-      const currentItem = containerRef.current?.querySelector('[aria-current]')
-      const firstItem = containerRef.current?.querySelector('[role="treeitem"]')
-
-      // Focus the aria-current item if it exists
-      if (currentItem instanceof HTMLElement) {
-        return currentItem
-      }
-
-      // Otherwise, focus the activeElement if it's a treeitem
-      if (
-        document.activeElement instanceof HTMLElement &&
-        containerRef.current?.contains(document.activeElement) &&
-        document.activeElement.getAttribute('role') === 'treeitem'
-      ) {
-        return document.activeElement
-      }
-
-      // Otherwise, focus the first treeitem
-      return firstItem instanceof HTMLElement ? firstItem : undefined
-    },
-  })
+    dependencies,
+  )
 }
 
 // DOM utilities used for focus management
 
-export function getNextFocusableElement(activeElement: HTMLElement, event: KeyboardEvent): HTMLElement | undefined {
-  const elementState = getElementState(activeElement)
+export function getNextFocusableElement(
+  activeElement: HTMLElement,
+  event: KeyboardEvent,
+  wrapAround: boolean = false,
+): HTMLElement | undefined {
+  // If focus is on a non-treeitem child (e.g. GroupHeadingWrap), resolve to the closest treeitem ancestor.
+  const treeitem =
+    activeElement.getAttribute('role') === 'treeitem'
+      ? activeElement
+      : activeElement.closest<HTMLElement>('[role="treeitem"]')
+  if (!treeitem) return
+
+  const elementState = getElementState(treeitem)
 
   // Reference: https://www.w3.org/WAI/ARIA/apg/patterns/treeview/#keyboard-interaction-24
   switch (`${elementState} ${event.key}`) {
     case 'open ArrowRight':
       // Focus first child node
-      return getFirstChildElement(activeElement)
+      return getFirstChildElement(treeitem)
 
     case 'open ArrowLeft':
       // Close node; don't change focus
@@ -87,7 +110,7 @@ export function getNextFocusableElement(activeElement: HTMLElement, event: Keybo
 
     case 'closed ArrowLeft':
       // Focus parent element
-      return getParentElement(activeElement)
+      return getParentElement(treeitem)
 
     case 'end ArrowRight':
       // Do nothing
@@ -95,35 +118,35 @@ export function getNextFocusableElement(activeElement: HTMLElement, event: Keybo
 
     case 'end ArrowLeft':
       // Focus parent element
-      return getParentElement(activeElement)
+      return getParentElement(treeitem)
   }
 
   // ArrowUp, ArrowDown, Home, and End behavior are the same regardless of element state
   switch (event.key) {
     case 'ArrowUp':
       // Focus previous visible element
-      return getVisibleElement(activeElement, 'previous')
+      return getVisibleElement(treeitem, 'previous', wrapAround)
 
     case 'ArrowDown':
       // Focus next visible element
-      return getVisibleElement(activeElement, 'next')
+      return getVisibleElement(treeitem, 'next', wrapAround)
 
     case 'Backspace':
-      return getParentElement(activeElement)
+      return getParentElement(treeitem)
 
     case 'Home':
       // Focus first visible element
-      return getFirstElement(activeElement)
+      return getFirstElement(treeitem)
 
     case 'End':
       // Focus last visible element
-      return getLastElement(activeElement)
+      return getLastElement(treeitem)
 
     case 'PageUp':
-      return getPreviousPageElement(activeElement)
+      return getPreviousPageElement(treeitem)
 
     case 'PageDown':
-      return getNextPageElement(activeElement)
+      return getNextPageElement(treeitem)
   }
 }
 
@@ -142,7 +165,11 @@ export function getElementState(element: HTMLElement): 'open' | 'closed' | 'end'
   }
 }
 
-export function getVisibleElement(element: HTMLElement, direction: 'next' | 'previous'): HTMLElement | undefined {
+export function getVisibleElement(
+  element: HTMLElement,
+  direction: 'next' | 'previous',
+  wrapAround = false,
+): HTMLElement | undefined {
   const root = element.closest('[role=tree]')
 
   if (!root) return
@@ -163,6 +190,11 @@ export function getVisibleElement(element: HTMLElement, direction: 'next' | 'pre
   // If next element is nested inside a collapsed subtree, continue iterating
   while (next instanceof HTMLElement && next.parentElement?.closest('[role=treeitem][aria-expanded=false]')) {
     next = direction === 'next' ? walker.nextNode() : walker.previousNode()
+  }
+
+  // Wrap around if we reached the end/beginning of the tree
+  if (!next && wrapAround) {
+    return direction === 'next' ? getFirstElement(element) : getLastElement(element)
   }
 
   return next instanceof HTMLElement ? next : undefined

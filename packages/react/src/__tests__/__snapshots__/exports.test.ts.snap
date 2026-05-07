@@ -230,6 +230,7 @@ exports[`@primer/react > should not update exports without a semver change 1`] =
   "useRefObjectAsForwardedRef",
   "useResizeObserver",
   "useResponsiveValue",
+  "useRovingTabIndex",
   "useSafeTimeout",
   "useSyncedState",
   "useTheme",
