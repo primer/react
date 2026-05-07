@@ -223,7 +223,6 @@ describe('Markup', () => {
   })
 
   it('should include `aria-expanded` when a SubTree contains content', async () => {
-    const user = userEvent.setup()
     const {getByLabelText, getByText} = renderWithTheme(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="item-1">
@@ -247,7 +246,7 @@ describe('Markup', () => {
     expect(treeitem).toHaveAttribute('aria-expanded', 'false')
 
     await act(async () => {
-      await user.click(getByText(/Item 1/))
+      await userEvent.click(getByText(/Item 1/))
     })
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
 
@@ -255,7 +254,7 @@ describe('Markup', () => {
     expect(treeitem).not.toHaveAttribute('aria-expanded')
 
     await act(async () => {
-      await user.click(getByText(/Item 2/))
+      await userEvent.click(getByText(/Item 2/))
     })
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
   })
@@ -283,7 +282,6 @@ describe('Markup', () => {
   })
 
   it('should move focus to current treeitem by default', async () => {
-    const user = userEvent.setup()
     const {getByRole} = renderWithTheme(
       <div>
         <button type="button">Focusable element</button>
@@ -300,13 +298,13 @@ describe('Markup', () => {
     // Focus button
     const button = getByRole('button', {name: /Focusable element/})
     await act(async () => {
-      await user.click(button)
+      await userEvent.click(button)
     })
     expect(button).toHaveFocus()
 
     // Move focus to tree
     await act(async () => {
-      await user.tab()
+      await userEvent.tab()
     })
 
     // Focus should be on current treeitem
@@ -315,7 +313,6 @@ describe('Markup', () => {
   })
 
   it('should toggle when receiving focus from chevron click', async () => {
-    const user = userEvent.setup()
     const {getByRole} = renderWithTheme(
       <div>
         <button type="button">Focusable element</button>
@@ -339,7 +336,7 @@ describe('Markup', () => {
     // Focus button
     const button = getByRole('button', {name: /Focusable element/})
     await act(async () => {
-      await user.click(button)
+      await userEvent.click(button)
     })
     expect(button).toHaveFocus()
 
@@ -359,7 +356,6 @@ describe('Markup', () => {
   })
 
   it("should move focus to first treeitem when focusing back in after clicking on a treeitem's secondary action", async () => {
-    const user = userEvent.setup()
     const {getByRole, getByText} = renderWithTheme(
       <div>
         <TreeView aria-label="Test tree">
@@ -379,20 +375,20 @@ describe('Markup', () => {
     // Click on treeitem's secondary action
     const item2Button = getByText(/Link in Item 2/i)
     await act(async () => {
-      await user.click(item2Button)
+      await userEvent.click(item2Button)
     })
     expect(item2Button).toHaveFocus()
 
     // Move focus to button outside of TreeView
     await act(async () => {
-      await user.tab()
+      await userEvent.tab()
     })
     const outerButton = getByRole('button', {name: /Focusable element/})
     expect(outerButton).toHaveFocus()
 
     // Move focus into TreeView. Focus should be on first treeitem
     await act(async () => {
-      await user.tab({shift: true})
+      await userEvent.tab({shift: true})
     })
     const item1 = getByRole('treeitem', {name: /Item 1/})
     expect(item1).toHaveFocus()
@@ -1414,7 +1410,7 @@ describe('Asynchronous loading', () => {
   })
 
   it('updates aria live region when loading is done', async () => {
-    vi.useFakeTimers({shouldAdvanceTime: true})
+    vi.useFakeTimers()
 
     function TestTree() {
       const [state, setState] = React.useState<SubTreeState>('initial')
@@ -1447,14 +1443,13 @@ describe('Asynchronous loading', () => {
         </div>
       )
     }
-    const user = userEvent.setup()
     const {getByRole} = renderWithTheme(<TestTree />)
 
     const doneButton = getByRole('button', {name: 'Load'})
 
     // Click load button to mimic async loading
     await act(async () => {
-      await user.click(doneButton)
+      await userEvent.click(doneButton)
     })
 
     // Get live region after the first announcement creates it
@@ -1464,7 +1459,7 @@ describe('Asynchronous loading', () => {
 
     // Click done button to mimic the completion of async loading
     await act(async () => {
-      await user.click(doneButton)
+      await userEvent.click(doneButton)
     })
 
     act(() => {
@@ -1531,8 +1526,7 @@ describe('Asynchronous loading', () => {
   })
 
   it('moves focus to parent item after closing error dialog', async () => {
-    vi.useFakeTimers({shouldAdvanceTime: true})
-    const user = userEvent.setup()
+    vi.useFakeTimers()
 
     function TestTree() {
       const [error, setError] = React.useState('Test error')
@@ -1572,7 +1566,7 @@ describe('Asynchronous loading', () => {
 
     // Press esc to close error dialog
     await act(async () => {
-      await user.keyboard('{Escape}')
+      await userEvent.keyboard('{Escape}')
     })
 
     // Dialog should not be visible
@@ -1619,7 +1613,7 @@ describe('Asynchronous loading', () => {
   })
 
   it('should update `aria-expanded` if no content is loaded in', async () => {
-    vi.useFakeTimers({shouldAdvanceTime: true})
+    vi.useFakeTimers()
 
     function Example() {
       const [state, setState] = React.useState<SubTreeState>('loading')
@@ -1653,12 +1647,11 @@ describe('Asynchronous loading', () => {
       )
     }
     const {getByLabelText, getByText} = renderWithTheme(<Example />)
-    const user = userEvent.setup()
 
     const treeitem = getByLabelText('Item 1')
     expect(treeitem).toHaveAttribute('aria-expanded', 'false')
     await act(async () => {
-      await user.click(getByText('Item 1'))
+      await userEvent.click(getByText('Item 1'))
     })
 
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
@@ -1790,7 +1783,6 @@ it('should have keyboard shortcut command as part of accessible name when using 
 })
 
 it('should activate the dialog for trailing action when keyboard shortcut is used', async () => {
-  userEvent.setup()
   render(
     <TreeView aria-label="Files changed">
       <TreeView.Item
