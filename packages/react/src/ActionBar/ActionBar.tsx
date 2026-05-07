@@ -31,10 +31,8 @@ type ChildProps =
 
 const ActionBarContext = React.createContext<{
   size: Size
-  groupId?: string
 }>({
   size: 'medium',
-  groupId: undefined,
 })
 
 /*
