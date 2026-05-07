@@ -20,6 +20,7 @@ const Flash = React.forwardRef(function Flash(
       className={clsx(classes.Flash, className)}
       data-full={full ? '' : undefined}
       data-variant={variant}
+      data-component="Flash"
     />
   )
 }) as PolymorphicForwardRefComponent<'div', FlashProps>
