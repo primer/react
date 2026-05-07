@@ -1,6 +1,6 @@
 import {fireEvent, render, act, screen} from '@testing-library/react'
 import {userEvent} from 'vitest/browser'
-import {beforeEach, afterEach, describe, it, expect, vi} from 'vitest'
+import {afterEach, describe, it, expect, vi} from 'vitest'
 import React from 'react'
 import type {SubTreeState} from './TreeView'
 import {TreeView} from './TreeView'
@@ -19,10 +19,6 @@ function renderWithTheme(
 
 // Mock `scrollIntoView` because it's not implemented in JSDOM
 Element.prototype.scrollIntoView = vi.fn()
-
-beforeEach(() => {
-  vi.useFakeTimers()
-})
 
 afterEach(() => {
   vi.useRealTimers()
@@ -250,22 +246,17 @@ describe('Markup', () => {
     let treeitem = getByLabelText(/Item 1/)
     expect(treeitem).toHaveAttribute('aria-expanded', 'false')
 
-    console.log('========== DEBUG STATEMENT #1 ==========')
-
-    await user.click(getByText(/Item 1/))
-
-    console.log('========== DEBUG STATEMENT #2 ==========')
+    await act(async () => {
+      await user.click(getByText(/Item 1/))
+    })
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
 
     treeitem = getByLabelText(/Item 2/)
     expect(treeitem).not.toHaveAttribute('aria-expanded')
-    console.log('========== DEBUG STATEMENT #3 ==========')
 
     await act(async () => {
       await user.click(getByText(/Item 2/))
     })
-
-    console.log('========== DEBUG STATEMENT #4 ==========')
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
   })
 
@@ -291,7 +282,7 @@ describe('Markup', () => {
     expect(parentItem).toBeInTheDocument()
   })
 
-  it.skip('should move focus to current treeitem by default', async () => {
+  it('should move focus to current treeitem by default', async () => {
     const user = userEvent.setup()
     const {getByRole} = renderWithTheme(
       <div>
@@ -323,7 +314,7 @@ describe('Markup', () => {
     expect(item2).toHaveFocus()
   })
 
-  it.skip('should toggle when receiving focus from chevron click', async () => {
+  it('should toggle when receiving focus from chevron click', async () => {
     const user = userEvent.setup()
     const {getByRole} = renderWithTheme(
       <div>
@@ -367,7 +358,7 @@ describe('Markup', () => {
     expect(subItem1).toBeInTheDocument()
   })
 
-  it.skip("should move focus to first treeitem when focusing back in after clicking on a treeitem's secondary action", async () => {
+  it("should move focus to first treeitem when focusing back in after clicking on a treeitem's secondary action", async () => {
     const user = userEvent.setup()
     const {getByRole, getByText} = renderWithTheme(
       <div>
@@ -1422,8 +1413,8 @@ describe('Asynchronous loading', () => {
     }
   })
 
-  it.skip('updates aria live region when loading is done', async () => {
-    vi.useFakeTimers()
+  it('updates aria live region when loading is done', async () => {
+    vi.useFakeTimers({shouldAdvanceTime: true})
 
     function TestTree() {
       const [state, setState] = React.useState<SubTreeState>('initial')
@@ -1539,8 +1530,9 @@ describe('Asynchronous loading', () => {
     expect(firstChild).toHaveFocus()
   })
 
-  it.skip('moves focus to parent item after closing error dialog', async () => {
-    vi.useFakeTimers()
+  it('moves focus to parent item after closing error dialog', async () => {
+    vi.useFakeTimers({shouldAdvanceTime: true})
+    const user = userEvent.setup()
 
     function TestTree() {
       const [error, setError] = React.useState('Test error')
@@ -1580,7 +1572,7 @@ describe('Asynchronous loading', () => {
 
     // Press esc to close error dialog
     await act(async () => {
-      await userEvent.keyboard('{Escape}')
+      await user.keyboard('{Escape}')
     })
 
     // Dialog should not be visible
@@ -1626,8 +1618,8 @@ describe('Asynchronous loading', () => {
     expect(parentItem).toHaveAttribute('aria-expanded', 'true')
   })
 
-  it.skip('should update `aria-expanded` if no content is loaded in', async () => {
-    vi.useFakeTimers()
+  it('should update `aria-expanded` if no content is loaded in', async () => {
+    vi.useFakeTimers({shouldAdvanceTime: true})
 
     function Example() {
       const [state, setState] = React.useState<SubTreeState>('loading')
@@ -1797,7 +1789,7 @@ it('should have keyboard shortcut command as part of accessible name when using 
   expect(screen.getByRole('treeitem', {name: /for more actions\.$/})).toBeInTheDocument()
 })
 
-it.skip('should activate the dialog for trailing action when keyboard shortcut is used', async () => {
+it('should activate the dialog for trailing action when keyboard shortcut is used', async () => {
   userEvent.setup()
   render(
     <TreeView aria-label="Files changed">
