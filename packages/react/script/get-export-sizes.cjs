@@ -7,22 +7,39 @@ const commonjs = require('@rollup/plugin-commonjs')
 const {nodeResolve} = require('@rollup/plugin-node-resolve')
 const virtual = require('@rollup/plugin-virtual')
 const json = require('@rollup/plugin-json')
+const cssstats = require('cssstats')
 const {filesize} = require('filesize')
 const {rollup} = require('rollup')
 const {minify} = require('terser')
 const gzipSize = require('gzip-size')
 
-const noopCSSModules = {
-  name: 'empty-css-modules',
+function createCSSModulesCollector(cssModules, cssImportsByImporter) {
+  return {
+    name: 'collect-css-modules',
 
-  transform(_code, id) {
-    if (!id.endsWith('.css')) {
-      return
-    }
-    return {
-      code: `export default {}`,
-    }
-  },
+    resolveId(source, importer) {
+      if (!source.endsWith('.css') || !importer) {
+        return
+      }
+
+      const id = path.resolve(path.dirname(importer), source)
+      const imports = cssImportsByImporter.get(importer) ?? new Set()
+      imports.add(id)
+      cssImportsByImporter.set(importer, imports)
+    },
+
+    async transform(_code, id) {
+      if (!id.endsWith('.css')) {
+        return
+      }
+
+      cssModules.set(id, await fs.readFile(id, 'utf8'))
+
+      return {
+        code: `export default {}`,
+      }
+    },
+  }
 }
 
 async function main() {
@@ -47,6 +64,8 @@ async function main() {
     core.info(`Analyzing entrypoint:  ${entrypoint.entrypoint}`)
 
     const filepath = path.resolve(rootDirectory, entrypoint.filepath)
+    const cssModules = new Map()
+    const cssImportsByImporter = new Map()
     const bundle = await rollup({
       input: filepath,
       external,
@@ -56,7 +75,7 @@ async function main() {
           include: [/node_modules/],
         }),
         json(),
-        noopCSSModules,
+        createCSSModulesCollector(cssModules, cssImportsByImporter),
       ],
       onwarn: () => {},
     })
@@ -64,6 +83,7 @@ async function main() {
       format: 'esm',
     })
     const minified = await minify(output[0].code)
+    const css = await getCSSInfo(cssModules, cssImportsByImporter, output[0])
     const exports = []
 
     core.startGroup('Analyzing exports...')
@@ -71,6 +91,8 @@ async function main() {
     for (const identifier of output[0].exports) {
       core.info(`Analyzing export: ${identifier}`)
 
+      const cssModules = new Map()
+      const cssImportsByImporter = new Map()
       const reexport = await rollup({
         input: '__entrypoint__',
         external,
@@ -79,7 +101,7 @@ async function main() {
           commonjs({
             include: /node_modules/,
           }),
-          noopCSSModules,
+          createCSSModulesCollector(cssModules, cssImportsByImporter),
           json(),
           virtual({
             __entrypoint__: `export { ${identifier} } from '${filepath}';`,
@@ -91,6 +113,7 @@ async function main() {
         format: 'esm',
       })
       const minified = await minify(output[0].code)
+      const css = await getCSSInfo(cssModules, cssImportsByImporter, output[0])
 
       exports.push({
         identifier,
@@ -98,6 +121,7 @@ async function main() {
         minified: Buffer.byteLength(minified.code),
         gzipUnminified: await gzipSize(output[0].code),
         gzipMinified: await gzipSize(minified.code),
+        css,
       })
     }
 
@@ -109,6 +133,7 @@ async function main() {
       minified: Buffer.byteLength(minified.code),
       gzipUnminified: await gzipSize(output[0].code),
       gzipMinified: await gzipSize(minified.code),
+      css,
       exports,
     })
   }
@@ -124,6 +149,30 @@ async function main() {
           },
           {
             data: 'Export',
+            header: true,
+          },
+          {
+            data: 'CSS Gzip',
+            header: true,
+          },
+          {
+            data: 'CSS Size',
+            header: true,
+          },
+          {
+            data: 'CSS Rules',
+            header: true,
+          },
+          {
+            data: 'CSS Selectors',
+            header: true,
+          },
+          {
+            data: 'CSS Declarations',
+            header: true,
+          },
+          {
+            data: 'CSS Specificity (max)',
             header: true,
           },
           {
@@ -152,6 +201,12 @@ async function main() {
               [
                 entrypoint.entrypoint === '.' ? '@primer/react' : path.join('@primer/react', entrypoint.entrypoint),
                 '*',
+                filesize(entrypoint.css.gzip),
+                filesize(entrypoint.css.size),
+                String(entrypoint.css.stats.rules.total),
+                String(entrypoint.css.stats.selectors.total),
+                String(entrypoint.css.stats.declarations.total),
+                String(entrypoint.css.stats.selectors.specificity.max),
                 filesize(entrypoint.gzipMinified),
                 filesize(entrypoint.gzipUnminified),
                 filesize(entrypoint.minified),
@@ -165,6 +220,12 @@ async function main() {
                   return [
                     '',
                     exportInfo.identifier,
+                    filesize(exportInfo.css.gzip),
+                    filesize(exportInfo.css.size),
+                    String(exportInfo.css.stats.rules.total),
+                    String(exportInfo.css.stats.selectors.total),
+                    String(exportInfo.css.stats.declarations.total),
+                    String(exportInfo.css.stats.selectors.specificity.max),
                     filesize(exportInfo.gzipMinified),
                     filesize(exportInfo.gzipUnminified),
                     filesize(exportInfo.minified),
@@ -175,6 +236,43 @@ async function main() {
           }),
       ])
       .write()
+  }
+}
+
+async function getCSSInfo(cssModules, cssImportsByImporter, chunk) {
+  const cssModuleIds = new Set()
+
+  if (chunk.type === 'chunk') {
+    for (const moduleId of Object.keys(chunk.modules)) {
+      if (cssModules.has(moduleId)) {
+        cssModuleIds.add(moduleId)
+      }
+
+      const imports = cssImportsByImporter.get(moduleId)
+      if (imports) {
+        for (const id of imports) {
+          cssModuleIds.add(id)
+        }
+      }
+    }
+  }
+
+  const code = Array.from(cssModuleIds, id => {
+    return cssModules.get(id)
+  }).join('\n')
+
+  if (code.length === 0) {
+    return {
+      size: 0,
+      gzip: 0,
+      stats: cssstats(code).toJSON(),
+    }
+  }
+
+  return {
+    size: Buffer.byteLength(code),
+    gzip: await gzipSize(code),
+    stats: cssstats(code).toJSON(),
   }
 }
 
