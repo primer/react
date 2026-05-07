@@ -215,7 +215,7 @@ describe('Markup', () => {
     expect(noDescription).not.toHaveAttribute('aria-describedby')
   })
 
-  it.skip('should include `aria-expanded` when a SubTree contains content', async () => {
+  it.todo('should include `aria-expanded` when a SubTree contains content', async () => {
     const user = userEvent.setup()
     const {getByLabelText, getByText} = renderWithTheme(
       <TreeView aria-label="Test tree">
@@ -273,7 +273,7 @@ describe('Markup', () => {
     expect(parentItem).toBeInTheDocument()
   })
 
-  it.skip('should move focus to current treeitem by default', async () => {
+  it.todo('should move focus to current treeitem by default', async () => {
     const user = userEvent.setup()
     const {getByRole} = renderWithTheme(
       <div>
@@ -305,7 +305,7 @@ describe('Markup', () => {
     expect(item2).toHaveFocus()
   })
 
-  it.skip('should toggle when receiving focus from chevron click', async () => {
+  it.todo('should toggle when receiving focus from chevron click', async () => {
     const user = userEvent.setup()
     const {getByRole} = renderWithTheme(
       <div>
@@ -349,7 +349,7 @@ describe('Markup', () => {
     expect(subItem1).toBeInTheDocument()
   })
 
-  it.skip("should move focus to first treeitem when focusing back in after clicking on a treeitem's secondary action", async () => {
+  it.todo("should move focus to first treeitem when focusing back in after clicking on a treeitem's secondary action", async () => {
     const user = userEvent.setup()
     const {getByRole, getByText} = renderWithTheme(
       <div>
@@ -1404,7 +1404,7 @@ describe('Asynchronous loading', () => {
     }
   })
 
-  it.skip('updates aria live region when loading is done', async () => {
+  it.todo('updates aria live region when loading is done', async () => {
     function TestTree() {
       const [state, setState] = React.useState<SubTreeState>('initial')
 
@@ -1517,7 +1517,7 @@ describe('Asynchronous loading', () => {
     expect(firstChild).toHaveFocus()
   })
 
-  it.skip('moves focus to parent item after closing error dialog', async () => {
+  it.todo('moves focus to parent item after closing error dialog', async () => {
     vi.useFakeTimers()
 
     function TestTree() {
@@ -1604,7 +1604,7 @@ describe('Asynchronous loading', () => {
     expect(parentItem).toHaveAttribute('aria-expanded', 'true')
   })
 
-  it.skip('should update `aria-expanded` if no content is loaded in', async () => {
+  it.todo('should update `aria-expanded` if no content is loaded in', async () => {
     function Example() {
       const [state, setState] = React.useState<SubTreeState>('loading')
       const timeoutId = React.useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -1773,7 +1773,7 @@ it('should have keyboard shortcut command as part of accessible name when using 
   expect(screen.getByRole('treeitem', {name: /for more actions\.$/})).toBeInTheDocument()
 })
 
-it.skip('should activate the dialog for trailing action when keyboard shortcut is used', async () => {
+it.todo('should activate the dialog for trailing action when keyboard shortcut is used', async () => {
   userEvent.setup()
   render(
     <TreeView aria-label="Files changed">
