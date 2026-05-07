@@ -20,24 +20,9 @@ function renderWithTheme(
 // Mock `scrollIntoView` because it's not implemented in JSDOM
 Element.prototype.scrollIntoView = vi.fn()
 
-afterEach(() => {
-  vi.useRealTimers()
-})
-
 describe('Markup', () => {
   implementsClassName(TreeView, classes.TreeViewRootUlStyles)
   implementsClassName(TreeView.Item, classes.TreeViewItem)
-
-  it('debugs TreeView render', () => {
-    const {container} = render(
-      <TreeView aria-label="Test tree">
-        <TreeView.Item id="item-1">Item 1</TreeView.Item>
-      </TreeView>,
-    )
-
-    screen.debug()
-    expect(container.innerHTML).not.toBe('')
-  })
 
   it('uses tree role', () => {
     const {queryByRole} = renderWithTheme(
@@ -223,6 +208,7 @@ describe('Markup', () => {
   })
 
   it('should include `aria-expanded` when a SubTree contains content', async () => {
+    const user = userEvent.setup()
     const {getByLabelText, getByText} = renderWithTheme(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="item-1">
@@ -240,13 +226,11 @@ describe('Markup', () => {
       </TreeView>,
     )
 
-    screen.debug()
-
     let treeitem = getByLabelText(/Item 1/)
     expect(treeitem).toHaveAttribute('aria-expanded', 'false')
 
     await act(async () => {
-      await userEvent.click(getByText(/Item 1/))
+      await user.click(getByText(/Item 1/))
     })
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
 
@@ -254,7 +238,7 @@ describe('Markup', () => {
     expect(treeitem).not.toHaveAttribute('aria-expanded')
 
     await act(async () => {
-      await userEvent.click(getByText(/Item 2/))
+      await user.click(getByText(/Item 2/))
     })
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
   })
@@ -282,6 +266,7 @@ describe('Markup', () => {
   })
 
   it('should move focus to current treeitem by default', async () => {
+    const user = userEvent.setup()
     const {getByRole} = renderWithTheme(
       <div>
         <button type="button">Focusable element</button>
@@ -298,13 +283,13 @@ describe('Markup', () => {
     // Focus button
     const button = getByRole('button', {name: /Focusable element/})
     await act(async () => {
-      await userEvent.click(button)
+      await user.click(button)
     })
     expect(button).toHaveFocus()
 
     // Move focus to tree
     await act(async () => {
-      await userEvent.tab()
+      await user.tab()
     })
 
     // Focus should be on current treeitem
@@ -313,6 +298,7 @@ describe('Markup', () => {
   })
 
   it('should toggle when receiving focus from chevron click', async () => {
+    const user = userEvent.setup()
     const {getByRole} = renderWithTheme(
       <div>
         <button type="button">Focusable element</button>
@@ -336,7 +322,7 @@ describe('Markup', () => {
     // Focus button
     const button = getByRole('button', {name: /Focusable element/})
     await act(async () => {
-      await userEvent.click(button)
+      await user.click(button)
     })
     expect(button).toHaveFocus()
 
@@ -356,6 +342,7 @@ describe('Markup', () => {
   })
 
   it("should move focus to first treeitem when focusing back in after clicking on a treeitem's secondary action", async () => {
+    const user = userEvent.setup()
     const {getByRole, getByText} = renderWithTheme(
       <div>
         <TreeView aria-label="Test tree">
@@ -375,20 +362,20 @@ describe('Markup', () => {
     // Click on treeitem's secondary action
     const item2Button = getByText(/Link in Item 2/i)
     await act(async () => {
-      await userEvent.click(item2Button)
+      await user.click(item2Button)
     })
     expect(item2Button).toHaveFocus()
 
     // Move focus to button outside of TreeView
     await act(async () => {
-      await userEvent.tab()
+      await user.tab()
     })
     const outerButton = getByRole('button', {name: /Focusable element/})
     expect(outerButton).toHaveFocus()
 
     // Move focus into TreeView. Focus should be on first treeitem
     await act(async () => {
-      await userEvent.tab({shift: true})
+      await user.tab({shift: true})
     })
     const item1 = getByRole('treeitem', {name: /Item 1/})
     expect(item1).toHaveFocus()
@@ -1448,8 +1435,8 @@ describe('Asynchronous loading', () => {
     const doneButton = getByRole('button', {name: 'Load'})
 
     // Click load button to mimic async loading
-    await act(async () => {
-      await userEvent.click(doneButton)
+    act(() => {
+      fireEvent.click(doneButton)
     })
 
     // Get live region after the first announcement creates it
@@ -1458,8 +1445,8 @@ describe('Asynchronous loading', () => {
     expect(liveRegion.getMessage('polite')).toBe('Parent content loading')
 
     // Click done button to mimic the completion of async loading
-    await act(async () => {
-      await userEvent.click(doneButton)
+    act(() => {
+      fireEvent.click(doneButton)
     })
 
     act(() => {
@@ -1565,8 +1552,8 @@ describe('Asynchronous loading', () => {
     })
 
     // Press esc to close error dialog
-    await act(async () => {
-      await userEvent.keyboard('{Escape}')
+    act(() => {
+      fireEvent.keyDown(dialog, {key: 'Escape'})
     })
 
     // Dialog should not be visible
@@ -1650,8 +1637,8 @@ describe('Asynchronous loading', () => {
 
     const treeitem = getByLabelText('Item 1')
     expect(treeitem).toHaveAttribute('aria-expanded', 'false')
-    await act(async () => {
-      await userEvent.click(getByText('Item 1'))
+    act(() => {
+      fireEvent.click(getByText('Item 1'))
     })
 
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
@@ -1783,6 +1770,7 @@ it('should have keyboard shortcut command as part of accessible name when using 
 })
 
 it('should activate the dialog for trailing action when keyboard shortcut is used', async () => {
+  userEvent.setup()
   render(
     <TreeView aria-label="Files changed">
       <TreeView.Item
