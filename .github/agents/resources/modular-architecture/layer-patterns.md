@@ -208,7 +208,105 @@ const dialog = useDialog({open, onClose})
 </dialog>
 ```
 
-### 3b: Foundation CSS
+### 3b: Unstyled components
+
+React components that wrap the compound hook and enforce structural accessibility via a component tree. No visual styling — consumers bring their own CSS. These mirror the sub-component names from Layer 2 Parts but ship from the `/foundations` entry point.
+
+#### Pattern
+
+```tsx
+import React, {createContext, useContext, useMemo} from 'react'
+import {use<Component>, type Use<Component>Options, type Use<Component>Return} from './use<Component>'
+
+// --- Context (internal only) ---
+
+interface <Component>FoundationContextValue {
+  foundation: Use<Component>Return
+}
+
+const <Component>FoundationContext = createContext<<Component>FoundationContextValue | null>(null)
+
+function use<Component>FoundationContext(): <Component>FoundationContextValue {
+  const ctx = useContext(<Component>FoundationContext)
+  if (!ctx) {
+    throw new Error('<Component> foundation components must be used within <<Component>.Root>')
+  }
+  return ctx
+}
+
+// --- Root ---
+
+interface RootProps extends Use<Component>Options {
+  children: React.ReactNode
+  className?: string
+}
+
+function Root({children, className, ...options}: RootProps) {
+  const foundation = use<Component>(options)
+  const rootProps = foundation.get<Component>Props()
+
+  const ctx = useMemo(() => ({foundation}), [foundation])
+
+  return (
+    <<Component>FoundationContext.Provider value={ctx}>
+      <<element> {...rootProps} className={className}>
+        {children}
+      </<element>>
+    </<Component>FoundationContext.Provider>
+  )
+}
+
+// --- Sub-components (Title, Description, Body, Close, etc.) ---
+
+function Title({children, className, ...props}: React.ComponentProps<'h2'>) {
+  const {foundation} = use<Component>FoundationContext()
+  const titleProps = foundation.getTitleProps()
+  return <h2 {...titleProps} className={className} {...props}>{children}</h2>
+}
+
+function Description({children, className, ...props}: React.ComponentProps<'p'>) {
+  const {foundation} = use<Component>FoundationContext()
+  const descriptionProps = foundation.getDescriptionProps()
+  return <p {...descriptionProps} className={className} {...props}>{children}</p>
+}
+
+function Body({children, className, ...props}: React.ComponentProps<'div'>) {
+  const {foundation} = use<Component>FoundationContext()
+  const bodyProps = foundation.getBodyProps()
+  return <div {...bodyProps} className={className} {...props}>{children}</div>
+}
+
+function Close({children, className, ...props}: React.ComponentProps<'button'>) {
+  const {foundation} = use<Component>FoundationContext()
+  const closeProps = foundation.getCloseProps()
+  return <button {...closeProps} className={className} {...props}>{children ?? '✕'}</button>
+}
+```
+
+#### Consumer usage
+
+```tsx
+// Foundation consumer — unstyled, bring your own CSS
+import {Dialog} from '@primer/react/foundations/experimental'
+
+<Dialog.Root open={open} onClose={onClose}>
+  <Dialog.Title className={styles.title}>Title</Dialog.Title>
+  <Dialog.Description className={styles.desc}>Subtitle</Dialog.Description>
+  <Dialog.Body className={styles.body}>Content</Dialog.Body>
+  <Dialog.Close className={styles.close}>✕</Dialog.Close>
+</Dialog.Root>
+```
+
+#### Rules
+
+- Unstyled components **do not add any visual styles** — no Primer tokens, no CSS Modules. Only the foundation CSS reset applies.
+- They enforce structural constraints that prop-getters alone cannot (e.g., title must be a descendant of the component root)
+- Context is internal — never exposed to consumers
+- Sub-component names mirror the Layer 2 Parts names for consistency
+- Accept `className` for consumer styling — pass it through, don't merge with anything
+- File: `packages/react/src/foundations/experimental/<Component>/<Component>.tsx`
+
+### 3c: Foundation CSS
 
 Minimal CSS reset. Zero visual opinion. Uses `:where()` for zero specificity.
 

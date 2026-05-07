@@ -102,11 +102,13 @@ The hook:
 - `initialFocusRef` / `returnFocusRef` — focus management
 - `closeOnBackdropClick` — opt-in backdrop dismiss (default `false`). Always require explicit opt-in — accidental dismissal of complex forms is a poor UX.
 
-#### 2b: Unstyled components (optional)
+#### 2b: Unstyled components
 
-React components with no visual styling that enforce structural accessibility constraints. These wrap the compound hook and provide a component tree with context-based ARIA wiring. **Unstyled components are optional** — the compound hook is the required Layer 3 API. Only add unstyled components if the user explicitly requests them or the repo already has this pattern for the component family.
+React components with no visual styling that enforce structural accessibility constraints. These wrap the compound hook and provide a component tree with context-based ARIA wiring. Similar to [Base UI](https://base-ui.com/) or [Radix Primitives](https://www.radix-ui.com/primitives).
 
-**Why both (when both exist):** Unstyled components cover the common case ("I want Primer's accessibility, but my own styles") and enforce structural constraints (e.g., title must be a descendant of dialog). The compound hook covers the advanced case ("I need full markup control") for integrating with other component systems.
+**Layer 3 always ships both APIs.** The unstyled components and the compound hook serve different consumers:
+- **Unstyled components** cover the common case: "I want Primer's accessibility, but my own styles." They enforce structural constraints (e.g., title must be a descendant of dialog) and are self-documenting in JSX.
+- **The compound hook** covers the advanced case: "I need full markup control." Useful for integrating with other component systems or building non-standard layouts.
 
 **Foundation CSS:** Each foundation ships a minimal CSS reset that removes browser defaults without adding visual opinion. Use `:where()` selectors for zero specificity so consumer styles always win.
 
@@ -114,10 +116,12 @@ React components with no visual styling that enforce structural accessibility co
 ```
 packages/react/src/foundations/experimental/<Component>/
 ├── use<Component>.ts              # Compound hook (prop-getters)
+├── <Component>.tsx                 # Unstyled components (wrap the hook)
 ├── <Component>Foundation.css       # Minimal CSS reset
 ├── index.ts                        # Re-exports
 └── __tests__/
-    └── use<Component>.test.tsx     # Tests for the compound hook
+    ├── use<Component>.test.tsx     # Tests for the compound hook
+    └── <Component>.test.tsx        # Tests for unstyled components
 ```
 
 ### Step 3: Build Layer 2 — Parts
@@ -207,15 +211,16 @@ Check `packages/react/package.json` `exports` field for the required subpaths (`
 
 Create Storybook stories for each layer that has a consumer-facing API:
 
-- **Foundation stories** — demonstrate the compound hook with consumer-owned markup and inline styles. Show that the hook provides behaviour and ARIA without imposing UI.
+- **Foundation hook stories** — demonstrate the compound hook with consumer-owned markup and inline styles. Show that the hook provides behaviour and ARIA without imposing UI.
+- **Foundation component stories** — demonstrate the unstyled components with consumer-owned CSS classes. Show that they enforce structural constraints whilst remaining visually unopinionated.
 - **Parts stories** — demonstrate the compound component API with Primer styling. Cover sizes, positions, nested usage.
 - **Ready-made stories** (if L1 exists) — demonstrate the props-based API. Cover common configurations.
-- **Hook inspector stories** (optional) — show prop-getter return values changing as the user interacts. Useful for debugging and documentation.
 
 ### Step 7: Create tests
 
 - **Layer 4 hooks** — unit tests for each hook in isolation
-- **Layer 3 foundation** — test the compound hook via a minimal test harness. Cover: ARIA attributes, focus management, keyboard interaction, lifecycle (open/close/reopen), dev-mode warnings
+- **Layer 3 foundation hook** — test the compound hook via a minimal test harness. Cover: ARIA attributes, focus management, keyboard interaction, lifecycle (open/close/reopen), dev-mode warnings
+- **Layer 3 foundation components** — test the unstyled components render correct structure, wire ARIA via context, and enforce constraints
 - **Layer 2 Parts** — test compound component rendering, context wiring, `data-component` selectors
 - **Layer 1 Ready-made** — test that props correctly compose into Parts children
 
