@@ -26,12 +26,12 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
   return <StyledThemeProvider {...props}>{children}</StyledThemeProvider>
 }
 
-export function useTheme() {
+export function useTheme(): ReturnType<typeof styledUseTheme> {
   const enabled = useFeatureFlag('primer_react_styled_react_use_primer_theme_providers')
   const styledTheme = styledUseTheme()
   const primerTheme = primerUseTheme()
   if (enabled) {
-    return primerTheme
+    return primerTheme as ReturnType<typeof styledUseTheme>
   }
   return styledTheme
 }
