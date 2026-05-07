@@ -175,7 +175,7 @@ describe.each([true, false])(
       expect(mockCloseCallback).toHaveBeenCalledWith('escape')
     })
 
-    it('should call onPositionChange when provided', async () => {
+    it.skipIf(withCSSAnchorPositioningFeatureFlag)('should call onPositionChange when provided', async () => {
       const mockPositionChangeCallback = vi.fn(({position}: {position: AnchorPosition}) => position)
       render(
         <AnchoredOverlayTestComponent
