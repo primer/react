@@ -7,6 +7,7 @@ export function useRovingTabIndex(
     containerRef,
     mouseDownRef,
     focusOutBehavior,
+    preventScroll = true,
     wrapAround = false,
   }: {
     containerRef: React.RefObject<HTMLElement | null>
@@ -27,7 +28,7 @@ export function useRovingTabIndex(
         FocusKeys.HomeAndEnd |
         FocusKeys.Backspace |
         FocusKeys.PageUpDown,
-      preventScroll: true,
+      preventScroll,
       getNextFocusable: (direction, from, event) => {
         if (!(from instanceof HTMLElement)) return
 
