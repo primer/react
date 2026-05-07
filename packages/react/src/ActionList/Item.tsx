@@ -80,8 +80,8 @@ const baseSlots = {
 const slotsConfig = {...baseSlots, description: Description}
 
 // Pre-allocated array for selectableRoles check, avoids per-render allocation
-const selectableRoles = ['menuitemradio', 'menuitemcheckbox', 'option']
-const listRoleTypes = ['listbox', 'menu', 'list']
+const selectableRoles = ['menuitemradio', 'menuitemcheckbox', 'option', 'treeitem']
+const listRoleTypes = ['listbox', 'menu', 'list', 'tree']
 
 const UnwrappedItem = <As extends React.ElementType = 'li'>(
   {
