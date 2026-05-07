@@ -91,8 +91,8 @@ async function main() {
     for (const identifier of output[0].exports) {
       core.info(`Analyzing export: ${identifier}`)
 
-      const cssModules = new Map()
-      const cssImportsByImporter = new Map()
+      const exportCSSModules = new Map()
+      const exportCSSImportsByImporter = new Map()
       const reexport = await rollup({
         input: '__entrypoint__',
         external,
@@ -101,7 +101,7 @@ async function main() {
           commonjs({
             include: /node_modules/,
           }),
-          createCSSModulesCollector(cssModules, cssImportsByImporter),
+          createCSSModulesCollector(exportCSSModules, exportCSSImportsByImporter),
           json(),
           virtual({
             __entrypoint__: `export { ${identifier} } from '${filepath}';`,
@@ -113,7 +113,7 @@ async function main() {
         format: 'esm',
       })
       const minified = await minify(output[0].code)
-      const css = await getCSSInfo(cssModules, cssImportsByImporter, output[0])
+      const css = await getCSSInfo(exportCSSModules, exportCSSImportsByImporter, output[0])
 
       exports.push({
         identifier,
@@ -265,7 +265,20 @@ async function getCSSInfo(cssModules, cssImportsByImporter, chunk) {
     return {
       size: 0,
       gzip: 0,
-      stats: cssstats(code).toJSON(),
+      stats: {
+        rules: {
+          total: 0,
+        },
+        selectors: {
+          total: 0,
+          specificity: {
+            max: 0,
+          },
+        },
+        declarations: {
+          total: 0,
+        },
+      },
     }
   }
 
