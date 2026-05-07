@@ -223,6 +223,7 @@ Minimal CSS reset. Zero visual opinion. Uses `:where()` for zero specificity.
   background: transparent;
   max-width: unset;
   max-height: unset;
+  overflow: visible;
   color: inherit;
 }
 
@@ -231,7 +232,7 @@ Minimal CSS reset. Zero visual opinion. Uses `:where()` for zero specificity.
 }
 ```
 
-The foundation hook adds the `data-<component>-foundation` attribute via its root prop-getter so the reset CSS applies automatically.
+The foundation hook adds the `data-<component>-foundation` attribute via its root prop-getter so the reset CSS applies automatically. Note `overflow: visible` and `color: inherit` — these prevent the browser from clipping content and overriding text colour.
 
 ### Rules
 
@@ -377,6 +378,10 @@ export const <Component>Parts = Object.assign(Root, {
   border: none;
   padding: 0;
   background: transparent;
+  max-width: unset;
+  max-height: unset;
+  overflow: visible;
+  color: inherit;
 
   &::backdrop {
     background-color: var(--overlay-backdrop-bgColor);
@@ -387,28 +392,54 @@ export const <Component>Parts = Object.assign(Root, {
 .Content {
   display: flex;
   flex-direction: column;
+  /* stylelint-disable-next-line primer/responsive-widths */
+  width: 640px;                    /* default = xlarge */
+  min-width: 296px;
+  max-width: calc(100dvw - 64px);
+  height: auto;
+  max-height: calc(100dvh - 64px);
   background-color: var(--overlay-bgColor);
   border-radius: var(--borderRadius-large);
   box-shadow: var(--shadow-floating-small);
+  opacity: 1;
 
-  /* Width variants via data attributes */
+  /* Width variants via data attributes — use :where() for zero specificity */
   &:where([data-width='small']) { width: 296px; }
   &:where([data-width='medium']) { width: 320px; }
-  &:where([data-width='large']) { width: 480px; }
+  &:where([data-width='large']) { /* stylelint-disable-next-line primer/responsive-widths */ width: 480px; }
+  /* xlarge is the default (640px) — no override needed */
+
+  /* Height variants */
+  &:where([data-height='small']) { height: 480px; }
+  &:where([data-height='large']) { height: 640px; }
 }
 
 .Header {
+  z-index: 1;                      /* Stay above scrolling body */
   display: flex;
+  max-height: 35vh;                /* Prevent oversized headers */
   padding: var(--base-size-8);
+  overflow-y: auto;
   box-shadow: 0 1px 0 var(--borderColor-default);
   flex-shrink: 0;
 }
 
 .Title {
   margin: 0;
+  padding-inline: var(--base-size-8);
+  padding-block: var(--base-size-6);
   font-size: var(--text-body-size-medium);
   font-weight: var(--text-title-weight-large);
   flex-grow: 1;
+}
+
+.Subtitle {
+  margin: 0;
+  margin-top: var(--base-size-4);
+  padding-inline: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-normal);
+  color: var(--fgColor-muted);
 }
 
 .Body {
@@ -418,6 +449,7 @@ export const <Component>Parts = Object.assign(Root, {
 }
 
 .Footer {
+  z-index: 1;                      /* Stay above scrolling body */
   display: flex;
   flex-flow: wrap;
   justify-content: flex-end;
@@ -426,6 +458,13 @@ export const <Component>Parts = Object.assign(Root, {
   flex-shrink: 0;
 }
 ```
+
+**Key CSS details:**
+- Root needs `overflow: visible` and `color: inherit` to prevent browser defaults from clipping content or overriding text colour
+- Default width is `640px` (xlarge) — this is the most common dialog size
+- Header and Footer get `z-index: 1` to stay above the scrolling body
+- Header has `max-height: 35vh` to prevent oversized headers from pushing body off-screen
+- **Subtitle is rendered outside the Header** (below the header border), not inside it. This is a structural decision: the header contains Title + CloseButton, while Subtitle sits between header and body
 
 ### Rules
 
@@ -510,14 +549,52 @@ interface ContentProps {
 Map responsive values to `data-position-{breakpoint}` attributes and style them with CSS media queries:
 
 ```css
+/* Side sheet positions */
+&[data-position-regular='left'] {
+  height: 100dvh;
+  max-height: unset;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+
+  @media screen and (prefers-reduced-motion: no-preference) {
+    animation: dialog-content-slideInRight 0.25s cubic-bezier(0.33, 1, 0.68, 1);
+  }
+}
+
+&[data-position-regular='right'] {
+  height: 100dvh;
+  max-height: unset;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+
+  @media screen and (prefers-reduced-motion: no-preference) {
+    animation: dialog-content-slideInLeft 0.25s cubic-bezier(0.33, 1, 0.68, 1);
+  }
+}
+
+/* Narrow viewport overrides */
 @media (max-width: 767px) {
+  &[data-position-narrow='bottom'] {
+    width: 100dvw;
+    max-width: 100dvw;
+    height: auto;
+    max-height: calc(100dvh - 64px);
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
   &[data-position-narrow='fullscreen'] {
     width: 100%;
+    max-width: 100dvw;
     height: 100%;
+    max-height: 100dvh;
     border-radius: unset;
+    flex-grow: 1;
   }
 }
 ```
+
+Include appropriate `@keyframes` for slide-in animations (slideInLeft, slideInRight, slideUp) and scale-fade for the default center position. Always wrap animations in `@media screen and (prefers-reduced-motion: no-preference)`.
 
 ---
 

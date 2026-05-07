@@ -134,6 +134,7 @@ Styled JSX components for Primer-opinionated composition. Parts wrap Layer 3 fou
 - Use `clsx` for className merging
 - Use existing Primer components where appropriate (e.g., `Button` from `../../Button`, `IconButton`, Octicons) — don't re-implement HTML buttons with custom styling when Primer already has the component
 - Keep sub-components composable — don't bake one sub-component into another. For example, `Header` should accept `Title` and `CloseButton` as children, not render `CloseButton` internally. This lets consumers control placement and omission.
+- **Subtitle placement:** Subtitle is rendered outside the Header, not inside it. The Header contains Title + CloseButton; Subtitle sits between Header and Body (below the header's bottom border). This gives it distinct visual separation from the header group.
 
 **Sub-component naming:** Flat exports — `DialogRoot`, `DialogHeader`, `DialogTitle` — are the goal for React Server Components compatibility. The `Object.assign` pattern for dot-notation breaks in RSC (property access on a client reference returns `undefined`). However, the current convention in the repo is a composed export using `Object.assign`:
 
@@ -173,6 +174,7 @@ A props-based convenience wrapper. The simplest way to use the component — pas
 - Config props (like `footerButtons`) render as Parts children internally
 - Forward all behavioural props from the foundation (e.g., `returnFocusRef`, `closeOnBackdropClick`) — don't silently drop options that the lower layers support
 - Use existing Primer components (e.g., `Button`) for rendering footer buttons — match the `variant` prop to Primer's button API
+- Define a dedicated button props type (e.g., `DialogButtonProps`) that extends Primer's `ButtonProps` with convenience fields like `buttonType` (mapped to `variant`) and `content` (the label). This gives consumers a clean API without needing to know Primer's internal Button prop names.
 
 **File location:** Same directory as Parts:
 ```
