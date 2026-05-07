@@ -1,6 +1,5 @@
 ---
 "@primer/react": patch
-"@primer/styled-react": patch
 ---
 
-chore: forward @primer/react theming from @primer/styled-react under FF
+chore: add `primer_react_css_modules_theming` feature flag to DefaultFeatureFlags
