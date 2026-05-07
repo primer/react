@@ -252,9 +252,7 @@ describe('Markup', () => {
 
     console.log('========== DEBUG STATEMENT #1 ==========')
 
-    await act(async () => {
-      await user.click(getByText(/Item 1/))
-    })
+    await user.click(getByText(/Item 1/))
 
     console.log('========== DEBUG STATEMENT #2 ==========')
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
