@@ -1,5 +1,25 @@
 # @primer/react
 
+## 38.22.0
+
+### Minor Changes
+
+- [#7755](https://github.com/primer/react/pull/7755) [`0e868f9`](https://github.com/primer/react/commit/0e868f9c34ee6d073485e81651a16e92d3ff822c) Thanks [@francinelucca](https://github.com/francinelucca)! - feat: add ActionList, SelectPanel primitives exports and new FilteredActionList.Input components
+
+### Patch Changes
+
+- [#7797](https://github.com/primer/react/pull/7797) [`3e05935`](https://github.com/primer/react/commit/3e059351a65b18e99d006facc1863feb94be0a7e) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Breadcrumbs overflow menu no longer appears when there are only two crumb items.
+
+- [#7511](https://github.com/primer/react/pull/7511) [`eb73dee`](https://github.com/primer/react/commit/eb73deea0c9f8fb0fdb44b28445eebc748a39443) Thanks [@RSoeborg](https://github.com/RSoeborg)! - Fix NavList parent item flicker during static-to-interactive transitions when navigating between current sub-items in a SubNav.
+
+- [#7619](https://github.com/primer/react/pull/7619) [`68aaf61`](https://github.com/primer/react/commit/68aaf617ebbeeb36aa5a7eb4b696d0061f6c2674) Thanks [@hectahertz](https://github.com/hectahertz)! - Memoize ActionMenu context values to prevent unnecessary re-renders of menu items
+
+- [#7708](https://github.com/primer/react/pull/7708) [`d0fa0ff`](https://github.com/primer/react/commit/d0fa0ff2301b3db7a4b66e7aabf3ff544ffb4ef2) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(css): audit :has() selectors and add stylelint guard for Safari
+
+- [#7775](https://github.com/primer/react/pull/7775) [`4b7e4ca`](https://github.com/primer/react/commit/4b7e4ca0fe1dcbb687fff94a9c8cfe6951bb08f7) Thanks [@TylerJDev](https://github.com/TylerJDev)! - AnchoredOverlay: Ensure styles persist on anchors even when re-mounted (behind feature flag)
+
+- [#7780](https://github.com/primer/react/pull/7780) [`8330aad`](https://github.com/primer/react/commit/8330aadeba6231bf916a9c93757f89018838ebb4) Thanks [@francinelucca](https://github.com/francinelucca)! - fix: Checkbox indeterminate state now persists on click if the state didn't change
+
 ## 38.21.1
 
 ### Patch Changes
