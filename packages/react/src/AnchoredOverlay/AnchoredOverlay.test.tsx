@@ -1,6 +1,6 @@
 import {act, createRef, useCallback, useRef, useState} from 'react'
 import {describe, expect, it, vi} from 'vitest'
-import {render} from '@testing-library/react'
+import {render, waitFor} from '@testing-library/react'
 import {userEvent} from 'vitest/browser'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'
@@ -577,7 +577,7 @@ describe('AnchoredOverlay CSS anchor positioning viewport handling', () => {
 })
 
 describe('AnchoredOverlay anchor element replacement', () => {
-  it('should re-apply anchor-name to a new anchor DOM element when the overlay reopens', () => {
+  it('should re-apply anchor-name to a new anchor DOM element when the overlay reopens', async () => {
     function TestComponent() {
       const anchorRef = useRef<HTMLButtonElement>(null)
       const [open, setOpen] = useState(true)
@@ -633,6 +633,8 @@ describe('AnchoredOverlay anchor element replacement', () => {
 
     const newAnchor = baseElement.querySelector('[data-testid="anchor"]') as HTMLElement
     expect(newAnchor).not.toBe(initialAnchor)
-    expect(newAnchor.style.getPropertyValue('anchor-name')).toBe(anchorName)
+    await waitFor(() => {
+      expect(newAnchor.style.getPropertyValue('anchor-name')).toBe(anchorName)
+    })
   })
 })

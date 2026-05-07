@@ -340,9 +340,7 @@ describe('ActionMenu', () => {
     const button = component.getByRole('button')
 
     const user = userEvent.setup()
-    await act(async () => {
-      await user.click(button)
-    })
+    await user.click(button)
 
     expect(component.queryByRole('menu')).toBeInTheDocument()
     const menuItems = component.getAllByRole('menuitem')
@@ -355,13 +353,11 @@ describe('ActionMenu', () => {
     await user.keyboard('{ArrowDown}')
     expect(menuItems[1]).toEqual(document.activeElement)
 
-    await act(async () => {
-      // TODO: Removed one ArrowDown to account for the focus trap starting at the second element
-      // await user.keyboard('{ArrowDown}')
-      await user.keyboard('{ArrowDown}')
-      await user.keyboard('{ArrowDown}')
-      await user.keyboard('{ArrowDown}')
-    })
+    // TODO: Removed one ArrowDown to account for the focus trap starting at the second element
+    // await user.keyboard('{ArrowDown}')
+    await user.keyboard('{ArrowDown}')
+    await user.keyboard('{ArrowDown}')
+    await user.keyboard('{ArrowDown}')
     expect(menuItems[menuItems.length - 1]).toEqual(document.activeElement) // last elememt
 
     await user.keyboard('{ArrowDown}')

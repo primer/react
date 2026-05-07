@@ -1,5 +1,5 @@
 import type React from 'react'
-import {render, waitFor} from '@testing-library/react'
+import {act, render, waitFor} from '@testing-library/react'
 import {describe, it, expect, vi} from 'vitest'
 import BaseStyles from '../BaseStyles'
 import {LabelGroup, Label} from '..'
@@ -14,6 +14,20 @@ const AutoTruncateContainer: React.FC<React.PropsWithChildren & {width?: number}
 )
 
 const observe = vi.fn()
+
+const mockResizeObserver = () => {
+  const originalResizeObserver = window.ResizeObserver
+  window.ResizeObserver = vi.fn(function () {
+    return {
+      observe: vi.fn(),
+      unobserve: vi.fn(),
+      disconnect: vi.fn(),
+    }
+  }) as unknown as typeof ResizeObserver
+  return () => {
+    window.ResizeObserver = originalResizeObserver
+  }
+}
 
 describe('LabelGroup', () => {
   implementsClassName(LabelGroup, classes.Container)
@@ -78,7 +92,9 @@ describe('LabelGroup', () => {
 
   it('should expand all tokens into an overlay when overflowStyle="overlay"', async () => {
     const user = userEvent.setup()
-    const {getByLabelText, getByText} = render(
+    const restoreResizeObserver = mockResizeObserver()
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
+    const {getByLabelText, getByText, unmount} = render(
       <ThemeAndStyleContainer>
         <LabelGroup visibleChildCount={3} overflowStyle="overlay">
           <Label>One</Label>
@@ -99,6 +115,11 @@ describe('LabelGroup', () => {
     await waitFor(() => {
       expect(getByText('+2').closest('button')).toHaveFocus()
     })
+    act(() => {
+      unmount()
+    })
+    consoleError.mockRestore()
+    restoreResizeObserver()
   })
 
   it('should expand all tokens in place when overflowStyle="inline"', async () => {

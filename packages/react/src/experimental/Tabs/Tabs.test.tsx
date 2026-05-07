@@ -66,7 +66,6 @@ describe('Tabs', () => {
   })
 
   test('onValueChange is called when tab changes', async () => {
-    const user = userEvent.setup()
     const onValueChange = vi.fn()
 
     render(
@@ -81,7 +80,7 @@ describe('Tabs', () => {
     )
 
     const tabB = screen.getByRole('tab', {name: 'Tab B'})
-    await user.click(tabB)
+    fireEvent.mouseDown(tabB)
 
     expect(onValueChange).toHaveBeenCalledWith({value: 'b'})
     expect(onValueChange).toHaveBeenCalledTimes(1)
