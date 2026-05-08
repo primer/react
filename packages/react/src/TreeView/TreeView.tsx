@@ -502,23 +502,17 @@ const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children
   const previousState = usePreviousValue(state)
   const {safeSetTimeout} = useSafeTimeout()
 
-  React.useEffect(() => {
-    console.log('effect one')
-    // If `state` is undefined, we're working in a synchronous context and need
-    // to detect if the sub-tree has content. If `state === 'done` then we're
-    // working in an asynchronous context and need to see if there is content
-    // that has been loaded in.
-    if (state === undefined || state === 'done') {
-      console.log('effect one: 1')
-      if (!isSubTreeEmpty && !children) {
-        console.log('effect one: 2')
-        setIsSubTreeEmpty(true)
-      } else if (isSubTreeEmpty && children) {
-        console.log('effect one: 3')
-        setIsSubTreeEmpty(false)
-      }
+  // If `state` is undefined, we're working in a synchronous context and need
+  // to detect if the sub-tree has content. If `state === 'done` then we're
+  // working in an asynchronous context and need to see if there is content
+  // that has been loaded in.
+  if (state === undefined || state === 'done') {
+    if (!isSubTreeEmpty && !children) {
+      setIsSubTreeEmpty(true)
+    } else if (isSubTreeEmpty && children) {
+      setIsSubTreeEmpty(false)
     }
-  }, [state, isSubTreeEmpty, setIsSubTreeEmpty, children])
+  }
 
   // Handle transition from loading to done state
   React.useEffect(() => {
