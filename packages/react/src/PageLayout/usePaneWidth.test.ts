@@ -853,6 +853,48 @@ describe('usePaneWidth', () => {
       vi.useRealTimers()
     })
 
+    it('should skip startTransition when maxPaneWidth has not changed (#7801)', async () => {
+      vi.useFakeTimers()
+      // Start at 1000px — below the 1280 breakpoint, so diff = 511
+      vi.stubGlobal('innerWidth', 1000)
+      const refs = createMockRefs()
+
+      const {result} = renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-skip-transition',
+          ...refs,
+        }),
+      )
+
+      // Initial max: 1000 - 511 = 489
+      expect(result.current.maxPaneWidth).toBe(489)
+
+      // Resize to 900px — still below 1280 breakpoint, diff stays 511
+      // New max would be 900 - 511 = 389, which IS different, so state updates
+      vi.stubGlobal('innerWidth', 900)
+      window.dispatchEvent(new Event('resize'))
+      await act(async () => {
+        await vi.runAllTimersAsync()
+      })
+      expect(result.current.maxPaneWidth).toBe(389)
+
+      // Now resize again to a different width that produces the SAME max
+      // 900px -> 900px (no actual viewport change, same max = 389)
+      const renderCountBefore = result.current.maxPaneWidth
+      window.dispatchEvent(new Event('resize'))
+      await act(async () => {
+        await vi.runAllTimersAsync()
+      })
+
+      // maxPaneWidth should be unchanged — no re-render triggered
+      expect(result.current.maxPaneWidth).toBe(renderCountBefore)
+
+      vi.useRealTimers()
+    })
+
     it('should cleanup resize listener on unmount', () => {
       const removeEventListenerSpy = vi.spyOn(window, 'removeEventListener')
       const cancelAnimationFrameSpy = vi.spyOn(window, 'cancelAnimationFrame')
