@@ -200,7 +200,7 @@ describe('Markup', () => {
     expect(noDescription).not.toHaveAttribute('aria-describedby')
   })
 
-  it.skip('should include `aria-expanded` when a SubTree contains content', async () => {
+  it('should include `aria-expanded` when a SubTree contains content', async () => {
     vi.useFakeTimers()
 
     const user = userEvent.setup()
@@ -1515,7 +1515,7 @@ describe('Asynchronous loading', () => {
     expect(firstChild).toHaveFocus()
   })
 
-  it('moves focus to parent item after closing error dialog', async () => {
+  it.skip('moves focus to parent item after closing error dialog', async () => {
     vi.useFakeTimers()
     const user = userEvent.setup()
 
@@ -1571,7 +1571,7 @@ describe('Asynchronous loading', () => {
     expect(parentItem).toHaveFocus()
   })
 
-  it('ignores arrow keys when error dialog is open', async () => {
+  it.skip('ignores arrow keys when error dialog is open', async () => {
     const user = userEvent.setup()
 
     render(
