@@ -221,7 +221,7 @@ describe('Markup', () => {
       </TreeView>,
     )
 
-    let treeitem = screen.getByLabelText(/Item 1/)
+    let treeitem = screen.getByRole('treeitem', {name: /Item 1/})
     expect(treeitem).toHaveAttribute('aria-expanded', 'false')
 
     await act(async () => {

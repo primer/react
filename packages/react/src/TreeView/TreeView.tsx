@@ -492,7 +492,6 @@ export type TreeViewSubTreeProps = {
 }
 
 const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children, 'aria-label': ariaLabel}) => {
-  console.log('Subtree')
   const {announceUpdate} = React.useContext(RootContext)
   const {itemId, isExpanded, isSubTreeEmpty, setIsSubTreeEmpty} = React.useContext(ItemContext)
   const loadingItemRef = React.useRef<HTMLElement>(null)
@@ -503,18 +502,14 @@ const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children
   const {safeSetTimeout} = useSafeTimeout()
 
   React.useEffect(() => {
-    console.log('effect one')
     // If `state` is undefined, we're working in a synchronous context and need
     // to detect if the sub-tree has content. If `state === 'done` then we're
     // working in an asynchronous context and need to see if there is content
     // that has been loaded in.
     if (state === undefined || state === 'done') {
-      console.log('effect one: 1')
       if (!isSubTreeEmpty && !children) {
-        console.log('effect one: 2')
         setIsSubTreeEmpty(true)
       } else if (isSubTreeEmpty && children) {
-        console.log('effect one: 3')
         setIsSubTreeEmpty(false)
       }
     }
@@ -522,53 +517,39 @@ const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children
 
   // Handle transition from loading to done state
   React.useEffect(() => {
-    console.log('effect two')
     const parentElement = document.getElementById(itemId)
-    if (!parentElement) {
-      console.log('effect two: 1')
-      return
-    }
+    if (!parentElement) return
 
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setSubTreeLabel(getAccessibleName(parentElement))
     if (previousState === 'loading' && state === 'done') {
-      console.log('effect two: 2')
       // Announce update to screen readers
       const parentName = getAccessibleName(parentElement)
 
       if (ref.current?.childElementCount) {
-        console.log('effect two: 2a')
         announceUpdate(`${parentName} content loaded`)
       } else {
-        console.log('effect two: 2b')
         announceUpdate(`${parentName} is empty`)
       }
 
       // Move focus to the first child if the loading indicator
       // was focused when the async items finished loading
       if (loadingFocused) {
-        console.log('effect two: 2c')
         const firstChild = getFirstChildElement(parentElement)
 
         if (firstChild) {
-          console.log('effect two: 2d')
           safeSetTimeout(() => {
-            console.log('effect two: 2e')
             firstChild.focus()
           })
         } else {
-          console.log('effect two: 2f')
           safeSetTimeout(() => {
-            console.log('effect two: 2g')
             parentElement.focus()
           })
         }
 
-        console.log('effect two: 2h')
         setLoadingFocused(false)
       }
     } else if (state === 'loading') {
-      console.log('effect two: 3')
       const parentName = getAccessibleName(parentElement)
       announceUpdate(`${parentName} content loading`)
     }
@@ -576,34 +557,24 @@ const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children
 
   // Track focus on the loading indicator
   React.useEffect(() => {
-    console.log('effect three')
     function handleFocus() {
-      console.log('effect three: 1')
       setLoadingFocused(true)
     }
 
     function handleBlur(event: FocusEvent) {
-      console.log('effect three: 2')
       // Skip blur events that are caused by the element being removed from the DOM.
       // This can happen when the loading indicator is focused when async items are
       // done loading and the loading indicator is removed from the DOM.
       // If `loadingFocused` is `true` when `state` is `"done"` then the loading indicator
       // was focused when the async items finished loading and we need to move focus to the
       // first child.
-      if (!event.relatedTarget) {
-        console.log('effect three: 2a')
-        return
-      }
-      console.log('effect three: 2b')
+      if (!event.relatedTarget) return
 
       setLoadingFocused(false)
     }
 
     const loadingElement = loadingItemRef.current
-    if (!loadingElement) {
-      console.log('effect three: 3')
-      return
-    }
+    if (!loadingElement) return
 
     loadingElement.addEventListener('focus', handleFocus)
     loadingElement.addEventListener('blur', handleBlur)
