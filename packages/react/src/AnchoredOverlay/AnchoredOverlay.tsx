@@ -189,6 +189,10 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     setAnchorElement(anchorRef.current)
   }
   useIsomorphicLayoutEffect(() => {
+    // When the anchor is rendered outside AnchoredOverlay (`renderAnchor === null`),
+    // React 19 can replace the DOM node while the overlay stays open without
+    // re-running the render-time ref sync above. Track that post-commit swap so
+    // the CSS anchor-positioning effects re-apply to the new external anchor.
     if (renderAnchor !== null) return
     if (anchorRef.current !== lastExternalAnchorElementRef.current) {
       lastExternalAnchorElementRef.current = anchorRef.current
