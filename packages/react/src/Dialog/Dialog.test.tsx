@@ -66,6 +66,34 @@ describe('Dialog', () => {
     expect(getByRole('dialog')).toHaveAttribute('data-component', 'ConfirmationDialog')
   })
 
+  it('renders data-component hooks for Dialog subcomponents', () => {
+    const {getByRole} = render(
+      <Dialog
+        onClose={() => {}}
+        title="Title"
+        subtitle="Subtitle"
+        renderHeader={props => (
+          <Dialog.Header>
+            <Dialog.Title id={props.dialogLabelId}>{props.title}</Dialog.Title>
+            <Dialog.Subtitle id={props.dialogDescriptionId}>{props.subtitle}</Dialog.Subtitle>
+            <Dialog.CloseButton onClose={() => {}} />
+          </Dialog.Header>
+        )}
+        renderBody={() => <Dialog.Body>Body</Dialog.Body>}
+        renderFooter={() => <Dialog.Footer>Footer</Dialog.Footer>}
+      />,
+    )
+
+    const dialog = getByRole('dialog')
+
+    expect(dialog.querySelector('[data-component="Dialog.Header"]')).toBeInTheDocument()
+    expect(dialog.querySelector('[data-component="Dialog.Title"]')).toBeInTheDocument()
+    expect(dialog.querySelector('[data-component="Dialog.Subtitle"]')).toBeInTheDocument()
+    expect(dialog.querySelector('[data-component="Dialog.CloseButton"]')).toBeInTheDocument()
+    expect(dialog.querySelector('[data-component="Dialog.Body"]')).toBeInTheDocument()
+    expect(dialog.querySelector('[data-component="Dialog.Footer"]')).toBeInTheDocument()
+  })
+
   it('adds a Dialog-scoped data-component hook for footer buttons (and not for body buttons)', () => {
     const {getByRole, getByText} = render(
       <Dialog
