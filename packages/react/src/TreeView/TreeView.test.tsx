@@ -225,21 +225,18 @@ describe('Markup', () => {
     expect(treeitem).toHaveAttribute('aria-expanded', 'false')
 
     await act(async () => {
-      console.log('one')
-      // await user.click(treeitem)
-      fireEvent.click(treeitem)
-      console.log('two')
+      await user.click(treeitem)
       await vi.runAllTimersAsync()
-      console.log('three')
     })
-    console.log('four')
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
 
     treeitem = screen.getByLabelText(/Item 2/)
     expect(treeitem).not.toHaveAttribute('aria-expanded')
 
     await act(async () => {
+      console.log('before')
       await user.click(treeitem)
+      console.log('after')
     })
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
   })
