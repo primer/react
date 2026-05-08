@@ -2,6 +2,7 @@ import {describe, it, expect, vi} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {ActionList} from '.'
+import {ActionListContainerContext} from './ActionListContainerContext'
 import {implementsClassName} from '../utils/testing'
 import classes from './ActionList.module.css'
 
@@ -422,5 +423,161 @@ describe('ActionList data-component attributes', () => {
 
     const trailingAction = container.querySelector('[data-component="ActionList.TrailingAction"]')
     expect(trailingAction).toBeInTheDocument()
+  })
+})
+
+describe('ActionList with role="tree"', () => {
+  it('applies role="tree" to the list', () => {
+    const {container} = HTMLRender(
+      <ActionList role="tree" aria-label="File tree">
+        <ActionList.Item role="treeitem">Item 1</ActionList.Item>
+        <ActionList.Item role="treeitem">Item 2</ActionList.Item>
+      </ActionList>,
+    )
+
+    const tree = container.querySelector('[role="tree"]')
+    expect(tree).toBeInTheDocument()
+    expect(tree).toHaveAccessibleName('File tree')
+  })
+
+  it('applies role="treeitem" to items', () => {
+    const {container} = HTMLRender(
+      <ActionList role="tree" aria-label="File tree">
+        <ActionList.Item role="treeitem">Item 1</ActionList.Item>
+        <ActionList.Item role="treeitem">Item 2</ActionList.Item>
+      </ActionList>,
+    )
+
+    const treeitems = container.querySelectorAll('[role="treeitem"]')
+    expect(treeitems).toHaveLength(2)
+  })
+
+  it('renders items with list semantics (div container, not button)', () => {
+    const {container} = HTMLRender(
+      <ActionList role="tree" aria-label="File tree">
+        <ActionList.Item role="treeitem">Item 1</ActionList.Item>
+      </ActionList>,
+    )
+
+    const treeitem = container.querySelector('[role="treeitem"]')
+    expect(treeitem).toBeInTheDocument()
+    // Items with tree role should not render as buttons
+    expect(treeitem?.tagName).not.toBe('BUTTON')
+  })
+
+  it('applies aria-selected for single selection with treeitem role', () => {
+    const {container} = HTMLRender(
+      <ActionListContainerContext.Provider value={{selectionAttribute: 'aria-selected'}}>
+        <ActionList role="tree" selectionVariant="single" aria-label="File tree">
+          <ActionList.Item role="treeitem" selected>
+            Selected Item
+          </ActionList.Item>
+          <ActionList.Item role="treeitem" selected={false}>
+            Unselected Item
+          </ActionList.Item>
+        </ActionList>
+      </ActionListContainerContext.Provider>,
+    )
+
+    const treeitems = container.querySelectorAll('[role="treeitem"]')
+    expect(treeitems[0]).toHaveAttribute('aria-selected', 'true')
+    expect(treeitems[1]).toHaveAttribute('aria-selected', 'false')
+  })
+
+  it('applies aria-selected for multiple selection with treeitem role', () => {
+    const {container} = HTMLRender(
+      <ActionListContainerContext.Provider value={{selectionAttribute: 'aria-selected'}}>
+        <ActionList role="tree" selectionVariant="multiple" aria-label="File tree">
+          <ActionList.Item role="treeitem" selected>
+            Selected 1
+          </ActionList.Item>
+          <ActionList.Item role="treeitem" selected>
+            Selected 2
+          </ActionList.Item>
+          <ActionList.Item role="treeitem" selected={false}>
+            Unselected
+          </ActionList.Item>
+        </ActionList>
+      </ActionListContainerContext.Provider>,
+    )
+
+    const treeitems = container.querySelectorAll('[role="treeitem"]')
+    expect(treeitems[0]).toHaveAttribute('aria-selected', 'true')
+    expect(treeitems[1]).toHaveAttribute('aria-selected', 'true')
+    expect(treeitems[2]).toHaveAttribute('aria-selected', 'false')
+  })
+
+  it('renders selection visual for selected treeitems', () => {
+    const {container} = HTMLRender(
+      <ActionList role="tree" selectionVariant="single" aria-label="File tree">
+        <ActionList.Item role="treeitem" selected>
+          Selected Item
+        </ActionList.Item>
+        <ActionList.Item role="treeitem">Unselected Item</ActionList.Item>
+      </ActionList>,
+    )
+
+    const selection = container.querySelector('[data-component="ActionList.Selection"]')
+    expect(selection).toBeInTheDocument()
+  })
+
+  it('calls onSelect when a treeitem is clicked', async () => {
+    const onSelect = vi.fn()
+    HTMLRender(
+      <ActionList role="tree" selectionVariant="single" aria-label="File tree">
+        <ActionList.Item role="treeitem" onSelect={onSelect}>
+          Item 1
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const item = document.querySelector('[role="treeitem"]')!
+    await userEvent.click(item)
+    expect(onSelect).toHaveBeenCalledTimes(1)
+  })
+
+  it('calls onSelect when Enter is pressed on a treeitem', async () => {
+    const onSelect = vi.fn()
+    HTMLRender(
+      <ActionList role="tree" selectionVariant="single" aria-label="File tree">
+        <ActionList.Item role="treeitem" onSelect={onSelect}>
+          Item 1
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const item = document.querySelector('[role="treeitem"]')!
+    ;(item as HTMLElement).focus()
+    await userEvent.keyboard('{Enter}')
+    expect(onSelect).toHaveBeenCalledTimes(1)
+  })
+
+  it('does not call onSelect when item is disabled', async () => {
+    const onSelect = vi.fn()
+    HTMLRender(
+      <ActionList role="tree" selectionVariant="single" aria-label="File tree">
+        <ActionList.Item role="treeitem" disabled onSelect={onSelect}>
+          Disabled Item
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const item = document.querySelector('[role="treeitem"]')!
+    await userEvent.click(item)
+    expect(onSelect).not.toHaveBeenCalled()
+  })
+
+  it('supports leading and trailing visuals on treeitems', () => {
+    const {container} = HTMLRender(
+      <ActionList role="tree" aria-label="File tree">
+        <ActionList.Item role="treeitem">
+          <ActionList.LeadingVisual>Icon</ActionList.LeadingVisual>
+          Item 1<ActionList.TrailingVisual>Badge</ActionList.TrailingVisual>
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    expect(container.querySelector('[data-component="ActionList.LeadingVisual"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="ActionList.TrailingVisual"]')).toBeInTheDocument()
   })
 })
