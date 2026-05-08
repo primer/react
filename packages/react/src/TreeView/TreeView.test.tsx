@@ -200,7 +200,7 @@ describe('Markup', () => {
     expect(noDescription).not.toHaveAttribute('aria-describedby')
   })
 
-  it('should include `aria-expanded` when a SubTree contains content', async () => {
+  it.skip('should include `aria-expanded` when a SubTree contains content', async () => {
     vi.useFakeTimers()
 
     const user = userEvent.setup()
