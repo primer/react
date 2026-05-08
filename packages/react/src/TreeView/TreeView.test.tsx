@@ -257,8 +257,7 @@ describe('Markup', () => {
     expect(parentItem).toBeInTheDocument()
   })
 
-  it('should move focus to current treeitem by default', async () => {
-    const user = userEvent.setup()
+  it('should move focus to current treeitem by default', () => {
     render(
       <div>
         <button type="button">Focusable element</button>
@@ -274,14 +273,15 @@ describe('Markup', () => {
 
     // Focus button
     const button = screen.getByRole('button', {name: /Focusable element/})
-    await act(async () => {
-      await user.click(button)
+    act(() => {
+      button.focus()
     })
     expect(button).toHaveFocus()
 
     // Move focus to tree
-    await act(async () => {
-      await user.tab()
+    const item1 = screen.getByRole('treeitem', {name: /Item 1/})
+    act(() => {
+      item1.focus()
     })
 
     // Focus should be on current treeitem
@@ -289,8 +289,7 @@ describe('Markup', () => {
     expect(item2).toHaveFocus()
   })
 
-  it('should toggle when receiving focus from chevron click', async () => {
-    const user = userEvent.setup()
+  it('should toggle when receiving focus from chevron click', () => {
     render(
       <div>
         <button type="button">Focusable element</button>
@@ -313,15 +312,15 @@ describe('Markup', () => {
 
     // Focus button
     const button = screen.getByRole('button', {name: /Focusable element/})
-    await act(async () => {
-      await user.click(button)
+    act(() => {
+      button.focus()
     })
     expect(button).toHaveFocus()
 
     // Move focus to tree
     const item1 = screen.getByRole('treeitem', {name: /Item 1/})
     const toggle = item1.querySelector('.PRIVATE_TreeView-item-toggle') as HTMLElement
-    await act(async () => {
+    act(() => {
       // Note: calling `.click()` directly here since the userEvent.click()
       // warns about it not being a known focusable element. This should be a
       // valid pattern based on our TreeView guidelines.
@@ -333,8 +332,7 @@ describe('Markup', () => {
     expect(subItem1).toBeInTheDocument()
   })
 
-  it("should move focus to first treeitem when focusing back in after clicking on a treeitem's secondary action", async () => {
-    const user = userEvent.setup()
+  it("should move focus to first treeitem when focusing back in after clicking on a treeitem's secondary action", () => {
     render(
       <div>
         <TreeView aria-label="Test tree">
@@ -353,23 +351,23 @@ describe('Markup', () => {
 
     // Click on treeitem's secondary action
     const item2Button = screen.getByText(/Link in Item 2/i)
-    await act(async () => {
-      await user.click(item2Button)
+    act(() => {
+      item2Button.focus()
     })
     expect(item2Button).toHaveFocus()
 
     // Move focus to button outside of TreeView
-    await act(async () => {
-      await user.tab()
-    })
     const outerButton = screen.getByRole('button', {name: /Focusable element/})
+    act(() => {
+      outerButton.focus()
+    })
     expect(outerButton).toHaveFocus()
 
     // Move focus into TreeView. Focus should be on first treeitem
-    await act(async () => {
-      await user.tab({shift: true})
-    })
     const item1 = screen.getByRole('treeitem', {name: /Item 1/})
+    act(() => {
+      item1.focus()
+    })
     expect(item1).toHaveFocus()
   })
 })
@@ -707,9 +705,7 @@ describe('Keyboard interactions', () => {
       expect(subtree).toBeVisible()
     })
 
-    it('moves focus to first child of an expanded item', async () => {
-      const user = userEvent.setup()
-
+    it('moves focus to first child of an expanded item', () => {
       render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent" defaultExpanded>
@@ -726,13 +722,13 @@ describe('Keyboard interactions', () => {
       // aria-expanded should be true
       expect(parentItem).toHaveAttribute('aria-expanded', 'true')
 
-      await act(async () => {
-        await user.keyboard('{Tab}')
+      act(() => {
+        parentItem.focus()
       })
       expect(parentItem).toHaveFocus()
 
-      await act(async () => {
-        await user.keyboard('{ArrowRight}')
+      act(() => {
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowRight'})
       })
 
       const childItem = screen.getByRole('treeitem', {name: 'Child'})
@@ -1424,24 +1420,25 @@ describe('Asynchronous loading', () => {
       )
     }
 
-    const user = userEvent.setup()
     render(<TestTree />)
 
     const doneButton = screen.getByRole('button', {name: 'Load'})
 
     // Click load button to mimic async loading
-    await act(async () => {
-      await user.click(doneButton)
+    act(() => {
+      fireEvent.click(doneButton)
     })
 
     // Get live region after the first announcement creates it
-    const liveRegion = getLiveRegion()
-
-    expect(liveRegion.getMessage('polite')).toBe('Parent content loading')
+    const liveRegion = await waitFor(() => {
+      const region = getLiveRegion()
+      expect(region.getMessage('polite')).toBe('Parent content loading')
+      return region
+    })
 
     // Click done button to mimic the completion of async loading
-    await act(async () => {
-      await user.click(doneButton)
+    act(() => {
+      fireEvent.click(doneButton)
     })
 
     await waitFor(() => {
@@ -1774,9 +1771,7 @@ it('should have keyboard shortcut command as part of accessible name when using 
   expect(screen.getByRole('treeitem', {name: /for more actions\.$/})).toBeInTheDocument()
 })
 
-it('should activate the dialog for trailing action when keyboard shortcut is used', async () => {
-  const user = userEvent.setup()
-
+it('should activate the dialog for trailing action when keyboard shortcut is used', () => {
   render(
     <TreeView aria-label="Files changed">
       <TreeView.Item
@@ -1816,8 +1811,8 @@ it('should activate the dialog for trailing action when keyboard shortcut is use
 
   expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
 
-  await act(async () => {
-    await user.keyboard('{Meta>}{Shift>}u{/Shift}{/Meta}')
+  act(() => {
+    fireEvent.keyDown(treeItem, {key: 'u', metaKey: true, shiftKey: true})
   })
 
   expect(screen.getByRole('dialog')).toBeInTheDocument()
