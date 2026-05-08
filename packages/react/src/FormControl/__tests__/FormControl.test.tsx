@@ -97,6 +97,7 @@ describe('FormControl', () => {
     expect(getByText(LABEL_TEXT)).toHaveAttribute('data-component', 'FormControl.Label')
 
     const leadingVisual = container.querySelector('[data-component="FormControl.LeadingVisual"]')
+    expect(leadingVisual).not.toBeNull()
   })
 
   describe('vertically stacked layout (default)', () => {
