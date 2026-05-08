@@ -154,4 +154,8 @@ When working on UI components, always use the `primer-storybook` MCP tools to ac
 
 ## Pull Request Creation
 
-When creating a pull request, you MUST use the template in `.github/pull_request_template.md` to structure the PR description. Read the template file, fill in all sections appropriately, and include it in the PR body.
+When creating a pull request, you MUST:
+
+1. Use the template in `.github/pull_request_template.md` to structure the PR description. Read the template file, fill in all sections appropriately, and include it in the PR body.
+2. Include a changeset file in the PR if the change affects the published package (bug fix, new feature, breaking change, etc.). Create a `.changeset/<descriptive-name>.md` file with the appropriate semver bump type. Reference the `changesets` skill (`.github/skills/changesets/SKILL.md`) for detailed guidance on file format, choosing the correct bump type, and when a changeset can be skipped.
+3. If no changeset is needed (docs-only, test-only, CI/infra changes), add the `skip changeset` label to the pull request to bypass the CI changeset check.
