@@ -218,7 +218,7 @@ const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
   return (
     <Dialog.Header>
       <div className={classes.HeaderInner}>
-        <div className={classes.HeaderContent} data-component="Dialog.Header.Content">
+        <div className={classes.HeaderContent}>
           <Dialog.Title id={dialogLabelId}>{title ?? 'Dialog'}</Dialog.Title>
           {subtitle && <Dialog.Subtitle id={dialogDescriptionId}>{subtitle}</Dialog.Subtitle>}
         </div>
@@ -409,11 +409,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             data-component={dataComponent}
           >
             {header}
-            <ScrollableRegion
-              aria-labelledby={dialogLabelId}
-              className={classes.DialogOverflowWrapper}
-              data-component="Dialog.OverflowWrapper"
-            >
+            <ScrollableRegion aria-labelledby={dialogLabelId} className={classes.DialogOverflowWrapper}>
               {body}
             </ScrollableRegion>
             {footer}
