@@ -200,10 +200,7 @@ describe('Markup', () => {
     expect(noDescription).not.toHaveAttribute('aria-describedby')
   })
 
-  it('should include `aria-expanded` when a SubTree contains content', async () => {
-    vi.useFakeTimers()
-
-    const user = userEvent.setup()
+  it('should include `aria-expanded` when a SubTree contains content', () => {
     render(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="item-1">
@@ -224,20 +221,16 @@ describe('Markup', () => {
     let treeitem = screen.getByRole('treeitem', {name: /Item 1/})
     expect(treeitem).toHaveAttribute('aria-expanded', 'false')
 
-    await act(async () => {
-      console.log('before')
-      await user.click(treeitem)
-      console.log('after')
-      await vi.runAllTimersAsync()
+    act(() => {
+      fireEvent.click(treeitem)
     })
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
 
     treeitem = screen.getByLabelText(/Item 2/)
     expect(treeitem).not.toHaveAttribute('aria-expanded')
 
-    await act(async () => {
-      await user.click(treeitem)
-      await vi.runAllTimersAsync()
+    act(() => {
+      fireEvent.click(treeitem)
     })
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
   })
@@ -1481,7 +1474,6 @@ describe('Asynchronous loading', () => {
       )
     }
 
-    const user = userEvent.setup()
     render(<TestTree />)
 
     const parentItem = screen.getByRole('treeitem', {name: 'Parent'})
@@ -1493,8 +1485,8 @@ describe('Asynchronous loading', () => {
     })
 
     // Press ↓ to move focus to loading item
-    await act(async () => {
-      await user.keyboard('{ArrowDown}')
+    act(() => {
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
     })
 
     // Loading item should be focused
@@ -1647,12 +1639,11 @@ describe('Asynchronous loading', () => {
     }
 
     render(<Example />)
-    const user = userEvent.setup()
 
     const treeitem = screen.getByLabelText('Item 1')
     expect(treeitem).toHaveAttribute('aria-expanded', 'false')
-    await act(async () => {
-      await user.click(screen.getByText('Item 1'))
+    act(() => {
+      fireEvent.click(screen.getByText('Item 1'))
     })
 
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
