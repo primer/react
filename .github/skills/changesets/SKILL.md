@@ -95,6 +95,8 @@ Skip the changeset for changes that do not affect the published package:
 - Dev dependency updates
 - Changes to `examples/` or `e2e/` directories
 
+When a changeset is not needed, add the `skip changeset` label to the pull request. This bypasses the CI check that requires a changeset to be present.
+
 ## Multiple changesets in one PR
 
 If a PR introduces multiple distinct changes, add a **separate changeset file for each**. For example, if you fix a bug in `Button` and add a new prop to `ActionMenu`, create two changeset files — one `patch` for the fix and one `minor` for the new prop.
