@@ -1504,7 +1504,7 @@ describe('Asynchronous loading', () => {
     expect(firstChild).toHaveFocus()
   })
 
-  it.skip('moves focus to parent item after closing error dialog', async () => {
+  it('moves focus to parent item after closing error dialog', async () => {
     vi.useFakeTimers()
     const user = userEvent.setup()
 
@@ -1560,7 +1560,7 @@ describe('Asynchronous loading', () => {
     expect(parentItem).toHaveFocus()
   })
 
-  it.skip('ignores arrow keys when error dialog is open', async () => {
+  it('ignores arrow keys when error dialog is open', async () => {
     const user = userEvent.setup()
 
     render(
