@@ -201,7 +201,8 @@ describe('Markup', () => {
   })
 
   it('should include `aria-expanded` when a SubTree contains content', async () => {
-    console.log('setup')
+    vi.useFakeTimers()
+
     const user = userEvent.setup()
     render(
       <TreeView aria-label="Test tree">
@@ -220,24 +221,19 @@ describe('Markup', () => {
       </TreeView>,
     )
 
-    console.log('one')
     let treeitem = screen.getByLabelText(/Item 1/)
     expect(treeitem).toHaveAttribute('aria-expanded', 'false')
 
-    console.log('two')
     await act(async () => {
-      console.log('three')
       await user.click(screen.getByText(/Item 1/))
+      await vi.runAllTimersAsync()
     })
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
 
-    console.log('four')
     treeitem = screen.getByLabelText(/Item 2/)
     expect(treeitem).not.toHaveAttribute('aria-expanded')
 
-    console.log('five')
     await act(async () => {
-      console.log('six')
       await user.click(screen.getByText(/Item 2/))
     })
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
