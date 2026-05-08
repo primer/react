@@ -1,0 +1,11 @@
+{
+  "name": "@primer/vitest-config",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./setup": "./setup.js"
+  },
+  "dependencies": {
+    "vitest-fail-on-console": "^0.10.1"
+  }
+}

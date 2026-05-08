@@ -28,7 +28,7 @@ export default defineConfig({
   test: {
     name: '@primer/styled-react (browser)',
     include: ['src/**/*.browser.test.?(c|m)[jt]s?(x)'],
-    setupFiles: ['../../script/vitest/setup.ts', 'config/vitest/browser/setup.ts'],
+    setupFiles: ['config/vitest/setup.js', 'config/vitest/browser/setup.ts'],
     browser: {
       provider: playwright(),
       enabled: true,
