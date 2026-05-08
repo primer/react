@@ -226,7 +226,8 @@ describe('Markup', () => {
 
     await act(async () => {
       console.log('one')
-      await user.click(treeitem)
+      // await user.click(treeitem)
+      fireEvent.click(treeitem)
       console.log('two')
       await vi.runAllTimersAsync()
       console.log('three')
