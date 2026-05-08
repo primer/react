@@ -285,6 +285,16 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   }, [cssAnchorPositioning, anchorElement, anchorName])
 
   useEffect(() => {
+    if (!shouldRenderAsPopover || !anchorElement) return
+    anchorElement.setAttribute('popovertarget', popoverId)
+    return () => {
+      if (anchorElement.getAttribute('popovertarget') === popoverId) {
+        anchorElement.removeAttribute('popovertarget')
+      }
+    }
+  }, [anchorElement, popoverId, shouldRenderAsPopover])
+
+  useEffect(() => {
     if (!cssAnchorPositioning || !anchorElement) return
 
     const currentOverlay = overlayRef.current
@@ -361,7 +371,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           tabIndex: 0,
           onClick: onAnchorClick,
           onKeyDown: onAnchorKeyDown,
-          ...(shouldRenderAsPopover ? {popovertarget: popoverId} : {}),
         })}
       {open ? (
         <Overlay

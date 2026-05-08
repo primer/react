@@ -4,7 +4,7 @@ import {Dialog, Octicon} from '../deprecated'
 
 describe('@primer/react/deprecated', () => {
   test('Dialog supports `sx` prop', () => {
-    render(<Dialog as="button" data-testid="component" isOpen sx={{background: 'red'}} />)
+    render(<Dialog as="div" data-testid="component" isOpen sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
     expect(screen.getByTestId('component').role).toBe('dialog')
   })

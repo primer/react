@@ -143,8 +143,9 @@ describe('useMergedRefs', () => {
       expect(refB).toHaveBeenCalledWith('test')
 
       if (Number.parseInt(reactVersion, 10) >= 19) {
+        expect(cleanup).toBeDefined()
         // React 19 will call cleanup function and not pass null
-        cleanup()
+        cleanup!()
 
         expect(refA).toHaveBeenCalledWith(null)
         expect(refB).not.toHaveBeenCalledWith(null)

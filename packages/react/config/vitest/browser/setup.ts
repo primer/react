@@ -18,7 +18,6 @@ import '@primer/primitives/dist/css/functional/themes/light-tritanopia.css'
 import '@primer/primitives/dist/css/functional/themes/light.css'
 import '@primer/primitives/dist/css/functional/typography/typography.css'
 import './global.css'
-import '../../../../../script/vitest/setup'
 
 import {beforeEach} from 'vitest'
 import {cleanup} from '@testing-library/react'

@@ -227,34 +227,31 @@ describe('Breadcrumbs', () => {
     )
 
     expect(resizeCallback).toBeDefined()
+    const resize = resizeCallback!
 
     // Initially should show overflow menu for >5 items
     expect(screen.getByRole('button', {name: /more breadcrumb items/i})).toBeInTheDocument()
 
     // Simulate a wide container resize
-    if (resizeCallback) {
-      act(() => {
-        resizeCallback([
-          {
-            contentRect: {width: 800, height: 40},
-          } as ResizeObserverEntry,
-        ])
-      })
-    }
+    act(() => {
+      resize([
+        {
+          contentRect: {width: 800, height: 40},
+        } as ResizeObserverEntry,
+      ])
+    })
 
     // Should still have overflow menu for 6 items (>5 rule)
     expect(screen.getByRole('button', {name: /more breadcrumb items/i})).toBeInTheDocument()
 
     // Simulate a narrow container resize
-    if (resizeCallback) {
-      act(() => {
-        resizeCallback([
-          {
-            contentRect: {width: 250, height: 40},
-          } as ResizeObserverEntry,
-        ])
-      })
-    }
+    act(() => {
+      resize([
+        {
+          contentRect: {width: 250, height: 40},
+        } as ResizeObserverEntry,
+      ])
+    })
 
     // Should maintain overflow menu for narrow container
     expect(screen.getByRole('button', {name: /more breadcrumb items/i})).toBeInTheDocument()
@@ -291,6 +288,7 @@ describe('Breadcrumbs', () => {
     )
 
     expect(resizeCallback).toBeDefined()
+    const resize = resizeCallback!
 
     // Initially should show overflow menu for >5 items
     const menuButton = screen.getByRole('button', {name: /more breadcrumb items/i})
@@ -315,33 +313,29 @@ describe('Breadcrumbs', () => {
     // Close menu by clicking outside
     await user.click(document.body)
     await waitFor(() => {
-      expect
+      expect(menuButton).toHaveAttribute('aria-expanded', 'false')
     })
 
     // Simulate a very narrow container resize that would affect overflow calculation
-    if (resizeCallback) {
-      act(() => {
-        resizeCallback([
-          {
-            contentRect: {width: 200, height: 40},
-          } as ResizeObserverEntry,
-        ])
-      })
-    }
+    act(() => {
+      resize([
+        {
+          contentRect: {width: 200, height: 40},
+        } as ResizeObserverEntry,
+      ])
+    })
 
     // Menu button should still be present
     expect(screen.getByRole('button', {name: /more breadcrumb items/i})).toBeInTheDocument()
 
     // Simulate a very wide container resize
-    if (resizeCallback) {
-      act(() => {
-        resizeCallback([
-          {
-            contentRect: {width: 1200, height: 40},
-          } as ResizeObserverEntry,
-        ])
-      })
-    }
+    act(() => {
+      resize([
+        {
+          contentRect: {width: 1200, height: 40},
+        } as ResizeObserverEntry,
+      ])
+    })
 
     // Menu button should still be present (7 items > 5)
     expect(screen.getByRole('button', {name: /more breadcrumb items/i})).toBeInTheDocument()

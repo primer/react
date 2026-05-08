@@ -219,7 +219,18 @@ describe('Table', () => {
   })
 
   describe('Table.Cell', () => {
-    implementsClassName(Table.Cell, classes.TableCell)
+    implementsClassName(
+      props => (
+        <Table>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell {...props} />
+            </Table.Row>
+          </Table.Body>
+        </Table>
+      ),
+      classes.TableCell,
+    )
 
     it('should set the element to a <th> when `scope` is defined', () => {
       render(

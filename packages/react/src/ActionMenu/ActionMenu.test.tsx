@@ -792,7 +792,9 @@ describe('ActionMenu', () => {
 
       // The new anchor should have the same anchor-name re-applied, and the
       // overlay should still reference it via position-anchor.
-      expect(newAnchor.style.getPropertyValue('anchor-name')).toBe(initialAnchorName)
+      await waitFor(() => {
+        expect(newAnchor.style.getPropertyValue('anchor-name')).toBe(initialAnchorName)
+      })
       expect(overlay.style.getPropertyValue('position-anchor')).toBe(initialPositionAnchor)
     })
   })
