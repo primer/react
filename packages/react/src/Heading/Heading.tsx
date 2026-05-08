@@ -36,8 +36,8 @@ const Heading = forwardRef(({as: Component = 'h2', className, variant, ...props}
     <Component
       className={clsx(className, classes.Heading)}
       data-variant={variant}
-      {...props}
       data-component="Heading"
+      {...props}
       ref={innerRef}
     />
   )
