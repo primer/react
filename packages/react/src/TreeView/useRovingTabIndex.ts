@@ -75,7 +75,7 @@ export function useRovingTabIndex(
         return firstItem instanceof HTMLElement ? firstItem : undefined
       },
     },
-    dependencies,
+    [preventScroll, focusOutBehavior, wrapAround, ...dependencies],
   )
 }
 
