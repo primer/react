@@ -1,5 +1,5 @@
 import type React from 'react'
-import {useCallback, useEffect, useState, type JSX} from 'react'
+import {useCallback, useEffect, useRef, useState, type JSX} from 'react'
 import type {OverlayProps} from '../Overlay'
 import Overlay from '../Overlay'
 import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'
@@ -16,6 +16,7 @@ import classes from './AnchoredOverlay.module.css'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
 import {widthMap} from '../Overlay/Overlay'
+import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
@@ -181,10 +182,19 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   const shouldRenderAsPopover = cssAnchorPositioning && renderAs === 'popover'
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null)
+  const lastExternalAnchorElementRef = useRef<HTMLElement | null>(null)
+  const [externalAnchorElementVersion, setExternalAnchorElementVersion] = useState(0)
   // eslint-disable-next-line react-hooks/refs
   if (anchorRef.current !== anchorElement) {
     setAnchorElement(anchorRef.current)
   }
+  useIsomorphicLayoutEffect(() => {
+    if (renderAnchor !== null) return
+    if (anchorRef.current !== lastExternalAnchorElementRef.current) {
+      lastExternalAnchorElementRef.current = anchorRef.current
+      setExternalAnchorElementVersion(version => version + 1)
+    }
+  })
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const [overlayElement, setOverlayElement] = useState<HTMLDivElement | null>(null)
   const anchorId = useId(externalAnchorId)
@@ -274,31 +284,34 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   // parent re-render that re-runs the positioning effect below doesn't
   // briefly flicker the anchor link off and back on.
   useEffect(() => {
-    if (!cssAnchorPositioning || !anchorElement) return
-    if (anchorElement.style.getPropertyValue('anchor-name')) return
-    anchorElement.style.setProperty('anchor-name', anchorName)
+    const currentAnchorElement = renderAnchor === null ? anchorRef.current : anchorElement
+    if (!cssAnchorPositioning || !currentAnchorElement) return
+    if (currentAnchorElement.style.getPropertyValue('anchor-name')) return
+    currentAnchorElement.style.setProperty('anchor-name', anchorName)
     return () => {
-      if (anchorElement.style.getPropertyValue('anchor-name') === anchorName) {
-        anchorElement.style.removeProperty('anchor-name')
+      if (currentAnchorElement.style.getPropertyValue('anchor-name') === anchorName) {
+        currentAnchorElement.style.removeProperty('anchor-name')
       }
     }
-  }, [cssAnchorPositioning, anchorElement, anchorName])
+  }, [anchorElement, anchorName, anchorRef, cssAnchorPositioning, externalAnchorElementVersion, renderAnchor])
 
   useEffect(() => {
-    if (!shouldRenderAsPopover || !anchorElement) return
-    anchorElement.setAttribute('popovertarget', popoverId)
+    const currentAnchorElement = renderAnchor === null ? anchorRef.current : anchorElement
+    if (!shouldRenderAsPopover || !currentAnchorElement) return
+    currentAnchorElement.setAttribute('popovertarget', popoverId)
     return () => {
-      if (anchorElement.getAttribute('popovertarget') === popoverId) {
-        anchorElement.removeAttribute('popovertarget')
+      if (currentAnchorElement.getAttribute('popovertarget') === popoverId) {
+        currentAnchorElement.removeAttribute('popovertarget')
       }
     }
-  }, [anchorElement, popoverId, shouldRenderAsPopover])
+  }, [anchorElement, anchorRef, externalAnchorElementVersion, popoverId, renderAnchor, shouldRenderAsPopover])
 
   useEffect(() => {
-    if (!cssAnchorPositioning || !anchorElement) return
+    const currentAnchorElement = renderAnchor === null ? anchorRef.current : anchorElement
+    if (!cssAnchorPositioning || !currentAnchorElement) return
 
     const currentOverlay = overlayRef.current
-    const resolvedAnchorName = anchorElement.style.getPropertyValue('anchor-name') || anchorName
+    const resolvedAnchorName = currentAnchorElement.style.getPropertyValue('anchor-name') || anchorName
 
     let pendingPositionFrame: number | null = null
     if (open && currentOverlay) {
@@ -309,7 +322,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       pendingPositionFrame = requestAnimationFrame(() => {
         pendingPositionFrame = null
         const fallbackWidth = width ? parseInt(widthMap[width]) : parseInt(widthMap.small)
-        const result = getDefaultPosition(anchorElement, currentOverlay, fallbackWidth)
+        const result = getDefaultPosition(currentAnchorElement, currentOverlay, fallbackWidth)
 
         currentOverlay.setAttribute('data-align', result.horizontal)
         if (result.suggestedSide) {
@@ -351,7 +364,18 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     }
     // overlayRef is a stable ref object; including it in deps is unnecessary.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cssAnchorPositioning, shouldRenderAsPopover, open, anchorElement, overlayElement, id, width])
+  }, [
+    anchorElement,
+    anchorName,
+    anchorRef,
+    cssAnchorPositioning,
+    externalAnchorElementVersion,
+    open,
+    overlayElement,
+    renderAnchor,
+    shouldRenderAsPopover,
+    width,
+  ])
 
   const showXIcon = onClose && variant.narrow === 'fullscreen' && displayCloseButton
   const XButtonAriaLabelledBy = closeButtonProps['aria-labelledby']
