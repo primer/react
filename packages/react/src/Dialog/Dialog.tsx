@@ -485,16 +485,17 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
       {buttons.map((dialogButtonProps, index) => {
         const {content, buttonType = 'default', autoFocus = false, ...buttonProps} = dialogButtonProps
         return (
-          <Button
-            key={index}
-            {...buttonProps}
-            // 'normal' value is equivalent to 'default', this is used for backwards compatibility
-            variant={buttonType === 'normal' ? 'default' : buttonType}
-            // @ts-expect-error it needs a non nullable ref
-            ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
-          >
-            {content}
-          </Button>
+          <div key={index} data-component="Dialog.FooterButton">
+            <Button
+              {...buttonProps}
+              // 'normal' value is equivalent to 'default', this is used for backwards compatibility
+              variant={buttonType === 'normal' ? 'default' : buttonType}
+              // @ts-expect-error it needs a non nullable ref
+              ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
+            >
+              {content}
+            </Button>
+          </div>
         )
       })}
     </>
