@@ -1,5 +1,4 @@
 import {fireEvent, render, act, screen, waitFor} from '@testing-library/react'
-import {userEvent} from 'vitest/browser'
 import {afterEach, describe, it, expect, vi} from 'vitest'
 import React from 'react'
 import type {SubTreeState} from './TreeView'
@@ -1506,7 +1505,6 @@ describe('Asynchronous loading', () => {
 
   it('moves focus to parent item after closing error dialog', async () => {
     vi.useFakeTimers()
-    const user = userEvent.setup()
 
     function TestTree() {
       const [error, setError] = React.useState('Test error')
@@ -1545,8 +1543,8 @@ describe('Asynchronous loading', () => {
     })
 
     // Press esc to close error dialog
-    await act(async () => {
-      await user.keyboard('{Escape}')
+    act(() => {
+      fireEvent.keyDown(document, {key: 'Escape'})
     })
 
     // Dialog should not be visible
@@ -1560,9 +1558,7 @@ describe('Asynchronous loading', () => {
     expect(parentItem).toHaveFocus()
   })
 
-  it('ignores arrow keys when error dialog is open', async () => {
-    const user = userEvent.setup()
-
+  it('ignores arrow keys when error dialog is open', () => {
     render(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="parent" defaultExpanded>
@@ -1584,16 +1580,16 @@ describe('Asynchronous loading', () => {
     expect(retryButton).toHaveFocus()
 
     // Press ←
-    await act(async () => {
-      await user.keyboard('{ArrowLeft}')
+    act(() => {
+      fireEvent.keyDown(retryButton, {key: 'ArrowLeft'})
     })
 
     // Parent item should still be expanded
     expect(parentItem).toHaveAttribute('aria-expanded', 'true')
 
     // Press Backspace
-    await act(async () => {
-      await user.keyboard('{Backspace}')
+    act(() => {
+      fireEvent.keyDown(retryButton, {key: 'Backspace'})
     })
 
     // Parent item should still be expanded
