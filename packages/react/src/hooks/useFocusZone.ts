@@ -58,8 +58,15 @@ export function useFocusZone(
             ...settings,
             activeDescendantControl: activeDescendantControlRef.current ?? undefined,
           }
-          abortController.current = focusZone(containerRef.current, vanillaSettings)
+          const container = containerRef.current
+          const rafId = requestAnimationFrame(() => {
+            // Defer focus zone initialization to avoid blocking paint.
+            // Setting tabindex on focusable elements is invisible to the user,
+            // and keyboard navigation activating one frame later is imperceptible.
+            abortController.current = focusZone(container, vanillaSettings)
+          })
           return () => {
+            cancelAnimationFrame(rafId)
             abortController.current?.abort()
           }
         } else {

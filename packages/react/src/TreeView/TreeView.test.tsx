@@ -14,7 +14,12 @@ function renderWithTheme(
   ui: Parameters<typeof render>[0],
   options?: Parameters<typeof render>[1],
 ): ReturnType<typeof render> {
-  return render(ui, options)
+  const result = render(ui, options)
+  // Flush deferred focus zone initialization (requestAnimationFrame)
+  act(() => {
+    vi.advanceTimersByTime(16)
+  })
+  return result
 }
 
 // Mock `scrollIntoView` because it's not implemented in JSDOM
