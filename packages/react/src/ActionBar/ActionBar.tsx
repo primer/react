@@ -235,7 +235,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = ({
         >
           <div className={styles.OverflowContainer}>
             {/* An empty first element allows the real first item to wrap to the next line and get clipped. */}
-            <div />
+            <div className={styles.OverflowSpacer} />
             <ActionBarItemsRegistry.Provider setRegistry={setChildRegistry}>{children}</ActionBarItemsRegistry.Provider>
           </div>
           <ActionMenu>

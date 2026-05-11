@@ -99,6 +99,10 @@
   gap: inherit;
   justify-content: flex-end;
   overflow: hidden;
+
+  .OverflowSpacer {
+    height: var(--actionbar-height);
+  }
 }
 
 .MoreButton {
