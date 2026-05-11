@@ -4,6 +4,5 @@
     "allowJs": true,
     "checkJs": true
   },
-  "include": ["src", "vitest.config.ts"]
+  "include": ["src", "vitest.config.ts", "config/**/*.ts"]
 }
-
