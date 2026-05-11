@@ -18,7 +18,7 @@ const config = defineConfig({
   input: ['./src/index.ts'],
   external,
   plugins: [
-    nodeResolve(),
+    nodeResolve({extensions: ['.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs']}),
     commonjs(),
     typescript({
       tsconfig: './tsconfig.build.json',

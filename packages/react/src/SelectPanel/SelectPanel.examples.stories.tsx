@@ -356,6 +356,7 @@ export const RepositionAfterLoading = () => {
   const [loading, setLoading] = useState(true)
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (!open) setLoading(true)
     window.setTimeout(() => {
       if (open) {
@@ -368,6 +369,7 @@ export const RepositionAfterLoading = () => {
 
   React.useEffect(() => {
     if (!loading) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -403,6 +405,7 @@ export const SelectPanelRepositionInsideDialog = () => {
   const [loading, setLoading] = useState(true)
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (!open) setLoading(true)
     window.setTimeout(() => {
       if (open) {
@@ -415,6 +418,7 @@ export const SelectPanelRepositionInsideDialog = () => {
 
   React.useEffect(() => {
     if (!loading) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -559,10 +563,7 @@ export const RenderMoreOnScroll = () => {
         Time taken (ms) to render initial {renderSubset ? 50 : NUMBER_OF_ITEMS} items:{' '}
         {timeTakenToOpen ? <Label>{timeTakenToOpen.toFixed(2)} ms</Label> : '(click "Select Labels" to open)'}
       </p>
-      <p>
-        Known bug: Scroll resets to top when the items change. Works well with feature flag{' '}
-        <Label>primer_react_select_panel_remove_active_descendant</Label>
-      </p>
+      <p>Known bug: Scroll resets to top when the items change.</p>
 
       <FormControl>
         <FormControl.Label>Labels</FormControl.Label>
@@ -623,6 +624,7 @@ export const VirtualizedConsumerSide = () => {
     [open],
   )
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const virtualizer = useVirtualizer({
     count: filteredItems.length,
     getScrollElement: () => scrollContainer ?? null,

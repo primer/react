@@ -73,6 +73,7 @@ const stories: Array<{title: string; id: string; viewports?: Array<keyof typeof 
   {
     title: 'ActionsInline',
     id: 'components-banner-features--actions-layout-inline',
+    viewports: ['primer.breakpoint.xs'],
   },
   {
     title: 'ActionsStacked',

@@ -39,6 +39,10 @@ const stories = [
     title: 'Positioned Overlays',
     id: 'private-components-overlay-features--positioned-overlays',
   },
+  {
+    title: 'Setting Max Height',
+    id: 'private-components-overlay-features--setting-max-height',
+  },
 ] as const
 
 test.describe('Overlay ', () => {

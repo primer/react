@@ -11,10 +11,19 @@
       "id": "components-timeline-features--clip-sidebar"
     },
     {
+      "id": "components-timeline-features--clip-sidebar-start"
+    },
+    {
+      "id": "components-timeline-features--clip-sidebar-end"
+    },
+    {
       "id": "components-timeline-features--condensed-items"
     },
     {
       "id": "components-timeline-features--timeline-break"
+    },
+    {
+      "id": "components-timeline-features--badge-variants"
     },
     {
       "id": "components-timeline-features--with-inline-links"
@@ -24,8 +33,8 @@
   "props": [
     {
       "name": "clipSidebar",
-      "type": "boolean",
-      "description": "Hides the sidebar above the first Timeline.Item and below the last Timeline.Item."
+      "type": "| boolean | 'start' | 'end' | 'both'",
+      "description": "Controls which ends of the sidebar are clipped. When set to `true` or `'both'`, hides the sidebar above the first and below the last Timeline.Item. Use `'start'` to only clip the top or `'end'` to only clip the bottom."
     }
   ],
   "subcomponents": [
@@ -41,7 +50,13 @@
     },
     {
       "name": "Timeline.Badge",
-      "props": []
+      "props": [
+        {
+          "name": "variant",
+          "type": "'accent' | 'success' | 'attention' | 'severe' | 'danger' | 'done' | 'open' | 'closed' | 'sponsors'",
+          "description": "The color variant of the badge."
+        }
+      ]
     },
     {
       "name": "Timeline.Body",

@@ -45,6 +45,20 @@
     & .BannerActions :where([data-primary-action='leading']) {
       display: none;
     }
+
+    @media screen and (--viewportRange-narrow) {
+      & .BannerContainer {
+        flex-direction: column;
+      }
+
+      & .BannerActions :where([data-primary-action='trailing']) {
+        display: none;
+      }
+
+      & .BannerActions :where([data-primary-action='leading']) {
+        display: flex;
+      }
+    }
   }
 
   &[data-layout='compact'] {
@@ -119,7 +133,7 @@
   margin-block: var(--base-size-8);
 }
 
-.Banner[data-title-hidden]:not(:has(.BannerActions)) .BannerContent {
+.Banner[data-title-hidden]:not([data-has-actions]) .BannerContent {
   margin-block: var(--base-size-6);
 }
 
@@ -153,7 +167,7 @@
 }
 
 /* stylelint-disable-next-line selector-max-specificity */
-.Banner[data-title-hidden]:not(:has(.BannerActions)) .BannerIcon svg {
+.Banner[data-title-hidden]:not([data-has-actions]) .BannerIcon svg {
   height: var(--base-size-16);
 }
 
@@ -166,7 +180,7 @@
   margin-inline-start: var(--base-size-4);
 }
 
-:where(.Banner):has(.BannerActions) .BannerDismiss {
+:where(.Banner)[data-has-actions] .BannerDismiss {
   margin-block: var(--base-size-2);
 }
 
@@ -211,7 +225,7 @@
     display: grid;
   }
 
-  .BannerContainer:has(.BannerActionsContainer) {
+  :where(.Banner)[data-has-actions] .BannerContainer {
     grid-template-rows: auto auto;
   }
 

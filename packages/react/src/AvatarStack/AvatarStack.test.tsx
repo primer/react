@@ -6,18 +6,18 @@ import classes from './AvatarStack.module.css'
 
 const avatarComp = (
   <AvatarStack>
-    <img src="https://avatars.githubusercontent.com/primer" alt="" />
+    <img src="https://avatars.githubusercontent.com/u/7143434?v=4" alt="" />
     <img src="https://avatars.githubusercontent.com/github" alt="" />
-    <img src="https://avatars.githubusercontent.com/primer" alt="" />
+    <img src="https://avatars.githubusercontent.com/u/7143434?v=4" alt="" />
     <img src="https://avatars.githubusercontent.com/github" alt="" />
   </AvatarStack>
 )
 
 const rightAvatarComp = (
   <AvatarStack alignRight>
-    <img src="https://avatars.githubusercontent.com/primer" alt="" />
+    <img src="https://avatars.githubusercontent.com/u/7143434?v=4" alt="" />
     <img src="https://avatars.githubusercontent.com/github" alt="" />
-    <img src="https://avatars.githubusercontent.com/primer" alt="" />
+    <img src="https://avatars.githubusercontent.com/u/7143434?v=4" alt="" />
     <img src="https://avatars.githubusercontent.com/github" alt="" />
   </AvatarStack>
 )
@@ -25,9 +25,24 @@ const rightAvatarComp = (
 describe('AvatarStack', () => {
   implementsClassName(AvatarStack, classes.AvatarStack)
 
+  describe('AvatarStack data-component attributes', () => {
+    it('renders AvatarStack with data-component attribute', () => {
+      const {container} = render(avatarComp)
+      const root = container.querySelector('[data-component="AvatarStack"]')
+      expect(root).toBeInTheDocument()
+    })
+
+    it('renders AvatarStack.Body with data-component attribute', () => {
+      const {container} = render(avatarComp)
+      const body = container.querySelector('[data-component="AvatarStack.Body"]')
+      expect(body).toBeInTheDocument()
+    })
+  })
+
   it('respects alignRight props', () => {
     const {container} = render(rightAvatarComp)
-    expect(container.firstChild).toMatchSnapshot()
+    const root = container.querySelector('[data-component="AvatarStack"]')
+    expect(root).toHaveAttribute('data-align-right', '')
   })
 
   it('should have a tabindex of 0 if there are no interactive children', () => {
@@ -47,7 +62,7 @@ describe('AvatarStack', () => {
   it('should not have a tabindex if disableExpand is true', () => {
     const {container} = render(
       <AvatarStack disableExpand>
-        <img src="https://avatars.githubusercontent.com/primer" alt="" />
+        <img src="https://avatars.githubusercontent.com/u/7143434?v=4" alt="" />
         <img src="https://avatars.githubusercontent.com/github" alt="" />
       </AvatarStack>,
     )
@@ -58,7 +73,7 @@ describe('AvatarStack', () => {
     const style = {backgroundColor: 'red'}
     const {container} = render(
       <AvatarStack style={style}>
-        <img src="https://avatars.githubusercontent.com/primer" alt="" />
+        <img src="https://avatars.githubusercontent.com/u/7143434?v=4" alt="" />
         <img src="https://avatars.githubusercontent.com/github" alt="" />
       </AvatarStack>,
     )

@@ -2,6 +2,7 @@ import {describe, expect, it, vi, beforeEach} from 'vitest'
 import {render as HTMLRender, waitFor, act, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import type React from 'react'
+import {useRef, useState} from 'react'
 import BaseStyles from '../BaseStyles'
 import {ActionMenu, ActionList, Button, IconButton, Dialog} from '..'
 import Tooltip from '../Tooltip'
@@ -91,6 +92,38 @@ function ExampleWithTooltipV2(actionMenuTrigger: React.ReactElement<any>): JSX.E
         </ActionMenu.Overlay>
       </ActionMenu>
     </BaseStyles>
+  )
+}
+
+function ExampleWithReplaceableAnchor(): JSX.Element {
+  const anchorRef = useRef<HTMLButtonElement>(null)
+  const [open, setOpen] = useState(false)
+  const [anchorKey, setAnchorKey] = useState(0)
+
+  return (
+    <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+      <BaseStyles>
+        <Button key={anchorKey} ref={anchorRef} onClick={() => setOpen(o => !o)}>
+          Open menu
+        </Button>
+        <ActionMenu anchorRef={anchorRef} open={open} onOpenChange={setOpen}>
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item
+                onSelect={event => {
+                  // Prevent the menu from closing so the overlay stays mounted
+                  event.preventDefault()
+                  setAnchorKey(k => k + 1)
+                }}
+              >
+                Switch anchor
+              </ActionList.Item>
+              <ActionList.Item>Item one</ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+      </BaseStyles>
+    </FeatureFlags>
   )
 }
 
@@ -622,29 +655,89 @@ describe('ActionMenu', () => {
       expect(baseAnchor).not.toHaveAttribute('aria-expanded', 'true')
     })
 
+    it('supports className prop on ActionMenu.Anchor with css anchor positioning flag', async () => {
+      const component = HTMLRender(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <BaseStyles>
+            <ActionMenu>
+              <ActionMenu.Anchor className="test-class">
+                <Button>Toggle Menu</Button>
+              </ActionMenu.Anchor>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Item>New file</ActionList.Item>
+                  <ActionList.Divider />
+                  <ActionList.Item>Copy link</ActionList.Item>
+                  <ActionList.Item>Edit file</ActionList.Item>
+                  <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
+                    Delete file
+                  </ActionList.Item>
+                  <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
+                    GitHub
+                  </ActionList.LinkItem>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
+        </FeatureFlags>,
+      )
+      const anchor = component.getByRole('button', {name: 'Toggle Menu'})
+      expect(anchor).toHaveClass('test-class')
+    })
+
+    it('supports className prop on ActionMenu.Button with css anchor positioning flag', async () => {
+      const component = HTMLRender(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <BaseStyles>
+            <ActionMenu>
+              <ActionMenu.Button className="test-class">Toggle Menu</ActionMenu.Button>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Item>New file</ActionList.Item>
+                  <ActionList.Divider />
+                  <ActionList.Item>Copy link</ActionList.Item>
+                  <ActionList.Item>Edit file</ActionList.Item>
+                  <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
+                    Delete file
+                  </ActionList.Item>
+                  <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
+                    GitHub
+                  </ActionList.LinkItem>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
+        </FeatureFlags>,
+      )
+      const button = component.getByRole('button', {name: 'Toggle Menu'})
+      expect(button).toHaveClass('test-class')
+    })
+
     it('supports className prop on ActionMenu.Anchor', async () => {
       const component = HTMLRender(
-        <BaseStyles>
-          <ActionMenu>
-            <ActionMenu.Anchor className="test-class">
-              <Button>Toggle Menu</Button>
-            </ActionMenu.Anchor>
-            <ActionMenu.Overlay>
-              <ActionList>
-                <ActionList.Item>New file</ActionList.Item>
-                <ActionList.Divider />
-                <ActionList.Item>Copy link</ActionList.Item>
-                <ActionList.Item>Edit file</ActionList.Item>
-                <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
-                  Delete file
-                </ActionList.Item>
-                <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
-                  Github
-                </ActionList.LinkItem>
-              </ActionList>
-            </ActionMenu.Overlay>
-          </ActionMenu>
-        </BaseStyles>,
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: false}}>
+          <BaseStyles>
+            <ActionMenu>
+              <ActionMenu.Anchor className="test-class">
+                <Button>Toggle Menu</Button>
+              </ActionMenu.Anchor>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Item>New file</ActionList.Item>
+                  <ActionList.Divider />
+                  <ActionList.Item>Copy link</ActionList.Item>
+                  <ActionList.Item>Edit file</ActionList.Item>
+                  <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
+                    Delete file
+                  </ActionList.Item>
+                  <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
+                    GitHub
+                  </ActionList.LinkItem>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
+        </FeatureFlags>,
       )
       const anchor = component.getByRole('button', {name: 'Toggle Menu'})
       expect(anchor).toHaveClass('test-class')
@@ -652,28 +745,59 @@ describe('ActionMenu', () => {
 
     it('supports className prop on ActionMenu.Button', async () => {
       const component = HTMLRender(
-        <BaseStyles>
-          <ActionMenu>
-            <ActionMenu.Button className="test-class">Toggle Menu</ActionMenu.Button>
-            <ActionMenu.Overlay>
-              <ActionList>
-                <ActionList.Item>New file</ActionList.Item>
-                <ActionList.Divider />
-                <ActionList.Item>Copy link</ActionList.Item>
-                <ActionList.Item>Edit file</ActionList.Item>
-                <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
-                  Delete file
-                </ActionList.Item>
-                <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
-                  Github
-                </ActionList.LinkItem>
-              </ActionList>
-            </ActionMenu.Overlay>
-          </ActionMenu>
-        </BaseStyles>,
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: false}}>
+          <BaseStyles>
+            <ActionMenu>
+              <ActionMenu.Button className="test-class">Toggle Menu</ActionMenu.Button>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Item>New file</ActionList.Item>
+                  <ActionList.Divider />
+                  <ActionList.Item>Copy link</ActionList.Item>
+                  <ActionList.Item>Edit file</ActionList.Item>
+                  <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
+                    Delete file
+                  </ActionList.Item>
+                  <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
+                    Github
+                  </ActionList.LinkItem>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
+        </FeatureFlags>,
       )
       const button = component.getByRole('button', {name: 'Toggle Menu'})
       expect(button).toHaveClass('test-class')
+    })
+
+    it('keeps anchor-name and position-anchor linked when the anchor is replaced while the menu is open', async () => {
+      const user = userEvent.setup()
+      const component = HTMLRender(<ExampleWithReplaceableAnchor />)
+
+      const initialAnchor = component.getByRole('button', {name: 'Open menu'})
+      await user.click(initialAnchor)
+
+      const overlay = component.baseElement.querySelector('[data-component="AnchoredOverlay"]') as HTMLElement
+      expect(overlay).not.toBeNull()
+
+      const initialAnchorName = initialAnchor.style.getPropertyValue('anchor-name')
+      const initialPositionAnchor = overlay.style.getPropertyValue('position-anchor')
+      expect(initialAnchorName).not.toBe('')
+      expect(initialPositionAnchor).not.toBe('')
+      expect(initialPositionAnchor).toBe(initialAnchorName)
+
+      // Click the item that remounts the anchor while keeping the menu open
+      const switchItem = component.getByRole('menuitem', {name: 'Switch anchor'})
+      await user.click(switchItem)
+
+      const newAnchor = component.getByRole('button', {name: 'Open menu'})
+      expect(newAnchor).not.toBe(initialAnchor)
+
+      // The new anchor should have the same anchor-name re-applied, and the
+      // overlay should still reference it via position-anchor.
+      expect(newAnchor.style.getPropertyValue('anchor-name')).toBe(initialAnchorName)
+      expect(overlay.style.getPropertyValue('position-anchor')).toBe(initialPositionAnchor)
     })
   })
 
@@ -837,7 +961,7 @@ describe('ActionMenu', () => {
     })
   })
 
-  describe('feature flag: primer_react_action_menu_display_in_viewport_inside_dialog', () => {
+  describe('displayInViewport behavior', () => {
     const mockGetAnchoredPosition = vi.mocked(getAnchoredPosition)
 
     beforeEach(() => {
@@ -845,22 +969,20 @@ describe('ActionMenu', () => {
       mockGetAnchoredPosition.mockClear()
     })
 
-    it('should enable displayInViewport when flag is enabled and ActionMenu is inside a dialog', async () => {
+    it('should enable displayInViewport when ActionMenu is inside a dialog', async () => {
       // When the ActionMenu is wrapped in a Dialog, it's inside a dialog context.
-      // With the flag enabled, displayInViewport should be automatically enabled.
+      // displayInViewport should be automatically enabled.
       const component = HTMLRender(
-        <FeatureFlags flags={{primer_react_action_menu_display_in_viewport_inside_dialog: true}}>
-          <Dialog onClose={() => {}}>
-            <ActionMenu>
-              <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
-              <ActionMenu.Overlay>
-                <ActionList>
-                  <ActionList.Item>New file</ActionList.Item>
-                </ActionList>
-              </ActionMenu.Overlay>
-            </ActionMenu>
-          </Dialog>
-        </FeatureFlags>,
+        <Dialog onClose={() => {}}>
+          <ActionMenu>
+            <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Item>New file</ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </Dialog>,
       )
 
       const user = userEvent.setup()
@@ -881,90 +1003,18 @@ describe('ActionMenu', () => {
       expect(lastCall[2]?.displayInViewport).toBe(true)
     })
 
-    it('should not enable displayInViewport when flag is enabled but ActionMenu is NOT inside a dialog', async () => {
+    it('should not enable displayInViewport when ActionMenu is NOT inside a dialog', async () => {
       // Without being wrapped in a Dialog, the ActionMenu is not in a dialog context.
-      // Even with the flag enabled, displayInViewport should remain at its default (false/undefined).
-      const component = HTMLRender(
-        <FeatureFlags flags={{primer_react_action_menu_display_in_viewport_inside_dialog: true}}>
-          <ActionMenu>
-            <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
-            <ActionMenu.Overlay>
-              <ActionList>
-                <ActionList.Item>New file</ActionList.Item>
-              </ActionList>
-            </ActionMenu.Overlay>
-          </ActionMenu>
-        </FeatureFlags>,
-      )
-
-      const user = userEvent.setup()
-      const button = component.getByRole('button')
-      await user.click(button)
-
-      await waitFor(() => {
-        expect(component.queryByRole('menu')).toBeInTheDocument()
-      })
-
-      // Verify getAnchoredPosition was called without displayInViewport enabled
-      await waitFor(() => {
-        expect(mockGetAnchoredPosition).toHaveBeenCalled()
-      })
-
-      const calls = mockGetAnchoredPosition.mock.calls
-      const lastCall = calls[calls.length - 1]
-      expect(lastCall[2]?.displayInViewport).not.toBe(true)
-    })
-
-    it('should not enable displayInViewport when flag is disabled, even inside a dialog', async () => {
-      // Even when inside a Dialog, with the flag disabled, displayInViewport
-      // should remain at its default (false/undefined).
-      const component = HTMLRender(
-        <FeatureFlags flags={{primer_react_action_menu_display_in_viewport_inside_dialog: false}}>
-          <Dialog onClose={() => {}}>
-            <ActionMenu>
-              <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
-              <ActionMenu.Overlay>
-                <ActionList>
-                  <ActionList.Item>New file</ActionList.Item>
-                </ActionList>
-              </ActionMenu.Overlay>
-            </ActionMenu>
-          </Dialog>
-        </FeatureFlags>,
-      )
-
-      const user = userEvent.setup()
-      const button = component.getByRole('button', {name: 'Toggle Menu'})
-      await user.click(button)
-
-      await waitFor(() => {
-        expect(component.queryByRole('menu')).toBeInTheDocument()
-      })
-
-      // Verify getAnchoredPosition was called without displayInViewport enabled
-      await waitFor(() => {
-        expect(mockGetAnchoredPosition).toHaveBeenCalled()
-      })
-
-      const calls = mockGetAnchoredPosition.mock.calls
-      const lastCall = calls[calls.length - 1]
-      expect(lastCall[2]?.displayInViewport).not.toBe(true)
-    })
-
-    it('should not enable displayInViewport when flag is disabled and outside dialog', async () => {
-      // Default scenario: flag disabled and not in a dialog context.
       // displayInViewport should remain at its default (false/undefined).
       const component = HTMLRender(
-        <FeatureFlags flags={{primer_react_action_menu_display_in_viewport_inside_dialog: false}}>
-          <ActionMenu>
-            <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
-            <ActionMenu.Overlay>
-              <ActionList>
-                <ActionList.Item>New file</ActionList.Item>
-              </ActionList>
-            </ActionMenu.Overlay>
-          </ActionMenu>
-        </FeatureFlags>,
+        <ActionMenu>
+          <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item>New file</ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>,
       )
 
       const user = userEvent.setup()
@@ -985,22 +1035,20 @@ describe('ActionMenu', () => {
       expect(lastCall[2]?.displayInViewport).not.toBe(true)
     })
 
-    it('should respect explicit displayInViewport prop over feature flag logic', async () => {
+    it('should respect explicit displayInViewport prop over default logic', async () => {
       // Test that an explicit displayInViewport=false prop overrides the automatic
-      // detection, even when the flag is enabled and the ActionMenu is inside a dialog.
+      // detection, even when the ActionMenu is inside a dialog.
       const component = HTMLRender(
-        <FeatureFlags flags={{primer_react_action_menu_display_in_viewport_inside_dialog: true}}>
-          <Dialog onClose={() => {}}>
-            <ActionMenu>
-              <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
-              <ActionMenu.Overlay displayInViewport={false}>
-                <ActionList>
-                  <ActionList.Item>New file</ActionList.Item>
-                </ActionList>
-              </ActionMenu.Overlay>
-            </ActionMenu>
-          </Dialog>
-        </FeatureFlags>,
+        <Dialog onClose={() => {}}>
+          <ActionMenu>
+            <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+            <ActionMenu.Overlay displayInViewport={false}>
+              <ActionList>
+                <ActionList.Item>New file</ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </Dialog>,
       )
 
       const user = userEvent.setup()
@@ -1021,20 +1069,18 @@ describe('ActionMenu', () => {
       expect(lastCall[2]?.displayInViewport).toBe(false)
     })
 
-    it('should respect explicit displayInViewport=true prop even when flag is disabled', async () => {
+    it('should respect explicit displayInViewport=true prop', async () => {
       // Test that an explicit displayInViewport=true prop works regardless of
-      // the flag state or dialog context.
+      // the dialog context.
       const component = HTMLRender(
-        <FeatureFlags flags={{primer_react_action_menu_display_in_viewport_inside_dialog: false}}>
-          <ActionMenu>
-            <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
-            <ActionMenu.Overlay displayInViewport={true}>
-              <ActionList>
-                <ActionList.Item>New file</ActionList.Item>
-              </ActionList>
-            </ActionMenu.Overlay>
-          </ActionMenu>
-        </FeatureFlags>,
+        <ActionMenu>
+          <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+          <ActionMenu.Overlay displayInViewport={true}>
+            <ActionList>
+              <ActionList.Item>New file</ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>,
       )
 
       const user = userEvent.setup()

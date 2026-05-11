@@ -14,6 +14,17 @@ export type {BlankslateProps} from '../Blankslate'
 export {ButtonBase} from '../Button'
 export type {ButtonBaseProps} from '../Button'
 
+export {Card} from '../Card'
+export type {
+  CardProps,
+  CardIconProps,
+  CardImageProps,
+  CardHeadingProps,
+  CardDescriptionProps,
+  CardMenuProps,
+  CardMetadataProps,
+} from '../Card'
+
 export {DataTable, Table, createColumnHelper} from '../DataTable'
 export type {
   DataTableProps,
@@ -87,8 +98,8 @@ export type {SkeletonAvatarProps} from '../SkeletonAvatar'
 export {FeatureFlags, DefaultFeatureFlags, useFeatureFlag} from '../FeatureFlags'
 export type {FeatureFlagsProps} from '../FeatureFlags'
 
-export {FilteredActionList} from '../FilteredActionList'
-export type {FilteredActionListProps} from '../FilteredActionList'
+export {FilteredActionList, FilteredActionListLoadingTypes} from '../FilteredActionList'
+export type {FilteredActionListProps, FilteredActionListInputProps} from '../FilteredActionList'
 export {IssueLabel} from './IssueLabel'
 export type {IssueLabelProps} from './IssueLabel'
 
