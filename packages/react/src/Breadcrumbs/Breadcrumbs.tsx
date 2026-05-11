@@ -101,7 +101,7 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
     })
 
     return (
-      <Details ref={detailsRefCallback} className={classes.MenuDetails}>
+      <Details ref={detailsRefCallback} className={classes.MenuDetails} data-component="Breadcrumbs.MenuItem">
         <IconButton
           as="summary"
           role="button"
