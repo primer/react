@@ -168,8 +168,8 @@ describe('ActionList.Group', () => {
       expect(heading.parentElement).toContainElement(button)
     })
 
-    it('does not render GroupHeading.TrailingAction at all when the feature flag is disabled', () => {
-      const {getByRole, queryByRole} = HTMLRender(
+    it('passes GroupHeading.TrailingAction through as a child of the heading when the feature flag is disabled', () => {
+      const {getByRole} = HTMLRender(
         <ActionList>
           <ActionList.Heading as="h1">Heading</ActionList.Heading>
           <ActionList.Group>
@@ -182,12 +182,12 @@ describe('ActionList.Group', () => {
         </ActionList>,
       )
 
-      // The heading still renders normally
-      expect(getByRole('heading', {level: 2})).toHaveTextContent('Group Heading')
-      // But because the slot is only consumed under the flag, the button
-      // still passes through into the heading children unchanged.
-      const button = queryByRole('button', {name: 'New field'})
-      expect(button).not.toBeNull()
+      const heading = getByRole('heading', {level: 2})
+      const button = getByRole('button', {name: 'New field'})
+
+      // Without the flag, the slot is not consumed: the button passes
+      // through and still renders inside the heading element.
+      expect(heading).toContainElement(button)
     })
 
     it('throws when GroupHeading.TrailingAction is used inside an ActionMenu (menu role) and the feature flag is enabled', () => {

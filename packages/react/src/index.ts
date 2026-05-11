@@ -60,11 +60,13 @@ export type {
   ActionListProps,
   ActionListGroupProps,
   ActionListGroupHeadingProps,
+  ActionListGroupHeadingTrailingActionProps,
   ActionListItemProps,
   ActionListLinkItemProps,
   ActionListDividerProps,
   ActionListDescriptionProps,
   ActionListLeadingVisualProps,
+  ActionListTrailingActionProps,
   ActionListTrailingVisualProps,
 } from './ActionList'
 export {ActionMenu} from './ActionMenu'
