@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState, type SyntheticEvent} from 'react'
+import React, {useCallback, useEffect, useRef, useState, type CSSProperties, type SyntheticEvent} from 'react'
 import type {ButtonProps} from '../Button'
 import {Button, IconButton} from '../Button'
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
@@ -124,6 +124,8 @@ export interface DialogProps {
    * medium: 320px
    * large: 480px
    * xlarge: 640px
+   *
+   * Also accepts any valid CSS width value (e.g. '400px', '80rem').
    */
   width?: DialogWidth
 
@@ -193,7 +195,6 @@ const heightMap = {
   auto: 'auto',
 } as const
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const widthMap = {
   small: '296px',
   medium: '320px',
@@ -201,7 +202,7 @@ const widthMap = {
   xlarge: '640px',
 } as const
 
-export type DialogWidth = keyof typeof widthMap
+export type DialogWidth = keyof typeof widthMap | Exclude<CSSProperties['width'], undefined>
 export type DialogHeight = keyof typeof heightMap
 
 const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
@@ -278,7 +279,6 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   const autoFocusedFooterButtonRef = useRef<HTMLButtonElement>(null)
   for (const footerButton of footerButtons) {
     if (footerButton.autoFocus) {
-      // eslint-disable-next-line react-hooks/immutability
       footerButton.ref = autoFocusedFooterButtonRef
     }
   }
@@ -306,7 +306,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   useFocusTrap({
     containerRef: dialogRef,
     initialFocusRef: initialFocusRef ?? autoFocusedFooterButtonRef,
-    // eslint-disable-next-line react-hooks/refs
+
     restoreFocusOnCleanUp: returnFocusRef?.current ? false : true,
     returnFocusRef,
   })
@@ -397,12 +397,15 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             aria-modal
             {...positionDataAttributes}
             {...(align && {'data-align': align})}
-            data-width={width}
+            data-width={width in widthMap ? width : undefined}
             data-height={height}
             data-has-footer={hasFooter ? '' : undefined}
             data-footer-button-layout={hasFooter ? footerButtonLayout : undefined}
             className={clsx(className, classes.Dialog)}
-            style={style}
+            style={{
+              ...style,
+              ...(!(width in widthMap) ? {'--dialog-width': width} : {}),
+            }}
           >
             {header}
             <ScrollableRegion aria-labelledby={dialogLabelId} className={classes.DialogOverflowWrapper}>
@@ -465,7 +468,6 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
     if (hasRendered === 1) {
       autoFocusRef.current?.focus()
     } else {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setHasRendered(hasRendered + 1)
     }
   }, [autoFocusRef, hasRendered])
