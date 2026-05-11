@@ -14,8 +14,11 @@ const specificity = require('specificity')
 const {minify} = require('terser')
 const gzipSize = require('gzip-size')
 
-const CSS_SIZE_WARNING_BYTES = Number(process.env.CSS_SIZE_WARNING_BYTES ?? 10 * 1024)
-const CSS_SELECTOR_SPECIFICITY_WARNING = Number(process.env.CSS_SELECTOR_SPECIFICITY_WARNING ?? 50)
+const CSS_SIZE_WARNING_THRESHOLD_BYTES = Number(process.env.CSS_SIZE_WARNING_BYTES ?? 10 * 1024)
+const CSS_SELECTOR_SPECIFICITY_WARNING_THRESHOLD = Number(process.env.CSS_SELECTOR_SPECIFICITY_WARNING ?? 50)
+const SPECIFICITY_ID_WEIGHT = 100
+const SPECIFICITY_CLASS_WEIGHT = 10
+const SPECIFICITY_ELEMENT_WEIGHT = 1
 
 function createCSSModulesCollector(cssModules, cssImportsByImporter) {
   return {
@@ -155,8 +158,8 @@ async function main() {
       {
         generatedAt: new Date().toISOString(),
         thresholds: {
-          cssSizeWarningBytes: CSS_SIZE_WARNING_BYTES,
-          cssSelectorSpecificityWarning: CSS_SELECTOR_SPECIFICITY_WARNING,
+          cssSizeWarningBytes: CSS_SIZE_WARNING_THRESHOLD_BYTES,
+          cssSelectorSpecificityWarning: CSS_SELECTOR_SPECIFICITY_WARNING_THRESHOLD,
         },
         ...data,
       },
@@ -314,9 +317,9 @@ async function getCSSInfo(rootDirectory, cssModules, cssImportsByImporter, chunk
           stats,
           warnings: {
             size:
-              size >= CSS_SIZE_WARNING_BYTES
+              size >= CSS_SIZE_WARNING_THRESHOLD_BYTES
                 ? {
-                    threshold: CSS_SIZE_WARNING_BYTES,
+                    threshold: CSS_SIZE_WARNING_THRESHOLD_BYTES,
                     actual: size,
                   }
                 : null,
@@ -386,7 +389,7 @@ function getHighSpecificitySelectors(selectors) {
       })
     })
     .filter(result => {
-      return result.specificity >= CSS_SELECTOR_SPECIFICITY_WARNING
+      return result.specificity >= CSS_SELECTOR_SPECIFICITY_WARNING_THRESHOLD
     })
     .sort((a, b) => {
       return b.specificity - a.specificity
@@ -394,7 +397,12 @@ function getHighSpecificitySelectors(selectors) {
 }
 
 function getSpecificityValue(specificityArray) {
-  return specificityArray[1] * 100 + specificityArray[2] * 10 + specificityArray[3]
+  // specificityArray is [inline, ids, classes/attributes/pseudo-classes, elements/pseudo-elements].
+  return (
+    specificityArray[1] * SPECIFICITY_ID_WEIGHT +
+    specificityArray[2] * SPECIFICITY_CLASS_WEIGHT +
+    specificityArray[3] * SPECIFICITY_ELEMENT_WEIGHT
+  )
 }
 
 function getEntrypoints(packageJson) {
