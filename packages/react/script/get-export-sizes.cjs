@@ -10,8 +10,12 @@ const json = require('@rollup/plugin-json')
 const cssstats = require('cssstats')
 const {filesize} = require('filesize')
 const {rollup} = require('rollup')
+const specificity = require('specificity')
 const {minify} = require('terser')
 const gzipSize = require('gzip-size')
+
+const CSS_SIZE_WARNING_BYTES = Number(process.env.CSS_SIZE_WARNING_BYTES ?? 10 * 1024)
+const CSS_SELECTOR_SPECIFICITY_WARNING = Number(process.env.CSS_SELECTOR_SPECIFICITY_WARNING ?? 50)
 
 function createCSSModulesCollector(cssModules, cssImportsByImporter) {
   return {
@@ -85,7 +89,7 @@ async function main() {
       format: 'esm',
     })
     const minified = await minify(output[0].code)
-    const css = await getCSSInfo(cssModules, cssImportsByImporter, output[0])
+    const css = await getCSSInfo(rootDirectory, cssModules, cssImportsByImporter, output[0])
     const exports = []
 
     core.startGroup('Analyzing exports...')
@@ -115,7 +119,7 @@ async function main() {
         format: 'esm',
       })
       const minified = await minify(output[0].code)
-      const css = await getCSSInfo(exportCSSModules, exportCSSImportsByImporter, output[0])
+      const css = await getCSSInfo(rootDirectory, exportCSSModules, exportCSSImportsByImporter, output[0])
 
       exports.push({
         identifier,
@@ -139,6 +143,28 @@ async function main() {
       exports,
     })
   }
+
+  const reportPath = process.env.EXPORT_SIZE_REPORT_PATH
+    ? path.resolve(process.cwd(), process.env.EXPORT_SIZE_REPORT_PATH)
+    : path.join(rootDirectory, 'dist', 'export-size-report.json')
+
+  await fs.mkdir(path.dirname(reportPath), {recursive: true})
+  await fs.writeFile(
+    reportPath,
+    `${JSON.stringify(
+      {
+        generatedAt: new Date().toISOString(),
+        thresholds: {
+          cssSizeWarningBytes: CSS_SIZE_WARNING_BYTES,
+          cssSelectorSpecificityWarning: CSS_SELECTOR_SPECIFICITY_WARNING,
+        },
+        ...data,
+      },
+      null,
+      2,
+    )}\n`,
+  )
+  core.info(`Wrote export size report to ${reportPath}`)
 
   if (process.env.CI) {
     await core.summary
@@ -241,7 +267,7 @@ async function main() {
   }
 }
 
-async function getCSSInfo(cssModules, cssImportsByImporter, chunk) {
+async function getCSSInfo(rootDirectory, cssModules, cssImportsByImporter, chunk) {
   const cssModuleIds = new Set()
 
   if (chunk.type === 'chunk') {
@@ -265,28 +291,110 @@ async function getCSSInfo(cssModules, cssImportsByImporter, chunk) {
     return {
       size: 0,
       gzip: 0,
-      stats: {
-        rules: {
-          total: 0,
-        },
-        selectors: {
-          total: 0,
-          specificity: {
-            max: 0,
-          },
-        },
-        declarations: {
-          total: 0,
-        },
+      stats: getEmptyCSSStats(),
+      stylesheets: [],
+      warnings: {
+        stylesheetsOverSize: [],
+        highSpecificitySelectors: [],
       },
     }
   }
+
+  const stylesheets = await Promise.all(
+    Array.from(cssModuleIds)
+      .sort()
+      .map(async id => {
+        const stylesheetCode = cssModules.get(id)
+        const size = Buffer.byteLength(stylesheetCode)
+        const stats = cssstats(stylesheetCode).toJSON()
+        const stylesheet = {
+          path: path.relative(rootDirectory, id),
+          size,
+          gzip: await gzipSize(stylesheetCode),
+          stats,
+          warnings: {
+            size:
+              size >= CSS_SIZE_WARNING_BYTES
+                ? {
+                    threshold: CSS_SIZE_WARNING_BYTES,
+                    actual: size,
+                  }
+                : null,
+            highSpecificitySelectors: getHighSpecificitySelectors(stats.selectors.values ?? []),
+          },
+        }
+
+        return stylesheet
+      }),
+  )
+  const stylesheetsOverSize = stylesheets
+    .filter(stylesheet => stylesheet.warnings.size)
+    .map(stylesheet => {
+      return {
+        path: stylesheet.path,
+        threshold: stylesheet.warnings.size.threshold,
+        actual: stylesheet.warnings.size.actual,
+      }
+    })
+  const highSpecificitySelectors = stylesheets.flatMap(stylesheet => {
+    return stylesheet.warnings.highSpecificitySelectors.map(selector => {
+      return {
+        stylesheet: stylesheet.path,
+        ...selector,
+      }
+    })
+  })
 
   return {
     size: Buffer.byteLength(code),
     gzip: await gzipSize(code),
     stats: cssstats(code).toJSON(),
+    stylesheets,
+    warnings: {
+      stylesheetsOverSize,
+      highSpecificitySelectors,
+    },
   }
+}
+
+function getEmptyCSSStats() {
+  return {
+    rules: {
+      total: 0,
+    },
+    selectors: {
+      total: 0,
+      specificity: {
+        max: 0,
+      },
+    },
+    declarations: {
+      total: 0,
+    },
+  }
+}
+
+function getHighSpecificitySelectors(selectors) {
+  return selectors
+    .flatMap(selector => {
+      return specificity.calculate(selector).map(result => {
+        return {
+          selector: result.selector.trim(),
+          specificity: getSpecificityValue(result.specificityArray),
+          specificityArray: result.specificityArray,
+        }
+      })
+    })
+    .filter(result => {
+      return result.specificity >= CSS_SELECTOR_SPECIFICITY_WARNING
+    })
+    .sort((a, b) => {
+      return b.specificity - a.specificity
+    })
+}
+
+function getSpecificityValue(specificityArray) {
+  return specificityArray[1] * 100 + specificityArray[2] * 10 + specificityArray[3]
 }
 
 function getEntrypoints(packageJson) {
