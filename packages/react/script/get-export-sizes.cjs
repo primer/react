@@ -152,22 +152,26 @@ async function main() {
     ? path.resolve(process.cwd(), process.env.EXPORT_SIZE_REPORT_PATH)
     : path.join(rootDirectory, 'dist', 'export-size-report.json')
 
-  await fs.mkdir(path.dirname(reportPath), {recursive: true})
-  await fs.writeFile(
-    reportPath,
-    `${JSON.stringify(
-      {
-        generatedAt: new Date().toISOString(),
-        thresholds: {
-          cssSizeWarningBytes: CSS_SIZE_WARNING_THRESHOLD_BYTES,
-          cssSelectorSpecificityWarning: CSS_SELECTOR_SPECIFICITY_WARNING_THRESHOLD,
+  try {
+    await fs.mkdir(path.dirname(reportPath), {recursive: true})
+    await fs.writeFile(
+      reportPath,
+      `${JSON.stringify(
+        {
+          generatedAt: new Date().toISOString(),
+          thresholds: {
+            cssSizeWarningBytes: CSS_SIZE_WARNING_THRESHOLD_BYTES,
+            cssSelectorSpecificityWarning: CSS_SELECTOR_SPECIFICITY_WARNING_THRESHOLD,
+          },
+          ...data,
         },
-        ...data,
-      },
-      null,
-      2,
-    )}\n`,
-  )
+        null,
+        2,
+      )}\n`,
+    )
+  } catch (error) {
+    throw new Error(`Unable to write export size report to ${reportPath}`, {cause: error})
+  }
   core.info(`Wrote export size report to ${reportPath}`)
 
   if (process.env.CI) {
@@ -310,9 +314,10 @@ async function getCSSInfo(rootDirectory, cssModules, cssImportsByImporter, chunk
       .map(async id => {
         const stylesheetCode = cssModules.get(id)
         const size = Buffer.byteLength(stylesheetCode)
-        const stats = cssstats(stylesheetCode).toJSON()
+        const stylesheetPath = path.relative(rootDirectory, id)
+        const stats = getCSSStats(stylesheetCode, stylesheetPath)
         const stylesheet = {
-          path: path.relative(rootDirectory, id),
+          path: stylesheetPath,
           size,
           gzip: await gzipSize(stylesheetCode),
           stats,
@@ -324,7 +329,7 @@ async function getCSSInfo(rootDirectory, cssModules, cssImportsByImporter, chunk
                     actual: size,
                   }
                 : null,
-            highSpecificitySelectors: getHighSpecificitySelectors(stats.selectors.values ?? []),
+            highSpecificitySelectors: getHighSpecificitySelectors(stats.selectors.values ?? [], stylesheetPath),
           },
         }
 
@@ -352,7 +357,7 @@ async function getCSSInfo(rootDirectory, cssModules, cssImportsByImporter, chunk
   return {
     size: Buffer.byteLength(code),
     gzip: await gzipSize(code),
-    stats: cssstats(code).toJSON(),
+    stats: getCSSStats(code, 'combined CSS'),
     stylesheets,
     warnings: {
       stylesheetsOverSize,
@@ -378,16 +383,30 @@ function getEmptyCSSStats() {
   }
 }
 
-function getHighSpecificitySelectors(selectors) {
+function getCSSStats(code, stylesheetPath) {
+  try {
+    return cssstats(code).toJSON()
+  } catch (error) {
+    throw new Error(`Unable to collect CSS stats for ${stylesheetPath}`, {cause: error})
+  }
+}
+
+function getHighSpecificitySelectors(selectors, stylesheetPath) {
   return selectors
     .flatMap(selector => {
-      return specificity.calculate(selector).map(result => {
-        return {
-          selector: result.selector.trim(),
-          specificity: getSpecificityValue(result.specificityArray),
-          specificityArray: result.specificityArray,
-        }
-      })
+      try {
+        return specificity.calculate(selector).map(result => {
+          return {
+            selector: result.selector.trim(),
+            specificity: getSpecificityValue(result.specificityArray),
+            specificityArray: result.specificityArray,
+          }
+        })
+      } catch (error) {
+        throw new Error(`Unable to calculate selector specificity for \`${selector}\` in ${stylesheetPath}`, {
+          cause: error,
+        })
+      }
     })
     .filter(result => {
       return result.specificity >= CSS_SELECTOR_SPECIFICITY_WARNING_THRESHOLD
