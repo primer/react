@@ -416,6 +416,10 @@ function getHighSpecificitySelectors(selectors, stylesheetPath) {
     })
 }
 
+/**
+ * @param {[number, number, number, number]} specificityArray [inline, ids, classes/attributes/pseudo-classes, elements/pseudo-elements]
+ * @returns {number} CSS selector specificity score without inline style specificity
+ */
 function getSpecificityValue(specificityArray) {
   // specificityArray is [inline, ids, classes/attributes/pseudo-classes, elements/pseudo-elements].
   // CSS selectors cannot include inline style specificity, so index 0 is not included in this score.
