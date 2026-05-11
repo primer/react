@@ -30,6 +30,7 @@ const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({
   style,
   ...rest
   'data-component': dataComponent,
+  ...rest
 }) => {
   const IconComponent = validationStatus ? validationIconMap[validationStatus] : undefined
 
