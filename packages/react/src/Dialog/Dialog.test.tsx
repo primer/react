@@ -440,5 +440,16 @@ describe('Footer button loading states', () => {
       expect(dialog).not.toHaveAttribute('data-width')
       expect(dialog.style.getPropertyValue('--dialog-width')).toBe('400px')
     })
+
+    it('sets --dialog-width custom property for numeric width values', () => {
+      const {getByRole} = render(
+        <Dialog onClose={() => {}} width={400}>
+          Content
+        </Dialog>,
+      )
+      const dialog = getByRole('dialog')
+      expect(dialog).not.toHaveAttribute('data-width')
+      expect(dialog.style.getPropertyValue('--dialog-width')).toBe('400px')
+    })
   })
 })
