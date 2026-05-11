@@ -78,7 +78,3 @@
 .MultipleActionBarsSection {
   padding: var(--base-size-16);
 }
-
-.OverflowHidden {
-  overflow: hidden;
-}
