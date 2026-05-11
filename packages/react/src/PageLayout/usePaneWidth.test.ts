@@ -881,16 +881,36 @@ describe('usePaneWidth', () => {
       })
       expect(result.current.maxPaneWidth).toBe(389)
 
-      // Now resize again to a different width that produces the SAME max
-      // 900px -> 900px (no actual viewport change, same max = 389)
-      const renderCountBefore = result.current.maxPaneWidth
+      // Track render count to verify no unnecessary re-renders
+      let renderCount = 0
+      renderHook(() => {
+        renderCount++
+        return usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-skip-transition-counter',
+          ...createMockRefs(),
+        })
+      })
+      const renderCountAfterMount = renderCount
+
+      // Dispatch resize without changing viewport (same max = same value)
       window.dispatchEvent(new Event('resize'))
       await act(async () => {
         await vi.runAllTimersAsync()
       })
 
-      // maxPaneWidth should be unchanged — no re-render triggered
-      expect(result.current.maxPaneWidth).toBe(renderCountBefore)
+      // No additional renders should have occurred — startTransition was skipped
+      expect(renderCount).toBe(renderCountAfterMount)
+
+      // Also verify the original hook's value is unchanged
+      const previousMaxPaneWidth = result.current.maxPaneWidth
+      window.dispatchEvent(new Event('resize'))
+      await act(async () => {
+        await vi.runAllTimersAsync()
+      })
+      expect(result.current.maxPaneWidth).toBe(previousMaxPaneWidth)
 
       vi.useRealTimers()
     })
