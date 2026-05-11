@@ -3,6 +3,7 @@ import {render as HTMLRender} from '@testing-library/react'
 import BaseStyles from '../BaseStyles'
 import {ActionList} from '.'
 import {ActionMenu} from '..'
+import {FeatureFlags} from '../FeatureFlags'
 import {implementsClassName} from '../utils/testing'
 import classes from './Group.module.css'
 
@@ -135,5 +136,97 @@ describe('ActionList.Group', () => {
     )
     const list = container.querySelector(`li[data-test-id='ActionList.Group'] > ul`)
     expect(list).toHaveAttribute('aria-label', 'Animals')
+  })
+
+  describe('GroupHeading TrailingAction (behind feature flag)', () => {
+    it('renders TrailingAction as a sibling of the heading element when the feature flag is enabled', () => {
+      const {getByRole} = HTMLRender(
+        <FeatureFlags flags={{primer_react_action_list_group_heading_trailing_action: true}}>
+          <ActionList>
+            <ActionList.Heading as="h1">Heading</ActionList.Heading>
+            <ActionList.Group>
+              <ActionList.GroupHeading as="h2">
+                Group Heading
+                <ActionList.TrailingAction label="New field" />
+              </ActionList.GroupHeading>
+              <ActionList.Item>Item</ActionList.Item>
+            </ActionList.Group>
+          </ActionList>
+        </FeatureFlags>,
+      )
+
+      const heading = getByRole('heading', {level: 2})
+      const button = getByRole('button', {name: 'New field'})
+
+      // The button must NOT be inside the heading element
+      expect(heading).not.toContainElement(button)
+      // The heading text should not include the button's accessible name
+      expect(heading).toHaveTextContent('Group Heading')
+      expect(heading.textContent).not.toContain('New field')
+      // The button should be inside the same wrapper as the heading
+      expect(heading.parentElement).toContainElement(button)
+    })
+
+    it('renders TrailingAction inside the heading element when the feature flag is disabled', () => {
+      const {getByRole} = HTMLRender(
+        <ActionList>
+          <ActionList.Heading as="h1">Heading</ActionList.Heading>
+          <ActionList.Group>
+            <ActionList.GroupHeading as="h2">
+              Group Heading
+              <ActionList.TrailingAction label="New field" />
+            </ActionList.GroupHeading>
+            <ActionList.Item>Item</ActionList.Item>
+          </ActionList.Group>
+        </ActionList>,
+      )
+
+      const heading = getByRole('heading', {level: 2})
+      const button = getByRole('button', {name: 'New field'})
+
+      // Old behavior is preserved: the button renders inside the heading
+      expect(heading).toContainElement(button)
+    })
+
+    it('throws when TrailingAction is used inside a GroupHeading within an ActionMenu (menu role) and the feature flag is enabled', () => {
+      expect(() =>
+        HTMLRender(
+          <FeatureFlags flags={{primer_react_action_list_group_heading_trailing_action: true}}>
+            <BaseStyles>
+              <ActionMenu open={true}>
+                <ActionMenu.Button>Trigger</ActionMenu.Button>
+                <ActionMenu.Overlay>
+                  <ActionList>
+                    <ActionList.Group>
+                      <ActionList.GroupHeading>
+                        Group Heading
+                        <ActionList.TrailingAction label="New field" />
+                      </ActionList.GroupHeading>
+                    </ActionList.Group>
+                  </ActionList>
+                </ActionMenu.Overlay>
+              </ActionMenu>
+            </BaseStyles>
+          </FeatureFlags>,
+        ),
+      ).toThrow(/can not be used within an ActionList.GroupHeading/)
+    })
+
+    it('throws when TrailingAction is used inside a GroupHeading within a listbox role and the feature flag is enabled', () => {
+      expect(() =>
+        HTMLRender(
+          <FeatureFlags flags={{primer_react_action_list_group_heading_trailing_action: true}}>
+            <ActionList role="listbox">
+              <ActionList.Group>
+                <ActionList.GroupHeading>
+                  Group Heading
+                  <ActionList.TrailingAction label="New field" />
+                </ActionList.GroupHeading>
+              </ActionList.Group>
+            </ActionList>
+          </FeatureFlags>,
+        ),
+      ).toThrow(/can not be used within an ActionList.GroupHeading/)
+    })
   })
 })

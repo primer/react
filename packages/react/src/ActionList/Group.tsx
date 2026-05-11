@@ -8,6 +8,10 @@ import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
 import groupClasses from './Group.module.css'
 import type {FCWithSlotMarker} from '../utils/types/Slots'
+import {TrailingAction} from './TrailingAction'
+import {useFeatureFlag} from '../FeatureFlags'
+
+const GROUP_HEADING_TRAILING_ACTION_FEATURE_FLAG = 'primer_react_action_list_group_heading_trailing_action'
 
 type HeadingProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
@@ -157,6 +161,26 @@ export const GroupHeading: FCWithSlotMarker<React.PropsWithChildren<ActionListGr
 }) => {
   const {role: listRole} = React.useContext(ListContext)
   const {groupHeadingId} = React.useContext(GroupContext)
+  const trailingActionEnabled = useFeatureFlag(GROUP_HEADING_TRAILING_ACTION_FEATURE_FLAG)
+
+  // When the feature flag is on, extract a single ActionList.TrailingAction
+  // child so it renders as a sibling of the heading element (inside the
+  // HeadingWrap) instead of inside the heading itself. When the flag is off,
+  // we fall through to the previous behavior so existing usage is unaffected.
+  const [slots, childrenWithoutSlots] = useSlots(children, {
+    trailingAction: TrailingAction,
+  })
+
+  const trailingAction = trailingActionEnabled ? slots.trailingAction : null
+  const headingChildren = trailingActionEnabled ? childrenWithoutSlots : children
+
+  if (trailingAction) {
+    invariant(
+      listRole === undefined || listRole === 'list',
+      `ActionList.TrailingAction can not be used within an ActionList.GroupHeading that is part of a list with an ARIA role of "${listRole}". Trailing actions on group headings are only supported in lists with the default "list" role.`,
+    )
+  }
+
   // for list role, the headings are proper heading tags, for menu and listbox, they are just representational and divs
   const missingAsForList = (listRole === undefined || listRole === 'list') && children !== undefined && as === undefined
   const unnecessaryAsForListboxOrMenu =
@@ -188,7 +212,7 @@ export const GroupHeading: FCWithSlotMarker<React.PropsWithChildren<ActionListGr
           {...props}
         >
           <span className={clsx(className, groupClasses.GroupHeading)} id={groupHeadingId}>
-            {_internalBackwardCompatibleTitle ?? children}
+            {_internalBackwardCompatibleTitle ?? headingChildren}
           </span>
           {auxiliaryText && <div className={classes.Description}>{auxiliaryText}</div>}
         </HeadingWrap>
@@ -197,6 +221,7 @@ export const GroupHeading: FCWithSlotMarker<React.PropsWithChildren<ActionListGr
         <HeadingWrap
           className={groupClasses.GroupHeadingWrap}
           data-variant={variant}
+          data-has-trailing-action={trailingAction ? '' : undefined}
           as={headingWrapElement}
           // TODO: next-major: switch for data-component="ActionList.GroupHeading" next major
           data-component="GroupHeadingWrap"
@@ -207,9 +232,10 @@ export const GroupHeading: FCWithSlotMarker<React.PropsWithChildren<ActionListGr
             id={groupHeadingId}
             {...props}
           >
-            {_internalBackwardCompatibleTitle ?? children}
+            {_internalBackwardCompatibleTitle ?? headingChildren}
           </Heading>
           {auxiliaryText && <div className={classes.Description}>{auxiliaryText}</div>}
+          {trailingAction ? <span className={groupClasses.GroupHeadingTrailingAction}>{trailingAction}</span> : null}
         </HeadingWrap>
       )}
     </>
