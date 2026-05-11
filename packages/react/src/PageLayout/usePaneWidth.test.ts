@@ -853,7 +853,7 @@ describe('usePaneWidth', () => {
       vi.useRealTimers()
     })
 
-    it('should skip startTransition when maxPaneWidth has not changed (#7801)', async () => {
+    it('should skip startTransition when maxPaneWidth has not changed', async () => {
       vi.useFakeTimers()
       // Start at 1000px — below the 1280 breakpoint, so diff = 511
       vi.stubGlobal('innerWidth', 1000)

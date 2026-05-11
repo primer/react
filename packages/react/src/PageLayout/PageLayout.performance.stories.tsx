@@ -543,7 +543,7 @@ export const KeyboardARIATest: Story = {
 // ============================================================================
 
 export const ResizablePaneReRenderCounter: Story = {
-  name: 'Re-render Counter (Issue #7801)',
+  name: 'Re-render Counter',
   render: () => {
     return (
       <SplitPageLayout>
