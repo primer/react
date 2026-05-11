@@ -209,6 +209,7 @@ jobs:
       - name: Get export sizes
         run: node packages/react/script/get-export-sizes.cjs
       - name: Upload export size report
+        # actions/upload-artifact@v7.0.1
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: export-size-report
