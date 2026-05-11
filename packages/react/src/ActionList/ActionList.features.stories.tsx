@@ -1007,7 +1007,7 @@ export const WithTrailingActionOnGroupHeading = () => (
       <ActionList.Group>
         <ActionList.GroupHeading as="h3">
           Custom fields
-          <ActionList.TrailingAction label="New field" icon={PlusIcon} />
+          <ActionList.GroupHeading.TrailingAction label="New field" icon={PlusIcon} />
         </ActionList.GroupHeading>
         <ActionList.Item>
           <ActionList.LeadingVisual>
@@ -1025,7 +1025,7 @@ export const WithTrailingActionOnGroupHeading = () => (
       <ActionList.Group>
         <ActionList.GroupHeading as="h3" variant="filled">
           Repositories
-          <ActionList.TrailingAction as="a" href="#" label="Manage repositories" />
+          <ActionList.GroupHeading.TrailingAction as="a" href="#" label="Manage repositories" icon={ProjectIcon} />
         </ActionList.GroupHeading>
         <ActionList.Item>primer/react</ActionList.Item>
         <ActionList.Item>primer/primitives</ActionList.Item>

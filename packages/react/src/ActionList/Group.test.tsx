@@ -1,5 +1,6 @@
 import {describe, it, expect} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
+import {PlusIcon} from '@primer/octicons-react'
 import BaseStyles from '../BaseStyles'
 import {ActionList} from '.'
 import {ActionMenu} from '..'
@@ -138,8 +139,8 @@ describe('ActionList.Group', () => {
     expect(list).toHaveAttribute('aria-label', 'Animals')
   })
 
-  describe('GroupHeading TrailingAction (behind feature flag)', () => {
-    it('renders TrailingAction as a sibling of the heading element when the feature flag is enabled', () => {
+  describe('GroupHeading.TrailingAction (behind feature flag)', () => {
+    it('renders GroupHeading.TrailingAction as a sibling of the heading element when the feature flag is enabled', () => {
       const {getByRole} = HTMLRender(
         <FeatureFlags flags={{primer_react_action_list_group_heading_trailing_action: true}}>
           <ActionList>
@@ -147,7 +148,7 @@ describe('ActionList.Group', () => {
             <ActionList.Group>
               <ActionList.GroupHeading as="h2">
                 Group Heading
-                <ActionList.TrailingAction label="New field" />
+                <ActionList.GroupHeading.TrailingAction label="New field" icon={PlusIcon} />
               </ActionList.GroupHeading>
               <ActionList.Item>Item</ActionList.Item>
             </ActionList.Group>
@@ -167,28 +168,29 @@ describe('ActionList.Group', () => {
       expect(heading.parentElement).toContainElement(button)
     })
 
-    it('renders TrailingAction inside the heading element when the feature flag is disabled', () => {
-      const {getByRole} = HTMLRender(
+    it('does not render GroupHeading.TrailingAction at all when the feature flag is disabled', () => {
+      const {getByRole, queryByRole} = HTMLRender(
         <ActionList>
           <ActionList.Heading as="h1">Heading</ActionList.Heading>
           <ActionList.Group>
             <ActionList.GroupHeading as="h2">
               Group Heading
-              <ActionList.TrailingAction label="New field" />
+              <ActionList.GroupHeading.TrailingAction label="New field" icon={PlusIcon} />
             </ActionList.GroupHeading>
             <ActionList.Item>Item</ActionList.Item>
           </ActionList.Group>
         </ActionList>,
       )
 
-      const heading = getByRole('heading', {level: 2})
-      const button = getByRole('button', {name: 'New field'})
-
-      // Old behavior is preserved: the button renders inside the heading
-      expect(heading).toContainElement(button)
+      // The heading still renders normally
+      expect(getByRole('heading', {level: 2})).toHaveTextContent('Group Heading')
+      // But because the slot is only consumed under the flag, the button
+      // still passes through into the heading children unchanged.
+      const button = queryByRole('button', {name: 'New field'})
+      expect(button).not.toBeNull()
     })
 
-    it('throws when TrailingAction is used inside a GroupHeading within an ActionMenu (menu role) and the feature flag is enabled', () => {
+    it('throws when GroupHeading.TrailingAction is used inside an ActionMenu (menu role) and the feature flag is enabled', () => {
       expect(() =>
         HTMLRender(
           <FeatureFlags flags={{primer_react_action_list_group_heading_trailing_action: true}}>
@@ -200,7 +202,7 @@ describe('ActionList.Group', () => {
                     <ActionList.Group>
                       <ActionList.GroupHeading>
                         Group Heading
-                        <ActionList.TrailingAction label="New field" />
+                        <ActionList.GroupHeading.TrailingAction label="New field" icon={PlusIcon} />
                       </ActionList.GroupHeading>
                     </ActionList.Group>
                   </ActionList>
@@ -209,10 +211,10 @@ describe('ActionList.Group', () => {
             </BaseStyles>
           </FeatureFlags>,
         ),
-      ).toThrow(/can not be used within an ActionList.GroupHeading/)
+      ).toThrow(/can not be used inside an ActionList with an ARIA role of "menu"/)
     })
 
-    it('throws when TrailingAction is used inside a GroupHeading within a listbox role and the feature flag is enabled', () => {
+    it('throws when GroupHeading.TrailingAction is used inside a listbox role and the feature flag is enabled', () => {
       expect(() =>
         HTMLRender(
           <FeatureFlags flags={{primer_react_action_list_group_heading_trailing_action: true}}>
@@ -220,13 +222,13 @@ describe('ActionList.Group', () => {
               <ActionList.Group>
                 <ActionList.GroupHeading>
                   Group Heading
-                  <ActionList.TrailingAction label="New field" />
+                  <ActionList.GroupHeading.TrailingAction label="New field" icon={PlusIcon} />
                 </ActionList.GroupHeading>
               </ActionList.Group>
             </ActionList>
           </FeatureFlags>,
         ),
-      ).toThrow(/can not be used within an ActionList.GroupHeading/)
+      ).toThrow(/can not be used inside an ActionList with an ARIA role of "listbox"/)
     })
   })
 })
