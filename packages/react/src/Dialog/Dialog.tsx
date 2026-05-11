@@ -205,6 +205,11 @@ const widthMap = {
 export type DialogWidth = keyof typeof widthMap | Exclude<CSSProperties['width'], undefined>
 export type DialogHeight = keyof typeof heightMap
 
+const isWidthMapKey = (width: DialogWidth): width is keyof typeof widthMap =>
+  typeof width === 'string' && Object.hasOwn(widthMap, width)
+
+const normalizeWidth = (width: DialogWidth): string | number => (typeof width === 'number' ? `${width}px` : width)
+
 const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
   dialogLabelId,
   title,
@@ -398,14 +403,14 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             aria-modal
             {...positionDataAttributes}
             {...(align && {'data-align': align})}
-            data-width={width in widthMap ? width : undefined}
+            data-width={isWidthMapKey(width) ? width : undefined}
             data-height={height}
             data-has-footer={hasFooter ? '' : undefined}
             data-footer-button-layout={hasFooter ? footerButtonLayout : undefined}
             className={clsx(className, classes.Dialog)}
             style={{
               ...style,
-              ...(!(width in widthMap) ? {'--dialog-width': width} : {}),
+              ...(!isWidthMapKey(width) ? {'--dialog-width': normalizeWidth(width)} : {}),
             }}
           >
             {header}
