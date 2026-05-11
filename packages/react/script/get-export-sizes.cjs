@@ -14,8 +14,12 @@ const specificity = require('specificity')
 const {minify} = require('terser')
 const gzipSize = require('gzip-size')
 
-const CSS_SIZE_WARNING_THRESHOLD_BYTES = Number(process.env.CSS_SIZE_WARNING_BYTES ?? 10 * 1024)
-const CSS_SELECTOR_SPECIFICITY_WARNING_THRESHOLD = Number(process.env.CSS_SELECTOR_SPECIFICITY_WARNING ?? 50)
+const CSS_SIZE_WARNING_THRESHOLD_BYTES = Number(
+  process.env.CSS_SIZE_WARNING_THRESHOLD_BYTES ?? process.env.CSS_SIZE_WARNING_BYTES ?? 10 * 1024,
+)
+const CSS_SELECTOR_SPECIFICITY_WARNING_THRESHOLD = Number(
+  process.env.CSS_SELECTOR_SPECIFICITY_WARNING_THRESHOLD ?? process.env.CSS_SELECTOR_SPECIFICITY_WARNING ?? 50,
+)
 const SPECIFICITY_ID_WEIGHT = 100
 const SPECIFICITY_CLASS_WEIGHT = 10
 const SPECIFICITY_ELEMENT_WEIGHT = 1
@@ -398,6 +402,7 @@ function getHighSpecificitySelectors(selectors) {
 
 function getSpecificityValue(specificityArray) {
   // specificityArray is [inline, ids, classes/attributes/pseudo-classes, elements/pseudo-elements].
+  // CSS selectors cannot include inline style specificity, so index 0 is not included in this score.
   return (
     specificityArray[1] * SPECIFICITY_ID_WEIGHT +
     specificityArray[2] * SPECIFICITY_CLASS_WEIGHT +
