@@ -2,17 +2,24 @@ import {clsx} from 'clsx'
 import React from 'react'
 import classes from './Timeline.module.css'
 
-type StyledTimelineProps = {clipSidebar?: boolean; className?: string}
+type StyledTimelineProps = {clipSidebar?: boolean | 'start' | 'end' | 'both'; className?: string}
 
 export type TimelineProps = StyledTimelineProps & React.ComponentPropsWithoutRef<'div'>
 
+function resolveClipSidebar(clipSidebar: TimelineProps['clipSidebar']): string | undefined {
+  if (clipSidebar === true || clipSidebar === 'both') return 'both'
+  if (clipSidebar === 'start' || clipSidebar === 'end') return clipSidebar
+  return undefined
+}
+
 const Timeline = React.forwardRef<HTMLDivElement, TimelineProps>(({clipSidebar, className, ...props}, forwardRef) => {
+  const resolvedClipSidebar = resolveClipSidebar(clipSidebar)
   return (
     <div
       {...props}
       className={clsx(className, classes.Timeline)}
       ref={forwardRef}
-      data-clip-sidebar={clipSidebar ? '' : undefined}
+      data-clip-sidebar={resolvedClipSidebar}
     />
   )
 })
@@ -43,15 +50,28 @@ const TimelineItem = React.forwardRef<HTMLDivElement, TimelineItemProps>(
 
 TimelineItem.displayName = 'TimelineItem'
 
+export type TimelineBadgeVariant =
+  | 'accent'
+  | 'success'
+  | 'attention'
+  | 'severe'
+  | 'danger'
+  | 'done'
+  | 'open'
+  | 'closed'
+  | 'sponsors'
+
 export type TimelineBadgeProps = {
   children?: React.ReactNode
   className?: string
+  /** The color variant of the badge */
+  variant?: TimelineBadgeVariant
 } & React.ComponentPropsWithoutRef<'div'>
 
-const TimelineBadge = ({className, ...props}: TimelineBadgeProps) => {
+const TimelineBadge = ({className, variant, ...props}: TimelineBadgeProps) => {
   return (
     <div className={classes.TimelineBadgeWrapper}>
-      <div {...props} className={clsx(className, classes.TimelineBadge)} />
+      <div {...props} className={clsx(className, classes.TimelineBadge)} data-variant={variant} />
     </div>
   )
 }

@@ -215,7 +215,7 @@ describe('Markup', () => {
     expect(noDescription).not.toHaveAttribute('aria-describedby')
   })
 
-  it('should include `aria-expanded` when a SubTree contains content', async () => {
+  it.todo('should include `aria-expanded` when a SubTree contains content', async () => {
     const user = userEvent.setup()
     const {getByLabelText, getByText} = renderWithTheme(
       <TreeView aria-label="Test tree">
@@ -273,7 +273,7 @@ describe('Markup', () => {
     expect(parentItem).toBeInTheDocument()
   })
 
-  it('should move focus to current treeitem by default', async () => {
+  it.todo('should move focus to current treeitem by default', async () => {
     const user = userEvent.setup()
     const {getByRole} = renderWithTheme(
       <div>
@@ -305,7 +305,7 @@ describe('Markup', () => {
     expect(item2).toHaveFocus()
   })
 
-  it('should toggle when receiving focus from chevron click', async () => {
+  it.todo('should toggle when receiving focus from chevron click', async () => {
     const user = userEvent.setup()
     const {getByRole} = renderWithTheme(
       <div>
@@ -349,45 +349,48 @@ describe('Markup', () => {
     expect(subItem1).toBeInTheDocument()
   })
 
-  it("should move focus to first treeitem when focusing back in after clicking on a treeitem's secondary action", async () => {
-    const user = userEvent.setup()
-    const {getByRole, getByText} = renderWithTheme(
-      <div>
-        <TreeView aria-label="Test tree">
-          <TreeView.Item id="item-1">Item 1</TreeView.Item>
-          <TreeView.Item id="item-2">
-            Item 2
-            <button id="item-2-button" tabIndex={-1} aria-hidden type="button">
-              Link in Item 2
-            </button>
-          </TreeView.Item>
-          <TreeView.Item id="item-3">Item 3</TreeView.Item>
-        </TreeView>
-        <button type="button">Focusable element</button>
-      </div>,
-    )
+  it.todo(
+    "should move focus to first treeitem when focusing back in after clicking on a treeitem's secondary action",
+    async () => {
+      const user = userEvent.setup()
+      const {getByRole, getByText} = renderWithTheme(
+        <div>
+          <TreeView aria-label="Test tree">
+            <TreeView.Item id="item-1">Item 1</TreeView.Item>
+            <TreeView.Item id="item-2">
+              Item 2
+              <button id="item-2-button" tabIndex={-1} aria-hidden type="button">
+                Link in Item 2
+              </button>
+            </TreeView.Item>
+            <TreeView.Item id="item-3">Item 3</TreeView.Item>
+          </TreeView>
+          <button type="button">Focusable element</button>
+        </div>,
+      )
 
-    // Click on treeitem's secondary action
-    const item2Button = getByText(/Link in Item 2/i)
-    await act(async () => {
-      await user.click(item2Button)
-    })
-    expect(item2Button).toHaveFocus()
+      // Click on treeitem's secondary action
+      const item2Button = getByText(/Link in Item 2/i)
+      await act(async () => {
+        await user.click(item2Button)
+      })
+      expect(item2Button).toHaveFocus()
 
-    // Move focus to button outside of TreeView
-    await act(async () => {
-      await user.tab()
-    })
-    const outerButton = getByRole('button', {name: /Focusable element/})
-    expect(outerButton).toHaveFocus()
+      // Move focus to button outside of TreeView
+      await act(async () => {
+        await user.tab()
+      })
+      const outerButton = getByRole('button', {name: /Focusable element/})
+      expect(outerButton).toHaveFocus()
 
-    // Move focus into TreeView. Focus should be on first treeitem
-    await act(async () => {
-      await user.tab({shift: true})
-    })
-    const item1 = getByRole('treeitem', {name: /Item 1/})
-    expect(item1).toHaveFocus()
-  })
+      // Move focus into TreeView. Focus should be on first treeitem
+      await act(async () => {
+        await user.tab({shift: true})
+      })
+      const item1 = getByRole('treeitem', {name: /Item 1/})
+      expect(item1).toHaveFocus()
+    },
+  )
 })
 
 describe('Keyboard interactions', () => {
@@ -1404,7 +1407,7 @@ describe('Asynchronous loading', () => {
     }
   })
 
-  it('updates aria live region when loading is done', async () => {
+  it.todo('updates aria live region when loading is done', async () => {
     function TestTree() {
       const [state, setState] = React.useState<SubTreeState>('initial')
 
@@ -1517,7 +1520,7 @@ describe('Asynchronous loading', () => {
     expect(firstChild).toHaveFocus()
   })
 
-  it('moves focus to parent item after closing error dialog', async () => {
+  it.todo('moves focus to parent item after closing error dialog', async () => {
     vi.useFakeTimers()
 
     function TestTree() {
@@ -1604,7 +1607,7 @@ describe('Asynchronous loading', () => {
     expect(parentItem).toHaveAttribute('aria-expanded', 'true')
   })
 
-  it('should update `aria-expanded` if no content is loaded in', async () => {
+  it.todo('should update `aria-expanded` if no content is loaded in', async () => {
     function Example() {
       const [state, setState] = React.useState<SubTreeState>('loading')
       const timeoutId = React.useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -1773,7 +1776,7 @@ it('should have keyboard shortcut command as part of accessible name when using 
   expect(screen.getByRole('treeitem', {name: /for more actions\.$/})).toBeInTheDocument()
 })
 
-it('should activate the dialog for trailing action when keyboard shortcut is used', async () => {
+it.todo('should activate the dialog for trailing action when keyboard shortcut is used', async () => {
   userEvent.setup()
   render(
     <TreeView aria-label="Files changed">

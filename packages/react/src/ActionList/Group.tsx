@@ -98,7 +98,12 @@ export const Group: FCWithSlotMarker<React.PropsWithChildren<ActionListGroupProp
   }
 
   return (
-    <li className={clsx(className, groupClasses.Group)} role={listRole ? 'none' : undefined} {...props}>
+    <li
+      className={clsx(className, groupClasses.Group)}
+      data-component="ActionList.Group"
+      role={listRole ? 'none' : undefined}
+      {...props}
+    >
       <GroupContext.Provider value={{selectionVariant, groupHeadingId}}>
         {title && !slots.groupHeading ? (
           // Escape hatch: supports old API <ActionList.Group title="group title"> in a non breaking way
@@ -177,6 +182,7 @@ export const GroupHeading: FCWithSlotMarker<React.PropsWithChildren<ActionListGr
           className={groupClasses.GroupHeadingWrap}
           aria-hidden="true"
           data-variant={variant}
+          // TODO: next-major: switch for data-component="ActionList.GroupHeading" next major
           data-component="GroupHeadingWrap"
           as={headingWrapElement}
           {...props}
@@ -192,6 +198,7 @@ export const GroupHeading: FCWithSlotMarker<React.PropsWithChildren<ActionListGr
           className={groupClasses.GroupHeadingWrap}
           data-variant={variant}
           as={headingWrapElement}
+          // TODO: next-major: switch for data-component="ActionList.GroupHeading" next major
           data-component="GroupHeadingWrap"
         >
           <Heading

@@ -61,6 +61,7 @@ export function useFocusTrap(
 
   // If we are enabling a focus trap and haven't already stored the previously focused element
   // go ahead an do that so we can restore later when the trap is disabled.
+  // eslint-disable-next-line react-hooks/refs
   if (!previousFocusedElement.current && !disabled) {
     previousFocusedElement.current = document.activeElement
   }
@@ -101,6 +102,7 @@ export function useFocusTrap(
     onClickOutside: () => {
       setOutsideClicked(true)
       if (settings?.allowOutsideClick) {
+        // eslint-disable-next-line react-hooks/immutability
         if (settings.returnFocusRef) settings.returnFocusRef = undefined
         settings.restoreFocusOnCleanUp = false
         abortController.current?.abort()

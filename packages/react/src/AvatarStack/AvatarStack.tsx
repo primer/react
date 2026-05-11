@@ -42,6 +42,7 @@ const AvatarStackBody = ({
 } & React.ComponentPropsWithoutRef<'div'>) => {
   return (
     <div
+      data-component="AvatarStack.Body"
       data-disable-expand={disableExpand ? '' : undefined}
       className={clsx(
         {
@@ -158,6 +159,7 @@ const AvatarStack = ({
 
   return (
     <span
+      data-component="AvatarStack"
       data-variant={variant}
       data-shape={shape}
       data-avatar-count={count > 3 ? '3+' : count}

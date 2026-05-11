@@ -1,5 +1,5 @@
 import {List} from './List'
-import {Group, GroupHeading} from './Group'
+import {Group, GroupContext, GroupHeading} from './Group'
 import {Item} from './Item'
 import {LinkItem} from './LinkItem'
 import {Divider} from './Divider'
@@ -7,6 +7,7 @@ import {Description} from './Description'
 import {TrailingAction} from './TrailingAction'
 import {LeadingVisual, TrailingVisual} from './Visuals'
 import {Heading} from './Heading'
+import {ActionListContainerContext} from './ActionListContainerContext'
 
 export type {ActionListProps} from './shared'
 export type {ActionListGroupProps, ActionListGroupHeadingProps} from './Group'
@@ -22,6 +23,8 @@ export type {ActionListTrailingActionProps} from './TrailingAction'
  * Collection of list-related components.
  */
 export const ActionList = Object.assign(List, {
+  /** Context for the `ActionList` container. */
+  ContainerContext: ActionListContainerContext,
   /** Collects related `Items` in an `ActionList`. */
   Group,
 
@@ -45,6 +48,9 @@ export const ActionList = Object.assign(List, {
 
   /** Heading for an `ActionList`. */
   Heading,
+
+  /** Context for `ActionList.Group` to propagate selectionVariant and other group-level props. */
+  GroupContext,
 
   /** Heading for `ActionList.Group` */
   GroupHeading,

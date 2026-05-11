@@ -21,7 +21,6 @@ import {
 } from '@primer/octicons-react'
 import type {AnchorPosition, AnchorSide} from '@primer/behaviors'
 import classes from './ActionMenu.examples.stories.module.css'
-import {FeatureFlags} from '../FeatureFlags'
 
 export default {
   title: 'Components/ActionMenu/Examples',
@@ -264,51 +263,52 @@ export const ShortcutMenu = () => {
   )
 }
 
-export const ContextMenu = () => {
-  const ListItemWithContextMenu = ({children}: {children: string}) => {
-    const handleContextMenu: React.MouseEventHandler<HTMLElement> = event => {
-      event.preventDefault()
-      setOpen(true)
-    }
+const ListItemWithContextMenu = ({children}: {children: string}) => {
+  const [open, setOpen] = React.useState(false)
 
-    const [open, setOpen] = React.useState(false)
-    const triggerRef = React.useRef<HTMLButtonElement>(null)
-
-    return (
-      <li onContextMenu={handleContextMenu}>
-        <ActionMenu open={open} onOpenChange={setOpen} anchorRef={triggerRef}>
-          <ActionMenu.Anchor>
-            <Button ref={triggerRef} variant="invisible" onClick={handleContextMenu}>
-              {children}
-            </Button>
-          </ActionMenu.Anchor>
-          <ActionMenu.Overlay>
-            <ActionList>
-              <ActionList.Item>
-                Copy link
-                <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
-              </ActionList.Item>
-              <ActionList.Item>
-                Quote reply
-                <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
-              </ActionList.Item>
-              <ActionList.Item>
-                Edit comment
-                <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
-              </ActionList.Item>
-              <ActionList.LinkItem href="#">View file</ActionList.LinkItem>
-              <ActionList.Divider />
-              <ActionList.Item variant="danger">
-                Delete file
-                <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
-              </ActionList.Item>
-            </ActionList>
-          </ActionMenu.Overlay>
-        </ActionMenu>
-      </li>
-    )
+  const handleContextMenu: React.MouseEventHandler<HTMLElement> = event => {
+    event.preventDefault()
+    setOpen(true)
   }
 
+  const triggerRef = React.useRef<HTMLButtonElement>(null)
+
+  return (
+    <li onContextMenu={handleContextMenu}>
+      <ActionMenu open={open} onOpenChange={setOpen} anchorRef={triggerRef}>
+        <ActionMenu.Anchor>
+          <Button ref={triggerRef} variant="invisible" onClick={handleContextMenu}>
+            {children}
+          </Button>
+        </ActionMenu.Anchor>
+        <ActionMenu.Overlay>
+          <ActionList>
+            <ActionList.Item>
+              Copy link
+              <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item>
+              Quote reply
+              <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item>
+              Edit comment
+              <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.LinkItem href="#">View file</ActionList.LinkItem>
+            <ActionList.Divider />
+            <ActionList.Item variant="danger">
+              Delete file
+              <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+            </ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </li>
+  )
+}
+
+export const ContextMenu = () => {
   return (
     <>
       <div>Right click the list items below to see the context menu</div>
@@ -673,89 +673,178 @@ export const InsideDialog = () => {
   ))
 
   return (
-    <FeatureFlags flags={{primer_react_action_menu_display_in_viewport_inside_dialog: true}}>
-      <div style={{padding: '20px'}}>
-        {/* Main scrollable content */}
-        <div>
-          <Text as="h1" style={{marginBottom: '16px'}}>
-            Main Page Content
+    <div style={{padding: '20px'}}>
+      {/* Main scrollable content */}
+      <div>
+        <Text as="h1" style={{marginBottom: '16px'}}>
+          Main Page Content
+        </Text>
+
+        <Button onClick={openDialog} style={{margin: '16px 0'}}>
+          Open Dialog with ActionMenu
+        </Button>
+
+        {/* Show more content after the button to make it scrollable */}
+        {scrollableContent}
+      </div>
+
+      {/* Dialog containing ActionMenu */}
+      {isDialogOpen && (
+        <Dialog title="Dialog with ActionMenu" onClose={onDialogClose} width="medium">
+          <Text as="p" style={{marginBottom: '12px'}}>
+            This dialog contains an ActionMenu. The main page content behind is long enough to be scrollable.
           </Text>
 
-          <Button onClick={openDialog} style={{margin: '16px 0'}}>
-            Open Dialog with ActionMenu
-          </Button>
+          <Text as="h3" style={{marginBottom: '8px', fontWeight: '600'}}>
+            Document Settings
+          </Text>
 
-          {/* Show more content after the button to make it scrollable */}
-          {scrollableContent}
-        </div>
+          <Text as="p" style={{marginBottom: '16px', color: '#656d76'}}>
+            Configure the document properties and sharing settings. These options allow you to control how the document
+            is displayed and who has access to it.
+          </Text>
 
-        {/* Dialog containing ActionMenu */}
-        {isDialogOpen && (
-          <Dialog title="Dialog with ActionMenu" onClose={onDialogClose} width="medium">
-            <Text as="p" style={{marginBottom: '12px'}}>
-              This dialog contains an ActionMenu. The main page content behind is long enough to be scrollable.
-            </Text>
+          <ActionMenu>
+            <ActionMenu.Button>Actions</ActionMenu.Button>
+            <ActionMenu.Overlay width="medium">
+              <ActionList>
+                <ActionList.Item onSelect={() => alert('Save clicked')}>
+                  Save
+                  <ActionList.TrailingVisual>⌘S</ActionList.TrailingVisual>
+                </ActionList.Item>
+                <ActionList.Item onSelect={() => alert('Save as clicked')}>
+                  Save as...
+                  <ActionList.TrailingVisual>⌘⇧S</ActionList.TrailingVisual>
+                </ActionList.Item>
+                <ActionList.Item onSelect={() => alert('Export clicked')}>
+                  Export
+                  <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
+                </ActionList.Item>
+                <ActionList.Item onSelect={() => alert('Print clicked')}>
+                  Print
+                  <ActionList.TrailingVisual>⌘P</ActionList.TrailingVisual>
+                </ActionList.Item>
+                <ActionList.Divider />
+                <ActionList.Item onSelect={() => alert('Copy clicked')}>
+                  Copy
+                  <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+                </ActionList.Item>
+                <ActionList.Item onSelect={() => alert('Paste clicked')}>
+                  Paste
+                  <ActionList.TrailingVisual>⌘V</ActionList.TrailingVisual>
+                </ActionList.Item>
+                <ActionList.Item onSelect={() => alert('Duplicate clicked')}>
+                  Duplicate
+                  <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+                </ActionList.Item>
+                <ActionList.Divider />
+                <ActionList.Item onSelect={() => alert('Share clicked')}>
+                  Share
+                  <ActionList.TrailingVisual>⌘⇧U</ActionList.TrailingVisual>
+                </ActionList.Item>
+                <ActionList.Item onSelect={() => alert('Share via email clicked')}>Share via email</ActionList.Item>
+                <ActionList.Item onSelect={() => alert('Share via link clicked')}>Share via link</ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
 
-            <Text as="h3" style={{marginBottom: '8px', fontWeight: '600'}}>
-              Document Settings
-            </Text>
+          <Text as="p" style={{marginTop: '12px'}}>
+            You can interact with the ActionMenu above while the main page content remains scrollable in the background.
+          </Text>
+        </Dialog>
+      )}
+    </div>
+  )
+}
 
-            <Text as="p" style={{marginBottom: '16px', color: '#656d76'}}>
-              Configure the document properties and sharing settings. These options allow you to control how the
-              document is displayed and who has access to it.
-            </Text>
+export const CenteredOnPage = () => {
+  const [open, setOpen] = React.useState(false)
 
-            <ActionMenu>
-              <ActionMenu.Button>Actions</ActionMenu.Button>
-              <ActionMenu.Overlay width="medium">
-                <ActionList>
-                  <ActionList.Item onSelect={() => alert('Save clicked')}>
-                    Save
-                    <ActionList.TrailingVisual>⌘S</ActionList.TrailingVisual>
-                  </ActionList.Item>
-                  <ActionList.Item onSelect={() => alert('Save as clicked')}>
-                    Save as...
-                    <ActionList.TrailingVisual>⌘⇧S</ActionList.TrailingVisual>
-                  </ActionList.Item>
-                  <ActionList.Item onSelect={() => alert('Export clicked')}>
-                    Export
-                    <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
-                  </ActionList.Item>
-                  <ActionList.Item onSelect={() => alert('Print clicked')}>
-                    Print
-                    <ActionList.TrailingVisual>⌘P</ActionList.TrailingVisual>
-                  </ActionList.Item>
-                  <ActionList.Divider />
-                  <ActionList.Item onSelect={() => alert('Copy clicked')}>
-                    Copy
-                    <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
-                  </ActionList.Item>
-                  <ActionList.Item onSelect={() => alert('Paste clicked')}>
-                    Paste
-                    <ActionList.TrailingVisual>⌘V</ActionList.TrailingVisual>
-                  </ActionList.Item>
-                  <ActionList.Item onSelect={() => alert('Duplicate clicked')}>
-                    Duplicate
-                    <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
-                  </ActionList.Item>
-                  <ActionList.Divider />
-                  <ActionList.Item onSelect={() => alert('Share clicked')}>
-                    Share
-                    <ActionList.TrailingVisual>⌘⇧U</ActionList.TrailingVisual>
-                  </ActionList.Item>
-                  <ActionList.Item onSelect={() => alert('Share via email clicked')}>Share via email</ActionList.Item>
-                  <ActionList.Item onSelect={() => alert('Share via link clicked')}>Share via link</ActionList.Item>
-                </ActionList>
-              </ActionMenu.Overlay>
-            </ActionMenu>
+  return (
+    <div className={classes.CustomPositionMiddle}>
+      <ActionMenu open={open} onOpenChange={setOpen}>
+        <ActionMenu.Button>Open menu</ActionMenu.Button>
+        <ActionMenu.Overlay width="medium">
+          <ActionList>
+            <ActionList.Item onSelect={() => alert('Copy link clicked')}>
+              Copy link
+              <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Quote reply clicked')}>
+              Quote reply
+              <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Edit comment clicked')}>
+              Edit comment
+              <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.Item variant="danger" onSelect={() => alert('Delete file clicked')}>
+              Delete file
+              <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+            </ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </div>
+  )
+}
 
-            <Text as="p" style={{marginTop: '12px'}}>
-              You can interact with the ActionMenu above while the main page content remains scrollable in the
-              background.
-            </Text>
-          </Dialog>
-        )}
-      </div>
-    </FeatureFlags>
+export const TwoActionMenus = () => {
+  return (
+    <div style={{display: 'flex', gap: '1rem', padding: '1rem'}}>
+      <ActionMenu>
+        <ActionMenu.Button className="Testing">First menu</ActionMenu.Button>
+        <ActionMenu.Overlay width="medium">
+          <ActionList>
+            <ActionList.Item onSelect={() => alert('Copy clicked')}>
+              <ActionList.LeadingVisual>
+                <CopyIcon />
+              </ActionList.LeadingVisual>
+              Copy
+              <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Archive clicked')}>
+              <ActionList.LeadingVisual>
+                <ArchiveIcon />
+              </ActionList.LeadingVisual>
+              Archive
+            </ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.Item variant="danger" onSelect={() => alert('Delete clicked')}>
+              Delete
+              <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+            </ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+
+      <ActionMenu>
+        <ActionMenu.Button leadingVisual={GearIcon}>Second menu</ActionMenu.Button>
+        <ActionMenu.Overlay width="medium">
+          <ActionList>
+            <ActionList.Item onSelect={() => alert('Settings clicked')}>
+              <ActionList.LeadingVisual>
+                <GearIcon />
+              </ActionList.LeadingVisual>
+              Settings
+            </ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>
+              <ActionList.LeadingVisual>
+                <WorkflowIcon />
+              </ActionList.LeadingVisual>
+              Workflows
+            </ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.LinkItem href="#">
+              <ActionList.LeadingVisual>
+                <BookIcon />
+              </ActionList.LeadingVisual>
+              Documentation
+            </ActionList.LinkItem>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </div>
   )
 }

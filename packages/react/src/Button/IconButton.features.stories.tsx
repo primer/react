@@ -88,6 +88,10 @@ export const KeybindingHintOnDescription = () => (
 
 export const KeybindingHint = () => <IconButton icon={BoldIcon} aria-label="Bold" keybindingHint="Mod+B" />
 
+export const MultipleKeybindingHints = () => (
+  <IconButton icon={BoldIcon} aria-label="Bold" keybindingHint={['Mod+B', 'Control+B']} />
+)
+
 export const LongDelayedTooltip = () => (
   // Ideal for cases where we don't want to show the tooltip immediately — for example, when the user is just passing over the element.
   <Tooltip text="This is a tooltip with 1200ms delay" delay="long">

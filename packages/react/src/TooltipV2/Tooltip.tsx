@@ -17,7 +17,7 @@ export type TooltipProps = React.PropsWithChildren<{
   direction?: TooltipDirection
   text: string
   type?: 'label' | 'description'
-  keybindingHint?: KeybindingHintProps['keys']
+  keybindingHint?: KeybindingHintProps['keys'] | Array<KeybindingHintProps['keys']>
   /**
    * Delay in milliseconds before showing the tooltip
    * @default short (50ms)
@@ -103,6 +103,8 @@ const isInteractive = (element: HTMLElement) => {
 }
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})
 
+const emptyKeybindingHints: Array<KeybindingHintProps['keys']> = []
+
 export const Tooltip: ForwardRefExoticComponent<
   React.PropsWithoutRef<TooltipProps> & React.RefAttributes<HTMLElement>
 > &
@@ -115,7 +117,7 @@ export const Tooltip: ForwardRefExoticComponent<
       children,
       id,
       className,
-      keybindingHint,
+      keybindingHint = emptyKeybindingHints,
       delay = 'short',
       _privateDisableTooltip = false,
       ...rest
@@ -273,11 +275,13 @@ export const Tooltip: ForwardRefExoticComponent<
     const isMacOS = useIsMacOS()
     const hasAriaLabel = 'aria-label' in rest
 
+    // Normalize keybindingHint to an array for uniform rendering
+    const keybindingHints = Array.isArray(keybindingHint) ? keybindingHint : [keybindingHint]
+
     return (
       <TooltipContext.Provider value={value}>
         <>
           {React.isValidElement(child) &&
-            // eslint-disable-next-line react-hooks/refs
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
               // @ts-expect-error it needs a non nullable ref
               ref: triggerRef,
@@ -344,6 +348,7 @@ export const Tooltip: ForwardRefExoticComponent<
             className={clsx(className, classes.Tooltip)}
             ref={tooltipElRef}
             data-direction={calculatedDirection}
+            data-component="Tooltip"
             {...rest}
             // Only need tooltip role if the tooltip is a description for supplementary information
             role={type === 'description' ? 'tooltip' : undefined}
@@ -353,21 +358,36 @@ export const Tooltip: ForwardRefExoticComponent<
             onMouseEnter={openTooltip}
             onMouseLeave={closeTooltip}
             // If there is an aria-label prop, always assign the ID to the parent so the accessible label can be overridden
-            id={hasAriaLabel || !keybindingHint ? tooltipId : undefined}
+            id={hasAriaLabel || keybindingHints.length === 0 ? tooltipId : undefined}
           >
-            {keybindingHint ? (
+            {keybindingHints.length > 0 ? (
               <>
                 <span id={hasAriaLabel ? undefined : tooltipId}>
                   {text}
                   {/* There is a bug in Chrome browsers where `aria-hidden` text inside the target of an `aria-labelledby`
-                   still gets included in the accessible label. `KeybindingHint` renders the symbols as `aria-hidden` text
-                   and renders full key names as `VisuallyHidden` text. Due to the browser bug this causes the label text
-                   to duplicate the symbols and key names. To work around this, we exclude the hint from being part of the
-                   label and instead render the plain keybinding description string. */}
-                  <VisuallyHidden>({getAccessibleKeybindingHintString(keybindingHint, isMacOS)})</VisuallyHidden>
+                      still gets included in the accessible label. `KeybindingHint` renders the symbols as `aria-hidden` text
+                      and renders full key names as `VisuallyHidden` text. Due to the browser bug this causes the label text
+                      to duplicate the symbols and key names. To work around this, we exclude the hint from being part of the
+                      label and instead render the plain keybinding description string. */}
+                  <VisuallyHidden>
+                    ({keybindingHints.map(hint => getAccessibleKeybindingHintString(hint, isMacOS)).join(' or ')})
+                  </VisuallyHidden>
                 </span>
-                <span className={clsx(classes.KeybindingHintContainer, text && classes.HasTextBefore)} aria-hidden>
-                  <KeybindingHint keys={keybindingHint} format="condensed" variant="onEmphasis" size="small" />
+                <span
+                  className={clsx(
+                    classes.KeybindingHintContainer,
+                    text && classes.HasTextBefore,
+                    keybindingHints.length > 1 && classes.HasMultipleHints,
+                  )}
+                  aria-hidden
+                  data-component="Tooltip.KeybindingHintContainer"
+                >
+                  {keybindingHints.map((hint, i) => (
+                    <React.Fragment key={`${i}-${hint}`}>
+                      {i > 0 && ' or '}
+                      <KeybindingHint keys={hint} format="condensed" variant="onEmphasis" size="small" />
+                    </React.Fragment>
+                  ))}
                 </span>
               </>
             ) : (
