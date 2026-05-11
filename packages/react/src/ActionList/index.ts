@@ -7,6 +7,7 @@ import {Description} from './Description'
 import {TrailingAction} from './TrailingAction'
 import {LeadingVisual, TrailingVisual} from './Visuals'
 import {Heading} from './Heading'
+import {ActionListContainerContext} from './ActionListContainerContext'
 
 export type {ActionListProps} from './shared'
 export type {ActionListGroupProps, ActionListGroupHeadingProps} from './Group'
@@ -22,6 +23,8 @@ export type {ActionListTrailingActionProps} from './TrailingAction'
  * Collection of list-related components.
  */
 export const ActionList = Object.assign(List, {
+  /** Context for the `ActionList` container. */
+  ContainerContext: ActionListContainerContext,
   /** Collects related `Items` in an `ActionList`. */
   Group,
 

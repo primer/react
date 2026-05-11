@@ -1,0 +1,47 @@
+{
+  "name": "useRovingTabIndex",
+  "importPath": "@primer/react",
+  "stories": [{"id": "hooks-userovingtabindex--basic-roving-tab-index"}],
+  "parameters": [
+    {
+      "name": "options",
+      "type": "UseRovingTabIndexOptions",
+      "required": true,
+      "description": "Configuration options for the roving tabindex focus management."
+    },
+    {
+      "name": "dependencies",
+      "type": "React.DependencyList",
+      "defaultValue": "[]",
+      "description": "Dependency list that triggers re-initialization of the focus zone when values change."
+    }
+  ],
+  "relatedTypes": [
+    {
+      "name": "UseRovingTabIndexOptions",
+      "properties": [
+        {
+          "name": "containerRef",
+          "type": "React.RefObject<HTMLElement>",
+          "required": true,
+          "description": "Ref to the container element (e.g. a tree) whose treeitem children will participate in roving tabindex focus management."
+        },
+        {
+          "name": "mouseDownRef",
+          "type": "React.RefObject<boolean>",
+          "description": "Optional ref that tracks whether the mouse is currently pressed. When true, the focus-in strategy is bypassed so clicked elements receive focus naturally."
+        },
+        {
+          "name": "preventScroll",
+          "type": "boolean",
+          "defaultValue": "true",
+          "description": "When true, prevents the browser from scrolling the focused element into view."
+        }
+      ]
+    }
+  ],
+  "returns": {
+    "type": "void",
+    "description": "This hook does not return a value. It sets up keyboard focus management on the container ref as a side effect."
+  }
+}
