@@ -4,5 +4,6 @@ export default defineConfig({
   test: {
     environment: 'node',
     setupFiles: ['config/vitest/setup.ts'],
+    detectAsyncLeaks: true,
   },
 })

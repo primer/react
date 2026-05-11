@@ -6,5 +6,6 @@ export default defineConfig({
     environment: 'node',
     exclude: ['src/**/*.browser.test.?(c|m)[jt]s?(x)'],
     setupFiles: ['config/vitest/setup.ts'],
+    detectAsyncLeaks: true,
   },
 })
