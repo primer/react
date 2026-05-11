@@ -1,0 +1,43 @@
+.Tree {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.TreeItem {
+  padding: var(--base-size-8) var(--base-size-12);
+  cursor: pointer;
+  border-radius: var(--borderRadius-medium);
+  outline: none;
+}
+
+.TreeItem:focus-visible {
+  @mixin focusOutline 2px;
+}
+
+.TreeItem[aria-selected='true'] {
+  background-color: var(--bgColor-accent-muted);
+}
+
+.SubTree {
+  list-style: none;
+  padding-inline-start: var(--base-size-20);
+  margin: 0;
+}
+
+.LastKeyDisplay {
+  position: absolute;
+  right: var(--base-size-20);
+  top: var(--base-size-8);
+}
+
+.Container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-size-8);
+}
+
+.Label {
+  font-weight: var(--base-text-weight-semibold);
+  font-size: var(--text-body-size-medium);
+}
