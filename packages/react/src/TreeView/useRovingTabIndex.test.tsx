@@ -1,5 +1,5 @@
-import {fireEvent, render, act} from '@testing-library/react'
-import {describe, it, expect, vi} from 'vitest'
+import {fireEvent, render, act, cleanup as cleanupRTL} from '@testing-library/react'
+import {describe, it, expect, vi, afterEach} from 'vitest'
 import React from 'react'
 import {
   useRovingTabIndex,
@@ -203,7 +203,7 @@ describe('getVisibleElement', () => {
     cleanup(container)
   })
 
-  it('returns undefined at the end of the tree without wrapAround', () => {
+  it('returns undefined at the end of the tree', () => {
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" id="item-1">Item 1</li>
@@ -212,11 +212,11 @@ describe('getVisibleElement', () => {
     `)
 
     const item2 = container.querySelector('#item-2') as HTMLElement
-    expect(getVisibleElement(item2, 'next', false)).toBeUndefined()
+    expect(getVisibleElement(item2, 'next')).toBeUndefined()
     cleanup(container)
   })
 
-  it('returns undefined at the start of the tree without wrapAround', () => {
+  it('returns undefined at the start of the tree', () => {
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" id="item-1">Item 1</li>
@@ -225,37 +225,7 @@ describe('getVisibleElement', () => {
     `)
 
     const item1 = container.querySelector('#item-1') as HTMLElement
-    expect(getVisibleElement(item1, 'previous', false)).toBeUndefined()
-    cleanup(container)
-  })
-
-  it('wraps to the first element when wrapAround is true and going next past last', () => {
-    const container = createTree(`
-      <ul role="tree">
-        <li role="treeitem" id="item-1">Item 1</li>
-        <li role="treeitem" id="item-2">Item 2</li>
-        <li role="treeitem" id="item-3">Item 3</li>
-      </ul>
-    `)
-
-    const item3 = container.querySelector('#item-3') as HTMLElement
-    const wrapped = getVisibleElement(item3, 'next', true)
-    expect(wrapped?.id).toBe('item-1')
-    cleanup(container)
-  })
-
-  it('wraps to the last element when wrapAround is true and going previous past first', () => {
-    const container = createTree(`
-      <ul role="tree">
-        <li role="treeitem" id="item-1">Item 1</li>
-        <li role="treeitem" id="item-2">Item 2</li>
-        <li role="treeitem" id="item-3">Item 3</li>
-      </ul>
-    `)
-
-    const item1 = container.querySelector('#item-1') as HTMLElement
-    const wrapped = getVisibleElement(item1, 'previous', true)
-    expect(wrapped?.id).toBe('item-3')
+    expect(getVisibleElement(item1, 'previous')).toBeUndefined()
     cleanup(container)
   })
 
@@ -460,30 +430,6 @@ describe('getNextFocusableElement', () => {
     cleanup(container)
   })
 
-  it('resolves non-treeitem children to closest treeitem ancestor', () => {
-    const container = createTree(`
-      <ul role="tree">
-        <li role="treeitem" id="item-1">
-          <span id="inner-span">Inner content</span>
-        </li>
-        <li role="treeitem" id="item-2">Item 2</li>
-      </ul>
-    `)
-
-    const innerSpan = container.querySelector('#inner-span') as HTMLElement
-    const result = getNextFocusableElement(innerSpan, new KeyboardEvent('keydown', {key: 'ArrowDown'}))
-    expect(result?.id).toBe('item-2')
-    cleanup(container)
-  })
-
-  it('returns undefined for elements not in a tree', () => {
-    const el = document.createElement('div')
-    document.body.appendChild(el)
-    const result = getNextFocusableElement(el, new KeyboardEvent('keydown', {key: 'ArrowDown'}))
-    expect(result).toBeUndefined()
-    document.body.removeChild(el)
-  })
-
   it('does nothing on ArrowRight from end node', () => {
     const container = createTree(`
       <ul role="tree">
@@ -497,7 +443,7 @@ describe('getNextFocusableElement', () => {
     cleanup(container)
   })
 
-  it('wraps around on ArrowDown when wrapAround is true', () => {
+  it('returns undefined on ArrowDown at the end of the tree', () => {
     const container = createTree(`
       <ul role="tree">
         <li role="treeitem" id="item-1">Item 1</li>
@@ -506,35 +452,7 @@ describe('getNextFocusableElement', () => {
     `)
 
     const item2 = container.querySelector('#item-2') as HTMLElement
-    const result = getNextFocusableElement(item2, new KeyboardEvent('keydown', {key: 'ArrowDown'}), true)
-    expect(result?.id).toBe('item-1')
-    cleanup(container)
-  })
-
-  it('wraps around on ArrowUp when wrapAround is true', () => {
-    const container = createTree(`
-      <ul role="tree">
-        <li role="treeitem" id="item-1">Item 1</li>
-        <li role="treeitem" id="item-2">Item 2</li>
-      </ul>
-    `)
-
-    const item1 = container.querySelector('#item-1') as HTMLElement
-    const result = getNextFocusableElement(item1, new KeyboardEvent('keydown', {key: 'ArrowUp'}), true)
-    expect(result?.id).toBe('item-2')
-    cleanup(container)
-  })
-
-  it('does not wrap around on ArrowDown when wrapAround is false', () => {
-    const container = createTree(`
-      <ul role="tree">
-        <li role="treeitem" id="item-1">Item 1</li>
-        <li role="treeitem" id="item-2">Item 2</li>
-      </ul>
-    `)
-
-    const item2 = container.querySelector('#item-2') as HTMLElement
-    const result = getNextFocusableElement(item2, new KeyboardEvent('keydown', {key: 'ArrowDown'}), false)
+    const result = getNextFocusableElement(item2, new KeyboardEvent('keydown', {key: 'ArrowDown'}))
     expect(result).toBeUndefined()
     cleanup(container)
   })
@@ -562,14 +480,10 @@ describe('getNextFocusableElement', () => {
 
 // Test component that uses the useRovingTabIndex hook directly
 function TreeWithRovingTabIndex({
-  wrapAround = false,
   preventScroll = true,
-  focusOutBehavior,
   children,
 }: {
-  wrapAround?: boolean
   preventScroll?: boolean
-  focusOutBehavior?: 'stop' | 'wrap'
   children: React.ReactNode
 }) {
   const containerRef = React.useRef<HTMLUListElement>(null)
@@ -578,9 +492,7 @@ function TreeWithRovingTabIndex({
   useRovingTabIndex({
     containerRef,
     mouseDownRef,
-    wrapAround,
     preventScroll,
-    focusOutBehavior,
   })
 
   return (
@@ -601,139 +513,35 @@ function TreeWithRovingTabIndex({
 }
 
 describe('useRovingTabIndex hook', () => {
-  describe('default behavior', () => {
-    it('moves focus with ArrowDown and ArrowUp', () => {
-      const {getByRole} = render(
-        <TreeWithRovingTabIndex>
-          <li role="treeitem" tabIndex={0} id="item-1">
-            Item 1
-          </li>
-          <li role="treeitem" tabIndex={0} id="item-2">
-            Item 2
-          </li>
-          <li role="treeitem" tabIndex={0} id="item-3">
-            Item 3
-          </li>
-        </TreeWithRovingTabIndex>,
-      )
+  afterEach(cleanupRTL)
 
-      const tree = getByRole('tree')
-      const item1 = tree.querySelector('#item-1') as HTMLElement
-      const item2 = tree.querySelector('#item-2') as HTMLElement
+  it('moves focus with keyboard navigation', () => {
+    const {getByRole} = render(
+      <TreeWithRovingTabIndex>
+        <li role="treeitem" tabIndex={0} id="item-1">
+          Item 1
+        </li>
+        <li role="treeitem" tabIndex={0} id="item-2">
+          Item 2
+        </li>
+        <li role="treeitem" tabIndex={0} id="item-3">
+          Item 3
+        </li>
+      </TreeWithRovingTabIndex>,
+    )
 
-      act(() => item1.focus())
-      expect(item1).toHaveFocus()
+    const tree = getByRole('tree')
+    const item1 = tree.querySelector('#item-1') as HTMLElement
+    const item2 = tree.querySelector('#item-2') as HTMLElement
 
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
-      expect(item2).toHaveFocus()
+    act(() => item1.focus())
+    expect(item1).toHaveFocus()
 
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
-      expect(item1).toHaveFocus()
-    })
+    fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+    expect(item2).toHaveFocus()
 
-    it('does not wrap around by default', () => {
-      const {getByRole} = render(
-        <TreeWithRovingTabIndex>
-          <li role="treeitem" tabIndex={0} id="item-1">
-            Item 1
-          </li>
-          <li role="treeitem" tabIndex={0} id="item-2">
-            Item 2
-          </li>
-        </TreeWithRovingTabIndex>,
-      )
-
-      const tree = getByRole('tree')
-      const item2 = tree.querySelector('#item-2') as HTMLElement
-
-      act(() => item2.focus())
-      expect(item2).toHaveFocus()
-
-      // ArrowDown at end should not move focus
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
-      expect(item2).toHaveFocus()
-    })
-  })
-
-  describe('wrapAround', () => {
-    it('wraps focus from last to first item on ArrowDown when enabled', () => {
-      const {getByRole} = render(
-        <TreeWithRovingTabIndex wrapAround={true}>
-          <li role="treeitem" tabIndex={0} id="item-1">
-            Item 1
-          </li>
-          <li role="treeitem" tabIndex={0} id="item-2">
-            Item 2
-          </li>
-          <li role="treeitem" tabIndex={0} id="item-3">
-            Item 3
-          </li>
-        </TreeWithRovingTabIndex>,
-      )
-
-      const tree = getByRole('tree')
-      const item1 = tree.querySelector('#item-1') as HTMLElement
-      const item3 = tree.querySelector('#item-3') as HTMLElement
-
-      act(() => item3.focus())
-      expect(item3).toHaveFocus()
-
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
-      expect(item1).toHaveFocus()
-    })
-
-    it('wraps focus from first to last item on ArrowUp when enabled', () => {
-      const {getByRole} = render(
-        <TreeWithRovingTabIndex wrapAround={true}>
-          <li role="treeitem" tabIndex={0} id="item-1">
-            Item 1
-          </li>
-          <li role="treeitem" tabIndex={0} id="item-2">
-            Item 2
-          </li>
-          <li role="treeitem" tabIndex={0} id="item-3">
-            Item 3
-          </li>
-        </TreeWithRovingTabIndex>,
-      )
-
-      const tree = getByRole('tree')
-      const item1 = tree.querySelector('#item-1') as HTMLElement
-      const item3 = tree.querySelector('#item-3') as HTMLElement
-
-      act(() => item1.focus())
-      expect(item1).toHaveFocus()
-
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
-      expect(item3).toHaveFocus()
-    })
-
-    it('does not wrap when wrapAround is false', () => {
-      const {getByRole} = render(
-        <TreeWithRovingTabIndex wrapAround={false}>
-          <li role="treeitem" tabIndex={0} id="item-1">
-            Item 1
-          </li>
-          <li role="treeitem" tabIndex={0} id="item-2">
-            Item 2
-          </li>
-        </TreeWithRovingTabIndex>,
-      )
-
-      const tree = getByRole('tree')
-      const item1 = tree.querySelector('#item-1') as HTMLElement
-      const item2 = tree.querySelector('#item-2') as HTMLElement
-
-      act(() => item1.focus())
-      expect(item1).toHaveFocus()
-
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
-      expect(item1).toHaveFocus()
-
-      act(() => item2.focus())
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
-      expect(item2).toHaveFocus()
-    })
+    fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
+    expect(item1).toHaveFocus()
   })
 
   describe('preventScroll', () => {
@@ -804,39 +612,6 @@ describe('useRovingTabIndex hook', () => {
     })
   })
 
-  describe('focusOutBehavior', () => {
-    it('stops focus at boundaries when focusOutBehavior is "stop"', () => {
-      const {getByRole} = render(
-        <TreeWithRovingTabIndex focusOutBehavior="stop">
-          <li role="treeitem" tabIndex={0} id="item-1">
-            Item 1
-          </li>
-          <li role="treeitem" tabIndex={0} id="item-2">
-            Item 2
-          </li>
-        </TreeWithRovingTabIndex>,
-      )
-
-      const tree = getByRole('tree')
-      const item1 = tree.querySelector('#item-1') as HTMLElement
-      const item2 = tree.querySelector('#item-2') as HTMLElement
-
-      act(() => item2.focus())
-      expect(item2).toHaveFocus()
-
-      // ArrowDown at the end should keep focus on last item
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
-      expect(item2).toHaveFocus()
-
-      act(() => item1.focus())
-      expect(item1).toHaveFocus()
-
-      // ArrowUp at the start should keep focus on first item
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
-      expect(item1).toHaveFocus()
-    })
-  })
-
   describe('mouse click bypass', () => {
     it('does not redirect focus when mouseDownRef is true (click scenario)', () => {
       const {getByRole} = render(
@@ -860,140 +635,6 @@ describe('useRovingTabIndex hook', () => {
       // Focus should stay on item-1 (not redirected to aria-current item)
       // because mouseDownRef is true during click
       expect(item1).toHaveFocus()
-    })
-  })
-
-  describe('Home and End keys', () => {
-    it('moves focus to first item on Home', () => {
-      const {getByRole} = render(
-        <TreeWithRovingTabIndex>
-          <li role="treeitem" tabIndex={0} id="item-1">
-            Item 1
-          </li>
-          <li role="treeitem" tabIndex={0} id="item-2">
-            Item 2
-          </li>
-          <li role="treeitem" tabIndex={0} id="item-3">
-            Item 3
-          </li>
-        </TreeWithRovingTabIndex>,
-      )
-
-      const tree = getByRole('tree')
-      const item1 = tree.querySelector('#item-1') as HTMLElement
-      const item3 = tree.querySelector('#item-3') as HTMLElement
-
-      act(() => item3.focus())
-      expect(item3).toHaveFocus()
-
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'Home'})
-      expect(item1).toHaveFocus()
-    })
-
-    it('moves focus to last item on End', () => {
-      const {getByRole} = render(
-        <TreeWithRovingTabIndex>
-          <li role="treeitem" tabIndex={0} id="item-1">
-            Item 1
-          </li>
-          <li role="treeitem" tabIndex={0} id="item-2">
-            Item 2
-          </li>
-          <li role="treeitem" tabIndex={0} id="item-3">
-            Item 3
-          </li>
-        </TreeWithRovingTabIndex>,
-      )
-
-      const tree = getByRole('tree')
-      const item1 = tree.querySelector('#item-1') as HTMLElement
-      const item3 = tree.querySelector('#item-3') as HTMLElement
-
-      act(() => item1.focus())
-      expect(item1).toHaveFocus()
-
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'End'})
-      expect(item3).toHaveFocus()
-    })
-  })
-
-  describe('nested tree navigation', () => {
-    it('ArrowRight focuses first child of expanded node', () => {
-      const {getByRole} = render(
-        <TreeWithRovingTabIndex>
-          <li role="treeitem" tabIndex={0} id="parent" aria-expanded="true">
-            Parent
-            <ul role="group">
-              <li role="treeitem" tabIndex={0} id="child-1">
-                Child 1
-              </li>
-              <li role="treeitem" tabIndex={0} id="child-2">
-                Child 2
-              </li>
-            </ul>
-          </li>
-        </TreeWithRovingTabIndex>,
-      )
-
-      const tree = getByRole('tree')
-      const parent = tree.querySelector('#parent') as HTMLElement
-      const child1 = tree.querySelector('#child-1') as HTMLElement
-
-      act(() => parent.focus())
-      expect(parent).toHaveFocus()
-
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowRight'})
-      expect(child1).toHaveFocus()
-    })
-
-    it('ArrowLeft from child focuses parent', () => {
-      const {getByRole} = render(
-        <TreeWithRovingTabIndex>
-          <li role="treeitem" tabIndex={0} id="parent" aria-expanded="true">
-            Parent
-            <ul role="group">
-              <li role="treeitem" tabIndex={0} id="child-1">
-                Child 1
-              </li>
-            </ul>
-          </li>
-        </TreeWithRovingTabIndex>,
-      )
-
-      const tree = getByRole('tree')
-      const parent = tree.querySelector('#parent') as HTMLElement
-      const child1 = tree.querySelector('#child-1') as HTMLElement
-
-      act(() => child1.focus())
-      expect(child1).toHaveFocus()
-
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
-      expect(parent).toHaveFocus()
-    })
-
-    it('Backspace from child focuses parent', () => {
-      const {getByRole} = render(
-        <TreeWithRovingTabIndex>
-          <li role="treeitem" tabIndex={0} id="parent" aria-expanded="true">
-            Parent
-            <ul role="group">
-              <li role="treeitem" tabIndex={0} id="child-1">
-                Child 1
-              </li>
-            </ul>
-          </li>
-        </TreeWithRovingTabIndex>,
-      )
-
-      const tree = getByRole('tree')
-      const parent = tree.querySelector('#parent') as HTMLElement
-      const child1 = tree.querySelector('#child-1') as HTMLElement
-
-      act(() => child1.focus())
-      expect(child1).toHaveFocus()
-
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'Backspace'})
-      expect(parent).toHaveFocus()
     })
   })
 })

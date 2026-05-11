@@ -6,15 +6,11 @@ export function useRovingTabIndex(
   {
     containerRef,
     mouseDownRef,
-    focusOutBehavior,
     preventScroll = true,
-    wrapAround = false,
   }: {
-    containerRef: React.RefObject<HTMLElement | null>
+    containerRef: React.RefObject<HTMLElement>
     mouseDownRef?: React.RefObject<boolean>
     preventScroll?: boolean
-    focusOutBehavior?: 'stop' | 'wrap'
-    wrapAround?: boolean
   },
   dependencies: React.DependencyList = [],
 ) {
@@ -43,9 +39,8 @@ export function useRovingTabIndex(
           // Don't return
         }
 
-        return getNextFocusableElement(from, event, wrapAround) ?? from
+        return getNextFocusableElement(from, event) ?? from
       },
-      ...(focusOutBehavior ? {focusOutBehavior} : {}),
       focusInStrategy: () => {
         // Don't try to execute the focusInStrategy if focus is coming from a click.
         // The clicked row will receive focus correctly by default.
@@ -75,31 +70,20 @@ export function useRovingTabIndex(
         return firstItem instanceof HTMLElement ? firstItem : undefined
       },
     },
-    [preventScroll, focusOutBehavior, wrapAround, ...dependencies],
+    [preventScroll, ...dependencies],
   )
 }
 
 // DOM utilities used for focus management
 
-export function getNextFocusableElement(
-  activeElement: HTMLElement,
-  event: KeyboardEvent,
-  wrapAround: boolean = false,
-): HTMLElement | undefined {
-  // If focus is on a non-treeitem child (e.g. GroupHeadingWrap), resolve to the closest treeitem ancestor.
-  const treeitem =
-    activeElement.getAttribute('role') === 'treeitem'
-      ? activeElement
-      : activeElement.closest<HTMLElement>('[role="treeitem"]')
-  if (!treeitem) return
-
-  const elementState = getElementState(treeitem)
+export function getNextFocusableElement(activeElement: HTMLElement, event: KeyboardEvent): HTMLElement | undefined {
+  const elementState = getElementState(activeElement)
 
   // Reference: https://www.w3.org/WAI/ARIA/apg/patterns/treeview/#keyboard-interaction-24
   switch (`${elementState} ${event.key}`) {
     case 'open ArrowRight':
       // Focus first child node
-      return getFirstChildElement(treeitem)
+      return getFirstChildElement(activeElement)
 
     case 'open ArrowLeft':
       // Close node; don't change focus
@@ -111,7 +95,7 @@ export function getNextFocusableElement(
 
     case 'closed ArrowLeft':
       // Focus parent element
-      return getParentElement(treeitem)
+      return getParentElement(activeElement)
 
     case 'end ArrowRight':
       // Do nothing
@@ -119,35 +103,35 @@ export function getNextFocusableElement(
 
     case 'end ArrowLeft':
       // Focus parent element
-      return getParentElement(treeitem)
+      return getParentElement(activeElement)
   }
 
   // ArrowUp, ArrowDown, Home, and End behavior are the same regardless of element state
   switch (event.key) {
     case 'ArrowUp':
       // Focus previous visible element
-      return getVisibleElement(treeitem, 'previous', wrapAround)
+      return getVisibleElement(activeElement, 'previous')
 
     case 'ArrowDown':
       // Focus next visible element
-      return getVisibleElement(treeitem, 'next', wrapAround)
+      return getVisibleElement(activeElement, 'next')
 
     case 'Backspace':
-      return getParentElement(treeitem)
+      return getParentElement(activeElement)
 
     case 'Home':
       // Focus first visible element
-      return getFirstElement(treeitem)
+      return getFirstElement(activeElement)
 
     case 'End':
       // Focus last visible element
-      return getLastElement(treeitem)
+      return getLastElement(activeElement)
 
     case 'PageUp':
-      return getPreviousPageElement(treeitem)
+      return getPreviousPageElement(activeElement)
 
     case 'PageDown':
-      return getNextPageElement(treeitem)
+      return getNextPageElement(activeElement)
   }
 }
 
@@ -166,11 +150,7 @@ export function getElementState(element: HTMLElement): 'open' | 'closed' | 'end'
   }
 }
 
-export function getVisibleElement(
-  element: HTMLElement,
-  direction: 'next' | 'previous',
-  wrapAround = false,
-): HTMLElement | undefined {
+export function getVisibleElement(element: HTMLElement, direction: 'next' | 'previous'): HTMLElement | undefined {
   const root = element.closest('[role=tree]')
 
   if (!root) return
@@ -191,11 +171,6 @@ export function getVisibleElement(
   // If next element is nested inside a collapsed subtree, continue iterating
   while (next instanceof HTMLElement && next.parentElement?.closest('[role=treeitem][aria-expanded=false]')) {
     next = direction === 'next' ? walker.nextNode() : walker.previousNode()
-  }
-
-  // Wrap around if we reached the end/beginning of the tree
-  if (!next && wrapAround) {
-    return direction === 'next' ? getFirstElement(element) : getLastElement(element)
   }
 
   return next instanceof HTMLElement ? next : undefined
