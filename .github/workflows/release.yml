@@ -43,7 +43,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859
+      - uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3
         id: app-token
         with:
           app-id: ${{ vars.PRIMER_APP_ID_SHARED }}
