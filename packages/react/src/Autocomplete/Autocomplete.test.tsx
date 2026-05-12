@@ -155,6 +155,7 @@ describe('Autocomplete', () => {
 
       expect(inputNode.getAttribute('aria-expanded')).toBe('true')
 
+      // `userEvent.tab()` is unreliable in browser-mode Vitest for this case; blur is deterministic.
       // eslint-disable-next-line github/no-blur
       fireEvent.blur(inputNode)
 
