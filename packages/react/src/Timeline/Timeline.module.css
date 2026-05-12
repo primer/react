@@ -90,7 +90,7 @@
 
   &:where([data-variant]) {
     color: var(--fgColor-onEmphasis);
-    border-color: transparent;
+    border: 0;
   }
 
   &:where([data-variant='accent']) {
