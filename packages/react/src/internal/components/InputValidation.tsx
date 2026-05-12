@@ -11,6 +11,7 @@ type Props = {
   id: string
   validationStatus?: FormValidationStatus
   style?: React.CSSProperties
+  'data-component'?: string
 }
 
 const validationIconMap: Record<
@@ -27,6 +28,7 @@ const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({
   id,
   validationStatus,
   style,
+  'data-component': dataComponent,
 }) => {
   const IconComponent = validationStatus ? validationIconMap[validationStatus] : undefined
 
@@ -37,7 +39,12 @@ const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({
   const iconBoxMinHeight = iconSize * captionLineHeight
 
   return (
-    <Text className={clsx(className, classes.InputValidation)} data-validation-status={validationStatus} style={style}>
+    <Text
+      className={clsx(className, classes.InputValidation)}
+      data-validation-status={validationStatus}
+      style={style}
+      data-component={dataComponent}
+    >
       {IconComponent ? (
         <span
           aria-hidden="true"
