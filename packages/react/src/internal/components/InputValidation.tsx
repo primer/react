@@ -28,7 +28,6 @@ const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({
   id,
   validationStatus,
   style,
-  ...rest
   'data-component': dataComponent,
   ...rest
 }) => {
