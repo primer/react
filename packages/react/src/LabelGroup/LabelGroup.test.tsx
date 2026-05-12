@@ -1,6 +1,6 @@
 import type React from 'react'
 import {act, render, waitFor} from '@testing-library/react'
-import {describe, it, expect, vi} from 'vitest'
+import {afterEach, describe, it, expect, vi} from 'vitest'
 import BaseStyles from '../BaseStyles'
 import {LabelGroup, Label} from '..'
 import userEvent from '@testing-library/user-event'
@@ -31,6 +31,16 @@ const mockResizeObserver = () => {
 
 describe('LabelGroup', () => {
   implementsClassName(LabelGroup, classes.Container)
+
+  let restoreResizeObserver: (() => void) | undefined
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn> | undefined
+
+  afterEach(() => {
+    consoleErrorSpy?.mockRestore()
+    consoleErrorSpy = undefined
+    restoreResizeObserver?.()
+    restoreResizeObserver = undefined
+  })
 
   window.IntersectionObserver = vi.fn(function () {
     return {
@@ -92,8 +102,8 @@ describe('LabelGroup', () => {
 
   it('should expand all tokens into an overlay when overflowStyle="overlay"', async () => {
     const user = userEvent.setup()
-    const restoreResizeObserver = mockResizeObserver()
-    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
+    restoreResizeObserver = mockResizeObserver()
+    consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
     const {getByLabelText, getByText, unmount} = render(
       <ThemeAndStyleContainer>
         <LabelGroup visibleChildCount={3} overflowStyle="overlay">
@@ -118,8 +128,6 @@ describe('LabelGroup', () => {
     act(() => {
       unmount()
     })
-    consoleError.mockRestore()
-    restoreResizeObserver()
   })
 
   it('should expand all tokens in place when overflowStyle="inline"', async () => {
