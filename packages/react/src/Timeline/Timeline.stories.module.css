@@ -1,0 +1,53 @@
+/*
+ * Story-local styles for the Custom Event playground in Timeline.stories.tsx.
+ *
+ * The `LeftRailGutter` wrapper reserves horizontal whitespace to the left of the
+ * timeline rail so toggling between `actorSize: 'small'` and `actorSize: 'large'`
+ * does not horizontally shift the timeline. This mirrors the Rails ViewComponents
+ * `.TimelineItem-avatar { position: absolute; left: -72px; }` treatment WITHOUT
+ * adding a public avatar slot to Primer React's Timeline component (Phase 2 will
+ * evaluate that API change).
+ */
+
+.LeftRailGutter {
+    /* Reserve enough room to the left of the rail for a 40px avatar plus a 16px gap. */
+    padding-left: calc(var(--base-size-40) + var(--base-size-16));
+}
+
+.LargeActorAvatar {
+    position: absolute;
+    /* Vertically centered with the 32px badge: badge top (16px padding) + 16px half = 32px center; avatar top = 32px - 20px (half avatar) = 12px. */
+    top: var(--base-size-12);
+    /* Matches Rails Timeline ViewComponents `.TimelineItem-avatar { left: -72px }`. */
+    left: calc(-1 * (var(--base-size-40) + var(--base-size-32)));
+    z-index: 1;
+}
+
+.SmallActorAvatar {
+    margin-right: var(--base-size-4);
+    /* `vertical-align: middle` is more reliable than `text-bottom` for 20px avatars next
+     to body text; the slight negative nudge optically aligns the avatar to the x-height. */
+    vertical-align: middle;
+    position: relative;
+    /* stylelint-disable-next-line primer/spacing -- 1px optical nudge to align avatar with text x-height */
+    top: -1px;
+}
+
+.ActorName {
+    font-weight: var(--base-text-weight-semibold);
+    color: var(--fgColor-default);
+}
+
+.AppName {
+    font-weight: var(--base-text-weight-semibold);
+    color: var(--fgColor-default);
+}
+
+.AppAvatar {
+    margin-right: var(--base-size-4);
+    vertical-align: middle;
+    position: relative;
+    /* stylelint-disable-next-line primer/spacing -- 1px optical nudge to align avatar with text x-height */
+    top: -1px;
+    border-radius: var(--borderRadius-medium);
+}
