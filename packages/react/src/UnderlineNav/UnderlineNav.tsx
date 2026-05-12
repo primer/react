@@ -390,10 +390,9 @@ export const UnderlineNav = forwardRef(
                       counter,
                       'aria-current': ariaCurrent,
                       onSelect,
-                      leadingVisual: _leadingVisual,
                       ...menuItemProps
                     } = menuItem.props
-                    void _leadingVisual
+                    delete menuItemProps.leadingVisual
 
                     // This logic is used to pop the selected item out of the menu and into the list when the navigation is control externally
                     if (Boolean(ariaCurrent) && ariaCurrent !== 'false') {
