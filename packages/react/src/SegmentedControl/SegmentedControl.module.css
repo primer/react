@@ -181,12 +181,14 @@
       background-color: var(--borderColor-default);
     }
 
+    /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
     &:has(+ [data-selected])::after,
     &:where([data-selected])::after {
       background-color: transparent;
     }
   }
 
+  /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
   &:focus-within:has(:focus-visible) {
     background-color: transparent;
   }

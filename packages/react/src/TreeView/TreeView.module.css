@@ -72,6 +72,7 @@
      * TreeViewItemContent > TreeViewItemContentText, not a direct child.
      * This is acceptable as the search is scoped to this element's subtree.
      */
+    /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
     &:has(.TreeViewItemSkeleton):hover {
       cursor: default;
       background-color: transparent;

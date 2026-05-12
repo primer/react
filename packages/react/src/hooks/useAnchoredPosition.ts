@@ -31,6 +31,7 @@ export interface AnchoredPositionHookSettings extends Partial<PositionSettings> 
   anchorElementRef?: React.RefObject<Element | null>
   pinPosition?: boolean
   onPositionChange?: (position: AnchorPosition | undefined) => void
+  enabled?: boolean
 }
 
 /**
@@ -52,6 +53,7 @@ export function useAnchoredPosition(
 } {
   const floatingElementRef = useProvidedRefOrCreate(settings?.floatingElementRef)
   const anchorElementRef = useProvidedRefOrCreate(settings?.anchorElementRef)
+  const enabled = settings?.enabled ?? true
   const savedOnPositionChange = React.useRef(settings?.onPositionChange)
   const [position, setPosition] = React.useState<AnchorPosition | undefined>(undefined)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -83,6 +85,7 @@ export function useAnchoredPosition(
 
   const updatePosition = React.useCallback(
     () => {
+      if (!enabled) return
       if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
         const newPosition = getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings)
         setPosition(prev => {
@@ -108,22 +111,41 @@ export function useAnchoredPosition(
       }
       setPrevHeight(floatingElementRef.current?.clientHeight)
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [floatingElementRef, anchorElementRef, ...dependencies],
+    // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/use-memo
+    [floatingElementRef, anchorElementRef, enabled, ...dependencies],
   )
 
   useLayoutEffect(() => {
     savedOnPositionChange.current = settings?.onPositionChange
   }, [settings?.onPositionChange])
 
-  useLayoutEffect(updatePosition, [updatePosition])
+  // Defer the first updatePosition to useEffect when the overlay is closed on
+  // mount, avoiding paint-blocking cascading setState. If the overlay is already
+  // open on mount, run synchronously in useLayoutEffect to prevent a flash.
+  // After mount (including Suspense reappear), only call updatePosition when
+  // both refs are attached — skipping closed overlays avoids unnecessary setState.
+  const hasMountedRef = React.useRef(false)
+  useLayoutEffect(() => {
+    if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
+      hasMountedRef.current = true
+      updatePosition()
+    }
+  }, [updatePosition, floatingElementRef, anchorElementRef])
 
-  useResizeObserver(updatePosition) // watches for changes in window size
-  useResizeObserver(updatePosition, floatingElementRef as React.RefObject<HTMLElement | null>) // watches for changes in floating element size
+  React.useEffect(() => {
+    if (!hasMountedRef.current) {
+      hasMountedRef.current = true
+      updatePosition()
+    }
+  }, [updatePosition])
+
+  useResizeObserver(updatePosition, undefined, [], enabled) // watches for changes in window size
+  useResizeObserver(updatePosition, floatingElementRef as React.RefObject<HTMLElement | null>, [], enabled) // watches for changes in floating element size
 
   // Recalculate position when any scrollable ancestor of the anchor scrolls.
   // Uses requestAnimationFrame to avoid layout thrashing during scroll.
   React.useEffect(() => {
+    if (!enabled) return
     const anchorEl = anchorElementRef.current
     if (!anchorEl) return
 
@@ -150,7 +172,7 @@ export function useAnchoredPosition(
         cancelAnimationFrame(rafId)
       }
     }
-  }, [anchorElementRef, updatePosition])
+  }, [anchorElementRef, updatePosition, enabled])
 
   return {
     floatingElementRef,

@@ -294,12 +294,16 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       data-token-wrapping={Boolean(preventTokenWrapping || maxHeight) || undefined}
       className={clsx(className, styles.TextInputWrapper)}
       style={maxHeight ? {maxHeight, ...style} : style}
+      data-component="TextInputWithTokens"
     >
-      {IconComponent && !LeadingVisual && <IconComponent className="TextInput-icon" />}
+      {IconComponent && !LeadingVisual && (
+        <IconComponent className="TextInput-icon" data-component="TextInputWithTokens.Icon" />
+      )}
       <TextInputInnerVisualSlot
         hasLoadingIndicator={typeof loading === 'boolean'}
         visualPosition="leading"
         showLoadingIndicator={showLeadingLoadingIndicator}
+        componentPrefix="TextInputWithTokens"
       >
         {typeof LeadingVisual !== 'string' && isValidElementType(LeadingVisual) ? <LeadingVisual /> : LeadingVisual}
       </TextInputInnerVisualSlot>
@@ -320,6 +324,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
             aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
             role={role}
             aria-describedby={ariaDescribedBy || undefined}
+            data-component="TextInputWithTokens.Input"
             {...inputPropsRest}
           />
           {shouldExposeSelectedValuesDescription ? (
@@ -341,17 +346,21 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
             hideRemoveButton={disabled || hideTokenRemoveButtons}
             size={size}
             tabIndex={0}
+            data-component="TextInputWithTokens.Token"
             {...tokenRest}
           />
         ))}
         {tokensAreTruncated && tokens.length - visibleTokens.length ? (
-          <Text className={overflowCountClassMap[size]}>+{tokens.length - visibleTokens.length}</Text>
+          <Text className={overflowCountClassMap[size]} data-component="TextInputWithTokens.OverflowCount">
+            +{tokens.length - visibleTokens.length}
+          </Text>
         ) : null}
       </div>
       <TextInputInnerVisualSlot
         hasLoadingIndicator={typeof loading === 'boolean'}
         visualPosition="trailing"
         showLoadingIndicator={showTrailingLoadingIndicator}
+        componentPrefix="TextInputWithTokens"
       >
         {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? <TrailingVisual /> : TrailingVisual}
       </TextInputInnerVisualSlot>

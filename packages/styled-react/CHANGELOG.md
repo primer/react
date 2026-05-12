@@ -1,5 +1,21 @@
 # @primer/styled-react
 
+## 1.0.8
+
+### Patch Changes
+
+- [#7800](https://github.com/primer/react/pull/7800) [`ce88bdf`](https://github.com/primer/react/commit/ce88bdf3191aaee0ad662803f285a4e77810ce9e) Thanks [@francinelucca](https://github.com/francinelucca)! - chore: forward @primer/react theming from @primer/styled-react under feature flag
+
+## 1.0.7
+
+### Patch Changes
+
+- [#7773](https://github.com/primer/react/pull/7773) [`4360ab0`](https://github.com/primer/react/commit/4360ab055f2729567cc48d004ed627d58b54e300) Thanks [@jonrohan](https://github.com/jonrohan)! - chore(styled-react): remove Breadcrumbs, Table, Timeline, Truncate
+
+- [#7708](https://github.com/primer/react/pull/7708) [`d0fa0ff`](https://github.com/primer/react/commit/d0fa0ff2301b3db7a4b66e7aabf3ff544ffb4ef2) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(css): audit :has() selectors and add stylelint guard for Safari
+
+- [#7794](https://github.com/primer/react/pull/7794) [`0b6dabb`](https://github.com/primer/react/commit/0b6dabbd71fe467f0a5433f4909050e05cc7f595) Thanks [@jonrohan](https://github.com/jonrohan)! - chore(styled-react): remove TabNav, SegmentedControl, Header, FormControl, LinkButton from @primer/styled-react
+
 ## 1.0.6
 
 ### Patch Changes

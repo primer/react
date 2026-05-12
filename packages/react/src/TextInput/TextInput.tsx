@@ -248,7 +248,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           onClick={focusInput}
           aria-busy={Boolean(loading)}
         >
-          {IconComponent && <IconComponent className="TextInput-icon" />}
+          {IconComponent && <IconComponent className="TextInput-icon" data-component="TextInput.Icon" />}
           <TextInputInnerVisualSlot
             visualPosition="leading"
             showLoadingIndicator={showLeadingLoadingIndicator}
@@ -275,6 +275,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
                 ? [characterCountStaticMessageId, inputDescribedBy].filter(Boolean).join(' ') || undefined
                 : inputDescribedBy
             }
+            // TODO: next-major: Remove in favor of data-component="TextInput.Input"
             data-component="input"
           />
           {loading && <VisuallyHidden id={loadingId}>{loaderText}</VisuallyHidden>}
@@ -306,6 +307,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
               id={characterCountId}
               size="small"
               className={clsx(classes.CharacterCounter, isOverLimit && classes['CharacterCounter--error'])}
+              data-component="TextInput.CharacterCounter"
             >
               {isOverLimit && <AlertFillIcon size={16} />}
               {characterCount}

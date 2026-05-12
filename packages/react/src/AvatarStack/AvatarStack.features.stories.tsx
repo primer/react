@@ -9,65 +9,65 @@ export default {
 
 export const AlignLeft = () => (
   <AvatarStack>
-    <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/primer" />
+    <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/u/7143434?v=4" />
     <Avatar alt="GitHub logo" src="https://avatars.githubusercontent.com/github" />
     <Avatar alt="Atom logo" src="https://avatars.githubusercontent.com/atom" />
-    <Avatar alt="GitHub Desktop logo" src="https://avatars.githubusercontent.com/desktop" />
+    <Avatar alt="GitHub Desktop logo" src="https://avatars.githubusercontent.com/u/13171334?v=4" />
   </AvatarStack>
 )
 
 export const AlignRight = () => (
   <AvatarStack alignRight>
-    <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/primer" />
+    <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/u/7143434?v=4" />
     <Avatar alt="GitHub logo" src="https://avatars.githubusercontent.com/github" />
     <Avatar alt="Atom logo" src="https://avatars.githubusercontent.com/atom" />
-    <Avatar alt="GitHub Desktop logo" src="https://avatars.githubusercontent.com/desktop" />
+    <Avatar alt="GitHub Desktop logo" src="https://avatars.githubusercontent.com/u/13171334?v=4" />
   </AvatarStack>
 )
 
 export const DisableExpandOnHover = () => (
   <AvatarStack disableExpand>
-    <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/primer" />
+    <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/u/7143434?v=4" />
     <Avatar alt="GitHub logo" src="https://avatars.githubusercontent.com/github" />
     <Avatar alt="Atom logo" src="https://avatars.githubusercontent.com/atom" />
-    <Avatar alt="GitHub Desktop logo" src="https://avatars.githubusercontent.com/desktop" />
+    <Avatar alt="GitHub Desktop logo" src="https://avatars.githubusercontent.com/u/13171334?v=4" />
   </AvatarStack>
 )
 
 export const CustomSizeOnParent = () => (
   <AvatarStack size={32}>
-    <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/primer" />
+    <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/u/7143434?v=4" />
     <Avatar alt="GitHub logo" src="https://avatars.githubusercontent.com/github" />
     <Avatar alt="Atom logo" src="https://avatars.githubusercontent.com/atom" />
-    <Avatar alt="GitHub Desktop logo" src="https://avatars.githubusercontent.com/desktop" />
+    <Avatar alt="GitHub Desktop logo" src="https://avatars.githubusercontent.com/u/13171334?v=4" />
   </AvatarStack>
 )
 
 export const CustomSizeOnParentResponsive = () => (
   <AvatarStack size={{narrow: 32, regular: 48, wide: 64}}>
-    <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/primer" />
+    <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/u/7143434?v=4" />
     <Avatar alt="GitHub logo" src="https://avatars.githubusercontent.com/github" />
     <Avatar alt="Atom logo" src="https://avatars.githubusercontent.com/atom" />
-    <Avatar alt="GitHub Desktop logo" src="https://avatars.githubusercontent.com/desktop" />
+    <Avatar alt="GitHub Desktop logo" src="https://avatars.githubusercontent.com/u/13171334?v=4" />
   </AvatarStack>
 )
 
 // the smallest size of the children avatars will be used
 export const CustomSizeOnChildren = () => (
   <AvatarStack>
-    <Avatar size={20} alt="Primer logo" src="https://avatars.githubusercontent.com/primer" />
+    <Avatar size={20} alt="Primer logo" src="https://avatars.githubusercontent.com/u/7143434?v=4" />
     <Avatar size={32} alt="GitHub logo" src="https://avatars.githubusercontent.com/github" />
     <Avatar size={48} alt="Atom logo" src="https://avatars.githubusercontent.com/atom" />
-    <Avatar size={64} alt="GitHub Desktop logo" src="https://avatars.githubusercontent.com/desktop" />
+    <Avatar size={64} alt="GitHub Desktop logo" src="https://avatars.githubusercontent.com/u/13171334?v=4" />
   </AvatarStack>
 )
 
 export const WithSquareAvatars = () => (
   <AvatarStack shape="square">
-    <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/primer" />
+    <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/u/7143434?v=4" />
     <Avatar alt="GitHub logo" src="https://avatars.githubusercontent.com/github" />
     <Avatar alt="Atom logo" src="https://avatars.githubusercontent.com/atom" />
-    <Avatar alt="GitHub Desktop logo" src="https://avatars.githubusercontent.com/desktop" />
+    <Avatar alt="GitHub Desktop logo" src="https://avatars.githubusercontent.com/u/13171334?v=4" />
   </AvatarStack>
 )
 
@@ -77,7 +77,7 @@ export const CustomSizeOnChildrenResponsive = () => (
     <Avatar
       size={{narrow: 16, regular: 32, wide: 48}}
       alt="Primer logo"
-      src="https://avatars.githubusercontent.com/primer"
+      src="https://avatars.githubusercontent.com/u/7143434?v=4"
     />
     <Avatar
       size={{narrow: 32, regular: 48, wide: 64}}
@@ -92,13 +92,13 @@ export const CustomSizeOnChildrenResponsive = () => (
     <Avatar
       size={{narrow: 64, regular: 96, wide: 120}}
       alt="GitHub Desktop logo"
-      src="https://avatars.githubusercontent.com/desktop"
+      src="https://avatars.githubusercontent.com/u/13171334?v=4"
     />
   </AvatarStack>
 )
 
 export const WithSingleAvatar = () => (
   <AvatarStack>
-    <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/primer" />
+    <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/u/7143434?v=4" />
   </AvatarStack>
 )

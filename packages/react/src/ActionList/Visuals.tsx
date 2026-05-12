@@ -16,7 +16,11 @@ export const VisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = (
 export type ActionListLeadingVisualProps = VisualProps
 export const LeadingVisual: FCWithSlotMarker<React.PropsWithChildren<VisualProps>> = ({className, ...props}) => {
   return (
-    <VisualContainer className={clsx(className, classes.LeadingVisual)} {...props}>
+    <VisualContainer
+      className={clsx(className, classes.LeadingVisual)}
+      data-component="ActionList.LeadingVisual"
+      {...props}
+    >
       {props.children}
     </VisualContainer>
   )
@@ -26,7 +30,12 @@ export type ActionListTrailingVisualProps = VisualProps
 export const TrailingVisual: FCWithSlotMarker<React.PropsWithChildren<VisualProps>> = ({className, ...props}) => {
   const {trailingVisualId} = React.useContext(ItemContext)
   return (
-    <VisualContainer className={clsx(className, classes.TrailingVisual)} id={trailingVisualId} {...props}>
+    <VisualContainer
+      className={clsx(className, classes.TrailingVisual)}
+      data-component="ActionList.TrailingVisual"
+      id={trailingVisualId}
+      {...props}
+    >
       {props.children}
     </VisualContainer>
   )

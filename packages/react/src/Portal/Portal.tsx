@@ -76,6 +76,7 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
 }) => {
   const {portalContainerName} = useContext(PortalContext)
   const elementRef = React.useRef<HTMLDivElement | null>(null)
+  // eslint-disable-next-line react-hooks/refs
   if (!elementRef.current) {
     const div = document.createElement('div')
     // Portaled content should get their own stacking context so they don't interfere
@@ -86,6 +87,7 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
     elementRef.current = div
   }
 
+  // eslint-disable-next-line react-hooks/refs
   const element = elementRef.current
 
   useLayoutEffect(() => {
