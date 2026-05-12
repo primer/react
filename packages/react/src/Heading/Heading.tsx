@@ -32,7 +32,15 @@ const Heading = forwardRef(({as: Component = 'h2', className, variant, ...props}
     }, [innerRef])
   }
 
-  return <Component className={clsx(className, classes.Heading)} data-variant={variant} {...props} ref={mergedRef} />
+  return (
+    <Component
+      className={clsx(className, classes.Heading)}
+      data-variant={variant}
+      data-component="Heading"
+      {...props}
+      ref={mergedRef}
+    />
+  )
 }) as PolymorphicForwardRefComponent<HeadingLevels, StyledHeadingProps>
 
 Heading.displayName = 'Heading'

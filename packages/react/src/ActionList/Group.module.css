@@ -58,3 +58,20 @@
   color: var(--fgColor-muted);
   align-self: flex-start;
 }
+
+.GroupHeadingWrap[data-has-trailing-action] {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--base-size-8);
+
+  & > .GroupHeading {
+    align-self: center;
+  }
+}
+
+.GroupHeadingTrailingAction {
+  display: inline-flex;
+  align-items: center;
+  margin-inline-start: auto;
+}

@@ -1,5 +1,21 @@
 # @primer/react
 
+## 38.23.0
+
+### Minor Changes
+
+- [#7817](https://github.com/primer/react/pull/7817) [`51a7a28`](https://github.com/primer/react/commit/51a7a28a8c1a44d80cffe774783dfff1d436a1d1) Thanks [@francinelucca](https://github.com/francinelucca)! - - ActionList: Expand `selectableRoles` and `listRoleTypes` to include `treeitem` and `tree`.
+  - Export `ActionListContainerContext` as `ActionList.ContainerContext`.
+  - Export `useRovingTabIndex` from the public API with additional configuration options (`preventScroll` and `dependencies`).
+
+### Patch Changes
+
+- [#7805](https://github.com/primer/react/pull/7805) [`8f8844e`](https://github.com/primer/react/commit/8f8844ef69a52b0462bf76cee389e61bb02de2d7) Thanks [@TylerJDev](https://github.com/TylerJDev)! - AnchoredOverlay: Disables CSS anchor positioning if `portalContainerName` is true. (behind `primer_react_css_anchor_positioning` feature flag)
+
+- [#7800](https://github.com/primer/react/pull/7800) [`ce88bdf`](https://github.com/primer/react/commit/ce88bdf3191aaee0ad662803f285a4e77810ce9e) Thanks [@francinelucca](https://github.com/francinelucca)! - chore: add `primer_react_styled_react_use_primer_theme_providers` feature flag to DefaultFeatureFlags
+
+- [#7802](https://github.com/primer/react/pull/7802) [`872bf46`](https://github.com/primer/react/commit/872bf464c0cdf2144b680ffe309ef4ad2ac1b5ac) Thanks [@TylerJDev](https://github.com/TylerJDev)! - AnchoredOverlay: Ensure overlay fits within viewport by calculating viewport height + width (behind `primer_react_css_anchor_positioning` feature flag)
+
 ## 38.22.0
 
 ### Minor Changes
