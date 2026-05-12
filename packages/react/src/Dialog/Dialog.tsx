@@ -1,13 +1,12 @@
 import React, {useCallback, useEffect, useRef, useState, type SyntheticEvent} from 'react'
 import type {ButtonProps} from '../Button'
 import {Button, IconButton} from '../Button'
-import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
+import {useMergedRefs, useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
 import Portal from '../Portal'
-import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {useId} from '../hooks/useId'
 import {ScrollableRegion} from '../ScrollableRegion'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
@@ -300,7 +299,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   })
 
   const dialogRef = useRef<HTMLDivElement>(null)
-  useRefObjectAsForwardedRef(forwardedRef, dialogRef)
+  const mergedDialogRef = useMergedRefs(forwardedRef, dialogRef)
   const backdropRef = useRef<HTMLDivElement>(null)
 
   useFocusTrap({
@@ -390,7 +389,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           }}
         >
           <div
-            ref={dialogRef}
+            ref={mergedDialogRef}
             role={role}
             aria-labelledby={dialogLabelId}
             aria-describedby={dialogDescriptionId}

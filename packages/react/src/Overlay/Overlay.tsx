@@ -3,9 +3,8 @@ import React, {useEffect, useRef} from 'react'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import type {AriaRole, Merge} from '../utils/types'
 import type {TouchOrMouseEvent} from '../hooks'
-import {useOverlay} from '../hooks'
+import {useMergedRefs, useOverlay} from '../hooks'
 import Portal from '../Portal'
-import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import type {AnchorSide} from '@primer/behaviors'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import classes from './Overlay.module.css'
@@ -192,7 +191,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
     const overlayRef = useRef<HTMLDivElement>(null)
-    useRefObjectAsForwardedRef(forwardedRef, overlayRef)
+    const mergedOverlayRef = useMergedRefs(forwardedRef, overlayRef)
     const slideAnimationDistance = 8 // var(--base-size-8), hardcoded to do some math
     const slideAnimationEasing = 'cubic-bezier(0.33, 1, 0.68, 1)'
     const cssAnchorPositioning = useFeatureFlag('primer_react_css_anchor_positioning')
@@ -237,7 +236,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
         role={role}
         width={width}
         data-reflow-container={!preventOverflow ? true : undefined}
-        ref={overlayRef}
+        ref={mergedOverlayRef}
         left={leftPosition}
         right={right}
         height={height}
