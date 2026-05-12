@@ -1,4 +1,4 @@
-import {describe, it, expect} from 'vitest'
+import {describe, it, expect, vi} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
 import {PlusIcon} from '@primer/octicons-react'
 import BaseStyles from '../BaseStyles'
@@ -22,6 +22,8 @@ describe('ActionList.Group', () => {
   implementsClassName(ActionList.GroupHeading, classes.GroupHeading)
 
   it('should throw an error when ActionList.GroupHeading has an `as` prop when it is used within ActionMenu context', async () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
     expect(() =>
       HTMLRender(
         <BaseStyles>
@@ -40,6 +42,10 @@ describe('ActionList.Group', () => {
     ).toThrow(
       "Looks like you are trying to set a heading level to a menu role. Group headings for menu type action lists are for representational purposes, and rendered as divs. Therefore they don't need a heading level.",
     )
+
+    expect(consoleErrorSpy).toHaveBeenCalled()
+
+    consoleErrorSpy.mockRestore()
   })
 
   it('should render the ActionList.GroupHeading component as a heading with the given heading level', async () => {
@@ -56,6 +62,8 @@ describe('ActionList.Group', () => {
     expect(heading).toHaveTextContent('Group Heading')
   })
   it('should throw an error if ActionList.GroupHeading is used without an `as` prop when no role is specified (for list role)', async () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
     expect(() =>
       HTMLRender(
         <ActionList>
@@ -69,6 +77,10 @@ describe('ActionList.Group', () => {
     ).toThrow(
       "You are setting a heading for a list, that requires a heading level. Please use 'as' prop to set a proper heading level.",
     )
+
+    expect(consoleErrorSpy).toHaveBeenCalled()
+
+    consoleErrorSpy.mockRestore()
   })
   it('should render the ActionList.GroupHeading component as a span (not a heading tag) when role is specified as listbox', async () => {
     const container = HTMLRender(
@@ -191,6 +203,8 @@ describe('ActionList.Group', () => {
     })
 
     it('throws when GroupHeading.TrailingAction is used inside an ActionMenu (menu role) and the feature flag is enabled', () => {
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
       expect(() =>
         HTMLRender(
           <FeatureFlags flags={{primer_react_action_list_group_heading_trailing_action: true}}>
@@ -212,9 +226,15 @@ describe('ActionList.Group', () => {
           </FeatureFlags>,
         ),
       ).toThrow(/can not be used inside an ActionList with an ARIA role of "menu"/)
+
+      expect(consoleErrorSpy).toHaveBeenCalled()
+
+      consoleErrorSpy.mockRestore()
     })
 
     it('throws when GroupHeading.TrailingAction is used inside a listbox role and the feature flag is enabled', () => {
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
       expect(() =>
         HTMLRender(
           <FeatureFlags flags={{primer_react_action_list_group_heading_trailing_action: true}}>
@@ -229,6 +249,10 @@ describe('ActionList.Group', () => {
           </FeatureFlags>,
         ),
       ).toThrow(/can not be used inside an ActionList with an ARIA role of "listbox"/)
+
+      expect(consoleErrorSpy).toHaveBeenCalled()
+
+      consoleErrorSpy.mockRestore()
     })
   })
 })

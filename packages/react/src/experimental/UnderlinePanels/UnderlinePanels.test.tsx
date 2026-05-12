@@ -104,6 +104,8 @@ describe('UnderlinePanels', () => {
   })
 
   it('throws an error when the number of tabs does not match the number of panels', () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
     expect(() => {
       render(
         <UnderlinePanels aria-label="Select a tab">
@@ -115,9 +117,13 @@ describe('UnderlinePanels', () => {
         </UnderlinePanels>,
       )
     }).toThrow('The number of tabs and panels must be equal. Counted 2 tabs and 3 panels.')
+
+    expect(consoleErrorSpy).toHaveBeenCalled()
   })
 
   it('throws an error when the number of panels does not match the number of tabs', () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
     expect(() => {
       render(
         <UnderlinePanels aria-label="Select a tab">
@@ -129,9 +135,13 @@ describe('UnderlinePanels', () => {
         </UnderlinePanels>,
       )
     }).toThrow('The number of tabs and panels must be equal. Counted 3 tabs and 2 panels.')
+
+    expect(consoleErrorSpy).toHaveBeenCalled()
   })
 
   it('throws an error when there are multiple items that have aria-selected', () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
     expect(() => {
       render(
         <UnderlinePanels aria-label="Select a tab">
@@ -144,5 +154,7 @@ describe('UnderlinePanels', () => {
         </UnderlinePanels>,
       )
     }).toThrow('Only one tab can be selected at a time.')
+
+    expect(consoleErrorSpy).toHaveBeenCalled()
   })
 })

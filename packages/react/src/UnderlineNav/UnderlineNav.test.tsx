@@ -158,6 +158,8 @@ describe('UnderlineNav', () => {
   })
 
   it('throws an error when there are multiple items that have aria-current', () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
     expect(() => {
       render(
         <UnderlineNav aria-label="Test Navigation">
@@ -166,6 +168,14 @@ describe('UnderlineNav', () => {
         </UnderlineNav>,
       )
     }).toThrow('Only one current element is allowed')
+
+    expect(
+      consoleErrorSpy.mock.calls.some(call =>
+        call.join(' ').includes('The above error occurred in the <UnderlineNav> component'),
+      ),
+    ).toBe(true)
+
+    consoleErrorSpy.mockRestore()
   })
 
   it('should support icons passed in as an element', () => {

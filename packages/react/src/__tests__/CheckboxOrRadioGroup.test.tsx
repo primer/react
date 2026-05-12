@@ -8,7 +8,18 @@ import classes from '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadio
 const INPUT_GROUP_LABEL = 'Choices'
 
 describe('CheckboxOrRadioGroup', () => {
-  implementsClassName(CheckboxOrRadioGroup, classes.GroupFieldset)
+  implementsClassName(
+    props => (
+      <CheckboxOrRadioGroup {...props}>
+        <CheckboxOrRadioGroup.Label>{INPUT_GROUP_LABEL}</CheckboxOrRadioGroup.Label>
+        <FormControl>
+          <Checkbox value="one" />
+          <FormControl.Label>Choice one</FormControl.Label>
+        </FormControl>
+      </CheckboxOrRadioGroup>
+    ),
+    classes.GroupFieldset,
+  )
   implementsClassName(CheckboxOrRadioGroup.Caption, classes.CheckboxOrRadioGroupCaption)
   implementsClassName(CheckboxOrRadioGroup.Label, classes.RadioGroupLabel)
   const mockWarningFn = vi.fn()
@@ -163,7 +174,9 @@ describe('CheckboxOrRadioGroup', () => {
       </CheckboxOrRadioGroup>,
     )
 
-    expect(consoleSpy).toHaveBeenCalled()
+    expect(consoleSpy).toHaveBeenCalledWith(
+      'A choice group must be labelled using a `CheckboxOrRadioGroup.Label` child, or by passing `aria-labelledby` to the CheckboxOrRadioGroup component.',
+    )
 
     consoleSpy.mockRestore()
   })

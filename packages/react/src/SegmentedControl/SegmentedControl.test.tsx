@@ -32,7 +32,14 @@ const segmentData = [
 ]
 
 describe('SegmentedControl', () => {
-  implementsClassName(SegmentedControl, classes.SegmentedControl)
+  implementsClassName(
+    props => (
+      <SegmentedControl {...props} aria-label="File view">
+        <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
+      </SegmentedControl>
+    ),
+    classes.SegmentedControl,
+  )
 
   it('renders with a selected segment - controlled', () => {
     const {getByText} = render(
@@ -332,7 +339,9 @@ describe('SegmentedControl', () => {
       </SegmentedControl>,
     )
 
-    expect(spy).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalledWith(
+      'Use the `aria-label` or `aria-labelledby` prop to provide an accessible label for assistive technologies',
+    )
     spy.mockRestore()
   })
 

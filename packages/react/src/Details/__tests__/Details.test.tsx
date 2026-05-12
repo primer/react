@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it, vi} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {Details, useDetails, Button} from '../..'
@@ -7,8 +7,29 @@ import {implementsClassName} from '../../utils/testing'
 import classes from '../Details.module.css'
 
 describe('Details', () => {
-  implementsClassName(Details, classes.Details)
+  implementsClassName(
+    props => (
+      <Details {...props}>
+        <Details.Summary>summary</Details.Summary>
+      </Details>
+    ),
+    classes.Details,
+  )
   implementsClassName(Details.Summary)
+
+  it('warns when rendered without a summary child', () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+    render(<Details />)
+
+    expect(warnSpy).toHaveBeenCalledWith(
+      'Warning:',
+      'The <Details> component must have a <summary> child component. You can either use <Details.Summary> or a native <summary> element.',
+    )
+
+    warnSpy.mockRestore()
+  })
+
   it('Toggles when you click outside', async () => {
     const Component = () => {
       const {getDetailsProps} = useDetails({closeOnOutsideClick: true})

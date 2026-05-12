@@ -5,11 +5,12 @@ import {implementsClassName} from '../utils/testing'
 import classes from './Radio.module.css'
 
 describe('Radio', () => {
-  implementsClassName(Radio, classes.Radio)
   const defaultProps = {
     name: 'mock',
     value: 'mock value',
   }
+
+  implementsClassName(props => <Radio {...defaultProps} {...props} />, classes.Radio)
 
   beforeEach(() => {
     vi.resetAllMocks()
@@ -47,6 +48,18 @@ describe('Radio', () => {
     const radio = getByRole('radio') as HTMLInputElement
 
     expect(radio.checked).toEqual(true)
+  })
+
+  it('warns when rendered without a name', () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+    render(<Radio value="mock value" />)
+
+    expect(warnSpy).toHaveBeenCalledWith(
+      'A radio input must have a `name` attribute. Pass `name` as a prop directly to each Radio, or nest them in a `RadioGroup` component with a `name` prop',
+    )
+
+    warnSpy.mockRestore()
   })
 
   it('accepts a change handler that can alter a single radio state', () => {
