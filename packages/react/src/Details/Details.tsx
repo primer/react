@@ -27,7 +27,7 @@ const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(
     }, [])
 
     return (
-      <details className={clsx(className, classes.Details)} {...rest} ref={ref}>
+      <details className={clsx(className, classes.Details)} {...rest} ref={ref} data-component="Details">
         {children}
       </details>
     )
@@ -47,7 +47,7 @@ export type SummaryProps<As extends React.ElementType> = {
 function Summary<As extends React.ElementType>({as, children, ...props}: SummaryProps<As>) {
   const Component = as ?? 'summary'
   return (
-    <Component as={Component === 'summary' ? null : 'summary'} {...props}>
+    <Component as={Component === 'summary' ? null : 'summary'} {...props} data-component="Details.Summary">
       {children}
     </Component>
   )

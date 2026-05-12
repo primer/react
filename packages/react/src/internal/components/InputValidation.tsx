@@ -11,6 +11,7 @@ type Props = React.HTMLAttributes<HTMLElement> & {
   id: string
   validationStatus?: FormValidationStatus
   style?: React.CSSProperties
+  'data-component'?: string
 }
 
 const validationIconMap: Record<
@@ -28,6 +29,7 @@ const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({
   validationStatus,
   style,
   ...rest
+  'data-component': dataComponent,
 }) => {
   const IconComponent = validationStatus ? validationIconMap[validationStatus] : undefined
 
@@ -43,6 +45,7 @@ const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({
       className={clsx(className, classes.InputValidation)}
       data-validation-status={validationStatus}
       style={style}
+      data-component={dataComponent}
     >
       {IconComponent ? (
         <span
