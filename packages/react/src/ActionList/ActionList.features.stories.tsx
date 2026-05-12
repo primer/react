@@ -25,11 +25,13 @@ import {
   PeopleIcon,
   FileDirectoryIcon,
   PlusCircleIcon,
+  PlusIcon,
   GitPullRequestIcon,
   IssueOpenedIcon,
   ProjectIcon,
 } from '@primer/octicons-react'
 import {KeybindingHint} from '../KeybindingHint'
+import {FeatureFlags} from '../FeatureFlags'
 import classes from './ActionList.features.stories.module.css'
 
 export default {
@@ -998,6 +1000,41 @@ export const WithTrailingAction = () => {
     </ActionList>
   )
 }
+
+export const WithTrailingActionOnGroupHeading = () => (
+  <FeatureFlags flags={{primer_react_action_list_group_heading_trailing_action: true}}>
+    <ActionList>
+      <ActionList.Group>
+        <ActionList.GroupHeading as="h3">
+          Custom fields
+          <ActionList.GroupHeading.TrailingAction label="New field" icon={PlusIcon} />
+        </ActionList.GroupHeading>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <FileDirectoryIcon />
+          </ActionList.LeadingVisual>
+          Field 1
+        </ActionList.Item>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <FileDirectoryIcon />
+          </ActionList.LeadingVisual>
+          Field 2
+        </ActionList.Item>
+      </ActionList.Group>
+      <ActionList.Group>
+        <ActionList.GroupHeading as="h3" variant="filled">
+          Repositories
+          <ActionList.GroupHeading.TrailingAction as="a" href="#" label="Manage repositories" icon={ProjectIcon} />
+        </ActionList.GroupHeading>
+        <ActionList.Item>primer/react</ActionList.Item>
+        <ActionList.Item>primer/primitives</ActionList.Item>
+      </ActionList.Group>
+    </ActionList>
+  </FeatureFlags>
+)
+
+WithTrailingActionOnGroupHeading.storyName = 'With TrailingAction on GroupHeading (behind feature flag)'
 
 export const FullVariant = () => (
   <ActionList variant="full">

@@ -144,6 +144,10 @@ const stories = [
     title: 'Text Wrap And Truncation',
     id: 'components-actionlist-features--text-wrap-and-truncation',
   },
+  {
+    title: 'Custom Tree Role',
+    id: 'components-actionlist-examples--custom-tree-role',
+  },
 ] as const
 
 test.describe('ActionList', () => {
