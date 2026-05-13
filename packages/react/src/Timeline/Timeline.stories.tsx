@@ -1,5 +1,6 @@
 import type {Meta, StoryFn} from '@storybook/react-vite'
 import React from 'react'
+import {useArgs} from 'storybook/preview-api'
 import type {ComponentProps} from '../utils/types'
 import Timeline, {type TimelineBadgeVariant} from './Timeline'
 import Octicon from '../Octicon'
@@ -360,6 +361,23 @@ Playground.parameters = {
   controls: {expanded: false},
 }
 
+// When `actorType` switches to `bot`, sync the visible `actorName` field to the canonical
+// `dependabot` value. The field stays editable so users can pick a different bot identity
+// (e.g. `renovate[bot]`) from there. Without this sync, switching to `bot` would still
+// render `dependabot` (via BAKED_ACTOR_NAMES) but the controls panel would show whatever
+// the user had typed previously — confusing.
+Playground.decorators = [
+  (Story, context) => {
+    const [args, updateArgs] = useArgs<PlaygroundArgs>()
+    React.useEffect(() => {
+      if (args.actorType === 'bot' && args.actorName !== 'dependabot') {
+        updateArgs({actorName: 'dependabot'})
+      }
+    }, [args.actorType, args.actorName, updateArgs])
+    return <Story {...context} />
+  },
+]
+
 Playground.args = {
   actorSize: 'small',
   actorType: 'user',
@@ -400,6 +418,10 @@ Playground.argTypes = {
   },
   actorName: {
     control: {type: 'text'},
+    // Hide entirely for `copilot` (the name is fixed and not editable). For `bot` the
+    // field stays visible but its value is auto-synced to `dependabot` by the decorator
+    // below — users can edit from there if they want a different bot identity.
+    if: {arg: 'actorType', neq: 'copilot'},
     table: {category: 'Actor'},
   },
   badgeIcon: {
