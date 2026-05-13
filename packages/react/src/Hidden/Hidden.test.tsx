@@ -7,6 +7,17 @@ import classes from './Hidden.module.css'
 describe('Hidden', () => {
   implementsClassName(Hidden, classes.Hidden)
 
+  it('renders data-component="Hidden" on the root element', () => {
+    const {container} = render(
+      <Hidden when="regular">
+        <div>Child</div>
+      </Hidden>,
+    )
+
+    const el = container.querySelector('[data-component="Hidden"]')
+    expect(el).not.toBeNull()
+  })
+
   it('renders the styles as expected when a single viewport value is provided as a string via `when` prop', () => {
     const hiddenElement = render(
       <div data-testid="hidden-regular">
