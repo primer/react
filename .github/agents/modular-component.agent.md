@@ -18,6 +18,7 @@ Read the resource files in `.github/agents/resources/modular-architecture/` to l
 These files are the source of truth. Read them in full before generating any code.
 
 Also read the repo instruction files for coding standards:
+
 - `.github/instructions/general-coding.instructions.md`
 - `.github/instructions/typescript-react.instructions.md`
 - `.github/instructions/css.instructions.md`
@@ -26,12 +27,12 @@ Also read the repo instruction files for coding standards:
 
 Every modular component is decomposed into four layers. Each layer builds on the one below.
 
-| Layer | Name | Responsibility | Styled? |
-|-------|------|----------------|---------|
-| 4 | Hooks | Individual, single-purpose behaviour | ❌ No markup or styles |
-| 3 | Foundations | Unstyled accessible components + compound hook | ❌ Unstyled (CSS reset only) |
-| 2 | Parts | Primer-styled JSX composition | ✅ Full Primer styles |
-| 1 | Ready-made | Props-based convenience wrapper | ✅ Full Primer styles |
+| Layer | Name        | Responsibility                                 | Styled?                      |
+| ----- | ----------- | ---------------------------------------------- | ---------------------------- |
+| 4     | Hooks       | Individual, single-purpose behaviour           | ❌ No markup or styles       |
+| 3     | Foundations | Unstyled accessible components + compound hook | ❌ Unstyled (CSS reset only) |
+| 2     | Parts       | Primer-styled JSX composition                  | ✅ Full Primer styles        |
+| 1     | Ready-made  | Props-based convenience wrapper                | ✅ Full Primer styles        |
 
 **Layer dependency:** Ready-made (L1) uses Parts (L2), Parts use Foundations (L3), Foundations use Hooks (L4). Never skip a layer — L2 must not directly use L4 hooks that should be composed through L3.
 
@@ -54,6 +55,7 @@ Take an existing monolithic Primer component and extract it into the 4-layer str
 ### Step 0: Understand the requirement
 
 Ask the user:
+
 - What component are you building? (name, purpose)
 - What are the key interactive behaviours? (e.g., focus trapping, keyboard navigation, open/close)
 - Are there ARIA patterns to follow? (e.g., dialog, tabs, menu, listbox)
@@ -66,6 +68,7 @@ Ask the user:
 Identify the individual, single-purpose behaviours this component needs. Each behaviour is a separate hook.
 
 **Rules:**
+
 - One behaviour per hook — no compound hooks at this layer
 - No knowledge of which component consumes them — hooks are reusable
 - No styling or markup opinions
@@ -88,6 +91,7 @@ A single hook that composes all the Layer 4 hooks and returns prop-getter functi
 **Important:** Before naming the compound hook, search the repo for existing hooks with the same name. primer/react has legacy hooks (e.g., `src/hooks/useDialog.ts`) that may conflict. The foundation hook lives at a different path (`foundations/experimental/`) and uses different imports, but name collisions can cause confusion. If a conflict exists, the foundation hook takes the `use<Component>` name and the legacy hook should be documented as deprecated.
 
 The hook:
+
 - Takes an options object with the component's behavioural configuration
 - Returns prop-getter functions that consumers spread onto their own elements (`getDialogProps()`, `getTitleProps()`, etc.)
 - Handles all ARIA wiring internally (generating IDs, cross-referencing `aria-labelledby`/`aria-describedby`)
@@ -96,6 +100,7 @@ The hook:
 - Passes through `aria-label` when provided (for dialogs without a visible title)
 
 **Important options to include:**
+
 - `open` / `onClose` — controlled component contract
 - `role` — e.g., `'dialog' | 'alertdialog'`
 - `aria-label` — accessible name when no visible title is used
@@ -107,12 +112,14 @@ The hook:
 React components with no visual styling that enforce structural accessibility constraints. These wrap the compound hook and provide a component tree with context-based ARIA wiring. Similar to [Base UI](https://base-ui.com/) or [Radix Primitives](https://www.radix-ui.com/primitives).
 
 **Layer 3 always ships both APIs.** The unstyled components and the compound hook serve different consumers:
+
 - **Unstyled components** cover the common case: "I want Primer's accessibility, but my own styles." They enforce structural constraints (e.g., title must be a descendant of dialog) and are self-documenting in JSX.
 - **The compound hook** covers the advanced case: "I need full markup control." Useful for integrating with other component systems or building non-standard layouts.
 
 **Foundation CSS:** Each foundation ships a minimal CSS reset that removes browser defaults without adding visual opinion. Use `:where()` selectors for zero specificity so consumer styles always win.
 
 **File location:**
+
 ```
 packages/react/src/foundations/experimental/<Component>/
 ├── use<Component>.ts              # Compound hook (prop-getters)
@@ -129,6 +136,7 @@ packages/react/src/foundations/experimental/<Component>/
 Styled JSX components for Primer-opinionated composition. Parts wrap Layer 3 foundations and add Primer design tokens, CSS modules, and layout opinions.
 
 **Rules:**
+
 - Composition via children (slots), never render props or `React.Children` + `React.cloneElement`
 - Context (`use<Component>Context()`) for ARIA wiring between sub-components — never expose context to consumers
 - All Parts must include `data-component` attributes for stable selectors (testing, agents)
@@ -157,6 +165,7 @@ export const DialogParts = Object.assign(Root, { Content, Header, Title, ... })
 ```
 
 **File location:**
+
 ```
 packages/react/src/experimental/<Component>/
 ├── <Component>.tsx               # Parts (Layer 2)
@@ -171,6 +180,7 @@ packages/react/src/experimental/<Component>/
 A props-based convenience wrapper. The simplest way to use the component — pass data, get a fully composed component.
 
 **Rules:**
+
 - Ready-made is a thin wrapper over Parts — it composes the Part sub-components internally
 - Props map directly to Parts children — no new behaviour at this layer
 - Ready-made must not implement behaviour itself, but it **may translate convenience props into existing lower-layer behavioural options**. Example: Dialog maps `footerButtons[].autoFocus` to the foundation's `initialFocusRef` via a ref forwarded to the rendered button.
@@ -181,6 +191,7 @@ A props-based convenience wrapper. The simplest way to use the component — pas
 - Define a dedicated button props type (e.g., `DialogButtonProps`) that extends Primer's `ButtonProps` with convenience fields like `buttonType` (mapped to `variant`) and `content` (the label). This gives consumers a clean API without needing to know Primer's internal Button prop names.
 
 **File location:** Same directory as Parts:
+
 ```
 packages/react/src/experimental/<Component>/
 ├── ReadyMade<Component>.tsx      # Ready-made (Layer 1)
@@ -190,12 +201,12 @@ packages/react/src/experimental/<Component>/
 
 #### Entry points
 
-| Layer | Experimental import | Stable import |
-|-------|-------------------|---------------|
-| 1 — Ready-made | `@primer/react/experimental` | `@primer/react` |
-| 2 — Parts | `@primer/react/experimental` | `@primer/react` |
+| Layer           | Experimental import                      | Stable import               |
+| --------------- | ---------------------------------------- | --------------------------- |
+| 1 — Ready-made  | `@primer/react/experimental`             | `@primer/react`             |
+| 2 — Parts       | `@primer/react/experimental`             | `@primer/react`             |
 | 3 — Foundations | `@primer/react/foundations/experimental` | `@primer/react/foundations` |
-| 4 — Hooks | `@primer/react/hooks/experimental` | `@primer/react/hooks` |
+| 4 — Hooks       | `@primer/react/hooks/experimental`       | `@primer/react/hooks`       |
 
 - `@primer/react` does NOT re-export Foundations or Hooks — each layer is opt-in via its own entry point
 - All layers ship in one package version
@@ -229,6 +240,7 @@ Use Vitest and `@testing-library/react`. Follow existing test patterns in the re
 ### Step 8: Validate
 
 Run validation in this order:
+
 1. `npx prettier --write <changed-files>`
 2. `npx eslint --fix <changed-files>`
 3. `npx stylelint -q --rd --fix <changed-css-files>`
@@ -244,6 +256,7 @@ Fix any failures before reporting completion.
 ### Step 0: Audit the existing component
 
 Read the existing component and identify:
+
 - What behaviours does it contain? (→ L4 hooks)
 - What accessibility/ARIA patterns does it implement? (→ L3 foundation)
 - What styled sub-components exist? (→ L2 parts)

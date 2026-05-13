@@ -289,7 +289,7 @@ function Close({children, className, ...props}: React.ComponentProps<'button'>) 
 // Foundation consumer — unstyled, bring your own CSS
 import {Dialog} from '@primer/react/foundations/experimental'
 
-<Dialog.Root open={open} onClose={onClose}>
+;<Dialog.Root open={open} onClose={onClose}>
   <Dialog.Title className={styles.title}>Title</Dialog.Title>
   <Dialog.Description className={styles.desc}>Subtitle</Dialog.Description>
   <Dialog.Body className={styles.body}>Content</Dialog.Body>
@@ -491,7 +491,7 @@ export const <Component>Parts = Object.assign(Root, {
   display: flex;
   flex-direction: column;
   /* stylelint-disable-next-line primer/responsive-widths */
-  width: 640px;                    /* default = xlarge */
+  width: 640px; /* default = xlarge */
   min-width: 296px;
   max-width: calc(100dvw - 64px);
   height: auto;
@@ -502,20 +502,31 @@ export const <Component>Parts = Object.assign(Root, {
   opacity: 1;
 
   /* Width variants via data attributes — use :where() for zero specificity */
-  &:where([data-width='small']) { width: 296px; }
-  &:where([data-width='medium']) { width: 320px; }
-  &:where([data-width='large']) { /* stylelint-disable-next-line primer/responsive-widths */ width: 480px; }
+  &:where([data-width='small']) {
+    width: 296px;
+  }
+  &:where([data-width='medium']) {
+    width: 320px;
+  }
+  &:where([data-width='large']) {
+    /* stylelint-disable-next-line primer/responsive-widths */
+    width: 480px;
+  }
   /* xlarge is the default (640px) — no override needed */
 
   /* Height variants */
-  &:where([data-height='small']) { height: 480px; }
-  &:where([data-height='large']) { height: 640px; }
+  &:where([data-height='small']) {
+    height: 480px;
+  }
+  &:where([data-height='large']) {
+    height: 640px;
+  }
 }
 
 .Header {
-  z-index: 1;                      /* Stay above scrolling body */
+  z-index: 1; /* Stay above scrolling body */
   display: flex;
-  max-height: 35vh;                /* Prevent oversized headers */
+  max-height: 35vh; /* Prevent oversized headers */
   padding: var(--base-size-8);
   overflow-y: auto;
   box-shadow: 0 1px 0 var(--borderColor-default);
@@ -547,7 +558,7 @@ export const <Component>Parts = Object.assign(Root, {
 }
 
 .Footer {
-  z-index: 1;                      /* Stay above scrolling body */
+  z-index: 1; /* Stay above scrolling body */
   display: flex;
   flex-flow: wrap;
   justify-content: flex-end;
@@ -558,6 +569,7 @@ export const <Component>Parts = Object.assign(Root, {
 ```
 
 **Key CSS details:**
+
 - Root needs `overflow: visible` and `color: inherit` to prevent browser defaults from clipping content or overriding text colour
 - Default width is `640px` (xlarge) — this is the most common dialog size
 - Header and Footer get `z-index: 1` to stay above the scrolling body
@@ -588,10 +600,14 @@ When targeting `data-component` or state attributes in CSS, use `:where()`:
 
 ```css
 /* Good — zero specificity */
-&:where([data-width='small']) { width: 296px; }
+&:where([data-width='small']) {
+  width: 296px;
+}
 
 /* Avoid — unnecessarily high specificity */
-&[data-width='small'] { width: 296px; }
+&[data-width='small'] {
+  width: 296px;
+}
 ```
 
 ### Sub-component composability
@@ -600,7 +616,7 @@ Sub-components must be independently composable — never bake one sub-component
 
 ```tsx
 // ✅ Good — Header accepts children, consumer controls layout
-<DialogParts.Header>
+;<DialogParts.Header>
   <DialogParts.Title>Title</DialogParts.Title>
   <DialogParts.CloseButton />
 </DialogParts.Header>
@@ -610,7 +626,7 @@ function Header({children}) {
   return (
     <header>
       {children}
-      <CloseButton />  {/* Don't do this */}
+      <CloseButton /> {/* Don't do this */}
     </header>
   )
 }
@@ -746,12 +762,12 @@ export const <Component> = React.forwardRef<HTML<Element>Element, <Component>Pro
 
 ## Naming conventions summary
 
-| Layer | Convention | Example |
-|-------|-----------|---------|
-| 4 — Hooks | `use<Behaviour>` | `useScrollLock`, `useFocusTrap` |
-| 3 — Foundations | `use<Component>` | `useDialog`, `useTabs` |
-| 2 — Parts | `<Component><Part>` | `DialogRoot`, `DialogHeader` |
-| 1 — Ready-made | `<Component>` | `Dialog` |
+| Layer           | Convention          | Example                         |
+| --------------- | ------------------- | ------------------------------- |
+| 4 — Hooks       | `use<Behaviour>`    | `useScrollLock`, `useFocusTrap` |
+| 3 — Foundations | `use<Component>`    | `useDialog`, `useTabs`          |
+| 2 — Parts       | `<Component><Part>` | `DialogRoot`, `DialogHeader`    |
+| 1 — Ready-made  | `<Component>`       | `Dialog`                        |
 
 ## Source folder structure
 
