@@ -1,11 +1,11 @@
 import {useState, useRef, useCallback} from 'react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
-import {useDialogFoundation} from '../../foundations/experimental/Dialog'
+import {useDialog} from '../../foundations/experimental/Dialog'
 
 /**
  * Layer 3 — Foundation stories.
  *
- * These demonstrate `useDialogFoundation`, the compound hook that returns
+ * These demonstrate `useDialog`, the compound hook that returns
  * prop-getters. The consumer owns **all** markup and styling — the hook
  * provides only behavior and ARIA wiring.
  */
@@ -48,7 +48,7 @@ export const Default: StoryObj = {
     const buttonRef = useRef<HTMLButtonElement>(null)
 
     const onClose = useCallback(() => setOpen(false), [])
-    const foundation = useDialogFoundation({
+    const foundation = useDialog({
       open,
       onClose,
       returnFocusRef: buttonRef,
@@ -78,7 +78,7 @@ export const Default: StoryObj = {
           </p>
           <div {...bodyProps} style={bodyStyle}>
             <p>
-              The <code>useDialogFoundation</code> hook provides prop-getters that wire up ARIA attributes, focus
+              The <code>useDialog</code> hook provides prop-getters that wire up ARIA attributes, focus
               management, scroll lock, and controlled close — but zero UI.
             </p>
           </div>
@@ -96,7 +96,7 @@ export const AlertDialog: StoryObj = {
     const buttonRef = useRef<HTMLButtonElement>(null)
 
     const onClose = useCallback(() => setOpen(false), [])
-    const foundation = useDialogFoundation({
+    const foundation = useDialog({
       open,
       onClose,
       role: 'alertdialog',
@@ -150,7 +150,7 @@ export const WithBackdropClick: StoryObj = {
       setOpen(false)
     }, [])
 
-    const foundation = useDialogFoundation({
+    const foundation = useDialog({
       open,
       onClose,
       closeOnBackdropClick: true,

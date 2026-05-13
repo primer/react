@@ -262,10 +262,10 @@ Per [core-ux#2272](https://github.com/github/core-ux/issues/2272): prop-getters 
 
 **Import:** `@primer/react/foundations/experimental`
 
-### `useDialogFoundation`
+### `useDialog`
 
 ```ts
-interface UseDialogFoundationOptions {
+interface UseDialogOptions {
   /** Whether the dialog is open */
   open: boolean
 
@@ -288,7 +288,7 @@ interface UseDialogFoundationOptions {
   closeOnBackdropClick?: boolean
 }
 
-interface UseDialogFoundationReturn {
+interface UseDialogReturn {
   /** Props for the <dialog> element */
   getDialogProps: () => {
     ref: React.RefCallback<HTMLDialogElement>
@@ -330,16 +330,16 @@ interface UseDialogFoundationReturn {
   close: (gesture: 'escape' | 'close-button' | 'backdrop') => void
 }
 
-function useDialogFoundation(options: UseDialogFoundationOptions): UseDialogFoundationReturn
+function useDialog(options: UseDialogOptions): UseDialogReturn
 ```
 
 ### Usage
 
 ```tsx
-import {useDialogFoundation} from '@primer/react/foundations/experimental'
+import {useDialog} from '@primer/react/foundations/experimental'
 
 function MyCustomDialog({open, onClose}) {
-  const dialog = useDialogFoundation({open, onClose})
+  const dialog = useDialog({open, onClose})
 
   return (
     <dialog {...dialog.getDialogProps()}>

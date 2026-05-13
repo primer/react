@@ -6,7 +6,7 @@ import './DialogFoundation.css'
 
 type CloseGesture = 'escape' | 'close-button' | 'backdrop'
 
-export interface UseDialogFoundationOptions {
+export interface UseDialogOptions {
   /** Whether the dialog is open */
   open: boolean
 
@@ -32,7 +32,7 @@ export interface UseDialogFoundationOptions {
   closeOnBackdropClick?: boolean
 }
 
-export interface UseDialogFoundationReturn {
+export interface UseDialogReturn {
   /** Props for the <dialog> element */
   getDialogProps: () => DialogProps
   /** Props for the title element (auto-wires aria-labelledby) */
@@ -81,7 +81,7 @@ interface BodyProps {
 
 // --- Hook ---
 
-export function useDialogFoundation(options: UseDialogFoundationOptions): UseDialogFoundationReturn {
+export function useDialog(options: UseDialogOptions): UseDialogReturn {
   const {
     open,
     onClose,
@@ -202,7 +202,7 @@ export function useDialogFoundation(options: UseDialogFoundationOptions): UseDia
       queueMicrotask(() => {
         if (!titleUsed.current && !ariaLabel) {
           console.warn(
-            'Dialog: No accessible name provided. Use getTitleProps() on a title element, or pass aria-label to useDialogFoundation().',
+            'Dialog: No accessible name provided. Use getTitleProps() on a title element, or pass aria-label to useDialog().',
           )
         }
       })

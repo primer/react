@@ -1,9 +1,9 @@
 import React, {createContext, useCallback, useContext, useMemo} from 'react'
 import {clsx} from 'clsx'
 import {
-  useDialogFoundation,
-  type UseDialogFoundationOptions,
-  type UseDialogFoundationReturn,
+  useDialog,
+  type UseDialogOptions,
+  type UseDialogReturn,
 } from '../../foundations/experimental/Dialog'
 import {IconButton} from '../../Button'
 import {XIcon} from '@primer/octicons-react'
@@ -14,7 +14,7 @@ import classes from './Dialog.module.css'
 // --- Context ---
 
 interface DialogContextValue {
-  foundation: UseDialogFoundationReturn
+  foundation: UseDialogReturn
 }
 
 const DialogContext = createContext<DialogContextValue | null>(null)
@@ -29,7 +29,7 @@ function useDialogContext(): DialogContextValue {
 
 // --- Dialog.Root ---
 
-interface DialogRootProps extends UseDialogFoundationOptions {
+interface DialogRootProps extends UseDialogOptions {
   children: React.ReactNode
   className?: string
 }
@@ -38,7 +38,7 @@ const Root = React.forwardRef<HTMLDialogElement, DialogRootProps>(function Dialo
   {children, className, ...options},
   forwardedRef,
 ) {
-  const foundation = useDialogFoundation(options)
+  const foundation = useDialog(options)
   const dialogProps = foundation.getDialogProps()
 
   // Merge the foundation ref callback with the consumer's forwarded ref

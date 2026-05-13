@@ -1,12 +1,12 @@
 import React, {useRef} from 'react'
 import {render, fireEvent, screen} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vitest'
-import {useDialogFoundation, type UseDialogFoundationOptions} from '..'
+import {useDialog, type UseDialogOptions} from '..'
 
 // Test harness that renders a dialog using the foundation hook
-function TestDialog(props: UseDialogFoundationOptions & {children?: React.ReactNode}) {
+function TestDialog(props: UseDialogOptions & {children?: React.ReactNode}) {
   const {children, ...options} = props
-  const foundation = useDialogFoundation(options)
+  const foundation = useDialog(options)
   const dialogProps = foundation.getDialogProps()
   const titleProps = foundation.getTitleProps()
   const descriptionProps = foundation.getDescriptionProps()
@@ -23,7 +23,7 @@ function TestDialog(props: UseDialogFoundationOptions & {children?: React.ReactN
   )
 }
 
-describe('useDialogFoundation', () => {
+describe('useDialog', () => {
   it('renders a dialog with correct ARIA attributes', () => {
     render(<TestDialog open={true} onClose={() => {}} />)
 
@@ -85,7 +85,7 @@ describe('useDialogFoundation', () => {
 
   it('sets aria-label when provided (no visible title)', () => {
     function AriaLabelDialog() {
-      const foundation = useDialogFoundation({
+      const foundation = useDialog({
         open: true,
         onClose: () => {},
         'aria-label': 'Confirm deletion',
@@ -109,7 +109,7 @@ describe('useDialogFoundation', () => {
   it('supports initialFocusRef', () => {
     function DialogWithInitialFocus() {
       const inputRef = useRef<HTMLInputElement>(null)
-      const foundation = useDialogFoundation({
+      const foundation = useDialog({
         open: true,
         onClose: () => {},
         initialFocusRef: inputRef,
@@ -232,7 +232,7 @@ describe('useDialogFoundation', () => {
     const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
     function NoNameDialog() {
-      const foundation = useDialogFoundation({
+      const foundation = useDialog({
         open: true,
         onClose: () => {},
       })

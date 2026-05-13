@@ -1,13 +1,13 @@
 import {useState, useRef, useCallback, type PropsWithChildren} from 'react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {
-  useDialogFoundation,
-  type UseDialogFoundationOptions,
-  type UseDialogFoundationReturn,
+  useDialog,
+  type UseDialogOptions,
+  type UseDialogReturn,
 } from '../../foundations/experimental/Dialog'
 
 /**
- * Hook Inspector — useDialogFoundation
+ * Hook Inspector — useDialog
  *
  * These stories document the hook's contract: what goes in, what comes out,
  * and how the return values change as you interact. The dialog itself is
@@ -42,7 +42,7 @@ function RenderingControls({children}: PropsWithChildren) {
 
 // --- Prop getter inspector ---
 
-function PropGetterInspector({foundation}: {foundation: UseDialogFoundationReturn}) {
+function PropGetterInspector({foundation}: {foundation: UseDialogReturn}) {
   const dialogProps = foundation.getDialogProps()
   const titleProps = foundation.getTitleProps()
   const descriptionProps = foundation.getDescriptionProps()
@@ -107,7 +107,7 @@ export const Default: StoryObj = {
       setOpen(false)
     }, [])
 
-    const foundation = useDialogFoundation({
+    const foundation = useDialog({
       open,
       onClose,
       returnFocusRef: buttonRef,
@@ -160,7 +160,7 @@ export const AriaLabelFallback: StoryObj = {
   render: () => {
     const [open, setOpen] = useState(false)
 
-    const foundation = useDialogFoundation({
+    const foundation = useDialog({
       open,
       onClose: () => setOpen(false),
       'aria-label': 'Confirm deletion',
@@ -204,7 +204,7 @@ export const BackdropClick: StoryObj = {
       setOpen(false)
     }, [])
 
-    const foundation = useDialogFoundation({
+    const foundation = useDialog({
       open,
       onClose,
       closeOnBackdropClick: true,
@@ -250,7 +250,7 @@ export const AlertDialogRole: StoryObj = {
   render: () => {
     const [open, setOpen] = useState(false)
 
-    const foundation = useDialogFoundation({
+    const foundation = useDialog({
       open,
       onClose: () => setOpen(false),
       role: 'alertdialog',
@@ -300,7 +300,7 @@ export const InitialFocusRef: StoryObj = {
     const [open, setOpen] = useState(false)
     const cancelRef = useRef<HTMLButtonElement>(null)
 
-    const foundation = useDialogFoundation({
+    const foundation = useDialog({
       open,
       onClose: () => setOpen(false),
       initialFocusRef: cancelRef,

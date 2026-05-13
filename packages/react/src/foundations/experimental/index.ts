@@ -1,2 +1,2 @@
-export {useDialogFoundation} from './Dialog'
-export type {UseDialogFoundationOptions, UseDialogFoundationReturn} from './Dialog'
+export {useDialog} from './Dialog'
+export type {UseDialogOptions, UseDialogReturn} from './Dialog'
