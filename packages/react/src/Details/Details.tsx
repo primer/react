@@ -6,7 +6,7 @@ import {useMergedRefs} from '../hooks/useMergedRefs'
 
 const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ({className, children, ...rest}, forwardRef): ReactElement<any> => {
+  ({className, children, 'data-component': dataComponent, ...rest}, forwardRef): ReactElement<any> => {
     const detailsRef = React.useRef<HTMLDetailsElement>(null)
     const ref = useMergedRefs(forwardRef, detailsRef)
 
@@ -27,7 +27,12 @@ const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(
     }, [])
 
     return (
-      <details className={clsx(className, classes.Details)} {...rest} ref={ref} data-component="Details">
+      <details
+        className={clsx(className, classes.Details)}
+        {...rest}
+        ref={ref}
+        data-component={dataComponent ?? 'Details'}
+      >
         {children}
       </details>
     )
@@ -60,5 +65,7 @@ const Details = Object.assign(Root, {
   Summary,
 })
 
-export type DetailsProps = ComponentPropsWithoutRef<'details'>
+export type DetailsProps = ComponentPropsWithoutRef<'details'> & {
+  'data-component'?: string
+}
 export default Details

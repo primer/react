@@ -6,7 +6,7 @@ import type {FormValidationStatus} from '../../utils/types/FormValidationStatus'
 import classes from './InputValidation.module.css'
 import {clsx} from 'clsx'
 
-type Props = {
+type Props = React.HTMLAttributes<HTMLElement> & {
   className?: string
   id: string
   validationStatus?: FormValidationStatus
@@ -29,6 +29,7 @@ const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({
   validationStatus,
   style,
   'data-component': dataComponent,
+  ...rest
 }) => {
   const IconComponent = validationStatus ? validationIconMap[validationStatus] : undefined
 
@@ -40,6 +41,7 @@ const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({
 
   return (
     <Text
+      {...rest}
       className={clsx(className, classes.InputValidation)}
       data-validation-status={validationStatus}
       style={style}

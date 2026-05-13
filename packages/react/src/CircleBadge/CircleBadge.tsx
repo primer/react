@@ -38,13 +38,16 @@ const CircleBadge = <As extends React.ElementType>({
 }: CircleBadgeProps<As>) => (
   <Component
     {...props}
+    data-component="CircleBadge"
     className={clsx(styles.CircleBadge, className)}
     data-inline={inline ? '' : undefined}
     style={sizeStyles({size, variant})}
   />
 )
 
-const CircleBadgeIcon = (props: OcticonProps) => <Octicon className={styles.CircleBadgeIcon} {...props} />
+const CircleBadgeIcon = (props: OcticonProps) => (
+  <Octicon {...props} data-component="CircleBadge.Icon" className={clsx(styles.CircleBadgeIcon, props.className)} />
+)
 
 CircleBadgeIcon.displayName = 'CircleBadge.Icon'
 

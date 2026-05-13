@@ -12,9 +12,13 @@ export type CheckboxOrRadioGroupValidationProps = {
 const CheckboxOrRadioGroupValidation: FCWithSlotMarker<
   React.PropsWithChildren<CheckboxOrRadioGroupValidationProps>
 > = ({children, variant}) => {
-  const {validationMessageId = ''} = React.useContext(CheckboxOrRadioGroupContext)
+  const {validationMessageId = '', parentName} = React.useContext(CheckboxOrRadioGroupContext)
   return (
-    <InputValidation validationStatus={variant} id={validationMessageId}>
+    <InputValidation
+      validationStatus={variant}
+      id={validationMessageId}
+      data-component={parentName ? `${parentName}.Validation` : undefined}
+    >
       {children}
     </InputValidation>
   )

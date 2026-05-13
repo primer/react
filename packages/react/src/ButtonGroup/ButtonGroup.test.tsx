@@ -12,6 +12,11 @@ describe('ButtonGroup', () => {
     expect(container.getByTestId('button-group').tagName).toBe('DIV')
   })
 
+  it('renders data-component attribute', () => {
+    const {container} = render(<ButtonGroup />)
+    expect(container.querySelector('[data-component="ButtonGroup"]')).toBeInTheDocument()
+  })
+
   it('should respect role prop', () => {
     render(<ButtonGroup role="toolbar" />)
     expect(screen.getByRole('toolbar')).toBeInTheDocument()

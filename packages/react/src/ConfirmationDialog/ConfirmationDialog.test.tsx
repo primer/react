@@ -128,6 +128,18 @@ const waitForDialogLayout = async (getByRole: ReturnType<typeof render>['getByRo
 }
 
 describe('ConfirmationDialog', () => {
+  it('renders data-component attribute', () => {
+    const {getByRole} = render(
+      <BaseStyles>
+        <ConfirmationDialog title="Confirm" onClose={() => {}}>
+          Test content
+        </ConfirmationDialog>
+      </BaseStyles>,
+    )
+
+    expect(getByRole('alertdialog')).toHaveAttribute('data-component', 'ConfirmationDialog')
+  })
+
   it('focuses the primary action when opened and the confirmButtonType is not set', async () => {
     const {getByText, getByRole} = render(<Basic />)
     await userEvent.click(getByText('Show dialog'))
