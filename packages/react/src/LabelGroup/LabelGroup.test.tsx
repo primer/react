@@ -41,6 +41,19 @@ describe('LabelGroup', () => {
     expect(getByRole('list')).toHaveAttribute('data-component', 'LabelGroup')
   })
 
+  it('renders data-component="LabelGroup" on the root element (truncation path)', () => {
+    const {getByRole} = render(
+      <ThemeAndStyleContainer>
+        <LabelGroup visibleChildCount={1}>
+          <Label>One</Label>
+          <Label>Two</Label>
+        </LabelGroup>
+      </ThemeAndStyleContainer>,
+    )
+
+    expect(getByRole('list')).toHaveAttribute('data-component', 'LabelGroup')
+  })
+
   it('observers intersections on each child', async () => {
     render(
       <ThemeAndStyleContainer>
