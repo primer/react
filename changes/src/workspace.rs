@@ -1,5 +1,5 @@
 use anyhow::{Context, Result};
-use serde::Deserialize;
+use serde::{Deserialize, Serialize as _};
 use std::path::{Path, PathBuf};
 
 /// Minimal subset of a package.json manifest that `changes` needs.
@@ -152,7 +152,14 @@ pub fn update_package_version(manifest_path: &Path, new_version: &str) -> Result
 
     // Serialize with 2-space indentation (the npm/JS community standard) and a
     // trailing newline so we don't generate spurious diffs.
-    let mut serialized = serde_json::to_string_pretty(&json)?;
+    // `serde_json::to_string_pretty` uses 4-space indentation by default, so we
+    // use a custom formatter to produce 2-space indentation instead.
+    let buf = Vec::new();
+    let formatter = serde_json::ser::PrettyFormatter::with_indent(b"  ");
+    let mut ser = serde_json::Serializer::with_formatter(buf, formatter);
+    json.serialize(&mut ser)?;
+    let mut serialized = String::from_utf8(ser.into_inner())
+        .context("Serialized JSON was not valid UTF-8")?;
     serialized.push('\n');
 
     std::fs::write(manifest_path, serialized)

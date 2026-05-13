@@ -173,18 +173,16 @@ pub fn find_changesets(root: &Path) -> Result<Vec<Changeset>> {
 // ---------------------------------------------------------------------------
 
 /// Generate a short unique identifier that is safe to use as a filename.
-/// We use a hex encoding of the current time's sub-second nanoseconds,
-/// giving enough entropy for sequential `changes add` calls.
+/// We capture `SystemTime::now()` once and derive both the millisecond and
+/// sub-second nanosecond components from the same instant to avoid any
+/// clock skew between two separate `now()` calls.
 fn generate_id() -> String {
     use std::time::{SystemTime, UNIX_EPOCH};
-    let nanos = SystemTime::now()
+    let duration = SystemTime::now()
         .duration_since(UNIX_EPOCH)
-        .map(|d| d.subsec_nanos())
-        .unwrap_or(0);
-    let millis = SystemTime::now()
-        .duration_since(UNIX_EPOCH)
-        .map(|d| d.as_millis())
-        .unwrap_or(0);
+        .unwrap_or_default();
+    let millis = duration.as_millis();
+    let nanos = duration.subsec_nanos();
     format!("{:x}-{:08x}", millis, nanos)
 }
 

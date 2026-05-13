@@ -89,10 +89,12 @@ fn update_changelog(
 
     // Insert the new section after the first heading line (if any), otherwise prepend.
     let updated = if let Some(idx) = existing.find("\n## ") {
-        format!("{}\n{}\n{}", &existing[..idx], new_section, &existing[idx + 1..])
+        // `idx` is the position of the '\n' before the next `##` heading.
+        // Keep that newline so we don't lose a blank line between sections.
+        format!("{}\n{}\n{}", &existing[..idx], new_section, &existing[idx..])
     } else if let Some(idx) = existing.find('\n') {
         // After the first line (the top-level heading)
-        format!("{}\n\n{}\n{}", &existing[..idx], new_section, &existing[idx + 1..])
+        format!("{}\n\n{}\n{}", &existing[..idx], new_section, &existing[idx..])
     } else {
         format!("{}\n\n{}", existing.trim_end(), new_section)
     };
