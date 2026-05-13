@@ -285,11 +285,7 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
 
   const finalChildren = React.useMemo(() => {
     if (overflow === 'wrap' || menuItems.length === 0) {
-      return React.Children.map(children, child => (
-        <li className={classes.ItemWrapper} data-component="Breadcrumbs.ItemWrapper">
-          {child}
-        </li>
-      ))
+      return React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
     }
 
     let effectiveMenuItems = [...menuItems]
