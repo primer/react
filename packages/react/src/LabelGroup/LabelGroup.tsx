@@ -296,6 +296,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
       data-overflow={overflowStyle === 'inline' && isOverflowShown ? 'inline' : undefined}
       data-list={isList || undefined}
       className={clsx(className, classes.Container)}
+      data-component="LabelGroup"
     >
       {React.Children.map(children, (child, index) => (
         <ItemWrapperComponent
@@ -337,7 +338,12 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
       </ToggleWrapper>
     </Component>
   ) : (
-    <Component data-overflow="inline" data-list={isList || undefined} className={clsx(className, classes.Container)}>
+    <Component
+      data-overflow="inline"
+      data-list={isList || undefined}
+      className={clsx(className, classes.Container)}
+      data-component="LabelGroup"
+    >
       {isList
         ? React.Children.map(children, (child, index) => {
             return <li key={index}>{child}</li>

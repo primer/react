@@ -30,6 +30,17 @@ describe('LabelGroup', () => {
     }
   }) as unknown as typeof IntersectionObserver
 
+  it('renders data-component="LabelGroup" on the root element', () => {
+    const {getByRole} = render(
+      <ThemeAndStyleContainer>
+        <LabelGroup>
+          <Label>One</Label>
+        </LabelGroup>
+      </ThemeAndStyleContainer>,
+    )
+    expect(getByRole('list')).toHaveAttribute('data-component', 'LabelGroup')
+  })
+
   it('observers intersections on each child', async () => {
     render(
       <ThemeAndStyleContainer>
