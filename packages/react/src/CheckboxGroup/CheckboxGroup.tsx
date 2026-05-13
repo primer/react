@@ -66,7 +66,7 @@ const CheckboxGroup: FCWithSlotMarker<React.PropsWithChildren<CheckboxGroupProps
         },
       }}
     >
-      <CheckboxOrRadioGroup parentName="CheckboxGroup" disabled={disabled} {...rest}>
+      <CheckboxOrRadioGroup data-component="CheckboxGroup" disabled={disabled} {...rest}>
         {children}
       </CheckboxOrRadioGroup>
     </CheckboxGroupContext.Provider>

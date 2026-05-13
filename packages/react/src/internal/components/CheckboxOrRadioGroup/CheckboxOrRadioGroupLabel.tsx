@@ -28,7 +28,7 @@ const CheckboxOrRadioGroupLabel: FCWithSlotMarker<React.PropsWithChildren<Checkb
       isVisible={!visuallyHidden}
       title={required ? 'required field' : undefined}
       data-label-disabled={disabled ? '' : undefined}
-      data-component={parentName && `${parentName}.Label`}
+      data-component={parentName ? `${parentName}.Label` : undefined}
     >
       {required ? (
         <Stack direction="horizontal" gap="none">

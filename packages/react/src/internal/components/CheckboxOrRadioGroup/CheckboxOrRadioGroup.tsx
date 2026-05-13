@@ -12,8 +12,6 @@ import {clsx} from 'clsx'
 import {isSlot} from '../../../utils/is-slot'
 
 export type CheckboxOrRadioGroupProps = {
-  /** Parent name for using data-component with either CheckboxGroup or RadioGroup and sub-components */
-  parentName?: string
   /** Class name for custom styling */
   className?: string
   /**
@@ -33,16 +31,17 @@ export type CheckboxOrRadioGroupProps = {
    * If true, the user must make a selection before the owning form can be submitted
    */
   required?: boolean
+  'data-component'?: string
 }
 
 const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGroupProps>> = ({
-  parentName,
   'aria-labelledby': ariaLabelledby,
   children,
   disabled = false,
   id: idProp,
   required = false,
   className,
+  'data-component': dataComponentProp,
 }) => {
   const [slots, rest] = useSlots(children, {
     caption: CheckboxOrRadioGroupCaption,
@@ -89,12 +88,12 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
         required,
         captionId,
         validationMessageId,
-        parentName,
+        parentName: dataComponentProp,
       }}
     >
       <div>
         <Component
-          data-component={parentName}
+          data-component={dataComponentProp}
           className={clsx(className, classes.GroupFieldset)}
           data-validation={validationChild ? '' : undefined}
           {...(labelChild

@@ -17,7 +17,7 @@ const CheckboxOrRadioGroupValidation: FCWithSlotMarker<
     <InputValidation
       validationStatus={variant}
       id={validationMessageId}
-      data-component={parentName && `${parentName}.Validation`}
+      data-component={parentName ? `${parentName}.Validation` : undefined}
     >
       {children}
     </InputValidation>

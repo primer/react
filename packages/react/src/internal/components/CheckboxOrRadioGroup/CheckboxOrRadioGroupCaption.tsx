@@ -13,7 +13,7 @@ const CheckboxOrRadioGroupCaption: FCWithSlotMarker<CheckboxOrRadioGroupCaptionP
     <Text
       className={clsx(className, classes.CheckboxOrRadioGroupCaption)}
       id={captionId}
-      data-component={parentName && `${parentName}.Caption`}
+      data-component={parentName ? `${parentName}.Caption` : undefined}
     >
       {children}
     </Text>
