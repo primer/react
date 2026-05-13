@@ -78,8 +78,8 @@ export const Default: StoryObj = {
           </p>
           <div {...bodyProps} style={bodyStyle}>
             <p>
-              The <code>useDialog</code> hook provides prop-getters that wire up ARIA attributes, focus
-              management, scroll lock, and controlled close — but zero UI.
+              The <code>useDialog</code> hook provides prop-getters that wire up ARIA attributes, focus management,
+              scroll lock, and controlled close — but zero UI.
             </p>
           </div>
         </dialog>

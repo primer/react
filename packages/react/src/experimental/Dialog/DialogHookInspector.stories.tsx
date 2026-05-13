@@ -1,10 +1,6 @@
 import {useState, useRef, useCallback, type PropsWithChildren} from 'react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
-import {
-  useDialog,
-  type UseDialogOptions,
-  type UseDialogReturn,
-} from '../../foundations/experimental/Dialog'
+import {useDialog, type UseDialogOptions, type UseDialogReturn} from '../../foundations/experimental/Dialog'
 
 /**
  * Hook Inspector — useDialog

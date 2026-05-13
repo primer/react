@@ -1,10 +1,6 @@
 import React, {createContext, useCallback, useContext, useMemo} from 'react'
 import {clsx} from 'clsx'
-import {
-  useDialog,
-  type UseDialogOptions,
-  type UseDialogReturn,
-} from '../../foundations/experimental/Dialog'
+import {useDialog, type UseDialogOptions, type UseDialogReturn} from '../../foundations/experimental/Dialog'
 import {IconButton} from '../../Button'
 import {XIcon} from '@primer/octicons-react'
 import type {ResponsiveValue} from '../../hooks/useResponsiveValue'
