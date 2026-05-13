@@ -288,7 +288,6 @@ function Close({children, className, ...props}: React.ComponentProps<'button'>) 
 ```tsx
 // Foundation consumer — unstyled, bring your own CSS
 import {Dialog} from '@primer/react/foundations/experimental'
-
 ;<Dialog.Root open={open} onClose={onClose}>
   <Dialog.Title className={styles.title}>Title</Dialog.Title>
   <Dialog.Description className={styles.desc}>Subtitle</Dialog.Description>
