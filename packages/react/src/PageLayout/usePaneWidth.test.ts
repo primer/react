@@ -20,10 +20,12 @@ const {startTransitionSpy} = vi.hoisted(() => ({
   startTransitionSpy: vi.fn(),
 }))
 vi.mock('react', async importOriginal => {
-  const actual = await importOriginal<typeof import('react')>()
+  const actual = (await importOriginal()) as Record<string, unknown> & {
+    startTransition: (...args: [callback: () => void]) => void
+  }
   return {
     ...actual,
-    startTransition: (...args: Parameters<typeof actual.startTransition>) => {
+    startTransition: (...args: [callback: () => void]) => {
       startTransitionSpy(...args)
       return actual.startTransition(...args)
     },
