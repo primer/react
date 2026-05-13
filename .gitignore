@@ -52,3 +52,6 @@ results.json
 
 # Turbo
 .turbo
+
+# Rust (changes CLI)
+changes/target/

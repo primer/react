@@ -1,0 +1,125 @@
+name: Prepare Release
+
+# Runs on a weekly schedule every Monday, or can be triggered manually.
+# Creates a release branch, versions packages based on pending changesets,
+# and opens a pull request back to main.
+
+on:
+  schedule:
+    # Every Monday at 10:00 UTC
+    - cron: '0 10 * * MON'
+  workflow_dispatch:
+    inputs:
+      packages:
+        description: >
+          Comma-separated list of package names to release.
+          Leave empty to release all packages with pending changesets.
+        required: false
+        default: ''
+      date:
+        description: >
+          Release date used in the branch name (YYYY-MM-DD).
+          Defaults to today's date.
+        required: false
+        default: ''
+      cherry_picks:
+        description: >
+          Comma-separated commit SHAs to cherry-pick onto the release branch
+          before versioning (useful for patch releases).
+        required: false
+        default: ''
+      dry_run:
+        type: boolean
+        description: 'Dry run – print what would happen without making changes'
+        default: false
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  prepare-release:
+    name: Prepare release branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          # Full history is needed so we can cherry-pick arbitrary commits
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Node
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Cargo build artifacts
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
+        with:
+          path: |
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            changes/target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('changes/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-cargo-
+
+      - name: Build changes CLI
+        run: cargo build --release --manifest-path changes/Cargo.toml
+
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Prepare release
+        run: |
+          ARGS=()
+
+          # --package flags
+          if [ -n "${{ github.event.inputs.packages }}" ]; then
+            IFS=',' read -ra PKGS <<< "${{ github.event.inputs.packages }}"
+            for pkg in "${PKGS[@]}"; do
+              pkg="$(echo "$pkg" | xargs)"  # trim whitespace
+              if [ -n "$pkg" ]; then
+                ARGS+=(--package "$pkg")
+              fi
+            done
+          fi
+
+          # --date flag
+          if [ -n "${{ github.event.inputs.date }}" ]; then
+            ARGS+=(--date "${{ github.event.inputs.date }}")
+          fi
+
+          # --cherry-pick flags
+          if [ -n "${{ github.event.inputs.cherry_picks }}" ]; then
+            IFS=',' read -ra SHAS <<< "${{ github.event.inputs.cherry_picks }}"
+            for sha in "${SHAS[@]}"; do
+              sha="$(echo "$sha" | xargs)"
+              if [ -n "$sha" ]; then
+                ARGS+=(--cherry-pick "$sha")
+              fi
+            done
+          fi
+
+          # --dry-run flag
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            ARGS+=(--dry-run)
+          fi
+
+          ./changes/target/release/changes release "${ARGS[@]}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

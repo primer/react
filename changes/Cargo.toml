@@ -1,0 +1,18 @@
+[package]
+name = "changes"
+version = "0.1.0"
+edition = "2021"
+description = "Release management CLI for primer/react packages"
+
+[[bin]]
+name = "changes"
+path = "src/main.rs"
+
+[dependencies]
+anyhow = "1.0.102"
+chrono = { version = "0.4.44", features = ["clock"] }
+clap = { version = "4.6.1", features = ["derive"] }
+glob = "0.3.3"
+semver = "1.0.28"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1.0.149"

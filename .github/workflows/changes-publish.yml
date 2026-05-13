@@ -1,0 +1,119 @@
+name: Publish Release
+
+# Triggered automatically when a release branch PR is merged into main.
+# Also supports manual dispatch so individual packages can be published
+# on demand (e.g. after a hotfix or cherry-pick).
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      packages:
+        description: >
+          Comma-separated list of package names to publish.
+          Leave empty to publish all packages whose local version is not yet
+          on the npm registry.
+        required: false
+        default: ''
+      tag:
+        description: 'npm distribution tag (e.g. latest, next, canary)'
+        required: false
+        default: 'latest'
+      dry_run:
+        type: boolean
+        description: 'Dry run – print what would be published without actually publishing'
+        default: false
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write   # Required to push git tags
+  id-token: write   # Required for OIDC / npm provenance
+
+jobs:
+  publish:
+    name: Publish packages
+    # For PR events: only run when the branch was merged and came from a release/ branch.
+    # For manual dispatch: always run.
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (
+        github.event.pull_request.merged == true &&
+        startsWith(github.event.pull_request.head.ref, 'release/')
+      )
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Node
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build packages
+        run: npm run build
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Cargo build artifacts
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
+        with:
+          path: |
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            changes/target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('changes/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-cargo-
+
+      - name: Build changes CLI
+        run: cargo build --release --manifest-path changes/Cargo.toml
+
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Publish packages
+        run: |
+          ARGS=()
+
+          # --package flags
+          if [ -n "${{ github.event.inputs.packages }}" ]; then
+            IFS=',' read -ra PKGS <<< "${{ github.event.inputs.packages }}"
+            for pkg in "${PKGS[@]}"; do
+              pkg="$(echo "$pkg" | xargs)"
+              if [ -n "$pkg" ]; then
+                ARGS+=(--package "$pkg")
+              fi
+            done
+          fi
+
+          # --tag flag (only for manual dispatch; PR-triggered publishes always use 'latest')
+          if [ -n "${{ github.event.inputs.tag }}" ]; then
+            ARGS+=(--tag "${{ github.event.inputs.tag }}")
+          fi
+
+          # --dry-run flag
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            ARGS+=(--dry-run)
+          fi
+
+          ./changes/target/release/changes publish "${ARGS[@]}"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
