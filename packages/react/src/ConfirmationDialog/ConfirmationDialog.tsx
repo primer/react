@@ -124,6 +124,7 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
   const footerButtons = [cancelButton, confirmButton]
   return (
     <Dialog
+      data-component="ConfirmationDialog"
       onClose={onClose}
       title={title}
       footerButtons={footerButtons}

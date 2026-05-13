@@ -8,9 +8,13 @@ import type {FCWithSlotMarker} from '../../../utils/types'
 type CheckboxOrRadioGroupCaptionProps = React.PropsWithChildren<{className?: string}>
 
 const CheckboxOrRadioGroupCaption: FCWithSlotMarker<CheckboxOrRadioGroupCaptionProps> = ({className, children}) => {
-  const {captionId} = React.useContext(CheckboxOrRadioGroupContext)
+  const {captionId, parentName} = React.useContext(CheckboxOrRadioGroupContext)
   return (
-    <Text className={clsx(className, classes.CheckboxOrRadioGroupCaption)} id={captionId}>
+    <Text
+      className={clsx(className, classes.CheckboxOrRadioGroupCaption)}
+      id={captionId}
+      data-component={parentName ? `${parentName}.Caption` : undefined}
+    >
       {children}
     </Text>
   )

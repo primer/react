@@ -2,68 +2,76 @@ import type React from 'react'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 import {getScrollContainer} from '../utils/scroll'
 
-export function useRovingTabIndex({
-  containerRef,
-  mouseDownRef,
-}: {
-  containerRef: React.RefObject<HTMLElement>
-  mouseDownRef: React.RefObject<boolean>
-}) {
-  // TODO: Initialize focus to the aria-current item if it exists
-  useFocusZone({
+export function useRovingTabIndex(
+  {
     containerRef,
-    bindKeys:
-      FocusKeys.ArrowVertical |
-      FocusKeys.ArrowHorizontal |
-      FocusKeys.HomeAndEnd |
-      FocusKeys.Backspace |
-      FocusKeys.PageUpDown,
-    preventScroll: true,
-    getNextFocusable: (direction, from, event) => {
-      if (!(from instanceof HTMLElement)) return
+    mouseDownRef,
+    preventScroll = true,
+  }: {
+    containerRef: React.RefObject<HTMLElement>
+    mouseDownRef?: React.RefObject<boolean>
+    preventScroll?: boolean
+  },
+  dependencies: React.DependencyList = [],
+) {
+  // TODO: Initialize focus to the aria-current item if it exists
+  useFocusZone(
+    {
+      containerRef,
+      bindKeys:
+        FocusKeys.ArrowVertical |
+        FocusKeys.ArrowHorizontal |
+        FocusKeys.HomeAndEnd |
+        FocusKeys.Backspace |
+        FocusKeys.PageUpDown,
+      preventScroll,
+      getNextFocusable: (direction, from, event) => {
+        if (!(from instanceof HTMLElement)) return
 
-      // Skip elements within a modal dialog
-      // This need to be in a try/catch to avoid errors in
-      // non-supported browsers
-      try {
-        if (from.closest('dialog:modal')) {
-          return
+        // Skip elements within a modal dialog
+        // This need to be in a try/catch to avoid errors in
+        // non-supported browsers
+        try {
+          if (from.closest('dialog:modal')) {
+            return
+          }
+        } catch {
+          // Don't return
         }
-      } catch {
-        // Don't return
-      }
 
-      return getNextFocusableElement(from, event) ?? from
+        return getNextFocusableElement(from, event) ?? from
+      },
+      focusInStrategy: () => {
+        // Don't try to execute the focusInStrategy if focus is coming from a click.
+        // The clicked row will receive focus correctly by default.
+        // If a chevron is clicked, setting the focus through the focuszone will prevent its toggle.
+        if (mouseDownRef?.current) {
+          return undefined
+        }
+
+        const currentItem = containerRef.current?.querySelector('[aria-current]')
+        const firstItem = containerRef.current?.querySelector('[role="treeitem"]')
+
+        // Focus the aria-current item if it exists
+        if (currentItem instanceof HTMLElement) {
+          return currentItem
+        }
+
+        // Otherwise, focus the activeElement if it's a treeitem
+        if (
+          document.activeElement instanceof HTMLElement &&
+          containerRef.current?.contains(document.activeElement) &&
+          document.activeElement.getAttribute('role') === 'treeitem'
+        ) {
+          return document.activeElement
+        }
+
+        // Otherwise, focus the first treeitem
+        return firstItem instanceof HTMLElement ? firstItem : undefined
+      },
     },
-    focusInStrategy: () => {
-      // Don't try to execute the focusInStrategy if focus is coming from a click.
-      // The clicked row will receive focus correctly by default.
-      // If a chevron is clicked, setting the focus through the focuszone will prevent its toggle.
-      if (mouseDownRef.current) {
-        return undefined
-      }
-
-      const currentItem = containerRef.current?.querySelector('[aria-current]')
-      const firstItem = containerRef.current?.querySelector('[role="treeitem"]')
-
-      // Focus the aria-current item if it exists
-      if (currentItem instanceof HTMLElement) {
-        return currentItem
-      }
-
-      // Otherwise, focus the activeElement if it's a treeitem
-      if (
-        document.activeElement instanceof HTMLElement &&
-        containerRef.current?.contains(document.activeElement) &&
-        document.activeElement.getAttribute('role') === 'treeitem'
-      ) {
-        return document.activeElement
-      }
-
-      // Otherwise, focus the first treeitem
-      return firstItem instanceof HTMLElement ? firstItem : undefined
-    },
-  })
+    [preventScroll, ...dependencies],
+  )
 }
 
 // DOM utilities used for focus management
