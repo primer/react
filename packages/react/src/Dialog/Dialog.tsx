@@ -58,6 +58,7 @@ export type DialogButtonProps = Omit<ButtonProps, 'content'> & {
  * Props to customize the rendering of the Dialog.
  */
 export interface DialogProps {
+  'data-component'?: string
   /**
    * Title of the Dialog. Also serves as the aria-label for this Dialog.
    */
@@ -255,6 +256,7 @@ const DIALOG_CONTEXT_VALUE = Object.freeze({})
 
 const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
   const {
+    'data-component': dataComponentProp,
     title = 'Dialog',
     subtitle = '',
     renderHeader,
@@ -375,6 +377,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           }),
         )
 
+  const dataComponent = dataComponentProp ?? 'Dialog'
   return (
     <DialogContext.Provider value={DIALOG_CONTEXT_VALUE}>
       <Portal>
@@ -402,6 +405,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             data-footer-button-layout={hasFooter ? footerButtonLayout : undefined}
             className={clsx(className, classes.Dialog)}
             style={style}
+            data-component={dataComponent}
           >
             {header}
             <ScrollableRegion aria-labelledby={dialogLabelId} className={classes.DialogOverflowWrapper}>
@@ -419,14 +423,14 @@ _Dialog.displayName = 'Dialog'
 type StyledHeaderProps = React.ComponentProps<'div'>
 
 const Header = React.forwardRef<HTMLDivElement, StyledHeaderProps>(function Header({className, ...rest}, forwardRef) {
-  return <div ref={forwardRef} className={clsx(className, classes.Header)} {...rest} />
+  return <div ref={forwardRef} className={clsx(className, classes.Header)} {...rest} data-component="Dialog.Header" />
 }) as PolymorphicForwardRefComponent<'div', StyledHeaderProps>
 Header.displayName = 'Dialog.Header'
 
 type StyledTitleProps = React.ComponentProps<'h1'>
 
 const Title = React.forwardRef<HTMLHeadingElement, StyledTitleProps>(function Title({className, ...rest}, forwardRef) {
-  return <h1 ref={forwardRef} className={clsx(className, classes.Title)} {...rest} />
+  return <h1 ref={forwardRef} className={clsx(className, classes.Title)} {...rest} data-component="Dialog.Title" />
 })
 Title.displayName = 'Dialog.Title'
 
@@ -436,14 +440,16 @@ const Subtitle = React.forwardRef<HTMLHeadingElement, StyledSubtitleProps>(funct
   {className, ...rest},
   forwardRef,
 ) {
-  return <h2 ref={forwardRef} className={clsx(className, classes.Subtitle)} {...rest} />
+  return (
+    <h2 ref={forwardRef} className={clsx(className, classes.Subtitle)} {...rest} data-component="Dialog.Subtitle" />
+  )
 })
 Subtitle.displayName = 'Dialog.Subtitle'
 
 type StyledBodyProps = React.ComponentProps<'div'>
 
 const Body = React.forwardRef<HTMLDivElement, StyledBodyProps>(function Body({className, ...rest}, forwardRef) {
-  return <div ref={forwardRef} className={clsx(className, classes.Body)} {...rest} />
+  return <div ref={forwardRef} className={clsx(className, classes.Body)} {...rest} data-component="Dialog.Body" />
 }) as PolymorphicForwardRefComponent<'div', StyledBodyProps>
 
 Body.displayName = 'Dialog.Body'
@@ -451,7 +457,7 @@ Body.displayName = 'Dialog.Body'
 type StyledFooterProps = React.ComponentProps<'div'>
 
 const Footer = React.forwardRef<HTMLDivElement, StyledFooterProps>(function Footer({className, ...rest}, forwardRef) {
-  return <div ref={forwardRef} className={clsx(className, classes.Footer)} {...rest} />
+  return <div ref={forwardRef} className={clsx(className, classes.Footer)} {...rest} data-component="Dialog.Footer" />
 }) as PolymorphicForwardRefComponent<'div', StyledFooterProps>
 Footer.displayName = 'Dialog.Footer'
 
@@ -476,6 +482,7 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
         return (
           <Button
             key={index}
+            data-component="Dialog.FooterButton"
             {...buttonProps}
             // 'normal' value is equivalent to 'default', this is used for backwards compatibility
             variant={buttonType === 'normal' ? 'default' : buttonType}
@@ -491,7 +498,15 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
 }
 
 const CloseButton: React.FC<React.PropsWithChildren<{onClose: () => void}>> = ({onClose}) => {
-  return <IconButton icon={XIcon} aria-label="Close" onClick={onClose} variant="invisible" />
+  return (
+    <IconButton
+      icon={XIcon}
+      aria-label="Close"
+      onClick={onClose}
+      variant="invisible"
+      data-component="Dialog.CloseButton"
+    />
+  )
 }
 
 /**

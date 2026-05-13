@@ -12,23 +12,32 @@
 
 .CommentBoxHeader {
   display: flex;
-  flex-direction: row;
+  gap: var(--base-size-16);
   background-color: var(--bgColor-muted);
   border-top-left-radius: var(--borderRadius-medium);
   border-top-right-radius: var(--borderRadius-medium);
-  justify-content: space-between;
 }
 
-.CommentBoxHeaderLeft {
-  width: 100%;
-  min-width: 0;
-}
-
-.CommentBoxHeaderRight {
+.CommentBoxHeaderViewSwitch {
+  flex-basis: 0;
   display: flex;
-  gap: var(--base-size-8);
+  height: 37px;
+}
+
+.CommentBoxHeaderToolbar {
+  flex: 1;
   justify-content: flex-end;
   align-items: center;
+  min-width: 0;
+  display: flex;
+  padding-right: var(--base-size-4);
+
+  .CommentBoxHeaderActionBar {
+    flex: 1;
+    justify-content: flex-end;
+    padding-inline: 0;
+    overflow: hidden;
+  }
 }
 
 .DialogContent {

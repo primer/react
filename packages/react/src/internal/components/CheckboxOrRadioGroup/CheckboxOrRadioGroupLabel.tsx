@@ -20,7 +20,7 @@ const CheckboxOrRadioGroupLabel: FCWithSlotMarker<React.PropsWithChildren<Checkb
   className,
   visuallyHidden = false,
 }) => {
-  const {required, disabled} = React.useContext(CheckboxOrRadioGroupContext)
+  const {required, disabled, parentName} = React.useContext(CheckboxOrRadioGroupContext)
 
   return (
     <VisuallyHidden
@@ -28,6 +28,7 @@ const CheckboxOrRadioGroupLabel: FCWithSlotMarker<React.PropsWithChildren<Checkb
       isVisible={!visuallyHidden}
       title={required ? 'required field' : undefined}
       data-label-disabled={disabled ? '' : undefined}
+      data-component={parentName ? `${parentName}.Label` : undefined}
     >
       {required ? (
         <Stack direction="horizontal" gap="none">

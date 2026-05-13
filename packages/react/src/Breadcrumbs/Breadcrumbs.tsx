@@ -101,7 +101,7 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
     })
 
     return (
-      <Details ref={detailsRefCallback} className={classes.MenuDetails}>
+      <Details ref={detailsRefCallback} className={classes.MenuDetails} data-component="Breadcrumbs.MenuItem">
         <IconButton
           as="summary"
           role="button"
@@ -335,6 +335,7 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
       ref={containerRef}
       data-overflow={overflow}
       data-variant={variant}
+      data-component="Breadcrumbs"
     >
       <BreadcrumbsList>{finalChildren}</BreadcrumbsList>
     </nav>
@@ -372,6 +373,7 @@ const BreadcrumbsItem = fixedForwardRef(
         className={clsx(className, classes.Item, selected && 'selected')}
         aria-current={selected ? 'page' : undefined}
         ref={ref}
+        data-component="Breadcrumbs.Item"
         {...rest}
       />
     )
