@@ -10,7 +10,12 @@ import {clsx} from 'clsx'
 /** `kbd` element with style resets. */
 const Kbd = ({children, className}: {children: ReactNode; className?: string}) => {
   return (
-    <Text as={'kbd' as 'span'} className={clsx(className, classes.KeybindingHint)} data-testid="keybinding-hint">
+    <Text
+      as={'kbd' as 'span'}
+      className={clsx(className, classes.KeybindingHint)}
+      data-testid="keybinding-hint"
+      data-component="KeybindingHint"
+    >
       {children}
     </Text>
   )
