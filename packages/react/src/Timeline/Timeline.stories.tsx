@@ -363,19 +363,29 @@ Playground.parameters = {
   controls: {expanded: false},
 }
 
-// When `actorType` switches to `bot`, sync the visible `actorName` field to the canonical
-// `dependabot` value. The field stays editable so users can pick a different bot identity
-// (e.g. `renovate[bot]`) from there. Without this sync, switching to `bot` would still
-// render `dependabot` (via BAKED_ACTOR_NAMES) but the controls panel would show whatever
-// the user had typed previously — confusing.
+// Per-type default actor names. Used by the decorator below to keep the
+// `actorName` field in sync with `actorType` changes (e.g. user picks `bot`
+// → field flips to `dependabot`; back to `user` → field flips to `monalisa`).
+const DEFAULT_ACTOR_NAMES: Record<PlaygroundArgs['actorType'], string> = {
+  user: 'monalisa',
+  bot: 'dependabot',
+  app: 'GitHub Actions',
+  copilot: 'Copilot',
+}
+
+// Sync the visible `actorName` field whenever `actorType` changes, so the field
+// reflects a sensible default for the new type rather than carrying over a value
+// from the previous type. Users can still edit the field from there.
 Playground.decorators = [
   (Story, context) => {
     const [args, updateArgs] = useArgs<PlaygroundArgs>()
+    const previousActorType = React.useRef(args.actorType)
     React.useEffect(() => {
-      if (args.actorType === 'bot' && args.actorName !== 'dependabot') {
-        updateArgs({actorName: 'dependabot'})
+      if (args.actorType !== previousActorType.current) {
+        previousActorType.current = args.actorType
+        updateArgs({actorName: DEFAULT_ACTOR_NAMES[args.actorType]})
       }
-    }, [args.actorType, args.actorName, updateArgs])
+    }, [args.actorType, updateArgs])
     return <Story {...context} />
   },
 ]
