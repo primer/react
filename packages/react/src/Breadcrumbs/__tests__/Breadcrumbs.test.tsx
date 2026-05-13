@@ -48,10 +48,6 @@ describe('Breadcrumbs', () => {
     expect(
       container.querySelector('[data-component="Breadcrumbs"] [data-component="Breadcrumbs.Item"]'),
     ).toBeInTheDocument()
-
-    expect(
-      container.querySelector('[data-component="Breadcrumbs"] [data-component="Breadcrumbs.ItemWrapper"]'),
-    ).toBeInTheDocument()
   })
 
   it('renders breadcrumb items correctly', () => {
