@@ -126,7 +126,7 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
   return (
     <ThemeContext.Provider value={contextValue}>
       <SCThemeProvider theme={resolvedTheme}>
-        {children}
+        {children as React.ComponentProps<typeof SCThemeProvider>['children']}
         {props.preventSSRMismatch ? (
           <script
             type="application/json"

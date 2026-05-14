@@ -47,7 +47,7 @@ const ajv = new Ajv({
 function formatMDError(lintError: LintError): string {
   let range = ''
 
-  if (lintError.errorRange.length) {
+  if (lintError.errorRange && lintError.errorRange.length) {
     range = `:${lintError.errorRange[0]}-${lintError.errorRange[0] + lintError.errorRange[1]}`
   }
 

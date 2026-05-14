@@ -67,6 +67,7 @@ export function acceptsTrailingVisualProps() {
 }
 
 export function allowsOnResizeProps() {
+  // @ts-expect-error onResize props are intentionally omitted from Token's supported DOM props
   return <Token text="Token test" onResize={() => {}} onResizeCapture={() => {}} />
 }
 

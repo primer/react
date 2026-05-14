@@ -3,6 +3,7 @@ import {createRequire} from 'node:module'
 import path from 'node:path'
 import react from '@vitejs/plugin-react'
 import postcssPresetPrimer from 'postcss-preset-primer'
+import type {AcceptedPlugin} from 'postcss'
 import type {StorybookConfig} from '@storybook/react-vite'
 import {isSupported} from '../script/react-compiler.mjs'
 
@@ -55,7 +56,7 @@ const config: StorybookConfig = {
     }
 
     if (typeof config.css.postcss !== 'string') {
-      config.css.postcss.plugins = [postcssPresetPrimer()]
+      config.css.postcss.plugins = [postcssPresetPrimer() as unknown as AcceptedPlugin]
     }
 
     config.plugins = [
