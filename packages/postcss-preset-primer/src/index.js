@@ -137,7 +137,7 @@ function ancestors(directory) {
 
 /**
  * Returns array of plugins from the given PostCSS preset
- * @param {import('postcss').Processor | import('postcss').Plugin} preset
+ * @param {any} preset
  * @returns {Array<any>}
  */
 function plugins(preset) {
