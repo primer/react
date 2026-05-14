@@ -31,13 +31,16 @@ const sizeStyles = ({size, variant = 'medium'}: CircleBadgeProps<React.ElementTy
 const CircleBadge = <As extends React.ElementType>({as: Component = 'div', ...props}: CircleBadgeProps<As>) => (
   <Component
     {...props}
+    data-component="CircleBadge"
     className={clsx(styles.CircleBadge, props.className)}
     data-inline={props.inline ? '' : undefined}
     style={sizeStyles(props)}
   />
 )
 
-const CircleBadgeIcon = (props: OcticonProps) => <Octicon className={styles.CircleBadgeIcon} {...props} />
+const CircleBadgeIcon = (props: OcticonProps) => (
+  <Octicon {...props} data-component="CircleBadge.Icon" className={clsx(styles.CircleBadgeIcon, props.className)} />
+)
 
 CircleBadgeIcon.displayName = 'CircleBadge.Icon'
 

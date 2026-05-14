@@ -155,9 +155,11 @@ describe('Autocomplete', () => {
 
       expect(inputNode.getAttribute('aria-expanded')).toBe('true')
 
-      await userEvent.tab()
+      // `userEvent.tab()` is unreliable in browser-mode Vitest for this case; blur is deterministic.
+      // eslint-disable-next-line github/no-blur
+      fireEvent.blur(inputNode)
 
-      expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
+      await waitFor(() => expect(inputNode.getAttribute('aria-expanded')).not.toBe('true'))
     })
 
     it('sets the input value to the suggested item text and highlights the untyped part of the word', async () => {

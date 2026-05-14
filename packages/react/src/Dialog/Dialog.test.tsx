@@ -52,6 +52,77 @@ describe('Dialog', () => {
     expect(getByRole('dialog')).not.toHaveAttribute('data-has-footer')
   })
 
+  it('renders data-component attribute', () => {
+    const {getByRole} = render(<Dialog onClose={() => {}}>Content</Dialog>)
+    expect(getByRole('dialog')).toHaveAttribute('data-component', 'Dialog')
+  })
+
+  it('allows overriding the root data-component attribute', () => {
+    const {getByRole} = render(
+      <Dialog data-component="ConfirmationDialog" onClose={() => {}}>
+        Content
+      </Dialog>,
+    )
+    expect(getByRole('dialog')).toHaveAttribute('data-component', 'ConfirmationDialog')
+  })
+
+  it('renders data-component hooks for Dialog subcomponents', () => {
+    const {getByRole} = render(
+      <Dialog
+        onClose={() => {}}
+        title="Title"
+        subtitle="Subtitle"
+        renderHeader={props => (
+          <Dialog.Header>
+            <Dialog.Title id={props.dialogLabelId}>{props.title}</Dialog.Title>
+            <Dialog.Subtitle id={props.dialogDescriptionId}>{props.subtitle}</Dialog.Subtitle>
+            <Dialog.CloseButton onClose={() => {}} />
+          </Dialog.Header>
+        )}
+        renderBody={() => <Dialog.Body>Body</Dialog.Body>}
+        renderFooter={() => <Dialog.Footer>Footer</Dialog.Footer>}
+      />,
+    )
+
+    const dialog = getByRole('dialog')
+
+    expect(dialog.querySelector('[data-component="Dialog.Header"]')).toBeInTheDocument()
+    expect(dialog.querySelector('[data-component="Dialog.Title"]')).toBeInTheDocument()
+    expect(dialog.querySelector('[data-component="Dialog.Subtitle"]')).toBeInTheDocument()
+    expect(dialog.querySelector('[data-component="Dialog.CloseButton"]')).toBeInTheDocument()
+    expect(dialog.querySelector('[data-component="Dialog.Body"]')).toBeInTheDocument()
+    expect(dialog.querySelector('[data-component="Dialog.Footer"]')).toBeInTheDocument()
+  })
+
+  it('adds a Dialog-scoped data-component hook for footer buttons (and not for body buttons)', () => {
+    const {getByRole, getByText} = render(
+      <Dialog
+        onClose={() => {}}
+        footerButtons={[
+          {buttonType: 'primary', content: 'Submit'},
+          {buttonType: 'default', content: 'Cancel'},
+        ]}
+      >
+        <Button>Body button</Button>
+      </Dialog>,
+    )
+
+    const dialog = getByRole('dialog')
+
+    // ensure footer buttons have the data-component hook
+    const footerButtonHooks = dialog.querySelectorAll('[data-component="Dialog.FooterButton"]')
+    expect(footerButtonHooks).toHaveLength(2)
+
+    // ensure we're targeting the correct buttons
+    expect(footerButtonHooks[0]).toHaveTextContent('Submit')
+    expect(footerButtonHooks[1]).toHaveTextContent('Cancel')
+
+    // ensure we're not targeting other buttons
+    const bodyButton = getByText('Body button').closest('button')
+    expect(bodyButton).toBeTruthy()
+    expect(bodyButton?.closest('[data-component="Dialog.FooterButton"]')).toBeNull()
+  })
+
   it('calls `onClose` when clicking the close button', async () => {
     const user = userEvent.setup()
     const onClose = vi.fn()
