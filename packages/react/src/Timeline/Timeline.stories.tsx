@@ -149,7 +149,6 @@ type PlaygroundArgs = {
   appPreset: AppPreset
   customAppName: string
   customAppAvatar: string
-  className: string
   eventScope: 'shared' | 'pr' | 'issue' | 'dependabot' | 'custom'
   eventType: string
   badgeIcon: BadgeIconName
@@ -310,7 +309,6 @@ export const Playground: StoryFn<PlaygroundArgs> = args => {
     <div className={classes.LeftRailGutter}>
       <Timeline>
         <Timeline.Item
-          className={args.className || undefined}
           data-event-scope={args.eventScope}
           data-event-type={args.eventType || undefined}
           data-actor-type={args.actorType}
@@ -405,7 +403,6 @@ Playground.args = {
   customAppAvatar: 'https://avatars.githubusercontent.com/in/15368?v=4',
   showNote: false,
   noteText: 'Additional context or details',
-  className: '',
   eventScope: 'custom',
   eventType: '',
 }
@@ -481,11 +478,6 @@ Playground.argTypes = {
   },
   // Write-only DOM-level attributes that don't drive any visual state on their own.
   // Descriptions are useful here because the controls' purpose isn't visually obvious.
-  className: {
-    control: {type: 'text'},
-    description: 'Custom CSS class on the Timeline.Item element. Useful for scoped styling overrides.',
-    table: {category: 'DOM attributes'},
-  },
   eventScope: {
     control: {type: 'select'},
     options: ['shared', 'pr', 'issue', 'dependabot', 'custom'],
