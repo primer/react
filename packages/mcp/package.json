@@ -33,29 +33,29 @@
     "watch": "rollup -c -w"
   },
   "dependencies": {
-    "@babel/runtime": "^7.28.6",
-    "@modelcontextprotocol/sdk": "^1.24.0",
-    "@primer/octicons": "^19.15.5",
+    "@babel/runtime": "^7.29.2",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@primer/octicons": "^19.25.0",
     "@primer/primitives": "10.x || 11.x",
     "@primer/react": "^38.20.0",
-    "cheerio": "^1.0.0",
-    "turndown": "^7.2.0",
-    "zod": "^4.3.5"
+    "cheerio": "^1.2.0",
+    "turndown": "^7.2.4",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
     "@babel/plugin-transform-runtime": "^7.29.0",
-    "@babel/preset-env": "^7.29.0",
+    "@babel/preset-env": "^7.29.5",
     "@babel/preset-typescript": "^7.28.5",
-    "@modelcontextprotocol/inspector": "^0.16.6",
-    "@rollup/plugin-babel": "^6.1.0",
-    "@rollup/plugin-commonjs": "^29.0.0",
+    "@modelcontextprotocol/inspector": "^0.21.2",
+    "@rollup/plugin-babel": "^7.0.0",
+    "@rollup/plugin-commonjs": "^29.0.2",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
-    "@types/turndown": "^5.0.5",
+    "@types/turndown": "^5.0.6",
     "rimraf": "^6.0.1",
-    "rollup": "^4.59.0",
-    "rollup-plugin-typescript2": "^0.36.0",
+    "rollup": "^4.60.4",
+    "rollup-plugin-typescript2": "^0.37.0",
     "typescript": "^6.0.3"
   }
 }

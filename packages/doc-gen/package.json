@@ -28,24 +28,24 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@babel/runtime": "^7.28.6",
+    "@babel/runtime": "^7.29.2",
     "@types/signale": "^1.4.7",
+    "@types/yargs": "^17.0.35",
     "signale": "^1.4.0",
-    "yargs": "^18.0.0",
-    "@types/yargs": "^17.0.33"
+    "yargs": "^18.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
     "@babel/plugin-transform-runtime": "^7.29.0",
-    "@babel/preset-env": "^7.29.0",
+    "@babel/preset-env": "^7.29.5",
     "@babel/preset-typescript": "^7.28.5",
-    "@rollup/plugin-babel": "^6.1.0",
-    "@rollup/plugin-commonjs": "^29.0.0",
+    "@rollup/plugin-babel": "^7.0.0",
+    "@rollup/plugin-commonjs": "^29.0.2",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "rimraf": "^6.0.1",
-    "rollup": "^4.59.0",
-    "rollup-plugin-typescript2": "^0.36.0",
+    "rollup": "^4.60.4",
+    "rollup-plugin-typescript2": "^0.37.0",
     "typescript": "^6.0.3"
   }
 }
