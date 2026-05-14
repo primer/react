@@ -271,7 +271,10 @@ export const Playground: StoryFn<PlaygroundArgs> = args => {
   const avatarSrc =
     args.actorType === 'user' && args.actorAvatarSrc ? args.actorAvatarSrc : ACTOR_AVATARS[args.actorType]
   // Bot and Copilot actor types use baked-in canonical names; user and app are editable.
-  const resolvedActorName = BAKED_ACTOR_NAMES[args.actorType] ?? args.actorName
+  // Fall back to a placeholder when the user clears the field entirely so the actor link
+  // always has accessible text (an empty <Link> would fail axe's link-name check).
+  const customActorName = args.actorName.trim() || 'Unknown actor'
+  const resolvedActorName = BAKED_ACTOR_NAMES[args.actorType] ?? customActorName
   const avatarLabel = `@${resolvedActorName}`
   // Anchor "now" to first render so timestamps don't drift as the user toggles controls.
   const [now] = React.useState(() => Date.now())
