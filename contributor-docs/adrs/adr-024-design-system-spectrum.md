@@ -14,15 +14,34 @@
 When building with Primer, teams are running into two scenarios:
 
 - It can be difficult to extend or add new functionality to a component
-- It can be difficult to build net-new experiences using established patterns (like accessibility primitives)
+- It can be difficult to build new experiences using established patterns (like accessibility primitives)
 
 These challenges lead to custom implementations, forks, or overrides of Primer
 components and leads to adoption challenges and ecosystem fragmentation.
 
+### Examples
+
+This section contains a variety of examples showing challenges a team may face
+when using a component today.
+
+#### ActionList
+
+- ActionList exposes `children` but intrinsically is Parent > Child (problematic
+  slot pattern)
+- ActionList combines appearance and multiple semantics (list, tree, menu, etc)
+
+#### Dialog
+
+- Examples showing need for customizing appearance
+
+#### SelectPanel
+
+- Examples showing need for behavior changes
+
 ## Decision
 
 Primer will provide a spectrum of design system APIs in order to support the different
-ways people will like to build on top of, or with, Primer. These include:
+ways teams want to build with Primer. These include:
 
 - High-level, config-driven components for common patterns and experiences
 - Presentational components that are flexible and extensible
@@ -32,9 +51,9 @@ ways people will like to build on top of, or with, Primer. These include:
 ### Config components
 
 These components are "all-in-one"; they provide a high level of abstraction that
-supports a wide variety of use-cases making it simple to quickly build out
-established patterns and experiences. However, they are often inflexible and
-difficult to extend.
+support common use-cases making it simple to quickly build out established
+patterns and experiences. However, they are often inflexible and difficult to
+extend.
 
 ```tsx
 <List
@@ -123,15 +142,32 @@ Other examples include:
 
 ### Utilities
 
+There are core utilities, hooks, functions, etc that are commonly used when
+building out components or React applications. We provide hooks for established
+patterns so that teams can build on solid foundations when authoring new
+experiences. These can include hooks such as `useMergedRefs`,
+`useOnEscapePress`, `useTimeout` and more.
+
+These utilities may extend beyond hooks, such as `@primer/behaviors` or custom
+elements, where appropriate.
+
 ## Explorations
+
+TODO: show this concept applied to the following components
 
 - ActionList
 - Dialog
 - NavList
-- UnderlineNav
+- SelectPanel
 
 ## Consequences
 
+TODO
+
 ## Alternatives
 
+TODO
+
 ## Questions
+
+TODO
