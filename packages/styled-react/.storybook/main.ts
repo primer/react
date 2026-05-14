@@ -1,5 +1,6 @@
 import type {StorybookConfig} from '@storybook/react-vite'
 import react from '@vitejs/plugin-react'
+import type {AcceptedPlugin} from 'postcss'
 import postcssPresetPrimer from 'postcss-preset-primer'
 
 const {DEPLOY_ENV = 'development'} = process.env
@@ -29,7 +30,7 @@ const config: StorybookConfig = {
     }
 
     if (typeof config.css.postcss !== 'string') {
-      config.css.postcss.plugins = [postcssPresetPrimer()]
+      config.css.postcss.plugins = [postcssPresetPrimer() as unknown as AcceptedPlugin]
     }
 
     config.plugins = [
