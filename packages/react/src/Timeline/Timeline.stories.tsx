@@ -273,7 +273,6 @@ export const Playground: StoryFn<PlaygroundArgs> = args => {
   // always has accessible text (an empty <Link> would fail axe's link-name check).
   const customActorName = args.actorName.trim() || 'Unknown actor'
   const resolvedActorName = BAKED_ACTOR_NAMES[args.actorType] ?? customActorName
-  const avatarLabel = `@${resolvedActorName}`
   // Anchor "now" to first render so timestamps don't drift as the user toggles controls.
   const [now] = React.useState(() => Date.now())
   // Defensive fallback in case Storybook resets `eventTimestamp` to no value ("Choose option")
@@ -313,16 +312,12 @@ export const Playground: StoryFn<PlaygroundArgs> = args => {
           data-actor-type={args.actorType}
         >
           {args.actorSize === 'large' && (
-            <Avatar
-              className={classes.LargeActorAvatar}
-              size={40}
-              square={isAppLike}
-              src={avatarSrc}
-              alt={avatarLabel}
-            />
+            <Avatar className={classes.LargeActorAvatar} size={40} square={isAppLike} src={avatarSrc} alt="" />
           )}
           <Timeline.Badge variant={args.badgeVariant === 'none' ? undefined : args.badgeVariant}>
-            <Icon aria-label={args.badgeIcon} />
+            {/* Decorative: the badge icon visually reinforces the summary text. Hiding it from
+                AT avoids announcing developer-facing icon names like "git-commit" or "x-circle". */}
+            <Icon aria-hidden="true" />
           </Timeline.Badge>
           <Timeline.Body>
             {args.actorSize === 'small' && (
