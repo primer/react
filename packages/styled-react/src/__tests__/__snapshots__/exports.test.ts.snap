@@ -2,41 +2,13 @@
 
 exports[`@primer/styled-react exports 1`] = `
 [
-  "ActionList",
   "BaseStyles",
-  "Box",
-  "Button",
-  "Dialog",
-  "Flash",
-  "Heading",
-  "IconButton",
-  "Label",
-  "Link",
   "merge",
-  "Spinner",
   "sx",
-  "Text",
-  "TextInput",
   "theme",
   "themeGet",
   "ThemeProvider",
-  "ToggleSwitch",
-  "UnderlineNav",
   "useColorSchemeVar",
   "useTheme",
-]
-`;
-
-exports[`@primer/styled-react/deprecated exports 1`] = `
-[
-  "ActionList",
-  "Dialog",
-  "Octicon",
-]
-`;
-
-exports[`@primer/styled-react/experimental exports 1`] = `
-[
-  "Dialog",
 ]
 `;
