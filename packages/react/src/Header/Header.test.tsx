@@ -6,6 +6,16 @@ import classes from './Header.module.css'
 
 describe('Header', () => {
   implementsClassName(Header, classes.Header)
+  it('renders data-component attributes', () => {
+    const {container: headerContainer} = render(<Header />)
+    expect(headerContainer.firstChild).toHaveAttribute('data-component', 'Header')
+
+    const {container: itemContainer} = render(<Header.Item />)
+    expect(itemContainer.firstChild).toHaveAttribute('data-component', 'Header.Item')
+
+    const {container: linkContainer} = render(<Header.Link />)
+    expect(linkContainer.firstChild).toHaveAttribute('data-component', 'Header.Link')
+  })
   describe('Header.Item', () => {
     implementsClassName(Header.Item, classes.HeaderItem)
     it('accepts and applies className', () => {

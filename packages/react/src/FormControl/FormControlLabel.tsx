@@ -50,7 +50,11 @@ const FormControlLabel: FCWithSlotMarker<
           ...props,
         }
 
-  return <InputLabel {...labelProps}>{children}</InputLabel>
+  return (
+    <InputLabel {...labelProps} data-component="FormControl.Label">
+      {children}
+    </InputLabel>
+  )
 }
 
 FormControlLabel.__SLOT__ = Symbol('FormControl.Label')

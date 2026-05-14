@@ -97,4 +97,17 @@ describe('Details', () => {
       expect(screen.getByText('test summary')).toHaveAttribute('data-testid', 'test')
     })
   })
+
+  describe('Details data-component attributes', () => {
+    it('renders data-component attributes', () => {
+      render(
+        <Details>
+          <Details.Summary>test summary</Details.Summary>
+        </Details>,
+      )
+
+      expect(screen.getByRole('group')).toHaveAttribute('data-component', 'Details')
+      expect(screen.getByText('test summary')).toHaveAttribute('data-component', 'Details.Summary')
+    })
+  })
 })
