@@ -10,6 +10,7 @@ export default {
     'Blankslate.Visual': Blankslate.Visual,
     'Blankslate.Heading': Blankslate.Heading,
     'Blankslate.Description': Blankslate.Description,
+    'Blankslate.Action': Blankslate.Action,
     'Blankslate.PrimaryAction': Blankslate.PrimaryAction,
     'Blankslate.SecondaryAction': Blankslate.SecondaryAction,
   },
@@ -25,8 +26,10 @@ export const Default = () => (
       Wikis provide a place in your repository to lay out the roadmap of your project, show the current status, and
       document software better, together.
     </Blankslate.Description>
-    <Blankslate.PrimaryAction href="#">Create the first page</Blankslate.PrimaryAction>
-    <Blankslate.SecondaryAction href="#">Learn more about wikis</Blankslate.SecondaryAction>
+    <Blankslate.Action href="#">Create the first page</Blankslate.Action>
+    <Blankslate.Action href="#" variant="secondary">
+      Learn more about wikis
+    </Blankslate.Action>
   </Blankslate>
 )
 
@@ -42,8 +45,12 @@ export const Playground: StoryFn<
       Wikis provide a place in your repository to lay out the roadmap of your project, show the current status, and
       document software better, together.
     </Blankslate.Description>
-    {primaryAction ? <Blankslate.PrimaryAction href="#">Create the first page</Blankslate.PrimaryAction> : null}
-    {secondaryAction ? <Blankslate.SecondaryAction href="#">Learn more about wikis</Blankslate.SecondaryAction> : null}
+    {primaryAction ? <Blankslate.Action href="#">Create the first page</Blankslate.Action> : null}
+    {secondaryAction ? (
+      <Blankslate.Action href="#" variant="secondary">
+        Learn more about wikis
+      </Blankslate.Action>
+    ) : null}
   </Blankslate>
 )
 

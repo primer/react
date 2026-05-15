@@ -1,8 +1,9 @@
 import {clsx} from 'clsx'
-import {useMemo} from 'react'
+import {forwardRef, useMemo, type JSX} from 'react'
 import type React from 'react'
-import {Button} from '../Button'
+import {ButtonBase} from '../Button'
 import Link from '../Link'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {Provider, useBlankslate} from './BlankslateContext'
 import classes from './Blankslate.module.css'
 
@@ -98,50 +99,115 @@ function Description({children, className, ...rest}: BlankslateDescriptionProps)
   )
 }
 
-type BlankslatePrimaryActionProps =
-  | (React.PropsWithChildren<{
+type BlankslateActionVariant = 'primary' | 'secondary'
+
+type BlankslateActionElementProps =
+  | {
+      as?: 'button'
       href?: never
-    }> &
-      React.ComponentPropsWithoutRef<'button'>)
-  | React.PropsWithChildren<{
+    }
+  | {
+      as?: 'a'
       href: string
-    }>
+    }
 
-function PrimaryAction({children, href, ...props}: BlankslatePrimaryActionProps) {
-  const {size} = useBlankslate()
-  return (
-    <div className={clsx('Blankslate-Action', classes.Action)} data-component="Blankslate.PrimaryAction">
-      <Button
-        {...props}
-        as={href ? 'a' : 'button'}
-        href={href}
-        variant="primary"
-        size={size === 'small' ? 'small' : undefined}
-      >
-        {children}
-      </Button>
-    </div>
-  )
+type BlankslateActionProps = React.PropsWithChildren<
+  BlankslateActionElementProps & {
+    className?: string
+
+    /**
+     * Specify the visual treatment of the action
+     */
+    variant?: BlankslateActionVariant
+  }
+>
+
+type BlankslateActionInternalProps = BlankslateActionProps & {
+  dataComponent?: string
 }
 
-type BlankslateSecondaryActionProps = React.PropsWithChildren<{
-  href: string
-}>
+const ActionBase = forwardRef<HTMLAnchorElement | HTMLButtonElement, BlankslateActionInternalProps>(
+  (
+    {as, children, className, dataComponent = 'Blankslate.Action', href, variant = 'primary', ...props},
+    forwardedRef,
+  ): JSX.Element => {
+    const {size} = useBlankslate()
+    const Component = as ?? (href ? 'a' : 'button')
+    const anchorRef = forwardedRef as React.ForwardedRef<HTMLAnchorElement>
+    const buttonRef = forwardedRef as React.ForwardedRef<HTMLButtonElement>
 
-function SecondaryAction({children, href}: BlankslateSecondaryActionProps) {
-  return (
-    <div className={clsx('Blankslate-Action', classes.Action)} data-component="Blankslate.SecondaryAction">
-      <Link href={href}>{children}</Link>
-    </div>
-  )
-}
+    return (
+      <div className={clsx('Blankslate-Action', classes.Action)} data-component={dataComponent}>
+        {variant === 'primary' ? (
+          Component === 'a' ? (
+            <ButtonBase
+              {...props}
+              as="a"
+              className={className}
+              href={href}
+              ref={anchorRef}
+              size={size === 'small' ? 'small' : undefined}
+              variant="primary"
+            >
+              {children}
+            </ButtonBase>
+          ) : (
+            <ButtonBase
+              {...props}
+              as="button"
+              className={className}
+              ref={buttonRef}
+              size={size === 'small' ? 'small' : undefined}
+              variant="primary"
+            >
+              {children}
+            </ButtonBase>
+          )
+        ) : Component === 'a' ? (
+          <Link {...props} as="a" className={className} href={href} ref={anchorRef}>
+            {children}
+          </Link>
+        ) : (
+          <Link {...props} as="button" className={className} ref={buttonRef}>
+            {children}
+          </Link>
+        )}
+      </div>
+    )
+  },
+)
 
-export {Blankslate, Visual, Heading, Description, PrimaryAction, SecondaryAction}
+const Action = ActionBase as PolymorphicForwardRefComponent<'button', BlankslateActionProps>
+
+Action.displayName = 'Blankslate.Action'
+
+type BlankslatePrimaryActionProps = BlankslateActionElementProps
+
+const PrimaryAction = forwardRef(
+  (props: BlankslatePrimaryActionProps, forwardedRef: React.ForwardedRef<HTMLAnchorElement | HTMLButtonElement>) => {
+    return <ActionBase {...props} dataComponent="Blankslate.PrimaryAction" ref={forwardedRef} variant="primary" />
+  },
+) as PolymorphicForwardRefComponent<'button', BlankslatePrimaryActionProps>
+
+PrimaryAction.displayName = 'Blankslate.PrimaryAction'
+
+type BlankslateSecondaryActionProps = BlankslateActionElementProps
+
+const SecondaryAction = forwardRef(
+  (props: BlankslateSecondaryActionProps, forwardedRef: React.ForwardedRef<HTMLAnchorElement | HTMLButtonElement>) => {
+    return <ActionBase {...props} dataComponent="Blankslate.SecondaryAction" ref={forwardedRef} variant="secondary" />
+  },
+) as PolymorphicForwardRefComponent<'button', BlankslateSecondaryActionProps>
+
+SecondaryAction.displayName = 'Blankslate.SecondaryAction'
+
+export {Blankslate, Visual, Heading, Description, Action, PrimaryAction, SecondaryAction}
 export type {
   BlankslateProps,
   BlankslateVisualProps,
   BlankslateHeadingProps,
   BlankslateDescriptionProps,
+  BlankslateActionProps,
   BlankslatePrimaryActionProps,
   BlankslateSecondaryActionProps,
 }

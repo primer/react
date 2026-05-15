@@ -31,6 +31,7 @@ describe('Blankslate', () => {
         </Blankslate.Visual>
         <Blankslate.Heading>Test Heading</Blankslate.Heading>
         <Blankslate.Description>Test description</Blankslate.Description>
+        <Blankslate.Action>Action</Blankslate.Action>
         <Blankslate.PrimaryAction>Primary action</Blankslate.PrimaryAction>
         <Blankslate.SecondaryAction href="https://example.com">Secondary action</Blankslate.SecondaryAction>
       </Blankslate>,
@@ -46,6 +47,9 @@ describe('Blankslate', () => {
     ).toBeInTheDocument()
     expect(
       container.querySelector('[data-component="Blankslate"] [data-component="Blankslate.Description"]'),
+    ).toBeInTheDocument()
+    expect(
+      container.querySelector('[data-component="Blankslate"] [data-component="Blankslate.Action"]'),
     ).toBeInTheDocument()
     expect(
       container.querySelector('[data-component="Blankslate"] [data-component="Blankslate.PrimaryAction"]'),
@@ -100,6 +104,80 @@ describe('Blankslate', () => {
     })
   })
 
+  describe('Blankslate.Action', () => {
+    it('should render a primary action button by default', () => {
+      render(
+        <Blankslate>
+          <Blankslate.Action>Action</Blankslate.Action>
+        </Blankslate>,
+      )
+      expect(screen.getByRole('button', {name: 'Action'})).toBeInTheDocument()
+      expect(screen.getByRole('button', {name: 'Action'})).toHaveAttribute('data-variant', 'primary')
+    })
+
+    it('should handle click events on the button', async () => {
+      const user = userEvent.setup()
+      const onClick = vi.fn()
+      render(
+        <Blankslate>
+          <Blankslate.Action onClick={onClick}>Action</Blankslate.Action>
+        </Blankslate>,
+      )
+
+      await user.click(screen.getByRole('button', {name: 'Action'}))
+      expect(onClick).toHaveBeenCalledTimes(1)
+    })
+
+    it('should render as an anchor when href is provided', () => {
+      render(
+        <Blankslate>
+          <Blankslate.Action href="https://example.com">Action</Blankslate.Action>
+        </Blankslate>,
+      )
+      const link = screen.getByRole('link', {name: 'Action'})
+      expect(link).toBeInTheDocument()
+      expect(link).toHaveAttribute('href', 'https://example.com')
+    })
+
+    it('should render secondary actions as links by default', () => {
+      render(
+        <Blankslate>
+          <Blankslate.Action href="https://example.com" variant="secondary">
+            Action
+          </Blankslate.Action>
+        </Blankslate>,
+      )
+      const link = screen.getByRole('link', {name: 'Action'})
+      expect(link).toBeInTheDocument()
+      expect(link).toHaveAttribute('href', 'https://example.com')
+      expect(link).toHaveAttribute('data-component', 'Link')
+    })
+
+    it('should render secondary actions as buttons', async () => {
+      const user = userEvent.setup()
+      const onClick = vi.fn()
+      render(
+        <Blankslate>
+          <Blankslate.Action as="button" onClick={onClick} variant="secondary">
+            Action
+          </Blankslate.Action>
+        </Blankslate>,
+      )
+
+      await user.click(screen.getByRole('button', {name: 'Action'}))
+      expect(onClick).toHaveBeenCalledTimes(1)
+    })
+
+    it('should render small primary actions when the Blankslate is small', () => {
+      render(
+        <Blankslate size="small">
+          <Blankslate.Action>Action</Blankslate.Action>
+        </Blankslate>,
+      )
+      expect(screen.getByRole('button', {name: 'Action'})).toHaveAttribute('data-size', 'small')
+    })
+  })
+
   describe('Blankslate.PrimaryAction', () => {
     it('should render a primary action button', () => {
       render(
@@ -145,6 +223,21 @@ describe('Blankslate', () => {
       const link = screen.getByRole('link', {name: 'Secondary action'})
       expect(link).toBeInTheDocument()
       expect(link).toHaveAttribute('href', 'https://example.com')
+    })
+
+    it('should render a secondary action button', async () => {
+      const user = userEvent.setup()
+      const onClick = vi.fn()
+      render(
+        <Blankslate>
+          <Blankslate.SecondaryAction as="button" onClick={onClick}>
+            Secondary action
+          </Blankslate.SecondaryAction>
+        </Blankslate>,
+      )
+
+      await user.click(screen.getByRole('button', {name: 'Secondary action'}))
+      expect(onClick).toHaveBeenCalledTimes(1)
     })
   })
 })

@@ -10,6 +10,7 @@ export default {
     'Blankslate.Visual': Blankslate.Visual,
     'Blankslate.Heading': Blankslate.Heading,
     'Blankslate.Description': Blankslate.Description,
+    'Blankslate.Action': Blankslate.Action,
     'Blankslate.PrimaryAction': Blankslate.PrimaryAction,
     'Blankslate.SecondaryAction': Blankslate.SecondaryAction,
   },
@@ -25,18 +26,18 @@ export const WithVisual = () => (
   </Blankslate>
 )
 
-export const WithPrimaryActionAsLink = () => (
+export const WithActionAsLink = () => (
   <Blankslate>
     <Blankslate.Visual>
       <BookIcon size="medium" />
     </Blankslate.Visual>
     <Blankslate.Heading>Blankslate heading</Blankslate.Heading>
     <Blankslate.Description>Use it to provide information when no dynamic content exists.</Blankslate.Description>
-    <Blankslate.PrimaryAction href="#">Primary action</Blankslate.PrimaryAction>
+    <Blankslate.Action href="#">Primary action</Blankslate.Action>
   </Blankslate>
 )
 
-export const WithPrimaryActionAsButton = () => {
+export const WithActionAsButton = () => {
   const [isOpen, setIsOpen] = React.useState(false)
   const onDialogClose = React.useCallback(() => setIsOpen(false), [])
 
@@ -48,7 +49,7 @@ export const WithPrimaryActionAsButton = () => {
         </Blankslate.Visual>
         <Blankslate.Heading>Blankslate heading</Blankslate.Heading>
         <Blankslate.Description>Use it to provide information when no dynamic content exists.</Blankslate.Description>
-        <Blankslate.PrimaryAction onClick={() => setIsOpen(true)}>Primary action</Blankslate.PrimaryAction>
+        <Blankslate.Action onClick={() => setIsOpen(true)}>Primary action</Blankslate.Action>
       </Blankslate>
       {isOpen ? (
         <ConfirmationDialog
@@ -72,7 +73,9 @@ export const WithSecondaryAction = () => (
     </Blankslate.Visual>
     <Blankslate.Heading>Blankslate heading</Blankslate.Heading>
     <Blankslate.Description>Use it to provide information when no dynamic content exists.</Blankslate.Description>
-    <Blankslate.SecondaryAction href="#">Secondary action</Blankslate.SecondaryAction>
+    <Blankslate.Action href="#" variant="secondary">
+      Secondary action
+    </Blankslate.Action>
   </Blankslate>
 )
 
@@ -113,8 +116,10 @@ export const SizeSmall = () => (
     </Blankslate.Visual>
     <Blankslate.Heading>Blankslate heading</Blankslate.Heading>
     <Blankslate.Description>Use it to provide information when no dynamic content exists.</Blankslate.Description>
-    <Blankslate.PrimaryAction href="#">Primary action</Blankslate.PrimaryAction>
-    <Blankslate.SecondaryAction href="#">Secondary action</Blankslate.SecondaryAction>
+    <Blankslate.Action href="#">Primary action</Blankslate.Action>
+    <Blankslate.Action href="#" variant="secondary">
+      Secondary action
+    </Blankslate.Action>
   </Blankslate>
 )
 
@@ -125,7 +130,9 @@ export const SizeLarge = () => (
     </Blankslate.Visual>
     <Blankslate.Heading>Blankslate heading</Blankslate.Heading>
     <Blankslate.Description>Use it to provide information when no dynamic content exists.</Blankslate.Description>
-    <Blankslate.PrimaryAction href="#">Primary action</Blankslate.PrimaryAction>
-    <Blankslate.SecondaryAction href="#">Secondary action</Blankslate.SecondaryAction>
+    <Blankslate.Action href="#">Primary action</Blankslate.Action>
+    <Blankslate.Action href="#" variant="secondary">
+      Secondary action
+    </Blankslate.Action>
   </Blankslate>
 )
