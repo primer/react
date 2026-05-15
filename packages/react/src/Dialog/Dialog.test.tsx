@@ -488,4 +488,39 @@ describe('Footer button loading states', () => {
       expect(document.body.hasAttribute('data-dialog-scroll-disabled')).toBe(false)
     })
   })
+
+  describe('width prop', () => {
+    it('sets data-width for named sizes', () => {
+      const {getByRole} = render(
+        <Dialog onClose={() => {}} width="small">
+          Content
+        </Dialog>,
+      )
+      const dialog = getByRole('dialog')
+      expect(dialog).toHaveAttribute('data-width', 'small')
+      expect(dialog.style.getPropertyValue('--dialog-width')).toBe('')
+    })
+
+    it('sets --dialog-width custom property for custom width values', () => {
+      const {getByRole} = render(
+        <Dialog onClose={() => {}} width="400px">
+          Content
+        </Dialog>,
+      )
+      const dialog = getByRole('dialog')
+      expect(dialog).not.toHaveAttribute('data-width')
+      expect(dialog.style.getPropertyValue('--dialog-width')).toBe('400px')
+    })
+
+    it('sets --dialog-width custom property for numeric width values', () => {
+      const {getByRole} = render(
+        <Dialog onClose={() => {}} width={400}>
+          Content
+        </Dialog>,
+      )
+      const dialog = getByRole('dialog')
+      expect(dialog).not.toHaveAttribute('data-width')
+      expect(dialog.style.getPropertyValue('--dialog-width')).toBe('400px')
+    })
+  })
 })

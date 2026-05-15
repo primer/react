@@ -616,3 +616,22 @@ export const AlignBottom = () => {
   )
 }
 AlignBottom.storyName = '[Align] Bottom'
+
+export const CustomWidth = () => {
+  const [isOpen, setIsOpen] = useState(true)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const onDialogClose = useCallback(() => setIsOpen(false), [])
+
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
+        Show dialog
+      </Button>
+      {isOpen && (
+        <Dialog title="Custom Width Dialog" onClose={onDialogClose} width="400px">
+          {bodyContent}
+        </Dialog>
+      )}
+    </>
+  )
+}

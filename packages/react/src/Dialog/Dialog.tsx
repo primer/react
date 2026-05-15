@@ -1,13 +1,12 @@
-import React, {useCallback, useEffect, useRef, useState, type SyntheticEvent} from 'react'
+import React, {useCallback, useEffect, useRef, useState, type CSSProperties, type SyntheticEvent} from 'react'
 import type {ButtonProps} from '../Button'
 import {Button, IconButton} from '../Button'
-import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
+import {useMergedRefs, useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
 import Portal from '../Portal'
-import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {useId} from '../hooks/useId'
 import {ScrollableRegion} from '../ScrollableRegion'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
@@ -125,6 +124,8 @@ export interface DialogProps {
    * medium: 320px
    * large: 480px
    * xlarge: 640px
+   *
+   * Also accepts any valid CSS width value (e.g. '400px', '80rem').
    */
   width?: DialogWidth
 
@@ -194,7 +195,6 @@ const heightMap = {
   auto: 'auto',
 } as const
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const widthMap = {
   small: '296px',
   medium: '320px',
@@ -202,8 +202,13 @@ const widthMap = {
   xlarge: '640px',
 } as const
 
-export type DialogWidth = keyof typeof widthMap
+export type DialogWidth = keyof typeof widthMap | Exclude<CSSProperties['width'], undefined>
 export type DialogHeight = keyof typeof heightMap
+
+const isWidthMapKey = (width: DialogWidth): width is keyof typeof widthMap =>
+  typeof width === 'string' && Object.hasOwn(widthMap, width)
+
+const normalizeWidth = (width: DialogWidth): string | number => (typeof width === 'number' ? `${width}px` : width)
 
 const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
   dialogLabelId,
@@ -302,7 +307,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   })
 
   const dialogRef = useRef<HTMLDivElement>(null)
-  useRefObjectAsForwardedRef(forwardedRef, dialogRef)
+  const mergedDialogRef = useMergedRefs(forwardedRef, dialogRef)
   const backdropRef = useRef<HTMLDivElement>(null)
 
   useFocusTrap({
@@ -393,19 +398,22 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           }}
         >
           <div
-            ref={dialogRef}
+            ref={mergedDialogRef}
             role={role}
             aria-labelledby={dialogLabelId}
             aria-describedby={dialogDescriptionId}
             aria-modal
             {...positionDataAttributes}
             {...(align && {'data-align': align})}
-            data-width={width}
+            data-width={isWidthMapKey(width) ? width : undefined}
             data-height={height}
             data-has-footer={hasFooter ? '' : undefined}
             data-footer-button-layout={hasFooter ? footerButtonLayout : undefined}
             className={clsx(className, classes.Dialog)}
-            style={style}
+            style={{
+              ...style,
+              ...(!isWidthMapKey(width) ? {'--dialog-width': normalizeWidth(width)} : {}),
+            }}
             data-component={dataComponent}
           >
             {header}

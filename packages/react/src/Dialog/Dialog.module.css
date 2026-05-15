@@ -132,7 +132,7 @@
 .Dialog {
   display: flex;
   /* stylelint-disable-next-line primer/responsive-widths */
-  width: 640px;
+  width: var(--dialog-width, 640px);
   min-width: 296px;
   max-width: calc(100dvw - 64px);
   height: auto;
@@ -213,7 +213,7 @@
   @media (max-width: 767px) {
     &[data-position-narrow='center'] {
       /* stylelint-disable-next-line primer/responsive-widths */
-      width: 640px;
+      width: var(--dialog-width, 640px);
       height: auto;
       border-radius: var(--borderRadius-large, var(--borderRadius-large));
 
