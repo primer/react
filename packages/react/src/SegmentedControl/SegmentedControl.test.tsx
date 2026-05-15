@@ -339,7 +339,10 @@ describe('SegmentedControl', () => {
       </SegmentedControl>,
     )
 
-    expect(spy).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledWith(
+      'Use the `aria-label` or `aria-labelledby` prop to provide an accessible label for assistive technologies',
+    )
     spy.mockRestore()
   })
 

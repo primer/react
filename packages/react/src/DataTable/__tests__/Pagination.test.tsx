@@ -43,6 +43,7 @@ describe('Table.Pagination', () => {
   it('should warn if `defaultPageIndex` is not a valid `pageIndex`', () => {
     const spy = vi.spyOn(console, 'warn').mockImplementation(() => {})
     render(<Pagination aria-label="Pagination" defaultPageIndex={4} pageSize={25} totalCount={100} />)
+    expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toHaveBeenCalledWith(
       'Warning:',
       expect.stringMatching(
@@ -50,6 +51,7 @@ describe('Table.Pagination', () => {
         '<Pagination> expected `defaultPageIndex` to be less than the total number of pages. Instead, received a `defaultPageIndex` of 4 with 4 total pages.',
       ),
     )
+    spy.mockRestore()
   })
 
   it('should set the `id` prop on the rendered navigation landmark', () => {

@@ -422,6 +422,7 @@ describe('FormControl', () => {
         )
 
         expect(spy).toHaveBeenCalledTimes(1)
+        expect(spy.mock.calls[0][0]).toEqual(expect.stringContaining('MUST have a FormControl.Label child'))
         spy.mockRestore()
       })
 
@@ -439,6 +440,10 @@ describe('FormControl', () => {
         )
 
         expect(spy).toHaveBeenCalledTimes(1)
+        expect(spy).toHaveBeenCalledWith(
+          'Warning:',
+          'A leading visual is only rendered for a checkbox or radio form control. If you want to render a leading visual inside of your input, check if your input supports a leading visual.',
+        )
         spy.mockRestore()
       })
 
@@ -454,6 +459,10 @@ describe('FormControl', () => {
         )
 
         expect(spy).toHaveBeenCalledTimes(1)
+        expect(spy).toHaveBeenCalledWith(
+          'Warning:',
+          "instead of passing the 'id' prop directly to the input component, it should be passed to the parent component, <FormControl>",
+        )
         spy.mockRestore()
       })
 
@@ -469,6 +478,10 @@ describe('FormControl', () => {
         )
 
         expect(spy).toHaveBeenCalledTimes(1)
+        expect(spy).toHaveBeenCalledWith(
+          'Warning:',
+          "instead of passing the 'disabled' prop directly to the input component, it should be passed to the parent component, <FormControl>",
+        )
         spy.mockRestore()
       })
 
@@ -484,6 +497,10 @@ describe('FormControl', () => {
         )
 
         expect(spy).toHaveBeenCalledTimes(1)
+        expect(spy).toHaveBeenCalledWith(
+          'Warning:',
+          "instead of passing the 'required' prop directly to the input component, it should be passed to the parent component, <FormControl>",
+        )
         spy.mockRestore()
       })
     })
@@ -563,6 +580,10 @@ describe('FormControl', () => {
         // The leading visual should be found as a slot because of the __SLOT__ property
         // This should trigger a warning since leading visuals are only for choice inputs
         expect(spy).toHaveBeenCalledTimes(1)
+        expect(spy).toHaveBeenCalledWith(
+          'Warning:',
+          'A leading visual is only rendered for a checkbox or radio form control. If you want to render a leading visual inside of your input, check if your input supports a leading visual.',
+        )
 
         // The icon should be rendered in the DOM
         expect(container.querySelector('svg')).toBeDefined()
@@ -619,7 +640,11 @@ describe('FormControl', () => {
           </FormControl>,
         )
 
-        expect(consoleSpy).toHaveBeenCalled()
+        expect(consoleSpy).toHaveBeenCalledTimes(1)
+        expect(consoleSpy).toHaveBeenCalledWith(
+          'Warning:',
+          'Validation messages are not rendered for an individual checkbox or radio. The validation message should be shown for all options.',
+        )
         consoleSpy.mockRestore()
       })
 
@@ -634,7 +659,12 @@ describe('FormControl', () => {
           </FormControl>,
         )
 
-        expect(consoleSpy).toHaveBeenCalled()
+        expect(consoleSpy).toHaveBeenCalledTimes(2)
+        expect(consoleSpy).toHaveBeenCalledWith(
+          'Warning:',
+          "instead of passing the 'required' prop directly to the input component, it should be passed to the parent component, <FormControl>",
+        )
+        expect(consoleSpy).toHaveBeenCalledWith('Warning:', 'An individual radio cannot be a required field.')
         consoleSpy.mockRestore()
       })
 

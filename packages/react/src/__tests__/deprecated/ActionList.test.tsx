@@ -12,7 +12,10 @@ describe('ActionList', () => {
 
     expect(container.firstElementChild).toHaveClass(classes.List)
     expect(container.firstElementChild).toHaveClass('test-class')
-    expect(consoleError).toHaveBeenCalled()
+    const messages = consoleError.mock.calls.map(args => args.map(String).join(' '))
+    expect(messages).toHaveLength(1)
+    expect(messages[0]).toContain('React does not recognize')
+    expect(messages[0]).toContain('groupId')
     consoleError.mockRestore()
   })
   implementsClassName(ActionList.Group)

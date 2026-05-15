@@ -202,11 +202,17 @@ describe('Tooltip', () => {
   })
 })
 
-function expectRenderError(callback: () => void, error: string | RegExp) {
+function expectRenderError(callback: () => void, error: string | RegExp, expectedConsoleErrors = 4) {
   const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
   try {
     expect(callback).toThrow(error)
-    expect(consoleError).toHaveBeenCalled()
+    const messages = consoleError.mock.calls.map(args => args.map(String).join(' '))
+    expect(messages).toHaveLength(expectedConsoleErrors)
+    if (typeof error === 'string') {
+      expect(messages.join('\n')).toContain(error)
+    } else {
+      expect(messages.join('\n')).toMatch(error)
+    }
   } finally {
     consoleError.mockRestore()
   }

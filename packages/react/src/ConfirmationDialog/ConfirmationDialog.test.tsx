@@ -160,7 +160,15 @@ describe('ConfirmationDialog', () => {
 
     expect(getByRole('button', {name: 'Primary'})).toEqual(document.activeElement)
     expect(getByRole('button', {name: 'Secondary'})).not.toEqual(document.activeElement)
-    expect(consoleError).toHaveBeenCalled()
+    const messages = consoleError.mock.calls.map(args => args.map(String).join(' '))
+    expect(messages).toHaveLength(12)
+    expect(
+      messages.every(
+        message =>
+          message.includes('Unexpected return value from a callback ref') ||
+          message.includes('React does not recognize'),
+      ),
+    ).toBe(true)
     consoleError.mockRestore()
   })
 

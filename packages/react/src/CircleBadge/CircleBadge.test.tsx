@@ -20,7 +20,10 @@ describe('CircleBadge', () => {
     try {
       const {container} = HTMLRender(<CircleBadge inline />)
       expect(container.firstChild).toMatchSnapshot()
-      expect(consoleError).toHaveBeenCalled()
+      const messages = consoleError.mock.calls.map(args => args.map(String).join(' '))
+      expect(messages).toHaveLength(1)
+      expect(messages[0]).toContain('non-boolean attribute')
+      expect(messages[0]).toContain('inline')
     } finally {
       consoleError.mockRestore()
     }

@@ -205,6 +205,8 @@ test('warns about duplicate slots', () => {
     ]
   `)
   expect(warnSpy).toHaveBeenCalledTimes(1)
+  expect(warnSpy).toHaveBeenCalledWith('Warning:', 'Found duplicate "a" slot. Only the first will be rendered.')
+  warnSpy.mockRestore()
 })
 
 test('extracts elements based on condition in config object', () => {

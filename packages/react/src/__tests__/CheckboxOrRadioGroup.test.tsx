@@ -170,7 +170,10 @@ describe('CheckboxOrRadioGroup', () => {
       </CheckboxOrRadioGroup>,
     )
 
-    expect(consoleSpy).toHaveBeenCalled()
+    expect(consoleSpy).toHaveBeenCalledTimes(1)
+    expect(consoleSpy).toHaveBeenCalledWith(
+      'A choice group must be labelled using a `CheckboxOrRadioGroup.Label` child, or by passing `aria-labelledby` to the CheckboxOrRadioGroup component.',
+    )
 
     consoleSpy.mockRestore()
   })
@@ -195,7 +198,10 @@ describe('CheckboxOrRadioGroup', () => {
       </CheckboxOrRadioGroup>,
     )
 
-    expect(consoleSpy).toHaveBeenCalled()
+    expect(consoleSpy).toHaveBeenCalledTimes(1)
+    expect(consoleSpy).toHaveBeenCalledWith(
+      'A choice group must be labelled using a `CheckboxOrRadioGroup.Label` child, or by passing `aria-labelledby` to the CheckboxOrRadioGroup component.',
+    )
     consoleSpy.mockRestore()
   })
 })
