@@ -5,14 +5,15 @@ import {version} from 'react'
  *
  * @see https://github.com/facebook/fbjs/blob/4d1751311d3f67af2dcce2e40df8512a23c7b9c6/packages/fbjs/src/core/ExecutionEnvironment.js#L12
  */
+const hasDOM = (windowLike: {document?: {createElement?: unknown}}) =>
+  typeof windowLike.document?.createElement === 'function'
+
 const canUseDOM = (() => {
   if (typeof window === 'undefined') {
     return false
   }
 
-  const {document} = window as {document?: Document}
-
-  return typeof document?.createElement === 'function'
+  return hasDOM(window)
 })()
 
 // Grab the major version from react. This could be formatted as any valid
