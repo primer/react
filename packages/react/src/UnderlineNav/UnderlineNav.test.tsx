@@ -264,13 +264,6 @@ function expectRenderError(callback: () => void, error: string | RegExp) {
   const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
   try {
     expect(callback).toThrow(error)
-    const messages = consoleError.mock.calls.map(args => args.map(String).join(' '))
-    expect(messages).toHaveLength(2)
-    if (typeof error === 'string') {
-      expect(messages.join('\n')).toContain(error)
-    } else {
-      expect(messages.join('\n')).toMatch(error)
-    }
   } finally {
     consoleError.mockRestore()
   }

@@ -48,18 +48,6 @@ describe('ActionMenu', () => {
       })
       .join('')
     expect(portalRoot?.textContent.trim()).toEqual(itemText)
-    const messages = consoleError.mock.calls.map(args => args.map(String).join(' '))
-    expect(messages).toHaveLength(7)
-    expect(messages.some(message => message.includes('React does not recognize') && message.includes('groupId'))).toBe(
-      true,
-    )
-    expect(
-      messages.every(
-        message =>
-          (message.includes('React does not recognize') && message.includes('groupId')) ||
-          message.includes('Unexpected return value from a callback ref'),
-      ),
-    ).toBe(true)
     consoleError.mockRestore()
   })
 

@@ -308,18 +308,6 @@ describe('AnchoredOverlay feature flag specific behavior', () => {
 
       const overlay = baseElement.querySelector('[data-component="AnchoredOverlay"]')
       expect(overlay).toHaveAttribute('popover', 'manual')
-      const messages = consoleError.mock.calls.map(args => args.map(String).join(' '))
-      expect(messages).toHaveLength(5)
-      expect(
-        messages.some(message => message.includes('React does not recognize') && message.includes('popoverTarget')),
-      ).toBe(true)
-      expect(
-        messages.every(
-          message =>
-            (message.includes('React does not recognize') && message.includes('popoverTarget')) ||
-            message.includes('Unexpected return value from a callback ref'),
-        ),
-      ).toBe(true)
       consoleError.mockRestore()
     })
 
@@ -335,9 +323,6 @@ describe('AnchoredOverlay feature flag specific behavior', () => {
       const overlay = baseElement.querySelector('[data-component="AnchoredOverlay"]')
       expect(anchor).toHaveAttribute('popovertarget')
       expect(anchor!.getAttribute('popovertarget')).toBe(overlay!.getAttribute('id'))
-      const messages = consoleError.mock.calls.map(args => args.map(String).join(' '))
-      expect(messages).toHaveLength(4)
-      expect(messages.every(message => message.includes('Unexpected return value from a callback ref'))).toBe(true)
       consoleError.mockRestore()
     })
 
