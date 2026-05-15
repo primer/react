@@ -10,7 +10,9 @@ const canUseDOM = (() => {
     return false
   }
 
-  return typeof window.document.createElement === 'function'
+  const {document} = window as {document?: Document}
+
+  return typeof document?.createElement === 'function'
 })()
 
 // Grab the major version from react. This could be formatted as any valid
