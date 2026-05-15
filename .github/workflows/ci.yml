@@ -207,4 +207,4 @@ jobs:
       - name: Build
         run: npm run build
       - name: Get export sizes
-        run: node packages/react/script/get-export-sizes.cjs
+        run: node packages/react/script/get-export-sizes.mjs

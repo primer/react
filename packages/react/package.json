@@ -96,7 +96,7 @@
     "react-intersection-observer": "^10.0.3"
   },
   "devDependencies": {
-    "@actions/core": "1.11.1",
+    "@actions/core": "3.0.1",
     "@babel/cli": "7.28.6",
     "@babel/core": "7.29.0",
     "@babel/parser": "7.29.3",
