@@ -166,7 +166,10 @@ export function useTable<Data extends UniqueRow>({
         const valueA = get(a, header.column.field)
         const valueB = get(b, header.column.field)
 
-        if (valueA && valueB) {
+        const valueAIsBlank = isBlankValue(valueA)
+        const valueBIsBlank = isBlankValue(valueB)
+
+        if (!valueAIsBlank && !valueBIsBlank) {
           if (state.direction === SortDirection.ASC) {
             // @ts-ignore todo
             return sortMethod(valueA, valueB)
@@ -175,11 +178,11 @@ export function useTable<Data extends UniqueRow>({
           return sortMethod(valueB, valueA)
         }
 
-        if (valueA) {
+        if (!valueAIsBlank) {
           return -1
         }
 
-        if (valueB) {
+        if (!valueBIsBlank) {
           return 1
         }
         return 0
@@ -349,4 +352,8 @@ function get<ObjectType extends Record<string, any>, Path extends string>(
     return (value as any)[key]
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   }, object as any)
+}
+
+function isBlankValue(value: unknown): value is null | undefined | '' {
+  return value === null || value === undefined || value === ''
 }
