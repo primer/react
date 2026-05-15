@@ -285,7 +285,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   }, [overflowStyle, isOverflowShown])
 
   const isList = Component === 'ul' || Component === 'ol'
-  const ToggleWrapper = isList ? 'li' : React.Fragment
+  const ToggleWrapper = isList ? 'li' : 'span'
 
   const ItemWrapperComponent = isList ? 'li' : 'span'
 
@@ -310,7 +310,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
           {child}
         </ItemWrapperComponent>
       ))}
-      <ToggleWrapper>
+      <ToggleWrapper data-component="LabelGroup.Toggle">
         {overflowStyle === 'inline' ? (
           <InlineToggle
             collapseButtonRef={collapseButtonRef}
