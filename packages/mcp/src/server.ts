@@ -22,10 +22,27 @@ import {
 } from './primitives'
 import packageJson from '../package.json' with {type: 'json'}
 
-const server = new McpServer({
-  name: 'Primer',
-  version: packageJson.version,
-})
+const instructions = `Use this server for UI development tasks involving Primer, React components, design tokens, icons, accessibility, or design-system patterns.
+
+Before creating, modifying, or reviewing UI:
+- Call primer_coding_guidelines.
+- Prefer existing @primer/react components over custom components.
+- Use list_components and get_component to find component APIs and docs.
+- Use get_component_usage_guidelines and get_component_accessibility_guidelines when applying a specific component.
+- Use list_patterns and get_pattern for common UI flows.
+- Use get_design_token_specs before searching tokens, then find_tokens or get_token_group_bundle.
+- Use list_icons and get_icon for icons from @primer/octicons-react.
+- Prefer Primer design tokens and CSS Modules; do not use sx or Box for styling.`
+
+const server = new McpServer(
+  {
+    name: 'Primer',
+    version: packageJson.version,
+  },
+  {
+    instructions,
+  },
+)
 
 const turndownService = new TurndownService()
 
