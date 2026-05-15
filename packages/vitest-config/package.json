@@ -1,0 +1,15 @@
+{
+  "name": "@primer/vitest-config",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
+  "exports": {
+    "./setup": "./setup.ts"
+  },
+  "dependencies": {
+    "vitest-fail-on-console": "^0.10.1"
+  }
+}

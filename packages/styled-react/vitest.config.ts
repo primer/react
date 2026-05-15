@@ -5,6 +5,7 @@ export default defineConfig({
     name: '@primer/styled-react (node)',
     environment: 'node',
     exclude: ['src/**/*.browser.test.?(c|m)[jt]s?(x)'],
+    setupFiles: ['@primer/vitest-config/setup'],
     detectAsyncLeaks: true,
   },
 })
