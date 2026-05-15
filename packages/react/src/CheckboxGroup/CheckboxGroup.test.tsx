@@ -6,7 +6,14 @@ import {implementsClassName} from '../utils/testing'
 import classes from '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.module.css'
 
 describe('CheckboxGroup', () => {
-  implementsClassName(CheckboxGroup, classes.GroupFieldset)
+  implementsClassName(
+    props => (
+      <CheckboxGroup {...props}>
+        <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
+      </CheckboxGroup>
+    ),
+    classes.GroupFieldset,
+  )
   implementsClassName(CheckboxGroup.Caption, classes.CheckboxOrRadioGroupCaption)
   implementsClassName(CheckboxGroup.Label, classes.RadioGroupLabel)
   const mockWarningFn = vi.fn()

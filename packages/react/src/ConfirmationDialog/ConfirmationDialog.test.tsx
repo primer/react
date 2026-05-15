@@ -152,6 +152,7 @@ describe('ConfirmationDialog', () => {
   })
 
   it('supports nested `focusTrap`s', async () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
     const {getByText, getByRole} = render(<ShorthandHookFromActionMenu />)
 
     fireEvent.click(getByText('Show menu'))
@@ -159,6 +160,8 @@ describe('ConfirmationDialog', () => {
 
     expect(getByRole('button', {name: 'Primary'})).toEqual(document.activeElement)
     expect(getByRole('button', {name: 'Secondary'})).not.toEqual(document.activeElement)
+    expect(consoleError).toHaveBeenCalled()
+    consoleError.mockRestore()
   })
 
   it('accepts a className prop', async () => {

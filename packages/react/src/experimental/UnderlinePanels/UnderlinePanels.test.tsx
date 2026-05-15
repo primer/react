@@ -104,7 +104,8 @@ describe('UnderlinePanels', () => {
   })
 
   it('throws an error when the number of tabs does not match the number of panels', () => {
-    expect(() => {
+    expect.hasAssertions()
+    expectRenderError(() => {
       render(
         <UnderlinePanels aria-label="Select a tab">
           <UnderlinePanels.Tab>Tab 1</UnderlinePanels.Tab>
@@ -114,11 +115,12 @@ describe('UnderlinePanels', () => {
           <UnderlinePanels.Panel>Panel 3</UnderlinePanels.Panel>
         </UnderlinePanels>,
       )
-    }).toThrow('The number of tabs and panels must be equal. Counted 2 tabs and 3 panels.')
+    }, 'The number of tabs and panels must be equal. Counted 2 tabs and 3 panels.')
   })
 
   it('throws an error when the number of panels does not match the number of tabs', () => {
-    expect(() => {
+    expect.hasAssertions()
+    expectRenderError(() => {
       render(
         <UnderlinePanels aria-label="Select a tab">
           <UnderlinePanels.Tab>Tab 1</UnderlinePanels.Tab>
@@ -128,11 +130,12 @@ describe('UnderlinePanels', () => {
           <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
         </UnderlinePanels>,
       )
-    }).toThrow('The number of tabs and panels must be equal. Counted 3 tabs and 2 panels.')
+    }, 'The number of tabs and panels must be equal. Counted 3 tabs and 2 panels.')
   })
 
   it('throws an error when there are multiple items that have aria-selected', () => {
-    expect(() => {
+    expect.hasAssertions()
+    expectRenderError(() => {
       render(
         <UnderlinePanels aria-label="Select a tab">
           <UnderlinePanels.Tab aria-selected={true}>Tab 1</UnderlinePanels.Tab>
@@ -143,6 +146,16 @@ describe('UnderlinePanels', () => {
           <UnderlinePanels.Panel>Panel 3</UnderlinePanels.Panel>
         </UnderlinePanels>,
       )
-    }).toThrow('Only one tab can be selected at a time.')
+    }, 'Only one tab can be selected at a time.')
   })
 })
+
+function expectRenderError(callback: () => void, error: string | RegExp) {
+  const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
+  try {
+    expect(callback).toThrow(error)
+    expect(consoleError).toHaveBeenCalled()
+  } finally {
+    consoleError.mockRestore()
+  }
+}

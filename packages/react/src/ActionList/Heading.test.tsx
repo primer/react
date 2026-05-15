@@ -1,4 +1,4 @@
-import {describe, it, expect} from 'vitest'
+import {describe, it, expect, vi} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
 import BaseStyles from '../BaseStyles'
 import {ActionList} from '.'
@@ -42,22 +42,33 @@ describe('ActionList.Heading', () => {
   })
 
   it('should throw an error when ActionList.Heading is used within ActionMenu context', async () => {
-    expect(() =>
-      HTMLRender(
-        <BaseStyles>
-          <ActionMenu open={true}>
-            <ActionMenu.Button>Trigger</ActionMenu.Button>
-            <ActionMenu.Overlay>
-              <ActionList>
-                <ActionList.Heading as="h1">Heading</ActionList.Heading>
-                <ActionList.Item>Item</ActionList.Item>
-              </ActionList>
-            </ActionMenu.Overlay>
-          </ActionMenu>
-        </BaseStyles>,
-      ),
-    ).toThrow(
+    expect.hasAssertions()
+    expectRenderError(
+      () =>
+        HTMLRender(
+          <BaseStyles>
+            <ActionMenu open={true}>
+              <ActionMenu.Button>Trigger</ActionMenu.Button>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Heading as="h1">Heading</ActionList.Heading>
+                  <ActionList.Item>Item</ActionList.Item>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>,
+        ),
       "ActionList.Heading shouldn't be used within an ActionMenu container. Menus are labelled by the menu button's name.",
     )
   })
 })
+
+function expectRenderError(callback: () => void, error: string | RegExp) {
+  const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
+  try {
+    expect(callback).toThrow(error)
+    expect(consoleError).toHaveBeenCalled()
+  } finally {
+    consoleError.mockRestore()
+  }
+}

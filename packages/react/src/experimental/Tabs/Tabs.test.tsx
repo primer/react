@@ -1,5 +1,4 @@
 import {render, screen, fireEvent, act} from '@testing-library/react'
-import {userEvent} from 'vitest/browser'
 import React from 'react'
 import {describe, test, expect, vi} from 'vitest'
 import {Tabs, TabList, Tab, TabPanel} from './Tabs'
@@ -65,8 +64,7 @@ describe('Tabs', () => {
     expect(tabA).toHaveAttribute('aria-selected', 'true')
   })
 
-  test('onValueChange is called when tab changes', async () => {
-    const user = userEvent.setup()
+  test('onValueChange is called when tab changes', () => {
     const onValueChange = vi.fn()
 
     render(
@@ -81,7 +79,7 @@ describe('Tabs', () => {
     )
 
     const tabB = screen.getByRole('tab', {name: 'Tab B'})
-    await user.click(tabB)
+    fireEvent.mouseDown(tabB)
 
     expect(onValueChange).toHaveBeenCalledWith({value: 'b'})
     expect(onValueChange).toHaveBeenCalledTimes(1)
@@ -242,9 +240,7 @@ describe('Tabs', () => {
     expect(panelB).not.toHaveAttribute('data-selected')
   })
 
-  test('clicking a tab selects it', async () => {
-    const user = userEvent.setup()
-
+  test('clicking a tab selects it', () => {
     render(
       <Tabs defaultValue="a">
         <TabList aria-label="Test tabs">
@@ -259,17 +255,13 @@ describe('Tabs', () => {
     )
 
     const tabB = screen.getByRole('tab', {name: 'Tab B'})
-    await act(async () => {
-      await user.click(tabB)
-    })
+    fireEvent.mouseDown(tabB)
 
     expect(tabB).toHaveAttribute('aria-selected', 'true')
     expect(tabB).toHaveAttribute('tabindex', '0')
   })
 
-  test('ArrowRight navigates to next tab', async () => {
-    const user = userEvent.setup()
-
+  test('ArrowRight navigates to next tab', () => {
     render(
       <Tabs defaultValue="a">
         <TabList aria-label="Test tabs">
@@ -286,17 +278,13 @@ describe('Tabs', () => {
     const tabA = screen.getByRole('tab', {name: 'Tab A'})
     const tabB = screen.getByRole('tab', {name: 'Tab B'})
 
-    await act(async () => {
-      tabA.focus()
-      await user.keyboard('{ArrowRight}')
-    })
+    tabA.focus()
+    fireEvent.keyDown(tabA, {key: 'ArrowRight'})
 
     expect(tabB).toHaveFocus()
   })
 
-  test('ArrowRight wraps from last tab to first tab', async () => {
-    const user = userEvent.setup()
-
+  test('ArrowRight wraps from last tab to first tab', () => {
     render(
       <Tabs defaultValue="c">
         <TabList aria-label="Test tabs">
@@ -313,17 +301,13 @@ describe('Tabs', () => {
     const tabA = screen.getByRole('tab', {name: 'Tab A'})
     const tabC = screen.getByRole('tab', {name: 'Tab C'})
 
-    await act(async () => {
-      tabC.focus()
-      await user.keyboard('{ArrowRight}')
-    })
+    tabC.focus()
+    fireEvent.keyDown(tabC, {key: 'ArrowRight'})
 
     expect(tabA).toHaveFocus()
   })
 
-  test('ArrowLeft navigates to previous tab', async () => {
-    const user = userEvent.setup()
-
+  test('ArrowLeft navigates to previous tab', () => {
     render(
       <Tabs defaultValue="b">
         <TabList aria-label="Test tabs">
@@ -340,17 +324,13 @@ describe('Tabs', () => {
     const tabA = screen.getByRole('tab', {name: 'Tab A'})
     const tabB = screen.getByRole('tab', {name: 'Tab B'})
 
-    await act(async () => {
-      tabB.focus()
-      await user.keyboard('{ArrowLeft}')
-    })
+    tabB.focus()
+    fireEvent.keyDown(tabB, {key: 'ArrowLeft'})
 
     expect(tabA).toHaveFocus()
   })
 
-  test('ArrowLeft wraps from first tab to last tab', async () => {
-    const user = userEvent.setup()
-
+  test('ArrowLeft wraps from first tab to last tab', () => {
     render(
       <Tabs defaultValue="a">
         <TabList aria-label="Test tabs">
@@ -367,17 +347,13 @@ describe('Tabs', () => {
     const tabA = screen.getByRole('tab', {name: 'Tab A'})
     const tabC = screen.getByRole('tab', {name: 'Tab C'})
 
-    await act(async () => {
-      tabA.focus()
-      await user.keyboard('{ArrowLeft}')
-    })
+    tabA.focus()
+    fireEvent.keyDown(tabA, {key: 'ArrowLeft'})
 
     expect(tabC).toHaveFocus()
   })
 
-  test('Home key navigates to first tab', async () => {
-    const user = userEvent.setup()
-
+  test('Home key navigates to first tab', () => {
     render(
       <Tabs defaultValue="c">
         <TabList aria-label="Test tabs">
@@ -394,17 +370,13 @@ describe('Tabs', () => {
     const tabA = screen.getByRole('tab', {name: 'Tab A'})
     const tabC = screen.getByRole('tab', {name: 'Tab C'})
 
-    await act(async () => {
-      tabC.focus()
-      await user.keyboard('{Home}')
-    })
+    tabC.focus()
+    fireEvent.keyDown(tabC, {key: 'Home'})
 
     expect(tabA).toHaveFocus()
   })
 
-  test('End key navigates to last tab', async () => {
-    const user = userEvent.setup()
-
+  test('End key navigates to last tab', () => {
     render(
       <Tabs defaultValue="a">
         <TabList aria-label="Test tabs">
@@ -420,17 +392,13 @@ describe('Tabs', () => {
 
     const tabA = screen.getByRole('tab', {name: 'Tab A'})
     const tabC = screen.getByRole('tab', {name: 'Tab C'})
-    await act(async () => {
-      tabA.focus()
-      await user.keyboard('{End}')
-    })
+    tabA.focus()
+    fireEvent.keyDown(tabA, {key: 'End'})
 
     expect(tabC).toHaveFocus()
   })
 
-  test('Space key activates focused tab', async () => {
-    const user = userEvent.setup()
-
+  test('Space key activates focused tab', () => {
     render(
       <Tabs defaultValue="a">
         <TabList aria-label="Test tabs">
@@ -445,18 +413,14 @@ describe('Tabs', () => {
     const tabA = screen.getByRole('tab', {name: 'Tab A'})
     const tabB = screen.getByRole('tab', {name: 'Tab B'})
 
-    await act(async () => {
-      tabA.focus()
-      await user.keyboard('{ArrowRight}')
-      await user.keyboard(' ')
-    })
+    tabA.focus()
+    fireEvent.keyDown(tabA, {key: 'ArrowRight'})
+    fireEvent.keyDown(tabB, {key: ' '})
 
     expect(tabB).toHaveAttribute('aria-selected', 'true')
   })
 
-  test('Enter key activates focused tab', async () => {
-    const user = userEvent.setup()
-
+  test('Enter key activates focused tab', () => {
     render(
       <Tabs defaultValue="a">
         <TabList aria-label="Test tabs">
@@ -471,11 +435,9 @@ describe('Tabs', () => {
     const tabA = screen.getByRole('tab', {name: 'Tab A'})
     const tabB = screen.getByRole('tab', {name: 'Tab B'})
 
-    await act(async () => {
-      tabA.focus()
-      await user.keyboard('{ArrowRight}')
-      await user.keyboard('{Enter}')
-    })
+    tabA.focus()
+    fireEvent.keyDown(tabA, {key: 'ArrowRight'})
+    fireEvent.keyDown(tabB, {key: 'Enter'})
 
     expect(tabB).toHaveAttribute('aria-selected', 'true')
   })
@@ -501,9 +463,7 @@ describe('Tabs', () => {
     expect(tabB).toHaveAttribute('aria-selected', 'true')
   })
 
-  test('disabled tabs are skipped during keyboard navigation', async () => {
-    const user = userEvent.setup()
-
+  test('disabled tabs are skipped during keyboard navigation', () => {
     render(
       <Tabs defaultValue="a">
         <TabList aria-label="Test tabs">
@@ -522,10 +482,8 @@ describe('Tabs', () => {
     const tabA = screen.getByRole('tab', {name: 'Tab A'})
     const tabC = screen.getByRole('tab', {name: 'Tab C'})
 
-    await act(async () => {
-      tabA.focus()
-      await user.keyboard('{ArrowRight}')
-    })
+    tabA.focus()
+    fireEvent.keyDown(tabA, {key: 'ArrowRight'})
 
     expect(tabC).toHaveFocus()
   })

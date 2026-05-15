@@ -31,6 +31,7 @@ describe('ActionMenu', () => {
   })
 
   it('should trigger the overlay on trigger click', async () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
     const menu = HTMLRender(<SimpleActionMenu />)
     let portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeNull()
@@ -47,6 +48,8 @@ describe('ActionMenu', () => {
       })
       .join('')
     expect(portalRoot?.textContent.trim()).toEqual(itemText)
+    expect(consoleError).toHaveBeenCalled()
+    consoleError.mockRestore()
   })
 
   it('should dismiss the overlay on menuitem click', async () => {

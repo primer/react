@@ -1,6 +1,5 @@
-import {render, screen} from '@testing-library/react'
+import {fireEvent, render, screen} from '@testing-library/react'
 import {describe, test, expect, vi} from 'vitest'
-import {userEvent} from 'vitest/browser'
 import {TopicTag} from '../TopicTag'
 import {implementsClassName} from '../utils/testing'
 import classes from './TopicTag.module.css'
@@ -22,7 +21,7 @@ describe('TopicTag', () => {
       </TopicTag>,
     )
 
-    await userEvent.click(screen.getByRole('button', {name: 'test'}))
+    fireEvent.click(screen.getByRole('button', {name: 'test'}))
     expect(onClick).toHaveBeenCalled()
   })
 

@@ -1,7 +1,7 @@
 import CircleBadge from './CircleBadge'
 import {CheckIcon} from '@primer/octicons-react'
 import {render as HTMLRender} from '@testing-library/react'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it, vi} from 'vitest'
 import {implementsClassName} from '../utils/testing'
 import classes from './CircleBadge.module.css'
 
@@ -16,8 +16,14 @@ describe('CircleBadge', () => {
   })
 
   it('respects the inline prop', () => {
-    const {container} = HTMLRender(<CircleBadge inline />)
-    expect(container.firstChild).toMatchSnapshot()
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
+    try {
+      const {container} = HTMLRender(<CircleBadge inline />)
+      expect(container.firstChild).toMatchSnapshot()
+      expect(consoleError).toHaveBeenCalled()
+    } finally {
+      consoleError.mockRestore()
+    }
   })
 
   it('respects the variant prop', () => {

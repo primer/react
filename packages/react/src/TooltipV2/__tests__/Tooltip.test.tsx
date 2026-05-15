@@ -1,5 +1,5 @@
 import type React from 'react'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it, vi} from 'vitest'
 import type {TooltipProps} from '../Tooltip'
 import {Tooltip} from '../Tooltip'
 import {render as HTMLRender} from '@testing-library/react'
@@ -125,15 +125,14 @@ describe('Tooltip', () => {
     expect(triggerEL.getAttribute('aria-describedby')).toContain('custom-tooltip-id')
   })
   it('should throw an error if the trigger element is disabled', () => {
-    expect(() => {
+    expect.hasAssertions()
+    expectRenderError(() => {
       HTMLRender(
         <Tooltip text="Tooltip text" direction="n">
           <Button disabled>Delete</Button>
         </Tooltip>,
       )
-    }).toThrow(
-      'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
-    )
+    }, 'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.')
   })
   it('should not throw an error when the trigger element is a button in a fieldset', () => {
     const {getByRole} = HTMLRender(
@@ -202,6 +201,16 @@ describe('Tooltip', () => {
     expect(describedBy).toContain(tooltipEl.id)
   })
 })
+
+function expectRenderError(callback: () => void, error: string | RegExp) {
+  const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
+  try {
+    expect(callback).toThrow(error)
+    expect(consoleError).toHaveBeenCalled()
+  } finally {
+    consoleError.mockRestore()
+  }
+}
 
 describe('Tooltip data-component attributes', () => {
   it('renders Tooltip with data-component attribute', () => {

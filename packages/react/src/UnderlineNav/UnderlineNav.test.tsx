@@ -158,14 +158,15 @@ describe('UnderlineNav', () => {
   })
 
   it('throws an error when there are multiple items that have aria-current', () => {
-    expect(() => {
+    expect.hasAssertions()
+    expectRenderError(() => {
       render(
         <UnderlineNav aria-label="Test Navigation">
           <UnderlineNav.Item aria-current="page">Item 1</UnderlineNav.Item>
           <UnderlineNav.Item aria-current="page">Item 2</UnderlineNav.Item>
         </UnderlineNav>,
       )
-    }).toThrow('Only one current element is allowed')
+    }, 'Only one current element is allowed')
   })
 
   it('should support icons passed in as an element', () => {
@@ -242,9 +243,14 @@ describe('UnderlineNav', () => {
 
 describe('Keyboard Navigation', () => {
   it('should move focus to the next/previous item on the list with the tab key', async () => {
-    const {getByRole} = render(<ResponsiveUnderlineNav />)
+    const {getByRole} = render(
+      <UnderlineNav aria-label="Repository">
+        <UnderlineNav.Item aria-current="page">Code</UnderlineNav.Item>
+        <UnderlineNav.Item>Issues</UnderlineNav.Item>
+      </UnderlineNav>,
+    )
     const item = getByRole('link', {name: 'Code'})
-    const nextItem = getByRole('link', {name: 'Issues (120)'})
+    const nextItem = getByRole('link', {name: 'Issues'})
     const user = userEvent.setup()
     await user.tab() // tab into the story, this should focus on the first link
     expect(item).toEqual(document.activeElement) // check if the first item is focused
@@ -253,3 +259,13 @@ describe('Keyboard Navigation', () => {
     expect(nextItem).toHaveFocus()
   })
 })
+
+function expectRenderError(callback: () => void, error: string | RegExp) {
+  const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
+  try {
+    expect(callback).toThrow(error)
+    expect(consoleError).toHaveBeenCalled()
+  } finally {
+    consoleError.mockRestore()
+  }
+}

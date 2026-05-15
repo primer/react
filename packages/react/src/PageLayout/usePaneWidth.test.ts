@@ -735,12 +735,11 @@ describe('usePaneWidth', () => {
       // Shrink viewport (crosses 1280 breakpoint, diff switches to 511)
       vi.stubGlobal('innerWidth', 1000)
 
-      // Fire resize - with throttle, first update happens immediately (if THROTTLE_MS passed)
-      window.dispatchEvent(new Event('resize'))
-
       // Since Date.now() starts at 0 and lastUpdateTime is 0, first update should happen immediately
       // but it's in rAF, so we need to advance through rAF
       await act(async () => {
+        // Fire resize - with throttle, first update happens immediately (if THROTTLE_MS passed)
+        window.dispatchEvent(new Event('resize'))
         await vi.runAllTimersAsync()
       })
 
@@ -771,11 +770,10 @@ describe('usePaneWidth', () => {
       // Shrink viewport (crosses 1280 breakpoint, diff switches to 511)
       vi.stubGlobal('innerWidth', 900)
 
-      // Fire resize - with throttle, update happens via rAF
-      window.dispatchEvent(new Event('resize'))
-
       // Wait for rAF to complete
       await act(async () => {
+        // Fire resize - with throttle, update happens via rAF
+        window.dispatchEvent(new Event('resize'))
         await vi.runAllTimersAsync()
       })
 
@@ -807,10 +805,10 @@ describe('usePaneWidth', () => {
 
       // Fire resize events rapidly
       vi.stubGlobal('innerWidth', 1100)
-      window.dispatchEvent(new Event('resize'))
 
       // With throttle, CSS should update immediately or via rAF
       await act(async () => {
+        window.dispatchEvent(new Event('resize'))
         await vi.runAllTimersAsync()
       })
 
@@ -821,13 +819,12 @@ describe('usePaneWidth', () => {
       setPropertySpy.mockClear()
 
       // Fire more resize events rapidly (within throttle window)
-      for (let i = 0; i < 3; i++) {
-        vi.stubGlobal('innerWidth', 1000 - i * 50)
-        window.dispatchEvent(new Event('resize'))
-      }
-
       // Should schedule via rAF
       await act(async () => {
+        for (let i = 0; i < 3; i++) {
+          vi.stubGlobal('innerWidth', 1000 - i * 50)
+          window.dispatchEvent(new Event('resize'))
+        }
         await vi.runAllTimersAsync()
       })
 
@@ -858,10 +855,10 @@ describe('usePaneWidth', () => {
 
       // Shrink viewport (crosses 1280 breakpoint, diff switches to 511)
       vi.stubGlobal('innerWidth', 800)
-      window.dispatchEvent(new Event('resize'))
 
       // After throttle (via rAF), state updated via startTransition
       await act(async () => {
+        window.dispatchEvent(new Event('resize'))
         await vi.runAllTimersAsync()
       })
 
@@ -963,7 +960,9 @@ describe('usePaneWidth', () => {
 
       // Fire resize
       vi.stubGlobal('innerWidth', 1000)
-      window.dispatchEvent(new Event('resize'))
+      await act(async () => {
+        window.dispatchEvent(new Event('resize'))
+      })
 
       // Attribute should be applied immediately on first resize
       expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(true)
@@ -971,7 +970,9 @@ describe('usePaneWidth', () => {
 
       // Fire another resize event immediately (simulating continuous resize)
       vi.stubGlobal('innerWidth', 900)
-      window.dispatchEvent(new Event('resize'))
+      await act(async () => {
+        window.dispatchEvent(new Event('resize'))
+      })
 
       // Attribute should still be present (containment stays on during continuous resize)
       expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(true)
@@ -1006,7 +1007,9 @@ describe('usePaneWidth', () => {
 
       // Fire resize
       vi.stubGlobal('innerWidth', 1000)
-      window.dispatchEvent(new Event('resize'))
+      await act(async () => {
+        window.dispatchEvent(new Event('resize'))
+      })
 
       // Attribute should be applied
       expect(refs.paneRef.current?.hasAttribute('data-dragging')).toBe(true)
@@ -1044,9 +1047,9 @@ describe('usePaneWidth', () => {
 
       // Shrink viewport (crosses 1280 breakpoint, diff switches to 511)
       vi.stubGlobal('innerWidth', 800)
-      window.dispatchEvent(new Event('resize'))
 
       await act(async () => {
+        window.dispatchEvent(new Event('resize'))
         await vi.runAllTimersAsync()
       })
 

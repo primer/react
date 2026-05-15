@@ -32,7 +32,14 @@ const segmentData = [
 ]
 
 describe('SegmentedControl', () => {
-  implementsClassName(SegmentedControl, classes.SegmentedControl)
+  implementsClassName(
+    props => (
+      <SegmentedControl aria-label="File view" {...props}>
+        <SegmentedControl.Button>Preview</SegmentedControl.Button>
+      </SegmentedControl>
+    ),
+    classes.SegmentedControl,
+  )
 
   it('renders with a selected segment - controlled', () => {
     const {getByText} = render(

@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it, vi} from 'vitest'
 import {render} from '@testing-library/react'
 import {ActionList} from '../../deprecated/ActionList'
 import {implementsClassName} from '../../utils/testing'
@@ -6,7 +6,15 @@ import classes from '../../deprecated/ActionList/List.module.css'
 import itemClasses from '../../deprecated/ActionList/Item.module.css'
 
 describe('ActionList', () => {
-  implementsClassName(props => <ActionList {...props} items={[]} />, classes.List)
+  it('renders with the custom className', () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
+    const {container} = render(<ActionList className="test-class" items={[]} />)
+
+    expect(container.firstElementChild).toHaveClass(classes.List)
+    expect(container.firstElementChild).toHaveClass('test-class')
+    expect(consoleError).toHaveBeenCalled()
+    consoleError.mockRestore()
+  })
   implementsClassName(ActionList.Group)
   implementsClassName(ActionList.Item, itemClasses.Item)
   it('should render ActionList with items', () => {

@@ -1,7 +1,7 @@
 import {act, createRef, useCallback, useRef, useState} from 'react'
 import {describe, expect, it, vi} from 'vitest'
-import {render} from '@testing-library/react'
-import {userEvent} from 'vitest/browser'
+import {fireEvent, render} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'
 import BaseStyles from '../BaseStyles'
@@ -104,9 +104,7 @@ describe.each([true, false])(
         />,
       )
       const anchor = anchoredOverlay.baseElement.querySelector('[aria-haspopup="true"]')!
-      await act(async () => {
-        await userEvent.click(anchor)
-      })
+      await userEvent.click(anchor)
 
       expect(mockOpenCallback).toHaveBeenCalledTimes(1)
       expect(mockOpenCallback).toHaveBeenCalledWith('anchor-click')
@@ -124,9 +122,7 @@ describe.each([true, false])(
         />,
       )
       const anchor = anchoredOverlay.baseElement.querySelector('[aria-haspopup="true"]')!
-      await act(async () => {
-        await userEvent.type(anchor, '{Space}')
-      })
+      fireEvent.keyDown(anchor, {key: ' ', code: 'Space'})
 
       expect(mockOpenCallback).toHaveBeenCalledTimes(1)
       expect(mockOpenCallback).toHaveBeenCalledWith('anchor-key-press')
@@ -144,9 +140,7 @@ describe.each([true, false])(
           withCSSAnchorPositioningFeatureFlag={withCSSAnchorPositioningFeatureFlag}
         />,
       )
-      await act(async () => {
-        await userEvent.click(anchoredOverlay.baseElement)
-      })
+      await userEvent.click(anchoredOverlay.baseElement)
 
       expect(mockOpenCallback).toHaveBeenCalledTimes(0)
       expect(mockCloseCallback).toHaveBeenCalledTimes(1)
@@ -166,9 +160,7 @@ describe.each([true, false])(
         />,
       )
 
-      await act(async () => {
-        await userEvent.keyboard('{Escape}')
-      })
+      await userEvent.keyboard('{Escape}')
 
       expect(mockOpenCallback).toHaveBeenCalledTimes(0)
       expect(mockCloseCallback).toHaveBeenCalledTimes(1)
@@ -185,9 +177,7 @@ describe.each([true, false])(
         />,
       )
 
-      await act(async () => {
-        await userEvent.keyboard('{Escape}')
-      })
+      await userEvent.keyboard('{Escape}')
 
       expect(mockPositionChangeCallback).toHaveBeenCalled()
       expect(mockPositionChangeCallback).toHaveBeenCalledWith({
@@ -309,6 +299,7 @@ describe('AnchoredOverlay feature flag specific behavior', () => {
     })
 
     it('should set popover="manual" on overlay when renderAs is "popover"', () => {
+      const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
       const {baseElement} = render(
         <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
           <AnchoredOverlayTestComponent initiallyOpen={true} renderAs="popover" />
@@ -317,9 +308,12 @@ describe('AnchoredOverlay feature flag specific behavior', () => {
 
       const overlay = baseElement.querySelector('[data-component="AnchoredOverlay"]')
       expect(overlay).toHaveAttribute('popover', 'manual')
+      expect(consoleError).toHaveBeenCalled()
+      consoleError.mockRestore()
     })
 
     it('should set popovertarget on anchor when renderAs is "popover"', () => {
+      const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
       const {baseElement} = render(
         <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
           <AnchoredOverlayTestComponent initiallyOpen={true} renderAs="popover" />
@@ -330,6 +324,8 @@ describe('AnchoredOverlay feature flag specific behavior', () => {
       const overlay = baseElement.querySelector('[data-component="AnchoredOverlay"]')
       expect(anchor).toHaveAttribute('popovertarget')
       expect(anchor!.getAttribute('popovertarget')).toBe(overlay!.getAttribute('id'))
+      expect(consoleError).toHaveBeenCalled()
+      consoleError.mockRestore()
     })
 
     it('should not set popover attribute on overlay when renderAs is "portal"', () => {

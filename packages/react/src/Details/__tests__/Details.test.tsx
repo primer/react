@@ -7,7 +7,14 @@ import {implementsClassName} from '../../utils/testing'
 import classes from '../Details.module.css'
 
 describe('Details', () => {
-  implementsClassName(Details, classes.Details)
+  implementsClassName(
+    props => (
+      <Details {...props}>
+        <Details.Summary>Summary</Details.Summary>
+      </Details>
+    ),
+    classes.Details,
+  )
   implementsClassName(Details.Summary)
   it('Toggles when you click outside', async () => {
     const Component = () => {

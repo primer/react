@@ -1,7 +1,7 @@
 import {page} from 'vitest/browser'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Pagination} from '../Pagination'
-import {render, screen} from '@testing-library/react'
+import {render, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 describe('Table.Pagination', () => {
@@ -103,7 +103,9 @@ describe('Table.Pagination', () => {
       rerender(
         <Pagination onChange={onChange} aria-label="Test label" defaultPageIndex={2} pageSize={5} totalCount={300} />,
       )
-      expect(getPageRange()).toEqual('11 through 15 of 300')
+      await waitFor(() => {
+        expect(getPageRange()).toEqual('11 through 15 of 300')
+      })
       expect(getCurrentPage()).toEqual(getPage(2))
       expect(getInvalidPages()).toHaveLength(0)
       expect(onChange).toHaveBeenCalledWith({
@@ -296,7 +298,9 @@ describe('Table.Pagination', () => {
       rerender(
         <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={0} pageSize={5} totalCount={300} />,
       )
-      expect(getPageRange()).toEqual('1 through 5 of 300')
+      await waitFor(() => {
+        expect(getPageRange()).toEqual('1 through 5 of 300')
+      })
       expect(getCurrentPage()).toEqual(getPage(0))
       expect(getInvalidPages()).toHaveLength(0)
       expect(onChange).toHaveBeenCalledWith({
@@ -361,7 +365,9 @@ describe('Table.Pagination', () => {
     rerender(
       <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={0} pageSize={5} totalCount={300} />,
     )
-    expect(getPageRange()).toEqual('1 through 5 of 300')
+    await waitFor(() => {
+      expect(getPageRange()).toEqual('1 through 5 of 300')
+    })
     expect(getFirstPage()).toEqual(getCurrentPage())
     expect(getInvalidPages()).toHaveLength(0)
     expect(onChange).toHaveBeenCalledWith({

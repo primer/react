@@ -5,11 +5,11 @@ import {implementsClassName} from '../utils/testing'
 import classes from './Radio.module.css'
 
 describe('Radio', () => {
-  implementsClassName(Radio, classes.Radio)
   const defaultProps = {
     name: 'mock',
     value: 'mock value',
   }
+  implementsClassName(props => <Radio {...defaultProps} {...props} />, classes.Radio)
 
   beforeEach(() => {
     vi.resetAllMocks()
