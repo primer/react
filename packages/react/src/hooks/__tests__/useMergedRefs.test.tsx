@@ -143,9 +143,13 @@ describe('useMergedRefs', () => {
       expect(refA).toHaveBeenCalledWith('test')
       expect(refB).toHaveBeenCalledWith('test')
 
-      if (reactMajorVersion < 19 || typeof cleanup !== 'function') {
+      if (reactMajorVersion < 19) {
         expect(cleanup).toBeUndefined()
         return
+      }
+
+      if (typeof cleanup !== 'function') {
+        throw new Error('Expected a cleanup function when running on React 19+')
       }
 
       // React 19 will call cleanup function and not pass null
