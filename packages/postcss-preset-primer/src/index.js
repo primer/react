@@ -137,11 +137,15 @@ function ancestors(directory) {
 
 /**
  * Returns array of plugins from the given PostCSS preset
- * @param {any} preset
- * @returns {Array<any>}
+ * @param {{postcssPlugin?: import('postcss').Plugin['postcssPlugin'], plugins?: Array<unknown>}} preset
+ * @returns {Array<import('postcss').Plugin | import('postcss').TransformCallback | import('postcss').Transformer>}
  */
 function plugins(preset) {
-  return 'plugins' in preset ? preset.plugins : []
+  return 'plugins' in preset
+    ? /** @type {Array<import('postcss').Plugin | import('postcss').TransformCallback | import('postcss').Transformer>} */ (
+        preset.plugins
+      )
+    : []
 }
 
 export default postcssPresetPrimer
