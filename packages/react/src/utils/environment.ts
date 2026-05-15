@@ -5,8 +5,13 @@ import {version} from 'react'
  *
  * @see https://github.com/facebook/fbjs/blob/4d1751311d3f67af2dcce2e40df8512a23c7b9c6/packages/fbjs/src/core/ExecutionEnvironment.js#L12
  */
-// eslint-disable-next-line ssr-friendly/no-dom-globals-in-module-scope
-const canUseDOM = typeof window !== 'undefined' && typeof window.document.createElement === 'function'
+const canUseDOM = (() => {
+  if (typeof window === 'undefined') {
+    return false
+  }
+
+  return typeof (window as unknown as {document?: {createElement?: unknown}}).document?.createElement === 'function'
+})()
 
 // Grab the major version from react. This could be formatted as any valid
 // semver version, e.g.:
