@@ -81,6 +81,16 @@ export {default as AvatarStack} from './AvatarStack'
 export type {AvatarStackProps} from './AvatarStack'
 export {Banner} from './Banner'
 export type {BannerProps} from './Banner'
+export {Blankslate} from './Blankslate'
+export type {
+  BlankslateActionProps,
+  BlankslateDescriptionProps,
+  BlankslateHeadingProps,
+  BlankslatePrimaryActionProps,
+  BlankslateProps,
+  BlankslateSecondaryActionProps,
+  BlankslateVisualProps,
+} from './Blankslate'
 
 export {default as BranchName} from './BranchName'
 export type {BranchNameProps} from './BranchName'

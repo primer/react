@@ -9,7 +9,15 @@
 'use client'
 
 export {Blankslate} from '../Blankslate'
-export type {BlankslateProps} from '../Blankslate'
+export type {
+  BlankslateActionProps,
+  BlankslateDescriptionProps,
+  BlankslateHeadingProps,
+  BlankslatePrimaryActionProps,
+  BlankslateProps,
+  BlankslateSecondaryActionProps,
+  BlankslateVisualProps,
+} from '../Blankslate'
 
 export {ButtonBase} from '../Button'
 export type {ButtonBaseProps} from '../Button'

@@ -4,7 +4,7 @@ import {Blankslate} from '../Blankslate'
 import {ConfirmationDialog} from '../ConfirmationDialog/ConfirmationDialog'
 
 export default {
-  title: 'Experimental/Components/Blankslate/Features',
+  title: 'Components/Blankslate/Features',
   component: Blankslate,
   subcomponents: {
     'Blankslate.Visual': Blankslate.Visual,
