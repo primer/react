@@ -10,7 +10,7 @@ const canUseDOM = (() => {
     return false
   }
 
-  return typeof (window as unknown as {document?: {createElement?: unknown}}).document?.createElement === 'function'
+  return typeof window.document.createElement === 'function'
 })()
 
 // Grab the major version from react. This could be formatted as any valid
