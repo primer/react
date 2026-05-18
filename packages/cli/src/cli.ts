@@ -1,4 +1,5 @@
 import {formatComponentInfo, formatComponentList, getComponentInfo, listComponents} from './components.js'
+import {formatIconInfo, formatIconList, getIconInfo, listIcons} from './icons.js'
 import {formatTokenInfo, formatTokenList, getTokenInfo, listTokens} from './tokens.js'
 
 interface GlobalOptions {
@@ -85,6 +86,38 @@ const commands: readonly Command[] = [
       }
 
       writeOutput(options.json ? formatJson(info) : formatTokenInfo(info))
+      return 0
+    },
+  },
+  {
+    name: 'icons list',
+    usage: 'primer icons list',
+    description: 'List icons in the @primer/octicons-react package.',
+    run: (_args, options) => {
+      const icons = listIcons()
+      writeOutput(options.json ? formatJson(icons) : formatIconList(icons))
+      return 0
+    },
+  },
+  {
+    name: 'icons get',
+    usage: 'primer icons get <name>',
+    description: 'Get docs and import info for an icon.',
+    run: (args, options) => {
+      const name = args.join(' ')
+      if (!name) {
+        writeError('Usage: primer icons get <name>')
+        return 1
+      }
+
+      const info = getIconInfo(name)
+      if (!info) {
+        writeError(`Unable to find an icon named "${name}" in @primer/octicons-react.`)
+        writeError('Run `primer icons list` for a list of icons.')
+        return 1
+      }
+
+      writeOutput(options.json ? formatJson(info) : formatIconInfo(info))
       return 0
     },
   },
