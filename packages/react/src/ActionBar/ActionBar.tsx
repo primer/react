@@ -9,7 +9,7 @@ import {ActionMenu} from '../ActionMenu'
 import {useFocusZone, FocusKeys} from '../hooks/useFocusZone'
 import styles from './ActionBar.module.css'
 import {clsx} from 'clsx'
-import {useRefObjectAsForwardedRef} from '../hooks'
+import {useMergedRefs} from '../hooks'
 import {createDescendantRegistry} from '../utils/descendant-registry'
 
 type ChildProps =
@@ -31,10 +31,8 @@ type ChildProps =
 
 const ActionBarContext = React.createContext<{
   size: Size
-  groupId?: string
 }>({
   size: 'medium',
-  groupId: undefined,
 })
 
 /*
@@ -237,7 +235,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = ({
         >
           <div className={styles.OverflowContainer}>
             {/* An empty first element allows the real first item to wrap to the next line and get clipped. */}
-            <div />
+            <div className={styles.OverflowSpacer} />
             <ActionBarItemsRegistry.Provider setRegistry={setChildRegistry}>{children}</ActionBarItemsRegistry.Provider>
           </div>
           <ActionMenu>
@@ -318,7 +316,11 @@ function useActionBarItem(ref: React.RefObject<HTMLElement | null>, registryProp
       // since the entire group overflows at once
       if (isInGroup) return () => {}
 
-      const observer = new IntersectionObserver(() => onChange(), {threshold: 1})
+      // Technically 1 should work as the threshold, but in some scenarios that
+      // doesn't seem to trigger correctly - probably because the browser still
+      // thinks a tiny bit of the button is not visible, since the container
+      // height is exactly the button height. So 75% should be more reliable.
+      const observer = new IntersectionObserver(() => onChange(), {threshold: 0.75})
 
       if (ref.current) observer.observe(ref.current)
       return () => observer.disconnect()
@@ -346,7 +348,7 @@ function useActionBarItem(ref: React.RefObject<HTMLElement | null>, registryProp
 export const ActionBarIconButton = forwardRef(
   ({disabled, onClick, ...props}: ActionBarIconButtonProps, forwardedRef) => {
     const ref = useRef<HTMLButtonElement>(null)
-    useRefObjectAsForwardedRef(forwardedRef, ref)
+    const mergedRef = useMergedRefs(forwardedRef, ref)
 
     const {size} = React.useContext(ActionBarContext)
 
@@ -377,7 +379,7 @@ export const ActionBarIconButton = forwardRef(
     return (
       <IconButton
         aria-disabled={disabled}
-        ref={ref}
+        ref={mergedRef}
         size={size}
         onClick={clickHandler}
         {...props}

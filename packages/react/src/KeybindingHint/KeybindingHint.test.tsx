@@ -7,6 +7,11 @@ import {implementsClassName} from '../utils/testing'
 describe('KeybindingHint', () => {
   implementsClassName(props => <KeybindingHint keys="Control" {...props} />)
 
+  it('renders data-component="KeybindingHint" on the root element', () => {
+    render(<KeybindingHint keys="Control" />)
+    expect(screen.getByTestId('keybinding-hint')).toHaveAttribute('data-component', 'KeybindingHint')
+  })
+
   it('renders condensed keys by default', () => {
     render(<KeybindingHint keys="Shift+Control+Function+PageUp" />)
     for (const icon of ['⇧', '⌃', 'Fn', 'PgUp']) {

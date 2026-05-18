@@ -285,7 +285,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   }, [overflowStyle, isOverflowShown])
 
   const isList = Component === 'ul' || Component === 'ol'
-  const ToggleWrapper = isList ? 'li' : React.Fragment
+  const ToggleWrapper = isList ? 'li' : 'span'
 
   const ItemWrapperComponent = isList ? 'li' : 'span'
 
@@ -296,6 +296,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
       data-overflow={overflowStyle === 'inline' && isOverflowShown ? 'inline' : undefined}
       data-list={isList || undefined}
       className={clsx(className, classes.Container)}
+      data-component="LabelGroup"
     >
       {React.Children.map(children, (child, index) => (
         <ItemWrapperComponent
@@ -309,7 +310,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
           {child}
         </ItemWrapperComponent>
       ))}
-      <ToggleWrapper>
+      <ToggleWrapper data-component="LabelGroup.Toggle">
         {overflowStyle === 'inline' ? (
           <InlineToggle
             collapseButtonRef={collapseButtonRef}
@@ -337,7 +338,12 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
       </ToggleWrapper>
     </Component>
   ) : (
-    <Component data-overflow="inline" data-list={isList || undefined} className={clsx(className, classes.Container)}>
+    <Component
+      data-overflow="inline"
+      data-list={isList || undefined}
+      className={clsx(className, classes.Container)}
+      data-component="LabelGroup"
+    >
       {isList
         ? React.Children.map(children, (child, index) => {
             return <li key={index}>{child}</li>

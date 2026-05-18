@@ -45,6 +45,7 @@ function Blankslate({border, children, narrow, spacious, className, size = 'medi
       <div {...rest} className={classes.Container}>
         <div
           className={clsx(classes.Blankslate, className)}
+          data-component="Blankslate"
           data-border={border ? '' : undefined}
           data-narrow={narrow ? '' : undefined}
           data-spacious={spacious ? '' : undefined}
@@ -61,7 +62,7 @@ type BlankslateVisualProps = React.HTMLAttributes<HTMLElement>
 
 function Visual({children, className, ...rest}: BlankslateVisualProps) {
   return (
-    <span {...rest} className={clsx('Blankslate-Visual', classes.Visual, className)}>
+    <span {...rest} className={clsx('Blankslate-Visual', classes.Visual, className)} data-component="Blankslate.Visual">
       {children}
     </span>
   )
@@ -73,7 +74,11 @@ type BlankslateHeadingProps = React.HTMLAttributes<HTMLElement> & {
 
 function Heading({as: Component = 'h2', children, className, ...rest}: BlankslateHeadingProps) {
   return (
-    <Component {...rest} className={clsx('Blankslate-Heading', classes.Heading, className)}>
+    <Component
+      {...rest}
+      className={clsx('Blankslate-Heading', classes.Heading, className)}
+      data-component="Blankslate.Heading"
+    >
       {children}
     </Component>
   )
@@ -83,7 +88,11 @@ type BlankslateDescriptionProps = React.HTMLAttributes<HTMLElement>
 
 function Description({children, className, ...rest}: BlankslateDescriptionProps) {
   return (
-    <p {...rest} className={clsx('Blankslate-Description', classes.Description, className)}>
+    <p
+      {...rest}
+      className={clsx('Blankslate-Description', classes.Description, className)}
+      data-component="Blankslate.Description"
+    >
       {children}
     </p>
   )
@@ -101,7 +110,7 @@ type BlankslatePrimaryActionProps =
 function PrimaryAction({children, href, ...props}: BlankslatePrimaryActionProps) {
   const {size} = useBlankslate()
   return (
-    <div className={clsx('Blankslate-Action', classes.Action)}>
+    <div className={clsx('Blankslate-Action', classes.Action)} data-component="Blankslate.PrimaryAction">
       <Button
         {...props}
         as={href ? 'a' : 'button'}
@@ -121,7 +130,7 @@ type BlankslateSecondaryActionProps = React.PropsWithChildren<{
 
 function SecondaryAction({children, href}: BlankslateSecondaryActionProps) {
   return (
-    <div className={clsx('Blankslate-Action', classes.Action)}>
+    <div className={clsx('Blankslate-Action', classes.Action)} data-component="Blankslate.SecondaryAction">
       <Link href={href}>{children}</Link>
     </div>
   )

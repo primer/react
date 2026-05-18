@@ -29,9 +29,25 @@ globalThis.ResizeObserver = vi.fn().mockImplementation(function () {
 
 describe('Breadcrumbs', () => {
   implementsClassName(Breadcrumbs, classes.BreadcrumbsBase)
+
   it('renders a <nav>', () => {
     const {container} = HTMLRender(<Breadcrumbs />)
     expect(container.firstChild?.nodeName).toEqual('NAV')
+  })
+
+  it('renders data-component attributes', () => {
+    const {container} = renderWithTheme(
+      <Breadcrumbs overflow="wrap">
+        <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/docs">Docs</Breadcrumbs.Item>
+      </Breadcrumbs>,
+    )
+
+    expect(container.querySelector('[data-component="Breadcrumbs"]')).toBeInTheDocument()
+
+    expect(
+      container.querySelector('[data-component="Breadcrumbs"] [data-component="Breadcrumbs.Item"]'),
+    ).toBeInTheDocument()
   })
 
   it('renders breadcrumb items correctly', () => {

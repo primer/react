@@ -281,6 +281,8 @@ export function usePaneWidth({
   const currentWidthRef = React.useRef(currentWidth)
   // Max width for ARIA - SSR uses custom max or a sensible default, updated on mount
   const [maxPaneWidth, setMaxPaneWidth] = React.useState(() => customMaxWidth ?? SSR_DEFAULT_MAX_WIDTH)
+  // Track last maxPaneWidth to skip redundant startTransition calls on resize (see #7801)
+  const maxPaneWidthRef = React.useRef(maxPaneWidth)
 
   // Keep currentWidthRef in sync with state (ref is used during drag to avoid re-renders)
   useIsomorphicLayoutEffect(() => {
@@ -365,13 +367,19 @@ export function usePaneWidth({
       // Update ARIA via DOM - cheap, no React re-render
       updateAriaValues(handleRef.current, {max: actualMax, current: currentWidthRef.current})
 
-      // Defer state updates so parent re-renders see accurate values
-      startTransition(() => {
-        setMaxPaneWidth(actualMax)
-        if (wasClamped) {
-          setCurrentWidthState(actualMax)
-        }
-      })
+      // Only trigger React re-render if values actually changed.
+      // startTransition doesn't bail out on same-value updates like normal setState,
+      // so we guard explicitly to avoid unnecessary re-renders on every resize tick. (#7801)
+      const maxChanged = actualMax !== maxPaneWidthRef.current
+      if (maxChanged || wasClamped) {
+        maxPaneWidthRef.current = actualMax
+        startTransition(() => {
+          setMaxPaneWidth(actualMax)
+          if (wasClamped) {
+            setCurrentWidthState(actualMax)
+          }
+        })
+      }
     }
 
     // Initial calculation on mount — use viewport-based lookup to avoid
@@ -379,6 +387,7 @@ export function usePaneWidth({
     // freshly-committed DOM tree (measured at ~614ms on large pages).
     maxWidthDiffRef.current = getMaxWidthDiffFromViewport()
     const initialMax = getMaxPaneWidthRef.current()
+    maxPaneWidthRef.current = initialMax
     setMaxPaneWidth(initialMax)
     paneRef.current?.style.setProperty('--pane-max-width', `${initialMax}px`)
     updateAriaValues(handleRef.current, {min: minPaneWidth, max: initialMax, current: currentWidthRef.current})

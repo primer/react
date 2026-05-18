@@ -36,7 +36,7 @@ export {useOverlay} from './hooks/useOverlay'
 export {useConfirm} from './ConfirmationDialog/ConfirmationDialog'
 export {useFocusTrap} from './hooks/useFocusTrap'
 export type {FocusTrapHookSettings} from './hooks/useFocusTrap'
-export {useFocusZone} from './hooks/useFocusZone'
+export {FocusKeys, useFocusZone} from './hooks/useFocusZone'
 export type {FocusZoneHookSettings} from './hooks/useFocusZone'
 export {useRefObjectAsForwardedRef} from './hooks/useRefObjectAsForwardedRef'
 export {useMergedRefs} from './hooks/useMergedRefs'
@@ -59,11 +59,14 @@ export {ActionList} from './ActionList'
 export type {
   ActionListProps,
   ActionListGroupProps,
+  ActionListGroupHeadingProps,
+  ActionListGroupHeadingTrailingActionProps,
   ActionListItemProps,
   ActionListLinkItemProps,
   ActionListDividerProps,
   ActionListDescriptionProps,
   ActionListLeadingVisualProps,
+  ActionListTrailingActionProps,
   ActionListTrailingVisualProps,
 } from './ActionList'
 export {ActionMenu} from './ActionMenu'
@@ -198,6 +201,7 @@ export {default as Textarea} from './Textarea'
 export type {TextareaProps} from './Textarea'
 
 export {TreeView} from './TreeView'
+export {useRovingTabIndex} from './TreeView/useRovingTabIndex'
 export type {
   TreeViewProps,
   TreeViewItemProps,

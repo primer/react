@@ -7,6 +7,11 @@ import classes from './Label.module.css'
 describe('Label', () => {
   implementsClassName(Label, classes.Label)
 
+  it('renders data-component="Label" on the root element', () => {
+    const {getByText} = render(<Label>Default</Label>)
+    expect(getByText('Default')).toHaveAttribute('data-component', 'Label')
+  })
+
   it('renders text node child', () => {
     const rendered = render(<Label>Default</Label>)
     expect(rendered.container.textContent).toEqual('Default')

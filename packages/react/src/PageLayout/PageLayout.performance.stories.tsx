@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {PageLayout} from './PageLayout'
+import {SplitPageLayout} from '../SplitPageLayout'
 import {Button} from '../Button'
 import Label from '../Label'
 import Heading from '../Heading'
@@ -532,6 +533,50 @@ export const KeyboardARIATest: Story = {
           </div>
         </PageLayout.Content>
       </PageLayout>
+    )
+  },
+}
+
+// ============================================================================
+// Story: Re-render test — reproduces unnecessary re-renders from usePaneWidth
+// https://github.com/primer/react/issues/7801
+// ============================================================================
+
+export const ResizablePaneReRenderCounter: Story = {
+  name: 'Re-render Counter',
+  render: () => {
+    return (
+      <SplitPageLayout>
+        <SplitPageLayout.Header>
+          <div style={{padding: '16px'}}>
+            <Heading as="h2">Re-render Test — Issue #7801</Heading>
+            <p style={{marginTop: '8px', fontSize: '14px', color: 'var(--fgColor-muted)'}}>
+              Open React DevTools Profiler, enable &quot;Highlight updates when components render&quot;, then resize the
+              browser window. Before the fix, all components re-render on every resize tick even when the computed max
+              width hasn&apos;t changed. After the fix, renders only happen when crossing the 1280px breakpoint or when
+              current width is clamped.
+            </p>
+          </div>
+        </SplitPageLayout.Header>
+
+        <SplitPageLayout.Pane position="start" resizable aria-label="Side pane">
+          <div style={{padding: '16px'}}>
+            <p>This pane is resizable. Try resizing the browser window.</p>
+          </div>
+        </SplitPageLayout.Pane>
+
+        <SplitPageLayout.Content>
+          <div style={{padding: '16px'}}>
+            <p>Content area — should not re-render on resize unless max width changes.</p>
+          </div>
+        </SplitPageLayout.Content>
+
+        <SplitPageLayout.Footer>
+          <div style={{padding: '16px'}}>
+            <p>Footer area.</p>
+          </div>
+        </SplitPageLayout.Footer>
+      </SplitPageLayout>
     )
   },
 }

@@ -7,6 +7,11 @@ import {implementsClassName} from '../../utils/testing'
 describe('Heading', () => {
   implementsClassName(Heading, classes.Heading)
 
+  it('renders data-component attribute', () => {
+    const {container} = render(<Heading />)
+    expect(container.firstChild).toHaveAttribute('data-component', 'Heading')
+  })
+
   it('renders <h2> by default', () => {
     const {container} = render(<Heading />)
     const heading = container.firstChild as HTMLElement

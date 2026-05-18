@@ -1,8 +1,11 @@
 import fs from 'node:fs'
+import path from 'node:path'
 import {parseSync, traverse, types as t} from '@babel/core'
 import type {Page} from '@playwright/test'
 import {kebabCase} from 'change-case'
 import {waitForImages} from './waitForImages'
+
+const AVATAR_IMAGE_PATH = path.join(__dirname, '../../packages/react/static/mock-avatar.png')
 
 type Value =
   | string
@@ -61,7 +64,7 @@ async function visit(page: Page, options: Options) {
 
   /** Mock live avatar urls to make them stable for visual diffing (vrt) */
   await page.route('https://github.com/*.png', async route => {
-    await route.continue({url: 'https://github.com/primer.png'})
+    await route.fulfill({path: AVATAR_IMAGE_PATH})
   })
 
   await page.goto(url.toString())
