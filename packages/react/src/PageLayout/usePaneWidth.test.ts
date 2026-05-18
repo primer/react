@@ -94,6 +94,8 @@ describe('usePaneWidth', () => {
         }),
       )
 
+      // The trailing mount sync now clamps restored widths to the current viewport max:
+      // 1280px viewport - 959px wide diff = 321px.
       expect(result.current.currentWidth).toBe(321)
     })
 
@@ -1090,7 +1092,8 @@ describe('usePaneWidth', () => {
       rerender({resizable: false})
       expect(result.current.currentWidth).toBe(400)
 
-      // Toggle back to resizable — picks up the preserved width
+      // Toggle back to resizable — the trailing sync re-applies the viewport clamp:
+      // 1280px viewport - 959px wide diff = 321px.
       rerender({resizable: true})
       expect(result.current.currentWidth).toBe(321)
     })
