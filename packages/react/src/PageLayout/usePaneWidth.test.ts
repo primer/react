@@ -894,19 +894,18 @@ describe('usePaneWidth', () => {
         window.dispatchEvent(new Event('resize'))
       }
 
-      // Advance only the rAF (DOM-only, no React) — startTransition must NOT be called yet
+      // Advance well past one rAF frame (~16ms) but before the 150ms debounce.
+      // This flushes DOM-only rAF callbacks without triggering the gesture-end commit.
       await act(async () => {
-        await vi.runAllImmediateAsync?.()
-        // Flush pending rAF callbacks without advancing the debounce timer
-        await vi.advanceTimersByTimeAsync(0)
+        await vi.advanceTimersByTimeAsync(149)
       })
 
       // No React commits should have happened during the resize frames
       expect(startTransitionSpy).not.toHaveBeenCalled()
 
-      // Now let the debounce fire — this is the single commit for the whole gesture
+      // Advance the remaining 1ms — fires the debounce, the single commit for the whole gesture
       await act(async () => {
-        await vi.advanceTimersByTimeAsync(150)
+        await vi.advanceTimersByTimeAsync(1)
       })
 
       // Exactly one startTransition call at gesture end
