@@ -1,6 +1,7 @@
 {
   "name": "@primer/cli",
   "description": "A command line interface for querying information about Primer",
+  "private": true,
   "version": "0.0.0",
   "type": "module",
   "bin": {
