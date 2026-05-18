@@ -897,11 +897,12 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           {...(id && {id: paneId})}
           className={classes.Pane}
           data-resizable={resizable || undefined}
+          data-constrain-to-viewport={isCustomWidthOptions(width) ? 'false' : undefined}
           style={
             {
               '--spacing': `var(--spacing-${padding})`,
               '--pane-min-width': isCustomWidthOptions(width) ? width.min : `${minWidth}px`,
-              '--pane-max-width': isCustomWidthOptions(width) ? width.max : `calc(100vw - var(--pane-max-width-diff))`,
+              '--pane-max-width': isCustomWidthOptions(width) ? width.max : 'var(--page-layout-viewport-width)',
               '--pane-width-custom': isCustomWidthOptions(width) ? width.default : undefined,
               '--pane-width-size': `var(--pane-width-${isPaneWidth(width) ? width : 'custom'})`,
               '--pane-width': `${currentWidth}px`,
@@ -1201,13 +1202,12 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
           {...(id && {id: sidebarId})}
           className={classes.Sidebar}
           data-resizable={resizable || undefined}
+          data-constrain-to-viewport={isCustomWidthOptions(width) ? 'true' : undefined}
           style={
             {
               '--spacing': `var(--spacing-${padding})`,
               '--pane-min-width': isCustomWidthOptions(width) ? width.min : `${minWidth}px`,
-              '--pane-max-width': isCustomWidthOptions(width)
-                ? width.max
-                : `calc(100vw - var(--sidebar-max-width-diff))`,
+              '--pane-max-width': isCustomWidthOptions(width) ? width.max : 'var(--page-layout-viewport-width)',
               '--pane-width-custom': isCustomWidthOptions(width) ? width.default : undefined,
               '--pane-width-size': `var(--pane-width-${isPaneWidth(width) ? width : 'custom'})`,
               '--pane-width': `${currentWidth}px`,
