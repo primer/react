@@ -14,6 +14,24 @@ import {
   ARROW_KEY_STEP,
 } from './usePaneWidth'
 
+// Spy on React.startTransition to verify it's not called unnecessarily on resize.
+// The spy calls through to the real implementation so all other tests are unaffected.
+const {startTransitionSpy} = vi.hoisted(() => ({
+  startTransitionSpy: vi.fn(),
+}))
+vi.mock('react', async importOriginal => {
+  const actual = (await importOriginal()) as Record<string, unknown> & {
+    startTransition: (...args: [callback: () => void]) => void
+  }
+  return {
+    ...actual,
+    startTransition: (...args: [callback: () => void]) => {
+      startTransitionSpy(...args)
+      return actual.startTransition(...args)
+    },
+  }
+})
+
 // Mock refs for hook testing
 const createMockRefs = () => ({
   paneRef: {current: document.createElement('div')} as React.RefObject<HTMLDivElement>,
@@ -849,6 +867,36 @@ describe('usePaneWidth', () => {
 
       // State now reflects new max: 800 - 511 = 289
       expect(result.current.maxPaneWidth).toBe(289)
+
+      vi.useRealTimers()
+    })
+
+    it('should skip startTransition when maxPaneWidth has not changed', async () => {
+      vi.useFakeTimers()
+      vi.stubGlobal('innerWidth', 900)
+      const refs = createMockRefs()
+
+      renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-skip-transition',
+          ...refs,
+        }),
+      )
+
+      // Clear any startTransition calls from mount / initial render
+      startTransitionSpy.mockClear()
+
+      // Dispatch resize without changing viewport (same max = same value)
+      window.dispatchEvent(new Event('resize'))
+      await act(async () => {
+        await vi.runAllTimersAsync()
+      })
+
+      // startTransition should NOT have been called — the guard should prevent it
+      expect(startTransitionSpy).not.toHaveBeenCalled()
 
       vi.useRealTimers()
     })

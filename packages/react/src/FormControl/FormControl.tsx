@@ -192,6 +192,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
             data-has-leading-visual={slots.leadingVisual ? '' : undefined}
             className={clsx(className, classes.ControlHorizontalLayout)}
             style={style}
+            data-component="FormControl"
           >
             {InputChildren}
           </div>
@@ -201,6 +202,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
             data-has-label={!isLabelHidden ? '' : undefined}
             className={clsx(className, classes.ControlVerticalLayout)}
             style={style}
+            data-component="FormControl"
           >
             {slots.label}
             {React.isValidElement(InputComponent) &&
