@@ -1,8 +1,9 @@
 import {clsx} from 'clsx'
 import React, {forwardRef} from 'react'
 import classes from './Card.module.css'
+import {warning} from '../utils/warning'
 
-export type CardProps = React.ComponentPropsWithoutRef<'div'> & {
+export type CardProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> & {
   /**
    * Provide an optional className to add to the outermost element rendered by
    * the Card
@@ -20,6 +21,16 @@ export type CardProps = React.ComponentPropsWithoutRef<'div'> & {
    * @default 'large'
    */
   borderRadius?: 'medium' | 'large'
+
+  /**
+   * The contents of the card. Provide either `Card.*` subcomponents (for
+   * example `Card.Heading`, `Card.Description`, `Card.Metadata`) or any
+   * custom content.
+   *
+   * A card with no children will not render — at least one meaningful
+   * child is required.
+   */
+  children: React.ReactNode
 }
 
 type HeadingLevel = 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
@@ -33,6 +44,10 @@ type HeadingProps = React.ComponentPropsWithoutRef<'h3'> & {
 }
 
 type DescriptionProps = React.ComponentPropsWithoutRef<'p'> & {
+  /**
+   * The descriptive text for the card. Rendered inside a `<p>` element so
+   * should be flowing text content.
+   */
   children: React.ReactNode
 }
 
@@ -60,10 +75,23 @@ type ImageProps = React.ComponentPropsWithoutRef<'img'> & {
 }
 
 type MenuProps = {
+  /**
+   * The interactive control(s) to render in the top-right corner of the card,
+   * typically a single `IconButton` or `ActionMenu` trigger. When a card
+   * contains a menu, make sure the control's accessible name includes enough
+   * context to distinguish it from other cards (for example,
+   * `Options for Project Alpha` rather than just `Options`).
+   */
   children: React.ReactNode
 }
 
 type MetadataProps = React.ComponentPropsWithoutRef<'div'> & {
+  /**
+   * The metadata content to render at the bottom of the card. Accepts any
+   * content, including plain text, icons, and other Primer components (for
+   * example a `Label`, `Octicon`, or any combination). Avoid using
+   * `RelativeTime` until its outstanding accessibility issues are resolved.
+   */
   children: React.ReactNode
 }
 
@@ -100,11 +128,26 @@ const CardImpl = forwardRef<HTMLDivElement, CardProps>(function Card(
 
   const hasSlotChildren = icon || image || heading || description || metadata || menu
 
+  // `React.Children.toArray` already filters out `null`, `undefined`, `false`,
+  // and `true`, so if the resulting array is empty there is nothing
+  // meaningful to render. The component should not render in that case.
+  const isEmpty = !hasSlotChildren && childArray.length === 0
+
+  warning(
+    isEmpty,
+    'The <Card> component was rendered with no children and will not render. Provide either Card subcomponents (Card.Heading, Card.Description, etc.) or custom content.',
+  )
+
+  if (isEmpty) {
+    return null
+  }
+
   if (!hasSlotChildren) {
     return (
       <div
         ref={ref}
         className={clsx(classes.Card, className)}
+        data-component="Card"
         data-padding={padding}
         data-border-radius={borderRadius}
         {...rest}
@@ -118,6 +161,7 @@ const CardImpl = forwardRef<HTMLDivElement, CardProps>(function Card(
     <div
       ref={ref}
       className={clsx(classes.Card, className)}
+      data-component="Card"
       data-padding={padding}
       data-border-radius={borderRadius}
       {...rest}
@@ -141,6 +185,7 @@ const CardIcon = ({icon: IconComponent, 'aria-label': ariaLabel, className}: Ico
   return (
     <span
       className={clsx(classes.CardIcon, className)}
+      data-component="Card.Icon"
       role={ariaLabel ? 'img' : undefined}
       aria-label={ariaLabel}
       aria-hidden={!ariaLabel}
@@ -153,7 +198,9 @@ const CardIcon = ({icon: IconComponent, 'aria-label': ariaLabel, className}: Ico
 CardIcon.displayName = 'Card.Icon'
 
 const CardImage = ({src, alt = '', className, ...rest}: ImageProps) => {
-  return <img src={src} alt={alt} className={clsx(classes.CardImage, className)} {...rest} />
+  return (
+    <img src={src} alt={alt} className={clsx(classes.CardImage, className)} data-component="Card.Image" {...rest} />
+  )
 }
 
 CardImage.displayName = 'Card.Image'
@@ -163,7 +210,7 @@ const CardHeading = forwardRef<HTMLHeadingElement, HeadingProps>(function CardHe
   ref,
 ) {
   return (
-    <Component ref={ref} className={clsx(classes.CardHeading, className)} {...rest}>
+    <Component ref={ref} className={clsx(classes.CardHeading, className)} data-component="Card.Heading" {...rest}>
       {children}
     </Component>
   )
@@ -174,14 +221,28 @@ const CardDescription = forwardRef<HTMLParagraphElement, DescriptionProps>(funct
   ref,
 ) {
   return (
-    <p ref={ref} className={clsx(classes.CardDescription, className)} {...rest}>
+    <p ref={ref} className={clsx(classes.CardDescription, className)} data-component="Card.Description" {...rest}>
       {children}
     </p>
   )
 })
 
+/**
+ * Renders an interactive control (or controls) positioned at the top-right
+ * corner of the card. `Card.Menu` is intended for a single action trigger
+ * such as an `IconButton` or `ActionMenu` anchor.
+ *
+ * Accessibility:
+ * - The trigger's accessible name should include enough context to
+ *   distinguish it from triggers in other cards (for example,
+ *   `"More options for Project Alpha"` rather than just `"More options"`),
+ *   because lists of cards often share identical control labels.
+ * - Avoid placing multiple interactive controls inside `Card.Menu`.
+ *   If a card needs multiple actions, expose them inside an `ActionMenu`
+ *   overlay so they remain reachable in a predictable focus order.
+ */
 const CardMenu = ({children}: MenuProps) => {
-  return <>{children}</>
+  return <div data-component="Card.Menu">{children}</div>
 }
 
 CardMenu.displayName = 'Card.Menu'
@@ -191,7 +252,7 @@ const CardMetadata = forwardRef<HTMLDivElement, MetadataProps>(function CardMeta
   ref,
 ) {
   return (
-    <div ref={ref} className={clsx(classes.CardMetadataItem, className)} {...rest}>
+    <div ref={ref} className={clsx(classes.CardMetadataItem, className)} data-component="Card.Metadata" {...rest}>
       {children}
     </div>
   )

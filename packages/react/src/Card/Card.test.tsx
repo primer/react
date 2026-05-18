@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it, vi} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import {Card} from '../Card'
 import {implementsClassName} from '../utils/testing'
@@ -7,7 +7,14 @@ import classes from './Card.module.css'
 const TestIcon = () => <svg data-testid="test-icon" aria-hidden="true" />
 
 describe('Card', () => {
-  implementsClassName(props => <Card {...props} />, classes.Card)
+  implementsClassName(
+    props => (
+      <Card {...props}>
+        <Card.Heading>Card Heading</Card.Heading>
+      </Card>
+    ),
+    classes.Card,
+  )
 
   it('should render a Card with heading and description', () => {
     render(
@@ -170,5 +177,67 @@ describe('Card', () => {
       </Card>,
     )
     expect(container.firstChild).toHaveAttribute('data-border-radius', 'medium')
+  })
+
+  it('should set data-component attributes on Card and its subcomponents', () => {
+    const {container} = render(
+      <Card>
+        <Card.Icon icon={TestIcon} />
+        <Card.Heading>With data-component</Card.Heading>
+        <Card.Description>Description text</Card.Description>
+        <Card.Metadata>Metadata text</Card.Metadata>
+        <Card.Menu>
+          <button type="button">Options</button>
+        </Card.Menu>
+      </Card>,
+    )
+    expect(container.querySelector('[data-component="Card"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="Card.Icon"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="Card.Heading"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="Card.Description"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="Card.Metadata"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="Card.Menu"]')).toBeInTheDocument()
+  })
+
+  it('should set data-component="Card.Image" on Card.Image', () => {
+    const {container} = render(
+      <Card>
+        <Card.Image src="https://example.com/image.png" alt="" />
+        <Card.Heading>With Image</Card.Heading>
+      </Card>,
+    )
+    expect(container.querySelector('[data-component="Card.Image"]')).toBeInTheDocument()
+  })
+
+  it('should set data-component="Card" on custom content cards', () => {
+    const {container} = render(
+      <Card>
+        <p>Custom</p>
+      </Card>,
+    )
+    expect(container.querySelector('[data-component="Card"]')).toBeInTheDocument()
+  })
+
+  it('should not render when there are no children', () => {
+    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    // @ts-expect-error - children is required, but we want to verify the runtime behaviour
+    const {container} = render(<Card />)
+    expect(container).toBeEmptyDOMElement()
+    consoleSpy.mockRestore()
+  })
+
+  it('should not render when all children are falsy', () => {
+    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    const {container} = render(<Card>{false}</Card>)
+    expect(container).toBeEmptyDOMElement()
+    consoleSpy.mockRestore()
+  })
+
+  it('should warn in development when rendered with no children', () => {
+    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    // @ts-expect-error - children is required, but we want to verify the dev warning
+    render(<Card />)
+    expect(consoleSpy).toHaveBeenCalledWith('Warning:', expect.stringContaining('was rendered with no children'))
+    consoleSpy.mockRestore()
   })
 })

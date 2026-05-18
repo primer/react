@@ -13,9 +13,18 @@
     },
     {
       "id": "experimental-components-card-features--with-metadata"
+    },
+    {
+      "id": "experimental-components-card-features--with-menu"
     }
   ],
   "props": [
+    {
+      "name": "children",
+      "type": "React.ReactNode",
+      "required": true,
+      "description": "The contents of the card. Provide either `Card.*` subcomponents (for example `Card.Heading`, `Card.Description`, `Card.Metadata`) or any custom content. A card with no children will not render."
+    },
     {
       "name": "className",
       "type": "string",
@@ -79,15 +88,36 @@
     },
     {
       "name": "Card.Description",
-      "props": []
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "The descriptive text for the card. Rendered inside a `<p>` element so should be flowing text content."
+        }
+      ]
     },
     {
       "name": "Card.Menu",
-      "props": []
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "The interactive control(s) to render in the top-right corner of the card, typically a single `IconButton` or `ActionMenu` trigger. When a card contains a menu, make sure the control's accessible name includes enough context to distinguish it from other cards (for example, 'Options for Project Alpha' rather than just 'Options')."
+        }
+      ]
     },
     {
       "name": "Card.Metadata",
-      "props": []
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "The metadata content to render at the bottom of the card. Accepts any content, including plain text, icons, and other Primer components (for example a `Label`, `Octicon`, or any combination). Avoid using `RelativeTime` until its outstanding accessibility issues are resolved."
+        }
+      ]
     }
   ]
 }
