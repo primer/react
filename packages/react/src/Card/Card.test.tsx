@@ -240,4 +240,66 @@ describe('Card', () => {
     expect(consoleSpy).toHaveBeenCalledWith('Warning:', expect.stringContaining('was rendered with no children'))
     consoleSpy.mockRestore()
   })
+
+  it('should render as a <div> by default', () => {
+    const {container} = render(
+      <Card>
+        <Card.Heading>Default Element</Card.Heading>
+      </Card>,
+    )
+    expect(container.firstChild?.nodeName).toBe('DIV')
+  })
+
+  it('should render as a <section> when as="section"', () => {
+    const {container} = render(
+      <Card as="section" aria-label="Standalone card">
+        <Card.Heading>Standalone</Card.Heading>
+        <Card.Description>This card is standalone.</Card.Description>
+      </Card>,
+    )
+    expect(container.firstChild?.nodeName).toBe('SECTION')
+    expect(container.firstChild).toHaveAttribute('aria-label', 'Standalone card')
+  })
+
+  it('should expose the section as a labelled region landmark', () => {
+    render(
+      <Card as="section" aria-labelledby="standalone-heading">
+        <Card.Heading id="standalone-heading">Standalone</Card.Heading>
+        <Card.Description>This card is standalone.</Card.Description>
+      </Card>,
+    )
+    expect(screen.getByRole('region', {name: 'Standalone'})).toBeInTheDocument()
+  })
+
+  it('should warn in development when as="section" is used without an accessible name', () => {
+    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    render(
+      // @ts-expect-error - aria-label or aria-labelledby is required, but we want to verify the dev warning
+      <Card as="section">
+        <Card.Heading>No accessible name</Card.Heading>
+      </Card>,
+    )
+    expect(consoleSpy).toHaveBeenCalledWith('Warning:', expect.stringContaining('requires either `aria-label`'))
+    consoleSpy.mockRestore()
+  })
+
+  it('should not warn when as="section" is used with aria-label', () => {
+    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    render(
+      <Card as="section" aria-label="Standalone card">
+        <Card.Heading>Heading</Card.Heading>
+      </Card>,
+    )
+    expect(consoleSpy).not.toHaveBeenCalled()
+    consoleSpy.mockRestore()
+  })
+
+  it('should not forward the `as` prop to the DOM', () => {
+    const {container} = render(
+      <Card as="section" aria-label="Standalone card">
+        <Card.Heading>Heading</Card.Heading>
+      </Card>,
+    )
+    expect(container.firstChild).not.toHaveAttribute('as')
+  })
 })

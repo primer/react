@@ -3,7 +3,7 @@ import React, {forwardRef} from 'react'
 import classes from './Card.module.css'
 import {warning} from '../utils/warning'
 
-export type CardProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> & {
+type BaseCardProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> & {
   /**
    * Provide an optional className to add to the outermost element rendered by
    * the Card
@@ -32,6 +32,31 @@ export type CardProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> 
    */
   children: React.ReactNode
 }
+
+/**
+ * Card rendered as a `<div>` — the default. Use this variant when the Card
+ * is inside an `<li>` of a list of cards: the surrounding list already
+ * provides grouping, so no additional landmark is needed. Do **not** use
+ * `Card.Heading` in this context — screen readers handle list items and
+ * headings as separate navigation modes, and combining them produces a
+ * confusing experience.
+ */
+type DivCardProps = BaseCardProps & {
+  as?: 'div'
+}
+
+/**
+ * Card rendered as a `<section>` — use this variant for standalone Cards
+ * that are **not** part of a list of cards. The `<section>` becomes a
+ * labelled region landmark for screen-reader users, so an accessible name
+ * is required via either `aria-label` or `aria-labelledby` (typically
+ * referencing the id of the `Card.Heading`).
+ */
+type SectionCardProps = BaseCardProps & {
+  as: 'section'
+} & ({'aria-label': string} | {'aria-labelledby': string})
+
+export type CardProps = DivCardProps | SectionCardProps
 
 type HeadingLevel = 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
@@ -95,10 +120,24 @@ type MetadataProps = React.ComponentPropsWithoutRef<'div'> & {
   children: React.ReactNode
 }
 
-const CardImpl = forwardRef<HTMLDivElement, CardProps>(function Card(
-  {children, className, padding = 'normal', borderRadius = 'large', ...rest},
-  ref,
-) {
+const CardImpl = forwardRef<HTMLDivElement, CardProps>(function Card(props, ref) {
+  // `as` is destructured separately (rather than in the main destructure) so
+  // TypeScript can still narrow the rest of the discriminated union when we
+  // need to read aria attributes below.
+  const {
+    children,
+    className,
+    padding = 'normal',
+    borderRadius = 'large',
+    as = 'div',
+    ...rest
+  } = props as BaseCardProps & {
+    as?: 'div' | 'section'
+    'aria-label'?: string
+    'aria-labelledby'?: string
+  }
+  const Component = as
+
   let icon: React.ReactNode = null
   let image: React.ReactNode = null
   let heading: React.ReactNode = null
@@ -138,14 +177,23 @@ const CardImpl = forwardRef<HTMLDivElement, CardProps>(function Card(
     'The <Card> component was rendered with no children and will not render. Provide either Card subcomponents (Card.Heading, Card.Description, etc.) or custom content.',
   )
 
+  // When rendered as a <section>, the Card must have an accessible name so
+  // screen-reader users can identify the labelled region.
+  const ariaLabel = (rest as {'aria-label'?: string})['aria-label']
+  const ariaLabelledby = (rest as {'aria-labelledby'?: string})['aria-labelledby']
+  warning(
+    as === 'section' && !ariaLabel && !ariaLabelledby,
+    'The <Card> component used with `as="section"` requires either `aria-label` or `aria-labelledby` so screen-reader users can identify the labelled region. Typically `aria-labelledby` should reference the id of the `Card.Heading`.',
+  )
+
   if (isEmpty) {
     return null
   }
 
   if (!hasSlotChildren) {
     return (
-      <div
-        ref={ref}
+      <Component
+        ref={ref as React.Ref<HTMLDivElement & HTMLElement>}
         className={clsx(classes.Card, className)}
         data-component="Card"
         data-padding={padding}
@@ -153,13 +201,13 @@ const CardImpl = forwardRef<HTMLDivElement, CardProps>(function Card(
         {...rest}
       >
         {children}
-      </div>
+      </Component>
     )
   }
 
   return (
-    <div
-      ref={ref}
+    <Component
+      ref={ref as React.Ref<HTMLDivElement & HTMLElement>}
       className={clsx(classes.Card, className)}
       data-component="Card"
       data-padding={padding}
@@ -177,7 +225,7 @@ const CardImpl = forwardRef<HTMLDivElement, CardProps>(function Card(
         {metadata ? <div className={classes.CardMetadataContainer}>{metadata}</div> : null}
       </div>
       {menu ? <div className={classes.CardMenu}>{menu}</div> : null}
-    </div>
+    </Component>
   )
 })
 
@@ -205,6 +253,19 @@ const CardImage = ({src, alt = '', className, ...rest}: ImageProps) => {
 
 CardImage.displayName = 'Card.Image'
 
+/**
+ * Heading shown at the top of a Card.
+ *
+ * Accessibility:
+ * - Use only on **standalone** Cards (those rendered with `as="section"`).
+ *   When the Card is inside an `<li>` in a list of cards, the surrounding
+ *   list already provides grouping; adding a heading produces a confusing
+ *   experience for screen-reader users, who handle list items and headings
+ *   as separate navigation modes.
+ * - Pair with `aria-labelledby` on the parent `Card` (referencing the
+ *   heading's `id`) so the section landmark uses the visible heading as
+ *   its accessible name.
+ */
 const CardHeading = forwardRef<HTMLHeadingElement, HeadingProps>(function CardHeading(
   {as: Component = 'h3', children, className, ...rest},
   ref,

@@ -1,6 +1,6 @@
 import type {Meta} from '@storybook/react-vite'
-import {KebabHorizontalIcon, RepoIcon, StarIcon} from '@primer/octicons-react'
-import {ActionList, ActionMenu, IconButton} from '..'
+import {KebabHorizontalIcon, RepoIcon, RepoForkedIcon, StarIcon} from '@primer/octicons-react'
+import {ActionList, ActionMenu, Button, IconButton, VisuallyHidden} from '..'
 import {Card} from './index'
 import classes from './Card.stories.module.css'
 
@@ -83,3 +83,82 @@ export const CustomContent = () => (
     </div>
   </Card>
 )
+
+export const StandaloneSection = () => (
+  <Card as="section" aria-labelledby="standalone-card-heading">
+    <Card.Icon icon={RepoIcon} />
+    <Card.Heading id="standalone-card-heading">primer/react</Card.Heading>
+    <Card.Description>
+      {
+        "Standalone cards render as a labelled <section> landmark. The Card.Heading's id is referenced via aria-labelledby so screen readers announce the heading as the section's accessible name."
+      }
+    </Card.Description>
+  </Card>
+)
+
+export const InList = () => (
+  <ul className={classes.CardList} aria-label="Repositories">
+    <li>
+      <Card>
+        <Card.Icon icon={RepoIcon} />
+        <Card.Description>primer/react</Card.Description>
+        <Card.Metadata>
+          <StarIcon size={16} />
+          1.2k stars
+        </Card.Metadata>
+      </Card>
+    </li>
+    <li>
+      <Card>
+        <Card.Icon icon={RepoIcon} />
+        <Card.Description>primer/css</Card.Description>
+        <Card.Metadata>
+          <StarIcon size={16} />
+          850 stars
+        </Card.Metadata>
+      </Card>
+    </li>
+    <li>
+      <Card>
+        <Card.Icon icon={RepoIcon} />
+        <Card.Description>primer/octicons</Card.Description>
+        <Card.Metadata>
+          <StarIcon size={16} />
+          2.1k stars
+        </Card.Metadata>
+      </Card>
+    </li>
+  </ul>
+)
+
+/**
+ * When several Cards share the same interactive controls (for example "Star"
+ * or "Fork" buttons in a list of repositories), the controls' accessible
+ * names must include enough context to distinguish one card's action from
+ * another's. This story uses `VisuallyHidden` to append the repo name to
+ * each button's accessible name — a common pattern across GitHub.
+ */
+export const InteractiveContent = () => {
+  const repos = [{name: 'primer/react'}, {name: 'primer/css'}, {name: 'primer/octicons'}]
+
+  return (
+    <ul className={classes.CardList} aria-label="Repositories">
+      {repos.map(repo => (
+        <li key={repo.name}>
+          <Card>
+            <Card.Icon icon={RepoIcon} />
+            <Card.Description>{repo.name}</Card.Description>
+            <Card.Metadata>
+              <Button leadingVisual={StarIcon} size="small">
+                Star <VisuallyHidden>{repo.name}</VisuallyHidden>
+              </Button>
+              <Button leadingVisual={RepoForkedIcon} size="small">
+                Fork <VisuallyHidden>{repo.name}</VisuallyHidden>
+              </Button>
+            </Card.Metadata>
+          </Card>
+        </li>
+      ))}
+    </ul>
+  )
+}
