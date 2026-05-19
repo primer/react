@@ -3,6 +3,7 @@ import {clsx} from 'clsx'
 import React, {type JSX} from 'react'
 import Text from '../Text'
 import VisuallyHidden from '../_VisuallyHidden'
+import TextInput from '../TextInput'
 import type {Column, CellAlignment} from './column'
 import type {UniqueRow} from './row'
 import {SortDirection} from './sorting'
@@ -312,6 +313,118 @@ function TableSubtitle({as: BaseComponent = 'div', children, id}: TableSubtitleP
   )
 }
 
+// ----------------------------------------------------------------------------
+// TableFilterRow
+// ----------------------------------------------------------------------------
+
+export type TableFilterCellInputProps = {
+  /** Unique column identifier (matches `Column.id` or `Column.field`) */
+  columnId: string
+
+  /** Current filter value for this column */
+  value: string
+
+  /** Called when the filter value changes */
+  onChange: (value: string) => void
+
+  /** Accessible label for the input (defaults to "Filter {header}") */
+  'aria-label': string
+
+  /** Placeholder text (defaults to "Filter") */
+  placeholder?: string
+}
+
+/**
+ * Renders a single filter `<input>` for a column. Provided as a public
+ * primitive so consumers composing their own `<Table.Head>` can render the
+ * filter row themselves while still benefiting from the standard styling.
+ */
+function TableFilterCellInput({
+  columnId,
+  value,
+  onChange,
+  'aria-label': label,
+  placeholder = 'Filter',
+}: TableFilterCellInputProps) {
+  return (
+    <TextInput
+      className={clsx('TableFilterInput', classes.TableFilterInput)}
+      size="small"
+      value={value}
+      placeholder={placeholder}
+      aria-label={label}
+      data-column-id={columnId}
+      data-component="Table.FilterCellInput"
+      onChange={event => onChange(event.target.value)}
+    />
+  )
+}
+
+export type TableFilterRowProps<Data extends UniqueRow> = {
+  /**
+   * Headers from `useTable` — the row renders an input only for columns that
+   * report `isFilterable() === true`; the rest get an empty cell so the grid
+   * layout stays aligned.
+   */
+  headers: Array<{
+    id: string
+    column: Column<Data>
+    isFilterable: () => boolean
+  }>
+
+  /** Current filter state, keyed by column id */
+  filters: Record<string, string>
+
+  /** Called when a column's filter value changes */
+  onChange: (columnId: string, value: string) => void
+
+  /** Placeholder text for the inputs (defaults to "Filter") */
+  placeholder?: string
+}
+
+function TableFilterRow<Data extends UniqueRow>({headers, filters, onChange, placeholder}: TableFilterRowProps<Data>) {
+  return (
+    <tr
+      className={clsx('TableRow', 'TableFilterRow', classes.TableRow, classes.TableFilterRow)}
+      role="row"
+      data-component="Table.FilterRow"
+    >
+      {headers.map(header => {
+        if (!header.isFilterable()) {
+          // Purely decorative cell that keeps the grid layout aligned for
+          // non-filterable columns. Left without children so screen readers
+          // surface nothing meaningful for it.
+          return (
+            <td
+              key={`${header.id}-filter`}
+              className={clsx('TableFilterCell', classes.TableFilterCell)}
+              data-component="Table.FilterCell"
+            />
+          )
+        }
+        const label = typeof header.column.header === 'string' ? header.column.header : header.id
+        return (
+          <th
+            key={`${header.id}-filter`}
+            className={clsx('TableHeader', 'TableFilterCell', classes.TableHeader, classes.TableFilterCell)}
+            role="columnheader"
+            scope="col"
+            data-component="Table.FilterCell"
+          >
+            <TableFilterCellInput
+              columnId={header.id}
+              value={filters[header.id] ?? ''}
+              onChange={value => onChange(header.id, value)}
+              aria-label={`Filter ${label}`}
+              placeholder={placeholder}
+            />
+          </th>
+        )
+      })}
+    </tr>
+  )
+}
+
 function TableDivider() {
   return (
     <div className={clsx('TableDivider', classes.TableDivider)} role="presentation" data-component="Table.Divider" />
@@ -407,4 +520,6 @@ export {
   TableCell,
   TableCellPlaceholder,
   TableSkeleton,
+  TableFilterRow,
+  TableFilterCellInput,
 }

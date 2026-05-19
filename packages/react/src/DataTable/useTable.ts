@@ -2,6 +2,7 @@ import {useState} from 'react'
 import type {Column} from './column'
 import type {UniqueRow} from './row'
 import {DEFAULT_SORT_DIRECTION, SortDirection, transition, strategies} from './sorting'
+import {matches as filterMatches} from './filtering'
 import type {ObjectPathValue} from './utils'
 
 interface TableConfig<Data extends UniqueRow> {
@@ -10,7 +11,11 @@ interface TableConfig<Data extends UniqueRow> {
   initialSortColumn?: string | number
   initialSortDirection?: Exclude<SortDirection, 'NONE'>
   externalSorting?: boolean
+  externalFiltering?: boolean
   getRowId: (rowData: Data) => string | number
+  filters?: Record<string, string>
+  defaultFilters?: Record<string, string>
+  onFilterChange?: (filters: Record<string, string>) => void
 }
 
 interface Table<Data extends UniqueRow> {
@@ -18,7 +23,12 @@ interface Table<Data extends UniqueRow> {
   rows: Array<Row<Data>>
   actions: {
     sortBy: (header: Header<Data>) => void
+    setFilter: (columnId: string, value: string) => void
+    clearFilters: () => void
   }
+  filters: Record<string, string>
+  filteredRowCount: number
+  totalRowCount: number
   gridTemplateColumns: React.CSSProperties['gridTemplateColumns']
 }
 
@@ -26,6 +36,7 @@ interface Header<Data extends UniqueRow> {
   id: string
   column: Column<Data>
   isSortable: () => boolean
+  isFilterable: () => boolean
   getSortDirection: () => SortDirection | Exclude<SortDirection, 'NONE'>
 }
 
@@ -50,7 +61,11 @@ export function useTable<Data extends UniqueRow>({
   initialSortColumn,
   initialSortDirection,
   externalSorting,
+  externalFiltering,
   getRowId,
+  filters: controlledFilters,
+  defaultFilters,
+  onFilterChange,
 }: TableConfig<Data>): Table<Data> {
   const [rowOrder, setRowOrder] = useState(data)
   const [prevData, setPrevData] = useState(data)
@@ -58,6 +73,9 @@ export function useTable<Data extends UniqueRow>({
   const [sortByColumn, setSortByColumn] = useState<ColumnSortState>(() => {
     return getInitialSortState(columns, initialSortColumn, initialSortDirection)
   })
+  const isControlledFilters = controlledFilters !== undefined
+  const [uncontrolledFilters, setUncontrolledFilters] = useState<Record<string, string>>(defaultFilters ?? {})
+  const filters = isControlledFilters ? (controlledFilters as Record<string, string>) : uncontrolledFilters
   const {gridTemplateColumns} = useTableLayout(columns)
 
   // Reset the `sortByColumn` state if the columns change and that column is no
@@ -73,6 +91,19 @@ export function useTable<Data extends UniqueRow>({
         setSortByColumn(null)
       }
     }
+    // Also prune any uncontrolled filter entries whose column is gone.
+    // Doing this during the same `columns !== prevColumns` branch keeps the
+    // state derivation in one place and avoids the cascade of an effect-based
+    // cleanup. Controlled consumers manage their own state and are skipped.
+    if (!isControlledFilters) {
+      const validIds = new Set(columns.map(column => column.id ?? column.field).filter(Boolean) as Array<string>)
+      const stale = Object.keys(uncontrolledFilters).filter(key => !validIds.has(key))
+      if (stale.length > 0) {
+        const next = {...uncontrolledFilters}
+        for (const key of stale) delete next[key]
+        setUncontrolledFilters(next)
+      }
+    }
   }
 
   const headers = columns.map(column => {
@@ -82,11 +113,15 @@ export function useTable<Data extends UniqueRow>({
     }
 
     const sortable = column.sortBy !== undefined && column.sortBy !== false
+    const filterable = column.filterBy !== undefined && column.filterBy !== false
     return {
       id,
       column,
       isSortable() {
         return sortable
+      },
+      isFilterable() {
+        return filterable
       },
       getSortDirection() {
         if (sortByColumn && sortByColumn.id === id) {
@@ -117,6 +152,30 @@ export function useTable<Data extends UniqueRow>({
     }
     setSortByColumn(sortState)
     sortRows(sortState)
+  }
+
+  /**
+   * Update a single column's filter query. In controlled mode the parent owns
+   * the state; in uncontrolled mode we keep our own copy. The handler is
+   * always notified so consumers can react to changes regardless of mode.
+   */
+  function setFilter(columnId: string, value: string) {
+    const next = {...filters, [columnId]: value}
+    if (!isControlledFilters) {
+      setUncontrolledFilters(next)
+    }
+    onFilterChange?.(next)
+  }
+
+  /**
+   * Clear all column filters at once. No-op in controlled mode beyond the
+   * notification callback (the parent must apply the new empty object).
+   */
+  function clearFilters() {
+    if (!isControlledFilters) {
+      setUncontrolledFilters({})
+    }
+    onFilterChange?.({})
   }
 
   /**
@@ -190,9 +249,25 @@ export function useTable<Data extends UniqueRow>({
     })
   }
 
+  // Apply column filters on top of the (possibly sorted) row order. Filtering
+  // is intentionally derived rather than stored so it reacts to query changes
+  // without triggering an extra render cycle.
+  const activeFilters = Object.entries(filters).filter(([, value]) => value && value.trim() !== '')
+  const filteredRowOrder =
+    externalFiltering || activeFilters.length === 0
+      ? rowOrder
+      : rowOrder.filter(row =>
+          activeFilters.every(([columnId, query]) => {
+            const column = columns.find(column => (column.id ?? column.field) === columnId)
+            if (!column || column.filterBy === undefined || column.filterBy === false) return true
+            const value = column.field !== undefined ? get(row, column.field) : row
+            return filterMatches(column.filterBy as true | Parameters<typeof filterMatches<Data>>[0], value, query, row)
+          }),
+        )
+
   return {
     headers,
-    rows: rowOrder.map(row => {
+    rows: filteredRowOrder.map(row => {
       const rowId = getRowId(row)
       return {
         id: `${rowId}`,
@@ -218,7 +293,12 @@ export function useTable<Data extends UniqueRow>({
     }),
     actions: {
       sortBy,
+      setFilter,
+      clearFilters,
     },
+    filters,
+    filteredRowCount: filteredRowOrder.length,
+    totalRowCount: rowOrder.length,
     gridTemplateColumns,
   }
 }

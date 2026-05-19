@@ -14,6 +14,8 @@ import {
   TableActions,
   TableDivider,
   TableSkeleton,
+  TableFilterRow,
+  TableFilterCellInput,
 } from './Table'
 import {Pagination} from './Pagination'
 import type {SlotMarker} from '../utils/types/Slots'
@@ -34,6 +36,8 @@ const Table: typeof TableImpl &
     CellPlaceholder: typeof TableCellPlaceholder
     Pagination: typeof Pagination
     ErrorDialog: typeof ErrorDialog
+    FilterRow: typeof TableFilterRow
+    FilterCellInput: typeof TableFilterCellInput
   } = Object.assign(TableImpl, {
   Container: TableContainer,
   Title: TableTitle,
@@ -49,6 +53,8 @@ const Table: typeof TableImpl &
   CellPlaceholder: TableCellPlaceholder,
   Pagination,
   ErrorDialog,
+  FilterRow: TableFilterRow,
+  FilterCellInput: TableFilterCellInput,
 })
 
 Table.__SLOT__ = Symbol('Table')
@@ -67,8 +73,11 @@ export type {
   TableSubtitleProps,
   TableActionsProps,
   TableSkeletonProps,
+  TableFilterRowProps,
+  TableFilterCellInputProps,
 } from './Table'
 export {createColumnHelper} from './column'
 export type {Column, CellAlignment, ColumnWidth} from './column'
 export type {UniqueRow} from './row'
 export type {ObjectPaths} from './utils'
+export type {FilterStrategy, CustomFilterStrategy} from './filtering'

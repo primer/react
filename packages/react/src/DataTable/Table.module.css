@@ -289,3 +289,22 @@
 .PlaceholderText {
   color: var(--fgColor-muted);
 }
+
+/* TableFilterRow ----------------------------------------------------------- */
+.TableFilterCell {
+  /* Visually distinguish the filter row from the header row above and the
+   * data rows below; intentionally mirrors the existing TableHeader treatment
+   * but with a subtler background so the inputs stand out. */
+  background-color: var(--bgColor-inset);
+  font-weight: var(--base-text-weight-normal);
+  /* stylelint-disable-next-line primer/spacing */
+  padding-block: 0.25rem;
+}
+
+.TableHead .TableFilterRow .TableFilterCell {
+  border-block-start: 0;
+}
+
+.TableFilterInput {
+  width: 100%;
+}
