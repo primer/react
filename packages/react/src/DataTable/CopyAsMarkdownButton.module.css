@@ -1,0 +1,6 @@
+/* Reserve a stable layout while the transient copied/error label is shown
+ * so the button doesn't reflow under the cursor. */
+.CopyAsMarkdownButton {
+  min-inline-size: 9rem;
+  justify-content: center;
+}

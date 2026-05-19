@@ -42,6 +42,9 @@
     },
     {
       "id": "experimental-components-datatable-features--with-pagination"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-copy-as-markdown"
     }
   ],
   "importPath": "@primer/react/experimental",
@@ -354,6 +357,52 @@
       ]
     },
     {
+      "name": "Table.CopyAsMarkdownButton",
+      "props": [
+        {
+          "name": "rows",
+          "type": "ReadonlyArray<Data>",
+          "required": true,
+          "description": "Rows to serialise. Usually the same array passed to `<DataTable>`."
+        },
+        {
+          "name": "columns",
+          "type": "ReadonlyArray<Column<Data>>",
+          "required": true,
+          "description": "Columns to serialise. Usually the same array passed to `<DataTable>`."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "description": "Override the label shown on the button.",
+          "defaultValue": "'Copy as Markdown'"
+        },
+        {
+          "name": "copiedLabel",
+          "type": "React.ReactNode",
+          "description": "Override the transient success label.",
+          "defaultValue": "'Copied'"
+        },
+        {
+          "name": "errorLabel",
+          "type": "React.ReactNode",
+          "description": "Override the transient failure label.",
+          "defaultValue": "'Copy failed'"
+        },
+        {
+          "name": "successDurationMs",
+          "type": "number",
+          "description": "How long to show the copied/error label in ms.",
+          "defaultValue": "2000"
+        },
+        {
+          "name": "onCopy",
+          "type": "(markdown: string, success: boolean) => void",
+          "description": "Called with the markdown string and the success status of the copy."
+        }
+      ]
+    },
+    {
       "name": "Table.SortHeader",
       "props": [
         {
@@ -421,6 +470,11 @@
           "name": "sortBy",
           "type": "boolean | 'alphanumeric' | 'basic' | 'datetime' | (a: Data, b: Data) => number",
           "description": "Specify if the table should sort by this column and, if applicable, a specific sort strategy or custom sort strategy"
+        },
+        {
+          "name": "getExportValue",
+          "type": "(data: Data) => string",
+          "description": "Returns the string representation used by clipboard exports (`Table.CopyAsMarkdownButton`). Kept separate from `renderCell` so consumers can keep React output (icons, links, labels) out of the plain-text payload."
         },
         {
           "name": "width",
