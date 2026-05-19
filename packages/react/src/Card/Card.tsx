@@ -120,23 +120,12 @@ type MetadataProps = React.ComponentPropsWithoutRef<'div'> & {
   children: React.ReactNode
 }
 
-const CardImpl = forwardRef<HTMLDivElement, CardProps>(function Card(props, ref) {
-  // `as` is destructured separately (rather than in the main destructure) so
-  // TypeScript can still narrow the rest of the discriminated union when we
-  // need to read aria attributes below.
-  const {
-    children,
-    className,
-    padding = 'normal',
-    borderRadius = 'large',
-    as = 'div',
-    ...rest
-  } = props as BaseCardProps & {
-    as?: 'div' | 'section'
-    'aria-label'?: string
-    'aria-labelledby'?: string
-  }
-  const Component = as
+const CardImpl = forwardRef<HTMLElement, CardProps>(function Card(props, ref) {
+  const {children, className, padding = 'normal', borderRadius = 'large', as = 'div', ...rest} = props
+  // Widen the local element type so JSX doesn't intersect the intrinsic prop
+  // types for `div` and `section` (which would force the ref back to
+  // `HTMLDivElement`). The runtime element is still `as`.
+  const Component = as as React.ElementType
 
   let icon: React.ReactNode = null
   let image: React.ReactNode = null
@@ -179,10 +168,8 @@ const CardImpl = forwardRef<HTMLDivElement, CardProps>(function Card(props, ref)
 
   // When rendered as a <section>, the Card must have an accessible name so
   // screen-reader users can identify the labelled region.
-  const ariaLabel = (rest as {'aria-label'?: string})['aria-label']
-  const ariaLabelledby = (rest as {'aria-labelledby'?: string})['aria-labelledby']
   warning(
-    as === 'section' && !ariaLabel && !ariaLabelledby,
+    as === 'section' && !('aria-label' in props) && !('aria-labelledby' in props),
     'The <Card> component used with `as="section"` requires either `aria-label` or `aria-labelledby` so screen-reader users can identify the labelled region. Typically `aria-labelledby` should reference the id of the `Card.Heading`.',
   )
 
@@ -193,7 +180,7 @@ const CardImpl = forwardRef<HTMLDivElement, CardProps>(function Card(props, ref)
   if (!hasSlotChildren) {
     return (
       <Component
-        ref={ref as React.Ref<HTMLDivElement & HTMLElement>}
+        ref={ref}
         className={clsx(classes.Card, className)}
         data-component="Card"
         data-padding={padding}
@@ -207,7 +194,7 @@ const CardImpl = forwardRef<HTMLDivElement, CardProps>(function Card(props, ref)
 
   return (
     <Component
-      ref={ref as React.Ref<HTMLDivElement & HTMLElement>}
+      ref={ref}
       className={clsx(classes.Card, className)}
       data-component="Card"
       data-padding={padding}
