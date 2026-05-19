@@ -5,8 +5,7 @@ import {warning} from '../utils/warning'
 
 type BaseCardProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> & {
   /**
-   * Provide an optional className to add to the outermost element rendered by
-   * the Card
+   * Optional className for the root element.
    */
   className?: string
 
@@ -23,34 +22,27 @@ type BaseCardProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> & {
   borderRadius?: 'medium' | 'large'
 
   /**
-   * The contents of the card. Provide either `Card.*` subcomponents (for
-   * example `Card.Heading`, `Card.Description`, `Card.Metadata`) or any
-   * custom content.
-   *
-   * A card with no children will not render — at least one meaningful
-   * child is required.
+   * The card contents. Provide either `Card.*` subcomponents (e.g.
+   * `Card.Heading`, `Card.Description`, `Card.Metadata`) or custom content.
+   * Empty cards do not render.
    */
   children: React.ReactNode
 }
 
 /**
- * Card rendered as a `<div>` — the default. Use this variant when the Card
- * is inside an `<li>` of a list of cards: the surrounding list already
- * provides grouping, so no additional landmark is needed. Do **not** use
- * `Card.Heading` in this context — screen readers handle list items and
- * headings as separate navigation modes, and combining them produces a
- * confusing experience.
+ * The default Card. Use this inside `<li>` when rendering a list of cards:
+ * the list already groups them, so the Card itself doesn't need to be a
+ * landmark. Don't use `Card.Heading` here.
  */
 type DivCardProps = BaseCardProps & {
   as?: 'div'
 }
 
 /**
- * Card rendered as a `<section>` — use this variant for standalone Cards
- * that are **not** part of a list of cards. The `<section>` becomes a
- * labelled region landmark for screen-reader users, so an accessible name
- * is required via either `aria-label` or `aria-labelledby` (typically
- * referencing the id of the `Card.Heading`).
+ * Renders the Card as a `<section>`. Use this for a standalone Card that
+ * isn't part of a list. The `<section>` is a region landmark, so it needs
+ * an accessible name via `aria-label` or `aria-labelledby` (the latter
+ * usually points at `Card.Heading`).
  */
 type SectionCardProps = BaseCardProps & {
   as: 'section'
@@ -70,8 +62,7 @@ type HeadingProps = React.ComponentPropsWithoutRef<'h3'> & {
 
 type DescriptionProps = React.ComponentPropsWithoutRef<'p'> & {
   /**
-   * The descriptive text for the card. Rendered inside a `<p>` element so
-   * should be flowing text content.
+   * Card description. Rendered as a `<p>`, so keep it to flowing text.
    */
   children: React.ReactNode
 }
@@ -101,30 +92,27 @@ type ImageProps = React.ComponentPropsWithoutRef<'img'> & {
 
 type MenuProps = {
   /**
-   * The interactive control(s) to render in the top-right corner of the card,
-   * typically a single `IconButton` or `ActionMenu` trigger. When a card
-   * contains a menu, make sure the control's accessible name includes enough
-   * context to distinguish it from other cards (for example,
-   * `Options for Project Alpha` rather than just `Options`).
+   * Interactive control in the top-right of the card, usually an `IconButton`
+   * or `ActionMenu` trigger. Give the control a label that names the card
+   * (e.g. `"Options for Project Alpha"`, not just `"Options"`) so it's
+   * distinguishable when several cards are on screen.
    */
   children: React.ReactNode
 }
 
 type MetadataProps = React.ComponentPropsWithoutRef<'div'> & {
   /**
-   * The metadata content to render at the bottom of the card. Accepts any
-   * content, including plain text, icons, and other Primer components (for
-   * example a `Label`, `Octicon`, or any combination). Avoid using
-   * `RelativeTime` until its outstanding accessibility issues are resolved.
+   * Metadata row at the bottom of the card. Any content works: text, icons,
+   * a `Label`, an `Octicon`. Skip `RelativeTime` for now; it has open
+   * accessibility issues.
    */
   children: React.ReactNode
 }
 
 const CardImpl = forwardRef<HTMLElement, CardProps>(function Card(props, ref) {
   const {children, className, padding = 'normal', borderRadius = 'large', as = 'div', ...rest} = props
-  // Widen the local element type so JSX doesn't intersect the intrinsic prop
-  // types for `div` and `section` (which would force the ref back to
-  // `HTMLDivElement`). The runtime element is still `as`.
+  // Use ElementType so JSX doesn't intersect the intrinsic prop types of
+  // `div` and `section` (which would pin the ref back to `HTMLDivElement`).
   const Component = as as React.ElementType
 
   let icon: React.ReactNode = null
@@ -156,9 +144,8 @@ const CardImpl = forwardRef<HTMLElement, CardProps>(function Card(props, ref) {
 
   const hasSlotChildren = icon || image || heading || description || metadata || menu
 
-  // `React.Children.toArray` already filters out `null`, `undefined`, `false`,
-  // and `true`, so if the resulting array is empty there is nothing
-  // meaningful to render. The component should not render in that case.
+  // `React.Children.toArray` already drops `null`/`undefined`/`false`/`true`,
+  // so an empty array means we have nothing to render.
   const isEmpty = !hasSlotChildren && childArray.length === 0
 
   warning(
@@ -166,8 +153,6 @@ const CardImpl = forwardRef<HTMLElement, CardProps>(function Card(props, ref) {
     'The <Card> component was rendered with no children and will not render. Provide either Card subcomponents (Card.Heading, Card.Description, etc.) or custom content.',
   )
 
-  // When rendered as a <section>, the Card must have an accessible name so
-  // screen-reader users can identify the labelled region.
   warning(
     as === 'section' && !('aria-label' in props) && !('aria-labelledby' in props),
     'The <Card> component used with `as="section"` requires either `aria-label` or `aria-labelledby` so screen-reader users can identify the labelled region. Typically `aria-labelledby` should reference the id of the `Card.Heading`.',
@@ -243,15 +228,12 @@ CardImage.displayName = 'Card.Image'
 /**
  * Heading shown at the top of a Card.
  *
- * Accessibility:
- * - Use only on **standalone** Cards (those rendered with `as="section"`).
- *   When the Card is inside an `<li>` in a list of cards, the surrounding
- *   list already provides grouping; adding a heading produces a confusing
- *   experience for screen-reader users, who handle list items and headings
- *   as separate navigation modes.
- * - Pair with `aria-labelledby` on the parent `Card` (referencing the
- *   heading's `id`) so the section landmark uses the visible heading as
- *   its accessible name.
+ * Only use this on a standalone Card (`as="section"`); don't use it inside
+ * an `<li>`, where the surrounding list already provides grouping.
+ *
+ * Give it an `id` and reference that id from the parent Card's
+ * `aria-labelledby` so the section landmark uses the heading as its
+ * accessible name.
  */
 const CardHeading = forwardRef<HTMLHeadingElement, HeadingProps>(function CardHeading(
   {as: Component = 'h3', children, className, ...rest},
@@ -276,18 +258,15 @@ const CardDescription = forwardRef<HTMLParagraphElement, DescriptionProps>(funct
 })
 
 /**
- * Renders an interactive control (or controls) positioned at the top-right
- * corner of the card. `Card.Menu` is intended for a single action trigger
- * such as an `IconButton` or `ActionMenu` anchor.
+ * Top-right slot for a single interactive control, usually an `IconButton`
+ * or `ActionMenu` trigger.
  *
- * Accessibility:
- * - The trigger's accessible name should include enough context to
- *   distinguish it from triggers in other cards (for example,
- *   `"More options for Project Alpha"` rather than just `"More options"`),
- *   because lists of cards often share identical control labels.
- * - Avoid placing multiple interactive controls inside `Card.Menu`.
- *   If a card needs multiple actions, expose them inside an `ActionMenu`
- *   overlay so they remain reachable in a predictable focus order.
+ * Give the control a label that names the card (e.g. `"More options for
+ * Project Alpha"`, not just `"More options"`) so users can tell which card
+ * the action applies to when several cards are visible.
+ *
+ * For more than one action, put them inside an `ActionMenu` rather than
+ * cramming multiple controls into `Card.Menu`.
  */
 const CardMenu = ({children}: MenuProps) => {
   return <div data-component="Card.Menu">{children}</div>
