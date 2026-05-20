@@ -43,6 +43,10 @@
       left: auto;
       right: calc(anchor(right) - var(--anchored-overlay-anchor-offset-left));
     }
+
+    &[data-align='right'] {
+      left: calc(anchor(left) - var(--anchored-overlay-anchor-offset-right));
+    }
   }
 
   &[data-side='outside-top'] {
@@ -53,6 +57,10 @@
     &[data-align='left'] {
       left: auto;
       right: anchor(right);
+    }
+
+    &[data-align='right'] {
+      left: calc(anchor(left) - var(--anchored-overlay-anchor-offset-right));
     }
   }
 
