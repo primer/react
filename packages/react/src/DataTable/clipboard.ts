@@ -31,12 +31,23 @@ import type {UniqueRow} from './row'
 const CONTROL_CHARACTERS = /[\u0000-\u001f\u007f-\u009f]/g
 
 export function escapeMarkdownCell(value: string): string {
-  return value
-    .replace(/\\/g, '\\\\')
-    .replace(/\|/g, '\\|')
-    .replace(/\r\n|\r|\n/g, ' ')
-    .replace(CONTROL_CHARACTERS, '')
-    .trim()
+  return (
+    value
+      .replace(/\\/g, '\\\\')
+      .replace(/\|/g, '\\|')
+      // Backslash-escape angle brackets so a cell containing raw HTML
+      // (e.g. `<img src=x onerror=...>`) is rendered as literal text by
+      // CommonMark-compatible renderers instead of being interpreted as
+      // an HTML tag. This is the single most important safety hardening
+      // for the markdown export — the clipboard payload is plain text but
+      // gets pasted into places like GitHub comments that DO render raw
+      // HTML embedded in markdown.
+      .replace(/</g, '\\<')
+      .replace(/>/g, '\\>')
+      .replace(/\r\n|\r|\n/g, ' ')
+      .replace(CONTROL_CHARACTERS, '')
+      .trim()
+  )
 }
 
 /**

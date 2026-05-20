@@ -1,7 +1,7 @@
 import {describe, expect, it, test, vi, beforeEach, afterEach} from 'vitest'
 import userEvent from '@testing-library/user-event'
 import {render, screen, waitFor} from '@testing-library/react'
-import {Table} from '../../DataTable'
+import {DataTable, Table} from '../../DataTable'
 import type {Column} from '../column'
 import {createColumnHelper} from '../column'
 import {escapeMarkdownCell, getExportableCellValue, rowsToMarkdown, writeTextToClipboard} from '../clipboard'
@@ -39,6 +39,18 @@ describe('Markdown clipboard export', () => {
 
     it('strips TAB as part of the control-char policy (consistent for table cells)', () => {
       expect(escapeMarkdownCell('a\tb')).toBe('ab')
+    })
+
+    it('backslash-escapes angle brackets so raw HTML is rendered as literal text', () => {
+      // The single most important hardening: a clipboard payload pasted
+      // into a GitHub comment or other GFM-compatible renderer will NOT
+      // execute or render the embedded HTML.
+      // eslint-disable-next-line github/unescaped-html-literal
+      const imgInput = '<img src=x onerror=alert(1)>'
+      expect(escapeMarkdownCell(imgInput)).toBe('\\<img src=x onerror=alert(1)\\>')
+      // eslint-disable-next-line github/unescaped-html-literal
+      const scriptInput = '<script>alert(1)</script>'
+      expect(escapeMarkdownCell(scriptInput)).toBe('\\<script\\>alert(1)\\</script\\>')
     })
 
     it('does not introduce HTML or break out into Markdown structures', () => {
@@ -227,6 +239,92 @@ describe('Markdown clipboard export', () => {
         </Table.CopyAsMarkdownButton>,
       )
       expect(screen.getByRole('button', {name: /export as md/i})).toBeInTheDocument()
+    })
+
+    // Lint requires every component test to verify the className prop is
+    // honoured. Manual test (instead of `implementsClassName`) because the
+    // helper renders `<Component className="test-class" />` with no other
+    // props, but this component needs `rows`/`columns` to render anything
+    // meaningful. The behaviour is identical: forwarded to the rendered
+    // button element via clsx.
+    it('implementsClassName: forwards the className prop to the rendered button', () => {
+      const {container} = render(
+        <Table.CopyAsMarkdownButton rows={repos} columns={buildColumns()} className="test-class" />,
+      )
+      expect(container.querySelector('.test-class')).not.toBeNull()
+    })
+  })
+
+  describe('Table.CopyAsMarkdownButton (context source)', () => {
+    it('reads rows and columns from a sibling DataTable via Table.Container context', async () => {
+      const user = userEvent.setup()
+      const writeText = vi.fn().mockResolvedValue(undefined)
+      Object.defineProperty(navigator, 'clipboard', {value: {writeText}, configurable: true})
+
+      render(
+        <Table.Container>
+          <Table.Actions>
+            <Table.CopyAsMarkdownButton />
+          </Table.Actions>
+          <DataTable aria-labelledby="t" data={repos} columns={buildColumns()} />
+        </Table.Container>,
+      )
+
+      await user.click(screen.getByRole('button', {name: /copy as markdown/i}))
+      // The clipboard payload matches what DataTable is displaying.
+      expect(writeText).toHaveBeenCalledWith(rowsToMarkdown(repos, buildColumns()))
+    })
+
+    it('reflects the sorted order when DataTable applies sorting', async () => {
+      const user = userEvent.setup()
+      const writeText = vi.fn().mockResolvedValue(undefined)
+      Object.defineProperty(navigator, 'clipboard', {value: {writeText}, configurable: true})
+
+      const ch = createColumnHelper<Repo>()
+      const cols = [ch.column({header: 'Name', field: 'name', sortBy: 'alphanumeric'})]
+
+      render(
+        <Table.Container>
+          <Table.Actions>
+            <Table.CopyAsMarkdownButton />
+          </Table.Actions>
+          <DataTable
+            aria-labelledby="t"
+            data={repos}
+            columns={cols}
+            initialSortColumn="name"
+            initialSortDirection="DESC"
+          />
+        </Table.Container>,
+      )
+
+      await user.click(screen.getByRole('button', {name: /copy as markdown/i}))
+      // Sorted DESC by name: `github` then `enterprise-security`.
+      const expectedSorted: Repo[] = [
+        {id: 1, name: 'github', type: 'public', tags: ['core']},
+        {id: 2, name: 'enterprise-security', type: 'private', tags: ['security', 'audit']},
+      ]
+      expect(writeText).toHaveBeenCalledWith(rowsToMarkdown(expectedSorted, cols))
+    })
+
+    it('explicit `rows` prop overrides the context snapshot', async () => {
+      const user = userEvent.setup()
+      const writeText = vi.fn().mockResolvedValue(undefined)
+      Object.defineProperty(navigator, 'clipboard', {value: {writeText}, configurable: true})
+
+      const overrideRows: Repo[] = [{id: 99, name: 'override', type: 'public', tags: []}]
+
+      render(
+        <Table.Container>
+          <Table.Actions>
+            <Table.CopyAsMarkdownButton rows={overrideRows} columns={buildColumns()} />
+          </Table.Actions>
+          <DataTable aria-labelledby="t" data={repos} columns={buildColumns()} />
+        </Table.Container>,
+      )
+
+      await user.click(screen.getByRole('button', {name: /copy as markdown/i}))
+      expect(writeText).toHaveBeenCalledWith(rowsToMarkdown(overrideRows, buildColumns()))
     })
   })
 })

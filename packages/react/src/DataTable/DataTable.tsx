@@ -1,10 +1,11 @@
-import type React from 'react'
+import React from 'react'
 import type {Column} from './column'
 import {useTable} from './useTable'
 import type {SortDirection} from './sorting'
 import type {UniqueRow} from './row'
 import type {ObjectPaths} from './utils'
 import {Table, TableHead, TableBody, TableRow, TableHeader, TableSortHeader, TableCell} from './Table'
+import {usePublishDataTableSnapshot} from './snapshotContext'
 
 // ----------------------------------------------------------------------------
 // DataTable
@@ -99,6 +100,16 @@ function DataTable<Data extends UniqueRow>({
     getRowId,
     externalSorting,
   })
+
+  // Publish the visible rows so sibling export helpers (e.g.
+  // Table.CopyAsMarkdownButton) can read what the user is actually
+  // looking at — sort/filter/pagination already applied — rather than
+  // the original `data` array. No-op when no `Table.Container` ancestor
+  // provides a snapshot store.
+  usePublishDataTableSnapshot(
+    React.useMemo(() => rows.map(row => row.getValue()), [rows]),
+    columns,
+  )
 
   return (
     <Table
