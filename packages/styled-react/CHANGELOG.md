@@ -1,5 +1,11 @@
 # @primer/styled-react
 
+## 1.0.9
+
+### Patch Changes
+
+- [#7806](https://github.com/primer/react/pull/7806) [`36a4922`](https://github.com/primer/react/commit/36a4922bb12dc4abf135c7ac035dd3cc73075693) Thanks [@jonrohan](https://github.com/jonrohan)! - Removing `ActionList, Box, Button, Dialog, Flash, FormControl, Header, Heading, IconButton, Label, Link, LinkButton, SegmentedControl, Spinner, Text, TextInput, ToggleSwitch, UnderlineNav, DialogV1, Octicon, TabNav` from the @primer/styled-react package
+
 ## 1.0.8
 
 ### Patch Changes
