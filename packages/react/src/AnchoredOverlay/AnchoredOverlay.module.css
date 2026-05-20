@@ -109,6 +109,7 @@
   margin-right: var(--base-size-4);
   align-self: anchor-center;
 }
+
 @position-try --fit-block-bottom {
   top: calc(anchor(bottom) + var(--base-size-4));
   bottom: var(--base-size-8);
