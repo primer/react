@@ -23,7 +23,7 @@ jobs:
         id: generate_primer_token
         uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3.1.1
         with:
-          app-id: 902635
+          client-id: 902635
           owner: 'primer'
           repositories: 'react'
           private-key: ${{ secrets.PRIMER_INTEGRATION_APP_PRIVATE_KEY }}
