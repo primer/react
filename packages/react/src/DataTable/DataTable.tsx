@@ -143,28 +143,31 @@ function DataTable<Data extends UniqueRow>({
   // compose `<Table.Pagination>` themselves).
   const paginationOptions = pagination === true ? {} : pagination || undefined
   const paginationEnabled = paginationOptions !== undefined
-  const pageSize = paginationOptions?.pageSize ?? 25
+  // Defensive clamp so a bogus `pageSize` (0, negative, NaN) cannot produce
+  // Infinity in `<Pagination>`'s page-count math.
+  const rawPageSize = paginationOptions?.pageSize ?? 25
+  const pageSize = Number.isFinite(rawPageSize) && rawPageSize > 0 ? Math.floor(rawPageSize) : 25
   const defaultPageIndex = paginationOptions?.defaultPageIndex ?? 0
   const paginationAriaLabel = paginationOptions?.['aria-label'] ?? 'Pagination'
 
   const isControlledPage = pageIndex !== undefined
-  // Track the visible page in DataTable so we can slice rows. The standalone
-  // <Pagination> below owns its own UI state — we mirror it here via its
-  // onChange. To prevent a feedback loop (where mirroring a click back into
-  // `defaultPageIndex` retriggers Pagination's render-time sync), we hold
-  // the value passed to `defaultPageIndex` in a ref that we bump only on
-  // intentional external resets (data identity changes, controlled-prop
-  // updates, or initial mount).
-  const [uncontrolledPageIndex, setUncontrolledPageIndex] = React.useState(defaultPageIndex)
-  const effectivePageIndex = isControlledPage ? (pageIndex as number) : uncontrolledPageIndex
-  const [prevDataIdentity, setPrevDataIdentity] = React.useState(data)
-  const [paginationResetCounter, setPaginationResetCounter] = React.useState(0)
-  if (!isControlledPage && data !== prevDataIdentity) {
-    setPrevDataIdentity(data)
-    if (uncontrolledPageIndex !== 0) {
-      setUncontrolledPageIndex(0)
-      setPaginationResetCounter(prev => prev + 1)
-    }
+  // All uncontrolled page state lives in a single object so the
+  // "reset when data identity changes" path is a single setState rather
+  // than three — keeps the React reconciler happy and prevents cascading
+  // renders under Strict / Concurrent mode. Documented React pattern:
+  // https://react.dev/reference/react/useState#storing-information-from-previous-renders
+  const [pageState, setPageState] = React.useState<{
+    pageIndex: number
+    resetKey: number
+    prevData: ReadonlyArray<Data>
+  }>(() => ({pageIndex: defaultPageIndex, resetKey: 0, prevData: data}))
+  const controlledPageIndex = isControlledPage ? Math.max(0, pageIndex as number) : undefined
+  const effectivePageIndex = controlledPageIndex ?? pageState.pageIndex
+  if (!isControlledPage && pageState.prevData !== data) {
+    // Derived-state-from-props reset. The functional setState body is
+    // idempotent and only triggers an additional render the first time
+    // we see a new `data` identity.
+    setPageState(prev => ({pageIndex: 0, resetKey: prev.resetKey + 1, prevData: data}))
   }
 
   const {headers, rows, actions, gridTemplateColumns} = useTable({
@@ -189,7 +192,12 @@ function DataTable<Data extends UniqueRow>({
       // button stays enabled while there might be more pages.
       totalCount = Math.max(rows.length, (effectivePageIndex + 1) * pageSize + 1)
     } else {
-      const pageStart = effectivePageIndex * pageSize
+      // Clamp the slice window to valid bounds so a bogus pageIndex (out
+      // of range in controlled mode, or stale across data shrinks) can't
+      // produce an empty page when one exists.
+      const pageCount = Math.max(1, Math.ceil(rows.length / pageSize))
+      const clampedIndex = Math.min(Math.max(0, effectivePageIndex), pageCount - 1)
+      const pageStart = clampedIndex * pageSize
       const pageEnd = pageStart + pageSize
       visibleRows = rows.slice(pageStart, pageEnd)
       // Ensure Pagination sees at least one page even when the dataset is
@@ -268,7 +276,7 @@ function DataTable<Data extends UniqueRow>({
         //   mirror it via onChange for row slicing. Data-identity changes
         //   bump the reset counter so Pagination remounts and clamps.
         <Pagination
-          key={isControlledPage ? `controlled-${effectivePageIndex}` : `reset-${paginationResetCounter}`}
+          key={isControlledPage ? `controlled-${effectivePageIndex}` : `reset-${pageState.resetKey}`}
           aria-label={paginationAriaLabel}
           defaultPageIndex={isControlledPage ? (pageIndex as number) : defaultPageIndex}
           pageSize={pageSize}
@@ -276,7 +284,7 @@ function DataTable<Data extends UniqueRow>({
           totalCount={totalCount}
           onChange={({pageIndex: nextPageIndex}) => {
             if (!isControlledPage) {
-              setUncontrolledPageIndex(nextPageIndex)
+              setPageState(prev => ({...prev, pageIndex: nextPageIndex}))
             }
             onPageChange?.(nextPageIndex)
           }}

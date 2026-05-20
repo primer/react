@@ -165,19 +165,25 @@ describe('DataTable integrated pagination', () => {
     it('still fires onPageChange so the consumer can fetch the next page', async () => {
       const user = userEvent.setup()
       const onPageChange = vi.fn()
-      // Simulate a server-paginated context where the consumer has already
-      // sliced — totalCount is what the component sees, so pretend we have
-      // 30 rows but pass only the current page's 10.
+      // Simulate a server-paginated context where the consumer feeds the
+      // component just the current page (10 of a notional 30 total). The
+      // component must not slice further — externalPagination defers that
+      // to the parent — and must still fire onPageChange so the parent
+      // can fetch the next slice.
+      const page1 = makeItems(30).slice(0, 10)
       render(
         <DataTable
           aria-labelledby="t"
-          data={makeItems(30)}
+          data={page1}
           columns={buildColumns()}
           pagination={{pageSize: 10}}
           externalPagination
           onPageChange={onPageChange}
         />,
       )
+      // All 10 rows the consumer supplied are visible (no further slicing).
+      expect(screen.getAllByRole('row')).toHaveLength(11)
+      expect(screen.getByText('item-10')).toBeInTheDocument()
       await user.click(screen.getByRole('button', {name: /next/i}))
       expect(onPageChange).toHaveBeenLastCalledWith(1)
     })
