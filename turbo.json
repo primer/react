@@ -3,7 +3,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "dist/**", "lib/**", "lib-esm/**", "generated/**"]
+      "outputs": [".next/**", "dist/**", "generated/**"]
     },
     "build:storybook": {
       "dependsOn": ["^build"],
