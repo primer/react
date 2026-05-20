@@ -291,6 +291,12 @@
 }
 
 /* TableFilterRow ----------------------------------------------------------- */
+.TableFilterRow {
+  /* Reserved for future filter-row-level styling (e.g. sticky positioning).
+   * Defined so `classes.TableFilterRow` resolves to a real CSS module class
+   * rather than `undefined`. */
+}
+
 .TableFilterCell {
   /* Visually distinguish the filter row from the header row above and the
    * data rows below; intentionally mirrors the existing TableHeader treatment

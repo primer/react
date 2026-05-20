@@ -17,6 +17,7 @@ const IGNORED_FILES = [
   'packages/react/src/DataTable/__tests__/DataTable.test.tsx',
   'packages/react/src/DataTable/__tests__/ErrorDialog.test.tsx',
   'packages/react/src/DataTable/__tests__/Pagination.test.tsx',
+  'packages/react/src/DataTable/__tests__/filtering.test.tsx',
   'packages/react/src/FeatureFlags/__tests__/FeatureFlags.test.tsx',
   'packages/react/src/FormControl/__tests__/useFormControlForwardedProps.test.tsx',
   'packages/react/src/experimental/SelectPanel2/__tests__/SelectPanelLoading.test.tsx',

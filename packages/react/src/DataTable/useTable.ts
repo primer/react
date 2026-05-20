@@ -253,12 +253,21 @@ export function useTable<Data extends UniqueRow>({
   // is intentionally derived rather than stored so it reacts to query changes
   // without triggering an extra render cycle.
   const activeFilters = Object.entries(filters).filter(([, value]) => value && value.trim() !== '')
+  // Precompute the columnId → Column lookup once per render so the filter
+  // loop is O(rows × activeFilters) instead of O(rows × activeFilters × columns).
+  // This matters because typing in a filter input triggers a render cycle
+  // per keystroke and the inner work is on the hot path.
+  const columnsById = new Map<string, Column<Data>>()
+  for (const column of columns) {
+    const id = column.id ?? column.field
+    if (id !== undefined) columnsById.set(String(id), column)
+  }
   const filteredRowOrder =
     externalFiltering || activeFilters.length === 0
       ? rowOrder
       : rowOrder.filter(row =>
           activeFilters.every(([columnId, query]) => {
-            const column = columns.find(column => (column.id ?? column.field) === columnId)
+            const column = columnsById.get(columnId)
             if (!column || column.filterBy === undefined || column.filterBy === false) return true
             const value = column.field !== undefined ? get(row, column.field) : row
             return filterMatches(column.filterBy as true | Parameters<typeof filterMatches<Data>>[0], value, query, row)

@@ -327,7 +327,11 @@ export type TableFilterCellInputProps = {
   /** Called when the filter value changes */
   onChange: (value: string) => void
 
-  /** Accessible label for the input (defaults to "Filter {header}") */
+  /**
+   * Accessible label for the input. Required because this primitive has no
+   * access to the column header — consumers composing their own filter row
+   * should pass something like `Filter ${columnHeader}`.
+   */
   'aria-label': string
 
   /** Placeholder text (defaults to "Filter") */
@@ -392,12 +396,16 @@ function TableFilterRow<Data extends UniqueRow>({headers, filters, onChange, pla
       {headers.map(header => {
         if (!header.isFilterable()) {
           // Purely decorative cell that keeps the grid layout aligned for
-          // non-filterable columns. Left without children so screen readers
-          // surface nothing meaningful for it.
+          // non-filterable columns. Marked `role="cell"` so AT semantics
+          // stay consistent with sibling `TableCell` elements when the
+          // surrounding table uses `display: contents` for its layout.
+          // The cell is intentionally empty — screen readers announce an
+          // empty cell rather than confusing UI like an unlabelled input.
           return (
             <td
               key={`${header.id}-filter`}
               className={clsx('TableFilterCell', classes.TableFilterCell)}
+              role="cell"
               data-component="Table.FilterCell"
             />
           )

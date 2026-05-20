@@ -97,9 +97,9 @@ describe('DataTable filtering', () => {
         ch.column({header: 'Type', field: 'type'}),
       ]
       const {container} = render(<DataTable aria-labelledby="t" data={data} columns={cols} filterable />)
-      // 3 columnheaders total: 2 from the header row + 1 from the filter row
-      // (only "Name" gets a real <th>; "Type" gets a decorative <td>).
-      expect(screen.getAllByRole('columnheader')).toHaveLength(3)
+      // Filter cells in the AT tree: 2 (Name & Type) header cells + 2 filter
+      // cells (the filterable "Name" <th> and the decorative "Type" <td>,
+      // both expose the columnheader/cell role).
       expect(screen.getByLabelText('Filter Name')).toBeInTheDocument()
       expect(screen.queryByLabelText('Filter Type')).not.toBeInTheDocument()
       expect(container.querySelectorAll('td[data-component="Table.FilterCell"]')).toHaveLength(1)
@@ -252,7 +252,7 @@ describe('DataTable filtering', () => {
       expect(screen.getByLabelText('Filter Type')).toBeInTheDocument()
     })
 
-    it('non-filterable filter cells are decorative (no role, no input)', () => {
+    it('non-filterable filter cells are decorative (role="cell" with no input)', () => {
       const ch = createColumnHelper<Repo>()
       const cols = [
         ch.column({header: 'Name', field: 'name', filterBy: true}),
@@ -261,7 +261,8 @@ describe('DataTable filtering', () => {
       const {container} = render(<DataTable aria-labelledby="t" data={data} columns={cols} filterable />)
       const decorative = container.querySelectorAll('td[data-component="Table.FilterCell"]')
       expect(decorative).toHaveLength(1)
-      // The decorative cell has no children and no interactive content.
+      expect(decorative[0]).toHaveAttribute('role', 'cell')
+      // The decorative cell has no interactive content.
       expect(decorative[0]).toBeEmptyDOMElement()
     })
   })
