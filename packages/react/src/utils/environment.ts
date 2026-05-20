@@ -19,4 +19,7 @@ const canUseDOM = !!(typeof window !== 'undefined' && window.document && window.
 const reactVersion = version.split('.')
 const reactMajorVersion = parseInt(reactVersion[0], 10)
 
-export {canUseDOM, reactMajorVersion}
+const EXPERIMENTAL_REACT_VERSION_REGEX = /^0\.0\.0-experimental-[a-f0-9]{8}-\d{8}$/
+const isExperimentalReactVersion = EXPERIMENTAL_REACT_VERSION_REGEX.test(version)
+
+export {canUseDOM, reactMajorVersion, isExperimentalReactVersion}
