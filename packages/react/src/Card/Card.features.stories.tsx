@@ -85,12 +85,12 @@ export const CustomContent = () => (
 )
 
 export const StandaloneSection = () => (
-  <Card as="section" aria-labelledby="standalone-card-heading">
+  <Card as="section">
     <Card.Icon icon={RepoIcon} />
-    <Card.Heading id="standalone-card-heading">primer/react</Card.Heading>
+    <Card.Heading>primer/react</Card.Heading>
     <Card.Description>
       {
-        "Standalone cards render as a labelled <section> landmark. The Card.Heading's id is referenced via aria-labelledby so screen readers announce the heading as the section's accessible name."
+        'Standalone cards render as a labelled <section> landmark. aria-labelledby is automatically wired to Card.Heading.'
       }
     </Card.Description>
   </Card>

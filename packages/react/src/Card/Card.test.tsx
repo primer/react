@@ -271,27 +271,14 @@ describe('Card', () => {
     expect(screen.getByRole('region', {name: 'Standalone'})).toBeInTheDocument()
   })
 
-  it('should warn in development when as="section" is used without an accessible name', () => {
-    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+  it('should auto-wire aria-labelledby to Card.Heading when as="section"', () => {
     render(
-      // @ts-expect-error - aria-label or aria-labelledby is required, but we want to verify the dev warning
       <Card as="section">
-        <Card.Heading>No accessible name</Card.Heading>
+        <Card.Heading>Auto-wired</Card.Heading>
+        <Card.Description>No manual id needed.</Card.Description>
       </Card>,
     )
-    expect(consoleSpy).toHaveBeenCalledWith('Warning:', expect.stringContaining('requires either `aria-label`'))
-    consoleSpy.mockRestore()
-  })
-
-  it('should not warn when as="section" is used with aria-label', () => {
-    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
-    render(
-      <Card as="section" aria-label="Standalone card">
-        <Card.Heading>Heading</Card.Heading>
-      </Card>,
-    )
-    expect(consoleSpy).not.toHaveBeenCalled()
-    consoleSpy.mockRestore()
+    expect(screen.getByRole('region', {name: 'Auto-wired'})).toBeInTheDocument()
   })
 
   it('should not forward the `as` prop to the DOM', () => {

@@ -55,7 +55,7 @@
       "name": "as",
       "type": "'div' | 'section'",
       "defaultValue": "'div'",
-      "description": "The HTML element to render. Use `'section'` for **standalone** Cards (not inside a list of cards) so screen readers announce the Card as a labelled region; in that case, either `aria-label` or `aria-labelledby` is required. Use the default `'div'` (and omit `Card.Heading`) when the Card is inside an `<li>` of a list of cards — the surrounding list already provides grouping."
+      "description": "The HTML element to render. Use `'section'` for **standalone** Cards (not inside a list of cards) so screen readers announce the Card as a labelled region. When `Card.Heading` is present, `aria-labelledby` is automatically wired. Use the default `'div'` when the Card is inside an `<li>` of a list of cards."
     }
   ],
   "subcomponents": [
@@ -97,7 +97,7 @@
           "name": "as",
           "type": "'h2' | 'h3' | 'h4' | 'h5' | 'h6'",
           "defaultValue": "'h3'",
-          "description": "The heading level to render. Use on standalone Cards (with `as=\"section\"` on the parent `Card`) only; do not use `Card.Heading` when the Card is inside an `<li>` of a list of cards."
+          "description": "The heading level to render. When the parent Card uses `as=\"section\"`, the heading's `id` is automatically wired to the section's `aria-labelledby`."
         }
       ]
     },
@@ -119,7 +119,7 @@
           "name": "children",
           "type": "React.ReactNode",
           "required": true,
-          "description": "The interactive control(s) to render in the top-right corner of the card, typically a single `IconButton` or `ActionMenu` trigger. When a card contains a menu, make sure the control's accessible name includes enough context to distinguish it from other cards (for example, 'Options for Project Alpha' rather than just 'Options')."
+          "description": "Interactive control for the top-right corner of the card."
         }
       ]
     },
@@ -130,7 +130,7 @@
           "name": "children",
           "type": "React.ReactNode",
           "required": true,
-          "description": "The metadata content to render at the bottom of the card. Accepts any content, including plain text, icons, and other Primer components (for example a `Label`, `Octicon`, or any combination). Avoid using `RelativeTime` until its outstanding accessibility issues are resolved."
+          "description": "Metadata content for the bottom of the card. Accepts any content: plain text, icons, or other Primer components."
         }
       ]
     }
