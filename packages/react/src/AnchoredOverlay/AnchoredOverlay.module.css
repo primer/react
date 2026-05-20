@@ -17,7 +17,9 @@
   position-try-fallbacks:
     flip-block,
     flip-inline,
-    flip-block flip-inline;
+    flip-block flip-inline,
+    --fit-block-bottom,
+    --fit-block-top;
   position-visibility: anchors-visible;
   z-index: 100;
   position: fixed !important;
@@ -87,4 +89,20 @@
   top: calc(anchor(bottom) + var(--base-size-4));
   margin: 0;
   width: auto;
+}
+
+@position-try --fit-block-bottom {
+  top: calc(anchor(bottom) + var(--base-size-4));
+  bottom: var(--base-size-8);
+  height: auto;
+  max-height: none;
+  overflow-y: auto;
+}
+
+@position-try --fit-block-top {
+  top: var(--base-size-8);
+  bottom: calc(100vh - anchor(top) + var(--base-size-4));
+  height: auto;
+  max-height: none;
+  overflow-y: auto;
 }
