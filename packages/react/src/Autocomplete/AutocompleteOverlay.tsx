@@ -1,6 +1,7 @@
 import type React from 'react'
 import {useCallback, useContext, useEffect, useRef} from 'react'
 import {useAnchoredPosition} from '../hooks'
+import {useCSSAnchorPositioning} from '../hooks/useCSSAnchorPositioning'
 import type {OverlayProps} from '../Overlay'
 import Overlay from '../Overlay'
 import type {ComponentProps} from '../utils/types'
@@ -48,11 +49,19 @@ function AutocompleteOverlay({
     computedAnchorRef.current = explicit ?? tokensRoot ?? inputRef.current
   }, [menuAnchorRef, inputRef])
 
+  const {enabled: cssAnchorPositioning} = useCSSAnchorPositioning({
+    anchorElementRef: computedAnchorRef,
+    floatingElementRef: scrollContainerRef,
+    open: showMenu,
+  })
+
   const {floatingElementRef, position} = useAnchoredPosition(
     {
       side: 'outside-bottom',
       align: 'start',
       anchorElementRef: computedAnchorRef as React.RefObject<HTMLElement>,
+      floatingElementRef: scrollContainerRef,
+      enabled: !cssAnchorPositioning,
     },
     [showMenu, selectedItemLength],
   )
@@ -74,9 +83,12 @@ function AutocompleteOverlay({
       onClickOutside={closeOptionList}
       onEscape={closeOptionList}
       ref={mergedScrollContainerRef}
-      top={position?.top}
-      left={position?.left}
+      top={cssAnchorPositioning ? undefined : position?.top}
+      left={cssAnchorPositioning ? undefined : position?.left}
+      visibility={cssAnchorPositioning || position ? 'visible' : 'hidden'}
       className={clsx(classes.Overlay, className)}
+      data-side={cssAnchorPositioning ? 'outside-bottom' : undefined}
+      data-anchor-position={cssAnchorPositioning ? true : undefined}
       {...overlayProps}
     >
       {children}

@@ -200,6 +200,35 @@
     visibility: hidden;
   }
 
+  &[data-anchor-position='true'] {
+    position-try-fallbacks:
+      flip-block,
+      flip-inline,
+      flip-block flip-inline;
+    position-visibility: anchors-visible;
+    position: fixed !important;
+
+    &[popover] {
+      inset: auto;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      max-width: none;
+    }
+
+    &[data-side='outside-bottom'] {
+      top: calc(anchor(bottom) + var(--base-size-4));
+      left: anchor(left);
+    }
+
+    &[data-side='outside-top'] {
+      margin-bottom: var(--base-size-4);
+      bottom: anchor(top);
+      left: anchor(left);
+    }
+    /* stylelint-enable primer/spacing */
+  }
+
   &:where([data-responsive='fullscreen']),
   &[data-responsive='fullscreen'][data-anchor-position='true'] {
     @media screen and (--viewportRange-narrow) {
