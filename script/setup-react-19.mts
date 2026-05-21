@@ -13,7 +13,7 @@ const versions = new Map([
 ])
 
 const packageJsonPaths = glob.sync('{examples,packages}/**/package.json', {
-  ignore: ['**/node_modules/**', '**/dist/**', '**/lib/**', '**/lib-esm/**', '**/.next/**', '**/storybook-static/**'],
+  ignore: ['**/node_modules/**', '**/dist/**', '**/.next/**', '**/storybook-static/**'],
 })
 
 const dependencyTypes = new Set(['dependencies', 'devDependencies', 'peerDependencies'])
@@ -40,7 +40,7 @@ for (const packageJsonPath of packageJsonPaths) {
     }
   }
 
-  fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n', 'utf8')
+  fs.writeFileSync(packageJsonPath, `${JSON.stringify(packageJson, null, 2)}\n`, 'utf8')
 }
 
 execSync('npm install', {stdio: 'inherit'})
