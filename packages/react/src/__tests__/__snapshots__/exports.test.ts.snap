@@ -292,7 +292,7 @@ exports[`@primer/react/experimental > should not update exports without a semver
   "type CardHeadingProps",
   "type CardIconProps",
   "type CardImageProps",
-  "type CardMenuProps",
+  "type CardActionProps",
   "type CardMetadataProps",
   "type CardProps",
   "type CellAlignment",

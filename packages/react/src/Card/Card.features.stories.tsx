@@ -52,7 +52,7 @@ export const WithMenu = () => {
       <Card.Description>
         {"GitHub's design system implemented as React components for building consistent user interfaces."}
       </Card.Description>
-      <Card.Menu>
+      <Card.Action>
         <ActionMenu>
           <ActionMenu.Anchor>
             <IconButton icon={KebabHorizontalIcon} aria-label="More options for primer/react" variant="invisible" />
@@ -65,7 +65,7 @@ export const WithMenu = () => {
             </ActionList>
           </ActionMenu.Overlay>
         </ActionMenu>
-      </Card.Menu>
+      </Card.Action>
     </Card>
   )
 }

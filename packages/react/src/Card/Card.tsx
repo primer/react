@@ -1,7 +1,6 @@
 import {clsx} from 'clsx'
 import React, {type ForwardedRef, createContext, forwardRef, useContext} from 'react'
 import classes from './Card.module.css'
-import {warning} from '../utils/warning'
 import {fixedForwardRef, type PolymorphicProps} from '../utils/modern-polymorphic'
 import {useId} from '../hooks/useId'
 
@@ -25,7 +24,7 @@ export type CardProps<As extends CardAs = 'div'> = PolymorphicProps<
 
     /**
      * Card contents. Provide either `Card.*` subcomponents (e.g. `Card.Heading`,
-     * `Card.Description`, `Card.Metadata`) or custom content. Empty cards do not render.
+     * `Card.Description`, `Card.Metadata`) or custom content.
      */
     children: React.ReactNode
   }
@@ -71,7 +70,7 @@ type ImageProps = React.ComponentPropsWithoutRef<'img'> & {
   alt?: string
 }
 
-type MenuProps = {
+type ActionProps = {
   /** Interactive control for the top-right corner of the card. */
   children: React.ReactNode
 }
@@ -128,21 +127,14 @@ function CardComponent<As extends CardAs>(
       description = child
     } else if (child.type === CardMetadata) {
       metadata = child
-    } else if (child.type === CardMenu) {
+    } else if (child.type === CardAction) {
       menu = child
     }
   }
 
   const hasSlotChildren = icon || image || heading || description || metadata || menu
 
-  // `React.Children.toArray` already drops `null`/`undefined`/`false`/`true`,
-  // so an empty array means we have nothing to render.
   const isEmpty = !hasSlotChildren && childArray.length === 0
-
-  warning(
-    isEmpty,
-    'The <Card> component was rendered with no children and will not render. Provide either Card subcomponents (Card.Heading, Card.Description, etc.) or custom content.',
-  )
 
   if (isEmpty) {
     return null
@@ -185,7 +177,7 @@ function CardComponent<As extends CardAs>(
           </div>
           {metadata ? <div className={classes.CardMetadataContainer}>{metadata}</div> : null}
         </div>
-        {menu ? <div className={classes.CardMenu}>{menu}</div> : null}
+        {menu ? <div className={classes.CardAction}>{menu}</div> : null}
       </Component>
     </CardContext.Provider>
   )
@@ -265,11 +257,11 @@ CardDescription.displayName = 'Card.Description'
  * Project Alpha"`, not just `"More options"`) so users can tell which card
  * the action applies to when several cards are visible.
  */
-function CardMenu({children}: MenuProps) {
-  return <div data-component="Card.Menu">{children}</div>
+function CardAction({children}: ActionProps) {
+  return <div data-component="Card.Action">{children}</div>
 }
 
-CardMenu.displayName = 'Card.Menu'
+CardAction.displayName = 'Card.Action'
 
 const CardMetadata = forwardRef<HTMLDivElement, MetadataProps>(function CardMetadata(
   {children, className, ...rest},
@@ -284,10 +276,10 @@ const CardMetadata = forwardRef<HTMLDivElement, MetadataProps>(function CardMeta
 
 CardMetadata.displayName = 'Card.Metadata'
 
-export {CardImpl, CardIcon, CardImage, CardHeading, CardDescription, CardMenu, CardMetadata}
+export {CardImpl, CardIcon, CardImage, CardHeading, CardDescription, CardAction, CardMetadata}
 export type {HeadingProps as CardHeadingProps}
 export type {DescriptionProps as CardDescriptionProps}
 export type {IconProps as CardIconProps}
 export type {ImageProps as CardImageProps}
-export type {MenuProps as CardMenuProps}
+export type {ActionProps as CardActionProps}
 export type {MetadataProps as CardMetadataProps}

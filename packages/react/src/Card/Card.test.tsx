@@ -68,13 +68,13 @@ describe('Card', () => {
     expect(screen.getByText('Updated 2 hours ago')).toBeInTheDocument()
   })
 
-  it('should render a menu', () => {
+  it('should render an action', () => {
     render(
       <Card>
-        <Card.Heading>Menu Card</Card.Heading>
-        <Card.Menu>
+        <Card.Heading>Action Card</Card.Heading>
+        <Card.Action>
           <button type="button">Options</button>
-        </Card.Menu>
+        </Card.Action>
       </Card>,
     )
     expect(screen.getByRole('button', {name: 'Options'})).toBeInTheDocument()
@@ -186,9 +186,9 @@ describe('Card', () => {
         <Card.Heading>With data-component</Card.Heading>
         <Card.Description>Description text</Card.Description>
         <Card.Metadata>Metadata text</Card.Metadata>
-        <Card.Menu>
+        <Card.Action>
           <button type="button">Options</button>
-        </Card.Menu>
+        </Card.Action>
       </Card>,
     )
     expect(container.querySelector('[data-component="Card"]')).toBeInTheDocument()
@@ -196,7 +196,7 @@ describe('Card', () => {
     expect(container.querySelector('[data-component="Card.Heading"]')).toBeInTheDocument()
     expect(container.querySelector('[data-component="Card.Description"]')).toBeInTheDocument()
     expect(container.querySelector('[data-component="Card.Metadata"]')).toBeInTheDocument()
-    expect(container.querySelector('[data-component="Card.Menu"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="Card.Action"]')).toBeInTheDocument()
   })
 
   it('should set data-component="Card.Image" on Card.Image', () => {
@@ -219,26 +219,14 @@ describe('Card', () => {
   })
 
   it('should not render when there are no children', () => {
-    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
     // @ts-expect-error - children is required, but we want to verify the runtime behaviour
     const {container} = render(<Card />)
     expect(container).toBeEmptyDOMElement()
-    consoleSpy.mockRestore()
   })
 
   it('should not render when all children are falsy', () => {
-    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
     const {container} = render(<Card>{false}</Card>)
     expect(container).toBeEmptyDOMElement()
-    consoleSpy.mockRestore()
-  })
-
-  it('should warn in development when rendered with no children', () => {
-    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
-    // @ts-expect-error - children is required, but we want to verify the dev warning
-    render(<Card />)
-    expect(consoleSpy).toHaveBeenCalledWith('Warning:', expect.stringContaining('was rendered with no children'))
-    consoleSpy.mockRestore()
   })
 
   it('should render as a <div> by default', () => {

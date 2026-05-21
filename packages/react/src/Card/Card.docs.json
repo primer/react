@@ -113,7 +113,7 @@
       ]
     },
     {
-      "name": "Card.Menu",
+      "name": "Card.Action",
       "props": [
         {
           "name": "children",
