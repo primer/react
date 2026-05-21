@@ -1,5 +1,6 @@
 // Most of the functionality is already tested in [@github/tab-container-element](https://github.com/github/tab-container-element)
 
+import React from 'react'
 import {render, screen} from '@testing-library/react'
 import {describe, it, afterEach, expect, vi} from 'vitest'
 import UnderlinePanels from './UnderlinePanels'
@@ -144,5 +145,26 @@ describe('UnderlinePanels', () => {
         </UnderlinePanels>,
       )
     }).toThrow('Only one tab can be selected at a time.')
+  })
+
+  it('does not cascade renders on mount (tabs derived inline, no list-width state)', async () => {
+    // Previously the component held `tabs`/`tabPanels` in state and synced
+    // them via a post-paint `useEffect`, producing one extra render every
+    // time children or `iconsVisible` changed. It also held the list width
+    // in state, with the initial measurement triggering a separate
+    // layout-effect commit. Both are now derived inline (useMemo + folded
+    // into the iconsVisible decision), so mount produces at most one
+    // measurement-driven update on top of the initial commit.
+    let commitCount = 0
+    render(
+      <React.Profiler id="UnderlinePanelsCascadeTest" onRender={() => commitCount++}>
+        <UnderlinePanelsMockComponent aria-label="Select a tab" />
+      </React.Profiler>,
+    )
+
+    // Allow ResizeObserver's initial entry to flush.
+    await new Promise(resolve => setTimeout(resolve, 0))
+
+    expect(commitCount).toBeLessThanOrEqual(2)
   })
 })

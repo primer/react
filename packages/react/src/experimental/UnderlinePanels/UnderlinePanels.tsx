@@ -4,9 +4,10 @@ import React, {
   cloneElement,
   useState,
   useRef,
+  useMemo,
+  useCallback,
   type FC,
   type PropsWithChildren,
-  useEffect,
   type ElementType,
 } from 'react'
 import {TabContainerElement} from '@github/tab-container-element'
@@ -20,7 +21,7 @@ import {
 } from '../../internal/components/UnderlineTabbedInterface'
 import {useId} from '../../hooks'
 import {invariant} from '../../utils/invariant'
-import {useResizeObserver, type ResizeObserverEntry} from '../../hooks/useResizeObserver'
+import {useResizeObserver} from '../../hooks/useResizeObserver'
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 import classes from './UnderlinePanels.module.css'
 import {clsx} from 'clsx'
@@ -96,13 +97,11 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
   // called in the exact same order in every component render
   const parentId = useId(props.id)
 
-  const [tabs, setTabs] = useState<React.ReactNode[]>([])
-  const [tabPanels, setTabPanels] = useState<React.ReactNode[]>([])
-
-  // Make sure we have fresh prop data whenever the tabs or panels are updated (keep aria-selected current)
-  useEffect(() => {
-    // Loop through the chidren, if it's a tab, then add id="{id}-tab-{index}"
-    // If it's a panel, then add aria-labelledby="{id}-tab-{index}"
+  // Derive tabs / tabPanels during render via useMemo instead of syncing
+  // to state through a post-paint useEffect. The previous pattern committed
+  // an extra render every time children or `iconsVisible` changed; this
+  // version produces the correct values on the very first render.
+  const {tabs, tabPanels} = useMemo(() => {
     let tabIndex = 0
     let panelIndex = 0
 
@@ -118,42 +117,41 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
       return child
     })
 
-    const newTabs = Children.toArray(childrenWithProps).filter(child => {
+    const nextTabs = Children.toArray(childrenWithProps).filter(child => {
       return isValidElement(child) && (child.type === Tab || isSlot(child, Tab))
     })
 
-    const newTabPanels = Children.toArray(childrenWithProps).filter(
+    const nextTabPanels = Children.toArray(childrenWithProps).filter(
       child => isValidElement(child) && (child.type === Panel || isSlot(child, Panel)),
     )
 
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setTabs(newTabs)
-    setTabPanels(newTabPanels)
+    return {tabs: nextTabs, tabPanels: nextTabPanels}
   }, [children, parentId, loadingCounters, iconsVisible])
 
-  const tabsHaveIcons = tabs.some(tab => React.isValidElement(tab) && tab.props.icon)
+  const tabsHaveIcons = useMemo(
+    () => tabs.some(tab => React.isValidElement(tab) && tab.props.icon),
+    [tabs],
+  )
 
-  // this is a workaround to get the list's width on the first render
-  const [listWidth, setListWidth] = useState(0)
-  useIsomorphicLayoutEffect(() => {
-    if (!tabsHaveIcons) {
-      return
-    }
-
-    setListWidth(listRef.current?.getBoundingClientRect().width ?? 0)
+  // Single source of truth for the icon-visibility decision, used by both the
+  // initial layout-effect pass and the ResizeObserver. Measuring list and
+  // wrapper together at decision time removes the need to hold list width in
+  // state.
+  const recomputeIconsVisible = useCallback(() => {
+    if (!tabsHaveIcons || !listRef.current || !wrapperRef.current) return
+    const wrapperWidth = wrapperRef.current.getBoundingClientRect().width
+    const listWidth = listRef.current.getBoundingClientRect().width
+    const next = wrapperWidth > listWidth
+    setIconsVisible(prev => (prev === next ? prev : next))
   }, [tabsHaveIcons])
 
-  // when the wrapper resizes, check if the icons should be visible
-  // by comparing the wrapper width to the list width
+  useIsomorphicLayoutEffect(() => {
+    recomputeIconsVisible()
+  }, [recomputeIconsVisible])
+
   useResizeObserver(
-    (resizeObserverEntries: ResizeObserverEntry[]) => {
-      if (!tabsHaveIcons) {
-        return
-      }
-
-      const wrapperWidth = resizeObserverEntries[0].contentRect.width
-
-      setIconsVisible(wrapperWidth > listWidth)
+    () => {
+      recomputeIconsVisible()
     },
     wrapperRef,
     [],

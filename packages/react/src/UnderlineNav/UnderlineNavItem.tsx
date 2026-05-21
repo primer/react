@@ -1,9 +1,8 @@
-import type {MutableRefObject, RefObject} from 'react'
-import React, {forwardRef, useRef, useContext} from 'react'
+import type {RefObject} from 'react'
+import React, {forwardRef, useContext} from 'react'
 import type {IconProps} from '@primer/octicons-react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {UnderlineNavContext} from './UnderlineNavContext'
-import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {UnderlineItem} from '../internal/components/UnderlineTabbedInterface'
 import classes from './UnderlineNavItem.module.css'
 
@@ -74,33 +73,8 @@ export const UnderlineNavItem = forwardRef(
     },
     forwardedRef,
   ) => {
-    const backupRef = useRef<HTMLElement>(null)
-    const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
-    const {setChildrenWidth, setNoIconChildrenWidth, loadingCounters, iconsVisible} = useContext(UnderlineNavContext)
-
-    useLayoutEffect(() => {
-      if (ref.current) {
-        const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
-
-        const icon = Array.from((ref as MutableRefObject<HTMLElement>).current.children).find(
-          child => child.getAttribute('data-component') === 'icon',
-        )
-
-        const content = Array.from((ref as MutableRefObject<HTMLElement>).current.children).find(
-          child => child.getAttribute('data-component') === 'text',
-        ) as HTMLElement
-        const text = content.textContent as string
-
-        const iconWidthWithMargin = icon
-          ? icon.getBoundingClientRect().width +
-            Number(getComputedStyle(icon).marginRight.slice(0, -2)) +
-            Number(getComputedStyle(icon).marginLeft.slice(0, -2))
-          : 0
-
-        setChildrenWidth({text, width: domRect.width})
-        setNoIconChildrenWidth({text, width: domRect.width - iconWidthWithMargin})
-      }
-    }, [ref, setChildrenWidth, setNoIconChildrenWidth])
+    const ref = forwardedRef as RefObject<HTMLAnchorElement> | undefined
+    const {loadingCounters, iconsVisible} = useContext(UnderlineNavContext)
 
     const keyDownHandler = React.useCallback(
       (event: React.KeyboardEvent<HTMLAnchorElement>) => {
@@ -120,7 +94,10 @@ export const UnderlineNavItem = forwardRef(
     )
 
     return (
-      <li className={classes.UnderlineNavItem}>
+      // `data-underline-nav-item` lets the parent UnderlineNav measure all
+      // items in a single layout effect instead of each item dispatching its
+      // own setState. See UnderlineNav.tsx.
+      <li className={classes.UnderlineNavItem} data-underline-nav-item="">
         <UnderlineItem
           ref={ref}
           as={Component}

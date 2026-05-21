@@ -1,5 +1,5 @@
 import {describe, expect, it, vi} from 'vitest'
-import type React from 'react'
+import React from 'react'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {
@@ -237,6 +237,30 @@ describe('UnderlineNav', () => {
     const item = screen.getByRole('link', {name: 'Simple Text'})
     const textSpan = item.querySelector('[data-component="text"]')
     expect(textSpan).toHaveAttribute('data-content', 'Simple Text')
+  })
+
+  it('does not cascade renders on mount (parent-driven measurement)', async () => {
+    // Each `UnderlineNav.Item` previously ran its own layout effect that
+    // dispatched two setState calls to the parent — producing one batched
+    // re-commit on mount in addition to the ResizeObserver's initial fire.
+    // The parent-driven measurement collapses that to a single setState, and
+    // the equality-guarded `updateListAndMenu` causes the ResizeObserver's
+    // first entry to bail out instead of committing identical responsiveProps.
+    //
+    // Asserting an exact upper bound here pins the improvement: with the old
+    // code the counter saw >=3 commits on mount; with the new code it sees
+    // at most 2 (initial + 1 measurement-driven update).
+    let commitCount = 0
+    render(
+      <React.Profiler id="UnderlineNavCascadeTest" onRender={() => commitCount++}>
+        <ResponsiveUnderlineNav />
+      </React.Profiler>,
+    )
+
+    // Allow the ResizeObserver's initial entry to flush.
+    await new Promise(resolve => setTimeout(resolve, 0))
+
+    expect(commitCount).toBeLessThanOrEqual(2)
   })
 })
 
