@@ -356,7 +356,6 @@ export const RepositionAfterLoading = () => {
   const [loading, setLoading] = useState(true)
 
   React.useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (!open) setLoading(true)
     window.setTimeout(() => {
       if (open) {
@@ -369,7 +368,6 @@ export const RepositionAfterLoading = () => {
 
   React.useEffect(() => {
     if (!loading) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -405,7 +403,6 @@ export const SelectPanelRepositionInsideDialog = () => {
   const [loading, setLoading] = useState(true)
 
   React.useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (!open) setLoading(true)
     window.setTimeout(() => {
       if (open) {
@@ -418,7 +415,6 @@ export const SelectPanelRepositionInsideDialog = () => {
 
   React.useEffect(() => {
     if (!loading) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -438,11 +434,59 @@ export const SelectPanelRepositionInsideDialog = () => {
           selected={selected}
           onSelectedChange={setSelected}
           onFilterChange={setFilter}
-          overlayProps={{anchorSide: 'outside-top'}}
           message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
         />
       </Stack>
     </Dialog>
+  )
+}
+
+export const AutogrowAfterLoadingWithOutsideTopAnchor = () => {
+  const autogrowItems = [...items]
+
+  const [selected, setSelected] = React.useState<ItemInput[]>([autogrowItems[0], autogrowItems[1]])
+  const [open, setOpen] = useState(false)
+  const [filter, setFilter] = React.useState('')
+  const [filteredItems, setFilteredItems] = React.useState<typeof autogrowItems>([])
+  const [loading, setLoading] = useState(true)
+
+  React.useEffect(() => {
+    if (!open) setLoading(true)
+    const timer = window.setTimeout(() => {
+      if (open) {
+        setFilteredItems(autogrowItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
+        setLoading(false)
+      }
+    }, 2000)
+
+    return () => window.clearTimeout(timer)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open])
+
+  React.useEffect(() => {
+    if (!loading) {
+      setFilteredItems(autogrowItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter])
+
+  return (
+    <Stack direction="vertical" justify="space-between" style={{height: 'calc(100vh - 300px)', width: 'fit-content'}}>
+      <h1>Autogrow panel after loading with outside-top anchor</h1>
+      <SelectPanel
+        loading={loading}
+        title="Select labels"
+        placeholderText="Filter Labels"
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        overlayProps={{anchorSide: 'outside-top'}}
+        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+      />
+    </Stack>
   )
 }
 
@@ -624,7 +668,6 @@ export const VirtualizedConsumerSide = () => {
     [open],
   )
 
-  // eslint-disable-next-line react-hooks/incompatible-library
   const virtualizer = useVirtualizer({
     count: filteredItems.length,
     getScrollElement: () => scrollContainer ?? null,
@@ -841,104 +884,5 @@ export const VirtualizedBuiltIn = () => {
         </FormControl>
       </form>
     </Stack>
-  )
-}
-
-/**
- * Demonstrates the first-open sizing regression where the overlay
- * appears too small and shows a scrollbar unnecessarily on first open.
- * After closing and reopening, it usually renders correctly.
- *
- * Issue: https://github.com/primer/react/issues/1831
- */
-export const FirstOpenSizingDebug = () => {
-  const [selected, setSelected] = useState<ItemInput[]>([])
-  const [open, setOpen] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const [filteredItems, setFilteredItems] = useState<typeof items>([])
-  const [filter, setFilter] = useState('')
-  const overlayRef = useRef<HTMLElement>(null)
-  const [measurements, setMeasurements] = useState<{
-    clientHeight?: number
-    scrollHeight?: number
-    scrollWidth?: number
-    hasScrollbar?: boolean
-    timestamp?: string
-  }>({})
-
-  // Simulate loading delay similar to the real issue
-  React.useEffect(() => {
-    if (!open) {
-      setLoading(true)
-    }
-    const timer = window.setTimeout(() => {
-      if (open) {
-        setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
-        setLoading(false)
-      }
-    }, 1500)
-    return () => window.clearTimeout(timer)
-  }, [open, filter])
-
-  // Measure overlay dimensions every 100ms to catch sizing changes
-  React.useEffect(() => {
-    if (!open) return
-
-    const interval = window.setInterval(() => {
-      const overlay = document.querySelector('[data-testid="overlay"]') as HTMLElement | null
-      if (overlay) {
-        const hasScrollbar = overlay.scrollHeight > overlay.clientHeight
-        setMeasurements({
-          clientHeight: overlay.clientHeight,
-          scrollHeight: overlay.scrollHeight,
-          scrollWidth: overlay.scrollWidth,
-          hasScrollbar,
-          timestamp: new Date().toLocaleTimeString(),
-        })
-
-        console.log(
-          `[SelectPanel] Overlay measurements: clientHeight=${overlay.clientHeight}, scrollHeight=${overlay.scrollHeight}, hasScrollbar=${hasScrollbar}`,
-        )
-      }
-    }, 100)
-
-    return () => window.clearInterval(interval)
-  }, [open])
-
-  return (
-    <FormControl>
-      <FormControl.Label>First-Open Sizing Debug</FormControl.Label>
-      <div style={{marginBottom: '1rem', padding: '0.5rem', backgroundColor: '#f0f0f0', borderRadius: '4px'}}>
-        <p style={{margin: 0, fontSize: '0.875rem', fontFamily: 'monospace'}}>
-          Open={open} | Loading={loading} | Last measurement: {measurements.timestamp}
-        </p>
-        <p style={{margin: '0.25rem 0 0 0', fontSize: '0.875rem', fontFamily: 'monospace'}}>
-          Overlay size: {measurements.clientHeight}px (client) × {measurements.scrollHeight}px (scroll)
-        </p>
-        <p
-          style={{
-            margin: '0.25rem 0 0 0',
-            fontSize: '0.875rem',
-            fontFamily: 'monospace',
-            color: measurements.hasScrollbar ? '#d73a4a' : '#28a745',
-          }}
-        >
-          Scrollbar: {measurements.hasScrollbar ? '✓ PRESENT (BUG!)' : '✗ Not present'}
-        </p>
-      </div>
-      <SelectPanel
-        title="Select labels"
-        placeholderText="Filter labels"
-        open={open}
-        onOpenChange={setOpen}
-        loading={loading}
-        items={filteredItems}
-        selected={selected}
-        onSelectedChange={setSelected}
-        onFilterChange={setFilter}
-        height="large"
-        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
-      />
-    </FormControl>
   )
 }
