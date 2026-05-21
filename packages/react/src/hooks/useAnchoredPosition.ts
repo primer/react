@@ -86,7 +86,8 @@ export function useAnchoredPosition(
       const floatingElement = floatingElementRef.current as HTMLElement | null
       const currentHeight = floatingElement?.clientHeight ?? 0
       const desiredHeight = Math.max(floatingElement?.scrollHeight ?? 0, currentHeight)
-      const contentNeedsMoreHeight = desiredHeight > prevHeight || hasOverflowingDescendant(floatingElement)
+      const contentNeedsMoreHeight =
+        (prevHeight !== undefined && desiredHeight > prevHeight) || hasOverflowingDescendant(floatingElement)
 
       // if the element is trying to shrink in height, restore to old height to prevent it from jumping.
       // When the content now needs to grow past the previous height, clear any stale inline height instead.

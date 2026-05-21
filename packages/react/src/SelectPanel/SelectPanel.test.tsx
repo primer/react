@@ -2342,6 +2342,7 @@ describe('SelectPanel - First-Open Sizing with Loading State', () => {
           title="Select item"
           open={open}
           onOpenChange={setOpen}
+          onFilterChange={() => {}}
           loading={loading}
           items={visibleItems}
           selected={selected}
