@@ -85,6 +85,13 @@
     margin-left: var(--base-size-4);
     position-try-fallbacks: flip-inline, flip-block, flip-start, --outside-right-to-bottom;
   }
+
+  &[data-responsive='fullscreen'] {
+    @media screen and (--viewportRange-narrow) {
+      --anchored-overlay-anchor-offset-left: 0;
+      --anchored-overlay-anchor-offset-right: 0;
+    }
+  }
 }
 
 @position-try --outside-left-to-bottom {
