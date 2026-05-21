@@ -148,5 +148,4 @@
   bottom: calc(100vh - anchor(top) + var(--base-size-4));
   height: auto;
   max-height: none;
-  overflow-y: auto;
 }
