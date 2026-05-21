@@ -395,7 +395,10 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           data-side={cssAnchorPositioning ? side : position?.anchorSide}
         >
           {showXIcon ? (
-            <div className={classes.ResponsiveCloseButtonContainer}>
+            <div
+              className={classes.ResponsiveCloseButtonContainer}
+              data-component="AnchoredOverlay.CloseButtonContainer"
+            >
               <IconButton
                 {...(closeButtonProps as IconButtonProps)}
                 type="button"

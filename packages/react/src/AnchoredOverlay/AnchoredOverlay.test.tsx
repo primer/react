@@ -93,6 +93,26 @@ describe.each([true, false])(
       overlayClasses.Overlay,
     )
 
+    it('renders data-component attribute on the responsive close button container when shown', () => {
+      const {baseElement} = render(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <BaseStyles>
+            <AnchoredOverlay
+              open={true}
+              onOpen={() => {}}
+              onClose={() => {}}
+              renderAnchor={props => <Button {...props}>Anchor Button</Button>}
+              variant={{regular: 'anchored', narrow: 'fullscreen'}}
+            >
+              <div>content</div>
+            </AnchoredOverlay>
+          </BaseStyles>
+        </FeatureFlags>,
+      )
+
+      expect(baseElement.querySelector('[data-component="AnchoredOverlay.CloseButtonContainer"]')).toBeInTheDocument()
+    })
+
     it('should call onOpen when the anchor is clicked', async () => {
       const mockOpenCallback = vi.fn()
       const mockCloseCallback = vi.fn()
