@@ -356,6 +356,7 @@ export const RepositionAfterLoading = () => {
   const [loading, setLoading] = useState(true)
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Reset loading state when panel closes
     if (!open) setLoading(true)
     window.setTimeout(() => {
       if (open) {
@@ -403,6 +404,7 @@ export const SelectPanelRepositionInsideDialog = () => {
   const [loading, setLoading] = useState(true)
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Reset loading state when panel closes
     if (!open) setLoading(true)
     window.setTimeout(() => {
       if (open) {
@@ -451,6 +453,7 @@ export const AutogrowAfterLoadingWithOutsideTopAnchor = () => {
   const [loading, setLoading] = useState(true)
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Reset loading state when panel closes
     if (!open) setLoading(true)
     const timer = window.setTimeout(() => {
       if (open) {
