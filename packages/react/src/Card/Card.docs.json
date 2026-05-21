@@ -13,9 +13,27 @@
     },
     {
       "id": "experimental-components-card-features--with-metadata"
+    },
+    {
+      "id": "experimental-components-card-features--with-menu"
+    },
+    {
+      "id": "experimental-components-card-features--standalone-section"
+    },
+    {
+      "id": "experimental-components-card-features--in-list"
+    },
+    {
+      "id": "experimental-components-card-features--interactive-content"
     }
   ],
   "props": [
+    {
+      "name": "children",
+      "type": "React.ReactNode",
+      "required": true,
+      "description": "The contents of the card. Provide either `Card.*` subcomponents (for example `Card.Heading`, `Card.Description`, `Card.Metadata`) or any custom content. A card with no children will not render."
+    },
     {
       "name": "className",
       "type": "string",
@@ -32,6 +50,12 @@
       "type": "'medium' | 'large'",
       "defaultValue": "'large'",
       "description": "Controls the border radius of the Card."
+    },
+    {
+      "name": "as",
+      "type": "'div' | 'section'",
+      "defaultValue": "'div'",
+      "description": "The HTML element to render. Use `'section'` for **standalone** Cards (not inside a list of cards) so screen readers announce the Card as a labelled region. When `Card.Heading` is present, `aria-labelledby` is automatically wired. Use the default `'div'` when the Card is inside an `<li>` of a list of cards."
     }
   ],
   "subcomponents": [
@@ -73,21 +97,42 @@
           "name": "as",
           "type": "'h2' | 'h3' | 'h4' | 'h5' | 'h6'",
           "defaultValue": "'h3'",
-          "description": "The heading level to render."
+          "description": "The heading level to render. When the parent Card uses `as=\"section\"`, the heading's `id` is automatically wired to the section's `aria-labelledby`."
         }
       ]
     },
     {
       "name": "Card.Description",
-      "props": []
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "The descriptive text for the card. Rendered inside a `<p>` element so should be flowing text content."
+        }
+      ]
     },
     {
-      "name": "Card.Menu",
-      "props": []
+      "name": "Card.Action",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "Interactive control for the top-right corner of the card."
+        }
+      ]
     },
     {
       "name": "Card.Metadata",
-      "props": []
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "Metadata content for the bottom of the card. Accepts any content: plain text, icons, or other Primer components."
+        }
+      ]
     }
   ]
 }
