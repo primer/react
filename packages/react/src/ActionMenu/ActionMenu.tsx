@@ -237,6 +237,9 @@ const Anchor: WithSlotMarker<
     [isSubmenu, onOpen, parentActionListContext],
   )
 
+  // only add data-component to the anchor if it's not a button, so we don't accidentally override
+  const isCustomAnchor = child.type !== Button
+
   return (
     <ActionListContainerContext.Provider value={thisActionListContext}>
       {React.cloneElement(child, {
@@ -245,6 +248,7 @@ const Anchor: WithSlotMarker<
         className: clsx(anchorProps.className, child.props.className),
         onClick: onButtonClick,
         onKeyDown: onButtonKeyDown,
+        ...(isCustomAnchor ? {'data-component': 'ActionMenu.Anchor'} : {}),
       })}
     </ActionListContainerContext.Provider>
   )
@@ -256,7 +260,7 @@ export type ActionMenuButtonProps = ButtonProps
 const MenuButton = React.forwardRef(({...props}, anchorRef) => {
   return (
     <Anchor ref={anchorRef}>
-      <Button type="button" trailingAction={TriangleDownIcon} {...props} />
+      <Button data-component="ActionMenu.Button" type="button" trailingAction={TriangleDownIcon} {...props} />
     </Anchor>
   )
 }) as PolymorphicForwardRefComponent<'button', ActionMenuButtonProps>
@@ -364,6 +368,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
       <div
         ref={containerRef}
         className={styles.ActionMenuContainer}
+        data-component="ActionMenu.Overlay"
         data-variant={responsiveVariant}
         {...(overlayProps.overflow ? {[`data-overflow-${overlayProps.overflow}`]: ''} : {})}
         {...(overlayProps.maxHeight ? {[`data-max-height-${overlayProps.maxHeight}`]: ''} : {})}

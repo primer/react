@@ -180,6 +180,19 @@ function ExampleWithSubmenus(): JSX.Element {
 describe('ActionMenu', () => {
   implementsClassName(ActionMenu.Button)
 
+  it('renders data-component attributes for ActionMenu parts', async () => {
+    const component = HTMLRender(<Example />)
+    const user = userEvent.setup()
+
+    const trigger = component.getByRole('button', {name: 'Toggle Menu'})
+    expect(trigger).toHaveAttribute('data-component', 'ActionMenu.Button')
+
+    await user.click(trigger)
+
+    expect(component.baseElement.querySelector('[data-component="AnchoredOverlay"]')).not.toBeNull()
+    expect(component.baseElement.querySelector('[data-component="ActionMenu.Overlay"]')).not.toBeNull()
+  })
+
   it('should open Menu on MenuButton click', async () => {
     const component = HTMLRender(<Example />)
     const button = component.getByRole('button')
