@@ -2372,10 +2372,8 @@ describe('SelectPanel - First-Open Sizing with Loading State', () => {
       {timeout: 1000},
     )
 
-    // Get overlay measurements while still loading
+    // Get overlay element
     const overlay = document.querySelector('[data-testid="overlay"]') as HTMLElement | null
-    const clientHeightWhileLoading = overlay?.clientHeight
-    const scrollHeightWhileLoading = overlay?.scrollHeight
 
     // Wait for items to load
     await waitFor(
@@ -2390,12 +2388,6 @@ describe('SelectPanel - First-Open Sizing with Loading State', () => {
     const clientHeightAfterLoading = overlay?.clientHeight
     const scrollHeightAfterLoading = overlay?.scrollHeight
 
-    // Log measurements for debugging
-    console.log('First-open sizing measurements:', {
-      whileLoading: {clientHeight: clientHeightWhileLoading, scrollHeight: scrollHeightWhileLoading},
-      afterLoading: {clientHeight: clientHeightAfterLoading, scrollHeight: scrollHeightAfterLoading},
-    })
-
     // The overlay should have enough height to fit all content without scrollbar
     if (clientHeightAfterLoading && scrollHeightAfterLoading) {
       const hasScrollbar = scrollHeightAfterLoading > clientHeightAfterLoading
@@ -2405,7 +2397,7 @@ describe('SelectPanel - First-Open Sizing with Loading State', () => {
 
   it('should have consistent height between first and second open', async () => {
     const user = userEvent.setup()
-    const {unmount, rerender} = render(<TestComponentWithLoadingDelay />)
+    render(<TestComponentWithLoadingDelay />)
 
     const button = screen.getByRole('button', {name: /Select item/i})
 
@@ -2442,7 +2434,6 @@ describe('SelectPanel - First-Open Sizing with Loading State', () => {
     // Heights should be very similar (allowing for minor variations)
     if (height1 && height2) {
       const difference = Math.abs(height1 - height2)
-      console.log(`Height consistency check: first=${height1}px, second=${height2}px, diff=${difference}px`)
       expect(difference).toBeLessThan(50) // Allow max 50px variance
     }
   })
