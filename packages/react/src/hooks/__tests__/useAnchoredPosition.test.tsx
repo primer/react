@@ -1,7 +1,39 @@
 import {render, waitFor, act} from '@testing-library/react'
-import {it, expect, vi, describe} from 'vitest'
+import {it, expect, vi, describe, beforeEach, afterEach} from 'vitest'
 import React from 'react'
 import {useAnchoredPosition} from '../../hooks/useAnchoredPosition'
+
+type MockedAnchorPosition = {
+  anchorAlign: string
+  anchorSide: string
+  left: number
+  top: number
+}
+
+type BehaviorsModule = Record<string, unknown> & {
+  getAnchoredPosition: (...args: unknown[]) => MockedAnchorPosition
+}
+
+const {mockedGetAnchoredPosition} = vi.hoisted(() => ({
+  mockedGetAnchoredPosition: vi.fn(),
+}))
+
+vi.mock('@primer/behaviors', async importOriginal => {
+  const actual = (await importOriginal()) as BehaviorsModule
+
+  return {
+    ...actual,
+    getAnchoredPosition: (...args: unknown[]) => {
+      const implementation = mockedGetAnchoredPosition.getMockImplementation()
+
+      if (implementation) {
+        return mockedGetAnchoredPosition(...args)
+      }
+
+      return actual.getAnchoredPosition(...args)
+    },
+  }
+})
 
 const Component = ({callback}: {callback: (hookReturnValue: ReturnType<typeof useAnchoredPosition>) => void}) => {
   const floatingElementRef = React.useRef<HTMLDivElement>(null)
@@ -17,6 +49,33 @@ const Component = ({callback}: {callback: (hookReturnValue: ReturnType<typeof us
     </div>
   )
 }
+
+const PinPositionComponent = ({
+  callback,
+  step,
+}: {
+  callback: (hookReturnValue: ReturnType<typeof useAnchoredPosition>) => void
+  step: number
+}) => {
+  const floatingElementRef = React.useRef<HTMLDivElement>(null)
+  const anchorElementRef = React.useRef<HTMLDivElement>(null)
+  callback(useAnchoredPosition({floatingElementRef, anchorElementRef, pinPosition: true}, [step]))
+
+  return (
+    <div>
+      <div ref={floatingElementRef} />
+      <div ref={anchorElementRef} />
+    </div>
+  )
+}
+
+beforeEach(() => {
+  mockedGetAnchoredPosition.mockReset()
+})
+
+afterEach(() => {
+  vi.restoreAllMocks()
+})
 
 it('should should return a position', async () => {
   const cb = vi.fn()
@@ -140,5 +199,128 @@ describe('scroll recalculation', () => {
     await waitFor(() => {
       expect(cb.mock.calls.length).toBeGreaterThan(callCountBefore)
     })
+  })
+})
+
+describe('pinPosition', () => {
+  it('allows outside-top overlays to grow when content needs more height', async () => {
+    const callback = vi.fn()
+    let currentTop = 200
+    let floatingHeight = 147
+    let floatingScrollHeight = 147
+    let overflowingDescendantHeight = 147
+    let overflowingDescendantScrollHeight = 147
+
+    mockedGetAnchoredPosition.mockImplementation(() => ({
+      anchorAlign: 'start',
+      anchorSide: 'outside-top',
+      left: 0,
+      top: currentTop,
+    }))
+
+    const requestAnimationFrameSpy = vi.spyOn(window, 'requestAnimationFrame').mockImplementation(callback => {
+      callback(0)
+      return 0
+    })
+
+    const {container, rerender} = render(<PinPositionComponent callback={callback} step={0} />)
+    const [floatingElement, anchorElement] = Array.from(container.firstElementChild!.children) as [
+      HTMLDivElement,
+      HTMLDivElement,
+    ]
+    const overflowingDescendant = document.createElement('div')
+    floatingElement.append(overflowingDescendant)
+
+    Object.defineProperty(floatingElement, 'clientHeight', {configurable: true, get: () => floatingHeight})
+    Object.defineProperty(floatingElement, 'scrollHeight', {configurable: true, get: () => floatingScrollHeight})
+    Object.defineProperty(overflowingDescendant, 'clientHeight', {
+      configurable: true,
+      get: () => overflowingDescendantHeight,
+    })
+    Object.defineProperty(overflowingDescendant, 'scrollHeight', {
+      configurable: true,
+      get: () => overflowingDescendantScrollHeight,
+    })
+    Object.defineProperty(anchorElement, 'getBoundingClientRect', {
+      configurable: true,
+      value: () => ({top: 500}),
+    })
+
+    await waitFor(() => {
+      expect(callback.mock.lastCall?.[0].position.top).toBe(200)
+    })
+
+    rerender(<PinPositionComponent callback={callback} step={1} />)
+
+    await waitFor(() => {
+      expect(callback.mock.lastCall?.[0].position.top).toBe(200)
+    })
+
+    currentTop = 210
+    floatingHeight = 91
+    floatingScrollHeight = 91
+    overflowingDescendantHeight = 91
+    overflowingDescendantScrollHeight = 317
+    rerender(<PinPositionComponent callback={callback} step={2} />)
+
+    await waitFor(() => {
+      expect(callback.mock.lastCall?.[0].position.top).toBe(210)
+    })
+
+    expect(floatingElement.style.height).toBe('')
+    expect(requestAnimationFrameSpy).toHaveBeenCalled()
+  })
+
+  it('keeps the previous height when outside-top content is genuinely shrinking', async () => {
+    const callback = vi.fn()
+    let currentTop = 200
+    let floatingHeight = 147
+    let floatingScrollHeight = 147
+
+    mockedGetAnchoredPosition.mockImplementation(() => ({
+      anchorAlign: 'start',
+      anchorSide: 'outside-top',
+      left: 0,
+      top: currentTop,
+    }))
+
+    vi.spyOn(window, 'requestAnimationFrame').mockImplementation(callback => {
+      callback(0)
+      return 0
+    })
+
+    const {container, rerender} = render(<PinPositionComponent callback={callback} step={0} />)
+    const [floatingElement, anchorElement] = Array.from(container.firstElementChild!.children) as [
+      HTMLDivElement,
+      HTMLDivElement,
+    ]
+
+    Object.defineProperty(floatingElement, 'clientHeight', {configurable: true, get: () => floatingHeight})
+    Object.defineProperty(floatingElement, 'scrollHeight', {configurable: true, get: () => floatingScrollHeight})
+    Object.defineProperty(anchorElement, 'getBoundingClientRect', {
+      configurable: true,
+      value: () => ({top: 500}),
+    })
+
+    await waitFor(() => {
+      expect(callback.mock.lastCall?.[0].position.top).toBe(200)
+    })
+
+    rerender(<PinPositionComponent callback={callback} step={1} />)
+
+    await waitFor(() => {
+      expect(callback.mock.lastCall?.[0].position.top).toBe(200)
+    })
+
+    currentTop = 210
+    floatingHeight = 91
+    floatingScrollHeight = 91
+    rerender(<PinPositionComponent callback={callback} step={2} />)
+
+    await waitFor(() => {
+      expect(callback.mock.lastCall?.[0].position.top).toBe(200)
+    })
+
+    expect(floatingElement.style.height).toBe('147px')
   })
 })

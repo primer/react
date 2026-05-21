@@ -34,6 +34,18 @@ export interface AnchoredPositionHookSettings extends Partial<PositionSettings> 
   enabled?: boolean
 }
 
+function hasOverflowingDescendant(element: HTMLElement | null) {
+  if (!element) return false
+
+  for (const descendant of element.querySelectorAll<HTMLElement>('*')) {
+    if (descendant.scrollHeight > descendant.clientHeight || descendant.scrollWidth > descendant.clientWidth) {
+      return true
+    }
+  }
+
+  return false
+}
+
 /**
  * Calculates the top and left values for an absolutely-positioned floating element
  * to be anchored to some anchor element. Returns refs for the floating element
@@ -71,8 +83,23 @@ export function useAnchoredPosition(
   const updateElementHeight = () => {
     let heightUpdated = false
     setPrevHeight(prevHeight => {
-      // if the element is trying to shrink in height, restore to old height to prevent it from jumping
-      if (prevHeight && prevHeight > (floatingElementRef.current?.clientHeight ?? 0)) {
+      const floatingElement = floatingElementRef.current as HTMLElement | null
+      const currentHeight = floatingElement?.clientHeight ?? 0
+      const desiredHeight = Math.max(floatingElement?.scrollHeight ?? 0, currentHeight)
+      const contentNeedsMoreHeight = desiredHeight > prevHeight || hasOverflowingDescendant(floatingElement)
+
+      // if the element is trying to shrink in height, restore to old height to prevent it from jumping.
+      // When the content now needs to grow past the previous height, clear any stale inline height instead.
+      if (prevHeight && prevHeight > currentHeight) {
+        if (contentNeedsMoreHeight) {
+          requestAnimationFrame(() => {
+            if (floatingElementRef.current instanceof HTMLElement) {
+              floatingElementRef.current.style.height = ''
+            }
+          })
+          return prevHeight
+        }
+
         requestAnimationFrame(() => {
           ;(floatingElementRef.current as HTMLElement).style.height = `${prevHeight}px`
         })
@@ -111,7 +138,7 @@ export function useAnchoredPosition(
       }
       setPrevHeight(floatingElementRef.current?.clientHeight)
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/use-memo
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [floatingElementRef, anchorElementRef, enabled, ...dependencies],
   )
 

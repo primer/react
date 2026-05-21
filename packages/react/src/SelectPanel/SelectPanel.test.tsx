@@ -2294,7 +2294,7 @@ describe('SelectPanel displayInViewport prop', () => {
 
 /**
  * Test suite for SelectPanel first-open sizing regression
- * Issue: https://github.com/primer/react/issues/1831
+ * Issue: https://github.com/github/issues/issues/18331
  *
  * On first open with loading state, SelectPanel may render shorter than its content
  * and show an unnecessary scrollbar. This occurs because position is calculated before
