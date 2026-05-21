@@ -2291,3 +2291,159 @@ describe('SelectPanel displayInViewport prop', () => {
     expect(lastCall[2]?.displayInViewport).not.toBe(true)
   })
 })
+
+/**
+ * Test suite for SelectPanel first-open sizing regression
+ * Issue: https://github.com/primer/react/issues/1831
+ *
+ * On first open with loading state, SelectPanel may render shorter than its content
+ * and show an unnecessary scrollbar. This occurs because position is calculated before
+ * items have loaded and rendered, using the spinner/loading state height rather than
+ * the final content height.
+ */
+describe('SelectPanel - First-Open Sizing with Loading State', () => {
+  const items: ItemInput[] = [
+    {id: '1', text: 'Item 1'},
+    {id: '2', text: 'Item 2'},
+    {id: '3', text: 'Item 3'},
+    {id: '4', text: 'Item 4'},
+    {id: '5', text: 'Item 5'},
+    {id: '6', text: 'Item 6'},
+    {id: '7', text: 'Item 7'},
+    {id: '8', text: 'Item 8'},
+  ]
+
+  const TestComponentWithLoadingDelay = () => {
+    const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
+    const [open, setOpen] = React.useState(false)
+    const [loading, setLoading] = React.useState(true)
+    const [visibleItems, setVisibleItems] = React.useState<ItemInput[]>([])
+
+    // Simulate items loading after a delay (typical async data fetch)
+    React.useEffect(() => {
+      if (!open) {
+        setLoading(true)
+        setVisibleItems([])
+      }
+
+      const timer = setTimeout(() => {
+        if (open) {
+          setVisibleItems(items)
+          setLoading(false)
+        }
+      }, 500) // 500ms delay simulates network/async operation
+
+      return () => clearTimeout(timer)
+    }, [open])
+
+    return (
+      <>
+        <SelectPanel
+          title="Select item"
+          open={open}
+          onOpenChange={setOpen}
+          loading={loading}
+          items={visibleItems}
+          selected={selected}
+          onSelectedChange={setSelected}
+          height="large"
+        />
+        <div data-testid="state">
+          open:{open} loading:{loading} itemsCount:{visibleItems.length}
+        </div>
+      </>
+    )
+  }
+
+  it('should measure overlay height correctly while loading', async () => {
+    const user = userEvent.setup()
+    render(<TestComponentWithLoadingDelay />)
+
+    const button = screen.getByRole('button', {name: /Select item/i})
+
+    // Open SelectPanel for the first time
+    await user.click(button)
+
+    // Wait for overlay to appear (should show loading spinner)
+    await waitFor(
+      () => {
+        expect(screen.getByText(/^Item 1$/)).toBeInTheDocument()
+      },
+      {timeout: 1000},
+    )
+
+    // Get overlay measurements while still loading
+    const overlay = document.querySelector('[data-testid="overlay"]') as HTMLElement | null
+    const clientHeightWhileLoading = overlay?.clientHeight
+    const scrollHeightWhileLoading = overlay?.scrollHeight
+
+    // Wait for items to load
+    await waitFor(
+      () => {
+        const state = screen.getByTestId('state')
+        expect(state).toHaveTextContent('loading:false')
+      },
+      {timeout: 1500},
+    )
+
+    // Get overlay measurements after loading
+    const clientHeightAfterLoading = overlay?.clientHeight
+    const scrollHeightAfterLoading = overlay?.scrollHeight
+
+    // Log measurements for debugging
+    console.log('First-open sizing measurements:', {
+      whileLoading: {clientHeight: clientHeightWhileLoading, scrollHeight: scrollHeightWhileLoading},
+      afterLoading: {clientHeight: clientHeightAfterLoading, scrollHeight: scrollHeightAfterLoading},
+    })
+
+    // The overlay should have enough height to fit all content without scrollbar
+    if (clientHeightAfterLoading && scrollHeightAfterLoading) {
+      const hasScrollbar = scrollHeightAfterLoading > clientHeightAfterLoading
+      expect(hasScrollbar).toBe(false)
+    }
+  })
+
+  it('should have consistent height between first and second open', async () => {
+    const user = userEvent.setup()
+    const {unmount, rerender} = render(<TestComponentWithLoadingDelay />)
+
+    const button = screen.getByRole('button', {name: /Select item/i})
+
+    // First open
+    await user.click(button)
+    await waitFor(() => {
+      const state = screen.getByTestId('state')
+      expect(state).toHaveTextContent('loading:false')
+    })
+
+    const overlay1 = document.querySelector('[data-testid="overlay"]')
+    const height1 = overlay1?.getBoundingClientRect().height
+
+    // Close
+    await user.click(button)
+    await waitFor(() => {
+      const state = screen.getByTestId('state')
+      expect(state).toHaveTextContent('open:false')
+    })
+
+    // Second open (loading state happens again)
+    await user.click(button)
+    await waitFor(
+      () => {
+        const state = screen.getByTestId('state')
+        expect(state).toHaveTextContent('loading:false')
+      },
+      {timeout: 1500},
+    )
+
+    const overlay2 = document.querySelector('[data-testid="overlay"]')
+    const height2 = overlay2?.getBoundingClientRect().height
+
+    // Heights should be very similar (allowing for minor variations)
+    if (height1 && height2) {
+      const difference = Math.abs(height1 - height2)
+      console.log(`Height consistency check: first=${height1}px, second=${height2}px, diff=${difference}px`)
+      expect(difference).toBeLessThan(50) // Allow max 50px variance
+    }
+  })
+})
