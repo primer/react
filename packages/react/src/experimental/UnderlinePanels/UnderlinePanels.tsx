@@ -128,10 +128,7 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
     return {tabs: nextTabs, tabPanels: nextTabPanels}
   }, [children, parentId, loadingCounters, iconsVisible])
 
-  const tabsHaveIcons = useMemo(
-    () => tabs.some(tab => React.isValidElement(tab) && tab.props.icon),
-    [tabs],
-  )
+  const tabsHaveIcons = useMemo(() => tabs.some(tab => React.isValidElement(tab) && tab.props.icon), [tabs])
 
   // Single source of truth for the icon-visibility decision, used by both the
   // initial layout-effect pass and the ResizeObserver. Measuring list and
