@@ -42,7 +42,7 @@
     &[data-align='left'] {
       left: auto;
       right: calc(anchor(right) - var(--anchored-overlay-anchor-offset-left));
-
+      /* stylelint-disable max-nesting-depth */
       &[data-responsive='fullscreen'] {
         @media screen and (--viewportRange-narrow) {
           right: auto;
@@ -141,7 +141,6 @@
   bottom: var(--base-size-8);
   height: auto;
   max-height: none;
-  overflow-y: auto;
 }
 
 @position-try --fit-block-top {
