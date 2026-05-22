@@ -4,7 +4,7 @@ import {UnderlineNavContext} from './UnderlineNavContext'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useResizeObserver} from '../hooks/useResizeObserver'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
-import type {ChildWidthArray, ResponsiveProps} from './types'
+import type {ChildWidthMap, ResponsiveProps} from './types'
 import VisuallyHidden from '../_VisuallyHidden'
 import {dividerStyles, menuItemStyles, baseMenuMinWidth} from './styles'
 import {UnderlineItemList, UnderlineWrapper, LoadingCounter, GAP} from '../internal/components/UnderlineTabbedInterface'
@@ -46,18 +46,19 @@ const computeOverflow = (
   moreMenuWidth: number,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   childArray: Array<React.ReactElement<any>>,
-  childWidthArray: ChildWidthArray,
-  noIconChildWidthArray: ChildWidthArray,
+  childWidths: ChildWidthMap,
+  noIconChildWidths: ChildWidthMap,
 ): {items: ResponsiveProps['items']; menuItems: ResponsiveProps['menuItems']; iconsVisible: boolean} => {
   let iconsVisible = true
-  if (childWidthArray.length === 0) {
+  if (childWidths.size === 0) {
     return {items: childArray, menuItems: [], iconsVisible}
   }
-  const numberOfItemsPossible = calculatePossibleItems(childWidthArray, navWidth)
-  const numberOfItemsWithoutIconPossible = calculatePossibleItems(noIconChildWidthArray, navWidth)
+  const numberOfItemsPossible = calculatePossibleItems(childArray, childWidths, navWidth)
+  const numberOfItemsWithoutIconPossible = calculatePossibleItems(childArray, noIconChildWidths, navWidth)
   // We need to take more menu width into account when calculating the number of items possible
   const numberOfItemsPossibleWithMoreMenu = calculatePossibleItems(
-    noIconChildWidthArray,
+    childArray,
+    noIconChildWidths,
     navWidth,
     moreMenuWidth || MORE_BTN_WIDTH,
   )
@@ -112,17 +113,22 @@ const getValidChildren = (children: React.ReactNode) => {
   return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement<any>[]
 }
 
-const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: number, moreMenuWidth = 0) => {
+const calculatePossibleItems = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  childArray: Array<React.ReactElement<any>>,
+  widthMap: ChildWidthMap,
+  navWidth: number,
+  moreMenuWidth = 0,
+) => {
   const widthToFit = navWidth - moreMenuWidth
-  let breakpoint = childWidthArray.length // assume all items will fit
+  let breakpoint = childArray.length // assume all items will fit
   let sumsOfChildWidth = 0
-  for (const [index, childWidth] of childWidthArray.entries()) {
-    sumsOfChildWidth = sumsOfChildWidth + childWidth.width + GAP
+  for (const [index, child] of childArray.entries()) {
+    const width = widthMap.get(String(child.key)) ?? 0
+    sumsOfChildWidth = sumsOfChildWidth + width + GAP
     if (sumsOfChildWidth > widthToFit) {
       breakpoint = index
       break
-    } else {
-      continue
     }
   }
   return breakpoint
@@ -164,9 +170,10 @@ export const UnderlineNav = forwardRef(
 
     const [isWidgetOpen, setIsWidgetOpen] = useState(false)
     // Measurement results are stored in refs because only `computeOverflow` reads them;
-    // they should not trigger re-renders.
-    const childWidthArrayRef = useRef<ChildWidthArray>([])
-    const noIconChildWidthArrayRef = useRef<ChildWidthArray>([])
+    // they should not trigger re-renders. Keyed by `String(element.key)` so lookups
+    // are O(1) and survive non-string item children.
+    const childWidthsRef = useRef<ChildWidthMap>(new Map())
+    const noIconChildWidthsRef = useRef<ChildWidthMap>(new Map())
 
     const validChildren = getValidChildren(children)
     // Stable signature of the children list — when it changes we re-run the
@@ -202,17 +209,19 @@ export const UnderlineNav = forwardRef(
       setOverflowState({items: validChildren, menuItems: [], iconsVisible: true, measured: false, childrenKey})
     }
 
+    // Build a key-indexed view of validChildren once per render so the listItems /
+    // menuItems prop-refresh below is O(N) instead of O(N^2) via Array.prototype.find.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const validChildrenByKey = new Map<string, React.ReactElement<any>>()
+    for (const c of validChildren) validChildrenByKey.set(String(c.key), c)
+
     const {iconsVisible, measured: isOverflowMeasured} = overflowState
 
     // Make sure to have the fresh props data for list items when children are changed (keeping aria-current up-to-date)
-    const listItems = overflowState.items.map(item => {
-      return validChildren.find(child => child.key === item.key) ?? item
-    })
+    const listItems = overflowState.items.map(item => validChildrenByKey.get(String(item.key)) ?? item)
 
     // Make sure to have the fresh props data for menu items when children are changed (keeping aria-current up-to-date)
-    const menuItems = overflowState.menuItems.map(menuItem => {
-      return validChildren.find(child => child.key === menuItem.key) ?? menuItem
-    })
+    const menuItems = overflowState.menuItems.map(item => validChildrenByKey.get(String(item.key)) ?? item)
     // This is the case where the viewport is too narrow to show any list item with the more menu. In this case, we only show the dropdown
     const onlyMenuVisible = overflowState.items.length === 0
 
@@ -229,9 +238,12 @@ export const UnderlineNav = forwardRef(
       })
     }
 
-    function getItemsWidth(itemText: string): number {
-      return noIconChildWidthArrayRef.current.find(item => item.text === itemText)?.width ?? 0
-    }
+    // Returns the measured "no icon" width for an item, looking up by element key.
+    // Previously this was a text-based lookup, which silently returned 0 when an
+    // item's children weren't a plain string and caused the swap math to degenerate.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const getItemNoIconWidth = (item: React.ReactElement<any>): number =>
+      noIconChildWidthsRef.current.get(String(item.key)) ?? 0
 
     // Pure: returns the {items, menuItems} that result from promoting
     // `prospectiveListItem` (currently at position `indexOfProspectiveListItem`
@@ -243,7 +255,7 @@ export const UnderlineNav = forwardRef(
       prospectiveListItem: React.ReactElement<any>,
       indexOfProspectiveListItem: number,
     ): {items: ResponsiveProps['items']; menuItems: ResponsiveProps['menuItems']} => {
-      const widthToFitIntoList = getItemsWidth(prospectiveListItem.props.children)
+      const widthToFitIntoList = getItemNoIconWidth(prospectiveListItem)
       const availableSpace =
         (navRef.current?.getBoundingClientRect().width ?? 0) - (listRef.current?.getBoundingClientRect().width ?? 0)
 
@@ -252,7 +264,7 @@ export const UnderlineNav = forwardRef(
       let widthToSwap = 0
       let breakpoint = 0
       for (const [index, item] of [...currentItems].reverse().entries()) {
-        widthToSwap += getItemsWidth(item.props.children)
+        widthToSwap += getItemNoIconWidth(item)
         if (widthToFitIntoList < widthToSwap + availableSpace) {
           breakpoint = index
           break
@@ -302,18 +314,28 @@ export const UnderlineNav = forwardRef(
 
       // Pass 1: measurement (runs once after each remeasure trigger).
       if (!isOverflowMeasured) {
-        const widths: ChildWidthArray = []
-        const noIconWidths: ChildWidthArray = []
+        const widths: ChildWidthMap = new Map()
+        const noIconWidths: ChildWidthMap = new Map()
         const itemEls = listEl.querySelectorAll<HTMLElement>('[data-underlinenav-item="true"]')
 
+        // The N-th [data-underlinenav-item] element corresponds to validChildren[N]
+        // because the measurement pass runs only when all items are in the list,
+        // in render order. Pair them up positionally so we can key widths by the
+        // element's React key.
+        let index = 0
         for (const liEl of itemEls) {
           const linkEl = liEl.querySelector<HTMLElement>('a, button')
-          if (!linkEl) continue
+          if (!linkEl) {
+            index++
+            continue
+          }
+          const child = validChildren[index]
+          index++
+          if (!child) continue
+          const key = String(child.key)
 
           const domRect = linkEl.getBoundingClientRect()
           const iconEl = linkEl.querySelector<HTMLElement>('[data-component="icon"]')
-          const textEl = linkEl.querySelector<HTMLElement>('[data-component="text"]')
-          const text = textEl?.textContent ?? ''
 
           let iconWidthWithMargin = 0
           if (iconEl) {
@@ -324,12 +346,12 @@ export const UnderlineNav = forwardRef(
               (parseFloat(style.marginLeft) || 0)
           }
 
-          widths.push({text, width: domRect.width})
-          noIconWidths.push({text, width: domRect.width - iconWidthWithMargin})
+          widths.set(key, domRect.width)
+          noIconWidths.set(key, domRect.width - iconWidthWithMargin)
         }
 
-        childWidthArrayRef.current = widths
-        noIconChildWidthArrayRef.current = noIconWidths
+        childWidthsRef.current = widths
+        noIconChildWidthsRef.current = noIconWidths
 
         const navWidth = navEl.getBoundingClientRect().width
         if (navWidth === 0) return
@@ -405,14 +427,14 @@ export const UnderlineNav = forwardRef(
         navWidth,
         moreMenuWidth,
         validChildren,
-        childWidthArrayRef.current,
-        noIconChildWidthArrayRef.current,
+        childWidthsRef.current,
+        noIconChildWidthsRef.current,
       )
       setOverflowState(prev => ({
         items: result.items,
         menuItems: result.menuItems,
         iconsVisible: result.iconsVisible,
-        measured: childWidthArrayRef.current.length > 0 || prev.measured,
+        measured: childWidthsRef.current.size > 0 || prev.measured,
         childrenKey: prev.childrenKey,
       }))
     }, navRef as RefObject<HTMLElement>)

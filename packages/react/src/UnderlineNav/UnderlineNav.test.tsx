@@ -316,6 +316,33 @@ describe('Structure: aria-current swap is an effect (not render-phase setState)'
     expect(promoted).toBeInTheDocument()
     expect(promoted.getAttribute('aria-current')).toBe('page')
   })
+
+  it('promotes a menu item correctly when its children are not a plain string', () => {
+    // Regression: the swap helper used to look widths up by `item.props.children`
+    // as a string, which silently returned 0 for non-string children and produced
+    // an incorrect swap (wrong items pulled from the list, or the same item being
+    // both promoted and demoted).
+    function NestedDemo({current}: {current: string}) {
+      const items = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten']
+      return (
+        <div style={{width: 320}}>
+          <UnderlineNav aria-label="Nested">
+            {items.map(name => (
+              <UnderlineNav.Item key={name} aria-current={name === current ? 'page' : undefined}>
+                <span>{name}</span>
+              </UnderlineNav.Item>
+            ))}
+          </UnderlineNav>
+        </div>
+      )
+    }
+    const {getByRole, rerender} = render(<NestedDemo current="One" />)
+    expect(getByRole('link', {name: 'One'}).getAttribute('aria-current')).toBe('page')
+    rerender(<NestedDemo current="Ten" />)
+    const promoted = getByRole('link', {name: 'Ten'})
+    expect(promoted).toBeInTheDocument()
+    expect(promoted.getAttribute('aria-current')).toBe('page')
+  })
 })
 
 describe('Performance: bounded re-renders during initial mount', () => {
