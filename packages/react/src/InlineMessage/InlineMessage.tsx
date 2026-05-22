@@ -58,7 +58,13 @@ export function InlineMessage({
   }
 
   return (
-    <div {...rest} className={clsx(className, classes.InlineMessage)} data-size={size} data-variant={variant}>
+    <div
+      {...rest}
+      className={clsx(className, classes.InlineMessage)}
+      data-size={size}
+      data-variant={variant}
+      data-component="InlineMessage"
+    >
       {icon}
       {children}
     </div>

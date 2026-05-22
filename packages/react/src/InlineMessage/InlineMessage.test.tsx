@@ -9,6 +9,15 @@ import classes from './InlineMessage.module.css'
 describe('InlineMessage', () => {
   implementsClassName(InlineMessage, classes.InlineMessage)
 
+  it('renders data-component="InlineMessage" on the root element', () => {
+    render(
+      <InlineMessage data-testid="container" variant="success">
+        test
+      </InlineMessage>,
+    )
+    expect(screen.getByTestId('container')).toHaveAttribute('data-component', 'InlineMessage')
+  })
+
   it('should render content passed as `children`', () => {
     render(<InlineMessage variant="success">test contents</InlineMessage>)
     expect(screen.getByText('test contents')).toBeInTheDocument()

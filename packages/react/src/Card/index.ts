@@ -1,11 +1,11 @@
-import {CardImpl, CardIcon, CardImage, CardHeading, CardDescription, CardMenu, CardMetadata} from './Card'
+import {CardImpl, CardIcon, CardImage, CardHeading, CardDescription, CardAction, CardMetadata} from './Card'
 import type {
   CardProps,
   CardIconProps,
   CardImageProps,
   CardHeadingProps,
   CardDescriptionProps,
-  CardMenuProps,
+  CardActionProps,
   CardMetadataProps,
 } from './Card'
 
@@ -14,7 +14,7 @@ const Card = Object.assign(CardImpl, {
   Image: CardImage,
   Heading: CardHeading,
   Description: CardDescription,
-  Menu: CardMenu,
+  Action: CardAction,
   Metadata: CardMetadata,
 })
 
@@ -25,6 +25,6 @@ export type {
   CardImageProps,
   CardHeadingProps,
   CardDescriptionProps,
-  CardMenuProps,
+  CardActionProps,
   CardMetadataProps,
 }

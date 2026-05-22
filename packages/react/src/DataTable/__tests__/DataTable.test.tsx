@@ -576,6 +576,10 @@ describe('DataTable', () => {
             },
             {
               id: 5,
+              value: 0,
+            },
+            {
+              id: 6,
               value: 1,
             },
           ]}
@@ -609,7 +613,7 @@ describe('DataTable', () => {
           return cell.textContent
         })
 
-      expect(rows).toEqual(['3', '2', '1', '', ''])
+      expect(rows).toEqual(['3', '2', '1', '0', '', ''])
 
       // Change to ascending
       await user.click(screen.getByText('Value'))
@@ -624,7 +628,55 @@ describe('DataTable', () => {
           return cell.textContent
         })
 
-      expect(rows).toEqual(['1', '2', '3', '', ''])
+      expect(rows).toEqual(['0', '1', '2', '3', '', ''])
+    })
+
+    it('should treat zero as a populated value when sorting numeric columns', async () => {
+      const user = userEvent.setup()
+
+      render(
+        <DataTable
+          data={[
+            {
+              id: 1,
+              value: 0,
+            },
+            {
+              id: 2,
+              value: 2,
+            },
+            {
+              id: 3,
+              value: 1,
+            },
+          ]}
+          columns={[
+            {
+              header: 'Value',
+              field: 'value',
+              sortBy: true,
+            },
+          ]}
+        />,
+      )
+
+      function getRowOrder() {
+        return screen
+          .getAllByRole('row')
+          .filter(row => {
+            return queryByRole(row, 'cell')
+          })
+          .map(row => {
+            const cell = getByRole(row, 'cell')
+            return cell.textContent
+          })
+      }
+
+      await user.click(screen.getByText('Value'))
+      expect(getRowOrder()).toEqual(['0', '1', '2'])
+
+      await user.click(screen.getByText('Value'))
+      expect(getRowOrder()).toEqual(['2', '1', '0'])
     })
 
     it('should change the sort direction on mouse click', async () => {
