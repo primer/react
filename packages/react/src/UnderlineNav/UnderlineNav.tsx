@@ -331,6 +331,30 @@ export const UnderlineNav = forwardRef(
       overflowEffect(navWidth, moreMenuWidth, validChildren, widths, noIconWidths, updateListAndMenu)
     })
 
+    // If the consumer changes `aria-current` externally to point at an item that is
+    // currently in the overflow menu, promote it back into the visible list. This
+    // used to be done with a render-phase setState inside `menuItems.map(...)`, which
+    // forced React to discard and re-run the in-progress render. Doing it in a layout
+    // effect keeps the render pure and produces one extra commit only when a swap is
+    // actually needed. Runs on every commit and short-circuits cheaply — necessary
+    // because `aria-current` lives on item props (not state), so the deps would not
+    // detect prop-only changes without re-deriving a signature.
+    useIsomorphicLayoutEffect(() => {
+      if (!isOverflowMeasured || onlyMenuVisible) return
+      const indexOfCurrent = menuItems.findIndex(item => {
+        const c = item.props['aria-current']
+        return Boolean(c) && c !== 'false'
+      })
+      if (indexOfCurrent === -1) return
+      const event = new MouseEvent('click')
+      swapMenuItemWithListItem(
+        menuItems[indexOfCurrent],
+        indexOfCurrent,
+        event as unknown as React.MouseEvent<HTMLAnchorElement>,
+        updateListAndMenu,
+      )
+    })
+
     const closeOverlay = React.useCallback(() => {
       setIsWidgetOpen(false)
     }, [setIsWidgetOpen])
@@ -448,19 +472,6 @@ export const UnderlineNav = forwardRef(
                       onSelect,
                       ...menuItemProps
                     } = menuItem.props
-
-                    // This logic is used to pop the selected item out of the menu and into the list when the navigation is control externally
-                    if (Boolean(ariaCurrent) && ariaCurrent !== 'false') {
-                      const event = new MouseEvent('click')
-                      !onlyMenuVisible &&
-                        swapMenuItemWithListItem(
-                          menuItem,
-                          index,
-                          // @ts-ignore - not a big deal because it is internally creating an event but ask help
-                          event as React.MouseEvent<HTMLAnchorElement>,
-                          updateListAndMenu,
-                        )
-                    }
 
                     return (
                       <ActionList.LinkItem
