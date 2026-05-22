@@ -21,7 +21,7 @@ export type {
   CardImageProps,
   CardHeadingProps,
   CardDescriptionProps,
-  CardMenuProps,
+  CardActionProps,
   CardMetadataProps,
 } from '../Card'
 
