@@ -861,11 +861,7 @@
     width: 100%;
 
     @media screen and (min-width: 768px) {
-      width: clamp(
-        var(--pane-min-width),
-        var(--pane-width),
-        min(var(--pane-max-width), var(--sidebar-viewport-max))
-      );
+      width: clamp(var(--pane-min-width), var(--pane-width), min(var(--pane-max-width), var(--sidebar-viewport-max)));
     }
 
     &:where([data-constrain-to-viewport='false']) {
