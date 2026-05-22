@@ -368,8 +368,10 @@ export const UnderlineNav = forwardRef(
       // (post-measurement) items so it can fold into the same setState.
       const considered: OverflowState = next ?? overflowState
       if (considered.measured && considered.items.length > 0) {
-        // Look at FRESH props (current aria-current) by remapping through validChildren.
-        const freshMenuItems = considered.menuItems.map(item => validChildren.find(c => c.key === item.key) ?? item)
+        // Look at FRESH props (current aria-current) by remapping through
+        // validChildrenByKey (O(1) per lookup; the previous .find() pattern was
+        // O(N) and ran inside a .map() — quadratic on every commit).
+        const freshMenuItems = considered.menuItems.map(item => validChildrenByKey.get(String(item.key)) ?? item)
         const indexOfCurrent = freshMenuItems.findIndex(item => {
           const c = item.props['aria-current']
           return Boolean(c) && c !== 'false'
