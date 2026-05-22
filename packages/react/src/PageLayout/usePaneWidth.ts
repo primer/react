@@ -284,6 +284,10 @@ export function usePaneWidth({
   // Track last maxPaneWidth to skip redundant startTransition calls on resize (see #7801)
   const maxPaneWidthRef = React.useRef(maxPaneWidth)
 
+  // Pending values cached during window-resize gesture, flushed once at gesture end
+  const pendingMaxRef = React.useRef(maxPaneWidth)
+  const pendingClampedRef = React.useRef(false)
+
   // Keep currentWidthRef in sync with state (ref is used during drag to avoid re-renders)
   useIsomorphicLayoutEffect(() => {
     currentWidthRef.current = currentWidth
@@ -330,57 +334,11 @@ export function usePaneWidth({
   })
 
   // Update CSS variable, refs, and ARIA on mount and window resize.
-  // Strategy: Only sync when resize stops (debounced) to avoid layout thrashing on large DOMs
+  // During resize: DOM-only updates per frame (no React state). Single React commit at gesture end.
   useIsomorphicLayoutEffect(() => {
     if (!resizable) return
 
     let lastViewportWidth = window.innerWidth
-
-    // Full sync of refs, ARIA, and state (debounced, runs when resize stops)
-    const syncAll = () => {
-      const currentViewportWidth = window.innerWidth
-
-      // Only update the cached diff value if we crossed the breakpoint
-      const crossedBreakpoint =
-        (lastViewportWidth < DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT &&
-          currentViewportWidth >= DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT) ||
-        (lastViewportWidth >= DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT &&
-          currentViewportWidth < DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT)
-      lastViewportWidth = currentViewportWidth
-
-      if (crossedBreakpoint) {
-        maxWidthDiffRef.current = getMaxWidthDiffFromViewport()
-      }
-
-      const actualMax = getMaxPaneWidthRef.current()
-
-      // Update CSS variable for visual clamping (may already be set by throttled update)
-      paneRef.current?.style.setProperty('--pane-max-width', `${actualMax}px`)
-
-      // Track if we clamped current width
-      const wasClamped = currentWidthRef.current > actualMax
-      if (wasClamped) {
-        currentWidthRef.current = actualMax
-        paneRef.current?.style.setProperty('--pane-width', `${actualMax}px`)
-      }
-
-      // Update ARIA via DOM - cheap, no React re-render
-      updateAriaValues(handleRef.current, {max: actualMax, current: currentWidthRef.current})
-
-      // Only trigger React re-render if values actually changed.
-      // startTransition doesn't bail out on same-value updates like normal setState,
-      // so we guard explicitly to avoid unnecessary re-renders on every resize tick. (#7801)
-      const maxChanged = actualMax !== maxPaneWidthRef.current
-      if (maxChanged || wasClamped) {
-        maxPaneWidthRef.current = actualMax
-        startTransition(() => {
-          setMaxPaneWidth(actualMax)
-          if (wasClamped) {
-            setCurrentWidthState(actualMax)
-          }
-        })
-      }
-    }
 
     // Initial calculation on mount — use viewport-based lookup to avoid
     // getComputedStyle which forces a synchronous layout recalc on the
@@ -388,6 +346,7 @@ export function usePaneWidth({
     maxWidthDiffRef.current = getMaxWidthDiffFromViewport()
     const initialMax = getMaxPaneWidthRef.current()
     maxPaneWidthRef.current = initialMax
+    pendingMaxRef.current = initialMax
     setMaxPaneWidth(initialMax)
     paneRef.current?.style.setProperty('--pane-max-width', `${initialMax}px`)
     updateAriaValues(handleRef.current, {min: minPaneWidth, max: initialMax, current: currentWidthRef.current})
@@ -395,12 +354,7 @@ export function usePaneWidth({
     // For custom widths that aren't viewport-constrained, max is fixed - no need to listen to resize
     if (customMaxWidth !== null && !constrainToViewport) return
 
-    // Throttle approach for window resize - provides immediate visual feedback for small DOMs
-    // while still limiting update frequency
-    const THROTTLE_MS = 16 // ~60fps
     const DEBOUNCE_MS = 150 // Delay before removing containment after resize stops
-    let lastUpdateTime = 0
-    let pendingUpdate = false
     let rafId: number | null = null
     let debounceId: ReturnType<typeof setTimeout> | null = null
     let isResizing = false
@@ -419,29 +373,82 @@ export function usePaneWidth({
       contentWrapperRef.current?.removeAttribute('data-dragging')
     }
 
+    // DOM-only sync: updates CSS variables, refs, and ARIA attributes.
+    // No React state — safe to call on every animation frame during resize.
+    const syncDom = () => {
+      const currentViewportWidth = window.innerWidth
+
+      // Only update the cached diff value if we crossed the breakpoint
+      const crossedBreakpoint =
+        (lastViewportWidth < DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT &&
+          currentViewportWidth >= DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT) ||
+        (lastViewportWidth >= DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT &&
+          currentViewportWidth < DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT)
+      lastViewportWidth = currentViewportWidth
+
+      if (crossedBreakpoint) {
+        maxWidthDiffRef.current = getMaxWidthDiffFromViewport()
+      }
+
+      const actualMax = getMaxPaneWidthRef.current()
+      pendingMaxRef.current = actualMax
+
+      // Update CSS variable for visual clamping
+      paneRef.current?.style.setProperty('--pane-max-width', `${actualMax}px`)
+
+      // Clamp current width if it exceeds the new max
+      if (currentWidthRef.current > actualMax) {
+        currentWidthRef.current = actualMax
+        pendingClampedRef.current = true
+        paneRef.current?.style.setProperty('--pane-width', `${actualMax}px`)
+      }
+
+      // Update ARIA via DOM - cheap, no React re-render
+      updateAriaValues(handleRef.current, {max: actualMax, current: currentWidthRef.current})
+    }
+
+    // React state commit: flushes pending values into React state once per gesture.
+    // Called exactly once when the resize gesture ends (inside the debounce callback).
+    const commitToReact = () => {
+      const actualMax = pendingMaxRef.current
+      const wasClamped = pendingClampedRef.current
+      pendingClampedRef.current = false
+
+      // Only trigger React re-render if values actually changed.
+      // startTransition doesn't bail out on same-value updates like normal setState,
+      // so we guard explicitly to avoid unnecessary re-renders. (#7801)
+      const maxChanged = actualMax !== maxPaneWidthRef.current
+      if (maxChanged || wasClamped) {
+        maxPaneWidthRef.current = actualMax
+        startTransition(() => {
+          setMaxPaneWidth(actualMax)
+          if (wasClamped) {
+            setCurrentWidthState(actualMax)
+          }
+        })
+      }
+    }
+
     const handleResize = () => {
       // Apply containment on first resize event (stays applied until resize stops)
       startResizeOptimizations()
 
-      const now = Date.now()
-      if (now - lastUpdateTime >= THROTTLE_MS) {
-        lastUpdateTime = now
-        syncAll()
-      } else if (!pendingUpdate) {
-        pendingUpdate = true
+      // Coalesce all resize events within a single animation frame into one DOM update.
+      // rAF already guarantees at most one call per frame — no separate Date.now() throttle needed.
+      if (rafId === null) {
         rafId = requestAnimationFrame(() => {
-          pendingUpdate = false
           rafId = null
-          lastUpdateTime = Date.now()
-          syncAll()
+          syncDom()
         })
       }
 
-      // Debounce the cleanup — remove containment after resize stops
+      // Debounce the gesture end: guarantee a final DOM sync and a single React commit
       if (debounceId !== null) clearTimeout(debounceId)
       debounceId = setTimeout(() => {
         debounceId = null
         endResizeOptimizations()
+        syncDom() // ensure the final frame matches the final viewport
+        commitToReact() // single React update for the whole gesture
       }, DEBOUNCE_MS)
     }
 

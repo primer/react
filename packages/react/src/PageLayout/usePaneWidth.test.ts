@@ -654,7 +654,7 @@ describe('usePaneWidth', () => {
         }),
       )
 
-      // Adds resize listener for throttled CSS updates and debounced state sync
+      // Adds resize listener for rAF-coalesced DOM updates and debounced state sync
       expect(addEventListenerSpy).toHaveBeenCalledWith('resize', expect.any(Function))
       addEventListenerSpy.mockRestore()
     })
@@ -700,7 +700,7 @@ describe('usePaneWidth', () => {
       // Shrink viewport
       vi.stubGlobal('innerWidth', 800)
 
-      // Wrap resize + throttle in act() since it triggers startTransition state update
+      // Wrap resize in act() since it eventually triggers startTransition state update (via debounce)
       await act(async () => {
         window.dispatchEvent(new Event('resize'))
         await vi.runAllTimersAsync()
@@ -714,7 +714,7 @@ describe('usePaneWidth', () => {
       vi.useRealTimers()
     })
 
-    it('should throttle CSS variable update', async () => {
+    it('should update CSS variable via rAF on resize', async () => {
       vi.useFakeTimers()
       vi.stubGlobal('innerWidth', 1280)
       const refs = createMockRefs()
@@ -735,11 +735,10 @@ describe('usePaneWidth', () => {
       // Shrink viewport (crosses 1280 breakpoint, diff switches to 511)
       vi.stubGlobal('innerWidth', 1000)
 
-      // Fire resize - with throttle, first update happens immediately (if THROTTLE_MS passed)
+      // Fire resize — the DOM update is coalesced via rAF
       window.dispatchEvent(new Event('resize'))
 
-      // Since Date.now() starts at 0 and lastUpdateTime is 0, first update should happen immediately
-      // but it's in rAF, so we need to advance through rAF
+      // Advance through rAF and debounce
       await act(async () => {
         await vi.runAllTimersAsync()
       })
@@ -750,7 +749,7 @@ describe('usePaneWidth', () => {
       vi.useRealTimers()
     })
 
-    it('should update ARIA attributes after throttle', async () => {
+    it('should update ARIA attributes via rAF on resize', async () => {
       vi.useFakeTimers()
       vi.stubGlobal('innerWidth', 1280)
       const refs = createMockRefs()
@@ -771,7 +770,7 @@ describe('usePaneWidth', () => {
       // Shrink viewport (crosses 1280 breakpoint, diff switches to 511)
       vi.stubGlobal('innerWidth', 900)
 
-      // Fire resize - with throttle, update happens via rAF
+      // Fire resize — DOM update is coalesced via rAF
       window.dispatchEvent(new Event('resize'))
 
       // Wait for rAF to complete
@@ -785,7 +784,7 @@ describe('usePaneWidth', () => {
       vi.useRealTimers()
     })
 
-    it('should throttle full sync on rapid resize', async () => {
+    it('should coalesce rapid resize events into a single rAF update', async () => {
       vi.useFakeTimers()
       vi.stubGlobal('innerWidth', 1280)
       const refs = createMockRefs()
@@ -809,7 +808,7 @@ describe('usePaneWidth', () => {
       vi.stubGlobal('innerWidth', 1100)
       window.dispatchEvent(new Event('resize'))
 
-      // With throttle, CSS should update immediately or via rAF
+      // With rAF coalescing, CSS should update once per animation frame
       await act(async () => {
         await vi.runAllTimersAsync()
       })
@@ -820,13 +819,13 @@ describe('usePaneWidth', () => {
       // Clear for next test
       setPropertySpy.mockClear()
 
-      // Fire more resize events rapidly (within throttle window)
+      // Fire more resize events rapidly — all coalesced into a single pending rAF
       for (let i = 0; i < 3; i++) {
         vi.stubGlobal('innerWidth', 1000 - i * 50)
         window.dispatchEvent(new Event('resize'))
       }
 
-      // Should schedule via rAF
+      // Should coalesce all three events into one rAF + debounce
       await act(async () => {
         await vi.runAllTimersAsync()
       })
@@ -838,7 +837,7 @@ describe('usePaneWidth', () => {
       vi.useRealTimers()
     })
 
-    it('should update React state via startTransition after throttle', async () => {
+    it('should update React state via startTransition once when resize gesture ends', async () => {
       vi.useFakeTimers()
       vi.stubGlobal('innerWidth', 1280)
       const refs = createMockRefs()
@@ -860,13 +859,57 @@ describe('usePaneWidth', () => {
       vi.stubGlobal('innerWidth', 800)
       window.dispatchEvent(new Event('resize'))
 
-      // After throttle (via rAF), state updated via startTransition
+      // After the gesture ends (debounce fires), state is committed once via startTransition
       await act(async () => {
         await vi.runAllTimersAsync()
       })
 
       // State now reflects new max: 800 - 511 = 289
       expect(result.current.maxPaneWidth).toBe(289)
+
+      vi.useRealTimers()
+    })
+
+    it('should not call startTransition during resize frames, only once at gesture end', async () => {
+      vi.useFakeTimers()
+      vi.stubGlobal('innerWidth', 1280)
+      const refs = createMockRefs()
+
+      renderHook(() =>
+        usePaneWidth({
+          width: 'medium',
+          minWidth: 256,
+          resizable: true,
+          widthStorageKey: 'test-no-transition-during-resize',
+          ...refs,
+        }),
+      )
+
+      // Clear any startTransition calls from mount / initial render
+      startTransitionSpy.mockClear()
+
+      // Fire many resize events rapidly — simulates fast window resize
+      for (let i = 0; i < 5; i++) {
+        vi.stubGlobal('innerWidth', 1000 - i * 50)
+        window.dispatchEvent(new Event('resize'))
+      }
+
+      // Advance well past one rAF frame (~16ms) but before the 150ms debounce.
+      // This flushes DOM-only rAF callbacks without triggering the gesture-end commit.
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(149)
+      })
+
+      // No React commits should have happened during the resize frames
+      expect(startTransitionSpy).not.toHaveBeenCalled()
+
+      // Advance the remaining 1ms — fires the debounce, the single commit for the whole gesture
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(1)
+      })
+
+      // Exactly one startTransition call at gesture end
+      expect(startTransitionSpy).toHaveBeenCalledTimes(1)
 
       vi.useRealTimers()
     })
