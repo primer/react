@@ -165,13 +165,10 @@ export const UnderlineNav = forwardRef(
     const disclosureWidgetId = useId()
 
     const [isWidgetOpen, setIsWidgetOpen] = useState(false)
-    const [iconsVisible, setIconsVisible] = useState<boolean>(true)
     // Measurement results are stored in refs because only `overflowEffect` reads them;
     // they should not trigger re-renders.
     const childWidthArrayRef = useRef<ChildWidthArray>([])
     const noIconChildWidthArrayRef = useRef<ChildWidthArray>([])
-    // Track whether the initial overflow calculation is complete to prevent CLS
-    const [isOverflowMeasured, setIsOverflowMeasured] = useState(false)
 
     const validChildren = getValidChildren(children)
     // Stable signature of the children list — when it changes we re-run the
@@ -179,32 +176,44 @@ export const UnderlineNav = forwardRef(
     const childrenKey = validChildren.map(c => String(c.key)).join('|')
     const [trackedChildrenKey, setTrackedChildrenKey] = useState(childrenKey)
 
-    // Responsive props object manages which items are in the list and which items are in the menu.
-    const [responsiveProps, setResponsiveProps] = useState<ResponsiveProps>({
+    // Single consolidated overflow state. Bundling `items`, `menuItems`,
+    // `iconsVisible`, and `measured` together means the post-measurement update is
+    // one commit instead of three, removing an intermediate render where the user
+    // could otherwise see a stale icon-visibility / measured flag before the layout
+    // settled.
+    type OverflowState = {
+      items: ResponsiveProps['items']
+      menuItems: ResponsiveProps['menuItems']
+      iconsVisible: boolean
+      measured: boolean
+    }
+    const [overflowState, setOverflowState] = useState<OverflowState>(() => ({
       items: validChildren,
       menuItems: [],
-    })
+      iconsVisible: true,
+      measured: false,
+    }))
 
     // Derived-state reset: when the children list changes, push everything back into
     // the list (with icons) so the next layout effect can measure all items in one pass.
     if (trackedChildrenKey !== childrenKey) {
       setTrackedChildrenKey(childrenKey)
-      setResponsiveProps({items: validChildren, menuItems: []})
-      setIconsVisible(true)
-      setIsOverflowMeasured(false)
+      setOverflowState({items: validChildren, menuItems: [], iconsVisible: true, measured: false})
     }
 
+    const {iconsVisible, measured: isOverflowMeasured} = overflowState
+
     // Make sure to have the fresh props data for list items when children are changed (keeping aria-current up-to-date)
-    const listItems = responsiveProps.items.map(item => {
+    const listItems = overflowState.items.map(item => {
       return validChildren.find(child => child.key === item.key) ?? item
     })
 
     // Make sure to have the fresh props data for menu items when children are changed (keeping aria-current up-to-date)
-    const menuItems = responsiveProps.menuItems.map(menuItem => {
+    const menuItems = overflowState.menuItems.map(menuItem => {
       return validChildren.find(child => child.key === menuItem.key) ?? menuItem
     })
     // This is the case where the viewport is too narrow to show any list item with the more menu. In this case, we only show the dropdown
-    const onlyMenuVisible = responsiveProps.items.length === 0
+    const onlyMenuVisible = overflowState.items.length === 0
 
     if (__DEV__) {
       // Practically, this is not a conditional hook, it is just making sure this hook runs only on DEV not PROD.
@@ -239,12 +248,12 @@ export const UnderlineNav = forwardRef(
       // Calculate how many items need to be pulled in to the menu to make room for the selected menu item
       // I.e. if we need to pull 2 items in (index 0 and index 1), breakpoint (index) will return 1.
       const index = getBreakpointForItemSwapping(widthToFitIntoList, availableSpace)
-      const indexToSliceAt = responsiveProps.items.length - 1 - index
+      const indexToSliceAt = overflowState.items.length - 1 - index
       // Form the new list of items
-      const itemsLeftInList = [...responsiveProps.items].slice(0, indexToSliceAt)
+      const itemsLeftInList = [...overflowState.items].slice(0, indexToSliceAt)
       const updatedItemList = [...itemsLeftInList, prospectiveListItem]
       // Form the new menu items
-      const itemsToAddToMenu = [...responsiveProps.items].slice(indexToSliceAt)
+      const itemsToAddToMenu = [...overflowState.items].slice(indexToSliceAt)
       const updatedMenuItems = [...menuItems]
       // Add itemsToAddToMenu array's items to the menu at the index of the prospectiveListItem and remove 1 count of items (prospectiveListItem)
       updatedMenuItems.splice(indexOfProspectiveListItem, 1, ...itemsToAddToMenu)
@@ -254,7 +263,7 @@ export const UnderlineNav = forwardRef(
     function getBreakpointForItemSwapping(widthToFitIntoList: number, availableSpace: number) {
       let widthToSwap = 0
       let breakpoint = 0
-      for (const [index, item] of [...responsiveProps.items].reverse().entries()) {
+      for (const [index, item] of [...overflowState.items].reverse().entries()) {
         widthToSwap += getItemsWidth(item.props.children)
         if (widthToFitIntoList < widthToSwap + availableSpace) {
           breakpoint = index
@@ -266,12 +275,12 @@ export const UnderlineNav = forwardRef(
 
     const updateListAndMenu = useCallback(
       (props: ResponsiveProps, displayIcons: boolean, overflowMeasured: boolean) => {
-        setResponsiveProps(props)
-        setIconsVisible(displayIcons)
-
-        if (overflowMeasured) {
-          setIsOverflowMeasured(true)
-        }
+        setOverflowState(prev => ({
+          items: props.items,
+          menuItems: props.menuItems,
+          iconsVisible: displayIcons,
+          measured: overflowMeasured || prev.measured,
+        }))
       },
       [],
     )
