@@ -1,4 +1,5 @@
 import {describe, expect, it} from 'vitest'
+import React from 'react'
 import {render, screen} from '@testing-library/react'
 import Avatar from '../Avatar'
 import {implementsClassName} from '../utils/testing'
@@ -106,6 +107,34 @@ describe('Avatar', () => {
       const avatar = screen.getByTestId('avatar')
       // Falls back to DEFAULT_AVATAR_SIZE (20)
       expect(avatar).toHaveAttribute('src', 'https://avatars.githubusercontent.com/u/1234?size=40')
+    })
+  })
+
+  describe('statusIcon', () => {
+    it('renders the status icon in a container when provided', () => {
+      render(
+        <Avatar src="primer.png" size={20} statusIcon={<span data-testid="status">🟢</span>} data-testid="avatar" />,
+      )
+      const avatar = screen.getByTestId('avatar')
+      const status = screen.getByTestId('status')
+      expect(avatar).toBeInTheDocument()
+      expect(status).toBeInTheDocument()
+      // Status icon is rendered inside the container alongside the avatar
+      expect(avatar.parentElement).toBe(status.parentElement?.parentElement)
+    })
+
+    it('does not render a container when statusIcon is not provided', () => {
+      render(<Avatar src="primer.png" data-testid="avatar" />)
+      const avatar = screen.getByTestId('avatar')
+      // The img should not be wrapped in a container div
+      expect(avatar.parentElement?.classList.toString()).not.toContain('AvatarContainer')
+    })
+
+    it('still forwards ref to the img element when statusIcon is provided', () => {
+      const ref = React.createRef<HTMLImageElement>()
+      render(<Avatar ref={ref} src="primer.png" statusIcon={<span>🟢</span>} data-testid="avatar" />)
+      expect(ref.current).toBe(screen.getByTestId('avatar'))
+      expect(ref.current?.tagName).toBe('IMG')
     })
   })
 })

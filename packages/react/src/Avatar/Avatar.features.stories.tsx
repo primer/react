@@ -1,4 +1,5 @@
 import type {Meta} from '@storybook/react-vite'
+import {XCircleFillIcon} from '@primer/octicons-react'
 import Avatar from './Avatar'
 
 export default {
@@ -86,5 +87,14 @@ export const SrcTransformer = () => (
     alt="mona"
     src="https://avatars.githubusercontent.com/u/7143434?v=4"
     srcTransformer={(src, size) => `${src}&s=${size * 2}`}
+  />
+)
+
+export const StatusIcon = () => (
+  <Avatar
+    size={20}
+    alt="status avatar"
+    src="https://avatars.githubusercontent.com/u/7143434?v=4"
+    statusIcon={<XCircleFillIcon size={12} fill="var(--fgColor-success)" />}
   />
 )

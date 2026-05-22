@@ -32,3 +32,26 @@
     }
   }
 }
+
+.AvatarContainer {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: var(--avatarSize-regular);
+  height: var(--avatarSize-regular);
+  vertical-align: middle;
+}
+
+.StatusIcon {
+  position: absolute;
+  right: calc(-1 * var(--base-size-4));
+  bottom: calc(-1 * var(--base-size-4));
+  display: flex;
+  /* stylelint-disable-next-line primer/borders */
+  border-radius: 100px;
+  /* stylelint-disable-next-line primer/box-shadow */
+  box-shadow: 0 0 0 2px var(--bgColor-default, var(--color-canvas-default));
+  background-color: var(--bgColor-default, var(--color-canvas-default));
+  /* stylelint-disable-next-line primer/typography */
+  line-height: 1;
+}

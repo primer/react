@@ -15,6 +15,8 @@ export type AvatarProps = {
   src: string
   /** Transforms the `src` URL before rendering. Receives the original `src` and the resolved numeric `size`. */
   srcTransformer?: (src: string, size: number) => string
+  /** Renders a status icon overlay positioned at the bottom-right of the avatar. */
+  statusIcon?: React.ReactNode
   /** Provide alt text when the Avatar is used without the user's name next to it. */
   alt?: string
   /** Additional class name. */
@@ -22,7 +24,7 @@ export type AvatarProps = {
 } & React.ComponentPropsWithoutRef<'img'>
 
 const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
-  {alt = '', size = DEFAULT_AVATAR_SIZE, square = false, className, style, src, srcTransformer, ...rest},
+  {alt = '', size = DEFAULT_AVATAR_SIZE, square = false, className, style, src, srcTransformer, statusIcon, ...rest},
   ref,
 ) {
   const isResponsive = isResponsiveValue(size)
@@ -39,7 +41,7 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
   const resolvedSize = isResponsive ? ((size as ResponsiveValue<number>).regular ?? DEFAULT_AVATAR_SIZE) : size
   const resolvedSrc = srcTransformer ? srcTransformer(src, resolvedSize) : src
 
-  return (
+  const img = (
     <img
       data-component="Avatar"
       className={clsx(className, classes.Avatar)}
@@ -61,6 +63,17 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
       {...rest}
     />
   )
+
+  if (statusIcon) {
+    return (
+      <div className={classes.AvatarContainer} style={cssSizeVars as React.CSSProperties}>
+        {img}
+        <span className={classes.StatusIcon}>{statusIcon}</span>
+      </div>
+    )
+  }
+
+  return img
 })
 
 if (__DEV__) {
