@@ -57,4 +57,55 @@ describe('Avatar', () => {
     expect(styleAttr).toContain('--avatarSize-regular: 20px')
     expect(styleAttr).toContain('background: black')
   })
+
+  describe('srcTransformer', () => {
+    it('transforms the src when srcTransformer is provided', () => {
+      render(
+        <Avatar
+          src="https://avatars.githubusercontent.com/u/1234"
+          size={40}
+          srcTransformer={(src, size) => `${src}?size=${size * 2}`}
+          data-testid="avatar"
+        />,
+      )
+      const avatar = screen.getByTestId('avatar')
+      expect(avatar).toHaveAttribute('src', 'https://avatars.githubusercontent.com/u/1234?size=80')
+    })
+
+    it('passes src unchanged when srcTransformer is not provided', () => {
+      render(<Avatar src="https://avatars.githubusercontent.com/u/1234" data-testid="avatar" />)
+      const avatar = screen.getByTestId('avatar')
+      expect(avatar).toHaveAttribute('src', 'https://avatars.githubusercontent.com/u/1234')
+    })
+
+    it('receives the resolved size for responsive values', () => {
+      const transformer = (src: string, size: number) => `${src}?size=${size * 2}`
+      render(
+        <Avatar
+          src="https://avatars.githubusercontent.com/u/1234"
+          size={{narrow: 16, regular: 20, wide: 24}}
+          srcTransformer={transformer}
+          data-testid="avatar"
+        />,
+      )
+      const avatar = screen.getByTestId('avatar')
+      // Should use the 'regular' size for the transformer
+      expect(avatar).toHaveAttribute('src', 'https://avatars.githubusercontent.com/u/1234?size=40')
+    })
+
+    it('uses default size when responsive value has no regular key', () => {
+      const transformer = (src: string, size: number) => `${src}?size=${size * 2}`
+      render(
+        <Avatar
+          src="https://avatars.githubusercontent.com/u/1234"
+          size={{narrow: 16, wide: 24}}
+          srcTransformer={transformer}
+          data-testid="avatar"
+        />,
+      )
+      const avatar = screen.getByTestId('avatar')
+      // Falls back to DEFAULT_AVATAR_SIZE (20)
+      expect(avatar).toHaveAttribute('src', 'https://avatars.githubusercontent.com/u/1234?size=40')
+    })
+  })
 })

@@ -15,6 +15,9 @@
     },
     {
       "id": "components-avatar-features--size-responsive"
+    },
+    {
+      "id": "components-avatar-features--src-transformer"
     }
   ],
   "importPath": "@primer/react",
@@ -43,6 +46,12 @@
       "required": false,
       "description": "URL of the avatar image.",
       "defaultValue": ""
+    },
+    {
+      "name": "srcTransformer",
+      "type": "(src: string, size: number) => string",
+      "required": false,
+      "description": "Optional function to transform the src URL before rendering. Receives the original src and the resolved numeric size in CSS pixels. Useful for appending query parameters for HiDPI/Retina support."
     }
   ],
   "subcomponents": []

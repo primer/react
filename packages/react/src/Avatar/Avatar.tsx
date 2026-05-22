@@ -13,6 +13,8 @@ export type AvatarProps = {
   square?: boolean
   /** URL of the avatar image. */
   src: string
+  /** Transforms the `src` URL before rendering. Receives the original `src` and the resolved numeric `size`. */
+  srcTransformer?: (src: string, size: number) => string
   /** Provide alt text when the Avatar is used without the user's name next to it. */
   alt?: string
   /** Additional class name. */
@@ -20,7 +22,7 @@ export type AvatarProps = {
 } & React.ComponentPropsWithoutRef<'img'>
 
 const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
-  {alt = '', size = DEFAULT_AVATAR_SIZE, square = false, className, style, ...rest},
+  {alt = '', size = DEFAULT_AVATAR_SIZE, square = false, className, style, src, srcTransformer, ...rest},
   ref,
 ) {
   const isResponsive = isResponsiveValue(size)
@@ -34,12 +36,16 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
     cssSizeVars['--avatarSize-regular'] = `${size}px`
   }
 
+  const resolvedSize = isResponsive ? ((size as ResponsiveValue<number>).regular ?? DEFAULT_AVATAR_SIZE) : size
+  const resolvedSrc = srcTransformer ? srcTransformer(src, resolvedSize) : src
+
   return (
     <img
       data-component="Avatar"
       className={clsx(className, classes.Avatar)}
       ref={ref}
       alt={alt}
+      src={resolvedSrc}
       data-responsive={isResponsive ? '' : undefined}
       data-square={square ? '' : undefined}
       width={isResponsive ? undefined : size}

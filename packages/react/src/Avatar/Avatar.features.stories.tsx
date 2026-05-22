@@ -79,3 +79,12 @@ export const SizeResponsive = () => (
     />
   </div>
 )
+
+export const SrcTransformer = () => (
+  <Avatar
+    size={32}
+    alt="mona"
+    src="https://avatars.githubusercontent.com/u/7143434?v=4"
+    srcTransformer={(src, size) => `${src}&s=${size * 2}`}
+  />
+)
