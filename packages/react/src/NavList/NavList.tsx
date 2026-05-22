@@ -29,7 +29,7 @@ export type NavListProps = {
 
 const Root = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
   return (
-    <nav {...props} ref={ref}>
+    <nav {...props} ref={ref} data-component="NavList">
       <ActionListContainerContext.Provider
         value={{
           container: 'NavList',
@@ -232,7 +232,13 @@ const SubNav = React.forwardRef<HTMLUListElement, NavListSubNavProps>(({children
 
   return (
     <SubNavContext.Provider value={{depth: depth + 1}}>
-      <ul className={classes.SubGroup} id={subNavId} aria-labelledby={buttonId} ref={forwardedRef}>
+      <ul
+        className={classes.SubGroup}
+        id={subNavId}
+        aria-labelledby={buttonId}
+        ref={forwardedRef}
+        data-component="NavList.SubNav"
+      >
         {children}
       </ul>
     </SubNavContext.Provider>
