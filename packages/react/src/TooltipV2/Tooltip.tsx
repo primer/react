@@ -399,5 +399,4 @@ export const Tooltip: ForwardRefExoticComponent<
     )
   },
 )
-
 Tooltip.__SLOT__ = Symbol('Tooltip')

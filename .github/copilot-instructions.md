@@ -136,6 +136,10 @@ npm run lint:fix        # Auto-fix linting issues
 
 When working on UI components, always use the `primer-storybook` MCP tools to access Storybook's component and documentation knowledge before answering or taking any action. Reference the `.github/skills/storybook/SKILL.md` file for detailed instructions on using the Storybook MCP effectively and accurately.
 
+## `displayName`
+
+When authoring or reviewing a component and deciding whether to set `displayName`, reference the `.github/skills/display-name/SKILL.md` file. It covers when `displayName` is needed (compound sub-components, anonymous `forwardRef` wrappers, slot sub-components) vs when modern React's `Function.name` inference makes it redundant, plus the canonical `Parent.Slot` naming convention.
+
 ## Known Issues and Workarounds
 
 **Timing Expectations:**

@@ -155,3 +155,4 @@ const StackItem = forwardRef(({as: Component = 'div', children, grow, shrink, cl
 
 export {Stack, StackItem}
 export type {StackProps, StackItemProps}
+StackItem.displayName = 'Stack.Item'

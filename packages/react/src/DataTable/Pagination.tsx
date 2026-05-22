@@ -385,3 +385,5 @@ function usePagination(config: PaginationConfig): PaginationResult {
     selectNextPage,
   }
 }
+
+Pagination.displayName = 'DataTable.Pagination'

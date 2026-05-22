@@ -57,6 +57,7 @@ const FormControlLabel: FCWithSlotMarker<
   )
 }
 
+FormControlLabel.displayName = 'FormControl.Label'
 FormControlLabel.__SLOT__ = Symbol('FormControl.Label')
 
 export default FormControlLabel

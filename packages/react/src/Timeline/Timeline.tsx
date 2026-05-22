@@ -48,7 +48,7 @@ const TimelineItem = React.forwardRef<HTMLDivElement, TimelineItemProps>(
   },
 )
 
-TimelineItem.displayName = 'TimelineItem'
+TimelineItem.displayName = 'Timeline.Item'
 
 export type TimelineBadgeVariant =
   | 'accent'
@@ -87,7 +87,7 @@ const TimelineBody = React.forwardRef<HTMLDivElement, TimelineBodyProps>(({class
   return <div {...props} className={clsx(className, classes.TimelineBody)} ref={forwardRef} />
 })
 
-TimelineBody.displayName = 'TimelineBody'
+TimelineBody.displayName = 'Timeline.Body'
 
 export type TimelineBreakProps = {
   /** Class name for custom styling */
@@ -98,7 +98,7 @@ const TimelineBreak = React.forwardRef<HTMLDivElement, TimelineBreakProps>(({cla
   return <div {...props} className={clsx(className, classes.TimelineBreak)} ref={forwardRef} />
 })
 
-TimelineBreak.displayName = 'TimelineBreak'
+TimelineBreak.displayName = 'Timeline.Break'
 
 export default Object.assign(Timeline, {
   Item: TimelineItem,

@@ -473,3 +473,7 @@ export const VerticalDivider = () => {
     />
   )
 }
+ActionBarIconButton.displayName = 'ActionBar.IconButton'
+ActionBarGroup.displayName = 'ActionBar.Group'
+ActionBarMenu.displayName = 'ActionBar.Menu'
+VerticalDivider.displayName = 'ActionBar.VerticalDivider'

@@ -1049,6 +1049,8 @@ const SecondaryLink: React.FC<LinkButtonProps & ButtonProps> = props => {
   )
 }
 
+Panel.displayName = 'SelectPanel'
+
 export const SelectPanel = Object.assign(Panel, {
   __SLOT__: Symbol('SelectPanel'),
   SecondaryActionButton: SecondaryButton,
