@@ -1,6 +1,6 @@
 ---
 name: display-name
-description: 'Use when: authoring or reviewing a component in Primer React, deciding whether to set `displayName`, and choosing the right string for it. Covers the criteria (when it''s needed vs redundant), the canonical naming convention, and interaction with the slot system.'
+description: "Use when: authoring or reviewing a component in Primer React, deciding whether to set `displayName`, and choosing the right string for it. Covers the criteria (when it's needed vs redundant), the canonical naming convention, and interaction with the slot system."
 ---
 
 # `displayName` in Primer React
@@ -82,11 +82,11 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>((props, ref) => 
 
 ## Naming convention
 
-| Component shape | Convention | Example |
-|---|---|---|
-| Top-level (root) component | `'ComponentName'` | `'Dialog'`, `'ActionList'` |
-| Sub-component of a compound | `'Parent.Slot'` | `'Dialog.Header'`, `'PageLayout.Pane'` |
-| Nested sub-component | `'Parent.Slot.SubSlot'` | `'ActionList.GroupHeading.TrailingAction'` |
+| Component shape             | Convention              | Example                                    |
+| --------------------------- | ----------------------- | ------------------------------------------ |
+| Top-level (root) component  | `'ComponentName'`       | `'Dialog'`, `'ActionList'`                 |
+| Sub-component of a compound | `'Parent.Slot'`         | `'Dialog.Header'`, `'PageLayout.Pane'`     |
+| Nested sub-component        | `'Parent.Slot.SubSlot'` | `'ActionList.GroupHeading.TrailingAction'` |
 
 ### Don't
 
