@@ -58,7 +58,7 @@ export type UnderlineNavItemProps = {
   counter?: number | string
 } & LinkProps
 
-export const UnderlineNavItem = forwardRef(
+const UnderlineNavItemImpl = forwardRef(
   (
     {
       as: Component = 'a',
@@ -115,5 +115,8 @@ export const UnderlineNavItem = forwardRef(
     )
   },
 ) as PolymorphicForwardRefComponent<'a', UnderlineNavItemProps>
+UnderlineNavItemImpl.displayName = 'UnderlineNavItem'
 
-UnderlineNavItem.displayName = 'UnderlineNavItem'
+// Memoized so that re-renders of UnderlineNav (e.g. when overflow state changes)
+// do not re-render every item when the consumer-provided children haven't changed.
+export const UnderlineNavItem = React.memo(UnderlineNavItemImpl) as unknown as typeof UnderlineNavItemImpl

@@ -1,5 +1,5 @@
 import type {RefObject} from 'react'
-import React, {useRef, forwardRef, useCallback, useState, useEffect} from 'react'
+import React, {useRef, forwardRef, useCallback, useMemo, useState, useEffect} from 'react'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useResizeObserver} from '../hooks/useResizeObserver'
@@ -37,7 +37,7 @@ export type UnderlineNavProps = {
 }
 // When page is loaded, we don't have ref for the more button as it is not on the DOM yet.
 // However, we need to calculate number of possible items when the more button present as well. So using the width of the more button as a constant.
-export const MORE_BTN_WIDTH = 86
+const MORE_BTN_WIDTH = 86
 // The height is needed to make sure we don't have a layout shift when the more button is the only item in the nav.
 const MORE_BTN_HEIGHT = 45
 
@@ -109,7 +109,7 @@ const overflowEffect = (
   updateListAndMenu({items, menuItems}, iconsVisible, true)
 }
 
-export const getValidChildren = (children: React.ReactNode) => {
+const getValidChildren = (children: React.ReactNode) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement<any>[]
 }
@@ -388,13 +388,13 @@ export const UnderlineNav = forwardRef(
       }
     }
 
+    // Stable context value: a fresh object literal here would re-render every
+    // consumer (UnderlineNav.Item) on every parent re-render, undoing the
+    // React.memo on UnderlineNavItem.
+    const contextValue = useMemo(() => ({loadingCounters, iconsVisible}), [loadingCounters, iconsVisible])
+
     return (
-      <UnderlineNavContext.Provider
-        value={{
-          loadingCounters,
-          iconsVisible,
-        }}
-      >
+      <UnderlineNavContext.Provider value={contextValue}>
         {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
         <UnderlineWrapper
           as={as}
