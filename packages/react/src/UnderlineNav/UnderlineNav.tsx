@@ -3,7 +3,8 @@ import React, {useRef, forwardRef, useCallback, useState, useEffect} from 'react
 import {UnderlineNavContext} from './UnderlineNavContext'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useResizeObserver} from '../hooks/useResizeObserver'
-import type {ChildWidthArray, ResponsiveProps, ChildSize} from './types'
+import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import type {ChildWidthArray, ResponsiveProps} from './types'
 import VisuallyHidden from '../_VisuallyHidden'
 import {dividerStyles, menuItemStyles, baseMenuMinWidth} from './styles'
 import {UnderlineItemList, UnderlineWrapper, LoadingCounter, GAP} from '../internal/components/UnderlineTabbedInterface'
@@ -165,18 +166,33 @@ export const UnderlineNav = forwardRef(
 
     const [isWidgetOpen, setIsWidgetOpen] = useState(false)
     const [iconsVisible, setIconsVisible] = useState<boolean>(true)
-    const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
-    const [noIconChildWidthArray, setNoIconChildWidthArray] = useState<ChildWidthArray>([])
+    // Measurement results are stored in refs because only `overflowEffect` reads them;
+    // they should not trigger re-renders.
+    const childWidthArrayRef = useRef<ChildWidthArray>([])
+    const noIconChildWidthArrayRef = useRef<ChildWidthArray>([])
     // Track whether the initial overflow calculation is complete to prevent CLS
     const [isOverflowMeasured, setIsOverflowMeasured] = useState(false)
 
     const validChildren = getValidChildren(children)
+    // Stable signature of the children list — when it changes we re-run the
+    // measurement pass with all items rendered (with icons) in the list.
+    const childrenKey = validChildren.map(c => String(c.key)).join('|')
+    const [trackedChildrenKey, setTrackedChildrenKey] = useState(childrenKey)
 
     // Responsive props object manages which items are in the list and which items are in the menu.
     const [responsiveProps, setResponsiveProps] = useState<ResponsiveProps>({
       items: validChildren,
       menuItems: [],
     })
+
+    // Derived-state reset: when the children list changes, push everything back into
+    // the list (with icons) so the next layout effect can measure all items in one pass.
+    if (trackedChildrenKey !== childrenKey) {
+      setTrackedChildrenKey(childrenKey)
+      setResponsiveProps({items: validChildren, menuItems: []})
+      setIconsVisible(true)
+      setIsOverflowMeasured(false)
+    }
 
     // Make sure to have the fresh props data for list items when children are changed (keeping aria-current up-to-date)
     const listItems = responsiveProps.items.map(item => {
@@ -204,7 +220,7 @@ export const UnderlineNav = forwardRef(
     }
 
     function getItemsWidth(itemText: string): number {
-      return noIconChildWidthArray.find(item => item.text === itemText)?.width ?? 0
+      return noIconChildWidthArrayRef.current.find(item => item.text === itemText)?.width ?? 0
     }
 
     const swapMenuItemWithListItem = (
@@ -259,19 +275,52 @@ export const UnderlineNav = forwardRef(
       },
       [],
     )
-    const setChildrenWidth = useCallback((size: ChildSize) => {
-      setChildWidthArray(arr => {
-        const newArr = [...arr, size]
-        return newArr
-      })
-    }, [])
 
-    const setNoIconChildrenWidth = useCallback((size: ChildSize) => {
-      setNoIconChildWidthArray(arr => {
-        const newArr = [...arr, size]
-        return newArr
-      })
-    }, [])
+    // Parent-driven measurement: walk all rendered item elements once after commit and
+    // record their widths (with icon, and without). This replaces the previous pattern
+    // where every UnderlineNav.Item dispatched two setState calls on mount, which caused
+    // O(N) parent re-renders during initial mount (one per width report, each cascading
+    // through the entire item list).
+    useIsomorphicLayoutEffect(() => {
+      if (isOverflowMeasured) return
+      const listEl = listRef.current
+      const navEl = navRef.current
+      if (!listEl || !navEl) return
+
+      const widths: ChildWidthArray = []
+      const noIconWidths: ChildWidthArray = []
+      const itemEls = listEl.querySelectorAll<HTMLElement>('[data-underlinenav-item="true"]')
+
+      for (const liEl of itemEls) {
+        const linkEl = liEl.querySelector<HTMLElement>('a, button')
+        if (!linkEl) continue
+
+        const domRect = linkEl.getBoundingClientRect()
+        const iconEl = linkEl.querySelector<HTMLElement>('[data-component="icon"]')
+        const textEl = linkEl.querySelector<HTMLElement>('[data-component="text"]')
+        const text = textEl?.textContent ?? ''
+
+        let iconWidthWithMargin = 0
+        if (iconEl) {
+          const style = getComputedStyle(iconEl)
+          iconWidthWithMargin =
+            iconEl.getBoundingClientRect().width +
+            (parseFloat(style.marginRight) || 0) +
+            (parseFloat(style.marginLeft) || 0)
+        }
+
+        widths.push({text, width: domRect.width})
+        noIconWidths.push({text, width: domRect.width - iconWidthWithMargin})
+      }
+
+      childWidthArrayRef.current = widths
+      noIconChildWidthArrayRef.current = noIconWidths
+
+      const navWidth = navEl.getBoundingClientRect().width
+      if (navWidth === 0) return
+      const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
+      overflowEffect(navWidth, moreMenuWidth, validChildren, widths, noIconWidths, updateListAndMenu)
+    })
 
     const closeOverlay = React.useCallback(() => {
       setIsWidgetOpen(false)
@@ -309,8 +358,8 @@ export const UnderlineNav = forwardRef(
           navWidth,
           moreMenuWidth,
           validChildren,
-          childWidthArray,
-          noIconChildWidthArray,
+          childWidthArrayRef.current,
+          noIconChildWidthArrayRef.current,
           updateListAndMenu,
         )
     }, navRef as RefObject<HTMLElement>)
@@ -333,8 +382,6 @@ export const UnderlineNav = forwardRef(
     return (
       <UnderlineNavContext.Provider
         value={{
-          setChildrenWidth,
-          setNoIconChildrenWidth,
           loadingCounters,
           iconsVisible,
         }}

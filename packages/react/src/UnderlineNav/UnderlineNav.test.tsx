@@ -41,7 +41,7 @@ const ResponsiveUnderlineNav = ({
   ]
 
   return (
-    <div>
+    <div style={{width: 2000}}>
       <UnderlineNav aria-label="Repository" className={clsx('foo', className)} loadingCounters={loadingCounters}>
         {items.map(item => (
           <UnderlineNav.Item
