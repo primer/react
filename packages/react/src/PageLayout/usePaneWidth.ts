@@ -184,9 +184,7 @@ export function usePaneWidth({
   minWidth,
   resizable,
   widthStorageKey,
-  paneRef,
   handleRef,
-  contentWrapperRef,
   constrainToViewport = false,
   onResizeEnd,
   currentWidth: controlledWidth,
@@ -207,7 +205,9 @@ export function usePaneWidth({
   })
   // Cache the CSS variable value to avoid getComputedStyle during drag (causes layout thrashing)
   // Updated on mount and resize when breakpoints might change
-  const maxWidthDiffRef = React.useRef(constrainToViewport ? DEFAULT_SIDEBAR_MAX_WIDTH_DIFF : DEFAULT_MAX_WIDTH_DIFF)
+  const maxWidthDiffRef = React.useRef(
+    constrainToViewport ? DEFAULT_SIDEBAR_MAX_WIDTH_DIFF : getMaxWidthDiffFromViewport(),
+  )
 
   // Calculate max width constraint - for custom widths this is capped to viewport bounds
   // when constrainToViewport is set (e.g., Sidebar), otherwise it uses the custom max directly.
@@ -329,131 +329,54 @@ export function usePaneWidth({
     getMaxPaneWidthRef.current = getMaxPaneWidth
   })
 
-  // Update CSS variable, refs, and ARIA on mount and window resize.
-  // Strategy: Only sync when resize stops (debounced) to avoid layout thrashing on large DOMs
+  // Sync refs, ARIA, and React state on mount plus once after window resize ends.
+  // Visual clamping is handled by CSS so the resize listener can stay trailing-only.
   useIsomorphicLayoutEffect(() => {
     if (!resizable) return
 
-    let lastViewportWidth = window.innerWidth
-
-    // Full sync of refs, ARIA, and state (debounced, runs when resize stops)
-    const syncAll = () => {
-      const currentViewportWidth = window.innerWidth
-
-      // Only update the cached diff value if we crossed the breakpoint
-      const crossedBreakpoint =
-        (lastViewportWidth < DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT &&
-          currentViewportWidth >= DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT) ||
-        (lastViewportWidth >= DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT &&
-          currentViewportWidth < DEFAULT_PANE_MAX_WIDTH_DIFF_BREAKPOINT)
-      lastViewportWidth = currentViewportWidth
-
-      if (crossedBreakpoint) {
-        maxWidthDiffRef.current = getMaxWidthDiffFromViewport()
-      }
-
+    const syncOnce = () => {
+      maxWidthDiffRef.current = constrainToViewport ? DEFAULT_SIDEBAR_MAX_WIDTH_DIFF : getMaxWidthDiffFromViewport()
       const actualMax = getMaxPaneWidthRef.current()
+      const clamped = Math.min(currentWidthRef.current, actualMax)
+      const wasClamped = clamped !== currentWidthRef.current
 
-      // Update CSS variable for visual clamping (may already be set by throttled update)
-      paneRef.current?.style.setProperty('--pane-max-width', `${actualMax}px`)
+      currentWidthRef.current = clamped
+      updateAriaValues(handleRef.current, {min: minPaneWidth, max: actualMax, current: clamped})
 
-      // Track if we clamped current width
-      const wasClamped = currentWidthRef.current > actualMax
-      if (wasClamped) {
-        currentWidthRef.current = actualMax
-        paneRef.current?.style.setProperty('--pane-width', `${actualMax}px`)
-      }
-
-      // Update ARIA via DOM - cheap, no React re-render
-      updateAriaValues(handleRef.current, {max: actualMax, current: currentWidthRef.current})
-
-      // Only trigger React re-render if values actually changed.
-      // startTransition doesn't bail out on same-value updates like normal setState,
-      // so we guard explicitly to avoid unnecessary re-renders on every resize tick. (#7801)
-      const maxChanged = actualMax !== maxPaneWidthRef.current
-      if (maxChanged || wasClamped) {
+      if (actualMax !== maxPaneWidthRef.current || wasClamped) {
         maxPaneWidthRef.current = actualMax
         startTransition(() => {
           setMaxPaneWidth(actualMax)
           if (wasClamped) {
-            setCurrentWidthState(actualMax)
+            setCurrentWidthState(clamped)
           }
         })
       }
     }
 
-    // Initial calculation on mount — use viewport-based lookup to avoid
-    // getComputedStyle which forces a synchronous layout recalc on the
-    // freshly-committed DOM tree (measured at ~614ms on large pages).
-    maxWidthDiffRef.current = getMaxWidthDiffFromViewport()
-    const initialMax = getMaxPaneWidthRef.current()
-    maxPaneWidthRef.current = initialMax
-    setMaxPaneWidth(initialMax)
-    paneRef.current?.style.setProperty('--pane-max-width', `${initialMax}px`)
-    updateAriaValues(handleRef.current, {min: minPaneWidth, max: initialMax, current: currentWidthRef.current})
+    syncOnce()
 
     // For custom widths that aren't viewport-constrained, max is fixed - no need to listen to resize
     if (customMaxWidth !== null && !constrainToViewport) return
 
-    // Throttle approach for window resize - provides immediate visual feedback for small DOMs
-    // while still limiting update frequency
-    const THROTTLE_MS = 16 // ~60fps
-    const DEBOUNCE_MS = 150 // Delay before removing containment after resize stops
-    let lastUpdateTime = 0
-    let pendingUpdate = false
-    let rafId: number | null = null
+    const DEBOUNCE_MS = 150
     let debounceId: ReturnType<typeof setTimeout> | null = null
-    let isResizing = false
-
-    const startResizeOptimizations = () => {
-      if (isResizing) return
-      isResizing = true
-      paneRef.current?.setAttribute('data-dragging', 'true')
-      contentWrapperRef.current?.setAttribute('data-dragging', 'true')
-    }
-
-    const endResizeOptimizations = () => {
-      if (!isResizing) return
-      isResizing = false
-      paneRef.current?.removeAttribute('data-dragging')
-      contentWrapperRef.current?.removeAttribute('data-dragging')
-    }
 
     const handleResize = () => {
-      // Apply containment on first resize event (stays applied until resize stops)
-      startResizeOptimizations()
-
-      const now = Date.now()
-      if (now - lastUpdateTime >= THROTTLE_MS) {
-        lastUpdateTime = now
-        syncAll()
-      } else if (!pendingUpdate) {
-        pendingUpdate = true
-        rafId = requestAnimationFrame(() => {
-          pendingUpdate = false
-          rafId = null
-          lastUpdateTime = Date.now()
-          syncAll()
-        })
-      }
-
-      // Debounce the cleanup — remove containment after resize stops
       if (debounceId !== null) clearTimeout(debounceId)
       debounceId = setTimeout(() => {
         debounceId = null
-        endResizeOptimizations()
+        syncOnce()
       }, DEBOUNCE_MS)
     }
 
     // eslint-disable-next-line github/prefer-observers -- Uses window resize events instead of ResizeObserver to avoid INP issues. ResizeObserver on document.documentElement fires on any content change (typing, etc), while window resize only fires on actual viewport changes.
     window.addEventListener('resize', handleResize)
     return () => {
-      if (rafId !== null) cancelAnimationFrame(rafId)
       if (debounceId !== null) clearTimeout(debounceId)
-      endResizeOptimizations()
       window.removeEventListener('resize', handleResize)
     }
-  }, [resizable, customMaxWidth, constrainToViewport, minPaneWidth, paneRef, handleRef, contentWrapperRef])
+  }, [resizable, customMaxWidth, constrainToViewport, minPaneWidth, handleRef])
 
   return {
     currentWidth,
