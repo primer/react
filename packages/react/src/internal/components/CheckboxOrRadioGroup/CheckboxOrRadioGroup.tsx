@@ -9,7 +9,6 @@ import VisuallyHidden from '../../../_VisuallyHidden'
 import {useSlots} from '../../../hooks/useSlots'
 import classes from './CheckboxOrRadioGroup.module.css'
 import {clsx} from 'clsx'
-import {isSlot} from '../../../utils/is-slot'
 
 export type CheckboxOrRadioGroupProps = {
   /** Class name for custom styling */
@@ -48,23 +47,9 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
     label: CheckboxOrRadioGroupLabel,
     validation: CheckboxOrRadioGroupValidation,
   })
-  const labelChild = React.Children.toArray(children).find(
-    child =>
-      React.isValidElement(child) &&
-      (child.type === CheckboxOrRadioGroupLabel || isSlot(child, CheckboxOrRadioGroupLabel)),
-  )
-  const validationChild = React.Children.toArray(children).find(child =>
-    React.isValidElement(child) &&
-    (child.type === CheckboxOrRadioGroupValidation || isSlot(child, CheckboxOrRadioGroupValidation))
-      ? child
-      : null,
-  )
-  const captionChild = React.Children.toArray(children).find(child =>
-    React.isValidElement(child) &&
-    (child.type === CheckboxOrRadioGroupCaption || isSlot(child, CheckboxOrRadioGroupCaption))
-      ? child
-      : null,
-  )
+  const labelChild = slots.label
+  const validationChild = slots.validation
+  const captionChild = slots.caption
   const id = useId(idProp)
   const validationMessageId = validationChild ? `${id}-validationMessage` : undefined
   const captionId = captionChild ? `${id}-caption` : undefined

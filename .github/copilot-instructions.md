@@ -136,6 +136,10 @@ npm run lint:fix        # Auto-fix linting issues
 
 When working on UI components, always use the `primer-storybook` MCP tools to access Storybook's component and documentation knowledge before answering or taking any action. Reference the `.github/skills/storybook/SKILL.md` file for detailed instructions on using the Storybook MCP effectively and accurately.
 
+## Slots
+
+When building, modifying, or wrapping compound components that use child-component "slots" (anything involving `__SLOT__`, `useSlots`, `isSlot`, or `asSlot`), reference the `.github/skills/slots/SKILL.md` file. It documents when to add slot markers, naming conventions for `Symbol(...)` descriptions, the public slot APIs, and common pitfalls.
+
 ## Known Issues and Workarounds
 
 **Timing Expectations:**

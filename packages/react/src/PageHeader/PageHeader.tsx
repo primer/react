@@ -10,12 +10,11 @@ import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {areAllValuesTheSame, haveRegularAndWideSameValue} from '../utils/getBreakpointDeclarations'
 import {warning} from '../utils/warning'
-import {useProvidedRefOrCreate} from '../hooks'
+import {useProvidedRefOrCreate, useSlots} from '../hooks'
 import type {AriaRole, FCWithSlotMarker} from '../utils/types'
 import {clsx} from 'clsx'
 
 import classes from './PageHeader.module.css'
-import {isSlot} from '../utils/is-slot'
 
 // Types that are shared between PageHeader children components
 export type ChildrenPropTypes = {
@@ -50,6 +49,12 @@ export type PageHeaderProps = {
 const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeaderProps>>(
   ({children, className, as: BaseComponent = 'div', 'aria-label': ariaLabel, role, hasBorder}, forwardedRef) => {
     const rootRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
+    const [slots] = useSlots(children, {
+      contextArea: ContextArea,
+      leadingAction: LeadingAction,
+    })
+    const hasContextArea = slots.contextArea !== undefined
+    const hasLeadingAction = slots.leadingAction !== undefined
 
     const isInteractive = (element: HTMLElement) => {
       return (
@@ -64,9 +69,6 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
       function validateInteractiveElementsInTitle() {
         if (!__DEV__) return
 
-        let hasContextArea = false
-        let hasLeadingAction = false
-
         if (!rootRef.current || rootRef.current.children.length <= 0) return
         const titleArea = Array.from(rootRef.current.children as HTMLCollection).find(child => {
           return child instanceof HTMLElement && child.getAttribute('data-component') === 'TitleArea'
@@ -75,14 +77,6 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
         // It is very unlikely to have a PageHeader without a TitleArea, but we still want to make sure we don't break the page if that happens.
         if (!titleArea) return
 
-        for (const child of React.Children.toArray(children)) {
-          if (React.isValidElement(child) && (child.type === ContextArea || isSlot(child, ContextArea))) {
-            hasContextArea = true
-          }
-          if (React.isValidElement(child) && (child.type === LeadingAction || isSlot(child, LeadingAction))) {
-            hasLeadingAction = true
-          }
-        }
         // Check if TitleArea has any interactive children or grandchildren.
         const hasInteractiveContent = Array.from(titleArea.childNodes).some(child => {
           return (
@@ -100,7 +94,7 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
           'When PageHeader.ContextArea or PageHeader.LeadingAction is present, we recommended not to include any interactive items in the PageHeader.TitleArea to make sure the focus order is logical.',
         )
       },
-      [children, rootRef],
+      [hasContextArea, hasLeadingAction, rootRef],
     )
 
     return (

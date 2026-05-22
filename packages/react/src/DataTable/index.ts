@@ -51,7 +51,7 @@ const Table: typeof TableImpl &
   ErrorDialog,
 })
 
-Table.__SLOT__ = Symbol('Table')
+Table.__SLOT__ = Symbol('DataTable.Table')
 
 export {DataTable, Table}
 export type {DataTableProps} from './DataTable'
