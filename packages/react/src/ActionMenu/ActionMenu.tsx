@@ -237,8 +237,7 @@ const Anchor: WithSlotMarker<
     [isSubmenu, onOpen, parentActionListContext],
   )
 
-  // only add data-component to the anchor if it's not a button, so we don't accidentally override
-  const isCustomAnchor = child.type !== Button
+  const dataComponent = child.props['data-component'] ?? 'ActionMenu.Anchor' // avoid unwanted downstream overrides
 
   return (
     <ActionListContainerContext.Provider value={thisActionListContext}>
@@ -248,7 +247,7 @@ const Anchor: WithSlotMarker<
         className: clsx(anchorProps.className, child.props.className),
         onClick: onButtonClick,
         onKeyDown: onButtonKeyDown,
-        ...(isCustomAnchor && !child.props['data-component'] ? {'data-component': 'ActionMenu.Anchor'} : {}),
+        'data-component': dataComponent,
       })}
     </ActionListContainerContext.Provider>
   )
