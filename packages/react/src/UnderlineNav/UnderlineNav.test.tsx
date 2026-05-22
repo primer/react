@@ -287,6 +287,37 @@ describe('Architecture: parent-driven measurement', () => {
     // returns the wrapper should already be marked measured.
     expect(nav.getAttribute('data-overflow-measured')).toBe('true')
   })
+
+  it('anchors the overflow menu via a layout effect, not by reading refs during render', async () => {
+    // Regression: the menu position used to be computed inline in render by
+    // reading containerRef.current / listRef.current. Under concurrent rendering
+    // those refs may be null or stale during render; the anchor must come from a
+    // post-commit layout effect. Open the More menu in a narrow container so the
+    // anchor branch runs, and assert no crash + the menu becomes visible.
+    function NarrowOpen() {
+      const items = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten']
+      return (
+        <div style={{width: 280}}>
+          <UnderlineNav aria-label="Anchor">
+            {items.map(name => (
+              <UnderlineNav.Item key={name}>{name}</UnderlineNav.Item>
+            ))}
+          </UnderlineNav>
+        </div>
+      )
+    }
+    const {getByRole, container} = render(<NarrowOpen />)
+    const moreBtn = getByRole('button', {name: /More/i})
+    const user = userEvent.setup()
+    await user.click(moreBtn)
+    // After opening, the ActionList container's inline display must flip to "block".
+    // What matters for this test: clicking did not crash (the new layout effect
+    // tolerates the first commit where refs/widths may not be ready) and the
+    // overlay element is in the DOM with a non-"none" display.
+    const overlay = container.querySelector('[data-component="ActionList"]') as HTMLElement | null
+    expect(overlay).not.toBeNull()
+    expect(overlay!.style.display).toBe('block')
+  })
 })
 
 describe('Structure: aria-current swap is an effect (not render-phase setState)', () => {

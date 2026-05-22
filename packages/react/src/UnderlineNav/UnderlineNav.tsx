@@ -439,25 +439,41 @@ export const UnderlineNav = forwardRef(
       }))
     }, navRef as RefObject<HTMLElement>)
 
-    // Compute menuInlineStyles if needed
-    let menuInlineStyles: React.CSSProperties = {...baseMenuInlineStyles}
-    if (containerRef.current && listRef.current) {
-      const {left} = getAnchoredPosition(containerRef.current, listRef.current, {
+    // Menu anchor position. `undefined` means "use the default right: 0 from
+    // baseMenuInlineStyles" (the list is wide enough that no anchoring is
+    // needed). A number means the menu is anchored to that `left` coordinate,
+    // overriding right.
+    //
+    // This used to be computed inline during render by reading
+    // containerRef.current / listRef.current — refs are mutable and unsafe to
+    // read during render under concurrent rendering (the first render saw null
+    // refs and fell through to the unanchored fallback; subsequent renders
+    // anchored differently, producing a perceptible reflow).
+    const [menuAnchorLeft, setMenuAnchorLeft] = useState<number | undefined>(undefined)
+    useIsomorphicLayoutEffect(() => {
+      const container = containerRef.current
+      const list = listRef.current
+      if (!container || !list) return
+      if (list.clientWidth >= baseMenuMinWidth) {
+        if (menuAnchorLeft !== undefined) setMenuAnchorLeft(undefined)
+        return
+      }
+      const {left} = getAnchoredPosition(container, list, {
         align: 'start',
         side: 'outside-bottom',
       })
-
-      menuInlineStyles = {
-        ...baseMenuInlineStyles,
-        right: undefined,
-        left,
-      }
-    }
+      if (menuAnchorLeft !== left) setMenuAnchorLeft(left)
+    }, [isWidgetOpen, isOverflowMeasured, menuItems.length, menuAnchorLeft])
 
     // Stable context value: a fresh object literal here would re-render every
     // consumer (UnderlineNav.Item) on every parent re-render, undoing the
     // React.memo on UnderlineNavItem.
     const contextValue = useMemo(() => ({loadingCounters, iconsVisible}), [loadingCounters, iconsVisible])
+
+    const menuStyle: React.CSSProperties =
+      menuAnchorLeft !== undefined
+        ? {...baseMenuInlineStyles, right: undefined, left: menuAnchorLeft, display: isWidgetOpen ? 'block' : 'none'}
+        : {...baseMenuInlineStyles, display: isWidgetOpen ? 'block' : 'none'}
 
     return (
       <UnderlineNavContext.Provider value={contextValue}>
@@ -495,17 +511,7 @@ export const UnderlineNav = forwardRef(
                     )}
                   </span>
                 </Button>
-                <ActionList
-                  selectionVariant="single"
-                  ref={containerRef}
-                  id={disclosureWidgetId}
-                  style={{
-                    ...(listRef.current?.clientWidth && listRef.current.clientWidth >= baseMenuMinWidth
-                      ? baseMenuInlineStyles
-                      : menuInlineStyles),
-                    display: isWidgetOpen ? 'block' : 'none',
-                  }}
-                >
+                <ActionList selectionVariant="single" ref={containerRef} id={disclosureWidgetId} style={menuStyle}>
                   {menuItems.map((menuItem, index) => {
                     const {
                       children: menuItemChildren,
