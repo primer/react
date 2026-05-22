@@ -177,8 +177,10 @@ export const UnderlineNav = forwardRef(
 
     const validChildren = getValidChildren(children)
     // Stable signature of the children list — when it changes we re-run the
-    // measurement pass with all items rendered (with icons) in the list.
-    const childrenKey = validChildren.map(c => String(c.key)).join('|')
+    // measurement pass with all items rendered (with icons) in the list. The
+    // delimiter is U+0000 (NUL) because React rejects NUL inside element keys,
+    // so consumer-provided keys cannot collide with the separator.
+    const childrenKey = validChildren.map(c => String(c.key)).join('\u0000')
 
     // Single consolidated overflow state. Bundling `items`, `menuItems`,
     // `iconsVisible`, `measured`, and `childrenKey` together means every
@@ -522,7 +524,7 @@ export const UnderlineNav = forwardRef(
 
                     return (
                       <ActionList.LinkItem
-                        key={menuItemChildren}
+                        key={String(menuItem.key)}
                         style={menuItemStyles}
                         onClick={(
                           event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
