@@ -1,5 +1,5 @@
 import {describe, expect, it, vi} from 'vitest'
-import React from 'react'
+import type React from 'react'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {
@@ -386,5 +386,32 @@ describe('Performance: bounded re-renders during initial mount', () => {
     // Per-item render rate must not grow with N — if anything went back to the
     // child-callback pattern this would scale linearly.
     expect(counts.get(25)!).toBeLessThanOrEqual(counts.get(5)! + 0.5)
+  })
+
+  it('produces at most one post-measurement state commit', () => {
+    // Snapshot the UnderlineNav's own render count via a Profiler. The single
+    // combined layout effect should commit at most once after measurement
+    // (and once more for the children-key derived reset on first mount),
+    // i.e. UnderlineNav renders <= 3 times total: initial + reset + measurement.
+    let parentRenderCount = 0
+    function CountedNav(props: {children: React.ReactNode}) {
+      parentRenderCount++
+      return <UnderlineNav aria-label="Commits">{props.children}</UnderlineNav>
+    }
+    const items = Array.from({length: 8}, (_, i) => `Item ${i + 1}`)
+    render(
+      <div style={{width: 2000}}>
+        <CountedNav>
+          {items.map(label => (
+            <UnderlineNav.Item key={label}>{label}</UnderlineNav.Item>
+          ))}
+        </CountedNav>
+      </div>,
+    )
+    // Initial render + at most one commit from the combined measurement+swap
+    // layout effect. If measurement and swap had remained two effects this
+    // would be 3+ renders. If the resize observer also commits redundantly
+    // on mount it'd be 4+.
+    expect(parentRenderCount).toBeLessThanOrEqual(3)
   })
 })

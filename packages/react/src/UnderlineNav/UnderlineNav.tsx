@@ -41,19 +41,17 @@ const MORE_BTN_WIDTH = 86
 // The height is needed to make sure we don't have a layout shift when the more button is the only item in the nav.
 const MORE_BTN_HEIGHT = 45
 
-const overflowEffect = (
+const computeOverflow = (
   navWidth: number,
   moreMenuWidth: number,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   childArray: Array<React.ReactElement<any>>,
   childWidthArray: ChildWidthArray,
   noIconChildWidthArray: ChildWidthArray,
-  updateListAndMenu: (props: ResponsiveProps, iconsVisible: boolean, overflowMeasured: boolean) => void,
-) => {
+): {items: ResponsiveProps['items']; menuItems: ResponsiveProps['menuItems']; iconsVisible: boolean} => {
   let iconsVisible = true
   if (childWidthArray.length === 0) {
-    updateListAndMenu({items: childArray, menuItems: []}, iconsVisible, false)
-    return
+    return {items: childArray, menuItems: [], iconsVisible}
   }
   const numberOfItemsPossible = calculatePossibleItems(childWidthArray, navWidth)
   const numberOfItemsWithoutIconPossible = calculatePossibleItems(noIconChildWidthArray, navWidth)
@@ -106,7 +104,7 @@ const overflowEffect = (
       }
     }
   }
-  updateListAndMenu({items, menuItems}, iconsVisible, true)
+  return {items, menuItems, iconsVisible}
 }
 
 const getValidChildren = (children: React.ReactNode) => {
@@ -165,7 +163,7 @@ export const UnderlineNav = forwardRef(
     const disclosureWidgetId = useId()
 
     const [isWidgetOpen, setIsWidgetOpen] = useState(false)
-    // Measurement results are stored in refs because only `overflowEffect` reads them;
+    // Measurement results are stored in refs because only `computeOverflow` reads them;
     // they should not trigger re-renders.
     const childWidthArrayRef = useRef<ChildWidthArray>([])
     const noIconChildWidthArrayRef = useRef<ChildWidthArray>([])
@@ -174,31 +172,34 @@ export const UnderlineNav = forwardRef(
     // Stable signature of the children list — when it changes we re-run the
     // measurement pass with all items rendered (with icons) in the list.
     const childrenKey = validChildren.map(c => String(c.key)).join('|')
-    const [trackedChildrenKey, setTrackedChildrenKey] = useState(childrenKey)
 
     // Single consolidated overflow state. Bundling `items`, `menuItems`,
-    // `iconsVisible`, and `measured` together means the post-measurement update is
-    // one commit instead of three, removing an intermediate render where the user
-    // could otherwise see a stale icon-visibility / measured flag before the layout
-    // settled.
+    // `iconsVisible`, `measured`, and `childrenKey` together means every
+    // overflow update — measurement, swap, resize, or children-change reset —
+    // is exactly one setState call (one commit), instead of fanning out to
+    // multiple back-to-back commits.
     type OverflowState = {
       items: ResponsiveProps['items']
       menuItems: ResponsiveProps['menuItems']
       iconsVisible: boolean
       measured: boolean
+      childrenKey: string
     }
     const [overflowState, setOverflowState] = useState<OverflowState>(() => ({
       items: validChildren,
       menuItems: [],
       iconsVisible: true,
       measured: false,
+      childrenKey,
     }))
 
     // Derived-state reset: when the children list changes, push everything back into
-    // the list (with icons) so the next layout effect can measure all items in one pass.
-    if (trackedChildrenKey !== childrenKey) {
-      setTrackedChildrenKey(childrenKey)
-      setOverflowState({items: validChildren, menuItems: [], iconsVisible: true, measured: false})
+    // the list (with icons) so the next layout effect can measure all items in one
+    // pass. This is React's recommended "store information from previous renders"
+    // pattern — calling setState during render lets React discard the in-progress
+    // render and re-render immediately with the reset state, before paint.
+    if (overflowState.childrenKey !== childrenKey) {
+      setOverflowState({items: validChildren, menuItems: [], iconsVisible: true, measured: false, childrenKey})
     }
 
     const {iconsVisible, measured: isOverflowMeasured} = overflowState
@@ -232,127 +233,140 @@ export const UnderlineNav = forwardRef(
       return noIconChildWidthArrayRef.current.find(item => item.text === itemText)?.width ?? 0
     }
 
-    const swapMenuItemWithListItem = (
+    // Pure: returns the {items, menuItems} that result from promoting
+    // `prospectiveListItem` (currently at position `indexOfProspectiveListItem`
+    // in `currentMenuItems`) into `currentItems`. Does not call setState.
+    const computeSwap = (
+      currentItems: ResponsiveProps['items'],
+      currentMenuItems: ResponsiveProps['menuItems'],
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       prospectiveListItem: React.ReactElement<any>,
       indexOfProspectiveListItem: number,
-      event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
-      callback: (props: ResponsiveProps, displayIcons: boolean, overflowMeasured: boolean) => void,
-    ) => {
-      // get the selected menu item's width
+    ): {items: ResponsiveProps['items']; menuItems: ResponsiveProps['menuItems']} => {
       const widthToFitIntoList = getItemsWidth(prospectiveListItem.props.children)
-      // Check if there is any empty space on the right side of the list
       const availableSpace =
         (navRef.current?.getBoundingClientRect().width ?? 0) - (listRef.current?.getBoundingClientRect().width ?? 0)
 
-      // Calculate how many items need to be pulled in to the menu to make room for the selected menu item
-      // I.e. if we need to pull 2 items in (index 0 and index 1), breakpoint (index) will return 1.
-      const index = getBreakpointForItemSwapping(widthToFitIntoList, availableSpace)
-      const indexToSliceAt = overflowState.items.length - 1 - index
-      // Form the new list of items
-      const itemsLeftInList = [...overflowState.items].slice(0, indexToSliceAt)
-      const updatedItemList = [...itemsLeftInList, prospectiveListItem]
-      // Form the new menu items
-      const itemsToAddToMenu = [...overflowState.items].slice(indexToSliceAt)
-      const updatedMenuItems = [...menuItems]
-      // Add itemsToAddToMenu array's items to the menu at the index of the prospectiveListItem and remove 1 count of items (prospectiveListItem)
-      updatedMenuItems.splice(indexOfProspectiveListItem, 1, ...itemsToAddToMenu)
-      callback({items: updatedItemList, menuItems: updatedMenuItems}, false, true)
-    }
-    // How many items do we need to pull in to the menu to make room for the selected menu item.
-    function getBreakpointForItemSwapping(widthToFitIntoList: number, availableSpace: number) {
+      // How many items at the end of the list have to move to the menu to make
+      // room for the promoted item.
       let widthToSwap = 0
       let breakpoint = 0
-      for (const [index, item] of [...overflowState.items].reverse().entries()) {
+      for (const [index, item] of [...currentItems].reverse().entries()) {
         widthToSwap += getItemsWidth(item.props.children)
         if (widthToFitIntoList < widthToSwap + availableSpace) {
           breakpoint = index
           break
         }
       }
-      return breakpoint
+
+      const indexToSliceAt = currentItems.length - 1 - breakpoint
+      const itemsLeftInList = currentItems.slice(0, indexToSliceAt)
+      const updatedItemList = [...itemsLeftInList, prospectiveListItem]
+      const itemsToAddToMenu = currentItems.slice(indexToSliceAt)
+      const updatedMenuItems = [...currentMenuItems]
+      updatedMenuItems.splice(indexOfProspectiveListItem, 1, ...itemsToAddToMenu)
+      return {items: updatedItemList, menuItems: updatedMenuItems}
     }
 
-    const updateListAndMenu = useCallback(
-      (props: ResponsiveProps, displayIcons: boolean, overflowMeasured: boolean) => {
-        setOverflowState(prev => ({
-          items: props.items,
-          menuItems: props.menuItems,
-          iconsVisible: displayIcons,
-          measured: overflowMeasured || prev.measured,
-        }))
-      },
-      [],
-    )
+    const swapMenuItemWithListItem = (
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      prospectiveListItem: React.ReactElement<any>,
+      indexOfProspectiveListItem: number,
+    ) => {
+      const swap = computeSwap(overflowState.items, menuItems, prospectiveListItem, indexOfProspectiveListItem)
+      setOverflowState(prev => ({
+        items: swap.items,
+        menuItems: swap.menuItems,
+        iconsVisible: false,
+        measured: true,
+        childrenKey: prev.childrenKey,
+      }))
+    }
 
-    // Parent-driven measurement: walk all rendered item elements once after commit and
-    // record their widths (with icon, and without). This replaces the previous pattern
-    // where every UnderlineNav.Item dispatched two setState calls on mount, which caused
-    // O(N) parent re-renders during initial mount (one per width report, each cascading
-    // through the entire item list).
+    // Single combined layout effect that performs measurement (when needed) and
+    // the external-aria-current promotion (when needed), then commits at most
+    // one setOverflowState per pass. Replaces the previous two effects (each of
+    // which produced its own commit) and removes the render-phase setState that
+    // the original component used to do the same swap from inside menuItems.map.
+    //
+    // Why no deps array: the swap branch depends on `aria-current` which lives
+    // on item props (not on `overflowState`); a deps-driven effect would not
+    // notice prop-only changes without rebuilding a signature. The body
+    // short-circuits cheaply on every render where neither pass needs to run.
     useIsomorphicLayoutEffect(() => {
-      if (isOverflowMeasured) return
       const listEl = listRef.current
       const navEl = navRef.current
       if (!listEl || !navEl) return
 
-      const widths: ChildWidthArray = []
-      const noIconWidths: ChildWidthArray = []
-      const itemEls = listEl.querySelectorAll<HTMLElement>('[data-underlinenav-item="true"]')
+      let next: OverflowState | null = null
 
-      for (const liEl of itemEls) {
-        const linkEl = liEl.querySelector<HTMLElement>('a, button')
-        if (!linkEl) continue
+      // Pass 1: measurement (runs once after each remeasure trigger).
+      if (!isOverflowMeasured) {
+        const widths: ChildWidthArray = []
+        const noIconWidths: ChildWidthArray = []
+        const itemEls = listEl.querySelectorAll<HTMLElement>('[data-underlinenav-item="true"]')
 
-        const domRect = linkEl.getBoundingClientRect()
-        const iconEl = linkEl.querySelector<HTMLElement>('[data-component="icon"]')
-        const textEl = linkEl.querySelector<HTMLElement>('[data-component="text"]')
-        const text = textEl?.textContent ?? ''
+        for (const liEl of itemEls) {
+          const linkEl = liEl.querySelector<HTMLElement>('a, button')
+          if (!linkEl) continue
 
-        let iconWidthWithMargin = 0
-        if (iconEl) {
-          const style = getComputedStyle(iconEl)
-          iconWidthWithMargin =
-            iconEl.getBoundingClientRect().width +
-            (parseFloat(style.marginRight) || 0) +
-            (parseFloat(style.marginLeft) || 0)
+          const domRect = linkEl.getBoundingClientRect()
+          const iconEl = linkEl.querySelector<HTMLElement>('[data-component="icon"]')
+          const textEl = linkEl.querySelector<HTMLElement>('[data-component="text"]')
+          const text = textEl?.textContent ?? ''
+
+          let iconWidthWithMargin = 0
+          if (iconEl) {
+            const style = getComputedStyle(iconEl)
+            iconWidthWithMargin =
+              iconEl.getBoundingClientRect().width +
+              (parseFloat(style.marginRight) || 0) +
+              (parseFloat(style.marginLeft) || 0)
+          }
+
+          widths.push({text, width: domRect.width})
+          noIconWidths.push({text, width: domRect.width - iconWidthWithMargin})
         }
 
-        widths.push({text, width: domRect.width})
-        noIconWidths.push({text, width: domRect.width - iconWidthWithMargin})
+        childWidthArrayRef.current = widths
+        noIconChildWidthArrayRef.current = noIconWidths
+
+        const navWidth = navEl.getBoundingClientRect().width
+        if (navWidth === 0) return
+        const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
+        const result = computeOverflow(navWidth, moreMenuWidth, validChildren, widths, noIconWidths)
+        next = {
+          items: result.items,
+          menuItems: result.menuItems,
+          iconsVisible: result.iconsVisible,
+          measured: true,
+          childrenKey: overflowState.childrenKey,
+        }
       }
 
-      childWidthArrayRef.current = widths
-      noIconChildWidthArrayRef.current = noIconWidths
+      // Pass 2: external-aria-current promotion. Operates on the freshest
+      // (post-measurement) items so it can fold into the same setState.
+      const considered: OverflowState = next ?? overflowState
+      if (considered.measured && considered.items.length > 0) {
+        // Look at FRESH props (current aria-current) by remapping through validChildren.
+        const freshMenuItems = considered.menuItems.map(item => validChildren.find(c => c.key === item.key) ?? item)
+        const indexOfCurrent = freshMenuItems.findIndex(item => {
+          const c = item.props['aria-current']
+          return Boolean(c) && c !== 'false'
+        })
+        if (indexOfCurrent !== -1) {
+          const swap = computeSwap(considered.items, freshMenuItems, freshMenuItems[indexOfCurrent], indexOfCurrent)
+          next = {
+            items: swap.items,
+            menuItems: swap.menuItems,
+            iconsVisible: false,
+            measured: true,
+            childrenKey: considered.childrenKey,
+          }
+        }
+      }
 
-      const navWidth = navEl.getBoundingClientRect().width
-      if (navWidth === 0) return
-      const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
-      overflowEffect(navWidth, moreMenuWidth, validChildren, widths, noIconWidths, updateListAndMenu)
-    })
-
-    // If the consumer changes `aria-current` externally to point at an item that is
-    // currently in the overflow menu, promote it back into the visible list. This
-    // used to be done with a render-phase setState inside `menuItems.map(...)`, which
-    // forced React to discard and re-run the in-progress render. Doing it in a layout
-    // effect keeps the render pure and produces one extra commit only when a swap is
-    // actually needed. Runs on every commit and short-circuits cheaply — necessary
-    // because `aria-current` lives on item props (not state), so the deps would not
-    // detect prop-only changes without re-deriving a signature.
-    useIsomorphicLayoutEffect(() => {
-      if (!isOverflowMeasured || onlyMenuVisible) return
-      const indexOfCurrent = menuItems.findIndex(item => {
-        const c = item.props['aria-current']
-        return Boolean(c) && c !== 'false'
-      })
-      if (indexOfCurrent === -1) return
-      const event = new MouseEvent('click')
-      swapMenuItemWithListItem(
-        menuItems[indexOfCurrent],
-        indexOfCurrent,
-        event as unknown as React.MouseEvent<HTMLAnchorElement>,
-        updateListAndMenu,
-      )
+      if (next) setOverflowState(next)
     })
 
     const closeOverlay = React.useCallback(() => {
@@ -385,16 +399,22 @@ export const UnderlineNav = forwardRef(
 
     useResizeObserver((resizeObserverEntries: ResizeObserverEntry[]) => {
       const navWidth = resizeObserverEntries[0].contentRect.width
+      if (navWidth === 0) return
       const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
-      navWidth !== 0 &&
-        overflowEffect(
-          navWidth,
-          moreMenuWidth,
-          validChildren,
-          childWidthArrayRef.current,
-          noIconChildWidthArrayRef.current,
-          updateListAndMenu,
-        )
+      const result = computeOverflow(
+        navWidth,
+        moreMenuWidth,
+        validChildren,
+        childWidthArrayRef.current,
+        noIconChildWidthArrayRef.current,
+      )
+      setOverflowState(prev => ({
+        items: result.items,
+        menuItems: result.menuItems,
+        iconsVisible: result.iconsVisible,
+        measured: childWidthArrayRef.current.length > 0 || prev.measured,
+        childrenKey: prev.childrenKey,
+      }))
     }, navRef as RefObject<HTMLElement>)
 
     // Compute menuInlineStyles if needed
@@ -468,7 +488,10 @@ export const UnderlineNav = forwardRef(
                     const {
                       children: menuItemChildren,
                       counter,
-                      'aria-current': ariaCurrent,
+                      // Stripped from the spread below; the swap effect reads aria-current
+                      // directly from item.props (not via these destructured locals).
+                      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                      'aria-current': _ariaCurrent,
                       onSelect,
                       ...menuItemProps
                     } = menuItem.props
@@ -481,7 +504,7 @@ export const UnderlineNav = forwardRef(
                           event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
                         ) => {
                           // When there are no items in the list, do not run the swap function as we want to keep everything in the menu.
-                          !onlyMenuVisible && swapMenuItemWithListItem(menuItem, index, event, updateListAndMenu)
+                          !onlyMenuVisible && swapMenuItemWithListItem(menuItem, index)
                           closeOverlay()
                           focusOnMoreMenuBtn()
                           // fire onSelect event that comes from the UnderlineNav.Item (if it is defined)
