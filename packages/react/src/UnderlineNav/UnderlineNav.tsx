@@ -322,16 +322,12 @@ export const UnderlineNav = forwardRef(
         // because the measurement pass runs only when all items are in the list,
         // in render order. Pair them up positionally so we can key widths by the
         // element's React key.
-        let index = 0
-        for (const liEl of itemEls) {
+        const upToBoundary = Math.min(itemEls.length, validChildren.length)
+        for (let index = 0; index < upToBoundary; index++) {
+          const liEl = itemEls[index]
           const linkEl = liEl.querySelector<HTMLElement>('a, button')
-          if (!linkEl) {
-            index++
-            continue
-          }
+          if (!linkEl) continue
           const child = validChildren[index]
-          index++
-          if (!child) continue
           const key = String(child.key)
 
           const domRect = linkEl.getBoundingClientRect()
