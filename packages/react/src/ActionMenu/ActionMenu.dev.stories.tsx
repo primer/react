@@ -4,6 +4,7 @@ import type {ComponentProps} from '../utils/types'
 import {ActionMenu} from './ActionMenu'
 import {ActionList} from '../ActionList'
 import {Button} from '../Button'
+import {Dialog} from '../Dialog'
 
 export default {
   title: 'Components/ActionMenu/Dev',
@@ -137,6 +138,33 @@ export const RightAlignedWithLargeSubmenus = () => {
           </ActionList>
         </ActionMenu.Overlay>
       </ActionMenu>
+    </div>
+  )
+}
+
+export const WithinDialog = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+
+  return (
+    <div>
+      <Button onClick={() => setIsDialogOpen(true)}>Open Dialog</Button>
+      {isDialogOpen && (
+        <Dialog title="Dialog with ActionMenu" onClose={() => setIsDialogOpen(false)} width="large">
+          <div>
+            <p>The ActionMenu below uses CSS anchor positioning within a dialog.</p>
+            <ActionMenu>
+              <ActionMenu.Button>Open ActionMenu</ActionMenu.Button>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  {Array.from({length: 20}, (_, i) => (
+                    <ActionList.Item key={i}>Menu Item {i + 1}</ActionList.Item>
+                  ))}
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </div>
+        </Dialog>
+      )}
     </div>
   )
 }
