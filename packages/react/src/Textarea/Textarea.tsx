@@ -1,11 +1,12 @@
 import type {TextareaHTMLAttributes, ReactElement} from 'react'
-import React, {useEffect, useRef, useCallback, useId} from 'react'
+import React, {useEffect, useRef, useCallback} from 'react'
 import {TextInputBaseWrapper} from '../internal/components/TextInputWrapper'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import classes from './TextArea.module.css'
 import type {WithSlotMarker} from '../utils/types'
 import {AlertFillIcon} from '@primer/octicons-react'
 import {CharacterCounter} from '../utils/character-counter'
+import {useId} from '../hooks/useId'
 import VisuallyHidden from '../_VisuallyHidden'
 import Text from '../Text'
 import {clsx} from 'clsx'
@@ -92,8 +93,8 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     const [screenReaderMessage, setScreenReaderMessage] = React.useState<string>('')
     const characterCounterRef = useRef<CharacterCounter | null>(null)
 
-    const characterCountId = useId()
-    const characterCountStaticMessageId = useId()
+    const characterCountId = useId(undefined, 'character-count')
+    const characterCountStaticMessageId = useId(undefined, 'character-count-message')
 
     // Initialize character counter
     useEffect(() => {
