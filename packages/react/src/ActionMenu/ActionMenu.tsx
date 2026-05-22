@@ -237,8 +237,6 @@ const Anchor: WithSlotMarker<
     [isSubmenu, onOpen, parentActionListContext],
   )
 
-  const dataComponent = child.props['data-component'] ?? 'ActionMenu.Anchor' // avoid unwanted downstream overrides
-
   return (
     <ActionListContainerContext.Provider value={thisActionListContext}>
       {React.cloneElement(child, {
@@ -247,7 +245,6 @@ const Anchor: WithSlotMarker<
         className: clsx(anchorProps.className, child.props.className),
         onClick: onButtonClick,
         onKeyDown: onButtonKeyDown,
-        'data-component': dataComponent,
       })}
     </ActionListContainerContext.Provider>
   )
