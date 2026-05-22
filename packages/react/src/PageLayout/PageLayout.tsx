@@ -178,7 +178,7 @@ const HorizontalDivider = memo<React.PropsWithChildren<DividerProps>>(
   },
 )
 
-HorizontalDivider.displayName = 'HorizontalDivider'
+HorizontalDivider.displayName = 'PageLayout.HorizontalDivider'
 
 type VerticalDividerProps = DividerProps & {
   draggable?: boolean
@@ -200,7 +200,7 @@ const VerticalDivider = memo<React.PropsWithChildren<VerticalDividerProps>>(
   },
 )
 
-VerticalDivider.displayName = 'VerticalDivider'
+VerticalDivider.displayName = 'PageLayout.VerticalDivider'
 
 type SidebarDividerProps = {
   position: 'start' | 'end'
