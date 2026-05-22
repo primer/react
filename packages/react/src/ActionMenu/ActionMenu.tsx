@@ -248,7 +248,7 @@ const Anchor: WithSlotMarker<
         className: clsx(anchorProps.className, child.props.className),
         onClick: onButtonClick,
         onKeyDown: onButtonKeyDown,
-        ...(isCustomAnchor ? {'data-component': 'ActionMenu.Anchor'} : {}),
+        ...(isCustomAnchor && !child.props['data-component'] ? {'data-component': 'ActionMenu.Anchor'} : {}),
       })}
     </ActionListContainerContext.Provider>
   )
