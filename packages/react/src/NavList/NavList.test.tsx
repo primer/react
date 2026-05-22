@@ -37,6 +37,7 @@ describe('NavList', () => {
     )
 
     const nav = container.querySelector('nav')
+    expect(nav).toBeInTheDocument()
     expect(nav).toHaveAttribute('data-component', 'NavList')
 
     const subNav = container.querySelector('[data-component="NavList.SubNav"]')
