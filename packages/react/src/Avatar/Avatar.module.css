@@ -36,9 +36,6 @@
 .AvatarContainer {
   position: relative;
   display: inline-flex;
-  align-items: center;
-  width: var(--avatarSize-regular);
-  height: var(--avatarSize-regular);
   vertical-align: middle;
 }
 
