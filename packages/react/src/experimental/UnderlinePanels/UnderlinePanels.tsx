@@ -128,14 +128,17 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
 
   const tabsHaveIcons = tabs.some(tab => React.isValidElement(tab) && tab.props.icon)
 
-  // this is a workaround to get the list's width on the first render
-  const [listWidth, setListWidth] = useState(0)
+  // The list's natural width (icons + labels). Used only inside the resize
+  // observer to decide whether to show or hide the icons — never read in
+  // render — so it lives in a ref to avoid an extra commit on mount and on
+  // every list resize.
+  const listWidthRef = useRef(0)
   useIsomorphicLayoutEffect(() => {
     if (!tabsHaveIcons) {
       return
     }
 
-    setListWidth(listRef.current?.getBoundingClientRect().width ?? 0)
+    listWidthRef.current = listRef.current?.getBoundingClientRect().width ?? 0
   }, [tabsHaveIcons])
 
   // when the wrapper resizes, check if the icons should be visible
@@ -148,7 +151,7 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
 
       const wrapperWidth = resizeObserverEntries[0].contentRect.width
 
-      setIconsVisible(wrapperWidth > listWidth)
+      setIconsVisible(wrapperWidth > listWidthRef.current)
     },
     wrapperRef,
     [],
