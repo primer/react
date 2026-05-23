@@ -112,7 +112,7 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
   // called in the exact same order in every component render
   const parentId = useId(props.id)
 
-  const [tabs, tabPanels] = useMemo(() => {
+  const [tabs, tabPanels, tabsHaveIcons] = useMemo(() => {
     // Walk children, clone each Tab with a generated id, and each Panel with a
     // matching aria-labelledby. Derive in render so we never ship a
     // "before-the-effect-ran" empty-tablist frame and so that re-renders of
@@ -144,15 +144,16 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
       if (child.type === Tab || isSlot(child, Tab)) tabs.push(child)
       else if (child.type === Panel || isSlot(child, Panel)) tabPanels.push(child)
     }
-    return [tabs, tabPanels]
+
+    const tabsHaveIcons = tabs.some(tab => React.isValidElement(tab) && tab.props.icon)
+
+    return [tabs, tabPanels, tabsHaveIcons] as const
   }, [children, parentId])
 
   const contextValue = useMemo<UnderlinePanelsContextValue>(
     () => ({iconsVisible, loadingCounters}),
     [iconsVisible, loadingCounters],
   )
-
-  const tabsHaveIcons = tabs.some(tab => React.isValidElement(tab) && tab.props.icon)
 
   // The list's natural width (icons + labels). Used only inside the resize
   // observer to decide whether to show or hide the icons — never read in
