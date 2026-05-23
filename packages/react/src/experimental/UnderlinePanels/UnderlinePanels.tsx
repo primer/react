@@ -6,7 +6,7 @@ import React, {
   useRef,
   type FC,
   type PropsWithChildren,
-  useEffect,
+  useMemo,
   type ElementType,
 } from 'react'
 import {TabContainerElement} from '@github/tab-container-element'
@@ -96,13 +96,11 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
   // called in the exact same order in every component render
   const parentId = useId(props.id)
 
-  const [tabs, setTabs] = useState<React.ReactNode[]>([])
-  const [tabPanels, setTabPanels] = useState<React.ReactNode[]>([])
-
-  // Make sure we have fresh prop data whenever the tabs or panels are updated (keep aria-selected current)
-  useEffect(() => {
-    // Loop through the chidren, if it's a tab, then add id="{id}-tab-{index}"
-    // If it's a panel, then add aria-labelledby="{id}-tab-{index}"
+  const [tabs, tabPanels] = useMemo(() => {
+    // Walk children, clone each Tab with a generated id + pass-through flags,
+    // and each Panel with a matching aria-labelledby. Derive in render so we
+    // never ship a "before-the-effect-ran" empty-tablist frame and so that
+    // re-renders of UnderlinePanels don't churn through an extra commit cycle.
     let tabIndex = 0
     let panelIndex = 0
 
@@ -118,17 +116,14 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
       return child
     })
 
-    const newTabs = Children.toArray(childrenWithProps).filter(child => {
-      return isValidElement(child) && (child.type === Tab || isSlot(child, Tab))
-    })
-
-    const newTabPanels = Children.toArray(childrenWithProps).filter(
-      child => isValidElement(child) && (child.type === Panel || isSlot(child, Panel)),
-    )
-
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setTabs(newTabs)
-    setTabPanels(newTabPanels)
+    const tabs: React.ReactNode[] = []
+    const tabPanels: React.ReactNode[] = []
+    for (const child of Children.toArray(childrenWithProps)) {
+      if (!isValidElement(child)) continue
+      if (child.type === Tab || isSlot(child, Tab)) tabs.push(child)
+      else if (child.type === Panel || isSlot(child, Panel)) tabPanels.push(child)
+    }
+    return [tabs, tabPanels]
   }, [children, parentId, loadingCounters, iconsVisible])
 
   const tabsHaveIcons = tabs.some(tab => React.isValidElement(tab) && tab.props.icon)
