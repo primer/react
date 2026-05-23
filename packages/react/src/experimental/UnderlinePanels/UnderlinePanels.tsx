@@ -1,7 +1,9 @@
 import React, {
   Children,
+  createContext,
   isValidElement,
   cloneElement,
+  useContext,
   useState,
   useRef,
   type FC,
@@ -81,6 +83,20 @@ export type PanelProps = React.HTMLAttributes<HTMLDivElement>
 
 const TabContainerComponent = createComponent(TabContainerElement, 'tab-container')
 
+// Carries flags that affect every Tab's rendering but that don't belong on the
+// consumer-facing Tab API. Passing them via context (instead of cloneElement)
+// keeps each Tab element's props referentially stable across UnderlinePanels
+// re-renders, so React.memo(Tab) can skip work when an unrelated piece of
+// state changes.
+type UnderlinePanelsContextValue = {
+  iconsVisible: boolean
+  loadingCounters: boolean | undefined
+}
+const UnderlinePanelsContext = createContext<UnderlinePanelsContextValue>({
+  iconsVisible: true,
+  loadingCounters: undefined,
+})
+
 const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledBy,
@@ -97,16 +113,21 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
   const parentId = useId(props.id)
 
   const [tabs, tabPanels] = useMemo(() => {
-    // Walk children, clone each Tab with a generated id + pass-through flags,
-    // and each Panel with a matching aria-labelledby. Derive in render so we
-    // never ship a "before-the-effect-ran" empty-tablist frame and so that
-    // re-renders of UnderlinePanels don't churn through an extra commit cycle.
+    // Walk children, clone each Tab with a generated id, and each Panel with a
+    // matching aria-labelledby. Derive in render so we never ship a
+    // "before-the-effect-ran" empty-tablist frame and so that re-renders of
+    // UnderlinePanels don't churn through an extra commit cycle.
+    //
+    // iconsVisible / loadingCounters are NOT baked into the cloned Tab
+    // elements — they flow through UnderlinePanelsContext, so this memo's deps
+    // can stay tight ([children, parentId]) and Tab elements stay
+    // referentially stable across resize-driven iconsVisible toggles.
     let tabIndex = 0
     let panelIndex = 0
 
     const childrenWithProps = Children.map(children, child => {
       if (isValidElement<UnderlineItemProps<ElementType>>(child) && (child.type === Tab || isSlot(child, Tab))) {
-        return cloneElement(child, {id: `${parentId}-tab-${tabIndex++}`, loadingCounters, iconsVisible})
+        return cloneElement(child, {id: `${parentId}-tab-${tabIndex++}`})
       }
 
       if (isValidElement<PanelProps>(child) && (child.type === Panel || isSlot(child, Panel))) {
@@ -124,7 +145,12 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
       else if (child.type === Panel || isSlot(child, Panel)) tabPanels.push(child)
     }
     return [tabs, tabPanels]
-  }, [children, parentId, loadingCounters, iconsVisible])
+  }, [children, parentId])
+
+  const contextValue = useMemo<UnderlinePanelsContextValue>(
+    () => ({iconsVisible, loadingCounters}),
+    [iconsVisible, loadingCounters],
+  )
 
   const tabsHaveIcons = tabs.some(tab => React.isValidElement(tab) && tab.props.icon)
 
@@ -173,24 +199,27 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
   }
 
   return (
-    <TabContainerComponent>
-      <UnderlineWrapper
-        ref={wrapperRef}
-        slot="tablist-wrapper"
-        data-icons-visible={iconsVisible}
-        className={clsx(className, classes.StyledUnderlineWrapper)}
-        {...props}
-      >
-        <UnderlineItemList ref={listRef} aria-label={ariaLabel} aria-labelledby={ariaLabelledBy} role="tablist">
-          {tabs}
-        </UnderlineItemList>
-      </UnderlineWrapper>
-      {tabPanels}
-    </TabContainerComponent>
+    <UnderlinePanelsContext.Provider value={contextValue}>
+      <TabContainerComponent>
+        <UnderlineWrapper
+          ref={wrapperRef}
+          slot="tablist-wrapper"
+          data-icons-visible={iconsVisible}
+          className={clsx(className, classes.StyledUnderlineWrapper)}
+          {...props}
+        >
+          <UnderlineItemList ref={listRef} aria-label={ariaLabel} aria-labelledby={ariaLabelledBy} role="tablist">
+            {tabs}
+          </UnderlineItemList>
+        </UnderlineWrapper>
+        {tabPanels}
+      </TabContainerComponent>
+    </UnderlinePanelsContext.Provider>
   )
 }
 
-const Tab: FCWithSlotMarker<TabProps> = ({'aria-selected': ariaSelected, onSelect, ...props}) => {
+const TabImpl: FCWithSlotMarker<TabProps> = ({'aria-selected': ariaSelected, onSelect, ...props}) => {
+  const {iconsVisible, loadingCounters} = useContext(UnderlinePanelsContext)
   const clickHandler = React.useCallback(
     (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       if (!event.defaultPrevented && typeof onSelect === 'function') {
@@ -217,10 +246,19 @@ const Tab: FCWithSlotMarker<TabProps> = ({'aria-selected': ariaSelected, onSelec
       type="button"
       onClick={clickHandler}
       onKeyDown={keyDownHandler}
+      iconsVisible={iconsVisible}
+      loadingCounters={loadingCounters}
       {...props}
     />
   )
 }
+
+// Memoized so that UnderlinePanels re-rendering (e.g. when iconsVisible flips)
+// only re-renders Tabs whose own props actually changed. iconsVisible and
+// loadingCounters reach Tab via UnderlinePanelsContext, so Tabs still react
+// to those changes through context propagation.
+TabImpl.displayName = 'UnderlinePanels.Tab'
+const Tab = React.memo(TabImpl) as unknown as FCWithSlotMarker<TabProps>
 
 Tab.displayName = 'UnderlinePanels.Tab'
 
