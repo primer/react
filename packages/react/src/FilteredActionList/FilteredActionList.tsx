@@ -298,7 +298,7 @@ export function FilteredActionList({
     enabled: isVirtualized,
     getItemKey: index => {
       const item = items[index]
-      return item.key ?? item.id?.toString() ?? index.toString()
+      return item?.key ?? item?.id?.toString() ?? index.toString()
     },
     measureElement: el => (el as HTMLElement).scrollHeight,
   })
