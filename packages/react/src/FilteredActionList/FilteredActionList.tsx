@@ -297,7 +297,10 @@ export function FilteredActionList({
     overscan: 10,
     enabled: isVirtualized,
     getItemKey: index => {
-      const item = items[index]
+      // `measureElement` from @tanstack/react-virtual can invoke this with an index
+      // whose item has just been removed (e.g. during a filter that shrinks `items`),
+      // so guard against `items[index]` being undefined.
+      const item = items[index] as ItemInput | undefined
       if (!item) return index.toString()
       return item.key ?? item.id?.toString() ?? index.toString()
     },
