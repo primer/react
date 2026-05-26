@@ -51,3 +51,8 @@
   top: -1px;
   border-radius: var(--borderRadius-medium);
 }
+
+.Note {
+  margin-top: var(--base-size-4);
+  color: var(--fgColor-muted);
+}
