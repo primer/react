@@ -1,6 +1,6 @@
 import {describe, expect, it, vi} from 'vitest'
 import type React from 'react'
-import {render, screen} from '@testing-library/react'
+import {render, screen, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {
   CodeIcon,
@@ -16,6 +16,7 @@ import {UnderlineNav} from '.'
 import {implementsClassName} from '../utils/testing'
 import classes from '../internal/components/UnderlineTabbedInterface.module.css'
 import {clsx} from 'clsx'
+import {page} from 'vitest/browser'
 
 const ResponsiveUnderlineNav = ({
   selectedItemText = 'Code',
@@ -78,7 +79,8 @@ describe('UnderlineNav', () => {
   it('renders icons correctly', () => {
     const {getByRole} = render(<ResponsiveUnderlineNav />)
     const nav = getByRole('navigation')
-    expect(nav.getElementsByTagName('svg').length).toEqual(7)
+    const list = within(nav).getByRole('list')
+    expect(list.getElementsByTagName('svg').length).toEqual(7)
   })
 
   it('fires onSelect on click', async () => {
@@ -141,9 +143,10 @@ describe('UnderlineNav', () => {
     expect(counter.textContent).toBe('\u00A0(120)')
   })
 
-  it('respects loadingCounters prop', () => {
+  it('respects loadingCounters prop', async () => {
+    await page.viewport(1000, 500)
     const {getByRole} = render(<ResponsiveUnderlineNav loadingCounters={true} />)
-    const item = getByRole('link', {name: 'Actions'})
+    const item = getByRole('link', {name: 'Actions', hidden: true})
     const loadingCounter = item.getElementsByTagName('span')[2]
     expect(loadingCounter.className).toContain('LoadingCounter')
     expect(loadingCounter.textContent).toBe('')

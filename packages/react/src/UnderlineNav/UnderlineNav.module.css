@@ -1,22 +1,37 @@
-.MenuItemContent {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.ScrollContainer {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--borderColor-muted) transparent;
+  scrollbar-gutter: stable;
+
+  /* Progressive enhancement: Detect overflow using scroll-based animations.
+  This lets us calculate the icon visibility during SSR. */
+  animation: detect-overflow linear;
+  animation-timeline: scroll(self inline);
+
+  --UnderlineNav_icons-display: inline;
+
+  [data-component='icon'] {
+    display: var(--UnderlineNav_icons-display);
+  }
+
+  /* Even on browsers that support scroll-driven animations, we still need to
+  force icons to remain hidden with JS to avoid flickering as they cause/remove
+  overflow. Once they are hidden once, they remain hidden for the life of the
+  component. */
+  &[data-hide-icons='true'] {
+    animation: none;
+    animation-timeline: none;
+
+    --UnderlineNav_icons-display: none;
+  }
 }
 
-/* More button styles migrated from styles.ts (was moreBtnStyles) */
-.MoreButton {
-  margin: 0; /* reset Safari extra margin */
-  border: 0;
-  background: transparent;
-  font-weight: var(--base-text-weight-normal);
-  box-shadow: none;
-  padding-top: var(--base-size-4);
-  padding-bottom: var(--base-size-4);
-  padding-left: var(--base-size-8);
-  padding-right: var(--base-size-8);
-
-  & > [data-component='trailingVisual'] {
-    margin-left: 0;
+@keyframes detect-overflow {
+  0%,
+  100% {
+    --UnderlineNav_icons-display: none;
   }
 }
