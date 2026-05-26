@@ -17,7 +17,7 @@ import {useEffect} from 'react'
 export const useDevOnlyEffect = (effect: React.EffectCallback, deps?: React.DependencyList) => {
   if (__DEV__) {
     // Forwarding wrapper; deps lint applies at call sites.
-    // eslint-disable-next-line react-hooks/rules-of-hooks, react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(effect, deps)
   }
 }
