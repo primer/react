@@ -74,6 +74,12 @@
       "id": "components-button-features--loading-trigger"
     },
     {
+      "id": "components-button-examples--loading-status-announcement-successful"
+    },
+    {
+      "id": "components-button-examples--loading-status-announcement-error"
+    },
+    {
       "id": "components-button-features--label-wrap"
     },
     {

@@ -153,12 +153,27 @@ export const Medium = () => <Button size="medium">Default</Button>
 
 export const Large = () => <Button size="large">Default</Button>
 
-export const Loading = () => <Button loading>Default</Button>
+export const Loading = () => (
+  <>
+    <Button loading>Default</Button>
+    <p>
+      When <code>loading</code> is true, the button automatically announces &quot;Loading&quot; to screen readers using
+      a visually hidden ARIA live region. You do not need to implement your own live region for this state.
+    </p>
+  </>
+)
 
 export const LoadingCustomAnnouncement = () => (
-  <Button loading loadingAnnouncement="This is a custom loading announcement">
-    Default
-  </Button>
+  <>
+    <Button loading loadingAnnouncement="This is a custom loading announcement">
+      Default
+    </Button>
+    <p>
+      Use the <code>loadingAnnouncement</code> prop to customize the screen reader announcement. The default value is
+      &quot;Loading&quot;. You do not need to implement your own ARIA live region — this is handled automatically by the
+      button.
+    </p>
+  </>
 )
 
 export const LoadingWithLeadingVisual = () => (

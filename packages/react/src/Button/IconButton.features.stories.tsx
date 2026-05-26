@@ -63,7 +63,16 @@ export const AsAMenuAnchor = () => (
   </ActionMenu>
 )
 
-export const Loading = () => <IconButton loading icon={HeartIcon} variant="primary" aria-label="Primary" />
+export const Loading = () => (
+  <>
+    <IconButton loading icon={HeartIcon} variant="primary" aria-label="Primary" />
+    <p>
+      When <code>loading</code> is true, the button automatically announces &quot;Loading&quot; to screen readers using
+      a visually hidden ARIA live region. You do not need to implement your own live region for this state. Use the{' '}
+      <code>loadingAnnouncement</code> prop to customize the announcement message.
+    </p>
+  </>
+)
 
 export const LoadingTrigger = () => {
   const [isLoading, setIsLoading] = useState(false)
