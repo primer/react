@@ -1,5 +1,5 @@
 import type {RefObject} from 'react'
-import React, {useRef, forwardRef, useCallback, useState} from 'react'
+import React, {useRef, forwardRef, useCallback, useMemo, useState} from 'react'
 import {useDevOnlyEffect} from '../internal/hooks/useDevOnlyEffect'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
