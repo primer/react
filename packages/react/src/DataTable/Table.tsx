@@ -408,3 +408,17 @@ export {
   TableCellPlaceholder,
   TableSkeleton,
 }
+
+Table.displayName = 'DataTable.Table'
+TableHead.displayName = 'DataTable.Head'
+TableBody.displayName = 'DataTable.Body'
+TableHeader.displayName = 'DataTable.Header'
+TableRow.displayName = 'DataTable.Row'
+TableCell.displayName = 'DataTable.Cell'
+TableCellPlaceholder.displayName = 'DataTable.CellPlaceholder'
+TableContainer.displayName = 'DataTable.Container'
+TableTitle.displayName = 'DataTable.Title'
+TableSubtitle.displayName = 'DataTable.Subtitle'
+TableDivider.displayName = 'DataTable.Divider'
+TableActions.displayName = 'DataTable.Actions'
+TableSkeleton.displayName = 'DataTable.Skeleton'

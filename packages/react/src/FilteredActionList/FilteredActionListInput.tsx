@@ -57,3 +57,5 @@ export function FilteredActionListInput({
     </div>
   )
 }
+
+FilteredActionListInput.displayName = 'FilteredActionList.Input'
