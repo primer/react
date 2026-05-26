@@ -2,8 +2,7 @@ import type {Meta, StoryFn} from '@storybook/react-vite'
 import React from 'react'
 import {useArgs} from 'storybook/preview-api'
 import type {ComponentProps} from '../utils/types'
-import Timeline, {type TimelineBadgeVariant} from './Timeline'
-import Octicon from '../Octicon'
+import Timeline, {TimelineBadgeVariants, type TimelineBadgeVariant} from './Timeline'
 import Avatar from '../Avatar'
 import Link from '../Link'
 import RelativeTime from '../RelativeTime'
@@ -66,19 +65,19 @@ export const Default = () => (
   <Timeline>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} aria-label="Commit" />
+        <GitCommitIcon aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} aria-label="Commit" />
+        <GitCommitIcon aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} aria-label="Commit" />
+        <GitCommitIcon aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
@@ -124,18 +123,6 @@ const BADGE_ICONS = {
 } as const
 
 type BadgeIconName = keyof typeof BADGE_ICONS
-
-const BADGE_VARIANTS: TimelineBadgeVariant[] = [
-  'accent',
-  'success',
-  'attention',
-  'severe',
-  'danger',
-  'done',
-  'open',
-  'closed',
-  'sponsors',
-]
 
 type PlaygroundArgs = {
   actorSize: 'small' | 'large'
@@ -442,7 +429,7 @@ Playground.argTypes = {
   },
   badgeVariant: {
     control: {type: 'select'},
-    options: ['none', ...BADGE_VARIANTS],
+    options: ['none', ...TimelineBadgeVariants],
     table: {category: 'Badge'},
   },
   summaryText: {control: {type: 'text'}, table: {category: 'Event'}},
