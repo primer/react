@@ -11,11 +11,12 @@ export type CounterLabelProps = React.PropsWithChildren<
     scheme?: 'primary' | 'secondary'
     variant?: 'primary' | 'secondary'
     className?: string
+    'data-component'?: string
   }
 >
 
 const CounterLabel = forwardRef<HTMLSpanElement, CounterLabelProps>(
-  ({variant, scheme, className, children, ...rest}, forwardedRef) => {
+  ({variant, scheme, className, children, ['data-component']: dataComponent, ...rest}, forwardedRef) => {
     const label = <VisuallyHidden>&nbsp;({children})</VisuallyHidden>
 
     const inferredVariant = variant || scheme || 'secondary'
@@ -29,7 +30,11 @@ const CounterLabel = forwardRef<HTMLSpanElement, CounterLabelProps>(
 
     return (
       <>
-        <span {...counterProps} className={clsx(className, classes.CounterLabel)}>
+        <span
+          {...counterProps}
+          data-component={dataComponent ?? 'CounterLabel'}
+          className={clsx(className, classes.CounterLabel)}
+        >
           {children}
         </span>
         {label}

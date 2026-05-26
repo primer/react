@@ -4,6 +4,7 @@ import {UnderlineItemList, UnderlineWrapper} from '../internal/components/Underl
 import {invariant} from '../utils/invariant'
 import classes from './UnderlineNav.module.css'
 import {UnderlineNavContext} from './UnderlineNavContext'
+import {useDevOnlyEffect} from '../internal/hooks/useDevOnlyEffect'
 
 export type UnderlineNavProps = {
   children: React.ReactNode
@@ -39,20 +40,16 @@ export const UnderlineNav = forwardRef<HTMLElement, UnderlineNavProps>(
     }: UnderlineNavProps,
     forwardedRef,
   ) => {
-    if (__DEV__) {
-      const validChildren = getValidChildren(children)
+    const validChildren = getValidChildren(children)
 
-      // Practically, this is not a conditional hook, it is just making sure this hook runs only on DEV not PROD.
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useEffect(() => {
-        // Address illegal state where there are multiple items that have `aria-current='page'` attribute
-        const activeElements = validChildren.filter(child => {
-          return child.props['aria-current'] !== undefined
-        })
-        invariant(activeElements.length <= 1, 'Only one current element is allowed')
-        invariant(ariaLabel, 'Use the `aria-label` prop to provide an accessible label for assistive technology')
+    useDevOnlyEffect(() => {
+      // Address illegal state where there are multiple items that have `aria-current='page'` attribute
+      const activeElements = validChildren.filter(child => {
+        return child.props['aria-current'] !== undefined
       })
-    }
+      invariant(activeElements.length <= 1, 'Only one current element is allowed')
+      invariant(ariaLabel, 'Use the `aria-label` prop to provide an accessible label for assistive technology')
+    }, [validChildren, ariaLabel])
 
     const [hideIcons, setHideIcons] = useState(false)
 

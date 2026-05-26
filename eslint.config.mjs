@@ -36,7 +36,6 @@ const config = defineConfig([
     '**/.cache',
     'coverage/**/*',
     'docs/public/**/*',
-    'lib/**/*',
     'types/**/*',
     'consumer-test/**/*',
     'contributor-docs/adrs/*',
@@ -49,8 +48,6 @@ const config = defineConfig([
     '**/storybook-static/**/*',
     '**/.next/**/*',
     'dist/**/*',
-    '**/lib/**/*',
-    '**/lib-esm/**/*',
     '**/dist/**/*',
     'script/**/*.ts',
     '**/*.module.css.d.ts',
@@ -142,6 +139,9 @@ const config = defineConfig([
     settings: {
       react: {
         version: 'detect',
+      },
+      'react-hooks': {
+        additionalEffectHooks: '(useDevOnlyEffect)',
       },
     },
     rules: {

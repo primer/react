@@ -228,7 +228,7 @@ function getPackageExports(exportMap, type = 'commonjs') {
         //
         // "exports": {
         //   ".": "./index.js",
-        //   "./lib-esm/*": [],
+        //   "./dist/*": [],
         // }
         //
         if (typeof value === 'string') {
@@ -245,7 +245,7 @@ function getPackageExports(exportMap, type = 'commonjs') {
         //     "import": "./index.js",
         //     "require": "./index.js"
         //   },
-        //   "./lib-esm/*": {
+        //   "./dist/*": {
         //     "import": [],
         //     "require": []
         //   }

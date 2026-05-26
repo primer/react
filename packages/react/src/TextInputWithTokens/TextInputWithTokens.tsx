@@ -3,7 +3,7 @@ import {isFocusable} from '@primer/behaviors/utils'
 import type {FocusEventHandler, KeyboardEventHandler, MouseEventHandler, RefObject} from 'react'
 import React, {useRef, useState} from 'react'
 import {isValidElementType} from 'react-is'
-import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
+import {useMergedRefs} from '../hooks/useMergedRefs'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import Text from '../Text'
@@ -106,9 +106,9 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
   const {onBlur, onFocus, onKeyDown, 'aria-describedby': ariaDescribedByProp, role, ...inputPropsRest} = rest
 
   const ref = useRef<HTMLInputElement>(null)
+  const mergedRef = useMergedRefs(forwardedRef, ref)
 
   const selectedValuesDescriptionId = useId()
-  useRefObjectAsForwardedRef(forwardedRef, ref)
   const [selectedTokenIndex, setSelectedTokenIndex] = useState<number | undefined>()
   const [tokensAreTruncated, setTokensAreTruncated] = useState<boolean>(Boolean(visibleTokenCount))
   const selectedTokenTexts = tokens
@@ -314,7 +314,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       >
         <div className={styles.InputWrapper}>
           <UnstyledTextInput
-            ref={ref}
+            ref={mergedRef}
             disabled={disabled}
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}
