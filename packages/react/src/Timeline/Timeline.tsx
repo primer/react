@@ -50,16 +50,19 @@ const TimelineItem = React.forwardRef<HTMLDivElement, TimelineItemProps>(
 
 TimelineItem.displayName = 'TimelineItem'
 
-export type TimelineBadgeVariant =
-  | 'accent'
-  | 'success'
-  | 'attention'
-  | 'severe'
-  | 'danger'
-  | 'done'
-  | 'open'
-  | 'closed'
-  | 'sponsors'
+export const TimelineBadgeVariants = [
+  'accent',
+  'success',
+  'attention',
+  'severe',
+  'danger',
+  'done',
+  'open',
+  'closed',
+  'sponsors',
+] as const
+
+export type TimelineBadgeVariant = (typeof TimelineBadgeVariants)[number]
 
 export type TimelineBadgeProps = {
   children?: React.ReactNode
