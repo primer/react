@@ -6,6 +6,7 @@ import {viewportRanges} from '../hooks/useResponsiveValue'
 import {PageLayout} from './PageLayout'
 import {Placeholder} from '../Placeholder'
 import {implementsClassName} from '../utils/testing'
+import {createRenderCounter} from '../utils/testing/profiler'
 import classes from './PageLayout.module.css'
 
 describe('PageLayout', async () => {
@@ -258,6 +259,29 @@ describe('PageLayout', async () => {
       // End drag - will-change remains unset
       fireEvent.lostPointerCapture(divider, {pointerId: 1})
       expect(pane!.style.willChange).toBe('')
+    })
+    it('should not cause a nested-update cascade on mount when resizable', async () => {
+      // The usePaneWidth layout effect used to call setMaxPaneWidth(initialMax)
+      // unconditionally on mount, forcing a synchronous re-render before paint
+      // (a "nested-update" in React Profiler terms). The fix defers that
+      // setState to a post-paint useEffect, so the layout effect's commit
+      // should produce zero nested updates.
+      const [Wrap, counter] = createRenderCounter()
+      render(
+        <Wrap>
+          <PageLayout>
+            <PageLayout.Pane resizable>
+              <Placeholder height={320} label="Pane" />
+            </PageLayout.Pane>
+            <PageLayout.Content>
+              <Placeholder height={640} label="Content" />
+            </PageLayout.Content>
+          </PageLayout>
+        </Wrap>,
+      )
+      // Allow post-paint effects to flush
+      await act(async () => {})
+      expect(counter.nestedUpdateCount).toBe(0)
     })
   })
 
