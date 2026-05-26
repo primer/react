@@ -252,15 +252,17 @@ type TimestampPreset =
  *
  * **Known Phase 1 limitations** (tracked for Phase 2 named events):
  *
- * - No right-controls slot on `Timeline.Item`. Floated buttons / SHAs / status pills
- *   are common on PR + Issue + Shared events; needs a real slot rather than a hack.
- * - No avatar slot in Primer React's Timeline. The `large` actor size is faked via
- *   story-local CSS that mirrors the Rails ViewComponents `.TimelineItem-avatar`
- *   treatment (`position: absolute; left: -72px`).
  * - `viaApp` is PR-specific in real GitHub usage. On Issues and Dependabot timelines,
  *   the app is the primary actor instead.
  * - Comments, review comments, and threaded comments are intentionally out of scope.
  */
+// Heads up if you're copying from this file: this playground uses story-local CSS
+// (`Timeline.stories.module.css`) to approximate two slots that don't exist on the
+// public `Timeline.Item` API yet — a left-rail avatar gutter for the `large` actor
+// size, and a right-controls slot for floated buttons / SHAs / status pills (the
+// right-controls slot is deliberately omitted from this playground). Don't copy
+// the gutter hack into consumer code; wait for the real slots to land on the
+// public API and use those.
 export const Playground: StoryFn<PlaygroundArgs> = args => {
   const Icon = BADGE_ICONS[args.badgeIcon]
   const isAppLike = args.actorType === 'bot' || args.actorType === 'app'
