@@ -30,6 +30,9 @@
     },
     {
       "id": "components-timeline-features--with-actions"
+    },
+    {
+      "id": "components-timeline-features--with-avatar"
     }
   ],
   "importPath": "@primer/react",
@@ -71,6 +74,10 @@
     },
     {
       "name": "Timeline.Actions",
+      "props": []
+    },
+    {
+      "name": "Timeline.Avatar",
       "props": []
     }
   ]

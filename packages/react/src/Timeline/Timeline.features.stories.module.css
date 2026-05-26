@@ -116,3 +116,8 @@
 .Timestamp {
   text-decoration: underline;
 }
+
+.AvatarGutter {
+  /* Reserve space in the left gutter so Timeline.Avatar is visible */
+  padding-left: calc(var(--base-size-40) + var(--base-size-32));
+}

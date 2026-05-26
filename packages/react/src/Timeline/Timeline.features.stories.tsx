@@ -32,6 +32,7 @@ export default {
   component: Timeline,
   subcomponents: {
     'Timeline.Item': Timeline.Item,
+    'Timeline.Avatar': Timeline.Avatar,
     'Timeline.Badge': Timeline.Badge,
     'Timeline.Body': Timeline.Body,
     'Timeline.Break': Timeline.Break,
@@ -339,6 +340,36 @@ export const WithActions = () => (
             </div>
           </div>
         </Timeline.Body>
+      </Timeline.Item>
+    </Timeline>
+  </div>
+)
+
+export const WithAvatar = () => (
+  <div className={classes.AvatarGutter}>
+    <Timeline>
+      <Timeline.Item>
+        <Timeline.Avatar>
+          <Avatar size={40} src="https://avatars.githubusercontent.com/u/92997159?v=4" alt="" />
+        </Timeline.Avatar>
+        <Timeline.Badge>
+          <Octicon icon={GitCommitIcon} aria-label="Commit" />
+        </Timeline.Badge>
+        <Timeline.Body>
+          <Link href="#" className={classes.LinkWithBoldStyle} muted>
+            Monalisa
+          </Link>
+          opened this pull request
+        </Timeline.Body>
+      </Timeline.Item>
+      <Timeline.Item condensed>
+        <Timeline.Avatar>
+          <Avatar size={16} src="https://avatars.githubusercontent.com/u/92997159?v=4" alt="" />
+        </Timeline.Avatar>
+        <Timeline.Badge>
+          <Octicon icon={GitCommitIcon} aria-label="Commit" />
+        </Timeline.Badge>
+        <Timeline.Body>Monalisa pushed a commit</Timeline.Body>
       </Timeline.Item>
     </Timeline>
   </div>

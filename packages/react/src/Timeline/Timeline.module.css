@@ -59,7 +59,22 @@
       background-color: var(--bgColor-default);
       border: 0;
     }
+
+    .TimelineItemAvatar {
+      /* Vertically center against the condensed badge (4px padding-top + 8px badge top margin + 8px half-badge) */
+      top: calc(var(--base-size-4) + var(--base-size-8) + var(--base-size-8));
+    }
   }
+}
+
+.TimelineItemAvatar {
+  position: absolute;
+  /* Place avatar in the left gutter, aligned with surrounding actor avatars (~72px from item content) */
+  left: calc(-1 * (var(--base-size-40) + var(--base-size-32)));
+  /* Vertically center against the default badge (16px padding-top + 16px half-badge) */
+  top: calc(var(--base-size-16) + var(--base-size-16));
+  z-index: 1;
+  transform: translateY(-50%);
 }
 
 .TimelineBadgeWrapper {
