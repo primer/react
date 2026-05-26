@@ -93,6 +93,17 @@
       "description": "provide an octicon. It will be placed in the center of the button"
     },
     {
+      "name": "loading",
+      "type": "boolean",
+      "description": "When true, the button is in a loading state. It displays a spinner, sets `aria-disabled`, and preserves focus. A screen reader announcement is automatically rendered using an ARIA live region — see the `loadingAnnouncement` prop to customize it."
+    },
+    {
+      "name": "loadingAnnouncement",
+      "type": "string",
+      "defaultValue": "'Loading'",
+      "description": "The message announced to screen readers when the button enters a loading state. The announcement is rendered in a visually hidden ARIA live region. Consumers do not need to implement their own live region for the loading state — this is handled automatically. Customize this prop to provide a more specific message, for example \"Saving profile\"."
+    },
+    {
       "name": "aria-label",
       "type": "string",
       "defaultValue": "",
