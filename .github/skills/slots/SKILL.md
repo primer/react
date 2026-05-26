@@ -171,13 +171,13 @@ If you need to check whether an element matches a particular slot outside of `us
 import {isSlot} from '@primer/react'
 
 React.Children.map(children, child => {
-  if (React.isValidElement(child) && (child.type === Tooltip || isSlot(child, Tooltip))) {
+  if (React.isValidElement(child) && isSlot(child, Tooltip)) {
     // ...
   }
 })
 ```
 
-`isSlot` always checks both the direct type and the slot marker so wrappers built with `asSlot` are recognised.
+`isSlot` matches by comparing `__SLOT__` markers (on the element or its `type`), so it recognises both the original slot component and any wrapper created with `asSlot`. It does not compare component identity (`child.type === Tooltip`) directly — that works incidentally only because the original component carries the same marker symbol.
 
 ## Limitations and follow-ups
 

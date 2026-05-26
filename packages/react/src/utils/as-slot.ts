@@ -25,6 +25,8 @@ export function asSlot<T>(component: T, slotSource: WithSlotMarker<unknown>): Wi
       'asSlot: the provided slotSource does not have a `__SLOT__` marker. The wrapper will not be recognised by the parent slot scanner.',
     )
   }
-  ;(component as unknown as SlotMarker).__SLOT__ = slotSource.__SLOT__
+  if (slotSource.__SLOT__) {
+    ;(component as unknown as SlotMarker).__SLOT__ = slotSource.__SLOT__
+  }
   return component as WithSlotMarker<T>
 }
