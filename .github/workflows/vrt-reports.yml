@@ -97,6 +97,7 @@ jobs:
         with:
           name: vrt
           path: playwright-report
+          if-no-files-found: error
       - name: check vrt-runner job status
         if: ${{ needs.vrt-runner.result == 'failure' }}
         run: exit 1

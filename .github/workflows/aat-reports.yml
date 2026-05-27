@@ -86,6 +86,7 @@ jobs:
         with:
           name: aat
           path: playwright-report
+          if-no-files-found: error
       - name: Check aat-runner job status
         if: ${{ needs.aat-runner.result == 'failure' }}
         run: exit 1
