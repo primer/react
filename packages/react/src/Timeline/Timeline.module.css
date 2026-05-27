@@ -7,8 +7,18 @@
     .TimelineItem:first-child {
       padding-top: 0;
 
+      .TimelineItemAvatar {
+        /* No padding-top on first item: badge center is at 0 + 16px (half-badge) */
+        top: var(--base-size-16);
+      }
+
       &:where([data-condensed])::before {
         top: var(--base-size-12);
+      }
+
+      &:where([data-condensed]) .TimelineItemAvatar {
+        /* No padding-top + condensed: badge center is at 0 + 8px margin + 8px half-badge */
+        top: calc(var(--base-size-8) + var(--base-size-8));
       }
     }
   }
