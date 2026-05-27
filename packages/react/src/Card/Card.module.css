@@ -100,7 +100,7 @@
   font: var(--text-body-shorthand-small);
 }
 
-.CardMenu {
+.CardAction {
   position: absolute;
   top: var(--base-size-16);
   right: var(--base-size-16);

@@ -30,6 +30,57 @@ describe('LabelGroup', () => {
     }
   }) as unknown as typeof IntersectionObserver
 
+  it('renders data-component="LabelGroup" on the root element', () => {
+    const {getByRole} = render(
+      <ThemeAndStyleContainer>
+        <LabelGroup>
+          <Label>One</Label>
+        </LabelGroup>
+      </ThemeAndStyleContainer>,
+    )
+    expect(getByRole('list')).toHaveAttribute('data-component', 'LabelGroup')
+  })
+
+  it('renders data-component="LabelGroup" on the root element (truncation path)', () => {
+    const {getByRole} = render(
+      <ThemeAndStyleContainer>
+        <LabelGroup visibleChildCount={1}>
+          <Label>One</Label>
+          <Label>Two</Label>
+        </LabelGroup>
+      </ThemeAndStyleContainer>,
+    )
+
+    expect(getByRole('list')).toHaveAttribute('data-component', 'LabelGroup')
+  })
+
+  it('renders a toggle wrapper with data-component="LabelGroup.Toggle" (li for lists, span for non-lists)', () => {
+    const {getByRole, container, rerender} = render(
+      <ThemeAndStyleContainer>
+        <LabelGroup visibleChildCount={1}>
+          <Label>One</Label>
+          <Label>Two</Label>
+        </LabelGroup>
+      </ThemeAndStyleContainer>,
+    )
+
+    const list = getByRole('list')
+    const toggleLi = list.querySelector('li[data-component="LabelGroup.Toggle"]')
+    expect(toggleLi).toBeInTheDocument()
+
+    rerender(
+      <ThemeAndStyleContainer>
+        <LabelGroup as="div" visibleChildCount={1}>
+          <Label>One</Label>
+          <Label>Two</Label>
+        </LabelGroup>
+      </ThemeAndStyleContainer>,
+    )
+
+    const toggleSpan = container.querySelector('span[data-component="LabelGroup.Toggle"]')
+    expect(toggleSpan).toBeInTheDocument()
+  })
+
   it('observers intersections on each child', async () => {
     render(
       <ThemeAndStyleContainer>
@@ -224,7 +275,8 @@ describe('LabelGroup', () => {
       expect(list).toBeNull()
       const labelGroupDiv = container.querySelectorAll('div')[1]
       expect(labelGroupDiv.querySelectorAll('li')).toHaveLength(0)
-      expect(labelGroupDiv.querySelectorAll(':scope > span')).toHaveLength(5)
+      expect(labelGroupDiv.querySelectorAll(':scope > span[data-index]')).toHaveLength(5)
+      expect(labelGroupDiv.querySelector('span[data-component="LabelGroup.Toggle"]')).toBeInTheDocument()
       expect(labelGroupDiv).not.toHaveAttribute('data-list')
     })
   })

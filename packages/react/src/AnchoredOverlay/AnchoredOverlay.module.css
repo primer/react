@@ -17,7 +17,11 @@
   position-try-fallbacks:
     flip-block,
     flip-inline,
-    flip-block flip-inline;
+    flip-block flip-inline,
+    --inline-end-center,
+    --inline-start-center,
+    --fit-block-bottom,
+    --fit-block-top;
   position-visibility: anchors-visible;
   z-index: 100;
   position: fixed !important;
@@ -38,6 +42,22 @@
     &[data-align='left'] {
       left: auto;
       right: calc(anchor(right) - var(--anchored-overlay-anchor-offset-left));
+      /* stylelint-disable max-nesting-depth */
+      &[data-responsive='fullscreen'] {
+        @media screen and (--viewportRange-narrow) {
+          right: auto;
+        }
+      }
+    }
+
+    &[data-align='right'] {
+      left: calc(anchor(left) - var(--anchored-overlay-anchor-offset-right));
+
+      &[data-responsive='fullscreen'] {
+        @media screen and (--viewportRange-narrow) {
+          left: auto;
+        }
+      }
     }
   }
 
@@ -49,6 +69,16 @@
     &[data-align='left'] {
       left: auto;
       right: anchor(right);
+    }
+
+    &[data-align='right'] {
+      left: calc(anchor(left) - var(--anchored-overlay-anchor-offset-right));
+
+      &[data-responsive='fullscreen'] {
+        @media screen and (--viewportRange-narrow) {
+          left: auto;
+        }
+      }
     }
   }
 
@@ -87,4 +117,35 @@
   top: calc(anchor(bottom) + var(--base-size-4));
   margin: 0;
   width: auto;
+}
+
+@position-try --inline-end-center {
+  left: anchor(right);
+  top: auto;
+  bottom: auto;
+  margin-left: var(--base-size-4);
+  align-self: anchor-center;
+}
+
+@position-try --inline-start-center {
+  right: anchor(left);
+  left: auto;
+  top: auto;
+  bottom: auto;
+  margin-right: var(--base-size-4);
+  align-self: anchor-center;
+}
+
+@position-try --fit-block-bottom {
+  top: calc(anchor(bottom) + var(--base-size-4));
+  bottom: var(--base-size-8);
+  height: auto;
+  max-height: none;
+}
+
+@position-try --fit-block-top {
+  top: var(--base-size-8);
+  bottom: calc(100vh - anchor(top) + var(--base-size-4));
+  height: auto;
+  max-height: none;
 }

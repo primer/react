@@ -48,6 +48,7 @@ export const Hidden = ({when, className, style, children}: HiddenProps) => {
           ...style,
         } as CSSProperties
       }
+      data-component="Hidden"
     >
       {children}
     </div>

@@ -1,5 +1,55 @@
 # @primer/react
 
+## 38.25.0
+
+### Minor Changes
+
+- [#7852](https://github.com/primer/react/pull/7852) [`5504680`](https://github.com/primer/react/commit/5504680614bacc2ce3eecaaa55d10887e6fb152d) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Card: Add `data-component` attributes to `Card` and its subcomponents (`Icon`, `Image`, `Heading`, `Description`, `Metadata`, `Menu`). Add an `as` prop (`'div' | 'section'`) so standalone Cards can render as a labelled region landmark; `as="section"` requires `aria-label` or `aria-labelledby`. `Card` now requires `children`. Also improves docs and stories.
+
+### Patch Changes
+
+- [#7858](https://github.com/primer/react/pull/7858) [`1ce2906`](https://github.com/primer/react/commit/1ce2906d1816ba443eacfede67d496d074b8d2fb) Thanks [@TylerJDev](https://github.com/TylerJDev)! - AnchoredOverlay: Add additional fallbacks for CSS Anchor Positioning
+
+- [#7843](https://github.com/primer/react/pull/7843) [`fc571fd`](https://github.com/primer/react/commit/fc571fd8c3899f19a1dd9e77b8a22f6528d776e2) Thanks [@joshblack](https://github.com/joshblack)! - Update useMergedRefs so that in React 18 no warning is emitted
+
+## 38.24.0
+
+### Minor Changes
+
+- [#7829](https://github.com/primer/react/pull/7829) [`228019c`](https://github.com/primer/react/commit/228019cac474e94558e571c325692d3b40ca4488) Thanks [@adierkens](https://github.com/adierkens)! - ActionList: Add `ActionList.GroupHeading.TrailingAction` for header-level actions on grouped lists. Closes #2043.
+
+  When the `primer_react_action_list_group_heading_trailing_action` feature flag is enabled, you can place an `ActionList.GroupHeading.TrailingAction` (a small invisible `IconButton`) inside `ActionList.GroupHeading` to render a uniform square action target next to the group's heading. Only supported inside an `ActionList` with the default `list` role — using it inside `ActionMenu` or with `role="listbox"` will throw.
+
+  ```tsx
+  <ActionList>
+    <ActionList.Group>
+      <ActionList.GroupHeading as="h3">
+        Custom fields
+        <ActionList.GroupHeading.TrailingAction label="New field" icon={PlusIcon} />
+      </ActionList.GroupHeading>
+      <ActionList.Item>...</ActionList.Item>
+    </ActionList.Group>
+  </ActionList>
+  ```
+
+- [#7838](https://github.com/primer/react/pull/7838) [`8ddf1b0`](https://github.com/primer/react/commit/8ddf1b0b0082e43ffb83c572877f38eb6e9e30c3) Thanks [@llastflowers](https://github.com/llastflowers)! - Add data-component attributes and associated tests for Hidden, InlineMessage, KeybindingHint, Label, and LabelGroup
+
+- [#7776](https://github.com/primer/react/pull/7776) [`d6f61c1`](https://github.com/primer/react/commit/d6f61c1e197b52eb75cff97299bfac4caedcc1ac) Thanks [@llastflowers](https://github.com/llastflowers)! - Add `data-component` attributes for Blankslate, BranchName, Breadcrumbs, ButtonGroup, Checkbox, CheckboxGroup, CircleBadge, ConfirmationDialog, CounterLabel, and Dialog to provide stable selectors.
+
+- [#7816](https://github.com/primer/react/pull/7816) [`aef8548`](https://github.com/primer/react/commit/aef85486a77a544ab36fcc18470dc06bf2502b09) Thanks [@iansan5653](https://github.com/iansan5653)! - Replace `ActionBar` overflow calculations with CSS wrapping approach to improve performance and stability
+
+- [#7831](https://github.com/primer/react/pull/7831) [`0de97c2`](https://github.com/primer/react/commit/0de97c25ae2adb026b04f7cac46463779ff023a1) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Dialog: Support custom width values.
+
+- [#7819](https://github.com/primer/react/pull/7819) [`8ed6149`](https://github.com/primer/react/commit/8ed6149b45093449c6e12a71a374618fe282d6a1) Thanks [@llastflowers](https://github.com/llastflowers)! - Add `data-component` attributes for Details, Flash, FormControl (+ update InputValidation to forward from FormControl.Validation), Header, and Heading.
+
+### Patch Changes
+
+- [#7842](https://github.com/primer/react/pull/7842) [`635357e`](https://github.com/primer/react/commit/635357e7d2963bb594718a754fb7f53c1f917c41) Thanks [@joshblack](https://github.com/joshblack)! - DataTable: Treat zero as a populated value when sorting numeric columns
+
+- [#7824](https://github.com/primer/react/pull/7824) [`6889235`](https://github.com/primer/react/commit/6889235fac93f17cfd0354758f4f9a1e6ff01942) Thanks [@jonrohan](https://github.com/jonrohan)! - Fix `usePaneWidth` triggering unnecessary React re-renders on every window resize
+
+- [#7833](https://github.com/primer/react/pull/7833) [`dfed7ca`](https://github.com/primer/react/commit/dfed7ca73532922ec0526dd85afcf7ae471c566e) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Timeline: Remove border override from TimelineBadge when variant is set
+
 ## 38.23.0
 
 ### Minor Changes

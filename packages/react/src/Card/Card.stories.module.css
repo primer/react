@@ -1,0 +1,28 @@
+.WidthConstraintContainer {
+  max-width: 400px;
+}
+
+.CustomContentLayout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stack-gap-condensed);
+}
+
+.CustomContentLayout > h3,
+.CustomContentLayout > p,
+.CustomContentLayout > ul {
+  margin: 0;
+}
+
+.CustomContentLayout > ul {
+  padding-inline-start: var(--base-size-16);
+}
+
+.CardList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stack-gap-condensed);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
