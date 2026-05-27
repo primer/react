@@ -44,4 +44,4 @@ const CheckboxOrRadioGroupLabel: FCWithSlotMarker<React.PropsWithChildren<Checkb
 
 export default CheckboxOrRadioGroupLabel
 
-CheckboxOrRadioGroupLabel.__SLOT__ = Symbol('CheckboxOrRadioGroupLabel')
+CheckboxOrRadioGroupLabel.__SLOT__ = Symbol('CheckboxOrRadioGroup.Label')
