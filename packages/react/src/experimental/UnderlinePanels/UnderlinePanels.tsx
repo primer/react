@@ -155,18 +155,30 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
     [iconsVisible, loadingCounters],
   )
 
-  // The list's natural width (icons + labels). Used only inside the resize
-  // observer to decide whether to show or hide the icons — never read in
-  // render — so it lives in a ref to avoid an extra commit on mount and on
-  // every list resize.
-  const listWidthRef = useRef(0)
+  // Mirror iconsVisible into a ref so the list observer below can read it
+  // without being re-created on every toggle (re-creating the observer
+  // would re-trigger its initial callback and churn extra work).
+  const iconsVisibleRef = useRef(iconsVisible)
   useIsomorphicLayoutEffect(() => {
-    if (!tabsHaveIcons) {
-      return
-    }
+    iconsVisibleRef.current = iconsVisible
+  }, [iconsVisible])
 
-    listWidthRef.current = listRef.current?.getBoundingClientRect().width ?? 0
-  }, [tabsHaveIcons])
+  // The list's natural width (icons + labels), kept in sync via a
+  // ResizeObserver on the list — never read in render, so updates don't
+  // cause commits. Only refreshed while icons are visible: when icons are
+  // hidden the list is at its compressed width, which is not the value we
+  // want to compare against. The ResizeObserver fires synchronously on
+  // observe, which seeds the ref on mount for free.
+  const listWidthRef = useRef(0)
+  useResizeObserver(
+    (entries: ResizeObserverEntry[]) => {
+      if (!tabsHaveIcons) return
+      if (!iconsVisibleRef.current) return
+      listWidthRef.current = entries[0].contentRect.width
+    },
+    listRef,
+    [],
+  )
 
   // when the wrapper resizes, check if the icons should be visible
   // by comparing the wrapper width to the list width

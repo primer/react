@@ -1,8 +1,10 @@
 // Most of the functionality is already tested in [@github/tab-container-element](https://github.com/github/tab-container-element)
 
 import type React from 'react'
+import {act} from 'react'
 import {render, screen} from '@testing-library/react'
-import {describe, it, afterEach, expect, vi} from 'vitest'
+import {describe, it, afterEach, beforeEach, expect, vi} from 'vitest'
+import {CodeIcon, EyeIcon} from '@primer/octicons-react'
 import UnderlinePanels from './UnderlinePanels'
 import TabContainerElement from '@github/tab-container-element'
 import {implementsClassName} from '../../utils/testing'
@@ -234,5 +236,100 @@ describe('UnderlinePanels — render architecture', () => {
     // (e.g. iconsVisible re-baked into Tab via cloneElement), each
     // re-render would produce two extra TabBody renders.
     expect(tabBodyRenderCount.mock.calls.length).toBe(initialCalls)
+  })
+})
+
+describe('UnderlinePanels — list resize observation', () => {
+  type Cb = (entries: Pick<ResizeObserverEntry, 'contentRect'>[]) => void
+  const observerMap = new Map<Element, Cb>()
+  const originalResizeObserver = globalThis.ResizeObserver
+
+  beforeEach(() => {
+    observerMap.clear()
+    class MockResizeObserver {
+      callback: Cb
+      observed = new Set<Element>()
+      constructor(cb: Cb) {
+        this.callback = cb
+      }
+      observe(el: Element) {
+        this.observed.add(el)
+        observerMap.set(el, this.callback)
+      }
+      unobserve(el: Element) {
+        this.observed.delete(el)
+        observerMap.delete(el)
+      }
+      disconnect() {
+        for (const el of this.observed) observerMap.delete(el)
+        this.observed.clear()
+      }
+    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    globalThis.ResizeObserver = MockResizeObserver as any
+  })
+
+  afterEach(() => {
+    globalThis.ResizeObserver = originalResizeObserver
+  })
+
+  function fireResize(el: Element | null, width: number) {
+    if (!el) return
+    const cb = observerMap.get(el)
+    if (!cb) return
+    act(() => {
+      cb([{contentRect: {width, height: 40} as DOMRectReadOnly}])
+    })
+  }
+
+  it('refreshes list width when tab contents change so the wrapper observer makes the right call', () => {
+    // Regression for a stale-measurement bug: the list's natural width was
+    // captured once on mount and never refreshed. When a tab's contents grew
+    // (e.g. a counter went 1 → 10) the next wrapper resize compared against
+    // the original measurement and could leave icons visible even though
+    // they no longer fit. The list is now observed too, so its width tracks
+    // its actual contents.
+    function Demo({counter}: {counter: number}) {
+      // display: none keeps the real DOM measurement at 0 so the test only
+      // depends on widths we feed through the mocked ResizeObservers.
+      return (
+        <div style={{display: 'none'}}>
+          <UnderlinePanels aria-label="Resize sync">
+            <UnderlinePanels.Tab icon={CodeIcon} counter={counter}>
+              Tab 1
+            </UnderlinePanels.Tab>
+            <UnderlinePanels.Tab icon={EyeIcon} counter={counter}>
+              Tab 2
+            </UnderlinePanels.Tab>
+            <UnderlinePanels.Panel>Panel 1</UnderlinePanels.Panel>
+            <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
+          </UnderlinePanels>
+        </div>
+      )
+    }
+
+    const {container, rerender} = render(<Demo counter={1} />)
+    const wrapper = container.querySelector<HTMLElement>('[data-icons-visible]')
+    const list = container.querySelector<HTMLElement>('[role="tablist"]')
+
+    expect(wrapper).not.toBeNull()
+    expect(list).not.toBeNull()
+
+    // Seed the list's natural width via the list observer, then a wrapper
+    // resize confirms icons should be visible (300 > 200).
+    fireResize(list, 200)
+    fireResize(wrapper, 300)
+    expect(wrapper).toHaveAttribute('data-icons-visible', 'true')
+
+    // Counter grows from 1 to 10 — the list naturally widens. The list
+    // observer fires with the new width, refreshing the ref.
+    rerender(<Demo counter={10} />)
+    fireResize(list, 280)
+
+    // Wrapper shrinks below the new list width. Icons must hide. Without
+    // the list observer, the comparison would use the stale 200px seed and
+    // icons would (incorrectly) stay visible.
+    fireResize(wrapper, 250)
+    expect(wrapper).toHaveAttribute('data-icons-visible', 'false')
   })
 })
