@@ -22,4 +22,4 @@ const CheckboxOrRadioGroupCaption: FCWithSlotMarker<CheckboxOrRadioGroupCaptionP
 
 export default CheckboxOrRadioGroupCaption
 
-CheckboxOrRadioGroupCaption.__SLOT__ = Symbol('CheckboxOrRadioGroupCaption')
+CheckboxOrRadioGroupCaption.__SLOT__ = Symbol('CheckboxOrRadioGroup.Caption')
