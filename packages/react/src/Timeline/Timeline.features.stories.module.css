@@ -49,3 +49,19 @@
   font-size: var(--text-body-size-small);
   color: var(--fgColor-muted);
 }
+
+.CrossReferenceCard {
+  margin-top: var(--base-size-4);
+  padding: var(--base-size-8) var(--base-size-12);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+}
+
+.CrossReferenceTaskline {
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-4);
+  margin-top: var(--base-size-4);
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+}

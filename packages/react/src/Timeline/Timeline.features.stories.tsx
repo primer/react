@@ -4,6 +4,7 @@ import Timeline from './Timeline'
 import Octicon from '../Octicon'
 import {
   CheckIcon,
+  CrossReferenceIcon,
   FlameIcon,
   GitBranchIcon,
   GitCommitIcon,
@@ -14,11 +15,13 @@ import {
   IssueOpenedIcon,
   LockIcon,
   SkipIcon,
+  TasklistIcon,
   XIcon,
 } from '@primer/octicons-react'
 import Link from '../Link'
 import {Button} from '../Button'
 import Label from '../Label'
+import StateLabel from '../StateLabel'
 import classes from './Timeline.features.stories.module.css'
 
 export default {
@@ -289,24 +292,34 @@ export const WithActions = () => (
       </Timeline.Item>
       <Timeline.Item>
         <Timeline.Badge>
-          <Octicon icon={GitPullRequestIcon} aria-label="Cross-reference" />
+          <Octicon icon={CrossReferenceIcon} aria-label="Cross-reference" />
         </Timeline.Badge>
         <Timeline.Body>
           <Link href="#" className={classes.LinkWithBoldStyle} muted>
             Monalisa
           </Link>
-          mentioned this pull request
-          <br />
-          <Link href="#" className={classes.LinkWithBoldStyle} muted>
-            Fix positioning of Autocomplete overlay menu
-          </Link>
+          mentioned this pull request{' '}
           <Link href="#" muted>
-            primer/react#7431
+            just now
           </Link>
+          <div className={classes.CrossReferenceCard}>
+            <Link href="#" className={classes.LinkWithBoldStyle} muted>
+              Fix positioning of Autocomplete overlay menu
+            </Link>{' '}
+            <Link href="#" muted>
+              primer/react#7431
+            </Link>
+            <div className={classes.CrossReferenceTaskline}>
+              <Octicon icon={TasklistIcon} size={16} />
+              17 tasks
+            </div>
+          </div>
         </Timeline.Body>
         <Timeline.Actions>
           <Octicon icon={LockIcon} aria-label="Private" />
-          <Label variant="success">Open</Label>
+          <StateLabel status="pullOpened" size="small">
+            Open
+          </StateLabel>
         </Timeline.Actions>
       </Timeline.Item>
     </Timeline>
