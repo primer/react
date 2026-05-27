@@ -68,12 +68,17 @@
   line-height: var(--text-title-lineHeight-small);
 }
 
+.CrossReferenceLink {
+  color: var(--fgColor-default);
+  text-decoration: none;
+}
+
 .CrossReferenceName {
   font-weight: var(--base-text-weight-semibold);
-  color: var(--fgColor-default);
 }
 
 .CrossReferenceNumber {
+  color: var(--fgColor-muted);
   text-decoration: underline;
 }
 

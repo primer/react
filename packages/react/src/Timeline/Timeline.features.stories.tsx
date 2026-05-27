@@ -311,9 +311,9 @@ export const WithActions = () => (
           <div className={classes.CrossReferenceRow}>
             <div className={classes.CrossReferenceContent}>
               <div className={classes.CrossReferenceTitle}>
-                <span className={classes.CrossReferenceName}>Fix positioning of Autocomplete overlay menu</span>{' '}
-                <Link href="#" className={classes.CrossReferenceNumber} muted>
-                  primer/react#7431
+                <Link href="#" className={classes.CrossReferenceLink}>
+                  <span className={classes.CrossReferenceName}>Fix positioning of Autocomplete overlay menu</span>{' '}
+                  <span className={classes.CrossReferenceNumber}>primer/react#7431</span>
                 </Link>
               </div>
               <div className={classes.CrossReferenceTaskline}>
