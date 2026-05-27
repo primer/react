@@ -15,15 +15,6 @@
   max-width: 1012px;
 }
 
-.BranchChip {
-  padding: 0 var(--base-size-4);
-  font-family: var(--fontStack-monospace);
-  font-size: var(--text-body-size-small);
-  color: var(--fgColor-accent);
-  background-color: var(--bgColor-accent-muted);
-  border-radius: var(--borderRadius-small);
-}
-
 .ShaLink {
   font-family: var(--fontStack-monospace);
   font-size: var(--text-body-size-small);
