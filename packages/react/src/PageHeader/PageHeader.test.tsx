@@ -20,6 +20,45 @@ describe('PageHeader', () => {
   implementsClassName(PageHeader.Actions, classes.Actions)
   implementsClassName(PageHeader.Description, classes.Description)
   implementsClassName(PageHeader.Navigation, classes.Navigation)
+
+  it('renders data-component attributes for PageHeader and exported subcomponents', () => {
+    const {container} = render(
+      <PageHeader aria-label="Title" role="banner">
+        <PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>
+        <PageHeader.ParentLink href="#">ParentLink</PageHeader.ParentLink>
+        <PageHeader.ContextBar>ContextBar</PageHeader.ContextBar>
+        <PageHeader.TitleArea>
+          <PageHeader.LeadingAction>LeadingAction</PageHeader.LeadingAction>
+          <PageHeader.Breadcrumbs>Breadcrumbs</PageHeader.Breadcrumbs>
+          <PageHeader.LeadingVisual>LeadingVisual</PageHeader.LeadingVisual>
+          <PageHeader.Title>Title</PageHeader.Title>
+          <PageHeader.TrailingVisual>TrailingVisual</PageHeader.TrailingVisual>
+          <PageHeader.TrailingAction>TrailingAction</PageHeader.TrailingAction>
+          <PageHeader.Actions>Actions</PageHeader.Actions>
+        </PageHeader.TitleArea>
+        <PageHeader.ContextAreaActions>ContextAreaActions</PageHeader.ContextAreaActions>
+        <PageHeader.Description>Description</PageHeader.Description>
+        <PageHeader.Navigation>Navigation</PageHeader.Navigation>
+      </PageHeader>,
+    )
+
+    expect(container.firstChild).toHaveAttribute('data-component', 'PageHeader')
+    expect(container.querySelector('[data-component="PageHeader.ContextArea"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="PageHeader.ParentLink"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="PageHeader.ContextBar"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="PageHeader.TitleArea"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="PageHeader.ContextAreaActions"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="PageHeader.LeadingAction"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="PageHeader.Breadcrumbs"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="PageHeader.LeadingVisual"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="PageHeader.Title"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="PageHeader.TrailingVisual"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="PageHeader.TrailingAction"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="PageHeader.Actions"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="PageHeader.Description"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="PageHeader.Navigation"]')).toBeInTheDocument()
+  })
+
   it('respects the title variant prop', () => {
     const {getByText} = render(
       <PageHeader role="banner" aria-label="Title">
@@ -31,6 +70,7 @@ describe('PageHeader', () => {
     )
     expect(getByText('Title')).toHaveStyle('font-size: 32px')
   })
+
   it('renders "aria-label" prop when Navigation is rendered as "nav" landmark', () => {
     const {getByLabelText, getByText} = render(
       <PageHeader role="banner" aria-label="Title">
@@ -45,6 +85,7 @@ describe('PageHeader', () => {
     expect(getByLabelText('Custom')).toBeInTheDocument()
     expect(getByText('Navigation')).toHaveAttribute('aria-label', 'Custom')
   })
+
   it('does not render "aria-label" prop when Navigation is rendered as "div"', () => {
     const {getByText} = render(
       <PageHeader role="banner" aria-label="Title">
@@ -71,6 +112,7 @@ describe('PageHeader', () => {
 
     consoleSpy.mockRestore()
   })
+
   it('does not render "role" attribute when not explicitly specified', () => {
     const {container} = render(
       <PageHeader>
@@ -81,6 +123,7 @@ describe('PageHeader', () => {
     )
     expect(container.firstChild).not.toHaveAttribute('role')
   })
+
   it('renders "role" attribute when explicitly specified', () => {
     const {container} = render(
       <PageHeader role="banner">
@@ -91,6 +134,7 @@ describe('PageHeader', () => {
     )
     expect(container.firstChild).toHaveAttribute('role', 'banner')
   })
+
   it('does not render "aria-label" attribute when not explicitly specified', () => {
     const {container} = render(
       <PageHeader role="banner">
@@ -101,6 +145,7 @@ describe('PageHeader', () => {
     )
     expect(container.firstChild).not.toHaveAttribute('aria-label')
   })
+
   it('renders custom "aria-label" attribute when explicitly specified', () => {
     const {container} = render(
       <PageHeader aria-label="Custom aria-label" role="banner">
