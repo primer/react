@@ -22,6 +22,7 @@ import Link from '../Link'
 import {Button} from '../Button'
 import Label from '../Label'
 import StateLabel from '../StateLabel'
+import Avatar from '../Avatar'
 import classes from './Timeline.features.stories.module.css'
 
 export default {
@@ -295,6 +296,11 @@ export const WithActions = () => (
           <Octicon icon={CrossReferenceIcon} aria-label="Cross-reference" />
         </Timeline.Badge>
         <Timeline.Body>
+          <Avatar
+            src="https://avatars.githubusercontent.com/u/92997159?v=4"
+            size={16}
+            className={classes.InlineAvatar}
+          />
           <Link href="#" className={classes.LinkWithBoldStyle} muted>
             Monalisa
           </Link>
@@ -302,10 +308,8 @@ export const WithActions = () => (
           <Link href="#" muted>
             just now
           </Link>
-          <div className={classes.CrossReferenceCard}>
-            <Link href="#" className={classes.LinkWithBoldStyle} muted>
-              Fix positioning of Autocomplete overlay menu
-            </Link>{' '}
+          <div className={classes.CrossReferenceContent}>
+            <Link href="#">Fix positioning of Autocomplete overlay menu</Link>{' '}
             <Link href="#" muted>
               primer/react#7431
             </Link>
