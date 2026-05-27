@@ -4,6 +4,7 @@ exports[`PageLayout > renders condensed layout 1`] = `
 <div>
   <div
     class="prc-PageLayout-PageLayoutRoot-NJqoS"
+    data-component="PageLayout"
     style="--spacing: var(--spacing-condensed);"
   >
     <div
@@ -12,6 +13,7 @@ exports[`PageLayout > renders condensed layout 1`] = `
     >
       <header
         class="prc-PageLayout-Header-EJ5fp"
+        data-component="PageLayout.Header"
         data-hidden="false"
         style="--spacing: var(--spacing-condensed);"
       >
@@ -32,6 +34,7 @@ exports[`PageLayout > renders condensed layout 1`] = `
       >
         <main
           class="prc-PageLayout-ContentWrapper-984Tf"
+          data-component="PageLayout.Content"
           data-is-hidden="false"
         >
           <div
@@ -57,6 +60,7 @@ exports[`PageLayout > renders condensed layout 1`] = `
           />
           <div
             class="prc-PageLayout-Pane-g6fEI"
+            data-component="PageLayout.Pane"
             style="--spacing: var(--spacing-none); --pane-min-width: 256px; --pane-max-width: calc(100vw - var(--pane-max-width-diff)); --pane-width-size: var(--pane-width-medium); --pane-width: 296px;"
           >
             Pane
@@ -72,6 +76,7 @@ exports[`PageLayout > renders condensed layout 1`] = `
       </div>
       <footer
         class="prc-PageLayout-FooterWrapper-CHYtZ"
+        data-component="PageLayout.Footer"
         data-hidden="false"
         style="--spacing: var(--spacing-condensed);"
       >
@@ -96,6 +101,7 @@ exports[`PageLayout > renders default layout 1`] = `
 <div>
   <div
     class="prc-PageLayout-PageLayoutRoot-NJqoS"
+    data-component="PageLayout"
     style="--spacing: var(--spacing-normal);"
   >
     <div
@@ -104,6 +110,7 @@ exports[`PageLayout > renders default layout 1`] = `
     >
       <header
         class="prc-PageLayout-Header-EJ5fp"
+        data-component="PageLayout.Header"
         data-hidden="false"
         style="--spacing: var(--spacing-normal);"
       >
@@ -124,6 +131,7 @@ exports[`PageLayout > renders default layout 1`] = `
       >
         <main
           class="prc-PageLayout-ContentWrapper-984Tf"
+          data-component="PageLayout.Content"
           data-is-hidden="false"
         >
           <div
@@ -149,6 +157,7 @@ exports[`PageLayout > renders default layout 1`] = `
           />
           <div
             class="prc-PageLayout-Pane-g6fEI"
+            data-component="PageLayout.Pane"
             style="--spacing: var(--spacing-none); --pane-min-width: 256px; --pane-max-width: calc(100vw - var(--pane-max-width-diff)); --pane-width-size: var(--pane-width-medium); --pane-width: 296px;"
           >
             Pane
@@ -164,6 +173,7 @@ exports[`PageLayout > renders default layout 1`] = `
       </div>
       <footer
         class="prc-PageLayout-FooterWrapper-CHYtZ"
+        data-component="PageLayout.Footer"
         data-hidden="false"
         style="--spacing: var(--spacing-normal);"
       >
@@ -188,6 +198,7 @@ exports[`PageLayout > renders pane in different position when narrow 1`] = `
 <div>
   <div
     class="prc-PageLayout-PageLayoutRoot-NJqoS"
+    data-component="PageLayout"
     style="--spacing: var(--spacing-normal);"
   >
     <div
@@ -196,6 +207,7 @@ exports[`PageLayout > renders pane in different position when narrow 1`] = `
     >
       <header
         class="prc-PageLayout-Header-EJ5fp"
+        data-component="PageLayout.Header"
         data-hidden="false"
         style="--spacing: var(--spacing-normal);"
       >
@@ -216,6 +228,7 @@ exports[`PageLayout > renders pane in different position when narrow 1`] = `
       >
         <main
           class="prc-PageLayout-ContentWrapper-984Tf"
+          data-component="PageLayout.Content"
           data-is-hidden="false"
         >
           <div
@@ -243,6 +256,7 @@ exports[`PageLayout > renders pane in different position when narrow 1`] = `
           />
           <div
             class="prc-PageLayout-Pane-g6fEI"
+            data-component="PageLayout.Pane"
             style="--spacing: var(--spacing-none); --pane-min-width: 256px; --pane-max-width: calc(100vw - var(--pane-max-width-diff)); --pane-width-size: var(--pane-width-medium); --pane-width: 296px;"
           >
             Pane
@@ -259,6 +273,7 @@ exports[`PageLayout > renders pane in different position when narrow 1`] = `
       </div>
       <footer
         class="prc-PageLayout-FooterWrapper-CHYtZ"
+        data-component="PageLayout.Footer"
         data-hidden="false"
         style="--spacing: var(--spacing-normal);"
       >
@@ -283,6 +298,7 @@ exports[`PageLayout > renders with dividers 1`] = `
 <div>
   <div
     class="prc-PageLayout-PageLayoutRoot-NJqoS"
+    data-component="PageLayout"
     style="--spacing: var(--spacing-normal);"
   >
     <div
@@ -291,6 +307,7 @@ exports[`PageLayout > renders with dividers 1`] = `
     >
       <header
         class="prc-PageLayout-Header-EJ5fp"
+        data-component="PageLayout.Header"
         data-hidden="false"
         style="--spacing: var(--spacing-normal);"
       >
@@ -312,6 +329,7 @@ exports[`PageLayout > renders with dividers 1`] = `
       >
         <main
           class="prc-PageLayout-ContentWrapper-984Tf"
+          data-component="PageLayout.Content"
           data-is-hidden="false"
         >
           <div
@@ -337,6 +355,7 @@ exports[`PageLayout > renders with dividers 1`] = `
           />
           <div
             class="prc-PageLayout-Pane-g6fEI"
+            data-component="PageLayout.Pane"
             style="--spacing: var(--spacing-none); --pane-min-width: 256px; --pane-max-width: calc(100vw - var(--pane-max-width-diff)); --pane-width-size: var(--pane-width-medium); --pane-width: 296px;"
           >
             Pane
@@ -353,6 +372,7 @@ exports[`PageLayout > renders with dividers 1`] = `
       </div>
       <footer
         class="prc-PageLayout-FooterWrapper-CHYtZ"
+        data-component="PageLayout.Footer"
         data-hidden="false"
         style="--spacing: var(--spacing-normal);"
       >

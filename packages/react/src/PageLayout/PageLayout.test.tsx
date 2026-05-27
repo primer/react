@@ -102,6 +102,25 @@ describe('PageLayout', async () => {
     expect(getByText('Pane')).toBeVisible()
   })
 
+  it('renders data-component attributes for PageLayout and exported subcomponents', () => {
+    const {container} = render(
+      <PageLayout>
+        <PageLayout.Header>Header</PageLayout.Header>
+        <PageLayout.Content>Content</PageLayout.Content>
+        <PageLayout.Pane>Pane</PageLayout.Pane>
+        <PageLayout.Sidebar>Sidebar</PageLayout.Sidebar>
+        <PageLayout.Footer>Footer</PageLayout.Footer>
+      </PageLayout>,
+    )
+
+    expect(container.querySelector('[data-component="PageLayout"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="PageLayout.Header"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="PageLayout.Content"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="PageLayout.Pane"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="PageLayout.Sidebar"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="PageLayout.Footer"]')).toBeInTheDocument()
+  })
+
   it('should support labeling landmarks through `aria-label`', () => {
     render(
       <PageLayout>

@@ -130,6 +130,7 @@ const RootWrapper = memo(
           } as React.CSSProperties
         }
         className={clsx(classes.PageLayoutRoot, className)}
+        data-component="PageLayout"
         data-has-sidebar={hasSidebar || undefined}
       >
         {children}
@@ -570,6 +571,7 @@ const Header: FCWithSlotMarker<React.PropsWithChildren<PageLayoutHeaderProps>> =
     <header
       aria-label={label}
       aria-labelledby={labelledBy}
+      data-component="PageLayout.Header"
       {...getResponsiveAttributes('hidden', hidden)}
       className={clsx(classes.Header, className)}
       style={
@@ -649,6 +651,7 @@ const Content: FCWithSlotMarker<React.PropsWithChildren<PageLayoutContentProps>>
       ref={contentWrapperRef}
       aria-label={label}
       aria-labelledby={labelledBy}
+      data-component="PageLayout.Content"
       style={style}
       className={clsx(classes.ContentWrapper, className)}
       {...getResponsiveAttributes('is-hidden', hidden)}
@@ -896,6 +899,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           {...labelProp}
           {...(id && {id: paneId})}
           className={classes.Pane}
+          data-component="PageLayout.Pane"
           data-resizable={resizable || undefined}
           style={
             {
@@ -1200,6 +1204,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
           {...labelProp}
           {...(id && {id: sidebarId})}
           className={classes.Sidebar}
+          data-component="PageLayout.Sidebar"
           data-resizable={resizable || undefined}
           style={
             {
@@ -1300,6 +1305,7 @@ const Footer: FCWithSlotMarker<React.PropsWithChildren<PageLayoutFooterProps>> =
     <footer
       aria-label={label}
       aria-labelledby={labelledBy}
+      data-component="PageLayout.Footer"
       {...getResponsiveAttributes('hidden', hidden)}
       className={clsx(classes.FooterWrapper, className)}
       style={
