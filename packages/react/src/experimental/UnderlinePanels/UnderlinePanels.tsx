@@ -238,6 +238,5 @@ Panel.displayName = 'UnderlinePanels.Panel'
 
 export default Object.assign(UnderlinePanels, {Panel, Tab})
 
-UnderlinePanels.__SLOT__ = Symbol('UnderlinePanels')
 Tab.__SLOT__ = Symbol('UnderlinePanels.Tab')
 Panel.__SLOT__ = Symbol('UnderlinePanels.Panel')
