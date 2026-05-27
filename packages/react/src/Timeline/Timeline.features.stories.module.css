@@ -7,3 +7,19 @@
 .LinkWithBoldStyle:hover {
   color: var(--fgColor-accent);
 }
+
+.RealisticTimeline {
+  /* GitHub renders the timeline at most 1012px wide in product surfaces.
+     Constrain the story width to match so Timeline.Actions content sits a
+     realistic distance from the event text. */
+  max-width: 1012px;
+}
+
+.BranchChip {
+  padding: 0 var(--base-size-4);
+  font-family: var(--fontStack-monospace);
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-accent);
+  background-color: var(--bgColor-accent-muted);
+  border-radius: var(--borderRadius-small);
+}

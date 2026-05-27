@@ -13,7 +13,6 @@ import {
   IssueClosedIcon,
   IssueOpenedIcon,
   LockIcon,
-  ShieldCheckIcon,
   SkipIcon,
   XIcon,
 } from '@primer/octicons-react'
@@ -209,78 +208,99 @@ export const WithInlineLinks = () => (
 )
 
 export const WithActions = () => (
-  <Timeline>
-    <Timeline.Item>
-      <Timeline.Badge variant="done">
-        <Octicon icon={GitMergeIcon} aria-label="Merged" />
-      </Timeline.Badge>
-      <Timeline.Body>
-        <Link href="#" className={classes.LinkWithBoldStyle} muted>
-          Monalisa
-        </Link>
-        merged commit{' '}
-        <Link href="#" muted>
-          a1b2c3d
-        </Link>{' '}
-        into main
-      </Timeline.Body>
-      <Timeline.Actions>
-        <Button size="small">Revert</Button>
-      </Timeline.Actions>
-    </Timeline.Item>
-    <Timeline.Item>
-      <Timeline.Badge variant="done">
-        <Octicon icon={GitMergeIcon} aria-label="Merged" />
-      </Timeline.Badge>
-      <Timeline.Body>
-        <Link href="#" className={classes.LinkWithBoldStyle} muted>
-          Monalisa
-        </Link>
-        merged this pull request
-      </Timeline.Body>
-      <Timeline.Actions>
-        <Button size="small">Revert</Button>
-        <Button size="small">View details</Button>
-      </Timeline.Actions>
-    </Timeline.Item>
-    <Timeline.Item condensed>
-      <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} aria-label="Commit" />
-      </Timeline.Badge>
-      <Timeline.Body>
-        <Link href="#" className={classes.LinkWithBoldStyle} muted>
-          Monalisa
-        </Link>
-        pushed a commit
-      </Timeline.Body>
-      <Timeline.Actions>
-        <Octicon icon={CheckIcon} aria-label="All checks passed" />
-        <Link href="#" muted>
-          a1b2c3d
-        </Link>
-        <Label variant="success">
-          <Octicon icon={ShieldCheckIcon} />
-          Verified
-        </Label>
-      </Timeline.Actions>
-    </Timeline.Item>
-    <Timeline.Item>
-      <Timeline.Badge>
-        <Octicon icon={GitPullRequestIcon} aria-label="Cross-reference" />
-      </Timeline.Badge>
-      <Timeline.Body>
-        <Link href="#" className={classes.LinkWithBoldStyle} muted>
-          Monalisa
-        </Link>
-        mentioned this in a pull request
-      </Timeline.Body>
-      <Timeline.Actions>
-        <Octicon icon={LockIcon} aria-label="Private" />
-        <Link href="#" muted>
-          monalisa/private-repo#42
-        </Link>
-        <Label variant="success">Open</Label>
-      </Timeline.Actions>
-    </Timeline.Item>
-  </Timeline>
+  <div className={classes.RealisticTimeline}>
+    <Timeline>
+      <Timeline.Item>
+        <Timeline.Badge variant="done">
+          <Octicon icon={GitMergeIcon} aria-label="Merged" />
+        </Timeline.Badge>
+        <Timeline.Body>
+          <Link href="#" className={classes.LinkWithBoldStyle} muted>
+            Monalisa
+          </Link>
+          merged this pull request
+        </Timeline.Body>
+        <Timeline.Actions>
+          <Button size="small">Revert</Button>
+        </Timeline.Actions>
+      </Timeline.Item>
+      <Timeline.Item>
+        <Timeline.Badge>
+          <Octicon icon={GitBranchIcon} aria-label="Force-push" />
+        </Timeline.Badge>
+        <Timeline.Body>
+          <Link href="#" className={classes.LinkWithBoldStyle} muted>
+            Monalisa
+          </Link>
+          force-pushed the <code className={classes.BranchChip}>main</code> branch from{' '}
+          <Link href="#" muted>
+            01e49tb
+          </Link>{' '}
+          to{' '}
+          <Link href="#" muted>
+            02f50uc
+          </Link>
+        </Timeline.Body>
+        <Timeline.Actions>
+          <Button size="small">Compare</Button>
+        </Timeline.Actions>
+      </Timeline.Item>
+      <Timeline.Item condensed>
+        <Timeline.Badge>
+          <Octicon icon={GitCommitIcon} aria-label="Commit" />
+        </Timeline.Badge>
+        <Timeline.Body>
+          <Link href="#" muted>
+            Update README.md
+          </Link>
+        </Timeline.Body>
+        <Timeline.Actions>
+          <Label variant="success">Verified</Label>
+          <Octicon icon={CheckIcon} aria-label="All checks passed" />
+          <Link href="#" muted>
+            3fbdc0
+          </Link>
+        </Timeline.Actions>
+      </Timeline.Item>
+      <Timeline.Item condensed>
+        <Timeline.Badge>
+          <Octicon icon={GitCommitIcon} aria-label="Commit" />
+        </Timeline.Badge>
+        <Timeline.Body>
+          <Link href="#" muted>
+            Initial commit
+          </Link>
+        </Timeline.Body>
+        <Timeline.Actions>
+          <Label>Unverified</Label>
+          <Octicon icon={XIcon} aria-label="Some checks failed" />
+          <Link href="#" muted>
+            3fbdc0
+          </Link>
+        </Timeline.Actions>
+      </Timeline.Item>
+      <Timeline.Item>
+        <Timeline.Badge>
+          <Octicon icon={GitPullRequestIcon} aria-label="Cross-reference" />
+        </Timeline.Badge>
+        <Timeline.Body>
+          <Link href="#" className={classes.LinkWithBoldStyle} muted>
+            Monalisa
+          </Link>
+          mentioned this pull request
+          <br />
+          <Link href="#" className={classes.LinkWithBoldStyle} muted>
+            Fix positioning of Autocomplete overlay menu
+          </Link>
+          <Link href="#" muted>
+            primer/react#7431
+          </Link>
+        </Timeline.Body>
+        <Timeline.Actions>
+          <Octicon icon={LockIcon} aria-label="Private" />
+          <Label variant="success">Open</Label>
+        </Timeline.Actions>
+      </Timeline.Item>
+    </Timeline>
+  </div>
 )
