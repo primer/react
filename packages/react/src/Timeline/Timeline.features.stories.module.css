@@ -23,3 +23,29 @@
   background-color: var(--bgColor-accent-muted);
   border-radius: var(--borderRadius-small);
 }
+
+.ShaLink {
+  font-family: var(--fontStack-monospace);
+  text-decoration: underline;
+}
+
+.SignatureLabelVerified {
+  /* Verified signatures on github.com keep the default muted Label border
+     but render the text in success green. Label variant="success" would
+     also color the border, which is louder than the real product. */
+  color: var(--fgColor-success);
+}
+
+.IconSuccess {
+  color: var(--fgColor-success);
+}
+
+.IconDanger {
+  color: var(--fgColor-danger);
+}
+
+.ChecksSubline {
+  margin-top: var(--base-size-4);
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+}

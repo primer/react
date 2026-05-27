@@ -218,9 +218,17 @@ export const WithActions = () => (
           <Link href="#" className={classes.LinkWithBoldStyle} muted>
             Monalisa
           </Link>
-          merged this pull request
+          merged via the queue into <code className={classes.BranchChip}>main</code> with commit{' '}
+          <Link href="#" className={classes.ShaLink} muted>
+            01e49tb
+          </Link>{' '}
+          <Link href="#" muted>
+            just now
+          </Link>
+          <div className={classes.ChecksSubline}>28 checks passed</div>
         </Timeline.Body>
         <Timeline.Actions>
+          <Button size="small">View details</Button>
           <Button size="small">Revert</Button>
         </Timeline.Actions>
       </Timeline.Item>
@@ -255,9 +263,9 @@ export const WithActions = () => (
           </Link>
         </Timeline.Body>
         <Timeline.Actions>
-          <Label variant="success">Verified</Label>
-          <Octicon icon={CheckIcon} aria-label="All checks passed" />
-          <Link href="#" muted>
+          <Label className={classes.SignatureLabelVerified}>Verified</Label>
+          <Octicon icon={CheckIcon} className={classes.IconSuccess} aria-label="All checks passed" />
+          <Link href="#" className={classes.ShaLink} muted>
             3fbdc0
           </Link>
         </Timeline.Actions>
@@ -273,8 +281,8 @@ export const WithActions = () => (
         </Timeline.Body>
         <Timeline.Actions>
           <Label>Unverified</Label>
-          <Octicon icon={XIcon} aria-label="Some checks failed" />
-          <Link href="#" muted>
+          <Octicon icon={XIcon} className={classes.IconDanger} aria-label="Some checks failed" />
+          <Link href="#" className={classes.ShaLink} muted>
             3fbdc0
           </Link>
         </Timeline.Actions>
