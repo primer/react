@@ -58,6 +58,7 @@ jobs:
         with:
           name: aat-${{ matrix.shard }}
           path: blob-report
+          if-no-files-found: error
           retention-days: 1
 
   aat:
