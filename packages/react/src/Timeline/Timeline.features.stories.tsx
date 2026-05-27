@@ -298,7 +298,7 @@ export const WithActions = () => (
         <Timeline.Body>
           <Avatar
             src="https://avatars.githubusercontent.com/u/92997159?v=4"
-            size={16}
+            size={20}
             className={classes.InlineAvatar}
           />
           <Link href="#" className={classes.LinkWithBoldStyle} muted>
@@ -308,23 +308,27 @@ export const WithActions = () => (
           <Link href="#" muted>
             just now
           </Link>
-          <div className={classes.CrossReferenceContent}>
-            <Link href="#">Fix positioning of Autocomplete overlay menu</Link>{' '}
-            <Link href="#" muted>
-              primer/react#7431
-            </Link>
-            <div className={classes.CrossReferenceTaskline}>
-              <Octicon icon={TasklistIcon} size={16} />
-              17 tasks
+          <div className={classes.CrossReferenceRow}>
+            <div className={classes.CrossReferenceContent}>
+              <div className={classes.CrossReferenceTitle}>
+                <span className={classes.CrossReferenceName}>Fix positioning of Autocomplete overlay menu</span>{' '}
+                <Link href="#" className={classes.CrossReferenceNumber} muted>
+                  primer/react#7431
+                </Link>
+              </div>
+              <div className={classes.CrossReferenceTaskline}>
+                <Octicon icon={TasklistIcon} size={16} />
+                17 tasks
+              </div>
+            </div>
+            <div className={classes.CrossReferenceActions}>
+              <Octicon icon={LockIcon} size={16} className={classes.CrossReferenceMeta} />
+              <StateLabel status="pullOpened" size="medium">
+                Open
+              </StateLabel>
             </div>
           </div>
         </Timeline.Body>
-        <Timeline.Actions>
-          <Octicon icon={LockIcon} aria-label="Private" />
-          <StateLabel status="pullOpened" size="small">
-            Open
-          </StateLabel>
-        </Timeline.Actions>
       </Timeline.Item>
     </Timeline>
   </div>
