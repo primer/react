@@ -58,6 +58,7 @@ jobs:
         with:
           name: aat-${{ matrix.shard }}
           path: blob-report
+          if-no-files-found: error
           retention-days: 1
 
   aat:
@@ -69,7 +70,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
-          node-version-file: '.nvmrc'
+          node-version: 24.15.0
           cache: 'npm'
       - name: install dependencies
         run: npm ci
@@ -86,6 +87,7 @@ jobs:
         with:
           name: aat
           path: playwright-report
+          if-no-files-found: error
       - name: Check aat-runner job status
         if: ${{ needs.aat-runner.result == 'failure' }}
         run: exit 1
