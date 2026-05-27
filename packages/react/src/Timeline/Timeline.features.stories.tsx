@@ -14,6 +14,7 @@ import {
   IssueClosedIcon,
   IssueOpenedIcon,
   LockIcon,
+  RepoPushIcon,
   SkipIcon,
   TasklistIcon,
   XIcon,
@@ -23,6 +24,7 @@ import {Button} from '../Button'
 import Label from '../Label'
 import StateLabel from '../StateLabel'
 import Avatar from '../Avatar'
+import BranchName from '../BranchName'
 import classes from './Timeline.features.stories.module.css'
 
 export default {
@@ -212,7 +214,12 @@ export const WithInlineLinks = () => (
 )
 
 export const WithActions = () => (
-  <div className={classes.RealisticTimeline}>
+  <div
+    className={classes.RealisticTimeline}
+    onClick={e => {
+      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
+    }}
+  >
     <Timeline>
       <Timeline.Item>
         <Timeline.Badge variant="done">
@@ -222,11 +229,11 @@ export const WithActions = () => (
           <Link href="#" className={classes.LinkWithBoldStyle} muted>
             Monalisa
           </Link>
-          merged via the queue into <code className={classes.BranchChip}>main</code> with commit{' '}
-          <Link href="#" className={classes.ShaLink} muted>
+          merged via the queue into <BranchName href="#">main</BranchName> with commit{' '}
+          <Link href="#" className={classes.CommitSha}>
             01e49tb
           </Link>{' '}
-          <Link href="#" muted>
+          <Link href="#" className={classes.Timestamp} muted>
             just now
           </Link>
           <div className={classes.ChecksSubline}>28 checks passed</div>
@@ -238,19 +245,22 @@ export const WithActions = () => (
       </Timeline.Item>
       <Timeline.Item>
         <Timeline.Badge>
-          <Octicon icon={GitBranchIcon} aria-label="Force-push" />
+          <Octicon icon={RepoPushIcon} aria-label="Force-push" />
         </Timeline.Badge>
         <Timeline.Body>
           <Link href="#" className={classes.LinkWithBoldStyle} muted>
             Monalisa
           </Link>
-          force-pushed the <code className={classes.BranchChip}>main</code> branch from{' '}
-          <Link href="#" muted>
+          force-pushed the <BranchName href="#">main</BranchName> branch from{' '}
+          <Link href="#" className={classes.CommitSha}>
             01e49tb
           </Link>{' '}
           to{' '}
-          <Link href="#" muted>
+          <Link href="#" className={classes.CommitSha}>
             02f50uc
+          </Link>{' '}
+          <Link href="#" className={classes.Timestamp} muted>
+            2 hours ago
           </Link>
         </Timeline.Body>
         <Timeline.Actions>
@@ -305,7 +315,7 @@ export const WithActions = () => (
             Monalisa
           </Link>
           mentioned this pull request{' '}
-          <Link href="#" muted>
+          <Link href="#" className={classes.Timestamp} muted>
             just now
           </Link>
           <div className={classes.CrossReferenceRow}>

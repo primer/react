@@ -30,6 +30,13 @@
   text-decoration: underline;
 }
 
+.CommitSha {
+  font-family: var(--fontStack-monospace);
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+}
+
 .SignatureLabelVerified {
   /* Verified signatures on github.com keep the default muted Label border
      but render the text in success green. Label variant="success" would
@@ -70,7 +77,11 @@
 
 .CrossReferenceLink {
   color: var(--fgColor-default);
-  text-decoration: none;
+  text-decoration: underline;
+}
+
+.CrossReferenceLink:hover {
+  color: var(--fgColor-accent);
 }
 
 .CrossReferenceName {
@@ -79,7 +90,10 @@
 
 .CrossReferenceNumber {
   color: var(--fgColor-muted);
-  text-decoration: underline;
+}
+
+.CrossReferenceLink:hover .CrossReferenceNumber {
+  color: var(--fgColor-accent);
 }
 
 .CrossReferenceMeta {
@@ -106,4 +120,8 @@
 .InlineAvatar {
   vertical-align: middle;
   margin-right: var(--base-size-4);
+}
+
+.Timestamp {
+  text-decoration: underline;
 }
