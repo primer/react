@@ -24,6 +24,7 @@ import Label from '../Label'
 import StateLabel from '../StateLabel'
 import Avatar from '../Avatar'
 import BranchName from '../BranchName'
+import Octicon from '../Octicon'
 import classes from './Timeline.features.stories.module.css'
 
 export default {
