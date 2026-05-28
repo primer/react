@@ -640,8 +640,7 @@
 
   /* Icon-only + Counter */
 
-  /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
-  &:where([data-has-count]):has([data-component='leadingVisual']):not(:has([data-component='text'])) {
+  &:where([data-icon-only-counter]) {
     /* stylelint-disable-next-line primer/spacing */
     padding-inline: var(--control-medium-paddingInline-condensed);
 
