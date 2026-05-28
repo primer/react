@@ -30,7 +30,7 @@ import {Tooltip} from '../TooltipV2'
 import {isSlot} from '../utils/is-slot'
 import type {FCWithSlotMarker} from '../utils/types'
 import {AriaStatus} from '../live-region'
-import {fixedForwardRef, type PolymorphicProps} from '../utils/modern-polymorphic'
+import {fixedForwardRef, type DistributiveOmit} from '../utils/modern-polymorphic'
 
 // ----------------------------------------------------------------------------
 // Context
@@ -216,7 +216,20 @@ type TreeViewItemBaseProps = {
   secondaryActions?: TreeViewSecondaryActions[]
 }
 
-export type TreeViewItemProps<As extends React.ElementType = 'li'> = PolymorphicProps<As, 'li', TreeViewItemBaseProps>
+// We build this type manually (instead of using `PolymorphicProps`) so we can omit
+// `ref` and `onSelect` from the underlying element's props:
+// - `ref` is provided solely by `fixedForwardRef` (typed as `Ref<unknown>`), preserving
+//   backward compatibility with consumers that pass `Ref<HTMLElement>` rather than the
+//   intrinsic element's ref type (e.g. `Ref<HTMLLIElement>` for the default `<li>`).
+// - Our custom `onSelect` (typed against `HTMLElement`) replaces the native
+//   `ReactEventHandler<HTMLLIElement>` that would otherwise be intersected in
+//   and conflict with existing consumers.
+// `DistributiveOmit` keeps the omit distributing over `as` union types.
+export type TreeViewItemProps<As extends React.ElementType = 'li'> = DistributiveOmit<
+  React.ComponentPropsWithoutRef<React.ElementType extends As ? 'li' : As>,
+  'as' | 'onSelect'
+> &
+  TreeViewItemBaseProps & {as?: As}
 
 const ItemImpl = fixedForwardRef(
   <As extends React.ElementType = 'li'>(
