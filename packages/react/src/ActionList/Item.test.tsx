@@ -431,4 +431,116 @@ describe('ActionList.Item', () => {
       expect(queryByRole('menu')).toBeInTheDocument()
     })
   })
+
+  describe('data attributes derived from slots', () => {
+    it('sets data-has-trailing-action when a TrailingAction slot is present', () => {
+      const {container} = HTMLRender(
+        <ActionList>
+          <ActionList.Item>
+            Item
+            <ActionList.TrailingAction icon={BookIcon} label="Action" />
+          </ActionList.Item>
+        </ActionList>,
+      )
+      expect(container.querySelector('[data-component="ActionList.Item"]')).toHaveAttribute(
+        'data-has-trailing-action',
+        'true',
+      )
+    })
+
+    it('does not set data-has-trailing-action when no TrailingAction slot is present', () => {
+      const {container} = HTMLRender(
+        <ActionList>
+          <ActionList.Item>Item</ActionList.Item>
+        </ActionList>,
+      )
+      expect(container.querySelector('[data-component="ActionList.Item"]')).not.toHaveAttribute(
+        'data-has-trailing-action',
+      )
+    })
+
+    it('sets data-trailing-action-loading when the TrailingAction is loading', () => {
+      const {container} = HTMLRender(
+        <ActionList>
+          <ActionList.Item>
+            Item
+            <ActionList.TrailingAction label="Action" loading />
+          </ActionList.Item>
+        </ActionList>,
+      )
+      expect(container.querySelector('[data-component="ActionList.Item"]')).toHaveAttribute(
+        'data-trailing-action-loading',
+        'true',
+      )
+    })
+
+    it('does not set data-trailing-action-loading when the TrailingAction is not loading', () => {
+      const {container} = HTMLRender(
+        <ActionList>
+          <ActionList.Item>
+            Item
+            <ActionList.TrailingAction icon={BookIcon} label="Action" />
+          </ActionList.Item>
+        </ActionList>,
+      )
+      expect(container.querySelector('[data-component="ActionList.Item"]')).not.toHaveAttribute(
+        'data-trailing-action-loading',
+      )
+    })
+  })
+
+  describe('inactive indicator wrap data-position', () => {
+    it('renders the inactive wrap with data-position="trailing" when the item has no leading visual', () => {
+      const {container} = HTMLRender(
+        <ActionList>
+          <ActionList.Item inactiveText="Unavailable">Item</ActionList.Item>
+        </ActionList>,
+      )
+      const wrap = container.querySelector(`.${classes.InactiveButtonWrap}`)
+      expect(wrap).toHaveAttribute('data-position', 'trailing')
+    })
+
+    it('renders the inactive wrap with data-position="leading" when the item has a leading visual', () => {
+      const {container} = HTMLRender(
+        <ActionList>
+          <ActionList.Item inactiveText="Unavailable">
+            <ActionList.LeadingVisual>
+              <BookIcon />
+            </ActionList.LeadingVisual>
+            Item
+          </ActionList.Item>
+        </ActionList>,
+      )
+      const wrap = container.querySelector(`.${classes.InactiveButtonWrap}`)
+      expect(wrap).toHaveAttribute('data-position', 'leading')
+    })
+  })
+
+  describe('TrailingAction data-has-label', () => {
+    it('sets data-has-label on the text Button variant (no icon prop)', () => {
+      const {container} = HTMLRender(
+        <ActionList>
+          <ActionList.Item>
+            Item
+            <ActionList.TrailingAction label="Action" />
+          </ActionList.Item>
+        </ActionList>,
+      )
+      const action = container.querySelector(`.${classes.TrailingActionButton}`)
+      expect(action).toHaveAttribute('data-has-label', 'true')
+    })
+
+    it('does not set data-has-label on the IconButton variant (icon prop set)', () => {
+      const {container} = HTMLRender(
+        <ActionList>
+          <ActionList.Item>
+            Item
+            <ActionList.TrailingAction icon={BookIcon} label="Action" />
+          </ActionList.Item>
+        </ActionList>,
+      )
+      const action = container.querySelector(`.${classes.TrailingActionButton}`)
+      expect(action).not.toHaveAttribute('data-has-label')
+    })
+  })
 })
