@@ -19,6 +19,7 @@ import {
   XIcon,
 } from '@primer/octicons-react'
 import Link from '../Link'
+import RelativeTime from '../RelativeTime'
 import {Button} from '../Button'
 import Label from '../Label'
 import StateLabel from '../StateLabel'
@@ -346,30 +347,30 @@ export const WithActions = () => (
 )
 
 export const WithAvatar = () => (
-  <div className={classes.AvatarGutter}>
+  <div
+    className={`${classes.RealisticTimeline} ${classes.AvatarGutter}`}
+    onClick={e => {
+      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
+    }}
+  >
     <Timeline>
       <Timeline.Item>
         <Timeline.Avatar>
           <Avatar size={40} src="https://avatars.githubusercontent.com/u/92997159?v=4" alt="" />
         </Timeline.Avatar>
-        <Timeline.Badge>
-          <Octicon icon={GitCommitIcon} aria-label="Commit" />
+        <Timeline.Badge variant="done">
+          <Octicon icon={CheckIcon} aria-label="Approved" />
         </Timeline.Badge>
         <Timeline.Body>
           <Link href="#" className={classes.LinkWithBoldStyle} muted>
-            Monalisa
+            monalisa
           </Link>
-          opened this pull request
+          {'approved these changes '}
+          <RelativeTime date={new Date()} format="relative" />
         </Timeline.Body>
-      </Timeline.Item>
-      <Timeline.Item condensed>
-        <Timeline.Avatar>
-          <Avatar size={16} src="https://avatars.githubusercontent.com/u/92997159?v=4" alt="" />
-        </Timeline.Avatar>
-        <Timeline.Badge>
-          <Octicon icon={GitCommitIcon} aria-label="Commit" />
-        </Timeline.Badge>
-        <Timeline.Body>Monalisa pushed a commit</Timeline.Body>
+        <Timeline.Actions>
+          <Button size="small">View reviewed changes</Button>
+        </Timeline.Actions>
       </Timeline.Item>
     </Timeline>
   </div>
