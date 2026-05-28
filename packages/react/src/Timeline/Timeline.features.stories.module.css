@@ -7,3 +7,112 @@
 .LinkWithBoldStyle:hover {
   color: var(--fgColor-accent);
 }
+
+.RealisticTimeline {
+  /* GitHub renders the timeline at most 1012px wide in product surfaces.
+     Constrain the story width to match so Timeline.Actions content sits a
+     realistic distance from the event text. */
+  max-width: 1012px;
+}
+
+.ShaLink {
+  font-family: var(--fontStack-monospace);
+  font-size: var(--text-body-size-small);
+  text-decoration: underline;
+}
+
+.CommitSha {
+  font-family: var(--fontStack-monospace);
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+}
+
+.SignatureLabelVerified {
+  /* Verified signatures on github.com keep the default muted Label border
+     but render the text in success green. Label variant="success" would
+     also color the border, which is louder than the real product. */
+  color: var(--fgColor-success);
+}
+
+.IconSuccess {
+  color: var(--fgColor-success);
+}
+
+.IconDanger {
+  color: var(--fgColor-danger);
+}
+
+.ChecksSubline {
+  margin-top: var(--base-size-4);
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+}
+
+.CrossReferenceRow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--base-size-12);
+  margin-top: var(--base-size-4);
+}
+
+.CrossReferenceContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.CrossReferenceTitle {
+  font-size: var(--text-title-size-small);
+  line-height: var(--text-title-lineHeight-small);
+}
+
+.CrossReferenceLink {
+  color: var(--fgColor-default);
+  text-decoration: underline;
+}
+
+.CrossReferenceLink:hover {
+  color: var(--fgColor-accent);
+}
+
+.CrossReferenceName {
+  font-weight: var(--base-text-weight-semibold);
+}
+
+.CrossReferenceNumber {
+  color: var(--fgColor-muted);
+}
+
+.CrossReferenceLink:hover .CrossReferenceNumber {
+  color: var(--fgColor-accent);
+}
+
+.CrossReferenceMeta {
+  color: var(--fgColor-muted);
+  flex-shrink: 0;
+}
+
+.CrossReferenceActions {
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-12);
+  flex-shrink: 0;
+}
+
+.CrossReferenceTaskline {
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-4);
+  margin-top: var(--base-size-4);
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+}
+
+.InlineAvatar {
+  vertical-align: middle;
+  margin-right: var(--base-size-4);
+}
+
+.Timestamp {
+  text-decoration: underline;
+}
