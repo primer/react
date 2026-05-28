@@ -7,4 +7,5 @@ export type {
   TimelineBadgeProps,
   TimelineBodyProps,
   TimelineBreakProps,
+  TimelineActionsProps,
 } from './Timeline'

@@ -6,6 +6,7 @@ const stories: Array<{
   title: string
   id: string
   buttonName?: string
+  buttonNames?: string[]
   skipOpen?: boolean
 }> = [
   {
@@ -57,6 +58,11 @@ const stories: Array<{
     title: 'Dev: With Css',
     id: 'components-actionmenu-dev--with-css',
   },
+  {
+    title: 'Dev: Within Dialog',
+    id: 'components-actionmenu-dev--within-dialog',
+    buttonNames: ['Open Dialog', 'Open ActionMenu'],
+  },
 ] as const
 
 const featureFlagVariants = [
@@ -81,14 +87,16 @@ test.describe('ActionMenu', () => {
                 },
               })
 
-              const buttonName = story.buttonName ?? 'Open menu'
+              const buttonNames = story.buttonNames ?? [story.buttonName ?? 'Open menu']
 
               // Default state
               // Open state
 
               if (!story.skipOpen) {
-                await page.locator('button', {hasText: buttonName}).waitFor()
-                await page.getByRole('button', {name: buttonName}).click()
+                for (const buttonName of buttonNames) {
+                  await page.locator('button', {hasText: buttonName}).waitFor()
+                  await page.getByRole('button', {name: buttonName}).click()
+                }
               }
               expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
                 `ActionMenu.${story.title}.${theme}${suffix}.png`,
