@@ -487,6 +487,49 @@ describe('ActionList.Item', () => {
         'data-trailing-action-loading',
       )
     })
+
+    // The TrailingAction element is only rendered when the item is not inactive,
+    // not loading, and not inside a menu-style container. The data attributes
+    // must mirror that gate or the styling will apply when no action is in the DOM.
+    it('does not set data-has-trailing-action when the item is inactive', () => {
+      const {container} = HTMLRender(
+        <ActionList>
+          <ActionList.Item inactiveText="Unavailable">
+            Item
+            <ActionList.TrailingAction icon={BookIcon} label="Action" />
+          </ActionList.Item>
+        </ActionList>,
+      )
+      expect(container.querySelector('[data-component="ActionList.Item"]')).not.toHaveAttribute(
+        'data-has-trailing-action',
+      )
+      expect(container.querySelector('[data-component="ActionList.Item"]')).not.toHaveAttribute(
+        'data-trailing-action-loading',
+      )
+    })
+
+    it('does not set data-has-trailing-action when the item is loading', () => {
+      const {container} = HTMLRender(
+        <ActionList>
+          <ActionList.Item loading>
+            Item
+            <ActionList.TrailingAction label="Action" loading />
+          </ActionList.Item>
+        </ActionList>,
+      )
+      expect(container.querySelector('[data-component="ActionList.Item"]')).not.toHaveAttribute(
+        'data-has-trailing-action',
+      )
+      expect(container.querySelector('[data-component="ActionList.Item"]')).not.toHaveAttribute(
+        'data-trailing-action-loading',
+      )
+    })
+
+    // The menuContext gate (ActionMenu/SelectPanel/FilteredActionList) is also
+    // applied in code but cannot be exercised in dev tests because passing
+    // TrailingAction in a menu-style container fires a dev-only invariant
+    // (see Item.tsx). The gating still matters for production builds where
+    // the invariant is a no-op.
   })
 
   describe('inactive indicator wrap data-position', () => {

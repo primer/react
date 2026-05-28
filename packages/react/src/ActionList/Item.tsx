@@ -312,6 +312,11 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
     ],
   )
 
+  // The trailing action element is only rendered when none of these gates apply
+  // (see the JSX below). Mirror the same condition for the styling-related data
+  // attributes so the CSS only kicks in when the action is actually in the DOM.
+  const trailingActionRendered = !inactive && !loading && !menuContext && Boolean(slots.trailingAction)
+
   return (
     <ItemContext.Provider value={itemContextValue}>
       <li
@@ -324,8 +329,8 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
         data-is-disabled={disabled ? true : undefined}
         data-has-subitem={slots.subItem ? true : undefined}
         data-has-description={slots.description ? true : false}
-        data-has-trailing-action={slots.trailingAction ? true : undefined}
-        data-trailing-action-loading={slots.trailingAction?.props.loading ? true : undefined}
+        data-has-trailing-action={trailingActionRendered ? true : undefined}
+        data-trailing-action-loading={trailingActionRendered && slots.trailingAction?.props.loading ? true : undefined}
         className={clsx(classes.ActionListItem, className)}
       >
         <ConditionalTooltip ref={forwardedRef} text={truncatedText} enabled={buttonSemantics}>
