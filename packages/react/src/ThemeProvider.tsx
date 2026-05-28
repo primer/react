@@ -18,6 +18,12 @@ export type ThemeProviderProps = {
   dayScheme?: string
   nightScheme?: string
   preventSSRMismatch?: boolean
+  /**
+   * When true, only provides theme context to descendants without rendering
+   * a wrapping `<div>` with `data-*` theme attributes.
+   * @default false
+   */
+  contextOnly?: boolean
 }
 
 const ThemeContext = React.createContext<{
@@ -122,6 +128,10 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
       setNightScheme,
     ],
   )
+
+  if (props.contextOnly) {
+    return <ThemeContext.Provider value={contextValue}>{children}</ThemeContext.Provider>
+  }
 
   return (
     <ThemeContext.Provider value={contextValue}>
