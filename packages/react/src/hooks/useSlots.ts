@@ -126,6 +126,9 @@ export function useSlots<Config extends SlotConfig>(
     const matchedIndex = findMatchingSlot(child, values, totalSlots)
 
     if (matchedIndex === -1) {
+      if (__DEV__) {
+        warnIfDisplayNameMatchesWithoutMarker(child, keys, values, totalSlots)
+      }
       rest.push(child)
       return
     }
@@ -182,4 +185,39 @@ function warnIfDuplicate(
     }
   }
   return false
+}
+
+/**
+ * Dev-only: detect children whose displayName matches a slot's component
+ * displayName but that don't share the `__SLOT__` marker. Catches a common
+ * footgun where a wrapper around a slot component forgets to copy the marker.
+ */
+function warnIfDisplayNameMatchesWithoutMarker(
+  child: React.ReactElement,
+  keys: Array<string | number | symbol>,
+  values: Array<ComponentMatcher | ComponentAndPropsMatcher>,
+  totalSlots: number,
+): void {
+  const childType = child.type as {displayName?: string; name?: string} | string | undefined
+  if (typeof childType !== 'function' && typeof childType !== 'object') return
+  const childName = (childType as {displayName?: string; name?: string}).displayName
+
+  if (!childName) return
+
+  for (let i = 0; i < totalSlots; i++) {
+    const slotValue = values[i]
+    const component = (Array.isArray(slotValue) ? slotValue[0] : slotValue) as {
+      displayName?: string
+      name?: string
+    }
+    const slotName = component.displayName
+    if (slotName && slotName === childName) {
+      warning(
+        true,
+        `useSlots: child with displayName "${childName}" matches slot "${String(keys[i])}" by name but is missing the \`__SLOT__\` marker. ` +
+          `Did you forget to copy the marker? Use \`asSlot(wrapper, ParentSlotComponent)\` to copy it.`,
+      )
+      return
+    }
+  }
 }

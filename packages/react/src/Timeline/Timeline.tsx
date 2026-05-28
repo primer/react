@@ -100,9 +100,21 @@ const TimelineBreak = React.forwardRef<HTMLDivElement, TimelineBreakProps>(({cla
 
 TimelineBreak.displayName = 'TimelineBreak'
 
+export type TimelineActionsProps = {
+  /** Class name for custom styling */
+  className?: string
+} & React.ComponentPropsWithoutRef<'div'>
+
+const TimelineActions = React.forwardRef<HTMLDivElement, TimelineActionsProps>(({className, ...props}, forwardRef) => {
+  return <div {...props} className={clsx(className, classes.TimelineItemActions)} ref={forwardRef} />
+})
+
+TimelineActions.displayName = 'Timeline.Actions'
+
 export default Object.assign(Timeline, {
   Item: TimelineItem,
   Badge: TimelineBadge,
   Body: TimelineBody,
   Break: TimelineBreak,
+  Actions: TimelineActions,
 })

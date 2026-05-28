@@ -379,7 +379,6 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
 
 Menu.displayName = 'ActionMenu'
 
-Menu.__SLOT__ = Symbol('ActionMenu')
 MenuButton.__SLOT__ = Symbol('ActionMenu.Button')
 Anchor.__SLOT__ = Symbol('ActionMenu.Anchor')
 Overlay.__SLOT__ = Symbol('ActionMenu.Overlay')

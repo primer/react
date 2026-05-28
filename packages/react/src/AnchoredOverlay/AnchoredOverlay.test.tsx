@@ -7,6 +7,7 @@ import {Button} from '../Button'
 import BaseStyles from '../BaseStyles'
 import type {AnchorPosition} from '@primer/behaviors'
 import {implementsClassName} from '../utils/testing'
+import {createRenderCounter} from '../utils/testing/profiler'
 import {FeatureFlags} from '../FeatureFlags'
 import {registerPortalRoot} from '../Portal'
 
@@ -253,6 +254,58 @@ describe.each([true, false])(
     })
   },
 )
+
+describe('AnchoredOverlay scroll/resize cascade', () => {
+  it('does not re-render after close when window scrolls (closed-overlay listeners detached)', async () => {
+    // Before the `enabled: open` fix, useAnchoredPosition kept its scroll
+    // listeners attached while the overlay was closed. The first scroll event
+    // after a close would fire updatePosition, hit the else branch, and call
+    // setPosition(undefined) — which differs from the stale last-open value,
+    // forcing a re-render of AnchoredOverlay. Gating `enabled` on `open` tears
+    // the listeners down on close so no spurious re-render fires.
+    function Demo() {
+      const [open, setOpen] = useState(false)
+      return (
+        <BaseStyles>
+          <AnchoredOverlay
+            open={open}
+            onOpen={() => setOpen(true)}
+            onClose={() => setOpen(false)}
+            renderAnchor={props => <Button {...props}>Toggle</Button>}
+          >
+            <div>content</div>
+          </AnchoredOverlay>
+        </BaseStyles>
+      )
+    }
+
+    const [Wrap, counter] = createRenderCounter()
+    render(
+      <Wrap>
+        <Demo />
+      </Wrap>,
+    )
+
+    // Open then close the overlay so position has a non-undefined last value.
+    await userEvent.click(document.body.querySelector('button')!)
+    await userEvent.keyboard('{Escape}')
+
+    // Let any pending close-time effects flush.
+    await act(async () => {})
+    counter.reset()
+
+    // Dispatch a scroll event on window. Under the old behavior this would
+    // fire the still-attached rAF-throttled handler → setPosition(undefined)
+    // → one re-render. Under the fix, listeners were torn down on close.
+    await act(async () => {
+      window.dispatchEvent(new Event('scroll', {bubbles: true}))
+      // Flush rAF so any (incorrectly) scheduled updatePosition would run.
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)))
+    })
+
+    expect(counter.updateCount).toBe(0)
+  })
+})
 
 describe('AnchoredOverlay feature flag specific behavior', () => {
   describe('with primer_react_css_anchor_positioning feature flag enabled', () => {

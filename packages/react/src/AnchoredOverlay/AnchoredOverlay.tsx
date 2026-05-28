@@ -239,10 +239,13 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       anchorOffset,
       displayInViewport,
       onPositionChange: positionChange,
-      // When native CSS anchor positioning is active, skip JS-based position
-      // computation, scroll listeners, and resize observers since the browser
-      // handles repositioning natively.
-      enabled: !cssAnchorPositioning,
+      // Disable position computation, scroll listeners, and resize observers
+      // when the overlay is closed (no floating element to position) or when
+      // native CSS anchor positioning is active (the browser handles it).
+      // Skipping the listeners while closed avoids a wasted re-render on the
+      // first scroll/resize after a close (where `setPosition(undefined)`
+      // would otherwise clear the stale open-position state).
+      enabled: open && !cssAnchorPositioning,
     },
 
     [overlayElement],

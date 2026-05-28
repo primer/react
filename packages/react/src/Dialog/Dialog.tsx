@@ -545,7 +545,6 @@ Footer.__SLOT__ = Symbol('Dialog.Footer')
 Body.__SLOT__ = Symbol('Dialog.Body')
 
 export const Dialog = Object.assign(_Dialog, {
-  __SLOT__: Symbol('Dialog'),
   Header,
   Title,
   Subtitle,
