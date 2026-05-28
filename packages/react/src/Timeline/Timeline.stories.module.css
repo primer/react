@@ -7,6 +7,10 @@
  * playground uses `Timeline.Avatar` to position the 40px avatar in this gutter.
  */
 
+.RealisticTimeline {
+  max-width: 1012px;
+}
+
 .LeftRailGutter {
   /* Reserve enough room to the left of the rail for a 40px avatar plus 32px gap,
      matching the component's `left: calc(-1 * (40px + 32px))` positioning. */

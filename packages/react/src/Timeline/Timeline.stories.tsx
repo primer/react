@@ -55,10 +55,10 @@ export default {
     'Timeline.Actions': Timeline.Actions,
   },
   argTypes: {
-    // `clipSidebar` only matters with multiple Timeline.Items. Hide it from the controls
-    // panel on this file's stories (Default and Playground) since both are single-item.
-    // The Features story file demonstrates clipSidebar variants instead.
+    // `clipSidebar` only matters with multiple Timeline.Items. `className` is a passthrough
+    // prop that isn't useful in the Playground. Hide both from the controls panel.
     clipSidebar: {table: {disable: true}},
+    className: {table: {disable: true}},
   },
 } as Meta<ComponentProps<typeof Timeline>>
 
@@ -304,7 +304,7 @@ export const Playground: StoryFn<PlaygroundArgs> = args => {
   }
 
   return (
-    <div className={classes.LeftRailGutter}>
+    <div className={`${classes.RealisticTimeline} ${classes.LeftRailGutter}`}>
       <Timeline>
         <Timeline.Item
           data-event-scope={args.eventScope}
