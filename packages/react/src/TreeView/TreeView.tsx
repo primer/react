@@ -30,6 +30,7 @@ import {Tooltip} from '../TooltipV2'
 import {isSlot} from '../utils/is-slot'
 import type {FCWithSlotMarker} from '../utils/types'
 import {AriaStatus} from '../live-region'
+import {fixedForwardRef, type PolymorphicProps} from '../utils/modern-polymorphic'
 
 // ----------------------------------------------------------------------------
 // Context
@@ -200,7 +201,7 @@ Root.displayName = 'TreeView'
 // ----------------------------------------------------------------------------
 // TreeView.Item
 
-export type TreeViewItemProps = {
+type TreeViewItemBaseProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
   'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
   id: string
@@ -215,8 +216,10 @@ export type TreeViewItemProps = {
   secondaryActions?: TreeViewSecondaryActions[]
 }
 
-const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
-  (
+export type TreeViewItemProps<As extends React.ElementType = 'li'> = PolymorphicProps<As, 'li', TreeViewItemBaseProps>
+
+const ItemImpl = fixedForwardRef(
+  <As extends React.ElementType = 'li'>(
     {
       id: itemId,
       containIntrinsicSize,
@@ -230,9 +233,17 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       'aria-label': ariaLabel,
       'aria-labelledby': ariaLabelledby,
       secondaryActions,
-    },
-    ref,
+      as: Component,
+      ...restProps
+    }: TreeViewItemProps<As>,
+    ref: React.ForwardedRef<unknown>,
   ) => {
+    // Note: when `as` swaps the element from `<li>`, the resulting markup
+    // (e.g. `<a>` as a direct child of `<ul role="tree">`) is technically
+    // not valid HTML. This mirrors the trade-off made by other polymorphic
+    // Primer components (e.g. `Breadcrumbs.Item`, `ActionList.LinkItem`)
+    // to support router-link integrations.
+    const ItemElement = (Component ?? 'li') as React.ElementType
     const [slots, rest] = useSlots(children, {
       leadingAction: LeadingAction,
       leadingVisual: LeadingVisual,
@@ -263,7 +274,6 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
 
     // Set the expanded state and cache it
     const setIsExpandedWithCache = React.useCallback(
-      // eslint-disable-next-line react-hooks/preserve-manual-memoization
       (newIsExpanded: boolean) => {
         setIsExpanded(newIsExpanded)
         expandedStateCache.current?.set(itemId, newIsExpanded)
@@ -353,9 +363,9 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
         }}
       >
         {/* @ts-ignore Box doesn't have type support for `ref` used in combination with `as` */}
-        <li
+        <ItemElement
           className={clsx('PRIVATE_TreeView-item', className, classes.TreeViewItem)}
-          ref={ref as React.ForwardedRef<HTMLLIElement>}
+          ref={ref as React.ForwardedRef<HTMLElement>}
           tabIndex={0}
           id={itemId}
           role="treeitem"
@@ -372,7 +382,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           aria-selected={isFocused ? 'true' : 'false'}
           data-has-leading-action={slots.leadingAction ? true : undefined}
           onKeyDown={handleKeyDown}
-          onFocus={event => {
+          onFocus={(event: React.FocusEvent<HTMLElement>) => {
             // Defer scroll to the next animation frame so that rapid keyboard
             // navigation (held key) coalesces into a single reflow per frame
             scrollElementIntoView(event.currentTarget.firstElementChild)
@@ -384,7 +394,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             event.stopPropagation()
           }}
           onBlur={() => setIsFocused(false)}
-          onClick={event => {
+          onClick={(event: React.MouseEvent<HTMLElement>) => {
             if (onSelect) {
               onSelect(event)
             } else {
@@ -392,12 +402,13 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             }
             event.stopPropagation()
           }}
-          onAuxClick={event => {
+          onAuxClick={(event: React.MouseEvent<HTMLElement>) => {
             if (onSelect && event.button === 1) {
               onSelect(event)
             }
             event.stopPropagation()
           }}
+          {...restProps}
         >
           <div
             className={clsx('PRIVATE_TreeView-item-container', classes.TreeViewItemContainer)}
@@ -457,11 +468,13 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             ) : null}
           </div>
           {subTree}
-        </li>
+        </ItemElement>
       </ItemContext.Provider>
     )
   },
 )
+
+const Item = Object.assign(ItemImpl, {displayName: 'TreeView.Item'})
 
 /** Lines to indicate the depth of an item in a TreeView */
 const LevelIndicatorLines: React.FC<{level: number}> = ({level}) => {
@@ -473,8 +486,6 @@ const LevelIndicatorLines: React.FC<{level: number}> = ({level}) => {
     </div>
   )
 }
-
-Item.displayName = 'TreeView.Item'
 
 // ----------------------------------------------------------------------------
 // TreeView.SubTree
@@ -645,7 +656,7 @@ const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, re
 
   if (count) {
     return (
-      <Item id={itemId} ref={ref}>
+      <Item id={itemId} ref={ref as React.Ref<HTMLLIElement>}>
         {Array.from({length: count}).map((_, i) => {
           return <SkeletonItem aria-hidden={true} key={i} />
         })}
@@ -655,7 +666,7 @@ const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, re
   }
 
   return (
-    <Item id={itemId} ref={ref}>
+    <Item id={itemId} ref={ref as React.Ref<HTMLLIElement>}>
       <LeadingVisual>
         <Spinner size="small" />
       </LeadingVisual>
@@ -666,7 +677,7 @@ const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, re
 
 const EmptyItem = React.forwardRef<HTMLElement>((props, ref) => {
   return (
-    <Item expanded={null} id={useId()} ref={ref}>
+    <Item expanded={null} id={useId()} ref={ref as React.Ref<HTMLLIElement>}>
       <Text className="fgColor-muted">No items found</Text>
     </Item>
   )
