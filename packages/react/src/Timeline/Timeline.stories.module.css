@@ -3,24 +3,14 @@
  *
  * The `LeftRailGutter` wrapper reserves horizontal whitespace to the left of the
  * timeline rail so toggling between `actorSize: 'small'` and `actorSize: 'large'`
- * does not horizontally shift the timeline. This mirrors the Rails ViewComponents
- * `.TimelineItem-avatar { position: absolute; left: -72px; }` treatment WITHOUT
- * adding a public avatar slot to Primer React's Timeline component (Phase 2 will
- * evaluate that API change).
+ * does not horizontally shift the timeline. When `actorSize` is `large`, the
+ * playground uses `Timeline.Avatar` to position the 40px avatar in this gutter.
  */
 
 .LeftRailGutter {
-  /* Reserve enough room to the left of the rail for a 40px avatar plus a 16px gap. */
-  padding-left: calc(var(--base-size-40) + var(--base-size-16));
-}
-
-.LargeActorAvatar {
-  position: absolute;
-  /* Vertically centered with the 32px badge: badge top (16px padding) + 16px half = 32px center; avatar top = 32px - 20px (half avatar) = 12px. */
-  top: var(--base-size-12);
-  /* Matches Rails Timeline ViewComponents `.TimelineItem-avatar { left: -72px }`. */
-  left: calc(-1 * (var(--base-size-40) + var(--base-size-32)));
-  z-index: 1;
+  /* Reserve enough room to the left of the rail for a 40px avatar plus 32px gap,
+     matching the component's `left: calc(-1 * (40px + 32px))` positioning. */
+  padding-left: calc(var(--base-size-40) + var(--base-size-32));
 }
 
 .SmallActorAvatar {

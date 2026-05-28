@@ -4,6 +4,7 @@ import {useArgs} from 'storybook/preview-api'
 import type {ComponentProps} from '../utils/types'
 import Timeline, {TimelineBadgeVariants, type TimelineBadgeVariant} from './Timeline'
 import Avatar from '../Avatar'
+import {Button} from '../Button'
 import Link from '../Link'
 import RelativeTime from '../RelativeTime'
 import {
@@ -141,6 +142,8 @@ type PlaygroundArgs = {
   badgeIcon: BadgeIconName
   badgeVariant: TimelineBadgeVariant | 'none'
   eventTimestamp: TimestampPreset
+  showActions: boolean
+  actionsPreset: ActionsPreset
 }
 
 // Default actor names baked in for bot / copilot since those represent fixed
@@ -179,6 +182,14 @@ const APP_PRESETS = {
 } as const
 
 type AppPreset = keyof typeof APP_PRESETS
+
+// Right-side action presets that populate `Timeline.Actions`. Each preset renders
+// a different pattern that mirrors real GitHub timeline rows:
+//   `Single button`  — one small button (e.g. "Compare" on force-push events)
+//   `Two buttons`    — two small buttons (e.g. "View details" + "Revert" on merge events)
+const ACTIONS_PRESETS = ['Single button', 'Two buttons'] as const
+
+type ActionsPreset = (typeof ACTIONS_PRESETS)[number]
 
 // Timestamp presets mirror the 5 options shown in the Figma "Custom event" component.
 // Each entry is an offset in milliseconds before "now" plus a render mode.
@@ -225,8 +236,8 @@ type TimestampPreset =
 /**
  * Recreates the Figma "Custom event" component (Primer-Web library, node `46191-13560`)
  * as a compositional Storybook playground. Every slot is built from existing public primitives
- * (`Timeline`, `Timeline.Item`, `Timeline.Badge`, `Timeline.Body`, `Avatar`, `Link`, `RelativeTime`)
- * — no public API changes.
+ * (`Timeline`, `Timeline.Item`, `Timeline.Badge`, `Timeline.Body`, `Timeline.Avatar`,
+ * `Timeline.Actions`, `Avatar`, `Link`, `RelativeTime`) — no public API changes.
  *
  * **`data-*` filtering convention** (applied to `Timeline.Item`):
  *
@@ -244,12 +255,10 @@ type TimestampPreset =
  * - Comments, review comments, and threaded comments are intentionally out of scope.
  */
 // Heads up if you're copying from this file: this playground uses story-local CSS
-// (`Timeline.stories.module.css`) to approximate two slots that don't exist on the
-// public `Timeline.Item` API yet — a left-rail avatar gutter for the `large` actor
-// size, and a right-controls slot for floated buttons / SHAs / status pills (the
-// right-controls slot is deliberately omitted from this playground). Don't copy
-// the gutter hack into consumer code; wait for the real slots to land on the
-// public API and use those.
+// (`Timeline.stories.module.css`) to reserve a left-rail gutter so the large actor
+// avatar (via `Timeline.Avatar`) has room to display. The gutter wrapper is only
+// needed because the playground is a standalone demo — in product code the page
+// layout typically provides the gutter already.
 export const Playground: StoryFn<PlaygroundArgs> = args => {
   const Icon = BADGE_ICONS[args.badgeIcon]
   const isAppLike = args.actorType === 'bot' || args.actorType === 'app'
@@ -303,7 +312,9 @@ export const Playground: StoryFn<PlaygroundArgs> = args => {
           data-actor-type={args.actorType}
         >
           {args.actorSize === 'large' && (
-            <Avatar className={classes.LargeActorAvatar} size={40} square={isAppLike} src={avatarSrc} alt="" />
+            <Timeline.Avatar>
+              <Avatar size={40} square={isAppLike} src={avatarSrc} alt="" />
+            </Timeline.Avatar>
           )}
           <Timeline.Badge variant={args.badgeVariant === 'none' ? undefined : args.badgeVariant}>
             {/* Decorative: the badge icon visually reinforces the summary text. Hiding it from
@@ -337,6 +348,17 @@ export const Playground: StoryFn<PlaygroundArgs> = args => {
             </span>
             {args.showNote && args.noteText ? <div className={classes.Note}>{args.noteText}</div> : null}
           </Timeline.Body>
+          {args.showActions &&
+            (args.actionsPreset === 'Two buttons' ? (
+              <Timeline.Actions>
+                <Button size="small">View details</Button>
+                <Button size="small">Revert</Button>
+              </Timeline.Actions>
+            ) : (
+              <Timeline.Actions>
+                <Button size="small">Compare</Button>
+              </Timeline.Actions>
+            ))}
         </Timeline.Item>
       </Timeline>
     </div>
@@ -392,6 +414,8 @@ Playground.args = {
   customAppAvatar: 'https://avatars.githubusercontent.com/in/15368?v=4',
   showNote: false,
   noteText: 'Additional context or details',
+  showActions: false,
+  actionsPreset: 'Single button' as ActionsPreset,
   eventScope: 'custom',
   eventType: '',
 }
@@ -463,6 +487,17 @@ Playground.argTypes = {
   customAppAvatar: {
     control: {type: 'text'},
     if: {arg: 'appPreset', eq: 'Custom App'},
+    table: {category: 'Optional content'},
+  },
+  showActions: {
+    control: {type: 'boolean'},
+    description: 'Renders a `Timeline.Actions` slot with right-aligned buttons.',
+    table: {category: 'Optional content'},
+  },
+  actionsPreset: {
+    control: {type: 'select'},
+    options: [...ACTIONS_PRESETS],
+    if: {arg: 'showActions', truthy: true},
     table: {category: 'Optional content'},
   },
   // Write-only DOM-level attributes that don't drive any visual state on their own.
