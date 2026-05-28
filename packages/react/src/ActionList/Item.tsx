@@ -324,6 +324,8 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
         data-is-disabled={disabled ? true : undefined}
         data-has-subitem={slots.subItem ? true : undefined}
         data-has-description={slots.description ? true : false}
+        data-has-trailing-action={slots.trailingAction ? true : undefined}
+        data-trailing-action-loading={slots.trailingAction?.props.loading ? true : undefined}
         className={clsx(classes.ActionListItem, className)}
       >
         <ConditionalTooltip ref={forwardedRef} text={truncatedText} enabled={buttonSemantics}>
