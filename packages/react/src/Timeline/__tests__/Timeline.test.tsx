@@ -72,3 +72,23 @@ describe('Timeline.Body', () => {
 describe('Timeline.Break', () => {
   implementsClassName(Timeline.Break, classes.TimelineBreak)
 })
+
+describe('Timeline.Actions', () => {
+  implementsClassName(Timeline.Actions, classes.TimelineItemActions)
+
+  it('renders children', () => {
+    const {getByTestId} = render(
+      <Timeline.Actions>
+        <button type="button" data-testid="actions-child">
+          Revert
+        </button>
+      </Timeline.Actions>,
+    )
+    expect(getByTestId('actions-child')).toBeInTheDocument()
+  })
+
+  it('forwards additional props to the underlying element', () => {
+    const {container} = render(<Timeline.Actions data-foo="bar" />)
+    expect(container.firstChild).toHaveAttribute('data-foo', 'bar')
+  })
+})

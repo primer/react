@@ -27,6 +27,9 @@
     },
     {
       "id": "components-timeline-features--with-inline-links"
+    },
+    {
+      "id": "components-timeline-features--with-actions"
     }
   ],
   "importPath": "@primer/react",
@@ -64,6 +67,10 @@
     },
     {
       "name": "Timeline.Break",
+      "props": []
+    },
+    {
+      "name": "Timeline.Actions",
       "props": []
     }
   ]

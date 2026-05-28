@@ -12,6 +12,7 @@ export default {
     'Timeline.Badge': Timeline.Badge,
     'Timeline.Body': Timeline.Body,
     'Timeline.Break': Timeline.Break,
+    'Timeline.Actions': Timeline.Actions,
   },
 } as Meta<ComponentProps<typeof Timeline>>
 
