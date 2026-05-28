@@ -7,8 +7,18 @@
     .TimelineItem:first-child {
       padding-top: 0;
 
+      .TimelineItemAvatar {
+        /* No padding-top on first item: badge center is at 0 + 16px (half-badge) */
+        top: var(--base-size-16);
+      }
+
       &:where([data-condensed])::before {
         top: var(--base-size-12);
+      }
+
+      &:where([data-condensed]) .TimelineItemAvatar {
+        /* No padding-top + condensed: badge center is at 0 + 8px margin + 8px half-badge */
+        top: calc(var(--base-size-8) + var(--base-size-8));
       }
     }
   }
@@ -59,7 +69,22 @@
       background-color: var(--bgColor-default);
       border: 0;
     }
+
+    .TimelineItemAvatar {
+      /* Vertically center against the condensed badge (4px padding-top + 8px badge top margin + 8px half-badge) */
+      top: calc(var(--base-size-4) + var(--base-size-8) + var(--base-size-8));
+    }
   }
+}
+
+.TimelineItemAvatar {
+  position: absolute;
+  /* Place avatar in the left gutter, aligned with surrounding actor avatars (~72px from item content) */
+  left: calc(-1 * (var(--base-size-40) + var(--base-size-32)));
+  /* Vertically center against the default badge (16px padding-top + 16px half-badge) */
+  top: calc(var(--base-size-16) + var(--base-size-16));
+  z-index: 1;
+  transform: translateY(-50%);
 }
 
 .TimelineBadgeWrapper {
@@ -154,4 +179,15 @@
   &:has(+ [data-condensed]) {
     margin-bottom: calc(-1 * var(--base-size-12));
   }
+}
+
+.TimelineItemActions {
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+  /* Match the badge wrapper height (32px in both default and condensed) so contents vertically center against the badge */
+  min-height: var(--base-size-32);
+  margin-left: auto;
+  gap: var(--base-size-8);
+  flex-shrink: 0;
 }

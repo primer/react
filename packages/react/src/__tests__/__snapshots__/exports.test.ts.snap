@@ -192,6 +192,8 @@ exports[`@primer/react > should not update exports without a semver change 1`] =
   "type ThemeProviderProps",
   "ThemeShadowPaths",
   "Timeline",
+  "type TimelineActionsProps",
+  "type TimelineAvatarProps",
   "type TimelineBadgeProps",
   "type TimelineBadgeVariant",
   "type TimelineBodyProps",
