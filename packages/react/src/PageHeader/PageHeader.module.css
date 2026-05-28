@@ -138,39 +138,39 @@
     }
   }
 
-  &[data-has-border='true']:has([data-component='PH_Navigation'][data-hidden-all]),
-  &[data-has-border='true']:not(:has([data-component='PH_Navigation'])) {
+  &[data-has-border='true']:has([data-component='PageHeader.Navigation'][data-hidden-all]),
+  &[data-has-border='true']:not(:has([data-component='PageHeader.Navigation'])) {
     border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
     padding-block-end: var(--base-size-8);
   }
 
   @media (--viewportRange-narrow) {
-    &[data-has-border='true']:has([data-component='PH_Navigation'][data-hidden-narrow]) {
+    &[data-has-border='true']:has([data-component='PageHeader.Navigation'][data-hidden-narrow]) {
       border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
       padding-block-end: var(--base-size-8);
     }
   }
 
   @media (--viewportRange-regular) {
-    &[data-has-border='true']:has([data-component='PH_Navigation'][data-hidden-regular]) {
+    &[data-has-border='true']:has([data-component='PageHeader.Navigation'][data-hidden-regular]) {
       border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
       padding-block-end: var(--base-size-8);
     }
   }
 
   @media (--viewportRange-wide) {
-    &[data-has-border='true']:has([data-component='PH_Navigation'][data-hidden-wide]) {
+    &[data-has-border='true']:has([data-component='PageHeader.Navigation'][data-hidden-wide]) {
       border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
       padding-block-end: var(--base-size-8);
     }
   }
   /* stylelint-enable selector-pseudo-class-disallowed-list */
 
-  & [data-component='PH_LeadingAction'],
-  & [data-component='PH_TrailingAction'],
-  & [data-component='PH_Actions'],
-  & [data-component='PH_LeadingVisual'],
-  & [data-component='PH_TrailingVisual'] {
+  & [data-component='PageHeader.LeadingAction'],
+  & [data-component='PageHeader.TrailingAction'],
+  & [data-component='PageHeader.Actions'],
+  & [data-component='PageHeader.LeadingVisual'],
+  & [data-component='PageHeader.TrailingVisual'] {
     height: calc(var(--title-line-height) * 1em);
   }
 
