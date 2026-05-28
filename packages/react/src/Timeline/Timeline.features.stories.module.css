@@ -116,3 +116,11 @@
 .Timestamp {
   text-decoration: underline;
 }
+
+.AvatarGutter {
+  /* Reserve space in the left gutter so Timeline.Avatar is visible, and
+     constrain to 1012px (GitHub's product max-width, which includes the
+     gutter) so the avatar sits a realistic distance from the event text. */
+  max-width: 1012px;
+  padding-left: calc(var(--base-size-40) + var(--base-size-32));
+}
