@@ -13,6 +13,7 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
         data-leading-visual="true"
+        data-no-trailing-action="true"
         data-size="medium"
         data-trailing-visual="true"
       >
@@ -462,6 +463,7 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
       class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-component="TextInputWithTokens"
       data-leading-visual="true"
+      data-no-trailing-action="true"
       data-size="medium"
       data-trailing-visual="true"
     >
@@ -971,6 +973,9 @@ exports[`TextInputWithTokens > renders a truncated set of tokens 1`] = `
       <span
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
+        data-no-leading-visual="true"
+        data-no-trailing-action="true"
+        data-no-trailing-visual="true"
         data-size="medium"
       >
         <div
@@ -1097,6 +1102,9 @@ exports[`TextInputWithTokens > renders a truncated set of tokens 1`] = `
     <span
       class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-component="TextInputWithTokens"
+      data-no-leading-visual="true"
+      data-no-trailing-action="true"
+      data-no-trailing-visual="true"
       data-size="medium"
     >
       <div
@@ -1285,6 +1293,9 @@ exports[`TextInputWithTokens > renders as block layout 1`] = `
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-block="true"
         data-component="TextInputWithTokens"
+        data-no-leading-visual="true"
+        data-no-trailing-action="true"
+        data-no-trailing-visual="true"
         data-size="medium"
       >
         <div
@@ -1311,6 +1322,9 @@ exports[`TextInputWithTokens > renders as block layout 1`] = `
       class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-block="true"
       data-component="TextInputWithTokens"
+      data-no-leading-visual="true"
+      data-no-trailing-action="true"
+      data-no-trailing-visual="true"
       data-size="medium"
     >
       <div
@@ -1397,6 +1411,9 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
       <span
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
+        data-no-leading-visual="true"
+        data-no-trailing-action="true"
+        data-no-trailing-visual="true"
         data-size="medium"
         data-token-wrapping="true"
         style="max-height: 20px;"
@@ -1800,6 +1817,9 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
     <span
       class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-component="TextInputWithTokens"
+      data-no-leading-visual="true"
+      data-no-trailing-action="true"
+      data-no-trailing-visual="true"
       data-size="medium"
       data-token-wrapping="true"
       style="max-height: 20px;"
@@ -2264,6 +2284,9 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
       <span
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
+        data-no-leading-visual="true"
+        data-no-trailing-action="true"
+        data-no-trailing-visual="true"
         data-size="small"
       >
         <div
@@ -2665,6 +2688,9 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
     <span
       class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-component="TextInputWithTokens"
+      data-no-leading-visual="true"
+      data-no-trailing-action="true"
+      data-no-trailing-visual="true"
       data-size="small"
     >
       <div
@@ -3127,6 +3153,9 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
       <span
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
+        data-no-leading-visual="true"
+        data-no-trailing-action="true"
+        data-no-trailing-visual="true"
         data-size="small"
       >
         <div
@@ -3527,6 +3556,9 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
       <span
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
+        data-no-leading-visual="true"
+        data-no-trailing-action="true"
+        data-no-trailing-visual="true"
         data-size="small"
       >
         <div
@@ -3928,6 +3960,9 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
     <span
       class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-component="TextInputWithTokens"
+      data-no-leading-visual="true"
+      data-no-trailing-action="true"
+      data-no-trailing-visual="true"
       data-size="small"
     >
       <div
@@ -4390,6 +4425,9 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
       <span
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
+        data-no-leading-visual="true"
+        data-no-trailing-action="true"
+        data-no-trailing-visual="true"
         data-size="small"
       >
         <div
@@ -4790,6 +4828,9 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
       <span
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
+        data-no-leading-visual="true"
+        data-no-trailing-action="true"
+        data-no-trailing-visual="true"
         data-size="small"
       >
         <div
@@ -5190,6 +5231,9 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
       <span
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
+        data-no-leading-visual="true"
+        data-no-trailing-action="true"
+        data-no-trailing-visual="true"
         data-size="medium"
       >
         <div
@@ -5591,6 +5635,9 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
     <span
       class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-component="TextInputWithTokens"
+      data-no-leading-visual="true"
+      data-no-trailing-action="true"
+      data-no-trailing-visual="true"
       data-size="medium"
     >
       <div
@@ -6053,6 +6100,9 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
       <span
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
+        data-no-leading-visual="true"
+        data-no-trailing-action="true"
+        data-no-trailing-visual="true"
         data-size="small"
       >
         <div
@@ -6453,6 +6503,9 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
       <span
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
+        data-no-leading-visual="true"
+        data-no-trailing-action="true"
+        data-no-trailing-visual="true"
         data-size="small"
       >
         <div
@@ -6853,6 +6906,9 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
       <span
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
+        data-no-leading-visual="true"
+        data-no-trailing-action="true"
+        data-no-trailing-visual="true"
         data-size="medium"
       >
         <div
@@ -7253,6 +7309,9 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
       <span
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
+        data-no-leading-visual="true"
+        data-no-trailing-action="true"
+        data-no-trailing-visual="true"
         data-size="medium"
       >
         <div
@@ -7654,6 +7713,9 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
     <span
       class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-component="TextInputWithTokens"
+      data-no-leading-visual="true"
+      data-no-trailing-action="true"
+      data-no-trailing-visual="true"
       data-size="medium"
     >
       <div
@@ -8116,6 +8178,9 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
       <span
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
+        data-no-leading-visual="true"
+        data-no-trailing-action="true"
+        data-no-trailing-visual="true"
         data-size="medium"
         data-token-wrapping="true"
       >
@@ -8518,6 +8583,9 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
     <span
       class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-component="TextInputWithTokens"
+      data-no-leading-visual="true"
+      data-no-trailing-action="true"
+      data-no-trailing-visual="true"
       data-size="medium"
       data-token-wrapping="true"
     >
@@ -8981,6 +9049,9 @@ exports[`TextInputWithTokens > renders tokens without a remove button when speci
       <span
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
+        data-no-leading-visual="true"
+        data-no-trailing-action="true"
+        data-no-trailing-visual="true"
         data-size="medium"
       >
         <div
@@ -9182,6 +9253,9 @@ exports[`TextInputWithTokens > renders tokens without a remove button when speci
     <span
       class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-component="TextInputWithTokens"
+      data-no-leading-visual="true"
+      data-no-trailing-action="true"
+      data-no-trailing-visual="true"
       data-size="medium"
     >
       <div
@@ -9444,6 +9518,8 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
       <span
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
+        data-no-leading-visual="true"
+        data-no-trailing-action="true"
         data-size="medium"
         data-trailing-visual="true"
       >
@@ -9883,6 +9959,8 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
         data-leading-visual="true"
+        data-no-trailing-action="true"
+        data-no-trailing-visual="true"
         data-size="medium"
       >
         <span
@@ -10359,6 +10437,8 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
       <span
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
+        data-no-leading-visual="true"
+        data-no-trailing-action="true"
         data-size="medium"
         data-trailing-visual="true"
       >
@@ -10798,6 +10878,8 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
         data-leading-visual="true"
+        data-no-trailing-action="true"
+        data-no-trailing-visual="true"
         data-size="medium"
       >
         <span
@@ -11296,6 +11378,8 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
         data-leading-visual="true"
+        data-no-trailing-action="true"
+        data-no-trailing-visual="true"
         data-size="medium"
       >
         <span
@@ -11794,6 +11878,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
         data-leading-visual="true"
+        data-no-trailing-action="true"
         data-size="medium"
         data-trailing-visual="true"
       >
@@ -12292,6 +12377,8 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
       <span
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
+        data-no-leading-visual="true"
+        data-no-trailing-action="true"
         data-size="medium"
         data-trailing-visual="true"
       >
@@ -12752,6 +12839,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
         data-leading-visual="true"
+        data-no-trailing-action="true"
         data-size="medium"
         data-trailing-visual="true"
       >
@@ -13250,6 +13338,8 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
       <span
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
+        data-no-leading-visual="true"
+        data-no-trailing-action="true"
         data-size="medium"
         data-trailing-visual="true"
       >
@@ -13710,6 +13800,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
         data-leading-visual="true"
+        data-no-trailing-action="true"
         data-size="small"
         data-trailing-visual="true"
       >
@@ -14230,6 +14321,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
         data-leading-visual="true"
+        data-no-trailing-action="true"
         data-size="medium"
         data-trailing-visual="true"
       >
@@ -14750,6 +14842,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
         data-leading-visual="true"
+        data-no-trailing-action="true"
         data-size="medium"
         data-trailing-visual="true"
       >
@@ -15272,6 +15365,8 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
     <span
       class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-component="TextInputWithTokens"
+      data-no-leading-visual="true"
+      data-no-trailing-action="true"
       data-size="medium"
       data-trailing-visual="true"
     >
@@ -15711,6 +15806,8 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
       class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-component="TextInputWithTokens"
       data-leading-visual="true"
+      data-no-trailing-action="true"
+      data-no-trailing-visual="true"
       data-size="medium"
     >
       <span
@@ -16187,6 +16284,8 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
     <span
       class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-component="TextInputWithTokens"
+      data-no-leading-visual="true"
+      data-no-trailing-action="true"
       data-size="medium"
       data-trailing-visual="true"
     >
@@ -16626,6 +16725,8 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
       class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-component="TextInputWithTokens"
       data-leading-visual="true"
+      data-no-trailing-action="true"
+      data-no-trailing-visual="true"
       data-size="medium"
     >
       <span
@@ -17124,6 +17225,8 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
       class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-component="TextInputWithTokens"
       data-leading-visual="true"
+      data-no-trailing-action="true"
+      data-no-trailing-visual="true"
       data-size="medium"
     >
       <span
@@ -17622,6 +17725,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
       class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-component="TextInputWithTokens"
       data-leading-visual="true"
+      data-no-trailing-action="true"
       data-size="medium"
       data-trailing-visual="true"
     >
@@ -18120,6 +18224,8 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
     <span
       class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-component="TextInputWithTokens"
+      data-no-leading-visual="true"
+      data-no-trailing-action="true"
       data-size="medium"
       data-trailing-visual="true"
     >
@@ -18580,6 +18686,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
       class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-component="TextInputWithTokens"
       data-leading-visual="true"
+      data-no-trailing-action="true"
       data-size="medium"
       data-trailing-visual="true"
     >
@@ -19078,6 +19185,8 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
     <span
       class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-component="TextInputWithTokens"
+      data-no-leading-visual="true"
+      data-no-trailing-action="true"
       data-size="medium"
       data-trailing-visual="true"
     >
@@ -19538,6 +19647,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
       class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-component="TextInputWithTokens"
       data-leading-visual="true"
+      data-no-trailing-action="true"
       data-size="small"
       data-trailing-visual="true"
     >
@@ -20058,6 +20168,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
       class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-component="TextInputWithTokens"
       data-leading-visual="true"
+      data-no-trailing-action="true"
       data-size="medium"
       data-trailing-visual="true"
     >
@@ -20578,6 +20689,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
       class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-component="TextInputWithTokens"
       data-leading-visual="true"
+      data-no-trailing-action="true"
       data-size="medium"
       data-trailing-visual="true"
     >
@@ -21161,6 +21273,9 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
       <span
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
+        data-no-leading-visual="true"
+        data-no-trailing-action="true"
+        data-no-trailing-visual="true"
         data-size="medium"
       >
         <div
@@ -21562,6 +21677,9 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
     <span
       class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-component="TextInputWithTokens"
+      data-no-leading-visual="true"
+      data-no-trailing-action="true"
+      data-no-trailing-visual="true"
       data-size="medium"
     >
       <div
@@ -22024,6 +22142,9 @@ exports[`TextInputWithTokens > renders with tokens using a custom token componen
       <span
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
+        data-no-leading-visual="true"
+        data-no-trailing-action="true"
+        data-no-trailing-visual="true"
         data-size="medium"
       >
         <div
@@ -22393,6 +22514,9 @@ exports[`TextInputWithTokens > renders with tokens using a custom token componen
     <span
       class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-component="TextInputWithTokens"
+      data-no-leading-visual="true"
+      data-no-trailing-action="true"
+      data-no-trailing-visual="true"
       data-size="medium"
     >
       <div
@@ -22823,6 +22947,9 @@ exports[`TextInputWithTokens > renders without tokens 1`] = `
       <span
         class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-component="TextInputWithTokens"
+        data-no-leading-visual="true"
+        data-no-trailing-action="true"
+        data-no-trailing-visual="true"
         data-size="medium"
       >
         <div
@@ -22848,6 +22975,9 @@ exports[`TextInputWithTokens > renders without tokens 1`] = `
     <span
       class="prc-TextInputWithTokens-TextInputWrapper-LKe0T prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-component="TextInputWithTokens"
+      data-no-leading-visual="true"
+      data-no-trailing-action="true"
+      data-no-trailing-visual="true"
       data-size="medium"
     >
       <div
