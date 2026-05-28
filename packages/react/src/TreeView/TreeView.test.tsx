@@ -441,7 +441,6 @@ describe('Markup', () => {
       const ref = React.createRef<HTMLAnchorElement>()
       render(
         <TreeView aria-label="Test tree">
-          {/* @ts-expect-error ref typing for polymorphic */}
           <TreeView.Item as="a" href="#item-1" id="item-1" ref={ref}>
             Item 1
           </TreeView.Item>
