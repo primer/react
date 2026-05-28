@@ -1,5 +1,6 @@
 import {clsx} from 'clsx'
-import React, {forwardRef, useEffect} from 'react'
+import React, {forwardRef} from 'react'
+import {useDevOnlyEffect} from '../internal/hooks/useDevOnlyEffect'
 import {useMergedRefs} from '../hooks'
 import type {ComponentProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
@@ -16,21 +17,12 @@ const Heading = forwardRef(({as: Component = 'h2', className, variant, ...props}
   const innerRef = React.useRef<HTMLHeadingElement>(null)
   const mergedRef = useMergedRefs(forwardedRef, innerRef)
 
-  if (__DEV__) {
-    /**
-     * The Linter yells because it thinks this conditionally calls an effect,
-     * but since this is a compile-time flag and not a runtime conditional
-     * this is safe, and ensures the entire effect is kept out of prod builds
-     * shaving precious bytes from the output, and avoiding mounting a noop effect
-     */
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      if (innerRef.current && !(innerRef.current instanceof HTMLHeadingElement)) {
-        // eslint-disable-next-line no-console
-        console.warn('This Heading component should be an instanceof of h1-h6')
-      }
-    }, [innerRef])
-  }
+  useDevOnlyEffect(() => {
+    if (innerRef.current && !(innerRef.current instanceof HTMLHeadingElement)) {
+      // eslint-disable-next-line no-console
+      console.warn('This Heading component should be an instanceof of h1-h6')
+    }
+  }, [innerRef])
 
   return (
     <Component

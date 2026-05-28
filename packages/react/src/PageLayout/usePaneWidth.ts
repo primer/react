@@ -388,9 +388,15 @@ export function usePaneWidth({
     maxWidthDiffRef.current = getMaxWidthDiffFromViewport()
     const initialMax = getMaxPaneWidthRef.current()
     maxPaneWidthRef.current = initialMax
-    setMaxPaneWidth(initialMax)
     paneRef.current?.style.setProperty('--pane-max-width', `${initialMax}px`)
     updateAriaValues(handleRef.current, {min: minPaneWidth, max: initialMax, current: currentWidthRef.current})
+    // Sync React state via a transition so it doesn't force a synchronous
+    // re-render before paint (i.e. a Profiler `nested-update`). The DOM and
+    // ARIA values above are already correct; this state is only consumed by
+    // the next React render of `aria-valuemax`. Same pattern as `syncAll`.
+    startTransition(() => {
+      setMaxPaneWidth(initialMax)
+    })
 
     // For custom widths that aren't viewport-constrained, max is fixed - no need to listen to resize
     if (customMaxWidth !== null && !constrainToViewport) return

@@ -1,5 +1,17 @@
 # @primer/react
 
+## 38.25.0
+
+### Minor Changes
+
+- [#7852](https://github.com/primer/react/pull/7852) [`5504680`](https://github.com/primer/react/commit/5504680614bacc2ce3eecaaa55d10887e6fb152d) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Card: Add `data-component` attributes to `Card` and its subcomponents (`Icon`, `Image`, `Heading`, `Description`, `Metadata`, `Menu`). Add an `as` prop (`'div' | 'section'`) so standalone Cards can render as a labelled region landmark; `as="section"` requires `aria-label` or `aria-labelledby`. `Card` now requires `children`. Also improves docs and stories.
+
+### Patch Changes
+
+- [#7858](https://github.com/primer/react/pull/7858) [`1ce2906`](https://github.com/primer/react/commit/1ce2906d1816ba443eacfede67d496d074b8d2fb) Thanks [@TylerJDev](https://github.com/TylerJDev)! - AnchoredOverlay: Add additional fallbacks for CSS Anchor Positioning
+
+- [#7843](https://github.com/primer/react/pull/7843) [`fc571fd`](https://github.com/primer/react/commit/fc571fd8c3899f19a1dd9e77b8a22f6528d776e2) Thanks [@joshblack](https://github.com/joshblack)! - Update useMergedRefs so that in React 18 no warning is emitted
+
 ## 38.24.0
 
 ### Minor Changes

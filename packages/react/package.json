@@ -1,7 +1,7 @@
 {
   "name": "@primer/react",
   "type": "module",
-  "version": "38.24.0",
+  "version": "38.25.0",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -80,7 +80,7 @@
     "@lit-labs/react": "1.2.1",
     "@oddbird/popover-polyfill": "^0.5.2",
     "@primer/behaviors": "^1.10.3",
-    "@primer/live-region-element": "^0.7.1",
+    "@primer/live-region-element": "^0.8.0",
     "@primer/octicons-react": "^19.24.1",
     "@primer/primitives": "10.x || 11.x",
     "@tanstack/react-virtual": "^3.13.18",
