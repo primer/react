@@ -513,22 +513,26 @@ function getCSSAnchorPositionTryFallbacks(
   side: PositionSettings['side'],
   strategy: 'default' | 'none' | 'opposite-side',
 ): string | undefined {
-  // We bail out here, and use the styles in styles.
+  // Disable all CSS fallbacks (including those defined in the stylesheet).
   if (strategy === 'none') return 'none'
 
-  switch (side) {
-    case 'outside-top':
-    case 'outside-bottom': {
-      return 'flip-block'
-    }
-    case 'outside-left':
-    case 'outside-right': {
-      return 'flip-inline'
-    }
-    default: {
-      return undefined
+  // Restrict fallbacks to flipping to the opposite side along the relevant axis.
+  if (strategy === 'opposite-side') {
+    switch (side) {
+      case 'outside-top':
+      case 'outside-bottom':
+        return 'flip-block'
+      case 'outside-left':
+      case 'outside-right':
+        return 'flip-inline'
+      default:
+        return undefined
     }
   }
+
+  // 'default': don't write an inline `position-try-fallbacks`, so the
+  // stylesheet-defined fallback list on `.AnchoredOverlay` takes effect.
+  return undefined
 }
 
 function assignRef<T>(
