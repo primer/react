@@ -121,8 +121,14 @@
 .TextInput {
   padding-left: var(--base-size-8) !important;
 
-  /* stylelint-disable-next-line selector-class-pattern -- `.TextInput-action` is a third-party class on the wrapped TextInput */
-  &[data-empty] :global(.TextInput-action) {
+  /*
+   * `data-empty` lives on the inner `<input>` (TextInput spreads unknown
+   * props onto the input, not its wrapper). The clear-action button is a
+   * later sibling of the input within this wrapper, so a general-sibling
+   * combinator targets it directly without a `:has()` walk.
+   */
+  /* stylelint-disable-next-line selector-class-pattern, selector-no-qualifying-type -- `.TextInput-action` is a third-party class on the wrapped TextInput */
+  & input[data-empty] ~ :global(.TextInput-action) {
     display: none;
   }
 }
