@@ -22,12 +22,7 @@
      * (positioned at `left: -8px` of the row container) remains visible when a consumer applies
      * `contain: paint` (or `contain: strict`, or `content-visibility: auto`) to this `<li>`. Has
      * no effect when no paint containment is active, so default rendering is unchanged.
-     *
-     * Safari 17 ignores this property; Safari 17 consumers using `contain: paint` keep the
-     * pre-existing clipped-indicator behavior (no regression from prior versions). Safari 18+
-     * supports it, as does `content-visibility: auto`, so `containIntrinsicSize` works correctly.
      */
-    /* stylelint-disable-next-line plugin/browser-compat -- Safari 17 fallback is the existing behavior; see comment above */
     overflow-clip-margin: var(--base-size-8);
     outline: none;
 
@@ -59,7 +54,6 @@
      * visible when `containIntrinsicSize` is set on this row (which sets
      * `content-visibility: auto` on this container and implies paint containment).
      */
-    /* stylelint-disable-next-line plugin/browser-compat -- see Safari 17 note on .TreeViewItem above */
     overflow-clip-margin: var(--base-size-8);
     font-size: var(--text-body-size-medium);
     color: var(--fgColor-default);
