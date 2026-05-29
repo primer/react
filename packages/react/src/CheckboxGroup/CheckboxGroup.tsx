@@ -80,5 +80,3 @@ export default Object.assign(CheckboxGroup, {
   Label: CheckboxOrRadioGroupLabel,
   Validation: CheckboxOrRadioGroupValidation,
 })
-
-CheckboxGroup.__SLOT__ = Symbol('CheckboxGroup')

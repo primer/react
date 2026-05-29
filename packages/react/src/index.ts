@@ -50,7 +50,10 @@ export {useAnchoredPosition, type AnchoredPositionHookSettings} from './hooks/us
 
 // Utils
 export {createComponent} from './utils/create-component'
-export type {SlotMarker} from './utils/types'
+export type {SlotMarker, WithSlotMarker, FCWithSlotMarker} from './utils/types'
+export {asSlot} from './utils/as-slot'
+export {isSlot} from './utils/is-slot'
+export {useSlots} from './hooks/useSlots'
 
 // Components
 export {default as Radio} from './Radio'
@@ -180,6 +183,8 @@ export type {TextProps} from './Text'
 export {default as Timeline} from './Timeline'
 export type {
   TimelineProps,
+  TimelineActionsProps,
+  TimelineAvatarProps,
   TimelineBadgeVariant,
   TimelineBadgeProps,
   TimelineBodyProps,

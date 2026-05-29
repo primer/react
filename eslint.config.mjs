@@ -140,6 +140,9 @@ const config = defineConfig([
       react: {
         version: 'detect',
       },
+      'react-hooks': {
+        additionalEffectHooks: '(useDevOnlyEffect)',
+      },
     },
     rules: {
       'no-shadow': 'off',

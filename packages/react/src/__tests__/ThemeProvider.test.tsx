@@ -524,3 +524,64 @@ describe('useTheme().resolvedColorScheme', () => {
     })
   })
 })
+
+describe('contextOnly', () => {
+  it('renders a div with data-* attributes by default', () => {
+    const {container} = render(
+      <ThemeProvider>
+        <span>Hello</span>
+      </ThemeProvider>,
+    )
+
+    const div = container.querySelector('[data-color-mode]')
+    expect(div).toBeInTheDocument()
+    expect(div?.tagName).toBe('DIV')
+    expect(div).toHaveAttribute('data-light-theme')
+    expect(div).toHaveAttribute('data-dark-theme')
+  })
+
+  it('does not render a div with data-* attributes when contextOnly is true', () => {
+    const {container} = render(
+      <ThemeProvider contextOnly>
+        <span>Hello</span>
+      </ThemeProvider>,
+    )
+
+    const div = container.querySelector('[data-color-mode]')
+    expect(div).not.toBeInTheDocument()
+  })
+
+  it('still provides theme context when contextOnly is true', () => {
+    function Consumer() {
+      const {colorMode, dayScheme, nightScheme} = useTheme()
+      return (
+        <span data-testid="consumer">
+          {colorMode}-{dayScheme}-{nightScheme}
+        </span>
+      )
+    }
+
+    render(
+      <ThemeProvider contextOnly colorMode="night" nightScheme="dark_dimmed">
+        <Consumer />
+      </ThemeProvider>,
+    )
+
+    expect(screen.getByTestId('consumer').textContent).toBe('night-light-dark_dimmed')
+  })
+
+  it('renders the preventSSRMismatch script tag when contextOnly and preventSSRMismatch are both true', () => {
+    const {container} = render(
+      <ThemeProvider contextOnly preventSSRMismatch>
+        <span>Hello</span>
+      </ThemeProvider>,
+    )
+
+    const div = container.querySelector('[data-color-mode]')
+    expect(div).not.toBeInTheDocument()
+
+    const script = container.querySelector('script[type="application/json"]')
+    expect(script).toBeInTheDocument()
+    expect(script?.textContent).toContain('resolvedServerColorMode')
+  })
+})
