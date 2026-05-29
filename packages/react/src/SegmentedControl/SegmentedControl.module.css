@@ -175,13 +175,15 @@
    * Divider is drawn on the LEADING edge of each non-first item (rather than
    * the trailing edge of each non-last item) so the "hide divider before the
    * selected item" case can be expressed as a plain adjacent-sibling selector
-   * instead of `:has(+ [data-selected])`. Visual position is unchanged because
-   * the same 1px line lives at the same gap between two adjacent items.
+   * instead of `:has(+ [data-selected])`. Visual position is unchanged: the
+   * original `::after` at `right: -2px` (1px wide) on item N sat in the first
+   * 1px of item N+1's column (the previous item has `margin-right: 1px`), so
+   * the equivalent ::before on item N+1 lives at `left: 0`.
    */
   &:not(:first-child)::before {
     position: absolute;
     top: var(--base-size-8);
-    left: calc(-1 * var(--base-size-2));
+    left: 0;
     bottom: var(--base-size-8);
     width: 1px;
     content: '';
