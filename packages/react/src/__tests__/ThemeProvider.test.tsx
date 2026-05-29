@@ -569,4 +569,19 @@ describe('contextOnly', () => {
 
     expect(screen.getByTestId('consumer').textContent).toBe('night-light-dark_dimmed')
   })
+
+  it('renders the preventSSRMismatch script tag when contextOnly and preventSSRMismatch are both true', () => {
+    const {container} = render(
+      <ThemeProvider contextOnly preventSSRMismatch>
+        <span>Hello</span>
+      </ThemeProvider>,
+    )
+
+    const div = container.querySelector('[data-color-mode]')
+    expect(div).not.toBeInTheDocument()
+
+    const script = container.querySelector('script[type="application/json"]')
+    expect(script).toBeInTheDocument()
+    expect(script?.textContent).toContain('resolvedServerColorMode')
+  })
 })

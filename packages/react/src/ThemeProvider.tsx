@@ -129,8 +129,21 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
     ],
   )
 
+  const ssrHandoffScript = props.preventSSRMismatch ? (
+    <script
+      type="application/json"
+      id={`__PRIMER_DATA_${uniqueDataId}__`}
+      dangerouslySetInnerHTML={{__html: JSON.stringify({resolvedServerColorMode: resolvedColorMode})}}
+    />
+  ) : null
+
   if (props.contextOnly) {
-    return <ThemeContext.Provider value={contextValue}>{children}</ThemeContext.Provider>
+    return (
+      <ThemeContext.Provider value={contextValue}>
+        {children}
+        {ssrHandoffScript}
+      </ThemeContext.Provider>
+    )
   }
 
   return (
@@ -141,13 +154,7 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
         data-dark-theme={nightScheme}
       >
         {children}
-        {props.preventSSRMismatch ? (
-          <script
-            type="application/json"
-            id={`__PRIMER_DATA_${uniqueDataId}__`}
-            dangerouslySetInnerHTML={{__html: JSON.stringify({resolvedServerColorMode: resolvedColorMode})}}
-          />
-        ) : null}
+        {ssrHandoffScript}
       </div>
     </ThemeContext.Provider>
   )
