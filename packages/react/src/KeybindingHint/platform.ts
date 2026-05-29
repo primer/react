@@ -1,5 +1,5 @@
 import {isMacOS as ssrUnsafeIsMacOS} from '@primer/behaviors/utils'
-import {useSyncExternalStore} from 'react'
+import {createContext, useContext, useSyncExternalStore} from 'react'
 
 /**
  * The platform categories that affect how keyboard shortcut keys are displayed.
@@ -37,12 +37,26 @@ const getSnapshot = (): Platform => {
 const getServerSnapshot = (): Platform => 'other'
 
 /**
+ * Allows overriding the detected platform. This is primarily intended for testing and
+ * Storybook, where we want to preview how keyboard hints render on platforms other than the
+ * one actually running. A `null` value (the default) means "use the detected platform".
+ */
+const PlatformOverrideContext = createContext<Platform | null>(null)
+
+export const PlatformOverrideProvider = PlatformOverrideContext.Provider
+
+/**
  * SSR-safe hook for determining the current platform category used when displaying
  * keyboard shortcut keys.
  *
  * Mirrors the approach of `useIsMacOS`: on the client it reads the real value immediately,
  * and on the server it returns a safe default (`'other'`).
+ *
+ * If a `PlatformOverrideProvider` is present with a non-null value, that value is used
+ * instead of the detected platform.
  */
 export function usePlatform(): Platform {
-  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
+  const override = useContext(PlatformOverrideContext)
+  const detected = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
+  return override ?? detected
 }
