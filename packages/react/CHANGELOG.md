@@ -1,5 +1,69 @@
 # @primer/react
 
+## 38.26.0
+
+### Minor Changes
+
+- [#7869](https://github.com/primer/react/pull/7869) [`23fba52`](https://github.com/primer/react/commit/23fba52138e3314d058187e8d07d011e6889e1e2) Thanks [@adierkens](https://github.com/adierkens)! - Slot system consistency improvements:
+
+  - Remove orphan `__SLOT__` markers from root components that no parent scans for: `ActionMenu` (root `Menu`), `UnderlinePanels` (root), `Autocomplete` is unchanged (still used as a `FormControl` child), `PageLayout` (root), `SegmentedControl` (root), `RadioGroup` (root), `CheckboxGroup` (root), and `Dialog` (root). Sub-component markers are intentionally retained so consumers can keep wrapping them.
+  - Standardize `Symbol(...)` descriptions used as slot markers to the `Parent.Slot` convention: `CheckboxOrRadioGroupLabel` → `CheckboxOrRadioGroup.Label`, `CheckboxOrRadioGroupCaption` → `CheckboxOrRadioGroup.Caption`, `CheckboxOrRadioGroupValidation` → `CheckboxOrRadioGroup.Validation`, `DEPRECATED_Tooltip` → `Tooltip`, and `Table` → `DataTable.Table`.
+  - Migrate `PageHeader`, `NavList.Item`, and the internal `CheckboxOrRadioGroup` to use the `useSlots` hook instead of hand-rolling `React.Children` traversal with `isSlot`. The `CheckboxOrRadioGroup` migration also removes duplicated work where `useSlots` was already called but slots were re-extracted by hand immediately after.
+  - Export `useSlots`, `isSlot`, `asSlot`, and the `WithSlotMarker`/`FCWithSlotMarker` types publicly from `@primer/react` so downstream consumers can build their own slot-aware compound components.
+  - Add `asSlot(component, slotSource)` helper: a typed utility that copies a `__SLOT__` marker from a source slot component onto a wrapper component, replacing the cast-heavy `(Wrapper as typeof Wrapper & {__SLOT__?: symbol}).__SLOT__ = Source.__SLOT__` pattern.
+  - Add a dev-mode warning in `useSlots` when a child's `displayName` matches a slot component's `displayName` but the child is missing the `__SLOT__` marker — a common footgun when wrapping slot components.
+
+- [#7898](https://github.com/primer/react/pull/7898) [`da27739`](https://github.com/primer/react/commit/da2773915b5d299fd5971322f41dc9a2cfb8a13a) Thanks [@francinelucca](https://github.com/francinelucca)! - ThemeProvider: Add `contextOnly` prop to opt out of rendering the wrapping `<div>` with `data-*` theme attributes
+
+- [#7886](https://github.com/primer/react/pull/7886) [`64dfbd3`](https://github.com/primer/react/commit/64dfbd307314d4c52c2072d0f72611a5da3e6739) Thanks [@janmaarten-a11y](https://github.com/janmaarten-a11y)! - Add `Timeline.Actions` sub-component for rendering action buttons, links, SHAs, status labels, and similar right-aligned content on a `Timeline.Item`. Renders as a horizontal flex row pushed to the right edge of the item with `gap: 8px` between children and `min-height` matching the badge so contents vertically center against it.
+
+- [#7885](https://github.com/primer/react/pull/7885) [`9d2cb53`](https://github.com/primer/react/commit/9d2cb53c06f172598dc96be11ac0441c338e5341) Thanks [@janmaarten-a11y](https://github.com/janmaarten-a11y)! - Add `Timeline.Avatar` sub-component for rendering an actor avatar in the left gutter of a `Timeline.Item`. Accepts any React children and is absolutely positioned so it does not affect badge or body layout. Consumers must reserve roughly 72px of left padding around the `Timeline` for the avatar to be visible.
+
+### Patch Changes
+
+- [#7864](https://github.com/primer/react/pull/7864) [`e7205ea`](https://github.com/primer/react/commit/e7205ea51b02fb1b7ac9de2df122f7ba67ebe078) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Eliminate nested-update cascades in `useFocus`, `PageLayout.Pane`, and
+  `AnchoredOverlay`:
+
+  - `useFocus` no longer produces a second re-render after focusing; one
+    `focus()` call now results in exactly one render instead of two.
+  - `PageLayout.Pane` (resizable) no longer triggers a forced re-render
+    before paint on mount. The CSS variable and ARIA attributes are still
+    updated synchronously in the layout effect; the React state sync is
+    wrapped in `startTransition` so it runs in the transition lane rather
+    than as part of the layout-effect commit.
+  - `AnchoredOverlay` no longer keeps `useAnchoredPosition`'s scroll
+    listeners and `ResizeObserver` attached while it is closed. After an
+    open→close cycle, the first scroll/resize event no longer fires a
+    spurious `setPosition(undefined)` that re-renders the closed overlay.
+
+  Also adds a profiler-based test harness at
+  `src/utils/testing/profiler.tsx` so future regressions can be pinned with
+  `counter.updateCount` and `counter.nestedUpdateCount` assertions.
+
+- [#7892](https://github.com/primer/react/pull/7892) [`4dd08af`](https://github.com/primer/react/commit/4dd08af9e4942962ebb253050b1807c13382dc76) Thanks [@TylerJDev](https://github.com/TylerJDev)! - AnchoredOverlay: Disable CSS anchor positioning if related CSS rules are not supported
+
+- [#7878](https://github.com/primer/react/pull/7878) [`8c468fd`](https://github.com/primer/react/commit/8c468fd28322456f48601f9cbf6226fc4c35b661) Thanks [@mattcosta7](https://github.com/mattcosta7)! - FilteredActionList: Guard against `undefined` items in the virtualizer's `getItemKey` callback to prevent a crash when `@tanstack/react-virtual` invokes it with an index whose item was just removed (e.g. when filtering shrinks the items list).
+
+- [#7893](https://github.com/primer/react/pull/7893) [`0eef204`](https://github.com/primer/react/commit/0eef20484e5e26d0b6edb89dca68c538e7e898c6) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Button: Replace the icon-only-with-counter `:has(...):not(:has(...))` selector with a `data-icon-only-counter` attribute computed from props. Reduces style-recalculation cost on pages that render many Buttons. No visual or behavioral changes.
+
+- [#7896](https://github.com/primer/react/pull/7896) [`673514b`](https://github.com/primer/react/commit/673514bf6743067d9db887a2c57e675a7e2a52f8) Thanks [@mattcosta7](https://github.com/mattcosta7)! - TextInput / TextInputWithTokens / Select / Autocomplete: Replace chained `:not([data-leading-visual])`, `:not([data-trailing-visual])`, and `:not([data-trailing-action])` attribute negations in `TextInputWrapper` styles with positive `data-no-leading-visual`, `data-no-trailing-visual`, and `data-no-trailing-action` markers emitted by the wrapper components. Eliminates the 2- and 3-deep `:not()` chains that previously evaluated against every input on every state change. No visual or behavioral changes.
+
+- [#7876](https://github.com/primer/react/pull/7876) [`980e94c`](https://github.com/primer/react/commit/980e94cc1de7807bb2b3fc4dd006ea8dbf3e8303) Thanks [@mattcosta7](https://github.com/mattcosta7)! - UnderlinePanels: Eliminate the empty-tablist frame on mount and the cascading
+  re-render when icons toggle. Tabs and panels are now derived in render
+  (previously stored in state synced via `useEffect`), the list width is kept
+  in a ref instead of state, and `iconsVisible` / `loadingCounters` flow to
+  each tab via context — combined with `React.memo(Tab)`, that makes
+  resize-driven icon toggles update only the part of each tab that depends on
+  the change, not the whole tablist subtree. Behavior is unchanged.
+
+- [#7874](https://github.com/primer/react/pull/7874) [`8cc7e99`](https://github.com/primer/react/commit/8cc7e998d2dbde1fb927b598755810b534702a6a) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Dev-only effects (the `if (__DEV__) { useEffect(...) }` pattern with an
+  `eslint-disable react-hooks/rules-of-hooks` comment at every call site) are
+  now expressed via a new internal `useDevOnlyEffect` hook. The lint
+  suppression lives in the wrapper, the effect is dropped from production by
+  the consumer's `process.env.NODE_ENV` replacement, and call sites get
+  `react-hooks/exhaustive-deps` lint via `additionalEffectHooks`. No public
+  API changes.
+
 ## 38.25.0
 
 ### Minor Changes
