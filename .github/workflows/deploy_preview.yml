@@ -7,13 +7,52 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  build-storybook:
+    if: ${{ github.event.pull_request.head.repo.full_name == 'primer/react' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+      - name: Set up Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - name: Set up turbo cache
+        uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb
+        with:
+          path: .turbo
+          key: ${{ runner.os }}-turbo-${{ github.job }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-${{ github.job }}-
+            ${{ runner.os }}-turbo-
+      - name: Install dependencies
+        run: npm ci
+      - name: Build storybook
+        run: npx turbo run build:storybook
+      - name: Upload storybook
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: storybook
+          path: |
+            packages/react/storybook-static
+            packages/styled-react/storybook-static
+          if-no-files-found: error
+          retention-days: 1
+
   vrt-reports:
     if: ${{ github.event.pull_request.head.repo.full_name == 'primer/react' }}
+    needs: build-storybook
     uses: ./.github/workflows/vrt-reports.yml
+    with:
+      storybook-artifact: storybook
 
   aat-reports:
     if: ${{ github.event.pull_request.head.repo.full_name == 'primer/react' }}
+    needs: build-storybook
     uses: ./.github/workflows/aat-reports.yml
+    with:
+      storybook-artifact: storybook
 
   build:
     if: ${{ always() && github.event.pull_request.head.repo.full_name == 'primer/react' }}
