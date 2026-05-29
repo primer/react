@@ -452,7 +452,7 @@ export const SidebarWithPaneResizable: StoryFn = () => (
 )
 
 export const ResizableSidebarWithoutPersistence: StoryFn = () => {
-  const [currentWidth, setCurrentWidth] = React.useState<number>(defaultPaneWidth.medium)
+  const [currentWidth, setCurrentWidth] = React.useState<number>(300)
 
   return (
     <PageLayout containerWidth="full">
