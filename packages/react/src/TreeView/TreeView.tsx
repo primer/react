@@ -69,6 +69,11 @@ const ItemContext = React.createContext<{
   trailingActionId: '',
 })
 
+// Module-private channel from LoadingItem to the Item it renders. Lets us mark the placeholder
+// row with `data-loading` (used by CSS to suppress hover affordances) without exposing an
+// internal-only prop on the public TreeViewItemProps API.
+const LoadingPlaceholderContext = React.createContext(false)
+
 // ----------------------------------------------------------------------------
 // TreeView
 
@@ -255,6 +260,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       onChange: onExpandedChange,
     })
     const {level} = React.useContext(ItemContext)
+    const isLoadingPlaceholder = React.useContext(LoadingPlaceholderContext)
     const {hasSubTree, subTree, childrenWithoutSubTree} = useSubTree(rest)
     const [isSubTreeEmpty, setIsSubTreeEmpty] = React.useState(!hasSubTree)
     const [actionCommandPressed, setActionCommandPressed] = React.useState(false)
@@ -371,6 +377,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           aria-current={isCurrentItem ? 'true' : undefined}
           aria-selected={isFocused ? 'true' : 'false'}
           data-has-leading-action={slots.leadingAction ? true : undefined}
+          data-loading={isLoadingPlaceholder ? true : undefined}
           onKeyDown={handleKeyDown}
           onFocus={event => {
             // Defer scroll to the next animation frame so that rapid keyboard
@@ -645,22 +652,26 @@ const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, re
 
   if (count) {
     return (
-      <Item id={itemId} ref={ref}>
-        {Array.from({length: count}).map((_, i) => {
-          return <SkeletonItem aria-hidden={true} key={i} />
-        })}
-        <div className={clsx('PRIVATE_VisuallyHidden', classes.TreeViewVisuallyHidden)}>Loading {count} items</div>
-      </Item>
+      <LoadingPlaceholderContext.Provider value={true}>
+        <Item id={itemId} ref={ref}>
+          {Array.from({length: count}).map((_, i) => {
+            return <SkeletonItem aria-hidden={true} key={i} />
+          })}
+          <div className={clsx('PRIVATE_VisuallyHidden', classes.TreeViewVisuallyHidden)}>Loading {count} items</div>
+        </Item>
+      </LoadingPlaceholderContext.Provider>
     )
   }
 
   return (
-    <Item id={itemId} ref={ref}>
-      <LeadingVisual>
-        <Spinner size="small" />
-      </LeadingVisual>
-      <Text className="fgColor-muted">Loading...</Text>
-    </Item>
+    <LoadingPlaceholderContext.Provider value={true}>
+      <Item id={itemId} ref={ref}>
+        <LeadingVisual>
+          <Spinner size="small" />
+        </LeadingVisual>
+        <Text className="fgColor-muted">Loading...</Text>
+      </Item>
+    </LoadingPlaceholderContext.Provider>
   )
 })
 
