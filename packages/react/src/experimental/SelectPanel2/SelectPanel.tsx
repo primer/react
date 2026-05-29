@@ -430,11 +430,18 @@ const SelectPanelSearchInput: FCWithSlotMarker<TextInputProps> = ({
 
   const {setSearchQuery, moveFocusToList} = React.useContext(SelectPanelContext)
 
+  // Track whether the input is empty so the clear-action can be hidden via a
+  // data attribute instead of a `:has(input:placeholder-shown)` selector that
+  // forced a descendant re-evaluation on every keystroke.
+  const [uncontrolledEmpty, setUncontrolledEmpty] = React.useState(() => !(props.value ?? props.defaultValue))
+  const isEmpty = props.value !== undefined ? props.value === '' : uncontrolledEmpty
+
   const internalOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // If props.onChange is given, the application controls search,
     // otherwise the component does
     if (typeof propsOnChange === 'function') propsOnChange(event)
     else setSearchQuery(event.target.value)
+    setUncontrolledEmpty(event.target.value === '')
   }
 
   const internalKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -464,10 +471,12 @@ const SelectPanelSearchInput: FCWithSlotMarker<TextInputProps> = ({
               // @ts-ignore TODO this is a hacky solution to clear
               propsOnChange({target: inputRef.current, currentTarget: inputRef.current})
             }
+            setUncontrolledEmpty(true)
           }}
         />
       }
       className={clsx(classes.TextInput, className)}
+      data-empty={isEmpty || undefined}
       onChange={internalOnChange}
       onKeyDown={internalKeyDown}
       {...props}

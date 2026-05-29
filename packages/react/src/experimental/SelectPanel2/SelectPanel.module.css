@@ -121,8 +121,8 @@
 .TextInput {
   padding-left: var(--base-size-8) !important;
 
-  /* stylelint-disable-next-line selector-class-pattern, selector-no-qualifying-type, selector-pseudo-class-disallowed-list -- :has() scoped to CSS Module, audited (github/github-ui#17224) */
-  &:has(input:placeholder-shown) :global(.TextInput-action) {
+  /* stylelint-disable-next-line selector-class-pattern -- `.TextInput-action` is a third-party class on the wrapped TextInput */
+  &[data-empty] :global(.TextInput-action) {
     display: none;
   }
 }
