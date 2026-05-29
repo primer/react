@@ -51,6 +51,21 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
   ({children, className, as: BaseComponent = 'div', 'aria-label': ariaLabel, role, hasBorder}, forwardedRef) => {
     const rootRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
 
+    // Hoist title size + navigation visibility off direct children onto the
+    // root so styling can use plain attribute selectors instead of `:has()`.
+    let titleVariant: TitleAreaProps['variant'] = 'medium'
+    let hasNavigation = false
+    let navigationHidden: NavigationProps['hidden'] | undefined
+    for (const child of React.Children.toArray(children)) {
+      if (!React.isValidElement(child)) continue
+      if (child.type === TitleArea) {
+        titleVariant = (child.props as TitleAreaProps).variant ?? 'medium'
+      } else if (child.type === Navigation) {
+        hasNavigation = true
+        navigationHidden = (child.props as NavigationProps).hidden ?? false
+      }
+    }
+
     const isInteractive = (element: HTMLElement) => {
       return (
         ['a', 'button'].some(selector => element.matches(selector)) ||
@@ -108,6 +123,9 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
         ref={rootRef}
         className={clsx(classes.PageHeader, className)}
         data-has-border={hasBorder ? 'true' : undefined}
+        data-has-nav={hasNavigation ? '' : undefined}
+        {...getResponsiveAttributes('title-size-variant', titleVariant)}
+        {...getNavHiddenDataAttributes(navigationHidden)}
         aria-label={ariaLabel}
         role={role}
       >
@@ -374,12 +392,15 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
 
 // Based on getBreakpointDeclarations, this function will return the
 // correct data attribute for the given hidden value for CSS modules.
-function getHiddenDataAttributes(isHidden: boolean | ResponsiveValue<boolean>): {
-  'data-hidden-all'?: boolean
-  'data-hidden-narrow'?: boolean
-  'data-hidden-regular'?: boolean
-  'data-hidden-wide'?: boolean
-} {
+function getHiddenDataAttributes(
+  isHidden: boolean | ResponsiveValue<boolean>,
+  prefix: 'hidden' | 'nav-hidden' = 'hidden',
+): Record<string, boolean | undefined> {
+  const all = `data-${prefix}-all`
+  const narrow = `data-${prefix}-narrow`
+  const regular = `data-${prefix}-regular`
+  const wide = `data-${prefix}-wide`
+
   if (isResponsiveValue(isHidden)) {
     const responsiveValue = isHidden
 
@@ -387,28 +408,28 @@ function getHiddenDataAttributes(isHidden: boolean | ResponsiveValue<boolean>): 
     const narrowMediaQuery =
       'narrow' in responsiveValue
         ? {
-            'data-hidden-narrow': responsiveValue.narrow || undefined,
+            [narrow]: responsiveValue.narrow || undefined,
           }
         : {}
 
     const regularMediaQuery =
       'regular' in responsiveValue
         ? {
-            'data-hidden-regular': responsiveValue.regular || undefined,
+            [regular]: responsiveValue.regular || undefined,
           }
         : {}
 
     const wideMediaQuery =
       'wide' in responsiveValue
         ? {
-            'data-hidden-wide': responsiveValue.wide || undefined,
+            [wide]: responsiveValue.wide || undefined,
           }
         : {}
 
     // check if all values are the same - this is not a recommended practice but we still should check for it
     if (areAllValuesTheSame(responsiveValue)) {
       // if all the values are the same, we can just use one of the value to determine the CSS property's value
-      return {'data-hidden-all': responsiveValue.narrow || undefined}
+      return {[all]: responsiveValue.narrow || undefined}
       // check if regular and wide have the same value, if so we can just return the narrow and regular media queries
     } else if (haveRegularAndWideSameValue(responsiveValue)) {
       return {
@@ -424,8 +445,13 @@ function getHiddenDataAttributes(isHidden: boolean | ResponsiveValue<boolean>): 
     }
   } else {
     // If the given value is not a responsive value
-    return {'data-hidden-all': isHidden || undefined}
+    return {[all]: isHidden || undefined}
   }
+}
+
+function getNavHiddenDataAttributes(isHidden: boolean | ResponsiveValue<boolean> | undefined) {
+  if (isHidden === undefined) return undefined
+  return getHiddenDataAttributes(isHidden, 'nav-hidden')
 }
 
 export const PageHeader = Object.assign(Root, {
