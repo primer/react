@@ -7,6 +7,16 @@ import classes from '../Timeline.module.css'
 describe('Timeline', () => {
   implementsClassName(Timeline, classes.Timeline)
 
+  it('renders as an ordered list', () => {
+    const {container} = render(<Timeline />)
+    expect(container.firstChild?.nodeName).toBe('OL')
+  })
+
+  it('has role="list" to restore semantics in Safari/VoiceOver', () => {
+    const {container} = render(<Timeline />)
+    expect(container.firstChild).toHaveAttribute('role', 'list')
+  })
+
   it('renders with clipSidebar prop (boolean)', () => {
     const {container} = render(<Timeline clipSidebar />)
     expect(container.firstChild).toHaveAttribute('data-clip-sidebar', 'both')
@@ -40,6 +50,12 @@ describe('Timeline', () => {
 
 describe('Timeline.Item', () => {
   implementsClassName(Timeline.Item, classes.TimelineItem)
+
+  it('renders as a list item', () => {
+    const {container} = render(<Timeline.Item />)
+    expect(container.firstChild?.nodeName).toBe('LI')
+  })
+
   it('renders with condensed prop', () => {
     const {container} = render(<Timeline.Item condensed />)
     expect(container).toMatchSnapshot()
@@ -71,6 +87,12 @@ describe('Timeline.Body', () => {
 
 describe('Timeline.Break', () => {
   implementsClassName(Timeline.Break, classes.TimelineBreak)
+
+  it('renders as a presentational list item', () => {
+    const {container} = render(<Timeline.Break />)
+    expect(container.firstChild?.nodeName).toBe('LI')
+    expect(container.firstChild).toHaveAttribute('role', 'presentation')
+  })
 })
 
 describe('Timeline.Actions', () => {
