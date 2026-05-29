@@ -25,7 +25,7 @@ import {Dialog} from '../Dialog'
 import {Button, IconButton} from '../Button'
 import {ActionList} from '../ActionList'
 import {getAccessibleKeybindingHintString} from '../KeybindingHint'
-import {useIsMacOS} from '../hooks'
+import {usePlatform} from '../KeybindingHint/platform'
 import {Tooltip} from '../TooltipV2'
 import {isSlot} from '../utils/is-slot'
 import type {FCWithSlotMarker} from '../utils/types'
@@ -259,7 +259,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
     const [isSubTreeEmpty, setIsSubTreeEmpty] = React.useState(!hasSubTree)
     const [actionCommandPressed, setActionCommandPressed] = React.useState(false)
     const [isFocused, setIsFocused] = React.useState(false)
-    const isMacOS = useIsMacOS()
+    const platform = usePlatform()
 
     // Set the expanded state and cache it
     const setIsExpandedWithCache = React.useCallback(
@@ -335,8 +335,8 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       slots.trailingVisual ? trailingVisualId : null,
     ].filter(Boolean)
 
-    const shortcut = `Shift+${isMacOS ? 'Meta' : 'Control'}+U`
-    const trailingActionShortcutText = `Press (${getAccessibleKeybindingHintString(shortcut, isMacOS)}) for more actions.`
+    const shortcut = `Shift+${platform === 'mac' ? 'Meta' : 'Control'}+U`
+    const trailingActionShortcutText = `Press (${getAccessibleKeybindingHintString(shortcut, platform)}) for more actions.`
 
     return (
       <ItemContext.Provider
