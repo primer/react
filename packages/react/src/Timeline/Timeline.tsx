@@ -15,10 +15,11 @@ function resolveClipSidebar(clipSidebar: TimelineProps['clipSidebar']): string |
 const Timeline = React.forwardRef<HTMLOListElement, TimelineProps>(({clipSidebar, className, ...props}, forwardRef) => {
   const resolvedClipSidebar = resolveClipSidebar(clipSidebar)
   return (
+    // Explicit role restores list semantics in Safari/VoiceOver, which strips
+    // them when list-style: none is applied (WebKit intentional behaviour).
+    // eslint-disable-next-line jsx-a11y/no-redundant-roles
     <ol
       {...props}
-      // Explicit role restores list semantics in Safari/VoiceOver, which strips
-      // them when list-style: none is applied (WebKit intentional behaviour).
       role="list"
       className={clsx(className, classes.Timeline)}
       ref={forwardRef}
