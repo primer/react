@@ -4,7 +4,7 @@ import classes from './Timeline.module.css'
 
 type StyledTimelineProps = {clipSidebar?: boolean | 'start' | 'end' | 'both'; className?: string}
 
-export type TimelineProps = StyledTimelineProps & React.ComponentPropsWithoutRef<'ol'>
+export type TimelineProps = StyledTimelineProps & Omit<React.ComponentPropsWithoutRef<'ol'>, 'role'>
 
 function resolveClipSidebar(clipSidebar: TimelineProps['clipSidebar']): string | undefined {
   if (clipSidebar === true || clipSidebar === 'both') return 'both'
@@ -16,10 +16,10 @@ const Timeline = React.forwardRef<HTMLOListElement, TimelineProps>(({clipSidebar
   const resolvedClipSidebar = resolveClipSidebar(clipSidebar)
   return (
     <ol
+      {...props}
       // Explicit role restores list semantics in Safari/VoiceOver, which strips
       // them when list-style: none is applied (WebKit intentional behaviour).
       role="list"
-      {...props}
       className={clsx(className, classes.Timeline)}
       ref={forwardRef}
       data-clip-sidebar={resolvedClipSidebar}
