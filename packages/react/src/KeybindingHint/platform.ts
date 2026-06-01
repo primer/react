@@ -4,12 +4,12 @@ import {createContext, useContext, useSyncExternalStore} from 'react'
 /**
  * The platform categories that affect how keyboard shortcut keys are displayed.
  *
- * - `mac`: Apple platforms (macOS and iOS/iPadOS), which use the Command and Option keys.
+ * - `apple`: Apple platforms (macOS and iOS/iPadOS), which use the Command and Option keys.
  * - `windows`: Windows, which uses the Windows (Meta) key.
  * - `other`: Any other platform (e.g. Linux, Android), where the Meta key does not map to a
  *   consistent label.
  */
-export type Platform = 'mac' | 'windows' | 'other'
+export type Platform = 'apple' | 'windows' | 'other'
 
 // No-op. The platform never changes at runtime, so there is nothing to
 // subscribe to. Hoisted to avoid creating a new function on every call.
@@ -28,7 +28,7 @@ const ssrUnsafeIsWindows = () => {
 }
 
 const getSnapshot = (): Platform => {
-  if (ssrUnsafeIsMacOS() || ssrUnsafeIsIOS()) return 'mac'
+  if (ssrUnsafeIsMacOS() || ssrUnsafeIsIOS()) return 'apple'
   if (ssrUnsafeIsWindows()) return 'windows'
   return 'other'
 }

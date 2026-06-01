@@ -41,7 +41,7 @@ export const OnPrimary: StoryObj<KeybindingHintProps> = {
 export const Small = {args: {keys: chord, size: 'small'}}
 
 const platforms: Array<{platform: Platform; label: string}> = [
-  {platform: 'mac', label: 'Apple (macOS / iOS)'},
+  {platform: 'apple', label: 'Apple (macOS / iOS)'},
   {platform: 'windows', label: 'Windows'},
   {platform: 'other', label: 'Other (Linux, Android, …)'},
 ]

@@ -335,7 +335,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       slots.trailingVisual ? trailingVisualId : null,
     ].filter(Boolean)
 
-    const shortcut = `Shift+${platform === 'mac' ? 'Meta' : 'Control'}+U`
+    const shortcut = `Shift+${platform === 'apple' ? 'Meta' : 'Control'}+U`
     const trailingActionShortcutText = `Press (${getAccessibleKeybindingHintString(shortcut, platform)}) for more actions.`
 
     return (

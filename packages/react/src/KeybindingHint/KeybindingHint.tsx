@@ -40,8 +40,8 @@ KeybindingHint.displayName = 'KeybindingHint'
  * visibly) and should nearly always also be paired with a visible hint for sighted users.
  *
  * The `platform` argument controls how platform-specific keys (such as `Meta`, `Alt`, and `Mod`) are named. For
- * backwards compatibility, a `boolean` may be passed instead, where `true` is treated as `'mac'` and `false` as
+ * backwards compatibility, a `boolean` may be passed instead, where `true` is treated as `'apple'` and `false` as
  * `'other'`.
  */
 export const getAccessibleKeybindingHintString = (sequence: string, platform: Platform | boolean) =>
-  accessibleSequenceString(sequence, typeof platform === 'boolean' ? (platform ? 'mac' : 'other') : platform)
+  accessibleSequenceString(sequence, typeof platform === 'boolean' ? (platform ? 'apple' : 'other') : platform)

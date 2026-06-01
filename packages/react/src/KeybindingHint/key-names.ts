@@ -13,11 +13,11 @@ const capitalize = ([first, ...rest]: string) => (first?.toUpperCase() ?? '') + 
  */
 export const condensedKeyName = (key: string, platform: Platform) =>
   ({
-    alt: platform === 'mac' ? '⌥' : 'Alt', // the alt key _is_ the option key on MacOS - in the browser there is no "option" key
+    alt: platform === 'apple' ? '⌥' : 'Alt', // the alt key _is_ the option key on MacOS - in the browser there is no "option" key
     control: '⌃',
     shift: '⇧',
-    meta: platform === 'mac' ? '⌘' : platform === 'windows' ? 'Win' : 'Meta',
-    mod: platform === 'mac' ? '⌘' : '⌃',
+    meta: platform === 'apple' ? '⌘' : platform === 'windows' ? 'Win' : 'Meta',
+    mod: platform === 'apple' ? '⌘' : '⌃',
     pageup: 'PgUp',
     pagedown: 'PgDn',
     arrowup: '↑',
@@ -43,9 +43,9 @@ export const condensedKeyName = (key: string, platform: Platform) =>
  */
 export const fullKeyName = (key: string, platform: Platform) =>
   ({
-    alt: platform === 'mac' ? 'Option' : 'Alt',
-    meta: platform === 'mac' ? 'Command' : platform === 'windows' ? 'Windows' : 'Meta',
-    mod: platform === 'mac' ? 'Command' : 'Control',
+    alt: platform === 'apple' ? 'Option' : 'Alt',
+    meta: platform === 'apple' ? 'Command' : platform === 'windows' ? 'Windows' : 'Meta',
+    mod: platform === 'apple' ? 'Command' : 'Control',
     '+': 'Plus',
     pageup: 'Page Up',
     pagedown: 'Page Down',
@@ -64,9 +64,9 @@ export const fullKeyName = (key: string, platform: Platform) =>
  */
 export const accessibleKeyName = (key: string, platform: Platform) =>
   ({
-    alt: platform === 'mac' ? 'option' : 'alt',
-    meta: platform === 'mac' ? 'command' : platform === 'windows' ? 'Windows' : 'meta',
-    mod: platform === 'mac' ? 'command' : 'control',
+    alt: platform === 'apple' ? 'option' : 'alt',
+    meta: platform === 'apple' ? 'command' : platform === 'windows' ? 'Windows' : 'meta',
+    mod: platform === 'apple' ? 'command' : 'control',
     // Screen readers may not be able to pronounce concatenated words - this provides a better experience
     pageup: 'page up',
     pagedown: 'page down',
