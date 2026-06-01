@@ -156,21 +156,4 @@ test.describe('SelectPanel', () => {
       `SelectPanel-features--with-notice-light.png`,
     )
   })
-
-  test(`Autogrow after loading with outside-top anchor @vrt`, async ({page}) => {
-    await visit(page, {
-      id: 'components-selectpanel-examples--autogrow-after-loading-with-outside-top-anchor',
-    })
-
-    // Open select panel
-    await page.keyboard.press('Tab')
-    await page.keyboard.press('Enter')
-
-    // Wait for items to load (story has 2s delay)
-    await page.getByRole('option', {name: 'enhancement'}).waitFor({state: 'visible', timeout: 5000})
-
-    expect(await page.screenshot({animations: 'disabled', caret: 'hide'})).toMatchSnapshot(
-      `SelectPanel.Autogrow-after-loading-outside-top.png`,
-    )
-  })
 })

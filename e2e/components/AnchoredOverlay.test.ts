@@ -115,6 +115,11 @@ const stories: Array<{
     waitForText: 'content with 300px height',
   },
   {
+    title: 'Reposition After Content Grows With Outside Top',
+    id: 'components-anchoredoverlay-dev--reposition-after-content-grows-with-outside-top',
+    waitForText: 'content with 300px height',
+  },
+  {
     title: 'Reposition After Content Grows Within Dialog',
     id: 'components-anchoredoverlay-dev--reposition-after-content-grows-within-dialog',
     waitForText: 'content with 300px height',

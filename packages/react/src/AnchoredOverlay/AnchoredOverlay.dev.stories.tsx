@@ -59,6 +59,56 @@ export const RepositionAfterContentGrows = () => {
   )
 }
 
+export const RepositionAfterContentGrowsWithOutsideTop = () => {
+  const [open, setOpen] = useState(false)
+  const [loading, setLoading] = useState(true)
+
+  React.useEffect(() => {
+    if (!open) setLoading(true)
+    const timer = window.setTimeout(() => {
+      if (open) setLoading(false)
+    }, 2000)
+    return () => window.clearTimeout(timer)
+  }, [open])
+
+  return (
+    <Stack direction="vertical" justify="space-between" style={{height: 'calc(100vh - 200px)'}}>
+      <div>
+        What to expect:
+        <ul>
+          <li>The anchored overlay should open above the anchor (outside-top)</li>
+          <li>After 2000ms, the amount of content in the overlay grows</li>
+          <li>The overlay should grow upward, staying attached at the bottom to the anchor</li>
+          <li>Bug: without fix, the overlay briefly flickers downward before repositioning</li>
+        </ul>
+      </div>
+      <AnchoredOverlay
+        renderAnchor={props => (
+          <Button {...props} style={{width: 'fit-content'}}>
+            Button
+          </Button>
+        )}
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => {
+          setOpen(false)
+          setLoading(true)
+        }}
+        side="outside-top"
+      >
+        {loading ? (
+          <>
+            <Spinner />
+            loading for 2000ms
+          </>
+        ) : (
+          <div style={{height: '300px'}}>content with 300px height</div>
+        )}
+      </AnchoredOverlay>
+    </Stack>
+  )
+}
+
 export const ScrollRecalculation = () => {
   const [open, setOpen] = useState(false)
 

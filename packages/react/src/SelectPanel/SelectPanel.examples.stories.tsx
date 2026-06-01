@@ -441,55 +441,6 @@ export const SelectPanelRepositionInsideDialog = () => {
   )
 }
 
-export const AutogrowAfterLoadingWithOutsideTopAnchor = () => {
-  const autogrowItems = [...items]
-
-  const [selected, setSelected] = React.useState<ItemInput[]>([autogrowItems[0], autogrowItems[1]])
-  const [open, setOpen] = useState(false)
-  const [filter, setFilter] = React.useState('')
-  const [filteredItems, setFilteredItems] = React.useState<typeof autogrowItems>([])
-  const [loading, setLoading] = useState(true)
-
-  React.useEffect(() => {
-    if (!open) setLoading(true)
-    const timer = window.setTimeout(() => {
-      if (open) {
-        setFilteredItems(autogrowItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
-        setLoading(false)
-      }
-    }, 2000)
-
-    return () => window.clearTimeout(timer)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open])
-
-  React.useEffect(() => {
-    if (!loading) {
-      setFilteredItems(autogrowItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter])
-
-  return (
-    <Stack direction="vertical" justify="space-between" style={{height: 'calc(100vh - 300px)', width: 'fit-content'}}>
-      <h1>Autogrow panel after loading with outside-top anchor</h1>
-      <SelectPanel
-        loading={loading}
-        title="Select labels"
-        placeholderText="Filter Labels"
-        open={open}
-        onOpenChange={setOpen}
-        items={filteredItems}
-        selected={selected}
-        onSelectedChange={setSelected}
-        onFilterChange={setFilter}
-        overlayProps={{anchorSide: 'outside-top'}}
-        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
-      />
-    </Stack>
-  )
-}
-
 export const WithDefaultMessage = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
