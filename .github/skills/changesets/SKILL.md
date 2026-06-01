@@ -27,11 +27,41 @@ Changeset files live in `.changeset/` and have a random name with a `.md` extens
 ActionMenu: Fix focus management when menu is closed with Escape key
 ```
 
-The description should be concise and follow this pattern:
+The description becomes a single line item in the public changelog and release
+notes, so keep it **terse**. Follow this pattern:
 
 - Start with the component or module name followed by a colon
-- Describe WHAT changed and WHY
-- Write from the consumer's perspective
+- Use **one or two sentences** describing WHAT changed at a high level
+- Write from the consumer's perspective — focus on the consumer-facing impact
+- Do **not** include implementation details, file paths, CSS selector or symbol
+  names, internal rationale, or before/after explanations
+- Do **not** use nested bullet lists or multi-paragraph walkthroughs. If a change
+  has several distinct parts, split it into
+  [separate changesets](#multiple-changesets-in-one-pr) instead
+
+### Writing good descriptions
+
+Aim for a description a consumer can scan in a few seconds.
+
+**Good** — terse and consumer-facing:
+
+```markdown
+UnderlinePanels: Improve rendering performance when toggling tab icons
+```
+
+**Avoid** — verbose, implementation-focused, multi-clause:
+
+```markdown
+UnderlinePanels: Eliminate the empty-tablist frame on mount and the cascading
+re-render when icons toggle. Tabs and panels are now derived in render
+(previously stored in state synced via `useEffect`), the list width is kept in a
+ref instead of state, and `iconsVisible` / `loadingCounters` flow to each tab
+via context — combined with `React.memo(Tab)`...
+```
+
+The "Avoid" example reads like a commit message or PR body. Save that level of
+detail for the pull request description; the changeset should summarize the
+consumer-facing effect only.
 
 ## How to create a changeset
 

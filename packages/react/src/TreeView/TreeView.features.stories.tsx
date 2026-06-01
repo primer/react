@@ -780,6 +780,33 @@ export const ContainIntrinsicSize: StoryFn = () => {
   )
 }
 
+// `containIntrinsicSize` sets `content-visibility: auto` on the row container, which implies
+// `contain: paint`. The current-item indicator must paint inside the row's box or it gets clipped.
+export const CurrentItemWithContainIntrinsicSize: StoryFn = () => {
+  return (
+    <TreeView aria-label="Files">
+      <TreeView.Item id="file-1" containIntrinsicSize="2rem">
+        <TreeView.LeadingVisual>
+          <FileIcon />
+        </TreeView.LeadingVisual>
+        File 1
+      </TreeView.Item>
+      <TreeView.Item id="file-2" containIntrinsicSize="2rem" current>
+        <TreeView.LeadingVisual>
+          <FileIcon />
+        </TreeView.LeadingVisual>
+        File 2
+      </TreeView.Item>
+      <TreeView.Item id="file-3" containIntrinsicSize="2rem">
+        <TreeView.LeadingVisual>
+          <FileIcon />
+        </TreeView.LeadingVisual>
+        File 3
+      </TreeView.Item>
+    </TreeView>
+  )
+}
+
 export const InitialFocus: StoryFn = () => (
   <div>
     <Button>Focusable element before TreeView</Button>

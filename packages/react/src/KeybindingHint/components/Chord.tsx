@@ -3,6 +3,7 @@ import Text from '../../Text'
 import type {KeybindingHintProps} from '../props'
 import {Key} from './Key'
 import {accessibleKeyName} from '../key-names'
+import type {Platform} from '../platform'
 import {clsx} from 'clsx'
 import classes from './Chord.module.css'
 
@@ -56,7 +57,7 @@ export const Chord = ({keys, format = 'condensed', variant = 'normal', size = 'n
 )
 
 /** Plain string version of `Chord` for use in `aria` string attributes. */
-export const accessibleChordString = (chord: string, isMacOS: boolean) =>
+export const accessibleChordString = (chord: string, platform: Platform) =>
   splitChord(chord)
-    .map(key => accessibleKeyName(key, isMacOS))
+    .map(key => accessibleKeyName(key, platform))
     .join(' ')
