@@ -2351,7 +2351,7 @@ describe('SelectPanel - First-Open Sizing with Loading State', () => {
           height="large"
         />
         <div data-testid="state">
-          open:{open} loading:{loading} itemsCount:{visibleItems.length}
+          open:{String(open)} loading:{String(loading)} itemsCount:{visibleItems.length}
         </div>
       </>
     )
@@ -2361,7 +2361,7 @@ describe('SelectPanel - First-Open Sizing with Loading State', () => {
     const user = userEvent.setup()
     render(<TestComponentWithLoadingDelay />)
 
-    const button = screen.getByRole('button', {name: /Select item/i})
+    const button = screen.getByRole('button', {name: /Item 1/i})
 
     // Open SelectPanel for the first time
     await user.click(button)
@@ -2401,14 +2401,17 @@ describe('SelectPanel - First-Open Sizing with Loading State', () => {
     const user = userEvent.setup()
     render(<TestComponentWithLoadingDelay />)
 
-    const button = screen.getByRole('button', {name: /Select item/i})
+    const button = screen.getByRole('button', {name: /Item 1/i})
 
     // First open
     await user.click(button)
-    await waitFor(() => {
-      const state = screen.getByTestId('state')
-      expect(state).toHaveTextContent('loading:false')
-    })
+    await waitFor(
+      () => {
+        const state = screen.getByTestId('state')
+        expect(state).toHaveTextContent('loading:false')
+      },
+      {timeout: 1500},
+    )
 
     const overlay1 = document.querySelector('[data-testid="overlay"]')
     const height1 = overlay1?.getBoundingClientRect().height
