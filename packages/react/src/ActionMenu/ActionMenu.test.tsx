@@ -189,8 +189,8 @@ describe('ActionMenu', () => {
 
     await user.click(trigger)
 
-    expect(component.baseElement.querySelector('[data-component="AnchoredOverlay"]')).not.toBeNull()
     expect(component.baseElement.querySelector('[data-component="ActionMenu.Overlay"]')).not.toBeNull()
+    expect(component.baseElement.querySelector('[data-component="AnchoredOverlay"]')).toBeNull()
   })
 
   it('should open Menu on MenuButton click', async () => {
@@ -791,7 +791,7 @@ describe('ActionMenu', () => {
       const initialAnchor = component.getByRole('button', {name: 'Open menu'})
       await user.click(initialAnchor)
 
-      const overlay = component.baseElement.querySelector('[data-component="AnchoredOverlay"]') as HTMLElement
+      const overlay = component.baseElement.querySelector('[data-component="ActionMenu.Overlay"]') as HTMLElement
       expect(overlay).not.toBeNull()
 
       const initialAnchorName = initialAnchor.style.getPropertyValue('anchor-name')

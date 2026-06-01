@@ -355,7 +355,10 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
       onClose={handleClose}
       align={align}
       side={side ?? (isSubmenu ? 'outside-right' : 'outside-bottom')}
-      overlayProps={overlayProps}
+      overlayProps={{
+        ...overlayProps,
+        'data-component': 'ActionMenu.Overlay',
+      }}
       focusZoneSettings={isNarrowFullscreen ? {disabled: true} : {focusOutBehavior: 'wrap'}}
       onPositionChange={onPositionChange}
       variant={variant}
@@ -364,7 +367,6 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
       <div
         ref={containerRef}
         className={styles.ActionMenuContainer}
-        data-component="ActionMenu.Overlay"
         data-variant={responsiveVariant}
         {...(overlayProps.overflow ? {[`data-overflow-${overlayProps.overflow}`]: ''} : {})}
         {...(overlayProps.maxHeight ? {[`data-max-height-${overlayProps.maxHeight}`]: ''} : {})}
