@@ -1,5 +1,6 @@
 import {clsx} from 'clsx'
-import React, {forwardRef, useEffect} from 'react'
+import React, {forwardRef} from 'react'
+import {useDevOnlyEffect} from '../internal/hooks/useDevOnlyEffect'
 import {AlertIcon, InfoIcon, StopIcon, CheckCircleIcon, XIcon} from '@primer/octicons-react'
 import {Button, IconButton, type ButtonProps} from '../Button'
 import {VisuallyHidden} from '../VisuallyHidden'
@@ -132,27 +133,23 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
 
   const visual = leadingVisual ?? icon
 
-  if (__DEV__) {
-    // This hook is called consistently depending on the environment
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      if (title) {
-        return
-      }
+  useDevOnlyEffect(() => {
+    if (title) {
+      return
+    }
 
-      const {current: banner} = bannerRef
-      if (!banner) {
-        return
-      }
+    const {current: banner} = bannerRef
+    if (!banner) {
+      return
+    }
 
-      const hasTitle = banner.querySelector('[data-banner-title]')
-      if (!hasTitle) {
-        throw new Error(
-          'Expected a title to be provided to the <Banner> component with the `title` prop or through `<Banner.Title>` but no title was found',
-        )
-      }
-    }, [title])
-  }
+    const hasTitle = banner.querySelector('[data-banner-title]')
+    if (!hasTitle) {
+      throw new Error(
+        'Expected a title to be provided to the <Banner> component with the `title` prop or through `<Banner.Title>` but no title was found',
+      )
+    }
+  }, [title])
 
   return (
     <BannerContext.Provider value={{titleId}}>

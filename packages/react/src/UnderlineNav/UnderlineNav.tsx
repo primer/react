@@ -74,7 +74,7 @@ export const UnderlineNav = forwardRef(
         })
         invariant(activeElements.length <= 1, 'Only one current element is allowed')
         invariant(ariaLabel, 'Use the `aria-label` prop to provide an accessible label for assistive technology')
-      })
+      }, [validChildren, ariaLabel])
     }
 
     return (

@@ -19,6 +19,39 @@ describe('CheckboxGroup', () => {
     vi.restoreAllMocks()
   })
 
+  it('renders data-component attribute', () => {
+    const {getByRole} = render(
+      <CheckboxGroup>
+        <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
+        <FormControl>
+          <Checkbox value="one" />
+          <FormControl.Label>Choice one</FormControl.Label>
+        </FormControl>
+      </CheckboxGroup>,
+    )
+
+    expect(getByRole('group')).toHaveAttribute('data-component', 'CheckboxGroup')
+  })
+
+  it('renders data-component attributes for subcomponents', () => {
+    const {container} = render(
+      <CheckboxGroup>
+        <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
+        <CheckboxGroup.Caption>Help text</CheckboxGroup.Caption>
+        <CheckboxGroup.Validation variant="error">Error text</CheckboxGroup.Validation>
+
+        <FormControl>
+          <Checkbox value="one" />
+          <FormControl.Label>Choice one</FormControl.Label>
+        </FormControl>
+      </CheckboxGroup>,
+    )
+
+    expect(container.querySelector('[data-component="CheckboxGroup.Label"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="CheckboxGroup.Caption"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="CheckboxGroup.Validation"]')).toBeInTheDocument()
+  })
+
   it('renders a disabled group of inputs', () => {
     const {getAllByRole, getByRole} = render(
       <CheckboxGroup disabled>

@@ -144,9 +144,9 @@ Playground.args = {
 Playground.argTypes = {
   width: {
     control: {
-      type: 'radio',
+      type: 'text',
     },
-    options: ['small', 'medium', 'large', 'xlarge'],
+    description: 'Named size (small, medium, large, xlarge) or a custom CSS width value (e.g. 400px, 80rem)',
   },
   height: {
     control: {

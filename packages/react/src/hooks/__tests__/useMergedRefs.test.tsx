@@ -1,6 +1,7 @@
 import {render, renderHook} from '@testing-library/react'
 import React, {forwardRef, type RefObject} from 'react'
 import {describe, expect, it, vi} from 'vitest'
+import {reactMajorVersion} from '../../utils/environment'
 import {useMergedRefs} from '../useMergedRefs'
 
 type InputOrButtonRef = RefObject<HTMLInputElement & HTMLButtonElement>
@@ -141,6 +142,15 @@ describe('useMergedRefs', () => {
       const cleanup = combined.result.current('test')
       expect(refA).toHaveBeenCalledWith('test')
       expect(refB).toHaveBeenCalledWith('test')
+
+      if (reactMajorVersion < 19) {
+        expect(cleanup).toBeUndefined()
+        return
+      }
+
+      if (typeof cleanup !== 'function') {
+        throw new Error('Expected a cleanup function when running on React 19+')
+      }
 
       // React 19 will call cleanup function and not pass null
       cleanup()

@@ -6,6 +6,7 @@ import {viewportRanges} from '../hooks/useResponsiveValue'
 import {PageLayout} from './PageLayout'
 import {Placeholder} from '../Placeholder'
 import {implementsClassName} from '../utils/testing'
+import {createRenderCounter} from '../utils/testing/profiler'
 import classes from './PageLayout.module.css'
 
 describe('PageLayout', async () => {
@@ -259,6 +260,29 @@ describe('PageLayout', async () => {
       fireEvent.lostPointerCapture(divider, {pointerId: 1})
       expect(pane!.style.willChange).toBe('')
     })
+    it('should not cause a nested-update cascade on mount when resizable', async () => {
+      // The usePaneWidth layout effect used to call setMaxPaneWidth(initialMax)
+      // unconditionally on mount, forcing a synchronous re-render before paint
+      // (a "nested-update" in React Profiler terms). The fix defers that
+      // setState to a post-paint useEffect, so the layout effect's commit
+      // should produce zero nested updates.
+      const [Wrap, counter] = createRenderCounter()
+      render(
+        <Wrap>
+          <PageLayout>
+            <PageLayout.Pane resizable>
+              <Placeholder height={320} label="Pane" />
+            </PageLayout.Pane>
+            <PageLayout.Content>
+              <Placeholder height={640} label="Content" />
+            </PageLayout.Content>
+          </PageLayout>
+        </Wrap>,
+      )
+      // Allow post-paint effects to flush
+      await act(async () => {})
+      expect(counter.nestedUpdateCount).toBe(0)
+    })
   })
 
   describe('PageLayout.Content', () => {
@@ -311,6 +335,42 @@ describe('PageLayout', async () => {
       fireEvent.keyDown(handle, {key: 'ArrowRight'})
       fireEvent.keyDown(handle, {key: 'Home'})
       fireEvent.keyDown(handle, {key: 'End'})
+    })
+
+    it('uses controlled `currentWidth` for the rendered --pane-width when provided', () => {
+      const onResizeEnd = vi.fn()
+      const {container} = render(
+        <PageLayout>
+          <PageLayout.Content>Content</PageLayout.Content>
+          <PageLayout.Sidebar resizable currentWidth={400} onResizeEnd={onResizeEnd}>
+            Sidebar
+          </PageLayout.Sidebar>
+        </PageLayout>,
+      )
+
+      const sidebar = container.querySelector<HTMLElement>('[class*="Sidebar"][data-resizable]')
+      expect(sidebar).not.toBeNull()
+      expect(sidebar!.style.getPropertyValue('--pane-width')).toBe('400px')
+    })
+
+    it('invokes onResizeEnd after a keyboard resize gesture', () => {
+      const onResizeEnd = vi.fn()
+      render(
+        <PageLayout>
+          <PageLayout.Content>Content</PageLayout.Content>
+          <PageLayout.Sidebar resizable currentWidth={300} onResizeEnd={onResizeEnd}>
+            Sidebar
+          </PageLayout.Sidebar>
+        </PageLayout>,
+      )
+
+      const handle = screen.getByRole('slider')
+      handle.focus()
+      fireEvent.keyDown(handle, {key: 'ArrowRight'})
+      fireEvent.keyUp(handle, {key: 'ArrowRight'})
+
+      expect(onResizeEnd).toHaveBeenCalledTimes(1)
+      expect(typeof onResizeEnd.mock.calls[0][0]).toBe('number')
     })
 
     it('respects different position values (start, end)', () => {

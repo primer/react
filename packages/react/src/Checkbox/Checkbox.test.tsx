@@ -20,6 +20,11 @@ describe('Checkbox', () => {
     expect(checkbox).toBeDefined()
   })
 
+  it('renders data-component attribute', () => {
+    const {getByRole} = render(<Checkbox />)
+    expect(getByRole('checkbox')).toHaveAttribute('data-component', 'Checkbox')
+  })
+
   it('renders an unchecked checkbox by default', () => {
     const {getByRole} = render(<Checkbox />)
 

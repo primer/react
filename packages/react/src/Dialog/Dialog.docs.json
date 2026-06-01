@@ -86,8 +86,8 @@
     },
     {
       "name": "width",
-      "type": "'small' | 'medium' | 'large' | 'xlarge'",
-      "description": "The width of the dialog.\nsmall: 296px\nmedium: 320px\nlarge: 480px\nxlarge: 640px"
+      "type": "'small' | 'medium' | 'large' | 'xlarge' | string | number",
+      "description": "The width of the dialog.\nsmall: 296px\nmedium: 320px\nlarge: 480px\nxlarge: 640px\n\nAlso accepts any valid CSS width value (e.g. '400px', '80rem') or a number, which is interpreted as a pixel width."
     },
     {
       "name": "height",

@@ -281,6 +281,8 @@ export function usePaneWidth({
   const currentWidthRef = React.useRef(currentWidth)
   // Max width for ARIA - SSR uses custom max or a sensible default, updated on mount
   const [maxPaneWidth, setMaxPaneWidth] = React.useState(() => customMaxWidth ?? SSR_DEFAULT_MAX_WIDTH)
+  // Track last maxPaneWidth to skip redundant startTransition calls on resize (see #7801)
+  const maxPaneWidthRef = React.useRef(maxPaneWidth)
 
   // Keep currentWidthRef in sync with state (ref is used during drag to avoid re-renders)
   useIsomorphicLayoutEffect(() => {
@@ -365,13 +367,19 @@ export function usePaneWidth({
       // Update ARIA via DOM - cheap, no React re-render
       updateAriaValues(handleRef.current, {max: actualMax, current: currentWidthRef.current})
 
-      // Defer state updates so parent re-renders see accurate values
-      startTransition(() => {
-        setMaxPaneWidth(actualMax)
-        if (wasClamped) {
-          setCurrentWidthState(actualMax)
-        }
-      })
+      // Only trigger React re-render if values actually changed.
+      // startTransition doesn't bail out on same-value updates like normal setState,
+      // so we guard explicitly to avoid unnecessary re-renders on every resize tick. (#7801)
+      const maxChanged = actualMax !== maxPaneWidthRef.current
+      if (maxChanged || wasClamped) {
+        maxPaneWidthRef.current = actualMax
+        startTransition(() => {
+          setMaxPaneWidth(actualMax)
+          if (wasClamped) {
+            setCurrentWidthState(actualMax)
+          }
+        })
+      }
     }
 
     // Initial calculation on mount — use viewport-based lookup to avoid
@@ -379,9 +387,16 @@ export function usePaneWidth({
     // freshly-committed DOM tree (measured at ~614ms on large pages).
     maxWidthDiffRef.current = getMaxWidthDiffFromViewport()
     const initialMax = getMaxPaneWidthRef.current()
-    setMaxPaneWidth(initialMax)
+    maxPaneWidthRef.current = initialMax
     paneRef.current?.style.setProperty('--pane-max-width', `${initialMax}px`)
     updateAriaValues(handleRef.current, {min: minPaneWidth, max: initialMax, current: currentWidthRef.current})
+    // Sync React state via a transition so it doesn't force a synchronous
+    // re-render before paint (i.e. a Profiler `nested-update`). The DOM and
+    // ARIA values above are already correct; this state is only consumed by
+    // the next React render of `aria-valuemax`. Same pattern as `syncAll`.
+    startTransition(() => {
+      setMaxPaneWidth(initialMax)
+    })
 
     // For custom widths that aren't viewport-constrained, max is fixed - no need to listen to resize
     if (customMaxWidth !== null && !constrainToViewport) return

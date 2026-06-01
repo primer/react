@@ -4,11 +4,7 @@ import path from 'node:path'
 
 const entrypoints: Array<
   [name: string, filepath: string, exports: Array<[name: string, deprecatedTag: boolean, deprecatedComment: boolean]>]
-> = [
-  ['@primer/styled-react', path.resolve(import.meta.dirname, '../index.tsx'), []],
-  ['@primer/styled-react/deprecated', path.resolve(import.meta.dirname, '../deprecated.tsx'), []],
-  ['@primer/styled-react/experimental', path.resolve(import.meta.dirname, '../experimental.tsx'), []],
-]
+> = [['@primer/styled-react', path.resolve(import.meta.dirname, '../index.tsx'), []]]
 
 const program = ts.createProgram(
   entrypoints.map(entrypoint => entrypoint[1]),

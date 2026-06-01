@@ -1,13 +1,12 @@
-import React, {useCallback, useEffect, useRef, useState, type SyntheticEvent} from 'react'
+import React, {useCallback, useEffect, useRef, useState, type CSSProperties, type SyntheticEvent} from 'react'
 import type {ButtonProps} from '../Button'
 import {Button, IconButton} from '../Button'
-import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
+import {useMergedRefs, useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
 import Portal from '../Portal'
-import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {useId} from '../hooks/useId'
 import {ScrollableRegion} from '../ScrollableRegion'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
@@ -59,6 +58,7 @@ export type DialogButtonProps = Omit<ButtonProps, 'content'> & {
  * Props to customize the rendering of the Dialog.
  */
 export interface DialogProps {
+  'data-component'?: string
   /**
    * Title of the Dialog. Also serves as the aria-label for this Dialog.
    */
@@ -124,6 +124,8 @@ export interface DialogProps {
    * medium: 320px
    * large: 480px
    * xlarge: 640px
+   *
+   * Also accepts any valid CSS width value (e.g. '400px', '80rem').
    */
   width?: DialogWidth
 
@@ -193,7 +195,6 @@ const heightMap = {
   auto: 'auto',
 } as const
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const widthMap = {
   small: '296px',
   medium: '320px',
@@ -201,8 +202,13 @@ const widthMap = {
   xlarge: '640px',
 } as const
 
-export type DialogWidth = keyof typeof widthMap
+export type DialogWidth = keyof typeof widthMap | Exclude<CSSProperties['width'], undefined>
 export type DialogHeight = keyof typeof heightMap
+
+const isWidthMapKey = (width: DialogWidth): width is keyof typeof widthMap =>
+  typeof width === 'string' && Object.hasOwn(widthMap, width)
+
+const normalizeWidth = (width: DialogWidth): string | number => (typeof width === 'number' ? `${width}px` : width)
 
 const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
   dialogLabelId,
@@ -256,6 +262,7 @@ const DIALOG_CONTEXT_VALUE = Object.freeze({})
 
 const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
   const {
+    'data-component': dataComponentProp,
     title = 'Dialog',
     subtitle = '',
     renderHeader,
@@ -300,7 +307,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   })
 
   const dialogRef = useRef<HTMLDivElement>(null)
-  useRefObjectAsForwardedRef(forwardedRef, dialogRef)
+  const mergedDialogRef = useMergedRefs(forwardedRef, dialogRef)
   const backdropRef = useRef<HTMLDivElement>(null)
 
   useFocusTrap({
@@ -376,6 +383,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           }),
         )
 
+  const dataComponent = dataComponentProp ?? 'Dialog'
   return (
     <DialogContext.Provider value={DIALOG_CONTEXT_VALUE}>
       <Portal>
@@ -390,19 +398,23 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           }}
         >
           <div
-            ref={dialogRef}
+            ref={mergedDialogRef}
             role={role}
             aria-labelledby={dialogLabelId}
             aria-describedby={dialogDescriptionId}
             aria-modal
             {...positionDataAttributes}
             {...(align && {'data-align': align})}
-            data-width={width}
+            data-width={isWidthMapKey(width) ? width : undefined}
             data-height={height}
             data-has-footer={hasFooter ? '' : undefined}
             data-footer-button-layout={hasFooter ? footerButtonLayout : undefined}
             className={clsx(className, classes.Dialog)}
-            style={style}
+            style={{
+              ...style,
+              ...(!isWidthMapKey(width) ? {'--dialog-width': normalizeWidth(width)} : {}),
+            }}
+            data-component={dataComponent}
           >
             {header}
             <ScrollableRegion aria-labelledby={dialogLabelId} className={classes.DialogOverflowWrapper}>
@@ -420,14 +432,14 @@ _Dialog.displayName = 'Dialog'
 type StyledHeaderProps = React.ComponentProps<'div'>
 
 const Header = React.forwardRef<HTMLDivElement, StyledHeaderProps>(function Header({className, ...rest}, forwardRef) {
-  return <div ref={forwardRef} className={clsx(className, classes.Header)} {...rest} />
+  return <div ref={forwardRef} className={clsx(className, classes.Header)} {...rest} data-component="Dialog.Header" />
 }) as PolymorphicForwardRefComponent<'div', StyledHeaderProps>
 Header.displayName = 'Dialog.Header'
 
 type StyledTitleProps = React.ComponentProps<'h1'>
 
 const Title = React.forwardRef<HTMLHeadingElement, StyledTitleProps>(function Title({className, ...rest}, forwardRef) {
-  return <h1 ref={forwardRef} className={clsx(className, classes.Title)} {...rest} />
+  return <h1 ref={forwardRef} className={clsx(className, classes.Title)} {...rest} data-component="Dialog.Title" />
 })
 Title.displayName = 'Dialog.Title'
 
@@ -437,14 +449,16 @@ const Subtitle = React.forwardRef<HTMLHeadingElement, StyledSubtitleProps>(funct
   {className, ...rest},
   forwardRef,
 ) {
-  return <h2 ref={forwardRef} className={clsx(className, classes.Subtitle)} {...rest} />
+  return (
+    <h2 ref={forwardRef} className={clsx(className, classes.Subtitle)} {...rest} data-component="Dialog.Subtitle" />
+  )
 })
 Subtitle.displayName = 'Dialog.Subtitle'
 
 type StyledBodyProps = React.ComponentProps<'div'>
 
 const Body = React.forwardRef<HTMLDivElement, StyledBodyProps>(function Body({className, ...rest}, forwardRef) {
-  return <div ref={forwardRef} className={clsx(className, classes.Body)} {...rest} />
+  return <div ref={forwardRef} className={clsx(className, classes.Body)} {...rest} data-component="Dialog.Body" />
 }) as PolymorphicForwardRefComponent<'div', StyledBodyProps>
 
 Body.displayName = 'Dialog.Body'
@@ -452,7 +466,7 @@ Body.displayName = 'Dialog.Body'
 type StyledFooterProps = React.ComponentProps<'div'>
 
 const Footer = React.forwardRef<HTMLDivElement, StyledFooterProps>(function Footer({className, ...rest}, forwardRef) {
-  return <div ref={forwardRef} className={clsx(className, classes.Footer)} {...rest} />
+  return <div ref={forwardRef} className={clsx(className, classes.Footer)} {...rest} data-component="Dialog.Footer" />
 }) as PolymorphicForwardRefComponent<'div', StyledFooterProps>
 Footer.displayName = 'Dialog.Footer'
 
@@ -477,6 +491,7 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
         return (
           <Button
             key={index}
+            data-component="Dialog.FooterButton"
             {...buttonProps}
             // 'normal' value is equivalent to 'default', this is used for backwards compatibility
             variant={buttonType === 'normal' ? 'default' : buttonType}
@@ -492,7 +507,15 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
 }
 
 const CloseButton: React.FC<React.PropsWithChildren<{onClose: () => void}>> = ({onClose}) => {
-  return <IconButton icon={XIcon} aria-label="Close" onClick={onClose} variant="invisible" />
+  return (
+    <IconButton
+      icon={XIcon}
+      aria-label="Close"
+      onClick={onClose}
+      variant="invisible"
+      data-component="Dialog.CloseButton"
+    />
+  )
 }
 
 /**
@@ -522,7 +545,6 @@ Footer.__SLOT__ = Symbol('Dialog.Footer')
 Body.__SLOT__ = Symbol('Dialog.Body')
 
 export const Dialog = Object.assign(_Dialog, {
-  __SLOT__: Symbol('Dialog'),
   Header,
   Title,
   Subtitle,

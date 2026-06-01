@@ -9,7 +9,6 @@ import VisuallyHidden from '../../../_VisuallyHidden'
 import {useSlots} from '../../../hooks/useSlots'
 import classes from './CheckboxOrRadioGroup.module.css'
 import {clsx} from 'clsx'
-import {isSlot} from '../../../utils/is-slot'
 
 export type CheckboxOrRadioGroupProps = {
   /** Class name for custom styling */
@@ -31,6 +30,7 @@ export type CheckboxOrRadioGroupProps = {
    * If true, the user must make a selection before the owning form can be submitted
    */
   required?: boolean
+  'data-component'?: string
 }
 
 const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGroupProps>> = ({
@@ -40,29 +40,16 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
   id: idProp,
   required = false,
   className,
+  'data-component': dataComponentProp,
 }) => {
   const [slots, rest] = useSlots(children, {
     caption: CheckboxOrRadioGroupCaption,
     label: CheckboxOrRadioGroupLabel,
     validation: CheckboxOrRadioGroupValidation,
   })
-  const labelChild = React.Children.toArray(children).find(
-    child =>
-      React.isValidElement(child) &&
-      (child.type === CheckboxOrRadioGroupLabel || isSlot(child, CheckboxOrRadioGroupLabel)),
-  )
-  const validationChild = React.Children.toArray(children).find(child =>
-    React.isValidElement(child) &&
-    (child.type === CheckboxOrRadioGroupValidation || isSlot(child, CheckboxOrRadioGroupValidation))
-      ? child
-      : null,
-  )
-  const captionChild = React.Children.toArray(children).find(child =>
-    React.isValidElement(child) &&
-    (child.type === CheckboxOrRadioGroupCaption || isSlot(child, CheckboxOrRadioGroupCaption))
-      ? child
-      : null,
-  )
+  const labelChild = slots.label
+  const validationChild = slots.validation
+  const captionChild = slots.caption
   const id = useId(idProp)
   const validationMessageId = validationChild ? `${id}-validationMessage` : undefined
   const captionId = captionChild ? `${id}-caption` : undefined
@@ -86,10 +73,12 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
         required,
         captionId,
         validationMessageId,
+        parentName: dataComponentProp,
       }}
     >
       <div>
         <Component
+          data-component={dataComponentProp}
           className={clsx(className, classes.GroupFieldset)}
           data-validation={validationChild ? '' : undefined}
           {...(labelChild
