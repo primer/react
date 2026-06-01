@@ -51,20 +51,28 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
   ({children, className, as: BaseComponent = 'div', 'aria-label': ariaLabel, role, hasBorder}, forwardedRef) => {
     const rootRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
 
-    // Hoist title size + navigation visibility off direct children onto the
-    // root so styling can use plain attribute selectors instead of `:has()`.
-    let titleVariant: TitleAreaProps['variant'] = 'medium'
+    // Hoist title size + navigation visibility off children onto the root so
+    // styling can use plain attribute selectors instead of `:has()`. We descend
+    // into fragments so this matches the previous DOM-based `:has()` selectors,
+    // which saw through fragment wrappers. `titleVariant` stays undefined when
+    // no TitleArea is rendered so the root doesn't emit title sizing in that case.
+    let titleVariant: TitleAreaProps['variant'] | undefined
     let hasNavigation = false
     let navigationHidden: NavigationProps['hidden'] | undefined
-    for (const child of React.Children.toArray(children)) {
-      if (!React.isValidElement(child)) continue
-      if (child.type === TitleArea) {
-        titleVariant = (child.props as TitleAreaProps).variant ?? 'medium'
-      } else if (child.type === Navigation) {
-        hasNavigation = true
-        navigationHidden = (child.props as NavigationProps).hidden ?? false
+    const hoistChildState = (nodes: React.ReactNode) => {
+      for (const child of React.Children.toArray(nodes)) {
+        if (!React.isValidElement(child)) continue
+        if (child.type === React.Fragment) {
+          hoistChildState((child.props as {children?: React.ReactNode}).children)
+        } else if (child.type === TitleArea) {
+          titleVariant = (child.props as TitleAreaProps).variant ?? 'medium'
+        } else if (child.type === Navigation) {
+          hasNavigation = true
+          navigationHidden = (child.props as NavigationProps).hidden ?? false
+        }
       }
     }
+    hoistChildState(children)
 
     const isInteractive = (element: HTMLElement) => {
       return (
