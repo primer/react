@@ -355,15 +355,19 @@ export const RepositionAfterLoading = () => {
 
   const [loading, setLoading] = useState(true)
 
+  const handleOpenChange = (isOpen: boolean) => {
+    if (!isOpen) setLoading(true)
+    setOpen(isOpen)
+  }
+
   React.useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- Reset loading state when panel closes
-    if (!open) setLoading(true)
-    window.setTimeout(() => {
+    const timer = window.setTimeout(() => {
       if (open) {
         setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
         setLoading(false)
       }
     }, 2000)
+    return () => window.clearTimeout(timer)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open])
 
@@ -383,7 +387,7 @@ export const RepositionAfterLoading = () => {
           title="Select labels"
           placeholderText="Filter Labels"
           open={open}
-          onOpenChange={setOpen}
+          onOpenChange={handleOpenChange}
           items={filteredItems}
           selected={selected}
           onSelectedChange={setSelected}
@@ -403,15 +407,19 @@ export const SelectPanelRepositionInsideDialog = () => {
 
   const [loading, setLoading] = useState(true)
 
+  const handleOpenChange = (isOpen: boolean) => {
+    if (!isOpen) setLoading(true)
+    setOpen(isOpen)
+  }
+
   React.useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- Reset loading state when panel closes
-    if (!open) setLoading(true)
-    window.setTimeout(() => {
+    const timer = window.setTimeout(() => {
       if (open) {
         setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
         setLoading(false)
       }
     }, 2000)
+    return () => window.clearTimeout(timer)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open])
 
@@ -431,7 +439,7 @@ export const SelectPanelRepositionInsideDialog = () => {
           title="Select labels"
           placeholderText="Filter Labels"
           open={open}
-          onOpenChange={setOpen}
+          onOpenChange={handleOpenChange}
           items={filteredItems}
           selected={selected}
           onSelectedChange={setSelected}
@@ -452,9 +460,12 @@ export const AutogrowAfterLoadingWithOutsideTopAnchor = () => {
   const [filteredItems, setFilteredItems] = React.useState<typeof autogrowItems>([])
   const [loading, setLoading] = useState(true)
 
+  const handleOpenChange = (isOpen: boolean) => {
+    if (!isOpen) setLoading(true)
+    setOpen(isOpen)
+  }
+
   React.useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- Reset loading state when panel closes
-    if (!open) setLoading(true)
     const timer = window.setTimeout(() => {
       if (open) {
         setFilteredItems(autogrowItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
@@ -481,7 +492,7 @@ export const AutogrowAfterLoadingWithOutsideTopAnchor = () => {
         title="Select labels"
         placeholderText="Filter Labels"
         open={open}
-        onOpenChange={setOpen}
+        onOpenChange={handleOpenChange}
         items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
