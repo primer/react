@@ -48,6 +48,106 @@ ways teams want to build with Primer. These include:
 - Low-level (base) components and utilities for common patterns, techniques, behaviors,
   etc
 
+Our team will deliver the following low-level components:
+
+- Accordion
+- Combobox
+- Disclosure
+- Dialog
+- Listbox
+- Menu
+- Menubar
+- Tree
+
+In order to facilitate development of new feature or functionality using
+established patterns. These will be used alongside existing low-level components
+and utilities such as:
+
+- Hidden
+- ScrollableRegion
+- VisuallyHidden
+- Truncate
+- AriaAlert
+- AriaStatus
+- Tabs
+- useFocusTrap
+- useMergedRefs
+- useRovingTabIndex
+
+In addition, our team will update our components to better support the
+component API spectrum.
+
+| Component           | Config | Presentational | Base | Notes |
+| :------------------ | :----- | :------------- | :--- | :---- |
+| ActionBar           |        |                |      |       |
+| ActionList          |        |                |      |       |
+| ActionMenu          |        |                |      |       |
+| AnchoredOverlay     |        |                |      |       |
+| Autocomplete        |        |                |      |       |
+| Avatar              |        |                |      |       |
+| AvatarStack         |        |                |      |       |
+| Banner              |        |                |      |       |
+| Blankslate          |        |                |      |       |
+| BranchName          |        |                |      |       |
+| Breadcrumbs         |        |                |      |       |
+| Button              |        |                |      |       |
+| ButtonGroup         |        |                |      |       |
+| Card                |        |                |      |       |
+| Checkbox            |        |                |      |       |
+| CheckboxGroup       |        |                |      |       |
+| CircleBadge         |        |                |      |       |
+| ConfirmationDialog  |        |                |      |       |
+| CounterLabel        |        |                |      |       |
+| DataTable           |        |                |      |       |
+| Details             |        |                |      |       |
+| Dialog              |        |                |      |       |
+| FilteredActionList  |        |                |      |       |
+| FormControl         |        |                |      |       |
+| Header              |        |                |      |       |
+| Heading             |        |                |      |       |
+| InlineMessage       |        |                |      |       |
+| KeybindingHint      |        |                |      |       |
+| Label               |        |                |      |       |
+| LabelGroup          |        |                |      |       |
+| Link                |        |                |      |       |
+| NavList             |        |                |      |       |
+| Overlay             |        |                |      |       |
+| PageHeader          |        |                |      |       |
+| PageLayout          |        |                |      |       |
+| Pagehead            |        |                |      |       |
+| Pagination          |        |                |      |       |
+| Placeholder         |        |                |      |       |
+| Popover             |        |                |      |       |
+| ProgressBar         |        |                |      |       |
+| Radio               |        |                |      |       |
+| RadioGroup          |        |                |      |       |
+| RelativeTime        |        |                |      |       |
+| SegmentedControl    |        |                |      |       |
+| Select              |        |                |      |       |
+| SelectPanel         |        |                |      |       |
+| SideNav             |        |                |      |       |
+| Skeleton            |        |                |      |       |
+| SkeletonAvatar      |        |                |      |       |
+| SkeletonText        |        |                |      |       |
+| Spinner             |        |                |      |       |
+| SplitPageLayout     |        |                |      |       |
+| Stack               |        |                |      |       |
+| StateLabel          |        |                |      |       |
+| SubNav              |        |                |      |       |
+| TabNav              |        |                |      |       |
+| Text                |        |                |      |       |
+| TextInput           |        |                |      |       |
+| TextInputWithTokens |        |                |      |       |
+| Textarea            |        |                |      |       |
+| Timeline            |        |                |      |       |
+| ToggleSwitch        |        |                |      |       |
+| Token               |        |                |      |       |
+| Tooltip             |        |                |      |       |
+| TooltipV2           |        |                |      |       |
+| TopicTag            |        |                |      |       |
+| TreeView            |        |                |      |       |
+| UnderlineNav        |        |                |      |       |
+
 ### Config components
 
 These components are "all-in-one"; they provide a high level of abstraction that
