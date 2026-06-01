@@ -2322,6 +2322,7 @@ describe('SelectPanel - First-Open Sizing with Loading State', () => {
     // Simulate items loading after a delay (typical async data fetch)
     React.useEffect(() => {
       if (!open) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect -- Reset loading state for test fixture
         setLoading(true)
         setVisibleItems([])
       }

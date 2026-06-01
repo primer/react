@@ -373,6 +373,7 @@ export const RepositionAfterLoading = () => {
 
   React.useEffect(() => {
     if (!loading) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Updating filtered items based on filter change
       setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -425,6 +426,7 @@ export const SelectPanelRepositionInsideDialog = () => {
 
   React.useEffect(() => {
     if (!loading) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Updating filtered items based on filter change
       setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -479,6 +481,7 @@ export const AutogrowAfterLoadingWithOutsideTopAnchor = () => {
 
   React.useEffect(() => {
     if (!loading) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Updating filtered items based on filter change
       setFilteredItems(autogrowItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -682,6 +685,7 @@ export const VirtualizedConsumerSide = () => {
     [open],
   )
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const virtualizer = useVirtualizer({
     count: filteredItems.length,
     getScrollElement: () => scrollContainer ?? null,
