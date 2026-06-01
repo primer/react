@@ -1,5 +1,11 @@
 # @primer/styled-react
 
+## 1.1.0
+
+### Minor Changes
+
+- [#7898](https://github.com/primer/react/pull/7898) [`da27739`](https://github.com/primer/react/commit/da2773915b5d299fd5971322f41dc9a2cfb8a13a) Thanks [@francinelucca](https://github.com/francinelucca)! - ThemeProvider: Add `contextOnly` prop as a no-op to match the `@primer/react` API
+
 ## 1.0.9
 
 ### Patch Changes
