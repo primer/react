@@ -70,7 +70,7 @@ export const VisualOrIndicator: React.FC<
   }
 
   return inactiveText ? (
-    <span className={classes.InactiveButtonWrap}>
+    <span className={classes.InactiveButtonWrap} data-position={position}>
       <Tooltip text={inactiveText} type="description">
         <button type="button" className={classes.InactiveButtonReset} aria-labelledby={labelId}>
           <VisualComponent>
