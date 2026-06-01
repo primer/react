@@ -56,23 +56,37 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
     // into fragments so this matches the previous DOM-based `:has()` selectors,
     // which saw through fragment wrappers. `titleVariant` stays undefined when
     // no TitleArea is rendered so the root doesn't emit title sizing in that case.
-    let titleVariant: TitleAreaProps['variant'] | undefined
-    let hasNavigation: boolean = false
-    let navigationHidden: NavigationProps['hidden'] | undefined
-    const hoistChildState = (nodes: React.ReactNode) => {
+    //
+    // We return the hoisted state (rather than mutating closure variables) so
+    // TypeScript's control-flow analysis keeps the correct types at the usage
+    // sites below — a value mutated inside a closure stays narrowed to its
+    // initializer (e.g. `hasNavigation` would otherwise be typed as `false`).
+    type HoistedChildState = {
+      titleVariant?: TitleAreaProps['variant']
+      hasNavigation: boolean
+      navigationHidden?: NavigationProps['hidden']
+    }
+    const hoistChildState = (nodes: React.ReactNode): HoistedChildState => {
+      const result: HoistedChildState = {hasNavigation: false}
       for (const child of React.Children.toArray(nodes)) {
         if (!React.isValidElement(child)) continue
         if (child.type === React.Fragment) {
-          hoistChildState((child.props as {children?: React.ReactNode}).children)
+          const nested = hoistChildState((child.props as {children?: React.ReactNode}).children)
+          if (nested.titleVariant !== undefined) result.titleVariant = nested.titleVariant
+          if (nested.hasNavigation) {
+            result.hasNavigation = true
+            result.navigationHidden = nested.navigationHidden
+          }
         } else if (child.type === TitleArea) {
-          titleVariant = (child.props as TitleAreaProps).variant ?? 'medium'
+          result.titleVariant = (child.props as TitleAreaProps).variant ?? 'medium'
         } else if (child.type === Navigation) {
-          hasNavigation = true
-          navigationHidden = (child.props as NavigationProps).hidden ?? false
+          result.hasNavigation = true
+          result.navigationHidden = (child.props as NavigationProps).hidden ?? false
         }
       }
+      return result
     }
-    hoistChildState(children)
+    const {titleVariant, hasNavigation, navigationHidden} = hoistChildState(children)
 
     const isInteractive = (element: HTMLElement) => {
       return (
