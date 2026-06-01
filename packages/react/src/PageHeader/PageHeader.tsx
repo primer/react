@@ -57,7 +57,7 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
     // which saw through fragment wrappers. `titleVariant` stays undefined when
     // no TitleArea is rendered so the root doesn't emit title sizing in that case.
     let titleVariant: TitleAreaProps['variant'] | undefined
-    let hasNavigation = false
+    let hasNavigation: boolean = false
     let navigationHidden: NavigationProps['hidden'] | undefined
     const hoistChildState = (nodes: React.ReactNode) => {
       for (const child of React.Children.toArray(nodes)) {
