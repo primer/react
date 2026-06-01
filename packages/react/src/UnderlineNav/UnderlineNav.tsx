@@ -62,6 +62,15 @@ export const UnderlineNav = forwardRef(
     const isOverflowing = menuItems.length > 0
     if (isOverflowing && !hasEverOverflowed) setHasOverflowed(true)
 
+    // Find the current item if it has overflowed into the menu, so we can reflect
+    // its "current" state on the overflow menu anchor.
+    const overflowingCurrentItem = menuItems.find(
+      ([, itemProps]) =>
+        itemProps['aria-current'] !== undefined &&
+        itemProps['aria-current'] !== false &&
+        itemProps['aria-current'] !== 'false',
+    )?.[1]
+
     if (__DEV__) {
       const validChildren = getValidChildren(children)
 
@@ -106,7 +115,16 @@ export const UnderlineNav = forwardRef(
             <div className={classes.MoreButtonDivider} />
 
             <ActionMenu>
-              <ActionMenu.Button className={classes.MoreButton} data-component="overflow-menu-button">
+              <ActionMenu.Button
+                className={classes.MoreButton}
+                data-component="overflow-menu-button"
+                data-current={overflowingCurrentItem ? 'true' : 'false'}
+                aria-label={
+                  overflowingCurrentItem
+                    ? `More items, including current item ${overflowingCurrentItem.children}`
+                    : undefined
+                }
+              >
                 <span>
                   More<VisuallyHidden as="span"> items</VisuallyHidden>
                 </span>
