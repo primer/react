@@ -201,7 +201,7 @@ describe.each([true, false])(
       })
     })
 
-    it('renders data-component attribute on the responsive close button container when shown', () => {
+    it('renders data-component attribute on the responsive close button when shown', () => {
       const {baseElement} = render(
         <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
           <BaseStyles>
@@ -218,7 +218,7 @@ describe.each([true, false])(
         </FeatureFlags>,
       )
 
-      expect(baseElement.querySelector('[data-component="AnchoredOverlay.CloseButtonContainer"]')).toBeInTheDocument()
+      expect(baseElement.querySelector('[data-component="AnchoredOverlay.CloseButton"]')).toBeInTheDocument()
     })
 
     it('should support a `ref` through `overlayProps` on the overlay element', () => {
