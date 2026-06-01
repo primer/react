@@ -11,13 +11,15 @@
 
 ## Context
 
-When building with Primer, teams are running into two scenarios:
+When building with Primer, teams can run into one or more of the following scenarios:
 
 - It can be difficult to extend or add new functionality to a component
+- It can be difficult to customize the appearance, content, or semantics of a
+  component
 - It can be difficult to build new experiences using established patterns (like accessibility primitives)
 
 These challenges lead to custom implementations, forks, or overrides of Primer
-components and leads to adoption challenges and ecosystem fragmentation.
+components that reuslt in adoption challenges and ecosystem fragmentation.
 
 ### Examples
 
