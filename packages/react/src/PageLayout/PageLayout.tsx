@@ -1016,7 +1016,7 @@ Pane.displayName = 'PageLayout.Pane'
 // ----------------------------------------------------------------------------
 // PageLayout.Sidebar
 
-export type PageLayoutSidebarProps = {
+export type PageLayoutSidebarBaseProps = {
   /**
    * A unique label for the sidebar region
    */
@@ -1034,7 +1034,10 @@ export type PageLayoutSidebarProps = {
   position?: 'start' | 'end'
 
   /**
-   * Width configuration for the sidebar
+   * Width configuration for the sidebar.
+   *
+   * When `resizable` is enabled, this defines the default width and constraints
+   * (min/max bounds for dragging). Use `currentWidth` to control the displayed width.
    */
   width?: PaneWidth | CustomWidthOptions
 
@@ -1052,7 +1055,7 @@ export type PageLayoutSidebarProps = {
 
   /**
    * localStorage key used to persist the sidebar width across sessions.
-   * Only applies when `resizable` is `true`.
+   * Only applies when `resizable` is `true` and no `onResizeEnd` callback is provided.
    * When omitted, localStorage is not used.
    */
   widthStorageKey?: string
@@ -1096,6 +1099,28 @@ export type PageLayoutSidebarProps = {
   style?: React.CSSProperties
 }
 
+export type PageLayoutSidebarProps = PageLayoutSidebarBaseProps &
+  (
+    | {
+        /**
+         * Callback fired when a resize operation ends (drag release or keyboard key up).
+         * When provided, this callback is used instead of localStorage persistence.
+         */
+        onResizeEnd: (width: number) => void
+        /**
+         * Current/controlled width value in pixels.
+         * When provided, this is used as the current sidebar width instead of internal state.
+         * The `width` prop still defines the default used when resetting (e.g., double-click).
+         * Pass `undefined` when the persisted value has not loaded yet (e.g., async fetch).
+         */
+        currentWidth: number | undefined
+      }
+    | {
+        onResizeEnd?: never
+        currentWidth?: never
+      }
+  )
+
 const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutSidebarProps>>(
   (
     {
@@ -1104,6 +1129,8 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
       position = 'start',
       width = 'medium',
       minWidth = 256,
+      currentWidth: controlledWidth,
+      onResizeEnd,
       padding = 'none',
       resizable = false,
       widthStorageKey,
@@ -1138,6 +1165,8 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
         handleRef,
         contentWrapperRef: sidebarContentWrapperRef,
         constrainToViewport: true,
+        onResizeEnd,
+        currentWidth: controlledWidth,
       })
 
     const mergedSidebarRef = useMergedRefs(forwardRef, sidebarRef)
@@ -1199,7 +1228,8 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLay
           ref={mergedSidebarRef}
           // Suppress hydration mismatch for --pane-width when localStorage
           // provides a width that differs from the server-rendered default.
-          suppressHydrationWarning={resizable === true && !!widthStorageKey}
+          // Not needed when onResizeEnd is provided (localStorage isn't read).
+          suppressHydrationWarning={resizable === true && !!widthStorageKey && !onResizeEnd}
           {...(hasOverflow ? overflowProps : {})}
           {...labelProp}
           {...(id && {id: sidebarId})}

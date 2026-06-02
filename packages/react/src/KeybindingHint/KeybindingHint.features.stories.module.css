@@ -7,3 +7,19 @@
   background-color: var(--button-primary-bgColor-rest);
   padding: var(--base-size-12);
 }
+
+.PlatformTable {
+  /* stylelint-disable-next-line primer/borders -- collapse is a layout keyword, not a border size */
+  border-collapse: collapse;
+}
+
+.PlatformCell {
+  padding: var(--base-size-8) var(--base-size-12);
+  text-align: left;
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+}
+
+.PlatformHeader {
+  color: var(--fgColor-muted);
+  font-weight: var(--base-text-weight-semibold);
+}

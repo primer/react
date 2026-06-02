@@ -356,6 +356,42 @@ describe('PageLayout', async () => {
       fireEvent.keyDown(handle, {key: 'End'})
     })
 
+    it('uses controlled `currentWidth` for the rendered --pane-width when provided', () => {
+      const onResizeEnd = vi.fn()
+      const {container} = render(
+        <PageLayout>
+          <PageLayout.Content>Content</PageLayout.Content>
+          <PageLayout.Sidebar resizable currentWidth={400} onResizeEnd={onResizeEnd}>
+            Sidebar
+          </PageLayout.Sidebar>
+        </PageLayout>,
+      )
+
+      const sidebar = container.querySelector<HTMLElement>('[class*="Sidebar"][data-resizable]')
+      expect(sidebar).not.toBeNull()
+      expect(sidebar!.style.getPropertyValue('--pane-width')).toBe('400px')
+    })
+
+    it('invokes onResizeEnd after a keyboard resize gesture', () => {
+      const onResizeEnd = vi.fn()
+      render(
+        <PageLayout>
+          <PageLayout.Content>Content</PageLayout.Content>
+          <PageLayout.Sidebar resizable currentWidth={300} onResizeEnd={onResizeEnd}>
+            Sidebar
+          </PageLayout.Sidebar>
+        </PageLayout>,
+      )
+
+      const handle = screen.getByRole('slider')
+      handle.focus()
+      fireEvent.keyDown(handle, {key: 'ArrowRight'})
+      fireEvent.keyUp(handle, {key: 'ArrowRight'})
+
+      expect(onResizeEnd).toHaveBeenCalledTimes(1)
+      expect(typeof onResizeEnd.mock.calls[0][0]).toBe('number')
+    })
+
     it('respects different position values (start, end)', () => {
       const {rerender, container} = render(
         <PageLayout>

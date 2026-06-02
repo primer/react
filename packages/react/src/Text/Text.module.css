@@ -29,4 +29,24 @@
   &:where([data-weight='semibold']) {
     font-weight: var(--base-text-weight-semibold);
   }
+
+  &:where([data-white-space='pre']) {
+    white-space: pre;
+  }
+
+  &:where([data-white-space='normal']) {
+    white-space: normal;
+  }
+
+  &:where([data-white-space='nowrap']) {
+    white-space: nowrap;
+  }
+
+  &:where([data-white-space='pre-wrap']) {
+    white-space: pre-wrap;
+  }
+
+  &:where([data-white-space='pre-line']) {
+    white-space: pre-line;
+  }
 }

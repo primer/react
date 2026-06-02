@@ -2,6 +2,7 @@ import {Fragment} from 'react'
 import type {KeybindingHintProps} from '../props'
 import VisuallyHidden from '../../_VisuallyHidden'
 import {accessibleChordString, Chord} from './Chord'
+import type {Platform} from '../platform'
 
 const splitSequence = (sequence: string) => sequence.split(' ')
 
@@ -21,7 +22,7 @@ export const Sequence = ({keys, ...chordProps}: KeybindingHintProps) =>
   ))
 
 /** Plain string version of `Sequence` for use in `aria` string attributes. */
-export const accessibleSequenceString = (sequence: string, isMacOS: boolean) =>
+export const accessibleSequenceString = (sequence: string, platform: Platform) =>
   splitSequence(sequence)
-    .map(chord => accessibleChordString(chord, isMacOS))
+    .map(chord => accessibleChordString(chord, platform))
     .join(' then ')

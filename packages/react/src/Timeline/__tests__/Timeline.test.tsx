@@ -92,3 +92,21 @@ describe('Timeline.Actions', () => {
     expect(container.firstChild).toHaveAttribute('data-foo', 'bar')
   })
 })
+
+describe('Timeline.Avatar', () => {
+  implementsClassName(Timeline.Avatar, classes.TimelineItemAvatar)
+
+  it('renders children', () => {
+    const {getByTestId} = render(
+      <Timeline.Avatar>
+        <span data-testid="avatar-child">avatar</span>
+      </Timeline.Avatar>,
+    )
+    expect(getByTestId('avatar-child')).toBeInTheDocument()
+  })
+
+  it('forwards additional props to the underlying element', () => {
+    const {container} = render(<Timeline.Avatar data-foo="bar" />)
+    expect(container.firstChild).toHaveAttribute('data-foo', 'bar')
+  })
+})

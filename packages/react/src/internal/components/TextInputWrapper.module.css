@@ -33,7 +33,7 @@
   }
 
   &:where([data-trailing-action][data-focused]),
-  &:where(:not([data-trailing-action]):focus-within) {
+  &:where([data-no-trailing-action]:focus-within) {
     border-color: var(--borderColor-accent-emphasis);
     outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
     outline-offset: -1px;
@@ -70,7 +70,7 @@
     border-color: var(--borderColor-danger-emphasis);
 
     &:where([data-trailing-action][data-focused]),
-    &:where(:not([data-trailing-action])):focus-within {
+    &:where([data-no-trailing-action]):focus-within {
       border-color: var(--control-borderColor-danger);
       outline: 2px solid var(--control-borderColor-danger);
       outline-offset: -1px;
@@ -182,13 +182,13 @@
   }
 
   /* With trailing visual */
-  &:where([data-trailing-visual]:not([data-trailing-action])) {
+  &:where([data-trailing-visual][data-no-trailing-action]) {
     padding-right: var(--base-size-8);
   }
 
   /* Only trailing visual */
-  &:where(:not([data-leading-visual])[data-trailing-visual]),
-  &:where(:not([data-leading-visual])[data-trailing-action]) {
+  &:where([data-no-leading-visual][data-trailing-visual]),
+  &:where([data-no-leading-visual][data-trailing-action]) {
     > input,
     > select {
       padding-left: var(--base-size-8);
@@ -196,14 +196,14 @@
   }
 
   /* Only leading visual */
-  &:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
-  &:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  &:where([data-no-trailing-visual][data-no-trailing-action]) > input,
+  &:where([data-no-trailing-visual][data-no-trailing-action]) > select {
     padding-right: var(--base-size-8);
   }
 
   /* No visuals at all */
-  &:where(:not([data-leading-visual]):not([data-trailing-visual]):not([data-trailing-action])) > input,
-  &:where(:not([data-leading-visual]):not([data-trailing-visual]):not([data-trailing-action])) > select {
+  &:where([data-no-leading-visual][data-no-trailing-visual][data-no-trailing-action]) > input,
+  &:where([data-no-leading-visual][data-no-trailing-visual][data-no-trailing-action]) > select {
     padding-left: var(--base-size-12);
     padding-right: var(--base-size-12);
   }
@@ -215,7 +215,7 @@
     padding-left: var(--base-size-12);
   }
 
-  &:where([data-trailing-visual]:not([data-trailing-action])) {
+  &:where([data-trailing-visual][data-no-trailing-action]) {
     padding-right: var(--base-size-12);
   }
 }
