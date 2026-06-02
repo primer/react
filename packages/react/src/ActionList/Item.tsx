@@ -2,7 +2,7 @@ import React, {type JSX} from 'react'
 import {useId} from '../hooks/useId'
 import {useSlots} from '../hooks/useSlots'
 import {ActionListContainerContext} from './ActionListContainerContext'
-import {Description} from './Description'
+import {Description, type ActionListDescriptionProps} from './Description'
 import {GroupContext} from './Group'
 import type {ActionListItemProps, ActionListProps} from './shared'
 import {Selection} from './Selection'
@@ -77,7 +77,17 @@ const baseSlots = {
   subItem: SubItem,
 }
 
-const slotsConfig = {...baseSlots, description: Description}
+const slotsConfig = {
+  ...baseSlots,
+  inlineDescription: [Description, (props: ActionListDescriptionProps) => props.variant !== 'block'] as [
+    typeof Description,
+    (props: ActionListDescriptionProps) => boolean,
+  ],
+  blockDescription: [Description, (props: ActionListDescriptionProps) => props.variant === 'block'] as [
+    typeof Description,
+    (props: ActionListDescriptionProps) => boolean,
+  ],
+}
 
 // Pre-allocated array for selectableRoles check, avoids per-render allocation
 const selectableRoles = ['menuitemradio', 'menuitemcheckbox', 'option', 'treeitem']
@@ -107,7 +117,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
 ): JSX.Element => {
   const [partialSlots, childrenWithoutSlots] = useSlots(props.children, slotsConfig)
 
-  const slots = {description: undefined, ...partialSlots}
+  const slots = {inlineDescription: undefined, blockDescription: undefined, ...partialSlots}
 
   const {container, afterSelect, selectionAttribute, defaultTrailingVisual} =
     React.useContext(ActionListContainerContext)
@@ -223,11 +233,12 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
 
   const focusable = showInactiveIndicator ? true : undefined
 
-  // Extract the variant prop value from the description slot component
-  const descriptionVariant = slots.description?.props.variant ?? 'inline'
-
   const hasTrailingVisualSlot = Boolean(slots.trailingVisual)
-  const hasDescriptionSlot = Boolean(slots.description)
+  const hasInlineDescriptionSlot = Boolean(slots.inlineDescription)
+  const hasBlockDescriptionSlot = Boolean(slots.blockDescription)
+  const hasDescriptionSlot = hasInlineDescriptionSlot || hasBlockDescriptionSlot
+  const descriptionVariant =
+    hasInlineDescriptionSlot && hasBlockDescriptionSlot ? 'inline-block' : hasInlineDescriptionSlot ? 'inline' : 'block'
 
   const ariaLabelledBy = React.useMemo(() => {
     const parts = [labelId]
@@ -237,11 +248,11 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
 
   const ariaDescribedBy = React.useMemo(() => {
     const parts: string[] = []
-    if (hasDescriptionSlot && descriptionVariant === 'block') parts.push(blockDescriptionId)
-    if (hasDescriptionSlot && descriptionVariant === 'inline') parts.push(inlineDescriptionId)
+    if (hasInlineDescriptionSlot) parts.push(inlineDescriptionId)
+    if (hasBlockDescriptionSlot) parts.push(blockDescriptionId)
     if (inactiveWarningId) parts.push(inactiveWarningId)
     return parts.length > 0 ? parts.join(' ') : undefined
-  }, [hasDescriptionSlot, descriptionVariant, blockDescriptionId, inlineDescriptionId, inactiveWarningId])
+  }, [hasInlineDescriptionSlot, hasBlockDescriptionSlot, inlineDescriptionId, blockDescriptionId, inactiveWarningId])
 
   const menuItemProps = React.useMemo(
     () => ({
@@ -316,6 +327,14 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
   // (see the JSX below). Mirror the same condition for the styling-related data
   // attributes so the CSS only kicks in when the action is actually in the DOM.
   const trailingActionRendered = !inactive && !loading && !menuContext && Boolean(slots.trailingAction)
+  const itemLabel = (
+    <span id={labelId} className={classes.ItemLabel} data-component="ActionList.Item.Label">
+      {childrenWithoutSlots}
+      {/* Loading message needs to be in here so it is read with the label */}
+      {/* If the item is inactive, we do not simultaneously announce that it is loading */}
+      {loading === true && !inactive && <VisuallyHidden>Loading</VisuallyHidden>}
+    </span>
+  )
 
   return (
     <ItemContext.Provider value={itemContextValue}>
@@ -328,7 +347,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
         data-inactive={inactiveText ? true : undefined}
         data-is-disabled={disabled ? true : undefined}
         data-has-subitem={slots.subItem ? true : undefined}
-        data-has-description={slots.description ? true : false}
+        data-has-description={hasDescriptionSlot ? true : false}
         data-has-trailing-action={trailingActionRendered ? true : undefined}
         data-trailing-action-loading={trailingActionRendered && slots.trailingAction?.props.loading ? true : undefined}
         className={clsx(classes.ActionListItem, className)}
@@ -358,17 +377,24 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
               {/* TODO: next-major: change to data-component="ActionList.Item.DividerContainer" next major version */}
               <span className={classes.ActionListSubContent} data-component="ActionList.Item--DividerContainer">
                 <ConditionalWrapper
-                  if={!!slots.description}
+                  if={hasDescriptionSlot}
                   className={classes.ItemDescriptionWrap}
                   data-description-variant={descriptionVariant}
                 >
-                  <span id={labelId} className={classes.ItemLabel} data-component="ActionList.Item.Label">
-                    {childrenWithoutSlots}
-                    {/* Loading message needs to be in here so it is read with the label */}
-                    {/* If the item is inactive, we do not simultaneously announce that it is loading */}
-                    {loading === true && !inactive && <VisuallyHidden>Loading</VisuallyHidden>}
-                  </span>
-                  {slots.description}
+                  {hasInlineDescriptionSlot && hasBlockDescriptionSlot ? (
+                    <>
+                      <span className={classes.InlineDescriptionWrap}>
+                        {itemLabel}
+                        {slots.inlineDescription}
+                      </span>
+                      {slots.blockDescription}
+                    </>
+                  ) : (
+                    <>
+                      {itemLabel}
+                      {slots.inlineDescription ?? slots.blockDescription}
+                    </>
+                  )}
                 </ConditionalWrapper>
                 <VisualOrIndicator
                   inactiveText={showInactiveIndicator ? inactiveText : undefined}

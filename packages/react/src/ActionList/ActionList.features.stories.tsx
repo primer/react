@@ -250,6 +250,25 @@ export const BlockDescription = () => (
   </ActionList>
 )
 
+export const InlineAndBlockDescription = () => (
+  <ActionList>
+    <ActionList.Item>
+      Low
+      <ActionList.Description>Standard review</ActionList.Description>
+      <ActionList.Description variant="block">Estimated cost: $0.25 - $0.35</ActionList.Description>
+    </ActionList.Item>
+    <ActionList.Item>
+      Medium
+      <ActionList.Description>Deeper analysis</ActionList.Description>
+      <ActionList.Description variant="block">Estimated cost: $1.25 - $2.00</ActionList.Description>
+    </ActionList.Item>
+    <ActionList.Item disabled>
+      High
+      <ActionList.Description>Most thorough review (coming soon)</ActionList.Description>
+    </ActionList.Item>
+  </ActionList>
+)
+
 const projects = [
   {name: 'Primer Backlog', scope: 'GitHub'},
   {name: 'Accessibility', scope: 'GitHub'},

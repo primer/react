@@ -244,7 +244,7 @@
           "type": "React.ReactNode",
           "defaultValue": "",
           "required": true,
-          "description": ""
+          "description": "Items may include one inline description and one block description."
         },
         {
           "name": "variant",

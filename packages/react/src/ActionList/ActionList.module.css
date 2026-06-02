@@ -45,7 +45,8 @@
     }
 
     /* if inline description, move pseudo divider to description wrapper */
-    & [data-description-variant='inline'] {
+    & [data-description-variant='inline'],
+    & [data-description-variant='inline-block'] {
       &::before {
         position: absolute;
 
@@ -297,7 +298,9 @@
         }
 
         & [data-description-variant='inline']::before,
-        & + .ActionListItem [data-description-variant='inline']::before {
+        & [data-description-variant='inline-block']::before,
+        & + .ActionListItem [data-description-variant='inline']::before,
+        & + .ActionListItem [data-description-variant='inline-block']::before {
           visibility: hidden;
         }
       }
@@ -638,6 +641,34 @@ default block */
     flex-direction: row;
     align-items: baseline;
     gap: var(--base-size-8);
+
+    & .ItemLabel {
+      word-break: normal;
+    }
+
+    /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
+    &:has([data-truncate='true']) {
+      & .ItemLabel {
+        flex: 1 0 auto;
+      }
+    }
+
+    & .Description {
+      /* stylelint-disable-next-line primer/typography */
+      line-height: 16px;
+    }
+  }
+
+  &:where([data-description-variant='inline-block']) {
+    position: relative;
+    word-break: normal;
+
+    & .InlineDescriptionWrap {
+      display: flex;
+      flex-direction: row;
+      gap: var(--base-size-8);
+      align-items: baseline;
+    }
 
     & .ItemLabel {
       word-break: normal;

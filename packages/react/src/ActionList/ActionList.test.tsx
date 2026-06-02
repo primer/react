@@ -240,6 +240,31 @@ describe('ActionList', () => {
     expect(item.getAttribute('aria-labelledby')).not.toContain(descriptionId)
   })
 
+  it('renders and references inline and block descriptions together', () => {
+    const {container} = HTMLRender(
+      <ActionList role="listbox" selectionVariant="single" aria-label="List">
+        <ActionList.Item role="option">
+          Item label
+          <ActionList.Description>Inline description</ActionList.Description>
+          <ActionList.Description variant="block">Block description</ActionList.Description>
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const item = container.querySelector('[role="option"]')!
+    const descriptions = container.querySelectorAll('[data-component="ActionList.Description"]')
+    const descriptionWrap = container.querySelector('[data-description-variant="inline-block"]')
+    const inlineDescriptionId = descriptions[0].getAttribute('id')!
+    const blockDescriptionId = descriptions[1].getAttribute('id')!
+
+    expect(descriptionWrap).toBeInTheDocument()
+    expect(descriptions[0]).toHaveTextContent('Inline description')
+    expect(descriptions[1]).toHaveTextContent('Block description')
+    expect(item.getAttribute('aria-describedby')).toBe(`${inlineDescriptionId} ${blockDescriptionId}`)
+    expect(item.getAttribute('aria-labelledby')).not.toContain(inlineDescriptionId)
+    expect(item.getAttribute('aria-labelledby')).not.toContain(blockDescriptionId)
+  })
+
   it('should support size prop on LinkItem', () => {
     const {container} = HTMLRender(
       <ActionList>
