@@ -176,10 +176,52 @@ describe('Dialog', () => {
 
     expect(onClose).not.toHaveBeenCalled()
 
-    await user.keyboard('{Escape}') // escape once to remove focus from the close button
-    await user.keyboard('{Escape}') // escape again to trigger the onClose
+    await user.keyboard('{Escape}')
 
     expect(onClose).toHaveBeenCalledWith('escape')
+  })
+
+  it('calls `onClose` with a single "Escape" keypress when multiple dialogs can be opened', async () => {
+    const user = userEvent.setup()
+
+    function ButtonWithDialog({label, onClose}: {label: string; onClose: () => void}) {
+      const [isOpen, setIsOpen] = React.useState(false)
+      const buttonRef = React.useRef<HTMLButtonElement>(null)
+      return (
+        <>
+          <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
+            {label}
+          </Button>
+          {isOpen && (
+            <Dialog
+              title={label}
+              onClose={() => {
+                onClose()
+                setIsOpen(false)
+              }}
+              returnFocusRef={buttonRef}
+            >
+              body
+            </Dialog>
+          )}
+        </>
+      )
+    }
+
+    const onCloseFirst = vi.fn()
+    const onCloseSecond = vi.fn()
+    const {getByText} = render(
+      <>
+        <ButtonWithDialog label="Dialog 1" onClose={onCloseFirst} />
+        <ButtonWithDialog label="Dialog 2" onClose={onCloseSecond} />
+      </>,
+    )
+
+    await user.click(getByText('Dialog 1'))
+    await user.keyboard('{Escape}')
+
+    expect(onCloseFirst).toHaveBeenCalled()
+    expect(onCloseSecond).not.toHaveBeenCalled()
   })
 
   it('changes the <body> style for `overflow` if it is not set to "hidden"', () => {
