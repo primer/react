@@ -46,17 +46,21 @@ describe('PageHeader', () => {
     expect(container.querySelector('[data-component="PageHeader.ContextArea"]')).toBeInTheDocument()
     expect(container.querySelector('[data-component="PageHeader.ParentLink"]')).toBeInTheDocument()
     expect(container.querySelector('[data-component="PageHeader.ContextBar"]')).toBeInTheDocument()
-    expect(container.querySelector('[data-component="PageHeader.TitleArea"]')).toBeInTheDocument()
     expect(container.querySelector('[data-component="PageHeader.ContextAreaActions"]')).toBeInTheDocument()
-    expect(container.querySelector('[data-component="PageHeader.LeadingAction"]')).toBeInTheDocument()
-    expect(container.querySelector('[data-component="PageHeader.Breadcrumbs"]')).toBeInTheDocument()
-    expect(container.querySelector('[data-component="PageHeader.LeadingVisual"]')).toBeInTheDocument()
-    expect(container.querySelector('[data-component="PageHeader.Title"]')).toBeInTheDocument()
-    expect(container.querySelector('[data-component="PageHeader.TrailingVisual"]')).toBeInTheDocument()
-    expect(container.querySelector('[data-component="PageHeader.TrailingAction"]')).toBeInTheDocument()
-    expect(container.querySelector('[data-component="PageHeader.Actions"]')).toBeInTheDocument()
     expect(container.querySelector('[data-component="PageHeader.Description"]')).toBeInTheDocument()
-    expect(container.querySelector('[data-component="PageHeader.Navigation"]')).toBeInTheDocument()
+
+    // New tests, but we need to update this to data-component="PageHeader.TitleArea later
+    expect(container.querySelector('[data-component="TitleArea"]')).toBeInTheDocument()
+
+    // New tests, but we need to update these from PH_ to PageHeader. later
+    expect(container.querySelector('[data-component="PH_LeadingAction"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="PH_Breadcrumbs"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="PH_LeadingVisual"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="PH_Title"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="PH_TrailingVisual"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="PH_TrailingAction"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="PH_Actions"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="PH_Navigation"]')).toBeInTheDocument()
   })
 
   it('respects the title variant prop', () => {
