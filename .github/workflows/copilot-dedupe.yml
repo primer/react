@@ -18,20 +18,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Start Copilot cloud agent
-        uses: actions/github-script@5c56fde4671bc2d3592fb0f2c5b5bab9ddae03b1
         env:
           BASE_REF: ${{ github.event.workflow_run.head_branch || github.event.repository.default_branch }}
-        with:
           # This must be a user-to-server token with read/write access to actions, contents, issues, and pull requests.
-          github-token: ${{ secrets.COPILOT_AGENT_TOKEN }}
-          script: |
-            await github.request('POST /agents/repos/{owner}/{repo}/tasks', {
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              prompt: 'run dedupe',
-              base_ref: process.env.BASE_REF,
-              create_pull_request: true,
-              headers: {
-                'X-GitHub-Api-Version': '2022-11-28',
-              },
-            });
+          GH_TOKEN: ${{ secrets.COPILOT_AGENT_TOKEN }}
+          PROMPT: run dedupe
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${GH_TOKEN}" ]; then
+            echo "::error::COPILOT_AGENT_TOKEN secret is required to start a Copilot cloud agent task"
+            exit 1
+          fi
+
+          gh api \
+            --method POST \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "/agents/repos/${REPOSITORY}/tasks" \
+            -f "prompt=${PROMPT}" \
+            -f "base_ref=${BASE_REF}" \
+            -F "create_pull_request=true"
