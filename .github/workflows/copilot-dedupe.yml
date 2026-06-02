@@ -13,7 +13,7 @@ concurrency:
 permissions: {}
 
 jobs:
-  run-copilot:
+  run-copilot-on-dedupe-failure:
     if: github.event.workflow_run.conclusion == 'failure'
     runs-on: ubuntu-latest
     steps:
@@ -36,4 +36,7 @@ jobs:
               prompt: 'run dedupe',
               base_ref: process.env.BASE_REF,
               create_pull_request: true,
+              headers: {
+                'X-GitHub-Api-Version': '2022-11-28',
+              },
             });
