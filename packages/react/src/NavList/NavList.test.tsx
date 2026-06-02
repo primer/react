@@ -23,8 +23,8 @@ const NextJSLikeLink = React.forwardRef<HTMLAnchorElement, NextJSLinkProps>(
 describe('NavList', () => {
   implementsClassName(NavList)
 
-  it('renders data-component attributes for NavList and NavList.SubNav', () => {
-    const {container} = render(
+  it('renders data-component attributes for NavList, NavList.Item, and NavList.SubNav', () => {
+    const {container, getByRole} = render(
       <NavList>
         <NavList.Item href="#">Item 1</NavList.Item>
         <NavList.Item>
@@ -40,8 +40,20 @@ describe('NavList', () => {
     expect(nav).toBeInTheDocument()
     expect(nav).toHaveAttribute('data-component', 'NavList')
 
+    const item1Link = getByRole('link', {name: 'Item 1'})
+    expect(item1Link).toBeInTheDocument()
+    expect(item1Link).toHaveAttribute('data-component', 'NavList.Item')
+
+    const item2Button = getByRole('button', {name: 'Item 2'})
+    expect(item2Button).toBeInTheDocument()
+    expect(item2Button).toHaveAttribute('data-component', 'NavList.Item')
+
     const subNav = container.querySelector('[data-component="NavList.SubNav"]')
     expect(subNav).toBeInTheDocument()
+
+    const subItem1Link = getByRole('link', {name: 'Sub Item 1'})
+    expect(subItem1Link).toBeInTheDocument()
+    expect(subItem1Link).toHaveAttribute('data-component', 'NavList.Item')
   })
 
   it('supports TrailingAction', async () => {
