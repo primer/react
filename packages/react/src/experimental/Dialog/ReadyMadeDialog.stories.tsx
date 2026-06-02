@@ -5,7 +5,7 @@ import {Button} from '../../Button'
 import Text from '../../Text'
 
 /**
- * Layer 1 — Ready-made Dialog stories.
+ * Layer 3 — Ready-made Dialog stories.
  *
  * The simplest API: a single `<Dialog>` component with props for
  * title, subtitle, footer buttons, and children as body content.

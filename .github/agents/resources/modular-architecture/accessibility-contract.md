@@ -8,7 +8,7 @@ Use Dialog as the reference example. Apply the same pattern to other components 
 
 ### Dialog example
 
-| Requirement                            | L4 (Hooks)           | L3 (Foundations)                  | L2 (Parts)        | L1 (Ready-made)         |
+| Requirement                            | L0 (Hooks)           | L1 (Foundations)                  | L2 (Parts)        | L3 (Ready-made)         |
 | -------------------------------------- | -------------------- | --------------------------------- | ----------------- | ----------------------- |
 | `role="dialog"` / `role="alertdialog"` | Consumer sets        | ✅ Automatic                      | ✅ Inherited      | ✅ Inherited            |
 | `aria-modal="true"`                    | Consumer sets        | ✅ Automatic                      | ✅ Inherited      | ✅ Inherited            |
@@ -27,13 +27,13 @@ Use Dialog as the reference example. Apply the same pattern to other components 
 
 ## Key principles
 
-### Layer 3 consumer responsibilities
+### Layer 1 consumer responsibilities
 
-At Layer 3, the foundation ships a transparent backdrop by default. Per ARIA APG, `aria-modal="true"` should only be set when background content is **both** non-interactive and visually obscured. Consumers using Layer 3 foundations **must** provide visible backdrop styling to meet this requirement. Layer 2 Parts handle this automatically with Primer tokens.
+At Layer 1, the foundation ships a transparent backdrop by default. Per ARIA APG, `aria-modal="true"` should only be set when background content is **both** non-interactive and visually obscured. Consumers using Layer 1 foundations **must** provide visible backdrop styling to meet this requirement. Layer 2 Parts handle this automatically with Primer tokens.
 
 ### `aria-describedby` guidance
 
-Per ARIA APG, omit `aria-describedby` when content has complex semantic structure (lists, tables, multiple paragraphs) — screen readers announce it as a flat string. At Layer 3+, don't render the Description component if content is complex. At Layer 4, don't call `getDescriptionProps()`.
+Per ARIA APG, omit `aria-describedby` when content has complex semantic structure (lists, tables, multiple paragraphs) — screen readers announce it as a flat string. At Layer 1+, don't render the Description component if content is complex. At Layer 0, don't call `getDescriptionProps()`.
 
 ### Initial focus guidance
 
@@ -41,7 +41,7 @@ For components with complex semantic content, set `initialFocusRef` to a static 
 
 ### Dev-mode warnings
 
-The compound hook (Layer 3) should fire a dev-mode warning when:
+The compound hook (Layer 1) should fire a dev-mode warning when:
 
 - No accessible name is provided (neither `getTitleProps()` called nor `aria-label` passed)
 - Required structural elements are missing
@@ -69,15 +69,15 @@ When building a component with a different ARIA pattern (tabs, menu, listbox, et
 1. **Identify the ARIA APG pattern** — read the W3C ARIA Authoring Practices Guide for the relevant pattern
 2. **List all requirements** — roles, states, properties, keyboard interaction, focus management
 3. **Assign to layers** following the same principle:
-   - L4: Consumer does everything (hook provides raw behaviour only)
-   - L3: Automatic ARIA wiring, focus management, keyboard interaction
-   - L2: Inherits L3 + adds visual styling with Primer tokens
-   - L1: Inherits L2 + maps props to Parts children
-4. **Mark consumer responsibilities** — anything L3 does NOT handle automatically (⚠️) must be documented clearly
+   - L0: Consumer does everything (hook provides raw behaviour only)
+   - L1: Automatic ARIA wiring, focus management, keyboard interaction
+   - L2: Inherits L1 + adds visual styling with Primer tokens
+   - L3: Inherits L2 + maps props to Parts children
+4. **Mark consumer responsibilities** — anything L1 does NOT handle automatically (⚠️) must be documented clearly
 
 ### Tabs example (skeleton)
 
-| Requirement                     | L4 (Hooks)          | L3 (Foundations)          | L2 (Parts)       | L1 (Ready-made)  |
+| Requirement                     | L0 (Hooks)          | L1 (Foundations)          | L2 (Parts)       | L3 (Ready-made)  |
 | ------------------------------- | ------------------- | ------------------------- | ---------------- | ---------------- |
 | `role="tablist"`                | Consumer sets       | ✅ Automatic              | ✅ Inherited     | ✅ Inherited     |
 | `role="tab"` on each tab        | Consumer sets       | ✅ Automatic              | ✅ Inherited     | ✅ Inherited     |

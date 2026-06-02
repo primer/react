@@ -3,7 +3,7 @@ import type {Meta, StoryObj} from '@storybook/react-vite'
 import {useDialog} from '../../foundations/experimental/Dialog'
 
 /**
- * Layer 3 — Foundation stories.
+ * Layer 1 — Foundation stories.
  *
  * These demonstrate `useDialog`, the compound hook that returns
  * prop-getters. The consumer owns **all** markup and styling — the hook

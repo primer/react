@@ -10,12 +10,12 @@ This document defines the Dialog component across all four layers of the [modula
 
 | Layer | Name            | What it provides                                                                  |
 | ----- | --------------- | --------------------------------------------------------------------------------- |
-| 4     | **Hooks**       | Behavioral primitives — state, keyboard, focus, ARIA attributes                   |
-| 3     | **Foundations** | Compound hook with prop-getters — consumer controls markup, foundation wires a11y |
+| 0     | **Hooks**       | Behavioral primitives — state, keyboard, focus, ARIA attributes                   |
+| 1     | **Foundations** | Compound hook with prop-getters — consumer controls markup, foundation wires a11y |
 | 2     | **Parts**       | Primer-styled compositional components                                            |
-| 1     | **Ready-made**  | Props-based API — drop in and go                                                  |
+| 3     | **Ready-made**  | Props-based API — drop in and go                                                  |
 
-Each layer builds on the one below. Most consumers use Layer 1. Teams needing custom layouts use Layer 2. Teams needing custom visuals use Layer 3. Teams needing full control over markup use Layer 4.
+Each layer builds on the one below. Most consumers use Layer 3. Teams needing custom layouts use Layer 2. Teams needing custom visuals use Layer 1. Teams needing full control over markup use Layer 0.
 
 Dialog is the first component to go through this process, so the patterns established here will inform all subsequent components.
 
@@ -102,7 +102,7 @@ When we use `<dialog>` with `showModal()`, we get most ARIA APG requirements aut
 
 ---
 
-## Layer 4: Hooks
+## Layer 0: Hooks
 
 Hooks provide behavioral building blocks with zero markup or styling. They return state, event handlers, and ARIA attributes that consumers wire into their own elements.
 
@@ -199,7 +199,7 @@ Native `<dialog>` handles most of this, but the hook adds:
 - Consistent close gesture reporting (`'escape' | 'close-button' | 'backdrop'`)
 - Backdrop click detection (native `<dialog>` fires `click` on the dialog element itself when backdrop is clicked — needs coordinate-based detection)
 
-> **Layer 4 is native-dialog-specific.** This hook is designed for use with `<dialog>` + `showModal()`. It is not a generic modal hook. Consumers who need full control over markup (no `<dialog>` element) should use the individual behavioral hooks (`useFocusTrap`, `useScrollLock`, `useOnEscapePress`) directly.
+> **Layer 0 is native-dialog-specific.** This hook is designed for use with `<dialog>` + `showModal()`. It is not a generic modal hook. Consumers who need full control over markup (no `<dialog>` element) should use the individual behavioral hooks (`useFocusTrap`, `useScrollLock`, `useOnEscapePress`) directly.
 
 ### `useFocusTrap`
 
@@ -254,7 +254,7 @@ function useScrollLock(options: UseScrollLockOptions): void
 
 ---
 
-## Layer 3: Foundations
+## Layer 1: Foundations
 
 A compound hook returning prop-getters. The consumer controls all markup — the foundation wires up ARIA relationships, focus management, and keyboard behavior.
 
@@ -364,7 +364,7 @@ function MyCustomDialog({open, onClose}) {
 
 ### Behavior
 
-- Internally uses Layer 4 hooks: `useScrollLock` for scroll lock, native `<dialog>` for focus trapping + Escape
+- Internally uses Layer 0 hooks: `useScrollLock` for scroll lock, native `<dialog>` for focus trapping + Escape
 - Intercepts the native `cancel` event (`preventDefault()`) to maintain controlled close contract
 - Auto-generates stable IDs for `aria-labelledby` and `aria-describedby` wiring
 - `getDialogProps()` returns a ref callback that manages `showModal()`/`close()` based on `open` prop
@@ -413,7 +413,7 @@ dialog[data-dialog-foundation]::backdrop {
 
 ## Layer 2: Parts
 
-Primer-styled compositional components. These are styled wrappers around Layer 3 Foundations, using Primer design tokens and CSS modules.
+Primer-styled compositional components. These are styled wrappers around Layer 1 Foundations, using Primer design tokens and CSS modules.
 
 **Import:** `@primer/react`
 
@@ -510,7 +510,7 @@ Parts include open/close animations using the same keyframes as the current Dial
 
 ---
 
-## Layer 1: Ready-made
+## Layer 3: Ready-made
 
 The props-based API that most consumers use. Implemented as a thin wrapper around Layer 2 Parts.
 
@@ -595,7 +595,7 @@ Consolidated requirements that all layers must satisfy:
 
 ### Must have
 
-| Requirement                             | Layer 4 (Hooks)                            | Layer 3 (Foundations)                     | Layer 2 (Parts)      | Layer 1 (Ready-made)            |
+| Requirement                             | Layer 0 (Hooks)                            | Layer 1 (Foundations)                     | Layer 2 (Parts)      | Layer 3 (Ready-made)            |
 | --------------------------------------- | ------------------------------------------ | ----------------------------------------- | -------------------- | ------------------------------- |
 | `role="dialog"` or `role="alertdialog"` | Returns in `dialogProps`                   | Set on `<dialog>`                         | Inherited            | Inherited                       |
 | `aria-modal="true"`                     | Returns in `dialogProps`                   | Implicit from `showModal()`               | Inherited            | Inherited                       |
@@ -613,9 +613,9 @@ Consolidated requirements that all layers must satisfy:
 
 | Key       | Behavior                           | Layer that implements                           |
 | --------- | ---------------------------------- | ----------------------------------------------- |
-| Tab       | Next focusable element (wraps)     | Native `<dialog>` (L3+) or `useFocusTrap` (L4)  |
-| Shift+Tab | Previous focusable element (wraps) | Native `<dialog>` (L3+) or `useFocusTrap` (L4)  |
-| Escape    | Closes dialog                      | Native `cancel` event (L3+) or `useDialog` (L4) |
+| Tab       | Next focusable element (wraps)     | Native `<dialog>` (L1+) or `useFocusTrap` (L0)  |
+| Shift+Tab | Previous focusable element (wraps) | Native `<dialog>` (L1+) or `useFocusTrap` (L0)  |
+| Escape    | Closes dialog                      | Native `cancel` event (L1+) or `useDialog` (L0) |
 
 ### Focus management rules
 
@@ -627,7 +627,7 @@ Consolidated requirements that all layers must satisfy:
 
 ## Deviations from Web Standards
 
-### Using native `<dialog>` (Layer 3 and up)
+### Using native `<dialog>` (Layer 1 and up)
 
 We use native `<dialog>` with `showModal()` as the foundation. This is the standard, not a deviation.
 
@@ -655,11 +655,11 @@ We use native `<dialog>` with `showModal()` as the foundation. This is the stand
 | ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `closedby="any"` attribute enables light dismiss. Clicking the backdrop fires a `click` event on the `<dialog>` element itself. | We detect backdrop clicks by comparing `event.target === event.currentTarget` on the backdrop/dialog, with mousedown tracking to prevent false positives from drags. `closeOnBackdropClick` defaults to `false`. | The native `closedby` attribute is too new for reliable cross-browser use (Chrome 134+, Firefox 137+). Our approach works everywhere and avoids accidental dismissal — important for data-loss-prevention dialogs. Defaulting to `false` follows the principle of not losing user work. |
 
-### Portal rendering (Layer 2+, removed in Layer 3)
+### Portal rendering (Layer 2+, removed in Layer 1)
 
 | Standard behavior                      | Our behavior                                                                                                  | Why                                                                                                                                                                                                                                   |
 | -------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `showModal()` renders in the top layer | Layer 3 uses native top layer. Layer 2 may optionally use Portal for backward compatibility during migration. | Top layer is the correct solution. Portal was needed before `<dialog>` had broad support. During migration, Layer 2 may retain Portal support for consumers with z-index dependencies, but new usage should rely on native top layer. |
+| `showModal()` renders in the top layer | Layer 1 uses native top layer. Layer 2 may optionally use Portal for backward compatibility during migration. | Top layer is the correct solution. Portal was needed before `<dialog>` had broad support. During migration, Layer 2 may retain Portal support for consumers with z-index dependencies, but new usage should rely on native top layer. |
 
 ### Heading level (`<h2>` instead of `<h1>`)
 
@@ -672,15 +672,15 @@ We use native `<dialog>` with `showModal()` as the foundation. This is the stand
 ## Open Questions
 
 1. **`closedby` attribute adoption timeline:** When can we rely on native `closedby` instead of manual backdrop click detection? Need to check GitHub's browser support policy.
-2. **Non-modal dialogs:** This spec covers modal dialogs only. Should Layer 3/4 also support `show()` (non-modal)? The hook layer could support both, with the foundation defaulting to modal.
+2. **Non-modal dialogs:** This spec covers modal dialogs only. Should Layer 0/1 also support `show()` (non-modal)? The hook layer could support both, with the foundation defaulting to modal.
 3. **Animation on close:** Native `<dialog>` doesn't have a built-in close animation. We need CSS `@starting-style` or the `beforetoggle`/`toggle` events to animate close transitions. Browser support for these is still maturing.
-4. **ConfirmationDialog:** Should it be a Layer 1 variant of Dialog, or a separate component? Current implementation is separate. Recommendation: Layer 1 variant with `role="alertdialog"` and a `confirm`/`cancel` button pattern.
+4. **ConfirmationDialog:** Should it be a Layer 3 variant of Dialog, or a separate component? Current implementation is separate. Recommendation: Layer 3 variant with `role="alertdialog"` and a `confirm`/`cancel` button pattern.
 5. **Nested dialogs and stacking:** Multiple modals open simultaneously — how do layers interact? Native `<dialog>` handles top layer stacking, but we need to coordinate scroll lock, Escape handling, and focus restoration across the stack.
 
 ## Resolved Decisions
 
 1. **Controlled close contract:** The dialog is fully controlled by the `open` prop. Native close paths (`cancel` event) are intercepted with `preventDefault()` and routed through `onClose`. `<form method="dialog">` and `returnValue` are explicitly not supported — React state is the source of truth.
-2. **Layer 4 scope:** `useDialog` is native-dialog-specific (requires `<dialog>` + `showModal()`). Consumers who need full markup control without `<dialog>` should use individual hooks (`useFocusTrap`, `useScrollLock`, `useOnEscapePress`) directly.
+2. **Layer 0 scope:** `useDialog` is native-dialog-specific (requires `<dialog>` + `showModal()`). Consumers who need full markup control without `<dialog>` should use individual hooks (`useFocusTrap`, `useScrollLock`, `useOnEscapePress`) directly.
 3. **Accessible name requirement:** Every dialog must have an accessible name. `DialogTitle` auto-wires `aria-labelledby`; if no title is present, `aria-label` is required. Dev-mode warning fires if neither is provided.
 4. **Focus precedence:** `initialFocusRef` → `autofocus` attribute → first focusable element → dialog itself. Consistent across all layers.
 5. **Foundation backdrop:** Transparent by default. Consumers must provide visible backdrop styling to meet ARIA modal requirements. Layer 2 handles this automatically.

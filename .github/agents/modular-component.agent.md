@@ -29,12 +29,12 @@ Every modular component is decomposed into four layers. Each layer builds on the
 
 | Layer | Name        | Responsibility                                 | Styled?                      |
 | ----- | ----------- | ---------------------------------------------- | ---------------------------- |
-| 4     | Hooks       | Individual, single-purpose behaviour           | ❌ No markup or styles       |
-| 3     | Foundations | Unstyled accessible components + compound hook | ❌ Unstyled (CSS reset only) |
+| 0     | Hooks       | Individual, single-purpose behaviour           | ❌ No markup or styles       |
+| 1     | Foundations | Unstyled accessible components + compound hook | ❌ Unstyled (CSS reset only) |
 | 2     | Parts       | Primer-styled JSX composition                  | ✅ Full Primer styles        |
-| 1     | Ready-made  | Props-based convenience wrapper                | ✅ Full Primer styles        |
+| 3     | Ready-made  | Props-based convenience wrapper                | ✅ Full Primer styles        |
 
-**Layer dependency:** Ready-made (L1) uses Parts (L2), Parts use Foundations (L3), Foundations use Hooks (L4). Never skip a layer — L2 must not directly use L4 hooks that should be composed through L3.
+**Layer dependency:** Ready-made (L3) uses Parts (L2), Parts use Foundations (L1), Foundations use Hooks (L0). Never skip a layer — L2 must not directly use L0 hooks that should be composed through L1.
 
 ## Two workflows
 
@@ -59,11 +59,11 @@ Ask the user:
 - What component are you building? (name, purpose)
 - What are the key interactive behaviours? (e.g., focus trapping, keyboard navigation, open/close)
 - Are there ARIA patterns to follow? (e.g., dialog, tabs, menu, listbox)
-- Does this component need a Ready-made (L1) layer, or is L2 (Parts) the right default entry point?
+- Does this component need a Ready-made (L3) layer, or is L2 (Parts) the right default entry point?
 
-**On the L1 question:** Not every component benefits from a Ready-made layer. Config-based APIs can lead to unwieldy types (SelectPanel is a cautionary example). L1 should capture the 80% use case. If the component's common usage is inherently compositional, L2 Parts may be the better default and L1 adds complexity without value. Surface this decision to the user — don't silently include or exclude L1.
+**On the L3 question:** Not every component benefits from a Ready-made layer. Config-based APIs can lead to unwieldy types (SelectPanel is a cautionary example). L3 should capture the 80% use case. If the component's common usage is inherently compositional, L2 Parts may be the better default and L3 adds complexity without value. Surface this decision to the user — don't silently include or exclude L3.
 
-### Step 1: Identify Layer 4 hooks
+### Step 1: Identify Layer 0 hooks
 
 Identify the individual, single-purpose behaviours this component needs. Each behaviour is a separate hook.
 
@@ -78,13 +78,13 @@ Identify the individual, single-purpose behaviours this component needs. Each be
 
 **File location:** `packages/react/src/hooks/` (stable) or `packages/react/src/hooks/experimental/` (new)
 
-### Step 2: Build Layer 3 — Foundations
+### Step 2: Build Layer 1 — Foundations
 
-Layer 3 provides two complementary APIs:
+Layer 1 provides two complementary APIs:
 
 #### 2a: Compound hook with prop-getters
 
-A single hook that composes all the Layer 4 hooks and returns prop-getter functions. This is the escape hatch for consumers who need full markup control.
+A single hook that composes all the Layer 0 hooks and returns prop-getter functions. This is the escape hatch for consumers who need full markup control.
 
 **Naming:** `use<Component>` — e.g., `useDialog`, `useTabs`
 
@@ -111,7 +111,7 @@ The hook:
 
 React components with no visual styling that enforce structural accessibility constraints. These wrap the compound hook and provide a component tree with context-based ARIA wiring. Similar to [Base UI](https://base-ui.com/) or [Radix Primitives](https://www.radix-ui.com/primitives).
 
-**Layer 3 always ships both APIs.** The unstyled components and the compound hook serve different consumers:
+**Layer 1 always ships both APIs.** The unstyled components and the compound hook serve different consumers:
 
 - **Unstyled components** cover the common case: "I want Primer's accessibility, but my own styles." They enforce structural constraints (e.g., title must be a descendant of dialog) and are self-documenting in JSX.
 - **The compound hook** covers the advanced case: "I need full markup control." Useful for integrating with other component systems or building non-standard layouts.
@@ -133,7 +133,7 @@ packages/react/src/foundations/experimental/<Component>/
 
 ### Step 3: Build Layer 2 — Parts
 
-Styled JSX components for Primer-opinionated composition. Parts wrap Layer 3 foundations and add Primer design tokens, CSS modules, and layout opinions.
+Styled JSX components for Primer-opinionated composition. Parts wrap Layer 1 foundations and add Primer design tokens, CSS modules, and layout opinions.
 
 **Rules:**
 
@@ -175,7 +175,7 @@ packages/react/src/experimental/<Component>/
 └── <stories files>
 ```
 
-### Step 4: Build Layer 1 — Ready-made (if appropriate)
+### Step 4: Build Layer 3 — Ready-made (if appropriate)
 
 A props-based convenience wrapper. The simplest way to use the component — pass data, get a fully composed component.
 
@@ -194,7 +194,7 @@ A props-based convenience wrapper. The simplest way to use the component — pas
 
 ```
 packages/react/src/experimental/<Component>/
-├── ReadyMade<Component>.tsx      # Ready-made (Layer 1)
+├── ReadyMade<Component>.tsx      # Ready-made (Layer 3)
 ```
 
 ### Step 5: Wire up exports
@@ -225,15 +225,15 @@ Create Storybook stories for each layer that has a consumer-facing API:
 - **Foundation hook stories** — demonstrate the compound hook with consumer-owned markup and inline styles. Show that the hook provides behaviour and ARIA without imposing UI.
 - **Foundation component stories** — demonstrate the unstyled components with consumer-owned CSS classes. Show that they enforce structural constraints whilst remaining visually unopinionated.
 - **Parts stories** — demonstrate the compound component API with Primer styling. Cover sizes, positions, nested usage.
-- **Ready-made stories** (if L1 exists) — demonstrate the props-based API. Cover common configurations.
+- **Ready-made stories** (if L3 exists) — demonstrate the props-based API. Cover common configurations.
 
 ### Step 7: Create tests
 
-- **Layer 4 hooks** — unit tests for each hook in isolation
-- **Layer 3 foundation hook** — test the compound hook via a minimal test harness. Cover: ARIA attributes, focus management, keyboard interaction, lifecycle (open/close/reopen), dev-mode warnings
-- **Layer 3 foundation components** — test the unstyled components render correct structure, wire ARIA via context, and enforce constraints
+- **Layer 0 hooks** — unit tests for each hook in isolation
+- **Layer 1 foundation hook** — test the compound hook via a minimal test harness. Cover: ARIA attributes, focus management, keyboard interaction, lifecycle (open/close/reopen), dev-mode warnings
+- **Layer 1 foundation components** — test the unstyled components render correct structure, wire ARIA via context, and enforce constraints
 - **Layer 2 Parts** — test compound component rendering, context wiring, `data-component` selectors
-- **Layer 1 Ready-made** — test that props correctly compose into Parts children
+- **Layer 3 Ready-made** — test that props correctly compose into Parts children
 
 Use Vitest and `@testing-library/react`. Follow existing test patterns in the repo.
 
@@ -257,26 +257,26 @@ Fix any failures before reporting completion.
 
 Read the existing component and identify:
 
-- What behaviours does it contain? (→ L4 hooks)
-- What accessibility/ARIA patterns does it implement? (→ L3 foundation)
+- What behaviours does it contain? (→ L0 hooks)
+- What accessibility/ARIA patterns does it implement? (→ L1 foundation)
 - What styled sub-components exist? (→ L2 parts)
-- What is the current public API surface? (→ L1 ready-made compatibility)
+- What is the current public API surface? (→ L3 ready-made compatibility)
 
-### Step 1: Extract Layer 4 hooks
+### Step 1: Extract Layer 0 hooks
 
 Identify reusable behaviours and extract them as standalone hooks. Check whether equivalent hooks already exist — don't duplicate.
 
-### Step 2: Build Layer 3 foundation
+### Step 2: Build Layer 1 foundation
 
-Create the compound hook and (optionally) unstyled components. Wire up all ARIA, focus management, and lifecycle using the extracted L4 hooks.
+Create the compound hook and (optionally) unstyled components. Wire up all ARIA, focus management, and lifecycle using the extracted L0 hooks.
 
 ### Step 3: Refactor Layer 2 Parts
 
-Rewrite the existing styled components to use the L3 foundation instead of implementing behaviour directly. This is where most of the surgical work happens.
+Rewrite the existing styled components to use the L1 foundation instead of implementing behaviour directly. This is where most of the surgical work happens.
 
-### Step 4: Create or preserve Layer 1
+### Step 4: Create or preserve Layer 3
 
-If the existing component has a props-based API, preserve it as the L1 Ready-made wrapper that now composes L2 Parts internally. The public API should remain identical — this is a non-breaking refactor.
+If the existing component has a props-based API, preserve it as the L3 Ready-made wrapper that now composes L2 Parts internally. The public API should remain identical — this is a non-breaking refactor.
 
 ### Step 5: Validate backwards compatibility
 
@@ -290,7 +290,7 @@ If the existing component has a props-based API, preserve it as the L1 Ready-mad
 
 When building a component, explicitly surface these decisions to the user rather than assuming an answer:
 
-1. **Does this component need L1 (Ready-made)?** Default: probably yes for simple components, probably no for complex compositional ones.
+1. **Does this component need L3 (Ready-made)?** Default: probably yes for simple components, probably no for complex compositional ones.
 
 2. **Layer naming in code.** The compound hook is named `use<Component>` (not `use<Component>Foundation`). The "Foundation" suffix is an internal architectural concept, not a consumer-facing concern.
 

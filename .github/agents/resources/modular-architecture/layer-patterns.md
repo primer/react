@@ -4,7 +4,7 @@ Concrete code patterns for each layer. Use these as templates when building new 
 
 ---
 
-## Layer 4 — Hooks
+## Layer 0 — Hooks
 
 Individual, single-purpose behaviour hooks. Not component-specific. Reusable across any component that needs the behaviour.
 
@@ -80,11 +80,11 @@ When a hook manages a global side-effect (like scroll lock), use a module-level 
 
 ---
 
-## Layer 3 — Foundations
+## Layer 1 — Foundations
 
 ### 3a: Compound hook with prop-getters
 
-A single hook that composes L4 hooks and returns prop-getter functions. The consumer owns all markup.
+A single hook that composes L0 hooks and returns prop-getter functions. The consumer owns all markup.
 
 #### Pattern
 
@@ -127,7 +127,7 @@ export interface Use<Component>Return {
 // --- Hook ---
 
 export function use<Component>(options: Use<Component>Options): Use<Component>Return {
-  // 1. Compose L4 hooks (useScrollLock, useFocusTrap, etc.)
+  // 1. Compose L0 hooks (useScrollLock, useFocusTrap, etc.)
   // 2. Generate IDs for ARIA cross-referencing
   // 3. Manage lifecycle (open/close, focus save/restore)
   // 4. Return prop-getters that wire everything together
@@ -333,7 +333,7 @@ The foundation hook adds the `data-<component>-foundation` attribute via its roo
 
 ### Rules
 
-- Compose L4 hooks internally — don't re-implement behaviours
+- Compose L0 hooks internally — don't re-implement behaviours
 - Generate stable IDs via `useId()` for ARIA cross-referencing
 - Always return `aria-labelledby` and `aria-describedby` referencing generated IDs — if the element doesn't exist, the attribute is silently ignored
 - Dev-mode warning (via `queueMicrotask`) if no accessible name is provided
@@ -368,7 +368,7 @@ If no element uses the description ID, the attribute is silently ignored by assi
 
 ## Layer 2 — Parts
 
-Styled JSX components that wrap L3 foundations and add Primer design tokens.
+Styled JSX components that wrap L1 foundations and add Primer design tokens.
 
 ### Pattern
 
@@ -635,7 +635,7 @@ This lets consumers control placement, omission, and ordering of sub-components.
 
 ### Use existing Primer components
 
-Layer 2 Parts and Layer 1 Ready-made should use existing Primer components wherever appropriate:
+Layer 2 Parts and Layer 3 Ready-made should use existing Primer components wherever appropriate:
 
 - **Buttons:** Use `Button` from `../../Button` (not plain `<button>`). Use the `variant` prop (`'default' | 'primary' | 'danger'`).
 - **Close button:** Use `IconButton` from `../../Button` with `XIcon` from `@primer/octicons-react` (not an inline SVG).
@@ -711,7 +711,7 @@ Include appropriate `@keyframes` for slide-in animations (slideInLeft, slideInRi
 
 ---
 
-## Layer 1 — Ready-made
+## Layer 3 — Ready-made
 
 Thin props-based wrapper over Parts.
 
@@ -754,7 +754,7 @@ export const <Component> = React.forwardRef<HTML<Element>Element, <Component>Pro
 - No new behaviour — everything delegates to Parts
 - Props map directly to Parts children
 - May translate convenience props into lower-layer behavioural options (e.g., `footerButtons[].autoFocus` → `initialFocusRef` via a ref forwarded to the rendered button)
-- This is the default recommendation for most consumers (when L1 exists)
+- This is the default recommendation for most consumers (when L3 exists)
 - Not every component needs this layer — surface the decision to the user
 
 ---
@@ -772,13 +772,13 @@ export const <Component> = React.forwardRef<HTML<Element>Element, <Component>Pro
 
 ```
 packages/react/src/
-├── hooks/                          # Layer 4
+├── hooks/                          # Layer 0
 │   ├── use<Behaviour>.ts
 │   ├── __tests__/
 │   │   └── use<Behaviour>.test.ts
 │   └── experimental/
 │       └── index.ts
-├── foundations/                     # Layer 3
+├── foundations/                     # Layer 1
 │   └── experimental/
 │       └── <Component>/
 │           ├── use<Component>.ts
@@ -786,10 +786,10 @@ packages/react/src/
 │           ├── index.ts
 │           └── __tests__/
 │               └── use<Component>.test.tsx
-├── experimental/                    # Layer 2 + Layer 1 (while experimental)
+├── experimental/                    # Layer 2 + Layer 3 (while experimental)
 │   └── <Component>/
 │       ├── <Component>.tsx          # Parts (Layer 2)
-│       ├── ReadyMade<Component>.tsx  # Ready-made (Layer 1)
+│       ├── ReadyMade<Component>.tsx  # Ready-made (Layer 3)
 │       ├── <Component>.module.css
 │       ├── <Component>.spec.md      # Component specification
 │       ├── index.ts
