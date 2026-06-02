@@ -56,17 +56,21 @@ describe('Autocomplete', () => {
       </Autocomplete>
     ))
 
-    it('tags overlay with data-component when menu is shown', async () => {
+    it('renders data-component attributes for Autocomplete parts when menu is shown', async () => {
       const user = userEvent.setup()
       const {container} = render(
         <LabelledAutocomplete
           menuProps={{items: mockItems, selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
         />,
       )
-      const inputNode = container.querySelector('#autocompleteInput')!
-      await user.type(inputNode, 'z')
+
+      const input = container.querySelector('#autocompleteInput') as HTMLInputElement
+      expect(input).toHaveAttribute('data-component', 'Autocomplete.Input')
+
+      await user.type(input, 'z')
 
       expect(container.querySelector('[data-component="Autocomplete.Overlay"]')).toBeInTheDocument()
+      expect(container.querySelector('[data-component="Autocomplete.Menu"]')).toBeInTheDocument()
     })
 
     it('calls onChange', async () => {

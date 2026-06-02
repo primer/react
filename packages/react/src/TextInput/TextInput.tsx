@@ -98,6 +98,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       onChange,
       value,
       defaultValue,
+      'data-component': dataComponent,
       ...inputProps
     },
     ref,
@@ -276,7 +277,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
                 : inputDescribedBy
             }
             // TODO: next-major: Remove in favor of data-component="TextInput.Input"
-            data-component="input"
+            data-component={dataComponent ?? 'input'}
           />
           {loading && <VisuallyHidden id={loadingId}>{loaderText}</VisuallyHidden>}
           <TextInputInnerVisualSlot

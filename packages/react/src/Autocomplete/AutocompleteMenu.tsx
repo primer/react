@@ -359,6 +359,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
         <div ref={listContainerRef}>
           {allItemsToRender.length ? (
             <ActionList
+              data-component="Autocomplete.Menu"
               selectionVariant={selectionVariant} // TODO: make this configurable
               role="listbox"
               id={`${id}-listbox`}

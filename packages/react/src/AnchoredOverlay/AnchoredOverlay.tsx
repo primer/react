@@ -61,6 +61,14 @@ export type AnchoredOverlayWrapperAnchorProps =
 
 interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'> {
   /**
+   * Props that will be merged into the props passed to `renderAnchor`.
+   * Useful for overriding the anchor `data-component` in composite components.
+   */
+  anchorProps?: Omit<React.HTMLAttributes<HTMLElement>, 'aria-label' | 'aria-labelledby'> & {
+    'data-component'?: string
+  }
+
+  /**
    * Determines whether the overlay portion of the component should be shown or not
    */
   open: boolean
@@ -143,6 +151,7 @@ const defaultCloseButtonProps: Partial<IconButtonProps> = {}
  */
 export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayProps>> = ({
   renderAnchor,
+  anchorProps,
   anchorRef: externalAnchorRef,
   anchorId: externalAnchorId,
   children,
@@ -357,6 +366,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       {renderAnchor &&
         // eslint-disable-next-line react-hooks/refs
         renderAnchor({
+          ...(anchorProps ?? {}),
           ref: anchorRef,
           id: anchorId,
           'aria-haspopup': 'true',
@@ -364,7 +374,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           tabIndex: 0,
           onClick: onAnchorClick,
           onKeyDown: onAnchorKeyDown,
-          'data-component': 'AnchoredOverlay.Anchor',
+          'data-component': anchorProps?.['data-component'] ?? 'AnchoredOverlay.Anchor',
           ...(shouldRenderAsPopover ? {popoverTarget: popoverId} : {}),
         })}
       {open ? (
