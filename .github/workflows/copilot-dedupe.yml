@@ -20,7 +20,7 @@ jobs:
       - name: Start Copilot cloud agent
         env:
           BASE_REF: ${{ github.event.workflow_run.head_branch }}
-          # This must be a user-to-server token with read/write access to actions, contents, issues, and pull requests.
+          # This must be a user-to-server token accepted by the Copilot agent tasks API.
           GH_TOKEN: ${{ secrets.COPILOT_AGENT_TOKEN }}
           PROMPT: run dedupe
           REPOSITORY: ${{ github.repository }}
@@ -41,6 +41,6 @@ jobs:
             -f "base_ref=${BASE_REF}" \
             -F "create_pull_request=true"
           then
-            echo "::error::Failed to start Copilot cloud agent task for dedupe workflow run ${WORKFLOW_RUN_ID}"
+            echo "::error::Failed to start Copilot cloud agent task for dedupe workflow run ${WORKFLOW_RUN_ID}. Check that COPILOT_AGENT_TOKEN is valid, has access to this repository, and can use the Copilot agent tasks API."
             exit 1
           fi
