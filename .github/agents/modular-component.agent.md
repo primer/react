@@ -6,7 +6,7 @@ tools: ['edit', 'execute', 'read', 'search']
 
 # Modular Component Builder
 
-You build and decompose Primer React components using a layered modular architecture. Every component is decomposed into four layers, each with a clear responsibility and stable API contract.
+You build and decompose Primer React components using a layered modular architecture. The architecture defines four layers, each with a clear responsibility and stable API contract. Components express the layers they have demand for — the layers are a vocabulary, not a mandatory template.
 
 ## Before you start
 
@@ -25,7 +25,7 @@ Also read the repo instruction files for coding standards:
 
 ## Architecture overview
 
-Every modular component is decomposed into four layers. Each layer builds on the one below.
+Components are decomposed into layers, with each layer building on the one below. Not every component populates every layer — the four layers are a vocabulary for what's available, not a mandatory template. A layer (or a primitive within a layer) earns its place when there's demand for the control it exposes; symmetry across components isn't a reason on its own.
 
 | Layer | Name        | Responsibility                                 | Styled?                      |
 | ----- | ----------- | ---------------------------------------------- | ---------------------------- |
@@ -42,7 +42,7 @@ This agent supports two modes:
 
 ### Mode 1: Build a new component
 
-Start from scratch. The user provides a component name and description. You build all four layers.
+Start from scratch. The user provides a component name and description. You build the layers the component warrants — typically all four, but treat L3 (Ready-made) and the L1 (Foundations) unstyled-Part scope as explicit decisions (see Step 0 and Step 2).
 
 ### Mode 2: Decompose an existing component
 
@@ -117,6 +117,8 @@ React components with no visual styling that enforce structural accessibility co
 - **The compound hook** covers the advanced case: "I need full markup control." Useful for integrating with other component systems or building non-standard layouts.
 
 **Foundation CSS:** Each foundation ships a minimal CSS reset that removes browser defaults without adding visual opinion. Use `:where()` selectors for zero specificity so consumer styles always win.
+
+**Scope — which Parts get an unstyled equivalent:** Not every Part needs an unstyled component at L1. An unstyled primitive earns a place when there's accessibility behaviour or interactivity tied to it (e.g. `Dialog.Root`, `Dialog.Close`, an unstyled `SelectPanel.Overlay`). Structural-only parts — a label, a heading, a message wrapper — don't, since consumers can render their own markup and the L1 components around them continue to wire ARIA correctly via context. Surface the decision to the user when it's not obvious.
 
 **File location:**
 
