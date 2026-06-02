@@ -33,7 +33,7 @@ We need a layered architecture where each layer has a clear responsibility, a st
 
 ### Four layers
 
-Every modular component is decomposed into four layers. Each layer builds on the one below.
+Components are decomposed into layers, with each layer building on the one below. Not every component populates every layer — the four layers are a vocabulary for what's available, not a mandatory template. A layer (or a primitive within a layer) earns its place when there's demand for the control it exposes; symmetry across components isn't a reason on its own.
 
 | Layer | Name        | Responsibility                                 | Styled?                      |
 | ----- | ----------- | ---------------------------------------------- | ---------------------------- |
@@ -91,6 +91,8 @@ Unstyled components enforce structural constraints that prop-getters cannot:
 - Title must be a descendant of the dialog
 - Close button is present and accessible
 - ARIA relationships are wired automatically via context
+
+**Scope — which parts get an unstyled variant:** Not every Part needs an unstyled equivalent at L3. An unstyled primitive earns a place when there's accessibility behaviour or interactivity tied to it (e.g. `Dialog.Root`, `Dialog.Close`, an unstyled `SelectPanel.Overlay`). Structural-only parts — a label, a heading, a message wrapper — don't, since consumers can render their own markup and the L3 components around them continue to wire ARIA correctly via context. An unstyled `SelectPanel.Message` that reduces to a `<p>` adds API surface without adding control.
 
 **Foundation CSS:** Each foundation ships a minimal CSS reset that removes browser defaults without adding visual opinion. This can be implemented via CSS cascade layers (preferred — clearer intent) or `:where()` selectors (zero specificity fallback). Consumer styles always win regardless of approach.
 
@@ -340,7 +342,7 @@ Render props were considered for Layer 2 but rejected:
 
 ## Consequences
 
-- Every new component should be built using this 4-layer decomposition
+- New components are designed against this layered architecture, populating the layers that have demand
 - Existing components can be incrementally migrated by extracting hooks and foundations
 - Consumers get predictable, documented layers to adopt at their comfort level
 - Breaking changes can be scoped to individual layers rather than entire components
