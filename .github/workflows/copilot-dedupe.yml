@@ -21,15 +21,9 @@ jobs:
         uses: actions/github-script@5c56fde4671bc2d3592fb0f2c5b5bab9ddae03b1
         env:
           BASE_REF: ${{ github.event.workflow_run.head_branch || github.event.repository.default_branch }}
-          COPILOT_AGENT_TOKEN: ${{ secrets.COPILOT_AGENT_TOKEN }}
         with:
           github-token: ${{ secrets.COPILOT_AGENT_TOKEN }}
           script: |
-            if (!process.env.COPILOT_AGENT_TOKEN) {
-              core.setFailed('COPILOT_AGENT_TOKEN secret is required to start a Copilot cloud agent task');
-              return;
-            }
-
             await github.request('POST /agents/repos/{owner}/{repo}/tasks', {
               owner: context.repo.owner,
               repo: context.repo.repo,
