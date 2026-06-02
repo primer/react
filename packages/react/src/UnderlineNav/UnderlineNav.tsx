@@ -1,5 +1,5 @@
 import type {RefObject} from 'react'
-import React, {forwardRef, useEffect, useRef, useState} from 'react'
+import React, {forwardRef, useRef, useState} from 'react'
 import VisuallyHidden from '../_VisuallyHidden'
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
@@ -11,6 +11,7 @@ import {UnderlineNavContext} from './UnderlineNavContext'
 import {UnderlineNavItemsRegistry, type UnderlineNavItemProps} from './UnderlineNavItem'
 import {SkeletonText} from '../SkeletonText'
 import {clsx} from 'clsx'
+import {useDevOnlyEffect} from '../internal/hooks/useDevOnlyEffect'
 
 export type UnderlineNavProps = {
   children: React.ReactNode
@@ -71,20 +72,16 @@ export const UnderlineNav = forwardRef(
         itemProps['aria-current'] !== 'false',
     )?.[1]
 
-    if (__DEV__) {
-      const validChildren = getValidChildren(children)
+    const validChildren = getValidChildren(children)
 
-      // Practically, this is not a conditional hook, it is just making sure this hook runs only on DEV not PROD.
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useEffect(() => {
-        // Address illegal state where there are multiple items that have `aria-current='page'` attribute
-        const activeElements = validChildren.filter(child => {
-          return child.props['aria-current'] !== undefined
-        })
-        invariant(activeElements.length <= 1, 'Only one current element is allowed')
-        invariant(ariaLabel, 'Use the `aria-label` prop to provide an accessible label for assistive technology')
-      }, [validChildren, ariaLabel])
-    }
+    useDevOnlyEffect(() => {
+      // Address illegal state where there are multiple items that have `aria-current='page'` attribute
+      const activeElements = validChildren.filter(child => {
+        return child.props['aria-current'] !== undefined
+      })
+      invariant(activeElements.length <= 1, 'Only one current element is allowed')
+      invariant(ariaLabel, 'Use the `aria-label` prop to provide an accessible label for assistive technology')
+    }, [validChildren, ariaLabel])
 
     return (
       <UnderlineNavContext.Provider
