@@ -50,16 +50,19 @@ const TimelineItem = React.forwardRef<HTMLDivElement, TimelineItemProps>(
 
 TimelineItem.displayName = 'TimelineItem'
 
-export type TimelineBadgeVariant =
-  | 'accent'
-  | 'success'
-  | 'attention'
-  | 'severe'
-  | 'danger'
-  | 'done'
-  | 'open'
-  | 'closed'
-  | 'sponsors'
+export const TimelineBadgeVariants = [
+  'accent',
+  'success',
+  'attention',
+  'severe',
+  'danger',
+  'done',
+  'open',
+  'closed',
+  'sponsors',
+] as const
+
+export type TimelineBadgeVariant = (typeof TimelineBadgeVariants)[number]
 
 export type TimelineBadgeProps = {
   children?: React.ReactNode
@@ -111,8 +114,20 @@ const TimelineActions = React.forwardRef<HTMLDivElement, TimelineActionsProps>((
 
 TimelineActions.displayName = 'Timeline.Actions'
 
+export type TimelineAvatarProps = {
+  /** Class name for custom styling */
+  className?: string
+} & React.ComponentPropsWithoutRef<'div'>
+
+const TimelineAvatar = React.forwardRef<HTMLDivElement, TimelineAvatarProps>(({className, ...props}, forwardRef) => {
+  return <div {...props} className={clsx(className, classes.TimelineItemAvatar)} ref={forwardRef} />
+})
+
+TimelineAvatar.displayName = 'Timeline.Avatar'
+
 export default Object.assign(Timeline, {
   Item: TimelineItem,
+  Avatar: TimelineAvatar,
   Badge: TimelineBadge,
   Body: TimelineBody,
   Break: TimelineBreak,

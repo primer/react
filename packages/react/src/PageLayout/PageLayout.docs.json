@@ -53,6 +53,12 @@
       "id": "components-pagelayout-features--resizable-sidebar"
     },
     {
+      "id": "components-pagelayout-features--resizable-sidebar-without-persistence"
+    },
+    {
+      "id": "components-pagelayout-features--resizable-sidebar-with-custom-persistence"
+    },
+    {
       "id": "components-pagelayout-features--sidebar-with-pane-resizable"
     },
     {
@@ -304,7 +310,22 @@
           "name": "resizable",
           "type": "boolean",
           "defaultValue": "false",
-          "description": "When true, the sidebar may be resized by the user. Width is persisted to localStorage by default."
+          "description": "When true, the sidebar may be resized by the user. By default no persistence is applied; pass `widthStorageKey` to persist via localStorage, or use `onResizeEnd` + `currentWidth` for fully controlled persistence."
+        },
+        {
+          "name": "currentWidth",
+          "type": "number | undefined",
+          "description": "Current/controlled width value in pixels. Required when `onResizeEnd` is provided. Pass `undefined` when the persisted value has not loaded yet. The `width` prop still defines the default used when resetting (e.g., double-click)."
+        },
+        {
+          "name": "onResizeEnd",
+          "type": "(width: number) => void",
+          "description": "Callback fired when a resize operation ends (drag release or keyboard key up). When provided, replaces localStorage persistence. Requires `currentWidth`."
+        },
+        {
+          "name": "widthStorageKey",
+          "type": "string",
+          "description": "localStorage key used to persist the sidebar width across sessions. Only applies when `resizable` is `true` and no `onResizeEnd` callback is provided. When omitted, localStorage is not used."
         },
         {
           "name": "padding",

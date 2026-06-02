@@ -181,7 +181,11 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   // Lazy initial state so feature detection runs once per mount on the client.
   // Guarded for SSR where `document` is undefined.
   const [supportsNativeCSSAnchorPositioning] = useState(
-    () => typeof document !== 'undefined' && 'anchorName' in document.documentElement.style,
+    () =>
+      typeof document !== 'undefined' &&
+      'anchorName' in document.documentElement.style &&
+      'positionTryFallbacks' in document.documentElement.style &&
+      'positionVisibility' in document.documentElement.style,
   )
 
   const cssAnchorPositioning =

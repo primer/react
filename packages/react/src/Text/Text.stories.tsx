@@ -38,4 +38,10 @@ Playground.argTypes = {
     },
     options: ['light', 'normal', 'medium', 'semibold'],
   },
+  whiteSpace: {
+    control: {
+      type: 'radio',
+    },
+    options: ['pre', 'normal', 'nowrap', 'pre-wrap', 'pre-line'],
+  },
 }

@@ -18,6 +18,11 @@ export type ThemeProviderProps = {
   dayScheme?: string
   nightScheme?: string
   preventSSRMismatch?: boolean
+  /**
+   * No-op. Exists solely to match @primer/react's ThemeProvider API.
+   * @default false
+   */
+  contextOnly?: boolean
 }
 
 const ThemeContext = React.createContext<{
