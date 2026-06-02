@@ -8,12 +8,18 @@
         "dbaeumer.vscode-eslint",
         "DavidAnson.vscode-markdownlint",
         "hex-ci.stylelint-plus",
-        "ZixuanChen.vitest-explorer"
+        "vitest.explorer"
       ]
     }
   },
-  "forwardPorts": [8000],
-  "onCreateCommand": ["/bin/bash", "-c", "npm run setup"],
+  "forwardPorts": [
+    8000
+  ],
+  "onCreateCommand": [
+    "/bin/bash",
+    "-c",
+    "npm run setup"
+  ],
   "remoteUser": "node",
   "features": {
     "ghcr.io/devcontainers/features/sshd:1": {
