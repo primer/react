@@ -1,5 +1,5 @@
 import type {RefObject} from 'react'
-import React, {forwardRef, useRef, useState} from 'react'
+import React, {forwardRef, useMemo, useRef, useState} from 'react'
 import VisuallyHidden from '../_VisuallyHidden'
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
@@ -79,12 +79,15 @@ export const UnderlineNav = forwardRef(
       invariant(ariaLabel, 'Use the `aria-label` prop to provide an accessible label for assistive technology')
     }, [validChildren, ariaLabel])
 
+    const contextValue = useMemo(
+      () => ({
+        loadingCounters,
+      }),
+      [loadingCounters],
+    )
+
     return (
-      <UnderlineNavContext.Provider
-        value={{
-          loadingCounters,
-        }}
-      >
+      <UnderlineNavContext.Provider value={contextValue}>
         {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
         <UnderlineWrapper
           as={as}
