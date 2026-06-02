@@ -41,6 +41,8 @@ jobs:
             const directory = path.resolve('packed');
             fs.mkdirSync(directory, {recursive: true});
 
+            core.startGroup('Packing npm packages');
+
             const {stdout: queryOutput} = await exec.getExecOutput('npm', ['query', '.workspace']);
             const workspaces = JSON.parse(queryOutput);
             const packages = workspaces.filter(pkg => pkg.private !== true).map(pkg => pkg.name);
@@ -49,6 +51,8 @@ jobs:
             const args = ['pack', ...packages.map(name => `--workspace=${name}`), '--pack-destination', directory, '--json'];
             const {stdout: packOutput} = await exec.getExecOutput('npm', args);
             const result = JSON.parse(packOutput);
+
+            core.endGroup();
 
             const metadata = {
               packages: result.map(pkg => ({
@@ -60,7 +64,6 @@ jobs:
 
             fs.writeFileSync(path.join(directory, 'metadata.json'), JSON.stringify(metadata, null, 2));
 
-            core.info('Packed:');
             core.info(JSON.stringify(metadata, null, 2));
       - name: Upload packed npm packages
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
