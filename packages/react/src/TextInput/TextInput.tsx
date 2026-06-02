@@ -48,6 +48,12 @@ export type TextInputNonPassthroughProps = {
    * When the limit is exceeded, validation styling will be applied.
    */
   characterLimit?: number
+  /**
+   * Stable identifier for the underlying input element.
+   *
+   * TODO: next-major: Remove in favor of data-component="TextInput.Input"
+   */
+  'data-component'?: string
 } & Partial<
   Pick<
     StyledWrapperProps,
