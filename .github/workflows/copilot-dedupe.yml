@@ -22,6 +22,7 @@ jobs:
         env:
           BASE_REF: ${{ github.event.workflow_run.head_branch || github.event.repository.default_branch }}
         with:
+          # This must be a user-to-server token with read/write access to actions, contents, issues, and pull requests.
           github-token: ${{ secrets.COPILOT_AGENT_TOKEN }}
           script: |
             await github.request('POST /agents/repos/{owner}/{repo}/tasks', {
