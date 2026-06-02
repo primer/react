@@ -102,6 +102,7 @@ const ItemComponent = fixedForwardRef(
         aria-current={ariaCurrent}
         active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
         style={{'--subitem-depth': depth} as React.CSSProperties}
+        data-component="NavList.Item"
         {...props}
       >
         {children}
@@ -184,6 +185,7 @@ function ItemWithSubNav({children, subNav, depth: _depth, defaultOpen, style}: I
         active={!isOpen && containsCurrentItem}
         onSelect={() => setIsOpen(open => !open)}
         style={style}
+        data-component="NavList.Item"
       >
         {children}
         {/* What happens if the user provides a TrailingVisual? */}

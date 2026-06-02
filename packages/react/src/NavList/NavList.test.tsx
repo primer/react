@@ -51,6 +51,9 @@ describe('NavList', () => {
     const subNav = container.querySelector('[data-component="NavList.SubNav"]')
     expect(subNav).toBeInTheDocument()
 
+    // Expand so nested links are in the accessible tree
+    fireEvent.click(item2Button)
+
     const subItem1Link = getByRole('link', {name: 'Sub Item 1'})
     expect(subItem1Link).toBeInTheDocument()
     expect(subItem1Link).toHaveAttribute('data-component', 'NavList.Item')
