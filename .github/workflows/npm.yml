@@ -32,7 +32,7 @@ jobs:
       - name: Build
         run: npm run build
       - name: Pack public packages
-        uses: actions/github-script@a3e7071a34d7e1f219a8a4de9a5e0a34d1ee1293
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
             const fs = require('node:fs');
