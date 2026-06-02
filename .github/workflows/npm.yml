@@ -58,7 +58,7 @@ jobs:
               packages: result.map(pkg => ({
                 name: pkg.name,
                 version: pkg.version,
-                path: path.join(directory, pkg.filename),
+                path: path.join('packed', pkg.filename),
               })),
             };
 
