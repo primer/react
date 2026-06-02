@@ -54,7 +54,7 @@
 
 .MoreButtonDivider {
   display: inline-block;
-  border-left: var(--borderWidth-default) solid var(--borderColor-muted);
+  border-left: var(--borderWidth-thin) solid var(--borderColor-muted);
   width: 0;
   margin-inline: var(--base-size-4);
   height: var(--base-size-24);
@@ -62,39 +62,32 @@
 
 .MoreButton {
   margin: 0; /* reset Safari extra margin */
-  border: 0;
-  background: transparent;
   font-weight: var(--base-text-weight-normal);
-  box-shadow: none;
-  padding-top: var(--base-size-4);
-  padding-bottom: var(--base-size-4);
-  padding-left: var(--base-size-8);
-  padding-right: var(--base-size-8);
+  position: relative;
 
   & > [data-component='trailingVisual'] {
     margin-left: 0;
   }
-}
 
-/* When the current item has overflowed into the menu, style the overflow
+  /* When the current item has overflowed into the menu, style the overflow
    anchor so it looks like the current item (semibold text + active underline). */
-.MoreButton[data-current='true'] {
-  position: relative;
-  font-weight: var(--base-text-weight-semibold);
+  &[data-current='true'] {
+    font-weight: var(--base-text-weight-semibold);
 
-  &::after {
-    position: absolute;
-    inset: auto 0 0;
-    margin-bottom: calc(-1 * var(--base-size-8));
-    height: 2px;
-    pointer-events: none;
-    content: '';
-    /* stylelint-disable-next-line primer/colors */
-    background-color: var(--underlineNav-borderColor-active, var(--color-primer-border-active, #fd8c73));
+    &::after {
+      position: absolute;
+      inset: auto 0 0;
+      margin-bottom: calc(-1 * var(--base-size-8));
+      height: 2px;
+      pointer-events: none;
+      content: '';
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--underlineNav-borderColor-active, var(--color-primer-border-active, #fd8c73));
 
-    @media (forced-colors: active) {
-      /* Support for Windows Forced Color Mode https://learn.microsoft.com/en-us/fluent-ui/web-components/design-system/high-contrast */
-      background-color: LinkText;
+      @media (forced-colors: active) {
+        /* Support for Windows Forced Color Mode https://learn.microsoft.com/en-us/fluent-ui/web-components/design-system/high-contrast */
+        background-color: LinkText;
+      }
     }
   }
 }

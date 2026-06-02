@@ -35,6 +35,9 @@ const getValidChildren = (children: React.ReactNode) => {
   return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement<any>[]
 }
 
+const isCurrent = (props: UnderlineNavItemProps) =>
+  props['aria-current'] !== undefined && props['aria-current'] !== false && props['aria-current'] !== 'false'
+
 export const UnderlineNav = forwardRef(
   (
     {
@@ -56,29 +59,22 @@ export const UnderlineNav = forwardRef(
 
     const [registeredItems, setRegisteredItems] = UnderlineNavItemsRegistry.useRegistryState()
 
-    const menuItems = Array.from(registeredItems?.entries() ?? []).filter(
+    const overflowMenuItems = Array.from(registeredItems?.entries() ?? []).filter(
       (entry): entry is [string, UnderlineNavItemProps] => entry[1] !== null,
     )
 
-    const isOverflowing = menuItems.length > 0
+    const isOverflowing = overflowMenuItems.length > 0
     if (isOverflowing && !hasEverOverflowed) setHasOverflowed(true)
 
     // Find the current item if it has overflowed into the menu, so we can reflect
     // its "current" state on the overflow menu anchor.
-    const overflowingCurrentItem = menuItems.find(
-      ([, itemProps]) =>
-        itemProps['aria-current'] !== undefined &&
-        itemProps['aria-current'] !== false &&
-        itemProps['aria-current'] !== 'false',
-    )?.[1]
+    const overflowingCurrentItem = overflowMenuItems.some(([, itemProps]) => isCurrent(itemProps))
 
     const validChildren = getValidChildren(children)
 
     useDevOnlyEffect(() => {
       // Address illegal state where there are multiple items that have `aria-current='page'` attribute
-      const activeElements = validChildren.filter(child => {
-        return child.props['aria-current'] !== undefined
-      })
+      const activeElements = validChildren.filter(child => isCurrent(child.props))
       invariant(activeElements.length <= 1, 'Only one current element is allowed')
       invariant(ariaLabel, 'Use the `aria-label` prop to provide an accessible label for assistive technology')
     }, [validChildren, ariaLabel])
@@ -98,9 +94,9 @@ export const UnderlineNav = forwardRef(
           data-variant={variant}
           data-overflow-mode="wrap"
           // Force icons to stay hidden, avoiding flickering as icons create/remove overflow
-          data-hide-icons={hasEverOverflowed ? 'true' : 'false'}
+          data-hide-icons={hasEverOverflowed ? 'true' : undefined}
           // Ensure button is shown (after initial render) on browsers that don't support scroll-driven animations
-          data-has-overflow={isOverflowing ? 'true' : 'false'}
+          data-has-overflow={isOverflowing ? 'true' : undefined}
         >
           <UnderlineItemList ref={listRef} role="list" className={classes.ItemsList}>
             <UnderlineNavItemsRegistry.Provider setRegistry={setRegisteredItems}>
@@ -114,13 +110,10 @@ export const UnderlineNav = forwardRef(
             <ActionMenu>
               <ActionMenu.Button
                 className={classes.MoreButton}
+                variant="invisible"
                 data-component="overflow-menu-button"
-                data-current={overflowingCurrentItem ? 'true' : 'false'}
-                aria-label={
-                  overflowingCurrentItem
-                    ? `More items, including current item ${overflowingCurrentItem.children}`
-                    : undefined
-                }
+                data-current={overflowingCurrentItem ? 'true' : undefined}
+                aria-label={overflowingCurrentItem ? `More items, including current item` : undefined}
               >
                 <span>
                   More<VisuallyHidden as="span"> items</VisuallyHidden>
@@ -134,7 +127,7 @@ export const UnderlineNav = forwardRef(
                       <SkeletonText />
                     </ActionList.Item>
                   ) : (
-                    menuItems.map(([key, allProps]) => {
+                    overflowMenuItems.map(([key, allProps]) => {
                       const {children: menuItemChildren, counter, onSelect, ...menuItemProps} = allProps
 
                       return (
