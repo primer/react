@@ -4,9 +4,13 @@
   font-size: var(--inline-message-fontSize);
   /* stylelint-disable-next-line primer/typography */
   line-height: var(--inline-message-lineHeight);
+  /* stylelint-disable-next-line primer/colors */
+  color: var(--inline-message-fgColor);
   column-gap: 0.5rem;
   grid-template-columns: auto 1fr;
   align-items: start;
+
+  --inline-message-fgColor: var(--fgColor-default);
 
   &[data-size='small'] {
     --inline-message-fontSize: var(--text-body-size-small);
@@ -19,19 +23,19 @@
   }
 
   &[data-variant='warning'] {
-    color: var(--fgColor-attention);
+    --inline-message-fgColor: var(--fgColor-attention);
   }
 
   &[data-variant='critical'] {
-    color: var(--fgColor-danger);
+    --inline-message-fgColor: var(--fgColor-danger);
   }
 
   &[data-variant='success'] {
-    color: var(--fgColor-success);
+    --inline-message-fgColor: var(--fgColor-success);
   }
 
   &[data-variant='unavailable'] {
-    color: var(--fgColor-muted);
+    --inline-message-fgColor: var(--fgColor-muted);
   }
 }
 
