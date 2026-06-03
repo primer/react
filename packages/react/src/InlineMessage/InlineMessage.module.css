@@ -5,7 +5,7 @@
   /* stylelint-disable-next-line primer/typography */
   line-height: var(--inline-message-lineHeight);
   /* stylelint-disable-next-line primer/colors */
-  color: var(--inline-message-fgColor);
+  color: var(--inline-message-fgColor, var(--fgColor-default));
   column-gap: 0.5rem;
   grid-template-columns: auto 1fr;
   align-items: start;
