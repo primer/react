@@ -7,7 +7,7 @@ function replacementPlugin(env) {
 
 const sharedPlugins = [
   [
-    'babel-plugin-react-compiler',
+    'babel-plugin-react-compiler-rust',
     {
       target: '18',
       sources: isSupported,

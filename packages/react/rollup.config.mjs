@@ -72,7 +72,7 @@ const baseConfig = {
       ],
       plugins: [
         [
-          'babel-plugin-react-compiler',
+          'babel-plugin-react-compiler-rust',
           {
             target: '18',
             sources: filepath => isSupported(filepath),

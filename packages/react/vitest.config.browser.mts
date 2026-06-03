@@ -18,7 +18,7 @@ export default defineConfig({
       babel: {
         plugins: [
           [
-            'babel-plugin-react-compiler',
+            'babel-plugin-react-compiler-rust',
             {
               target: '18',
               sources: isSupported,
