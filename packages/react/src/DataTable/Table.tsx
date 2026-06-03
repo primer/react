@@ -12,6 +12,7 @@ import {ScrollableRegion} from '../ScrollableRegion'
 import {Button} from '../internal/components/ButtonReset'
 import classes from './Table.module.css'
 import type {PolymorphicProps} from '../utils/modern-polymorphic'
+import Checkbox from '../Checkbox'
 
 // ----------------------------------------------------------------------------
 // Table
@@ -108,12 +109,12 @@ export type TableHeaderProps = Omit<React.ComponentPropsWithoutRef<'th'>, 'align
   align?: CellAlignment
 }
 
-function TableHeader({align, children, ...rest}: TableHeaderProps) {
+function TableHeader({align, className, children, ...rest}: TableHeaderProps) {
   return (
     <th
       data-component="Table.Header"
       {...rest}
-      className={clsx('TableHeader', classes.TableHeader)}
+      className={clsx('TableHeader', className, classes.TableHeader)}
       role="columnheader"
       scope="col"
       data-cell-align={align}
@@ -392,6 +393,26 @@ function TableSkeleton<Data extends UniqueRow>({cellPadding, columns, rows = 10,
   )
 }
 
+function TableSelectHeader() {
+  return (
+    <TableHeader className={classes.TableSelectHeader}>
+      <label>
+        <Checkbox />
+      </label>
+    </TableHeader>
+  )
+}
+
+function TableSelectRow() {
+  return (
+    <TableCell className={classes.TableSelectRow}>
+      <label>
+        <Checkbox />
+      </label>
+    </TableCell>
+  )
+}
+
 export {
   TableContainer,
   TableTitle,
@@ -407,4 +428,6 @@ export {
   TableCell,
   TableCellPlaceholder,
   TableSkeleton,
+  TableSelectHeader,
+  TableSelectRow,
 }

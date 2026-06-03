@@ -1,3 +1,7 @@
-export interface UniqueRow {
-  id: string | number
+type RowId = string | number
+
+interface UniqueRow {
+  id: RowId
 }
+
+export type {UniqueRow, RowId}

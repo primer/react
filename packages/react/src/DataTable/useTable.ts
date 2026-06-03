@@ -1,16 +1,24 @@
 import {useState} from 'react'
 import type {Column} from './column'
-import type {UniqueRow} from './row'
+import type {RowId, UniqueRow} from './row'
 import {DEFAULT_SORT_DIRECTION, SortDirection, transition, strategies} from './sorting'
 import type {ObjectPathValue} from './utils'
 
 interface TableConfig<Data extends UniqueRow> {
+  // Data
   columns: Array<Column<Data>>
   data: Array<Data>
+  getRowId: (rowData: Data) => RowId
+
+  // Sorting
   initialSortColumn?: string | number
   initialSortDirection?: Exclude<SortDirection, 'NONE'>
   externalSorting?: boolean
-  getRowId: (rowData: Data) => string | number
+
+  // Row selection
+  rowSelection?: boolean
+  selectedRowIds?: Set<RowId>
+  onSelectionChange?: (selectedRowIds: Set<RowId>) => void
 }
 
 interface Table<Data extends UniqueRow> {
@@ -20,6 +28,10 @@ interface Table<Data extends UniqueRow> {
     sortBy: (header: Header<Data>) => void
   }
   gridTemplateColumns: React.CSSProperties['gridTemplateColumns']
+
+  // Selection
+  allRowsSelected: () => boolean
+  someRowsSelected: () => boolean
 }
 
 interface Header<Data extends UniqueRow> {

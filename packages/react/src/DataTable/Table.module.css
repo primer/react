@@ -289,3 +289,11 @@
 .PlaceholderText {
   color: var(--fgColor-muted);
 }
+
+.TableSelectHeader {
+  order: -1;
+}
+
+.TableSelectRow {
+  order: -1;
+}

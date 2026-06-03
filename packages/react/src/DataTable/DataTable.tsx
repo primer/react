@@ -2,9 +2,20 @@ import type React from 'react'
 import type {Column} from './column'
 import {useTable} from './useTable'
 import type {SortDirection} from './sorting'
-import type {UniqueRow} from './row'
+import type {RowId, UniqueRow} from './row'
 import type {ObjectPaths} from './utils'
-import {Table, TableHead, TableBody, TableRow, TableHeader, TableSortHeader, TableCell} from './Table'
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableHeader,
+  TableSortHeader,
+  TableCell,
+  TableSelectHeader,
+  TableSelectRow,
+} from './Table'
+import Checkbox from '../Checkbox'
 
 // ----------------------------------------------------------------------------
 // DataTable
@@ -73,10 +84,22 @@ export type DataTableProps<Data extends UniqueRow> = {
    * (never `"NONE"`).
    */
   onToggleSort?: (columnId: ObjectPaths<Data> | string | number, direction: Exclude<SortDirection, 'NONE'>) => void
+
+  // Row selection
+  rowSelection?: boolean
+  selectedRowIds?: Set<RowId>
+  onSelectionChange?: (selectedRowIds: Set<RowId>) => void
 }
 
 function defaultGetRowId<D extends UniqueRow>(row: D) {
   return row.id
+}
+
+const TableSortColumn = {
+  id: '__row-selection__',
+  header: () => <TableSelectHeader />,
+  width: 'auto',
+  renderCell: () => <TableSelectRow />,
 }
 
 function DataTable<Data extends UniqueRow>({
@@ -90,14 +113,20 @@ function DataTable<Data extends UniqueRow>({
   externalSorting,
   getRowId = defaultGetRowId,
   onToggleSort,
+  rowSelection,
+  selectedRowIds,
+  onSelectionChange,
 }: DataTableProps<Data>) {
   const {headers, rows, actions, gridTemplateColumns} = useTable({
     data,
-    columns,
+    columns: rowSelection ? columns.toSpliced(1, 0, TableSortColumn) : columns,
     initialSortColumn,
     initialSortDirection,
     getRowId,
     externalSorting,
+    rowSelection,
+    selectedRowIds,
+    onSelectionChange,
   })
 
   return (
@@ -106,10 +135,16 @@ function DataTable<Data extends UniqueRow>({
       aria-describedby={describedby}
       cellPadding={cellPadding}
       gridTemplateColumns={gridTemplateColumns}
+      data-row-selection={rowSelection ? '' : undefined}
     >
       <TableHead>
         <TableRow>
           {headers.map(header => {
+            if (header.id === '__row-selection__') {
+              // @ts-expect-error - asdf
+              return header.column.header()
+            }
+
             if (header.isSortable()) {
               return (
                 <TableSortHeader
@@ -140,6 +175,11 @@ function DataTable<Data extends UniqueRow>({
           return (
             <TableRow key={row.id}>
               {row.getCells().map(cell => {
+                if (cell.column.id === '__row-selection__') {
+                  // @ts-expect-error - asdf
+                  return cell.column.renderCell(row.getValue())
+                }
+
                 return (
                   <TableCell key={cell.id} scope={cell.rowHeader ? 'row' : undefined} align={cell.column.align}>
                     {cell.column.renderCell
