@@ -1,20 +1,26 @@
 import {render} from '@testing-library/react'
+import type {ReactElement} from 'react'
 import {describe, expect, it} from 'vitest'
 import Timeline from '..'
+import {FeatureFlags} from '../../FeatureFlags'
 import {implementsClassName} from '../../utils/testing'
 import classes from '../Timeline.module.css'
+
+function renderWithListSemantics(ui: ReactElement) {
+  return render(<FeatureFlags flags={{primer_react_timeline_list_semantics: true}}>{ui}</FeatureFlags>)
+}
 
 describe('Timeline', () => {
   implementsClassName(Timeline, classes.Timeline)
 
-  it('renders as an ordered list', () => {
+  it('renders as a div by default (flag off)', () => {
     const {container} = render(<Timeline />)
-    expect(container.firstChild?.nodeName).toBe('OL')
+    expect(container.firstChild?.nodeName).toBe('DIV')
   })
 
-  it('has role="list" to restore semantics in Safari/VoiceOver', () => {
+  it('does not set role="list" by default (flag off)', () => {
     const {container} = render(<Timeline />)
-    expect(container.firstChild).toHaveAttribute('role', 'list')
+    expect(container.firstChild).not.toHaveAttribute('role')
   })
 
   it('renders with clipSidebar prop (boolean)', () => {
@@ -48,12 +54,39 @@ describe('Timeline', () => {
   })
 })
 
+describe('Timeline with primer_react_timeline_list_semantics flag', () => {
+  it('renders as an ordered list', () => {
+    const {container} = renderWithListSemantics(<Timeline />)
+    expect(container.firstChild?.nodeName).toBe('OL')
+  })
+
+  it('has role="list" to restore semantics in Safari/VoiceOver', () => {
+    const {container} = renderWithListSemantics(<Timeline />)
+    expect(container.firstChild).toHaveAttribute('role', 'list')
+  })
+
+  it('renders items as list items', () => {
+    const {container} = renderWithListSemantics(
+      <Timeline>
+        <Timeline.Item />
+      </Timeline>,
+    )
+    expect(container.querySelector('ol > li')).not.toBeNull()
+  })
+
+  it('renders break as a presentational list item', () => {
+    const {container} = renderWithListSemantics(<Timeline.Break />)
+    expect(container.firstChild?.nodeName).toBe('LI')
+    expect(container.firstChild).toHaveAttribute('role', 'presentation')
+  })
+})
+
 describe('Timeline.Item', () => {
   implementsClassName(Timeline.Item, classes.TimelineItem)
 
-  it('renders as a list item', () => {
+  it('renders as a div by default (flag off)', () => {
     const {container} = render(<Timeline.Item />)
-    expect(container.firstChild?.nodeName).toBe('LI')
+    expect(container.firstChild?.nodeName).toBe('DIV')
   })
 
   it('renders with condensed prop', () => {
@@ -88,10 +121,10 @@ describe('Timeline.Body', () => {
 describe('Timeline.Break', () => {
   implementsClassName(Timeline.Break, classes.TimelineBreak)
 
-  it('renders as a presentational list item', () => {
+  it('renders as a div by default (flag off)', () => {
     const {container} = render(<Timeline.Break />)
-    expect(container.firstChild?.nodeName).toBe('LI')
-    expect(container.firstChild).toHaveAttribute('role', 'presentation')
+    expect(container.firstChild?.nodeName).toBe('DIV')
+    expect(container.firstChild).not.toHaveAttribute('role')
   })
 })
 

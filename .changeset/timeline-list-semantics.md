@@ -1,13 +1,17 @@
 ---
-'@primer/react': minor
+'@primer/react': patch
 ---
 
-Timeline: Render as `<ol>` with `<li>` items for list semantics
+Timeline: Add `primer_react_timeline_list_semantics` feature flag to opt into list semantics
 
-Timeline now renders as an ordered list (`<ol>`) instead of a `<div>`, and Timeline.Item renders as `<li>` instead of `<div>`. This gives screen reader users list navigation — they can hear the total number of events and their position in the sequence ("item 3 of 12").
+When the `primer_react_timeline_list_semantics` feature flag is enabled, `Timeline` renders as `<ol role="list">` and `Timeline.Item` / `Timeline.Break` render as `<li>` so screen reader users get list navigation (total item count, position in sequence). The default behavior is unchanged — `Timeline` and its subcomponents still render as `<div>` until the flag is opted into.
 
-Timeline.Break renders as `<li role="presentation">` so it does not contribute to the list item count.
+Enable the flag with the `FeatureFlags` provider:
 
-An explicit `role="list"` is applied to the `<ol>` to restore list semantics in Safari/VoiceOver, which strips them when `list-style: none` is applied.
+```tsx
+import {FeatureFlags} from '@primer/react/experimental'
 
-**Migration:** If you pass a `ref` to `Timeline`, the ref type changes from `HTMLDivElement` to `HTMLOListElement`. If you pass a `ref` to `Timeline.Item` or `Timeline.Break`, the ref type changes from `HTMLDivElement` to `HTMLLIElement`. All other props continue to work unchanged.
+<FeatureFlags flags={{primer_react_timeline_list_semantics: true}}>
+  <Timeline>…</Timeline>
+</FeatureFlags>
+```

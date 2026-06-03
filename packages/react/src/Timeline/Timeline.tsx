@@ -1,5 +1,6 @@
 import {clsx} from 'clsx'
 import React from 'react'
+import {useFeatureFlag} from '../FeatureFlags'
 import classes from './Timeline.module.css'
 
 type StyledTimelineProps = {clipSidebar?: boolean | 'start' | 'end' | 'both'; className?: string}
@@ -12,21 +13,36 @@ function resolveClipSidebar(clipSidebar: TimelineProps['clipSidebar']): string |
   return undefined
 }
 
-const Timeline = React.forwardRef<HTMLOListElement, TimelineProps>(({clipSidebar, className, ...props}, forwardRef) => {
-  const resolvedClipSidebar = resolveClipSidebar(clipSidebar)
-  return (
-    // Explicit role restores list semantics in Safari/VoiceOver, which strips
-    // them when list-style: none is applied (WebKit intentional behaviour).
-    // eslint-disable-next-line jsx-a11y/no-redundant-roles
-    <ol
-      {...props}
-      role="list"
-      className={clsx(className, classes.Timeline)}
-      ref={forwardRef}
-      data-clip-sidebar={resolvedClipSidebar}
-    />
-  )
-})
+const Timeline = React.forwardRef<HTMLDivElement | HTMLOListElement, TimelineProps>(
+  ({clipSidebar, className, ...props}, forwardRef) => {
+    const useListSemantics = useFeatureFlag('primer_react_timeline_list_semantics')
+    const resolvedClipSidebar = resolveClipSidebar(clipSidebar)
+
+    if (useListSemantics) {
+      return (
+        // Explicit role restores list semantics in Safari/VoiceOver, which strips
+        // them when list-style: none is applied (WebKit intentional behaviour).
+        // eslint-disable-next-line jsx-a11y/no-redundant-roles
+        <ol
+          {...props}
+          role="list"
+          className={clsx(className, classes.Timeline)}
+          ref={forwardRef as React.ForwardedRef<HTMLOListElement>}
+          data-clip-sidebar={resolvedClipSidebar}
+        />
+      )
+    }
+
+    return (
+      <div
+        {...(props as React.ComponentPropsWithoutRef<'div'>)}
+        className={clsx(className, classes.Timeline)}
+        ref={forwardRef as React.ForwardedRef<HTMLDivElement>}
+        data-clip-sidebar={resolvedClipSidebar}
+      />
+    )
+  },
+)
 
 Timeline.displayName = 'Timeline'
 
@@ -39,13 +55,26 @@ export type TimelineItemsProps = StyledTimelineItemProps & React.ComponentPropsW
 
 export type TimelineItemProps = StyledTimelineItemProps & React.ComponentPropsWithoutRef<'li'>
 
-const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
+const TimelineItem = React.forwardRef<HTMLDivElement | HTMLLIElement, TimelineItemProps>(
   ({condensed, className, ...props}, forwardRef) => {
+    const useListSemantics = useFeatureFlag('primer_react_timeline_list_semantics')
+
+    if (useListSemantics) {
+      return (
+        <li
+          {...props}
+          className={clsx(className, 'Timeline-Item', classes.TimelineItem)}
+          ref={forwardRef as React.ForwardedRef<HTMLLIElement>}
+          data-condensed={condensed ? '' : undefined}
+        />
+      )
+    }
+
     return (
-      <li
-        {...props}
+      <div
+        {...(props as React.ComponentPropsWithoutRef<'div'>)}
         className={clsx(className, 'Timeline-Item', classes.TimelineItem)}
-        ref={forwardRef}
+        ref={forwardRef as React.ForwardedRef<HTMLDivElement>}
         data-condensed={condensed ? '' : undefined}
       />
     )
@@ -101,9 +130,30 @@ export type TimelineBreakProps = {
   className?: string
 } & Omit<React.ComponentPropsWithoutRef<'li'>, 'role'>
 
-const TimelineBreak = React.forwardRef<HTMLLIElement, TimelineBreakProps>(({className, ...props}, forwardRef) => {
-  return <li {...props} className={clsx(className, classes.TimelineBreak)} ref={forwardRef} role="presentation" />
-})
+const TimelineBreak = React.forwardRef<HTMLDivElement | HTMLLIElement, TimelineBreakProps>(
+  ({className, ...props}, forwardRef) => {
+    const useListSemantics = useFeatureFlag('primer_react_timeline_list_semantics')
+
+    if (useListSemantics) {
+      return (
+        <li
+          {...props}
+          className={clsx(className, classes.TimelineBreak)}
+          ref={forwardRef as React.ForwardedRef<HTMLLIElement>}
+          role="presentation"
+        />
+      )
+    }
+
+    return (
+      <div
+        {...(props as React.ComponentPropsWithoutRef<'div'>)}
+        className={clsx(className, classes.TimelineBreak)}
+        ref={forwardRef as React.ForwardedRef<HTMLDivElement>}
+      />
+    )
+  },
+)
 
 TimelineBreak.displayName = 'TimelineBreak'
 
