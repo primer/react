@@ -103,7 +103,7 @@ describe('InlineMessage', () => {
   it('should render InfoIcon when variant is not provided', () => {
     const {container} = render(<InlineMessage>test without variant</InlineMessage>)
     expect(screen.getByText('test without variant')).toBeInTheDocument()
-    const svg = container.querySelector('svg')
+    const svg = container.querySelector('svg.octicon-info')
     expect(svg).toBeInTheDocument()
   })
 
