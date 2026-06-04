@@ -47,7 +47,7 @@
   width: 100%;
   height: auto;
 
-  :where([data-variant='condensed']) & {
+  .Card:where([data-variant='condensed']) & {
     flex: 0 0 auto;
     width: auto;
   }
@@ -74,7 +74,7 @@
   justify-content: flex-start;
   color: var(--fgColor-muted);
 
-  :where([data-variant='default']) & {
+  .Card:where([data-variant='default']) & {
     justify-content: center;
     width: var(--base-size-32);
     height: var(--base-size-32);
@@ -87,7 +87,7 @@
   display: grid;
   gap: var(--stack-gap-normal);
 
-  :where([data-variant='condensed']) & {
+  .Card:where([data-variant='condensed']) & {
     flex: 1 1 auto;
   }
 }
@@ -102,7 +102,7 @@
   color: var(--fgColor-default);
   margin: 0;
 
-  :where([data-variant='condensed']) & {
+  .Card:where([data-variant='condensed']) & {
     position: relative;
     top: calc(-1 * var(--base-size-4));
     font-size: var(--text-body-size-medium);
