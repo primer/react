@@ -30,13 +30,13 @@
     padding: 0;
   }
 
-  &[data-variant='condensed'] {
+  &[data-layout='compact'] {
     display: flex;
     align-items: flex-start;
     gap: var(--stack-gap-condensed);
   }
 
-  &[data-variant='condensed'][data-padding='normal'] {
+  &[data-layout='compact'][data-padding='normal'] {
     /* stylelint-disable-next-line primer/spacing */
     padding: var(--stack-padding-normal);
   }
@@ -47,7 +47,7 @@
   width: 100%;
   height: auto;
 
-  .Card:where([data-variant='condensed']) & {
+  .Card:where([data-layout='compact']) & {
     flex: 0 0 auto;
     width: auto;
   }
@@ -74,7 +74,7 @@
   justify-content: flex-start;
   color: var(--fgColor-muted);
 
-  .Card:where([data-variant='default']) & {
+  .Card:where([data-layout='default']) & {
     justify-content: center;
     width: var(--base-size-32);
     height: var(--base-size-32);
@@ -87,7 +87,7 @@
   display: grid;
   gap: var(--stack-gap-normal);
 
-  .Card:where([data-variant='condensed']) & {
+  .Card:where([data-layout='compact']) & {
     flex: 1 1 auto;
   }
 }
@@ -102,7 +102,7 @@
   color: var(--fgColor-default);
   margin: 0;
 
-  .Card:where([data-variant='condensed']) & {
+  .Card:where([data-layout='compact']) & {
     position: relative;
     top: calc(-1 * var(--base-size-4));
     font-size: var(--text-body-size-medium);

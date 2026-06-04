@@ -28,13 +28,13 @@ export const WithImage = () => {
   )
 }
 
-export const Condensed = () => {
+export const Compact = () => {
   return (
-    <Card variant="condensed">
+    <Card layout="compact">
       <Card.Icon icon={RepoIcon} />
       <Card.Heading>primer/react</Card.Heading>
       <Card.Description>
-        The condensed variant uses tighter spacing, an icon without a background container, and a smaller title.
+        The compact layout uses tighter spacing, an icon without a background container, and a smaller title.
       </Card.Description>
       <Card.Metadata>
         <StarIcon size={16} />
