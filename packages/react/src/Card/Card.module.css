@@ -102,7 +102,7 @@
 
   :where([data-variant='condensed']) & {
     position: relative;
-    top: calc(-1 * var(--base-size-2));
+    top: calc(-1 * var(--base-size-4));
     font-size: var(--text-body-size-medium);
   }
 }
