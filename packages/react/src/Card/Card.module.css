@@ -34,7 +34,9 @@
     display: flex;
     align-items: flex-start;
     gap: var(--stack-gap-condensed);
+  }
 
+  &[data-variant='condensed'][data-padding='normal'] {
     /* stylelint-disable-next-line primer/spacing */
     padding: var(--stack-padding-normal);
   }
