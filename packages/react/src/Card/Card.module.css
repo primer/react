@@ -29,6 +29,13 @@
   &[data-padding='none'] {
     padding: 0;
   }
+
+  &[data-variant='condensed'] {
+    gap: var(--stack-gap-condensed);
+
+    /* stylelint-disable-next-line primer/spacing */
+    padding: var(--stack-padding-condensed);
+  }
 }
 
 .CardHeader {
@@ -61,6 +68,13 @@
   border-radius: var(--borderRadius-medium);
   background-color: var(--bgColor-muted);
   color: var(--fgColor-muted);
+
+  :where([data-variant='condensed']) & {
+    width: auto;
+    height: auto;
+    border-radius: 0;
+    background-color: transparent;
+  }
 }
 
 .CardBody {
@@ -77,6 +91,10 @@
   font: var(--text-title-shorthand-small);
   color: var(--fgColor-default);
   margin: 0;
+
+  :where([data-variant='condensed']) & {
+    font-size: var(--text-body-size-medium);
+  }
 }
 
 .CardDescription {

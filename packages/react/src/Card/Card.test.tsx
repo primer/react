@@ -277,4 +277,32 @@ describe('Card', () => {
     )
     expect(container.firstChild).not.toHaveAttribute('as')
   })
+
+  it('should set data-variant to default by default', () => {
+    const {container} = render(
+      <Card>
+        <Card.Heading>Default Variant</Card.Heading>
+      </Card>,
+    )
+    expect(container.firstChild).toHaveAttribute('data-variant', 'default')
+  })
+
+  it('should set data-variant to condensed when variant="condensed"', () => {
+    const {container} = render(
+      <Card variant="condensed">
+        <Card.Icon icon={TestIcon} />
+        <Card.Heading>Condensed Card</Card.Heading>
+      </Card>,
+    )
+    expect(container.firstChild).toHaveAttribute('data-variant', 'condensed')
+  })
+
+  it('should set data-variant on custom content cards', () => {
+    const {container} = render(
+      <Card variant="condensed">
+        <p>Custom</p>
+      </Card>,
+    )
+    expect(container.firstChild).toHaveAttribute('data-variant', 'condensed')
+  })
 })
