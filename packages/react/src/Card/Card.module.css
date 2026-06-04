@@ -62,10 +62,11 @@
 .CardIcon {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   color: var(--fgColor-muted);
 
   :where([data-variant='default']) & {
+    justify-content: center;
     width: var(--base-size-32);
     height: var(--base-size-32);
     border-radius: var(--borderRadius-medium);
