@@ -16,7 +16,18 @@ export interface Column<Data extends UniqueRow> {
    * Provide the name of the column. This will be rendered as a table header
    * within the table itself
    */
-  header: string | (() => React.ReactNode)
+  header:
+    | string
+    | ((options: {
+        table: {
+          allRowsSelected: () => boolean
+          someRowsSelected: () => boolean
+          selectAllRows: () => void
+          deselectAllRows: () => void
+          selectPaginatedRows: () => void
+          deselectPaginatedRows: () => void
+        }
+      }) => React.ReactNode)
 
   /**
    * Optionally provide a field to render for this column. This may be the key

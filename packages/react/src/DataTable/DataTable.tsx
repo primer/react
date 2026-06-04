@@ -1,6 +1,6 @@
 import type React from 'react'
 import type {Column} from './column'
-import {useTable} from './useTable'
+import {useTable, ROW_SELECTION_COLUMN_ID} from './useTable'
 import type {SortDirection} from './sorting'
 import type {RowId, UniqueRow} from './row'
 import type {ObjectPaths} from './utils'
@@ -96,8 +96,28 @@ function defaultGetRowId<D extends UniqueRow>(row: D) {
 }
 
 const TableSortColumn = {
-  id: '__row-selection__',
-  header: () => <TableSelectHeader />,
+  id: ROW_SELECTION_COLUMN_ID,
+  header: ({
+    table,
+  }: {
+    table: {
+      allRowsSelected: () => boolean
+      someRowsSelected: () => boolean
+      selectAllRows: () => void
+      deselectAllRows: () => void
+      selectPaginatedRows: () => void
+      deselectPaginatedRows: () => void
+    }
+  }) => (
+    <TableSelectHeader
+      onSelect={() => {
+        table.selectAllRows()
+      }}
+      onDeselect={() => {
+        table.deselectAllRows()
+      }}
+    />
+  ),
   width: 'auto',
   renderCell: () => <TableSelectRow />,
 }
@@ -140,9 +160,9 @@ function DataTable<Data extends UniqueRow>({
       <TableHead>
         <TableRow>
           {headers.map(header => {
-            if (header.id === '__row-selection__') {
+            if (header.id === ROW_SELECTION_COLUMN_ID) {
               // @ts-expect-error - asdf
-              return header.column.header()
+              return header.column.header({table})
             }
 
             if (header.isSortable()) {
@@ -158,7 +178,7 @@ function DataTable<Data extends UniqueRow>({
                     onToggleSort?.(header.id, nextDirection)
                   }}
                 >
-                  {typeof header.column.header === 'string' ? header.column.header : header.column.header()}
+                  {typeof header.column.header === 'string' ? header.column.header : header.column.header({table})}
                 </TableSortHeader>
               )
             }
@@ -175,7 +195,7 @@ function DataTable<Data extends UniqueRow>({
           return (
             <TableRow key={row.id}>
               {row.getCells().map(cell => {
-                if (cell.column.id === '__row-selection__') {
+                if (cell.column.id === ROW_SELECTION_COLUMN_ID) {
                   // @ts-expect-error - asdf
                   return cell.column.renderCell(row.getValue())
                 }

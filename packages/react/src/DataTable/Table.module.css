@@ -113,6 +113,19 @@
   border-inline-end: var(--borderWidth-thin) solid var(--borderColor-default);
 }
 
+/* When a row-selection column is present it is visually first (order: -1), so
+ * the leading edge styles must follow the visual order rather than DOM order. */
+.TableSelectHeader,
+.TableSelectRow {
+  border-inline-start: var(--borderWidth-thin) solid var(--borderColor-default);
+  padding-inline-start: var(--base-size-16);
+}
+
+.Table[data-row-selection] .TableCell:first-child,
+.Table[data-row-selection] .TableHeader:first-child {
+  border-inline-start: none;
+}
+
 .TableHeader,
 .TableCell {
   display: flex;
@@ -158,6 +171,28 @@
   border-bottom-left-radius: var(--table-border-radius);
 }
 
+/* Leading-edge corner radii follow visual order when a row-selection column is present */
+.TableHead .TableRow:first-of-type .TableSelectHeader {
+  /* stylelint-disable-next-line primer/borders */
+  border-top-left-radius: var(--table-border-radius);
+}
+
+/* stylelint-disable-next-line selector-max-compound-selectors,selector-max-specificity */
+.TableOverflowWrapper:last-child .Table .TableBody .TableRow:last-of-type .TableSelectRow {
+  /* stylelint-disable-next-line primer/borders */
+  border-bottom-left-radius: var(--table-border-radius);
+}
+
+/* stylelint-disable-next-line selector-max-compound-selectors,selector-max-specificity */
+.Table[data-row-selection] .TableHead .TableRow:first-of-type .TableHeader:first-child {
+  border-top-left-radius: 0;
+}
+
+/* stylelint-disable-next-line selector-max-compound-selectors,selector-max-specificity */
+.Table[data-row-selection] .TableBody .TableRow:last-of-type .TableCell:first-child {
+  border-bottom-left-radius: 0;
+}
+
 /* stylelint-disable-next-line selector-max-compound-selectors,selector-max-specificity */
 .TableOverflowWrapper:last-child .Table .TableBody .TableRow:last-of-type .TableCell:last-child {
   /* stylelint-disable-next-line primer/borders */
@@ -171,6 +206,16 @@
 .TableRow > *:first-child:not(.TableCellSkeleton),
 .TableRow > *:first-child .TableCellSkeletonItem {
   padding-inline-start: var(--base-size-16);
+}
+
+/* When a row-selection column is present it is visually first, so reset the DOM
+ * first child's leading padding offset back to the default interior padding. */
+/* stylelint-disable-next-line selector-max-specificity */
+.Table[data-row-selection] .TableRow > *:first-child:not(.TableCellSkeleton),
+/* stylelint-disable-next-line selector-max-compound-selectors,selector-max-specificity */
+.Table[data-row-selection] .TableRow > *:first-child .TableCellSkeletonItem {
+  /* stylelint-disable-next-line primer/spacing */
+  padding-inline-start: var(--cell-padding-inline);
 }
 
 .TableRow > *:last-child:not(.TableCellSkeleton),
@@ -290,10 +335,7 @@
   color: var(--fgColor-muted);
 }
 
-.TableSelectHeader {
-  order: -1;
-}
-
+.TableSelectHeader,
 .TableSelectRow {
   order: -1;
 }

@@ -393,21 +393,42 @@ function TableSkeleton<Data extends UniqueRow>({cellPadding, columns, rows = 10,
   )
 }
 
-function TableSelectHeader() {
+function TableSelectHeader({onSelect, onDeselect}: {onSelect: () => void; onDeselect: () => void}) {
   return (
     <TableHeader className={classes.TableSelectHeader}>
       <label>
-        <Checkbox />
+        <Checkbox
+          indeterminate={false}
+          onChange={event => {
+            if (event.target.checked) {
+              onSelect()
+            } else {
+              onDeselect()
+            }
+          }}
+        />
+        <VisuallyHidden>Select all rows</VisuallyHidden>
       </label>
     </TableHeader>
   )
 }
 
-function TableSelectRow() {
+type TableSelectRowProps = {
+  selected: boolean
+  onToggleSelect: () => void
+}
+
+function TableSelectRow({selected, onToggleSelect}: TableSelectRowProps) {
   return (
     <TableCell className={classes.TableSelectRow}>
       <label>
-        <Checkbox />
+        <Checkbox
+          checked={selected}
+          onChange={() => {
+            onToggleSelect()
+          }}
+        />
+        <VisuallyHidden>Select row</VisuallyHidden>
       </label>
     </TableCell>
   )

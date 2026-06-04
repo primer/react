@@ -2,6 +2,7 @@ import {useState} from 'react'
 import type {Column} from './column'
 import type {RowId, UniqueRow} from './row'
 import {DEFAULT_SORT_DIRECTION, SortDirection, transition, strategies} from './sorting'
+import {useSelection} from './selection'
 import type {ObjectPathValue} from './utils'
 
 interface TableConfig<Data extends UniqueRow> {
@@ -32,6 +33,14 @@ interface Table<Data extends UniqueRow> {
   // Selection
   allRowsSelected: () => boolean
   someRowsSelected: () => boolean
+  selectedRows: Set<RowId>
+  selectRow: (id: RowId) => void
+  deselectRow: (id: RowId) => void
+  toggleSelectRow: (id: RowId) => void
+  selectAllRows: () => void
+  deselectAllRows: () => void
+  selectPaginatedRows: () => void
+  deselectPaginatedRows: () => void
 }
 
 interface Header<Data extends UniqueRow> {
@@ -63,6 +72,8 @@ export function useTable<Data extends UniqueRow>({
   initialSortDirection,
   externalSorting,
   getRowId,
+  selectedRowIds,
+  onSelectionChange,
 }: TableConfig<Data>): Table<Data> {
   const [rowOrder, setRowOrder] = useState(data)
   const [prevData, setPrevData] = useState(data)
@@ -70,7 +81,17 @@ export function useTable<Data extends UniqueRow>({
   const [sortByColumn, setSortByColumn] = useState<ColumnSortState>(() => {
     return getInitialSortState(columns, initialSortColumn, initialSortDirection)
   })
-  const {gridTemplateColumns} = useTableLayout(columns)
+  const {selected, select, selectMany, deselect, deselectMany, toggleSelect, clear} = useSelection({
+    selected: selectedRowIds,
+    onChange: onSelectionChange,
+  })
+
+  // The row-selection column is rendered at DOM index 1 (for a11y/tab order) but
+  // is visually pulled to the front via `order: -1`. Grid track sizes are
+  // positional, so the layout columns are reordered to put the selection track
+  // first, keeping track widths aligned with the visual column order.
+  const layoutColumns = getLayoutColumns(columns)
+  const {gridTemplateColumns} = useTableLayout(layoutColumns)
 
   // Reset the `sortByColumn` state if the columns change and that column is no
   // longer provided
@@ -232,6 +253,30 @@ export function useTable<Data extends UniqueRow>({
       sortBy,
     },
     gridTemplateColumns,
+
+    // Selection ---------------------------------------------------------------
+    selectedRows: selected,
+    selectRow: select,
+    deselectRow: deselect,
+    toggleSelectRow: toggleSelect,
+    selectAllRows() {
+      selectMany(new Set(data.map(row => getRowId(row))))
+    },
+    deselectAllRows() {
+      clear()
+    },
+    selectPaginatedRows() {
+      selectMany(new Set(rowOrder.map(row => getRowId(row))))
+    },
+    deselectPaginatedRows() {
+      deselectMany(new Set(rowOrder.map(row => getRowId(row))))
+    },
+    allRowsSelected() {
+      return selected.size === data.length && data.length > 0
+    },
+    someRowsSelected() {
+      return selected.size > 0 && selected.size < data.length
+    },
   }
 }
 
@@ -304,6 +349,23 @@ function getInitialSortState<Data extends UniqueRow>(
   }
 
   return null
+}
+
+export const ROW_SELECTION_COLUMN_ID = '__row-selection__'
+
+// The row-selection column is rendered at DOM index 1 for accessibility/tab
+// order but is visually moved to the front via `order: -1`. Grid track sizing
+// is positional, so move the selection column to the front for layout purposes
+// to keep track widths aligned with the visual column order.
+export function getLayoutColumns<Data extends UniqueRow>(columns: Array<Column<Data>>): Array<Column<Data>> {
+  const index = columns.findIndex(column => column.id === ROW_SELECTION_COLUMN_ID)
+  if (index <= 0) {
+    return columns
+  }
+  const reordered = [...columns]
+  const [selectionColumn] = reordered.splice(index, 1)
+  reordered.unshift(selectionColumn)
+  return reordered
 }
 
 export function useTableLayout<Data extends UniqueRow>(columns: Array<Column<Data>>): {gridTemplateColumns: string} {
