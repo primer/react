@@ -101,6 +101,8 @@
   margin: 0;
 
   :where([data-variant='condensed']) & {
+    position: relative;
+    top: calc(-1 * var(--base-size-2));
     font-size: var(--text-body-size-medium);
   }
 }
