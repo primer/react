@@ -63,17 +63,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: var(--base-size-32);
-  height: var(--base-size-32);
-  border-radius: var(--borderRadius-medium);
-  background-color: var(--bgColor-muted);
   color: var(--fgColor-muted);
 
-  :where([data-variant='condensed']) & {
-    width: auto;
-    height: auto;
-    border-radius: 0;
-    background-color: transparent;
+  :where([data-variant='default']) & {
+    width: var(--base-size-32);
+    height: var(--base-size-32);
+    border-radius: var(--borderRadius-medium);
+    background-color: var(--bgColor-muted);
   }
 }
 
