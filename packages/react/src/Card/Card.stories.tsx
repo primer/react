@@ -33,12 +33,13 @@ export const Default = () => {
 type PlaygroundArgs = {
   showIcon: boolean
   showMetadata: boolean
+  variant: 'default' | 'condensed'
   padding: 'none' | 'condensed' | 'normal'
   borderRadius: 'medium' | 'large'
 }
 
-export const Playground: StoryFn<PlaygroundArgs> = ({showIcon, showMetadata, padding, borderRadius}) => (
-  <Card padding={padding} borderRadius={borderRadius}>
+export const Playground: StoryFn<PlaygroundArgs> = ({showIcon, showMetadata, variant, padding, borderRadius}) => (
+  <Card variant={variant} padding={padding} borderRadius={borderRadius}>
     {showIcon && <Card.Icon icon={RocketIcon} />}
     <Card.Heading>Playground Card</Card.Heading>
     <Card.Description>Experiment with the Card component and its subcomponents.</Card.Description>
@@ -49,6 +50,7 @@ export const Playground: StoryFn<PlaygroundArgs> = ({showIcon, showMetadata, pad
 Playground.args = {
   showIcon: true,
   showMetadata: true,
+  variant: 'default',
   padding: 'normal',
   borderRadius: 'large',
 }
@@ -61,6 +63,11 @@ Playground.argTypes = {
   showMetadata: {
     control: {type: 'boolean'},
     description: 'Show or hide the Card.Metadata subcomponent',
+  },
+  variant: {
+    control: {type: 'radio'},
+    options: ['default', 'condensed'],
+    description: 'Controls the visual variant of the Card',
   },
   padding: {
     control: {type: 'radio'},

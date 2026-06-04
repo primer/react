@@ -28,6 +28,22 @@ export const WithImage = () => {
   )
 }
 
+export const Condensed = () => {
+  return (
+    <Card variant="condensed">
+      <Card.Icon icon={RepoIcon} />
+      <Card.Heading>primer/react</Card.Heading>
+      <Card.Description>
+        The condensed variant uses tighter spacing, an icon without a background container, and a smaller title.
+      </Card.Description>
+      <Card.Metadata>
+        <StarIcon size={16} />
+        1.2k stars
+      </Card.Metadata>
+    </Card>
+  )
+}
+
 export const WithMetadata = () => {
   return (
     <Card>

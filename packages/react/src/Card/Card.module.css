@@ -34,7 +34,7 @@
     gap: var(--stack-gap-condensed);
 
     /* stylelint-disable-next-line primer/spacing */
-    padding: var(--stack-padding-condensed);
+    padding: var(--stack-padding-normal);
   }
 }
 
