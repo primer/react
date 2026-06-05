@@ -8,13 +8,24 @@ description: |
   Use when user: configures tasks/workflows/pipelines, creates packages, sets up
   monorepo, shares code between apps, runs changed/affected packages, debugs cache,
   or has apps/packages directories.
-metadata:
-  version: 2.9.17-canary.3
 ---
 
 # Turborepo Skill
 
 Build system for JavaScript/TypeScript monorepos. Turborepo caches task outputs and runs tasks in parallel based on dependency graph.
+
+## Primer React's Turborepo setup
+
+The rest of this skill is generic Turborepo guidance. This section grounds it in how Primer React actually uses Turborepo today — prefer these facts over the generic examples when they conflict.
+
+- **Version & schema:** `turbo` is pinned to `^2.6.3` in the root `package.json`, and `turbo.json` uses `"$schema": "https://turborepo.com/schema.json"`. Use this schema URL (not a canary URL) in any `turbo.json` examples for this repo.
+- **Package manager & layout:** npm workspaces (not pnpm/bun/yarn). There is no `apps/` directory — workspaces are `packages/*` and `examples/*`. The published packages are `@primer/react`, `@primer/doc-gen`, `@primer/mcp`, `@primer/postcss-preset-primer`, `@primer/rollup-plugin-import-css`, and `@primer/styled-react`. When the generic docs reference `apps/web`, `@repo/*`, Next.js, or Vercel, translate those to this repo's packages.
+- **Tasks registered in `turbo.json`:** only `build`, `build:storybook`, `lint:npm`, and `type-check`. There is intentionally **no** `dev`, `test`, or `watch` task in `turbo.json`.
+- **What runs through Turborepo vs. directly:** Turbo orchestrates `build` (`turbo run build --filter='!./examples/*'`), `type-check` (`tsc --noEmit && turbo run type-check`), `build:storybook`, and `lint:npm`. Repo-wide scripts — `format`, `lint`, `lint:css`, `lint:md`, `test` (Vitest), and `size` — run directly from the root `package.json` and do **not** go through Turborepo. This is intentional; don't "fix" them to delegate to `turbo run`.
+- **No Package Configurations:** there are currently no per-package `turbo.json` files. Task config lives only in the root `turbo.json`.
+- **No global/env config:** `turbo.json` does not declare `globalEnv`, `globalDependencies`, `globalPassThroughEnv`, or `futureFlags`. The env-mode and global-hash sections below are reference material, not a description of the current config.
+- **Caching in CI:** CI (`.github/workflows/ci.yml`, `npm.yml`, `copilot-setup-steps.yml`) caches the local `.turbo` directory with `actions/cache` and invokes `npx turbo run <task>`. There is no Vercel Remote Cache and no `--affected` usage today; the remote-cache and `--affected` sections below are reference material.
+- **Cached outputs:** `build` caches `.next/**`, `dist/**`, and `generated/**`; `build:storybook` caches `storybook-static/**`.
 
 ## IMPORTANT: Package Tasks, Not Root Tasks
 
@@ -24,9 +35,9 @@ When creating tasks/scripts/pipelines, you MUST default to package tasks:
 
 1. Add the script to each relevant package's `package.json`
 2. Register the task in root `turbo.json`
-3. Root `package.json` only delegates via `turbo run <task>`
+3. For tasks meant to fan out across packages, the root `package.json` script delegates via `turbo run <task>`
 
-**DO NOT** put task logic in root `package.json` when it can live in packages. This defeats Turborepo's parallelization.
+**DO NOT** put per-package task logic in root `package.json` when it can live in packages. This defeats Turborepo's parallelization. (Repo-wide scripts that are not per-package — e.g. `format`, `lint`, `lint:css`, `test` — may still run directly from the root; see "Primer React's Turborepo setup" above.)
 
 ```json
 // DO THIS: Scripts in each package
@@ -740,7 +751,7 @@ import {Button} from '@repo/ui/button'
 
 ```json
 {
-  "$schema": "https://v2-9-17-canary-3.turborepo.dev/schema.json",
+  "$schema": "https://turborepo.com/schema.json",
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
