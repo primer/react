@@ -118,6 +118,5 @@ describe('FilteredActionListBodyLoader', () => {
 
       expect(container.querySelector('[data-component="FilteredActionList.Skeleton"]')).toBeInTheDocument()
     })
-
   })
 })
