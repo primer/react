@@ -113,7 +113,6 @@ for (const usingRemoveActiveDescendant of [false, true]) {
 
     it('should call onActiveDescendantChanged when using keyboard while focusing on an item', async () => {
       const user = userEvent.setup()
-      // jest function
       const onActiveDescendantChanged = vi.fn()
 
       render(<BasicSelectPanel onActiveDescendantChanged={onActiveDescendantChanged} />)
