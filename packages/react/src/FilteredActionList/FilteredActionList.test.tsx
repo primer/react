@@ -118,5 +118,16 @@ describe('FilteredActionListBodyLoader', () => {
 
       expect(container.querySelector('[data-component="FilteredActionList.Skeleton"]')).toBeInTheDocument()
     })
+
+    it('does not use Math.random to render bodySkeleton loading widths', () => {
+      const random = vi.spyOn(Math, 'random')
+
+      render(<FilteredActionListBodyLoader loadingType={FilteredActionListLoadingTypes.bodySkeleton} height={200} />)
+
+      const randomCallCount = random.mock.calls.length
+      random.mockRestore()
+
+      expect(randomCallCount).toBe(0)
+    })
   })
 })
