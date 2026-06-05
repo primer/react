@@ -15,7 +15,7 @@
     },
     {
       "name": "variant",
-      "type": "'inset' | 'horizontal-inset' | 'full'",
+      "type": "'inset' | 'horizontal-inset' | 'vertical-inset' | 'full' | 'start' | 'end'",
       "defaultValue": "'inset'",
       "description": "`inset` children are offset (vertically and/or horizontally) from list edges. `full` children are flush (vertically and horizontally) with list edges"
     },

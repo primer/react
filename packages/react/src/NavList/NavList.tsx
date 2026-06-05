@@ -3,6 +3,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import React, {isValidElement} from 'react'
 import {clsx} from 'clsx'
 import type {
+  ActionListProps,
   ActionListTrailingActionProps,
   ActionListDividerProps,
   ActionListLeadingVisualProps,
@@ -25,9 +26,13 @@ import {fixedForwardRef, type PolymorphicProps} from '../utils/modern-polymorphi
 
 export type NavListProps = {
   children: React.ReactNode
+  /**
+   * Style variations for the underlying `ActionList`. See `ActionList`'s `variant` prop for details.
+   */
+  variant?: ActionListProps['variant']
 } & React.ComponentProps<'nav'>
 
-const Root = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
+const Root = React.forwardRef<HTMLElement, NavListProps>(({children, variant, ...props}, ref) => {
   return (
     <nav {...props} ref={ref}>
       <ActionListContainerContext.Provider
@@ -35,7 +40,7 @@ const Root = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, 
           container: 'NavList',
         }}
       >
-        <ActionList>{children}</ActionList>
+        <ActionList variant={variant}>{children}</ActionList>
       </ActionListContainerContext.Provider>
     </nav>
   )

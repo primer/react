@@ -15,10 +15,26 @@
     padding-block: var(--base-size-8);
   }
 
+  &:where([data-variant='vertical-inset']) {
+    padding-block: var(--base-size-8);
+  }
+
   &:where([data-variant='inset'], [data-variant='horizontal-inset']) {
     /* this is only to match default experience */
     & .ActionListItem {
       margin-inline: var(--base-size-8);
+    }
+  }
+
+  &:where([data-variant='start']) {
+    & .ActionListItem {
+      margin-inline-start: var(--base-size-8);
+    }
+  }
+
+  &:where([data-variant='end']) {
+    & .ActionListItem {
+      margin-inline-end: var(--base-size-8);
     }
   }
 
