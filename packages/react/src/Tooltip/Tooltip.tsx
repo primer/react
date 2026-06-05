@@ -3,6 +3,7 @@ import React, {useMemo} from 'react'
 import {useId} from '../hooks'
 import classes from './Tooltip.module.css'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {TooltipContext} from './TooltipContext'
 
 /* Tooltip v1 */
 
@@ -16,8 +17,6 @@ export type TooltipProps = {
   align?: 'left' | 'right'
   wrap?: boolean
 } & React.ComponentProps<'span'>
-
-export const TooltipContext = React.createContext<{tooltipId?: string}>({})
 
 /**
  * @deprecated

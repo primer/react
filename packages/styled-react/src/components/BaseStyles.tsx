@@ -3,7 +3,7 @@ import {type CSSProperties, type PropsWithChildren, type JSX} from 'react'
 import {clsx} from 'clsx'
 // eslint-disable-next-line import/no-namespace
 import type * as styledSystem from 'styled-system'
-import {useTheme} from './ThemeProvider'
+import {useTheme} from './ThemeProviderContext'
 
 import 'focus-visible'
 import {createGlobalStyle} from 'styled-components'

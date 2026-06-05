@@ -1,21 +1,13 @@
 import React, {useContext} from 'react'
 import {createPortal} from 'react-dom'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
-
-const PRIMER_PORTAL_ROOT_ID = '__primerPortalRoot__'
-const DEFAULT_PORTAL_CONTAINER_NAME = '__default__'
-
-const portalRootRegistry: Partial<Record<string, Element>> = {}
-
-/**
- * Register a container to serve as a portal root.
- * @param root The element that will be the root for portals created in this container
- * @param name The name of the container, to be used with the `containerName` prop on the Portal Component.
- * If name is not specified, registers the default portal root.
- */
-export function registerPortalRoot(root: Element, name = DEFAULT_PORTAL_CONTAINER_NAME): void {
-  portalRootRegistry[name] = root
-}
+import {PortalContext} from './PortalContext'
+import {
+  DEFAULT_PORTAL_CONTAINER_NAME,
+  PRIMER_PORTAL_ROOT_ID,
+  portalRootRegistry,
+  registerPortalRoot,
+} from './PortalRootRegistry'
 
 // Ensures that a default portal root exists and is registered. If a DOM element exists
 // with id __primerPortalRoot__, allow that element to serve as the default portal root.
@@ -47,10 +39,6 @@ function ensureDefaultPortal() {
  * Provides the ability for component trees to override the portal root container for a sub-set of the experience.
  * The portal will prioritize the context value unless overridden by their own `containerName` prop, and fallback to the default root if neither are specified
  */
-export const PortalContext = React.createContext<{
-  portalContainerName?: string
-}>({})
-
 export interface PortalProps {
   /**
    * Called when this portal is added to the DOM

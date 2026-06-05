@@ -3,6 +3,7 @@ import defaultTheme from './theme'
 import deepmerge from 'deepmerge'
 import {useId} from './hooks'
 import {useSyncedState} from './hooks/useSyncedState'
+import {ThemeContext, useTheme} from './ThemeProviderContext'
 
 export const defaultColorMode = 'day'
 const defaultDayScheme = 'light'
@@ -10,7 +11,7 @@ const defaultNightScheme = 'dark'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Theme = {[key: string]: any}
-type ColorMode = 'day' | 'night' | 'light' | 'dark'
+export type ColorMode = 'day' | 'night' | 'light' | 'dark'
 export type ColorModeWithAuto = ColorMode | 'auto'
 
 export type ThemeProviderProps = {
@@ -25,23 +26,6 @@ export type ThemeProviderProps = {
    */
   contextOnly?: boolean
 }
-
-const ThemeContext = React.createContext<{
-  theme?: Theme
-  colorScheme?: string
-  colorMode?: ColorModeWithAuto
-  resolvedColorMode?: ColorMode
-  resolvedColorScheme?: string
-  dayScheme?: string
-  nightScheme?: string
-  setColorMode: React.Dispatch<React.SetStateAction<ColorModeWithAuto>>
-  setDayScheme: React.Dispatch<React.SetStateAction<string>>
-  setNightScheme: React.Dispatch<React.SetStateAction<string>>
-}>({
-  setColorMode: () => null,
-  setDayScheme: () => null,
-  setNightScheme: () => null,
-})
 
 // inspired from __NEXT_DATA__, we use application/json to avoid CSRF policy with inline scripts
 const serverHandoffCache = new Map<string, Record<string, unknown>>()
@@ -158,15 +142,6 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
       </div>
     </ThemeContext.Provider>
   )
-}
-
-export function useTheme() {
-  return React.useContext(ThemeContext)
-}
-
-export function useColorSchemeVar(values: Partial<Record<string, string>>, fallback: string) {
-  const {colorScheme = ''} = useTheme()
-  return values[colorScheme] ?? fallback
 }
 
 function subscribeToSystemColorMode(callback: () => void) {

@@ -14,7 +14,7 @@ async function generateComponentsJson() {
   const types = new Set()
   const utilities = new Set()
 
-  const entrypoints = ['src/index.tsx']
+  const entrypoints = ['src/index.ts']
 
   for (const entrypoint of entrypoints) {
     const filename = path.join(PACKAGE_ROOT, entrypoint)

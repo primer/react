@@ -16,6 +16,7 @@ import classes from './Dialog.module.css'
 import {clsx} from 'clsx'
 import {useSlots} from '../hooks/useSlots'
 import {useResizeObserver} from '../hooks/useResizeObserver'
+import {DialogContext} from './DialogContext'
 
 /* Dialog Version 2 */
 
@@ -270,8 +271,6 @@ const defaultFooterButtons: Array<DialogButtonProps> = []
 // Minimum room needed for body content before forcing footer buttons into horizontal scroll.
 const MIN_BODY_HEIGHT = 48
 
-// useful to determine whether we're inside a Dialog from a nested component
-export const DialogContext = React.createContext<object | undefined>(undefined)
 const DIALOG_CONTEXT_VALUE = Object.freeze({})
 
 const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {

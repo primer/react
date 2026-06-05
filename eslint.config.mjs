@@ -59,7 +59,21 @@ const config = defineConfig([
 
   ...fixupConfigRules([react.configs.flat.recommended, react.configs.flat['jsx-runtime']]),
   reactHooks.configs.flat['recommended-latest'],
-  reactRefresh.configs.recommended,
+  {
+    plugins: {
+      'react-refresh': reactRefresh,
+    },
+    rules: {
+      'react-refresh/only-export-components': [
+        'error',
+        {
+          allowConstantExport: true,
+          allowExportNames: ['metadata'],
+          extraHOCs: ['assign', 'fixedForwardRef'],
+        },
+      ],
+    },
+  },
   // Disable react-compiler rule for files not yet migrated
   {
     files: reactCompilerUnsupported.map(p => `packages/react/${p}`),

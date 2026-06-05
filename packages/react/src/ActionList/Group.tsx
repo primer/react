@@ -10,6 +10,7 @@ import groupClasses from './Group.module.css'
 import type {FCWithSlotMarker} from '../utils/types/Slots'
 import {GroupHeadingTrailingAction} from './GroupHeadingTrailingAction'
 import {useFeatureFlag} from '../FeatureFlags'
+import {GroupContext} from './GroupContext'
 
 const GROUP_HEADING_TRAILING_ACTION_FEATURE_FLAG = 'primer_react_action_list_group_heading_trailing_action'
 
@@ -65,12 +66,6 @@ export type ActionListGroupProps = React.HTMLAttributes<HTMLLIElement> & {
    */
   selectionVariant?: ActionListProps['selectionVariant'] | false
 }
-
-type ContextProps = Pick<ActionListGroupProps, 'selectionVariant'> & {groupHeadingId: string | undefined}
-export const GroupContext = React.createContext<ContextProps>({
-  groupHeadingId: undefined,
-  selectionVariant: undefined,
-})
 
 export const Group: FCWithSlotMarker<React.PropsWithChildren<ActionListGroupProps>> = ({
   title,

@@ -1,6 +1,7 @@
 import type {Meta, StoryFn} from '@storybook/react-vite'
 
-import {ThemeProvider, type ThemeProviderProps, useTheme} from '../ThemeProvider'
+import ThemeProvider, {type ThemeProviderProps} from '../ThemeProvider'
+import {useTheme} from '../ThemeProviderContext'
 import BaseStyles from '../BaseStyles'
 import classes from './ThemeProvider.stories.module.css'
 

@@ -1,6 +1,7 @@
-import React, {createContext, useContext, useState, useEffect} from 'react'
+import React, {useContext, useEffect} from 'react'
 import {canUseDOM} from '../utils/environment'
 import {warning} from '../utils/warning'
+import {MatchMediaContext} from './MatchMediaContext'
 
 /**
  * `useMedia` will use the given `mediaQueryString` with `matchMedia` to
@@ -82,66 +83,4 @@ export function useMedia(mediaQueryString: string, defaultState?: boolean) {
   }, [features, mediaQueryString])
 
   return matches
-}
-
-type MediaQueryFeatures = {
-  [key: string]: boolean | undefined
-}
-
-// Used to keep track of overrides to specific media query features, this should
-// be used for development and demo purposes to emulate specific features if
-// unavailable through devtools
-const MatchMediaContext = createContext<MediaQueryFeatures>({})
-
-type MatchMediaProps = {
-  children: React.ReactNode
-  features?: MediaQueryFeatures
-}
-
-const defaultFeatures = {}
-
-/**
- * Use `MatchMedia` to emulate media conditions by passing in feature
- * queries to the `features` prop. If a component uses `useMedia` with the
- * feature passed in to `MatchMedia` it will force its value to match what is
- * provided to `MatchMedia`
- *
- * This should be used for development and documentation only in situations
- * where devtools cannot emulate this feature
- *
- * @example
- * <MatchMedia features={{ "(pointer: coarse)": true}}>
- *   <Children />
- * </MatchMedia>
- */
-export function MatchMedia({children, features = defaultFeatures}: MatchMediaProps) {
-  const value = useShallowObject(features)
-  return <MatchMediaContext.Provider value={value}>{children}</MatchMediaContext.Provider>
-}
-
-type SimpleObject = {
-  [key: string]: boolean | number | string | null | undefined
-}
-
-/**
- * Utility hook to provide a stable identity for a "simple" object which
- * contains only primitive values. This provides a `useMemo`-esque signature
- * without dealing with shallow equality checks in the dependency array.
- *
- * Note (perf): this hook iterates through keys and values of the object if the
- * shallow equality check is false each time the hook is called
- */
-function useShallowObject<T extends SimpleObject>(object: T): T {
-  const [value, setValue] = useState(object)
-
-  if (value !== object) {
-    const match = Object.keys(object).every(key => {
-      return object[key] === value[key]
-    })
-    if (!match) {
-      setValue(object)
-    }
-  }
-
-  return value
 }

@@ -18,7 +18,7 @@ import styles from './ActionMenu.module.css'
 import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isSlot} from '../utils/is-slot'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types/Slots'
-import {DialogContext} from '../Dialog/Dialog'
+import {DialogContext} from '../Dialog/DialogContext'
 
 export type MenuCloseHandler = (
   gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab' | 'item-select' | 'arrow-left' | 'close',

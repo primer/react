@@ -1,7 +1,8 @@
 import type {Meta} from '@storybook/react-vite'
 import {action} from 'storybook/actions'
 import React from 'react'
-import {Tabs, TabPanel, useTabList, useTab} from './Tabs'
+import {Tabs, TabPanel} from './Tabs'
+import {useTabList, useTab} from './TabsHooks'
 import {ActionList} from '../../ActionList'
 import Flash from '../../Flash'
 

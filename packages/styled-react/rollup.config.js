@@ -16,7 +16,7 @@ function createPackageRegex(name) {
 }
 
 export default defineConfig({
-  input: ['src/index.tsx'],
+  input: ['src/index.ts'],
   external: dependencies.map(createPackageRegex),
   plugins: [
     typescript({

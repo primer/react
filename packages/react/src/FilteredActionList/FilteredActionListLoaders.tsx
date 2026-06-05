@@ -2,24 +2,10 @@ import Spinner from '../Spinner'
 import {Stack} from '../Stack/Stack'
 import {SkeletonBox} from '../Skeleton/SkeletonBox'
 import classes from './FilteredActionListLoaders.module.css'
+import type {FilteredActionListLoadingType} from './FilteredActionListLoadingTypes'
+import {FilteredActionListLoadingTypes} from './FilteredActionListLoadingTypes'
 
 import type {JSX} from 'react'
-
-export class FilteredActionListLoadingType {
-  public name: string
-  public appearsInBody: boolean
-
-  constructor(name: string, appearsInBody: boolean) {
-    this.name = name
-    this.appearsInBody = appearsInBody
-  }
-}
-
-export const FilteredActionListLoadingTypes = {
-  bodySpinner: new FilteredActionListLoadingType('body-spinner', true),
-  bodySkeleton: new FilteredActionListLoadingType('body-skeleton', true),
-  input: new FilteredActionListLoadingType('input', false),
-}
 
 const SKELETON_ROW_HEIGHT = 24
 const SKELETON_MIN_ROWS = 3

@@ -7,7 +7,9 @@ export {
    * `@primer/primitives` and CSS Modules instead.
    */
   ThemeProvider,
+} from './components/FeatureFlaggedTheming'
 
+export {
   /**
    * @deprecated Theming in JavaScript is no longer supported. Prefer using
    * `@primer/primitives` and CSS Modules instead.
@@ -19,7 +21,9 @@ export {
    * `@primer/primitives` and CSS Modules instead.
    */
   useColorSchemeVar,
+} from './components/FeatureFlaggedThemingHooks'
 
+export {
   /**
    * @deprecated Theming in JavaScript is no longer supported. Prefer using
    * `@primer/primitives` and CSS Modules instead.
