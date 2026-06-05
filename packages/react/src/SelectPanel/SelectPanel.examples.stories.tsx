@@ -356,7 +356,6 @@ export const RepositionAfterLoading = () => {
   const [loading, setLoading] = useState(true)
 
   React.useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (!open) setLoading(true)
     window.setTimeout(() => {
       if (open) {
@@ -369,7 +368,6 @@ export const RepositionAfterLoading = () => {
 
   React.useEffect(() => {
     if (!loading) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -405,7 +403,6 @@ export const SelectPanelRepositionInsideDialog = () => {
   const [loading, setLoading] = useState(true)
 
   React.useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (!open) setLoading(true)
     window.setTimeout(() => {
       if (open) {
@@ -418,7 +415,6 @@ export const SelectPanelRepositionInsideDialog = () => {
 
   React.useEffect(() => {
     if (!loading) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -438,7 +434,6 @@ export const SelectPanelRepositionInsideDialog = () => {
           selected={selected}
           onSelectedChange={setSelected}
           onFilterChange={setFilter}
-          overlayProps={{anchorSide: 'outside-top'}}
           message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
         />
       </Stack>
@@ -624,7 +619,6 @@ export const VirtualizedConsumerSide = () => {
     [open],
   )
 
-  // eslint-disable-next-line react-hooks/incompatible-library
   const virtualizer = useVirtualizer({
     count: filteredItems.length,
     getScrollElement: () => scrollContainer ?? null,
