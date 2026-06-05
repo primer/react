@@ -1,5 +1,6 @@
 import type {Meta} from '@storybook/react-vite'
 import type {ComponentProps} from '../utils/types'
+import {FeatureFlags} from '../FeatureFlags'
 import Timeline from './Timeline'
 import {
   CheckIcon,
@@ -374,4 +375,30 @@ export const WithAvatar = () => (
       </Timeline.Item>
     </Timeline>
   </div>
+)
+
+export const WithListSemantics = () => (
+  <FeatureFlags flags={{primer_react_timeline_list_semantics: true}}>
+    <Timeline>
+      <Timeline.Item>
+        <Timeline.Badge>
+          <GitCommitIcon aria-label="Commit" />
+        </Timeline.Badge>
+        <Timeline.Body>Opted in: Timeline renders as an ordered list with list items.</Timeline.Body>
+      </Timeline.Item>
+      <Timeline.Item>
+        <Timeline.Badge>
+          <GitCommitIcon aria-label="Commit" />
+        </Timeline.Badge>
+        <Timeline.Body>Each Timeline.Item renders as a li.</Timeline.Body>
+      </Timeline.Item>
+      <Timeline.Break />
+      <Timeline.Item>
+        <Timeline.Badge>
+          <GitCommitIcon aria-label="Commit" />
+        </Timeline.Badge>
+        <Timeline.Body>Timeline.Break renders as a presentational li.</Timeline.Body>
+      </Timeline.Item>
+    </Timeline>
+  </FeatureFlags>
 )
