@@ -11,11 +11,7 @@
     list-style: none;
   }
 
-  &:where([data-variant='inset']) {
-    padding-block: var(--base-size-8);
-  }
-
-  &:where([data-variant='vertical-inset']) {
+  &:where([data-variant='inset'], [data-variant='vertical-inset'], [data-variant="start"], [data-variant="end"]) {
     padding-block: var(--base-size-8);
   }
 
