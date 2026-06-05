@@ -1,5 +1,29 @@
 # @primer/react
 
+## 38.27.0
+
+### Minor Changes
+
+- [#7900](https://github.com/primer/react/pull/7900) [`49a546f`](https://github.com/primer/react/commit/49a546fcb3901c139a3abe8f1daea7b5f3427f5d) Thanks [@mattcosta7](https://github.com/mattcosta7)! - `PageLayout.Sidebar` (and `SplitPageLayout.Sidebar`): add controlled-width support via `currentWidth` + `onResizeEnd`, matching the discriminated-union API already on `PageLayout.Pane`. The underlying `usePaneWidth` hook already supported these options; this wires them through the component's prop surface. Existing usage is unchanged — the props are opt-in and the uncontrolled (default or `widthStorageKey`-backed) behavior is preserved exactly.
+
+- [#7906](https://github.com/primer/react/pull/7906) [`adc5299`](https://github.com/primer/react/commit/adc5299f3d98519119fb9547e50dd2985fc96174) Thanks [@jonrohan](https://github.com/jonrohan)! - Text: Add `whiteSpace` prop to control the CSS `white-space` property
+
+### Patch Changes
+
+- [#7915](https://github.com/primer/react/pull/7915) [`f58e448`](https://github.com/primer/react/commit/f58e448961df15e28b4a69950de84d478e2664af) Thanks [@jonrohan](https://github.com/jonrohan)! - Dialog: Fix `Escape` key not closing the dialog on the first keypress when the close button is focused
+
+- [#7908](https://github.com/primer/react/pull/7908) [`e9a2254`](https://github.com/primer/react/commit/e9a225421df61e7fa62da1b2796972122d266d36) Thanks [@jonrohan](https://github.com/jonrohan)! - `KeybindingHint`: display the `Meta` key correctly on platforms other than macOS and Windows. The `Meta`, `Alt`, and `Mod` keys are now resolved based on the detected platform: Apple platforms (macOS and iOS) show `⌘`/`⌥`, Windows shows `Win`, and all other platforms show `Meta`/`Alt`.
+
+- [#7894](https://github.com/primer/react/pull/7894) [`af4541d`](https://github.com/primer/react/commit/af4541d991c6e583dbf510bd0a0699f244ea00b2) Thanks [@mattcosta7](https://github.com/mattcosta7)! - ActionList: Replace `:has(...)` selectors on `ActionList.Item`, `InactiveButtonWrap`, and `TrailingActionButton` with JS-derived data attributes (`data-has-trailing-action`, `data-trailing-action-loading`, `data-position`, `data-has-label`). Reduces style-recalculation cost on lists that render many items. No visual or behavioral changes.
+
+- [#7899](https://github.com/primer/react/pull/7899) [`9659ce7`](https://github.com/primer/react/commit/9659ce767760d85c033e43e7e8ecdfdfb452dcb1) Thanks [@mattcosta7](https://github.com/mattcosta7)! - `TreeView`: make rows safer to use with `contain: paint` / `content-visibility: auto` and reduce style-recalc cost on hover/focus in large trees. No visual or layout changes; all changes are either invisible at the default rendering or behind an opt-in CSS containment property the consumer sets.
+
+  - The current-item indicator (positioned at `left: -8px` of the row container) was being clipped when a consumer applied `contain: paint` to the `<li>` or when the documented `containIntrinsicSize` prop on `TreeView.Item` triggered `content-visibility: auto` on the row container — including for `current` items. Both `.TreeViewItem` and `.TreeViewItemContainer` now declare `overflow-clip-margin: var(--base-size-8)`, which extends the paint-clip edge by 8px on the side the indicator paints. The property is a no-op when no paint containment is active, so default rendering is byte-identical.
+  - Skeleton-row hover suppression no longer relies on `:has(.TreeViewItemSkeleton)`, which forced subtree invalidation on every row. `LoadingItem` now communicates with the placeholder `Item` via a module-private context that emits a positive `data-loading` attribute on the `<li>`, and the CSS selector targets that directly. No new public prop.
+  - Nesting indicator lines no longer use a root-scope `:hover`/`:focus-within` descendant selector. Color is driven by an inherited `--tree-line-color` custom property set on the root `<ul>`, so a hover or focus change inside the tree updates one property on one element instead of re-matching `.TreeViewItemLevelLine` selectors against every level line in the tree.
+  - Fixed a unitless `outline-offset: -2` in the forced-colors focus-ring fallback that browsers were silently dropping (so forced-colors users now actually get a focus indicator on tree items).
+  - `.TreeViewItemContainer`'s `grid-template-columns` now declares the `trailingAction` column explicitly (`auto`) so it matches the 5-area `grid-template-areas` declaration (previously the trailing column was implicit `auto`).
+
 ## 38.26.0
 
 ### Minor Changes
