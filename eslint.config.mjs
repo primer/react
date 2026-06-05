@@ -9,6 +9,7 @@ import {defineConfig, globalIgnores} from 'eslint/config'
 import githubPlugin from 'eslint-plugin-github'
 import storybook from 'eslint-plugin-storybook'
 import react from 'eslint-plugin-react'
+import reactRefresh from 'eslint-plugin-react-refresh'
 import reactHooks from 'eslint-plugin-react-hooks'
 import {unsupportedPatterns as reactCompilerUnsupported} from './packages/react/script/react-compiler.mjs'
 import playwright from 'eslint-plugin-playwright'
@@ -58,6 +59,7 @@ const config = defineConfig([
 
   ...fixupConfigRules([react.configs.flat.recommended, react.configs.flat['jsx-runtime']]),
   reactHooks.configs.flat['recommended-latest'],
+  reactRefresh.configs.recommended,
   // Disable react-compiler rule for files not yet migrated
   {
     files: reactCompilerUnsupported.map(p => `packages/react/${p}`),
