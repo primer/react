@@ -173,22 +173,39 @@ function getTrailingVisualContent(trailingVisual: Parameters<RenderItemFn>[0]['t
   return null
 }
 
-const customRenderItem: RenderItemFn = ({
-  description,
-  leadingVisual: LeadingVisual,
-  selected,
-  text,
-  trailingVisual,
-}) => {
+const customRenderItem: RenderItemFn = item => {
+  const {
+    description,
+    leadingVisual: LeadingVisual,
+    selected,
+    text,
+    trailingVisual,
+    onAction,
+    id,
+    children,
+    ...rest
+  } = item
+
   const trailingVisualContent = getTrailingVisualContent(trailingVisual)
 
   return (
-    <ActionList.Item role="option" selected={selected}>
+    <ActionList.Item
+      role="option"
+      selected={selected}
+      data-id={id}
+      onSelect={e => {
+        if (typeof onAction === 'function') {
+          onAction(item, e as unknown as React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>)
+        }
+      }}
+      {...rest}
+    >
       {LeadingVisual ? (
         <ActionList.LeadingVisual>
           <LeadingVisual />
         </ActionList.LeadingVisual>
       ) : null}
+      {children}
       <span className={classes.CustomItemText}>
         {text}
         {description ? <span className={classes.CustomItemDescription}>{description}</span> : null}
