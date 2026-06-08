@@ -158,6 +158,7 @@ const HorizontalDivider = memo<React.PropsWithChildren<DividerProps>>(
     return (
       <div
         className={clsx(classes.HorizontalDivider, className)}
+        data-component="PageLayout.HorizontalDivider"
         {...getResponsiveAttributes('variant', variant)}
         {...getResponsiveAttributes('position', position)}
         style={
@@ -182,6 +183,7 @@ const VerticalDivider = memo<React.PropsWithChildren<VerticalDividerProps>>(
     return (
       <div
         className={clsx(classes.VerticalDivider, className)}
+        data-component="PageLayout.VerticalDivider"
         {...getResponsiveAttributes('variant', variant)}
         {...getResponsiveAttributes('position', position)}
         style={style}
@@ -236,6 +238,7 @@ const SidebarDivider = memo<SidebarDividerProps>(function SidebarDivider({
       variant={resizable ? 'line' : divider}
       position={position}
       className={classes.SidebarVerticalDivider}
+      data-component="PageLayout.SidebarDivider"
       style={
         {
           '--spacing': `var(--spacing-${columnGap})`,
@@ -494,6 +497,7 @@ const DragHandle = memo<DragHandleProps>(function DragHandle({
     <div
       ref={handleRef}
       className={classes.DraggableHandle}
+      data-component="PageLayout.DragHandle"
       role="slider"
       aria-label="Draggable pane splitter"
       aria-valuemin={ariaValueMin}
