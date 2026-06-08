@@ -12,3 +12,51 @@
   border: var(--borderWidth-thin) solid;
   box-sizing: border-box;
 }
+
+.FeatureListContainer {
+  width: 100%;
+  max-width: 360px;
+  height: 320px;
+  border: var(--borderWidth-thin) solid;
+  padding: var(--base-size-8);
+}
+
+.GroupedListContainer {
+  width: 100%;
+  max-width: 420px;
+  height: 360px;
+  border: var(--borderWidth-thin) solid;
+  padding: var(--base-size-8);
+}
+
+.VirtualizedListContainer {
+  width: 100%;
+  max-width: 440px;
+  height: 360px;
+  border: var(--borderWidth-thin) solid;
+  padding: var(--base-size-8);
+}
+
+.Message {
+  display: flex;
+  min-height: 200px;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--base-size-24);
+  text-align: center;
+}
+
+.MessageTitle {
+  margin: 0;
+  color: var(--fgColor-default);
+  font-size: var(--text-title-size-medium);
+}
+
+.MessageDescription {
+  max-width: 240px;
+  margin: var(--base-size-4) 0 0;
+  color: var(--fgColor-muted);
+  font-size: var(--text-body-size-medium);
+}

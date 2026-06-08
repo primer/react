@@ -11,6 +11,30 @@ const stories = [
     title: 'With Long Items',
     id: 'components-filteredactionlist-examples--with-long-items',
   },
+  {
+    title: 'Multi Select With Select All',
+    id: 'components-filteredactionlist-features--multi-select-with-select-all',
+  },
+  {
+    title: 'With Groups',
+    id: 'components-filteredactionlist-features--with-groups',
+  },
+  {
+    title: 'With No Results Message',
+    id: 'components-filteredactionlist-features--with-no-results-message',
+  },
+  {
+    title: 'Loading In Input',
+    id: 'components-filteredactionlist-features--loading-in-input',
+  },
+  {
+    title: 'Loading With Body Spinner',
+    id: 'components-filteredactionlist-features--loading-with-body-spinner',
+  },
+  {
+    title: 'Virtualized List',
+    id: 'components-filteredactionlist-features--virtualized-list',
+  },
 ] as const
 
 test.describe('FilteredActionList', () => {
@@ -26,7 +50,10 @@ test.describe('FilteredActionList', () => {
           })
 
           // Default state
-          await expect(page).toHaveScreenshot(`FilteredActionList.${story.title}.${theme}.png`)
+          await expect(page).toHaveScreenshot(`FilteredActionList.${story.title}.${theme}.png`, {
+            animations: 'disabled',
+            caret: 'hide',
+          })
         })
       }
     })
