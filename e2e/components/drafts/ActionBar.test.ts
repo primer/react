@@ -46,7 +46,7 @@ test.describe('ActionBar', () => {
               colorScheme: theme,
             },
           })
-          const toolbarButtonSelector = `button[data-component="ActionMenu.Button"]`
+          const toolbarButtonSelector = `button[data-component="ActionMenu.Anchor"]`
           await expect(page.locator(toolbarButtonSelector).filter({visible: true})).toHaveCount(10)
           await page.setViewportSize({width: viewports['primer.breakpoint.xs'] - 64, height: 768})
           await page.getByLabel('Task List').waitFor({
