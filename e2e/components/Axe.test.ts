@@ -14,13 +14,6 @@ const SKIPPED_TESTS = [
   'components-flash-features--with-icon-action-dismiss', // TODO: Remove once color-contrast issues have been resolved
   'components-flash-features--with-icon-and-action', // TODO: Remove once color-contrast issues have been resolved
   'components-filteredactionlist--default',
-  // TODO: Remove these once FilteredActionList feature stories no longer trigger label/nested-interactive axe violations.
-  'components-filteredactionlist-features--loading-with-body-skeleton',
-  'components-filteredactionlist-features--loading-with-body-spinner',
-  'components-filteredactionlist-features--radio-select',
-  'components-filteredactionlist-features--virtualized-list',
-  'components-filteredactionlist-features--with-groups',
-  'components-filteredactionlist-features--with-no-results-message',
   'components-pagelayout-performance-tests--medium-content',
   'components-pagelayout-performance-tests--heavy-content',
 ]

@@ -198,7 +198,11 @@ export function FilteredActionList({
   const [listContainerElement, setListContainerElement] = useState<HTMLUListElement | null>(null)
   const activeDescendantRef = useRef<HTMLElement>()
 
-  const listId = useId(actionListProps?.id)
+  const generatedListId = useId()
+  const listId = useMemo(() => {
+    if (actionListProps?.id) return actionListProps.id
+    return `filtered-action-list-${generatedListId.replaceAll(/[^a-zA-Z0-9_-]/g, '')}`
+  }, [actionListProps?.id, generatedListId])
   const inputDescriptionTextId = useId()
   const [isInputFocused, setIsInputFocused] = useState(false)
 
@@ -418,10 +422,20 @@ export function FilteredActionList({
 
   function getBodyContent() {
     if (loading && scrollContainerRef.current && loadingType.appearsInBody) {
-      return <FilteredActionListBodyLoader loadingType={loadingType} height={scrollContainerRef.current.clientHeight} />
+      return (
+        <>
+          <FilteredActionListBodyLoader loadingType={loadingType} height={scrollContainerRef.current.clientHeight} />
+          <ul id={listId} role="listbox" hidden aria-hidden="true" />
+        </>
+      )
     }
     if (message) {
-      return message
+      return (
+        <>
+          {message}
+          <ul id={listId} role="listbox" hidden aria-hidden="true" />
+        </>
+      )
     }
     let firstGroupIndex = 0
 
