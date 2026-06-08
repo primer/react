@@ -216,19 +216,7 @@ const customRenderItem: RenderItemFn = item => {
 }
 
 function useBodyLoaderReady() {
-  const [ready, setReady] = React.useState(false)
-
-  React.useEffect(() => {
-    const animationFrameId = window.requestAnimationFrame(() => {
-      setReady(true)
-    })
-
-    return () => {
-      window.cancelAnimationFrame(animationFrameId)
-    }
-  }, [])
-
-  return ready
+  return true
 }
 
 export function MultiSelectWithSelectAll() {
