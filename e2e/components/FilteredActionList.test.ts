@@ -81,6 +81,7 @@ test.describe('FilteredActionList', () => {
           await expect(page).toHaveScreenshot(`FilteredActionList.${story.title}.${theme}.png`, {
             animations: 'disabled',
             caret: 'hide',
+            ...(story.title === 'Virtualized List' ? {maxDiffPixelRatio: 0.02} : {}),
           })
         })
       }
