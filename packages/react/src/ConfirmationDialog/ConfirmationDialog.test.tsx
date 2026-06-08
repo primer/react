@@ -1,4 +1,4 @@
-import {render, fireEvent} from '@testing-library/react'
+import {render, fireEvent, waitFor} from '@testing-library/react'
 import {describe, it, expect, vi} from 'vitest'
 import type React from 'react'
 import {useCallback, useRef, useState} from 'react'
@@ -310,4 +310,28 @@ describe('ConfirmationDialog', () => {
   })
 
   implementsClassName(ConfirmationDialog, dialogClasses.Dialog)
+
+  describe('useConfirm', () => {
+    it('removes the host element from the document body when the dialog is closed', async () => {
+      const initialBodyChildCount = document.body.childElementCount
+      const {getByText, getByRole} = render(<ShorthandHookFromActionMenu />)
+
+      fireEvent.click(getByText('Show menu'))
+      fireEvent.click(getByText('Show dialog'))
+
+      // The dialog is rendered into a host element appended to <body>
+      expect(getByRole('alertdialog')).toBeInTheDocument()
+      expect(document.body.childElementCount).toBeGreaterThan(initialBodyChildCount + 1)
+
+      fireEvent.click(getByRole('button', {name: 'Secondary'}))
+
+      // After closing, neither the dialog nor its host element should linger in the DOM
+      await waitFor(() => {
+        expect(document.querySelector('[role="alertdialog"]')).toBeNull()
+      })
+      // The host element appended for the dialog must be detached from <body>, leaving
+      // only the testing-library render container behind.
+      expect(document.body.childElementCount).toBe(initialBodyChildCount + 1)
+    })
+  })
 })
