@@ -214,6 +214,30 @@ describe('Autocomplete', () => {
       expect(inputNode?.getAttribute('aria-expanded')).not.toBe('true')
     })
 
+    it('does not restore the autocomplete suggestion when the input is blurred', async () => {
+      const user = userEvent.setup()
+      const {container} = render(
+        <>
+          <LabelledAutocomplete
+            menuProps={{items: mockItems, selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
+          />
+          <button type="button">outside</button>
+        </>,
+      )
+      const inputNode = container.querySelector('#autocompleteInput') as HTMLInputElement
+      const outsideButton = screen.getByRole('button', {name: 'outside'})
+
+      // Type 'ze' which gets the inline autocomplete suggestion 'zero'
+      await user.type(inputNode, 'ze')
+      expect(inputNode.value).toBe('zero')
+
+      // Move focus elsewhere on the page, like clicking outside the Autocomplete
+      await user.click(outsideButton)
+
+      // The input should retain the text the user typed rather than the full suggestion
+      await waitFor(() => expect(inputNode.value).toBe('ze'))
+    })
+
     it('allows the value to be 0', () => {
       const {getByDisplayValue} = render(
         <LabelledAutocomplete
