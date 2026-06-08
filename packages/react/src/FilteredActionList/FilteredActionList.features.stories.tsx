@@ -1,8 +1,21 @@
-import {SearchIcon} from '@primer/octicons-react'
+import {
+  FilterIcon,
+  GearIcon,
+  NoteIcon,
+  ProjectIcon,
+  SearchIcon,
+  TypographyIcon,
+  VersionsIcon,
+} from '@primer/octicons-react'
 import type {Meta} from '@storybook/react-vite'
 import React from 'react'
 import {ActionList} from '../ActionList'
-import {FilteredActionList, FilteredActionListLoadingTypes, type RenderItemFn} from '../FilteredActionList'
+import {
+  FilteredActionList,
+  FilteredActionListLoadingTypes,
+  type GroupedListProps,
+  type RenderItemFn,
+} from '../FilteredActionList'
 import classes from './FilteredActionList.stories.module.css'
 
 const meta: Meta<typeof FilteredActionList> = {
@@ -75,6 +88,76 @@ const labelItems = [
     description: 'Client-side changes',
   },
 ]
+
+const groupedItems: GroupedListProps['items'] = [
+  {
+    id: 'repo-settings',
+    leadingVisual: GearIcon,
+    text: 'Repository settings',
+    description: 'Update branch protection and visibility',
+    descriptionVariant: 'block',
+    groupId: 'repositories',
+  },
+  {
+    id: 'saved-search',
+    leadingVisual: SearchIcon,
+    text: 'Saved search',
+    description: 'Reuse issue and pull request filters',
+    descriptionVariant: 'block',
+    groupId: 'repositories',
+  },
+  {
+    id: 'view-settings',
+    leadingVisual: FilterIcon,
+    text: 'View settings',
+    groupId: 'repositories',
+  },
+  {
+    id: 'project-board',
+    leadingVisual: ProjectIcon,
+    text: 'Project board',
+    description: 'Plan and track work across repositories',
+    descriptionVariant: 'block',
+    groupId: 'planning',
+  },
+  {
+    id: 'release-notes',
+    leadingVisual: NoteIcon,
+    text: 'Release notes',
+    groupId: 'planning',
+  },
+  {
+    id: 'rename-view',
+    leadingVisual: TypographyIcon,
+    text: 'Rename view',
+    groupId: 'views',
+  },
+  {
+    id: 'duplicate-view',
+    leadingVisual: VersionsIcon,
+    text: 'Duplicate view',
+    groupId: 'views',
+  },
+]
+
+const groupMetadata: GroupedListProps['groupMetadata'] = [
+  {groupId: 'repositories', header: {title: 'Repositories', variant: 'filled'}},
+  {groupId: 'planning', header: {title: 'Planning', variant: 'filled'}},
+  {groupId: 'views', header: {title: 'Views', variant: 'filled'}},
+]
+
+const repositoryItems = Array.from({length: 150}, (_, index) => {
+  const number = index + 1
+
+  return {
+    id: `repository-${number}`,
+    text: `primer/react example repository ${number}`,
+    description: number % 3 === 0 ? 'Updated recently' : 'Available to add as context',
+    descriptionVariant: 'block' as const,
+    leadingVisual: ProjectIcon,
+    trailingVisual: number % 5 === 0 ? 'Private' : 'Public',
+  }
+})
 
 const noop = () => undefined
 
@@ -209,6 +292,38 @@ export function SingleSelect() {
   )
 }
 
+export function RadioSelect() {
+  const [filter, setFilter] = React.useState('')
+  const [selectedId, setSelectedId] = React.useState('backend')
+
+  const visibleItems = labelItems
+    .filter(item => item.text.toLowerCase().includes(filter.toLowerCase()))
+    .map(item => ({
+      ...item,
+      selected: item.id === selectedId,
+      onAction: () => {
+        setSelectedId(item.id)
+      },
+    }))
+
+  return (
+    <>
+      <h1>Radio selection</h1>
+      <div>Use the radio selection variant when the selected item should be explicit.</div>
+      <FilteredActionList
+        aria-label="Labels"
+        className={classes.FeatureListContainer}
+        items={visibleItems}
+        onFilterChange={setFilter}
+        placeholderText="Filter labels"
+        selectionVariant="radio"
+        showItemDividers
+        textInputProps={{leadingVisual: SearchIcon}}
+      />
+    </>
+  )
+}
+
 export function SelectAllSelected() {
   const [filter, setFilter] = React.useState('')
   const [selectedIds, setSelectedIds] = React.useState<string[]>(labelItems.map(item => item.id))
@@ -274,6 +389,29 @@ export function WithDisabledItems() {
         placeholderText="Filter labels"
         showItemDividers
         textInputProps={{leadingVisual: SearchIcon}}
+      />
+    </>
+  )
+}
+
+export function WithGroups() {
+  const [filter, setFilter] = React.useState('')
+  const visibleItems = groupedItems.filter(item => item.text?.toLowerCase().includes(filter.toLowerCase()))
+
+  return (
+    <>
+      <h1>Grouped options</h1>
+      <div>Group related options under headings.</div>
+      <FilteredActionList
+        aria-label="Options"
+        className={classes.GroupedListContainer}
+        groupMetadata={groupMetadata}
+        items={visibleItems}
+        onFilterChange={setFilter}
+        placeholderText="Filter options"
+        showItemDividers
+        textInputProps={{leadingVisual: SearchIcon}}
+        variant="horizontal-inset"
       />
     </>
   )
@@ -418,6 +556,28 @@ export function LoadingWithBodySkeleton() {
         onFilterChange={noop}
         placeholderText="Filter labels"
         textInputProps={{leadingVisual: SearchIcon}}
+      />
+    </>
+  )
+}
+
+export function VirtualizedList() {
+  const [filter, setFilter] = React.useState('')
+  const visibleItems = repositoryItems.filter(item => item.text.toLowerCase().includes(filter.toLowerCase()))
+
+  return (
+    <>
+      <h1>Virtualized list</h1>
+      <div>Use virtualization for large client-side lists.</div>
+      <FilteredActionList
+        aria-label="Repositories"
+        className={classes.VirtualizedListContainer}
+        items={visibleItems}
+        onFilterChange={setFilter}
+        placeholderText="Filter repositories"
+        showItemDividers
+        textInputProps={{leadingVisual: SearchIcon}}
+        virtualized
       />
     </>
   )
