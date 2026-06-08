@@ -61,6 +61,7 @@ const config = defineConfig([
   reactHooks.configs.flat['recommended-latest'],
   {
     files: ['**/*.{jsx,tsx}'],
+    ignores: ['packages/styled-react/src/index.tsx'],
     plugins: {
       'react-refresh': reactRefreshPlugin,
     },
