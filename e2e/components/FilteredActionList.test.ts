@@ -65,6 +65,8 @@ const stories = [
   },
 ] as const
 
+const VIRTUALIZED_LIST_MAX_DIFF_PIXEL_RATIO = 0.02
+
 test.describe('FilteredActionList', () => {
   for (const story of stories) {
     test.describe(story.title, () => {
@@ -81,8 +83,8 @@ test.describe('FilteredActionList', () => {
           await expect(page).toHaveScreenshot(`FilteredActionList.${story.title}.${theme}.png`, {
             animations: 'disabled',
             caret: 'hide',
-            // Virtualized rendering can produce small cross-environment pixel shifts.
-            ...(story.title === 'Virtualized List' ? {maxDiffPixelRatio: 0.02} : {}),
+            // 2% was selected to absorb small cross-environment pixel shifts from virtualization.
+            ...(story.title === 'Virtualized List' ? {maxDiffPixelRatio: VIRTUALIZED_LIST_MAX_DIFF_PIXEL_RATIO} : {}),
           })
         })
       }
