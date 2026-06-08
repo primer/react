@@ -238,7 +238,6 @@ const SidebarDivider = memo<SidebarDividerProps>(function SidebarDivider({
       variant={resizable ? 'line' : divider}
       position={position}
       className={classes.SidebarVerticalDivider}
-      data-component="PageLayout.SidebarDivider"
       style={
         {
           '--spacing': `var(--spacing-${columnGap})`,

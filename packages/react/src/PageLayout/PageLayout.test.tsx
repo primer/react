@@ -122,7 +122,6 @@ describe('PageLayout', async () => {
     expect(container.querySelector('[data-component="PageLayout.Footer"]')).toBeInTheDocument()
     expect(container.querySelector('[data-component="PageLayout.HorizontalDivider"]')).toBeInTheDocument()
     expect(container.querySelector('[data-component="PageLayout.VerticalDivider"]')).toBeInTheDocument()
-    expect(container.querySelector('[data-component="PageLayout.SidebarDivider"]')).toBeInTheDocument()
     expect(container.querySelector('[data-component="PageLayout.DragHandle"]')).toBeInTheDocument()
   })
 
