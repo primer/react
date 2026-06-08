@@ -10,7 +10,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import classes from './Overlay.module.css'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
-import {heightMap, widthMap} from './constants'
+import type {heightMap, widthMap} from './constants'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
@@ -22,7 +22,6 @@ type StyledOverlayProps = {
   style?: React.CSSProperties
 }
 
-export {heightMap, widthMap}
 const animationDuration = 200
 
 function getSlideAnimationStartingVector(anchorSide?: AnchorSide): {x: number; y: number} {

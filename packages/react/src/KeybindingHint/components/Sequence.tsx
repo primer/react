@@ -2,7 +2,6 @@ import {Fragment} from 'react'
 import type {KeybindingHintProps} from '../props'
 import VisuallyHidden from '../../_VisuallyHidden'
 import {Chord} from './Chord'
-import {accessibleSequenceString} from './utils'
 
 const splitSequence = (sequence: string) => sequence.split(' ')
 
@@ -20,5 +19,3 @@ export const Sequence = ({keys, ...chordProps}: KeybindingHintProps) =>
       <Chord keys={c} {...chordProps} />
     </Fragment>
   ))
-
-export {accessibleSequenceString}

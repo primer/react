@@ -110,8 +110,6 @@ const overflowEffect = (
   updateListAndMenu({items, menuItems}, iconsVisible, true)
 }
 
-export {getValidChildren}
-
 const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: number, moreMenuWidth = 0) => {
   const widthToFit = navWidth - moreMenuWidth
   let breakpoint = childWidthArray.length // assume all items will fit

@@ -4,7 +4,7 @@ import type {KeybindingHintProps} from '../props'
 import {Key} from './Key'
 import {clsx} from 'clsx'
 import classes from './Chord.module.css'
-import {accessibleChordString, splitChord} from './utils'
+import {splitChord} from './utils'
 
 export const Chord = ({keys, format = 'condensed', variant = 'normal', size = 'normal'}: KeybindingHintProps) => (
   <Text
@@ -29,5 +29,3 @@ export const Chord = ({keys, format = 'condensed', variant = 'normal', size = 'n
     ))}
   </Text>
 )
-
-export {accessibleChordString}

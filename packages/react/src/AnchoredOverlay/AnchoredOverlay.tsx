@@ -15,7 +15,7 @@ import {XIcon} from '@primer/octicons-react'
 import classes from './AnchoredOverlay.module.css'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
-import {widthMap} from '../Overlay/Overlay'
+import {widthMap} from '../Overlay/constants'
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
