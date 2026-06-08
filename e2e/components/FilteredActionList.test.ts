@@ -52,8 +52,13 @@ const stories = [
     id: 'components-filteredactionlist-features--loading-in-input',
   },
   {
+  {
     title: 'Loading With Body Spinner',
     id: 'components-filteredactionlist-features--loading-with-body-spinner',
+  },
+  {
+    title: 'Loading With Body Skeleton',
+    id: 'components-filteredactionlist-features--loading-with-body-skeleton',
   },
   {
     title: 'Virtualized List',
