@@ -1,4 +1,5 @@
 import type React from 'react'
+import {useCallback} from 'react'
 import type {DialogButtonProps, DialogWidth, DialogHeight} from '../Dialog'
 import {Dialog} from '../Dialog'
 
