@@ -60,3 +60,13 @@
   color: var(--fgColor-muted);
   font-size: var(--text-body-size-medium);
 }
+
+.CustomItemText {
+  display: flex;
+  flex-direction: column;
+}
+
+.CustomItemDescription {
+  color: var(--fgColor-muted);
+  font-size: var(--text-body-size-small);
+}
