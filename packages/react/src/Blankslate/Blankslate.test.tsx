@@ -13,7 +13,7 @@ function getCSSStyleRules(): Array<CSSStyleRule> {
       }
 
       if ('cssRules' in rule) {
-        return Array.from(rule.cssRules).filter((nestedRule): nestedRule is CSSStyleRule => {
+        return Array.from(rule.cssRules as CSSRuleList).filter((nestedRule): nestedRule is CSSStyleRule => {
           return nestedRule instanceof CSSStyleRule
         })
       }
