@@ -47,18 +47,18 @@ const stories = [
     title: 'Custom Item Rendering',
     id: 'components-filteredactionlist-features--custom-item-rendering',
   },
-  {
-    title: 'Loading In Input',
-    id: 'components-filteredactionlist-features--loading-in-input',
-  },
-  {
-    title: 'Loading With Body Spinner',
-    id: 'components-filteredactionlist-features--loading-with-body-spinner',
-  },
-  {
-    title: 'Loading With Body Skeleton',
-    id: 'components-filteredactionlist-features--loading-with-body-skeleton',
-  },
+  // {
+  //   title: 'Loading In Input',
+  //   id: 'components-filteredactionlist-features--loading-in-input',
+  // },
+  // {
+  //   title: 'Loading With Body Spinner',
+  //   id: 'components-filteredactionlist-features--loading-with-body-spinner',
+  // },
+  // {
+  //   title: 'Loading With Body Skeleton',
+  //   id: 'components-filteredactionlist-features--loading-with-body-skeleton',
+  // },
   {
     title: 'Virtualized List',
     id: 'components-filteredactionlist-features--virtualized-list',
