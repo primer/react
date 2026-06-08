@@ -65,8 +65,6 @@ const stories = [
   },
 ] as const
 
-const VIRTUALIZED_LIST_MAX_DIFF_PIXEL_RATIO = 0.02
-
 test.describe('FilteredActionList', () => {
   for (const story of stories) {
     test.describe(story.title, () => {
@@ -84,7 +82,7 @@ test.describe('FilteredActionList', () => {
             animations: 'disabled',
             caret: 'hide',
             // 0.02 ratio (2%) absorbs small cross-environment pixel shifts from virtualization.
-            ...(story.title === 'Virtualized List' ? {maxDiffPixelRatio: VIRTUALIZED_LIST_MAX_DIFF_PIXEL_RATIO} : {}),
+            ...(story.title === 'Virtualized List' ? {maxDiffPixelRatio: 0.02} : {}),
           })
         })
       }
