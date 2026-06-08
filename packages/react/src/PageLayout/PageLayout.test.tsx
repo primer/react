@@ -122,6 +122,16 @@ describe('PageLayout', async () => {
     expect(container.querySelector('[data-component="PageLayout.Footer"]')).toBeInTheDocument()
     expect(container.querySelector('[data-component="PageLayout.HorizontalDivider"]')).toBeInTheDocument()
     expect(container.querySelector('[data-component="PageLayout.VerticalDivider"]')).toBeInTheDocument()
+  })
+
+  it('renders data-component for DragHandle when pane is resizable', () => {
+    const {container} = render(
+      <PageLayout>
+        <PageLayout.Content>Content</PageLayout.Content>
+        <PageLayout.Pane resizable>Pane</PageLayout.Pane>
+      </PageLayout>,
+    )
+
     expect(container.querySelector('[data-component="PageLayout.DragHandle"]')).toBeInTheDocument()
   })
 
