@@ -14,12 +14,12 @@ const SKIPPED_TESTS = [
   'components-flash-features--with-icon-action-dismiss', // TODO: Remove once color-contrast issues have been resolved
   'components-flash-features--with-icon-and-action', // TODO: Remove once color-contrast issues have been resolved
   'components-filteredactionlist--default',
-  'components-filteredactionlist-features--loading-with-body-skeleton',
-  'components-filteredactionlist-features--loading-with-body-spinner',
-  'components-filteredactionlist-features--radio-select',
-  'components-filteredactionlist-features--virtualized-list',
-  'components-filteredactionlist-features--with-groups',
-  'components-filteredactionlist-features--with-no-results-message',
+  'components-filteredactionlist-features--loading-with-body-skeleton', // TODO: Remove once FilteredActionList loading stories no longer trigger axe violations
+  'components-filteredactionlist-features--loading-with-body-spinner', // TODO: Remove once FilteredActionList loading stories no longer trigger axe violations
+  'components-filteredactionlist-features--radio-select', // TODO: Remove once FilteredActionList radio selection no longer triggers label/nested-interactive violations
+  'components-filteredactionlist-features--virtualized-list', // TODO: Remove once FilteredActionList virtualized story no longer triggers axe violations
+  'components-filteredactionlist-features--with-groups', // TODO: Remove once FilteredActionList grouped story no longer triggers axe violations
+  'components-filteredactionlist-features--with-no-results-message', // TODO: Remove once FilteredActionList no-results story no longer triggers axe violations
   'components-pagelayout-performance-tests--medium-content',
   'components-pagelayout-performance-tests--heavy-content',
 ]

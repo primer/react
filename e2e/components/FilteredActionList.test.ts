@@ -81,6 +81,7 @@ test.describe('FilteredActionList', () => {
           await expect(page).toHaveScreenshot(`FilteredActionList.${story.title}.${theme}.png`, {
             animations: 'disabled',
             caret: 'hide',
+            // Virtualized rendering can produce small cross-environment pixel shifts.
             ...(story.title === 'Virtualized List' ? {maxDiffPixelRatio: 0.02} : {}),
           })
         })
