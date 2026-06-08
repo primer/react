@@ -83,7 +83,7 @@ test.describe('FilteredActionList', () => {
           await expect(page).toHaveScreenshot(`FilteredActionList.${story.title}.${theme}.png`, {
             animations: 'disabled',
             caret: 'hide',
-            // 2% was selected to absorb small cross-environment pixel shifts from virtualization.
+            // 0.02 ratio (2%) absorbs small cross-environment pixel shifts from virtualization.
             ...(story.title === 'Virtualized List' ? {maxDiffPixelRatio: VIRTUALIZED_LIST_MAX_DIFF_PIXEL_RATIO} : {}),
           })
         })
