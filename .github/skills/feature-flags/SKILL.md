@@ -110,18 +110,6 @@ function MyOverlay() {
 
 ## Real Codebase Examples
 
-### CSS anchor positioning (`packages/react/src/AnchoredOverlay/AnchoredOverlay.tsx`)
-
-```tsx
-const cssAnchorPositioning = useFeatureFlag('primer_react_css_anchor_positioning')
-useEffect(() => {
-  if (cssAnchorPositioning && !hasLoadedAnchorPositioningPolyfill.current) {
-    applyAnchorPositioningPolyfill()
-    hasLoadedAnchorPositioningPolyfill.current = true
-  }
-}, [open, overlayRef, updateOverlayRef, cssAnchorPositioning])
-```
-
 ### Breadcrumbs overflow (`packages/react/src/Breadcrumbs/Breadcrumbs.tsx`)
 
 ```tsx
