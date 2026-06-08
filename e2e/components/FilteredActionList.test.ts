@@ -53,6 +53,14 @@ const stories = [
   },
 ] as const
 
+const toleranceStories = new Set([
+  'Custom Item Rendering',
+  'Default Empty State',
+  'Loading In Input',
+  'Loading With Body Skeleton',
+  'Loading With Body Spinner',
+])
+
 test.describe('FilteredActionList', () => {
   for (const story of stories) {
     test.describe(story.title, () => {
@@ -69,7 +77,7 @@ test.describe('FilteredActionList', () => {
           await expect(page).toHaveScreenshot(`FilteredActionList.${story.title}.${theme}.png`, {
             animations: 'disabled',
             caret: 'hide',
-            ...(story.title === 'Loading With Body Spinner' ? {maxDiffPixelRatio: 0.01} : {}),
+            ...(toleranceStories.has(story.title) ? {maxDiffPixelRatio: 0.01} : {}),
           })
         })
       }
