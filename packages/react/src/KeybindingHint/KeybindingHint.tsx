@@ -3,6 +3,7 @@ import {memo} from 'react'
 import Text from '../Text'
 import type {KeybindingHintProps} from './props'
 import {accessibleSequenceString, Sequence} from './components/Sequence'
+import type {Platform} from './platform'
 
 import classes from './KeybindingHint.module.css'
 import {clsx} from 'clsx'
@@ -37,5 +38,10 @@ KeybindingHint.displayName = 'KeybindingHint'
  *
  * NOTE that this string should _only_ be used when building `aria-label` or `aria-description` props (never rendered
  * visibly) and should nearly always also be paired with a visible hint for sighted users.
+ *
+ * The `platform` argument controls how platform-specific keys (such as `Meta`, `Alt`, and `Mod`) are named. For
+ * backwards compatibility, a `boolean` may be passed instead, where `true` is treated as `'apple'` and `false` as
+ * `'other'`.
  */
-export const getAccessibleKeybindingHintString = accessibleSequenceString
+export const getAccessibleKeybindingHintString = (sequence: string, platform: Platform | boolean) =>
+  accessibleSequenceString(sequence, typeof platform === 'boolean' ? (platform ? 'apple' : 'other') : platform)

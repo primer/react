@@ -220,6 +220,20 @@ const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
   const onCloseClick = useCallback(() => {
     onClose('close-button')
   }, [onClose])
+  const onCloseKeyDown = useCallback<React.KeyboardEventHandler>(
+    event => {
+      if (event.key === 'Escape') {
+        // When the close button is focused its tooltip is open, and the
+        // tooltip's own Escape handler (registered on `document`) would
+        // otherwise swallow this keypress. Handle Escape here and stop it from
+        // reaching the document-level handler so the dialog closes on the first
+        // press while keeping the tooltip fully functional.
+        event.stopPropagation()
+        onClose('escape')
+      }
+    },
+    [onClose],
+  )
   return (
     <Dialog.Header>
       <div className={classes.HeaderInner}>
@@ -227,7 +241,7 @@ const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
           <Dialog.Title id={dialogLabelId}>{title ?? 'Dialog'}</Dialog.Title>
           {subtitle && <Dialog.Subtitle id={dialogDescriptionId}>{subtitle}</Dialog.Subtitle>}
         </div>
-        <Dialog.CloseButton onClose={onCloseClick} />
+        <Dialog.CloseButton onClose={onCloseClick} onKeyDown={onCloseKeyDown} />
       </div>
     </Dialog.Header>
   )
@@ -506,12 +520,16 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
   )
 }
 
-const CloseButton: React.FC<React.PropsWithChildren<{onClose: () => void}>> = ({onClose}) => {
+const CloseButton: React.FC<React.PropsWithChildren<{onClose: () => void; onKeyDown?: React.KeyboardEventHandler}>> = ({
+  onClose,
+  onKeyDown,
+}) => {
   return (
     <IconButton
       icon={XIcon}
       aria-label="Close"
       onClick={onClose}
+      onKeyDown={onKeyDown}
       variant="invisible"
       data-component="Dialog.CloseButton"
     />
