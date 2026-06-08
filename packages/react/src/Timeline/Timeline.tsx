@@ -2,6 +2,7 @@ import {clsx} from 'clsx'
 import React from 'react'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './Timeline.module.css'
+import {TimelineBadgeVariants} from './constants'
 
 type StyledTimelineProps = {clipSidebar?: boolean | 'start' | 'end' | 'both'; className?: string}
 
@@ -83,17 +84,7 @@ const TimelineItem = React.forwardRef<HTMLDivElement | HTMLLIElement, TimelineIt
 
 TimelineItem.displayName = 'TimelineItem'
 
-export const TimelineBadgeVariants = [
-  'accent',
-  'success',
-  'attention',
-  'severe',
-  'danger',
-  'done',
-  'open',
-  'closed',
-  'sponsors',
-] as const
+export {TimelineBadgeVariants}
 
 export type TimelineBadgeVariant = (typeof TimelineBadgeVariants)[number]
 

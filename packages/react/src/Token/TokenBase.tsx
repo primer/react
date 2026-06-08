@@ -1,19 +1,13 @@
-import type {ComponentProps, KeyboardEvent} from 'react'
+import type {KeyboardEvent} from 'react'
 import React from 'react'
 import {clsx} from 'clsx'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import classes from './TokenBase.module.css'
+import {defaultTokenSize, type TokenSizeKeys, tokenSizes} from './constants'
+import {isTokenInteractive} from './utils'
 
-export type TokenSizeKeys = 'small' | 'medium' | 'large' | 'xlarge'
-
-export const tokenSizes: Record<TokenSizeKeys, string> = {
-  small: '16px',
-  medium: '20px',
-  large: '24px',
-  xlarge: '32px',
-}
-
-export const defaultTokenSize: TokenSizeKeys = 'medium'
+export {defaultTokenSize, isTokenInteractive, tokenSizes}
+export type {TokenSizeKeys}
 
 export interface TokenBaseProps
   extends Omit<React.HTMLProps<HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement>, 'size' | 'id'> {
@@ -46,19 +40,6 @@ export interface TokenBaseProps
    * Whether or not the token is disabled (non-interactive).
    */
   disabled?: boolean
-}
-
-export const isTokenInteractive = ({
-  as = 'span',
-  onClick,
-  onFocus,
-  tabIndex = -1,
-  disabled,
-}: Pick<ComponentProps<typeof TokenBase>, 'disabled' | 'as' | 'onClick' | 'onFocus' | 'tabIndex'>) => {
-  if (disabled) {
-    return false
-  }
-  return Boolean(onFocus || onClick || tabIndex > -1 || ['a', 'button'].includes(as))
 }
 
 const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLSpanElement | undefined, TokenBaseProps>(
