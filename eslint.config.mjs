@@ -10,7 +10,7 @@ import githubPlugin from 'eslint-plugin-github'
 import storybook from 'eslint-plugin-storybook'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
-import {reactRefresh} from 'eslint-plugin-react-refresh'
+import reactRefreshPlugin from 'eslint-plugin-react-refresh'
 import {unsupportedPatterns as reactCompilerUnsupported} from './packages/react/script/react-compiler.mjs'
 import playwright from 'eslint-plugin-playwright'
 import prettierRecommended from 'eslint-plugin-prettier/recommended'
@@ -62,7 +62,7 @@ const config = defineConfig([
   {
     files: ['**/*.{jsx,tsx}'],
     plugins: {
-      'react-refresh': reactRefresh,
+      'react-refresh': reactRefreshPlugin,
     },
     rules: {
       'react-refresh/only-export-components': [
