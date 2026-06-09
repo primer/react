@@ -1,32 +1,34 @@
-.InputValidation {
-  display: flex;
-  font-size: var(--text-body-size-small);
-  font-weight: var(--base-text-weight-semibold);
-  /* stylelint-disable-next-line primer/colors */
-  color: var(--inputValidation-fgColor);
+@layer primer.components.InputValidation {
+  .InputValidation {
+    display: flex;
+    font-size: var(--text-body-size-small);
+    font-weight: var(--base-text-weight-semibold);
+    /* stylelint-disable-next-line primer/colors */
+    color: var(--inputValidation-fgColor);
 
-  & :where(a) {
-    color: currentColor;
-    text-decoration: underline;
+    & :where(a) {
+      color: currentColor;
+      text-decoration: underline;
+    }
+
+    &:where([data-validation-status='success']) {
+      --inputValidation-fgColor: var(--fgColor-success);
+    }
+
+    &:where([data-validation-status='error']) {
+      --inputValidation-fgColor: var(--fgColor-danger);
+    }
   }
 
-  &:where([data-validation-status='success']) {
-    --inputValidation-fgColor: var(--fgColor-success);
+  .ValidationIcon {
+    display: flex;
+    margin-top: var(--base-size-2);
+    margin-inline-end: var(--base-size-4);
+    min-height: var(--inputValidation-iconSize);
   }
 
-  &:where([data-validation-status='error']) {
-    --inputValidation-fgColor: var(--fgColor-danger);
+  .ValidationText {
+    /* stylelint-disable-next-line primer/typography */
+    line-height: var(--inputValidation-lineHeight);
   }
-}
-
-.ValidationIcon {
-  display: flex;
-  margin-top: var(--base-size-2);
-  margin-inline-end: var(--base-size-4);
-  min-height: var(--inputValidation-iconSize);
-}
-
-.ValidationText {
-  /* stylelint-disable-next-line primer/typography */
-  line-height: var(--inputValidation-lineHeight);
 }
