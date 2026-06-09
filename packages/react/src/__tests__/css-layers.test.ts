@@ -84,6 +84,10 @@ const allowlist = new Set([
   path.resolve(import.meta.dirname, '../Token/_TokenTextContainer.module.css'),
   path.resolve(import.meta.dirname, '../TextInputWithTokens/TextInputWithTokens.module.css'),
   path.resolve(import.meta.dirname, '../TooltipV2/Tooltip.module.css'),
+  path.resolve(import.meta.dirname, '../Button/ButtonBase.module.css'),
+  path.resolve(import.meta.dirname, '../ActionList/ActionList.module.css'),
+  path.resolve(import.meta.dirname, '../ActionList/Group.module.css'),
+  path.resolve(import.meta.dirname, '../ActionList/Heading.module.css'),
 ])
 const files = Array.from(allowlist).map(file => {
   return [path.relative(path.resolve(import.meta.dirname, '..'), file), file]
