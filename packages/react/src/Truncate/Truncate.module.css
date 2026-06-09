@@ -1,16 +1,18 @@
-.Truncate {
-  display: inherit;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: var(--truncate-max-width);
+@layer primer.components.Truncate {
+  .Truncate {
+    display: inherit;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: var(--truncate-max-width);
 
-  &:where([data-expandable]):hover {
-    max-width: 10000px;
-  }
+    &:where([data-expandable]):hover {
+      max-width: 10000px;
+    }
 
-  &:where([data-inline]) {
-    display: inline-block;
-    vertical-align: top;
+    &:where([data-inline]) {
+      display: inline-block;
+      vertical-align: top;
+    }
   }
 }

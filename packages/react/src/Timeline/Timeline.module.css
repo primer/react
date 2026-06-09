@@ -1,196 +1,198 @@
-.Timeline {
-  display: flex;
-  flex-direction: column;
-  list-style: none;
-  padding: 0;
-  margin: 0;
+@layer primer.components.Timeline {
+  .Timeline {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 
-  &:where([data-clip-sidebar='start']),
-  &:where([data-clip-sidebar='both']) {
-    .TimelineItem:first-child {
-      padding-top: 0;
+    &:where([data-clip-sidebar='start']),
+    &:where([data-clip-sidebar='both']) {
+      .TimelineItem:first-child {
+        padding-top: 0;
 
-      .TimelineItemAvatar {
-        /* No padding-top on first item: badge center is at 0 + 16px (half-badge) */
-        top: var(--base-size-16);
+        .TimelineItemAvatar {
+          /* No padding-top on first item: badge center is at 0 + 16px (half-badge) */
+          top: var(--base-size-16);
+        }
+
+        &:where([data-condensed])::before {
+          top: var(--base-size-12);
+        }
+
+        &:where([data-condensed]) .TimelineItemAvatar {
+          /* No padding-top + condensed: badge center is at 0 + 8px margin + 8px half-badge */
+          top: calc(var(--base-size-8) + var(--base-size-8));
+        }
       }
+    }
 
-      &:where([data-condensed])::before {
-        top: var(--base-size-12);
-      }
+    &:where([data-clip-sidebar='end']),
+    &:where([data-clip-sidebar='both']) {
+      .TimelineItem:last-child {
+        padding-bottom: 0;
 
-      &:where([data-condensed]) .TimelineItemAvatar {
-        /* No padding-top + condensed: badge center is at 0 + 8px margin + 8px half-badge */
-        top: calc(var(--base-size-8) + var(--base-size-8));
+        &:where([data-condensed])::before {
+          height: var(--base-size-12);
+        }
       }
     }
   }
 
-  &:where([data-clip-sidebar='end']),
-  &:where([data-clip-sidebar='both']) {
-    .TimelineItem:last-child {
+  .TimelineItem {
+    position: relative;
+    display: flex;
+    padding: var(--base-size-16) 0;
+    margin-left: var(--base-size-16);
+
+    &::before {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      display: block;
+      width: 2px;
+      content: '';
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--borderColor-muted);
+    }
+
+    &:where([data-condensed]) {
+      padding-top: var(--base-size-4);
       padding-bottom: 0;
 
-      &:where([data-condensed])::before {
-        height: var(--base-size-12);
+      &:last-child {
+        padding-bottom: var(--base-size-16);
+      }
+
+      .TimelineBadge {
+        height: 16px;
+        margin-top: var(--base-size-8);
+        margin-bottom: var(--base-size-8);
+        color: var(--fgColor-muted);
+        background-color: var(--bgColor-default);
+        border: 0;
+      }
+
+      .TimelineItemAvatar {
+        /* Vertically center against the condensed badge (4px padding-top + 8px badge top margin + 8px half-badge) */
+        top: calc(var(--base-size-4) + var(--base-size-8) + var(--base-size-8));
       }
     }
   }
-}
 
-.TimelineItem {
-  position: relative;
-  display: flex;
-  padding: var(--base-size-16) 0;
-  margin-left: var(--base-size-16);
-
-  &::before {
+  .TimelineItemAvatar {
     position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    display: block;
-    width: 2px;
-    content: '';
+    /* Place avatar in the left gutter, aligned with surrounding actor avatars (~72px from item content) */
+    left: calc(-1 * (var(--base-size-40) + var(--base-size-32)));
+    /* Vertically center against the default badge (16px padding-top + 16px half-badge) */
+    top: calc(var(--base-size-16) + var(--base-size-16));
+    z-index: 1;
+    transform: translateY(-50%);
+  }
+
+  .TimelineBadgeWrapper {
+    position: relative;
+    z-index: 1;
+  }
+
+  .TimelineBadge {
+    display: flex;
+    width: 32px;
+    height: 32px;
+    margin-right: var(--base-size-8);
+    /* stylelint-disable-next-line primer/spacing */
+    margin-left: -15px;
+    flex-shrink: 0;
+    overflow: hidden;
+    color: var(--fgColor-muted);
+
+    /* TODOl not quite sure if this is the correct migration for this line */
+    background-color: var(--timelineBadge-bgColor);
     /* stylelint-disable-next-line primer/colors */
-    background-color: var(--borderColor-muted);
-  }
+    border-color: var(--bgColor-default);
+    border-style: solid;
+    border-width: var(--borderWidth-thick);
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
 
-  &:where([data-condensed]) {
-    padding-top: var(--base-size-4);
-    padding-bottom: 0;
-
-    &:last-child {
-      padding-bottom: var(--base-size-16);
+    &:where([data-variant]) {
+      color: var(--fgColor-onEmphasis);
     }
 
-    .TimelineBadge {
-      height: 16px;
-      margin-top: var(--base-size-8);
-      margin-bottom: var(--base-size-8);
-      color: var(--fgColor-muted);
-      background-color: var(--bgColor-default);
-      border: 0;
+    &:where([data-variant='accent']) {
+      background-color: var(--bgColor-accent-emphasis);
     }
 
-    .TimelineItemAvatar {
-      /* Vertically center against the condensed badge (4px padding-top + 8px badge top margin + 8px half-badge) */
-      top: calc(var(--base-size-4) + var(--base-size-8) + var(--base-size-8));
+    &:where([data-variant='success']) {
+      background-color: var(--bgColor-success-emphasis);
+    }
+
+    &:where([data-variant='attention']) {
+      background-color: var(--bgColor-attention-emphasis);
+    }
+
+    &:where([data-variant='severe']) {
+      background-color: var(--bgColor-severe-emphasis);
+    }
+
+    &:where([data-variant='danger']) {
+      background-color: var(--bgColor-danger-emphasis);
+    }
+
+    &:where([data-variant='done']) {
+      background-color: var(--bgColor-done-emphasis);
+    }
+
+    &:where([data-variant='open']) {
+      background-color: var(--bgColor-open-emphasis);
+    }
+
+    &:where([data-variant='closed']) {
+      background-color: var(--bgColor-closed-emphasis);
+    }
+
+    &:where([data-variant='sponsors']) {
+      background-color: var(--bgColor-sponsors-emphasis);
     }
   }
-}
 
-.TimelineItemAvatar {
-  position: absolute;
-  /* Place avatar in the left gutter, aligned with surrounding actor avatars (~72px from item content) */
-  left: calc(-1 * (var(--base-size-40) + var(--base-size-32)));
-  /* Vertically center against the default badge (16px padding-top + 16px half-badge) */
-  top: calc(var(--base-size-16) + var(--base-size-16));
-  z-index: 1;
-  transform: translateY(-50%);
-}
-
-.TimelineBadgeWrapper {
-  position: relative;
-  z-index: 1;
-}
-
-.TimelineBadge {
-  display: flex;
-  width: 32px;
-  height: 32px;
-  margin-right: var(--base-size-8);
-  /* stylelint-disable-next-line primer/spacing */
-  margin-left: -15px;
-  flex-shrink: 0;
-  overflow: hidden;
-  color: var(--fgColor-muted);
-
-  /* TODOl not quite sure if this is the correct migration for this line */
-  background-color: var(--timelineBadge-bgColor);
-  /* stylelint-disable-next-line primer/colors */
-  border-color: var(--bgColor-default);
-  border-style: solid;
-  border-width: var(--borderWidth-thick);
-  border-radius: 50%;
-  align-items: center;
-  justify-content: center;
-
-  &:where([data-variant]) {
-    color: var(--fgColor-onEmphasis);
+  .TimelineBody {
+    min-width: 0;
+    max-width: 100%;
+    /* stylelint-disable-next-line primer/spacing */
+    margin-top: calc(var(--base-size-4) + 1px);
+    font-size: var(--text-body-size-medium);
+    color: var(--fgColor-muted);
+    flex: auto;
   }
 
-  &:where([data-variant='accent']) {
-    background-color: var(--bgColor-accent-emphasis);
+  .TimelineBreak {
+    position: relative;
+    z-index: 1;
+    height: var(--base-size-24);
+    margin: 0;
+    margin-bottom: calc(-1 * var(--base-size-16));
+    margin-left: 0;
+    background-color: var(--bgColor-default);
+    border: 0;
+    border-top: var(--borderWidth-thicker) solid var(--borderColor-default);
+
+    /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
+    &:has(+ [data-condensed]) {
+      margin-bottom: calc(-1 * var(--base-size-12));
+    }
   }
 
-  &:where([data-variant='success']) {
-    background-color: var(--bgColor-success-emphasis);
+  .TimelineItemActions {
+    display: flex;
+    align-items: center;
+    align-self: flex-start;
+    /* Match the badge wrapper height (32px in both default and condensed) so contents vertically center against the badge */
+    min-height: var(--base-size-32);
+    margin-left: auto;
+    gap: var(--base-size-8);
+    flex-shrink: 0;
   }
-
-  &:where([data-variant='attention']) {
-    background-color: var(--bgColor-attention-emphasis);
-  }
-
-  &:where([data-variant='severe']) {
-    background-color: var(--bgColor-severe-emphasis);
-  }
-
-  &:where([data-variant='danger']) {
-    background-color: var(--bgColor-danger-emphasis);
-  }
-
-  &:where([data-variant='done']) {
-    background-color: var(--bgColor-done-emphasis);
-  }
-
-  &:where([data-variant='open']) {
-    background-color: var(--bgColor-open-emphasis);
-  }
-
-  &:where([data-variant='closed']) {
-    background-color: var(--bgColor-closed-emphasis);
-  }
-
-  &:where([data-variant='sponsors']) {
-    background-color: var(--bgColor-sponsors-emphasis);
-  }
-}
-
-.TimelineBody {
-  min-width: 0;
-  max-width: 100%;
-  /* stylelint-disable-next-line primer/spacing */
-  margin-top: calc(var(--base-size-4) + 1px);
-  font-size: var(--text-body-size-medium);
-  color: var(--fgColor-muted);
-  flex: auto;
-}
-
-.TimelineBreak {
-  position: relative;
-  z-index: 1;
-  height: var(--base-size-24);
-  margin: 0;
-  margin-bottom: calc(-1 * var(--base-size-16));
-  margin-left: 0;
-  background-color: var(--bgColor-default);
-  border: 0;
-  border-top: var(--borderWidth-thicker) solid var(--borderColor-default);
-
-  /* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- scoped to CSS Module, audited (github/github-ui#17224) */
-  &:has(+ [data-condensed]) {
-    margin-bottom: calc(-1 * var(--base-size-12));
-  }
-}
-
-.TimelineItemActions {
-  display: flex;
-  align-items: center;
-  align-self: flex-start;
-  /* Match the badge wrapper height (32px in both default and condensed) so contents vertically center against the badge */
-  min-height: var(--base-size-32);
-  margin-left: auto;
-  gap: var(--base-size-8);
-  flex-shrink: 0;
 }
