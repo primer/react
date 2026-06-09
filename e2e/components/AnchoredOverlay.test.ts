@@ -126,71 +126,62 @@ const theme = 'light'
 test.describe('AnchoredOverlay', () => {
   for (const story of stories) {
     test.describe(story.title, () => {
-      for (const withCSSAnchorPositioning of [false, true]) {
-        const namePostfix = withCSSAnchorPositioning ? '.css-anchor-positioning' : ''
+      test(`default @vrt`, async ({page}) => {
+        await visit(page, {
+          id: story.id,
+          globals: {
+            colorScheme: theme,
+          },
+        })
 
-        test(`default @vrt${namePostfix ? ` ${namePostfix}` : ''}`, async ({page}) => {
-          await visit(page, {
-            id: story.id,
-            globals: {
-              colorScheme: theme,
-              ...(withCSSAnchorPositioning && {
-                featureFlags: {
-                  primer_react_css_anchor_positioning: true,
-                },
-              }),
-            },
+        if (story.viewport) {
+          await page.setViewportSize({
+            width: viewports[story.viewport],
+            height: 667,
           })
+        }
 
-          if (story.viewport) {
-            await page.setViewportSize({
-              width: viewports[story.viewport],
-              height: 667,
-            })
-          }
+        // Open dialog if needed
+        if (story.openDialog) {
+          await page.getByRole('button', {name: 'Open Dialog'}).click()
+        }
 
-          // Open dialog if needed
-          if (story.openDialog) {
-            await page.getByRole('button', {name: 'Open Dialog'}).click()
-          }
+        // Open nested dialog if needed
+        if (story.openNestedDialog) {
+          await page.getByRole('button', {name: 'Open Inner Dialog'}).click()
+        }
 
-          // Open nested dialog if needed
-          if (story.openNestedDialog) {
-            await page.getByRole('button', {name: 'Open Inner Dialog'}).click()
-          }
-
-          // If the story has multiple overlays, screenshot each one individually
-          if (story.buttonNames) {
-            for (const name of story.buttonNames) {
-              await page.locator('button', {hasText: name}).first().waitFor()
-              const btn = page.getByRole('button', {name}).first()
-              await btn.click()
-              await waitForImages(page)
-
-              expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-                `AnchoredOverlay.${story.title}.${name}.${theme}${namePostfix}.png`,
-              )
-
-              // Close the overlay before opening the next one
-              await btn.click()
-            }
-          } else {
-            // Open the overlay
-            const buttonName = story.buttonName ?? 'Button'
-            await page.locator('button', {hasText: buttonName}).first().waitFor()
-            const overlayButton = page.getByRole('button', {name: buttonName}).first()
-            await overlayButton.click()
-
-            // for the dev stories, we intentionally change the content after the overlay is open to test that it repositions correctly
-            if (story.waitForText) await page.getByText(story.waitForText).waitFor()
+        // If the story has multiple overlays, screenshot each one individually
+        if (story.buttonNames) {
+          for (const name of story.buttonNames) {
+            await page.locator('button', {hasText: name}).first().waitFor()
+            const btn = page.getByRole('button', {name}).first()
+            await btn.click()
             await waitForImages(page)
 
             expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-              `AnchoredOverlay.${story.title}.${theme}${namePostfix}.png`,
+              `AnchoredOverlay.${story.title}.${name}.${theme}.png`,
             )
+
+            // Close the overlay before opening the next one
+            await btn.click()
           }
-        })
-      }
+        } else {
+          // Open the overlay
+          const buttonName = story.buttonName ?? 'Button'
+          await page.locator('button', {hasText: buttonName}).first().waitFor()
+          const overlayButton = page.getByRole('button', {name: buttonName}).first()
+          await overlayButton.click()
+
+          // for the dev stories, we intentionally change the content after the overlay is open to test that it repositions correctly
+          if (story.waitForText) await page.getByText(story.waitForText).waitFor()
+          await waitForImages(page)
+
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `AnchoredOverlay.${story.title}.${theme}.png`,
+          )
+        }
+      })
     })
   }
 })

@@ -9,7 +9,6 @@ import type {AnchorSide} from '@primer/behaviors'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import classes from './Overlay.module.css'
 import {clsx} from 'clsx'
-import {useFeatureFlag} from '../FeatureFlags'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
@@ -194,7 +193,6 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     const mergedOverlayRef = useMergedRefs(forwardedRef, overlayRef)
     const slideAnimationDistance = 8 // var(--base-size-8), hardcoded to do some math
     const slideAnimationEasing = 'cubic-bezier(0.33, 1, 0.68, 1)'
-    const cssAnchorPositioning = useFeatureFlag('primer_react_css_anchor_positioning')
 
     useOverlay({
       overlayRef,
@@ -252,7 +250,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     // not strictly necessary. However, Portal can still be useful for
     // style isolation. Defaults to false (Portal enabled) for backwards
     // compatibility.
-    if (_PrivateDisablePortal && cssAnchorPositioning) {
+    if (_PrivateDisablePortal) {
       return overlayContent
     }
 

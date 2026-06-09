@@ -14,7 +14,6 @@ import {IconButton, type IconButtonProps} from '../Button'
 import {XIcon} from '@primer/octicons-react'
 import classes from './AnchoredOverlay.module.css'
 import {clsx} from 'clsx'
-import {useFeatureFlag} from '../FeatureFlags'
 import {widthMap} from '../Overlay/Overlay'
 
 interface AnchoredOverlayPropsWithAnchor {
@@ -168,7 +167,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   closeButtonProps = defaultCloseButtonProps,
   renderAs = 'portal',
 }) => {
-  const cssAnchorPositioningFlag = useFeatureFlag('primer_react_css_anchor_positioning')
   // Lazy initial state so feature detection runs once per mount on the client.
   // Guarded for SSR where `document` is undefined.
   const [supportsNativeCSSAnchorPositioning] = useState(
@@ -179,8 +177,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       'positionVisibility' in document.documentElement.style,
   )
 
-  const cssAnchorPositioning =
-    cssAnchorPositioningFlag && supportsNativeCSSAnchorPositioning && !overlayProps?.portalContainerName
+  const cssAnchorPositioning = supportsNativeCSSAnchorPositioning && !overlayProps?.portalContainerName
   // Only use Popover API when both CSS anchor positioning is enabled AND renderAs is true
   const shouldRenderAsPopover = cssAnchorPositioning && renderAs === 'popover'
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
