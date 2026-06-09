@@ -1,57 +1,59 @@
-.ControlHorizontalLayout {
-  display: flex;
+@layer primer.components.FormControl {
+  .ControlHorizontalLayout {
+    display: flex;
 
-  &:where([data-has-leading-visual]) {
-    align-items: center;
-  }
-}
-
-.ControlVerticalLayout {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-
-  & > *:not(label) + * {
-    margin-top: var(--base-size-4);
+    &:where([data-has-leading-visual]) {
+      align-items: center;
+    }
   }
 
-  &[data-has-label] > * + * {
-    margin-top: var(--base-size-4);
-  }
-}
+  .ControlVerticalLayout {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 
-.ControlChoiceInputs > input {
-  margin-right: 0;
-  margin-left: 0;
-}
+    & > *:not(label) + * {
+      margin-top: var(--base-size-4);
+    }
 
-.LabelContainer {
-  > * {
-    /* stylelint-disable-next-line primer/spacing */
-    padding-left: var(--stack-gap-condensed);
+    &[data-has-label] > * + * {
+      margin-top: var(--base-size-4);
+    }
   }
 
-  > label {
-    font-weight: var(--base-text-weight-normal);
-  }
-}
-
-.LeadingVisual {
-  margin-left: var(--base-size-8);
-  color: var(--fgColor-muted);
-
-  &:where([data-disabled]) {
-    color: var(--control-fgColor-disabled);
+  .ControlChoiceInputs > input {
+    margin-right: 0;
+    margin-left: 0;
   }
 
-  > * {
-    min-width: var(--text-body-size-large);
-    min-height: var(--text-body-size-large);
-    fill: currentColor;
+  .LabelContainer {
+    > * {
+      /* stylelint-disable-next-line primer/spacing */
+      padding-left: var(--stack-gap-condensed);
+    }
+
+    > label {
+      font-weight: var(--base-text-weight-normal);
+    }
   }
 
-  > *:where([data-has-caption]) {
-    min-width: var(--base-size-24);
-    min-height: var(--base-size-24);
+  .LeadingVisual {
+    margin-left: var(--base-size-8);
+    color: var(--fgColor-muted);
+
+    &:where([data-disabled]) {
+      color: var(--control-fgColor-disabled);
+    }
+
+    > * {
+      min-width: var(--text-body-size-large);
+      min-height: var(--text-body-size-large);
+      fill: currentColor;
+    }
+
+    > *:where([data-has-caption]) {
+      min-width: var(--base-size-24);
+      min-height: var(--base-size-24);
+    }
   }
 }

@@ -1,82 +1,84 @@
-.Root {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.Header {
-  /* stylelint-disable-next-line primer/box-shadow */
-  box-shadow: 0 1px 0 var(--borderColor-default);
-  z-index: 1;
-}
-
-.Container {
-  display: flex;
-  height: 100%;
-  overflow: auto;
-  flex-grow: 1;
-
-  /* Allow the browser to skip rendering for off-screen items, reducing style recalc and layout costs in long lists.
-     Exclude items that show the active indicator line, as content-visibility: auto applies paint containment
-     which clips the absolutely-positioned ::after pseudo-element that renders outside the item bounds. */
-  & .ActionListItem:not(:focus, [data-is-active-descendant], [data-active], [data-input-focused]) {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 32px;
+@layer primer.components.FilteredActionList {
+  .Root {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
 
-  /* When showDividers is enabled, divider ::before pseudo-elements on ActionListSubContent are
-     positioned outside the item bounds (top: -7px). content-visibility: auto applies paint containment
-     which clips these, so we must disable it for items in lists with dividers. */
-  & [data-dividers='true'] .ActionListItem {
-    content-visibility: visible;
+  .Header {
+    /* stylelint-disable-next-line primer/box-shadow */
+    box-shadow: 0 1px 0 var(--borderColor-default);
+    z-index: 1;
   }
-}
 
-.ActionList {
-  flex-grow: 1;
-}
+  .Container {
+    display: flex;
+    height: 100%;
+    overflow: auto;
+    flex-grow: 1;
 
-.ActionListItem:focus {
-  background: var(--control-transparent-bgColor-selected);
+    /* Allow the browser to skip rendering for off-screen items, reducing style recalc and layout costs in long lists.
+       Exclude items that show the active indicator line, as content-visibility: auto applies paint containment
+       which clips the absolutely-positioned ::after pseudo-element that renders outside the item bounds. */
+    & .ActionListItem:not(:focus, [data-is-active-descendant], [data-active], [data-input-focused]) {
+      content-visibility: auto;
+      contain-intrinsic-size: auto 32px;
+    }
 
-  &::after {
-    @mixin activeIndicatorLine;
-  }
-}
-
-.ActionListItem:where([data-input-focused]):where([data-first-child]) {
-  background: var(--control-transparent-bgColor-selected);
-
-  &::after {
-    @mixin activeIndicatorLine;
-  }
-}
-
-.FullScreenTextInput {
-  @media screen and (--viewportRange-narrow) {
-    /* Ensures inputs don't zoom on mobile iPhone but are body-font size on iPad */
-    @supports (-webkit-touch-callout: none) {
-      font-size: var(--text-title-size-small);
+    /* When showDividers is enabled, divider ::before pseudo-elements on ActionListSubContent are
+       positioned outside the item bounds (top: -7px). content-visibility: auto applies paint containment
+       which clips these, so we must disable it for items in lists with dividers. */
+    & [data-dividers='true'] .ActionListItem {
+      content-visibility: visible;
     }
   }
-}
 
-.SelectAllContainer {
-  display: flex;
-  align-items: center;
-  padding-block: var(--base-size-4);
-  padding-inline: var(--base-size-16);
-  background: var(--bgColor-muted);
-  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
-}
+  .ActionList {
+    flex-grow: 1;
+  }
 
-.SelectAllCheckbox {
-  /* -1px hack to offset 1px border-bottom causing uneven alignment */
-  /* stylelint-disable-next-line primer/spacing */
-  margin: var(--base-size-4) var(--base-size-8) calc(var(--base-size-4) - 1px) 0;
-}
+  .ActionListItem:focus {
+    background: var(--control-transparent-bgColor-selected);
 
-.SelectAllLabel {
-  font-size: var(--text-body-size-medium);
-  color: var(--fgColor-muted);
+    &::after {
+      @mixin activeIndicatorLine;
+    }
+  }
+
+  .ActionListItem:where([data-input-focused]):where([data-first-child]) {
+    background: var(--control-transparent-bgColor-selected);
+
+    &::after {
+      @mixin activeIndicatorLine;
+    }
+  }
+
+  .FullScreenTextInput {
+    @media screen and (--viewportRange-narrow) {
+      /* Ensures inputs don't zoom on mobile iPhone but are body-font size on iPad */
+      @supports (-webkit-touch-callout: none) {
+        font-size: var(--text-title-size-small);
+      }
+    }
+  }
+
+  .SelectAllContainer {
+    display: flex;
+    align-items: center;
+    padding-block: var(--base-size-4);
+    padding-inline: var(--base-size-16);
+    background: var(--bgColor-muted);
+    border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
+  }
+
+  .SelectAllCheckbox {
+    /* -1px hack to offset 1px border-bottom causing uneven alignment */
+    /* stylelint-disable-next-line primer/spacing */
+    margin: var(--base-size-4) var(--base-size-8) calc(var(--base-size-4) - 1px) 0;
+  }
+
+  .SelectAllLabel {
+    font-size: var(--text-body-size-medium);
+    color: var(--fgColor-muted);
+  }
 }
