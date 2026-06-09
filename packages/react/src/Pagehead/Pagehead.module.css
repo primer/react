@@ -1,8 +1,10 @@
-.Pagehead {
-  position: relative;
-  padding-top: var(--base-size-24);
-  padding-bottom: var(--base-size-24);
-  margin-bottom: var(--base-size-24);
-  /* stylelint-disable-next-line primer/borders */
-  border-bottom: 1px solid var(--borderColor-default);
+@layer primer.components.Pagehead {
+  .Pagehead {
+    position: relative;
+    padding-top: var(--base-size-24);
+    padding-bottom: var(--base-size-24);
+    margin-bottom: var(--base-size-24);
+    /* stylelint-disable-next-line primer/borders */
+    border-bottom: 1px solid var(--borderColor-default);
+  }
 }
