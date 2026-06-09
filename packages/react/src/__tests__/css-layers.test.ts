@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import {parse} from 'css-tree'
-import type {Atrule, Raw, StyleSheet} from 'css-tree'
+import {generate, parse} from 'css-tree'
+import type {Atrule, StyleSheet} from 'css-tree'
 import {describe, expect, test} from 'vitest'
 
 const allowlist = new Set([path.resolve(import.meta.dirname, '../Avatar/Avatar.module.css')])
@@ -19,19 +19,22 @@ describe('CSS Layers', () => {
     }) as StyleSheet
 
     test('uses CSS Layer', () => {
-      expect(ast.children.first?.type).toBe('Atrule')
-      const node = ast.children.first as Atrule
+      const first = ast.children.first
 
-      expect(node.name).toBe('layer')
+      expect(first?.type).toBe('Atrule')
+      if (!first || first.type !== 'Atrule') throw new Error('Expected stylesheet to start with an @layer at-rule')
+
+      expect(first.name).toBe('layer')
     })
 
     test('CSS Layer matches naming conventions', () => {
-      const node = ast.children.first as Atrule
+      const first = ast.children.first
 
-      expect(node.prelude?.type).toBe('Raw')
-      const prelude = node.prelude as Raw
+      expect(first?.type).toBe('Atrule')
+      if (!first || first.type !== 'Atrule') throw new Error('Expected stylesheet to start with an @layer at-rule')
 
-      expect(prelude.value).toMatch(CSS_LAYER_REGEX)
+      const layerName = first.prelude ? generate(first.prelude).trim() : ''
+      expect(layerName).toMatch(CSS_LAYER_REGEX)
     })
   })
 })
