@@ -125,7 +125,10 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
    */
   renderAs?: 'portal' | 'popover'
   /**
-   * Settings for CSS anchor positioning behavior when CSS anchor positioning is active.
+   * Settings for native CSS anchor positioning.
+   *
+   * - `disable`: When `true`, opts this overlay out of native CSS anchor positioning (and the Popover API)
+   *   even if `primer_react_css_anchor_positioning` is enabled and the browser supports it.
    */
   cssAnchorPositioningSettings?: {disable?: boolean}
 }
