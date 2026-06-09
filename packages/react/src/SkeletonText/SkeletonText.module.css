@@ -1,70 +1,72 @@
-.SkeletonText {
-  --font-size: var(--text-body-size-medium);
-  --line-height: var(--text-body-lineHeight-medium);
-  --leading: calc(var(--font-size) * var(--line-height) - var(--font-size));
+@layer primer.components.SkeletonText {
+  .SkeletonText {
+    --font-size: var(--text-body-size-medium);
+    --line-height: var(--text-body-lineHeight-medium);
+    --leading: calc(var(--font-size) * var(--line-height) - var(--font-size));
 
-  @supports (margin-block: mod(1px, 1px)) {
-    --leading: mod(var(--font-size) * var(--line-height), var(--font-size));
-  }
+    @supports (margin-block: mod(1px, 1px)) {
+      --leading: mod(var(--font-size) * var(--line-height), var(--font-size));
+    }
 
-  height: var(--font-size);
-  border-radius: var(--borderRadius-small);
-  /* stylelint-disable-next-line primer/spacing */
-  margin-block: calc(var(--leading) / 2);
-
-  &:where([data-in-multiline]) {
+    height: var(--font-size);
+    border-radius: var(--borderRadius-small);
     /* stylelint-disable-next-line primer/spacing */
-    margin-block-end: calc(var(--leading) * 2);
+    margin-block: calc(var(--leading) / 2);
 
-    &:last-child {
-      min-width: 50px;
-      max-width: 65%;
-      margin-bottom: 0;
+    &:where([data-in-multiline]) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-block-end: calc(var(--leading) * 2);
+
+      &:last-child {
+        min-width: 50px;
+        max-width: 65%;
+        margin-bottom: 0;
+      }
+    }
+
+    &:where([data-text-skeleton-size='display']),
+    &:where([data-text-skeleton-size='titleLarge']) {
+      border-radius: var(--borderRadius-medium);
+    }
+
+    &:where([data-text-skeleton-size='display']) {
+      --font-size: var(--text-display-size);
+      --line-height: var(--text-display-lineHeight);
+    }
+
+    &:where([data-text-skeleton-size='titleLarge']) {
+      --font-size: var(--text-title-size-large);
+      --line-height: var(--text-title-lineHeight-large);
+    }
+
+    &:where([data-text-skeleton-size='titleMedium']) {
+      --font-size: var(--text-title-size-medium);
+      --line-height: var(--text-title-lineHeight-medium);
+    }
+
+    &:where([data-text-skeleton-size='titleSmall']) {
+      --font-size: var(--text-title-size-small);
+      --line-height: var(--text-title-lineHeight-small);
+    }
+
+    &:where([data-text-skeleton-size='subtitle']) {
+      --font-size: var(--text-subtitle-size);
+      --line-height: var(--text-subtitle-lineHeight);
+    }
+
+    &:where([data-text-skeleton-size='bodyLarge']) {
+      --font-size: var(--text-body-size-large);
+      --line-height: var(--text-body-lineHeight-large);
+    }
+
+    &:where([data-text-skeleton-size='bodySmall']) {
+      --font-size: var(--text-body-size-small);
+      --line-height: var(--text-body-lineHeight-small);
     }
   }
 
-  &:where([data-text-skeleton-size='display']),
-  &:where([data-text-skeleton-size='titleLarge']) {
-    border-radius: var(--borderRadius-medium);
+  .SkeletonTextWrapper {
+    /* stylelint-disable-next-line primer/spacing */
+    padding-block: 0.1px;
   }
-
-  &:where([data-text-skeleton-size='display']) {
-    --font-size: var(--text-display-size);
-    --line-height: var(--text-display-lineHeight);
-  }
-
-  &:where([data-text-skeleton-size='titleLarge']) {
-    --font-size: var(--text-title-size-large);
-    --line-height: var(--text-title-lineHeight-large);
-  }
-
-  &:where([data-text-skeleton-size='titleMedium']) {
-    --font-size: var(--text-title-size-medium);
-    --line-height: var(--text-title-lineHeight-medium);
-  }
-
-  &:where([data-text-skeleton-size='titleSmall']) {
-    --font-size: var(--text-title-size-small);
-    --line-height: var(--text-title-lineHeight-small);
-  }
-
-  &:where([data-text-skeleton-size='subtitle']) {
-    --font-size: var(--text-subtitle-size);
-    --line-height: var(--text-subtitle-lineHeight);
-  }
-
-  &:where([data-text-skeleton-size='bodyLarge']) {
-    --font-size: var(--text-body-size-large);
-    --line-height: var(--text-body-lineHeight-large);
-  }
-
-  &:where([data-text-skeleton-size='bodySmall']) {
-    --font-size: var(--text-body-size-small);
-    --line-height: var(--text-body-lineHeight-small);
-  }
-}
-
-.SkeletonTextWrapper {
-  /* stylelint-disable-next-line primer/spacing */
-  padding-block: 0.1px;
 }
