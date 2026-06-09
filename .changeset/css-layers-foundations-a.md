@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-AvatarStack, BaseStyles, BranchName, ButtonGroup, Card, Checkbox, CircleBadge, FilteredSearch, UnderlineNav (deprecated): Improve custom class override behavior for component styles
+AvatarStack, BaseStyles, BranchName, ButtonGroup, Card, Checkbox, CircleBadge, FilteredSearch, UnderlineNav (deprecated): Add CSS layer support for component styles
