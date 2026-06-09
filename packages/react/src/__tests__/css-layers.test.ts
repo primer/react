@@ -71,6 +71,19 @@ const allowlist = new Set([
   path.resolve(import.meta.dirname, '../DataTable/Pagination.module.css'),
   path.resolve(import.meta.dirname, '../DataTable/Table.module.css'),
   path.resolve(import.meta.dirname, '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.module.css'),
+  path.resolve(import.meta.dirname, '../KeybindingHint/KeybindingHint.module.css'),
+  path.resolve(import.meta.dirname, '../KeybindingHint/components/Chord.module.css'),
+  path.resolve(import.meta.dirname, '../Spinner/Spinner.module.css'),
+  path.resolve(import.meta.dirname, '../Textarea/TextArea.module.css'),
+  path.resolve(import.meta.dirname, '../TextInput/TextInput.module.css'),
+  path.resolve(import.meta.dirname, '../ToggleSwitch/ToggleSwitch.module.css'),
+  path.resolve(import.meta.dirname, '../Token/IssueLabelToken.module.css'),
+  path.resolve(import.meta.dirname, '../Token/Token.module.css'),
+  path.resolve(import.meta.dirname, '../Token/TokenBase.module.css'),
+  path.resolve(import.meta.dirname, '../Token/_RemoveTokenButton.module.css'),
+  path.resolve(import.meta.dirname, '../Token/_TokenTextContainer.module.css'),
+  path.resolve(import.meta.dirname, '../TextInputWithTokens/TextInputWithTokens.module.css'),
+  path.resolve(import.meta.dirname, '../TooltipV2/Tooltip.module.css'),
 ])
 const files = Array.from(allowlist).map(file => {
   return [path.relative(path.resolve(import.meta.dirname, '..'), file), file]
