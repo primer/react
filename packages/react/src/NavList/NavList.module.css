@@ -1,8 +1,10 @@
-.GroupHeading > a {
-  color: var(--fgColor-default);
-  text-decoration: inherit;
-}
+@layer primer.components.NavList {
+  .GroupHeading > a {
+    color: var(--fgColor-default);
+    text-decoration: inherit;
+  }
 
-.GroupHeading > a:hover {
-  text-decoration: underline;
+  .GroupHeading > a:hover {
+    text-decoration: underline;
+  }
 }

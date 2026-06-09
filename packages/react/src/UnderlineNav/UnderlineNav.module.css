@@ -1,22 +1,24 @@
-.MenuItemContent {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+@layer primer.components.UnderlineNav {
+  .MenuItemContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-/* More button styles migrated from styles.ts (was moreBtnStyles) */
-.MoreButton {
-  margin: 0; /* reset Safari extra margin */
-  border: 0;
-  background: transparent;
-  font-weight: var(--base-text-weight-normal);
-  box-shadow: none;
-  padding-top: var(--base-size-4);
-  padding-bottom: var(--base-size-4);
-  padding-left: var(--base-size-8);
-  padding-right: var(--base-size-8);
+  /* More button styles migrated from styles.ts (was moreBtnStyles) */
+  .MoreButton {
+    margin: 0; /* reset Safari extra margin */
+    border: 0;
+    background: transparent;
+    font-weight: var(--base-text-weight-normal);
+    box-shadow: none;
+    padding-top: var(--base-size-4);
+    padding-bottom: var(--base-size-4);
+    padding-left: var(--base-size-8);
+    padding-right: var(--base-size-8);
 
-  & > [data-component='trailingVisual'] {
-    margin-left: 0;
+    & > [data-component='trailingVisual'] {
+      margin-left: 0;
+    }
   }
 }

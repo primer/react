@@ -1,291 +1,293 @@
-.TreeViewRootUlStyles {
-  padding: 0;
-  margin: 0;
-  list-style: none;
+@layer primer.components.TreeView {
+  .TreeViewRootUlStyles {
+    padding: 0;
+    margin: 0;
+    list-style: none;
 
-  /*
-   * WARNING: This is a performance optimization.
-   *
-   * We define styles for the tree items at the root level of the tree
-   * to avoid recomputing the styles for each item when the tree updates.
-   * We're sacrificing maintainability for performance because TreeView
-   * needs to be performant enough to handle large trees (thousands of items).
-   *
-   * This is intended to be a temporary solution until we can improve the
-   * performance of our styling patterns.
-   *
-   * Do NOT copy this pattern without understanding the tradeoffs.
-   */
-  .TreeViewItem {
     /*
-     * `overflow-clip-margin` extends the paint clip edge by 8px so the current-item indicator
-     * (positioned at `left: -8px` of the row container) remains visible when a consumer applies
-     * `contain: paint` (or `contain: strict`, or `content-visibility: auto`) to this `<li>`. Has
-     * no effect when no paint containment is active, so default rendering is unchanged.
+     * WARNING: This is a performance optimization.
+     *
+     * We define styles for the tree items at the root level of the tree
+     * to avoid recomputing the styles for each item when the tree updates.
+     * We're sacrificing maintainability for performance because TreeView
+     * needs to be performant enough to handle large trees (thousands of items).
+     *
+     * This is intended to be a temporary solution until we can improve the
+     * performance of our styling patterns.
+     *
+     * Do NOT copy this pattern without understanding the tradeoffs.
      */
-    overflow-clip-margin: var(--base-size-8);
-    outline: none;
-
-    &:focus-visible > div,
-    &:global(.focus-visible) > div {
-      box-shadow: var(--boxShadow-thick) var(--fgColor-accent);
-
-      @media (forced-colors: active) {
-        outline: 2px solid HighlightText;
-        outline-offset: -2px;
-      }
-    }
-
-    &[data-has-leading-action] {
-      --has-leading-action: 1;
-    }
-  }
-
-  .TreeViewItemContainer {
-    --level: 1;
-    --toggle-width: 1rem;
-    --min-item-height: 2rem;
-
-    position: relative;
-    display: grid;
-    width: 100%;
-    /*
-     * Mirrors the `overflow-clip-margin` on `.TreeViewItem` so the indicator also stays
-     * visible when `containIntrinsicSize` is set on this row (which sets
-     * `content-visibility: auto` on this container and implies paint containment).
-     */
-    overflow-clip-margin: var(--base-size-8);
-    font-size: var(--text-body-size-medium);
-    color: var(--fgColor-default);
-    cursor: pointer;
-    border-radius: var(--borderRadius-medium);
-    grid-template-columns: var(--spacer-width) var(--leading-action-width) var(--toggle-width) 1fr auto;
-    grid-template-areas: 'spacer leadingAction toggle content trailingAction';
-
-    --leading-action-width: calc(var(--has-leading-action, 0) * 1.5rem);
-    --spacer-width: calc(calc(var(--level) - 1) * (var(--toggle-width) / 2));
-
-    &:hover {
-      background-color: var(--control-transparent-bgColor-hover);
-
-      @media (forced-colors: active) {
-        outline: 2px solid transparent;
-        outline-offset: -2px;
-      }
-    }
-
-    @media (pointer: coarse) {
-      --toggle-width: 1.5rem;
-      --min-item-height: 2.75rem;
-    }
-  }
-
-  &:where([data-omit-spacer='true']) .TreeViewItemContainer {
-    grid-template-columns: 0 0 0 1fr auto;
-  }
-
-  /*
-   * Suppress hover affordances on rows being used as skeleton loading placeholders.
-   * Marked positively via `data-loading` from `LoadingItem` so we avoid the broad
-   * invalidation cost of `:has(.TreeViewItemSkeleton)` across every row in large trees.
-   */
-  .TreeViewItem:where([data-loading]) > .TreeViewItemContainer:hover {
-    cursor: default;
-    background-color: transparent;
-
-    @media (forced-colors: active) {
-      outline: none;
-    }
-  }
-
-  .TreeViewItem[aria-current='true'] > .TreeViewItemContainer {
-    background-color: var(--control-transparent-bgColor-selected);
-
-    /* Current item indicator */
-    /* stylelint-disable-next-line selector-max-specificity */
-    &::after {
-      position: absolute;
-      top: calc(50% - var(--base-size-12));
-      left: calc(-1 * var(--base-size-8));
-      width: 0.25rem;
-      height: 1.5rem;
-      content: '';
-
+    .TreeViewItem {
       /*
-       * Use fgColor accent for consistency across all themes. Using the "correct" variable,
-       * --bgColor-accent-emphasis, causes vrt failures for dark high contrast mode
+       * `overflow-clip-margin` extends the paint clip edge by 8px so the current-item indicator
+       * (positioned at `left: -8px` of the row container) remains visible when a consumer applies
+       * `contain: paint` (or `contain: strict`, or `content-visibility: auto`) to this `<li>`. Has
+       * no effect when no paint containment is active, so default rendering is unchanged.
        */
-      /* stylelint-disable-next-line primer/colors */
-      background-color: var(--fgColor-accent);
-      border-radius: var(--borderRadius-medium);
+      overflow-clip-margin: var(--base-size-8);
+      outline: none;
 
-      @media (forced-colors: active) {
-        background-color: HighlightText;
+      &:focus-visible > div,
+      &:global(.focus-visible) > div {
+        box-shadow: var(--boxShadow-thick) var(--fgColor-accent);
+
+        @media (forced-colors: active) {
+          outline: 2px solid HighlightText;
+          outline-offset: -2px;
+        }
+      }
+
+      &[data-has-leading-action] {
+        --has-leading-action: 1;
       }
     }
-  }
 
-  .TreeViewItemToggle {
-    display: flex;
-    height: 100%;
+    .TreeViewItemContainer {
+      --level: 1;
+      --toggle-width: 1rem;
+      --min-item-height: 2rem;
 
-    /* The toggle should appear vertically centered for single-line items, but remain at the top for items that wrap
-    across more lines. */
-    /* stylelint-disable-next-line primer/spacing */
-    padding-top: calc(var(--min-item-height) / 2 - var(--base-size-12) / 2);
-    color: var(--fgColor-muted);
-    grid-area: toggle;
-    justify-content: center;
-    align-items: flex-start;
-  }
+      position: relative;
+      display: grid;
+      width: 100%;
+      /*
+       * Mirrors the `overflow-clip-margin` on `.TreeViewItem` so the indicator also stays
+       * visible when `containIntrinsicSize` is set on this row (which sets
+       * `content-visibility: auto` on this container and implies paint containment).
+       */
+      overflow-clip-margin: var(--base-size-8);
+      font-size: var(--text-body-size-medium);
+      color: var(--fgColor-default);
+      cursor: pointer;
+      border-radius: var(--borderRadius-medium);
+      grid-template-columns: var(--spacer-width) var(--leading-action-width) var(--toggle-width) 1fr auto;
+      grid-template-areas: 'spacer leadingAction toggle content trailingAction';
 
-  .TreeViewItemToggleHover:hover {
-    background-color: var(--control-transparent-bgColor-hover);
-  }
+      --leading-action-width: calc(var(--has-leading-action, 0) * 1.5rem);
+      --spacer-width: calc(calc(var(--level) - 1) * (var(--toggle-width) / 2));
 
-  .TreeViewItemToggleEnd {
-    border-top-left-radius: var(--borderRadius-medium);
-    border-bottom-left-radius: var(--borderRadius-medium);
-  }
+      &:hover {
+        background-color: var(--control-transparent-bgColor-hover);
 
-  .TreeViewItemContent {
-    display: flex;
-    height: 100%;
-    padding: 0 var(--base-size-8);
+        @media (forced-colors: active) {
+          outline: 2px solid transparent;
+          outline-offset: -2px;
+        }
+      }
 
-    /* The dynamic top and bottom padding to maintain the minimum item height for single line items */
-    /* stylelint-disable-next-line primer/spacing */
-    padding-top: calc((var(--min-item-height) - var(--custom-line-height, 1.3rem)) / 2);
-    /* stylelint-disable-next-line primer/spacing */
-    padding-bottom: calc((var(--min-item-height) - var(--custom-line-height, 1.3rem)) / 2);
-    line-height: var(--custom-line-height, var(--text-body-lineHeight-medium, 1.4285));
-    grid-area: content;
-    gap: var(--stack-gap-condensed);
-  }
+      @media (pointer: coarse) {
+        --toggle-width: 1.5rem;
+        --min-item-height: 2.75rem;
+      }
+    }
 
-  .TreeViewItemContentText {
-    flex: 1 1 auto;
-    width: 0;
-  }
+    &:where([data-omit-spacer='true']) .TreeViewItemContainer {
+      grid-template-columns: 0 0 0 1fr auto;
+    }
 
-  &:where([data-truncate-text='true']) .TreeViewItemContentText {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+    /*
+     * Suppress hover affordances on rows being used as skeleton loading placeholders.
+     * Marked positively via `data-loading` from `LoadingItem` so we avoid the broad
+     * invalidation cost of `:has(.TreeViewItemSkeleton)` across every row in large trees.
+     */
+    .TreeViewItem:where([data-loading]) > .TreeViewItemContainer:hover {
+      cursor: default;
+      background-color: transparent;
 
-  &:where([data-truncate-text='false']) .TreeViewItemContentText {
-    /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated */
-    word-break: break-word;
-  }
+      @media (forced-colors: active) {
+        outline: none;
+      }
+    }
 
-  .TreeViewItemVisual {
-    display: flex;
+    .TreeViewItem[aria-current='true'] > .TreeViewItemContainer {
+      background-color: var(--control-transparent-bgColor-selected);
 
-    /* The visual icons should appear vertically centered for single-line items, but remain at the top for items that wrap
-    across more lines. */
-    height: var(--custom-line-height, 1.3rem);
-    color: var(--fgColor-muted);
-    align-items: center;
-  }
+      /* Current item indicator */
+      /* stylelint-disable-next-line selector-max-specificity */
+      &::after {
+        position: absolute;
+        top: calc(50% - var(--base-size-12));
+        left: calc(-1 * var(--base-size-8));
+        width: 0.25rem;
+        height: 1.5rem;
+        content: '';
 
-  .TreeViewItemLeadingAction {
-    display: flex;
-    color: var(--fgColor-muted);
-    grid-area: leadingAction;
+        /*
+         * Use fgColor accent for consistency across all themes. Using the "correct" variable,
+         * --bgColor-accent-emphasis, causes vrt failures for dark high contrast mode
+         */
+        /* stylelint-disable-next-line primer/colors */
+        background-color: var(--fgColor-accent);
+        border-radius: var(--borderRadius-medium);
 
-    & > button {
+        @media (forced-colors: active) {
+          background-color: HighlightText;
+        }
+      }
+    }
+
+    .TreeViewItemToggle {
+      display: flex;
+      height: 100%;
+
+      /* The toggle should appear vertically centered for single-line items, but remain at the top for items that wrap
+      across more lines. */
+      /* stylelint-disable-next-line primer/spacing */
+      padding-top: calc(var(--min-item-height) / 2 - var(--base-size-12) / 2);
+      color: var(--fgColor-muted);
+      grid-area: toggle;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .TreeViewItemToggleHover:hover {
+      background-color: var(--control-transparent-bgColor-hover);
+    }
+
+    .TreeViewItemToggleEnd {
+      border-top-left-radius: var(--borderRadius-medium);
+      border-bottom-left-radius: var(--borderRadius-medium);
+    }
+
+    .TreeViewItemContent {
+      display: flex;
+      height: 100%;
+      padding: 0 var(--base-size-8);
+
+      /* The dynamic top and bottom padding to maintain the minimum item height for single line items */
+      /* stylelint-disable-next-line primer/spacing */
+      padding-top: calc((var(--min-item-height) - var(--custom-line-height, 1.3rem)) / 2);
+      /* stylelint-disable-next-line primer/spacing */
+      padding-bottom: calc((var(--min-item-height) - var(--custom-line-height, 1.3rem)) / 2);
+      line-height: var(--custom-line-height, var(--text-body-lineHeight-medium, 1.4285));
+      grid-area: content;
+      gap: var(--stack-gap-condensed);
+    }
+
+    .TreeViewItemContentText {
+      flex: 1 1 auto;
+      width: 0;
+    }
+
+    &:where([data-truncate-text='true']) .TreeViewItemContentText {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &:where([data-truncate-text='false']) .TreeViewItemContentText {
+      /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated */
+      word-break: break-word;
+    }
+
+    .TreeViewItemVisual {
+      display: flex;
+
+      /* The visual icons should appear vertically centered for single-line items, but remain at the top for items that wrap
+      across more lines. */
+      height: var(--custom-line-height, 1.3rem);
+      color: var(--fgColor-muted);
+      align-items: center;
+    }
+
+    .TreeViewItemLeadingAction {
+      display: flex;
+      color: var(--fgColor-muted);
+      grid-area: leadingAction;
+
+      & > button {
+        flex-shrink: 1;
+      }
+    }
+
+    .TreeViewItemTrailingAction {
+      display: flex;
+      color: var(--fgColor-muted);
+      grid-area: trailingAction;
+    }
+
+    .TreeViewItemTrailingActionButton {
       flex-shrink: 1;
     }
-  }
 
-  .TreeViewItemTrailingAction {
-    display: flex;
-    color: var(--fgColor-muted);
-    grid-area: trailingAction;
-  }
+    .TreeViewItemLevelLine {
+      width: 100%;
+      height: 100%;
+      border-right: var(--borderWidth-thin) solid;
 
-  .TreeViewItemTrailingActionButton {
-    flex-shrink: 1;
-  }
+      /*
+       * `--tree-line-color` is set on the root `<ul>` and inherited down. On coarse pointers it
+       * stays unset and falls back to `muted` (lines always visible). On hover-capable devices it
+       * is initialized to `transparent` on the root and flipped to `muted` while the tree is
+       * hovered or focused, so the browser only has to propagate a single inherited custom
+       * property instead of re-matching `.TreeViewItemLevelLine` descendant selectors on every
+       * hover/focus change inside large trees.
+       */
+      /* stylelint-disable-next-line primer/colors -- private custom property, defaults to a Primer token */
+      border-color: var(--tree-line-color, var(--borderColor-muted));
+    }
 
-  .TreeViewItemLevelLine {
-    width: 100%;
-    height: 100%;
-    border-right: var(--borderWidth-thin) solid;
+    @media (hover: hover) {
+      --tree-line-color: transparent;
 
-    /*
-     * `--tree-line-color` is set on the root `<ul>` and inherited down. On coarse pointers it
-     * stays unset and falls back to `muted` (lines always visible). On hover-capable devices it
-     * is initialized to `transparent` on the root and flipped to `muted` while the tree is
-     * hovered or focused, so the browser only has to propagate a single inherited custom
-     * property instead of re-matching `.TreeViewItemLevelLine` descendant selectors on every
-     * hover/focus change inside large trees.
-     */
-    /* stylelint-disable-next-line primer/colors -- private custom property, defaults to a Primer token */
-    border-color: var(--tree-line-color, var(--borderColor-muted));
-  }
+      &:hover,
+      &:focus-within {
+        --tree-line-color: var(--borderColor-muted);
+      }
+    }
 
-  @media (hover: hover) {
-    --tree-line-color: transparent;
+    .TreeViewDirectoryIcon {
+      display: grid;
+      color: var(--treeViewItem-leadingVisual-iconColor-rest);
+    }
 
-    &:hover,
-    &:focus-within {
-      --tree-line-color: var(--borderColor-muted);
+    .TreeViewVisuallyHidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      /* stylelint-disable-next-line primer/spacing */
+      margin: -1px;
+      overflow: hidden;
+      /* stylelint-disable-next-line property-no-deprecated */
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
     }
   }
 
-  .TreeViewDirectoryIcon {
-    display: grid;
-    color: var(--treeViewItem-leadingVisual-iconColor-rest);
+  .TreeViewSkeletonItemContainerStyle {
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+    height: 2rem;
+
+    @media (pointer: coarse) {
+      height: 2.75rem;
+    }
+
+    &:nth-of-type(5n + 1) {
+      --tree-item-loading-width: 67%;
+    }
+
+    &:nth-of-type(5n + 2) {
+      --tree-item-loading-width: 47%;
+    }
+
+    &:nth-of-type(5n + 3) {
+      --tree-item-loading-width: 73%;
+    }
+
+    &:nth-of-type(5n + 4) {
+      --tree-item-loading-width: 64%;
+    }
+
+    &:nth-of-type(5n + 5) {
+      --tree-item-loading-width: 50%;
+    }
   }
 
-  .TreeViewVisuallyHidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    /* stylelint-disable-next-line primer/spacing */
-    margin: -1px;
-    overflow: hidden;
-    /* stylelint-disable-next-line property-no-deprecated */
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
+  .TreeItemSkeletonTextStyles {
+    width: var(--tree-item-loading-width, 67%);
   }
-}
-
-.TreeViewSkeletonItemContainerStyle {
-  display: flex;
-  align-items: center;
-  column-gap: 0.5rem;
-  height: 2rem;
-
-  @media (pointer: coarse) {
-    height: 2.75rem;
-  }
-
-  &:nth-of-type(5n + 1) {
-    --tree-item-loading-width: 67%;
-  }
-
-  &:nth-of-type(5n + 2) {
-    --tree-item-loading-width: 47%;
-  }
-
-  &:nth-of-type(5n + 3) {
-    --tree-item-loading-width: 73%;
-  }
-
-  &:nth-of-type(5n + 4) {
-    --tree-item-loading-width: 64%;
-  }
-
-  &:nth-of-type(5n + 5) {
-    --tree-item-loading-width: 50%;
-  }
-}
-
-.TreeItemSkeletonTextStyles {
-  width: var(--tree-item-loading-width, 67%);
 }
