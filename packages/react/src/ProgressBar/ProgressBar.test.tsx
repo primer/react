@@ -8,6 +8,23 @@ describe('ProgressBar', () => {
   implementsClassName(ProgressBar, classes.ProgressBarContainer)
   implementsClassName(ProgressBar.Item, classes.ProgressBarItem)
 
+  it('renders data-component attributes for ProgressBar and ProgressBar.Item', () => {
+    const {container} = render(<ProgressBar progress={50} aria-label="Upload test.png" />)
+    expect(container.firstChild).toHaveAttribute('data-component', 'ProgressBar')
+    expect(container.querySelector('[role="progressbar"]')).toHaveAttribute('data-component', 'ProgressBar.Item')
+
+    const {container: multiItemContainer} = render(
+      <ProgressBar aria-label="Upload test.png">
+        <ProgressBar.Item progress={80} />
+      </ProgressBar>,
+    )
+    expect(multiItemContainer.firstChild).toHaveAttribute('data-component', 'ProgressBar')
+    expect(multiItemContainer.querySelector('[role="progressbar"]')).toHaveAttribute(
+      'data-component',
+      'ProgressBar.Item',
+    )
+  })
+
   it('respects the "barSize" prop', () => {
     const barSizeSmall = render(<ProgressBar progress={80} barSize="small" aria-label="Upload test.png" />)
     expect(barSizeSmall.container.firstChild).toHaveAttribute('data-progress-bar-size', 'small')
