@@ -111,7 +111,7 @@
       --blankslate-padding: var(--base-size-16);
     }
 
-    &:where([data-spacious='true']) {
+    &:where([data-spacious]) {
       --blankslate-padding: var(--base-size-44) var(--base-size-28);
     }
 
