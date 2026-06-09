@@ -1,0 +1,36 @@
+@layer primer.components.List {
+  .List {
+    list-style: none;
+    padding: 0;
+  }
+
+  .Item {
+    /* label */
+    color: var(--fgColor-default);
+    font-size: var(--text-body-size-medium);
+    font-weight: var(--base-text-weight-normal);
+    grid-area: label;
+    line-height: 20px;
+    position: relative;
+    word-break: break-word;
+    /* label */
+
+    padding-block: var(--control-medium-paddingBlock);
+    padding-inline: var(--control-medium-paddingInline-condensed);
+    border-radius: var(--borderRadius-medium);
+    transition: background 33.333ms linear;
+    width: 100%;
+    user-select: none;
+
+    /* display: grid; */
+    /* grid-template-areas: */
+    /*   'leadingVisual label   trailingVisual' */
+    /*   '.             content .'; */
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--control-transparent-bgColor-hover);
+      }
+    }
+  }
+}
