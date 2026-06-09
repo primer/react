@@ -9,9 +9,12 @@ import classes from './ActionList.module.css'
 import groupClasses from './Group.module.css'
 import type {FCWithSlotMarker} from '../utils/types/Slots'
 import {GroupHeadingTrailingAction} from './GroupHeadingTrailingAction'
+import {GroupHeadingLeadingVisual} from './GroupHeadingLeadingVisual'
 import {useFeatureFlag} from '../FeatureFlags'
+import type {SlotConfig} from '../hooks/useSlots'
 
 const GROUP_HEADING_TRAILING_ACTION_FEATURE_FLAG = 'primer_react_action_list_group_heading_trailing_action'
+const GROUP_HEADING_LEADING_VISUAL_FEATURE_FLAG = 'primer_react_action_list_group_heading_leading_visual'
 
 type HeadingProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
@@ -162,18 +165,22 @@ const GroupHeadingImpl: FCWithSlotMarker<React.PropsWithChildren<ActionListGroup
   const {role: listRole} = React.useContext(ListContext)
   const {groupHeadingId} = React.useContext(GroupContext)
   const trailingActionEnabled = useFeatureFlag(GROUP_HEADING_TRAILING_ACTION_FEATURE_FLAG)
+  const leadingVisualEnabled = useFeatureFlag(GROUP_HEADING_LEADING_VISUAL_FEATURE_FLAG)
 
-  // When the feature flag is on, extract a single
-  // ActionList.GroupHeading.TrailingAction child so it renders as a sibling
-  // of the heading element (inside the HeadingWrap) instead of inside the
-  // heading itself. When the flag is off, we fall through to the previous
-  // behavior so existing usage is unaffected.
-  const [slots, childrenWithoutSlots] = useSlots(children, {
-    trailingAction: GroupHeadingTrailingAction,
-  })
+  // When a feature flag is on, extract the matching
+  // ActionList.GroupHeading.LeadingVisual / .TrailingAction child so it renders
+  // as a sibling of the heading element (inside the HeadingWrap) instead of
+  // inside the heading itself. The config only includes enabled slots, so a
+  // disabled feature passes its child through unchanged (legacy behavior) and is
+  // never stripped from the heading content by the other feature.
+  const slotConfig: SlotConfig = {}
+  if (leadingVisualEnabled) slotConfig.leadingVisual = GroupHeadingLeadingVisual
+  if (trailingActionEnabled) slotConfig.trailingAction = GroupHeadingTrailingAction
+  const [slots, childrenWithoutSlots] = useSlots(children, slotConfig)
 
-  const trailingAction = trailingActionEnabled ? slots.trailingAction : null
-  const headingChildren = trailingActionEnabled ? childrenWithoutSlots : children
+  const leadingVisual = slots.leadingVisual ?? null
+  const trailingAction = slots.trailingAction ?? null
+  const headingChildren = childrenWithoutSlots
 
   if (trailingAction) {
     invariant(
@@ -207,11 +214,13 @@ const GroupHeadingImpl: FCWithSlotMarker<React.PropsWithChildren<ActionListGroup
           className={groupClasses.GroupHeadingWrap}
           aria-hidden="true"
           data-variant={variant}
+          data-has-leading-visual={leadingVisual ? '' : undefined}
           // TODO: next-major: switch for data-component="ActionList.GroupHeading" next major
           data-component="GroupHeadingWrap"
           as={headingWrapElement}
           {...props}
         >
+          {leadingVisual}
           <span className={clsx(className, groupClasses.GroupHeading)} id={groupHeadingId}>
             {_internalBackwardCompatibleTitle ?? headingChildren}
           </span>
@@ -222,11 +231,13 @@ const GroupHeadingImpl: FCWithSlotMarker<React.PropsWithChildren<ActionListGroup
         <HeadingWrap
           className={groupClasses.GroupHeadingWrap}
           data-variant={variant}
+          data-has-leading-visual={leadingVisual ? '' : undefined}
           data-has-trailing-action={trailingAction ? '' : undefined}
           as={headingWrapElement}
           // TODO: next-major: switch for data-component="ActionList.GroupHeading" next major
           data-component="GroupHeadingWrap"
         >
+          {leadingVisual}
           <Heading
             className={clsx(className, groupClasses.GroupHeading)}
             as={as || 'h3'}
@@ -249,8 +260,10 @@ Group.displayName = 'ActionList.Group'
 Group.__SLOT__ = Symbol('ActionList.Group')
 GroupHeadingImpl.__SLOT__ = Symbol('ActionList.GroupHeading')
 
-// Expose GroupHeadingTrailingAction as ActionList.GroupHeading.TrailingAction
-// so the API mirrors the visual nesting (the action lives inside the heading).
+// Expose GroupHeadingLeadingVisual and GroupHeadingTrailingAction as
+// ActionList.GroupHeading.LeadingVisual / .TrailingAction so the API mirrors the
+// visual nesting (the visual and action live inside the heading).
 export const GroupHeading = Object.assign(GroupHeadingImpl, {
+  LeadingVisual: GroupHeadingLeadingVisual,
   TrailingAction: GroupHeadingTrailingAction,
 })

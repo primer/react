@@ -19,6 +19,7 @@ export type {ActionListLeadingVisualProps, ActionListTrailingVisualProps} from '
 export type {ActionListHeadingProps} from './Heading'
 export type {ActionListTrailingActionProps} from './TrailingAction'
 export type {ActionListGroupHeadingTrailingActionProps} from './GroupHeadingTrailingAction'
+export type {ActionListGroupHeadingLeadingVisualProps} from './GroupHeadingLeadingVisual'
 
 /**
  * Collection of list-related components.

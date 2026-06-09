@@ -7,6 +7,7 @@ exports[`@primer/react > should not update exports without a semver change 1`] =
   "ActionList",
   "type ActionListDescriptionProps",
   "type ActionListDividerProps",
+  "type ActionListGroupHeadingLeadingVisualProps",
   "type ActionListGroupHeadingProps",
   "type ActionListGroupHeadingTrailingActionProps",
   "type ActionListGroupProps",
