@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-Blankslate: Reduce padding for size variants
+Blankslate: reduce padding for size variants to allow for rendering in tighter spaces
