@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-FilteredActionList: Make body skeleton widths stable for server rendering
+FilteredActionList: update skeleton loader widths to be calculated deterministically to improve SSR hydration
