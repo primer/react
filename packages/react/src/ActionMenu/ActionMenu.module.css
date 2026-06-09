@@ -1,70 +1,72 @@
-.ActionMenuContainer {
-  /* add default max height */
-  max-height: 100vh;
+@layer primer.components.ActionMenu {
+  .ActionMenuContainer {
+    /* add default max height */
+    max-height: 100vh;
 
-  &:where([data-variant='fullscreen']) {
-    padding-top: var(--base-size-36);
-  }
-
-  /* Overflow variants */
-  &:where([data-overflow-auto]) {
-    overflow: auto;
-  }
-
-  &:where([data-overflow-hidden]) {
-    overflow: hidden;
-  }
-
-  &:where([data-overflow-scroll]) {
-    overflow: scroll;
-  }
-
-  &:where([data-overflow-visible]) {
-    overflow: visible;
-  }
-
-  /* Max-height size tokens (mirror Overlay sizes) */
-  &:where([data-max-height-xsmall]) {
-    max-height: min(192px, 100vh);
-
-    @supports (height: 100dvh) {
-      max-height: min(192px, 100dvh);
+    &:where([data-variant='fullscreen']) {
+      padding-top: var(--base-size-36);
     }
-  }
 
-  &:where([data-max-height-small]) {
-    max-height: min(256px, 100vh);
-
-    @supports (height: 100dvh) {
-      max-height: min(256px, 100dvh);
+    /* Overflow variants */
+    &:where([data-overflow-auto]) {
+      overflow: auto;
     }
-  }
 
-  &:where([data-max-height-medium]) {
-    max-height: min(320px, 100vh);
-
-    @supports (height: 100dvh) {
-      max-height: min(320px, 100dvh);
+    &:where([data-overflow-hidden]) {
+      overflow: hidden;
     }
-  }
 
-  &:where([data-max-height-large]) {
-    max-height: min(432px, 100vh);
-
-    @supports (height: 100dvh) {
-      max-height: min(432px, 100dvh);
+    &:where([data-overflow-scroll]) {
+      overflow: scroll;
     }
-  }
 
-  &:where([data-max-height-xlarge]) {
-    max-height: min(600px, 100vh);
-
-    @supports (height: 100dvh) {
-      max-height: min(600px, 100dvh);
+    &:where([data-overflow-visible]) {
+      overflow: visible;
     }
-  }
 
-  &:where([data-max-height-fit-content]) {
-    max-height: fit-content;
+    /* Max-height size tokens (mirror Overlay sizes) */
+    &:where([data-max-height-xsmall]) {
+      max-height: min(192px, 100vh);
+
+      @supports (height: 100dvh) {
+        max-height: min(192px, 100dvh);
+      }
+    }
+
+    &:where([data-max-height-small]) {
+      max-height: min(256px, 100vh);
+
+      @supports (height: 100dvh) {
+        max-height: min(256px, 100dvh);
+      }
+    }
+
+    &:where([data-max-height-medium]) {
+      max-height: min(320px, 100vh);
+
+      @supports (height: 100dvh) {
+        max-height: min(320px, 100dvh);
+      }
+    }
+
+    &:where([data-max-height-large]) {
+      max-height: min(432px, 100vh);
+
+      @supports (height: 100dvh) {
+        max-height: min(432px, 100dvh);
+      }
+    }
+
+    &:where([data-max-height-xlarge]) {
+      max-height: min(600px, 100vh);
+
+      @supports (height: 100dvh) {
+        max-height: min(600px, 100dvh);
+      }
+    }
+
+    &:where([data-max-height-fit-content]) {
+      max-height: fit-content;
+    }
   }
 }

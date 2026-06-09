@@ -88,6 +88,17 @@ const allowlist = new Set([
   path.resolve(import.meta.dirname, '../ActionList/ActionList.module.css'),
   path.resolve(import.meta.dirname, '../ActionList/Group.module.css'),
   path.resolve(import.meta.dirname, '../ActionList/Heading.module.css'),
+  path.resolve(import.meta.dirname, '../AnchoredOverlay/AnchoredOverlay.module.css'),
+  path.resolve(import.meta.dirname, '../Autocomplete/AutocompleteMenu.module.css'),
+  path.resolve(import.meta.dirname, '../Autocomplete/AutocompleteOverlay.module.css'),
+  path.resolve(import.meta.dirname, '../Banner/Banner.module.css'),
+  path.resolve(import.meta.dirname, '../Blankslate/Blankslate.module.css'),
+  path.resolve(import.meta.dirname, '../Breadcrumbs/Breadcrumbs.module.css'),
+  path.resolve(import.meta.dirname, '../deprecated/DialogV1/Dialog.module.css'),
+  path.resolve(import.meta.dirname, '../Dialog/Dialog.module.css'),
+  path.resolve(import.meta.dirname, '../ActionMenu/ActionMenu.module.css'),
+  path.resolve(import.meta.dirname, '../ActionBar/ActionBar.module.css'),
+  path.resolve(import.meta.dirname, '../experimental/SelectPanel2/SelectPanel.module.css'),
 ])
 const files = Array.from(allowlist).map(file => {
   return [path.relative(path.resolve(import.meta.dirname, '..'), file), file]
