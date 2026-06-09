@@ -44,6 +44,7 @@ const allowlist = new Set([
   path.resolve(import.meta.dirname, '../Popover/Popover.module.css'),
   path.resolve(import.meta.dirname, '../ProgressBar/ProgressBar.module.css'),
   path.resolve(import.meta.dirname, '../Radio/Radio.module.css'),
+  path.resolve(import.meta.dirname, '../PageLayout/PageLayout.module.css'),
 ])
 const files = Array.from(allowlist).map(file => {
   return [path.relative(path.resolve(import.meta.dirname, '..'), file), file]
