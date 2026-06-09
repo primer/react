@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-Avatar: Improve custom class override behavior for component styles
+Avatar: Add CSS layer support for component styles
