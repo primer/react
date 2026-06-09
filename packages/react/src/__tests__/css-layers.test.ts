@@ -16,6 +16,15 @@ const allowlist = new Set([
   path.resolve(import.meta.dirname, '../CircleBadge/CircleBadge.module.css'),
   path.resolve(import.meta.dirname, '../deprecated/FilteredSearch/FilteredSearch.module.css'),
   path.resolve(import.meta.dirname, '../deprecated/UnderlineNav/UnderlineNav.module.css'),
+  path.resolve(import.meta.dirname, '../Details/Details.module.css'),
+  path.resolve(import.meta.dirname, '../experimental/CSSComponent/component.module.css'),
+  path.resolve(import.meta.dirname, '../experimental/UnderlinePanels/UnderlinePanels.module.css'),
+  path.resolve(import.meta.dirname, '../Flash/Flash.module.css'),
+  path.resolve(import.meta.dirname, '../Header/Header.module.css'),
+  path.resolve(import.meta.dirname, '../Heading/Heading.module.css'),
+  path.resolve(import.meta.dirname, '../Hidden/Hidden.module.css'),
+  path.resolve(import.meta.dirname, '../InlineMessage/InlineMessage.module.css'),
+  path.resolve(import.meta.dirname, '../internal/components/ButtonReset.module.css'),
 ])
 const files = Array.from(allowlist).map(file => {
   return [path.relative(path.resolve(import.meta.dirname, '..'), file), file]
