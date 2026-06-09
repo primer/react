@@ -1,18 +1,20 @@
-.CircleBadge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--bgColor-default);
-  border-radius: 50%;
-  box-shadow: var(--shadow-resting-medium);
+@layer primer.components.CircleBadge {
+  .CircleBadge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bgColor-default);
+    border-radius: 50%;
+    box-shadow: var(--shadow-resting-medium);
 
-  &:where([data-inline]) {
-    display: inline-flex;
+    &:where([data-inline]) {
+      display: inline-flex;
+    }
   }
-}
 
-.CircleBadgeIcon {
-  height: auto;
-  max-height: 55%;
-  max-width: 60%;
+  .CircleBadgeIcon {
+    height: auto;
+    max-height: 55%;
+    max-width: 60%;
+  }
 }
