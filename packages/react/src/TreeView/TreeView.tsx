@@ -25,7 +25,7 @@ import {Dialog} from '../Dialog'
 import {Button, IconButton} from '../Button'
 import {ActionList} from '../ActionList'
 import {getAccessibleKeybindingHintString} from '../KeybindingHint'
-import {useIsMacOS} from '../hooks'
+import {usePlatform} from '../KeybindingHint/platform'
 import {Tooltip} from '../TooltipV2'
 import {isSlot} from '../utils/is-slot'
 import type {FCWithSlotMarker} from '../utils/types'
@@ -68,6 +68,11 @@ const ItemContext = React.createContext<{
   trailingVisualId: '',
   trailingActionId: '',
 })
+
+// Module-private channel from LoadingItem to the Item it renders. Lets us mark the placeholder
+// row with `data-loading` (used by CSS to suppress hover affordances) without exposing an
+// internal-only prop on the public TreeViewItemProps API.
+const LoadingPlaceholderContext = React.createContext(false)
 
 // ----------------------------------------------------------------------------
 // TreeView
@@ -255,11 +260,12 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       onChange: onExpandedChange,
     })
     const {level} = React.useContext(ItemContext)
+    const isLoadingPlaceholder = React.useContext(LoadingPlaceholderContext)
     const {hasSubTree, subTree, childrenWithoutSubTree} = useSubTree(rest)
     const [isSubTreeEmpty, setIsSubTreeEmpty] = React.useState(!hasSubTree)
     const [actionCommandPressed, setActionCommandPressed] = React.useState(false)
     const [isFocused, setIsFocused] = React.useState(false)
-    const isMacOS = useIsMacOS()
+    const platform = usePlatform()
 
     // Set the expanded state and cache it
     const setIsExpandedWithCache = React.useCallback(
@@ -335,8 +341,8 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       slots.trailingVisual ? trailingVisualId : null,
     ].filter(Boolean)
 
-    const shortcut = `Shift+${isMacOS ? 'Meta' : 'Control'}+U`
-    const trailingActionShortcutText = `Press (${getAccessibleKeybindingHintString(shortcut, isMacOS)}) for more actions.`
+    const shortcut = `Shift+${platform === 'apple' ? 'Meta' : 'Control'}+U`
+    const trailingActionShortcutText = `Press (${getAccessibleKeybindingHintString(shortcut, platform)}) for more actions.`
 
     return (
       <ItemContext.Provider
@@ -371,6 +377,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           aria-current={isCurrentItem ? 'true' : undefined}
           aria-selected={isFocused ? 'true' : 'false'}
           data-has-leading-action={slots.leadingAction ? true : undefined}
+          data-loading={isLoadingPlaceholder ? true : undefined}
           onKeyDown={handleKeyDown}
           onFocus={event => {
             // Defer scroll to the next animation frame so that rapid keyboard
@@ -645,22 +652,26 @@ const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, re
 
   if (count) {
     return (
-      <Item id={itemId} ref={ref}>
-        {Array.from({length: count}).map((_, i) => {
-          return <SkeletonItem aria-hidden={true} key={i} />
-        })}
-        <div className={clsx('PRIVATE_VisuallyHidden', classes.TreeViewVisuallyHidden)}>Loading {count} items</div>
-      </Item>
+      <LoadingPlaceholderContext.Provider value={true}>
+        <Item id={itemId} ref={ref}>
+          {Array.from({length: count}).map((_, i) => {
+            return <SkeletonItem aria-hidden={true} key={i} />
+          })}
+          <div className={clsx('PRIVATE_VisuallyHidden', classes.TreeViewVisuallyHidden)}>Loading {count} items</div>
+        </Item>
+      </LoadingPlaceholderContext.Provider>
     )
   }
 
   return (
-    <Item id={itemId} ref={ref}>
-      <LeadingVisual>
-        <Spinner size="small" />
-      </LeadingVisual>
-      <Text className="fgColor-muted">Loading...</Text>
-    </Item>
+    <LoadingPlaceholderContext.Provider value={true}>
+      <Item id={itemId} ref={ref}>
+        <LeadingVisual>
+          <Spinner size="small" />
+        </LeadingVisual>
+        <Text className="fgColor-muted">Loading...</Text>
+      </Item>
+    </LoadingPlaceholderContext.Provider>
   )
 })
 

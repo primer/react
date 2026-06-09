@@ -33,6 +33,21 @@
     },
     {
       "id": "components-text-features--semibold-weight"
+    },
+    {
+      "id": "components-text-features--pre-white-space"
+    },
+    {
+      "id": "components-text-features--normal-white-space"
+    },
+    {
+      "id": "components-text-features--nowrap-white-space"
+    },
+    {
+      "id": "components-text-features--pre-wrap-white-space"
+    },
+    {
+      "id": "components-text-features--pre-line-white-space"
     }
   ],
   "importPath": "@primer/react",
@@ -41,7 +56,7 @@
       "name": "as",
       "defaultValue": "'span'",
       "type": "React.ElementType"
-    }, 
+    },
     {
       "name": "size",
       "type": "'large' | 'medium' | 'small'"
