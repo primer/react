@@ -99,6 +99,12 @@ const allowlist = new Set([
   path.resolve(import.meta.dirname, '../ActionMenu/ActionMenu.module.css'),
   path.resolve(import.meta.dirname, '../ActionBar/ActionBar.module.css'),
   path.resolve(import.meta.dirname, '../experimental/SelectPanel2/SelectPanel.module.css'),
+  path.resolve(import.meta.dirname, '../FilteredActionList/FilteredActionList.module.css'),
+  path.resolve(import.meta.dirname, '../FilteredActionList/FilteredActionListLoaders.module.css'),
+  path.resolve(import.meta.dirname, '../FormControl/FormControl.module.css'),
+  path.resolve(import.meta.dirname, '../FormControl/FormControlCaption.module.css'),
+  path.resolve(import.meta.dirname, '../FormControl/FormControlLeadingVisual.module.css'),
+  path.resolve(import.meta.dirname, '../SelectPanel/SelectPanel.module.css'),
 ])
 const files = Array.from(allowlist).map(file => {
   return [path.relative(path.resolve(import.meta.dirname, '..'), file), file]
