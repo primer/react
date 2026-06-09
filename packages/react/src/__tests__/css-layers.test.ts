@@ -25,6 +25,16 @@ const allowlist = new Set([
   path.resolve(import.meta.dirname, '../Hidden/Hidden.module.css'),
   path.resolve(import.meta.dirname, '../InlineMessage/InlineMessage.module.css'),
   path.resolve(import.meta.dirname, '../internal/components/ButtonReset.module.css'),
+  path.resolve(import.meta.dirname, '../internal/components/Caret.module.css'),
+  path.resolve(import.meta.dirname, '../internal/components/InputLabel.module.css'),
+  path.resolve(import.meta.dirname, '../internal/components/InputValidation.module.css'),
+  path.resolve(import.meta.dirname, '../internal/components/TextInputInnerAction.module.css'),
+  path.resolve(import.meta.dirname, '../internal/components/TextInputInnerVisualSlot.module.css'),
+  path.resolve(import.meta.dirname, '../internal/components/TextInputWrapper.module.css'),
+  path.resolve(import.meta.dirname, '../internal/components/UnderlineTabbedInterface.module.css'),
+  path.resolve(import.meta.dirname, '../internal/components/UnstyledTextInput.module.css'),
+  path.resolve(import.meta.dirname, '../internal/components/ValidationAnimationContainer.module.css'),
+  path.resolve(import.meta.dirname, '../Label/Label.module.css'),
 ])
 const files = Array.from(allowlist).map(file => {
   return [path.relative(path.resolve(import.meta.dirname, '..'), file), file]
