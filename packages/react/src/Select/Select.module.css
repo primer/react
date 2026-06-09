@@ -24,14 +24,14 @@
 
     /* 2. Prevents visible overlap of partially transparent background colors.
      *    'colors.input.disabledBg' happens to be partially transparent in light mode, so we use a
-     *    transparent background-color on a disabled <select>. 
+     *    transparent background-color on a disabled <select>.
      */
     &:disabled {
       background-color: transparent;
     }
 
     /* 3. Maintain dark bg color in Firefox on Windows high-contrast mode
-     *    Firefox makes the <select>'s background color white when setting 'background-color: transparent;'   
+     *    Firefox makes the <select>'s background color white when setting 'background-color: transparent;'
      */
     @media screen and (forced-colors: active) {
       &:disabled {
