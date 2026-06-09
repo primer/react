@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-PageLayout: Improve custom class override behavior for component styles
+PageLayout: Add CSS layer support for component styles
