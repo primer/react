@@ -881,6 +881,8 @@ function Panel({
         displayCloseButton={showXCloseIcon}
         closeButtonProps={closeButtonProps}
         displayInViewport={displayInViewport}
+        // Modal variant is positioned manually so native CSS anchor positioning must not be used
+        cssAnchorPositioningSettings={{disable: variant === 'modal'}}
       >
         <div className={classes.Wrapper} data-variant={variant} data-component="SelectPanel">
           <div className={classes.Header} data-variant={currentResponsiveVariant} data-component="SelectPanel.Header">
