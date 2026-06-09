@@ -45,6 +45,16 @@ const allowlist = new Set([
   path.resolve(import.meta.dirname, '../ProgressBar/ProgressBar.module.css'),
   path.resolve(import.meta.dirname, '../Radio/Radio.module.css'),
   path.resolve(import.meta.dirname, '../PageLayout/PageLayout.module.css'),
+  path.resolve(import.meta.dirname, '../ScrollableRegion/ScrollableRegion.module.css'),
+  path.resolve(import.meta.dirname, '../Select/Select.module.css'),
+  path.resolve(import.meta.dirname, '../SideNav.module.css'),
+  path.resolve(import.meta.dirname, '../Skeleton/SkeletonBox.module.css'),
+  path.resolve(import.meta.dirname, '../SkeletonAvatar/SkeletonAvatar.module.css'),
+  path.resolve(import.meta.dirname, '../SkeletonText/SkeletonText.module.css'),
+  path.resolve(import.meta.dirname, '../Stack/Stack.module.css'),
+  path.resolve(import.meta.dirname, '../StateLabel/StateLabel.module.css'),
+  path.resolve(import.meta.dirname, '../SubNav/SubNav.module.css'),
+  path.resolve(import.meta.dirname, '../TabNav/TabNav.module.css'),
 ])
 const files = Array.from(allowlist).map(file => {
   return [path.relative(path.resolve(import.meta.dirname, '..'), file), file]
