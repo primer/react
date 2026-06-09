@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-Link, Overlay, Pagehead, PageHeader, Pagination, Placeholder, Popover, ProgressBar, Radio: Improve custom class override behavior for component styles
+Link, Overlay, Pagehead, PageHeader, Pagination, Placeholder, Popover, ProgressBar, Radio: Add CSS layer support for component styles
