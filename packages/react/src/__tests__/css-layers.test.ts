@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import {generate, parse} from 'css-tree'
-import type {Atrule, StyleSheet} from 'css-tree'
+import type {StyleSheet} from 'css-tree'
 import {describe, expect, test} from 'vitest'
 
 const allowlist = new Set([path.resolve(import.meta.dirname, '../Avatar/Avatar.module.css')])
