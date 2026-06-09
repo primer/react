@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-LabelGroup, NavList, SegmentedControl, TreeView, UnderlineNav: Improve custom class override behavior for component styles
+LabelGroup, NavList, SegmentedControl, TreeView, UnderlineNav: Add CSS layer support for component styles
