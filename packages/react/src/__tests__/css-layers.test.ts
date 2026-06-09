@@ -55,6 +55,22 @@ const allowlist = new Set([
   path.resolve(import.meta.dirname, '../StateLabel/StateLabel.module.css'),
   path.resolve(import.meta.dirname, '../SubNav/SubNav.module.css'),
   path.resolve(import.meta.dirname, '../TabNav/TabNav.module.css'),
+  path.resolve(import.meta.dirname, '../Text/Text.module.css'),
+  path.resolve(import.meta.dirname, '../Timeline/Timeline.module.css'),
+  path.resolve(import.meta.dirname, '../Tooltip/Tooltip.module.css'),
+  path.resolve(import.meta.dirname, '../TopicTag/TopicTag.module.css'),
+  path.resolve(import.meta.dirname, '../TopicTag/TopicTagGroup.module.css'),
+  path.resolve(import.meta.dirname, '../Truncate/Truncate.module.css'),
+  path.resolve(import.meta.dirname, '../deprecated/ActionList/Divider.module.css'),
+  path.resolve(import.meta.dirname, '../deprecated/ActionList/Header.module.css'),
+  path.resolve(import.meta.dirname, '../deprecated/ActionList/Item.module.css'),
+  path.resolve(import.meta.dirname, '../deprecated/ActionList/List.module.css'),
+  path.resolve(import.meta.dirname, '../VisuallyHidden/VisuallyHidden.module.css'),
+  path.resolve(import.meta.dirname, '../_VisuallyHidden.module.css'),
+  path.resolve(import.meta.dirname, '../CounterLabel/CounterLabel.module.css'),
+  path.resolve(import.meta.dirname, '../DataTable/Pagination.module.css'),
+  path.resolve(import.meta.dirname, '../DataTable/Table.module.css'),
+  path.resolve(import.meta.dirname, '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.module.css'),
 ])
 const files = Array.from(allowlist).map(file => {
   return [path.relative(path.resolve(import.meta.dirname, '..'), file), file]
