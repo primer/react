@@ -332,7 +332,8 @@ describe('ConfirmationDialog', () => {
       // After closing, neither the dialog nor its host element should linger in the DOM
       await waitFor(() => {
         expect(document.querySelector('[role="alertdialog"]')).toBeNull()
-        expect(hostElement).not.toBeConnected()
+        expect(hostElement.isConnected).toBe(false)
       })
+    })
   })
 })
