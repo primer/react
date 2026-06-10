@@ -2,11 +2,13 @@
 
 Concrete code patterns for each layer. Use these as templates when building new components.
 
+> **Model:** Layer 0 = the component's compound behaviour hook; Layer 1 = unstyled components that wrap L0; Layer 2 = Primer-styled Parts that wrap L1; Layer 3 = Ready-made over L2. Each layer is a thin wrapper over the one below. Generic, component-agnostic single-purpose hooks (`useScrollLock`, `useFocusZone`, `useFilter`, `useSelectionState`) are **Utilities** — outside the model — composed by the L0 hook or by consumers. Layer 0 and Layer 1 both ship from the `/foundations` entry point; Utilities ship from `/hooks`.
+
 ---
 
-## Layer 0 — Hooks
+## Utilities — generic behaviour hooks (outside the layer model)
 
-Individual, single-purpose behaviour hooks. Not component-specific. Reusable across any component that needs the behaviour.
+Component-agnostic, single-purpose behaviour hooks. Not tied to any one component, reusable anywhere. These are **not a layer** — they sit outside the model and are composed by the Layer 0 compound hook (or directly by consumers). `useScrollLock` below is a representative example.
 
 ### Pattern
 
@@ -80,11 +82,13 @@ When a hook manages a global side-effect (like scroll lock), use a module-level 
 
 ---
 
-## Layer 1 — Foundations
+## Layer 0 & Layer 1 — Foundations
 
-### 3a: Compound hook with prop-getters
+Layer 0 is the component's **compound hook** (§ below); Layer 1 is the **unstyled components** that wrap it. Both ship from the `/foundations` entry point.
 
-A single hook that composes L0 hooks and returns prop-getter functions. The consumer owns all markup.
+### Layer 0 — compound hook with prop-getters
+
+A single hook that owns the component's behaviour and ARIA and returns prop-getter functions. It composes any generic Utilities it needs. The consumer (or Layer 1) owns all markup. This is the bottom of the component's stack.
 
 #### Pattern
 
@@ -208,9 +212,9 @@ const dialog = useDialog({open, onClose})
 </dialog>
 ```
 
-### 3b: Unstyled components
+### Layer 1 — unstyled components (wrap the L0 hook)
 
-React components that wrap the compound hook and enforce structural accessibility via a component tree. No visual styling — consumers bring their own CSS. These mirror the sub-component names from Layer 2 Parts but ship from the `/foundations` entry point.
+React components that wrap the Layer 0 compound hook and enforce structural accessibility via a component tree. No visual styling — consumers bring their own CSS. They mirror the sub-component names from Layer 2 Parts and ship from the `/foundations` entry point. Layer 1 is mandatory and is a thin wrapper over Layer 0.
 
 #### Pattern
 
@@ -761,24 +765,25 @@ export const <Component> = React.forwardRef<HTML<Element>Element, <Component>Pro
 
 ## Naming conventions summary
 
-| Layer           | Convention          | Example                         |
-| --------------- | ------------------- | ------------------------------- |
-| 4 — Hooks       | `use<Behaviour>`    | `useScrollLock`, `useFocusTrap` |
-| 3 — Foundations | `use<Component>`    | `useDialog`, `useTabs`          |
-| 2 — Parts       | `<Component><Part>` | `DialogRoot`, `DialogHeader`    |
-| 1 — Ready-made  | `<Component>`       | `Dialog`                        |
+| Layer                       | Convention          | Example                         |
+| --------------------------- | ------------------- | ------------------------------- |
+| Utilities (outside model)   | `use<Behaviour>`    | `useScrollLock`, `useFilter`    |
+| 0 — Compound hook           | `use<Component>`    | `useDialog`, `useSelectPanel`   |
+| 1 — Foundations (unstyled)  | naming TBD (see open question) | unstyled `Dialog.*`     |
+| 2 — Parts                   | `<Component><Part>` | `DialogRoot`, `DialogHeader`    |
+| 3 — Ready-made              | `<Component>`       | `Dialog`                        |
 
 ## Source folder structure
 
 ```
 packages/react/src/
-├── hooks/                          # Layer 0
+├── hooks/                          # Utilities (outside the layer model)
 │   ├── use<Behaviour>.ts
 │   ├── __tests__/
 │   │   └── use<Behaviour>.test.ts
 │   └── experimental/
 │       └── index.ts
-├── foundations/                     # Layer 1
+├── foundations/                     # Layer 0 (compound hook) + Layer 1 (unstyled)
 │   └── experimental/
 │       └── <Component>/
 │           ├── use<Component>.ts

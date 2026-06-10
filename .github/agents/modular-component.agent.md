@@ -29,12 +29,18 @@ Components are decomposed into layers, with each layer building on the one below
 
 | Layer | Name        | Responsibility                                 | Styled?                      |
 | ----- | ----------- | ---------------------------------------------- | ---------------------------- |
-| 0     | Hooks       | Individual, single-purpose behaviour           | ❌ No markup or styles       |
-| 1     | Foundations | Unstyled accessible components + compound hook | ❌ Unstyled (CSS reset only) |
-| 2     | Parts       | Primer-styled JSX composition                  | ✅ Full Primer styles        |
-| 3     | Ready-made  | Props-based convenience wrapper                | ✅ Full Primer styles        |
+| 0     | Hooks       | The component's compound behaviour hook (prop-getters) | ❌ No markup or styles       |
+| 1     | Foundations | Unstyled accessible components that wrap the L0 hook    | ❌ Unstyled (CSS reset only) |
+| 2     | Parts       | Primer-styled JSX composition that wraps L1            | ✅ Full Primer styles        |
+| 3     | Ready-made  | Props-based convenience wrapper over L2                | ✅ Full Primer styles        |
 
-**Layer dependency:** Ready-made (L3) uses Parts (L2), Parts use Foundations (L1), Foundations use Hooks (L0). Never skip a layer — L2 must not directly use L0 hooks that should be composed through L1.
+**Layer dependency:** each layer is a thin wrapper over the one below. Ready-made (L3) wraps Parts (L2), Parts wrap Foundations (L1), Foundations (unstyled components) wrap the compound hook (L0). Never skip a layer.
+
+**Layer 2 must wrap Layer 1.** If a Part can't be built by wrapping the L1 unstyled components — because some behaviour or structure is only reachable at L0 — stop and assess what L1 is missing, rather than reaching past it to the hook. A Part that needs to drop to L0 is a signal of a gap in L1, not a licence to skip it.
+
+**Utilities (outside the model).** Generic, single-purpose, component-agnostic behaviour hooks — `useScrollLock`, `useFocusTrap`, `useFocusZone`, `useFilter`, `useSelectionState` — are **not** a layer. They are shared helpers that the compound hook (L0) or a consumer composes as needed, and they live in `packages/react/src/hooks/`, never inside one component's stack. Do not number them as Layer 0.
+
+**Compose, don't depend.** A component may be *composed* with another component by the consumer (e.g. SelectPanel used alongside Tabs), but must not take a hard internal dependency on another component. If building this component requires importing another component's parts or hooks, treat it as a smell — leave the composition to the consumer.
 
 ## Two workflows
 
@@ -63,32 +69,9 @@ Ask the user:
 
 **On the L3 question:** Not every component benefits from a Ready-made layer. Config-based APIs can lead to unwieldy types (SelectPanel is a cautionary example). L3 should capture the 80% use case. If the component's common usage is inherently compositional, L2 Parts may be the better default and L3 adds complexity without value. Surface this decision to the user — don't silently include or exclude L3.
 
-### Step 1: Identify Layer 0 hooks
+### Step 1: Build Layer 0 — the compound hook
 
-Identify the individual, single-purpose behaviours this component needs. Each behaviour is a separate hook.
-
-**Rules:**
-
-- One behaviour per hook — no compound hooks at this layer
-- No knowledge of which component consumes them — hooks are reusable
-- No styling or markup opinions
-- Check if hooks already exist in `packages/react/src/hooks/` before creating new ones
-
-**Naming:** `use<Behaviour>` — e.g., `useScrollLock`, `useFocusTrap`, `useFocusZone`, `useOnEscapePress`
-
-**File location:** `packages/react/src/hooks/` (stable) or `packages/react/src/hooks/experimental/` (new)
-
-### Step 2: Build Layer 1 — Foundations
-
-Layer 1 provides two complementary APIs:
-
-#### 2a: Compound hook with prop-getters
-
-A single hook that composes all the Layer 0 hooks and returns prop-getter functions. This is the escape hatch for consumers who need full markup control.
-
-**Naming:** `use<Component>` — e.g., `useDialog`, `useTabs`
-
-**Important:** Before naming the compound hook, search the repo for existing hooks with the same name. primer/react has legacy hooks (e.g., `src/hooks/useDialog.ts`) that may conflict. The foundation hook lives at a different path (`foundations/experimental/`) and uses different imports, but name collisions can cause confusion. If a conflict exists, the foundation hook takes the `use<Component>` name and the legacy hook should be documented as deprecated.
+Layer 0 is the component's **compound behaviour hook** (`use<Component>` — e.g. `useDialog`, `useSelectPanel`). It owns all of the component's behaviour and ARIA, returns prop-getter functions, and renders no markup. Every layer above is a wrapper over this hook.
 
 The hook:
 
@@ -97,9 +80,9 @@ The hook:
 - Handles all ARIA wiring internally (generating IDs, cross-referencing `aria-labelledby`/`aria-describedby`)
 - Manages lifecycle (open/close, focus management, scroll lock)
 - Fires a dev-mode warning if required accessibility attributes are missing
-- Passes through `aria-label` when provided (for dialogs without a visible title)
+- Passes through `aria-label` when provided (for components without a visible title)
 
-**Important options to include:**
+**Important options to include (dialog example):**
 
 - `open` / `onClose` — controlled component contract
 - `role` — e.g., `'dialog' | 'alertdialog'`
@@ -107,14 +90,18 @@ The hook:
 - `initialFocusRef` / `returnFocusRef` — focus management
 - `closeOnBackdropClick` — opt-in backdrop dismiss (default `false`). Always require explicit opt-in — accidental dismissal of complex forms is a poor UX.
 
-#### 2b: Unstyled components
+**Naming:** `use<Component>`. Before naming, search the repo for existing hooks with the same name. primer/react has legacy hooks (e.g. `src/hooks/useDialog.ts`) that may conflict. The L0 hook lives at `foundations/experimental/<Component>/use<Component>.ts`. If a conflict exists, the L0 hook takes the `use<Component>` name and the legacy hook should be documented as deprecated.
 
-React components with no visual styling that enforce structural accessibility constraints. These wrap the compound hook and provide a component tree with context-based ARIA wiring. Similar to [Base UI](https://base-ui.com/) or [Radix Primitives](https://www.radix-ui.com/primitives).
+**Utilities are not Layer 0.** Generic, single-purpose, component-agnostic behaviours (`useScrollLock`, `useFocusTrap`, `useFocusZone`, `useFilter`, `useSelectionState`) are **Utilities** that sit outside the layer model. Check `packages/react/src/hooks/` for existing ones, create them there if missing, and compose them *inside* the L0 hook. Don't tie them to one component or number them as a layer.
 
-**Layer 1 always ships both APIs.** The unstyled components and the compound hook serve different consumers:
+### Step 2: Build Layer 1 — Foundations (unstyled components)
 
-- **Unstyled components** cover the common case: "I want Primer's accessibility, but my own styles." They enforce structural constraints (e.g., title must be a descendant of dialog) and are self-documenting in JSX.
-- **The compound hook** covers the advanced case: "I need full markup control." Useful for integrating with other component systems or building non-standard layouts.
+Layer 1 is a set of **unstyled accessible components that wrap the Layer 0 hook**. They carry no visual styling, enforce structural accessibility constraints, and wire ARIA via internal context. Similar to [Base UI](https://base-ui.com/) or [Radix Primitives](https://www.radix-ui.com/primitives).
+
+**Layer 1 is mandatory and is a thin wrapper over Layer 0.** The unstyled components are the familiar JSX API most consumers reach for; the L0 hook stays available directly for the rarer "I need full markup control" case. Both are first-class, but they are a *stack* (L1 wraps L0), not two parallel APIs at the same layer.
+
+- **Unstyled components (L1)** cover the common case: "I want Primer's accessibility, but my own styles." They enforce structural constraints (e.g., title must be a descendant of dialog) and are self-documenting in JSX.
+- **The compound hook (L0)** covers the advanced case: "I need full markup control." Useful for integrating with other component systems or building non-standard layouts.
 
 **Foundation CSS:** Each foundation ships a minimal CSS reset that removes browser defaults without adding visual opinion. Use `:where()` selectors for zero specificity so consumer styles always win.
 
@@ -259,18 +246,18 @@ Fix any failures before reporting completion.
 
 Read the existing component and identify:
 
-- What behaviours does it contain? (→ L0 hooks)
-- What accessibility/ARIA patterns does it implement? (→ L1 foundation)
-- What styled sub-components exist? (→ L2 parts)
+- What behaviours does it contain? (→ L0 compound hook + any generic Utilities)
+- What accessibility/ARIA patterns does it implement? (→ L0 compound hook)
+- What styled sub-components exist? (→ L2 parts, wrapping L1)
 - What is the current public API surface? (→ L3 ready-made compatibility)
 
-### Step 1: Extract Layer 0 hooks
+### Step 1: Build Layer 0 — the compound hook
 
-Identify reusable behaviours and extract them as standalone hooks. Check whether equivalent hooks already exist — don't duplicate.
+Extract the component's behaviour and ARIA into the compound hook (`use<Component>`) returning prop-getters. Pull any generic, component-agnostic behaviours out as **Utilities** in `packages/react/src/hooks/` (check for existing ones first — don't duplicate), and compose them inside the L0 hook. Utilities are not a layer.
 
-### Step 2: Build Layer 1 foundation
+### Step 2: Build Layer 1 — Foundations (unstyled components)
 
-Create the compound hook and (optionally) unstyled components. Wire up all ARIA, focus management, and lifecycle using the extracted L0 hooks.
+Create the unstyled components that wrap the L0 hook, wiring ARIA via context. Layer 1 is mandatory and is a thin wrapper over L0.
 
 ### Step 3: Refactor Layer 2 Parts
 
@@ -299,3 +286,5 @@ When building a component, explicitly surface these decisions to the user rather
 3. **Entry point strategy.** The default is separate entry points (`/foundations`, `/hooks`). An alternative is `unstable_` prefix convention with a single entry point. Follow whatever convention the repo has adopted at the time.
 
 4. **`data-component` at Layer 2.** Currently included for testing and agent selectors. With compositional parts available, `className` may be sufficient for styling. Keep `data-component` unless explicitly told otherwise — it serves a different concern (stable identity across refactors) than styling.
+
+5. **Naming across layers and entry points (unresolved).** A component may surface at several layers (the L0 hook, the L1 unstyled components, the L2 parts, the L3 ready-made). Whether these share one name imported from different entry points, or take distinct names, is not yet decided — surface it, don't assume. Team discussion pending.

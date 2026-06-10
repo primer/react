@@ -37,40 +37,40 @@ Components are decomposed into layers, with each layer building on the one below
 
 | Layer | Name        | Responsibility                                 | Styled?                      |
 | ----- | ----------- | ---------------------------------------------- | ---------------------------- |
-| 0     | Hooks       | Individual, single-purpose behavior            | ❌ No markup or styles       |
-| 1     | Foundations | Unstyled accessible components + compound hook | ❌ Unstyled (CSS reset only) |
-| 2     | Parts       | Primer-styled JSX composition                  | ✅ Full Primer styles        |
-| 3     | Ready-made  | Props-based convenience wrapper                | ✅ Full Primer styles        |
+| 0     | Hooks       | The component's compound behaviour hook (prop-getters) | ❌ No markup or styles       |
+| 1     | Foundations | Unstyled accessible components that wrap the L0 hook    | ❌ Unstyled (CSS reset only) |
+| 2     | Parts       | Primer-styled JSX composition that wraps L1            | ✅ Full Primer styles        |
+| 3     | Ready-made  | Props-based convenience wrapper over L2                | ✅ Full Primer styles        |
 
-Ready-made (L3) uses Parts (L2), Parts use Foundations (L1), Foundations use Hooks (L0).
+Each layer is a thin wrapper over the one below. Ready-made (L3) wraps Parts (L2), Parts wrap Foundations (L1), Foundations (unstyled components) wrap the compound hook (L0).
 
-> **Open question — layer naming:** "Foundations" and "Parts" may not be the most intuitive names. Hooks (L0) and Ready-made (L3) are clear. Layer 1 candidates: primitives (conflicts with `primer/primitives` token package), base, headless, core. Layer 2 candidates: blocks, components, kit. To be resolved
+**Layer 2 must wrap Layer 1.** If a Part can't be built by wrapping the L1 unstyled components — because some behaviour or structure is only reachable at L0 — stop and assess what L1 is missing, rather than reaching past it. A Part that needs to drop to L0 signals a gap in L1.
 
-### Layer 0 — Hooks
+**Compose, don't depend.** A component may be *composed* with another component by the consumer (e.g. SelectPanel alongside Tabs), but must not take a hard internal dependency on another component. Importing another component's parts or hooks to build this one is a smell — leave the composition to the consumer.
 
-**Individual, single-purpose behavior hooks.** Not component-specific. Reusable across any component that needs the behavior.
+> **Open question — layer naming:** "Foundations" and "Parts" may not be the most intuitive names. Hooks (L0) and Ready-made (L3) are clear. Layer 1 candidates: primitives (conflicts with `primer/primitives` token package), base, headless, core. Layer 2 candidates: blocks, components, kit. Also unresolved: whether a component's name is shared across layers (imported from different entry points) or differs per layer. To be resolved.
 
-Examples: `useFocusTrap`, `useFocusZone`, `useOnEscapePress`, `useScrollLock`
+### Layer 0 — Hooks (the compound behaviour hook)
 
-**API pattern:** Each hook takes options and returns refs, callbacks, or prop objects.
+**The component's compound behaviour hook** (`use<Component>` — e.g. `useDialog`, `useSelectPanel`). It owns all of the component's behaviour and ARIA, returns prop-getter functions, and renders no markup. Every layer above wraps it.
 
 ```tsx
-const {containerRef} = useFocusZone({bindKeys: FocusKeys.ArrowVertical})
+const {getOverlayProps, getTitleProps, isOpen} = useDialog({open, onClose, role: 'dialog'})
 ```
 
 **Rules:**
 
-- One behavior per hook — no compound hooks at this layer
-- No knowledge of which component is consuming them
-- No styling or markup opinions
+- One compound hook per component — it composes whatever Utilities it needs
+- Returns prop-getters; no markup or styles
+- Owns all ARIA wiring, lifecycle, and focus management
 
-### Layer 1 — Foundations
+> **Utilities (outside the layer model):** generic, single-purpose, component-agnostic behaviour hooks — `useFocusTrap`, `useFocusZone`, `useOnEscapePress`, `useScrollLock`, `useFilter`, `useSelectionState` — are **not** a layer. They live in `packages/react/src/hooks/`, are reusable across any component, and are composed *inside* the Layer 0 compound hook (or directly by consumers). This replaces the earlier framing that treated these generic hooks as "Layer 0".
 
-Layer 1 provides two complementary APIs:
+### Layer 1 — Foundations (unstyled components)
 
-1. **Unstyled components** — React components with no visual styling that enforce structural accessibility constraints. Similar to [Base UI](https://base-ui.com/) or [Radix Primitives](https://www.radix-ui.com/primitives). These handle ARIA wiring, focus management, and keyboard interaction whilst letting consumers bring their own styles.
+Layer 1 is the set of **unstyled accessible components that wrap the Layer 0 hook**. They carry no visual styling, enforce structural accessibility constraints (ARIA wiring, focus management, keyboard interaction via context), and let consumers bring their own styles. Similar to [Base UI](https://base-ui.com/) or [Radix Primitives](https://www.radix-ui.com/primitives).
 
-2. **Compound hook with prop-getters** — For consumers who need full markup control beyond what unstyled components offer. The hook returns prop-getter functions that consumers spread onto their own elements.
+**Layer 1 is mandatory and is a thin wrapper over Layer 0.** The unstyled components are the familiar JSX API most consumers reach for; the L0 compound hook stays available directly for the rarer "I need full markup control" case. They are a *stack* (L1 wraps L0), not two parallel APIs at one layer.
 
 #### Unstyled components (primary Layer 1 API)
 
@@ -240,23 +240,23 @@ Each layer shifts accessibility responsibility to the consumer differently. This
 
 > **Open question — entry point strategy:** An alternative to separate entry points (`/foundations`, `/hooks`) is using an `unstable_` prefix convention and importing from the same package entry point. This is simpler for consumers — fewer paths to remember. To be resolved with Primer Engineering.
 
-| Layer           | Stable import               | Experimental import                      |
-| --------------- | --------------------------- | ---------------------------------------- |
-| 1 — Ready-made  | `@primer/react`             | `@primer/react/experimental`             |
-| 2 — Parts       | `@primer/react`             | `@primer/react/experimental`             |
-| 3 — Foundations | `@primer/react/foundations` | `@primer/react/foundations/experimental` |
-| 4 — Hooks       | `@primer/react/hooks`       | `@primer/react/hooks/experimental`       |
+| Layer                                  | Stable import               | Experimental import                      |
+| -------------------------------------- | --------------------------- | ---------------------------------------- |
+| Ready-made (L3) + Parts (L2)           | `@primer/react`             | `@primer/react/experimental`             |
+| Foundations — L0 compound hook + L1 unstyled | `@primer/react/foundations` | `@primer/react/foundations/experimental` |
+| Utilities (generic hooks, outside model)     | `@primer/react/hooks`       | `@primer/react/hooks/experimental`       |
 
 ### Naming conventions
 
-> **Open question — hook naming:** Layer 1 hooks should be named by their role, not their layer. `useDialog` rather than `useDialogFoundation`. The "Foundation" suffix is an internal architectural concept, not a consumer-facing concern.
+> **Open question — hook naming:** The Layer 0 compound hook should be named by its role, not its layer — `useDialog`, not `useDialogFoundation`. The "Foundation" suffix is an internal architectural concept, not a consumer-facing concern.
 
-| Layer | Convention          | Example                         |
-| ----- | ------------------- | ------------------------------- |
-| 0     | `use<Behavior>`     | `useScrollLock`, `useFocusTrap` |
-| 1     | `use<Component>`    | `useDialog`                     |
-| 2     | `<Component><Part>` | `DialogRoot`, `DialogHeader`    |
-| 3     | `<Component>`       | `Dialog`                        |
+| Layer                       | Convention          | Example                         |
+| --------------------------- | ------------------- | ------------------------------- |
+| Utilities (outside model)   | `use<Behaviour>`    | `useScrollLock`, `useFilter`    |
+| 0 — Compound hook           | `use<Component>`    | `useDialog`, `useSelectPanel`   |
+| 1 — Foundations (unstyled)  | flat `<Component><Part>` (see naming open question) | `DialogRoot` |
+| 2 — Parts                   | `<Component><Part>` | `DialogRoot`, `DialogHeader`    |
+| 3 — Ready-made              | `<Component>`       | `Dialog`                        |
 
 **Sub-component naming: flat exports.** All Layer 2 and Layer 1 sub-components use flat named exports (`DialogRoot`, `DialogHeader`, `DialogTitle`, etc.) rather than dot-notation (`Dialog.Root`, `Dialog.Header`). This is required for RSC compatibility — the `Object.assign` pattern creates dot-notation sub-components that break in React Server Components (property access on a client reference returns `undefined`). Flat imports are already the pattern Tabs uses in Primer.
 
