@@ -1,8 +1,8 @@
 .TabList {
   display: flex;
   gap: var(--base-size-4, 4px);
-  padding: 0 var(--base-size-8, 8px);
-  border-bottom: var(--borderWidth-thin, 1px) solid var(--borderColor-default, #d1d9e0);
+  padding: 0 var(--base-size-8, var(--base-size-8));
+  border-bottom: var(--borderWidth-thin, var(--borderWidth-thin)) solid var(--borderColor-default, #d1d9e0);
 }
 
 .Tab {
@@ -10,16 +10,16 @@
   display: inline-flex;
   align-items: center;
   gap: var(--base-size-6, 6px);
-  padding: var(--base-size-8, 8px) var(--base-size-8, 8px);
+  padding: var(--base-size-8, var(--base-size-8)) var(--base-size-8, var(--base-size-8));
   margin-bottom: -1px;
   border: 0;
-  border-bottom: var(--borderWidth-thick, 2px) solid transparent;
+  border-bottom: var(--borderWidth-thick, var(--borderWidth-thick)) solid transparent;
   background-color: transparent;
   color: var(--fgColor-muted, #59636e);
   font: inherit;
   font-size: var(--text-body-size-small, 12px);
   font-weight: var(--base-text-weight-medium, 500);
-  line-height: 1.5;
+  line-height: var(--base-text-lineHeight-normal);
   cursor: pointer;
 }
 
@@ -36,7 +36,7 @@
 .Tab:focus-visible {
   outline: var(--borderWidth-thick, 2px) solid var(--focus-outlineColor, #0969da);
   outline-offset: -2px;
-  border-radius: var(--borderRadius-small, 3px);
+  border-radius: var(--borderRadius-small, var(--borderRadius-small));
 }
 
 .Count {
