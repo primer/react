@@ -9,7 +9,7 @@ import classes from './ActionList.module.css'
 import groupClasses from './Group.module.css'
 import type {FCWithSlotMarker} from '../utils/types/Slots'
 import {GroupHeadingTrailingAction} from './GroupHeadingTrailingAction'
-import {GroupHeadingLeadingVisual} from './GroupHeadingLeadingVisual'
+import {LeadingVisual} from './Visuals'
 import {useFeatureFlag} from '../FeatureFlags'
 import type {SlotConfig} from '../hooks/useSlots'
 
@@ -174,7 +174,7 @@ const GroupHeadingImpl: FCWithSlotMarker<React.PropsWithChildren<ActionListGroup
   // disabled feature passes its child through unchanged (legacy behavior) and is
   // never stripped from the heading content by the other feature.
   const slotConfig: SlotConfig = {}
-  if (leadingVisualEnabled) slotConfig.leadingVisual = GroupHeadingLeadingVisual
+  if (leadingVisualEnabled) slotConfig.leadingVisual = LeadingVisual
   if (trailingActionEnabled) slotConfig.trailingAction = GroupHeadingTrailingAction
   const [slots, childrenWithoutSlots] = useSlots(children, slotConfig)
 
@@ -260,10 +260,12 @@ Group.displayName = 'ActionList.Group'
 Group.__SLOT__ = Symbol('ActionList.Group')
 GroupHeadingImpl.__SLOT__ = Symbol('ActionList.GroupHeading')
 
-// Expose GroupHeadingLeadingVisual and GroupHeadingTrailingAction as
+// Expose the shared ActionList.LeadingVisual and GroupHeadingTrailingAction as
 // ActionList.GroupHeading.LeadingVisual / .TrailingAction so the API mirrors the
-// visual nesting (the visual and action live inside the heading).
+// visual nesting (the visual and action live inside the heading). Reusing
+// ActionList.LeadingVisual keeps group-heading visuals consistent with item
+// visuals, the same way NavList.LeadingVisual reuses it.
 export const GroupHeading = Object.assign(GroupHeadingImpl, {
-  LeadingVisual: GroupHeadingLeadingVisual,
+  LeadingVisual,
   TrailingAction: GroupHeadingTrailingAction,
 })

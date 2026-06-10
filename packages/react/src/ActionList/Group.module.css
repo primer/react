@@ -85,10 +85,3 @@
     align-self: center;
   }
 }
-
-.GroupHeadingLeadingVisual {
-  display: inline-flex;
-  align-items: center;
-  color: var(--fgColor-muted);
-  fill: var(--fgColor-muted);
-}
