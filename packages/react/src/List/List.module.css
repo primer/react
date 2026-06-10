@@ -78,7 +78,6 @@
   .Label {
     font-size: var(--text-body-size-medium);
     font-weight: var(--base-text-weight-normal);
-    grid-area: label;
     line-height: 20px;
     position: relative;
     word-break: break-word;
@@ -95,12 +94,14 @@
 
   .List[data-layout='block'] .Description {
     --description-grid-area: block;
+
     grid-row-start: 3;
     margin-block-start: var(--list-row-gap);
   }
 
   .List[data-layout='inline'] .Description {
     --description-grid-area: inline;
+
     margin-inline-start: var(--list-column-gap);
   }
 
