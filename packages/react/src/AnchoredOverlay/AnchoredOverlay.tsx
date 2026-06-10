@@ -135,7 +135,7 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
    * `disable`: When `true`, opts this overlay out of native CSS anchor positioning (and the Popover API)
    *   even if `primer_react_css_anchor_positioning` is enabled and the browser supports it.
    */
-  cssAnchorPositioningSettings?: {fallbackStrategy: 'default' | 'none' | 'opposite-side'; disable?: boolean}
+  cssAnchorPositioningSettings?: {fallbackStrategy?: 'default' | 'none' | 'opposite-side'; disable?: boolean}
 }
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
