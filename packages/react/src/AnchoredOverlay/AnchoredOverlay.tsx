@@ -124,7 +124,6 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
    * and the browser supports native CSS anchor positioning. Has no effect otherwise. Defaults to `"portal"`.
    */
   renderAs?: 'portal' | 'popover'
-
   /**
    * Settings for CSS anchor positioning behavior when CSS anchor positioning is active.
    *
@@ -133,9 +132,10 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
    * - `"none"`: keep the requested side with no CSS fallbacks.
    * - `"opposite-side"`: only allow fallback to the opposite side.
    *
-   * Ignored when CSS anchor positioning is not active.
+   * `disable`: When `true`, opts this overlay out of native CSS anchor positioning (and the Popover API)
+   *   even if `primer_react_css_anchor_positioning` is enabled and the browser supports it.
    */
-  cssAnchorPositioningSettings?: {fallbackStrategy: 'default' | 'none' | 'opposite-side'}
+  cssAnchorPositioningSettings?: {fallbackStrategy: 'default' | 'none' | 'opposite-side'; disable?: boolean}
 }
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
@@ -193,7 +193,10 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   )
 
   const cssAnchorPositioning =
-    cssAnchorPositioningFlag && supportsNativeCSSAnchorPositioning && !overlayProps?.portalContainerName
+    cssAnchorPositioningFlag &&
+    supportsNativeCSSAnchorPositioning &&
+    !overlayProps?.portalContainerName &&
+    !cssAnchorPositioningSettings?.disable
   // Only use Popover API when both CSS anchor positioning is enabled AND renderAs is true
   const shouldRenderAsPopover = cssAnchorPositioning && renderAs === 'popover'
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
