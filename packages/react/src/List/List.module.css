@@ -1,15 +1,17 @@
 @layer primer.components.List {
   .List {
+    --list-column-gap: var(--control-medium-gap);
+    --list-row-gap: var(--base-size-4);
+
     list-style: none;
     padding: 0;
     display: grid;
-    grid-template-areas:
-      'leading label inline trailing'
-      '.       block block  .';
-    grid-template-columns: auto auto 1fr auto;
-    grid-template-rows: auto auto;
-    column-gap: var(--control-medium-gap);
-    row-gap: var(--base-size-4);
+    /* grid-template-areas: */
+    /*   'leading label   inline  trailing' */
+    /*   '.       block   block   .       ' */
+    /*   '.       divider divider divider'; */
+    grid-template-columns: min-content auto 1fr min-content;
+    /* grid-template-rows: auto auto auto; */
   }
 
   .Item {
@@ -25,10 +27,14 @@
     background-color: var(--item-bgColor);
     display: grid;
     grid-template-columns: subgrid;
-    grid-template-rows: subgrid;
+    grid-template-areas:
+      '.       divider divider divider'
+      'leading label   inline  trailing'
+      '.       block   block   .       ';
+    /* grid-template-rows: subgrid; */
     align-items: center;
     grid-column: 1 / -1;
-    grid-row: span 2;
+    grid-row: span 3;
     cursor: pointer;
 
     @media (hover: hover) {
@@ -53,12 +59,20 @@
     }
   }
 
-  .List[data-dividers] .Item::before {
+  .List[data-dividers] .Item:not(:first-of-type)::before {
     content: '';
     display: block;
-    width: 100%;
     height: 1px;
     background-color: var(--borderColor-muted);
+    grid-area: divider;
+    width: 100%;
+    position: relative;
+    top: -7px;
+  }
+
+  .List[data-dividers] .Item:not(:first-of-type):hover::before,
+  .List[data-dividers] .Item:hover + .Item::before {
+    background-color: var(--item-bgColor);
   }
 
   .Label {
@@ -81,11 +95,13 @@
 
   .List[data-layout='block'] .Description {
     --description-grid-area: block;
-    grid-row-start: 2;
+    grid-row-start: 3;
+    margin-block-start: var(--list-row-gap);
   }
 
   .List[data-layout='inline'] .Description {
     --description-grid-area: inline;
+    margin-inline-start: var(--list-column-gap);
   }
 
   .GroupHeading {
@@ -105,5 +121,15 @@
     margin-block-end: var(--base-size-8);
     margin-block-start: calc(var(--base-size-8) - var(--borderWidth-thin));
     padding: 0;
+  }
+
+  .Leading {
+    margin-inline-end: var(--list-column-gap);
+    grid-area: leading;
+  }
+
+  .Trailing {
+    margin-inline-start: var(--list-column-gap);
+    grid-area: trailing;
   }
 }

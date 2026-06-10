@@ -3,12 +3,13 @@ import type {PropsWithChildren} from 'react'
 import classes from './List.module.css'
 
 type ListProps = PropsWithChildren<{
+  showDividers?: boolean
   layout?: 'inline' | 'block'
 }>
 
-function List({children, layout = 'inline'}: ListProps) {
+function List({children, layout = 'inline', showDividers}: ListProps) {
   return (
-    <ul className={classes.List} data-layout={layout}>
+    <ul className={classes.List} data-dividers={showDividers ? '' : undefined} data-layout={layout}>
       {children}
     </ul>
   )
@@ -32,16 +33,16 @@ function Description({children}: DescriptionProps) {
   return <div className={classes.Description}>{children}</div>
 }
 
-type LeadingVisualsProps = PropsWithChildren<{}>
+type LeadingProps = PropsWithChildren<{}>
 
-function LeadingVisuals({children}: LeadingVisualsProps) {
-  return <div className={classes.LeadingVisuals}>{children}</div>
+function Leading({children}: LeadingProps) {
+  return <div className={classes.Leading}>{children}</div>
 }
 
 type TrailingVisualProps = PropsWithChildren<{}>
 
-function TrailingVisuals({children}: TrailingVisualProps) {
-  return <div className={classes.TrailingVisuals}>{children}</div>
+function Trailing({children}: TrailingVisualProps) {
+  return <div className={classes.Trailing}>{children}</div>
 }
 
 type GroupProps = PropsWithChildren<{}>
@@ -72,4 +73,4 @@ function Selection(props: SelectionProps) {
   )
 }
 
-export {List, Item, Label, Description, LeadingVisuals, TrailingVisuals, Group, GroupHeading, Divider, Selection}
+export {List, Item, Label, Description, Leading, Trailing, Group, GroupHeading, Divider, Selection}

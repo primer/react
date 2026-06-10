@@ -1,1 +1,1 @@
-export {List, Item, Label, Description, LeadingVisuals, TrailingVisuals, Group, Divider, Selection} from './List'
+export {List, Item, Label, Description, Leading, Trailing, Group, Divider, Selection} from './List'
