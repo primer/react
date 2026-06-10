@@ -2,8 +2,36 @@ import {useState, type ComponentType} from 'react'
 import {render, fireEvent, screen, within} from '@testing-library/react'
 import {describe, expect, it} from 'vitest'
 import {SelectPanelParts as SelectPanel} from '../SelectPanel'
-import {Tabs} from '../../Tabs'
+import {Tabs, useTab, useTabList, useTabPanel} from '../../Tabs'
 import {MultiSelectAcrossTabs} from '../SelectPanelParts.stories'
+
+// Local Tabs convenience wrappers, mirroring the recipe story: the Tabs primitive
+// exports only hooks, so a tabbed picker is composed from SelectPanel parts + these
+// thin wrappers. SelectPanel itself no longer owns tabs.
+function RefTabList({children, ...props}: {'aria-label': string; children: React.ReactNode}) {
+  const {tabListProps} = useTabList<HTMLDivElement>(props)
+  return (
+    // @ts-expect-error Tabs primitive expects a non-nullable ref
+    <div {...props} {...tabListProps}>
+      {children}
+    </div>
+  )
+}
+
+function RefTab({value, count, children}: {value: string; count?: number; children: React.ReactNode}) {
+  const {tabProps} = useTab({value})
+  return (
+    <button {...tabProps} type="button">
+      {children}
+      {count !== undefined ? <span aria-hidden>{count}</span> : null}
+    </button>
+  )
+}
+
+function RefTabPanel({value, children}: {value: string; children: React.ReactNode}) {
+  const {tabPanelProps} = useTabPanel({value})
+  return <div {...tabPanelProps}>{children}</div>
+}
 
 function Example() {
   const [open, setOpen] = useState(false)
@@ -18,16 +46,16 @@ function Example() {
           <SelectPanel.Title>Switch ref</SelectPanel.Title>
           <SelectPanel.Input aria-label="Filter" />
         </SelectPanel.Header>
-        <Tabs defaultValue="branches" onValueChange={({value}) => setActive(value)}>
-          <SelectPanel.TabList aria-label="Ref type">
-            <SelectPanel.Tab value="branches" count={2}>
+        <Tabs value={active} onValueChange={({value}) => setActive(value)}>
+          <RefTabList aria-label="Ref type">
+            <RefTab value="branches" count={2}>
               Branches
-            </SelectPanel.Tab>
-            <SelectPanel.Tab value="tags" count={2}>
+            </RefTab>
+            <RefTab value="tags" count={2}>
               Tags
-            </SelectPanel.Tab>
-          </SelectPanel.TabList>
-          <SelectPanel.Panel value={active}>
+            </RefTab>
+          </RefTabList>
+          <RefTabPanel value={active}>
             <SelectPanel.List aria-label="Results">
               {items.map(name => (
                 <SelectPanel.Option key={name} id={`opt-${name}`}>
@@ -35,7 +63,7 @@ function Example() {
                 </SelectPanel.Option>
               ))}
             </SelectPanel.List>
-          </SelectPanel.Panel>
+          </RefTabPanel>
         </Tabs>
       </SelectPanel.Overlay>
     </SelectPanel.Root>
@@ -53,9 +81,6 @@ describe('SelectPanel Parts', () => {
       'SelectPanel.Overlay',
       'SelectPanel.Header',
       'SelectPanel.Title',
-      'SelectPanel.TabList',
-      'SelectPanel.Tab',
-      'SelectPanel.Panel',
       'SelectPanel.List',
       'SelectPanel.Option',
     ]) {
@@ -65,7 +90,7 @@ describe('SelectPanel Parts', () => {
     expect(screen.getByRole('combobox')).toBeInTheDocument()
   })
 
-  it('uses role=dialog popup with a tablist and listbox scoped inside it', () => {
+  it('composes the Tabs primitive: a tablist and listbox scoped inside the role=dialog popup', () => {
     render(<Example />)
     fireEvent.click(screen.getByRole('button', {name: 'Open'}))
 

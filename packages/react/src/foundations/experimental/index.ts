@@ -5,5 +5,4 @@ export type {
   SelectPanelGesture,
   OptionDescriptor,
   SelectPanelRootProps,
-  SelectPanelPanelProps,
 } from './SelectPanel'

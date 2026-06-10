@@ -11,11 +11,9 @@ function Example() {
       <SelectPanel.Overlay>
         <SelectPanel.Title>Title</SelectPanel.Title>
         <SelectPanel.Input aria-label="Filter" />
-        <SelectPanel.Panel tabId="my-tab">
-          <SelectPanel.List aria-label="Results">
-            <SelectPanel.Option id="opt-1">One</SelectPanel.Option>
-          </SelectPanel.List>
-        </SelectPanel.Panel>
+        <SelectPanel.List aria-label="Results">
+          <SelectPanel.Option id="opt-1">One</SelectPanel.Option>
+        </SelectPanel.List>
       </SelectPanel.Overlay>
     </SelectPanel.Root>
   )
@@ -29,15 +27,13 @@ describe('SelectPanel foundation components', () => {
     expect(screen.getByRole('dialog')).toBeInTheDocument()
   })
 
-  it('wires the dialog/combobox/listbox/tabpanel structure via context', () => {
+  it('wires the dialog/combobox/listbox structure via context', () => {
     render(<Example />)
     fireEvent.click(screen.getByRole('button', {name: 'Open'}))
     const dialog = screen.getByRole('dialog')
     expect(within(dialog).getByRole('combobox')).toBeInTheDocument()
     expect(within(dialog).getByRole('listbox')).toBeInTheDocument()
     expect(within(dialog).getByRole('option')).toBeInTheDocument()
-    const panel = within(dialog).getByRole('tabpanel')
-    expect(panel).toHaveAttribute('aria-labelledby', 'my-tab')
   })
 
   it('throws when a sub-component is used outside Root', () => {

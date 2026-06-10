@@ -4,10 +4,20 @@
 > **Scenario:** Decompose SelectPanel so a consumer can **add tabs** (Branches / Tags
 > picker) by composition instead of forking. Feeds ADR-024 (Design System Spectrum).
 > **Reference implementation:** the Dialog 4-layer stack on this branch.
+>
+> **Note:** this branch is a **hand-refined canonical example** of the intended
+> implementation. It is the reference for "what good looks like" and may differ from
+> a one-shot agent output.
 
 ## Overview
 
-This document defines a **modular, tab-capable** SelectPanel across the four layers of the
+SelectPanel **does not own tabs**. A tabbed picker is a **consumer composition** of
+SelectPanel's parts (overlay / search / list / options) + the generic experimental
+`Tabs` primitive. This is the "compose, don't depend" rule: SelectPanel provides the
+listbox-in-a-dialog machinery and the consumer brings `Tabs` — SelectPanel never
+imports or re-exports tab components.
+
+This document defines a **modular** SelectPanel across the four layers of the
 [modular component architecture](https://github.com/github/primer/issues/6546):
 
 | Layer | Name            | What it provides                                                               |
@@ -17,10 +27,11 @@ This document defines a **modular, tab-capable** SelectPanel across the four lay
 | 2     | **Parts**       | Primer-styled compositional components (`SelectPanelParts.*`)                  |
 | 3     | **Ready-made**  | Props-based API for the simple **no-tabs** case                                |
 
-The leverage for tabs is **L1 + L0**, not L2. The new value is a standalone, placeable
-listbox you can put inside a tab panel, plus decoupled hooks the consumer owns (selection
-shareable across tabs, one filter across datasets, per-tab counts, async lists). The styled
-Parts (L2) are a thin wrapper over that foundation.
+The leverage for tabs is **L1 + L0**, not a `tabs` feature on SelectPanel. The new value is
+a standalone, placeable listbox you can put inside a tab panel, plus decoupled hooks the
+consumer owns (selection shareable across tabs, one filter across datasets, per-tab counts,
+async lists). The consumer wires the tab strip with the generic `Tabs` primitive. The styled
+Parts (L2) are a thin wrapper over that foundation, and they too contain **no tab code**.
 
 The canonical use case — a Branches / Tags picker where tabs switch which filterable list is
 shown inside **one** panel with **one** shared search input — is impossible with today's
@@ -46,7 +57,7 @@ SelectPanel instead uses:
 | ----------------------- | ---------- | ----------------------------------------------------------------------------- |
 | Popup container         | `dialog`   | Outer shell. **Not** a listbox.                                               |
 | Search input            | `combobox` | `aria-expanded`, `aria-controls` → active listbox, `aria-autocomplete="list"` |
-| Tab strip               | `tablist`  | Reuses the `Tabs` primitive                                                   |
+| Tab strip               | `tablist`  | Consumer-composed with the `Tabs` primitive                                   |
 | Each tab                | `tab`      | `aria-selected`, `aria-controls` → panel                                      |
 | The (single) panel      | `tabpanel` | `aria-labelledby` tracks the **active** tab                                   |
 | The list (in the panel) | `listbox`  | Scoped **inside** the active tab panel                                        |
@@ -131,7 +142,6 @@ Returns prop-getters:
 | `getTitleProps()`      | title   | `id` (→ dialog `aria-labelledby`)                                                                               |
 | `getInputProps()`      | search  | `role="combobox"`, `aria-expanded`, `aria-controls`, `aria-autocomplete`, `aria-activedescendant`, keyboard nav |
 | `getListProps()`       | list    | `role="listbox"`, `id`, optional `aria-multiselectable`                                                         |
-| `getPanelProps(tabId)` | panel   | `role="tabpanel"`, `aria-labelledby` (the active tab)                                                           |
 | `getOptionProps()`     | option  | `role="option"`, `aria-selected`, `aria-disabled`, active marker                                                |
 
 Also: `isOpen`, `open()`, `close(gesture)`, `activeDescendantId`.
@@ -142,17 +152,17 @@ previously-focused element), combobox keyboard navigation over options
 (ArrowUp/Down/Enter, wrapping, scroll-into-view, `aria-activedescendant`), and a dev-mode
 warning when no accessible name is provided.
 
-**Tab strip:** the foundation deliberately **does not re-implement tabs**. The tab strip
-reuses the existing `Tabs` primitive (`useTab` / `useTabList` / `useTabPanel`), and the
-foundation provides only the single dynamic `Panel` region (`getPanelProps`) that hosts the
-listbox. This honours the "reuse, don't rebuild" rule.
+**No tabs.** The foundation owns **no tab code** — there is no `getPanelProps`, no `Panel`
+component, and no dependency on the `Tabs` primitive. A tabbed picker is composed by the
+consumer: they wrap the listbox in a `tabpanel` and render a tab strip using the generic
+`Tabs` primitive (`useTab` / `useTabList` / `useTabPanel`). See "Composing tabs" below.
 
 ### Unstyled components
 
-`SelectPanel.Root / .Anchor / .Overlay / .Title / .Input / .Panel / .List / .Option` — wrap
+`SelectPanel.Root / .Anchor / .Overlay / .Title / .Input / .List / .Option` — wrap
 the hook, wire ARIA via context, add no visual styling (foundation CSS reset only). `Overlay`
-renders only while open. Consumers bring their own markup for the tab strip via the `Tabs`
-primitive.
+renders only while open. Consumers bring their own markup for the tab strip and tab panel via
+the `Tabs` primitive.
 
 ---
 
@@ -167,12 +177,8 @@ SelectPanelParts (= Root)
 │   ├── .Header
 │   │   ├── .Title
 │   │   └── .Input   — Primer TextInput (role=combobox), shared search
-│   ├── <Tabs>           (the Tabs primitive provides tab state/roving)
-│   │   ├── .TabList     — reuses useTabList
-│   │   │   └── .Tab     — reuses useTab; renders a per-tab count badge
-│   │   └── .Panel       — single dynamic tabpanel (reuses useTabPanel)
-│   │       └── .List
-│   │           └── .Option
+│   ├── .List        — placeable listbox (drop it directly, or inside a tabpanel)
+│   │   └── .Option
 │   ├── .Empty
 │   └── .Footer
 ```
@@ -181,15 +187,22 @@ SelectPanelParts (= Root)
   Primer's `TextInput`, which carries its own `data-component`; its `role="combobox"` is the
   stable selector).
 - CSS Modules + Primer design tokens; `:where()` for variant selectors.
-- `TabList` / `Tab` / `Panel` reuse the `Tabs` primitive hooks rather than re-implementing tab
-  ARIA or roving focus.
+- **No tab parts.** `SelectPanelParts` ships **no** `TabList` / `Tab` / `Panel` components and
+  does not import `Tabs`. A tabbed picker is composed by the consumer (see below).
 - **Anchored positioning:** the `Overlay` positions against the trigger via Primer's
   `useAnchoredPosition` (`outside-bottom` / `start` by default, configurable with `side`/`align`
   props). It flips when there's no room and re-positions on scroll/resize. The `Root` is the
   positioned parent (the overlay is `position: absolute` with computed `top`/`left`), so no
   portal is required.
 
-### Adding tabs (the headline)
+### Composing tabs (the headline) — compose, don't depend
+
+A Branches / Tags tabbed picker is built by composing SelectPanel parts with the generic
+`Tabs` primitive. Because `Tabs` exports only the `useTab` / `useTabList` / `useTabPanel`
+hooks, the consumer defines small local wrappers (`RefTabList` / `RefTab` / `RefTabPanel`) that
+can reuse SelectPanel's `.TabList` / `.Tab` / `.TabCount` CSS. (Ideally the `Tabs` primitive
+would export `Tab` / `TabList` / `TabPanel` convenience components — see Open Questions — which
+would remove this glue.)
 
 ```tsx
 <SelectPanel.Root open={open} onOpenChange={setOpen} selectionVariant="single">
@@ -197,18 +210,26 @@ SelectPanelParts (= Root)
   <SelectPanel.Overlay>
     <SelectPanel.Header>
       <SelectPanel.Title>Switch branches/tags</SelectPanel.Title>
+      {/* one shared search input */}
       <SelectPanel.Input value={filter.query} onChange={e => filter.setQuery(e.target.value)} />
     </SelectPanel.Header>
-    <Tabs defaultValue="branches" onValueChange={({value}) => setActiveTab(value)}>
-      <SelectPanel.TabList aria-label="Ref type">
-        <SelectPanel.Tab value="branches" count={filteredBranches.length}>
+    <Tabs
+      value={activeTab}
+      onValueChange={({value}) => {
+        setActiveTab(value)
+        inputRef.current?.focus() // return focus to the input — no dead-end
+      }}
+    >
+      <RefTabList aria-label="Ref type">
+        <RefTab value="branches" count={filteredBranches.length}>
           Branches
-        </SelectPanel.Tab>
-        <SelectPanel.Tab value="tags" count={filteredTags.length}>
+        </RefTab>
+        <RefTab value="tags" count={filteredTags.length}>
           Tags
-        </SelectPanel.Tab>
-      </SelectPanel.TabList>
-      <SelectPanel.Panel value={activeTab}>
+        </RefTab>
+      </RefTabList>
+      {/* NON-focusable tabpanel: do NOT set tabIndex={0} */}
+      <RefTabPanel value={activeTab}>
         <SelectPanel.List>
           {activeItems.map(i => (
             <SelectPanel.Option
@@ -221,11 +242,32 @@ SelectPanelParts (= Root)
             </SelectPanel.Option>
           ))}
         </SelectPanel.List>
-      </SelectPanel.Panel>
+      </RefTabPanel>
     </Tabs>
   </SelectPanel.Overlay>
 </SelectPanel.Root>
 ```
+
+### The accessible composition pattern
+
+The composition above is accessible **by construction**, with no keyboard dead-end:
+
+- **Non-focusable tabpanel.** The `tabpanel` is **not** in the tab order — `useTabPanel`
+  imposes no `tabIndex`, and the consumer must **not** add `tabIndex={0}`. The listbox inside
+  is never reached by Tab, so the panel is never a focus trap.
+- **Input-driven list.** The list is driven by the input's `aria-activedescendant`. Focus
+  stays on the `combobox` input; ArrowUp/Down/Enter move and activate the active option (the
+  existing `useSelectPanel` input keyboard handling), so the list needs no tab stop.
+- **Roving-tabindex tabs.** The tab strip is a roving-tabindex zone from `useTabList` / `useTab`
+  (ArrowLeft/Right + Home/End move between tabs; only the selected tab is tabbable).
+- **Focus returns to the input on tab switch.** `onValueChange` calls `inputRef.current?.focus()`
+  (or a DOM query for `[role="combobox"]`) so that after switching tabs the user is back on the
+  input and can immediately keep arrowing through the new tab's options.
+- **One shared search, per-tab counts.** A single `useFilter` query filters the active tab's
+  data; each tab shows its own match count.
+
+**No keyboard dead-end:** a user can focus the input and arrow through options, `Tab` to the
+tablist and switch tabs (focus returns to the input), and never get trapped inside the panel.
 
 One shared search (`useFilter`), one selection model (`useSelectionState`) shared across tabs,
 per-tab counts, a single listbox that swaps data by active tab. No fork.
@@ -270,14 +312,15 @@ case.
 | `aria-labelledby` → title / `aria-label`    | Consumer wires   | ✅ Auto-wired via context | ✅ Inherited     | ✅ From `title`  |
 | Input `role="combobox"` + `aria-controls`   | Consumer sets    | ✅ Automatic              | ✅ Inherited     | ✅ Inherited     |
 | `aria-activedescendant` (tab **or** option) | Consumer manages | ✅ Options (keyboard nav) | ✅ Inherited     | ✅ Inherited     |
-| `tablist` / `tab` / `tabpanel`              | Consumer sets    | ✅ via `Tabs` primitive   | ✅ Inherited     | n/a (no tabs)    |
+| `tablist` / `tab` / `tabpanel`              | Consumer sets    | Consumer composes `Tabs` | Consumer composes `Tabs` | n/a (no tabs)    |
 | `listbox` scoped to active panel            | Consumer sets    | ✅ Automatic              | ✅ Inherited     | ✅ Inherited     |
 | `option` + `aria-selected`                  | Consumer sets    | ✅ Automatic              | ✅ Inherited     | ✅ From state    |
 | Escape closes                               | Consumer handles | ✅ Automatic              | ✅ Inherited     | ✅ Inherited     |
 | Outside-click closes                        | Consumer handles | ✅ Automatic              | ✅ Inherited     | ✅ Inherited     |
 | Focus returns on close                      | Consumer manages | ✅ Automatic              | ✅ Inherited     | ✅ Inherited     |
 | Arrow-key option navigation                 | Consumer handles | ✅ Automatic              | ✅ Inherited     | ✅ Inherited     |
-| Tab roving focus / Home/End                 | Consumer handles | ✅ via `Tabs` primitive   | ✅ Inherited     | n/a              |
+| Non-focusable tabpanel / focus-return-to-input | Consumer wires | Consumer composes `Tabs` | Consumer composes `Tabs` | n/a              |
+| Tab roving focus / Home/End                 | Consumer handles | Consumer composes `Tabs` | Consumer composes `Tabs` | n/a              |
 | Anchored positioning / visible surface      | Consumer styles  | ⚠️ Consumer must style    | ✅ Primer tokens | ✅ Primer tokens |
 | Colour contrast                             | Consumer ensures | ⚠️ Consumer must ensure   | ✅ Primer tokens | ✅ Primer tokens |
 
@@ -300,16 +343,20 @@ case.
 - **DOM-based option navigation.** The foundation discovers options by `role="option"` in the
   active listbox rather than maintaining an option registry, mirroring the existing
   SelectPanel2 approach. This keeps the single-dynamic-panel model simple.
-- **Active-descendant scope (stubbed for full parity — deferred future work).**
-  `aria-activedescendant` currently tracks options for keyboard navigation. A unified composite
-  store letting the input's active-descendant move seamlessly between the **tab strip** and the
-  **option list** (Ariakit `TabStore.composite`) is the harder, future retrofit; tab roving is
-  presently handled by the `Tabs` primitive's own focus model (focus physically moves to the
-  tabs). Implementing the composite store would mean keeping DOM focus permanently on the input
-  and driving tabs via `aria-activedescendant` instead of roving tabindex — i.e. **not** reusing
-  the Tabs primitive's focus model. This was deliberately deferred during hardening to avoid
-  destabilising the shipped, tested behaviour; the keyboard model today (Arrow/Enter over
-  options on the input; Arrow/Home/End over tabs when a tab is focused) is fully accessible.
+- **Composite-focus utility (future enhancement, not required for correctness).** A shared
+  composite-focus utility (Ariakit [`combobox-tabs`](https://ariakit.com/examples/combobox-tabs)
+  style) where **one** controller drives `aria-activedescendant` across **both** the tab strip
+  and the option list — keeping DOM focus permanently on the input and driving tabs via
+  `aria-activedescendant` instead of roving tabindex — is a **future enhancement** for premium
+  UX. The composition documented here is already fully accessible without it: the tabpanel is
+  non-focusable, the list is input-driven via `aria-activedescendant`, the tabs are a
+  roving-tabindex zone, and focus returns to the input on tab switch — so there is no keyboard
+  dead-end. The composite store is therefore an enhancement, **not** a correctness requirement.
+- **Tabs convenience components (recommended follow-up).** The `Tabs` primitive currently
+  exports only the `useTab` / `useTabList` / `useTabPanel` hooks, so the recipe defines local
+  `RefTabList` / `RefTab` / `RefTabPanel` wrappers. Exporting styleable `Tab` / `TabList` /
+  `TabPanel` convenience components from the `Tabs` primitive would remove this per-consumer
+  glue while keeping SelectPanel free of any tab dependency.
 
 ---
 
@@ -320,6 +367,9 @@ case.
 2. **Shared vs per-tab search** — this spike shares one query (matching RefSelector); is that
    always right?
 3. Adopt an **Ariakit-style composite store** so the tab strip and list share one
-   `aria-activedescendant` model, rather than delegating tab focus to the `Tabs` primitive?
-4. Graduate `useSelectionState` / `useFilter` / `useAsyncList` from experimental independently
+   `aria-activedescendant` model (one controller across tabs + options), rather than the
+   roving-tabindex tabs + input-driven list composition documented here?
+4. Export `Tab` / `TabList` / `TabPanel` **convenience components** from the `Tabs` primitive so
+   consumers don't need local tab wrappers, without re-introducing a tab dependency in SelectPanel?
+5. Graduate `useSelectionState` / `useFilter` / `useAsyncList` from experimental independently
    of the SelectPanel foundation?
