@@ -6,7 +6,7 @@
 }
 
 .Header {
-  padding: var(--base-size-12, 12px) var(--base-size-12, 12px) var(--base-size-8, 8px);
+  padding: var(--base-size-12, var(--base-size-12)) var(--base-size-12, var(--base-size-12)) var(--base-size-8, var(--base-size-8));
 }
 
 .Title {
@@ -16,23 +16,23 @@
 }
 
 .Search {
-  padding: 0 var(--base-size-12, 12px) var(--base-size-8, 8px);
+  padding: 0 var(--base-size-12, var(--base-size-12)) var(--base-size-8, var(--base-size-8));
 }
 
 .TabList {
   display: flex;
   gap: var(--base-size-4, 4px);
-  padding: 0 var(--base-size-12, 12px);
-  border-bottom: var(--borderWidth-thin, 1px) solid var(--borderColor-default, #d1d9e0);
+  padding: 0 var(--base-size-12, var(--base-size-12));
+  border-bottom: var(--borderWidth-thin, var(--borderWidth-thin)) solid var(--borderColor-default, #d1d9e0);
 }
 
 .Tab {
   appearance: none;
   background: transparent;
   border: none;
-  border-bottom: 2px solid transparent;
+  border-bottom: var(--borderWidth-thick) solid transparent;
   margin-bottom: -1px;
-  padding: var(--base-size-8, 8px) var(--base-size-8, 8px);
+  padding: var(--base-size-8, var(--base-size-8)) var(--base-size-8, var(--base-size-8));
   font: inherit;
   font-size: var(--text-body-size-small, 12px);
   color: var(--fgColor-muted, #59636e);
@@ -40,7 +40,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--base-size-4, 4px);
-  border-radius: var(--borderRadius-medium, 6px) var(--borderRadius-medium, 6px) 0 0;
+  border-radius: var(--borderRadius-medium, var(--borderRadius-default)) var(--borderRadius-medium, var(--borderRadius-default)) 0 0;
 }
 
 .Tab:hover {
@@ -77,7 +77,7 @@
 .ListContainer {
   overflow-y: auto;
   max-height: 280px;
-  padding: var(--base-size-8, 8px);
+  padding: var(--base-size-8, var(--base-size-8));
 }
 
 .Listbox {
@@ -90,8 +90,8 @@
   display: flex;
   align-items: center;
   gap: var(--base-size-8, 8px);
-  padding: var(--base-size-6, 6px) var(--base-size-8, 8px);
-  border-radius: var(--borderRadius-medium, 6px);
+  padding: var(--base-size-6, var(--base-size-6)) var(--base-size-8, var(--base-size-8));
+  border-radius: var(--borderRadius-medium, var(--borderRadius-default));
   cursor: pointer;
   color: var(--fgColor-default, #1f2328);
   font-size: var(--text-body-size-medium, 14px);
@@ -99,11 +99,11 @@
 }
 
 .Option:hover {
-  background-color: var(--control-transparent-bgColor-hover, rgb(101 108 133 / 8%));
+  background-color: var(--control-transparent-bgColor-hover, rgb(101 108 133 / 0.08));
 }
 
 .Option[data-is-active-descendant] {
-  background-color: var(--control-transparent-bgColor-active, rgb(101 108 133 / 14%));
+  background-color: var(--control-transparent-bgColor-active, rgb(101 108 133 / 0.14));
 }
 
 .OptionLeading {
@@ -131,7 +131,7 @@
 }
 
 .Empty {
-  padding: var(--base-size-16, 16px);
+  padding: var(--base-size-16, var(--base-size-16));
   text-align: center;
   color: var(--fgColor-muted, #59636e);
   font-size: var(--text-body-size-small, 12px);
