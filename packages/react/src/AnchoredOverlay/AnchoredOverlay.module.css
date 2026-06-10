@@ -34,7 +34,8 @@
     max-width: none;
   }
 
-  &[data-side='outside-bottom'], &[data-side='inside-bottom'] {
+  &[data-side='outside-bottom'],
+  &[data-side='inside-bottom'] {
     /* stylelint-disable primer/spacing */
     top: calc(anchor(bottom) + var(--base-size-4));
     left: anchor(left);
@@ -61,7 +62,8 @@
     }
   }
 
-  &[data-side='outside-top'], &[data-side='inside-top'] {
+  &[data-side='outside-top'],
+  &[data-side='inside-top'] {
     margin-bottom: var(--base-size-4);
     bottom: anchor(top);
     left: anchor(left);
@@ -82,7 +84,8 @@
     }
   }
 
-  &[data-side='outside-left'], &[data-side='inside-left'] {
+  &[data-side='outside-left'],
+  &[data-side='inside-left'] {
     right: anchor(left);
     /* Falls back to `anchor(top)` when JS hasn't overridden it. JS sets the
        override when the overlay's bottom would overflow the viewport so we
@@ -97,7 +100,8 @@
     position-try-fallbacks: flip-inline, flip-block, flip-start, --outside-left-to-bottom;
   }
 
-  &[data-side='outside-right'], &[data-side='inside-right'] {
+  &[data-side='outside-right'],
+  &[data-side='inside-right'] {
     left: anchor(right);
     top: var(--anchored-overlay-top-override, anchor(top));
     margin-left: var(--base-size-4);
