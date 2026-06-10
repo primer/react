@@ -39,6 +39,7 @@ server.registerTool(
   'init',
   {
     description: 'Setup or create a project that includes Primer React',
+    annotations: {readOnlyHint: true},
   },
   async () => {
     const url = new URL(`/product/getting-started/react`, 'https://primer.style')
@@ -92,7 +93,7 @@ ${text}
 // -----------------------------------------------------------------------------
 server.registerTool(
   'list_components',
-  {description: 'List all of the components available from Primer React'},
+  {description: 'List all of the components available from Primer React', annotations: {readOnlyHint: true}},
   async () => {
     const components = listComponents().map(component => {
       return `- ${component.name}`
@@ -120,6 +121,7 @@ server.registerTool(
     inputSchema: {
       name: z.string().describe('The name of the component to retrieve'),
     },
+    annotations: {readOnlyHint: true},
   },
   async ({name}) => {
     const components = listComponents()
@@ -166,6 +168,7 @@ server.registerTool(
     inputSchema: {
       name: z.string().describe('The name of the component to retrieve'),
     },
+    annotations: {readOnlyHint: true},
   },
   async ({name}) => {
     const components = listComponents()
@@ -226,6 +229,7 @@ server.registerTool(
     inputSchema: {
       name: z.string().describe('The name of the component to retrieve'),
     },
+    annotations: {readOnlyHint: true},
   },
   async ({name}) => {
     const components = listComponents()
@@ -298,6 +302,7 @@ server.registerTool(
     inputSchema: {
       name: z.string().describe('The name of the component to retrieve'),
     },
+    annotations: {readOnlyHint: true},
   },
   async ({name}) => {
     const components = listComponents()
@@ -367,7 +372,7 @@ ${text}`,
 // -----------------------------------------------------------------------------
 server.registerTool(
   'list_patterns',
-  {description: 'List all of the patterns available from Primer React'},
+  {description: 'List all of the patterns available from Primer React', annotations: {readOnlyHint: true}},
   async () => {
     const patterns = listPatterns().map(pattern => {
       return `- ${pattern.name}`
@@ -392,6 +397,7 @@ server.registerTool(
     inputSchema: {
       name: z.string().describe('The name of the pattern to retrieve'),
     },
+    annotations: {readOnlyHint: true},
   },
   async ({name}) => {
     const patterns = listPatterns()
@@ -469,6 +475,7 @@ server.registerTool(
         .default(15)
         .describe('Maximum results to return to stay within context limits'),
     },
+    annotations: {readOnlyHint: true},
   },
   async ({query, group, limit}) => {
     // Resolve group via aliases
@@ -566,6 +573,7 @@ server.registerTool(
     inputSchema: {
       groups: z.array(z.string()).describe('Array of group names (e.g., ["overlay", "shadow", "focus"])'),
     },
+    annotations: {readOnlyHint: true},
   },
   async ({groups}) => {
     // Normalize and resolve aliases
@@ -608,6 +616,7 @@ server.registerTool(
   {
     description:
       'CRITICAL: CALL THIS FIRST. Provides the logic matrix and the list of valid group names. You cannot search accurately without this map.',
+    annotations: {readOnlyHint: true},
   },
   async () => {
     const groups = listTokenGroups()
@@ -631,6 +640,7 @@ server.registerTool(
   {
     description:
       'Provides "Golden Example" CSS for core patterns: Button (Interactions) and Stack (Layout). Use this to understand how to apply the Logic Matrix, Motion, and Spacing scales.',
+    annotations: {readOnlyHint: true},
   },
   async () => {
     const customPatterns = getTokenUsagePatternsText()
@@ -659,6 +669,7 @@ server.registerTool(
     description:
       'REQUIRED FINAL STEP. Use this to validate your CSS. You cannot complete a task involving CSS without a successful run of this tool.',
     inputSchema: {css: z.string()},
+    annotations: {readOnlyHint: true},
   },
   async ({css}) => {
     try {
@@ -694,7 +705,7 @@ server.registerTool(
 // -----------------------------------------------------------------------------
 server.registerTool(
   'get_color_usage',
-  {description: 'Get the guidelines for how to apply color to a user interface'},
+  {description: 'Get the guidelines for how to apply color to a user interface', annotations: {readOnlyHint: true}},
   async () => {
     const url = new URL(`/product/getting-started/foundations/color-usage`, 'https://primer.style')
     const response = await fetch(url)
@@ -732,7 +743,10 @@ server.registerTool(
 
 server.registerTool(
   'get_typography_usage',
-  {description: 'Get the guidelines for how to apply typography to a user interface'},
+  {
+    description: 'Get the guidelines for how to apply typography to a user interface',
+    annotations: {readOnlyHint: true},
+  },
   async () => {
     const url = new URL(`/product/getting-started/foundations/typography`, 'https://primer.style')
     const response = await fetch(url)
@@ -773,7 +787,10 @@ server.registerTool(
 // -----------------------------------------------------------------------------
 server.registerTool(
   'list_icons',
-  {description: 'List all of the icons (octicons) available from Primer Octicons React'},
+  {
+    description: 'List all of the icons (octicons) available from Primer Octicons React',
+    annotations: {readOnlyHint: true},
+  },
   async () => {
     const icons = listIcons().map(icon => {
       const keywords = icon.keywords.map(keyword => {
@@ -808,6 +825,7 @@ server.registerTool(
       name: z.string().describe('The name of the icon to retrieve'),
       size: z.string().optional().describe('The size of the icon to retrieve, e.g. "16"').default('16'),
     },
+    annotations: {readOnlyHint: true},
   },
   async ({name, size}) => {
     const icons = listIcons()
@@ -865,7 +883,10 @@ ${text}`,
 // -----------------------------------------------------------------------------
 server.registerTool(
   'primer_coding_guidelines',
-  {description: 'Get the guidelines when writing code that uses Primer or for UI code that you are creating'},
+  {
+    description: 'Get the guidelines when writing code that uses Primer or for UI code that you are creating',
+    annotations: {readOnlyHint: true},
+  },
   async () => {
     return {
       content: [
@@ -922,6 +943,7 @@ server.registerTool(
       alt: z.string().describe('The alt text of the image being evaluated'),
       image: z.string().describe('The image URL or file path being evaluated'),
     },
+    annotations: {readOnlyHint: true},
   },
   async ({surroundingText, alt, image}) => {
     // Call the LLM through MCP sampling
