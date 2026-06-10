@@ -7,7 +7,6 @@ import {
   type UseSelectPanelOptions,
   type UseSelectPanelReturn,
 } from '../../foundations/experimental/SelectPanel'
-import {useTab, useTabList, useTabPanel} from '../Tabs'
 import {useAnchoredPosition} from '../../hooks/useAnchoredPosition'
 import {Button} from '../../Button'
 import TextInput from '../../TextInput'
@@ -192,65 +191,6 @@ function Input({className, onKeyDown, ...props}: SelectPanelInputProps) {
 }
 Input.displayName = 'SelectPanel.Input'
 
-// --- SelectPanel.TabList (reuses the Tabs primitive) ---
-
-interface SelectPanelTabListProps extends React.HTMLAttributes<HTMLDivElement> {
-  'aria-label': string
-}
-
-function TabList({className, children, ...props}: SelectPanelTabListProps) {
-  const {tabListProps} = useTabList<HTMLDivElement>(props)
-  return (
-    // @ts-expect-error Tabs primitive expects a non-nullable ref
-    <div {...props} {...tabListProps} className={clsx(className, classes.TabList)} data-component="SelectPanel.TabList">
-      {children}
-    </div>
-  )
-}
-TabList.displayName = 'SelectPanel.TabList'
-
-// --- SelectPanel.Tab (reuses the Tabs primitive) ---
-
-interface SelectPanelTabProps {
-  value: string
-  disabled?: boolean
-  count?: number
-  children: React.ReactNode
-  className?: string
-}
-
-function Tab({value, disabled, count, children, className}: SelectPanelTabProps) {
-  const {tabProps} = useTab({value, disabled})
-  return (
-    <button {...tabProps} type="button" className={clsx(className, classes.Tab)} data-component="SelectPanel.Tab">
-      {children}
-      {count !== undefined ? (
-        <span className={classes.TabCount} aria-hidden>
-          {count}
-        </span>
-      ) : null}
-    </button>
-  )
-}
-Tab.displayName = 'SelectPanel.Tab'
-
-// --- SelectPanel.Panel (single dynamic tab panel hosting the active list) ---
-
-interface SelectPanelPanelProps extends React.ComponentProps<'div'> {
-  /** The active tab value. The panel re-labels itself as the active tab changes. */
-  value: string
-}
-
-function Panel({value, className, children, ...props}: SelectPanelPanelProps) {
-  const {tabPanelProps} = useTabPanel({value})
-  return (
-    <div {...tabPanelProps} className={clsx(className, classes.Panel)} data-component="SelectPanel.Panel" {...props}>
-      {children}
-    </div>
-  )
-}
-Panel.displayName = 'SelectPanel.Panel'
-
 // --- SelectPanel.List ---
 
 function List({className, ...props}: React.ComponentProps<'ul'>) {
@@ -303,18 +243,10 @@ export const SelectPanelParts = Object.assign(Root, {
   Header,
   Title,
   Input,
-  TabList,
-  Tab,
-  Panel,
   List,
   Option,
   Empty,
   Footer,
 })
 
-export type {
-  SelectPanelRootProps,
-  SelectPanelOverlayProps,
-  SelectPanelTabProps,
-  SelectPanelPanelProps as SelectPanelPanelPartProps,
-}
+export type {SelectPanelRootProps, SelectPanelOverlayProps}

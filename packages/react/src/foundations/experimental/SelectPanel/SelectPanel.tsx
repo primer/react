@@ -100,23 +100,6 @@ function Input({className, onKeyDown, ...props}: React.ComponentProps<'input'>) 
   )
 }
 
-// --- Panel (single dynamic tab panel hosting the active list) ---
-
-interface PanelProps extends React.ComponentProps<'div'> {
-  /** The id of the active tab this panel is labelled by. */
-  tabId: string
-}
-
-function Panel({tabId, children, className, ...props}: PanelProps) {
-  const {foundation} = useSelectPanelFoundationContext()
-  const panelProps = foundation.getPanelProps(tabId)
-  return (
-    <div {...panelProps} className={className} {...props}>
-      {children}
-    </div>
-  )
-}
-
 // --- List ---
 
 interface ListProps extends React.ComponentProps<'ul'> {
@@ -155,9 +138,8 @@ export const SelectPanel = Object.assign(Root, {
   Overlay,
   Title,
   Input,
-  Panel,
   List,
   Option,
 })
 
-export type {RootProps as SelectPanelRootProps, PanelProps as SelectPanelPanelProps}
+export type {RootProps as SelectPanelRootProps}

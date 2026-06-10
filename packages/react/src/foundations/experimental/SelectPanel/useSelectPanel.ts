@@ -63,11 +63,6 @@ interface ListProps {
   'aria-multiselectable'?: boolean
 }
 
-interface PanelProps {
-  role: 'tabpanel'
-  'aria-labelledby': string
-}
-
 export interface OptionDescriptor {
   /** Stable id for the option. Referenced by `aria-activedescendant`. */
   id: string
@@ -95,12 +90,10 @@ export interface UseSelectPanelReturn {
   /** Props for the shared search input (`role="combobox"`). */
   getInputProps: () => InputProps
   /**
-   * Props for a listbox region (`role="listbox"`). With tabs, exactly one list
-   * is rendered (the active tab's), following the single-dynamic-panel model.
+   * Props for a listbox region (`role="listbox"`). When composed with tabs,
+   * exactly one list is rendered (the active tab's).
    */
   getListProps: (opts?: {multiselectable?: boolean}) => ListProps
-  /** Props for the single tab panel that hosts the active list. */
-  getPanelProps: (activeTabId: string) => PanelProps
   /** Props for an option within the listbox. */
   getOptionProps: (option: OptionDescriptor) => OptionProps
   /** Whether the panel is currently open. */
@@ -300,14 +293,6 @@ export function useSelectPanel(options: UseSelectPanelOptions): UseSelectPanelRe
     [listId],
   )
 
-  const getPanelProps = useCallback(
-    (activeTabId: string): PanelProps => ({
-      role: 'tabpanel',
-      'aria-labelledby': activeTabId,
-    }),
-    [],
-  )
-
   const getOptionProps = useCallback(
     (option: OptionDescriptor): OptionProps => {
       const props: OptionProps = {
@@ -328,7 +313,6 @@ export function useSelectPanel(options: UseSelectPanelOptions): UseSelectPanelRe
     getTitleProps,
     getInputProps,
     getListProps,
-    getPanelProps,
     getOptionProps,
     isOpen: open,
     open: requestOpen,
