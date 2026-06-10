@@ -385,7 +385,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     id,
     width,
     side,
-    cssAnchorPositioningSettings,
+    cssAnchorPositioningSettings?.fallbackStrategy,
   ])
 
   const showXIcon = onClose && variant.narrow === 'fullscreen' && displayCloseButton
@@ -524,9 +524,13 @@ function getCSSAnchorPositionTryFallbacks(
     switch (side) {
       case 'outside-top':
       case 'outside-bottom':
+      case 'inside-top':
+      case 'inside-bottom':
         return 'flip-block'
       case 'outside-left':
       case 'outside-right':
+      case 'inside-left':
+      case 'inside-right':
         return 'flip-inline'
       default:
         return undefined
