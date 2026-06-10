@@ -172,11 +172,15 @@ Title.displayName = 'SelectPanel.Title'
 
 type SelectPanelInputProps = Omit<React.ComponentProps<typeof TextInput>, 'role'>
 
-function Input({className, onKeyDown, ...props}: SelectPanelInputProps) {
+const Input = React.forwardRef<HTMLInputElement, SelectPanelInputProps>(function SelectPanelInput(
+  {className, onKeyDown, ...props},
+  forwardedRef,
+) {
   const {foundation} = useSelectPanelContext()
   const inputProps = foundation.getInputProps()
   return (
     <TextInput
+      ref={forwardedRef}
       leadingVisual={SearchIcon}
       {...inputProps}
       onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -188,7 +192,7 @@ function Input({className, onKeyDown, ...props}: SelectPanelInputProps) {
       {...props}
     />
   )
-}
+})
 Input.displayName = 'SelectPanel.Input'
 
 // --- SelectPanel.List ---

@@ -76,10 +76,9 @@ the tab changes.
 
 ---
 
-## Layer 0: Hooks (consumer-owned state)
+## Utilities — consumer-owned state hooks (outside the layer model)
 
-These live in `@primer/react/hooks/experimental`. They are deliberately decoupled from any
-component tree, so the **same** state can be shared across tabs.
+These live in `@primer/react/hooks/experimental`. They are generic, component-agnostic behaviour hooks — **not a layer** — deliberately decoupled from any component tree, so the **same** state can be shared across tabs.
 
 ### `useSelectionState`
 
@@ -117,11 +116,11 @@ across datasets, no async/cursor pagination.
 
 ---
 
-## Layer 1: Foundations
+## Layer 0 & 1: Foundations
 
-`@primer/react/foundations/experimental` → `useSelectPanel` + unstyled `SelectPanel.*`.
+`@primer/react/foundations/experimental` → the Layer 0 compound hook (`useSelectPanel`) + the Layer 1 unstyled `SelectPanel.*` components that wrap it. Both ship from the `/foundations` entry point.
 
-### `useSelectPanel`
+### Layer 0 — `useSelectPanel` (compound hook)
 
 ```ts
 const panel = useSelectPanel({
@@ -135,14 +134,14 @@ const panel = useSelectPanel({
 
 Returns prop-getters:
 
-| Getter                 | Element | Wires                                                                                                           |
-| ---------------------- | ------- | --------------------------------------------------------------------------------------------------------------- |
-| `getAnchorProps()`     | trigger | `aria-haspopup="dialog"`, `aria-expanded`, `aria-controls`, toggle                                              |
-| `getOverlayProps()`    | popup   | `role="dialog"`, `aria-labelledby`/`aria-label`, ref                                                            |
-| `getTitleProps()`      | title   | `id` (→ dialog `aria-labelledby`)                                                                               |
-| `getInputProps()`      | search  | `role="combobox"`, `aria-expanded`, `aria-controls`, `aria-autocomplete`, `aria-activedescendant`, keyboard nav |
-| `getListProps()`       | list    | `role="listbox"`, `id`, optional `aria-multiselectable`                                                         |
-| `getOptionProps()`     | option  | `role="option"`, `aria-selected`, `aria-disabled`, active marker                                                |
+| Getter              | Element | Wires                                                                                                           |
+| ------------------- | ------- | --------------------------------------------------------------------------------------------------------------- |
+| `getAnchorProps()`  | trigger | `aria-haspopup="dialog"`, `aria-expanded`, `aria-controls`, toggle                                              |
+| `getOverlayProps()` | popup   | `role="dialog"`, `aria-labelledby`/`aria-label`, ref                                                            |
+| `getTitleProps()`   | title   | `id` (→ dialog `aria-labelledby`)                                                                               |
+| `getInputProps()`   | search  | `role="combobox"`, `aria-expanded`, `aria-controls`, `aria-autocomplete`, `aria-activedescendant`, keyboard nav |
+| `getListProps()`    | list    | `role="listbox"`, `id`, optional `aria-multiselectable`                                                         |
+| `getOptionProps()`  | option  | `role="option"`, `aria-selected`, `aria-disabled`, active marker                                                |
 
 Also: `isOpen`, `open()`, `close(gesture)`, `activeDescendantId`.
 
@@ -157,7 +156,7 @@ component, and no dependency on the `Tabs` primitive. A tabbed picker is compose
 consumer: they wrap the listbox in a `tabpanel` and render a tab strip using the generic
 `Tabs` primitive (`useTab` / `useTabList` / `useTabPanel`). See "Composing tabs" below.
 
-### Unstyled components
+### Layer 1 — unstyled components (wrap the L0 hook)
 
 `SelectPanel.Root / .Anchor / .Overlay / .Title / .Input / .List / .Option` — wrap
 the hook, wire ARIA via context, add no visual styling (foundation CSS reset only). `Overlay`
@@ -306,23 +305,23 @@ case.
 
 ### Responsibility matrix
 
-| Requirement                                 | L0 (Hooks)       | L1 (Foundations)          | L2 (Parts)       | L3 (Ready-made)  |
-| ------------------------------------------- | ---------------- | ------------------------- | ---------------- | ---------------- |
-| Popup `role="dialog"` (not listbox)         | Consumer sets    | ✅ Automatic              | ✅ Inherited     | ✅ Inherited     |
-| `aria-labelledby` → title / `aria-label`    | Consumer wires   | ✅ Auto-wired via context | ✅ Inherited     | ✅ From `title`  |
-| Input `role="combobox"` + `aria-controls`   | Consumer sets    | ✅ Automatic              | ✅ Inherited     | ✅ Inherited     |
-| `aria-activedescendant` (tab **or** option) | Consumer manages | ✅ Options (keyboard nav) | ✅ Inherited     | ✅ Inherited     |
-| `tablist` / `tab` / `tabpanel`              | Consumer sets    | Consumer composes `Tabs` | Consumer composes `Tabs` | n/a (no tabs)    |
-| `listbox` scoped to active panel            | Consumer sets    | ✅ Automatic              | ✅ Inherited     | ✅ Inherited     |
-| `option` + `aria-selected`                  | Consumer sets    | ✅ Automatic              | ✅ Inherited     | ✅ From state    |
-| Escape closes                               | Consumer handles | ✅ Automatic              | ✅ Inherited     | ✅ Inherited     |
-| Outside-click closes                        | Consumer handles | ✅ Automatic              | ✅ Inherited     | ✅ Inherited     |
-| Focus returns on close                      | Consumer manages | ✅ Automatic              | ✅ Inherited     | ✅ Inherited     |
-| Arrow-key option navigation                 | Consumer handles | ✅ Automatic              | ✅ Inherited     | ✅ Inherited     |
-| Non-focusable tabpanel / focus-return-to-input | Consumer wires | Consumer composes `Tabs` | Consumer composes `Tabs` | n/a              |
-| Tab roving focus / Home/End                 | Consumer handles | Consumer composes `Tabs` | Consumer composes `Tabs` | n/a              |
-| Anchored positioning / visible surface      | Consumer styles  | ⚠️ Consumer must style    | ✅ Primer tokens | ✅ Primer tokens |
-| Colour contrast                             | Consumer ensures | ⚠️ Consumer must ensure   | ✅ Primer tokens | ✅ Primer tokens |
+| Requirement                                    | L0 (Hooks)       | L1 (Foundations)          | L2 (Parts)               | L3 (Ready-made)  |
+| ---------------------------------------------- | ---------------- | ------------------------- | ------------------------ | ---------------- |
+| Popup `role="dialog"` (not listbox)            | Consumer sets    | ✅ Automatic              | ✅ Inherited             | ✅ Inherited     |
+| `aria-labelledby` → title / `aria-label`       | Consumer wires   | ✅ Auto-wired via context | ✅ Inherited             | ✅ From `title`  |
+| Input `role="combobox"` + `aria-controls`      | Consumer sets    | ✅ Automatic              | ✅ Inherited             | ✅ Inherited     |
+| `aria-activedescendant` (tab **or** option)    | Consumer manages | ✅ Options (keyboard nav) | ✅ Inherited             | ✅ Inherited     |
+| `tablist` / `tab` / `tabpanel`                 | Consumer sets    | Consumer composes `Tabs`  | Consumer composes `Tabs` | n/a (no tabs)    |
+| `listbox` scoped to active panel               | Consumer sets    | ✅ Automatic              | ✅ Inherited             | ✅ Inherited     |
+| `option` + `aria-selected`                     | Consumer sets    | ✅ Automatic              | ✅ Inherited             | ✅ From state    |
+| Escape closes                                  | Consumer handles | ✅ Automatic              | ✅ Inherited             | ✅ Inherited     |
+| Outside-click closes                           | Consumer handles | ✅ Automatic              | ✅ Inherited             | ✅ Inherited     |
+| Focus returns on close                         | Consumer manages | ✅ Automatic              | ✅ Inherited             | ✅ Inherited     |
+| Arrow-key option navigation                    | Consumer handles | ✅ Automatic              | ✅ Inherited             | ✅ Inherited     |
+| Non-focusable tabpanel / focus-return-to-input | Consumer wires   | Consumer composes `Tabs`  | Consumer composes `Tabs` | n/a              |
+| Tab roving focus / Home/End                    | Consumer handles | Consumer composes `Tabs`  | Consumer composes `Tabs` | n/a              |
+| Anchored positioning / visible surface         | Consumer styles  | ⚠️ Consumer must style    | ✅ Primer tokens         | ✅ Primer tokens |
+| Colour contrast                                | Consumer ensures | ⚠️ Consumer must ensure   | ✅ Primer tokens         | ✅ Primer tokens |
 
 ### Keyboard
 

@@ -133,13 +133,11 @@ export const TabbedBranchesAndTags: StoryObj = {
     const [open, setOpen] = useState(false)
     const [activeTab, setActiveTab] = useState('branches')
     const anchorRef = useRef<HTMLButtonElement>(null)
-    const rootRef = useRef<HTMLDivElement>(null)
+    const inputRef = useRef<HTMLInputElement>(null)
 
     // Return focus to the shared search input so the user never gets trapped in
     // the (non-focusable) panel after switching tabs.
-    const focusInput = () => {
-      rootRef.current?.querySelector<HTMLInputElement>('[role="combobox"]')?.focus()
-    }
+    const focusInput = () => inputRef.current?.focus()
 
     // One shared search query and one selection model, both owned by the consumer
     // and shared across the two tabs.
@@ -153,19 +151,14 @@ export const TabbedBranchesAndTags: StoryObj = {
     const selectedName = useMemo(() => nameOf([...selection.selectedKeys][0]) ?? 'main', [selection.selectedKeys])
 
     return (
-      <SelectPanel.Root
-        ref={rootRef}
-        open={open}
-        onOpenChange={setOpen}
-        selectionVariant="single"
-        returnFocusRef={anchorRef}
-      >
+      <SelectPanel.Root open={open} onOpenChange={setOpen} selectionVariant="single" returnFocusRef={anchorRef}>
         <SelectPanel.Anchor ref={anchorRef}>Switch ref: {selectedName}</SelectPanel.Anchor>
 
         <SelectPanel.Overlay>
           <SelectPanel.Header>
             <SelectPanel.Title>Switch branches/tags</SelectPanel.Title>
             <SelectPanel.Input
+              ref={inputRef}
               autoFocus
               aria-label="Filter branches and tags"
               placeholder="Filter branches and tags"
@@ -218,11 +211,9 @@ export const MultiSelectAcrossTabs: StoryObj = {
     const [open, setOpen] = useState(false)
     const [activeTab, setActiveTab] = useState('branches')
     const anchorRef = useRef<HTMLButtonElement>(null)
-    const rootRef = useRef<HTMLDivElement>(null)
+    const inputRef = useRef<HTMLInputElement>(null)
 
-    const focusInput = () => {
-      rootRef.current?.querySelector<HTMLInputElement>('[role="combobox"]')?.focus()
-    }
+    const focusInput = () => inputRef.current?.focus()
 
     const filter = useFilter()
     const selection = useSelectionState({selectionVariant: 'multiple'})
@@ -237,19 +228,14 @@ export const MultiSelectAcrossTabs: StoryObj = {
     )
 
     return (
-      <SelectPanel.Root
-        ref={rootRef}
-        open={open}
-        onOpenChange={setOpen}
-        selectionVariant="multiple"
-        returnFocusRef={anchorRef}
-      >
+      <SelectPanel.Root open={open} onOpenChange={setOpen} selectionVariant="multiple" returnFocusRef={anchorRef}>
         <SelectPanel.Anchor ref={anchorRef}>Refs selected: {selection.selectedKeys.size}</SelectPanel.Anchor>
 
         <SelectPanel.Overlay>
           <SelectPanel.Header>
             <SelectPanel.Title>Select branches/tags</SelectPanel.Title>
             <SelectPanel.Input
+              ref={inputRef}
               autoFocus
               aria-label="Filter branches and tags"
               placeholder="Filter branches and tags"
