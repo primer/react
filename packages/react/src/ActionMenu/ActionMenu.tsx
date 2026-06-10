@@ -350,7 +350,6 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
       anchorRef={anchorRef}
       renderAnchor={renderAnchor}
       anchorId={anchorId}
-      anchorProps={{'data-component': 'ActionMenu.Button'}}
       open={open}
       onOpen={onOpen}
       onClose={handleClose}

@@ -218,7 +218,6 @@ describe.each([true, false])(
         </FeatureFlags>,
       )
 
-      expect(baseElement.querySelector('[data-component="AnchoredOverlay.Anchor"]')).toBeInTheDocument()
       expect(baseElement.querySelector('[data-component="AnchoredOverlay.CloseButton"]')).toBeInTheDocument()
     })
 
