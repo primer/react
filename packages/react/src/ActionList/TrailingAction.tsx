@@ -59,6 +59,7 @@ export const TrailingAction = forwardRef(
             href={href}
             loading={loading}
             data-loading={Boolean(loading)}
+            data-has-label="true"
             ref={forwardedRef}
             className={classes.TrailingActionButton}
             {...props}

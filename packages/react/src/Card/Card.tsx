@@ -23,6 +23,13 @@ export type CardProps<As extends CardAs = 'div'> = PolymorphicProps<
     borderRadius?: 'medium' | 'large'
 
     /**
+     * Layout of the card. `compact` uses tighter spacing, removes the icon
+     * background container, and renders a smaller title.
+     * @default 'default'
+     */
+    layout?: 'default' | 'compact'
+
+    /**
      * Card contents. Provide either `Card.*` subcomponents (e.g. `Card.Heading`,
      * `Card.Description`, `Card.Metadata`) or custom content.
      */
@@ -93,6 +100,7 @@ function CardComponent<As extends CardAs>(
     className,
     padding = 'normal',
     borderRadius = 'large',
+    layout = 'default',
     as = 'div',
     ...rest
   } = props as CardProps<CardAs>
@@ -149,6 +157,7 @@ function CardComponent<As extends CardAs>(
           data-component="Card"
           data-padding={padding}
           data-border-radius={borderRadius}
+          data-layout={layout}
           {...rest}
         >
           {children}
@@ -165,6 +174,7 @@ function CardComponent<As extends CardAs>(
         data-component="Card"
         data-padding={padding}
         data-border-radius={borderRadius}
+        data-layout={layout}
         {...rest}
       >
         {(image || icon) && (

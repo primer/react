@@ -79,6 +79,7 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
   // eslint-disable-next-line react-hooks/refs
   if (!elementRef.current) {
     const div = document.createElement('div')
+    div.setAttribute('data-component', 'Portal')
     // Portaled content should get their own stacking context so they don't interfere
     // with each other in unexpected ways. One should never find themselves tempted
     // to change the zIndex to a value other than "1".

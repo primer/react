@@ -1,7 +1,7 @@
 import type {Meta} from '@storybook/react-vite'
 import type {ComponentProps} from '../utils/types'
+import {FeatureFlags} from '../FeatureFlags'
 import Timeline from './Timeline'
-import Octicon from '../Octicon'
 import {
   CheckIcon,
   CrossReferenceIcon,
@@ -20,11 +20,13 @@ import {
   XIcon,
 } from '@primer/octicons-react'
 import Link from '../Link'
+import RelativeTime from '../RelativeTime'
 import {Button} from '../Button'
 import Label from '../Label'
 import StateLabel from '../StateLabel'
 import Avatar from '../Avatar'
 import BranchName from '../BranchName'
+import Octicon from '../Octicon'
 import classes from './Timeline.features.stories.module.css'
 
 export default {
@@ -44,13 +46,13 @@ export const ClipSidebar = () => (
   <Timeline clipSidebar>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} aria-label="Commit" />
+        <GitCommitIcon aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} aria-label="Commit" />
+        <GitCommitIcon aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
@@ -61,13 +63,13 @@ export const ClipSidebarStart = () => (
   <Timeline clipSidebar="start">
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} aria-label="Commit" />
+        <GitCommitIcon aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} aria-label="Commit" />
+        <GitCommitIcon aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
@@ -78,13 +80,13 @@ export const ClipSidebarEnd = () => (
   <Timeline clipSidebar="end">
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} aria-label="Commit" />
+        <GitCommitIcon aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} aria-label="Commit" />
+        <GitCommitIcon aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
@@ -95,26 +97,26 @@ export const CondensedItems = () => (
   <Timeline>
     <Timeline.Item condensed>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} aria-label="Commit" />
+        <GitCommitIcon aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item condensed>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} aria-label="Commit" />
+        <GitCommitIcon aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
     <Timeline.Break />
     <Timeline.Item condensed>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} aria-label="Commit" />
+        <GitCommitIcon aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item condensed>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} aria-label="Commit" />
+        <GitCommitIcon aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
@@ -125,14 +127,14 @@ export const TimelineBreak = () => (
   <Timeline>
     <Timeline.Item>
       <Timeline.Badge variant="done">
-        <Octicon icon={GitMergeIcon} aria-label="Merged" />
+        <GitMergeIcon aria-label="Merged" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
     <Timeline.Break />
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitBranchIcon} aria-label="Branch" />
+        <GitBranchIcon aria-label="Branch" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
@@ -143,55 +145,55 @@ export const BadgeVariants = () => (
   <Timeline>
     <Timeline.Item>
       <Timeline.Badge variant="accent">
-        <Octicon icon={GitPullRequestIcon} aria-label="Pull request" />
+        <GitPullRequestIcon aria-label="Pull request" />
       </Timeline.Badge>
       <Timeline.Body>Accent</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item>
       <Timeline.Badge variant="success">
-        <Octicon icon={IssueClosedIcon} aria-label="Closed" />
+        <IssueClosedIcon aria-label="Closed" />
       </Timeline.Badge>
       <Timeline.Body>Success</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item>
       <Timeline.Badge variant="attention">
-        <Octicon icon={FlameIcon} aria-label="Attention" />
+        <FlameIcon aria-label="Attention" />
       </Timeline.Badge>
       <Timeline.Body>Attention</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item>
       <Timeline.Badge variant="severe">
-        <Octicon icon={SkipIcon} aria-label="Severe" />
+        <SkipIcon aria-label="Severe" />
       </Timeline.Badge>
       <Timeline.Body>Severe</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item>
       <Timeline.Badge variant="danger">
-        <Octicon icon={XIcon} aria-label="Danger" />
+        <XIcon aria-label="Danger" />
       </Timeline.Badge>
       <Timeline.Body>Danger</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item>
       <Timeline.Badge variant="done">
-        <Octicon icon={GitMergeIcon} aria-label="Merged" />
+        <GitMergeIcon aria-label="Merged" />
       </Timeline.Badge>
       <Timeline.Body>Done</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item>
       <Timeline.Badge variant="open">
-        <Octicon icon={IssueOpenedIcon} aria-label="Open" />
+        <IssueOpenedIcon aria-label="Open" />
       </Timeline.Badge>
       <Timeline.Body>Open</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item>
       <Timeline.Badge variant="closed">
-        <Octicon icon={IssueClosedIcon} aria-label="Closed" />
+        <IssueClosedIcon aria-label="Closed" />
       </Timeline.Badge>
       <Timeline.Body>Closed</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item>
       <Timeline.Badge variant="sponsors">
-        <Octicon icon={HeartIcon} aria-label="Sponsors" />
+        <HeartIcon aria-label="Sponsors" />
       </Timeline.Badge>
       <Timeline.Body>Sponsors</Timeline.Body>
     </Timeline.Item>
@@ -202,7 +204,7 @@ export const WithInlineLinks = () => (
   <Timeline>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} aria-label="Commit" />
+        <GitCommitIcon aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>
         <Link href="#" className={classes.LinkWithBoldStyle} muted>
@@ -346,31 +348,57 @@ export const WithActions = () => (
 )
 
 export const WithAvatar = () => (
-  <div className={classes.AvatarGutter}>
+  <div
+    className={`${classes.RealisticTimeline} ${classes.AvatarGutter}`}
+    onClick={e => {
+      if ((e.target as HTMLElement).closest('a')) e.preventDefault()
+    }}
+  >
     <Timeline>
       <Timeline.Item>
         <Timeline.Avatar>
           <Avatar size={40} src="https://avatars.githubusercontent.com/u/92997159?v=4" alt="" />
         </Timeline.Avatar>
-        <Timeline.Badge>
-          <Octicon icon={GitCommitIcon} aria-label="Commit" />
+        <Timeline.Badge variant="done">
+          <Octicon icon={CheckIcon} aria-label="Approved" />
         </Timeline.Badge>
         <Timeline.Body>
           <Link href="#" className={classes.LinkWithBoldStyle} muted>
-            Monalisa
+            monalisa
           </Link>
-          opened this pull request
+          {'approved these changes '}
+          <RelativeTime date={new Date()} format="relative" />
         </Timeline.Body>
-      </Timeline.Item>
-      <Timeline.Item condensed>
-        <Timeline.Avatar>
-          <Avatar size={16} src="https://avatars.githubusercontent.com/u/92997159?v=4" alt="" />
-        </Timeline.Avatar>
-        <Timeline.Badge>
-          <Octicon icon={GitCommitIcon} aria-label="Commit" />
-        </Timeline.Badge>
-        <Timeline.Body>Monalisa pushed a commit</Timeline.Body>
+        <Timeline.Actions>
+          <Button size="small">View reviewed changes</Button>
+        </Timeline.Actions>
       </Timeline.Item>
     </Timeline>
   </div>
+)
+
+export const WithListSemantics = () => (
+  <FeatureFlags flags={{primer_react_timeline_list_semantics: true}}>
+    <Timeline>
+      <Timeline.Item>
+        <Timeline.Badge>
+          <GitCommitIcon aria-label="Commit" />
+        </Timeline.Badge>
+        <Timeline.Body>Opted in: Timeline renders as an ordered list with list items.</Timeline.Body>
+      </Timeline.Item>
+      <Timeline.Item>
+        <Timeline.Badge>
+          <GitCommitIcon aria-label="Commit" />
+        </Timeline.Badge>
+        <Timeline.Body>Each Timeline.Item renders as a li.</Timeline.Body>
+      </Timeline.Item>
+      <Timeline.Break />
+      <Timeline.Item>
+        <Timeline.Badge>
+          <GitCommitIcon aria-label="Commit" />
+        </Timeline.Badge>
+        <Timeline.Body>Timeline.Break renders as a presentational li.</Timeline.Body>
+      </Timeline.Item>
+    </Timeline>
+  </FeatureFlags>
 )
