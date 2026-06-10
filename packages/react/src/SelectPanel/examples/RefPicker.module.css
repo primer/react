@@ -2,7 +2,8 @@
   display: flex;
   gap: var(--stack-gap-condensed, 0.5rem);
   padding-inline: var(--base-size-4, var(--base-size-4));
-  border-bottom: var(--borderWidth-thin, var(--borderWidth-thin)) solid var(--borderColor-muted, var(--borderColor-default));
+  border-bottom: var(--borderWidth-thin, var(--borderWidth-thin)) solid
+    var(--borderColor-muted, var(--borderColor-default));
 }
 
 .Tab {
