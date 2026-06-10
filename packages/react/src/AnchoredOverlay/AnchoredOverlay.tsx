@@ -150,7 +150,6 @@ const defaultCloseButtonProps: Partial<IconButtonProps> = {}
  */
 export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayProps>> = ({
   renderAnchor,
-  anchorProps,
   anchorRef: externalAnchorRef,
   anchorId: externalAnchorId,
   children,
@@ -373,7 +372,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       {renderAnchor &&
         // eslint-disable-next-line react-hooks/refs
         renderAnchor({
-          ...(anchorProps ?? {}),
           ref: anchorRef,
           id: anchorId,
           'aria-haspopup': 'true',
