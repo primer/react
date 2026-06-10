@@ -765,13 +765,13 @@ export const <Component> = React.forwardRef<HTML<Element>Element, <Component>Pro
 
 ## Naming conventions summary
 
-| Layer                       | Convention          | Example                         |
-| --------------------------- | ------------------- | ------------------------------- |
-| Utilities (outside model)   | `use<Behaviour>`    | `useScrollLock`, `useFilter`    |
-| 0 — Compound hook           | `use<Component>`    | `useDialog`, `useSelectPanel`   |
-| 1 — Foundations (unstyled)  | naming TBD (see open question) | unstyled `Dialog.*`     |
-| 2 — Parts                   | `<Component><Part>` | `DialogRoot`, `DialogHeader`    |
-| 3 — Ready-made              | `<Component>`       | `Dialog`                        |
+| Layer                      | Convention                     | Example                       |
+| -------------------------- | ------------------------------ | ----------------------------- |
+| Utilities (outside model)  | `use<Behaviour>`               | `useScrollLock`, `useFilter`  |
+| 0 — Compound hook          | `use<Component>`               | `useDialog`, `useSelectPanel` |
+| 1 — Foundations (unstyled) | naming TBD (see open question) | unstyled `Dialog.*`           |
+| 2 — Parts                  | `<Component><Part>`            | `DialogRoot`, `DialogHeader`  |
+| 3 — Ready-made             | `<Component>`                  | `Dialog`                      |
 
 ## Source folder structure
 
