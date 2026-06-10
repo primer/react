@@ -125,12 +125,17 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
    */
   renderAs?: 'portal' | 'popover'
   /**
-   * Settings for native CSS anchor positioning.
+   * Settings for CSS anchor positioning behavior when CSS anchor positioning is active.
    *
-   * - `disable`: When `true`, opts this overlay out of native CSS anchor positioning (and the Popover API)
+   * `fallbackStrategy` controls CSS fallback behavior:
+   * - `"default"`: use built-in CSS fallback rules.
+   * - `"none"`: keep the requested side with no CSS fallbacks.
+   * - `"opposite-side"`: only allow fallback to the opposite side.
+   *
+   * `disable`: When `true`, opts this overlay out of native CSS anchor positioning (and the Popover API)
    *   even if `primer_react_css_anchor_positioning` is enabled and the browser supports it.
    */
-  cssAnchorPositioningSettings?: {disable?: boolean}
+  cssAnchorPositioningSettings?: {fallbackStrategy?: 'default' | 'none' | 'opposite-side'; disable?: boolean}
 }
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
@@ -312,6 +317,17 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     if (open && currentOverlay) {
       currentOverlay.style.setProperty('position-anchor', resolvedAnchorName)
 
+      const positionTryFallbacks = getCSSAnchorPositionTryFallbacks(
+        side,
+        cssAnchorPositioningSettings?.fallbackStrategy ?? 'default',
+      )
+
+      if (positionTryFallbacks) {
+        currentOverlay.style.setProperty('position-try-fallbacks', positionTryFallbacks)
+      } else {
+        currentOverlay.style.removeProperty('position-try-fallbacks')
+      }
+
       // Defer the getBoundingClientRect read into a `requestAnimationFrame` so the style write above
       // does not force a synchronous layout.
       pendingPositionFrame = requestAnimationFrame(() => {
@@ -355,11 +371,22 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       // The overlay may no longer be in the DOM at this point, so we need to check for its presence before trying to update it.
       if (currentOverlay) {
         currentOverlay.style.removeProperty('position-anchor')
+        currentOverlay.style.removeProperty('position-try-fallbacks')
       }
     }
     // overlayRef is a stable ref object; including it in deps is unnecessary.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cssAnchorPositioning, shouldRenderAsPopover, open, anchorElement, overlayElement, id, width])
+  }, [
+    cssAnchorPositioning,
+    shouldRenderAsPopover,
+    open,
+    anchorElement,
+    overlayElement,
+    id,
+    width,
+    side,
+    cssAnchorPositioningSettings?.fallbackStrategy,
+  ])
 
   const showXIcon = onClose && variant.narrow === 'fullscreen' && displayCloseButton
   const XButtonAriaLabelledBy = closeButtonProps['aria-labelledby']
@@ -483,6 +510,36 @@ function getDefaultPosition(
   }
 
   return {horizontal, leftOffset, rightOffset, suggestedSide}
+}
+
+function getCSSAnchorPositionTryFallbacks(
+  side: PositionSettings['side'],
+  strategy: 'default' | 'none' | 'opposite-side',
+): string | undefined {
+  // Disable all CSS fallbacks (including those defined in the stylesheet).
+  if (strategy === 'none') return 'none'
+
+  // Restrict fallbacks to flipping to the opposite side along the relevant axis.
+  if (strategy === 'opposite-side') {
+    switch (side) {
+      case 'outside-top':
+      case 'outside-bottom':
+      case 'inside-top':
+      case 'inside-bottom':
+        return 'flip-block'
+      case 'outside-left':
+      case 'outside-right':
+      case 'inside-left':
+      case 'inside-right':
+        return 'flip-inline'
+      default:
+        return undefined
+    }
+  }
+
+  // 'default': don't write an inline `position-try-fallbacks`, so the
+  // stylesheet-defined fallback list on `.AnchoredOverlay` takes effect.
+  return undefined
 }
 
 function assignRef<T>(
