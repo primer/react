@@ -2,18 +2,18 @@
   .List {
     list-style: none;
     padding: 0;
+    display: grid;
+    grid-template-areas:
+      'leading label inline trailing'
+      '.       block block  .';
+    grid-template-columns: auto auto 1fr auto;
+    grid-template-rows: auto auto;
+    column-gap: var(--control-medium-gap);
+    row-gap: var(--base-size-4);
   }
 
   .Item {
-    /* label */
-    color: var(--fgColor-default);
-    font-size: var(--text-body-size-medium);
-    font-weight: var(--base-text-weight-normal);
-    grid-area: label;
-    line-height: 20px;
-    position: relative;
-    word-break: break-word;
-    /* label */
+    --item-fgColor: var(--fgColor-default);
 
     padding-block: var(--control-medium-paddingBlock);
     padding-inline: var(--control-medium-paddingInline-condensed);
@@ -21,16 +21,89 @@
     transition: background 33.333ms linear;
     width: 100%;
     user-select: none;
-
-    /* display: grid; */
-    /* grid-template-areas: */
-    /*   'leadingVisual label   trailingVisual' */
-    /*   '.             content .'; */
+    color: var(--item-fgColor);
+    background-color: var(--item-bgColor);
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-template-rows: subgrid;
+    align-items: center;
+    grid-column: 1 / -1;
+    grid-row: span 2;
+    cursor: pointer;
 
     @media (hover: hover) {
       &:hover {
-        background-color: var(--control-transparent-bgColor-hover);
+        --item-bgColor: var(--control-transparent-bgColor-hover);
       }
     }
+
+    &[data-disabled],
+    &[disabled] {
+      --item-fgColor: var(--control-fgColor-disabled);
+    }
+  }
+
+  .Item[data-variant='danger'] {
+    --item-fgColor: var(--control-danger-fgColor-rest);
+
+    @media (hover: hover) {
+      &:hover {
+        --item-bgColor: var(--control-danger-bgColor-hover);
+      }
+    }
+  }
+
+  .List[data-dividers] .Item::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: var(--borderColor-muted);
+  }
+
+  .Label {
+    font-size: var(--text-body-size-medium);
+    font-weight: var(--base-text-weight-normal);
+    grid-area: label;
+    line-height: 20px;
+    position: relative;
+    word-break: break-word;
+    grid-area: label;
+  }
+
+  .Description {
+    color: var(--fgColor-muted);
+    font-size: var(--text-body-size-small);
+    font-weight: var(--base-text-weight-normal);
+    line-height: calc(16 / 12);
+    grid-area: var(--description-grid-area);
+  }
+
+  .List[data-layout='block'] .Description {
+    --description-grid-area: block;
+    grid-row-start: 2;
+  }
+
+  .List[data-layout='inline'] .Description {
+    --description-grid-area: inline;
+  }
+
+  .GroupHeading {
+    align-self: flex-start;
+    color: var(--fgColor-muted);
+    font-size: var(--text-body-size-small);
+    font-weight: var(--base-text-weight-semibold);
+    margin: 0;
+  }
+
+  .Divider {
+    background: var(--borderColor-muted);
+    border: 0;
+    display: block;
+    height: var(--borderWidth-thin);
+    list-style: none;
+    margin-block-end: var(--base-size-8);
+    margin-block-start: calc(var(--base-size-8) - var(--borderWidth-thin));
+    padding: 0;
   }
 }
