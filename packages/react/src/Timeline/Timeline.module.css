@@ -1,6 +1,9 @@
 .Timeline {
   display: flex;
   flex-direction: column;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 
   &:where([data-clip-sidebar='start']),
   &:where([data-clip-sidebar='both']) {

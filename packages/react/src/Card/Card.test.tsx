@@ -277,4 +277,32 @@ describe('Card', () => {
     )
     expect(container.firstChild).not.toHaveAttribute('as')
   })
+
+  it('should set data-layout to default by default', () => {
+    const {container} = render(
+      <Card>
+        <Card.Heading>Default Variant</Card.Heading>
+      </Card>,
+    )
+    expect(container.firstChild).toHaveAttribute('data-layout', 'default')
+  })
+
+  it('should set data-layout to compact when layout="compact"', () => {
+    const {container} = render(
+      <Card layout="compact">
+        <Card.Icon icon={TestIcon} />
+        <Card.Heading>Compact Card</Card.Heading>
+      </Card>,
+    )
+    expect(container.firstChild).toHaveAttribute('data-layout', 'compact')
+  })
+
+  it('should set data-layout on custom content cards', () => {
+    const {container} = render(
+      <Card layout="compact">
+        <p>Custom</p>
+      </Card>,
+    )
+    expect(container.firstChild).toHaveAttribute('data-layout', 'compact')
+  })
 })
