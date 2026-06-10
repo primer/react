@@ -61,14 +61,6 @@ export type AnchoredOverlayWrapperAnchorProps =
 
 interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'> {
   /**
-   * Props that will be merged into the props passed to `renderAnchor`.
-   * Useful for overriding the anchor `data-component` in composite components.
-   */
-  anchorProps?: Omit<React.HTMLAttributes<HTMLElement>, 'aria-label' | 'aria-labelledby'> & {
-    'data-component'?: string
-  }
-
-  /**
    * Determines whether the overlay portion of the component should be shown or not
    */
   open: boolean
