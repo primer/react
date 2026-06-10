@@ -124,6 +124,13 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
    * and the browser supports native CSS anchor positioning. Has no effect otherwise. Defaults to `"portal"`.
    */
   renderAs?: 'portal' | 'popover'
+  /**
+   * Settings for native CSS anchor positioning.
+   *
+   * - `disable`: When `true`, opts this overlay out of native CSS anchor positioning (and the Popover API)
+   *   even if `primer_react_css_anchor_positioning` is enabled and the browser supports it.
+   */
+  cssAnchorPositioningSettings?: {disable?: boolean}
 }
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
@@ -167,6 +174,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   displayCloseButton = true,
   closeButtonProps = defaultCloseButtonProps,
   renderAs = 'portal',
+  cssAnchorPositioningSettings,
 }) => {
   const cssAnchorPositioningFlag = useFeatureFlag('primer_react_css_anchor_positioning')
   // Lazy initial state so feature detection runs once per mount on the client.
@@ -180,7 +188,10 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   )
 
   const cssAnchorPositioning =
-    cssAnchorPositioningFlag && supportsNativeCSSAnchorPositioning && !overlayProps?.portalContainerName
+    cssAnchorPositioningFlag &&
+    supportsNativeCSSAnchorPositioning &&
+    !overlayProps?.portalContainerName &&
+    !cssAnchorPositioningSettings?.disable
   // Only use Popover API when both CSS anchor positioning is enabled AND renderAs is true
   const shouldRenderAsPopover = cssAnchorPositioning && renderAs === 'popover'
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
