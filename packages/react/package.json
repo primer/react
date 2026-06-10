@@ -14,6 +14,14 @@
       "types": "./dist/experimental/index.d.ts",
       "default": "./dist/experimental/index.js"
     },
+    "./foundations/experimental": {
+      "types": "./dist/foundations/experimental/index.d.ts",
+      "default": "./dist/foundations/experimental/index.js"
+    },
+    "./hooks/experimental": {
+      "types": "./dist/hooks/experimental/index.d.ts",
+      "default": "./dist/hooks/experimental/index.js"
+    },
     "./deprecated": {
       "types": "./dist/deprecated/index.d.ts",
       "default": "./dist/deprecated/index.js"
