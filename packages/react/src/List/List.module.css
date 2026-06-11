@@ -91,6 +91,7 @@
 
   .List[data-layout='block'] .Description {
     --description-grid-area: block;
+
     grid-row-start: 3;
     margin-block-start: var(--List-row-gap);
   }
