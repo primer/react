@@ -41,6 +41,7 @@
     &[data-disabled],
     &[disabled] {
       --Item-fgColor: var(--control-fgColor-disabled);
+
       cursor: not-allowed;
     }
   }
@@ -74,7 +75,6 @@
   .Label {
     font-size: var(--text-body-size-medium);
     font-weight: var(--base-text-weight-normal);
-    grid-area: label;
     line-height: calc(20 / 14);
     position: relative;
     word-break: break-word;
@@ -98,6 +98,7 @@
 
   .List[data-layout='inline'] .Description {
     --description-grid-area: inline;
+
     margin-inline-start: var(--List-column-gap);
   }
 

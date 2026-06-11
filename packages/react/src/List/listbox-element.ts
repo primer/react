@@ -164,7 +164,7 @@ function findOption(walker: TreeWalker, predicate: (option: OptionElement) => bo
 }
 
 function getNextOption(walker: TreeWalker): OptionElement | null {
-  let nextNode = walker.nextNode()
+  const nextNode = walker.nextNode()
   if (nextNode instanceof OptionElement) {
     return nextNode
   }
@@ -174,7 +174,7 @@ function getNextOption(walker: TreeWalker): OptionElement | null {
 }
 
 function getPreviousOption(walker: TreeWalker): OptionElement | null {
-  let previousNode = walker.previousNode()
+  const previousNode = walker.previousNode()
   if (previousNode instanceof OptionElement) {
     return previousNode
   }
