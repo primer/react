@@ -5,6 +5,7 @@ import {ActionList} from '.'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {implementsClassName} from '../utils/testing'
 import classes from './ActionList.module.css'
+import {FeatureFlags} from '../FeatureFlags'
 
 describe('ActionList', () => {
   implementsClassName(ActionList, classes.ActionList)
@@ -579,5 +580,29 @@ describe('ActionList with role="tree"', () => {
 
     expect(container.querySelector('[data-component="ActionList.LeadingVisual"]')).toBeInTheDocument()
     expect(container.querySelector('[data-component="ActionList.TrailingVisual"]')).toBeInTheDocument()
+  })
+
+  it('does not set data-item-gap by default', () => {
+    const {container} = HTMLRender(
+      <ActionList aria-label="Links">
+        <ActionList.LinkItem href="#">Home</ActionList.LinkItem>
+        <ActionList.LinkItem href="#">About</ActionList.LinkItem>
+      </ActionList>,
+    )
+
+    expect(container.querySelector('[data-component="ActionList"]')).not.toHaveAttribute('data-item-gap')
+  })
+
+  it('sets data-item-gap when the primer_react_action_list_item_gap feature flag is enabled', () => {
+    const {container} = HTMLRender(
+      <FeatureFlags flags={{primer_react_action_list_item_gap: true}}>
+        <ActionList aria-label="Links">
+          <ActionList.LinkItem href="#">Home</ActionList.LinkItem>
+          <ActionList.LinkItem href="#">About</ActionList.LinkItem>
+        </ActionList>
+      </FeatureFlags>,
+    )
+
+    expect(container.querySelector('[data-component="ActionList"]')).toHaveAttribute('data-item-gap', '')
   })
 })
