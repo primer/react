@@ -33,7 +33,9 @@
   "sideEffects": [
     "dist/**/*.css",
     "src/**/test-helpers.tsx",
-    "dist/**/test-helpers.js"
+    "dist/**/test-helpers.js",
+    "src/BaseDialog/polyfill.ts",
+    "dist/BaseDialog/polyfill.js"
   ],
   "scripts": {
     "build": "./script/build",
@@ -90,6 +92,7 @@
     "focus-visible": "^5.2.1",
     "history": "^5.0.0",
     "hsluv": "1.0.1",
+    "invokers-polyfill": "^1.0.3",
     "lodash.isempty": "^4.4.0",
     "lodash.isobject": "^3.0.2",
     "react-compiler-runtime": "^1.0.0",
