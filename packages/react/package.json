@@ -133,7 +133,7 @@
     "@types/react": "18.3.11",
     "@types/react-dom": "18.3.1",
     "@types/react-is": "18.3.1",
-    "@vitejs/plugin-react": "^4.3.3",
+    "@vitejs/plugin-react": "^6.0.2",
     "afterframe": "^1.0.2",
     "ajv": "8.18.0",
     "axe-core": "4.9.1",
