@@ -1715,3 +1715,102 @@ export const WithNetworkError = () => {
     </Table.Container>
   )
 }
+
+export const WithFiltering = () => (
+  <Table.Container>
+    <Table.Title as="h2" id="repositories">
+      Repositories
+    </Table.Title>
+    <Table.Subtitle as="p" id="repositories-subtitle">
+      Type into any column header to filter rows. Filtering is case-insensitive.
+    </Table.Subtitle>
+    <DataTable
+      aria-labelledby="repositories"
+      aria-describedby="repositories-subtitle"
+      data={data}
+      columns={[
+        {
+          header: 'Repository',
+          field: 'name',
+          rowHeader: true,
+          filterBy: true,
+          sortBy: 'alphanumeric',
+        },
+        {
+          header: 'Type',
+          field: 'type',
+          filterBy: 'startsWith',
+        },
+        {
+          header: 'Updated',
+          field: 'updatedAt',
+          renderCell: row => <RelativeTime date={new Date(row.updatedAt)} />,
+        },
+      ]}
+      filterable
+    />
+  </Table.Container>
+)
+
+export const WithControlledFilters = () => {
+  const [filters, setFilters] = React.useState<Record<string, string>>({type: 'p'})
+
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="repositories">
+        Repositories
+      </Table.Title>
+      <Table.Subtitle as="p" id="repositories-subtitle">
+        Filter values are owned by the parent component. The starting value for `Type` is &quot;p&quot;.
+      </Table.Subtitle>
+      <DataTable
+        aria-labelledby="repositories"
+        aria-describedby="repositories-subtitle"
+        data={data}
+        columns={[
+          {header: 'Repository', field: 'name', rowHeader: true, filterBy: true},
+          {header: 'Type', field: 'type', filterBy: 'startsWith'},
+        ]}
+        filterable
+        filters={filters}
+        onFilterChange={next => {
+          action('onFilterChange')(next)
+          setFilters(next)
+        }}
+      />
+    </Table.Container>
+  )
+}
+
+export const WithCustomFilter = () => (
+  <Table.Container>
+    <Table.Title as="h2" id="repositories">
+      Repositories
+    </Table.Title>
+    <Table.Subtitle as="p" id="repositories-subtitle">
+      The `Repository` column uses a regex-based custom filter strategy. Try typing &quot;^codeql&quot;.
+    </Table.Subtitle>
+    <DataTable
+      aria-labelledby="repositories"
+      aria-describedby="repositories-subtitle"
+      data={data}
+      columns={[
+        {
+          header: 'Repository',
+          field: 'name',
+          rowHeader: true,
+          filterBy: (value, query) => {
+            try {
+              return new RegExp(query, 'i').test(String(value ?? ''))
+            } catch {
+              return true
+            }
+          },
+        },
+        {header: 'Type', field: 'type', filterBy: 'startsWith'},
+      ]}
+      filterable
+      filterPlaceholder="Regex"
+    />
+  </Table.Container>
+)
