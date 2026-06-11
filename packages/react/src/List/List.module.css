@@ -1,21 +1,16 @@
 @layer primer.components.List {
   .List {
-    --list-column-gap: var(--control-medium-gap);
-    --list-row-gap: var(--base-size-4);
+    --List-column-gap: var(--control-medium-gap);
+    --List-row-gap: var(--base-size-4);
 
     list-style: none;
     padding: 0;
     display: grid;
-    /* grid-template-areas: */
-    /*   'leading label   inline  trailing' */
-    /*   '.       block   block   .       ' */
-    /*   '.       divider divider divider'; */
     grid-template-columns: min-content auto 1fr min-content;
-    /* grid-template-rows: auto auto auto; */
   }
 
   .Item {
-    --item-fgColor: var(--fgColor-default);
+    --Item-fgColor: var(--fgColor-default);
 
     padding-block: var(--control-medium-paddingBlock);
     padding-inline: var(--control-medium-paddingInline-condensed);
@@ -23,15 +18,14 @@
     transition: background 33.333ms linear;
     width: 100%;
     user-select: none;
-    color: var(--item-fgColor);
-    background-color: var(--item-bgColor);
+    color: var(--Item-fgColor);
+    background-color: var(--Item-bgColor);
     display: grid;
     grid-template-columns: subgrid;
     grid-template-areas:
       '.       divider divider divider'
       'leading label   inline  trailing'
       '.       block   block   .       ';
-    /* grid-template-rows: subgrid; */
     align-items: center;
     grid-column: 1 / -1;
     grid-row: span 3;
@@ -39,22 +33,24 @@
 
     @media (hover: hover) {
       &:hover {
-        --item-bgColor: var(--control-transparent-bgColor-hover);
+        --Item-bgColor: var(--control-transparent-bgColor-hover);
       }
     }
 
+    &[aria-disabled='true'],
     &[data-disabled],
     &[disabled] {
-      --item-fgColor: var(--control-fgColor-disabled);
+      --Item-fgColor: var(--control-fgColor-disabled);
+      cursor: not-allowed;
     }
   }
 
   .Item[data-variant='danger'] {
-    --item-fgColor: var(--control-danger-fgColor-rest);
+    --Item-fgColor: var(--control-danger-fgColor-rest);
 
     @media (hover: hover) {
       &:hover {
-        --item-bgColor: var(--control-danger-bgColor-hover);
+        --Item-bgColor: var(--control-danger-bgColor-hover);
       }
     }
   }
@@ -72,14 +68,14 @@
 
   .List[data-dividers] .Item:not(:first-of-type):hover::before,
   .List[data-dividers] .Item:hover + .Item::before {
-    background-color: var(--item-bgColor);
+    background-color: var(--Item-bgColor);
   }
 
   .Label {
     font-size: var(--text-body-size-medium);
     font-weight: var(--base-text-weight-normal);
     grid-area: label;
-    line-height: 20px;
+    line-height: calc(20 / 14);
     position: relative;
     word-break: break-word;
     grid-area: label;
@@ -96,12 +92,12 @@
   .List[data-layout='block'] .Description {
     --description-grid-area: block;
     grid-row-start: 3;
-    margin-block-start: var(--list-row-gap);
+    margin-block-start: var(--List-row-gap);
   }
 
   .List[data-layout='inline'] .Description {
     --description-grid-area: inline;
-    margin-inline-start: var(--list-column-gap);
+    margin-inline-start: var(--List-column-gap);
   }
 
   .GroupHeading {
@@ -124,12 +120,18 @@
   }
 
   .Leading {
-    margin-inline-end: var(--list-column-gap);
+    margin-inline-end: var(--List-column-gap);
     grid-area: leading;
   }
 
   .Trailing {
-    margin-inline-start: var(--list-column-gap);
+    margin-inline-start: var(--List-column-gap);
     grid-area: trailing;
+  }
+
+  .Selection {
+    & svg {
+      display: block;
+    }
   }
 }

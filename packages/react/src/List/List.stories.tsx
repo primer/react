@@ -1,5 +1,6 @@
-import type {StoryObj} from '@storybook/react-vite'
-import {List, Item, Label, Description, Leading, Trailing} from '../List'
+import {useEffect, useRef, useState} from 'react'
+import {List, Item, Label, Description, Leading, Trailing, Selection} from '../List'
+import {useListbox} from './useListbox'
 import './listbox-element'
 
 export default {
@@ -216,17 +217,135 @@ export const WithDividers = () => {
   )
 }
 
-// export const Selection = () => {
-//   return (
-//     <>
-//       <ui-listbox style={{display: 'grid'}}>
-//         <ui-option>Option 1</ui-option>
-//         <ui-option>Option 2</ui-option>
-//         <ui-option>Option 3</ui-option>
-//       </ui-listbox>
-//     </>
-//   )
-// }
+export const WithDisabled = () => {
+  return (
+    <>
+      <List>
+        <Item>
+          <Label>Enabled item</Label>
+          <Description>This item can be selected</Description>
+        </Item>
+        <Item disabled>
+          <Label>Disabled</Label>
+          <Description>This item is unavailable</Description>
+        </Item>
+      </List>
+    </>
+  )
+}
+
+export const WithSelection = () => {
+  const [selected, setSelected] = useState<string | null>(null)
+  const items = [
+    {
+      id: 0,
+      label: 'Option 1',
+      description: 'This is the description for option 1',
+      value: 'option-1',
+    },
+    {
+      id: 1,
+      label: 'Option 2',
+      description: 'This is the description for option 2',
+      value: 'option-2',
+    },
+    {
+      id: 2,
+      label: 'Option 3',
+      description: 'This is the description for option 3',
+      value: 'option-3',
+    },
+  ]
+  const {getListboxProps, getOptionProps} = useListbox({
+    onChange({value}) {
+      setSelected(value)
+    },
+  })
+
+  return (
+    <>
+      <List {...getListboxProps()} layout="block">
+        {items.map(item => {
+          return (
+            <Item {...getOptionProps({value: item.value})} key={item.id}>
+              <Leading>
+                <Selection
+                  style={{
+                    visibility: selected === item.value ? 'visible' : 'hidden',
+                  }}
+                />
+              </Leading>
+              <Label>{item.label}</Label>
+              <Description>{item.description}</Description>
+            </Item>
+          )
+        })}
+      </List>
+    </>
+  )
+}
+
+export const WithCustomElementSelection = () => {
+  const [selected, setSelected] = useState<string | null>(null)
+  const ref = useRef(null)
+  const items = [
+    {
+      id: 0,
+      label: 'Option 1',
+      description: 'This is the description for option 1',
+      value: 'option-1',
+    },
+    {
+      id: 1,
+      label: 'Option 2',
+      description: 'This is the description for option 2',
+      value: 'option-2',
+    },
+    {
+      id: 2,
+      label: 'Option 3',
+      description: 'This is the description for option 3',
+      value: 'option-3',
+    },
+  ]
+
+  useEffect(() => {
+    const {current: listbox} = ref
+    if (!listbox) {
+      return
+    }
+
+    function onChange(event) {
+      setSelected(event.detail.value)
+    }
+
+    listbox.addEventListener('change', onChange)
+
+    return () => {
+      listbox.removeEventListener('change', onChange)
+    }
+  }, [])
+
+  return (
+    <>
+      <List ref={ref} as="ui-listbox" layout="block">
+        {items.map(item => {
+          return (
+            <Item as="ui-option" key={item.id} value={item.value}>
+              {selected === item.value ? (
+                <Leading>
+                  <Selection />
+                </Leading>
+              ) : null}
+              <Label>{item.label}</Label>
+              <Description>{item.description}</Description>
+            </Item>
+          )
+        })}
+      </List>
+    </>
+  )
+}
 //
 // export const Menu = () => {
 //   return 'TODO'
