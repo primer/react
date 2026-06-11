@@ -1,0 +1,25 @@
+{
+  "name": "@primer/react-canvas",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js",
+    "./deprecated": "./dist/deprecated.js",
+    "./experimental": "./dist/experimental.js",
+    "./next": "./dist/next.js"
+  },
+  "scripts": {
+    "build": "rolldown -c",
+    "clean": "rimraf dist",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@primer/react": "^38.27.0"
+  },
+  "devDependencies": {
+    "rimraf": "^6.1.3",
+    "rolldown": "^1.1.1",
+    "typescript": "^6.0.3"
+  }
+}
