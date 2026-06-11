@@ -402,6 +402,7 @@ export const CenteredOnPage = () => {
           'aria-modal': true,
           'aria-label': 'Centered Overlay Demo',
         }}
+        cssAnchorPositioningSettings={{fallbackStrategy: 'default'}}
         focusZoneSettings={{disabled: true}}
         preventOverflow={false}
       >

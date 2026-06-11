@@ -2,6 +2,7 @@ import React from 'react'
 import defaultTheme from './theme'
 import deepmerge from 'deepmerge'
 import {useId} from './hooks'
+import {useFeatureFlag} from './FeatureFlags'
 import {useSyncedState} from './hooks/useSyncedState'
 
 export const defaultColorMode = 'day'
@@ -17,6 +18,9 @@ export type ThemeProviderProps = {
   colorMode?: ColorModeWithAuto
   dayScheme?: string
   nightScheme?: string
+  /**
+   * No-op when the `primer_react_theme_provider_remove_ssr_handoff` feature flag is enabled.
+   */
   preventSSRMismatch?: boolean
   /**
    * When true, only provides theme context to descendants without rendering
@@ -82,6 +86,7 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
   // Initialize state
   const theme = fallbackTheme ?? defaultTheme
 
+  const removeSSRHandoff = useFeatureFlag('primer_react_theme_provider_remove_ssr_handoff')
   const uniqueDataId = useId()
 
   const [colorMode, setColorMode] = useSyncedState(props.colorMode ?? fallbackColorMode ?? defaultColorMode)
@@ -91,11 +96,12 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
   const clientColorMode = resolveColorMode(colorMode, systemColorMode)
   // During SSR/hydration, use the server-rendered color mode from the handoff script tag
   // to avoid mismatches. After hydration, resolve from client state.
-  const resolvedColorMode = React.useSyncExternalStore(
+  const ssrResolvedColorMode = React.useSyncExternalStore(
     emptySubscribe,
     () => clientColorMode,
     () => getServerHandoff(uniqueDataId).resolvedServerColorMode ?? clientColorMode,
   )
+  const resolvedColorMode = removeSSRHandoff ? clientColorMode : ssrResolvedColorMode
   const colorScheme = chooseColorScheme(resolvedColorMode, dayScheme, nightScheme)
   const {resolvedTheme, resolvedColorScheme} = React.useMemo(
     () => applyColorScheme(theme, colorScheme),
@@ -129,13 +135,14 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
     ],
   )
 
-  const ssrHandoffScript = props.preventSSRMismatch ? (
-    <script
-      type="application/json"
-      id={`__PRIMER_DATA_${uniqueDataId}__`}
-      dangerouslySetInnerHTML={{__html: JSON.stringify({resolvedServerColorMode: resolvedColorMode})}}
-    />
-  ) : null
+  const ssrHandoffScript =
+    !removeSSRHandoff && props.preventSSRMismatch ? (
+      <script
+        type="application/json"
+        id={`__PRIMER_DATA_${uniqueDataId}__`}
+        dangerouslySetInnerHTML={{__html: JSON.stringify({resolvedServerColorMode: resolvedColorMode})}}
+      />
+    ) : null
 
   if (props.contextOnly) {
     return (
