@@ -1059,15 +1059,3 @@ export const LargeItem = () => (
     </ActionList.Item>
   </ActionList>
 )
-
-export const WithItemGap = () => (
-  <FeatureFlags flags={{primer_react_action_list_item_gap: true}}>
-    <ActionList>
-      <ActionList.LinkItem href="#">Home</ActionList.LinkItem>
-      <ActionList.LinkItem href="#">About</ActionList.LinkItem>
-      <ActionList.LinkItem href="#">Contact</ActionList.LinkItem>
-    </ActionList>
-  </FeatureFlags>
-)
-
-WithItemGap.storyName = 'With gap between items (behind feature flag)'

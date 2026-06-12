@@ -5,6 +5,7 @@ import {renderToStaticMarkup} from 'react-dom/server'
 import {NavList} from './NavList'
 import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
 import {implementsClassName} from '../utils/testing'
+import {FeatureFlags} from '../FeatureFlags'
 
 type NextJSLinkProps = {href: string; children: React.ReactNode}
 
@@ -515,5 +516,35 @@ describe('NavList.ShowMoreItem with pages', () => {
     expect(queryByRole('link', {name: 'Item 2'})).toHaveAttribute('data-custom-link', 'false')
     expect(queryByRole('link', {name: 'Item 3'})).toHaveAttribute('href', '#item3')
     expect(queryByRole('link', {name: 'Item 4'})).toHaveAttribute('href', '#item4')
+  })
+
+  describe('item gap feature flag', () => {
+    it('does not set data-item-gap on the underlying ActionList by default', () => {
+      const {container} = render(
+        <NavList>
+          <NavList.Item href="#" aria-current="page">
+            Home
+          </NavList.Item>
+          <NavList.Item href="#">About</NavList.Item>
+        </NavList>,
+      )
+
+      expect(container.querySelector('[data-component="ActionList"]')).not.toHaveAttribute('data-item-gap')
+    })
+
+    it('sets data-item-gap on the underlying ActionList when the primer_react_action_list_item_gap feature flag is enabled', () => {
+      const {container} = render(
+        <FeatureFlags flags={{primer_react_action_list_item_gap: true}}>
+          <NavList>
+            <NavList.Item href="#" aria-current="page">
+              Home
+            </NavList.Item>
+            <NavList.Item href="#">About</NavList.Item>
+          </NavList>
+        </FeatureFlags>,
+      )
+
+      expect(container.querySelector('[data-component="ActionList"]')).toHaveAttribute('data-item-gap', '')
+    })
   })
 })

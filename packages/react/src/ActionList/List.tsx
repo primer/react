@@ -44,7 +44,7 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
   const ariaLabelledBy = slots.heading ? (slots.heading.props.id ?? headingId) : listLabelledBy
   const listRole = role || listRoleFromContainer
   const listRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLUListElement>)
-  const itemGapEnabled = useFeatureFlag('primer_react_action_list_item_gap')
+  const itemGapEnabled = useFeatureFlag('primer_react_action_list_item_gap') && container === 'NavList'
 
   let enableFocusZone = false
   if (enableFocusZoneFromContainer !== undefined) enableFocusZone = enableFocusZoneFromContainer
