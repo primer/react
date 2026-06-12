@@ -46,13 +46,20 @@ test.describe('ActionBar', () => {
               colorScheme: theme,
             },
           })
-          const toolbarButtonSelector = `button[data-component="IconButton"]`
-          await expect(page.locator(toolbarButtonSelector).filter({visible: true})).toHaveCount(10)
+
+          const toolbar = page.locator('[role="toolbar"]').first()
+          const toolbarButtonSelector =
+            'button[data-component="IconButton"], button[data-component="ActionMenu.Anchor"]'
+
+          await expect(toolbar.locator(toolbarButtonSelector).filter({visible: true})).toHaveCount(10)
+
           await page.setViewportSize({width: viewports['primer.breakpoint.xs'] - 64, height: 768})
           await page.getByLabel('Task List').waitFor({
             state: 'hidden',
           })
-          await expect(page.locator(toolbarButtonSelector).filter({visible: true})).toHaveCount(8)
+
+          await expect(toolbar.locator(toolbarButtonSelector).filter({visible: true})).toHaveCount(8)
+
           const moreButtonSelector = page.getByLabel('More Comment box toolbar items')
           await moreButtonSelector.click()
           await expect(page.locator('ul[role="menu"] [role="menuitem"]')).toHaveCount(3)
