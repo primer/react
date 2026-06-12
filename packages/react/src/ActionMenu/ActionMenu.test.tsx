@@ -62,6 +62,23 @@ function Example(): JSX.Element {
   )
 }
 
+function ExampleWithAnchor(): JSX.Element {
+  return (
+    <BaseStyles>
+      <ActionMenu>
+        <ActionMenu.Anchor>
+          <Button>Toggle Menu</Button>
+        </ActionMenu.Anchor>
+        <ActionMenu.Overlay>
+          <ActionList>
+            <ActionList.Item>New file</ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </BaseStyles>
+  )
+}
+
 function ExampleWithTooltip(): JSX.Element {
   return (
     <BaseStyles>
@@ -180,12 +197,27 @@ function ExampleWithSubmenus(): JSX.Element {
 describe('ActionMenu', () => {
   implementsClassName(ActionMenu.Button)
 
-  it('renders data-component attributes for ActionMenu parts', async () => {
+  it('renders data-component attributes for ActionMenu.Button and overlay parts', async () => {
     const component = HTMLRender(<Example />)
     const user = userEvent.setup()
 
     const trigger = component.getByRole('button', {name: 'Toggle Menu'})
     expect(trigger).toHaveAttribute('data-component', 'ActionMenu.Button')
+    expect(component.baseElement.querySelector('[data-component="ActionMenu.Anchor"]')).toBeNull()
+
+    await user.click(trigger)
+
+    expect(component.baseElement.querySelector('[data-component="ActionMenu.Overlay"]')).not.toBeNull()
+    expect(component.baseElement.querySelector('[data-component="AnchoredOverlay"]')).toBeNull()
+  })
+
+  it('renders data-component attributes for ActionMenu.Anchor and overlay parts', async () => {
+    const component = HTMLRender(<ExampleWithAnchor />)
+    const user = userEvent.setup()
+
+    const trigger = component.getByRole('button', {name: 'Toggle Menu'})
+    expect(trigger).toHaveAttribute('data-component', 'ActionMenu.Anchor')
+    expect(trigger).not.toHaveAttribute('data-component', 'ActionMenu.Button')
 
     await user.click(trigger)
 
