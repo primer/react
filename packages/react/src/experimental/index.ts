@@ -11,6 +11,16 @@
 export {Blankslate} from '../Blankslate'
 export type {BlankslateProps} from '../Blankslate'
 
+export {BaseDialog} from '../BaseDialog'
+export type {
+  RootProps as BaseDialogRootProps,
+  TriggerProps as BaseDialogTriggerProps,
+  DialogProps as BaseDialogDialogProps,
+  CloseProps as BaseDialogCloseProps,
+  HeadingProps as BaseDialogHeadingProps,
+  ContentProps as BaseDialogContentProps,
+} from '../BaseDialog'
+
 export {ButtonBase} from '../Button'
 export type {ButtonBaseProps} from '../Button'
 

@@ -41,4 +41,4 @@ function ScrollableRegion({
 }
 
 export {ScrollableRegion}
-export type {ScrollableRegionProps}
+export type {ScrollableRegionProps, Labelled}
