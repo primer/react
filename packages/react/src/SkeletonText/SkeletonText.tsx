@@ -34,7 +34,7 @@ function SkeletonText({lines = 1, maxWidth, size = 'bodyMedium', className, styl
 
   return (
     <div
-      // update below to "SkeletonText" in next major
+      // update below to data-component="SkeletonText" in next major
       data-component="multilineContainer"
       className={classes.SkeletonTextWrapper}
       style={{
