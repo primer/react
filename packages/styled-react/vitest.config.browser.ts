@@ -9,6 +9,7 @@ export default defineConfig({
     __DEV__: true,
   },
   resolve: {
+    dedupe: ['react', 'react-dom'],
     alias: [
       {
         find: '@primer/react/experimental',
