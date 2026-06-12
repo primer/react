@@ -23,6 +23,42 @@ const NextJSLikeLink = React.forwardRef<HTMLAnchorElement, NextJSLinkProps>(
 describe('NavList', () => {
   implementsClassName(NavList)
 
+  it('renders data-component attributes for NavList, NavList.Item, and NavList.SubNav', () => {
+    const {container, getByRole} = render(
+      <NavList>
+        <NavList.Item href="#">Item 1</NavList.Item>
+        <NavList.Item>
+          Item 2
+          <NavList.SubNav>
+            <NavList.Item href="#">Sub Item 1</NavList.Item>
+          </NavList.SubNav>
+        </NavList.Item>
+      </NavList>,
+    )
+
+    const nav = container.querySelector('nav')
+    expect(nav).toBeInTheDocument()
+    expect(nav).toHaveAttribute('data-component', 'NavList')
+
+    const item1Link = getByRole('link', {name: 'Item 1'})
+    expect(item1Link).toBeInTheDocument()
+    expect(item1Link).toHaveAttribute('data-component', 'NavList.Item')
+
+    const item2Button = getByRole('button', {name: 'Item 2'})
+    expect(item2Button).toBeInTheDocument()
+    expect(item2Button).toHaveAttribute('data-component', 'NavList.Item')
+
+    const subNav = container.querySelector('[data-component="NavList.SubNav"]')
+    expect(subNav).toBeInTheDocument()
+
+    // Expand so nested links are in the accessible tree
+    fireEvent.click(item2Button)
+
+    const subItem1Link = getByRole('link', {name: 'Sub Item 1'})
+    expect(subItem1Link).toBeInTheDocument()
+    expect(subItem1Link).toHaveAttribute('data-component', 'NavList.Item')
+  })
+
   it('supports TrailingAction', async () => {
     const {getByRole} = render(
       <NavList>

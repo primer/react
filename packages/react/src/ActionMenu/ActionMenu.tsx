@@ -256,7 +256,7 @@ export type ActionMenuButtonProps = ButtonProps
 const MenuButton = React.forwardRef(({...props}, anchorRef) => {
   return (
     <Anchor ref={anchorRef}>
-      <Button type="button" trailingAction={TriangleDownIcon} {...props} />
+      <Button data-component="ActionMenu.Button" type="button" trailingAction={TriangleDownIcon} {...props} />
     </Anchor>
   )
 }) as PolymorphicForwardRefComponent<'button', ActionMenuButtonProps>
@@ -355,7 +355,10 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
       onClose={handleClose}
       align={align}
       side={side ?? (isSubmenu ? 'outside-right' : 'outside-bottom')}
-      overlayProps={overlayProps}
+      overlayProps={{
+        ...overlayProps,
+        'data-component': 'ActionMenu.Overlay',
+      }}
       focusZoneSettings={isNarrowFullscreen ? {disabled: true} : {focusOutBehavior: 'wrap'}}
       onPositionChange={onPositionChange}
       variant={variant}

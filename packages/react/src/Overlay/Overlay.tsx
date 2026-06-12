@@ -59,6 +59,7 @@ function getSlideAnimationStartingVector(anchorSide?: AnchorSide): {x: number; y
 type BaseOverlayProps = {
   visibility?: 'visible' | 'hidden'
   'data-test-id'?: unknown
+  'data-component'?: string
   position?: React.CSSProperties['position']
   top?: React.CSSProperties['top']
   left?: React.CSSProperties['left']
