@@ -2,6 +2,7 @@ import {createContext, useContext} from 'react'
 
 type BaseDialogContextValue = {
   id: string
+  titleId: string
   command: 'show-modal' | 'show'
 }
 

@@ -15,6 +15,7 @@ const allowlist = [
   'Autocomplete',
   'Avatar',
   'AvatarStack',
+  'BaseDialog',
   'BranchName',
   'Blankslate',
   'Box',

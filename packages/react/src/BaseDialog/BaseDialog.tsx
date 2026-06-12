@@ -10,12 +10,14 @@ type RootProps = PropsWithChildren<{
 
 function Root({children, nonmodal = false}: RootProps) {
   const id = useId()
+  const titleId = useId()
   const value = useMemo(() => {
     return {
       id,
+      titleId,
       command: nonmodal ? 'show' : 'show-modal',
     } as const
-  }, [id, nonmodal])
+  }, [id, nonmodal, titleId])
   return <BaseDialogContext.Provider value={value}>{children}</BaseDialogContext.Provider>
 }
 
@@ -27,6 +29,7 @@ type TriggerProps = ComponentPropsWithoutRef<'button'> & {
 function Trigger({children, commandfor, command, type = 'button', ...rest}: TriggerProps) {
   const {id, command: parentCommand} = useBaseDialog()
   return (
+    // eslint-disable-next-line react/button-has-type, react/no-unknown-property
     <button {...rest} type={type} commandfor={commandfor ?? id} command={command ?? parentCommand}>
       {children}
     </button>
@@ -35,9 +38,16 @@ function Trigger({children, commandfor, command, type = 'button', ...rest}: Trig
 
 type DialogProps = ComponentPropsWithoutRef<'dialog'>
 
-const Dialog = forwardRef<HTMLDialogElement, DialogProps>(function Dialog(props, ref) {
-  const {id} = useBaseDialog()
-  return <dialog {...props} ref={ref} id={id} />
+const Dialog = forwardRef<HTMLDialogElement, DialogProps>(function Dialog(
+  {'aria-labelledby': labelledby, children, ...rest},
+  ref,
+) {
+  const {id, titleId} = useBaseDialog()
+  return (
+    <dialog {...rest} ref={ref} id={id} aria-labelledby={labelledby ?? titleId}>
+      {children}
+    </dialog>
+  )
 })
 
 type CloseProps = ComponentPropsWithoutRef<'button'> & {
@@ -48,6 +58,7 @@ type CloseProps = ComponentPropsWithoutRef<'button'> & {
 function Close({children, commandfor, command, type = 'button', ...rest}: CloseProps) {
   const {id} = useBaseDialog()
   return (
+    // eslint-disable-next-line react/button-has-type, react/no-unknown-property
     <button {...rest} type={type} commandfor={commandfor ?? id} command={command ?? 'close'}>
       {children}
     </button>
@@ -56,8 +67,14 @@ function Close({children, commandfor, command, type = 'button', ...rest}: CloseP
 
 type HeadingProps = React.HTMLAttributes<HTMLHeadingElement>
 
-function Heading({children, ...rest}: HeadingProps) {
-  return <h2 {...rest}>{children}</h2>
+function Heading({children, id, ...rest}: HeadingProps) {
+  const {titleId} = useBaseDialog()
+
+  return (
+    <h2 {...rest} id={id ?? titleId}>
+      {children}
+    </h2>
+  )
 }
 
 type ContentProps = React.HTMLAttributes<HTMLElement> & Labelled
