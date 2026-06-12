@@ -10,6 +10,38 @@ describe('Select', () => {
   implementsClassName(Select.Option)
   implementsClassName(Select.OptGroup)
 
+  it('renders data-component attributes', () => {
+    const {getByLabelText, getByText} = render(
+      <>
+        <label htmlFor="grouped">Choice</label>
+        <Select id="grouped">
+          <Select.OptGroup label="Group one">
+            <Select.Option value="one">Choice one</Select.Option>
+          </Select.OptGroup>
+        </Select>
+      </>,
+    )
+
+    const select = getByLabelText('Choice')
+
+    expect(select).toHaveAttribute('data-component', 'Select')
+    expect(select.querySelector('optgroup')).toHaveAttribute('data-component', 'Select.OptGroup')
+    expect(getByText('Choice one')).toHaveAttribute('data-component', 'Select.Option')
+  })
+
+  it('renders data-component on placeholder option', () => {
+    const {getByText} = render(
+      <>
+        <label htmlFor="placeholder">Choice</label>
+        <Select id="placeholder" placeholder="Pick a choice">
+          <Select.Option value="one">Choice one</Select.Option>
+        </Select>
+      </>,
+    )
+
+    expect(getByText('Pick a choice')).toHaveAttribute('data-component', 'Select.Option')
+  })
+
   it('renders a select input', () => {
     const {getByLabelText} = render(
       <>

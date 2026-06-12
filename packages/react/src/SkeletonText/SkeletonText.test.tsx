@@ -28,4 +28,26 @@ describe('SkeletonText', () => {
     const {container} = render(<SkeletonText maxWidth="200px" />)
     expect(container.firstChild).toHaveStyle({maxWidth: '200px'})
   })
+
+  it('renders data-component="SkeletonText" for a single line', () => {
+    const {container} = render(<SkeletonText />)
+    expect(container.firstChild).toHaveAttribute('data-component', 'SkeletonText')
+  })
+
+  // update below to data-component="SkeletonText" in next major
+  it('renders data-component="multilineContainer" for the multiline wrapper', () => {
+    const {container} = render(<SkeletonText lines={3} />)
+    expect(container.firstChild).toHaveAttribute('data-component', 'multilineContainer')
+  })
+
+  it('renders multiline children as SkeletonBox instances', () => {
+    const {container} = render(<SkeletonText lines={3} />)
+    const children = Array.from(container.firstChild?.childNodes ?? [])
+
+    expect(children).toHaveLength(3)
+
+    for (const child of children) {
+      expect(child).toHaveAttribute('data-component', 'SkeletonBox')
+    }
+  })
 })

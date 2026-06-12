@@ -52,6 +52,7 @@ export const SegmentedControlIconButton: FCWithSlotMarker<React.PropsWithChildre
           aria-disabled={disabled || ariaDisabled || undefined}
           className={clsx(classes.Button, classes.IconButton)}
           {...rest}
+          data-component="SegmentedControl.IconButton"
         >
           <span className={clsx(classes.Content, 'segmentedControl-content')}>{isElement(Icon) ? Icon : <Icon />}</span>
         </button>

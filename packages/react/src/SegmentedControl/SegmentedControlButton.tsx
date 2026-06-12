@@ -51,6 +51,7 @@ const SegmentedControlButton: FCWithSlotMarker<React.PropsWithChildren<Segmented
         className={clsx(classes.Button, className)}
         type="button"
         {...rest}
+        data-component="SegmentedControl.Button"
       >
         <span className={clsx(classes.Content, 'segmentedControl-content')}>
           {LeadingVisual && (
