@@ -226,7 +226,7 @@ const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Title
         className={clsx(classes.TitleArea, className)}
         // @ts-expect-error it needs a non nullable ref
         ref={titleAreaRef}
-        data-component="TitleArea"
+        data-component="PageHeader.TitleArea"
         {...getResponsiveAttributes('size-variant', variant)}
         {...getHiddenDataAttributes(hidden)}
       >
