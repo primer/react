@@ -51,7 +51,7 @@ describe('PageHeader', () => {
     expect(container.querySelector('[data-component="PageHeader.Description"]')).toBeInTheDocument()
 
     // New tests, but we need to update this to data-component="PageHeader.TitleArea later
-    expect(container.querySelector('[data-component="TitleArea"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="PageHeader.TitleArea"]')).toBeInTheDocument()
 
     // New tests, but we need to update these from PH_ to PageHeader. later
     expect(container.querySelector('[data-component="PH_LeadingAction"]')).toBeInTheDocument()

@@ -69,7 +69,7 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
 
         if (!rootRef.current || rootRef.current.children.length <= 0) return
         const titleArea = Array.from(rootRef.current.children as HTMLCollection).find(child => {
-          return child instanceof HTMLElement && child.getAttribute('data-component') === 'TitleArea'
+          return child instanceof HTMLElement && child.getAttribute('data-component') === 'PageHeader.TitleArea'
         })
 
         // It is very unlikely to have a PageHeader without a TitleArea, but we still want to make sure we don't break the page if that happens.
