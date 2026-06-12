@@ -138,16 +138,16 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
   )
 }
 
-let hostElement: Element | null = null
 export type ConfirmOptions = Omit<ConfirmationDialogProps, 'onClose'> & {content: React.ReactNode}
 async function confirm(options: ConfirmOptions): Promise<boolean> {
   const {content, ...confirmationDialogProps} = options
   return new Promise(resolve => {
-    hostElement ||= document.createElement('div')
-    if (!hostElement.isConnected) document.body.append(hostElement)
+    const hostElement = document.createElement('div')
+    document.body.append(hostElement)
     const root = createRoot(hostElement)
     const onClose: ConfirmationDialogProps['onClose'] = gesture => {
       root.unmount()
+      hostElement.remove()
       if (gesture === 'confirm') {
         resolve(true)
       } else {
