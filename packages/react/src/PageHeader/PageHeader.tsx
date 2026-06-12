@@ -150,7 +150,7 @@ export type ParentLinkProps = React.PropsWithChildren<ChildrenPropTypes & LinkPr
 
 // PageHeader.ParentLink : Only visible on narrow viewports by default to let users navigate up in the hierarchy.
 const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
-  ({children, className, href, 'aria-label': ariaLabel, as = 'a', hidden = hiddenOnRegularAndWide}, ref) => {
+  ({children, className, href, 'aria-label': ariaLabel, as = 'a', hidden = hiddenOnRegularAndWide, ...rest}, ref) => {
     return (
       <>
         <Link
@@ -162,6 +162,7 @@ const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
           data-component="PageHeader.ParentLink"
           {...getHiddenDataAttributes(hidden)}
           href={href}
+          {...rest}
         >
           <ArrowLeftIcon />
           <div>{children}</div>
