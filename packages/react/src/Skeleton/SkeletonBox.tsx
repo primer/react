@@ -12,6 +12,7 @@ export type SkeletonBoxProps = {
   className?: string
   /** Controls whether and how long to delay rendering the SkeletonBox. Set to 'short' to delay by 300ms, 'long' to delay by 1000ms, or provide a custom number of milliseconds.*/
   delay?: 'short' | 'long' | number
+  'data-component'?: string
 } & HTMLProps<HTMLElement>
 
 export const SkeletonBox = React.forwardRef<HTMLElement, SkeletonBoxProps>(function SkeletonBox(
