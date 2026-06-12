@@ -69,7 +69,7 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
 
         if (!rootRef.current || rootRef.current.children.length <= 0) return
         const titleArea = Array.from(rootRef.current.children as HTMLCollection).find(child => {
-          return child instanceof HTMLElement && child.getAttribute('data-component') === 'TitleArea'
+          return child instanceof HTMLElement && child.getAttribute('data-component') === 'PageHeader.TitleArea'
         })
 
         // It is very unlikely to have a PageHeader without a TitleArea, but we still want to make sure we don't break the page if that happens.
@@ -226,7 +226,7 @@ const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Title
         className={clsx(classes.TitleArea, className)}
         // @ts-expect-error it needs a non nullable ref
         ref={titleAreaRef}
-        data-component="TitleArea"
+        data-component="PageHeader.TitleArea"
         {...getResponsiveAttributes('size-variant', variant)}
         {...getHiddenDataAttributes(hidden)}
       >
@@ -247,7 +247,7 @@ const LeadingAction: FCWithSlotMarker<React.PropsWithChildren<ChildrenPropTypes>
   return (
     <div
       className={clsx(classes.LeadingAction, className)}
-      data-component="PH_LeadingAction"
+      data-component="PageHeader.LeadingAction"
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
@@ -262,7 +262,7 @@ const Breadcrumbs: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({chil
   return (
     <div
       className={clsx(classes.Breadcrumbs, className)}
-      data-component="PH_Breadcrumbs"
+      data-component="PageHeader.Breadcrumbs"
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
@@ -275,7 +275,7 @@ const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({ch
   return (
     <div
       className={clsx(classes.LeadingVisual, className)}
-      data-component="PH_LeadingVisual"
+      data-component="PageHeader.LeadingVisual"
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
@@ -291,7 +291,7 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, classNa
   return (
     <Heading
       className={clsx(classes.Title, className)}
-      data-component="PH_Title"
+      data-component="PageHeader.Title"
       data-hidden={hidden}
       as={as}
       {...getHiddenDataAttributes(hidden)}
@@ -310,7 +310,7 @@ const TrailingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   return (
     <div
       className={clsx(classes.TrailingVisual, className)}
-      data-component="PH_TrailingVisual"
+      data-component="PageHeader.TrailingVisual"
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
@@ -326,7 +326,7 @@ const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   return (
     <div
       className={clsx(classes.TrailingAction, className)}
-      data-component="PH_TrailingAction"
+      data-component="PageHeader.TrailingAction"
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
@@ -338,7 +338,11 @@ export type ActionsProps = React.PropsWithChildren<ChildrenPropTypes>
 
 const Actions = ({children, className, hidden = false}: ActionsProps) => {
   return (
-    <div className={clsx(classes.Actions, className)} data-component="PH_Actions" {...getHiddenDataAttributes(hidden)}>
+    <div
+      className={clsx(classes.Actions, className)}
+      data-component="PageHeader.Actions"
+      {...getHiddenDataAttributes(hidden)}
+    >
       {children}
     </div>
   )
@@ -383,7 +387,7 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
       aria-label={BaseComponent === 'nav' ? ariaLabel : undefined}
       aria-labelledby={BaseComponent === 'nav' ? ariaLabelledBy : undefined}
       className={clsx(classes.Navigation, className)}
-      data-component="PH_Navigation"
+      data-component="PageHeader.Navigation"
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
