@@ -43,6 +43,7 @@ export default defineConfig({
       '**/*.types.test.tsx',
       'src/__tests__/exports.test.ts',
       'src/__tests__/storybook.test.tsx',
+      'src/__tests__/css-layers.test.ts',
     ],
     include: ['src/**/*.test.?(c|m)[jt]s?(x)'],
     setupFiles: ['config/vitest/browser/setup.ts'],
