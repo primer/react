@@ -19,6 +19,25 @@ describe('RadioGroup', () => {
     vi.clearAllMocks()
   })
 
+  it('renders data-component attributes', () => {
+    const {getByRole, getByText} = render(
+      <RadioGroup name="choices">
+        <RadioGroup.Label>Choices</RadioGroup.Label>
+        <RadioGroup.Caption>Pick one</RadioGroup.Caption>
+        <RadioGroup.Validation variant="error">Selection required</RadioGroup.Validation>
+        <FormControl>
+          <Radio value="one" />
+          <FormControl.Label>Choice one</FormControl.Label>
+        </FormControl>
+      </RadioGroup>,
+    )
+
+    expect(getByRole('group')).toHaveAttribute('data-component', 'RadioGroup')
+    expect(getByText('Choices')).toHaveAttribute('data-component', 'RadioGroup.Label')
+    expect(getByText('Pick one')).toHaveAttribute('data-component', 'RadioGroup.Caption')
+    expect(document.querySelector('[data-component="RadioGroup.Validation"]')).toHaveTextContent('Selection required')
+  })
+
   it('renders a disabled group of inputs', () => {
     const {getAllByRole, getByRole} = render(
       <RadioGroup name="choices" disabled>
