@@ -45,7 +45,7 @@ export default defineConfig({
       'src/__tests__/storybook.test.tsx',
     ],
     include: ['src/**/*.test.?(c|m)[jt]s?(x)'],
-    setupFiles: ['config/vitest/browser/setup.ts'],
+    setupFiles: ['@primer/vitest-config/setup', 'config/vitest/browser/setup.ts'],
     css: {
       include: [/.+/],
     },
