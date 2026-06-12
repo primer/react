@@ -113,14 +113,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build-storybook, vrt-runner]
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10
       - name: Set up Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version: 24.15.0
-          cache: 'npm'
-      - name: install dependencies
-        run: npm ci
       - name: download all reports
         if: ${{ needs.vrt-runner.result == 'success' || needs.vrt-runner.result == 'failure' }}
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
@@ -130,7 +126,7 @@ jobs:
           merge-multiple: true
       - name: merge all reports
         if: ${{ needs.vrt-runner.result == 'success' || needs.vrt-runner.result == 'failure' }}
-        run: npx playwright merge-reports --reporter html ./all-blob-reports
+        run: npx --yes playwright@1.60.0 merge-reports --reporter html ./all-blob-reports
       - name: Upload report
         if: ${{ needs.vrt-runner.result == 'success' || needs.vrt-runner.result == 'failure' }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
