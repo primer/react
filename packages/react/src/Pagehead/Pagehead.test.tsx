@@ -14,5 +14,6 @@ describe('Pagehead', () => {
       </Pagehead>,
     )
     expect(container.firstChild).toHaveAttribute('data-testid', 'pagehead')
+    expect(container.firstChild).toHaveAttribute('data-component', 'Pagehead')
   })
 })

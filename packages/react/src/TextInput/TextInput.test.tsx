@@ -411,4 +411,43 @@ describe('TextInput', () => {
       expect(container.querySelector('[data-component="TextInput.CharacterCounter"]')).toBeInTheDocument()
     })
   })
+
+  describe('data-no-* visual markers', () => {
+    it('sets all data-no-* markers when no visuals or actions are provided', () => {
+      const {container} = render(<TextInput name="test" />)
+      const wrapper = container.querySelector('[data-component="TextInput"]')
+      expect(wrapper).toHaveAttribute('data-no-leading-visual', 'true')
+      expect(wrapper).toHaveAttribute('data-no-trailing-visual', 'true')
+      expect(wrapper).toHaveAttribute('data-no-trailing-action', 'true')
+    })
+
+    it('drops data-no-leading-visual when leadingVisual is provided', () => {
+      const {container} = render(<TextInput name="test" leadingVisual={SearchIcon} />)
+      const wrapper = container.querySelector('[data-component="TextInput"]')
+      expect(wrapper).not.toHaveAttribute('data-no-leading-visual')
+      expect(wrapper).toHaveAttribute('data-leading-visual', 'true')
+      expect(wrapper).toHaveAttribute('data-no-trailing-visual', 'true')
+      expect(wrapper).toHaveAttribute('data-no-trailing-action', 'true')
+    })
+
+    it('drops data-no-trailing-visual when trailingVisual is provided', () => {
+      const {container} = render(<TextInput name="test" trailingVisual={SearchIcon} />)
+      const wrapper = container.querySelector('[data-component="TextInput"]')
+      expect(wrapper).toHaveAttribute('data-no-leading-visual', 'true')
+      expect(wrapper).not.toHaveAttribute('data-no-trailing-visual')
+      expect(wrapper).toHaveAttribute('data-trailing-visual', 'true')
+      expect(wrapper).toHaveAttribute('data-no-trailing-action', 'true')
+    })
+
+    it('drops data-no-trailing-action when trailingAction is provided', () => {
+      const {container} = render(
+        <TextInput name="test" trailingAction={<TextInput.Action aria-label="Clear">Clear</TextInput.Action>} />,
+      )
+      const wrapper = container.querySelector('[data-component="TextInput"]')
+      expect(wrapper).toHaveAttribute('data-no-leading-visual', 'true')
+      expect(wrapper).toHaveAttribute('data-no-trailing-visual', 'true')
+      expect(wrapper).not.toHaveAttribute('data-no-trailing-action')
+      expect(wrapper).toHaveAttribute('data-trailing-action', 'true')
+    })
+  })
 })

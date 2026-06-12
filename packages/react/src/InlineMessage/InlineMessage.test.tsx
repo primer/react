@@ -95,6 +95,18 @@ describe('InlineMessage', () => {
     expect(screen.getByTestId('container')).toHaveAttribute('data-variant', 'warning')
   })
 
+  it('should not set data-variant when variant is not provided', () => {
+    render(<InlineMessage data-testid="container">test</InlineMessage>)
+    expect(screen.getByTestId('container')).not.toHaveAttribute('data-variant')
+  })
+
+  it('should render InfoIcon when variant is not provided', () => {
+    const {container} = render(<InlineMessage>test without variant</InlineMessage>)
+    expect(screen.getByText('test without variant')).toBeInTheDocument()
+    const svg = container.querySelector('svg.octicon-info')
+    expect(svg).toBeInTheDocument()
+  })
+
   it('should render leading visual', () => {
     render(
       <>

@@ -1,5 +1,5 @@
 import React, {Children, useEffect, useRef, useState, useMemo, type ForwardRefExoticComponent} from 'react'
-import {useId, useProvidedRefOrCreate, useOnEscapePress, useIsMacOS} from '../hooks'
+import {useId, useProvidedRefOrCreate, useOnEscapePress} from '../hooks'
 import {invariant} from '../utils/invariant'
 import {warning} from '../utils/warning'
 import {getAnchoredPosition} from '@primer/behaviors'
@@ -8,6 +8,7 @@ import {isSupported, apply} from '@oddbird/popover-polyfill/fn'
 import {clsx} from 'clsx'
 import classes from './Tooltip.module.css'
 import {getAccessibleKeybindingHintString, KeybindingHint, type KeybindingHintProps} from '../KeybindingHint'
+import {usePlatform} from '../KeybindingHint/platform'
 import VisuallyHidden from '../_VisuallyHidden'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import type {SlotMarker} from '../utils/types'
@@ -272,7 +273,7 @@ export const Tooltip: ForwardRefExoticComponent<
       [isPopoverOpen],
     )
 
-    const isMacOS = useIsMacOS()
+    const platform = usePlatform()
     const hasAriaLabel = 'aria-label' in rest
 
     // Normalize keybindingHint to an array for uniform rendering
@@ -370,7 +371,7 @@ export const Tooltip: ForwardRefExoticComponent<
                       to duplicate the symbols and key names. To work around this, we exclude the hint from being part of the
                       label and instead render the plain keybinding description string. */}
                   <VisuallyHidden>
-                    ({keybindingHints.map(hint => getAccessibleKeybindingHintString(hint, isMacOS)).join(' or ')})
+                    ({keybindingHints.map(hint => getAccessibleKeybindingHintString(hint, platform)).join(' or ')})
                   </VisuallyHidden>
                 </span>
                 <span
