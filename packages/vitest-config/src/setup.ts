@@ -1,6 +1,6 @@
-const shouldFailOnConsole = typeof process !== 'undefined' && process.env.VITEST_FAIL_ON_CONSOLE === 'true'
+declare const __VITEST_FAIL_ON_CONSOLE__: boolean
 
-if (shouldFailOnConsole) {
+if (__VITEST_FAIL_ON_CONSOLE__) {
   const {default: failOnConsole} = await import('vitest-fail-on-console')
 
   failOnConsole({
