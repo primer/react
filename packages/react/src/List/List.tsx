@@ -1,29 +1,42 @@
 import {CheckIcon} from '@primer/octicons-react'
-import {forwardRef, type JSX, type PropsWithChildren} from 'react'
+import {clsx} from 'clsx'
+import {createElement, forwardRef, type ElementType, type HTMLAttributes, type JSX, type PropsWithChildren} from 'react'
 import classes from './List.module.css'
 
 type ListProps = PropsWithChildren<{
-  as?: keyof JSX.IntrinsicElements
+  as?: ElementType
   showDividers?: boolean
   layout?: 'inline' | 'block'
-}>
+}> &
+  HTMLAttributes<HTMLElement>
 
 const List = forwardRef(function List(
-  {as: BaseComponent = 'ul', children, layout = 'inline', showDividers}: ListProps,
+  {as: BaseComponent = 'ul', children, layout = 'inline', showDividers, ...rest}: ListProps,
   ref,
 ) {
-  return (
-    // @ts-expect-error - class works in React 19
-    <BaseComponent ref={ref} class={classes.List} data-dividers={showDividers ? '' : undefined} data-layout={layout}>
-      {children}
-    </BaseComponent>
+  return createElement(
+    BaseComponent,
+    {
+      ...rest,
+      ref,
+      class: classes.List,
+      'data-dividers': showDividers ? '' : undefined,
+      'data-layout': layout,
+    },
+    children,
   )
 })
 
-type ItemProps = PropsWithChildren<{
-  as?: keyof JSX.IntrinsicElements
-  disabled?: boolean
-}>
+type ItemProps = PropsWithChildren<
+  {
+    active?: string
+    as?: keyof JSX.IntrinsicElements
+    disabled?: boolean
+    expanded?: string
+    selected?: string
+    value?: string
+  } & Record<string, unknown>
+>
 
 function Item({as: BaseComponent = 'li', children, disabled, ...rest}: ItemProps) {
   return (
@@ -76,12 +89,26 @@ function Divider({children}: DividerProps) {
   return <div className={classes.Divider}>{children}</div>
 }
 
-type SelectionProps = React.HTMLAttributes<HTMLElement>
+type SelectionProps = HTMLAttributes<HTMLElement> & {
+  selected?: boolean
+  variant?: 'single' | 'multiple'
+}
 
-function Selection(props: SelectionProps) {
+function Selection({className, selected = true, variant = 'single', ...props}: SelectionProps) {
   return (
-    <div {...props} className={classes.Selection}>
-      <CheckIcon />
+    <div
+      {...props}
+      className={clsx(classes.Selection, className)}
+      data-selected={selected ? '' : undefined}
+      data-variant={variant}
+    >
+      {variant === 'multiple' ? (
+        <div className={classes.SelectionMultiIcon}>
+          <CheckIcon className={classes.SelectionMultiCheckIcon} size={12} />
+        </div>
+      ) : (
+        <CheckIcon className={classes.SelectionSingleIcon} />
+      )}
     </div>
   )
 }

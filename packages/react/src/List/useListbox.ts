@@ -58,7 +58,7 @@ function useListbox({onChange}: {onChange?: ({value}: {value: string | null}) =>
       'aria-disabled': false,
       'data-active': active === value,
       role: 'option',
-      tabIndex: active === value,
+      tabIndex: active === value ? 0 : -1,
       onClick() {
         if (selected === value) {
           unselectOption()

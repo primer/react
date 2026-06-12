@@ -1,7 +1,9 @@
 import {useEffect, useRef, useState} from 'react'
 import {List, Item, Label, Description, Leading, Trailing, Selection} from '../List'
 import {useListbox} from './useListbox'
+import {useTree, type TreeItem} from './useTree'
 import './listbox-element'
+import './tree-element'
 
 export default {
   title: 'Components/List/Features',
@@ -269,11 +271,7 @@ export const WithSelection = () => {
           return (
             <Item {...getOptionProps({value: item.value})} key={item.id}>
               <Leading>
-                <Selection
-                  style={{
-                    visibility: selected === item.value ? 'visible' : 'hidden',
-                  }}
-                />
+                <Selection selected={selected === item.value} />
               </Leading>
               <Label>{item.label}</Label>
               <Description>{item.description}</Description>
@@ -287,7 +285,7 @@ export const WithSelection = () => {
 
 export const WithCustomElementSelection = () => {
   const [selected, setSelected] = useState<string | null>(null)
-  const ref = useRef(null)
+  const ref = useRef<HTMLElement | null>(null)
   const items = [
     {
       id: 0,
@@ -315,8 +313,10 @@ export const WithCustomElementSelection = () => {
       return
     }
 
-    function onChange(event) {
-      setSelected(event.detail.value)
+    function onChange(event: Event) {
+      if (event instanceof CustomEvent) {
+        setSelected(event.detail.value)
+      }
     }
 
     listbox.addEventListener('change', onChange)
@@ -332,11 +332,147 @@ export const WithCustomElementSelection = () => {
         {items.map(item => {
           return (
             <Item as="ui-option" key={item.id} value={item.value}>
-              {selected === item.value ? (
-                <Leading>
-                  <Selection />
-                </Leading>
-              ) : null}
+              <Leading>
+                <Selection selected={selected === item.value} />
+              </Leading>
+              <Label>{item.label}</Label>
+              <Description>{item.description}</Description>
+            </Item>
+          )
+        })}
+      </List>
+    </>
+  )
+}
+
+const treeItems: Array<
+  TreeItem & {
+    description: string
+    id: number
+  }
+> = [
+  {
+    id: 0,
+    label: 'src',
+    description: 'Source files for @primer/react',
+    value: 'src',
+  },
+  {
+    id: 1,
+    label: 'ActionList',
+    description: 'Action list components and behaviors',
+    parentValue: 'src',
+    value: 'action-list',
+  },
+  {
+    id: 2,
+    label: 'List',
+    description: 'Composable list primitives',
+    parentValue: 'src',
+    value: 'list',
+  },
+  {
+    id: 3,
+    label: 'SelectPanel',
+    description: 'Panel selection patterns',
+    parentValue: 'src',
+    value: 'select-panel',
+  },
+  {
+    id: 4,
+    label: 'docs',
+    description: 'Contributor documentation',
+    value: 'docs',
+  },
+  {
+    id: 5,
+    label: 'Contributing',
+    description: 'Guidelines for contributing to Primer React',
+    parentValue: 'docs',
+    value: 'contributing',
+  },
+  {
+    id: 6,
+    label: 'Versioning',
+    description: 'Release and changeset guidance',
+    parentValue: 'docs',
+    value: 'versioning',
+  },
+]
+
+export const WithTreeSelection = () => {
+  const {getTreeItemProps, getTreeProps, selectedValues, visibleItems} = useTree({
+    defaultActiveValue: treeItems[0].value,
+    defaultExpandedValues: [treeItems[0].value],
+    defaultSelectedValues: [treeItems[1].value, treeItems[2].value],
+    items: treeItems,
+  })
+
+  return (
+    <>
+      <List {...getTreeProps()} layout="block">
+        {visibleItems.map(item => {
+          const selected = selectedValues.includes(item.value)
+
+          return (
+            <Item {...getTreeItemProps({item})} key={item.id}>
+              <Leading>
+                <Selection selected={selected} variant="multiple" />
+              </Leading>
+              <Label>{item.label}</Label>
+              <Description>{item.description}</Description>
+            </Item>
+          )
+        })}
+      </List>
+    </>
+  )
+}
+
+export const WithCustomElementTreeSelection = () => {
+  const [selectedValues, setSelectedValues] = useState<Array<string>>([treeItems[1].value, treeItems[2].value])
+  const ref = useRef<HTMLElement | null>(null)
+
+  useEffect(() => {
+    const {current: tree} = ref
+    if (!tree) {
+      return
+    }
+
+    function onChange(event: Event) {
+      if (event instanceof CustomEvent) {
+        setSelectedValues(event.detail.selectedValues)
+      }
+    }
+
+    tree.addEventListener('change', onChange)
+
+    return () => {
+      tree.removeEventListener('change', onChange)
+    }
+  }, [])
+
+  return (
+    <>
+      <List ref={ref} as="ui-tree" aria-multiselectable="true" layout="block">
+        {treeItems.map((item, index) => {
+          const selected = selectedValues.includes(item.value)
+          const expanded = item.value === 'src'
+
+          return (
+            <Item
+              active={index === 0 ? '' : undefined}
+              aria-expanded={item.value === 'src' || item.value === 'docs' ? expanded : undefined}
+              as="ui-treeitem"
+              data-parent-value={item.parentValue}
+              expanded={expanded ? '' : undefined}
+              key={item.id}
+              selected={selected ? '' : undefined}
+              value={item.value}
+            >
+              <Leading>
+                <Selection selected={selected} variant="multiple" />
+              </Leading>
               <Label>{item.label}</Label>
               <Description>{item.description}</Description>
             </Item>
