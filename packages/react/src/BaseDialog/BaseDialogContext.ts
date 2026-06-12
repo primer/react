@@ -6,7 +6,6 @@ type BaseDialogContextValue = {
   command: 'show-modal' | 'show'
   headingText: string
   setHeadingText: (text: string) => void
-  focusHeading: boolean
 }
 
 const BaseDialogContext = createContext<BaseDialogContextValue | null>(null)

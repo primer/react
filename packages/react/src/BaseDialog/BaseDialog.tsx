@@ -13,10 +13,9 @@ import './polyfill'
 
 type RootProps = PropsWithChildren<{
   nonmodal?: boolean
-  initialFocus?: 'heading'
 }>
 
-function Root({children, nonmodal = false, initialFocus}: RootProps) {
+function Root({children, nonmodal = false}: RootProps) {
   const id = useId()
   const titleId = useId()
   const [headingText, setHeadingText] = useState('')
@@ -27,10 +26,9 @@ function Root({children, nonmodal = false, initialFocus}: RootProps) {
       command: nonmodal ? 'show' : 'show-modal',
       headingText,
       setHeadingText,
-      focusHeading: initialFocus === 'heading',
     } as const
     // setHeadingText is stable (from useState) and intentionally omitted from deps
-  }, [id, nonmodal, titleId, headingText, initialFocus])
+  }, [id, nonmodal, titleId, headingText])
   return <BaseDialogContext.Provider value={value}>{children}</BaseDialogContext.Provider>
 }
 
@@ -80,8 +78,8 @@ function Close({children, commandfor, command, type = 'button', ...rest}: CloseP
 
 type HeadingProps = React.HTMLAttributes<HTMLHeadingElement>
 
-function Heading({children, id, ...rest}: HeadingProps) {
-  const {titleId, setHeadingText, focusHeading} = useBaseDialog()
+function Heading({children, id, autoFocus, tabIndex, ...rest}: HeadingProps) {
+  const {titleId, setHeadingText} = useBaseDialog()
 
   useEffect(() => {
     if (typeof children === 'string') {
@@ -93,7 +91,7 @@ function Heading({children, id, ...rest}: HeadingProps) {
   }, [children, setHeadingText])
 
   return (
-    <h2 {...rest} id={id ?? titleId} tabIndex={focusHeading ? -1 : undefined} autoFocus={focusHeading || undefined}>
+    <h2 {...rest} id={id ?? titleId} autoFocus={autoFocus} tabIndex={autoFocus ? (tabIndex ?? -1) : tabIndex}>
       {children}
     </h2>
   )

@@ -280,12 +280,13 @@ describe('BaseDialog', () => {
     expect(screen.getByTestId('content')).not.toHaveAttribute('aria-label', 'My dialog content')
   })
 
-  it('sets focus on the heading when initialFocus is heading', () => {
+  it('adds tabIndex={-1} automatically when autoFocus is set on the heading', () => {
     render(
-      <BaseDialog initialFocus="heading">
+      <BaseDialog>
         <BaseDialog.Trigger>Open</BaseDialog.Trigger>
         <BaseDialog.Dialog>
-          <BaseDialog.Heading>Dialog title</BaseDialog.Heading>
+          {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
+          <BaseDialog.Heading autoFocus>Dialog title</BaseDialog.Heading>
           <BaseDialog.Content>Content</BaseDialog.Content>
           <BaseDialog.Close>Close</BaseDialog.Close>
         </BaseDialog.Dialog>
@@ -294,7 +295,7 @@ describe('BaseDialog', () => {
 
     const heading = screen.getByText('Dialog title')
 
-    // tabIndex={-1} makes the heading programmatically focusable
+    // tabIndex={-1} is automatically added to make the heading programmatically focusable
     expect(heading).toHaveAttribute('tabindex', '-1')
   })
 })

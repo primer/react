@@ -32,10 +32,11 @@ export const Default = () => (
 )
 
 export const FocusOnHeading = () => (
-  <BaseDialog initialFocus="heading">
+  <BaseDialog>
     <BaseDialog.Trigger>Open dialog</BaseDialog.Trigger>
     <BaseDialog.Dialog>
-      <BaseDialog.Heading>Focus on heading</BaseDialog.Heading>
+      {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
+      <BaseDialog.Heading autoFocus>Focus on heading</BaseDialog.Heading>
       <BaseDialog.Content>
         When this dialog opens, focus is placed on the heading instead of the close button.
       </BaseDialog.Content>
@@ -66,11 +67,5 @@ Playground.argTypes = {
     control: {
       type: 'boolean',
     },
-  },
-  initialFocus: {
-    control: {
-      type: 'select',
-    },
-    options: [undefined, 'heading'],
   },
 }
