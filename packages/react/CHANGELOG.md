@@ -1,5 +1,17 @@
 # @primer/react
 
+## 38.29.0
+
+### Minor Changes
+
+- [#7867](https://github.com/primer/react/pull/7867) [`4ec4248`](https://github.com/primer/react/commit/4ec4248b9c1ae662b761385110f1fd7ad7480a2f) Thanks [@llastflowers](https://github.com/llastflowers)! - Add data-component attributes and associated tests for ActionMenu, AnchoredOverlay, Autocomplete, and NavList
+
+### Patch Changes
+
+- [#7976](https://github.com/primer/react/pull/7976) [`1fac927`](https://github.com/primer/react/commit/1fac9270c497c1904acbb3eb60805630aab82a97) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - NavList: add a small gap between items for readability, including before expanded sub-navs, behind the `primer_react_action_list_item_gap` feature flag
+
+- [#7978](https://github.com/primer/react/pull/7978) [`e3f655c`](https://github.com/primer/react/commit/e3f655c6735ffd1bd105b8e7599e273bb1eee4d1) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - PageHeader.ParentLink: Forward unknown props (e.g. `to`) to the underlying element, enabling client-side routing with polymorphic `as`.
+
 ## 38.28.0
 
 ### Minor Changes
@@ -28,7 +40,6 @@
 
   ```tsx
   import {FeatureFlags} from '@primer/react/experimental'
-
   ;<FeatureFlags flags={{primer_react_timeline_list_semantics: true}}>
     <Timeline>…</Timeline>
   </FeatureFlags>
