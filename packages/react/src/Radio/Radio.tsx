@@ -1,6 +1,6 @@
 import type {ChangeEventHandler, InputHTMLAttributes, ReactElement} from 'react'
 import React, {useContext} from 'react'
-import {RadioGroupContext} from '../RadioGroup/RadioGroup'
+import {RadioGroupContext} from '../RadioGroup/RadioGroupContext'
 import {clsx} from 'clsx'
 import sharedClasses from '../Checkbox/shared.module.css'
 import classes from './Radio.module.css'
