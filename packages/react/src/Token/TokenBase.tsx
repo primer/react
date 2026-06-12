@@ -3,10 +3,9 @@ import React from 'react'
 import {clsx} from 'clsx'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import classes from './TokenBase.module.css'
-import {defaultTokenSize, type TokenSizeKeys, tokenSizes} from './constants'
+import {defaultTokenSize, type TokenSizeKeys} from './constants'
 import {isTokenInteractive} from './utils'
 
-export {defaultTokenSize, isTokenInteractive, tokenSizes}
 export type {TokenSizeKeys}
 
 export interface TokenBaseProps
