@@ -30,6 +30,7 @@ export default defineConfig({
   },
   define: {
     __DEV__: true,
+    __VITEST_FAIL_ON_CONSOLE__: JSON.stringify(process.env.VITEST_FAIL_ON_CONSOLE === 'true'),
     'process.env.CI': JSON.stringify(process.env.CI),
   },
   test: {

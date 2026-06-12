@@ -7,6 +7,7 @@ export default defineConfig({
   plugins: [react()],
   define: {
     __DEV__: true,
+    __VITEST_FAIL_ON_CONSOLE__: JSON.stringify(process.env.VITEST_FAIL_ON_CONSOLE === 'true'),
   },
   resolve: {
     dedupe: ['react', 'react-dom'],
