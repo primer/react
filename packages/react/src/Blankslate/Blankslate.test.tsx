@@ -5,6 +5,36 @@ import {Blankslate} from '../Blankslate'
 import {implementsClassName} from '../utils/testing'
 import classes from './Blankslate.module.css'
 
+function getCSSStyleRules(): Array<CSSStyleRule> {
+  return Array.from(document.styleSheets).flatMap(sheet => {
+    return Array.from(sheet.cssRules).flatMap(rule => {
+      if (rule instanceof CSSStyleRule) {
+        return [rule]
+      }
+
+      if ('cssRules' in rule) {
+        return Array.from(rule.cssRules as CSSRuleList).filter((nestedRule): nestedRule is CSSStyleRule => {
+          return nestedRule instanceof CSSStyleRule
+        })
+      }
+
+      return []
+    })
+  })
+}
+
+function getSizePadding(size: 'small' | 'medium' | 'large') {
+  const rule = getCSSStyleRules().find(cssRule => {
+    return (
+      cssRule.selectorText.includes(`.${classes.Blankslate}`) &&
+      cssRule.selectorText.includes(`data-size="${size}"`) &&
+      !cssRule.selectorText.includes('data-spacious')
+    )
+  })
+
+  return rule?.style.getPropertyValue('--blankslate-padding').trim()
+}
+
 describe('Blankslate', () => {
   implementsClassName(Blankslate, classes.Blankslate)
 
@@ -21,6 +51,14 @@ describe('Blankslate', () => {
   it('should render with spacious style when spacious is true', () => {
     const {container} = render(<Blankslate spacious>Test content</Blankslate>)
     expect(container.firstChild!.firstChild).toHaveAttribute('data-spacious', '')
+  })
+
+  it('sets padding for each size variant', () => {
+    render(<Blankslate>Test content</Blankslate>)
+
+    expect(getSizePadding('small')).toMatch(/^var\(--base-size-16/)
+    expect(getSizePadding('medium')).toMatch(/^var\(--base-size-24/)
+    expect(getSizePadding('large')).toMatch(/^var\(--base-size-24/)
   })
 
   it('renders data-component attributes', () => {

@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import postcssPresetPrimer from 'postcss-preset-primer'
 
 const {DEPLOY_ENV = 'development'} = process.env
+const STORYBOOK_ALLOWED_HOSTS = ['localhost', 'host.docker.internal']
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.tsx'],
@@ -11,6 +12,10 @@ const config: StorybookConfig = {
     options: {
       strictMode: true,
     },
+  },
+
+  core: {
+    allowedHosts: STORYBOOK_ALLOWED_HOSTS,
   },
 
   async viteFinal(config) {
@@ -51,7 +56,7 @@ const config: StorybookConfig = {
     if (DEPLOY_ENV === 'development') {
       config.server = {
         ...config.server,
-        allowedHosts: ['localhost', 'host.docker.internal'],
+        allowedHosts: STORYBOOK_ALLOWED_HOSTS,
       }
     }
 

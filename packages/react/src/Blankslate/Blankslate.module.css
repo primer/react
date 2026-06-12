@@ -22,7 +22,7 @@
     --blankslate-heading-text: var(--text-title-shorthand-medium);
     --blankslate-heading-margin-block: 0 var(--base-size-4);
     --blankslate-description-text: var(--text-body-shorthand-large);
-    --blankslate-padding: var(--base-size-32);
+    --blankslate-padding: var(--base-size-24);
     --blankslate-action-margin-block-end: var(--base-size-16);
   }
 
@@ -34,7 +34,7 @@
     --blankslate-heading-text: var(--text-title-shorthand-small);
     --blankslate-heading-margin-block: 0 var(--base-size-4);
     --blankslate-description-text: var(--text-body-shorthand-medium);
-    --blankslate-padding: var(--base-size-32) var(--base-size-20);
+    --blankslate-padding: var(--base-size-16);
     --blankslate-action-margin-block-end: var(--base-size-12);
     --blankslate-visual-size: var(--base-size-24);
   }
@@ -48,7 +48,7 @@
     --blankslate-heading-margin-block: var(--base-size-8) var(--base-size-4);
     --blankslate-description-text: var(--text-body-shorthand-large);
     --blankslate-description-margin-block: 0 var(--base-size-8);
-    --blankslate-padding: var(--base-size-32);
+    --blankslate-padding: var(--base-size-24);
     --blankslate-action-margin-block-end: var(--base-size-16);
   }
 
@@ -107,7 +107,11 @@
   .Blankslate {
     --blankslate-padding: var(--base-size-20);
 
-    &:where([data-spacious='true']) {
+    &:where([data-size='small']) {
+      --blankslate-padding: var(--base-size-16);
+    }
+
+    &:where([data-spacious]) {
       --blankslate-padding: var(--base-size-44) var(--base-size-28);
     }
 
