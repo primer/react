@@ -13,6 +13,8 @@ import {Button} from '../internal/components/ButtonReset'
 import classes from './Table.module.css'
 import type {PolymorphicProps} from '../utils/modern-polymorphic'
 
+import {DataTableSnapshotProvider, useDataTableSnapshotStore} from './snapshotContext'
+
 // ----------------------------------------------------------------------------
 // Table
 // ----------------------------------------------------------------------------
@@ -250,10 +252,18 @@ function TableContainer<As extends React.ElementType = 'div'>({
   ...rest
 }: TableContainerProps<As>) {
   const Component = as || 'div'
+  // Provide a snapshot store so sibling components inside the Container
+  // (e.g. `Table.CopyAsMarkdownButton`) can read the rows currently
+  // displayed by `<DataTable>` after sort/filter/pagination have been
+  // applied. Standalone usage outside a Container still works — the
+  // consumer just passes `rows` / `columns` props explicitly.
+  const snapshotStore = useDataTableSnapshotStore()
   return (
-    <Component {...rest} className={clsx(className, classes.TableContainer)} data-component="Table.Container">
-      {children}
-    </Component>
+    <DataTableSnapshotProvider value={snapshotStore}>
+      <Component {...rest} className={clsx(className, classes.TableContainer)} data-component="Table.Container">
+        {children}
+      </Component>
+    </DataTableSnapshotProvider>
   )
 }
 

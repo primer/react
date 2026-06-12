@@ -59,6 +59,14 @@ export interface Column<Data extends UniqueRow> {
   sortBy?: boolean | SortStrategy | CustomSortStrategy<Data>
 
   /**
+   * Returns the string representation used by clipboard exports
+   * (`Table.CopyAsMarkdownButton`). Intentionally separate from `renderCell`
+   * so consumers can keep rich React output (icons, links, labels) out of
+   * the plain-text payload.
+   */
+  getExportValue?: (data: Data) => string
+
+  /**
    * Controls the width of the column.
    * - 'grow': Stretch to fill available space, and min width is the width of the widest cell in the column
    * - 'growCollapse': Stretch to fill available space or shrink to fit in the available space. Allows the column to shrink smaller than the cell content's width.

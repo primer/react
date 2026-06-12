@@ -1,5 +1,6 @@
 import {DataTable} from './DataTable'
 import {ErrorDialog} from './ErrorDialog'
+import {CopyAsMarkdownButton} from './CopyAsMarkdownButton'
 import {
   Table as TableImpl,
   TableHead,
@@ -34,6 +35,7 @@ const Table: typeof TableImpl &
     CellPlaceholder: typeof TableCellPlaceholder
     Pagination: typeof Pagination
     ErrorDialog: typeof ErrorDialog
+    CopyAsMarkdownButton: typeof CopyAsMarkdownButton
   } = Object.assign(TableImpl, {
   Container: TableContainer,
   Title: TableTitle,
@@ -49,6 +51,7 @@ const Table: typeof TableImpl &
   CellPlaceholder: TableCellPlaceholder,
   Pagination,
   ErrorDialog,
+  CopyAsMarkdownButton,
 })
 
 export {DataTable, Table}
@@ -70,3 +73,5 @@ export {createColumnHelper} from './column'
 export type {Column, CellAlignment, ColumnWidth} from './column'
 export type {UniqueRow} from './row'
 export type {ObjectPaths} from './utils'
+export type {CopyAsMarkdownButtonProps} from './CopyAsMarkdownButton'
+export {escapeMarkdownCell, rowsToMarkdown, writeTextToClipboard} from './clipboard'

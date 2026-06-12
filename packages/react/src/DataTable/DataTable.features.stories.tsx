@@ -1715,3 +1715,45 @@ export const WithNetworkError = () => {
     </Table.Container>
   )
 }
+
+export const WithCopyAsMarkdown = () => {
+  const ch = createColumnHelper<(typeof data)[number]>()
+  const columns = [
+    ch.column({header: 'Repository', field: 'name', rowHeader: true}),
+    ch.column({
+      header: 'Type',
+      field: 'type',
+      // `renderCell` is NOT used for the export — we'd get a React element.
+      // Instead, declare `getExportValue` to keep the clipboard payload as
+      // plain text.
+      renderCell: row => <Label>{uppercase(row.type)}</Label>,
+      getExportValue: row => uppercase(row.type),
+    }),
+    ch.column({
+      header: 'Updated',
+      field: 'updatedAt',
+      renderCell: row => <RelativeTime date={new Date(row.updatedAt)} />,
+      getExportValue: row => new Date(row.updatedAt).toISOString(),
+    }),
+  ]
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="repositories">
+        Repositories
+      </Table.Title>
+      <Table.Subtitle as="p" id="repositories-subtitle">
+        The action button serialises the visible rows as a GitHub-flavoured Markdown table and writes them to the
+        clipboard.
+      </Table.Subtitle>
+      <Table.Actions>
+        <Table.CopyAsMarkdownButton rows={data} columns={columns} />
+      </Table.Actions>
+      <DataTable
+        aria-labelledby="repositories"
+        aria-describedby="repositories-subtitle"
+        data={data}
+        columns={columns}
+      />
+    </Table.Container>
+  )
+}
