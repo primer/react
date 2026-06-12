@@ -129,6 +129,7 @@
   position: relative;
   display: flex;
   width: var(--avatar-stack-size);
+  min-width: var(--avatar-stack-size);
   height: var(--avatar-stack-size);
   overflow: hidden;
   flex-shrink: 0;
