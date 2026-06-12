@@ -1,11 +1,10 @@
-import type {MutableRefObject, RefObject} from 'react'
-import React, {forwardRef, useRef, useContext} from 'react'
+import React, {forwardRef, useRef, useContext, useCallback, useSyncExternalStore} from 'react'
 import type {IconProps} from '@primer/octicons-react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {UnderlineNavContext} from './UnderlineNavContext'
-import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {UnderlineItem} from '../internal/components/UnderlineTabbedInterface'
 import classes from './UnderlineNavItem.module.css'
+import {createDescendantRegistry} from '../utils/descendant-registry'
 
 // adopted from React.AnchorHTMLAttributes
 export type LinkProps = {
@@ -59,86 +58,83 @@ export type UnderlineNavItemProps = {
   counter?: number | string
 } & LinkProps
 
-export const UnderlineNavItem = forwardRef(
-  (
-    {
-      as: Component = 'a',
-      href = '#',
-      children,
-      counter,
-      onSelect,
-      'aria-current': ariaCurrent,
-      icon: Icon,
-      leadingVisual,
-      ...props
-    },
-    forwardedRef,
-  ) => {
-    const backupRef = useRef<HTMLElement>(null)
-    const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
-    const {setChildrenWidth, setNoIconChildrenWidth, loadingCounters, iconsVisible} = useContext(UnderlineNavContext)
+/** Registry of currently-overflowing underline items. If an item is not overflowing, its value will be `null`. */
+export const UnderlineNavItemsRegistry = createDescendantRegistry<UnderlineNavItemProps | null>()
 
-    useLayoutEffect(() => {
-      if (ref.current) {
-        const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
+export const UnderlineNavItem = forwardRef((allProps, forwardedRef) => {
+  const {
+    as: Component = 'a',
+    href = '#',
+    children,
+    counter,
+    onSelect,
+    'aria-current': ariaCurrent,
+    icon: Icon,
+    leadingVisual,
+    ...props
+  } = allProps
 
-        const icon = Array.from((ref as MutableRefObject<HTMLElement>).current.children).find(
-          child => child.getAttribute('data-component') === 'icon',
-        )
+  const ref = useRef<HTMLLIElement>(null)
 
-        const content = Array.from((ref as MutableRefObject<HTMLElement>).current.children).find(
-          child => child.getAttribute('data-component') === 'text',
-        ) as HTMLElement
-        const text = content.textContent as string
+  const {loadingCounters} = useContext(UnderlineNavContext)
 
-        const iconWidthWithMargin = icon
-          ? icon.getBoundingClientRect().width +
-            Number(getComputedStyle(icon).marginRight.slice(0, -2)) +
-            Number(getComputedStyle(icon).marginLeft.slice(0, -2))
-          : 0
+  const isOverflowing = useSyncExternalStore(
+    useCallback(
+      onChange => {
+        const observer = new IntersectionObserver(() => onChange(), {
+          threshold: 1,
+        })
+        if (ref.current) observer.observe(ref.current)
+        return () => observer.disconnect()
+      },
+      [ref],
+    ),
+    // Note: the IntersectionObserver is just being used as a trigger to re-check
+    // `offsetTop > 0`; this is fast and simpler than checking visibility from
+    // the observed entry. When an item wraps, it will move to the next row which
+    // increases its `offsetTop`
+    () => (ref.current ? ref.current.offsetTop > 0 : false),
+    () => false,
+  )
 
-        setChildrenWidth({text, width: domRect.width})
-        setNoIconChildrenWidth({text, width: domRect.width - iconWidthWithMargin})
+  UnderlineNavItemsRegistry.useRegisterDescendant(isOverflowing ? allProps : null)
+
+  const keyDownHandler = React.useCallback(
+    (event: React.KeyboardEvent<HTMLAnchorElement>) => {
+      if ((event.key === ' ' || event.key === 'Enter') && !event.defaultPrevented && typeof onSelect === 'function') {
+        onSelect(event)
       }
-    }, [ref, setChildrenWidth, setNoIconChildrenWidth])
+    },
+    [onSelect],
+  )
+  const clickHandler = React.useCallback(
+    (event: React.MouseEvent<HTMLAnchorElement>) => {
+      if (!event.defaultPrevented && typeof onSelect === 'function') {
+        onSelect(event)
+      }
+    },
+    [onSelect],
+  )
 
-    const keyDownHandler = React.useCallback(
-      (event: React.KeyboardEvent<HTMLAnchorElement>) => {
-        if ((event.key === ' ' || event.key === 'Enter') && !event.defaultPrevented && typeof onSelect === 'function') {
-          onSelect(event)
-        }
-      },
-      [onSelect],
-    )
-    const clickHandler = React.useCallback(
-      (event: React.MouseEvent<HTMLAnchorElement>) => {
-        if (!event.defaultPrevented && typeof onSelect === 'function') {
-          onSelect(event)
-        }
-      },
-      [onSelect],
-    )
-
-    return (
-      <li className={classes.UnderlineNavItem}>
-        <UnderlineItem
-          ref={ref}
-          as={Component}
-          href={href}
-          aria-current={ariaCurrent}
-          onKeyDown={keyDownHandler}
-          onClick={clickHandler}
-          counter={counter}
-          icon={leadingVisual ?? Icon}
-          loadingCounters={loadingCounters}
-          iconsVisible={iconsVisible}
-          {...props}
-        >
-          {children}
-        </UnderlineItem>
-      </li>
-    )
-  },
-) as PolymorphicForwardRefComponent<'a', UnderlineNavItemProps>
+  return (
+    <li className={classes.UnderlineNavItem} ref={ref} aria-hidden={isOverflowing ? true : allProps['aria-hidden']}>
+      <UnderlineItem
+        ref={forwardedRef}
+        as={Component}
+        href={href}
+        aria-current={ariaCurrent}
+        onKeyDown={keyDownHandler}
+        onClick={clickHandler}
+        counter={counter}
+        icon={leadingVisual ?? Icon}
+        loadingCounters={loadingCounters}
+        {...props}
+        tabIndex={isOverflowing ? -1 : allProps.tabIndex}
+      >
+        {children}
+      </UnderlineItem>
+    </li>
+  )
+}) as PolymorphicForwardRefComponent<'a', UnderlineNavItemProps>
 
 UnderlineNavItem.displayName = 'UnderlineNavItem'
