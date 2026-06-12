@@ -25,8 +25,19 @@ export const Default = () => (
     <BaseDialog.Trigger>Open dialog</BaseDialog.Trigger>
     <BaseDialog.Dialog>
       <BaseDialog.Heading>Base dialog</BaseDialog.Heading>
-      <BaseDialog.Content aria-label="Base dialog content">
-        This dialog is opened and closed with declarative button commands.
+      <BaseDialog.Content>This dialog is opened and closed with declarative button commands.</BaseDialog.Content>
+      <BaseDialog.Close>Close</BaseDialog.Close>
+    </BaseDialog.Dialog>
+  </BaseDialog>
+)
+
+export const FocusOnHeading = () => (
+  <BaseDialog initialFocus="heading">
+    <BaseDialog.Trigger>Open dialog</BaseDialog.Trigger>
+    <BaseDialog.Dialog>
+      <BaseDialog.Heading>Focus on heading</BaseDialog.Heading>
+      <BaseDialog.Content>
+        When this dialog opens, focus is placed on the heading instead of the close button.
       </BaseDialog.Content>
       <BaseDialog.Close>Close</BaseDialog.Close>
     </BaseDialog.Dialog>
@@ -38,7 +49,7 @@ export const Playground: StoryFn<typeof BaseDialog> = args => (
     <BaseDialog.Trigger>Open dialog</BaseDialog.Trigger>
     <BaseDialog.Dialog>
       <BaseDialog.Heading>Base dialog</BaseDialog.Heading>
-      <BaseDialog.Content aria-label="Base dialog playground content">
+      <BaseDialog.Content>
         Set <code>nonmodal</code> to open the dialog without making it modal.
       </BaseDialog.Content>
       <BaseDialog.Close>Close</BaseDialog.Close>
@@ -55,5 +66,11 @@ Playground.argTypes = {
     control: {
       type: 'boolean',
     },
+  },
+  initialFocus: {
+    control: {
+      type: 'select',
+    },
+    options: [undefined, 'heading'],
   },
 }

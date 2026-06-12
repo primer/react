@@ -1,23 +1,36 @@
-import {forwardRef, useId, useMemo, type ComponentPropsWithoutRef, type PropsWithChildren} from 'react'
+import {
+  forwardRef,
+  useEffect,
+  useId,
+  useMemo,
+  useState,
+  type ComponentPropsWithoutRef,
+  type PropsWithChildren,
+} from 'react'
 import {BaseDialogContext, useBaseDialog} from './BaseDialogContext'
 import {ScrollableRegion} from '../ScrollableRegion'
-import type {Labelled} from '../ScrollableRegion'
 import './polyfill'
 
 type RootProps = PropsWithChildren<{
   nonmodal?: boolean
+  initialFocus?: 'heading'
 }>
 
-function Root({children, nonmodal = false}: RootProps) {
+function Root({children, nonmodal = false, initialFocus}: RootProps) {
   const id = useId()
   const titleId = useId()
+  const [headingText, setHeadingText] = useState('')
   const value = useMemo(() => {
     return {
       id,
       titleId,
       command: nonmodal ? 'show' : 'show-modal',
+      headingText,
+      setHeadingText,
+      focusHeading: initialFocus === 'heading',
     } as const
-  }, [id, nonmodal, titleId])
+    // setHeadingText is stable (from useState) and intentionally omitted from deps
+  }, [id, nonmodal, titleId, headingText, initialFocus])
   return <BaseDialogContext.Provider value={value}>{children}</BaseDialogContext.Provider>
 }
 
@@ -68,19 +81,46 @@ function Close({children, commandfor, command, type = 'button', ...rest}: CloseP
 type HeadingProps = React.HTMLAttributes<HTMLHeadingElement>
 
 function Heading({children, id, ...rest}: HeadingProps) {
-  const {titleId} = useBaseDialog()
+  const {titleId, setHeadingText, focusHeading} = useBaseDialog()
+
+  useEffect(() => {
+    if (typeof children === 'string') {
+      setHeadingText(children)
+    }
+    return () => {
+      setHeadingText('')
+    }
+  }, [children, setHeadingText])
 
   return (
-    <h2 {...rest} id={id ?? titleId}>
+    <h2 {...rest} id={id ?? titleId} tabIndex={focusHeading ? -1 : undefined} autoFocus={focusHeading || undefined}>
       {children}
     </h2>
   )
 }
 
-type ContentProps = React.HTMLAttributes<HTMLElement> & Labelled
+type ContentProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'aria-label' | 'aria-labelledby'> & {
+  'aria-label'?: string
+  'aria-labelledby'?: string
+}
 
-function Content({children, ...rest}: ContentProps) {
-  return <ScrollableRegion {...rest}>{children}</ScrollableRegion>
+function Content({'aria-label': label, 'aria-labelledby': labelledby, children, ...rest}: ContentProps) {
+  const {headingText} = useBaseDialog()
+  const autoLabel = !label && !labelledby && headingText ? `${headingText} content` : undefined
+
+  if (labelledby) {
+    return (
+      <ScrollableRegion aria-labelledby={labelledby} {...rest}>
+        {children}
+      </ScrollableRegion>
+    )
+  }
+
+  return (
+    <ScrollableRegion aria-label={label ?? autoLabel ?? ''} {...rest}>
+      {children}
+    </ScrollableRegion>
+  )
 }
 
 export {Root, Trigger, Dialog, Close, Heading, Content}

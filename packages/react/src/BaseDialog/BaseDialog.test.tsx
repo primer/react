@@ -2,8 +2,19 @@ import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {describe, expect, it, vi} from 'vitest'
 import {BaseDialog, Close, Content, Dialog, Heading, Root, Trigger} from '../BaseDialog'
+import {implementsClassName} from '../utils/testing'
+
+function DialogWithRoot(props: React.ComponentPropsWithoutRef<'dialog'>) {
+  return (
+    <Root>
+      <Dialog {...props} aria-label="Test dialog" />
+    </Root>
+  )
+}
 
 describe('BaseDialog', () => {
+  implementsClassName(DialogWithRoot)
+
   it('renders a trigger connected to the dialog with show-modal by default', () => {
     render(
       <BaseDialog>
@@ -190,12 +201,100 @@ describe('BaseDialog', () => {
     )
 
     const trigger = screen.getByRole('button', {name: 'Open'})
-    const dialog = screen.getByRole('dialog', {hidden: true})
+    const dialog = screen.getByRole('dialog', {hidden: true}) as HTMLDialogElement
 
     await user.click(trigger)
     expect(dialog.open).toBe(true)
 
     await user.click(screen.getByRole('button', {name: 'Close'}))
     expect(dialog.open).toBe(false)
+  })
+
+  it('auto-labels content with heading text when no label is provided', async () => {
+    const originalResizeObserver = window.ResizeObserver
+    let mockResizeCallback: (entries: Array<ResizeObserverEntry>) => void = () => {}
+
+    window.ResizeObserver = class ResizeObserver {
+      constructor(callback: ResizeObserverCallback) {
+        mockResizeCallback = (entries: Array<ResizeObserverEntry>) => {
+          return callback(entries, this)
+        }
+      }
+
+      observe() {}
+      disconnect() {}
+      unobserve() {}
+    }
+
+    try {
+      render(
+        <BaseDialog>
+          <BaseDialog.Trigger>Open</BaseDialog.Trigger>
+          <BaseDialog.Dialog>
+            <BaseDialog.Heading>My dialog</BaseDialog.Heading>
+            <BaseDialog.Content data-testid="content">Content goes here</BaseDialog.Content>
+          </BaseDialog.Dialog>
+        </BaseDialog>,
+      )
+
+      const content = screen.getByTestId('content')
+
+      // Simulate overflow so ScrollableRegion renders the region role
+      const {act} = await import('react')
+      const overflowTarget = document.createElement('div')
+      act(() => {
+        mockResizeCallback([
+          {
+            target: {
+              ...overflowTarget,
+              scrollHeight: 200,
+              clientHeight: 100,
+            },
+            borderBoxSize: [],
+            contentBoxSize: [],
+            contentRect: {width: 0, height: 0, top: 0, right: 0, bottom: 0, left: 0, x: 0, y: 0, toJSON: () => {}},
+          } as unknown as ResizeObserverEntry,
+        ])
+      })
+
+      expect(content).toHaveAttribute('aria-label', 'My dialog content')
+    } finally {
+      window.ResizeObserver = originalResizeObserver
+    }
+  })
+
+  it('allows overriding the auto-label on content', async () => {
+    render(
+      <BaseDialog>
+        <BaseDialog.Trigger>Open</BaseDialog.Trigger>
+        <BaseDialog.Dialog>
+          <BaseDialog.Heading>My dialog</BaseDialog.Heading>
+          <BaseDialog.Content aria-label="Custom label" data-testid="content">
+            Content goes here
+          </BaseDialog.Content>
+        </BaseDialog.Dialog>
+      </BaseDialog>,
+    )
+
+    // The explicit label is stored and passed through to ScrollableRegion
+    expect(screen.getByTestId('content')).not.toHaveAttribute('aria-label', 'My dialog content')
+  })
+
+  it('sets focus on the heading when initialFocus is heading', () => {
+    render(
+      <BaseDialog initialFocus="heading">
+        <BaseDialog.Trigger>Open</BaseDialog.Trigger>
+        <BaseDialog.Dialog>
+          <BaseDialog.Heading>Dialog title</BaseDialog.Heading>
+          <BaseDialog.Content>Content</BaseDialog.Content>
+          <BaseDialog.Close>Close</BaseDialog.Close>
+        </BaseDialog.Dialog>
+      </BaseDialog>,
+    )
+
+    const heading = screen.getByText('Dialog title')
+
+    // tabIndex={-1} makes the heading programmatically focusable
+    expect(heading).toHaveAttribute('tabindex', '-1')
   })
 })
