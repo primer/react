@@ -167,6 +167,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
       {...getResponsiveAttributes('full-width', fullWidth)}
       {...getResponsiveAttributes('variant', variant)}
       data-size={size}
+      data-component="SegmentedControl"
       {...rest}
     >
       {React.Children.map(children, (child, index) => {
