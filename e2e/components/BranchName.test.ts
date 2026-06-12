@@ -18,6 +18,16 @@ const stories = [
     id: 'components-branchname-features--with-branch-icon',
     focus: false,
   },
+  {
+    title: 'With Trailing Action',
+    id: 'components-branchname-features--with-trailing-action',
+    focus: false,
+  },
+  {
+    title: 'With Trailing Action Menu',
+    id: 'components-branchname-features--with-trailing-action-menu',
+    focus: false,
+  },
 ] as const
 
 test.describe('BranchName', () => {
@@ -46,4 +56,47 @@ test.describe('BranchName', () => {
       }
     })
   }
+
+  // Trailing action stories - focus states only in light theme
+  test.describe('With Trailing Action', () => {
+    test('focus states @vrt', async ({page}) => {
+      await visit(page, {
+        id: 'components-branchname-features--with-trailing-action',
+        globals: {
+          colorScheme: 'light',
+        },
+      })
+
+      // Focus on branch name link
+      await page.keyboard.press('Tab')
+      await expect(page).toHaveScreenshot('BranchName.With Trailing Action.light.focus-link.png')
+
+      // Focus on trailing action button
+      await page.keyboard.press('Tab')
+      await expect(page).toHaveScreenshot('BranchName.With Trailing Action.light.focus-button.png')
+    })
+  })
+
+  test.describe('With Trailing Action Menu', () => {
+    test('focus states @vrt', async ({page}) => {
+      await visit(page, {
+        id: 'components-branchname-features--with-trailing-action-menu',
+        globals: {
+          colorScheme: 'light',
+        },
+      })
+
+      // Focus on branch name link
+      await page.keyboard.press('Tab')
+      await expect(page).toHaveScreenshot('BranchName.With Trailing Action Menu.light.focus-link.png')
+
+      // Focus on trailing action button
+      await page.keyboard.press('Tab')
+      await expect(page).toHaveScreenshot('BranchName.With Trailing Action Menu.light.focus-button.png')
+
+      // Open the menu
+      await page.keyboard.press('Enter')
+      await expect(page).toHaveScreenshot('BranchName.With Trailing Action Menu.light.menu-open.png')
+    })
+  })
 })
