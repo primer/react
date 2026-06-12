@@ -138,7 +138,7 @@ export type ActionListProps<As extends React.ElementType = 'ul'> = PolymorphicPr
     /**
      * `inset` children are offset (vertically and horizontally) from `List`’s edges, `full` children are flush (vertically and horizontally) with `List` edges
      */
-    variant?: 'inset' | 'horizontal-inset' | 'full'
+    variant?: 'inset' | 'horizontal-inset' | 'vertical-inset' | 'full' | 'start' | 'end'
     /**
      * Whether multiple Items or a single Item can be selected.
      */
