@@ -1,4 +1,5 @@
 import {describe, expect, it, vi} from 'vitest'
+import React from 'react'
 import {render} from '@testing-library/react'
 import {PageHeader} from '.'
 import {implementsClassName} from '../utils/testing'
@@ -159,5 +160,49 @@ describe('PageHeader', () => {
       </PageHeader>,
     )
     expect(container.firstChild).toHaveAttribute('aria-label', 'Custom aria-label')
+  })
+
+  it('forwards rest props to the underlying element in ParentLink', () => {
+    const {getByTestId} = render(
+      <PageHeader role="banner" aria-label="Title">
+        <PageHeader.ContextArea>
+          <PageHeader.ParentLink href="/parent" data-testid="parent-link">
+            Parent
+          </PageHeader.ParentLink>
+        </PageHeader.ContextArea>
+        <PageHeader.TitleArea>
+          <PageHeader.Title>Title</PageHeader.Title>
+        </PageHeader.TitleArea>
+      </PageHeader>,
+    )
+    expect(getByTestId('parent-link')).toBeInTheDocument()
+    expect(getByTestId('parent-link')).toHaveAttribute('href', '/parent')
+  })
+
+  it('forwards rest props to a custom "as" component in ParentLink', () => {
+    const CustomLink = React.forwardRef<
+      HTMLAnchorElement,
+      React.AnchorHTMLAttributes<HTMLAnchorElement> & {to?: string}
+    >(({to, children, ...props}, ref) => (
+      // Spread props first so that `href={to}` takes precedence
+      <a ref={ref} {...props} href={to}>
+        {children}
+      </a>
+    ))
+    CustomLink.displayName = 'CustomLink'
+
+    const {getByRole} = render(
+      <PageHeader role="banner" aria-label="Title">
+        <PageHeader.ContextArea>
+          <PageHeader.ParentLink as={CustomLink} to="/somewhere">
+            Parent
+          </PageHeader.ParentLink>
+        </PageHeader.ContextArea>
+        <PageHeader.TitleArea>
+          <PageHeader.Title>Title</PageHeader.Title>
+        </PageHeader.TitleArea>
+      </PageHeader>,
+    )
+    expect(getByRole('link', {name: /parent/i})).toHaveAttribute('href', '/somewhere')
   })
 })
