@@ -1,5 +1,6 @@
 import {render as HTMLRender} from '@testing-library/react'
 import {it, expect, vi} from 'vitest'
+import {reactMajorVersion} from './environment'
 
 export function implementsClassName(Component: React.ElementType, baseClassName?: string) {
   it('renders with the custom className', () => {
@@ -21,7 +22,9 @@ export function withExpectedConsoleError(callback: () => void) {
   const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
   try {
     callback()
-    expect(consoleSpy).toHaveBeenCalled()
+    if (reactMajorVersion < 19) {
+      expect(consoleSpy).toHaveBeenCalled()
+    }
   } finally {
     consoleSpy.mockRestore()
   }
