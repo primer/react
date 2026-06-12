@@ -630,7 +630,13 @@ export const WithItemGap: StoryFn = () => (
           <NavList.Item href="#" aria-current="page">
             Home
           </NavList.Item>
-          <NavList.Item href="#">About</NavList.Item>
+          <NavList.Item defaultOpen href="#">
+            About
+            <NavList.SubNav>
+              <NavList.Item href="#">Team</NavList.Item>
+              <NavList.Item href="#">History</NavList.Item>
+            </NavList.SubNav>
+          </NavList.Item>
           <NavList.Item href="#">Contact</NavList.Item>
         </NavList>
       </PageLayout.Pane>

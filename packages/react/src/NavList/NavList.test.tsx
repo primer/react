@@ -546,5 +546,41 @@ describe('NavList.ShowMoreItem with pages', () => {
 
       expect(container.querySelector('[data-component="ActionList"]')).toHaveAttribute('data-item-gap', '')
     })
+
+    it('adds a gap between a parent item and the first item of its expanded sub-nav when the feature flag is enabled', () => {
+      const {container} = render(
+        <FeatureFlags flags={{primer_react_action_list_item_gap: true}}>
+          <NavList>
+            <NavList.Item defaultOpen href="#">
+              Item 1
+              <NavList.SubNav>
+                <NavList.Item href="#">Sub item 1</NavList.Item>
+              </NavList.SubNav>
+            </NavList.Item>
+          </NavList>
+        </FeatureFlags>,
+      )
+
+      const subGroup = container.querySelector('ul[aria-labelledby]')
+      expect(subGroup).not.toBeNull()
+      expect(getComputedStyle(subGroup as HTMLElement).marginBlockStart).toBe('2px')
+    })
+
+    it('does not add a gap before a sub-nav when the feature flag is disabled', () => {
+      const {container} = render(
+        <NavList>
+          <NavList.Item defaultOpen href="#">
+            Item 1
+            <NavList.SubNav>
+              <NavList.Item href="#">Sub item 1</NavList.Item>
+            </NavList.SubNav>
+          </NavList.Item>
+        </NavList>,
+      )
+
+      const subGroup = container.querySelector('ul[aria-labelledby]')
+      expect(subGroup).not.toBeNull()
+      expect(getComputedStyle(subGroup as HTMLElement).marginBlockStart).toBe('0px')
+    })
   })
 })
