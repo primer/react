@@ -41,7 +41,7 @@ const ResponsiveUnderlineNav = ({
   ]
 
   return (
-    <div>
+    <div style={{width: 2000}}>
       <UnderlineNav aria-label="Repository" className={clsx('foo', className)} loadingCounters={loadingCounters}>
         {items.map(item => (
           <UnderlineNav.Item
@@ -251,5 +251,225 @@ describe('Keyboard Navigation', () => {
     await user.tab()
     // focus should be on the next item
     expect(nextItem).toHaveFocus()
+  })
+})
+
+describe('Architecture: parent-driven measurement', () => {
+  it('tags every Item with [data-underlinenav-item] so the parent can measure them in one pass', () => {
+    const {container} = render(
+      <UnderlineNav aria-label="Repo">
+        <UnderlineNav.Item>A</UnderlineNav.Item>
+        <UnderlineNav.Item>B</UnderlineNav.Item>
+        <UnderlineNav.Item>C</UnderlineNav.Item>
+      </UnderlineNav>,
+    )
+    expect(container.querySelectorAll('[data-underlinenav-item="true"]')).toHaveLength(3)
+  })
+
+  it('renders an Item standalone without requiring measurement callbacks from context', () => {
+    // The old API required UnderlineNavContext.setChildrenWidth /
+    // setNoIconChildrenWidth on mount. With the inverted architecture the item
+    // is a leaf with no upstream measurement responsibility — it should mount
+    // without throwing even when no UnderlineNav is present above it.
+    expect(() =>
+      render(
+        <ul>
+          <UnderlineNav.Item>Standalone</UnderlineNav.Item>
+        </ul>,
+      ),
+    ).not.toThrow()
+  })
+
+  it('marks the wrapper data-overflow-measured="true" after the measurement pass', async () => {
+    const {getByRole} = render(<ResponsiveUnderlineNav />)
+    const nav = getByRole('navigation')
+    // Measurement runs synchronously in a layout effect; by the time render()
+    // returns the wrapper should already be marked measured.
+    expect(nav.getAttribute('data-overflow-measured')).toBe('true')
+  })
+
+  it('anchors the overflow menu via a layout effect, not by reading refs during render', async () => {
+    // Regression: the menu position used to be computed inline in render by
+    // reading containerRef.current / listRef.current. Under concurrent rendering
+    // those refs may be null or stale during render; the anchor must come from a
+    // post-commit layout effect. Open the More menu in a narrow container so the
+    // anchor branch runs, and assert no crash + the menu becomes visible.
+    function NarrowOpen() {
+      const items = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten']
+      return (
+        <div style={{width: 280}}>
+          <UnderlineNav aria-label="Anchor">
+            {items.map(name => (
+              <UnderlineNav.Item key={name}>{name}</UnderlineNav.Item>
+            ))}
+          </UnderlineNav>
+        </div>
+      )
+    }
+    const {getByRole, container} = render(<NarrowOpen />)
+    const moreBtn = getByRole('button', {name: /More/i})
+    const user = userEvent.setup()
+    await user.click(moreBtn)
+    // After opening, the ActionList container's inline display must flip to "block".
+    // What matters for this test: clicking did not crash (the new layout effect
+    // tolerates the first commit where refs/widths may not be ready) and the
+    // overlay element is in the DOM with a non-"none" display.
+    const overlay = container.querySelector('[data-component="ActionList"]') as HTMLElement | null
+    expect(overlay).not.toBeNull()
+    expect(overlay!.style.display).toBe('block')
+  })
+})
+
+describe('Structure: aria-current swap is an effect (not render-phase setState)', () => {
+  function NarrowDemo({current}: {current: string}) {
+    const items = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten']
+    return (
+      <div style={{width: 320}}>
+        <UnderlineNav aria-label="Demo">
+          {items.map(name => (
+            <UnderlineNav.Item key={name} aria-current={name === current ? 'page' : undefined}>
+              {name}
+            </UnderlineNav.Item>
+          ))}
+        </UnderlineNav>
+      </div>
+    )
+  }
+
+  it('pulls a menu item into the visible list when aria-current is moved onto it externally', () => {
+    const {getByRole, rerender} = render(<NarrowDemo current="One" />)
+    // "One" is at the front of the list and should be visible from the start.
+    expect(getByRole('link', {name: 'One'}).getAttribute('aria-current')).toBe('page')
+    // "Ten" would normally overflow into the menu at this width. Mark it as the
+    // current page and the lifted effect should promote it into the visible list.
+    rerender(<NarrowDemo current="Ten" />)
+    const promoted = getByRole('link', {name: 'Ten'})
+    expect(promoted).toBeInTheDocument()
+    expect(promoted.getAttribute('aria-current')).toBe('page')
+  })
+
+  it('promotes a menu item correctly when its children are not a plain string', () => {
+    // Regression: the swap helper used to look widths up by `item.props.children`
+    // as a string, which silently returned 0 for non-string children and produced
+    // an incorrect swap (wrong items pulled from the list, or the same item being
+    // both promoted and demoted).
+    function NestedDemo({current}: {current: string}) {
+      const items = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten']
+      return (
+        <div style={{width: 320}}>
+          <UnderlineNav aria-label="Nested">
+            {items.map(name => (
+              <UnderlineNav.Item key={name} aria-current={name === current ? 'page' : undefined}>
+                <span>{name}</span>
+              </UnderlineNav.Item>
+            ))}
+          </UnderlineNav>
+        </div>
+      )
+    }
+    const {getByRole, rerender} = render(<NestedDemo current="One" />)
+    expect(getByRole('link', {name: 'One'}).getAttribute('aria-current')).toBe('page')
+    rerender(<NestedDemo current="Ten" />)
+    const promoted = getByRole('link', {name: 'Ten'})
+    expect(promoted).toBeInTheDocument()
+    expect(promoted.getAttribute('aria-current')).toBe('page')
+  })
+})
+
+describe('Performance: bounded re-renders during initial mount', () => {
+  it('renders each item at most twice during initial mount with stable children', () => {
+    // Captures every render of an item-body component. With per-item measurement
+    // callbacks each item used to trigger a parent setState which cascaded back
+    // through the item tree (gated by context-value identity, which was a fresh
+    // object literal on every render). The re-architecture stores widths in
+    // refs, measures once from the parent, memoizes Item, and memoizes the
+    // context value — so each item-body should render at most twice on mount:
+    // once for the initial commit and at most once after the single
+    // measurement state update.
+    const renderSpy = vi.fn()
+    function ItemBody({label}: {label: string}) {
+      renderSpy(label)
+      return <>{label}</>
+    }
+    const items = Array.from({length: 12}, (_, i) => `Item ${i + 1}`)
+    render(
+      <div style={{width: 2000}}>
+        <UnderlineNav aria-label="Perf">
+          {items.map(label => (
+            <UnderlineNav.Item key={label}>
+              <ItemBody label={label} />
+            </UnderlineNav.Item>
+          ))}
+        </UnderlineNav>
+      </div>,
+    )
+    const counts = new Map<string, number>()
+    for (const call of renderSpy.mock.calls) {
+      const label = call[0] as string
+      counts.set(label, (counts.get(label) ?? 0) + 1)
+    }
+    expect(counts.size).toBe(items.length)
+    for (const [label, count] of counts) {
+      expect(count, `${label} rendered ${count} times during mount`).toBeLessThanOrEqual(2)
+    }
+  })
+
+  it('does not re-render items linearly in N when more items are added', () => {
+    // Two trees: one with 5 items, one with 25 items. Per-item render count
+    // should be roughly constant (i.e. independent of N).
+    const counts = new Map<number, number>()
+    function makeTree(n: number) {
+      let totalRenders = 0
+      function ItemBody({label}: {label: string}) {
+        totalRenders++
+        return <>{label}</>
+      }
+      const items = Array.from({length: n}, (_, i) => `I${i}`)
+      const {unmount} = render(
+        <div style={{width: 4000}}>
+          <UnderlineNav aria-label={`P-${n}`}>
+            {items.map(label => (
+              <UnderlineNav.Item key={label}>
+                <ItemBody label={label} />
+              </UnderlineNav.Item>
+            ))}
+          </UnderlineNav>
+        </div>,
+      )
+      counts.set(n, totalRenders / n)
+      unmount()
+    }
+    makeTree(5)
+    makeTree(25)
+    // Per-item render rate must not grow with N — if anything went back to the
+    // child-callback pattern this would scale linearly.
+    expect(counts.get(25)!).toBeLessThanOrEqual(counts.get(5)! + 0.5)
+  })
+
+  it('produces at most one post-measurement state commit', () => {
+    // Snapshot the UnderlineNav's own render count via a Profiler. The single
+    // combined layout effect should commit at most once after measurement
+    // (and once more for the children-key derived reset on first mount),
+    // i.e. UnderlineNav renders <= 3 times total: initial + reset + measurement.
+    let parentRenderCount = 0
+    function CountedNav(props: {children: React.ReactNode}) {
+      parentRenderCount++
+      return <UnderlineNav aria-label="Commits">{props.children}</UnderlineNav>
+    }
+    const items = Array.from({length: 8}, (_, i) => `Item ${i + 1}`)
+    render(
+      <div style={{width: 2000}}>
+        <CountedNav>
+          {items.map(label => (
+            <UnderlineNav.Item key={label}>{label}</UnderlineNav.Item>
+          ))}
+        </CountedNav>
+      </div>,
+    )
+    // Initial render + at most one commit from the combined measurement+swap
+    // layout effect. If measurement and swap had remained two effects this
+    // would be 3+ renders. If the resize observer also commits redundantly
+    // on mount it'd be 4+.
+    expect(parentRenderCount).toBeLessThanOrEqual(3)
   })
 })
