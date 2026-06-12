@@ -65,9 +65,10 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           className={clsx(classes.Select, disabled && classes.Disabled)}
           data-hasplaceholder={Boolean(placeholder)}
           defaultValue={defaultValue ?? placeholder ?? undefined}
+          data-component="Select"
         >
           {placeholder && (
-            <option value="" disabled={required} hidden={required}>
+            <option value="" disabled={required} hidden={required} data-component="Select.Option">
               {placeholder}
             </option>
           )}
@@ -80,11 +81,11 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
 ) as PolymorphicForwardRefComponent<'select', SelectProps>
 
 const Option: React.FC<React.PropsWithChildren<React.HTMLProps<HTMLOptionElement> & {value: string}>> = props => (
-  <option {...props} />
+  <option {...props} data-component="Select.Option" />
 )
 
 const OptGroup: React.FC<React.PropsWithChildren<React.HTMLProps<HTMLOptGroupElement>>> = props => (
-  <optgroup {...props} />
+  <optgroup {...props} data-component="Select.OptGroup" />
 )
 
 export default Object.assign(Select, {
