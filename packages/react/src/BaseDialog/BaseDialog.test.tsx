@@ -5,7 +5,7 @@ import {BaseDialog, Close, Content, Dialog, Heading, Root, Trigger} from '../Bas
 
 describe('BaseDialog', () => {
   it('renders a trigger connected to the dialog with show-modal by default', () => {
-    const {container} = render(
+    render(
       <BaseDialog>
         <BaseDialog.Trigger data-testid="trigger">Open</BaseDialog.Trigger>
         <BaseDialog.Dialog aria-label="Example dialog" />
@@ -13,10 +13,10 @@ describe('BaseDialog', () => {
     )
 
     const trigger = screen.getByRole('button', {name: 'Open'})
-    const dialog = container.querySelector('dialog')
+    const dialog = screen.getByRole('dialog', {hidden: true})
 
     expect(dialog).toBeInTheDocument()
-    expect(trigger).toHaveAttribute('commandfor', dialog?.id)
+    expect(trigger).toHaveAttribute('commandfor', dialog.id)
     expect(trigger).toHaveAttribute('command', 'show-modal')
     expect(trigger).toHaveAttribute('type', 'button')
   })
@@ -49,7 +49,7 @@ describe('BaseDialog', () => {
   })
 
   it('renders a close button connected to the dialog', () => {
-    const {container} = render(
+    render(
       <BaseDialog>
         <BaseDialog.Trigger>Open</BaseDialog.Trigger>
         <BaseDialog.Dialog aria-label="Example dialog">
@@ -59,10 +59,10 @@ describe('BaseDialog', () => {
     )
 
     const close = screen.getByText('Close').closest('button')
-    const dialog = container.querySelector('dialog')
+    const dialog = screen.getByRole('dialog', {hidden: true})
 
     expect(dialog).toBeInTheDocument()
-    expect(close).toHaveAttribute('commandfor', dialog?.id)
+    expect(close).toHaveAttribute('commandfor', dialog.id)
     expect(close).toHaveAttribute('command', 'close')
     expect(close).toHaveAttribute('type', 'button')
   })
@@ -86,7 +86,7 @@ describe('BaseDialog', () => {
   })
 
   it('renders heading and content subcomponents', () => {
-    const {container} = render(
+    render(
       <BaseDialog>
         <BaseDialog.Trigger>Open</BaseDialog.Trigger>
         <BaseDialog.Dialog>
@@ -96,7 +96,7 @@ describe('BaseDialog', () => {
       </BaseDialog>,
     )
 
-    const dialog = container.querySelector('dialog')
+    const dialog = screen.getByRole('dialog', {hidden: true})
     const heading = screen.getByText('Dialog title')
 
     expect(heading).toBeInTheDocument()
@@ -106,18 +106,18 @@ describe('BaseDialog', () => {
   })
 
   it('adds aria-labelledby even when no heading is rendered', () => {
-    const {container} = render(
+    render(
       <BaseDialog>
         <BaseDialog.Trigger>Open</BaseDialog.Trigger>
         <BaseDialog.Dialog />
       </BaseDialog>,
     )
 
-    expect(container.querySelector('dialog')).toHaveAttribute('aria-labelledby')
+    expect(screen.getByRole('dialog', {hidden: true})).toHaveAttribute('aria-labelledby')
   })
 
   it('allows overriding the dialog label id', () => {
-    const {container} = render(
+    render(
       <BaseDialog>
         <BaseDialog.Trigger>Open</BaseDialog.Trigger>
         <BaseDialog.Dialog aria-labelledby="custom-dialog-title">
@@ -127,11 +127,11 @@ describe('BaseDialog', () => {
     )
 
     expect(screen.getByText('Dialog title')).toHaveAttribute('id', 'custom-dialog-title')
-    expect(container.querySelector('dialog')).toHaveAttribute('aria-labelledby', 'custom-dialog-title')
+    expect(screen.getByRole('dialog', {hidden: true})).toHaveAttribute('aria-labelledby', 'custom-dialog-title')
   })
 
   it('adds aria-labelledby when aria-label is provided', () => {
-    const {container} = render(
+    render(
       <BaseDialog>
         <BaseDialog.Trigger>Open</BaseDialog.Trigger>
         <BaseDialog.Dialog aria-label="Example dialog">
@@ -140,12 +140,14 @@ describe('BaseDialog', () => {
       </BaseDialog>,
     )
 
-    expect(container.querySelector('dialog')).toHaveAttribute('aria-label', 'Example dialog')
-    expect(container.querySelector('dialog')).toHaveAttribute('aria-labelledby')
+    const dialog = screen.getByRole('dialog', {hidden: true})
+
+    expect(dialog).toHaveAttribute('aria-label', 'Example dialog')
+    expect(dialog).toHaveAttribute('aria-labelledby')
   })
 
   it('exposes individual compound component exports', () => {
-    const {container} = render(
+    render(
       <Root>
         <Trigger>Open</Trigger>
         <Dialog>
@@ -156,12 +158,12 @@ describe('BaseDialog', () => {
       </Root>,
     )
 
-    const dialog = container.querySelector('dialog')
+    const dialog = screen.getByRole('dialog', {hidden: true})
 
     expect(dialog).toBeInTheDocument()
-    expect(screen.getByRole('button', {name: 'Open'})).toHaveAttribute('commandfor', dialog?.id)
+    expect(screen.getByRole('button', {name: 'Open'})).toHaveAttribute('commandfor', dialog.id)
     expect(dialog).toHaveAttribute('aria-labelledby', screen.getByText('Dialog title').id)
-    expect(screen.getByText('Close').closest('button')).toHaveAttribute('commandfor', dialog?.id)
+    expect(screen.getByText('Close').closest('button')).toHaveAttribute('commandfor', dialog.id)
   })
 
   it('throws when a subcomponent is rendered outside of BaseDialog.Root', () => {
@@ -178,7 +180,7 @@ describe('BaseDialog', () => {
 
   it('opens and closes the dialog with invoker commands', async () => {
     const user = userEvent.setup()
-    const {container} = render(
+    render(
       <BaseDialog>
         <BaseDialog.Trigger>Open</BaseDialog.Trigger>
         <BaseDialog.Dialog aria-label="Example dialog">
@@ -188,12 +190,12 @@ describe('BaseDialog', () => {
     )
 
     const trigger = screen.getByRole('button', {name: 'Open'})
-    const dialog = container.querySelector('dialog')
+    const dialog = screen.getByRole('dialog', {hidden: true})
 
     await user.click(trigger)
-    expect(dialog?.open).toBe(true)
+    expect(dialog.open).toBe(true)
 
     await user.click(screen.getByRole('button', {name: 'Close'}))
-    expect(dialog?.open).toBe(false)
+    expect(dialog.open).toBe(false)
   })
 })
