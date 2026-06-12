@@ -1,5 +1,5 @@
 import Breadcrumbs from '..'
-import {render as HTMLRender, screen, waitFor, within} from '@testing-library/react'
+import {act, fireEvent, render as HTMLRender, screen, waitFor, within} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
 import {FeatureFlags} from '../../FeatureFlags'
@@ -155,8 +155,6 @@ describe('Breadcrumbs', () => {
   })
 
   it('includes root item in overflow menu when overflow is menu-with-root', async () => {
-    const user = userEvent.setup()
-
     renderWithTheme(
       <Breadcrumbs overflow="menu-with-root">
         <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
@@ -176,7 +174,7 @@ describe('Breadcrumbs', () => {
     expect(menuButton).toBeInTheDocument()
 
     // Open the overflow menu
-    await user.click(menuButton)
+    fireEvent.click(menuButton)
 
     // Find the <details> element that contains the overflow menu
     const detailsEl = menuButton.closest('details') as HTMLElement | null
@@ -249,11 +247,14 @@ describe('Breadcrumbs', () => {
 
     // Simulate a wide container resize
     if (resizeCallback) {
-      resizeCallback([
-        {
-          contentRect: {width: 800, height: 40},
-        } as ResizeObserverEntry,
-      ])
+      const callback = resizeCallback
+      act(() => {
+        callback([
+          {
+            contentRect: {width: 800, height: 40},
+          } as ResizeObserverEntry,
+        ])
+      })
     }
 
     // Should still have overflow menu for 6 items (>5 rule)
@@ -261,11 +262,14 @@ describe('Breadcrumbs', () => {
 
     // Simulate a narrow container resize
     if (resizeCallback) {
-      resizeCallback([
-        {
-          contentRect: {width: 250, height: 40},
-        } as ResizeObserverEntry,
-      ])
+      const callback = resizeCallback
+      act(() => {
+        callback([
+          {
+            contentRect: {width: 250, height: 40},
+          } as ResizeObserverEntry,
+        ])
+      })
     }
 
     // Should maintain overflow menu for narrow container
@@ -309,7 +313,7 @@ describe('Breadcrumbs', () => {
     expect(menuButton).toBeInTheDocument()
 
     // Open the overflow menu
-    await user.click(menuButton)
+    fireEvent.click(menuButton)
 
     // Verify menu items are present (first 3 items should be in overflow for 7 total items)
     await waitFor(() => {
@@ -327,16 +331,19 @@ describe('Breadcrumbs', () => {
     // Close menu by clicking outside
     await user.click(document.body)
     await waitFor(() => {
-      expect
+      expect(menuButton).toHaveAttribute('aria-expanded', 'false')
     })
 
     // Simulate a very narrow container resize that would affect overflow calculation
     if (resizeCallback) {
-      resizeCallback([
-        {
-          contentRect: {width: 200, height: 40},
-        } as ResizeObserverEntry,
-      ])
+      const callback = resizeCallback
+      act(() => {
+        callback([
+          {
+            contentRect: {width: 200, height: 40},
+          } as ResizeObserverEntry,
+        ])
+      })
     }
 
     // Menu button should still be present
@@ -344,11 +351,14 @@ describe('Breadcrumbs', () => {
 
     // Simulate a very wide container resize
     if (resizeCallback) {
-      resizeCallback([
-        {
-          contentRect: {width: 1200, height: 40},
-        } as ResizeObserverEntry,
-      ])
+      const callback = resizeCallback
+      act(() => {
+        callback([
+          {
+            contentRect: {width: 1200, height: 40},
+          } as ResizeObserverEntry,
+        ])
+      })
     }
 
     // Menu button should still be present (7 items > 5)
@@ -392,7 +402,7 @@ describe('Breadcrumbs', () => {
       const menuButton = screen.getByRole('button', {name: /more breadcrumb items/i})
       // Initially collapsed
       expect(menuButton).toHaveAttribute('aria-expanded', 'false')
-      await user.click(menuButton)
+      fireEvent.click(menuButton)
 
       // Verify menu is open
       await waitFor(() => {
@@ -400,7 +410,9 @@ describe('Breadcrumbs', () => {
       })
 
       // Press Escape key
-      await user.keyboard('{Escape}') // sometimes tooltip swallows this escape
+      await act(async () => {
+        await user.keyboard('{Escape}') // sometimes tooltip swallows this escape
+      })
 
       // Verify menu is closed
       await waitFor(() => {
@@ -431,7 +443,7 @@ describe('Breadcrumbs', () => {
 
       // Open the overflow menu
       const menuButton = screen.getByRole('button', {name: /more breadcrumb items/i})
-      await user.click(menuButton)
+      fireEvent.click(menuButton)
 
       // Verify menu is open
       await waitFor(() => {
@@ -466,7 +478,7 @@ describe('Breadcrumbs', () => {
 
       // Open the overflow menu
       const menuButton = screen.getByRole('button', {name: /more breadcrumb items/i})
-      await user.click(menuButton)
+      fireEvent.click(menuButton)
 
       // Verify menu is open
       await waitFor(() => {
@@ -506,7 +518,10 @@ describe('Breadcrumbs', () => {
       const menuButton = screen.getByRole('button', {name: /more breadcrumb items/i})
 
       // Focus the menu button
-      menuButton.focus()
+      await act(async () => {
+        menuButton.focus()
+        await Promise.resolve()
+      })
       expect(menuButton).toHaveFocus()
 
       // Open menu with Enter key
@@ -518,7 +533,9 @@ describe('Breadcrumbs', () => {
       })
 
       // Close with Escape
-      await user.keyboard('{Escape}')
+      await act(async () => {
+        await user.keyboard('{Escape}')
+      })
 
       // Verify focus returns to button
       expect(menuButton).toHaveFocus()
@@ -584,8 +601,6 @@ describe('Breadcrumbs', () => {
     })
 
     it('passes through additional props to the element specified by as in overflow menu', async () => {
-      const user = userEvent.setup()
-
       renderWithTheme(
         <Breadcrumbs overflow="menu">
           <Breadcrumbs.Item as={Link} href="/home" data-testid="home-link" inline>
@@ -603,7 +618,7 @@ describe('Breadcrumbs', () => {
 
       // Open the overflow menu
       const menuButton = screen.getByRole('button', {name: /more breadcrumb items/i})
-      await user.click(menuButton)
+      fireEvent.click(menuButton)
 
       // Verify the custom link in the overflow menu has the correct href
       await waitFor(() => {
