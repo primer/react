@@ -1,6 +1,10 @@
 name: Stress Tests
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
   stress-tests:
@@ -23,7 +27,7 @@ jobs:
           npx serve -l 6006 packages/react/storybook-static &
           pid=$!
           echo "pid=$pid" >> $GITHUB_OUTPUT
-          sleep 5
+          curl --retry 30 --retry-delay 1 --retry-connrefused --silent --show-error --fail http://localhost:6006 >/dev/null
       - name: Run Stress Tests
         uses: docker://mcr.microsoft.com/playwright:v1.60.0-jammy
         env:
@@ -32,7 +36,7 @@ jobs:
           args: npx playwright test --grep @stress-test"
       - name: Stop storybook
         if: ${{ always() }}
-        run: kill ${{ steps.storybook.outputs.pid }}
+        run: kill ${{ steps.storybook.outputs.pid }} || true
       - name: Download previous benchmark data (if any)
         uses: actions/cache@v5
         with:
