@@ -1,14 +1,7 @@
-import {
-  forwardRef,
-  useEffect,
-  useId,
-  useMemo,
-  useState,
-  type ComponentPropsWithoutRef,
-  type PropsWithChildren,
-} from 'react'
+import {forwardRef, useId, useMemo, type ComponentPropsWithoutRef, type PropsWithChildren} from 'react'
 import {BaseDialogContext, useBaseDialog} from './BaseDialogContext'
 import {ScrollableRegion} from '../ScrollableRegion'
+import {VisuallyHidden} from '../VisuallyHidden'
 import './polyfill'
 
 type RootProps = PropsWithChildren<{
@@ -18,17 +11,13 @@ type RootProps = PropsWithChildren<{
 function Root({children, nonmodal = false}: RootProps) {
   const id = useId()
   const titleId = useId()
-  const [headingText, setHeadingText] = useState('')
   const value = useMemo(() => {
     return {
       id,
       titleId,
       command: nonmodal ? 'show' : 'show-modal',
-      headingText,
-      setHeadingText,
     } as const
-    // setHeadingText is stable (from useState) and intentionally omitted from deps
-  }, [id, nonmodal, titleId, headingText])
+  }, [id, nonmodal, titleId])
   return <BaseDialogContext.Provider value={value}>{children}</BaseDialogContext.Provider>
 }
 
@@ -79,16 +68,7 @@ function Close({children, commandfor, command, type = 'button', ...rest}: CloseP
 type HeadingProps = React.HTMLAttributes<HTMLHeadingElement>
 
 function Heading({children, id, autoFocus, tabIndex, ...rest}: HeadingProps) {
-  const {titleId, setHeadingText} = useBaseDialog()
-
-  useEffect(() => {
-    if (typeof children === 'string') {
-      setHeadingText(children)
-    }
-    return () => {
-      setHeadingText('')
-    }
-  }, [children, setHeadingText])
+  const {titleId} = useBaseDialog()
 
   return (
     <h2 {...rest} id={id ?? titleId} autoFocus={autoFocus} tabIndex={autoFocus ? (tabIndex ?? -1) : tabIndex}>
@@ -103,8 +83,16 @@ type ContentProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'aria-label' | '
 }
 
 function Content({'aria-label': label, 'aria-labelledby': labelledby, children, ...rest}: ContentProps) {
-  const {headingText} = useBaseDialog()
-  const autoLabel = !label && !labelledby && headingText ? `${headingText} content` : undefined
+  const {titleId} = useBaseDialog()
+  const contentLabelId = useId()
+
+  if (label) {
+    return (
+      <ScrollableRegion aria-label={label} {...rest}>
+        {children}
+      </ScrollableRegion>
+    )
+  }
 
   if (labelledby) {
     return (
@@ -115,9 +103,12 @@ function Content({'aria-label': label, 'aria-labelledby': labelledby, children, 
   }
 
   return (
-    <ScrollableRegion aria-label={label ?? autoLabel ?? ''} {...rest}>
-      {children}
-    </ScrollableRegion>
+    <>
+      <VisuallyHidden id={contentLabelId}>content</VisuallyHidden>
+      <ScrollableRegion aria-labelledby={`${titleId} ${contentLabelId}`} {...rest}>
+        {children}
+      </ScrollableRegion>
+    </>
   )
 }
 

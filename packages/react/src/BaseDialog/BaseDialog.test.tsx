@@ -210,60 +210,28 @@ describe('BaseDialog', () => {
     expect(dialog.open).toBe(false)
   })
 
-  it('auto-labels content with heading text when no label is provided', async () => {
-    const originalResizeObserver = window.ResizeObserver
-    let mockResizeCallback: (entries: Array<ResizeObserverEntry>) => void = () => {}
+  it('auto-labels content using a hidden "content" node with aria-labelledby pointing to the heading', () => {
+    render(
+      <BaseDialog>
+        <BaseDialog.Trigger>Open</BaseDialog.Trigger>
+        <BaseDialog.Dialog>
+          <BaseDialog.Heading>My dialog</BaseDialog.Heading>
+          <BaseDialog.Content data-testid="content">Content goes here</BaseDialog.Content>
+        </BaseDialog.Dialog>
+      </BaseDialog>,
+    )
 
-    window.ResizeObserver = class ResizeObserver {
-      constructor(callback: ResizeObserverCallback) {
-        mockResizeCallback = (entries: Array<ResizeObserverEntry>) => {
-          return callback(entries, this)
-        }
-      }
+    const heading = screen.getByText('My dialog')
 
-      observe() {}
-      disconnect() {}
-      unobserve() {}
-    }
-
-    try {
-      render(
-        <BaseDialog>
-          <BaseDialog.Trigger>Open</BaseDialog.Trigger>
-          <BaseDialog.Dialog>
-            <BaseDialog.Heading>My dialog</BaseDialog.Heading>
-            <BaseDialog.Content data-testid="content">Content goes here</BaseDialog.Content>
-          </BaseDialog.Dialog>
-        </BaseDialog>,
-      )
-
-      const content = screen.getByTestId('content')
-
-      // Simulate overflow so ScrollableRegion renders the region role
-      const {act} = await import('react')
-      const overflowTarget = document.createElement('div')
-      act(() => {
-        mockResizeCallback([
-          {
-            target: {
-              ...overflowTarget,
-              scrollHeight: 200,
-              clientHeight: 100,
-            },
-            borderBoxSize: [],
-            contentBoxSize: [],
-            contentRect: {width: 0, height: 0, top: 0, right: 0, bottom: 0, left: 0, x: 0, y: 0, toJSON: () => {}},
-          } as unknown as ResizeObserverEntry,
-        ])
-      })
-
-      expect(content).toHaveAttribute('aria-label', 'My dialog content')
-    } finally {
-      window.ResizeObserver = originalResizeObserver
-    }
+    // A visually hidden span with "content" is rendered so aria-labelledby can
+    // reference both the heading id and this node to produce "My dialog content"
+    const hiddenLabel = screen.getByText('content', {selector: '[id]'})
+    expect(hiddenLabel).toBeInTheDocument()
+    expect(hiddenLabel.id).not.toBe('')
+    expect(heading.id).not.toBe('')
   })
 
-  it('allows overriding the auto-label on content', async () => {
+  it('allows overriding the auto-label on content', () => {
     render(
       <BaseDialog>
         <BaseDialog.Trigger>Open</BaseDialog.Trigger>
@@ -276,8 +244,8 @@ describe('BaseDialog', () => {
       </BaseDialog>,
     )
 
-    // The explicit label is stored and passed through to ScrollableRegion
-    expect(screen.getByTestId('content')).not.toHaveAttribute('aria-label', 'My dialog content')
+    // When an explicit aria-label is provided, the hidden "content" span is not rendered
+    expect(screen.queryByText('content', {selector: '[id]'})).not.toBeInTheDocument()
   })
 
   it('adds tabIndex={-1} automatically when autoFocus is set on the heading', () => {
