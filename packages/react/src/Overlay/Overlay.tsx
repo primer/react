@@ -10,6 +10,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import classes from './Overlay.module.css'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
+import {heightMap, widthMap} from './constants'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
@@ -21,25 +22,7 @@ type StyledOverlayProps = {
   style?: React.CSSProperties
 }
 
-export const heightMap = {
-  xsmall: '192px',
-  small: '256px',
-  medium: '320px',
-  large: '432px',
-  xlarge: '600px',
-  auto: 'auto',
-  initial: 'auto', // Passing 'initial' initially applies 'auto'
-  'fit-content': 'fit-content',
-}
-
-export const widthMap = {
-  small: '256px',
-  medium: '320px',
-  large: '480px',
-  xlarge: '640px',
-  xxlarge: '960px',
-  auto: 'auto',
-}
+export {heightMap, widthMap}
 const animationDuration = 200
 
 function getSlideAnimationStartingVector(anchorSide?: AnchorSide): {x: number; y: number} {
@@ -59,6 +42,7 @@ function getSlideAnimationStartingVector(anchorSide?: AnchorSide): {x: number; y
 type BaseOverlayProps = {
   visibility?: 'visible' | 'hidden'
   'data-test-id'?: unknown
+  'data-component'?: string
   position?: React.CSSProperties['position']
   top?: React.CSSProperties['top']
   left?: React.CSSProperties['left']

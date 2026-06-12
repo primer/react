@@ -201,6 +201,26 @@ describe.each([true, false])(
       })
     })
 
+    it('renders data-component attributes for AnchoredOverlay parts when shown', () => {
+      const {baseElement} = render(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <BaseStyles>
+            <AnchoredOverlay
+              open={true}
+              onOpen={() => {}}
+              onClose={() => {}}
+              renderAnchor={props => <Button {...props}>Anchor Button</Button>}
+              variant={{regular: 'anchored', narrow: 'fullscreen'}}
+            >
+              <div>content</div>
+            </AnchoredOverlay>
+          </BaseStyles>
+        </FeatureFlags>,
+      )
+      expect(baseElement.querySelector('[data-component="AnchoredOverlay"]')).toBeInTheDocument()
+      expect(baseElement.querySelector('[data-component="AnchoredOverlay.CloseButton"]')).toBeInTheDocument()
+    })
+
     it('should support a `ref` through `overlayProps` on the overlay element', () => {
       const ref = createRef<HTMLDivElement>()
 
