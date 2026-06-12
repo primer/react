@@ -231,4 +231,147 @@ describe('ActionList.Group', () => {
       ).toThrow(/can not be used inside an ActionList with an ARIA role of "listbox"/)
     })
   })
+
+  describe('GroupHeading.LeadingVisual (behind feature flag)', () => {
+    it('renders GroupHeading.LeadingVisual as a sibling of the heading element when the feature flag is enabled', () => {
+      const {getByRole, getByTestId} = HTMLRender(
+        <FeatureFlags flags={{primer_react_action_list_group_heading_leading_visual: true}}>
+          <ActionList>
+            <ActionList.Heading as="h1">Heading</ActionList.Heading>
+            <ActionList.Group>
+              <ActionList.GroupHeading as="h2">
+                <ActionList.GroupHeading.LeadingVisual>
+                  <PlusIcon aria-label="leading-icon" data-testid="leading-visual" />
+                </ActionList.GroupHeading.LeadingVisual>
+                Group Heading
+              </ActionList.GroupHeading>
+              <ActionList.Item>Item</ActionList.Item>
+            </ActionList.Group>
+          </ActionList>
+        </FeatureFlags>,
+      )
+
+      const heading = getByRole('heading', {level: 2})
+      const visual = getByTestId('leading-visual')
+
+      // The visual must NOT be inside the heading element
+      expect(heading).not.toContainElement(visual)
+      // The heading text should only contain the heading text
+      expect(heading).toHaveTextContent('Group Heading')
+      // The visual should be inside the same wrapper as the heading
+      expect(heading.parentElement).toContainElement(visual)
+    })
+
+    it('passes GroupHeading.LeadingVisual through as a child of the heading when the feature flag is disabled', () => {
+      const {getByRole, getByTestId} = HTMLRender(
+        <ActionList>
+          <ActionList.Heading as="h1">Heading</ActionList.Heading>
+          <ActionList.Group>
+            <ActionList.GroupHeading as="h2">
+              <ActionList.GroupHeading.LeadingVisual>
+                <PlusIcon aria-label="leading-icon" data-testid="leading-visual" />
+              </ActionList.GroupHeading.LeadingVisual>
+              Group Heading
+            </ActionList.GroupHeading>
+            <ActionList.Item>Item</ActionList.Item>
+          </ActionList.Group>
+        </ActionList>,
+      )
+
+      const heading = getByRole('heading', {level: 2})
+      const visual = getByTestId('leading-visual')
+
+      // Without the flag, the slot is not consumed: the visual passes through
+      // and still renders inside the heading element.
+      expect(heading).toContainElement(visual)
+    })
+
+    it('renders GroupHeading.LeadingVisual inside a listbox role without throwing', () => {
+      const {getByText, getByTestId} = HTMLRender(
+        <FeatureFlags flags={{primer_react_action_list_group_heading_leading_visual: true}}>
+          <ActionList role="listbox">
+            <ActionList.Group>
+              <ActionList.GroupHeading>
+                <ActionList.GroupHeading.LeadingVisual>
+                  <PlusIcon aria-label="leading-icon" data-testid="leading-visual" />
+                </ActionList.GroupHeading.LeadingVisual>
+                Group Heading
+              </ActionList.GroupHeading>
+              <ActionList.Item>Item</ActionList.Item>
+            </ActionList.Group>
+          </ActionList>
+        </FeatureFlags>,
+      )
+
+      const label = getByText('Group Heading')
+      const visual = getByTestId('leading-visual')
+      // The visual renders before the presentational heading span, not inside it.
+      expect(label).not.toContainElement(visual)
+      expect(label.parentElement).toContainElement(visual)
+    })
+
+    it('renders both LeadingVisual and TrailingAction when both feature flags are enabled', () => {
+      const {getByRole, getByTestId} = HTMLRender(
+        <FeatureFlags
+          flags={{
+            primer_react_action_list_group_heading_leading_visual: true,
+            primer_react_action_list_group_heading_trailing_action: true,
+          }}
+        >
+          <ActionList>
+            <ActionList.Heading as="h1">Heading</ActionList.Heading>
+            <ActionList.Group>
+              <ActionList.GroupHeading as="h2">
+                <ActionList.GroupHeading.LeadingVisual>
+                  <PlusIcon aria-label="leading-icon" data-testid="leading-visual" />
+                </ActionList.GroupHeading.LeadingVisual>
+                Group Heading
+                <ActionList.GroupHeading.TrailingAction label="New field" icon={PlusIcon} />
+              </ActionList.GroupHeading>
+              <ActionList.Item>Item</ActionList.Item>
+            </ActionList.Group>
+          </ActionList>
+        </FeatureFlags>,
+      )
+
+      const heading = getByRole('heading', {level: 2})
+      const button = getByRole('button', {name: 'New field'})
+      const visual = getByTestId('leading-visual')
+
+      expect(heading).toHaveTextContent('Group Heading')
+      expect(heading).not.toContainElement(button)
+      expect(heading).not.toContainElement(visual)
+      expect(heading.parentElement).toContainElement(button)
+      expect(heading.parentElement).toContainElement(visual)
+    })
+
+    it('does not strip LeadingVisual when only the TrailingAction feature flag is enabled', () => {
+      const {getByRole, getByTestId} = HTMLRender(
+        <FeatureFlags flags={{primer_react_action_list_group_heading_trailing_action: true}}>
+          <ActionList>
+            <ActionList.Heading as="h1">Heading</ActionList.Heading>
+            <ActionList.Group>
+              <ActionList.GroupHeading as="h2">
+                <ActionList.GroupHeading.LeadingVisual>
+                  <PlusIcon aria-label="leading-icon" data-testid="leading-visual" />
+                </ActionList.GroupHeading.LeadingVisual>
+                Group Heading
+                <ActionList.GroupHeading.TrailingAction label="New field" icon={PlusIcon} />
+              </ActionList.GroupHeading>
+              <ActionList.Item>Item</ActionList.Item>
+            </ActionList.Group>
+          </ActionList>
+        </FeatureFlags>,
+      )
+
+      const heading = getByRole('heading', {level: 2})
+      const button = getByRole('button', {name: 'New field'})
+      const visual = getByTestId('leading-visual')
+
+      // TrailingAction is extracted (its flag is on), but the LeadingVisual flag
+      // is off so it must remain inside the heading rather than being stripped.
+      expect(heading).not.toContainElement(button)
+      expect(heading).toContainElement(visual)
+    })
+  })
 })

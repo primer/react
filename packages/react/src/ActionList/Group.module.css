@@ -75,3 +75,13 @@
   align-items: center;
   margin-inline-start: auto;
 }
+
+.GroupHeadingWrap[data-has-leading-visual] {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--base-size-8);
+
+  & > .GroupHeading {
+    align-self: center;
+  }
+}

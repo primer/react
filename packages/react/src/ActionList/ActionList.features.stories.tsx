@@ -1036,6 +1036,35 @@ export const WithTrailingActionOnGroupHeading = () => (
 
 WithTrailingActionOnGroupHeading.storyName = 'With TrailingAction on GroupHeading (behind feature flag)'
 
+export const WithLeadingVisualOnGroupHeading = () => (
+  <FeatureFlags flags={{primer_react_action_list_group_heading_leading_visual: true}}>
+    <ActionList>
+      <ActionList.Group>
+        <ActionList.GroupHeading as="h3">
+          <ActionList.GroupHeading.LeadingVisual>
+            <FileDirectoryIcon />
+          </ActionList.GroupHeading.LeadingVisual>
+          Custom fields
+        </ActionList.GroupHeading>
+        <ActionList.Item>Field 1</ActionList.Item>
+        <ActionList.Item>Field 2</ActionList.Item>
+      </ActionList.Group>
+      <ActionList.Group>
+        <ActionList.GroupHeading as="h3" variant="filled">
+          <ActionList.GroupHeading.LeadingVisual>
+            <ProjectIcon />
+          </ActionList.GroupHeading.LeadingVisual>
+          Repositories
+        </ActionList.GroupHeading>
+        <ActionList.Item>primer/react</ActionList.Item>
+        <ActionList.Item>primer/primitives</ActionList.Item>
+      </ActionList.Group>
+    </ActionList>
+  </FeatureFlags>
+)
+
+WithLeadingVisualOnGroupHeading.storyName = 'With LeadingVisual on GroupHeading (behind feature flag)'
+
 export const FullVariant = () => (
   <ActionList variant="full">
     <ActionList.Item>Copy link</ActionList.Item>
