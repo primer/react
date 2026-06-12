@@ -16,6 +16,7 @@ import classes from './AnchoredOverlay.module.css'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
 import {widthMap} from '../Overlay/constants'
+import {reactMajorVersion} from '../utils/environment'
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
@@ -291,6 +292,11 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   })
 
   const popoverId = useId()
+  const popoverTargetProps = shouldRenderAsPopover
+    ? reactMajorVersion >= 19
+      ? {popoverTarget: popoverId}
+      : {popovertarget: popoverId}
+    : {}
   const id = popoverId.replaceAll(':', '_') // popoverId can contain colons which are invalid in CSS custom property names, so we replace them with underscores
   const anchorName = `--anchored-overlay-anchor-${id}`
 
@@ -407,7 +413,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           tabIndex: 0,
           onClick: onAnchorClick,
           onKeyDown: onAnchorKeyDown,
-          ...(shouldRenderAsPopover ? {popovertarget: popoverId} : {}),
+          ...popoverTargetProps,
         })}
       {open ? (
         <Overlay
