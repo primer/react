@@ -2,6 +2,7 @@ import {render} from '@testing-library/react'
 import {expect, test, vi} from 'vitest'
 import type React from 'react'
 import {useSlots} from '../useSlots'
+import {withExpectedConsoleWarning} from '../../utils/testing'
 
 type TestComponentAProps = React.PropsWithChildren<{variant?: 'a' | 'b'}>
 
@@ -383,7 +384,9 @@ test('prefers direct component type match over slot symbol match', () => {
     return null
   }
 
-  render(<TestComponent>{children}</TestComponent>)
+  withExpectedConsoleWarning(() => {
+    render(<TestComponent>{children}</TestComponent>)
+  })
 
   expect(calls).toMatchInlineSnapshot(`
     [
@@ -421,7 +424,9 @@ test('handles components without slot symbols in mixed scenarios', () => {
     return null
   }
 
-  render(<TestComponent>{children}</TestComponent>)
+  withExpectedConsoleWarning(() => {
+    render(<TestComponent>{children}</TestComponent>)
+  })
 
   expect(calls).toMatchInlineSnapshot(`
     [
