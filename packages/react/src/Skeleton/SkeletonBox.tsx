@@ -15,7 +15,7 @@ export type SkeletonBoxProps = {
 } & HTMLProps<HTMLElement>
 
 export const SkeletonBox = React.forwardRef<HTMLElement, SkeletonBoxProps>(function SkeletonBox(
-  {height, width, className, style, delay, ...props},
+  {height, width, className, style, delay, 'data-component': dataComponent = 'SkeletonBox', ...props},
   ref,
 ) {
   const [isVisible, setIsVisible] = useState(!delay)
@@ -43,7 +43,7 @@ export const SkeletonBox = React.forwardRef<HTMLElement, SkeletonBoxProps>(funct
       className={clsx(className, classes.SkeletonBox)}
       style={{height, width, ...(style || {})}}
       {...props}
-      data-component="SkeletonBox"
+      data-component={dataComponent}
     />
   )
 })
