@@ -1,0 +1,182 @@
+@layer primer.components.List {
+  /* stylelint-disable primer/spacing, primer/colors, primer/typography, selector-max-specificity, declaration-property-value-keyword-no-deprecated -- Existing experimental List styles predate these lint rules. */
+  .List {
+    --List-column-gap: var(--control-medium-gap);
+    --List-row-gap: var(--base-size-4);
+
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: min-content auto 1fr min-content;
+  }
+
+  .Item {
+    --Item-fgColor: var(--fgColor-default);
+
+    padding-block: var(--control-medium-paddingBlock);
+    padding-inline: var(--control-medium-paddingInline-condensed);
+    border-radius: var(--borderRadius-medium);
+    transition: background 33.333ms linear;
+    width: 100%;
+    user-select: none;
+    color: var(--Item-fgColor);
+    background-color: var(--Item-bgColor);
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-template-areas:
+      '.       divider divider divider'
+      'leading label   inline  trailing'
+      '.       block   block   .       ';
+    align-items: center;
+    grid-column: 1 / -1;
+    grid-row: span 3;
+    cursor: pointer;
+
+    @media (hover: hover) {
+      &:hover {
+        --Item-bgColor: var(--control-transparent-bgColor-hover);
+      }
+    }
+
+    &[aria-disabled='true'],
+    &[data-disabled],
+    &[disabled] {
+      --Item-fgColor: var(--control-fgColor-disabled);
+
+      cursor: not-allowed;
+    }
+  }
+
+  .Item[data-variant='danger'] {
+    --Item-fgColor: var(--control-danger-fgColor-rest);
+
+    @media (hover: hover) {
+      &:hover {
+        --Item-bgColor: var(--control-danger-bgColor-hover);
+      }
+    }
+  }
+
+  .List[data-dividers] .Item:not(:first-of-type)::before {
+    content: '';
+    display: block;
+    height: 1px;
+    background-color: var(--borderColor-muted);
+    grid-area: divider;
+    width: 100%;
+    position: relative;
+    top: -7px;
+  }
+
+  .List[data-dividers] .Item:not(:first-of-type):hover::before,
+  .List[data-dividers] .Item:hover + .Item::before {
+    background-color: var(--Item-bgColor);
+  }
+
+  .Label {
+    font-size: var(--text-body-size-medium);
+    font-weight: var(--base-text-weight-normal);
+    line-height: calc(20 / 14);
+    position: relative;
+    word-break: break-word;
+    grid-area: label;
+  }
+
+  .Description {
+    color: var(--fgColor-muted);
+    font-size: var(--text-body-size-small);
+    font-weight: var(--base-text-weight-normal);
+    line-height: calc(16 / 12);
+    grid-area: var(--description-grid-area);
+  }
+
+  .List[data-layout='block'] .Description {
+    --description-grid-area: block;
+
+    grid-row-start: 3;
+    margin-block-start: var(--List-row-gap);
+  }
+
+  .List[data-layout='inline'] .Description {
+    --description-grid-area: inline;
+
+    margin-inline-start: var(--List-column-gap);
+  }
+
+  .GroupHeading {
+    align-self: flex-start;
+    color: var(--fgColor-muted);
+    font-size: var(--text-body-size-small);
+    font-weight: var(--base-text-weight-semibold);
+    margin: 0;
+  }
+
+  .Divider {
+    background: var(--borderColor-muted);
+    border: 0;
+    display: block;
+    height: var(--borderWidth-thin);
+    list-style: none;
+    margin-block-end: var(--base-size-8);
+    margin-block-start: calc(var(--base-size-8) - var(--borderWidth-thin));
+    padding: 0;
+  }
+
+  .Leading {
+    margin-inline-end: var(--List-column-gap);
+    grid-area: leading;
+  }
+
+  .Trailing {
+    margin-inline-start: var(--List-column-gap);
+    grid-area: trailing;
+  }
+  /* stylelint-enable primer/spacing, primer/colors, primer/typography, selector-max-specificity, declaration-property-value-keyword-no-deprecated */
+
+  .Selection {
+    display: grid;
+    width: var(--base-size-16);
+    height: var(--base-size-16);
+    place-content: center;
+  }
+
+  .SelectionSingleIcon {
+    display: block;
+  }
+
+  .Selection:not([data-selected]) .SelectionSingleIcon {
+    visibility: hidden;
+  }
+
+  .SelectionMultiIcon {
+    display: grid;
+    width: var(--base-size-16);
+    height: var(--base-size-16);
+    margin: 0;
+    color: var(--control-checked-fgColor-rest);
+    background-color: var(--bgColor-default);
+    border: var(--borderWidth-thin) solid var(--control-borderColor-emphasis);
+    border-radius: var(--borderRadius-small);
+    transition:
+      background-color,
+      border-color 80ms cubic-bezier(0.33, 1, 0.68, 1);
+    place-content: center;
+  }
+
+  .SelectionMultiCheckIcon {
+    display: block;
+    visibility: hidden;
+  }
+
+  .Selection[data-selected] .SelectionMultiIcon {
+    background-color: var(--control-checked-bgColor-rest);
+    border-color: var(--control-checked-borderColor-rest);
+    transition:
+      background-color,
+      border-color 80ms cubic-bezier(0.32, 0, 0.67, 0);
+  }
+
+  .Selection[data-selected] .SelectionMultiCheckIcon {
+    visibility: visible;
+  }
+}
