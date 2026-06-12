@@ -1,0 +1,15 @@
+{
+  "name": "@primer/vitest-config",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./setup": "./src/setup.ts"
+  },
+  "dependencies": {
+    "vitest-fail-on-console": "^0.10.1"
+  },
+  "peerDependencies": {
+    "vitest": "^4.1.5"
+  }
+}
