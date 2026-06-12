@@ -43,6 +43,7 @@ export const SkeletonBox = React.forwardRef<HTMLElement, SkeletonBoxProps>(funct
       className={clsx(className, classes.SkeletonBox)}
       style={{height, width, ...(style || {})}}
       {...props}
+      data-component="SkeletonBox"
     />
   )
 })
