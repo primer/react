@@ -26,6 +26,14 @@
       "types": "./dist/utils/test-helpers.d.ts",
       "default": "./dist/test-helpers.js"
     },
+    "./foundations/experimental": {
+      "types": "./dist/foundations/experimental/index.d.ts",
+      "default": "./dist/foundations/experimental/index.js"
+    },
+    "./hooks/experimental": {
+      "types": "./dist/hooks/experimental/index.d.ts",
+      "default": "./dist/hooks/experimental/index.js"
+    },
     "./generated/components.json": "./generated/components.json",
     "./generated/hooks.json": "./generated/hooks.json"
   },
