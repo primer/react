@@ -14,24 +14,6 @@ import {
   ARROW_KEY_STEP,
 } from './usePaneWidth'
 
-// Spy on React.startTransition to verify it's not called unnecessarily on resize.
-// The spy calls through to the real implementation so all other tests are unaffected.
-const {startTransitionSpy} = vi.hoisted(() => ({
-  startTransitionSpy: vi.fn(),
-}))
-vi.mock('react', async importOriginal => {
-  const actual = (await importOriginal()) as Record<string, unknown> & {
-    startTransition: (...args: [callback: () => void]) => void
-  }
-  return {
-    ...actual,
-    startTransition: (...args: [callback: () => void]) => {
-      startTransitionSpy(...args)
-      return actual.startTransition(...args)
-    },
-  }
-})
-
 // Mock refs for hook testing
 const createMockRefs = () => ({
   paneRef: {current: document.createElement('div')} as React.RefObject<HTMLDivElement>,
@@ -875,19 +857,21 @@ describe('usePaneWidth', () => {
       vi.useFakeTimers()
       vi.stubGlobal('innerWidth', 900)
       const refs = createMockRefs()
+      let renderCount = 0
 
-      renderHook(() =>
-        usePaneWidth({
+      const {result} = renderHook(() => {
+        renderCount += 1
+        return usePaneWidth({
           width: 'medium',
           minWidth: 256,
           resizable: true,
           widthStorageKey: 'test-skip-transition',
           ...refs,
-        }),
-      )
+        })
+      })
 
-      // Clear any startTransition calls from mount / initial render
-      startTransitionSpy.mockClear()
+      const renderCountAfterMount = renderCount
+      expect(result.current.maxPaneWidth).toBe(389)
 
       // Dispatch resize without changing viewport (same max = same value)
       window.dispatchEvent(new Event('resize'))
@@ -895,8 +879,8 @@ describe('usePaneWidth', () => {
         await vi.runAllTimersAsync()
       })
 
-      // startTransition should NOT have been called — the guard should prevent it
-      expect(startTransitionSpy).not.toHaveBeenCalled()
+      // No render should be scheduled when the max width is unchanged.
+      expect(renderCount).toBe(renderCountAfterMount)
 
       vi.useRealTimers()
     })
