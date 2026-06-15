@@ -107,6 +107,7 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
       <BaseComponent
         ref={rootRef}
         className={clsx(classes.PageHeader, className)}
+        data-component="PageHeader"
         data-has-border={hasBorder ? 'true' : undefined}
         aria-label={ariaLabel}
         role={role}
@@ -127,7 +128,11 @@ const ContextArea: FCWithSlotMarker<React.PropsWithChildren<ChildrenPropTypes>> 
   hidden = hiddenOnRegularAndWide,
 }) => {
   return (
-    <div className={clsx(classes.ContextArea, className)} {...getHiddenDataAttributes(hidden)}>
+    <div
+      className={clsx(classes.ContextArea, className)}
+      data-component="PageHeader.ContextArea"
+      {...getHiddenDataAttributes(hidden)}
+    >
       {children}
     </div>
   )
@@ -145,7 +150,7 @@ export type ParentLinkProps = React.PropsWithChildren<ChildrenPropTypes & LinkPr
 
 // PageHeader.ParentLink : Only visible on narrow viewports by default to let users navigate up in the hierarchy.
 const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
-  ({children, className, href, 'aria-label': ariaLabel, as = 'a', hidden = hiddenOnRegularAndWide}, ref) => {
+  ({children, className, href, 'aria-label': ariaLabel, as = 'a', hidden = hiddenOnRegularAndWide, ...rest}, ref) => {
     return (
       <>
         <Link
@@ -154,8 +159,10 @@ const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
           aria-label={ariaLabel}
           muted
           className={clsx(classes.ParentLink, className)}
+          data-component="PageHeader.ParentLink"
           {...getHiddenDataAttributes(hidden)}
           href={href}
+          {...rest}
         >
           <ArrowLeftIcon />
           <div>{children}</div>
@@ -176,7 +183,11 @@ const ContextBar: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   hidden = hiddenOnRegularAndWide,
 }) => {
   return (
-    <div className={clsx(classes.ContextBar, className)} {...getHiddenDataAttributes(hidden)}>
+    <div
+      className={clsx(classes.ContextBar, className)}
+      data-component="PageHeader.ContextBar"
+      {...getHiddenDataAttributes(hidden)}
+    >
       {children}
     </div>
   )
@@ -190,7 +201,11 @@ const ContextAreaActions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> =
   hidden = hiddenOnRegularAndWide,
 }) => {
   return (
-    <div className={clsx(classes.ContextAreaActions, className)} {...getHiddenDataAttributes(hidden)}>
+    <div
+      className={clsx(classes.ContextAreaActions, className)}
+      data-component="PageHeader.ContextAreaActions"
+      {...getHiddenDataAttributes(hidden)}
+    >
       {children}
     </div>
   )
@@ -332,7 +347,11 @@ const Actions = ({children, className, hidden = false}: ActionsProps) => {
 // PageHeader.Description: The description area of the header. Visible on all viewports
 const Description: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, className, hidden = false}) => {
   return (
-    <div className={clsx(classes.Description, className)} {...getHiddenDataAttributes(hidden)}>
+    <div
+      className={clsx(classes.Description, className)}
+      data-component="PageHeader.Description"
+      {...getHiddenDataAttributes(hidden)}
+    >
       {children}
     </div>
   )

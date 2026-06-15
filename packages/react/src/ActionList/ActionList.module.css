@@ -26,6 +26,18 @@
     padding-bottom: var(--base-size-8);
   }
 
+  /* add a small gap between sibling items for readability */
+  &:where([data-item-gap]) {
+    & .ActionListItem + .ActionListItem {
+      margin-block-start: var(--base-size-2);
+    }
+
+    /* also separate a parent item's row from the first item of its expanded sub-nav */
+    & .SubGroup {
+      margin-block-start: var(--base-size-2);
+    }
+  }
+
   &:where([data-dividers='true']) {
     /* place dividers on the wrapper that excludes leading visuals/actions */
     & .ActionListSubContent::before {

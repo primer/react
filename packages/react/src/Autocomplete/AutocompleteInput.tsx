@@ -64,10 +64,18 @@ const AutocompleteInput = React.forwardRef(
         safeSetTimeout(() => {
           if (document.activeElement !== inputRef.current) {
             setShowMenu(false)
+
+            // Reset the input's value to the text the user actually typed rather than leaving the
+            // inline autocomplete suggestion in place. This keeps the blur behavior consistent with
+            // pressing Escape, so deleting characters off a selection and then clicking away does not
+            // silently restore the full suggestion. See https://github.com/primer/react/issues/4275
+            if (inputRef.current && autocompleteSuggestion && inputRef.current.value !== inputValue) {
+              inputRef.current.value = inputValue
+            }
           }
         }, 0)
       },
-      [onBlur, setShowMenu, inputRef, safeSetTimeout],
+      [onBlur, setShowMenu, inputRef, safeSetTimeout, autocompleteSuggestion, inputValue],
     )
 
     const handleInputChange: ChangeEventHandler<HTMLInputElement> = event => {
@@ -136,7 +144,17 @@ const AutocompleteInput = React.forwardRef(
       // TODO: fix bug where this function prevents `onChange` from being triggered if the highlighted item text
       //       is the same as what I'm typing
       //       e.g.: typing 'tw' highlights 'two', but when I 'two', the text input change does not get triggered
-      if (highlightRemainingText && autocompleteSuggestion && (inputValue || isMenuDirectlyActivated)) {
+      // Only apply the inline autocomplete suggestion while the input is focused. Without this guard,
+      // the suggestion can be re-applied to the DOM after the input is blurred, which would restore
+      // the full suggestion the user was editing away from. See https://github.com/primer/react/issues/4275
+      const isInputFocused = document.activeElement === inputRef.current
+
+      if (
+        isInputFocused &&
+        highlightRemainingText &&
+        autocompleteSuggestion &&
+        (inputValue || isMenuDirectlyActivated)
+      ) {
         inputRef.current.value = autocompleteSuggestion
 
         if (autocompleteSuggestion.toLowerCase().indexOf(inputValue.toLowerCase()) === 0) {
@@ -170,6 +188,7 @@ const AutocompleteInput = React.forwardRef(
         autoComplete="off"
         id={id}
         {...props}
+        data-component="Autocomplete.Input"
       />
     )
   },
