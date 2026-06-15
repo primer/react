@@ -1,0 +1,30 @@
+@layer primer.components.Popover {
+  .Root {
+    anchor-scope: --popover-anchor;
+  }
+
+  .Trigger {
+    anchor-name: --popover-anchor;
+  }
+
+  .Popover {
+    all: unset;
+    background-color: var(--overlay-bgColor);
+    border-radius: var(--borderRadius-medium);
+    box-shadow: var(--shadow-floating-small);
+    display: none;
+    width: auto;
+    min-width: 192px;
+    max-width: calc(100vw - 2rem);
+    height: auto;
+    max-height: 100vh;
+    position: absolute;
+    position-anchor: --popover-anchor;
+    position-area: block-end;
+    overflow: auto;
+
+    &:popover-open {
+      display: block;
+    }
+  }
+}

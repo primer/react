@@ -1,9 +1,12 @@
 import {Fragment, useEffect, useMemo, useRef, useState, type ReactNode} from 'react'
 import {List, Item, Label, Description, Leading, Trailing, Selection} from '../List'
+import * as Popover from './Popover'
+import * as Menu from './Menu'
 import {useListbox} from './useListbox'
 import {useTree, type TreeItem} from './useTree'
 import './listbox-element'
 import './tree-element'
+import {Button} from '../Button'
 
 export default {
   title: 'Components/List/Features',
@@ -520,20 +523,30 @@ export const WithCustomElementTreeSelection = () => {
     </>
   )
 }
-//
-// export const Menu = () => {
-//   return 'TODO'
-// }
-//
-// export const Tree = () => {
-//   return 'TODO'
-// }
-//
-// export const ListStory: StoryObj = {
-//   name: 'List',
-//   render: () => 'TODO',
-// }
-//
+
+export const WithMenu = () => {
+  return (
+    <>
+      <Popover.Root>
+        <Popover.Trigger as={Button}>Show menu</Popover.Trigger>
+        <Popover.Popover>
+          <List showDividers>
+            <Item>
+              <Label>Menu item 1</Label>
+            </Item>
+            <Item>
+              <Label>Menu item 2</Label>
+            </Item>
+            <Item>
+              <Label>Menu item 3</Label>
+            </Item>
+          </List>
+        </Popover.Popover>
+      </Popover.Root>
+    </>
+  )
+}
+
 // export const Group = () => {
 //   return 'hi'
 // }
