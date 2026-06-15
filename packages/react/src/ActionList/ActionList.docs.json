@@ -233,6 +233,12 @@
           "type": "boolean",
           "defaultValue": "false",
           "description": "Whether the TrailingAction is in a loading state. When true, the TrailingAction will render a spinner instead of an icon. Only available when `as` is 'button'."
+        },
+        {
+          "name": "tooltipDirection",
+          "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
+          "defaultValue": "'n'",
+          "description": "Direction of the tooltip shown when hovering over the TrailingAction. Only applies when `icon` is set."
         }
       ]
     },
