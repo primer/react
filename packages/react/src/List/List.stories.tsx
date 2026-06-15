@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react'
+import {Fragment, useEffect, useMemo, useRef, useState, type ReactNode} from 'react'
 import {List, Item, Label, Description, Leading, Trailing, Selection} from '../List'
 import {useListbox} from './useListbox'
 import {useTree, type TreeItem} from './useTree'
@@ -345,12 +345,12 @@ export const WithCustomElementSelection = () => {
   )
 }
 
-const treeItems: Array<
-  TreeItem & {
-    description: string
-    id: number
-  }
-> = [
+type StoryTreeItem = TreeItem & {
+  description: string
+  id: number
+}
+
+const treeItems: Array<StoryTreeItem> = [
   {
     id: 0,
     label: 'src',
@@ -400,6 +400,31 @@ const treeItems: Array<
   },
 ]
 
+function groupTreeItemsByParent(items: Array<StoryTreeItem>) {
+  const itemsByParentValue = new Map<string | undefined, Array<StoryTreeItem>>()
+
+  for (const item of items) {
+    const children = itemsByParentValue.get(item.parentValue)
+    if (children) {
+      children.push(item)
+    } else {
+      itemsByParentValue.set(item.parentValue, [item])
+    }
+  }
+
+  return itemsByParentValue
+}
+
+const treeItemsByParentValue = groupTreeItemsByParent(treeItems)
+
+function TreeItemGroup({children}: {children: ReactNode}) {
+  return (
+    <div role="group" style={{display: 'contents'}}>
+      {children}
+    </div>
+  )
+}
+
 export const WithTreeSelection = () => {
   const {getTreeItemProps, getTreeProps, selectedValues, visibleItems} = useTree({
     defaultActiveValue: treeItems[0].value,
@@ -407,23 +432,31 @@ export const WithTreeSelection = () => {
     defaultSelectedValues: [treeItems[1].value, treeItems[2].value],
     items: treeItems,
   })
+  const visibleItemsByParentValue = useMemo(() => groupTreeItemsByParent(visibleItems), [visibleItems])
+
+  function renderTreeItem(item: StoryTreeItem) {
+    const selected = selectedValues.includes(item.value)
+    const visibleChildren = visibleItemsByParentValue.get(item.value) ?? []
+
+    return (
+      <Fragment key={item.id}>
+        <Item {...getTreeItemProps({item})}>
+          <Leading>
+            <Selection selected={selected} variant="multiple" />
+          </Leading>
+          <Label>{item.label}</Label>
+          <Description>{item.description}</Description>
+        </Item>
+        {visibleChildren.length > 0 ? <TreeItemGroup>{visibleChildren.map(renderTreeItem)}</TreeItemGroup> : null}
+      </Fragment>
+    )
+  }
+  const visibleRootItems = visibleItemsByParentValue.get(undefined) ?? []
 
   return (
     <>
       <List {...getTreeProps()} layout="block">
-        {visibleItems.map(item => {
-          const selected = selectedValues.includes(item.value)
-
-          return (
-            <Item {...getTreeItemProps({item})} key={item.id}>
-              <Leading>
-                <Selection selected={selected} variant="multiple" />
-              </Leading>
-              <Label>{item.label}</Label>
-              <Description>{item.description}</Description>
-            </Item>
-          )
-        })}
+        {visibleRootItems.map(renderTreeItem)}
       </List>
     </>
   )
@@ -452,32 +485,37 @@ export const WithCustomElementTreeSelection = () => {
     }
   }, [])
 
+  function renderTreeItem(item: StoryTreeItem) {
+    const selected = selectedValues.includes(item.value)
+    const children = treeItemsByParentValue.get(item.value) ?? []
+    const expanded = item.value === 'src'
+
+    return (
+      <Fragment key={item.id}>
+        <Item
+          active={item.value === treeItems[0].value ? '' : undefined}
+          aria-expanded={children.length > 0 ? expanded : undefined}
+          as="ui-treeitem"
+          data-parent-value={item.parentValue}
+          expanded={expanded ? '' : undefined}
+          selected={selected ? '' : undefined}
+          value={item.value}
+        >
+          <Leading>
+            <Selection selected={selected} variant="multiple" />
+          </Leading>
+          <Label>{item.label}</Label>
+          <Description>{item.description}</Description>
+        </Item>
+        {children.length > 0 ? <TreeItemGroup>{children.map(renderTreeItem)}</TreeItemGroup> : null}
+      </Fragment>
+    )
+  }
+
   return (
     <>
       <List ref={ref} as="ui-tree" aria-multiselectable="true" layout="block">
-        {treeItems.map((item, index) => {
-          const selected = selectedValues.includes(item.value)
-          const expanded = item.value === 'src'
-
-          return (
-            <Item
-              active={index === 0 ? '' : undefined}
-              aria-expanded={item.value === 'src' || item.value === 'docs' ? expanded : undefined}
-              as="ui-treeitem"
-              data-parent-value={item.parentValue}
-              expanded={expanded ? '' : undefined}
-              key={item.id}
-              selected={selected ? '' : undefined}
-              value={item.value}
-            >
-              <Leading>
-                <Selection selected={selected} variant="multiple" />
-              </Leading>
-              <Label>{item.label}</Label>
-              <Description>{item.description}</Description>
-            </Item>
-          )
-        })}
+        {(treeItemsByParentValue.get(undefined) ?? []).map(renderTreeItem)}
       </List>
     </>
   )
