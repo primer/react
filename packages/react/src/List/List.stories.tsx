@@ -1,8 +1,9 @@
 import {Fragment, useEffect, useMemo, useRef, useState, type ReactNode} from 'react'
 import {List, Item, Label, Description, Leading, Trailing, Selection} from '../List'
-import * as Popover from './Popover'
-import * as Menu from './Menu'
+import {AriaStatus} from '../live-region'
+import {Root as PopoverRoot, Trigger as PopoverTrigger, Popover as PopoverContent} from './Popover'
 import {useListbox} from './useListbox'
+import {useMenu} from './useMenu'
 import {useTree, type TreeItem} from './useTree'
 import './listbox-element'
 import './tree-element'
@@ -420,6 +421,30 @@ function groupTreeItemsByParent(items: Array<StoryTreeItem>) {
 
 const treeItemsByParentValue = groupTreeItemsByParent(treeItems)
 
+const menuItems = [
+  {
+    id: 0,
+    label: 'Copy link',
+    value: 'copy-link',
+  },
+  {
+    id: 1,
+    label: 'Quote reply',
+    value: 'quote-reply',
+  },
+  {
+    id: 2,
+    label: 'Reference in new issue',
+    value: 'reference-in-new-issue',
+  },
+  {
+    id: 3,
+    label: 'Delete',
+    value: 'delete',
+    variant: 'danger',
+  },
+]
+
 function TreeItemGroup({children}: {children: ReactNode}) {
   return (
     <div role="group" style={{display: 'contents'}}>
@@ -525,24 +550,35 @@ export const WithCustomElementTreeSelection = () => {
 }
 
 export const WithMenu = () => {
+  const [lastAction, setLastAction] = useState<string | null>(null)
+  const {getMenuItemProps, getMenuProps, getMenuTriggerProps, getPopoverProps} = useMenu({
+    defaultActiveValue: menuItems[0].value,
+    menuId: 'list-menu',
+    triggerId: 'list-menu-trigger',
+    onAction({value}) {
+      setLastAction(value)
+    },
+  })
+
   return (
     <>
-      <Popover.Root>
-        <Popover.Trigger as={Button}>Show menu</Popover.Trigger>
-        <Popover.Popover>
-          <List showDividers>
-            <Item>
-              <Label>Menu item 1</Label>
-            </Item>
-            <Item>
-              <Label>Menu item 2</Label>
-            </Item>
-            <Item>
-              <Label>Menu item 3</Label>
-            </Item>
+      <PopoverRoot>
+        <PopoverTrigger {...getMenuTriggerProps()} as={Button}>
+          Show menu
+        </PopoverTrigger>
+        <PopoverContent {...getPopoverProps()}>
+          <List {...getMenuProps()} aria-label="Message actions" showDividers>
+            {menuItems.map(item => {
+              return (
+                <Item {...getMenuItemProps({value: item.value})} data-variant={item.variant} key={item.id}>
+                  <Label>{item.label}</Label>
+                </Item>
+              )
+            })}
           </List>
-        </Popover.Popover>
-      </Popover.Root>
+        </PopoverContent>
+      </PopoverRoot>
+      <AriaStatus>{lastAction ? `Last action: ${lastAction}` : null}</AriaStatus>
     </>
   )
 }
