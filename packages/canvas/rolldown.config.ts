@@ -13,10 +13,15 @@ const cssStylesheetPlugin = (): Plugin => {
       const css = await readFile(id, 'utf8')
 
       return {
-        code: `
-const sheet = typeof CSSStyleSheet !== 'undefined' ? new CSSStyleSheet() : null;
-if (sheet) sheet.replaceSync(${JSON.stringify(css)});
-if (sheet && typeof document !== 'undefined' && 'adoptedStyleSheets' in document) document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
+        code: `const sheet = typeof CSSStyleSheet !== 'undefined' ? new CSSStyleSheet() : null;
+
+if (sheet) {
+  sheet.replaceSync(${JSON.stringify(css)});
+  if (typeof document !== 'undefined' && 'adoptedStyleSheets' in document) {
+    document.adoptedStyleSheets.push(sheet);
+  }
+}
+
 export default sheet;
 `,
         moduleSideEffects: true,
