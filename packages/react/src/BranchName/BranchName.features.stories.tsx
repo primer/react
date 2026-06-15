@@ -6,11 +6,10 @@ import Octicon from '../Octicon'
 import {GitBranchIcon, CopyIcon, CheckIcon, TriangleDownIcon} from '@primer/octicons-react'
 import {IconButton} from '../Button'
 import {Tooltip} from '../TooltipV2'
-import {VisuallyHidden} from '../VisuallyHidden'
-import {Announce} from '../live-region'
 import {SelectPanel} from '../SelectPanel'
 import type {ItemInput} from '../FilteredActionList'
 import {clsx} from 'clsx'
+import {announce} from '@primer/live-region-element'
 
 import styles from './BranchName.stories.module.css'
 
@@ -51,6 +50,7 @@ export const WithTrailingAction = ({
   const handleCopy = () => {
     setCopied(true)
     void navigator.clipboard.writeText(branchName)
+    announce('Copied!')
     setTimeout(() => setCopied(false), 2000)
   }
 
@@ -63,12 +63,6 @@ export const WithTrailingAction = ({
           {branchName}
         </BranchName>
       </Tooltip>
-      {/* Screen reader announcement for copy success */}
-      {copied && (
-        <VisuallyHidden>
-          <Announce>Copied!</Announce>
-        </VisuallyHidden>
-      )}
       <Tooltip text={tooltipText} aria-hidden>
         <IconButton
           icon={copied ? CheckIcon : CopyIcon}
