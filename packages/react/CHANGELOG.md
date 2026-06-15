@@ -1,5 +1,39 @@
 # @primer/react
 
+## 38.28.0
+
+### Minor Changes
+
+- [#7888](https://github.com/primer/react/pull/7888) [`45be31b`](https://github.com/primer/react/commit/45be31b561b2c1280b182531069e8a84364a4185) Thanks [@TylerJDev](https://github.com/TylerJDev)! - AnchoredOverlay: Extend `cssAnchorPositioningSettings` with a `fallbackStrategy` (`'default' | 'none' | 'opposite-side'`) to control CSS anchor positioning fallback behavior when native CSS anchor positioning is active.
+
+- [#7923](https://github.com/primer/react/pull/7923) [`6a7e130`](https://github.com/primer/react/commit/6a7e13051139ba06e48391edc0b05ef555b814b9) Thanks [@dylanatsmith](https://github.com/dylanatsmith)! - Card: Add `layout="compact"` prop for a compact card layout with tighter spacing, no icon background, and smaller title
+
+- [#7922](https://github.com/primer/react/pull/7922) [`55b7b04`](https://github.com/primer/react/commit/55b7b04647af9d7812e9ff77605524048358039c) Thanks [@dylanatsmith](https://github.com/dylanatsmith)! - InlineMessage: Make `variant` prop optional, defaulting to the standard foreground color with an info icon
+
+- [#7889](https://github.com/primer/react/pull/7889) [`3af5edc`](https://github.com/primer/react/commit/3af5edc56dd21aaa16c7c1676c4627c4ecd6f0f2) Thanks [@llastflowers](https://github.com/llastflowers)! - Add data-component attributes and associated tests for PageHeader, PageLayout, Pagehead, Popover, Portal, and ProgressBar
+
+- [#7964](https://github.com/primer/react/pull/7964) [`0f0f79f`](https://github.com/primer/react/commit/0f0f79f5da92087e636cde0d0709479c9c68d2d1) Thanks [@TylerJDev](https://github.com/TylerJDev)! - AnchoredOverlay: Add `cssAnchorPositioningSettings` prop to allow opting out of native CSS anchor positioning (via `disable`), and use it in `SelectPanel` so the `modal` variant stays manually centered instead of being repositioned by CSS anchor positioning.
+
+### Patch Changes
+
+- [#7918](https://github.com/primer/react/pull/7918) [`95986ce`](https://github.com/primer/react/commit/95986ce22eaca6f4cb2122a00d51ec93d72f2dfe) Thanks [@jonrohan](https://github.com/jonrohan)! - Autocomplete: Keep the typed text instead of restoring the full inline suggestion when the input loses focus, matching the behavior of pressing Escape
+
+- [#7971](https://github.com/primer/react/pull/7971) [`2087e87`](https://github.com/primer/react/commit/2087e87c9fe869a59fc1dcb0546ee25a14767006) Thanks [@francinelucca](https://github.com/francinelucca)! - ThemeProvider: Skip rendering the SSR handoff script when the `primer_react_theme_provider_remove_ssr_handoff` feature flag is enabled
+
+- [#7910](https://github.com/primer/react/pull/7910) [`0c38cfa`](https://github.com/primer/react/commit/0c38cfaeabab347e48d4e34c200739e32efa73a2) Thanks [@janmaarten-a11y](https://github.com/janmaarten-a11y)! - Timeline: Add `primer_react_timeline_list_semantics` feature flag to opt into list semantics
+
+  When the `primer_react_timeline_list_semantics` feature flag is enabled, `Timeline` renders as `<ol role="list">` and `Timeline.Item` / `Timeline.Break` render as `<li>` so screen reader users get list navigation (total item count, position in sequence). The default behavior is unchanged — `Timeline` and its subcomponents still render as `<div>` until the flag is opted into.
+
+  Enable the flag with the `FeatureFlags` provider:
+
+  ```tsx
+  import {FeatureFlags} from '@primer/react/experimental'
+
+  ;<FeatureFlags flags={{primer_react_timeline_list_semantics: true}}>
+    <Timeline>…</Timeline>
+  </FeatureFlags>
+  ```
+
 ## 38.27.0
 
 ### Minor Changes

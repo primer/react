@@ -2,7 +2,7 @@ import type React from 'react'
 import {XIcon} from '@primer/octicons-react'
 import {clsx} from 'clsx'
 import type {TokenSizeKeys} from './TokenBase'
-import {defaultTokenSize} from './TokenBase'
+import {defaultTokenSize} from './constants'
 
 import classes from './_RemoveTokenButton.module.css'
 

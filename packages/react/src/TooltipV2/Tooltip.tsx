@@ -12,6 +12,7 @@ import {usePlatform} from '../KeybindingHint/platform'
 import VisuallyHidden from '../_VisuallyHidden'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import type {SlotMarker} from '../utils/types'
+import {TooltipContext} from './TooltipContext'
 
 export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 export type TooltipProps = React.PropsWithChildren<{
@@ -102,8 +103,6 @@ const isInteractive = (element: HTMLElement) => {
     (element.hasAttribute('role') && element.getAttribute('role') === 'button')
   )
 }
-export const TooltipContext = React.createContext<{tooltipId?: string}>({})
-
 const emptyKeybindingHints: Array<KeybindingHintProps['keys']> = []
 
 export const Tooltip: ForwardRefExoticComponent<

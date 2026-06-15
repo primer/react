@@ -3,7 +3,7 @@ import {useId} from '../hooks/useId'
 import {useSlots} from '../hooks/useSlots'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {Description} from './Description'
-import {GroupContext} from './Group'
+import {GroupContext} from './GroupContext'
 import type {ActionListItemProps, ActionListProps} from './shared'
 import {Selection} from './Selection'
 import {LeadingVisual, TrailingVisual, VisualOrIndicator} from './Visuals'
@@ -16,7 +16,7 @@ import classes from './ActionList.module.css'
 import {clsx} from 'clsx'
 import {fixedForwardRef} from '../utils/modern-polymorphic'
 import {Tooltip} from '../TooltipV2'
-import {TooltipContext} from '../TooltipV2/Tooltip'
+import {TooltipContext} from '../TooltipV2/TooltipContext'
 
 type ActionListSubItemProps = {
   children?: React.ReactNode
