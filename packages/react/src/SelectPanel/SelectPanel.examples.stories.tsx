@@ -13,6 +13,7 @@ import styles from './SelectPanel.examples.stories.module.css'
 import {useVirtualizer, type VirtualItem} from '@tanstack/react-virtual'
 import Checkbox from '../Checkbox'
 import Label from '../Label'
+import {GitBranchIcon} from '@primer/octicons-react'
 
 const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Examples',
@@ -843,3 +844,70 @@ export const VirtualizedBuiltIn = () => {
     </Stack>
   )
 }
+
+const branchItems: ItemInput[] = [
+  {
+    text: 'main',
+    id: 'main',
+    trailingVisual: () => (
+      <Label size="small" variant="secondary">
+        default
+      </Label>
+    ),
+  },
+  {text: 'fix/oauth-redirect-uri-exchange', id: 'fix/oauth-redirect-uri-exchange'},
+  {text: 'labudis-triage-agent', id: 'labudis-triage-agent'},
+  {text: 'maiix/enterprise-teams', id: 'maiix/enterprise-teams'},
+  {text: 'natalierharris/color1', id: 'natalierharris/color1'},
+  {text: 'natalierharris/octocat-physics-confetti', id: 'natalierharris/octocat-physics-confetti'},
+  {text: 'natalierharris/unify-onboarding2', id: 'natalierharris/unify-onboarding2'},
+  {text: 'natalierharris/unify-type1', id: 'natalierharris/unify-type1'},
+  {text: 'peterloveland/Triage-continuous-ai-v', id: 'peterloveland/Triage-continuous-ai-v'},
+  {text: 'peterloveland/issue-timeline', id: 'peterloveland/issue-timeline'},
+]
+
+export const BranchSelector = () => {
+  const [selected, setSelected] = useState<ItemInput | undefined>(branchItems[0])
+  const [filter, setFilter] = useState('')
+  const filteredItems = branchItems.filter(item => item.text?.toLowerCase().includes(filter.toLowerCase()))
+
+  const [open, setOpen] = useState(false)
+
+  return (
+    <FormControl>
+      <FormControl.Label visuallyHidden>Switch branches</FormControl.Label>
+      <SelectPanel
+        title="Switch branches/tags"
+        placeholderText="Find a branch..."
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button
+            leadingVisual={GitBranchIcon}
+            trailingAction={TriangleDownIcon}
+            {...anchorProps}
+            aria-haspopup="dialog"
+          >
+            {children ?? selected?.text ?? 'Select branch'}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        overlayProps={{width: 'medium'}}
+        footer={<ActionList.LinkItem href="#">View all branches</ActionList.LinkItem>}
+        message={
+          filteredItems.length === 0
+            ? {
+                variant: 'empty',
+                title: `No branches found for "${filter}"`,
+                body: 'Try a different search term',
+              }
+            : undefined
+        }
+      />
+    </FormControl>
+  )
+}
+BranchSelector.storyName = 'Branch Selector'

@@ -695,11 +695,11 @@ export const WithFilterSegmentedControl = () => {
             onChange={index => setSelectedFilter(index === 0 ? 'branches' : 'tags')}
             className={classes.FilterSegmentedControl}
           >
-            <SegmentedControl.Button selected={selectedFilter === 'branches'}>
-              Branches <Text className={classes.SegmentedControlCount}>{data.branches.length}</Text>
+            <SegmentedControl.Button selected={selectedFilter === 'branches'} count={data.branches.length}>
+              Branches
             </SegmentedControl.Button>
-            <SegmentedControl.Button selected={selectedFilter === 'tags'}>
-              Tags <Text className={classes.SegmentedControlCount}>{data.tags.length}</Text>
+            <SegmentedControl.Button selected={selectedFilter === 'tags'} count={data.tags.length}>
+              Tags
             </SegmentedControl.Button>
           </SegmentedControl>
         </SelectPanel.Header>
