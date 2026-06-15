@@ -1,4 +1,5 @@
 import babel from '@rolldown/plugin-babel'
+
 import react, {reactCompilerPreset} from '@vitejs/plugin-react'
 import {defineConfig} from 'vitest/config'
 import {isSupported} from './script/react-compiler.mjs'
