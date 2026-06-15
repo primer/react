@@ -4,7 +4,7 @@ import {Button} from '../Button'
 import type {ItemInput} from '../FilteredActionList'
 import {SelectPanel} from './SelectPanel'
 import type {OverlayProps} from '../Overlay'
-import {TriangleDownIcon} from '@primer/octicons-react'
+import {TriangleDownIcon, GitBranchIcon} from '@primer/octicons-react'
 import {ActionList} from '../ActionList'
 import FormControl from '../FormControl'
 import {Stack} from '../Stack'
@@ -13,7 +13,6 @@ import styles from './SelectPanel.examples.stories.module.css'
 import {useVirtualizer, type VirtualItem} from '@tanstack/react-virtual'
 import Checkbox from '../Checkbox'
 import Label from '../Label'
-import {GitBranchIcon} from '@primer/octicons-react'
 
 const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Examples',
