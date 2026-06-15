@@ -662,36 +662,20 @@ export const WithFilterSegmentedControl = () => {
     setQuery(query)
   }
 
-  const [filteredRefs, setFilteredRefs] = React.useState(data.branches)
-  const setSearchResults = (query: string, selectedFilter: 'branches' | 'tags') => {
-    if (query === '') setFilteredRefs(data[selectedFilter])
-    else {
-      setFilteredRefs(
-        data[selectedFilter]
-          .map(item => {
-            if (item.name.toLowerCase().startsWith(query)) return {priority: 1, item}
-            else if (item.name.toLowerCase().includes(query)) return {priority: 2, item}
-            else return {priority: -1, item}
-          })
-          .filter(result => result.priority > 0)
-          .map(result => result.item),
-      )
+  const itemsToShow = React.useMemo(() => {
+    const sourceData = data[selectedFilter]
+    if (query === '') {
+      return [...sourceData].sort((a, b) => (a.id === savedInitialRef ? -1 : b.id === savedInitialRef ? 1 : 0))
     }
-  }
-
-  React.useEffect(
-    function updateSearchResults() {
-      setSearchResults(query, selectedFilter)
-    },
-    [query, selectedFilter],
-  )
-
-  const sortingFn = (ref: {id: string}) => {
-    if (ref.id === savedInitialRef) return -1
-    else return 1
-  }
-
-  const itemsToShow = query ? filteredRefs : data[selectedFilter].sort(sortingFn)
+    return sourceData
+      .map(item => {
+        if (item.name.toLowerCase().startsWith(query)) return {priority: 1, item}
+        else if (item.name.toLowerCase().includes(query)) return {priority: 2, item}
+        else return {priority: -1, item}
+      })
+      .filter(result => result.priority > 0)
+      .map(result => result.item)
+  }, [query, selectedFilter, savedInitialRef])
 
   return (
     <>
