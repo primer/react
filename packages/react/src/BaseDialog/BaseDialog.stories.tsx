@@ -31,20 +31,6 @@ export const Default = () => (
   </BaseDialog>
 )
 
-export const FocusOnHeading = () => (
-  <BaseDialog>
-    <BaseDialog.Trigger>Open dialog</BaseDialog.Trigger>
-    <BaseDialog.Dialog>
-      {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
-      <BaseDialog.Heading autoFocus>Focus on heading</BaseDialog.Heading>
-      <BaseDialog.Content>
-        When this dialog opens, focus is placed on the heading instead of the close button.
-      </BaseDialog.Content>
-      <BaseDialog.Close>Close</BaseDialog.Close>
-    </BaseDialog.Dialog>
-  </BaseDialog>
-)
-
 export const Playground: StoryFn<typeof BaseDialog> = args => (
   <BaseDialog {...args}>
     <BaseDialog.Trigger>Open dialog</BaseDialog.Trigger>

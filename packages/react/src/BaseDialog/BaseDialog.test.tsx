@@ -253,7 +253,6 @@ describe('BaseDialog', () => {
       <BaseDialog>
         <BaseDialog.Trigger>Open</BaseDialog.Trigger>
         <BaseDialog.Dialog>
-          {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
           <BaseDialog.Heading autoFocus>Dialog title</BaseDialog.Heading>
           <BaseDialog.Content>Content</BaseDialog.Content>
           <BaseDialog.Close>Close</BaseDialog.Close>
