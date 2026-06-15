@@ -6,6 +6,7 @@ import {useListbox} from './useListbox'
 import {useMenu} from './useMenu'
 import {useTree, type TreeItem} from './useTree'
 import './listbox-element'
+import './menu-element'
 import './tree-element'
 import {Button} from '../Button'
 
@@ -571,6 +572,133 @@ export const WithMenu = () => {
             {menuItems.map(item => {
               return (
                 <Item {...getMenuItemProps({value: item.value})} data-variant={item.variant} key={item.id}>
+                  <Label>{item.label}</Label>
+                </Item>
+              )
+            })}
+          </List>
+        </PopoverContent>
+      </PopoverRoot>
+      <AriaStatus>{lastAction ? `Last action: ${lastAction}` : null}</AriaStatus>
+    </>
+  )
+}
+
+export const WithCustomElementMenu = () => {
+  const [open, setOpen] = useState(false)
+  const [lastAction, setLastAction] = useState<string | null>(null)
+  const menuRef = useRef<HTMLElement | null>(null)
+
+  function getPopover(trigger: HTMLElement) {
+    const popoverId = trigger.getAttribute('commandfor')
+
+    if (!popoverId) {
+      return null
+    }
+
+    const popover = trigger.ownerDocument.getElementById(popoverId)
+    return popover instanceof HTMLElement ? popover : null
+  }
+
+  function focusMenu(placement: 'first' | 'last') {
+    setTimeout(() => {
+      menuRef.current?.focus()
+
+      if (placement === 'last') {
+        menuRef.current?.dispatchEvent(new KeyboardEvent('keydown', {bubbles: true, key: 'End'}))
+      }
+    })
+  }
+
+  function closeMenu(target: EventTarget | null, {restoreFocus}: {restoreFocus: boolean}) {
+    if (!(target instanceof HTMLElement)) {
+      return
+    }
+
+    const popover = target.closest('[popover]')
+
+    if (popover instanceof HTMLElement && popover.matches(':popover-open')) {
+      popover.hidePopover()
+    }
+
+    if (restoreFocus) {
+      const trigger = target.ownerDocument.getElementById('custom-list-menu-trigger')
+
+      if (trigger instanceof HTMLElement) {
+        trigger.focus()
+      }
+    }
+  }
+
+  useEffect(() => {
+    const {current: menu} = menuRef
+    if (!menu) {
+      return
+    }
+
+    function onAction(event: HTMLElementEventMap['action']) {
+      setLastAction(event.detail.value)
+      closeMenu(event.currentTarget, {restoreFocus: true})
+    }
+
+    function onCloseMenu(event: HTMLElementEventMap['close-menu']) {
+      closeMenu(event.currentTarget, {restoreFocus: event.detail.reason === 'escape'})
+    }
+
+    menu.addEventListener('action', onAction)
+    menu.addEventListener('close-menu', onCloseMenu)
+
+    return () => {
+      menu.removeEventListener('action', onAction)
+      menu.removeEventListener('close-menu', onCloseMenu)
+    }
+  }, [])
+
+  return (
+    <>
+      <PopoverRoot>
+        <PopoverTrigger
+          aria-controls="custom-list-menu"
+          aria-expanded={open}
+          aria-haspopup="menu"
+          as={Button}
+          id="custom-list-menu-trigger"
+          onClick={() => {
+            if (!open) {
+              focusMenu('first')
+            }
+          }}
+          onKeyDown={event => {
+            if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') {
+              return
+            }
+
+            event.preventDefault()
+            const popover = getPopover(event.currentTarget)
+
+            if (!popover) {
+              return
+            }
+
+            if (!popover.matches(':popover-open')) {
+              popover.showPopover()
+              setOpen(true)
+            }
+
+            focusMenu(event.key === 'ArrowDown' ? 'first' : 'last')
+          }}
+        >
+          Show menu
+        </PopoverTrigger>
+        <PopoverContent
+          onToggle={event => {
+            setOpen(event.currentTarget.matches(':popover-open'))
+          }}
+        >
+          <List ref={menuRef} as="ui-menu" aria-label="Message actions" id="custom-list-menu" showDividers>
+            {menuItems.map(item => {
+              return (
+                <Item as="ui-menuitem" data-variant={item.variant} key={item.id} value={item.value}>
                   <Label>{item.label}</Label>
                 </Item>
               )
