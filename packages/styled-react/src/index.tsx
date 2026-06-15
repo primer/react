@@ -12,6 +12,14 @@ export {
    * @deprecated Theming in JavaScript is no longer supported. Prefer using
    * `@primer/primitives` and CSS Modules instead.
    */
+  type ThemeProviderProps,
+} from './components/FeatureFlaggedTheming'
+
+export {
+  /**
+   * @deprecated Theming in JavaScript is no longer supported. Prefer using
+   * `@primer/primitives` and CSS Modules instead.
+   */
   useTheme,
 
   /**
@@ -19,13 +27,7 @@ export {
    * `@primer/primitives` and CSS Modules instead.
    */
   useColorSchemeVar,
-
-  /**
-   * @deprecated Theming in JavaScript is no longer supported. Prefer using
-   * `@primer/primitives` and CSS Modules instead.
-   */
-  type ThemeProviderProps,
-} from './components/FeatureFlaggedTheming'
+} from './components/useFeatureFlaggedTheme'
 
 export {
   /**

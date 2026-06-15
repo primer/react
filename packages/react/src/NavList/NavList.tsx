@@ -34,7 +34,7 @@ export type NavListProps = {
 
 const Root = React.forwardRef<HTMLElement, NavListProps>(({children, variant, ...props}, ref) => {
   return (
-    <nav {...props} ref={ref}>
+    <nav {...props} ref={ref} data-component="NavList">
       <ActionListContainerContext.Provider
         value={{
           container: 'NavList',
@@ -107,6 +107,7 @@ const ItemComponent = fixedForwardRef(
         aria-current={ariaCurrent}
         active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
         style={{'--subitem-depth': depth} as React.CSSProperties}
+        data-component="NavList.Item"
         {...props}
       >
         {children}
@@ -189,6 +190,7 @@ function ItemWithSubNav({children, subNav, depth: _depth, defaultOpen, style}: I
         active={!isOpen && containsCurrentItem}
         onSelect={() => setIsOpen(open => !open)}
         style={style}
+        data-component="NavList.Item"
       >
         {children}
         {/* What happens if the user provides a TrailingVisual? */}
@@ -229,7 +231,13 @@ const SubNav = React.forwardRef<HTMLUListElement, NavListSubNavProps>(({children
 
   return (
     <SubNavContext.Provider value={{depth: depth + 1}}>
-      <ul className={classes.SubGroup} id={subNavId} aria-labelledby={buttonId} ref={forwardedRef}>
+      <ul
+        className={classes.SubGroup}
+        id={subNavId}
+        aria-labelledby={buttonId}
+        ref={forwardedRef}
+        data-component="NavList.SubNav"
+      >
         {children}
       </ul>
     </SubNavContext.Provider>

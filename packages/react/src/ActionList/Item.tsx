@@ -3,7 +3,7 @@ import {useId} from '../hooks/useId'
 import {useSlots} from '../hooks/useSlots'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {Description} from './Description'
-import {GroupContext} from './Group'
+import {GroupContext} from './GroupContext'
 import type {ActionListItemProps, ActionListProps} from './shared'
 import {Selection} from './Selection'
 import {LeadingVisual, TrailingVisual, VisualOrIndicator} from './Visuals'
@@ -16,7 +16,7 @@ import classes from './ActionList.module.css'
 import {clsx} from 'clsx'
 import {fixedForwardRef} from '../utils/modern-polymorphic'
 import {Tooltip} from '../TooltipV2'
-import {TooltipContext} from '../TooltipV2/Tooltip'
+import {TooltipContext} from '../TooltipV2/TooltipContext'
 
 type ActionListSubItemProps = {
   children?: React.ReactNode
@@ -312,6 +312,11 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
     ],
   )
 
+  // The trailing action element is only rendered when none of these gates apply
+  // (see the JSX below). Mirror the same condition for the styling-related data
+  // attributes so the CSS only kicks in when the action is actually in the DOM.
+  const trailingActionRendered = !inactive && !loading && !menuContext && Boolean(slots.trailingAction)
+
   return (
     <ItemContext.Provider value={itemContextValue}>
       <li
@@ -324,6 +329,8 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
         data-is-disabled={disabled ? true : undefined}
         data-has-subitem={slots.subItem ? true : undefined}
         data-has-description={slots.description ? true : false}
+        data-has-trailing-action={trailingActionRendered ? true : undefined}
+        data-trailing-action-loading={trailingActionRendered && slots.trailingAction?.props.loading ? true : undefined}
         className={clsx(classes.ActionListItem, className)}
       >
         <ConditionalTooltip ref={forwardedRef} text={truncatedText} enabled={buttonSemantics}>

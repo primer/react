@@ -16,6 +16,7 @@ import classes from './Dialog.module.css'
 import {clsx} from 'clsx'
 import {useSlots} from '../hooks/useSlots'
 import {useResizeObserver} from '../hooks/useResizeObserver'
+import {DialogContext} from './DialogContext'
 
 /* Dialog Version 2 */
 
@@ -220,6 +221,20 @@ const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
   const onCloseClick = useCallback(() => {
     onClose('close-button')
   }, [onClose])
+  const onCloseKeyDown = useCallback<React.KeyboardEventHandler>(
+    event => {
+      if (event.key === 'Escape') {
+        // When the close button is focused its tooltip is open, and the
+        // tooltip's own Escape handler (registered on `document`) would
+        // otherwise swallow this keypress. Handle Escape here and stop it from
+        // reaching the document-level handler so the dialog closes on the first
+        // press while keeping the tooltip fully functional.
+        event.stopPropagation()
+        onClose('escape')
+      }
+    },
+    [onClose],
+  )
   return (
     <Dialog.Header>
       <div className={classes.HeaderInner}>
@@ -227,7 +242,7 @@ const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
           <Dialog.Title id={dialogLabelId}>{title ?? 'Dialog'}</Dialog.Title>
           {subtitle && <Dialog.Subtitle id={dialogDescriptionId}>{subtitle}</Dialog.Subtitle>}
         </div>
-        <Dialog.CloseButton onClose={onCloseClick} />
+        <Dialog.CloseButton onClose={onCloseClick} onKeyDown={onCloseKeyDown} />
       </div>
     </Dialog.Header>
   )
@@ -256,8 +271,6 @@ const defaultFooterButtons: Array<DialogButtonProps> = []
 // Minimum room needed for body content before forcing footer buttons into horizontal scroll.
 const MIN_BODY_HEIGHT = 48
 
-// useful to determine whether we're inside a Dialog from a nested component
-export const DialogContext = React.createContext<object | undefined>(undefined)
 const DIALOG_CONTEXT_VALUE = Object.freeze({})
 
 const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
@@ -506,12 +519,16 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
   )
 }
 
-const CloseButton: React.FC<React.PropsWithChildren<{onClose: () => void}>> = ({onClose}) => {
+const CloseButton: React.FC<React.PropsWithChildren<{onClose: () => void; onKeyDown?: React.KeyboardEventHandler}>> = ({
+  onClose,
+  onKeyDown,
+}) => {
   return (
     <IconButton
       icon={XIcon}
       aria-label="Close"
       onClick={onClose}
+      onKeyDown={onKeyDown}
       variant="invisible"
       data-component="Dialog.CloseButton"
     />
