@@ -2,6 +2,6 @@
 '@primer/react': minor
 ---
 
-ActionList: Add `start`, `end`, and `vertical-inset` options to the `variant` prop. `start` and `end` offset only the start or end edge (`margin-inline-start` / `margin-inline-end`) respectively, and `vertical-inset` offsets items vertically but not horizontally from the list's edges.
+ActionList: Add `start`, `end`, and `vertical-inset` values to the `variant` prop. These allow applying inset to only the start edge, only the end edge, or only vertically.
 
 NavList: Add a `variant` prop that is forwarded to the underlying `ActionList`.
