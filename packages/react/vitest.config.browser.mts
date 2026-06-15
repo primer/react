@@ -30,7 +30,6 @@ export default defineConfig({
   },
   define: {
     __DEV__: true,
-    __VITEST_FAIL_ON_CONSOLE__: JSON.stringify(process.env.VITEST_FAIL_ON_CONSOLE === 'true'),
     'process.env.CI': JSON.stringify(process.env.CI),
   },
   test: {
@@ -46,7 +45,7 @@ export default defineConfig({
       'src/__tests__/storybook.test.tsx',
     ],
     include: ['src/**/*.test.?(c|m)[jt]s?(x)'],
-    setupFiles: ['@primer/vitest-config/setup', 'config/vitest/browser/setup.ts'],
+    setupFiles: ['config/vitest/browser/setup.ts'],
     css: {
       include: [/.+/],
     },
