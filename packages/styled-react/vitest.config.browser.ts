@@ -1,13 +1,12 @@
 import path from 'node:path'
 import react from '@vitejs/plugin-react'
 import {playwright} from '@vitest/browser-playwright'
-import {defineConfig} from 'vitest/config'
+import {defineConfig} from '@primer/vitest-config/config'
 
 export default defineConfig({
   plugins: [react()],
   define: {
     __DEV__: true,
-    __VITEST_FAIL_ON_CONSOLE__: JSON.stringify(process.env.VITEST_FAIL_ON_CONSOLE === 'true'),
   },
   resolve: {
     dedupe: ['react', 'react-dom'],
@@ -29,7 +28,7 @@ export default defineConfig({
   test: {
     name: '@primer/styled-react (browser)',
     include: ['src/**/*.browser.test.?(c|m)[jt]s?(x)'],
-    setupFiles: ['@primer/vitest-config/setup', 'config/vitest/browser/setup.ts'],
+    setupFiles: ['config/vitest/browser/setup.ts'],
     browser: {
       provider: playwright(),
       enabled: true,

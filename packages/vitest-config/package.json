@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "exports": {
+    "./config": "./src/config.ts",
     "./setup": "./src/setup.ts"
   },
   "dependencies": {

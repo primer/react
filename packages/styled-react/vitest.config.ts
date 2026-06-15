@@ -1,4 +1,4 @@
-import {defineConfig} from 'vitest/config'
+import {defineConfig} from '@primer/vitest-config/config'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
@@ -9,7 +9,6 @@ export default defineConfig({
   test: {
     name: '@primer/styled-react (node)',
     environment: 'node',
-    setupFiles: ['@primer/vitest-config/setup'],
     exclude: ['src/**/*.browser.test.?(c|m)[jt]s?(x)'],
     detectAsyncLeaks: true,
   },
