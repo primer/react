@@ -9,6 +9,7 @@ export default defineConfig({
   test: {
     name: '@primer/styled-react (node)',
     environment: 'node',
+    include: ['src/**/*.test.?(c|m)[jt]s?(x)'],
     exclude: ['src/**/*.browser.test.?(c|m)[jt]s?(x)'],
     detectAsyncLeaks: true,
   },
