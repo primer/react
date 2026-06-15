@@ -15,7 +15,7 @@ import {XIcon} from '@primer/octicons-react'
 import classes from './AnchoredOverlay.module.css'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
-import {widthMap} from '../Overlay/Overlay'
+import {widthMap} from '../Overlay/constants'
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
@@ -443,6 +443,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
             <div className={classes.ResponsiveCloseButtonContainer}>
               <IconButton
                 {...(closeButtonProps as IconButtonProps)}
+                data-component="AnchoredOverlay.CloseButton"
                 type="button"
                 variant="invisible"
                 icon={XIcon}

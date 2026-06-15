@@ -1,0 +1,56 @@
+/* Story-only styles for demonstrating trailing action pattern */
+
+.BranchNameWithTrailingAction {
+  display: inline-flex;
+  /* Let items stretch to fill container height */
+  align-items: stretch;
+  /* Create room for pseudo-border divider */
+  gap: var(--borderWidth-default);
+  flex-wrap: nowrap;
+  /* Moving the background to the container allows stacking the button hover background over it */
+  background-color: var(--bgColor-accent-muted);
+  border-radius: var(--borderRadius-medium);
+}
+
+.BranchNameTransparent {
+  background-color: transparent;
+}
+
+.TrailingActionButton {
+  /* Make the size auto calculated based on icon size and padding */
+  height: auto;
+  width: auto;
+  padding: var(--base-size-2) var(--base-size-6);
+  position: relative;
+  /* Center content when button stretches to fill container */
+  align-items: center;
+
+  &:not(:disabled, [aria-disabled='true']) {
+    --button-invisible-iconColor-rest: var(--fgColor-link);
+  }
+
+  &.TrailingActionButtonCopied:not(:disabled, [aria-disabled='true']) {
+    --button-invisible-iconColor-rest: var(--fgColor-success);
+  }
+
+  [data-component='Octicon'] {
+    /* Set icon size to text size to exactly match the branch name component */
+    height: var(--text-body-size-small);
+    width: var(--text-body-size-small);
+  }
+
+  /* Dividing line between button and name. Using ::before on button allows for multiple buttons (with a line between each) */
+  &::before {
+    content: '';
+    position: absolute;
+    width: var(--borderWidth-default);
+    /* Position _between_ items (offsetting by width) to avoid overlapping with the real button border on hover/focus */
+    inset: var(--base-size-4) auto var(--base-size-4) calc(-1 * var(--borderWidth-default));
+    /* stylelint-disable-next-line primer/colors */
+    background-color: var(--borderColor-accent-muted);
+  }
+}
+
+.TrailingActionButtonCopied {
+  /* Class exists for JS toggling - styles handled via compound selector above */
+}
