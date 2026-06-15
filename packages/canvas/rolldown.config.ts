@@ -14,9 +14,9 @@ const cssStylesheetPlugin = (): Plugin => {
 
       return {
         code: `
-const sheet = new CSSStyleSheet();
-sheet.replaceSync(${JSON.stringify(css)});
-document.adoptedStyleeSheets.push(sheet);
+const sheet = typeof CSSStyleSheet !== 'undefined' ? new CSSStyleSheet() : null;
+if (sheet) sheet.replaceSync(${JSON.stringify(css)});
+if (sheet && typeof document !== 'undefined' && 'adoptedStyleSheets' in document) document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
 export default sheet;
 `,
         moduleSideEffects: true,
