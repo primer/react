@@ -396,6 +396,21 @@ describe('Markup', () => {
       expect(item).toHaveAttribute('href', '#item-1')
     })
 
+    it('wraps the polymorphic element in an `li role="none"` to keep markup valid', () => {
+      render(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item as="a" href="#item-1" id="item-1">
+            Item 1
+          </TreeView.Item>
+        </TreeView>,
+      )
+
+      const item = screen.getByRole('treeitem', {name: /Item 1/})
+      const wrapper = item.parentElement
+      expect(wrapper?.tagName).toBe('LI')
+      expect(wrapper).toHaveAttribute('role', 'none')
+    })
+
     it('supports polymorphic Item with custom component via `as`', () => {
       const CustomLink = React.forwardRef<
         HTMLAnchorElement,
