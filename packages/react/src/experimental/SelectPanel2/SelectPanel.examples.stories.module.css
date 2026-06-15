@@ -48,6 +48,16 @@
   margin-top: var(--base-size-4);
 }
 
+.FilterSegmentedControl {
+  margin-top: var(--base-size-4);
+}
+
+.SegmentedControlCount {
+  margin-left: var(--base-size-4);
+  color: var(--fgColor-muted);
+  font-size: var(--text-body-size-small);
+}
+
 .ContentBox {
   padding: var(--base-size-12);
 }

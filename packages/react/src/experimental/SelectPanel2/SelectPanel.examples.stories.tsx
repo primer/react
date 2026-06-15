@@ -1,6 +1,16 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, ActionMenu, Avatar, Button, Text, Flash, FormControl, TextInput} from '../../index'
+import {
+  ActionList,
+  ActionMenu,
+  Avatar,
+  Button,
+  Text,
+  Flash,
+  FormControl,
+  TextInput,
+  SegmentedControl,
+} from '../../index'
 import Octicon from '../../Octicon'
 import {Dialog} from '../../experimental'
 import {
@@ -569,9 +579,11 @@ export const WithFilterButtons = () => {
         <SelectPanel.Header>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
 
-          <div id="filters" className={classes.FilterButtons}>
+          <div role="group" aria-label="Filter by type" className={classes.FilterButtons}>
             <Button
               variant="invisible"
+              aria-pressed={selectedFilter === 'branches'}
+              aria-controls="ref-list"
               style={{
                 fontWeight:
                   selectedFilter === 'branches' ? 'var(--base-text-weight-medium)' : 'var(--base-text-weight-normal)',
@@ -584,6 +596,8 @@ export const WithFilterButtons = () => {
             </Button>
             <Button
               variant="invisible"
+              aria-pressed={selectedFilter === 'tags'}
+              aria-controls="ref-list"
               style={{
                 fontWeight:
                   selectedFilter === 'tags' ? 'var(--base-text-weight-medium)' : 'var(--base-text-weight-normal)',
@@ -602,7 +616,116 @@ export const WithFilterButtons = () => {
             Try a different search term
           </SelectPanel.Message>
         ) : (
-          <ActionList>
+          <ActionList id="ref-list" aria-label={`${selectedFilter} list`}>
+            {itemsToShow.map(item => (
+              <ActionList.Item
+                key={item.id}
+                selected={selectedRef === item.id}
+                onSelect={() => setSelectedRef(item.id)}
+              >
+                {item.name}
+                <ActionList.TrailingVisual>{item.trailingInfo}</ActionList.TrailingVisual>
+              </ActionList.Item>
+            ))}
+          </ActionList>
+        )}
+
+        <SelectPanel.Footer>
+          <SelectPanel.SecondaryAction variant="link" href={`/${selectedFilter}`}>
+            View all {selectedFilter}
+          </SelectPanel.SecondaryAction>
+        </SelectPanel.Footer>
+      </SelectPanel>
+    </>
+  )
+}
+
+export const WithFilterSegmentedControl = () => {
+  const [selectedFilter, setSelectedFilter] = React.useState<'branches' | 'tags'>('branches')
+
+  /* Selection */
+  const [savedInitialRef, setSavedInitialRef] = React.useState(data.ref)
+  const [selectedRef, setSelectedRef] = React.useState(savedInitialRef)
+
+  const onSubmit = () => {
+    setSavedInitialRef(selectedRef)
+    data.ref = selectedRef
+  }
+  const onCancel = () => {
+    setSelectedRef(savedInitialRef)
+  }
+
+  /* Filter */
+  const [query, setQuery] = React.useState('')
+  const onSearchInputChange: React.ChangeEventHandler<HTMLInputElement> = event => {
+    const query = event.currentTarget.value
+    setQuery(query)
+  }
+
+  const [filteredRefs, setFilteredRefs] = React.useState(data.branches)
+  const setSearchResults = (query: string, selectedFilter: 'branches' | 'tags') => {
+    if (query === '') setFilteredRefs(data[selectedFilter])
+    else {
+      setFilteredRefs(
+        data[selectedFilter]
+          .map(item => {
+            if (item.name.toLowerCase().startsWith(query)) return {priority: 1, item}
+            else if (item.name.toLowerCase().includes(query)) return {priority: 2, item}
+            else return {priority: -1, item}
+          })
+          .filter(result => result.priority > 0)
+          .map(result => result.item),
+      )
+    }
+  }
+
+  React.useEffect(
+    function updateSearchResults() {
+      setSearchResults(query, selectedFilter)
+    },
+    [query, selectedFilter],
+  )
+
+  const sortingFn = (ref: {id: string}) => {
+    if (ref.id === savedInitialRef) return -1
+    else return 1
+  }
+
+  const itemsToShow = query ? filteredRefs : data[selectedFilter].sort(sortingFn)
+
+  return (
+    <>
+      <h1>With Filter Segmented Control</h1>
+
+      <SelectPanel title="Switch branches/tags" onSubmit={onSubmit} onCancel={onCancel}>
+        <SelectPanel.Button leadingVisual={GitBranchIcon} trailingVisual={TriangleDownIcon}>
+          {savedInitialRef}
+        </SelectPanel.Button>
+
+        <SelectPanel.Header>
+          <SelectPanel.SearchInput onChange={onSearchInputChange} />
+
+          <SegmentedControl
+            aria-label="Filter by type"
+            aria-controls="ref-list-segmented"
+            onChange={index => setSelectedFilter(index === 0 ? 'branches' : 'tags')}
+            className={classes.FilterSegmentedControl}
+          >
+            <SegmentedControl.Button selected={selectedFilter === 'branches'}>
+              Branches <Text className={classes.SegmentedControlCount}>{data.branches.length}</Text>
+            </SegmentedControl.Button>
+            <SegmentedControl.Button selected={selectedFilter === 'tags'}>
+              Tags <Text className={classes.SegmentedControlCount}>{data.tags.length}</Text>
+            </SegmentedControl.Button>
+          </SegmentedControl>
+        </SelectPanel.Header>
+
+        {itemsToShow.length === 0 ? (
+          <SelectPanel.Message variant="empty" title={`No ${selectedFilter} found for "${query}"`}>
+            Try a different search term
+          </SelectPanel.Message>
+        ) : (
+          <ActionList id="ref-list-segmented" aria-label={`${selectedFilter} list`}>
             {itemsToShow.map(item => (
               <ActionList.Item
                 key={item.id}
