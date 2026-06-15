@@ -33,6 +33,12 @@ const config: RolldownOptions = defineConfig({
   output: {
     dir: 'dist',
     format: 'esm',
+    minify: true,
+  },
+  transform: {
+    define: {
+      'process.env.NODE_ENV': JSON.stringify('production'),
+    },
   },
 })
 
