@@ -188,6 +188,7 @@ const AutocompleteInput = React.forwardRef(
         autoComplete="off"
         id={id}
         {...props}
+        data-component="Autocomplete.Input"
       />
     )
   },

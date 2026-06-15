@@ -2,8 +2,9 @@ import {render, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {describe, expect, it, vi} from 'vitest'
 import React from 'react'
-import {ThemeProvider, useColorSchemeVar, useTheme} from '../ThemeProvider'
+import ThemeProvider from '../ThemeProvider'
 import {FeatureFlags} from '../FeatureFlags'
+import {useColorSchemeVar, useTheme} from '../useTheme'
 
 // copied from '@primer/primitives/dist/css/functional/themes/';
 const fgDefaultColors = {
