@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Install dependencies
-npm install
+pnpm install
 
 # Build
-npm run build
+pnpm run build
 
 # Playwright
-npx playwright install --with-deps
+pnpm exec playwright install --with-deps

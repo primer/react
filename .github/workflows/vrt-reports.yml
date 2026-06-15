@@ -22,7 +22,9 @@ jobs:
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
-          cache: 'npm'
+          cache: 'pnpm'
+      - name: Enable Corepack
+        run: corepack enable
       - name: Set up turbo cache
         uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb
         with:
@@ -33,21 +35,21 @@ jobs:
             ${{ runner.os }}-turbo-${{ github.job }}-
             ${{ runner.os }}-turbo-
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - name: Build storybook
-        run: npx turbo run build:storybook
+        run: pnpm exec turbo run build:storybook
       - name: Run storybook
         id: storybook
         working-directory: packages/react
         run: |
-          npx serve -l 6006 storybook-static &
+          pnpm exec serve -l 6006 storybook-static &
           pid=$!
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
       - name: Run styled-react storybook
         id: styled-react-storybook
         run: |
-          npx serve -l 6007 packages/styled-react/storybook-static &
+          pnpm exec serve -l 6007 packages/styled-react/storybook-static &
           pid=$!
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
@@ -57,7 +59,7 @@ jobs:
           STORYBOOK_URL: 'http://172.17.0.1:6006'
           STYLED_REACT_STORYBOOK_URL: 'http://172.17.0.1:6007'
         with:
-          args: npx playwright test --grep @vrt --shard="${{ matrix.shard }}/${{ strategy.job-total }}"
+          args: pnpm exec playwright test --grep @vrt --shard="${{ matrix.shard }}/${{ strategy.job-total }}"
       - name: Stop storybook
         if: ${{ always() }}
         run: kill ${{ steps.storybook.outputs.pid }}
@@ -81,9 +83,11 @@ jobs:
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version: 24.15.0
-          cache: 'npm'
+          cache: 'pnpm'
+      - name: Enable Corepack
+        run: corepack enable
       - name: install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - name: download all reports
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
         with:
@@ -91,7 +95,7 @@ jobs:
           pattern: vrt-*
           merge-multiple: true
       - name: merge all reports
-        run: npx playwright merge-reports --reporter html ./all-blob-reports
+        run: pnpm exec playwright merge-reports --reporter html ./all-blob-reports
       - name: Upload report
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:

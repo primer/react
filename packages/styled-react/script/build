@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Build the package
-npx rollup -c
+pnpm exec rollup -c
 
 # Generate type declarations
-npx tsc --project tsconfig.build.json
+pnpm exec tsc --project tsconfig.build.json
 
 # Generate components.json
 ./script/generate-components-json

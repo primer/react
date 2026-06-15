@@ -4,10 +4,10 @@
 
 ## Getting started
 
-To install `primer-preset-primer` in your project, you will need to run the following command using [npm](https://www.npmjs.com/):
+To install `primer-preset-primer` in your project, you will need to run the following command using [pnpm](https://pnpm.io/):
 
 ```bash
-npm install postcss-preset-primer --save-dev
+pnpm add postcss-preset-primer --save-dev
 ```
 
 ## Usage

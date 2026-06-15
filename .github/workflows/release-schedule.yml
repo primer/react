@@ -31,8 +31,10 @@ jobs:
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
+      - name: Enable Corepack
+        run: corepack enable
       - name: Install packages for github-script
-        run: npm i date-fns
+        run: pnpm add -w date-fns --lockfile=false
       - name: Create Release Issue
         uses: actions/github-script@5c56fde4671bc2d3592fb0f2c5b5bab9ddae03b1
         env:

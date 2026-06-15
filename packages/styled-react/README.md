@@ -5,10 +5,10 @@
 ## Getting started
 
 To install `@primer/styled-react` in your project, you will need to run the following
-command using [npm](https://www.npmjs.com/):
+command using [pnpm](https://pnpm.io/):
 
 ```bash
-npm install -S @primer/styled-react
+pnpm add @primer/styled-react
 ```
 
 ## Usage

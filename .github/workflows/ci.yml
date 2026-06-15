@@ -24,11 +24,13 @@ jobs:
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
-          cache: 'npm'
+          cache: 'pnpm'
+      - name: Enable Corepack
+        run: corepack enable
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - name: Check for unformatted files
-        run: npm run format:diff
+        run: pnpm run format:diff
 
   lint:
     runs-on: ubuntu-latest
@@ -39,19 +41,21 @@ jobs:
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
-          cache: 'npm'
+          cache: 'pnpm'
+      - name: Enable Corepack
+        run: corepack enable
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - name: Lint JavaScript
-        run: npm run lint
+        run: pnpm run lint
       - name: Lint CSS
-        run: npm run lint:css
+        run: pnpm run lint:css
       - name: Lint markdown
-        run: npm run lint:md
+        run: pnpm run lint:md
       - name: Lint npm packages
-        run: npx turbo run lint:npm
+        run: pnpm exec turbo run lint:npm
       - name: Check className test coverage
-        run: npm run test:classname-coverage
+        run: pnpm run test:classname-coverage
 
   test:
     runs-on: ubuntu-latest
@@ -66,7 +70,9 @@ jobs:
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
-          cache: 'npm'
+          cache: 'pnpm'
+      - name: Enable Corepack
+        run: corepack enable
       - name: Set up turbo cache
         uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb
         with:
@@ -77,16 +83,16 @@ jobs:
             ${{ runner.os }}-turbo-${{ github.job }}-
             ${{ runner.os }}-turbo-
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - if: ${{ matrix.react-version == 'react-19' }}
         run: node script/setup-react-19.mts
       - name: Build
-        run: npm run build
+        run: pnpm run build
         continue-on-error: ${{ matrix.react-version == 'react-19' }}
       - name: Run tests defined in vitest
         uses: docker://mcr.microsoft.com/playwright:v1.60.0-jammy
         with:
-          args: npm test
+          args: pnpm test
 
   type-check:
     runs-on: ubuntu-latest
@@ -101,7 +107,9 @@ jobs:
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
-          cache: 'npm'
+          cache: 'pnpm'
+      - name: Enable Corepack
+        run: corepack enable
       - name: Set up turbo cache
         uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb
         with:
@@ -112,14 +120,14 @@ jobs:
             ${{ runner.os }}-turbo-${{ github.job }}-
             ${{ runner.os }}-turbo-
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - if: ${{ matrix.react-version == 'react-19' }}
         run: node script/setup-react-19.mts
       - name: Build project
-        run: npm run build
+        run: pnpm run build
         continue-on-error: ${{ matrix.react-version == 'react-19' }}
       - name: Type check
-        run: npm run type-check
+        run: pnpm run type-check
         continue-on-error: ${{ matrix.react-version == 'react-19' }}
 
   examples:
@@ -135,7 +143,9 @@ jobs:
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
-          cache: 'npm'
+          cache: 'pnpm'
+      - name: Enable Corepack
+        run: corepack enable
       - name: Set up turbo cache
         uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb
         with:
@@ -146,11 +156,11 @@ jobs:
             ${{ runner.os }}-turbo-${{ github.job }}-
             ${{ runner.os }}-turbo-
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - if: ${{ matrix.react-version == 'react-19' }}
         run: node script/setup-react-19.mts
       - name: Build
-        run: npx turbo run build
+        run: pnpm exec turbo run build
         continue-on-error: ${{ matrix.react-version == 'react-19' }}
 
   build-components-json:
@@ -162,7 +172,9 @@ jobs:
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
-          cache: 'npm'
+          cache: 'pnpm'
+      - name: Enable Corepack
+        run: corepack enable
       - name: Set up turbo cache
         uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb
         with:
@@ -173,14 +185,14 @@ jobs:
             ${{ runner.os }}-turbo-${{ github.job }}-
             ${{ runner.os }}-turbo-
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - name: Build storybook to generate story IDs
-        run: npx turbo run build:storybook --filter=@primer/react
+        run: pnpm exec turbo run build:storybook --filter=@primer/react
       - name: Build components.json
-        run: npx tsx script/components-json/build.ts --storybook-data 'storybook-static/index.json'
+        run: pnpm exec tsx script/components-json/build.ts --storybook-data 'storybook-static/index.json'
         working-directory: packages/react
       - name: Build hooks.json
-        run: npx tsx script/hooks-json/build.ts
+        run: pnpm exec tsx script/hooks-json/build.ts
         working-directory: packages/react
 
   sizes:
@@ -192,7 +204,9 @@ jobs:
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
-          cache: 'npm'
+          cache: 'pnpm'
+      - name: Enable Corepack
+        run: corepack enable
       - name: Set up turbo cache
         uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb
         with:
@@ -203,8 +217,8 @@ jobs:
             ${{ runner.os }}-turbo-${{ github.job }}-
             ${{ runner.os }}-turbo-
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - name: Build
-        run: npm run build
+        run: pnpm run build
       - name: Get export sizes
         run: node packages/react/script/get-export-sizes.cjs

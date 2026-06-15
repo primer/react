@@ -11,28 +11,28 @@
   "scripts": {
     "setup": "./script/setup",
     "build": "turbo run build --filter='!./examples/*'",
-    "clean": "npm run clean --workspaces --if-present",
-    "clean:all": "npm run clean && rimraf node_modules packages/*/node_modules examples/*/node_modules",
+    "clean": "pnpm --recursive --if-present run clean",
+    "clean:all": "pnpm run clean && rimraf node_modules packages/*/node_modules examples/*/node_modules",
     "format": "prettier --cache --write '**/*.{js,css,md,mdx,ts,tsx,yml}'",
     "format:diff": "prettier --cache --list-different '**/*.{js,css,md,mdx,ts,tsx,yml}'",
-    "start": "concurrently npm:start:*",
-    "start:storybook": "npm run start:storybook -w @primer/react",
+    "start": "concurrently pnpm:start:*",
+    "start:storybook": "pnpm --filter @primer/react run start:storybook",
     "build:storybook": "script/build-storybook",
     "build:docs": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs",
     "build:docs:preview": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs preview",
-    "build:components.json": "npm run build:components.json -w @primer/react",
-    "build:hooks.json": "npm run build:hooks.json -w @primer/react",
+    "build:components.json": "pnpm --filter @primer/react run build:components.json",
+    "build:hooks.json": "pnpm --filter @primer/react run build:hooks.json",
     "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0 --cache",
     "lint:css": "stylelint --rd -q --cache '**/*.css'",
-    "lint:css:fix": "npm run lint:css -- --fix",
-    "lint:fix": "npm run lint -- --fix",
+    "lint:css:fix": "pnpm run lint:css -- --fix",
+    "lint:fix": "pnpm run lint -- --fix",
     "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!.github\" \"!.changeset\" \"!**/node_modules/**\" \"!**/CHANGELOG.md\"",
     "test": "vitest",
     "test:type-check": "tsc --noEmit",
-    "test:update": "npm run test -- -u",
+    "test:update": "pnpm run test -- -u",
     "test:classname-coverage": "node script/check-classname-tests.mjs",
     "type-check": "tsc --noEmit && turbo run type-check",
-    "release": "npm run build && changeset publish",
+    "release": "pnpm run build && changeset publish",
     "reset": "script/reset",
     "size": "size-limit"
   },
@@ -40,7 +40,7 @@
   "license": "MIT",
   "engines": {
     "node": ">=12",
-    "npm": ">=7"
+    "pnpm": ">=10"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
@@ -117,5 +117,5 @@
       "running": false
     }
   ],
-  "packageManager": "npm@11.6.3+sha512.4085a763162e0e3acd19a4e9d23ad3aa0978e501ccf947dd7233c12a689ae0bb0190763c4ef12366990056b34eec438903ffed38fde4fbd722a17c2a7407ee92"
+  "packageManager": "pnpm@10.25.0"
 }

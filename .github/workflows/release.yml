@@ -38,10 +38,12 @@ jobs:
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
-          cache: 'npm'
+          cache: 'pnpm'
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1
         id: app-token
@@ -58,7 +60,7 @@ jobs:
         with:
           title: Release tracking
           # This expects you to have a script called release which does a build for your packages and calls changeset publish
-          publish: npm run release
+          publish: pnpm run release
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
@@ -80,19 +82,21 @@ jobs:
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
-          cache: 'npm'
+          cache: 'pnpm'
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Build
-        run: npm run build
+        run: pnpm run build
 
       - name: Publish release candidate
         run: |
           if [[ -f '.changeset/pre.json' ]]; then
-            npx changeset pre exit
-            npx changeset version --snapshot
+            pnpm exec changeset pre exit
+            pnpm exec changeset version --snapshot
           else
             for pkg_json_path in packages/react/package.json packages/styled-react/package.json packages/mcp/package.json; do
               version=$(jq -r .version $pkg_json_path)
@@ -100,7 +104,7 @@ jobs:
             done
           fi
 
-          npx changeset publish --tag next
+          pnpm exec changeset publish --tag next
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -131,20 +135,22 @@ jobs:
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
-          cache: 'npm'
+          cache: 'pnpm'
+      - name: Enable Corepack
+        run: corepack enable
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - name: Build
-        run: npm run build --if-present
+        run: pnpm run build --if-present
       - name: Publish canary release
         run: |
           if [[ -f '.changeset/pre.json' ]]; then
-            npx changeset pre exit
+            pnpm exec changeset pre exit
           fi
 
           echo -e "---\n$( jq .name packages/react/package.json ): patch\n---\n\nFake entry to force publishing" > .changeset/force-snapshot-release.md
-          npx changeset version --snapshot
-          npx changeset publish --tag canary
+          pnpm exec changeset version --snapshot
+          pnpm exec changeset publish --tag canary
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

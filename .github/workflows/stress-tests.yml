@@ -11,16 +11,18 @@ jobs:
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
-          cache: 'npm'
+          cache: 'pnpm'
+      - name: Enable Corepack
+        run: corepack enable
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - name: Build storybook
-        run: npx storybook build
+        run: pnpm exec storybook build
         working-directory: packages/react
       - name: Run storybook
         id: storybook
         run: |
-          npx serve -l 6006 packages/react/storybook-static &
+          pnpm exec serve -l 6006 packages/react/storybook-static &
           pid=$!
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
@@ -29,7 +31,7 @@ jobs:
         env:
           STORYBOOK_URL: 'http://172.17.0.1:6006'
         with:
-          args: npx playwright test --grep @stress-test"
+          args: pnpm exec playwright test --grep @stress-test"
       - name: Stop storybook
         if: ${{ always() }}
         run: kill ${{ steps.storybook.outputs.pid }}

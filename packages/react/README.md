@@ -25,10 +25,10 @@
 ## Getting started
 
 To install `@primer/react` in your project, you will need to run the following
-command using [npm](https://www.npmjs.com/):
+command using [pnpm](https://pnpm.io/):
 
 ```bash
-npm install -S @primer/react @primer/primitives
+pnpm add @primer/react @primer/primitives
 ```
 
 If you prefer [Yarn](https://yarnpkg.com/), use the following command instead:

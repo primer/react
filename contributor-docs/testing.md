@@ -80,11 +80,11 @@ We are slowly moving away from using snapshots as a way to test visual changes o
 
 ### Running Tests
 
-| Task                | Command                  |
-| :------------------ | :----------------------- |
-| Run unit tests      | `npm test`               |
-| Run a specific test | `npm test ComponentName` |
-| Update snapshots    | `npm test -- -u`         |
+| Task                | Command                   |
+| :------------------ | :------------------------ |
+| Run unit tests      | `pnpm test`               |
+| Run a specific test | `pnpm test ComponentName` |
+| Update snapshots    | `pnpm test -- -u`         |
 
 ## Interaction Tests
 
@@ -113,21 +113,21 @@ section to setup your machine. You also need Storybook to be running locally
 before running any tests. If you're looking for a quick overview of the commands
 available, check out the table below.
 
-| Task                                                  | Command                                         |
-| :---------------------------------------------------- | :---------------------------------------------- |
-| Run playwright tests                                  | `script/test-e2e`                               |
-| Run a specific test                                   | `script/test-e2e TestName`                      |
-| View the report from a test run                       | `npx playwright show-report .playwright/report` |
-| Update snapshots                                      | `script/test-e2e --update-snapshots`            |
-| Debug playwright tests                                | `npx playwright test --debug`                   |
-| Run playwright with browser visible                   | `npx playwright test --headed`                  |
-| Run playwright tests that match a specific tag        | `script/test-e2e --grep @tag-name`              |
-| Run playwright tests that do not match a specific tag | `script/test-e2e --grep-invert @tag-name`       |
+| Task                                                  | Command                                               |
+| :---------------------------------------------------- | :---------------------------------------------------- |
+| Run playwright tests                                  | `script/test-e2e`                                     |
+| Run a specific test                                   | `script/test-e2e TestName`                            |
+| View the report from a test run                       | `pnpm exec playwright show-report .playwright/report` |
+| Update snapshots                                      | `script/test-e2e --update-snapshots`                  |
+| Debug playwright tests                                | `pnpm exec playwright test --debug`                   |
+| Run playwright with browser visible                   | `pnpm exec playwright test --headed`                  |
+| Run playwright tests that match a specific tag        | `script/test-e2e --grep @tag-name`                    |
+| Run playwright tests that do not match a specific tag | `script/test-e2e --grep-invert @tag-name`             |
 
 > **Note**
 > The `script/test-e2e` file is a helper to run Playwright in an environment
 > that mirrors CI. You can optionally run these tests natively on your machine
-> using `npx playwright test` if you would like to interact or debug tests.
+> using `pnpm exec playwright test` if you would like to interact or debug tests.
 > However, screenshots will not match and new ones will need to be generated on
 > your first test run.
 
@@ -137,11 +137,11 @@ available, check out the table below.
 ### Prerequisites
 
 To run Playwright locally, first install the dependencies of the project by
-running `npm install`. Next, run the following command to install any necessary
+running `pnpm install`. Next, run the following command to install any necessary
 Playwright dependencies:
 
 ```bash
-npx playwright install --with-deps
+pnpm exec playwright install --with-deps
 ```
 
 If you would like to run Playwright in a way to mirror our CI environment (this
@@ -158,7 +158,7 @@ your specific Operating System.
 #### Visual Regression Testing
 
 In order to run Visual Regression Tests, you will need to first run Storybook by
-running `npm start` or by directly running: `STORYBOOK=true npx start-storybook -p 6006`.
+running `pnpm start` or by directly running: `STORYBOOK=true pnpm exec start-storybook -p 6006`.
 
 After starting storybook, you can run all of the Visual Regression Tests with
 the following command:
@@ -171,7 +171,7 @@ This will run each test within an environment that mirrors what is used in CI.
 You can also run Playwright locally by running:
 
 ```bash
-npx playwright test --grep @vrt
+pnpm exec playwright test --grep @vrt
 ```
 
 However, screenshots will need to be generated locally for your specific
@@ -181,7 +181,7 @@ platform on the first test run.
 
 We use [axe](https://www.deque.com/axe/) to run automated accessibility
 checks against our components. In order to run these checks, you will need to first run Storybook by
-running `npm start` or by directly running: `STORYBOOK=true npx start-storybook -p 6006`.
+running `pnpm start` or by directly running: `STORYBOOK=true pnpm exec start-storybook -p 6006`.
 
 After starting storybook, you can run all of the Accessibility Verification
 Tests with
@@ -221,4 +221,4 @@ and downloading the relevant report.
 
 The browser executables need to be installed so that playwright can run tests
 inside chromium, firefox, etc. They can be installed by running
-`npx playwright install --with-deps`
+`pnpm exec playwright install --with-deps`

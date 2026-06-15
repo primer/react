@@ -52,14 +52,14 @@ We primarily use [Storybook](https://storybook.js.org/) as a workspace to develo
 Before running storybook locally, make sure to install [Node.js](https://nodejs.org/en/) v20 (we recommend using [nvm](https://github.com/nvm-sh/nvm)). Next, run the following command to setup your environment:
 
 ```sh
-npm run setup
+pnpm run setup
 ```
 
 Afterwards, you can run the following command to start up the
 storybook environment:
 
 ```sh
-npm start
+pnpm start
 ```
 
 Navigate to http://localhost:6006/ to see Primer react components in your browser ✨
@@ -170,29 +170,29 @@ const Nav = ({className}) => {
 We use the [React configuration](https://github.com/github/eslint-plugin-github/blob/master/lib/configs/react.js) from [GitHub's eslint plugin](https://github.com/github/eslint-plugin-github) to lint our code. To check your work before pushing, run:
 
 ```sh
-npm run lint
+pnpm run lint
 ```
 
-Or, you can use [npx] to run eslint on one or more specific files:
+Or, you can use `pnpm exec` to run eslint on one or more specific files:
 
 ```sh
-npx eslint src/**/MyComponent.tsx
+pnpm exec eslint src/**/MyComponent.tsx
 ```
 
 **Protip:** The [eslint `--fix` flag](https://eslint.org/docs/user-guide/command-line-interface#--fix) can automatically fix most linting errors, such as those involving whitespace or incorrect ordering of object keys and imports. You can fix those issues across the entire project with:
 
 ```sh
-npm run lint -- --fix
+pnpm run lint -- --fix
 ```
 
-**Protip:** `npm run lint -- --quiet` (or `npx eslint --quiet ...`) will suppress warnings so that you can focus on fixing errors.
+**Protip:** `pnpm run lint -- --quiet` (or `pnpm exec eslint --quiet ...`) will suppress warnings so that you can focus on fixing errors.
 
 #### Markdownlint
 
 We use [markdownlint](https://github.com/markdownlint/markdownlint) to lint Markdown files, using [GitHub's markdownlint-github configuration](https://github.com/github/markdownlint-github). To check your work before pushing, run:
 
 ```sh
-npm run lint:md
+pnpm run lint:md
 ```
 
 #### Stylelint
@@ -200,13 +200,13 @@ npm run lint:md
 We use the [Primer stylelint config](https://github.com/primer/stylelint-config) to lint CSS files. To check your work before pushing, run:
 
 ```sh
-npm run lint:css
+pnpm run lint:css
 ```
 
 Some CSS rules can be autofixed by running the following command:
 
 ```sh
-npm run lint:css:fix
+pnpm run lint:css:fix
 ```
 
 ### TypeScript support
@@ -214,7 +214,7 @@ npm run lint:css:fix
 Primer React is written in TypeScript. We include type definitions in our built artifacts. To check types, run the `type-check` test script:
 
 ```
-npm run test:type-check
+pnpm run test:type-check
 ```
 
 ### Additional resources
@@ -248,7 +248,7 @@ When creating a new pull request, please follow the guidelines in the auto-popul
 
 We use [changesets](https://github.com/changesets) to manage our releases. When creating a new pull request, `changeset-bot` will remind you to add a changeset if your change should trigger a new version number for the package.
 
-To create a new changeset on your local machine, run `npx changeset` and answer the prompts. Please refer to our [versioning docs](https://github.com/primer/react/blob/37cfd07fb1eef4c0655157a0c9025cec94abaed5/contributor-docs/versioning.md) if you are not sure what kind of change you are making.
+To create a new changeset on your local machine, run `pnpm exec changeset` and answer the prompts. Please refer to our [versioning docs](https://github.com/primer/react/blob/37cfd07fb1eef4c0655157a0c9025cec94abaed5/contributor-docs/versioning.md) if you are not sure what kind of change you are making.
 
 If you are introducing multiple features in the PR, add a separate changeset for each.
 
@@ -282,10 +282,10 @@ Once you merge your branch into main, any changes to the docs and the storybook 
 
 ## Troubleshooting
 
-**`npm start` fails with an error like `gatsby: command not found`**
+**`pnpm start` fails with an error like `gatsby: command not found`**
 
-Make sure to run `npm install` from inside the `docs/` subfolder _as well as_ the root folder.
+Make sure to run `pnpm install` from inside the `docs/` subfolder _as well as_ the root folder.
 
-**`npm start` fails with a different error**
+**`pnpm start` fails with a different error**
 
 Ensure you are using the latest minor of Node.js for the major version specified in the `.nvmrc` file. For example, if `.nvmrc` contains `8`, make sure you're using the latest version of Node.js with the major version of 8.

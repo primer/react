@@ -23,11 +23,13 @@ jobs:
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
+      - name: Enable Corepack
+        run: corepack enable
       - name: Install node deps
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - name: Install ruby deps
         run: gem install graphql-client
       - name: Build statuses
-        run: npx ts-node script/component-status-project/build.ts
+        run: pnpm exec ts-node script/component-status-project/build.ts
       - name: Deploy statuses to project
         run: GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} script/component-status-project/deploy.rb

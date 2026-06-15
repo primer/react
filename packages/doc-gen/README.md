@@ -15,7 +15,7 @@ As part of the [build](packages/react/script/components-json/build.ts) script fo
 In order to validate that the properties taken from TypeScript and the authored `.docs.json` are aligned, there is a `validate` command to run:
 
 ```bash
-npx doc-gen validate ./packages/react/src/Button
+pnpm exec doc-gen validate ./packages/react/src/Button
 ```
 
 This will display a table summary of all props found in `.docs.json` and ensure they are also present in TypeScript.
@@ -99,7 +99,7 @@ To override any value of a derived property, set the value within the `*.docs.js
 To make the transition easier for the migration, a `--fix` option is available:
 
 ```bash
-npx doc-gen validate ./packages/react/src/Button --fix
+pnpm exec doc-gen validate ./packages/react/src/Button --fix
 ```
 
 For each property in the `*.docs.json`, it will:

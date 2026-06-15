@@ -1,0 +1,11 @@
+packages:
+  - packages/rollup-plugin-import-css
+  - packages/react
+  - packages/mcp
+  - packages/*
+  - examples/*
+
+onlyBuiltDependencies:
+  - core-js
+  - esbuild
+  - sharp

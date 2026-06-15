@@ -62,6 +62,6 @@ jobs:
       gh_token: ${{ secrets.GITHUB_TOKEN }}
     with:
       node_version: 22
-      install: npm ci
-      build: npm run build:docs
+      install: corepack enable && pnpm install --frozen-lockfile
+      build: pnpm run build:docs
       output_dir: docs/public

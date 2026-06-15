@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Remove all build folders, node_modules folders
-npm run clean:all
+pnpm run clean:all
 
 # Install latest dependencies from lockfile
-npm install
+pnpm install
 
 # Build packages
-npm run build
+pnpm run build
