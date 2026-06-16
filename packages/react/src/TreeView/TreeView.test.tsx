@@ -411,6 +411,22 @@ describe('Markup', () => {
       expect(wrapper).toHaveAttribute('role', 'none')
     })
 
+    it('does not add an extra `li role="none"` wrapper when `as="li"`', () => {
+      render(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item as="li" id="item-1">
+            Item 1
+          </TreeView.Item>
+        </TreeView>,
+      )
+
+      const item = screen.getByRole('treeitem', {name: /Item 1/})
+      expect(item.tagName).toBe('LI')
+      // The treeitem should be a direct child of the tree (`<ul>`), not wrapped
+      // in an outer `<li role="none">`.
+      expect(item.parentElement).toHaveAttribute('role', 'tree')
+    })
+
     it('supports polymorphic Item with custom component via `as`', () => {
       const CustomLink = React.forwardRef<
         HTMLAnchorElement,

@@ -256,14 +256,15 @@ const ItemImpl = fixedForwardRef(
     }: TreeViewItemProps<As>,
     ref: React.ForwardedRef<unknown>,
   ) => {
-    // When `as` is provided, we render the polymorphic element as the
-    // `role="treeitem"` and wrap it in an `<li role="none">` so the markup
-    // remains valid (a `<ul role="tree">` may only directly contain `<li>`
-    // elements). When `as` is not provided we render an `<li>` directly as
+    // When `as` is provided (and resolves to something other than the default
+    // `'li'`), we render the polymorphic element as the `role="treeitem"` and
+    // wrap it in an `<li role="none">` so the markup remains valid (a
+    // `<ul role="tree">` may only directly contain `<li>` elements). When `as`
+    // is omitted, or explicitly set to `'li'`, we render an `<li>` directly as
     // the treeitem to preserve the historical DOM shape and ref typing for
-    // existing consumers.
+    // existing consumers and to avoid nesting `<li>` inside `<li>`.
     const ItemElement = (Component ?? 'li') as React.ElementType
-    const isPolymorphic = Component !== undefined
+    const isPolymorphic = Component !== undefined && Component !== 'li'
     const [slots, rest] = useSlots(children, {
       leadingAction: LeadingAction,
       leadingVisual: LeadingVisual,
@@ -370,8 +371,11 @@ const ItemImpl = fixedForwardRef(
     const trailingActionShortcutText = `Press (${getAccessibleKeybindingHintString(shortcut, platform)}) for more actions.`
 
     const itemElement = (
-      // @ts-ignore Box doesn't have type support for `ref` used in combination with `as`
+      // @ts-ignore TypeScript can't infer that the `ref` here is compatible
+      // with every possible polymorphic `ItemElement` (it's typed as
+      // `Ref<unknown>` by `fixedForwardRef`), so we cast at the boundary.
       <ItemElement
+        {...restProps}
         className={clsx('PRIVATE_TreeView-item', className, classes.TreeViewItem)}
         ref={ref as React.ForwardedRef<HTMLElement>}
         tabIndex={0}
@@ -417,7 +421,6 @@ const ItemImpl = fixedForwardRef(
           }
           event.stopPropagation()
         }}
-        {...restProps}
       >
         <div
           className={clsx('PRIVATE_TreeView-item-container', classes.TreeViewItemContainer)}
