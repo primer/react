@@ -30,6 +30,7 @@ export const CustomPortalRootByRegistration: React.FC<React.PropsWithChildren<Re
   React.useEffect(() => {
     if (outerContainerRef.current instanceof HTMLElement) {
       registerPortalRoot(outerContainerRef.current)
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-initialize-state
       setMounted(true)
     }
   }, [])
@@ -92,6 +93,7 @@ export const WithPortalContext = () => {
     if (customContainerRef.current instanceof HTMLElement && overrideContainerRef.current instanceof HTMLElement) {
       registerPortalRoot(customContainerRef.current, 'custom-portal')
       registerPortalRoot(overrideContainerRef.current, 'override-portal')
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-initialize-state
       setMounted(true)
     }
   }, [])

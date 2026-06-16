@@ -281,6 +281,7 @@ export function FilteredActionList({
     [onListContainerRefChanged],
   )
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent
     onInputRefChanged?.(inputRef)
   }, [inputRef, onInputRefChanged])
 
@@ -369,6 +370,7 @@ export function FilteredActionList({
   }, [items, inputRef, scrollContainerRef, scrollBehavior])
 
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (usingRovingTabindex) {
       const inputAndListContainerElement = inputAndListContainerRef.current
       if (!inputAndListContainerElement) return
@@ -391,7 +393,9 @@ export function FilteredActionList({
   }, [items, inputRef, listContainerElement, usingRovingTabindex]) // Re-run when items change to update active indicators
 
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (usingRovingTabindex && !loading) {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
       setIsInputFocused(inputRef.current && inputRef.current === document.activeElement ? true : false)
     }
   }, [loading, inputRef, usingRovingTabindex])

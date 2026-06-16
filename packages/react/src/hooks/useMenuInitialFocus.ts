@@ -46,6 +46,7 @@ export const useMenuInitialFocus = (
    */
   React.useEffect(
     function moveFocusOnOpen() {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (!open || !containerRef?.current) return // wait till the menu is open
 
       const iterable = iterateFocusableElements(containerRef.current)
