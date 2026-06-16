@@ -92,7 +92,7 @@ jobs:
       - name: Run tests defined in vitest
         uses: docker://mcr.microsoft.com/playwright:v1.60.0-jammy
         with:
-          args: pnpm test
+          args: ./node_modules/.bin/vitest run
 
   type-check:
     runs-on: ubuntu-latest

@@ -14,6 +14,7 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@primer/primitives": "^11.5.1",
     "@primer/react": "workspace:38.28.0",
     "@primer/styled-react": "workspace:1.1.0",
     "@types/react": "^18.3.11",

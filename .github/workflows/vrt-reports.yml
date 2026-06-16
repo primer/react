@@ -59,7 +59,7 @@ jobs:
           STORYBOOK_URL: 'http://172.17.0.1:6006'
           STYLED_REACT_STORYBOOK_URL: 'http://172.17.0.1:6007'
         with:
-          args: pnpm exec playwright test --grep @vrt --shard="${{ matrix.shard }}/${{ strategy.job-total }}"
+          args: ./node_modules/.bin/playwright test --grep @vrt --shard="${{ matrix.shard }}/${{ strategy.job-total }}"
       - name: Stop storybook
         if: ${{ always() }}
         run: kill ${{ steps.storybook.outputs.pid }}
