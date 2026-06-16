@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-Breadcrumbs: Recalculate menu overflow items when breadcrumb content changes without changing the number of items.
+Breadcrumbs: Improve rendering performance and refresh the overflow menu when breadcrumb content changes without changing the number of items.
