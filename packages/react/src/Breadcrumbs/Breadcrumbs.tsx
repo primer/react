@@ -239,6 +239,11 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
   const [containerWidth, setContainerWidth] = useState<number | null>(null)
   const [menuButtonWidth, setMenuButtonWidth] = useState(MENU_BUTTON_FALLBACK_WIDTH)
 
+  // TODO(perf): consider replacing this runtime measurement with the static token
+  // width (small IconButton == --control-small-size == 28px) to drop a state var and
+  // the extra mount render, and to make the collapse point correct from first paint
+  // (the current 32px fallback is the medium size). Deferred because it shifts the
+  // collapse boundary by a few px and loses rem-responsiveness, so it needs a VRT run.
   const measureMenuButton = useCallback((element: HTMLDetailsElement | null) => {
     if (element) {
       const iconButtonElement = element.querySelector('button[data-component="IconButton"]')
