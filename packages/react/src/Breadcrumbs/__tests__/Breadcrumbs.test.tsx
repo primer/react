@@ -159,8 +159,9 @@ describe('Breadcrumbs', () => {
     const menuButton = screen.getByRole('button', {name: /more breadcrumb items/i})
     await user.click(menuButton)
 
-    const oldMenu = menuButton.closest('details') as HTMLElement
-    expect(within(oldMenu).getByRole('link', {name: 'Old Home'})).toBeInTheDocument()
+    const oldMenu = menuButton.closest('details')
+    expect(oldMenu).not.toBeNull()
+    expect(within(oldMenu!).getByRole('link', {name: 'Old Home'})).toBeInTheDocument()
 
     await user.click(menuButton)
 
@@ -177,9 +178,10 @@ describe('Breadcrumbs', () => {
 
     await user.click(screen.getByRole('button', {name: /more breadcrumb items/i}))
 
-    const updatedMenu = screen.getByRole('button', {name: /more breadcrumb items/i}).closest('details') as HTMLElement
-    expect(within(updatedMenu).getByRole('link', {name: 'New Home'})).toBeInTheDocument()
-    expect(within(updatedMenu).queryByRole('link', {name: 'Old Home'})).not.toBeInTheDocument()
+    const updatedMenu = screen.getByRole('button', {name: /more breadcrumb items/i}).closest('details')
+    expect(updatedMenu).not.toBeNull()
+    expect(within(updatedMenu!).getByRole('link', {name: 'New Home'})).toBeInTheDocument()
+    expect(within(updatedMenu!).queryByRole('link', {name: 'Old Home'})).not.toBeInTheDocument()
   })
 
   it('show root in menu', () => {
@@ -218,7 +220,7 @@ describe('Breadcrumbs', () => {
     await user.click(menuButton)
 
     // Find the <details> element that contains the overflow menu
-    const detailsEl = menuButton.closest('details') as HTMLElement | null
+    const detailsEl = menuButton.closest('details')
     expect(detailsEl).not.toBeNull()
     const detailsScope = within(detailsEl!)
 

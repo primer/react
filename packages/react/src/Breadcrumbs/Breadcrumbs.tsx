@@ -198,9 +198,6 @@ function calculateOverflow({
   if (availableWidth > 0 && currentVisibleItemWidths.length > 0) {
     let visibleItemsWidthTotal = calculateVisibleItemsWidth(currentVisibleItemWidths)
 
-    if (menuItemCount > 0) {
-      visibleItemsWidthTotal += menuButtonWidth
-    }
     while (
       (overflow === 'menu' || overflow === 'menu-with-root') &&
       (visibleItemsWidthTotal > availableWidth || currentVisibleItemWidths.length > MIN_VISIBLE_ITEMS)
@@ -276,7 +273,11 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
   useResizeObserver(
     (entries: ResizeObserverEntry[]) => {
       if (entries[0]) {
-        const width = entries[0].contentRect.width
+        // `contentRect.width` is fractional, but the layout effect above measures the
+        // container with the integer `offsetWidth`. Round to the same integer so an
+        // unchanged width doesn't trigger a needless re-render on mount and the
+        // measurement units stay consistent.
+        const width = Math.round(entries[0].contentRect.width)
         setContainerWidth(prev => (prev === width ? prev : width))
       }
     },
