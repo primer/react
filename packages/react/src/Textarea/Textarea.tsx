@@ -97,6 +97,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 
     // Initialize character counter
     useEffect(() => {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (characterLimit) {
         characterCounterRef.current = new CharacterCounter({
           onCountUpdate: (count, overLimit, message) => {
@@ -116,6 +117,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 
     // Update character count when value changes
     useEffect(() => {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (characterLimit && characterCounterRef.current) {
         const currentValue =
           value !== undefined ? String(value) : defaultValue !== undefined ? String(defaultValue) : ''
