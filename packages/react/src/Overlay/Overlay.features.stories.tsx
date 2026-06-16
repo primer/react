@@ -418,6 +418,7 @@ export const MemexIssueOverlay = ({role, open}: Args) => {
 
   React.useEffect(() => {
     // If we just started editing, focus the newly rendered input
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (editing) inputRef.current?.focus()
   }, [editing])
 

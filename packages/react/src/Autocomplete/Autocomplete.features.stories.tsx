@@ -556,6 +556,7 @@ export const InADialog = () => {
   useEffect(() => {
     if (outerContainerRef.current instanceof HTMLElement) {
       registerPortalRoot(outerContainerRef.current, 'outerContainer')
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-chain-state-updates
       setMounted(true)
     }
   }, [isDialogOpen])
