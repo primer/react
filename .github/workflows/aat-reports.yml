@@ -18,13 +18,13 @@ jobs:
         shard: [1, 2, 3, 4, 5, 6, 7, 8]
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
       - name: Set up Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
-      - name: Enable Corepack
-        run: corepack enable
       - name: Set up turbo cache
         uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb
         with:
@@ -69,13 +69,13 @@ jobs:
     needs: aat-runner
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
       - name: Set up Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version: 24.15.0
           cache: 'pnpm'
-      - name: Enable Corepack
-        run: corepack enable
       - name: install dependencies
         run: pnpm install --frozen-lockfile
       - name: download all reports

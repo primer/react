@@ -27,12 +27,12 @@ jobs:
         with:
           schedule-id: 'P3IIVC4'
           token: ${{ secrets.PAGERDUTY_API_KEY_SID }}
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
       - name: Set up Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
-      - name: Enable Corepack
-        run: corepack enable
       - name: Install packages for github-script
         run: pnpm add -w date-fns --lockfile=false
       - name: Create Release Issue
