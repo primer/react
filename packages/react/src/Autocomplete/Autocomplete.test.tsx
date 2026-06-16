@@ -55,6 +55,24 @@ describe('Autocomplete', () => {
         <Autocomplete.Input {...props} />
       </Autocomplete>
     ))
+
+    it('renders data-component attributes for Autocomplete parts when menu is shown', async () => {
+      const user = userEvent.setup()
+      const {container} = render(
+        <LabelledAutocomplete
+          menuProps={{items: mockItems, selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
+        />,
+      )
+
+      const input = container.querySelector('#autocompleteInput') as HTMLInputElement
+      expect(input).toHaveAttribute('data-component', 'Autocomplete.Input')
+
+      await user.type(input, 'z')
+
+      expect(container.querySelector('[data-component="Autocomplete.Overlay"]')).toBeInTheDocument()
+      expect(container.querySelector('[data-component="Autocomplete.Menu"]')).toBeInTheDocument()
+    })
+
     it('calls onChange', async () => {
       const user = userEvent.setup()
       const onChangeMock = vi.fn()

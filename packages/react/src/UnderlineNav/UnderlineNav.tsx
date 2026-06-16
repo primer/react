@@ -18,6 +18,7 @@ import CounterLabel from '../CounterLabel'
 import {invariant} from '../utils/invariant'
 import classes from './UnderlineNav.module.css'
 import {getAnchoredPosition} from '@primer/behaviors'
+import {getValidChildren} from './utils'
 
 export type UnderlineNavProps = {
   children: React.ReactNode
@@ -107,11 +108,6 @@ const overflowEffect = (
     }
   }
   updateListAndMenu({items, menuItems}, iconsVisible, true)
-}
-
-export const getValidChildren = (children: React.ReactNode) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement<any>[]
 }
 
 const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: number, moreMenuWidth = 0) => {

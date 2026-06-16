@@ -1,4 +1,5 @@
-import react from '@vitejs/plugin-react'
+import babel from '@rolldown/plugin-babel'
+import react, {reactCompilerPreset} from '@vitejs/plugin-react'
 import {playwright} from '@vitest/browser-playwright'
 import {defineConfig} from 'vitest/config'
 import postcssPresetPrimer from 'postcss-preset-primer'
@@ -14,20 +15,19 @@ export default defineConfig({
     },
   },
   plugins: [
-    react({
-      babel: {
-        plugins: [
-          [
-            'babel-plugin-react-compiler',
-            {
-              target: '18',
-              sources: isSupported,
-            },
-          ],
-        ],
-      },
+    react(),
+    babel({
+      presets: [
+        reactCompilerPreset({
+          target: '18',
+          sources: isSupported,
+        }),
+      ],
     }),
   ],
+  resolve: {
+    dedupe: ['react', 'react-dom'],
+  },
   define: {
     __DEV__: true,
     'process.env.CI': JSON.stringify(process.env.CI),
