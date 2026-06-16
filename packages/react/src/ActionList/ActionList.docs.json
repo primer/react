@@ -237,7 +237,7 @@
         {
           "name": "tooltipDirection",
           "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
-          "defaultValue": "'n'",
+          "defaultValue": "'w'",
           "description": "Direction of the tooltip shown when hovering over the TrailingAction. Only applies when `icon` is set."
         }
       ]
