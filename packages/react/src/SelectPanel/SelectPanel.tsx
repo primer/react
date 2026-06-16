@@ -368,6 +368,7 @@ function Panel({
 
   // disable body scroll when the panel is open in modal mode or on narrow screens
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (open && (variant === 'modal' || (isNarrowScreenSize && usingFullScreenOnNarrow))) {
       const bodyOverflowStyle = document.body.style.overflow || ''
       // If the body is already set to overflow: hidden, it likely means
@@ -386,25 +387,33 @@ function Panel({
   }, [isNarrowScreenSize, open, usingFullScreenOnNarrow, variant])
 
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (open) {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (items.length === 0 && !(isLoading || loading)) {
         // We need to wait for the listContainerElement to disappear before announcing no items,
         // otherwise it will be interrupted — this depends on commit timing, so it must run in an effect.
-        // eslint-disable-next-line react-hooks/set-state-in-effect
+        // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
         setNeedsNoItemsAnnouncement(true)
       }
     }
 
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (loadingManagedExternally) {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (items.length > 0) {
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
         setDataLoadedOnce(true)
       }
 
       return
     }
 
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (isLoading || items.length > 0) {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
       setIsLoading(false)
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
       setDataLoadedOnce(true)
     }
 
@@ -417,12 +426,14 @@ function Panel({
   }, [items])
 
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (inputRef?.current) {
       const ref = inputRef.current
 
       // We would normally expect AnchoredOverlay's focus trap to automatically focus the input,
       // but for some reason the ref isn't populated until _after_ the panel is open, which is
       // too late. So, we focus manually here.
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (open) {
         ref.focus()
       }
@@ -431,6 +442,7 @@ function Panel({
 
   // Manage loading announcements when loadingManagedExternally
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (loadingManagedExternally) {
       if (isLoading) {
         // Delay the announcement a bit, just in case the loading is quick
@@ -448,14 +460,18 @@ function Panel({
 
   // Populate panel with items on first open
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (loadingManagedExternally) return
 
     // If data was already loaded once, do nothing
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (dataLoadedOnce) return
 
     // Only load data when the panel is open
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (open) {
       // Only trigger filter change event if there are no items
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (items.length === 0) {
         // Trigger filter event to populate panel on first open. This calls a consumer callback
         // (a side effect), so it must run in an effect rather than during render.
@@ -517,6 +533,7 @@ function Panel({
       })
     }
 
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (open && notice) {
       announceNotice()
     }
@@ -702,7 +719,9 @@ function Panel({
   // Track previous items and reset sort when items first load
   const prevItemsRef = useRef(items)
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (prevItemsRef.current !== items) {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (prevItemsRef.current.length === 0 && items.length > 0) {
         resetSort()
       }
@@ -713,6 +732,7 @@ function Panel({
   // Reset sort when panel opens
   const prevOpenRef = useRef(open)
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (prevOpenRef.current !== open) {
       resetSort()
       prevOpenRef.current = open

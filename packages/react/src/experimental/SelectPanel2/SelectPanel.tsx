@@ -216,6 +216,7 @@ const Panel: React.FC<SelectPanelProps> = ({
   // but not for dialogs, so we have to do it
   React.useEffect(
     function initialFocus() {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (internalOpen) {
         const searchInput = document.querySelector('dialog[open] input') as HTMLInputElement | undefined
         if (searchInput) searchInput.focus()

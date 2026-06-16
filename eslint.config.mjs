@@ -11,6 +11,7 @@ import storybook from 'eslint-plugin-storybook'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefreshPlugin from 'eslint-plugin-react-refresh'
+import reactYouMightNotNeedAnEffect from 'eslint-plugin-react-you-might-not-need-an-effect'
 import {unsupportedPatterns as reactCompilerUnsupported} from './packages/react/script/react-compiler.mjs'
 import playwright from 'eslint-plugin-playwright'
 import prettierRecommended from 'eslint-plugin-prettier/recommended'
@@ -114,6 +115,9 @@ const config = defineConfig([
       '@eslint-react/no-useless-forward-ref': 'error',
     },
   },
+
+  // eslint-plugin-react-you-might-not-need-an-effect
+  reactYouMightNotNeedAnEffect.configs.recommended,
 
   {
     extends: fixupConfigRules(compat.extends('plugin:clsx/recommended', 'plugin:ssr-friendly/recommended')),

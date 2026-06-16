@@ -205,6 +205,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
 
   React.useEffect(() => {
     // If we're not truncating, we don't need to run this useEffect.
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (!visibleChildCount || isOverflowShown) {
       return
     }
@@ -257,6 +258,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   // We need to keep track of this so we can focus the first hidden child when the overflow is shown inline.
   React.useEffect(() => {
     // If we're using an overlay, we don't need to keep track of the first hidden index.
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (overflowStyle === 'overlay') {
       return
     }
@@ -269,12 +271,14 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   // We need to keep track of this so we can focus the first hidden child when the overflow is shown inline.
   React.useEffect(() => {
     // If we're using an overlay, we don't need to focus the first child that was previously hidden.
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (overflowStyle === 'overlay') {
       return
     }
     const firstHiddenChildDOM = document.querySelector<HTMLElement>(`[data-index="${firstHiddenIndexRef.current}"]`)
     const focusableChild = firstHiddenChildDOM ? getFocusableChild(firstHiddenChildDOM) : null
 
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (isOverflowShown) {
       // If the first hidden child is focusable, focus it.
       // Otherwise, focus the collapse button.

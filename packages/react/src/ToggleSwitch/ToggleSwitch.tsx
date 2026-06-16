@@ -131,6 +131,7 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, ToggleSwitchProps>(func
   }
 
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (loading && !isLoadingLabelVisible) {
       safeSetTimeout(() => {
         setIsLoadingLabelVisible(true)

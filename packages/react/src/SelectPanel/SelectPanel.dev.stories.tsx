@@ -344,8 +344,10 @@ export const LotsOfItems = () => {
   }
 
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (open) {
       timeAfterOpen.current = performance.now()
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-chain-state-updates
       if (timeBeforeOpen.current) setTimeTakenToOpen(timeAfterOpen.current - timeBeforeOpen.current)
     }
   }, [open])

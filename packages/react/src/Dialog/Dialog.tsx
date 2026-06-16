@@ -493,7 +493,7 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
       autoFocusRef.current?.focus()
     } else {
       // Counts commits so focus is deferred by one render (a commit-timing hack), not derivable.
-      // eslint-disable-next-line react-hooks/set-state-in-effect
+      // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-derived-state
       setHasRendered(hasRendered + 1)
     }
   }, [autoFocusRef, hasRendered])
