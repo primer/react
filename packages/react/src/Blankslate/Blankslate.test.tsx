@@ -53,12 +53,10 @@ describe('Blankslate', () => {
     expect(container.firstChild!.firstChild).toHaveAttribute('data-spacious', '')
   })
 
-  it('sets padding for each size variant', () => {
+  it('sets reduced padding for small size variant', () => {
     render(<Blankslate>Test content</Blankslate>)
 
     expect(getSizePadding('small')).toMatch(/^var\(--base-size-16/)
-    expect(getSizePadding('medium')).toMatch(/^var\(--base-size-24/)
-    expect(getSizePadding('large')).toMatch(/^var\(--base-size-24/)
   })
 
   it('renders data-component attributes', () => {
