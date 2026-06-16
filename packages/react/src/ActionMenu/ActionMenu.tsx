@@ -245,6 +245,7 @@ const Anchor: WithSlotMarker<
         className: clsx(anchorProps.className, child.props.className),
         onClick: onButtonClick,
         onKeyDown: onButtonKeyDown,
+        'data-component': child.props['data-component'] ?? 'ActionMenu.Anchor',
       })}
     </ActionListContainerContext.Provider>
   )
@@ -350,6 +351,7 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
       anchorRef={anchorRef}
       renderAnchor={renderAnchor}
       anchorId={anchorId}
+      anchorProps={{'data-component': 'ActionMenu.Button'}}
       open={open}
       onOpen={onOpen}
       onClose={handleClose}
