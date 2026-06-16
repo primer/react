@@ -48,6 +48,10 @@
   margin-top: var(--base-size-4);
 }
 
+.FilterSegmentedControl {
+  margin-top: var(--base-size-4);
+}
+
 .ContentBox {
   padding: var(--base-size-12);
 }
