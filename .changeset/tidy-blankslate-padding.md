@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-Blankslate: reduce padding for size variants to allow for rendering in tighter spaces
+Blankslate: reduce `size="small"` padding to `var(--base-size-16)` for denser layouts
