@@ -388,7 +388,8 @@ function Panel({
   useEffect(() => {
     if (open) {
       if (items.length === 0 && !(isLoading || loading)) {
-        // we need to wait for the listContainerElement to disappear before announcing no items, otherwise it will be interrupted
+        // We need to wait for the listContainerElement to disappear before announcing no items,
+        // otherwise it will be interrupted — this depends on commit timing, so it must run in an effect.
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setNeedsNoItemsAnnouncement(true)
       }
@@ -456,7 +457,8 @@ function Panel({
     if (open) {
       // Only trigger filter change event if there are no items
       if (items.length === 0) {
-        // Trigger filter event to populate panel on first open
+        // Trigger filter event to populate panel on first open. This calls a consumer callback
+        // (a side effect), so it must run in an effect rather than during render.
         // eslint-disable-next-line react-hooks/set-state-in-effect
         onFilterChange(filterValue, null)
       }

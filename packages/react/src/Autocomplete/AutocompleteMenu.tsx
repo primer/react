@@ -332,6 +332,9 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
       itemIdSortResult.every((element, index) => element === sortedItemIds[index])
 
     if (showMenu === false && !sortResultMatchesState) {
+      // Re-sort only when the menu closes. This effect also fires `onOpenChange` below, so it
+      // stays an effect. (Follow-up: the sort could be derived on the open→closed transition
+      // while keeping `onOpenChange` in an effect.)
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setSortedItemIds(itemIdSortResult)
     }
