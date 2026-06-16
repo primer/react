@@ -128,9 +128,11 @@ export const WithCustomInput = () => {
 
   React.useEffect(() => {
     if (doesValueContainSpaces(value)) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
+      // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates
       setValidationResult('noSpaces')
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     } else if (value) {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-chain-state-updates
       setValidationResult('validName')
     }
   }, [value])
@@ -241,9 +243,11 @@ export const ValidationExample = () => {
 
   React.useEffect(() => {
     if (doesValueContainSpaces(value)) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
+      // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates
       setValidationResult('noSpaces')
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     } else if (value) {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-chain-state-updates
       setValidationResult('validName')
     }
   }, [value])

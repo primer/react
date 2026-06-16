@@ -527,7 +527,7 @@ const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children
     const parentElement = document.getElementById(itemId)
     if (!parentElement) return
 
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates
     setSubTreeLabel(getAccessibleName(parentElement))
     if (previousState === 'loading' && state === 'done') {
       // Announce update to screen readers
@@ -541,6 +541,7 @@ const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children
 
       // Move focus to the first child if the loading indicator
       // was focused when the async items finished loading
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (loadingFocused) {
         const firstChild = getFirstChildElement(parentElement)
 
@@ -554,6 +555,7 @@ const SubTree: FCWithSlotMarker<TreeViewSubTreeProps> = ({count, state, children
           })
         }
 
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-chain-state-updates
         setLoadingFocused(false)
       }
     } else if (state === 'loading') {
