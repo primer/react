@@ -68,7 +68,7 @@ export function useMedia(mediaQueryString: string, defaultState?: boolean) {
     }
 
     // Make sure the media query list is in sync with the matches state
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-external-store-subscription
     setMatches(mediaQueryList.matches)
 
     return () => {

@@ -316,6 +316,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   useEffect(() => {
     // Use deferredInputValue to avoid running this effect on every keystroke
     // The Input component guards against stale suggestions
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent, react-you-might-not-need-an-effect/no-pass-live-state-to-parent
     if (highlightedItem?.text?.startsWith(deferredInputValue) && !selectedItemIds.includes(highlightedItem.id)) {
       setAutocompleteSuggestion(highlightedItem.text)
     } else {
@@ -331,15 +332,18 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
       itemIdSortResult.length === sortedItemIds.length &&
       itemIdSortResult.every((element, index) => element === sortedItemIds[index])
 
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (showMenu === false && !sortResultMatchesState) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
+      // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-derived-state
       setSortedItemIds(itemIdSortResult)
     }
 
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent
     onOpenChange && onOpenChange(Boolean(showMenu))
   }, [showMenu, onOpenChange, selectedItemIds, sortOnCloseFn, sortedItemIds])
 
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (selectedItemIds.length) {
       setSelectedItemLength(selectedItemIds.length)
     }
