@@ -142,7 +142,7 @@
           "name": "as",
           "type": "React.ElementType",
           "defaultValue": "'li'",
-          "description": "The element type to render the tree item as. Defaults to 'li'. When set to a different element type or component, the polymorphic element is rendered as the role=\"treeitem\" and is wrapped in an <li role=\"none\"> so the markup remains valid inside a <ul role=\"tree\">."
+          "description": "The element type to render the tree item as. When set to a different element type or component, the polymorphic element is rendered with `role=\"treeitem\"` and is wrapped in an `li` element with `role=\"none\"` so the markup remains valid inside a `ul` with `role=\"tree\"`."
         }
       ]
     },
