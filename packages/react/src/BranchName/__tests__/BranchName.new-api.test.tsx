@@ -1,0 +1,162 @@
+import {render, screen, waitFor} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import {describe, expect, it, vi} from 'vitest'
+import BranchName from '../BranchName'
+import {GitBranchIcon, CopyIcon, TriangleDownIcon} from '@primer/octicons-react'
+
+describe('BranchName new API', () => {
+  describe('BranchName.LeadingVisual', () => {
+    it('renders leading visual icon', () => {
+      render(
+        <BranchName href="#">
+          <BranchName.LeadingVisual>
+            <GitBranchIcon />
+          </BranchName.LeadingVisual>
+          branch_name
+        </BranchName>,
+      )
+
+      expect(screen.getByRole('link', {name: /branch_name/})).toBeInTheDocument()
+      // Icon should be rendered
+      expect(document.querySelector('svg')).toBeInTheDocument()
+    })
+
+    it('renders leading visual with icon prop shorthand', () => {
+      render(
+        <BranchName href="#">
+          <BranchName.LeadingVisual icon={GitBranchIcon} />
+          branch_name
+        </BranchName>,
+      )
+
+      expect(screen.getByRole('link', {name: /branch_name/})).toBeInTheDocument()
+      expect(document.querySelector('svg')).toBeInTheDocument()
+    })
+  })
+
+  describe('BranchName.TrailingAction', () => {
+    it('renders trailing action button', () => {
+      const handleClick = vi.fn()
+
+      render(
+        <BranchName href="#">
+          branch_name
+          <BranchName.TrailingAction icon={CopyIcon} aria-label="Copy branch name" onClick={handleClick} />
+        </BranchName>,
+      )
+
+      expect(screen.getByRole('link', {name: /branch_name/})).toBeInTheDocument()
+      expect(screen.getByRole('button', {name: 'Copy branch name'})).toBeInTheDocument()
+    })
+
+    it('calls onClick handler when clicked', async () => {
+      const user = userEvent.setup()
+      const handleClick = vi.fn()
+
+      render(
+        <BranchName href="#">
+          branch_name
+          <BranchName.TrailingAction icon={CopyIcon} aria-label="Copy branch name" onClick={handleClick} />
+        </BranchName>,
+      )
+
+      await user.click(screen.getByRole('button', {name: 'Copy branch name'}))
+      expect(handleClick).toHaveBeenCalledTimes(1)
+    })
+
+    it('renders multiple trailing actions', () => {
+      render(
+        <BranchName href="#">
+          branch_name
+          <BranchName.TrailingAction icon={CopyIcon} aria-label="Copy branch name" />
+          <BranchName.TrailingAction icon={TriangleDownIcon} aria-label="Change branch" />
+        </BranchName>,
+      )
+
+      expect(screen.getByRole('button', {name: 'Copy branch name'})).toBeInTheDocument()
+      expect(screen.getByRole('button', {name: 'Change branch'})).toBeInTheDocument()
+    })
+
+    it('forwards ref to the button', () => {
+      const ref = {current: null as HTMLButtonElement | null}
+
+      render(
+        <BranchName href="#">
+          branch_name
+          <BranchName.TrailingAction icon={CopyIcon} aria-label="Copy branch name" ref={ref} />
+        </BranchName>,
+      )
+
+      expect(ref.current).toBeInstanceOf(HTMLButtonElement)
+    })
+  })
+
+  describe('description prop', () => {
+    it('renders tooltip with description text', async () => {
+      const user = userEvent.setup()
+
+      render(
+        <BranchName href="#" description="owner/repo:branch_name">
+          branch_name
+        </BranchName>,
+      )
+
+      const link = screen.getByRole('link', {name: /branch_name/})
+      await user.hover(link)
+
+      await waitFor(() => {
+        // Tooltip is aria-hidden so we need to query by data-component
+        const tooltip = document.querySelector('[data-component="Tooltip"]')
+        expect(tooltip).toHaveTextContent('owner/repo:branch_name')
+      })
+    })
+
+    it('uses aria-describedby for the description', () => {
+      render(
+        <BranchName href="#" description="owner/repo:branch_name">
+          branch_name
+        </BranchName>,
+      )
+
+      const link = screen.getByRole('link', {name: /branch_name/})
+      // aria-describedby is set immediately, no hover needed
+      expect(link).toHaveAttribute('aria-describedby')
+    })
+  })
+
+  describe('compound API kitchen sink', () => {
+    it('renders with leading visual, description, and trailing action', async () => {
+      const handleCopy = vi.fn()
+
+      render(
+        <BranchName href="#" description="primer/react:main">
+          <BranchName.LeadingVisual icon={GitBranchIcon} />
+          main
+          <BranchName.TrailingAction icon={CopyIcon} aria-label="Copy branch name" onClick={handleCopy} />
+        </BranchName>,
+      )
+
+      // Link is rendered
+      expect(screen.getByRole('link', {name: /main/})).toBeInTheDocument()
+      // Icon is rendered (2 icons: leading visual + trailing action)
+      expect(document.querySelectorAll('svg').length).toBe(2)
+      // Button is rendered
+      expect(screen.getByRole('button', {name: 'Copy branch name'})).toBeInTheDocument()
+    })
+  })
+
+  describe('backwards compatibility', () => {
+    it('renders simple BranchName without new features', () => {
+      render(<BranchName href="#">branch_name</BranchName>)
+
+      expect(screen.getByRole('link', {name: 'branch_name'})).toBeInTheDocument()
+    })
+
+    it('renders as span when as="span"', () => {
+      render(<BranchName as="span">branch_name</BranchName>)
+
+      expect(screen.queryByRole('link')).not.toBeInTheDocument()
+      expect(screen.getByText('branch_name')).toBeInTheDocument()
+    })
+  })
+})

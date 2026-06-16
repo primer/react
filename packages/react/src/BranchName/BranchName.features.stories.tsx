@@ -1,29 +1,20 @@
 import type {Meta} from '@storybook/react-vite'
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import BranchName from './BranchName'
-import {Stack} from '../Stack'
-import Octicon from '../Octicon'
 import {GitBranchIcon, CopyIcon, CheckIcon, TriangleDownIcon} from '@primer/octicons-react'
-import {IconButton} from '../Button'
-import {Tooltip} from '../TooltipV2'
 import {SelectPanel} from '../SelectPanel'
 import type {ItemInput} from '../FilteredActionList'
-import {clsx} from 'clsx'
 import {announce} from '@primer/live-region-element'
-
-import styles from './BranchName.stories.module.css'
 
 export default {
   title: 'Components/BranchName/Features',
   component: BranchName,
 } as Meta<typeof BranchName>
 
-export const WithBranchIcon = () => (
+export const WithLeadingVisual = () => (
   <BranchName href="#">
-    <Stack direction="horizontal" gap="condensed" align="center">
-      <Octicon icon={GitBranchIcon} />
-      branch_name
-    </Stack>
+    <BranchName.LeadingVisual icon={GitBranchIcon} />
+    branch_name
   </BranchName>
 )
 
@@ -37,6 +28,18 @@ export const LinkWithoutHref = () => (
 )
 
 export const NoProps = () => <BranchName>branch_name_no_props</BranchName>
+
+export const WithDescription = ({
+  branchName = 'fix/anchored-overlay-outside-top-autogrow',
+  repo = 'primer/react',
+}: {
+  branchName: string
+  repo: string
+}) => (
+  <BranchName href={`https://github.com/${repo}/tree/${branchName}`} description={`${repo}:${branchName}`}>
+    {branchName}
+  </BranchName>
+)
 
 export const WithTrailingAction = ({
   branchName = 'fix/anchored-overlay-outside-top-autogrow',
@@ -54,26 +57,15 @@ export const WithTrailingAction = ({
     setTimeout(() => setCopied(false), 2000)
   }
 
-  const tooltipText = copied ? 'Copied!' : 'Copy branch name to clipboard'
-
   return (
-    <span className={styles.BranchNameWithTrailingAction}>
-      <Tooltip text={`${repo}:${branchName}`}>
-        <BranchName href={`https://github.com/${repo}/tree/${branchName}`} className={styles.BranchNameTransparent}>
-          {branchName}
-        </BranchName>
-      </Tooltip>
-      <Tooltip text={tooltipText} aria-hidden>
-        <IconButton
-          icon={copied ? CheckIcon : CopyIcon}
-          aria-label="Copy branch name to clipboard"
-          variant="invisible"
-          size="small"
-          onClick={handleCopy}
-          className={clsx(styles.TrailingActionButton, copied && styles.TrailingActionButtonCopied)}
-        />
-      </Tooltip>
-    </span>
+    <BranchName href={`https://github.com/${repo}/tree/${branchName}`} description={`${repo}:${branchName}`}>
+      {branchName}
+      <BranchName.TrailingAction
+        icon={copied ? CheckIcon : CopyIcon}
+        aria-label="Copy branch name to clipboard"
+        onClick={handleCopy}
+      />
+    </BranchName>
   )
 }
 
@@ -94,6 +86,7 @@ export const WithTrailingActionMenu = ({repo = 'primer/react'}: {repo: string}) 
   const [selected, setSelected] = useState<ItemInput>(branches[0])
   const [filter, setFilter] = useState('')
   const [open, setOpen] = useState(false)
+  const anchorRef = useRef<HTMLButtonElement>(null)
 
   const filteredBranches = branches.filter(branch => branch.text?.toLowerCase().includes(filter.toLowerCase()))
 
@@ -104,21 +97,19 @@ export const WithTrailingActionMenu = ({repo = 'primer/react'}: {repo: string}) 
   }
 
   return (
-    <span className={styles.BranchNameWithTrailingAction}>
-      <BranchName href={`https://github.com/${repo}/tree/${selected.text}`} className={styles.BranchNameTransparent}>
+    <>
+      <BranchName href={`https://github.com/${repo}/tree/${selected.text}`}>
         {selected.text}
+        <BranchName.TrailingAction
+          icon={TriangleDownIcon}
+          aria-label="Change base branch"
+          ref={anchorRef}
+          onClick={() => setOpen(!open)}
+        />
       </BranchName>
       <SelectPanel
-        renderAnchor={anchorProps => (
-          <IconButton
-            icon={TriangleDownIcon}
-            aria-label="Change base branch"
-            variant="invisible"
-            size="small"
-            className={styles.TrailingActionButton}
-            {...anchorProps}
-          />
-        )}
+        renderAnchor={null}
+        anchorRef={anchorRef}
         placeholder="Find a branch..."
         open={open}
         onOpenChange={setOpen}
@@ -129,6 +120,35 @@ export const WithTrailingActionMenu = ({repo = 'primer/react'}: {repo: string}) 
         title="Change base branch"
         overlayProps={{width: 'medium'}}
       />
-    </span>
+    </>
+  )
+}
+
+export const KitchenSink = ({
+  branchName = 'fix/anchored-overlay-outside-top-autogrow',
+  repo = 'primer/react',
+}: {
+  branchName: string
+  repo: string
+}) => {
+  const [copied, setCopied] = React.useState(false)
+
+  const handleCopy = () => {
+    setCopied(true)
+    void navigator.clipboard.writeText(branchName)
+    announce('Copied!')
+    setTimeout(() => setCopied(false), 2000)
+  }
+
+  return (
+    <BranchName href={`https://github.com/${repo}/tree/${branchName}`} description={`${repo}:${branchName}`}>
+      <BranchName.LeadingVisual icon={GitBranchIcon} />
+      {branchName}
+      <BranchName.TrailingAction
+        icon={copied ? CheckIcon : CopyIcon}
+        aria-label="Copy branch name to clipboard"
+        onClick={handleCopy}
+      />
+    </BranchName>
   )
 }
