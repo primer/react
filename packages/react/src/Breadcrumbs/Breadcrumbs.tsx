@@ -158,8 +158,8 @@ type OverflowResult = {
 // overflow menu, given the measured widths. Returns counts/flags (primitives)
 // rather than element arrays so the render memo below only invalidates when the
 // split actually changes, not on every sub-threshold resize. Kept outside the
-// overflow menu, given the measured widths. Kept outside the component so it has no
-// hidden dependency on previous state and can be called directly during render.
+// component so it has no hidden dependency on previous state and can be called
+// directly during render.
 function calculateOverflow({
   availableWidth,
   itemCount,
@@ -205,11 +205,8 @@ function calculateOverflow({
       menuItemCount += 1
       currentVisibleItemWidths = currentVisibleItemWidths.slice(1)
 
-      visibleItemsWidthTotal = calculateVisibleItemsWidth(currentVisibleItemWidths)
-
-      if (menuItemCount > 0) {
-        visibleItemsWidthTotal += menuButtonWidth
-      }
+      // A menu button is now shown, so its width is always part of the total.
+      visibleItemsWidthTotal = calculateVisibleItemsWidth(currentVisibleItemWidths) + menuButtonWidth
 
       if (currentVisibleItemWidths.length === 1 && visibleItemsWidthTotal > availableWidth) {
         eHideRoot = true
