@@ -271,7 +271,7 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
   useResizeObserver(handleResize, containerRef)
 
   useEffect(() => {
-    if ((overflow === 'menu' || overflow === 'menu-with-root') && childArray.length > 5 && menuItems.length === 0) {
+    if ((overflow === 'menu' || overflow === 'menu-with-root') && childArray.length > 5) {
       const containerWidth = containerRef.current?.offsetWidth || 800
       const result = calculateOverflow(containerWidth)
 
@@ -281,7 +281,7 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
 
       setEffectiveHideRoot(result.effectiveHideRoot)
     }
-  }, [overflow, childArray, calculateOverflow, menuItems.length])
+  }, [overflow, childArray, calculateOverflow])
 
   const finalChildren = React.useMemo(() => {
     if (overflow === 'wrap' || menuItems.length === 0) {
