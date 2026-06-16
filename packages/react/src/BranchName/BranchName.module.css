@@ -1,5 +1,6 @@
 .BranchName {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   padding: var(--base-size-2) var(--base-size-6);
   font-family: var(--fontStack-monospace);
   font-size: var(--text-body-size-small);
