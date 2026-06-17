@@ -3,7 +3,7 @@
   vertical-align: middle;
   isolation: isolate;
 
-  & > *:not([data-loading-wrapper]) {
+  & > .Item {
     /* stylelint-disable-next-line primer/spacing */
     margin-inline-end: -1px;
     position: relative;
