@@ -1,11 +1,11 @@
 import {describe, it, expect, beforeEach, vi} from 'vitest'
-import {Radio} from '..'
+import Radio from '.'
 import {render, fireEvent} from '@testing-library/react'
 import {implementsClassName} from '../utils/testing'
 import classes from './Radio.module.css'
 
 describe('Radio', () => {
-  implementsClassName(Radio, classes.Radio)
+  implementsClassName(props => <Radio name="mock" {...props} />, classes.Radio)
   const defaultProps = {
     name: 'mock',
     value: 'mock value',

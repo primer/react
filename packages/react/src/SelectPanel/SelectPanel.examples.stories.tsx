@@ -356,7 +356,7 @@ export const RepositionAfterLoading = () => {
   const [loading, setLoading] = useState(true)
 
   React.useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates, react-you-might-not-need-an-effect/no-event-handler
     if (!open) setLoading(true)
     window.setTimeout(() => {
       if (open) {
@@ -368,8 +368,9 @@ export const RepositionAfterLoading = () => {
   }, [open])
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (!loading) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
+      // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates
       setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -405,7 +406,7 @@ export const SelectPanelRepositionInsideDialog = () => {
   const [loading, setLoading] = useState(true)
 
   React.useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates, react-you-might-not-need-an-effect/no-event-handler
     if (!open) setLoading(true)
     window.setTimeout(() => {
       if (open) {
@@ -417,8 +418,9 @@ export const SelectPanelRepositionInsideDialog = () => {
   }, [open])
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (!loading) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
+      // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates
       setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -534,8 +536,10 @@ export const RenderMoreOnScroll = () => {
 
   useEffect(
     function measureTimeAfterOpen() {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (open) {
         timeAfterOpen.current = performance.now()
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-chain-state-updates
         if (timeBeforeOpen.current) setTimeTakenToOpen(timeAfterOpen.current - timeBeforeOpen.current)
       }
     },
@@ -616,8 +620,10 @@ export const VirtualizedConsumerSide = () => {
   }
   useEffect(
     function measureTimeAfterOpen() {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (open) {
         timeAfterOpen.current = performance.now()
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-chain-state-updates
         if (timeBeforeOpen.current) setTimeTakenToOpen(timeAfterOpen.current - timeBeforeOpen.current)
       }
     },
@@ -757,8 +763,10 @@ export const VirtualizedBuiltIn = () => {
   }
   useEffect(
     function measureA() {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (openA) {
         timeAfterOpenA.current = performance.now()
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-chain-state-updates
         if (timeBeforeOpenA.current) setTimeTakenA(timeAfterOpenA.current - timeBeforeOpenA.current)
       }
     },
@@ -776,8 +784,10 @@ export const VirtualizedBuiltIn = () => {
   }
   useEffect(
     function measureB() {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (openB) {
         timeAfterOpenB.current = performance.now()
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-chain-state-updates
         if (timeBeforeOpenB.current) setTimeTakenB(timeAfterOpenB.current - timeBeforeOpenB.current)
       }
     },

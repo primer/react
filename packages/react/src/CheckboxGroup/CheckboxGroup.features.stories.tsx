@@ -1,4 +1,6 @@
-import {Checkbox, CheckboxGroup, FormControl} from '..'
+import Checkbox from '../Checkbox'
+import CheckboxGroup from '.'
+import FormControl from '../FormControl'
 import classes from './CheckboxGroup.features.stories.module.css'
 
 export default {

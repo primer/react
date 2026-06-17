@@ -1101,4 +1101,47 @@ export const MultilineItems: StoryFn = () => (
   </nav>
 )
 
+const CustomRouterLink = React.forwardRef<
+  HTMLAnchorElement,
+  React.AnchorHTMLAttributes<HTMLAnchorElement> & {to: string}
+>(({to, children, ...props}, ref) => (
+  <a ref={ref} href={to} data-custom-link {...props}>
+    {children}
+  </a>
+))
+CustomRouterLink.displayName = 'CustomRouterLink'
+
+export const AsProp: StoryFn = () => (
+  <nav aria-label="Docs">
+    <TreeView aria-label="Docs">
+      <TreeView.Item id="overview" as="a" href="#overview">
+        <TreeView.LeadingVisual>
+          <FileIcon />
+        </TreeView.LeadingVisual>
+        Overview (native anchor)
+      </TreeView.Item>
+      <TreeView.Item id="guides" defaultExpanded>
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        Guides
+        <TreeView.SubTree>
+          <TreeView.Item id="guides/install" as={CustomRouterLink} to="/guides/install">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Install (router link)
+          </TreeView.Item>
+          <TreeView.Item id="guides/setup" as={CustomRouterLink} to="/guides/setup">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Setup (router link)
+          </TreeView.Item>
+        </TreeView.SubTree>
+      </TreeView.Item>
+    </TreeView>
+  </nav>
+)
+
 export default meta

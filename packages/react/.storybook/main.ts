@@ -2,6 +2,7 @@
 import {createRequire} from 'node:module'
 import path from 'node:path'
 import babel from '@rolldown/plugin-babel'
+
 import react, {reactCompilerPreset} from '@vitejs/plugin-react'
 import postcssPresetPrimer from 'postcss-preset-primer'
 import type {StorybookConfig} from '@storybook/react-vite'
@@ -10,6 +11,7 @@ import {isSupported} from '../script/react-compiler.mjs'
 const require = createRequire(import.meta.url)
 
 const {DEPLOY_ENV = 'development'} = process.env
+const STORYBOOK_ALLOWED_HOSTS = ['localhost', 'host.docker.internal']
 
 const config: StorybookConfig = {
   stories:
@@ -33,6 +35,10 @@ const config: StorybookConfig = {
     options: {
       strictMode: true,
     },
+  },
+
+  core: {
+    allowedHosts: STORYBOOK_ALLOWED_HOSTS,
   },
 
   async viteFinal(config) {
@@ -75,7 +81,7 @@ const config: StorybookConfig = {
     if (DEPLOY_ENV === 'development') {
       config.server = {
         ...config.server,
-        allowedHosts: ['localhost', 'host.docker.internal'],
+        allowedHosts: STORYBOOK_ALLOWED_HOSTS,
       }
     }
 

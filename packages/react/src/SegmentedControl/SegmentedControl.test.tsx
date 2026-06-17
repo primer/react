@@ -32,7 +32,7 @@ const segmentData = [
 ]
 
 describe('SegmentedControl', () => {
-  implementsClassName(SegmentedControl, classes.SegmentedControl)
+  implementsClassName(props => <SegmentedControl aria-label="File view" {...props} />, classes.SegmentedControl)
 
   it('renders data-component attribute on the root', () => {
     const {getByRole} = render(

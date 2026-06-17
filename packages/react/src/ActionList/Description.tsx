@@ -35,9 +35,11 @@ export const Description: FCWithSlotMarker<React.PropsWithChildren<ActionListDes
 
   // Extract text content from rendered DOM for tooltip
   React.useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (truncate && containerRef.current) {
       const el = containerRef.current
       const textContent = el.textContent || ''
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
       setComputedTitle(textContent)
       if (setTruncatedText) {
         setTruncatedText(
