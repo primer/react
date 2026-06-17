@@ -1,7 +1,7 @@
 import type React from 'react'
 import type {CheckboxGroup, FormControl} from '../index'
 import type {ComponentProps} from './types'
-import type {ArgTypes} from '@storybook/react'
+import type {ArgTypes} from '@storybook/react-vite'
 import type {InputType} from 'storybook/internal/csf'
 
 type CheckboxOrRadioGroupWrapperArgs = ComponentProps<typeof CheckboxGroup>
