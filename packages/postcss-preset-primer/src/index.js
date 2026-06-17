@@ -98,9 +98,7 @@ const postcssPresetPrimer = () => {
           browsers,
           // https://preset-env.cssdb.org/features/#stage-2
           features: {
-            'nesting-rules': {
-              noIsPseudoSelector: true,
-            },
+            'nesting-rules': false,
             'focus-visible-pseudo-class': false,
             'logical-properties-and-values': false,
           },
