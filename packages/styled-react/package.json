@@ -43,6 +43,7 @@
     "@babel/preset-typescript": "^7.28.5",
     "@primer/primitives": "10.x || 11.x",
     "@primer/react": "^38.26.0",
+    "@primer/vitest-config": "workspace:*",
     "@rolldown/plugin-babel": "^0.2.3",
     "@rollup/plugin-babel": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.3",

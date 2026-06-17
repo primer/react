@@ -18,6 +18,7 @@
     "postcss-modules": "^6.0.0"
   },
   "devDependencies": {
+    "@primer/vitest-config": "workspace:*",
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "esbuild": "^0.25.0",

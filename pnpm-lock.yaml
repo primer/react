@@ -317,6 +317,9 @@ importers:
       '@babel/preset-typescript':
         specifier: ^7.28.5
         version: 7.28.5(@babel/core@7.29.7)
+      '@primer/vitest-config':
+        specifier: workspace:*
+        version: link:../vitest-config
       '@rollup/plugin-babel':
         specifier: ^6.1.0
         version: 6.1.0(@babel/core@7.29.7)(@types/babel__core@7.20.5)(rollup@4.59.0)
@@ -433,6 +436,9 @@ importers:
         specifier: ^10.1.3
         version: 10.6.1(postcss@8.5.15)
     devDependencies:
+      '@primer/vitest-config':
+        specifier: workspace:*
+        version: link:../vitest-config
       '@types/postcss-mixins':
         specifier: 9.0.5
         version: 9.0.5
@@ -554,6 +560,9 @@ importers:
       '@primer/doc-gen':
         specifier: workspace:*
         version: link:../doc-gen
+      '@primer/vitest-config':
+        specifier: workspace:*
+        version: link:../vitest-config
       '@rolldown/plugin-babel':
         specifier: ^0.2.3
         version: 0.2.3(@babel/core@7.29.6(supports-color@5.5.0))(@babel/plugin-transform-runtime@7.29.7(@babel/core@7.29.6(supports-color@5.5.0)))(@babel/runtime@7.28.6)(rolldown@1.0.3)(vite@8.0.16(@types/node@20.12.11)(jiti@2.4.2)(less@4.6.6)(sass@1.101.0)(stylus@0.62.0)(sugarss@5.0.1(postcss@8.5.15))(terser@5.36.0)(tsx@4.20.3)(yaml@2.7.0))
@@ -794,6 +803,9 @@ importers:
 
   packages/rollup-plugin-import-css:
     devDependencies:
+      '@primer/vitest-config':
+        specifier: workspace:*
+        version: link:../vitest-config
       '@rollup/plugin-commonjs':
         specifier: ^29.0.0
         version: 29.0.0(rollup@4.62.0)
@@ -879,6 +891,9 @@ importers:
       '@primer/react':
         specifier: ^38.26.0
         version: 38.28.0(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)
+      '@primer/vitest-config':
+        specifier: workspace:*
+        version: link:../vitest-config
       '@rolldown/plugin-babel':
         specifier: ^0.2.3
         version: 0.2.3(@babel/core@7.29.7)(@babel/plugin-transform-runtime@7.29.7(@babel/core@7.29.7))(@babel/runtime@7.28.6)(rolldown@1.0.3)(vite@8.0.16(@types/node@22.19.15)(jiti@2.4.2)(less@4.6.6)(sass@1.101.0)(stylus@0.62.0)(sugarss@5.0.1(postcss@8.5.15))(terser@5.36.0)(tsx@4.20.3)(yaml@2.7.0))
