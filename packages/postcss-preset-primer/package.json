@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@csstools/postcss-global-data": "^2.1.1",
+    "@csstools/postcss-is-pseudo-class": "^5.0.1",
     "@github/browserslist-config": "^1.0.0",
     "@primer/primitives": "10.x || 11.x",
     "glob": "^11.1.0",

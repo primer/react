@@ -1,5 +1,5 @@
 import Breadcrumbs from '..'
-import {render as HTMLRender, screen, waitFor, within} from '@testing-library/react'
+import {fireEvent, render as HTMLRender, screen, waitFor, within} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
 import {FeatureFlags} from '../../FeatureFlags'
@@ -441,7 +441,7 @@ describe('Breadcrumbs', () => {
       })
 
       // Press Escape key
-      await user.keyboard('{Escape}') // sometimes tooltip swallows this escape
+      fireEvent.keyDown(document, {key: 'Escape', code: 'Escape', keyCode: 27, charCode: 27})
 
       // Verify menu is closed
       await waitFor(() => {
@@ -559,7 +559,7 @@ describe('Breadcrumbs', () => {
       })
 
       // Close with Escape
-      await user.keyboard('{Escape}')
+      fireEvent.keyDown(document, {key: 'Escape', code: 'Escape', keyCode: 27, charCode: 27})
 
       // Verify focus returns to button
       expect(menuButton).toHaveFocus()
