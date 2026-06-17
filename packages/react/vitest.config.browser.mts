@@ -1,7 +1,7 @@
 import babel from '@rolldown/plugin-babel'
 import react, {reactCompilerPreset} from '@vitejs/plugin-react'
 import {playwright} from '@vitest/browser-playwright'
-import {defineConfig} from 'vitest/config'
+import {defineConfig} from '@primer/vitest-config/config'
 import postcssPresetPrimer from 'postcss-preset-primer'
 import {isSupported} from './script/react-compiler.mjs'
 
