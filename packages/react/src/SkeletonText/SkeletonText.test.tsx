@@ -47,7 +47,7 @@ describe('SkeletonText', () => {
     expect(children).toHaveLength(3)
 
     for (const child of children) {
-      expect(child).toHaveAttribute('data-component', 'SkeletonBox')
+      expect(child).toHaveAttribute('data-component', 'SkeletonText')
     }
   })
 })
