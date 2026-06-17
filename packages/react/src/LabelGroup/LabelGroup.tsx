@@ -23,6 +23,26 @@ const getOverlayWidth = (
   overlayPaddingPx: number,
 ) => overlayPaddingPx + buttonClientRect.right - (containerRef.current?.getBoundingClientRect().left || 0)
 
+const getVisibilityMapAfterIndex = (childCount: number, truncateAfter: number) => {
+  const updatedEntries: Record<string, boolean> = {}
+
+  for (let index = 0; index < childCount; index++) {
+    updatedEntries[index.toString()] = index < truncateAfter
+  }
+
+  return updatedEntries
+}
+
+const visibilityMapsMatch = (left: Record<string, boolean>, right: Record<string, boolean>) => {
+  const leftKeys = Object.keys(left)
+  const rightKeys = Object.keys(right)
+
+  return (
+    leftKeys.length === rightKeys.length &&
+    leftKeys.every(key => Object.prototype.hasOwnProperty.call(right, key) && left[key] === right[key])
+  )
+}
+
 const InlineToggle: React.FC<{
   collapseButtonRef: React.RefObject<HTMLButtonElement>
   collapseInlineExpandedChildren: () => void
@@ -131,6 +151,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
     bottom: 0,
     toJSON: () => undefined,
   })
+  const childArray = React.Children.toArray(children)
 
   const overlayPaddingPx = 8 // var(--base-size-8), hardcoded to do some math
   const hiddenItemIds = Object.keys(visibilityMap).filter(key => !visibilityMap[key])
@@ -163,18 +184,12 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   )
 
   // Sets the visibility map to hide children after the given index.
-  const hideChildrenAfterIndex = React.useCallback((truncateAfter: number) => {
-    const containerChildren = containerRef.current?.children || []
-    const updatedEntries: Record<string, boolean> = {}
-    for (const child of containerChildren) {
-      const targetId = child.getAttribute('data-index')
-      if (targetId) {
-        updatedEntries[targetId] = parseInt(targetId, 10) < truncateAfter
-      }
-    }
-
-    setVisibilityMap(updatedEntries)
-  }, [])
+  const hideChildrenAfterIndex = React.useCallback(
+    (truncateAfter: number) => {
+      setVisibilityMap(getVisibilityMapAfterIndex(childArray.length, truncateAfter))
+    },
+    [childArray.length],
+  )
 
   const openOverflowOverlay = React.useCallback(() => setIsOverflowShown(true), [setIsOverflowShown])
 
@@ -203,6 +218,15 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
     setIsOverflowShown(true)
   }, [setVisibilityMap, setIsOverflowShown])
 
+  const numericVisibilityMap =
+    typeof visibleChildCount === 'number' && !isOverflowShown
+      ? getVisibilityMapAfterIndex(childArray.length, visibleChildCount)
+      : undefined
+
+  if (numericVisibilityMap && !visibilityMapsMatch(visibilityMap, numericVisibilityMap)) {
+    setVisibilityMap(numericVisibilityMap)
+  }
+
   React.useEffect(() => {
     // If we're not truncating, we don't need to run this useEffect.
     // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
@@ -210,6 +234,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
       return
     }
 
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (visibleChildCount === 'auto') {
       // Instantiates the IntersectionObserver to track when children fit in the container.
       const observer = new IntersectionObserver(
@@ -245,14 +270,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
 
       return () => observer.disconnect()
     }
-    // We're not auto truncating, so we need to hide children after the given `visibleChildCount`.
-    // `hideChildrenAfterIndex` reads the rendered children from the DOM, so it must run in an
-    // effect. (Follow-up: this branch could derive the visibility map from child indices instead.)
-    else {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      hideChildrenAfterIndex(visibleChildCount)
-    }
-  }, [buttonClientRect, visibleChildCount, hideChildrenAfterIndex, isOverflowShown])
+  }, [buttonClientRect, visibleChildCount, isOverflowShown])
 
   // Updates the index of the first hidden child.
   // We need to keep track of this so we can focus the first hidden child when the overflow is shown inline.
@@ -304,7 +322,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
       className={clsx(className, classes.Container)}
       data-component="LabelGroup"
     >
-      {React.Children.map(children, (child, index) => (
+      {childArray.map((child, index) => (
         <ItemWrapperComponent
           // data-index is used as an identifier we can use in the IntersectionObserver
           data-index={index}
@@ -325,7 +343,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
             hiddenItemIds={hiddenItemIds}
             isOverflowShown={isOverflowShown}
             showAllTokensInline={showAllTokensInline}
-            totalLength={React.Children.toArray(children).length}
+            totalLength={childArray.length}
           />
         ) : (
           <OverlayToggle
@@ -336,7 +354,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
             openOverflowOverlay={openOverflowOverlay}
             overlayPaddingPx={overlayPaddingPx}
             overlayWidth={overlayWidth}
-            totalLength={React.Children.toArray(children).length}
+            totalLength={childArray.length}
           >
             {children}
           </OverlayToggle>

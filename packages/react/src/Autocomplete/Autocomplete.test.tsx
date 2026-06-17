@@ -317,22 +317,29 @@ describe('Autocomplete', () => {
     })
 
     it("calls onOpenChange with the menu's open state", async () => {
-      const user = userEvent.setup()
       const onOpenChangeMock = vi.fn()
-      const {container} = render(
+      const {getByLabelText} = render(
         <LabelledAutocomplete
           menuProps={{
-            items: mockItems,
+            items: [],
             selectedItemIds: [],
             onOpenChange: onOpenChangeMock,
             ['aria-labelledby']: 'autocompleteLabel',
           }}
         />,
       )
-      const inputNode = container.querySelector('#autocompleteInput')
+      const inputNode = getByLabelText(AUTOCOMPLETE_LABEL)
 
-      inputNode && (await user.type(inputNode, 'ze'))
-      expect(onOpenChangeMock).toHaveBeenCalled()
+      expect(onOpenChangeMock).toHaveBeenNthCalledWith(1, false)
+
+      fireEvent.click(inputNode)
+      fireEvent.keyDown(inputNode, {key: 'ArrowDown'})
+      await waitFor(() => expect(onOpenChangeMock).toHaveBeenLastCalledWith(true))
+
+      // eslint-disable-next-line github/no-blur
+      fireEvent.blur(inputNode)
+
+      await waitFor(() => expect(onOpenChangeMock).toHaveBeenLastCalledWith(false))
     })
 
     it('calls onSelectedChange with the data for the selected items', async () => {

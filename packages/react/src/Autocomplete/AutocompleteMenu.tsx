@@ -169,6 +169,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   const allItemsToRenderRef = useRef<T[]>([])
   const [highlightedItem, setHighlightedItem] = useState<T>()
   const [sortedItemIds, setSortedItemIds] = useState<Array<string>>(items.map(({id: itemId}) => itemId))
+  const [prevShowMenu, setPrevShowMenu] = useState(showMenu)
   const generatedUniqueId = useId(id)
 
   const selectableItems = useMemo(
@@ -324,26 +325,25 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
     }
   }, [highlightedItem, deferredInputValue, selectedItemIds, setAutocompleteSuggestion])
 
-  useEffect(() => {
-    const itemIdSortResult = [...sortedItemIds].sort(
-      sortOnCloseFn ? sortOnCloseFn : getDefaultSortFn(itemId => isItemSelected(itemId, selectedItemIds)),
-    )
-    const sortResultMatchesState =
-      itemIdSortResult.length === sortedItemIds.length &&
-      itemIdSortResult.every((element, index) => element === sortedItemIds[index])
+  const itemIdSortResult = [...sortedItemIds].sort(
+    sortOnCloseFn ? sortOnCloseFn : getDefaultSortFn(itemId => isItemSelected(itemId, selectedItemIds)),
+  )
+  const sortResultMatchesState =
+    itemIdSortResult.length === sortedItemIds.length &&
+    itemIdSortResult.every((element, index) => element === sortedItemIds[index])
 
-    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
-    if (showMenu === false && !sortResultMatchesState) {
-      // Re-sort only when the menu closes. This effect also fires `onOpenChange` below, so it
-      // stays an effect. (Follow-up: the sort could be derived on the open→closed transition
-      // while keeping `onOpenChange` in an effect.)
-      // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-derived-state
+  if (prevShowMenu !== showMenu) {
+    setPrevShowMenu(showMenu)
+
+    if (prevShowMenu && showMenu === false && !sortResultMatchesState) {
       setSortedItemIds(itemIdSortResult)
     }
+  }
 
+  useEffect(() => {
     // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent
     onOpenChange && onOpenChange(Boolean(showMenu))
-  }, [showMenu, onOpenChange, selectedItemIds, sortOnCloseFn, sortedItemIds])
+  }, [showMenu, onOpenChange])
 
   useEffect(() => {
     // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
