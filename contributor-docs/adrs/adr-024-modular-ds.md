@@ -51,6 +51,125 @@ want to focus on in order to improve Primer:
 
 ### Embracing layer 2
 
+| Entrypoint     | Component           | Props | Parts | Hooks | Notes |
+| :------------- | :------------------ | :---- | :---- | :---- | :---- |
+| .              | ActionBar           |       |       |       |       |
+|                | ActionList          |       |       |       |       |
+|                | ActionMenu          |       |       |       |       |
+|                | AnchoredOverlay     |       |       |       |       |
+|                | Autocomplete        |       |       |       |       |
+|                | Avatar              |       |       |       |       |
+|                | AvatarStack         |       |       |       |       |
+|                | Banner              |       |       |       |       |
+|                | BaseStyles          |       |       |       |       |
+|                | BranchName          |       |       |       |       |
+|                | Breadcrumb          |       |       |       |       |
+|                | Breadcrumbs         |       |       |       |       |
+|                | Button              |       |       |       |       |
+|                | ButtonGroup         |       |       |       |       |
+|                | Checkbox            |       |       |       |       |
+|                | CheckboxGroup       |       |       |       |       |
+|                | CircleBadge         |       |       |       |       |
+|                | ConfirmationDialog  |       |       |       |       |
+|                | CounterLabel        |       |       |       |       |
+|                | Details             |       |       |       |       |
+|                | Dialog              |       |       |       |       |
+|                | Flash               |       |       |       |       |
+|                | FocusKeys           |       |       |       |       |
+|                | FormControl         |       |       |       |       |
+|                | Header              |       |       |       |       |
+|                | Heading             |       |       |       |       |
+|                | IconButton          |       |       |       |       |
+|                | IssueLabelToken     |       |       |       |       |
+|                | Label               |       |       |       |       |
+|                | LabelGroup          |       |       |       |       |
+|                | Link                |       |       |       |       |
+|                | LinkButton          |       |       |       |       |
+|                | NavList             |       |       |       |       |
+|                | Overlay             |       |       |       |       |
+|                | PageHeader          |       |       |       |       |
+|                | PageLayout          |       |       |       |       |
+|                | Pagination          |       |       |       |       |
+|                | Popover             |       |       |       |       |
+|                | Portal              |       |       |       |       |
+|                | PortalContext       |       |       |       |       |
+|                | ProgressBar         |       |       |       |       |
+|                | Radio               |       |       |       |       |
+|                | RadioGroup          |       |       |       |       |
+|                | RelativeTime        |       |       |       |       |
+|                | ResponsiveValue     |       |       |       |       |
+|                | SegmentedControl    |       |       |       |       |
+|                | Select              |       |       |       |       |
+|                | SelectPanel         |       |       |       |       |
+|                | SideNav             |       |       |       |       |
+|                | SkeletonBox         |       |       |       |       |
+|                | Spinner             |       |       |       |       |
+|                | SplitPageLayout     |       |       |       |       |
+|                | Stack               |       |       |       |       |
+|                | StateLabel          |       |       |       |       |
+|                | SubNav              |       |       |       |       |
+|                | Text                |       |       |       |       |
+|                | Textarea            |       |       |       |       |
+|                | TextInput           |       |       |       |       |
+|                | TextInputWithTokens |       |       |       |       |
+|                | ThemeProvider       |       |       |       |       |
+|                | Timeline            |       |       |       |       |
+|                | ToggleSwitch        |       |       |       |       |
+|                | Token               |       |       |       |       |
+|                | Tooltip             |       |       |       |       |
+|                | TreeView            |       |       |       |       |
+|                | Truncate            |       |       |       |       |
+|                | UnderlineNav        |       |       |       |       |
+|                | VisuallyHidden      |       |       |       |       |
+| ./experimental | ActionBar           |       |       |       |       |
+|                | Announce            |       |       |       |       |
+|                | AriaAlert           |       |       |       |       |
+|                | AriaStatus          |       |       |       |       |
+|                | Blankslate          |       |       |       |       |
+|                | Card                |       |       |       |       |
+|                | DataTable           |       |       |       |       |
+|                | Dialog              |       |       |       |       |
+|                | FilteredActionList  |       |       |       |       |
+|                | Hidden              |       |       |       |       |
+|                | InlineMessage       |       |       |       |       |
+|                | IssueLabel          |       |       |       |       |
+|                | KeybindingHint      |       |       |       |       |
+|                | NavList             |       |       |       |       |
+|                | PageHeader          |       |       |       |       |
+|                | ScrollableRegion    |       |       |       |       |
+|                | SelectPanel         |       |       |       |       |
+|                | SkeletonAvatar      |       |       |       |       |
+|                | SkeletonText        |       |       |       |       |
+|                | Stack               |       |       |       |       |
+|                | Table               |       |       |       |       |
+|                | Tabs                |       |       |       |       |
+|                | Tooltip             |       |       |       |       |
+|                | TopicTag            |       |       |       |       |
+|                | UnderlinePanels     |       |       |       |       |
+
 ### Low-level components and hooks
+
+We want to offer more low-level components and hooks, in particular with a focus
+on accessibility. Providing these low-level abstractions allows for quickly creating
+robust experiences instead of having to re-invent them from scratch.
+
+In particular, we would like to offer the following primitives:
+
+| Type       | Name              | Supported | Description | Notes |
+| :--------- | :---------------- | :-------- | :---------- | :---- |
+| Components | Accordion         |           |             |       |
+|            | Combobox          |           |             |       |
+|            | Disclosure        |           |             |       |
+|            | Dialog            |           |             |       |
+|            | Listbox           |           |             |       |
+|            | Menu              |           |             |       |
+|            | Menubar           |           |             |       |
+|            | Popover           |           |             |       |
+|            | Tabs              |           |             |       |
+|            | Tree              |           |             |       |
+| Hooks      | useFocusTrap      |           |             |       |
+|            | useMergedRefs     |           |             |       |
+|            | useRovingTabIndex |           |             |       |
+|            | useTabs           |           |             |       |
 
 ### Model for upstreaming work
