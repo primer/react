@@ -1,13 +1,6 @@
 {
   "name": "primer",
   "private": true,
-  "workspaces": [
-    "packages/rollup-plugin-import-css",
-    "packages/react",
-    "packages/mcp",
-    "packages/*",
-    "examples/*"
-  ],
   "scripts": {
     "setup": "./script/setup",
     "build": "turbo run build --filter='!./examples/*'",
@@ -118,5 +111,5 @@
       "running": false
     }
   ],
-  "packageManager": "npm@11.6.3+sha512.4085a763162e0e3acd19a4e9d23ad3aa0978e501ccf947dd7233c12a689ae0bb0190763c4ef12366990056b34eec438903ffed38fde4fbd722a17c2a7407ee92"
+  "packageManager": "pnpm@11.7.0+sha512.19cc852c120c7125760f2443ee6be0ca5b40f9f50598de1a09a1f177503e010e57c23c77646e01e761de59bf874fb22a3398c33ab9691fc13eb946b6f0f4d620"
 }
