@@ -98,7 +98,7 @@ function BranchNameComponent<As extends React.ElementType>(props: BranchNameProp
       typeof child === 'object' &&
       'type' in child &&
       (child.type === TrailingAction ||
-        (child.type as {displayName?: string})?.displayName === 'BranchName.TrailingAction')
+        (child.type as {displayName?: string}).displayName === 'BranchName.TrailingAction')
     ) {
       trailingActions.push(child)
     } else {
