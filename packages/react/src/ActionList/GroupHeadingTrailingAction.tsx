@@ -19,14 +19,14 @@ export type ActionListGroupHeadingTrailingActionProps = Omit<ActionListTrailingA
 }
 
 const GroupHeadingTrailingActionImpl = forwardRef(
-  ({as = 'button', icon, label, href = null, ...props}, forwardedRef) => (
+  ({as = 'button', icon, label, href = null, tooltipDirection = 'w', ...props}, forwardedRef) => (
     <IconButton
       as={as}
       aria-label={label}
       icon={icon}
       variant="invisible"
       size="small"
-      tooltipDirection="w"
+      tooltipDirection={tooltipDirection}
       href={href}
       // @ts-expect-error StyledButton wants both Anchor and Button refs
       ref={forwardedRef}
