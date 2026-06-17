@@ -104,8 +104,8 @@ const postcssPresetPrimer = () => {
           },
         }),
       ),
-      ...plugins(cssnano()),
       isPseudoClass(),
+      ...plugins(cssnano()),
     ],
   }
 }
