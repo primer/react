@@ -1,5 +1,6 @@
 import type {Meta} from '@storybook/react-vite'
-import {FormControl, Textarea} from '..'
+import FormControl from '../FormControl'
+import Textarea from '.'
 import classes from './Textarea.dev.stories.module.css'
 
 export default {

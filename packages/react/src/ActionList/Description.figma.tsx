@@ -1,6 +1,4 @@
-/* eslint eslint-comments/no-use: off */
-/* eslint-disable primer-react/direct-slot-children */
-import {ActionList} from '..'
+import {ActionList} from '.'
 import figma from '@figma/code-connect'
 
 figma.connect(

@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest'
-import {RelativeTime} from '..'
+import RelativeTime from '.'
 import {render} from '@testing-library/react'
 import {implementsClassName} from '../utils/testing'
 

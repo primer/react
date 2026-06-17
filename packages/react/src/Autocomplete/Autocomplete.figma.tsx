@@ -1,6 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-import {Autocomplete, FormControl} from '../../src'
+import Autocomplete from '.'
+import FormControl from '../FormControl'
 import figma from '@figma/code-connect'
 
 figma.connect(

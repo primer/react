@@ -1,5 +1,7 @@
 import {render} from '@testing-library/react'
-import {Checkbox, CheckboxGroup, FormControl} from '..'
+import Checkbox from '../Checkbox'
+import CheckboxGroup from '.'
+import FormControl from '../FormControl'
 import userEvent from '@testing-library/user-event'
 import {describe, expect, it, vi, beforeAll, afterAll} from 'vitest'
 import {implementsClassName} from '../utils/testing'

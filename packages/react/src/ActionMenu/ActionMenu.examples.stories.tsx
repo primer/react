@@ -1,5 +1,11 @@
 import React, {useState, useCallback} from 'react'
-import {ActionMenu, ActionList, Button, IconButton, FormControl, TextInput, Dialog, Text} from '../'
+import {ActionMenu} from '.'
+import {ActionList} from '../ActionList'
+import {Button, IconButton} from '../Button'
+import FormControl from '../FormControl'
+import TextInput from '../TextInput'
+import {Dialog} from '../Dialog'
+import Text from '../Text'
 import {
   GearIcon,
   MilestoneIcon,

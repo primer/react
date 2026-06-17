@@ -1,4 +1,4 @@
-import {ActionMenu} from '..'
+import {ActionMenu} from '.'
 
 export function actionButtonWithoutProps() {
   return <ActionMenu.Button />
