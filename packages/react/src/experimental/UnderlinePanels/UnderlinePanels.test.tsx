@@ -7,7 +7,7 @@ import {describe, it, afterEach, beforeEach, expect, vi} from 'vitest'
 import {CodeIcon, EyeIcon} from '@primer/octicons-react'
 import UnderlinePanels from './UnderlinePanels'
 import TabContainerElement from '@github/tab-container-element'
-import {implementsClassName} from '../../utils/testing'
+import {implementsClassName, withExpectedConsoleError} from '../../utils/testing'
 import classes from './UnderlinePanels.module.css'
 
 TabContainerElement.prototype.selectTab = vi.fn()
@@ -107,46 +107,52 @@ describe('UnderlinePanels', () => {
   })
 
   it('throws an error when the number of tabs does not match the number of panels', () => {
-    expect(() => {
-      render(
-        <UnderlinePanels aria-label="Select a tab">
-          <UnderlinePanels.Tab>Tab 1</UnderlinePanels.Tab>
-          <UnderlinePanels.Tab>Tab 2</UnderlinePanels.Tab>
-          <UnderlinePanels.Panel>Panel 1</UnderlinePanels.Panel>
-          <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
-          <UnderlinePanels.Panel>Panel 3</UnderlinePanels.Panel>
-        </UnderlinePanels>,
-      )
-    }).toThrow('The number of tabs and panels must be equal. Counted 2 tabs and 3 panels.')
+    withExpectedConsoleError(() => {
+      expect(() => {
+        render(
+          <UnderlinePanels aria-label="Select a tab">
+            <UnderlinePanels.Tab>Tab 1</UnderlinePanels.Tab>
+            <UnderlinePanels.Tab>Tab 2</UnderlinePanels.Tab>
+            <UnderlinePanels.Panel>Panel 1</UnderlinePanels.Panel>
+            <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
+            <UnderlinePanels.Panel>Panel 3</UnderlinePanels.Panel>
+          </UnderlinePanels>,
+        )
+      }).toThrow('The number of tabs and panels must be equal. Counted 2 tabs and 3 panels.')
+    })
   })
 
   it('throws an error when the number of panels does not match the number of tabs', () => {
-    expect(() => {
-      render(
-        <UnderlinePanels aria-label="Select a tab">
-          <UnderlinePanels.Tab>Tab 1</UnderlinePanels.Tab>
-          <UnderlinePanels.Tab>Tab 2</UnderlinePanels.Tab>
-          <UnderlinePanels.Tab>Tab 3</UnderlinePanels.Tab>
-          <UnderlinePanels.Panel>Panel 1</UnderlinePanels.Panel>
-          <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
-        </UnderlinePanels>,
-      )
-    }).toThrow('The number of tabs and panels must be equal. Counted 3 tabs and 2 panels.')
+    withExpectedConsoleError(() => {
+      expect(() => {
+        render(
+          <UnderlinePanels aria-label="Select a tab">
+            <UnderlinePanels.Tab>Tab 1</UnderlinePanels.Tab>
+            <UnderlinePanels.Tab>Tab 2</UnderlinePanels.Tab>
+            <UnderlinePanels.Tab>Tab 3</UnderlinePanels.Tab>
+            <UnderlinePanels.Panel>Panel 1</UnderlinePanels.Panel>
+            <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
+          </UnderlinePanels>,
+        )
+      }).toThrow('The number of tabs and panels must be equal. Counted 3 tabs and 2 panels.')
+    })
   })
 
   it('throws an error when there are multiple items that have aria-selected', () => {
-    expect(() => {
-      render(
-        <UnderlinePanels aria-label="Select a tab">
-          <UnderlinePanels.Tab aria-selected={true}>Tab 1</UnderlinePanels.Tab>
-          <UnderlinePanels.Tab aria-selected={true}>Tab 2</UnderlinePanels.Tab>
-          <UnderlinePanels.Tab>Tab 3</UnderlinePanels.Tab>
-          <UnderlinePanels.Panel>Panel 1</UnderlinePanels.Panel>
-          <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
-          <UnderlinePanels.Panel>Panel 3</UnderlinePanels.Panel>
-        </UnderlinePanels>,
-      )
-    }).toThrow('Only one tab can be selected at a time.')
+    withExpectedConsoleError(() => {
+      expect(() => {
+        render(
+          <UnderlinePanels aria-label="Select a tab">
+            <UnderlinePanels.Tab aria-selected={true}>Tab 1</UnderlinePanels.Tab>
+            <UnderlinePanels.Tab aria-selected={true}>Tab 2</UnderlinePanels.Tab>
+            <UnderlinePanels.Tab>Tab 3</UnderlinePanels.Tab>
+            <UnderlinePanels.Panel>Panel 1</UnderlinePanels.Panel>
+            <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
+            <UnderlinePanels.Panel>Panel 3</UnderlinePanels.Panel>
+          </UnderlinePanels>,
+        )
+      }).toThrow('Only one tab can be selected at a time.')
+    })
   })
 })
 

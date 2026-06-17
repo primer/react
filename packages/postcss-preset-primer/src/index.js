@@ -10,6 +10,7 @@ import cssnano from 'cssnano'
 import customPropertiesFallback from 'postcss-custom-properties-fallback'
 // @ts-expect-error this plugin does not have a declaration file
 import browsers from '@github/browserslist-config'
+import isPseudoClass from '@csstools/postcss-is-pseudo-class'
 
 const filepath = fileURLToPath(import.meta.url)
 const {root: ROOT_DIR} = path.parse(filepath)
@@ -98,14 +99,12 @@ const postcssPresetPrimer = () => {
           browsers,
           // https://preset-env.cssdb.org/features/#stage-2
           features: {
-            'nesting-rules': {
-              noIsPseudoSelector: true,
-            },
             'focus-visible-pseudo-class': false,
             'logical-properties-and-values': false,
           },
         }),
       ),
+      isPseudoClass(),
       ...plugins(cssnano()),
     ],
   }

@@ -30,6 +30,7 @@ import {Tooltip} from '../TooltipV2'
 import {isSlot} from '../utils/is-slot'
 import type {FCWithSlotMarker} from '../utils/types'
 import {AriaStatus} from '../live-region'
+import {fixedForwardRef, type DistributiveOmit} from '../utils/modern-polymorphic'
 
 // ----------------------------------------------------------------------------
 // Context
@@ -205,7 +206,7 @@ Root.displayName = 'TreeView'
 // ----------------------------------------------------------------------------
 // TreeView.Item
 
-export type TreeViewItemProps = {
+type TreeViewItemBaseProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
   'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
   id: string
@@ -220,8 +221,23 @@ export type TreeViewItemProps = {
   secondaryActions?: TreeViewSecondaryActions[]
 }
 
-const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
-  (
+// We build this type manually (instead of using `PolymorphicProps`) so we can omit
+// `ref` and `onSelect` from the underlying element's props:
+// - `ref` is provided solely by `fixedForwardRef` (typed as `Ref<unknown>`), preserving
+//   backward compatibility with consumers that pass `Ref<HTMLElement>` rather than the
+//   intrinsic element's ref type (e.g. `Ref<HTMLLIElement>` for the default `<li>`).
+// - Our custom `onSelect` (typed against `HTMLElement`) replaces the native
+//   `ReactEventHandler<HTMLLIElement>` that would otherwise be intersected in
+//   and conflict with existing consumers.
+// `DistributiveOmit` keeps the omit distributing over `as` union types.
+export type TreeViewItemProps<As extends React.ElementType = 'li'> = DistributiveOmit<
+  React.ComponentPropsWithoutRef<React.ElementType extends As ? 'li' : As>,
+  'as' | 'onSelect'
+> &
+  TreeViewItemBaseProps & {as?: As}
+
+const ItemImpl = fixedForwardRef(
+  <As extends React.ElementType = 'li'>(
     {
       id: itemId,
       containIntrinsicSize,
@@ -235,9 +251,20 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       'aria-label': ariaLabel,
       'aria-labelledby': ariaLabelledby,
       secondaryActions,
-    },
-    ref,
+      as: Component,
+      ...restProps
+    }: TreeViewItemProps<As>,
+    ref: React.ForwardedRef<unknown>,
   ) => {
+    // When `as` is provided (and resolves to something other than the default
+    // `'li'`), we render the polymorphic element as the `role="treeitem"` and
+    // wrap it in an `<li role="none">` so the markup remains valid (a
+    // `<ul role="tree">` may only directly contain `<li>` elements). When `as`
+    // is omitted, or explicitly set to `'li'`, we render an `<li>` directly as
+    // the treeitem to preserve the historical DOM shape and ref typing for
+    // existing consumers and to avoid nesting `<li>` inside `<li>`.
+    const ItemElement = (Component ?? 'li') as React.ElementType
+    const isPolymorphic = Component !== undefined && Component !== 'li'
     const [slots, rest] = useSlots(children, {
       leadingAction: LeadingAction,
       leadingVisual: LeadingVisual,
@@ -269,7 +296,6 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
 
     // Set the expanded state and cache it
     const setIsExpandedWithCache = React.useCallback(
-      // eslint-disable-next-line react-hooks/preserve-manual-memoization
       (newIsExpanded: boolean) => {
         setIsExpanded(newIsExpanded)
         expandedStateCache.current?.set(itemId, newIsExpanded)
@@ -344,6 +370,115 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
     const shortcut = `Shift+${platform === 'apple' ? 'Meta' : 'Control'}+U`
     const trailingActionShortcutText = `Press (${getAccessibleKeybindingHintString(shortcut, platform)}) for more actions.`
 
+    const itemElement = (
+      // @ts-ignore TypeScript can't infer that the `ref` here is compatible
+      // with every possible polymorphic `ItemElement` (it's typed as
+      // `Ref<unknown>` by `fixedForwardRef`), so we cast at the boundary.
+      <ItemElement
+        {...restProps}
+        className={clsx('PRIVATE_TreeView-item', className, classes.TreeViewItem)}
+        ref={ref as React.ForwardedRef<HTMLElement>}
+        tabIndex={0}
+        id={itemId}
+        role="treeitem"
+        aria-label={
+          secondaryActions ? (ariaLabel ? `${ariaLabel}. ${trailingActionShortcutText}` : undefined) : ariaLabel
+        }
+        aria-labelledby={
+          ariaLabel ? undefined : `${ariaLabelledby || labelId} ${secondaryActions ? trailingActionId : ''}`.trim()
+        }
+        aria-describedby={ariaDescribedByIds.length ? ariaDescribedByIds.join(' ') : undefined}
+        aria-level={level}
+        aria-expanded={(isSubTreeEmpty && (!isExpanded || !hasSubTree)) || expanded === null ? undefined : isExpanded}
+        aria-current={isCurrentItem ? 'true' : undefined}
+        aria-selected={isFocused ? 'true' : 'false'}
+        data-has-leading-action={slots.leadingAction ? true : undefined}
+        data-loading={isLoadingPlaceholder ? true : undefined}
+        onKeyDown={handleKeyDown}
+        onFocus={(event: React.FocusEvent<HTMLElement>) => {
+          // Defer scroll to the next animation frame so that rapid keyboard
+          // navigation (held key) coalesces into a single reflow per frame
+          scrollElementIntoView(event.currentTarget.firstElementChild)
+
+          // Set the focused state
+          setIsFocused(true)
+
+          // Prevent focus event from bubbling up to parent items
+          event.stopPropagation()
+        }}
+        onBlur={() => setIsFocused(false)}
+        onClick={(event: React.MouseEvent<HTMLElement>) => {
+          if (onSelect) {
+            onSelect(event)
+          } else {
+            toggle(event)
+          }
+          event.stopPropagation()
+        }}
+        onAuxClick={(event: React.MouseEvent<HTMLElement>) => {
+          if (onSelect && event.button === 1) {
+            onSelect(event)
+          }
+          event.stopPropagation()
+        }}
+      >
+        <div
+          className={clsx('PRIVATE_TreeView-item-container', classes.TreeViewItemContainer)}
+          style={{
+            // @ts-ignore CSS custom property
+            '--level': level,
+            contentVisibility: containIntrinsicSize ? 'auto' : undefined,
+            containIntrinsicSize,
+          }}
+        >
+          <div style={{gridArea: 'spacer', display: 'flex'}}>
+            <LevelIndicatorLines level={level} />
+          </div>
+          {slots.leadingAction}
+          {hasSubTree ? (
+            // This lint rule is disabled due to the guidelines in the `TreeView` api docs.
+            // https://github.com/github/primer/blob/main/apis/tree-view-api.md#the-expandcollapse-chevron-toggle
+            // This has specific advice that the chevron be available only to pointer event.
+            // If they take up a button role, they become unnecessary and numerous tab stops.
+
+            <div
+              className={clsx(
+                'PRIVATE_TreeView-item-toggle',
+                onSelect && 'PRIVATE_TreeView-item-toggle--hover',
+                level === 1 && 'PRIVATE_TreeView-item-toggle--end',
+                classes.TreeViewItemToggle,
+                classes.TreeViewItemToggleHover,
+                classes.TreeViewItemToggleEnd,
+              )}
+              onClick={event => {
+                if (onSelect) {
+                  toggle(event)
+                }
+              }}
+            >
+              {isExpanded ? <ChevronDownIcon size={TOGGLE_ICON_SIZE} /> : <ChevronRightIcon size={TOGGLE_ICON_SIZE} />}
+            </div>
+          ) : null}
+          <div id={labelId} className={clsx('PRIVATE_TreeView-item-content', classes.TreeViewItemContent)}>
+            {slots.leadingVisual}
+            <span className={clsx('PRIVATE_TreeView-item-content-text', classes.TreeViewItemContentText)}>
+              {childrenWithoutSubTree}
+            </span>
+            {slots.trailingVisual}
+          </div>
+          {secondaryActions ? (
+            <>
+              <TrailingAction items={secondaryActions} shortcutText={trailingActionShortcutText} />
+              {actionCommandPressed ? (
+                <ActionDialog items={secondaryActions} onClose={() => setActionCommandPressed(false)} />
+              ) : null}
+            </>
+          ) : null}
+        </div>
+        {subTree}
+      </ItemElement>
+    )
+
     return (
       <ItemContext.Provider
         value={{
@@ -358,117 +493,13 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           trailingActionId,
         }}
       >
-        {/* @ts-ignore Box doesn't have type support for `ref` used in combination with `as` */}
-        <li
-          className={clsx('PRIVATE_TreeView-item', className, classes.TreeViewItem)}
-          ref={ref as React.ForwardedRef<HTMLLIElement>}
-          tabIndex={0}
-          id={itemId}
-          role="treeitem"
-          aria-label={
-            secondaryActions ? (ariaLabel ? `${ariaLabel}. ${trailingActionShortcutText}` : undefined) : ariaLabel
-          }
-          aria-labelledby={
-            ariaLabel ? undefined : `${ariaLabelledby || labelId} ${secondaryActions ? trailingActionId : ''}`.trim()
-          }
-          aria-describedby={ariaDescribedByIds.length ? ariaDescribedByIds.join(' ') : undefined}
-          aria-level={level}
-          aria-expanded={(isSubTreeEmpty && (!isExpanded || !hasSubTree)) || expanded === null ? undefined : isExpanded}
-          aria-current={isCurrentItem ? 'true' : undefined}
-          aria-selected={isFocused ? 'true' : 'false'}
-          data-has-leading-action={slots.leadingAction ? true : undefined}
-          data-loading={isLoadingPlaceholder ? true : undefined}
-          onKeyDown={handleKeyDown}
-          onFocus={event => {
-            // Defer scroll to the next animation frame so that rapid keyboard
-            // navigation (held key) coalesces into a single reflow per frame
-            scrollElementIntoView(event.currentTarget.firstElementChild)
-
-            // Set the focused state
-            setIsFocused(true)
-
-            // Prevent focus event from bubbling up to parent items
-            event.stopPropagation()
-          }}
-          onBlur={() => setIsFocused(false)}
-          onClick={event => {
-            if (onSelect) {
-              onSelect(event)
-            } else {
-              toggle(event)
-            }
-            event.stopPropagation()
-          }}
-          onAuxClick={event => {
-            if (onSelect && event.button === 1) {
-              onSelect(event)
-            }
-            event.stopPropagation()
-          }}
-        >
-          <div
-            className={clsx('PRIVATE_TreeView-item-container', classes.TreeViewItemContainer)}
-            style={{
-              // @ts-ignore CSS custom property
-              '--level': level,
-              contentVisibility: containIntrinsicSize ? 'auto' : undefined,
-              containIntrinsicSize,
-            }}
-          >
-            <div style={{gridArea: 'spacer', display: 'flex'}}>
-              <LevelIndicatorLines level={level} />
-            </div>
-            {slots.leadingAction}
-            {hasSubTree ? (
-              // This lint rule is disabled due to the guidelines in the `TreeView` api docs.
-              // https://github.com/github/primer/blob/main/apis/tree-view-api.md#the-expandcollapse-chevron-toggle
-              // This has specific advice that the chevron be available only to pointer event.
-              // If they take up a button role, they become unnecessary and numerous tab stops.
-
-              <div
-                className={clsx(
-                  'PRIVATE_TreeView-item-toggle',
-                  onSelect && 'PRIVATE_TreeView-item-toggle--hover',
-                  level === 1 && 'PRIVATE_TreeView-item-toggle--end',
-                  classes.TreeViewItemToggle,
-                  classes.TreeViewItemToggleHover,
-                  classes.TreeViewItemToggleEnd,
-                )}
-                onClick={event => {
-                  if (onSelect) {
-                    toggle(event)
-                  }
-                }}
-              >
-                {isExpanded ? (
-                  <ChevronDownIcon size={TOGGLE_ICON_SIZE} />
-                ) : (
-                  <ChevronRightIcon size={TOGGLE_ICON_SIZE} />
-                )}
-              </div>
-            ) : null}
-            <div id={labelId} className={clsx('PRIVATE_TreeView-item-content', classes.TreeViewItemContent)}>
-              {slots.leadingVisual}
-              <span className={clsx('PRIVATE_TreeView-item-content-text', classes.TreeViewItemContentText)}>
-                {childrenWithoutSubTree}
-              </span>
-              {slots.trailingVisual}
-            </div>
-            {secondaryActions ? (
-              <>
-                <TrailingAction items={secondaryActions} shortcutText={trailingActionShortcutText} />
-                {actionCommandPressed ? (
-                  <ActionDialog items={secondaryActions} onClose={() => setActionCommandPressed(false)} />
-                ) : null}
-              </>
-            ) : null}
-          </div>
-          {subTree}
-        </li>
+        {isPolymorphic ? <li role="none">{itemElement}</li> : itemElement}
       </ItemContext.Provider>
     )
   },
 )
+
+const Item = Object.assign(ItemImpl, {displayName: 'TreeView.Item'})
 
 /** Lines to indicate the depth of an item in a TreeView */
 const LevelIndicatorLines: React.FC<{level: number}> = ({level}) => {
@@ -480,8 +511,6 @@ const LevelIndicatorLines: React.FC<{level: number}> = ({level}) => {
     </div>
   )
 }
-
-Item.displayName = 'TreeView.Item'
 
 // ----------------------------------------------------------------------------
 // TreeView.SubTree
@@ -655,7 +684,7 @@ const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, re
   if (count) {
     return (
       <LoadingPlaceholderContext.Provider value={true}>
-        <Item id={itemId} ref={ref}>
+        <Item id={itemId} ref={ref as React.Ref<HTMLLIElement>}>
           {Array.from({length: count}).map((_, i) => {
             return <SkeletonItem aria-hidden={true} key={i} />
           })}
@@ -667,7 +696,7 @@ const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, re
 
   return (
     <LoadingPlaceholderContext.Provider value={true}>
-      <Item id={itemId} ref={ref}>
+      <Item id={itemId} ref={ref as React.Ref<HTMLLIElement>}>
         <LeadingVisual>
           <Spinner size="small" />
         </LeadingVisual>
@@ -679,7 +708,7 @@ const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, re
 
 const EmptyItem = React.forwardRef<HTMLElement>((props, ref) => {
   return (
-    <Item expanded={null} id={useId()} ref={ref}>
+    <Item expanded={null} id={useId()} ref={ref as React.Ref<HTMLLIElement>}>
       <Text className="fgColor-muted">No items found</Text>
     </Item>
   )
