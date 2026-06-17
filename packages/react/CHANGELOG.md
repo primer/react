@@ -1,5 +1,42 @@
 # @primer/react
 
+## 38.29.0
+
+### Minor Changes
+
+- [#8009](https://github.com/primer/react/pull/8009) [`2cf75b5`](https://github.com/primer/react/commit/2cf75b5e81218b55252ccd87beac6b2103326917) Thanks [@joshblack](https://github.com/joshblack)! - Update CSS build options to compile down :is() selectors
+
+- [#7994](https://github.com/primer/react/pull/7994) [`8cb7f6d`](https://github.com/primer/react/commit/8cb7f6d9e1314e8c9b3bddeabebbf6a93fb4f768) Thanks [@TylerJDev](https://github.com/TylerJDev)! - ActionList: Adds `tooltipDirection` prop to `ActionList.TrailingAction`
+
+- [#7867](https://github.com/primer/react/pull/7867) [`4ec4248`](https://github.com/primer/react/commit/4ec4248b9c1ae662b761385110f1fd7ad7480a2f) Thanks [@llastflowers](https://github.com/llastflowers)! - Add data-component attributes and associated tests for ActionMenu, AnchoredOverlay, Autocomplete, and NavList
+
+- [#7897](https://github.com/primer/react/pull/7897) [`1f7b8af`](https://github.com/primer/react/commit/1f7b8af8127a859c472b3972ebe9fce934246c38) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Add support for the `as` prop on `TreeView.Item`. This enables rendering the
+  treeitem as a different element (e.g. `as="a"` for native anchors, or a custom
+  router-link component) while preserving all existing keyboard, focus, and ARIA
+  behavior.
+
+  When `as` is omitted, the existing markup is unchanged: an `<li>` is rendered
+  as the `role="treeitem"` element. When `as` is provided, the polymorphic
+  element is rendered as the treeitem and is wrapped in an `<li role="none">`
+  so the markup remains valid (a `<ul role="tree">` may only directly contain
+  `<li>` elements).
+
+### Patch Changes
+
+- [#7976](https://github.com/primer/react/pull/7976) [`1fac927`](https://github.com/primer/react/commit/1fac9270c497c1904acbb3eb60805630aab82a97) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - NavList: add a small gap between items for readability, including before expanded sub-navs, behind the `primer_react_action_list_item_gap` feature flag
+
+- [#7999](https://github.com/primer/react/pull/7999) [`eada357`](https://github.com/primer/react/commit/eada3574ff15bfd7680602f34e19308ea766a972) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Breadcrumbs: Improve rendering performance and refresh the overflow menu when breadcrumb content changes without changing the number of items.
+
+- [#7929](https://github.com/primer/react/pull/7929) [`48c34ca`](https://github.com/primer/react/commit/48c34ca452a5449b0ba901783edb169b6a1e1882) Thanks [@joshblack](https://github.com/joshblack)! - FilteredActionList: Make body skeleton widths stable for server rendering
+
+- [#7985](https://github.com/primer/react/pull/7985) [`969c874`](https://github.com/primer/react/commit/969c8749b40a8f5075dd9ca91314cde5c41e3814) Thanks [@joshblack](https://github.com/joshblack)! - AnchoredOverlay: Render the popover target attribute correctly for popover anchors
+
+- [#7984](https://github.com/primer/react/pull/7984) [`06fdad4`](https://github.com/primer/react/commit/06fdad432ad274878b15921d3ee25a157c61e70d) Thanks [@joshblack](https://github.com/joshblack)! - CircleBadge, ActionList: Prevent internal props from rendering on DOM elements
+
+- [#7978](https://github.com/primer/react/pull/7978) [`e3f655c`](https://github.com/primer/react/commit/e3f655c6735ffd1bd105b8e7599e273bb1eee4d1) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - PageHeader.ParentLink: Forward unknown props (e.g. `to`) to the underlying element, enabling client-side routing with polymorphic `as`.
+
+- [#7930](https://github.com/primer/react/pull/7930) [`f32ac0f`](https://github.com/primer/react/commit/f32ac0f4d623a78c9e92c43e0f13e654eb5ce2ca) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Blankslate: reduce `size="small"` padding to `var(--base-size-16)` for denser layouts
+
 ## 38.28.0
 
 ### Minor Changes
@@ -28,7 +65,6 @@
 
   ```tsx
   import {FeatureFlags} from '@primer/react/experimental'
-
   ;<FeatureFlags flags={{primer_react_timeline_list_semantics: true}}>
     <Timeline>…</Timeline>
   </FeatureFlags>
