@@ -45,6 +45,7 @@ function SkeletonText({lines = 1, maxWidth, size = 'bodyMedium', className, styl
       {Array.from({length: lines}, (_, index) => (
         <SkeletonBox
           key={index}
+          data-component="SkeletonText"
           data-in-multiline="true"
           data-text-skeleton-size={size}
           className={clsx(className, classes.SkeletonText)}
