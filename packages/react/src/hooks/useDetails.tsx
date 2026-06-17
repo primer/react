@@ -29,6 +29,7 @@ function useDetails({ref, closeOnOutsideClick, defaultOpen, onClickOutside}: Use
 
   // handles the overlay behavior - closing the menu when clicking outside of it
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (open && closeOnOutsideClick) {
       document.addEventListener('click', onClickOutsideInternal)
       return () => {

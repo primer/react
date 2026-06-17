@@ -271,14 +271,18 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
   useResizeObserver(handleResize, containerRef)
 
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if ((overflow === 'menu' || overflow === 'menu-with-root') && childArray.length > 5 && menuItems.length === 0) {
       const containerWidth = containerRef.current?.offsetWidth || 800
       const result = calculateOverflow(containerWidth)
 
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change, react-you-might-not-need-an-effect/no-chain-state-updates
       setVisibleItems(result.visibleItems)
 
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change, react-you-might-not-need-an-effect/no-chain-state-updates
       setMenuItems(result.menuItems)
 
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-chain-state-updates, react-you-might-not-need-an-effect/no-derived-state
       setEffectiveHideRoot(result.effectiveHideRoot)
     }
   }, [overflow, childArray, calculateOverflow, menuItems.length])

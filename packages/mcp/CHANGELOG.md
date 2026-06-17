@@ -1,5 +1,14 @@
 # @primer/mcp
 
+## 0.3.3
+
+### Patch Changes
+
+- [#7965](https://github.com/primer/react/pull/7965) [`53ea013`](https://github.com/primer/react/commit/53ea0139bc48f5497bab5b43baed959b69dd16b0) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - MCP server: Add `readOnlyHint` annotation to all tools, allowing them to run without human-in-the-loop approval in agentic environments such as Copilot cloud agent.
+
+- Updated dependencies [[`45be31b`](https://github.com/primer/react/commit/45be31b561b2c1280b182531069e8a84364a4185), [`95986ce`](https://github.com/primer/react/commit/95986ce22eaca6f4cb2122a00d51ec93d72f2dfe), [`6a7e130`](https://github.com/primer/react/commit/6a7e13051139ba06e48391edc0b05ef555b814b9), [`55b7b04`](https://github.com/primer/react/commit/55b7b04647af9d7812e9ff77605524048358039c), [`3af5edc`](https://github.com/primer/react/commit/3af5edc56dd21aaa16c7c1676c4627c4ecd6f0f2), [`2087e87`](https://github.com/primer/react/commit/2087e87c9fe869a59fc1dcb0546ee25a14767006), [`0f0f79f`](https://github.com/primer/react/commit/0f0f79f5da92087e636cde0d0709479c9c68d2d1), [`0c38cfa`](https://github.com/primer/react/commit/0c38cfaeabab347e48d4e34c200739e32efa73a2)]:
+  - @primer/react@38.28.0
+
 ## 0.3.2
 
 ### Patch Changes

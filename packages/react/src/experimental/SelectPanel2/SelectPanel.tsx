@@ -17,7 +17,8 @@ import {ActionListContainerContext} from '../../ActionList/ActionListContainerCo
 import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
 import type {OverlayProps} from '../../Overlay/Overlay'
-import {BaseOverlay, heightMap} from '../../Overlay/Overlay'
+import {BaseOverlay} from '../../Overlay/Overlay'
+import {heightMap} from '../../Overlay/constants'
 import {InputLabel} from '../../internal/components/InputLabel'
 import {invariant} from '../../utils/invariant'
 import {AriaStatus} from '../../live-region'
@@ -215,6 +216,7 @@ const Panel: React.FC<SelectPanelProps> = ({
   // but not for dialogs, so we have to do it
   React.useEffect(
     function initialFocus() {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (internalOpen) {
         const searchInput = document.querySelector('dialog[open] input') as HTMLInputElement | undefined
         if (searchInput) searchInput.focus()
