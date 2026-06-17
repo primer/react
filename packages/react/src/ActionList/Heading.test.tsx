@@ -2,7 +2,7 @@ import {describe, it, expect} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
 import BaseStyles from '../BaseStyles'
 import {ActionList} from '.'
-import {ActionMenu} from '..'
+import {ActionMenu} from '../ActionMenu'
 import {implementsClassName, withExpectedConsoleError} from '../utils/testing'
 import classes from './Heading.module.css'
 

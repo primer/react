@@ -1,23 +1,20 @@
 import React, {useState, useRef, useCallback} from 'react'
 import type {Args, Meta} from '@storybook/react-vite'
 import {TriangleDownIcon, PlusIcon, IssueDraftIcon, XIcon} from '@primer/octicons-react'
-import {
-  Overlay,
-  ButtonGroup,
-  Button,
-  IconButton,
-  Text,
-  Checkbox,
-  CheckboxGroup,
-  FormControl,
-  TextInput,
-  Link,
-  Label,
-  ActionList,
-  ActionMenu,
-  useFocusTrap,
-  Textarea,
-} from '..'
+import Overlay from '.'
+import ButtonGroup from '../ButtonGroup'
+import {Button, IconButton} from '../Button'
+import Text from '../Text'
+import Checkbox from '../Checkbox'
+import CheckboxGroup from '../CheckboxGroup'
+import FormControl from '../FormControl'
+import TextInput from '../TextInput'
+import Link from '../Link'
+import Label from '../Label'
+import {ActionList} from '../ActionList'
+import {ActionMenu} from '../ActionMenu'
+import {useFocusTrap} from '../hooks/useFocusTrap'
+import Textarea from '../Textarea'
 import {Tooltip} from '../TooltipV2'
 import classes from './Overlay.features.stories.module.css'
 
