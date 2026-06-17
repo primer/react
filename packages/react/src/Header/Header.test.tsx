@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 import {render} from '@testing-library/react'
-import {Header} from '..'
+import Header from '.'
 import {implementsClassName} from '../utils/testing'
 import classes from './Header.module.css'
 

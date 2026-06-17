@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
 import Spinner from './Spinner'
-import {Button} from '..'
+import {Button} from '../Button'
 import {VisuallyHidden} from '../VisuallyHidden'
 import {AriaStatus} from '../live-region'
 import classes from './Spinner.stories.module.css'

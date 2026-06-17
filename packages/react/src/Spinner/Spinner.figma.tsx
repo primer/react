@@ -1,4 +1,4 @@
-import {Spinner} from '../../src'
+import Spinner from '.'
 import figma from '@figma/code-connect'
 
 figma.connect(Spinner, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=11025-38126&m=dev', {
