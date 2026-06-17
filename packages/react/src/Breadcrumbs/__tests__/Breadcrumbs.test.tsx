@@ -143,6 +143,47 @@ describe('Breadcrumbs', () => {
     expect(screen.getByText('Item 6')).toBeInTheDocument()
   })
 
+  it('updates overflow menu items when children change with same item count', async () => {
+    const user = userEvent.setup()
+    const {rerender} = renderWithTheme(
+      <Breadcrumbs overflow="menu">
+        <Breadcrumbs.Item href="/home">Old Home</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/category">Old Category</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/subcategory">Subcategory</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/product">Product</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/details">Details</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/reviews">Reviews</Breadcrumbs.Item>
+      </Breadcrumbs>,
+    )
+
+    const menuButton = screen.getByRole('button', {name: /more breadcrumb items/i})
+    await user.click(menuButton)
+
+    const oldMenu = menuButton.closest('details')
+    expect(oldMenu).not.toBeNull()
+    expect(within(oldMenu!).getByRole('link', {name: 'Old Home'})).toBeInTheDocument()
+
+    await user.click(menuButton)
+
+    rerender(
+      <Breadcrumbs overflow="menu">
+        <Breadcrumbs.Item href="/new-home">New Home</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/new-category">New Category</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/subcategory">Subcategory</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/product">Product</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/details">Details</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/reviews">Reviews</Breadcrumbs.Item>
+      </Breadcrumbs>,
+    )
+
+    await user.click(screen.getByRole('button', {name: /more breadcrumb items/i}))
+
+    const updatedMenu = screen.getByRole('button', {name: /more breadcrumb items/i}).closest('details')
+    expect(updatedMenu).not.toBeNull()
+    expect(within(updatedMenu!).getByRole('link', {name: 'New Home'})).toBeInTheDocument()
+    expect(within(updatedMenu!).queryByRole('link', {name: 'Old Home'})).not.toBeInTheDocument()
+  })
+
   it('show root in menu', () => {
     expect(() => {
       renderWithTheme(
@@ -179,7 +220,7 @@ describe('Breadcrumbs', () => {
     await user.click(menuButton)
 
     // Find the <details> element that contains the overflow menu
-    const detailsEl = menuButton.closest('details') as HTMLElement | null
+    const detailsEl = menuButton.closest('details')
     expect(detailsEl).not.toBeNull()
     const detailsScope = within(detailsEl!)
 
