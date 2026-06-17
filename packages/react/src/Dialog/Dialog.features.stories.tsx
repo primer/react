@@ -213,6 +213,7 @@ export const ReproMultistepDialogWithConditionalFooter = ({width, height}: Dialo
   React.useEffect(() => {
     // focus the close button when the step changes
     const focusTarget = dialogRef.current?.querySelector('button[aria-label="Close"]') as HTMLButtonElement
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (step === 2) {
       focusTarget.focus()
     }

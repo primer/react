@@ -273,6 +273,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
   useEffect(() => {
     // ensure overlay ref gets cleared when closed, so position can reset between closing/re-opening
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (!open && overlayRef.current) {
       updateOverlayRef(null)
     }
