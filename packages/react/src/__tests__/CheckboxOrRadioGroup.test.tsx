@@ -10,7 +10,14 @@ import classes from '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadio
 const INPUT_GROUP_LABEL = 'Choices'
 
 describe('CheckboxOrRadioGroup', () => {
-  implementsClassName(CheckboxOrRadioGroup, classes.GroupFieldset)
+  implementsClassName(
+    props => (
+      <CheckboxOrRadioGroup {...props}>
+        <CheckboxOrRadioGroup.Label>Choices</CheckboxOrRadioGroup.Label>
+      </CheckboxOrRadioGroup>
+    ),
+    classes.GroupFieldset,
+  )
   implementsClassName(CheckboxOrRadioGroup.Caption, classes.CheckboxOrRadioGroupCaption)
   implementsClassName(CheckboxOrRadioGroup.Label, classes.RadioGroupLabel)
   const mockWarningFn = vi.fn()

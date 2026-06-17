@@ -12,7 +12,7 @@ import {XIcon} from '@primer/octicons-react'
 import classes from '../Tooltip.module.css'
 
 import type {JSX} from 'react'
-import {implementsClassName} from '../../utils/testing'
+import {implementsClassName, withExpectedConsoleError} from '../../utils/testing'
 
 const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
   <Tooltip text="Tooltip text" {...props}>
@@ -128,15 +128,17 @@ describe('Tooltip', () => {
     expect(triggerEL.getAttribute('aria-describedby')).toContain('custom-tooltip-id')
   })
   it('should throw an error if the trigger element is disabled', () => {
-    expect(() => {
-      HTMLRender(
-        <Tooltip text="Tooltip text" direction="n">
-          <Button disabled>Delete</Button>
-        </Tooltip>,
+    withExpectedConsoleError(() => {
+      expect(() => {
+        HTMLRender(
+          <Tooltip text="Tooltip text" direction="n">
+            <Button disabled>Delete</Button>
+          </Tooltip>,
+        )
+      }).toThrow(
+        'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
       )
-    }).toThrow(
-      'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
-    )
+    })
   })
   it('should not throw an error when the trigger element is a button in a fieldset', () => {
     const {getByRole} = HTMLRender(
