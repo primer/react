@@ -1,5 +1,5 @@
 import {figma} from '@figma/code-connect'
-import {Button} from '../../src'
+import {Button} from '.'
 
 const componentProps = {
   label: figma.textContent('Button'),

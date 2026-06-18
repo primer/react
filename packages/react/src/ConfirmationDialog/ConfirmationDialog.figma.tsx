@@ -1,4 +1,4 @@
-import {ConfirmationDialog} from '../'
+import {ConfirmationDialog} from './ConfirmationDialog'
 import figma from '@figma/code-connect'
 
 figma.connect(

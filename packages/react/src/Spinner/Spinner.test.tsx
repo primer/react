@@ -1,5 +1,5 @@
-import type {SpinnerProps} from '..'
-import {Spinner} from '..'
+import type {SpinnerProps} from '.'
+import Spinner from '.'
 import {render, screen} from '@testing-library/react'
 import {describe, expect, it, vi, beforeEach, afterEach} from 'vitest'
 import {act} from 'react'
