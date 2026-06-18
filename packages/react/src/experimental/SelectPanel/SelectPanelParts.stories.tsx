@@ -2,6 +2,7 @@ import type React from 'react'
 import {useMemo, useRef, useState} from 'react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {SelectPanelParts as SelectPanel} from './SelectPanel'
+import {useSelectPanelFoundation} from '../../foundations/experimental/SelectPanel'
 import {Tabs, useTab, useTabList, useTabPanel} from '../Tabs'
 import {Button} from '../../Button'
 import {useFilter, useSelectionState} from '../../hooks/experimental'
@@ -114,6 +115,38 @@ function RefOptions({items, selection}: {items: Ref[]; selection: ReturnType<typ
   )
 }
 
+// Composes the generic `Tabs` primitive with SelectPanel. On a tab switch the
+// option set changes underneath the combobox, so we reset the combobox's active
+// option (otherwise `aria-activedescendant` would dangle on the now-removed
+// option until the next arrow key) and return focus to the shared input.
+// `clearActiveDescendant` comes from `useSelectPanelFoundation()` — the same
+// single behaviour instance the styled parts use.
+function SelectPanelTabs({
+  value,
+  onValueChange,
+  onAfterSwitch,
+  children,
+}: {
+  value: string
+  onValueChange: (value: string) => void
+  onAfterSwitch?: () => void
+  children: React.ReactNode
+}) {
+  const foundation = useSelectPanelFoundation()
+  return (
+    <Tabs
+      value={value}
+      onValueChange={({value: next}) => {
+        onValueChange(next)
+        foundation.clearActiveDescendant()
+        onAfterSwitch?.()
+      }}
+    >
+      {children}
+    </Tabs>
+  )
+}
+
 /**
  * Single-select — the canonical `ref-selector` use case, composed from SelectPanel
  * parts + the `Tabs` primitive.
@@ -167,13 +200,7 @@ export const TabbedBranchesAndTags: StoryObj = {
             />
           </SelectPanel.Header>
 
-          <Tabs
-            value={activeTab}
-            onValueChange={({value}) => {
-              setActiveTab(value)
-              focusInput()
-            }}
-          >
+          <SelectPanelTabs value={activeTab} onValueChange={setActiveTab} onAfterSwitch={focusInput}>
             <RefTabList aria-label="Ref type">
               <RefTab value="branches" count={filteredBranches.length}>
                 Branches
@@ -186,7 +213,7 @@ export const TabbedBranchesAndTags: StoryObj = {
             <RefTabPanel value={activeTab}>
               <RefOptions items={activeItems} selection={selection} />
             </RefTabPanel>
-          </Tabs>
+          </SelectPanelTabs>
 
           <SelectPanel.Footer>
             <Button size="small" variant="primary" onClick={() => setOpen(false)}>
@@ -244,13 +271,7 @@ export const MultiSelectAcrossTabs: StoryObj = {
             />
           </SelectPanel.Header>
 
-          <Tabs
-            value={activeTab}
-            onValueChange={({value}) => {
-              setActiveTab(value)
-              focusInput()
-            }}
-          >
+          <SelectPanelTabs value={activeTab} onValueChange={setActiveTab} onAfterSwitch={focusInput}>
             <RefTabList aria-label="Ref type">
               <RefTab value="branches" count={filteredBranches.length}>
                 Branches
@@ -263,7 +284,7 @@ export const MultiSelectAcrossTabs: StoryObj = {
             <RefTabPanel value={activeTab}>
               <RefOptions items={activeItems} selection={selection} />
             </RefTabPanel>
-          </Tabs>
+          </SelectPanelTabs>
 
           <SelectPanel.Footer>
             <span style={{flexGrow: 1, alignSelf: 'center', fontSize: 12, color: 'var(--fgColor-muted)'}}>

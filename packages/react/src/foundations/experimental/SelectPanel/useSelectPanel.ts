@@ -104,6 +104,12 @@ export interface UseSelectPanelReturn {
   close: (gesture: SelectPanelGesture) => void
   /** The id currently referenced by the input's `aria-activedescendant`. */
   activeDescendantId: string | undefined
+  /**
+   * Clear the active option. Call this when the option set changes underneath the
+   * combobox (e.g. a tab switch) so `aria-activedescendant` can't dangle on a
+   * removed option until the next arrow keypress.
+   */
+  clearActiveDescendant: () => void
 }
 
 // --- Hook ---
@@ -126,11 +132,15 @@ export function useSelectPanel(options: UseSelectPanelOptions): UseSelectPanelRe
 
   const requestOpen = useCallback(() => onOpenChange(true, 'anchor-click'), [onOpenChange])
   const requestClose = useCallback((gesture: SelectPanelGesture) => onOpenChange(false, gesture), [onOpenChange])
+  const clearActiveDescendant = useCallback(() => setActiveDescendantId(undefined), [])
 
-  // Reset the active option whenever the panel toggles.
-  useEffect(() => {
+  // Reset the active option when the panel closes. Done during render (React's
+  // "adjusting state when a prop changes" pattern) rather than in an effect.
+  const [wasOpen, setWasOpen] = useState(open)
+  if (open !== wasOpen) {
+    setWasOpen(open)
     if (!open) setActiveDescendantId(undefined)
-  }, [open])
+  }
 
   // Escape closes the panel.
   useOnEscapePress(
@@ -318,5 +328,6 @@ export function useSelectPanel(options: UseSelectPanelOptions): UseSelectPanelRe
     open: requestOpen,
     close: requestClose,
     activeDescendantId,
+    clearActiveDescendant,
   }
 }
