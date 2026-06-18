@@ -25,6 +25,6 @@
     "postcss": "^8.4.41",
     "postcss-custom-properties-fallback": "^1.0.2",
     "postcss-mixins": "^12.1.2",
-    "typescript": "^6.0.3"
+    "typescript": "^7.0.1-rc"
   }
 }
