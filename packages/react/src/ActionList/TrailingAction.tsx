@@ -1,6 +1,6 @@
 import type React from 'react'
 import {forwardRef} from 'react'
-import {Button, ButtonBase, IconButton} from '../Button'
+import {Button, IconButton} from '../Button'
 import type {IconButtonProps} from '../Button/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {clsx} from 'clsx'
@@ -55,22 +55,12 @@ export const TrailingAction = forwardRef(
             className={classes.TrailingActionButton}
             {...props}
           />
-        ) : as === 'a' ? (
-          <ButtonBase
-            variant="invisible"
-            as="a"
-            href={href}
-            data-has-label="true"
-            // @ts-expect-error Polymorphic Button wants both Anchor and Button refs
-            ref={forwardedRef}
-            className={classes.TrailingActionButton}
-            {...props}
-          >
-            {label}
-          </ButtonBase>
         ) : (
           <Button
             variant="invisible"
+            // @ts-expect-error Polymorphic Button wants both Anchor and Button refs
+            as={as}
+            href={href}
             loading={loading}
             data-loading={Boolean(loading)}
             data-has-label="true"
