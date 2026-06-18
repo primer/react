@@ -3,6 +3,11 @@ allowBuilds:
   core-js: true
   esbuild: true
   sharp: true
+
 packages:
   - 'examples/*'
   - 'packages/*'
+
+# Enable this so that we can depend on workspace projects while still allowing
+# examples to run when used with services like stackblitz or codesandbox
+preferWorkspacePackages: true

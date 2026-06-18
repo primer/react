@@ -9,7 +9,7 @@ importers:
   .:
     devDependencies:
       '@babel/core':
-        specifier: ^7.29.0
+        specifier: ^7.29.7
         version: 7.29.7(supports-color@5.5.0)
       '@babel/eslint-parser':
         specifier: 7.28.6
@@ -34,7 +34,7 @@ importers:
         version: 10.0.1(eslint@10.0.2(jiti@2.4.2)(supports-color@5.5.0))
       '@github-ui/storybook-addon-performance-panel':
         specifier: 1.1.4
-        version: 1.1.4(@storybook/icons@2.0.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(@storybook/react@10.4.6(@types/react-dom@18.3.1)(@types/react@18.3.11)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(storybook@10.4.2(@testing-library/dom@10.4.0)(@types/react@18.3.11)(prettier@3.4.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@6.0.3))(react@19.2.4)(storybook@10.4.2(@testing-library/dom@10.4.0)(@types/react@18.3.11)(prettier@3.4.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
+        version: 1.1.4(@storybook/icons@2.0.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(@storybook/react@10.4.6(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(storybook@10.4.2(@testing-library/dom@10.4.0)(@types/react@18.3.11)(prettier@3.4.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@6.0.3))(react@19.2.4)(storybook@10.4.2(@testing-library/dom@10.4.0)(@types/react@18.3.11)(prettier@3.4.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
       '@github/axe-github':
         specifier: 0.7.0
         version: 0.7.0
@@ -77,6 +77,9 @@ importers:
       '@vitest/eslint-plugin':
         specifier: ^1.6.16
         version: 1.6.16(@typescript-eslint/eslint-plugin@8.59.1(@typescript-eslint/parser@8.59.1(eslint@10.0.2(jiti@2.4.2)(supports-color@5.5.0))(typescript@6.0.3))(eslint@10.0.2(jiti@2.4.2)(supports-color@5.5.0))(typescript@6.0.3))(eslint@10.0.2(jiti@2.4.2)(supports-color@5.5.0))(typescript@6.0.3)(vitest@4.1.5)
+      axe-core:
+        specifier: 4.9.1
+        version: 4.9.1
       babel-plugin-react-compiler:
         specifier: ^1.0.0
         version: 1.0.0
@@ -149,6 +152,9 @@ importers:
       rimraf:
         specifier: 5.0.5
         version: 5.0.5
+      semver:
+        specifier: ^7.8.4
+        version: 7.8.4
       size-limit:
         specifier: 11.2.0
         version: 11.2.0
@@ -180,6 +186,9 @@ importers:
 
   examples/codesandbox:
     dependencies:
+      '@primer/primitives':
+        specifier: ^11.5.1
+        version: 11.5.1
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -214,12 +223,15 @@ importers:
 
   examples/nextjs:
     dependencies:
+      '@primer/primitives':
+        specifier: ^11.5.1
+        version: 11.5.1
       '@primer/react':
         specifier: 38.28.0
-        version: 38.28.0(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)
+        version: 38.28.0(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)
       '@primer/styled-react':
         specifier: 1.1.0
-        version: 1.1.0(@primer/react@38.28.0(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(@types/styled-components@5.1.36)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)(styled-components@5.3.11(@babel/core@7.29.7(supports-color@5.5.0))(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))
+        version: 1.1.0(@primer/react@38.28.0(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(@types/styled-components@5.1.36)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)(styled-components@5.3.11(@babel/core@7.29.7(supports-color@5.5.0))(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))
       next:
         specifier: ^16.1.7
         version: 16.2.9(@babel/core@7.29.7(supports-color@5.5.0))(@playwright/test@1.60.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.101.0)
@@ -233,6 +245,12 @@ importers:
         specifier: ^6.0.3
         version: 6.0.3
     devDependencies:
+      '@types/react':
+        specifier: ~19.2.17
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: ~19.2.3
+        version: 19.2.3(@types/react@19.2.17)
       rimraf:
         specifier: ^5.0.5
         version: 5.0.5
@@ -242,12 +260,15 @@ importers:
       '@primer/octicons-react':
         specifier: ^19.21.0
         version: 19.28.1(react@19.2.4)
+      '@primer/primitives':
+        specifier: ^11.5.1
+        version: 11.5.1
       '@primer/react':
         specifier: 38.28.0
-        version: 38.28.0(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)
+        version: 38.28.0(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)
       '@primer/styled-react':
         specifier: 1.1.0
-        version: 1.1.0(@primer/react@38.28.0(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(@types/styled-components@5.1.36)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)(styled-components@5.3.11(@babel/core@7.29.7(supports-color@5.5.0))(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))
+        version: 1.1.0(@primer/react@38.28.0(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(@types/styled-components@5.1.36)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)(styled-components@5.3.11(@babel/core@7.29.7(supports-color@5.5.0))(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -267,6 +288,15 @@ importers:
         specifier: ^6.0.3
         version: 6.0.3
     devDependencies:
+      '@types/react':
+        specifier: ~19.2.17
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: ~19.2.3
+        version: 19.2.3(@types/react@19.2.17)
+      '@types/styled-components':
+        specifier: ^5.1.36
+        version: 5.1.36
       rimraf:
         specifier: ^5.0.5
         version: 5.0.5
@@ -275,7 +305,7 @@ importers:
     dependencies:
       '@primer/react':
         specifier: ^38.27.0
-        version: 38.28.0(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)
+        version: 38.28.0(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)
     devDependencies:
       rimraf:
         specifier: ^6.1.3
@@ -361,7 +391,7 @@ importers:
         version: 11.5.1
       '@primer/react':
         specifier: ^38.28.0
-        version: 38.28.0(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)
+        version: 38.28.0(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)
       cheerio:
         specifier: ^1.0.0
         version: 1.2.0
@@ -889,8 +919,8 @@ importers:
         specifier: 10.x || 11.x
         version: 11.5.1
       '@primer/react':
-        specifier: ^38.26.0
-        version: 38.28.0(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)
+        specifier: workspace:*
+        version: link:../react
       '@primer/vitest-config':
         specifier: workspace:*
         version: link:../vitest-config
@@ -4642,11 +4672,19 @@ packages:
   '@types/react-dom@18.3.1':
     resolution: {integrity: sha512-qW1Mfv8taImTthu4KoXgDfLuk4bydU6Q/TkADnDWWHwi4NX4BR+LWfTp2sVmTqRrsHvyDDTelgelxJ+SsejKKQ==}
 
+  '@types/react-dom@19.2.3':
+    resolution: {integrity: sha512-jp2L/eY6fn+KgVVQAOqYItbF0VY/YApe5Mz2F0aykSO8gx31bYCZyvSeYxCHKvzHG5eZjc+zyaS5BrBWya2+kQ==}
+    peerDependencies:
+      '@types/react': ^19.2.0
+
   '@types/react-is@18.3.1':
     resolution: {integrity: sha512-zts4lhQn5ia0cF/y2+3V6Riu0MAfez9/LJYavdM8TvcVl+S91A/7VWxyBT8hbRuWspmuCaiGI0F41OJYGrKhRA==}
 
   '@types/react@18.3.11':
     resolution: {integrity: sha512-r6QZ069rFTjrEYgFdOck1gK7FLVsgJE7tTz0pQBczlBNUhBNk0MQH4UbnFSwjpQLMkLzgqvBBa+qGpLje16eTQ==}
+
+  '@types/react@19.2.17':
+    resolution: {integrity: sha512-MXfmqaVPEVgkBT/aY0aGCkRWWtByiYQXo3xdQ8r5RzuFrPiRn8Gar2tQdXSUQ2GKV3bkXckek89V8wQBY2Q/Aw==}
 
   '@types/resolve@1.20.2':
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
@@ -9132,6 +9170,11 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
+  semver@7.8.4:
+    resolution: {integrity: sha512-rUCObTnP32Q08R2uuIrt7r9PlEonuTmtuXYcW6s5kjdlj3xbnwe+21yXptAUYcMAABLkYYTtnmzb3w3EDZfueA==}
+    engines: {node: '>=10'}
+    hasBin: true
+
   send@1.2.1:
     resolution: {integrity: sha512-1gnZf7DFcoIcajTjTwjwuDjzuz4PPcY2StKPlsGAQ1+YH20IRVrBaXSWmdjowTJ6u8Rc01PoYOGHXfP1mYcZNQ==}
     engines: {node: '>= 18'}
@@ -10446,7 +10489,7 @@ snapshots:
     dependencies:
       '@babel/compat-data': 7.29.7
       '@babel/helper-validator-option': 7.29.7
-      browserslist: 4.28.1
+      browserslist: 4.28.2
       lru-cache: 5.1.1
       semver: 6.3.1
 
@@ -12818,12 +12861,12 @@ snapshots:
 
   '@floating-ui/utils@0.2.11': {}
 
-  '@github-ui/storybook-addon-performance-panel@1.1.4(@storybook/icons@2.0.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(@storybook/react@10.4.6(@types/react-dom@18.3.1)(@types/react@18.3.11)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(storybook@10.4.2(@testing-library/dom@10.4.0)(@types/react@18.3.11)(prettier@3.4.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@6.0.3))(react@19.2.4)(storybook@10.4.2(@testing-library/dom@10.4.0)(@types/react@18.3.11)(prettier@3.4.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))':
+  '@github-ui/storybook-addon-performance-panel@1.1.4(@storybook/icons@2.0.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(@storybook/react@10.4.6(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(storybook@10.4.2(@testing-library/dom@10.4.0)(@types/react@18.3.11)(prettier@3.4.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@6.0.3))(react@19.2.4)(storybook@10.4.2(@testing-library/dom@10.4.0)(@types/react@18.3.11)(prettier@3.4.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))':
     dependencies:
       '@storybook/icons': 2.0.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       storybook: 10.4.2(@testing-library/dom@10.4.0)(@types/react@18.3.11)(prettier@3.4.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
     optionalDependencies:
-      '@storybook/react': 10.4.6(@types/react-dom@18.3.1)(@types/react@18.3.11)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(storybook@10.4.2(@testing-library/dom@10.4.0)(@types/react@18.3.11)(prettier@3.4.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@6.0.3)
+      '@storybook/react': 10.4.6(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(storybook@10.4.2(@testing-library/dom@10.4.0)(@types/react@18.3.11)(prettier@3.4.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@6.0.3)
       react: 19.2.4
 
   '@github/axe-github@0.7.0': {}
@@ -13572,7 +13615,7 @@ snapshots:
       '@types/react-dom': 18.3.1
       '@types/react-is': 18.3.1
 
-  '@primer/react@38.28.0(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)':
+  '@primer/react@38.28.0(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)':
     dependencies:
       '@github/mini-throttle': 2.1.1
       '@github/relative-time-element': 5.2.0
@@ -13598,8 +13641,8 @@ snapshots:
       react-intersection-observer: 9.16.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react-is: 18.3.1
     optionalDependencies:
-      '@types/react': 18.3.11
-      '@types/react-dom': 18.3.1
+      '@types/react': 19.2.17
+      '@types/react-dom': 19.2.3(@types/react@19.2.17)
       '@types/react-is': 18.3.1
 
   '@primer/styled-react@1.1.0(@primer/react@38.28.0(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1))(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(@types/styled-components@5.1.36)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(styled-components@5.3.11(@babel/core@7.29.7)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1))':
@@ -13625,9 +13668,9 @@ snapshots:
       '@types/react-is': 18.3.1
       '@types/styled-components': 5.1.36
 
-  '@primer/styled-react@1.1.0(@primer/react@38.28.0(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(@types/styled-components@5.1.36)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)(styled-components@5.3.11(@babel/core@7.29.7(supports-color@5.5.0))(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))':
+  '@primer/styled-react@1.1.0(@primer/react@38.28.0(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(@types/styled-components@5.1.36)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)(styled-components@5.3.11(@babel/core@7.29.7(supports-color@5.5.0))(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4))':
     dependencies:
-      '@primer/react': 38.28.0(@types/react-dom@18.3.1)(@types/react-is@18.3.1)(@types/react@18.3.11)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)
+      '@primer/react': 38.28.0(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react-is@18.3.1)(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)
       '@styled-system/css': 5.1.5
       '@styled-system/props': 5.1.5
       '@styled-system/theme-get': 5.1.2
@@ -13643,8 +13686,8 @@ snapshots:
       styled-components: 5.3.11(@babel/core@7.29.7(supports-color@5.5.0))(react-dom@19.2.4(react@19.2.4))(react-is@18.3.1)(react@19.2.4)
       styled-system: 5.1.5
     optionalDependencies:
-      '@types/react': 18.3.11
-      '@types/react-dom': 18.3.1
+      '@types/react': 19.2.17
+      '@types/react-dom': 19.2.3(@types/react@19.2.17)
       '@types/react-is': 18.3.1
       '@types/styled-components': 5.1.36
 
@@ -14515,7 +14558,7 @@ snapshots:
   '@storybook/addon-a11y@10.4.6(storybook@10.4.2(@testing-library/dom@10.4.0)(@types/react@18.3.11)(prettier@3.4.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
     dependencies:
       '@storybook/global': 5.0.0
-      axe-core: 4.11.1
+      axe-core: 4.9.1
       storybook: 10.4.2(@testing-library/dom@10.4.0)(@types/react@18.3.11)(prettier@3.4.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   '@storybook/addon-docs@10.4.6(@types/react-dom@18.3.1)(@types/react@18.3.11)(rollup@4.59.0)(storybook@10.4.2(@testing-library/dom@10.4.0)(@types/react@18.3.11)(prettier@3.4.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(vite@8.0.16(@types/node@20.12.11)(jiti@2.4.2)(less@4.6.6)(sass@1.101.0)(stylus@0.62.0)(sugarss@5.0.1(postcss@8.5.15))(terser@5.36.0)(tsx@4.20.3)(yaml@2.7.0))(webpack@5.105.0)':
@@ -14638,14 +14681,14 @@ snapshots:
       '@types/react': 18.3.11
       '@types/react-dom': 18.3.1
 
-  '@storybook/react-dom-shim@10.4.6(@types/react-dom@18.3.1)(@types/react@18.3.11)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(storybook@10.4.2(@testing-library/dom@10.4.0)(@types/react@18.3.11)(prettier@3.4.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))':
+  '@storybook/react-dom-shim@10.4.6(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(storybook@10.4.2(@testing-library/dom@10.4.0)(@types/react@18.3.11)(prettier@3.4.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))':
     dependencies:
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
       storybook: 10.4.2(@testing-library/dom@10.4.0)(@types/react@18.3.11)(prettier@3.4.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
     optionalDependencies:
-      '@types/react': 18.3.11
-      '@types/react-dom': 18.3.1
+      '@types/react': 19.2.17
+      '@types/react-dom': 19.2.3(@types/react@19.2.17)
     optional: true
 
   '@storybook/react-vite@10.4.6(@types/react-dom@18.3.1)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.59.0)(storybook@10.4.2(@testing-library/dom@10.4.0)(@types/react@18.3.11)(prettier@3.4.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@6.0.3)(vite@8.0.16(@types/node@20.12.11)(jiti@2.4.2)(less@4.6.6)(sass@1.101.0)(stylus@0.62.0)(sugarss@5.0.1(postcss@8.5.15))(terser@5.36.0)(tsx@4.20.3)(yaml@2.7.0))(webpack@5.105.0)':
@@ -14712,18 +14755,18 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@storybook/react@10.4.6(@types/react-dom@18.3.1)(@types/react@18.3.11)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(storybook@10.4.2(@testing-library/dom@10.4.0)(@types/react@18.3.11)(prettier@3.4.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@6.0.3)':
+  '@storybook/react@10.4.6(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(storybook@10.4.2(@testing-library/dom@10.4.0)(@types/react@18.3.11)(prettier@3.4.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@6.0.3)':
     dependencies:
       '@storybook/global': 5.0.0
-      '@storybook/react-dom-shim': 10.4.6(@types/react-dom@18.3.1)(@types/react@18.3.11)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(storybook@10.4.2(@testing-library/dom@10.4.0)(@types/react@18.3.11)(prettier@3.4.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
+      '@storybook/react-dom-shim': 10.4.6(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(storybook@10.4.2(@testing-library/dom@10.4.0)(@types/react@18.3.11)(prettier@3.4.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
       react: 19.2.4
       react-docgen: 8.0.3
       react-docgen-typescript: 2.4.0(typescript@6.0.3)
       react-dom: 19.2.4(react@19.2.4)
       storybook: 10.4.2(@testing-library/dom@10.4.0)(@types/react@18.3.11)(prettier@3.4.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
     optionalDependencies:
-      '@types/react': 18.3.11
-      '@types/react-dom': 18.3.1
+      '@types/react': 19.2.17
+      '@types/react-dom': 19.2.3(@types/react@19.2.17)
       typescript: 6.0.3
     transitivePeerDependencies:
       - supports-color
@@ -15042,6 +15085,10 @@ snapshots:
     dependencies:
       '@types/react': 18.3.11
 
+  '@types/react-dom@19.2.3(@types/react@19.2.17)':
+    dependencies:
+      '@types/react': 19.2.17
+
   '@types/react-is@18.3.1':
     dependencies:
       '@types/react': 18.3.11
@@ -15049,6 +15096,10 @@ snapshots:
   '@types/react@18.3.11':
     dependencies:
       '@types/prop-types': 15.7.15
+      csstype: 3.2.3
+
+  '@types/react@19.2.17':
+    dependencies:
       csstype: 3.2.3
 
   '@types/resolve@1.20.2': {}
@@ -20700,6 +20751,8 @@ snapshots:
   semver@7.7.2: {}
 
   semver@7.7.4: {}
+
+  semver@7.8.4: {}
 
   send@1.2.1(supports-color@5.5.0):
     dependencies:
