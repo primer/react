@@ -40,7 +40,7 @@ const TrailingAction = forwardRef<HTMLButtonElement, TrailingActionProps>(
 TrailingAction.displayName = 'BranchName.TrailingAction'
 ;(TrailingAction as WithSlotMarker<typeof TrailingAction>).__SLOT__ = Symbol('BranchName.TrailingAction')
 
-export type BranchNameProps<As extends React.ElementType> = PolymorphicProps<
+export type BranchNameProps<As extends 'span' | 'a'> = PolymorphicProps<
   As,
   'a',
   {
@@ -60,9 +60,11 @@ const ConditionalTooltip: React.FC<React.PropsWithChildren<{description?: string
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function BranchNameComponent<As extends React.ElementType>(props: BranchNameProps<As>, ref: ForwardedRef<any>) {
-  const {as: Component = 'a', className, children, description, ...rest} = props
+function BranchNameComponent<As extends 'span' | 'a'>(
+  props: BranchNameProps<As>,
+  ref: ForwardedRef<HTMLSpanElement | HTMLAnchorElement>,
+) {
+  const {as: Component = 'a', className, children, description, ...rest} = props as BranchNameProps<'a'>
 
   const [slots, textChildren] = useSlots(children, {
     leadingVisual: LeadingVisual,
@@ -71,7 +73,12 @@ function BranchNameComponent<As extends React.ElementType>(props: BranchNameProp
 
   const link = (
     <ConditionalTooltip description={description}>
-      <Component {...rest} ref={ref} className={clsx(className, classes.BranchName)} data-component="BranchName">
+      <Component
+        {...rest}
+        ref={ref as React.Ref<HTMLAnchorElement>}
+        className={clsx(className, classes.BranchName)}
+        data-component="BranchName"
+      >
         {slots.leadingVisual}
         {textChildren}
       </Component>
