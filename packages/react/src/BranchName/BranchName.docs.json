@@ -64,7 +64,7 @@
           "name": "icon",
           "type": "React.ComponentType",
           "required": false,
-          "description": "Provide an octicon to render as the leading visual. Use this as a shorthand instead of passing the icon as children.",
+          "description": "Provide an octicon to render as the leading visual. Use this as a shorthand instead of passing the icon as children. We recommend using `GitBranchIcon` to represent a branch.",
           "defaultValue": ""
         },
         {

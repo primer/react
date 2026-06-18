@@ -65,7 +65,7 @@
     width: var(--text-body-size-small);
   }
 
-  /* Dividing line between button and name. Using ::before on button allows for multiple buttons (with a line between each) */
+  /* Dividing line between button and name. */
   &::before {
     content: '';
     position: absolute;

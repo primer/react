@@ -5,6 +5,7 @@ import type {IconProps} from '@primer/octicons-react'
 import classes from './BranchName.module.css'
 import {fixedForwardRef, type PolymorphicProps} from '../utils/modern-polymorphic'
 import {useSlots} from '../hooks/useSlots'
+import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types'
 import {IconButton} from '../Button'
 import {Tooltip} from '../TooltipV2'
 import Octicon from '../Octicon'
@@ -17,7 +18,7 @@ type LeadingVisualProps = {
   icon?: React.ComponentType<React.PropsWithChildren<IconProps>>
 }
 
-const LeadingVisual: React.FC<LeadingVisualProps> = ({children, icon}) => {
+const LeadingVisual: FCWithSlotMarker<LeadingVisualProps> = ({children, icon}) => {
   if (icon) {
     return (
       <span className={classes.LeadingVisual} data-component="BranchName.LeadingVisual">
@@ -33,6 +34,7 @@ const LeadingVisual: React.FC<LeadingVisualProps> = ({children, icon}) => {
 }
 
 LeadingVisual.displayName = 'BranchName.LeadingVisual'
+LeadingVisual.__SLOT__ = Symbol('BranchName.LeadingVisual')
 
 // ----------------------------------------------------------------------------
 // BranchName.TrailingAction
@@ -62,6 +64,7 @@ const TrailingAction = forwardRef<HTMLButtonElement, TrailingActionProps>(
 )
 
 TrailingAction.displayName = 'BranchName.TrailingAction'
+;(TrailingAction as WithSlotMarker<typeof TrailingAction>).__SLOT__ = Symbol('BranchName.TrailingAction')
 
 // ----------------------------------------------------------------------------
 // BranchName
@@ -80,40 +83,16 @@ export type BranchNameProps<As extends React.ElementType> = PolymorphicProps<
 function BranchNameComponent<As extends React.ElementType>(props: BranchNameProps<As>, ref: ForwardedRef<any>) {
   const {as: Component = 'a', className, children, description, ...rest} = props
 
-  // Only use slots for LeadingVisual (single instance)
-  // TrailingActions can have multiple, so we manually filter
-  const [slots, restChildren] = useSlots(children, {
+  const [slots, textChildren] = useSlots(children, {
     leadingVisual: LeadingVisual,
+    trailingAction: TrailingAction,
   })
 
-  // Collect all trailing actions (there may be multiple)
-  const trailingActions: React.ReactNode[] = []
-  const textChildren: React.ReactNode[] = []
-
-  // Separate trailing actions from other children
-  const childArray = Array.isArray(restChildren) ? restChildren : [restChildren]
-  for (const child of childArray) {
-    if (
-      child &&
-      typeof child === 'object' &&
-      'type' in child &&
-      (child.type === TrailingAction ||
-        (child.type as {displayName?: string}).displayName === 'BranchName.TrailingAction')
-    ) {
-      trailingActions.push(child)
-    } else {
-      textChildren.push(child)
-    }
-  }
-
-  const hasTrailingActions = trailingActions.length > 0
-  const hasLeadingVisual = !!slots.leadingVisual
-
-  // Simple case: no trailing actions, render as before
-  if (!hasTrailingActions) {
+  // Simple case: no trailing action, render as before
+  if (!slots.trailingAction) {
     const linkContent = (
       <Component {...rest} ref={ref} className={clsx(className, classes.BranchName)} data-component="BranchName">
-        {hasLeadingVisual && slots.leadingVisual}
+        {slots.leadingVisual}
         {textChildren}
       </Component>
     )
@@ -129,7 +108,7 @@ function BranchNameComponent<As extends React.ElementType>(props: BranchNameProp
     return linkContent
   }
 
-  // Complex case: has trailing actions, wrap in container
+  // Complex case: has a trailing action, wrap in container
   const linkContent = (
     <Component
       {...rest}
@@ -137,7 +116,7 @@ function BranchNameComponent<As extends React.ElementType>(props: BranchNameProp
       className={clsx(className, classes.BranchName, classes.BranchNameTransparent)}
       data-component="BranchName"
     >
-      {hasLeadingVisual && slots.leadingVisual}
+      {slots.leadingVisual}
       {textChildren}
     </Component>
   )
@@ -151,7 +130,7 @@ function BranchNameComponent<As extends React.ElementType>(props: BranchNameProp
       ) : (
         linkContent
       )}
-      {trailingActions}
+      {slots.trailingAction}
     </span>
   )
 }

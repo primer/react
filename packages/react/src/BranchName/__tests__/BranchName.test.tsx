@@ -2,7 +2,7 @@ import BranchName from '../BranchName'
 import {render as HTMLRender, render, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {describe, expect, it, vi} from 'vitest'
-import {GitBranchIcon, CopyIcon, TriangleDownIcon} from '@primer/octicons-react'
+import {GitBranchIcon, CopyIcon} from '@primer/octicons-react'
 import classes from '../BranchName.module.css'
 import {implementsClassName} from '../../utils/testing'
 
@@ -76,19 +76,6 @@ describe('BranchName', () => {
 
       await user.click(screen.getByRole('button', {name: 'Copy branch name'}))
       expect(handleClick).toHaveBeenCalledTimes(1)
-    })
-
-    it('renders multiple trailing actions', () => {
-      render(
-        <BranchName href="#">
-          branch_name
-          <BranchName.TrailingAction icon={CopyIcon} aria-label="Copy branch name" />
-          <BranchName.TrailingAction icon={TriangleDownIcon} aria-label="Change branch" />
-        </BranchName>,
-      )
-
-      expect(screen.getByRole('button', {name: 'Copy branch name'})).toBeInTheDocument()
-      expect(screen.getByRole('button', {name: 'Change branch'})).toBeInTheDocument()
     })
 
     it('forwards ref to the button', () => {
