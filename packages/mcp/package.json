@@ -28,8 +28,8 @@
   },
   "scripts": {
     "clean": "rimraf dist",
-    "build": "rollup -c && tsc --project tsconfig.build.json",
-    "type-check": "tsc --noEmit",
+    "build": "rollup -c && node ../../node_modules/typescript-7-rc/bin/tsc --project tsconfig.build.json",
+    "type-check": "node ../../node_modules/typescript-7-rc/bin/tsc --noEmit",
     "watch": "rollup -c -w"
   },
   "dependencies": {
@@ -55,6 +55,6 @@
     "@types/turndown": "^5.0.5",
     "rimraf": "^6.0.1",
     "rollup": "^4.59.0",
-    "typescript": "^7.0.1-rc"
+    "typescript": "^6.0.3"
   }
 }

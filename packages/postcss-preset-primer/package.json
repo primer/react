@@ -5,7 +5,7 @@
   "type": "module",
   "exports": "./src/index.js",
   "scripts": {
-    "type-check": "tsc --noEmit"
+    "type-check": "node ../../node_modules/typescript-7-rc/bin/tsc --noEmit"
   },
   "browserslist": "extends @github/browserslist-config",
   "peerDependencies": {
@@ -25,6 +25,6 @@
     "postcss": "^8.4.41",
     "postcss-custom-properties-fallback": "^1.0.2",
     "postcss-mixins": "^12.1.2",
-    "typescript": "^7.0.1-rc"
+    "typescript": "^6.0.3"
   }
 }

@@ -15,7 +15,7 @@ npm run type-css-modules
 npx rollup -c
 
 # Type check
-npx tsc --project tsconfig.build.json
+node ../../node_modules/typescript-7-rc/bin/tsc --project tsconfig.build.json
 
 # Build components.json file for documentation
 npm run build:components.json

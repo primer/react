@@ -1,4 +1,4 @@
-import ts from 'typescript-js-api'
+import ts from 'typescript'
 import fs from 'node:fs'
 import path from 'path'
 import prettier from 'prettier'

@@ -23,7 +23,7 @@
     "clean": "rimraf dist",
     "lint:npm": "publint --types",
     "storybook:dev": "storybook dev -p 6007",
-    "type-check": "tsc --noEmit"
+    "type-check": "node ../../node_modules/typescript-7-rc/bin/tsc --noEmit"
   },
   "dependencies": {
     "@styled-system/css": "^5.1.5",
@@ -61,7 +61,7 @@
     "rimraf": "^6.0.1",
     "rollup": "4.59.0",
     "styled-components": "5.3.11",
-    "typescript": "^7.0.1-rc"
+    "typescript": "^6.0.3"
   },
   "peerDependencies": {
     "@primer/react": "*",

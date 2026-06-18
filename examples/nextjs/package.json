@@ -7,7 +7,7 @@
     "build": "next build",
     "develop": "next",
     "start": "next start",
-    "type-check": "tsc --noEmit"
+    "type-check": "node ../../node_modules/typescript-7-rc/bin/tsc --noEmit"
   },
   "dependencies": {
     "@primer/react": "38.28.0",
@@ -15,7 +15,7 @@
     "next": "^16.1.7",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "typescript": "^7.0.1-rc"
+    "typescript": "^6.0.3"
   },
   "devDependencies": {
     "rimraf": "^5.0.5"

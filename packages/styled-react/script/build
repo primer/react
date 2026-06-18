@@ -4,7 +4,7 @@
 npx rollup -c
 
 # Generate type declarations
-npx tsc --project tsconfig.build.json
+node ../../node_modules/typescript-7-rc/bin/tsc --project tsconfig.build.json
 
 # Generate components.json
 ./script/generate-components-json
