@@ -34,6 +34,19 @@ describe('BranchName', () => {
       // Icon should be rendered
       expect(document.querySelector('svg')).toBeInTheDocument()
     })
+
+    it('merges className and forwards props', () => {
+      render(
+        <BranchName href="#">
+          <BranchName.LeadingVisual className="custom" data-testid="leading-visual">
+            <GitBranchIcon />
+          </BranchName.LeadingVisual>
+          branch_name
+        </BranchName>,
+      )
+
+      expect(screen.getByTestId('leading-visual')).toHaveClass('custom')
+    })
   })
 
   describe('BranchName.TrailingAction', () => {
@@ -77,6 +90,19 @@ describe('BranchName', () => {
       )
 
       expect(ref.current).toBeInstanceOf(HTMLButtonElement)
+    })
+
+    it('merges className and forwards props to the button', () => {
+      render(
+        <BranchName href="#">
+          branch_name
+          <BranchName.TrailingAction icon={CopyIcon} aria-label="Copy branch name" className="custom" type="submit" />
+        </BranchName>,
+      )
+
+      const button = screen.getByRole('button', {name: 'Copy branch name'})
+      expect(button).toHaveClass('custom')
+      expect(button).toHaveAttribute('type', 'submit')
     })
   })
 

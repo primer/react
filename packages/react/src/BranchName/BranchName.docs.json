@@ -66,6 +66,13 @@
           "required": false,
           "description": "The leading visual content, typically an octicon. We recommend using `GitBranchIcon` to represent a branch.",
           "defaultValue": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "A custom class name that is merged with the leading visual's class. Additional `span` props are forwarded to the underlying element.",
+          "defaultValue": ""
         }
       ]
     },
@@ -91,6 +98,13 @@
           "type": "React.MouseEventHandler<HTMLButtonElement>",
           "required": false,
           "description": "Handler called when the trailing action button is clicked.",
+          "defaultValue": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "A custom class name that is merged with the action button's class. Additional `button` props are forwarded to the underlying button.",
           "defaultValue": ""
         },
         {

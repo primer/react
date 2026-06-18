@@ -9,16 +9,11 @@ import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types'
 import {IconButton} from '../Button'
 import {Tooltip} from '../TooltipV2'
 
-// ----------------------------------------------------------------------------
-// BranchName.LeadingVisual
+type LeadingVisualProps = React.ComponentPropsWithoutRef<'span'>
 
-type LeadingVisualProps = {
-  children?: React.ReactNode
-}
-
-const LeadingVisual: FCWithSlotMarker<LeadingVisualProps> = ({children}) => {
+const LeadingVisual: FCWithSlotMarker<LeadingVisualProps> = ({children, className, ...rest}) => {
   return (
-    <span className={classes.LeadingVisual} data-component="BranchName.LeadingVisual">
+    <span {...rest} className={clsx(className, classes.LeadingVisual)} data-component="BranchName.LeadingVisual">
       {children}
     </span>
   )
@@ -27,17 +22,13 @@ const LeadingVisual: FCWithSlotMarker<LeadingVisualProps> = ({children}) => {
 LeadingVisual.displayName = 'BranchName.LeadingVisual'
 LeadingVisual.__SLOT__ = Symbol('BranchName.LeadingVisual')
 
-// ----------------------------------------------------------------------------
-// BranchName.TrailingAction
-
 type TrailingActionProps = {
   icon: React.ComponentType<React.PropsWithChildren<IconProps>>
   'aria-label': string
-  onClick?: React.MouseEventHandler<HTMLButtonElement>
-}
+} & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'aria-label' | 'aria-labelledby'>
 
 const TrailingAction = forwardRef<HTMLButtonElement, TrailingActionProps>(
-  ({icon, 'aria-label': ariaLabel, onClick}, ref) => {
+  ({icon, 'aria-label': ariaLabel, className, ...rest}, ref) => {
     return (
       <span className={classes.TrailingAction} data-component="BranchName.TrailingAction">
         <IconButton
@@ -46,8 +37,8 @@ const TrailingAction = forwardRef<HTMLButtonElement, TrailingActionProps>(
           aria-label={ariaLabel}
           variant="invisible"
           size="small"
-          onClick={onClick}
-          className={classes.TrailingActionButton}
+          className={clsx(className, classes.TrailingActionButton)}
+          {...rest}
         />
       </span>
     )
@@ -56,9 +47,6 @@ const TrailingAction = forwardRef<HTMLButtonElement, TrailingActionProps>(
 
 TrailingAction.displayName = 'BranchName.TrailingAction'
 ;(TrailingAction as WithSlotMarker<typeof TrailingAction>).__SLOT__ = Symbol('BranchName.TrailingAction')
-
-// ----------------------------------------------------------------------------
-// BranchName
 
 export type BranchNameProps<As extends React.ElementType> = PolymorphicProps<
   As,
@@ -70,6 +58,16 @@ export type BranchNameProps<As extends React.ElementType> = PolymorphicProps<
   }
 >
 
+// Wraps its child in a description tooltip only when `description` is provided.
+const ConditionalTooltip: React.FC<React.PropsWithChildren<{description?: string}>> = ({description, children}) => {
+  if (!description) return children
+  return (
+    <Tooltip text={description} type="description">
+      {children}
+    </Tooltip>
+  )
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function BranchNameComponent<As extends React.ElementType>(props: BranchNameProps<As>, ref: ForwardedRef<any>) {
   const {as: Component = 'a', className, children, description, ...rest} = props
@@ -79,48 +77,27 @@ function BranchNameComponent<As extends React.ElementType>(props: BranchNameProp
     trailingAction: TrailingAction,
   })
 
-  // Simple case: no trailing action, render as before
-  if (!slots.trailingAction) {
-    const linkContent = (
-      <Component {...rest} ref={ref} className={clsx(className, classes.BranchName)} data-component="BranchName">
+  const link = (
+    <ConditionalTooltip description={description}>
+      <Component
+        {...rest}
+        ref={ref}
+        className={clsx(className, classes.BranchName, slots.trailingAction && classes.BranchNameTransparent)}
+        data-component="BranchName"
+      >
         {slots.leadingVisual}
         {textChildren}
       </Component>
-    )
-
-    if (description) {
-      return (
-        <Tooltip text={description} type="description">
-          {linkContent}
-        </Tooltip>
-      )
-    }
-
-    return linkContent
-  }
-
-  // Complex case: has a trailing action, wrap in container
-  const linkContent = (
-    <Component
-      {...rest}
-      ref={ref}
-      className={clsx(className, classes.BranchName, classes.BranchNameTransparent)}
-      data-component="BranchName"
-    >
-      {slots.leadingVisual}
-      {textChildren}
-    </Component>
+    </ConditionalTooltip>
   )
 
+  // Without a trailing action, render the link on its own.
+  if (!slots.trailingAction) return link
+
+  // With a trailing action, render the action as a sibling of the link
   return (
     <span className={classes.BranchNameWithTrailingAction} data-component="BranchName.Container">
-      {description ? (
-        <Tooltip text={description} type="description">
-          {linkContent}
-        </Tooltip>
-      ) : (
-        linkContent
-      )}
+      {link}
       {slots.trailingAction}
     </span>
   )
