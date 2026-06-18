@@ -17,14 +17,14 @@
     display: inline-flex;
     align-items: center;
     margin-inline-end: var(--base-size-4);
-  }  
+  }
 }
 
 /* Container for BranchName with trailing actions */
 .BranchNameWithTrailingAction {
   display: inline-flex;
   align-items: stretch;
-  
+
   /* Create room for pseudo-border divider */
   gap: var(--borderWidth-default);
   flex-wrap: nowrap;
