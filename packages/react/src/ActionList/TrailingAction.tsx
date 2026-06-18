@@ -50,7 +50,7 @@ export const TrailingAction = forwardRef(
             href={href}
             loading={loading}
             data-loading={Boolean(loading)}
-            // @ts-expect-error StyledButton wants both Anchor and Button refs
+            // @ts-expect-error Polymorphic Button wants both Anchor and Button refs
             ref={forwardedRef}
             className={classes.TrailingActionButton}
             {...props}
@@ -61,7 +61,7 @@ export const TrailingAction = forwardRef(
             as="a"
             href={href}
             data-has-label="true"
-            // @ts-expect-error StyledButton wants both Anchor and Button refs
+            // @ts-expect-error Polymorphic Button wants both Anchor and Button refs
             ref={forwardedRef}
             className={classes.TrailingActionButton}
             {...props}
@@ -74,7 +74,7 @@ export const TrailingAction = forwardRef(
             loading={loading}
             data-loading={Boolean(loading)}
             data-has-label="true"
-            // @ts-expect-error StyledButton wants both Anchor and Button refs
+            // @ts-expect-error Polymorphic Button wants both Anchor and Button refs
             ref={forwardedRef}
             className={classes.TrailingActionButton}
             {...props}
