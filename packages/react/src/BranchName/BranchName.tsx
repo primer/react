@@ -11,9 +11,9 @@ import {Tooltip} from '../TooltipV2'
 
 type LeadingVisualProps = React.ComponentPropsWithoutRef<'span'>
 
-const LeadingVisual: FCWithSlotMarker<LeadingVisualProps> = ({children, className, ...rest}) => {
+const LeadingVisual: FCWithSlotMarker<LeadingVisualProps> = ({children, ...rest}) => {
   return (
-    <span {...rest} className={clsx(className, classes.LeadingVisual)} data-component="BranchName.LeadingVisual">
+    <span {...rest} data-component="BranchName.LeadingVisual">
       {children}
     </span>
   )
@@ -28,18 +28,10 @@ type TrailingActionProps = {
 } & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'aria-label' | 'aria-labelledby'>
 
 const TrailingAction = forwardRef<HTMLButtonElement, TrailingActionProps>(
-  ({icon, 'aria-label': ariaLabel, className, ...rest}, ref) => {
+  ({icon, 'aria-label': ariaLabel, ...rest}, ref) => {
     return (
-      <span className={classes.TrailingAction} data-component="BranchName.TrailingAction">
-        <IconButton
-          ref={ref}
-          icon={icon}
-          aria-label={ariaLabel}
-          variant="invisible"
-          size="small"
-          className={clsx(className, classes.TrailingActionButton)}
-          {...rest}
-        />
+      <span data-component="BranchName.TrailingAction">
+        <IconButton ref={ref} icon={icon} aria-label={ariaLabel} variant="invisible" size="small" {...rest} />
       </span>
     )
   },
@@ -79,12 +71,7 @@ function BranchNameComponent<As extends React.ElementType>(props: BranchNameProp
 
   const link = (
     <ConditionalTooltip description={description}>
-      <Component
-        {...rest}
-        ref={ref}
-        className={clsx(className, classes.BranchName, slots.trailingAction && classes.BranchNameTransparent)}
-        data-component="BranchName"
-      >
+      <Component {...rest} ref={ref} className={clsx(className, classes.BranchName)} data-component="BranchName">
         {slots.leadingVisual}
         {textChildren}
       </Component>
@@ -96,7 +83,7 @@ function BranchNameComponent<As extends React.ElementType>(props: BranchNameProp
 
   // With a trailing action, render the action as a sibling of the link
   return (
-    <span className={classes.BranchNameWithTrailingAction} data-component="BranchName.Container">
+    <span className={classes.BranchNameWithTrailingAction} data-component="BranchName.WrapperWithAction">
       {link}
       {slots.trailingAction}
     </span>
