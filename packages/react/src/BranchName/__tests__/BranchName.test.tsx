@@ -34,18 +34,6 @@ describe('BranchName', () => {
       // Icon should be rendered
       expect(document.querySelector('svg')).toBeInTheDocument()
     })
-
-    it('renders leading visual with icon prop shorthand', () => {
-      render(
-        <BranchName href="#">
-          <BranchName.LeadingVisual icon={GitBranchIcon} />
-          branch_name
-        </BranchName>,
-      )
-
-      expect(screen.getByRole('link', {name: /branch_name/})).toBeInTheDocument()
-      expect(document.querySelector('svg')).toBeInTheDocument()
-    })
   })
 
   describe('BranchName.TrailingAction', () => {
@@ -131,7 +119,9 @@ describe('BranchName', () => {
 
       render(
         <BranchName href="#" description="primer/react:main">
-          <BranchName.LeadingVisual icon={GitBranchIcon} />
+          <BranchName.LeadingVisual>
+            <GitBranchIcon />
+          </BranchName.LeadingVisual>
           main
           <BranchName.TrailingAction icon={CopyIcon} aria-label="Copy branch name" onClick={handleCopy} />
         </BranchName>,

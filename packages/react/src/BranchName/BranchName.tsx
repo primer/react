@@ -8,24 +8,15 @@ import {useSlots} from '../hooks/useSlots'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types'
 import {IconButton} from '../Button'
 import {Tooltip} from '../TooltipV2'
-import Octicon from '../Octicon'
 
 // ----------------------------------------------------------------------------
 // BranchName.LeadingVisual
 
 type LeadingVisualProps = {
   children?: React.ReactNode
-  icon?: React.ComponentType<React.PropsWithChildren<IconProps>>
 }
 
-const LeadingVisual: FCWithSlotMarker<LeadingVisualProps> = ({children, icon}) => {
-  if (icon) {
-    return (
-      <span className={classes.LeadingVisual} data-component="BranchName.LeadingVisual">
-        <Octicon icon={icon} />
-      </span>
-    )
-  }
+const LeadingVisual: FCWithSlotMarker<LeadingVisualProps> = ({children}) => {
   return (
     <span className={classes.LeadingVisual} data-component="BranchName.LeadingVisual">
       {children}

@@ -13,7 +13,9 @@ export default {
 
 export const WithLeadingVisual = () => (
   <BranchName href="#">
-    <BranchName.LeadingVisual icon={GitBranchIcon} />
+    <BranchName.LeadingVisual>
+      <GitBranchIcon />
+    </BranchName.LeadingVisual>
     branch_name
   </BranchName>
 )
@@ -142,7 +144,9 @@ export const KitchenSink = ({
 
   return (
     <BranchName href={`https://github.com/${repo}/tree/${branchName}`} description={`${repo}:${branchName}`}>
-      <BranchName.LeadingVisual icon={GitBranchIcon} />
+      <BranchName.LeadingVisual>
+        <GitBranchIcon />
+      </BranchName.LeadingVisual>
       {branchName}
       <BranchName.TrailingAction
         icon={copied ? CheckIcon : CopyIcon}
