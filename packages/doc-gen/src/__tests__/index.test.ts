@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 import {createComparisonSummary} from '..'
-import type ts from 'typescript'
+import type ts from 'typescript-js-api'
 import type {AuthoredDocsFile} from '../types'
 import type {TSParsedComponentInfo} from '../ts-utils'
 

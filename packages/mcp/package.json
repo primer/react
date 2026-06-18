@@ -28,7 +28,7 @@
   },
   "scripts": {
     "clean": "rimraf dist",
-    "build": "rollup -c",
+    "build": "rollup -c && tsc --project tsconfig.build.json",
     "type-check": "tsc --noEmit",
     "watch": "rollup -c -w"
   },
@@ -55,7 +55,6 @@
     "@types/turndown": "^5.0.5",
     "rimraf": "^6.0.1",
     "rollup": "^4.59.0",
-    "rollup-plugin-typescript2": "^0.36.0",
     "typescript": "^7.0.1-rc"
   }
 }

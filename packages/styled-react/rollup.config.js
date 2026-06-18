@@ -1,7 +1,6 @@
 import babel from '@rollup/plugin-babel'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import {defineConfig} from 'rollup'
-import typescript from 'rollup-plugin-typescript2'
 import packageJson from './package.json' with {type: 'json'}
 import MagicString from 'magic-string'
 
@@ -19,9 +18,6 @@ export default defineConfig({
   input: ['src/index.tsx'],
   external: dependencies.map(createPackageRegex),
   plugins: [
-    typescript({
-      tsconfig: 'tsconfig.build.json',
-    }),
     nodeResolve({extensions: ['.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs']}),
     babel({
       presets: ['@babel/preset-typescript', ['@babel/preset-react', {runtime: 'automatic'}]],

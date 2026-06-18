@@ -3,7 +3,6 @@ import babel from '@rollup/plugin-babel'
 import json from '@rollup/plugin-json'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
-import typescript from 'rollup-plugin-typescript2'
 import packageJson from './package.json' with {type: 'json'}
 
 const dependencies = [
@@ -22,9 +21,6 @@ const config = defineConfig({
   plugins: [
     nodeResolve({extensions: ['.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs']}),
     commonjs(),
-    typescript({
-      tsconfig: './tsconfig.build.json',
-    }),
     babel({
       extensions: ['.js', '.cjs', '.mjs', '.ts', '.tsx'],
       presets: [
