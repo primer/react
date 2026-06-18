@@ -948,6 +948,9 @@ importers:
       '@storybook/react-vite':
         specifier: ^10.4.2
         version: 10.4.6(@types/react-dom@18.3.1)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.59.0)(storybook@10.4.2(@testing-library/dom@10.4.0)(@types/react@18.3.11)(prettier@3.4.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@6.0.3)(vite@8.0.16(@types/node@24.13.2)(jiti@2.4.2)(less@4.6.6)(sass@1.101.0)(stylus@0.62.0)(sugarss@5.0.1(postcss@8.5.15))(terser@5.36.0)(tsx@4.20.3)(yaml@2.7.0))(webpack@5.105.0)
+      '@testing-library/dom':
+        specifier: ^10.4.0
+        version: 10.4.0
       '@testing-library/jest-dom':
         specifier: ^6.9.1
         version: 6.9.1
