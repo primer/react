@@ -8,9 +8,9 @@
     "default": "./dist/index.js"
   },
   "scripts": {
-    "build": "rollup -c && node ../../node_modules/typescript-7-rc/bin/tsc --project tsconfig.build.json",
+    "build": "rollup -c && tsc --project tsconfig.build.json",
     "clean": "rimraf dist",
-    "type-check": "node ../../node_modules/typescript-7-rc/bin/tsc --noEmit",
+    "type-check": "tsc --noEmit",
     "watch": "rollup -c -w"
   },
   "peerDependencies": {

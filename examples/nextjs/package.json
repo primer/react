@@ -7,7 +7,7 @@
     "build": "next build",
     "develop": "next",
     "start": "next start",
-    "type-check": "node ../../node_modules/typescript-7-rc/bin/tsc --noEmit"
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@primer/react": "38.28.0",

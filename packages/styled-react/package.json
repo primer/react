@@ -23,7 +23,7 @@
     "clean": "rimraf dist",
     "lint:npm": "publint --types",
     "storybook:dev": "storybook dev -p 6007",
-    "type-check": "node ../../node_modules/typescript-7-rc/bin/tsc --noEmit"
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@styled-system/css": "^5.1.5",

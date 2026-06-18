@@ -5,7 +5,7 @@
   "type": "module",
   "exports": "./src/index.js",
   "scripts": {
-    "type-check": "node ../../node_modules/typescript-7-rc/bin/tsc --noEmit"
+    "type-check": "tsc --noEmit"
   },
   "browserslist": "extends @github/browserslist-config",
   "peerDependencies": {

@@ -12,7 +12,7 @@
   "scripts": {
     "build": "rolldown -c",
     "clean": "rimraf dist",
-    "type-check": "node ../../node_modules/typescript-7-rc/bin/tsc --noEmit"
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@primer/react": "^38.27.0"

@@ -28,10 +28,10 @@
     "lint:fix": "npm run lint -- --fix",
     "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!.github\" \"!.changeset\" \"!**/node_modules/**\" \"!**/CHANGELOG.md\"",
     "test": "vitest",
-    "test:type-check": "node ./node_modules/typescript-7-rc/bin/tsc --noEmit",
+    "test:type-check": "tsc --noEmit",
     "test:update": "npm run test -- -u",
     "test:classname-coverage": "node script/check-classname-tests.mjs",
-    "type-check": "node ./node_modules/typescript-7-rc/bin/tsc --noEmit && turbo run type-check",
+    "type-check": "tsc --noEmit && turbo run type-check",
     "release": "npm run build && changeset publish",
     "reset": "script/reset",
     "size": "size-limit"
@@ -95,7 +95,7 @@
     "stylelint": "17.4.0",
     "turbo": "^2.9.18",
     "typescript": "^6.0.3",
-    "typescript-7-rc": "npm:typescript@^7.0.1-rc",
+    "tsc": "npm:typescript@^7.0.1-rc",
     "typescript-eslint": "^8.59.1",
     "vite": "^8.0.16",
     "vitest": "^4.1.5"

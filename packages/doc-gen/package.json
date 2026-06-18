@@ -21,8 +21,8 @@
   ],
   "scripts": {
     "clean": "rimraf dist",
-    "build": "rollup -c && node ../../node_modules/typescript-7-rc/bin/tsc --project tsconfig.build.json",
-    "type-check": "node ../../node_modules/typescript-7-rc/bin/tsc --noEmit",
+    "build": "rollup -c && tsc --project tsconfig.build.json",
+    "type-check": "tsc --noEmit",
     "watch": "rollup -c -w",
     "test": "vitest --run",
     "test:watch": "vitest"

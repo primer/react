@@ -48,7 +48,7 @@
     "build:precompile-color-schemes": "tsx script/precompile-color-schemes.ts",
     "lint:npm": "publint --types",
     "storybook": "storybook",
-    "type-check": "node ../../node_modules/typescript-7-rc/bin/tsc --noEmit",
+    "type-check": "tsc --noEmit",
     "type-css-modules": "tcm -p src/**/*.module.css"
   },
   "repository": {
