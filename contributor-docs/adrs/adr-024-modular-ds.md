@@ -61,7 +61,182 @@ To do this, we will:
 
 ### Delivering low-level components, hooks, and utilities
 
+We will immediately deliver high priority components that assist in building accessible experiences, including:
+
+- **Combobox** for filtering and selection-based experiences
+- **Dialog** for modal and nonmodal experiences with built in parts for
+  wiring up accessibility, behaviors, and semantics
+- **Listbox** for selection-based experiences
+- **Menu** for action-based experiences
+- **Popover** for positioned, transient experiences
+- **ScrollableRegion** for scrollable containers with built in accessibility and behaviors
+- **Tabs** for building tabs-based experiences
+- **ToggleButton**, **ToggleSwitch** for building toggle-based experiences
+
+We will also deliver documentation for all existing low-level components,
+hooks, and utilities.
+
+In the future, we are investigating the following opportunities for offering
+additional low-level components, hooks, and utilities:
+
+- useFilter
+- useSelection
+
+#### Audit
+
+| Entrypoint     | Type      | Name                         |
+| :------------- | :-------- | :--------------------------- |
+| .              | component | VisuallyHidden               |
+|                |           | Announce                     |
+|                |           | AriaStatus                   |
+|                |           | AriaAlert                    |
+|                | hook      | useAnchoredPosition          |
+|                |           | useColorSchemeVar            |
+|                |           | useConfirm                   |
+|                |           | useDetails                   |
+|                |           | useFocusTrap                 |
+|                |           | useFocusZone                 |
+|                |           | useFormControlForwardedProps |
+|                |           | useId                        |
+|                |           | useIsomorphicLayoutEffect    |
+|                |           | useMergedRefs                |
+|                |           | useOnEscapePress             |
+|                |           | useOnOutsideClick            |
+|                |           | useOpenAndCloseFocus         |
+|                |           | useOverlay                   |
+|                |           | useProvidedRefOrCreate       |
+|                |           | useRefObjectAsForwardedRef   |
+|                |           | useResizeObserver            |
+|                |           | useResponsiveValue           |
+|                |           | useRovingTabIndex            |
+|                |           | useSafeTimeout               |
+|                |           | useSlots                     |
+|                |           | useSyncedState               |
+|                |           | useTheme                     |
+| ./experimental | component | Hidden                       |
+|                |           | Tabs                         |
+|                | hook      | useSlots                     |
+|                |           | useOverflow                  |
+|                |           | useTab                       |
+|                |           | useTabList                   |
+|                |           | useTabPanel                  |
+
 ### Embracing the spectrum of abstraction model
+
+We will author components with a spectrum of abstraction in mind, specifically
+beginning with presentational components that can combine with hooks to provide
+opionated, config-driven components.
+
+This model allows us to offer opinionated defaults that work for common
+scenarios while still allow teams to extend and customize components as needed.
+
+Default to building presentational components, then add behavior through hooks.
+As opinions or defaults are established, create config-driven components that
+combine presentational components and hooks to offer a higher level of
+abstraction for common use-cases.
+
+#### Config components
+
+These components are "all-in-one"; they provide a high level of abstraction that
+support common use-cases making it simple to quickly build out established
+patterns and experiences. However, they are often inflexible and difficult to
+extend.
+
+```tsx
+<List
+  items={[{label: 'Item one'}, {label: 'Item two'}, {label: 'Item three'}]}
+  onSelect={item => {
+    /* ... */
+  }}
+  onFilter={query => {
+    /* ... */
+  }}
+/>
+```
+
+#### Presentational components
+
+These components provide a lower level of abstraction and are more flexible and extensible, but require more work to build out common patterns and experiences.
+
+```tsx
+function Example({items}) {
+  const [state, actions] = useList({
+    defaultSelected: [],
+  })
+
+  return (
+    <List>
+      <List.Filter
+        query={state.query}
+        onChange={query => {
+          actions.updateQuery(query)
+        }}
+      />
+      {items
+        .filter(item => item.label.includes(state.query))
+        .map(item => {
+          return (
+            <List.Item
+              key={item.label}
+              onClick={() => {
+                actions.toggleSelect(item.label)
+              }}
+            >
+              <List.ItemLeadingVisual>
+                <Checkbox checked={state.selected.has(item.label)} />
+              </List.ItemLeadingVisual>
+              <List.ItemLabel>{item.label}</List.ItemLabel>
+            </List.Item>
+          )
+        })}
+    </List>
+  )
+}
+```
+
+Presentational components are accompanied by behavior or state hooks for a
+component's core functionality. Often times, config components are built by
+combining presentational components and the corresponding behavior and state
+hooks needed for a feature.
+
+#### Base components
+
+Base components are unstyled and may optionally provide behavior. These
+components are fundamental primitives that are used to build components, such as
+accessibility primitives.
+
+```tsx
+function Example() {
+  return (
+    <Dialog.Root>
+      <Dialog.Trigger />
+      <Dialog.Overlay />
+      <Dialog.Content>
+        <Dialog.Close />
+      </Dialog.Content>
+    </Dialog.Root>
+  )
+}
+```
+
+Other examples include:
+
+- Combobox (filtering, selection)
+- Listbox (selection)
+- Popover
+- Tabs
+- Treeview
+
+#### Utilities
+
+There are core utilities, hooks, functions, etc that are commonly used when
+building out components or React applications. We provide hooks for established
+patterns so that teams can build on solid foundations when authoring new
+experiences. These can include hooks such as `useMergedRefs`,
+`useOnEscapePress`, `useTimeout` and more.
+
+These utilities may extend beyond hooks, such as `@primer/behaviors` or custom
+elements, where appropriate.
 
 ## Consequences
 
