@@ -2,7 +2,10 @@ import type React from 'react'
 import {useEffect, useRef, useState, type JSX} from 'react'
 import type {Args, Meta} from '@storybook/react-vite'
 import {FocusKeys} from '@primer/behaviors'
-import {Avatar, Dialog, Link, Text} from '..'
+import Avatar from '../Avatar'
+import {Dialog} from '../Dialog'
+import Link from '../Link'
+import Text from '../Text'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import Heading from '../Heading'
 import Octicon from '../Octicon'
@@ -402,6 +405,7 @@ export const CenteredOnPage = () => {
           'aria-modal': true,
           'aria-label': 'Centered Overlay Demo',
         }}
+        cssAnchorPositioningSettings={{fallbackStrategy: 'default'}}
         focusZoneSettings={{disabled: true}}
         preventOverflow={false}
       >

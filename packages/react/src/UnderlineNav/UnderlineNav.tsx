@@ -1,5 +1,6 @@
 import type {RefObject} from 'react'
-import React, {forwardRef, useMemo, useRef, useState} from 'react'
+import type React from 'react'
+import {forwardRef, useMemo, useRef, useState} from 'react'
 import VisuallyHidden from '../_VisuallyHidden'
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
@@ -12,6 +13,7 @@ import {UnderlineNavItemsRegistry, type UnderlineNavItemProps} from './Underline
 import {SkeletonText} from '../SkeletonText'
 import {clsx} from 'clsx'
 import {useDevOnlyEffect} from '../internal/hooks/useDevOnlyEffect'
+import {getValidChildren} from './utils'
 
 export type UnderlineNavProps = {
   children: React.ReactNode
@@ -28,11 +30,6 @@ export type UnderlineNavProps = {
    * Setting this to `flush` will remove the horizontal padding on the items.
    */
   variant?: 'inset' | 'flush'
-}
-
-const getValidChildren = (children: React.ReactNode) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement<any>[]
 }
 
 const isCurrent = (props: UnderlineNavItemProps) =>

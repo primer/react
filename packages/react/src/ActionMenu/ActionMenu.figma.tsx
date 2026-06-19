@@ -1,4 +1,4 @@
-import {ActionMenu} from '../../src'
+import {ActionMenu} from '.'
 import figma from '@figma/code-connect'
 
 figma.connect(

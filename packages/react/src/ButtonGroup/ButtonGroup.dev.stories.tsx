@@ -3,7 +3,7 @@ import ButtonGroup from './ButtonGroup'
 import {Button, IconButton, LinkButton} from '../Button'
 import {CopilotIcon} from '@primer/octicons-react'
 import BaseStyles from '../BaseStyles'
-import {Tooltip} from '..'
+import {Tooltip} from '../TooltipV2'
 
 const meta: Meta<typeof ButtonGroup> = {
   title: 'Components/ButtonGroup/Dev',

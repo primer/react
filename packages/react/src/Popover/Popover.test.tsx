@@ -33,9 +33,18 @@ describe('Popover', () => {
       )
 
       const {container} = render(element)
+      expect(container.firstChild).toHaveAttribute('data-component', 'Popover')
       expect(container.firstChild).toHaveAttribute('data-caret', pos)
     })
   }
+
+  it('renders data-component attributes for Popover and Popover.Content', () => {
+    const {container: popoverContainer} = render(<Popover />)
+    const {container: contentContainer} = render(<Popover.Content />)
+
+    expect(popoverContainer.firstChild).toHaveAttribute('data-component', 'Popover')
+    expect(contentContainer.firstChild).toHaveAttribute('data-component', 'Popover.Content')
+  })
 
   it('renders both elements as a <div>', () => {
     const {container: popoverContainer} = render(<Popover />)

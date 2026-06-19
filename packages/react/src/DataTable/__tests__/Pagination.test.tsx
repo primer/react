@@ -1,7 +1,7 @@
 import {page} from 'vitest/browser'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Pagination} from '../Pagination'
-import {render, screen} from '@testing-library/react'
+import {act, render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 describe('Table.Pagination', () => {
@@ -100,9 +100,12 @@ describe('Table.Pagination', () => {
       expect(getCurrentPage()).toEqual(getPage(0))
       expect(getPageRange()).toEqual('1 through 25 of 25')
 
-      rerender(
-        <Pagination onChange={onChange} aria-label="Test label" defaultPageIndex={2} pageSize={5} totalCount={300} />,
-      )
+      await act(async () => {
+        rerender(
+          <Pagination onChange={onChange} aria-label="Test label" defaultPageIndex={2} pageSize={5} totalCount={300} />,
+        )
+        await Promise.resolve()
+      })
       expect(getPageRange()).toEqual('11 through 15 of 300')
       expect(getCurrentPage()).toEqual(getPage(2))
       expect(getInvalidPages()).toHaveLength(0)
@@ -293,9 +296,12 @@ describe('Table.Pagination', () => {
       expect(getCurrentPage()).toEqual(getPage(1))
       expect(getPageRange()).toEqual('26 through 50 of 50')
 
-      rerender(
-        <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={0} pageSize={5} totalCount={300} />,
-      )
+      await act(async () => {
+        rerender(
+          <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={0} pageSize={5} totalCount={300} />,
+        )
+        await Promise.resolve()
+      })
       expect(getPageRange()).toEqual('1 through 5 of 300')
       expect(getCurrentPage()).toEqual(getPage(0))
       expect(getInvalidPages()).toHaveLength(0)
@@ -358,9 +364,12 @@ describe('Table.Pagination', () => {
     expect(getCurrentPage()).toEqual(getPage(1))
     expect(getPageRange()).toEqual('11 through 20 of 1000')
 
-    rerender(
-      <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={0} pageSize={5} totalCount={300} />,
-    )
+    await act(async () => {
+      rerender(
+        <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={0} pageSize={5} totalCount={300} />,
+      )
+      await Promise.resolve()
+    })
     expect(getPageRange()).toEqual('1 through 5 of 300')
     expect(getFirstPage()).toEqual(getCurrentPage())
     expect(getInvalidPages()).toHaveLength(0)

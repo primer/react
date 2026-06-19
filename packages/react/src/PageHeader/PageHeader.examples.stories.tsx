@@ -1,17 +1,14 @@
 import type {Meta} from '@storybook/react-vite'
-import {
-  Button,
-  IconButton,
-  Breadcrumbs,
-  Link,
-  Text,
-  StateLabel,
-  BranchName,
-  PageLayout,
-  Timeline,
-  Heading,
-  Token,
-} from '..'
+import {Button, IconButton} from '../Button'
+import Breadcrumbs from '../Breadcrumbs'
+import Link from '../Link'
+import Text from '../Text'
+import StateLabel from '../StateLabel'
+import BranchName from '../BranchName'
+import {PageLayout} from '../PageLayout'
+import Timeline from '../Timeline'
+import Heading from '../Heading'
+import Token from '../Token'
 import Octicon from '../Octicon'
 import {
   KebabHorizontalIcon,

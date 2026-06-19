@@ -1,4 +1,5 @@
-import {FormControl, Checkbox} from '../../src'
+import FormControl from '../FormControl'
+import Checkbox from '.'
 import figma from '@figma/code-connect'
 
 figma.connect(
