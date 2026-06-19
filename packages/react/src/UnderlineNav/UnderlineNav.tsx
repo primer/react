@@ -80,6 +80,11 @@ export const UnderlineNav = forwardRef(
       [loadingCounters],
     )
 
+    const [menuOpen, setMenuOpen] = useState(false)
+
+    // Edge case to avoid empty menu: close the menu if it's open but there's no longer an overflow (window resized or items removed)
+    if (menuOpen && !isOverflowing) setMenuOpen(false)
+
     return (
       <UnderlineNavContext.Provider value={contextValue}>
         {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
@@ -104,7 +109,7 @@ export const UnderlineNav = forwardRef(
           <div className={classes.MoreButtonContainer}>
             <div className={classes.MoreButtonDivider} />
 
-            <ActionMenu>
+            <ActionMenu open={menuOpen} onOpenChange={setMenuOpen}>
               <ActionMenu.Button
                 className={classes.MoreButton}
                 variant="invisible"
