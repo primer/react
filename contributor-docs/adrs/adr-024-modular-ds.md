@@ -66,6 +66,7 @@ We will immediately deliver high priority components that assist in building acc
 - **Combobox** for filtering and selection-based experiences
 - **Dialog** for modal and nonmodal experiences with built in parts for
   wiring up accessibility, behaviors, and semantics
+- **Disclosure** for showing/hiding content
 - **Listbox** for selection-based experiences
 - **Menu** for action-based experiences
 - **Popover** for positioned, transient experiences
