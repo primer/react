@@ -13,7 +13,7 @@ import {UnderlineNavItemsRegistry, type UnderlineNavItemProps} from './Underline
 import {SkeletonText} from '../SkeletonText'
 import {clsx} from 'clsx'
 import {useDevOnlyEffect} from '../internal/hooks/useDevOnlyEffect'
-import {getValidChildren} from './utils'
+import {getValidChildren, isCurrent} from './utils'
 
 export type UnderlineNavProps = {
   children: React.ReactNode
@@ -31,9 +31,6 @@ export type UnderlineNavProps = {
    */
   variant?: 'inset' | 'flush'
 }
-
-const isCurrent = (props: UnderlineNavItemProps) =>
-  props['aria-current'] !== undefined && props['aria-current'] !== false && props['aria-current'] !== 'false'
 
 export const UnderlineNav = forwardRef(
   (
