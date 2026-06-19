@@ -208,7 +208,7 @@ test.describe('UnderlineNav', () => {
           expect(await page.screenshot()).toMatchSnapshot()
 
           await page.getByRole('button', {name: 'More items'}).click()
-          expect(await page.screenshot()).toMatchSnapshot()
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot()
 
           await page.getByRole('menuitem', {name: 'Settings (10)'}).click()
           expect(await page.screenshot()).toMatchSnapshot()
