@@ -19,11 +19,11 @@ import '@primer/primitives/dist/css/functional/themes/light.css'
 import '@primer/primitives/dist/css/functional/typography/typography.css'
 import './global.css'
 
-import {beforeEach} from 'vitest'
+import {afterEach} from 'vitest'
 import {cleanup} from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
 
-beforeEach(() => {
+afterEach(() => {
   cleanup()
 })
 
