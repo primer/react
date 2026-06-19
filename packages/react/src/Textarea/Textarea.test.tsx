@@ -1,6 +1,6 @@
 import React from 'react'
 import Textarea from '../Textarea'
-import {render, screen} from '@testing-library/react'
+import {render, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {describe, expect, it, vi, beforeEach} from 'vitest'
 import classes from './TextArea.module.css'
@@ -244,6 +244,16 @@ describe('Textarea', () => {
       const {container} = render(<Textarea characterLimit={100} defaultValue="Hello World" />)
       const srElement = container.querySelector('[aria-live="polite"]')
       expect(srElement?.textContent).toBe('')
+    })
+
+    it('announces the remaining count to screen readers after typing', async () => {
+      const user = userEvent.setup()
+      const {getByRole, container} = render(<Textarea characterLimit={100} />)
+
+      await user.type(getByRole('textbox'), 'Hello')
+
+      const srElement = container.querySelector('[aria-live="polite"]')
+      await waitFor(() => expect(srElement).toHaveTextContent('95 characters remaining'), {timeout: 2000})
     })
   })
 })
