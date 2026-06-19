@@ -78,20 +78,20 @@ To do this, we will:
 |                |          | ActionMenu         | ✅    |       |        |       |
 |                |          | Banner             | ✅    |       |        |       |
 |                |          | Breadcrumbs        | ✅    |       |        |       |
-|                |          | ConfirmationDialog |       |       |        |       |
+|                |          | ConfirmationDialog |       |       | ✅     |       |
 |                |          | Details            | ✅    |       |        |       |
-|                |          | Dialog             |       |       |        |       |
+|                |          | Dialog             |       |       | ✅     |       |
 |                |          | FormControl        | ✅    |       |        |       |
 |                |          | Header             | ✅    |       |        |       |
 |                |          | NavList            | ✅    |       |        |       |
 |                |          | PageHeader         | ✅    |       |        |       |
 |                |          | PageLayout         | ✅    |       |        |       |
-|                |          | Pagination         |       |       |        |       |
+|                |          | Pagination         |       |       | ✅     |       |
 |                |          | Popover            | ✅    |       |        |       |
 |                |          | ProgressBar        | ✅    |       |        |       |
 |                |          | SegmentedControl   | ✅    |       |        |       |
 |                |          | Select             | ✅    |       |        |       |
-|                |          | SelectPanel        |       |       |        |       |
+|                |          | SelectPanel        |       |       | ✅     |       |
 |                |          | SplitPageLayout    | ✅    |       |        |       |
 |                |          | Stack              | ✅    |       |        |       |
 |                |          | SubNav             | ✅    |       |        |       |
@@ -129,27 +129,22 @@ To do this, we will:
 |                |          | Token              |       |       |        |       |
 |                |          | Tooltip            |       |       |        |       |
 |                |          | Truncate           |       |       |        |       |
-|                | Utility  |                    |       |       |        |       |
-|                |          | AnchoredOverlay    |       |       |        |       |
+|                | Utility  | AnchoredOverlay    |       |       |        |       |
 |                |          | VisuallyHidden     |       |       |        |       |
-| ./experimental | Compound |                    |       |       |        |       |
-|                |          | Blankslate         |       |       |        |       |
-|                |          | Card               |       |       |        |       |
-|                |          | DataTable          |       |       |        |       |
-|                |          | Dialog             |       |       |        |       |
-|                |          | FilteredActionList |       |       |        |       |
-|                |          | KeybindingHint     |       |       |        |       |
-|                |          | SelectPanel        |       |       |        |       |
-|                |          | Stack              |       |       |        |       |
-|                |          | Table              |       |       |        |       |
-|                |          | Tabs               |       |       |        |       |
-|                |          | UnderlinePanels    |       |       |        |       |
-|                | Leaf     |                    |       |       |        |       |
-|                |          | InlineMessage      |       |       |        |       |
+| ./experimental | Compound | Blankslate         | ✅    |       |        |       |
+|                |          | Card               | ✅    |       |        |       |
+|                |          | DataTable          |       |       | ✅     |       |
+|                |          | FilteredActionList |       |       | ✅     |       |
+|                |          | KeybindingHint     |       |       | ✅     |       |
+|                |          | SelectPanel        | ✅    |       |        |       |
+|                |          | Stack              | ✅    |       |        |       |
+|                |          | Table              | ✅    |       |        |       |
+|                |          | Tabs               | ✅    | ✅    |        |       |
+|                |          | UnderlinePanels    | ✅    |       |        |       |
+|                | Leaf     | InlineMessage      |       |       |        |       |
 |                |          | IssueLabel         |       |       |        |       |
 |                |          | SkeletonAvatar     |       |       |        |       |
 |                |          | SkeletonText       |       |       |        |       |
 |                |          | Tooltip            |       |       |        |       |
 |                |          | TopicTag           |       |       |        |       |
-|                | Utility  |                    |       |       |        |       |
-|                |          | Hidden             |       |       |        |       |
+|                | Utility  | Hidden             |       |       |        |       |
