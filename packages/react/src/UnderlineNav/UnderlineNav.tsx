@@ -9,7 +9,7 @@ import {LoadingCounter, UnderlineItemList, UnderlineWrapper} from '../internal/c
 import {invariant} from '../utils/invariant'
 import classes from './UnderlineNav.module.css'
 import {UnderlineNavContext} from './UnderlineNavContext'
-import {UnderlineNavItemsRegistry, type UnderlineNavItemProps} from './UnderlineNavItem'
+import {UnderlineNavItemsRegistry, type UnderlineNavItemProps} from './UnderlineNavItemsRegistry'
 import {SkeletonText} from '../SkeletonText'
 import {clsx} from 'clsx'
 import {useDevOnlyEffect} from '../internal/hooks/useDevOnlyEffect'

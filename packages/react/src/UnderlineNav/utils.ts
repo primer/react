@@ -1,5 +1,5 @@
 import React from 'react'
-import type {UnderlineNavItemProps} from './UnderlineNavItem'
+import type {UnderlineNavItemProps} from './UnderlineNavItemsRegistry'
 
 export const getValidChildren = (children: React.ReactNode) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
