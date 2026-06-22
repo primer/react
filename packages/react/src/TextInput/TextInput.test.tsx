@@ -6,6 +6,7 @@ import React from 'react'
 import TextInput from '../TextInput'
 import {implementsClassName} from '../utils/testing'
 import {SCREEN_READER_DELAY} from '../utils/character-counter'
+import {createRenderCounter} from '../utils/testing/profiler'
 
 describe('TextInput', () => {
   implementsClassName(TextInput, 'TextInput-wrapper')
@@ -399,6 +400,41 @@ describe('TextInput', () => {
       } finally {
         vi.useRealTimers()
       }
+    })
+
+    it('derives the character counter without an extra commit on mount', async () => {
+      // The counter/validation are derived during render. The previous effect-synced
+      // implementation forced an extra commit after mount to populate the counter, so
+      // assert mount produces no follow-up update renders.
+      const [Wrap, counter] = createRenderCounter()
+      render(
+        <Wrap>
+          <TextInput characterLimit={20} />
+        </Wrap>,
+      )
+      await act(async () => {})
+
+      expect(counter.updateCount).toBe(0)
+    })
+
+    it('commits once per controlled value change without cascading', async () => {
+      const [Wrap, counter] = createRenderCounter()
+      const {rerender} = render(
+        <Wrap>
+          <TextInput characterLimit={20} value="Hello" onChange={() => {}} />
+        </Wrap>,
+      )
+      await act(async () => {})
+      counter.reset()
+
+      rerender(
+        <Wrap>
+          <TextInput characterLimit={20} value="Hello World" onChange={() => {}} />
+        </Wrap>,
+      )
+      await act(async () => {})
+
+      expect(counter.updateCount).toBe(1)
     })
   })
 
