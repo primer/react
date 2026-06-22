@@ -6,7 +6,7 @@ import type {ComponentPropsWithRef, ElementType} from 'react'
 /**
  * Distributive Omit utility type that works correctly with union types
  */
-type DistributiveOmit<T, TOmitted extends PropertyKey> = T extends unknown ? Omit<T, TOmitted> : never
+export type DistributiveOmit<T, TOmitted extends PropertyKey> = T extends unknown ? Omit<T, TOmitted> : never
 
 /**
  * Fixed version of forwardRef that provides better type inference for polymorphic components

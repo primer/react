@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest'
-import {CounterLabel} from '..'
+import CounterLabel from '.'
 import {render as HTMLRender} from '@testing-library/react'
 import classes from './CounterLabel.module.css'
 import {implementsClassName} from '../utils/testing'

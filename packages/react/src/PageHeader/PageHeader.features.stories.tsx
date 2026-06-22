@@ -1,5 +1,10 @@
 import type {Meta} from '@storybook/react-vite'
-import {IconButton, Breadcrumbs, Text, Link, Button, Label, UnderlineNav} from '..'
+import {IconButton, Button} from '../Button'
+import Breadcrumbs from '../Breadcrumbs'
+import Text from '../Text'
+import Link from '../Link'
+import Label from '../Label'
+import {UnderlineNav} from '../UnderlineNav'
 import {
   PencilIcon,
   SidebarExpandIcon,

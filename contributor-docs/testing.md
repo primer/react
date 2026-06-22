@@ -86,6 +86,8 @@ We are slowly moving away from using snapshots as a way to test visual changes o
 | Run a specific test | `npm test ComponentName` |
 | Update snapshots    | `npm test -- -u`         |
 
+By default, Vitest fails when tests emit unexpected console output in CI. For local debugging, it is disabled unless you opt in with `VITEST_FAIL_ON_CONSOLE=true`.
+
 ## Interaction Tests
 
 ### As A Part Of Unit Tests

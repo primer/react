@@ -21,7 +21,11 @@ import {
   KebabHorizontalIcon,
   NoteIcon,
 } from '@primer/octicons-react'
-import {Button, Avatar, ActionMenu, IconButton, ActionList, Textarea} from '..'
+import {Button, IconButton} from '../Button'
+import Avatar from '../Avatar'
+import {ActionMenu} from '../ActionMenu'
+import {ActionList} from '../ActionList'
+import Textarea from '../Textarea'
 import {Dialog} from '../deprecated/DialogV1'
 import {Divider} from '../deprecated/ActionList/Divider'
 import mockData from '../experimental/SelectPanel2/mock-story-data'
