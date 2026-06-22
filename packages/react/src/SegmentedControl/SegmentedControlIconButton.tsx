@@ -38,7 +38,11 @@ export const SegmentedControlIconButton: FCWithSlotMarker<React.PropsWithChildre
   const {'aria-disabled': ariaDisabled, ...rest} = props
 
   return (
-    <li className={clsx(classes.Item, className)} data-selected={selected || undefined}>
+    <li
+      className={clsx(classes.Item, className)}
+      data-selected={selected || undefined}
+      data-component="SegmentedControl.IconButton"
+    >
       <Tooltip
         type={description ? undefined : 'label'}
         text={description ? description : ariaLabel}
@@ -52,7 +56,6 @@ export const SegmentedControlIconButton: FCWithSlotMarker<React.PropsWithChildre
           aria-disabled={disabled || ariaDisabled || undefined}
           className={clsx(classes.Button, classes.IconButton)}
           {...rest}
-          data-component="SegmentedControl.IconButton"
         >
           <span className={clsx(classes.Content, 'segmentedControl-content')}>{isElement(Icon) ? Icon : <Icon />}</span>
         </button>

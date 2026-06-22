@@ -53,7 +53,10 @@ describe('SegmentedControl', () => {
       </SegmentedControl>,
     )
 
-    expect(getByRole('button', {name: 'Preview'})).toHaveAttribute('data-component', 'SegmentedControl.Button')
+    expect(getByRole('button', {name: 'Preview'}).closest('li')).toHaveAttribute(
+      'data-component',
+      'SegmentedControl.Button',
+    )
   })
 
   it('renders data-component attribute on segmented control icon buttons', () => {
@@ -63,7 +66,10 @@ describe('SegmentedControl', () => {
       </SegmentedControl>,
     )
 
-    expect(getByRole('button', {name: 'Preview'})).toHaveAttribute('data-component', 'SegmentedControl.IconButton')
+    expect(getByRole('button', {name: 'Preview'}).closest('li')).toHaveAttribute(
+      'data-component',
+      'SegmentedControl.IconButton',
+    )
   })
 
   it('renders with a selected segment - controlled', () => {
