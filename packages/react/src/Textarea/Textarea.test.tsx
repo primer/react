@@ -252,8 +252,11 @@ describe('Textarea', () => {
 
       await user.type(getByRole('textbox'), 'Hello')
 
-      const srElement = container.querySelector('[aria-live="polite"]')
-      await waitFor(() => expect(srElement).toHaveTextContent('95 characters remaining'), {timeout: 2000})
+      // `waitFor` resolves as soon as the debounced announcement fires (~500ms); the
+      // timeout is only an upper bound, not a fixed wait. Fake timers can't be used
+      // here because `userEvent` deadlocks with them in Vitest's browser mode.
+      const liveRegion = container.querySelector('[aria-live="polite"]')
+      await waitFor(() => expect(liveRegion).toHaveTextContent('95 characters remaining'), {timeout: 2000})
     })
   })
 })
