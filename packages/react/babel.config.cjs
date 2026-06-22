@@ -20,13 +20,12 @@ const sharedPlugins = [
   '@babel/plugin-transform-optional-chaining',
 ]
 
-function makePresets(moduleValue) {
+function makePresets() {
   return [
     '@babel/preset-typescript',
     [
       '@babel/preset-react',
       {
-        modules: moduleValue,
         runtime: 'automatic',
       },
     ],
@@ -36,7 +35,7 @@ function makePresets(moduleValue) {
 module.exports = {
   env: {
     development: {
-      presets: makePresets(process.env.BABEL_MODULE || false),
+      presets: makePresets(),
       plugins: [...sharedPlugins, replacementPlugin('development')],
     },
     production: {
