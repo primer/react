@@ -4,6 +4,5 @@
     "emitDeclarationOnly": true,
     "rootDir": "src"
   },
-  "exclude": []
+  "include": ["src"]
 }
-

@@ -1,20 +1,17 @@
-import react from '@vitejs/plugin-react'
+import babel from '@rolldown/plugin-babel'
+import react, {reactCompilerPreset} from '@vitejs/plugin-react'
 import {playwright} from '@vitest/browser-playwright'
 import {defineConfig} from '@primer/vitest-config/config'
 
 export default defineConfig({
   plugins: [
-    react({
-      babel: {
-        plugins: [
-          [
-            'babel-plugin-react-compiler',
-            {
-              target: '18',
-            },
-          ],
-        ],
-      },
+    react(),
+    babel({
+      presets: [
+        reactCompilerPreset({
+          target: '18',
+        }),
+      ],
     }),
   ],
   test: {
