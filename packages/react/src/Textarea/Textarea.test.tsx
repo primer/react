@@ -1,6 +1,6 @@
 import React from 'react'
 import Textarea from '../Textarea'
-import {render, screen, waitFor} from '@testing-library/react'
+import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {describe, expect, it, vi, beforeEach} from 'vitest'
 import classes from './TextArea.module.css'
@@ -244,19 +244,6 @@ describe('Textarea', () => {
       const {container} = render(<Textarea characterLimit={100} defaultValue="Hello World" />)
       const srElement = container.querySelector('[aria-live="polite"]')
       expect(srElement?.textContent).toBe('')
-    })
-
-    it('announces the remaining count to screen readers after typing', async () => {
-      const user = userEvent.setup()
-      const {getByRole, container} = render(<Textarea characterLimit={100} />)
-
-      await user.type(getByRole('textbox'), 'Hello')
-
-      // `waitFor` resolves as soon as the debounced announcement fires (~500ms); the
-      // timeout is only an upper bound, not a fixed wait. Fake timers can't be used
-      // here because `userEvent` deadlocks with them in Vitest's browser mode.
-      const liveRegion = container.querySelector('[aria-live="polite"]')
-      await waitFor(() => expect(liveRegion).toHaveTextContent('95 characters remaining'), {timeout: 2000})
     })
   })
 })

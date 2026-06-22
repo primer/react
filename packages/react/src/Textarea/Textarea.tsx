@@ -1,11 +1,12 @@
 import type {TextareaHTMLAttributes, ReactElement} from 'react'
-import React, {useEffect, useRef, useCallback, useId, useState, startTransition} from 'react'
+import React, {useCallback, useId, useState} from 'react'
 import {TextInputBaseWrapper} from '../internal/components/TextInputWrapper'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import classes from './TextArea.module.css'
 import type {WithSlotMarker} from '../utils/types'
 import {AlertFillIcon} from '@primer/octicons-react'
-import {getCharacterCountState, SCREEN_READER_DELAY} from '../utils/character-counter'
+import {getCharacterCountState} from '../utils/character-counter'
+import {useCharacterCountAnnouncement} from '../utils/useCharacterCountAnnouncement'
 import VisuallyHidden from '../_VisuallyHidden'
 import Text from '../Text'
 import {clsx} from 'clsx'
@@ -104,37 +105,9 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     const counter = characterLimit ? getCharacterCountState(currentLength, characterLimit) : undefined
     const isOverLimit = counter?.isOverLimit ?? false
 
-    // The screen reader announcement is the only genuinely asynchronous piece: it
-    // is debounced and applied as a transition so it never blocks typing.
-    const [screenReaderMessage, setScreenReaderMessage] = useState('')
-    const announceTimeoutRef = useRef<number | null>(null)
-
-    const announceCharacterCount = useCallback(
-      (length: number) => {
-        if (!characterLimit || typeof window === 'undefined') {
-          return
-        }
-        if (announceTimeoutRef.current) {
-          clearTimeout(announceTimeoutRef.current)
-        }
-        const {message} = getCharacterCountState(length, characterLimit)
-        announceTimeoutRef.current = window.setTimeout(() => {
-          startTransition(() => {
-            setScreenReaderMessage(message)
-          })
-        }, SCREEN_READER_DELAY)
-      },
-      [characterLimit],
-    )
-
-    // Clear any pending announcement when the component unmounts.
-    useEffect(() => {
-      return () => {
-        if (announceTimeoutRef.current) {
-          clearTimeout(announceTimeoutRef.current)
-        }
-      }
-    }, [])
+    // The debounced screen reader announcement is encapsulated in a shared hook so
+    // it never blocks typing and stays consistent with TextInput.
+    const {screenReaderMessage, announce} = useCharacterCountAnnouncement(characterLimit)
 
     // Handle textarea change with character counter
     const handleTextareaChange = useCallback(
@@ -143,11 +116,11 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           if (!isControlled) {
             setUncontrolledLength(e.target.value.length)
           }
-          announceCharacterCount(e.target.value.length)
+          announce(e.target.value.length)
         }
         onChange?.(e)
       },
-      [onChange, characterLimit, isControlled, announceCharacterCount],
+      [onChange, characterLimit, isControlled, announce],
     )
 
     const isValid = isOverLimit ? 'error' : validationStatus

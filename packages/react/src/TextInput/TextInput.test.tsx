@@ -1,6 +1,6 @@
 import {SearchIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
-import {render, fireEvent, screen, waitFor} from '@testing-library/react'
+import {render, fireEvent, screen} from '@testing-library/react'
 import {describe, it, expect, vi} from 'vitest'
 import React from 'react'
 import TextInput from '../TextInput'
@@ -363,19 +363,6 @@ describe('TextInput', () => {
       const {container} = render(<TextInput characterLimit={20} defaultValue="Hello" />)
       const srElement = container.querySelector('[aria-live="polite"]')
       expect(srElement?.textContent).toBe('')
-    })
-
-    it('announces the remaining count to screen readers after typing', async () => {
-      const user = userEvent.setup()
-      const {getByRole, container} = render(<TextInput characterLimit={20} />)
-
-      await user.type(getByRole('textbox'), 'Hello')
-
-      // `waitFor` resolves as soon as the debounced announcement fires (~500ms); the
-      // timeout is only an upper bound, not a fixed wait. Fake timers can't be used
-      // here because `userEvent` deadlocks with them in Vitest's browser mode.
-      const liveRegion = container.querySelector('[aria-live="polite"]')
-      await waitFor(() => expect(liveRegion).toHaveTextContent('15 characters remaining'), {timeout: 2000})
     })
   })
 

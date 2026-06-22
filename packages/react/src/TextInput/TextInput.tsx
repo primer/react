@@ -1,5 +1,5 @@
 import type {MouseEventHandler} from 'react'
-import React, {useCallback, useState, useId, useEffect, useRef, startTransition} from 'react'
+import React, {useCallback, useState, useId} from 'react'
 import {isValidElementType} from 'react-is'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {clsx} from 'clsx'
@@ -14,7 +14,8 @@ import TextInputWrapper from '../internal/components/TextInputWrapper'
 import TextInputAction from '../internal/components/TextInputInnerAction'
 import UnstyledTextInput from '../internal/components/UnstyledTextInput'
 import VisuallyHidden from '../_VisuallyHidden'
-import {getCharacterCountState, SCREEN_READER_DELAY} from '../utils/character-counter'
+import {getCharacterCountState} from '../utils/character-counter'
+import {useCharacterCountAnnouncement} from '../utils/useCharacterCountAnnouncement'
 import Text from '../Text'
 
 export type TextInputNonPassthroughProps = {
@@ -127,10 +128,9 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     const counter = characterLimit ? getCharacterCountState(currentLength, characterLimit) : undefined
     const isOverLimit = counter?.isOverLimit ?? false
 
-    // The screen reader announcement is the only genuinely asynchronous piece: it
-    // is debounced and applied as a transition so it never blocks typing.
-    const [screenReaderMessage, setScreenReaderMessage] = useState('')
-    const announceTimeoutRef = useRef<number | null>(null)
+    // The debounced screen reader announcement is encapsulated in a shared hook so
+    // it never blocks typing and stays consistent with Textarea.
+    const {screenReaderMessage, announce} = useCharacterCountAnnouncement(characterLimit)
 
     // this class is necessary to style FilterSearch, plz no touchy!
     const wrapperClasses = clsx(className, 'TextInput-wrapper')
@@ -175,33 +175,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       [onBlur],
     )
 
-    const announceCharacterCount = useCallback(
-      (length: number) => {
-        if (!characterLimit || typeof window === 'undefined') {
-          return
-        }
-        if (announceTimeoutRef.current) {
-          clearTimeout(announceTimeoutRef.current)
-        }
-        const {message} = getCharacterCountState(length, characterLimit)
-        announceTimeoutRef.current = window.setTimeout(() => {
-          startTransition(() => {
-            setScreenReaderMessage(message)
-          })
-        }, SCREEN_READER_DELAY)
-      },
-      [characterLimit],
-    )
-
-    // Clear any pending announcement when the component unmounts.
-    useEffect(() => {
-      return () => {
-        if (announceTimeoutRef.current) {
-          clearTimeout(announceTimeoutRef.current)
-        }
-      }
-    }, [])
-
     // Handle input change with character counter
     const handleInputChange = useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -209,11 +182,11 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           if (!isControlled) {
             setUncontrolledLength(e.target.value.length)
           }
-          announceCharacterCount(e.target.value.length)
+          announce(e.target.value.length)
         }
         onChange?.(e)
       },
-      [onChange, characterLimit, isControlled, announceCharacterCount],
+      [onChange, characterLimit, isControlled, announce],
     )
 
     const characterCountId = useId()
