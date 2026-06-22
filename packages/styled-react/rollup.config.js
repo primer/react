@@ -25,7 +25,6 @@ export default defineConfig({
     nodeResolve({extensions: ['.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs']}),
     babel({
       presets: ['@babel/preset-typescript', ['@babel/preset-react', {runtime: 'automatic'}]],
-      plugins: ['babel-plugin-styled-components'],
       extensions: ['.ts', '.tsx'],
       babelHelpers: 'bundled',
     }),

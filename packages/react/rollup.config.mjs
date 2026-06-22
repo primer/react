@@ -80,7 +80,6 @@ const baseConfig = {
         'macros',
         'add-react-displayname',
         'dev-expression',
-        'babel-plugin-styled-components',
         '@babel/plugin-transform-nullish-coalescing-operator',
         '@babel/plugin-transform-optional-chaining',
         [
