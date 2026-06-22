@@ -1,5 +1,5 @@
 import type {MouseEventHandler} from 'react'
-import React, {useCallback, useState, useId, useEffect, useRef} from 'react'
+import React, {useCallback, useState, useEffect, useRef} from 'react'
 import {isValidElementType} from 'react-is'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {clsx} from 'clsx'
@@ -7,7 +7,7 @@ import {AlertFillIcon} from '@primer/octicons-react'
 
 import classes from './TextInput.module.css'
 import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisualSlot'
-import {useProvidedRefOrCreate} from '../hooks'
+import {useProvidedRefOrCreate, useId} from '../hooks'
 import type {Merge} from '../utils/types'
 import type {StyledWrapperProps} from '../internal/components/TextInputWrapper'
 import TextInputWrapper from '../internal/components/TextInputWrapper'
@@ -136,9 +136,9 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         inputRef.current?.focus()
       }
     }
-    const leadingVisualId = useId()
-    const trailingVisualId = useId()
-    const loadingId = useId()
+    const leadingVisualId = useId(undefined, 'leading-visual')
+    const trailingVisualId = useId(undefined, 'trailing-visual')
+    const loadingId = useId(undefined, 'loading')
 
     const inputDescribedBy =
       clsx(
@@ -229,8 +229,8 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       [onChange, characterLimit],
     )
 
-    const characterCountId = useId()
-    const characterCountStaticMessageId = useId()
+    const characterCountId = useId(undefined, 'character-count')
+    const characterCountStaticMessageId = useId(undefined, 'character-count-message')
 
     const isValid = isOverLimit ? 'error' : validationStatus
 
