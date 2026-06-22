@@ -16,8 +16,8 @@ const sharedPlugins = [
   'macros',
   'dev-expression',
   'add-react-displayname',
-  '@babel/plugin-proposal-nullish-coalescing-operator',
-  '@babel/plugin-proposal-optional-chaining',
+  '@babel/plugin-transform-nullish-coalescing-operator',
+  '@babel/plugin-transform-optional-chaining',
 ]
 
 function makePresets(moduleValue) {
