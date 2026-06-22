@@ -181,6 +181,25 @@ describe('ToggleSwitch', () => {
     expect(handleChange).toHaveBeenCalledWith(true)
   })
 
+  it('does not call onChange on mount or when checked changes externally', () => {
+    const handleChange = vi.fn()
+    const {rerender} = render(
+      <>
+        <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
+        <ToggleSwitch checked={false} onChange={handleChange} aria-labelledby="switchLabel" />
+      </>,
+    )
+    expect(handleChange).not.toHaveBeenCalled()
+
+    rerender(
+      <>
+        <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
+        <ToggleSwitch checked={true} onChange={handleChange} aria-labelledby="switchLabel" />
+      </>,
+    )
+    expect(handleChange).not.toHaveBeenCalled()
+  })
+
   it('can pass data attributes to the rendered component', async () => {
     const TEST_ID = 'a test id'
     const ControlledSwitchComponent = () => {
