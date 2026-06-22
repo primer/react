@@ -241,11 +241,22 @@ function Panel({
     isSingleSelectModal ? selected : undefined,
   )
 
-  // Reset the intermediate selected item when the panel is open/closed
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-derived-state
+  // Reset the intermediate selected item when the panel is opened/closed or the external
+  // selection changes. Adjusting state during render (tracking the previous inputs) rather
+  // than syncing it from an effect avoids an extra post-commit render.
+  const [intermediateSelectedResetKey, setIntermediateSelectedResetKey] = useState({
+    open,
+    selected,
+    isSingleSelectModal,
+  })
+  if (
+    intermediateSelectedResetKey.open !== open ||
+    intermediateSelectedResetKey.selected !== selected ||
+    intermediateSelectedResetKey.isSingleSelectModal !== isSingleSelectModal
+  ) {
+    setIntermediateSelectedResetKey({open, selected, isSingleSelectModal})
     setIntermediateSelected(isSingleSelectModal ? selected : undefined)
-  }, [isSingleSelectModal, open, selected])
+  }
 
   const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
     (node: HTMLElement | null) => {
