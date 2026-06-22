@@ -1,6 +1,6 @@
 import react from '@vitejs/plugin-react'
 import {playwright} from '@vitest/browser-playwright'
-import {defineConfig} from 'vitest/config'
+import {defineConfig} from '@primer/vitest-config/config'
 
 export default defineConfig({
   plugins: [
@@ -18,6 +18,7 @@ export default defineConfig({
     }),
   ],
   test: {
+    name: '@primer/octicons-react-symbols',
     setupFiles: ['config/vitest/browser/setup.ts'],
     browser: {
       provider: playwright(),
