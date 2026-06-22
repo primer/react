@@ -1,6 +1,6 @@
 import type {HTMLProps} from 'react'
 import type React from 'react'
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import classes from './ValidationAnimationContainer.module.css'
 
 interface Props extends HTMLProps<HTMLDivElement> {
@@ -9,10 +9,11 @@ interface Props extends HTMLProps<HTMLDivElement> {
 const ValidationAnimationContainer: React.FC<React.PropsWithChildren<Props>> = ({show, children}) => {
   const [shouldRender, setRender] = useState(show)
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-derived-state, react-you-might-not-need-an-effect/no-event-handler
-    if (show) setRender(true)
-  }, [show])
+  // Start rendering as soon as `show` becomes true. Adjusting state during render
+  // (instead of from an effect) avoids the extra post-commit render the effect caused.
+  if (show && !shouldRender) {
+    setRender(true)
+  }
 
   const onAnimationEnd = () => {
     if (!show) setRender(false)
