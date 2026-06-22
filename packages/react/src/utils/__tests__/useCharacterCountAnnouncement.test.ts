@@ -50,6 +50,26 @@ describe('useCharacterCountAnnouncement', () => {
     expect(result.current.screenReaderMessage).toBe('97 characters remaining')
   })
 
+  it('announces again on a subsequent change', async () => {
+    const {result} = renderHook(() => useCharacterCountAnnouncement(100))
+
+    act(() => {
+      result.current.announce(5)
+    })
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(SCREEN_READER_DELAY)
+    })
+    expect(result.current.screenReaderMessage).toBe('95 characters remaining')
+
+    act(() => {
+      result.current.announce(10)
+    })
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(SCREEN_READER_DELAY)
+    })
+    expect(result.current.screenReaderMessage).toBe('90 characters remaining')
+  })
+
   it('announces when over the limit', async () => {
     const {result} = renderHook(() => useCharacterCountAnnouncement(10))
 

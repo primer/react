@@ -1,10 +1,11 @@
 import {SearchIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
-import {render, fireEvent, screen} from '@testing-library/react'
+import {render, fireEvent, screen, act} from '@testing-library/react'
 import {describe, it, expect, vi} from 'vitest'
 import React from 'react'
 import TextInput from '../TextInput'
 import {implementsClassName} from '../utils/testing'
+import {SCREEN_READER_DELAY} from '../utils/character-counter'
 
 describe('TextInput', () => {
   implementsClassName(TextInput, 'TextInput-wrapper')
@@ -277,6 +278,18 @@ describe('TextInput', () => {
       expect(container.textContent).toContain('20 characters remaining')
     })
 
+    it('derives the counter and validation state from a controlled value', () => {
+      const {rerender, container, getByRole} = render(
+        <TextInput characterLimit={10} value="Hello" onChange={() => {}} />,
+      )
+      expect(container.textContent).toContain('5 characters remaining')
+      expect(getByRole('textbox')).not.toHaveAttribute('aria-invalid', 'true')
+
+      rerender(<TextInput characterLimit={10} value="Hello World!" onChange={() => {}} />)
+      expect(container.textContent).toContain('2 characters over')
+      expect(getByRole('textbox')).toHaveAttribute('aria-invalid', 'true')
+    })
+
     it('should update character count on input', async () => {
       const user = userEvent.setup()
       const {getByRole, container} = render(<TextInput characterLimit={20} />)
@@ -363,6 +376,29 @@ describe('TextInput', () => {
       const {container} = render(<TextInput characterLimit={20} defaultValue="Hello" />)
       const srElement = container.querySelector('[aria-live="polite"]')
       expect(srElement?.textContent).toBe('')
+    })
+
+    it('announces the updated remaining count after a change', async () => {
+      // Wiring check: a change should reach the announcement hook and surface in the
+      // live region. Uses fireEvent + fake timers because userEvent deadlocks with
+      // fake timers in the browser test environment and the announcement is debounced
+      // (real timers would be slow and flaky).
+      vi.useFakeTimers()
+      try {
+        const {getByRole, container} = render(<TextInput characterLimit={20} />)
+        const liveRegion = container.querySelector('[aria-live="polite"]')
+
+        fireEvent.change(getByRole('textbox'), {target: {value: 'Hello'}})
+        expect(liveRegion?.textContent).toBe('')
+
+        await act(async () => {
+          await vi.advanceTimersByTimeAsync(SCREEN_READER_DELAY)
+        })
+
+        expect(liveRegion).toHaveTextContent('15 characters remaining')
+      } finally {
+        vi.useRealTimers()
+      }
     })
   })
 

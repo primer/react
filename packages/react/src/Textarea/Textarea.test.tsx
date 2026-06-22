@@ -1,11 +1,12 @@
 import React from 'react'
 import Textarea from '../Textarea'
-import {render, screen} from '@testing-library/react'
+import {render, screen, fireEvent, act} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {describe, expect, it, vi, beforeEach} from 'vitest'
 import classes from './TextArea.module.css'
 import {implementsClassName} from '../utils/testing'
 import textInputClasses from '../internal/components/TextInputWrapper.module.css'
+import {SCREEN_READER_DELAY} from '../utils/character-counter'
 
 function getCSSRules(selector: string): Array<CSSStyleRule> {
   return Array.from(document.styleSheets).flatMap(sheet => {
@@ -156,6 +157,18 @@ describe('Textarea', () => {
       expect(container.textContent).toContain('100 characters remaining')
     })
 
+    it('derives the counter and validation state from a controlled value', () => {
+      const {rerender, container, getByRole} = render(
+        <Textarea characterLimit={10} value="Hello" onChange={() => {}} />,
+      )
+      expect(container.textContent).toContain('5 characters remaining')
+      expect(getByRole('textbox')).toHaveAttribute('aria-invalid', 'false')
+
+      rerender(<Textarea characterLimit={10} value="Hello World!" onChange={() => {}} />)
+      expect(container.textContent).toContain('2 characters over')
+      expect(getByRole('textbox')).toHaveAttribute('aria-invalid', 'true')
+    })
+
     it('should update character count on input', async () => {
       const user = userEvent.setup()
       const {getByRole, container} = render(<Textarea characterLimit={100} />)
@@ -244,6 +257,29 @@ describe('Textarea', () => {
       const {container} = render(<Textarea characterLimit={100} defaultValue="Hello World" />)
       const srElement = container.querySelector('[aria-live="polite"]')
       expect(srElement?.textContent).toBe('')
+    })
+
+    it('announces the updated remaining count after a change', async () => {
+      // Wiring check: a change should reach the announcement hook and surface in the
+      // live region. Uses fireEvent + fake timers because userEvent deadlocks with
+      // fake timers in the browser test environment and the announcement is debounced
+      // (real timers would be slow and flaky).
+      vi.useFakeTimers()
+      try {
+        const {getByRole, container} = render(<Textarea characterLimit={100} />)
+        const liveRegion = container.querySelector('[aria-live="polite"]')
+
+        fireEvent.change(getByRole('textbox'), {target: {value: 'Hello'}})
+        expect(liveRegion?.textContent).toBe('')
+
+        await act(async () => {
+          await vi.advanceTimersByTimeAsync(SCREEN_READER_DELAY)
+        })
+
+        expect(liveRegion).toHaveTextContent('95 characters remaining')
+      } finally {
+        vi.useRealTimers()
+      }
     })
   })
 })
