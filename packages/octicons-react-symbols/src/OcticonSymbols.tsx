@@ -1,7 +1,7 @@
 import {createContext, Fragment, useMemo, useState} from 'react'
 import type {PropsWithChildren} from 'react'
 
-type OcticonSymbolsProps = PropsWithChildren<{}>
+type OcticonSymbolsProps = PropsWithChildren
 
 type OcticonSymbolsContextValue = {
   registerSymbol(id: string, symbol: React.ReactNode): void
@@ -40,5 +40,5 @@ function OcticonSymbols({children}: OcticonSymbolsProps) {
   )
 }
 
-export {OcticonSymbols}
+export {OcticonSymbols, OcticonSymbolsContext}
 export type {OcticonSymbolsProps}
