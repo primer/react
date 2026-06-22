@@ -26,6 +26,12 @@
       "description": "Whether multiple items or a single item can be selected."
     },
     {
+      "name": "size",
+      "type": "'small' | 'medium'",
+      "defaultValue": "'medium'",
+      "description": "The size of the ActionList items."
+    },
+    {
       "name": "showDividers",
       "type": "boolean",
       "description": "Display a divider above each `Item` in this `List` when it does not follow a `Header` or `Divider`.",
@@ -57,7 +63,7 @@
         },
         {
           "name": "size",
-          "type": "'medium' | 'large'",
+          "type": "'small' | 'medium' | 'large'",
           "defaultValue": "'medium'",
           "description": "The block size of the ActionList items."
         },

@@ -259,6 +259,24 @@ describe('ActionList', () => {
     expect(linkElements[1]).toHaveAttribute('data-size', 'medium')
     expect(linkElements[2]).toHaveAttribute('data-size', 'medium') // default should be medium
   })
+
+  it('should support size prop on ActionList', () => {
+    const {container} = HTMLRender(
+      <ActionList size="small">
+        <ActionList.Item>Small Item</ActionList.Item>
+        <ActionList.LinkItem href="//github.com">Small Link Item</ActionList.LinkItem>
+        <ActionList.Item size="large">Large Item</ActionList.Item>
+      </ActionList>,
+    )
+
+    const actionList = container.querySelector('[data-component="ActionList"]')
+    const itemElements = container.querySelectorAll('button, a')
+
+    expect(actionList).toHaveAttribute('data-size', 'small')
+    expect(itemElements[0]).toHaveAttribute('data-size', 'small')
+    expect(itemElements[1]).toHaveAttribute('data-size', 'small')
+    expect(itemElements[2]).toHaveAttribute('data-size', 'large')
+  })
 })
 
 describe('ActionList data-component attributes', () => {

@@ -30,6 +30,7 @@ export const Playground: StoryFn<ActionListProps> = args => (
   </ActionList>
 )
 Playground.args = {
+  size: 'medium',
   showDividers: false,
   selectionVariant: undefined,
   variant: 'inset',
@@ -45,6 +46,12 @@ Playground.argTypes = {
       type: 'radio',
     },
     options: ['inset', 'horizontal-inset', 'full'],
+  },
+  size: {
+    control: {
+      type: 'radio',
+    },
+    options: ['small', 'medium'],
   },
   selectionVariant: {
     control: {

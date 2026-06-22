@@ -33,7 +33,7 @@ export type ActionListItemProps<As extends React.ElementType = 'li'> = ExcludeSe
    * - `"danger"` - A destructive action `Item`.
    */
   variant?: 'default' | 'danger'
-  size?: 'medium' | 'large'
+  size?: 'small' | 'medium' | 'large'
   /**
    * Items that are disabled can not be clicked, selected, or navigated through.
    */
@@ -144,6 +144,10 @@ export type ActionListProps<As extends React.ElementType = 'ul'> = PolymorphicPr
      */
     selectionVariant?: 'single' | 'radio' | 'multiple'
     /**
+     * The size of the ActionList items.
+     */
+    size?: 'small' | 'medium'
+    /**
      * Display a divider above each `Item` in this `List` when it does not follow a `Header` or `Divider`.
      */
     showDividers?: boolean
@@ -161,7 +165,7 @@ export type ActionListProps<As extends React.ElementType = 'ul'> = PolymorphicPr
 
 type ContextProps = Pick<
   ActionListProps<React.ElementType>,
-  'variant' | 'selectionVariant' | 'showDividers' | 'role'
+  'variant' | 'selectionVariant' | 'showDividers' | 'role' | 'size'
 > & {
   headingId?: string
 }

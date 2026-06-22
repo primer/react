@@ -540,6 +540,16 @@
     padding-block: var(--control-large-paddingBlock);
   }
 
+  &[data-size='small'] {
+    /* stylelint-disable-next-line primer/spacing */
+    padding-block: var(--control-small-paddingBlock);
+
+    & .ItemLabel,
+    & .TrailingVisual {
+      font-size: var(--text-body-size-small);
+    }
+  }
+
   /* collapsible item [aria-expanded] */
 
   &[aria-expanded='true'] {

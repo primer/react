@@ -41,6 +41,10 @@ const stories = [
     id: 'components-actionlist-features--simple-list',
   },
   {
+    title: 'Small List',
+    id: 'components-actionlist-features--small-list',
+  },
+  {
     title: 'Single Divider',
     id: 'components-actionlist-features--single-divider',
   },

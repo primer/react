@@ -86,7 +86,7 @@ const listRoleTypes = ['listbox', 'menu', 'list', 'tree']
 const UnwrappedItem = <As extends React.ElementType = 'li'>(
   {
     variant = 'default',
-    size = 'medium',
+    size: sizeProp,
     disabled = false,
     inactiveText,
     selected = undefined,
@@ -118,8 +118,9 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
   ) : null
   const trailingVisual = slots.trailingVisual ?? wrappedDefaultTrailingVisual
 
-  const {role: listRole, selectionVariant: listSelectionVariant} = React.useContext(ListContext)
+  const {role: listRole, selectionVariant: listSelectionVariant, size: listSize} = React.useContext(ListContext)
   const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
+  const size = sizeProp ?? listSize ?? 'medium'
   const inactive = Boolean(inactiveText)
   // TODO change `menuContext` check to ```listRole !== undefined && ['menu', 'listbox'].includes(listRole)```
   // once we have a better way to handle existing usage in dotcom that incorrectly use ActionList.TrailingAction

@@ -20,6 +20,7 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
     as: Component = 'ul',
     variant = 'inset',
     selectionVariant,
+    size = 'medium',
     showDividers = false,
     role,
     disableFocusZone = false,
@@ -62,11 +63,12 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
     () => ({
       variant,
       selectionVariant: selectionVariant || containerSelectionVariant,
+      size,
       showDividers,
       role: listRole,
       headingId,
     }),
-    [variant, selectionVariant, containerSelectionVariant, showDividers, listRole, headingId],
+    [variant, selectionVariant, containerSelectionVariant, size, showDividers, listRole, headingId],
   )
 
   // Replaces a CSS `:has([data-has-description])` selector that caused full-subtree
@@ -109,6 +111,7 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
         data-component="ActionList"
         data-dividers={showDividers}
         data-variant={variant}
+        data-size={size}
         data-item-gap={itemGapEnabled ? '' : undefined}
         {...restProps}
       >

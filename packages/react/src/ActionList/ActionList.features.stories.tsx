@@ -50,6 +50,27 @@ export const SimpleList = () => (
   </ActionList>
 )
 
+export const SmallList = () => (
+  <ActionList size="small">
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <LinkIcon />
+      </ActionList.LeadingVisual>
+      Copy link
+    </ActionList.Item>
+    <ActionList.Item>
+      Quote reply
+      <ActionList.Description>Reply with selected text</ActionList.Description>
+    </ActionList.Item>
+    <ActionList.LinkItem href="https://github.com/primer/react">
+      <ActionList.LeadingVisual>
+        <BookIcon />
+      </ActionList.LeadingVisual>
+      View repository
+    </ActionList.LinkItem>
+  </ActionList>
+)
+
 export const WithVisualListHeading = () => (
   <ActionList>
     <ActionList.Heading as="h2" size="small">
