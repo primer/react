@@ -59,6 +59,11 @@ To do this, we will:
 
 ### Breaking components down into parts
 
+- SelectPanel
+- Dialog
+- ConfirmationDialog
+- Pagination
+
 ### Delivering low-level components, hooks, and utilities
 
 We will immediately deliver high priority components that assist in building accessible experiences, including:
