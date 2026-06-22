@@ -29,7 +29,7 @@ The primary workspace is `packages/react` which contains the `@primer/react` pac
 **Run tests:**
 
 - `npm test` -- runs unit tests. NEVER CANCEL. Takes 75 seconds. Set timeout to 90+ minutes. Runs 1500+ tests using Vitest in both node and chromium environments.
-- Vitest console enforcement is enabled by default. For local debugging, temporarily opt out with `VITEST_FAIL_ON_CONSOLE=false npm test`.
+- Vitest console enforcement is enabled by default in CI. For local debugging, it is disabled unless you opt in with `VITEST_FAIL_ON_CONSOLE=true npm test`.
 - `npm run type-check` -- runs TypeScript type checking across all packages. Takes 42 seconds. Set timeout to 60+ minutes.
 
 **Development workflow:**
