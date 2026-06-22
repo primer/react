@@ -5,19 +5,6 @@ import {UnderlineItem} from '../internal/components/UnderlineTabbedInterface'
 import classes from './UnderlineNavItem.module.css'
 import {type UnderlineNavItemProps, UnderlineNavItemsRegistry} from './UnderlineNavItemsRegistry'
 
-// adopted from React.AnchorHTMLAttributes
-export type LinkProps = {
-  download?: string
-  href?: string
-  hrefLang?: string
-  media?: string
-  ping?: string
-  rel?: string
-  target?: string
-  type?: string
-  referrerPolicy?: React.AnchorHTMLAttributes<HTMLAnchorElement>['referrerPolicy']
-}
-
 export const UnderlineNavItem = forwardRef((allProps, forwardedRef) => {
   const {
     as: Component = 'a',

@@ -1,6 +1,18 @@
 import type {IconProps} from '@primer/octicons-react'
 import {createDescendantRegistry} from '../utils/descendant-registry'
-import type {LinkProps} from '../Link'
+
+// adopted from React.AnchorHTMLAttributes
+type LinkProps = {
+  download?: string
+  href?: string
+  hrefLang?: string
+  media?: string
+  ping?: string
+  rel?: string
+  target?: string
+  type?: string
+  referrerPolicy?: React.AnchorHTMLAttributes<HTMLAnchorElement>['referrerPolicy']
+}
 
 export type UnderlineNavItemProps = {
   /**
