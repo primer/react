@@ -19,7 +19,7 @@ async function generateComponentsJson() {
   for (const entrypoint of entrypoints) {
     const filename = path.join(PACKAGE_ROOT, entrypoint)
     const contents = await fs.readFile(filename, 'utf8')
-    const ast = babel.parse(contents, {
+    const ast = babel.parseSync(contents, {
       sourceFileName: filename,
       sourceType: 'module',
       parserOpts: {
