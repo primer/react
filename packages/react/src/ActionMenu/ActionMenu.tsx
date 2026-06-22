@@ -18,7 +18,7 @@ import styles from './ActionMenu.module.css'
 import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isSlot} from '../utils/is-slot'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types/Slots'
-import {DialogContext} from '../Dialog/Dialog'
+import {DialogContext} from '../Dialog/DialogContext'
 
 export type MenuCloseHandler = (
   gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab' | 'item-select' | 'arrow-left' | 'close',
@@ -256,7 +256,7 @@ export type ActionMenuButtonProps = ButtonProps
 const MenuButton = React.forwardRef(({...props}, anchorRef) => {
   return (
     <Anchor ref={anchorRef}>
-      <Button type="button" trailingAction={TriangleDownIcon} {...props} />
+      <Button data-component="ActionMenu.Button" type="button" trailingAction={TriangleDownIcon} {...props} />
     </Anchor>
   )
 }) as PolymorphicForwardRefComponent<'button', ActionMenuButtonProps>
@@ -355,7 +355,10 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
       onClose={handleClose}
       align={align}
       side={side ?? (isSubmenu ? 'outside-right' : 'outside-bottom')}
-      overlayProps={overlayProps}
+      overlayProps={{
+        ...overlayProps,
+        'data-component': 'ActionMenu.Overlay',
+      }}
       focusZoneSettings={isNarrowFullscreen ? {disabled: true} : {focusOutBehavior: 'wrap'}}
       onPositionChange={onPositionChange}
       variant={variant}
@@ -378,7 +381,6 @@ const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
 
 Menu.displayName = 'ActionMenu'
 
-Menu.__SLOT__ = Symbol('ActionMenu')
 MenuButton.__SLOT__ = Symbol('ActionMenu.Button')
 Anchor.__SLOT__ = Symbol('ActionMenu.Anchor')
 Overlay.__SLOT__ = Symbol('ActionMenu.Overlay')

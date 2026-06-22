@@ -2,7 +2,12 @@ import type {Meta, StoryFn} from '@storybook/react-vite'
 import React from 'react'
 import {PageLayout} from './PageLayout'
 import {Placeholder} from '../Placeholder'
-import {BranchName, Heading, Link, StateLabel, Text, useIsomorphicLayoutEffect} from '..'
+import BranchName from '../BranchName'
+import Heading from '../Heading'
+import Link from '../Link'
+import StateLabel from '../StateLabel'
+import Text from '../Text'
+import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import TabNav from '../TabNav'
 import classes from './PageLayout.features.stories.module.css'
 import {defaultPaneWidth} from './usePaneWidth'
@@ -450,6 +455,90 @@ export const SidebarWithPaneResizable: StoryFn = () => (
     </PageLayout.Footer>
   </PageLayout>
 )
+
+export const ResizableSidebarWithoutPersistence: StoryFn = () => {
+  const [currentWidth, setCurrentWidth] = React.useState<number>(300)
+
+  return (
+    <PageLayout containerWidth="full">
+      <PageLayout.Sidebar
+        resizable
+        position="start"
+        currentWidth={currentWidth}
+        onResizeEnd={setCurrentWidth}
+        aria-label="Resizable sidebar (controlled)"
+        style={{height: 'auto'}}
+        width={{min: '200px', default: '300px', max: '600px'}}
+      >
+        <Placeholder height="100%" label={`Sidebar (controlled, width: ${currentWidth}px)`} />
+      </PageLayout.Sidebar>
+      <PageLayout.Header>
+        <Placeholder height={64} label="Header" />
+      </PageLayout.Header>
+      <PageLayout.Content>
+        <Placeholder height={640} label="Content" />
+      </PageLayout.Content>
+      <PageLayout.Footer>
+        <Placeholder height={64} label="Footer" />
+      </PageLayout.Footer>
+    </PageLayout>
+  )
+}
+ResizableSidebarWithoutPersistence.storyName = 'Resizable sidebar without persistence'
+
+export const ResizableSidebarWithCustomPersistence: StoryFn = () => {
+  const key = 'page-layout-features-stories-custom-persistence-sidebar-width'
+
+  // Read initial width from localStorage (CSR only), falling back to medium preset
+  const getInitialWidth = (): number => {
+    if (typeof window !== 'undefined') {
+      const storedWidth = localStorage.getItem(key)
+      if (storedWidth !== null) {
+        const parsed = parseFloat(storedWidth)
+        if (!isNaN(parsed) && parsed > 0) {
+          return parsed
+        }
+      }
+    }
+    return defaultPaneWidth.medium
+  }
+
+  const [currentWidth, setCurrentWidth] = React.useState<number>(getInitialWidth)
+  useIsomorphicLayoutEffect(() => {
+    setCurrentWidth(getInitialWidth())
+  }, [])
+
+  const handleWidthChange = (width: number) => {
+    setCurrentWidth(width)
+    localStorage.setItem(key, width.toString())
+  }
+
+  return (
+    <PageLayout containerWidth="full">
+      <PageLayout.Sidebar
+        resizable
+        position="start"
+        currentWidth={currentWidth}
+        onResizeEnd={handleWidthChange}
+        aria-label="Resizable sidebar (custom persistence)"
+        style={{height: 'auto'}}
+        width={{min: '200px', default: `${defaultPaneWidth.medium}px`, max: '600px'}}
+      >
+        <Placeholder height="100%" label={`Sidebar (width: ${currentWidth}px)`} />
+      </PageLayout.Sidebar>
+      <PageLayout.Header>
+        <Placeholder height={64} label="Header" />
+      </PageLayout.Header>
+      <PageLayout.Content>
+        <Placeholder height={640} label="Content" />
+      </PageLayout.Content>
+      <PageLayout.Footer>
+        <Placeholder height={64} label="Footer" />
+      </PageLayout.Footer>
+    </PageLayout>
+  )
+}
+ResizableSidebarWithCustomPersistence.storyName = 'Resizable sidebar with custom persistence'
 
 export const StickySidebar: StoryFn = () => (
   <PageLayout containerWidth="full">

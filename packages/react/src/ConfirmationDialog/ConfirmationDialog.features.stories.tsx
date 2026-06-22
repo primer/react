@@ -4,7 +4,8 @@ import type {Meta} from '@storybook/react-vite'
 import {Button} from '../Button'
 import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
-import {ConfirmationDialog, useConfirm} from './ConfirmationDialog'
+import {ConfirmationDialog} from './ConfirmationDialog'
+import {useConfirm} from './useConfirm'
 import classes from './ConfirmationDialog.features.stories.module.css'
 
 export default {

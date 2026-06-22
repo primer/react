@@ -1,5 +1,6 @@
 import type {RefObject} from 'react'
-import React, {useRef, forwardRef, useCallback, useState, useEffect} from 'react'
+import React, {useRef, forwardRef, useCallback, useState} from 'react'
+import {useDevOnlyEffect} from '../internal/hooks/useDevOnlyEffect'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useResizeObserver} from '../hooks/useResizeObserver'
@@ -17,6 +18,7 @@ import CounterLabel from '../CounterLabel'
 import {invariant} from '../utils/invariant'
 import classes from './UnderlineNav.module.css'
 import {getAnchoredPosition} from '@primer/behaviors'
+import {getValidChildren} from './utils'
 
 export type UnderlineNavProps = {
   children: React.ReactNode
@@ -108,11 +110,6 @@ const overflowEffect = (
   updateListAndMenu({items, menuItems}, iconsVisible, true)
 }
 
-export const getValidChildren = (children: React.ReactNode) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement<any>[]
-}
-
 const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: number, moreMenuWidth = 0) => {
   const widthToFit = navWidth - moreMenuWidth
   let breakpoint = childWidthArray.length // assume all items will fit
@@ -190,18 +187,14 @@ export const UnderlineNav = forwardRef(
     // This is the case where the viewport is too narrow to show any list item with the more menu. In this case, we only show the dropdown
     const onlyMenuVisible = responsiveProps.items.length === 0
 
-    if (__DEV__) {
-      // Practically, this is not a conditional hook, it is just making sure this hook runs only on DEV not PROD.
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useEffect(() => {
-        // Address illegal state where there are multiple items that have `aria-current='page'` attribute
-        const activeElements = validChildren.filter(child => {
-          return child.props['aria-current'] !== undefined
-        })
-        invariant(activeElements.length <= 1, 'Only one current element is allowed')
-        invariant(ariaLabel, 'Use the `aria-label` prop to provide an accessible label for assistive technology')
+    useDevOnlyEffect(() => {
+      // Address illegal state where there are multiple items that have `aria-current='page'` attribute
+      const activeElements = validChildren.filter(child => {
+        return child.props['aria-current'] !== undefined
       })
-    }
+      invariant(activeElements.length <= 1, 'Only one current element is allowed')
+      invariant(ariaLabel, 'Use the `aria-label` prop to provide an accessible label for assistive technology')
+    }, [validChildren, ariaLabel])
 
     function getItemsWidth(itemText: string): number {
       return noIconChildWidthArray.find(item => item.text === itemText)?.width ?? 0

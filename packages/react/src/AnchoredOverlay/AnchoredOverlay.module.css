@@ -17,7 +17,11 @@
   position-try-fallbacks:
     flip-block,
     flip-inline,
-    flip-block flip-inline;
+    flip-block flip-inline,
+    --inline-end-center,
+    --inline-start-center,
+    --fit-block-bottom,
+    --fit-block-top;
   position-visibility: anchors-visible;
   z-index: 100;
   position: fixed !important;
@@ -30,7 +34,8 @@
     max-width: none;
   }
 
-  &[data-side='outside-bottom'] {
+  &[data-side='outside-bottom'],
+  &[data-side='inside-bottom'] {
     /* stylelint-disable primer/spacing */
     top: calc(anchor(bottom) + var(--base-size-4));
     left: anchor(left);
@@ -38,10 +43,27 @@
     &[data-align='left'] {
       left: auto;
       right: calc(anchor(right) - var(--anchored-overlay-anchor-offset-left));
+      /* stylelint-disable max-nesting-depth */
+      &[data-responsive='fullscreen'] {
+        @media screen and (--viewportRange-narrow) {
+          right: auto;
+        }
+      }
+    }
+
+    &[data-align='right'] {
+      left: calc(anchor(left) - var(--anchored-overlay-anchor-offset-right));
+
+      &[data-responsive='fullscreen'] {
+        @media screen and (--viewportRange-narrow) {
+          left: auto;
+        }
+      }
     }
   }
 
-  &[data-side='outside-top'] {
+  &[data-side='outside-top'],
+  &[data-side='inside-top'] {
     margin-bottom: var(--base-size-4);
     bottom: anchor(top);
     left: anchor(left);
@@ -50,9 +72,20 @@
       left: auto;
       right: anchor(right);
     }
+
+    &[data-align='right'] {
+      left: calc(anchor(left) - var(--anchored-overlay-anchor-offset-right));
+
+      &[data-responsive='fullscreen'] {
+        @media screen and (--viewportRange-narrow) {
+          left: auto;
+        }
+      }
+    }
   }
 
-  &[data-side='outside-left'] {
+  &[data-side='outside-left'],
+  &[data-side='inside-left'] {
     right: anchor(left);
     /* Falls back to `anchor(top)` when JS hasn't overridden it. JS sets the
        override when the overlay's bottom would overflow the viewport so we
@@ -67,7 +100,8 @@
     position-try-fallbacks: flip-inline, flip-block, flip-start, --outside-left-to-bottom;
   }
 
-  &[data-side='outside-right'] {
+  &[data-side='outside-right'],
+  &[data-side='inside-right'] {
     left: anchor(right);
     top: var(--anchored-overlay-top-override, anchor(top));
     margin-left: var(--base-size-4);
@@ -87,4 +121,35 @@
   top: calc(anchor(bottom) + var(--base-size-4));
   margin: 0;
   width: auto;
+}
+
+@position-try --inline-end-center {
+  left: anchor(right);
+  top: auto;
+  bottom: auto;
+  margin-left: var(--base-size-4);
+  align-self: anchor-center;
+}
+
+@position-try --inline-start-center {
+  right: anchor(left);
+  left: auto;
+  top: auto;
+  bottom: auto;
+  margin-right: var(--base-size-4);
+  align-self: anchor-center;
+}
+
+@position-try --fit-block-bottom {
+  top: calc(anchor(bottom) + var(--base-size-4));
+  bottom: var(--base-size-8);
+  height: auto;
+  max-height: none;
+}
+
+@position-try --fit-block-top {
+  top: var(--base-size-8);
+  bottom: calc(100vh - anchor(top) + var(--base-size-4));
+  height: auto;
+  max-height: none;
 }

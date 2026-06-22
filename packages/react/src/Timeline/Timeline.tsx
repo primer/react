@@ -1,10 +1,12 @@
 import {clsx} from 'clsx'
 import React from 'react'
+import {useFeatureFlag} from '../FeatureFlags'
 import classes from './Timeline.module.css'
+import type {TimelineBadgeVariants} from './constants'
 
 type StyledTimelineProps = {clipSidebar?: boolean | 'start' | 'end' | 'both'; className?: string}
 
-export type TimelineProps = StyledTimelineProps & React.ComponentPropsWithoutRef<'div'>
+export type TimelineProps = StyledTimelineProps & Omit<React.ComponentPropsWithoutRef<'ol'>, 'role'>
 
 function resolveClipSidebar(clipSidebar: TimelineProps['clipSidebar']): string | undefined {
   if (clipSidebar === true || clipSidebar === 'both') return 'both'
@@ -12,17 +14,36 @@ function resolveClipSidebar(clipSidebar: TimelineProps['clipSidebar']): string |
   return undefined
 }
 
-const Timeline = React.forwardRef<HTMLDivElement, TimelineProps>(({clipSidebar, className, ...props}, forwardRef) => {
-  const resolvedClipSidebar = resolveClipSidebar(clipSidebar)
-  return (
-    <div
-      {...props}
-      className={clsx(className, classes.Timeline)}
-      ref={forwardRef}
-      data-clip-sidebar={resolvedClipSidebar}
-    />
-  )
-})
+const Timeline = React.forwardRef<HTMLDivElement | HTMLOListElement, TimelineProps>(
+  ({clipSidebar, className, ...props}, forwardRef) => {
+    const useListSemantics = useFeatureFlag('primer_react_timeline_list_semantics')
+    const resolvedClipSidebar = resolveClipSidebar(clipSidebar)
+
+    if (useListSemantics) {
+      return (
+        // Explicit role restores list semantics in Safari/VoiceOver, which strips
+        // them when list-style: none is applied (WebKit intentional behaviour).
+        // eslint-disable-next-line jsx-a11y/no-redundant-roles
+        <ol
+          {...props}
+          role="list"
+          className={clsx(className, classes.Timeline)}
+          ref={forwardRef as React.ForwardedRef<HTMLOListElement>}
+          data-clip-sidebar={resolvedClipSidebar}
+        />
+      )
+    }
+
+    return (
+      <div
+        {...(props as React.ComponentPropsWithoutRef<'div'>)}
+        className={clsx(className, classes.Timeline)}
+        ref={forwardRef as React.ForwardedRef<HTMLDivElement>}
+        data-clip-sidebar={resolvedClipSidebar}
+      />
+    )
+  },
+)
 
 Timeline.displayName = 'Timeline'
 
@@ -31,17 +52,30 @@ type StyledTimelineItemProps = {condensed?: boolean; className?: string}
 /**
  * @deprecated Use the `TimelineItemProps` type instead
  */
-export type TimelineItemsProps = StyledTimelineItemProps & React.ComponentPropsWithoutRef<'div'>
+export type TimelineItemsProps = StyledTimelineItemProps & React.ComponentPropsWithoutRef<'li'>
 
-export type TimelineItemProps = StyledTimelineItemProps & React.ComponentPropsWithoutRef<'div'>
+export type TimelineItemProps = StyledTimelineItemProps & React.ComponentPropsWithoutRef<'li'>
 
-const TimelineItem = React.forwardRef<HTMLDivElement, TimelineItemProps>(
+const TimelineItem = React.forwardRef<HTMLDivElement | HTMLLIElement, TimelineItemProps>(
   ({condensed, className, ...props}, forwardRef) => {
+    const useListSemantics = useFeatureFlag('primer_react_timeline_list_semantics')
+
+    if (useListSemantics) {
+      return (
+        <li
+          {...props}
+          className={clsx(className, 'Timeline-Item', classes.TimelineItem)}
+          ref={forwardRef as React.ForwardedRef<HTMLLIElement>}
+          data-condensed={condensed ? '' : undefined}
+        />
+      )
+    }
+
     return (
       <div
-        {...props}
+        {...(props as React.ComponentPropsWithoutRef<'div'>)}
         className={clsx(className, 'Timeline-Item', classes.TimelineItem)}
-        ref={forwardRef}
+        ref={forwardRef as React.ForwardedRef<HTMLDivElement>}
         data-condensed={condensed ? '' : undefined}
       />
     )
@@ -50,16 +84,7 @@ const TimelineItem = React.forwardRef<HTMLDivElement, TimelineItemProps>(
 
 TimelineItem.displayName = 'TimelineItem'
 
-export type TimelineBadgeVariant =
-  | 'accent'
-  | 'success'
-  | 'attention'
-  | 'severe'
-  | 'danger'
-  | 'done'
-  | 'open'
-  | 'closed'
-  | 'sponsors'
+export type TimelineBadgeVariant = (typeof TimelineBadgeVariants)[number]
 
 export type TimelineBadgeProps = {
   children?: React.ReactNode
@@ -92,17 +117,62 @@ TimelineBody.displayName = 'TimelineBody'
 export type TimelineBreakProps = {
   /** Class name for custom styling */
   className?: string
-} & React.ComponentPropsWithoutRef<'div'>
+} & Omit<React.ComponentPropsWithoutRef<'li'>, 'role'>
 
-const TimelineBreak = React.forwardRef<HTMLDivElement, TimelineBreakProps>(({className, ...props}, forwardRef) => {
-  return <div {...props} className={clsx(className, classes.TimelineBreak)} ref={forwardRef} />
-})
+const TimelineBreak = React.forwardRef<HTMLDivElement | HTMLLIElement, TimelineBreakProps>(
+  ({className, ...props}, forwardRef) => {
+    const useListSemantics = useFeatureFlag('primer_react_timeline_list_semantics')
+
+    if (useListSemantics) {
+      return (
+        <li
+          {...props}
+          className={clsx(className, classes.TimelineBreak)}
+          ref={forwardRef as React.ForwardedRef<HTMLLIElement>}
+          role="presentation"
+        />
+      )
+    }
+
+    return (
+      <div
+        {...(props as React.ComponentPropsWithoutRef<'div'>)}
+        className={clsx(className, classes.TimelineBreak)}
+        ref={forwardRef as React.ForwardedRef<HTMLDivElement>}
+      />
+    )
+  },
+)
 
 TimelineBreak.displayName = 'TimelineBreak'
 
+export type TimelineActionsProps = {
+  /** Class name for custom styling */
+  className?: string
+} & React.ComponentPropsWithoutRef<'div'>
+
+const TimelineActions = React.forwardRef<HTMLDivElement, TimelineActionsProps>(({className, ...props}, forwardRef) => {
+  return <div {...props} className={clsx(className, classes.TimelineItemActions)} ref={forwardRef} />
+})
+
+TimelineActions.displayName = 'Timeline.Actions'
+
+export type TimelineAvatarProps = {
+  /** Class name for custom styling */
+  className?: string
+} & React.ComponentPropsWithoutRef<'div'>
+
+const TimelineAvatar = React.forwardRef<HTMLDivElement, TimelineAvatarProps>(({className, ...props}, forwardRef) => {
+  return <div {...props} className={clsx(className, classes.TimelineItemAvatar)} ref={forwardRef} />
+})
+
+TimelineAvatar.displayName = 'Timeline.Avatar'
+
 export default Object.assign(Timeline, {
   Item: TimelineItem,
+  Avatar: TimelineAvatar,
   Badge: TimelineBadge,
   Body: TimelineBody,
   Break: TimelineBreak,
+  Actions: TimelineActions,
 })

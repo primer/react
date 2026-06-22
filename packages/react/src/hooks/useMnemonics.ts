@@ -13,6 +13,7 @@ export const useMnemonics = (open: boolean, providedRef?: React.RefObject<HTMLEl
 
   React.useEffect(
     function addAriaKeyshortcuts() {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (!open || !containerRef.current) return
       const container = containerRef.current
 

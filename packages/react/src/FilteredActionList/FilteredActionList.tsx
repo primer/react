@@ -281,6 +281,7 @@ export function FilteredActionList({
     [onListContainerRefChanged],
   )
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent
     onInputRefChanged?.(inputRef)
   }, [inputRef, onInputRefChanged])
 
@@ -297,7 +298,11 @@ export function FilteredActionList({
     overscan: 10,
     enabled: isVirtualized,
     getItemKey: index => {
-      const item = items[index]
+      // `measureElement` from @tanstack/react-virtual can invoke this with an index
+      // whose item has just been removed (e.g. during a filter that shrinks `items`),
+      // so guard against `items[index]` being undefined.
+      const item = items[index] as ItemInput | undefined
+      if (!item) return index.toString()
       return item.key ?? item.id?.toString() ?? index.toString()
     },
     measureElement: el => (el as HTMLElement).scrollHeight,
@@ -365,6 +370,7 @@ export function FilteredActionList({
   }, [items, inputRef, scrollContainerRef, scrollBehavior])
 
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (usingRovingTabindex) {
       const inputAndListContainerElement = inputAndListContainerRef.current
       if (!inputAndListContainerElement) return
@@ -387,7 +393,9 @@ export function FilteredActionList({
   }, [items, inputRef, listContainerElement, usingRovingTabindex]) // Re-run when items change to update active indicators
 
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (usingRovingTabindex && !loading) {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
       setIsInputFocused(inputRef.current && inputRef.current === document.activeElement ? true : false)
     }
   }, [loading, inputRef, usingRovingTabindex])

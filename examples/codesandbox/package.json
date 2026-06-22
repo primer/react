@@ -14,13 +14,13 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@primer/react": "38.29.0",
+    "@primer/styled-react": "1.1.0",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.3",
-    "@primer/react": "38.24.0",
-    "@primer/styled-react": "1.0.9",
+    "@vitejs/plugin-react": "^6.0.2",
     "styled-components": "5.x",
     "typescript": "^6.0.3",
-    "vite": "^7.1.11"
+    "vite": "^8.0.16"
   }
 }

@@ -5,6 +5,7 @@ import {renderToStaticMarkup} from 'react-dom/server'
 import {NavList} from './NavList'
 import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
 import {implementsClassName} from '../utils/testing'
+import {FeatureFlags} from '../FeatureFlags'
 
 type NextJSLinkProps = {href: string; children: React.ReactNode}
 
@@ -22,6 +23,42 @@ const NextJSLikeLink = React.forwardRef<HTMLAnchorElement, NextJSLinkProps>(
 
 describe('NavList', () => {
   implementsClassName(NavList)
+
+  it('renders data-component attributes for NavList, NavList.Item, and NavList.SubNav', () => {
+    const {container, getByRole} = render(
+      <NavList>
+        <NavList.Item href="#">Item 1</NavList.Item>
+        <NavList.Item>
+          Item 2
+          <NavList.SubNav>
+            <NavList.Item href="#">Sub Item 1</NavList.Item>
+          </NavList.SubNav>
+        </NavList.Item>
+      </NavList>,
+    )
+
+    const nav = container.querySelector('nav')
+    expect(nav).toBeInTheDocument()
+    expect(nav).toHaveAttribute('data-component', 'NavList')
+
+    const item1Link = getByRole('link', {name: 'Item 1'})
+    expect(item1Link).toBeInTheDocument()
+    expect(item1Link).toHaveAttribute('data-component', 'NavList.Item')
+
+    const item2Button = getByRole('button', {name: 'Item 2'})
+    expect(item2Button).toBeInTheDocument()
+    expect(item2Button).toHaveAttribute('data-component', 'NavList.Item')
+
+    const subNav = container.querySelector('[data-component="NavList.SubNav"]')
+    expect(subNav).toBeInTheDocument()
+
+    // Expand so nested links are in the accessible tree
+    fireEvent.click(item2Button)
+
+    const subItem1Link = getByRole('link', {name: 'Sub Item 1'})
+    expect(subItem1Link).toBeInTheDocument()
+    expect(subItem1Link).toHaveAttribute('data-component', 'NavList.Item')
+  })
 
   it('supports TrailingAction', async () => {
     const {getByRole} = render(
@@ -515,5 +552,71 @@ describe('NavList.ShowMoreItem with pages', () => {
     expect(queryByRole('link', {name: 'Item 2'})).toHaveAttribute('data-custom-link', 'false')
     expect(queryByRole('link', {name: 'Item 3'})).toHaveAttribute('href', '#item3')
     expect(queryByRole('link', {name: 'Item 4'})).toHaveAttribute('href', '#item4')
+  })
+
+  describe('item gap feature flag', () => {
+    it('does not set data-item-gap on the underlying ActionList by default', () => {
+      const {container} = render(
+        <NavList>
+          <NavList.Item href="#" aria-current="page">
+            Home
+          </NavList.Item>
+          <NavList.Item href="#">About</NavList.Item>
+        </NavList>,
+      )
+
+      expect(container.querySelector('[data-component="ActionList"]')).not.toHaveAttribute('data-item-gap')
+    })
+
+    it('sets data-item-gap on the underlying ActionList when the primer_react_action_list_item_gap feature flag is enabled', () => {
+      const {container} = render(
+        <FeatureFlags flags={{primer_react_action_list_item_gap: true}}>
+          <NavList>
+            <NavList.Item href="#" aria-current="page">
+              Home
+            </NavList.Item>
+            <NavList.Item href="#">About</NavList.Item>
+          </NavList>
+        </FeatureFlags>,
+      )
+
+      expect(container.querySelector('[data-component="ActionList"]')).toHaveAttribute('data-item-gap', '')
+    })
+
+    it('adds a gap between a parent item and the first item of its expanded sub-nav when the feature flag is enabled', () => {
+      const {container} = render(
+        <FeatureFlags flags={{primer_react_action_list_item_gap: true}}>
+          <NavList>
+            <NavList.Item defaultOpen href="#">
+              Item 1
+              <NavList.SubNav>
+                <NavList.Item href="#">Sub item 1</NavList.Item>
+              </NavList.SubNav>
+            </NavList.Item>
+          </NavList>
+        </FeatureFlags>,
+      )
+
+      const subGroup = container.querySelector('ul[aria-labelledby]')
+      expect(subGroup).not.toBeNull()
+      expect(getComputedStyle(subGroup as HTMLElement).marginBlockStart).toBe('2px')
+    })
+
+    it('does not add a gap before a sub-nav when the feature flag is disabled', () => {
+      const {container} = render(
+        <NavList>
+          <NavList.Item defaultOpen href="#">
+            Item 1
+            <NavList.SubNav>
+              <NavList.Item href="#">Sub item 1</NavList.Item>
+            </NavList.SubNav>
+          </NavList.Item>
+        </NavList>,
+      )
+
+      const subGroup = container.querySelector('ul[aria-labelledby]')
+      expect(subGroup).not.toBeNull()
+      expect(getComputedStyle(subGroup as HTMLElement).marginBlockStart).toBe('0px')
+    })
   })
 })

@@ -780,6 +780,33 @@ export const ContainIntrinsicSize: StoryFn = () => {
   )
 }
 
+// `containIntrinsicSize` sets `content-visibility: auto` on the row container, which implies
+// `contain: paint`. The current-item indicator must paint inside the row's box or it gets clipped.
+export const CurrentItemWithContainIntrinsicSize: StoryFn = () => {
+  return (
+    <TreeView aria-label="Files">
+      <TreeView.Item id="file-1" containIntrinsicSize="2rem">
+        <TreeView.LeadingVisual>
+          <FileIcon />
+        </TreeView.LeadingVisual>
+        File 1
+      </TreeView.Item>
+      <TreeView.Item id="file-2" containIntrinsicSize="2rem" current>
+        <TreeView.LeadingVisual>
+          <FileIcon />
+        </TreeView.LeadingVisual>
+        File 2
+      </TreeView.Item>
+      <TreeView.Item id="file-3" containIntrinsicSize="2rem">
+        <TreeView.LeadingVisual>
+          <FileIcon />
+        </TreeView.LeadingVisual>
+        File 3
+      </TreeView.Item>
+    </TreeView>
+  )
+}
+
 export const InitialFocus: StoryFn = () => (
   <div>
     <Button>Focusable element before TreeView</Button>
@@ -1067,6 +1094,49 @@ export const MultilineItems: StoryFn = () => (
             <TreeView.TrailingVisual label="Added">
               <Octicon icon={DiffAddedIcon} className={classes.SuccessIcon} />
             </TreeView.TrailingVisual>
+          </TreeView.Item>
+        </TreeView.SubTree>
+      </TreeView.Item>
+    </TreeView>
+  </nav>
+)
+
+const CustomRouterLink = React.forwardRef<
+  HTMLAnchorElement,
+  React.AnchorHTMLAttributes<HTMLAnchorElement> & {to: string}
+>(({to, children, ...props}, ref) => (
+  <a ref={ref} href={to} data-custom-link {...props}>
+    {children}
+  </a>
+))
+CustomRouterLink.displayName = 'CustomRouterLink'
+
+export const AsProp: StoryFn = () => (
+  <nav aria-label="Docs">
+    <TreeView aria-label="Docs">
+      <TreeView.Item id="overview" as="a" href="#overview">
+        <TreeView.LeadingVisual>
+          <FileIcon />
+        </TreeView.LeadingVisual>
+        Overview (native anchor)
+      </TreeView.Item>
+      <TreeView.Item id="guides" defaultExpanded>
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        Guides
+        <TreeView.SubTree>
+          <TreeView.Item id="guides/install" as={CustomRouterLink} to="/guides/install">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Install (router link)
+          </TreeView.Item>
+          <TreeView.Item id="guides/setup" as={CustomRouterLink} to="/guides/setup">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Setup (router link)
           </TreeView.Item>
         </TreeView.SubTree>
       </TreeView.Item>

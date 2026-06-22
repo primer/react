@@ -29,12 +29,28 @@
   &[data-padding='none'] {
     padding: 0;
   }
+
+  &[data-layout='compact'] {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--stack-gap-condensed);
+  }
+
+  &[data-layout='compact'][data-padding='normal'] {
+    /* stylelint-disable-next-line primer/spacing */
+    padding: var(--stack-padding-normal);
+  }
 }
 
 .CardHeader {
   display: block;
   width: 100%;
   height: auto;
+
+  .Card:where([data-layout='compact']) & {
+    flex: 0 0 auto;
+    width: auto;
+  }
 }
 
 .CardHeaderEdgeToEdge {
@@ -55,17 +71,25 @@
 .CardIcon {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: var(--base-size-32);
-  height: var(--base-size-32);
-  border-radius: var(--borderRadius-medium);
-  background-color: var(--bgColor-muted);
+  justify-content: flex-start;
   color: var(--fgColor-muted);
+
+  .Card:where([data-layout='default']) & {
+    justify-content: center;
+    width: var(--base-size-32);
+    height: var(--base-size-32);
+    border-radius: var(--borderRadius-medium);
+    background-color: var(--bgColor-muted);
+  }
 }
 
 .CardBody {
   display: grid;
   gap: var(--stack-gap-normal);
+
+  .Card:where([data-layout='compact']) & {
+    flex: 1 1 auto;
+  }
 }
 
 .CardContent {
@@ -77,6 +101,12 @@
   font: var(--text-title-shorthand-small);
   color: var(--fgColor-default);
   margin: 0;
+
+  .Card:where([data-layout='compact']) & {
+    position: relative;
+    top: calc(-1 * var(--base-size-4));
+    font-size: var(--text-body-size-medium);
+  }
 }
 
 .CardDescription {
@@ -100,7 +130,7 @@
   font: var(--text-body-shorthand-small);
 }
 
-.CardMenu {
+.CardAction {
   position: absolute;
   top: var(--base-size-16);
   right: var(--base-size-16);

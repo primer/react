@@ -1,10 +1,8 @@
-/* eslint eslint-comments/no-use: off */
-/* eslint-disable primer-react/direct-slot-children */
-import {ActionList} from '../../src'
+import {ActionList as ActionListComponent} from '.'
 import figma from '@figma/code-connect'
 
 figma.connect(
-  ActionList,
+  ActionListComponent,
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=39883-5896&t=HMGAnO63EZZSdkly-4',
   {
     props: {
@@ -15,90 +13,98 @@ figma.connect(
         none: undefined,
       }),
     },
-    example: ({children, selectionVariant}) => <ActionList selectionVariant={selectionVariant}>{children}</ActionList>,
-  },
-)
-
-figma.connect(
-  ActionList.Divider,
-  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=6-38843&t=m8uYul4RVKTAkjzl-4',
-  {
-    props: {},
-    example: () => <ActionList.Divider />,
-  },
-)
-
-figma.connect(
-  ActionList.LeadingVisual,
-  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15039-46399&t=YefUJRQj0NNo9Plz-4',
-  {
-    props: {
-      child: figma.children('*'),
-    },
-    example: ({child}) => <ActionList.LeadingVisual>{child}</ActionList.LeadingVisual>,
-  },
-)
-
-figma.connect(
-  ActionList.LeadingVisual,
-  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15039-46400&t=YefUJRQj0NNo9Plz-4',
-  {
-    props: {
-      child: figma.children('*'),
-    },
-    example: ({child}) => <ActionList.LeadingVisual>{child}</ActionList.LeadingVisual>,
-  },
-)
-
-figma.connect(
-  ActionList.LeadingVisual,
-  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=23595-96989&t=YefUJRQj0NNo9Plz-4',
-  {
-    example: () => (
-      <ActionList.LeadingVisual>
-        <div
-          style={{borderRadius: 'var(--borderRadius-full)', display: 'inline-block', height: '10px', width: '10px'}}
-        ></div>
-      </ActionList.LeadingVisual>
+    example: ({children, selectionVariant}) => (
+      <ActionListComponent selectionVariant={selectionVariant}>{children}</ActionListComponent>
     ),
   },
 )
 
 figma.connect(
-  ActionList.TrailingAction,
+  ActionListComponent.Divider,
+  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=6-38843&t=m8uYul4RVKTAkjzl-4',
+  {
+    props: {},
+    example: () => <ActionListComponent.Divider />,
+  },
+)
+
+figma.connect(
+  ActionListComponent.LeadingVisual,
+  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15039-46399&t=YefUJRQj0NNo9Plz-4',
+  {
+    props: {
+      child: figma.children('*'),
+    },
+    example: ({child}) => <ActionListComponent.LeadingVisual>{child}</ActionListComponent.LeadingVisual>,
+  },
+)
+
+figma.connect(
+  ActionListComponent.LeadingVisual,
+  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15039-46400&t=YefUJRQj0NNo9Plz-4',
+  {
+    props: {
+      child: figma.children('*'),
+    },
+    example: ({child}) => <ActionListComponent.LeadingVisual>{child}</ActionListComponent.LeadingVisual>,
+  },
+)
+
+figma.connect(
+  ActionListComponent.LeadingVisual,
+  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=23595-96989&t=YefUJRQj0NNo9Plz-4',
+  {
+    example: () => (
+      <ActionListComponent.LeadingVisual>
+        <div
+          style={{borderRadius: 'var(--borderRadius-full)', display: 'inline-block', height: '10px', width: '10px'}}
+        ></div>
+      </ActionListComponent.LeadingVisual>
+    ),
+  },
+)
+
+figma.connect(
+  ActionListComponent.TrailingAction,
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15096-46632&m=dev',
   {
     props: {
       child: figma.children('*'),
     },
-    example: ({child}) => <ActionList.TrailingAction label="Trailing Action">{child}</ActionList.TrailingAction>,
+    example: ({child}) => (
+      <ActionListComponent.TrailingAction label="Trailing Action">{child}</ActionListComponent.TrailingAction>
+    ),
   },
 )
 
 figma.connect(
-  ActionList.TrailingAction,
+  ActionListComponent.TrailingAction,
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15096-52769&t=YefUJRQj0NNo9Plz-4',
   {
     props: {
       child: figma.children('*'),
     },
-    example: ({child}) => <ActionList.TrailingAction label="Trailing Action">{child}</ActionList.TrailingAction>,
+    example: ({child}) => (
+      <ActionListComponent.TrailingAction label="Trailing Action">{child}</ActionListComponent.TrailingAction>
+    ),
   },
 )
 
 figma.connect(
-  ActionList.TrailingAction,
+  ActionListComponent.TrailingAction,
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15096-46633&t=YefUJRQj0NNo9Plz-4',
   {
     props: {
       text: figma.textContent('Trailing text'),
     },
-    example: ({text}) => <ActionList.TrailingAction label="Trailing Action">{text}</ActionList.TrailingAction>,
+    example: ({text}) => (
+      <ActionListComponent.TrailingAction label="Trailing Action">{text}</ActionListComponent.TrailingAction>
+    ),
   },
 )
 
 figma.connect(
-  ActionList.GroupHeading,
+  ActionListComponent.GroupHeading,
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=6-38837&m=dev',
   {
     props: {
@@ -108,12 +114,14 @@ figma.connect(
       }),
       title: figma.string('title'),
     },
-    example: ({variant, title}) => <ActionList.GroupHeading variant={variant}>{title}</ActionList.GroupHeading>,
+    example: ({variant, title}) => (
+      <ActionListComponent.GroupHeading variant={variant}>{title}</ActionListComponent.GroupHeading>
+    ),
   },
 )
 
 figma.connect(
-  ActionList.Item,
+  ActionListComponent.Item,
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15096-47245&m=dev',
   {
     props: {
@@ -123,17 +131,17 @@ figma.connect(
       trailingVisual: figma.instance('trailingVisual'),
     },
     example: ({text, selected, leadingVisual, trailingVisual}) => (
-      <ActionList.Item variant="default" selected={selected}>
+      <ActionListComponent.Item variant="default" selected={selected}>
         {leadingVisual}
         {text}
         {trailingVisual}
-      </ActionList.Item>
+      </ActionListComponent.Item>
     ),
   },
 )
 
 figma.connect(
-  ActionList.Item,
+  ActionListComponent.Item,
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=29564-68229&m=dev',
   {
     props: {
@@ -143,17 +151,17 @@ figma.connect(
       trailingVisual: figma.instance('trailingVisual'),
     },
     example: ({text, selected, leadingVisual, trailingVisual}) => (
-      <ActionList.Item variant="default" disabled selected={selected}>
+      <ActionListComponent.Item variant="default" disabled selected={selected}>
         {leadingVisual}
         {text}
         {trailingVisual}
-      </ActionList.Item>
+      </ActionListComponent.Item>
     ),
   },
 )
 
 figma.connect(
-  ActionList.Item,
+  ActionListComponent.Item,
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=30051-5381&m=dev',
   {
     props: {
@@ -163,18 +171,18 @@ figma.connect(
       trailingVisual: figma.instance('trailingVisual'),
     },
     example: ({text, selected, leadingVisual, trailingVisual}) => (
-      <ActionList.Item variant="default" loading selected={selected}>
+      <ActionListComponent.Item variant="default" loading selected={selected}>
         {leadingVisual}
         {text}
         {trailingVisual}
-      </ActionList.Item>
+      </ActionListComponent.Item>
     ),
   },
 )
 
 /** DANGER ITEM */
 figma.connect(
-  ActionList.Item,
+  ActionListComponent.Item,
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15614-56205&m=dev',
   {
     props: {
@@ -182,16 +190,16 @@ figma.connect(
       leadingVisual: figma.children('leadingVisualIcon'),
     },
     example: ({text, leadingVisual}) => (
-      <ActionList.Item variant="danger">
+      <ActionListComponent.Item variant="danger">
         {leadingVisual}
         {text}
-      </ActionList.Item>
+      </ActionListComponent.Item>
     ),
   },
 )
 /** Single Select ITEM */
 figma.connect(
-  ActionList.Item,
+  ActionListComponent.Item,
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15614-56202&m=dev',
   {
     props: {
@@ -206,16 +214,16 @@ figma.connect(
       leadingVisual: figma.children('leadingVisual'),
     },
     example: ({text, selected, currentSelection, leadingVisual}) => (
-      <ActionList.Item selected={selected} active={currentSelection}>
+      <ActionListComponent.Item selected={selected} active={currentSelection}>
         {leadingVisual}
         {text}
-      </ActionList.Item>
+      </ActionListComponent.Item>
     ),
   },
 )
 
 figma.connect(
-  ActionList.Item,
+  ActionListComponent.Item,
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=29564-70674&m=dev',
   {
     props: {
@@ -230,16 +238,16 @@ figma.connect(
       leadingVisual: figma.children('leadingVisual'),
     },
     example: ({text, selected, currentSelection, leadingVisual}) => (
-      <ActionList.Item selected={selected} active={currentSelection} disabled>
+      <ActionListComponent.Item selected={selected} active={currentSelection} disabled>
         {leadingVisual}
         {text}
-      </ActionList.Item>
+      </ActionListComponent.Item>
     ),
   },
 )
 
 figma.connect(
-  ActionList.Item,
+  ActionListComponent.Item,
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=30051-4912&m=dev',
   {
     props: {
@@ -254,17 +262,17 @@ figma.connect(
       leadingVisual: figma.children('leadingVisual'),
     },
     example: ({text, selected, currentSelection, leadingVisual}) => (
-      <ActionList.Item selected={selected} active={currentSelection} loading>
+      <ActionListComponent.Item selected={selected} active={currentSelection} loading>
         {leadingVisual}
         {text}
-      </ActionList.Item>
+      </ActionListComponent.Item>
     ),
   },
 )
 
 /** Multi Select ITEM */
 figma.connect(
-  ActionList.Item,
+  ActionListComponent.Item,
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15614-56203&t=HMGAnO63EZZSdkly-4',
   {
     props: {
@@ -274,16 +282,16 @@ figma.connect(
       trailingVisual: figma.instance('trailingVisual'),
     },
     example: ({text, selected, leadingVisual, trailingVisual}) => (
-      <ActionList.Item selected={selected}>
+      <ActionListComponent.Item selected={selected}>
         {leadingVisual}
         {text}
         {trailingVisual}
-      </ActionList.Item>
+      </ActionListComponent.Item>
     ),
   },
 )
 figma.connect(
-  ActionList.Item,
+  ActionListComponent.Item,
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=29564-70145&t=HMGAnO63EZZSdkly-4',
   {
     props: {
@@ -293,16 +301,16 @@ figma.connect(
       trailingVisual: figma.instance('trailingVisual'),
     },
     example: ({text, selected, leadingVisual, trailingVisual}) => (
-      <ActionList.Item selected={selected} disabled>
+      <ActionListComponent.Item selected={selected} disabled>
         {leadingVisual}
         {text}
         {trailingVisual}
-      </ActionList.Item>
+      </ActionListComponent.Item>
     ),
   },
 )
 figma.connect(
-  ActionList.Item,
+  ActionListComponent.Item,
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=30051-5141&m=dev',
   {
     props: {
@@ -312,11 +320,11 @@ figma.connect(
       trailingVisual: figma.instance('trailingVisual'),
     },
     example: ({text, selected, leadingVisual, trailingVisual}) => (
-      <ActionList.Item selected={selected} loading>
+      <ActionListComponent.Item selected={selected} loading>
         {leadingVisual}
         {text}
         {trailingVisual}
-      </ActionList.Item>
+      </ActionListComponent.Item>
     ),
   },
 )

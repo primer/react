@@ -357,6 +357,32 @@ describe('data-component attributes', () => {
     })
   })
 
+  describe('data-icon-only-counter', () => {
+    it('is set when count, leadingVisual, and no children are present', () => {
+      const {container} = render(<Button leadingVisual={SearchIcon} count={5} aria-label="Search notifications" />)
+      expect(container.querySelector('[data-component="Button"]')).toHaveAttribute('data-icon-only-counter', 'true')
+    })
+
+    it('is not set when children are present', () => {
+      const {container} = render(
+        <Button leadingVisual={SearchIcon} count={5}>
+          Search
+        </Button>,
+      )
+      expect(container.querySelector('[data-component="Button"]')).not.toHaveAttribute('data-icon-only-counter')
+    })
+
+    it('is not set when leadingVisual is missing', () => {
+      const {container} = render(<Button count={5} aria-label="Notifications" />)
+      expect(container.querySelector('[data-component="Button"]')).not.toHaveAttribute('data-icon-only-counter')
+    })
+
+    it('is not set when count is missing', () => {
+      const {container} = render(<Button leadingVisual={SearchIcon} aria-label="Search" />)
+      expect(container.querySelector('[data-component="Button"]')).not.toHaveAttribute('data-icon-only-counter')
+    })
+  })
+
   describe('IconButton', () => {
     it('should have data-component="IconButton" on the button element', () => {
       const {container} = render(<IconButton icon={SearchIcon} aria-label="Search" />)

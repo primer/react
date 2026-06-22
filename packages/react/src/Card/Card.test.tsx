@@ -7,7 +7,14 @@ import classes from './Card.module.css'
 const TestIcon = () => <svg data-testid="test-icon" aria-hidden="true" />
 
 describe('Card', () => {
-  implementsClassName(props => <Card {...props} />, classes.Card)
+  implementsClassName(
+    props => (
+      <Card {...props}>
+        <Card.Heading>Card Heading</Card.Heading>
+      </Card>
+    ),
+    classes.Card,
+  )
 
   it('should render a Card with heading and description', () => {
     render(
@@ -61,13 +68,13 @@ describe('Card', () => {
     expect(screen.getByText('Updated 2 hours ago')).toBeInTheDocument()
   })
 
-  it('should render a menu', () => {
+  it('should render an action', () => {
     render(
       <Card>
-        <Card.Heading>Menu Card</Card.Heading>
-        <Card.Menu>
+        <Card.Heading>Action Card</Card.Heading>
+        <Card.Action>
           <button type="button">Options</button>
-        </Card.Menu>
+        </Card.Action>
       </Card>,
     )
     expect(screen.getByRole('button', {name: 'Options'})).toBeInTheDocument()
@@ -170,5 +177,132 @@ describe('Card', () => {
       </Card>,
     )
     expect(container.firstChild).toHaveAttribute('data-border-radius', 'medium')
+  })
+
+  it('should set data-component attributes on Card and its subcomponents', () => {
+    const {container} = render(
+      <Card>
+        <Card.Icon icon={TestIcon} />
+        <Card.Heading>With data-component</Card.Heading>
+        <Card.Description>Description text</Card.Description>
+        <Card.Metadata>Metadata text</Card.Metadata>
+        <Card.Action>
+          <button type="button">Options</button>
+        </Card.Action>
+      </Card>,
+    )
+    expect(container.querySelector('[data-component="Card"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="Card.Icon"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="Card.Heading"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="Card.Description"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="Card.Metadata"]')).toBeInTheDocument()
+    expect(container.querySelector('[data-component="Card.Action"]')).toBeInTheDocument()
+  })
+
+  it('should set data-component="Card.Image" on Card.Image', () => {
+    const {container} = render(
+      <Card>
+        <Card.Image src="https://example.com/image.png" alt="" />
+        <Card.Heading>With Image</Card.Heading>
+      </Card>,
+    )
+    expect(container.querySelector('[data-component="Card.Image"]')).toBeInTheDocument()
+  })
+
+  it('should set data-component="Card" on custom content cards', () => {
+    const {container} = render(
+      <Card>
+        <p>Custom</p>
+      </Card>,
+    )
+    expect(container.querySelector('[data-component="Card"]')).toBeInTheDocument()
+  })
+
+  it('should not render when there are no children', () => {
+    // @ts-expect-error - children is required, but we want to verify the runtime behaviour
+    const {container} = render(<Card />)
+    expect(container).toBeEmptyDOMElement()
+  })
+
+  it('should not render when all children are falsy', () => {
+    const {container} = render(<Card>{false}</Card>)
+    expect(container).toBeEmptyDOMElement()
+  })
+
+  it('should render as a <div> by default', () => {
+    const {container} = render(
+      <Card>
+        <Card.Heading>Default Element</Card.Heading>
+      </Card>,
+    )
+    expect(container.firstChild?.nodeName).toBe('DIV')
+  })
+
+  it('should render as a <section> when as="section"', () => {
+    const {container} = render(
+      <Card as="section" aria-label="Standalone card">
+        <Card.Heading>Standalone</Card.Heading>
+        <Card.Description>This card is standalone.</Card.Description>
+      </Card>,
+    )
+    expect(container.firstChild?.nodeName).toBe('SECTION')
+    expect(container.firstChild).toHaveAttribute('aria-label', 'Standalone card')
+  })
+
+  it('should expose the section as a labelled region landmark', () => {
+    render(
+      <Card as="section" aria-labelledby="standalone-heading">
+        <Card.Heading id="standalone-heading">Standalone</Card.Heading>
+        <Card.Description>This card is standalone.</Card.Description>
+      </Card>,
+    )
+    expect(screen.getByRole('region', {name: 'Standalone'})).toBeInTheDocument()
+  })
+
+  it('should auto-wire aria-labelledby to Card.Heading when as="section"', () => {
+    render(
+      <Card as="section">
+        <Card.Heading>Auto-wired</Card.Heading>
+        <Card.Description>No manual id needed.</Card.Description>
+      </Card>,
+    )
+    expect(screen.getByRole('region', {name: 'Auto-wired'})).toBeInTheDocument()
+  })
+
+  it('should not forward the `as` prop to the DOM', () => {
+    const {container} = render(
+      <Card as="section" aria-label="Standalone card">
+        <Card.Heading>Heading</Card.Heading>
+      </Card>,
+    )
+    expect(container.firstChild).not.toHaveAttribute('as')
+  })
+
+  it('should set data-layout to default by default', () => {
+    const {container} = render(
+      <Card>
+        <Card.Heading>Default Variant</Card.Heading>
+      </Card>,
+    )
+    expect(container.firstChild).toHaveAttribute('data-layout', 'default')
+  })
+
+  it('should set data-layout to compact when layout="compact"', () => {
+    const {container} = render(
+      <Card layout="compact">
+        <Card.Icon icon={TestIcon} />
+        <Card.Heading>Compact Card</Card.Heading>
+      </Card>,
+    )
+    expect(container.firstChild).toHaveAttribute('data-layout', 'compact')
+  })
+
+  it('should set data-layout on custom content cards', () => {
+    const {container} = render(
+      <Card layout="compact">
+        <p>Custom</p>
+      </Card>,
+    )
+    expect(container.firstChild).toHaveAttribute('data-layout', 'compact')
   })
 })

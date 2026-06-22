@@ -3,7 +3,8 @@
 export {default as theme, type ThemeColorPaths, type ThemeShadowPaths} from './theme'
 export {default as BaseStyles} from './BaseStyles'
 export type {BaseStylesProps} from './BaseStyles'
-export {default as ThemeProvider, useTheme, useColorSchemeVar} from './ThemeProvider'
+export {default as ThemeProvider} from './ThemeProvider'
+export {useTheme, useColorSchemeVar} from './useTheme'
 export type {ThemeProviderProps} from './ThemeProvider'
 
 // Layout
@@ -33,7 +34,7 @@ export type {TouchOrMouseEvent} from './hooks/useOnOutsideClick'
 export {useOpenAndCloseFocus} from './hooks/useOpenAndCloseFocus'
 export {useOnEscapePress} from './hooks/useOnEscapePress'
 export {useOverlay} from './hooks/useOverlay'
-export {useConfirm} from './ConfirmationDialog/ConfirmationDialog'
+export {useConfirm} from './ConfirmationDialog/useConfirm'
 export {useFocusTrap} from './hooks/useFocusTrap'
 export type {FocusTrapHookSettings} from './hooks/useFocusTrap'
 export {FocusKeys, useFocusZone} from './hooks/useFocusZone'
@@ -50,7 +51,10 @@ export {useAnchoredPosition, type AnchoredPositionHookSettings} from './hooks/us
 
 // Utils
 export {createComponent} from './utils/create-component'
-export type {SlotMarker} from './utils/types'
+export type {SlotMarker, WithSlotMarker, FCWithSlotMarker} from './utils/types'
+export {asSlot} from './utils/as-slot'
+export {isSlot} from './utils/is-slot'
+export {useSlots} from './hooks/useSlots'
 
 // Components
 export {default as Radio} from './Radio'
@@ -180,6 +184,8 @@ export type {TextProps} from './Text'
 export {default as Timeline} from './Timeline'
 export type {
   TimelineProps,
+  TimelineActionsProps,
+  TimelineAvatarProps,
   TimelineBadgeVariant,
   TimelineBadgeProps,
   TimelineBodyProps,
