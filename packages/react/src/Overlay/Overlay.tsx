@@ -3,14 +3,14 @@ import React, {useEffect, useRef} from 'react'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import type {AriaRole, Merge} from '../utils/types'
 import type {TouchOrMouseEvent} from '../hooks'
-import {useOverlay} from '../hooks'
+import {useMergedRefs, useOverlay} from '../hooks'
 import Portal from '../Portal'
-import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import type {AnchorSide} from '@primer/behaviors'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {useFeatureFlag} from '../FeatureFlags'
 import classes from './Overlay.module.css'
 import {clsx} from 'clsx'
+import {useFeatureFlag} from '../FeatureFlags'
+import type {heightMap, widthMap} from './constants'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
@@ -22,26 +22,6 @@ type StyledOverlayProps = {
   style?: React.CSSProperties
 }
 
-export const heightMap = {
-  xsmall: '192px',
-  small: '256px',
-  medium: '320px',
-  large: '432px',
-  xlarge: '600px',
-  auto: 'auto',
-  initial: 'auto', // Passing 'initial' initially applies 'auto'
-  'fit-content': 'fit-content',
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const widthMap = {
-  small: '256px',
-  medium: '320px',
-  large: '480px',
-  xlarge: '640px',
-  xxlarge: '960px',
-  auto: 'auto',
-}
 const animationDuration = 200
 
 function getSlideAnimationStartingVector(anchorSide?: AnchorSide): {x: number; y: number} {
@@ -61,6 +41,7 @@ function getSlideAnimationStartingVector(anchorSide?: AnchorSide): {x: number; y
 type BaseOverlayProps = {
   visibility?: 'visible' | 'hidden'
   'data-test-id'?: unknown
+  'data-component'?: string
   position?: React.CSSProperties['position']
   top?: React.CSSProperties['top']
   left?: React.CSSProperties['left']
@@ -138,6 +119,7 @@ export const BaseOverlay = React.forwardRef(
 
 type ContainerProps = {
   anchorSide?: AnchorSide
+  _PrivateDisablePortal?: boolean
   ignoreClickRefs?: React.RefObject<HTMLElement | null>[]
   initialFocusRef?: React.RefObject<HTMLElement | null>
   onClickOutside: (e: TouchOrMouseEvent) => void
@@ -170,6 +152,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
   (
     {
       anchorSide,
+      _PrivateDisablePortal,
       height = 'auto',
       ignoreClickRefs,
       initialFocusRef,
@@ -191,9 +174,10 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
     const overlayRef = useRef<HTMLDivElement>(null)
-    useRefObjectAsForwardedRef(forwardedRef, overlayRef)
+    const mergedOverlayRef = useMergedRefs(forwardedRef, overlayRef)
     const slideAnimationDistance = 8 // var(--base-size-8), hardcoded to do some math
     const slideAnimationEasing = 'cubic-bezier(0.33, 1, 0.68, 1)'
+    const cssAnchorPositioning = useFeatureFlag('primer_react_css_anchor_positioning')
 
     useOverlay({
       overlayRef,
@@ -230,23 +214,32 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     // To be backwards compatible with the old Overlay, we need to set the left prop if x-position is not specified
     const leftPosition = left === undefined && right === undefined ? 0 : left
 
-    const overflowEnabled = useFeatureFlag('primer_react_overlay_overflow')
-    return (
-      <Portal containerName={portalContainerName}>
-        <BaseOverlay
-          role={role}
-          width={width}
-          data-reflow-container={overflowEnabled || !preventOverflow ? true : undefined}
-          ref={overlayRef}
-          left={leftPosition}
-          right={right}
-          height={height}
-          visibility={visibility}
-          data-responsive={responsiveVariant}
-          {...props}
-        />
-      </Portal>
+    const overlayContent = (
+      <BaseOverlay
+        role={role}
+        width={width}
+        data-reflow-container={!preventOverflow ? true : undefined}
+        ref={mergedOverlayRef}
+        left={leftPosition}
+        right={right}
+        height={height}
+        visibility={visibility}
+        data-responsive={responsiveVariant}
+        {...props}
+      />
     )
+
+    // _PrivateDisablePortal can be used to render the overlay without a Portal.
+    // When using CSS anchor positioning, popovers render in the browser's
+    // top layer which already escapes stacking contexts, so a Portal is
+    // not strictly necessary. However, Portal can still be useful for
+    // style isolation. Defaults to false (Portal enabled) for backwards
+    // compatibility.
+    if (_PrivateDisablePortal && cssAnchorPositioning) {
+      return overlayContent
+    }
+
+    return <Portal containerName={portalContainerName}>{overlayContent}</Portal>
   },
 ) as PolymorphicForwardRefComponent<'div', internalOverlayProps>
 

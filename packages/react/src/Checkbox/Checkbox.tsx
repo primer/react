@@ -34,6 +34,7 @@ export type CheckboxProps = {
    * Used during form submission and to identify which checkbox inputs are selected
    */
   value?: string
+  'data-component'?: string
 } & Exclude<InputHTMLAttributes<HTMLInputElement>, 'value'>
 
 /**
@@ -41,7 +42,19 @@ export type CheckboxProps = {
  */
 const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (
-    {checked, className, defaultChecked, indeterminate, disabled, onChange, required, validationStatus, value, ...rest},
+    {
+      checked,
+      className,
+      defaultChecked,
+      indeterminate,
+      disabled,
+      onChange,
+      required,
+      validationStatus,
+      value,
+      ['data-component']: dataComponent,
+      ...rest
+    },
     ref,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): ReactElement<any> => {
@@ -50,6 +63,11 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
       checkboxGroupContext.onChange && checkboxGroupContext.onChange(e)
       onChange && onChange(e)
+
+      if (indeterminate && checkboxRef.current) {
+        checkboxRef.current.indeterminate = true
+        checkboxRef.current.setAttribute('aria-checked', 'mixed')
+      }
     }
     const inputProps = {
       type: 'checkbox',
@@ -84,8 +102,14 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         checkbox.setAttribute('aria-checked', checkbox.checked ? 'true' : 'false')
       }
     })
-    // @ts-expect-error inputProp needs a non nullable ref
-    return <input {...inputProps} className={clsx(className, sharedClasses.Input, classes.Checkbox)} />
+    return (
+      // @ts-expect-error inputProp needs a non nullable ref
+      <input
+        {...inputProps}
+        data-component={dataComponent ?? 'Checkbox'}
+        className={clsx(className, sharedClasses.Input, classes.Checkbox)}
+      />
+    )
   },
 )
 

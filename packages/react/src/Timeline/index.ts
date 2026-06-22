@@ -3,7 +3,10 @@ export type {
   TimelineProps,
   TimelineItemsProps,
   TimelineItemProps,
+  TimelineAvatarProps,
+  TimelineBadgeVariant,
   TimelineBadgeProps,
   TimelineBodyProps,
   TimelineBreakProps,
+  TimelineActionsProps,
 } from './Timeline'

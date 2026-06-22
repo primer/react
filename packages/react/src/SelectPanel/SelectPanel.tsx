@@ -1,5 +1,5 @@
 import {SearchIcon, TriangleDownIcon, XIcon, type IconProps} from '@primer/octicons-react'
-import React, {useCallback, useEffect, useMemo, useRef, useState, type KeyboardEventHandler, type JSX} from 'react'
+import React, {useCallback, useEffect, useMemo, useRef, useState, type JSX} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
@@ -28,6 +28,7 @@ import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import type {ButtonProps, LinkButtonProps} from '../Button/types'
 import {Banner} from '../Banner'
 import {isAlphabetKey} from '../hooks/useMnemonics'
+import {useFormControlContext} from '../FormControl/_FormControlContext'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const SHORT_DELAY_MS = 500
@@ -118,6 +119,11 @@ interface SelectPanelBaseProps {
    */
   disableFullscreenOnNarrow?: boolean
   showSelectAll?: boolean
+  /**
+   * Set to true to allow focus to move to elements that are dynamically prepended to the container.
+   * Default is false.
+   */
+  focusPrependedElements?: boolean
 }
 
 // onCancel is optional with variant=anchored, but required with variant=modal
@@ -125,7 +131,7 @@ type SelectPanelVariantProps = {variant?: 'anchored'; onCancel?: () => void} | {
 
 export type SelectPanelProps = SelectPanelBaseProps &
   Omit<FilteredActionListProps, 'selectionVariant' | 'variant' | 'message'> &
-  Pick<AnchoredOverlayProps, 'open' | 'height' | 'width' | 'align'> &
+  Pick<AnchoredOverlayProps, 'open' | 'height' | 'width' | 'align' | 'displayInViewport'> &
   AnchoredOverlayWrapperAnchorProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection) &
   SelectPanelVariantProps
@@ -140,6 +146,8 @@ const focusZoneSettings: Partial<FocusZoneHookSettings> = {
   // Let FilteredActionList handle focus zone
   disabled: true,
 }
+
+const closeButtonProps = {'aria-label': 'Cancel and close'}
 
 const areItemsEqual = (itemA: ItemInput, itemB: ItemInput) => {
   // prefer checking equivality by item.id
@@ -193,6 +201,9 @@ function Panel({
   disableFullscreenOnNarrow,
   align,
   showSelectAll = false,
+  focusPrependedElements,
+  virtualized,
+  displayInViewport,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -209,8 +220,6 @@ function Panel({
   const [needsNoItemsAnnouncement, setNeedsNoItemsAnnouncement] = useState<boolean>(false)
   const isNarrowScreenSize = useResponsiveValue({narrow: true, regular: false, wide: false}, false)
   const [selectedOnSort, setSelectedOnSort] = useState<ItemInput[]>([])
-  const [prevItems, setPrevItems] = useState<ItemInput[]>([])
-  const [prevOpen, setPrevOpen] = useState(open)
   const initialHeightRef = useRef(0)
   const initialScaleRef = useRef(1)
   const noticeRef = useRef<HTMLDivElement>(null)
@@ -222,6 +231,8 @@ function Panel({
   const usingFullScreenOnNarrow = disableFullscreenOnNarrow ? false : featureFlagFullScreenOnNarrow
   const shouldOrderSelectedFirst =
     useFeatureFlag('primer_react_select_panel_order_selected_at_top') && showSelectedOptionsFirst
+  const {isReferenced, labelId} = useFormControlContext()
+  const selectedValueId = id ? `${id}-selected-value` : undefined
 
   // Single select modals work differently, they have an intermediate state where the user has selected an item but
   // has not yet confirmed the selection. This is the only time the user can cancel the selection.
@@ -232,6 +243,7 @@ function Panel({
 
   // Reset the intermediate selected item when the panel is open/closed
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-derived-state
     setIntermediateSelected(isSingleSelectModal ? selected : undefined)
   }, [isSingleSelectModal, open, selected])
 
@@ -311,6 +323,19 @@ function Panel({
     ],
   )
 
+  // Pre-compute a Set of item IDs in the current filtered view for O(1) lookups
+  const itemsInViewSet = useMemo(() => {
+    const set = new Set<string | number | ItemInput>()
+    for (const item of items) {
+      if (item.id !== undefined) {
+        set.add(item.id)
+      } else {
+        set.add(item)
+      }
+    }
+    return set
+  }, [items])
+
   const handleSelectAllChange = useCallback(
     (checked: boolean) => {
       // Exit early if not in multi-select mode
@@ -321,9 +346,13 @@ function Panel({
       const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
       const selectedArray = selected as ItemInput[]
 
-      const selectedItemsNotInFilteredView = selectedArray.filter(
-        (selectedItem: ItemInput) => !items.some(item => areItemsEqual(item, selectedItem)),
-      )
+      // Use Set for O(1) lookup instead of O(n) items.some()
+      const selectedItemsNotInFilteredView = selectedArray.filter((selectedItem: ItemInput) => {
+        if (selectedItem.id !== undefined) {
+          return !itemsInViewSet.has(selectedItem.id)
+        }
+        return !itemsInViewSet.has(selectedItem)
+      })
 
       if (checked) {
         multiSelectOnChange([...selectedItemsNotInFilteredView, ...items])
@@ -331,12 +360,13 @@ function Panel({
         multiSelectOnChange(selectedItemsNotInFilteredView)
       }
     },
-    [items, onSelectedChange, selected],
+    [items, itemsInViewSet, onSelectedChange, selected],
   )
 
-  // disable body scroll when the panel is open on narrow screens
+  // disable body scroll when the panel is open in modal mode or on narrow screens
   useEffect(() => {
-    if (open && isNarrowScreenSize && usingFullScreenOnNarrow) {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+    if (open && (variant === 'modal' || (isNarrowScreenSize && usingFullScreenOnNarrow))) {
       const bodyOverflowStyle = document.body.style.overflow || ''
       // If the body is already set to overflow: hidden, it likely means
       // that there is already a modal open. In that case, we should bail
@@ -351,26 +381,35 @@ function Panel({
         document.body.style.overflow = bodyOverflowStyle
       }
     }
-  }, [isNarrowScreenSize, open, usingFullScreenOnNarrow])
+  }, [isNarrowScreenSize, open, usingFullScreenOnNarrow, variant])
 
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (open) {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (items.length === 0 && !(isLoading || loading)) {
         // we need to wait for the listContainerElement to disappear before announcing no items, otherwise it will be interrupted
+        // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
         setNeedsNoItemsAnnouncement(true)
       }
     }
 
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (loadingManagedExternally) {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (items.length > 0) {
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
         setDataLoadedOnce(true)
       }
 
       return
     }
 
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (isLoading || items.length > 0) {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
       setIsLoading(false)
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
       setDataLoadedOnce(true)
     }
 
@@ -383,12 +422,14 @@ function Panel({
   }, [items])
 
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (inputRef?.current) {
       const ref = inputRef.current
 
       // We would normally expect AnchoredOverlay's focus trap to automatically focus the input,
       // but for some reason the ref isn't populated until _after_ the panel is open, which is
       // too late. So, we focus manually here.
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (open) {
         ref.focus()
       }
@@ -397,6 +438,7 @@ function Panel({
 
   // Manage loading announcements when loadingManagedExternally
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (loadingManagedExternally) {
       if (isLoading) {
         // Delay the announcement a bit, just in case the loading is quick
@@ -414,16 +456,21 @@ function Panel({
 
   // Populate panel with items on first open
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (loadingManagedExternally) return
 
     // If data was already loaded once, do nothing
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (dataLoadedOnce) return
 
     // Only load data when the panel is open
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (open) {
       // Only trigger filter change event if there are no items
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (items.length === 0) {
         // Trigger filter event to populate panel on first open
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         onFilterChange(filterValue, null)
       }
     }
@@ -481,6 +528,7 @@ function Panel({
       })
     }
 
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (open && notice) {
       announceNotice()
     }
@@ -520,20 +568,46 @@ function Panel({
     }
 
     const selectedItems = Array.isArray(selected) ? selected : [...(selected ? [selected] : [])]
+    const selectedValueText = selectedItems.length ? selectedItems.map(item => item.text).join(', ') : placeholder
+    const shouldAutoWireLabel = isReferenced === false && Boolean(labelId) && Boolean(selectedValueId)
 
     return <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
       return renderAnchor({
         ...props,
-        children: selectedItems.length ? selectedItems.map(item => item.text).join(', ') : placeholder,
+        ...(shouldAutoWireLabel
+          ? {
+              'aria-labelledby': [labelId, selectedValueId].filter(Boolean).join(' '),
+            }
+          : {}),
+        children: shouldAutoWireLabel ? <span id={selectedValueId}>{selectedValueText}</span> : selectedValueText,
       })
     }
-  }, [placeholder, renderAnchor, selected])
+  }, [placeholder, renderAnchor, selected, isReferenced, labelId, selectedValueId])
+
+  // Pre-compute a Set of selected item IDs/references for O(1) lookups
+  // This optimizes isItemCurrentlySelected from O(m) to O(1) per call
+  const selectedItemsSet = useMemo(() => {
+    const set = new Set<string | number | ItemInput>()
+    if (isMultiSelectVariant(selected)) {
+      for (const item of selected) {
+        if (item.id !== undefined) {
+          set.add(item.id)
+        } else {
+          set.add(item)
+        }
+      }
+    }
+    return set
+  }, [selected])
 
   const isItemCurrentlySelected = useCallback(
     (item: ItemInput) => {
-      // For multi-select, we just need to check if the item is in the selected array
+      // For multi-select, use the pre-computed Set for O(1) lookup
       if (isMultiSelectVariant(selected)) {
-        return doesItemsIncludeItem(selected, item)
+        if (item.id !== undefined) {
+          return selectedItemsSet.has(item.id)
+        }
+        return selectedItemsSet.has(item)
       }
 
       // For single-select modal, there is an intermediate state when the user has selected
@@ -547,10 +621,28 @@ function Panel({
       // For single-select anchored, we just need to check if the item is the selected item
       return selected?.id !== undefined ? selected.id === item.id : selected === item
     },
-    [selected, intermediateSelected, isSingleSelectModal],
+    [selected, selectedItemsSet, intermediateSelected, isSingleSelectModal],
   )
 
   const itemsToRender = useMemo(() => {
+    // Pre-compute a Set of selected item IDs/references for O(1) lookups during sorting
+    // This avoids O(m * k) work per comparison in the sort function
+    const selectedOnSortSet = new Set<string | number | ItemInput>()
+    for (const item of selectedOnSort) {
+      if (item.id !== undefined) {
+        selectedOnSortSet.add(item.id)
+      } else {
+        selectedOnSortSet.add(item)
+      }
+    }
+
+    const isSelectedForSort = (item: ItemProps): boolean => {
+      if (item.id !== undefined) {
+        return selectedOnSortSet.has(item.id)
+      }
+      return selectedOnSortSet.has(item as unknown as ItemInput)
+    }
+
     return items
       .map(item => {
         return {
@@ -594,30 +686,13 @@ function Panel({
       })
       .sort((itemA, itemB) => {
         if (shouldOrderSelectedFirst) {
-          // itemA is selected (for sorting purposes) if an object in selectedOnSort matches every property of itemA, except for the selected property
-          const itemASelected = selectedOnSort.some(item =>
-            Object.entries(item).every(([key, value]) => {
-              if (key === 'selected') {
-                return true
-              }
-              return itemA[key as keyof ItemProps] === value
-            }),
-          )
-
-          // itemB is selected (for sorting purposes) if an object in selectedOnSort matches every property of itemA, except for the selected property
-          const itemBSelected = selectedOnSort.some(item =>
-            Object.entries(item).every(([key, value]) => {
-              if (key === 'selected') {
-                return true
-              }
-              return itemB[key as keyof ItemProps] === value
-            }),
-          )
+          const itemASelected = isSelectedForSort(itemA)
+          const itemBSelected = isSelectedForSort(itemB)
 
           // order selected items first
-          if (itemASelected > itemBSelected) {
+          if (itemASelected && !itemBSelected) {
             return -1
-          } else if (itemASelected < itemBSelected) {
+          } else if (!itemASelected && itemBSelected) {
             return 1
           }
         }
@@ -636,21 +711,30 @@ function Panel({
     selectedOnSort,
   ])
 
-  if (prevItems !== items) {
-    setPrevItems(items)
-    if (prevItems.length === 0 && items.length > 0) {
-      resetSort()
+  // Track previous items and reset sort when items first load
+  const prevItemsRef = useRef(items)
+  useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+    if (prevItemsRef.current !== items) {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+      if (prevItemsRef.current.length === 0 && items.length > 0) {
+        resetSort()
+      }
+      prevItemsRef.current = items
     }
-  }
+  }, [items, resetSort])
 
-  if (open !== prevOpen) {
-    setPrevOpen(open)
-    resetSort()
-  }
+  // Reset sort when panel opens
+  const prevOpenRef = useRef(open)
+  useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+    if (prevOpenRef.current !== open) {
+      resetSort()
+      prevOpenRef.current = open
+    }
+  }, [open, resetSort])
 
-  const focusTrapSettings = {
-    initialFocusRef: inputRef || undefined,
-  }
+  const focusTrapSettings = useMemo(() => ({initialFocusRef: inputRef || undefined}), [inputRef])
 
   const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
     return {
@@ -747,12 +831,11 @@ function Panel({
     'anchored',
   )
 
-  const preventBubbling =
-    (customOnKeyDown: KeyboardEventHandler<HTMLDivElement> | undefined) =>
+  const preventBubbling = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
-      // skip if a TextInput has focus
-      customOnKeyDown?.(event)
+      overlayProps?.onKeyDown?.(event as unknown as React.KeyboardEvent<HTMLDivElement>)
 
+      // skip if a TextInput has focus
       const activeElement = document.activeElement as HTMLElement
       if (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA') return
 
@@ -767,7 +850,35 @@ function Panel({
 
       // if this is a typeahead event, don't propagate outside of menu
       event.stopPropagation()
-    }
+    },
+    [overlayProps],
+  )
+
+  const mergedOverlayProps = useMemo(
+    () => ({
+      role: 'dialog' as const,
+      'aria-labelledby': titleId,
+      'aria-describedby': subtitle ? subtitleId : undefined,
+      ...overlayProps,
+      ...(variant === 'modal'
+        ? {
+            top: '50vh' as const,
+            left: '50vw' as const,
+            anchorSide: undefined,
+          }
+        : {}),
+      style: {
+        transform: variant === 'modal' ? 'translate(-50%, -50%)' : undefined,
+        ...(isKeyboardVisible
+          ? {
+              maxHeight: availablePanelHeight !== undefined ? `${availablePanelHeight}px` : 'auto',
+            }
+          : {}),
+      } as React.CSSProperties,
+      onKeyDown: preventBubbling,
+    }),
+    [titleId, subtitle, subtitleId, overlayProps, variant, isKeyboardVisible, availablePanelHeight, preventBubbling],
+  )
 
   return (
     <>
@@ -778,31 +889,7 @@ function Panel({
         open={open}
         onOpen={onOpen}
         onClose={onClose}
-        overlayProps={{
-          role: 'dialog',
-          'aria-labelledby': titleId,
-          'aria-describedby': subtitle ? subtitleId : undefined,
-          ...overlayProps,
-          ...(variant === 'modal'
-            ? {
-                /* override AnchoredOverlay position */
-                top: '50vh',
-                left: '50vw',
-                anchorSide: undefined,
-              }
-            : {}),
-          style: {
-            /* override AnchoredOverlay position */
-            transform: variant === 'modal' ? 'translate(-50%, -50%)' : undefined,
-            // set maxHeight based on calculated availablePanelHeight when keyboard is visible
-            ...(isKeyboardVisible
-              ? {
-                  maxHeight: availablePanelHeight !== undefined ? `${availablePanelHeight}px` : 'auto',
-                }
-              : {}),
-          } as React.CSSProperties,
-          onKeyDown: preventBubbling(overlayProps?.onKeyDown),
-        }}
+        overlayProps={mergedOverlayProps}
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}
         height={height}
@@ -812,16 +899,19 @@ function Panel({
         pinPosition={!height}
         className={classes.Overlay}
         displayCloseButton={showXCloseIcon}
-        closeButtonProps={{'aria-label': 'Cancel and close'}}
+        closeButtonProps={closeButtonProps}
+        displayInViewport={displayInViewport}
+        // Modal variant is positioned manually so native CSS anchor positioning must not be used
+        cssAnchorPositioningSettings={{disable: variant === 'modal'}}
       >
-        <div className={classes.Wrapper} data-variant={variant}>
-          <div className={classes.Header} data-variant={currentResponsiveVariant}>
+        <div className={classes.Wrapper} data-variant={variant} data-component="SelectPanel">
+          <div className={classes.Header} data-variant={currentResponsiveVariant} data-component="SelectPanel.Header">
             <div>
-              <Heading as="h1" id={titleId} className={classes.Title}>
+              <Heading as="h1" id={titleId} className={classes.Title} data-component="SelectPanel.Title">
                 {title}
               </Heading>
               {subtitle ? (
-                <div id={subtitleId} className={classes.Subtitle}>
+                <div id={subtitleId} className={classes.Subtitle} data-component="SelectPanel.Subtitle">
                   {subtitle}
                 </div>
               ) : null}
@@ -834,6 +924,7 @@ function Panel({
                 icon={XIcon}
                 aria-label="Cancel and close"
                 className={classes.ResponsiveCloseButton}
+                data-component="SelectPanel.CloseButton"
                 onClick={() => {
                   onCancel?.()
                   onCancelRequested()
@@ -842,7 +933,7 @@ function Panel({
             ) : null}
           </div>
           {notice && (
-            <div ref={noticeRef}>
+            <div ref={noticeRef} data-component="SelectPanel.Notice">
               <Banner
                 variant={notice.variant === 'error' ? 'critical' : notice.variant}
                 description={notice.text}
@@ -884,17 +975,26 @@ function Panel({
             }}
             fullScreenOnNarrow={usingFullScreenOnNarrow}
             className={clsx(className, classes.FilteredActionList)}
+            focusPrependedElements={focusPrependedElements}
+            virtualized={virtualized}
           />
           {footer ? (
-            <div className={classes.Footer}>{footer}</div>
+            <div className={classes.Footer} data-component="SelectPanel.Footer">
+              {footer}
+            </div>
           ) : renderFooter ? (
             <div
               data-display-footer={displayFooter}
               data-stretch-secondary-action={stretchSecondaryAction}
               data-stretch-save-button={stretchSaveButton}
               className={clsx(classes.Footer, classes.ResponsiveFooter)}
+              data-component="SelectPanel.Footer"
             >
-              <div data-stretch-secondary-action={stretchSecondaryAction} className={classes.SecondaryAction}>
+              <div
+                data-stretch-secondary-action={stretchSecondaryAction}
+                className={classes.SecondaryAction}
+                data-component="SelectPanel.SecondaryAction"
+              >
                 {secondaryAction}
               </div>
               {showPermanentCancelSaveButtons || showResponsiveCancelSaveButtons ? (
@@ -906,6 +1006,7 @@ function Panel({
                 >
                   <Button
                     size="medium"
+                    data-component="SelectPanel.CancelButton"
                     onClick={() => {
                       onCancel?.()
                       onCancelRequested()
@@ -917,6 +1018,7 @@ function Panel({
                     block={onCancel === undefined}
                     variant="primary"
                     size="medium"
+                    data-component="SelectPanel.SaveButton"
                     onClick={() => {
                       if (isSingleSelectModal) {
                         const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
@@ -935,6 +1037,7 @@ function Panel({
                     block
                     variant="primary"
                     size="medium"
+                    data-component="SelectPanel.SaveAndCloseButton"
                     onClick={() => {
                       onClose('click-outside')
                     }}
@@ -947,14 +1050,14 @@ function Panel({
           ) : null}
         </div>
       </AnchoredOverlay>
-      {variant === 'modal' && open ? <div className={classes.Backdrop} /> : null}
+      {variant === 'modal' && open ? <div className={classes.Backdrop} data-component="SelectPanel.Backdrop" /> : null}
     </>
   )
 }
 
 const SecondaryButton: React.FC<ButtonProps> = props => {
   return (
-    <Button block {...props}>
+    <Button block data-component="SelectPanel.SecondaryActionButton" {...props}>
       {props.children}
     </Button>
   )
@@ -962,7 +1065,7 @@ const SecondaryButton: React.FC<ButtonProps> = props => {
 
 const SecondaryLink: React.FC<LinkButtonProps & ButtonProps> = props => {
   return (
-    <LinkButton {...props} variant="invisible" block>
+    <LinkButton {...props} variant="invisible" block data-component="SelectPanel.SecondaryActionLink">
       {props.children}
     </LinkButton>
   )
@@ -972,4 +1075,5 @@ export const SelectPanel = Object.assign(Panel, {
   __SLOT__: Symbol('SelectPanel'),
   SecondaryActionButton: SecondaryButton,
   SecondaryActionLink: SecondaryLink,
+  Message: SelectPanelMessage,
 })

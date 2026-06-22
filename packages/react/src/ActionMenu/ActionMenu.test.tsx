@@ -1,17 +1,45 @@
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi, beforeEach} from 'vitest'
 import {render as HTMLRender, waitFor, act, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import type React from 'react'
+import {useRef, useState} from 'react'
 import BaseStyles from '../BaseStyles'
-import {ActionMenu, ActionList, Button, IconButton} from '..'
+import {ActionMenu} from '.'
+import {ActionList} from '../ActionList'
+import {Button, IconButton} from '../Button'
+import {Dialog} from '../Dialog'
 import Tooltip from '../Tooltip'
 import {Tooltip as TooltipV2} from '../TooltipV2/Tooltip'
 import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
 import {MixedSelection} from '../ActionMenu/ActionMenu.examples.stories'
 import {SearchIcon, KebabHorizontalIcon} from '@primer/octicons-react'
+import {getAnchoredPosition} from '@primer/behaviors'
+import type {AnchorPosition} from '@primer/behaviors'
 
 import type {JSX} from 'react'
 import {implementsClassName} from '../utils/testing'
+import {FeatureFlags} from '../FeatureFlags'
+
+// Mock getAnchoredPosition for feature flag tests
+vi.mock('@primer/behaviors', async () => {
+  const actual = await vi.importActual('@primer/behaviors')
+  return {
+    ...actual,
+    getAnchoredPosition: vi.fn(
+      (
+        _floatingElement: Element,
+        _anchorElement: Element | DOMRect,
+        _settings?: Partial<{displayInViewport?: boolean}>,
+      ) =>
+        ({
+          top: 100,
+          left: 100,
+          anchorSide: 'outside-bottom',
+          anchorAlign: 'start',
+        }) as AnchorPosition,
+    ),
+  }
+})
 
 function Example(): JSX.Element {
   return (
@@ -70,6 +98,38 @@ function ExampleWithTooltipV2(actionMenuTrigger: React.ReactElement<any>): JSX.E
   )
 }
 
+function ExampleWithReplaceableAnchor(): JSX.Element {
+  const anchorRef = useRef<HTMLButtonElement>(null)
+  const [open, setOpen] = useState(false)
+  const [anchorKey, setAnchorKey] = useState(0)
+
+  return (
+    <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+      <BaseStyles>
+        <Button key={anchorKey} ref={anchorRef} onClick={() => setOpen(o => !o)}>
+          Open menu
+        </Button>
+        <ActionMenu anchorRef={anchorRef} open={open} onOpenChange={setOpen}>
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item
+                onSelect={event => {
+                  // Prevent the menu from closing so the overlay stays mounted
+                  event.preventDefault()
+                  setAnchorKey(k => k + 1)
+                }}
+              >
+                Switch anchor
+              </ActionList.Item>
+              <ActionList.Item>Item one</ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+      </BaseStyles>
+    </FeatureFlags>
+  )
+}
+
 function ExampleWithSubmenus(): JSX.Element {
   return (
     <BaseStyles>
@@ -122,6 +182,19 @@ function ExampleWithSubmenus(): JSX.Element {
 
 describe('ActionMenu', () => {
   implementsClassName(ActionMenu.Button)
+
+  it('renders data-component attributes for ActionMenu parts', async () => {
+    const component = HTMLRender(<Example />)
+    const user = userEvent.setup()
+
+    const trigger = component.getByRole('button', {name: 'Toggle Menu'})
+    expect(trigger).toHaveAttribute('data-component', 'ActionMenu.Button')
+
+    await user.click(trigger)
+
+    expect(component.baseElement.querySelector('[data-component="ActionMenu.Overlay"]')).not.toBeNull()
+    expect(component.baseElement.querySelector('[data-component="AnchoredOverlay"]')).toBeNull()
+  })
 
   it('should open Menu on MenuButton click', async () => {
     const component = HTMLRender(<Example />)
@@ -283,9 +356,7 @@ describe('ActionMenu', () => {
     const button = component.getByRole('button')
 
     const user = userEvent.setup()
-    await act(async () => {
-      await user.click(button)
-    })
+    await user.click(button)
 
     expect(component.queryByRole('menu')).toBeInTheDocument()
     const menuItems = component.getAllByRole('menuitem')
@@ -298,13 +369,11 @@ describe('ActionMenu', () => {
     await user.keyboard('{ArrowDown}')
     expect(menuItems[1]).toEqual(document.activeElement)
 
-    await act(async () => {
-      // TODO: Removed one ArrowDown to account for the focus trap starting at the second element
-      // await user.keyboard('{ArrowDown}')
-      await user.keyboard('{ArrowDown}')
-      await user.keyboard('{ArrowDown}')
-      await user.keyboard('{ArrowDown}')
-    })
+    // TODO: Removed one ArrowDown to account for the focus trap starting at the second element
+    // await user.keyboard('{ArrowDown}')
+    await user.keyboard('{ArrowDown}')
+    await user.keyboard('{ArrowDown}')
+    await user.keyboard('{ArrowDown}')
     expect(menuItems[menuItems.length - 1]).toEqual(document.activeElement) // last elememt
 
     await user.keyboard('{ArrowDown}')
@@ -598,29 +667,89 @@ describe('ActionMenu', () => {
       expect(baseAnchor).not.toHaveAttribute('aria-expanded', 'true')
     })
 
+    it('supports className prop on ActionMenu.Anchor with css anchor positioning flag', async () => {
+      const component = HTMLRender(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <BaseStyles>
+            <ActionMenu>
+              <ActionMenu.Anchor className="test-class">
+                <Button>Toggle Menu</Button>
+              </ActionMenu.Anchor>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Item>New file</ActionList.Item>
+                  <ActionList.Divider />
+                  <ActionList.Item>Copy link</ActionList.Item>
+                  <ActionList.Item>Edit file</ActionList.Item>
+                  <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
+                    Delete file
+                  </ActionList.Item>
+                  <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
+                    GitHub
+                  </ActionList.LinkItem>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
+        </FeatureFlags>,
+      )
+      const anchor = component.getByRole('button', {name: 'Toggle Menu'})
+      expect(anchor).toHaveClass('test-class')
+    })
+
+    it('supports className prop on ActionMenu.Button with css anchor positioning flag', async () => {
+      const component = HTMLRender(
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: true}}>
+          <BaseStyles>
+            <ActionMenu>
+              <ActionMenu.Button className="test-class">Toggle Menu</ActionMenu.Button>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Item>New file</ActionList.Item>
+                  <ActionList.Divider />
+                  <ActionList.Item>Copy link</ActionList.Item>
+                  <ActionList.Item>Edit file</ActionList.Item>
+                  <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
+                    Delete file
+                  </ActionList.Item>
+                  <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
+                    GitHub
+                  </ActionList.LinkItem>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
+        </FeatureFlags>,
+      )
+      const button = component.getByRole('button', {name: 'Toggle Menu'})
+      expect(button).toHaveClass('test-class')
+    })
+
     it('supports className prop on ActionMenu.Anchor', async () => {
       const component = HTMLRender(
-        <BaseStyles>
-          <ActionMenu>
-            <ActionMenu.Anchor className="test-class">
-              <Button>Toggle Menu</Button>
-            </ActionMenu.Anchor>
-            <ActionMenu.Overlay>
-              <ActionList>
-                <ActionList.Item>New file</ActionList.Item>
-                <ActionList.Divider />
-                <ActionList.Item>Copy link</ActionList.Item>
-                <ActionList.Item>Edit file</ActionList.Item>
-                <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
-                  Delete file
-                </ActionList.Item>
-                <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
-                  Github
-                </ActionList.LinkItem>
-              </ActionList>
-            </ActionMenu.Overlay>
-          </ActionMenu>
-        </BaseStyles>,
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: false}}>
+          <BaseStyles>
+            <ActionMenu>
+              <ActionMenu.Anchor className="test-class">
+                <Button>Toggle Menu</Button>
+              </ActionMenu.Anchor>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Item>New file</ActionList.Item>
+                  <ActionList.Divider />
+                  <ActionList.Item>Copy link</ActionList.Item>
+                  <ActionList.Item>Edit file</ActionList.Item>
+                  <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
+                    Delete file
+                  </ActionList.Item>
+                  <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
+                    GitHub
+                  </ActionList.LinkItem>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
+        </FeatureFlags>,
       )
       const anchor = component.getByRole('button', {name: 'Toggle Menu'})
       expect(anchor).toHaveClass('test-class')
@@ -628,28 +757,59 @@ describe('ActionMenu', () => {
 
     it('supports className prop on ActionMenu.Button', async () => {
       const component = HTMLRender(
-        <BaseStyles>
-          <ActionMenu>
-            <ActionMenu.Button className="test-class">Toggle Menu</ActionMenu.Button>
-            <ActionMenu.Overlay>
-              <ActionList>
-                <ActionList.Item>New file</ActionList.Item>
-                <ActionList.Divider />
-                <ActionList.Item>Copy link</ActionList.Item>
-                <ActionList.Item>Edit file</ActionList.Item>
-                <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
-                  Delete file
-                </ActionList.Item>
-                <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
-                  Github
-                </ActionList.LinkItem>
-              </ActionList>
-            </ActionMenu.Overlay>
-          </ActionMenu>
-        </BaseStyles>,
+        <FeatureFlags flags={{primer_react_css_anchor_positioning: false}}>
+          <BaseStyles>
+            <ActionMenu>
+              <ActionMenu.Button className="test-class">Toggle Menu</ActionMenu.Button>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Item>New file</ActionList.Item>
+                  <ActionList.Divider />
+                  <ActionList.Item>Copy link</ActionList.Item>
+                  <ActionList.Item>Edit file</ActionList.Item>
+                  <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
+                    Delete file
+                  </ActionList.Item>
+                  <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
+                    Github
+                  </ActionList.LinkItem>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
+        </FeatureFlags>,
       )
       const button = component.getByRole('button', {name: 'Toggle Menu'})
       expect(button).toHaveClass('test-class')
+    })
+
+    it('keeps anchor-name and position-anchor linked when the anchor is replaced while the menu is open', async () => {
+      const user = userEvent.setup()
+      const component = HTMLRender(<ExampleWithReplaceableAnchor />)
+
+      const initialAnchor = component.getByRole('button', {name: 'Open menu'})
+      await user.click(initialAnchor)
+
+      const overlay = component.baseElement.querySelector('[data-component="ActionMenu.Overlay"]') as HTMLElement
+      expect(overlay).not.toBeNull()
+
+      const initialAnchorName = initialAnchor.style.getPropertyValue('anchor-name')
+      const initialPositionAnchor = overlay.style.getPropertyValue('position-anchor')
+      expect(initialAnchorName).not.toBe('')
+      expect(initialPositionAnchor).not.toBe('')
+      expect(initialPositionAnchor).toBe(initialAnchorName)
+
+      // Click the item that remounts the anchor while keeping the menu open
+      const switchItem = component.getByRole('menuitem', {name: 'Switch anchor'})
+      await user.click(switchItem)
+
+      const newAnchor = component.getByRole('button', {name: 'Open menu'})
+      expect(newAnchor).not.toBe(initialAnchor)
+
+      // The new anchor should have the same anchor-name re-applied, and the
+      // overlay should still reference it via position-anchor.
+      expect(newAnchor.style.getPropertyValue('anchor-name')).toBe(initialAnchorName)
+      expect(overlay.style.getPropertyValue('position-anchor')).toBe(initialPositionAnchor)
     })
   })
 
@@ -810,6 +970,147 @@ describe('ActionMenu', () => {
       await user.keyboard('{Enter}')
       expect(component.queryByRole('menu')).toBeInTheDocument()
       expect(mockOnKeyDown).toHaveBeenCalledTimes(1)
+    })
+  })
+
+  describe('displayInViewport behavior', () => {
+    const mockGetAnchoredPosition = vi.mocked(getAnchoredPosition)
+
+    beforeEach(() => {
+      // Reset mock before each test
+      mockGetAnchoredPosition.mockClear()
+    })
+
+    it('should enable displayInViewport when ActionMenu is inside a dialog', async () => {
+      // When the ActionMenu is wrapped in a Dialog, it's inside a dialog context.
+      // displayInViewport should be automatically enabled.
+      const component = HTMLRender(
+        <Dialog onClose={() => {}}>
+          <ActionMenu>
+            <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Item>New file</ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </Dialog>,
+      )
+
+      const user = userEvent.setup()
+      const button = component.getByRole('button', {name: 'Toggle Menu'})
+      await user.click(button)
+
+      await waitFor(() => {
+        expect(component.queryByRole('menu')).toBeInTheDocument()
+      })
+
+      // Verify getAnchoredPosition was called with displayInViewport: true
+      await waitFor(() => {
+        expect(mockGetAnchoredPosition).toHaveBeenCalled()
+      })
+
+      const calls = mockGetAnchoredPosition.mock.calls
+      const lastCall = calls[calls.length - 1]
+      expect(lastCall[2]?.displayInViewport).toBe(true)
+    })
+
+    it('should not enable displayInViewport when ActionMenu is NOT inside a dialog', async () => {
+      // Without being wrapped in a Dialog, the ActionMenu is not in a dialog context.
+      // displayInViewport should remain at its default (false/undefined).
+      const component = HTMLRender(
+        <ActionMenu>
+          <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item>New file</ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>,
+      )
+
+      const user = userEvent.setup()
+      const button = component.getByRole('button')
+      await user.click(button)
+
+      await waitFor(() => {
+        expect(component.queryByRole('menu')).toBeInTheDocument()
+      })
+
+      // Verify getAnchoredPosition was called without displayInViewport enabled
+      await waitFor(() => {
+        expect(mockGetAnchoredPosition).toHaveBeenCalled()
+      })
+
+      const calls = mockGetAnchoredPosition.mock.calls
+      const lastCall = calls[calls.length - 1]
+      expect(lastCall[2]?.displayInViewport).not.toBe(true)
+    })
+
+    it('should respect explicit displayInViewport prop over default logic', async () => {
+      // Test that an explicit displayInViewport=false prop overrides the automatic
+      // detection, even when the ActionMenu is inside a dialog.
+      const component = HTMLRender(
+        <Dialog onClose={() => {}}>
+          <ActionMenu>
+            <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+            <ActionMenu.Overlay displayInViewport={false}>
+              <ActionList>
+                <ActionList.Item>New file</ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </Dialog>,
+      )
+
+      const user = userEvent.setup()
+      const button = component.getByRole('button', {name: 'Toggle Menu'})
+      await user.click(button)
+
+      await waitFor(() => {
+        expect(component.queryByRole('menu')).toBeInTheDocument()
+      })
+
+      // Verify getAnchoredPosition was called with displayInViewport: false (explicit override)
+      await waitFor(() => {
+        expect(mockGetAnchoredPosition).toHaveBeenCalled()
+      })
+
+      const calls = mockGetAnchoredPosition.mock.calls
+      const lastCall = calls[calls.length - 1]
+      expect(lastCall[2]?.displayInViewport).toBe(false)
+    })
+
+    it('should respect explicit displayInViewport=true prop', async () => {
+      // Test that an explicit displayInViewport=true prop works regardless of
+      // the dialog context.
+      const component = HTMLRender(
+        <ActionMenu>
+          <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+          <ActionMenu.Overlay displayInViewport={true}>
+            <ActionList>
+              <ActionList.Item>New file</ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>,
+      )
+
+      const user = userEvent.setup()
+      const button = component.getByRole('button')
+      await user.click(button)
+
+      await waitFor(() => {
+        expect(component.queryByRole('menu')).toBeInTheDocument()
+      })
+
+      // Verify getAnchoredPosition was called with displayInViewport: true (explicit override)
+      await waitFor(() => {
+        expect(mockGetAnchoredPosition).toHaveBeenCalled()
+      })
+
+      const calls = mockGetAnchoredPosition.mock.calls
+      const lastCall = calls[calls.length - 1]
+      expect(lastCall[2]?.displayInViewport).toBe(true)
     })
   })
 })

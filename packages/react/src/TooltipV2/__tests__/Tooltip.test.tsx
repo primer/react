@@ -4,12 +4,15 @@ import type {TooltipProps} from '../Tooltip'
 import {Tooltip} from '../Tooltip'
 import {render as HTMLRender} from '@testing-library/react'
 import BaseStyles from '../../BaseStyles'
-import {Button, IconButton, ActionMenu, ActionList, ButtonGroup} from '../..'
+import {Button, IconButton} from '../../Button'
+import {ActionMenu} from '../../ActionMenu'
+import {ActionList} from '../../ActionList'
+import ButtonGroup from '../../ButtonGroup'
 import {XIcon} from '@primer/octicons-react'
 import classes from '../Tooltip.module.css'
 
 import type {JSX} from 'react'
-import {implementsClassName} from '../../utils/testing'
+import {implementsClassName, withExpectedConsoleError} from '../../utils/testing'
 
 const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
   <Tooltip text="Tooltip text" {...props}>
@@ -125,15 +128,17 @@ describe('Tooltip', () => {
     expect(triggerEL.getAttribute('aria-describedby')).toContain('custom-tooltip-id')
   })
   it('should throw an error if the trigger element is disabled', () => {
-    expect(() => {
-      HTMLRender(
-        <Tooltip text="Tooltip text" direction="n">
-          <Button disabled>Delete</Button>
-        </Tooltip>,
+    withExpectedConsoleError(() => {
+      expect(() => {
+        HTMLRender(
+          <Tooltip text="Tooltip text" direction="n">
+            <Button disabled>Delete</Button>
+          </Tooltip>,
+        )
+      }).toThrow(
+        'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
       )
-    }).toThrow(
-      'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
-    )
+    })
   })
   it('should not throw an error when the trigger element is a button in a fieldset', () => {
     const {getByRole} = HTMLRender(
@@ -172,6 +177,23 @@ describe('Tooltip', () => {
     )
     expect(getByRole('button', {name: 'Overridden label'})).toBeInTheDocument()
   })
+  it('includes multiple keybinding hints joined with "or" in the label text', () => {
+    const {getByRole} = HTMLRender(<TooltipComponent type="label" keybindingHint={['Control+K', 'Control+Shift+K']} />)
+    expect(getByRole('button', {name: 'Tooltip text (control k or control shift k)'})).toBeInTheDocument()
+  })
+  it('renders multiple keybinding hints when an array is provided', () => {
+    const {getAllByTestId, container} = HTMLRender(
+      <TooltipComponent keybindingHint={['Control+K', 'Control+Shift+K']} />,
+    )
+    expect(getAllByTestId('keybinding-hint')).toHaveLength(2)
+    // Verify the "or" separator is rendered between keybinding hints
+    const hintContainer = container.querySelector('[aria-hidden="true"] [aria-hidden="true"]')
+    expect(hintContainer?.textContent).toContain(' or ')
+  })
+  it('treats an empty array keybindingHint as if no hint was provided', () => {
+    const {queryByTestId} = HTMLRender(<TooltipComponent keybindingHint={[]} />)
+    expect(queryByTestId('keybinding-hint')).not.toBeInTheDocument()
+  })
 
   it('should append tooltip id to existing aria-describedby value on the trigger element', () => {
     const {getByRole, getByText} = HTMLRender(<TooltipComponentWithExistingDescription />)
@@ -183,5 +205,19 @@ describe('Tooltip', () => {
     const describedBy = triggerEL.getAttribute('aria-describedby')
     expect(describedBy).toContain(externalDescription.id)
     expect(describedBy).toContain(tooltipEl.id)
+  })
+})
+
+describe('Tooltip data-component attributes', () => {
+  it('renders Tooltip with data-component attribute', () => {
+    const {getByText} = HTMLRender(<TooltipComponent />)
+    const tooltip = getByText('Tooltip text')
+    expect(tooltip).toHaveAttribute('data-component', 'Tooltip')
+  })
+
+  it('renders Tooltip.KeybindingHintContainer with data-component attribute when keybindingHint is provided', () => {
+    const {container} = HTMLRender(<TooltipComponent keybindingHint="Control+K" />)
+    const keybindingHintContainer = container.querySelector('[data-component="Tooltip.KeybindingHintContainer"]')
+    expect(keybindingHintContainer).toBeInTheDocument()
   })
 })

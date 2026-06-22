@@ -17,6 +17,13 @@
    * Do NOT copy this pattern without understanding the tradeoffs.
    */
   .TreeViewItem {
+    /*
+     * `overflow-clip-margin` extends the paint clip edge by 8px so the current-item indicator
+     * (positioned at `left: -8px` of the row container) remains visible when a consumer applies
+     * `contain: paint` (or `contain: strict`, or `content-visibility: auto`) to this `<li>`. Has
+     * no effect when no paint containment is active, so default rendering is unchanged.
+     */
+    overflow-clip-margin: var(--base-size-8);
     outline: none;
 
     &:focus-visible > div,
@@ -25,8 +32,7 @@
 
       @media (forced-colors: active) {
         outline: 2px solid HighlightText;
-        /* stylelint-disable-next-line declaration-property-value-no-unknown */
-        outline-offset: -2;
+        outline-offset: -2px;
       }
     }
 
@@ -43,11 +49,17 @@
     position: relative;
     display: grid;
     width: 100%;
+    /*
+     * Mirrors the `overflow-clip-margin` on `.TreeViewItem` so the indicator also stays
+     * visible when `containIntrinsicSize` is set on this row (which sets
+     * `content-visibility: auto` on this container and implies paint containment).
+     */
+    overflow-clip-margin: var(--base-size-8);
     font-size: var(--text-body-size-medium);
     color: var(--fgColor-default);
     cursor: pointer;
     border-radius: var(--borderRadius-medium);
-    grid-template-columns: var(--spacer-width) var(--leading-action-width) var(--toggle-width) 1fr;
+    grid-template-columns: var(--spacer-width) var(--leading-action-width) var(--toggle-width) 1fr auto;
     grid-template-areas: 'spacer leadingAction toggle content trailingAction';
 
     --leading-action-width: calc(var(--has-leading-action, 0) * 1.5rem);
@@ -66,24 +78,24 @@
       --toggle-width: 1.5rem;
       --min-item-height: 2.75rem;
     }
-
-    /*
-     * NOTE: Uses descendant :has() - TreeViewItemSkeleton is nested inside
-     * TreeViewItemContent > TreeViewItemContentText, not a direct child.
-     * This is acceptable as the search is scoped to this element's subtree.
-     */
-    &:has(.TreeViewItemSkeleton):hover {
-      cursor: default;
-      background-color: transparent;
-
-      @media (forced-colors: active) {
-        outline: none;
-      }
-    }
   }
 
   &:where([data-omit-spacer='true']) .TreeViewItemContainer {
-    grid-template-columns: 0 0 0 1fr;
+    grid-template-columns: 0 0 0 1fr auto;
+  }
+
+  /*
+   * Suppress hover affordances on rows being used as skeleton loading placeholders.
+   * Marked positively via `data-loading` from `LoadingItem` so we avoid the broad
+   * invalidation cost of `:has(.TreeViewItemSkeleton)` across every row in large trees.
+   */
+  .TreeViewItem:where([data-loading]) > .TreeViewItemContainer:hover {
+    cursor: default;
+    background-color: transparent;
+
+    @media (forced-colors: active) {
+      outline: none;
+    }
   }
 
   .TreeViewItem[aria-current='true'] > .TreeViewItemContainer {
@@ -200,29 +212,26 @@
   .TreeViewItemLevelLine {
     width: 100%;
     height: 100%;
+    border-right: var(--borderWidth-thin) solid;
 
     /*
-     * On devices without hover, the nesting indicator lines
-     * appear at all times.
+     * `--tree-line-color` is set on the root `<ul>` and inherited down. On coarse pointers it
+     * stays unset and falls back to `muted` (lines always visible). On hover-capable devices it
+     * is initialized to `transparent` on the root and flipped to `muted` while the tree is
+     * hovered or focused, so the browser only has to propagate a single inherited custom
+     * property instead of re-matching `.TreeViewItemLevelLine` descendant selectors on every
+     * hover/focus change inside large trees.
      */
-    border-color: var(--borderColor-muted);
-    border-right: var(--borderWidth-thin) solid;
+    /* stylelint-disable-next-line primer/colors -- private custom property, defaults to a Primer token */
+    border-color: var(--tree-line-color, var(--borderColor-muted));
   }
 
-  /*
-   * On devices with :hover support, the nesting indicator lines
-   * fade in when the user mouses over the entire component,
-   * or when there's focus inside the component. This makes
-   * sure the component remains simple when not in use.
-   */
   @media (hover: hover) {
-    .TreeViewItemLevelLine {
-      border-color: transparent;
-    }
+    --tree-line-color: transparent;
 
-    &:hover .TreeViewItemLevelLine,
-    &:focus-within .TreeViewItemLevelLine {
-      border-color: var(--borderColor-muted);
+    &:hover,
+    &:focus-within {
+      --tree-line-color: var(--borderColor-muted);
     }
   }
 
@@ -239,6 +248,7 @@
     /* stylelint-disable-next-line primer/spacing */
     margin: -1px;
     overflow: hidden;
+    /* stylelint-disable-next-line property-no-deprecated */
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border-width: 0;

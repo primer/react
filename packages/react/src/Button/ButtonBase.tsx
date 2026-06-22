@@ -1,7 +1,7 @@
 import React, {forwardRef, type JSX} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import type {ButtonProps} from './types'
-import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
+import {useMergedRefs} from '../hooks/useMergedRefs'
 import {VisuallyHidden} from '../VisuallyHidden'
 import Spinner from '../Spinner'
 import CounterLabel from '../CounterLabel'
@@ -51,7 +51,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
   } = props
 
   const innerRef = React.useRef<HTMLButtonElement>(null)
-  useRefObjectAsForwardedRef(forwardedRef, innerRef)
+  const mergedRef = useMergedRefs(forwardedRef, innerRef)
 
   const uuid = useId(id)
   const loadingAnnouncementID = `${uuid}-loading-announcement`
@@ -60,24 +60,19 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
   const ariaDescribedByIds = loading ? [loadingAnnouncementID, ariaDescribedBy] : [ariaDescribedBy]
 
   if (__DEV__) {
-    /**
-     * The Linter yells because it thinks this conditionally calls an effect,
-     * but since this is a compile-time flag and not a runtime conditional
-     * this is safe, and ensures the entire effect is kept out of prod builds
-     * shaving precious bytes from the output, and avoiding mounting a noop effect
-     */
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    React.useEffect(() => {
-      if (
-        innerRef.current &&
-        !(innerRef.current instanceof HTMLButtonElement) &&
-        !((innerRef.current as unknown) instanceof HTMLAnchorElement) &&
-        !((innerRef.current as HTMLElement).tagName === 'SUMMARY')
-      ) {
-        // eslint-disable-next-line no-console
-        console.warn('This component should be an instanceof a semantic button or anchor')
-      }
-    }, [innerRef])
+    // Validate that the element is a semantic button/anchor.
+    // This runs during render (not in an effect) to avoid a conditional hook call
+    // that prevents React Compiler from optimizing this component.
+    const el = innerRef.current
+    if (
+      el &&
+      !(el instanceof HTMLButtonElement) &&
+      !((el as unknown) instanceof HTMLAnchorElement) &&
+      !((el as HTMLElement).tagName === 'SUMMARY')
+    ) {
+      // eslint-disable-next-line no-console
+      console.warn('This component should be an instanceof a semantic button or anchor')
+    }
   }
   return (
     <ConditionalWrapper
@@ -86,14 +81,15 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
       // when `loading` is `false`.
       // Then, the component re-renders in a way that the button will lose focus when switching between loading states.
       if={typeof loading !== 'undefined'}
-      className={block ? classes.ConditionalWrapper : undefined}
+      className={block ? classes.ConditionalWrapper : variant === 'link' ? classes.ConditionalWrapperLink : undefined}
       data-loading-wrapper
     >
       <Component
         aria-disabled={loading ? true : undefined}
+        data-component="Button"
         {...rest}
         // @ts-ignore temporary disable as we migrate to css modules, until we remove PolymorphicForwardRefComponent
-        ref={innerRef}
+        ref={mergedRef}
         className={clsx(classes.ButtonBase, className)}
         data-block={block ? 'block' : null}
         data-inactive={inactive ? true : undefined}
@@ -103,6 +99,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
         data-variant={variant}
         data-label-wrap={labelWrap}
         data-has-count={count !== undefined ? true : undefined}
+        data-icon-only-counter={count !== undefined && LeadingVisual && !children ? true : undefined}
         aria-describedby={ariaDescribedByIds.filter(descriptionID => Boolean(descriptionID)).join(' ') || undefined}
         // aria-labelledby is needed because the accessible name becomes unset when the button is in a loading state.
         // We only set it when the button is in a loading state because it will supersede the aria-label when the screen
@@ -154,11 +151,9 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
                   */
                 count !== undefined && !TrailingVisual
                   ? renderModuleVisual(
-                      () => (
-                        <CounterLabel className={classes.CounterLabel} data-component="ButtonCounter">
-                          {count}
-                        </CounterLabel>
-                      ),
+                      <CounterLabel className={classes.CounterLabel} data-component="ButtonCounter">
+                        {count}
+                      </CounterLabel>,
                       Boolean(loading) && !LeadingVisual,
                       'trailingVisual',
                       true,

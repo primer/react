@@ -7,6 +7,8 @@ on:
       - 'gh-readonly-queue/**'
     tags-ignore:
       - '**'
+  pull_request:
+    types: [labeled, synchronize]
   workflow_dispatch:
 
 concurrency:
@@ -21,19 +23,19 @@ permissions:
 
 jobs:
   release-main:
-    if: github.ref_name == 'main'
+    if: github.event_name != 'pull_request' && github.ref_name == 'main'
     name: Main
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
         with:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
           persist-credentials: false
 
       - name: Set up Node
-        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -41,7 +43,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf
+      - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1
         id: app-token
         with:
           app-id: ${{ vars.PRIMER_APP_ID_SHARED }}
@@ -52,7 +54,7 @@ jobs:
         # Uses SHA for security hardening
         # Currently pointing at a commit for the v1.4.1 tag
         # Please keep this up-to-date if you're changing the SHA below
-        uses: changesets/action@e0145edc7d9d8679003495b11f87bd8ef63c0cba
+        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d
         with:
           title: Release tracking
           # This expects you to have a script called release which does a build for your packages and calls changeset publish
@@ -64,18 +66,18 @@ jobs:
         uses: primer/.github/.github/actions/upload-versions@v2.4.0
 
   release-candidate:
-    if: github.ref_name == 'changeset-release/main'
+    if: github.event_name != 'pull_request' && github.ref_name == 'changeset-release/main'
     name: Candidate (@next)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
         with:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
 
       - name: Set up Node
-        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -92,7 +94,7 @@ jobs:
             npx changeset pre exit
             npx changeset version --snapshot
           else
-            for pkg_json_path in packages/react/package.json packages/styled-react/package.json; do
+            for pkg_json_path in packages/react/package.json packages/styled-react/package.json packages/mcp/package.json; do
               version=$(jq -r .version $pkg_json_path)
               echo "$( jq ".version = \"$(echo $version)-rc.$(git rev-parse --short HEAD)\"" $pkg_json_path )" > $pkg_json_path
             done
@@ -110,16 +112,23 @@ jobs:
 
   release-canary:
     name: Canary
-    if: github.ref_name != 'main' && github.ref_name != 'changeset-release/main'
+    if: >
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      (
+        (github.event.action == 'labeled' && github.event.label.name == 'Canary Release') ||
+        (github.event.action == 'synchronize' && contains(github.event.pull_request.labels.*.name, 'Canary Release'))
+      )
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
         with:
+          ref: ${{ github.event.pull_request.head.sha }}
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
       - name: Set up Node
-        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'

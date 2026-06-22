@@ -9,7 +9,6 @@ import VisuallyHidden from '../../../_VisuallyHidden'
 import {useSlots} from '../../../hooks/useSlots'
 import classes from './CheckboxOrRadioGroup.module.css'
 import {clsx} from 'clsx'
-import {isSlot} from '../../../utils/is-slot'
 
 export type CheckboxOrRadioGroupProps = {
   /** Class name for custom styling */
@@ -31,6 +30,7 @@ export type CheckboxOrRadioGroupProps = {
    * If true, the user must make a selection before the owning form can be submitted
    */
   required?: boolean
+  'data-component'?: string
 }
 
 const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGroupProps>> = ({
@@ -40,32 +40,20 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
   id: idProp,
   required = false,
   className,
+  'data-component': dataComponentProp,
 }) => {
   const [slots, rest] = useSlots(children, {
     caption: CheckboxOrRadioGroupCaption,
     label: CheckboxOrRadioGroupLabel,
     validation: CheckboxOrRadioGroupValidation,
   })
-  const labelChild = React.Children.toArray(children).find(
-    child =>
-      React.isValidElement(child) &&
-      (child.type === CheckboxOrRadioGroupLabel || isSlot(child, CheckboxOrRadioGroupLabel)),
-  )
-  const validationChild = React.Children.toArray(children).find(child =>
-    React.isValidElement(child) &&
-    (child.type === CheckboxOrRadioGroupValidation || isSlot(child, CheckboxOrRadioGroupValidation))
-      ? child
-      : null,
-  )
-  const captionChild = React.Children.toArray(children).find(child =>
-    React.isValidElement(child) &&
-    (child.type === CheckboxOrRadioGroupCaption || isSlot(child, CheckboxOrRadioGroupCaption))
-      ? child
-      : null,
-  )
+  const labelChild = slots.label
+  const validationChild = slots.validation
+  const captionChild = slots.caption
   const id = useId(idProp)
   const validationMessageId = validationChild ? `${id}-validationMessage` : undefined
   const captionId = captionChild ? `${id}-caption` : undefined
+  const requiredMessageId = required ? `${id}-requiredMessage` : undefined
 
   if (!labelChild && !ariaLabelledby) {
     // eslint-disable-next-line no-console
@@ -85,10 +73,12 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
         required,
         captionId,
         validationMessageId,
+        parentName: dataComponentProp,
       }}
     >
       <div>
         <Component
+          data-component={dataComponentProp}
           className={clsx(className, classes.GroupFieldset)}
           data-validation={validationChild ? '' : undefined}
           {...(labelChild
@@ -106,6 +96,7 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
                 */
             <legend className={classes.GroupLegend} data-legend-visible={isLegendVisible ? '' : undefined}>
               {slots.label}
+              {required && <VisuallyHidden>, required</VisuallyHidden>}
               {slots.caption}
               {React.isValidElement(slots.validation) && slots.validation.props.children && (
                 <VisuallyHidden>{slots.validation.props.children}</VisuallyHidden>
@@ -113,10 +104,13 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
             </legend>
           ) : (
             /*
-                  If CheckboxOrRadioGroup.Label wasn't passed as a child, we don't render a <legend>
-                  but we still want to render a caption
-                */
-            slots.caption
+              If CheckboxOrRadioGroup.Label wasn't passed as a child, we don't render a <legend>
+              but we still want to render a caption
+            */
+            <>
+              {slots.caption}
+              {required && requiredMessageId && <VisuallyHidden id={requiredMessageId}>Required</VisuallyHidden>}
+            </>
           )}
 
           <div
@@ -124,7 +118,7 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
             {...(!labelChild
               ? {
                   ['aria-labelledby']: ariaLabelledby,
-                  ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' '),
+                  ['aria-describedby']: [validationMessageId, captionId, requiredMessageId].filter(Boolean).join(' '),
                   as: 'div',
                   role: 'group',
                 }

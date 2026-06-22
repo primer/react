@@ -67,7 +67,11 @@ export const Default = () => (
     <ActionBar.IconButton icon={QuoteIcon} aria-label="Insert Quote"></ActionBar.IconButton>
     <ActionBar.IconButton icon={ListUnorderedIcon} aria-label="Unordered List"></ActionBar.IconButton>
     <ActionBar.IconButton icon={ListOrderedIcon} aria-label="Ordered List"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
+    <ActionBar.IconButton
+      icon={TasklistIcon}
+      aria-label="Task List"
+      onClick={() => alert('Task List clicked')}
+    ></ActionBar.IconButton>
   </ActionBar>
 )
 
@@ -98,5 +102,13 @@ export const DeepChildTree = () => (
     <FormattingButtons />
     <ActionBar.Divider />
     <AdvancedFormattingButtons />
+  </ActionBar>
+)
+
+export const MultipleKeybindingHints = () => (
+  <ActionBar aria-label="Toolbar">
+    <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" keybindingHint={['Mod+B', 'Control+B']} />
+    <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic" keybindingHint={['Mod+I', 'Control+I']} />
+    <ActionBar.IconButton icon={CodeIcon} aria-label="Code" keybindingHint="Mod+E" />
   </ActionBar>
 )

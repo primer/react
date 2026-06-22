@@ -1,8 +1,9 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import {ThemeProvider as SCThemeProvider} from 'styled-components'
 import {theme as defaultTheme, useId, useSyncedState} from '@primer/react'
 import deepmerge from 'deepmerge'
+import {ThemeContext} from './ThemeContext'
+import {useTheme} from './useTheme'
 
 export const defaultColorMode = 'day'
 const defaultDayScheme = 'light'
@@ -10,7 +11,7 @@ const defaultNightScheme = 'dark'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Theme = {[key: string]: any}
-type ColorMode = 'day' | 'night' | 'light' | 'dark'
+export type ColorMode = 'day' | 'night' | 'light' | 'dark'
 export type ColorModeWithAuto = ColorMode | 'auto'
 
 export type ThemeProviderProps = {
@@ -19,35 +20,39 @@ export type ThemeProviderProps = {
   dayScheme?: string
   nightScheme?: string
   preventSSRMismatch?: boolean
+  /**
+   * No-op. Exists solely to match @primer/react's ThemeProvider API.
+   * @default false
+   */
+  contextOnly?: boolean
 }
 
-const ThemeContext = React.createContext<{
-  theme?: Theme
-  colorScheme?: string
-  colorMode?: ColorModeWithAuto
-  resolvedColorMode?: ColorMode
-  resolvedColorScheme?: string
-  dayScheme?: string
-  nightScheme?: string
-  setColorMode: React.Dispatch<React.SetStateAction<ColorModeWithAuto>>
-  setDayScheme: React.Dispatch<React.SetStateAction<string>>
-  setNightScheme: React.Dispatch<React.SetStateAction<string>>
-}>({
-  setColorMode: () => null,
-  setDayScheme: () => null,
-  setNightScheme: () => null,
-})
-
 // inspired from __NEXT_DATA__, we use application/json to avoid CSRF policy with inline scripts
+const serverHandoffCache = new Map<string, Record<string, unknown>>()
+const emptyHandoff: Record<string, unknown> = {}
 const getServerHandoff = (id: string) => {
+  if (typeof document === 'undefined') return emptyHandoff
+
+  const cached = serverHandoffCache.get(id)
+  if (cached !== undefined) return cached
+
   try {
     const serverData = document.getElementById(`__PRIMER_DATA_${id}__`)?.textContent
-    if (serverData) return JSON.parse(serverData)
+    if (serverData) {
+      const parsed = JSON.parse(serverData)
+      serverHandoffCache.set(id, parsed)
+      return parsed
+    }
   } catch (_error) {
     // if document/element does not exist or JSON is invalid, supress error
   }
-  return {}
+
+  const empty = {}
+  serverHandoffCache.set(id, empty)
+  return empty
 }
+
+const emptySubscribe = () => () => {}
 
 export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>> = ({children, ...props}) => {
   // Get fallback values from parent ThemeProvider (if exists)
@@ -62,63 +67,54 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
   const theme = props.theme ?? fallbackTheme ?? defaultTheme
 
   const uniqueDataId = useId()
-  const {resolvedServerColorMode} = getServerHandoff(uniqueDataId)
-  const resolvedColorModePassthrough = React.useRef(resolvedServerColorMode)
 
   const [colorMode, setColorMode] = useSyncedState(props.colorMode ?? fallbackColorMode ?? defaultColorMode)
   const [dayScheme, setDayScheme] = useSyncedState(props.dayScheme ?? fallbackDayScheme ?? defaultDayScheme)
   const [nightScheme, setNightScheme] = useSyncedState(props.nightScheme ?? fallbackNightScheme ?? defaultNightScheme)
   const systemColorMode = useSystemColorMode()
-  // eslint-disable-next-line react-hooks/refs
-  const resolvedColorMode = resolvedColorModePassthrough.current || resolveColorMode(colorMode, systemColorMode)
+  const clientColorMode = resolveColorMode(colorMode, systemColorMode)
+  // During SSR/hydration, use the server-rendered color mode from the handoff script tag
+  // to avoid mismatches. After hydration, resolve from client state.
+  const resolvedColorMode = React.useSyncExternalStore(
+    emptySubscribe,
+    () => clientColorMode,
+    () => getServerHandoff(uniqueDataId).resolvedServerColorMode ?? clientColorMode,
+  )
   const colorScheme = chooseColorScheme(resolvedColorMode, dayScheme, nightScheme)
   const {resolvedTheme, resolvedColorScheme} = React.useMemo(
     () => applyColorScheme(theme, colorScheme),
     [theme, colorScheme],
   )
 
-  // this effect will only run on client
-  React.useEffect(
-    function updateColorModeAfterServerPassthrough() {
-      const resolvedColorModeOnClient = resolveColorMode(colorMode, systemColorMode)
-
-      if (resolvedColorModePassthrough.current) {
-        // if the resolved color mode passed on from the server is not the resolved color mode on client, change it!
-        if (resolvedColorModePassthrough.current !== resolvedColorModeOnClient) {
-          window.setTimeout(() => {
-            // use ReactDOM.flushSync to prevent automatic batching of state updates since React 18
-            // ref: https://github.com/reactwg/react-18/discussions/21
-            ReactDOM.flushSync(() => {
-              // override colorMode to whatever is resolved on the client to get a re-render
-              setColorMode(resolvedColorModeOnClient)
-            })
-
-            // immediately after that, set the colorMode to what the user passed to respond to system color mode changes
-            setColorMode(colorMode)
-          })
-        }
-
-        resolvedColorModePassthrough.current = null
-      }
-    },
-    [colorMode, systemColorMode, setColorMode],
+  const contextValue = React.useMemo(
+    () => ({
+      theme: resolvedTheme,
+      colorScheme,
+      colorMode,
+      resolvedColorMode,
+      resolvedColorScheme,
+      dayScheme,
+      nightScheme,
+      setColorMode,
+      setDayScheme,
+      setNightScheme,
+    }),
+    [
+      resolvedTheme,
+      colorScheme,
+      colorMode,
+      resolvedColorMode,
+      resolvedColorScheme,
+      dayScheme,
+      nightScheme,
+      setColorMode,
+      setDayScheme,
+      setNightScheme,
+    ],
   )
 
   return (
-    <ThemeContext.Provider
-      value={{
-        theme: resolvedTheme,
-        colorScheme,
-        colorMode,
-        resolvedColorMode,
-        resolvedColorScheme,
-        dayScheme,
-        nightScheme,
-        setColorMode,
-        setDayScheme,
-        setNightScheme,
-      }}
-    >
+    <ThemeContext.Provider value={contextValue}>
       <SCThemeProvider theme={resolvedTheme}>
         {children}
         {props.preventSSRMismatch ? (
@@ -133,63 +129,22 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
   )
 }
 
-export function useTheme() {
-  return React.useContext(ThemeContext)
-}
-
-export function useColorSchemeVar(values: Partial<Record<string, string>>, fallback: string) {
-  const {colorScheme = ''} = useTheme()
-  return values[colorScheme] ?? fallback
+function subscribeToSystemColorMode(callback: () => void) {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  const media = window?.matchMedia?.('(prefers-color-scheme: dark)')
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  media?.addEventListener('change', callback)
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  return () => media?.removeEventListener('change', callback)
 }
 
 function useSystemColorMode() {
-  const [systemColorMode, setSystemColorMode] = React.useState(getSystemColorMode)
-
-  React.useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    const media = window?.matchMedia?.('(prefers-color-scheme: dark)')
-
-    function matchesMediaToColorMode(matches: boolean) {
-      return matches ? 'night' : 'day'
-    }
-
-    function handleChange(event: MediaQueryListEvent) {
-      const isNight = event.matches
-      setSystemColorMode(matchesMediaToColorMode(isNight))
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (media) {
-      // just in case the preference changed before the event listener was attached
-      const isNight = media.matches
-      setSystemColorMode(matchesMediaToColorMode(isNight))
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      if (media.addEventListener !== undefined) {
-        media.addEventListener('change', handleChange)
-        return function cleanup() {
-          media.removeEventListener('change', handleChange)
-        }
-      }
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      else if (media.addListener !== undefined) {
-        media.addListener(handleChange)
-        return function cleanup() {
-          media.removeListener(handleChange)
-        }
-      }
-    }
-  }, [])
-
-  return systemColorMode
+  return React.useSyncExternalStore<ColorMode>(subscribeToSystemColorMode, getSystemColorMode, () => 'day')
 }
 
 function getSystemColorMode(): ColorMode {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (typeof window !== 'undefined' && window.matchMedia?.('(prefers-color-scheme: dark)')?.matches) {
-    return 'night'
-  }
-
-  return 'day'
+  return window?.matchMedia?.('(prefers-color-scheme: dark)')?.matches ? 'night' : 'day'
 }
 
 function resolveColorMode(colorMode: ColorModeWithAuto, systemColorMode: ColorMode) {

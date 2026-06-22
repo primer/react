@@ -2,9 +2,8 @@ import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {scrollIntoView, FocusKeys} from '@primer/behaviors'
 import type {KeyboardEventHandler, JSX} from 'react'
 import type React from 'react'
-import {forwardRef, useCallback, useEffect, useRef, useState} from 'react'
+import {forwardRef, useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import type {TextInputProps} from '../TextInput'
-import TextInput from '../TextInput'
 import {ActionList, type ActionListProps} from '../ActionList'
 import type {GroupedListProps, ListPropsBase, ItemInput, RenderItemFn} from './'
 import {useFocusZone} from '../hooks/useFocusZone'
@@ -21,6 +20,8 @@ import {ActionListContainerContext} from '../ActionList/ActionListContainerConte
 import {isValidElementType} from 'react-is'
 import {useAnnouncements} from './useAnnouncements'
 import {clsx} from 'clsx'
+import {useVirtualizer} from '@tanstack/react-virtual'
+import {FilteredActionListInput} from './FilteredActionListInput'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -101,6 +102,32 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
    * If false, sets initial focus to the first item in the list when rendered, enabling keyboard navigation immediately.
    */
   setInitialFocus?: boolean
+  /**
+   * Set to true to allow focus to move to elements that are dynamically prepended to the container.
+   * Default is false.
+   */
+  focusPrependedElements?: boolean
+  /**
+   * Determines the scroll behavior of the container when an item is focused.
+   *
+   * @default 'auto'
+   */
+  scrollBehavior?: ScrollBehavior
+  /**
+   * If true, enables client-side list virtualization. Only the visible items (plus a small
+   * overscan buffer) are rendered in the DOM, dramatically improving performance for large lists.
+   *
+   * This is a purely client-side optimization — it does not require server-side pagination.
+   * The consumer can still pass all items at once; the component will only render what is visible.
+   *
+   * Recommended for lists with more than 100 items.
+   *
+   * Note: Has no effect when `groupMetadata` is provided, as grouped lists are
+   * typically small enough not to need virtualization.
+   *
+   * @default false
+   */
+  virtualized?: boolean
 }
 
 export function FilteredActionList({
@@ -130,8 +157,25 @@ export function FilteredActionList({
   onActiveDescendantChanged,
   disableSelectOnHover = false,
   setInitialFocus = false,
+  focusPrependedElements,
+  scrollBehavior,
+  virtualized = false,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
+  if (__DEV__) {
+    if (virtualized && groupMetadata?.length) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        'FilteredActionList: `virtualized` has no effect when `groupMetadata` is provided. ' +
+          'Grouped lists are rendered without virtualization.',
+      )
+    }
+  }
+
+  // Virtualization is disabled when groups are present — grouped lists render
+  // normally regardless of the `virtualized` prop.
+  const isVirtualized = virtualized && !groupMetadata?.length
+
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
   const onInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -237,44 +281,96 @@ export function FilteredActionList({
     [onListContainerRefChanged],
   )
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-pass-data-to-parent
     onInputRefChanged?.(inputRef)
   }, [inputRef, onInputRefChanged])
+
+  // Matches the most common ActionList.Item height (single-line text + description).
+  // Items are measured dynamically via `measureElement`, so this only affects the
+  // initial total-height estimate before items scroll into view.
+  const DEFAULT_VIRTUAL_ITEM_HEIGHT = 32
+
+  // eslint-disable-next-line react-hooks/incompatible-library
+  const virtualizer = useVirtualizer({
+    count: items.length,
+    getScrollElement: () => scrollContainerRef.current,
+    estimateSize: () => DEFAULT_VIRTUAL_ITEM_HEIGHT,
+    overscan: 10,
+    enabled: isVirtualized,
+    getItemKey: index => {
+      // `measureElement` from @tanstack/react-virtual can invoke this with an index
+      // whose item has just been removed (e.g. during a filter that shrinks `items`),
+      // so guard against `items[index]` being undefined.
+      const item = items[index] as ItemInput | undefined
+      if (!item) return index.toString()
+      return item.key ?? item.id?.toString() ?? index.toString()
+    },
+    measureElement: el => (el as HTMLElement).scrollHeight,
+  })
+
+  const virtualItems = isVirtualized ? virtualizer.getVirtualItems() : undefined
+
+  const virtualizedItemEntries = useMemo(() => {
+    if (!isVirtualized || !virtualItems) return undefined
+    return virtualItems.map(virtualItem => {
+      const item = items[virtualItem.index]
+      return {virtualItem, item, index: virtualItem.index}
+    })
+  }, [isVirtualized, virtualItems, items])
 
   useFocusZone(
     !usingRovingTabindex
       ? {
           containerRef: {current: listContainerElement},
           bindKeys: FocusKeys.ArrowVertical | FocusKeys.PageUpDown,
-          focusOutBehavior,
+          // With virtualization, only a subset of items exists in the DOM at any time.
+          // 'wrap' would cycle focus within the visible window instead of reaching the
+          // true end of the list. 'stop' lets the virtualizer's scrollToIndex bring
+          // the correct items into view when navigating past the rendered boundaries.
+          focusOutBehavior: isVirtualized ? 'stop' : focusOutBehavior,
           focusableElementFilter: element => {
             return !(element instanceof HTMLInputElement)
           },
           activeDescendantFocus: inputRef,
           onActiveDescendantChanged: (current, previous, directlyActivated) => {
             activeDescendantRef.current = current
-            if (current && scrollContainerRef.current && directlyActivated) {
-              scrollIntoView(current, scrollContainerRef.current, menuScrollMargins)
+
+            if (isVirtualized && current) {
+              const index = current.getAttribute('data-index')
+              const range = virtualizer.range
+              if (index !== null && range && (Number(index) < range.startIndex || Number(index) >= range.endIndex)) {
+                virtualizer.scrollToIndex(Number(index), {align: 'auto'})
+              }
+            }
+
+            if (current && scrollContainerRef.current && (directlyActivated || focusPrependedElements)) {
+              scrollIntoView(current, scrollContainerRef.current, {
+                ...menuScrollMargins,
+                behavior: scrollBehavior,
+              })
             }
 
             onActiveDescendantChanged?.(current, previous, directlyActivated)
           },
           focusInStrategy: setInitialFocus ? 'initial' : 'previous',
           ignoreHoverEvents: disableSelectOnHover,
+          focusPrependedElements,
         }
       : undefined,
-    [listContainerElement, usingRovingTabindex, onActiveDescendantChanged],
+    [listContainerElement, usingRovingTabindex, onActiveDescendantChanged, focusPrependedElements, isVirtualized],
   )
 
   useEffect(() => {
     if (activeDescendantRef.current && scrollContainerRef.current) {
       scrollIntoView(activeDescendantRef.current, scrollContainerRef.current, {
         ...menuScrollMargins,
-        behavior: 'auto',
+        behavior: scrollBehavior,
       })
     }
-  }, [items, inputRef, scrollContainerRef])
+  }, [items, inputRef, scrollContainerRef, scrollBehavior])
 
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (usingRovingTabindex) {
       const inputAndListContainerElement = inputAndListContainerRef.current
       if (!inputAndListContainerElement) return
@@ -297,7 +393,9 @@ export function FilteredActionList({
   }, [items, inputRef, listContainerElement, usingRovingTabindex]) // Re-run when items change to update active indicators
 
   useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (usingRovingTabindex && !loading) {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-adjust-state-on-prop-change
       setIsInputFocused(inputRef.current && inputRef.current === document.activeElement ? true : false)
     }
   }, [loading, inputRef, usingRovingTabindex])
@@ -330,6 +428,80 @@ export function FilteredActionList({
       return message
     }
     let firstGroupIndex = 0
+
+    const renderListItems = () => {
+      if (groupMetadata?.length) {
+        return groupMetadata.map((group, index) => {
+          if (index === firstGroupIndex && getItemListForEachGroup(group.groupId).length === 0) {
+            firstGroupIndex++
+          }
+          return (
+            <ActionList.Group key={index}>
+              <ActionList.GroupHeading variant={group.header?.variant ? group.header.variant : undefined}>
+                {group.header?.title ? group.header.title : `Group ${group.groupId}`}
+              </ActionList.GroupHeading>
+              {getItemListForEachGroup(group.groupId).map(({key: itemKey, ...item}, itemIndex) => {
+                const key = itemKey ?? item.id?.toString() ?? itemIndex.toString()
+                return (
+                  <MappedActionListItem
+                    key={key}
+                    className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
+                    data-input-focused={isInputFocused ? '' : undefined}
+                    data-first-child={index === firstGroupIndex && itemIndex === 0 ? '' : undefined}
+                    {...item}
+                    renderItem={listProps.renderItem}
+                  />
+                )
+              })}
+            </ActionList.Group>
+          )
+        })
+      }
+
+      if (isVirtualized && virtualizedItemEntries) {
+        return virtualizedItemEntries.map(({virtualItem, item: {key: itemKey, ...item}, index}) => {
+          const key = itemKey ?? item.id?.toString() ?? index.toString()
+          return (
+            <MappedActionListItem
+              key={key}
+              className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
+              data-input-focused={isInputFocused ? '' : undefined}
+              data-first-child={index === 0 ? '' : undefined}
+              data-index={virtualItem.index}
+              ref={(node: HTMLLIElement | null) => {
+                if (node) {
+                  virtualizer.measureElement(node)
+                }
+              }}
+              style={{
+                position: 'absolute' as const,
+                top: 0,
+                left: 0,
+                right: 0,
+                transform: `translateY(${virtualItem.start}px)`,
+              }}
+              {...item}
+              renderItem={listProps.renderItem}
+            />
+          )
+        })
+      }
+
+      return items.map(({key: itemKey, ...item}, index) => {
+        const key = itemKey ?? item.id?.toString() ?? index.toString()
+        return (
+          <MappedActionListItem
+            key={key}
+            className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
+            data-input-focused={isInputFocused ? '' : undefined}
+            data-first-child={index === 0 ? '' : undefined}
+            {...item}
+            renderItem={listProps.renderItem}
+          />
+        )
+      })
+    }
+
     const actionListContent = (
       <ActionList
         ref={usingRovingTabindex ? listRef : listContainerRefCallback}
@@ -340,46 +512,22 @@ export function FilteredActionList({
         role="listbox"
         id={listId}
         className={clsx(classes.ActionList, actionListProps?.className)}
-      >
-        {groupMetadata?.length
-          ? groupMetadata.map((group, index) => {
-              if (index === firstGroupIndex && getItemListForEachGroup(group.groupId).length === 0) {
-                firstGroupIndex++ // Increment firstGroupIndex if the first group has no items
+        // When virtualized, the ActionList needs `position: relative` so that absolutely-positioned
+        // virtual items are placed correctly, and its `height` must equal the total virtual content
+        // size so the scroll container produces the right scrollbar.
+        // These styles are independent of SelectPanel's `height`/`width` props, which control the
+        // outer overlay dimensions, not the list content area.
+        style={
+          isVirtualized
+            ? {
+                ...actionListProps?.style,
+                height: virtualizer.getTotalSize(),
+                position: 'relative' as const,
               }
-              return (
-                <ActionList.Group key={index}>
-                  <ActionList.GroupHeading variant={group.header?.variant ? group.header.variant : undefined}>
-                    {group.header?.title ? group.header.title : `Group ${group.groupId}`}
-                  </ActionList.GroupHeading>
-                  {getItemListForEachGroup(group.groupId).map(({key: itemKey, ...item}, itemIndex) => {
-                    const key = itemKey ?? item.id?.toString() ?? itemIndex.toString()
-                    return (
-                      <MappedActionListItem
-                        key={key}
-                        className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
-                        data-input-focused={isInputFocused ? '' : undefined}
-                        data-first-child={index === firstGroupIndex && itemIndex === 0 ? '' : undefined}
-                        {...item}
-                        renderItem={listProps.renderItem}
-                      />
-                    )
-                  })}
-                </ActionList.Group>
-              )
-            })
-          : items.map(({key: itemKey, ...item}, index) => {
-              const key = itemKey ?? item.id?.toString() ?? index.toString()
-              return (
-                <MappedActionListItem
-                  key={key}
-                  className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
-                  data-input-focused={isInputFocused ? '' : undefined}
-                  data-first-child={index === 0 ? '' : undefined}
-                  {...item}
-                  renderItem={listProps.renderItem}
-                />
-              )
-            })}
+            : actionListProps?.style
+        }
+      >
+        {renderListItems()}
       </ActionList>
     )
 
@@ -403,45 +551,42 @@ export function FilteredActionList({
     }
   }
 
-  const {className: textInputClassName, ...restTextInputProps} = textInputProps || {}
-
   return (
-    <div ref={inputAndListContainerRef} className={clsx(className, classes.Root)} data-testid="filtered-action-list">
-      <div className={classes.Header}>
-        <TextInput
-          // @ts-expect-error it needs a non nullable ref
-          ref={inputRef}
-          block
-          width="auto"
-          color="fg.default"
-          value={filterValue}
-          onChange={onInputChange}
-          onKeyPress={onInputKeyPress}
-          onKeyDown={usingRovingTabindex ? onInputKeyDown : () => {}}
-          placeholder={placeholderText}
-          role="combobox"
-          aria-expanded="true"
-          aria-autocomplete="list"
-          aria-controls={listId}
-          aria-label={placeholderText}
-          aria-describedby={inputDescriptionTextId}
-          loaderPosition={'leading'}
-          loading={loading && !loadingType.appearsInBody}
-          className={clsx(textInputClassName, {[classes.FullScreenTextInput]: fullScreenOnNarrow})}
-          {...restTextInputProps}
-        />
-      </div>
+    <div
+      ref={inputAndListContainerRef}
+      className={clsx(className, classes.Root)}
+      data-testid="filtered-action-list"
+      data-component="FilteredActionList"
+    >
+      <FilteredActionListInput
+        inputRef={inputRef}
+        value={filterValue}
+        onInputChange={onInputChange}
+        onInputKeyPress={onInputKeyPress}
+        onInputKeyDown={usingRovingTabindex ? onInputKeyDown : undefined}
+        placeholderText={placeholderText}
+        listId={listId}
+        inputDescriptionTextId={inputDescriptionTextId}
+        loading={loading && !loadingType.appearsInBody}
+        fullScreenOnNarrow={fullScreenOnNarrow}
+        {...textInputProps}
+      />
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
       {onSelectAllChange !== undefined && (
-        <div className={classes.SelectAllContainer}>
+        <div className={classes.SelectAllContainer} data-component="FilteredActionList.SelectAll">
           <Checkbox
             id="select-all-checkbox"
             className={classes.SelectAllCheckbox}
             checked={selectAllChecked}
             indeterminate={selectAllIndeterminate}
             onChange={handleSelectAllChange}
+            data-component="FilteredActionList.SelectAllCheckbox"
           />
-          <label className={classes.SelectAllLabel} htmlFor="select-all-checkbox">
+          <label
+            className={classes.SelectAllLabel}
+            htmlFor="select-all-checkbox"
+            data-component="FilteredActionList.SelectAllLabel"
+          >
             {selectAllLabelText}
           </label>
         </div>

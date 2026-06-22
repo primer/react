@@ -3,7 +3,8 @@ import React, {useCallback, useEffect, useRef, useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
 
 import BaseStyles from '../BaseStyles'
-import {Stack, registerPortalRoot} from '..'
+import {Stack} from '../Stack'
+import {registerPortalRoot} from '../Portal'
 import {Dialog} from '../deprecated/DialogV1'
 import TextInputTokens from '../TextInputWithTokens'
 import Autocomplete from './Autocomplete'
@@ -379,22 +380,27 @@ export const WithCallbackWhenOverlayOpenStateChanges = () => {
 
   return (
     <Stack as="form" padding="normal">
-      <FormControl>
-        <FormControl.Label id="autocompleteLabel">Default label</FormControl.Label>
-        <Autocomplete>
-          <Autocomplete.Input />
-          <Autocomplete.Overlay>
-            <Autocomplete.Menu
-              items={items}
-              selectedItemIds={[]}
-              onOpenChange={onOpenChange}
-              aria-labelledby="autocompleteLabel"
-            />
-          </Autocomplete.Overlay>
-        </Autocomplete>
-      </FormControl>
-      <div>
-        The menu is <strong>{isMenuOpen ? 'opened' : 'closed'}</strong>
+      <div className={classes.InputWithStateLabel}>
+        <div>
+          <FormControl>
+            <FormControl.Label id="autocompleteLabel">Default label</FormControl.Label>
+            <Autocomplete>
+              <Autocomplete.Input />
+              <Autocomplete.Overlay>
+                <Autocomplete.Menu
+                  items={items}
+                  selectedItemIds={[]}
+                  onOpenChange={onOpenChange}
+                  aria-labelledby="autocompleteLabel"
+                />
+              </Autocomplete.Overlay>
+            </Autocomplete>
+          </FormControl>
+        </div>
+
+        <div className={classes.StateLabelInline}>
+          The menu is <strong>{isMenuOpen ? 'open' : 'closed'}</strong>
+        </div>
       </div>
     </Stack>
   )
@@ -505,7 +511,8 @@ export const InOverlayWithCustomScrollContainerRef = () => {
 
   return (
     <form className={classes.FormPadding}>
-      Selected item: {selectedItem ? selectedItem.text : 'none'}
+      <span id="selected-item-status">Selected item: {selectedItem ? selectedItem.text : 'none'}</span>
+
       <AnchoredOverlay
         open={isOpen}
         onOpen={handleOpen}
@@ -514,7 +521,11 @@ export const InOverlayWithCustomScrollContainerRef = () => {
         focusTrapSettings={{initialFocusRef: inputRef}}
         side="inside-top"
         anchorRef={triggerRef}
-        renderAnchor={props => <Button {...props}>open overlay</Button>}
+        renderAnchor={props => (
+          <Button {...props} aria-describedby="selected-item-status">
+            open overlay
+          </Button>
+        )}
         preventOverflow={false}
       >
         <Autocomplete>
@@ -546,7 +557,7 @@ export const InADialog = () => {
   useEffect(() => {
     if (outerContainerRef.current instanceof HTMLElement) {
       registerPortalRoot(outerContainerRef.current, 'outerContainer')
-      // eslint-disable-next-line react-hooks/set-state-in-effect
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-chain-state-updates
       setMounted(true)
     }
   }, [isDialogOpen])

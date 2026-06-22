@@ -1,20 +1,18 @@
 import React, {useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
-import {
-  Autocomplete,
-  Button,
-  Checkbox,
-  CheckboxGroup,
-  FormControl,
-  Radio,
-  RadioGroup,
-  Select,
-  SelectPanel,
-  Text,
-  TextInput,
-  TextInputWithTokens,
-  Textarea,
-} from '..'
+import Autocomplete from '../Autocomplete'
+import {Button} from '../Button'
+import Checkbox from '../Checkbox'
+import CheckboxGroup from '../CheckboxGroup'
+import FormControl from '.'
+import Radio from '../Radio'
+import RadioGroup from '../RadioGroup'
+import Select from '../Select'
+import {SelectPanel} from '../SelectPanel'
+import Text from '../Text'
+import TextInput from '../TextInput'
+import TextInputWithTokens from '../TextInputWithTokens'
+import Textarea from '../Textarea'
 import {MarkGithubIcon, TriangleDownIcon} from '@primer/octicons-react'
 import type {ItemInput} from '../SelectPanel'
 import {Stack} from '../Stack'
@@ -118,7 +116,7 @@ const CustomCheckboxInput = (
     React.InputHTMLAttributes<HTMLInputElement>,
 ) => <input type="checkbox" {...props} />
 
-export const FormControlWithCustomInput = () => {
+export const WithCustomInput = () => {
   const [value, setValue] = React.useState('mona lisa')
   const [validationResult, setValidationResult] = React.useState('')
   const doesValueContainSpaces = (inputValue: string) => /\s/g.test(inputValue)
@@ -128,8 +126,11 @@ export const FormControlWithCustomInput = () => {
 
   React.useEffect(() => {
     if (doesValueContainSpaces(value)) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates
       setValidationResult('noSpaces')
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     } else if (value) {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-chain-state-updates
       setValidationResult('validName')
     }
   }, [value])
@@ -140,7 +141,7 @@ export const FormControlWithCustomInput = () => {
         <FormControl.Label htmlFor="custom-input">GitHub handle</FormControl.Label>
         <CustomTextInput
           id="custom-input"
-          aria-describedby="custom-input-caption custom-input-validation"
+          aria-describedby="custom-input-validation custom-input-caption"
           aria-invalid={validationResult === 'noSpaces'}
           onChange={handleInputChange}
         />
@@ -240,8 +241,11 @@ export const ValidationExample = () => {
 
   React.useEffect(() => {
     if (doesValueContainSpaces(value)) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates
       setValidationResult('noSpaces')
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     } else if (value) {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-chain-state-updates
       setValidationResult('validName')
     }
   }, [value])

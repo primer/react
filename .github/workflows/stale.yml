@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.repository == 'primer/react' }}
     steps:
-      - uses: actions/stale@997185467fa4f803885201cee163a9f38240193d
+      - uses: actions/stale@eb5cf3af3ac0a1aa4c9c45633dd1ae542a27a899
         with:
           # General settings
           days-before-stale: 60

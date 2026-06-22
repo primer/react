@@ -1,23 +1,20 @@
 import React, {useState, useRef, useCallback} from 'react'
 import type {Args, Meta} from '@storybook/react-vite'
 import {TriangleDownIcon, PlusIcon, IssueDraftIcon, XIcon} from '@primer/octicons-react'
-import {
-  Overlay,
-  ButtonGroup,
-  Button,
-  IconButton,
-  Text,
-  Checkbox,
-  CheckboxGroup,
-  FormControl,
-  TextInput,
-  Link,
-  Label,
-  ActionList,
-  ActionMenu,
-  useFocusTrap,
-  Textarea,
-} from '..'
+import Overlay from '.'
+import ButtonGroup from '../ButtonGroup'
+import {Button, IconButton} from '../Button'
+import Text from '../Text'
+import Checkbox from '../Checkbox'
+import CheckboxGroup from '../CheckboxGroup'
+import FormControl from '../FormControl'
+import TextInput from '../TextInput'
+import Link from '../Link'
+import Label from '../Label'
+import {ActionList} from '../ActionList'
+import {ActionMenu} from '../ActionMenu'
+import {useFocusTrap} from '../hooks/useFocusTrap'
+import Textarea from '../Textarea'
 import {Tooltip} from '../TooltipV2'
 import classes from './Overlay.features.stories.module.css'
 
@@ -418,6 +415,7 @@ export const MemexIssueOverlay = ({role, open}: Args) => {
 
   React.useEffect(() => {
     // If we just started editing, focus the newly rendered input
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (editing) inputRef.current?.focus()
   }, [editing])
 
@@ -601,6 +599,69 @@ export const PositionedOverlays = ({right, role, open}: Args) => {
             </div>
           </Overlay>
         )
+      ) : null}
+    </div>
+  )
+}
+
+export const SettingMaxHeight = ({open}: Args) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
+  const closeOverlay = () => setIsOpen(false)
+  const containerRef = useRef<HTMLDivElement>(null)
+  useFocusTrap({
+    containerRef,
+    disabled: !isOpen && !open,
+  })
+
+  return (
+    <div>
+      <Button
+        ref={buttonRef}
+        onClick={() => {
+          setIsOpen(!isOpen)
+        }}
+      >
+        Open overlay with max height
+      </Button>
+      {isOpen || open ? (
+        <Overlay
+          initialFocusRef={closeButtonRef}
+          returnFocusRef={buttonRef}
+          ignoreClickRefs={[buttonRef]}
+          onEscape={closeOverlay}
+          onClickOutside={closeOverlay}
+          width="medium"
+          maxHeight="large"
+          overflow="auto"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Overlay with max height example"
+          ref={containerRef}
+        >
+          <div className={classes.ScrollableContent}>
+            <IconButton
+              ref={closeButtonRef}
+              aria-label="Close"
+              onClick={closeOverlay}
+              icon={XIcon}
+              variant="invisible"
+              className={classes.CloseButtonOverlay}
+            />
+            <Text as="h2">Scrollable Content</Text>
+            <Text as="p">
+              This overlay demonstrates the maxHeight property. The content below will be scrollable when it exceeds the
+              maximum height defined by the small size token, up to the available viewport height.
+            </Text>
+            {Array.from({length: 50}, (_, i) => (
+              <Text key={`item-${i}`} as="p">
+                Content item {i + 1}: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua.
+              </Text>
+            ))}
+          </div>
+        </Overlay>
       ) : null}
     </div>
   )

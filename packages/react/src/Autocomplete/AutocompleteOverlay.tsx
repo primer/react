@@ -1,14 +1,15 @@
 import type React from 'react'
-import {useCallback, useContext} from 'react'
+import {useCallback, useContext, useEffect, useRef} from 'react'
 import {useAnchoredPosition} from '../hooks'
 import type {OverlayProps} from '../Overlay'
 import Overlay from '../Overlay'
 import type {ComponentProps} from '../utils/types'
 import {AutocompleteContext} from './AutocompleteContext'
-import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
+import {useMergedRefs} from '../hooks/useMergedRefs'
 import VisuallyHidden from '../_VisuallyHidden'
 
 import classes from './AutocompleteOverlay.module.css'
+import {clsx} from 'clsx'
 
 type AutocompleteOverlayInternalProps = {
   /**
@@ -27,6 +28,7 @@ function AutocompleteOverlay({
   menuAnchorRef,
   overlayProps: oldOverlayProps,
   children,
+  className,
   ...newOverlayProps
 }: AutocompleteOverlayInternalProps) {
   const autocompleteContext = useContext(AutocompleteContext)
@@ -35,16 +37,27 @@ function AutocompleteOverlay({
   }
   const overlayProps = {...oldOverlayProps, ...newOverlayProps}
   const {inputRef, scrollContainerRef, selectedItemLength, setShowMenu, showMenu = false} = autocompleteContext
+
+  const computedAnchorRef = useRef<HTMLElement | null>(null)
+  useEffect(() => {
+    const explicit = menuAnchorRef?.current ?? null
+    const tokensContainer = inputRef.current
+      ? (inputRef.current.closest('[data-prevent-token-wrapping]') as HTMLElement | null)
+      : null
+    const tokensRoot = tokensContainer?.parentElement ?? null
+    computedAnchorRef.current = explicit ?? tokensRoot ?? inputRef.current
+  }, [menuAnchorRef, inputRef])
+
   const {floatingElementRef, position} = useAnchoredPosition(
     {
       side: 'outside-bottom',
       align: 'start',
-      anchorElementRef: menuAnchorRef ? menuAnchorRef : inputRef,
+      anchorElementRef: computedAnchorRef as React.RefObject<HTMLElement>,
     },
     [showMenu, selectedItemLength],
   )
 
-  useRefObjectAsForwardedRef(scrollContainerRef, floatingElementRef)
+  const mergedScrollContainerRef = useMergedRefs(scrollContainerRef, floatingElementRef)
 
   const closeOptionList = useCallback(() => {
     setShowMenu(false)
@@ -60,11 +73,12 @@ function AutocompleteOverlay({
       preventFocusOnOpen={true}
       onClickOutside={closeOptionList}
       onEscape={closeOptionList}
-      ref={floatingElementRef as React.RefObject<HTMLDivElement>}
+      ref={mergedScrollContainerRef}
       top={position?.top}
       left={position?.left}
-      className={classes.Overlay}
+      className={clsx(classes.Overlay, className)}
       {...overlayProps}
+      data-component="Autocomplete.Overlay"
     >
       {children}
     </Overlay>

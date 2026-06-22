@@ -2,6 +2,7 @@ import {render} from '@testing-library/react'
 import {expect, test, vi} from 'vitest'
 import type React from 'react'
 import {useSlots} from '../useSlots'
+import {withExpectedConsoleWarning} from '../../utils/testing'
 
 type TestComponentAProps = React.PropsWithChildren<{variant?: 'a' | 'b'}>
 
@@ -383,7 +384,9 @@ test('prefers direct component type match over slot symbol match', () => {
     return null
   }
 
-  render(<TestComponent>{children}</TestComponent>)
+  withExpectedConsoleWarning(() => {
+    render(<TestComponent>{children}</TestComponent>)
+  })
 
   expect(calls).toMatchInlineSnapshot(`
     [
@@ -421,7 +424,9 @@ test('handles components without slot symbols in mixed scenarios', () => {
     return null
   }
 
-  render(<TestComponent>{children}</TestComponent>)
+  withExpectedConsoleWarning(() => {
+    render(<TestComponent>{children}</TestComponent>)
+  })
 
   expect(calls).toMatchInlineSnapshot(`
     [
@@ -528,6 +533,174 @@ test('handles empty slot symbols gracefully', () => {
         [
           <div>
             Hello World
+          </div>,
+        ],
+      ],
+    ]
+  `)
+})
+
+test('children after all slots are filled go to rest', () => {
+  const calls: Array<ReturnType<typeof useSlots>> = []
+  const children = [
+    <TestComponentA key="a">Slot A</TestComponentA>,
+    <div key="extra1">Extra 1</div>,
+    <div key="extra2">Extra 2</div>,
+    <span key="extra3">Extra 3</span>,
+  ]
+  const slotsConfig = {
+    a: TestComponentA,
+  }
+
+  function TestComponent(_props: {children: React.ReactNode}) {
+    calls.push(useSlots(children, slotsConfig))
+    return null
+  }
+
+  render(<TestComponent>{children}</TestComponent>)
+
+  expect(calls).toMatchInlineSnapshot(`
+    [
+      [
+        {
+          "a": <TestComponentA>
+            Slot A
+          </TestComponentA>,
+        },
+        [
+          <div>
+            Extra 1
+          </div>,
+          <div>
+            Extra 2
+          </div>,
+          <span>
+            Extra 3
+          </span>,
+        ],
+      ],
+    ]
+  `)
+})
+
+test('non-element children are placed in rest', () => {
+  const calls: Array<ReturnType<typeof useSlots>> = []
+  const children = [
+    'plain text',
+    null,
+    false,
+    <TestComponentA key="a">Slot</TestComponentA>,
+    0,
+    <div key="div">Content</div>,
+  ]
+  const slotsConfig = {
+    a: TestComponentA,
+  }
+
+  function TestComponent(_props: {children: React.ReactNode}) {
+    calls.push(useSlots(children, slotsConfig))
+    return null
+  }
+
+  render(<TestComponent>{children}</TestComponent>)
+
+  const [slots, rest] = calls[0]
+  expect(slots.a).toBeDefined()
+  // Non-element children (strings, numbers, null, false) go to rest
+  // React.Children.forEach converts false to null
+  expect(rest).toMatchInlineSnapshot(`
+    [
+      "plain text",
+      null,
+      null,
+      0,
+      <div>
+        Content
+      </div>,
+    ]
+  `)
+})
+
+test('slots match regardless of child order', () => {
+  const calls: Array<ReturnType<typeof useSlots>> = []
+  const children = [
+    <div key="text">Text content</div>,
+    <TestComponentB key="b">B</TestComponentB>,
+    <TestComponentA key="a">A</TestComponentA>,
+  ]
+  const slotsConfig = {
+    a: TestComponentA,
+    b: TestComponentB,
+  }
+
+  function TestComponent(_props: {children: React.ReactNode}) {
+    calls.push(useSlots(children, slotsConfig))
+    return null
+  }
+
+  render(<TestComponent>{children}</TestComponent>)
+
+  expect(calls).toMatchInlineSnapshot(`
+    [
+      [
+        {
+          "a": <TestComponentA>
+            A
+          </TestComponentA>,
+          "b": <TestComponentB>
+            B
+          </TestComponentB>,
+        },
+        [
+          <div>
+            Text content
+          </div>,
+        ],
+      ],
+    ]
+  `)
+})
+
+test('single slot config short-circuits after first match', () => {
+  const calls: Array<ReturnType<typeof useSlots>> = []
+  const children = [
+    <TestComponentA key="a">Match</TestComponentA>,
+    <div key="1">One</div>,
+    <div key="2">Two</div>,
+    <div key="3">Three</div>,
+    <div key="4">Four</div>,
+  ]
+  const slotsConfig = {
+    a: TestComponentA,
+  }
+
+  function TestComponent(_props: {children: React.ReactNode}) {
+    calls.push(useSlots(children, slotsConfig))
+    return null
+  }
+
+  render(<TestComponent>{children}</TestComponent>)
+
+  expect(calls).toMatchInlineSnapshot(`
+    [
+      [
+        {
+          "a": <TestComponentA>
+            Match
+          </TestComponentA>,
+        },
+        [
+          <div>
+            One
+          </div>,
+          <div>
+            Two
+          </div>,
+          <div>
+            Three
+          </div>,
+          <div>
+            Four
           </div>,
         ],
       ],

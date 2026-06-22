@@ -74,6 +74,11 @@
       "description": "Creates a full-width input element"
     },
     {
+      "name": "characterLimit",
+      "type": "number",
+      "description": "The maximum number of characters allowed in the input"
+    },
+    {
       "name": "contrast",
       "type": "boolean",
       "defaultValue": "false",

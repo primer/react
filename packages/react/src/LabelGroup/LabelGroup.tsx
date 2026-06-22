@@ -140,10 +140,12 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   // and save on reflows caused by measuring DOM nodes.
   const overlayWidth =
     hiddenItemIds.length && overflowStyle === 'overlay'
-      ? getOverlayWidth(buttonClientRect, containerRef, overlayPaddingPx)
+      ? // eslint-disable-next-line react-hooks/refs
+        getOverlayWidth(buttonClientRect, containerRef, overlayPaddingPx)
       : undefined
 
   const expandButtonRef: React.RefCallback<HTMLButtonElement> = React.useCallback(
+    // eslint-disable-next-line react-hooks/immutability
     node => {
       if (node !== null) {
         const nodeClientRect = node.getBoundingClientRect()
@@ -203,6 +205,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
 
   React.useEffect(() => {
     // If we're not truncating, we don't need to run this useEffect.
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (!visibleChildCount || isOverflowShown) {
       return
     }
@@ -244,6 +247,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
     }
     // We're not auto truncating, so we need to hide children after the given `visibleChildCount`.
     else {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       hideChildrenAfterIndex(visibleChildCount)
     }
   }, [buttonClientRect, visibleChildCount, hideChildrenAfterIndex, isOverflowShown])
@@ -252,6 +256,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   // We need to keep track of this so we can focus the first hidden child when the overflow is shown inline.
   React.useEffect(() => {
     // If we're using an overlay, we don't need to keep track of the first hidden index.
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (overflowStyle === 'overlay') {
       return
     }
@@ -264,12 +269,14 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   // We need to keep track of this so we can focus the first hidden child when the overflow is shown inline.
   React.useEffect(() => {
     // If we're using an overlay, we don't need to focus the first child that was previously hidden.
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (overflowStyle === 'overlay') {
       return
     }
     const firstHiddenChildDOM = document.querySelector<HTMLElement>(`[data-index="${firstHiddenIndexRef.current}"]`)
     const focusableChild = firstHiddenChildDOM ? getFocusableChild(firstHiddenChildDOM) : null
 
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (isOverflowShown) {
       // If the first hidden child is focusable, focus it.
       // Otherwise, focus the collapse button.
@@ -282,7 +289,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   }, [overflowStyle, isOverflowShown])
 
   const isList = Component === 'ul' || Component === 'ol'
-  const ToggleWrapper = isList ? 'li' : React.Fragment
+  const ToggleWrapper = isList ? 'li' : 'span'
 
   const ItemWrapperComponent = isList ? 'li' : 'span'
 
@@ -293,6 +300,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
       data-overflow={overflowStyle === 'inline' && isOverflowShown ? 'inline' : undefined}
       data-list={isList || undefined}
       className={clsx(className, classes.Container)}
+      data-component="LabelGroup"
     >
       {React.Children.map(children, (child, index) => (
         <ItemWrapperComponent
@@ -306,7 +314,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
           {child}
         </ItemWrapperComponent>
       ))}
-      <ToggleWrapper>
+      <ToggleWrapper data-component="LabelGroup.Toggle">
         {overflowStyle === 'inline' ? (
           <InlineToggle
             collapseButtonRef={collapseButtonRef}
@@ -334,7 +342,12 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
       </ToggleWrapper>
     </Component>
   ) : (
-    <Component data-overflow="inline" data-list={isList || undefined} className={clsx(className, classes.Container)}>
+    <Component
+      data-overflow="inline"
+      data-list={isList || undefined}
+      className={clsx(className, classes.Container)}
+      data-component="LabelGroup"
+    >
       {isList
         ? React.Children.map(children, (child, index) => {
             return <li key={index}>{child}</li>

@@ -1,13 +1,21 @@
 import {clsx} from 'clsx'
-import React, {forwardRef, useEffect} from 'react'
+import React, {forwardRef} from 'react'
+import {useDevOnlyEffect} from '../internal/hooks/useDevOnlyEffect'
 import {AlertIcon, InfoIcon, StopIcon, CheckCircleIcon, XIcon} from '@primer/octicons-react'
 import {Button, IconButton, type ButtonProps} from '../Button'
 import {VisuallyHidden} from '../VisuallyHidden'
-import {useMergedRefs} from '../internal/hooks/useMergedRefs'
+import {useMergedRefs} from '../hooks/useMergedRefs'
+import {useId} from '../hooks/useId'
 import classes from './Banner.module.css'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 export type BannerVariant = 'critical' | 'info' | 'success' | 'upsell' | 'warning'
+
+type BannerContextValue = {
+  titleId: string
+}
+
+const BannerContext = React.createContext<BannerContextValue | undefined>(undefined)
 
 export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
   /**
@@ -95,14 +103,6 @@ const iconForVariant: Record<BannerVariant, React.ReactNode> = {
   warning: <AlertIcon />,
 }
 
-const labels: Record<BannerVariant, string> = {
-  critical: 'Critical',
-  info: 'Information',
-  success: 'Success',
-  upsell: 'Recommendation',
-  warning: 'Warning',
-}
-
 export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner(
   {
     'aria-label': label,
@@ -129,73 +129,76 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
   const bannerRef = React.useRef<HTMLElement>(null)
   const ref = useMergedRefs(forwardRef, bannerRef)
   const supportsCustomIcon = variant === 'info' || variant === 'upsell'
+  const titleId = useId()
 
   const visual = leadingVisual ?? icon
 
-  if (__DEV__) {
-    // This hook is called consistently depending on the environment
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      if (title) {
-        return
-      }
+  useDevOnlyEffect(() => {
+    if (title) {
+      return
+    }
 
-      const {current: banner} = bannerRef
-      if (!banner) {
-        return
-      }
+    const {current: banner} = bannerRef
+    if (!banner) {
+      return
+    }
 
-      const hasTitle = banner.querySelector('[data-banner-title]')
-      if (!hasTitle) {
-        throw new Error(
-          'Expected a title to be provided to the <Banner> component with the `title` prop or through `<Banner.Title>` but no title was found',
-        )
-      }
-    }, [title])
-  }
+    const hasTitle = banner.querySelector('[data-banner-title]')
+    if (!hasTitle) {
+      throw new Error(
+        'Expected a title to be provided to the <Banner> component with the `title` prop or through `<Banner.Title>` but no title was found',
+      )
+    }
+  }, [title])
 
   return (
-    <section
-      {...rest}
-      aria-labelledby={labelledBy}
-      aria-label={labelledBy ? undefined : (label ?? labels[variant])}
-      className={clsx(className, classes.Banner)}
-      data-dismissible={onDismiss ? '' : undefined}
-      data-title-hidden={hideTitle ? '' : undefined}
-      data-variant={variant}
-      data-actions-layout={actionsLayout}
-      tabIndex={-1}
-      ref={ref}
-      data-layout={rest.layout || 'default'}
-      data-flush={flush ? '' : undefined}
-    >
-      <div className={classes.BannerIcon}>{visual && supportsCustomIcon ? visual : iconForVariant[variant]}</div>
-      <div className={classes.BannerContainer}>
-        <div className={classes.BannerContent}>
-          {title ? (
-            hideTitle ? (
-              <VisuallyHidden>
-                <BannerTitle>{title}</BannerTitle>
-              </VisuallyHidden>
-            ) : (
-              <BannerTitle>{title}</BannerTitle>
-            )
-          ) : null}
-          {description ? <BannerDescription>{description}</BannerDescription> : null}
-          {children}
+    <BannerContext.Provider value={{titleId}}>
+      <section
+        data-component="Banner"
+        {...rest}
+        aria-labelledby={labelledBy ?? (label ? undefined : titleId)}
+        aria-label={labelledBy ? undefined : label}
+        className={clsx(className, classes.Banner)}
+        data-dismissible={onDismiss ? '' : undefined}
+        data-has-actions={hasActions ? '' : undefined}
+        data-title-hidden={hideTitle ? '' : undefined}
+        data-variant={variant}
+        data-actions-layout={actionsLayout}
+        tabIndex={-1}
+        ref={ref}
+        data-layout={rest.layout || 'default'}
+        data-flush={flush ? '' : undefined}
+      >
+        <div data-component="Banner.Icon" className={classes.BannerIcon}>
+          {visual && supportsCustomIcon ? visual : iconForVariant[variant]}
         </div>
-        {hasActions ? <BannerActions primaryAction={primaryAction} secondaryAction={secondaryAction} /> : null}
-      </div>
-      {dismissible ? (
-        <IconButton
-          aria-label="Dismiss banner"
-          onClick={onDismiss}
-          className={classes.BannerDismiss}
-          icon={XIcon}
-          variant="invisible"
-        />
-      ) : null}
-    </section>
+        <div className={classes.BannerContainer}>
+          <div data-component="Banner.Content" className={classes.BannerContent}>
+            {title ? (
+              hideTitle ? (
+                <VisuallyHidden>
+                  <BannerTitle>{title}</BannerTitle>
+                </VisuallyHidden>
+              ) : (
+                <BannerTitle>{title}</BannerTitle>
+              )
+            ) : null}
+            {description ? <BannerDescription>{description}</BannerDescription> : null}
+            {children}
+          </div>
+          {hasActions ? <BannerActions primaryAction={primaryAction} secondaryAction={secondaryAction} /> : null}
+        </div>
+        {dismissible ? (
+          <IconButton
+            aria-label="Dismiss banner"
+            onClick={onDismiss}
+            className={classes.BannerDismiss}
+            icon={XIcon}
+            variant="invisible"
+          />
+        ) : null}
+      </section>
+    </BannerContext.Provider>
   )
 })
 
@@ -207,9 +210,18 @@ export type BannerTitleProps<As extends HeadingElement> = {
 } & React.ComponentPropsWithoutRef<As extends 'h2' ? 'h2' : As>
 
 export function BannerTitle<As extends HeadingElement>(props: BannerTitleProps<As>) {
-  const {as: Heading = 'h2', className, children, ...rest} = props
+  const {as: Heading = 'h2', className, children, id, ...rest} = props
+  const context = React.useContext(BannerContext)
+  const titleId = id ?? context?.titleId
+
   return (
-    <Heading {...rest} className={clsx(className, classes.BannerTitle)} data-banner-title="">
+    <Heading
+      {...rest}
+      id={titleId}
+      className={clsx(className, classes.BannerTitle)}
+      data-component="Banner.Title"
+      data-banner-title=""
+    >
       {children}
     </Heading>
   )
@@ -219,7 +231,7 @@ export type BannerDescriptionProps = React.ComponentPropsWithoutRef<'div'>
 
 export function BannerDescription({children, className, ...rest}: BannerDescriptionProps) {
   return (
-    <div {...rest} className={clsx('BannerDescription', className)}>
+    <div {...rest} className={clsx('BannerDescription', className)} data-component="Banner.Description">
       {children}
     </div>
   )
@@ -232,7 +244,7 @@ export type BannerActionsProps = {
 
 export function BannerActions({primaryAction, secondaryAction}: BannerActionsProps) {
   return (
-    <div className={classes.BannerActions}>
+    <div className={classes.BannerActions} data-component="Banner.Actions">
       <div className={classes.BannerActionsContainer} data-primary-action="trailing">
         {secondaryAction ?? null}
         {primaryAction ?? null}
@@ -249,7 +261,13 @@ export type BannerPrimaryActionProps = Omit<ButtonProps, 'variant'>
 
 const BannerPrimaryAction = forwardRef(({children, className, ...rest}, forwardedRef) => {
   return (
-    <Button ref={forwardedRef} className={clsx('BannerPrimaryAction', className)} variant="default" {...rest}>
+    <Button
+      data-component="Banner.PrimaryAction"
+      ref={forwardedRef}
+      className={clsx('BannerPrimaryAction', className)}
+      variant="default"
+      {...rest}
+    >
       {children}
     </Button>
   )
@@ -261,7 +279,13 @@ export type BannerSecondaryActionProps = Omit<ButtonProps, 'variant'>
 
 const BannerSecondaryAction = forwardRef(({children, className, ...rest}, forwardedRef) => {
   return (
-    <Button ref={forwardedRef} className={clsx('BannerPrimaryAction', className)} variant="invisible" {...rest}>
+    <Button
+      data-component="Banner.SecondaryAction"
+      ref={forwardedRef}
+      className={clsx('BannerPrimaryAction', className)}
+      variant="invisible"
+      {...rest}
+    >
       {children}
     </Button>
   )

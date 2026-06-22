@@ -753,6 +753,7 @@ export const WithOnCancel = () => {
 
   const [open, setOpen] = useState(false)
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-derived-state, react-you-might-not-need-an-effect/no-event-handler
     if (!open) setInitialSelection(selected) // set initialSelection for next time
   }, [open, selected])
 
@@ -791,6 +792,7 @@ export const MultiSelectModal = () => {
   React.useEffect(() => {
     // Sync initialSelection with the last committed selection after the modal closes.
     // onCancel uses initialSelection to discard unsaved changes made while the modal is open.
+    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-derived-state, react-you-might-not-need-an-effect/no-event-handler
     if (!open) setInitialSelection(selected)
   }, [open, selected])
 
@@ -951,7 +953,7 @@ export const WithMessage = () => {
   const filteredItems = itemsToShow.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates
     setFilter('')
   }, [messageVariant])
 

@@ -5,6 +5,36 @@ import {Blankslate} from '../Blankslate'
 import {implementsClassName} from '../utils/testing'
 import classes from './Blankslate.module.css'
 
+function getCSSStyleRules(): Array<CSSStyleRule> {
+  return Array.from(document.styleSheets).flatMap(sheet => {
+    return Array.from(sheet.cssRules).flatMap(rule => {
+      if (rule instanceof CSSStyleRule) {
+        return [rule]
+      }
+
+      if ('cssRules' in rule) {
+        return Array.from(rule.cssRules as CSSRuleList).filter((nestedRule): nestedRule is CSSStyleRule => {
+          return nestedRule instanceof CSSStyleRule
+        })
+      }
+
+      return []
+    })
+  })
+}
+
+function getSizePadding(size: 'small' | 'medium' | 'large') {
+  const rule = getCSSStyleRules().find(cssRule => {
+    return (
+      cssRule.selectorText.includes(`.${classes.Blankslate}`) &&
+      cssRule.selectorText.includes(`data-size="${size}"`) &&
+      !cssRule.selectorText.includes('data-spacious')
+    )
+  })
+
+  return rule?.style.getPropertyValue('--blankslate-padding').trim()
+}
+
 describe('Blankslate', () => {
   implementsClassName(Blankslate, classes.Blankslate)
 
@@ -21,6 +51,44 @@ describe('Blankslate', () => {
   it('should render with spacious style when spacious is true', () => {
     const {container} = render(<Blankslate spacious>Test content</Blankslate>)
     expect(container.firstChild!.firstChild).toHaveAttribute('data-spacious', '')
+  })
+
+  it('sets reduced padding for small size variant', () => {
+    render(<Blankslate>Test content</Blankslate>)
+
+    expect(getSizePadding('small')).toMatch(/^var\(--base-size-16/)
+  })
+
+  it('renders data-component attributes', () => {
+    const {container} = render(
+      <Blankslate>
+        <Blankslate.Visual>
+          <svg aria-hidden="true" data-testid="test-icon" />
+        </Blankslate.Visual>
+        <Blankslate.Heading>Test Heading</Blankslate.Heading>
+        <Blankslate.Description>Test description</Blankslate.Description>
+        <Blankslate.PrimaryAction>Primary action</Blankslate.PrimaryAction>
+        <Blankslate.SecondaryAction href="https://example.com">Secondary action</Blankslate.SecondaryAction>
+      </Blankslate>,
+    )
+
+    expect(container.querySelector('[data-component="Blankslate"]')).toBeInTheDocument()
+
+    expect(
+      container.querySelector('[data-component="Blankslate"] [data-component="Blankslate.Visual"]'),
+    ).toBeInTheDocument()
+    expect(
+      container.querySelector('[data-component="Blankslate"] [data-component="Blankslate.Heading"]'),
+    ).toBeInTheDocument()
+    expect(
+      container.querySelector('[data-component="Blankslate"] [data-component="Blankslate.Description"]'),
+    ).toBeInTheDocument()
+    expect(
+      container.querySelector('[data-component="Blankslate"] [data-component="Blankslate.PrimaryAction"]'),
+    ).toBeInTheDocument()
+    expect(
+      container.querySelector('[data-component="Blankslate"] [data-component="Blankslate.SecondaryAction"]'),
+    ).toBeInTheDocument()
   })
 
   describe('Blankslate.Visual', () => {

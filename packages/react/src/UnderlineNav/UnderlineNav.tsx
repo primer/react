@@ -1,5 +1,6 @@
 import type {RefObject} from 'react'
-import React, {useRef, forwardRef, useCallback, useState, useEffect} from 'react'
+import React, {useRef, forwardRef, useCallback, useState} from 'react'
+import {useDevOnlyEffect} from '../internal/hooks/useDevOnlyEffect'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useResizeObserver} from '../hooks/useResizeObserver'
@@ -17,6 +18,7 @@ import CounterLabel from '../CounterLabel'
 import {invariant} from '../utils/invariant'
 import classes from './UnderlineNav.module.css'
 import {getAnchoredPosition} from '@primer/behaviors'
+import {getValidChildren} from './utils'
 
 export type UnderlineNavProps = {
   children: React.ReactNode
@@ -47,11 +49,12 @@ const overflowEffect = (
   childArray: Array<React.ReactElement<any>>,
   childWidthArray: ChildWidthArray,
   noIconChildWidthArray: ChildWidthArray,
-  updateListAndMenu: (props: ResponsiveProps, iconsVisible: boolean) => void,
+  updateListAndMenu: (props: ResponsiveProps, iconsVisible: boolean, overflowMeasured: boolean) => void,
 ) => {
   let iconsVisible = true
   if (childWidthArray.length === 0) {
-    updateListAndMenu({items: childArray, menuItems: []}, iconsVisible)
+    updateListAndMenu({items: childArray, menuItems: []}, iconsVisible, false)
+    return
   }
   const numberOfItemsPossible = calculatePossibleItems(childWidthArray, navWidth)
   const numberOfItemsWithoutIconPossible = calculatePossibleItems(noIconChildWidthArray, navWidth)
@@ -104,12 +107,7 @@ const overflowEffect = (
       }
     }
   }
-  updateListAndMenu({items, menuItems}, iconsVisible)
-}
-
-export const getValidChildren = (children: React.ReactNode) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement<any>[]
+  updateListAndMenu({items, menuItems}, iconsVisible, true)
 }
 
 const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: number, moreMenuWidth = 0) => {
@@ -166,6 +164,8 @@ export const UnderlineNav = forwardRef(
     const [iconsVisible, setIconsVisible] = useState<boolean>(true)
     const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
     const [noIconChildWidthArray, setNoIconChildWidthArray] = useState<ChildWidthArray>([])
+    // Track whether the initial overflow calculation is complete to prevent CLS
+    const [isOverflowMeasured, setIsOverflowMeasured] = useState(false)
 
     const validChildren = getValidChildren(children)
 
@@ -187,18 +187,14 @@ export const UnderlineNav = forwardRef(
     // This is the case where the viewport is too narrow to show any list item with the more menu. In this case, we only show the dropdown
     const onlyMenuVisible = responsiveProps.items.length === 0
 
-    if (__DEV__) {
-      // Practically, this is not a conditional hook, it is just making sure this hook runs only on DEV not PROD.
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useEffect(() => {
-        // Address illegal state where there are multiple items that have `aria-current='page'` attribute
-        const activeElements = validChildren.filter(child => {
-          return child.props['aria-current'] !== undefined
-        })
-        invariant(activeElements.length <= 1, 'Only one current element is allowed')
-        invariant(ariaLabel, 'Use the `aria-label` prop to provide an accessible label for assistive technology')
+    useDevOnlyEffect(() => {
+      // Address illegal state where there are multiple items that have `aria-current='page'` attribute
+      const activeElements = validChildren.filter(child => {
+        return child.props['aria-current'] !== undefined
       })
-    }
+      invariant(activeElements.length <= 1, 'Only one current element is allowed')
+      invariant(ariaLabel, 'Use the `aria-label` prop to provide an accessible label for assistive technology')
+    }, [validChildren, ariaLabel])
 
     function getItemsWidth(itemText: string): number {
       return noIconChildWidthArray.find(item => item.text === itemText)?.width ?? 0
@@ -209,7 +205,7 @@ export const UnderlineNav = forwardRef(
       prospectiveListItem: React.ReactElement<any>,
       indexOfProspectiveListItem: number,
       event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
-      callback: (props: ResponsiveProps, displayIcons: boolean) => void,
+      callback: (props: ResponsiveProps, displayIcons: boolean, overflowMeasured: boolean) => void,
     ) => {
       // get the selected menu item's width
       const widthToFitIntoList = getItemsWidth(prospectiveListItem.props.children)
@@ -229,7 +225,7 @@ export const UnderlineNav = forwardRef(
       const updatedMenuItems = [...menuItems]
       // Add itemsToAddToMenu array's items to the menu at the index of the prospectiveListItem and remove 1 count of items (prospectiveListItem)
       updatedMenuItems.splice(indexOfProspectiveListItem, 1, ...itemsToAddToMenu)
-      callback({items: updatedItemList, menuItems: updatedMenuItems}, false)
+      callback({items: updatedItemList, menuItems: updatedMenuItems}, false, true)
     }
     // How many items do we need to pull in to the menu to make room for the selected menu item.
     function getBreakpointForItemSwapping(widthToFitIntoList: number, availableSpace: number) {
@@ -245,10 +241,17 @@ export const UnderlineNav = forwardRef(
       return breakpoint
     }
 
-    const updateListAndMenu = useCallback((props: ResponsiveProps, displayIcons: boolean) => {
-      setResponsiveProps(props)
-      setIconsVisible(displayIcons)
-    }, [])
+    const updateListAndMenu = useCallback(
+      (props: ResponsiveProps, displayIcons: boolean, overflowMeasured: boolean) => {
+        setResponsiveProps(props)
+        setIconsVisible(displayIcons)
+
+        if (overflowMeasured) {
+          setIsOverflowMeasured(true)
+        }
+      },
+      [],
+    )
     const setChildrenWidth = useCallback((size: ChildSize) => {
       setChildWidthArray(arr => {
         const newArr = [...arr, size]
@@ -330,7 +333,14 @@ export const UnderlineNav = forwardRef(
         }}
       >
         {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
-        <UnderlineWrapper as={as} aria-label={ariaLabel} className={className} ref={navRef} data-variant={variant}>
+        <UnderlineWrapper
+          as={as}
+          aria-label={ariaLabel}
+          className={className}
+          ref={navRef}
+          data-variant={variant}
+          data-overflow-measured={isOverflowMeasured ? 'true' : 'false'}
+        >
           <UnderlineItemList ref={listRef} role="list">
             {listItems}
             {menuItems.length > 0 && (

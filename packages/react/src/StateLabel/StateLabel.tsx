@@ -1,4 +1,5 @@
 import {
+  ArchiveIcon,
   GitMergeIcon,
   GitPullRequestIcon,
   GitPullRequestClosedIcon,
@@ -9,6 +10,10 @@ import {
   IssueOpenedIcon,
   GitMergeQueueIcon,
   AlertIcon,
+  ShieldIcon,
+  ShieldCheckIcon,
+  ShieldSlashIcon,
+  ShieldXIcon,
 } from '@primer/octicons-react'
 import type React from 'react'
 import {forwardRef} from 'react'
@@ -27,11 +32,19 @@ const octiconMap = {
   issueDraft: IssueDraftIcon,
   pullQueued: GitMergeQueueIcon,
   unavailable: AlertIcon,
+  alertOpened: ShieldIcon,
+  alertFixed: ShieldCheckIcon,
+  alertDismissed: ShieldSlashIcon,
+  alertClosed: ShieldXIcon,
   open: null,
   closed: null,
+  archived: ArchiveIcon,
 }
 
-const labelMap: Record<keyof typeof octiconMap, 'Issue' | 'Issue, not planned' | 'Pull request' | ''> = {
+const labelMap: Record<
+  keyof typeof octiconMap,
+  'Issue' | 'Issue, not planned' | 'Pull request' | 'Alert' | 'Archived' | ''
+> = {
   issueOpened: 'Issue',
   pullOpened: 'Pull request',
   issueClosed: 'Issue',
@@ -42,6 +55,11 @@ const labelMap: Record<keyof typeof octiconMap, 'Issue' | 'Issue, not planned' |
   issueDraft: 'Issue',
   pullQueued: 'Pull request',
   unavailable: '',
+  alertOpened: 'Alert',
+  alertFixed: 'Alert',
+  alertDismissed: 'Alert',
+  alertClosed: 'Alert',
+  archived: 'Archived',
   open: '',
   closed: '',
 }

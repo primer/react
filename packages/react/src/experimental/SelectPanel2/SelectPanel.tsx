@@ -1,23 +1,24 @@
 import React, {useEffect, useState, type MutableRefObject} from 'react'
 import {SearchIcon, XCircleFillIcon, XIcon, FilterRemoveIcon, AlertIcon, ArrowLeftIcon} from '@primer/octicons-react'
-
-import type {ButtonProps, TextInputProps, ActionListProps, LinkProps, CheckboxProps} from '../../index'
-import {
-  Button,
-  IconButton,
-  Heading,
-  TextInput,
-  Spinner,
-  Link,
-  Checkbox,
-  useFormControlForwardedProps,
-} from '../../index'
+import type {ButtonProps} from '../../Button'
+import type {TextInputProps} from '../../TextInput'
+import type {ActionListProps} from '../../ActionList'
+import type {LinkProps} from '../../Link'
+import type {CheckboxProps} from '../../Checkbox'
+import {Button, IconButton} from '../../Button'
+import Heading from '../../Heading'
+import TextInput from '../../TextInput'
+import Spinner from '../../Spinner'
+import Link from '../../Link'
+import Checkbox from '../../Checkbox'
+import {useFormControlForwardedProps} from '../../FormControl'
 import Octicon from '../../Octicon'
 import {ActionListContainerContext} from '../../ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
 import type {OverlayProps} from '../../Overlay/Overlay'
-import {BaseOverlay, heightMap} from '../../Overlay/Overlay'
+import {BaseOverlay} from '../../Overlay/Overlay'
+import {heightMap} from '../../Overlay/constants'
 import {InputLabel} from '../../internal/components/InputLabel'
 import {invariant} from '../../utils/invariant'
 import {AriaStatus} from '../../live-region'
@@ -215,6 +216,7 @@ const Panel: React.FC<SelectPanelProps> = ({
   // but not for dialogs, so we have to do it
   React.useEffect(
     function initialFocus() {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (internalOpen) {
         const searchInput = document.querySelector('dialog[open] input') as HTMLInputElement | undefined
         if (searchInput) searchInput.focus()
@@ -233,6 +235,7 @@ const Panel: React.FC<SelectPanelProps> = ({
       align: 'start',
       ...anchoredPositionSettings,
     },
+    // eslint-disable-next-line react-hooks/refs
     [internalOpen, anchorRef.current, dialogRef.current],
   )
 
@@ -326,6 +329,7 @@ const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((prop
   useEffect(() => {
     const label = document.querySelector(`[for='${inputProps.id}']`)
     if (label?.textContent) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLabelText(label.textContent)
     }
   }, [inputProps.id])

@@ -259,6 +259,18 @@ describe('Button', () => {
     expect(container.getByRole('button')).toHaveAccessibleName('content')
   })
 
+  it('should apply inline-flex display to loading wrapper when variant is link', () => {
+    const {container} = render(
+      <Button variant="link" loading>
+        content
+      </Button>,
+    )
+
+    const wrapper = container.querySelector('[data-loading-wrapper]')
+    expect(wrapper).toBeInTheDocument()
+    expect(wrapper).toHaveClass(classes.ConditionalWrapperLink)
+  })
+
   it('should render tooltip on an icon button when unsafeDisableTooltip prop is passed as false', () => {
     const {getByRole, getByText} = render(<IconButton icon={HeartIcon} aria-label="Heart" />)
     const triggerEL = getByRole('button')
@@ -304,5 +316,91 @@ describe('Button', () => {
     )
     const triggerEl = getByRole('button', {name: 'Heart'})
     expect(triggerEl).toHaveAccessibleDescription('Love is all around (command h)')
+  })
+})
+
+describe('data-component attributes', () => {
+  describe('Button', () => {
+    it('should have data-component="Button" on the button element', () => {
+      const {container} = render(<Button>Click me</Button>)
+      expect(container.querySelector('[data-component="Button"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="buttonContent" on the content wrapper', () => {
+      const {container} = render(<Button>Click me</Button>)
+      expect(container.querySelector('[data-component="buttonContent"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="text" on the text element', () => {
+      const {container} = render(<Button>Click me</Button>)
+      expect(container.querySelector('[data-component="text"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="leadingVisual" on leading visual', () => {
+      const {container} = render(<Button leadingVisual={SearchIcon}>Search</Button>)
+      expect(container.querySelector('[data-component="leadingVisual"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="trailingVisual" on trailing visual', () => {
+      const {container} = render(<Button trailingVisual={HeartIcon}>Like</Button>)
+      expect(container.querySelector('[data-component="trailingVisual"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="ButtonCounter" on count element', () => {
+      const {container} = render(<Button count={5}>Notifications</Button>)
+      expect(container.querySelector('[data-component="ButtonCounter"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="loadingSpinner" when loading without visuals', () => {
+      const {container} = render(<Button loading>Loading</Button>)
+      expect(container.querySelector('[data-component="loadingSpinner"]')).toBeInTheDocument()
+    })
+  })
+
+  describe('data-icon-only-counter', () => {
+    it('is set when count, leadingVisual, and no children are present', () => {
+      const {container} = render(<Button leadingVisual={SearchIcon} count={5} aria-label="Search notifications" />)
+      expect(container.querySelector('[data-component="Button"]')).toHaveAttribute('data-icon-only-counter', 'true')
+    })
+
+    it('is not set when children are present', () => {
+      const {container} = render(
+        <Button leadingVisual={SearchIcon} count={5}>
+          Search
+        </Button>,
+      )
+      expect(container.querySelector('[data-component="Button"]')).not.toHaveAttribute('data-icon-only-counter')
+    })
+
+    it('is not set when leadingVisual is missing', () => {
+      const {container} = render(<Button count={5} aria-label="Notifications" />)
+      expect(container.querySelector('[data-component="Button"]')).not.toHaveAttribute('data-icon-only-counter')
+    })
+
+    it('is not set when count is missing', () => {
+      const {container} = render(<Button leadingVisual={SearchIcon} aria-label="Search" />)
+      expect(container.querySelector('[data-component="Button"]')).not.toHaveAttribute('data-icon-only-counter')
+    })
+  })
+
+  describe('IconButton', () => {
+    it('should have data-component="IconButton" on the button element', () => {
+      const {container} = render(<IconButton icon={SearchIcon} aria-label="Search" />)
+      expect(container.querySelector('[data-component="IconButton"]')).toBeInTheDocument()
+    })
+  })
+
+  describe('LinkButton', () => {
+    it('should have data-component="LinkButton" on the link element', () => {
+      const {container} = render(<LinkButton href="#">Link</LinkButton>)
+      expect(container.querySelector('[data-component="LinkButton"]')).toBeInTheDocument()
+    })
+
+    it('should have data-component="buttonContent" on the content wrapper', () => {
+      const {container} = render(<LinkButton href="#">Link</LinkButton>)
+      expect(
+        container.querySelector('[data-component="LinkButton"] [data-component="buttonContent"]'),
+      ).toBeInTheDocument()
+    })
   })
 })

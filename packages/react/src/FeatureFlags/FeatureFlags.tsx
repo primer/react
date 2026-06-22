@@ -13,5 +13,6 @@ export function FeatureFlags({children, flags}: FeatureFlagsProps) {
     const scope = FeatureFlagScope.merge(parentFeatureFlags, FeatureFlagScope.create(flags))
     return scope
   }, [parentFeatureFlags, flags])
+
   return <FeatureFlagContext.Provider value={value}>{children}</FeatureFlagContext.Provider>
 }

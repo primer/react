@@ -127,6 +127,12 @@
           "type": "Component | 'none'",
           "required": false,
           "description": "Icon displayed when the menu item is within the overflow menu. If 'none' is provided, no icon will be shown in the overflow menu."
+        },
+        {
+          "name": "returnFocusRef",
+          "type": "React.RefObject<HTMLElement>",
+          "required": false,
+          "description": "A ref to an element that should receive focus when the menu is closed."
         }
       ]
     }

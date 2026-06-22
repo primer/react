@@ -1,6 +1,6 @@
 import type {Meta} from '@storybook/react-vite'
-import type {CheckboxProps} from '..'
-import {Checkbox} from '..'
+import type {CheckboxProps} from '.'
+import Checkbox from '.'
 import FormControl from '../FormControl'
 import type {FormControlArgs} from '../utils/form-story-helpers'
 import {formControlArgTypesWithoutValidation, getFormControlArgsByChildComponent} from '../utils/form-story-helpers'

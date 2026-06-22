@@ -1,4 +1,4 @@
-import {AlertFillIcon, AlertIcon, CheckCircleFillIcon, CheckCircleIcon} from '@primer/octicons-react'
+import {AlertFillIcon, AlertIcon, CheckCircleFillIcon, CheckCircleIcon, InfoIcon} from '@primer/octicons-react'
 import {clsx} from 'clsx'
 import type React from 'react'
 import {isValidElementType} from 'react-is'
@@ -14,7 +14,7 @@ export type InlineMessageProps = React.ComponentPropsWithoutRef<'div'> & {
   /**
    * Specify the type of the InlineMessage
    */
-  variant: MessageVariant
+  variant?: MessageVariant
 
   /**
    * A custom leading visual (icon or other element) to display instead of the default variant icon.
@@ -52,13 +52,21 @@ export function InlineMessage({
     } else {
       icon = LeadingVisual
     }
-  } else {
+  } else if (variant) {
     // Use default icon based on variant and size
     icon = size === 'small' ? smallIcons[variant] : icons[variant]
+  } else {
+    icon = <InfoIcon className={classes.InlineMessageIcon} />
   }
 
   return (
-    <div {...rest} className={clsx(className, classes.InlineMessage)} data-size={size} data-variant={variant}>
+    <div
+      {...rest}
+      className={clsx(className, classes.InlineMessage)}
+      data-size={size}
+      data-variant={variant ?? undefined}
+      data-component="InlineMessage"
+    >
       {icon}
       {children}
     </div>

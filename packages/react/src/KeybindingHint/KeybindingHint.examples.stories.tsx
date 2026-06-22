@@ -1,6 +1,9 @@
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {KeybindingHint, type KeybindingHintProps} from '.'
-import {Button, ActionList, FormControl, TextInput} from '..'
+import {Button} from '../Button'
+import {ActionList} from '../ActionList'
+import FormControl from '../FormControl'
+import TextInput from '../TextInput'
 import classes from './KeybindingHint.examples.stories.module.css'
 
 export default {

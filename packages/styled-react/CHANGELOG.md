@@ -1,5 +1,70 @@
 # @primer/styled-react
 
+## 1.1.0
+
+### Minor Changes
+
+- [#7898](https://github.com/primer/react/pull/7898) [`da27739`](https://github.com/primer/react/commit/da2773915b5d299fd5971322f41dc9a2cfb8a13a) Thanks [@francinelucca](https://github.com/francinelucca)! - ThemeProvider: Add `contextOnly` prop as a no-op to match the `@primer/react` API
+
+## 1.0.9
+
+### Patch Changes
+
+- [#7806](https://github.com/primer/react/pull/7806) [`36a4922`](https://github.com/primer/react/commit/36a4922bb12dc4abf135c7ac035dd3cc73075693) Thanks [@jonrohan](https://github.com/jonrohan)! - Removing `ActionList, Box, Button, Dialog, Flash, FormControl, Header, Heading, IconButton, Label, Link, LinkButton, SegmentedControl, Spinner, Text, TextInput, ToggleSwitch, UnderlineNav, DialogV1, Octicon, TabNav` from the @primer/styled-react package
+
+## 1.0.8
+
+### Patch Changes
+
+- [#7800](https://github.com/primer/react/pull/7800) [`ce88bdf`](https://github.com/primer/react/commit/ce88bdf3191aaee0ad662803f285a4e77810ce9e) Thanks [@francinelucca](https://github.com/francinelucca)! - chore: forward @primer/react theming from @primer/styled-react under feature flag
+
+## 1.0.7
+
+### Patch Changes
+
+- [#7773](https://github.com/primer/react/pull/7773) [`4360ab0`](https://github.com/primer/react/commit/4360ab055f2729567cc48d004ed627d58b54e300) Thanks [@jonrohan](https://github.com/jonrohan)! - chore(styled-react): remove Breadcrumbs, Table, Timeline, Truncate
+
+- [#7708](https://github.com/primer/react/pull/7708) [`d0fa0ff`](https://github.com/primer/react/commit/d0fa0ff2301b3db7a4b66e7aabf3ff544ffb4ef2) Thanks [@hectahertz](https://github.com/hectahertz)! - perf(css): audit :has() selectors and add stylelint guard for Safari
+
+- [#7794](https://github.com/primer/react/pull/7794) [`0b6dabb`](https://github.com/primer/react/commit/0b6dabbd71fe467f0a5433f4909050e05cc7f595) Thanks [@jonrohan](https://github.com/jonrohan)! - chore(styled-react): remove TabNav, SegmentedControl, Header, FormControl, LinkButton from @primer/styled-react
+
+## 1.0.6
+
+### Patch Changes
+
+- [#7738](https://github.com/primer/react/pull/7738) [`f5f2869`](https://github.com/primer/react/commit/f5f28691d9e5c9f8495e8c592635d2b616f7cb49) Thanks [@francinelucca](https://github.com/francinelucca)! - ActionMenu, Table: Fix component mutation issue where `Object.assign` was modifying original `@primer/react` components. Now uses wrapper components to avoid side effects.
+
+- [#7728](https://github.com/primer/react/pull/7728) [`6eb03b5`](https://github.com/primer/react/commit/6eb03b5a1d8332878e54bf3f2aa3daf6cccc6e44) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove Overlay, CounterLabel, and ActionMenu from styled-react package
+
+- [#7743](https://github.com/primer/react/pull/7743) [`8550be3`](https://github.com/primer/react/commit/8550be3fee9cc7cdf85ff99fe7850ed42b19452b) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove Token and Tooltip from `@primer/styled-react`
+
+- [#7726](https://github.com/primer/react/pull/7726) [`2edb05a`](https://github.com/primer/react/commit/2edb05a610c4f6d8fc1bcf759a849263e63347aa) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Remove PageHeader from @primer/styled-react
+
+## 1.0.5
+
+### Patch Changes
+
+- [#7695](https://github.com/primer/react/pull/7695) [`780fc3d`](https://github.com/primer/react/commit/780fc3d7b52fd0f9b63f313af6355398180a0118) Thanks [@mattcosta7](https://github.com/mattcosta7)! - perf(ThemeProvider): Reduce unnecessary renders and effect cascades
+
+  - Replace `useState` + `useEffect` SSR hydration handoff with `useSyncExternalStore` — eliminates post-hydration re-render
+  - Replace `useState` + `useEffect` in `useSystemColorMode` with `useSyncExternalStore` — eliminates effect gap and stale-then-update flicker
+  - Cache `getServerHandoff` DOM read + JSON.parse per ID (runs once, not on every call)
+  - Memoize context value object to prevent unnecessary re-renders of all consumers
+
+## 1.0.4
+
+### Patch Changes
+
+- [#7684](https://github.com/primer/react/pull/7684) [`ced0a71`](https://github.com/primer/react/commit/ced0a7194221bef332131cec40cd1ba2fd190cac) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove Textarea from `@primer/styled-react`
+
+- [#7685](https://github.com/primer/react/pull/7685) [`1c7c598`](https://github.com/primer/react/commit/1c7c59850d0fe26c27d1866799eac04062204b7b) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove Avatar component from @primer/styled-react
+
+## 1.0.3
+
+### Patch Changes
+
+- [#7499](https://github.com/primer/react/pull/7499) [`4f43e82`](https://github.com/primer/react/commit/4f43e8295c643780addfd01a8dcb011a59a5b6db) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Remove deprecated component exports from @primer/styled-react that no longer have usage tracked in primer query
+
 ## 1.0.2
 
 ### Patch Changes

@@ -22,6 +22,7 @@ import {
 import Octicon from '../Octicon'
 import VisuallyHidden from '../_VisuallyHidden'
 import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
+import {FeatureFlags} from '../FeatureFlags'
 
 const meta: Meta = {
   title: 'Components/NavList/Features',
@@ -125,7 +126,6 @@ const NextJSLikeLink = React.forwardRef<HTMLAnchorElement, NextJSLinkProps>(
       ref,
       href,
     }
-    // eslint-disable-next-line react-hooks/refs
     return <>{React.isValidElement(child) ? React.cloneElement(child, childProps) : null}</>
   },
 )
@@ -621,5 +621,29 @@ export const WithDescription: StoryFn = () => (
     </NavList.Item>
   </NavList>
 )
+
+export const WithItemGap: StoryFn = () => (
+  <FeatureFlags flags={{primer_react_action_list_item_gap: true}}>
+    <PageLayout>
+      <PageLayout.Pane position="start">
+        <NavList>
+          <NavList.Item href="#" aria-current="page">
+            Home
+          </NavList.Item>
+          <NavList.Item defaultOpen href="#">
+            About
+            <NavList.SubNav>
+              <NavList.Item href="#">Team</NavList.Item>
+              <NavList.Item href="#">History</NavList.Item>
+            </NavList.SubNav>
+          </NavList.Item>
+          <NavList.Item href="#">Contact</NavList.Item>
+        </NavList>
+      </PageLayout.Pane>
+    </PageLayout>
+  </FeatureFlags>
+)
+
+WithItemGap.storyName = 'With gap between items (behind feature flag)'
 
 export default meta

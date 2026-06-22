@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get App Token
-        uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1
         id: app-token
         with:
           app-id: ${{ vars.PRIMER_APP_ID_SHARED }}
@@ -55,7 +55,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get App Token
-        uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1
         id: app-token
         with:
           app-id: ${{ vars.PRIMER_APP_ID_SHARED }}
@@ -82,8 +82,11 @@ jobs:
         run: |
           PR_NUMBERS=$(gh pr list -L 100 -R primer/react --state open --json number,baseRefName,autoMergeRequest,reviewDecision -q '.[] | select(.autoMergeRequest != null) | select(.baseRefName == "main") | select(.reviewDecision == "APPROVED") | .number')
           if [ -n "$PR_NUMBERS" ]; then
-            echo "Updating $PR_NUMBERS"
-            echo "$PR_NUMBERS" | xargs -I {} gh pr update-branch -R primer/react {}
+            echo "Re-enabling auto-merge on $PR_NUMBERS"
+            for pr in $PR_NUMBERS; do
+              gh pr merge "$pr" -R primer/react --disable-auto || echo "Warning: failed to disable auto-merge on PR #$pr"
+              gh pr merge "$pr" -R primer/react --auto --squash || echo "Warning: failed to enable auto-merge on PR #$pr"
+            done
           else
             echo "No PRs to update."
           fi

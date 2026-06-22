@@ -9,6 +9,7 @@ interface TableConfig<Data extends UniqueRow> {
   data: Array<Data>
   initialSortColumn?: string | number
   initialSortDirection?: Exclude<SortDirection, 'NONE'>
+  externalSorting?: boolean
   getRowId: (rowData: Data) => string | number
 }
 
@@ -48,6 +49,7 @@ export function useTable<Data extends UniqueRow>({
   data,
   initialSortColumn,
   initialSortDirection,
+  externalSorting,
   getRowId,
 }: TableConfig<Data>): Table<Data> {
   const [rowOrder, setRowOrder] = useState(data)
@@ -133,6 +135,11 @@ export function useTable<Data extends UniqueRow>({
       throw new Error(`The column for this header is not sortable`)
     }
 
+    if (externalSorting) {
+      // Don't sort the rows if external sorting is enabled. We expect the consumer to provide new sorted data instead.
+      return
+    }
+
     const sortMethod =
       header.column.sortBy === true
         ? strategies.basic
@@ -159,7 +166,10 @@ export function useTable<Data extends UniqueRow>({
         const valueA = get(a, header.column.field)
         const valueB = get(b, header.column.field)
 
-        if (valueA && valueB) {
+        const valueAIsBlank = isBlankValue(valueA)
+        const valueBIsBlank = isBlankValue(valueB)
+
+        if (!valueAIsBlank && !valueBIsBlank) {
           if (state.direction === SortDirection.ASC) {
             // @ts-ignore todo
             return sortMethod(valueA, valueB)
@@ -168,11 +178,11 @@ export function useTable<Data extends UniqueRow>({
           return sortMethod(valueB, valueA)
         }
 
-        if (valueA) {
+        if (!valueAIsBlank) {
           return -1
         }
 
-        if (valueB) {
+        if (!valueBIsBlank) {
           return 1
         }
         return 0
@@ -342,4 +352,8 @@ function get<ObjectType extends Record<string, any>, Path extends string>(
     return (value as any)[key]
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   }, object as any)
+}
+
+function isBlankValue(value: unknown): value is null | undefined | '' {
+  return value === null || value === undefined || value === ''
 }

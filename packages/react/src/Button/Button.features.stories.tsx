@@ -5,6 +5,8 @@ import {Stack} from '../Stack/Stack'
 import {announce} from '@primer/live-region-element'
 import {Tooltip} from '../TooltipV2/Tooltip'
 import {KeybindingHint} from '../KeybindingHint'
+import VisuallyHidden from '../_VisuallyHidden'
+
 export default {
   title: 'Components/Button/Features',
 }
@@ -128,15 +130,18 @@ export const Disabled = () => (
 )
 
 export const Inactive = () => (
-  <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
-    <Button inactive>Default</Button>
-    <Button variant="primary" inactive>
+  <div style={{display: 'flex', flexWrap: 'wrap', flexDirection: 'row', gap: '1rem'}}>
+    <VisuallyHidden id="inactive-state">Inactive</VisuallyHidden>
+    <Button inactive aria-describedby="inactive-state">
+      Default
+    </Button>
+    <Button variant="primary" inactive aria-describedby="inactive-state">
       Primary
     </Button>
-    <Button variant="danger" inactive>
+    <Button variant="danger" inactive aria-describedby="inactive-state">
       Danger
     </Button>
-    <Button variant="invisible" inactive>
+    <Button variant="invisible" inactive aria-describedby="inactive-state">
       Invisible
     </Button>
   </div>

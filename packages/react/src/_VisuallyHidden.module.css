@@ -6,6 +6,7 @@
   /* stylelint-disable-next-line primer/spacing */
   margin: -1px;
   overflow: hidden;
+  /* stylelint-disable-next-line property-no-deprecated */
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;

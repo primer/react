@@ -13,6 +13,20 @@ import {clsx} from 'clsx'
 // The gap between the list items. It is a constant because the gap is used to calculate the possible number of items that can fit in the container.
 export const GAP = 8
 
+// Helper to extract direct text content from children for the data-content attribute.
+// This is used by CSS to reserve space for bold text (preventing layout shift).
+// Only extracts strings/numbers, not text from nested React elements (e.g., Popovers).
+function getTextContent(children: React.ReactNode): string {
+  if (typeof children === 'string' || typeof children === 'number') {
+    return String(children)
+  }
+  if (Array.isArray(children)) {
+    return children.map(getTextContent).join('')
+  }
+  // Skip React elements - we only want direct text content, not text from nested components
+  return ''
+}
+
 type UnderlineWrapperProps<As extends React.ElementType> = {
   slot?: string
   as?: As
@@ -59,11 +73,12 @@ export type UnderlineItemProps<As extends React.ElementType> = {
 
 export const UnderlineItem = React.forwardRef((props, ref) => {
   const {as: Component = 'a', children, counter, icon: Icon, iconsVisible, loadingCounters, className, ...rest} = props
+  const textContent = getTextContent(children)
   return (
     <Component {...rest} ref={ref} className={clsx(classes.UnderlineItem, className)}>
       {iconsVisible && Icon && <span data-component="icon">{isElement(Icon) ? Icon : <Icon />}</span>}
       {children && (
-        <span data-component="text" data-content={children}>
+        <span data-component="text" data-content={textContent || undefined}>
           {children}
         </span>
       )}

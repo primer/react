@@ -3,7 +3,7 @@ import type {StoryFn, Meta} from '@storybook/react-vite'
 import React from 'react'
 import {TreeView} from './TreeView'
 import {IconButton} from '../Button'
-import {Dialog} from '../Dialog/Dialog'
+import {Dialog} from '../Dialog'
 import classes from './TreeView.stories.module.css'
 
 const meta: Meta = {

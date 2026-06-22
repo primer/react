@@ -1,7 +1,6 @@
 import type {Meta} from '@storybook/react-vite'
 import type {ComponentProps} from '../utils/types'
 import Timeline from './Timeline'
-import Octicon from '../Octicon'
 import {GitCommitIcon} from '@primer/octicons-react'
 
 export default {
@@ -19,7 +18,7 @@ export const Default = () => (
   <Timeline>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} aria-label="Commit" />
+        <GitCommitIcon aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>

@@ -16,8 +16,8 @@ const stories = [
     id: 'components-formcontrol-features--disabled-inputs',
   },
   {
-    title: 'Form Control with Custom Input',
-    id: 'components-formcontrol-features--form-control-with-custom-input',
+    title: 'With Custom Input',
+    id: 'components-formcontrol-features--with-custom-input',
   },
   {
     title: 'Single Input',

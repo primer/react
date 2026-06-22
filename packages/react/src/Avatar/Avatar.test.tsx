@@ -7,6 +7,14 @@ import classes from './Avatar.module.css'
 describe('Avatar', () => {
   implementsClassName(Avatar, classes.Avatar)
 
+  describe('Avatar data-component attribute', () => {
+    it('renders Avatar with data-component attribute', () => {
+      render(<Avatar src="primer.png" alt="" data-testid="avatar" />)
+      const avatar = screen.getByTestId('avatar')
+      expect(avatar).toHaveAttribute('data-component', 'Avatar')
+    })
+  })
+
   it('renders small by default', () => {
     const size = 20
     render(<Avatar src="primer.png" data-testid="avatar" />)

@@ -19,9 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
       - name: Set up Node.js
-        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -34,9 +34,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
       - name: Set up Node.js
-        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -49,7 +49,7 @@ jobs:
       - name: Lint markdown
         run: npm run lint:md
       - name: Lint npm packages
-        run: npx turbo lint:npm
+        run: npx turbo run lint:npm
       - name: Check className test coverage
         run: npm run test:classname-coverage
 
@@ -61,9 +61,9 @@ jobs:
         react-version: ['react-18', 'react-19']
     steps:
       - name: Checkout repository
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
       - name: Set up Node.js
-        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -71,8 +71,10 @@ jobs:
         uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb
         with:
           path: .turbo
-          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          key: ${{ runner.os }}-turbo-${{ github.job }}-${{ matrix.react-version }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
+            ${{ runner.os }}-turbo-${{ github.job }}-${{ matrix.react-version }}-
+            ${{ runner.os }}-turbo-${{ github.job }}-
             ${{ runner.os }}-turbo-
       - name: Install dependencies
         run: npm ci
@@ -82,7 +84,7 @@ jobs:
         run: npm run build
         continue-on-error: ${{ matrix.react-version == 'react-19' }}
       - name: Run tests defined in vitest
-        uses: docker://mcr.microsoft.com/playwright:v1.56.1-jammy
+        uses: docker://mcr.microsoft.com/playwright:v1.60.0-jammy
         with:
           args: npm test
 
@@ -94,9 +96,9 @@ jobs:
         react-version: ['react-18', 'react-19']
     steps:
       - name: Checkout repository
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
       - name: Set up Node.js
-        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -104,8 +106,10 @@ jobs:
         uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb
         with:
           path: .turbo
-          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          key: ${{ runner.os }}-turbo-${{ github.job }}-${{ matrix.react-version }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
+            ${{ runner.os }}-turbo-${{ github.job }}-${{ matrix.react-version }}-
+            ${{ runner.os }}-turbo-${{ github.job }}-
             ${{ runner.os }}-turbo-
       - name: Install dependencies
         run: npm ci
@@ -126,9 +130,9 @@ jobs:
         react-version: ['react-18', 'react-19']
     steps:
       - name: Checkout repository
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
       - name: Set up Node.js
-        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -136,24 +140,26 @@ jobs:
         uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb
         with:
           path: .turbo
-          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          key: ${{ runner.os }}-turbo-${{ github.job }}-${{ matrix.react-version }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
+            ${{ runner.os }}-turbo-${{ github.job }}-${{ matrix.react-version }}-
+            ${{ runner.os }}-turbo-${{ github.job }}-
             ${{ runner.os }}-turbo-
       - name: Install dependencies
         run: npm ci
       - if: ${{ matrix.react-version == 'react-19' }}
         run: node script/setup-react-19.mts
       - name: Build
-        run: npx turbo build
+        run: npx turbo run build
         continue-on-error: ${{ matrix.react-version == 'react-19' }}
 
   build-components-json:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
       - name: Set up Node.js
-        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -161,16 +167,15 @@ jobs:
         uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb
         with:
           path: .turbo
-          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          key: ${{ runner.os }}-turbo-${{ github.job }}-default-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
+            ${{ runner.os }}-turbo-${{ github.job }}-default-
+            ${{ runner.os }}-turbo-${{ github.job }}-
             ${{ runner.os }}-turbo-
       - name: Install dependencies
         run: npm ci
-      - name: Build doc-gen
-        run: npm run build --workspace @primer/doc-gen
       - name: Build storybook to generate story IDs
-        run: npm run build:storybook
-        working-directory: packages/react
+        run: npx turbo run build:storybook --filter=@primer/react
       - name: Build components.json
         run: npx tsx script/components-json/build.ts --storybook-data 'storybook-static/index.json'
         working-directory: packages/react
@@ -182,9 +187,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
       - name: Set up Node.js
-        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -192,8 +197,10 @@ jobs:
         uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb
         with:
           path: .turbo
-          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          key: ${{ runner.os }}-turbo-${{ github.job }}-default-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
+            ${{ runner.os }}-turbo-${{ github.job }}-default-
+            ${{ runner.os }}-turbo-${{ github.job }}-
             ${{ runner.os }}-turbo-
       - name: Install dependencies
         run: npm ci

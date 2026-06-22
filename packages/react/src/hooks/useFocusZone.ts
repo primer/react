@@ -23,6 +23,11 @@ export interface FocusZoneHookSettings extends Omit<FocusZoneSettings, 'activeDe
    * any time.
    */
   disabled?: boolean
+
+  /**
+   * Set to true to allow focus to move to elements that are dynamically prepended to the container.
+   */
+  focusPrependedElements?: boolean
 }
 
 export function useFocusZone(
@@ -46,6 +51,7 @@ export function useFocusZone(
     () => {
       if (
         containerRef.current instanceof HTMLElement &&
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
         (!useActiveDescendant || activeDescendantControlRef.current instanceof HTMLElement)
       ) {
         if (!disabled) {

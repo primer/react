@@ -3,6 +3,7 @@ import {render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React, {type JSX} from 'react'
 import {ActionList} from '.'
+import {AnchoredOverlay} from '../AnchoredOverlay'
 import {BookIcon} from '@primer/octicons-react'
 import {implementsClassName} from '../utils/testing'
 import classes from './ActionList.module.css'
@@ -384,5 +385,205 @@ describe('ActionList.Item', () => {
     expect(tabs[0]).toBeInTheDocument()
     expect(tabs[0].nodeType).toBe(Node.ELEMENT_NODE)
     expect(tabs).toHaveLength(3)
+  })
+
+  it('should preserve consumer ref when tooltip wraps trigger', async () => {
+    const user = userEvent.setup()
+
+    function TestComponent() {
+      const anchorRef = React.useRef<HTMLLIElement>(null)
+      const [open, setOpen] = React.useState(false)
+      return (
+        <>
+          <ActionList aria-label="Actions">
+            <ActionList.Item
+              ref={anchorRef}
+              onSelect={() => {
+                setOpen(!open)
+              }}
+            >
+              Convert to issue
+              <ActionList.Description truncate>
+                This description gets truncated because it is inline with truncation
+              </ActionList.Description>
+            </ActionList.Item>
+          </ActionList>
+          <AnchoredOverlay open={open} renderAnchor={null} anchorRef={anchorRef} onClose={() => setOpen(false)}>
+            <ActionList role="menu" aria-label="Convert to issue menu">
+              <ActionList.Item role="menuitem">Choose repository</ActionList.Item>
+              <ActionList.Item role="menuitem">Create issue</ActionList.Item>
+            </ActionList>
+          </AnchoredOverlay>
+        </>
+      )
+    }
+
+    const {getByText, queryByRole} = HTMLRender(<TestComponent />)
+
+    // Overlay should not be visible initially
+    expect(queryByRole('menu')).not.toBeInTheDocument()
+
+    // Click the item to open the anchored overlay
+    await user.click(getByText('Convert to issue'))
+
+    // The overlay should open — this fails if Tooltip overwrites the consumer ref
+    await waitFor(() => {
+      expect(queryByRole('menu')).toBeInTheDocument()
+    })
+  })
+
+  describe('data attributes derived from slots', () => {
+    it('sets data-has-trailing-action when a TrailingAction slot is present', () => {
+      const {container} = HTMLRender(
+        <ActionList>
+          <ActionList.Item>
+            Item
+            <ActionList.TrailingAction icon={BookIcon} label="Action" />
+          </ActionList.Item>
+        </ActionList>,
+      )
+      expect(container.querySelector('[data-component="ActionList.Item"]')).toHaveAttribute(
+        'data-has-trailing-action',
+        'true',
+      )
+    })
+
+    it('does not set data-has-trailing-action when no TrailingAction slot is present', () => {
+      const {container} = HTMLRender(
+        <ActionList>
+          <ActionList.Item>Item</ActionList.Item>
+        </ActionList>,
+      )
+      expect(container.querySelector('[data-component="ActionList.Item"]')).not.toHaveAttribute(
+        'data-has-trailing-action',
+      )
+    })
+
+    it('sets data-trailing-action-loading when the TrailingAction is loading', () => {
+      const {container} = HTMLRender(
+        <ActionList>
+          <ActionList.Item>
+            Item
+            <ActionList.TrailingAction label="Action" loading />
+          </ActionList.Item>
+        </ActionList>,
+      )
+      expect(container.querySelector('[data-component="ActionList.Item"]')).toHaveAttribute(
+        'data-trailing-action-loading',
+        'true',
+      )
+    })
+
+    it('does not set data-trailing-action-loading when the TrailingAction is not loading', () => {
+      const {container} = HTMLRender(
+        <ActionList>
+          <ActionList.Item>
+            Item
+            <ActionList.TrailingAction icon={BookIcon} label="Action" />
+          </ActionList.Item>
+        </ActionList>,
+      )
+      expect(container.querySelector('[data-component="ActionList.Item"]')).not.toHaveAttribute(
+        'data-trailing-action-loading',
+      )
+    })
+
+    // The TrailingAction element is only rendered when the item is not inactive,
+    // not loading, and not inside a menu-style container. The data attributes
+    // must mirror that gate or the styling will apply when no action is in the DOM.
+    it('does not set data-has-trailing-action when the item is inactive', () => {
+      const {container} = HTMLRender(
+        <ActionList>
+          <ActionList.Item inactiveText="Unavailable">
+            Item
+            <ActionList.TrailingAction icon={BookIcon} label="Action" />
+          </ActionList.Item>
+        </ActionList>,
+      )
+      expect(container.querySelector('[data-component="ActionList.Item"]')).not.toHaveAttribute(
+        'data-has-trailing-action',
+      )
+      expect(container.querySelector('[data-component="ActionList.Item"]')).not.toHaveAttribute(
+        'data-trailing-action-loading',
+      )
+    })
+
+    it('does not set data-has-trailing-action when the item is loading', () => {
+      const {container} = HTMLRender(
+        <ActionList>
+          <ActionList.Item loading>
+            Item
+            <ActionList.TrailingAction label="Action" loading />
+          </ActionList.Item>
+        </ActionList>,
+      )
+      expect(container.querySelector('[data-component="ActionList.Item"]')).not.toHaveAttribute(
+        'data-has-trailing-action',
+      )
+      expect(container.querySelector('[data-component="ActionList.Item"]')).not.toHaveAttribute(
+        'data-trailing-action-loading',
+      )
+    })
+
+    // The menuContext gate (ActionMenu/SelectPanel/FilteredActionList) is also
+    // applied in code but cannot be exercised in dev tests because passing
+    // TrailingAction in a menu-style container fires a dev-only invariant
+    // (see Item.tsx). The gating still matters for production builds where
+    // the invariant is a no-op.
+  })
+
+  describe('inactive indicator wrap data-position', () => {
+    it('renders the inactive wrap with data-position="trailing" when the item has no leading visual', () => {
+      const {container} = HTMLRender(
+        <ActionList>
+          <ActionList.Item inactiveText="Unavailable">Item</ActionList.Item>
+        </ActionList>,
+      )
+      const wrap = container.querySelector(`.${classes.InactiveButtonWrap}`)
+      expect(wrap).toHaveAttribute('data-position', 'trailing')
+    })
+
+    it('renders the inactive wrap with data-position="leading" when the item has a leading visual', () => {
+      const {container} = HTMLRender(
+        <ActionList>
+          <ActionList.Item inactiveText="Unavailable">
+            <ActionList.LeadingVisual>
+              <BookIcon />
+            </ActionList.LeadingVisual>
+            Item
+          </ActionList.Item>
+        </ActionList>,
+      )
+      const wrap = container.querySelector(`.${classes.InactiveButtonWrap}`)
+      expect(wrap).toHaveAttribute('data-position', 'leading')
+    })
+  })
+
+  describe('TrailingAction data-has-label', () => {
+    it('sets data-has-label on the text Button variant (no icon prop)', () => {
+      const {container} = HTMLRender(
+        <ActionList>
+          <ActionList.Item>
+            Item
+            <ActionList.TrailingAction label="Action" />
+          </ActionList.Item>
+        </ActionList>,
+      )
+      const action = container.querySelector(`.${classes.TrailingActionButton}`)
+      expect(action).toHaveAttribute('data-has-label', 'true')
+    })
+
+    it('does not set data-has-label on the IconButton variant (icon prop set)', () => {
+      const {container} = HTMLRender(
+        <ActionList>
+          <ActionList.Item>
+            Item
+            <ActionList.TrailingAction icon={BookIcon} label="Action" />
+          </ActionList.Item>
+        </ActionList>,
+      )
+      const action = container.querySelector(`.${classes.TrailingActionButton}`)
+      expect(action).not.toHaveAttribute('data-has-label')
+    })
   })
 })

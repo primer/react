@@ -2,11 +2,11 @@ import React, {useEffect, type ComponentPropsWithoutRef, type ReactElement} from
 import {warning} from '../utils/warning'
 import {clsx} from 'clsx'
 import classes from './Details.module.css'
-import {useMergedRefs} from '../internal/hooks/useMergedRefs'
+import {useMergedRefs} from '../hooks/useMergedRefs'
 
 const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ({className, children, ...rest}, forwardRef): ReactElement<any> => {
+  ({className, children, 'data-component': dataComponent, ...rest}, forwardRef): ReactElement<any> => {
     const detailsRef = React.useRef<HTMLDetailsElement>(null)
     const ref = useMergedRefs(forwardRef, detailsRef)
 
@@ -27,7 +27,12 @@ const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(
     }, [])
 
     return (
-      <details className={clsx(className, classes.Details)} {...rest} ref={ref}>
+      <details
+        className={clsx(className, classes.Details)}
+        {...rest}
+        ref={ref}
+        data-component={dataComponent ?? 'Details'}
+      >
         {children}
       </details>
     )
@@ -47,7 +52,7 @@ export type SummaryProps<As extends React.ElementType> = {
 function Summary<As extends React.ElementType>({as, children, ...props}: SummaryProps<As>) {
   const Component = as ?? 'summary'
   return (
-    <Component as={Component === 'summary' ? null : 'summary'} {...props}>
+    <Component as={Component === 'summary' ? null : 'summary'} {...props} data-component="Details.Summary">
       {children}
     </Component>
   )
@@ -60,5 +65,7 @@ const Details = Object.assign(Root, {
   Summary,
 })
 
-export type DetailsProps = ComponentPropsWithoutRef<'details'>
+export type DetailsProps = ComponentPropsWithoutRef<'details'> & {
+  'data-component'?: string
+}
 export default Details

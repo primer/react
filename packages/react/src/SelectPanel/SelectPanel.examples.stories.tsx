@@ -356,6 +356,7 @@ export const RepositionAfterLoading = () => {
   const [loading, setLoading] = useState(true)
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates, react-you-might-not-need-an-effect/no-event-handler
     if (!open) setLoading(true)
     window.setTimeout(() => {
       if (open) {
@@ -367,7 +368,9 @@ export const RepositionAfterLoading = () => {
   }, [open])
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (!loading) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates
       setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -403,6 +406,7 @@ export const SelectPanelRepositionInsideDialog = () => {
   const [loading, setLoading] = useState(true)
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates, react-you-might-not-need-an-effect/no-event-handler
     if (!open) setLoading(true)
     window.setTimeout(() => {
       if (open) {
@@ -414,7 +418,9 @@ export const SelectPanelRepositionInsideDialog = () => {
   }, [open])
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
     if (!loading) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect, react-you-might-not-need-an-effect/no-chain-state-updates
       setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -530,8 +536,10 @@ export const RenderMoreOnScroll = () => {
 
   useEffect(
     function measureTimeAfterOpen() {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (open) {
         timeAfterOpen.current = performance.now()
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-chain-state-updates
         if (timeBeforeOpen.current) setTimeTakenToOpen(timeAfterOpen.current - timeBeforeOpen.current)
       }
     },
@@ -559,10 +567,7 @@ export const RenderMoreOnScroll = () => {
         Time taken (ms) to render initial {renderSubset ? 50 : NUMBER_OF_ITEMS} items:{' '}
         {timeTakenToOpen ? <Label>{timeTakenToOpen.toFixed(2)} ms</Label> : '(click "Select Labels" to open)'}
       </p>
-      <p>
-        Known bug: Scroll resets to top when the items change. Works well with feature flag{' '}
-        <Label>primer_react_select_panel_remove_active_descendant</Label>
-      </p>
+      <p>Known bug: Scroll resets to top when the items change.</p>
 
       <FormControl>
         <FormControl.Label>Labels</FormControl.Label>
@@ -595,7 +600,7 @@ export const RenderMoreOnScroll = () => {
 
 const DEFAULT_VIRTUAL_ITEM_HEIGHT = 35
 
-export const Virtualized = () => {
+export const VirtualizedConsumerSide = () => {
   const [selected, setSelected] = useState<ItemInput[]>([])
   const [open, setOpen] = useState(false)
   const [renderSubset, setRenderSubset] = useState(true)
@@ -615,14 +620,17 @@ export const Virtualized = () => {
   }
   useEffect(
     function measureTimeAfterOpen() {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
       if (open) {
         timeAfterOpen.current = performance.now()
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-chain-state-updates
         if (timeBeforeOpen.current) setTimeTakenToOpen(timeAfterOpen.current - timeBeforeOpen.current)
       }
     },
     [open],
   )
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const virtualizer = useVirtualizer({
     count: filteredItems.length,
     getScrollElement: () => scrollContainer ?? null,
@@ -729,5 +737,119 @@ export const Virtualized = () => {
         />
       </FormControl>
     </form>
+  )
+}
+
+export const VirtualizedBuiltIn = () => {
+  const [selectedA, setSelectedA] = useState<ItemInput[]>([])
+  const [selectedB, setSelectedB] = useState<ItemInput[]>([])
+  const [filterA, setFilterA] = useState('')
+  const [filterB, setFilterB] = useState('')
+
+  const filteredItemsA = lotsOfItems.filter(item => item.text.toLowerCase().startsWith(filterA.toLowerCase()))
+  const filteredItemsB = lotsOfItems.filter(item => item.text.toLowerCase().startsWith(filterB.toLowerCase()))
+
+  const [openA, setOpenA] = useState(false)
+  const [openB, setOpenB] = useState(false)
+
+  /* perf measurement: non-virtualized */
+  const timeBeforeOpenA = useRef<number>()
+  const timeAfterOpenA = useRef<number>()
+  const [timeTakenA, setTimeTakenA] = useState<number>()
+
+  const onOpenChangeA = () => {
+    if (!openA) timeBeforeOpenA.current = performance.now()
+    setOpenA(!openA)
+  }
+  useEffect(
+    function measureA() {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+      if (openA) {
+        timeAfterOpenA.current = performance.now()
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-chain-state-updates
+        if (timeBeforeOpenA.current) setTimeTakenA(timeAfterOpenA.current - timeBeforeOpenA.current)
+      }
+    },
+    [openA],
+  )
+
+  /* perf measurement: virtualized */
+  const timeBeforeOpenB = useRef<number>()
+  const timeAfterOpenB = useRef<number>()
+  const [timeTakenB, setTimeTakenB] = useState<number>()
+
+  const onOpenChangeB = () => {
+    if (!openB) timeBeforeOpenB.current = performance.now()
+    setOpenB(!openB)
+  }
+  useEffect(
+    function measureB() {
+      // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler
+      if (openB) {
+        timeAfterOpenB.current = performance.now()
+        // eslint-disable-next-line react-you-might-not-need-an-effect/no-chain-state-updates
+        if (timeBeforeOpenB.current) setTimeTakenB(timeAfterOpenB.current - timeBeforeOpenB.current)
+      }
+    },
+    [openB],
+  )
+
+  return (
+    <Stack direction="horizontal" gap="normal">
+      <form>
+        <h3>Without virtualization</h3>
+        <p>Time to open (ms): {timeTakenA ? <Label>{timeTakenA.toFixed(2)} ms</Label> : '(click to open)'}</p>
+        <FormControl>
+          <FormControl.Label>Labels ({NUMBER_OF_ITEMS} items)</FormControl.Label>
+          <SelectPanel
+            title="Select labels"
+            placeholder="Select labels"
+            subtitle={`${NUMBER_OF_ITEMS} items — no virtualization`}
+            renderAnchor={({children, ...anchorProps}) => (
+              <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+                {children}
+              </Button>
+            )}
+            open={openA}
+            onOpenChange={onOpenChangeA}
+            items={filteredItemsA}
+            selected={selectedA}
+            onSelectedChange={setSelectedA}
+            onFilterChange={setFilterA}
+            width="medium"
+            height="large"
+            message={filteredItemsA.length === 0 ? NoResultsMessage(filterA) : undefined}
+          />
+        </FormControl>
+      </form>
+
+      <form>
+        <h3>With virtualization</h3>
+        <p>Time to open (ms): {timeTakenB ? <Label>{timeTakenB.toFixed(2)} ms</Label> : '(click to open)'}</p>
+        <FormControl>
+          <FormControl.Label>Labels ({NUMBER_OF_ITEMS} items, virtualized)</FormControl.Label>
+          <SelectPanel
+            title="Select labels"
+            placeholder="Select labels"
+            subtitle={`${NUMBER_OF_ITEMS} items — virtualized`}
+            renderAnchor={({children, ...anchorProps}) => (
+              <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+                {children}
+              </Button>
+            )}
+            open={openB}
+            onOpenChange={onOpenChangeB}
+            items={filteredItemsB}
+            selected={selectedB}
+            onSelectedChange={setSelectedB}
+            onFilterChange={setFilterB}
+            virtualized
+            width="medium"
+            height="large"
+            message={filteredItemsB.length === 0 ? NoResultsMessage(filterB) : undefined}
+          />
+        </FormControl>
+      </form>
+    </Stack>
   )
 }

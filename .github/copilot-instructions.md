@@ -24,26 +24,25 @@ The primary workspace is `packages/react` which contains the `@primer/react` pac
 - Dependencies: Node.js (check with `node --version`), npm (check with `npm --version`)
 - `npm install` -- installs dependencies. ~5 seconds with cache, ~2 minutes for clean install. Set timeout to 180+ seconds.
 - `npm run build` -- builds all packages. NEVER CANCEL. Takes 90 seconds without turbo cache, ~1 second with cache. Set timeout to 120+ minutes.
-- `npx turbo build` -- builds all packages including example applications. Takes ~33 seconds.
+- `npx turbo run build` -- builds all packages including example applications. Takes ~33 seconds.
 
 **Run tests:**
 
 - `npm test` -- runs unit tests. NEVER CANCEL. Takes 75 seconds. Set timeout to 90+ minutes. Runs 1500+ tests using Vitest in both node and chromium environments.
+- Vitest console enforcement is enabled by default in CI. For local debugging, it is disabled unless you opt in with `VITEST_FAIL_ON_CONSOLE=true npm test`.
 - `npm run type-check` -- runs TypeScript type checking across all packages. Takes 42 seconds. Set timeout to 60+ minutes.
 
 **Development workflow:**
 
-- `npm start` -- starts Storybook dev server on http://localhost:6006. Takes ~3 seconds to start.
 - Main component development happens in `packages/react/src/[ComponentName]/`
-- Stories are in component directories as `ComponentName.stories.tsx`
 
-**Visual Regression and Accessibility Testing:**
+**Turbo usage in this repository:**
 
-- Install Playwright: `npx playwright install --with-deps` -- takes ~3 seconds
-- Start Storybook first: `npm start` (must be running on port 6006)
-- Run VRT: `script/test-e2e --grep @vrt` -- runs visual regression tests against Storybook components
-- Run AVT: `script/test-e2e --grep @avt` -- runs accessibility verification tests using axe
-- **WARNING**: E2E tests require Storybook running and can take 15+ minutes. NEVER CANCEL. Set timeout to 30+ minutes.
+- This repository uses Turborepo for selected workspace orchestration, not for every validation command. Follow the existing root npm scripts first unless you are specifically changing Turbo configuration.
+- `npm run build` delegates to `turbo run build --filter='!./examples/*'`, so it builds workspace packages while excluding examples. Use `npx turbo run build` when you intentionally need Turbo's direct CLI behavior, such as building all workspaces including examples.
+- `npm run type-check` runs the root TypeScript check first, then `turbo run type-check` for packages that define that task.
+- `npm test`, `npm run lint`, `npm run lint:css`, `npm run format`, and `npm run format:diff` are not currently Turbo-orchestrated. Do not replace them with Turbo commands unless you are intentionally updating the repository's task setup.
+- Use the `turborepo` skill when creating or changing `turbo.json`, package task scripts that should be orchestrated by Turbo, caching/outputs/env behavior, CI Turbo usage, filters such as `--affected` or `--filter`, or debugging Turbo cache/task execution. For ordinary Primer React component work, validation, or package scripts that already exist, use the commands documented here instead of applying generic Turborepo guidance.
 
 **Linting and formatting:**
 
@@ -142,6 +141,14 @@ npm run format          # Fix formatting
 npm run lint:fix        # Auto-fix linting issues
 ```
 
+## Storybook
+
+When working on UI components, always use the `primer-storybook` MCP tools to access Storybook's component and documentation knowledge before answering or taking any action. Reference the `.github/skills/storybook/SKILL.md` file for detailed instructions on using the Storybook MCP effectively and accurately.
+
+## Slots
+
+When building, modifying, or wrapping compound components that use child-component "slots" (anything involving `__SLOT__`, `useSlots`, `isSlot`, or `asSlot`), reference the `.github/skills/slots/SKILL.md` file. It documents when to add slot markers, naming conventions for `Symbol(...)` descriptions, the public slot APIs, and common pitfalls.
+
 ## Known Issues and Workarounds
 
 **Timing Expectations:**
@@ -157,3 +164,11 @@ npm run lint:fix        # Auto-fix linting issues
 - Storybook startup: ~3 seconds
 
 **CRITICAL**: NEVER CANCEL builds, tests, or long-running commands. They may take significantly longer in CI environments. Always set appropriate timeouts (90+ minutes for builds/tests).
+
+## Pull Request Creation
+
+When creating a pull request, you MUST:
+
+1. Use the template in `.github/pull_request_template.md` to structure the PR description. Read the template file, fill in all sections appropriately, and include it in the PR body.
+2. Include a changeset file in the PR if the change affects the published package (bug fix, new feature, breaking change, etc.). Create a `.changeset/<descriptive-name>.md` file with the appropriate semver bump type. Reference the `changesets` skill (`.github/skills/changesets/SKILL.md`) for detailed guidance on file format, choosing the correct bump type, and when a changeset can be skipped.
+3. If no changeset is needed (docs-only, test-only, CI/infra changes), add the `skip changeset` label to the pull request to bypass the CI changeset check.
