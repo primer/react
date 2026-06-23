@@ -89,7 +89,7 @@ additional low-level components, hooks, and utilities:
 - **Combobox** for filtering and selection-based experiences
   wiring up accessibility, behaviors, and semantics
 - **Menu** for action-based experiences
-- \*_Tree_ for tree-based experiences
+- **Tree** for tree-based experiences
 - useFilter
 - useSelection
 
