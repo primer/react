@@ -1,5 +1,5 @@
 import type {MouseEventHandler} from 'react'
-import React, {useCallback, useState, useId, useEffect, useRef} from 'react'
+import React, {useCallback, useState, useId} from 'react'
 import {isValidElementType} from 'react-is'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {clsx} from 'clsx'
@@ -14,7 +14,9 @@ import TextInputWrapper from '../internal/components/TextInputWrapper'
 import TextInputAction from '../internal/components/TextInputInnerAction'
 import UnstyledTextInput from '../internal/components/UnstyledTextInput'
 import VisuallyHidden from '../_VisuallyHidden'
-import {CharacterCounter} from '../utils/character-counter'
+import visuallyHiddenClasses from '../_VisuallyHidden.module.css'
+import {getCharacterCountState, SCREEN_READER_DELAY} from '../utils/character-counter'
+import {AriaStatus} from '../live-region'
 import Text from '../Text'
 
 export type TextInputNonPassthroughProps = {
@@ -111,14 +113,21 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
   ) => {
     const [isInputFocused, setIsInputFocused] = useState<boolean>(false)
     const inputRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement | null>)
-    const [characterCount, setCharacterCount] = useState<string>('')
-    const [isOverLimit, setIsOverLimit] = useState<boolean>(false)
-    const [screenReaderMessage, setScreenReaderMessage] = useState<string>('')
-    const characterCounterRef = useRef<CharacterCounter | null>(null)
-    const lastCountedLengthRef = useRef<number | null>(null)
-    const lastCharacterCountRef = useRef<string>('')
-    const lastIsOverLimitRef = useRef<boolean>(false)
-    const lastScreenReaderMessageRef = useRef<string>('')
+
+    // For uncontrolled usage we track the length of the input's content so the
+    // character counter can be derived during render rather than synced from an
+    // effect (which would trigger an extra render on every keystroke). For
+    // controlled usage the `value` prop is the source of truth.
+    const isControlled = value !== undefined
+    const [uncontrolledLength, setUncontrolledLength] = useState(() =>
+      defaultValue !== undefined ? String(defaultValue).length : 0,
+    )
+    const currentLength = isControlled ? String(value).length : uncontrolledLength
+
+    // The counter and validation state are derived directly from the current
+    // length, so they stay in sync with the input without an extra render.
+    const counter = characterLimit ? getCharacterCountState(currentLength, characterLimit) : undefined
+    const isOverLimit = counter?.isOverLimit ?? false
 
     // this class is necessary to style FilterSearch, plz no touchy!
     const wrapperClasses = clsx(className, 'TextInput-wrapper')
@@ -163,70 +172,15 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       [onBlur],
     )
 
-    // Initialize character counter
-    useEffect(() => {
-      if (characterLimit) {
-        characterCounterRef.current = new CharacterCounter({
-          onCountUpdate: (count, overLimit, message) => {
-            if (message !== lastCharacterCountRef.current) {
-              lastCharacterCountRef.current = message
-              setCharacterCount(message)
-            }
-
-            if (overLimit !== lastIsOverLimitRef.current) {
-              lastIsOverLimitRef.current = overLimit
-              setIsOverLimit(overLimit)
-            }
-          },
-          onScreenReaderAnnounce: message => {
-            if (message !== lastScreenReaderMessageRef.current) {
-              lastScreenReaderMessageRef.current = message
-              setScreenReaderMessage(message)
-            }
-          },
-        })
-
-        lastCountedLengthRef.current = null
-
-        return () => {
-          characterCounterRef.current?.cleanup()
-          characterCounterRef.current = null
-          lastCountedLengthRef.current = null
-          lastCharacterCountRef.current = ''
-          lastIsOverLimitRef.current = false
-          lastScreenReaderMessageRef.current = ''
-        }
-      }
-    }, [characterLimit])
-
-    // Update character count when value changes or on mount
-    useEffect(() => {
-      if (characterLimit && characterCounterRef.current) {
-        const currentValue =
-          value !== undefined ? String(value) : defaultValue !== undefined ? String(defaultValue) : ''
-        const currentLength = currentValue.length
-
-        if (currentLength !== lastCountedLengthRef.current) {
-          lastCountedLengthRef.current = currentLength
-          characterCounterRef.current.updateCharacterCount(currentLength, characterLimit)
-        }
-      }
-    }, [value, defaultValue, characterLimit])
-
     // Handle input change with character counter
     const handleInputChange = useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (characterLimit && characterCounterRef.current) {
-          const currentLength = e.target.value.length
-
-          if (currentLength !== lastCountedLengthRef.current) {
-            lastCountedLengthRef.current = currentLength
-            characterCounterRef.current.updateCharacterCount(currentLength, characterLimit)
-          }
+        if (characterLimit && !isControlled) {
+          setUncontrolledLength(e.target.value.length)
         }
         onChange?.(e)
       },
-      [onChange, characterLimit],
+      [onChange, characterLimit, isControlled],
     )
 
     const characterCountId = useId()
@@ -303,9 +257,16 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         </TextInputWrapper>
         {characterLimit && (
           <>
-            <VisuallyHidden aria-live="polite" role="status">
-              {screenReaderMessage}
-            </VisuallyHidden>
+            {/* The remaining-count message is derived in render and announced
+                (debounced) by AriaStatus via a shared live region, so it never
+                triggers an extra React commit while typing. */}
+            <AriaStatus
+              announceOnShow={false}
+              delayMs={SCREEN_READER_DELAY}
+              className={visuallyHiddenClasses.InternalVisuallyHidden}
+            >
+              {counter?.message}
+            </AriaStatus>
             <VisuallyHidden id={characterCountStaticMessageId}>
               You can enter up to {characterLimit} {characterLimit === 1 ? 'character' : 'characters'}
             </VisuallyHidden>
@@ -317,7 +278,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
               data-component="TextInput.CharacterCounter"
             >
               {isOverLimit && <AlertFillIcon size={16} />}
-              {characterCount}
+              {counter?.message}
             </Text>
           </>
         )}
