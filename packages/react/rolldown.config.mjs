@@ -1,10 +1,8 @@
 import path from 'node:path'
-import commonjs from '@rollup/plugin-commonjs'
-import resolve from '@rollup/plugin-node-resolve'
-import babel from '@rollup/plugin-babel'
+import babel from '@rolldown/plugin-babel'
+import {defineConfig, RolldownMagicString as MagicString} from 'rolldown'
 import {importCSS} from 'rollup-plugin-import-css'
 import postcssPresetPrimer from 'postcss-preset-primer'
-import MagicString from 'magic-string'
 import {isSupported} from './script/react-compiler.mjs'
 import packageJson from './package.json' with {type: 'json'}
 
@@ -32,7 +30,6 @@ function getEntrypointsFromInput(input) {
   )
 }
 
-const extensions = ['.js', '.jsx', '.ts', '.tsx']
 const dependencies = [
   ...Object.keys(packageJson.peerDependencies ?? {}),
   ...Object.keys(packageJson.dependencies ?? {}),
@@ -55,9 +52,8 @@ const baseConfig = {
   },
   plugins: [
     babel({
-      extensions,
+      include: /\.(?:js|jsx|ts|tsx)$/,
       exclude: /node_modules/,
-      babelHelpers: 'inline',
       babelrc: false,
       configFile: false,
       presets: [
@@ -94,12 +90,6 @@ const baseConfig = {
         ],
       ],
     }),
-    resolve({
-      extensions,
-    }),
-    commonjs({
-      extensions,
-    }),
     importCSS({
       modulesRoot: 'src',
       postcssPlugins: [postcssPresetPrimer()],
@@ -107,7 +97,7 @@ const baseConfig = {
     }),
 
     /**
-     * This custom rollup plugin allows us to preserve directives in source
+     * This custom Rolldown plugin allows us to preserve directives in source
      * code, such as "use client", in order to support React Server Components.
      *
      * The source for this plugin is inspired by:
@@ -181,12 +171,9 @@ const baseConfig = {
           if (chunkHasClientDirective) {
             const transformed = new MagicString(code)
             transformed.prepend(`"use client";\n`)
-            const sourcemap = transformed.generateMap({
-              includeContent: true,
-            })
             return {
               code: transformed.toString(),
-              map: sourcemap,
+              map: null,
             }
           }
 
@@ -210,7 +197,7 @@ const baseConfig = {
   },
 }
 
-export default [
+export default defineConfig([
   // ESM
   {
     ...baseConfig,
@@ -223,4 +210,4 @@ export default [
       preserveModulesRoot: 'src',
     },
   },
-]
+])

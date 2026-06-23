@@ -31,11 +31,10 @@ updates:
           - '@types/react'
           - '@types/react-dom'
           - '@types/react-is'
-      rollup:
+      rolldown:
         patterns:
-          - '@rollup/*'
-          - 'rollup'
-          - 'rollup-plugin-*'
+          - '@rolldown/*'
+          - 'rolldown'
       storybook:
         patterns:
           - '@storybook/*'
