@@ -162,12 +162,26 @@ export const UnderlineNav = forwardRef(
 
     const [isWidgetOpen, setIsWidgetOpen] = useState(false)
     const [iconsVisible, setIconsVisible] = useState<boolean>(true)
-    const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
-    const [noIconChildWidthArray, setNoIconChildWidthArray] = useState<ChildWidthArray>([])
+    // Width measurements are stored keyed by item text so that adding/removing/reordering
+    // children does not produce stale or out-of-order entries (as the previous append-only
+    // arrays did). See https://github.com/github/primer/issues/6389.
+    const [childWidthMap, setChildWidthMap] = useState<Record<string, number>>({})
+    const [noIconChildWidthMap, setNoIconChildWidthMap] = useState<Record<string, number>>({})
     // Track whether the initial overflow calculation is complete to prevent CLS
     const [isOverflowMeasured, setIsOverflowMeasured] = useState(false)
 
     const validChildren = getValidChildren(children)
+
+    // Build ordered width arrays from the current children so order always matches
+    // `validChildren`, even after items are added, removed, or reordered.
+    const childWidthArray: ChildWidthArray = validChildren.map(child => {
+      const text = child.props.children as string
+      return {text, width: childWidthMap[text] ?? 0}
+    })
+    const noIconChildWidthArray: ChildWidthArray = validChildren.map(child => {
+      const text = child.props.children as string
+      return {text, width: noIconChildWidthMap[text] ?? 0}
+    })
 
     // Responsive props object manages which items are in the list and which items are in the menu.
     const [responsiveProps, setResponsiveProps] = useState<ResponsiveProps>({
@@ -175,17 +189,30 @@ export const UnderlineNav = forwardRef(
       menuItems: [],
     })
 
+    // Detect when children added/removed/reordered relative to the last overflow calculation.
+    // When that happens, `responsiveProps` is stale, so we render `validChildren` directly
+    // (placing all items inline with no overflow menu) until the layout effect below recomputes.
+    const childrenSignature = validChildren.map(child => String(child.key ?? '')).join('|')
+    const responsiveSignature = [...responsiveProps.items, ...responsiveProps.menuItems]
+      .map(item => String(item.key ?? ''))
+      .join('|')
+    const childrenChanged = childrenSignature !== responsiveSignature
+
     // Make sure to have the fresh props data for list items when children are changed (keeping aria-current up-to-date)
-    const listItems = responsiveProps.items.map(item => {
-      return validChildren.find(child => child.key === item.key) ?? item
-    })
+    const listItems = childrenChanged
+      ? validChildren
+      : responsiveProps.items.map(item => {
+          return validChildren.find(child => child.key === item.key) ?? item
+        })
 
     // Make sure to have the fresh props data for menu items when children are changed (keeping aria-current up-to-date)
-    const menuItems = responsiveProps.menuItems.map(menuItem => {
-      return validChildren.find(child => child.key === menuItem.key) ?? menuItem
-    })
+    const menuItems = childrenChanged
+      ? []
+      : responsiveProps.menuItems.map(menuItem => {
+          return validChildren.find(child => child.key === menuItem.key) ?? menuItem
+        })
     // This is the case where the viewport is too narrow to show any list item with the more menu. In this case, we only show the dropdown
-    const onlyMenuVisible = responsiveProps.items.length === 0
+    const onlyMenuVisible = !childrenChanged && responsiveProps.items.length === 0
 
     useDevOnlyEffect(() => {
       // Address illegal state where there are multiple items that have `aria-current='page'` attribute
@@ -253,17 +280,11 @@ export const UnderlineNav = forwardRef(
       [],
     )
     const setChildrenWidth = useCallback((size: ChildSize) => {
-      setChildWidthArray(arr => {
-        const newArr = [...arr, size]
-        return newArr
-      })
+      setChildWidthMap(prev => (prev[size.text] === size.width ? prev : {...prev, [size.text]: size.width}))
     }, [])
 
     const setNoIconChildrenWidth = useCallback((size: ChildSize) => {
-      setNoIconChildWidthArray(arr => {
-        const newArr = [...arr, size]
-        return newArr
-      })
+      setNoIconChildWidthMap(prev => (prev[size.text] === size.width ? prev : {...prev, [size.text]: size.width}))
     }, [])
 
     const closeOverlay = React.useCallback(() => {
@@ -294,19 +315,27 @@ export const UnderlineNav = forwardRef(
 
     useOnOutsideClick({onClickOutside: closeOverlay, containerRef, ignoreClickRefs: [moreMenuBtnRef]})
 
-    useResizeObserver((resizeObserverEntries: ResizeObserverEntry[]) => {
-      const navWidth = resizeObserverEntries[0].contentRect.width
-      const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
-      navWidth !== 0 &&
-        overflowEffect(
-          navWidth,
-          moreMenuWidth,
-          validChildren,
-          childWidthArray,
-          noIconChildWidthArray,
-          updateListAndMenu,
-        )
-    }, navRef as RefObject<HTMLElement>)
+    // The resize observer fires when the nav element resizes, and re-observes (firing the
+    // callback again with current size) whenever its deps change. Passing `childrenSignature`
+    // ensures the overflow calculation re-runs when child tabs are added, removed, or
+    // reordered. See https://github.com/github/primer/issues/6389.
+    useResizeObserver(
+      (resizeObserverEntries: ResizeObserverEntry[]) => {
+        const navWidth = resizeObserverEntries[0].contentRect.width
+        const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
+        navWidth !== 0 &&
+          overflowEffect(
+            navWidth,
+            moreMenuWidth,
+            validChildren,
+            childWidthArray,
+            noIconChildWidthArray,
+            updateListAndMenu,
+          )
+      },
+      navRef as RefObject<HTMLElement>,
+      [childrenSignature],
+    )
 
     // Compute menuInlineStyles if needed
     let menuInlineStyles: React.CSSProperties = {...baseMenuInlineStyles}

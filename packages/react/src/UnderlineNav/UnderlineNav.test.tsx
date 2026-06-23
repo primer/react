@@ -1,5 +1,5 @@
 import {describe, expect, it, vi} from 'vitest'
-import type React from 'react'
+import React from 'react'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {
@@ -239,6 +239,50 @@ describe('UnderlineNav', () => {
     const item = screen.getByRole('link', {name: 'Simple Text'})
     const textSpan = item.querySelector('[data-component="text"]')
     expect(textSpan).toHaveAttribute('data-content', 'Simple Text')
+  })
+
+  // Regression test for https://github.com/github/primer/issues/6389
+  it('re-renders when a conditionally rendered child tab is toggled', async () => {
+    const Example = () => {
+      const [showItem, setShowItem] = React.useState(false)
+      return (
+        <div>
+          <button type="button" onClick={() => setShowItem(prev => !prev)}>
+            {showItem ? 'hide item' : 'show item'}
+          </button>
+          <UnderlineNav aria-label="Repository">
+            <UnderlineNav.Item href="#" aria-current="page">
+              Code
+            </UnderlineNav.Item>
+            <UnderlineNav.Item href="#">Pull requests</UnderlineNav.Item>
+            <UnderlineNav.Item href="#">Actions</UnderlineNav.Item>
+            <UnderlineNav.Item href="#">Projects</UnderlineNav.Item>
+            <UnderlineNav.Item href="#">Wiki</UnderlineNav.Item>
+            {showItem && <UnderlineNav.Item href="#">Another</UnderlineNav.Item>}
+          </UnderlineNav>
+        </div>
+      )
+    }
+
+    render(<Example />)
+    const toggle = screen.getByRole('button', {name: 'show item'})
+    const user = userEvent.setup()
+
+    // Initially the conditional tab is not rendered
+    expect(screen.queryByText('Another')).not.toBeInTheDocument()
+
+    // Toggle on: the new tab should appear in the DOM (either in the visible list
+    // or the overflow menu) without the nav being remounted.
+    await user.click(toggle)
+    expect(screen.getByText('Another')).toBeInTheDocument()
+    // Existing tabs are still present
+    expect(screen.getByText('Code')).toBeInTheDocument()
+    expect(screen.getByText('Pull requests')).toBeInTheDocument()
+
+    // Toggle off: the tab should be removed
+    await user.click(screen.getByRole('button', {name: 'hide item'}))
+    expect(screen.queryByText('Another')).not.toBeInTheDocument()
+    expect(screen.getByText('Code')).toBeInTheDocument()
   })
 })
 

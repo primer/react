@@ -13,6 +13,7 @@ import {
 } from '@primer/octicons-react'
 import type {Meta} from '@storybook/react-vite'
 import {UnderlineNav} from './index'
+import {Button} from '../Button'
 import {INITIAL_VIEWPORTS} from 'storybook/viewport'
 
 const meta = {
@@ -152,5 +153,31 @@ export const VariantFlush = () => {
       <UnderlineNav.Item>Issues</UnderlineNav.Item>
       <UnderlineNav.Item>Pull Requests</UnderlineNav.Item>
     </UnderlineNav>
+  )
+}
+
+export const DynamicChildren = () => {
+  const [showItem, setShowItem] = React.useState(false)
+
+  return (
+    <div>
+      <Button
+        onClick={() => {
+          setShowItem(prev => !prev)
+        }}
+      >
+        {showItem ? 'Hide item' : 'Show item'}
+      </Button>
+      <UnderlineNav aria-label="Repository">
+        <UnderlineNav.Item href="#" aria-current="page">
+          Code
+        </UnderlineNav.Item>
+        <UnderlineNav.Item href="#">Pull requests</UnderlineNav.Item>
+        <UnderlineNav.Item href="#">Actions</UnderlineNav.Item>
+        <UnderlineNav.Item href="#">Projects</UnderlineNav.Item>
+        <UnderlineNav.Item href="#">Wiki</UnderlineNav.Item>
+        {showItem && <UnderlineNav.Item href="#">Another</UnderlineNav.Item>}
+      </UnderlineNav>
+    </div>
   )
 }
