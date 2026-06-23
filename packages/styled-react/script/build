@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # Build the package
 npx rolldown -c
 

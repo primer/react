@@ -96,12 +96,9 @@ export default defineConfig({
           if (chunkHasClientDirective) {
             const transformed = new MagicString(code)
             transformed.prepend(`"use client";\n`)
-            const sourcemap = transformed.generateMap({
-              includeContent: true,
-            })
             return {
               code: transformed.toString(),
-              map: sourcemap,
+              map: null,
             }
           }
 
