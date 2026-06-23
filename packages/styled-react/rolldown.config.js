@@ -1,9 +1,6 @@
-import babel from '@rollup/plugin-babel'
-import nodeResolve from '@rollup/plugin-node-resolve'
-import {defineConfig} from 'rollup'
-import typescript from 'rollup-plugin-typescript2'
+import babel from '@rolldown/plugin-babel'
+import {defineConfig, RolldownMagicString as MagicString} from 'rolldown'
 import packageJson from './package.json' with {type: 'json'}
-import MagicString from 'magic-string'
 
 const dependencies = [
   ...Object.keys(packageJson.peerDependencies ?? {}),
@@ -19,18 +16,13 @@ export default defineConfig({
   input: ['src/index.tsx'],
   external: dependencies.map(createPackageRegex),
   plugins: [
-    typescript({
-      tsconfig: 'tsconfig.build.json',
-    }),
-    nodeResolve({extensions: ['.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs']}),
     babel({
       presets: ['@babel/preset-typescript', ['@babel/preset-react', {runtime: 'automatic'}]],
       plugins: ['babel-plugin-styled-components'],
-      extensions: ['.ts', '.tsx'],
-      babelHelpers: 'bundled',
+      include: /\.(?:ts|tsx)$/,
     }),
     /**
-     * This custom rollup plugin allows us to preserve directives in source
+     * This custom Rolldown plugin allows us to preserve directives in source
      * code, such as "use client", in order to support React Server Components.
      *
      * The source for this plugin is inspired by:
