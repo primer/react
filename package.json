@@ -61,7 +61,7 @@
     "@prettier/sync": "0.5.5",
     "@primer/stylelint-config": "13.5.0",
     "@size-limit/preset-big-lib": "11.2.0",
-    "@types/node": "20.12.11",
+    "@types/node": "26.0.0",
     "@types/semver": "^7.7.1",
     "@vitest/browser": "^4.1.5",
     "@vitest/browser-playwright": "^4.1.5",
@@ -97,10 +97,14 @@
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.1",
     "vite": "^8.0.16",
-    "vitest": "^4.1.5"
+    "vitest": "^4.1.5",
+    "yargs": "^18.0.0"
   },
   "overrides": {
-    "zod-validation-error": "^4.0.0"
+    "zod-validation-error": "^4.0.0",
+    "typed-css-modules": {
+      "yargs": "^18.0.0"
+    }
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "^4.59.0"
@@ -118,5 +122,5 @@
       "running": false
     }
   ],
-  "packageManager": "npm@11.6.3+sha512.4085a763162e0e3acd19a4e9d23ad3aa0978e501ccf947dd7233c12a689ae0bb0190763c4ef12366990056b34eec438903ffed38fde4fbd722a17c2a7407ee92"
+  "packageManager": "npm@11.16.0+sha512.03be172fc3b199c7a06433163e459be5b110a6983c1dd6305b7ac10f6b0fa12e1440755a8df6b1064ab2ccb789df0474919fb9c684e322dc57685ede21752ccb"
 }
