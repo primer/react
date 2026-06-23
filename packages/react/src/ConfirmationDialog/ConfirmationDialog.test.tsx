@@ -1,5 +1,5 @@
 import {render, fireEvent, waitFor} from '@testing-library/react'
-import {describe, it, expect, vi} from 'vitest'
+import {afterEach, beforeEach, describe, it, expect, vi} from 'vitest'
 import type React from 'react'
 import {useCallback, useRef, useState} from 'react'
 
@@ -11,6 +11,14 @@ import {useConfirm} from './useConfirm'
 import {Stack} from '../Stack'
 import {implementsClassName} from '../utils/testing'
 import dialogClasses from '../Dialog/Dialog.module.css'
+
+const originalResizeObserver = globalThis.ResizeObserver
+
+class NoopResizeObserver implements ResizeObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
 
 const Basic = ({
   confirmButtonType,
@@ -119,6 +127,14 @@ const LoadingStates = ({
 }
 
 describe('ConfirmationDialog', () => {
+  beforeEach(() => {
+    globalThis.ResizeObserver = NoopResizeObserver
+  })
+
+  afterEach(() => {
+    globalThis.ResizeObserver = originalResizeObserver
+  })
+
   it('renders data-component attribute', () => {
     const {getByRole} = render(
       <BaseStyles>
