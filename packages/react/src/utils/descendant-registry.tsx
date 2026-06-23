@@ -39,6 +39,8 @@ interface OverflowObserverContext {
 
 const noopObserve: OverflowObserverContext = {observe: null}
 
+const noop = () => {}
+
 /**
  * Create a "descendant registry" for a component. This allows a parent to store and track an ordered registry of
  * child components, even if they are deeply nested in the tree. For example, a menu component can use this to track
@@ -103,60 +105,67 @@ export function createDescendantRegistry<T>(options?: {
   }
 
   /**
-   * Subscribe an element to the registry's shared IntersectionObserver and derive whether it is currently overflowing
-   * from the observed entry. Falls back to a per-item observer when no shared observer is configured for this registry,
-   * so the hook is always safe to call.
+   * Subscribe an element to the registry's shared, root-scoped IntersectionObserver and derive whether it is currently
+   * overflowing from the observed entry.
    *
-   * If the root-scoped `intersectionRatio` signal proves unreliable at the wrap boundary, fall back to caching
-   * `ref.current.offsetTop > 0` inside the observer callback (NOT in getSnapshot) and returning the cached value.
-   * This mirrors the historical reason `ActionBar` used a looser threshold for the offsetTop approach.
+   * Returns a tuple of the current overflow state and a callback ref. Attach the callback ref to the element whose
+   * overflow should be tracked: it subscribes the node to the shared observer when the element mounts and unsubscribes
+   * when it unmounts (or is replaced by a different node). Using a callback ref instead of reading `ref.current` at
+   * subscribe time means the hook always observes the element that is actually attached to the DOM.
    *
-   * @param ref Ref to the element whose overflow state should be tracked.
+   * This requires the registry to be created with the `overflow` option so a shared observer is configured. When no
+   * shared observer is configured the hook is inert and always reports `false`.
+   *
    * @param options.disabled When true, skips observer subscription entirely and always reports `false`. Useful for
    *   items whose overflow is determined by an ancestor (e.g. ActionBar items inside an overflowing group).
    */
-  function useRegisterOverflowObserver(ref: RefObject<HTMLElement | null>, options?: {disabled?: boolean}) {
+  function useRegisterOverflowObserver(options?: {disabled?: boolean}): [boolean, (node: HTMLElement | null) => void] {
     const disabled = options?.disabled ?? false
     const {observe} = useContext(ObserverContext)
     const isOverflowingRef = useRef(false)
+    const notifyChangeRef = useRef<() => void>(noop)
+    // Cleanup for the current subscription to the shared observer; cleared when the element detaches.
+    const unobserveRef = useRef<(() => void) | null>(null)
 
-    const subscribe = useCallback(
-      (onChange: () => void) => {
-        if (disabled) return () => {}
-        const element = ref.current
-        if (!element) return () => {}
+    const setOverflowing = useCallback((isOverflowing: boolean) => {
+      if (isOverflowing !== isOverflowingRef.current) {
+        isOverflowingRef.current = isOverflowing
+        notifyChangeRef.current()
+      }
+    }, [])
 
-        const updateOverflowState = (isOverflowing: boolean) => {
-          if (isOverflowing !== isOverflowingRef.current) {
-            isOverflowingRef.current = isOverflowing
-            onChange()
-          }
+    // Callback ref: subscribe the node on attach and unsubscribe on detach (or when `disabled`/`observe` change, which
+    // produces a new ref callback and causes React to re-run it with `null` then the node).
+    const registerOverflowRef = useCallback(
+      (node: HTMLElement | null) => {
+        // Tear down any previous subscription first so detaching or swapping the node never leaks an observer entry.
+        unobserveRef.current?.()
+        unobserveRef.current = null
+
+        if (disabled || node === null || observe === null) {
+          setOverflowing(false)
+          return
         }
 
-        // Prefer the provider's shared observer; fall back to a local observer when none is configured.
-        if (observe) return observe(element, updateOverflowState)
-
-        if (!supportsIntersectionObserver()) return () => {}
-
-        const observer = new IntersectionObserver(
-          entries => {
-            for (const entry of entries) {
-              if (entry.target === element) updateOverflowState(getIsOverflowing(entry))
-            }
-          },
-          {threshold: [0, 1]},
-        )
-        observer.observe(element)
-        return () => observer.disconnect()
+        unobserveRef.current = observe(node, setOverflowing)
       },
-      [ref, observe, disabled],
+      [observe, disabled, setOverflowing],
     )
 
-    return useSyncExternalStore(
+    const subscribe = useCallback((onStoreChange: () => void) => {
+      notifyChangeRef.current = onStoreChange
+      return () => {
+        notifyChangeRef.current = noop
+      }
+    }, [])
+
+    const isOverflowing = useSyncExternalStore(
       subscribe,
-      () => (disabled ? false : isOverflowingRef.current),
+      () => isOverflowingRef.current,
       () => false,
     )
+
+    return [isOverflowing, registerOverflowRef]
   }
 
   const unsetValue = Symbol('unset')
@@ -343,7 +352,15 @@ export function createDescendantRegistry<T>(options?: {
       [observeSubscribedElements],
     )
 
+    // Re-check subscribed elements on every commit. The layout effect covers updates that happen while the provider's
+    // own root element is already attached, while the passive effect covers the initial mount: callback refs run during
+    // commit *before* an ancestor `rootRef` element attaches, so the observer (which needs the root) can only be created
+    // once refs higher in the tree have been set, which is guaranteed by passive-effect timing.
     useIsomorphicLayoutEffect(() => {
+      observeSubscribedElements()
+    })
+
+    useEffect(() => {
       observeSubscribedElements()
     })
 

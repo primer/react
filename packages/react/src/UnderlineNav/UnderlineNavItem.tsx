@@ -1,4 +1,4 @@
-import React, {forwardRef, useRef, useContext} from 'react'
+import React, {forwardRef, useContext} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import {UnderlineItem} from '../internal/components/UnderlineTabbedInterface'
@@ -18,13 +18,11 @@ export const UnderlineNavItem = forwardRef((allProps, forwardedRef) => {
     ...props
   } = allProps
 
-  const ref = useRef<HTMLLIElement>(null)
-
   const {loadingCounters} = useContext(UnderlineNavContext)
 
   // Observe the wrapping `<li>` directly so a root-scoped IntersectionObserver can detect when the item is clipped
   // onto the hidden next row.
-  const isOverflowing = UnderlineNavItemsRegistry.useRegisterOverflowObserver(ref)
+  const [isOverflowing, registerOverflowRef] = UnderlineNavItemsRegistry.useRegisterOverflowObserver()
 
   UnderlineNavItemsRegistry.useRegisterDescendant(isOverflowing ? allProps : null)
 
@@ -46,7 +44,11 @@ export const UnderlineNavItem = forwardRef((allProps, forwardedRef) => {
   )
 
   return (
-    <li className={classes.UnderlineNavItem} ref={ref} aria-hidden={isOverflowing ? true : allProps['aria-hidden']}>
+    <li
+      className={classes.UnderlineNavItem}
+      ref={registerOverflowRef}
+      aria-hidden={isOverflowing ? true : allProps['aria-hidden']}
+    >
       <UnderlineItem
         ref={forwardedRef}
         as={Component}
