@@ -23,7 +23,7 @@ export default async function RootLayout({children}: {children: React.ReactNode}
       data-dark-theme="dark"
     >
       <body>
-        {/* Theme attributes are set on <html> so Next.js can hydrate without an extra ThemeProvider wrapper. */}
+        {/* Theme attributes are set on <html> so Next.js can hydrate without ThemeProvider adding an extra DOM wrapper. */}
         <ThemeProvider colorMode={colorMode} contextOnly>
           <BaseStyles>{children}</BaseStyles>
         </ThemeProvider>
