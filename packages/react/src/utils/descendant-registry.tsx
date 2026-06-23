@@ -136,7 +136,7 @@ export function createDescendantRegistry<T>(options?: {
         // Prefer the provider's shared observer; fall back to a local observer when none is configured.
         if (observe) return observe(element, updateOverflowState)
 
-        if (typeof IntersectionObserver === 'undefined') return () => {}
+        if (!supportsIntersectionObserver()) return () => {}
 
         const observer = new IntersectionObserver(
           entries => {
@@ -281,7 +281,7 @@ export function createDescendantRegistry<T>(options?: {
 
     // Lazily create the observer on first subscribe so SSR / zero-item renders allocate nothing.
     const getObserver = useCallback(() => {
-      if (typeof IntersectionObserver === 'undefined') return null
+      if (!supportsIntersectionObserver()) return null
       if (rootRef && rootRef.current === null) return null
 
       const root = rootRef?.current ?? null
@@ -309,6 +309,8 @@ export function createDescendantRegistry<T>(options?: {
       const observer = getObserver()
       if (!observer) return
 
+      // When the root ref becomes available or changes, re-check every subscribed element so they are all attached to
+      // the latest shared observer instance.
       for (const element of subscribersRef.current.keys()) {
         if (!observedElementsRef.current.has(element)) {
           observer.observe(element)
@@ -371,4 +373,8 @@ export function createDescendantRegistry<T>(options?: {
  */
 function getIsOverflowing(entry: Pick<IntersectionObserverEntry, 'intersectionRatio' | 'isIntersecting'>) {
   return !entry.isIntersecting || entry.intersectionRatio < 1
+}
+
+function supportsIntersectionObserver() {
+  return typeof IntersectionObserver !== 'undefined'
 }
